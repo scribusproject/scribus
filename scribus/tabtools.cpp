@@ -32,6 +32,8 @@ for which a new license (GPL+exception) is in place.
 TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc) : QWidget( parent, "tabtools", 0 )
 {
 	docu = doc;
+	fontPreview = false;
+
 	tabToolsLayout = new QHBoxLayout( this, 0, 5, "tabToolsLayout");
 	buttonGroupTools = new QButtonGroup( this, "buttonGroupTools" );
 	buttonGroupTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)5, 0, 0, buttonGroupTools->sizePolicy().hasHeightForWidth() ) );
@@ -465,7 +467,7 @@ void TabTools::enableSignals(bool on)
 	}
 }
 
-void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex, bool drawSample)
+void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 {
 	enableSignals(false);
 
@@ -825,8 +827,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex, bool 
 	maximumZoom->setValue(prefsData->magMax);
 	zoomStep->setValue( prefsData->magStep );
 
-	if (drawSample)
-		setSample(); // only if it's needed - speedup the prefs load
+	setSample();
 
 	enableSignals(true);
 }
@@ -909,6 +910,8 @@ void TabTools::changeImageScalingRatio(int)
 
 void TabTools::setSample()
 {
+	if (!fontPreview)
+		return;
 	SampleItem *si = new SampleItem(docu);
 	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
@@ -967,4 +970,22 @@ void TabTools::setTool()
 		subStackTools->raiseWidget(4);
 	if (toolZoom == sender())
 		subStackTools->raiseWidget(5);
+}
+
+void TabTools::enableFontPreview(bool state)
+{
+	fontPreview = state;
+	setSample();
+}
+
+void TabTools::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
+{
+	double oldMin, oldMax, val;
+	int decimalsOld;
+
+	gapText->setSuffix(unit);
+	gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 }

@@ -219,14 +219,23 @@ scribus_SOURCES = \
 	stylemanagerbase.ui \
 	styleselect.cpp	\
 	tabcheckdoc.cpp	\
+	tabdisplaybase.ui \
+	tabdisplay.cpp \
+	tabdocument.cpp \
 	tabexternaltoolswidgetbase.ui \
 	tabexternaltoolswidget.cpp \
+	tabgeneralbase.ui \
+	tabgeneral.cpp \
 	tabkeyboardshortcutswidgetbase.ui \
 	tabkeyboardshortcutswidget.cpp \
 	tabguides.cpp	\
 	tabmanager.cpp	\
+	tabmiscellaneousbase.ui \
+	tabmiscellaneous.cpp \
 	tabpdfoptions.cpp	\
 	tabruler.cpp	\
+	tabscrapbookbase.ui \
+	tabscrapbook.cpp \
 	tabtools.cpp	\
 	tabtypography.cpp	\
 	tocgenerator.cpp	\
@@ -426,7 +435,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribuswin.h                  $(prefix)/include/scribus/scribuswin.h
 	$(INSTALL_DATA) $(srcdir)/scribusXml.h                  $(prefix)/include/scribus/scribusXml.h
 	$(INSTALL_DATA) $(srcdir)/scrpalettebase.h              $(prefix)/include/scribus/scrpalettebase.h
-	$(INSTALL_DATA) $(srcdir)/scpixmapcache.h              $(prefix)/include/scribus/scpixmapcache.h
+	$(INSTALL_DATA) $(srcdir)/scpixmapcache.h               $(prefix)/include/scribus/scpixmapcache.h
 	$(INSTALL_DATA) $(srcdir)/search.h                      $(prefix)/include/scribus/search.h
 	$(INSTALL_DATA) $(srcdir)/seiten.h                      $(prefix)/include/scribus/seiten.h
 	$(INSTALL_DATA) $(srcdir)/selection.h                   $(prefix)/include/scribus/selection.h
@@ -439,10 +448,15 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/story.h                       $(prefix)/include/scribus/story.h
 	$(INSTALL_DATA) $(srcdir)/styleselect.h                 $(prefix)/include/scribus/styleselect.h
 	$(INSTALL_DATA) $(srcdir)/tabcheckdoc.h                 $(prefix)/include/scribus/tabcheckdoc.h
+	$(INSTALL_DATA) $(srcdir)/tabdisplay.h                  $(prefix)/include/scribus/tabdisplay.h
+	$(INSTALL_DATA) $(srcdir)/tabdocument.h                 $(prefix)/include/scribus/tabdocument.h
+	$(INSTALL_DATA) $(srcdir)/tabgeneral.h                  $(prefix)/include/scribus/tabgeneral.h
 	$(INSTALL_DATA) $(srcdir)/tabguides.h                   $(prefix)/include/scribus/tabguides.h
 	$(INSTALL_DATA) $(srcdir)/tabmanager.h                  $(prefix)/include/scribus/tabmanager.h
+	$(INSTALL_DATA) $(srcdir)/tabmiscellaneous.h            $(prefix)/include/scribus/tabmiscellaneous.h
 	$(INSTALL_DATA) $(srcdir)/tabpdfoptions.h               $(prefix)/include/scribus/tabpdfoptions.h
 	$(INSTALL_DATA) $(srcdir)/tabruler.h                    $(prefix)/include/scribus/tabruler.h
+	$(INSTALL_DATA) $(srcdir)/tabscrapbook.h                $(prefix)/include/scribus/tabscrapbook.h
 	$(INSTALL_DATA) $(srcdir)/tabtools.h                    $(prefix)/include/scribus/tabtools.h
 	$(INSTALL_DATA) $(srcdir)/tabtypography.h               $(prefix)/include/scribus/tabtypography.h
 	$(INSTALL_DATA) $(srcdir)/tocgenerator.h                $(prefix)/include/scribus/tocgenerator.h
@@ -629,11 +643,16 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/story.h
 	-rm -f $(prefix)/include/scribus/styleselect.h
 	-rm -f $(prefix)/include/scribus/tabcheckdoc.h
+	-rm -f $(prefix)/include/scribus/tabdisplay.h
+	-rm -f $(prefix)/include/scribus/tabdocument.h
+	-rm -f $(prefix)/include/scribus/tabgeneral.h
 	-rm -f $(prefix)/include/scribus/tabguides.h
 	-rm -f $(prefix)/include/scribus/tabmanager.h
+	-rm -f $(prefix)/include/scribus/tabmiscellaneous.h
 	-rm -f $(prefix)/include/scribus/tabpdfoptions.h
 	-rm -f $(prefix)/include/scribus/tabruler.h
 	-rm -f $(prefix)/include/scribus/tabtools.h
+	-rm -f $(prefix)/include/scribus/tabscrapbook.h
 	-rm -f $(prefix)/include/scribus/tabtypography.h
 	-rm -f $(prefix)/include/scribus/tocindexprefs.h
 	-rm -f $(prefix)/include/scribus/tocgenerator.h

@@ -175,6 +175,7 @@ for which a new license (GPL+exception) is in place.
 #include "plugins/formatidlist.h"
 #include "scgtplugin.h"
 #include "stencilreader.h"
+#include "langmgr.h"
 #include "smtextstyles.h"
 
 #if defined(_WIN32)

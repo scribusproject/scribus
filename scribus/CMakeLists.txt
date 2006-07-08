@@ -35,6 +35,10 @@ tabexternaltoolswidgetbase.ui
 tabkeyboardshortcutswidgetbase.ui
 tocindexprefsbase.ui
 useprintermarginsdialogbase.ui
+tabdisplaybase.ui
+tabgeneralbase.ui
+tabmiscellaneousbase.ui
+tabscrapbookbase.ui
 )
 
 SET(SCRIBUS_MOC_CLASSES
@@ -179,10 +183,15 @@ styleselect.h
 tabcheckdoc.h
 tabexternaltoolswidget.h
 tabkeyboardshortcutswidget.h
+tabdisplay.h
+tabdocument.h
+tabgeneral.h
 tabguides.h
 tabmanager.h
+tabmiscellaneous.h
 tabpdfoptions.h
 tabruler.h
+tabscrapbook.h
 tabtools.h
 tabtypography.h
 tocgenerator.h
@@ -391,10 +400,15 @@ styleselect.cpp
 tabcheckdoc.cpp
 tabexternaltoolswidget.cpp
 tabkeyboardshortcutswidget.cpp
+tabdisplay.cpp
+tabdocument.cpp
+tabgeneral.cpp
 tabguides.cpp
 tabmanager.cpp
+tabmiscellaneous.cpp
 tabpdfoptions.cpp
 tabruler.cpp
+tabscrapbook.cpp
 tabtools.cpp
 tabtypography.cpp
 tocgenerator.cpp

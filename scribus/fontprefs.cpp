@@ -139,7 +139,6 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	}
 	insertTab( tab3, tr( "Additional &Paths" ) );
 
-	rebuildDialog(true);
 	// signals and slots connections
 	connect(Table3, SIGNAL(currentChanged(int, int)), this, SLOT(ReplaceSel(int, int)));
 	connect(DelB, SIGNAL(clicked()), this, SLOT(DelEntry()));
@@ -149,7 +148,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 
 void FontPrefs::restoreDefaults()
 {
-	rebuildDialog(false);
+	rebuildDialog();
 }
 
 void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
@@ -312,32 +311,27 @@ void FontPrefs::DelPath()
 	RemoveB->setEnabled(setter);
 }
 
-void FontPrefs::rebuildDialog(bool firstTime)
+void FontPrefs::rebuildDialog()
 {
-	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
 
-	if (!firstTime)
+	availFonts->clear();
+	// FIXME: This is main preformance issue. It's about 90% of all preference reads! - PV
+	availFonts->GetFonts(HomeP);
+	/* Are you wondering why this condition? See the comment at
+	line #102 (or somewhere near) as reference. Hint: PathList
+	is not initialized for example... - PV */
+	if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
 	{
-		availFonts->clear();
-		availFonts->GetFonts(HomeP);
-		/* Are you wondering why this condition? See the comment at
-		line #102 (or somewhere near) as reference. Hint: PathList
-		is not initialized for example... - PV */
-		if (!DocAvail && !ScCore->primaryMainWindow()->HaveDoc)
+		for (uint a = 0; a < PathList->count(); ++a)
 		{
-			for (uint a = 0; a < PathList->count(); ++a)
-			{
-				availFonts->AddScalableFonts(PathList->text(a)+"/"); //, docc->DocName);
-				availFonts->updateFontMap();
-			}
+			availFonts->AddScalableFonts(PathList->text(a)+"/"); //, docc->DocName);
+			availFonts->updateFontMap();
 		}
 	}
-
 	UsedFonts.clear();
 	fontFlags.clear();
 	fontList->clear();
-
 	SCFontsIterator it(*availFonts);
 	for ( ; it.current(); ++it)
 	{
@@ -372,5 +366,4 @@ void FontPrefs::rebuildDialog(bool firstTime)
 	fontList->sort();
 	UsedFonts.sort();
 	UpdateFliste();
-	qApp->restoreOverrideCursor();
 }

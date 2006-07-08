@@ -2170,20 +2170,16 @@ void TabPDFOptions::SubsetAll()
 	}
 }
 
-void TabPDFOptions::unitChange(int newUnitIndex)
+void TabPDFOptions::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
 {
-	const double oldUnitRatio = unitRatio;
-	unitRatio = unitGetRatioFromIndex(newUnitIndex);
-	precision = unitGetPrecisionFromIndex(newUnitIndex);
-	const int decimals = unitGetDecimalsFromIndex(newUnitIndex);
-	const QString einh = unitGetSuffixFromIndex(newUnitIndex);
-	const double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
-	BleedBottom->setSuffix(einh);
-	BleedTop->setSuffix(einh);
-	BleedRight->setSuffix(einh);
-	BleedLeft->setSuffix(einh);
 	double oldMin = -1, oldMax = -1, val = -1;
 	int decimalsOld = -1;
+
+	BleedBottom->setSuffix(unit);
+	BleedTop->setSuffix(unit);
+	BleedRight->setSuffix(unit);
+	BleedLeft->setSuffix(unit);
+
 	BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	BleedBottom->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);

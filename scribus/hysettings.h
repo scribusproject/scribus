@@ -16,25 +16,29 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 
 #include "scribusapi.h"
+#include "prefsstructs.h"
 
 class SCRIBUS_API HySettings : public QWidget
 { 
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    HySettings( QWidget* parent, QMap<QString,QString>* langs);
-    ~HySettings() {};
-    QCheckBox* verbose;
-    QCheckBox* input;
-    QComboBox* language;
-    QLabel* text1;
-    QLabel* text2;
-    QLabel* text3;
-    QSpinBox* wordLen;
-    QSpinBox* maxCount;
+	HySettings( QWidget* parent, QMap<QString,QString>* langs);
+	~HySettings() {};
+	void restoreDefaults(struct ApplicationPrefs *prefsData);
+
+	QCheckBox* verbose;
+	QCheckBox* input;
+	QComboBox* language;
+	QLabel* text1;
+	QLabel* text2;
+	QLabel* text3;
+	QSpinBox* wordLen;
+	QSpinBox* maxCount;
 
 protected:
-    QGridLayout* layout3;
+	QMap<QString,QString> langsMap;
+	QGridLayout* layout3;
 };
 
 #endif // HYSETTINGS_H

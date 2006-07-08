@@ -10,6 +10,8 @@ for which a new license (GPL+exception) is in place.
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
+	langsMap = *langs;
+
 	QStringList lada;
 	layout3 = new QGridLayout( this, 1, 1, 0, 5, "Layout3");
 	layout3->setAlignment( Qt::AlignTop );
@@ -47,3 +49,12 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidge
 	QToolTip::add( maxCount, tr( "Maximum number of Hyphenations following each other.\nA value of 0 means unlimited hyphenations." ) );
 }
 
+void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
+{
+	verbose->setChecked(!prefsData->Automatic);
+	input->setChecked(prefsData->AutoCheck);
+	language->setCurrentText(langsMap[prefsData->Language]);
+	wordLen->setValue(prefsData->MinWordLen);
+	maxCount->setValue(prefsData->HyCount);
+	
+}

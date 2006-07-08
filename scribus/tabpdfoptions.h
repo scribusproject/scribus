@@ -55,7 +55,7 @@ public:
 						 int unitIndex, double PageH, double PageB,
 						 ScribusView * vie);
 
-	void unitChange(int newUnitIndex);
+	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 
 	// GUI member pointers
 	// Remember to initialize these in the initializer list of the ctor when

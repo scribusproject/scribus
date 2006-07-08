@@ -59,8 +59,10 @@ MSpinBox::MSpinBox(double minValue, double maxValue, QWidget *pa, int s):QSpinBo
 
 MSpinBox::MSpinBox(QWidget *parent, const char * name): QSpinBox(parent, name)
 {
+	setParameters(666); // pv - dummy setup for designer's constructor
 	setValidator(0);
 	ed = editor();
+	QSpinBox::setLineStep(Decimals); // pv - dummy setup for designer's constructor
 	oldLineStep=0;
 	readOnly=false;
 	edited = false;
@@ -158,6 +160,9 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 QString MSpinBox::mapValueToText(int value)
 {
 	QString s;
+// 	debug outputs for strange designer's behaviour. See (parent, name) constructor for more info - PV
+// 	qDebug("setting s");
+// 	qDebug(QString("params %1 %2 %3 %4<-").arg(value).arg(Decimals).arg(Width).arg(name()));
 	s.setNum(static_cast<double>(value) / Decimals, 'f', Width);
 	return s;
 }

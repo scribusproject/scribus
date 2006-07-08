@@ -32,6 +32,7 @@ public:
 	TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
 	~TabGuides() {};
 	void restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex);
+	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 
 	MSpinBox* majorSpace;
 	MSpinBox* minorSpace;
@@ -96,8 +97,8 @@ protected:
 	QHBoxLayout* layout9;
 	QHBoxLayout* layout9a;
 	
-	double unitRatio;
-	QString unit;
-	int precision;
+// 	double unitRatio;
+// 	QString unit;
+// 	int precision;
 };
 #endif

@@ -30,6 +30,11 @@ class LineCombo;
 class ScribusDoc;
 class ColorCombo;
 
+
+/*! \brief Tools panel for preferences dialog.
+This class is inherited from UI base class.
+\author Petr Vanek <petr@scribus.info>
+*/
 class SCRIBUS_API TabTools : public QWidget
 {
 	Q_OBJECT
@@ -37,7 +42,17 @@ class SCRIBUS_API TabTools : public QWidget
 public:
 	TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex, ScribusDoc* doc);
 	~TabTools() {};
-	void restoreDefaults(struct toolPrefs *prefsData, int unitIndex, bool drawSample=false);
+
+	void restoreDefaults(struct toolPrefs *prefsData, int unitIndex);
+
+	/*! \brief Enable sample rendering.
+	It's called when user selects this panel in preferences. First painting is very slow
+	so it's called on user demand - not in the prefs GUI initialization.
+	\param state allow drawing the sample when TRUE
+	\author Petr Vanek <petr@scribus.info> */
+	void enableFontPreview(bool state);
+
+	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 
 	QButtonGroup* buttonGroupTools;
 	QToolButton* toolShape;
@@ -179,6 +194,10 @@ protected:
 	double unitRatio;
 	QString unit;
 	int precision;
+
+	/*! \brief True when is font sample allowed.
+	See enableFontPreview() */
+	bool fontPreview;
 
 	void enableSignals(bool);
 };

@@ -25,6 +25,10 @@ for which a new license (GPL+exception) is in place.
 
 TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex) : QWidget( parent, "tabguide", 0 )
 {
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
+	QString unit = unitGetSuffixFromIndex(unitIndex);
+	int precision = unitGetPrecisionFromIndex(unitIndex);
+
 	tabGuidesLayout = new QVBoxLayout( this, 0, 5, "tabViewLayout");
 
 	commonBox = new QGroupBox( this, "commonBox" );
@@ -236,9 +240,9 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 
 void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs *prefsData2, int unitIndex)
 {
-	unit = unitGetSuffixFromIndex(unitIndex);
-	precision = unitGetPrecisionFromIndex(unitIndex);
-	unitRatio = unitGetRatioFromIndex(unitIndex);
+	QString unit = unitGetSuffixFromIndex(unitIndex);
+	double unitRatio = unitGetRatioFromIndex(unitIndex);
+
 	QPixmap pm3(54, 14);
 	pm3.fill(prefsData->guideColor);
 	colorGuides = prefsData->guideColor;
@@ -342,4 +346,27 @@ void TabGuides::changeMarginColor()
 		colorMargin = neu;
 		marginColor->setPixmap(pm);
 	}
+}
+
+void TabGuides::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
+{
+	double oldMin, oldMax, val;
+	int decimalsOld;
+
+	minorSpace->setSuffix(unit);
+	majorSpace->setSuffix(unit);
+	snapDistance->setSuffix(unit);
+	baseGrid->setSuffix(unit);
+	baseOffset->setSuffix(unit);
+	
+	minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 }

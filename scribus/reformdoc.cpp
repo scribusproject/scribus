@@ -598,7 +598,7 @@ void ReformDoc::unitChange()
 	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitChange(docUnitIndex);
+	tabPDF->unitChange(einh, docUnitIndex, decimals, invUnitConversion);
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	GroupRand->unitChange(unitRatio, decimals, einh);
