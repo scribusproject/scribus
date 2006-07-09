@@ -73,6 +73,7 @@ private:
 
 class SMParagraphStyle : public StyleItem
 {
+	Q_OBJECT
 public:
 	SMParagraphStyle();
 	~SMParagraphStyle();
@@ -135,6 +136,7 @@ private:
 
 class SMCharacterStyle : public StyleItem
 {
+	Q_OBJECT
 public:
 	SMCharacterStyle();
 	~SMCharacterStyle();

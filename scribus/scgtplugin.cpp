@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 
 
 #include "scgtplugin.h"
+#include "scgtplugin.moc"
 
 #include <qcheckbox.h>
 #include <qstring.h>
@@ -15,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qptrlist.h>
 #include <qdir.h>
 #include <qobject.h>
+#include <qhbox.h>
 
 /***************************************************************************************/
 /***************************************************************************************/
@@ -53,7 +55,6 @@ void ScGTPluginManager::unRegisterGTPlugin(ScGTPlugin *plugin)
 
 void ScGTPluginManager::run()
 {
-	qDebug("run()");
 	// TODO prefs
 	ScGTFileDialog *dia = new ScGTFileDialog(".", fileFilter(), 0, "dia");
 	if (dia->exec())
@@ -106,10 +107,8 @@ ScGTPluginManager::~ScGTPluginManager()
 ScGTFileDialog::ScGTFileDialog(const QString & dirName,
                                const QString & filters,
                                QWidget * parent, const char * name)
-: QFileDialog(dirName, filters, parent, name, true)
+: CustomFDialog(parent, dirName, tr("Select a file to import"), filters)
 {
-	setCaption(tr("Select file to import"));
-	setMode(QFileDialog::ExistingFile);
 	customize();
 }
 
@@ -118,22 +117,27 @@ bool ScGTFileDialog::showOptions() const
 	return showOptionsBox_->isChecked();
 }
 
+bool ScGTFileDialog::append() const
+{
+	return appendBox_->isChecked();
+}
+
 void ScGTFileDialog::customize()
 {
-	showOptionsBox_ = new QCheckBox(tr("Show options"), this, "showOptionsBox_");	
-	addWidgets(0, showOptionsBox_, 0);
-	
-	
-// 	HomeB = new QToolButton(this);
-// 	HomeB->setIconSet(loadIcon("gohome.png"));
-// 	HomeB->setAutoRaise(true);
-// 	connect(HomeB, SIGNAL(clicked()), this, SLOT(slotHome()));
-// 	addToolButton(HomeB);
+	diaExtension_ = new QHBox(this, "diaExtension_");
+	diaExtension_->setSpacing(5);
+
+	appendBox_      = new QCheckBox(tr("Append"), diaExtension_, "appendBox_");
+	showOptionsBox_ = new QCheckBox(tr("Show options"), diaExtension_, "showOptionsBox_");
+
+	addWidgets(0, diaExtension_, 0);
 }
 
 ScGTFileDialog::~ScGTFileDialog()
 {
 	delete showOptionsBox_;
+	delete appendBox_;
+	delete diaExtension_;
 }
 
 /***************************************************************************************/
