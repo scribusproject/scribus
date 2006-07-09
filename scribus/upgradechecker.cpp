@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 
+#include <qdir.h>
 #include <qdom.h>
 #include <qhttp.h>
 #include <qnetwork.h>
@@ -48,18 +49,12 @@ UpgradeChecker::~UpgradeChecker()
 bool UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
-	QString filenameURL("http://www.scribus.net/downloads");
-	char tmpname[L_tmpnam];
-	tempFile="";
-	char* tempFile2=tmpnam(tmpname);
-	if (tempFile2==0)
-		return true;
-	tempFile+=tempFile2;
+	//TODO fix for win32 and mac
+	tempFile=QDir::homeDirPath()+"/.scribus/"+filename;
+
 	fin=false;
 	
 	QFile file(tempFile);
-	if (file.exists())
-		file.remove();
 	if (getter)
 		delete getter;
 	getter=new QHttp();
@@ -70,11 +65,11 @@ bool UpgradeChecker::fetch()
 	getter->setHost("www.scribus.net");
 	if (retrieveError)
 		return true;
-	qDebug(QString("Attempting to get the Scribus version update file"));
-	qDebug(QString("(No data on your computer will be sent to an external location)"));
-	if(!file.open(IO_WriteOnly))
+	qDebug("%s", tr("Attempting to get the Scribus version update file").local8Bit().data());
+	qDebug("%s", tr("(No data on your computer will be sent to an external location)").local8Bit().data());
+	if(!file.open(IO_ReadWrite))
 		return true;
-	getterID=getter->get("/downloads/scribusversions.xml", &file);
+	getterID=getter->get("/downloads/"+filename, &file);
 	
 	int waitCount=0;
 	while (!fin && waitCount<10 && !retrieveError)
@@ -86,36 +81,34 @@ bool UpgradeChecker::fetch()
 	}
 	std::cout << std::endl;
 	getter->closeConnection();
-	file.close();
 	bool errorOccurred=false;
 	if (waitCount>=10)
 	{
-		qDebug(QString("Timed out when attempting to get update file."));
+		qDebug("%s", tr("Timed out when attempting to get update file.").local8Bit().data());
 		errorOccurred=true;
 	}
 	if (retrieveError || getter->error()!=QHttp::NoError)
 	{
-		qDebug(QString("Error when attempting to get update file: %1").arg(getter->errorString()));
+		qDebug("%s", tr("Error when attempting to get update file: %1").arg(getter->errorString()).local8Bit().data());
 		errorOccurred=true;
 	}
 	if (errorOccurred)
 	{
+		file.close();
 		file.remove();
 		return true;
 	}
-	else
-		process(tempFile);
-	file.remove();
+
+	file.reset();
+	process(file);
+	file.close();
+ 	file.remove();
 	return false;
 }
 
-bool UpgradeChecker::process( const QString& filename )
+bool UpgradeChecker::process( QFile& dataFile )
 {
-	QFile dataFile(filename);
-	if (!dataFile.exists())
-		return false;
-	if ( !dataFile.open( IO_ReadOnly ) )
-		return false;
+	
 	QTextStream ts(&dataFile);
 	ts.setEncoding(QTextStream::UnicodeUTF8);
 	QString errorMsg;
@@ -126,15 +119,13 @@ bool UpgradeChecker::process( const QString& filename )
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
 		if (data.lower().contains("404 not found"))
-			qDebug("%s", "File not found on server");
+			qDebug("%s", tr("File not found on server").local8Bit().data());
 		else
-			qDebug("%s", QString("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(filename).arg(errorMsg).arg(eline).arg(ecol).ascii());
-		dataFile.close();
+			qDebug("%s", tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol).local8Bit().data());
 		return false;
 	}
-	dataFile.close();
+	
 	QDomElement docElem = doc.documentElement();
-
 	QDomNode n = docElem.firstChild();
 	while( !n.isNull() ) {
 		QDomElement e = n.toElement();
@@ -182,34 +173,34 @@ void UpgradeChecker::show(bool error)
 {
 	if (error)
 	{
-		qDebug(QString("An error occurred while looking for updates for Scribus, please check your internet connection."));
+		qDebug("%s", tr("An error occurred while looking for updates for Scribus, please check your internet connection.").local8Bit().data());
 		return;
 	}
 	if (updates.isEmpty())
 	{
-		qDebug(QString("No updates are available for your version of Scribus %1").arg(version));
+		qDebug("%s", tr("No updates are available for your version of Scribus %1").arg(version).local8Bit().data());
 		return;
 	}
-	qDebug(QString("One or more updates for your version of Scribus (%1) are available:").arg(version));
+	qDebug("%s", tr("One or more updates for your version of Scribus (%1) are available:").arg(version).local8Bit().data());
 	
 	for ( QStringList::Iterator it = updates.begin(); it != updates.end(); ++it )
-		qDebug(QString("%1").arg(*it));
+		qDebug("%s", QString("%1").arg(*it).local8Bit().data());
 }
 
-void UpgradeChecker::fileFinished( bool error )
+void UpgradeChecker::fileFinished(bool /*error*/)
 {
 	fin=true;
 }
 
-void UpgradeChecker::fileStarted( bool error )
+void UpgradeChecker::fileStarted(bool /*error*/)
 {
 }
 
-void UpgradeChecker::reqStarted(int id)
+void UpgradeChecker::reqStarted(int /*id*/)
 {
 }
 
-void UpgradeChecker::reqFinished(int id, bool error)
+void UpgradeChecker::reqFinished(int /*id*/, bool error)
 {
 	retrieveError=error;
 }

@@ -24,7 +24,7 @@ public:
 	~UpgradeChecker();
 	
 	bool fetch();
-	bool process(const QString& filename);
+	bool process(QFile& dataFile);
 	void show(bool error);
 	QStringList upgradeData();
 	
