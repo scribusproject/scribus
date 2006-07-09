@@ -63,15 +63,15 @@ void SMPStyleWidget::setupDistances()
 	LineSpVal->setSuffix(tr( " pt" ));
 	distancesBoxLayout->addWidget(LineSpVal, 1,1);
 
-	pixmapLabel1 = new QLabel(distancesBox, "pixmapLabel2" );
-	pixmapLabel1->setMinimumSize(QSize(22, 22));
-	pixmapLabel1->setMaximumSize(QSize(22, 22));
-	pixmapLabel1->setPixmap(loadIcon("textbase.png"));
-	distancesBoxLayout->addWidget(pixmapLabel1, 2, 0);
-
-	fontBase = new MSpinBox( -100, 100, distancesBox, 1 );
-	fontBase->setSuffix( tr( " %" ) );
-	distancesBoxLayout->addWidget( fontBase, 2, 1 );
+// 	pixmapLabel1 = new QLabel(distancesBox, "pixmapLabel2" );
+// 	pixmapLabel1->setMinimumSize(QSize(22, 22));
+// 	pixmapLabel1->setMaximumSize(QSize(22, 22));
+// 	pixmapLabel1->setPixmap(loadIcon("textbase.png"));
+// 	distancesBoxLayout->addWidget(pixmapLabel1, 2, 0);
+// 
+// 	fontBase = new MSpinBox( -100, 100, distancesBox, 1 );
+// 	fontBase->setSuffix( tr( " %" ) );
+// 	distancesBoxLayout->addWidget( fontBase, 2, 1 );
 
 	pixmapLabel3 = new QLabel( "", distancesBox, "TextLabel1_2_2" );
 	pixmapLabel3->setPixmap( loadIcon("above.png") );
@@ -252,26 +252,51 @@ void SMCStyleWidget::setupCharacter()
 	layout7->addWidget( TextF2 );
 	layout7->addWidget( SizeC );
 
+	pixmapLabel3_3 = new QLabel( characterBox, "pixmapLabel3_3" );
+	pixmapLabel3_3->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel3_3->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
+	layout7->addWidget(pixmapLabel3_3);
+
+	fontKern = new MSpinBox( -300, 300, characterBox, 1 );
+	fontKern->setSuffix( tr( " %" ) );
+	layout7->addWidget(fontKern);
+	
+
+	pixmapLabel2 = new QLabel( characterBox, "pixmapLabel2" );
+	pixmapLabel2->setMinimumSize( QSize( 22, 22 ) );
+	pixmapLabel2->setMaximumSize( QSize( 22, 22 ) );
+	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
+	layout7->addWidget( pixmapLabel2 );
+	fontBase = new MSpinBox( -100, 100, characterBox, 1 );
+	fontBase->setSuffix( tr( " %" ) );
+	layout7->addWidget( fontBase );
+	layout7->addStretch(10);
+	characterBoxLayout->addLayout( layout7 );
+
+	layout8 = new QHBoxLayout(0, 0, 5, "layout8");
+
 	pixmapLabel3 = new QLabel( "", characterBox, "pixmapLabel3" );
 	pixmapLabel3->setMinimumSize( QSize( 22, 22 ) );
 	pixmapLabel3->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
-	layout7->addWidget( pixmapLabel3 );
+	layout8->addWidget( pixmapLabel3 );
 
 	fontHScale = new MSpinBox( 10, 400, characterBox, 1 );
 	fontHScale->setSuffix( tr( " %" ) );
-	layout7->addWidget( fontHScale );
+	layout8->addWidget( fontHScale );
 
 	pixmapLabel3_2 = new QLabel( "", characterBox, "pixmapLabel3_2" );
 	pixmapLabel3_2->setMinimumSize( QSize( 22, 22 ) );
 	pixmapLabel3_2->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel3_2->setPixmap( loadIcon("textscalev.png") );
-	layout7->addWidget( pixmapLabel3_2 );
+	layout8->addWidget( pixmapLabel3_2 );
 
 	fontVScale = new MSpinBox( 10, 400, characterBox, 1 );
 	fontVScale->setSuffix( tr( " %" ) );
-	layout7->addWidget( fontVScale );
-	characterBoxLayout->addLayout( layout7 );
+	layout8->addWidget( fontVScale );
+	layout8->addStretch(10);
+	characterBoxLayout->addLayout( layout8 );
 
 	characterBoxLayout->addSpacing( 10 );
 

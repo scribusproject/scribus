@@ -104,6 +104,7 @@ public:
 private:
 	QVBoxLayout *characterBoxLayout;
 	QHBoxLayout *layout7;
+	QHBoxLayout *layout8;
 	QHBoxLayout *layout9a;
 	QHBoxLayout *layout5;
 	QHBoxLayout *layout6;
@@ -118,6 +119,8 @@ private:
 	MSpinBox    *SizeC;
 	MSpinBox    *fontHScale;
 	MSpinBox    *fontVScale;
+	MSpinBox    *fontKern;
+	MSpinBox    *fontBase;
 
 	QLabel      *TextF2;
 	QLabel      *pixmapLabel3;
@@ -126,6 +129,8 @@ private:
 	QLabel      *pixmapLabel3_20;
 	QLabel      *StrokeIcon;
 	QLabel      *pixmapLabel3_19;
+	QLabel      *pixmapLabel3_3;
+	QLabel      *pixmapLabel2;
 
 	QSpacerItem *spacer1;
 	QSpacerItem *spacer2;
