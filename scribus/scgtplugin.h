@@ -10,13 +10,13 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "scplugin.h"
-
-#include <qfiledialog.h>
+#include "customfdialog.h"
 
 class QString;
 class QCheckBox;
 class QStringList;
 class QDir;
+class QHBox;
 
 /**
   @brief Super class for all text importer plugins.
@@ -109,7 +109,8 @@ private:
 /***************************************************************************************/
 /***************************************************************************************/
 
-class SCRIBUS_API ScGTFileDialog : public QFileDialog {
+class SCRIBUS_API ScGTFileDialog : public CustomFDialog {
+	Q_OBJECT
 public:
 	ScGTFileDialog(const QString & dirName,
 	               const QString & filters,
@@ -117,9 +118,12 @@ public:
 	~ScGTFileDialog();
 
 	bool showOptions() const;
+	bool append() const;
 
 private:
+	QHBox *diaExtension_;
 	QCheckBox *showOptionsBox_;
+	QCheckBox *appendBox_;
 	void customize();
 };
 
