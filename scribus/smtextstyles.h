@@ -29,6 +29,9 @@ class StyleSelect;
 class QSpacerItem;
 class ScComboBox;
 class ShadeButton;
+class CharStyle;
+class ParagraphStyle;
+class ScribusDoc;
 
 class SMPStyleWidget : public PStyleWBase
 {
@@ -79,12 +82,15 @@ public:
 	void currentDoc(ScribusDoc *doc);
 	QValueList<StyleName> styles();
 	void selected(const QStringList &styleNames);
+	QString fromSelection() const;
 	void apply();
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 
 private:
 	SMPStyleWidget *pwidget_;
+	QValueList<ParagraphStyle> tmpPStyles_;
+	ScribusDoc *doc_;
 };
 
 class SMCStyleWidget : public CStyleWBase
@@ -138,6 +144,7 @@ public:
 	void currentDoc(ScribusDoc *doc);
 	QValueList<StyleName> styles();
 	void selected(const QStringList &styleNames);
+	QString fromSelection() const;
 	void apply();
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);

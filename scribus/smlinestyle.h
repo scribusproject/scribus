@@ -51,6 +51,7 @@ public:
 	void currentDoc(ScribusDoc *doc);
 	QValueList<StyleName> styles();
 	void selected(const QStringList &styleNames);
+	QString fromSelection() const;
 	void apply();
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);

@@ -9,8 +9,10 @@ for which a new license (GPL+exception) is in place.
 #include "stylemanager.moc"
 #include "styleitem.h"
 #include "scribusdoc.h"
+#include "scribusview.h"
 #include "smreplacedia.h"
 #include "styleitem.h"
+#include "selection.h"
 #include <qheader.h>
 #include <qlabel.h>
 #include <qlistview.h>
@@ -38,6 +40,13 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 
 void StyleManager::currentDoc(ScribusDoc *doc)
 {
+	static bool hasBeenConnected = false;
+	if (doc && doc->m_Selection && !hasBeenConnected)
+	{
+		connect(doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotSelectionChanged()));
+		hasBeenConnected = true;
+	}
+
 	// clear the style list and reload from new doc
 	styleView->clear();
 	for (uint i = 0; i < items_.count(); ++i)
@@ -63,13 +72,12 @@ void StyleManager::slotApply()
 	
 }
 
-
 void StyleManager::slotDelete()
 {
 	QStringList selected;
 	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
 	while (it.current()) {
-		selected << it.current()->text(1);
+		selected << it.current()->text(0);
 		++it;
 	}
 	QStringList tmp;
@@ -142,7 +150,7 @@ void StyleManager::slotStyleChanged()
 	bool twoTypes = false;
 	QString type = QString::null;
 	while (it.current()) {
-		selected << it.current()->text(1);
+		selected << it.current()->text(0);
 		++it;
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
 		if (item)
@@ -244,6 +252,40 @@ void StyleManager::slotNameChanged(const QString& name)
 		item_->nameChanged(name);
 }
 
+void StyleManager::slotSelectionChanged()
+{
+	if (isHidden())
+		return;
+
+	QString parentName = QString::null;
+	QString styleName = QString::null;
+	styleView->clearSelection();
+
+	for (uint i = 0; i < items_.count(); ++i)
+	{
+		parentName = items_.at(i)->typeName();
+		styleName = items_.at(i)->fromSelection();
+		if (styleName != QString::null)
+		{
+			QListViewItem *item = styleView->findItem(styleName, 0);
+			if (item)
+			{
+				QListViewItem *root = item->parent();
+				if (!root)
+					continue;
+				while (root->parent())
+					root = root->parent();
+				if (parentName == root->text(0))
+				{
+					styleView->setCurrentItem(item);
+					item->setSelected(true);
+					item->repaint();
+				}
+			}
+		}
+	}
+}
+
 void StyleManager::hideEvent(QHideEvent *e)
 {
 	SMBase::hideEvent(e);
@@ -264,7 +306,7 @@ StyleViewItem::StyleViewItem(QListView *view, const QString &text)
 }
 
 StyleViewItem::StyleViewItem(QListViewItem *parent, const QString &text, const QString &rootName)
-: QListViewItem(parent, "", text), isRoot_(false), parentName_(parent->text(0)), rootName_(rootName)
+: QListViewItem(parent, text), isRoot_(false), parentName_(parent->text(0)), rootName_(rootName)
 {
 
 }

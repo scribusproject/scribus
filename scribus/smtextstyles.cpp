@@ -16,6 +16,9 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "shadebutton.h"
 #include "commonstrings.h"
+#include "style.h"
+#include "scribusdoc.h"
+#include "selection.h"
 
 #include <qgroupbox.h>
 #include <qlayout.h>
@@ -162,11 +165,20 @@ QString SMParagraphStyle::typeName()
 void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 {
 	Q_ASSERT(doc);
+	doc_ = doc;
+	tmpPStyles_ = doc_->docParagraphStyles;
 }
 
 QValueList<StyleName> SMParagraphStyle::styles()
 {
 	QValueList<StyleName> tmpList;
+
+	if (tmpPStyles_.count() < 6)
+		return tmpList;
+
+	for (uint x = 5; x < tmpPStyles_.count(); ++x)
+		tmpList << StyleName(tmpPStyles_[x].name(),
+		                     tmpPStyles_[x].parent() ? tmpPStyles_[x].parent()->name() : QString::null);
 
 	return tmpList;
 }
@@ -174,6 +186,18 @@ QValueList<StyleName> SMParagraphStyle::styles()
 void SMParagraphStyle::selected(const QStringList &styleNames)
 {
 
+}
+
+QString SMParagraphStyle::fromSelection() const
+{
+//	Q_ASSERT(doc_ && doc_->m_Selection);
+//	QString lsName = QString::null;
+
+//	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+//	{
+//		PageItem *item = doc_->m_Selection->itemAt(i);
+//	}
+	return QString::null;
 }
 
 void SMParagraphStyle::apply()
@@ -359,6 +383,11 @@ QValueList<StyleName> SMCharacterStyle::styles()
 void SMCharacterStyle::selected(const QStringList &styleNames)
 {
 
+}
+
+QString SMCharacterStyle::fromSelection() const
+{
+	return QString::null;
 }
 
 void SMCharacterStyle::apply()

@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "mspinbox.h"
 #include "colorm.h"
 #include "util.h"
+#include "selection.h"
 #include <qheader.h>
 #include <qlineedit.h>
 #include <qlistview.h>
@@ -250,6 +251,28 @@ void SMLineStyle::setSelection(const QString& styleName)
 void SMLineStyle::setMultiSelection(const QStringList& styles)
 {
 	
+}
+
+QString SMLineStyle::fromSelection() const
+{
+	Q_ASSERT(doc_ && doc_->m_Selection);
+	QString lsName = QString::null;
+
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	{
+		PageItem *item = doc_->m_Selection->itemAt(i);
+		QString tmpName = item->customLineStyle();
+		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+		{
+			lsName = item->customLineStyle();
+		}
+		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+		{
+			lsName = QString::null;
+			break;
+		}
+	}
+	return lsName;
 }
 
 void SMLineStyle::apply()

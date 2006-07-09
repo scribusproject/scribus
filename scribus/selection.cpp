@@ -91,6 +91,8 @@ bool Selection::clear()
 	m_hasGroupSelection=false;
 // 	if (m_isGUISelection)
 // 		emit empty();
+	if (m_isGUISelection)
+		emit selectionChanged();
 	return true;
 }
 
@@ -135,7 +137,11 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	{
 		m_SelList.append(item);
 		if (m_isGUISelection)
+		{
 			item->setSelected(true);
+			emit selectionChanged();
+		}
+
 		m_hasGroupSelection=(m_SelList.count()>1);
 		if (m_isGUISelection && !ignoreGUI)
 		{
@@ -161,7 +167,11 @@ bool Selection::prependItem(PageItem *item, bool doEmit)
 			m_SelList[0]->disconnectFromGUI();
 		m_SelList.prepend(item);
 		if (m_isGUISelection)
+		{
 			item->setSelected(true);
+			emit selectionChanged();
+		}
+
 		m_hasGroupSelection=(m_SelList.count()>1);
 		if (m_isGUISelection)
 		{
@@ -197,7 +207,10 @@ bool Selection::removeFirst()
 		if (m_SelList.isEmpty())
 			return true;
 		if (m_isGUISelection)
+		{
 			m_SelList.first()->connectToGUI();
+			emit selectionChanged();
+		}
 	}
 	return false;
 }
@@ -219,7 +232,10 @@ bool Selection::removeItem(PageItem *item)
 // 				emit empty();
 		}
 		else if (m_isGUISelection)
+		{
 			m_SelList.first()->connectToGUI();
+			emit selectionChanged();
+		}
 		return removeOk;
 	}
 	return false;
@@ -250,9 +266,13 @@ PageItem* Selection::takeItem(uint itemIndex)
 // 				if (m_isGUISelection)
 // 					emit empty();
 			}
+			if (m_isGUISelection)
+				emit selectionChanged();
 			return item;
 		}
 	}
+	if (m_isGUISelection)
+		emit selectionChanged();
 	return NULL;
 }
 

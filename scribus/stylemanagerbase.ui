@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>483</width>
-            <height>359</height>
+            <width>550</width>
+            <height>432</height>
         </rect>
     </property>
     <property name="minimumSize">
@@ -51,7 +51,7 @@
             </property>
             <property name="minimumSize">
                 <size>
-                    <width>227</width>
+                    <width>180</width>
                     <height>62</height>
                 </size>
             </property>
@@ -61,7 +61,7 @@
             <widget class="QListView">
                 <column>
                     <property name="text">
-                        <string>Column 1</string>
+                        <string>dirty</string>
                     </property>
                     <property name="clickable">
                         <bool>true</bool>

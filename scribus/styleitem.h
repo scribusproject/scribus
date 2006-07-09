@@ -73,6 +73,16 @@ public:
 	virtual void selected(const QStringList &styleNames) = 0;
 
 	/**
+	 * @brief Return the name of the style in this category applied to the
+	 * @brief selected object(s).
+	 *
+	 * If there are multiple objects selected only return a style name if the style
+	 * is applied on all selected objects. If they doesn't share the same style then
+	 * return QString::null.
+	 */
+	virtual QString fromSelection() const = 0;
+
+	/**
 	 * @brief apply changes made to the currently selected style(s)
 	 *
 	 * When a user has edited a style (s)he can either cancel or apply

@@ -42,6 +42,9 @@ signals:
 protected:
 	void hideEvent(QHideEvent *e);
 
+protected slots:
+    virtual void slotOk();
+
 private:
 	QPtrList<StyleItem> items_;
 	StyleItem          *item_;
@@ -69,8 +72,7 @@ private slots:
 	void slotNewType(StyleItem *item);
 	void slotStyleChanged();
 	void slotNameChanged(const QString& name);
-protected slots:
-    virtual void slotOk();
+	void slotSelectionChanged();
 };
 
 class StyleViewItem : public QListViewItem
