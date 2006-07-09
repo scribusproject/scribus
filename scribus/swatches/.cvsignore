@@ -1,0 +1,13 @@
+Makefile
+Makefile.in
+*.la
+*.lo
+*.moc.cpp
+*.moc
+*.o
+.deps
+.libs
+CVS
+scribus
+CMakeFiles
+cmake_install.cmake
