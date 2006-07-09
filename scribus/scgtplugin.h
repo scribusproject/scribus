@@ -27,6 +27,7 @@ class QHBox;
  */
 class SCRIBUS_API ScGTPlugin : public ScPlugin
 {
+	Q_OBJECT
 public:
 	ScGTPlugin();
 	~ScGTPlugin() {};
