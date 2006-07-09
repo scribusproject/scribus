@@ -84,6 +84,9 @@
                 <property name="name">
                     <cstring>styleView</cstring>
                 </property>
+                <property name="enabled">
+                    <bool>true</bool>
+                </property>
                 <property name="sizePolicy">
                     <sizepolicy>
                         <hsizetype>1</hsizetype>
@@ -346,6 +349,12 @@
         <receiver>SMBase</receiver>
         <slot>slotStyleChanged()</slot>
     </connection>
+    <connection>
+        <sender>styleView</sender>
+        <signal>clicked(QListViewItem*)</signal>
+        <receiver>SMBase</receiver>
+        <slot>itemClicked(QListViewItem*)</slot>
+    </connection>
 </connections>
 <tabstops>
     <tabstop>buttonOk</tabstop>
@@ -361,6 +370,7 @@
     <slot>slotPageChanged(QWidget*)</slot>
     <slot access="private">slotNameChanged(const QString&amp;)</slot>
     <slot access="protected">slotOk()</slot>
+    <slot access="private">itemClicked(QListViewItem*)</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

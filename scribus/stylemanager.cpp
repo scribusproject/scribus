@@ -286,6 +286,58 @@ void StyleManager::slotSelectionChanged()
 	}
 }
 
+void StyleManager::itemClicked(QListViewItem *item)
+{
+	QListViewItem *root = 0;
+	StyleItem     *sitem = 0;
+	if (isEditMode_ && item)
+	{
+		root = item->parent();
+		if (root == 0)
+			root = item;
+
+		while (root->parent())
+			root = root->parent();
+		if (root)
+		{
+			for (uint i = 0; i < items_.count(); ++i)
+			{
+				if (items_.at(i)->typeName() == root->text(0))
+				{
+					sitem = items_.at(i);
+					break;
+				}
+			}
+			if (sitem)
+			{
+				item_ = sitem;
+				if (widget_)
+				{   // remove the old style type's widget
+					widget_->hide();
+					layout_->remove(widget_);
+					widget_->reparent(0,0, QPoint(0,0), false);
+				}
+				// show the widget for the new style type
+				if (shortcutWidget_)
+					widget_->removePage(shortcutWidget_);
+				widget_ = item_->widget(); // show the widget for the style type
+				insertShortcutPage(widget_);
+				widget_->reparent(mainFrame, 0, QPoint(0,0), true);
+				layout_->addWidget(widget_, 0, 0);
+			}
+		}
+
+	}
+	else if (!isEditMode_ && item) // see if we need to apply style
+	{
+	
+	}
+	else // if (!item)
+	{
+	
+	}
+}
+
 void StyleManager::hideEvent(QHideEvent *e)
 {
 	SMBase::hideEvent(e);
@@ -531,5 +583,7 @@ ShortcutWidget::~ShortcutWidget()
 {
 
 }
+
+
 
 

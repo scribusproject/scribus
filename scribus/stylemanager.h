@@ -73,6 +73,7 @@ private slots:
 	void slotStyleChanged();
 	void slotNameChanged(const QString& name);
 	void slotSelectionChanged();
+    void itemClicked(QListViewItem *item);
 };
 
 class StyleViewItem : public QListViewItem
