@@ -34,7 +34,10 @@
                         <cstring>useScrapBookasExtension</cstring>
                     </property>
                     <property name="text">
-                        <string>Use Scrapbook as extra Copy/Paste Buffer</string>
+                        <string>Send Copied Items Automatically to Scrapbook</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</string>
                     </property>
                 </widget>
                 <widget class="QCheckBox">
@@ -42,7 +45,10 @@
                         <cstring>persistentScrapbook</cstring>
                     </property>
                     <property name="text">
-                        <string>Extra Copy/Paste Buffer remembers Objects across Sessions</string>
+                        <string>Keep Copied Items Permanently Across Sessions</string>
+                    </property>
+                    <property name="toolTip" stdset="0">
+                        <string>This enables copied items to be kept permanently in the scrapbook.</string>
                     </property>
                 </widget>
                 <widget class="QLayoutWidget">
@@ -58,7 +64,10 @@
                                 <cstring>textLabel2</cstring>
                             </property>
                             <property name="text">
-                                <string>Number of Objects to be remembered in Extra Copy/Paste Buffer:</string>
+                                <string>Number of Copied Items to Keep in Scrapbook:</string>
+                            </property>
+                            <property name="toolTip" stdset="0">
+                                <string>The minimum number is 1; the maximum us 100.</string>
                             </property>
                         </widget>
                         <widget class="QSpinBox">
