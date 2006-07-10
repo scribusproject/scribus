@@ -1795,7 +1795,6 @@ void ScribusMainWindow::startUpDialog()
 
 bool ScribusMainWindow::slotFileNew()
 {
-	bool retVal=false;
 	NewDoc* dia = new NewDoc(this, RecentDocs);
 	if (dia->exec())
 	{
@@ -1820,7 +1819,7 @@ bool ScribusMainWindow::slotFileNew()
 		HaveNewDoc();
 	}
 	delete dia;
-	return retVal;
+	return true;
 }
 
 //TODO move to core, assign doc to doc list, optionally create gui for it

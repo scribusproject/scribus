@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qspinbox.h>
 #include <qstring.h>
+#include <qcheckbox.h>
 
 #include "tabdocument.h"
 #include "tabdocument.moc"
@@ -23,7 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 
 
-TabDocument::TabDocument(QWidget* parent, const char* name)
+TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	: QWidget(parent, name, 0)
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
@@ -82,7 +83,6 @@ TabDocument::TabDocument(QWidget* parent, const char* name)
 	unitComboText = new QLabel( unitCombo, tr( "Units:" ), GroupSize, "unitComboText" );
 	Layout6->addWidget( unitComboText, 2, 0 );
 	Layout6->addWidget( unitCombo, 2, 1 );
-
 	GroupSizeLayout->addLayout( Layout6 );
 
 	Layout5_2 = new QHBoxLayout( 0, 0, 6, "Layout5_2");
@@ -98,8 +98,14 @@ TabDocument::TabDocument(QWidget* parent, const char* name)
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
-
 	GroupSizeLayout->addLayout( Layout5_2 );
+	
+	sizeAllPages = new QCheckBox( GroupSize, "sizeAllPages" );
+	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
+	sizeAllPages->setChecked( false );
+	GroupSizeLayout->addWidget(sizeAllPages);
+	sizeAllPages->hide();
+	
 	dsLayout4pv->addWidget( GroupSize );
 
 	struct MarginStruct marg;
@@ -107,7 +113,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name)
 	marg.Bottom = prefsData->RandUnten;
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
-	marginGroup = new MarginWidget(this,  tr( "Margin Guides" ), &marg, prefsData->docUnitIndex);
+	marginGroup = new MarginWidget(this,  tr( "Margin Guides" ), &marg, prefsData->docUnitIndex, reform);
 	dsLayout4pv->addWidget( marginGroup );
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
@@ -159,6 +165,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name)
 	QToolTip::add( GroupAS, "<qt>" + tr( "When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses" ) + "</qt>" );
 	QToolTip::add( ASTime, "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
 	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
+	QToolTip::add( sizeAllPages, "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
 
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -187,11 +194,12 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 }
 
-void TabDocument::unitChange(int docUnitIndex)
+void TabDocument::unitChange()
 {
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 
+	int docUnitIndex = unitCombo->currentItem();
 	double oldUnitRatio = unitRatio;
 	double oldB, oldBM, oldH, oldHM, val;
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
@@ -208,11 +216,11 @@ void TabDocument::unitChange(int docUnitIndex)
 	pageWidth->setSuffix(suffix);
 	pageHeight->setSuffix(suffix);
 
-	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, Pagebr * unitRatio);
-	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, Pageho * unitRatio);
+	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageW * unitRatio);
+	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageH * unitRatio);
 	marginGroup->unitChange(unitRatio, decimals, suffix);
-	marginGroup->setPageHeight(Pageho);
-	marginGroup->setPageWidth(Pagebr);
+	marginGroup->setPageHeight(pageH);
+	marginGroup->setPageWidth(pageW);
 
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -220,8 +228,8 @@ void TabDocument::unitChange(int docUnitIndex)
 
 void TabDocument::setPageWidth(int)
 {
-	Pagebr = pageWidth->value() / unitRatio;
-	marginGroup->setPageWidth(Pagebr);
+	pageW = pageWidth->value() / unitRatio;
+	marginGroup->setPageWidth(pageW);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
@@ -229,8 +237,8 @@ void TabDocument::setPageWidth(int)
 
 void TabDocument::setPageHeight(int)
 {
-	Pageho = pageHeight->value() / unitRatio;
-	marginGroup->setPageHeight(Pageho);
+	pageH = pageHeight->value() / unitRatio;
+	marginGroup->setPageHeight(pageH);
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=customTextTR && psText!=customText)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
@@ -238,22 +246,22 @@ void TabDocument::setPageHeight(int)
 
 void TabDocument::setSize(const QString & gr)
 {
-	Pagebr = pageWidth->value() / unitRatio;
-	Pageho = pageHeight->value() / unitRatio;
+	pageW = pageWidth->value() / unitRatio;
+	pageH = pageHeight->value() / unitRatio;
 	PageSize *ps2=new PageSize(gr);
 
 	prefsPageSizeName=ps2->name();
 	if (gr != customTextTR)
 	{
-		Pagebr = ps2->width();
-		Pageho = ps2->height();
+		pageW = ps2->width();
+		pageH = ps2->height();
 	}
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	pageWidth->setValue(Pagebr * unitRatio);
-	pageHeight->setValue(Pageho * unitRatio);
-	marginGroup->setPageHeight(Pageho);
-	marginGroup->setPageWidth(Pagebr);
+	pageWidth->setValue(pageW * unitRatio);
+	pageHeight->setValue(pageH * unitRatio);
+	marginGroup->setPageHeight(pageH);
+	marginGroup->setPageWidth(pageW);
 	marginGroup->setPageSize(gr);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -289,4 +297,10 @@ void TabDocument::setOrien(int ori)
 void TabDocument::setPageSize()
 {
 	setOrien(pageOrientationComboBox->currentItem());
+}
+
+void TabDocument::hideReform()
+{
+	urGroup->hide();
+	sizeAllPages->show();
 }

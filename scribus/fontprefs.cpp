@@ -315,9 +315,12 @@ void FontPrefs::rebuildDialog()
 {
 	SCFonts* availFonts=&(PrefsManager::instance()->appPrefs.AvailFonts);
 
+	/*
+	DON'T REMOVE THIS COMMENTS, PLEASE! (Petr)
+	It's just a performance vs. functionality test.
 	availFonts->clear();
 	// FIXME: This is main preformance issue. It's about 90% of all preference reads! - PV
-	availFonts->GetFonts(HomeP);
+	availFonts->GetFonts(HomeP); */
 	/* Are you wondering why this condition? See the comment at
 	line #102 (or somewhere near) as reference. Hint: PathList
 	is not initialized for example... - PV */
@@ -335,6 +338,11 @@ void FontPrefs::rebuildDialog()
 	SCFontsIterator it(*availFonts);
 	for ( ; it.current(); ++it)
 	{
+		if (it.currentKey().isEmpty())
+		{
+			qDebug("void FontPrefs::rebuildDialog(): Empty font name found");
+			continue;
+		}
 		fontSet foS;
 		QListViewItem *row = new QListViewItem(fontList);
 		row->setText(0, it.currentKey());

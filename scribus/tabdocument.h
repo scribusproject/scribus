@@ -18,6 +18,7 @@ class QHBoxLayout;
 class QLabel;
 class QButtonGroup;
 class QVBoxLayout;
+class QCheckBox;
 
 /*! \brief Document panel for preferences dialog.
 This class is inherited from UI base class.
@@ -28,10 +29,12 @@ class SCRIBUS_API TabDocument : public QWidget
 	Q_OBJECT
 
 	public:
-		TabDocument(QWidget* parent = 0, const char* name = 0);
+		TabDocument(QWidget* parent = 0, const char* name = 0, const bool reform = false);
 		~TabDocument(){};
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
-		void unitChange(int docUnitIndex);
+		void unitChange();
+		//! \brief Hide non-needed GUI for ReformDoc
+		void hideReform();
 
 		MSpinBox* pageWidth;
 		MSpinBox* pageHeight;
@@ -41,14 +44,16 @@ class SCRIBUS_API TabDocument : public QWidget
 		QComboBox* pageSizeComboBox;
 		QComboBox* pageOrientationComboBox;
 		int choosenLayout;
-		double Pagebr;
-		double Pageho;
+		double pageW;
+		double pageH;
 		QString prefsPageSizeName;
 		QComboBox* unitCombo;
 		QGroupBox* GroupAS;
 		QSpinBox* ASTime;
 		QGroupBox* urGroup;
 		QSpinBox* urSpinBox;
+		// reform widgets
+		QCheckBox* sizeAllPages;
 
 	private:
 		double unitRatio;

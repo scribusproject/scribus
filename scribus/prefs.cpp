@@ -91,7 +91,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(prefsWidgets, false, ap->PrefsPfad, 0);
+	// ap->PrefsPfad is propably obsolete
+	//tabFonts = new FontPrefs(prefsWidgets, false, ap->PrefsPfad, 0);
+	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), 0);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
@@ -292,14 +294,13 @@ void Preferences::setDS(int layout)
 void Preferences::unitChange()
 {
 	double oldUnitRatio = unitRatio;
-	//double oldMin, oldMax, oldB, oldBM, oldH, oldHM, val;
 	docUnitIndex = tabDocument->unitCombo->currentItem();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
 	
-	tabDocument->unitChange(tabDocument->unitCombo->currentItem());
+	tabDocument->unitChange();
 	tabGuides->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 	tabView->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 	tabTools->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
@@ -366,8 +367,8 @@ void Preferences::updatePreferences()
 
 	prefsManager->appPrefs.pageSize = tabDocument->prefsPageSizeName;
 	prefsManager->appPrefs.pageOrientation = tabDocument->pageOrientationComboBox->currentItem();
-	prefsManager->appPrefs.PageWidth = tabDocument->Pagebr;
-	prefsManager->appPrefs.PageHeight = tabDocument->Pageho;
+	prefsManager->appPrefs.PageWidth = tabDocument->pageW;
+	prefsManager->appPrefs.PageHeight = tabDocument->pageH;
 
 	prefsManager->appPrefs.RandOben = tabDocument->marginGroup->top();
 	prefsManager->appPrefs.RandUnten = tabDocument->marginGroup->bottom();

@@ -11,7 +11,7 @@
             <x>0</x>
             <y>0</y>
             <width>686</width>
-            <height>477</height>
+            <height>509</height>
         </rect>
     </property>
     <property name="caption">
@@ -23,7 +23,7 @@
         </property>
         <widget class="QLayoutWidget" row="0" column="0">
             <property name="name">
-                <cstring>layout39</cstring>
+                <cstring>layout19</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -216,6 +216,9 @@
                                     </property>
                                     <property name="text">
                                         <string>&amp;Right:</string>
+                                    </property>
+                                    <property name="buddy" stdset="0">
+                                        <cstring>rightScratch</cstring>
                                     </property>
                                 </widget>
                                 <widget class="MSpinBox">
@@ -414,6 +417,23 @@
                         </widget>
                     </grid>
                 </widget>
+                <spacer>
+                    <property name="name">
+                        <cstring>spacer3</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Vertical</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>40</height>
+                        </size>
+                    </property>
+                </spacer>
             </vbox>
         </widget>
     </grid>

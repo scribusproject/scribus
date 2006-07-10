@@ -42,6 +42,8 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "sccombobox.h"
 #include "commonstrings.h"
+#include "tabdisplay.h"
+#include "tabdocument.h"
 
 extern QPixmap loadIcon(QString nam);
 extern bool CMSavail;
@@ -77,162 +79,10 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	customText="Custom";
 	customTextTR=tr( "Custom" );
-	pageWidth = doc->pageWidth;
-	pageHeight = doc->pageHeight;
+
 	setCaption( tr( "Document Setup" ) );
-	tabPage = new QWidget( prefsWidgets, "tab" );
-	reformDocLayout = new QVBoxLayout( tabPage );
-	reformDocLayout->setSpacing( 5 );
-	reformDocLayout->setMargin( 0 );
-	reformDocLayout->setAlignment( Qt::AlignTop );
-	dsLayout4p = new QHBoxLayout;
-	dsLayout4p->setSpacing( 5 );
-	dsLayout4p->setMargin( 0 );
-	docLayout = new PageLayouts(tabPage, doc->pageSets);
-	docLayout->selectItem(doc->currentPageLayout);
-	docLayout->firstPage->setCurrentItem(doc->pageSets[doc->currentPageLayout].FirstPage);
-	dsLayout4p->addWidget( docLayout );
-
-	dsLayout4pv = new QVBoxLayout;
-	dsLayout4pv->setSpacing( 5 );
-	dsLayout4pv->setMargin( 0 );
-	dsGroupBox7 = new QGroupBox( tabPage, "GroupBox7" );
-	dsGroupBox7->setTitle( tr( "Page Size" ) );
-	dsGroupBox7->setColumnLayout(0, Qt::Vertical );
-	dsGroupBox7->layout()->setSpacing( 0 );
-	dsGroupBox7->layout()->setMargin( 0 );
-	dsGroupBox7Layout = new QHBoxLayout( dsGroupBox7->layout() );
-	dsGroupBox7Layout->setAlignment( Qt::AlignTop );
-	dsGroupBox7Layout->setSpacing( 0 );
-	dsGroupBox7Layout->setMargin( 10 );
-	dsLayout4 = new QGridLayout;
-	dsLayout4->setSpacing( 5 );
-	dsLayout4->setMargin( 0 );
-	pageSizeComboBox = new QComboBox( true, dsGroupBox7, "pageSizeComboBox" );
-	pageSizeComboBox->setEditable(false);
-	sizeQLabel = new QLabel( pageSizeComboBox, tr( "&Size:" ), dsGroupBox7, "sizeQLabel" );
-
-	PageSize *ps=new PageSize(doc->m_pageSize);
-	QStringList pageSizes=ps->sizeList();
-	pageSizeComboBox->insertStringList(ps->sizeTRList());
-	pageSizeComboBox->insertItem( customTextTR );
-	prefsPageSizeName=ps->name();
-
-	int sizeIndex=pageSizes.findIndex(ps->nameTR());
-	delete ps;
-	//set Custom if we dont have one already as old docs wont have this attribute
-	if (sizeIndex!=-1)
-		pageSizeComboBox->setCurrentItem(sizeIndex);
-	else
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
-
-	dsLayout4->addWidget( sizeQLabel, 0, 0 );
-	dsLayout4->addWidget( pageSizeComboBox, 0, 1 );
-	pageOrientationComboBox = new QComboBox( true, dsGroupBox7, "pageOrientationComboBox" );
-	orientationQLabel = new QLabel( pageOrientationComboBox, tr( "Orie&ntation:" ), dsGroupBox7, "orientationQLabel" );
-	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
-	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
-	pageOrientationComboBox->setCurrentItem(doc->PageOri);
-	pageOrientationComboBox->setEditable(false);
-	dsLayout4->addWidget( orientationQLabel, 0, 2 );
-	dsLayout4->addWidget( pageOrientationComboBox, 0, 3 );
-	widthMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
-	widthQLabel = new QLabel( tr( "&Width:" ), dsGroupBox7, "widthLabel" );
-	//widthMSpinBox->setEnabled( false );
-	widthMSpinBox->setSuffix(ein);
-	widthMSpinBox->setValue(pageWidth * unitRatio);
-	widthQLabel->setBuddy(widthMSpinBox);
-	dsLayout4->addWidget( widthQLabel, 1, 0 );
-	dsLayout4->addWidget( widthMSpinBox, 1, 1 );
-	heightMSpinBox = new MSpinBox( 1, 10000, dsGroupBox7, 2 );
-	//heightMSpinBox->setEnabled( false );
-	heightMSpinBox->setSuffix(ein);
-	heightMSpinBox->setValue(pageHeight * unitRatio);
-	heightQLabel = new QLabel(heightMSpinBox,  tr( "&Height:" ), dsGroupBox7, "heightLabel" );
-	dsLayout4->addWidget( heightQLabel, 1, 2 );
-	dsLayout4->addWidget( heightMSpinBox, 1, 3 );
-	/*if (pageSizeComboBox->currentText() == customTextTR)
-	{
-		heightMSpinBox->setEnabled( true );
-		widthMSpinBox->setEnabled( true );
-	}*/
-	unitCombo = new QComboBox( true, dsGroupBox7, "unitCombo" );
-	unitCombo->insertStringList(unitGetTextUnitList());
-	unitCombo->setEditable(false);
-	unitCombo->setCurrentItem(doc->unitIndex());
-	unitQLabel = new QLabel(unitCombo, tr( "&Unit:" ), dsGroupBox7, "unitQLabel" );
-	dsLayout4->addWidget( unitQLabel, 2, 0 );
-	dsLayout4->addWidget( unitCombo, 2, 1 );
-
-	sizeAllPages = new QCheckBox( dsGroupBox7, "moveObjects" );
-	sizeAllPages->setText( tr( "Apply size settings to all pages" ) );
-	sizeAllPages->setChecked( false );
-	dsLayout4->addMultiCellWidget( sizeAllPages, 3, 3, 0, 3 );
-
-	dsGroupBox7Layout->addLayout( dsLayout4 );
-	dsLayout4pv->addWidget( dsGroupBox7 );
-
-	GroupRand = new MarginWidget(tabPage,  tr( "Margin Guides" ), &doc->pageMargins, docUnitIndex, true );
-	GroupRand->setPageWidthHeight(pageWidth, pageHeight);
-	GroupRand->setPageSize(pageSizeComboBox->currentText());
-	dsLayout4pv->addWidget( GroupRand );
-
-	dsLayout4p->addLayout( dsLayout4pv );
-	reformDocLayout->addLayout( dsLayout4p );
-
-	/*
-	groupBox7a = new QGroupBox( tabPage, "groupBox7" );
-	groupBox7a->setTitle( tr( "Options" ) );
-	groupBox7a->setColumnLayout(0, Qt::Vertical );
-	groupBox7a->layout()->setSpacing( 0 );
-	groupBox7a->layout()->setMargin( 0 );
-	groupBox7aLayout = new QHBoxLayout( groupBox7a->layout() );
-	groupBox7aLayout->setAlignment( Qt::AlignTop );
-	groupBox7aLayout->setSpacing( 0 );
-	groupBox7aLayout->setMargin( 10 );
-	layout4a = new QGridLayout;
-	layout4a->setSpacing( 6 );
-	layout4a->setMargin( 0 );
-
-	sizeAllPages = new QCheckBox( groupBox7a, "moveObjects" );
-	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
-	sizeAllPages->setChecked( false );
-	layout4a->addMultiCellWidget( sizeAllPages, 1, 1, 0, 1 );
-
-	marginsForAllPages = new QCheckBox( groupBox7a, "moveObjects" );
-	marginsForAllPages->setText( tr( "Apply margin settings to all Pages" ) );
-	marginsForAllPages->setChecked( false );
-	layout4a->addMultiCellWidget( marginsForAllPages, 1, 1, 2, 3 );
-
-	TextLabel1_3 = new QLabel( tr( "F&irst Page Number:" ), groupBox7a, "TextLabel1_3" );
-	layout4a->addMultiCellWidget( TextLabel1_3, 0, 0, 0, 1 );
-	pageNumber = new QSpinBox( groupBox7a, "pageNumber" );
-	pageNumber->setMaxValue( 10000 );
-	pageNumber->setMinValue( 1 );
-	pageNumber->setValue(doc->FirstPnum);
-	layout4a->addWidget( pageNumber, 0, 2, Qt::AlignRight );
-	TextLabel1_3->setBuddy(pageNumber);
-	groupBox7aLayout->addLayout( layout4a );
-	reformDocLayout->addWidget( groupBox7a );
-	*/
-	groupAutoSave = new QGroupBox( tabPage, "groupAutoSave" );
-	groupAutoSave->setTitle( tr( "Autosave" ) );
-	groupAutoSave->setCheckable( true );
-	groupAutoSave->setChecked( doc->AutoSave );
-	groupAutoSave->setColumnLayout(0, Qt::Vertical );
-	groupAutoSave->layout()->setSpacing( 6 );
-	groupAutoSave->layout()->setMargin( 11 );
-	groupAutoSaveLayout = new QHBoxLayout( groupAutoSave->layout() );
-	groupAutoSaveLayout->setAlignment( Qt::AlignTop );
-	autoSaveTime = new QSpinBox( groupAutoSave, "autoSaveTime" );
-	autoSaveTime->setMinValue( 1 );
-	autoSaveTime->setMaxValue( 60 );
-	autoSaveTime->setSuffix( " " + tr("min") );
-	autoSaveTime->setValue(doc->AutoSaveTime / 1000 / 60);
-	textLabel1m = new QLabel(autoSaveTime, tr( "&Interval:" ), groupAutoSave, "textLabel1m" );
-	groupAutoSaveLayout->addWidget( textLabel1m );
-	groupAutoSaveLayout->addWidget( autoSaveTime );
-	reformDocLayout->addWidget( groupAutoSave );
+	tabPage = new TabDocument( prefsWidgets, "tab", true );
+	tabPage->hideReform();
 	addItem( tr("Document"), loadIcon("scribusdoc.png"), tabPage);
 
 	docInfos = new DocInfos(prefsWidgets, doc->documentInfo);
@@ -241,141 +91,8 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabGuides = new TabGuides(prefsWidgets, &doc->guidesSettings, &doc->typographicSettings, docUnitIndex);
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
-	tabView = new QWidget( prefsWidgets, "tabView" );
-	tabViewLayout = new QVBoxLayout( tabView, 0, 5, "tabViewLayout");
-	pageBackground = new QButtonGroup( tabView, "pageBackground" );
-	pageBackground->setTitle( tr( "Page Display" ) );
-	pageBackground->setColumnLayout(0, Qt::Vertical );
-	pageBackground->layout()->setSpacing( 5 );
-	pageBackground->layout()->setMargin( 10 );
-	pageBackgroundLayout = new QVBoxLayout( pageBackground->layout() );
-	pageBackgroundLayout->setAlignment( Qt::AlignTop );
-	layout10 = new QHBoxLayout( 0, 0, 5, "layout10");
-	textLabel9 = new QLabel( pageBackground, "textLabel9" );
-	textLabel9->setText( tr( "Color:" ) );
-	layout10->addWidget( textLabel9 );
-	backColor = new QPushButton( pageBackground, "backColor" );
-	backColor->setMinimumSize( QSize( 60, 20 ) );
-	backColor->setMaximumSize( QSize( 60, 20 ) );
-	backColor->setFlat( false );
-	backColor->setAutoDefault( false );
-	QPixmap pm5(54, 14);
-	pm5.fill(doc->papColor);
-	colorPaper = doc->papColor;
-	backColor->setPixmap(pm5);
-	backColor->setText( QString::null );
-	layout10->addWidget( backColor );
-	QSpacerItem* spacer3 = new QSpacerItem( 61, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout10->addItem( spacer3 );
-	pageBackgroundLayout->addLayout( layout10 );
-	checkUnprintable = new QCheckBox( pageBackground, "checkUnprintable" );
-	checkUnprintable->setText( tr( "Display &Unprintable Area in Margin Color" ) );
-	checkUnprintable->setAccel( QKeySequence( tr( "Alt+U" ) ) );
-	checkUnprintable->setChecked( doc->marginColored );
-	pageBackgroundLayout->addWidget( checkUnprintable );
-	checkPictures = new QCheckBox( pageBackground, "checkPictures" );
-	checkPictures->setText( tr( "Show Pictures" ) );
-	checkPictures->setChecked(doc->guidesSettings.showPic);
-	pageBackgroundLayout->addWidget( checkPictures );
-	checkLink = new QCheckBox( pageBackground, "checkLink" );
-	checkLink->setText( tr( "Show Text Chains" ) );
-	checkLink->setChecked(doc->guidesSettings.linkShown);
-	pageBackgroundLayout->addWidget( checkLink );
-	checkControl = new QCheckBox( pageBackground, "checkControl" );
-	checkControl->setText( tr( "Show Text Control Characters" ) );
-	checkControl->setChecked(doc->guidesSettings.showControls);
-	pageBackgroundLayout->addWidget( checkControl );
-	checkFrame = new QCheckBox( pageBackground, "checkFrame" );
-	checkFrame->setText( tr( "Show Frames" ) );
-	checkFrame->setChecked(doc->guidesSettings.framesShown);
-	pageBackgroundLayout->addWidget( checkFrame );
-	checkLayerM = new QCheckBox( pageBackground, "checkLayerM" );
-	checkLayerM->setText( tr( "Show Layer Indicators" ) );
-	checkLayerM->setChecked(doc->guidesSettings.layerMarkersShown);
-	pageBackgroundLayout->addWidget( checkLayerM );
-	checkRuler = new QCheckBox( pageBackground, "checkRuler" );
-	checkRuler->setText( tr( "Rulers relative to Page" ) );
-	checkRuler->setChecked(doc->guidesSettings.rulerMode);
-	pageBackgroundLayout->addWidget( checkRuler );
-	tabViewLayout->addWidget( pageBackground );
-
-	groupScratch = new QGroupBox( tabView, "GroupBox7" );
-	groupScratch->setTitle( tr( "Minimum Scratch Space" ) );
-	groupScratch->setColumnLayout(0, Qt::Vertical );
-	groupScratch->layout()->setSpacing( 0 );
-	groupScratch->layout()->setMargin( 0 );
-	groupScratchLayout = new QHBoxLayout( groupScratch->layout() );
-	groupScratchLayout->setAlignment( Qt::AlignTop );
-	groupScratchLayout->setSpacing( 0 );
-	groupScratchLayout->setMargin( 10 );
-	layout4s = new QGridLayout;
-	layout4s->setSpacing( 6 );
-	layout4s->setMargin( 0 );
-	topScratch = new MSpinBox( groupScratch, 4 );
-	topScratch->setSuffix( ein );
-	topScratch->setDecimals( decimals );
-	topScratch->setMaxValue(1000);
-	topScratch->setValue(doc->ScratchTop * unitRatio);
-	layout4s->addWidget( topScratch, 0, 1 );
-	TextLabel5s = new QLabel(topScratch, tr( "&Top:" ), groupScratch, "TextLabel5" );
-	layout4s->addWidget( TextLabel5s, 0, 0 );
-	leftScratch = new MSpinBox( groupScratch, 4 );
-	leftScratch->setSuffix( ein );
-	leftScratch->setDecimals( decimals );
-	leftScratch->setMaxValue(1000);
-	leftScratch->setValue(doc->ScratchLeft * unitRatio);
-	layout4s->addWidget( leftScratch, 0, 3 );
-	Linkss = new QLabel(leftScratch, tr( "&Left:" ), groupScratch, "Links" );
-	layout4s->addWidget( Linkss, 0, 2 );
-	bottomScratch = new MSpinBox( groupScratch, 4 );
-	bottomScratch->setSuffix( ein );
-	bottomScratch->setDecimals( decimals );
-	bottomScratch->setMaxValue(1000);
-	bottomScratch->setValue(doc->ScratchBottom * unitRatio);
-	layout4s->addWidget( bottomScratch, 1, 1 );
-	TextLabel7s = new QLabel(bottomScratch, tr( "&Bottom:" ), groupScratch, "TextLabel7" );
-	layout4s->addWidget( TextLabel7s, 1, 0 );
-	rightScratch = new MSpinBox( groupScratch, 4 );
-	rightScratch->setSuffix( ein );
-	rightScratch->setDecimals( decimals );
-	rightScratch->setMaxValue(1000);
-	rightScratch->setValue(doc->ScratchRight * unitRatio);
-	layout4s->addWidget( rightScratch, 1, 3 );
-	Rechtss = new QLabel(rightScratch, tr( "&Right:" ), groupScratch, "Rechts" );
-	layout4s->addWidget( Rechtss, 1, 2 );
-	groupScratchLayout->addLayout( layout4s );
-	tabViewLayout->addWidget( groupScratch );
-
-	groupGap = new QGroupBox( tabView, "GroupBox7" );
-	groupGap->setTitle( tr( "Gaps between Pages" ) );
-	groupGap->setColumnLayout(0, Qt::Vertical );
-	groupGap->layout()->setSpacing( 0 );
-	groupGap->layout()->setMargin( 0 );
-	groupGapLayout = new QHBoxLayout( groupGap->layout() );
-	groupGapLayout->setAlignment( Qt::AlignTop );
-	groupGapLayout->setSpacing( 0 );
-	groupGapLayout->setMargin( 10 );
-	layout4sg = new QGridLayout;
-	layout4sg->setSpacing( 6 );
-	layout4sg->setMargin( 0 );
-	gapHorizontal = new MSpinBox( groupGap, 4 );
-	gapHorizontal->setSuffix( ein );
-	gapHorizontal->setDecimals( decimals );
-	gapHorizontal->setMaxValue(1000);
-	gapHorizontal->setValue(doc->pageSets[doc->currentPageLayout].GapHorizontal * unitRatio);
-	layout4sg->addWidget( gapHorizontal, 0, 1 );
-	TextLabel5sg = new QLabel(gapHorizontal, tr( "Horizontal:" ), groupGap, "TextLabel5" );
-	layout4sg->addWidget( TextLabel5sg, 0, 0 );
-	gapVertical = new MSpinBox( groupGap, 4 );
-	gapVertical->setSuffix( ein );
-	gapVertical->setDecimals( decimals );
-	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(doc->pageSets[doc->currentPageLayout].GapBelow * unitRatio);
-	layout4sg->addWidget( gapVertical, 0, 3 );
-	TextLabel7sg = new QLabel(gapVertical, tr( "Vertical:" ), groupGap, "Links" );
-	layout4sg->addWidget( TextLabel7sg, 0, 2 );
-	groupGapLayout->addLayout( layout4sg );
-	tabViewLayout->addWidget( groupGap );
+	tabView = new TabDisplay( prefsWidgets, "tabView" );
+	tabView->hideReform();
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSettings);
@@ -385,11 +102,11 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ScMW->LangTransl);
-	tabHyphenator->verbose->setChecked(!doc->docHyphenator->Automatic);
-	tabHyphenator->input->setChecked(doc->docHyphenator->AutoCheck);
-	tabHyphenator->language->setCurrentText(ScMW->LangTransl[doc->docHyphenator->Language]);
-	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
-	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
+// 	tabHyphenator->verbose->setChecked(!doc->docHyphenator->Automatic);
+// 	tabHyphenator->input->setChecked(doc->docHyphenator->AutoCheck);
+// 	tabHyphenator->language->setCurrentText(ScMW->LangTransl[doc->docHyphenator->Language]);
+// 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
+// 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
 	tabFonts = new FontPrefs(prefsWidgets, true, ScMW->PrefsPfad, doc);
@@ -411,7 +128,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	tabTOCIndexPrefs = new TOCIndexPrefs( prefsWidgets );
 	tabTOCIndexPrefs->setupItemAttrs( docAttributesList );
 	tabTOCIndexPrefs->setup(&(currDoc->docToCSetups), currDoc);
-	connect( prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(setTOCIndexData(QWidget *)));
 	addItem( tr("Table of Contents and Indexes"), loadIcon("tabtocindex.png"), tabTOCIndexPrefs);
 
 	tabDocSections = new DocSections(prefsWidgets);
@@ -426,96 +142,43 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	}
 
 	setDS(doc->currentPageLayout);
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	pageHeight = heightMSpinBox->value() / unitRatio;
-	//tooltips
-	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable the display of linked text frames.") + "</qt>");
-	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
-	QToolTip::add( checkFrame, "<qt>" + tr("Turns the display of frames on or off") + "</qt>");
-	QToolTip::add( checkLayerM, "<qt>" + tr("Turns the display of layer indicators on or off") + "</qt>");
-	QToolTip::add( checkPictures, "<qt>" + tr("Turns the display of pictures on or off") + "</qt>");
-	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>" );
-	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
-//	QToolTip::add( facingPages, "<qt>" + tr( "Enable single or spread based layout" ) + "</qt>" );
-//	QToolTip::add( firstPage, "<qt>" + tr( "Make the first page the left page of the document" ) + "</qt>" );
-	QToolTip::add( sizeAllPages, "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
 
 	// signals and slots connections
-	connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
+	connect(tabPage->docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
+	connect(tabPage->unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 	connect(backToDefaults, SIGNAL(clicked()), this, SLOT(restoreDefaults()));
-	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
-	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
+	connect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 
 	if (CMSavail)
 	{
 		prefsWidgets->raiseWidget(cmsTab);
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 	}
+
 	arrangeIcons();
 	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
 	prefsSelection->setSelected(prefsSelection->firstItem(), true);
 	itemSelected(prefsSelection->firstItem());
+	restoreDefaults();
 }
 
 void ReformDoc::restoreDefaults()
 {
+	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	//QWidget* current = prefsWidgets->visibleWidget();
 	//if (current == tabPage)
 	//{
-	unitCombo->setCurrentItem(currDoc->unitIndex());
-	unitChange();
-	autoSaveTime->setValue(currDoc->AutoSaveTime / 1000 / 60);
-	groupAutoSave->setChecked( currDoc->AutoSave );
-	//pageNumber->setValue(currDoc->FirstPnum);
-	docLayout->selectItem(currDoc->currentPageLayout);
-	setDS(currDoc->currentPageLayout);
-	docLayout->firstPage->setCurrentItem(currDoc->pageSets[currDoc->currentPageLayout].FirstPage);
-	/* PV - moved into MarginWidget class
-	GroupRand->rightR->setValue(currDoc->pageMargins.Right * unitRatio);
-	GroupRand->bottomR->setValue(currDoc->pageMargins.Bottom * unitRatio);
-	GroupRand->leftR->setValue(currDoc->pageMargins.Left * unitRatio);
-	GroupRand->topR->setValue(currDoc->pageMargins.Top * unitRatio);
-	GroupRand->RandR = GroupRand->rightR->value() / unitRatio;
-	GroupRand->RandL = GroupRand->leftR->value() / unitRatio;
-	GroupRand->RandB = GroupRand->bottomR->value() / unitRatio;
-	GroupRand->RandT = GroupRand->topR->value() / unitRatio; */
-	GroupRand->setNewMargins(currDoc->pageMargins.Top,
-							 currDoc->pageMargins.Bottom,
-							 currDoc->pageMargins.Left,
-							 currDoc->pageMargins.Right);
+	tabPage->restoreDefaults(prefsData);
 	//}
 	//else if (current == tabView)
 	//{
-	QPixmap pm(54, 14);
-	pm.fill(currDoc->papColor);
-	colorPaper = currDoc->papColor;
-	backColor->setPixmap(pm);
-	checkUnprintable->setChecked( currDoc->marginColored );
-	checkPictures->setChecked(currDoc->guidesSettings.showPic);
-	checkLink->setChecked(currDoc->guidesSettings.linkShown);
-	checkFrame->setChecked(currDoc->guidesSettings.framesShown);
-	checkLayerM->setChecked(currDoc->guidesSettings.layerMarkersShown);
-	checkRuler->setChecked(currDoc->guidesSettings.rulerMode);
-	topScratch->setValue(currDoc->ScratchTop * unitRatio);
-	leftScratch->setValue(currDoc->ScratchLeft * unitRatio);
-	bottomScratch->setValue(currDoc->ScratchBottom * unitRatio);
-	rightScratch->setValue(currDoc->ScratchRight * unitRatio);
-	gapHorizontal->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapHorizontal * unitRatio);
-	gapVertical->setValue(currDoc->pageSets[currDoc->currentPageLayout].GapBelow * unitRatio);
+	tabView->restoreDefaults(prefsData);
 	//}
 	//else if (current == tabHyphenator)
 	//{
-	tabHyphenator->verbose->setChecked(!currDoc->docHyphenator->Automatic);
-	tabHyphenator->input->setChecked(currDoc->docHyphenator->AutoCheck);
-	tabHyphenator->language->setCurrentText(ScMW->LangTransl[currDoc->docHyphenator->Language]);
-	tabHyphenator->wordLen->setValue(currDoc->docHyphenator->MinWordLen);
-	tabHyphenator->maxCount->setValue(currDoc->docHyphenator->HyCount);
+	tabHyphenator->restoreDefaults(prefsData);
 	//}
 	//else if (current == tabGuides)
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
@@ -537,181 +200,34 @@ void ReformDoc::restoreDefaults()
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 	//else if (current == docInfos)
 	docInfos->restoreDefaults();
+
+	unitChange();
 }
 
 void ReformDoc::unitChange()
 {
-	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	int decimalsOld;
 	double oldUnitRatio = unitRatio;
-	double oldMin, oldMax, val;
-	QString einh;
-	docUnitIndex = unitCombo->currentItem();
-	unitRatio=unitGetRatioFromIndex(docUnitIndex);
-	decimals=unitGetDecimalsFromIndex(docUnitIndex);
-	einh=unitGetSuffixFromIndex(docUnitIndex);
-
-	widthMSpinBox->setSuffix(einh);
-	heightMSpinBox->setSuffix(einh);
-	tabGuides->minorSpace->setSuffix(einh);
-	tabGuides->majorSpace->setSuffix(einh);
-	tabGuides->snapDistance->setSuffix(einh);
-	tabGuides->baseGrid->setSuffix(einh);
-	tabGuides->baseOffset->setSuffix(einh);
-	tabTools->gapText->setSuffix(einh);
-	topScratch->setSuffix(einh);
-	bottomScratch->setSuffix(einh);
-	leftScratch->setSuffix(einh);
-	rightScratch->setSuffix(einh);
-	gapVertical->setSuffix( einh );
-	gapHorizontal->setSuffix( einh );
-
+	//double oldMin, oldMax, oldB, oldBM, oldH, oldHM, val;
+	docUnitIndex = tabPage->unitCombo->currentItem();
+	unitRatio = unitGetRatioFromIndex(docUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
+	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
-	widthMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	widthMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageWidth * unitRatio);
-	heightMSpinBox->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	heightMSpinBox->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, currDoc->pageHeight * unitRatio);
-	tabGuides->minorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabGuides->minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabGuides->majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabGuides->majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabGuides->snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabGuides->snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabGuides->baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabGuides->baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabGuides->baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabGuides->baseOffset->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabTools->gapText->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabTools->gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabTools->gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	tabTools->gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	topScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	topScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	bottomScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	bottomScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	leftScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	leftScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	rightScratch->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	rightScratch->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	gapVertical->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	gapVertical->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	gapHorizontal->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	gapHorizontal->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	tabPDF->unitChange(einh, docUnitIndex, decimals, invUnitConversion);
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	pageHeight = heightMSpinBox->value() / unitRatio;
-	GroupRand->unitChange(unitRatio, decimals, einh);
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-}
-
-void ReformDoc::changePaperColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorPaper, this);
-	if (neu.isValid())
-	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorPaper = neu;
-		backColor->setPixmap(pm);
-	}
+	
+	tabPage->unitChange();
+	tabGuides->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
+	tabView->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
+	tabTools->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
+	tabPDF->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 }
 
 void ReformDoc::setDS(int layout)
 {
-	GroupRand->setFacingPages(!(layout == singlePage));
+	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
-	docLayout->firstPage->setCurrentItem(currDoc->pageSets[choosenLayout].FirstPage);
-	gapHorizontal->setValue(currDoc->pageSets[choosenLayout].GapHorizontal * unitRatio);
-	gapVertical->setValue(currDoc->pageSets[choosenLayout].GapBelow * unitRatio);
-}
-
-void ReformDoc::setPageWidth(int)
-{
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	GroupRand->setPageWidth(pageWidth);
-	QString psText=pageSizeComboBox->currentText();
-	if (psText!=customTextTR && psText!=customText)
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
-}
-
-void ReformDoc::setPageHeight(int)
-{
-	pageHeight = heightMSpinBox->value() / unitRatio;
-	GroupRand->setPageHeight(pageHeight);
-	QString psText=pageSizeComboBox->currentText();
-	if (psText!=customTextTR && psText!=customText)
-		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
-}
-
-void ReformDoc::setPageSize()
-{
-	setOrien(pageOrientationComboBox->currentItem());
-}
-
-void ReformDoc::setSize(const QString & gr)
-{
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	pageHeight = heightMSpinBox->value() / unitRatio;
-	/*
-	widthMSpinBox->setEnabled(false);
-	heightMSpinBox->setEnabled(false);
-	*/
-	PageSize *ps2=new PageSize(gr);
-	prefsPageSizeName=ps2->name();
-	if (gr == customTextTR)
-	{
-		/*
-		widthMSpinBox->setEnabled(true);
-		heightMSpinBox->setEnabled(true);
-		*/
-	}
-	else
-	{
-		pageWidth = ps2->width();
-		pageHeight = ps2->height();
-	}
-	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	widthMSpinBox->setValue(pageWidth * unitRatio);
-	heightMSpinBox->setValue(pageHeight * unitRatio);
-	GroupRand->setPageHeight(pageHeight);
-	GroupRand->setPageWidth(pageWidth);
-	GroupRand->setPageSize(gr);
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	delete ps2;
-}
-
-void ReformDoc::setOrien(int ori)
-{
-	double br;
-	setSize(pageSizeComboBox->currentText());
-	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	if (ori == 0)
-	{
-		if (pageSizeComboBox->currentText() == customTextTR)
-		{
-			br = widthMSpinBox->value();
-			widthMSpinBox->setValue(heightMSpinBox->value());
-			heightMSpinBox->setValue(br);
-		}
-	}
-	else
-	{
-		br = widthMSpinBox->value();
-		widthMSpinBox->setValue(heightMSpinBox->value());
-		heightMSpinBox->setValue(br);
-	}
-	pageWidth = widthMSpinBox->value() / unitRatio;
-	pageHeight = heightMSpinBox->value() / unitRatio;
-	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
+	tabPage->docLayout->firstPage->setCurrentItem(currDoc->pageSets[choosenLayout].FirstPage);
+	tabView->gapHorizontal->setValue(currDoc->pageSets[choosenLayout].GapHorizontal * unitRatio);
+	tabView->gapVertical->setValue(currDoc->pageSets[choosenLayout].GapBelow * unitRatio);
 }
 
 void ReformDoc::switchCMS(bool enable)
@@ -719,16 +235,18 @@ void ReformDoc::switchCMS(bool enable)
 	tabPDF->enableCMS(enable);
 }
 
-void ReformDoc::setTOCIndexData(QWidget *widgetToShow)
+void ReformDoc::showWidgetInStack(QWidget *widgetToShow)
 {
 	//Update the attributes list in TOC setup
 	if (widgetToShow==tabTOCIndexPrefs)
 		tabTOCIndexPrefs->setupItemAttrs( tabDocItemAttributes->getDocAttributesNames() );
+	if (widgetToShow == tabTools)
+		tabTools->enableFontPreview(true);
 }
 
 const int ReformDoc::getSelectedUnit()
 {
-	return unitCombo->currentItem();
+	return tabPage->unitCombo->currentItem();
 }
 
 const bool ReformDoc::colorManagementSettingsChanged()
@@ -744,35 +262,35 @@ const bool ReformDoc::imageResolutionChanged()
 void ReformDoc::updateDocumentSettings()
 {
 	double tpr2, lr2, rr2, br2;
-	tpr2 = GroupRand->top();
-	br2 = GroupRand->bottom();
-	lr2 = GroupRand->left();
-	rr2 = GroupRand->right();
+	tpr2 = tabPage->marginGroup->top();
+	br2 = tabPage->marginGroup->bottom();
+	lr2 = tabPage->marginGroup->left();
+	rr2 = tabPage->marginGroup->right();
 	int fp = choosenLayout;
-	currDoc->pageSets[fp].FirstPage = docLayout->firstPage->currentItem();
-	currDoc->pageSets[fp].GapHorizontal = gapHorizontal->value() / currDoc->unitRatio();
-	currDoc->pageSets[fp].GapBelow = gapVertical->value() / currDoc->unitRatio();
+	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentItem();
+	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
+	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
-	currDoc->PageOri = pageOrientationComboBox->currentItem();
+	currDoc->PageOri = tabPage->pageOrientationComboBox->currentItem();
 	currDoc->m_pageSize = prefsPageSizeName;
-	currDoc->pageWidth = pageWidth;
-	currDoc->pageHeight = pageHeight;
-	double TopD = topScratch->value() / currDoc->unitRatio() - currDoc->ScratchTop;
-	double LeftD = leftScratch->value() / currDoc->unitRatio() - currDoc->ScratchLeft;
-	currDoc->ScratchBottom = bottomScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchLeft = leftScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchRight = rightScratch->value() / currDoc->unitRatio();
-	currDoc->ScratchTop = topScratch->value() / currDoc->unitRatio();
+	currDoc->pageWidth = tabPage->pageW;
+	currDoc->pageHeight = tabPage->pageH;
+	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->ScratchTop;
+	double LeftD = tabView->leftScratch->value() / currDoc->unitRatio() - currDoc->ScratchLeft;
+	currDoc->ScratchBottom = tabView->bottomScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchLeft = tabView->leftScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchRight = tabView->rightScratch->value() / currDoc->unitRatio();
+	currDoc->ScratchTop = tabView->topScratch->value() / currDoc->unitRatio();
 	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
-		if (sizeAllPages->isChecked())
+		if (tabPage->sizeAllPages->isChecked())
 		{
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
 		}
-		if (GroupRand->getMarginsForAllPages())
+		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;
@@ -783,12 +301,12 @@ void ReformDoc::updateDocumentSettings()
 	for (uint p = 0; p < currDoc->MasterPages.count(); ++p)
 	{
 		Page *pp = currDoc->MasterPages.at(p);
-		if (sizeAllPages->isChecked())
+		if (tabPage->sizeAllPages->isChecked())
 		{
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
 		}
-		if (GroupRand->getMarginsForAllPages())
+		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;
@@ -806,18 +324,18 @@ void ReformDoc::updateDocumentSettings()
 		item->setRedrawBounding();
 	}
 	currDoc->guidesSettings.before = tabGuides->inBackground->isChecked();
-	currDoc->marginColored = checkUnprintable->isChecked();
+	currDoc->marginColored = tabView->checkUnprintable->isChecked();
 	currDoc->papColor = colorPaper;
 	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
-	currDoc->guidesSettings.framesShown = checkFrame->isChecked();
-	currDoc->guidesSettings.layerMarkersShown = checkLayerM->isChecked();
+	currDoc->guidesSettings.framesShown = tabView->checkFrame->isChecked();
+	currDoc->guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
 	currDoc->guidesSettings.gridShown = tabGuides->checkGrid->isChecked();
 	currDoc->guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
 	currDoc->guidesSettings.baseShown = tabGuides->baselineBox->isChecked();
-	currDoc->guidesSettings.showPic = checkPictures->isChecked();
-	currDoc->guidesSettings.linkShown = checkLink->isChecked();
-	currDoc->guidesSettings.showControls = checkControl->isChecked();
-	currDoc->guidesSettings.rulerMode = checkRuler->isChecked();
+	currDoc->guidesSettings.showPic = tabView->checkPictures->isChecked();
+	currDoc->guidesSettings.linkShown = tabView->checkLink->isChecked();
+	currDoc->guidesSettings.showControls = tabView->checkControl->isChecked();
+	currDoc->guidesSettings.rulerMode = tabView->checkRuler->isChecked();
 	currDoc->guidesSettings.grabRad = tabGuides->grabDistance->value();
 	currDoc->guidesSettings.guideRad = tabGuides->snapDistance->value() / currDoc->unitRatio();
 	currDoc->guidesSettings.minorGrid = tabGuides->minorSpace->value() / currDoc->unitRatio();
@@ -959,8 +477,8 @@ void ReformDoc::updateDocumentSettings()
 	else
 		viewToRecalcPictureRes=false;
 	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC, &currDoc->toolSettings.polyFd, &currDoc->toolSettings.polyF, &currDoc->toolSettings.polyS, &currDoc->toolSettings.polyR);
-	currDoc->AutoSave = groupAutoSave->isChecked();
-	currDoc->AutoSaveTime = autoSaveTime->value() * 60 * 1000;
+	currDoc->AutoSave = tabPage->GroupAS->isChecked();
+	currDoc->AutoSaveTime = tabPage->ASTime->value() * 60 * 1000;
 	if (currDoc->AutoSave)
 	{
 		currDoc->autoSaveTimer->stop();

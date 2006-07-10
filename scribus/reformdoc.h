@@ -41,6 +41,9 @@ class DocumentItemAttributes;
 class TOCIndexPrefs;
 class MarginWidget;
 class PageLayouts;
+class TabDisplay;
+class TabDocument;
+
 
 class SCRIBUS_API ReformDoc : public PrefsDialogBase
 {
@@ -60,14 +63,14 @@ public:
 	int docUnitIndex;
 	int decimals;
 	double unitRatio;
-	double pageWidth;
-	double pageHeight;
+/*	double pageWidth;
+	double pageHeight;*/
 	int choosenLayout;
 	QColor colorPaper;
 	QString prefsPageSizeName;
 
 protected:
-	QVBoxLayout* reformDocLayout;
+/*	QVBoxLayout* reformDocLayout;
 	QHBoxLayout* dsGroupBox7Layout;
 	QHBoxLayout* groupBox7aLayout;
 	QHBoxLayout* groupScratchLayout;
@@ -80,57 +83,30 @@ protected:
 	QGridLayout* layout4a;
 	QGridLayout* layout4s;
 	QHBoxLayout* Layout3;
-	QVBoxLayout* tabViewLayout;
+// 	QVBoxLayout* tabViewLayout;
 	QVBoxLayout* buttonGroup1Layout;
 	QHBoxLayout* layout7;
 	QVBoxLayout* pageBackgroundLayout;
 	QHBoxLayout* layout10;
-	QHBoxLayout* groupAutoSaveLayout;
+	QHBoxLayout* groupAutoSaveLayout;*/
 	QStringList docAttributesList;
 	
-	QWidget* tabPage;
-	PageLayouts* docLayout;
-	MarginWidget* GroupRand;
-	QGroupBox* groupBox7a;
-	QGroupBox* dsGroupBox7;
-	QGroupBox* groupScratch;
-	QLabel* TextLabel5s;
-	QLabel* TextLabel7s;
-	QLabel* TextLabel1_3;
-	QSpinBox* pageNumber;
-	MSpinBox* widthMSpinBox;
-	MSpinBox* heightMSpinBox;
-	QCheckBox* sizeAllPages;
-	//QCheckBox* marginsForAllPages;
-	MSpinBox* topScratch;
-	MSpinBox* bottomScratch;
-	MSpinBox* leftScratch;
-	MSpinBox* rightScratch;
-	QGroupBox* groupGap;
-	MSpinBox* gapVertical;
-	MSpinBox* gapHorizontal;
-	QLabel* TextLabel5sg;
-	QLabel* TextLabel7sg;
-	QLabel* Linkss;
-	QLabel* Rechtss;
-	QLabel*	widthQLabel;
-	QLabel*	heightQLabel;
-	QLabel*	unitQLabel;
-	QLabel*	sizeQLabel;
-	QLabel*	orientationQLabel;
-	QComboBox*	pageSizeComboBox;
-	QComboBox*	pageOrientationComboBox;
-	QCheckBox* checkLink;
-	QCheckBox* checkFrame;
-	QCheckBox* checkLayerM;
-	QCheckBox* checkPictures;
-	QCheckBox* checkControl;
-	QCheckBox* checkRuler;
+	TabDocument* tabPage;
+
+// 	PageLayouts* docLayout;
+// 	MarginWidget* GroupRand;
+// 	QGroupBox* groupBox7a;
+// 	QGroupBox* dsGroupBox7;
+// 	QGroupBox* groupScratch;
+// 	QLabel* TextLabel5s;
+// 	QLabel* TextLabel7s;
+// 	QLabel* TextLabel1_3;
+// 	QSpinBox* pageNumber;
 
 	DocInfos* docInfos;
 	DocSections* tabDocSections;
 	TabGuides* tabGuides;
-	QWidget* tabView;
+	TabDisplay* tabView;
 	TabTypograpy* tabTypo;
 	TabTools* tabTools;
 	HySettings* tabHyphenator;
@@ -139,13 +115,8 @@ protected:
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;
 	QLabel* textLabel9;
-	QPushButton* backColor;
-	QButtonGroup* pageBackground;
-	QCheckBox* checkUnprintable;
-	QGroupBox* groupAutoSave;
+
 	QLabel* textLabel1m;
-	QSpinBox* autoSaveTime;
-	QComboBox* unitCombo;
 	DocumentItemAttributes* tabDocItemAttributes;
 	TOCIndexPrefs* tabTOCIndexPrefs;
 	
@@ -156,15 +127,9 @@ protected:
 protected slots:
 	virtual void restoreDefaults();
 	virtual void unitChange();
-	virtual void changePaperColor();
 	virtual void setDS(int layout);
-	virtual void setPageSize();
-	virtual void setSize(const QString &);
-	virtual void setOrien(int ori);
-	virtual void setPageWidth(int v);
-	virtual void setPageHeight(int v);
 	virtual void switchCMS(bool enable);
-	virtual void setTOCIndexData(QWidget *widgetToShow);
+	virtual void showWidgetInStack(QWidget *widgetToShow);
 	virtual void applyChangesButton_clicked();
 };
 

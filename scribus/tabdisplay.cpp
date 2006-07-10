@@ -209,3 +209,8 @@ void TabDisplay::drawRuler()
 	p.end();
 	CaliRuler->setPixmap(pm);
 }
+
+void TabDisplay::hideReform()
+{
+	CaliGroup->hide();
+}

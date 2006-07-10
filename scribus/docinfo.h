@@ -8,15 +8,18 @@ for which a new license (GPL+exception) is in place.
 #define DOCINFOS_H
 
 #include <qtabwidget.h>
-#include <qlabel.h>
-#include <qlayout.h>
-#include <qlineedit.h>
-#include <qmultilineedit.h>
 
 #include "scribusapi.h"
 #include "documentinformation.h"
 
-/*! The DocInfos class is now part of the ReformDoc multi widgets storage.
+class QLineEdit;
+class QMultiLineEdit;
+class QLabel;
+class QWidget;
+class QGridLayout;
+
+
+/*! \brief The DocInfos class is now part of the ReformDoc multi widgets storage.
 See reformdoc.h as reference. The return values are handled via. getDocInfo()
 method. It can be used as standalone widget. */
 class SCRIBUS_API DocInfos : public QTabWidget
@@ -27,15 +30,15 @@ public:
 	DocInfos( QWidget* parent, DocumentInformation& docInfo );
 	~DocInfos() {};
 
-	/*! Class wide DocumentInformation& docInfo reference. */
+	/*! \brief Class wide DocumentInformation& docInfo reference. */
 	DocumentInformation infos;
 
-	/*! Returns the changed values.
+	/*! \brief Returns the changed values.
 	Used e.g. in ScribusMainWindow::SetupDoc().
 	\retval DocumentInformation structure */
 	DocumentInformation getDocInfo();
 
-	/*! (Re)loads the document informations.
+	/*! \brief (Re)loads the document informations.
 	See e.g. ReformDoc::restoreDefaults() */
 	void restoreDefaults();
 
