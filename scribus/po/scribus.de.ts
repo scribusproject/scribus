@@ -2975,7 +2975,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Multiple Duplicate</source>
-        <translation>&amp;Mehrfach Duplizieren</translation>
+        <translation>&amp;Mehrfach duplizieren</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -4164,7 +4164,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Read Only</source>
-        <translation>Nur Lesen</translation>
+        <translation>Nur lesen</translation>
     </message>
     <message>
         <source>Required</source>
@@ -4188,11 +4188,11 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>No Print</source>
-        <translation>Nicht Drucken</translation>
+        <translation>Nicht drucken</translation>
     </message>
     <message>
         <source>No View</source>
-        <translation>Nicht Sichtbar</translation>
+        <translation>Nicht sichtbar</translation>
     </message>
     <message>
         <source>Appearance</source>
@@ -4276,7 +4276,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Default is Checked</source>
-        <translation>Standardeinstellung ist angekreuzt</translation>
+        <translation>Standardeinstellung ist markiert</translation>
     </message>
     <message>
         <source>Editable</source>
@@ -4806,7 +4806,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
-        <translation>Frontend für den Pure Postscript Barcode Writer</translation>
+        <translation>Scribus-Dialog für den Pure Postscript Barcode Writer</translation>
     </message>
 </context>
 <context>
@@ -4904,7 +4904,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>The numeric representation of the code itself. See the help message below</source>
-        <translation>Die Zahlen, die in dem Strichcode vorkommen. Siehe Hilfe unten</translation>
+        <translation>Die Zahlen, die in dem Strichcode vorkommen. Siehe die Hilfe unten</translation>
     </message>
     <message>
         <source>Reset the barcode samples</source>
@@ -4932,7 +4932,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
-        <translation>Einen Pfeil als Sicherheitsabstand um den Strichcode zeichnen</translation>
+        <translation>Pfeile als Sicherheitsabstand um den Strichcode zeichnen</translation>
     </message>
     <message>
         <source>Colors</source>
@@ -5119,7 +5119,7 @@ Bitte wählen Sie eine andere.</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation>Wählen Sie eine Bibliothek, die Sie importieren möchten</translation>
+        <translation>Wählen Sie eine Bibliothek aus, die Sie importieren möchten</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
@@ -5431,13 +5431,13 @@ dass dies sehr genaue Geräteprofile erfordert.</translation>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation>Standard-Rendering für Füllfarben. Verändern Sie die Einstellung nur, wenn Sie wissen, was Sie tun.
-Hier sollte entweder Relativ farbmetrisch oder Wahrnehmung ausgewählt sein.</translation>
+Hier sollte entweder Relativ farbmetrisch oder Wahrnehmung ausgewählt werden.</translation>
     </message>
     <message>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation>Standard-Rendering für Bilder. Verändern Sie die Einstellung nur, wenn Sie wissen, was Sie tun.
-Hier sollte entweder Relativ farbmetrisch oder Wahrnehmung ausgewählt sein.</translation>
+Hier sollte entweder Relativ farbmetrisch oder Wahrnehmung ausgewählt werden.</translation>
     </message>
     <message>
         <source>Simulate a full color managed environment :
@@ -5827,7 +5827,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
     <message>
         <source>Check again</source>
-        <translation>Nochmal überprüfen</translation>
+        <translation>Nochmals überprüfen</translation>
     </message>
     <message>
         <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
@@ -5846,7 +5846,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
-        <translation>Stil wählen</translation>
+        <translation>Stile wählen</translation>
     </message>
     <message>
         <source>Available Styles</source>
@@ -5951,7 +5951,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>Import colors to the current set from an existing document</source>
-        <translation>Importiert Farben von einem existierenden Dokument</translation>
+        <translation>Importiert Farben aus einem existierenden Dokument</translation>
     </message>
     <message>
         <source>Create a new color within the current set</source>
@@ -6034,11 +6034,11 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>Monochromatic Light</source>
-        <translation>Monochromatisch Hell</translation>
+        <translation>Monochromatisch hell</translation>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation>Monochromatisch Dunkel</translation>
+        <translation>Monochromatisch dunkel</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
@@ -6141,7 +6141,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Vorhandene Dokumentfarben mit den neuen Farben ersetzen</translation>
+        <translation>Vorhandene Dokumentfarben durch die neuen Farben ersetzen</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
@@ -6233,7 +6233,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>Fa&amp;rben erstzen</translation>
+        <translation>Fa&amp;rben ersetzen</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
@@ -6266,7 +6266,7 @@ zusammengestellt werden</translation>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
         <translation>Klicken Sie in das Farbrad, um die Ausgangsfarbe zu erhalten. 
-Diese ist Farbe (Hue) im HSV-Modus.</translation>
+Diese wird durch Hue-Wert des HSV-Modus angegeben.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
@@ -6275,7 +6275,7 @@ Diese ist Farbe (Hue) im HSV-Modus.</translation>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
         <translation>Wählen Sie eine der Methoden zur Erstellung eines Farbschemas aus.
-Die Dokumentaion enthält nähere Informationen hierzu.</translation>
+Die Dokumentation enthält nähere Informationen hierzu.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
@@ -6602,7 +6602,7 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>Value delimiter:</source>
-        <translation>Werttrenner:</translation>
+        <translation>Texttrenner:</translation>
     </message>
     <message>
         <source>None</source>
@@ -6623,7 +6623,7 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     <message>
         <source>None</source>
         <comment>delimiter</comment>
-        <translation>Kein</translation>
+        <translation>Keiner</translation>
     </message>
 </context>
 <context>
@@ -6727,7 +6727,7 @@ Fehlende Bibliotheken werden durch ein Sternchen angezeigt</translation>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
         <translation>Führt zum Dokumentenverzeichnis.
-Dieses können Sie in unter Allgemeine Einstellungen festlegen.</translation>
+Dieses können Sie in unter Datei - Allgemeine Einstellungen festlegen.</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
@@ -7646,7 +7646,7 @@ failed!</source>
     </message>
     <message>
         <source>Converting of %1 images failed!</source>
-        <translation>Fehler beim konvertieren von %1 Bildern!</translation>
+        <translation>Fehler beim Konvertieren von %1 Bildern!</translation>
     </message>
 </context>
 <context>
@@ -7992,7 +7992,7 @@ failed!</source>
         <source>The output directory - the place to store your images.
 Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</source>
         <translation>Das Ausgabeverzeichnis - dort werden Ihre Bilder gespeichert.
-Dateinamen der Bilder haben das Format &quot;NamedesDokuments-Seite.Dateiformat&quot;</translation>
+Dateinamen der Bilder haben das Format &quot;Dokumentname-Seite.Dateiformat&quot;</translation>
     </message>
     <message>
         <source>Export only the current page</source>
@@ -8497,7 +8497,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Der Pfad, in dem nach Schriften gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schließen Sie alle Dokumente und ändern Sie den Pfad unter Datei &gt; Allgemeine Einstellungen.</translation>
+        <translation>Der Pfad, in dem nach Schriften gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schließen Sie alle Dokumente und ändern Sie den Pfad unter Datei - Allgemeine Einstellungen.</translation>
     </message>
     <message>
         <source>Embed in PostScript</source>
@@ -8572,7 +8572,7 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation>Gewählte Schrift dem Stil zuweisen</translation>
+        <translation>Gewählte Schrift ins Menü Stil - Schriftart aufnehmen</translation>
     </message>
     <message>
         <source>Leave preview</source>
@@ -9033,7 +9033,7 @@ im Dokument gespeichert.</translation>
     <message>
         <source>Sorry, no manual available! Please see: http://docs.scribus.net for updated docs
 and www.scribus.net for downloads.</source>
-        <translation>Leider ist kein Handbuch verfügbar! Auf http://docs.scribus.net finden Sie aktualisierte Handbücher, und auf http://www.scribus.net finden Sie weitere Downloads.</translation>
+        <translation>Leider ist kein Handbuch verfügbar! Auf http://docs.scribus.net finden Sie aktualisierte Handbücher und auf http://www.scribus.net weitere Downloads.</translation>
     </message>
     <message>
         <source>Contents</source>
@@ -9193,7 +9193,7 @@ Null bedeutet unbegrenzt.</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
-        <translation>Wenn Sie die Funktion Extras &gt; Silbentrennung anwenden benutzen, können Sie in einem Dialog aus allen möglichen Trennungen für jedes Wort wählen.</translation>
+        <translation>Wenn Sie die Funktion Extras - Silbentrennung anwenden benutzen, können Sie in einem Dialog aus allen möglichen Trennungen für jedes Wort wählen.</translation>
     </message>
     <message>
         <source>Enables automatic hyphenation of your text while typing.</source>
@@ -9680,7 +9680,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation>Negativ Multiplizieren</translation>
+        <translation>Negativ multiplizieren</translation>
     </message>
     <message>
         <source>Overlay</source>
@@ -9798,7 +9798,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation>LinienStileWBase</translation>
+        <translation>LinienStyleWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -10043,7 +10043,7 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Randeinstellung von einem vorhandenen Drucker importieren.</translation>
+        <translation>Ränder für die ausgewählte Seitengröße von einem der vorhandenen Drucker importieren.</translation>
     </message>
 </context>
 <context>
@@ -10643,7 +10643,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Set radius of corner rounding</source>
-        <translation>Radius der Eckrundung setzen</translation>
+        <translation>Radius der Eckenrundung setzen</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
@@ -11557,7 +11557,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Imports most OpenOffice.org Draw files into the current document, converting their vector data into Scribus objects.</source>
-        <translation>Importiert die meisten OpenOffice.org Draw-Dateien in das aktuelle Dokument und wandelt deren Vektordaten in Scribus-Objekte um.</translation>
+        <translation>Importiert die meisten OpenOffice.org-Draw-Dateien in das aktuelle Dokument und wandelt deren Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>OpenDocument 1.0 Draw</source>
@@ -11779,7 +11779,7 @@ Funktioniert nur mit Type-1-Schriftarten</translation>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Benutzt zur Vorschau CMYK anstelle der RGB-Farben</translation>
+        <translation>Benutzt zur Druckvorschau eine Simulation generischer CMYK-Tinten anstelle der RGB-Farben</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
@@ -12852,7 +12852,7 @@ des Dokuments mit der Erweiterung .bak</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation>&amp;Rad-Vorschub:</translation>
+        <translation>&amp;Radvorschub:</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -13278,7 +13278,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Länge der Undo-History. 0 bedeutet unendlich viele Aktionen werden aufgezeichnet.</translation>
+        <translation>Anzahl der rückgängig zu machenden Aktionen. 0 bedeutet, dass unendlich viele Aktionen aufgezeichnet werden.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
@@ -13364,7 +13364,7 @@ If set to 0 infinite amount of actions will be stored.</source>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation>Sollen die Einstellungen aus Scribus 1.2 übernommen werden?</translation>
+        <translation>Sollen die Einstellungen aus älteren Scribus-Versionen übernommen werden?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
@@ -13482,7 +13482,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>Nine Parts</source>
-        <translation>Neun Bereiche</translation>
+        <translation>Neunerteilung</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
@@ -13594,7 +13594,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
-        <translation>Python Script öffnen</translation>
+        <translation>Python-Script öffnen</translation>
     </message>
 </context>
 <context>
@@ -13749,11 +13749,11 @@ Eigene Farben &amp;definieren &gt;&gt;</translation>
     </message>
     <message>
         <source>Read-only</source>
-        <translation>Nur Lesen</translation>
+        <translation>Nur lesen</translation>
     </message>
     <message>
         <source>Write-only</source>
-        <translation>Nur Schreiben</translation>
+        <translation>Nur schreiben</translation>
     </message>
     <message>
         <source>Inaccessible</source>
@@ -14041,7 +14041,7 @@ Datei wurde nicht gefunden.
     <message>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
-        <translation>Wollen sie die Datei
+        <translation>Wollen Sie die Datei
 %1
 wirklich überschreiben?</translation>
     </message>
@@ -14460,7 +14460,7 @@ Externe Links</translation>
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT*-Konstanten.</translation>
+        <translation>Einheit außerhalb des Bereichs. Benutzen Sie eine der UNIT_*-Konstanten.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
@@ -15011,7 +15011,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
-        <translation>Scribus Entwickerversion</translation>
+        <translation>Scribus-Entwickerversion</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The current document you are working with was originally created in Scribus 1.2.2 or lower. The process of saving will make this file unusable again in Scribus 1.2.2 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
@@ -15528,7 +15528,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation>Veränderte Schrift gefunden, Überprüfung läuft...</translation>
+        <translation>Geänderte Schrift gefunden, Überprüfung läuft...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
@@ -15544,11 +15544,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation>Sie arbeiten mit einer Entwicklerversion von Scribus 1.3.x. Das Dokument, mit dem Sie arbeiten, wurde mit Scribus 1.2.x oder niedriger erstellt. Wenn Sie jetzt speichern, können Sie die Datei nicht mehr in Scribus 1.2.x verwenden, es sei denn, Sie verwenden die Funktion Datei &gt; Speichern unter. Wollen Sie fortfahren?</translation>
+        <translation>Sie arbeiten mit einer Entwicklerversion von Scribus 1.3.x. Das Dokument, mit dem Sie arbeiten, wurde mit Scribus 1.2.x oder niedriger erstellt. Wenn Sie jetzt speichern, können Sie die Datei nicht mehr in Scribus 1.2.x verwenden, es sei denn, Sie speichern sie als separate Datei im 1.3.x-Format und bearbeiten diese weiter. Wollen Sie fortfahren?</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation>Die Änderungen am Dokument wurden nicht gesichert und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
+        <translation>Die Änderungen am Dokument wurden nicht gesichert, und Sie möchten zur gespeicherten Version zurückkehren. Wollen Sie das wirklich?</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
@@ -16126,7 +16126,7 @@ is not exhaustive due to exceptions from called functions.
     <name>RunScriptDialog</name>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python Scripte (*.py);; Alle Dateien (*)</translation>
+        <translation>Python-Scripte (*.py);; Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Run as Extension Script</source>
@@ -17388,7 +17388,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation>Story-Editor wird initialisiert</translation>
+        <translation>Story Editor wird initialisiert</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
@@ -17827,7 +17827,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation>Ghostscript fehlt: Die Postscript Druckvorschau ist nicht verfügbar</translation>
+        <translation>Ghostscript fehlt: Die Postscript-Druckvorschau ist nicht verfügbar</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
@@ -17878,7 +17878,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
-        <translation>Benutzt xx als Kurzversion für eine Sprache, z.B. &apos;en&apos; oder &apos;de&apos;</translation>
+        <translation>Benutzt xx als Abkürzung für eine Sprache, z.B. &apos;en&apos; oder &apos;de&apos;</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
@@ -18089,7 +18089,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation>Sie versuchen, einen Rahmen mit sich selbst zu verketten.</translation>
+        <translation>Sie versuchen einen Rahmen mit sich selbst zu verketten.</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
@@ -18211,7 +18211,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
-        <translation>Pythonscripts (*.py);; Alle Dateien (*)</translation>
+        <translation>Python-Scripte (*.py);; Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Documentation for:</source>
@@ -18223,7 +18223,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
-        <translation>(sp)enthält keinen docstring!</translation>
+        <translation>enthält keinen docstring!</translation>
     </message>
 </context>
 <context>
@@ -18269,7 +18269,7 @@ umgewandelt werden</translation>
     <message>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
-        <translation>Stichworte:</translation>
+        <translation>Stichwörter:</translation>
     </message>
     <message>
         <source>Signs:</source>
@@ -18706,7 +18706,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Do you want to save your changes?</source>
-        <translation>Wollen Sie die Änderungen speichern?</translation>
+        <translation>Wollen Sie Ihre Änderungen speichern?</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
@@ -18936,31 +18936,31 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Text unterstreichen. Halten Sie den Button gedrückt, um die Linienbreite und den Versatz selbst zu bestimmen.</translation>
+        <translation>Text unterstreichen. Halten Sie die Maustaste gedrückt, um die Linienbreite und den Versatz selbst zu bestimmen.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Nur Wörter unterstreichen. Halten Sie den Button gedrückt, um die Linienbreite und den Versatz selbst zu bestimmen.</translation>
+        <translation>Nur Wörter unterstreichen. Halten Sie die Maustaste gedrückt, um die Linienbreite und den Versatz selbst zu bestimmen.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Durchgestrichen. Halten Sie den Button gedrückt, um die Linienbreite und den Versatz selbst zu bestimmen.</translation>
+        <translation>Durchgestrichen. Halten Sie die Maustaste gedrückt, um die Linienbreite und den Versatz selbst zu bestimmen.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation>Umriss. Halten Sie den Button gedrückt, um die Linienbreite selbst zu bestimmen.</translation>
+        <translation>Umriss. Halten Sie die Maustaste gedrückt, um die Linienbreite selbst zu bestimmen.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation>Schattierter Text. Halten Sie den Button gedrückt, um den Abstand des Schattens selbst zu bestimmen.</translation>
+        <translation>Schattierter Text. Halten Sie die Maustaste gedrückt, um den Abstand des Schattens selbst zu bestimmen.</translation>
     </message>
 </context>
 <context>
     <name>SxwDialog</name>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
-        <translation>Name der Datei vor jedem Absatzstil anfügen</translation>
+        <translation>Namen der Datei vor jedem Absatzstil anfügen</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -18972,7 +18972,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
-        <translation>Optionen für den OpenOffice.org Writer-Import</translation>
+        <translation>Optionen für den OpenOffice.org-Writer-Import</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -19094,7 +19094,7 @@ umgewandelt werden</translation>
     <name>TOCIndexPrefsBase</name>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation>Inhaltsverzeichnis und Index</translation>
+        <translation>Inhaltsverzeichnisse und Indices</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
@@ -19323,7 +19323,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation>&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muss das Programm gswin32c.exe ausgewählt sein, und NICHT gswin32.exe. Andernfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
+        <translation>&lt;qt&gt;Pfad zum Ghostscript-Interpreter. Auf Windows-Systemen muss das Programm gswin32c.exe ausgewählt sein, NICHT gswin32.exe. Anderenfalls könnte Scribus beim Start abstürzen.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
@@ -20385,7 +20385,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation>Geben Sie mit Kommata getrennt die Seiten ein, die verarbeitet werden sollen. * steht für alle Seiten, 1-5 für einen Bereich oder eine einzelne Seite. </translation>
+        <translation>Geben Sie, durch Kommata getrennt, die Seiten ein, die verarbeitet werden sollen. * steht für alle Seiten, 1-5 für einen Bereich oder eine einzelne Seite. </translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
@@ -20489,11 +20489,11 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Double Page Left</source>
-        <translation>Doppelseite Links</translation>
+        <translation>Doppelseite links</translation>
     </message>
     <message>
         <source>Double Page Right</source>
-        <translation>Doppelseite Rechts</translation>
+        <translation>Doppelseite rechts</translation>
     </message>
     <message>
         <source>Visual Appearance</source>
@@ -20573,11 +20573,11 @@ der PDF-Datei ausgeführt wird:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation>Aktiviert die Präsentationseffekte beim Öffnen der Datei in Adobe&amp;#174; Reader&amp;#174; im Vollbildmodus und anderen PDF-Viewern, die das unterstützen.</translation>
+        <translation>Aktiviert die Präsentationseffekte beim Öffnen der Datei in Adobe&amp;#174; Reader&amp;#174; im Vollbildmodus und anderen PDF-Betrachtern, die diese unterstützen.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation>Ebenen werden mit exportiert. Nur bei Version PDF 1.5.</translation>
+        <translation>Ebenen werden mit exportiert. Nur in PDF-1.5-Dateien möglich.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
@@ -21130,7 +21130,7 @@ werden ignoriert</translation>
     </message>
     <message>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
-        <translation>Scribus konnte den Browser %1 nicht starten. Bitte überprüfen Sie die Einstellungen</translation>
+        <translation>Scribus konnte den Browser %1 nicht starten. Bitte überprüfen Sie Ihre Einstellungen</translation>
     </message>
 </context>
 <context>
@@ -21262,7 +21262,7 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation>Objekte einbezogen</translation>
+        <translation>Einbezogene Objekte</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -21428,7 +21428,7 @@ bis %2</translation>
     </message>
     <message>
         <source>Set kerning</source>
-        <translation>Kerning festlegen</translation>
+        <translation>Unterschneidung festlegen</translation>
     </message>
     <message>
         <source>Set line spacing</source>
@@ -21540,7 +21540,7 @@ bis %2</translation>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation>Kontourlinie bearbeiten</translation>
+        <translation>Konturlinie bearbeiten</translation>
     </message>
     <message>
         <source>Edit shape</source>
@@ -21548,7 +21548,7 @@ bis %2</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation>Kontourlinie zurücksetzen</translation>
+        <translation>Konturlinie zurücksetzen</translation>
     </message>
     <message>
         <source>Add page</source>
@@ -22111,7 +22111,7 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
-        <translation>Kopieren Sie die existierende template.xml nach template.lang_COUNTRY.xml (derselbe Ländercode wie bei den qm-Dateien), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
+        <translation>Kopieren Sie die existierende template.xml in eine Datei mit der Bezeichnung template.lang_COUNTRY.xml (ersetzen Sie COUNTRY durch denselben Ländercode wie bei den po/qm-Dateien für Ihre Sprache), zum Beispiel template.fi.xml für Finnisch. Diese Kopie muss sich im selben Verzeichnis wie template.xml befinden.</translation>
     </message>
 </context>
 <context>
