@@ -225,7 +225,44 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+unit, pagesType, firstPageOrder) -&gt; bool
+
+ПОПЕРЕДЖЕННЯ:  Ця функція була зворотньо адаптована з 1.3.х серії. Використовуйте
+константу PAGE_3 і більші на Ваш ризик, так же як і значення константи firstPageOrder більше за 1.
+
+Створює новий документ та повертає true при умові успішного завершення. Параметри мають
+такі значенні:
+
+size = Тупль (ширина, висота), який описує розмір документа. Ви можете використовувати
+попередньо визначені константи PAPER_&lt;тип паперу&gt;, напр. PAPER_A4 і т.п.
+
+margins = Тупль (ліве, праве, верхнє, нижнє), який описує поля документа.
+
+orientation = Орієнтація сторінки - константи PORTRAIT, LANDSCAPE.
+
+firstPageNumer = Номер першої пронумерованої сторінки документа. Хоча в більшості випадків
+використовується 1, можливе використання більших значень, наприклад при створенні документа, 
+який складається з кількох частин.
+
+unit = Це значення встановлює одиниці виміру, які використовуються в документі. Використовуйте 
+для цього попередньо визначені константи, такі як UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = Одна з попередньо визначених констант PAGE_n. PAGE_1 означає одну сторінку,
+PAGE_2 - для двосторонніх документів, PAGE_3 для 3-х сторінкових брошур, а PAGE_4 для 4-х 
+сторінкових.
+
+firstPageOrder = Позиція першої сторінки документа, які індексуються з нуля (0 = перша сторінка).
+
+Значення ширини, висоти та полів виражаються в установлених одиницях виміру документа. Константи
+PAPER_* виражаються в точках. Якщо одиниці виміру Вашого документа не являються точками, то
+майте на увазі неспівпадання їх з одиницями розміру паперу.
+
+Приклад: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS, PAGE_4, 3)
+
+Може повернути помилку ScribusError, якщо значення firstPageOrder більше ніж дозволено pagesType.
+</translation>
     </message>
 </context>
 <context>
@@ -2418,7 +2455,7 @@ is not in points, make sure to account for this.
 example: newDoc(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,
                 FACINGPAGES, FIRSTPAGERIGHT)
 </source>
-        <translation type="unfinished">newDoc(size, margins, orientation, firstPageNumber,
+        <translation>newDoc(size, margins, orientation, firstPageNumber,
                    unit, facingPages, firstSideLeft) -&gt; bool
 
 Створює новий документ та повертає true в разі успіху. Параметри мають
@@ -2462,7 +2499,16 @@ use text frame linking. Without this parameter it search all linking chain.
 
 May raise WrongFrameTypeError if the target frame is not an text frame
 </source>
-        <translation type="unfinished"></translation>
+        <translation>textOverflows([&quot;name&quot;, nolinks]) -&gt; ціле число
+
+Повертає реальне число знаків, які переповнили текстову рамку &quot;name&quot;.
+Якщо значення nolinks не дорівнює нулю, то зв&quot;язки між текстовими рамками
+не будуть використовуватися. Без установки цього параметра буде проглянуто
+весь ланцюг з&quot;єднаних рамок. 
+
+Може повернути помилку WrongFrameTypeError, якщо цільова рамка не являється
+текстовою
+</translation>
     </message>
     <message>
         <source>zoomDocument(double)
@@ -2470,7 +2516,12 @@ May raise WrongFrameTypeError if the target frame is not an text frame
 Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>zoomDocument(double)
+
+Змінює масштабування зображення документа в головному вікні інтерфейса.
+Значення повинні бути дійсними числами типу 20.0, 100.0, і т.д. Масштабувати
+по розміру використовує 100 як мітку.
+</translation>
     </message>
 </context>
 <context>
@@ -2690,7 +2741,7 @@ tiff</translation>
     </message>
     <message>
         <source>Japanese:</source>
-        <translation type="unfinished"></translation>
+        <translation>Японська:</translation>
     </message>
 </context>
 <context>
@@ -2775,7 +2826,10 @@ UCR найчастіше впливає на ті частини зображе�
 the media size of the PostScript file.
 Not recommended unless
  requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволяє Вам явно установити
+розмір паперу для друку у PostScript 
+файлі. Не рекомендується використовувати
+без рекомендації професійного друкаря.</translation>
     </message>
 </context>
 <context>
@@ -3436,11 +3490,11 @@ Not recommended unless
     </message>
     <message>
         <source>JavaScript</source>
-        <translation type="unfinished"></translation>
+        <translation>JavaScript</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Зображення (*.tif *.png *.jpg *.xpm);;Постскрипт (*.eps);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -4347,12 +4401,13 @@ This can be set in the Preferences.</source>
     <name>DocIm</name>
     <message>
         <source>Importing failed</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортування не вдалося</translation>
     </message>
     <message>
         <source>Importing Word document failed 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Імпортувати файла Ворд не вдалося
+%1</translation>
     </message>
 </context>
 <context>
@@ -4637,7 +4692,7 @@ to utilize additional printing options</source>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли постскрипту (*.ps);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -5034,7 +5089,7 @@ be saved in its current form. The error was:
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли JavaScript (*.js);;Всі файли (*)</translation>
     </message>
 </context>
 <context>
@@ -5400,7 +5455,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>Постскрипт</translation>
     </message>
 </context>
 <context>
@@ -6311,7 +6366,15 @@ The table in the center of the dialog lists what macros are currently loaded and
 &lt;p&gt;&lt;b&gt;Edit:&lt;/b&gt; If the macro can be edited, &quot;Yes&quot; appears in this column. Usually if a macro cannot be edited it was created using the register_macro command in a script.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Accel:&lt;/b&gt; The menu shortcut key sequence, if any, associated with the macro. For example, CTRL-F8 means that you can press Control-F8 when in Scribus to run the macro.&lt;/p&gt;
 &lt;p&gt;&lt;b&gt;Description:&lt;/b&gt; If the macro contains a &quot;docstring&quot;, a special string at the start of its definition that describes it, that is shown here. If the docstring is long, only the beginning is shown - use &quot;What&apos;s This&quot; on the macro&apos;s entry in the Macro menu to see the full description.&lt;/p&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Ця таблиця містить всі визначені на даний час макроси.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Макрос:&lt;/b&gt; Назва макроса, як вказано на панелі меню та в інших місцях в Scribus.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Редагувати:&lt;/b&gt; Якщо макрос можна редагувати, то у цій колонці буде написано &quot;Так&quot;. Звичайно макрос неможливо редагувати, якщо
+він був створений командою сценарія register_macro.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Гар. послід.:&lt;/b&gt; Гаряча послідовність клавіш, яка відповідає макросу. Наприклад, CTRL-F8 означає, що Ви можете натиснути Control-F8
+при використанні Scribus, щоб запустити макрос.&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;Опис:&lt;/b&gt; Якщо макрос містить &quot;docstring&quot; - особливе строкове значення на початку свого визначення, то воно буде тут показано. Якщо
+docstring довга - буде показано лише його початок. Використовуйте інструмент &quot;Що це?&quot; на меню макросів, щоб побачити повний опис.&lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -7290,7 +7353,7 @@ Please choose another.</source>
     </message>
     <message>
         <source>New Template %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Новий шаблон %1</translation>
     </message>
 </context>
 <context>
@@ -7727,7 +7790,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
+        <translation>Вихід</translation>
     </message>
 </context>
 <context>
@@ -8434,35 +8497,36 @@ Unless you have a reason, leave this checked. This reduces PDF size.</source>
     </message>
     <message>
         <source>Image Compression Methods</source>
-        <translation type="unfinished"></translation>
+        <translation>Методи стиснення зображень</translation>
     </message>
     <message>
         <source>JPEG - Lossy</source>
-        <translation type="unfinished"></translation>
+        <translation>JPEG - З втратами якості</translation>
     </message>
     <message>
         <source>Zip - Lossless</source>
-        <translation type="unfinished"></translation>
+        <translation>Zip - Без втрат якості</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вставити розділений комами список знаків де знак * означає всі сторінки, 1-5 означає діапазон сторінок, а окреме число означає певну сторінку.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Згенерувати зменшені зображення кожної сторінки в PDF. Деякі програми для перегляду можуть
+використовувати зменшені зображення для навігації.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic, unless you have a need for special compression options. This only applies to JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод стиснення зображень. Автоматичний дозволяє Scribus вибрати найкращий метод. ZIP не приводить до втрати якості і гарно підходить для зображень з однотонними кольорами. JPEG краще працює при створенні PDF файлів меншого розміру, які містять багато фотографічних зображень (з деякою втратою якості зображень). Залиште цю установку автоматичною якщо у Вас немає потреби в особливих методах стиснення. Ця установка відноситься лише до JPEG зображень</translation>
     </message>
     <message>
         <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%) - This only affects JPEG images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ступені стиснення: Мінімальна (25%), Низька (50%), Середня (75%), Висока (85%), Максимальна (95%) - впливає лише на JPEG зображення.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перерахувати растрові зображення до вибраного ТНД. Не вибирайте цю установку і зображення залишаться в початковому вигляді. Може привести до збільшення використання пам&quot;яті на сповільнення експорту.</translation>
     </message>
 </context>
 <context>
@@ -9967,15 +10031,15 @@ Gimp і Ваш дистрибутив його включає, ми рекоме
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Інтерпретатор постскрипту</translation>
     </message>
     <message>
         <source>File system location for the GhostScript interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>Розміщення інтерпретатора GhostScript на файловій системі</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Метод видалення деяких відтінків сірого, які компонуються з салатового, жовтого, та малинового кольорів та використання чорного кольору натомість. Найбільше впливає на частини зображень з нейтральними або темними тонами близькими до сірого кольору. Може покращити друк деяких зображень. У кожному конкретному випадку рекомендується попереднє тестування та підбір. Знижує ймовірність перенасичення паперу чорнилами.</translation>
     </message>
 </context>
 <context>
@@ -11371,37 +11435,37 @@ NoValidObjectError, якщо не зможе знайти жодного об&ap
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>Зміни і Вашому документі не були записані а Ви збираєтеся їх відмінити. Ви бажаєте продовжувати?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Значення firstPageOrder більше допустимого.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Лише текстові рамки можуть бути перевірені на переповнення</translation>
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Джонгха</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Ісландська</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Шрифт %1 (знайдений за допомогою fontconfig) не відповідає вимогам - видалено</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Не вдалося завантажити шрифт - freetype не зміг знайти файл шрифта</translation>
     </message>
     <message>
         <source>Word Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Документи Ворд</translation>
     </message>
 </context>
 <context>
@@ -11764,35 +11828,35 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     <name>ScToolBar</name>
     <message>
         <source>Top</source>
-        <translation type="unfinished"></translation>
+        <translation>Зверху</translation>
     </message>
     <message>
         <source>Right</source>
-        <translation type="unfinished">Правий край</translation>
+        <translation>Справа</translation>
     </message>
     <message>
         <source>Bottom</source>
-        <translation type="unfinished"></translation>
+        <translation>Знизу</translation>
     </message>
     <message>
         <source>Left</source>
-        <translation type="unfinished">Лівий край</translation>
+        <translation>Зліва</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Дозволити приєднування компонентів...</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished">Горизонтально</translation>
+        <translation>Горизонтально</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished">Вертикально</translation>
+        <translation>Вертикально</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Плаваюча орієнтація...</translation>
     </message>
 </context>
 <context>
@@ -12992,27 +13056,27 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарії JavaScript...</translation>
     </message>
     <message>
         <source>&amp;JavaScripts...</source>
-        <translation type="unfinished"></translation>
+        <translation>Сценарії &amp;JavaScript...</translation>
     </message>
     <message>
         <source>GhostScript : You cannot use EPS Images</source>
-        <translation type="unfinished"></translation>
+        <translation>GhostScript : Ви не можете використовувати EPS зображення</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Файли EPS (*.eps);;Всі файли (*)</translation>
     </message>
     <message>
         <source>Norwegian</source>
-        <translation type="unfinished">Норвезька</translation>
+        <translation>Норвезька</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Ісландська</translation>
     </message>
 </context>
 <context>
@@ -13316,7 +13380,9 @@ Only scripts written to be run as extension scripts should be used with &lt;tt&g
         <source>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Enable Legacy Name Aliases&lt;/tt&gt; is an advanced option. You should probably leave it how it is.&lt;/p&gt;
 &lt;p&gt;If checked, this option will cause the scripter to create a large number of function and constant name aliases for 1.2.0 script compatibility. It defaults to checked.&lt;/p&gt;
 &lt;p&gt;This option does not take effect until Scribus is restarted.&lt;/p&gt;&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;&lt;p&gt;&lt;tt&gt;Ввімкнути псевдоніми імен для зворотньої сумісності &lt;/tt&gt; - це продвинута установка. Вам, мабуть, краще залишити її у теперішньому стані в даний час.&lt;/p&gt;
+&lt;p&gt;Якщо ввімкнути цю установку то сценарист створить багато псевдомів імен функцій та констант для зворотньої сумісності з сценаріями версії 1.2.0. По умовчанню ця установка ввімкнена.&lt;/p&gt;
+&lt;p&gt;Ця опція буде активована лише після запуску Scribus.&lt;/p&gt;&lt;/qt&gt;</translation>
     </message>
 </context>
 <context>
@@ -13883,7 +13949,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Вихід</translation>
+        <translation>Вихід</translation>
     </message>
 </context>
 <context>
