@@ -36,8 +36,8 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	docUnitRatio(unitRatio),
 	cmsDescriptorName(""),
 	components(3),
-	appPrinterProfiles(printerProfiles),
-	doc(currView->Doc)
+	doc(currView->Doc),
+	appPrinterProfiles(printerProfiles)
 {
 	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
