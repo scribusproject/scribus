@@ -3427,7 +3427,7 @@ void Mpalette::updateCmsList()
 		return;
 	if (HaveDoc)
 	{
-		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
+		if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
 			GroupBoxCM->show();
 		else
 		{
@@ -3524,7 +3524,7 @@ void Mpalette::ShowCMS()
 		updateCmsList();
 	else
 	{
-		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
+		if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
 			GroupBoxCM->show();
 		else
 			GroupBoxCM->hide();

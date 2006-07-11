@@ -185,29 +185,6 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-#ifdef HAVE_CMS
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransRGBMonG;
-extern cmsHTRANSFORM stdTransCMYKMonG;
-extern cmsHTRANSFORM stdProofG;
-extern cmsHTRANSFORM stdTransImgG;
-extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofGCG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
-extern bool BlackPoint;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool SCRIBUS_API CMSuse;
-extern int IntentColors;
-extern int IntentImages;
-#endif
-extern bool CMSavail;
-
-
 bool previewDinUse;
 bool printDinUse;
 
@@ -1837,7 +1814,7 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 	doc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
 	HaveDoc++;
 	DocNr++;
-	if (CMSavail && doc->CMSSettings.CMSinUse)
+	if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
 		recalcColors();
 	//CB NOTE should be all done now
 	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
@@ -1925,7 +1902,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		HaveDoc++;
 		DocNr++;
 	}
-	if (CMSavail && tempDoc->CMSSettings.CMSinUse)
+	if (ScCore->haveCMS() && tempDoc->CMSSettings.CMSinUse)
 		recalcColors();
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
@@ -2215,25 +2192,6 @@ void ScribusMainWindow::SwitchWin()
 {
 	updateColorMenu();
 	buildFontMenu();
-#ifdef HAVE_CMS
-	SoftProofing = doc->SoftProofing;
-	Gamut = doc->Gamut;
-	IntentColors = doc->IntentColors;
-	IntentImages = doc->IntentImages;
-	stdProofG = doc->stdProof;
-	stdTransRGBMonG = doc->stdTransRGBMon;
-	stdTransCMYKMonG = doc->stdTransCMYKMon;
-	stdProofImgG = doc->stdProofImg;
-	stdTransImgG = doc->stdTransImg;
-	stdProofCMYKG = doc->stdProofCMYK;
-	stdTransCMYKG = doc->stdTransCMYK;
-	stdTransRGBG = doc->stdTransRGB;
-	stdProofGCG = doc->stdProofGC;
-	stdProofCMYKGCG = doc->stdProofCMYKGC;
-	CMSoutputProf = doc->DocOutputProf;
-	CMSprinterProf = doc->DocPrinterProf;
-	CMSuse = doc->CMSSettings.CMSinUse;
-#endif
 	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
 	ActWin->setCaption(doc->DocName);
@@ -3267,7 +3225,7 @@ bool ScribusMainWindow::loadPage(QString fileName, int Nr, bool Mpa, const QStri
 			return false;
 		}
 		delete fl;
-		if (CMSavail && doc->CMSSettings.CMSinUse)
+		if (ScCore->haveCMS() && doc->CMSSettings.CMSinUse)
 		{
 			recalcColors();
 			doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
@@ -3389,8 +3347,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 #ifdef HAVE_CMS
 		doc->SoftProofing = false;
 		doc->Gamut = false;
-		bool cmsu = CMSuse;
-		CMSuse = false;
+		/*bool cmsu = CMSuse;
+		CMSuse = false;*/
 #endif
 		ScriptRunning = true;
 		bool loadSuccess=fileLoader->LoadFile(doc);
@@ -3425,7 +3383,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		mainWindowStatusLabel->setText("");
 		mainWindowProgressBar->reset();
 #ifdef HAVE_CMS
-		CMSuse = cmsu;
+		//CMSuse = cmsu;
 #endif
 		HaveDoc++;
 		if (doc->checkerProfiles.count() == 0)
@@ -3466,7 +3424,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 			doc->CMSSettings.CMSinUse = false;
 		}
-		if ((CMSavail) && (doc->CMSSettings.CMSinUse))
+		if ((ScCore->haveCMS()) && (doc->CMSSettings.CMSinUse))
 		{
 			bool cmsWarning = false;
 			QStringList missing;
@@ -3547,28 +3505,10 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 #ifdef HAVE_CMS
 			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
 			doc->Gamut = doc->CMSSettings.GamutCheck;
-			CMSuse = doc->CMSSettings.CMSinUse;
 			doc->IntentColors = doc->CMSSettings.DefaultIntentColors;
 			doc->IntentImages = doc->CMSSettings.DefaultIntentImages;
-			SoftProofing = doc->CMSSettings.SoftProofOn;
-			Gamut = doc->CMSSettings.GamutCheck;
-			IntentColors = doc->CMSSettings.DefaultIntentColors;
-			IntentImages = doc->CMSSettings.DefaultIntentImages;
 			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
-				CMSuse = doc->CMSSettings.CMSinUse;
-				stdProofG = doc->stdProof;
-				stdTransRGBMonG = doc->stdTransRGBMon;
-				stdTransCMYKMonG = doc->stdTransCMYKMon;
-				stdProofImgG = doc->stdProofImg;
-				stdTransImgG = doc->stdTransImg;
-				stdProofCMYKG = doc->stdProofCMYK;
-				stdTransCMYKG = doc->stdTransCMYK;
-				stdTransRGBG = doc->stdTransRGB;
-				stdProofGCG = doc->stdProofGC;
-				stdProofCMYKGCG = doc->stdProofCMYKGC;
-				CMSoutputProf = doc->DocOutputProf;
-				CMSprinterProf = doc->DocPrinterProf;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigRgbData)
 					doc->CMSSettings.ComponentsInput2 = 3;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigCmykData)
@@ -3589,8 +3529,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 					doc->CMSSettings.ComponentsPrinter = 3;
 				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 			}
-			else
-				CMSuse = false;
 #endif
 			if (doc->CMSSettings.CMSinUse)
 			{
@@ -3601,9 +3539,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		else
 		{
 			doc->CMSSettings.CMSinUse = false;
-#ifdef HAVE_CMS
-			CMSuse = doc->CMSSettings.CMSinUse;
-#endif
 		}
 		propertiesPalette->updateColorList();
 		propertiesPalette->Cpal->ChooseGrad(0);
@@ -4108,7 +4043,7 @@ bool ScribusMainWindow::DoFileClose()
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
 	}
-	if (CMSavail)
+	if (ScCore->haveCMS())
 		doc->CloseCMSProfiles();
 	//<<Palettes
 //	propertiesPalette->NewSel(-1);
@@ -4128,12 +4063,6 @@ bool ScribusMainWindow::DoFileClose()
 	//>>
 	if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
 	{
-#ifdef HAVE_CMS
-		CMSuse = false;
-		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		IntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
-		IntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
-#endif
 		scrActions["fileDocSetup"]->setEnabled(false);
 		scrActions["filePrint"]->setEnabled(false);
 		scrActions["fileSave"]->setEnabled(false);
@@ -4308,7 +4237,7 @@ void ScribusMainWindow::slotReallyPrint()
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	Druck *printer = new Druck(this, options.filename, options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
+	Druck *printer = new Druck(this, doc, options.filename, options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));

@@ -24,11 +24,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scconfig.h"
 
-#ifdef HAVE_CMS
-extern bool CMSuse;
-#endif
-extern bool CMSavail;
-
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
 								  ScribusView *currView, PDFOptions & pdfOptions,
@@ -41,7 +36,8 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	docUnitRatio(unitRatio),
 	cmsDescriptorName(""),
 	components(3),
-	appPrinterProfiles(printerProfiles)
+	appPrinterProfiles(printerProfiles),
+	doc(currView->Doc)
 {
 	setCaption( tr( "Save as PDF" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -79,7 +75,7 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	PDFExportLayout->addWidget( Name );
 	Options = new TabPDFOptions( this, pdfOptions, AllFonts, PDFXProfiles, DocFonts,
 								Eff, currView->Doc->unitIndex(), currView->Doc->pageHeight,
-								currView->Doc->pageWidth, currView );
+								currView->Doc->pageWidth, currView->Doc );
 	PDFExportLayout->addWidget( Options );
 	Layout7 = new QHBoxLayout;
 	Layout7->setSpacing( 5 );
@@ -258,7 +254,7 @@ void PDFExportDialog::updateDocOptions()
 			Opts.isGrayscale = false;
 			Opts.UseRGB = false;
 #ifdef HAVE_CMS
-			if (CMSuse)
+			if (doc->HasCMS)
 			{
 				Opts.UseProfiles = Options->EmbedProfs->isChecked();
 				Opts.UseProfiles2 = Options->EmbedProfs2->isChecked();

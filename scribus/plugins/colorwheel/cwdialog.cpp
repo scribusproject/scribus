@@ -426,7 +426,7 @@ void ColorWheelDialog::createColor()
 	QStringList tmpsl;
 
 	beginColor.fromQColor(colorWheel->actualColor);
-	CMYKChoose* dia = new CMYKChoose(this, beginColor, tr("New Color"), &tmpcl, tmpsl);
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, beginColor, tr("New Color"), &tmpcl, tmpsl);
 	if (dia->exec())
 		userColorInput(dia->Farbe.getRGBColor());
 	delete dia;

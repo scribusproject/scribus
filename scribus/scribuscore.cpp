@@ -40,33 +40,14 @@ extern ScribusQApp* ScQApp;
 
 #ifdef HAVE_CMS
 #include "cmserrorhandling.h"
-cmsHPROFILE CMSoutputProf;
-cmsHPROFILE CMSprinterProf;
-cmsHTRANSFORM stdTransRGBMonG;
-cmsHTRANSFORM stdTransCMYKMonG;
-cmsHTRANSFORM stdProofG;
-cmsHTRANSFORM stdTransImgG;
-cmsHTRANSFORM stdProofImgG;
-cmsHTRANSFORM stdTransCMYKG;
-cmsHTRANSFORM stdProofCMYKG;
-cmsHTRANSFORM stdTransRGBG;
-cmsHTRANSFORM stdProofGCG;
-cmsHTRANSFORM stdProofCMYKGCG;
-bool BlackPoint;
-bool SoftProofing;
-bool Gamut;
-bool SCRIBUS_API CMSuse;
-int IntentColors;
-int IntentImages;
 #endif
-bool CMSavail;
-
 
 ScribusCore::ScribusCore() : QObject()
 {
 	m_ScribusInitialized=false;
 	m_SplashScreen=0;
 	m_UseGUI=false;
+	m_HaveCMS=false;
 	m_PaletteParent=0;
 	m_currScMW=0;
 }
@@ -179,7 +160,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");
 	
 	ScCore->setSplashStatus( tr("Reading ICC Profiles") );
-	CMSavail = false;
+	m_HaveCMS = false;
 	getCMSProfiles();
 	initCMS();
 	/*
@@ -359,9 +340,9 @@ void ScribusCore::getCMSProfiles()
 		}
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
-		CMSavail = true;
+		m_HaveCMS = true;
 	else
-		CMSavail = false;
+		m_HaveCMS = false;
 }
 
 void ScribusCore::getCMSProfilesDir(QString pfad)
@@ -459,7 +440,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad)
 
 void ScribusCore::initCMS()
 {
-	if (CMSavail)
+	if (m_HaveCMS)
 	{
 		ProfilesL::Iterator ip;
 		if ((prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile.isEmpty()) || (!InputProfiles.contains(prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile)))
@@ -492,12 +473,6 @@ void ScribusCore::initCMS()
 			ip = PrinterProfiles.begin();
 			prefsManager->appPrefs.DCMSset.DefaultPrinterProfile = ip.key();
 		}
-#ifdef HAVE_CMS
-		SoftProofing = prefsManager->appPrefs.DCMSset.SoftProofOn;
-		CMSuse = false;
-		IntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
-		IntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
-#endif
 	}
 }
 

@@ -91,19 +91,6 @@ extern "C"
 #endif
 #ifdef HAVE_CMS
 	#include CMS_INC
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransRGBMonG;
-extern cmsHTRANSFORM stdTransCMYKMonG;
-extern cmsHTRANSFORM stdProofG;
-extern cmsHTRANSFORM stdTransImgG;
-extern cmsHTRANSFORM stdProofImgG;
-extern bool BlackPoint;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentColors;
-extern int IntentImages;
 #endif
 
 
@@ -114,28 +101,30 @@ void sDebug(QString message)
 	qDebug("%s", message.ascii());
 }
 
-QImage ProofImage(QImage *Image)
+QImage ProofImage(QImage *Image, ScribusDoc* doc)
 {
 #ifdef HAVE_CMS
 	QImage out = Image->copy();
-	if ((CMSuse) && (SoftProofing))
+	bool cmsUse = doc ? doc->HasCMS : false;
+	bool softProofing = doc ? doc->SoftProofing : false;
+	if (cmsUse && softProofing)
 	{
 		int outheight=out.height();
 		for (int i=0; i < outheight; ++i)
 		{
 			LPBYTE ptr = out.scanLine(i);
-			cmsDoTransform(stdProofImgG, ptr, ptr, out.width());
+			cmsDoTransform(doc->stdProofImg, ptr, ptr, out.width());
 		}
 	}
 	else
 	{
-		if (CMSuse)
+		if (cmsUse)
 		{
 			int outheight=out.height();
 			for (int i=0; i < outheight; ++i)
 			{
 				LPBYTE ptr = out.scanLine(i);
-				cmsDoTransform(stdTransImgG, ptr, ptr, out.width());
+				cmsDoTransform(doc->stdTransImg, ptr, ptr, out.width());
 			}
 		}
 	}

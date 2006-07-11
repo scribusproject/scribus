@@ -92,7 +92,7 @@ old contents. */
 bool SCRIBUS_API loadRawText(const QString & filename, QCString & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
-QImage SCRIBUS_API ProofImage(QImage *Im);
+QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
 /**
 * @brief Synchronously execute a new process, optionally saving its output
    *

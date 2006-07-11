@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
  */
 
 class PDFOptions;
+class ScribusDoc;
 
 /**
  * @brief PDF export dialog
@@ -75,6 +76,7 @@ protected:
 	TabPDFOptions* Options;
 
 	// Other members
+	ScribusDoc* doc;
 	QValueList<PDFPresentationData> EffVal;
 	PDFOptions & Opts;
 	double docUnitRatio;

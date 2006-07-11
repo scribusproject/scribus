@@ -20,10 +20,6 @@ void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);
 // end of utils.cpp
 //this is in file scribus.cpp
 
-#ifdef HAVE_CMS
-extern bool SCRIBUS_API CMSuse;
-#endif
-//
 
 static int minmaxi(int val, int min, int max)
 {
@@ -1094,7 +1090,7 @@ static PyObject *PDFfile_save(PDFfile *self)
 	{
 		ScCore->primaryMainWindow()->doc->PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
-		if (CMSuse)
+		if (ScCore->primaryMainWindow()->doc->HasCMS)
 		{
 			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = self->profiles;
 			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = self->profilei;

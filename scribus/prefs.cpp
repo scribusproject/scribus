@@ -51,8 +51,6 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 extern QPixmap loadIcon(QString nam);
-extern bool CMSavail;
-extern bool CMSuse;
 extern ScribusQApp* ScQApp;
 
 
@@ -99,7 +97,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
 
-	if (CMSavail)
+	if (ScCore->haveCMS())
 	{
 		tabColorManagement = new CMSPrefs(prefsWidgets, &prefsData->DCMSset, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
@@ -167,7 +165,7 @@ void Preferences::enableSignals(bool on)
 		connect(tabDocument->unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
  		connect(tabDocument->docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
 		connect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
-		if (CMSavail)
+		if (ScCore->haveCMS())
 			connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 		connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 		connect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
@@ -179,7 +177,7 @@ void Preferences::enableSignals(bool on)
 		disconnect(tabDocument->unitCombo, SIGNAL(activated(int)), this, SLOT(unitChange()));
 		disconnect(tabDocument->docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
 		disconnect(buttonOk, SIGNAL(clicked()), this, SLOT(setActionHistoryLength()));
-		if (CMSavail)
+		if (ScCore->haveCMS())
 			disconnect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
 		disconnect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 		disconnect(backToDefaults, SIGNAL(clicked()), this, SLOT(backToDefaults_clicked()));
@@ -222,7 +220,7 @@ void Preferences::setupGui()
 							docUnitIndex,
 							prefsData->PageHeight,
 							prefsData->PageWidth,
-							0);
+							0, false);
 
 	tabColorManagement->restoreDefaults(&prefsData->DCMSset, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
@@ -541,7 +539,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.Automatic = !tabHyphenator->verbose->isChecked();
 	prefsManager->appPrefs.AutoCheck = tabHyphenator->input->isChecked();
 	prefsManager->appPrefs.HyCount = tabHyphenator->maxCount->value();
-	if (CMSavail)
+	if (ScCore->haveCMS())
 		tabColorManagement->setValues();
 	uint a = 0;
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
@@ -625,7 +623,7 @@ void Preferences::updatePreferences()
 			prefsManager->appPrefs.PDF_Options.isGrayscale = false;
 			prefsManager->appPrefs.PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
-			if (CMSuse)
+			if (/*CMSuse*/ ScCore->haveCMS())
 			{
 				prefsManager->appPrefs.PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
 				prefsManager->appPrefs.PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();

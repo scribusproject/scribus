@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
+#include "scribusdoc.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
@@ -26,16 +27,14 @@ for which a new license (GPL+exception) is in place.
 #include <windows.h>
 #include <winspool.h>
 #endif
-#ifdef HAVE_CMS
-extern bool CMSuse;
-#endif
 #include "printerutil.h"
 #include "util.h"
 extern bool previewDinUse;
 
-Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
+Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
 		: QDialog( parent, "Dr", true, 0)
 {
+	m_doc = doc;
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = PSettings;
 	ToSeparation = false;
@@ -229,7 +228,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	overprintMode->setText( tr( "Force Overprint Mode" ) );
 	colorOptsLayout->addWidget( overprintMode );
 #ifdef HAVE_CMS
-	if (CMSuse)
+	if (m_doc->HasCMS)
 	{
 		UseICC = new QCheckBox( colorOpts, "UseICC" );
 		UseICC->setText( tr( "Apply ICC Profiles" ) );
@@ -281,7 +280,7 @@ Druck::Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByte
 	QToolTip::add(spotColors,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	#ifdef HAVE_CMS
-	if (CMSuse)
+	if (m_doc->HasCMS)
 		QToolTip::add(UseICC,"<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
 	#endif
 	QToolTip::add(devPar, "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
@@ -442,7 +441,7 @@ void Druck::SelPrinter(const QString& prn)
 		psLevel->setEnabled( true );
 		PrintSep->setEnabled( true );
 #ifdef HAVE_CMS
-		if (CMSuse)
+		if (m_doc->HasCMS)
 			UseICC->setEnabled( true );
 #endif
 	}
@@ -455,7 +454,7 @@ void Druck::SelPrinter(const QString& prn)
 		SepArt->setEnabled( false );
 		ToSeparation = false;
 #ifdef HAVE_CMS
-		if (CMSuse)
+		if (m_doc->HasCMS)
 		{
 			UseICC->setEnabled( false );
 			UseICC->setChecked( false );
@@ -528,7 +527,7 @@ void Druck::okButtonClicked()
 	prefs->set("doSpot", !spotColors->isChecked());
 	prefs->set("doOverprint", overprintMode->isChecked());
 #ifdef HAVE_CMS
-	if (CMSuse)
+	if (m_doc->HasCMS)
 		prefs->set("ICCinUse", UseICC->isChecked());
 #endif
 	accept();
@@ -571,7 +570,7 @@ void Druck::setStoredValues(bool gcr)
 	spotColors->setChecked(!prefs->getBool("doSpot", true));
 	overprintMode->setChecked(prefs->getBool("doOverprint", false));
 #ifdef HAVE_CMS
-	if (CMSuse)
+	if (m_doc->HasCMS)
 	{
 		bool iccInUse = prefs->getBool("ICCinUse", false);
 		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
@@ -672,7 +671,7 @@ bool Druck::doOverprint()
 bool Druck::ICCinUse()
 {
 #ifdef HAVE_CMS
-	if (CMSuse)
+	if (m_doc->HasCMS)
 		return UseICC->isChecked();
 	else
 		return false;

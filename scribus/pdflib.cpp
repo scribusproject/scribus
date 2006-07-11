@@ -62,9 +62,6 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-#ifdef HAVE_CMS
-extern bool CMSuse;
-#endif
 #ifdef HAVE_TIFF
 	#include <tiffio.h>
 #endif
@@ -1016,7 +1013,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		ObjCounter++;
 	}
 #ifdef HAVE_CMS
-	if ((CMSuse) && (Options.UseProfiles))
+	if ((doc.HasCMS) && (Options.UseProfiles))
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
@@ -1683,7 +1680,7 @@ void PDFlib::PDF_End_Page()
 			else
 #ifdef HAVE_CMS
 			{
-				if ((CMSuse) && (Options.UseProfiles))
+				if ((doc.HasCMS) && (Options.UseProfiles))
 					PutDoc("/CS "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
 				else
 #endif
@@ -2730,7 +2727,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 	else
 	{
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles))
+		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
@@ -2857,7 +2854,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 	else
 	{
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles))
+		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
@@ -3481,7 +3478,7 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	else
 	{
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles))
+		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
@@ -3537,7 +3534,7 @@ QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
 	else
 	{
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles))
+		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (Options.SComp == 3)
 			{
@@ -3592,7 +3589,7 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	else
 	{
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles))
+		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
@@ -4051,7 +4048,7 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			else
 #ifdef HAVE_CMS
 			{
-				if ((CMSuse) && (Options.UseProfiles))
+				if ((doc.HasCMS) && (Options.UseProfiles))
 					PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
 				else
 #endif
@@ -4759,7 +4756,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				else
 				{
 #ifdef HAVE_CMS
-					if ((CMSuse) && (Options.UseProfiles2))
+					if ((doc.HasCMS) && (Options.UseProfiles2))
 						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
 					else
 					{
@@ -4814,7 +4811,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 						else
 						{
 #ifdef HAVE_CMS
-							if ((CMSuse) && (Options.UseProfiles2))
+							if ((doc.HasCMS) && (Options.UseProfiles2))
 								img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
 							else
 							{
@@ -4850,7 +4847,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else
 			{
 #ifdef HAVE_CMS
-				if ((CMSuse) && (Options.UseProfiles2))
+				if ((doc.HasCMS) && (Options.UseProfiles2))
 					img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RawData, 72, &realCMYK);
 				else
 				{
@@ -4888,7 +4885,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			aufl = 1;
 		}
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles2))
+		if ((doc.HasCMS) && (Options.UseProfiles2))
 		{
 			if (!ICCProfiles.contains(Profil))
 			{
@@ -5018,7 +5015,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			else
 			{
 #ifdef HAVE_CMS
-				if ((CMSuse) && (Options.UseProfiles2) && (!realCMYK))
+				if ((doc.HasCMS) && (Options.UseProfiles2) && (!realCMYK))
 					im = img.ImageToArray();
 				else
 #endif
@@ -5033,7 +5030,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		PutDoc("/Width "+QString::number(img.width())+"\n");
 		PutDoc("/Height "+QString::number(img.height())+"\n");
 #ifdef HAVE_CMS
-		if ((CMSuse) && (Options.UseProfiles2))
+		if ((doc.HasCMS) && (Options.UseProfiles2))
 		{
 			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
 			PutDoc("/Intent /");

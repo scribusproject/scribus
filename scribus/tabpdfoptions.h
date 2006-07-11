@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 
 class PDFOptions;
 class PDFExportDialog;
+class ScribusDoc;
 
 class SCRIBUS_API TabPDFOptions : public QTabWidget
 {
@@ -45,7 +46,7 @@ public:
 	                const QMap<QString, int> & DocFonts,
 	                const QValueList<PDFPresentationData> & Eff,
 	                int unitIndex, double PageH, double PageB,
-	                ScribusView *vie = 0 );
+	                ScribusDoc *mdoc = 0, bool export = false);
 	~TabPDFOptions() {};
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
@@ -53,7 +54,7 @@ public:
 						 const QMap<QString, int> & DocFonts,
 						 const QValueList<PDFPresentationData> & Eff,
 						 int unitIndex, double PageH, double PageB,
-						 ScribusView * vie);
+						 ScribusDoc *mdoc, bool export);
 
 	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 
@@ -297,7 +298,8 @@ private:
 	QString unit;
 	int precision;
 	double unitRatio;
-	ScribusView * const view;
+	bool pdfExport;
+	ScribusDoc* const doc;
 	const SCFonts & AllFonts;
 	PDFOptions & Opts;
 	double pageH;

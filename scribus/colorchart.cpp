@@ -27,8 +27,9 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qpainter.h>
 #include "util.h"
+#include "scribusdoc.h"
 
-ColorChart::ColorChart(QWidget *parent) : QLabel(parent)
+ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QLabel(parent), m_doc(doc)
 {
 	setScaledContents( true );
 	setAlignment( static_cast<int>( QLabel::AlignCenter ) );
@@ -111,6 +112,6 @@ void ColorChart::drawPalette(int val)
 			++p;
 		}
 	}
-	pmx.convertFromImage(ProofImage(&image));
+	pmx.convertFromImage(ProofImage(&image, m_doc));
 	setPixmap(pmx);
 }

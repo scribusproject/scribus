@@ -17,6 +17,10 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribuscore.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#define sleep Sleep
+#endif
 
 UpgradeChecker::UpgradeChecker()
  : QObject()

@@ -87,6 +87,7 @@ public:
 	* @retval bool if we are swapping
 	*/
 	bool reverseDialogButtons() const;
+	bool haveCMS() const { return m_HaveCMS; }
 	int haveGS() const {return m_HaveGS;};
 	int havePNGAlpha() const {return m_HavePngAlpha;};
 	int haveTIFFSep() const {return m_HaveTiffSep;};
@@ -122,6 +123,7 @@ protected:
 	bool m_UseGUI;
 	bool m_SwapDialogButtonOrder;
 	QString m_File;
+	bool m_HaveCMS;
 	int m_HaveGS;
 	int m_HavePngAlpha;
 	int m_HaveTiffSep;

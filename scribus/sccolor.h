@@ -24,10 +24,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCCOLOR_H
 #define SCCOLOR_H
 
-#include "qstring.h"
+#include <qstring.h>
 #include <qcolor.h>
-#include "qmap.h"
+#include <qmap.h>
+#include <qguardedptr.h>
 
+class ScribusDoc;
 #include "scribusapi.h"
 
 
@@ -47,19 +49,26 @@ enum colorModel
 class SCRIBUS_API ScColor 
 {
 public:
-	ScColor();
+	ScColor(ScribusDoc* doc = NULL, bool retainDoc = false);
 /** \brief Constructs a ScColor with 4 Components
  * in the range from 0 - 255 */
-	ScColor(int c, int m, int y, int k);
+	ScColor(int c, int m, int y, int k, ScribusDoc* doc = NULL, bool retainDoc = false);
 /** \brief Constructs a RGBColor with 3 Components
  * in the range from 0 - 255 */
-	ScColor(int r, int g, int b);
+	ScColor(int r, int g, int b, ScribusDoc* doc = NULL, bool retainDoc = false);
 	~ScColor() {};
 	
+	ScColor& operator=(const ScColor& rhs);
 	bool operator==(const ScColor& rhs) const;
 	
 	/** \brief flag to enable and disable use of color management (default: true) */
 	static bool UseProf;
+
+	/** \brief Attach the color to the specified doc */
+	void setDocument(ScribusDoc* doc);
+
+	/** \brief Set if the doc should be retained on assignement */
+	void setRetainDoc(bool retainDoc);
 
 	/** \brief Same as the Constructor but for an existing Color */
 	void setColor(int c, int m, int y, int k);
@@ -79,24 +88,24 @@ public:
 	void fromQColor(QColor color);
 
 	/** \brief Returns the RGB color  */
-	QColor getRGBColor();
-	void getRawRGBColor(int *r, int *g, int *b);
-	QColor getRawRGBColor();
+	QColor getRGBColor() const;
+	void getRawRGBColor(int *r, int *g, int *b) const;
+	QColor getRawRGBColor() const;
 
 	/** \brief Returns the 4 Values that form an ScColor */
-	void getCMYK(int *c, int *m, int *y, int *k);
+	void getCMYK(int *c, int *m, int *y, int *k) const;
 
 	/** \brief Returns the 3 Values that form an RGBColor */
-	void getRGB(int *r, int *g, int *b);
+	void getRGB(int *r, int *g, int *b) const;
 
 	/** \brief get CMYK values of a specified shade */
-	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level);
+	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const;
 
 	/** \brief get RGB values of a specified shade */
-	void getShadeColorRGB(int *r, int *g, int *b, int level);
+	void getShadeColorRGB(int *r, int *g, int *b, int level) const;
 
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done. */
-	QColor getDisplayColor();
+	QColor getDisplayColor() const;
 
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done
 	* If gamut check is valid, the return value may be an gamut warning . */
@@ -104,11 +113,11 @@ public:
 
 	/** \brief Return a proofed QColor with 100% shade and optional gamut check.
 	* If color management is enabled, returned value use the monitor color space. */
-	QColor getColorProof(bool gamutCheck = false);
+	QColor getColorProof(bool gamutCheck = false) const;
 
 	/** \brief Return a proofed QColor with the specified shade.
 	* If color management is enabled, returned value use the rgb solid colors space. */
-	QColor getShadeColor(int level);
+	QColor getShadeColor(int level) const;
 
 	/** \brief Return a proofed QColor with the specified shade.
 	* If color management is enabled, returned value use the monitor color space. */
@@ -137,6 +146,12 @@ public:
 	void setRegistrationColor(bool s);
 
 private:
+	/** \brief Document to which is attached the doc */
+	QGuardedPtr<ScribusDoc> m_doc;
+
+	/** \brief If the doc pointer should be retained when assignement operator is used */
+	bool m_retainDoc;
+
 	/** \brief Cyan-Component of Color */
 	int C;
 	
@@ -175,22 +190,47 @@ private:
 
 	/** \brief Return a proofed QColor from a rgb color.
 	* If color management is enabled, returned value use the monitor color space. */
-	QColor getColorProof(int r, int g, int b, bool gamutCkeck);
+	QColor getColorProof(int r, int g, int b, bool gamutCkeck) const;
 
 	/** \brief Return a proofed QColor from a cmyk color.
 	* If color management is enabled, returned value use the monitor color space. */
-	QColor getColorProof(int c, int m, int y, int k, bool gamutCkeck);
+	QColor getColorProof(int c, int m, int y, int k, bool gamutCkeck) const;
 
 	/** \brief Return a proofed QColor from a rgb color using doc rgb color space as input.
 	* If color management is enabled, returned value use the monitor rgb color space. */
-	QColor getDisplayColor(int r, int g, int b);
+	QColor getDisplayColor(int r, int g, int b) const;
 
 	/** \brief Return a proofed QColor from a cmyk color using doc cmyk color space as input.
 	* If color management is enabled, returned value use the monitor rgb color space. */
-	QColor getDisplayColor(int c, int m, int y, int k);
+	QColor getDisplayColor(int c, int m, int y, int k) const;
 };
 
-/** \brief Definition of the Color list */
-typedef QMap<QString,ScColor> ColorList;
+class SCRIBUS_API ColorList : public QMap<QString,ScColor>
+{
+protected:
+	QGuardedPtr<ScribusDoc> m_doc;
+	bool m_retainDoc;
+public:
+	ColorList(ScribusDoc* doc = NULL, bool retainDoc = false);
+
+	ColorList& operator= (const ColorList& list);
+
+	ScColor& operator[] ( const QString & k ); 
+	const ScColor& operator[] ( const QString& k ) const;
+
+	/** \brief Assign the doc to which the list belong to. The colors containes in the list
+	* are automatically assigned the new doc pointer */
+	void setDocument(ScribusDoc* doc);
+
+	/** \brief Add colors from the specified list. Colors are assigned the doc the list belongs to */
+	void addColors(const ColorList& colorList, bool overwrite = TRUE);
+
+	/** \brief Copy colors from the specified list. Colors are assigned the doc the list belongs to */
+	void copyColors(const ColorList& colorList, bool overwrite = TRUE);
+
+	/** \brief Insert the specified color with the specified name. The inserted color is 
+	* assigned the doc the list belongs to */
+	iterator insert(const QString& key, const ScColor& color, bool overwrite = TRUE); 
+};
 
 #endif

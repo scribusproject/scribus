@@ -20,9 +20,6 @@ for which a new license (GPL+exception) is in place.
 #ifdef HAVE_CUPS
 #include <cups/cups.h>
 #endif
-#ifdef HAVE_CMS
-extern bool SCRIBUS_API CMSuse;
-#endif
 // these functions are located at utils.cpp
 bool SCRIBUS_API loadText(QString nam, QString *Buffer);
 void SCRIBUS_API ReOrderText(ScribusDoc *doc, ScribusView *view);

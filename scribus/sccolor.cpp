@@ -25,28 +25,19 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 
 #include "sccolor.h"
-
+#include "scribuscore.h"
+#include "scribusdoc.h"
 #include "scconfig.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
-	extern cmsHTRANSFORM stdTransRGBMonG;
-	extern cmsHTRANSFORM stdTransCMYKMonG;
-	extern cmsHTRANSFORM stdProofG;
-	extern cmsHTRANSFORM stdTransCMYKG;
-	extern cmsHTRANSFORM stdProofCMYKG;
-	extern cmsHTRANSFORM stdTransRGBG;
-	extern cmsHTRANSFORM stdProofGCG;
-	extern cmsHTRANSFORM stdProofCMYKGCG;
- 	extern bool SoftProofing;
-	extern bool Gamut;
-	extern bool CMSuse;
 #endif
-extern bool CMSavail;
 bool ScColor::UseProf = true;
 
-ScColor::ScColor()
+ScColor::ScColor(ScribusDoc* doc, bool retainDoc)
 {
+	m_doc = doc;
+	m_retainDoc = retainDoc;
 //	setColor(0, 0, 0, 0);
 	Model = colorModelCMYK;
 	C = M = Y = K = 0;
@@ -58,20 +49,65 @@ ScColor::ScColor()
 	Regist = false;
 }
 
-ScColor::ScColor(int c, int m, int y, int k)
+ScColor::ScColor(int c, int m, int y, int k, ScribusDoc* doc, bool retainDoc)
 {
+	m_doc = doc;
+	m_retainDoc = retainDoc;
 	setColor(c, m, y, k);
 	Spot = false;
 	outOfGamutFlag = false;
 	Regist = false;
 }
  
-ScColor::ScColor(int r, int g, int b)
+ScColor::ScColor(int r, int g, int b, ScribusDoc* doc, bool retainDoc)
 {
+	m_doc = doc;
+	m_retainDoc = retainDoc;
 	setColorRGB(r, g, b);
 	Spot = false;
 	outOfGamutFlag = false;
 	Regist = false;
+}
+
+ScColor& ScColor::operator=(const ScColor& rhs)
+{
+	Model = rhs.Model;
+	if (m_retainDoc)
+	{
+		if( Model == colorModelRGB )
+		{
+			R = rhs.R;
+			G = rhs.G;
+			B = rhs.B;
+		}
+		else
+		{
+			C = rhs.C;
+			M = rhs.M;
+			Y = rhs.Y;
+			K = rhs.K;
+		}
+		Spot = rhs.Spot;
+		Regist = rhs.Regist;
+		RecalcRGB();
+	}
+	else
+	{
+		m_doc = rhs.m_doc;
+		m_retainDoc = rhs.m_retainDoc;
+		R = rhs.R;
+		G = rhs.G;
+		B = rhs.B;
+		C = rhs.C;
+		M = rhs.M;
+		Y = rhs.Y;
+		K = rhs.K;
+		RGB = rhs.RGB;
+		Spot = rhs.Spot;
+		Regist = rhs.Regist;
+		outOfGamutFlag = rhs.outOfGamutFlag;
+	}
+	return *this;
 }
 
 bool ScColor::operator==(const ScColor& rhs) const
@@ -91,6 +127,20 @@ bool ScColor::operator==(const ScColor& rhs) const
 		return (C==rhs.C && M==rhs.M && Y==rhs.Y && K==rhs.K);
 	}
 	return false;
+}
+
+void ScColor::setDocument(ScribusDoc* doc)
+{
+	if((ScribusDoc*) m_doc != doc)
+	{
+		m_doc = doc;
+		RecalcRGB();
+	}
+}
+
+void ScColor::setRetainDoc(bool retainDoc)
+{
+	m_retainDoc = retainDoc;
 }
 
 void ScColor::setColor(int c, int m, int y, int k)
@@ -130,19 +180,19 @@ void ScColor::fromQColor(QColor color)
 	setColorRGB(r, g, b);
 }
 
-QColor ScColor::getRGBColor()
+QColor ScColor::getRGBColor() const
 {
 	return RGB;
 }
 
-QColor ScColor::getShadeColor(int level)
+QColor ScColor::getShadeColor(int level) const
 {
 	int r, g, b;
 	getShadeColorRGB(&r, &g, &b, level);
 	return QColor(r, g, b);
 }
  
-void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
+void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const
 {
 	if (Model == colorModelRGB)
 	{
@@ -161,7 +211,7 @@ void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
 	}
 }
 
-void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level)
+void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level) const
 {
 	int h, s, v, snew;
 	
@@ -192,7 +242,7 @@ void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level)
 	}
 }
 
-QColor ScColor::getDisplayColor()
+QColor ScColor::getDisplayColor() const
 {
 	QColor tmp;
 	if (Model == colorModelRGB)
@@ -205,7 +255,9 @@ QColor ScColor::getDisplayColor()
 QColor ScColor::getDisplayColorGC()
 {
 	QColor tmp;
-	if( SoftProofing && Gamut )
+	bool doSoftProofing = m_doc ? m_doc->SoftProofing : false;
+	bool doGamutCheck = m_doc ? m_doc->Gamut : false;
+	if( doSoftProofing && doGamutCheck )
 	{
 		checkGamut();
 		tmp = outOfGamutFlag ? QColor(0, 255, 0) : getDisplayColor();
@@ -215,13 +267,14 @@ QColor ScColor::getDisplayColorGC()
 	return tmp;
 }
 
-QColor ScColor::getColorProof(bool gamutCheck)
+QColor ScColor::getColorProof(bool gamutCheck) const
 {
 	QColor tmp;
+	bool gamutChkEnabled = m_doc ? m_doc->Gamut : false;
 	if (Model == colorModelRGB)
-		tmp = getColorProof(R, G, B, gamutCheck & Gamut);
+		tmp = getColorProof(R, G, B, gamutCheck & gamutChkEnabled);
 	else
-		tmp = getColorProof(C, M, Y, K, gamutCheck & Gamut);
+		tmp = getColorProof(C, M, Y, K, gamutCheck & gamutChkEnabled);
 	return tmp;
 }
 
@@ -231,7 +284,9 @@ QColor ScColor::getShadeColorProof(int level)
 	ScColor tmp2;
 	int r, g, b, c, m ,y, k;
 #if defined HAVE_CMS
-	bool doGC = Gamut;
+	bool doGC = false;
+	if (m_doc)
+		doGC = m_doc->Gamut;
 #else
 	bool doGC = false;
 #endif
@@ -250,26 +305,26 @@ QColor ScColor::getShadeColorProof(int level)
 	return tmp;
 }
 
-void ScColor::getRawRGBColor(int *r, int *g, int *b)
+void ScColor::getRawRGBColor(int *r, int *g, int *b) const
 {
 	*r = 255-QMIN(255, C+K);
 	*g = 255-QMIN(255, M+K);
 	*b = 255-QMIN(255, Y+K);
 }
 
-QColor ScColor::getRawRGBColor()
+QColor ScColor::getRawRGBColor() const
 {
 	return QColor(255-QMIN(255, C+K), 255-QMIN(255, M+K), 255-QMIN(255, Y+K));
 }
 
-void ScColor::getRGB(int *r, int *g, int *b)
+void ScColor::getRGB(int *r, int *g, int *b) const
 {
 	*r = R;
 	*g = G;
 	*b = B;
 }
 
-void ScColor::getCMYK(int *c, int *m, int *y, int *k)
+void ScColor::getCMYK(int *c, int *m, int *y, int *k) const
 {
 	*c = C;
 	*m = M;
@@ -280,7 +335,8 @@ void ScColor::getCMYK(int *c, int *m, int *y, int *k)
 void ScColor::applyGCR()
 {
 #ifdef HAVE_CMS
-	if (!(CMSuse && CMSavail))
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if (!(ScCore->haveCMS() && cmsUse))
 	{
 #endif
 		int k = QMIN(QMIN(C, M), Y);
@@ -408,7 +464,8 @@ void ScColor::checkGamut()
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if (CMSuse && CMSavail)
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if (ScCore->haveCMS() && cmsUse)
 	{
 		bool alert = true;
 		cmsHTRANSFORM xformProof;
@@ -417,7 +474,7 @@ void ScColor::checkGamut()
 			inC[0] = R*257;
 			inC[1] = G*257;
 			inC[2] = B*257;
-			xformProof = stdProofGCG;
+			xformProof = m_doc->stdProofGC;
 			if ((R == 0) && (B == 0) && (G == 255))
 				alert = false;
 			if ((R == G && G == B))
@@ -429,7 +486,7 @@ void ScColor::checkGamut()
 			inC[1] = M*257;
 			inC[2] = Y*257;
 			inC[3] = K*257;
-			xformProof = stdProofCMYKGCG;
+			xformProof = m_doc->stdProofCMYKGC;
 			if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
 				alert = false;
 			if ((M == 0) && (C == 0) && (Y == 0))
@@ -454,7 +511,8 @@ void ScColor::RecalcRGB()
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
-	if ((CMSuse && CMSavail) && (!Spot))
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if ((ScCore->haveCMS() && cmsUse) && (!Spot))
 	{
 		if (Model == colorModelRGB)
 		{
@@ -469,7 +527,7 @@ void ScColor::RecalcRGB()
 				inC[0] = R * 257;
 				inC[1] = G * 257;
 				inC[2] = B * 257;
-				cmsDoTransform(stdTransCMYKG, inC, outC, 1);
+				cmsDoTransform(m_doc->stdTransCMYK, inC, outC, 1);
 				C = outC[0] / 257;
 				M = outC[1] / 257;
 				Y = outC[2] / 257;
@@ -483,7 +541,7 @@ void ScColor::RecalcRGB()
 			inC[1] = M * 257;
 			inC[2] = Y * 257;
 			inC[3] = K * 257;
-			cmsDoTransform(stdTransRGBG, inC, outC, 1);
+			cmsDoTransform(m_doc->stdTransRGB, inC, outC, 1);
 			R = outC[0] / 257;
 			G = outC[1] / 257;
 			B = outC[2] / 257;
@@ -512,20 +570,21 @@ void ScColor::RecalcRGB()
 	RGB = QColor(R, G, B);
 }
 
-QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck)
+QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck) const
 {
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
-	if ((CMSuse && CMSavail) && (!Spot))
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if ((ScCore->haveCMS() && cmsUse) && (!Spot))
 	{
 		inC[0] = r * 257;
 		inC[1] = g * 257;
 		inC[2] = b * 257;
-		if (SoftProofing)
+		if (m_doc->SoftProofing)
 		{
-			cmsHTRANSFORM xform = gamutCkeck ? stdProofGCG : stdProofG;
+			cmsHTRANSFORM xform = gamutCkeck ? m_doc->stdProofGC : m_doc->stdProof;
 			cmsDoTransform(xform, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
@@ -533,7 +592,7 @@ QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck)
 		}
 		else
 		{
-			cmsDoTransform(stdTransRGBMonG, inC, outC, 1);
+			cmsDoTransform(m_doc->stdTransRGBMon, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
 			b = outC[2] / 257;
@@ -543,22 +602,23 @@ QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck)
 	return QColor(r, g, b);
 }
 
-QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck)
+QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck) const
 {
 	int  r = 0, g = 0, b = 0;
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
-	if ((CMSuse && CMSavail) && (!Spot))
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if ((ScCore->haveCMS() && cmsUse) && (!Spot))
 	{
 		inC[0] = c * 257;
 		inC[1] = m * 257;
 		inC[2] = y * 257;
 		inC[3] = k * 257;
-		if (SoftProofing)
+		if (m_doc->SoftProofing)
 		{
-			cmsHTRANSFORM xform = gamutCkeck ? stdProofCMYKGCG : stdProofCMYKG;
+			cmsHTRANSFORM xform = gamutCkeck ? m_doc->stdProofCMYKGC : m_doc->stdProofCMYK;
 			cmsDoTransform(xform, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
@@ -566,7 +626,7 @@ QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck)
 		}
 		else
 		{
-			cmsDoTransform(stdTransCMYKMonG, inC, outC, 1);
+			cmsDoTransform(m_doc->stdTransCMYKMon, inC, outC, 1);
 			r = outC[0] / 257;
 			g = outC[1] / 257;
 			b = outC[2] / 257;
@@ -584,18 +644,19 @@ QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck)
 	return QColor(r, g, b);
 }
 
-QColor ScColor::getDisplayColor(int r, int g, int b)
+QColor ScColor::getDisplayColor(int r, int g, int b) const
 {
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
-	if ((CMSuse && CMSavail) && (!Spot))
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if ((ScCore->haveCMS() && cmsUse) && (!Spot))
 	{
 		inC[0] = r * 257;
 		inC[1] = g * 257;
 		inC[2] = b * 257;
-		cmsDoTransform(stdTransRGBMonG, inC, outC, 1);
+		cmsDoTransform(m_doc->stdTransRGBMon, inC, outC, 1);
 		r = outC[0] / 257;
 		g = outC[1] / 257;
 		b = outC[2] / 257;
@@ -604,20 +665,21 @@ QColor ScColor::getDisplayColor(int r, int g, int b)
 	return QColor(r, g, b);
 }
 
-QColor ScColor::getDisplayColor(int c, int m, int y, int k)
+QColor ScColor::getDisplayColor(int c, int m, int y, int k) const
 {
 	int  r = 0, g = 0, b = 0;
 #ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
-	if ((CMSuse && CMSavail) && (!Spot))
+	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
+	if ((ScCore->haveCMS() && cmsUse) && (!Spot))
 	{
 		inC[0] = c * 257;
 		inC[1] = m * 257;
 		inC[2] = y * 257;
 		inC[3] = k * 257;
-		cmsDoTransform(stdTransCMYKMonG, inC, outC, 1);
+		cmsDoTransform(m_doc->stdTransCMYKMon, inC, outC, 1);
 		r = outC[0] / 257;
 		g = outC[1] / 257;
 		b = outC[2] / 257;
@@ -652,4 +714,68 @@ bool ScColor::isSpotColor()
 void ScColor::setSpotColor(bool s)
 {
 	Spot = s;
+}
+
+ColorList::ColorList(ScribusDoc* doc, bool retainDoc) : QMap<QString,ScColor>()
+{
+	m_doc = doc;
+	m_retainDoc = retainDoc;
+}
+
+ColorList& ColorList::operator= (const ColorList& list)
+{
+	clear();
+	if (!m_retainDoc)
+		m_doc = list.m_doc;
+	addColors(list);
+	return *this;
+}
+
+ScColor& ColorList::operator[] ( const QString & k )
+{
+	ScColor& rColor = QMap<QString,ScColor>::operator[](k);
+	rColor.setRetainDoc(true);
+	rColor.setDocument(m_doc);
+	return rColor;
+}
+
+const ScColor& ColorList::operator[] ( const QString& k ) const 
+{ 
+	return QMap<QString,ScColor>::operator[](k); 
+}
+
+void ColorList::setDocument(ScribusDoc* doc)
+{
+	if ((ScribusDoc*) m_doc != doc)
+	{
+		m_doc = doc;
+		ColorList::Iterator it;
+		ColorList::Iterator itend;
+		itend = end();
+		for (it = begin(); it != itend; it++)
+			it.data().setDocument(m_doc);
+	}
+}
+
+void ColorList::addColors(const ColorList& colorList, bool overwrite)
+{
+	ColorList::ConstIterator it;
+	ColorList::ConstIterator itend;
+	itend = colorList.end();
+	for (it = colorList.begin(); it != itend; it++)
+		ColorList::insert(it.key(), it.data(), overwrite);
+}
+
+void ColorList::copyColors(const ColorList& colorList, bool overwrite)
+{
+	clear();
+	addColors(colorList, overwrite);
+}
+
+ColorList::iterator ColorList::insert(const QString& key, const ScColor& color, bool overwrite)
+{
+	iterator iter = QMap<QString,ScColor>::insert(key, color, overwrite);
+	iter.data().setDocument(m_doc);
+	iter.data().setRetainDoc(true);
+	return iter;
 }

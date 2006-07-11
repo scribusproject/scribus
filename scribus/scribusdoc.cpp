@@ -65,27 +65,8 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_CMS
 #include "cmserrorhandling.h"
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransRGBMonG;
-extern cmsHTRANSFORM stdTransCMYKMonG;
-extern cmsHTRANSFORM stdProofG;
-extern cmsHTRANSFORM stdTransImgG;
-extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofGCG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
-extern bool BlackPoint;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentColors;
-extern int IntentImages;
 #endif
 
-extern bool CMSavail;
 extern QPixmap loadIcon(QString nam);
 
 ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
@@ -115,6 +96,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	rulerXoffset(0.0), rulerYoffset(0.0),
 	Pages(0), MasterPages(), DocPages(),
 	MasterNames(),
+	PageColors(this, true),
 	Items(0), MasterItems(), DocItems(), FrameItems(),
 	m_Selection(new Selection(this, true)),
 	pageWidth(0), pageHeight(0),
@@ -291,10 +273,29 @@ void ScribusDoc::init()
 	Q_CHECK_PTR(m_Selection);
 	Q_CHECK_PTR(autoSaveTimer);
 
+	HasCMS = false;
+#ifdef HAVE_CMS
+	DocInputRGBProf = NULL;
+	DocInputCMYKProf = NULL;
+	DocOutputProf = NULL;
+	DocPrinterProf = NULL;
+	stdTransRGBMon = NULL;
+	stdTransCMYKMon = NULL;
+	stdProof = NULL;
+	stdTransImg = NULL;
+	stdProofImg = NULL;
+	stdTransCMYK = NULL;
+	stdProofCMYK = NULL;
+	stdTransRGB = NULL;
+	stdProofGC = NULL;
+	stdProofCMYKGC = NULL;
+#endif
+
 	AddFont(prefsData.toolSettings.defFont);//, prefsData.AvailFonts[prefsData.toolSettings.defFont]->Font);
 	toolSettings.defFont = prefsData.toolSettings.defFont;
 	toolSettings.defSize = prefsData.toolSettings.defSize;
 	toolSettings.tabFillChar = prefsData.toolSettings.tabFillChar;
+
 	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	PageColors.insert("White", ScColor(0, 0, 0, 0));
 	if (prefsData.toolSettings.dPen != CommonStrings::None)
@@ -391,23 +392,6 @@ void ScribusDoc::init()
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
-
-#ifdef HAVE_CMS
-	DocInputRGBProf = NULL;
-	DocInputCMYKProf = NULL;
-	DocOutputProf = NULL;
-	DocPrinterProf = NULL;
-	stdTransRGBMon = NULL;
-	stdTransCMYKMon = NULL;
-	stdProof = NULL;
-	stdTransImg = NULL;
-	stdProofImg = NULL;
-	stdTransCMYK = NULL;
-	stdProofCMYK = NULL;
-	stdTransRGB = NULL;
-	stdProofGC = NULL;
-	stdProofCMYKGC = NULL;
-#endif
 }
 
 ScribusDoc::~ScribusDoc()
@@ -441,7 +425,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	FirstPnum = firstPageNumber;
 	currentPageLayout = fp;
 	setName(documentName);
-	HasCMS = true;
+	HasCMS = false;
 	if (!PDF_Options.UseLPI)
 	{
 		PDF_Options.LPISettings.clear();
@@ -462,6 +446,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	appMode = modeNormal;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	PageColors = prefsManager->colorSet();
+	PageColors.setDocument(this);
 
 	CMSSettings = prefsManager->appPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
@@ -474,25 +459,13 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	Gamut = CMSSettings.GamutCheck;
 	IntentColors = CMSSettings.DefaultIntentColors;
 	IntentImages = CMSSettings.DefaultIntentImages;
-	BlackPoint = CMSSettings.BlackPoint;
 #endif
-	if ((CMSavail) && (CMSSettings.CMSinUse))
+	if (ScCore->haveCMS() && CMSSettings.CMSinUse)
 	{
 #ifdef HAVE_CMS
 		if (OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 		{
-			stdProofG = stdProof;
-			stdTransRGBMonG = stdTransRGBMon;
-			stdTransCMYKMonG = stdTransCMYKMon;
-			stdProofImgG = stdProofImg;
-			stdTransImgG = stdTransImg;
-			stdProofCMYKG = stdProofCMYK;
-			stdTransCMYKG = stdTransCMYK;
-			stdTransRGBG = stdTransRGB;
-			stdProofGCG = stdProofGC;
-			stdProofCMYKGCG = stdProofCMYKGC;
-			CMSoutputProf = DocOutputProf;
-			CMSprinterProf = DocPrinterProf;
+			HasCMS = true;
 			if (static_cast<int>(cmsGetColorSpace(DocInputRGBProf)) == icSigRgbData)
 				CMSSettings.ComponentsInput2 = 3;
 			if (static_cast<int>(cmsGetColorSpace(DocInputRGBProf)) == icSigCmykData)
@@ -514,7 +487,7 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 			PDF_Options.SComp = CMSSettings.ComponentsInput2;
 		}
 		else
-			CMSSettings.CMSinUse = false;
+			HasCMS = false;
 #endif
 	}
 }
@@ -547,7 +520,8 @@ ScribusView* ScribusDoc::view() const
 void ScribusDoc::CloseCMSProfiles()
 {
 #ifdef HAVE_CMS
-	if ((CMSavail) /*&& (CMSSettings.CMSinUse)*/)
+	HasCMS = false;
+	if (ScCore->haveCMS() /*&& CMSSettings.CMSinUse*/)
 	{
 		if (DocInputRGBProf)
 			cmsCloseProfile(DocInputRGBProf);
@@ -598,6 +572,7 @@ void ScribusDoc::CloseCMSProfiles()
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
+	HasCMS = false;
 	cmsHPROFILE inputProf = NULL;
 	cmsErrorAction(LCMS_ERROR_ABORT);
 	if (setjmp(cmsJumpBuffer))
@@ -608,7 +583,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		cmsErrorAction(LCMS_ERROR_IGNORE);
 		CloseCMSProfiles();
 		cmsErrorAction(LCMS_ERROR_ABORT);
-		CMSSettings.CMSinUse = CMSuse = false;
+		CMSSettings.CMSinUse = false;
 		QString message = tr("An error occurred while opening icc profiles, color management is not enabled." );
 		if (ScCore->usingGUI())
 			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
@@ -1992,6 +1967,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	PageItem* ite;
 	bool found;
 	colorsToUse.clear();
+	colorsToUse.setDocument(this);
 	ColorList::Iterator it;
 	for (it = PageColors.begin(); it != PageColors.end(); ++it)
 	{
@@ -2540,7 +2516,7 @@ void ScribusDoc::recalculateColors()
 	ColorList::Iterator it;
 	ColorList::Iterator itend=PageColors.end();
 	for (it = PageColors.begin(); it != itend; ++it)
-		PageColors[it.key()].RecalcRGB();
+		it.data().RecalcRGB();
 	//Adjust Items of the 3 types to the colors
 	uint itemsCount=Items->count();
 	updateAllItemQColors();

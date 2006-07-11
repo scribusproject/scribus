@@ -49,7 +49,6 @@ class ArrowChooser;
 class ScComboBox;
 class ScribusMainWindow;
 class UserActionSniffer;
-extern bool CMSavail;
 /*
 class SCRIBUS_API LabelButton : public QLabel
 {

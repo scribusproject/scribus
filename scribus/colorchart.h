@@ -28,6 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 /**
   *@author Franz Schmid
   */
@@ -37,7 +39,7 @@ class SCRIBUS_API ColorChart : public QLabel  {
 Q_OBJECT
 
 public: 
-	ColorChart(QWidget *parent);
+	ColorChart(QWidget *parent, ScribusDoc* doc);
 	~ColorChart() {};
 	void mouseMoveEvent(QMouseEvent *m);
 	void mousePressEvent(QMouseEvent *m);
@@ -49,6 +51,9 @@ public:
 	int Xp;
 	int Yp;
 	QPixmap pmx;
+
+protected:
+	ScribusDoc* m_doc;
 
 signals:
 	void ColorVal(int h, int s, bool ende);

@@ -383,7 +383,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->typographicSettings.offsetBaseGrid = dc.attribute("BASEO", "0").toDouble();
 		m_Doc->typographicSettings.autoLineSpacing = dc.attribute("AUTOL", "20").toInt();
 		m_Doc->GroupCounter=dc.attribute("GROUPC", "1").toInt();
-		m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
+		//m_Doc->HasCMS = static_cast<bool>(dc.attribute("HCMS", "0").toInt());
 		m_Doc->CMSSettings.SoftProofOn = static_cast<bool>(dc.attribute("DPSo", "0").toInt());
 		m_Doc->CMSSettings.SoftProofFullOn = static_cast<bool>(dc.attribute("DPSFo", "0").toInt());
 		m_Doc->CMSSettings.CMSinUse = static_cast<bool>(dc.attribute("DPuse", "0").toInt());
@@ -429,7 +429,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 					lf.fromQColor(QColor(pg.attribute("RGB")));
 				lf.setSpotColor(false);
 				lf.setRegistrationColor(false);
-				m_Doc->PageColors[pg.attribute("NAME")] = lf;
+				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1166,7 +1166,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					lf.fromQColor(QColor(pg.attribute("RGB")));
 				lf.setSpotColor(false);
 				lf.setRegistrationColor(false);
-				m_Doc->PageColors[pg.attribute("NAME")] = lf;
+				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1753,7 +1753,7 @@ bool Scribus12Format::readColors(const QString& fileName, ColorList & colors)
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-				colors[pg.attribute("NAME")] = lf;
+				colors.insert(pg.attribute("NAME"), lf);
 			}
 			PAGE=PAGE.nextSibling();
 		}

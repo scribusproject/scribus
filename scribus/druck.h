@@ -26,13 +26,14 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 
 class PrefsContext;
+class ScribusDoc;
 
 class SCRIBUS_API Druck : public QDialog
 {
 	Q_OBJECT
 
 public:
-	Druck( QWidget* parent, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
+	Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
 	~Druck() {};
 	QString printerName();
 	QString outputFileName();
@@ -119,6 +120,7 @@ private:
 	QPushButton* OKButton;
 	QPushButton* previewButton;
 	QPushButton* OptButton;
+	ScribusDoc* m_doc;
 	QString Geraet;
 	bool ToFile;
 	bool ToSeparation;

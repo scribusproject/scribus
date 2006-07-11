@@ -224,7 +224,7 @@ void ColorListBox::updateBox(ColorList list, ColorListBox::PixmapType type, bool
 }
 
 ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QString docColSet, QStringList custColSet)
-		: QDialog( parent, "ColorManager", true, 0 )
+		: QDialog( parent, "ColorManager", true, 0 ), EditColors(doc, true), UsedC(doc, true)
 {
 	setName( "ColorManager" );
 	m_Doc=doc;
@@ -723,11 +723,12 @@ void ColorManager::duplFarbe()
 void ColorManager::neueFarbe()
 {
 	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
-	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, tr("New Color"), &EditColors, customColSet);
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, tr("New Color"), &EditColors, customColSet);
 	int newItemIndex=0;
 	int colCount=0;
 	if (dia->exec())
 	{
+		dia->Farbe.setDocument(m_Doc);
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
 		bool regChecked=dia->Regist->isChecked();
@@ -753,9 +754,10 @@ void ColorManager::editFarbe()
 	int selectedIndex=colorListBox->currentItem();
 	int topIndex=colorListBox->topItem();
 	ScColor tmpFarbe = EditColors[sFarbe];
-	CMYKChoose* dia = new CMYKChoose(this, tmpFarbe, sFarbe, &EditColors, customColSet);
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, sFarbe, &EditColors, customColSet);
 	if (dia->exec())
 	{
+		dia->Farbe.setDocument(m_Doc);
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors[dia->Farbname->text()] = dia->Farbe;
 		if (dia->Regist->isChecked())

@@ -46,28 +46,6 @@ for which a new license (GPL+exception) is in place.
 #include "tabdocument.h"
 
 extern QPixmap loadIcon(QString nam);
-extern bool CMSavail;
-
-#ifdef HAVE_CMS
-extern cmsHPROFILE CMSoutputProf;
-extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransRGBMonG;
-extern cmsHTRANSFORM stdTransCMYKMonG;
-extern cmsHTRANSFORM stdProofG;
-extern cmsHTRANSFORM stdTransImgG;
-extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
-extern cmsHTRANSFORM stdProofGCG;
-extern bool BlackPoint;
-extern bool SoftProofing;
-extern bool Gamut;
-extern bool CMSuse;
-extern int IntentColors;
-extern int IntentImages;
-#endif
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
@@ -117,7 +95,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 
 	tabPDF = new TabPDFOptions( prefsWidgets, doc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 								ScCore->PDFXProfiles, doc->UsedFonts, doc->PDF_Options.PresentVals,
-								docUnitIndex, doc->pageHeight, doc->pageWidth, 0 );
+								docUnitIndex, doc->pageHeight, doc->pageWidth, doc );
 	addItem( tr("PDF Export"), loadIcon("acroread.png"), tabPDF);
 
 	tabDocItemAttributes = new DocumentItemAttributes( prefsWidgets);
@@ -135,7 +113,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Sections"), loadIcon("tabtocindex.png"), tabDocSections);
 
 	int cmsTab = 0;
-	if (CMSavail)
+	if (ScCore->haveCMS())
 	{
 		tabColorManagement = new CMSPrefs(prefsWidgets, &doc->CMSSettings, &ScCore->InputProfiles, &ScCore->InputProfilesCMYK, &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
 		cmsTab = addItem( tr("Color Management"), loadIcon("blend.png"), tabColorManagement);
@@ -150,7 +128,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	connect(applyChangesButton, SIGNAL(clicked()), this, SLOT(applyChangesButton_clicked()));
 	connect(prefsWidgets, SIGNAL(aboutToShow(QWidget *)), this, SLOT(showWidgetInStack(QWidget *)));
 
-	if (CMSavail)
+	if (ScCore->haveCMS())
 	{
 		prefsWidgets->raiseWidget(cmsTab);
 		connect(tabColorManagement, SIGNAL(cmsOn(bool )), this, SLOT(switchCMS(bool )));
@@ -193,7 +171,7 @@ void ReformDoc::restoreDefaults()
 	//else if (current == tabPDF)
 	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
-							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, 0);
+							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
 	//else if (current == tabColorManagement)
 	tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
@@ -489,7 +467,7 @@ void ReformDoc::updateDocumentSettings()
 																!tabHyphenator->verbose->isChecked(),
 																tabHyphenator->input->isChecked(),
 																tabHyphenator->maxCount->value());
-	if (CMSavail)
+	if (ScCore->haveCMS())
 	{
 		bool oldCM = currDoc->CMSSettings.CMSinUse;
 		tabColorManagement->setValues();
@@ -505,12 +483,6 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
 			currDoc->IntentColors = currDoc->CMSSettings.DefaultIntentColors;
 			currDoc->IntentImages = currDoc->CMSSettings.DefaultIntentImages;
-			CMSuse = currDoc->CMSSettings.CMSinUse;
-			SoftProofing = currDoc->CMSSettings.SoftProofOn;
-			Gamut = currDoc->CMSSettings.GamutCheck;
-			BlackPoint = currDoc->CMSSettings.BlackPoint;
-			IntentColors = currDoc->CMSSettings.DefaultIntentColors;
-			IntentImages = currDoc->CMSSettings.DefaultIntentImages;
 			qApp->setOverrideCursor(QCursor(waitCursor), true);
 			bool newCM = currDoc->CMSSettings.CMSinUse;
 			currDoc->CMSSettings.CMSinUse = oldCM;
@@ -518,18 +490,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->CMSSettings.CMSinUse = newCM;
 			if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
-				stdProofG = currDoc->stdProof;
-				stdTransRGBMonG = currDoc->stdTransRGBMon;
-				stdTransCMYKMonG = currDoc->stdTransCMYKMon;
-				stdProofImgG = currDoc->stdProofImg;
-				stdTransImgG = currDoc->stdTransImg;
-				stdProofCMYKG = currDoc->stdProofCMYK;
-				stdTransCMYKG = currDoc->stdTransCMYK;
-				stdProofGCG = currDoc->stdProofGC;
-				stdProofCMYKGCG = currDoc->stdProofCMYKGC;
-				stdTransRGBG = currDoc->stdTransRGB;
-				CMSoutputProf = currDoc->DocOutputProf;
-				CMSprinterProf = currDoc->DocPrinterProf;
+				currDoc->HasCMS = true;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigRgbData)
 					currDoc->CMSSettings.ComponentsInput2 = 3;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigCmykData)
@@ -557,10 +518,7 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
 			}
 			else
-			{
 				currDoc->HasCMS = false;
-				CMSuse = false;
-			}
 #endif
 			ScMW->mainWindowProgressBar->setProgress(cc);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
@@ -679,7 +637,7 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->PDF_Options.isGrayscale = false;
 			currDoc->PDF_Options.UseRGB = false;
 #ifdef HAVE_CMS
-			if (CMSuse)
+			if (currDoc->HasCMS)
 			{
 				currDoc->PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
 				currDoc->PDF_Options.UseProfiles2 = tabPDF->EmbedProfs2->isChecked();

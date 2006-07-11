@@ -19,17 +19,11 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
+#include "scribuscore.h"
 #include "scconfig.h"
 
 extern QPixmap loadIcon(QString nam);
-#ifdef HAVE_CMS
-extern bool CMSuse;
-#endif
-extern bool CMSavail;
 #include "scribuscore.h"
-
-
-
 
 TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const SCFonts &AllFonts,
@@ -37,7 +31,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const QMap<QString, int> & DocFonts,
                                 const QValueList<PDFPresentationData> & Eff,
                                 int unitIndex, double PageH, double PageB,
-                                ScribusView * vie )
+                                ScribusDoc * mdoc, bool export )
 	: QTabWidget( parent, "pdf" ),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
@@ -226,7 +220,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	unit(unitGetSuffixFromIndex(unitIndex)),
 	precision(unitGetPrecisionFromIndex(unitIndex)),
 	unitRatio(unitGetRatioFromIndex(unitIndex)),
-	view(vie),
+	doc(mdoc),
+	pdfExport(export),
 	AllFonts(AllFonts),
 	Opts(Optionen),
 	pageH(PageH),
@@ -302,7 +297,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
 	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
 #ifdef HAVE_CMS
-	if ((CMSuse) && (CMSavail) && (!PDFXProfiles.isEmpty()))
+	cms = doc ? (ScCore->haveCMS() && doc->HasCMS) : false;
+	if (cms && (!PDFXProfiles.isEmpty()))
 		PDFVersionCombo->insertItem("PDF/X-3");
 /*	if ((CMSuse) && (CMSavail))
 	{
@@ -311,7 +307,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	}
 	else
 		PDFVersionCombo->setCurrentItem(0);*/
-	cms = CMSuse && CMSavail;
 #else
 	cms = false;
 #endif
@@ -403,7 +398,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CBoxLayout->addWidget( ValC, 2, 1, AlignLeft );
 	tabLayout->addWidget( CBox );
 	insertTab( tabGeneral, tr( "&General" ) );
-	if (vie != 0)
+	if (doc != 0 && export)
 	{
 		tabFonts = new QWidget( this, "tabFonts" );
 		tabLayout_3 = new QVBoxLayout( tabFonts );
@@ -521,7 +516,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		struct PDFPresentationData ef;
 		if (EffVal.count() != 0)
 		{
-			for (uint pg2 = 0; pg2 < view->Doc->Pages->count(); ++pg2)
+			for (uint pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)
@@ -538,7 +533,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		}
 		else
 		{
-			for (uint pg = 0; pg < view->Doc->Pages->count(); ++pg)
+			for (uint pg = 0; pg < doc->Pages->count(); ++pg)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
 				ef.pageEffectDuration = 1;
@@ -623,9 +618,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		insertTab( tabPresentation, tr( "E&xtras" ) );
 
 		// XXX Optionen or Opts Changed here
-/*		if (view->Doc->currentPageLayout == doublePage)
+/*		if (doc->currentPageLayout == doublePage)
 		{
-			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
+			if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
 				Opts.PageLayout = PDFOptions::TwoColumnLeft;
 			else
 				Opts.PageLayout = PDFOptions::TwoColumnRight;
@@ -725,9 +720,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		actionCombo->setEditable(false);
 		actionCombo->insertItem( tr("No Script"));
 /*		QMap<QString,QString>::Iterator itja;
-		for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
+		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 			actionCombo->insertItem(itja.key());
-		if (view->Doc->JavaScripts.contains(Opts.openAction))
+		if (doc->JavaScripts.contains(Opts.openAction))
 			actionCombo->setCurrentText(Opts.openAction);*/
 		groupJavaLayout->addWidget( actionCombo );
 		tabSpecialLayout->addWidget( groupJava );
@@ -1108,9 +1103,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 // 	BleedChanged();
 
 	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts,
-					Eff, unitIndex, PageH, PageB, vie);
+					Eff, unitIndex, PageH, PageB, doc, pdfExport);
 
-	if (vie != 0)
+	if (doc != 0 && export)
 	{
 // 		PgSel = 0;
 // 		Pages->setCurrentItem(0);
@@ -1229,7 +1224,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const QMap<QString, int> & DocFonts,
 									const QValueList<PDFPresentationData> & Eff,
 									int unitIndex, double PageH, double PageB,
-									ScribusView * vie)
+									ScribusDoc * mdoc, bool export)
 {
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
@@ -1238,7 +1233,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	MirrorV->setOn(Opts.MirrorV);
 	ClipMarg->setChecked(Opts.doClip);
 #ifdef HAVE_CMS
-	if ((CMSuse) && (CMSavail))
+	bool cmsUse = mdoc ? (ScCore->haveCMS() && mdoc->HasCMS) : false;
+	if (cmsUse)
 	{
 		if (Opts.Version == PDFOptions::PDFVersion_X3)
 			PDFVersionCombo->setCurrentItem(3);
@@ -1268,7 +1264,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
-	if (vie != 0)
+	if (mdoc != 0 && export)
 	{
 		QMap<QString,int>::const_iterator it;
 		AvailFlist->clear();
@@ -1317,7 +1313,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EffVal.clear();
 		if (EffVal.count() != 0)
 		{
-			for (uint pg2 = 0; pg2 < view->Doc->Pages->count(); ++pg2)
+			for (uint pg2 = 0; pg2 < doc->Pages->count(); ++pg2)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg2+1));
 				if (EffVal.count()-1 < pg2)
@@ -1334,7 +1330,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		}
 		else
 		{
-			for (uint pg = 0; pg < view->Doc->Pages->count(); ++pg)
+			for (uint pg = 0; pg < doc->Pages->count(); ++pg)
 			{
 				Pages->insertItem( tr("Page")+" "+tmp.setNum(pg+1));
 				ef.pageEffectDuration = 1;
@@ -1350,9 +1346,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		EffectTime->setValue(EffVal[0].pageEffectDuration);
 		// XXX Optionen or Opts Changed here
-		if (view->Doc->currentPageLayout == doublePage)
+		if (doc->currentPageLayout == doublePage)
 		{
-			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
+			if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
 				Opts.PageLayout = PDFOptions::TwoColumnLeft;
 			else
 				Opts.PageLayout = PDFOptions::TwoColumnRight;
@@ -1379,9 +1375,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		fitWindow->setChecked(Opts.fitWindow);
 		QMap<QString,QString>::Iterator itja;
 		actionCombo->clear();
-		for (itja = view->Doc->JavaScripts.begin(); itja != view->Doc->JavaScripts.end(); ++itja)
+		for (itja = doc->JavaScripts.begin(); itja != doc->JavaScripts.end(); ++itja)
 			actionCombo->insertItem(itja.key());
-		if (view->Doc->JavaScripts.contains(Opts.openAction))
+		if (doc->JavaScripts.contains(Opts.openAction))
 			actionCombo->setCurrentText(Opts.openAction);
 		if (Opts.PageLayout == PDFOptions::SinglePage)
 			singlePage->setChecked(true);
@@ -1449,8 +1445,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp = Opts.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
 	{
-		if (vie != 0)
-			tp = vie->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		if (mdoc != 0 && export)
+			tp = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
 		else
 			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	}
@@ -1462,17 +1458,17 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		SolidPr->insertItem(itp.key());
 		if (itp.key() == tp)
 		{
-			if ((CMSuse) && (CMSavail))
+			if (cmsUse)
 				SolidPr->setCurrentItem(SolidPr->count()-1);
 		}
 	}
-	if ((CMSuse) && (CMSavail))
+	if (cmsUse)
 		IntendS->setCurrentItem(Opts.Intent);
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
-		if (vie != 0)
-			tp1 = vie->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+		if (mdoc != 0 && export)
+			tp1 = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
 		else
 			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
 	}
@@ -1484,13 +1480,13 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		ImageP->insertItem(itp2.key());
 		if (itp2.key() == tp1)
 		{
-			if ((CMSuse) && (CMSavail))
+			if (cmsUse)
 				ImageP->setCurrentItem(ImageP->count()-1);
 		}
 	}
-	if ((CMSuse) && (CMSavail))
+	if (cmsUse)
 		IntendI->setCurrentItem(Opts.Intent2);
-	if ((!CMSuse) || (!CMSavail))
+	if (!cmsUse)
 	{
 		GroupBox9->hide();
 		ProfsGroup->hide();
@@ -1506,8 +1502,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp3 = Opts.PrintProf;
 	if (!PDFXProfiles.contains(tp3))
 	{
-		if (vie != 0)
-			tp3 = vie->Doc->CMSSettings.DefaultPrinterProfile;
+		if (mdoc != 0 && export)
+			tp3 = mdoc->CMSSettings.DefaultPrinterProfile;
 		else
 			tp3 = PrefsManager::instance()->appPrefs.DCMSset.DefaultPrinterProfile;
 	}
@@ -1525,9 +1521,9 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	BleedRight->setValue(Opts.BleedRight*unitRatio);
 	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
 #ifdef HAVE_CMS
-	if ((!CMSuse) || (!CMSavail))
+	if (!cmsUse)
 		setTabEnabled(tabPDFX, false);
-	if ((CMSuse) && (CMSavail) && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
+	if (cmsUse && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(3);
 	else
 		setTabEnabled(tabPDFX, false);
@@ -1535,7 +1531,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	setTabEnabled(tabPDFX, false);
 #endif
 	BleedChanged();
-	if (vie != 0)
+	if (mdoc != 0  && export)
 	{
 		PgSel = 0;
 		Pages->setCurrentItem(0);
@@ -1626,7 +1622,7 @@ void TabPDFOptions::EnablePDFX(int a)
 		OutCombo->setEnabled(true);
 		EmbedProfs2->setEnabled(true);
 		emit hasInfo();
-		if (view != 0)
+		if (doc != 0 && pdfExport)
 		{
 			CheckBox10->setEnabled(true);
 			EmbedFonts->setEnabled(true);
@@ -1642,7 +1638,7 @@ void TabPDFOptions::EnablePDFX(int a)
 	EnablePr(1);
 	EmbedProfs2->setChecked(true);
 	EmbedProfs2->setEnabled(false);
-	if (view != 0)
+	if (doc != 0 && pdfExport)
 	{
 		EmbedFonts->setChecked(true);
 		EmbedAll();
@@ -1717,8 +1713,8 @@ void TabPDFOptions::EnableLPI(int a)
 		QString tp = Opts.SolidProf;
 		if (!ScCore->InputProfiles.contains(tp))
 		{
-			if (view != 0)
-				tp = view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+			if (doc != 0)
+				tp = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			else
 				tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		}
@@ -1739,8 +1735,8 @@ void TabPDFOptions::EnableLPI(int a)
 		QString tp1 = Opts.ImageProf;
 		if (!ScCore->InputProfiles.contains(tp1))
 		{
-			if (view != 0)
-				tp1 = view->Doc->CMSSettings.DefaultSolidColorRGBProfile;
+			if (doc != 0)
+				tp1 = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			else
 				tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
 		}
@@ -1819,7 +1815,7 @@ void TabPDFOptions::SelRange(bool e)
 
 void TabPDFOptions::EffectOnAll()
 {
-	for (uint pg = 0; pg < view->Doc->Pages->count(); ++pg)
+	for (uint pg = 0; pg < doc->Pages->count(); ++pg)
 	{
 		EffVal[pg].pageViewDuration = PageTime->value();
 		EffVal[pg].pageEffectDuration = EffectTime->value();
@@ -1929,15 +1925,15 @@ void TabPDFOptions::PagePr()
 	int ci = Pages->currentItem();
 	if (PagePrev->isChecked())
 	{
-		for (uint pg = 0; pg < view->Doc->Pages->count(); ++pg)
+		for (uint pg = 0; pg < doc->Pages->count(); ++pg)
 		{
-			pm.convertFromImage(view->PageToPixmap(pg, 70));
+			pm.convertFromImage(doc->view()->PageToPixmap(pg, 70));
 			Pages->changeItem(pm, tr("Page")+" "+tmp.setNum(pg+1), pg);
 		}
 	}
 	else
 	{
-		for (uint pg = 0; pg < view->Doc->Pages->count(); ++pg)
+		for (uint pg = 0; pg < doc->Pages->count(); ++pg)
 			Pages->changeItem( tr("Page")+" "+tmp.setNum(pg+1), pg);
 	}
 	if (ci != -1)
