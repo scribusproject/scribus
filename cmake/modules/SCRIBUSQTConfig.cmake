@@ -24,11 +24,11 @@
     #ENDFOREACH(it)
 
     FOREACH(it ${ARGN})
-      GET_FILENAME_COMPONENT(outfile ${it} NAME_WE)
+      GET_FILENAME_COMPONENT(outfilename ${it} NAME_WE)
 	
       GET_FILENAME_COMPONENT(infile ${it} ABSOLUTE)
 #       SET(infile ${CMAKE_CURRENT_SOURCE_DIR}/${it})
-      SET(outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfile}.moc)
+      SET(outfile ${CMAKE_CURRENT_BINARY_DIR}/${outfilename}.moc)
       ADD_CUSTOM_COMMAND(OUTPUT ${outfile}
         COMMAND ${QT_MOC_EXECUTABLE}
 #         ARGS ${moc_includes} -o ${outfile} ${infile}
