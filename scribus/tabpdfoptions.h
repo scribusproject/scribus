@@ -46,7 +46,7 @@ public:
 	                const QMap<QString, int> & DocFonts,
 	                const QValueList<PDFPresentationData> & Eff,
 	                int unitIndex, double PageH, double PageB,
-	                ScribusDoc *mdoc = 0, bool export = false);
+	                ScribusDoc *mdoc = 0, bool exporting = false);
 	~TabPDFOptions() {};
 	void restoreDefaults(PDFOptions & Optionen,
 						 const SCFonts &AllFonts,
@@ -54,7 +54,7 @@ public:
 						 const QMap<QString, int> & DocFonts,
 						 const QValueList<PDFPresentationData> & Eff,
 						 int unitIndex, double PageH, double PageB,
-						 ScribusDoc *mdoc, bool export);
+						 ScribusDoc *mdoc, bool exporting);
 
 	void unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion);
 

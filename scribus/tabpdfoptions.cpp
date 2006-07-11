@@ -31,7 +31,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
                                 const QMap<QString, int> & DocFonts,
                                 const QValueList<PDFPresentationData> & Eff,
                                 int unitIndex, double PageH, double PageB,
-                                ScribusDoc * mdoc, bool export )
+                                ScribusDoc * mdoc, bool exporting )
 	: QTabWidget( parent, "pdf" ),
 	// Initialize all those darn pointer members so we catch unitialized
 	// accesses. I (CR) use the following command to generate these based on
@@ -221,7 +221,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	precision(unitGetPrecisionFromIndex(unitIndex)),
 	unitRatio(unitGetRatioFromIndex(unitIndex)),
 	doc(mdoc),
-	pdfExport(export),
+	pdfExport(exporting),
 	AllFonts(AllFonts),
 	Opts(Optionen),
 	pageH(PageH),
@@ -398,7 +398,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	CBoxLayout->addWidget( ValC, 2, 1, AlignLeft );
 	tabLayout->addWidget( CBox );
 	insertTab( tabGeneral, tr( "&General" ) );
-	if (doc != 0 && export)
+	if (doc != 0 && exporting)
 	{
 		tabFonts = new QWidget( this, "tabFonts" );
 		tabLayout_3 = new QVBoxLayout( tabFonts );
@@ -1105,7 +1105,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts,
 					Eff, unitIndex, PageH, PageB, doc, pdfExport);
 
-	if (doc != 0 && export)
+	if (doc != 0 && exporting)
 	{
 // 		PgSel = 0;
 // 		Pages->setCurrentItem(0);
@@ -1224,7 +1224,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 									const QMap<QString, int> & DocFonts,
 									const QValueList<PDFPresentationData> & Eff,
 									int unitIndex, double PageH, double PageB,
-									ScribusDoc * mdoc, bool export)
+									ScribusDoc * mdoc, bool exporting)
 {
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
@@ -1264,7 +1264,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	DSColor->setChecked(Opts.RecalcPic);
 	ValC->setValue(Opts.PicRes);
 	ValC->setEnabled(DSColor->isChecked() ? true : false);
-	if (mdoc != 0 && export)
+	if (mdoc != 0 && exporting)
 	{
 		QMap<QString,int>::const_iterator it;
 		AvailFlist->clear();
@@ -1445,7 +1445,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp = Opts.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
 	{
-		if (mdoc != 0 && export)
+		if (mdoc != 0 && exporting)
 			tp = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
 		else
 			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -1467,7 +1467,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp1 = Opts.ImageProf;
 	if (!ScCore->InputProfiles.contains(tp1))
 	{
-		if (mdoc != 0 && export)
+		if (mdoc != 0 && exporting)
 			tp1 = mdoc->CMSSettings.DefaultSolidColorRGBProfile;
 		else
 			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
@@ -1502,7 +1502,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	QString tp3 = Opts.PrintProf;
 	if (!PDFXProfiles.contains(tp3))
 	{
-		if (mdoc != 0 && export)
+		if (mdoc != 0 && exporting)
 			tp3 = mdoc->CMSSettings.DefaultPrinterProfile;
 		else
 			tp3 = PrefsManager::instance()->appPrefs.DCMSset.DefaultPrinterProfile;
@@ -1531,7 +1531,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	setTabEnabled(tabPDFX, false);
 #endif
 	BleedChanged();
-	if (mdoc != 0  && export)
+	if (mdoc != 0  && exporting)
 	{
 		PgSel = 0;
 		Pages->setCurrentItem(0);
