@@ -660,15 +660,15 @@ void ActionManager::initToolsMenuActions()
 	name="toolsPDFPushButton";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/insert-button.png")), "", defKeys[name], mainWindow, name, modeInsertPDFButton));
 	name="toolsPDFTextField";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("textview.png")), "", defKeys[name], mainWindow, name, modeInsertPDFTextfield));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/text-field.png")), "", defKeys[name], mainWindow, name, modeInsertPDFTextfield));
 	name="toolsPDFCheckBox";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("checkbox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFCheckbox));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/checkbox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFCheckbox));
 	name="toolsPDFComboBox";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("combobox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFCombobox));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/combobox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFCombobox));
 	name="toolsPDFListBox";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("listbox.png")), "", defKeys[name], mainWindow, name, modeInsertPDFListbox));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/list-box.png")), "", defKeys[name], mainWindow, name, modeInsertPDFListbox));
 	name="toolsPDFAnnotText";
-	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("charset.png")), "", defKeys[name], mainWindow, name, modeInsertPDFTextAnnotation));
+	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/pdf-annotations.png")), "", defKeys[name], mainWindow, name, modeInsertPDFTextAnnotation));
 	name="toolsPDFAnnotLink";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("goto.png")), "", defKeys[name], mainWindow, name, modeInsertPDFLinkAnnotation));
 

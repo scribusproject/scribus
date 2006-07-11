@@ -35,13 +35,10 @@ Bild.xpm
 blend.png
 bottom.png
 ButtCap.png
-charset.png
-checkbox.png
 checkdoc.png
 clear_right.png
 cmyk.png
 colorpicker.png
-combobox.png
 compfile16.png
 compfile.png
 Corner.xpm
@@ -250,7 +247,6 @@ text_left.png
 text_right.png
 textscaleh.png
 textscalev.png
-textview.png
 Text.xpm
 Tief.xpm
 tools.png
@@ -324,6 +320,7 @@ INSTALL(FILES
 16/draw-arrow-up.png
 16/draw-bezier-curves.png
 16/draw-cross.png
+16/draw-donut.png
 16/draw-ellipse.png
 16/draw-halfcircle1.png
 16/draw-halfcircle2.png
@@ -331,6 +328,7 @@ INSTALL(FILES
 16/draw-halfcircle4.png
 16/draw-polygon.png
 16/draw-rectangle.png
+16/draw-square-inverted-corners.png
 16/draw-star.png
 16/draw-triangle1.png
 16/draw-triangle2.png
@@ -376,6 +374,8 @@ INSTALL(FILES
 INSTALL(FILES
 22/close.png
 22/color-picker.png
+22/checkbox.png
+22/combobox.png
 22/document-new.png
 22/document-open.png
 22/document-print.png
@@ -417,12 +417,15 @@ INSTALL(FILES
 22/insert-image.png
 22/insert-text-frame.png
 22/insert-table.png
+22/list-box.png
 22/lock.png
 22/lock-unlocked.png
 22/measure.png
+22/pdf-annotations.png
 22/pointer.png
 22/preflight-verifier.png
 22/story-editor.png
+22/text-field.png
 22/text-frame-link.png
 22/text-frame-unlink.png
 22/transform-rotate.png

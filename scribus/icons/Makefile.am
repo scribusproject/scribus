@@ -2,8 +2,10 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
  u_undo.png u_redo.png u_undo16.png u_redo16.png u_margins.png u_margins_locked.png u_align.png u_move.png u_resize.png u_rotate.png u_group.png u_fill.png u_shade.png u_lock.png u_unlock.png u_create.png u_delete.png u_fliph.png u_flipv.png u_cut.png u_transp.png u_line.png u_arrow.png u_font.png u_svg.png u_eps.png u_scale_image.png u_shape.png u_enableprint.png u_disableprint.png \
  docattributes.png tabtocindex.png colorpicker.png wizard.png flow-bounding.png flow-contour.png flow-frame.png flow-none.png\
  al_bottom_in.png al_bottom_out.png al_center_hor.png al_center_ver.png al_left_in.png al_left_out.png al_right_in.png al_right_out.png al_top_in.png al_top_out.png distribute_bottom.png distribute_hcentre.png distribute_hdist.png distribute_hdist_val.png distribute_left.png distribute_right.png distribute_top.png distribute_vcentre.png distribute_vdist.png distribute_vdist_val.png vpl.png noicon.xpm clear_right.png layer-outline.png\
+22/checkbox.png \
 16/close.png \
 22/close.png \
+22/combobox.png \
 22/color-picker.png \
 16/document-new.png \
 22/document-new.png \
@@ -29,6 +31,7 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-bezier-curves.png \
 16/draw-cross.png \
 22/draw-cross.png \
+16/draw-donut.png \
 16/draw-ellipse.png \
 22/draw-ellipse.png \
 22/draw-freehand.png \
@@ -47,6 +50,7 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-polyline.png \
 16/draw-rectangle.png \
 22/draw-rectangle.png \
+16/draw-square-inverted-corners.png \
 16/draw-star.png \
 22/draw-star.png \
 17/draw-triangle1.png \
@@ -88,10 +92,12 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/insert-text-frame.png \
 16/insert-table.png \
 22/insert-table.png \
+22/list-box.png \
 16/lock.png \
 22/lock.png \
 16/lock-unlocked.png \
 22/lock-unlocked.png \
+22/pdf-annotations.png \
 16/preflight-verifier.png \
 22/preflight-verifier.png \
 16/story-editor.png \
@@ -108,6 +114,7 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 16/stroke-join-bevel.png \
 16/stroke-join-miter.png \
 16/stroke-join-round.png \
+22/text-field.png \
 16/transform-rotate.png \
 22/transform-rotate.png \
 16/layer-flow-around.png \
@@ -179,14 +186,14 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/blend.png $(prefix)/share/scribus/icons/blend.png
 	$(INSTALL_DATA) $(srcdir)/bottom.png $(prefix)/share/scribus/icons/bottom.png
 	$(INSTALL_DATA) $(srcdir)/ButtCap.png $(prefix)/share/scribus/icons/ButtCap.png
-	$(INSTALL_DATA) $(srcdir)/charset.png $(prefix)/share/scribus/icons/charset.png
-	$(INSTALL_DATA) $(srcdir)/checkbox.png $(prefix)/share/scribus/icons/checkbox.png
+	$(INSTALL_DATA) $(srcdir)/22/pdf-annotations.png $(prefix)/share/scribus/icons/22/pdf-annotations.png
+	$(INSTALL_DATA) $(srcdir)/22/checkbox.png $(prefix)/share/scribus/icons/22/checkbox.png
 	$(INSTALL_DATA) $(srcdir)/checkdoc.png $(prefix)/share/scribus/icons/checkdoc.png
 	$(INSTALL_DATA) $(srcdir)/16/close.png $(prefix)/share/scribus/icons/16/close.png
 	$(INSTALL_DATA) $(srcdir)/22/close.png $(prefix)/share/scribus/icons/22/close.png
 	$(INSTALL_DATA) $(srcdir)/colorpicker.png $(prefix)/share/scribus/icons/colorpicker.png
 	$(INSTALL_DATA) $(srcdir)/22/color-picker.png $(prefix)/share/scribus/icons/22/color-picker.png
-	$(INSTALL_DATA) $(srcdir)/combobox.png $(prefix)/share/scribus/icons/combobox.png
+	$(INSTALL_DATA) $(srcdir)/22/combobox.png $(prefix)/share/scribus/icons/22/combobox.png
 	$(INSTALL_DATA) $(srcdir)/compfile.png $(prefix)/share/scribus/icons/compfile.png
 	$(INSTALL_DATA) $(srcdir)/compfile16.png $(prefix)/share/scribus/icons/compfile16.png
 	$(INSTALL_DATA) $(srcdir)/Corner.xpm $(prefix)/share/scribus/icons/Corner.xpm
@@ -244,6 +251,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-donut.png $(prefix)/share/scribus/icons/16/draw-donut.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-ellipse.png $(prefix)/share/scribus/icons/16/draw-ellipse.png
@@ -263,6 +271,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-polyline.png $(prefix)/share/scribus/icons/22/draw-polyline.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-rectangle.png $(prefix)/share/scribus/icons/16/draw-rectangle.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-rectangle.png $(prefix)/share/scribus/icons/22/draw-rectangle.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-square-inverted-corners.png $(prefix)/share/scribus/icons/16/draw-square-inverted-corners.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-star.png $(prefix)/share/scribus/icons/16/draw-star.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-star.png $(prefix)/share/scribus/icons/22/draw-star.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-triangle1.png $(prefix)/share/scribus/icons/16/draw-triangle1.png
@@ -367,7 +376,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/Layervisible.xpm $(prefix)/share/scribus/icons/Layervisible.xpm
 	$(INSTALL_DATA) $(srcdir)/linespacing.png $(prefix)/share/scribus/icons/linespacing.png
 	$(INSTALL_DATA) $(srcdir)/linespacing2.png $(prefix)/share/scribus/icons/linespacing2.png
-	$(INSTALL_DATA) $(srcdir)/listbox.png $(prefix)/share/scribus/icons/listbox.png
+	$(INSTALL_DATA) $(srcdir)/22/list-box.png $(prefix)/share/scribus/icons/22/list-box.png
 	$(INSTALL_DATA) $(srcdir)/16/lock.png $(prefix)/share/scribus/icons/16/lock.png
 	$(INSTALL_DATA) $(srcdir)/22/lock.png $(prefix)/share/scribus/icons/22/lock.png
 	$(INSTALL_DATA) $(srcdir)/16/lock-unlocked.png $(prefix)/share/scribus/icons/16/lock-unlocked.png
@@ -474,7 +483,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/textkern.png $(prefix)/share/scribus/icons/textkern.png
 	$(INSTALL_DATA) $(srcdir)/textscaleh.png $(prefix)/share/scribus/icons/textscaleh.png
 	$(INSTALL_DATA) $(srcdir)/textscalev.png $(prefix)/share/scribus/icons/textscalev.png
-	$(INSTALL_DATA) $(srcdir)/textview.png $(prefix)/share/scribus/icons/textview.png
+	$(INSTALL_DATA) $(srcdir)/22/text-field.png $(prefix)/share/scribus/icons/22/text-field.png
 	$(INSTALL_DATA) $(srcdir)/text_block.png $(prefix)/share/scribus/icons/text_block.png
 	$(INSTALL_DATA) $(srcdir)/text_center.png $(prefix)/share/scribus/icons/text_center.png
 	$(INSTALL_DATA) $(srcdir)/text_force.png $(prefix)/share/scribus/icons/text_force.png
@@ -578,15 +587,15 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/blend.png
 	-rm -f $(prefix)/share/scribus/icons/bottom.png
 	-rm -f $(prefix)/share/scribus/icons/ButtCap.png
-	-rm -f $(prefix)/share/scribus/icons/charset.png
-	-rm -f $(prefix)/share/scribus/icons/checkbox.png
+	-rm -f $(prefix)/share/scribus/icons/22/pdf-annotations.png
+	-rm -f $(prefix)/share/scribus/icons/22/checkbox.png
 	-rm -f $(prefix)/share/scribus/icons/checkdoc.png
 	-rm -f $(prefix)/share/scribus/icons/clear_right.png
 	-rm -f $(prefix)/share/scribus/icons/16/close.png
 	-rm -f $(prefix)/share/scribus/icons/22/close.png
 	-rm -f $(prefix)/share/scribus/icons/colorpicker.png
 	-rm -f $(prefix)/share/scribus/icons/color-picker.png
-	-rm -f $(prefix)/share/scribus/icons/combobox.png
+	-rm -f $(prefix)/share/scribus/icons/22/combobox.png
 	-rm -f $(prefix)/share/scribus/icons/compfile.png
 	-rm -f $(prefix)/share/scribus/icons/compfile16.png
 	-rm -f $(prefix)/share/scribus/icons/Corner.xpm
@@ -765,7 +774,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/Layervisible.xpm
 	-rm -f $(prefix)/share/scribus/icons/linespacing.png
 	-rm -f $(prefix)/share/scribus/icons/linespacing2.png
-	-rm -f $(prefix)/share/scribus/icons/listbox.png
+	-rm -f $(prefix)/share/scribus/icons/22/listbox.png
 	-rm -f $(prefix)/share/scribus/icons/16/lock.png
 	-rm -f $(prefix)/share/scribus/icons/22/lock.png
 	-rm -f $(prefix)/share/scribus/icons/16/lock-unlocked.png
@@ -869,7 +878,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/textkern.png
 	-rm -f $(prefix)/share/scribus/icons/textscaleh.png
 	-rm -f $(prefix)/share/scribus/icons/textscalev.png
-	-rm -f $(prefix)/share/scribus/icons/textview.png
+	-rm -f $(prefix)/share/scribus/icons/22/text-field.png
 	-rm -f $(prefix)/share/scribus/icons/text_block.png
 	-rm -f $(prefix)/share/scribus/icons/text_center.png
 	-rm -f $(prefix)/share/scribus/icons/text_force.png
