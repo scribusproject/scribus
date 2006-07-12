@@ -458,7 +458,7 @@ static PyObject *Printer_print(Printer *self)
 	if (dd != NULL)
 	{
 		if (!fil)
-			fna = ScCore->primaryMainWindow()->PrefsPfad+"/tmp.ps";
+			fna = QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps");
 		PSfile = dd->PS_set_file(fna);
 		fna = QDir::convertSeparators(fna);
 		if (PSfile)

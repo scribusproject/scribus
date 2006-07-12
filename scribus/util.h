@@ -161,11 +161,44 @@ than using a QListView. So I choose painting 2 checkboxes as 2 QPixmaps
 and using a setPixmap method for their changing.
 \author Petr Vanek */
 QPixmap SCRIBUS_API getQCheckBoxPixmap(const bool checked, const QColor background);
+
+/*! \brief Convert a color in RGB space to HSV space (Hue, Saturation, Value).
+ * \param red the red component (modified in place).
+ * \param green the green component (modified in place).
+ * \param blue the blue component (modified in place).
+ */
 unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
+/*! \brief Convert a color in HSV space to RGB space.
+ * \param hue the hue component (modified in place).
+ * \param saturation the saturation component (modified in place).
+ * \param value the value component (modified in place).
+ */
 void SCRIBUS_API RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
+/*! \brief Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
+ * \param red the red component (modified in place).
+ * \param green the green component (modified in place).
+ * \param blue the blue component (modified in place).
+ */
 void SCRIBUS_API HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
 void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
+/*! \brief Implement the HLS "double hex-cone".
+ * \param n1 lightness fraction (?)
+ * \param n2 saturation fraction (?)
+ * \param hue hue "angle".
+ * \return HLS value.
+ */
 int SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
+/*! \brief Convert a color in HLS space to RGB space.
+ * \param hue the hue component (modified in place).
+ * \param lightness the lightness component (modified in place).
+ * \param saturation the saturation component (modified in place).
+ */
 void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
+
+/*! \brief performance measurements.
+It prints given message with it current timestamp.
+Useful for duration holes finding.
+\author Petr Vanek */
+void tDebug(QString message);
 
 #endif

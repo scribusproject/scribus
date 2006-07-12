@@ -7157,6 +7157,8 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	}
 	FontSub->RebuildList(0);
 	propertiesPalette->Fonts->RebuildList(0);
+	layerPalette->setDoc(doc);
+	layerPalette->rebuildList();
 	ScCore->getCMSProfiles();
 	SetShortCut();
 }

@@ -63,46 +63,11 @@ public:
 	int docUnitIndex;
 	int decimals;
 	double unitRatio;
-/*	double pageWidth;
-	double pageHeight;*/
-	int choosenLayout;
-	QColor colorPaper;
-	QString prefsPageSizeName;
 
 protected:
-/*	QVBoxLayout* reformDocLayout;
-	QHBoxLayout* dsGroupBox7Layout;
-	QHBoxLayout* groupBox7aLayout;
-	QHBoxLayout* groupScratchLayout;
-	QHBoxLayout* groupGapLayout;
-	QGridLayout* layout4sg;
-	QGridLayout* dsLayout4;
-	QHBoxLayout* dsLayout4p;
-	QVBoxLayout* dsLayout4pv;
-	QGridLayout* layout4;
-	QGridLayout* layout4a;
-	QGridLayout* layout4s;
-	QHBoxLayout* Layout3;
-// 	QVBoxLayout* tabViewLayout;
-	QVBoxLayout* buttonGroup1Layout;
-	QHBoxLayout* layout7;
-	QVBoxLayout* pageBackgroundLayout;
-	QHBoxLayout* layout10;
-	QHBoxLayout* groupAutoSaveLayout;*/
 	QStringList docAttributesList;
 	
 	TabDocument* tabPage;
-
-// 	PageLayouts* docLayout;
-// 	MarginWidget* GroupRand;
-// 	QGroupBox* groupBox7a;
-// 	QGroupBox* dsGroupBox7;
-// 	QGroupBox* groupScratch;
-// 	QLabel* TextLabel5s;
-// 	QLabel* TextLabel7s;
-// 	QLabel* TextLabel1_3;
-// 	QSpinBox* pageNumber;
-
 	DocInfos* docInfos;
 	DocSections* tabDocSections;
 	TabGuides* tabGuides;
@@ -114,15 +79,10 @@ protected:
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;
-	QLabel* textLabel9;
-
-	QLabel* textLabel1m;
 	DocumentItemAttributes* tabDocItemAttributes;
 	TOCIndexPrefs* tabTOCIndexPrefs;
 	
 	bool viewToRecalcPictureRes;
-	//Replace with commonstrings when translators have that one done.
-	QString customText, customTextTR;
 
 protected slots:
 	virtual void restoreDefaults();

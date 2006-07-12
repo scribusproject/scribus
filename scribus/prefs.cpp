@@ -54,13 +54,6 @@ extern QPixmap loadIcon(QString nam);
 extern ScribusQApp* ScQApp;
 
 
-// performance measurements - PV
-// void tdebug(QString i)
-// {
-// 	QDateTime debugTime;
-// 	qDebug(QString("%1 %2").arg(i).arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")));
-// }
-
 Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 {
 	prefsManager=PrefsManager::instance();
@@ -83,7 +76,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 	tabTypo = new TabTypograpy(  prefsWidgets, &prefsData->typographicSettings);
 	addItem( tr("Typography"), loadIcon("typography.png"), tabTypo);
 
-	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, docUnitIndex, 0);
+	tabTools = new TabTools(  prefsWidgets, &prefsData->toolSettings, docUnitIndex, ap->doc);
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ap->LangTransl);
@@ -91,7 +84,7 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	// ap->PrefsPfad is propably obsolete
 	//tabFonts = new FontPrefs(prefsWidgets, false, ap->PrefsPfad, 0);
-	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), 0);
+	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), ap->doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);

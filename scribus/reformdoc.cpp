@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
+
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
 	docUnitIndex = doc->unitIndex();
@@ -55,8 +56,6 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	unitRatio = doc->unitRatio();
 	QString ein = unitGetSuffixFromIndex(docUnitIndex);
 	decimals = unitGetDecimalsFromIndex(docUnitIndex);
-	customText="Custom";
-	customTextTR=tr( "Custom" );
 
 	setCaption( tr( "Document Setup" ) );
 	tabPage = new TabDocument( prefsWidgets, "tab", true );
@@ -80,14 +79,9 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Tools"), loadIcon("tools.png"), tabTools);
 
 	tabHyphenator = new HySettings(prefsWidgets, &ScMW->LangTransl);
-// 	tabHyphenator->verbose->setChecked(!doc->docHyphenator->Automatic);
-// 	tabHyphenator->input->setChecked(doc->docHyphenator->AutoCheck);
-// 	tabHyphenator->language->setCurrentText(ScMW->LangTransl[doc->docHyphenator->Language]);
-// 	tabHyphenator->wordLen->setValue(doc->docHyphenator->MinWordLen);
-// 	tabHyphenator->maxCount->setValue(doc->docHyphenator->HyCount);
 	addItem( tr("Hyphenator"), loadIcon("hyphenate.png"), tabHyphenator);
 
-	tabFonts = new FontPrefs(prefsWidgets, true, ScMW->PrefsPfad, doc);
+	tabFonts = new FontPrefs(prefsWidgets, true, PrefsManager::instance()->preferencesLocation(), doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, doc->checkerProfiles, doc->curCheckProfile);
@@ -202,10 +196,10 @@ void ReformDoc::unitChange()
 void ReformDoc::setDS(int layout)
 {
 	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
-	choosenLayout = layout;
-	tabPage->docLayout->firstPage->setCurrentItem(currDoc->pageSets[choosenLayout].FirstPage);
-	tabView->gapHorizontal->setValue(currDoc->pageSets[choosenLayout].GapHorizontal * unitRatio);
-	tabView->gapVertical->setValue(currDoc->pageSets[choosenLayout].GapBelow * unitRatio);
+	tabPage->choosenLayout = layout;
+	tabPage->docLayout->firstPage->setCurrentItem(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
+	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
+	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
 }
 
 void ReformDoc::switchCMS(bool enable)
@@ -244,14 +238,14 @@ void ReformDoc::updateDocumentSettings()
 	br2 = tabPage->marginGroup->bottom();
 	lr2 = tabPage->marginGroup->left();
 	rr2 = tabPage->marginGroup->right();
-	int fp = choosenLayout;
+	int fp = tabPage->choosenLayout;
 	currDoc->pageSets[fp].FirstPage = tabPage->docLayout->firstPage->currentItem();
 	currDoc->pageSets[fp].GapHorizontal = tabView->gapHorizontal->value() / currDoc->unitRatio();
 	currDoc->pageSets[fp].GapBelow = tabView->gapVertical->value() / currDoc->unitRatio();
 	//currDoc->FirstPnum = pageNumber->value();
 	currDoc->resetPage(tpr2, lr2, rr2, br2, fp);
 	currDoc->PageOri = tabPage->pageOrientationComboBox->currentItem();
-	currDoc->m_pageSize = prefsPageSizeName;
+	currDoc->m_pageSize = tabPage->prefsPageSizeName;
 	currDoc->pageWidth = tabPage->pageW;
 	currDoc->pageHeight = tabPage->pageH;
 	double TopD = tabView->topScratch->value() / currDoc->unitRatio() - currDoc->ScratchTop;
@@ -303,7 +297,7 @@ void ReformDoc::updateDocumentSettings()
 	}
 	currDoc->guidesSettings.before = tabGuides->inBackground->isChecked();
 	currDoc->marginColored = tabView->checkUnprintable->isChecked();
-	currDoc->papColor = colorPaper;
+	currDoc->papColor = tabView->colorPaper;
 	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
 	currDoc->guidesSettings.framesShown = tabView->checkFrame->isChecked();
 	currDoc->guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();

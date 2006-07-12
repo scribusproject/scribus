@@ -383,7 +383,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	toolText->setOn(true);
 
 	// Neccessary for document prefs
-	restoreDefaults(prefsData, unitIndex);
+	//restoreDefaults(prefsData, unitIndex);
 
 	QToolTip::add( toolText, tr( "Text Frame Properties" ) );
 	QToolTip::add( toolImage, tr( "Picture Frame Properties" ) );
@@ -912,7 +912,8 @@ void TabTools::setSample()
 {
 	if (!fontPreview)
 		return;
-	SampleItem *si = new SampleItem(docu);
+
+	SampleItem *si = new SampleItem(0);
 	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
 	{
@@ -931,6 +932,7 @@ void TabTools::setSample()
 	}
 	else
 		si->setBgColor(paletteBackgroundColor());
+
 	if (colorComboText->currentText() != CommonStrings::NoneColor)
 	{
 		if (docu != 0)
@@ -950,8 +952,6 @@ void TabTools::setSample()
 		si->setTxColor(paletteBackgroundColor());
 	si->setFont(fontComboText->currentText());
 	si->setFontSize(sizeComboText->currentText().left(2).toInt() * 10, true);
-	/*QPixmap pm = si->getSample(previewText->width(), previewText->height());
-	previewText->setPixmap(pm);*/
 	previewText->setPixmap(si->getSample(previewText->width(), previewText->height()));
 	delete si;
 }

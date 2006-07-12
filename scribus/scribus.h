@@ -218,7 +218,7 @@ public:
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
 	ScribusWin* ActWin;
-	QString PrefsPfad;
+	//QString PrefsPfad;
 	QClipboard *ClipB;
 	QString LoadEnc;
 	bool ScriptRunning;

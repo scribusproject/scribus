@@ -1529,12 +1529,6 @@ unsigned char INT_MULT ( unsigned char a, unsigned char b )
 	return (unsigned char)(( ( c >> 8 ) + c ) >> 8);
 }
 
-/*!
- * Convert a color in RGB space to HSV space (Hue, Saturation, Value).
- * \param red the red component (modified in place).
- * \param green the green component (modified in place).
- * \param blue the blue component (modified in place).
- */
 void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
 {
 	int r, g, b;
@@ -1581,12 +1575,6 @@ void RGBTOHSV ( uchar& red, uchar& green, uchar& blue )
 	blue  = (uchar)v;
 }
 
-/*!
- * Convert a color in HSV space to RGB space.
- * \param hue the hue component (modified in place).
- * \param saturation the saturation component (modified in place).
- * \param value the value component (modified in place).
- */
 void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value )
 {
 	if ( saturation == 0 )
@@ -1642,12 +1630,6 @@ void HSVTORGB ( uchar& hue, uchar& saturation, uchar& value )
 	}
 }
 
-/*!
- * Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
- * \param red the red component (modified in place).
- * \param green the green component (modified in place).
- * \param blue the blue component (modified in place).
- */
 void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
 {
 	int r = red;
@@ -1696,13 +1678,6 @@ void RGBTOHLS ( uchar& red, uchar& green, uchar& blue )
 	blue  = (uchar)s;
 }
 
-/*!
- * Implement the HLS "double hex-cone".
- * \param n1 lightness fraction (?)
- * \param n2 saturation fraction (?)
- * \param hue hue "angle".
- * \return HLS value.
- */
 int HLSVALUE ( double n1, double n2, double hue )
 {
 	double value;
@@ -1721,12 +1696,6 @@ int HLSVALUE ( double n1, double n2, double hue )
 	return (int)( value * 255 );
 }
 
-/*!
- * Convert a color in HLS space to RGB space.
- * \param hue the hue component (modified in place).
- * \param lightness the lightness component (modified in place).
- * \param saturation the saturation component (modified in place).
- */
 void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 {
 	double h = hue;
@@ -1750,4 +1719,10 @@ void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 		lightness  = HLSVALUE( m1, m2, h );
 		saturation = HLSVALUE( m1, m2, h - 85 );
 	}
+}
+
+void tDebug(QString message)
+{
+	QDateTime debugTime;
+	qDebug(QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message));
 }
