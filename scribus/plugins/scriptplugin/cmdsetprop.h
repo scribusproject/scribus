@@ -35,6 +35,28 @@ currently selected item is used.\n\
 PyObject *scribus_setfillcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_setfilltrans__doc__,
+QT_TR_NOOP("setFillTransparency(transparency, [\"name\"])\n\
+\n\
+Sets the fill transparency of the object \"name\" to transparency\n\
+is the name of one of the defined colors. If \"name\" is not given the\n\
+currently selected item is used.\n\
+"));
+/*! Set fill transparency */
+PyObject *scribus_setfilltrans(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setfillblend__doc__,
+QT_TR_NOOP("setFillBlendmode(blendmode, [\"name\"])\n\
+\n\
+Sets the fill blendmode of the object \"name\" to blendmode\n\
+is the name of one of the defined colors. If \"name\" is not given the\n\
+currently selected item is used.\n\
+"));
+/*! Set fill blendmode */
+PyObject *scribus_setfillblend(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_setlinecolor__doc__,
 QT_TR_NOOP("setLineColor(\"color\", [\"name\"])\n\
 \n\
@@ -43,6 +65,28 @@ is not given the currently selected item is used.\n\
 "));
 /*! Set line color */
 PyObject *scribus_setlinecolor(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setlinetrans__doc__,
+QT_TR_NOOP("setLineTransparency(transparency, [\"name\"])\n\
+\n\
+Sets the line transparency of the object \"name\" to transparency\n\
+is the name of one of the defined colors. If \"name\" is not given the\n\
+currently selected item is used.\n\
+"));
+/*! Set line transparency */
+PyObject *scribus_setlinetrans(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setlineblend__doc__,
+QT_TR_NOOP("setLineBlendmode(blendmode, [\"name\"])\n\
+\n\
+Sets the line blendmode of the object \"name\" to blendmode\n\
+is the name of one of the defined colors. If \"name\" is not given the\n\
+currently selected item is used.\n\
+"));
+/*! Set line blendmode */
+PyObject *scribus_setlineblend(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setlinewidth__doc__,

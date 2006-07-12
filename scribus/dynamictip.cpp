@@ -37,6 +37,12 @@ DynamicTip::DynamicTip( QTable* parent ) : QToolTip( parent->viewport() )
 	kind = Table;
 }
 
+DynamicTip::DynamicTip( QHeader *parent ) : QToolTip( parent )
+{
+	header = parent;
+	kind = TableHeader;
+}
+
 void DynamicTip::maybeTip( const QPoint &pos )
 {
 	if (kind == ColorListBox)
@@ -63,7 +69,7 @@ void DynamicTip::maybeTip( const QPoint &pos )
 			tip(listB->itemRect(it), tipText);
 		}
 	}
-	else
+	else if (kind == Table)
 	{
 		QPoint cp = table->viewportToContents( pos );
 		int row = table->rowAt( cp.y() );
@@ -77,4 +83,19 @@ void DynamicTip::maybeTip( const QPoint &pos )
 		QString tipString = it->getPageName();
 		tip( cr, tipString );
 	}
+	else if (kind == TableHeader)
+	{
+		int col = header->sectionAt(pos.x());
+		tip( header->sectionRect(col), headerTips[col] );
+	}
+}
+
+void DynamicTip::addHeaderTip( QString tip )
+{
+	headerTips.append(tip);
+}
+
+void DynamicTip::clearHeaderTips()
+{
+	headerTips.clear();
 }

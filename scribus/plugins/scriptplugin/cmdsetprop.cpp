@@ -53,6 +53,48 @@ PyObject *scribus_setfillcolor(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_setfilltrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double w;
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0.0) || (w > 1.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setFillTransparency(1.0 - w);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_setfillblend(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int w;
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0) || (w > 15))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setFillBlendmode(w);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -65,6 +107,48 @@ PyObject *scribus_setlinecolor(PyObject* /* self */, PyObject* args)
 	if (it == NULL)
 		return NULL;
 	it->setLineColor(QString::fromUtf8(Color));
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_setlinetrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double w;
+	if (!PyArg_ParseTuple(args, "d|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0.0) || (w > 1.0))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Transparency out of bounds, must be 0 <= transparency <= 1.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setLineTransparency(1.0 - w);
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_setlineblend(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int w;
+	if (!PyArg_ParseTuple(args, "i|es", &w, "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if ((w < 0) || (w > 15))
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Blendmode out of bounds, must be 0 <= blendmode <= 15.","python error"));
+		return NULL;
+	}
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	i->setLineBlendmode(w);
 	Py_INCREF(Py_None);
 	return Py_None;
 }

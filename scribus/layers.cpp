@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qcolordialog.h>
 
+#include "dynamictip.h"
 #include "scmessagebox.h"
 #include "sccombobox.h"
 #include "scribus.h"
@@ -142,6 +143,7 @@ LayerPalette::LayerPalette(QWidget* parent)
 	header->setResizeEnabled(false, 4);
 	header->setResizeEnabled(false, 5);
 	header->setResizeEnabled(true, 6);
+	dynTip = new DynamicTip(header);
 	Table->setRowMovingEnabled(false);
 	Table->setSorting(false);
 	Table->setSelectionMode( QTable::SingleRow );
@@ -559,5 +561,13 @@ void LayerPalette::languageChange()
 	QToolTip::add( deleteLayerButton, tr( "Delete layer" ) );
 	QToolTip::add( raiseLayerButton, tr( "Raise layer" ) );
 	QToolTip::add( lowerLayerButton, tr( "Lower layer" ) );
+	dynTip->clearHeaderTips();
+	dynTip->addHeaderTip("");
+	dynTip->addHeaderTip( tr("Visibility"));
+	dynTip->addHeaderTip( tr("Print on/off"));
+	dynTip->addHeaderTip( tr("Locked / Unlocked"));
+	dynTip->addHeaderTip( tr("Text flows around Objects in lower Layers"));
+	dynTip->addHeaderTip( tr("Outline Mode on/off"));
+	dynTip->addHeaderTip( tr("Name of the Layer"));
 }
 

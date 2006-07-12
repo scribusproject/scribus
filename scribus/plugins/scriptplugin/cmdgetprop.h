@@ -23,6 +23,26 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_getfillcolor(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getfilltrans__doc__,
+QT_TR_NOOP("getFillTransparency([\"name\"]) -> float\n\
+\n\
+Returns the fill transparency of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns fill transparency of the object */
+PyObject *scribus_getfilltrans(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getfillblend__doc__,
+QT_TR_NOOP("getFillBlendmode([\"name\"]) -> integer\n\
+\n\
+Returns the fill blendmode of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns fill blendmode of the object */
+PyObject *scribus_getfillblend(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getlinecolor__doc__,
 QT_TR_NOOP("getLineColor([\"name\"]) -> string\n\
 \n\
@@ -31,6 +51,26 @@ If \"name\" is not given the currently selected item is used.\n\
 "));
 /*! Returns color of the line */
 PyObject *scribus_getlinecolor(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlinetrans__doc__,
+QT_TR_NOOP("getLineTransparency([\"name\"]) -> float\n\
+\n\
+Returns the line transparency of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns line transparency of the object */
+PyObject *scribus_getlinetrans(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getlineblend__doc__,
+QT_TR_NOOP("getLineBlendmode([\"name\"]) -> integer\n\
+\n\
+Returns the line blendmode of the object \"name\". If \"name\"\n\
+is not given the currently selected Item is used.\n\
+"));
+/*! Returns line blendmode of the object */
+PyObject *scribus_getlineblend(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinewidth__doc__,

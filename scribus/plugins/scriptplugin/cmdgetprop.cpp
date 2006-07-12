@@ -19,6 +19,28 @@ PyObject *scribus_getfillcolor(PyObject* /* self */, PyObject* args)
 	return i != NULL ? PyString_FromString(i->fillColor().utf8()) : NULL;
 }
 
+PyObject *scribus_getfilltrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(1.0 - i->fillTransparency())) : NULL;
+}
+
+PyObject *scribus_getfillblend(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyInt_FromLong(static_cast<long>(i->fillBlendmode())) : NULL;
+}
+
 PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -42,6 +64,28 @@ PyObject *scribus_getlinecolor(PyObject* /* self */, PyObject* args)
 		return PyString_FromString(it->lineColor().utf8());
 	PyErr_SetString(NotFoundError, QObject::tr("Color not found - python error", "python error"));
 	return NULL;
+}
+
+PyObject *scribus_getlinetrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyFloat_FromDouble(static_cast<double>(1.0 - i->lineTransparency())) : NULL;
+}
+
+PyObject *scribus_getlineblend(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	return i != NULL ? PyInt_FromLong(static_cast<long>(i->lineBlendmode())) : NULL;
 }
 
 PyObject *scribus_getlinewidth(PyObject* /* self */, PyObject* args)

@@ -25,6 +25,7 @@ class QSpinBox;
 class QLabel;
 class ScComboBox;
 class ScribusDoc;
+class DynamicTip;
 
 
 class SCRIBUS_API LayerTable : public QTable
@@ -100,6 +101,7 @@ protected:
 	QPtrList<QCheckBox> flagsOutline;
 	QPtrList<QToolButton> flagsMarker;
 	QValueList<Layer> *layers;
+	DynamicTip* dynTip;
 };
 
 #endif // LAYERPALETTE_H

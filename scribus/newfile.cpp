@@ -252,13 +252,13 @@ void NewDoc::createNewDocPage()
 	Distance->setValue(11 * unitRatio);
 	Dist = 11;
 	TextLabel4->setBuddy(Distance);
-	Layout2->addWidget( Distance, 1, 1, Qt::AlignLeft );
+	Layout2->addWidget( Distance, 1, 1); //, Qt::AlignLeft );
 	numberOfCols = new QSpinBox( AutoFrame, "numberOfCols" );
 	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
 	numberOfCols->setMinValue( 1 );
 	numberOfCols->setValue( 1 );
 	TextLabel3->setBuddy(numberOfCols);
-	Layout2->addWidget( numberOfCols, 0, 1, Qt::AlignLeft );
+	Layout2->addWidget( numberOfCols, 0, 1); //, Qt::AlignLeft );
 	GroupBox4Layout->addLayout( Layout2 );
 	Layout10->addWidget( AutoFrame );
 	NewDocLayout->addLayout( Layout10 );

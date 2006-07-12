@@ -286,6 +286,166 @@ PyObject *scribus_layerprint(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
+PyObject *scribus_layerlock(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int vis = 1;
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			ScCore->primaryMainWindow()->doc->Layers[lam].isEditable = vis;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_layeroutline(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int vis = 1;
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			ScCore->primaryMainWindow()->doc->Layers[lam].outlineMode = vis;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_layerflow(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int vis = 1;
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			ScCore->primaryMainWindow()->doc->Layers[lam].flowControl = vis;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_layerblend(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	int vis = 0;
+	if (!PyArg_ParseTuple(args, "esi", "utf-8", &Name, &vis))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name"));
+		return NULL;
+	}
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			ScCore->primaryMainWindow()->doc->Layers[lam].blendMode = vis;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+PyObject *scribus_layertrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	double vis = 1.0;
+	if (!PyArg_ParseTuple(args, "esd", "utf-8", &Name, &vis))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QString("Cannot have an empty layer name"));
+		return NULL;
+	}
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); ++lam)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			ScCore->primaryMainWindow()->doc->Layers[lam].transparency = vis;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 PyObject *scribus_glayervisib(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -346,6 +506,161 @@ PyObject *scribus_glayerprint(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	return PyInt_FromLong(static_cast<long>(i));
+}
+
+PyObject *scribus_glayerlock(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	int i = 0;
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			i = static_cast<int>(ScCore->primaryMainWindow()->doc->Layers[lam].isEditable);
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	return PyInt_FromLong(static_cast<long>(i));
+}
+
+PyObject *scribus_glayeroutline(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	int i = 0;
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			i = static_cast<int>(ScCore->primaryMainWindow()->doc->Layers[lam].outlineMode);
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	return PyInt_FromLong(static_cast<long>(i));
+}
+
+PyObject *scribus_glayerflow(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	int i = 0;
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			i = static_cast<int>(ScCore->primaryMainWindow()->doc->Layers[lam].flowControl);
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	return PyInt_FromLong(static_cast<long>(i));
+}
+
+PyObject *scribus_glayerblend(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	int i = 0;
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			i = ScCore->primaryMainWindow()->doc->Layers[lam].blendMode;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	return PyInt_FromLong(static_cast<long>(i));
+}
+
+PyObject *scribus_glayertrans(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	if (Name == "")
+	{
+		PyErr_SetString(PyExc_ValueError, QObject::tr("Cannot have an empty layer name.","python error"));
+		return NULL;
+	}
+	double i = 1.0;
+	bool found = false;
+	for (uint lam=0; lam < ScCore->primaryMainWindow()->doc->Layers.count(); lam++)
+	{
+		if (ScCore->primaryMainWindow()->doc->Layers[lam].Name == QString::fromUtf8(Name))
+		{
+			i = ScCore->primaryMainWindow()->doc->Layers[lam].transparency;
+			found = true;
+			break;
+		}
+	}
+	if (!found)
+	{
+		PyErr_SetString(NotFoundError, QObject::tr("Layer not found.","python error"));
+		return NULL;
+	}
+	return PyFloat_FromDouble(i);
 }
 
 PyObject *scribus_removelayer(PyObject* /* self */, PyObject* args)

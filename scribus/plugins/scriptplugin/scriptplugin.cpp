@@ -318,6 +318,10 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getCornerRadius"), scribus_getcornerrad, METH_VARARGS, tr(scribus_getcornerrad__doc__)},
 	{const_cast<char*>("getFillColor"), scribus_getfillcolor, METH_VARARGS, tr(scribus_getfillcolor__doc__)},
 	{const_cast<char*>("getFillShade"), scribus_getfillshade, METH_VARARGS, tr(scribus_getfillshade__doc__)},
+	{const_cast<char*>("getFillBlendmode"), scribus_getfillblend, METH_VARARGS, tr(scribus_getfillblend__doc__)},
+	{const_cast<char*>("getFillTransparency"), scribus_getfilltrans, METH_VARARGS, tr(scribus_getfilltrans__doc__)},
+	{const_cast<char*>("getLineBlendmode"), scribus_getlineblend, METH_VARARGS, tr(scribus_getlineblend__doc__)},
+	{const_cast<char*>("getLineTransparency"), scribus_getlinetrans, METH_VARARGS, tr(scribus_getlinetrans__doc__)},
 	{const_cast<char*>("getFontNames"), (PyCFunction)scribus_fontnames, METH_NOARGS, tr(scribus_fontnames__doc__)},
 	{const_cast<char*>("getFont"), scribus_getfont, METH_VARARGS, tr(scribus_getfont__doc__)},
 	{const_cast<char*>("getFontSize"), scribus_getfontsize, METH_VARARGS, tr(scribus_getfontsize__doc__)},
@@ -326,6 +330,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getImageFile"), scribus_getimgname, METH_VARARGS, tr(scribus_getimgname__doc__)},
 	{const_cast<char*>("getImageScale"), scribus_getimgscale, METH_VARARGS, tr(scribus_getimgscale__doc__)},
 	{const_cast<char*>("getLayers"), (PyCFunction)scribus_getlayers, METH_NOARGS, tr(scribus_getlayers__doc__)},
+	{const_cast<char*>("getLayerBlendmode"), scribus_glayerblend, METH_VARARGS, tr(scribus_glayerblend__doc__)},
+	{const_cast<char*>("getLayerTransparency"), scribus_glayertrans, METH_VARARGS, tr(scribus_glayertrans__doc__)},
 	{const_cast<char*>("getLineCap"), scribus_getlineend, METH_VARARGS, tr(scribus_getlineend__doc__)},
 	{const_cast<char*>("getLineColor"), scribus_getlinecolor, METH_VARARGS, tr(scribus_getlinecolor__doc__)},
 	{const_cast<char*>("getLineJoin"), scribus_getlinejoin, METH_VARARGS, tr(scribus_getlinejoin__doc__)},
@@ -354,6 +360,9 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("insertText"), scribus_inserttext, METH_VARARGS, tr(scribus_inserttext__doc__)},
 	{const_cast<char*>("isLayerPrintable"), scribus_glayerprint, METH_VARARGS, tr(scribus_glayerprint__doc__)},
 	{const_cast<char*>("isLayerVisible"), scribus_glayervisib, METH_VARARGS, tr(scribus_glayervisib__doc__)},
+	{const_cast<char*>("isLayerLocked"), scribus_glayerlock, METH_VARARGS, tr(scribus_glayerlock__doc__)},
+	{const_cast<char*>("isLayerOutlined"), scribus_glayeroutline, METH_VARARGS, tr(scribus_glayeroutline__doc__)},
+	{const_cast<char*>("isLayerFlow"), scribus_glayerflow, METH_VARARGS, tr(scribus_glayerflow__doc__)},
 	{const_cast<char*>("isLocked"), scribus_islocked, METH_VARARGS, tr(scribus_islocked__doc__)},
 	{const_cast<char*>("linkTextFrames"), scribus_linktextframes, METH_VARARGS, tr(scribus_linktextframes__doc__)},
 	{const_cast<char*>("loadImage"), scribus_loadimage, METH_VARARGS, tr(scribus_loadimage__doc__)},
@@ -399,6 +408,8 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setCursor"), scribus_setcursor, METH_VARARGS, tr(scribus_setcursor__doc__)},
 	{const_cast<char*>("setDocType"), scribus_setdoctype, METH_VARARGS, tr(scribus_setdoctype__doc__)},
 	{const_cast<char*>("setFillColor"), scribus_setfillcolor, METH_VARARGS, tr(scribus_setfillcolor__doc__)},
+	{const_cast<char*>("setFillTransparency"), scribus_setfilltrans, METH_VARARGS, tr(scribus_setfilltrans__doc__)},
+	{const_cast<char*>("setFillBlendmode"), scribus_setfillblend, METH_VARARGS, tr(scribus_setfillblend__doc__)},
 	{const_cast<char*>("setFillShade"), scribus_setfillshade, METH_VARARGS, tr(scribus_setfillshade__doc__)},
 	{const_cast<char*>("setFont"), scribus_setfont, METH_VARARGS, tr(scribus_setfont__doc__)},
 	{const_cast<char*>("setFontSize"), scribus_setfontsize, METH_VARARGS, tr(scribus_setfontsize__doc__)},
@@ -407,8 +418,15 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("setInfo"), scribus_setinfo, METH_VARARGS, tr(scribus_setinfo__doc__)},
 	{const_cast<char*>("setLayerPrintable"), scribus_layerprint, METH_VARARGS, tr(scribus_layerprint__doc__)},
 	{const_cast<char*>("setLayerVisible"), scribus_layervisible, METH_VARARGS, tr(scribus_layervisible__doc__)},
+	{const_cast<char*>("setLayerLocked"), scribus_layerlock, METH_VARARGS, tr(scribus_layerlock__doc__)},
+	{const_cast<char*>("setLayerOutlined"), scribus_layeroutline, METH_VARARGS, tr(scribus_layeroutline__doc__)},
+	{const_cast<char*>("setLayerFlow"), scribus_layerflow, METH_VARARGS, tr(scribus_layerflow__doc__)},
+	{const_cast<char*>("setLayerBlendmode"), scribus_layerblend, METH_VARARGS, tr(scribus_layerblend__doc__)},
+	{const_cast<char*>("setLayerTransparency"), scribus_layertrans, METH_VARARGS, tr(scribus_layertrans__doc__)},
 	{const_cast<char*>("setLineCap"), scribus_setlineend, METH_VARARGS, tr(scribus_setlineend__doc__)},
 	{const_cast<char*>("setLineColor"), scribus_setlinecolor, METH_VARARGS, tr(scribus_setlinecolor__doc__)},
+	{const_cast<char*>("setLineTransparency"), scribus_setlinetrans, METH_VARARGS, tr(scribus_setlinetrans__doc__)},
+	{const_cast<char*>("setLineBlendmode"), scribus_setlineblend, METH_VARARGS, tr(scribus_setlineblend__doc__)},
 	{const_cast<char*>("setLineJoin"), scribus_setlinejoin, METH_VARARGS, tr(scribus_setlinejoin__doc__)},
 	{const_cast<char*>("setLineShade"), scribus_setlineshade, METH_VARARGS, tr(scribus_setlineshade__doc__)},
 	{const_cast<char*>("setLineSpacing"), scribus_setlinespace, METH_VARARGS, tr(scribus_setlinespace__doc__)},
@@ -583,6 +601,22 @@ void initscribus(ScribusMainWindow *pl)
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LEGAL"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 1008.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_LETTER"), Py_BuildValue(const_cast<char*>("(ff)"), 612.0, 792.0));
 	PyDict_SetItemString(d, const_cast<char*>("PAPER_TABLOID"), Py_BuildValue(const_cast<char*>("(ff)"), 792.0, 1224.0));
+	PyDict_SetItemString(d, const_cast<char*>("NORMAL"), Py_BuildValue(const_cast<char*>("i"), 0));
+	PyDict_SetItemString(d, const_cast<char*>("DARKEN"), Py_BuildValue(const_cast<char*>("i"), 1));
+	PyDict_SetItemString(d, const_cast<char*>("LIGHTEN"), Py_BuildValue(const_cast<char*>("i"), 2));
+	PyDict_SetItemString(d, const_cast<char*>("MULTIPLY"), Py_BuildValue(const_cast<char*>("i"), 3));
+	PyDict_SetItemString(d, const_cast<char*>("SCREEN"), Py_BuildValue(const_cast<char*>("i"), 4));
+	PyDict_SetItemString(d, const_cast<char*>("OVERLAY"), Py_BuildValue(const_cast<char*>("i"), 5));
+	PyDict_SetItemString(d, const_cast<char*>("HARD_LIGHT"), Py_BuildValue(const_cast<char*>("i"), 6));
+	PyDict_SetItemString(d, const_cast<char*>("SOFT_LIGHT"), Py_BuildValue(const_cast<char*>("i"), 7));
+	PyDict_SetItemString(d, const_cast<char*>("DIFFERENCE"), Py_BuildValue(const_cast<char*>("i"), 8));
+	PyDict_SetItemString(d, const_cast<char*>("EXCLUSION"), Py_BuildValue(const_cast<char*>("i"), 9));
+	PyDict_SetItemString(d, const_cast<char*>("COLOR_DODGE"), Py_BuildValue(const_cast<char*>("i"), 10));
+	PyDict_SetItemString(d, const_cast<char*>("COLOR_BURN"), Py_BuildValue(const_cast<char*>("i"), 11));
+	PyDict_SetItemString(d, const_cast<char*>("HUE"), Py_BuildValue(const_cast<char*>("i"), 12));
+	PyDict_SetItemString(d, const_cast<char*>("SATURATION"), Py_BuildValue(const_cast<char*>("i"), 13));
+	PyDict_SetItemString(d, const_cast<char*>("COLOR"), Py_BuildValue(const_cast<char*>("i"), 14));
+	PyDict_SetItemString(d, const_cast<char*>("LUMINOSITY"), Py_BuildValue(const_cast<char*>("i"), 15));
 	// preset page layouts
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_1"), Py_BuildValue(const_cast<char*>("i"), 0));
 	PyDict_SetItemString(d, const_cast<char*>("PAGE_2"), Py_BuildValue(const_cast<char*>("i"), 1));
