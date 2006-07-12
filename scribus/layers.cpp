@@ -562,12 +562,12 @@ void LayerPalette::languageChange()
 	QToolTip::add( raiseLayerButton, tr( "Raise layer" ) );
 	QToolTip::add( lowerLayerButton, tr( "Lower layer" ) );
 	dynTip->clearHeaderTips();
-	dynTip->addHeaderTip("");
-	dynTip->addHeaderTip( tr("Visibility"));
-	dynTip->addHeaderTip( tr("Print on/off"));
-	dynTip->addHeaderTip( tr("Locked / Unlocked"));
-	dynTip->addHeaderTip( tr("Text flows around Objects in lower Layers"));
-	dynTip->addHeaderTip( tr("Outline Mode on/off"));
-	dynTip->addHeaderTip( tr("Name of the Layer"));
+	dynTip->addHeaderTip("<qt>" + tr("Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. ") + "</qt>");
+	dynTip->addHeaderTip( "<qt>" + tr("Make Layer Visible - Uncheck to hide the layer from the display ") + "</qt>" );
+	dynTip->addHeaderTip( "<qt>" + tr("Print Layer - Uncheck to disable printing. ") + "</qt>" );
+	dynTip->addHeaderTip( "<qt>" + tr("Lock or Unlock Layer - Unchecked is unlocked ") + "</qt>" );
+	dynTip->addHeaderTip( "<qt>" + tr("Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below") + "</qt>" );
+	dynTip->addHeaderTip( "<qt>" + tr("Outline Mode - Toggles the 'wireframe' display of objects to speed the display of very complex objects.") + "</qt>" ) ;
+	dynTip->addHeaderTip( "<qt>" + tr("Name of the Layer - Double clicking on the name of a layer enabled editing") + "</qt>" );
 }
 
