@@ -1,7 +1,40 @@
-Changes since 1.2.3
+Changes since 1.2.4
 
-Scribus - 1.2.4
+Scribus - 1.2.5cvs
+==================
+- 0004002: [Translation] Spanish Translation Update (1.2.5) (plinnell)
+- 0004006: [Translation] Ukrainian translation update for the upcoming 1.2.5 release (plinnell)
+- 0003982: [Translation] Finnish translation update (Tsoots)
+- 0003963: [Translation] Polish translation update for 1.2.5 (plinnell)
+- 0003960: [Translation] Updated German translation for 1.2.5 (plinnell)
+- 0003959: [Translation] Danish Translation (plinnell)
+- 0003962: [Translation] Galician Translate Update for 1.2.5 (plinnell)
+- 0003882: [Import / Export] Backport Franz's RGB and Transparency fix into 1.2.5 (plinnell)
+- 0003833: [Plug-ins] Add Icelandic hyphenator (plinnell)
+- 0003770: [Translation] Updated Danish Translation (cbradney)
+- 0003620: [Documentation] Broken menu.xml for German docs (plinnell)
+- 0003665: [Translation] Updated Danish Translation (plinnell)
+- 0003628: [Translation] translation update for 1.2.5 (plinnell)
+- 0003620: [Documentation] Broken menu.xml for German docs (plinnel
+- 0003585: [User Interface] Backport the dockable tool bars from 1.3.3 to 1.2.x (Tsoots)
+- 0003551: [General] Scribus becoming painfully slow even without a single text frame in the doc (jghali)
+- 0003537: [General] seemingly corrupt .sla file does not open in 1.2.4.1 stable (fschmid)
+- 0003509: [Build System] Move the docs to FHS compliant location (cbradney)
+- 0003486: [Usability] Splash Screen Displays in all Windows (cbradney)
+- 0003463: [Translation] Japanese Translation FIle for Scribus 1.2.3 (cbradney)
+- 0003181: [Import / Export] Exporting a PDF with a gradient in a text frame causes "Incorrect Shading Error" in Acrobat 5.x+ (fschmid)
+- 0002934: [Fonts] add fontconfig support for 1.2.X (ringerc)
+- 0001659: [Documentation] Editing overlapping frames is very challenging because when selected, a frame retains its stacking order (plinnell)
+- 0002060: [Scripter] Test all 1.2.x sample scripts and fix/toss as appropriate (plinnell)
+- 0000221: [Story Editor / Text Frames] selecting text in a multi-column text is a chore (cbradney)
+- 0003017: [Usability] Canvas Mode: SHIFT + mouseclick doesn't work as text selection tool (cbradney)
+- 0002993: [Styles] Convert to Masterpage always suggests "New Masterpage" as name for a masterpage (cbradney)
+- 0000952: [Documentation] Need a brief doc of what tags the HTML importer can handle (plinnell)
+
+Scribus - 1.2.4.1
+===============
 - 0002962: [Internal] Fix dlopen issue on Suse 10.0 (ringerc)
+
 Scribus - 1.2.4cvs
 ==================
 

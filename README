@@ -1,6 +1,6 @@
-This is Scribus Version 1.2.5cvs
+This is Scribus Version 1.2.5
 
-New in 1.2.5cvs is fontconfig support on Linux. Scribus uses fontconfig to 
+New in 1.2.5 is fontconfig support on Linux. Scribus uses fontconfig to 
 discover the available fonts on your system. This is a new feature and should
 require any change to the way you use Scribus. New fonts added to $home/.fonts
 should automatically be detected when re-starting Scribus. The recommended
@@ -41,10 +41,10 @@ To use Scribus in your native language be sure that the environment variable
 LC_ALL, LC_MESSAGES, LANG, Qt locale, OR the command line option 
 of -l/--lang <lang> is set correctly.
 
-The new EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.
+The EPS/PS import feature in 1.2.x uses advanced features of Ghostscript.
 We recommend ALL users update to the newest version of Ghostscript available 
 for your distro. There are detailed hints on docs.scribus.net for installing
-GS 8.x in parallel to the GS installed by your distro.
+GS 8.5x in parallel to the GS installed by your distro.
 
 
 If you have a 64-bit version of Qt, sometimes ./configure will not detect the 
@@ -89,7 +89,7 @@ PostScript fonts please install either xfonts-scalable or gsfonts-x11.
 They are in the "Recommends" and will be installed by all sensible apt
 front-ends.
 
-For SuSE 9.x/10.0 Users:
+For SuSE 9.x/10.x Users:
 
 - On Suse 10.0, there is an issue with adding additional font paths in that the 
   font path name is short one character in the font path settings file located in
@@ -128,4 +128,4 @@ For the Scribus Team,
 
 Franz Schmid
 Peter Linnell
-June 2006
+July 2006
