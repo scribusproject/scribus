@@ -31,6 +31,7 @@
       <submenuitem file="fonts5.html" text="Basic Font Tests 2" />
     </submenuitem>
     <submenuitem file="about2.html" text="Scribus Basics" >
+	<submenuitem file="workspace1.html" text="Scribus Workspace" />
       <submenuitem file="docinfo.html" text="Doc. Info" />
       <submenuitem file="pagetemplate1.html" text="Page Templates" />
       <submenuitem file="pagenumber.html" text="Page Numbering" />
