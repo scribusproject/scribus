@@ -17,12 +17,12 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include "text/nlsconfig.h"
 
-
 SampleItem::SampleItem(ScribusDoc* doc) :
 	QObject()
 {
 	used = true;
 	m_Doc=doc;
+
 	if (doc==0)
 	{
 		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));

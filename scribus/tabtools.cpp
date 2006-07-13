@@ -913,7 +913,7 @@ void TabTools::setSample()
 	if (!fontPreview)
 		return;
 
-	SampleItem *si = new SampleItem(0);
+	SampleItem *si = new SampleItem(docu);
 	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
 	{
