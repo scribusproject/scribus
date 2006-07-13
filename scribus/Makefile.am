@@ -175,6 +175,7 @@ scribus_SOURCES = \
 	sampleitem.cpp \
 	sccolor.cpp	\
 	sccombobox.cpp	\
+	scinpitdialog.cpp \
 	scfonts.cpp	\
 	scfonts_ttf.cpp	\
 	scfontmetrics.cpp	\
@@ -416,6 +417,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
 	$(INSTALL_DATA) $(srcdir)/sampleitem.h                  $(prefix)/include/scribus/sampleitem.h
 	$(INSTALL_DATA) $(srcdir)/sccolor.h                     $(prefix)/include/scribus/sccolor.h
+	$(INSTALL_DATA) $(srcdir)/scinputdialog.h               $(prefix)/include/scribus/scinputdialog.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
 	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h               $(prefix)/include/scribus/scfontmetrics.h
@@ -611,6 +613,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/reformdoc.h
 	-rm -f $(prefix)/include/scribus/sampleitem.h
 	-rm -f $(prefix)/include/scribus/sccolor.h
+	-rm -f $(prefix)/include/scribus/scinputdialog.h
 	-rm -f $(prefix)/include/scribus/scfontmetrics.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scfonts_ttf.h

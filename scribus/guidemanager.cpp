@@ -35,7 +35,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qtooltip.h>
 #include <qhbuttongroup.h>
-#include <qinputdialog.h>
 #include <qtabwidget.h>
 
 #include "guidemanager.h"
@@ -48,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "commonstrings.h"
 #include "pagestructs.h"
+#include "scinputdialog.h"
 
 
 int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
@@ -156,10 +156,10 @@ bool GuideManager::editValueToList(QListView *list, QListViewItem *item)
 {
 	bool ok;
 	double original = item->text(0).toDouble();
-	double newGuide = QInputDialog::getDouble(tr("Edit Guide"),
+	double newGuide = ScInputDialog::getDouble(tr("Edit Guide"),
 											  tr("Enter a position:"),
 											  original,
-											  0, 1000, 2,
+											  0, 1000, 2, suffix,
 											  &ok, this);
 	if (!ok)
 		return false;
@@ -180,9 +180,9 @@ bool GuideManager::editValueToList(QListView *list, QListViewItem *item)
 bool GuideManager::addValueToList(QListView *list)
 {
 	bool ok;
-	double newGuide = QInputDialog::getDouble(tr("New Guide"),
+	double newGuide = ScInputDialog::getDouble(tr("New Guide"),
 										 tr("Enter a position:"),
-										 0.0, 0, 1000, 2,
+										 0.0, 0, 1000, 2, suffix,
 										 &ok, this );
 	if (!ok)
 		return false;

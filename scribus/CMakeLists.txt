@@ -150,6 +150,7 @@ reformdoc.h
 rulermover.h
 sampleitem.h
 sccolorshade.h
+scinputdialog.h
 scmenu.h
 scmessagebox.h
 scgtplugin.h
@@ -357,6 +358,7 @@ sampleitem.cpp
 sccolor.cpp
 sccolorshade.cpp
 sccombobox.cpp
+scinputdialog.cpp
 scfonts.cpp
 scfonts_ttf.cpp
 scfontmetrics.cpp
