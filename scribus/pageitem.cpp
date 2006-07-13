@@ -1661,6 +1661,7 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 				outs = false;
 			}
 			MaxChars = Ptext.count();
+			CPos = QMAX(MaxChars, 0);
 			Redrawn = true;
 			pf2.end();
 			p->restore();
@@ -1722,6 +1723,7 @@ NoRoom: pf2.end();
 						p->drawLine(FPoint(scpwidth16, scpheight3), FPoint(scpwidth3, scpheight16));
 					}
 				}
+				CPos = QMAX(nrc, 0);
 				MaxChars = nrc;
 				Redrawn = true;
 				p->restore();

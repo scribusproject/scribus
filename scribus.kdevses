@@ -5,7 +5,9 @@
  <pluginList>
   <kdevdebugger>
    <breakpointList>
-    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4671" type="1" condition="" enabled="1" />
+    <breakpoint0 location="/home/franz/Entwicklung/AnonCVS/Scribus2/Scribus/scribus/scribus.cpp:4671" type="1" tracingFormatString="" traceFormatStringEnabled="0" condition="" tracingEnabled="0" enabled="1" >
+     <tracedExpressions/>
+    </breakpoint0>
    </breakpointList>
   </kdevdebugger>
   <kdevbookmarks>
