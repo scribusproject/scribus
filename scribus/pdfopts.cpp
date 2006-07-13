@@ -31,12 +31,12 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const ProfilesL & PDFXProfiles, const SCFonts &AllFonts,
 								  double unitRatio, const ProfilesL & printerProfiles)
 	: QDialog( parent, "pdf", true, 0 ),
+	doc(currView->Doc),
 	EffVal(Eff),
 	Opts(pdfOptions),
 	docUnitRatio(unitRatio),
 	cmsDescriptorName(""),
 	components(3),
-	doc(currView->Doc),
 	appPrinterProfiles(printerProfiles)
 {
 	setCaption( tr( "Save as PDF" ) );
