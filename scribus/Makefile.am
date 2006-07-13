@@ -175,7 +175,7 @@ scribus_SOURCES = \
 	sampleitem.cpp \
 	sccolor.cpp	\
 	sccombobox.cpp	\
-	scinpitdialog.cpp \
+	scinputdialog.cpp \
 	scfonts.cpp	\
 	scfonts_ttf.cpp	\
 	scfontmetrics.cpp	\
