@@ -22,16 +22,6 @@ for which a new license (GPL+exception) is in place.
  *                                                                         *
  ***************************************************************************/
 
-#include "guidemanager.h"
-#include "guidemanager.moc"
-#include "scribuscore.h"
-#include "scribusdoc.h"
-#include "selection.h"
-#include "page.h"
-#include "units.h"
-#include "commonstrings.h"
-#include "pagestructs.h"
-
 #include <qradiobutton.h>
 #include <qlayout.h>
 #include <qcursor.h>
@@ -48,8 +38,16 @@ for which a new license (GPL+exception) is in place.
 #include <qinputdialog.h>
 #include <qtabwidget.h>
 
-
-extern QPixmap loadIcon(QString nam);
+#include "guidemanager.h"
+#include "guidemanager.moc"
+#include "scribuscore.h"
+#include "scribusdoc.h"
+#include "selection.h"
+#include "page.h"
+#include "units.h"
+#include "util.h"
+#include "commonstrings.h"
+#include "pagestructs.h"
 
 
 int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
@@ -73,10 +71,10 @@ GuideManager::GuideManager(QWidget* parent) :
 		//ScrPaletteBase(parent, "GuideManager", false, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
-/*	horizontalAutoGapSpin->setMinValue(0.0);
+	horizontalAutoGapSpin->setMinValue(0.0);
 	horizontalAutoGapSpin->setMaxValue(100.0);
 	verticalAutoGapSpin->setMinValue(0.0);
-	verticalAutoGapSpin->setMaxValue(100.0);*/
+	verticalAutoGapSpin->setMaxValue(100.0);
 
 	// signals that cannot be defined in designer (mspinbox related)
 	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(horizontalAutoGapSpin_valueChanged(int)));
@@ -112,8 +110,8 @@ void GuideManager::unitChange()
 	suffix = unitGetSuffixFromIndex(docUnitIndex);
 	horizontalAutoGapSpin->setSuffix(suffix);
 	verticalAutoGapSpin->setSuffix(suffix);
-//	horizontalAutoGapSpin->setDecimals(docUnitDecimals);
-//	verticalAutoGapSpin->setDecimals(docUnitDecimals);
+	horizontalAutoGapSpin->setDecimals(docUnitDecimals);
+	verticalAutoGapSpin->setDecimals(docUnitDecimals);
 }
 
 bool GuideManager::deleteValueFormList(QListView *list)

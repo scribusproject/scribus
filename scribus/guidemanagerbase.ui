@@ -306,7 +306,7 @@
                                             </property>
                                             <widget class="QLayoutWidget" row="0" column="0">
                                                 <property name="name">
-                                                    <cstring>layout15</cstring>
+                                                    <cstring>layout16</cstring>
                                                 </property>
                                                 <vbox>
                                                     <property name="name">
@@ -352,9 +352,15 @@
                                                             <string>Alt+S</string>
                                                         </property>
                                                     </widget>
-                                                    <widget class="QSpinBox">
+                                                    <widget class="MSpinBox">
                                                         <property name="name">
                                                             <cstring>horizontalAutoGapSpin</cstring>
+                                                        </property>
+                                                        <property name="minimumSize">
+                                                            <size>
+                                                                <width>0</width>
+                                                                <height>10</height>
+                                                            </size>
                                                         </property>
                                                     </widget>
                                                 </vbox>
@@ -420,9 +426,15 @@
                                                             <string>Alt+G</string>
                                                         </property>
                                                     </widget>
-                                                    <widget class="QSpinBox">
+                                                    <widget class="MSpinBox">
                                                         <property name="name">
                                                             <cstring>verticalAutoGapSpin</cstring>
+                                                        </property>
+                                                        <property name="minimumSize">
+                                                            <size>
+                                                                <width>0</width>
+                                                                <height>10</height>
+                                                            </size>
                                                         </property>
                                                     </widget>
                                                 </vbox>
@@ -517,6 +529,22 @@
     </grid>
 </widget>
 <customwidgets>
+    <customwidget>
+        <class>MSpinBox</class>
+        <header location="local">mspinbox.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>5</hordata>
+            <verdata>5</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+    </customwidget>
     <customwidget>
         <class>ScrPaletteBase</class>
         <header location="local">scrpalettebase.h</header>
@@ -683,5 +711,7 @@
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>
     <includehint>scrpalettebase.h</includehint>
+    <includehint>mspinbox.h</includehint>
+    <includehint>mspinbox.h</includehint>
 </includehints>
 </UI>
