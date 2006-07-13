@@ -96,6 +96,9 @@ void GuideManager::setupPage()
 	resetMarginsForPage();
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
+	// TODO: implement some auto into GUI restore algorithm
+	horizontalAutoCountSpin_valueChanged(1);
+	verticalAutoCountSpin_valueChanged(1);
 }
 
 void GuideManager::unitChange()
@@ -321,8 +324,14 @@ void GuideManager::applyToAllAutoButton_clicked()
 	copyGuidesToAllPages(GuideManagerCore::Auto);
 }
 
-void GuideManager::horizontalAutoCountSpin_valueChanged(int)
+void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
 {
+	bool enable = (val == 1) ? false : true;
+	horizontalAutoGapCheck->setEnabled(enable);
+	if (enable && horizontalAutoGapCheck->isChecked())
+		horizontalAutoGapSpin->setEnabled(true);
+	else
+		horizontalAutoGapSpin->setEnabled(false);
 	getAutoHorizontals();
 }
 
@@ -337,8 +346,14 @@ void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 	getAutoHorizontals();
 }
 
-void GuideManager::verticalAutoCountSpin_valueChanged(int)
+void GuideManager::verticalAutoCountSpin_valueChanged(int val)
 {
+	bool enable = (val == 1) ? false : true;
+	verticalAutoGapCheck->setEnabled(enable);
+	if (enable && verticalAutoGapCheck->isChecked())
+		verticalAutoGapSpin->setEnabled(true);
+	else
+		verticalAutoGapSpin->setEnabled(false);
 	getAutoVerticals();
 }
 

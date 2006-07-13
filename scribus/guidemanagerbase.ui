@@ -335,6 +335,9 @@
                                                                 <property name="name">
                                                                     <cstring>horizontalAutoCountSpin</cstring>
                                                                 </property>
+                                                                <property name="specialValueText">
+                                                                    <string>Off</string>
+                                                                </property>
                                                                 <property name="minValue">
                                                                     <number>1</number>
                                                                 </property>
@@ -408,6 +411,9 @@
                                                             <widget class="QSpinBox">
                                                                 <property name="name">
                                                                     <cstring>verticalAutoCountSpin</cstring>
+                                                                </property>
+                                                                <property name="specialValueText">
+                                                                    <string>Off</string>
                                                                 </property>
                                                                 <property name="minValue">
                                                                     <number>1</number>
@@ -686,6 +692,7 @@
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">scrpalettebase.h</include>
+    <include location="local" impldecl="in implementation">guidemanagerbase.ui.h</include>
 </includes>
 <slots>
     <slot>addHorButton_clicked()</slot>
