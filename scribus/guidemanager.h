@@ -162,7 +162,13 @@ private:
 	All gudes are deleted before copying.
 	\param t a type to clear and copy.*/
 	void copyGuidesToAllPages(GuideManagerCore::GuideType t);
+
+	/*! \brief Draw guides into painter */
 	void drawGuides();
+
+	/*! \brief Save needed (Auto) values into GuideManagerCore.
+	To be restored on the page return. */
+	void storePreviousValues();
 
 protected slots:
 	void addHorButton_clicked();

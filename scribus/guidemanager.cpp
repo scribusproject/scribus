@@ -67,7 +67,8 @@ int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
 
 GuideManager::GuideManager(QWidget* parent) :
 		GuideManagerBase(parent, "GuideManager"),
-		m_Doc(0)//,
+		m_Doc(0),
+		currentPage(0)
 		//ScrPaletteBase(parent, "GuideManager", false, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
@@ -91,14 +92,49 @@ void GuideManager::setupPage()
 	if (!m_Doc)
 		return;
 	setEnabled(true);
+	// store old values for current page
+	storePreviousValues();
 	currentPage = m_Doc->currentPage();
 	unitChange();
 	resetMarginsForPage();
+	// restore values from new page
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
-	// TODO: implement some auto into GUI restore algorithm
-	horizontalAutoCountSpin_valueChanged(1);
-	verticalAutoCountSpin_valueChanged(1);
+	// restore: brand "auto guides into GUI restore algorithm"
+	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
+	bool enable = currentPage->guides.horizontalAutoGap() > 0.0 ? true : false;
+	horizontalAutoGapCheck->setChecked(enable);
+	horizontalAutoGapSpin->setEnabled(enable);
+	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap());
+	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
+	// verticals
+	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
+	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
+	verticalAutoGapCheck->setChecked(enable);
+	verticalAutoGapSpin->setEnabled(enable);
+	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap());
+	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
+	bGroup->setButton(currentPage->guides.autoRefer());
+}
+
+void GuideManager::storePreviousValues()
+{
+	if (!currentPage || !m_Doc)
+		return;
+
+	double gapValue = 0.0;
+	if (horizontalAutoGapCheck->isChecked())
+		gapValue = value2pts(horizontalAutoGapSpin->value(), m_Doc->unitIndex());
+	currentPage->guides.setHorizontalAutoGap(gapValue);
+	currentPage->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+
+	gapValue = 0.0;
+	if (verticalAutoGapCheck->isChecked())
+		gapValue = value2pts(verticalAutoGapSpin->value(), m_Doc->unitIndex());
+	currentPage->guides.setVerticalAutoGap(gapValue);
+	currentPage->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+
+	currentPage->guides.setAutoRefer(bGroup->selectedId());	
 }
 
 void GuideManager::unitChange()
@@ -393,7 +429,7 @@ void GuideManager::getAutoHorizontals()
 		newPageHeight = gh;
 	}
 	QValueList<double> values;
-	double gapValue;
+	double gapValue = 0.0;
 	double rowSize;
 	if (horizontalAutoGapCheck->isChecked())
 	{
@@ -404,6 +440,7 @@ void GuideManager::getAutoHorizontals()
 		rowSize = newPageHeight / value;
 
 	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
+
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
 		if (horizontalAutoGapCheck->isChecked())
@@ -439,17 +476,18 @@ void GuideManager::getAutoVerticals()
 	}
 
 	QValueList<double> values;
-	double gapValue;
+	double gapValue = 0.0;
 	double columnSize;
 	if (verticalAutoGapCheck->isChecked())
 	{
-		gapValue = value2pts(horizontalAutoGapSpin->value(), m_Doc->unitIndex());
+		gapValue = value2pts(verticalAutoGapSpin->value(), m_Doc->unitIndex());
 		columnSize = (newPageWidth - (value - 1) * gapValue) / value;
 	}
 	else
 		columnSize = newPageWidth / value;
 	
 	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
+
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
 		if (verticalAutoGapCheck->isChecked())

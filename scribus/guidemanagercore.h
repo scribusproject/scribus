@@ -85,7 +85,6 @@ public:
 	the old reading method is used. All guides are saved in new format then. */
 	static void readHorizontalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides=false);
 
-	
 	/*! \brief Read the guides from XML attribute (file opening).
 	It's statis method sou you can call it without instance initialized:
 	GuideManagerCore::readVerticalGuides(foo blah);
@@ -99,6 +98,28 @@ public:
 
 	static QString writeHorizontalGuides(Page *page, GuideType type);
 	static QString writeVerticalGuides(Page *page, GuideType type);
+
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	int horizontalAutoCount() { return m_horizontalAutoCount; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	void setHorizontalAutoCount(int val) { m_horizontalAutoCount = val; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	int verticalAutoCount() { return m_verticalAutoCount; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	void setVerticalAutoCount(int val) { m_verticalAutoCount = val; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	double horizontalAutoGap(){ return m_horizontalAutoGap; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	double verticalAutoGap(){return m_verticalAutoGap; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	void setHorizontalAutoGap(double gap){ m_horizontalAutoGap = gap; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	int autoRefer() { return m_autoRefer; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	void setAutoRefer(int val) { m_autoRefer = val; };
+
 private:
 	UndoManager * const undoManager;
 	Page* m_page;
@@ -106,6 +127,12 @@ private:
 	Guides verticalStdG;
 	Guides horizontalAutoG;
 	Guides verticalAutoG;
+	
+	double m_horizontalAutoGap;
+	double m_verticalAutoGap;
+	int m_horizontalAutoCount;
+	int m_verticalAutoCount;
+	int m_autoRefer;
 
 	double closestHorAbove(double y) const;
 	double closestHorBelow(double y) const;

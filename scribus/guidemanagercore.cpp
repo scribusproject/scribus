@@ -20,12 +20,22 @@ for which a new license (GPL+exception) is in place.
 GuideManagerCore::GuideManagerCore():
 	undoManager(UndoManager::instance())
 {
+	m_horizontalAutoGap = 0.0;
+	m_verticalAutoGap = 0.0;
+	m_autoRefer = 0;
+	m_horizontalAutoCount = 0;
+	m_verticalAutoCount = 0;
 }
 
 GuideManagerCore::GuideManagerCore(Page *parentPage):
 	undoManager(UndoManager::instance())
 {
 	m_page = parentPage;
+	m_horizontalAutoGap = 0.0;
+	m_verticalAutoGap = 0.0;
+	m_autoRefer = 0;
+	m_horizontalAutoCount = 0;
+	m_verticalAutoCount = 0;
 }
 
 GuideManagerCore::~GuideManagerCore()
