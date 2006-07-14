@@ -27,8 +27,6 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-arrow-forward.png \
 16/draw-arrow-up.png \
 22/draw-arrow-up.png \
-16/draw-bezier-curves.png \
-22/draw-bezier-curves.png \
 16/draw-cross.png \
 22/draw-cross.png \
 16/draw-donut.png \
@@ -44,6 +42,8 @@ EXTRA_DIST = page16.png pagedouble16.png pagequadro16.png pagesingle16.png paget
 22/draw-halfcircle3.png \
 16/draw-halfcircle4.png \
 22/draw-halfcircle4.png \
+16/draw-path.png \
+22/draw-path.png \
 16/draw-polygon.png \
 22/draw-polygon.png \
 16/draw-polyline.png \
@@ -249,8 +249,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-forward.png $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-arrow-up.png $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-arrow-up.png $(prefix)/share/scribus/icons/22/draw-arrow-up.png
-	$(INSTALL_DATA) $(srcdir)/16/draw-bezier-curves.png $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
-	$(INSTALL_DATA) $(srcdir)/22/draw-bezier-curves.png $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-donut.png $(prefix)/share/scribus/icons/16/draw-donut.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-cross.png $(prefix)/share/scribus/icons/16/draw-cross.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-cross.png $(prefix)/share/scribus/icons/22/draw-cross.png
@@ -265,6 +263,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle3.png $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-halfcircle4.png $(prefix)/share/scribus/icons/16/draw-halfcircle4.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-halfcircle4.png $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
+	$(INSTALL_DATA) $(srcdir)/16/draw-path.png $(prefix)/share/scribus/icons/16/draw-path.png
+	$(INSTALL_DATA) $(srcdir)/22/draw-path.png $(prefix)/share/scribus/icons/22/draw-path.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-polygon.png $(prefix)/share/scribus/icons/16/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/22/draw-polygon.png $(prefix)/share/scribus/icons/22/draw-polygon.png
 	$(INSTALL_DATA) $(srcdir)/16/draw-polyline.png $(prefix)/share/scribus/icons/16/draw-polyline.png
@@ -651,8 +651,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-forward.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-arrow-up.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-arrow-up.png
-	-rm -f $(prefix)/share/scribus/icons/16/draw-bezier-curves.png
-	-rm -f $(prefix)/share/scribus/icons/22/draw-bezier-curves.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-cross.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-ellipse.png
@@ -665,6 +663,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle3.png
 	-rm -f $(prefix)/share/scribus/icons/16/draw-halfcircle4.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-halfcircle4.png
+	-rm -f $(prefix)/share/scribus/icons/16/draw-path.png
+	-rm -f $(prefix)/share/scribus/icons/22/draw-path.png	
 	-rm -f $(prefix)/share/scribus/icons/16/draw-polygon.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polygon.png
 	-rm -f $(prefix)/share/scribus/icons/22/draw-polyline.png

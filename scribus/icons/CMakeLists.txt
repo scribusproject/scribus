@@ -318,7 +318,6 @@ INSTALL(FILES
 16/draw-arrow-down.png
 16/draw-arrow-forward.png
 16/draw-arrow-up.png
-16/draw-bezier-curves.png
 16/draw-cross.png
 16/draw-donut.png
 16/draw-ellipse.png
@@ -326,6 +325,7 @@ INSTALL(FILES
 16/draw-halfcircle2.png
 16/draw-halfcircle3.png
 16/draw-halfcircle4.png
+16/draw-path.png
 16/draw-polygon.png
 16/draw-rectangle.png
 16/draw-square-inverted-corners.png
@@ -386,7 +386,6 @@ INSTALL(FILES
 22/draw-arrow-down.png
 22/draw-arrow-forward.png
 22/draw-arrow-up.png
-22/draw-bezier-curves.png
 22/draw-cross.png
 22/draw-ellipse.png
 22/draw-freehand.png
@@ -394,6 +393,7 @@ INSTALL(FILES
 22/draw-halfcircle2.png
 22/draw-halfcircle3.png
 22/draw-halfcircle4.png
+22/draw-path.png
 22/draw-polygon.png
 22/draw-polyline.png
 22/draw-rectangle.png
