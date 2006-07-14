@@ -101,10 +101,10 @@ public slots:
 	void setPGsize(const QString &);
 	void setDS(int layout);
 	/*! Opens document on doubleclick
-	\param item QListViewItem sent by signall caller
+	\param index no of the item
 	\author Petr Vanek <petr@yarpen.cz
 	*/
-	void recentDocListBox_doubleClicked(QListBoxItem * item);
+	void recentDocListBox_doubleClicked(int index);
 	void openFile(const QString &);
 
 protected:

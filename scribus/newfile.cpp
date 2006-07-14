@@ -102,7 +102,8 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect(unitOfMeasure, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	if (startUp)
-		connect(recentDocListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocListBox_doubleClicked(QListBoxItem*)));
+		//connect(recentDocListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocListBox_doubleClicked(QListBoxItem*)));
+		connect(recentDocListBox, SIGNAL(selected(int)), this, SLOT(recentDocListBox_doubleClicked(int)));
 
 	setMinimumSize(minimumSizeHint());
 	setMaximumSize(minimumSizeHint());
@@ -476,7 +477,7 @@ void NewDoc::setDS(int layout)
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
-void NewDoc::recentDocListBox_doubleClicked(QListBoxItem * /*item*/)
+void NewDoc::recentDocListBox_doubleClicked(int /*item*/)
 {
 	/* Yep. There is nothing to solve. ScribusMainWindow handles all
 	openings etc. It's Franz's programming style ;) */
