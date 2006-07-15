@@ -41,7 +41,7 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode 
 		layoutsView->setAutoArrange( false );
 		layoutsView->setSorting( false );
 		layoutsView->setFocusPolicy(QWidget::NoFocus);
-		layoutsView->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)7, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
+		layoutsView->setSizePolicy( QSizePolicy( QSizePolicy::Fixed, QSizePolicy::Ignored, 0, 0, layoutsView->sizePolicy().hasHeightForWidth() ) );
 		layoutsView->setSelectionMode(QIconView::Single);
 		layoutGroupLayout->addWidget( layoutsView );
 	}
@@ -55,6 +55,7 @@ PageLayouts::PageLayouts( QWidget* parent, QValueList<PageSet> pSets, bool mode 
 	firstPage = new ScComboBox( false, this, "firstPage" );
 	layoutGroupLayout->addWidget( firstPage );
 	languageChange();
+ 	setMaximumWidth(minimumSizeHint().width());
 	clearWState( WState_Polished );
 	if (modus)
 		connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
