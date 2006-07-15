@@ -168,13 +168,14 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	double moveBy=1.0;
 	ButtonState buttonState = k->state();
 	bool resizingImage=false;
-	if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
+	bool controlDown=(buttonState & ControlButton);
+	if ((buttonState & ShiftButton) && !controlDown)
 		moveBy=10.0;
-	else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+	else if ((buttonState & ShiftButton) && controlDown && !(buttonState & AltButton))
 		moveBy=0.1;
-	else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && (buttonState & AltButton))
+	else if ((buttonState & ShiftButton) && controlDown && (buttonState & AltButton))
 		moveBy=0.01;
-	else if (!(buttonState & ShiftButton) && !(buttonState & ControlButton) && (buttonState & AltButton))
+	else if (!(buttonState & ShiftButton) && (buttonState & AltButton))
 		resizingImage=true;
 	double dX=0.0,dY=0.0;
 	int kk = k->key();
@@ -226,11 +227,22 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			double newXScale=dX / 100.0 * LocalScX;
 			setImageXScale(newXScale);
+			if (controlDown)
+			{
+				double newYScale=dX / 100.0 * LocalScY;
+				setImageYScale(newYScale);
+			}
 		}
+		else
 		if (dY!=0.0)
 		{
 			double newYScale=dY / 100.0 * LocalScY;
 			setImageYScale(newYScale);
+			if (controlDown)
+			{
+				double newXScale=dY / 100.0 * LocalScY;
+				setImageXScale(newXScale);
+			}
 		}
 		if (dX!=0.0 || dY!=0.0)
 			if (imageClip.size() != 0)
