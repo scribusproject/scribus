@@ -2570,7 +2570,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		{
 			scrActions["itemConvertToBezierCurve"]->setEnabled(false);
 			scrActions["itemConvertToImageFrame"]->setEnabled(false);
-			scrActions["itemConvertToOutlines"]->setEnabled(false);
+//			scrActions["itemConvertToOutlines"]->setEnabled(false);
 			scrActions["itemConvertToPolygon"]->setEnabled(false);
 			scrActions["itemConvertToTextFrame"]->setEnabled(false);
 			scrActions["toolsUnlinkTextFrame"]->setEnabled(true);

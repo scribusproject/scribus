@@ -2204,11 +2204,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					{
 						if (currItem->isTableItem)
 							m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
-						if ((!currItem->isTableItem) && (currItem->BackBox == 0) && (currItem->NextBox == 0))
+						if (!currItem->isTableItem)
 						{
-							m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
+							if ((currItem->BackBox == 0) && (currItem->NextBox == 0))
+								m_ScMW->scrActions["itemConvertToImageFrame"]->addTo(pmen2);
 							m_ScMW->scrActions["itemConvertToOutlines"]->addTo(pmen2);
-							m_ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
+							if ((currItem->BackBox == 0) && (currItem->NextBox == 0))
+								m_ScMW->scrActions["itemConvertToPolygon"]->addTo(pmen2);
 						}
 					}
 				}
@@ -10008,6 +10010,30 @@ void ScribusView::TextToPath()
 {
 #ifndef NLS_PROTO
 	m_ScMW->NoFrameEdit();
+	PageItem *currItem = Doc->m_Selection->itemAt(0);
+	if ((currItem->BackBox != 0) || (currItem->NextBox != 0))
+	{
+		PageItem *backItem = currItem;
+		while (backItem != 0)
+		{
+			if (backItem->BackBox != 0)
+				backItem = backItem->BackBox;
+			else
+				break;
+		}
+		currItem = backItem;
+		Deselect(true);
+		Doc->m_Selection->addItem(currItem);
+		backItem = currItem->NextBox;
+		while (backItem != 0)
+		{
+			Doc->m_Selection->addItem(backItem);
+			if (backItem->NextBox != 0)
+				backItem = backItem->NextBox;
+			else
+				break;
+		}
+	}
 	uint selectedItemCount=Doc->m_Selection->count();
 	if (selectedItemCount != 0)
 	{
@@ -10035,7 +10061,8 @@ void ScribusView::TextToPath()
 			double x, y, wide;
 			QString chstr, ccounter;
 			PageItem* bb;
-			for (int a = 0; a < currItem->itemText.length(); ++a)
+//			for (int a = 0; a < currItem->itemText.length(); ++a)
+			for (int a = currItem->firstInFrame(); a <= currItem->lastInFrame(); ++a)
 			{
 				pts.resize(0);
 				x = 0.0;
