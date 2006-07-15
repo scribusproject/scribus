@@ -2458,8 +2458,8 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <translation type="obsolete">Marzec</translation>
     </message>
     <message>
-        <source>May</source>
-        <translation type="unfinished"></translation>
+        <source>Tango Project Icons:</source>
+        <translation>Ikony z projektu Tango:</translation>
     </message>
 </context>
 <context>
@@ -3501,6 +3501,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>C&amp;lear</source>
         <translation>W&amp;yczyść</translation>
     </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Wyświetlaj szpalty ramki tekstowej</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4485,7 +4489,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     <name>ApplyMasterPageDialog</name>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
@@ -4931,15 +4935,15 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Biblioteki  (*.scs)</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybierz plik biblioteki do zaimportowania</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importuj plik biblioteki...</translation>
     </message>
 </context>
 <context>
@@ -5294,7 +5298,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>Jest kolorem spotowym</translation>
+        <translation>Jest kolorem dodatkowym</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
@@ -5309,6 +5313,14 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Nazwa koloru nie jest jednoznaczna</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and flourescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5732,6 +5744,10 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>New Color</source>
         <translation>Nowy kolor</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7183,7 +7199,7 @@ lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Zamień kolory spotowe na kolory rozbarwiane</translation>
+        <translation>Zamień kolory dodatkowe na kolory procesowe</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -7224,7 +7240,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Włącza konwersję kolorów spotowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów spotowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
+        <translation>Włącza konwersję kolorów dodatkowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów dodatkowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -7290,7 +7306,7 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Converting of %1 images failed!</source>
-        <translation type="unfinished"></translation>
+        <translation>Konwersja %1 obrazków nie powiodła się!</translation>
     </message>
 </context>
 <context>
@@ -7493,15 +7509,15 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished">Manualne podcinanie</translation>
+        <translation>Manualne podcinanie</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="unfinished">Przesunięcie znaków względem linii pisma</translation>
+        <translation>Przesunięcie znaków względem linii pisma</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij, aby wybrać tryb interlinii</translation>
     </message>
 </context>
 <context>
@@ -8872,7 +8888,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -8896,7 +8912,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Strona Wzorcowa:</translation>
+        <translation>&amp;Strona wzorcowa:</translation>
     </message>
     <message>
         <source>Master Page (&amp;Right Page):</source>
@@ -9286,7 +9302,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
+        <translation>LineStyleWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -9580,7 +9596,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
@@ -9764,7 +9780,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>instead</source>
-        <translation>zamiast</translation>
+        <translation>zamiast niego</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -10483,7 +10499,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij, aby wybrać tryb interlinii</translation>
     </message>
 </context>
 <context>
@@ -11671,7 +11687,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
@@ -14943,7 +14959,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>SVG Export</source>
@@ -15067,11 +15083,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Nie udało się otworzyć pliku %1</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Luxembourgish</source>
         <translation>Luksemburski</translation>
     </message>
@@ -15081,15 +15092,24 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished">Arabskie</translation>
+        <translation>Arabski</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Estoński</translation>
     </message>
     <message>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
+        <translation>Podana nazwa strony wzorcowej nie pasuje do żadnej istniejącej strony.</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>Islandzki</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15753,7 +15773,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -15823,7 +15843,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
@@ -16662,7 +16682,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Document</source>
@@ -16686,7 +16706,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podczas wczytywania profili ICC wystąpił błąd, zarzadzanie kolorami będzie wyłączone.</translation>
     </message>
 </context>
 <context>
@@ -16995,7 +17015,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -17159,7 +17179,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;igatury</translation>
     </message>
 </context>
 <context>
@@ -17251,6 +17271,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Błędy</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Wyświetlaj okno konsoli</translation>
     </message>
 </context>
 <context>
@@ -17865,11 +17889,11 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
+        <translation>Usuń zawieszone &amp;spójniki...</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
@@ -19160,7 +19184,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation>Krawędzie spadu</translation>
+        <translation>Obszar przycięcia (TrimBox)</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
@@ -19409,7 +19433,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Zamień kolory spotowe na kolory rozbarwiane</translation>
+        <translation>Zamień kolory dodatkowe na kolory procesowe</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
@@ -19417,7 +19441,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poziom kompresji dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom kompresji nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. </translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -19429,7 +19453,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Włącza konwersję kolorów spotowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów spotowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
+        <translation>Włącza konwersję kolorów dodatkowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów dodatkowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
