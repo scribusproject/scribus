@@ -1737,12 +1737,12 @@ void ScribusMainWindow::startUpDialog()
 			double pageWidth = dia->pageWidth;
 			double pageHeight = dia->pageHeight;
 			double numberCols = dia->numberOfCols->value();
-			bool autoframes = dia->AutoFrame->isChecked();
+			bool autoframes = dia->autoTextFrameGroupBox->isChecked();
 			int orientation = dia->Orient;
-			int pageCount=dia->PgNum->value();
+			int pageCount=dia->pageCountSpinBox->value();
 			PageSize ps2(dia->pageSizeComboBox->currentText());
 			QString pagesize = ps2.name();
-			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount);
+			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			HaveNewDoc();
 		}
@@ -1785,11 +1785,11 @@ bool ScribusMainWindow::slotFileNew()
 		double pageWidth = dia->pageWidth;
 		double pageHeight = dia->pageHeight;
 		double numberCols = dia->numberOfCols->value();
-		bool autoframes = dia->AutoFrame->isChecked();
+		bool autoframes = dia->autoTextFrameGroupBox->isChecked();
 		int orientation = dia->Orient;
-		int pageCount=dia->PgNum->value();
+		int pageCount=dia->pageCountSpinBox->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());
-		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasure->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
+		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
 			return false;
 		doc->pageSets[facingPages].FirstPage = firstPage;
 		mainWindowStatusLabel->setText( tr("Ready"));
