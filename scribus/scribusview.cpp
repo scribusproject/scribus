@@ -10414,5 +10414,5 @@ void ScribusView::drawLinkFrameLine(ScPainter* painter, FPoint &start, FPoint &e
 
 inline bool ScribusView::moveTimerElapsed()
 {
-	return (moveTimer.elapsed() > 150);
+	return (moveTimer.elapsed() > Prefs->moveTimeout);
 }

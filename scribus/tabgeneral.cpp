@@ -83,10 +83,10 @@ void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 	selectedGUILang = prefsData->guiLanguage;
 	guiLangCombo->setCurrentText(langMgr.getLangFromAbbrev(selectedGUILang));
 	GUICombo->setCurrentText(prefsData->GUI);
-	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 	GFsize->setValue( prefsData->AppFontSize );
 	GTFsize->setValue( prefsData->PaletteFontSize); // temp solution
 	wheelJumpSpin->setValue( prefsData->Wheelval );
+	spinTimeout->setValue(prefsData->moveTimeout);
 	recentDocs->setValue( prefsData->RecentDCount );
 	Docs->setText(prefsData->DocDir);
 	ProPfad->setText(prefsData->ProfileDir);

@@ -17,116 +17,130 @@
     <property name="caption">
         <string>Form1</string>
     </property>
-    <grid>
+    <widget class="QLayoutWidget">
         <property name="name">
-            <cstring>unnamed</cstring>
+            <cstring>layout4</cstring>
         </property>
-        <widget class="QLayoutWidget" row="0" column="0">
+        <property name="geometry">
+            <rect>
+                <x>10</x>
+                <y>12</y>
+                <width>414</width>
+                <height>327</height>
+            </rect>
+        </property>
+        <vbox>
             <property name="name">
-                <cstring>layout4</cstring>
+                <cstring>unnamed</cstring>
             </property>
-            <vbox>
+            <widget class="QCheckBox">
                 <property name="name">
-                    <cstring>unnamed</cstring>
+                    <cstring>AskForSubs</cstring>
                 </property>
-                <widget class="QCheckBox">
+                <property name="text">
+                    <string>Always ask before fonts are replaced when loading a document</string>
+                </property>
+            </widget>
+            <widget class="QCheckBox">
+                <property name="name">
+                    <cstring>stylePreview</cstring>
+                </property>
+                <property name="text">
+                    <string>Preview of current Paragraph Style visible when editing Styles</string>
+                </property>
+            </widget>
+            <widget class="QCheckBox">
+                <property name="name">
+                    <cstring>startUpDialog</cstring>
+                </property>
+                <property name="text">
+                    <string>Show Startup Dialog</string>
+                </property>
+            </widget>
+            <widget class="QCheckBox">
+                <property name="name">
+                    <cstring>showSplashCheckBox</cstring>
+                </property>
+                <property name="text">
+                    <string>Show Splashscreen on Startup</string>
+                </property>
+                <property name="accel">
+                    <string></string>
+                </property>
+            </widget>
+            <widget class="QGroupBox">
+                <property name="name">
+                    <cstring>groupBox1</cstring>
+                </property>
+                <property name="title">
+                    <string>Lorem Ipsum</string>
+                </property>
+                <grid>
                     <property name="name">
-                        <cstring>AskForSubs</cstring>
+                        <cstring>unnamed</cstring>
                     </property>
-                    <property name="text">
-                        <string>Always ask before fonts are replaced when loading a document</string>
-                    </property>
-                </widget>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>stylePreview</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Preview of current Paragraph Style visible when editing Styles</string>
-                    </property>
-                </widget>
-                <widget class="QCheckBox">
-                    <property name="name">
-                        <cstring>startUpDialog</cstring>
-                    </property>
-                    <property name="text">
-                        <string>Show Startup Dialog</string>
-                    </property>
-                </widget>
-                <widget class="QGroupBox">
-                    <property name="name">
-                        <cstring>groupBox1</cstring>
-                    </property>
-                    <property name="title">
-                        <string>Lorem Ipsum</string>
-                    </property>
-                    <grid>
+                    <widget class="QLayoutWidget" row="0" column="0">
                         <property name="name">
-                            <cstring>unnamed</cstring>
+                            <cstring>layout2</cstring>
                         </property>
-                        <widget class="QLayoutWidget" row="0" column="0">
+                        <vbox>
                             <property name="name">
-                                <cstring>layout2</cstring>
+                                <cstring>unnamed</cstring>
                             </property>
-                            <vbox>
+                            <widget class="QCheckBox">
                                 <property name="name">
-                                    <cstring>unnamed</cstring>
+                                    <cstring>useStandardLI</cstring>
                                 </property>
-                                <widget class="QCheckBox">
+                                <property name="text">
+                                    <string>Always use standard Lorem Ipsum</string>
+                                </property>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout1</cstring>
+                                </property>
+                                <hbox>
                                     <property name="name">
-                                        <cstring>useStandardLI</cstring>
+                                        <cstring>unnamed</cstring>
                                     </property>
-                                    <property name="text">
-                                        <string>Always use standard Lorem Ipsum</string>
-                                    </property>
-                                </widget>
-                                <widget class="QLayoutWidget">
-                                    <property name="name">
-                                        <cstring>layout1</cstring>
-                                    </property>
-                                    <hbox>
+                                    <widget class="QLabel">
                                         <property name="name">
-                                            <cstring>unnamed</cstring>
+                                            <cstring>textLabel1</cstring>
                                         </property>
-                                        <widget class="QLabel">
-                                            <property name="name">
-                                                <cstring>textLabel1</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>Count of the Paragraphs:</string>
-                                            </property>
-                                        </widget>
-                                        <widget class="QSpinBox">
-                                            <property name="name">
-                                                <cstring>paragraphsLI</cstring>
-                                            </property>
-                                        </widget>
-                                    </hbox>
-                                </widget>
-                            </vbox>
-                        </widget>
-                    </grid>
-                </widget>
-                <spacer>
-                    <property name="name">
-                        <cstring>spacer1</cstring>
-                    </property>
-                    <property name="orientation">
-                        <enum>Vertical</enum>
-                    </property>
-                    <property name="sizeType">
-                        <enum>Expanding</enum>
-                    </property>
-                    <property name="sizeHint">
-                        <size>
-                            <width>20</width>
-                            <height>40</height>
-                        </size>
-                    </property>
-                </spacer>
-            </vbox>
-        </widget>
-    </grid>
+                                        <property name="text">
+                                            <string>Count of the Paragraphs:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QSpinBox">
+                                        <property name="name">
+                                            <cstring>paragraphsLI</cstring>
+                                        </property>
+                                    </widget>
+                                </hbox>
+                            </widget>
+                        </vbox>
+                    </widget>
+                </grid>
+            </widget>
+            <spacer>
+                <property name="name">
+                    <cstring>spacer1</cstring>
+                </property>
+                <property name="orientation">
+                    <enum>Vertical</enum>
+                </property>
+                <property name="sizeType">
+                    <enum>Expanding</enum>
+                </property>
+                <property name="sizeHint">
+                    <size>
+                        <width>20</width>
+                        <height>110</height>
+                    </size>
+                </property>
+            </spacer>
+        </vbox>
+    </widget>
 </widget>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

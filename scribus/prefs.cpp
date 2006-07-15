@@ -321,8 +321,9 @@ void Preferences::updatePreferences()
 
 	prefsManager->appPrefs.AppFontSize = tabGeneral->GFsize->value();
 	prefsManager->appPrefs.PaletteFontSize = tabGeneral->GTFsize->value();
-	ScQApp->neverSplash(!tabGeneral->showSplashCheckBox->isChecked());
+	ScQApp->neverSplash(!tabMiscellaneous->showSplashCheckBox->isChecked());
 	prefsManager->appPrefs.Wheelval = tabGeneral->wheelJumpSpin->value();
+	prefsManager->appPrefs.moveTimeout = tabGeneral->spinTimeout->value();
 	prefsManager->appPrefs.RecentDCount = tabGeneral->recentDocs->value();
 	prefsManager->appPrefs.DocDir = tabGeneral->Docs->text();
 	prefsManager->appPrefs.ProfileDir = tabGeneral->ProPfad->text();

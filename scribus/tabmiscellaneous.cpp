@@ -9,6 +9,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabmiscellaneous.h"
 #include "tabmiscellaneous.moc"
+#include "scribusapp.h"
+extern ScribusQApp* ScQApp;
 
 TabMiscellaneous::TabMiscellaneous(QWidget* parent, const char* name)
 	: TabMiscellaneousBase(parent, name, 0)
@@ -22,4 +24,5 @@ void TabMiscellaneous::restoreDefaults(struct ApplicationPrefs *prefsData)
 	startUpDialog->setChecked(prefsData->showStartupDialog);
 	useStandardLI->setChecked(prefsData->useStandardLI);
 	paragraphsLI->setValue(prefsData->paragraphsLI);
+	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 }

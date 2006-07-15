@@ -147,6 +147,7 @@ struct ApplicationPrefs
 	QValueList<ArrowDesc> arrowStyles;
 	QValueList<PageSet> pageSets;
 	ColorList DColors;
+	int moveTimeout;
 	int Wheelval;
 	int AppFontSize;
 	int PaletteFontSize;

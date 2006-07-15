@@ -220,6 +220,7 @@ void PrefsManager::initDefaults()
 	appPrefs.typographicSettings.offsetBaseGrid = 0.0;
 	appPrefs.GUI = "Default";
 	appPrefs.showToolTips = true;
+	appPrefs.moveTimeout = 150;
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
@@ -898,6 +899,7 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc=docu.createElement("GUI");
 	dc.setAttribute("STILT",appPrefs.GUI);
 	dc.setAttribute("RAD",appPrefs.Wheelval);
+	dc.setAttribute("MOVT", appPrefs.moveTimeout);
 	dc.setAttribute("APF",appPrefs.AppFontSize);
 	dc.setAttribute("PFS",appPrefs.PaletteFontSize);
 	dc.setAttribute("GRAB",appPrefs.guidesSettings.grabRad);
@@ -1357,6 +1359,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.GUI = dc.attribute("STILT","Default");
 			appPrefs.Wheelval = dc.attribute("RAD").toInt();
+			appPrefs.moveTimeout = dc.attribute("MOVT", "150").toInt();
 			appPrefs.guidesSettings.grabRad = dc.attribute("GRAB", "4").toInt();
 			appPrefs.docUnitIndex = dc.attribute("UNIT", "0").toInt();
 			appPrefs.AppFontSize = dc.attribute("APF", "12").toInt();
