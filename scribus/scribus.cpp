@@ -582,7 +582,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
-//	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editMasterPages"], "Edit");
@@ -1414,6 +1414,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								else
 								{
 									view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
@@ -1461,6 +1462,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								if (resizingsmaller)
 								{
 									view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
@@ -1518,6 +1520,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								else
 								{
 									view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
@@ -1565,6 +1568,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								if (resizingsmaller)
 								{
 									view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
