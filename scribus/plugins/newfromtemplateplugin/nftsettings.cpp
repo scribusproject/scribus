@@ -14,7 +14,7 @@ nftsettings::nftsettings(QString guilang, QString templateDir)
 {
 	lang = guilang;
 	scribusShare = ScPaths::instance().templateDir();
-	scribusUserHome = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+	scribusUserHome = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	userTemplateDir = templateDir;
 	if (userTemplateDir.right(1) == "/")
 		userTemplateDir = userTemplateDir.left(userTemplateDir.length() - 1);

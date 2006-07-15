@@ -54,7 +54,15 @@ public:
 	/** @brief Return paths to system icc profiles directories*/
 	static QStringList getSystemProfilesDirs(void);
 	/** @brief Return paths to system create project directories*/
-	static QStringList getSystemCreateSwatchesDirs();
+	static QStringList getSystemCreateSwatchesDirs(void);
+
+	/** @brief Return path to application data dir*/
+	static QString getApplicationDataDir(void);
+	/** @brief Return path to user documents*/
+	static QString getUserDocumentDir(void);
+	/** @brief Return path to directory used for temporary files*/
+	static QString getTempFileDir(void);
+
 
 protected:
 	/** @brief Constructor. Use ScPaths::instance() instead. */

@@ -95,10 +95,6 @@ public:
 	\param filter a mask/filter. E.g.: *.txt
 	\param flags combination of fdFlags, default to fdExistingFiles
 	*/
-	/*CustomFDialog(QWidget *parent, QString wDir, QString caption = "",
-				  QString filter = "", bool preview = false,
-				  bool existing = true, bool compress = false,
-				  bool codec = false, bool dirOnly = false);*/
 	CustomFDialog(QWidget *parent, QString wDir, QString caption = "",  QString filter = "",
 				int flags = fdExistingFiles);
 	~CustomFDialog();

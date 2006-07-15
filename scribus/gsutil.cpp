@@ -306,7 +306,7 @@ QPixmap LoadPDF(QString fn, int Page, int Size, int *w, int *h)
 {
 	QString tmp, cmd1, cmd2;
 	QString pdfFile = QDir::convertSeparators(fn);
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QPixmap pm;
 	int ret = -1;
 	tmp.setNum(Page);

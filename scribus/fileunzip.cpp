@@ -54,6 +54,8 @@ for which a new license (GPL+exception) is in place.
 #include "unzip.h"
 #include <qdir.h>
 
+#include "scpaths.h"
+
 #define CASESENSITIVITY (0)
 #define WRITEBUFFERSIZE (8192)
 #define MAXFILENAME (256)
@@ -72,11 +74,11 @@ FileUnzip::FileUnzip(QString zipFilePath)
 QString FileUnzip::getFile(QString name)
 {
 	QString pwd = QDir::currentDirPath();
-	QString outDir = zipFile.left(zipFile.findRev("/") + 1);
+	QString outDir = ScPaths::getTempFileDir();
 	QFile f(outDir);
 	QFileInfo fi(f);
 	if (!fi.isWritable())
-		outDir = QDir::homeDirPath() + "/.scribus/";
+		outDir = ScPaths::getApplicationDataDir();
 	QDir::setCurrent(outDir);
 	const char *zipfilename = zipFile.ascii();
 	const char *filename_to_extract = name.ascii();

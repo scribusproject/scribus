@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <cstdlib>
 
+#include "scpaths.h"
 #include "upgradechecker.h"
 #include "upgradechecker.moc"
 #include "prefsmanager.h"
@@ -54,7 +55,7 @@ bool UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
 	//TODO fix for win32 and mac
-	tempFile=QDir::homeDirPath()+"/.scribus/"+filename;
+	tempFile=ScPaths::getTempFileDir()+filename;
 
 	fin=false;
 	

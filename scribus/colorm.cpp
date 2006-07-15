@@ -306,7 +306,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 			realEx.clear();
 			for (uint m = 0; m < custColSet.count(); ++m)
 			{
-				QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+custColSet[m]);
+				QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + custColSet[m]);
 				QFileInfo cfi(Cpfad);
 				if (cfi.exists())
 				{
@@ -369,7 +369,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, ScribusDoc* doc, QSt
 
 void ColorManager::saveDefaults()
 {
-	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/");
+	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QString Name = LoadColSet->text();
 	Query* dia = new Query(this, "Name", 1, 0, tr("&Name:"), tr("Choose a Name"));
 	if ((Name == "Scribus Small") || (Name == "X11 RGB-Set") || (Name == "OpenOffice.org-Set")
@@ -415,7 +415,7 @@ void ColorManager::loadDefaults(int id)
 	bool cus = false;
 	LoadColSet->setText(CSets->text(id));
 	EditColors.clear();
-	QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+CSets->text(id));
+	QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir()+CSets->text(id));
 	QString pfadC = ScPaths::instance().libDir()+"swatches/";
 	QString pfadC2 = pfadC + "Scribus_X11.txt";
 	switch (c)

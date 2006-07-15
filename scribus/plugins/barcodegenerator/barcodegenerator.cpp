@@ -123,8 +123,8 @@ BarcodeGenerator::BarcodeGenerator(QWidget* parent, const char* name)
 	paintColorSample(txtLabel, txtColor);
 	paintColorSample(bgLabel, bgColor);
 
-	tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/bcode.png");
-	psFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/bcode.ps");
+	tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "bcode.png");
+	psFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "bcode.ps");
 
 	// PS engine
 	psCommand.append("%!PS-Adobe-2.0 EPSF-2.0\n");

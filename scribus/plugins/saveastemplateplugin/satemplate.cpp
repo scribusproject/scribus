@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "satemplate.moc"
 #include "satdialog.h"
 
+#include "scpaths.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "prefsfile.h"
@@ -111,7 +112,7 @@ bool SaveAsTemplatePlugin::run(ScribusDoc* doc, QString target)
 }
 void MenuSAT::RunSATPlug(ScribusDoc* doc)
 {
-	QDir templates(QDir::homeDirPath() + "/.scribus");
+	QDir templates(ScPaths::getApplicationDataDir());
 	if (!templates.exists("templates"))
 	{
 		templates.mkdir("templates");
@@ -125,7 +126,7 @@ void MenuSAT::RunSATPlug(ScribusDoc* doc)
 	QString oldCollect = dirs->get("collect", ".");
 	QString templatesDir = ".";
 	if (userTemplatesDir.isEmpty())
-		templatesDir = QDir::homeDirPath() + "/.scribus/templates";
+		templatesDir = ScPaths::getApplicationDataDir() + "templates";
 	else
 	{
 		if (userTemplatesDir.right(1) == "/")

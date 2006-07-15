@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "pageitem.h"
 #include "bookmwin.h"
+#include "scpaths.h"
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -4740,7 +4741,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		{ */
 		if ((ext == "eps") || (ext == "pdf"))
 		{
-			QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
+			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 			if (Options.RecalcPic)
 			{
 				afl = QMIN(Options.PicRes, Options.Resolution);
@@ -5076,7 +5077,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			{
 				if (Options.CompressMethod == 1)
 				{
-					QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
+					QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 					if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
 						img.Convert2JPG(tmpFile, Options.Quality, false, false);
 					else
@@ -5102,7 +5103,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		{
 			if ((Options.CompressMethod == 1) || (Options.CompressMethod == 0))
 			{
-				QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.jpg");
+				QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
 				if ((Options.UseRGB) || (Options.UseProfiles2) && (!realCMYK))
 					img.Convert2JPG(tmpFile, Options.Quality, false, false);
 				else

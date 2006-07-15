@@ -66,6 +66,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "util.h"
 #include "scconfig.h"
+#include "scpaths.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
 
@@ -83,11 +84,11 @@ A helper function.
 */
 QString bookmarkFile()
 {
-	QString fname(QDir::convertSeparators(QDir::homeDirPath()+ "/.scribus/doc/bookmarks.xml"));
-	QFileInfo f(fname);
-	if (!f.exists())
+	QString appDataDir(ScPaths::getApplicationDataDir());
+	QString fname(appDataDir + "doc/bookmarks.xml");
+	if (!QFile::exists(fname))
 	{
-		QDir d(QDir::convertSeparators(QDir::homeDirPath()+ "/.scribus/"));
+		QDir d(QDir::convertSeparators(appDataDir));
 		d.mkdir("doc");
 	}
 	return fname;
@@ -100,11 +101,11 @@ A helper function.
 */
 QString historyFile()
 {
-	QString fname(QDir::convertSeparators(QDir::homeDirPath()+ "/.scribus/doc/history.xml"));
-	QFileInfo f(fname);
-	if (!f.exists())
+	QString appDataDir(ScPaths::getApplicationDataDir());
+	QString fname(appDataDir + "doc/history.xml");
+	if (!QFile::exists(fname))
 	{
-		QDir d(QDir::convertSeparators(QDir::homeDirPath()+ "/.scribus/"));
+		QDir d(QDir::convertSeparators(appDataDir));
 		d.mkdir("doc");
 	}
 	return fname;

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimage.h"
 #include "scribus.h"
+#include "scpaths.h"
 #include "scribuscore.h"
 #include <qtextstream.h>
 #include <cassert>
@@ -2646,7 +2647,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		return retArray;
 	QString tmp, BBox, tmp2;
 	QString ext = fi.extension(false).lower();
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	if ((ext == "jpg") || (ext == "jpeg"))
 		return retArray;
@@ -3321,7 +3322,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	double x, y, b, h;
 	bool found = false;
 	int retg = -1;
-	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
 	{

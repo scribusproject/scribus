@@ -191,7 +191,7 @@ CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString 
 		realEx.clear();
 		for (uint m = 0; m < Cust.count(); ++m)
 		{
-			QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Cust[m]);
+			QString Cpfad = QDir::convertSeparators( ScPaths::getApplicationDataDir() +Cust[m]);
 			QFileInfo cfi(Cpfad);
 			if (cfi.exists())
 			{
@@ -560,7 +560,7 @@ void CMYKChoose::SelSwatch(int n)
 	{
 		bool cus = false;
 		CurrSwatch.clear();
-		QString Cpfad = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/"+Swatches->currentText());
+		QString Cpfad = QDir::convertSeparators(ScPaths::getApplicationDataDir() + Swatches->currentText());
 		QString pfadC = ScPaths::instance().libDir()+"swatches/";
 		QString pfadC2 = pfadC + "Scribus_X11.txt";
 		switch (n)

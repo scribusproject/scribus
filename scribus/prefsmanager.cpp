@@ -295,7 +295,7 @@ void PrefsManager::initDefaults()
 	appPrefs.AutoSave = false;
 	appPrefs.AutoSaveTime = 600000;
 	appPrefs.DisScale = 1.0;
-	appPrefs.DocDir = QDir::homeDirPath();
+	appPrefs.DocDir = ScPaths::getUserDocumentDir();
 	appPrefs.ProfileDir = "";
 	appPrefs.ScriptDir = "";
 	appPrefs.documentTemplatesDir = "";
@@ -533,7 +533,7 @@ void PrefsManager::initArrowStyles()
 
 QString PrefsManager::setupPreferencesLocation()
 {
-	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+	QString Pff = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QFileInfo Pffi = QFileInfo(Pff);
 	QString PrefsPfad;
 	//If we are using ~/.scribus

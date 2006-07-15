@@ -242,7 +242,7 @@ QStringList ScribusQApp::getLang(QString lang)
 		langs.push_back(lang);
 
 	//add in user preferences lang, only overridden by lang command line option
-	QString Pff = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus");
+	QString Pff = QDir::convertSeparators(ScPaths::getApplicationDataDir());
 	QFileInfo Pffi = QFileInfo(Pff);
 	if (Pffi.exists())
 	{
@@ -438,7 +438,7 @@ void ScribusQApp::showHeader()
 
 void ScribusQApp::neverSplash(bool splashOff)
 {
-	QString prefsDir = QDir::homeDirPath()+"/.scribus";
+	QString prefsDir = ScPaths::getApplicationDataDir();
 	QFile ns(prefsDir+"/.neversplash");
 	if (splashOff)
 	{
@@ -460,5 +460,5 @@ void ScribusQApp::neverSplash(bool splashOff)
 
 bool ScribusQApp::neverSplashExists()
 {
-	return QFileInfo(QDir::homeDirPath()+"/.scribus/.neversplash").exists();
+	return QFileInfo(ScPaths::getApplicationDataDir() + ".neversplash").exists();
 }
