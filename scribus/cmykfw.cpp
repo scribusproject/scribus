@@ -21,10 +21,11 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "util.h"
 
-CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust  )
+CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )
 		: QDialog( parent, "fw", true, 0 ), CurrSwatch(doc)
 {
 	m_doc = doc;
+	isNew = newCol;
 	orig.setDocument(m_doc);
 	if (orig.getColorModel () == colorModelCMYK)
 		CMYKmode = true;
@@ -994,11 +995,11 @@ void CMYKChoose::Verlassen()
 		Farbname->selectAll();
 		return;
 	}
-	if (Fnam != Farbname->text())
+	if ((Fnam != Farbname->text()) || (isNew))
 	{
 		if (EColors->contains(Farbname->text()))
 		{
-			QMessageBox::information(this, CommonStrings::trWarning, tr("Name of the color is not unique"), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
+			QMessageBox::information(this, CommonStrings::trWarning, tr("The name of the color already exists,\nplease choose another one."), CommonStrings::tr_OK, 0, 0, 0, QMessageBox::Ok);
 			Farbname->selectAll();
 			Farbname->setFocus();
 			return;

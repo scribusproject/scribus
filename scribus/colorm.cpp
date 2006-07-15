@@ -723,7 +723,7 @@ void ColorManager::duplFarbe()
 void ColorManager::neueFarbe()
 {
 	ScColor tmpFarbe = ScColor(0, 0, 0, 0);
-	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, tr("New Color"), &EditColors, customColSet);
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, tr("New Color"), &EditColors, customColSet, true);
 	int newItemIndex=0;
 	int colCount=0;
 	if (dia->exec())
@@ -754,7 +754,7 @@ void ColorManager::editFarbe()
 	int selectedIndex=colorListBox->currentItem();
 	int topIndex=colorListBox->topItem();
 	ScColor tmpFarbe = EditColors[sFarbe];
-	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, sFarbe, &EditColors, customColSet);
+	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, sFarbe, &EditColors, customColSet, false);
 	if (dia->exec())
 	{
 		dia->Farbe.setDocument(m_Doc);
