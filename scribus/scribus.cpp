@@ -1905,7 +1905,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	if (ScCore->haveCMS() && tempDoc->CMSSettings.CMSinUse)
 		recalcColors();
 	//CB NOTE should be all done now
-	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
+	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
 	tempDoc->setMasterPageMode(false);
 	tempDoc->addMasterPage(0, "Normal");
 	int createCount=QMAX(pageCount,1);
