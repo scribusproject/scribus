@@ -82,7 +82,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 		fontList->setCurrentItem(item);
 		paintSample(item);
 		fontList->center(0, fontList->currentItem()->itemPos());
-		qDebug("1");
+// 		qDebug("1");
 	}
 }
 
