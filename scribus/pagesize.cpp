@@ -67,7 +67,7 @@ PageSize::PageSize(const QString sizeName)
 		m_width=m_height=0.0;
 		m_pageUnitIndex=-1;
 		m_pageSizeName="Custom";
-		m_trPageSizeName=QObject::QObject::tr("Custom");	
+		m_trPageSizeName=QObject::tr("Custom");	
 	}
 }
 
@@ -76,7 +76,7 @@ PageSize::PageSize(const double w, const double h)
 	m_width=w;
 	m_height=h;
 	m_pageSizeName="Custom";
-	m_trPageSizeName=QObject::QObject::tr("Custom");	
+	m_trPageSizeName=QObject::tr("Custom");	
 }
 
 QStringList PageSize::sizeList(void) const
@@ -120,13 +120,13 @@ void PageSize::generateSizeList()
 	info.width=mm2pts(width*2.0);
 	info.height=mm2pts(height*2.0);
 	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::QObject::tr("4A0");
+	info.trSizeName=QObject::tr("4A0");
 	pageSizeList.insert("4A0", info); 
 	//2A0
 	info.width=mm2pts(height);
 	info.height=mm2pts(width*2.0);
 	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::QObject::tr("2A0");
+	info.trSizeName=QObject::tr("2A0");
 	pageSizeList.insert("2A0", info); 
 	//Continue with rest of A series
 	for (format = 0; format <= 10; format++) {
@@ -201,13 +201,13 @@ void PageSize::generateSizeList()
 	info.width=in2pts(4.125);
 	info.height=in2pts(9.5);
 	info.pageUnitIndex=SC_IN;
-	info.trSizeName=QObject::QObject::tr("Comm10E");
+	info.trSizeName=QObject::tr("Comm10E");
 	pageSizeList.insert("Comm10E", info); 
 	//DLE
 	info.width=mm2pts(110);
 	info.height=mm2pts(220);
 	info.pageUnitIndex=SC_MM;
-	info.trSizeName=QObject::QObject::tr("DLE");
+	info.trSizeName=QObject::tr("DLE");
 	pageSizeList.insert("DLE", info); 
 	//Executive
 	//Folio
