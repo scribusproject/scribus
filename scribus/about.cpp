@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "gsutil.h"
 #include "util.h"
 #include "helpbrowser.h" // due the TextBrowser (for html browsing)
-
+#include "upgradechecker.h"
 #include "langmgr.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -369,7 +369,19 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout_4->setMargin( 10 );
 	tabLayout_4->addWidget( textView4 );
 	tabWidget2->insertTab( tab_4, tr( "&Online" ) );
+	// Update tab
+	tab_5 = new QWidget( tabWidget2, "tab_5" );
+	tabWidget2->insertTab( tab_5, tr( "&Updates" ) );
+	updateLayout = new QVBoxLayout( tab_5 );
+	updateLayout->setSpacing( 6 );
+	updateLayout->setMargin( 10 );
+	checkForUpdateButton = new QPushButton( tr( "Check for &Updates" ), tab_5, "checkForUpdateButton" );
+	textView5 = new TextBrowser( tab_5, "TextView5" );
+	updateLayout->addWidget( checkForUpdateButton );
+	updateLayout->addWidget( textView5 );
+
 	aboutLayout->addWidget( tabWidget2 );
+	
 	layout2 = new QHBoxLayout;
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 0 );
@@ -385,6 +397,15 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 //tooltips
 
 	QToolTip::add( buildID, "<qt>" + tr( "This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries." ) + "</qt>" );
+	QToolTip::add( checkForUpdateButton, "<qt>" + tr( "Check for updates to Scribus. No data from your machine will be transferred off it." ) + "</qt>" );
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
+	connect( checkForUpdateButton, SIGNAL( clicked() ), this, SLOT( runUpdateCheck() ) );
+}
+
+void About::runUpdateCheck()
+{
+	UpgradeChecker uc(false, textView5);
+	bool error=uc.fetch();
+	uc.show(error);
 }

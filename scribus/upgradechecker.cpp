@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <iostream>
 #include <cstdlib>
 
+#include "helpbrowser.h"
 #include "scpaths.h"
 #include "upgradechecker.h"
 #include "upgradechecker.moc"
@@ -23,8 +24,10 @@ for which a new license (GPL+exception) is in place.
 #define sleep Sleep
 #endif
 
-UpgradeChecker::UpgradeChecker()
- : QObject()
+UpgradeChecker::UpgradeChecker(bool consoleOnly, QWidget *widget)
+ : QObject(),
+ writeToConsole(consoleOnly),
+ outputWidget(widget)
 {
 	getter=0;
 	updates.clear();
@@ -70,8 +73,8 @@ bool UpgradeChecker::fetch()
 	getter->setHost("www.scribus.net");
 	if (retrieveError)
 		return true;
-	qDebug("%s", tr("Attempting to get the Scribus version update file").local8Bit().data());
-	qDebug("%s", tr("(No data on your computer will be sent to an external location)").local8Bit().data());
+	outputText(tr("Attempting to get the Scribus version update file"));
+	outputText(tr("(No data on your computer will be sent to an external location)"));
 	if(!file.open(IO_ReadWrite))
 		return true;
 	getterID=getter->get("/downloads/"+filename, &file);
@@ -82,19 +85,21 @@ bool UpgradeChecker::fetch()
 		qApp->processEvents();
 		sleep(1);
 		++waitCount;
-		std::cout << ". " << std::flush;
+		if (writeToConsole)
+			std::cout << ". " << std::flush;
 	}
-	std::cout << std::endl;
+	if (writeToConsole)
+		std::cout << std::endl;
 	getter->closeConnection();
 	bool errorOccurred=false;
 	if (waitCount>=10)
 	{
-		qDebug("%s", tr("Timed out when attempting to get update file.").local8Bit().data());
+		outputText(tr("Timed out when attempting to get update file."));
 		errorOccurred=true;
 	}
 	if (retrieveError || getter->error()!=QHttp::NoError)
 	{
-		qDebug("%s", tr("Error when attempting to get update file: %1").arg(getter->errorString()).local8Bit().data());
+		outputText(tr("Error when attempting to get update file: %1").arg(getter->errorString()));
 		errorOccurred=true;
 	}
 	if (errorOccurred)
@@ -124,9 +129,9 @@ bool UpgradeChecker::process( QFile& dataFile )
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
 		if (data.lower().contains("404 not found"))
-			qDebug("%s", tr("File not found on server").local8Bit().data());
+			outputText(tr("File not found on server"));
 		else
-			qDebug("%s", tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol).local8Bit().data());
+			outputText(tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol));
 		return false;
 	}
 	
@@ -178,18 +183,18 @@ void UpgradeChecker::show(bool error)
 {
 	if (error)
 	{
-		qDebug("%s", tr("An error occurred while looking for updates for Scribus, please check your internet connection.").local8Bit().data());
+		outputText(tr("An error occurred while looking for updates for Scribus, please check your internet connection."));
 		return;
 	}
 	if (updates.isEmpty())
 	{
-		qDebug("%s", tr("No updates are available for your version of Scribus %1").arg(version).local8Bit().data());
+		outputText(tr("No updates are available for your version of Scribus %1").arg(version));
 		return;
 	}
-	qDebug("%s", tr("One or more updates for your version of Scribus (%1) are available:").arg(version).local8Bit().data());
+	outputText(tr("One or more updates for your version of Scribus (%1) are available:").arg(version));
 	
 	for ( QStringList::Iterator it = updates.begin(); it != updates.end(); ++it )
-		qDebug("%s", QString("%1").arg(*it).local8Bit().data());
+		outputText(*it);
 }
 
 void UpgradeChecker::fileFinished(bool /*error*/)
@@ -208,4 +213,21 @@ void UpgradeChecker::reqStarted(int /*id*/)
 void UpgradeChecker::reqFinished(int /*id*/, bool error)
 {
 	retrieveError=error;
+}
+
+void UpgradeChecker::outputText(QString text)
+{
+	if (writeToConsole)
+		qDebug("%s", text.local8Bit().data());
+	else
+	{
+		TextBrowser* w=dynamic_cast<TextBrowser*>(outputWidget);
+		if (w)
+		{
+			QString wText=w->text();
+			wText.remove("<qt>");
+			wText.remove("</qt>");
+			w->setText("<qt>"+wText+text+"<br/>"+"</qt>");
+		}
+	}	
 }

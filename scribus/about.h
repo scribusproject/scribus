@@ -28,26 +28,31 @@ public:
 	About( QWidget* parent );
 	~About() {};
 	
+protected:
 	QLabel* pixmapLabel1;
 	QLabel* buildID;
 	QPushButton* okButton;
+	QPushButton* checkForUpdateButton;
 	QTabWidget* tabWidget2;
 	QWidget* tab;
 	QWidget* tab_2;
 	QWidget* tab_3;
 	QWidget* tab_4;
+	QWidget* tab_5;
 	TextBrowser* textView1;
 	TextBrowser* textView2;
 	TextBrowser* textView4;
-
-protected:
+	TextBrowser* textView5;
 	QVBoxLayout* aboutLayout;
+	QVBoxLayout* updateLayout;
 	QHBoxLayout* tabLayout;
 	QVBoxLayout* tabLayout1;
 	QHBoxLayout* tabLayout_2;
 	QHBoxLayout* tabLayout_4;
 	QHBoxLayout* layout2;
 
+protected slots:
+	void runUpdateCheck();
 };
 
 #endif // ABOUT_H

@@ -7,8 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef UPGRADECHECKER_H
 #define UPGRADECHECKER_H
 
+#include <qfile.h>
 #include <qhttp.h>
 #include <qobject.h>
+#include <qwidget.h>
 #include <qstring.h>
 #include <qstringlist.h>
 
@@ -20,7 +22,7 @@ class UpgradeChecker : public QObject
 	Q_OBJECT
 	
 public:
-	UpgradeChecker();
+	UpgradeChecker(bool consoleOnly=true, QWidget *widget=0);
 	~UpgradeChecker();
 	
 	bool fetch();
@@ -35,6 +37,8 @@ public slots:
 	void reqFinished(int id, bool error);
 	
 protected:
+	void outputText(QString text);
+	bool writeToConsole;
 	QString version;
 	QString stability;
 	uint major, minor, revision1, revision2;
@@ -46,6 +50,7 @@ protected:
 	QHttp* getter;
 	int getterID;
 	bool retrieveError;
+	QWidget *outputWidget;
 };
 
 #endif
