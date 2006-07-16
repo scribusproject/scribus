@@ -405,7 +405,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 
 void About::runUpdateCheck()
 {
-	UpgradeChecker uc(false, textView5);
+	UpgradeCheckerGUI uc(textView5);
 	bool error=uc.fetch();
 	uc.show(error);
 }

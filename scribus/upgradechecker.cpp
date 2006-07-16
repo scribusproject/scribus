@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdom.h>
 #include <qhttp.h>
 #include <qnetwork.h>
+#include <qwidget.h>
 #include <iostream>
 #include <cstdlib>
 
@@ -24,10 +25,18 @@ for which a new license (GPL+exception) is in place.
 #define sleep Sleep
 #endif
 
-UpgradeChecker::UpgradeChecker(bool consoleOnly, QWidget *widget)
- : QObject(),
- writeToConsole(consoleOnly),
- outputWidget(widget)
+UpgradeChecker::UpgradeChecker()
+ : QObject()
+{
+	init();
+	writeToConsole=true;
+}
+
+UpgradeChecker::~UpgradeChecker()
+{
+}
+
+void UpgradeChecker::init()
 {
 	getter=0;
 	updates.clear();
@@ -50,14 +59,10 @@ UpgradeChecker::UpgradeChecker(bool consoleOnly, QWidget *widget)
 	#endif
 }
 
-UpgradeChecker::~UpgradeChecker()
-{
-}
 
 bool UpgradeChecker::fetch()
 {
 	QString filename("scribusversions.xml");
-	//TODO fix for win32 and mac
 	tempFile=ScPaths::getTempFileDir()+filename;
 
 	fin=false;
@@ -217,17 +222,28 @@ void UpgradeChecker::reqFinished(int /*id*/, bool error)
 
 void UpgradeChecker::outputText(QString text)
 {
-	if (writeToConsole)
-		qDebug("%s", text.local8Bit().data());
-	else
+	qDebug("%s", text.local8Bit().data());
+}
+
+UpgradeCheckerGUI::UpgradeCheckerGUI(QWidget *widget)
+ : UpgradeChecker(),
+ outputWidget(widget)
+{
+	writeToConsole=false;
+}
+
+UpgradeCheckerGUI::~UpgradeCheckerGUI()
+{
+}
+
+void UpgradeCheckerGUI::outputText(QString text)
+{
+	TextBrowser* w=dynamic_cast<TextBrowser*>(outputWidget);
+	if (w)
 	{
-		TextBrowser* w=dynamic_cast<TextBrowser*>(outputWidget);
-		if (w)
-		{
-			QString wText=w->text();
-			wText.remove("<qt>");
-			wText.remove("</qt>");
-			w->setText("<qt>"+wText+text+"<br/>"+"</qt>");
-		}
+		QString wText=w->text();
+		wText.remove("<qt>");
+		wText.remove("</qt>");
+		w->setText("<qt>"+wText+text+"<br/>"+"</qt>");
 	}	
 }
