@@ -57,6 +57,7 @@ hyphen3.png
 inkscape.png
 kfontinstaller.png
 ksnapshot.png
+layers1.png
 monprof1.png
 monprof2.png
 monprof3.png
