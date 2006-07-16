@@ -38,6 +38,7 @@ UpgradeChecker::~UpgradeChecker()
 
 void UpgradeChecker::init()
 {
+	message="";
 	getter=0;
 	updates.clear();
 	version=(VERSION);
@@ -173,6 +174,11 @@ bool UpgradeChecker::process( QFile& dataFile )
 					}
 				}
 			}
+			else
+			if (e.tagName()=="message")
+			{
+				message=e.text();
+			}
 		}
 		n = n.nextSibling();
 	}
@@ -192,14 +198,15 @@ void UpgradeChecker::show(bool error)
 		return;
 	}
 	if (updates.isEmpty())
-	{
 		outputText(tr("No updates are available for your version of Scribus %1").arg(version));
-		return;
+	else
+	{
+		outputText(tr("One or more updates for your version of Scribus (%1) are available:").arg(version));
+		
+		for ( QStringList::Iterator it = updates.begin(); it != updates.end(); ++it )
+			outputText(*it);
 	}
-	outputText(tr("One or more updates for your version of Scribus (%1) are available:").arg(version));
-	
-	for ( QStringList::Iterator it = updates.begin(); it != updates.end(); ++it )
-		outputText(*it);
+	outputText(message);
 }
 
 void UpgradeChecker::fileFinished(bool /*error*/)
@@ -222,7 +229,7 @@ void UpgradeChecker::reqFinished(int /*id*/, bool error)
 
 void UpgradeChecker::outputText(QString text)
 {
-	qDebug("%s", text.local8Bit().data());
+	qDebug("%s", text.remove("<b>").remove("</b>").remove("<i>").remove("</i>").local8Bit().data());
 }
 
 UpgradeCheckerGUI::UpgradeCheckerGUI(QWidget *widget)

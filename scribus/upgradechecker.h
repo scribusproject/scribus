@@ -52,6 +52,7 @@ protected:
 	QHttp* getter;
 	int getterID;
 	bool retrieveError;
+	QString message;
 };
 
 class UpgradeCheckerGUI : public UpgradeChecker
@@ -63,7 +64,7 @@ public:
 	~UpgradeCheckerGUI();
 	
 protected:
-	void outputText(QString text);
+	virtual void outputText(QString text);
 	QWidget *outputWidget;
 };
 
