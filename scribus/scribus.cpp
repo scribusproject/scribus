@@ -3410,7 +3410,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->PDF_Options.LPISettings.insert("Black", lpo);
 		}
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
-		if (!doc->HasCMS)
+		if (!doc->CMSSettings.CMSinUse)
 		{
 			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
 			doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
@@ -3426,7 +3426,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->CMSSettings.SoftProofFullOn = prefsManager->appPrefs.DCMSset.SoftProofFullOn;
 			doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
 			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
-			doc->CMSSettings.CMSinUse = false;
+			doc->HasCMS = false;
 		}
 		if ((ScCore->haveCMS()) && (doc->CMSSettings.CMSinUse))
 		{
@@ -3513,6 +3513,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			doc->IntentImages = doc->CMSSettings.DefaultIntentImages;
 			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
+				doc->HasCMS = true;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigRgbData)
 					doc->CMSSettings.ComponentsInput2 = 3;
 				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigCmykData)
