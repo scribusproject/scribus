@@ -1969,7 +1969,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 
 PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 {
-	struct ScImage::LoadRequest loadingInfo;
+	struct ImageLoadRequest loadingInfo;
 	int z = 0;
 	PageItem::ItemType pt = static_cast<PageItem::ItemType>(obj->attribute("PTYPE").toInt());
 	double x = obj->attribute("XPOS").toDouble();
@@ -3283,7 +3283,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		}
 		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
 		{
-			QMap<int, ScImage::LoadRequest>::iterator it2;
+			QMap<int, ImageLoadRequest>::iterator it2;
 			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
 			{
 				QDomElement psd = docu->createElement("PSDLayer");

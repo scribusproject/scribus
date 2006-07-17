@@ -883,7 +883,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				}
 				if (it.tagName() == "PSDLayer")
 				{
-					struct ScImage::LoadRequest loadingInfo;
+					struct ImageLoadRequest loadingInfo;
 					loadingInfo.blend = it.attribute("Blend");
 					loadingInfo.opacity = it.attribute("Opacity").toInt();
 					loadingInfo.visible = static_cast<bool>(it.attribute("Visible").toInt());
@@ -1188,7 +1188,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		}
 		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
 		{
-			QMap<int, ScImage::LoadRequest>::iterator it2;
+			QMap<int, ImageLoadRequest>::iterator it2;
 			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
 			{
 				QDomElement psd = docu.createElement("PSDLayer");

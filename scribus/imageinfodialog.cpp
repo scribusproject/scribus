@@ -10,7 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
-ImageInfoDialog::ImageInfoDialog( QWidget* parent, ScImage::ImageInfoRecord *info  ) : QDialog( parent, "ImageInfo", true, 0 )
+ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QDialog( parent, "ImageInfo", true, 0 )
 {
 	setCaption( tr( "Image Info" ) );
 	setIcon(loadIcon("AppIcon.png"));
@@ -71,7 +71,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ScImage::ImageInfoRecord *inf
 	UserComment = new QLabel(info->exifInfo.userComment, ExGroup, "UserComment" );
 	layout2->addWidget( UserComment, 1, 1 );
 	int a = 2;
-	if (info->typ == 1)
+	if (info->type == 1)
 	{
 		Text5 = new QLabel( tr("Artist:"), ExGroup, "Text5" );
 		layout2->addWidget( Text5, 2, 0 );
@@ -88,7 +88,7 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ScImage::ImageInfoRecord *inf
 	Manufact = new QLabel(info->exifInfo.cameraVendor, ExGroup, "Manufact" );
 	layout2->addWidget( Manufact, a+1, 1 );
 	ImageInfoDialogLayout->addWidget(ExGroup);
-	switch (info->typ)
+	switch (info->type)
 	{
 		case 0:
 			Text1->setText( tr( "Comment:" ));

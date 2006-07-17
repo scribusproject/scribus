@@ -180,6 +180,14 @@ scribus_SOURCES = \
 	scfonts_ttf.cpp	\
 	scfontmetrics.cpp	\
 	scimage.cpp	\
+	scimagestructs.cpp \
+	scimgdataloader.cpp \
+	scimgdataloader_jpeg.cpp \
+	scimgdataloader_pdf.cpp \
+	scimgdataloader_ps.cpp \
+	scimgdataloader_psd.cpp \
+	scimgdataloader_qt.cpp \
+	scimgdataloader_tiff.cpp \
 	scmenu.cpp	\
 	scmessagebox.cpp	\
 	scgtplugin.cpp	\

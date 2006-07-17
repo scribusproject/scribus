@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "util.h"
 
-ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
+ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view )  : QDialog( parent, "ExtImageProps", true, 0 )
 {
 	setIcon(loadIcon("AppIcon.png"));
 	setCaption( tr( "Extended Image Properties" ) );
@@ -147,7 +147,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 		opacitySpinBox->setEnabled(true);
 		blendMode->setEnabled(true);
 		QString tmp;
-		QValueList<ScImage::PSDLayer>::iterator it2;
+		QValueList<PSDLayer>::iterator it2;
 		layerTable->setNumRows(info->layerInfo.count());
 		uint counter = 0;
 		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
@@ -255,7 +255,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, P
 
 void ExtImageProps::changedLayer()
 {
-	struct ScImage::LoadRequest loadingInfo;
+	struct ImageLoadRequest loadingInfo;
 	currentItem->pixm.imgInfo.isRequest = true;
 	for (int r = 0; r < layerTable->numRows(); ++r)
 	{

@@ -33,7 +33,7 @@ class SCRIBUS_API ExtImageProps : public QDialog
 	Q_OBJECT
 
 public:
-	ExtImageProps( QWidget* parent, ScImage::ImageInfoRecord *info, PageItem *item, ScribusView *view );
+	ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *item, ScribusView *view );
 	~ExtImageProps() {};
 
 	QTabWidget* propsTab;

@@ -24,7 +24,7 @@ class SCRIBUS_API ImageInfoDialog : public QDialog
 	Q_OBJECT
 
 public:
-	ImageInfoDialog( QWidget* parent, ScImage::ImageInfoRecord *info );
+	ImageInfoDialog( QWidget* parent, ImageInfoRecord *info );
 	~ImageInfoDialog() {};
 
 protected:

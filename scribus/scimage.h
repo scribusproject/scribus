@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 #include "scribusapi.h"
+#include "scimagestructs.h"
 
 #include <setjmp.h>
 #include <cstdlib>
@@ -43,9 +44,6 @@ extern "C"
 #  undef const          // remove crazy C hackery in jconfig.h
 #endif
 }
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif
 
 class SCRIBUS_API ScImage : private QImage
 {
@@ -63,18 +61,6 @@ public:
 		RGBProof = 2,
 		RawData = 3,
 		Thumbnail = 4,
-	};
-
-	enum PSDColorMode
-	{
-		CM_BITMAP = 0,
-		CM_GRAYSCALE = 1,
-		CM_INDEXED = 2,
-		CM_RGB = 3,
-		CM_CMYK = 4,
-		CM_MULTICHANNEL = 7,
-		CM_DUOTONE = 8,
-		CM_LABCOLOR = 9
 	};
 
 	enum ImageEffectCode
@@ -102,7 +88,6 @@ public:
 	int height() const { return QImage::height(); }
 	int width() const { return QImage::width(); }
 	bool hasAlpha() const { return QImage::hasAlphaBuffer(); }
-	
 	
 	// Routines for PDF/PS output of images
 	QByteArray ImageToArray();
@@ -133,82 +118,7 @@ public:
 	// TODO: document params, split into smaller functions
 	bool LoadPicture(const QString & fn, const CMSettings& cmSettings, int rend, bool useEmbedded, bool useProf, RequestType requestType, int gsRes, bool *realCMYK = 0);
 
-	struct PSDLayer
-	{
-		QValueList<uint> channelLen;
-		QValueList<int> channelType;
-		int xpos;
-		int ypos;
-		int width;
-		int height;
-		ushort opacity;
-		uchar clipping;
-		uchar flags;
-		int maskXpos;
-		int maskYpos;
-		int maskWidth;
-		int maskHeight;
-		QString layerName;
-		QString blend;
-		QImage thumb;
-	};
-
-	struct PSDHeader
-	{
-		uint signature;
-		ushort version;
-		uchar reserved[6];
-		ushort channel_count;
-		uint height;
-		uint width;
-		ushort depth;
-		ushort color_mode;
-	};
-	
-	struct LoadRequest
-	{
-		bool visible;
-		ushort opacity;
-		QString blend;
-	};
-
-	struct ExifValues
-	{
-		int width;
-		int height;
-		QString cameraName;
-		QString cameraVendor;
-		QString comment;
-		QString userComment;
-		QString artist;
-		QString copyright;
-		QString dateTime;
-		QImage thumbnail;
-	};
-
-	struct ImageInfoRecord
-	{
-		int typ;			/* 0 = jpg, 1 = tiff, 2 = psd, 3 = eps/ps, 4 = pdf, 5 = jpg2000, 6 = other */
-		int xres;
-		int yres;
-		int BBoxX;
-		int BBoxH;
-		int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
-		bool valid;
-		bool isRequest;
-		bool progressive;
-		bool isEmbedded;
-		bool exifDataValid;
-		int lowResType; /* 0 = full Resolution, 1 = 72 dpi, 2 = 36 dpi */
-		double lowResScale;
-		QMap<QString, FPointArray> PDSpathData;
-		QMap<int, LoadRequest> RequestProps;
-		QString clipPath;
-		QString usedPath;
-		QString profileName;
-		QValueList<PSDLayer> layerInfo;
-		ExifValues exifInfo;
-	} imgInfo;
+	ImageInfoRecord imgInfo;
 
 private:
 	// Image effects
@@ -229,19 +139,6 @@ private:
 	bool convolveImage(QImage *dest, const unsigned int order, const double *kernel);
 	int getOptimalKernelWidth(double radius, double sigma);
 	void applyCurve(bool cmyk);
-	bool IsValid( const PSDHeader & header );
-	bool IsSupported( const PSDHeader & header );
-	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg);
-	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
-	bool loadLayer( QDataStream & s, const PSDHeader & header);
-	QString getLayerString(QDataStream & s);
-	QString getPascalString(QDataStream & s);
-	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size);
-	bool parseLayer( QDataStream & s, const PSDHeader & header);
-	bool LoadPSD( QDataStream & s, const PSDHeader & header);
-	bool marker_is_icc (jpeg_saved_marker_ptr marker);
-	bool marker_is_photoshop (jpeg_saved_marker_ptr marker);
-	bool read_jpeg_marker (UINT8 requestmarker, j_decompress_ptr cinfo, JOCTET **icc_data_ptr, unsigned int *icc_data_len);
 	char* iccbuf;
 	uint icclen;
 	//std::valarray<int> curveTable;
