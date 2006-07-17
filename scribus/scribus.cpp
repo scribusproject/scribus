@@ -8506,7 +8506,7 @@ void ScribusMainWindow::callImageEditor()
 				QString imEditorDir = imEditor.left( index + 1 );
 				ExternalApp->setWorkingDirectory( imEditorDir );
 			}
-			cmd.append(currItem->Pfile);
+			cmd.append(QDir::convertSeparators(currItem->Pfile));
 			ExternalApp->setArguments(cmd);
 			if ( !ExternalApp->start() )
 			{
