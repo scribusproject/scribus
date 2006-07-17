@@ -86,6 +86,7 @@ class SCRIBUS_API TabDocument : public QWidget
 		 */
 		void setSize(const QString & gr);
 		void setPageSize();
+		void slotUndo(bool isEnabled);
 
 	protected:
 		QLabel* GZText1;

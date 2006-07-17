@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "pagesize.h"
 #include "undomanager.h"
 #include "sccombobox.h"
+#include "prefsfile.h"
 
 
 TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
@@ -136,6 +137,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	asurLayout->addWidget(GroupAS);
 
 	urGroup = new QGroupBox( tr("Undo/Redo"), this, "urGroup");
+	urGroup->setCheckable(true);
 	urGroup->setColumnLayout(0, Qt::Vertical);
 	urGroup->layout()->setSpacing(5);
 	urGroup->layout()->setMargin(10);
@@ -154,6 +156,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	urGroupLayout->addWidget(urSpinBox, 0, 1);
 	asurLayout->addWidget(urGroup);
 	Layout21->addLayout(asurLayout);
+	urGroup->setChecked((PrefsManager::instance()->prefsFile->getContext("undo")->getBool("enabled", true)));
 
 	tabLayout_7->addLayout( Layout21 );
 
@@ -172,6 +175,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	//connect(docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int) ) );
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	connect(urGroup, SIGNAL(toggled(bool)), this, SLOT(slotUndo(bool)));
 }
 
 void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
@@ -303,4 +307,14 @@ void TabDocument::hideReform()
 {
 	urGroup->hide();
 	sizeAllPages->show();
+}
+
+void TabDocument::slotUndo(bool isEnabled)
+{
+	static PrefsContext *undoPrefs = PrefsManager::instance()->prefsFile->getContext("undo");
+
+	if (!isEnabled)
+		UndoManager::instance()->clearStack();
+	UndoManager::instance()->setUndoEnabled(isEnabled);
+	undoPrefs->set("enabled", isEnabled);
 }

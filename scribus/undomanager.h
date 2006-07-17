@@ -267,7 +267,10 @@ public:
 	 * @param stackName Name of the stack that is wanted to be removed
 	 */
 	void removeStack(const QString& stackName);
-	
+
+	/** clear the current undo stack */
+	void clearStack();
+
 	/**
 	 * @brief Returns true if there are actions that can be undone otherwise returns false.
 	 *
@@ -298,7 +301,7 @@ public:
 	 * @return the maximum length of the undostack
 	 */
 	int getHistoryLength();
-	
+
 	/**
 	 * @brief Returns true if in global mode and false if in object specific mode.
 	 * @return true if in global mode and false if in object specific mode

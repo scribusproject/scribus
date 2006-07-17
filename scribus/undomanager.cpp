@@ -83,6 +83,7 @@ UndoManager::UndoManager()
 	transaction_= 0;
 	transactionTarget_ = 0;
 	languageChange();
+	setUndoEnabled(prefs_->getBool("enabled", true));
 }
 
 void UndoManager::beginTransaction(const QString &targetName,
@@ -355,6 +356,16 @@ void UndoManager::removeStack(const QString& stackName)
 				undoGuis_[i]->clear();
 			currentDoc_ = "__no_name__";
 		}
+	}
+}
+
+void UndoManager::clearStack()
+{
+	stacks_[currentDoc_].clear();
+	for (uint i = 0; i < undoGuis_.size(); ++i)
+	{
+		undoGuis_[i]->clear();
+		setState(undoGuis_[i]);
 	}
 }
 
