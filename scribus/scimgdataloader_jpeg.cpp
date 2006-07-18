@@ -161,7 +161,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		{
 			xres = yres = 72.0;
 			QFileInfo qfi(fn);
-			qWarning("Warning: %s may be corrupted", qfi.fileName().local8Bit());
+			QCString fname = qfi.fileName().local8Bit();
+			qWarning("Warning: %s may be corrupted", fname.data());
 		}
 		m_imageInfoRecord.xres = qRound(xres);
 		m_imageInfoRecord.yres = qRound(yres);
@@ -227,7 +228,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	{
 		xres = yres = 72.0;
 		QFileInfo qfi(fn);
-		qWarning("Warning: %s may be corrupted", qfi.fileName().local8Bit());
+		QCString fname = qfi.fileName().local8Bit();
+		qWarning("Warning: %s may be corrupted", fname.data());
 	}
 	m_imageInfoRecord.xres = qRound(xres);
 	m_imageInfoRecord.yres = qRound(yres);

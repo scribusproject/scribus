@@ -158,7 +158,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 		{
 			xres = yres = 72.0;
 			QFileInfo qfi(fn);
-			qWarning("Warning: %s may be corrupted", qfi.fileName().local8Bit());
+			QCString fname = qfi.fileName().local8Bit();
+			qWarning("Warning: %s may be corrupted", fname.data());
 		}
 
 		if (!m_image.create(widtht,heightt,32))
