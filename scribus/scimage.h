@@ -108,10 +108,6 @@ public:
 
 	// Retrieve an embedded ICC profile from the file path `fn', storing it in `profile'.
 	// TODO: Bad API. Should probably be static member returning an ICCProfile (custom class) or something like that.
-	void getEmbeddedProfile(const QString & fn, QString *profile, int *components);
-
-	// Retrieve an embedded ICC profile from the file path `fn', storing it in `profile'.
-	// TODO: Bad API. Should probably be static member returning an ICCProfile (custom class) or something like that.
 	void getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components);
 
 	// Load an image into this ScImage instance

@@ -1327,53 +1327,6 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	return retArray;
 }
 
-void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *components)
-{
-	Q_ASSERT(profile);
-	Q_ASSERT(components);
-	ScImgDataLoader* pDataLoader = NULL;
-#ifdef HAVE_CMS
-	cmsHPROFILE prof = 0;
-
-	profile->setLength(0);
-	*components = 0;
-	QFileInfo fi = QFileInfo(fn);
-	if (!fi.exists())
-		return;
-	QString ext = fi.extension(false).lower();
-
-	if (ext == "psd")
-		pDataLoader = new ScImgDataLoader_PSD();
-#ifdef HAVE_TIFF
-	else if ((ext == "tif") || (ext == "tiff"))
-		pDataLoader = new ScImgDataLoader_TIFF();
-#endif
-	else if ((ext == "jpg") || (ext == "jpeg"))
-		pDataLoader = new ScImgDataLoader_JPEG();
-
-	if	(pDataLoader)
-	{
-		pDataLoader->loadEmbeddedProfile(fn);
-		QByteArray embeddedProfile = pDataLoader->embeddedProfile();
-		if	(embeddedProfile.size())
-		{
-			prof = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
-			if (prof)
-			{
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
-					*components = 3;
-				if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
-					*components = 4;
-				for (uint el = 0; el < embeddedProfile.size(); ++el)
-					*profile += embeddedProfile[el];
-			}
-			cmsCloseProfile(prof);
-		}
-		delete pDataLoader;
-	}
-#endif // HAVE_CMS
-}
-
 void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *components)
 {
 	Q_ASSERT(profile);
