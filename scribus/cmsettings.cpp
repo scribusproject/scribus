@@ -40,7 +40,7 @@ CMSettings::~CMSettings()
 bool CMSettings::useColorManagement() const
 {
 	if (m_Doc)
-		return m_Doc->CMSSettings.CMSinUse;
+		return m_Doc->HasCMS;
 	return false;
 }
 
@@ -124,84 +124,84 @@ bool CMSettings::doGamutCheck() const
 #ifdef HAVE_CMS
 cmsHPROFILE CMSettings::monitorProfile() const
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->DocOutputProf;
 	return NULL;
 }
 
 cmsHPROFILE CMSettings::printerProfile() const
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->DocPrinterProf;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::rgbColorDisplayTransform() const  // stdTransRGBMonG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdTransRGBMon;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::rgbColorProofingTransform() const  // stdProofG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdProof;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::rgbImageDisplayTransform() const   // stdTransImgG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdTransImg;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::rgbImageProofingTransform() const  // stdProofImgG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdProofImg;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::rgbToCymkColorTransform() const // stdTransCMYKG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdTransCMYK;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::rgbGamutCheckTransform() const // stdProofGCG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdProofGC;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::cmykColorDisplayTransform() const // stdTransCMYKMonG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdTransCMYKMon;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::cmykColorProofingTransform() const // stdProofCMYKG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdProofCMYK;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::cmykToRgbColorTransform() const  // stdTransRGBG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdTransRGB;
 	return NULL;
 }
 
 cmsHTRANSFORM CMSettings::cmykGamutCheckTransform() const //stdProofCMYKGCG
 {
-	if (m_Doc->CMSSettings.CMSinUse)
+	if (m_Doc->HasCMS)
 		return m_Doc->stdProofCMYKGC;
 	return NULL;
 }
