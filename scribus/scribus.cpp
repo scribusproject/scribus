@@ -567,8 +567,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
 	recentPasteMenuName="EditPasteRecent";
 	scrMenuMgr->createMenu(recentPasteMenuName, QIconSet(noIcon), tr("Paste Recent"), "Edit");
-	scrMenuMgr->createMenu("EditContents", tr("Contents"));
-	scrMenuMgr->addMenuToMenu("EditContents", "Edit");
+	scrMenuMgr->createMenu("EditContents", QPixmap(noIcon), tr("Contents"), "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "EditContents");
@@ -5652,13 +5651,9 @@ void ScribusMainWindow::setAppMode(int mode)
 
 	if (HaveDoc)
 	{
-		PageItem *currItem;
-		//setActiveWindow();
-
+		PageItem *currItem=0;
 		if (doc->m_Selection->count() != 0)
 			currItem = doc->m_Selection->itemAt(0);
-		else
-			currItem = 0;
 		int oldMode = doc->appMode;
 		doc->appMode = mode;
 		if (oldMode == modeMeasurementTool)
