@@ -288,6 +288,8 @@ private:
 		QString action;
 		/** @brief Description of the action */
 		QString description;
+		/** @brief Does this item describe an undo action if false it's a redo action */
+		bool isUndoAction_;
 	public:
 		/** @brief Create an empty UndoItem object */
 		UndoItem();
@@ -312,12 +314,15 @@ private:
                  const QString &actionName,
                  const QString &actionDescription,
                  QPixmap *targetPixmap,
-                 QPixmap *actionPixmap);
+                 QPixmap *actionPixmap,
+		         bool isUndoAction);
 		~UndoItem();
 		void paint(QPainter *painter);
 		int height(const QListBox*) const;
 		int width(const QListBox*) const;
 		QString getDescription();
+		bool isUndoAction();
+		void setUndoAction(bool isUndo);
 	};
 	
 /******************************************************************************/

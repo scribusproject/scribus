@@ -309,7 +309,7 @@ void UndoPalette::insertUndoItem(UndoObject* target, UndoState* state)
 	clearRedo();
 	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
-                         state->getPixmap()));
+                         state->getPixmap(), true));
 	currentSelection = undoList->numRows() - 1;
 	updateList();
 }
@@ -323,7 +323,7 @@ void UndoPalette::insertRedoItem(UndoObject* target, UndoState* state)
 	}
 	undoList->insertItem(new UndoItem(target->getUName(), state->getName(),
                          state->getDescription(), target->getUPixmap(),
-                         state->getPixmap()));
+                         state->getPixmap(), false));
 	updateList();
 }
 
@@ -362,6 +362,14 @@ void UndoPalette::updateList()
 	undoButton->setEnabled(currentSelection > 0);
 	if (!undoList->itemVisible(currentSelection))
 		undoList->setBottomItem(currentSelection);
+	for (int i = 0; i < undoList->numRows(); ++i)
+	{
+		UndoItem *item = dynamic_cast<UndoItem*>(undoList->item(i));
+		if (!item)
+			continue;
+
+		item->setUndoAction(currentSelection >= i);
+	}
 }
 
 void UndoPalette::updateUndoActions()
@@ -435,6 +443,7 @@ UndoPalette::UndoItem::UndoItem() : QListBoxItem()
 	description = "";
 	targetpixmap = NULL;
 	actionpixmap = NULL;
+	isUndoAction_ = true;
 }
 
 UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListBoxItem()
@@ -444,20 +453,24 @@ UndoPalette::UndoItem::UndoItem(const UndoItem &another) : QListBoxItem()
 	description = another.description;
 	targetpixmap = another.targetpixmap;
 	actionpixmap = another.actionpixmap;
+	isUndoAction_ = another.isUndoAction_;
 }
 
 UndoPalette::UndoItem::UndoItem(const QString &targetName,
                                 const QString &actionName,
                                 const QString &actionDescription,
                                 QPixmap *targetPixmap,
-                                QPixmap *actionPixmap)
-: QListBoxItem()
+                                QPixmap *actionPixmap,
+                                bool isUndoAction)
+: QListBoxItem(),
+targetpixmap(targetPixmap),
+actionpixmap(actionPixmap),
+target(targetName),
+action(actionName),
+description(actionDescription),
+isUndoAction_(isUndoAction)
 {
-	target = targetName;
-	action = actionName;
-	description = actionDescription;
-	targetpixmap = targetPixmap;
-	actionpixmap = actionPixmap;
+
 }
 
 void UndoPalette::UndoItem::paint(QPainter *painter)
@@ -466,12 +479,22 @@ void UndoPalette::UndoItem::paint(QPainter *painter)
 		painter->drawPixmap(5, 5, *targetpixmap);
 	if (actionpixmap)
 		painter->drawPixmap(5, 5, *actionpixmap);
+	QPen  p = QPen(painter->pen());
 	QFont f = QFont(painter->font());
-	f.setPointSize(f.pointSize() - 2);
+	painter->setFont(f);
+	if (isUndoAction_)
+	{
+		p.setColor(QColor("black"));
+		f.setItalic(false);
+	}
+	else
+	{
+		p.setColor(QColor("darkGray"));
+		f.setItalic(true);
+	}
+	painter->setPen(p);
 	painter->setFont(f);
 	painter->drawText(32, QFontMetrics(f).height(), target);
-	f.setItalic(true);
-	painter->setFont(f);
 	painter->drawText(32, (2 * QFontMetrics(painter->font()).height()), action);
 }
 
@@ -506,6 +529,16 @@ int UndoPalette::UndoItem::width(const QListBox *lb) const
 QString UndoPalette::UndoItem::getDescription()
 {
   return description;
+}
+
+bool UndoPalette::UndoItem::isUndoAction()
+{
+	return isUndoAction_;
+}
+
+void UndoPalette::UndoItem::setUndoAction(bool isUndo)
+{
+	isUndoAction_ = isUndo;
 }
 
 UndoPalette::UndoItem::~UndoItem()
