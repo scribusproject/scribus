@@ -3589,6 +3589,14 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			imgInfo.exifInfo.thumbnail = QImage();
 			imgInfo.exifDataValid = true;
 
+			if( xres <= 1.0 || yres <= 1.0 )
+			{
+				xres = yres = 72.0;
+				QFileInfo qfi(fn);
+				QCString fname = qfi.fileName().local8Bit();
+				qWarning("Warning: %s may be corrupted", fname.data());
+			}
+
 			if (!create(widtht,heightt,32))
 			{
 				TIFFClose(tif);
@@ -3879,6 +3887,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				xres = cinfo.X_density * 2.54;
 				yres = cinfo.Y_density * 2.54;
 			}
+			if( xres <= 1.0 || yres <= 1.0 )
+			{
+				xres = yres = 72.0;
+				QFileInfo qfi(fn);
+				QCString fname = qfi.fileName().local8Bit();
+				qWarning("Warning: %s may be corrupted", fname.data());
+			}
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
 			if (cinfo.output_components == 4)
@@ -3944,6 +3959,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			yres = cinfo.Y_density * 2.54;
 			setDotsPerMeterX( int(100. * cinfo.X_density) );
 			setDotsPerMeterY( int(100. * cinfo.Y_density) );
+		}
+		if( xres <= 1.0 || yres <= 1.0 )
+		{
+			xres = yres = 72.0;
+			QFileInfo qfi(fn);
+			QCString fname = qfi.fileName().local8Bit();
+			qWarning("Warning: %s may be corrupted", fname.data());
 		}
 		imgInfo.xres = qRound(xres);
 		imgInfo.yres = qRound(yres);
