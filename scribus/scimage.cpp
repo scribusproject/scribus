@@ -1479,6 +1479,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			if(realCMYK)
 				*realCMYK = true;
 		}
+		else if (imgInfo.colorspace == 2)
+			bilevel = true;
 		pDataLoader->image() = QImage();
 	}
 	else
