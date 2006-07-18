@@ -198,7 +198,7 @@ rgb.png
 rightindent.png
 rotate_ccw.png
 rotate_cw.png
-Rotieren2.xpm
+Rotieren2.png
 Rotieren.xpm
 RoundCap.png
 RoundJoin.png
