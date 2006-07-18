@@ -258,17 +258,23 @@ QString GetAttr(QDomElement *el, QString at, QString def)
 
 QPixmap loadIcon(QString nam)
 {
+	static ScPixmapCache<QString> pxCache;
+	if (pxCache.contains(nam))
+		return *pxCache[nam];
+
 	QString iconFilePath = QString("%1/%2").arg(ScPaths::instance().iconDir()).arg(nam);
-	QPixmap pm;
+	QPixmap *pm = new QPixmap();
+	
 	if (!QFile::exists(iconFilePath))
 		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
 	else
 	{
-		pm.load(iconFilePath);
-		if (pm.isNull())
+		pm->load(iconFilePath);
+		if (pm->isNull())
 			qWarning("Unable to load icon %s: Got null pixmap", iconFilePath.ascii());
 	}
-	return pm;
+	pxCache.insert(nam, pm);
+	return *pm;
 }
 
 uint getDouble(QString in, bool raw)
