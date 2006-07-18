@@ -659,8 +659,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editCut"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopy"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editPaste"], "Edit");
-	scrMenuMgr->createMenu("EditContents", tr("Contents"));
-	scrMenuMgr->addMenuToMenu("EditContents", "Edit");
+	scrMenuMgr->createMenu("EditContents", QPixmap(noIcon), tr("Contents"), "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editCopyContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContents"], "EditContents");
 	scrMenuMgr->addMenuItem(scrActions["editPasteContentsAbs"], "EditContents");
