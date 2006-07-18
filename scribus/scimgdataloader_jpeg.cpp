@@ -1,4 +1,5 @@
 #include <qfile.h>
+#include <qfileinfo.h>
 #include <setjmp.h>
 #include "scconfig.h"
 #include "scimgdataloader_jpeg.h"
@@ -156,6 +157,12 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			xres = cinfo.X_density * 2.54;
 			yres = cinfo.Y_density * 2.54;
 		}
+		if( xres <= 1.0 || yres <= 1.0 )
+		{
+			xres = yres = 72.0;
+			QFileInfo qfi(fn);
+			qWarning("Warning: %s may be corrupted", qfi.fileName().local8Bit());
+		}
 		m_imageInfoRecord.xres = qRound(xres);
 		m_imageInfoRecord.yres = qRound(yres);
 		if (cinfo.output_components == 4)
@@ -215,6 +222,12 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		yres = cinfo.Y_density * 2.54;
 		m_image.setDotsPerMeterX( int(100. * cinfo.X_density) );
 		m_image.setDotsPerMeterY( int(100. * cinfo.Y_density) );
+	}
+	if( xres <= 1.0 || yres <= 1.0 )
+	{
+		xres = yres = 72.0;
+		QFileInfo qfi(fn);
+		qWarning("Warning: %s may be corrupted", qfi.fileName().local8Bit());
 	}
 	m_imageInfoRecord.xres = qRound(xres);
 	m_imageInfoRecord.yres = qRound(yres);

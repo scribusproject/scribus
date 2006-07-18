@@ -154,6 +154,13 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 		m_imageInfoRecord.exifInfo.thumbnail = QImage();
 		m_imageInfoRecord.exifDataValid = true;
 
+		if( xres <= 1.0 || yres <= 1.0 )
+		{
+			xres = yres = 72.0;
+			QFileInfo qfi(fn);
+			qWarning("Warning: %s may be corrupted", qfi.fileName().local8Bit());
+		}
+
 		if (!m_image.create(widtht,heightt,32))
 		{
 			TIFFClose(tif);
