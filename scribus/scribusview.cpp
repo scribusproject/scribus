@@ -8762,6 +8762,14 @@ void ScribusView::PasteRecentToPage(int id)
 		data = pre->createObjects(f);
 		delete pre;
 	}
+	else if (fi.extension(true).lower() == "shape")
+	{
+		QString f = "";
+		loadText(data, &f);
+		StencilReader *pre = new StencilReader();
+		data = pre->createShape(f);
+		delete pre;
+	}
 	else if (fi.extension(true).lower() == "sce")
 	{
 		QString f = "";

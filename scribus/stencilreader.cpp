@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "stencilreader.h"
 #include <qtextstream.h>
 #include <qdom.h>
+#include <qregexp.h>
 #include "sccolor.h"
 #include "scribus.h"
 #include "splash.h"
@@ -20,6 +21,874 @@ for which a new license (GPL+exception) is in place.
 
 StencilReader::StencilReader()
 {
+}
+
+QString StencilReader::createShape(QString datain)
+{
+	PrefsManager* prefsManager = PrefsManager::instance();
+	QString tmp = "";
+	QString FillCol = "FromDia#ffffff";
+	QString StrokeCol = "FromDia#000000";
+	double GrW = 0.0;
+	double GrH = 0.0;
+	double sx = 1.0;
+	double sy = 1.0;
+	QColor stroke = Qt::black;
+	QColor fill = Qt::white;
+	Qt::PenStyle Dash = Qt::SolidLine;
+	Qt::PenCapStyle LineEnd = Qt::FlatCap;
+	Qt::PenJoinStyle LineJoin = Qt::MiterJoin;
+	int fillStyle = 1;
+	double strokewidth = 1.0;
+	bool poly;
+	QDomDocument docu("scridoc");
+	docu.setContent(datain);
+	QDomElement elem=docu.documentElement();
+	if (elem.tagName() != "shape")
+		return tmp;
+	QDomNodeList list = elem.elementsByTagName("name");
+	if (list.count() == 0)
+		return tmp;
+	QString name = list.item(0).toElement().text();
+	QDomDocument data("scribus");
+	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
+	data.setContent(st);
+	QDomElement group = data.documentElement();
+	QDomNodeList list2 = elem.elementsByTagName("svg:svg");
+	if (list2.count() == 0)
+		return tmp;
+	QDomElement svg = list2.item(0).toElement();
+	Conversion = 1.0;
+
+	QRect bounds = QRect();
+	group.setAttribute("XP", 0.0);
+	group.setAttribute("YP", 0.0);
+	group.setAttribute("COUNT", list2.count());
+	group.setAttribute("Version", QString(VERSION));
+	PageColors.insert("FromDia#000000", ScColor(0, 0, 0));
+	QDomElement co = data.createElement("COLOR");
+	co.setAttribute("NAME","FromDia#000000");
+	co.setAttribute("RGB", "#000000");
+	co.setAttribute("Spot","0");
+	co.setAttribute("Register","0");
+	group.appendChild(co);
+	PageColors.insert("FromDia#ffffff", ScColor(255, 255, 255));
+	QDomElement co2 = data.createElement("COLOR");
+	co2.setAttribute("NAME","FromDia#ffffff");
+	co2.setAttribute("RGB", "#ffffff");
+	co2.setAttribute("Spot","0");
+	co2.setAttribute("Register","0");
+	group.appendChild(co2);
+	if (svg.hasAttribute("width"))
+		GrW = parseUnit(svg.attribute("width","50"));
+	if (svg.hasAttribute("height"))
+		GrH = parseUnit(svg.attribute("height","50"));
+	QDomNode DOC = svg.firstChild();
+	QDomNodeList listItems = DOC.childNodes();
+	while(!DOC.isNull())
+	{
+		double x1, y1, x2, y2;
+		FPointArray PoLine;
+		PoLine.resize(0);
+		QDomElement pg=DOC.toElement();
+		QString STag = pg.tagName();
+		if (STag == "svg:line")
+		{
+			x1 = pg.attribute("x1").toDouble() * Conversion;
+			y1 = pg.attribute("y1").toDouble() * Conversion;
+			x2 = pg.attribute("x2").toDouble() * Conversion;
+			y2 = pg.attribute("y2").toDouble() * Conversion;
+			PoLine.addPoint(x1, y1);
+			PoLine.addPoint(x1, y1);
+			PoLine.addPoint(x2, y2);
+			PoLine.addPoint(x2, y2);
+		}
+		else if (STag == "svg:rect")
+		{
+			x1 = pg.attribute("x").toDouble() * Conversion;
+			y1 = pg.attribute("y").toDouble() * Conversion;
+			x2 = pg.attribute("width").toDouble() * Conversion;
+			y2 = pg.attribute("height").toDouble() * Conversion;
+			static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+									1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+									0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x2 * rect[a];
+				double ya = y2 * rect[a+1];
+				double xb = x2 * rect[a+2];
+				double yb = y2 * rect[a+3];
+				PoLine.addPoint(x1+xa, y1+ya);
+				PoLine.addPoint(x1+xb, y1+yb);
+			}
+		}
+		else if ((STag == "svg:polygon") || (STag == "svg:polyline"))
+		{
+			bool bFirst = true;
+			double x = 0.0;
+			double y = 0.0;
+			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+			QStringList pointList = QStringList::split( ' ', points );
+			FirstM = true;
+			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+			{
+				if( bFirst )
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgMoveTo(x * Conversion, y * Conversion);
+					bFirst = false;
+					WasM = true;
+				}
+				else
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgLineTo(&PoLine, x * Conversion, y * Conversion);
+				}
+			}
+			if (STag == "svg:polygon")
+				svgClosePath(&PoLine);
+		}
+		else if (STag == "svg:circle")
+		{
+			x1 = pg.attribute("r").toDouble() * Conversion;
+			y1 = pg.attribute("r").toDouble() * Conversion;
+			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
+			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 *= 2.0;
+			y1 *= 2.0;
+			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
+									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
+									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
+									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x1 * rect[a];
+				double ya = y1 * rect[a+1];
+				double xb = x1 * rect[a+2];
+				double yb = y1 * rect[a+3];
+				PoLine.addPoint(x2+xa, y2+ya);
+				PoLine.addPoint(x2+xb, y2+yb);
+			}
+		}
+		else if (STag == "svg:ellipse")
+		{
+			x1 = pg.attribute("rx").toDouble() * Conversion;
+			y1 = pg.attribute("ry").toDouble() * Conversion;
+			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
+			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 *= 2.0;
+			y1 *= 2.0;
+			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
+									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
+									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
+									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x1 * rect[a];
+				double ya = y1 * rect[a+1];
+				double xb = x1 * rect[a+2];
+				double yb = y1 * rect[a+3];
+				PoLine.addPoint(x2+xa, y2+ya);
+				PoLine.addPoint(x2+xb, y2+yb);
+			}
+		}
+		else if (STag == "svg:path")
+		{
+			poly = parseSVG( pg.attribute( "d" ), &PoLine );
+		}
+		FPoint tp2(getMinClipF(&PoLine));
+		PoLine.translate(-tp2.x(), -tp2.y());
+		FPoint wh = getMaxClipF(&PoLine);
+		QRect bb = QRect(qRound(tp2.x()*100), qRound(tp2.y()*100), qRound(wh.x()*100), qRound(wh.y()*100));
+		bounds = bounds.unite(bb);
+		DOC = DOC.nextSibling();
+	}
+	GrW = QMAX(GrW, bounds.width() / 100.0);
+	GrH = QMAX(GrH, bounds.height() / 100.0);
+	sx = 50.0 / GrW;
+	sy = 50.0 / GrH;
+	Conversion = Conversion * QMIN(sy, sx);
+	GrW *= Conversion;
+	GrH *= Conversion;
+	DOC = svg.firstChild();
+	while(!DOC.isNull())
+	{
+		double x1, y1, x2, y2;
+		stroke = Qt::black;
+		fill = Qt::white;
+		fillStyle = 1;
+		strokewidth = 1.0;
+		Dash = Qt::SolidLine;
+		LineEnd = Qt::FlatCap;
+		LineJoin = Qt::MiterJoin;
+		FPointArray PoLine;
+		PoLine.resize(0);
+		QDomElement pg=DOC.toElement();
+		QString STag = pg.tagName();
+		QString sty = pg.attribute("style", "");
+		if (STag == "svg:line")
+		{
+			x1 = pg.attribute("x1").toDouble() * Conversion;
+			y1 = pg.attribute("y1").toDouble() * Conversion;
+			x2 = pg.attribute("x2").toDouble() * Conversion;
+			y2 = pg.attribute("y2").toDouble() * Conversion;
+			PoLine.addPoint(x1, y1);
+			PoLine.addPoint(x1, y1);
+			PoLine.addPoint(x2, y2);
+			PoLine.addPoint(x2, y2);
+		}
+		else if (STag == "svg:rect")
+		{
+			x1 = pg.attribute("x").toDouble() * Conversion;
+			y1 = pg.attribute("y").toDouble() * Conversion;
+			x2 = pg.attribute("width").toDouble() * Conversion;
+			y2 = pg.attribute("height").toDouble() * Conversion;
+			static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+									1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+									0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x2 * rect[a];
+				double ya = y2 * rect[a+1];
+				double xb = x2 * rect[a+2];
+				double yb = y2 * rect[a+3];
+				PoLine.addPoint(x1+xa, y1+ya);
+				PoLine.addPoint(x1+xb, y1+yb);
+			}
+		}
+		else if ((STag == "svg:polygon") || (STag == "svg:polyline"))
+		{
+			bool bFirst = true;
+			double x = 0.0;
+			double y = 0.0;
+			QString points = pg.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+			QStringList pointList = QStringList::split( ' ', points );
+			FirstM = true;
+			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+			{
+				if( bFirst )
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgMoveTo(x * Conversion, y * Conversion);
+					bFirst = false;
+					WasM = true;
+				}
+				else
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgLineTo(&PoLine, x * Conversion, y * Conversion);
+				}
+			}
+			if (STag == "svg:polyline")
+				svgClosePath(&PoLine);
+		}
+		else if (STag == "svg:circle")
+		{
+			x1 = pg.attribute("r").toDouble() * Conversion;
+			y1 = pg.attribute("r").toDouble() * Conversion;
+			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
+			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 *= 2.0;
+			y1 *= 2.0;
+			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
+									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
+									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
+									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x1 * rect[a];
+				double ya = y1 * rect[a+1];
+				double xb = x1 * rect[a+2];
+				double yb = y1 * rect[a+3];
+				PoLine.addPoint(x2+xa, y2+ya);
+				PoLine.addPoint(x2+xb, y2+yb);
+			}
+		}
+		else if (STag == "svg:ellipse")
+		{
+			x1 = pg.attribute("rx").toDouble() * Conversion;
+			y1 = pg.attribute("ry").toDouble() * Conversion;
+			x2 = pg.attribute("cx").toDouble() * Conversion - x1;
+			y2 = pg.attribute("cy").toDouble() * Conversion - y1;
+			x1 *= 2.0;
+			y1 *= 2.0;
+			static double rect[] = {1.0, 0.5, 1.0, 0.77615235,0.5, 1.0, 0.77615235, 1.0,
+									0.5, 1.0, 0.22385765, 1.0, 0.0, 0.5, 0.0, 0.77615235,
+									0.0, 0.5, 0.0, 0.22385765, 0.5, 0.0, 0.22385765, 0.0,
+									0.5, 0.0, 0.77615235, 0.0, 1.0, 0.5, 1.0, 0.22385765};
+			for (int a = 0; a < 29; a += 4)
+			{
+				double xa = x1 * rect[a];
+				double ya = y1 * rect[a+1];
+				double xb = x1 * rect[a+2];
+				double yb = y1 * rect[a+3];
+				PoLine.addPoint(x2+xa, y2+ya);
+				PoLine.addPoint(x2+xb, y2+yb);
+			}
+		}
+		else if (STag == "svg:path")
+		{
+			poly = parseSVG( pg.attribute( "d" ), &PoLine );
+		}
+		QDomElement ob = data.createElement("ITEM");
+		ob.setAttribute("OwnPage", 0);
+		ob.setAttribute("RADRECT", 0);
+		ob.setAttribute("FRTYPE",  3);
+		ob.setAttribute("CLIPEDIT", 1);
+		ob.setAttribute("PWIDTH", strokewidth);
+		ob.setAttribute("PCOLOR", FillCol);
+		ob.setAttribute("PCOLOR2", StrokeCol);
+		ob.setAttribute("TXTFILL", prefsManager->appPrefs.toolSettings.dPenText);
+		ob.setAttribute("TXTSTROKE", prefsManager->appPrefs.toolSettings.dStrokeText);
+		ob.setAttribute("TXTSTRSH", 100);
+		ob.setAttribute("TXTFILLSH", 100);
+		ob.setAttribute("TXTSCALE", 100);
+		ob.setAttribute("TXTSCALEV", 100);
+		ob.setAttribute("TXTBASE", 0);
+		ob.setAttribute("TXTSHX", 0);
+		ob.setAttribute("TXTSHY", 0);
+		ob.setAttribute("TXTOUT", 0);
+		ob.setAttribute("TXTULP", 0);
+		ob.setAttribute("TXTULW", 0);
+		ob.setAttribute("TXTSTP", 0);
+		ob.setAttribute("TXTSTW", 0);
+		ob.setAttribute("TXTSTYLE", 0);
+		ob.setAttribute("COLUMNS", 1);
+		ob.setAttribute("COLGAP", 0);
+		ob.setAttribute("NAMEDLST", "");
+		ob.setAttribute("SHADE", 100);
+		ob.setAttribute("SHADE2", 100);
+		ob.setAttribute("GRTYP", 0);
+		ob.setAttribute("ROT", 0);
+		ob.setAttribute("PLINEART", Dash);
+		ob.setAttribute("PLINEEND", LineEnd);
+		ob.setAttribute("PLINEJOIN", LineJoin);
+		ob.setAttribute("LINESP", 12);
+		ob.setAttribute("LINESPMode", 0);
+		ob.setAttribute("TXTKERN", 0);
+		ob.setAttribute("LOCALSCX", 100);
+		ob.setAttribute("LOCALSCY", 100);
+		ob.setAttribute("LOCALX", 0);
+		ob.setAttribute("LOCALY", 0);
+		ob.setAttribute("PICART",  1);
+		ob.setAttribute("PLTSHOW", 0);
+		ob.setAttribute("BASEOF", 0);
+		ob.setAttribute("FLIPPEDH", 0);
+		ob.setAttribute("FLIPPEDV", 0);
+		ob.setAttribute("IFONT", prefsManager->appPrefs.toolSettings.defFont);
+		ob.setAttribute("ISIZE", prefsManager->appPrefs.toolSettings.defSize / 10.0);
+		ob.setAttribute("SCALETYPE", 1);
+		ob.setAttribute("RATIO", 0);
+		ob.setAttribute("PRINTABLE", 1);
+		ob.setAttribute("ALIGN", "0");
+		ob.setAttribute("BOOKMARK", "0");
+		ob.setAttribute("fillRule", "1");
+		ob.setAttribute("ANNAME", "");
+		ob.setAttribute("TEXTFLOW",  0);
+		ob.setAttribute("TEXTFLOW2",  0);
+		ob.setAttribute("TEXTFLOW3",  0);
+		ob.setAttribute("AUTOTEXT",  0);
+		ob.setAttribute("EXTRA", 1);
+		ob.setAttribute("TEXTRA", 1);
+		ob.setAttribute("BEXTRA", 1);
+		ob.setAttribute("REXTRA", 1);
+		ob.setAttribute("PFILE","");
+		ob.setAttribute("PFILE2","");
+		ob.setAttribute("PFILE3","");
+		ob.setAttribute("PRFILE", "");
+		ob.setAttribute("EPROF", "");
+		ob.setAttribute("IRENDER", 1);
+		ob.setAttribute("EMBEDDED", 1);
+		ob.setAttribute("LOCK",  0);
+		ob.setAttribute("LOCKR",  0);
+		ob.setAttribute("REVERS",  0);
+		ob.setAttribute("TransValue", 0);
+		ob.setAttribute("TransValueS", 0);
+		ob.setAttribute("isTableItem", 0);
+		ob.setAttribute("TopLine", 0);
+		ob.setAttribute("LeftLine", 0);
+		ob.setAttribute("RightLine", 0);
+		ob.setAttribute("BottomLine", 0);
+		if (listItems.count() != 1)
+		{
+			ob.setAttribute("GROUPS", 1);
+			ob.setAttribute("NUMGROUP", 1);
+		}
+		else
+		{
+			ob.setAttribute("GROUPS", "");
+			ob.setAttribute("NUMGROUP", 0);
+		}
+		ob.setAttribute("LANGUAGE", prefsManager->appPrefs.Language);
+		ob.setAttribute("startArrowIndex", 0);
+		ob.setAttribute("endArrowIndex", 0);
+		ob.setAttribute("NUMDASH", 0);
+		ob.setAttribute("DASHS", "");
+		ob.setAttribute("DASHOFF", 0);
+		ob.setAttribute("NUMTEXT", 0);
+		ob.setAttribute("TEXTCOOR", "");
+		ob.setAttribute("BACKITEM", -1);
+		ob.setAttribute("BACKPAGE", -1);
+		ob.setAttribute("NEXTITEM", -1);
+		ob.setAttribute("NEXTPAGE", -1);
+		if ((STag == "svg:rect") || (STag == "svg:polygon") || (STag == "svg:circle") || (STag == "svg:ellipse"))
+		{
+			ob.setAttribute("PTYPE", PageItem::Polygon);
+		}
+		else if ((STag == "svg:line") || (STag == "svg:polyline"))
+		{
+			ob.setAttribute("PTYPE", PageItem::PolyLine);
+		}
+		else if (STag == "svg:path")
+		{
+			if (poly)
+				ob.setAttribute("PTYPE", PageItem::PolyLine);
+			else
+				ob.setAttribute("PTYPE", PageItem::Polygon);
+		}
+		FPoint tp2(getMinClipF(&PoLine));
+		PoLine.translate(-tp2.x(), -tp2.y());
+		FPoint wh = getMaxClipF(&PoLine);
+		ob.setAttribute("XPOS", tp2.x());
+		ob.setAttribute("YPOS",tp2.y());
+		ob.setAttribute("WIDTH",wh.x());
+		ob.setAttribute("HEIGHT",wh.y());
+		ob.setAttribute("NUMPO", PoLine.size());
+		QString polp = "";
+		double xf, yf;
+		QString tmpSt, tmpSt2;
+		for (uint nxx=0; nxx<PoLine.size(); ++nxx)
+		{
+			PoLine.point(nxx, &xf, &yf);
+			polp += tmpSt.setNum(xf) + " " + tmpSt2.setNum(yf) + " ";
+		}
+		ob.setAttribute("POCOOR", polp);
+		ob.setAttribute("NUMCO", 0);
+		ob.setAttribute("COCOOR", "");
+		group.appendChild(ob);
+		DOC = DOC.nextSibling();
+	}
+	group.setAttribute("W", GrW);
+	group.setAttribute("H", GrH);
+	return data.toString().utf8();
+}
+
+double StencilReader::parseUnit(const QString &unit)
+{
+	bool noUnit = false;
+	QString unitval=unit;
+	if( unit.right( 2 ) == "pt" )
+		unitval.replace( "pt", "" );
+	else if( unit.right( 2 ) == "cm" )
+		unitval.replace( "cm", "" );
+	else if( unit.right( 2 ) == "mm" )
+		unitval.replace( "mm" , "" );
+	else if( unit.right( 2 ) == "in" )
+		unitval.replace( "in", "" );
+	else if( unit.right( 2 ) == "px" )
+		unitval.replace( "px", "" );
+	if (unitval == unit)
+		noUnit = true;
+	double value = unitval.toDouble();
+	if( unit.right( 2 ) == "pt" )
+		value = value;
+	else if( unit.right( 2 ) == "cm" )
+	{
+		value = ( value / 2.54 ) * 72;
+		Conversion = 72.0 / 2.54;
+	}
+	else if( unit.right( 2 ) == "mm" )
+	{
+		value = ( value / 25.4 ) * 72;
+		Conversion = 72.0 / 25.4;
+	}
+	else if( unit.right( 2 ) == "in" )
+	{
+		value = value * 72;
+		Conversion = 72.0;
+	}
+	else if( unit.right( 2 ) == "px" )
+	{
+		value = value * 0.8;
+		Conversion = 0.8;
+	}
+	else if(noUnit)
+		value = value;
+	return value;
+}
+
+const char * StencilReader::getCoord( const char *ptr, double &number )
+{
+	int integer, exponent;
+	double decimal, frac;
+	int sign, expsign;
+
+	exponent = 0;
+	integer = 0;
+	frac = 1.0;
+	decimal = 0;
+	sign = 1;
+	expsign = 1;
+
+	// read the sign
+	if(*ptr == '+')
+		ptr++;
+	else if(*ptr == '-')
+	{
+		ptr++;
+		sign = -1;
+	}
+
+	// read the integer part
+	while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		integer = (integer * 10) + *(ptr++) - '0';
+	if(*ptr == '.') // read the decimals
+	{
+		ptr++;
+		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+			decimal += (*(ptr++) - '0') * (frac *= 0.1);
+	}
+
+	if(*ptr == 'e' || *ptr == 'E') // read the exponent part
+	{
+		ptr++;
+
+		// read the sign of the exponent
+		if(*ptr == '+')
+			ptr++;
+		else if(*ptr == '-')
+		{
+			ptr++;
+			expsign = -1;
+		}
+
+		exponent = 0;
+		while(*ptr != '\0' && *ptr >= '0' && *ptr <= '9')
+		{
+			exponent *= 10;
+			exponent += *ptr - '0';
+			ptr++;
+		}
+	}
+	number = integer + decimal;
+	number *= sign * pow( static_cast<double>(10), static_cast<double>( expsign * exponent ) );
+	// skip the following space
+	if(*ptr == ' ')
+		ptr++;
+
+	return ptr;
+}
+
+bool StencilReader::parseSVG( const QString &s, FPointArray *ite )
+{
+	QString d = s;
+	d = d.replace( QRegExp( "," ), " ");
+	bool ret = false;
+	if( !d.isEmpty() )
+	{
+		d = d.simplifyWhiteSpace();
+		const char *ptr = d.latin1();
+		const char *end = d.latin1() + d.length() + 1;
+		double contrlx, contrly, curx, cury, subpathx, subpathy, tox, toy, x1, y1, x2, y2, xc, yc;
+		double px1, py1, px2, py2, px3, py3;
+		bool relative;
+		FirstM = true;
+		char command = *(ptr++), lastCommand = ' ';
+		subpathx = subpathy = curx = cury = contrlx = contrly = 0.0;
+		while( ptr < end )
+		{
+			if( *ptr == ' ' )
+				ptr++;
+			relative = false;
+			switch( command )
+			{
+			case 'm':
+				relative = true;
+			case 'M':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					WasM = true;
+					subpathx = curx = relative ? curx + tox : tox;
+					subpathy = cury = relative ? cury + toy : toy;
+					svgMoveTo(curx, cury );
+					break;
+				}
+			case 'l':
+				relative = true;
+			case 'L':
+				{
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					svgLineTo(ite, curx, cury );
+					break;
+				}
+			case 'h':
+				{
+					ptr = getCoord( ptr, tox );
+					tox *= Conversion;
+					curx = curx + tox;
+					svgLineTo(ite, curx, cury );
+					break;
+				}
+			case 'H':
+				{
+					ptr = getCoord( ptr, tox );
+					tox *= Conversion;
+					curx = tox;
+					svgLineTo(ite, curx, cury );
+					break;
+				}
+			case 'v':
+				{
+					ptr = getCoord( ptr, toy );
+					toy *= Conversion;
+					cury = cury + toy;
+					svgLineTo(ite, curx, cury );
+					break;
+				}
+			case 'V':
+				{
+					ptr = getCoord( ptr, toy );
+					toy *= Conversion;
+					cury = toy;
+					svgLineTo(ite,  curx, cury );
+					break;
+				}
+			case 'z':
+			case 'Z':
+				{
+					curx = subpathx;
+					cury = subpathy;
+					svgClosePath(ite);
+					break;
+				}
+			case 'c':
+				relative = true;
+			case 'C':
+				{
+					ptr = getCoord( ptr, x1 );
+					ptr = getCoord( ptr, y1 );
+					ptr = getCoord( ptr, x2 );
+					ptr = getCoord( ptr, y2 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x1 *= Conversion;
+					y1 *= Conversion;
+					x2 *= Conversion;
+					y2 *= Conversion;
+					px1 = relative ? curx + x1 : x1;
+					py1 = relative ? cury + y1 : y1;
+					px2 = relative ? curx + x2 : x2;
+					py2 = relative ? cury + y2 : y2;
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x2 : x2;
+					contrly = relative ? cury + y2 : y2;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 's':
+				relative = true;
+			case 'S':
+				{
+					ptr = getCoord( ptr, x2 );
+					ptr = getCoord( ptr, y2 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x2 *= Conversion;
+					y2 *= Conversion;
+					px1 = 2 * curx - contrlx;
+					py1 = 2 * cury - contrly;
+					px2 = relative ? curx + x2 : x2;
+					py2 = relative ? cury + y2 : y2;
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x2 : x2;
+					contrly = relative ? cury + y2 : y2;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 'q':
+				relative = true;
+			case 'Q':
+				{
+					ptr = getCoord( ptr, x1 );
+					ptr = getCoord( ptr, y1 );
+					ptr = getCoord( ptr, tox );
+					ptr = getCoord( ptr, toy );
+					tox *= Conversion;
+					toy *= Conversion;
+					x1 *= Conversion;
+					y1 *= Conversion;
+					px1 = relative ? (curx + 2 * (x1 + curx)) * (1.0 / 3.0) : (curx + 2 * x1) * (1.0 / 3.0);
+					py1 = relative ? (cury + 2 * (y1 + cury)) * (1.0 / 3.0) : (cury + 2 * y1) * (1.0 / 3.0);
+					px2 = relative ? ((curx + tox) + 2 * (x1 + curx)) * (1.0 / 3.0) : (tox + 2 * x1) * (1.0 / 3.0);
+					py2 = relative ? ((cury + toy) + 2 * (y1 + cury)) * (1.0 / 3.0) : (toy + 2 * y1) * (1.0 / 3.0);
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
+					contrlx = relative ? curx + x1 : (tox + 2 * x1) * (1.0 / 3.0);
+					contrly = relative ? cury + y1 : (toy + 2 * y1) * (1.0 / 3.0);
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			case 't':
+				relative = true;
+			case 'T':
+				{
+					ptr = getCoord(ptr, tox);
+					ptr = getCoord(ptr, toy);
+					tox *= Conversion;
+					toy *= Conversion;
+					xc = 2 * curx - contrlx;
+					yc = 2 * cury - contrly;
+					px1 = relative ? (curx + 2 * xc) * (1.0 / 3.0) : (curx + 2 * xc) * (1.0 / 3.0);
+					py1 = relative ? (cury + 2 * yc) * (1.0 / 3.0) : (cury + 2 * yc) * (1.0 / 3.0);
+					px2 = relative ? ((curx + tox) + 2 * xc) * (1.0 / 3.0) : (tox + 2 * xc) * (1.0 / 3.0);
+					py2 = relative ? ((cury + toy) + 2 * yc) * (1.0 / 3.0) : (toy + 2 * yc) * (1.0 / 3.0);
+					px3 = relative ? curx + tox : tox;
+					py3 = relative ? cury + toy : toy;
+					svgCurveToCubic(ite, px1, py1, px2, py2, px3, py3 );
+					contrlx = xc;
+					contrly = yc;
+					curx = relative ? curx + tox : tox;
+					cury = relative ? cury + toy : toy;
+					break;
+				}
+			}
+			lastCommand = command;
+			if(*ptr == '+' || *ptr == '-' || (*ptr >= '0' && *ptr <= '9'))
+			{
+				// there are still coords in this command
+				if(command == 'M')
+					command = 'L';
+				else if(command == 'm')
+					command = 'l';
+			}
+			else
+				command = *(ptr++);
+
+			if( lastCommand != 'C' && lastCommand != 'c' &&
+			        lastCommand != 'S' && lastCommand != 's' &&
+			        lastCommand != 'Q' && lastCommand != 'q' &&
+			        lastCommand != 'T' && lastCommand != 't')
+			{
+				contrlx = curx;
+				contrly = cury;
+			}
+		}
+		if ((lastCommand != 'z') && (lastCommand != 'Z'))
+			ret = true;
+		if (ite->size() > 2)
+		{
+			if ((ite->point(0).x() == ite->point(ite->size()-2).x()) && (ite->point(0).y() == ite->point(ite->size()-2).y()))
+				ret = false;
+		}
+	}
+	return ret;
+}
+
+void StencilReader::svgMoveTo(double x1, double y1)
+{
+	CurrX = x1;
+	CurrY = y1;
+	StartX = x1;
+	StartY = y1;
+	PathLen = 0;
+}
+
+void StencilReader::svgLineTo(FPointArray *i, double x1, double y1)
+{
+	if ((!FirstM) && (WasM))
+	{
+		i->setMarker();
+		PathLen += 4;
+	}
+	FirstM = false;
+	WasM = false;
+	if (i->size() > 3)
+	{
+		FPoint b1 = i->point(i->size()-4);
+		FPoint b2 = i->point(i->size()-3);
+		FPoint b3 = i->point(i->size()-2);
+		FPoint b4 = i->point(i->size()-1);
+		FPoint n1 = FPoint(CurrX, CurrY);
+		FPoint n2 = FPoint(x1, y1);
+		if ((b1 == n1) && (b2 == n1) && (b3 == n2) && (b4 == n2))
+			return;
+	}
+	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(x1, y1));
+	i->addPoint(FPoint(x1, y1));
+	CurrX = x1;
+	CurrY = y1;
+	PathLen += 4;
+}
+
+void StencilReader::svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3)
+{
+	if ((!FirstM) && (WasM))
+	{
+		i->setMarker();
+		PathLen += 4;
+	}
+	FirstM = false;
+	WasM = false;
+	if (PathLen > 3)
+	{
+		FPoint b1 = i->point(i->size()-4);
+		FPoint b2 = i->point(i->size()-3);
+		FPoint b3 = i->point(i->size()-2);
+		FPoint b4 = i->point(i->size()-1);
+		FPoint n1 = FPoint(CurrX, CurrY);
+		FPoint n2 = FPoint(x1, y1);
+		FPoint n3 = FPoint(x3, y3);
+		FPoint n4 = FPoint(x2, y2);
+		if ((b1 == n1) && (b2 == n2) && (b3 == n3) && (b4 == n4))
+			return;
+	}
+	i->addPoint(FPoint(CurrX, CurrY));
+	i->addPoint(FPoint(x1, y1));
+	i->addPoint(FPoint(x3, y3));
+	i->addPoint(FPoint(x2, y2));
+	CurrX = x3;
+	CurrY = y3;
+	PathLen += 4;
+}
+
+void StencilReader::svgClosePath(FPointArray *i)
+{
+	if (PathLen > 2)
+	{
+		if ((PathLen == 4) || (i->point(i->size()-2).x() != StartX) || (i->point(i->size()-2).y() != StartY))
+		{
+			i->addPoint(i->point(i->size()-2));
+			i->addPoint(i->point(i->size()-3));
+			i->addPoint(FPoint(StartX, StartY));
+			i->addPoint(FPoint(StartX, StartY));
+		}
+	}
 }
 
 QPixmap StencilReader::createPreview(QString data)

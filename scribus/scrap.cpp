@@ -72,6 +72,14 @@ QDragObject *BibView::dragObject()
 		dt = pre->createObjects(f);
 		delete pre;
 	}
+	else if (fi.extension(true).lower() == "shape")
+	{
+		QString f = "";
+		loadText(dt, &f);
+		StencilReader *pre = new StencilReader();
+		dt = pre->createShape(f);
+		delete pre;
+	}
 	else if (fi.extension(true).lower() == "sce")
 	{
 		QString f = "";
@@ -124,7 +132,7 @@ void BibView::SaveContents(QString name, QString oldName)
 		}
 	}
 	QDir d2(oldName, "*.sml", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
-	if ((d.exists()) && (d.count() != 0))
+	if ((d2.exists()) && (d2.count() != 0))
 	{
 		for (uint dc = 0; dc < d2.count(); ++dc)
 		{
@@ -149,6 +157,39 @@ void BibView::SaveContents(QString name, QString oldName)
 				delete pre;
 			}
 			QFileInfo fi3(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d2[dc])));
+			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
+		}
+	}
+	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((d3.exists()) && (d3.count() != 0))
+	{
+		for (uint dc = 0; dc < d3.count(); ++dc)
+		{
+			QString f = "";
+			QString f2 = "";
+			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d3[dc])), &f))
+				continue;
+			QFile fil(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])));
+			if(!fil.open(IO_WriteOnly))
+				continue ;
+			QTextStream s(&fil);
+			s.writeRawBytes(f, f.length());
+			fil.close();
+			QPixmap pm;
+			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d3[dc])));
+			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			else
+			{
+				StencilReader *pre = new StencilReader();
+				f2 = pre->createShape(f);
+				ScPreview *pre2 = new ScPreview();
+				pm = pre2->createPreview(f2);
+				delete pre;
+				delete pre2;
+			}
+			QFileInfo fi3(QDir::cleanDirPath(QDir::convertSeparators(oldName + "/" + d3[dc])));
 			pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi3.dirPath()+"/"+fi3.baseName()+".png")), "PNG");
 		}
 	}
@@ -247,6 +288,38 @@ void BibView::ReadContents(QString name)
 				delete pre;
 			}
 			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d2[dc])), pm);
+		}
+	}
+	QDir d3(name, "*.shape", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+	if ((d3.exists()) && (d3.count() != 0))
+	{
+		for (uint dc = 0; dc < d3.count(); ++dc)
+		{
+			QString f = "";
+			QString f2 = "";
+			QPixmap pm;
+			if (!loadText(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])), &f))
+				continue;
+			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])));
+			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			if (fi2.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+			QFileInfo fi2p(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".xpm")));
+			if (fi2p.exists())
+				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".xpm")));
+			else
+			{
+				StencilReader *pre = new StencilReader();
+				f2 = pre->createShape(f);
+				ScPreview *pre2 = new ScPreview();
+				pm = pre2->createPreview(f2);
+//				if (canWrite)
+// Above code is commented out because QFileInfo::permissons does not work properly
+//					pm.save(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")), "PNG");
+				delete pre;
+				delete pre2;
+			}
+			AddObj(fi.baseName(), QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])), pm);
 		}
 	}
 	QMap<QString,Elem>::Iterator itf;

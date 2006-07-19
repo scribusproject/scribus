@@ -15,8 +15,19 @@ class SCRIBUS_API StencilReader
 public:
 	StencilReader();
 	~StencilReader() {};
+	QString createShape(QString data);
+	double parseUnit(const QString &unit);
+	const char * getCoord( const char *ptr, double &number );
+	bool parseSVG( const QString &s, FPointArray *ite );
+	void svgClosePath(FPointArray *i);
+	void svgMoveTo(double x1, double y1);
+	void svgLineTo(FPointArray *i, double x1, double y1);
+	void svgCurveToCubic(FPointArray *i, double x1, double y1, double x2, double y2, double x3, double y3);
 	QPixmap createPreview(QString data);
 	QString createObjects(QString data);
 	ColorList PageColors;
+	bool FirstM, WasM, PathClosed;
+	double CurrX, CurrY, StartX, StartY, Conversion;
+	int PathLen;
 };
 #endif
