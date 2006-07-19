@@ -3794,7 +3794,7 @@ void ScribusMainWindow::slotGetContent()
 				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
 			else
 				docDir = prefsManager->prefsFile->getContext("dirs")->get("images", ".");
-			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview);
+			QString fileName = CFileDialog( docDir, tr("Open"), formatD, "", fdShowPreview | fdExistingFiles);
 			if (!fileName.isEmpty())
 			{
 				prefsManager->prefsFile->getContext("dirs")->set("images", fileName.left(fileName.findRev("/")));

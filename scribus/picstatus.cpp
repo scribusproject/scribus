@@ -319,10 +319,12 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 {
 	unsigned int itemNumber = ItemNrs[row];
 	// FIXME: error checking
-	m_Doc->LoadPict(newFilePath, itemNumber);
 	// WTF?
 	bool isMaster = PicTable->cellWidget(row, COL_GOTO)->isEnabled();
 	PageItem* item = isMaster ? m_Doc->DocItems.at(itemNumber) : m_Doc->MasterItems.at(itemNumber);
+	// Hack to fool the LoadPict function
+	item->Pfile = newFilePath;
+	m_Doc->LoadPict(newFilePath, itemNumber, true);
 	// Set missing flag again. Since we do no error checking of the load,
 	// missing will generally mean "failed to load".
 	PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);

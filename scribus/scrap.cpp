@@ -302,11 +302,14 @@ void BibView::ReadContents(QString name)
 				continue;
 			QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(name + "/" + d3[dc])));
 			QFileInfo fi2(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
-			if (fi2.exists())
-				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
 			QFileInfo fi2p(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".xpm")));
-			if (fi2p.exists())
-				pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".xpm")));
+			if ((fi2.exists()) || (fi2p.exists()))
+			{
+				if (fi2.exists())
+					pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".png")));
+				else
+					pm.load(QDir::cleanDirPath(QDir::convertSeparators(fi.dirPath()+"/"+fi.baseName()+".xpm")));
+			}
 			else
 			{
 				StencilReader *pre = new StencilReader();
