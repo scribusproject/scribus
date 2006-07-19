@@ -57,6 +57,7 @@ class TabKeyboardShortcutsWidget: public TabKeyboardShortcutsWidgetBase
 		QMap<QListViewItem*, QString> lviToActionMap;
 		QPtrList<QListViewItem> lviToMenuMap;
 		QValueVector< QPair<QString, QStringList> >* defMenus;
+		QValueVector< QPair<QString, QStringList> >* defNonMenuActions;
 		QListViewItem* selectedLVI;
 		int keyCode;
 		QString Part0;

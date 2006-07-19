@@ -54,7 +54,9 @@ class SCRIBUS_API ActionManager : public QObject
 		static void createDefaultShortcuts();
 		static QMap<QString, QKeySequence>* defaultShortcuts() {return &defKeys;};
 		static void createDefaultMenus();
+		static void createDefaultNonMenuActions();
 		static QValueVector< QPair<QString, QStringList> >* defaultMenus() {return &defMenus;};
+		static QValueVector< QPair<QString, QStringList> >* defaultNonMenuActions() {return &defNonMenuActions;};
 		void createActions();
 		void disconnectModeActions();
 		void connectModeActions();
@@ -101,6 +103,7 @@ class SCRIBUS_API ActionManager : public QObject
 		QStringList *unicodeCharActionNames;
 		static QMap<QString, QKeySequence> defKeys;
 		static QValueVector< QPair<QString, QStringList> > defMenus;
+		static QValueVector< QPair<QString, QStringList> > defNonMenuActions;
 };
 
 #endif

@@ -31,6 +31,7 @@ for which a new license (GPL+exception) is in place.
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QValueVector< QPair<QString, QStringList> > ActionManager::defMenus;
+QValueVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
 ActionManager::ActionManager ( QObject * parent, const char * name ) : 
 	QObject ( parent, name ),
@@ -1802,4 +1803,100 @@ void ActionManager::createDefaultMenus()
 	//Other
 // 	++itmenu;
 // 	itmenu->second << "";
+}
+
+void ActionManager::createDefaultNonMenuActions()
+{   //CB TODO use this to also create the menus
+	defNonMenuActions.clear();
+	defNonMenuActions.append(QPair<QString, QStringList>("Plugin Menu Items", QStringList()));
+	defNonMenuActions.append(QPair<QString, QStringList>("Others", QStringList()));
+	defNonMenuActions.append(QPair<QString, QStringList>("Unicode Characters", QStringList()));
+	
+	
+	QValueVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions.begin();
+	//Plugins
+	itnmenua->second << "ExportAsImage";
+	itnmenua->second << "NewFromDocumentTemplate";
+	itnmenua->second << "SaveAsDocumentTemplate";	
+	
+	//Toolbars etc
+	++itnmenua;
+	itnmenua->second << "toolsSelect";
+	itnmenua->second << "toolsRotate";
+	itnmenua->second << "toolsZoom";
+	itnmenua->second << "toolsZoomIn";
+	itnmenua->second << "toolsZoomOut";
+	itnmenua->second << "toolsEditContents";
+	itnmenua->second << "toolsLinkTextFrame";
+	itnmenua->second << "toolsUnlinkTextFrame";
+	itnmenua->second << "toolsEyeDropper";
+	itnmenua->second << "toolsCopyProperties";
+	itnmenua->second << "toolsPDFPushButton";
+	itnmenua->second << "toolsPDFTextField";
+	itnmenua->second << "toolsPDFCheckBox";
+	itnmenua->second << "toolsPDFListBox";
+	itnmenua->second << "toolsPDFAnnotText";
+	itnmenua->second << "toolsPDFAnnotLink";
+	itnmenua->second << "specialToggleAllPalettes";
+	itnmenua->second << "specialToggleAllGuides";
+	
+	//Unicode
+	++itnmenua;
+	itnmenua->second << "unicodeSmartHyphen";
+	itnmenua->second << "unicodeNonBreakingHyphen";
+	itnmenua->second << "unicodeNonBreakingSpace";
+	itnmenua->second << "unicodePageNumber";
+	itnmenua->second << "unicodeNewLine";
+	itnmenua->second << "unicodeFrameBreak";
+	itnmenua->second << "unicodeColumnBreak";
+	itnmenua->second << "unicodeCopyRight";
+	itnmenua->second << "unicodeRegdTM";
+	itnmenua->second << "unicodeTM";
+	itnmenua->second << "unicodeSolidus";
+	itnmenua->second << "unicodeBullet";
+	itnmenua->second << "unicodeMidpoint";
+	itnmenua->second << "unicodeDashEm";
+	itnmenua->second << "unicodeDashEn";
+	itnmenua->second << "unicodeDashFigure";
+	itnmenua->second << "unicodeDashQuotation";
+
+	itnmenua->second << "unicodeQuoteApostrophe";
+	itnmenua->second << "unicodeQuoteStraight";
+	itnmenua->second << "unicodeQuoteSingleLeft";
+	itnmenua->second << "unicodeQuoteSingleRight";
+	itnmenua->second << "unicodeQuoteDoubleLeft";
+	itnmenua->second << "unicodeQuoteDoubleRight";
+	itnmenua->second << "unicodeQuoteSingleReversed";
+	itnmenua->second << "unicodeQuoteDoubleReversed";
+	itnmenua->second << "unicodeQuoteSingleLeftGuillemet";
+	itnmenua->second << "unicodeQuoteSingleRightGuillemet";
+	itnmenua->second << "unicodeQuoteDoubleLeftGuillemet";
+	itnmenua->second << "unicodeQuoteDoubleRightGuillemet";
+	itnmenua->second << "unicodeQuoteLowSingleComma";
+	itnmenua->second << "unicodeQuoteLowDoubleComma";
+	itnmenua->second << "unicodeQuoteCJKSingleLeft";
+	itnmenua->second << "unicodeQuoteCJKSingleRight";
+	itnmenua->second << "unicodeQuoteCJKDoubleLeft";
+	itnmenua->second << "unicodeQuoteCJKDoubleRight";
+
+	itnmenua->second << "unicodeSpaceEN";
+	itnmenua->second << "unicodeSpaceEM";
+	itnmenua->second << "unicodeSpaceThin";
+	itnmenua->second << "unicodeSpaceThick";
+	itnmenua->second << "unicodeSpaceMid";
+	itnmenua->second << "unicodeSpaceHair";
+
+	itnmenua->second << "unicodeSmartHyphen";
+	itnmenua->second << "unicodeNonBreakingHyphen";
+	itnmenua->second << "unicodeNonBreakingSpace";
+	itnmenua->second << "unicodePageNumber";
+	itnmenua->second << "unicodeNewLine";
+	
+	itnmenua->second << "unicodeLigature_ff";
+	itnmenua->second << "unicodeLigature_fi";
+	itnmenua->second << "unicodeLigature_fl";
+	itnmenua->second << "unicodeLigature_ffi";
+	itnmenua->second << "unicodeLigature_ffl";
+	itnmenua->second << "unicodeLigature_ft";
+	itnmenua->second << "unicodeLigature_st";
 }

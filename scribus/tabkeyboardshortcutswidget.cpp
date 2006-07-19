@@ -55,7 +55,9 @@ TabKeyboardShortcutsWidget::TabKeyboardShortcutsWidget(QMap<QString, Keys> oldKe
     :TabKeyboardShortcutsWidgetBase(parent, name)
 {
 	ActionManager::createDefaultMenus();
+	ActionManager::createDefaultNonMenuActions();
 	defMenus=ActionManager::defaultMenus();
+	defNonMenuActions=ActionManager::defaultNonMenuActions();
 	Q_CHECK_PTR(defMenus);
 	lviToActionMap.clear();
 	lviToMenuMap.clear();
@@ -328,6 +330,40 @@ void TabKeyboardShortcutsWidget::insertActions()
 	QListViewItem *currLVI, *currMenuLVI;
 	QListViewItem *prevLVI, *prevMenuLVI;
 	for (QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus->begin(); itmenu != defMenus->end(); ++itmenu )
+	{
+		if (firstMenu)
+		{
+			currMenuLVI=new QListViewItem(keyTable);
+			firstMenu=false;
+		}
+		else
+			currMenuLVI=new QListViewItem(keyTable, prevMenuLVI);
+		Q_CHECK_PTR(currMenuLVI);
+		lviToMenuMap.append(currMenuLVI);
+		currMenuLVI->setText(0, itmenu->first);
+		currMenuLVI->setOpen(true);
+		prevMenuLVI=currMenuLVI;
+		first=true;
+		currLVI=0;
+		prevLVI=0;
+		for ( QStringList::Iterator it = itmenu->second.begin(); it != itmenu->second.end(); ++it )
+		{
+			if (first)
+			{
+				currLVI=new QListViewItem(currMenuLVI);
+				first=false;
+			}
+			else
+				currLVI=new QListViewItem(currMenuLVI, prevLVI);
+			Q_CHECK_PTR(currLVI);
+			lviToActionMap.insert(currLVI, *it);
+			currLVI->setText(0, keyMap[*it].cleanMenuText);
+			currLVI->setText(1, keyMap[*it].keySequence);
+			prevLVI=currLVI;
+		}
+	}
+	//Non menu actions
+	for (QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defNonMenuActions->begin(); itmenu != defNonMenuActions->end(); ++itmenu )
 	{
 		if (firstMenu)
 		{
