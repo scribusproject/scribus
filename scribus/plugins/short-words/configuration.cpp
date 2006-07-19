@@ -148,12 +148,5 @@ QString SWConfig::getLangFromCode(QString code)
 	QString lang;
 	LanguageManager langmgr;
 	langmgr.init(false);
-// 	for (it = ScMW->Sprachen.begin(); it != ScMW->Sprachen.end(); ++it)
-// 	{
-		lang = langmgr.getAbbrevFromLang(it.data());
-// 		lang = getLangCodeFromHyph(it.data());
-		if (lang == code)
-			return it.key();
-// 	}
-	return code;
+	return langmgr.getLangFromAbbrev(code, true);
 }
