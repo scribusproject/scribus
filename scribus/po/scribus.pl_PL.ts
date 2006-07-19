@@ -1244,7 +1244,7 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>setLayerPrintable(&quot;warstwa&quot;, drukowalna)
+        <translation type="obsolete">setLayerPrintable(&quot;warstwa&quot;, drukowalna)
 
 Przypisuje warstwie &quot;warstwa&quot; parametr &quot;drukowalna&quot;. Jeśli &quot;drukowalna&quot; 
 ma wartość false, wastwa nie będzie drukowana.
@@ -2301,6 +2301,193 @@ If &quot;state&quot; is not passed, text flow is toggled.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
+
+Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
+
+Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If printable is set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerLocked(&quot;layer&quot;, locked)
+
+Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
+true the layer will be locked.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerOutlined&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
+that the layer &quot;layer&quot; is editable, a value of False means that the layer
+&quot;layer&quot; is locked.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerOutlined(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
+that the layer &quot;layer&quot; is outlined, a value of False means that the layer
+&quot;layer&quot; is normal.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerFlow(&quot;layer&quot;) -&gt; bool
+
+Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
+that text flows around, a value of False means that the text does not flow around.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayerBlendmode(&quot;layer&quot;) -&gt; int
+
+Returns the &quot;layer&quot; layer blendmode,
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayerTransparency(&quot;layer&quot;) -&gt; float
+
+Returns the &quot;layer&quot; layer transparency,
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2448,7 +2635,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>Panel ten zawiera wersję, datę kompilacji i wsparcie dla bibliotek wkompilowanych w Scribusie. Symbole C-C-T-F oznaczają wsparcie C=littlecms, C=CUPS, T=TIFF i F=Fontconfig. Ostatnia litera oznacza albo bibliotekę C=cairo, albo A=libart. Brak wsparcia dla danej biblioteki oznaczony jest symbolem  * . W panelu wyświetla się również wykrytą wersję biblioteki Ghostscript.</translation>
+        <translation type="obsolete">Panel ten zawiera wersję, datę kompilacji i wsparcie dla bibliotek wkompilowanych w Scribusie. Symbole C-C-T-F oznaczają wsparcie C=littlecms, C=CUPS, T=TIFF i F=Fontconfig. Ostatnia litera oznacza albo bibliotekę C=cairo, albo A=libart. Brak wsparcia dla danej biblioteki oznaczony jest symbolem  * . W panelu wyświetla się również wykrytą wersję biblioteki Ghostscript.</translation>
     </message>
     <message>
         <source>December</source>
@@ -2473,6 +2660,22 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     <message>
         <source>Tango Project Icons:</source>
         <translation>Ikony z projektu Tango:</translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Updates</source>
+        <translation>A&amp;ktualizacje</translation>
+    </message>
+    <message>
+        <source>Check for &amp;Updates</source>
+        <translation>&amp;Sprawdź aktualizacje </translation>
+    </message>
+    <message>
+        <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
+        <translation>Sprawdź, czy istnieją nowsze wersje Scribusa. Z twojego komputera nie zostaną wysłane żadne dane.</translation>
     </message>
 </context>
 <context>
@@ -4066,7 +4269,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     </message>
     <message>
         <source>Text for Roll Over</source>
-        <translation>Text dla Roll Over</translation>
+        <translation>Tekst dla Roll Over</translation>
     </message>
     <message>
         <source>Icons</source>
@@ -5428,7 +5631,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>Jest kolorem spotowym</translation>
+        <translation>Jest kolorem dodatkowym</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
@@ -5442,7 +5645,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Name of the color is not unique</source>
-        <translation>Nazwa koloru nie jest jednoznaczna</translation>
+        <translation type="obsolete">Nazwa koloru nie jest jednoznaczna</translation>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
@@ -5455,6 +5658,27 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name of the color already exists,
+please choose another one.</source>
+        <translation>Ta nazwa koloru już istnieje,
+proszę wybrać inną nazwę.</translation>
+    </message>
+</context>
+<context>
+    <name>CStyleWBase</name>
+    <message>
+        <source>Form2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>Parent Style</source>
+        <translation>Styl nadrzędny</translation>
     </message>
 </context>
 <context>
@@ -6704,6 +6928,10 @@ This can be set in the Preferences.</source>
         <source>&amp;Include Fonts</source>
         <translation>&amp;Dołącz fonty</translation>
     </message>
+    <message>
+        <source>&amp;Include ICC Profiles</source>
+        <translation>Dołącz profile &amp;ICC</translation>
+    </message>
 </context>
 <context>
     <name>CwSetColor</name>
@@ -7088,7 +7316,7 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Podana wartość jest poza zakresem numerów stron aktualnego dokumentu (%1-%2).</translation>
     </message>
 </context>
 <context>
@@ -7509,7 +7737,7 @@ lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Zamień kolory spotowe na kolory rozbarwiane</translation>
+        <translation>Zamień kolory dodatkowe na kolory procesowe</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -7550,7 +7778,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Włącza konwersję kolorów spotowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów spotowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
+        <translation>Włącza konwersję kolorów dodatkowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów dodatkowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -7582,7 +7810,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza globalny tryb nadrukowywania dla tego dokumentu, nadpisuje ustawienia obiektów</translation>
     </message>
 </context>
 <context>
@@ -9044,6 +9272,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>S&amp;election</source>
         <translation>Zazna&amp;czenia</translation>
     </message>
+    <message>
+        <source>Off</source>
+        <translation>Brak</translation>
+    </message>
 </context>
 <context>
     <name>HelpBrowser</name>
@@ -9370,7 +9602,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Strona Wzorcowa:</translation>
+        <translation>&amp;Strona wzorcowa:</translation>
     </message>
     <message>
         <source>Master Page (&amp;Right Page):</source>
@@ -9751,6 +9983,34 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     <message>
         <source>Luminosity</source>
         <translation>Jasność</translation>
+    </message>
+    <message>
+        <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Layer - Uncheck to disable printing. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock or Unlock Layer - Unchecked is unlocked </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11076,7 +11336,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij, aby włączyć tryb interlinii</translation>
     </message>
     <message>
         <source>Gap:</source>
@@ -12091,6 +12351,53 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
 </context>
 <context>
+    <name>PStyleWBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="obsolete">&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="obsolete">Alt+E</translation>
+    </message>
+    <message>
+        <source>Parent Style</source>
+        <translation>Styl nadrzędny</translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation>Styl znaków</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="obsolete">&amp;Nowy</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="obsolete">Alt+N</translation>
+    </message>
+    <message>
+        <source>Distances and Alignment</source>
+        <translation>Odstępy i wyrównanie</translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Inicjały opuszczone</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabulatory i wcięcie</translation>
+    </message>
+</context>
+<context>
     <name>PageItem</name>
     <message>
         <source>Image</source>
@@ -12357,91 +12664,87 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation>Quarto</translation>
+        <translation type="obsolete">Quarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation>Foolscap</translation>
+        <translation type="obsolete">Foolscap</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation type="obsolete">Letter</translation>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation>Government Letter</translation>
+        <translation type="obsolete">Government Letter</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation>Ledger</translation>
+        <translation type="obsolete">Ledger</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation>Executive</translation>
+        <translation type="obsolete">Executive</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation>Post</translation>
+        <translation type="obsolete">Post</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation>Crown</translation>
+        <translation type="obsolete">Crown</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation>Large Post</translation>
+        <translation type="obsolete">Large Post</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation>Demy</translation>
+        <translation type="obsolete">Demy</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Medium</translation>
+        <translation type="obsolete">Medium</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation>Royal</translation>
+        <translation type="obsolete">Royal</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation>Elephant</translation>
+        <translation type="obsolete">Elephant</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation>Double Demy</translation>
+        <translation type="obsolete">Double Demy</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation>Quad Demy</translation>
+        <translation type="obsolete">Quad Demy</translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation>STMT</translation>
+        <translation type="obsolete">STMT</translation>
     </message>
     <message>
         <source>A</source>
-        <translation>A</translation>
+        <translation type="obsolete">A</translation>
     </message>
     <message>
         <source>B</source>
-        <translation>B</translation>
+        <translation type="obsolete">B</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>D</source>
-        <translation>D</translation>
-    </message>
-    <message>
-        <source>E</source>
-        <translation></translation>
+        <translation type="obsolete">D</translation>
     </message>
 </context>
 <context>
@@ -12543,7 +12846,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Set New Location</source>
-        <translation>Katalog do przeszukiwania</translation>
+        <translation type="obsolete">Katalog do przeszukiwania</translation>
     </message>
     <message>
         <source>Close</source>
@@ -12556,6 +12859,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Select a base directory for your selected rows</source>
         <translation>Wybierz katalog wyjściowy do poszukiwania zaznaczonych elementów</translation>
+    </message>
+    <message>
+        <source>Search Directory</source>
+        <translation>Katalog do przeszukiwania</translation>
     </message>
 </context>
 <context>
@@ -12666,7 +12973,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
         <translation>Wtyczka: %1 błąd po inicjalizacji</translation>
     </message>
     <message>
-        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency. Report it as a bug, please.</source>
+        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. IF you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12814,43 +13121,43 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation>Graficzny interfejs użytkownika</translation>
+        <translation type="obsolete">Graficzny interfejs użytkownika</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation>Ścieżki</translation>
+        <translation type="obsolete">Ścieżki</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Format strony</translation>
+        <translation type="obsolete">Format strony</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Definicja użytkownika</translation>
+        <translation type="obsolete">Definicja użytkownika</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Portret</translation>
+        <translation type="obsolete">Portret</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Pejzaż</translation>
+        <translation type="obsolete">Pejzaż</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Marginesy</translation>
+        <translation type="obsolete">Marginesy</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Automatyczny zapis</translation>
+        <translation type="obsolete">Automatyczny zapis</translation>
     </message>
     <message>
         <source>min</source>
-        <translation>min</translation>
+        <translation type="obsolete">min</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation>pt</translation>
+        <translation type="obsolete">pt</translation>
     </message>
     <message>
         <source>Other Options</source>
@@ -12874,7 +13181,7 @@ wartość dodatnia zmieni jego kształt na wypukły</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation>Wybierz katalog</translation>
+        <translation type="obsolete">Wybierz katalog</translation>
     </message>
     <message>
         <source>External Tools</source>
@@ -12900,43 +13207,43 @@ Scribus dziedziczy wszystkie dostępne tematy KDE i QT</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation>Domyślny stopień pisma dla okienek i menu</translation>
+        <translation type="obsolete">Domyślny stopień pisma dla okienek i menu</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation>Domyślna jednostka miary dla edycji dokumentów</translation>
+        <translation type="obsolete">Domyślna jednostka miary dla edycji dokumentów</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation>Ilość wierszy, o którą Scribus przewinie obraz przy każdym poruszeniu kółka myszy</translation>
+        <translation type="obsolete">Ilość wierszy, o którą Scribus przewinie obraz przy każdym poruszeniu kółka myszy</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation>Ilość ostatnio edytowanych dokumentów, które pokazane zostaną w menu Plik</translation>
+        <translation type="obsolete">Ilość ostatnio edytowanych dokumentów, które pokazane zostaną w menu Plik</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation>Domyślny katalog dla dokumentów</translation>
+        <translation type="obsolete">Domyślny katalog dla dokumentów</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation>Domyślny katalog dla skryptów wtyczki skryptowej</translation>
+        <translation type="obsolete">Domyślny katalog dla skryptów wtyczki skryptowej</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation>Domyślny rozmiar strony, standardowy albo zdefiniowany przez użytkownika</translation>
+        <translation type="obsolete">Domyślny rozmiar strony, standardowy albo zdefiniowany przez użytkownika</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation>Domyślna orientacja stron dokumentu</translation>
+        <translation type="obsolete">Domyślna orientacja stron dokumentu</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation>Szerokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
+        <translation type="obsolete">Szerokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation>Wysokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
+        <translation type="obsolete">Wysokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -12968,7 +13275,7 @@ w zdefiniowanym odstępie czasowym.</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation>Okres czasu pomiędzy automatycznym zapisywaniem</translation>
+        <translation type="obsolete">Okres czasu pomiędzy automatycznym zapisywaniem</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
@@ -12976,15 +13283,15 @@ w zdefiniowanym odstępie czasowym.</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation>Kolor papieru</translation>
+        <translation type="obsolete">Kolor papieru</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation>Wyświetl obszar poza marginesami w kolorze marginesu</translation>
+        <translation type="obsolete">Wyświetl obszar poza marginesami w kolorze marginesu</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation>Ustaw domyślne powiększenie</translation>
+        <translation type="obsolete">Ustaw domyślne powiększenie</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -13010,7 +13317,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation>&amp;Styl:</translation>
+        <translation type="obsolete">&amp;Styl:</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
@@ -13018,51 +13325,51 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation>S&amp;kok kółka:</translation>
+        <translation type="obsolete">S&amp;kok kółka:</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation>Otwórz &amp;poprzedni:</translation>
+        <translation type="obsolete">Otwórz &amp;poprzedni:</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
-        <translation>&amp;Dokumenty:</translation>
+        <translation type="obsolete">&amp;Dokumenty:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>&amp;Zmień...</translation>
+        <translation type="obsolete">&amp;Zmień...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
-        <translation>Profile &amp;ICC:</translation>
+        <translation type="obsolete">Profile &amp;ICC:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>Z&amp;mień...</translation>
+        <translation type="obsolete">Z&amp;mień...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation>Skr&amp;ypty:</translation>
+        <translation type="obsolete">Skr&amp;ypty:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>Zmi&amp;eń...</translation>
+        <translation type="obsolete">Zmi&amp;eń...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;Rozmiar:</translation>
+        <translation type="obsolete">&amp;Rozmiar:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>Ori&amp;entacja:</translation>
+        <translation type="obsolete">Ori&amp;entacja:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>&amp;Szerokość:</translation>
+        <translation type="obsolete">&amp;Szerokość:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>W&amp;ysokość:</translation>
+        <translation type="obsolete">W&amp;ysokość:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -13074,19 +13381,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>Na &amp;dole:</translation>
+        <translation type="obsolete">Na &amp;dole:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>Na &amp;górze:</translation>
+        <translation type="obsolete">Na &amp;górze:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>Po &amp;prawej:</translation>
+        <translation type="obsolete">Po &amp;prawej:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>Po &amp;lewej:</translation>
+        <translation type="obsolete">Po &amp;lewej:</translation>
     </message>
     <message>
         <source>&amp;Enabled</source>
@@ -13094,7 +13401,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation>&amp;Interwał:</translation>
+        <translation type="obsolete">&amp;Interwał:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
@@ -13106,11 +13413,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
+        <translation type="obsolete">Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
-        <translation>&amp;Dopasuj wielkość widoku</translation>
+        <translation type="obsolete">&amp;Dopasuj wielkość widoku</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -13146,7 +13453,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>Zmień&amp;...</translation>
+        <translation type="obsolete">Zmień&amp;...</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -13175,23 +13482,23 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation>&amp;Język:</translation>
+        <translation type="obsolete">&amp;Język:</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation>&amp;Szablony dokumentów:</translation>
+        <translation type="obsolete">&amp;Szablony dokumentów:</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation>Jednostki:</translation>
+        <translation type="obsolete">Jednostki:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation>Cofnij/Ponów</translation>
+        <translation type="obsolete">Cofnij/Ponów</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation>Długość historii operacji</translation>
+        <translation type="obsolete">Długość historii operacji</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -13227,31 +13534,31 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation>Widok strony</translation>
+        <translation type="obsolete">Widok strony</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>Kolor:</translation>
+        <translation type="obsolete">Kolor:</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation>Alt+U</translation>
+        <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Wyświetlaj obrazki</translation>
+        <translation type="obsolete">Wyświetlaj obrazki</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation>Wyświetlaj połączenia ramek</translation>
+        <translation type="obsolete">Wyświetlaj połączenia ramek</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Wyświetlaj ramki</translation>
+        <translation type="obsolete">Wyświetlaj ramki</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation>Brudnopis</translation>
+        <translation type="obsolete">Brudnopis</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
@@ -13307,11 +13614,11 @@ konieczności startowania programu za każdym razem od nowa.</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation>Włącza lub wyłącza wyświetlanie ramek</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie ramek</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie obrazków</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot
@@ -13321,7 +13628,7 @@ ustawienie, zamknij wszystkie otwarte dokumenty.</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
-        <translation>Dodatkowy katalog na szablony dokumentów</translation>
+        <translation type="obsolete">Dodatkowy katalog na szablony dokumentów</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps.
@@ -13335,15 +13642,15 @@ Wartość 0 oznacza zapamiętanie nieograniczonej ilości operacji.</translation
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation>Zawsze pytaj przed zastąpieniem fontów podczas ładowania dokumentu</translation>
+        <translation type="obsolete">Zawsze pytaj przed zastąpieniem fontów podczas ładowania dokumentu</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation>Włącz podgląd aktualnego stylu akapitu w trakcie edycji stylów </translation>
+        <translation type="obsolete">Włącz podgląd aktualnego stylu akapitu w trakcie edycji stylów </translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation>Wyświetlaj znaki kontrolne tekstu</translation>
+        <translation type="obsolete">Wyświetlaj znaki kontrolne tekstu</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -13351,23 +13658,23 @@ Wartość 0 oznacza zapamiętanie nieograniczonej ilości operacji.</translation
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation>Linijki związane ze stroną</translation>
+        <translation type="obsolete">Linijki związane ze stroną</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation>Odstępy pomiędzy stronami</translation>
+        <translation type="obsolete">Odstępy pomiędzy stronami</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation>Poziomo:</translation>
+        <translation type="obsolete">Poziomo:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation>Pionowo:</translation>
+        <translation type="obsolete">Pionowo:</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation>Aby dopasować wielkość widoku, użyj suwaka znajdującego się poniżej.</translation>
+        <translation type="obsolete">Aby dopasować wielkość widoku, użyj suwaka znajdującego się poniżej.</translation>
     </message>
     <message>
         <source>dpi</source>
@@ -13379,43 +13686,43 @@ Wartość 0 oznacza zapamiętanie nieograniczonej ilości operacji.</translation
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation>Wyświetlaj dialog startowy</translation>
+        <translation type="obsolete">Wyświetlaj dialog startowy</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation>Przykładowy tekst</translation>
+        <translation type="obsolete">Przykładowy tekst</translation>
     </message>
     <message>
         <source>Always use standard Lorem Ipsum</source>
-        <translation>Zawsze używaj standardowego Lorem Ipsum</translation>
+        <translation type="obsolete">Zawsze używaj standardowego Lorem Ipsum</translation>
     </message>
     <message>
         <source>Count of the Paragraphs:</source>
-        <translation>Ilość akapitów:</translation>
+        <translation type="obsolete">Ilość akapitów:</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>Wyświetlaj znaki kontrolne takie jak znaki końca akapitu w ramkach tekstowych</translation>
+        <translation type="obsolete">Wyświetlaj znaki kontrolne takie jak znaki końca akapitu w ramkach tekstowych</translation>
     </message>
     <message>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation>Przyłóż linijkę do ekranu i przeciągając suwak ustaw tak wielkość powiększenia, aby Scribus wyświetlał prawidłową wielkość stron i obiektów</translation>
+        <translation type="obsolete">Przyłóż linijkę do ekranu i przeciągając suwak ustaw tak wielkość powiększenia, aby Scribus wyświetlał prawidłową wielkość stron i obiektów</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Definiuje ilość miejsca po lewej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+        <translation type="obsolete">Definiuje ilość miejsca po lewej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Definiuje ilość miejsca po prawej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+        <translation type="obsolete">Definiuje ilość miejsca po prawej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Definiuje ilość miejsca powyżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+        <translation type="obsolete">Definiuje ilość miejsca powyżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation>Definiuje ilość miejsca poniżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+        <translation type="obsolete">Definiuje ilość miejsca poniżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
@@ -13431,40 +13738,40 @@ Wartość 0 oznacza zapamiętanie nieograniczonej ilości operacji.</translation
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Włącza lub wyłącza wyświetlanie
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie
 połączeń między ramkami.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Wybierz domyślny język, w którym będzie uruchamiany Scribus. Zostaw to pole puste, aby wybrać język zdefiniowany w zmiennych środowiskowych. Można nadpisać to ustawienie startując Scribusa z odpowiednią opcją</translation>
+        <translation type="obsolete">Wybierz domyślny język, w którym będzie uruchamiany Scribus. Zostaw to pole puste, aby wybrać język zdefiniowany w zmiennych środowiskowych. Można nadpisać to ustawienie startując Scribusa z odpowiednią opcją</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation>Rozmiar &amp;fontów w menu:</translation>
+        <translation type="obsolete">Rozmiar &amp;fontów w menu:</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>Rozmiar fontów w pa&amp;letach:</translation>
+        <translation type="obsolete">Rozmiar fontów w pa&amp;letach:</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation>Wybierz domyślną dekorację i wygląd okien. Scribus dziedziczy wszystkie dostępne motywy KDE i QT, jeśli QT jest skonfigurowane do przeszukiwania wtyczek KDE.</translation>
+        <translation type="obsolete">Wybierz domyślną dekorację i wygląd okien. Scribus dziedziczy wszystkie dostępne motywy KDE i QT, jeśli QT jest skonfigurowane do przeszukiwania wtyczek KDE.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation>Domyślny stopień pisma dla okienek narzędzi</translation>
+        <translation type="obsolete">Domyślny stopień pisma dla okienek narzędzi</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Domyślny katalog z profilami ICC. Nie można go zmienić, kiedy w programie otwarty jest dokument. W systemach Mac OSX i Windows Scribus przeszuka domyślnie katalogi System. W systemach Linux i Unix Scribus przeszuka  $home/.color/icc, /usr/share/color/icc i /usr/local/share/color/icc</translation>
+        <translation type="obsolete">Domyślny katalog z profilami ICC. Nie można go zmienić, kiedy w programie otwarty jest dokument. W systemach Mac OSX i Windows Scribus przeszuka domyślnie katalogi System. W systemach Linux i Unix Scribus przeszuka  $home/.color/icc, /usr/share/color/icc i /usr/local/share/color/icc</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation>Jeśli opcja ta zostanie włączona, Scribus będzie tworzył w po upływie określonego czasu kopię bezpieczeństwa twojego pliku z rozszerzeniem .bak</translation>
+        <translation type="obsolete">Jeśli opcja ta zostanie włączona, Scribus będzie tworzył w po upływie określonego czasu kopię bezpieczeństwa twojego pliku z rozszerzeniem .bak</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation>Ustala długość historii operacji mierzoną w krokach. O oznacza nieograniczeną liczbę operacji, które zostaną zapamiętane.</translation>
+        <translation type="obsolete">Ustala długość historii operacji mierzoną w krokach. O oznacza nieograniczeną liczbę operacji, które zostaną zapamiętane.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
@@ -13486,27 +13793,23 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Show S&amp;plashscreen On Startup:</source>
-        <translation>Wyświetlaj &amp;logo przy starcie programu:</translation>
+        <translation type="obsolete">Wyświetlaj &amp;logo przy starcie programu:</translation>
     </message>
     <message>
         <source>Use Scrapbook as extra Copy/Paste Buffer</source>
-        <translation>Użyj biblioteki jako dodatkowego bufora kopiowania i wklejania</translation>
+        <translation type="obsolete">Użyj biblioteki jako dodatkowego bufora kopiowania i wklejania</translation>
     </message>
     <message>
         <source>Extra Copy/Paste Buffer remembers Objects across Sessions</source>
-        <translation>Zapamiętuj obiekty w dodatkowym buforze kopiowania i wstawiania po zamknięciu programu</translation>
+        <translation type="obsolete">Zapamiętuj obiekty w dodatkowym buforze kopiowania i wstawiania po zamknięciu programu</translation>
     </message>
     <message>
         <source>Number of Objects to be remembered in Extra Copy/Paste Buffer</source>
-        <translation>Ilość obiektów do zapamiętania w dodatkowym buforze kopiowania i wklejania</translation>
+        <translation type="obsolete">Ilość obiektów do zapamiętania w dodatkowym buforze kopiowania i wklejania</translation>
     </message>
     <message>
         <source>Show Layer Indicators</source>
-        <translation>Wyświetlaj znaczniki warstw</translation>
-    </message>
-    <message>
-        <source>Turns the display of layer indicators on or off</source>
-        <translation></translation>
+        <translation type="obsolete">Wyświetlaj znaczniki warstw</translation>
     </message>
 </context>
 <context>
@@ -15653,7 +15956,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Zawieszone spójniki</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>SVG Export</source>
@@ -15697,7 +16000,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation>Używasz rozwojowej wersji Scribusa z serii 1.3.x. Dokument, nad którym pracujesz, utworzony został w wersji 1.2.3 Scribusa lub w wersji niższej. Zapisanie tego pliku spowoduje, że nie będziesz mógł go otworzyć w Scribusie 1.2.3, chyba że użyjesz opcji Plik&gt;Zapisz jako. Czy na pewno chcesz kontynuować?</translation>
+        <translation type="obsolete">Używasz rozwojowej wersji Scribusa z serii 1.3.x. Dokument, nad którym pracujesz, utworzony został w wersji 1.2.3 Scribusa lub w wersji niższej. Zapisanie tego pliku spowoduje, że nie będziesz mógł go otworzyć w Scribusie 1.2.3, chyba że użyjesz opcji Plik&gt;Zapisz jako. Czy na pewno chcesz kontynuować?</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
@@ -15815,67 +16118,67 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>+style </source>
-        <translation type="unfinished"></translation>
+        <translation>+styl </translation>
     </message>
     <message>
         <source>+color </source>
-        <translation type="unfinished"></translation>
+        <translation>+kolor </translation>
     </message>
     <message>
         <source>+underline </source>
-        <translation type="unfinished"></translation>
+        <translation>+podkreślenie </translation>
     </message>
     <message>
         <source>-underline </source>
-        <translation type="unfinished"></translation>
+        <translation>-podkreślenie </translation>
     </message>
     <message>
         <source>+strikeout </source>
-        <translation type="unfinished"></translation>
+        <translation>+przekreślenie </translation>
     </message>
     <message>
         <source>-strikeout </source>
-        <translation type="unfinished"></translation>
+        <translation>-przekreślenie </translation>
     </message>
     <message>
         <source>+shadow </source>
-        <translation type="unfinished"></translation>
+        <translation>+cień </translation>
     </message>
     <message>
         <source>-shadow </source>
-        <translation type="unfinished"></translation>
+        <translation>-cień </translation>
     </message>
     <message>
         <source>+outline </source>
-        <translation type="unfinished"></translation>
+        <translation>+obramowanie </translation>
     </message>
     <message>
         <source>-outline </source>
-        <translation type="unfinished"></translation>
+        <translation>-obramowanie </translation>
     </message>
     <message>
         <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
+        <translation>+podcięcie %1</translation>
     </message>
     <message>
         <source>-tracking </source>
-        <translation type="unfinished"></translation>
+        <translation>-podcięcie </translation>
     </message>
     <message>
         <source>+baseline %1</source>
-        <translation type="unfinished"></translation>
+        <translation>+linia pisma %1</translation>
     </message>
     <message>
         <source>+stretch </source>
-        <translation type="unfinished"></translation>
+        <translation>+rozciągnięcie </translation>
     </message>
     <message>
         <source>parent= %1</source>
-        <translation type="unfinished"></translation>
+        <translation>rodzic= %1</translation>
     </message>
     <message>
         <source>unnamed</source>
-        <translation type="unfinished"></translation>
+        <translation>bez nazwy</translation>
     </message>
     <message>
         <source>Icelandic</source>
@@ -15897,6 +16200,108 @@ is not exhaustive due to exceptions from called functions.
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the origial will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quarto</source>
+        <translation>Quarto</translation>
+    </message>
+    <message>
+        <source>Foolscap</source>
+        <translation>Foolscap</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation>Letter</translation>
+    </message>
+    <message>
+        <source>Govt. Letter</source>
+        <translation></translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation>Legal</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation>Ledger</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation>Executive</translation>
+    </message>
+    <message>
+        <source>Post</source>
+        <translation>Post</translation>
+    </message>
+    <message>
+        <source>Crown</source>
+        <translation>Crown</translation>
+    </message>
+    <message>
+        <source>Large Post</source>
+        <translation>Large Post</translation>
+    </message>
+    <message>
+        <source>Demy</source>
+        <translation>Demy</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation>Medium</translation>
+    </message>
+    <message>
+        <source>Royal</source>
+        <translation>Royal</translation>
+    </message>
+    <message>
+        <source>Elephant</source>
+        <translation>Elephant</translation>
+    </message>
+    <message>
+        <source>Double Demy</source>
+        <translation>Double Demy</translation>
+    </message>
+    <message>
+        <source>Quad Demy</source>
+        <translation>Quad Demy</translation>
+    </message>
+    <message>
+        <source>STMT</source>
+        <translation>STMT</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation>A</translation>
+    </message>
+    <message>
+        <source>B</source>
+        <translation>B</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation>C</translation>
+    </message>
+    <message>
+        <source>D</source>
+        <translation>D</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation>E</translation>
     </message>
 </context>
 <context>
@@ -16035,7 +16440,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Marginesy</translation>
+        <translation type="obsolete">Marginesy</translation>
     </message>
     <message>
         <source>Enable single or spread based layout</source>
@@ -16067,19 +16472,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>Na &amp;górze:</translation>
+        <translation type="obsolete">Na &amp;górze:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>Po &amp;lewej:</translation>
+        <translation type="obsolete">Po &amp;lewej:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>Na &amp;dole:</translation>
+        <translation type="obsolete">Na &amp;dole:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>Po &amp;prawej:</translation>
+        <translation type="obsolete">Po &amp;prawej:</translation>
     </message>
     <message>
         <source>&amp;Facing Pages</source>
@@ -16099,19 +16504,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Format strony</translation>
+        <translation type="obsolete">Format strony</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Definicja użytkownika</translation>
+        <translation type="obsolete">Definicja użytkownika</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Portret</translation>
+        <translation type="obsolete">Portret</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Pejzaż</translation>
+        <translation type="obsolete">Pejzaż</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
@@ -16119,23 +16524,23 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>&amp;Rozmiar:</translation>
+        <translation type="obsolete">&amp;Rozmiar:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>Or&amp;ientacja:</translation>
+        <translation type="obsolete">Or&amp;ientacja:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>Sz&amp;erokość:</translation>
+        <translation type="obsolete">Sz&amp;erokość:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Wysokość:</translation>
+        <translation type="obsolete">&amp;Wysokość:</translation>
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation>&amp;Jednostka:</translation>
+        <translation type="obsolete">&amp;Jednostka:</translation>
     </message>
     <message>
         <source>Layout</source>
@@ -16143,15 +16548,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Automatyczny zapis</translation>
+        <translation type="obsolete">Automatyczny zapis</translation>
     </message>
     <message>
         <source>min</source>
-        <translation>min</translation>
+        <translation type="obsolete">min</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation>&amp;Interwał:</translation>
+        <translation type="obsolete">&amp;Interwał:</translation>
     </message>
     <message>
         <source>Document</source>
@@ -16163,31 +16568,31 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Page Display</source>
-        <translation>Widok strony</translation>
+        <translation type="obsolete">Widok strony</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>Kolor:</translation>
+        <translation type="obsolete">Kolor:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
+        <translation type="obsolete">Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation>Alt+U</translation>
+        <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Wyświetlaj obrazki</translation>
+        <translation type="obsolete">Wyświetlaj obrazki</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation>Wyświetlaj połączenia ramek</translation>
+        <translation type="obsolete">Wyświetlaj połączenia ramek</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Wyświetlaj ramki</translation>
+        <translation type="obsolete">Wyświetlaj ramki</translation>
     </message>
     <message>
         <source>Scratch Space</source>
@@ -16239,19 +16644,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation>Włącza lub wyłącza wyświetlanie ramek</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie ramek</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie obrazków</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation>Kolor papieru</translation>
+        <translation type="obsolete">Kolor papieru</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation>Wyświetl obszar poza marginesami w kolorze marginesu</translation>
+        <translation type="obsolete">Wyświetl obszar poza marginesami w kolorze marginesu</translation>
     </message>
     <message>
         <source>Document Information</source>
@@ -16259,7 +16664,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation>Wyświetlaj znaki kontrolne tekstu</translation>
+        <translation type="obsolete">Wyświetlaj znaki kontrolne tekstu</translation>
     </message>
     <message>
         <source>Options</source>
@@ -16275,23 +16680,23 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation>Linijki związane ze stroną</translation>
+        <translation type="obsolete">Linijki związane ze stroną</translation>
     </message>
     <message>
         <source>Minimum Scratch Space</source>
-        <translation>Minimalny rozmiar brudnopisu</translation>
+        <translation type="obsolete">Minimalny rozmiar brudnopisu</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation>Odstępy pomiędzy stronami</translation>
+        <translation type="obsolete">Odstępy pomiędzy stronami</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation>Poziomo:</translation>
+        <translation type="obsolete">Poziomo:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation>Pionowo:</translation>
+        <translation type="obsolete">Pionowo:</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -16299,7 +16704,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>Wyświetlaj znaki kontrolne takie jak znaki końca akapitu w ramkach tekstowych</translation>
+        <translation type="obsolete">Wyświetlaj znaki kontrolne takie jak znaki końca akapitu w ramkach tekstowych</translation>
     </message>
     <message>
         <source>None</source>
@@ -16311,11 +16716,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
-        <translation>Włącza lub wyłącza wyświetlanie połączeń między ramkami.</translation>
+        <translation type="obsolete">Włącza lub wyłącza wyświetlanie połączeń między ramkami.</translation>
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation>Zastosuj rozmiar do wszystkich stron</translation>
+        <translation type="obsolete">Zastosuj rozmiar do wszystkich stron</translation>
     </message>
     <message>
         <source>Sections</source>
@@ -16323,15 +16728,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Stosuje zmiany rozmiaru strony do wszystkich stron dokumentu</translation>
+        <translation type="obsolete">Stosuje zmiany rozmiaru strony do wszystkich stron dokumentu</translation>
     </message>
     <message>
         <source>Show Layer Indicators</source>
-        <translation>Wyświetlaj znaczniki warstw</translation>
+        <translation type="obsolete">Wyświetlaj znaczniki warstw</translation>
     </message>
     <message>
         <source>Turns the display of layer indicators on or off</source>
-        <translation>Włącza lub wyłącza znaczniki warstw</translation>
+        <translation type="obsolete">Włącza lub wyłącza znaczniki warstw</translation>
     </message>
 </context>
 <context>
@@ -16354,11 +16759,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Column 1</source>
-        <translation>Szpalta 1</translation>
+        <translation type="obsolete">Szpalta 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Dodaj</translation>
+        <translation type="obsolete">&amp;Dodaj</translation>
     </message>
     <message>
         <source>Alt+A</source>
@@ -16366,15 +16771,15 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>C&amp;lone</source>
-        <translation>K&amp;lonuj</translation>
+        <translation type="obsolete">K&amp;lonuj</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation>Alt+L</translation>
+        <translation type="obsolete">Alt+L</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation>&amp;Usuń</translation>
+        <translation type="obsolete">&amp;Usuń</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -16386,11 +16791,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>O&amp;K</source>
-        <translation>O&amp;K</translation>
+        <translation type="obsolete">O&amp;K</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation>Alt+K</translation>
+        <translation type="obsolete">Alt+K</translation>
     </message>
     <message>
         <source>A&amp;pply</source>
@@ -16402,15 +16807,53 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Ca&amp;ncel</source>
-        <translation>&amp;Anuluj</translation>
+        <translation type="obsolete">&amp;Anuluj</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation>Alt+N</translation>
+        <translation type="obsolete">Alt+N</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
         <translation>&amp;Zastosuj</translation>
+    </message>
+    <message>
+        <source>shortcut</source>
+        <translation>skrót</translation>
+    </message>
+    <message>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation>&lt;&lt; &amp;Wykonane</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Wyzeruj</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation>Alt+R</translation>
+    </message>
+    <message>
+        <source>dirty</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMCStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation>%</translation>
+    </message>
+</context>
+<context>
+    <name>SMCharacterStyle</name>
+    <message>
+        <source>Character Styles</source>
+        <translation>Style znaków</translation>
     </message>
 </context>
 <context>
@@ -16421,7 +16864,49 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Lines</source>
-        <translation>Linie</translation>
+        <translation type="obsolete">Linie</translation>
+    </message>
+    <message>
+        <source>Line Styles</source>
+        <translation>Styl linii</translation>
+    </message>
+</context>
+<context>
+    <name>SMPStyleWidget</name>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation>Stała interlinia</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation>Automatyczna interlinia</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation>Wyrównaj do linii pisma</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="obsolete">%</translation>
+    </message>
+    <message>
+        <source>&amp;Lines:</source>
+        <translation>Wi&amp;erszy:</translation>
+    </message>
+    <message>
+        <source>Distance from Text:</source>
+        <translation>Odstęp od tekstu:</translation>
+    </message>
+</context>
+<context>
+    <name>SMParagraphStyle</name>
+    <message>
+        <source>Paragraph Styles</source>
+        <translation>Style akapitów</translation>
     </message>
 </context>
 <context>
@@ -16594,7 +17079,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Zawieszone spójniki</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -16664,7 +17149,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Zawieszone spójniki</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
@@ -16719,11 +17204,38 @@ converting their vector data into Scribus objects.</source>
     <name>ScGTFileDialog</name>
     <message>
         <source>Select file to import</source>
-        <translation>Wybierz plik do importu</translation>
+        <translation type="obsolete">Wybierz plik do importu</translation>
     </message>
     <message>
         <source>Show options</source>
         <translation>Wyświetlaj opcje</translation>
+    </message>
+    <message>
+        <source>Select a file to import</source>
+        <translation>Wybierz plik do zaimportowania</translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation>Dołącz</translation>
+    </message>
+</context>
+<context>
+    <name>ScInputDialog</name>
+    <message>
+        <source>Input Dialog</source>
+        <translation>Dialog wejściowy</translation>
+    </message>
+    <message>
+        <source>InputDialog</source>
+        <translation>Dialog wejściowy</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Anuluj</translation>
     </message>
 </context>
 <context>
@@ -18223,6 +18735,10 @@ Przesunięcie w pionie: %3</translation>
         <source>Display a console window</source>
         <translation>Wyświetlaj okno konsoli</translation>
     </message>
+    <message>
+        <source>Download a file from the Scribus website and show the latest available version.</source>
+        <translation>Pobierz plik ze strony Scribusa i wyświetl najnowszą dostępną wersję.</translation>
+    </message>
 </context>
 <context>
     <name>ScribusView</name>
@@ -18840,15 +19356,66 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
+        <translation>Usuń zawieszone &amp;spójniki...</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Zawieszone spójniki</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Specjalna wtyczka wstawiająca twarde spacje przed albo po tzw. short words, np. przed &quot;zawieszonymi spójnikami&quot;.</translation>
+    </message>
+</context>
+<context>
+    <name>ShortcutWidget</name>
+    <message>
+        <source>&amp;No Key</source>
+        <translation>&amp;Bez skrótu</translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation>Skrót przyporządkowany przez &amp;użytkownika</translation>
+    </message>
+    <message>
+        <source>ALT+SHIFT+T</source>
+        <translation>ALT+SHIFT+T</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation>&amp;Przyporządkuj skrót</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation>Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation>Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation>Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation>Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation>Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation>Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation>Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation>Ctrl+</translation>
     </message>
 </context>
 <context>
@@ -19199,6 +19766,18 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>More than one item selected</source>
         <translation>Został wybrany więcej niż jeden obiekt</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation>&amp;Edycja</translation>
+    </message>
+    <message>
+        <source>&amp;Done</source>
+        <translation>&amp;Wykonane</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation>Skrót</translation>
     </message>
 </context>
 <context>
@@ -19555,6 +20134,256 @@ Przesunięcie w pionie: %3</translation>
     </message>
 </context>
 <context>
+    <name>TabDisplay</name>
+    <message>
+        <source>Color for paper</source>
+        <translation>Kolor papieru</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation>Wyświetl obszar poza marginesami w kolorze marginesu</translation>
+    </message>
+    <message>
+        <source>Enable or disable  the display of linked frames.</source>
+        <translation>Włącza lub wyłącza wyświetlanie
+połączeń między ramkami.</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation>Wyświetlaj znaki kontrolne takie jak znaki końca akapitu w ramkach tekstowych</translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation>Włącza lub wyłącza wyświetlanie ramek</translation>
+    </message>
+    <message>
+        <source>Turns the display of layer indicators on or off</source>
+        <translation>Włącza lub wyłącza znaczniki warstw</translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation>Włącza lub wyłącza wyświetlanie obrazków</translation>
+    </message>
+    <message>
+        <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Definiuje ilość miejsca po lewej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+    </message>
+    <message>
+        <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Definiuje ilość miejsca po prawej stronie obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+    </message>
+    <message>
+        <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Definiuje ilość miejsca powyżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+    </message>
+    <message>
+        <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation>Definiuje ilość miejsca poniżej obszaru roboczego dokumentu, na którym będzie można tworzyć i modyfikować obiekty oraz przeciągać je na aktywną stronę</translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation>Ustaw domyślne powiększenie</translation>
+    </message>
+    <message>
+        <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
+        <translation>Przyłóż linijkę do ekranu i przeciągając suwak ustaw tak wielkość powiększenia, aby Scribus wyświetlał prawidłową wielkość stron i obiektów</translation>
+    </message>
+</context>
+<context>
+    <name>TabDisplayBase</name>
+    <message>
+        <source>Form2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Display</source>
+        <translation>Widok strony</translation>
+    </message>
+    <message>
+        <source>Show Layer Indicators</source>
+        <translation>Wyświetlaj znaczniki warstw</translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation>Wyświetlaj ramki</translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation>Wyświetlaj połączenia ramek</translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation>Wyświetlaj obszar &amp;niedrukowalny w kolorze marginesu</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation>Alt+U</translation>
+    </message>
+    <message>
+        <source>Rulers Relative to Page</source>
+        <translation>Linijki związane ze stroną</translation>
+    </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation>Wyświetlaj znaki kontrolne tekstu</translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation>Wyświetlaj obrazki</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation>Kolor:</translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation>Brudnopis</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation>P&amp;o lewej:</translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation>Po &amp;prawej:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation>Na &amp;dole:</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation>Na &amp;górze:</translation>
+    </message>
+    <message>
+        <source>Gaps Between Pages</source>
+        <translation>Odstępy pomiędzy stronami</translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation>Poziomo:</translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation>Pionowo:</translation>
+    </message>
+    <message>
+        <source>Adjust Display Size</source>
+        <translation>Dopasuj wielkość widoku</translation>
+    </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the slider.</source>
+        <translation>Aby dopasować wielkość widoku, użyj suwaka znajdującego się poniżej.</translation>
+    </message>
+    <message>
+        <source>textLabel16</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabDocument</name>
+    <message>
+        <source>Custom</source>
+        <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation>Format strony</translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation>&amp;Rozmiar:</translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation>Portret</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation>Pejzaż</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation>Or&amp;ientacja:</translation>
+    </message>
+    <message>
+        <source>Units:</source>
+        <translation>Jednostki:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation>Sz&amp;erokość:</translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation>&amp;Wysokość:</translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation>Marginesy</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation>Automatyczny zapis</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation>min</translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation>&amp;Interwał:</translation>
+    </message>
+    <message>
+        <source>Undo/Redo</source>
+        <translation>Cofnij/Ponów</translation>
+    </message>
+    <message>
+        <source>Action history length</source>
+        <translation>Długość historii operacji</translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation>Szerokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation>Wysokość stron dokumentu, można ją zmienić, jeśli wybrałeś definiowanie rozmiaru strony przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation>Domyślny rozmiar strony, standardowy albo zdefiniowany przez użytkownika</translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation>Domyślna orientacja stron dokumentu</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation>Domyślna jednostka miary dla edycji dokumentów</translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
+        <translation>Jeśli opcja ta zostanie włączona, Scribus będzie tworzył w po upływie określonego czasu kopię bezpieczeństwa twojego pliku z rozszerzeniem .bak</translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation>Okres czasu pomiędzy automatycznym zapisywaniem</translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
+        <translation>Ustala długość historii operacji mierzoną w krokach. O oznacza nieograniczeną liczbę operacji, które zostaną zapamiętane.</translation>
+    </message>
+    <message>
+        <source>Apply size settings to all Pages</source>
+        <translation>Zastosuj ustawienia rozmiarów do wszystkich stron</translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing pages in the document</source>
+        <translation>Stosuje zmiany rozmiaru strony do wszystkich stron dokumentu</translation>
+    </message>
+</context>
+<context>
     <name>TabExternalToolsWidget</name>
     <message>
         <source>Locate Ghostscript</source>
@@ -19666,6 +20495,156 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabGeneral</name>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
+        <translation>Wybierz domyślny język, w którym będzie uruchamiany Scribus. Zostaw to pole puste, aby wybrać język zdefiniowany w zmiennych środowiskowych. Można nadpisać to ustawienie startując Scribusa z odpowiednią opcją</translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation>Ilość ostatnio edytowanych dokumentów, które pokazane zostaną w menu Plik</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation>Ilość wierszy, o którą Scribus przewinie obraz przy każdym poruszeniu kółka myszy</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
+        <translation>Wybierz domyślną dekorację i wygląd okien. Scribus dziedziczy wszystkie dostępne motywy KDE i QT, jeśli QT jest skonfigurowane do przeszukiwania wtyczek KDE.</translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation>Domyślny stopień pisma dla okienek i menu</translation>
+    </message>
+    <message>
+        <source>Default font size for the tool windows</source>
+        <translation>Domyślny stopień pisma dla okienek narzędzi</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation>Domyślny katalog dla dokumentów</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
+        <translation>Domyślny katalog z profilami ICC. Nie można go zmienić, kiedy w programie otwarty jest dokument. W systemach Mac OSX i Windows Scribus przeszuka domyślnie katalogi System. W systemach Linux i Unix Scribus przeszuka  $home/.color/icc, /usr/share/color/icc i /usr/local/share/color/icc</translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation>Domyślny katalog dla skryptów wtyczki skryptowej</translation>
+    </message>
+    <message>
+        <source>Additional directory for document templates</source>
+        <translation>Dodatkowy katalog na szablony dokumentów</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation>Wybierz katalog</translation>
+    </message>
+</context>
+<context>
+    <name>TabGeneralBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GUI</source>
+        <translation>Graficzny interfejs użytkownika</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation>&amp;Język:</translation>
+    </message>
+    <message>
+        <source>&amp;Theme:</source>
+        <translation>&amp;Styl:</translation>
+    </message>
+    <message>
+        <source>Show S&amp;plashscreen on Startup:</source>
+        <translation type="obsolete">Wyświetlaj &amp;logo przy starcie programu:</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size (Menus):</source>
+        <translation>Rozmiar &amp;fontów w menu:</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation>pt</translation>
+    </message>
+    <message>
+        <source>Font Size (&amp;Palettes):</source>
+        <translation>Rozmiar fontów w pa&amp;letach:</translation>
+    </message>
+    <message>
+        <source>&amp;Wheel Jump:</source>
+        <translation>S&amp;kok kółka:</translation>
+    </message>
+    <message>
+        <source>&amp;Recent Documents:</source>
+        <translation>Otwórz &amp;poprzedni:</translation>
+    </message>
+    <message>
+        <source>Paths</source>
+        <translation>Ścieżki</translation>
+    </message>
+    <message>
+        <source>&amp;Documents:</source>
+        <translation>&amp;Dokumenty:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation>&amp;Zmień...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;ICC Profiles:</source>
+        <translation>Profile &amp;ICC:</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation>&amp;Zmień...</translation>
+    </message>
+    <message>
+        <source>Alt+H</source>
+        <translation>Alt+H</translation>
+    </message>
+    <message>
+        <source>&amp;Scripts:</source>
+        <translation>Skr&amp;ypty:</translation>
+    </message>
+    <message>
+        <source>Ch&amp;ange...</source>
+        <translation>Zmi&amp;eń...</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Document &amp;Templates:</source>
+        <translation>Szablony &amp;dokumentów:</translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation>Z&amp;mień...</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation>Alt+N</translation>
+    </message>
+    <message>
+        <source>Time before a Move or Resize starts:</source>
+        <translation>Czas przed rozpoczęciem przesunięcia lub zmiany rozmiaru:</translation>
+    </message>
+    <message>
+        <source> ms</source>
+        <translation> ms</translation>
     </message>
 </context>
 <context>
@@ -19978,6 +20957,41 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation type="obsolete">&amp;Anuluj</translation>
+    </message>
+</context>
+<context>
+    <name>TabMiscellaneousBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always ask before fonts are replaced when loading a document</source>
+        <translation>Pytaj przed zastąpieniem fontów podczas otwierania dokumentu</translation>
+    </message>
+    <message>
+        <source>Preview of current Paragraph Style visible when editing Styles</source>
+        <translation>Włącz podgląd aktualnego stylu akapitu w trakcie edycji stylów </translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation>Wyświetlaj dialog startowy</translation>
+    </message>
+    <message>
+        <source>Lorem Ipsum</source>
+        <translation>Przykładowy tekst</translation>
+    </message>
+    <message>
+        <source>Always use standard Lorem Ipsum</source>
+        <translation>Zawsze używaj standardowego Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Count of the Paragraphs:</source>
+        <translation>Ilość akapitów:</translation>
+    </message>
+    <message>
+        <source>Show Splashscreen on Startup</source>
+        <translation>Wyświetlaj logo przy starcie programu</translation>
     </message>
 </context>
 <context>
@@ -20408,7 +21422,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation>Krawędzie spadu</translation>
+        <translation>Obszar przycięcia (TrimBox)</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
@@ -20657,7 +21671,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Zamień kolory spotowe na kolory rozbarwiane</translation>
+        <translation>Zamień kolory dodatkowe na kolory procesowe</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
@@ -20677,7 +21691,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Włącza konwersję kolorów spotowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów spotowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
+        <translation>Włącza konwersję kolorów dodatkowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów dodatkowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -20856,10 +21870,6 @@ w trakcie otwierania dokumentu PDF:</translation>
         <translation>Włącza efekty prezentacyjne w programie  Adobe&amp;#174; Reader&amp;#174; i innych przeglądarkach PDF wspierających wyświetlanie w trybie pełnoekranowym.</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
         <translation>Warstwy zawarte w dokumencie będą wyeksportowane do pliku PDF tylko wtedy, kiedy zostanie wybrany PDF 1.5.</translation>
     </message>
@@ -20894,7 +21904,54 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished">Włącza globalny tryb nadrukowywania dla tego dokumentu, nadpisuje ustawienia obiektów</translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabScrapbookBase</name>
+    <message>
+        <source>Form2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use Scrapbook as extra Copy/Paste Buffer</source>
+        <translation type="obsolete">Użyj biblioteki jako dodatkowego bufora kopiowania i wklejania</translation>
+    </message>
+    <message>
+        <source>Extra Copy/Paste Buffer remembers Objects across Sessions</source>
+        <translation type="obsolete">Zapamiętuj obiekty w dodatkowym buforze kopiowania i wstawiania po zamknięciu programu</translation>
+    </message>
+    <message>
+        <source>Number of Objects to be remembered in Extra Copy/Paste Buffer:</source>
+        <translation type="obsolete">Ilość obiektów do zapamiętania w dodatkowym buforze kopiowania/wklejania:</translation>
+    </message>
+    <message>
+        <source>Send Copied Items Automatically to Scrapbook</source>
+        <translation>Wyślij automatycznie kopiowane elementy do biblioteki </translation>
+    </message>
+    <message>
+        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Copied Items Permanently Across Sessions</source>
+        <translation>Przechowuj skopiowane elementy po zamknięciu programu</translation>
+    </message>
+    <message>
+        <source>This enables copied items to be kept permanently in the scrapbook.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Copied Items to Keep in Scrapbook:</source>
+        <translation>Ilość skopiowanych elementów do przechowywania w bibliotece:</translation>
+    </message>
+    <message>
+        <source>The minimum number is 1; the maximum us 100.</source>
+        <translation>Minimalna wartość to 1, maksymalna wartość to 100.</translation>
     </message>
 </context>
 <context>
@@ -21402,6 +22459,10 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
         <source>None</source>
         <comment>tab fill</comment>
         <translation>Brak</translation>
+    </message>
+    <message>
+        <source>Indentation from the right for the whole paragraph</source>
+        <translation>Wcięcie z prawej strony całego akapitu</translation>
     </message>
 </context>
 <context>
@@ -21983,6 +23044,51 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation>(Żadne dane z twojego komputera nie zostaną wysłane na zewnątrz)</translation>
+    </message>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation>Pobieranie pliku z opisem aktualizacji Scribusa</translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation>Błąd połączenia spowodowany upływem czasu przy próbie pobrania pliku.</translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation>Błąd w trakcie próby pobrania pliku: %1</translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation>Na serwerze nie znaleziono pliku do pobrania</translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation>Nie udało się otworzyć pliku z wersją:%1
+Błąd:%2 at line: %3, row: %4</translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation> Błąd w trakcie poszukiwania aktualizacji Scribusa, proszę sprawdzić połączenie z internetem.</translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation>Brak aktualizacji dla twojej wersji Scribusa: %1</translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation>Dla twojej wersji Scribusa  (%1) dostępna jest jedna lub  więcej aktualizacji:</translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation>Szczegóły na stronie  www.scribus.net.</translation>
     </message>
 </context>
 <context>
