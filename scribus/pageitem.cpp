@@ -3126,8 +3126,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
-	CMSettings cms(m_Doc, IProfile);
-	if (!pixm.LoadPicture(filename, cms, IRender, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy))
+	CMSettings cms(m_Doc, IProfile, IRender);
+	if (!pixm.LoadPicture(filename, cms, UseEmbedded, true, ScImage::RGBProof, gsRes, &dummy))
 	{
 		Pfile = fi.absFilePath();
 		PicAvail = false;

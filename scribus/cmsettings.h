@@ -39,11 +39,12 @@ class ScribusDoc;
 class SCRIBUS_API CMSettings
 {
 public:
-	CMSettings(ScribusDoc* doc, const QString& profileName);
+	CMSettings(ScribusDoc* doc, const QString& profileName, int intent);
 	~CMSettings();
 	
 	ScribusDoc* doc() const {return m_Doc;}
 	QString profileName() const {return m_ProfileName;}
+	int intent() const {return m_Intent;}
 
 	bool useColorManagement() const;
 
@@ -81,6 +82,7 @@ public:
 protected:
 	ScribusDoc* m_Doc;
 	QString m_ProfileName;
+	int m_Intent;
 
 };
 

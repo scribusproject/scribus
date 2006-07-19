@@ -685,14 +685,14 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 					useCmyk = true;
 				QFileInfo fInfo(item->Pfile);
 				QString ext = fInfo.extension(false);
-				CMSettings cmsSettings(item->doc(), item->IProfile);
+				CMSettings cmsSettings(item->doc(), item->IProfile, item->IRender);
 				scImg.imgInfo.valid = false;
 				scImg.imgInfo.clipPath = "";
 				scImg.imgInfo.PDSpathData.clear();
 				scImg.imgInfo.layerInfo.clear();
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
-				scImg.LoadPicture(item->Pfile, cmsSettings, 0, item->UseEmbedded, m_useProfiles, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
+				scImg.LoadPicture(item->Pfile, cmsSettings, item->UseEmbedded, m_useProfiles, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
 				if( ext == "eps" || ext == "pdf" || ext == "ps" )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);

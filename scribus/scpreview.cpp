@@ -554,8 +554,8 @@ QPixmap ScPreview::createPreview(QString data)
 							pS->scale(1, -1);
 						}
 						ScImage pixm;
-						CMSettings cms(0, "");
-						pixm.LoadPicture(OB.Pfile, cms, 0, false, false, ScImage::RGBData, 72);
+						CMSettings cms(0, "", 0);
+						pixm.LoadPicture(OB.Pfile, cms, false, false, ScImage::RGBData, 72);
 						pS->scale(OB.LocalScX, OB.LocalScY);
 						pS->translate(static_cast<int>(OB.LocalX), static_cast<int>(OB.LocalY));
 						QImage img(pixm.qImage());

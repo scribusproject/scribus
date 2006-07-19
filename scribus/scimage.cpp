@@ -1374,7 +1374,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 }
 
 bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
-						  int rend, bool useEmbedded, bool useProf,
+						  bool useEmbedded, bool useProf,
 						  RequestType requestType, int gsRes, bool *realCMYK)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
@@ -1508,7 +1508,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, rend, 0);
+				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
 			break;
 		case RGBProof: // RGB Proof
 			{
@@ -1519,10 +1519,10 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				if (cmSettings.doSoftProofing())
 					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
 					                                   cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
-					                                   rend, INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
+					                                   cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
 				else
 					xform = cmsCreateTransform(inputProf, inputProfFormat,
-					                           cmSettings.monitorProfile(), TYPE_BGRA_8, rend, cmsFlags);
+					                           cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			}
 			break;
 		case RawData: // no Conversion just raw Data

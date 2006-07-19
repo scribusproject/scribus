@@ -799,8 +799,8 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	image.imgInfo.layerInfo.clear();
 	image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 	image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-	CMSettings cms(c->doc(), Prof);
-	image.LoadPicture(fn, cms, 0, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
+	CMSettings cms(c->doc(), Prof, c->IRender);
+	image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
 	image.applyEffect(c->effectsInUse, colorsToUse, true);
 	imgArray = image.ImageToCMYK_PS(-1, true);
 	if (CompAvail)
@@ -876,8 +876,8 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.layerInfo.clear();
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-		CMSettings cms(c->doc(), Prof);
-		image.LoadPicture(fn, cms, 0, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
+		CMSettings cms(c->doc(), Prof, c->IRender);
+		image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
 		image.applyEffect(c->effectsInUse, colorsToUse, true);
 		int w = image.width();
 		int h = image.height();

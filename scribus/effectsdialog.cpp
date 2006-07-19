@@ -37,8 +37,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	doc = docc;
 	currentOptions = 0;
 	bool mode = false;
-	CMSettings cms(docc, "");
-	image.LoadPicture(currItem->Pfile, cms, 0, false, false, ScImage::RGBData, 72, &mode);
+	CMSettings cms(docc, "", 0);
+	image.LoadPicture(currItem->Pfile, cms, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
 	if ((ix > 220) || (iy > 220))

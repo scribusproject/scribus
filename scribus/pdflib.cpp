@@ -4286,8 +4286,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (!ite->Pfile2.isEmpty())
 						{
-							CMSettings cms(ite->doc(), "");
-							img.LoadPicture(ite->Pfile2, cms, 0, false, false, ScImage::RGBData, 72);
+							CMSettings cms(ite->doc(), "", 0);
+							img.LoadPicture(ite->Pfile2, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
 							im = img3.getAlpha(ite->Pfile2, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
@@ -4296,8 +4296,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 						}
 						if (!ite->Pfile3.isEmpty())
 						{
-							CMSettings cms(ite->doc(), "");
-							img2.LoadPicture(ite->Pfile3, cms, 0, false, false, ScImage::RGBData, 72);
+							CMSettings cms(ite->doc(), "", 0);
+							img2.LoadPicture(ite->Pfile3, cms, false, false, ScImage::RGBData, 72);
 							QByteArray im;
 							im = img3.getAlpha(ite->Pfile3, true, false);
 							IconOb += !im.isEmpty() ? 3 : 2;
@@ -4751,21 +4751,21 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				afl = Options.Resolution;
 			if (ext == "pdf")
 			{
-				CMSettings cms(c->doc(), Profil);
+				CMSettings cms(c->doc(), Profil, Intent);
 				if (Options.UseRGB)
-					img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBProof, afl);
+					img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, afl);
 				else
 				{
 #ifdef HAVE_CMS
 					if ((doc.HasCMS) && (Options.UseProfiles2))
-						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
+						img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 					else
 					{
 #endif
 						if (Options.isGrayscale)
-							img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
+							img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 						else
-							img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::CMYKData, afl);
+							img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
 #ifdef HAVE_CMS
 					}
 #endif
@@ -4806,21 +4806,21 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					f.close();
 					if (found)
 					{
-						CMSettings cms(c->doc(), Profil);
+						CMSettings cms(c->doc(), Profil, Intent);
 						if (Options.UseRGB)
-							img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBProof, afl);
+							img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, afl);
 						else
 						{
 #ifdef HAVE_CMS
 							if ((doc.HasCMS) && (Options.UseProfiles2))
-								img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
+								img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 							else
 							{
 #endif
 								if (Options.isGrayscale)
-									img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, afl);
+									img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 								else
-									img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::CMYKData, afl);
+									img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
 #ifdef HAVE_CMS
 							}
 #endif
@@ -4842,21 +4842,21 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			img.imgInfo.layerInfo.clear();
 			img.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 			img.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
-			CMSettings cms(c->doc(), Profil);
+			CMSettings cms(c->doc(), Profil, Intent);
 			if (Options.UseRGB)
-				img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBProof, 72, &realCMYK);
+				img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, 72, &realCMYK);
 			else
 			{
 #ifdef HAVE_CMS
 				if ((doc.HasCMS) && (Options.UseProfiles2))
-					img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RawData, 72, &realCMYK);
+					img.LoadPicture(fn, cms, Embedded, true, ScImage::RawData, 72, &realCMYK);
 				else
 				{
 #endif
 					if (Options.isGrayscale)
-						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::RGBData, 72, &realCMYK);
+						img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
 					else
-						img.LoadPicture(fn, cms, Intent, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
+						img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
 #ifdef HAVE_CMS
 				}
 #endif

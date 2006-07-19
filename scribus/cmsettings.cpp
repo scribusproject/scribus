@@ -27,9 +27,10 @@ for which a new license (GPL+exception) is in place.
 #include "cmsettings.h"
 #include "scribusdoc.h"
 
-CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName) :
+CMSettings::CMSettings(ScribusDoc* doc, const QString& profileName, int intent) :
 m_Doc(doc),
-m_ProfileName(profileName)
+m_ProfileName(profileName), 
+m_Intent(intent)
 {
 }
 
