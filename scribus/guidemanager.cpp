@@ -417,7 +417,10 @@ void GuideManager::getAutoHorizontals()
 	int value = horizontalAutoCountSpin->value();
 	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
 	if (value == 0)
+	{
+		drawGuides();
 		return;
+	}
 	++value;
 
 	double offset = 0;
@@ -466,7 +469,10 @@ void GuideManager::getAutoVerticals()
 	int value = verticalAutoCountSpin->value();
 	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
 	if (value == 0)
+	{
+		drawGuides();
 		return;
+	}
 	++value;
 	double offset = 0;
 	double newPageWidth = locPageWidth;
