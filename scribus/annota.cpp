@@ -105,14 +105,22 @@ Annota::Annota(QWidget* parent, PageItem *it, int Seite, int b, int h, ScribusVi
 	SpinBox1 = new QSpinBox( GroupBox1, "SpinBox1" );
 	SpinBox1->setMinValue(1);
 	SpinBox1->setMaxValue(item->annotation().ActionType() == 7 ? 1000 : Seite);
-	SpinBox1->setValue(item->annotation().Ziel()+1);
 	TextLabel3 = new QLabel( SpinBox1, tr("&Page:"), GroupBox1, "TextLabel3" );
 	GroupBox1Layout->addWidget( TextLabel3, 1, 0 );
 	GroupBox1Layout->addWidget( SpinBox1, 1, 1 );
 	if ((!Destfile->text().isEmpty()) && (item->annotation().ActionType() == 7))
 		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel()+1, view, item->annotation().Extern());
 	else
-		Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
+	{
+		if (item->annotation().Ziel() < view->Doc->Pages->count())
+			Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
+		else
+		{
+			item->annotation().setZiel(view->Doc->currentPageNumber());
+			Pg = new Navigator( GroupBox1, 100, item->annotation().Ziel(), view);
+		}
+	}
+	SpinBox1->setValue(item->annotation().Ziel()+1);
 	Pg->setMinimumSize(QSize(Pg->pmx.width(), Pg->pmx.height()));
 	GroupBox1Layout->addMultiCellWidget(Pg, 1, 3, 2, 2);
 
