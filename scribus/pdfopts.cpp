@@ -119,7 +119,12 @@ void PDFExportDialog::disableSave()
 void PDFExportDialog::DoExport()
 {
 	QString fn = fileNameLineEdit->text();
-	if (overwrite(this, fn))
+	bool doIt = false;
+	if (multiFile->isChecked())
+		doIt = true;
+	else
+		doIt = overwrite(this, fn);
+	if (doIt)
 	{
 		EffVal = Options->EffVal;
 		EffVal[Options->PgSel].pageViewDuration = Options->PageTime->value();
