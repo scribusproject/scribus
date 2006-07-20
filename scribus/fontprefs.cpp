@@ -69,19 +69,19 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	Header2 = Table3->horizontalHeader();
 	Header2->setLabel(0, tr("Font Name"));
 	Header2->setLabel(1, tr("Replacement"));
-	int a = 0;
-	QMap<QString,QString>::Iterator itfsu;
-	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
-	{
-		Table3->setText(a, 0, itfsu.key());
-		ScComboBox *item = new ScComboBox( true, this, "Replace" );
-		item->setEditable(false);
-		item->insertStringList(UsedFonts);
-		item->setCurrentText(itfsu.data());
-		Table3->setCellWidget(a, 1, item);
-		FlagsRepl.append(item);
-		a++;
-	}
+// 	int a = 0;
+// 	QMap<QString,QString>::Iterator itfsu;
+// 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+// 	{
+// 		Table3->setText(a, 0, itfsu.key());
+// 		ScComboBox *item = new ScComboBox( true, this, "Replace" );
+// 		item->setEditable(false);
+// 		item->insertStringList(UsedFonts);
+// 		item->setCurrentText(itfsu.data());
+// 		Table3->setCellWidget(a, 1, item);
+// 		FlagsRepl.append(item);
+// 		a++;
+// 	}
 	Table3->setColumnStretchable(0, true);
 	Table3->setColumnStretchable(1, true);
 	Table3->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
@@ -371,4 +371,18 @@ void FontPrefs::rebuildDialog()
 	fontList->sort();
 	UsedFonts.sort();
 	UpdateFliste();
+
+	int a = 0;
+	QMap<QString,QString>::Iterator itfsu;
+	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
+	{
+		Table3->setText(a, 0, itfsu.key());
+		ScComboBox *item = new ScComboBox( true, this, "Replace" );
+		item->setEditable(false);
+		item->insertStringList(UsedFonts);
+		item->setCurrentText(itfsu.data());
+		Table3->setCellWidget(a, 1, item);
+		FlagsRepl.append(item);
+		a++;
+	}
 }
