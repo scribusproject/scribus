@@ -90,29 +90,54 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if ( ev->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if (k->key() == Key_Shift)
+		bool shiftB=k->state() & ShiftButton;
+		bool controlB=k->state() & ControlButton;
+		if (k->key() == Key_Shift && !controlB)
 		{
 			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
-		    qApp->sendEvent( this, ev );
+			qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if (k->key() == Key_Control)
+		else if (k->key() == Key_Control && !shiftB)
 		{
 			setLineStep(QMAX(Decimals * 10, 1));
 			retval = true;
-		    qApp->sendEvent( this, ev );
+			qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else if ((k->key() == Key_Control && shiftB) || (k->key() == Key_Shift && controlB))
+		{
+			setLineStep(QMAX(Decimals / 100, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
 			return retval;
 		}
 	}
 	if (ev->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if ((k->key() == Key_Shift) || (k->key() == Key_Control))
+		bool shiftB=k->stateAfter() & ShiftButton;
+		bool controlB=k->stateAfter() & ControlButton;
+		if ((k->key() == Key_Shift && !controlB) || (k->key() == Key_Control && !shiftB))
 		{
 			setLineStep(Decimals);
 			retval = true;
 		    qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else if (k->key() == Key_Shift && controlB)
+		{
+			setLineStep(QMAX(Decimals * 10, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else if (k->key() == Key_Control && shiftB)
+		{
+			setLineStep(QMAX(Decimals / 10, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
 			return retval;
 		}
 	}

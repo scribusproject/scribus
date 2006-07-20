@@ -1331,11 +1331,11 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if (doc->m_Selection->count() != 0)
 		{
 			double moveBy=1.0;
-			if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
+			if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+				moveBy=0.1;
+			else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
 				moveBy=10.0;
 			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
-				moveBy=0.1;
-			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && (buttonState & AltButton))
 				moveBy=0.01;
 			moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			bool resizing=((buttonState & AltButton) && !(buttonState & ControlButton));
