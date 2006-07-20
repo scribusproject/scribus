@@ -74,7 +74,7 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 	for (itfsu = RList.begin(); itfsu != RList.end(); ++itfsu)
 	{
 		Table3->setText(a, 0, itfsu.key());
-		QComboBox *item = new ScComboBox( true, this, "Replace" );
+		ScComboBox *item = new ScComboBox( true, this, "Replace" );
 		item->setEditable(false);
 		item->insertStringList(UsedFonts);
 		item->setCurrentText(itfsu.data());
@@ -338,11 +338,8 @@ void FontPrefs::rebuildDialog()
 	SCFontsIterator it(*availFonts);
 	for ( ; it.current(); ++it)
 	{
-		if (it.currentKey().isEmpty())
-		{
-			qDebug("void FontPrefs::rebuildDialog(): Empty font name found");
+		if (!it.current()->usable())
 			continue;
-		}
 		fontSet foS;
 		QListViewItem *row = new QListViewItem(fontList);
 		row->setText(0, it.currentKey());
