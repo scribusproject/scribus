@@ -1198,6 +1198,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						view->Deselect(false);
 						doc->Items->remove(currItem->ItemNr);
 					}
+					else
+						view->Deselect(false);
 					break;
 				case modeLinkFrames:
 				case modeUnlinkFrames:
