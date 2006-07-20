@@ -31,8 +31,8 @@ QString StencilReader::createShape(QString datain)
 	QString StrokeCol = "FromDia#000000";
 	double GrW = 0.0;
 	double GrH = 0.0;
-	double sx = 1.0;
-	double sy = 1.0;
+	double Dx = 0.0;
+	double Dy = 0.0;
 	QColor stroke = Qt::black;
 	QColor fill = Qt::white;
 	Qt::PenStyle Dash = Qt::SolidLine;
@@ -201,17 +201,16 @@ QString StencilReader::createShape(QString datain)
 		FPoint tp2(getMinClipF(&PoLine));
 		PoLine.translate(-tp2.x(), -tp2.y());
 		FPoint wh = getMaxClipF(&PoLine);
-		QRect bb = QRect(qRound(tp2.x()*100), qRound(tp2.y()*100), qRound(wh.x()*100), qRound(wh.y()*100));
+		QRect bb = QRect(qRound(tp2.x()*10), qRound(tp2.y()*10), qRound(wh.x()*10), qRound(wh.y()*10));
 		bounds = bounds.unite(bb);
 		DOC = DOC.nextSibling();
 	}
-	GrW = QMAX(GrW, bounds.width() / 100.0);
-	GrH = QMAX(GrH, bounds.height() / 100.0);
-	sx = 50.0 / GrW;
-	sy = 50.0 / GrH;
-	Conversion = Conversion * QMIN(sy, sx);
-	GrW *= Conversion;
-	GrH *= Conversion;
+	GrW = bounds.width() / 10.0;
+	GrH = bounds.height() / 10.0;
+	Conversion = 100.0 / QMAX(GrW, GrH);
+	Dx = (bounds.x() / 10.0) * Conversion;
+	Dy = (bounds.y() / 10.0) * Conversion;
+	bounds = QRect();
 	DOC = svg.firstChild();
 	while(!DOC.isNull())
 	{
@@ -453,8 +452,8 @@ QString StencilReader::createShape(QString datain)
 		FPoint tp2(getMinClipF(&PoLine));
 		PoLine.translate(-tp2.x(), -tp2.y());
 		FPoint wh = getMaxClipF(&PoLine);
-		ob.setAttribute("XPOS", tp2.x());
-		ob.setAttribute("YPOS",tp2.y());
+		ob.setAttribute("XPOS", tp2.x()-Dx);
+		ob.setAttribute("YPOS",tp2.y()-Dy);
 		ob.setAttribute("WIDTH",wh.x());
 		ob.setAttribute("HEIGHT",wh.y());
 		ob.setAttribute("NUMPO", PoLine.size());
@@ -470,10 +469,12 @@ QString StencilReader::createShape(QString datain)
 		ob.setAttribute("NUMCO", 0);
 		ob.setAttribute("COCOOR", "");
 		group.appendChild(ob);
+		QRect bb = QRect(qRound(tp2.x()*10), qRound(tp2.y()*10), qRound(wh.x()*10), qRound(wh.y()*10));
+		bounds = bounds.unite(bb);
 		DOC = DOC.nextSibling();
 	}
-	group.setAttribute("W", GrW);
-	group.setAttribute("H", GrH);
+	group.setAttribute("W", bounds.width() / 10.0);
+	group.setAttribute("H", bounds.height() / 10.0);
 	return data.toString().utf8();
 }
 
