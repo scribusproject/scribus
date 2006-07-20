@@ -415,6 +415,11 @@ void GuideManager::bGroup_clicked( int )
 void GuideManager::getAutoHorizontals()
 {
 	int value = horizontalAutoCountSpin->value();
+	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
+	if (value == 0)
+		return;
+	++value;
+
 	double offset = 0;
 	double newPageHeight = locPageHeight;
 
@@ -439,8 +444,6 @@ void GuideManager::getAutoHorizontals()
 	else
 		rowSize = newPageHeight / value;
 
-	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
-
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
 		if (horizontalAutoGapCheck->isChecked())
@@ -461,6 +464,10 @@ void GuideManager::getAutoHorizontals()
 void GuideManager::getAutoVerticals()
 {
 	int value = verticalAutoCountSpin->value();
+	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
+	if (value == 0)
+		return;
+	++value;
 	double offset = 0;
 	double newPageWidth = locPageWidth;
 
@@ -485,8 +492,6 @@ void GuideManager::getAutoVerticals()
 	}
 	else
 		columnSize = newPageWidth / value;
-	
-	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
 
 	for (int i = 1, gapCount = 0; i < value; ++i)
 	{
