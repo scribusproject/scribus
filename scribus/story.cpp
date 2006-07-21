@@ -2973,15 +2973,12 @@ void StoryEditor::Do_fontPrev()
 	QString retval;
 	if (PluginManager::instance().DLLexists("fontpreview"))
 	{
-		bool result = PluginManager::instance().callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval);
+		bool result = PluginManager::instance().callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval, currDoc);
 		if (result && !retval.isEmpty())
 		{
-			sDebug("Got retval");
 			newTxFont(retval);
 			FontTools->SetFont(retval);
 		}
-		else
-			sDebug("No retval");
 	}
 	blockUpdate = false;
 }

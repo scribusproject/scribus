@@ -1313,9 +1313,9 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		 * -- Use PageDown to lower an item
 		 * -- Use the arrow keys to move an item or group around:
 		 		With no meta, by 1.0 unit
-		 		Ctrl Shift, by 0.1 units
-		 		Shift by 10.0 units
-		 		Ctrl Alt Shift 0.01 units
+		 		Ctrl, by 10.0 units
+		 		Shift by 0.1 units
+		 		Ctrl Shift 0.01 units
 		 * -- Use the arrow keys to resize an item:
 		 		Alt right arrow, move right side outwards (expand)
 		 		Alt left arrow, move left side outwards (expand)

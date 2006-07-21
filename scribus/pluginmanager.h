@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+class ScribusDoc;
 class ScribusMainWindow;
 class ScPlugin;
 class ScActionPlugin;
@@ -93,7 +94,7 @@ public:
 	 * Avoid using it in new code. You should probably prefer to dynamic_cast<>
 	 * to the plugin class and call a plugin specific method.
 	 */
-	bool callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval);
+	bool callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval, ScribusDoc* doc);
 
 	/*! \brief Return a pointer to this instance.
 

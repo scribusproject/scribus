@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "scribus.h"
+#include "scribusdoc.h"
 #include "scribuscore.h"
 #include "menumanager.h"
 #include "scraction.h"
@@ -495,15 +496,14 @@ ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisa
 }
 
 // Compatability kludge
-bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval)
+bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval, ScribusDoc* doc)
 {
 	bool result = false;
 	if (DLLexists(pluginName))
 	{
-		ScActionPlugin* plugin =
-			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
+		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
 		if (plugin)
-			result = plugin->run(0, arg);
+			result = plugin->run(doc, arg);
 	}
 	if (result)
 	{
