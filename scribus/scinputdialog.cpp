@@ -75,9 +75,8 @@ double ScInputDialog::getDouble( const QString &caption, const QString &label, d
 	ScInputDialog *dlg = new ScInputDialog(parent, name, TRUE);
 	dlg->setCaption( caption );
 	dlg->entryLabel->setText(label);
+	dlg->entrySpin->setValues(0.0, 1000.0, decimals, num);
 	dlg->entrySpin->setSuffix(suffix);
-	dlg->entrySpin->setDecimals(decimals);
-	dlg->entrySpin->setValue(num);
 	dlg->entrySpin->selectAll();
 
 	bool accepted = ( dlg->exec() == QDialog::Accepted );

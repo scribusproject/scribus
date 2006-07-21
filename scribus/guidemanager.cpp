@@ -195,7 +195,7 @@ bool GuideManager::editValueToList(QListView *list, QListViewItem *item)
 	double newGuide = ScInputDialog::getDouble(tr("Edit Guide"),
 											  tr("Enter a position:"),
 											  original,
-											  0, 1000, 2, suffix,
+											  0, 1000, docUnitDecimals, suffix,
 											  &ok, this);
 	if (!ok)
 		return false;
@@ -218,7 +218,7 @@ bool GuideManager::addValueToList(QListView *list)
 	bool ok;
 	double newGuide = ScInputDialog::getDouble(tr("New Guide"),
 										 tr("Enter a position:"),
-										 0.0, 0, 1000, 2, suffix,
+										 0.0, 0, 1000, docUnitDecimals, suffix,
 										 &ok, this );
 	if (!ok)
 		return false;
