@@ -232,32 +232,68 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	cdataStart = s.device()->at();
 	if (tmp != 0)
 	{
-		QValueList<uchar> colorTableR;
-		QValueList<uchar> colorTableG;
-		QValueList<uchar> colorTableB;
-		colorTableR.clear();
-		colorTableG.clear();
-		colorTableB.clear();
-		colorTable.clear();
-		uchar r;
-		for (uint cc = 0; cc < 256; cc++)
+		if ((header.color_mode == CM_DUOTONE))
 		{
-			s >> r;
-			colorTableR.append(r);
+			short signature;
+			short count;
+			short c, m, y, k;
+			s >> signature;
+			s >> count;
+			for (int cda = 0; cda < count; cda++)
+			{
+				s >> signature;
+				s >> c >> m >> y >> k;
+				switch (signature)
+				{
+					case 0:
+						colorTable.append(qRgb(c >> 8, m >> 8, y >> 8));
+						break;
+					case 2:
+					case 5:
+						c = c >> 8;
+						m = m >> 8;
+						y = y >> 8;
+						k = k >> 8;
+						colorTable.append(qRgb(255-QMIN(255, c+k), 255-QMIN(255,m+k), 255-QMIN(255,y+k)));
+						break;
+					case 8:
+						c = qRound((c / 10000.0) * 255);
+						colorTable.append(qRgb(c, c, c));
+						break;
+				}
+				qDebug(QString("Signature %1  Color %2 %3 %4 %5").arg(signature).arg(c).arg(m).arg(y).arg(k));
+			}
+//			return false;
 		}
-		for (uint cc = 0; cc < 256; cc++)
+		else
 		{
-			s >> r;
-			colorTableG.append(r);
-		}
-		for (uint cc = 0; cc < 256; cc++)
-		{
-			s >> r;
-			colorTableB.append(r);
-		}
-		for (uint cc = 0; cc < 256; cc++)
-		{
-			colorTable.append(qRgb(colorTableR[cc], colorTableG[cc], colorTableB[cc]));
+			QValueList<uchar> colorTableR;
+			QValueList<uchar> colorTableG;
+			QValueList<uchar> colorTableB;
+			colorTableR.clear();
+			colorTableG.clear();
+			colorTableB.clear();
+			colorTable.clear();
+			uchar r;
+			for (uint cc = 0; cc < 256; cc++)
+			{
+				s >> r;
+				colorTableR.append(r);
+			}
+			for (uint cc = 0; cc < 256; cc++)
+			{
+				s >> r;
+				colorTableG.append(r);
+			}
+			for (uint cc = 0; cc < 256; cc++)
+			{
+				s >> r;
+				colorTableB.append(r);
+			}
+			for (uint cc = 0; cc < 256; cc++)
+			{
+				colorTable.append(qRgb(colorTableR[cc], colorTableG[cc], colorTableB[cc]));
+			}
 		}
 	}
 	s.device()->at( cdataStart + tmp );
@@ -424,6 +460,15 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 					ptr[1] = cbyte;
 					ptr[2] = cbyte;
 				}
+				else if ((header.color_mode == CM_DUOTONE) && (component != 3))
+				{
+					ptr -= component;
+					int ccol = colorTable[0];
+					ptr[2] = (qRed(ccol) * cbyte) >> 8;
+					ptr[1] = (qGreen(ccol) * cbyte) >> 8;
+					ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+					ptr += component;
+				}
 				else if ((header.color_mode == CM_INDEXED) && (component != 3))
 				{
 					int ccol = colorTable[cbyte];
@@ -481,6 +526,15 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 								ptr[2] = cbyte;
 								ptr += component;
 							}
+							else if ((header.color_mode == CM_DUOTONE) && (component != 3))
+							{
+								ptr -= component;
+								int ccol = colorTable[0];
+								ptr[2] = (qRed(ccol) * cbyte) >> 8;
+								ptr[1] = (qGreen(ccol) * cbyte) >> 8;
+								ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+								ptr += component;
+							}
 							else if ((header.color_mode == CM_INDEXED) && (component != 3))
 							{
 								ptr -= component;
@@ -520,6 +574,15 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 								ptr[0] = val;
 								ptr[1] = val;
 								ptr[2] = val;
+								ptr += component;
+							}
+							else if ((header.color_mode == CM_DUOTONE) && (component != 3))
+							{
+								ptr -= component;
+								int ccol = colorTable[0];
+								ptr[2] = (qRed(ccol) * val) >> 8;
+								ptr[1] = (qGreen(ccol) * val) >> 8;
+								ptr[0] = (qBlue(ccol) * val) >> 8;
 								ptr += component;
 							}
 							else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -1233,6 +1296,15 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 							ptr[2] = cbyte;
 							ptr += components[channel];
 						}
+						else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
+						{
+							ptr -= components[channel];
+							int ccol = colorTable[0];
+							ptr[2] = (qRed(ccol) * cbyte) >> 8;
+							ptr[1] = (qGreen(ccol) * cbyte) >> 8;
+							ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+							ptr += components[channel];
+						}
 						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
 						{
 							ptr -= components[channel];
@@ -1269,6 +1341,15 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 							ptr[0] = val;
 							ptr[1] = val;
 							ptr[2] = val;
+							ptr += components[channel];
+						}
+						else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
+						{
+							ptr -= components[channel];
+							int ccol = colorTable[0];
+							ptr[2] = (qRed(ccol) * val) >> 8;
+							ptr[1] = (qGreen(ccol) * val) >> 8;
+							ptr[0] = (qBlue(ccol) * val) >> 8;
 							ptr += components[channel];
 						}
 						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1314,6 +1395,15 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 					ptr[0] = cbyte;
 					ptr[1] = cbyte;
 					ptr[2] = cbyte;
+					ptr += components[channel];
+				}
+				else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
+				{
+					ptr -= components[channel];
+					int ccol = colorTable[0];
+					ptr[2] = (qRed(ccol) * cbyte) >> 8;
+					ptr[1] = (qGreen(ccol) * cbyte) >> 8;
+					ptr[0] = (qBlue(ccol) * cbyte) >> 8;
 					ptr += components[channel];
 				}
 				else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1377,7 +1467,7 @@ bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
 	if ( header.depth != 8 )
 		return false;
 	if ((header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK)
-	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED))
+	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED) || (header.color_mode == CM_DUOTONE))
 		return true;
 	return false;
 }
