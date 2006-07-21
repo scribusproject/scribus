@@ -107,6 +107,11 @@ void GuideManager::setupPage()
 	horizontalAutoGapSpin->setEnabled(enable);
 	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap());
 	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
+	if (horizontalAutoCountSpin->value()==0)
+	{
+		horizontalAutoGapSpin->setEnabled(false);
+		horizontalAutoGapCheck->setEnabled(false);
+	}
 	// verticals
 	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
 	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
@@ -114,6 +119,11 @@ void GuideManager::setupPage()
 	verticalAutoGapSpin->setEnabled(enable);
 	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap());
 	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
+	if (verticalAutoCountSpin->value()==0)
+	{
+		verticalAutoGapSpin->setEnabled(false);
+		verticalAutoGapCheck->setEnabled(false);
+	}
 	bGroup->setButton(currentPage->guides.autoRefer());
 }
 
@@ -362,7 +372,7 @@ void GuideManager::applyToAllAutoButton_clicked()
 
 void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
 {
-	bool enable = (val == 1) ? false : true;
+	bool enable = (val == 0) ? false : true;
 	horizontalAutoGapCheck->setEnabled(enable);
 	if (enable && horizontalAutoGapCheck->isChecked())
 		horizontalAutoGapSpin->setEnabled(true);
@@ -384,7 +394,7 @@ void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 
 void GuideManager::verticalAutoCountSpin_valueChanged(int val)
 {
-	bool enable = (val == 1) ? false : true;
+	bool enable = (val == 0) ? false : true;
 	verticalAutoGapCheck->setEnabled(enable);
 	if (enable && verticalAutoGapCheck->isChecked())
 		verticalAutoGapSpin->setEnabled(true);
