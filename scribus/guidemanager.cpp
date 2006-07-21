@@ -172,11 +172,11 @@ bool GuideManager::deleteValueFormList(QListView *list)
 	while (it.current())
 	{
 		itemToDelete = it.current();
-		double value = itemToDelete->text(0).toDouble();
+		QString value = itemToDelete->text(0);
 		if (list == horizontalList)
-			currentPage->guides.deleteHorizontal(value / docUnitRatio, GuideManagerCore::Standard);
+			currentPage->guides.deleteHorizontal(m_horMap[value], GuideManagerCore::Standard);
 		else
-			currentPage->guides.deleteVertical(value / docUnitRatio, GuideManagerCore::Standard);
+			currentPage->guides.deleteVertical(m_verMap[value], GuideManagerCore::Standard);
 		++it;
 		if (itemToDelete)
 		{
@@ -198,27 +198,30 @@ void GuideManager::delVerButton_clicked()
 	deleteValueFormList(verticalList);
 }
 
-bool GuideManager::editValueToList(QListView *list, QListViewItem *item)
+bool GuideManager::editValueToList(QListView *list)
 {
 	bool ok;
-	double original = item->text(0).toDouble();
+	QString original = list->currentItem()->text(0);
 	double newGuide = ScInputDialog::getDouble(tr("Edit Guide"),
 											  tr("Enter a position:"),
-											  original,
+											  original.toDouble(),
 											  0, 1000, docUnitDecimals, suffix,
 											  &ok, this);
 	if (!ok)
 		return false;
 
-	QString tmp;
-	tmp = tmp.setNum(newGuide, 'f', docUnitPrecision);
 	if (list == horizontalList)
-		currentPage->guides.moveHorizontal(original / docUnitRatio, newGuide / docUnitRatio, GuideManagerCore::Standard);
+	{
+		currentPage->guides.moveHorizontal(m_horMap[original],
+										   newGuide / docUnitRatio, GuideManagerCore::Standard);
+		clearRestoreHorizontalList();
+	}
 	else
-		currentPage->guides.moveVertical(original / docUnitRatio, newGuide / docUnitRatio, GuideManagerCore::Standard);
-
-	item->setText(0, tmp);
-	list->setSelected(item, true);
+	{
+		currentPage->guides.moveVertical(m_verMap[original],
+										 newGuide / docUnitRatio, GuideManagerCore::Standard);
+		clearRestoreVerticalList();
+	}
 	drawGuides();
 	return true;
 }
@@ -235,12 +238,20 @@ bool GuideManager::addValueToList(QListView *list)
 
 	QString tmp;
 	tmp = tmp.setNum(newGuide, 'f', docUnitPrecision);
+	double ng = newGuide / docUnitRatio;
 	if (list == horizontalList)
-		currentPage->guides.addHorizontal(newGuide / docUnitRatio, GuideManagerCore::Standard);
+	{
+		currentPage->guides.addHorizontal(ng, GuideManagerCore::Standard);
+		m_horMap[tmp] = ng;
+	}
 	else
+	{
 		currentPage->guides.addVertical(newGuide / docUnitRatio, GuideManagerCore::Standard);
+		m_verMap[tmp] = ng;
+	}
 
-	QListViewItem *item = new GuideListItem(list, tmp, suffix);
+	GuideListItem *item = new GuideListItem(list, tmp, suffix);
+	item->setRenameEnabled(0, true);
 	list->insertItem(item);
 	list->setCurrentItem(item);
 	list->clearSelection();
@@ -322,20 +333,19 @@ void GuideManager::resetMarginsForPage()
 	}
 }
 
-void GuideManager::setGuidesFromList(QListView *w, Guides guides)
+void GuideManager::setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guides)
 {
-	Guides::iterator it;
 	QString tmp;
-
 	//w->clear(); // clearing is moved into the setupPage()
-	for (it = guides.begin(); it != guides.end(); ++it)
+	for (Guides::iterator it = guides.begin(); it != guides.end(); ++it)
 	{
 		tmp = tmp.setNum((*it) * docUnitRatio , 'f', docUnitPrecision);
 		// no insert for duplicates
 		if (w->findItem(tmp, 0) != 0)
 			continue;
-		QListViewItem *item = new GuideListItem(w, tmp, suffix);
+		GuideListItem *item = new GuideListItem(w, tmp, suffix);
 		w->insertItem(item);
+		map->insert(tmp, (*it));
 	}
 }
 
@@ -536,24 +546,24 @@ void GuideManager::tabWidget_currentChanged( QWidget * )
 	}
 }
 
-void GuideManager::horizontalList_doubleClicked( QListViewItem * item)
+void GuideManager::horizontalList_doubleClicked( QListViewItem * )
 {
-	editValueToList(horizontalList, item);
+	editValueToList(horizontalList);
 }
 
-void GuideManager::horizontalList_returnPressed( QListViewItem * item)
+void GuideManager::horizontalList_returnPressed( QListViewItem * )
 {
-	editValueToList(horizontalList, item);
+	editValueToList(horizontalList);
 }
 
-void GuideManager::verticalList_returnPressed( QListViewItem * item)
+void GuideManager::verticalList_returnPressed( QListViewItem * )
 {
-	editValueToList(verticalList, item);
+	editValueToList(verticalList);
 }
 
-void GuideManager::verticalList_doubleClicked( QListViewItem * item)
+void GuideManager::verticalList_doubleClicked( QListViewItem * )
 {
-	editValueToList(verticalList, item);
+	editValueToList(verticalList);
 }
 
 Guides GuideManager::selectedHorizontals()
@@ -599,14 +609,16 @@ void GuideManager::drawGuides()
 
 void GuideManager::clearRestoreHorizontalList()
 {
+	m_horMap.clear();
 	horizontalList->clear();
-	setGuidesFromList(horizontalList,
+	setGuidesFromList(horizontalList, &m_horMap,
 					  currentPage->guides.horizontals(GuideManagerCore::Standard));
 }
 
 void GuideManager::clearRestoreVerticalList()
 {
+	m_verMap.clear();
 	verticalList->clear();
-	setGuidesFromList(verticalList,
+	setGuidesFromList(verticalList, &m_verMap,
 					  currentPage->guides.verticals(GuideManagerCore::Standard));
 }

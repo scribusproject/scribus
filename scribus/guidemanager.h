@@ -26,11 +26,21 @@ class QHButtonGroup;
 
 class ScribusDoc;
 
+/*! \brief Mapping of the GUI representation to the real double values.
+It's againts the divide/multiple rounding errors
+\author Petr Vanek <petr@scribus.info>
+ */
+typedef QMap<QString,double> GuideGUIMap;
+
 
 /*! \brief Inherited QListViewItem provides double number values sorting.
 Guides lists contains double values in 1st (0) columns. Standard QListViewItem
 provides string sorting so I have to create some special number related one ;)
-\author Petr Vanek <petr@yarpen.cz>
+Due the rounding problems in divisions and multiplications of the GUI representation
+of the guide, there are two internal mappings: GuideGUIMap. There are hold the
+real double values as they are in page.guides structures mapped into QString
+representation i this GUI palette.
+\author Petr Vanek <petr@scribus.info>
 */
 class SCRIBUS_API GuideListItem : public QListViewItem
 {
@@ -113,6 +123,10 @@ private:
 	//! \brief position of the group of selected objects
 	double gx, gy, gw, gh;
 
+	//! \brief Mapping of the GUI representation to the real double values.
+	GuideGUIMap m_horMap;
+	GuideGUIMap m_verMap;
+
 	//! \brief Initialise the units. Spin boxes gets pt/mm/etc. extensions here.
 	void unitChange();
 
@@ -129,7 +143,7 @@ private:
 	\param w a widget to set the values. Horizontal or vertical guides list.
 	\param guides a list with values. E.g. the real document guide list.
 	*/
-	void setGuidesFromList(QListView *w, Guides guides);
+	void setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guides);
 
 	/*! \brief Recalculate the margins and measurements for the current page.
 	It's used for automatic guides position. It's called for every
@@ -142,7 +156,11 @@ private:
 	\retval bool false on no add (duplicate etc.), true on success.
 	*/
 	bool addValueToList(QListView *list);
-	bool editValueToList(QListView *list, QListViewItem *item);
+	/*! \brief Edit a value taken from guides list.
+	It's called by "edit" slots.
+	\param list a reference to the QListView to edit a value.
+	\retval bool false on no edit. */
+	bool editValueToList(QListView *list);
 
 	/*! \brief Delete all selected values from list.
 	\param list a pointer to the chosen QListView

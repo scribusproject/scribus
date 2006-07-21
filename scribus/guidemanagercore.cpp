@@ -233,7 +233,6 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			break;
 	}
 }
-
 void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 {
 	switch (type)
@@ -241,7 +240,6 @@ void GuideManagerCore::moveHorizontal(double from, double to, GuideType type)
 		case Standard:
 			horizontalStdG.remove(horizontalStdG.find(from));
 			horizontalStdG.append(to);
-			ScCore->primaryMainWindow()->guidePalette->clearRestoreHorizontalList();
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
@@ -264,7 +262,6 @@ void GuideManagerCore::moveVertical(double from, double to, GuideType type)
 		case Standard:
 			verticalStdG.remove(verticalStdG.find(from));
 			verticalStdG.append(to);
-			ScCore->primaryMainWindow()->guidePalette->clearRestoreVerticalList();
 			if (UndoManager::undoEnabled())
 			{
 				SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
