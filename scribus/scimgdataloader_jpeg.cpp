@@ -1,5 +1,12 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #include <qfile.h>
 #include <qfileinfo.h>
+#include <qobject.h>
 #include <setjmp.h>
 #include "scconfig.h"
 #include "scimgdataloader_jpeg.h"
@@ -161,8 +168,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		{
 			xres = yres = 72.0;
 			QFileInfo qfi(fn);
-			QCString fname = qfi.fileName().local8Bit();
-			qWarning("Warning: %s may be corrupted", fname.data());
+			m_message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+			m_msgType = warningMsg;
 		}
 		m_imageInfoRecord.xres = qRound(xres);
 		m_imageInfoRecord.yres = qRound(yres);
@@ -228,8 +235,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	{
 		xres = yres = 72.0;
 		QFileInfo qfi(fn);
-		QCString fname = qfi.fileName().local8Bit();
-		qWarning("Warning: %s may be corrupted", fname.data());
+		m_message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+		m_msgType = warningMsg;
 	}
 	m_imageInfoRecord.xres = qRound(xres);
 	m_imageInfoRecord.yres = qRound(yres);

@@ -1,3 +1,9 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
 #ifndef SCIMGDATALOADER_H
 #define SCIMGDATALOADER_H
 
@@ -20,6 +26,14 @@ protected:
 	QByteArray m_embeddedProfile;
 	int m_profileComponents;
 
+	typedef enum {
+		noMsg = 0,
+		warningMsg = 1,
+		errorMsg = 2
+	} MsgType;
+	MsgType m_msgType;
+	QString m_message;
+
 	void swapRGBA(void);
 
 	QString getPascalString(QDataStream & s);
@@ -34,6 +48,10 @@ public:
 	QImage& image(void) { return m_image; }
 	QByteArray& embeddedProfile(void) { return m_embeddedProfile; }
 	ImageInfoRecord& imageInfoRecord(void) { return m_imageInfoRecord; }
+
+	bool  issuedErrorMsg(void) const { return (m_msgType == errorMsg); }
+	bool  issuedWarningMsg(void) const { return (m_msgType == warningMsg); }
+	const QString& getMessage(void) const { return m_message; }
 
 	virtual void initialize(void);
 

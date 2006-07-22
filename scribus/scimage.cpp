@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_pdf.h"
 #include "scimgdataloader_qt.h"
 #include "scimgdataloader_tiff.h"
+#include <qmessagebox.h>
 #include <qtextstream.h>
 #include <memory>
 #include <cassert>
@@ -1374,8 +1375,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 }
 
 bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
-						  bool useEmbedded, bool useProf,
-						  RequestType requestType, int gsRes, bool *realCMYK)
+						  bool useEmbedded, bool useProf, RequestType requestType,
+						  int gsRes, bool *realCMYK, bool showMsg)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
@@ -1437,7 +1438,18 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		pDataLoader->image() = QImage();
 	}
 	else
+	{
+		if	(ScCore->usingGUI() && pDataLoader->issuedErrorMsg() && showMsg)
+		{
+			QMessageBox::critical(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
+		}
+		else if (pDataLoader->issuedErrorMsg())
+		{
+			QString msg = pDataLoader->getMessage();
+			qWarning( msg.local8Bit().data() );
+		}
 		return false;
+	}
 
 	if (isNull())
 		return  ret;
@@ -1627,5 +1639,14 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
 	imgInfo.xres = QMAX(72, qRound(xres));
 	imgInfo.yres = QMAX(72, qRound(yres)); */
+	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
+	{
+		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);
+	}
+	else if (pDataLoader->issuedErrorMsg())
+	{
+		QString msg = pDataLoader->getMessage();
+		qWarning( msg.local8Bit().data() );
+	}
 	return true;
 }

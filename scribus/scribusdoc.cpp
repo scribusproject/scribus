@@ -2905,19 +2905,19 @@ void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
 	automaticTextFrames=atf;
 }
 
-bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload)
+bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload, bool showMsg )
 {
-	return loadPict(fn, Items->at(ItNr), reload);
+	return loadPict(fn, Items->at(ItNr), reload, showMsg);
 }
 
-bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
+bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool showMsg)
 {
 	if (!reload)
 	{
 		if ((ScCore->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
 			ScCore->fileWatcher->removeFile(pageItem->Pfile);
 	}
-	if(!pageItem->loadImage(fn, reload))
+	if(!pageItem->loadImage(fn, reload, -1, showMsg))
 		return false;
 	if (!reload)
 		ScCore->fileWatcher->addFile(pageItem->Pfile);
