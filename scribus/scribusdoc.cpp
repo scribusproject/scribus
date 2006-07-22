@@ -2467,19 +2467,19 @@ void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
 	automaticTextFrames=atf;
 }
 
-bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload)
+bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload, bool showMsg)
 {
-	return loadPict(fn, Items->at(ItNr), reload);
+	return loadPict(fn, Items->at(ItNr), reload, showMsg);
 }
 
-bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
+bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool showMsg)
 {
 	if (!reload)
 	{
 		if ((ScMW->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
 			ScMW->fileWatcher->removeFile(pageItem->Pfile);
 	}
-	if(!pageItem->loadImage(fn, reload))
+	if(!pageItem->loadImage(fn, reload, -1, showMsg))
 		return false;
 	if (!reload)
 		ScMW->fileWatcher->addFile(pageItem->Pfile);

@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimage.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include <qtextstream.h>
 #include <cassert>
 #ifdef HAVE_CMS
@@ -3376,7 +3377,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 
 bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						  int rend, bool useEmbedded, bool useProf,
-						  int requestType, int gsRes, bool *realCMYK)
+						  int requestType, int gsRes, bool *realCMYK, 
+						  bool showMsg)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
@@ -3403,6 +3405,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	double x, y, b, h;
 	bool found = false;
 	int retg = -1;
+	QString message;
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
@@ -3593,8 +3596,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			{
 				xres = yres = 72.0;
 				QFileInfo qfi(fn);
-				QCString fname = qfi.fileName().local8Bit();
-				qWarning("Warning: %s may be corrupted", fname.data());
+				message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
 			}
 
 			if (!create(widtht,heightt,32))
@@ -3891,8 +3893,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			{
 				xres = yres = 72.0;
 				QFileInfo qfi(fn);
-				QCString fname = qfi.fileName().local8Bit();
-				qWarning("Warning: %s may be corrupted", fname.data());
+				message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
 			}
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
@@ -3964,8 +3965,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 			xres = yres = 72.0;
 			QFileInfo qfi(fn);
-			QCString fname = qfi.fileName().local8Bit();
-			qWarning("Warning: %s may be corrupted", fname.data());
+			message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
 		}
 		imgInfo.xres = qRound(xres);
 		imgInfo.yres = qRound(yres);
@@ -4303,5 +4303,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
 	imgInfo.xres = QMAX(72, qRound(xres));
 	imgInfo.yres = QMAX(72, qRound(yres)); */
+	if	(ScQApp->usingGUI() && !message.isEmpty() && showMsg)
+	{
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, message, 1, 0, 0);
+	}
+	else if (!message.isEmpty())
+		qWarning( message.local8Bit().data() );
 	return true;
 }
