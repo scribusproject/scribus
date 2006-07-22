@@ -227,7 +227,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			double newXScale=dX / 100.0 * LocalScX;
 			setImageXScale(newXScale);
-			if (controlDown)
+			if (!controlDown)
 			{
 				double newYScale=dX / 100.0 * LocalScY;
 				setImageYScale(newYScale);
@@ -238,7 +238,7 @@ void PageItem_ImageFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			double newYScale=dY / 100.0 * LocalScY;
 			setImageYScale(newYScale);
-			if (controlDown)
+			if (!controlDown)
 			{
 				double newXScale=dY / 100.0 * LocalScY;
 				setImageXScale(newXScale);
