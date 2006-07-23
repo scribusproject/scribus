@@ -1518,6 +1518,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			if (prnProfColorSpace != icSigCmykData )
 				*realCMYK = isCMYK = false;
 			break;
+		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK)
 				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
@@ -1612,6 +1613,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case RGBData:
 		case RGBProof:
+		case Thumbnail:
 			if (isCMYK)
 			{
 				for (int i = 0; i < height(); i++)

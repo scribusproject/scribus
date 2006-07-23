@@ -172,6 +172,8 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 			m_imageInfoRecord.colorspace = 0;
 		else if (header.color_mode == CM_GRAYSCALE)
 			m_imageInfoRecord.colorspace = 2;
+		else if (header.color_mode == CM_DUOTONE)
+			m_imageInfoRecord.colorspace = 0;
 		m_imageInfoRecord.valid = true;
 		m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
@@ -243,6 +245,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 			short signature;
 			short count;
 			short c, m, y, k;
+			ScColor col;
 			s >> signature;
 			s >> count;
 			for (int cda = 0; cda < count; cda++)
@@ -252,22 +255,22 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 				switch (signature)
 				{
 					case 0:
-						colorTable.append(qRgb(c >> 8, m >> 8, y >> 8));
+						colorTableSc.append(ScColor(c >> 8, m >> 8, y >> 8));
 						break;
 					case 2:
 					case 5:
-						c = c >> 8;
+						colorTableSc.append(ScColor(c >> 8, m >> 8, y >> 8, k >> 8));
+/*						c = c >> 8;
 						m = m >> 8;
 						y = y >> 8;
 						k = k >> 8;
-						colorTable.append(qRgb(255-QMIN(255, c+k), 255-QMIN(255,m+k), 255-QMIN(255,y+k)));
+						colorTable.append(qRgb(255-QMIN(255, c+k), 255-QMIN(255,m+k), 255-QMIN(255,y+k))); */
 						break;
 					case 8:
 						c = qRound((c / 10000.0) * 255);
-						colorTable.append(qRgb(c, c, c));
+						colorTableSc.append(ScColor(0, 0, 0, 255-c));
 						break;
 				}
-				qDebug(QString("Signature %1  Color %2 %3 %4 %5").arg(signature).arg(c).arg(m).arg(y).arg(k));
 			}
 //			return false;
 		}
@@ -444,6 +447,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 {
 	uint base = s.device()->at();
 	uchar cbyte;
+	int c2, m, y, k;
 	ushort compression;
 	s >> compression;
 	if( compression > 1 )
@@ -469,10 +473,19 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 				else if ((header.color_mode == CM_DUOTONE) && (component != 3))
 				{
 					ptr -= component;
-					int ccol = colorTable[0];
-					ptr[2] = (qRed(ccol) * cbyte) >> 8;
-					ptr[1] = (qGreen(ccol) * cbyte) >> 8;
-					ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+					int c1, m1, y1, k1;
+					colorTableSc[0].getCMYK(&c2, &m, &y, &k);
+					for (uint cc = 0; cc < colorTableSc.count(); cc++)
+					{
+						colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
+						c2 = QMIN(c2+c1, 255);
+						m = QMIN(m+m1, 255);
+						y = QMIN(y+y1, 255);
+						k = QMIN(k+k1, 255);
+					}
+					ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
+					ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
+					ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
 					ptr += component;
 				}
 				else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -535,10 +548,19 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 							else if ((header.color_mode == CM_DUOTONE) && (component != 3))
 							{
 								ptr -= component;
-								int ccol = colorTable[0];
-								ptr[2] = (qRed(ccol) * cbyte) >> 8;
-								ptr[1] = (qGreen(ccol) * cbyte) >> 8;
-								ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+								int c1, m1, y1, k1;
+								colorTableSc[0].getCMYK(&c2, &m, &y, &k);
+								for (uint cc = 0; cc < colorTableSc.count(); cc++)
+								{
+									colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
+									c2 = QMIN(c2+c1, 255);
+									m = QMIN(m+m1, 255);
+									y = QMIN(y+y1, 255);
+									k = QMIN(k+k1, 255);
+								}
+								ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
+								ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
+								ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
 								ptr += component;
 							}
 							else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -585,10 +607,19 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 							else if ((header.color_mode == CM_DUOTONE) && (component != 3))
 							{
 								ptr -= component;
-								int ccol = colorTable[0];
-								ptr[2] = (qRed(ccol) * val) >> 8;
-								ptr[1] = (qGreen(ccol) * val) >> 8;
-								ptr[0] = (qBlue(ccol) * val) >> 8;
+								int c1, m1, y1, k1;
+								colorTableSc[0].getCMYK(&c2, &m, &y, &k);
+								for (uint cc = 0; cc < colorTableSc.count(); cc++)
+								{
+									colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
+									c2 = QMIN(c2+c1, 255);
+									m = QMIN(m+m1, 255);
+									y = QMIN(y+y1, 255);
+									k = QMIN(k+k1, 255);
+								}
+								ptr[2]  = ((255 - QMIN(255, c2 + k)) * val) >> 8;
+								ptr[1]  = ((255 - QMIN(255, m + k)) * val) >> 8;
+								ptr[0]  = ((255 - QMIN(255, y + k)) * val) >> 8;
 								ptr += component;
 							}
 							else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -1241,6 +1272,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 	//   1: RLE compressed
 	ushort compression;
 	uchar cbyte;
+	int c2, m, y, k;
 	s >> compression;
 	if( compression > 1 )
 	{
@@ -1305,10 +1337,19 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 						else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
 						{
 							ptr -= components[channel];
-							int ccol = colorTable[0];
-							ptr[2] = (qRed(ccol) * cbyte) >> 8;
-							ptr[1] = (qGreen(ccol) * cbyte) >> 8;
-							ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+							int c1, m1, y1, k1;
+							colorTableSc[0].getCMYK(&c2, &m, &y, &k);
+							for (uint cc = 0; cc < colorTableSc.count(); cc++)
+							{
+								colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
+								c2 = QMIN(c2+c1, 255);
+								m = QMIN(m+m1, 255);
+								y = QMIN(y+y1, 255);
+								k = QMIN(k+k1, 255);
+							}
+							ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
+							ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
+							ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
 							ptr += components[channel];
 						}
 						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1352,10 +1393,19 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 						else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
 						{
 							ptr -= components[channel];
-							int ccol = colorTable[0];
-							ptr[2] = (qRed(ccol) * val) >> 8;
-							ptr[1] = (qGreen(ccol) * val) >> 8;
-							ptr[0] = (qBlue(ccol) * val) >> 8;
+							int c1, m1, y1, k1;
+							colorTableSc[0].getCMYK(&c2, &m, &y, &k);
+							for (uint cc = 0; cc < colorTableSc.count(); cc++)
+							{
+								colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
+								c2 = QMIN(c2+c1, 255);
+								m = QMIN(m+m1, 255);
+								y = QMIN(y+y1, 255);
+								k = QMIN(k+k1, 255);
+							}
+							ptr[2]  = ((255 - QMIN(255, c2 + k)) * val) >> 8;
+							ptr[1]  = ((255 - QMIN(255, m + k)) * val) >> 8;
+							ptr[0]  = ((255 - QMIN(255, y + k)) * val) >> 8;
 							ptr += components[channel];
 						}
 						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1406,10 +1456,19 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 				else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
 				{
 					ptr -= components[channel];
-					int ccol = colorTable[0];
-					ptr[2] = (qRed(ccol) * cbyte) >> 8;
-					ptr[1] = (qGreen(ccol) * cbyte) >> 8;
-					ptr[0] = (qBlue(ccol) * cbyte) >> 8;
+					int c1, m1, y1, k1;
+					colorTableSc[0].getCMYK(&c2, &m, &y, &k);
+					for (uint cc = 0; cc < colorTableSc.count(); cc++)
+					{
+						colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
+						c2 = QMIN(c2+c1, 255);
+						m = QMIN(m+m1, 255);
+						y = QMIN(y+y1, 255);
+						k = QMIN(k+k1, 255);
+					}
+					ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
+					ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
+					ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
 					ptr += components[channel];
 				}
 				else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))

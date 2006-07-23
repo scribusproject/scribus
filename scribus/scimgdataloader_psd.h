@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvaluelist.h>
 #include "scimgdataloader.h"
+#include "sccolor.h"
 
 class ScImgDataLoader_PSD : public ScImgDataLoader
 {
@@ -35,6 +36,7 @@ public:
 protected:
 
 	QValueList<unsigned int> colorTable;
+	QValueList<ScColor> colorTableSc;
 	int random_table[4096];
 
 	void initSupportedFormatList();
