@@ -338,7 +338,7 @@ void FontPrefs::rebuildDialog()
 	SCFontsIterator it(*availFonts);
 	for ( ; it.hasNext(); it.next())
 	{
-		if (!it.current().usable())
+		if (it.current().isNone())
 			continue;
 		fontSet foS;
 		QListViewItem *row = new QListViewItem(fontList);
