@@ -760,9 +760,11 @@ void PageItem_TextFrame::layout()
 							 ) 
 						leftCorr *= -0.5;
 					else {
-						leftCorr = 0;
-//						leftCorr = Cwidth(m_Doc, itemText.charStyle(a).font(), QChar('o'), chs / 10.0, itemText.text(a));
-//						leftCorr -= Cwidth(m_Doc, itemText.charStyle(a).font(), QChar('o'), chs / 10.0);
+						leftCorr = itemText.charStyle(a).font().charWidth(QChar(' '), chs / 10.0, itemText.text(a));
+						leftCorr -= itemText.charStyle(a).font().charWidth(QChar(' '), chs / 10.0);
+		//				double leftCorr2 = itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0, itemText.text(a));
+		//				leftCorr2 -= itemText.charStyle(a).font().charWidth(QChar('K'), chs / 10.0);
+		//				leftCorr = QMIN(leftCorr, leftCorr2);
 					}
 					CurX += leftCorr;
 				}
