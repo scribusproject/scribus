@@ -11,10 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "scfonts.h"
 #include "scribusstructs.h"
+#include "styles/styleset.h"
 
 #include <qdom.h>
 #include <qmap.h>
-#include <qptrlist.h>
 #include <qstring.h>
 #include <qvaluelist.h>
 
@@ -39,11 +39,11 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 
 		// Special features - .sla page extraction support
 		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
-		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
+		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois);
+		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces);
 
 	private:
 		void registerFormats();
@@ -51,14 +51,14 @@ class PLUGIN_API Scribus13Format : public LoadSavePlugin
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
-		void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 		void WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master);
 		void WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master);
 		void SetItemProps(QDomElement *ob, PageItem* item, bool newFormat);
 		QValueList<int> LFrames;
-		QPtrList<Foi> dummyFois;
+		QValueList<ScFace> dummyScFaces;
 		bool newReplacement;
 		QMap<QString,QString> ReplacedFonts;
 		QMap<uint,QString> DoVorl;

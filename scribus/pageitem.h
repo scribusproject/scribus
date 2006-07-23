@@ -46,7 +46,6 @@ class ScPainter;
 class ScribusDoc;
 class UndoManager;
 class UndoState;
-class Foi;
 
 class PageItem_ImageFrame;
 class PageItem_Line;
@@ -179,33 +178,6 @@ protected:
 public:
 	PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double w, double h, double w2, QString fill, QString outline);
 	~PageItem() {};
-	struct ZZ {
-				double xco;
-				double yco;
-				double wide;
-				double kern;
-				int Siz;
-				int realSiz;
-				int Style;
-				int scale;
-				int scalev;
-				int shade;
-				int shade2;
-				int shadowX;
-				int shadowY;
-				int outline;
-				int base;
-				int underpos;
-				int underwidth;
-				int strikepos;
-				int strikewidth;
-				bool Sele;
-				QString Zeich;
-				QString Farb;
-				QString Farb2;
-				Foi* ZFo;
-				PageItem* embedded;
-			};
 	/**
 	 * @brief Clear the contents of a frame.
 	 * WARNING: Currently *they* do not check if the user wants this.
@@ -256,7 +228,7 @@ protected:
 	void DrawObj_PolyLine(ScPainter *p);
 	void DrawObj_PathText(ScPainter *p, double sc);
 public:
-	void DrawObj_Embedded(ScPainter *p, QRect e, struct ZZ *hl);
+	void DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, PageItem* cembedded);
 	void SetFrameShape(int count, double *vals);
 	void SetRectFrame();
 	void SetOvalFrame();
@@ -305,9 +277,9 @@ public:
 	/// returns the style at the current charpos
 	const CharStyle& currentCharStyle() const;
 	// deprecated:
-	double SetZeichAttr(const CharStyle& hl, int *chs, QString *chx);
+	double layoutGlyphs(const CharStyle& style, const QString chars, GlyphLayout& layout);
 	void SetFarbe(QColor *tmp, QString farbe, int shad);
-	void DrawZeichenS(ScPainter *p, struct ZZ *hl);
+	void drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs );
 	void DrawPolyL(QPainter *p, QPointArray pts);
 	QString ExpandToken(uint base);
 	

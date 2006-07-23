@@ -140,7 +140,7 @@ SMPStyleWidget::~SMPStyleWidget()
 /******************************************************************************/
 /******************************************************************************/
 
-SMParagraphStyle::SMParagraphStyle() : StyleItem(), pwidget_(0)
+SMParagraphStyle::SMParagraphStyle() : StyleItem(), pwidget_(0), doc_(NULL)
 {
 
 }
@@ -166,19 +166,19 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 {
 	Q_ASSERT(doc);
 	doc_ = doc;
-	tmpPStyles_ = doc_->docParagraphStyles;
+//	tmpPStyles_ = doc_->docParagraphStyles;
 }
 
 QValueList<StyleName> SMParagraphStyle::styles()
 {
 	QValueList<StyleName> tmpList;
 
-	if (tmpPStyles_.count() < 6)
+	if (!doc_ || doc_->docParagraphStyles.count() < 6)
 		return tmpList;
 
-	for (uint x = 5; x < tmpPStyles_.count(); ++x)
-		tmpList << StyleName(tmpPStyles_[x].name(),
-		                     tmpPStyles_[x].parent() ? tmpPStyles_[x].parent()->name() : QString::null);
+	for (uint x = 5; x < doc_->docParagraphStyles.count(); ++x)
+		tmpList << StyleName(doc_->docParagraphStyles[x].name(),
+		                     doc_->docParagraphStyles[x].parent() ? doc_->docParagraphStyles[x].parent()->name() : QString::null);
 
 	return tmpList;
 }

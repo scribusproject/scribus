@@ -2,10 +2,10 @@
 #include <qvaluelist.h>
 #include <cassert>  //added to make Fedora-5 happy
 #include "fpoint.h"
-#include "sctextstruct.h"
+#include "scfonts.h"
+//#include "sctextstruct.h"
 #include "storytext.h"
 #include "scribus.h"
-#include "scfonts.h"
 #include "util.h"
 
 
@@ -120,7 +120,7 @@ void StoryText::clear()
 			delete it->cembedded;
 			it->cembedded = 0;
 		}
-		else if ((it->ch[0] == SpecialChars::PARSEP)) {
+		else if ((it->ch[0] == SpecialChars::PARSEP) && it->parstyle) {
 			delete it->parstyle;
 			it->parstyle = 0;
 		}
@@ -209,6 +209,7 @@ static void removeParSep(StoryText* that, int pos)
 		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
 		replaceParentStyle(that, pos, oldP, newP);
 		delete it->parstyle;
+		it->parstyle = 0;
 	}
 }
 
@@ -253,7 +254,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		return;
 	
 	const CharStyle style = pos == 0 ? defaultStyle().charStyle() : charStyle(pos - 1);
-	assert(style.font() != NULL);
+	assert( !style.font().isNone() );
 	
 //	const int paraStyle = pos == 0 ? 0 : at(pos - 1)->cab;
 	
@@ -413,7 +414,9 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	}
 	else if ( !that->d->current()->parstyle ) {
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
-		that->d->current()->parstyle = new ParagraphStyle(defaultStyle());
+		that->d->current()->parstyle = new ParagraphStyle();
+		that->d->current()->parstyle->setParent( & that->d->defaultStyle);
+		that->d->current()->parstyle->charStyle().setParent( & that->d->defaultStyle.charStyle() );
 	}
 	else {
 //		qDebug(QString("using parstyle at %1").arg(pos));
@@ -512,7 +515,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 	if (i < length()) {
 		if (!d->at(i)->parstyle) {
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
-			d->at(i)->parstyle = new ParagraphStyle(defaultStyle());
+			d->at(i)->parstyle = new ParagraphStyle();
 		}
 //		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->applyStyle(style);
@@ -545,7 +548,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 	if (i < length()) {
 		if (!d->at(i)->parstyle) {
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
-			d->at(i)->parstyle = new ParagraphStyle(defaultStyle());
+			d->at(i)->parstyle = new ParagraphStyle();
 		}
 		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->eraseStyle(style);

@@ -58,15 +58,8 @@ public:
 	bool doExport(const QString& fn, const QString& nam, int Components,
 				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
-	// used by ScFonts
-	struct GlNamInd
-	{
-		uint Code;
-		QString Name;
-	};
-
 private:
-	typedef QMap<uint, GlNamInd> GListeInd;
+	typedef QMap<QChar, std::pair<uint, QString> > GListe;
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);
@@ -119,7 +112,7 @@ private:
 
 	int bytesWritten() { return Spool.at(); }
 
-	QMap<QString, GListeInd> GlyphsIdxOfFont;
+	QMap<QString, GListe> GlyphsIdxOfFont;
 	QString Inhalt;
 	ScribusDoc & doc;
 	const Page * ActPageP;

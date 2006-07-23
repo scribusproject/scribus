@@ -28,7 +28,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "multiprogressdialog.h"
 #include "scpaths.h"
-#include "scfontmetrics.h"
 #include "selection.h"
 #include "prefsmanager.h"
 #include "undomanager.h"

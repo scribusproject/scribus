@@ -50,7 +50,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
-
+#include "styles/styleset.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -786,7 +786,8 @@ public: // Public attributes
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
 	QValueList<uint> DragElements;
-	QValueList<ParagraphStyle> docParagraphStyles;
+	StyleSet<ParagraphStyle> docParagraphStyles;
+	StyleSet<CharStyle> docCharStyles;
 	QValueList<Layer> Layers;
 	bool marginColored;
 	int GroupCounter;

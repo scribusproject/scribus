@@ -128,6 +128,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	ElemToLink(0),
 	DragElements(),
 	docParagraphStyles(),
+	docCharStyles(),
 	Layers(),
 	marginColored(prefsData.marginColored),
 	GroupCounter(1),
@@ -226,6 +227,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	ElemToLink(0),
 	DragElements(),
 	docParagraphStyles(),
+	docCharStyles(),
 	Layers(),
 	marginColored(prefsData.marginColored),
 	GroupCounter(1),
@@ -355,22 +357,22 @@ void ScribusDoc::init()
 	vg.charStyle().setScaleH(1000);
 	vg.charStyle().setScaleV(1000);
 	vg.charStyle().setTracking(0);
-	docParagraphStyles.append(vg);
+	docParagraphStyles.create(vg);
 	
 	currentStyle = vg;
 	
 	vg.setName("Center Internal");
 	vg.setAlignment(1);
-	docParagraphStyles.append(vg);
+	docParagraphStyles.create(vg);
 	vg.setName("Rechts Internal");
 	vg.setAlignment(2);
-	docParagraphStyles.append(vg);
+	docParagraphStyles.create(vg);
 	vg.setName("Block Internal");
 	vg.setAlignment(3);
-	docParagraphStyles.append(vg);
+	docParagraphStyles.create(vg);
 	vg.setName("EBlock Internal");
 	vg.setAlignment(4);
-	docParagraphStyles.append(vg);
+	docParagraphStyles.create(vg);
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
@@ -410,10 +412,10 @@ ScribusDoc::~ScribusDoc()
 	QMap<QString,int>::Iterator it3;
 	for (it3 = UsedFonts.begin(); it3 != UsedFonts.end(); ++it3)
 	{
-		if (!(*AllFonts)[it3.key()]->localForDocument().isEmpty())
+		if (!(*AllFonts)[it3.key()].localForDocument().isEmpty())
 			(*AllFonts).removeFont(it3.key());
 		else
-			(*AllFonts)[it3.key()]->decreaseUsage();
+			(*AllFonts)[it3.key()].decreaseUsage();
 	}
 }
 
@@ -707,18 +709,17 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
  */
 void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles)
 {
-	// This won't create the QValueList<ParagraphStyle> will it?
-	QValueList<ParagraphStyle> *wrkStyles = NULL;
+	StyleSet<ParagraphStyle> *wrkStyles = NULL;
 	/*
 	 * Use the working styles struct if passed, or work directly
 	 * on the document styles otherwise. Note that tempStyles,
 	 * if passed, MUST have the first five styles initialised already
 	 * or this function will segfault.
 	 */
-	if (tempStyles != NULL)
-		wrkStyles = tempStyles;
-	 else
-		wrkStyles = &docParagraphStyles;
+//	if (tempStyles != NULL)
+//		wrkStyles = tempStyles;
+//	 else
+		wrkStyles = &docParagraphStyles; 
 	if (!fileName.isEmpty())
 	{
 		FileLoader fl(fileName);
@@ -726,7 +727,8 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 		//TODO put in nice user warning
 			return;
 		for (uint x = 5; x < wrkStyles->count(); ++x)
-			docParagraphStyles.append((*wrkStyles)[x]);
+			docParagraphStyles.create((*wrkStyles)[x]);//FIXME: this looks bogus, AV
+
 		uint old = wrkStyles->count()-5;
 		if (fl.ReadStyles(fileName, this, docParagraphStyles))
 		{
@@ -767,7 +769,7 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 					sty.charStyle().setScaleV(docParagraphStyles[xx].charStyle().scaleV());
 					sty.charStyle().setBaselineOffset(docParagraphStyles[xx].charStyle().baselineOffset());
 					sty.charStyle().setTracking(docParagraphStyles[xx].charStyle().tracking());
-					wrkStyles->append(sty);
+					wrkStyles->create(sty);
 				}
 			}
 		}
@@ -938,20 +940,20 @@ bool ScribusDoc::AddFont(QString name, int fsize)
 	if (UsedFonts.contains(name))
 		return true;
 
-	if (! AllFonts->find(name) || name == "" )
+	if (! AllFonts->contains(name) || name == "" )
 		return false;
 
-	face = (*AllFonts)[name]->ftFace();
-	if ( !face )
-		return false;
+//	face = (*AllFonts)[name]->ftFace();
+//	if ( !face )
+//		return false;
 
-	if ((*AllFonts)[name]->ReadMetrics())
+/*	if ((*AllFonts)[name].ReadMetrics())         FIXME: needed?
 	{
 //		(*AllFonts)[name]->CharWidth[13] = 0;
 //		(*AllFonts)[name]->CharWidth[28] = 0;
 //		(*AllFonts)[name]->CharWidth[26] = 0;
 //		(*AllFonts)[name]->CharWidth[9] = 1;
-		QString afnm = (*AllFonts)[name]->fontFilePath().left((*AllFonts)[name]->fontFilePath().length()-3);
+		QString afnm = (*AllFonts)[name].fontFilePath().left((*AllFonts)[name].fontFilePath().length()-3);
 		QFile afm(afnm+"afm");
 		if(!(afm.exists()))
 		{
@@ -974,10 +976,11 @@ bool ScribusDoc::AddFont(QString name, int fsize)
 		}
 		if (afm.exists())
 			FT_Attach_File(face, afm.name());
-		UsedFonts[name] = fsize;
-		(*AllFonts)[name]->increaseUsage();
-		ret = true;
 	}
+	*/
+	UsedFonts[name] = fsize;
+	(*AllFonts)[name].increaseUsage();
+	ret = true;
 	return ret;
 }
 
@@ -2144,8 +2147,8 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 			{
 				for (int e = 0; e < it->itemText.length(); ++e)
 				{
-					if (! Really.contains(it->itemText.charStyle(e).font()->scName()) ) {
-						Really.insert(it->itemText.charStyle(e).font()->scName(), QMap<uint, FPointArray>());
+					if (! Really.contains(it->itemText.charStyle(e).font().scName()) ) {
+						Really.insert(it->itemText.charStyle(e).font().scName(), QMap<uint, FPointArray>());
 					}
 					uint chr = it->itemText.text(e).unicode();
 					if ((chr == 13) || (chr == 32) || (chr == 29))
@@ -2163,8 +2166,9 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 									chstr = chstr.upper();
 							}
 							chr = chstr[0].unicode();
-							gly = it->itemText.charStyle(e).font()->outline(chstr[0]);
-							Really[it->itemText.charStyle(e).font()->scName()].insert(chr, gly);
+							uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
+							gly = it->itemText.charStyle(e).font().glyphOutline(gl);
+							Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
 						}
 						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
 						{
@@ -2177,8 +2181,9 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 									chstr = chstr.upper();
 							}
 							chr = chstr[0].unicode();
-							gly = it->itemText.charStyle(e).font()->outline(chstr[0]);
-							Really[it->itemText.charStyle(e).font()->scName()].insert(chr, gly);
+							uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
+							gly = it->itemText.charStyle(e).font().glyphOutline(gl);
+							Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
 						}
 						continue;
 					}
@@ -2221,10 +2226,11 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 						for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
 						{
 							uint chr = pageNumberText[pnti].unicode();
-							if (it->itemText.charStyle(e).font()->canRender(chr))
+							if (it->itemText.charStyle(e).font().canRender(chr))
 							{
-								FPointArray gly(it->itemText.charStyle(e).font()->outline(chr));
-								Really[it->itemText.charStyle(e).font()->scName()].insert(chr, gly);
+								uint gl = it->itemText.charStyle(e).font().char2CMap(pageNumberText[pnti]);
+								FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
+								Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
 							}
 						}
 						continue;
@@ -2236,10 +2242,11 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 							chstr = chstr.upper();
 						chr = chstr[0].unicode();
 					}
-					if (it->itemText.charStyle(e).font()->canRender(chr))
+					if (it->itemText.charStyle(e).font().canRender(chr))
 					{
-						gly = it->itemText.charStyle(e).font()->outline(chr);
-						Really[it->itemText.charStyle(e).font()->scName()].insert(chr, gly);
+						uint gl = it->itemText.charStyle(e).font().char2CMap(chr);
+						gly = it->itemText.charStyle(e).font().glyphOutline(gl);
+						Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
 					}
 				}
 			}
@@ -2334,14 +2341,14 @@ void ScribusDoc::reorganiseFonts()
 					it = FrameItems.at(d);
 					break;
 			}
-			QString fontName(it->itemText.defaultStyle().charStyle().font()->scName());
+			QString fontName(it->itemText.defaultStyle().charStyle().font().scName());
 			Really.insert(fontName, UsedFonts[fontName]);
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
 				uint itemTextCount=it->itemText.length();
 				for (uint e = 0; e < itemTextCount; ++e)
 				{
-					Really.insert(it->itemText.charStyle(e).font()->scName(), UsedFonts[it->itemText.charStyle(e).font()->scName()]);
+					Really.insert(it->itemText.charStyle(e).font().scName(), UsedFonts[it->itemText.charStyle(e).font().scName()]);
 				}
 			}
 		}
@@ -2353,7 +2360,7 @@ void ScribusDoc::reorganiseFonts()
 		++itnext;
 		if (!Really.contains(itfo.key()))
 		{
-			(*AllFonts)[itfo.key()]->decreaseUsage();
+			(*AllFonts)[itfo.key()].decreaseUsage();
 			UsedFonts.remove(itfo);
 		}
 	}
@@ -4781,7 +4788,7 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 				// to user defined style
 				if (s > 4)
 				{
-					if (docParagraphStyles[s].charStyle().font() != &Foi::NONE
+					if ( !docParagraphStyles[s].charStyle().font().isNone()
 						&& (!nextItem->HasSel || nextItem->itemText.selected(a)))
 					{
 						// set default charstyle
@@ -4840,7 +4847,7 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (docParagraphStyles[s].charStyle().font() != &Foi::NONE
+					if ( !docParagraphStyles[s].charStyle().font().isNone()
 						&& (!nextItem->HasSel || nextItem->itemText.selected(a)))
 					{
 						nextItem->itemText.item(a)->setFont(docParagraphStyles[s].charStyle().font());
@@ -4926,7 +4933,7 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 			{
 				if (s > 4)
 				{
-					if (docParagraphStyles[s].charStyle().font() != &Foi::NONE)
+					if ( !docParagraphStyles[s].charStyle().font().isNone())
 					{
 						currItem->itemText.item(a)->setFont(docParagraphStyles[s].charStyle().font());
 						currItem->itemText.item(a)->setFontSize(docParagraphStyles[s].charStyle().fontSize());

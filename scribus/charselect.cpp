@@ -83,7 +83,7 @@ ChTable::ChTable(CharSelect* parent, PageItem* pi) : QTable(parent)
 
 QRect ChTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
-	int widthHeight = QMAX(18 + qRound(-(*m_Item->doc()->AllFonts)[par->fontInUse]->descent() * 18) + 5, 18);
+	int widthHeight = QMAX(18 + qRound(-(*m_Item->doc()->AllFonts)[par->fontInUse].descent() * 18) + 5, 18);
 	return QRect(0, 0, widthHeight, widthHeight+20);
 
 }
@@ -110,13 +110,13 @@ void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool
 	fo.setPixelSize(9);
 	qp->setFont(fo);
 	static FPointArray gly;
-	int len = (*m_Item->doc()->AllFonts)[par->fontInUse]->outline(par->characters[cc]).size();
-	gly.resize(len);
-	gly.putPoints(0, len, (*m_Item->doc()->AllFonts)[par->fontInUse]->outline(par->characters[cc]) );
+	ScFace face = (*m_Item->doc()->AllFonts)[par->fontInUse];
+	uint gl = face.char2CMap(par->characters[cc]);
+	gly = face.glyphOutline(gl);
 	if (gly.size() > 4)
 	{
 		gly.map(chma);
-		double ww = sz.width() - (*m_Item->doc()->AllFonts)[par->fontInUse]->charWidth(par->characters[cc])*16;
+		double ww = sz.width() - face.glyphWidth(gl)*16;
 		p->translate(ww / 2, 1);
 		p->setBrush(black);
 		p->setFillMode(1);
@@ -164,15 +164,17 @@ void ChTable::contentsMousePressEvent(QMouseEvent* e)
 	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
 	{
 		watchTimer->stop();
-		int bh = 48 + qRound(-(*m_Item->doc()->AllFonts)[font]->descent() * 48) + 3;
+		int bh = 48 + qRound(-(*m_Item->doc()->AllFonts)[font].descent() * 48) + 3;
 		QPixmap pixm(bh,bh);
 		ScPainter *p = new ScPainter(&pixm, bh, bh);
 		p->clear();
 		pixm.fill(white);
 		QWMatrix chma;
 		chma.scale(4.8, 4.8);
-		FPointArray gly = (*m_Item->doc()->AllFonts)[font]->outline(par->characters[r*16+c]).copy();
-		double ww = bh - (*m_Item->doc()->AllFonts)[font]->charWidth(par->characters[r*16+c])*48;
+		ScFace face = (*m_Item->doc()->AllFonts)[font];
+		uint gl = face.char2CMap(par->characters[r*16+c]);
+		FPointArray gly = face.glyphOutline(gl);
+		double ww = bh - face.glyphWidth(gl, 48);
 		if (gly.size() > 4)
 		{
 			gly.map(chma);
@@ -244,7 +246,7 @@ void ChTable::showAlternate()
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
 {
-	fontInUse = item->doc()->currentStyle.charStyle().font()->scName();
+	fontInUse = item->doc()->currentStyle.charStyle().font().scName();
 	needReturn = false;
 	installEventFilter(this);
 	run(parent, item);
@@ -372,10 +374,9 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 
 void CharSelect::scanFont()
 {
-	FT_Face face;
 	FT_ULong  charcode;
 	FT_UInt   gindex;
-	gindex = 0;
+	QString   gname;
 	allClasses.clear();
 	charactersFull.clear();
 	charactersLatin1.clear();
@@ -405,14 +406,14 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsA.clear();
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
-	face = (*m_Item->doc()->AllFonts)[fontInUse]->ftFace();
-	if (!face) {
-		return;
-	}
-	setBestEncoding(face);
-	charcode = FT_Get_First_Char(face, &gindex );
-	while (gindex != 0)
+	QMap<QChar, std::pair<uint, QString> > glyphs;
+	(*m_Item->doc()->AllFonts)[fontInUse].glyphNames(glyphs);
+	for (QMap<QChar, std::pair<uint, QString> >::iterator it=glyphs.begin();
+		 it != glyphs.end(); ++it)
 	{
+		charcode = it.key().unicode();
+		gindex = it.data().first;
+		gname = it.data().second;
 		charactersFull.append(charcode);
 		if ((charcode >= 0x0020 ) && (charcode <= 0x007F))
 			charactersLatin1.append(charcode);
@@ -468,7 +469,6 @@ void CharSelect::scanFont()
 			charactersArabicPresentationFormsB.append(charcode);
 		else if ((charcode >= 0xFFF0 ) && (charcode <= 0xFFFF))
 			charactersSpecial.append(charcode);
-		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}
 	allClasses.append(charactersFull);
 	allClasses.append(charactersLatin1);
@@ -676,17 +676,10 @@ void CharSelect::setupRangeCombo()
 
 void CharSelect::generatePreview(int charClass)
 {
-	FT_Face face;
 	zTabelle->maxCount = 0;
 	characters.clear();
 	zTabelle->setNumRows( 0 );
 	characters = allClasses[charClass];
-	face = (*m_Item->doc()->AllFonts)[fontInUse]->ftFace();
-	if (!face) {
-		maxCount = 0;
-		return;
-	}
-	setBestEncoding(face);
 	maxCount = characters.count();
 	zTabelle->maxCount = maxCount;
 	int ab = maxCount / 16;
@@ -708,17 +701,16 @@ void CharSelect::newFont(int font)
 	zTabelle->maxCount = 0;
 	QString oldFont = fontInUse;
 	fontInUse = fontSelector->text(font);
-	(*m_Item->doc()->AllFonts)[fontInUse]->increaseUsage();
-	if ((*m_Item->doc()->AllFonts)[oldFont])
-		(*m_Item->doc()->AllFonts)[oldFont]->decreaseUsage();
+	(*m_Item->doc()->AllFonts)[fontInUse].increaseUsage();
+	(*m_Item->doc()->AllFonts)[oldFont].decreaseUsage();
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+fontInUse );
 	ScCore->primaryMainWindow()->SetNewFont(fontInUse);
-	if (m_Item->doc()->currentStyle.charStyle().font()->scName() != fontInUse)
+	if (m_Item->doc()->currentStyle.charStyle().font().scName() != fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 		fontSelector->RebuildList(m_Item->doc());
-		fontInUse = m_Item->doc()->currentStyle.charStyle().font()->scName();
+		fontInUse = m_Item->doc()->currentStyle.charStyle().font().scName();
 		setCaption( tr( "Select Character:" )+" "+fontInUse );
 		fontSelector->setCurrentText(fontInUse);
 		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));

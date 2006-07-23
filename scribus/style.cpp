@@ -86,7 +86,7 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 		cstrikewidth = other.cstrikewidth;
 	if (other.cextra != NOVALUE)
 		cextra = other.cextra;
-	if (other.cfont != &Foi::NONE)
+	if (!other.cfont.isNone())
 		cfont = other.cfont;
 	if (other.ccolor != NOCOLOR)
 		ccolor = other.ccolor;
@@ -132,7 +132,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 	if (other.cextra == cextra)
 		cextra = NOVALUE;
 	if (other.cfont == cfont)
-		cfont = const_cast<Foi*>(&Foi::NONE);
+		cfont = ScFace::none();
 	if (other.ccolor == ccolor)
 		ccolor = NOCOLOR;
 	if (other.cstroke == cstroke)
@@ -141,7 +141,78 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 		language_ = NOLANG;
 }
 
+bool CharStyle::equiv(const Style & other) const
+{
+	const CharStyle * oth = dynamic_cast<const CharStyle*> ( & other );
+	return  (oth &&
+			 csize == oth->csize &&
+			 cshade == oth->cshade &&
+			 cshade2 == oth->cshade2 &&
+			 cstyle == oth->cstyle &&
+			 cscale == oth->cscale &&
+			 cscalev == oth->cscalev &&
+			 cbase == oth->cbase &&
+			 cshadowx == oth->cshadowx &&
+			 cshadowy == oth->cshadowy &&
+			 coutline == oth->coutline &&
+			 cunderpos == oth->cunderpos &&
+			 cunderwidth == oth->cunderwidth &&
+			 cstrikepos == oth->cstrikepos &&
+			 cstrikewidth == oth->cstrikewidth &&
+			 cextra == oth->cextra &&
+			 cfont == oth->cfont &&
+			 ccolor == oth->ccolor &&
+			 cstroke == oth->cstroke &&	
+			 language_ == oth->language_ );	
+}
 
+
+QString CharStyle::displayName() const
+{
+	if ( hasName() || !hasParent() )
+		return name();
+//	else if ( inheritsAll() )
+//		return parent()->displayName();
+	else 
+		return parent()->displayName() + "+";
+}
+
+/*
+bool CharStyle::definesAll() const
+{
+	return definesLineSpacing() && 
+	definesLeftMargin() && 
+	definesRightMargin() && 
+	definesFirstIndent() &&
+	definesAlignment() && 
+	definesGapBefore()  &&
+	definesLineSpacingMode()  && 
+	definesGapAfter()  && 
+	definesHasDropCap() && 
+	definesDropCapOffset() && 
+	definesDropCapLines() && 
+	definesUseBaselineGrid() && 
+	charStyle().definesAll() ;
+	
+}
+
+bool CharStyle::inheritsAll() const
+{
+	return inheritsLineSpacing() && 
+	inheritsLeftMargin() && 
+	inheritsRightMargin() && 
+	inheritsFirstIndent() &&
+	inheritsAlignment() && 
+	inheritsGapBefore()  &&
+	inheritsLineSpacingMode()  && 
+	inheritsGapAfter()  && 
+	inheritsHasDropCap() && 
+	inheritsDropCapOffset() && 
+	inheritsDropCapLines() && 
+	inheritsUseBaselineGrid() && 
+	charStyle().inheritsAll() ;
+}
+*/
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyle(),
 		LineSpaMode(static_cast<LineSpacingMode>(NOVALUE)),
@@ -178,6 +249,15 @@ ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), csty
 		BaseAdj(other.BaseAdj)
 {}
 
+QString ParagraphStyle::displayName() const
+{
+	if ( hasName() || !hasParent() )
+		return name();
+	//	else if ( inheritsAll() )
+	//		return parent()->displayName();
+	else 
+		return parent()->displayName() + "+";
+}
 
 static bool sameTabs(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueList<ParagraphStyle::TabRecord>& other)
 {
@@ -212,22 +292,24 @@ static bool sameTabs(const QValueList<ParagraphStyle::TabRecord>& tabs, const QV
 }
 
 
-bool ParagraphStyle::equiv(const ParagraphStyle& other) const
+bool ParagraphStyle::equiv(const Style& other) const
 {
-	return sameTabs(tabValues(), other.tabValues()) &&
-		(lineSpacing() == other.lineSpacing()) && 
-		(leftMargin() == other.leftMargin()) && 
-		(rightMargin() == other.rightMargin()) && 
-		(firstIndent() == other.firstIndent()) &&
-		(alignment() == other.alignment()) && 
-		(gapBefore() == other.gapBefore()) &&
-		(lineSpacingMode() == other.lineSpacingMode()) && 
-		(gapAfter() == other.gapAfter()) && 
-		(hasDropCap() == other.hasDropCap()) && 
-		(dropCapOffset() == other.dropCapOffset()) && 
-		(dropCapLines() == other.dropCapLines()) && 
-		(useBaselineGrid() == other.useBaselineGrid()) && 
-		(charStyle() == other.charStyle());
+	const ParagraphStyle* oth = dynamic_cast<const ParagraphStyle*> ( & other );
+	return oth &&
+		sameTabs(tabValues(), oth->tabValues()) &&
+		(lineSpacing() == oth->lineSpacing()) && 
+		(leftMargin() == oth->leftMargin()) && 
+		(rightMargin() == oth->rightMargin()) && 
+		(firstIndent() == oth->firstIndent()) &&
+		(alignment() == oth->alignment()) && 
+		(gapBefore() == oth->gapBefore()) &&
+		(lineSpacingMode() == oth->lineSpacingMode()) && 
+		(gapAfter() == oth->gapAfter()) && 
+		(hasDropCap() == oth->hasDropCap()) && 
+		(dropCapOffset() == oth->dropCapOffset()) && 
+		(dropCapLines() == oth->dropCapLines()) && 
+		(useBaselineGrid() == oth->useBaselineGrid()) && 
+		(charStyle() == oth->charStyle());
 }	
 
 
@@ -305,8 +387,8 @@ void ParagraphStyle::eraseStyle(const ParagraphStyle& other)
 		Indent = NOVALUE - 0.1;
 	if (other.rightMargin_ == rightMargin_)
 		rightMargin_ = NOVALUE - 0.1;
-	if (other.First == gapBefore_)
-		gapBefore_ = NOVALUE - 0.1;
+	if (other.First == First)
+		First = NOVALUE - 0.1;
 	if (other.gapBefore_ == gapBefore_)
 		gapBefore_ = NOVALUE - 0.1;
 	if (other.gapAfter_ == gapAfter_)

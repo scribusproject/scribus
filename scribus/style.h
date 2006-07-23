@@ -44,9 +44,17 @@ public:
 	
 	QString name() const             { return name_; }
 	void setName(QString n)          { name_ = n; }
+	bool hasName() const             { return ! name_.isEmpty(); }
 	const Style* parent() const      { return parent_; }
 	void setParent(const Style* p)   { parent_ = p; }
+	bool hasParent() const           { return parent_ != NULL; }
 	virtual ~Style()                 {}
+	virtual QString displayName() const { return name(); }
+//	virtual bool definesAll() const = 0;
+//	virtual bool inheritsAll() const = 0;
+	virtual bool equiv(const Style& other) const = 0;
+	virtual bool operator==(const Style& other) const { return name() == other.name() && equiv(other); }
+	virtual bool operator!=(const Style& other) const { return ! ( (*this) == other ); }
 	// applyStyle(const SubStyle& other)
 	// eraseStyle(const SubStyle& other)
 	// assign(const SubStyle& other)
@@ -96,7 +104,7 @@ public:
 	static const QString NOCOLOR;
 	static const QString NOLANG;
 	
-    CharStyle() : Style() {
+    CharStyle() : Style(), cfont(ScFace::none()) {
         csize = NOVALUE;
         cshade = NOVALUE;
         cshade2 = NOVALUE;
@@ -113,13 +121,12 @@ public:
         cstrikewidth = NOVALUE;
         cextra = NOVALUE;
 		
-        cfont = const_cast<Foi*>(&Foi::NONE); 
         ccolor = NOCOLOR;
         cstroke = NOCOLOR;
 		language_ = NOLANG;
     };
 	
-    CharStyle(Foi * font, int size, StyleFlag style = ScStyle_Default) : Style() {
+    CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : Style(), cfont(font) {
         csize = size;
         cshade = 1;
         cshade2 = 1;
@@ -136,7 +143,6 @@ public:
         cstrikewidth = 0;
         cextra = 0;
 		
-        cfont = font; 
         ccolor = "Black";
         cstroke = "Black";
 		language_ = "";
@@ -144,12 +150,14 @@ public:
 	
 	CharStyle(const CharStyle & other);
 	
-	bool operator==(const CharStyle & other) const;
-	bool operator!=(const CharStyle & other) const { return ! (*this==other); }
 	CharStyle & operator=(const CharStyle & other);
 	
 	void applyCharStyle(const CharStyle & other);
 	void eraseCharStyle(const CharStyle & other);
+	QString displayName() const;
+//	bool definesAll() const;
+//	bool inheritsAll() const;
+	bool equiv(const Style& other) const;	
 	
 	QString asString() const;
 	
@@ -173,7 +181,7 @@ public:
 	QString strokeColor() const { return cstroke==NOCOLOR && parent()? inh().strokeColor() : cstroke; }
 	QString language() const { return language_==NOLANG && parent()? inh().language() : language_; }
 	
-	Foi* font() const { return cfont==&Foi::NONE && parent()? inh().font() : cfont; } 
+	const ScFace& font() const { return cfont.isNone() && parent()? inh().font() : cfont; } 
 	
 	void setFontSize(int s) { csize = s; }
 	void setFillShade(int s) { cshade = s; }
@@ -195,7 +203,7 @@ public:
 	void setStrokeColor(QString c) { cstroke = c; }
 	void setLanguage(QString l) { language_ = l; }
 	
-	void setFont(Foi* f) { cfont = f; } 
+	void setFont(const ScFace& f) { cfont = f; } 
 	
 	
 	
@@ -218,35 +226,13 @@ private:
     short cstrikewidth;
     short cextra;
 	
-    Foi* cfont;
+    ScFace  cfont;
     QString ccolor;
     QString cstroke;
     QString language_;
 	
 };
 
-inline bool CharStyle::operator==(const CharStyle & other) const
-{
-	return  (csize == other.csize &&
-			 cshade == other.cshade &&
-			 cshade2 == other.cshade2 &&
-			 cstyle == other.cstyle &&
-			 cscale == other.cscale &&
-			 cscalev == other.cscalev &&
-			 cbase == other.cbase &&
-			 cshadowx == other.cshadowx &&
-			 cshadowy == other.cshadowy &&
-			 coutline == other.coutline &&
-			 cunderpos == other.cunderpos &&
-			 cunderwidth == other.cunderwidth &&
-			 cstrikepos == other.cstrikepos &&
-			 cstrikewidth == other.cstrikewidth &&
-			 cextra == other.cextra &&
-			 cfont == other.cfont &&
-			 ccolor == other.ccolor &&
-			 cstroke == other.cstroke &&	
-			 language_ == other.language_ );	
-}
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
 {
@@ -273,7 +259,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	return *this;
 }
 
-inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
+inline CharStyle::CharStyle(const CharStyle & other) : Style(other), cfont(other.cfont)
 {
 	csize = other.csize;
 	cshade = other.cshade;
@@ -290,7 +276,6 @@ inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 	cstrikepos = other.cstrikepos;
 	cstrikewidth = other.cstrikewidth;
 	cextra = other.cextra;
-	cfont = other.cfont;
 	ccolor = other.ccolor;
 	cstroke = other.cstroke;
 	language_ = other.language_;
@@ -394,14 +379,13 @@ public:
 	
 	void applyStyle(const ParagraphStyle& other);
 	void eraseStyle(const ParagraphStyle& other);
+	QString displayName() const;
+//	bool definesAll() const;
+//	bool inheritsAll() const;
+
 	ParagraphStyle& operator=(const ParagraphStyle& other);
 
-	bool equiv(const ParagraphStyle& other) const;
-	
-	bool operator==(const ParagraphStyle& other) const
-	{ 
-		return name()==other.name() && equiv(other);
-	}
+	bool equiv(const Style& other) const;	
 };
 
 #endif

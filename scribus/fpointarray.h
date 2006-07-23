@@ -51,6 +51,7 @@ public:
 	const FPoint & point(uint i) { ConstIterator p = begin(); p+=i; return *p; };
 	QPoint pointQ(uint i);
 	void translate( double dx, double dy );
+	void scale( double sx, double sy );
 	FPoint WidthHeight();
 	void map(QWMatrix m);
 	FPointArray &operator=( const FPointArray &a );

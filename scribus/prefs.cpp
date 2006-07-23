@@ -534,11 +534,11 @@ void Preferences::updatePreferences()
 		tabColorManagement->setValues();
 	uint a = 0;
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-	for ( ; it.current() ; ++it)
+	for ( ; it.hasNext() ; it.next())
 	{
-		it.current()->embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
-		it.current()->useFont(tabFonts->fontFlags[it.currentKey()].FlagUse);
-		it.current()->subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
+		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
+		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
+		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
 	}
 	a = 0;
 	QMap<QString,QString>::Iterator itfsuend=tabFonts->RList.end();

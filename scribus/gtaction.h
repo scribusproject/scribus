@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 class PageItem;
 class PrefsManager;
-class Foi;
+class ScFace;
 #include "scribusapi.h"
 #include "gtfont.h"
 #include "gtframestyle.h"
@@ -67,7 +67,7 @@ private:
 	int findParagraphStyle(const QString& name);
 	int findParagraphStyle(gtParagraphStyle* pstyle);
 	int applyParagraphStyle(gtParagraphStyle* pstyle);
-	Foi* validateFont(gtFont* font);
+	ScFace validateFont(gtFont* font);
 	QString findFontName(gtFont* font);
 	void updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle);
 	QString parseColor(const QString &s);

@@ -14,8 +14,8 @@ for which a new license (GPL+exception) is in place.
 QString CharStyle::asString() const
 {
 	QString result;
-	if (cfont != &Foi::NONE)
-		result += QObject::tr("font %1 ").arg(cfont->scName());
+	if (!cfont.isNone())
+		result += QObject::tr("font %1 ").arg(cfont.scName());
 	if (csize != NOVALUE)
 		result += QObject::tr("size %1 ").arg(csize);
 	if (cstyle != NOVALUE)

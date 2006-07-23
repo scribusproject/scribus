@@ -1085,8 +1085,8 @@ void ActionManager::enableActionStringList(QMap<QString, QGuardedPtr<ScrAction> 
 					charCode==28 ||
 					charCode==29 ||
 					charCode==30 ||
-					((*mainWindow->doc->AllFonts)[fontName]!=0 && 
-					(*mainWindow->doc->AllFonts)[fontName]->canRender(charCode)) )
+					((*mainWindow->doc->AllFonts)[fontName].usable() && 
+					(*mainWindow->doc->AllFonts)[fontName].canRender(charCode)) )
 						(*actionMap)[*it]->setEnabled(true);
 				else
 					(*actionMap)[*it]->setEnabled(false);

@@ -71,7 +71,6 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	double wide;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
-	struct ZZ *Zli;
 	double dx;
 	double sp = 0;
 	double oldSp = 0;
@@ -107,7 +106,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
 			continue;
 		chs = hl->fontSize();
-		SetZeichAttr(*hl, &chs, &chstr);
+//		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutglyphs
 		if (chstr == QChar(29))
 			chstr2 = " ";
 		else if (chstr == QChar(24))
@@ -122,10 +121,10 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 				chstr3 = "-";
 			else
 				chstr3 = itemText.text(a+1, 1);
-			wide = Cwidth(m_Doc, hl->font(), chstr2, chs, chstr3);
+			wide = hl->font().charWidth(chstr2[0], chs, chstr3[0]);
 		}
 		else
-			wide = Cwidth(m_Doc, hl->font(), chstr2, chs);
+			wide = hl->font().charWidth(chstr2[0], chs);
 		wide = wide * (hl->scaleH() / 1000.0);
 		dx = wide / 2.0;
 		CurX += dx;
@@ -193,7 +192,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		p->save();
 		QWMatrix savWM = p->worldMatrix();
 		p->setWorldMatrix(trafo);
-		Zli = new ZZ;
+/*		Zli = new ZZ;
 		Zli->Zeich = chstr;
 		if (hl->fillColor() != CommonStrings::None)
 		{
@@ -232,9 +231,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		Zli->strikewidth = hl->strikethruWidth();
 		Zli->embedded = 0;
 		if (!m_Doc->RePos)
-			DrawZeichenS(p, Zli);
+			DrawZeichenS(p, Zli); // FIXME: drawglyphs
 		delete Zli;
-		p->setWorldMatrix(savWM);
+*/		p->setWorldMatrix(savWM);
 		p->restore();
 		p->setZoomFactor(sc);
 		MaxChars = a+1;

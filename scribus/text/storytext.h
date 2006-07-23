@@ -37,6 +37,7 @@ class PageItem;
 //class ScTextEngine;
 //class ScScriptItem;
 class ScText_Shared;
+class ScText;
 class ScribusDoc;
 
 /**

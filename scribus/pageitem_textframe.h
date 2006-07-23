@@ -43,7 +43,6 @@ class ScPainter;
 class ScribusDoc;
 class UndoManager;
 class UndoState;
-class Foi;
 struct CopyPasteBuffer;
 
 #include "text/nlsconfig.h"
@@ -54,6 +53,19 @@ struct CopyPasteBuffer;
 #include "sctextstruct.h"
 class ScText;
 class ScStyleRun;
+#else
+struct LineSpec 
+{
+	double x;
+	double y;
+	double width;
+	double ascent;
+	double descent;
+
+	int firstItem;
+	int lastItem;
+	double naturalWidth;
+};
 #endif
 
 class SCRIBUS_API PageItem_TextFrame : public PageItem
@@ -99,6 +111,7 @@ protected:
 	                  ScScriptItem *item, uint itemIndex);
 #endif
 	
+	QVector<LineSpec> lines;
 	bool unicodeTextEditMode;
 	int unicodeInputCount;
 	QString unicodeInputString;

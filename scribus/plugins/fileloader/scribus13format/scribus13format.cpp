@@ -214,11 +214,11 @@ QString Scribus13Format::readSLA(const QString & fileName)
 	return docText;
 }
 
-void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois)
+void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces)
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
-	getDummyFois=dummyFois;
+	getDummyScFaces=dummyScFaces;
 }
 
 bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -230,7 +230,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	}
 	ReplacedFonts.clear();
 	newReplacement = false;
-	dummyFois.clear();
+	dummyScFaces.clear();
 	ParagraphStyle vg;
 	struct Layer la;
 	struct ScribusDoc::BookMa bok;
@@ -307,7 +307,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 		m_Doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		m_Doc->toolSettings.defSize=qRound(dc.attribute("DSIZE").toDouble() * 10);
 		Defont=dc.attribute("DFONT");
-		if ((!m_AvailableFonts->find(Defont)) || (!(*m_AvailableFonts)[Defont]->usable()))
+		if ((!m_AvailableFonts->contains(Defont)) || (!(*m_AvailableFonts)[Defont].usable()))
 		{
 			ReplacedFonts.insert(Defont, prefsManager->appPrefs.toolSettings.defFont);
 			Defont = prefsManager->appPrefs.toolSettings.defFont;
@@ -559,7 +559,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if(pg.tagName()=="STYLE")
 			{
 				readParagraphStyle(vg, pg, *m_AvailableFonts, m_Doc);
-				m_Doc->docParagraphStyles.append(vg);
+				m_Doc->docParagraphStyles.append(new ParagraphStyle(vg));
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -951,9 +951,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 						Neu->OnMasterPage = "";
 					m_Doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->find(tmpf)) || (!(*m_AvailableFonts)[tmpf]->usable()))
+					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
 					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 						{
 							newReplacement = true;
 							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -1422,7 +1422,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 			fo.setAttribute("FIRST",m_Doc->docParagraphStyles[ff].firstIndent());
 			fo.setAttribute("VOR",m_Doc->docParagraphStyles[ff].gapBefore());
 			fo.setAttribute("NACH",m_Doc->docParagraphStyles[ff].gapAfter());
-			fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().font()->scName());
+			fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().font().scName());
 			fo.setAttribute("FONTSIZE",m_Doc->docParagraphStyles[ff].charStyle().fontSize() / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(m_Doc->docParagraphStyles[ff].hasDropCap()));
 			fo.setAttribute("DROPLIN", m_Doc->docParagraphStyles[ff].dropCapLines());
@@ -1730,7 +1730,7 @@ void breakPoint() {}
 
 void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
-	Foi* dummy = NULL;
+	ScFace dummy = ScFace::none();
 	bool unknown = false;
 	QString tmp2, tmpf;
 	tmp2 = it->attribute("CH");
@@ -1739,25 +1739,25 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	tmp2.replace(QRegExp("\t"), QChar(9));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	PrefsManager* prefsManager=PrefsManager::instance();
-	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->usable()))
+	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
 		bool isThere = false;
-		for (uint dl = 0; dl < dummyFois.count(); ++dl)
+		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
-			if (dummyFois.at(dl)->scName() == tmpf)
+			if ((*dummyScFaces.at(dl)).scName() == tmpf)
 			{
 				isThere = true;
-				dummy = dummyFois.at(dl);
+				dummy = *dummyScFaces.at(dl);
 				break;
 			}
 		}
 		if (!isThere)
 		{
-			dummy = new Foi(tmpf, "", tmpf, "", "", 1, false);
-			dummyFois.append(dummy);
+//			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
+			dummyScFaces.append(dummy);
 		}
 		unknown = true;
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -1896,9 +1896,9 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	PrefsManager * prefsManager = PrefsManager::instance();
 	QString tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
-	if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
+	if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -2725,9 +2725,9 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 						Neu->OnMasterPage = "";
 					m_Doc->GroupCounter = docGc;
 					tmpf = pg.attribute("IFONT", m_Doc->toolSettings.defFont);
-					if ((!m_AvailableFonts->find(tmpf)) || (!(*m_AvailableFonts)[tmpf]->usable()))
+					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
 					{
-						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 						{
 							newReplacement = true;
 							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -2898,7 +2898,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	return true;
 }
 
-void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -2945,7 +2945,7 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<P
 	}
 	if (!fou)
 	{
-		docParagraphStyles.append(*vg);
+		docParagraphStyles.append(vg);
 		if (fl)
 		{
 			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
@@ -2959,9 +2959,9 @@ QString Scribus13Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *do
 	PrefsManager *prefsManager=PrefsManager::instance();
 //	QFont fo;
 	QString tmpf = fStr;
-	if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
+	if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
@@ -2985,7 +2985,7 @@ QString Scribus13Format::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *do
 	return tmpf;
 }
 
-bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles)
+bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles)
 {
 	ParagraphStyle vg;
 	QDomDocument docu("scridoc");
@@ -3313,7 +3313,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			QChar ch = item->itemText.text(k);
 			QDomElement it=docu->createElement("ITEXT");
 			ts = style1.fontSize() / 10.0;
-			tf = style1.font()->scName();
+			tf = style1.font().scName();
 			tc = style1.fillColor();
 			te = style1.tracking();
 			tsh = style1.fillShade();
@@ -3378,7 +3378,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			const CharStyle& style2(item->itemText.charStyle(k));
 			ch = item->itemText.text(k);
 			ts2 = style2.fontSize() / 10.0;
-			tf2 = style2.font()->scName();
+			tf2 = style2.font().scName();
 			tc2 = style2.fillColor();
 			te2 = style2.tracking();
 			tsh2 = style2.fillShade();
@@ -3439,7 +3439,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 				const CharStyle& style3(item->itemText.charStyle(k));
 				ch = item->itemText.text(k);
 				ts2 = style3.fontSize() / 10.0;
-				tf2 = style3.font()->scName();
+				tf2 = style3.font().scName();
 				tc2 = style3.fillColor();
 				te2 = style3.tracking();
 				tsh2 = style3.fillShade();
@@ -3580,7 +3580,7 @@ void Scribus13Format::SetItemProps(QDomElement *ob, PageItem* item, bool newForm
 	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
 /*	ob->setAttribute("BBOXX",item->BBoxX);
 	ob->setAttribute("BBOXH",item->BBoxH); */
-	ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font()->scName());
+	ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());
 	ob->setAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);

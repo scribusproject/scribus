@@ -57,11 +57,11 @@ PyObject *scribus_getfont(PyObject* /* self */, PyObject* args)
 	{
 		for (int b = 0; b < it->itemText.length(); b++)
 			if (it->itemText.selected(b))
-				return PyString_FromString(it->itemText.charStyle(b).font()->scName().utf8());
+				return PyString_FromString(it->itemText.charStyle(b).font().scName().utf8());
 		return NULL;
 	}
 	else
-		return PyString_FromString(it->currentCharStyle().font()->scName().utf8());
+		return PyString_FromString(it->currentCharStyle().font().scName().utf8());
 }
 
 PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
@@ -351,7 +351,7 @@ PyObject *scribus_setfont(PyObject* /* self */, PyObject* args)
 		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot set font on a non-text frame.","python error"));
 		return NULL;
 	}
-	if (PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Font)))
+	if (PrefsManager::instance()->appPrefs.AvailFonts.contains(QString::fromUtf8(Font)))
 	{
 		int Apm = ScCore->primaryMainWindow()->doc->appMode;
 		ScCore->primaryMainWindow()->doc->m_Selection->clear();

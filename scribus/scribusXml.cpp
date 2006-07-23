@@ -50,7 +50,6 @@ using namespace std;
 ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
-	dummyFois.setAutoDelete(true);
 }
 
 // bool ScriXmlDoc::IsScribus(QString fileName)
@@ -70,26 +69,26 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	tmp2.replace(QRegExp("\t"), QChar(4));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	bool unknown = false;
-	Foi* dummy = NULL;
-	if ((!prefsManager->appPrefs.AvailFonts.find(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf]->usable()))
+	ScFace dummy = ScFace::none();
+	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
 		bool isThere = false;
-		for (uint dl = 0; dl < dummyFois.count(); ++dl)
+		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
-			if (dummyFois.at(dl)->scName() == tmpf)
+			if ((*dummyScFaces.at(dl)).scName() == tmpf)
 			{
 				isThere = true;
-				dummy = dummyFois.at(dl);
+				dummy = *dummyScFaces.at(dl);
 				break;
 			}
 		}
 		if (!isThere)
 		{
-			dummy = new Foi(tmpf, "", tmpf, "", "", 1, false);
-			dummyFois.append(dummy);
+//FIXME			dummy = new ScFace(tmpf, "", tmpf, "", "", 1, false);
+			dummyScFaces.append(dummy);
 		}
 		unknown = true;
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
@@ -236,9 +235,9 @@ QString ScriXmlDoc::AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc)
 	PrefsManager *prefsManager=PrefsManager::instance();
 //	QFont fo;
 	QString tmpf = fStr;
-	if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
+	if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
 	{
-		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]]->usable()))
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!avail[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			MissingFont *dia = new MissingFont(0, tmpf, doc);
@@ -318,7 +317,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 	ob->setAttribute("FLIPPEDV", item->imageFlippedV());
 /*	ob->setAttribute("BBOXX",item->BBoxX);
 	ob->setAttribute("BBOXH",item->BBoxH); */
-	ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font()->scName());
+	ob->setAttribute("IFONT",item->itemText.defaultStyle().charStyle().font().scName());
 	ob->setAttribute("ISIZE",item->itemText.defaultStyle().charStyle().fontSize() / 10.0 );
 	ob->setAttribute("SCALETYPE", item->ScaleType ? 1 : 0);
 	ob->setAttribute("RATIO", item->AspectRatio ? 1 : 0);
@@ -461,7 +460,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 }
 
 //CB: Private only now
-void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -586,7 +585,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<Paragr
 	}
 	if (!fou)
 	{
-		docParagraphStyles.append(*vg);
+		docParagraphStyles.append(vg);
 		if (fl)
 		{
 			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
@@ -728,9 +727,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		if(pg.tagName()=="FONT")
 		{
 			tmpf = pg.attribute("NAME");
-			if ((!avail.find(tmpf)) || (!avail[tmpf]->usable()))
+			if ((!avail.contains(tmpf)) || (!avail[tmpf].usable()))
 			{
-				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]]->usable()))
+				if (!FontSub.contains(tmpf) || (!avail[FontSub[tmpf]].usable()))
 				{
 					MissingFont *dia = new MissingFont(0, tmpf, doc);
 					dia->exec();
@@ -1041,7 +1040,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			fo.setAttribute("FIRST",UsedStyles[actSt].firstIndent());
 			fo.setAttribute("VOR",UsedStyles[actSt].gapBefore());
 			fo.setAttribute("NACH",UsedStyles[actSt].gapAfter());
-			fo.setAttribute("FONT",UsedStyles[actSt].charStyle().font()->scName());
+			fo.setAttribute("FONT",UsedStyles[actSt].charStyle().font().scName());
 			fo.setAttribute("FONTSIZE",UsedStyles[actSt].charStyle().fontSize() / 10.0);
 			fo.setAttribute("DROP", static_cast<int>(UsedStyles[actSt].hasDropCap()));
 			fo.setAttribute("DROPLIN", UsedStyles[actSt].dropCapLines());
@@ -1223,7 +1222,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			QChar ch = item->itemText.text(k);
 			QDomElement it=docu.createElement("ITEXT");
 			ts = style4.fontSize() / 10.0;
-			tf = style4.font()->scName();
+			tf = style4.font().scName();
 			tc = style4.fillColor();
 			te = style4.tracking();
 			tsh = style4.fillShade();
@@ -1283,7 +1282,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			const CharStyle& style5(item->itemText.charStyle(k));
 			ch = item->itemText.text(k);
 			ts2 = style5.fontSize() / 10.0;
-			tf2 = style5.font()->scName();
+			tf2 = style5.font().scName();
 			tc2 = style5.fillColor();
 			te2 = style5.tracking();
 			tsh2 = style5.fillShade();
@@ -1340,7 +1339,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				const CharStyle& style6(item->itemText.charStyle(k));
 				ch = item->itemText.text(k);
 				ts2 = style6.fontSize() / 10.0;
-				tf2 = style6.font()->scName();
+				tf2 = style6.font().scName();
 				tc2 = style6.fillColor();
 				te2 = style6.tracking();
 				tsh2 = style6.fillShade();

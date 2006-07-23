@@ -95,7 +95,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	QString txt = Objekt.remove(QChar(0)).remove(QChar(13));
 	txt = txt.replace(QChar(10), QChar(13)).replace(QChar(5), QChar(13));
 	CharStyle newstyle;
-	if (doku->docParagraphStyles[Absatz].charStyle().font() != &Foi::NONE)
+	if (!doku->docParagraphStyles[Absatz].charStyle().font().isNone())
 	{
 		newstyle = doku->docParagraphStyles[Absatz].charStyle();
 	}

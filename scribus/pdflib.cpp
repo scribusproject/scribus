@@ -625,7 +625,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font()->scName(), DocFonts[pgit->itemText.charStyle(e).font()->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
 			}
 		}
 	}
@@ -638,7 +638,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font()->scName(), DocFonts[pgit->itemText.charStyle(e).font()->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
 			}
 		}
 	}
@@ -651,7 +651,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font()->scName(), DocFonts[pgit->itemText.charStyle(e).font()->scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
 			}
 		}
 	}
@@ -672,8 +672,8 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	a = 0;
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
-		Foi::FontFormat fformat = AllFonts[it.key()]->format();
-		if ((AllFonts[it.key()]->isOTF()) || (!AllFonts[it.key()]->hasNames()) || (AllFonts[it.key()]->subset()) || (Options.SubsetList.contains(it.key())))
+		ScFace::FontFormat fformat = AllFonts[it.key()].format();
+		if ((AllFonts[it.key()].isOTF()) || (!AllFonts[it.key()].hasNames()) || (AllFonts[it.key()].subset()) || (Options.SubsetList.contains(it.key())))
 		{
 			QString fon("");
 			QMap<uint,FPointArray>& RealGlyphs(it.data());
@@ -732,18 +732,18 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				if ((Options.Compress) && (CompAvail))
 					PutDoc("\n/Filter /FlateDecode");
 				PutDoc(" >>\nstream\n"+EncStream(fon, ObjCounter-1)+"\nendstream\nendobj\n");
-				Seite.XObjects[AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
+				Seite.XObjects[AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(ig.key())] = ObjCounter-1;
 			}
 		}
 		else
 		{
 			UsedFontsP.insert(it.key(), "/Fo"+QString::number(a));
-			if ((fformat == Foi::PFB) && (Options.EmbedList.contains(it.key())))
+			if ((fformat == ScFace::PFB) && (Options.EmbedList.contains(it.key())))
 			{
 				QString fon("");
 				StartObj(ObjCounter);
 				QByteArray bb;
-				AllFonts[it.key()]->RawData(bb);
+				AllFonts[it.key()].RawData(bb);
 				uint posi;
 				for (posi = 6; posi < bb.size(); ++posi)
 				{
@@ -785,7 +785,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				PutDoc(">>\nstream\n"+EncStream(fon,ObjCounter)+"\nendstream\nendobj\n");
 				ObjCounter++;
 			}
-			if ((fformat == Foi::PFA) && (Options.EmbedList.contains(it.key())))
+			if ((fformat == ScFace::PFA) && (Options.EmbedList.contains(it.key())))
 			{
 				QString fon("");
 				QString fon2("");
@@ -793,7 +793,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				uint value;
 				bool ok = true;
 				StartObj(ObjCounter);
-				AllFonts[it.key()]->EmbedFont(fon);
+				AllFonts[it.key()].EmbedFont(fon);
 				int len1 = fon.find("eexec")+5;
 				fon2 = fon.left(len1)+"\n";
 				int len2 = fon.find("0000000000000000000000000");
@@ -823,12 +823,12 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				PutDoc(">>\nstream\n"+EncStream(fon2, ObjCounter)+"\nendstream\nendobj\n");
 				ObjCounter++;
 			}
-			if ((fformat == Foi::SFNT || fformat == Foi::TTCF) && (Options.EmbedList.contains(it.key())))
+			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 			{
 				QString fon("");
 				StartObj(ObjCounter);
 				QByteArray bb;
-				AllFonts[it.key()]->RawData(bb);
+				AllFonts[it.key()].RawData(bb);
 				//AV: += and append() dont't work because they stop at '\0' :-(
 				for (unsigned int i=0; i < bb.size(); i++)
 					fon += QChar(bb[i]);
@@ -846,30 +846,30 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			StartObj(ObjCounter);
 			// TODO: think about QByteArray ScFace::getFontDescriptor() -- AV
 			PutDoc("<<\n/Type /FontDescriptor\n");
-			PutDoc("/FontName /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-			PutDoc("/FontBBox [ "+AllFonts[it.key()]->fontBBox()+" ]\n");
+			PutDoc("/FontName /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+			PutDoc("/FontBBox [ "+AllFonts[it.key()].fontBBox()+" ]\n");
 			PutDoc("/Flags ");
-			//FIXME: isItalic() should be queried from Foi, not from Qt -- AV
+			//FIXME: isItalic() should be queried from ScFace, not from Qt -- AV
 			//QFontInfo fo = QFontInfo(it.data());
 			int pfl = 0;
-			if (AllFonts[it.key()]->isFixedPitch())
+			if (AllFonts[it.key()].isFixedPitch())
 				pfl = pfl ^ 1;
 			//if (fo.italic())
-			if (AllFonts[it.key()]->italicAngle() != "0")
+			if (AllFonts[it.key()].italicAngle() != "0")
 				pfl = pfl ^ 64;
 //			pfl = pfl ^ 4;
 			pfl = pfl ^ 32;
 			PutDoc(QString::number(pfl)+"\n");
-			PutDoc("/Ascent "+QString::number(static_cast<int>(AllFonts[it.key()]->ascent()))+"\n");
-			PutDoc("/Descent "+QString::number(static_cast<int>(AllFonts[it.key()]->descent()))+"\n");
-			PutDoc("/CapHeight "+QString::number(static_cast<int>(AllFonts[it.key()]->capHeight()))+"\n");
-			PutDoc("/ItalicAngle "+AllFonts[it.key()]->italicAngle()+"\n");
-			PutDoc("/StemV "+ AllFonts[it.key()]->stemV() + "\n");
-			if ((fformat == Foi::SFNT || fformat == Foi::TTCF) && (Options.EmbedList.contains(it.key())))
+			PutDoc("/Ascent "+QString::number(static_cast<int>(AllFonts[it.key()].ascent()))+"\n");
+			PutDoc("/Descent "+QString::number(static_cast<int>(AllFonts[it.key()].descent()))+"\n");
+			PutDoc("/CapHeight "+QString::number(static_cast<int>(AllFonts[it.key()].capHeight()))+"\n");
+			PutDoc("/ItalicAngle "+AllFonts[it.key()].italicAngle()+"\n");
+			PutDoc("/StemV "+ AllFonts[it.key()].stemV() + "\n");
+			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile2 "+QString::number(ObjCounter-1)+" 0 R\n");
-			if ((fformat == Foi::PFB) && (Options.EmbedList.contains(it.key())))
+			if ((fformat == ScFace::PFB) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile "+QString::number(ObjCounter-1)+" 0 R\n");
-			if ((fformat == Foi::PFA) && (Options.EmbedList.contains(it.key())))
+			if ((fformat == ScFace::PFA) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile "+QString::number(ObjCounter-1)+" 0 R\n");
 			PutDoc(">>\nendobj\n");
 			ObjCounter++;
@@ -893,9 +893,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				// encoding dictionary w/ base encoding w/o differences
 				StartObj(ObjCounter);
 				PutDoc("<<\n/Type /Font\n/Subtype ");
-				PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
+				PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
 				PutDoc("/Name /Fo"+QString::number(a)+"\n");
-				PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+"\n");
+				PutDoc("/BaseFont /"+AllFonts[it.key()]->psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "" )+"\n");
 				//cf. widths:
 				PutDoc("/FirstChar 0\n");
 				PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
@@ -907,13 +907,13 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			}
 			else */
 //			{
-				GListeInd gl;
-				GlyIndex(AllFonts[it.key()], &gl);
+				GListe gl;
+				AllFonts[it.key()].glyphNames(gl);
 				GlyphsIdxOfFont.insert(it.key(), gl);
 				uint FontDes = ObjCounter - 1;
-				GListeInd::Iterator itg;
+				GListe::Iterator itg;
 				itg = gl.begin();
-				GListeInd::Iterator itg2;
+				GListe::Iterator itg2;
 				itg2 = gl.begin();
 				uint Fcc = gl.count() / 224;
 				if ((gl.count() % 224) != 0)
@@ -925,7 +925,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					PutDoc("[ 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 ");
 					for (int ww = 31; ww < 256; ++ww)
 					{
-						PutDoc(QString::number(static_cast<int>(AllFonts[it.key()]->charWidth(itg.key())* 1000))+" ");
+						PutDoc(QString::number(static_cast<int>(AllFonts[it.key()].charWidth(itg.key())* 1000))+" ");
 						if (itg == gl.end())
 							break;
 						++itg;
@@ -941,7 +941,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					int crc = 0;
 					for (int ww2 = 32; ww2 < 256; ++ww2)
 					{
-						PutDoc(itg2.data().Name+" ");
+						PutDoc(itg2.data().second+" ");
 						if (itg2 == gl.end())
 							break;
 						++itg2;
@@ -957,9 +957,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					PutDoc(">>\nendobj\n");
 					StartObj(ObjCounter);
 					PutDoc("<<\n/Type /Font\n/Subtype ");
-					PutDoc((fformat == Foi::SFNT || fformat == Foi::TTCF) ? "/TrueType\n" : "/Type1\n");
+					PutDoc((fformat == ScFace::SFNT || fformat == ScFace::TTCF) ? "/TrueType\n" : "/Type1\n");
 					PutDoc("/Name /Fo"+QString::number(a)+"S"+QString::number(Fc)+"\n");
-					PutDoc("/BaseFont /"+AllFonts[it.key()]->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
+					PutDoc("/BaseFont /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
 					PutDoc("/FirstChar 0\n");
 					PutDoc("/LastChar "+QString::number(chCount-1)+"\n");
 					PutDoc("/Widths "+QString::number(ObjCounter-2)+" 0 R\n");
@@ -3004,7 +3004,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 //				hl2.cselect = hl->cselect;
 
-				double wt = Cwidth(&doc, chstyle.font(), QString(tTabValues[tabCc].tabFillChar), chstyle.fontSize());
+				double wt = chstyle.font().charWidth(tTabValues[tabCc].tabFillChar, chstyle.fontSize());
 				int coun = static_cast<int>((hl->glyph.xoffset - tabDist) / wt);
 				double sPos = hl->glyph.xoffset - (hl->glyph.xoffset - tabDist) + 1;
 				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
@@ -3054,7 +3054,7 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 			setTextCh(ite, PNr, d, tmp, tmp2, &hl2, pstyle, pag);
 		}
 		setTextCh(ite, PNr, d, tmp, tmp2, hl, pstyle, pag);
-		tabDist = hl->glyph.xoffset + Cwidth(&doc, chstyle.font(), ch, chstyle.fontSize()) * (chstyle.scaleH() / 1000.0);
+		tabDist = hl->glyph.xoffset + chstyle.font().charWidth(ch[0], chstyle.fontSize()) * (chstyle.scaleH() / 1000.0);
 	}
 #endif
 	if (ite->itemType() == PageItem::TextFrame)
@@ -3082,15 +3082,15 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	if (hl->effects() & ScStyle_DropCap)
 	{
 		if (pstyle.useBaselineGrid())
-			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chstr, 10))));
+			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 		else
 		{
 			if (pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				tsz = qRound(10 * ((pstyle.lineSpacing() *  (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / (RealCHeight(&doc, hl->font(), chstr, 10))));
+				tsz = qRound(10 * ((pstyle.lineSpacing() *  (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 			else
 			{
-				double currasce = RealFHeight(&doc, hl->font(), pstyle.charStyle().fontSize());
-				tsz = qRound(10 * ((currasce * (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / RealCHeight(&doc, hl->font(), chstr, 10)));
+				double currasce = hl->font().height(pstyle.charStyle().fontSize());
+				tsz = qRound(10 * ((currasce * (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / hl->font().realCharHeight(chstr[0], 10)));
 			}
 		}
 	}
@@ -3161,8 +3161,8 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	uint cc = chstr[0].unicode();
 	uint idx = 0;
-	if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
-		idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
+	if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
+		idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
 	uint idx1 = (idx >> 8) & 0xFF;
 	if (hl->effects() & ScStyle_AllCaps)
 	{
@@ -3191,10 +3191,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		FillColor = "";
 		FillColor += putColor(hl->fillColor(), hl->fillShade(), true);
 	}
-	if ((hl->font()->isOTF()) || (!hl->font()->hasNames()) || (hl->font()->subset()) || (Options.SubsetList.contains(hl->font()->scName())))
+	if ((hl->font().isOTF()) || (!hl->font().hasNames()) || (hl->font().subset()) || (Options.SubsetList.contains(hl->font().scName())))
 	{
 		uint chr = chstr[0].unicode();
-		if ((hl->font()->canRender(chstr[0])) && (chr != 32))
+		if ((hl->font().canRender(chstr[0])) && (chr != 32))
 		{
 			if ((hl->strokeColor() != CommonStrings::None) && (hl->effects() & ScStyle_Outline))
 			{
@@ -3214,7 +3214,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			{
 				if (ite->reversed())
 				{
-					double wid = Cwidth(&doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
+					double wid = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
 					tmp2 += "1 0 0 1 "+FToStr(hl->glyph.xoffset)+" "+FToStr((hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
@@ -3235,10 +3235,11 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->scaleV() / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
 			tmp2 += FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" 0 0 cm\n";
 			if (hl->fillColor() != CommonStrings::None)
-				tmp2 += "/"+hl->font()->RealName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(chr)+" Do\n";
+				tmp2 += "/"+hl->font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(chr)+" Do\n";
 			if (hl->effects() & ScStyle_Outline)
 			{
-				FPointArray gly = hl->font()->outline(chr).copy();
+				uint gl = hl->font().char2CMap(chstr[0]);
+				FPointArray gly = hl->font().glyphOutline(gl);
 				QWMatrix mat;
 				mat.scale(0.1, 0.1);
 				gly.map(mat);
@@ -3273,11 +3274,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->effects() & ScStyle_SmartHyphenVisible)
 			{
 				int chs = hl->fontSize();
-				double wtr = Cwidth(&doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
+				double wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 				tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
 				chstr = "-";
 				chr = chstr[0].unicode();
-				FPointArray gly = hl->font()->outline(chr).copy();
+				uint gl = hl->font().char2CMap(chstr[0]);
+				FPointArray gly = hl->font().glyphOutline(gl);
 				QWMatrix mat;
 				mat.scale(0.1, 0.1);
 				gly.map(mat);
@@ -3316,10 +3318,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	{
 		cc = chstr[0].unicode();
 		idx = 0;
-		if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
-			idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
+		if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
+			idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
 		idx1 = (idx >> 8) & 0xFF;
-		tmp += UsedFontsP[hl->font()->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+		tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 		if (hl->strokeColor() != CommonStrings::None)
 		{
 			tmp += StrokeColor;
@@ -3349,10 +3351,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 						ctx = " ";
 					if (ctx == QChar(0xA0))
 						ctx = " ";
-					wtr = Cwidth(&doc, hl->font(), chstr, chs, ctx) * (hl->scaleH() / 1000.0);
+					wtr = hl->font().charWidth(chstr[0], chs, ctx[0]) * (hl->scaleH() / 1000.0);
 				}
 				else
-					wtr = Cwidth(&doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
+					wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 				tmp +=  FToStr(-QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 //				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
 			}
@@ -3368,15 +3370,15 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 			if (hl->effects() & ScStyle_SmartHyphenVisible)
 			{
 				int chs = hl->fontSize();
-				double wtr = Cwidth(&doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
+				double wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 				tmp += "1 0 0 1 "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset)+" Tm\n";
 				chstr = "-";
 				cc = chstr[0].unicode();
 				idx = 0;
-				if (GlyphsIdxOfFont[hl->font()->scName()].contains(cc))
-					idx = GlyphsIdxOfFont[hl->font()->scName()][cc].Code;
+				if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
+					idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
 				idx1 = (idx >> 8) & 0xFF;
-				tmp += UsedFontsP[hl->font()->scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+				tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;
 				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 			}
@@ -3384,7 +3386,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
 	{
-		double Ulen = Cwidth(&doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
@@ -3393,18 +3395,18 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		if ((hl->underlineOffset() != -1) || (hl->underlineWidth() != -1))
 		{
 			if (hl->underlineOffset() != -1)
-				Upos = (hl->underlineOffset() / 1000.0) * (hl->font()->descent() * (hl->fontSize() / 10.0));
+				Upos = (hl->underlineOffset() / 1000.0) * (hl->font().descent(hl->fontSize() / 10.0));
 			else
-				Upos = hl->font()->underlinePos() * (hl->fontSize() / 10.0);
+				Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
 			if (hl->underlineWidth() != -1)
 				Uwid = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+				Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->font()->underlinePos() * (hl->fontSize() / 10.0);
-			Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+			Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
+			Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		if (hl->baselineOffset() != 0)
 			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
@@ -3417,7 +3419,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	if ((hl->effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
 	{
-		double Ulen = Cwidth(&doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
@@ -3426,18 +3428,18 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		if ((hl->strikethruOffset() != -1) || (hl->strikethruWidth() != -1))
 		{
 			if (hl->strikethruOffset() != -1)
-				Upos = (hl->strikethruOffset() / 1000.0) * (hl->font()->ascent() * (hl->fontSize() / 10.0));
+				Upos = (hl->strikethruOffset() / 1000.0) * (hl->font().ascent(hl->fontSize() / 10.0));
 			else
-				Upos = hl->font()->strikeoutPos() * (hl->fontSize() / 10.0);
+				Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
 			if (hl->strikethruWidth() != -1)
 				Uwid = (hl->strikethruWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+				Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->font()->strikeoutPos() * (hl->fontSize() / 10.0);
-			Uwid = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+			Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
+			Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		if (hl->baselineOffset() != 0)
 			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
@@ -4199,7 +4201,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if (Options.Version < 14)
 				cnx += ind2PDFabr[ite->annotation().Font()];
 			else
-				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font()->scName()]+"S0";
+				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().scName()]+"S0";
 			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
 			if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
@@ -4483,7 +4485,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font()->scName()]+"S0";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().scName()]+"S0";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -4526,7 +4528,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font()->scName()]+"S0";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().scName()]+"S0";
 //		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 //		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";

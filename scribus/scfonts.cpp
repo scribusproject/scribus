@@ -30,8 +30,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <cstdlib>
 #include "scfonts.h"
-#include "scfonts_ttf.h"
-#include "scfontmetrics.h"
+#include "fonts/ftface.h"
+#include "fonts/scface_ps.h"
+#include "fonts/scface_ttf.h"
+#include "fonts/scfontmetrics.h"
 
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -48,464 +50,20 @@ for which a new license (GPL+exception) is in place.
 #include <fontconfig/fontconfig.h>
 #endif
 
-#include "scpaths.h"
-#include "util.h"
-
 #include FT_TRUETYPE_TAGS_H
 #include FT_TRUETYPE_TABLES_H
 
-// static:
-FT_Library Foi::library = NULL;
 
-const Foi Foi::NONE;
-
-/*****
-   ScFace lifecycle:  unchecked -> loaded -> glyphs checked
-                               |         \-> broken glyphs
-							   \-> broken
-   usable() == ! broken
-   embeddable() == glyphs_checked
-   
-   canRender(unicode) -> CharMap cache? -> loadChar/Glyph -> !broken
-   Glyphs:  width    status
-            -1000    unkown
-            -2000    broken
-            >= 0     ok, outline valid
-   CharMap:  unicode -> glyph index
-             uint[256][256]
-   unicode ignores: < 32, ...
-   unicode emulate: spaces, hyphen, ligatures?, diacritics?
- *****/
-
-Foi::Foi(QString fam, QString sty, QString alt, QString psname, QString path, 
-		 int face, bool embedps) : face(NULL)
-{
-	isOTF_ = false;
-	Subset = false;
-	typeCode = Foi::UNKNOWN_TYPE;
-	formatCode = Foi::UNKNOWN_FORMAT;
-	SCName = alt;
-	Family = fam;
-	Effect = sty;
-	cached_RealName = psname;
-	fontFile = path;
-	faceIndex_ = face;
-	EmbedPS = embedps;
-	Alternative = "";
-	if (!library) {
-		if (FT_Init_FreeType( &library ))
-			qDebug(QObject::tr("Freetype2 library not available"));
-	}
-}
-
-Foi::Foi() : face(NULL)
-{
-	isOTF_ = false;
-	Subset = false;
-	typeCode = Foi::UNKNOWN_TYPE;
-	formatCode = Foi::UNKNOWN_FORMAT;
-	SCName = "";
-	Family = "";
-	Effect = "";
-	cached_RealName = "";
-	fontFile = "(None)";
-	faceIndex_ = -1;
-	EmbedPS = false;
-	Alternative = "";
-	UseFont = false;
-}
-
-Foi::~Foi() {
-	unload();
-}
-
-FT_Face Foi::ftFace() const {
-	if (!face) {
-		if (FT_New_Face( library, fontFile, faceIndex_, &face )) {
-			const_cast<Foi*>(this)->UseFont = false;
-			qDebug(QObject::tr("Font %1(%2) is broken").arg(fontFile).arg(faceIndex_));
-		}
-	}
-	return face;
-}
-
-void Foi::increaseUsage() const
-{
-	Foi* that = const_cast<Foi*>(this); //FIXME: use mutable instead
-	++that->usage_;
-}
-
-void Foi::decreaseUsage() const
-{
-	Foi* that = const_cast<Foi*>(this); //FIXME: use mutable instead
-	if (usage_ == 1) 
-		unload();
-	--that->usage_;
-}
-
-void Foi::unload() const
-{
-	Foi* that = const_cast<Foi*>(this); //FIXME: use mutable instead
-	if (that->face) {
-		FT_Done_Face( that->face );
-		that->face = NULL;
-	}
-	// clear caches
-	that->CharWidth.clear();
-	that->GlyphArray.clear();
-	that->HasMetrics = false;
-}
-
-double Foi::charWidth(QChar ch) const 
-{ 
-	return CharWidth[ch.unicode()]; 
-}
-
-bool Foi::canRender(QChar ch)   const 
-{
-	return typeCode != Foi::UNKNOWN_TYPE  &&  CharWidth.contains(ch.unicode()); 
-}
-
-FPointArray Foi::outline(QChar ch) const 
-{ 
-	return GlyphArray[ch.unicode()].Outlines.copy(); 
-}
-
-FPoint Foi::origin(QChar ch) const 
-{ 
-	const struct GlyphR & res(GlyphArray[ch.unicode()]);
-	return FPoint(res.x, res.y); 
-}
-
-/// copied from Freetype's FT_Stream_ReadAt()
-FT_Error ftIOFunc( FT_Stream stream, unsigned long pos, unsigned char* buffer, unsigned long count)
-{
-    FT_Error  error = FT_Err_Ok;
-    FT_ULong  read_bytes;
-	
-    if ( pos >= stream->size )
-    {
-		qDebug( "ftIOFunc: invalid i/o; pos = 0x%lx, size = 0x%lx\n",
-				   pos, stream->size );
-		
-		return FT_Err_Invalid_Stream_Operation;
-    }
-	
-    if ( stream->read )
-		read_bytes = stream->read( stream, pos, buffer, count );
-    else
-    {
-		read_bytes = stream->size - pos;
-		if ( read_bytes > count )
-			read_bytes = count;
-		
-		memcpy( buffer, stream->base + pos, read_bytes );
-    }
-	
-    stream->pos = pos + read_bytes;
-	
-    if ( read_bytes < count )
-    {
-		qDebug( "ftIOFunc: invalid read; expected %lu bytes, got %lu\n",
-				   count, read_bytes );
-		
-		error = FT_Err_Invalid_Stream_Operation;
-    }
-	
-    return error;
-}
-
-
-
-QString Foi::RealName()
-{
-	return cached_RealName;
-}
-
-bool Foi::EmbedFont(QString &str)
-{
-	str+="Base";
-	return(false);
-}
-
-bool Foi::ReadMetrics()
-{
-	HasMetrics=false;
-	for(int i=0;i<256;++i)
-		CharWidth[i]=0;
-	return(false);
-}
-
-bool Foi::GlNames(QMap<uint, QString> *GList)
-{
-	return GlyNames(this, GList);
-}
-
-void Foi::RawData(QByteArray & bb)
-{
-	FT_Stream fts = ftFace()->stream;
-	bb.resize(fts->size);
-	bool error = ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(bb.data()), fts->size);
-	if (error) 
-	{
-		sDebug(QObject::tr("Font %1 is broken (read stream), no embedding").arg(fontFile));
-		bb.resize(0);
-	}
-	/*
-	 if (showFontInformation)
-	 {
-		 QFile f(fontFile);
-		 qDebug(QObject::tr("RawData for Font %1(%2): size=%3 filesize=%4").arg(fontFile).arg(faceIndex_).arg(bb.size()).arg(f.size()));
-	 }
-	 */
-}
-
-
-
-/*
-	Class Foi_postscript
-	Subclass of Foi, for PostScript fonts that could possibly have a .afm file
-	associated with them for metrics information.
-*/
-
-class Foi_postscript : public Foi
-{
-	public:
-		Foi_postscript(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
-		Foi(fam,sty,alt,psname,path,face,embedps), metricsread(false)
-		{
-			HasMetrics=false;
-			HasKern = false;
-			Ascent = "0";
-			CapHeight = "0";
-			Descender = "0";
-			ItalicAngle = "0";
-			StdVW = "1";
-			FontBBox = "0 0 0 0";
-			IsFixedPitch = false;
-			typeCode = TYPE1;
-			HasMetrics=true;
-		}
-
-		virtual QString RealName()
-		{
-			return(Foi::RealName());
-		}
-
-		virtual bool ReadMetrics()  // routine by Franz Schmid - modified by Alastair M. Robinson
-		{
-			if(metricsread)
-				return(HasMetrics);
-			CharWidth.clear();
-			GlyphArray.clear();
-			QString tmp, tmp2, tmp3, tmp4;
-			double x, y;
-			FPointArray outlines;
-			struct GlyphR GRec;
-			bool error;
-			FT_ULong  charcode;
-			FT_UInt   gindex;
-			isStroked_ = false;
-			
-			FT_Face face = ftFace();
-			if (!face)
-				return false;
-
-			uniEM = static_cast<double>(face->units_per_EM);
-			QString afnm = fontFilePath().left(fontFilePath().length()-3);
-			QFile afm(afnm+"afm");
-			if(!(afm.exists()))
-			{
-				afm.setName(afnm+"Afm");
-				if(!(afm.exists()))
-					afm.setName(afnm+"AFM");
-			}
-			if (afm.exists())
-				error = FT_Attach_File(face, afm.name());
-			HasKern = FT_HAS_KERNING(face);
-			Ascent = tmp.setNum(face->ascender);
-			Descender = tmp.setNum(face->descender);
-			numDescender = face->descender / uniEM;
-			numAscent = face->ascender / uniEM;
-			underline_pos = face->underline_position / uniEM;
-			strikeout_pos = numAscent / 3;
-			strokeWidth_ = face->underline_thickness / uniEM;
-			CapHeight = Ascent;
-			ItalicAngle = "0";
-			StdVW = "1";
-			FontBBox = tmp.setNum(face->bbox.xMin)+" "+tmp2.setNum(face->bbox.yMin)+" "+tmp3.setNum(face->bbox.xMax)+" "+tmp4.setNum(face->bbox.yMax);
-			IsFixedPitch = face->face_flags & 4;
-			setBestEncoding(face);
-			gindex = 0;
-			charcode = FT_Get_First_Char( face, &gindex );
-			int goodGlyph = 0;
-			int invalidGlyph = 0;
-			while ( gindex != 0 )
-			{
-				error = FT_Load_Glyph( face, gindex, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP );
-				if (error)
-				{
-					++invalidGlyph;
-					sDebug(QObject::tr("Font %1 has broken glyph %2 (charcode %3)").arg(fontPath()).arg(gindex).arg(charcode));
-					charcode = FT_Get_Next_Char( face, charcode, &gindex );
-					continue;
-				}
-				++goodGlyph;
-				double ww = face->glyph->metrics.horiAdvance / uniEM;
-				if (face->glyph->format == FT_GLYPH_FORMAT_PLOTTER)
-					isStroked_ = true;
-				error = false;
-				outlines = traceChar(face, charcode, 10, &x, &y, &error);
-				if (!error)
-				{
-					CharWidth.insert(charcode, ww);
-					GRec.Outlines = outlines.copy();
-					GRec.x = x;
-					GRec.y = y;
-					GlyphArray.insert(charcode, GRec);
-				}
-				charcode = FT_Get_Next_Char( face, charcode, &gindex );
-			}
-			if (invalidGlyph > 0) {
-				UseFont = false;
-				sDebug(QObject::tr("Font %1 is broken and will be discarded").arg(fontPath()));
-			}
-			
-			CharWidth[13] = 0;
-			CharWidth[28] = 0;
-			CharWidth[9] = 1;
-			
-			HasMetrics=UseFont;
-			metricsread=UseFont;
-			return(HasMetrics);
-		}
-	private:
-		bool metricsread;
-};
-
-/*
-	Class Foi_pfb
-	Subclass of Foi, specifically for Adobe type 1 .pfb fonts.
-	Implements: RealName() and EmbedFont().
-*/
-
-class Foi_pfb : public Foi_postscript
-{
-	public:
-		Foi_pfb(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
-		Foi_postscript(fam,sty,alt,psname,path,face,embedps)
-		{
-			formatCode = PFB;
-		}
-
-		virtual bool EmbedFont(QString &str)
-		{
-			QByteArray bb;
-			RawData(bb);
-			QString tmp2 = "";
-			if ((bb.size() > 2) &&  (bb[0] == char(0x80)) && (static_cast<int>(bb[1]) == 1))
-			{
-				QString tmp3="";
-				QString tmp4 = "";
-				uint posi,cxxc=0;
-				for (posi = 6; posi < bb.size(); ++posi)
-				{
-					if ((bb[posi] == char(0x80)) && (posi+1 < bb.size()) && (static_cast<int>(bb[posi+1]) == 2))
-						break;
-					str += bb[posi];
-				}
-				uint ulen;
-				if (posi+6 < bb.size()) 
-				{
-					ulen = bb[posi+2] & 0xff;
-					ulen |= (bb[posi+3] << 8) & 0xff00;
-					ulen |= (bb[posi+4] << 16) & 0xff0000;
-					ulen |= (bb[posi+5] << 24) & 0xff000000;
-					posi += 6;
-					if (posi + ulen > bb.size())
-						ulen = bb.size() - posi - 1;
-					char linebuf[80];
-					cxxc=0;
-					for (uint j = 0; j < ulen; ++j)
-					{
-						unsigned char u=bb[posi];
-						linebuf[cxxc]=((u >> 4) & 15) + '0';
-						if(u>0x9f) linebuf[cxxc]+='a'-':';
-						++cxxc;
-						u&=15; linebuf[cxxc]=u + '0';
-						if(u>0x9) linebuf[cxxc]+='a'-':';
-						++posi;
-						++cxxc;
-						if (cxxc > 72)
-						{
-							linebuf[cxxc++]='\n';
-							linebuf[cxxc++]=0;
-							str += linebuf;
-							cxxc = 0;
-						}
-					}
-					linebuf[cxxc]=0;
-					str += linebuf;
-					str += "\n";
-				}
-				posi += 6;
-				for (uint j = posi; j < bb.size(); ++j)
-				{
-					if ((bb[j] == static_cast<char>(0x80)) && (j+1 < bb.size()) && (static_cast<int>(bb[j+1]) == 3))
-						break;
-					if(bb[j]=='\r')
-						str+="\n";
-					else
-						str += bb[j];
-				}
-				str += "\n";
-				cxxc = 0;
-				return true;
-			}
-			else 
-			{
-				sDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontPath()));
-				return false;
-			}
-		}
-};
-
-/*
-	Class Foi_pfa
-	Subclass of Foi, specifically for Adobe type 1 and type 3 .pfa fonts.
-	Implements: RealName() and EmbedFont().
-*/
-
-class Foi_pfa : public Foi_postscript
-{
-	public:
-		Foi_pfa(QString fam, QString sty, QString alt, QString psname, QString path, int face, bool embedps) :
-		Foi_postscript(fam,sty,alt,psname,path,face,embedps)
-		{
-			formatCode = PFA;
-		}
-		virtual bool EmbedFont(QString &str)
-		{
-			QByteArray bb;
-			RawData(bb);
-			if (bb.size() > 2 && bb[0] == '%' && bb[1] == '!') 
-			{
-				// this is ok since bb will not contain '\0'
-				str.append(bb);
-				return true; 
-			}
-			return false;
-		}
-};
+#include "scpaths.h"
+#include "util.h"
 
 
 
 /***************************************************************************/
 
-SCFonts::SCFonts() : QDict<Foi>(), FontPath(true)
+SCFonts::SCFonts() : QMap<QString,ScFace>(), FontPath(true)
 {
-	insert("", new Foi());
-	setAutoDelete(true);
+	insert("", ScFace::none());
 	showFontInformation=false;
 	checkedFonts.clear();
 }
@@ -518,23 +76,22 @@ void SCFonts::updateFontMap()
 {
 	fontMap.clear();
 	SCFontsIterator it( *this );
-	for ( ; it.current(); ++it)
+	for ( ; it.hasNext(); it.next())
 	{
-		if (it.current()->usable())
+		if (it.current().usable())
 		{
-			if (fontMap.contains(it.current()->family()))
+			if (fontMap.contains(it.current().family()))
 			{
-				QStringList effect;
-				if (!fontMap[it.current()->family()].contains(it.current()->style()))
+				if (!fontMap[it.current().family()].contains(it.current().style()))
 				{
-					fontMap[it.current()->family()].append(it.current()->style());
+					fontMap[it.current().family()].append(it.current().style());
 				}
 			}
 			else
 			{
-				QStringList effect;
-				effect.append(it.current()->style());
-				fontMap.insert(it.current()->family(), effect);
+				QStringList styles;
+				styles.append(it.current().style());
+				fontMap.insert(it.current().family(), styles);
 			}
 		}
 	}
@@ -607,7 +164,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 			{
 				error = AddScalableFont(pathfile, library, DocName);
 			}
-#ifdef FT_MACINTOSH
+#ifdef Q_OS_MAC
 			else if (ext.isEmpty() && DocName.isEmpty())
 			{
 				error = AddScalableFont(pathfile, library, DocName);
@@ -638,7 +195,7 @@ void SCFonts::AddScalableFonts(const QString &path, QString DocName)
 /**
  * tests magic words to determine the fontformat and preliminary fonttype
  */
-void getFontFormat(FT_Face face, Foi::FontFormat & fmt, Foi::FontType & type)
+void getFontFormat(FT_Face face, ScFace::FontFormat & fmt, ScFace::FontType & type)
 {
 	static const char* T42_HEAD      = "%!PS-TrueTypeFont";
 	static const char* T1_HEAD      = "%!FontType1";
@@ -651,54 +208,54 @@ void getFontFormat(FT_Face face, Foi::FontFormat & fmt, Foi::FontType & type)
 	const FT_Stream fts = face->stream;
 	char buf[128];
 	
-	fmt = Foi::UNKNOWN_FORMAT;
-	type = Foi::UNKNOWN_TYPE;
+	fmt = ScFace::UNKNOWN_FORMAT;
+	type = ScFace::UNKNOWN_TYPE;
 	if (ftIOFunc(fts, 0L, reinterpret_cast<FT_Byte *>(buf), 128) == FONT_NO_ERROR) 
 	{
 		if(strncmp(buf,T42_HEAD,strlen(T42_HEAD)) == 0) 
 		{
-			fmt = Foi::TYPE42;
-			type = Foi::TTF;
+			fmt = ScFace::TYPE42;
+			type = ScFace::TTF;
 		}
 		else if(strncmp(buf,T1_HEAD,strlen(T1_HEAD)) == 0 ||
 			    strncmp(buf,T1_ADOBE_HEAD,strlen(T1_ADOBE_HEAD)) == 0) 
 		{
-			fmt = Foi::PFA;
-			type = Foi::TYPE1;
+			fmt = ScFace::PFA;
+			type = ScFace::TYPE1;
 		}
 		else if(strncmp(buf,PSFONT_ADOBE2_HEAD,strlen(PSFONT_ADOBE2_HEAD)) == 0 ||
 			    strncmp(buf,PSFONT_ADOBE21_HEAD,strlen(PSFONT_ADOBE21_HEAD)) == 0 ||
 			    strncmp(buf,PSFONT_ADOBE3_HEAD,strlen(PSFONT_ADOBE3_HEAD)) ==0) 
 		{
 			// Type2(CFF), Type0(Composite/CID), Type 3, Type 14 etc would end here
-			fmt = Foi::PFA;
-			type = Foi::UNKNOWN_TYPE;
+			fmt = ScFace::PFA;
+			type = ScFace::UNKNOWN_TYPE;
 		}
 		else if(buf[0] == '\200' && buf[1] == '\1')
 		{
-			fmt = Foi::PFB;
-			type = Foi::TYPE1;
+			fmt = ScFace::PFB;
+			type = ScFace::TYPE1;
 		}
 		else if(buf[0] == '\0' && buf[1] == '\1' 
 				&& buf[2] == '\0' && buf[3] == '\0')
 		{
-			fmt = Foi::SFNT;
-			type = Foi::TTF;
+			fmt = ScFace::SFNT;
+			type = ScFace::TTF;
 		}
 		else if(strncmp(buf,"true",4) == 0)
 		{
-			fmt = Foi::SFNT;
-			type = Foi::TTF;
+			fmt = ScFace::SFNT;
+			type = ScFace::TTF;
 		}
 		else if(strncmp(buf,"ttcf",4) == 0)
 		{
-			fmt = Foi::TTCF;
-			type = Foi::OTF;
+			fmt = ScFace::TTCF;
+			type = ScFace::OTF;
 		}
 		else if(strncmp(buf,"OTTO",4) == 0)
 		{
-			fmt = Foi::SFNT;
-			type = Foi::OTF;
+			fmt = ScFace::SFNT;
+			type = ScFace::OTF;
 		}
 		// missing: raw CFF
 	}
@@ -708,7 +265,7 @@ void getFontFormat(FT_Face face, Foi::FontFormat & fmt, Foi::FontType & type)
  * Checks face, which must be sfnt based, for the subtype.
  * Possible values: TTF, CFF, OTF
  */
-void getSFontType(FT_Face face, Foi::FontType & type) 
+void getSFontType(FT_Face face, ScFace::FontType & type) 
 {
 	if (FT_IS_SFNT(face)) 
 	{
@@ -718,9 +275,9 @@ void getSFontType(FT_Face face, Foi::FontType & type)
 		bool hasCFF = ! FT_Load_Sfnt_Table(face, TTAG_CFF, 0, NULL,  &ret);
 		hasCFF &= ret > 0;
 		if (hasGlyph)
-			type = Foi::TTF;
+			type = ScFace::TTF;
 		else if (hasCFF)
-			type = Foi::OTF;
+			type = ScFace::OTF;
 		// TODO: CID or no
 	}
 } 
@@ -732,8 +289,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 	bool Subset = false;
 	char *buf[50];
 	QString glyName = "";
-	Foi::FontFormat format;
-	Foi::FontType   type;
+	ScFace::FontFormat format;
+	ScFace::FontType   type;
 	FT_Face         face = NULL;
 	struct testCache foCache;
 	QFileInfo fic(filename);
@@ -745,7 +302,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		firstRun = true;
 		ScCore->setSplashStatus( QObject::tr("Creating Font Cache") );
 	}
-	bool error = FT_New_Face( library, filename, 0, &face );
+	bool error = FT_New_Face( library, QFile::encodeName(filename), 0, &face );
 	if (error) 
 	{
 		if (face != NULL)
@@ -756,7 +313,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		return true;
 	}
 	getFontFormat(face, format, type);
-	if (format == Foi::UNKNOWN_FORMAT) 
+	if (format == ScFace::UNKNOWN_FORMAT) 
 	{
 		if (showFontInformation)
 			sDebug(QObject::tr("Failed to load font %1 - font type unknown").arg(filename));
@@ -873,78 +430,73 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			qpsName = QString(psName);
 		else
 			qpsName = ts;
-		Foi *t = find(ts);
-		if (t)
+		ScFace t;
+		if (contains(ts))
 		{
-			if (t->RealName() != qpsName)
+			t = (*this)[ts];
+			if (t.psName() != qpsName)
 			{
 				alt = " ("+qpsName+")";
 				ts += alt;
 				sty += alt;
 			}
 		}
-		t = find(ts);
-		if (!t)
+		t = (*this)[ts];
+		if (t.isNone())
 		{
 			switch (format) 
 			{
-				case Foi::PFA:
-					t = new Foi_pfa(fam, sty, ts, qpsName, filename, faceindex, true);
-					t->subset(Subset);
+				case ScFace::PFA:
+					t = ScFace(new ScFace_pfa(fam, sty, "", ts, qpsName, filename, faceindex));
+					t.subset(Subset);
 					break;
-				case Foi::PFB:
-					t = new Foi_pfb(fam, sty, ts, qpsName, filename, faceindex, true);
-					t->subset(Subset);
+				case ScFace::PFB:
+					t = ScFace(new ScFace_pfb(fam, sty, "", ts, qpsName, filename, faceindex));
+					t.subset(Subset);
 					break;
-				case Foi::SFNT:
-					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
-					getSFontType(face, t->typeCode);
-					if (t->typeCode == Foi::OTF) 
+				case ScFace::SFNT:
+					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
+					getSFontType(face, t.m->typeCode);
+					if (t.type() == ScFace::OTF) 
 					{
-						t->isOTF_ = true;
-						t->subset(true);
+						t.subset(true);
 					}
 					else
-						t->subset(Subset);
+						t.subset(Subset);
 					break;
-				case Foi::TTCF:
-					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
-					t->formatCode = Foi::TTCF;
-					t->typeCode = Foi::TTF;
-					//getSFontType(face, t->typeCode);
-					if (t->typeCode == Foi::OTF) 
+				case ScFace::TTCF:
+					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
+					t.m->formatCode = ScFace::TTCF;
+					t.m->typeCode = ScFace::TTF;
+					//getSFontType(face, t.m->typeCode);
+					if (t.type() == ScFace::OTF) 
 					{
-						t->isOTF_ = true;
-						t->subset(true);
+						t.subset(true);
 					}
 					else
-						t->subset(Subset);
+						t.subset(Subset);
 					break;
-				case Foi::TYPE42:
-					t = new Foi_ttf(fam, sty, ts, qpsName, filename, faceindex, true);
-					getSFontType(face, t->typeCode);
-					if (t->typeCode == Foi::OTF) 
+				case ScFace::TYPE42:
+					t = ScFace(new ScFace_ttf(fam, sty, "", ts, qpsName, filename, faceindex));
+					getSFontType(face, t.m->typeCode);
+					if (t.type() == ScFace::OTF) 
 					{
-						t->isOTF_ = true;
-						t->subset(true);
+						t.subset(true);
 					}
 					else
-						t->subset(Subset);
+						t.subset(Subset);
 					break;
 				default:
 				/* catching any types not handled above to silence compiler */
 					break;
 			}
 			insert(ts,t);
-			t->HasNames = HasNames;
-			t->embedPs(true);
-			t->useFont(true);
-			t->CharWidth[13] = 0;
-			t->CharWidth[28] = 0;
-			t->CharWidth[9] = 1;
-			t->PrivateFont = DocName;
+			t.m->hasNames = HasNames;
+			t.embedPs(true);
+			t.usable(true);
+			t.m->forDocument = DocName;
 			//setBestEncoding(face); //AV
-			switch (face->charmap? face->charmap->encoding : -1)
+/*			switch (face->charmap? face->charmap->encoding : -1)
 			{
 				case	 FT_ENCODING_ADOBE_STANDARD: 
 					t->FontEnc = QString("StandardEncoding");
@@ -964,8 +516,8 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 				default:
 					t->FontEnc = QString();
 			}
-			if (showFontInformation)
-				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t->RealName()).arg(filename).arg(faceindex+1));
+*/			if (showFontInformation)
+				sDebug(QObject::tr("Font %1 loaded from %2(%3)").arg(t.psName()).arg(filename).arg(faceindex+1));
 
 /*
 //debug
@@ -981,7 +533,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		else 
 		{
 			if (showFontInformation)
-				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceindex+1).arg(t->fontPath()));
+				sDebug(QObject::tr("Font %1(%2) is duplicate of %3").arg(filename).arg(faceindex+1).arg(t.fontPath()));
 			// this is needed since eg. AppleSymbols will happily return a face for *any* face_index
 			if (faceindex > 0) {
 				break;
@@ -990,7 +542,7 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 		FT_Done_Face(face);
 		face=NULL;
 		++faceindex;
-		error = FT_New_Face( library, filename, faceindex, &face );
+		error = FT_New_Face( library, QFile::encodeName(filename), faceindex, &face );
 	} //while
 	
 	if (face != 0)
@@ -1047,8 +599,7 @@ void SCFonts::AddFontconfigFonts()
 	FT_Done_FreeType( library );
 }
 
-#else
-#if !defined(QT_MAC) && !defined(_WIN32)
+#elif defined(QT_WS_X11)
 
 void SCFonts::AddXFontPath()
 {
@@ -1113,7 +664,6 @@ void SCFonts::AddXFontServerPath()
 		} while (pos > -1);
 	}
 }
-#endif
 #endif
 
 /* Add an extra path to our font search path,

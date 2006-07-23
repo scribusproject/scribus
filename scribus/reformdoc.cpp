@@ -522,11 +522,11 @@ void ReformDoc::updateDocumentSettings()
 	}
 	PrefsManager* prefsManager=PrefsManager::instance();
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
-	for ( ; it.current() ; ++it)
+	for ( ; it.hasNext() ; it.next())
 	{
-		it.current()->embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
-		it.current()->useFont(tabFonts->fontFlags[it.currentKey()].FlagUse);
-		it.current()->subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
+		it.current().embedPs(tabFonts->fontFlags[it.currentKey()].FlagPS);
+		it.current().usable(tabFonts->fontFlags[it.currentKey()].FlagUse);
+		it.current().subset(tabFonts->fontFlags[it.currentKey()].FlagSub);
 	}
 	uint a = 0;
 	prefsManager->appPrefs.GFontSub.clear();

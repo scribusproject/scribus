@@ -62,8 +62,9 @@ ScribusCore::~ScribusCore()
 #ifndef NDEBUG
 static void abort_on_error(QtMsgType t, const char * m)
 {
-	if(t==QtFatalMsg) assert(false);
 	std::cerr << m << "\n";
+	if(t==QtFatalMsg) assert(false);
+//	if(t!=QtDebugMsg) assert(false);
 }
 #endif
 

@@ -301,7 +301,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	// after sample creating
 	bool previouslyUsedFont = false;
 
-	if (tmpStyle.charStyle().font() == &Foi::NONE)
+	if (tmpStyle.charStyle().font().isNone())
 		return QPixmap();
 
 	UndoManager::instance()->setUndoEnabled(false); // disable undo
@@ -319,11 +319,11 @@ QPixmap SampleItem::getSample(int width, int height)
 		m_Doc->view()->setScale(1.0);
 	}
 
-	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font()->scName()))
+	if (m_Doc->UsedFonts.contains(tmpStyle.charStyle().font().scName()))
 		previouslyUsedFont = true;
 
-	m_Doc->AddFont(tmpStyle.charStyle().font()->scName(), qRound(m_Doc->toolSettings.defSize / 10.0));
-	m_Doc->docParagraphStyles.append(tmpStyle);
+	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->toolSettings.defSize / 10.0));
+	m_Doc->docParagraphStyles.create(tmpStyle);
 	int tmpIndex = m_Doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
@@ -345,11 +345,11 @@ QPixmap SampleItem::getSample(int width, int height)
 
 	// cleanups and resets
 	if (!previouslyUsedFont)
-		m_Doc->UsedFonts.remove(tmpStyle.charStyle().font()->scName());
+		m_Doc->UsedFonts.remove(tmpStyle.charStyle().font().scName());
 	if (m_Doc->view() != NULL)
 		m_Doc->view()->setScale(sca);
 	m_Doc->appMode = userAppMode;
-	m_Doc->docParagraphStyles.remove(m_Doc->docParagraphStyles.fromLast());
+	m_Doc->docParagraphStyles.remove(tmpIndex);
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
 }

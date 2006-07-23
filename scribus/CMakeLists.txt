@@ -16,6 +16,7 @@ ADD_SUBDIRECTORY(qm)
 ADD_SUBDIRECTORY(swatches)
 ADD_SUBDIRECTORY(templates)
 ADD_SUBDIRECTORY(text)
+ADD_SUBDIRECTORY(fonts)
 ADD_SUBDIRECTORY(desaxe)
 
 
@@ -360,8 +361,6 @@ sccolorshade.cpp
 sccombobox.cpp
 scinputdialog.cpp
 scfonts.cpp
-scfonts_ttf.cpp
-scfontmetrics.cpp
 scimage.cpp
 scimagestructs.cpp
 scimgdataloader.cpp
@@ -452,6 +451,7 @@ ENDIF(QT_WRAP_CPP)
 LINK_DIRECTORIES(
 desaxe
 text
+fonts
 pixbuf
 )
 
@@ -462,12 +462,14 @@ ENDIF(RENDER_LIB STREQUAL "LIBART")
 SET(SCRIBUS_LIBART_LIB "scribus_libart_lib")
 SET(SCRIBUS_PIXBUF_LIB "scribus_pixbuf_lib")
 SET(SCRIBUS_TEXT_LIB "scribus_text_lib")
+SET(SCRIBUS_FONTS_LIB "scribus_fonts_lib")
 SET(SCRIBUS_DESAXE_LIB "scribus_desaxe_lib")
 
 INCLUDE_DIRECTORIES(
 ${CMAKE_SOURCE_DIR}
 ${CMAKE_CURRENT_SOURCE_DIR}
 "${CMAKE_CURRENT_SOURCE_DIR}/text"
+"${CMAKE_CURRENT_SOURCE_DIR}/fonts"
 "${CMAKE_CURRENT_SOURCE_DIR}/desaxe"
 )
 
@@ -478,12 +480,14 @@ ADD_EXECUTABLE(${EXE_NAME}
   ${SCRIBUS_SOURCES}
   ${SCRIBUS_UI_CPP}
   ${SCRIBUS_TEXT_SOURCES}
+  ${SCRIBUS_FONTS_SOURCES}
   ${SCRIBUS_DESAXE_SOURCES}
 )
 
 TARGET_LINK_LIBRARIES(${EXE_NAME}
 ${SCRIBUS_DESAXE_LIB}
 ${SCRIBUS_TEXT_LIB}
+${SCRIBUS_FONTS_LIB}
 ${SCRIBUS_PIXBUF_LIB}
 )
 

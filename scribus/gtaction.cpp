@@ -136,10 +136,10 @@ void gtAction::write(const QString& text, gtStyle *style)
 		paragraphStyle = ::findParagraphStyle(textFrame->doc(), textFrame->doc()->currentStyle);
 
 	gtFont* font = style->getFont();
-	QString fontName = validateFont(font)->scName();
+	QString fontName = validateFont(font).scName();
 	gtFont font2(*font);
-	font2.setName(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font()->scName());
-	QString fontName2 = validateFont(&font2)->scName();
+	font2.setName(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font().scName());
+	QString fontName2 = validateFont(&font2).scName();
 	CharStyle lastStyle;
 	int lastStyleStart = 0;
 	for (uint a = 0; a < text.length(); ++a)
@@ -152,7 +152,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 			ch = QChar(13);
 		if ((inPara) && (!overridePStyleFont))
 		{
-			if (textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font() == &Foi::NONE)
+			if (textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font().isNone())
 				newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
 			else
 				newStyle.setFont(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font());
@@ -213,7 +213,7 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (uint i = 0; i < textFrame->doc()->docParagraphStyles.size(); ++i)
+	for (uint i = 0; i < textFrame->doc()->docParagraphStyles.count(); ++i)
 	{
 		if (textFrame->doc()->docParagraphStyles[i].name() == name)
 		{
@@ -230,7 +230,7 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 	if (pstyleIndex == -1)
 	{
 		createParagraphStyle(pstyle);
-		pstyleIndex = textFrame->doc()->docParagraphStyles.size() - 1;
+		pstyleIndex = textFrame->doc()->docParagraphStyles.count() - 1;
 	}
 	else if (updateParagraphStyles)
 	{
@@ -262,7 +262,7 @@ void gtAction::applyFrameStyle(gtFrameStyle* fstyle)
 	textFrame->setLineSpacing(linesp);
 	textFrame->setLineSpacingMode(0);
 	gtFont* font = fstyle->getFont();
-	Foi* scfont = validateFont(font);
+	Scface* scfont = validateFont(font);
 	textFrame->setFont(scfont->scName());
 	textFrame->setFontSize(font->getSize());
 	textFrame->TxtFill = parseColor(font->getColor());
@@ -287,7 +287,7 @@ void gtAction::getFrameFont(gtFont *font)
 {
 	const CharStyle& style(textFrame->itemText.defaultStyle().charStyle());
 	
-	font->setName(style.font()->scName());
+	font->setName(style.font().scName());
 	font->setSize(style.fontSize());
 	font->setColor(style.fillColor());
 	font->setShade(style.fillShade());
@@ -325,9 +325,9 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
 	ScribusDoc* currDoc=textFrame->doc();
-	if (currDoc->docParagraphStyles.size() > 5)
+	if (currDoc->docParagraphStyles.count() > 5)
 	{
-		for (uint i = 5; i < currDoc->docParagraphStyles.size(); ++i)
+		for (uint i = 5; i < currDoc->docParagraphStyles.count(); ++i)
 		{
 			if (currDoc->docParagraphStyles[i].name() == pstyle->getName())
 				return;
@@ -377,7 +377,7 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
 	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
 	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
-	textFrame->doc()->docParagraphStyles.append(vg);
+	textFrame->doc()->docParagraphStyles.create(vg);
 	m_ScMW->propertiesPalette->Spal->updateFormatList();
 }
 
@@ -390,8 +390,7 @@ void gtAction::removeParagraphStyle(const QString& name)
 
 void gtAction::removeParagraphStyle(int index)
 {
-	QValueList<ParagraphStyle>::iterator it = textFrame->doc()->docParagraphStyles.at(index);
-	textFrame->doc()->docParagraphStyles.remove(it);
+	textFrame->doc()->docParagraphStyles.remove(index);
 }
 
 void gtAction::updateParagraphStyle(const QString&, gtParagraphStyle* pstyle)
@@ -450,7 +449,7 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	textFrame->doc()->docParagraphStyles[pstyleIndex] = vg;
 }
 
-Foi* gtAction::validateFont(gtFont* font)
+ScFace gtAction::validateFont(gtFont* font)
 {
 	// Dirty hack for family Times New Roman
 	if (font->getFamily() == "Times New")
@@ -462,8 +461,8 @@ Foi* gtAction::validateFont(gtFont* font)
 
 	QString useFont = font->getName();
 	if ((useFont.isNull()) || (useFont.isEmpty()))
-		useFont = textFrame->itemText.defaultStyle().charStyle().font()->scName();
-	else if (prefsManager->appPrefs.AvailFonts[font->getName()] == 0)
+		useFont = textFrame->itemText.defaultStyle().charStyle().font().scName();
+	else if (prefsManager->appPrefs.AvailFonts[font->getName()].isNone())
 	{
 		bool found = false;
 		useFont = "";
@@ -526,7 +525,7 @@ QString gtAction::findFontName(gtFont* font)
 	for (uint i = 0; i < static_cast<uint>(gtFont::NAMECOUNT); ++i)
 	{
 		QString nname = font->getName(i);
-		if (prefsManager->appPrefs.AvailFonts[nname] != 0)
+		if (! prefsManager->appPrefs.AvailFonts[nname].isNone())
 		{
 			ret = nname;
 			break;

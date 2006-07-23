@@ -169,10 +169,23 @@ void FPointArray::translate( double dx, double dy )
 	pend += count;
 	for (Iterator p = begin(); p != pend; p++)
 	{
-		if (p->xp < 900000)
+		if (p->x() < 900000)
 			*p += pt;
 	}
 }
+
+void FPointArray::scale( double sx, double sy )
+{
+	Iterator pend = begin();
+	pend += count;
+	for (Iterator p = begin(); p != pend; p++)
+	{
+		if (p->x() < 900000) {
+			p->setXY(p->x() * sx, p->y() * sy);
+		}
+	}
+}
+
 
 FPoint FPointArray::WidthHeight()
 {

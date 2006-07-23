@@ -40,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API FmItem : public QCustomMenuItem 
 {
 public: 
-	FmItem(const QString& s, const Foi * f);
+	FmItem(const QString& s, const ScFace& f);
 	~FmItem() {};
 	void paint(QPainter *p, const QColorGroup& cg, bool act, bool enabled, int x, int y, int w, int h);
 	QSize sizeHint();

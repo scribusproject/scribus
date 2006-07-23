@@ -28,7 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfontmetrics.h>
 #include <qapplication.h>
 
-FmItem::FmItem(const QString& s, const Foi * )
+FmItem::FmItem(const QString& s, const ScFace&)
 {
 	stringy = s;
 //	font = f;

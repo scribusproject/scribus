@@ -116,7 +116,7 @@ void PrefsManager::initDefaults()
 	/** Default font and size **/
 	SCFontsIterator it(appPrefs.AvailFonts);
 	bool goodFont = false;
-	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.current(); ++itf)
+	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
 		if ((itf.currentKey() == "Arial Regular") || (itf.currentKey() == "Times New Roman Regular"))
 		{
@@ -1166,13 +1166,13 @@ bool PrefsManager::WritePref(QString ho)
 		co.setAttribute("Register",static_cast<int>(appPrefs.DColors[itc.key()].isRegistrationColor()));
 		elem.appendChild(co);
 	}
-	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.current(); ++itf)
+	for ( SCFontsIterator itf(appPrefs.AvailFonts); itf.hasNext(); itf.next())
 	{
 		QDomElement fn=docu.createElement("FONT");
 		fn.setAttribute("NAME",itf.currentKey());
-		fn.setAttribute("EMBED",static_cast<int>(itf.current()->embedPs()));
-		fn.setAttribute("USE", static_cast<int>(itf.current()->usable()));
-		fn.setAttribute("SUBSET", static_cast<int>(itf.current()->subset()));
+		fn.setAttribute("EMBED",static_cast<int>(itf.current().embedPs()));
+		fn.setAttribute("USE", static_cast<int>(itf.current().usable()));
+		fn.setAttribute("SUBSET", static_cast<int>(itf.current().subset()));
 		elem.appendChild(fn);
 	}
 	for (uint rd=0; rd<appPrefs.RecentDocs.count(); ++rd)
@@ -1702,7 +1702,7 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			QString tmpf = dc.attribute("FACE");
 			QString newFont = "";
-			if (!appPrefs.AvailFonts.find(tmpf))
+			if (!appPrefs.AvailFonts.contains(tmpf))
 			{
 				ScCore->showSplash(false);
 				MissingFont *dia = new MissingFont(0, tmpf, 0);
@@ -1719,11 +1719,11 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="FONT")
 		{
-			if (appPrefs.AvailFonts.find(dc.attribute("NAME")))
+			if (appPrefs.AvailFonts.contains(dc.attribute("NAME")))
 			{
-				appPrefs.AvailFonts[dc.attribute("NAME")]->embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
-				appPrefs.AvailFonts[dc.attribute("NAME")]->useFont(appPrefs.AvailFonts[dc.attribute("NAME")]->usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
-				appPrefs.AvailFonts[dc.attribute("NAME")]->subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
+				appPrefs.AvailFonts[dc.attribute("NAME")].embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
+				appPrefs.AvailFonts[dc.attribute("NAME")].usable(appPrefs.AvailFonts[dc.attribute("NAME")].usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
+				appPrefs.AvailFonts[dc.attribute("NAME")].subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
 			}
 		}
 		if (dc.tagName()=="COLOR")

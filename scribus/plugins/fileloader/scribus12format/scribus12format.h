@@ -11,10 +11,10 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "scfonts.h"
 #include "scribusstructs.h"
+#include "styles/styleset.h"
 
 #include <qdom.h>
 #include <qmap.h>
-#include <qptrlist.h>
 #include <qstring.h>
 #include <qvaluelist.h>
 
@@ -40,20 +40,20 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 
 		// Special features - .sla page extraction support
 		virtual bool loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName=QString::null);
-		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles);
+		virtual bool readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles);
 		virtual bool readLineStyles(const QString& fileName, QMap<QString,multiLine> *Sty);
 		virtual bool readColors(const QString& fileName, ColorList & colors);
 		virtual bool readPageCount(const QString& fileName, int *num1, int *num2, QStringList & masterPageNames);
-		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois);
+		virtual void getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces);
 
 	private:
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
-		void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
-		QPtrList<Foi> dummyFois;
+		QValueList<ScFace> dummyScFaces;
 		bool newReplacement;
 		QMap<QString,QString> ReplacedFonts;
 		QMap<QString,QString> DoFonts;

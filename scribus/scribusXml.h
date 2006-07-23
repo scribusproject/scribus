@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "scfonts.h"
 #include "scribusstructs.h"
 #include "selection.h"
+#include "styles/styleset.h"
 
 class PrefsManager;
 class ScribusView;
@@ -51,20 +52,20 @@ public:
 	bool ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h);
 	bool ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view);
 	ColorList Farben;
-	QValueList<ParagraphStyle> docParagraphStyles;
+	StyleSet<ParagraphStyle> docParagraphStyles;
 	QValueList<Linked> LFrames;
 	QStringList MNames;
 	QMap<QString,QString> DoFonts;
 	QMap<QString,QString> ReplacedFonts;
 	QMap<uint,QString> DoVorl;
-	QPtrList<Foi> dummyFois;
+	QValueList<ScFace> dummyScFaces;
 	uint VorlC;
 	bool newReplacement;
 	
 protected:
 	PrefsManager* prefsManager;
 	
-	void GetStyle(QDomElement *pg, ParagraphStyle *vg, QValueList<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 };
 

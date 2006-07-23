@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "styleitem.h"
 #include "smpstylewbase.h"
 #include "smcstylewbase.h"
+#include "styles/styleset.h"
 
 class QGridLayout;
 class QPopupMenu;
@@ -90,7 +91,7 @@ public:
 
 private:
 	SMPStyleWidget *pwidget_;
-	QValueList<ParagraphStyle> tmpPStyles_;
+	StyleSet<ParagraphStyle> tmpPStyles_;
 	ScribusDoc *doc_;
 };
 

@@ -106,7 +106,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SStyleVal, 1, 1 );
 	SFontVal = new FontCombo(Search);
 	SFontVal->setMaximumSize(190, 30);
-	SFontVal->setCurrentText(doc->currentStyle.charStyle().font()->scName());
+	SFontVal->setCurrentText(doc->currentStyle.charStyle().font().scName());
 	SFontVal->setEnabled(false);
 	SearchLayout->addWidget( SFontVal, 2, 1 );
 	SSizeVal = new MSpinBox( Search, 1 );
@@ -202,7 +202,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( RStyleVal, 1, 1 );
 	RFontVal = new FontCombo(Replace);
 	RFontVal->setMaximumSize(190, 30);
-	RFontVal->setCurrentText(doc->currentStyle.charStyle().font()->scName());
+	RFontVal->setCurrentText(doc->currentStyle.charStyle().font().scName());
 	RFontVal->setEnabled(false);
 	ReplaceLayout->addWidget( RFontVal, 2, 1 );
 	RSizeVal = new MSpinBox( Replace, 1 );
@@ -426,7 +426,7 @@ void SearchReplace::slotDoSearch()
 			}
 			if (SFont->isChecked())
 			{
-				if (Item->itemText.charStyle(a).font()->scName() != sFont)
+				if (Item->itemText.charStyle(a).font().scName() != sFont)
 					found = false;
 			}
 #ifndef NLS_PROTO
@@ -567,7 +567,7 @@ void SearchReplace::slotDoSearch()
 								hg = chars->at(as+ap);
 								if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
 									found = false;
-								if ((SFont->isChecked()) && (hg->charStyle.font()->scName() != sFont))
+								if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
 									found = false;
 //								if ((SStyle->isChecked()) && (hg->cab != sStyle))
 //									found = false;
@@ -603,7 +603,7 @@ void SearchReplace::slotDoSearch()
 							hg = chars->at(e);
 							if ((SSize->isChecked()) && (hg->charStyle.fontSize() != sSize))
 								found = false;
-							if ((SFont->isChecked()) && (hg->charStyle.font()->scName() != sFont))
+							if ((SFont->isChecked()) && (hg->charStyle.font().scName() != sFont))
 								found = false;
 //							if ((SStyle->isChecked()) && (hg->cab != sStyle))
 //								found = false;
@@ -726,7 +726,7 @@ void SearchReplace::slotDoReplace()
 							hg->cab = RStyleVal->currentItem();
 						else
 							hg->cab = findParagraphStyle(Doc, Doc->currentStyle);
-						if (Doc->docParagraphStyles[hg->cab].charStyle().font() != &Foi::NONE)
+						if (!Doc->docParagraphStyles[hg->cab].charStyle().font()->isNone())
 						{
 							hg->setFont((*Doc->AllFonts)[Doc->docParagraphStyles[hg->cab].charStyle().font()->scName()]);
 							hg->setFontSize(Doc->docParagraphStyles[hg->cab].charStyle().fontSize());
@@ -963,7 +963,7 @@ void SearchReplace::clear()
 	STextVal->setText("");
 	int currentParaStyle = findParagraphStyle(Doc, Doc->currentStyle);
 	SStyleVal->setCurrentItem(currentParaStyle);
-	SFontVal->setCurrentText(Doc->currentStyle.charStyle().font()->scName());
+	SFontVal->setCurrentText(Doc->currentStyle.charStyle().font().scName());
 	SSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
 	SFillVal->setCurrentText(Doc->currentStyle.charStyle().fillColor());
 	SStrokeVal->setCurrentText(Doc->currentStyle.charStyle().strokeColor());
@@ -977,7 +977,7 @@ void SearchReplace::clear()
 	RText->setChecked(false);
 	RTextVal->setText("");
 	RStyleVal->setCurrentItem(currentParaStyle);
-	RFontVal->setCurrentText(Doc->currentStyle.charStyle().font()->scName());
+	RFontVal->setCurrentText(Doc->currentStyle.charStyle().font().scName());
 	RSizeVal->setValue(Doc->currentStyle.charStyle().fontSize() / 10.0);
 	RFillVal->setCurrentText(Doc->currentStyle.charStyle().fillColor());
 	RStrokeVal->setCurrentText(Doc->currentStyle.charStyle().strokeColor());
@@ -1022,7 +1022,7 @@ void SearchReplace::readPrefs()
 	else
 		SStyleVal->setCurrentItem(tmp);
 
-	SFontVal->setCurrentText(prefs->get("SFontVal", Doc->currentStyle.charStyle().font()->scName()));
+	SFontVal->setCurrentText(prefs->get("SFontVal", Doc->currentStyle.charStyle().font().scName()));
 	SSizeVal->setValue(prefs->getDouble("SSizeVal", Doc->currentStyle.charStyle().fontSize() / 10.0));
 	SFillVal->setCurrentText(prefs->get("SFillVal", Doc->currentStyle.charStyle().fillColor()));
 	SStrokeVal->setCurrentText(prefs->get("SStrokeVal", Doc->currentStyle.charStyle().strokeColor()));
@@ -1040,7 +1040,7 @@ void SearchReplace::readPrefs()
 		RStyleVal->setCurrentItem(0);
 	else
 		RStyleVal->setCurrentItem(tmp);
-	RFontVal->setCurrentText(prefs->get("RFontVal", Doc->currentStyle.charStyle().font()->scName()));
+	RFontVal->setCurrentText(prefs->get("RFontVal", Doc->currentStyle.charStyle().font().scName()));
 	RSizeVal->setValue(prefs->getDouble("RSizeVal", Doc->currentStyle.charStyle().fontSize() / 10.0));
 	RFillVal->setCurrentText(prefs->get("RFillVal", Doc->currentStyle.charStyle().fillColor()));
 	RStrokeVal->setCurrentText(prefs->get("RStrokeVal", Doc->currentStyle.charStyle().strokeColor()));

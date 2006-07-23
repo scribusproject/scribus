@@ -61,6 +61,7 @@ class SCRIBUS_API SampleItem : QObject
 		void setLineSpa(double lineSpa);
 		void setTextAlignment(int textAlignment);
 		void setIndent(double indent);
+		void setRightMargin(double indent);
 		void setFirst(double first);
 		void setGapBefore(double gapBefore);
 		void setGapAfter(double gapAfter);

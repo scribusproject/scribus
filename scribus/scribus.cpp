@@ -986,7 +986,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	{
 //		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
 		const ParagraphStyle currPStyle(currItem->currentStyle());
-		int currentParaStyle = findParagraphStyle(doc, *dynamic_cast<const ParagraphStyle*>(currPStyle.parent()));
+		int currentParaStyle = currPStyle.parent()? findParagraphStyle(doc, *dynamic_cast<const ParagraphStyle*>(currPStyle.parent())) : 0;
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currentParaStyle);
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
@@ -997,7 +997,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 						doc->currentStyle.charStyle().fillColor(), 
 						doc->currentStyle.charStyle().strokeShade(), 
 						doc->currentStyle.charStyle().fillShade());
-		emit TextIFont(doc->currentStyle.charStyle().font()->scName());
+		emit TextIFont(doc->currentStyle.charStyle().font().scName());
 		emit TextISize(doc->currentStyle.charStyle().fontSize());
 		emit TextUSval(doc->currentStyle.charStyle().tracking());
 		emit TextStil(doc->currentStyle.charStyle().effects());
@@ -2600,7 +2600,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->asTextFrame())
-				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font()->scName());
+				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
 			if (currItem->lineColor() != CommonStrings::None)
 				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
@@ -3589,29 +3589,16 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			// TODO fix that for Groups on Masterpages
 //			if (ite->Groups.count() != 0)
 //				view->GroupOnPage(ite);
-			if ((ite->asTextFrame()) || (ite->asPathText()))
+			if (ite->asPathText())
 			{
-				if (ite->asPathText())
-				{
-					ite->Frame = true;
-					ite->updatePolyClip();
-				}
-				else
-				{
-					if ((ite->BackBox != 0) || (ite->NextBox != 0))
-					{
-						PageItem *nextItem = ite;
-						while (nextItem != 0)
-						{
-							if (nextItem->BackBox != 0)
-								nextItem = nextItem->BackBox;
-							else
-								break;
-						}
-						ite = nextItem;
-					}
-				}
+				ite->Frame = true;
+				ite->updatePolyClip();
 				ite->DrawObj(painter, rd);
+			}
+			else
+			{
+				if ( ite->BackBox == 0 )
+					ite->asTextFrame()->layout();
 			}
 		}
 //		RestoreBookMarks();
@@ -3628,32 +3615,16 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->OwnPage = doc->OnPage(ite);
 			*/
 			//view->setRedrawBounding(ite);
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText)) // && (!ite->Redrawn))
+			if (ite->itemType() == PageItem::PathText)
 			{
-				if (ite->itemType() == PageItem::PathText)
-				{
-					ite->Frame = true;
-					ite->updatePolyClip();
-					ite->DrawObj(painter, rd);
-				}
-				else
-				{
-					if ((ite->BackBox != 0) || (ite->NextBox != 0))
-					{
-						PageItem *nextItem = ite;
-						while (nextItem != 0)
-						{
-							if (nextItem->BackBox != 0)
-								nextItem = nextItem->BackBox;
-							else
-								break;
-						}
-						ite = nextItem;
-						ite->DrawObj(painter, rd);
-					}
-					else
-						ite->DrawObj(painter, rd);
-				}
+				ite->Frame = true;
+				ite->updatePolyClip();
+				ite->DrawObj(painter, rd);
+			}
+			else if (ite->itemType() == PageItem::TextFrame)
+			{
+				if ( ite->BackBox == 0 )
+					ite->asTextFrame()->layout();
 			}
 /*			if (doc->OldBM)
 			{
@@ -3669,14 +3640,15 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		for (uint azz=0; azz<doc->FrameItems.count(); ++azz)
 		{
 			PageItem *ite = doc->FrameItems.at(azz);
-			if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+			if ( ite->itemType() == PageItem::PathText )
 			{
-				if (ite->itemType() == PageItem::PathText)
-				{
-					ite->Frame = true;
-					ite->updatePolyClip();
-				}
+				ite->Frame = true;
+				ite->updatePolyClip();
 				ite->DrawObj(painter, rd);
+			}
+			else if ( ite->itemType() == PageItem::TextFrame )
+			{
+				ite->asTextFrame()->layout();
 			}
 		}
 		painter->end();
@@ -4490,7 +4462,7 @@ void ScribusMainWindow::slotEditCut()
 							BufferI += nextItem->itemText.text(a);
 						}
 						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.charStyle(a).font()->scName()+"\t";
+						Buffer2 += nextItem->itemText.charStyle(a).font().scName()+"\t";
 						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fontSize())+"\t";
 						Buffer2 += nextItem->itemText.charStyle(a).fillColor()+"\t";
 						Buffer2 += QString::number(nextItem->itemText.charStyle(a).tracking())+"\t";
@@ -4583,7 +4555,7 @@ void ScribusMainWindow::slotEditCopy()
 							BufferI += nextItem->itemText.text(a);
 						}
 						Buffer2 += "\t";
-						Buffer2 += nextItem->itemText.charStyle(a).font()->scName()+"\t";
+						Buffer2 += nextItem->itemText.charStyle(a).font().scName()+"\t";
 						Buffer2 += QString::number(nextItem->itemText.charStyle(a).fontSize())+"\t";
 						Buffer2 += nextItem->itemText.charStyle(a).fillColor()+"\t";
 						Buffer2 += QString::number(nextItem->itemText.charStyle(a).tracking())+"\t";
@@ -4863,9 +4835,9 @@ void ScribusMainWindow::slotEditPaste()
 //FIXME: that st business doesn't look right
 				int st = findParagraphStyle(doc, doc->currentStyle);
 				if (st > 5)
-					ss->GetText(currItem, st, doc->docParagraphStyles[st].charStyle().font()->scName(), doc->docParagraphStyles[st].charStyle().fontSize(), true);
+					ss->GetText(currItem, st, doc->docParagraphStyles[st].charStyle().font().scName(), doc->docParagraphStyles[st].charStyle().fontSize(), true);
 				else
-					ss->GetText(currItem, st, currItem->currentCharStyle().font()->scName(), currItem->currentCharStyle().fontSize(), true);
+					ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
 				delete ss;
 			}
 			view->RefreshItem(currItem);
@@ -5714,7 +5686,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem!=NULL && currItem->asTextFrame())
-				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font()->scName());
+				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font().scName());
 			if (!Buffer2.isNull())
 			{
 //				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -6195,14 +6167,14 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 		if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 		{
 			int a = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf]->scName());
+			FontID.insert(a, prefsManager->appPrefs.AvailFonts[nf].scName());
 		}
 		else
 		{//CB FIXME: to doc?
 			if (doc->m_Selection->count() != 0)
 			{
 				PageItem *currItem = doc->m_Selection->itemAt(0);
-				nf2 = currItem->currentCharStyle().font()->scName();
+				nf2 = currItem->currentCharStyle().font().scName();
 			}
 			propertiesPalette->Fonts->RebuildList(doc);
 			buildFontMenu();
@@ -6478,6 +6450,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 		}
 	}
 	uint counter = 0;
+/*
 	for (uint lc = 0; lc < 3; ++lc)
 	{
 		switch (lc)
@@ -6515,7 +6488,9 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 				{
 					const ParagraphStyle origStyle(ite->itemText.paragraphStyle(e));
 					int cabori = findParagraphStyle(doc, origStyle);
+					assert (cabori >= 0 && cabori < doc->docParagraphStyles.count() );
 					int cabneu = ers[cabori];
+					assert (cabneu >= 0 && cabneu < dia->TempVorl.count() );
 					CharStyle newStyle;
 					if (cabori > 4)
 					{
@@ -6575,7 +6550,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 							lastParaStyle = cabneu;
 						}
 						if (ite->itemText.text(e) == SpecialChars::PARSEP && cabneu >= 0) {
-							ite->itemText.applyStyle(e, doc->docParagraphStyles[cabneu]);
+							ite->itemText.applyStyle(e, dia->TempVorl[cabneu]);
 						}
 					}
 					else if (lastParaStyle >= 0) {
@@ -6588,11 +6563,12 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 				if (ite->itemText.length() > 0) {
 					ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
 					if (lastParaStyle >=0 )
-						ite->itemText.applyStyle(ite->itemText.length()-1, doc->docParagraphStyles[lastParaStyle]);
+						ite->itemText.applyStyle(ite->itemText.length()-1, dia->TempVorl[lastParaStyle]);
 				}
 			}
 		}
 	}
+ */
 	if (CurrStED != NULL)
 	{
 		if (CurrStED->Editor->StyledText.count() != 0)
@@ -6602,16 +6578,19 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 				SEditor::ChList *chars;
 				chars = CurrStED->Editor->StyledText.at(pa);
 				(*CurrStED->Editor->ParagStyles.at(pa)) = ers[CurrStED->Editor->ParagStyles[pa]];
+				/*
 				int cabneu = 0;
 				for (uint e = 0; e < chars->count(); ++e)
 				{
 					int cabori = chars->at(e)->cab;
+					assert (cabore >= 0 && cabori < doc->docParagraphStyles.count());
 					cabneu = ers[cabori];
+					assert (cabneu >= 0 && cabneu < dia->TempVorl.count() );
 					if (cabori > 4)
 					{
 						if (cabneu > 0)
 						{
-							if (chars->at(e)->charStyle.font()->scName() == doc->docParagraphStyles[cabori].charStyle().font()->scName())
+							if (chars->at(e)->charStyle.font().scName() == doc->docParagraphStyles[cabori].charStyle().font().scName())
 								chars->at(e)->charStyle.setFont(dia->TempVorl[cabneu].charStyle().font());
 							if (chars->at(e)->charStyle.fontSize() == doc->docParagraphStyles[cabori].charStyle().fontSize())
 								chars->at(e)->charStyle.setFontSize(dia->TempVorl[cabneu].charStyle().fontSize());
@@ -6660,11 +6639,12 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						chars->at(e)->cab = cabneu;
 					}
 				}
+				 */
 			}
 			CurrStED->Editor->currentParaStyle = ers[CurrStED->Editor->currentParaStyle];
 		}
 	}
-	doc->docParagraphStyles = dia->TempVorl;
+	doc->docParagraphStyles.redefine(dia->TempVorl);
 	if (CurrStED != NULL)
 	{
 		if (CurrStED->Editor->StyledText.count() != 0)
@@ -6672,21 +6652,22 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	}
 	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)
 	{
-		if (doc->docParagraphStyles[a].charStyle().font() != &Foi::NONE)
+		if (!doc->docParagraphStyles[a].charStyle().font().isNone())
 		{
-			QString nf = doc->docParagraphStyles[a].charStyle().font()->scName();
+			QString nf = doc->docParagraphStyles[a].charStyle().font().scName();
 			if (!doc->UsedFonts.contains(nf))
 			{
 				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
 				{
 					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf]->scName());
+					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
 				}
 				else
 					doc->docParagraphStyles[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
 			}
 		}
 	}
+
 	propertiesPalette->Spal->updateFormatList();
 	propertiesPalette->updateColorList();
 	propertiesPalette->updateCList();
@@ -7121,10 +7102,10 @@ void ScribusMainWindow::buildFontMenu()
 	FontMenu->insertSeparator();
 	if (!HaveDoc)
 	{
-		it.toFirst();
+//		it.toFirst();
 		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()));
 		FontMenu->setItemChecked(a, true);
-		FontID.insert(a, it.current()->scName());
+		FontID.insert(a, it.current().scName());
 	}
 	else
 	{

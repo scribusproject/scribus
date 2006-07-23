@@ -21,7 +21,6 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
-#include "scfontmetrics.h"
 #include "selection.h"
 #include "sampleitem.h"
 
@@ -73,7 +72,7 @@ FontPreview::FontPreview(QString fontName, QWidget* parent, ScribusDoc* doc)
 	{
 		Q_ASSERT(m_Doc!=0);
 		if (m_Doc->m_Selection->count() != 0)
-			item = fontList->findItem(m_Doc->currentStyle.charStyle().font()->scName(), 0);
+			item = fontList->findItem(m_Doc->currentStyle.charStyle().font().scName(), 0);
 		else
 			item = fontList->findItem(PrefsManager::instance()->appPrefs.toolSettings.defFont, 0);
 	}
@@ -161,47 +160,47 @@ void FontPreview::updateFontList(QString searchStr)
 	re.setWildcard(true);
 
 	for (SCFontsIterator fontIter(PrefsManager::instance()->appPrefs.AvailFonts);
-			fontIter.current(); ++fontIter)
+			fontIter.hasNext(); fontIter.next())
 	{
-		if (searchStr.length()!=0 & !re.exactMatch(fontIter.current()->scName()))
+		if (searchStr.length()!=0 & !re.exactMatch(fontIter.current().scName()))
 			continue;
 
-		if (fontIter.current()->usable())
+		if (fontIter.current().usable())
 		{
 			QListViewItem *row = new QListViewItem(fontList);
-			Foi::FontType type = fontIter.current()->type();
+			ScFace::FontType type = fontIter.current().type();
 
-			row->setText(0, fontIter.current()->scName());
+			row->setText(0, fontIter.current().scName());
 			// searching
 			Q_ASSERT(m_Doc!=0);
 			// quick hack before #4036 gets fixed - PV
 			if (m_Doc){
-			if (m_Doc->UsedFonts.contains(fontIter.current()->scName()))
+			if (m_Doc->UsedFonts.contains(fontIter.current().scName()))
 				row->setPixmap(1, okIcon);
 			}
 
-			if (type == Foi::OTF)
+			if (type == ScFace::OTF)
 			{
 				row->setPixmap(2, otfFont);
 				row->setText(2, "OpenType");
 			}
 			else
-				if (fontIter.current()->subset())
+				if (fontIter.current().subset())
 					row->setPixmap(3, okIcon);
 
-			if (type == Foi::TYPE1) // type1
+			if (type == ScFace::TYPE1) // type1
 			{
 				row->setPixmap(2, psFont);
 				row->setText(2, "Type1");
 			}
 
-			if (type == Foi::TTF)
+			if (type == ScFace::TTF)
 			{
 				row->setPixmap(2, ttfFont);
 				row->setText(2, "TrueType");
 			}
 
-			QFileInfo fi(fontIter.current()->fontFilePath());
+			QFileInfo fi(fontIter.current().fontFilePath());
 			fi.absFilePath().contains(QDir::homeDirPath()) ?
 					row->setText(4, tr("User", "font preview")):
 					row->setText(4, tr("System", "font preview"));

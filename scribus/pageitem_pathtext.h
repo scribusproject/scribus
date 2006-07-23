@@ -43,7 +43,6 @@ class ScPainter;
 class ScribusDoc;
 class UndoManager;
 class UndoState;
-class Foi;
 struct CopyPasteBuffer;
 
 class SCRIBUS_API PageItem_PathText : public PageItem

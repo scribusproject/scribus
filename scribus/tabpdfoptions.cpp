@@ -425,11 +425,11 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 // 		QMap<QString,int>::const_iterator it;
 // 		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
 // 		{
-// 			if (AllFonts[it.key()]->type() == Foi::TYPE1)
+// 			if (AllFonts[it.key()]->type() == ScFace::TYPE1)
 // 				AvailFlist->insertItem(loadIcon("font_type1_16.png"), it.key());
-// 			else if (AllFonts[it.key()]->type() == Foi::TTF)
+// 			else if (AllFonts[it.key()]->type() == ScFace::TTF)
 // 				AvailFlist->insertItem(loadIcon("font_truetype16.png"), it.key());
-// 			else if (AllFonts[it.key()]->type() == Foi::OTF)
+// 			else if (AllFonts[it.key()]->type() == ScFace::OTF)
 // 				AvailFlist->insertItem(loadIcon("font_otf16.png"), it.key());
 // 		}
 		AvailFlist->setMinimumSize(QSize(150, 140));
@@ -1270,11 +1270,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		AvailFlist->clear();
 		for (it = DocFonts.constBegin(); it != DocFonts.constEnd(); ++it)
 		{
-			if (AllFonts[it.key()]->type() == Foi::TYPE1)
+			if (AllFonts[it.key()].type() == ScFace::TYPE1)
 				AvailFlist->insertItem(loadIcon("font_type1_16.png"), it.key());
-			else if (AllFonts[it.key()]->type() == Foi::TTF)
+			else if (AllFonts[it.key()].type() == ScFace::TTF)
 				AvailFlist->insertItem(loadIcon("font_truetype16.png"), it.key());
-			else if (AllFonts[it.key()]->type() == Foi::OTF)
+			else if (AllFonts[it.key()].type() == ScFace::OTF)
 				AvailFlist->insertItem(loadIcon("font_otf16.png"), it.key());
 		}
 		ToEmbed->setEnabled(false);
@@ -1979,7 +1979,7 @@ void TabPDFOptions::PutToEmbed()
 {
 	if (EmbedList->count() != 0)
 	{
-		if (!AllFonts[AvailFlist->currentText()]->subset())
+		if (!AllFonts[AvailFlist->currentText()].subset())
 		{
 			if (EmbedList->findItem(AvailFlist->currentText()) == NULL)
 			{
@@ -2006,7 +2006,7 @@ void TabPDFOptions::PutToEmbed()
 	}
 	else
 	{
-		if (!AllFonts[AvailFlist->currentText()]->subset())
+		if (!AllFonts[AvailFlist->currentText()].subset())
 		{
 			FontsToEmbed.append(AvailFlist->currentText());
 			EmbedList->insertItem(AvailFlist->currentText());
@@ -2032,7 +2032,7 @@ void TabPDFOptions::PutToEmbed()
 
 void TabPDFOptions::RemoveSubset()
 {
-	if (!AllFonts[SubsetList->currentText()]->subset())
+	if (!AllFonts[SubsetList->currentText()].subset())
 	{
 		FontsToSubset.remove(SubsetList->currentText());
 		FontsToEmbed.append(SubsetList->currentText());
@@ -2127,7 +2127,7 @@ void TabPDFOptions::EmbedAll()
 		{
 			if (AvailFlist->item(a)->isSelectable())
 			{
-				if (!AllFonts[AvailFlist->item(a)->text()]->subset())
+				if (!AllFonts[AvailFlist->item(a)->text()].subset())
 				{
 					FontsToEmbed.append(AvailFlist->item(a)->text());
 					EmbedList->insertItem(AvailFlist->item(a)->text());

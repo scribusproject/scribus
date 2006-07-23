@@ -202,7 +202,7 @@ void LoadSavePlugin::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView
 	m_AvailableFonts=targetAvailableFonts;
 }
 
-void LoadSavePlugin::getReplacedFontData(bool & /*getNewReplacement*/, QMap<QString,QString> &/*getReplacedFonts*/, QPtrList<Foi> &/*getDummyFois*/)
+void LoadSavePlugin::getReplacedFontData(bool & /*getNewReplacement*/, QMap<QString,QString> &/*getReplacedFonts*/, QValueList<ScFace> &/*getDummyScFaces*/)
 {
 }
 
@@ -211,7 +211,7 @@ bool LoadSavePlugin::loadPage(const QString & /*fileName*/, int /*pageNumber*/, 
 	return false;
 }
 
-bool LoadSavePlugin::readStyles(const QString& /*fileName*/, ScribusDoc* /*doc*/, QValueList<ParagraphStyle> &/*docParagraphStyles*/)
+bool LoadSavePlugin::readStyles(const QString& /*fileName*/, ScribusDoc* /*doc*/, StyleSet<ParagraphStyle> &/*docParagraphStyles*/)
 {
 	return false;
 }
@@ -247,10 +247,10 @@ void FileFormat::setupTargets(ScribusDoc *targetDoc, ScribusView* targetView, Sc
 		plug->setupTargets(targetDoc, targetView, targetMW, targetMWPRogressBar, targetAvailableFonts);
 }
 
-void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QPtrList<Foi> &getDummyFois) const
+void FileFormat::getReplacedFontData(bool & getNewReplacement, QMap<QString,QString> &getReplacedFonts, QValueList<ScFace> &getDummyScFaces) const
 {
 	if (plug)
-		plug->getReplacedFontData(getNewReplacement, getReplacedFonts, getDummyFois);
+		plug->getReplacedFontData(getNewReplacement, getReplacedFonts, getDummyScFaces);
 }
 
 bool FileFormat::loadPage(const QString & fileName, int pageNumber, bool Mpage, QString renamedPageName) const
@@ -258,7 +258,7 @@ bool FileFormat::loadPage(const QString & fileName, int pageNumber, bool Mpage, 
 	return (plug && load) ? plug->loadPage(fileName, pageNumber, Mpage, renamedPageName) : false;
 }
 
-bool FileFormat::readStyles(const QString& fileName, ScribusDoc* doc, QValueList<ParagraphStyle> &docParagraphStyles) const
+bool FileFormat::readStyles(const QString& fileName, ScribusDoc* doc, StyleSet<ParagraphStyle> &docParagraphStyles) const
 {
 	return (plug && load) ? plug->readStyles(fileName, doc, docParagraphStyles) : false;
 }

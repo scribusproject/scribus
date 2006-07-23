@@ -193,7 +193,7 @@ void FontPrefs::UpdateFliste()
 	QString tmp;
 	UsedFonts.clear();
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
-	for ( ; it.current() ; ++it)
+	for ( ; it.hasNext() ; it.next())
 	{
 		if (fontFlags[it.currentKey()].FlagUse)
 			UsedFonts.append(it.currentKey());
@@ -336,36 +336,36 @@ void FontPrefs::rebuildDialog()
 	fontFlags.clear();
 	fontList->clear();
 	SCFontsIterator it(*availFonts);
-	for ( ; it.current(); ++it)
+	for ( ; it.hasNext(); it.next())
 	{
-		if (!it.current()->usable())
+		if (!it.current().usable())
 			continue;
 		fontSet foS;
 		QListViewItem *row = new QListViewItem(fontList);
 		row->setText(0, it.currentKey());
 
-		foS.FlagUse = it.current()->usable();
+		foS.FlagUse = it.current().usable();
 		row->setPixmap(1, foS.FlagUse ? checkOn : checkOff);
 		if (foS.FlagUse)
 			UsedFonts.append(it.currentKey());
 
-		foS.FlagPS = it.current()->embedPs();
+		foS.FlagPS = it.current().embedPs();
 		row->setPixmap(2, foS.FlagPS ? checkOn : checkOff);
 
-		foS.FlagSub = it.current()->subset();
+		foS.FlagSub = it.current().subset();
 		row->setPixmap(3, foS.FlagSub ? checkOn : checkOff);
 
-		Foi::FontType type = it.current()->type();
-		foS.FlagOTF = (type == Foi::OTF) ? true : false;
-		if (type == Foi::TYPE1)
+		ScFace::FontType type = it.current().type();
+		foS.FlagOTF = (type == ScFace::OTF) ? true : false;
+		if (type == ScFace::TYPE1)
 			row->setPixmap(0, psFont);
-		if (type == Foi::TTF)
+		if (type == ScFace::TTF)
 			row->setPixmap(0, ttfFont);
-		if (type == Foi::OTF)
+		if (type == ScFace::OTF)
 			row->setPixmap(0, otfFont);
 
-		foS.FlagNames = it.current()->hasNames();
-		row->setText(4, it.current()->fontPath());
+		foS.FlagNames = it.current().hasNames();
+		row->setText(4, it.current().fontPath());
 		fontFlags.insert(it.currentKey(), foS);
 	}
 	fontList->sort();

@@ -64,7 +64,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	GroupFontLayout = new QVBoxLayout( GroupFont->layout() );
 	GroupFontLayout->setAlignment( Qt::AlignLeft );
 	FontC = new FontComboH(GroupFont);
-	FontC->setCurrentFont(vor->charStyle().font()->scName());
+	FontC->setCurrentFont(vor->charStyle().font().scName());
 	GroupFontLayout->addWidget( FontC );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
 	SizeC = new MSpinBox( 1, 2048, GroupFont, 1 );

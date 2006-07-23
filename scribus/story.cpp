@@ -200,7 +200,7 @@ void SEditor::setCurrentDocument(ScribusDoc *docc)
 void SEditor::imEndEvent(QIMEvent *e)
 {
 	QString uc = e->text();
-	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont]->canRender(uc[0])))
+	if ((!uc.isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 	{
 		insChars(e->text());
 		QTextEdit::imEndEvent(e);
@@ -445,7 +445,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_End:
 					break;
 				default:
-					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont]->canRender(uc[0])))
+					if ((!k->text().isEmpty()) && ((*doc->AllFonts)[CurrFont].canRender(uc[0])))
 					{
 						insChars(k->text());
 						QTextEdit::keyPressEvent(k);
@@ -722,7 +722,7 @@ void SEditor::saveItemText(PageItem *currItem)
 				newStyle.setUnderlineWidth(CurrTextUnderWidth);
 				newStyle.setStrikethruOffset(CurrTextStrikePos);
 				newStyle.setStrikethruWidth(CurrTextStrikeWidth);
-				if (doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font() != &Foi::NONE)
+				if (!doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font().isNone())
 				{
 					newStyle.setFont(doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font());
 					newStyle.setFontSize(doc->docParagraphStyles[ParagStyles[p-1]].charStyle().fontSize());
@@ -2692,7 +2692,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrTextStroke = curstyle.strokeColor();
 			Editor->CurrTextStrokeSh = curstyle.strokeShade();
 			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = curstyle.font()->scName();
+			Editor->CurrFont = curstyle.font().scName();
 			Editor->CurrFontSize = curstyle.fontSize();
 			Editor->CurrentStyle = curstyle.effects();
 			Editor->currentParaStyle = findParagraphStyle(currItem->doc(), currItem->itemText.defaultStyle());
@@ -2769,7 +2769,7 @@ void StoryEditor::updateProps(int p, int ch)
 		if (Editor->currentParaStyle > 4)
 		{
 			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
 			Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
 			Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
 			Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
@@ -2805,7 +2805,7 @@ void StoryEditor::updateProps(int p, int ch)
 		Editor->CurrTextStroke = hg->charStyle.strokeColor();
 		Editor->CurrTextStrokeSh = hg->charStyle.strokeShade();
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = hg->charStyle.font()->scName();
+		Editor->CurrFont = hg->charStyle.font().scName();
 		Editor->CurrFontSize = hg->charStyle.fontSize();
 		Editor->CurrentStyle = hg->charStyle.effects() & static_cast<StyleFlag>(1919);
 		Editor->CurrTextKern = hg->charStyle.tracking();
@@ -3286,7 +3286,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			{
 				if (Editor->currentParaStyle > 4)
 				{
-					if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != &Foi::NONE)
+					if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 					{
 						chars->at(s)->charStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle();
 					}
@@ -3308,10 +3308,10 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != &Foi::NONE)
+			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 			{
 				Editor->prevFont = Editor->CurrFont;
-				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
 				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
 				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
 				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
@@ -3334,7 +3334,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrTextStroke = currItem->itemText.defaultStyle().charStyle().strokeColor();
 			Editor->CurrTextStrokeSh = currItem->itemText.defaultStyle().charStyle().strokeShade();
 			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currItem->itemText.defaultStyle().charStyle().font()->scName();
+			Editor->CurrFont = currItem->itemText.defaultStyle().charStyle().font().scName();
 			Editor->CurrFontSize = currItem->itemText.defaultStyle().charStyle().fontSize();
 			Editor->CurrentStyle = currItem->itemText.defaultStyle().charStyle().effects();
 			Editor->CurrTextKern = currItem->itemText.defaultStyle().charStyle().tracking();
@@ -3403,7 +3403,7 @@ void StoryEditor::changeAlign(int )
 				{
 					if (Editor->currentParaStyle > 4)
 					{
-						if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != &Foi::NONE)
+						if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 						{
 							chars->at(s)->charStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle();
 						}
@@ -3428,10 +3428,10 @@ void StoryEditor::changeAlign(int )
 	{
 		if (Editor->currentParaStyle > 4)
 		{
-			if (currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font() != &Foi::NONE)
+			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 			{
 				Editor->prevFont = Editor->CurrFont;
-				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font()->scName();
+				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
 				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
 				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
 				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
@@ -3455,7 +3455,7 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrTextStroke = currStyle.strokeColor();
 			Editor->CurrTextStrokeSh = currStyle.strokeShade();
 			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currStyle.font()->scName();
+			Editor->CurrFont = currStyle.font().scName();
 			Editor->CurrFontSize = currStyle.fontSize();
 			Editor->CurrentStyle = currStyle.effects();
 			Editor->CurrTextKern = currStyle.tracking();

@@ -127,14 +127,14 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray
 	for (it = DocFonts.begin(); it != DocFonts.end(); ++it)
 	{
 /* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-		Foi::FontType type = AllFonts[it.key()]->type();
+		ScFace::FontType type = AllFonts[it.key()].type();
 
-		if ((type == Foi::TTF) || (AllFonts[it.key()]->isOTF()) || (AllFonts[it.key()]->subset()))
+		if ((type == ScFace::TTF) || (AllFonts[it.key()].isOTF()) || (AllFonts[it.key()].subset()))
 		{
 			QMap<uint, FPointArray>& RealGlyphs(it.data());
-			FontDesc += "/"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
+			FontDesc += "/"+AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+
 					" "+IToStr(RealGlyphs.count()+1)+" dict def\n";
-			FontDesc += AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
+			FontDesc += AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" begin\n";
 			QMap<uint,FPointArray>::Iterator ig;
 			for (ig = RealGlyphs.begin(); ig != RealGlyphs.end(); ++ig)
 			{
@@ -172,18 +172,18 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray
 		else
 		{
 			UsedFonts.insert(it.key(), "/Fo"+IToStr(a));
-			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" findfont definefont pop\n";
-			if (AllFonts[it.key()]->embedPs())
+			Fonts += "/Fo"+IToStr(a)+" /"+AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+" findfont definefont pop\n";
+			if (AllFonts[it.key()].embedPs())
 			{
 				QString tmp;
-				if(AllFonts[it.key()]->EmbedFont(tmp))
+				if(AllFonts[it.key()].EmbedFont(tmp))
 				{
-					FontDesc += "%%BeginFont: " + AllFonts[it.key()]->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n";
+					FontDesc += "%%BeginFont: " + AllFonts[it.key()].psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + "\n";
 					FontDesc += tmp + "\n%%EndFont\n";
 				}
 			}
 			GListe gl;
-			AllFonts[it.key()]->GlNames(&gl);
+			AllFonts[it.key()].glyphNames(gl);
 			GlyphsOfFont.insert(it.key(), gl);
 			a++;
 		}
@@ -745,7 +745,7 @@ void PSLib::PS_show_xyG(QString font, QString ch, double x, double y, bool spot)
 {
 	QString Name;
 	uint cc = ch[0].unicode();
-	Name = GlyphsOfFont[font].contains(cc) ? GlyphsOfFont[font][cc] : QString(".notdef");
+	Name = GlyphsOfFont[font].contains(cc) ? GlyphsOfFont[font][cc].second : QString(".notdef");
 	if (spot)
 		PutSeite("/"+Name+" "+ToStr(x)+" "+ToStr(y)+" shgsp\n");
 	else
@@ -1956,11 +1956,11 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
 				}
 				/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-				Foi::FontType type = hl->font()->type();
-				if ((type == Foi::TTF) ||  (hl->font()->isOTF()) || (hl->font()->subset()))
+				ScFace::FontType type = hl->font().type();
+				if ((type == ScFace::TTF) ||  (hl->font().isOTF()) || (hl->font().subset()))
 				{
 					uint chr = chstr[0].unicode();
-					if ((hl->font()->canRender(chstr[0])) && (chr != 32))
+					if ((hl->font().canRender(chstr[0])) && (chr != 32))
 					{
 						PS_save();
 						if (hl->fillColor() != CommonStrings::None)
@@ -1979,7 +1979,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
 							else
 								PutSeite(FillColor + " cmyk");
-							PS_showSub(chr, hl->font()->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+							PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
 							if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
 							{
 								PS_save();
@@ -1990,7 +1990,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 									PutSeite(ToStr(hl->strokeShade() / 100.0)+" "+spotMap[hl->strokeColor()]);
 								else
 									PutSeite(StrokeColor + " cmyk");
-								PS_showSub(chr, hl->font()->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
+								PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, true);
 								PS_restore();
 							}
 						}
@@ -1999,7 +1999,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				}
 				else
 				{
-					PS_selectfont(hl->font()->scName(), tsz / 10.0);
+					PS_selectfont(hl->font().scName(), tsz / 10.0);
 					PS_save();
 					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
 					PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
@@ -2009,13 +2009,14 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((colorsToUse[hl->fillColor()].isSpotColor()) && (!DoSep))
 					{
 						PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
-						PS_show_xyG(hl->font()->scName(), chstr, 0, 0, true);
+						PS_show_xyG(hl->font().scName(), chstr, 0, 0, true);
 					}
 					else
-						PS_show_xyG(hl->font()->scName(), chstr, 0, 0, false);
+						PS_show_xyG(hl->font().scName(), chstr, 0, 0, false);
 					if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
 					{
-						FPointArray gly = hl->font()->outline(chstr[0]);
+						uint gl = hl->font().char2CMap(chstr[0]);
+						FPointArray gly = hl->font().glyphOutline(gl);
 						QWMatrix chma;
 						chma.scale(tsz / 100.0, tsz / 100.0);
 						gly.map(chma);
@@ -2308,7 +2309,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 			if ((!tTabValues[tabCc].tabFillChar.isNull()) && (tabCc < tTabValues.count()))
 			{
 				ScText hl2;
-				double wt = Cwidth(Doc, hl->font(), QString(tTabValues[tabCc].tabFillChar), hl->fontSize());
+				double wt = hl->font().charWidth(tTabValues[tabCc].tabFillChar, hl->fontSize());
 				int coun = static_cast<int>((hl->glyph.xoffset - tabDist) / wt);
 				double sPos = hl->glyph.xoffset - (hl->glyph.xoffset - tabDist) + 1;
 				hl2.ch = QString(tTabValues[tabCc].tabFillChar);
@@ -2359,7 +2360,7 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 			setTextCh(Doc, ite, gcr, a, d, &hl2, pstyle, pg, sep, farb, ic, master);
 		}
 		setTextCh(Doc, ite, gcr, a, d, hl, pstyle, pg, sep, farb, ic, master);
-		tabDist = hl->glyph.xoffset + Cwidth(Doc, hl->font(), hl->ch, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		tabDist = hl->glyph.xoffset + hl->font().charWidth(hl->ch[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
 	}
 #endif
 }
@@ -2377,15 +2378,15 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->effects() & 2048)
 	{
 		if (pstyle.useBaselineGrid())
-			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->font(), chstr, 10))));
+			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 		else
 		{
 			if (pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-				tsz = qRound(10 * ((pstyle.lineSpacing() *  (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / (RealCHeight(Doc, hl->font(), chstr, 10))));
+				tsz = qRound(10 * ((pstyle.lineSpacing() *  (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 			else
 			{
-				double currasce = RealFHeight(Doc, hl->font(), pstyle.charStyle().fontSize());
-				tsz = qRound(10 * ((currasce * (pstyle.dropCapLines()-1)+(hl->font()->ascent() * (pstyle.charStyle().fontSize() / 10.0))) / RealCHeight(Doc, hl->font(), chstr, 10)));
+				double currasce = hl->font().height(pstyle.charStyle().fontSize());
+				tsz = qRound(10 * ((currasce * (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / hl->font().realCharHeight(chstr[0], 10)));
 			}
 		}
 	}
@@ -2483,11 +2484,11 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->effects() & 2)
 		tsz = hl->fontSize() * Doc->typographicSettings.scalingSuperScript / 100;
 	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
-	Foi::FontType ftype = hl->font()->type();
-	if ((ftype == Foi::TTF) || (hl->font()->isOTF()) || (hl->font()->subset()))
+	ScFace::FontType ftype = hl->font().type();
+	if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
 	{
 		uint chr = chstr[0].unicode();
-		if ((hl->font()->canRender(chstr[0])) && (chr != 32))
+		if ((hl->font().canRender(chstr[0])) && (chr != 32))
 		{
 			PS_save();
 			if (ite->reversed())
@@ -2501,10 +2502,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 						ctx = " ";
 					if (ctx == QChar(0xA0))
 						ctx = " ";
-					wideR = -Cwidth(Doc, hl->font(), chstr, tsz, ctx) * (hl->scaleH() / 1000.0);
+					wideR = - hl->font().charWidth(chstr[0], tsz, ctx[0]) * (hl->scaleH() / 1000.0);
 				}
 				else
-					wideR = -Cwidth(Doc, hl->font(), chstr, tsz) * (hl->scaleH() / 1000.0);
+					wideR = - hl->font().charWidth(chstr[0], tsz) * (hl->scaleH() / 1000.0);
 				PS_translate(wideR, 0);
 			}
 			else
@@ -2526,34 +2527,36 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 					PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
 				else
 					PutSeite(FillColor + " cmyk");
-				PS_showSub(chr, hl->font()->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+				PS_showSub(chr, hl->font().psName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
 			}
 			PS_restore();
 		}
 	}
 	else
 	{
-		PS_selectfont(hl->font()->scName(), tsz / 10.0);
+		PS_selectfont(hl->font().scName(), tsz / 10.0);
 		PS_save();
 		PS_translate(hl->glyph.xoffset, -hl->glyph.yoffset);
 		if (ite->reversed())
 		{
 			int chs = hl->fontSize();
-			ite->SetZeichAttr(*hl, &chs, &chstr);
+			GlyphLayout dummy;
+			ite->layoutGlyphs(*hl, chstr, dummy);
+			// chs = ??? FIXME
 			PS_scale(-1, 1);
 			if (ite->frameDisplays(d+1))
 			{
 				QString ctx = ite->itemText.text(d+1, 1);
-				if (ctx == QChar(29))
+				if (ctx[0] == QChar(29))
 					ctx = " ";
-				if (ctx == QChar(0xA0))
+				if (ctx[0] == QChar(0xA0))
 					ctx = " ";
-				wideR = -Cwidth(Doc, hl->font(), chstr, chs, ctx) * (hl->scaleH() / 1000.0);
+				wideR = - hl->font().charWidth(chstr[0], chs, ctx[0]) * (hl->scaleH() / 1000.0);
 				PS_translate(wideR, 0);
 			}
 			else
 			{
-				wideR = -Cwidth(Doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
+				wideR = -hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 				PS_translate(wideR, 0);
 			}
 		}
@@ -2570,18 +2573,19 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 			if ((colorsToUse[hl->fillColor()].isSpotColor()) && (!DoSep))
 			{
 				PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
-				PS_show_xyG(hl->font()->scName(), chstr, 0, 0, true);
+				PS_show_xyG(hl->font().scName(), chstr, 0, 0, true);
 			}
 			else
-				PS_show_xyG(hl->font()->scName(), chstr, 0, 0, false);
+				PS_show_xyG(hl->font().scName(), chstr, 0, 0, false);
 		}
 		PS_restore();
 	}
 	if ((hl->effects() & 4) && (chstr != QChar(13)))
 	{
-		if (hl->font()->canRender(chstr[0]))
+		if (hl->font().canRender(chstr[0]))
 		{
-			FPointArray gly = hl->font()->outline(chstr[0]);
+			uint gl = hl->font().char2CMap(chstr[0]);
+			FPointArray gly = hl->font().glyphOutline(gl);
 			QWMatrix chma, chma2, chma3;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			chma2.scale(hl->scaleH() / 1000.0, hl->scaleV() / 1000.0);
@@ -2615,7 +2619,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if ((hl->effects() & 16) && (chstr != QChar(13)))
 	{
-		double Ulen = Cwidth(Doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, lw, kern;
 		if (hl->effects() & 16384)
 			kern = 0;
@@ -2624,18 +2628,18 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if ((hl->strikethruOffset() != -1) || (hl->strikethruWidth() != -1))
 		{
 			if (hl->strikethruOffset() != -1)
-				Upos = (hl->strikethruOffset() / 1000.0) * (hl->font()->ascent() * (hl->fontSize() / 10.0));
+				Upos = (hl->strikethruOffset() / 1000.0) * (hl->font().ascent(hl->fontSize() / 10.0));
 			else
-				Upos = hl->font()->strikeoutPos() * (hl->fontSize() / 10.0);
+				Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
 			if (hl->strikethruWidth() != -1)
 				lw = (hl->strikethruWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				lw = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+				lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->font()->strikeoutPos() * (hl->fontSize() / 10.0);
-			lw = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+			Upos = hl->font().strikeoutPos(hl->fontSize() / 10.0);
+			lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		if (hl->baselineOffset() != 0)
 			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
@@ -2653,7 +2657,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	}
 	if (((hl->effects() & 8) && (chstr != QChar(13)))  || ((hl->effects() & 512) && (!chstr[0].isSpace())))
 	{
-		double Ulen = Cwidth(Doc, hl->font(), chstr, hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
 		double Upos, lw, kern;
 		if (hl->effects() & 16384)
 			kern = 0;
@@ -2662,18 +2666,18 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 		if ((hl->underlineOffset() != -1) || (hl->underlineWidth() != -1))
 		{
 			if (hl->underlineOffset() != -1)
-				Upos = (hl->underlineOffset() / 1000.0) * (hl->font()->descent() * (hl->fontSize() / 10.0));
+				Upos = (hl->underlineOffset() / 1000.0) * (hl->font().descent(hl->fontSize() / 10.0));
 			else
-				Upos = hl->font()->underlinePos() * (hl->fontSize() / 10.0);
+				Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
 			if (hl->underlineWidth() != -1)
 				lw = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
 			else
-				lw = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+				lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		else
 		{
-			Upos = hl->font()->underlinePos() * (hl->fontSize() / 10.0);
-			lw = QMAX(hl->font()->strokeWidth() * (hl->fontSize() / 10.0), 1);
+			Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
+			lw = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
 		}
 		if (hl->baselineOffset() != 0)
 			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
@@ -2692,12 +2696,15 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, 
 	if (hl->effects() & 8192)
 	{
 		int chs = hl->fontSize();
-		ite->SetZeichAttr(*hl, &chs, &chstr);
-		double wide = Cwidth(Doc, hl->font(), chstr, chs) * (hl->scaleH() / 1000.0);
+		GlyphLayout dummy;
+		ite->layoutGlyphs(*hl, chstr, dummy);
+		// chs = ???
+		double wide = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 		chstr = "-";
-		if (hl->font()->canRender(chstr[0]))
+		if (hl->font().canRender(chstr[0]))
 		{
-			FPointArray gly = hl->font()->outline(chstr[0]);
+			uint gl = hl->font().char2CMap(chstr[0]);
+			FPointArray gly = hl->font().glyphOutline(gl);
 			QWMatrix chma;
 			chma.scale(tsz / 100.0, tsz / 100.0);
 			gly.map(chma);

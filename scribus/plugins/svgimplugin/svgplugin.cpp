@@ -29,7 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "menumanager.h"
 #include "prefsmanager.h"
 #include "pageitem.h"
-#include "scfontmetrics.h"
 #include "scraction.h"
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -37,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "loadsaveplugin.h"
 #include "util.h"
+#include "fonts/scfontmetrics.h"
 
 using namespace std;
 
@@ -1521,10 +1521,10 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 		obj->Family = m_Doc->toolSettings.defFont; // family;
 		bool found = false;
 		SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
-		for ( ; it.current(); ++it)
+		for ( ; it.hasNext(); it.next())
 		{
 			QString fam;
-			QString fn = it.current()->scName();
+			QString fn = it.current().scName();
 			int	pos=fn.find(" ");
 			fam = fn.left(pos);
 			if (fam == family)
@@ -1855,7 +1855,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				int pos = ite->itemText.length();
 				ite->itemText.insertChars(pos, ch);
 				ite->itemText.applyCharStyle(pos, 1, nstyle);
-				tempW += RealCWidth(m_Doc, nstyle.font(), ch, nstyle.fontSize())+1;
+				tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize())+1;
 				if (ch == SpecialChars::PARSEP)
 				{
 					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
@@ -1950,7 +1950,7 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			int pos = ite->itemText.length();
 			ite->itemText.insertChars(pos, ch);
 			ite->itemText.applyCharStyle(pos, 1, nstyle);
-			ite->setWidth(ite->width() + RealCWidth(m_Doc, nstyle.font(), ch, nstyle.fontSize())+1);
+			ite->setWidth(ite->width() + nstyle.font().realCharWidth(ch[0], nstyle.fontSize())+1);
 			ite->setHeight(gc->FontSize / 10.0 + 2 +desc+2);
 		}
 		ite->SetRectFrame();

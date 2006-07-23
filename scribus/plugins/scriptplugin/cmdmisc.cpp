@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "qpixmap.h"
 
 #include "scribuscore.h"
-#include "scfontmetrics.h"
+#include "fonts/scfontmetrics.h"
 #include "prefsmanager.h"
 
 PyObject *scribus_setredraw(PyObject* /* self */, PyObject* args)
@@ -30,17 +30,17 @@ PyObject *scribus_fontnames(PyObject* /* self */)
 {
 	int cc2 = 0;
 	SCFontsIterator it2(PrefsManager::instance()->appPrefs.AvailFonts);
-	for ( ; it2.current() ; ++it2)
+	for ( ; it2.hasNext() ; it2.next())
 	{
-		if (it2.current()->usable())
+		if (it2.current().usable())
 			cc2++;
 	}
 	PyObject *l = PyList_New(cc2);
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
 	int cc = 0;
-	for ( ; it.current() ; ++it)
+	for ( ; it.hasNext() ; it.next())
 	{
-		if (it.current()->usable())
+		if (it.current().usable())
 		{
 			PyList_SetItem(l, cc, PyString_FromString(it.currentKey().utf8()));
 			cc++;
@@ -55,15 +55,15 @@ PyObject *scribus_xfontnames(PyObject* /* self */)
 	SCFontsIterator it(PrefsManager::instance()->appPrefs.AvailFonts);
 	int cc = 0;
 	PyObject *row;
-	for ( ; it.current() ; ++it)
+	for ( ; it.hasNext() ; it.next())
 	{
 		row = Py_BuildValue((char*)"(sssiis)",
 							it.currentKey().utf8().data(),
-							it.current()->family().utf8().data(),
-							it.current()->RealName().utf8().data(),
-							it.current()->subset(),
-							it.current()->embedPs(),
-							it.current()->fontFilePath().utf8().data()
+							it.current().family().utf8().data(),
+							it.current().psName().utf8().data(),
+							it.current().subset(),
+							it.current().embedPs(),
+							it.current().fontFilePath().utf8().data()
 						);
 		PyList_SetItem(l, cc, row);
 		cc++;
@@ -90,7 +90,7 @@ PyObject *scribus_renderfont(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	if (!PyArg_ParseTupleAndKeywords(args, kw, "esesesi|es", kwargs,
 				"utf-8", &Name, "utf-8", &FileName, "utf-8", &Sample, &Size, "ascii", &format))
 		return NULL;
-	if (!PrefsManager::instance()->appPrefs.AvailFonts.find(QString::fromUtf8(Name)))
+	if (!PrefsManager::instance()->appPrefs.AvailFonts.contains(QString::fromUtf8(Name)))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Font not found.","python error"));
 		return NULL;

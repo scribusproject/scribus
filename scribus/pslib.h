@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpen.h>
 #include <qfile.h>
 #include <vector>
+#include <utility>
 class ScribusDoc;
 //class ScribusView;
 #include "scribusapi.h"
@@ -136,7 +137,7 @@ class SCRIBUS_API PSLib : public QObject
 		QString Fonts;
 		QString FontDesc;
 		QMap<QString, QString> UsedFonts;
-		typedef QMap<uint, QString> GListe;
+		typedef QMap<QChar, std::pair<uint, QString> > GListe;
 		QMap<QString, GListe> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;

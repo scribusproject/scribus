@@ -5135,9 +5135,9 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							ss->Objekt = cc;
 							int st = findParagraphStyle(Doc, Doc->currentStyle);
 							if (st > 5)
-								ss->GetText(currItem, st, Doc->docParagraphStyles[st].charStyle().font()->scName(), Doc->docParagraphStyles[st].charStyle().fontSize(), true);
+								ss->GetText(currItem, st, Doc->docParagraphStyles[st].charStyle().font().scName(), Doc->docParagraphStyles[st].charStyle().fontSize(), true);
 							else
-								ss->GetText(currItem, st, currItem->itemText.defaultStyle().charStyle().font()->scName(), currItem->itemText.defaultStyle().charStyle().fontSize(), true);
+								ss->GetText(currItem, st, currItem->itemText.defaultStyle().charStyle().font().scName(), currItem->itemText.defaultStyle().charStyle().fontSize(), true);
 							delete ss;
 							ss=NULL;
 							if (Doc->docHyphenator->AutoCheck)
@@ -7379,7 +7379,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextBase(currItem->itemText.charStyle(a).baselineOffset());
 				emit ItemTextSca(currItem->itemText.charStyle(a).scaleH());
 				emit ItemTextScaV(currItem->itemText.charStyle(a).scaleV());
-				emit ItemTextFont(currItem->itemText.charStyle(a).font()->scName());
+				emit ItemTextFont(currItem->itemText.charStyle(a).font().scName());
 				emit ItemTextSize(currItem->itemText.charStyle(a).fontSize());
 				emit ItemTextUSval(currItem->itemText.charStyle(a).tracking());
 				emit ItemTextStil(currItem->itemText.charStyle(a).effects());
@@ -7439,7 +7439,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 			if (currItem->itemText.length() != 0)
 			{
 				a=currItem->lastInFrame();
-				int w = qRound(Cwidth(Doc, currItem->itemText.charStyle(a).font(), currItem->itemText.text(a,1), currItem->itemText.charStyle(a).fontSize())*(currItem->itemText.charStyle(a).scaleH() / 1000.0));
+				int w = qRound(currItem->itemText.charStyle(a).font().charWidth(currItem->itemText.text(a), currItem->itemText.charStyle(a).fontSize())*(currItem->itemText.charStyle(a).scaleH() / 1000.0));
 				if (xp+currItem->xPos()+w<xP || yp+currItem->yPos()<yP)
 					currItem->CPos = a+1;
 				else
@@ -7462,7 +7462,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextSca(Doc->currentStyle.charStyle().scaleH());
 				emit ItemTextScaV(Doc->currentStyle.charStyle().scaleV());
 				emit ItemTextFarben(Doc->currentStyle.charStyle().strokeColor(), Doc->currentStyle.charStyle().fillColor(), Doc->currentStyle.charStyle().strokeShade(), Doc->currentStyle.charStyle().fillShade());
-				emit ItemTextFont(Doc->currentStyle.charStyle().font()->scName());
+				emit ItemTextFont(Doc->currentStyle.charStyle().font().scName());
 				emit ItemTextSize(Doc->currentStyle.charStyle().fontSize());
 				emit ItemTextUSval(Doc->currentStyle.charStyle().tracking());
 				emit ItemTextStil(Doc->currentStyle.charStyle().effects());
@@ -7480,7 +7480,7 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextSca(currItem->itemText.defaultStyle().charStyle().scaleH());
 				emit ItemTextScaV(currItem->itemText.defaultStyle().charStyle().scaleV());
 				emit ItemTextFarben(currItem->itemText.defaultStyle().charStyle().strokeColor(), currItem->itemText.defaultStyle().charStyle().fillColor(), currItem->itemText.defaultStyle().charStyle().strokeShade(), currItem->itemText.defaultStyle().charStyle().fillShade());
-				emit ItemTextFont(currItem->itemText.defaultStyle().charStyle().font()->scName());
+				emit ItemTextFont(currItem->itemText.defaultStyle().charStyle().font().scName());
 				emit ItemTextSize(currItem->itemText.defaultStyle().charStyle().fontSize());
 				emit ItemTextUSval(currItem->itemText.defaultStyle().charStyle().tracking());
 				emit ItemTextStil(currItem->itemText.defaultStyle().charStyle().effects());
@@ -7607,7 +7607,9 @@ void ScribusView::slotDoCurs(bool draw)
 			if (chstr == QChar(29))
 				chstr = " ";
 			int chs = currItem->itemText.charStyle(offs).fontSize();
-			currItem->SetZeichAttr(currItem->itemText.charStyle(offs), &chs, &chstr);
+//FIXME			GlyphLayout glayout;
+//			currItem->layoutGlyphs(currItem->itemText.charStyle(offs), currItem->itemText.text(off,1), glayout);
+//			chs = ??
 			if (currItem->CPos != currItem->lastInFrame())
 			{
 				if (currItem->itemText.text(currItem->CPos) == SpecialChars::TAB)
@@ -7615,7 +7617,7 @@ void ScribusView::slotDoCurs(bool draw)
 					xp = static_cast<int>(currItem->itemText.item(currItem->CPos-1)->glyph.xoffset);
 					chs = currItem->itemText.charStyle(currItem->CPos-1).fontSize();
 					chstr = currItem->itemText.text(currItem->CPos-1, 1);
-					xp += qRound(Cwidth(Doc, currItem->itemText.charStyle(currItem->CPos-1).font(), chstr, chs)*(currItem->itemText.charStyle(currItem->CPos-1).scaleH() / 1000.0));
+					xp += qRound(currItem->itemText.charStyle(currItem->CPos-1).font().charWidth(chstr[0], chs)*(currItem->itemText.charStyle(currItem->CPos-1).scaleH() / 1000.0));
 				}
 				else
 					xp = static_cast<int>(currItem->itemText.item(offs+1)->glyph.xoffset);
@@ -7628,7 +7630,7 @@ void ScribusView::slotDoCurs(bool draw)
 				{
 					chs = currItem->itemText.charStyle(offs).fontSize();
 					chstr = currItem->itemText.text(offs,1);
-					xp += qRound(Cwidth(Doc, currItem->itemText.charStyle(offs).font(), chstr, chs)*(currItem->itemText.charStyle(offs).scaleH() / 1000.0));
+					xp += qRound(currItem->itemText.charStyle(offs).font().charWidth(chstr[0], chs)*(currItem->itemText.charStyle(offs).scaleH() / 1000.0));
 				}
 			}
 			if (currItem->CPos <= currItem->lastInFrame())
@@ -7642,15 +7644,15 @@ void ScribusView::slotDoCurs(bool draw)
 						xp = static_cast<int>(currItem->itemText.item(offs)->glyph.xoffset);
 						chs = currItem->itemText.charStyle(offs).fontSize();
 						chstr = currItem->itemText.text(offs,1);
-						xp += qRound(Cwidth(Doc, currItem->itemText.charStyle(offs).font(), chstr, chs)*(currItem->itemText.charStyle(offs).scaleH() / 1000.0));
+						xp += qRound(currItem->itemText.charStyle(offs).font().charWidth(chstr[0], chs)*(currItem->itemText.charStyle(offs).scaleH() / 1000.0));
 					}
 					else
 						xp = static_cast<int>(currItem->itemText.item(offs)->glyph.xoffset);
 				}
 			}
 			yp = static_cast<int>(currItem->itemText.item(offs)->glyph.yoffset);
-			desc = static_cast<int>(currItem->itemText.charStyle(offs).font()->descent() * (-currItem->itemText.charStyle(offs).fontSize() / 10.0));
-			asce = static_cast<int>(currItem->itemText.charStyle(offs).font()->ascent() * (currItem->itemText.charStyle(offs).fontSize() / 10.0));
+			desc = static_cast<int>(currItem->itemText.charStyle(offs).font().descent() * (-currItem->itemText.charStyle(offs).fontSize() / 10.0));
+			asce = static_cast<int>(currItem->itemText.charStyle(offs).font().ascent() * (currItem->itemText.charStyle(offs).fontSize() / 10.0));
 		}
 		else
 		{
@@ -7663,8 +7665,8 @@ void ScribusView::slotDoCurs(bool draw)
 					lineCorr = 0;
 				xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
 				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->itemText.defaultStyle().lineSpacing());
-				desc = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font()->descent() * (-currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
-				asce = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font()->ascent() * (currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
+				desc = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font().descent() * (-currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
+				asce = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font().ascent() * (currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
 			}
 			else if ( currItem->frameDisplays(currItem->CPos) )
 			{
@@ -7677,15 +7679,15 @@ void ScribusView::slotDoCurs(bool draw)
 						lineCorr = 0;
 					xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
 					yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->itemText.paragraphStyle(currItem->CPos).lineSpacing());
-					desc = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font()->descent() * (-currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
-					asce = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font()->ascent() * (currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
+					desc = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().descent() * (-currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
+					asce = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().ascent() * (currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
 				}
 				else
 				{
 					xp = static_cast<int>(currItem->itemText.item(currItem->CPos)->glyph.xoffset);
 					yp = static_cast<int>(currItem->itemText.item(currItem->CPos)->glyph.yoffset);
-					desc = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font()->descent() * (-currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
-					asce = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font()->ascent() * (currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
+					desc = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().descent() * (-currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
+					asce = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().ascent() * (currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
 				}
 			}
 			else {
@@ -10101,9 +10103,9 @@ void ScribusView::TextToPath()
 					if (currItem->reversed())
 					{
 						if (a < currItem->itemText.length()-1)
-							wide = Cwidth(Doc, hl->font(), chstr, hl->fontSize(), currItem->itemText.text(a+1,1));
+							wide = hl->font().charWidth(chstr[0], hl->fontSize(), currItem->itemText.text(a+1));
 						else
-							wide = Cwidth(Doc, hl->font(), chstr, hl->fontSize());
+							wide = hl->font().charWidth(chstr[0], hl->fontSize());
 						chma3.scale(-1, 1);
 						chma3.translate(-wide, 0);
 						chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
@@ -10112,7 +10114,8 @@ void ScribusView::TextToPath()
 						chma4.translate(0, currItem->BaseOffs-((hl->fontSize() / 10.0) * (hl->scaleV() / 1000.0)));
 					if (hl->baselineOffset() != 0)
 						chma6.translate(0, -(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0));
-					pts = currItem->itemText.charStyle(a).font()->outline(chr);
+					uint gl = currItem->itemText.charStyle(a).font().char2CMap(chr);
+					pts = currItem->itemText.charStyle(a).font().glyphOutline(gl);
 					if (pts.size() < 4)
 						continue;
 					pts.map(chma * chma2 * chma3 * chma4 * chma6);
@@ -10127,10 +10130,11 @@ void ScribusView::TextToPath()
 				else
 				{
 					chma.scale(csi, csi);
-					pts = hl->font()->outline(chr);
+					uint gl = hl->font().char2CMap(chr);
+					pts = hl->font().glyphOutline(gl);
 					if (pts.size() < 4)
 						continue;
-					FPoint origin = hl->font()->origin(chr); 
+					FPoint origin = hl->font().glyphOrigin(gl); 
 					x = origin.x() * csi;
 					y = origin.y() * csi;
 					pts.map(chma);
@@ -10185,9 +10189,9 @@ void ScribusView::TextToPath()
 					if (hl->baselineOffset() != 0)
 						textY -= (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
 					if (a < currItem->itemText.length()-1)
-						wide = Cwidth(Doc, hl->font(), chstr, hl->fontSize(), currItem->itemText.text(a+1,1));
+						wide = hl->font().charWidth(chstr[0], hl->fontSize(), currItem->itemText.text(a+1));
 					else
-						wide = Cwidth(Doc, hl->font(), chstr, hl->fontSize());
+						wide = hl->font().charWidth(chstr[0], hl->fontSize());
 					if (currItem->imageFlippedH())
 						textX = currItem->width() - textX - wide;
 					if (currItem->imageFlippedV())
