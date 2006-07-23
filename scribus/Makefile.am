@@ -177,8 +177,6 @@ scribus_SOURCES = \
 	sccombobox.cpp	\
 	scinputdialog.cpp \
 	scfonts.cpp	\
-	scfonts_ttf.cpp	\
-	scfontmetrics.cpp	\
 	scimage.cpp	\
 	scimagestructs.cpp \
 	scimgdataloader.cpp \
@@ -427,8 +425,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/sccolor.h                     $(prefix)/include/scribus/sccolor.h
 	$(INSTALL_DATA) $(srcdir)/scinputdialog.h               $(prefix)/include/scribus/scinputdialog.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
-	$(INSTALL_DATA) $(srcdir)/scfonts_ttf.h                 $(prefix)/include/scribus/scfonts_ttf.h
-	$(INSTALL_DATA) $(srcdir)/scfontmetrics.h               $(prefix)/include/scribus/scfontmetrics.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
 	$(INSTALL_DATA) $(srcdir)/scmessagebox.h                $(prefix)/include/scribus/scmessagebox.h
 	$(INSTALL_DATA) $(srcdir)/scgtplugin.h                  $(prefix)/include/scribus/scgtplugin.h
@@ -622,9 +618,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/sampleitem.h
 	-rm -f $(prefix)/include/scribus/sccolor.h
 	-rm -f $(prefix)/include/scribus/scinputdialog.h
-	-rm -f $(prefix)/include/scribus/scfontmetrics.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
-	-rm -f $(prefix)/include/scribus/scfonts_ttf.h
 	-rm -f $(prefix)/include/scribus/scmenu.h
 	-rm -f $(prefix)/include/scribus/scmessagebox.h
 	-rm -f $(prefix)/include/scribus/scpainter.h
