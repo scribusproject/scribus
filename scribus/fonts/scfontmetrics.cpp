@@ -208,7 +208,7 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 }
 
 
-QPixmap FontSample(ScFace * fnt, int s, QString ts, QColor back, bool force)
+QPixmap FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force)
 {
 	FT_Face face;
 	FT_Library library;
@@ -217,7 +217,7 @@ QPixmap FontSample(ScFace * fnt, int s, QString ts, QColor back, bool force)
 	int  pen_x;
 	FPoint gp;
 	error = FT_Init_FreeType( &library );
-	error = FT_New_Face( library, QFile::encodeName(fnt->fontFilePath()), fnt->faceIndex(), &face );
+	error = FT_New_Face( library, QFile::encodeName(fnt.fontFilePath()), fnt.faceIndex(), &face );
 	int encode = setBestEncoding(face);
 	double uniEM = static_cast<double>(face->units_per_EM);
 	int h = qRound(face->height / uniEM) * s + 1;
