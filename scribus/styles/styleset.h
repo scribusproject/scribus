@@ -3,6 +3,7 @@
 #ifndef STYLESET_H
 #define STYLESET_H
 
+#include <assert.h>
 #include <qvaluelist.h>
 
 template<class STYLE>
@@ -11,7 +12,7 @@ public:
 	STYLE& operator[] (uint index) { assert(index < styles.count()); return * styles[index]; }
 	const STYLE& operator[] (size_t index) const { assert(index < styles.count()); return * styles[index]; }
 	inline int find(QString name);
-	uint count() const { return styles.count(); }
+	uint count() const { return (uint) styles.count(); }
 	void append(STYLE* style) { styles.append(style); }
 	inline void remove(uint index);
 	inline void redefine(QValueList<STYLE> defs, bool removeUnused=false);
