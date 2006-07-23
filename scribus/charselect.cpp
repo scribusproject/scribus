@@ -30,11 +30,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-#include "scfontmetrics.h"
+#include "fonts/scfontmetrics.h"
 #include "util.h"
 
 #ifdef QT_MAC
@@ -374,8 +370,8 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 
 void CharSelect::scanFont()
 {
-	FT_ULong  charcode;
-	FT_UInt   gindex;
+	uint  charcode;
+	uint   gindex;
 	QString   gname;
 	allClasses.clear();
 	charactersFull.clear();
