@@ -137,6 +137,7 @@ ScFace& ScFace::operator=(const ScFace& other)
 		delete m;
 	}
 	m = other.m;
+	return *this;
 }
 
 
