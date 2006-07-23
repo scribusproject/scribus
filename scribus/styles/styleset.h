@@ -66,3 +66,5 @@ inline void StyleSet<STYLE>::redefine(QValueList<STYLE> defs, bool removeUnused)
 }
 
 #endif
+
+
