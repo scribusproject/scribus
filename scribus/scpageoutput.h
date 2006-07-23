@@ -39,8 +39,8 @@ protected:
 	virtual void DrawItem_Pre( PageItem* item, ScPainterExBase* painter, double scale );
 	virtual void DrawItem_Post( PageItem* item, ScPainterExBase* painter );
 
-	virtual void DrawCharacters( PageItem* item, ScPainterExBase *p, struct PageItem::ZZ *hl);
-	virtual void DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect e, struct PageItem::ZZ *hl);
+	virtual void DrawGlyphs(PageItem* item, ScPainterExBase *painter, const CharStyle& style, GlyphLayout& glyphs);
+	virtual void DrawItem_Embedded( PageItem* item, ScPainterExBase *p, QRect e, const CharStyle& style, PageItem* cembedded);
 	
 	virtual void DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBase* painter, double scale  );
 	virtual void DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter );

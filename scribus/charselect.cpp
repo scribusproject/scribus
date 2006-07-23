@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 #include <qpopupmenu.h>
 #include <qwidget.h>
 
+#include "scconfig.h"
+
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -27,8 +29,6 @@ for which a new license (GPL+exception) is in place.
 #include "charselect.moc"
 #include "sccombobox.h"
 #include "scpainter.h"
-
-#include "scconfig.h"
 
 #include "fonts/scfontmetrics.h"
 #include "util.h"
