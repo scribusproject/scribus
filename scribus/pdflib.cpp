@@ -52,7 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "multiprogressdialog.h"
 #include "bookpalette.h"
-#include "scfontmetrics.h"
+#include "scfonts.h"
 #include "util.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"

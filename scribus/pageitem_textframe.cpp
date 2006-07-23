@@ -52,10 +52,6 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "guidemanager.h"
 
-#include <ft2build.h>
-#include FT_GLYPH_H
-
-#include "scfontmetrics.h"
 #include "util.h"
 #include "text/nlsconfig.h"
 #ifdef HAVE_CAIRO

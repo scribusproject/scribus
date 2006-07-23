@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polygon.h"
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
-#include "scfontmetrics.h"
+#include "scfonts.h"
 #include "scribus.h"
 #include "scimage.h"
 #include "util.h"

@@ -88,7 +88,6 @@ for which a new license (GPL+exception) is in place.
 	#include CMS_INC
 #endif
 
-#include "scfontmetrics.h"
 #include "scmessagebox.h"
 #include "util.h"
 #include "story.h"

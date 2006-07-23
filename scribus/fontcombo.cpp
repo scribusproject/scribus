@@ -201,7 +201,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 			ilist.clear();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
-				if ( prefsManager->appPrefs.AvailFonts.contains(*it2 + " " + *it3) && (currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].localForDocument() || prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].localForDocument().isEmpty()))
+				if ( prefsManager->appPrefs.AvailFonts.contains(*it2 + " " + *it3) && prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].usable() && (currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].localForDocument() || prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].localForDocument().isEmpty()))
 					ilist.append(*it3);
 			}
 			if (!ilist.isEmpty())

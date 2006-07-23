@@ -49,7 +49,6 @@ for which a new license (GPL+exception) is in place.
 #include "pagestructs.h"
 #include "prefsmanager.h"
 #include "scmessagebox.h"
-#include "scfontmetrics.h"
 #include "scraction.h"
 #include "scribusXml.h"
 #include "selection.h"

@@ -41,7 +41,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribuscore.h"
 #include "scfonts.h"
-#include "scfontmetrics.h"
 #include "selection.h"
 #include <cmath>
 #include "util.h"

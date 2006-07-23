@@ -20,7 +20,6 @@ for which a new license (GPL+exception) is in place.
 #include "linkbutton.h"
 #include "scribusstructs.h"
 #include "scribus.h"
-#include "scfontmetrics.h"
 #include "util.h"
 #include "prefsmanager.h"
 #include "scfonts.h"
