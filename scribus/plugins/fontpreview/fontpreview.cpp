@@ -172,12 +172,9 @@ void FontPreview::updateFontList(QString searchStr)
 
 			row->setText(0, fontIter.current().scName());
 			// searching
-			Q_ASSERT(m_Doc!=0);
-			// quick hack before #4036 gets fixed - PV
-			if (m_Doc){
+
 			if (m_Doc->UsedFonts.contains(fontIter.current().scName()))
 				row->setPixmap(1, okIcon);
-			}
 
 			if (type == ScFace::OTF)
 			{
