@@ -185,8 +185,9 @@ private:
 	void drawGuides();
 
 	/*! \brief Save needed (Auto) values into GuideManagerCore.
-	To be restored on the page return. */
-	void storePreviousValues();
+	To be restored on the page return.
+	\param page A reference to the page to store values. */
+	void storePageValues(Page * page);
 
 protected slots:
 	void addHorButton_clicked();

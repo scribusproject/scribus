@@ -92,8 +92,8 @@ void GuideManager::setupPage()
 	if (!m_Doc)
 		return;
 	setEnabled(true);
-	// store old values for current page
-	storePreviousValues();
+	// store old values for current page (=page to leave)
+	storePageValues(currentPage);
 	currentPage = m_Doc->currentPage();
 	unitChange();
 	resetMarginsForPage();
@@ -105,46 +105,50 @@ void GuideManager::setupPage()
 	bool enable = currentPage->guides.horizontalAutoGap() > 0.0 ? true : false;
 	horizontalAutoGapCheck->setChecked(enable);
 	horizontalAutoGapSpin->setEnabled(enable);
-	horizontalAutoGapSpin->setValue(currentPage->guides.horizontalAutoGap());
+	horizontalAutoGapSpin->setValue(pts2value(currentPage->guides.horizontalAutoGap(), docUnitIndex));
 	horizontalAutoCountSpin->setValue(currentPage->guides.horizontalAutoCount());
 	if (horizontalAutoCountSpin->value()==0)
 	{
 		horizontalAutoGapSpin->setEnabled(false);
 		horizontalAutoGapCheck->setEnabled(false);
 	}
+	else
+		getAutoHorizontals();
 	// verticals
 	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
 	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
 	verticalAutoGapCheck->setChecked(enable);
 	verticalAutoGapSpin->setEnabled(enable);
-	verticalAutoGapSpin->setValue(currentPage->guides.verticalAutoGap());
+	verticalAutoGapSpin->setValue(pts2value(currentPage->guides.verticalAutoGap(), docUnitIndex));
 	verticalAutoCountSpin->setValue(currentPage->guides.verticalAutoCount());
 	if (verticalAutoCountSpin->value()==0)
 	{
 		verticalAutoGapSpin->setEnabled(false);
 		verticalAutoGapCheck->setEnabled(false);
 	}
+	else
+		getAutoVerticals();
 	bGroup->setButton(currentPage->guides.autoRefer());
 }
 
-void GuideManager::storePreviousValues()
+void GuideManager::storePageValues(Page *page)
 {
-	if (!currentPage || !m_Doc)
+	if (!page || !m_Doc)
 		return;
 
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
-		gapValue = value2pts(horizontalAutoGapSpin->value(), m_Doc->unitIndex());
-	currentPage->guides.setHorizontalAutoGap(gapValue);
-	currentPage->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
+	page->guides.setHorizontalAutoGap(gapValue);
+	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
-		gapValue = value2pts(verticalAutoGapSpin->value(), m_Doc->unitIndex());
-	currentPage->guides.setVerticalAutoGap(gapValue);
-	currentPage->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
+		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
+	page->guides.setVerticalAutoGap(gapValue);
+	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 
-	currentPage->guides.setAutoRefer(bGroup->selectedId());	
+	page->guides.setAutoRefer(bGroup->selectedId());
 }
 
 void GuideManager::unitChange()
@@ -366,6 +370,8 @@ void GuideManager::copyGuidesToAllPages(GuideManagerCore::GuideType t)
 		tmpPage->guides.clearHorizontals(t);
 		tmpPage->guides.clearVerticals(t);
 		currentPage->guides.copy(&tmpPage->guides, t);
+		if (t == GuideManagerCore::Auto)
+			storePageValues(tmpPage);
 	}
 	drawGuides();
 }
@@ -461,7 +467,7 @@ void GuideManager::getAutoHorizontals()
 	double rowSize;
 	if (horizontalAutoGapCheck->isChecked())
 	{
-		gapValue = value2pts(horizontalAutoGapSpin->value(), m_Doc->unitIndex());
+		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
 		rowSize = (newPageHeight - (value - 1) * gapValue) / value;
 	}
 	else
@@ -513,7 +519,7 @@ void GuideManager::getAutoVerticals()
 	double columnSize;
 	if (verticalAutoGapCheck->isChecked())
 	{
-		gapValue = value2pts(verticalAutoGapSpin->value(), m_Doc->unitIndex());
+		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
 		columnSize = (newPageWidth - (value - 1) * gapValue) / value;
 	}
 	else
