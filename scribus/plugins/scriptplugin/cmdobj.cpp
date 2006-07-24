@@ -632,6 +632,8 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 		ScCore->primaryMainWindow()->doc->m_Selection->clear();
 		ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 	}
+	else
+		return NULL;
 	// do the duplicate
 	ScCore->primaryMainWindow()->slotEditCopy();
 	ScCore->primaryMainWindow()->slotEditPaste();
