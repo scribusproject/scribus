@@ -244,6 +244,18 @@ Return a list of the names of all paragraph styles in the current document.\n\
 */
 PyObject *scribus_getstylenames(PyObject */*self*/);
 
+/*! docstring */
+PyDoc_STRVAR(scribus_duplicateobject__doc__,
+QT_TR_NOOP("duplicateObject([\"name\"]) -> string\n\
+\n\
+creates a Duplicate of the selected Object (or Selection Group).\n\
+"));
+/**
+ Christian Hausknecht, 2006-07-12
+ duplicate an object
+*/
+PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args);
+
 /* Internal function not intended for general use; no docstring */
 PyObject* scribus_getframetype(PyObject* self, PyObject* args, PyObject* kw);
 

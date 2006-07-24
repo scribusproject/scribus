@@ -616,3 +616,25 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	}
 	return styleList;
 }
+
+PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
+{
+	char* name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &name)) {
+		return NULL;
+	}
+	if(!checkHaveDocument()) {
+		return NULL;
+	}
+	// Is there a special name given? Yes -> add this to selection
+	PageItem *i = GetUniqueItem(QString::fromUtf8(name));
+	if (i != NULL) {
+		ScCore->primaryMainWindow()->doc->m_Selection->clear();
+		ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
+	}
+	// do the duplicate
+	ScCore->primaryMainWindow()->slotEditCopy();
+	ScCore->primaryMainWindow()->slotEditPaste();
+	Py_INCREF(Py_None);
+	return Py_None;
+}
