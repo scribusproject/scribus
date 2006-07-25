@@ -610,6 +610,8 @@ void GuideManager::verticalList_selectionChanged()
 
 void GuideManager::drawGuides()
 {
+	if (!m_Doc)
+		return;
 	ScCore->primaryMainWindow()->view->DrawNew();
 }
 

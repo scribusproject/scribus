@@ -335,9 +335,6 @@
                                                                 <property name="name">
                                                                     <cstring>horizontalAutoCountSpin</cstring>
                                                                 </property>
-                                                                <property name="specialValueText">
-                                                                    <string>Off</string>
-                                                                </property>
                                                                 <property name="minValue">
                                                                     <number>0</number>
                                                                 </property>
@@ -414,9 +411,6 @@
                                                             <widget class="QSpinBox">
                                                                 <property name="name">
                                                                     <cstring>verticalAutoCountSpin</cstring>
-                                                                </property>
-                                                                <property name="specialValueText">
-                                                                    <string>Off</string>
                                                                 </property>
                                                                 <property name="minValue">
                                                                     <number>0</number>

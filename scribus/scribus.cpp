@@ -7188,6 +7188,7 @@ void ScribusMainWindow::ShowSubs()
 	docCheckerPalette->startup();
 	alignDistributePalette->startup();
 	undoPalette->startup();
+	guidePalette->startup();
 
 	// init the toolbars
 	fileToolBar->initVisibility();
