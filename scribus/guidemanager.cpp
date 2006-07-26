@@ -71,6 +71,7 @@ GuideManager::GuideManager(QWidget* parent) :
 		currentPage(0)
 		//ScrPaletteBase(parent, "GuideManager", false, 0)
 {
+	tabWidget->setEnabled(false);
 	setIcon(loadIcon("AppIcon.png"));
 	horizontalAutoGapSpin->setMinValue(0.0);
 	horizontalAutoGapSpin->setMaxValue(100.0);
@@ -85,6 +86,7 @@ GuideManager::GuideManager(QWidget* parent) :
 void GuideManager::setDoc(ScribusDoc* doc)
 {
 	m_Doc=doc;
+	tabWidget->setEnabled(doc ? true : false);
 }
 
 void GuideManager::setupPage()

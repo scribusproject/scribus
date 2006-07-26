@@ -4136,7 +4136,7 @@ bool ScribusMainWindow::DoFileClose()
 	view->close();
 	delete view;
 	doc->setLoading(true);
-	guidePalette->setEnabled(false);
+	guidePalette->setDoc(0);
 	layerPalette->ClearInhalt();
 	docCheckerPalette->buildErrorList(0);
 	ScCore->fileWatcher->removeFile(fName);
