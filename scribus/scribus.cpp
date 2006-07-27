@@ -1415,23 +1415,29 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		 * -- Use PageDown to lower an item
 		 * -- Use the arrow keys to move an item or group around:
 		 		With no meta, by 1.0 unit
-		 		Ctrl Shift, by 0.1 units
-		 		Shift by 10.0 units
-		 		Ctrl Alt Shift 0.01 units
+		 		Ctrl, by 10.0 units
+		 		Shift by 0.1 units
+		 		Ctrl Shift 0.01 units
 		 * -- Use the arrow keys to resize an item:
 		 		Alt right arrow, move right side outwards (expand)
 		 		Alt left arrow, move left side outwards (expand)
 		 		Alt Shift right arrow, move left side inwards (shrink)
 		 		Alt Shift left arrow, move right side inwards (shrink)
+		 * -- In edit mode of an image frame, use the arrow keys to resize the image:
+		 		(flows to pageitem_imageframe for control)
+		 		Alt right arrow, move right side of image outwards (expand)
+		 		Alt left arrow, move right side inwards (shrink)
+		 		Alt down arrow, move bottom side downwards (expand)
+		 		Alt up arrow, move top side inwards (shrink)
 		 */
 		if (doc->m_Selection->count() != 0)
 		{
 			double moveBy=1.0;
-			if ((buttonState & ShiftButton) && !(buttonState & ControlButton))
+			if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+				moveBy=0.1;
+			else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
 				moveBy=10.0;
 			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
-				moveBy=0.1;
-			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && (buttonState & AltButton))
 				moveBy=0.01;
 			moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			bool resizing=((buttonState & AltButton) && !(buttonState & ControlButton));
@@ -1512,7 +1518,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								}
 								else
 								{
-									ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+									view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
@@ -1559,7 +1566,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							{
 								if (resizingsmaller)
 								{
-									ScMW->view->MoveItem(-resizeBy, 0, currItem, false);
+									view->MoveItem(-resizeBy, 0, currItem, false);
+									currItem->moveImageXYOffsetBy(resizeBy/currItem->imageXScale(), 0);
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width()+resizeBy, currItem->height(), currItem->ItemNr, true);
 								}
@@ -1616,7 +1624,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 								}
 								else
 								{
-									ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+									view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
@@ -1663,7 +1672,8 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 							{
 								if (resizingsmaller)
 								{
-									ScMW->view->MoveItem(0, -resizeBy, currItem, false);
+									view->MoveItem(0, -resizeBy, currItem, false);
+									currItem->moveImageXYOffsetBy(0, resizeBy/currItem->imageYScale());
 									currItem->Sizing = false;
 									view->SizeItem(currItem->width(), currItem->height()+resizeBy, currItem->ItemNr, true);
 								}
@@ -1905,8 +1915,8 @@ bool ScribusMainWindow::slotFileNew()
 	return retVal;
 }
 
-bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab, 
-									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr, 
+bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr, double rr, double br, double ab,
+									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr,
 									const QString& defaultPageSize, int pageCount, bool showView)
 {
 	QString cc;
