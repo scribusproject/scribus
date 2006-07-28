@@ -199,8 +199,7 @@ struct ApplicationPrefs
 	QStringList CustomColorSets;
 	bool PrPr_Mode;
 	bool Gcr_Mode;
-	bool PrPr_AlphaText;
-	bool PrPr_AlphaGraphics;
+	bool PrPr_AntiAliasing;
 	bool PrPr_Transparency;
 	bool PrPr_C;
 	bool PrPr_M;
