@@ -7226,8 +7226,7 @@ void ScribusMainWindow::doPrintPreview()
 		dia->exec();
 		PrefsManager *prefsManager=PrefsManager::instance();
 		prefsManager->appPrefs.PrPr_Mode = dia->EnableCMYK->isChecked();
-		prefsManager->appPrefs.PrPr_AlphaText = dia->AliasText->isChecked();
-		prefsManager->appPrefs.PrPr_AlphaGraphics = dia->AliasGr->isChecked();
+		prefsManager->appPrefs.PrPr_AntiAliasing = dia->AntiAlias->isChecked();
 		prefsManager->appPrefs.PrPr_Transparency = dia->AliasTr->isChecked();
 		if ( ScCore->haveTIFFSep() != 0 || !dia->postscriptPreview )
 		{
