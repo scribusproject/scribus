@@ -41,6 +41,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	image.LoadPicture(currItem->Pfile, cms, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
+	imageScale = 1.0;
 	if ((ix > 220) || (iy > 220))
 	{
 		double sx = ix / 220.0;
@@ -49,6 +50,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			image.createLowRes(sx);
 		else
 			image.createLowRes(sy);
+		imageScale = QMIN(sx, sy);
 	}
 	layout16 = new QVBoxLayout( 0, 0, 5, "layout16");
 	pixmapLabel1 = new QLabel( this, "pixmapLabel1" );
@@ -157,17 +159,17 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout24 = new QHBoxLayout( 0, 0, 5, "layout7");
 	textLabel12 = new QLabel( tr( "Radius:" ), WStackPage_6, "textLabel10" );
 	layout24->addWidget( textLabel12 );
-	blRadius = new MSpinBox( 0.0, 10.0, WStackPage_6, 1 );
+	blRadius = new MSpinBox( 0.0, 30.0, WStackPage_6, 1 );
 	blRadius->setValue(0);
 	layout24->addWidget( blRadius );
 	WStackPage6Layout->addLayout( layout24 );
-	layout25 = new QHBoxLayout( 0, 0, 5, "layout7");
+/*	layout25 = new QHBoxLayout( 0, 0, 5, "layout7");
 	textLabel13 = new QLabel( tr("Value:"), WStackPage_6, "textLabel11" );
 	layout25->addWidget( textLabel13 );
 	blValue = new MSpinBox( 0.0, 5.0, WStackPage_6, 1 );
 	blValue->setValue(1.0);
 	layout25->addWidget( blValue );
-	WStackPage6Layout->addLayout( layout25 );
+	WStackPage6Layout->addLayout( layout25 ); */
 	optionStack->addWidget( WStackPage_6, 5 );
 
 	WStackPage_7 = new QWidget( optionStack, "WStackPage_4" );
@@ -335,7 +337,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-	connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+//	connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 	tim.start();
@@ -343,7 +345,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 
 void EffectsDialog::leaveOK()
 {
-	saveValues();
+	saveValues(true);
 	accept();
 }
 
@@ -376,13 +378,13 @@ void EffectsDialog::createPreview()
 	if (tim.elapsed() < 50)
 		return;
 	ScImage im(image);
-	saveValues();
+	saveValues(false);
 	im.applyEffect(effectsList, doc->PageColors, false);
 	pixmapLabel1->setPixmap( im.qImage() );
 	tim.start();
 }
 
-void EffectsDialog::saveValues()
+void EffectsDialog::saveValues(bool final)
 {
 	if (currentOptions != 0)
 	{
@@ -392,7 +394,7 @@ void EffectsDialog::saveValues()
 			efval = colData->currentText();
 			QString tmp;
 			tmp.setNum(shade->getValue());
-			efval += " "+tmp;
+			efval += "\n"+tmp;
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Brightness"))
@@ -421,9 +423,12 @@ void EffectsDialog::saveValues()
 		{
 			QString efval = "";
 			QString tmp;
-			tmp.setNum(blRadius->value());
+			if (final)
+				tmp.setNum(blRadius->value());
+			else
+				tmp.setNum(blRadius->value()/imageScale);
 			efval += tmp;
-			tmp.setNum(blValue->value());
+			tmp.setNum(1.0);
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
@@ -503,7 +508,7 @@ void EffectsDialog::moveToEffects()
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+" 100";
+		QString efval = it.key()+"\n100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
@@ -575,7 +580,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval = colData->currentText();
 			QString tmp;
 			tmp.setNum(shade->getValue());
-			efval += " "+tmp;
+			efval += "\n"+tmp;
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Brightness"))
@@ -606,7 +611,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			QString tmp;
 			tmp.setNum(blRadius->value());
 			efval += tmp;
-			tmp.setNum(blValue->value());
+			tmp.setNum(1.0);
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
@@ -641,7 +646,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			QString col;
 			int shading;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
-			fp >> col;
+//			fp >> col;
+			col = fp.readLine();
 			fp >> shading;
 			colData->setCurrentText(col);
 			shade->setValue(shading);
@@ -699,17 +705,17 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 		else if (c->text() == tr("Blur"))
 		{
 			disconnect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-			disconnect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+//			disconnect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			blRadius->setValue(radius);
-			blValue->setValue(sigma);
+//			blValue->setValue(sigma);
 			optionStack->raiseWidget(5);
 			connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-			connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
+//			connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Posterize"))
 		{
@@ -754,7 +760,7 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			efval = colData->currentText();
 			QString tmp;
 			tmp.setNum(shade->getValue());
-			efval += " "+tmp;
+			efval += "\n"+tmp;
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Brightness"))
@@ -785,7 +791,7 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			QString tmp;
 			tmp.setNum(blRadius->value());
 			efval += tmp;
-			tmp.setNum(blValue->value());
+			tmp.setNum(1.0);
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}

@@ -52,7 +52,7 @@ public:
 	QLabel* textLabel10;
 	QLabel* textLabel11;
 	QLabel* textLabel12;
-	QLabel* textLabel13;
+//	QLabel* textLabel13;
 	QLabel* textLabel14;
 	QLabel* textLabel15;
 	QWidgetStack* optionStack;
@@ -69,7 +69,7 @@ public:
 	MSpinBox* shValue;
 	QWidget* WStackPage_6;
 	MSpinBox* blRadius;
-	MSpinBox* blValue;
+//	MSpinBox* blValue;
 	QWidget* WStackPage_7;
 	QSlider* solarizeSlider;
 	QListBox* usedEffects;
@@ -87,6 +87,7 @@ public:
 	PageItem* currItem;
 	ScImage image;
 	QTime tim;
+	double imageScale;
 
 public slots:
 	virtual void leaveOK();
@@ -94,7 +95,7 @@ public slots:
 	virtual void updateContrast(int val);
 	virtual void updateBright(int val);
 	virtual void createPreview();
-	virtual void saveValues();
+	virtual void saveValues(bool final);
 	virtual void moveToEffects();
 	virtual void moveFromEffects();
 	virtual void moveEffectUp();
@@ -114,7 +115,7 @@ protected:
 	QHBoxLayout* layout23;
 	QVBoxLayout* WStackPage6Layout;
 	QHBoxLayout* layout24;
-	QHBoxLayout* layout25;
+//	QHBoxLayout* layout25;
 	QVBoxLayout* WStackPage7Layout;
 	QHBoxLayout* layout26;
 	QHBoxLayout* layout17;

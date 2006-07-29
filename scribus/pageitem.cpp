@@ -3210,6 +3210,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	if (PicAvail)
 	{
+		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
 		if (pixm.imgInfo.lowResType != 0)
 		{
 			double scaling = pixm.imgInfo.xres / 36.0;
@@ -3218,7 +3219,6 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			pixm.createLowRes(scaling);
 			pixm.imgInfo.lowResScale = scaling;
 		}
-		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
 	}
 	return true;
 }
