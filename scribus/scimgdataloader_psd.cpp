@@ -173,7 +173,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 		else if (header.color_mode == CM_GRAYSCALE)
 			m_imageInfoRecord.colorspace = 2;
 		else if (header.color_mode == CM_DUOTONE)
-			m_imageInfoRecord.colorspace = 0;
+			m_imageInfoRecord.colorspace = 3;
 		m_imageInfoRecord.valid = true;
 		m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
@@ -191,7 +191,16 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 					QRgb *d = (QRgb*)(m_image.scanLine( yit ));
 					for(int xit=0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit )
 					{
-						(*d) = (*s);
+						if (isCMYK)
+						{
+							unsigned char cc = 255 - qRed(*s);
+							unsigned char cm = 255 - qGreen(*s);
+							unsigned char cy = 255 - qBlue(*s);
+							unsigned char ck = QMIN(QMIN(cc, cm), cy);
+							*d = qRgba(cc-ck,cm-ck,cy-ck,ck);
+						}
+						else
+							(*d) = (*s);
 						s++;
 						d++;
 					}
@@ -244,35 +253,52 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 		{
 			short signature;
 			short count;
-			short c, m, y, k;
+			unsigned short c, m, y, k;
 			ScColor col;
+			QColor col2;
 			s >> signature;
 			s >> count;
+			bool specialColour = false;
 			for (int cda = 0; cda < count; cda++)
 			{
 				s >> signature;
 				s >> c >> m >> y >> k;
 				switch (signature)
 				{
-					case 0:
-						colorTableSc.append(ScColor(c >> 8, m >> 8, y >> 8));
+					case 0:	// RGB colour
+						col.setColorRGB(c >> 8, m >> 8, y >> 8);
+						colorTableSc.append(col);
+						qDebug("RGB = "+col.nameRGB());
 						break;
-					case 2:
-					case 5:
-						colorTableSc.append(ScColor(c >> 8, m >> 8, y >> 8, k >> 8));
-/*						c = c >> 8;
-						m = m >> 8;
-						y = y >> 8;
-						k = k >> 8;
-						colorTable.append(qRgb(255-QMIN(255, c+k), 255-QMIN(255,m+k), 255-QMIN(255,y+k))); */
+					case 1:	// HSB colour
+						col2 = QColor();
+						col2.setHsv(255 - (c >> 8), m >> 8, y >> 8);
+						col.fromQColor(col2);
+						colorTableSc.append(col);
 						break;
-					case 8:
+					case 2:	// CMYK colour
+						col.setColor(c >> 8, m >> 8, y >> 8, k >> 8);
+						colorTableSc.append(col);
+						qDebug("CMYK = "+col.nameCMYK());
+						break;
+					case 3:	// Pantone
+					case 4:	// Focoltone
+					case 5:	// Truematch
+					case 6:	// Toyo 88 colorfinder 1050
+					case 10: // HKS colors
+						colorTableSc.clear();
+						colorTableSc.append(ScColor(0, 0, 0, 255));
+						colorTableSc.append(ScColor(0, 0, 0, 0));
+						specialColour = true;	// Reset the colourtable to black and white as we have no possibility to get the real colour values
+						break;
+					case 8: // Grayscale
 						c = qRound((c / 10000.0) * 255);
-						colorTableSc.append(ScColor(0, 0, 0, 255-c));
+						colorTableSc.append(ScColor(0, 0, 0, c));
 						break;
 				}
+				if (specialColour)
+					break;
 			}
-//			return false;
 		}
 		else
 		{
@@ -447,7 +473,6 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 {
 	uint base = s.device()->at();
 	uchar cbyte;
-	int c2, m, y, k;
 	ushort compression;
 	s >> compression;
 	if( compression > 1 )
@@ -473,19 +498,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 				else if ((header.color_mode == CM_DUOTONE) && (component != 3))
 				{
 					ptr -= component;
-					int c1, m1, y1, k1;
-					colorTableSc[0].getCMYK(&c2, &m, &y, &k);
-					for (uint cc = 0; cc < colorTableSc.count(); cc++)
-					{
-						colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
-						c2 = QMIN(c2+c1, 255);
-						m = QMIN(m+m1, 255);
-						y = QMIN(y+y1, 255);
-						k = QMIN(k+k1, 255);
-					}
-					ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
-					ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
-					ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
+					putDuotone(ptr, cbyte);
 					ptr += component;
 				}
 				else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -548,19 +561,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 							else if ((header.color_mode == CM_DUOTONE) && (component != 3))
 							{
 								ptr -= component;
-								int c1, m1, y1, k1;
-								colorTableSc[0].getCMYK(&c2, &m, &y, &k);
-								for (uint cc = 0; cc < colorTableSc.count(); cc++)
-								{
-									colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
-									c2 = QMIN(c2+c1, 255);
-									m = QMIN(m+m1, 255);
-									y = QMIN(y+y1, 255);
-									k = QMIN(k+k1, 255);
-								}
-								ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
-								ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
-								ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
+								putDuotone(ptr, cbyte);
 								ptr += component;
 							}
 							else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -607,19 +608,7 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 							else if ((header.color_mode == CM_DUOTONE) && (component != 3))
 							{
 								ptr -= component;
-								int c1, m1, y1, k1;
-								colorTableSc[0].getCMYK(&c2, &m, &y, &k);
-								for (uint cc = 0; cc < colorTableSc.count(); cc++)
-								{
-									colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
-									c2 = QMIN(c2+c1, 255);
-									m = QMIN(m+m1, 255);
-									y = QMIN(y+y1, 255);
-									k = QMIN(k+k1, 255);
-								}
-								ptr[2]  = ((255 - QMIN(255, c2 + k)) * val) >> 8;
-								ptr[1]  = ((255 - QMIN(255, m + k)) * val) >> 8;
-								ptr[0]  = ((255 - QMIN(255, y + k)) * val) >> 8;
+								putDuotone(ptr, val);
 								ptr += component;
 							}
 							else if ((header.color_mode == CM_INDEXED) && (component != 3))
@@ -1272,7 +1261,6 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 	//   1: RLE compressed
 	ushort compression;
 	uchar cbyte;
-	int c2, m, y, k;
 	s >> compression;
 	if( compression > 1 )
 	{
@@ -1337,19 +1325,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 						else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
 						{
 							ptr -= components[channel];
-							int c1, m1, y1, k1;
-							colorTableSc[0].getCMYK(&c2, &m, &y, &k);
-							for (uint cc = 0; cc < colorTableSc.count(); cc++)
-							{
-								colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
-								c2 = QMIN(c2+c1, 255);
-								m = QMIN(m+m1, 255);
-								y = QMIN(y+y1, 255);
-								k = QMIN(k+k1, 255);
-							}
-							ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
-							ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
-							ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
+							putDuotone(ptr, cbyte);
 							ptr += components[channel];
 						}
 						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1393,19 +1369,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 						else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
 						{
 							ptr -= components[channel];
-							int c1, m1, y1, k1;
-							colorTableSc[0].getCMYK(&c2, &m, &y, &k);
-							for (uint cc = 0; cc < colorTableSc.count(); cc++)
-							{
-								colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
-								c2 = QMIN(c2+c1, 255);
-								m = QMIN(m+m1, 255);
-								y = QMIN(y+y1, 255);
-								k = QMIN(k+k1, 255);
-							}
-							ptr[2]  = ((255 - QMIN(255, c2 + k)) * val) >> 8;
-							ptr[1]  = ((255 - QMIN(255, m + k)) * val) >> 8;
-							ptr[0]  = ((255 - QMIN(255, y + k)) * val) >> 8;
+							putDuotone(ptr, val);
 							ptr += components[channel];
 						}
 						else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1456,19 +1420,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 				else if ((header.color_mode == CM_DUOTONE) && (components[channel] != 3))
 				{
 					ptr -= components[channel];
-					int c1, m1, y1, k1;
-					colorTableSc[0].getCMYK(&c2, &m, &y, &k);
-					for (uint cc = 0; cc < colorTableSc.count(); cc++)
-					{
-						colorTableSc[cc].getCMYK(&c1, &m1, &y1, &k1);
-						c2 = QMIN(c2+c1, 255);
-						m = QMIN(m+m1, 255);
-						y = QMIN(y+y1, 255);
-						k = QMIN(k+k1, 255);
-					}
-					ptr[2]  = ((255 - QMIN(255, c2 + k)) * cbyte) >> 8;
-					ptr[1]  = ((255 - QMIN(255, m + k)) * cbyte) >> 8;
-					ptr[0]  = ((255 - QMIN(255, y + k)) * cbyte) >> 8;
+					putDuotone(ptr, cbyte);
 					ptr += components[channel];
 				}
 				else if ((header.color_mode == CM_INDEXED) && (components[channel] != 3))
@@ -1535,4 +1487,51 @@ bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
 	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED) || (header.color_mode == CM_DUOTONE))
 		return true;
 	return false;
+}
+
+void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
+{
+	int c, c1, c2, c3, m, m1, m2, m3, y, y1, y2, y3;
+	if (colorTableSc.count() == 1)
+	{
+		colorTableSc[0].getRawRGBColor(&c, &m, &y);
+		ptr[2] = QMIN((c * cbyte) >> 8, 255);
+		ptr[1] = QMIN((m * cbyte) >> 8, 255);
+		ptr[0] = QMIN((y * cbyte) >> 8, 255);
+	}
+	else if (colorTableSc.count() == 2)
+	{
+		colorTableSc[0].getRawRGBColor(&c, &m, &y);
+		colorTableSc[1].getRawRGBColor(&c1, &m1, &y1);
+		double deltac = (c1 - c) / 255.0;
+		double deltam = (m1 - m) / 255.0;
+		double deltay = (y1 - y) / 255.0;
+		ptr[2] = QMIN(qRound(c + (deltac * cbyte)), 255);
+		ptr[1] = QMIN(qRound(m + (deltam * cbyte)), 255);
+		ptr[0] = QMIN(qRound(y + (deltay * cbyte)), 255);
+	}
+	else if (colorTableSc.count() == 3)
+	{
+		colorTableSc[0].getRawRGBColor(&c, &m, &y);
+		colorTableSc[1].getRawRGBColor(&c1, &m1, &y1);
+		colorTableSc[2].getRawRGBColor(&c2, &m2, &y2);
+		double deltac = (c1 - c) / 127.5;
+		double deltam = (m1 - m) / 127.5;
+		double deltay = (y1 - y) / 127.5;
+		double deltac2 = (c1 - c2) / 127.5;
+		double deltam2 = (m1 - m2) / 127.5;
+		double deltay2 = (y1 - y2) / 127.5;
+		if (cbyte > 127)
+		{
+			ptr[2] = QMIN(qRound(c + (deltac * (cbyte - 127))), 255);
+			ptr[1] = QMIN(qRound(m + (deltam * (cbyte - 127))), 255);
+			ptr[0] = QMIN(qRound(y + (deltay * (cbyte - 127))), 255);
+		}
+		else
+		{
+			ptr[2] = QMIN(qRound(c1 + (deltac2 * cbyte)), 255);
+			ptr[1] = QMIN(qRound(m1 + (deltam2 * cbyte)), 255);
+			ptr[0] = QMIN(qRound(y1 + (deltay2 * cbyte)), 255);
+		}
+	}
 }

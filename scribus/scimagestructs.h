@@ -81,7 +81,7 @@ public:
 	int yres;
 	int BBoxX;
 	int BBoxH;
-	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale */
+	int colorspace; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
 	bool valid;
 	bool isRequest;
 	bool progressive;

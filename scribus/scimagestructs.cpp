@@ -37,7 +37,7 @@ void ImageInfoRecord::init(void)
 	yres = 72;
 	BBoxX = 0;
 	BBoxH = 0;
-	colorspace = 0; /* 0 = RGB  1 = CMYK  2 = Grayscale */
+	colorspace = 0; /* 0 = RGB  1 = CMYK  2 = Grayscale 3 = Duotone */
 	valid = false;
 	isRequest = false;
 	progressive = false;

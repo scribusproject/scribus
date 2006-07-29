@@ -50,6 +50,7 @@ protected:
 	bool loadLayer( QDataStream & s, const PSDHeader & header);
 	bool parseLayer( QDataStream & s, const PSDHeader & header);
 	QString getLayerString(QDataStream & s);
+	void putDuotone(uchar *ptr, uchar cbyte);
 };
 
 #endif

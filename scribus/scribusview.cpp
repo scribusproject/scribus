@@ -2013,6 +2013,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							case 2:
 								cSpace = tr("Grayscale");
 								break;
+							case 3:
+								cSpace = tr("Duotone");
+								break;
 						}
 					}
 					ColC->setText(cSpace);

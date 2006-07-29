@@ -185,6 +185,9 @@ void FDialogPreview::GenPreview(QString name)
 					case 2:
 						cSpace = tr("Grayscale");
 						break;
+					case 3:
+						cSpace = tr("Duotone");
+						break;
 				}
 			}
 			p.drawText(2, h-5, tr("Colorspace:")+" "+cSpace);
