@@ -170,7 +170,7 @@ SVGExPlug::SVGExPlug( QString fName )
 	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
-		{
+	{
 // zipped saving
 		gzFile gzDoc = gzopen(fName.latin1(),"wb");
 		if(gzDoc == NULL)
@@ -178,26 +178,27 @@ SVGExPlug::SVGExPlug( QString fName )
 		gzputs(gzDoc, vo);
 		gzputs(gzDoc, docu.toString().utf8());
 		gzclose(gzDoc);
-		}
+	}
 	else
-		{
+	{
 		QFile f(fName);
 		if(!f.open(IO_WriteOnly))
 			return;
 		QTextStream s(&f);
 		QString wr = vo;
-		wr += docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		wr += docu.toString();
+		QCString utf8wr = wr.utf8();
+		s.writeRawBytes(utf8wr.data(), utf8wr.length());
 		f.close();
-		}
+	}
 #else
 	QFile f(fName);
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	QString wr = vo;
-	wr += docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	wr += docu.toString();
+	QCString utf8wr = wr.utf8();
+	s.writeRawBytes(utf8wr.data(), utf8wr.length());
 	f.close();
 #endif
 }
