@@ -1,4 +1,30 @@
-Changes since 1.2 (all Changes from 1.2 to 1.2.4cvs at the time of 1.3.3.2 release are included in the 1.3.3.2 Version too)
+Changes since 1.2 (all Changes from 1.2 to 1.2.5 at the time of 1.3.3.3 release are included in the 1.3.3.3 Version too)
+
+Scribus - 1.3.3.3cvs
+====================
+- 0003512: [User Interface] Print preview: antialiasing errors (jghali)
+- 0004027: [Win32] photoshop cannot save picture after opening them from within scribus (jghali)
+- 0004035: [Picture Frames] corrupt images are displayed by an empty picture frame instead of a warning (jghali)
+- 0004026: [Fonts] Bitstream Vera glyphs rendered wrongly (avox)
+- 0004014: [Scripter] Litlle patch I wrote in order to add the function "duplicateObject" to the python API (subik)
+- 0003932: [Story Editor / Text Frames] Unwanted indents when flowing text around a shape. (avox)
+- 0003988: [User Interface] edit - Content is not translated when switching the language from within scribus (cbradney)
+- 0004020: [Translation] Polish translation update for 1.3.3.3cvs (plinnell)
+- 0003974: [Translation] Swedish translation update for 1.3.x (plinnell)
+- 0003983: [Win32] scribus does not respect the windows ui font but uses its own (jghali)
+- 0003973: [Translation] fixed translation for 1.3.3.3 (plinnell)
+- 0003966: [Releases] Improper detection of location of previously existing Scribus installation (jghali)
+- 0003890: [Integration] Ancillary program detection failure (jghali)
+- 0003880: [General] "arrange $ align" function makes scribus crash (cbradney)
+- 0003729: [User Interface] add an explanation about the warning sign in the color menu (plinnell)
+- 0003936: [Import / Export] Wrong ps export of images in master pages (jghali)
+- 0003916: [Story Editor / Text Frames] Using "Insert Glyth" to insert more than 4 characters crashes scribus (cbradney)
+- 0003920: [Plug-ins] Crash when opening svg via startup dialog (jghali)
+- 0003892: [Translation] Restored 100% completion of Greek translation po file (plinnell)
+- 0003057: [User Interface] destroyed cursors displayed (jghali)
+- 0003466: [User Interface] Improvements to gradient handling in the properties palette (avox)
+- 0002835: [Import / Export] Detect and use the ps2write device in newer ghostscript (jghali)
+
 
 Scribus - 1.3.3.2cvs
 ====================
