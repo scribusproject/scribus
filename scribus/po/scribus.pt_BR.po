@@ -7,14 +7,14 @@
 # translation of Scribus.po to
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER, 2005.
-# Ludi Maciel <iludi@uol.com.br> & Frederico Guimaraes <frederico@teia.bio.br>, 2005.
+# Ludi Maciel <iludi@uol.com.br> & Frederico Guimaraes <frederico@teia.bio.br>, 2005, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: scribus3\n"
+"Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-06-28 21:54+0200\n"
-"PO-Revision-Date: 2005-11-29 16:29-0200\n"
+"PO-Revision-Date: 2006-07-25 11:53-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -194,12 +194,11 @@ msgstr "Página"
 msgid "Font %1 is broken, discarding it"
 msgstr "A fonte %1 foi descartada por apresentar problemas"
 
-#, fuzzy
 msgid "Font %1 (found using fontconfig) is broken, discarding it"
-msgstr "A fonte %1 foi descartada por apresentar problemas"
+msgstr "A fonte %1 (encontrada pelo fontconfig) foi descartada por apresentar problemas"
 
 msgid "Failed to load a font - freetype couldn't find the font file"
-msgstr ""
+msgstr "Falha ao carregar uma fonte - o freetype não pode encontrar o arquivo da fonte"
 
 msgid "Left"
 msgstr "Esquerda"
@@ -327,7 +326,7 @@ msgstr "Aumenta o tamanho do caminho no percentual definido"
 msgid "Angle of Rotation"
 msgstr "Ângulo de rotação"
 
-#, fuzzy, c-format
+##, c-format
 msgid "% to Enlarge or Reduce By"
 msgstr "% para redimensionar"
 
@@ -953,15 +952,14 @@ msgstr "&Resolução:"
 msgid "Compress Text and &Vector Graphics"
 msgstr "Comprimir texto e imagens &vetoriais"
 
-#, fuzzy
 msgid "Image Compression Methods"
-msgstr "Ferramenta de processamento de imagem"
+msgstr "Métodos de compressão de imagem"
 
 msgid "JPEG - Lossy"
-msgstr ""
+msgstr "JPEG - Com perdas"
 
 msgid "Zip - Lossless"
-msgstr ""
+msgstr "ZIP - Sem perdas"
 
 msgid "&Method:"
 msgstr "&Método:"
@@ -1241,14 +1239,13 @@ msgstr "Exportar todas páginas para PDF"
 msgid "Export a range of pages to PDF"
 msgstr "Exportar um intervalo de páginas para PDF "
 
-#, fuzzy
 msgid ""
 "Insert a comma separated list of tokens where a token can be * for all the "
 "pages, 1-5 for a range of pages or a single page number."
 msgstr ""
-"Insira as páginas desejadas, separadas por vírgulas.\n"
-"Você pode usar * para todas as páginas, 1-5 para uma\n"
-"seqüência de páginas ou o número de uma única página."
+"Insira as páginas desejadas, separadas por vírgulas. "
+"Você pode usar * para todas "
+"as páginas, 1-5 para uma seqüência de páginas ou o número de uma única página."
 
 msgid ""
 "Determines the PDF compatibility. The default is Acrobat 4.0 which gives the "
@@ -1278,12 +1275,11 @@ msgstr ""
 "Determina a encardenação das páginas no PDF. Ao menos que você\n"
 "necessite mudar isso, mantenha a escolha padrão - Esquerda."
 
-#, fuzzy
 msgid ""
 "Generates thumbnails of each page in the PDF. Some viewers can use the "
 "thumbnails for navigation."
 msgstr ""
-"Gera miniaturas de cada página do PDF. Alguns\n"
+"Gera miniaturas de cada página do PDF. Alguns "
 "visualizadores podem usar a miniatura para navegação."
 
 msgid ""
@@ -1315,7 +1311,6 @@ msgstr ""
 "Ao menos que você tenha um bom motivo, deixe selecionado. Isso reduz o "
 "tamanho do arquivo PDF."
 
-#, fuzzy
 msgid ""
 "Method of compression to use for images. Automatic allows Scribus to choose "
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
@@ -1328,24 +1323,22 @@ msgstr ""
 "simples.JPEG é melhor para arquivos PDF que possuam várias fotos "
 "(possivelmente com uma leve perda na imagem). Deixe configurado no "
 "automático, ao menos que você tenha necessidade de opções de compressão "
-"especiais."
+"especiais. Isto apenas afeta imagens JPEG"
 
-#, fuzzy
 msgid ""
 "Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), "
 "Maximum (95%) - This only affects JPEG images."
 msgstr ""
 "Níveis de compressão: Mínimo (25%), Baixo (50%), Médio (75%), Alto (85%), "
-"Máximo (95%)"
+"Máximo (95%) - Isto apenas afeta imagens JPEG."
 
-#, fuzzy
 msgid ""
 "Re-sample your bitmap images to the selected DPI. Leaving this unchecked "
 "will render them at their native resolution. This can increase memory usage "
 "and slow down export."
 msgstr ""
-"Faz a conversão da resolução de suas imagens bitmap para o DPI selecionado.\n"
-"Se desmarcado, renderiza as imagens em sua resolução nativa.\n"
+"Faz a conversão da resolução de suas imagens bitmap para o DPI selecionado. "
+"Se desmarcado, renderiza as imagens em sua resolução nativa. "
 "Isto poderá aumentar o uso de memória e aumentar o tempo de exportação."
 
 msgid "DPI (Dots Per Inch) for image export."
@@ -1358,8 +1351,7 @@ msgstr ""
 "Incorpora as fontes ao PDF. Isso preserva o\n"
 "layout e a aparência do seu documento."
 
-msgid ""
-"Enables presentation effects when using Acrobat Reader in full screen mode."
+msgid "Enables presentation effects when using Acrobat Reader in full screen mode."
 msgstr ""
 "Habilita efeitos de apresentação quando o Acrobat Reader está sendo usado em "
 "modo de tela cheia."
@@ -1384,10 +1376,8 @@ msgstr ""
 msgid "Type of the display effect."
 msgstr "Tipo do efeito de exibição."
 
-msgid ""
-"Direction of the effect of moving lines for the split and blind effects."
-msgstr ""
-"Direção de movimentação das linhas para os efeitos Separação e Persiana."
+msgid "Direction of the effect of moving lines for the split and blind effects."
+msgstr "Direção de movimentação das linhas para os efeitos Separação e Persiana."
 
 msgid "Starting position for the box and split effects."
 msgstr "Posição inicial dos efeitos Caixa e Separação."
@@ -1428,10 +1418,8 @@ msgstr "Escolha uma senha para habilitar os usuários a lerem o seu PDF."
 msgid "Allow printing of the PDF. If un-checked, printing is prevented. "
 msgstr "Permite a impressão do PDF. Se desmarcado, não se consegue imprimir. "
 
-msgid ""
-"Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
-msgstr ""
-"Permite a modificação do PDF. Se desmarcado, não se consegue modificá-lo."
+msgid "Allow modifying of the PDF. If un-checked, modifying the PDF is prevented."
+msgstr "Permite a modificação do PDF. Se desmarcado, não se consegue modificá-lo."
 
 msgid ""
 "Allow copying of text or graphics from the PDF. \n"
@@ -1750,9 +1738,8 @@ msgstr "Cópia de %1"
 msgid "Name:"
 msgstr "Nome:"
 
-#, fuzzy
 msgid "New Template %1"
-msgstr "Novo modelo"
+msgstr "Novo modelo %1"
 
 msgid "New Document"
 msgstr "Novo documento"
@@ -1853,8 +1840,7 @@ msgstr "Tamanho da página, pode ser um tamanho padrão ou personalizado"
 msgid "Orientation of the document's pages"
 msgstr "Orientação das páginas do documento"
 
-msgid ""
-"Width of the document's pages, editable if you have chosen a custom page size"
+msgid "Width of the document's pages, editable if you have chosen a custom page size"
 msgstr ""
 "Largura das páginas do documento; editável se você escolheu um tamanho de "
 "página personalizado"
@@ -2376,8 +2362,7 @@ msgid "Open"
 msgstr "Abrir"
 
 msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
-msgstr ""
-"Imagens (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Todos os arquivos (*)"
+msgstr "Imagens (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Todos os arquivos (*)"
 
 msgid "Example:"
 msgstr "Exemplo:"
@@ -2428,7 +2413,7 @@ msgid "Danish"
 msgstr "Dinamarquês"
 
 msgid "Dzongkha"
-msgstr ""
+msgstr "Butanês"
 
 msgid "Dutch"
 msgstr "Holandês"
@@ -2464,7 +2449,7 @@ msgid "Indonesian"
 msgstr "Indonésio"
 
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandês"
 
 msgid "Italian"
 msgstr "Italiano"
@@ -2612,8 +2597,7 @@ msgstr ""
 "PDF, para auxiliar nas buscas e indexações dos arquivos PDF"
 
 msgid "A person or organisation responsible for making the document available"
-msgstr ""
-"Uma pessoa ou organização responsável por tornar o documento disponível"
+msgstr "Uma pessoa ou organização responsável por tornar o documento disponível"
 
 msgid ""
 "A person or organisation responsible for making contributions to the content "
@@ -2808,8 +2792,7 @@ msgid "Position:"
 msgstr "Posição:"
 
 msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
-"Aqui você pode adicionar, alterar ou remover os pontos de mudança de cor."
+msgstr "Aqui você pode adicionar, alterar ou remover os pontos de mudança de cor."
 
 msgid "Initializing..."
 msgstr "Inicializando..."
@@ -4164,10 +4147,8 @@ msgstr "Move para a frente"
 msgid "Move to back"
 msgstr "Move para trás"
 
-msgid ""
-"Indicates the level the object is on, 0 means the object is at the bottom"
-msgstr ""
-"Indica o nível onde está o objeto; 0 significa que o objeto está no fundo"
+msgid "Indicates the level the object is on, 0 means the object is at the bottom"
+msgstr "Indica o nível onde está o objeto; 0 significa que o objeto está no fundo"
 
 msgid "Lock or unlock the object"
 msgstr "Trava ou destrava o objeto"
@@ -4182,8 +4163,7 @@ msgid "Make text in lower frames flow around the object shape"
 msgstr "Faz o texto nos quadros inferiores fluir ao redor do objeto"
 
 msgid "Use a surrounding box instead of the frame's shape for text flow"
-msgstr ""
-"Usa uma caixa circundante ao invés do formato do quadro para o fluxo do texto"
+msgstr "Usa uma caixa circundante ao invés do formato do quadro para o fluxo do texto"
 
 msgid "Use a second line originally based on the frame's shape for text flow"
 msgstr ""
@@ -4424,8 +4404,7 @@ msgstr "Tabulações e endentamento"
 msgid "Name of your paragraph style"
 msgstr "Nome do seu estilo de parágrafo"
 
-msgid ""
-"Provides an oversized first letter for a paragraph. Used for stylistic effect"
+msgid "Provides an oversized first letter for a paragraph. Used for stylistic effect"
 msgstr ""
 "Aumenta o tamanho da primeira letra do parágrafo. Usado para efeitos de "
 "estilo"
@@ -4799,20 +4778,17 @@ msgstr "Estilos disponíveis"
 msgid "Edit Styles"
 msgstr "Edita os estilos"
 
-#, fuzzy
 msgid "Top"
-msgstr "&Superior:"
+msgstr "Superior"
 
-#, fuzzy
 msgid "Bottom"
-msgstr "&Inferior:"
+msgstr "Inferior"
 
 msgid "Allow Docking To..."
-msgstr ""
+msgstr "Acoplagem..."
 
-#, fuzzy
 msgid "Floating Orientation..."
-msgstr "Orientação"
+msgstr "Flutuar na..."
 
 msgid "Color Management Settings"
 msgstr "Configurações do gerenciamento de cores"
@@ -5100,7 +5076,7 @@ msgid "Italian:"
 msgstr "Italiano:"
 
 msgid "Japanese:"
-msgstr ""
+msgstr "Japonês:"
 
 msgid "Korean:"
 msgstr "Coreano:"
@@ -5460,11 +5436,9 @@ msgid "Default font size for the menus and windows"
 msgstr "Tamanho padrão da fonte dos menus e janelas"
 
 msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
-msgstr ""
-"Número de linha roladas pelo programa a cada movimento da \"roda\" do mouse"
+msgstr "Número de linha roladas pelo programa a cada movimento da \"roda\" do mouse"
 
-msgid ""
-"Radius of the area where Scribus will allow you to grab an objects handles"
+msgid "Radius of the area where Scribus will allow you to grab an objects handles"
 msgstr "Raio da área onde um manuseador de objetos pode ser selecionado"
 
 msgid "Number of recently edited documents to show in the File menu"
@@ -5497,8 +5471,7 @@ msgstr ""
 "Largura das páginas do documento, editável se você escolheu um tamanho "
 "personalizado"
 
-msgid ""
-"Height of document pages, editable if you have chosen a custom page size"
+msgid "Height of document pages, editable if you have chosen a custom page size"
 msgstr ""
 "Altura das páginas do documento, editável se você escolheu um tamanho "
 "personalizado"
@@ -5525,8 +5498,7 @@ msgid "Distance between the major grid lines"
 msgstr "Distância entre as linhas da grade maior"
 
 msgid "Distance within which an object will snap to your placed guides"
-msgstr ""
-"Distância dentro da qual um objeto será atraído para a guia mais próxima"
+msgstr "Distância dentro da qual um objeto será atraído para a guia mais próxima"
 
 msgid "Color of the minor grid lines"
 msgstr "Cor das linhas da grade menor"
@@ -5619,8 +5591,7 @@ msgid "Pictures in picture frames are scaled to the size of the frame"
 msgstr "As imagens são dimensionadas no tamanho do quadro"
 
 msgid "Automatically scaled pictures keep their original proportions"
-msgstr ""
-"As imagens dimensionadas automaticamente mantêm suas proporções originais"
+msgstr "As imagens dimensionadas automaticamente mantêm suas proporções originais"
 
 msgid "Fill color of picture frames"
 msgstr "Cor de preenchimento dos quadros de imagem"
@@ -5705,13 +5676,11 @@ msgstr ""
 "o comando 'gimp-remote', já que ele permite que você edite\n"
 "a imagem em um instância já existente do Gimp."
 
-msgid ""
-"Do not show objects outside the margins on the printed page or exported file"
+msgid "Do not show objects outside the margins on the printed page or exported file"
 msgstr ""
 "Não mostra os objetos fora das margens na página impressa ou no arquivo "
 "exportado"
 
-#, fuzzy
 msgid ""
 "A way of switching off some of the gray shades which are composed of cyan, "
 "yellow and magenta and using black instead. UCR most affects parts of images "
@@ -5720,12 +5689,12 @@ msgid ""
 "need on a case by case basis. UCR reduces the possibility of over saturation "
 "with CMY inks."
 msgstr ""
-"Uma forma de trocar alguns dos tons de cinza que são compostos de\n"
-"ciano, amarelo e magenta, usando preto no lugar. A RSC afeta mais as\n"
-"partes da imagem que são neutras ou em tons escuros, mais próximos\n"
-"do cinza. O uso disso pode melhorar a impressão de algumas imagens,\n"
-"mas recomenda-se que se façam testes para definir um melhor\n"
-"resultado para cada caso. A RSC reduz a possibilidade de supersaturação\n"
+"Uma forma de trocar alguns dos tons de cinza que são compostos de "
+"ciano, amarelo e magenta, usando preto no lugar. A RSC afeta mais as "
+"partes da imagem que são neutras ou em tons escuros, mais próximos "
+"do cinza. O uso disso pode melhorar a impressão de algumas imagens, "
+"mas recomenda-se que se façam testes para definir um melhor "
+"resultado para cada caso. A RSC reduz a possibilidade de supersaturação "
 "com tintas CMY."
 
 msgid "New From Template"
@@ -6125,18 +6094,18 @@ msgstr "Dados do CSV"
 msgid "CSV_header"
 msgstr "Cabeçalho do CSV"
 
-#, fuzzy
 msgid "Word Documents"
-msgstr "Documento"
+msgstr "Documentos do Word"
 
-#, fuzzy
 msgid "Importing failed"
-msgstr "Não foi possível importar o arquivo:%1!"
+msgstr "A importação falhou"
 
 msgid ""
 "Importing Word document failed \n"
 "%1"
 msgstr ""
+"A importação do documento do Word falhou \n"
+"%1"
 
 msgid "OpenDocument Text Documents"
 msgstr "Documentos de texto OpenDocument"
@@ -6147,10 +6116,8 @@ msgstr "Opções do importador do OpenOffice.org Writer"
 msgid "Update paragraph Styles"
 msgstr "Atualiza os estilos de parágrafo"
 
-msgid ""
-"Enabling this will overwrite existing styles in the current Scribus document"
-msgstr ""
-"Habilitar isso irá sobrescrever os estilos existentes no documento atual"
+msgid "Enabling this will overwrite existing styles in the current Scribus document"
+msgstr "Habilitar isso irá sobrescrever os estilos existentes no documento atual"
 
 msgid "Merge Paragraph Styles"
 msgstr "Mesclar os estilos de parágrafo"
@@ -6328,10 +6295,8 @@ msgstr "Editando a macro:"
 msgid "The name of the macro being edited."
 msgstr "O nome da macro que está sendo editada."
 
-msgid ""
-"</qt>This item displays the name of the macro you are currently editing.<qt>"
-msgstr ""
-"<qt>Este item mostra o nome da macro que você está editando agora.</qt>"
+msgid "</qt>This item displays the name of the macro you are currently editing.<qt>"
+msgstr "<qt>Este item mostra o nome da macro que você está editando agora.</qt>"
 
 msgid "<qt>Discard all changes and exit.</qt>"
 msgstr "<qt>Descarta todas as alterações e sai.</qt>"
@@ -6375,8 +6340,7 @@ msgid "Alt+L"
 msgstr "Alt+A"
 
 msgid "<qt>Replace the current source code with code from a file.</qt>"
-msgstr ""
-"<qt>Substitui o código-fonte atual com pelo código-fonte de um arquivo.</qt>"
+msgstr "<qt>Substitui o código-fonte atual com pelo código-fonte de um arquivo.</qt>"
 
 msgid ""
 "<qt>Load new source code into the editing area from \"file\". Any source "
@@ -6496,17 +6460,14 @@ msgstr "Alt+M"
 msgid "Rename the selected macro."
 msgstr "Renomea a macro selecionada."
 
-msgid ""
-"<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
+msgid "<qt>Rename the selected macro. You will be prompted for the new name.</qt>"
 msgstr "<qt>Renomea a macro selecionada. Será solicitado um novo nome.</qt>"
 
 msgid "Alt+E"
 msgstr "Alt+E"
 
-msgid ""
-"<qt>Edit the source of the selected macro, if the source is availible.</qt>"
-msgstr ""
-"<qt>Edita o código-fonte da macro selecionada, caso esteja disponível.</qt>"
+msgid "<qt>Edit the source of the selected macro, if the source is availible.</qt>"
+msgstr "<qt>Edita o código-fonte da macro selecionada, caso esteja disponível.</qt>"
 
 msgid ""
 "<p>Edit the selected macro. </p>\n"
@@ -6891,22 +6852,19 @@ msgid "Specified item not an image frame."
 msgstr "O item especificado não é um quadro de imagem."
 
 msgid "Cannot get font size of non-text frame."
-msgstr ""
-"Não é possível obter o tamanho da fonte de um quadro que não seja de texto."
+msgstr "Não é possível obter o tamanho da fonte de um quadro que não seja de texto."
 
 msgid "Cannot get font of non-text frame."
 msgstr "Não é possível obter uma fonte de um quadro que não seja de texto."
 
 msgid "Cannot get text size of non-text frame."
-msgstr ""
-"Não é possível obter o tamanho do texto de um quadro que não seja de texto."
+msgstr "Não é possível obter o tamanho do texto de um quadro que não seja de texto."
 
 msgid "Cannot get column count of non-text frame."
 msgstr "Não é possível contar as colunas de um quadro que não seja de texto."
 
 msgid "Cannot get line space of non-text frame."
-msgstr ""
-"Não é possível obter a altura da linha em um quadro que não seja de texto."
+msgstr "Não é possível obter a altura da linha em um quadro que não seja de texto."
 
 msgid "Cannot get column gap of non-text frame."
 msgstr ""
@@ -6937,8 +6895,7 @@ msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr "O tamanho da fonte está fora do limite, deve ser >=1 e <=512."
 
 msgid "Cannot set font size on a non-text frame."
-msgstr ""
-"Não é possível definir o tamanho da fonte em um quadro que não seja de texto."
+msgstr "Não é possível definir o tamanho da fonte em um quadro que não seja de texto."
 
 msgid "Cannot set font on a non-text frame."
 msgstr "Não é possível definir a fonte em um quadro que não seja de texto."
@@ -6985,8 +6942,7 @@ msgstr ""
 "texto."
 
 msgid "Cannot set text stroke on a non-text frame."
-msgstr ""
-"Não é possível definir a borda do texto em um quadro que não seja de texto."
+msgstr "Não é possível definir a borda do texto em um quadro que não seja de texto."
 
 msgid "Cannot set text shade on a non-text frame."
 msgstr ""
@@ -7022,8 +6978,7 @@ msgstr ""
 "próximo quadro no lugar."
 
 msgid "Cannot convert a non-text frame to outlines."
-msgstr ""
-"Não é possível converter para contornos um quadro que não seja de texto."
+msgstr "Não é possível converter para contornos um quadro que não seja de texto."
 
 msgid "Only text frames can be checked for overflowing"
 msgstr "Somente quadro de textos podem ser marcados para realce"
@@ -7323,8 +7278,7 @@ msgstr "Scribus - Editar macro"
 msgid "Enter name for new macro: "
 msgstr "Entre com o nome da nova macro: "
 
-msgid ""
-"<qt>The macro name you requested is already taken  by another macro.</qt>"
+msgid "<qt>The macro name you requested is already taken  by another macro.</qt>"
 msgstr "<qt>O nome da macro que você indicou já é usado por outra macro.</qt>"
 
 msgid ""
@@ -7405,15 +7359,13 @@ msgstr "Exportar somente a página atual"
 msgid ""
 "Resolution of the Images\n"
 "Use 72 dpi for Images intended for the Screen"
-msgstr ""
-"Resolução das imagens Use 72 dpi para imagens que serão exibidas na tela"
+msgstr "Resolução das imagens Use 72 dpi para imagens que serão exibidas na tela"
 
-#, fuzzy, c-format
+##, c-format
 msgid "Size of the images. 100% for no changes, 200% for two times larger etc."
-msgstr ""
-"O tamanho das imagens. 100% para tamanho normal, 200% para o dobro, etc."
+msgstr "O tamanho das imagens. 100% para tamanho normal, 200% para o dobro, etc."
 
-#, fuzzy, c-format
+##, c-format
 msgid "The quality of your images - 100% is the best, 1% the lowest quality"
 msgstr "A qualidade das suas imagens - 100% é a melhor, 1% a pior"
 
@@ -7470,11 +7422,3 @@ msgid ""
 "failed!"
 msgstr "Não foi possível importar o arquivo:%1!"
 
-#~ msgid "Image Settings"
-#~ msgstr "Configurações da imagem"
-
-#~ msgid "JPEG"
-#~ msgstr "JPEG"
-
-#~ msgid "Zip"
-#~ msgstr "Zip"
