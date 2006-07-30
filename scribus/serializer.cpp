@@ -143,13 +143,13 @@ bool Serializer::Write(QString Cod)
 
 bool Serializer::Read(QString Cod)
 {
+	QCString file;
 	QTextCodec *codec;
-	bool tmp = loadText(Filename, &Objekt);
+	bool tmp = loadRawText(Filename, file);
 	if (Cod.isEmpty())
 		codec = QTextCodec::codecForLocale();
 	else
 		codec = QTextCodec::codecForName(Cod);
-	QString dec = codec->toUnicode( Objekt );
-	Objekt = dec;
+	Objekt = codec->toUnicode( file.data() );
 	return tmp;
 }
