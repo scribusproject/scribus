@@ -245,6 +245,9 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	scaleBox->insertItem("100%");
 	scaleBox->insertItem("150%");
 	scaleBox->insertItem("200%");
+	scaleBox->insertItem( tr("Fit to Width"));
+	scaleBox->insertItem( tr("Fit to Height"));
+	scaleBox->insertItem( tr("Fit to Page"));
 	scaleBox->setCurrentItem(1);
 	Layout6->addWidget(scaleLabel);
 	Layout6->addWidget(scaleBox);
@@ -373,6 +376,15 @@ void PPreview::scaleBox_valueChanged(int value)
 			break;
 		case 3:
 			scaleFactor = 2.0;
+			break;
+		case 4:
+			scaleFactor = Anzeige->viewport()->width() / doc->Pages->at(APage)->width();
+			break;
+		case 5:
+			scaleFactor = Anzeige->viewport()->height() / doc->Pages->at(APage)->height();
+			break;
+		case 6:
+			scaleFactor = QMIN(Anzeige->viewport()->height() / doc->Pages->at(APage)->height(), Anzeige->viewport()->width() / doc->Pages->at(APage)->width());
 			break;
 		default:
 			scaleFactor = 1.0;
