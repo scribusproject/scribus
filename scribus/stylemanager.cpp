@@ -210,7 +210,7 @@ void StyleManager::slotNewType(StyleItem *item)
 			if (styles[i].second == QString::null)
 				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
 			else // TODO Search the parent and insert accordingly
-				;
+				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
 		}
 
 		if (widget_)
@@ -310,6 +310,8 @@ void StyleManager::itemClicked(QListViewItem *item)
 			}
 			if (sitem)
 			{
+				if (item_ == sitem)
+					return; // no need to update anything already selected style
 				item_ = sitem;
 				if (widget_)
 				{   // remove the old style type's widget

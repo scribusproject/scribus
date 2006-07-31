@@ -33,6 +33,7 @@ class ShadeButton;
 class CharStyle;
 class ParagraphStyle;
 class ScribusDoc;
+class SMCStylePage;
 
 class SMPStyleWidget : public PStyleWBase
 {
@@ -41,12 +42,14 @@ public:
 	SMPStyleWidget();
 	~SMPStyleWidget();
 
+	void show(ParagraphStyle &pstyle);
+
 private:
 	QGridLayout *distancesBoxLayout;
 	QGridLayout *dropCapsBoxLayout;
 	QVBoxLayout *tabsBoxLayout;
 
-	QComboBox   *linespacingCombo;
+	QComboBox   *lineSpacingMode_;
 
 	QLabel      *pixmapLabel0;
 	QLabel      *pixmapLabel1;
@@ -56,20 +59,22 @@ private:
 	QLabel      *capLabel1;
 	QLabel      *capLabel2;
 
-	MSpinBox    *LineSpVal;
+	MSpinBox    *lineSpacing_;
 	MSpinBox    *fontBase;
 	MSpinBox    *fontKern;
-	MSpinBox    *spaceAbove;
-	MSpinBox    *spaceBelow;
-	QSpinBox    *DropLines;
-	MSpinBox    *DropDist;
+	MSpinBox    *spaceAbove_;
+	MSpinBox    *spaceBelow_;
+	QSpinBox    *dropCapLines_;
+	MSpinBox    *dropCapOffset_;
 
-	AlignSelect *alignSelect;
-	Tabruler    *tabList;
+	AlignSelect  *alignement_;
+	Tabruler     *tabList_;
+	SMCStylePage *cpage;
 
 	void setupDistances();
 	void setupDropCaps();
 	void setupTabs();
+	void setupCharStyle();
 };
 
 class SMParagraphStyle : public StyleItem
@@ -91,16 +96,19 @@ public:
 
 private:
 	SMPStyleWidget *pwidget_;
-	StyleSet<ParagraphStyle> tmpPStyles_;
 	ScribusDoc *doc_;
+
+	void updateStyleList();
 };
 
-class SMCStyleWidget : public CStyleWBase
+class SMCStylePage : public CStylePBase
 {
 	Q_OBJECT
 public:
-	SMCStyleWidget();
-	~SMCStyleWidget();
+	SMCStylePage(QWidget *parent = 0);
+	~SMCStylePage();
+
+	void show(CharStyle &cstyle);
 
 private:
 	QVBoxLayout *characterBoxLayout;
@@ -110,18 +118,18 @@ private:
 	QHBoxLayout *layout5;
 	QHBoxLayout *layout6;
 
-	FontComboH  *FontC;
-	StyleSelect *EffeS;
-	ScComboBox  *TxFill;
-	ShadeButton *PM2;
-	ScComboBox  *TxStroke;
-	ShadeButton *PM1;
+	FontComboH  *fontFace_;
+	StyleSelect *effects_;
+	ScComboBox  *fillColor_;
+	ShadeButton *fillShade_;
+	ScComboBox  *strokeColor_;
+	ShadeButton *strokeShade_;
 
-	MSpinBox    *SizeC;
-	MSpinBox    *fontHScale;
-	MSpinBox    *fontVScale;
-	MSpinBox    *fontKern;
-	MSpinBox    *fontBase;
+	MSpinBox    *fontSize_;
+	MSpinBox    *fontHScale_;
+	MSpinBox    *fontVScale_;
+	MSpinBox    *tracking_;
+	MSpinBox    *baselineOffset_;
 
 	QLabel      *TextF2;
 	QLabel      *pixmapLabel3;
@@ -136,8 +144,6 @@ private:
 	QSpacerItem *spacer1;
 	QSpacerItem *spacer2;
 	QSpacerItem *spacer4;
-
-	void setupCharacter();
 };
 
 class SMCharacterStyle : public StyleItem
@@ -158,7 +164,9 @@ public:
 	void nameChanged(const QString &newName);
 
 private:
-	SMCStyleWidget *cwidget_;
+	QTabWidget   *widget_;
+	SMCStylePage *page_;
+	ScribusDoc   *doc_;
 };
 
 #endif

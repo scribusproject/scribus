@@ -29,12 +29,14 @@ for which a new license (GPL+exception) is in place.
 #include <qspinbox.h>
 #include <qframe.h>
 #include <qpixmap.h>
+#include <qtabwidget.h>
 
 SMPStyleWidget::SMPStyleWidget()
 {
 	setupDistances();
 	setupDropCaps();
 	setupTabs();
+	setupCharStyle();
 }
 
 void SMPStyleWidget::setupDistances()
@@ -47,11 +49,11 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->setSpacing( 5 );
 	distancesBoxLayout->setMargin( 10 );
 
-	linespacingCombo = new QComboBox(distancesBox, "linespacingCombo");
-	linespacingCombo->insertItem(tr("Fixed Linespacing"));
-	linespacingCombo->insertItem(tr("Automatic Linespacing"));
-	linespacingCombo->insertItem(tr("Align to Baseline Grid"));
-	distancesBoxLayout->addMultiCellWidget(linespacingCombo, 0, 0, 1, 3);
+	lineSpacingMode_ = new QComboBox(distancesBox, "linespacingCombo");
+	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
+	distancesBoxLayout->addMultiCellWidget(lineSpacingMode_, 0, 0, 1, 3);
 
 	pixmapLabel0 = new QLabel(distancesBox, "pixmapLabel0");
 	pixmapLabel0->setMinimumSize(QSize(22,22));
@@ -59,9 +61,9 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel0->setPixmap(loadIcon("linespacing2.png"));
 	distancesBoxLayout->addWidget(pixmapLabel0, 1, 0);
 
-	LineSpVal = new MSpinBox(1, 300, distancesBox, 1 );
-	LineSpVal->setSuffix(tr( " pt" ));
-	distancesBoxLayout->addWidget(LineSpVal, 1,1);
+	lineSpacing_ = new MSpinBox(1, 300, distancesBox, 1 );
+	lineSpacing_->setSuffix(tr( " pt" ));
+	distancesBoxLayout->addWidget(lineSpacing_, 1,1);
 
 // 	pixmapLabel1 = new QLabel(distancesBox, "pixmapLabel2" );
 // 	pixmapLabel1->setMinimumSize(QSize(22, 22));
@@ -77,20 +79,20 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel3->setPixmap( loadIcon("above.png") );
 	distancesBoxLayout->addWidget( pixmapLabel3, 1, 2 );
 
-	spaceAbove = new MSpinBox( 0, 300, distancesBox, 1 );
-	spaceAbove->setSuffix( tr( " pt" ) );
-	distancesBoxLayout->addWidget( spaceAbove, 1, 3 );
+	spaceAbove_ = new MSpinBox( 0, 300, distancesBox, 1 );
+	spaceAbove_->setSuffix( tr( " pt" ) );
+	distancesBoxLayout->addWidget( spaceAbove_, 1, 3 );
 
 	pixmapLabel4 = new QLabel( "", distancesBox, "TextLabel1_2_3" );
 	pixmapLabel4->setPixmap( loadIcon("below.png") );
 	distancesBoxLayout->addWidget( pixmapLabel4, 2, 2 );
 
-	spaceBelow = new MSpinBox( 0, 300, distancesBox, 1 );
-	spaceBelow->setSuffix( tr( " pt" ) );
-	distancesBoxLayout->addWidget( spaceBelow, 2, 3 );
+	spaceBelow_ = new MSpinBox( 0, 300, distancesBox, 1 );
+	spaceBelow_->setSuffix( tr( " pt" ) );
+	distancesBoxLayout->addWidget( spaceBelow_, 2, 3 );
 
-	alignSelect = new AlignSelect(distancesBox);
-	distancesBoxLayout->addMultiCellWidget(alignSelect, 3,3,1,3);
+	alignement_ = new AlignSelect(distancesBox);
+	distancesBoxLayout->addMultiCellWidget(alignement_, 3,3,1,3);
 }
 
 void SMPStyleWidget::setupDropCaps()
@@ -103,18 +105,18 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout = new QGridLayout(dropCapsBox->layout());
 	dropCapsBoxLayout->setAlignment(Qt::AlignTop);
 
-	DropLines = new QSpinBox(dropCapsBox, "DropLines");
-	DropLines->setMinValue(2);
-	DropLines->setMaxValue(20);
-	capLabel1 = new QLabel(DropLines, tr("&Lines:"), dropCapsBox, "CapLabel");
+	dropCapLines_ = new QSpinBox(dropCapsBox, "DropLines");
+	dropCapLines_->setMinValue(2);
+	dropCapLines_->setMaxValue(20);
+	capLabel1 = new QLabel(dropCapLines_, tr("&Lines:"), dropCapsBox, "CapLabel");
 	dropCapsBoxLayout->addWidget(capLabel1, 0, 0);
-	dropCapsBoxLayout->addWidget(DropLines, 0, 1);
+	dropCapsBoxLayout->addWidget(dropCapLines_, 0, 1);
 
-	DropDist = new MSpinBox(-3000, 3000, dropCapsBox, 1);
-	DropDist->setSuffix(tr(" pt"));
-	capLabel2 = new QLabel(DropLines, tr("Distance from Text:"), dropCapsBox, "CapLabel2");
+	dropCapOffset_ = new MSpinBox(-3000, 3000, dropCapsBox, 1);
+	dropCapOffset_->setSuffix(tr(" pt"));
+	capLabel2 = new QLabel(dropCapLines_, tr("Distance from Text:"), dropCapsBox, "CapLabel2");
 	dropCapsBoxLayout->addWidget(capLabel2, 1, 0);
-	dropCapsBoxLayout->addWidget(DropDist, 1, 1);
+	dropCapsBoxLayout->addWidget(dropCapOffset_, 1, 1);
 }
 
 void SMPStyleWidget::setupTabs()
@@ -128,8 +130,36 @@ void SMPStyleWidget::setupTabs()
 	tabsBoxLayout->setSpacing( 5 );
 	tabsBoxLayout->setMargin( 10 );
 
-	tabList = new Tabruler(tabsBox);
-	tabsBoxLayout->addWidget( tabList );
+	tabList_ = new Tabruler(tabsBox);
+	tabsBoxLayout->addWidget( tabList_ );
+}
+
+void SMPStyleWidget::setupCharStyle()
+{
+	characterBox->setColumns(3);
+	characterBox->setInsideMargin(5);
+	characterBox->setInsideSpacing(5);
+	cpage = new SMCStylePage(characterBox);
+}
+
+void SMPStyleWidget::show(ParagraphStyle &pstyle)
+{
+	lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode());
+	lineSpacing_->setValue(pstyle.lineSpacing());
+	alignement_->setStyle(pstyle.alignment());
+	tabList_->setFirstLineData(pstyle.firstIndent());
+	tabList_->setLeftIndentData(pstyle.leftMargin());
+	tabList_->setRightIndentData(pstyle.rightMargin());
+	spaceAbove_->setValue(pstyle.gapBefore());
+	spaceBelow_->setValue(pstyle.gapAfter());
+	dropCapsBox->setChecked(pstyle.hasDropCap());
+	dropCapLines_->setValue(pstyle.dropCapLines());
+	dropCapOffset_->setValue(pstyle.dropCapOffset());
+
+//  ASK Avox!
+// 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
+
+	cpage->show(pstyle.charStyle());
 }
 
 SMPStyleWidget::~SMPStyleWidget()
@@ -153,7 +183,6 @@ QTabWidget* SMParagraphStyle::widget()
 		Q_CHECK_PTR(pwidget_);
 	}
 
-	Q_ASSERT(pwidget_);
 	return pwidget_->tabWidget;
 }
 
@@ -166,26 +195,45 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 {
 	Q_ASSERT(doc);
 	doc_ = doc;
-//	tmpPStyles_ = doc_->docParagraphStyles;
 }
 
 QValueList<StyleName> SMParagraphStyle::styles()
 {
 	QValueList<StyleName> tmpList;
 
-	if (!doc_ || doc_->docParagraphStyles.count() < 6)
-		return tmpList;
+	if (!doc_)
+		return tmpList; // no doc available
 
-	for (uint x = 5; x < doc_->docParagraphStyles.count(); ++x)
-		tmpList << StyleName(doc_->docParagraphStyles[x].name(),
-		                     doc_->docParagraphStyles[x].parent() ? doc_->docParagraphStyles[x].parent()->name() : QString::null);
+	StyleSet<ParagraphStyle> &tmp = doc_->docParagraphStyles;
+	for (uint i = 0; i < tmp.count(); ++i)
+	{
+		if (tmp[i].hasName())
+		{
+			QString styleName = tmp[i].name();
+			QString parentName = QString::null;
+
+			if (tmp[i].hasParent() && tmp[i].parent()->hasName())
+				parentName = tmp[i].parent()->displayName();
+
+			tmpList << StyleName(styleName, parentName);
+		}
+	}
 
 	return tmpList;
 }
 
 void SMParagraphStyle::selected(const QStringList &styleNames)
 {
-
+	if (styleNames.count() == 1)
+	{
+		int index = doc_->docParagraphStyles.find(styleNames[0]);
+		if (index > -1)
+			pwidget_->show(doc_->docParagraphStyles[index]);
+	}
+	else // more than one item selected do the magic tricks here
+	{
+		
+	}
 }
 
 QString SMParagraphStyle::fromSelection() const
@@ -223,34 +271,29 @@ SMParagraphStyle::~SMParagraphStyle()
 /******************************************************************************/
 /******************************************************************************/
 
-SMCStyleWidget::SMCStyleWidget()
-{
-	setupCharacter();
-}
-
-void SMCStyleWidget::setupCharacter()
+SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 {
 	characterBoxLayout = new QVBoxLayout(characterBox);
 	characterBoxLayout->setAlignment( Qt::AlignLeft );
 	characterBoxLayout->setSpacing( 5 );
 	characterBoxLayout->setMargin( 10 );
 
-	FontC = new FontComboH(characterBox);
-	characterBoxLayout->addWidget( FontC );
+	fontFace_ = new FontComboH(characterBox);
+	characterBoxLayout->addWidget( fontFace_ );
 
 	characterBoxLayout->addSpacing( 10 );
 
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
-	SizeC = new MSpinBox( 1, 2048, characterBox, 1 );
-	SizeC->setMinimumSize( QSize( 70, 22 ) );
-	SizeC->setSuffix( tr( " pt" ) );
+	fontSize_ = new MSpinBox( 1, 2048, characterBox, 1 );
+	fontSize_->setMinimumSize( QSize( 70, 22 ) );
+	fontSize_->setSuffix( tr( " pt" ) );
 
 	TextF2 = new QLabel( "" ,characterBox, "TextF2" );
 	TextF2->setPixmap(loadIcon("Zeichen.xpm"));
 	TextF2->setMinimumSize( QSize( 22, 22 ) );
 	TextF2->setMaximumSize( QSize( 22, 22 ) );
 	layout7->addWidget( TextF2 );
-	layout7->addWidget( SizeC );
+	layout7->addWidget( fontSize_ );
 
 	pixmapLabel3_3 = new QLabel( characterBox, "pixmapLabel3_3" );
 	pixmapLabel3_3->setMinimumSize( QSize( 22, 22 ) );
@@ -258,9 +301,9 @@ void SMCStyleWidget::setupCharacter()
 	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
 	layout7->addWidget(pixmapLabel3_3);
 
-	fontKern = new MSpinBox( -300, 300, characterBox, 1 );
-	fontKern->setSuffix( tr( " %" ) );
-	layout7->addWidget(fontKern);
+	tracking_ = new MSpinBox( -300, 300, characterBox, 1 );
+	tracking_->setSuffix( tr( " %" ) );
+	layout7->addWidget(tracking_);
 	
 
 	pixmapLabel2 = new QLabel( characterBox, "pixmapLabel2" );
@@ -268,9 +311,9 @@ void SMCStyleWidget::setupCharacter()
 	pixmapLabel2->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
 	layout7->addWidget( pixmapLabel2 );
-	fontBase = new MSpinBox( -100, 100, characterBox, 1 );
-	fontBase->setSuffix( tr( " %" ) );
-	layout7->addWidget( fontBase );
+	baselineOffset_ = new MSpinBox( -100, 100, characterBox, 1 );
+	baselineOffset_->setSuffix( tr( " %" ) );
+	layout7->addWidget( baselineOffset_ );
 	layout7->addStretch(10);
 	characterBoxLayout->addLayout( layout7 );
 
@@ -282,9 +325,9 @@ void SMCStyleWidget::setupCharacter()
 	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
 	layout8->addWidget( pixmapLabel3 );
 
-	fontHScale = new MSpinBox( 10, 400, characterBox, 1 );
-	fontHScale->setSuffix( tr( " %" ) );
-	layout8->addWidget( fontHScale );
+	fontHScale_ = new MSpinBox( 10, 400, characterBox, 1 );
+	fontHScale_->setSuffix( tr( " %" ) );
+	layout8->addWidget( fontHScale_ );
 
 	pixmapLabel3_2 = new QLabel( "", characterBox, "pixmapLabel3_2" );
 	pixmapLabel3_2->setMinimumSize( QSize( 22, 22 ) );
@@ -292,17 +335,17 @@ void SMCStyleWidget::setupCharacter()
 	pixmapLabel3_2->setPixmap( loadIcon("textscalev.png") );
 	layout8->addWidget( pixmapLabel3_2 );
 
-	fontVScale = new MSpinBox( 10, 400, characterBox, 1 );
-	fontVScale->setSuffix( tr( " %" ) );
-	layout8->addWidget( fontVScale );
+	fontVScale_ = new MSpinBox( 10, 400, characterBox, 1 );
+	fontVScale_->setSuffix( tr( " %" ) );
+	layout8->addWidget( fontVScale_ );
 	layout8->addStretch(10);
 	characterBoxLayout->addLayout( layout8 );
 
 	characterBoxLayout->addSpacing( 10 );
 
 	layout9a = new QHBoxLayout( 0, 0, 0, "layout9");
-	EffeS = new StyleSelect(characterBox);
-	layout9a->addWidget( EffeS );
+	effects_ = new StyleSelect(characterBox);
+	layout9a->addWidget( effects_ );
 
 	spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout9a->addItem( spacer1 );
@@ -315,8 +358,8 @@ void SMCStyleWidget::setupCharacter()
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout5->addWidget( FillIcon );
 
-	TxFill = new ScComboBox( false, characterBox, "TxFill" );
-	layout5->addWidget( TxFill );
+	fillColor_ = new ScComboBox( false, characterBox, "TxFill" );
+	layout5->addWidget( fillColor_ );
 
 	pixmapLabel3_20 = new QLabel( characterBox, "pixmapLabel3_20" );
 	pixmapLabel3_20->setMinimumSize( QSize( 22, 22 ) );
@@ -324,8 +367,8 @@ void SMCStyleWidget::setupCharacter()
 	pixmapLabel3_20->setPixmap( loadIcon("shade.png") );
 	layout5->addWidget( pixmapLabel3_20 );
 
-	PM2 = new ShadeButton(characterBox);
-	layout5->addWidget( PM2 );
+	fillShade_ = new ShadeButton(characterBox);
+	layout5->addWidget( fillShade_ );
 	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout5->addItem( spacer3 );
 	characterBoxLayout->addLayout( layout5 );
@@ -335,8 +378,8 @@ void SMCStyleWidget::setupCharacter()
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	layout6->addWidget( StrokeIcon );
 
-	TxStroke = new ScComboBox( false, characterBox, "TxStroke" );
-	layout6->addWidget( TxStroke );
+	strokeColor_ = new ScComboBox( false, characterBox, "TxStroke" );
+	layout6->addWidget( strokeColor_ );
 
 	pixmapLabel3_19 = new QLabel( "", characterBox, "pixmapLabel3_19" );
 	pixmapLabel3_19->setMinimumSize( QSize( 22, 22 ) );
@@ -344,8 +387,8 @@ void SMCStyleWidget::setupCharacter()
 	pixmapLabel3_19->setPixmap( loadIcon("shade.png") );
 	layout6->addWidget( pixmapLabel3_19 );
 
-	PM1 = new ShadeButton(characterBox);
-	layout6->addWidget( PM1 );
+	strokeShade_ = new ShadeButton(characterBox);
+	layout6->addWidget( strokeShade_ );
 
 	spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout6->addItem( spacer4 );
@@ -353,39 +396,67 @@ void SMCStyleWidget::setupCharacter()
 
 	characterBoxLayout->addStretch(10);
 
-	TxFill->clear();
-	TxStroke->clear();
+	fillColor_->clear();
+	strokeColor_->clear();
 	ColorList::Iterator it;
 	QPixmap pm = QPixmap(15, 15);
-	TxFill->insertItem(CommonStrings::NoneColor);
-	TxStroke->insertItem(CommonStrings::NoneColor);
+	fillColor_->insertItem(CommonStrings::NoneColor);
+	strokeColor_->insertItem(CommonStrings::NoneColor);
 	StrokeIcon->setEnabled(false);
-	PM1->setEnabled(false);
-	TxStroke->setEnabled(false);
+	strokeShade_->setEnabled(false);
+	strokeColor_->setEnabled(false);
 }
 
-SMCStyleWidget::~SMCStyleWidget()
+void SMCStylePage::show(CharStyle &cstyle)
 {
+	// ASK Avox!
+	fontSize_->setValue(cstyle.fontSize() / 10.0);
+	fillShade_->setValue(cstyle.fillShade());
+	strokeShade_->setValue(cstyle.strokeShade());
+	effects_->setStyle(static_cast<int>(cstyle.effects()));
+	effects_->ShadowVal->Xoffset->setValue(cstyle.shadowXOffset());
+	effects_->ShadowVal->Yoffset->setValue(cstyle.shadowYOffset());
+	effects_->OutlineVal->LWidth->setValue(cstyle.outlineWidth());
+	effects_->StrikeVal->LPos->setValue(cstyle.strikethruOffset());
+	effects_->StrikeVal->LWidth->setValue(cstyle.strikethruWidth());
+	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset());
+	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth());
+	fontHScale_->setValue(cstyle.scaleH());
+	fontVScale_->setValue(cstyle.scaleV());
+	baselineOffset_->setValue(cstyle.baselineOffset());
+	tracking_->setValue(cstyle.tracking());
+	fillColor_->setCurrentText(cstyle.fillColor());
+	strokeColor_->setCurrentText(cstyle.strokeColor());
+	fontFace_->setCurrentFont(cstyle.font().scName());
+// 	QString language() const { return language_==NOLANG && parent()? inh().language() : language_; }
+	
+}
 
+SMCStylePage::~SMCStylePage()
+{
+	
 }
 
 /******************************************************************************/
 /******************************************************************************/
 
-SMCharacterStyle::SMCharacterStyle() : StyleItem(), cwidget_(0)
+SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0)
 {
 
 }
 
 QTabWidget* SMCharacterStyle::widget()
 {
-	if (!cwidget_)
+	if (!widget_)
 	{
-		cwidget_ = new SMCStyleWidget();
-		Q_CHECK_PTR(cwidget_);
+		widget_ = new QTabWidget();
+		Q_CHECK_PTR(widget_);
+		page_ = new SMCStylePage();
+		Q_CHECK_PTR(page_);
+		widget_->addTab(page_, tr("Properties"));
 	}
 
-	return cwidget_->tabWidget;
+	return widget_;
 }
 
 QString SMCharacterStyle::typeName()
@@ -396,18 +467,46 @@ QString SMCharacterStyle::typeName()
 void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 {
 	Q_ASSERT(doc);
+	doc_ = doc;
 }
 
 QValueList<StyleName> SMCharacterStyle::styles()
 {
 	QValueList<StyleName> tmpList;
 
+	if (!doc_)
+		return tmpList; // no doc available
+
+	StyleSet<CharStyle> &tmp = doc_->docCharStyles;
+	for (uint i = 0; i < tmp.count(); ++i)
+	{
+		if (tmp[i].hasName())
+		{
+			QString styleName = tmp[i].name();
+			QString parentName = QString::null;
+
+			if (tmp[i].hasParent() && tmp[i].parent()->hasName())
+				parentName = tmp[i].parent()->displayName();
+
+			tmpList << StyleName(styleName, parentName);
+		}
+	}
+
 	return tmpList;
 }
 
 void SMCharacterStyle::selected(const QStringList &styleNames)
 {
-
+	if (styleNames.count() == 1)
+	{
+		int index = doc_->docCharStyles.find(styleNames[0]);
+		if (index > -1)
+			page_->show(doc_->docCharStyles[index]);
+	}
+	else // more than one item selected do the magic tricks here
+	{
+		
+	}
 }
 
 QString SMCharacterStyle::fromSelection() const
@@ -432,6 +531,9 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 
 SMCharacterStyle::~SMCharacterStyle()
 {
-
+	delete page_;
+	delete widget_;
+	page_ = 0;
+	widget_ = 0;
 }
 

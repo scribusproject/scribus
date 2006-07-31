@@ -154,7 +154,7 @@
                                             <cstring>distancesBox</cstring>
                                         </property>
                                         <property name="frameShape">
-                                            <enum>NoFrame</enum>
+                                            <enum>GroupBoxPanel</enum>
                                         </property>
                                         <property name="frameShadow">
                                             <enum>Plain</enum>
@@ -168,7 +168,7 @@
                                             <cstring>dropCapsBox</cstring>
                                         </property>
                                         <property name="frameShape">
-                                            <enum>NoFrame</enum>
+                                            <enum>GroupBoxPanel</enum>
                                         </property>
                                         <property name="title">
                                             <string>Drop Caps</string>
@@ -196,7 +196,7 @@
                     <cstring>TabPage</cstring>
                 </property>
                 <attribute name="title">
-                    <string>Character Style</string>
+                    <string>Ch&amp;aracter Style</string>
                 </attribute>
                 <vbox>
                     <property name="name">
@@ -289,16 +289,16 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>16</height>
+                                <height>5</height>
                             </size>
                         </property>
                     </spacer>
                     <widget class="QGroupBox">
                         <property name="name">
-                            <cstring>groupBox7</cstring>
+                            <cstring>characterBox</cstring>
                         </property>
                         <property name="frameShape">
-                            <enum>NoFrame</enum>
+                            <enum>GroupBoxPanel</enum>
                         </property>
                         <property name="frameShadow">
                             <enum>Plain</enum>
