@@ -164,9 +164,11 @@ void FDialogPreview::GenPreview(QString name)
 			else
 				im2 = im.qImage(); // no need to copy
 			QPainter p;
-			pixmap()->fill(white);
+			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
 			p.begin(pixmap());
-			p.drawImage(0, 0, im2);
+			p.fillRect(0, 0, w, h-44, b);
+			p.fillRect(0, h-44, w, 44, QColor(255, 255, 255));
+			p.drawImage((w - im2.width()) / 2, (h - 44 - im2.height()) / 2, im2);
 			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
 			QString cSpace;

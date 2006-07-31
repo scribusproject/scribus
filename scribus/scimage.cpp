@@ -996,6 +996,8 @@ void ScImage::createLowRes(double scale)
 	int h = qRound(height() / scale);
 	QImage tmp = smoothScale(w, h);
 	create(w, h, 32);
+	setAlphaBuffer(true);
+	tmp = tmp.convertDepth(32);
 	for( int yi=0; yi < tmp.height(); ++yi )
 	{
 		QRgb *s = (QRgb*)(tmp.scanLine( yi ));

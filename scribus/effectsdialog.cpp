@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidgetstack.h>
 #include <qwidget.h>
 #include <qslider.h>
+#include <qpainter.h>
 #include "cmsettings.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
@@ -380,7 +381,16 @@ void EffectsDialog::createPreview()
 	ScImage im(image);
 	saveValues(false);
 	im.applyEffect(effectsList, doc->PageColors, false);
-	pixmapLabel1->setPixmap( im.qImage() );
+	QPixmap Bild = QPixmap(pixmapLabel1->width(), pixmapLabel1->height());
+	int x = (pixmapLabel1->width() - im.qImage().width()) / 2;
+	int y = (pixmapLabel1->height() - im.qImage().height()) / 2;
+	QPainter p;
+	QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+	p.begin(&Bild);
+	p.fillRect(0, 0, pixmapLabel1->width(), pixmapLabel1->height(), b);
+	p.drawImage(x, y, im.qImage());
+	p.end();
+	pixmapLabel1->setPixmap( Bild );
 	tim.start();
 }
 
