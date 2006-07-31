@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>550</width>
-            <height>401</height>
+            <width>555</width>
+            <height>445</height>
         </rect>
     </property>
     <property name="minimumSize">
@@ -38,93 +38,194 @@
             <property name="name">
                 <cstring>splitter</cstring>
             </property>
-            <property name="sizePolicy">
-                <sizepolicy>
-                    <hsizetype>1</hsizetype>
-                    <vsizetype>1</vsizetype>
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                </sizepolicy>
-            </property>
-            <property name="minimumSize">
-                <size>
-                    <width>180</width>
-                    <height>62</height>
-                </size>
-            </property>
             <property name="orientation">
                 <enum>Horizontal</enum>
             </property>
-            <widget class="QListView">
-                <column>
-                    <property name="text">
-                        <string>dirty</string>
-                    </property>
-                    <property name="clickable">
-                        <bool>true</bool>
-                    </property>
-                    <property name="resizable">
-                        <bool>true</bool>
-                    </property>
-                </column>
-                <column>
-                    <property name="text">
-                        <string>shortcut</string>
-                    </property>
-                    <property name="clickable">
-                        <bool>true</bool>
-                    </property>
-                    <property name="resizable">
-                        <bool>true</bool>
-                    </property>
-                </column>
+            <widget class="QLayoutWidget">
                 <property name="name">
-                    <cstring>styleView</cstring>
+                    <cstring>layout32</cstring>
                 </property>
-                <property name="enabled">
-                    <bool>true</bool>
-                </property>
-                <property name="sizePolicy">
-                    <sizepolicy>
-                        <hsizetype>1</hsizetype>
-                        <vsizetype>7</vsizetype>
-                        <horstretch>0</horstretch>
-                        <verstretch>4</verstretch>
-                    </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                    <size>
-                        <width>0</width>
-                        <height>0</height>
-                    </size>
-                </property>
-                <property name="lineWidth">
-                    <number>1</number>
-                </property>
-                <property name="margin">
-                    <number>0</number>
-                </property>
-                <property name="midLineWidth">
-                    <number>0</number>
-                </property>
-                <property name="resizePolicy">
-                    <enum>AutoOneFit</enum>
-                </property>
-                <property name="selectionMode">
-                    <enum>Extended</enum>
-                </property>
-                <property name="itemMargin">
-                    <number>0</number>
-                </property>
-                <property name="rootIsDecorated">
-                    <bool>true</bool>
-                </property>
-                <property name="resizeMode">
-                    <enum>NoColumn</enum>
-                </property>
-                <property name="treeStepSize">
-                    <number>15</number>
-                </property>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>0</number>
+                    </property>
+                    <property name="spacing">
+                        <number>0</number>
+                    </property>
+                    <widget class="QListView">
+                        <column>
+                            <property name="text">
+                                <string>dirty</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <column>
+                            <property name="text">
+                                <string>shortcut</string>
+                            </property>
+                            <property name="clickable">
+                                <bool>true</bool>
+                            </property>
+                            <property name="resizable">
+                                <bool>true</bool>
+                            </property>
+                        </column>
+                        <property name="name">
+                            <cstring>styleView</cstring>
+                        </property>
+                        <property name="enabled">
+                            <bool>true</bool>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>1</hsizetype>
+                                <vsizetype>7</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>4</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="minimumSize">
+                            <size>
+                                <width>0</width>
+                                <height>0</height>
+                            </size>
+                        </property>
+                        <property name="lineWidth">
+                            <number>1</number>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="midLineWidth">
+                            <number>0</number>
+                        </property>
+                        <property name="resizePolicy">
+                            <enum>AutoOneFit</enum>
+                        </property>
+                        <property name="selectionMode">
+                            <enum>Extended</enum>
+                        </property>
+                        <property name="itemMargin">
+                            <number>0</number>
+                        </property>
+                        <property name="rootIsDecorated">
+                            <bool>true</bool>
+                        </property>
+                        <property name="resizeMode">
+                            <enum>NoColumn</enum>
+                        </property>
+                        <property name="treeStepSize">
+                            <number>15</number>
+                        </property>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer21</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>2</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QFrame">
+                        <property name="name">
+                            <cstring>editButtonsFrame</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>StyledPanel</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Raised</enum>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>0</number>
+                            </property>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout17</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="margin">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>2</number>
+                                    </property>
+                                    <widget class="QPushButton" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>pushButton9</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Delete</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+D</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>pushButton10</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Import</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+I</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>pushButton8</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;Clone</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+C</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QPushButton" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>newButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>&amp;New</string>
+                                        </property>
+                                        <property name="accel">
+                                            <string>Alt+N</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                        </vbox>
+                    </widget>
+                </vbox>
             </widget>
             <widget class="QFrame">
                 <property name="name">
@@ -135,6 +236,9 @@
                 </property>
                 <property name="frameShadow">
                     <enum>Plain</enum>
+                </property>
+                <property name="lineWidth">
+                    <number>0</number>
                 </property>
                 <vbox>
                     <property name="name">
@@ -153,6 +257,12 @@
                         <vbox>
                             <property name="name">
                                 <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>0</number>
+                            </property>
+                            <property name="spacing">
+                                <number>0</number>
                             </property>
                             <widget class="QLayoutWidget">
                                 <property name="name">
@@ -201,7 +311,7 @@
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout62</cstring>
+                <cstring>layout30</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -219,7 +329,7 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>50</width>
+                            <width>20</width>
                             <height>20</height>
                         </size>
                     </property>
@@ -369,6 +479,12 @@
         <signal>clicked(QListViewItem*)</signal>
         <receiver>SMBase</receiver>
         <slot>itemClicked(QListViewItem*)</slot>
+    </connection>
+    <connection>
+        <sender>newButton</sender>
+        <signal>clicked()</signal>
+        <receiver>SMBase</receiver>
+        <slot>slotNew()</slot>
     </connection>
 </connections>
 <tabstops>

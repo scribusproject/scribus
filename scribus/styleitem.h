@@ -95,6 +95,12 @@ public:
 	virtual void apply() = 0;
 
 	/**
+	 * @brief When SM switches to or away from edit mode this function is called
+	 * @param isOn true if SM is in edit mode false if SM has just closed edit mode
+	 */
+	virtual void editMode(bool isOn) {};
+
+	/**
 	 * @brief User has requested to delete all the selected styles
 	 */
 	virtual void deleteStyles(const QValueList<RemoveItem> &removeList) = 0;

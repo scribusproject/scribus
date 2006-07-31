@@ -18,5 +18,4 @@ StyleItem::StyleItem(const StyleItem&) : QObject()
 {}
 	
 void StyleItem::operator=(const StyleItem&)
-{
-}
+{}

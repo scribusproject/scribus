@@ -52,7 +52,7 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 	for (uint i = 0; i < items_.count(); ++i)
 	{
 		items_.at(i)->currentDoc(doc);
-		slotNewType(items_.at(i));
+		slotNewType(items_.at(i)); // forces a reload
 	}
 }
 
@@ -69,7 +69,8 @@ void StyleManager::addStyle(StyleItem *item)
 
 void StyleManager::slotApply()
 {
-	
+	for (uint i = 0; i < items_.count(); ++i)
+		items_.at(i)->apply();
 }
 
 void StyleManager::slotDelete()
@@ -123,10 +124,16 @@ void StyleManager::slotOk()
 		editFrame->hide();
 		applyButton->hide();
 		buttonCancel->hide();
+		editButtonsFrame->hide();
 		isEditMode_ = false;
 		adjustSize();
 		resize(noEditSize_);
 		splitter->setSizes(noEditSizes_);
+		for (uint i = 0; i < items_.count(); ++i)
+		{
+			items_.at(i)->apply();
+			items_.at(i)->editMode(false);
+		}
 	}
 	else
 	{
@@ -136,10 +143,13 @@ void StyleManager::slotOk()
 		editFrame->show();
 		applyButton->show();
 		buttonCancel->show();
+		editButtonsFrame->show();
 		isEditMode_ = true;
 		adjustSize();
 		resize(editSize_);
 		splitter->setSizes(editSizes_);
+		for (uint i = 0; i < items_.count(); ++i)
+			items_.at(i)->editMode(true);
 	}
 }
 

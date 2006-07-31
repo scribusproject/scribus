@@ -177,6 +177,7 @@ shadebutton.h
 smlinestyle.h
 smreplacedia.h
 smtextstyles.h
+smtextstylewidgets.h
 spalette.h
 story.h
 styleitem.h
@@ -399,6 +400,7 @@ shadebutton.cpp
 smlinestyle.cpp
 smreplacedia.cpp
 smtextstyles.cpp
+smtextstylewidgets.cpp
 spalette.cpp
 splash.cpp
 stencilreader.cpp
