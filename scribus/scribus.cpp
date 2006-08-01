@@ -3505,7 +3505,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				replacement.append(prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile);
 				doc->PDF_Options.SolidProf = doc->CMSSettings.DefaultSolidColorRGBProfile;
 			}
-			if ((cmsWarning) && (doc->HasCMS))
+			if (cmsWarning)
 			{
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				QString mess = tr("Some ICC profiles used by this document are not installed:")+"\n\n";
@@ -3544,7 +3544,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 			}
 #endif
-			if (doc->CMSSettings.CMSinUse)
+			if (doc->HasCMS)
 			{
 				recalcColors();
 				doc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK);
