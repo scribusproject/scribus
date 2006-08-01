@@ -32,6 +32,8 @@ class ShadeButton;
 class CharStyle;
 class ParagraphStyle;
 class SMCStylePage;
+class ColorList;
+class ColorCombo;
 
 class SMPStyleWidget : public PStyleWBase
 {
@@ -59,8 +61,6 @@ private:
 	QLabel      *capLabel2;
 
 	MSpinBox    *lineSpacing_;
-	MSpinBox    *fontBase;
-	MSpinBox    *fontKern;
 	MSpinBox    *spaceAbove_;
 	MSpinBox    *spaceBelow_;
 	QSpinBox    *dropCapLines_;
@@ -75,6 +75,8 @@ private:
 	void setupTabs();
 	void setupCharStyle();
 	void setupCStyleCombo(QValueList<CharStyle> &cstyles);
+	
+	friend class SMParagraphStyle;
 };
 
 class SMCStylePage : public CStylePBase
@@ -86,6 +88,8 @@ public:
 
 	void show(CharStyle &cstyle, QValueList<CharStyle> &cstyles);
 	void show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll);
+	void fillLangCombo(QMap<QString,QString> langMap);
+	void fillColorCombo(ColorList &colors);
 
 private:
 	QVBoxLayout *characterBoxLayout;
@@ -97,10 +101,11 @@ private:
 
 	FontComboH  *fontFace_;
 	StyleSelect *effects_;
-	ScComboBox  *fillColor_;
+	ColorCombo  *fillColor_;
 	ShadeButton *fillShade_;
-	ScComboBox  *strokeColor_;
+	ColorCombo  *strokeColor_;
 	ShadeButton *strokeShade_;
+	ScComboBox  *language_;
 
 	MSpinBox    *fontSize_;
 	MSpinBox    *fontHScale_;
@@ -121,6 +126,9 @@ private:
 	QSpacerItem *spacer1;
 	QSpacerItem *spacer2;
 	QSpacerItem *spacer4;
+
+	friend class SMParagraphStyle;
+	friend class SMCharacterStyle;
 };
 
 #endif

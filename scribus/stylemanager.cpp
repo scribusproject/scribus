@@ -26,6 +26,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qsplitter.h>
 #include <qsize.h>
+#include <qfont.h>
+#include <qpainter.h>
+#include <qtooltip.h>
 
 StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true)
 {
@@ -35,7 +38,38 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	resize(QSize(500, 400));
 	noEditSize_ = QSize(166, 400);
 	noEditSizes_ = splitter->sizes();
+	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(slotClean()));
+	connect(applyButton, SIGNAL(clicked()), this, SLOT(slotApply()));
+	languageChange();
 	slotOk();
+}
+
+void StyleManager::languageChange()
+{
+	nameLabel->setText(tr("Name:"));
+
+	buttonCancel->setText(tr("&Reset"));
+	applyButton->setText(tr("&Apply"));
+	buttonOk->setText(isEditMode_ ? tr("<< &Done") : tr("&Edit >>"));
+	newButton->setText(tr("&New"));
+	importButton->setText(tr("&Import"));
+	cloneButton->setText(tr("&Clone"));
+	deleteButton->setText(tr("&Delete"));
+
+	QToolTip::add(buttonCancel, tr("Reset all changes"));
+	QToolTip::add(applyButton, tr("Apply all changes"));
+	if (isEditMode_)
+		QToolTip::add(buttonOk, tr("Apply all changes and exit edit mode"));
+	QToolTip::add(newButton, tr("Create a new style"));
+	QToolTip::add(importButton, tr("Import styles from another document"));
+	QToolTip::add(cloneButton, tr("Clone selected style"));
+	QToolTip::add(deleteButton, tr("Delete selected styles"));
+
+	if (shortcutWidget_)
+		shortcutWidget_->languageChange();
+
+	for (uint i = 0; i < items_.count(); ++i)
+		items_.at(i)->languageChange();
 }
 
 void StyleManager::currentDoc(ScribusDoc *doc)
@@ -56,21 +90,19 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 	}
 }
 
-void StyleManager::languageChange()
-{
-
-}
-
 void StyleManager::addStyle(StyleItem *item)
 {
 	items_.append(item);
 	slotNewType(item);
+	connect(item, SIGNAL(selectionDirty()), this, SLOT(slotDirty()));
 }
 
 void StyleManager::slotApply()
 {
 	for (uint i = 0; i < items_.count(); ++i)
 		items_.at(i)->apply();
+
+	slotClean();
 }
 
 void StyleManager::slotDelete()
@@ -134,6 +166,8 @@ void StyleManager::slotOk()
 			items_.at(i)->apply();
 			items_.at(i)->editMode(false);
 		}
+		QToolTip::remove(buttonOk);
+		slotClean();
 	}
 	else
 	{
@@ -150,6 +184,9 @@ void StyleManager::slotOk()
 		splitter->setSizes(editSizes_);
 		for (uint i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
+		QToolTip::add(buttonOk, tr("Apply all changes and exit edit mode"));
+		slotClean();
+		slotStyleChanged();
 	}
 }
 
@@ -161,7 +198,6 @@ void StyleManager::slotStyleChanged()
 	QString type = QString::null;
 	while (it.current()) {
 		selected << it.current()->text(0);
-		++it;
 		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
 		if (item)
 		{
@@ -172,7 +208,19 @@ void StyleManager::slotStyleChanged()
 				twoTypes = true;
 				break;
 			}
+			if (item->isDirty())
+			{
+				buttonCancel->setEnabled(true);
+				applyButton->setEnabled(true);
+			}
+			else
+			{
+				buttonCancel->setEnabled(false);
+				applyButton->setEnabled(false);
+			}
+			
 		}
+		++it;
 	}
 
 	int count = selected.count();
@@ -237,6 +285,38 @@ void StyleManager::slotNewType(StyleItem *item)
 		widget_->reparent(mainFrame, 0, QPoint(0,0), true);
 		layout_->addWidget(widget_, 0, 0);
 
+	}
+}
+
+void StyleManager::slotDirty()
+{
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+
+	while (it.current()) {
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
+		{
+			item->setDirty(true);
+			item->repaint();
+			applyButton->setEnabled(true);
+			buttonCancel->setEnabled(true);
+		}
+		++it;
+	}
+}
+
+void StyleManager::slotClean()
+{
+	QListViewItemIterator it(styleView);
+
+	while (it.current()) {
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
+		{
+			item->setDirty(false);
+			item->repaint();
+		}
+		++it;
 	}
 }
 
@@ -363,16 +443,39 @@ StyleManager::~StyleManager()
 
 /*** StyleViewItem *******************************************************************/
 
-StyleViewItem::StyleViewItem(QListView *view, const QString &text)
-: QListViewItem(view, text), isRoot_(true), parentName_(QString::null), rootName_(QString::null)
+StyleViewItem::StyleViewItem(QListView *view, const QString &text) : QListViewItem(view, text),
+isRoot_(true), isDirty_(false), parentName_(QString::null), rootName_(QString::null)
 {
 	setSelectable(false);
 }
 
 StyleViewItem::StyleViewItem(QListViewItem *parent, const QString &text, const QString &rootName)
-: QListViewItem(parent, text), isRoot_(false), parentName_(parent->text(0)), rootName_(rootName)
+: QListViewItem(parent, text),
+  isRoot_(false), isDirty_(false), parentName_(parent->text(0)), rootName_(rootName)
 {
 
+}
+
+void StyleViewItem::paintCell(QPainter *p, const QColorGroup &cg, int column, int width, int align)
+{
+	if (column == 0)
+	{
+		QFont f(p->font());
+		f.setBold(isDirty_);
+		p->setFont(f);
+	}
+
+	QListViewItem::paintCell(p, cg, column, width, align);
+}
+
+void StyleViewItem::setDirty(bool isDirty)
+{
+	isDirty_ = isDirty;
+}
+
+bool StyleViewItem::isDirty()
+{
+	return isDirty_;
 }
 
 bool StyleViewItem::isRoot()
@@ -437,6 +540,14 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 
 	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
 	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
+}
+
+void ShortcutWidget::languageChange()
+{
+	noKey->setText(tr("&No Key"));
+	userDef->setText(tr("&User Defined Key"));
+	setKeyButton->setText(tr("Set &Key"));
+	
 }
 
 bool ShortcutWidget::event( QEvent* ev )

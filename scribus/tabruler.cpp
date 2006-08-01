@@ -558,6 +558,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 		connect(ruler, SIGNAL(mouseReleased()), this, SIGNAL(tabrulerChanged()));
 		connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 		connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
+		connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(setRightIndent()));
 		QToolTip::add( firstLineData, tr( "Indentation for first line of the paragraph" ) );
 		QToolTip::add( leftIndentData, tr( "Indentation from the left for the whole paragraph" ) );
 		QToolTip::add( rightIndentData, tr( "Indentation from the right for the whole paragraph" ) );
@@ -602,6 +603,7 @@ void Tabruler::clearAll()
 	ruler->repaint();
 	lastTabRemoved();
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::tabAdded()
@@ -611,6 +613,7 @@ void Tabruler::tabAdded()
 	clearButton->setEnabled(true);
 	tabFillCombo->setEnabled(true);
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::lastTabRemoved()
@@ -620,6 +623,7 @@ void Tabruler::lastTabRemoved()
 	clearButton->setEnabled(false);
 	tabFillCombo->setEnabled(false);
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setFillChar()
@@ -697,12 +701,14 @@ void Tabruler::setTabFillChar(QChar t)
 		tabFillCombo->setEditText( tr("Custom: ")+QString(t));
 	}
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setTabType(int t)
 {
 	TypeCombo->setCurrentItem(t);
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setType()
@@ -711,6 +717,7 @@ void Tabruler::setType()
 	ruler->changeTab(TypeCombo->currentItem());
 	connect(TypeCombo, SIGNAL(activated(int)), this, SLOT(setType()));
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setTabData(double t)
@@ -719,13 +726,17 @@ void Tabruler::setTabData(double t)
 	tabData->setValue(t * docUnitRatio);
 	connect(tabData, SIGNAL(valueChanged(int)), this, SLOT(setTab()));
 	if (!ruler->mousePressed)
+	{
 		emit tabrulerChanged();
+		emit tabsChanged();
+	}
 }
 
 void Tabruler::setTab()
 {
 	ruler->moveTab(tabData->value() / docUnitRatio);
 	emit tabrulerChanged();
+	emit tabsChanged();
 }
 
 void Tabruler::setFirstLineData(double t)
@@ -734,13 +745,23 @@ void Tabruler::setFirstLineData(double t)
 	firstLineData->setValue(t * docUnitRatio);
 	connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 	if (!ruler->mousePressed)
+	{
 		emit tabrulerChanged();
+		double a, b, value;
+		int c;
+		firstLineData->getValues(&a, &b, &c, &value);
+		emit firstLineChanged(value);
+	}
 }
 
 void Tabruler::setFirstLine()
 {
 	ruler->moveFirstLine(firstLineData->value() / docUnitRatio);
 	emit tabrulerChanged();
+	double a, b, value;
+	int c;
+	firstLineData->getValues(&a, &b, &c, &value);
+	emit firstLineChanged(value);
 }
 
 void Tabruler::setLeftIndentData(double t)
@@ -749,13 +770,23 @@ void Tabruler::setLeftIndentData(double t)
 	leftIndentData->setValue(t * docUnitRatio);
 	connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 	if (!ruler->mousePressed)
+	{
 		emit tabrulerChanged();
+		double a, b, value;
+		int c;
+		leftIndentData->getValues(&a, &b, &c, &value);
+		emit leftIndentChanged(value);
+	}
 }
 
 void Tabruler::setLeftIndent()
 {
 	ruler->moveLeftIndent(leftIndentData->value() / docUnitRatio);
 	emit tabrulerChanged();
+	double a, b, value;
+	int c;
+	leftIndentData->getValues(&a, &b, &c, &value);
+	emit leftIndentChanged(value);
 }
 
 QValueList<ParagraphStyle::TabRecord> Tabruler::getTabVals()
@@ -775,7 +806,26 @@ double Tabruler::getLeftIndent()
 
 void Tabruler::setRightIndentData(double t)
 {
+	disconnect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(setRightIndent()));
 	rightIndentData->setValue(t * docUnitRatio);
+	connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(setRightIndent()));
+	if (!ruler->mousePressed)
+	{
+		emit tabrulerChanged();
+		double a, b, value;
+		int c;
+		rightIndentData->getValues(&a, &b, &c, &value);
+		emit rightIndentChanged(value);
+	}
+}
+
+void Tabruler::setRightIndent()
+{
+	emit tabrulerChanged();
+	double a, b, value;
+	int c;
+	rightIndentData->getValues(&a, &b, &c, &value);
+	emit rightIndentChanged(value);
 }
 
 double Tabruler::getRightIndent()

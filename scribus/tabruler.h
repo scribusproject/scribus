@@ -110,6 +110,7 @@ public slots:
 	void setLeftIndentData(double t);
 	void setLeftIndent();
 	void setRightIndentData(double t);
+	void setRightIndent();
 	void setTabFillChar(QChar t);
 	void setFillChar();
 	void setCustomFillChar(const QString &txt);
@@ -118,6 +119,15 @@ signals:
 	/*! This signal is emited when is something changed in the tab ruler dialog/widget.
 	4/11/2005 pv */
 	void tabrulerChanged();
+
+	/** emitted when tabs are changed */
+	void tabsChanged();
+	/** emitted when left indent is changed */
+	void leftIndentChanged(double);
+	/** emitted when right indent is changed */
+	void rightIndentChanged(double);
+	/** emitted when first line is changed */
+	void firstLineChanged(double);
 
 protected:
 	QVBoxLayout* tabrulerLayout;

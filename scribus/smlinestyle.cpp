@@ -290,6 +290,11 @@ void SMLineStyle::nameChanged(const QString &newName)
 
 }
 
+void SMLineStyle::languageChange()
+{
+	
+}
+
 SMLineStyle::~SMLineStyle()
 {
 	delete widget_;

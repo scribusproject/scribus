@@ -108,6 +108,15 @@ public:
 	/** @brief Called when the currently selected style's name has changed */
 	virtual void nameChanged(const QString &newName) = 0;
 
+	virtual void languageChange() = 0;
+
+/*
+	Emit this signal when selection has been edited. SM knows to highlight the
+	edited styles based on this signal.
+signals:
+	selectionDirty();
+*/
+
 private:
 	/* hide these two, StyleItem is not ment to be copied */
 	StyleItem(const StyleItem&);

@@ -43,7 +43,7 @@
             </property>
             <widget class="QLayoutWidget">
                 <property name="name">
-                    <cstring>layout32</cstring>
+                    <cstring>layout20</cstring>
                 </property>
                 <vbox>
                     <property name="name">
@@ -58,7 +58,7 @@
                     <widget class="QListView">
                         <column>
                             <property name="text">
-                                <string>dirty</string>
+                                <string>name</string>
                             </property>
                             <property name="clickable">
                                 <bool>true</bool>
@@ -108,7 +108,7 @@
                             <number>0</number>
                         </property>
                         <property name="resizePolicy">
-                            <enum>AutoOneFit</enum>
+                            <enum>AutoOne</enum>
                         </property>
                         <property name="selectionMode">
                             <enum>Extended</enum>
@@ -153,7 +153,10 @@
                         <property name="frameShadow">
                             <enum>Raised</enum>
                         </property>
-                        <vbox>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <grid>
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
@@ -161,69 +164,53 @@
                                 <number>0</number>
                             </property>
                             <property name="spacing">
-                                <number>0</number>
+                                <number>2</number>
                             </property>
-                            <widget class="QLayoutWidget">
+                            <widget class="QToolButton" row="0" column="0">
                                 <property name="name">
-                                    <cstring>layout17</cstring>
+                                    <cstring>newButton</cstring>
                                 </property>
-                                <grid>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <property name="margin">
-                                        <number>0</number>
-                                    </property>
-                                    <property name="spacing">
-                                        <number>2</number>
-                                    </property>
-                                    <widget class="QPushButton" row="1" column="1">
-                                        <property name="name">
-                                            <cstring>pushButton9</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>&amp;Delete</string>
-                                        </property>
-                                        <property name="accel">
-                                            <string>Alt+D</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QPushButton" row="1" column="0">
-                                        <property name="name">
-                                            <cstring>pushButton10</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>&amp;Import</string>
-                                        </property>
-                                        <property name="accel">
-                                            <string>Alt+I</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QPushButton" row="0" column="1">
-                                        <property name="name">
-                                            <cstring>pushButton8</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>&amp;Clone</string>
-                                        </property>
-                                        <property name="accel">
-                                            <string>Alt+C</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QPushButton" row="0" column="0">
-                                        <property name="name">
-                                            <cstring>newButton</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>&amp;New</string>
-                                        </property>
-                                        <property name="accel">
-                                            <string>Alt+N</string>
-                                        </property>
-                                    </widget>
-                                </grid>
+                                <property name="text">
+                                    <string>&amp;New</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+N</string>
+                                </property>
                             </widget>
-                        </vbox>
+                            <widget class="QToolButton" row="0" column="1">
+                                <property name="name">
+                                    <cstring>cloneButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Clone</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+C</string>
+                                </property>
+                            </widget>
+                            <widget class="QToolButton" row="1" column="0">
+                                <property name="name">
+                                    <cstring>importButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Import</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+I</string>
+                                </property>
+                            </widget>
+                            <widget class="QToolButton" row="1" column="1">
+                                <property name="name">
+                                    <cstring>deleteButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Delete</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+D</string>
+                                </property>
+                            </widget>
+                        </grid>
                     </widget>
                 </vbox>
             </widget>
@@ -252,66 +239,67 @@
                     </property>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout9</cstring>
+                            <cstring>layout3</cstring>
                         </property>
-                        <vbox>
+                        <hbox>
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <property name="margin">
-                                <number>0</number>
-                            </property>
-                            <property name="spacing">
-                                <number>0</number>
-                            </property>
-                            <widget class="QLayoutWidget">
+                            <widget class="QLabel">
                                 <property name="name">
-                                    <cstring>layout3</cstring>
+                                    <cstring>nameLabel</cstring>
                                 </property>
-                                <hbox>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QLabel">
-                                        <property name="name">
-                                            <cstring>textLabel1</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>Name:</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QLineEdit">
-                                        <property name="name">
-                                            <cstring>nameEdit</cstring>
-                                        </property>
-                                        <property name="enabled">
-                                            <bool>false</bool>
-                                        </property>
-                                    </widget>
-                                </hbox>
-                            </widget>
-                            <widget class="QFrame">
-                                <property name="name">
-                                    <cstring>mainFrame</cstring>
-                                </property>
-                                <property name="frameShape">
-                                    <enum>NoFrame</enum>
-                                </property>
-                                <property name="frameShadow">
-                                    <enum>Plain</enum>
-                                </property>
-                                <property name="lineWidth">
-                                    <number>0</number>
+                                <property name="text">
+                                    <string>Name:</string>
                                 </property>
                             </widget>
-                        </vbox>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>nameEdit</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
+                            </widget>
+                        </hbox>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer21_2</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>31</width>
+                                <height>5</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QFrame">
+                        <property name="name">
+                            <cstring>mainFrame</cstring>
+                        </property>
+                        <property name="frameShape">
+                            <enum>NoFrame</enum>
+                        </property>
+                        <property name="frameShadow">
+                            <enum>Plain</enum>
+                        </property>
+                        <property name="lineWidth">
+                            <number>0</number>
+                        </property>
                     </widget>
                 </vbox>
             </widget>
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout30</cstring>
+                <cstring>layout19</cstring>
             </property>
             <hbox>
                 <property name="name">
@@ -329,12 +317,12 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>20</width>
+                            <width>356</width>
                             <height>20</height>
                         </size>
                     </property>
                 </spacer>
-                <widget class="QPushButton">
+                <widget class="QToolButton">
                     <property name="name">
                         <cstring>buttonOk</cstring>
                     </property>
@@ -348,27 +336,18 @@
                     </property>
                     <property name="minimumSize">
                         <size>
-                            <width>70</width>
-                            <height>0</height>
+                            <width>85</width>
+                            <height>24</height>
                         </size>
                     </property>
-                    <property name="cursor">
-                        <cursor>0</cursor>
-                    </property>
                     <property name="text">
-                        <string>&lt;&lt; Do&amp;ne</string>
+                        <string>&lt;&lt; &amp;Done</string>
                     </property>
                     <property name="accel">
-                        <string>Alt+N</string>
-                    </property>
-                    <property name="autoDefault">
-                        <bool>true</bool>
-                    </property>
-                    <property name="default">
-                        <bool>true</bool>
+                        <string>Alt+D</string>
                     </property>
                 </widget>
-                <widget class="QPushButton">
+                <widget class="QToolButton">
                     <property name="name">
                         <cstring>applyButton</cstring>
                     </property>
@@ -382,8 +361,8 @@
                     </property>
                     <property name="minimumSize">
                         <size>
-                            <width>70</width>
-                            <height>0</height>
+                            <width>85</width>
+                            <height>24</height>
                         </size>
                     </property>
                     <property name="text">
@@ -393,7 +372,7 @@
                         <string>Alt+A</string>
                     </property>
                 </widget>
-                <widget class="QPushButton">
+                <widget class="QToolButton">
                     <property name="name">
                         <cstring>buttonCancel</cstring>
                     </property>
@@ -407,8 +386,8 @@
                     </property>
                     <property name="minimumSize">
                         <size>
-                            <width>70</width>
-                            <height>0</height>
+                            <width>85</width>
+                            <height>24</height>
                         </size>
                     </property>
                     <property name="text">
@@ -416,9 +395,6 @@
                     </property>
                     <property name="accel">
                         <string>Alt+R</string>
-                    </property>
-                    <property name="autoDefault">
-                        <bool>true</bool>
                     </property>
                 </widget>
             </hbox>
@@ -451,18 +427,6 @@
 </images>
 <connections>
     <connection>
-        <sender>buttonOk</sender>
-        <signal>clicked()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotOk()</slot>
-    </connection>
-    <connection>
-        <sender>applyButton</sender>
-        <signal>clicked()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotApply()</slot>
-    </connection>
-    <connection>
         <sender>nameEdit</sender>
         <signal>textChanged(const QString&amp;)</signal>
         <receiver>SMBase</receiver>
@@ -481,17 +445,12 @@
         <slot>itemClicked(QListViewItem*)</slot>
     </connection>
     <connection>
-        <sender>newButton</sender>
+        <sender>buttonOk</sender>
         <signal>clicked()</signal>
         <receiver>SMBase</receiver>
-        <slot>slotNew()</slot>
+        <slot>slotOk()</slot>
     </connection>
 </connections>
-<tabstops>
-    <tabstop>buttonOk</tabstop>
-    <tabstop>applyButton</tabstop>
-    <tabstop>buttonCancel</tabstop>
-</tabstops>
 <includes>
     <include location="local" impldecl="in declaration">scrpalettebase.h</include>
 </includes>

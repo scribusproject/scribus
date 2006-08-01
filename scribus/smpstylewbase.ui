@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>432</width>
-            <height>325</height>
+            <height>428</height>
         </rect>
     </property>
     <property name="caption">
@@ -47,7 +47,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>16</height>
+                                <height>10</height>
                             </size>
                         </property>
                     </spacer>
@@ -59,26 +59,9 @@
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>spacer4</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Fixed</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>30</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
                             <widget class="QLabel">
                                 <property name="name">
-                                    <cstring>textLabel1</cstring>
+                                    <cstring>parentLabel</cstring>
                                 </property>
                                 <property name="text">
                                     <string>Parent Style</string>
@@ -97,23 +80,6 @@
                                     </sizepolicy>
                                 </property>
                             </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>spacer7</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>151</width>
-                                        <height>21</height>
-                                    </size>
-                                </property>
-                            </spacer>
                         </hbox>
                     </widget>
                     <spacer>
@@ -129,65 +95,96 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>16</height>
+                                <height>10</height>
                             </size>
                         </property>
                     </spacer>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout11</cstring>
+                            <cstring>layout10</cstring>
                         </property>
-                        <vbox>
+                        <hbox>
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <widget class="QLayoutWidget">
+                            <widget class="QGroupBox">
                                 <property name="name">
-                                    <cstring>layout10</cstring>
+                                    <cstring>distancesBox</cstring>
                                 </property>
-                                <hbox>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QGroupBox">
-                                        <property name="name">
-                                            <cstring>distancesBox</cstring>
-                                        </property>
-                                        <property name="frameShape">
-                                            <enum>GroupBoxPanel</enum>
-                                        </property>
-                                        <property name="frameShadow">
-                                            <enum>Plain</enum>
-                                        </property>
-                                        <property name="title">
-                                            <string>Distances and Alignment</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QGroupBox">
-                                        <property name="name">
-                                            <cstring>dropCapsBox</cstring>
-                                        </property>
-                                        <property name="frameShape">
-                                            <enum>GroupBoxPanel</enum>
-                                        </property>
-                                        <property name="title">
-                                            <string>Drop Caps</string>
-                                        </property>
-                                    </widget>
-                                </hbox>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>GroupBoxPanel</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Plain</enum>
+                                </property>
+                                <property name="title">
+                                    <string>Distances and Alignment</string>
+                                </property>
                             </widget>
                             <widget class="QGroupBox">
                                 <property name="name">
-                                    <cstring>tabsBox</cstring>
+                                    <cstring>dropCapsBox</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>1</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
                                 </property>
                                 <property name="frameShape">
-                                    <enum>NoFrame</enum>
+                                    <enum>GroupBoxPanel</enum>
                                 </property>
                                 <property name="title">
-                                    <string>Tabulators and Indentation</string>
+                                    <string>Drop Caps</string>
                                 </property>
                             </widget>
-                        </vbox>
+                        </hbox>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer30</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>10</height>
+                            </size>
+                        </property>
+                    </spacer>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>tabsBox</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>5</hsizetype>
+                                <vsizetype>1</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
+                        </property>
+                        <property name="frameShape">
+                            <enum>NoFrame</enum>
+                        </property>
+                        <property name="title">
+                            <string>Tabulators and Indentation</string>
+                        </property>
                     </widget>
                 </vbox>
             </widget>
@@ -215,7 +212,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>16</height>
+                                <height>10</height>
                             </size>
                         </property>
                     </spacer>
@@ -227,23 +224,6 @@
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>spacer4_2</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Fixed</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>30</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
                             <widget class="QComboBox">
                                 <property name="name">
                                     <cstring>cstyleCombo</cstring>
@@ -257,23 +237,6 @@
                                     </sizepolicy>
                                 </property>
                             </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>spacer6</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>139</width>
-                                        <height>21</height>
-                                    </size>
-                                </property>
-                            </spacer>
                         </hbox>
                     </widget>
                     <spacer>
@@ -289,7 +252,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>5</height>
+                                <height>10</height>
                             </size>
                         </property>
                     </spacer>

@@ -33,16 +33,52 @@ public:
 	void editMode(bool isOn);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
+	void languageChange();
+
+signals:
+	void selectionDirty();
 
 private:
 	SMPStyleWidget *pwidget_;
 	ScribusDoc *doc_;
+	bool selectionIsDirty_;
 	QValueList<ParagraphStyle> tmpStyles_;
 	QValueList<ParagraphStyle*> selection_;
 
+	void setupConnections();
+	void removeConnections();
 	void updateStyleList();
 	void reloadTmpStyles();
 	QValueList<CharStyle> getCharStyles();
+
+private slots:
+	// pstyle
+	void slotLineSpacingMode(int mode);
+	void slotLineSpacing();
+	void slotDropCap(bool isOn);
+	void slotDropCapLines(int lines);
+	void slotDropCapOffset();
+	void slotSpaceAbove();
+	void slotSpaceBelow();
+	void slotAlignment();
+	void slotTabRuler();
+	void slotLeftIndent(double value);
+	void slotRightIndent(double value);
+	void slotFirstLine(double value);
+	// cstyle
+	void slotFontSize();
+	void slotEffects(int e);
+	void slotFillColor();
+	void slotFillShade();
+	void slotStrokeColor();
+	void slotStrokeShade();
+	void slotLanguage();
+	void slotScaleH();
+	void slotScaleV();
+	void slotTracking();
+	void slotBaselineOffset();
+	void slotFont(QString s);
+	
 };
 
 class SMCharacterStyle : public StyleItem
@@ -62,6 +98,10 @@ public:
 	void editMode(bool isOn);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
+	void languageChange();
+
+signals:
+	void selectionDirty();
 
 private:
 	QTabWidget   *widget_;

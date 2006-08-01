@@ -55,9 +55,11 @@ public:
 	void apply();
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
+	void languageChange();
 
 signals:
 	void deleteDone();
+	void selectionDirty();
 
 private:
 	ScribusDoc              *doc_;

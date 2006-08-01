@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include "shadebutton.h"
 #include "commonstrings.h"
 #include "style.h"
+#include "colorcombo.h"
 
 #include <qgroupbox.h>
 #include <qlayout.h>
@@ -28,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qframe.h>
 #include <qpixmap.h>
 #include <qtabwidget.h>
+#include <qmap.h>
 
 SMPStyleWidget::SMPStyleWidget()
 {
@@ -277,6 +279,11 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	effects_ = new StyleSelect(characterBox);
 	layout9a->addWidget( effects_ );
 
+	layout9a->addSpacing(10);
+
+	language_ = new ScComboBox(false, characterBox, "language_");
+	layout9a->addWidget(language_);
+
 	spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout9a->addItem( spacer1 );
 	characterBoxLayout->addLayout( layout9a, Qt::AlignLeft );
@@ -288,7 +295,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout5->addWidget( FillIcon );
 
-	fillColor_ = new ScComboBox( false, characterBox, "TxFill" );
+	fillColor_ = new ColorCombo(characterBox, "TxFill");
 	layout5->addWidget( fillColor_ );
 
 	pixmapLabel3_20 = new QLabel( characterBox, "pixmapLabel3_20" );
@@ -308,7 +315,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	layout6->addWidget( StrokeIcon );
 
-	strokeColor_ = new ScComboBox( false, characterBox, "TxStroke" );
+	strokeColor_ = new ColorCombo(characterBox, "TxStroke");
 	layout6->addWidget( strokeColor_ );
 
 	pixmapLabel3_19 = new QLabel( "", characterBox, "pixmapLabel3_19" );
@@ -335,6 +342,37 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
+}
+
+void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
+{
+	QStringList sortList;
+	QMap<QString,QString>::Iterator it;
+
+	language_->clear();
+
+	for (it = langMap.begin(); it != langMap.end(); ++it)
+		sortList.push_back(it.data());
+
+	language_->insertStringList(sortQStringList(sortList));
+	language_->listBox()->setMinimumWidth(language_->listBox()->maxItemWidth() + 24);
+}
+
+void SMCStylePage::fillColorCombo(ColorList &colors)
+{
+	fillColor_->clear();
+	strokeColor_->clear();
+
+	fillColor_->insertItem(CommonStrings::NoneColor);
+	strokeColor_->insertItem(CommonStrings::NoneColor);
+	ColorList::Iterator itend=colors.end();
+	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
+	{
+		fillColor_->insertSmallItem(colors[it.key()], it.key());
+		strokeColor_->insertSmallItem(colors[it.key()], it.key());
+	}
+	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
+	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
 }
 
 void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)

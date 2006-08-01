@@ -23,6 +23,7 @@ class QRadioButton;
 class QLabel;
 class QPushButton;
 class QSize;
+class ShortcutWidget;
 
 class StyleManager : public SMBase {
 	Q_OBJECT
@@ -50,7 +51,7 @@ private:
 	StyleItem          *item_;
 	QGridLayout        *layout_;
 	QTabWidget         *widget_;
-	QWidget            *shortcutWidget_;
+	ShortcutWidget     *shortcutWidget_;
 	QString             currentType_;
 
 	bool                isEditMode_;
@@ -74,6 +75,8 @@ private slots:
 	void slotNameChanged(const QString& name);
 	void slotSelectionChanged();
     void itemClicked(QListViewItem *item);
+	void slotDirty();
+	void slotClean();
 };
 
 class StyleViewItem : public QListViewItem
@@ -83,12 +86,17 @@ public:
 	StyleViewItem(QListViewItem *parent, const QString &text, const QString &rootName);
 	~StyleViewItem();
 
+	void paintCell(QPainter *p, const QColorGroup &cg, int column, int width, int align);
+
 	bool isRoot();
 	QString parentName();
 	QString rootName();
+	void setDirty(bool isDirty);
+	bool isDirty();
 
 private:
 	bool isRoot_;
+	bool isDirty_;
 	QString parentName_;
 	QString rootName_;
 };
@@ -105,6 +113,8 @@ public:
 	void keyReleaseEvent(QKeyEvent *k);
 
 	static QString getKeyText(int KeyC);
+
+	void languageChange();
 
 public slots:
 	void setKeyText();
