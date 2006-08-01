@@ -909,6 +909,11 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				//m_Doc->Pages=&m_Doc->DocPages;
 				// guides reading
 				tmp = "";
+				Apage->guides.setHorizontalAutoGap(pg.attribute("AGhorizontalAutoGap", "0.0").toDouble());
+				Apage->guides.setVerticalAutoGap(pg.attribute("AGverticalAutoGap", "0.0").toDouble());
+				Apage->guides.setHorizontalAutoCount(pg.attribute("AGhorizontalAutoCount", "0").toInt());
+				Apage->guides.setVerticalAutoCount(pg.attribute("AGverticalAutoCount", "0").toInt());
+				Apage->guides.setAutoRefer(pg.attribute("AGautoRefer", "0").toInt());
 				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 						Apage,
 						GuideManagerCore::Standard,
@@ -2675,6 +2680,11 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				pageY = pg.attribute("PAGEYPOS").toDouble();
 				// guides reading
 				tmp = "";
+				Apage->guides.setHorizontalAutoGap(pg.attribute("AGhorizontalAutoGap", "0.0").toDouble());
+				Apage->guides.setVerticalAutoGap(pg.attribute("AGverticalAutoGap", "0.0").toDouble());
+				Apage->guides.setHorizontalAutoCount(pg.attribute("AGhorizontalAutoCount", "0").toInt());
+				Apage->guides.setVerticalAutoCount(pg.attribute("AGverticalAutoCount", "0").toInt());
+				Apage->guides.setAutoRefer(pg.attribute("AGautoRefer", "0").toInt());
 				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 												Apage,
 												GuideManagerCore::Standard,
@@ -3184,6 +3194,11 @@ void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomEleme
 													page, GuideManagerCore::Standard));
 		pg.setAttribute("HorizontalGuides", GuideManagerCore::writeHorizontalGuides(
 													page, GuideManagerCore::Standard));
+		pg.setAttribute("AGhorizontalAutoGap", page->guides.horizontalAutoGap());
+		pg.setAttribute("AGverticalAutoGap", page->guides.verticalAutoGap());
+		pg.setAttribute("AGhorizontalAutoCount", page->guides.horizontalAutoCount());
+		pg.setAttribute("AGverticalAutoCount", page->guides.verticalAutoCount());
+		pg.setAttribute("AGautoRefer", page->guides.autoRefer());
 		dc->appendChild(pg);
 	}
 }
