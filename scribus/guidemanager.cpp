@@ -490,6 +490,7 @@ void GuideManager::getAutoHorizontals()
 											  GuideManagerCore::Auto);
 	}
 	drawGuides();
+	storePageValues(currentPage);
 }
 
 void GuideManager::getAutoVerticals()
@@ -542,6 +543,7 @@ void GuideManager::getAutoVerticals()
 											GuideManagerCore::Auto);
 	}
 	drawGuides();
+	storePageValues(currentPage);
 }
 
 void GuideManager::tabWidget_currentChanged( QWidget * )
