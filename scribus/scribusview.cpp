@@ -8756,7 +8756,7 @@ void ScribusView::PasteRecentToPage(int id)
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(Doc->currentPage()->getUName(), 0, Um::Paste, "", Um::IPaste);
 	QString nam = pmen3->text(id);
-	QString data = m_ScMW->scrapbookPalette->tempBView->objectMap[nam].Data.utf8();
+	QString data = m_ScMW->scrapbookPalette->tempBView->objectMap[nam].Data;
 	QFileInfo fi(data);
 	if (fi.extension(true).lower() == "sml")
 	{

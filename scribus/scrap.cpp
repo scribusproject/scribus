@@ -62,7 +62,7 @@ void BibView::keyPressEvent(QKeyEvent *k)
 
 QDragObject *BibView::dragObject()
 {
-	QString dt = objectMap[currentItem()->text()].Data.utf8();
+	QString dt = objectMap[currentItem()->text()].Data;
 	QFileInfo fi(dt);
 	if (fi.extension(true).lower() == "sml")
 	{
@@ -689,7 +689,7 @@ bool Biblio::copyObj(int id)
 	if (!loadText(QDir::cleanDirPath(activeBView->objectMap[ite->text()].Data), &ff))
 		return false;
 	pm = activeBView->objectMap[ite->text()].Preview;
-	QString dt = activeBView->objectMap[ite->text()].Data.utf8();
+	QString dt = activeBView->objectMap[ite->text()].Data;
 	QFileInfo fi(dt);
 	QFile f(QDir::cleanDirPath(QDir::convertSeparators(bv->ScFilename + "/" + nam + "." + fi.extension(true).lower())));
 	if(!f.open(IO_WriteOnly))

@@ -3004,7 +3004,7 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 
 void ScribusMainWindow::pasteRecent(QString fn)
 {
-	QString data = scrapbookPalette->tempBView->objectMap[fn].Data.utf8();
+	QString data = scrapbookPalette->tempBView->objectMap[fn].Data;
 	QFileInfo fi(data);
 	if (fi.extension(true).lower() == "sml")
 	{

@@ -475,7 +475,7 @@ QString StencilReader::createShape(QString datain)
 	}
 	group.setAttribute("W", bounds.width() / 10.0);
 	group.setAttribute("H", bounds.height() / 10.0);
-	return data.toString().utf8();
+	return data.toString();
 }
 
 double StencilReader::parseUnit(const QString &unit)
@@ -1560,5 +1560,5 @@ QString StencilReader::createObjects(QString datain)
 		}
 		DOC = DOC.nextSibling();
 	}
-	return data.toString().utf8();
+	return data.toString();
 }

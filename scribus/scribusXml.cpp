@@ -596,30 +596,30 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 
 bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
 {
+	QString ff = "";
 	QDomDocument docu("scridoc");
 	if (isFile)
 	{
 		QCString f;
 		if (!loadRawText(file, f))
 			return false;
-		QString ff = "";
 		if (qstrncmp(f.data(), "<SCRIBUSELEMUTF8", 16) == 0)
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		if(!docu.setContent(ff))
-			return false;
 	}
 	else
 	{
-		QString ff = "";
-		if (file.startsWith("<SCRIBUSELEMUTF8"))
+		// JG Ugly and wrong conversion from an utf8 encoded array
+		// to a QString using local enconding
+		/*if (file.startsWith("<SCRIBUSELEMUTF8"))
 			ff = QString::fromUtf8(file);
 		else
-			ff = file;
-		if(!docu.setContent(ff))
-			return false;
+			ff = file;*/
+		ff  = file;
 	}
+	if(!docu.setContent(ff))
+		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
@@ -1404,5 +1404,5 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ob.setAttribute("NEXTPAGE", -1);
 		elem.appendChild(ob);
 	}
-	return docu.toString().utf8();
+	return docu.toString();
 }
