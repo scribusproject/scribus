@@ -8043,11 +8043,11 @@ void ScribusMainWindow::GetCMSProfilesDir(QString pfad)
 						InputProfilesCMYK[nam] = pfad + d[dc];
 					break;
 				case icSigOutputClass:
-					PrinterProfiles[nam] = pfad + d[dc];
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 					{
 						PDFXProfiles[nam] = pfad + d[dc];
 						InputProfilesCMYK[nam] = pfad + d[dc];
+						PrinterProfiles[nam] = pfad + d[dc];
 					}
 					break;
 				}
