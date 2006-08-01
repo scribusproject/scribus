@@ -11,6 +11,28 @@ for which a new license (GPL+exception) is in place.
 #include "smreplacediabase.h"
 #include "styleitem.h"
 
+class QString;
+class QStringList;
+class QLabel;
+class QComboBox;
+class QHBoxLayout;
+
+class SMRowWidget : public QWidget
+{
+	Q_OBJECT
+public:
+	SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions, QWidget *parent);
+	~SMRowWidget();
+
+	QString toBeDeleted();
+	QString replaceWith();
+
+private:
+	QHBoxLayout *layout;
+	QLabel      *deleteLabel;
+	QComboBox   *optionsCombo;
+};
+
 class SMReplaceDia : public SMReplaceDiaBase {
 	Q_OBJECT
 public:
@@ -18,6 +40,13 @@ public:
 	~SMReplaceDia();
 
 	QValueList<RemoveItem> items();
+
+private:
+	QVBoxLayout *layout;
+	QHBoxLayout *headerLayout;
+	QLabel      *deleteHeader;
+	QLabel      *optionsHeader;
+	QPtrList<SMRowWidget>  rowWidgets;
 };
 
 #endif

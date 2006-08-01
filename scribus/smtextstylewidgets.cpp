@@ -85,6 +85,24 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->addMultiCellWidget(alignement_, 3,3,1,3);
 }
 
+void SMPStyleWidget::languageChange()
+{
+	lineSpacingMode_->clear();
+	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
+	lineSpacing_->setSuffix(tr(" pt"));
+	spaceAbove_->setSuffix(tr(" pt"));
+	spaceBelow_->setSuffix(tr(" pt"));
+	parentLabel->setText(tr("Parent Style"));
+	distancesBox->setTitle(tr("Distances and Alignment"));
+	dropCapsBox->setTitle(tr("Drop Caps"));
+	tabsBox->setTitle(tr("Tabulators and Indentation"));
+	characterBox->setTitle(tr("Properties"));
+	tabWidget->setTabLabel(tabWidget->page(0), tr("Properties"));
+	tabWidget->setTabLabel(tabWidget->page(1), tr("Character Style"));
+}
+
 void SMPStyleWidget::setupDropCaps()
 {
 	dropCapsBox->setCheckable( true );
@@ -344,10 +362,23 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	strokeColor_->setEnabled(false);
 }
 
-void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
+void SMCStylePage::languageChange()
+{
+	parentLabel->setText(tr("Parent Style"));
+	fontVScale_->setSuffix(tr(" %"));
+	fontHScale_->setSuffix(tr(" %"));
+	baselineOffset_->setSuffix(tr(" %"));
+	tracking_->setSuffix(tr(" %"));
+	fontSize_->setSuffix(tr(" pt"));
+}
+
+void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang)
 {
 	QStringList sortList;
 	QMap<QString,QString>::Iterator it;
+
+	langMap_ = langMap;
+	defaultLang_ = defaultLang;
 
 	language_->clear();
 
@@ -396,7 +427,6 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	fillColor_->setCurrentText(cstyle.fillColor());
 	strokeColor_->setCurrentText(cstyle.strokeColor());
 	fontFace_->setCurrentFont(cstyle.font().scName());
-// 	QString language() const { return language_==NOLANG && parent()? inh().language() : language_; }
 
 	parentCombo->clear();
 	parentCombo->insertItem("");
@@ -421,6 +451,16 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	}
 	else
 		parentCombo->setCurrentItem(0);
+
+	QString clang = cstyle.language() == QString::null ? defaultLang_ : cstyle.language();
+	for (int i = 0; i < language_->count(); ++i)
+	{
+		if (language_->text(i) == langMap_[clang])
+		{
+			language_->setCurrentItem(i);
+			break;
+		}
+	}
 }
 
 void SMCStylePage::show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll)

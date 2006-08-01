@@ -47,9 +47,11 @@ public:
 	SMLineStyle();
 	~SMLineStyle();
 	QTabWidget* widget();
-	QString typeName();
+	QString typeNamePlural();
+	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
 	QValueList<StyleName> styles();
+	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
 	void apply();

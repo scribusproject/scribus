@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>281</width>
-            <height>313</height>
+            <width>235</width>
+            <height>271</height>
         </rect>
     </property>
     <property name="caption">
@@ -33,10 +33,13 @@
                 <cstring>mainFrame</cstring>
             </property>
             <property name="frameShape">
-                <enum>StyledPanel</enum>
+                <enum>NoFrame</enum>
             </property>
             <property name="frameShadow">
-                <enum>Raised</enum>
+                <enum>Plain</enum>
+            </property>
+            <property name="lineWidth">
+                <number>0</number>
             </property>
         </widget>
         <widget class="QLayoutWidget">

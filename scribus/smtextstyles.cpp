@@ -26,8 +26,6 @@ for which a new license (GPL+exception) is in place.
 
 #include <qtabwidget.h>
 
-
-
 SMParagraphStyle::SMParagraphStyle() : StyleItem(), pwidget_(0), doc_(0), selectionIsDirty_(false)
 {
 
@@ -44,9 +42,14 @@ QTabWidget* SMParagraphStyle::widget()
 	return pwidget_->tabWidget;
 }
 
-QString SMParagraphStyle::typeName()
+QString SMParagraphStyle::typeNamePlural()
 {
 	return tr("Paragraph Styles");
+}
+
+QString SMParagraphStyle::typeNameSingular()
+{
+	return tr("Paragrah Style");
 }
 
 void SMParagraphStyle::currentDoc(ScribusDoc *doc)
@@ -55,7 +58,7 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 	doc_ = doc;
 	if (pwidget_)
 	{
-		pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl);
+		pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
 		pwidget_->cpage->fillColorCombo(doc_->PageColors);
 	}
 }
@@ -84,6 +87,11 @@ QValueList<StyleName> SMParagraphStyle::styles()
 	}
 
 	return tmpList;
+}
+
+void SMParagraphStyle::reload()
+{
+	reloadTmpStyles();
 }
 
 void SMParagraphStyle::selected(const QStringList &styleNames)
@@ -121,14 +129,24 @@ QValueList<CharStyle> SMParagraphStyle::getCharStyles()
 
 QString SMParagraphStyle::fromSelection() const
 {
-//	Q_ASSERT(doc_ && doc_->m_Selection);
-//	QString lsName = QString::null;
+	Q_ASSERT(doc_ && doc_->m_Selection);
+	QString lsName = QString::null;
 
-//	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
-//	{
-//		PageItem *item = doc_->m_Selection->itemAt(i);
-//	}
-	return QString::null;
+// 	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+// 	{
+// 		PageItem *item = doc_->m_Selection->itemAt(i);
+// 		QString tmpName = item->currentStyle().displayName();
+// 		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+// 		{
+// 			lsName = item->customLineStyle();
+// 		}
+// 		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+// 		{
+// 			lsName = QString::null;
+// 			break;
+// 		}
+// 	}
+	return lsName;
 }
 
 void SMParagraphStyle::apply()
@@ -150,12 +168,20 @@ void SMParagraphStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 
 void SMParagraphStyle::nameChanged(const QString &newName)
 {
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setName(newName);
 
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 void SMParagraphStyle::languageChange()
 {
-	
+	pwidget_->languageChange();
+	pwidget_->cpage->languageChange();
 }
 
 void SMParagraphStyle::reloadTmpStyles()
@@ -203,8 +229,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
 	connect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
 	connect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
-	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(int)),
-	        this, SLOT(slotBaselineOffset()));
+	connect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 }
 
@@ -230,6 +255,20 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->tabList_, SIGNAL(leftIndentChanged(double)), this, SLOT(slotLeftIndent(double)));
 	disconnect(pwidget_->tabList_, SIGNAL(rightIndentChanged(double)), this, SLOT(slotRightIndent(double)));
 	disconnect(pwidget_->tabList_, SIGNAL(firstLineChanged(double)), this, SLOT(slotFirstLine(double)));
+
+	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	disconnect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	disconnect(pwidget_->cpage->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	disconnect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	disconnect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	disconnect(pwidget_->cpage->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	disconnect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
+	disconnect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
+	disconnect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
+	disconnect(pwidget_->cpage->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
+	disconnect(pwidget_->cpage->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 }
 
 void SMParagraphStyle::slotLineSpacingMode(int mode)
@@ -417,8 +456,31 @@ void SMParagraphStyle::slotFontSize()
 
 void SMParagraphStyle::slotEffects(int e)
 {
+	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
+	int c;
+
+	pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+	pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+
+	pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+
+	pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+	pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+
+	pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+	pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+
 	for (uint i = 0; i < selection_.count(); ++i)
+	{
 		selection_[i]->charStyle().setEffects(static_cast<StyleFlag>(e));
+		selection_[i]->charStyle().setShadowXOffset(qRound(10 * sxo));
+		selection_[i]->charStyle().setShadowYOffset(qRound(10 * syo));
+		selection_[i]->charStyle().setOutlineWidth(qRound(10 * olw));
+		selection_[i]->charStyle().setUnderlineOffset(qRound(10 * ulp));
+		selection_[i]->charStyle().setUnderlineWidth(qRound(10 * ulw));
+		selection_[i]->charStyle().setStrikethruOffset(qRound(10 * slp));
+		selection_[i]->charStyle().setStrikethruWidth(qRound(10 * slw));
+	}
 
 	if (!selectionIsDirty_)
 	{
@@ -473,8 +535,21 @@ void SMParagraphStyle::slotStrokeShade()
 
 void SMParagraphStyle::slotLanguage()
 {
+	QMap<QString,QString>::Iterator it;
+	QString language = doc_->Language;
+
+	for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
+	{
+		if (it.data() == pwidget_->cpage->language_->currentText())
+		{
+			language = it.key();
+			break;
+		}
+	}
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->charStyle().setLanguage(pwidget_->cpage->strokeColor_->currentText());
+		selection_[i]->charStyle().setLanguage(language);
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -565,7 +640,7 @@ SMParagraphStyle::~SMParagraphStyle()
 /******************************************************************************/
 /******************************************************************************/
 
-SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0)
+SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0), selectionIsDirty_(false)
 {
 
 }
@@ -584,9 +659,14 @@ QTabWidget* SMCharacterStyle::widget()
 	return widget_;
 }
 
-QString SMCharacterStyle::typeName()
+QString SMCharacterStyle::typeNamePlural()
 {
 	return tr("Character Styles");
+}
+
+QString SMCharacterStyle::typeNameSingular()
+{
+	return tr("Character Style");
 }
 
 void SMCharacterStyle::currentDoc(ScribusDoc *doc)
@@ -594,7 +674,10 @@ void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 	Q_ASSERT(doc);
 	doc_ = doc;
 	if (page_)
-		page_->fillLangCombo(doc_->scMW()->LangTransl);
+	{
+		page_->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
+		page_->fillColorCombo(doc_->PageColors);
+	}
 }
 
 QValueList<StyleName> SMCharacterStyle::styles()
@@ -623,9 +706,16 @@ QValueList<StyleName> SMCharacterStyle::styles()
 	return tmpList;
 }
 
+void SMCharacterStyle::reload()
+{
+	reloadTmpStyles();
+}
+
 void SMCharacterStyle::selected(const QStringList &styleNames)
 {
 	selection_.clear();
+	selectionIsDirty_ = false;
+	removeConnections();
 	if (styleNames.count() == 1)
 	{
 		for (uint i = 0; i < tmpStyles_.count(); ++i)
@@ -643,6 +733,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	{
 		
 	}
+	setupConnections();
 }
 
 QString SMCharacterStyle::fromSelection() const
@@ -674,7 +765,11 @@ void SMCharacterStyle::nameChanged(const QString &newName)
 
 void SMCharacterStyle::languageChange()
 {
-	
+	if (widget_ && page_)
+	{
+		widget_->setTabLabel(page_, tr("Properties"));
+		page_->languageChange();
+	}
 }
 
 void SMCharacterStyle::reloadTmpStyles()
@@ -684,6 +779,247 @@ void SMCharacterStyle::reloadTmpStyles()
 	StyleSet<CharStyle> &tmp = doc_->docCharStyles;
 	for (uint i = 0; i < tmp.count(); ++i)
 		tmpStyles_.append(tmp[i]);
+}
+
+void SMCharacterStyle::setupConnections()
+{
+	Q_ASSERT(page_);
+
+	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	connect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	connect(page_->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	connect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	connect(page_->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	connect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	connect(page_->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	connect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
+	connect(page_->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
+	connect(page_->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
+	connect(page_->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
+	connect(page_->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+}
+
+void SMCharacterStyle::removeConnections()
+{
+	Q_ASSERT(page_);
+
+	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+	disconnect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
+	disconnect(page_->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	disconnect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
+	disconnect(page_->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	disconnect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
+	disconnect(page_->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	disconnect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
+	disconnect(page_->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
+	disconnect(page_->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
+	disconnect(page_->tracking_, SIGNAL(valueChanged(int)), this, SLOT(slotTracking()));
+	disconnect(page_->baselineOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotBaselineOffset()));
+	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
+}
+
+void SMCharacterStyle::slotFontSize()
+{
+	double a, b, value;
+	int c;
+
+	page_->fontSize_->getValues(&a, &b, &c, &value);
+
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setFontSize(qRound(10 * value));
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotEffects(int e)
+{
+	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
+	int c;
+
+	page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+	page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+
+	page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+
+	page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+	page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+
+	page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+	page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+
+	for (uint i = 0; i < selection_.count(); ++i)
+	{
+		selection_[i]->setEffects(static_cast<StyleFlag>(e));
+		selection_[i]->setShadowXOffset(qRound(10 * sxo));
+		selection_[i]->setShadowYOffset(qRound(10 * syo));
+		selection_[i]->setOutlineWidth(qRound(10 * olw));
+		selection_[i]->setUnderlineOffset(qRound(10 * ulp));
+		selection_[i]->setUnderlineWidth(qRound(10 * ulw));
+		selection_[i]->setStrikethruOffset(qRound(10 * slp));
+		selection_[i]->setStrikethruWidth(qRound(10 * slw));
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotFillColor()
+{
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setFillColor(page_->fillColor_->currentText());
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotFillShade()
+{
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setFillShade(page_->fillShade_->getValue());
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotStrokeColor()
+{
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setStrokeColor(page_->strokeColor_->currentText());
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotStrokeShade()
+{
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setStrokeShade(page_->strokeShade_->getValue());
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotLanguage()
+{
+	QMap<QString,QString>::Iterator it;
+	QString language = doc_->Language;
+
+	for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
+	{
+		if (it.data() == page_->language_->currentText())
+		{
+			language = it.key();
+			break;
+		}
+	}
+
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setLanguage(language);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotScaleH()
+{
+	double a, b, value;
+	int c;
+
+	page_->fontHScale_->getValues(&a, &b, &c, &value);
+
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setScaleH(qRound(10 * value));
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotScaleV()
+{
+	double a, b, value;
+	int c;
+
+	page_->fontVScale_->getValues(&a, &b, &c, &value);
+
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setScaleV(qRound(10 * value));
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotTracking()
+{
+	double a, b, value;
+	int c;
+
+	page_->tracking_->getValues(&a, &b, &c, &value);
+
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setTracking(qRound(value * 10));
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotBaselineOffset()
+{
+	double a, b, value;
+	int c;
+
+	page_->baselineOffset_->getValues(&a, &b, &c, &value);
+
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setBaselineOffset(qRound(value * 10));
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotFont(QString s)
+{
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setFont(PrefsManager::instance()->appPrefs.AvailFonts[s]);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 SMCharacterStyle::~SMCharacterStyle()

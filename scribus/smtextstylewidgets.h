@@ -45,6 +45,8 @@ public:
 	void show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles);
 	void show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles);
 
+	void languageChange();
+
 private:
 	QGridLayout *distancesBoxLayout;
 	QGridLayout *dropCapsBoxLayout;
@@ -88,8 +90,9 @@ public:
 
 	void show(CharStyle &cstyle, QValueList<CharStyle> &cstyles);
 	void show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll);
-	void fillLangCombo(QMap<QString,QString> langMap);
+	void fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang);
 	void fillColorCombo(ColorList &colors);
+	void languageChange();
 
 private:
 	QVBoxLayout *characterBoxLayout;
@@ -126,6 +129,9 @@ private:
 	QSpacerItem *spacer1;
 	QSpacerItem *spacer2;
 	QSpacerItem *spacer4;
+
+	QString                defaultLang_;
+	QMap<QString, QString> langMap_;
 
 	friend class SMParagraphStyle;
 	friend class SMCharacterStyle;

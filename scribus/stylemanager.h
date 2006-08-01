@@ -24,6 +24,7 @@ class QLabel;
 class QPushButton;
 class QSize;
 class ShortcutWidget;
+class QPopupMenu;
 
 class StyleManager : public SMBase {
 	Q_OBJECT
@@ -53,6 +54,7 @@ private:
 	QTabWidget         *widget_;
 	ShortcutWidget     *shortcutWidget_;
 	QString             currentType_;
+	QPopupMenu         *newPopup_;
 
 	bool                isEditMode_;
 	int                 styleWidth_;
@@ -77,6 +79,7 @@ private slots:
     void itemClicked(QListViewItem *item);
 	void slotDirty();
 	void slotClean();
+	void slotNewPopup(int);
 };
 
 class StyleViewItem : public QListViewItem

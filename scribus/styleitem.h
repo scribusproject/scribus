@@ -47,8 +47,11 @@ public:
 	 */
 	virtual QTabWidget* widget() = 0;
 
-	/** @brief name of the style (Paragraph style, Character style...) */
-	virtual QString typeName() = 0;
+	/** @brief name of the style (plural) (Paragraph Styles, Character Styles...) */
+	virtual QString typeNamePlural() = 0;
+
+	/** @brief name of the style (singular) (Paragraph Style, Character Style...) */
+	virtual QString typeNameSingular() = 0;
 
 	/**
 	 * @brief Whenever style manager is shown attached StyleItems get the current doc
@@ -56,8 +59,20 @@ public:
 	 */
 	virtual void currentDoc(ScribusDoc *doc) = 0;
 
-	/** @brief existing styles in this category */
+	/** 
+	 * @brief existing styles in this category
+	 *
+	 * return the names of cached styles (even if those are changed)
+	 * @return Name of the styles and their parent as a QValueList.
+	 */
 	virtual QValueList<StyleName> styles() = 0;
+
+	/** 
+	 * @brief Reload styles and remove all cached (and possibly changed ones).
+	 *
+	 * This function will be called whenever a user clicks on the reset button.
+	 **/
+	virtual void reload() = 0;
 
 	/**
 	 * @brief Whenever this function is called StyleItem must update the main

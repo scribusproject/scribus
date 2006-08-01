@@ -24,9 +24,11 @@ public:
 	~SMParagraphStyle();
 
 	QTabWidget* widget();
-	QString typeName();
+	QString typeNamePlural();
+	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
 	QValueList<StyleName> styles();
+	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
 	void apply();
@@ -89,9 +91,11 @@ public:
 	~SMCharacterStyle();
 
 	QTabWidget* widget();
-	QString typeName();
+	QString typeNamePlural();
+	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
 	QValueList<StyleName> styles();
+	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
 	void apply();
@@ -109,8 +113,25 @@ private:
 	ScribusDoc   *doc_;
 	QValueList<CharStyle> tmpStyles_;
 	QValueList<CharStyle*> selection_;
+	bool selectionIsDirty_;
 
 	void reloadTmpStyles();
+	void setupConnections();
+	void removeConnections();
+
+private slots:
+	void slotFontSize();
+	void slotEffects(int e);
+	void slotFillColor();
+	void slotFillShade();
+	void slotStrokeColor();
+	void slotStrokeShade();
+	void slotLanguage();
+	void slotScaleH();
+	void slotScaleV();
+	void slotTracking();
+	void slotBaselineOffset();
+	void slotFont(QString s);
 };
 
 #endif

@@ -202,9 +202,14 @@ QTabWidget* SMLineStyle::widget()
 	return twidget_;
 }
 
-QString SMLineStyle::typeName()
+QString SMLineStyle::typeNamePlural()
 {
 	return tr("Line Styles");
+}
+
+QString SMLineStyle::typeNameSingular()
+{
+	return tr("Line Style");
 }
 
 void SMLineStyle::currentDoc(ScribusDoc *doc)
@@ -223,6 +228,11 @@ QValueList<StyleName> SMLineStyle::styles()
 			tmp << StyleName(it.key(), QString::null);
 	}
 	return tmp;
+}
+
+void SMLineStyle::reload()
+{
+	
 }
 
 void SMLineStyle::selected(const QStringList &styleNames)

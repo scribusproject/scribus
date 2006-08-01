@@ -108,7 +108,7 @@
                             <number>0</number>
                         </property>
                         <property name="resizePolicy">
-                            <enum>AutoOne</enum>
+                            <enum>AutoOneFit</enum>
                         </property>
                         <property name="selectionMode">
                             <enum>Extended</enum>
@@ -148,10 +148,13 @@
                             <cstring>editButtonsFrame</cstring>
                         </property>
                         <property name="frameShape">
-                            <enum>StyledPanel</enum>
+                            <enum>NoFrame</enum>
                         </property>
                         <property name="frameShadow">
                             <enum>Raised</enum>
+                        </property>
+                        <property name="lineWidth">
+                            <number>0</number>
                         </property>
                         <property name="margin">
                             <number>0</number>
@@ -161,7 +164,7 @@
                                 <cstring>unnamed</cstring>
                             </property>
                             <property name="margin">
-                                <number>0</number>
+                                <number>2</number>
                             </property>
                             <property name="spacing">
                                 <number>2</number>
@@ -276,7 +279,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>31</width>
-                                <height>5</height>
+                                <height>6</height>
                             </size>
                         </property>
                     </spacer>

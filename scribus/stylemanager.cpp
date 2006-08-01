@@ -38,8 +38,14 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	resize(QSize(500, 400));
 	noEditSize_ = QSize(166, 400);
 	noEditSizes_ = splitter->sizes();
+	newPopup_ = new QPopupMenu(newButton, "newPopup_");
+	newButton->setPopup(newPopup_);
+
+	connect(newPopup_, SIGNAL(highlighted(int)), this, SLOT(slotNewPopup(int)));
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(slotClean()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(slotApply()));
+	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
+
 	languageChange();
 	slotOk();
 }
@@ -68,8 +74,16 @@ void StyleManager::languageChange()
 	if (shortcutWidget_)
 		shortcutWidget_->languageChange();
 
+	newPopup_->clear();
 	for (uint i = 0; i < items_.count(); ++i)
+	{
+		newPopup_->insertItem(items_.at(i)->typeNameSingular());
 		items_.at(i)->languageChange();
+	}
+
+	styleView->clear();
+	for (uint i = 0; i < items_.count(); ++i)
+		slotNewType(items_.at(i));
 }
 
 void StyleManager::currentDoc(ScribusDoc *doc)
@@ -141,6 +155,11 @@ void StyleManager::slotClone()
 
 
 void StyleManager::slotNew()
+{
+	
+}
+
+void StyleManager::slotNewPopup(int i)
 {
 	
 }
@@ -242,17 +261,20 @@ void StyleManager::slotStyleChanged()
 		widget_->setEnabled(true);
 		shortcutWidget_->setEnabled(true);
 	} else {
-
-		nameEdit->setText("");
-		nameEdit->setEnabled(false);
-		widget_->setEnabled(false);
-		shortcutWidget_->setEnabled(false);
+		if (nameEdit)
+		{
+			nameEdit->setText("");
+			nameEdit->setEnabled(false);
+		}
+		if (widget_)
+			widget_->setEnabled(false);
+		if (shortcutWidget_)
+			shortcutWidget_->setEnabled(false);
 	}
 	connect(nameEdit, SIGNAL(textChanged(const QString&)),
 	        this, SLOT(slotNameChanged(const QString&)));
-	if (item_) {
+	if (item_)
 		item_->selected(selected);
-	}
 }
 
 // f.e. Line Styles --> Paragraph Styles
@@ -262,13 +284,13 @@ void StyleManager::slotNewType(StyleItem *item)
 		item_ = item;
 
 		QValueList<StyleName> styles = item_->styles();
-		QListViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
+		QListViewItem *rootItem = new StyleViewItem(styleView, item_->typeNamePlural());
 		for (uint i = 0; i < styles.count(); ++i) // set the list of styles of this type
 		{
 			if (styles[i].second == QString::null)
-				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+				new StyleViewItem(rootItem, styles[i].first, item_->typeNamePlural());
 			else // TODO Search the parent and insert accordingly
-				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+				new StyleViewItem(rootItem, styles[i].first, item_->typeNamePlural());
 		}
 
 		if (widget_)
@@ -284,7 +306,6 @@ void StyleManager::slotNewType(StyleItem *item)
 		insertShortcutPage(widget_);
 		widget_->reparent(mainFrame, 0, QPoint(0,0), true);
 		layout_->addWidget(widget_, 0, 0);
-
 	}
 }
 
@@ -317,6 +338,12 @@ void StyleManager::slotClean()
 			item->repaint();
 		}
 		++it;
+	}
+
+	if (isEditMode_ && item_)
+	{
+		item_->reload();
+		slotStyleChanged();
 	}
 }
 
@@ -353,7 +380,7 @@ void StyleManager::slotSelectionChanged()
 
 	for (uint i = 0; i < items_.count(); ++i)
 	{
-		parentName = items_.at(i)->typeName();
+		parentName = items_.at(i)->typeNamePlural();
 		styleName = items_.at(i)->fromSelection();
 		if (styleName != QString::null)
 		{
@@ -392,7 +419,7 @@ void StyleManager::itemClicked(QListViewItem *item)
 		{
 			for (uint i = 0; i < items_.count(); ++i)
 			{
-				if (items_.at(i)->typeName() == root->text(0))
+				if (items_.at(i)->typeNamePlural() == root->text(0))
 				{
 					sitem = items_.at(i);
 					break;
@@ -418,7 +445,6 @@ void StyleManager::itemClicked(QListViewItem *item)
 				layout_->addWidget(widget_, 0, 0);
 			}
 		}
-
 	}
 	else if (!isEditMode_ && item) // see if we need to apply style
 	{
