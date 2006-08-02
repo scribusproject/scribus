@@ -1642,6 +1642,13 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1750,12 +1757,8 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Портирование на Windows&amp;#174;:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation type="obsolete">Марта</translation>
-    </message>
-    <message>
-        <source>April</source>
-        <translation>Апрель</translation>
+        <source>Tango Project Icons:</source>
+        <translation>Пиктограммы из проекта Tango:</translation>
     </message>
 </context>
 <context>
@@ -2716,6 +2719,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>C&amp;lear</source>
         <translation>О&amp;чистить</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Показать границы столбцов</translation>
     </message>
 </context>
 <context>
@@ -4086,7 +4093,7 @@ This requires very accurate profiles and serves only as a warning.</source>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
-        <translation>&amp;Эмулировать принтер на экране</translation>
+        <translation>&amp;Имитировать принтер на экране</translation>
     </message>
     <message>
         <source>Mark Colors out of &amp;Gamut</source>
@@ -4208,6 +4215,14 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Это имя цвета уже используется</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation>Если выбрать, будет печататься на всех плашках. Цвета для приводки используются для создания пометок для принтера, таких как метки под обрез. Их использование в общих случаях при создании макетов нетипично.</translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and flourescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation>Если выбрать, цвет станет плашечным, то есть при создании плашек или цветоделений будет создаваться ещё одна точка. Это чаще всего нужно, когда необходимо точно воспроизвести цвет логотипа или другого цветного объекта, либо когда невозможно использовать чернила CMYK (в случае с металлическими или флюоресцентными чернилами, к примеру).</translation>
     </message>
 </context>
 <context>
@@ -4596,6 +4611,10 @@ It is a reserved name for transparent color</source>
         <source>New Color</source>
         <translation>Новый цвет</translation>
     </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>Если управление цветом включено, на цвете может появиться треугольник - это означает, что цвет не попадает в цветовой охват при текущем профиле для принтера. Таким образом, этот цвет может быть напечатан не так, как он выглядит на экране монитора. Плашечные цвета для приводки отображаются красным кружком. Цвета для приводки содержат метку рядом с цветом. Подробности о предупреждениях касательно цветового охвата изложены в разделе «Управление цветом» документации.</translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -4812,7 +4831,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Можно эмулировать различные дефекты зрения. Выберите подходящий из списка.</translation>
+        <translation>Можно имитировать различные дефекты зрения. Выберите подходящий из списка.</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
@@ -8551,14 +8570,6 @@ Corners:</source>
         <translation>Имя &quot;%1&quot; уже использовано.&lt;br/&gt;Выберите другое.</translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Цвет штриха текста. Возможно только при включённом эффекте «Контур».</translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Цвет текста. Возможно только при включённом эффекте «Контур».</translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation>Правило заполнения</translation>
     </message>
@@ -8573,6 +8584,14 @@ Corners:</source>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Нажмите для выбора межстрочного режима</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Цвет штриха текста и/или отбрасываемой тени, смотря что выбрано. Если выбраны оба, то их цвет будет одинаковым.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Цвет текста. Если включённ эффект «Контур», то это будет цвет заливки. Если включён эффект отбрасываемой тени, то это будет цвет текста.</translation>
     </message>
 </context>
 <context>
@@ -9158,7 +9177,7 @@ Corners:</source>
     </message>
     <message>
         <source>Gives a print preview using simulations of generic CMYK inks, instead of RGB colors</source>
-        <translation>Включить режим эмуляции красок CMYK вместо палитры RGB</translation>
+        <translation>Включить режим имитации красок CMYK вместо палитры RGB</translation>
     </message>
     <message>
         <source>Enable/disable the C (Cyan) ink plate</source>
@@ -9175,14 +9194,6 @@ Corners:</source>
     <message>
         <source>Enable/disable the K (Black) ink plate</source>
         <translation>Включить/отключить красочную плиту K (Black)</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>Сгладить &amp;текст</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Сгладить &amp;графику</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -9241,14 +9252,6 @@ Corners:</source>
         <translation>Напечатать...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Включить более качественное отображение текста при просмотре ценой замедления прорисовки. Работает только со шрифтами Type1</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Включить более качественное отображение шрифтов TrueType, Open Type Fonts, EPS, PDF и векторной графики при просмотре ценой замедления прорисовки</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Способ удаления некоторых серых (ахроматических) тонов, составленных из голубой, желтой и пурпурной красок, и замены их на черный. UCR главным образом воздействует на нейтральные по цвету части изображения. Использование этого метода способно улучшить печать некоторых изображений, но каждый отдельный случай требует особого рассмотрения. При использовании этого способа также снижается вероятность избыточной яркости изображения.</translation>
     </message>
@@ -9263,6 +9266,14 @@ Corners:</source>
     <message>
         <source>File</source>
         <translation>Файл</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Включить с&amp;глаживание</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Включить более качественное отображение шрифтов Type 1, TrueType, Open Type, EPS, PDF и векторной графики при просмотре ценой замедления прорисовки</translation>
     </message>
 </context>
 <context>
@@ -10267,10 +10278,6 @@ Corners:</source>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
         <translation>Местоположение исполняемого файла графического редактора. Если вы используете GIMP, рекомендуется использовать &apos;gimp-remote&apos; для открытия файлов в той же сессии GIMP.</translation>
-    </message>
-    <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation type="obsolete">Путь к интерпретатору GhostScript в системе.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
@@ -11597,10 +11604,6 @@ External Links
         <translation>Другой...</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="obsolete">Шрифт %1 (найден при помощи fontconfig) поломан и не будет использован</translation>
-    </message>
-    <message>
         <source>Scribus Development Version</source>
         <translation>Нестабильная версия Scribus</translation>
     </message>
@@ -12299,11 +12302,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>Не удалось открыть файл %1</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation>Этот файл не распознаётся как данные в формате PDB. Если ошибки с форматом нет, сообщите о возникшей сложности разработчикам Scribus.</translation>
-    </message>
-    <message>
         <source>Word Documents</source>
         <translation>Документы MS Word</translation>
     </message>
@@ -12319,6 +12317,27 @@ is not exhaustive due to exceptions from called functions.
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>Арабский</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Эстонский</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>Исландский</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 может быть испорчен : отсутствуют тэги разрешения</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>Этот файл не похож на документ PDB. Если вы уверены, что это ошибка Scribus, сообщите о ней разработчикам.</translation>
     </message>
 </context>
 <context>
@@ -13094,6 +13113,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Объект %1 сейчас изменяется в редакторе текста. Его невозможно удалить</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation>Произошла ошибка при открытии ICC-профилей, управление цветом не включено.</translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -13555,6 +13578,10 @@ Vertical shift: %3</source>
         <source>Contents</source>
         <translation>Содержание</translation>
     </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>&amp;Лигатура</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -13645,6 +13672,10 @@ Vertical shift: %3</source>
     <message>
         <source>Issues</source>
         <translation>Проблемы</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Показать окно консоли</translation>
     </message>
 </context>
 <context>
@@ -14395,10 +14426,6 @@ Vertical shift: %3</source>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation>Подчёркивание</translation>
-    </message>
-    <message>
         <source>Small Caps</source>
         <translation>Капитель</translation>
     </message>
@@ -14411,25 +14438,28 @@ Vertical shift: %3</source>
         <translation>Верхний индекс</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Вычеркнутый текст</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation>Подчеркнуть только слова</translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation>Все капителью</translation>
     </message>
     <message>
-        <source>Shadow</source>
-        <translation>Тень</translation>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Подчёркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation>Контур</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Подчёркнуты только слова. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Вычеркнутый текст. Подержите кнопку нажатой для указания толщины линии и смещения.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Контур. Подержите кнопку нажатой для указания толщины штриха контура.</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Оттенённый текст. Подержите кнопку нажатой для указания смещения.</translation>
     </message>
 </context>
 <context>
