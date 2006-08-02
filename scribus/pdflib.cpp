@@ -4502,6 +4502,7 @@ void PDFlib::PDF_xForm(double w, double h, QString im)
 	PutDoc("/Length "+QString::number(im.length())+"\n");
 	PutDoc(">>\nstream\n"+EncStream(im, ObjCounter-1)+"\nendstream\nendobj\n");
 	Seite.XObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
+	ResCount++;
 }
 
 void PDFlib::PDF_Form(const QString& im)
