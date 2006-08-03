@@ -1840,8 +1840,10 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 		}
 	}
 	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
-	// FIXME dirty hack to get over my problem. I wish i didn't break all other systems
-	QString fcolor = it->attribute("CCOLOR").utf8();
+	QString fcolor = it->attribute("CCOLOR");
+	fcolor.squeeze(); // less ugly version for my problme, for some reason if the capacity of
+	                  // a string was more than the actual lenth of the string that caused huge
+	                  // slowdowns here. squeeze() will remove any unused capacity from the QString
 	int extra;
 	if (it->hasAttribute("CEXTRA"))
 		extra = qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0);
@@ -1851,7 +1853,8 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int style = it->attribute("CSTYLE").toInt();
 	int ab = it->attribute("CAB", "0").toInt();
 	// FIXME dirty hack to get over my problem. I wish i didn't break all other systems
-	QString stroke = it->attribute("CSTROKE", CommonStrings::None).utf8();
+	QString stroke = it->attribute("CSTROKE", CommonStrings::None);
+	stroke.squeeze(); // see fcolor.squeeze() comment
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
 	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
