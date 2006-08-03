@@ -420,7 +420,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		options.doOverprint = false;
 		bool done = winPrint.gdiPrintPreview(doc, page, &image, options, Res / 72.0);
 		if ( done )
-			image.save( prefsManager->preferencesLocation()+"/sc.png", "PNG" );
+			image.save( ScPaths::getTempFileDir() + "/sc.png", "PNG" );
 		return (done ? 0 : 1);
 	}
 #endif
@@ -432,7 +432,7 @@ int PPreview::RenderPreview(int Seite, int Res)
 		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, true);
 		if (dd != NULL)
 		{
-			dd->PS_set_file(prefsManager->preferencesLocation()+"/tmp.ps");
+			dd->PS_set_file( ScPaths::getTempFileDir() + "/tmp.ps");
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
@@ -486,10 +486,10 @@ int PPreview::RenderPreview(int Seite, int Res)
 		args.append( cmd1 );
 	// then add any final args and call gs
 	if ((EnableCMYK->isChecked()) && (HaveTiffSep == 0))
-		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif")) );
+		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
 	else
-		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.png")) );
-	args.append( QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") );
+		args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.png")) );
+	args.append( QDir::convertSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
 	args.append( "-c" );
 	args.append( "showpage" );
 	args.append( "-c" );
@@ -512,7 +512,7 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, true);
 		if (dd != NULL)
 		{
-			dd->PS_set_file(prefsManager->preferencesLocation()+"/tmp.ps");
+			dd->PS_set_file(ScPaths::getTempFileDir()+"/tmp.ps");
 			std::vector<int> pageNs;
 			pageNs.push_back(Seite+1);
 			QStringList spots;
@@ -547,9 +547,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 		cmd += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
 	if( !cmd.isEmpty() )
 		args1.append( cmd );
-	args1.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif")) );
+	args1.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif")) );
 
-	args2.append( QDir::convertSeparators(prefsManager->preferencesLocation()+"/tmp.ps") );
+	args2.append( QDir::convertSeparators(ScPaths::getTempFileDir()+"/tmp.ps") );
 	args2.append("-c");
 	args2.append("quit");
 
@@ -570,9 +570,9 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	args3.append(cmd);
 
 	args3.append("-f");
-	ret = System(args1 + args3 + args2, prefsManager->preferencesLocation()+"/sc.tif.txt" );
+	ret = System(args1 + args3 + args2, ScPaths::getTempFileDir()+"/sc.tif.txt" );
 
-	QFile sepInfo(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif.txt"));
+	QFile sepInfo(QDir::convertSeparators(ScPaths::getTempFileDir()+"/sc.tif.txt"));
 	sepsToFileNum.clear();
 	if (sepInfo.open(IO_ReadOnly))
 	{
@@ -705,25 +705,25 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(255, 0, 0, 0));
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(0, 255, 0, 0));
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
 			QMap<QString, int>::Iterator sepit;
@@ -733,9 +733,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				{
 					QString fnam;
 					if (GsMinor < 54)
-						fnam = QString(prefsManager->preferencesLocation()+"/sc.tif.s%1.tif").arg(sepit.data());
+						fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.data());
 					else
-						fnam = QString(prefsManager->preferencesLocation()+"/sc.s%1.tif").arg(sepit.data());
+						fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.data());
 					im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode);
 					blendImages(image, im, doc->PageColors[sepit.key()]);
 				}
@@ -744,9 +744,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				CMSettings cms(doc, "", 0);
 				if (GsMinor < 54)
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
 			for( int yi=0; yi < h2; ++yi )
@@ -776,7 +776,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			int h2 = qRound(h);
 			image = QImage(w, h2, 32);
 			QByteArray imgc(w2);
-			QFile f(prefsManager->preferencesLocation()+"/sc.png");
+			QFile f(ScPaths::getTempFileDir()+"/sc.png");
 			if (f.open(IO_ReadOnly))
 			{
 				for (int y=0; y < h2; ++y )
@@ -811,7 +811,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	}
 	else
 	{
-		image.load(prefsManager->preferencesLocation()+"/sc.png");
+		image.load(ScPaths::getTempFileDir()+"/sc.png");
 		image = image.convertDepth(32);
 		if ((AliasTr->isChecked()) && (HavePngAlpha == 0))
 		{
