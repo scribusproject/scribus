@@ -31,6 +31,8 @@ public:
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
+	void toSelection(const QString &styleName) const;
+	QString newStyle();
 	void apply();
 	void editMode(bool isOn);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
@@ -98,6 +100,8 @@ public:
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
+	void toSelection(const QString &styleName) const;
+	QString newStyle();
 	void apply();
 	void editMode(bool isOn);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);

@@ -111,7 +111,7 @@
                             <enum>AutoOneFit</enum>
                         </property>
                         <property name="selectionMode">
-                            <enum>Extended</enum>
+                            <enum>Multi</enum>
                         </property>
                         <property name="itemMargin">
                             <number>0</number>
@@ -146,6 +146,14 @@
                     <widget class="QFrame">
                         <property name="name">
                             <cstring>editButtonsFrame</cstring>
+                        </property>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>1</hsizetype>
+                                <vsizetype>5</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
                         </property>
                         <property name="frameShape">
                             <enum>NoFrame</enum>
@@ -320,14 +328,14 @@
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>356</width>
+                            <width>0</width>
                             <height>20</height>
                         </size>
                     </property>
                 </spacer>
                 <widget class="QToolButton">
                     <property name="name">
-                        <cstring>buttonOk</cstring>
+                        <cstring>okButton</cstring>
                     </property>
                     <property name="sizePolicy">
                         <sizepolicy>
@@ -377,7 +385,7 @@
                 </widget>
                 <widget class="QToolButton">
                     <property name="name">
-                        <cstring>buttonCancel</cstring>
+                        <cstring>resetButton</cstring>
                     </property>
                     <property name="sizePolicy">
                         <sizepolicy>
@@ -435,38 +443,12 @@
         <receiver>SMBase</receiver>
         <slot>slotNameChanged(const QString&amp;)</slot>
     </connection>
-    <connection>
-        <sender>styleView</sender>
-        <signal>selectionChanged()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotStyleChanged()</slot>
-    </connection>
-    <connection>
-        <sender>styleView</sender>
-        <signal>clicked(QListViewItem*)</signal>
-        <receiver>SMBase</receiver>
-        <slot>itemClicked(QListViewItem*)</slot>
-    </connection>
-    <connection>
-        <sender>buttonOk</sender>
-        <signal>clicked()</signal>
-        <receiver>SMBase</receiver>
-        <slot>slotOk()</slot>
-    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">scrpalettebase.h</include>
 </includes>
 <slots>
-    <slot access="private">slotNew()</slot>
-    <slot access="private">slotClone()</slot>
-    <slot access="private">slotDelete()</slot>
-    <slot access="private">slotApply()</slot>
-    <slot access="private">slotStyleChanged()</slot>
-    <slot>slotPageChanged(QWidget*)</slot>
     <slot access="private">slotNameChanged(const QString&amp;)</slot>
-    <slot access="protected">slotOk()</slot>
-    <slot access="private">itemClicked(QListViewItem*)</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>

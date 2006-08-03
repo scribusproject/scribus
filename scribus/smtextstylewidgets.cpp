@@ -54,6 +54,7 @@ void SMPStyleWidget::setupDistances()
 	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
 	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
 	distancesBoxLayout->addMultiCellWidget(lineSpacingMode_, 0, 0, 1, 3);
+	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
 	pixmapLabel0 = new QLabel(distancesBox, "pixmapLabel0");
 	pixmapLabel0->setMinimumSize(QSize(22,22));
@@ -83,6 +84,14 @@ void SMPStyleWidget::setupDistances()
 
 	alignement_ = new AlignSelect(distancesBox);
 	distancesBoxLayout->addMultiCellWidget(alignement_, 3,3,1,3);
+}
+
+void SMPStyleWidget::slotLineSpacingModeChanged(int i)
+{
+	if (i == 0)
+		lineSpacing_->setEnabled(true);
+	else
+		lineSpacing_->setEnabled(false);
 }
 
 void SMPStyleWidget::languageChange()

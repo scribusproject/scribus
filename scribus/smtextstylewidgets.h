@@ -77,6 +77,9 @@ private:
 	void setupTabs();
 	void setupCharStyle();
 	void setupCStyleCombo(QValueList<CharStyle> &cstyles);
+
+private slots:
+	void slotLineSpacingModeChanged(int);
 	
 	friend class SMParagraphStyle;
 };

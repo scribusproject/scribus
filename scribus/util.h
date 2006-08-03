@@ -151,6 +151,7 @@ void SCRIBUS_API parsePagesString(QString pages, std::vector<int>* pageNs, int s
 
 #ifndef NLS_CONFORMANCE
 int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle);
+int SCRIBUS_API findParagraphStyle(ScribusDoc* doc, const QString &name);
 #endif
 
 /*! \brief painting the QCheckBox as pixmap.

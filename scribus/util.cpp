@@ -1516,6 +1516,19 @@ int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 	}
 }
 
+int findParagraphStyle(ScribusDoc* doc, const QString &name)
+{
+	for (uint i=0; i < doc->docParagraphStyles.count(); ++i)
+	{
+		if (name == doc->docParagraphStyles[i].name()) {
+			return i;
+		}
+	}
+	assert(false);
+	return -1;
+}
+
+
 QPixmap getQCheckBoxPixmap(const bool checked, const QColor background)
 {
 	QCheckBox *tmpItem = new QCheckBox("", 0, "tmpItem");

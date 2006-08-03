@@ -44,9 +44,6 @@ signals:
 protected:
 	void hideEvent(QHideEvent *e);
 
-protected slots:
-    virtual void slotOk();
-
 private:
 	QPtrList<StyleItem> items_;
 	StyleItem          *item_;
@@ -63,23 +60,34 @@ private:
 	QValueList<int>     editSizes_;
 	QValueList<int>     noEditSizes_;
 
+	static const int    NAME_COL     = 0;
+	static const int    SHORTCUT_COL = 1;
+
 	void insertShortcutPage(QTabWidget *twidget);
 
+	// QPair.first will be the type name (null if nothing is selected or
+	// if there are styles from more than one type in the selection)
+	// QPair.second will be the selected styles
+	QPair<QString, QStringList> namesFromSelection();
+	void loadType(const QString &name);
+	void addNewType(StyleItem *item);
+
 private slots:
+	void slotOk();
 	void slotApply();
 	void slotDelete();
 	void slotImport();
 	void slotClone();
 	void slotNew();
-	void slotPageChanged(QWidget*);
-	void slotNewType(StyleItem *item);
-	void slotStyleChanged();
+	void slotNewPopup(int);
+
 	void slotNameChanged(const QString& name);
-	void slotSelectionChanged();
-    void itemClicked(QListViewItem *item);
+	void slotSetupWidget();
+	void slotApplyStyle(QListViewItem *item);
+	void slotDocSelectionChanged();
+
 	void slotDirty();
 	void slotClean();
-	void slotNewPopup(int);
 };
 
 class StyleViewItem : public QListViewItem

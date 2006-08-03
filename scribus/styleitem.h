@@ -97,6 +97,19 @@ public:
 	 */
 	virtual QString fromSelection() const = 0;
 
+	/** 
+	 * @brief Apply style called styleName to the documents current selection
+	 * @param styleName name of the style to be applied to the documents current selection
+	 */
+	virtual void toSelection(const QString &styleName) const = 0;
+
+	/**
+	 * @brief Create a new temp. style with default values and return the
+	 * @brief name of the newly created style.
+	 * @return name of the created style
+	 */
+	virtual QString newStyle() = 0;
+
 	/**
 	 * @brief apply changes made to the currently selected style(s)
 	 *
@@ -124,6 +137,9 @@ public:
 	virtual void nameChanged(const QString &newName) = 0;
 
 	virtual void languageChange() = 0;
+
+	// do not implement this in derived classes
+	QString typeName() { return typeNamePlural(); };
 
 /*
 	Emit this signal when selection has been edited. SM knows to highlight the

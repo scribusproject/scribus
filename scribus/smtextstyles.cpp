@@ -72,7 +72,7 @@ QValueList<StyleName> SMParagraphStyle::styles()
 
 	reloadTmpStyles();
 
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	for (uint i = 5 /* err */; i < tmpStyles_.count(); ++i)
 	{
 		if (tmpStyles_[i].hasName())
 		{
@@ -98,7 +98,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 {
 	selection_.clear();
 	selectionIsDirty_ = false;
-	removeConnections();
+	removeConnections(); // we don't want to record changes during style setup
 	if (styleNames.count() == 1)
 	{
 		QValueList<CharStyle> cstyles = getCharStyles();
@@ -132,21 +132,58 @@ QString SMParagraphStyle::fromSelection() const
 	Q_ASSERT(doc_ && doc_->m_Selection);
 	QString lsName = QString::null;
 
-// 	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
-// 	{
-// 		PageItem *item = doc_->m_Selection->itemAt(i);
-// 		QString tmpName = item->currentStyle().displayName();
-// 		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
-// 		{
-// 			lsName = item->customLineStyle();
-// 		}
-// 		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
-// 		{
-// 			lsName = QString::null;
-// 			break;
-// 		}
-// 	}
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	{
+		// wth is going on here
+		PageItem *item = doc_->m_Selection->itemAt(i);
+		ParagraphStyle pstyle(item->currentStyle());
+		int index = pstyle.parent() ? 
+			findParagraphStyle(doc_, *dynamic_cast<const ParagraphStyle*>(pstyle.parent())) : 0;
+
+		QString tmpName = doc_->docParagraphStyles[index].name();
+
+		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+		{
+			lsName = tmpName;
+		}
+		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+		{
+			lsName = QString::null;
+			break;
+		}
+	}
 	return lsName;
+}
+
+void SMParagraphStyle::toSelection(const QString &styleName) const
+{
+	Q_ASSERT(doc_ && doc_->m_Selection);
+
+	if (doc_->m_Selection->isEmpty())
+		return; // nowhere to apply
+
+	int index = findParagraphStyle(doc_, styleName);
+	Q_ASSERT(index > -1);
+	if (index < 0)
+		return;
+
+	doc_->currentStyle = doc_->docParagraphStyles[index];
+	doc_->itemSelection_SetParagraphStyle(index);
+
+	PageItem *currItem = doc_->m_Selection->itemAt(0);
+
+	doc_->scMW()->setTBvals(currItem);
+	doc_->scMW()->slotDocCh();
+}
+
+QString SMParagraphStyle::newStyle()
+{
+	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+	QString s = tr("New Style");
+	// i suppose this is the default style to get the default attributes in
+	tmpStyles_.append(ParagraphStyle(doc_->docParagraphStyles[0]));
+	tmpStyles_.last().setName(s);
+	return s;
 }
 
 void SMParagraphStyle::apply()
@@ -180,8 +217,11 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 
 void SMParagraphStyle::languageChange()
 {
-	pwidget_->languageChange();
-	pwidget_->cpage->languageChange();
+	if (pwidget_)
+	{
+		pwidget_->languageChange();
+		pwidget_->cpage->languageChange();
+	}
 }
 
 void SMParagraphStyle::reloadTmpStyles()
@@ -739,6 +779,22 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 QString SMCharacterStyle::fromSelection() const
 {
 	return QString::null;
+}
+
+void SMCharacterStyle::toSelection(const QString &styleName) const
+{
+	
+}
+
+QString SMCharacterStyle::newStyle()
+{
+	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+
+	QString s = tr("New Style");
+	// fetching default values now from here
+	tmpStyles_.append(CharStyle(doc_->docParagraphStyles[0].charStyle()));
+	tmpStyles_.last().setName(s);
+	return s;
 }
 
 void SMCharacterStyle::apply()

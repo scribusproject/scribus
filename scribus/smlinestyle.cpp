@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorm.h"
 #include "util.h"
 #include "selection.h"
+#include "scribusview.h"
 #include <qheader.h>
 #include <qlineedit.h>
 #include <qlistview.h>
@@ -283,6 +284,26 @@ QString SMLineStyle::fromSelection() const
 		}
 	}
 	return lsName;
+}
+
+void SMLineStyle::toSelection(const QString &styleName) const
+{
+	Q_ASSERT(doc_ && doc_->m_Selection);
+
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	{
+		if (styleName == QString::null)
+			doc_->m_Selection->itemAt(i)->setCustomLineStyle("");
+		else
+			doc_->m_Selection->itemAt(i)->setCustomLineStyle(styleName);
+
+		doc_->view()->RefreshItem(doc_->m_Selection->itemAt(i));
+	}
+}
+
+QString SMLineStyle::newStyle()
+{
+	
 }
 
 void SMLineStyle::apply()

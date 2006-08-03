@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfont.h>
 #include <qpainter.h>
 #include <qtooltip.h>
+#include <qpair.h>
 
 StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true)
 {
@@ -41,10 +42,12 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	newPopup_ = new QPopupMenu(newButton, "newPopup_");
 	newButton->setPopup(newPopup_);
 
-	connect(newPopup_, SIGNAL(highlighted(int)), this, SLOT(slotNewPopup(int)));
-	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(slotClean()));
+	connect(newPopup_, SIGNAL(activated(int)), this, SLOT(slotNewPopup(int)));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
+	connect(resetButton, SIGNAL(clicked()), this, SLOT(slotClean()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(slotApply()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
+	connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
 	languageChange();
 	slotOk();
@@ -54,18 +57,18 @@ void StyleManager::languageChange()
 {
 	nameLabel->setText(tr("Name:"));
 
-	buttonCancel->setText(tr("&Reset"));
+	resetButton->setText(tr("&Reset"));
 	applyButton->setText(tr("&Apply"));
-	buttonOk->setText(isEditMode_ ? tr("<< &Done") : tr("&Edit >>"));
+	okButton->setText(isEditMode_ ? tr("<< &Done") : tr("&Edit >>"));
 	newButton->setText(tr("&New"));
 	importButton->setText(tr("&Import"));
 	cloneButton->setText(tr("&Clone"));
 	deleteButton->setText(tr("&Delete"));
 
-	QToolTip::add(buttonCancel, tr("Reset all changes"));
+	QToolTip::add(resetButton, tr("Reset all changes"));
 	QToolTip::add(applyButton, tr("Apply all changes"));
 	if (isEditMode_)
-		QToolTip::add(buttonOk, tr("Apply all changes and exit edit mode"));
+		QToolTip::add(okButton, tr("Apply all changes and exit edit mode"));
 	QToolTip::add(newButton, tr("Create a new style"));
 	QToolTip::add(importButton, tr("Import styles from another document"));
 	QToolTip::add(cloneButton, tr("Clone selected style"));
@@ -83,7 +86,7 @@ void StyleManager::languageChange()
 
 	styleView->clear();
 	for (uint i = 0; i < items_.count(); ++i)
-		slotNewType(items_.at(i));
+		addNewType(items_.at(i));
 }
 
 void StyleManager::currentDoc(ScribusDoc *doc)
@@ -91,7 +94,7 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 	static bool hasBeenConnected = false;
 	if (doc && doc->m_Selection && !hasBeenConnected)
 	{
-		connect(doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotSelectionChanged()));
+		connect(doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
 		hasBeenConnected = true;
 	}
 
@@ -100,14 +103,14 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 	for (uint i = 0; i < items_.count(); ++i)
 	{
 		items_.at(i)->currentDoc(doc);
-		slotNewType(items_.at(i)); // forces a reload
+		addNewType(items_.at(i)); // forces a reload
 	}
 }
 
 void StyleManager::addStyle(StyleItem *item)
 {
 	items_.append(item);
-	slotNewType(item);
+	addNewType(item);
 	connect(item, SIGNAL(selectionDirty()), this, SLOT(slotDirty()));
 }
 
@@ -127,6 +130,9 @@ void StyleManager::slotDelete()
 		selected << it.current()->text(0);
 		++it;
 	}
+	if (selected.isEmpty())
+		return; // nothing to delete
+
 	QStringList tmp;
 	QValueList<StyleName> styles = item_->styles();
 	for (uint i = 0; i < styles.count(); ++i)
@@ -138,7 +144,8 @@ void StyleManager::slotDelete()
 			item_->deleteStyles(dia->items());
 	}
 	delete dia;
-	slotStyleChanged(); // force an update of style list
+
+	// TODO update styleView
 }
 
 
@@ -156,25 +163,66 @@ void StyleManager::slotClone()
 
 void StyleManager::slotNew()
 {
-	
+	// TODO maybe there's something more clever for this
+	newPopup_->exec(newButton->mapToGlobal(QPoint(0, newButton->height() + 2)));
 }
 
 void StyleManager::slotNewPopup(int i)
 {
-	
+	QString typeName = newPopup_->text(i);
+	for (uint i = 0; i < items_.count(); ++i)
+	{
+		if (items_.at(i)->typeNameSingular() == typeName)
+		{
+			item_ = items_.at(i);
+			break;
+		}
+	}
+	Q_ASSERT(item_);
+	QString newName = item_->newStyle();
+
+	if (newName == QString::null)
+		return;
+
+	QListViewItem *root = 0;
+	QListViewItemIterator it(styleView, QListViewItemIterator::NotSelectable);
+	while (it.current())
+	{
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
+		{
+			if (item->text(NAME_COL) == item_->typeName())
+			{
+				root = item;
+				break;
+			}
+		}
+		++it;
+	}
+	Q_ASSERT(root);
+	styleView->clearSelection();
+	StyleViewItem *newItem = new StyleViewItem(root, newName, item_->typeName());
+	Q_CHECK_PTR(newItem);
+	newItem->setDirty(true);
+	styleView->setCurrentItem(newItem);
+	newItem->setSelected(true);
+	newItem->repaint();
+	slotSetupWidget();
 }
 
 void StyleManager::slotOk()
 {
 	if (isEditMode_)
 	{
+		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
+		styleView->setSelectionMode(QListView::Multi);
 		editSize_ = size();
 		editSizes_ = splitter->sizes();
-		buttonOk->setText(QString("%1 >>").arg(tr("&Edit")));
+		okButton->setText(QString("%1 >>").arg(tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
-		buttonCancel->hide();
+		resetButton->hide();
 		editButtonsFrame->hide();
 		isEditMode_ = false;
 		adjustSize();
@@ -185,17 +233,24 @@ void StyleManager::slotOk()
 			items_.at(i)->apply();
 			items_.at(i)->editMode(false);
 		}
-		QToolTip::remove(buttonOk);
+		QToolTip::remove(okButton);
 		slotClean();
+		slotDocSelectionChanged();
+		connect(styleView, SIGNAL(currentChanged(QListViewItem*)),
+		        this, SLOT(slotApplyStyle(QListViewItem*)));
 	}
 	else
 	{
+		disconnect(styleView, SIGNAL(currentChanged(QListViewItem*)),
+		           this, SLOT(slotApplyStyle(QListViewItem*)));
+		slotSetupWidget();
+		styleView->setSelectionMode(QListView::Extended);
 		noEditSize_ = size();
 		noEditSizes_ = splitter->sizes();
-		buttonOk->setText(QString("<< %1").arg(tr("&Done")));
+		okButton->setText(QString("<< %1").arg(tr("&Done")));
 		editFrame->show();
 		applyButton->show();
-		buttonCancel->show();
+		resetButton->show();
 		editButtonsFrame->show();
 		isEditMode_ = true;
 		adjustSize();
@@ -203,110 +258,30 @@ void StyleManager::slotOk()
 		splitter->setSizes(editSizes_);
 		for (uint i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
-		QToolTip::add(buttonOk, tr("Apply all changes and exit edit mode"));
+		QToolTip::add(okButton, tr("Apply all changes and exit edit mode"));
 		slotClean();
-		slotStyleChanged();
+		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 	}
-}
-
-void StyleManager::slotStyleChanged()
-{
-	QStringList selected;
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
-	bool twoTypes = false;
-	QString type = QString::null;
-	while (it.current()) {
-		selected << it.current()->text(0);
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
-		if (item)
-		{
-			if (type == QString::null)
-				type = item->rootName();
-			else if (type != item->rootName())
-			{
-				twoTypes = true;
-				break;
-			}
-			if (item->isDirty())
-			{
-				buttonCancel->setEnabled(true);
-				applyButton->setEnabled(true);
-			}
-			else
-			{
-				buttonCancel->setEnabled(false);
-				applyButton->setEnabled(false);
-			}
-			
-		}
-		++it;
-	}
-
-	int count = selected.count();
-	disconnect(nameEdit, SIGNAL(textChanged(const QString&)),
-	           this, SLOT(slotNameChanged(const QString&)));
-	if (twoTypes) {
-		nameEdit->setText("");
-		nameEdit->setEnabled(false);
-		widget_->setEnabled(false);
-		shortcutWidget_->setEnabled(false);
-	} else if (count > 1) {
-		nameEdit->setText(tr("More than one item selected"));
-		nameEdit->setEnabled(false);
-		widget_->setEnabled(true);
-		shortcutWidget_->setEnabled(false);
-	} else if (count == 1) {
-		nameEdit->setEnabled(true);
-		nameEdit->setText(selected[0]);
-		widget_->setEnabled(true);
-		shortcutWidget_->setEnabled(true);
-	} else {
-		if (nameEdit)
-		{
-			nameEdit->setText("");
-			nameEdit->setEnabled(false);
-		}
-		if (widget_)
-			widget_->setEnabled(false);
-		if (shortcutWidget_)
-			shortcutWidget_->setEnabled(false);
-	}
-	connect(nameEdit, SIGNAL(textChanged(const QString&)),
-	        this, SLOT(slotNameChanged(const QString&)));
-	if (item_)
-		item_->selected(selected);
 }
 
 // f.e. Line Styles --> Paragraph Styles
-void StyleManager::slotNewType(StyleItem *item)
+void StyleManager::addNewType(StyleItem *item)
 {
 	if (item) {
 		item_ = item;
 
 		QValueList<StyleName> styles = item_->styles();
-		QListViewItem *rootItem = new StyleViewItem(styleView, item_->typeNamePlural());
+		QListViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
+		rootItem->setOpen(true);
 		for (uint i = 0; i < styles.count(); ++i) // set the list of styles of this type
 		{
 			if (styles[i].second == QString::null)
-				new StyleViewItem(rootItem, styles[i].first, item_->typeNamePlural());
+				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
 			else // TODO Search the parent and insert accordingly
-				new StyleViewItem(rootItem, styles[i].first, item_->typeNamePlural());
+				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
 		}
-
-		if (widget_)
-		{   // remove the old style type's widget
-			widget_->hide();
-			layout_->remove(widget_);
-			widget_->reparent(0,0, QPoint(0,0), false);
-		}
-		// show the widget for the new style type
-		if (shortcutWidget_)
-			widget_->removePage(shortcutWidget_);
-		widget_ = item_->widget(); // show the widget for the style type
-		insertShortcutPage(widget_);
-		widget_->reparent(mainFrame, 0, QPoint(0,0), true);
-		layout_->addWidget(widget_, 0, 0);
 	}
+
 }
 
 void StyleManager::slotDirty()
@@ -320,7 +295,7 @@ void StyleManager::slotDirty()
 			item->setDirty(true);
 			item->repaint();
 			applyButton->setEnabled(true);
-			buttonCancel->setEnabled(true);
+			resetButton->setEnabled(true);
 		}
 		++it;
 	}
@@ -343,7 +318,7 @@ void StyleManager::slotClean()
 	if (isEditMode_ && item_)
 	{
 		item_->reload();
-		slotStyleChanged();
+		slotSetupWidget();
 	}
 }
 
@@ -357,11 +332,6 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 	}
 }
 
-void StyleManager::slotPageChanged(QWidget */*widget*/)
-{
-
-}
-
 void StyleManager::slotNameChanged(const QString& name)
 {
 	styleView->currentItem()->setText(0, name);
@@ -369,30 +339,70 @@ void StyleManager::slotNameChanged(const QString& name)
 		item_->nameChanged(name);
 }
 
-void StyleManager::slotSelectionChanged()
-{
-	if (isHidden())
-		return;
 
-	QString parentName = QString::null;
-	QString styleName = QString::null;
+// setups the selected type and edit widgets related to it
+void StyleManager::slotSetupWidget()
+{
+	QPair<QString, QStringList> selection = namesFromSelection();
+	QString typeName = selection.first;
+
+	if (typeName == QString::null && widget_)
+		widget_->setEnabled(false); // nothing selected or two or more different types
+	else if (!item_ || item_->typeName() != typeName || widget_ != item_->widget())
+		loadType(typeName); // new type selected
+	else if (widget_ && !widget_->isEnabled())
+		widget_->setEnabled(true);
+
+	if (typeName != QString::null)
+		item_->selected(selection.second);
+
+}
+
+void StyleManager::slotApplyStyle(QListViewItem *item)
+{
+	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
+
+	if (isEditMode_ || !sitem || sitem->isRoot())
+		return; // don't apply a style in edit mode or if there was no item/type selected
+
 	styleView->clearSelection();
 
+	if (!item_ || item_->typeName() != sitem->rootName())
+		loadType(sitem->rootName()); // load the type where we want to apply this style
+
+	Q_ASSERT(item_);
+
+	item_->toSelection(sitem->text(NAME_COL)); // apply selected style to the selection
+
+	slotDocSelectionChanged();
+}
+
+void StyleManager::slotDocSelectionChanged()
+{
+	if (isEditMode_)
+		return; // don't track changes when in edit mode
+
+	disconnect(styleView, SIGNAL(currentChanged(QListViewItem*)),
+	           this, SLOT(slotApplyStyle(QListViewItem*)));
+
+	styleView->clearSelection();
+
+	QValueList<QPair<QString, QString> > selected;
+
 	for (uint i = 0; i < items_.count(); ++i)
+		selected << QPair<QString, QString>(items_.at(i)->typeName(), items_.at(i)->fromSelection());
+	
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selectable);
+	StyleViewItem *item;
+
+	while (it.current())
 	{
-		parentName = items_.at(i)->typeNamePlural();
-		styleName = items_.at(i)->fromSelection();
-		if (styleName != QString::null)
+		item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
 		{
-			QListViewItem *item = styleView->findItem(styleName, 0);
-			if (item)
+			for (uint i = 0; i < selected.count(); ++i)
 			{
-				QListViewItem *root = item->parent();
-				if (!root)
-					continue;
-				while (root->parent())
-					root = root->parent();
-				if (parentName == root->text(0))
+				if (item->rootName() == selected[i].first && item->text(NAME_COL) == selected[i].second)
 				{
 					styleView->setCurrentItem(item);
 					item->setSelected(true);
@@ -400,60 +410,79 @@ void StyleManager::slotSelectionChanged()
 				}
 			}
 		}
+		++it;
 	}
+
+	styleView->triggerUpdate();
+
+	connect(styleView, SIGNAL(currentChanged(QListViewItem*)),
+	        this, SLOT(slotApplyStyle(QListViewItem*)));
 }
 
-void StyleManager::itemClicked(QListViewItem *item)
+// QPair.first == QString::null if nothing is selected or if
+// there are items from more than one type in the selection
+// if selection is valid (only from single type) QPair.first will
+// include the type name and QPair.second will have all the selected
+// stylenames in it
+QPair<QString, QStringList> StyleManager::namesFromSelection()
 {
-	QListViewItem *root = 0;
-	StyleItem     *sitem = 0;
-	if (isEditMode_ && item)
+	QString typeName = QString::null;
+	QStringList styleNames;
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+	while (it.current())
 	{
-		root = item->parent();
-		if (root == 0)
-			root = item;
-
-		while (root->parent())
-			root = root->parent();
-		if (root)
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		if (!item)
 		{
-			for (uint i = 0; i < items_.count(); ++i)
-			{
-				if (items_.at(i)->typeNamePlural() == root->text(0))
-				{
-					sitem = items_.at(i);
-					break;
-				}
-			}
-			if (sitem)
-			{
-				if (item_ == sitem)
-					return; // no need to update anything already selected style
-				item_ = sitem;
-				if (widget_)
-				{   // remove the old style type's widget
-					widget_->hide();
-					layout_->remove(widget_);
-					widget_->reparent(0,0, QPoint(0,0), false);
-				}
-				// show the widget for the new style type
-				if (shortcutWidget_)
-					widget_->removePage(shortcutWidget_);
-				widget_ = item_->widget(); // show the widget for the style type
-				insertShortcutPage(widget_);
-				widget_->reparent(mainFrame, 0, QPoint(0,0), true);
-				layout_->addWidget(widget_, 0, 0);
-			}
+			++it;
+			continue;
+		}
+		else if (typeName == QString::null)
+			typeName = item->rootName();
+		else if (typeName != QString::null && typeName != item->rootName())
+		{
+			typeName = QString::null;
+			break; // two different types selected returning null
+		}
+
+		if (!item->isRoot())
+			styleNames << item->text(NAME_COL);
+
+		++it;
+	}
+	return QPair<QString, QStringList>(typeName, styleNames);
+}
+
+// sets the current type to name including item_ and the main widget
+// for editing styles
+void StyleManager::loadType(const QString &name)
+{
+	item_ = 0;
+	for (uint i = 0; i < items_.count(); ++i)
+	{
+		if (items_.at(i)->typeName() == name)
+		{
+			item_ = items_.at(i);
+			break;
 		}
 	}
-	else if (!isEditMode_ && item) // see if we need to apply style
-	{
-	
+
+	if (!item_)
+		return;
+
+	if (widget_)
+	{   // remove the old style type's widget
+		widget_->hide();
+		layout_->remove(widget_);
+		widget_->reparent(0,0, QPoint(0,0), false);
 	}
-	else // if (!item)
-	{
-	
-	}
+	// show the widget for the new style type
+	if (shortcutWidget_)
+		widget_->removePage(shortcutWidget_);
+	widget_ = item_->widget(); // show the widget for the style type
+	insertShortcutPage(widget_);
+	widget_->reparent(mainFrame, 0, QPoint(0,0), true);
+	layout_->addWidget(widget_, 0, 0);
 }
 
 void StyleManager::hideEvent(QHideEvent *e)
