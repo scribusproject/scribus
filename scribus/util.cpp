@@ -348,7 +348,6 @@ bool loadRawText(const QString & filename, QCString & buf)
 	QFileInfo fi(f);
 	if (fi.exists())
 	{
-		bool ret;
 		QCString tempBuf(f.size() + 1);
 		if (f.open(IO_ReadOnly))
 		{
