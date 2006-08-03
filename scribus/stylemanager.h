@@ -25,6 +25,7 @@ class QPushButton;
 class QSize;
 class ShortcutWidget;
 class QPopupMenu;
+class PrefsContext;
 
 class StyleManager : public SMBase {
 	Q_OBJECT
@@ -55,10 +56,11 @@ private:
 
 	bool                isEditMode_;
 	int                 styleWidth_;
-	QSize               editSize_;
-	QSize               noEditSize_;
-	QValueList<int>     editSizes_;
-	QValueList<int>     noEditSizes_;
+	QValueList<int>     splitterSizes_;
+	int                 height_;
+	QPoint              editPosition_;
+
+	PrefsContext       *prefs_;
 
 	static const int    NAME_COL     = 0;
 	static const int    SHORTCUT_COL = 1;
@@ -71,6 +73,8 @@ private:
 	QPair<QString, QStringList> namesFromSelection();
 	void loadType(const QString &name);
 	void addNewType(StyleItem *item);
+	void createNewStyle(const QString &typeName, const QString &fromParent = QString::null);
+	void reloadStyleView();
 
 private slots:
 	void slotOk();

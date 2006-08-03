@@ -56,6 +56,7 @@ public:
 	QString fromSelection() const;
 	void toSelection(const QString &styleName) const;
 	QString newStyle();
+	QString newStyle(const QString &fromStyle);
 	void apply();
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);

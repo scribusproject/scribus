@@ -111,6 +111,13 @@ public:
 	virtual QString newStyle() = 0;
 
 	/**
+	 * @brief Create a new temp. style which is a clone to style fromStyle.
+	 * @param fromStyle style name of the style which clone the new style is wanted to be
+	 * @return name of the created style
+	 */
+	virtual QString newStyle(const QString &fromStyle) = 0;
+
+	/**
 	 * @brief apply changes made to the currently selected style(s)
 	 *
 	 * When a user has edited a style (s)he can either cancel or apply

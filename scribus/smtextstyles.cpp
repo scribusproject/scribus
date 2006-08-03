@@ -179,10 +179,57 @@ void SMParagraphStyle::toSelection(const QString &styleName) const
 QString SMParagraphStyle::newStyle()
 {
 	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
-	QString s = tr("New Style");
+	QString s = getUniqueName(tr("New Style"));
 	// i suppose this is the default style to get the default attributes in
 	tmpStyles_.append(ParagraphStyle(doc_->docParagraphStyles[0]));
 	tmpStyles_.last().setName(s);
+	return s;
+}
+
+QString SMParagraphStyle::newStyle(const QString &fromStyle)
+{
+	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+	QString s = QString::null;
+
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	{
+		if (tmpStyles_[i].name() == fromStyle)
+		{
+			s = getUniqueName(tr("Clone of %1").arg(fromStyle));
+			tmpStyles_.append(ParagraphStyle(tmpStyles_[i]));
+			tmpStyles_.last().setName(s);
+			break;
+		}
+	}
+
+	return s;
+}
+
+// helper function to find a unique name to a new style or a clone
+QString SMParagraphStyle::getUniqueName(const QString &name)
+{
+	int id = 0;
+	bool done = false;
+	QString s = name;
+
+	while (!done)
+	{
+start:
+		++id;
+		for (uint i = 0; i < tmpStyles_.count(); ++i)
+		{
+			if (tmpStyles_[i].name() == s)
+			{
+				s = tr("%1 (%2)", "This for unique name when creating "
+						"a new character style. %1 will be the name "
+								"of the style and %2 will be a number forming "
+								"a style name like: New Style (2)").arg(name).arg(id);
+				goto start;
+			}
+		}
+		done = true;
+	}
+
 	return s;
 }
 
@@ -790,10 +837,57 @@ QString SMCharacterStyle::newStyle()
 {
 	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
 
-	QString s = tr("New Style");
+	QString s = getUniqueName(tr("New Style"));
 	// fetching default values now from here
 	tmpStyles_.append(CharStyle(doc_->docParagraphStyles[0].charStyle()));
 	tmpStyles_.last().setName(s);
+	return s;
+}
+
+QString SMCharacterStyle::newStyle(const QString &fromStyle)
+{
+	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+
+	QString s = QString::null;
+
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	{
+		if (tmpStyles_[i].name() == fromStyle)
+		{
+			s = getUniqueName(tr("Clone of %1").arg(fromStyle));
+			tmpStyles_.append(CharStyle(tmpStyles_[i]));
+			tmpStyles_.last().setName(s);
+			break;
+		}
+	}
+
+	return s;
+}
+
+QString SMCharacterStyle::getUniqueName(const QString &name)
+{
+	int id = 0;
+	bool done = false;
+	QString s = name;
+
+	while (!done)
+	{
+start:
+		++id;
+		for (uint i = 0; i < tmpStyles_.count(); ++i)
+		{
+			if (tmpStyles_[i].name() == s)
+			{
+				s = tr("%1 (%2)", "This for unique name when creating "
+						"a new character style. %1 will be the name "
+								"of the style and %2 will be a number forming "
+								"a style name like: New Style (2)").arg(name).arg(id);
+				goto start;
+			}
+		}
+		done = true;
+	}
+
 	return s;
 }
 

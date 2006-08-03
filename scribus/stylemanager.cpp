@@ -13,6 +13,9 @@ for which a new license (GPL+exception) is in place.
 #include "smreplacedia.h"
 #include "styleitem.h"
 #include "selection.h"
+#include "prefsmanager.h"
+#include "prefsfile.h"
+#include "prefscontext.h"
 #include <qheader.h>
 #include <qlabel.h>
 #include <qlistview.h>
@@ -34,19 +37,30 @@ for which a new license (GPL+exception) is in place.
 StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true)
 {
 	splitter->setMinimumWidth(0);
+	splitter->setResizeMode(leftFrame, QSplitter::KeepSize);
+	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
 	styleView->header()->hide();
 	layout_ = new QGridLayout(mainFrame);
-	resize(QSize(500, 400));
-	noEditSize_ = QSize(166, 400);
-	noEditSizes_ = splitter->sizes();
 	newPopup_ = new QPopupMenu(newButton, "newPopup_");
 	newButton->setPopup(newPopup_);
+	QString pname(name);
+	if (pname == QString::null || pname.length() == 0 || pname.isEmpty())
+		pname = "styleManager";
+	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
+	isEditMode_ = !prefs_->getBool("isEditMode", false);
+	splitterSizes_ << prefs_->getInt("Splitter1W", 190);
+	splitterSizes_ << prefs_->getInt("Splitter2W", 472);
+	height_ = prefs_->getInt("SplitterH", 440);
+	editPosition_.setX(prefs_->getInt("eX", x()));
+	editPosition_.setY(prefs_->getInt("eY", y()));
+	adjustSize();
 
 	connect(newPopup_, SIGNAL(activated(int)), this, SLOT(slotNewPopup(int)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(slotClean()));
 	connect(applyButton, SIGNAL(clicked()), this, SLOT(slotApply()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(slotDelete()));
+	connect(cloneButton, SIGNAL(clicked()), this, SLOT(slotClone()));
 	connect(newButton, SIGNAL(clicked()), this, SLOT(slotNew()));
 
 	languageChange();
@@ -157,7 +171,19 @@ void StyleManager::slotImport()
 
 void StyleManager::slotClone()
 {
-	
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+	QValueList<QPair<QString, QString> > names;
+
+	while (it.current())
+	{ // can't create styles here cause createNewStyle() alters the selection
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
+			names << QPair<QString, QString>(item->rootName(), item->text(NAME_COL));
+		++it;
+	}
+
+	for (uint i = 0; i < names.count(); ++i)
+		createNewStyle(names[i].first, names[i].second);
 }
 
 
@@ -170,6 +196,12 @@ void StyleManager::slotNew()
 void StyleManager::slotNewPopup(int i)
 {
 	QString typeName = newPopup_->text(i);
+	
+	createNewStyle(typeName);
+}
+
+void StyleManager::createNewStyle(const QString &typeName, const QString &fromParent)
+{
 	for (uint i = 0; i < items_.count(); ++i)
 	{
 		if (items_.at(i)->typeNameSingular() == typeName)
@@ -179,7 +211,9 @@ void StyleManager::slotNewPopup(int i)
 		}
 	}
 	Q_ASSERT(item_);
-	QString newName = item_->newStyle();
+
+	QString newName = fromParent == QString::null ?
+			item_->newStyle() : item_->newStyle(fromParent);
 
 	if (newName == QString::null)
 		return;
@@ -208,6 +242,8 @@ void StyleManager::slotNewPopup(int i)
 	newItem->setSelected(true);
 	newItem->repaint();
 	slotSetupWidget();
+	nameEdit->setFocus();
+	nameEdit->selectAll();
 }
 
 void StyleManager::slotOk()
@@ -217,17 +253,17 @@ void StyleManager::slotOk()
 		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
 		styleView->setSelectionMode(QListView::Multi);
-		editSize_ = size();
-		editSizes_ = splitter->sizes();
 		okButton->setText(QString("%1 >>").arg(tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
 		resetButton->hide();
 		editButtonsFrame->hide();
+		rightFrame->hide();
 		isEditMode_ = false;
 		adjustSize();
-		resize(noEditSize_);
-		splitter->setSizes(noEditSizes_);
+		splitter->setSizes(splitterSizes_);
+		resize(splitter->width(), height_);
+		move(editPosition_);
 		for (uint i = 0; i < items_.count(); ++i)
 		{
 			items_.at(i)->apply();
@@ -236,6 +272,12 @@ void StyleManager::slotOk()
 		QToolTip::remove(okButton);
 		slotClean();
 		slotDocSelectionChanged();
+		splitterSizes_ = splitter->sizes();
+		prefs_->set("Splitter1W", splitterSizes_[0]);
+		prefs_->set("Splitter2W", splitterSizes_[1]);
+		height_ = height();
+		prefs_->set("SplitterH", height_);
+		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(currentChanged(QListViewItem*)),
 		        this, SLOT(slotApplyStyle(QListViewItem*)));
 	}
@@ -245,21 +287,30 @@ void StyleManager::slotOk()
 		           this, SLOT(slotApplyStyle(QListViewItem*)));
 		slotSetupWidget();
 		styleView->setSelectionMode(QListView::Extended);
-		noEditSize_ = size();
-		noEditSizes_ = splitter->sizes();
+		editPosition_.setX(x());
+		editPosition_.setY(y());
+		prefs_->set("eX", x());
+		prefs_->set("eY", y());
 		okButton->setText(QString("<< %1").arg(tr("&Done")));
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
 		editButtonsFrame->show();
+		rightFrame->show();
 		isEditMode_ = true;
 		adjustSize();
-		resize(editSize_);
-		splitter->setSizes(editSizes_);
+		splitter->setSizes(splitterSizes_);
+		resize(splitter->width(), height_);
 		for (uint i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
 		QToolTip::add(okButton, tr("Apply all changes and exit edit mode"));
 		slotClean();
+		splitterSizes_ = splitter->sizes();
+		prefs_->set("Splitter1W", splitterSizes_[0]);
+		prefs_->set("Splitter2W", splitterSizes_[1]);
+		height_ = height();
+		prefs_->set("SplitterH", height_);
+		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 	}
 }
@@ -317,9 +368,54 @@ void StyleManager::slotClean()
 
 	if (isEditMode_ && item_)
 	{
-		item_->reload();
+		reloadStyleView();
 		slotSetupWidget();
 	}
+}
+
+void StyleManager::reloadStyleView()
+{
+	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+	QValueList<QPair<QString, QString> > selected;
+
+	while (it.current())
+	{
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+		if (item)
+			selected << QPair<QString, QString>(item->rootName(), item->text(NAME_COL));
+		++it;
+	}
+
+	styleView->clear();
+	if (item_)
+		item_->reload();
+
+	for (uint i = 0; i < items_.count(); ++i)
+		addNewType(items_.at(i));
+
+	QListViewItemIterator it2(styleView, QListViewItemIterator::Selectable);
+
+	while (it2.current())
+	{
+		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it2.current());
+		if (item)
+		{
+			for (uint i = 0; i < selected.count(); ++i)
+			{
+				if (selected[i].first == item->rootName() &&
+				    selected[i].second == item->text(NAME_COL))
+				{
+					item->setDirty(false);
+					styleView->setCurrentItem(item);
+					item->setSelected(true);
+					break;
+				}
+			}
+		}
+		++it2;
+	}
+
+	styleView->repaint();
 }
 
 void StyleManager::insertShortcutPage(QTabWidget *twidget)
@@ -353,9 +449,29 @@ void StyleManager::slotSetupWidget()
 	else if (widget_ && !widget_->isEnabled())
 		widget_->setEnabled(true);
 
+	disconnect(nameEdit, SIGNAL(textChanged(const QString&)),
+	           this, SLOT(slotNameChanged(const QString&)));
 	if (typeName != QString::null)
+	{
+		if (selection.second.count() > 1)
+		{
+			nameEdit->setText("More than one style selected");
+			nameEdit->setEnabled(false);
+		}
+		else
+		{
+			nameEdit->setText(selection.second[0]);
+			nameEdit->setEnabled(true);
+		}
 		item_->selected(selection.second);
-
+	}
+	else
+	{
+		nameEdit->setText("");
+		nameEdit->setEnabled(false);
+	}
+	connect(nameEdit, SIGNAL(textChanged(const QString&)),
+	        this, SLOT(slotNameChanged(const QString&)));
 }
 
 void StyleManager::slotApplyStyle(QListViewItem *item)
@@ -487,6 +603,17 @@ void StyleManager::loadType(const QString &name)
 
 void StyleManager::hideEvent(QHideEvent *e)
 {
+	splitterSizes_ = splitter->sizes();
+	prefs_->set("Splitter1W", splitterSizes_[0]);
+	prefs_->set("Splitter2W", splitterSizes_[1]);
+	height_ = height();
+	prefs_->set("SplitterH", height_);
+	prefs_->set("isEditMode", isEditMode_);
+	if (isEditMode_)
+	{
+		prefs_->set("eX", x());
+		prefs_->set("eY", y());
+	}
 	SMBase::hideEvent(e);
 	emit closed();
 }

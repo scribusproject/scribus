@@ -33,6 +33,7 @@ public:
 	QString fromSelection() const;
 	void toSelection(const QString &styleName) const;
 	QString newStyle();
+	QString newStyle(const QString &fromStyle);
 	void apply();
 	void editMode(bool isOn);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
@@ -54,6 +55,7 @@ private:
 	void updateStyleList();
 	void reloadTmpStyles();
 	QValueList<CharStyle> getCharStyles();
+	QString getUniqueName(const QString &name);
 
 private slots:
 	// pstyle
@@ -102,6 +104,7 @@ public:
 	QString fromSelection() const;
 	void toSelection(const QString &styleName) const;
 	QString newStyle();
+	QString newStyle(const QString &fromStyle);
 	void apply();
 	void editMode(bool isOn);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
@@ -122,6 +125,7 @@ private:
 	void reloadTmpStyles();
 	void setupConnections();
 	void removeConnections();
+	QString getUniqueName(const QString &name);
 
 private slots:
 	void slotFontSize();

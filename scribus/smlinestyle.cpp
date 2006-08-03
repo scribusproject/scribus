@@ -303,7 +303,12 @@ void SMLineStyle::toSelection(const QString &styleName) const
 
 QString SMLineStyle::newStyle()
 {
-	
+	return QString::null;
+}
+
+QString SMLineStyle::newStyle(const QString &fromStyle)
+{
+	return QString::null;
 }
 
 void SMLineStyle::apply()
