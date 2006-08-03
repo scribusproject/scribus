@@ -39,6 +39,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	splitter->setMinimumWidth(0);
 	splitter->setResizeMode(leftFrame, QSplitter::KeepSize);
 	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
+	rightFrame->hide();
 	styleView->header()->hide();
 	layout_ = new QGridLayout(mainFrame);
 	newPopup_ = new QPopupMenu(newButton, "newPopup_");
