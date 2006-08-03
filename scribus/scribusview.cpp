@@ -3639,6 +3639,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					npf.setY(Clip.point(SegP2).y() + np.y() / Scale);
 					ClRe = SegP2;
 					MoveClipPoint(currItem, npf);
+					if (EditContour)
+						Clip = currItem->ContourLine;
+					else
+						Clip = currItem->PoLine;
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
 					ClRe = SegP1;
@@ -3655,6 +3659,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						int storedClRe = ClRe;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 						{
+							if (EditContour)
+								Clip = currItem->ContourLine;
+							else
+								Clip = currItem->PoLine;
 							npf.setX(Clip.point(*SelNode.at(itm)).x() + np.x() / Scale);
 							npf.setY(Clip.point(*SelNode.at(itm)).y() + np.y() / Scale);
 							ClRe = *SelNode.at(itm);
@@ -4390,6 +4398,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					SegP1 = ClRe2;
 					SegP2 = ClRe2+2;
+					ClRe = ClRe2;
 				}
 				FPointArray cli;
 				uint EndInd = Clip.size();
@@ -5676,13 +5685,27 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
 				return true;
 		}
 	}
-	an = Start.x() > Ende.x() ? Ende : Start;
-	en = an == Ende ? Start : Ende;
-	double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
-	for (int a = an.x(); a < en.x(); ++a)
+	if (abs(Start.x() - Ende.x()) > abs(Start.y() - Ende.y()))
 	{
-		if (MArea.contains(QPoint(a, an.y()+qRound((a-an.x())*stg))))
-			return true;
+		an = Start.x() > Ende.x() ? Ende : Start;
+		en = an == Ende ? Start : Ende;
+		double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
+		for (int a = an.x(); a < en.x(); ++a)
+		{
+			if (MArea.contains(QPoint(a, an.y()+qRound((a-an.x())*stg))))
+				return true;
+		}
+	}
+	else
+	{
+		an = Start.y() > Ende.y() ? Ende : Start;
+		en = an == Ende ? Start : Ende;
+		double stg = (en.x() - an.x()) / static_cast<double>((en.y() - an.y()));
+		for (int a = an.y(); a < en.y(); ++a)
+		{
+			if (MArea.contains(QPoint(an.x()+qRound((a-an.y())*stg), a)))
+				return true;
+		}
 	}
 	return false;
 }
