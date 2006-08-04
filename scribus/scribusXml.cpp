@@ -1657,6 +1657,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			}
 			PAGE=PAGE.nextSibling();
 		}
+		doc->setMasterPageMode(false);
 		PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
