@@ -748,6 +748,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			}
 			PAGE=PAGE.nextSibling();
 		}
+		m_Doc->setMasterPageMode(false);
 		PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
