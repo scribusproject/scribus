@@ -261,7 +261,7 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 </source>
         <translation>getColumnGap([&quot;nazwa&quot;]) -&gt; float
 
-Zwraca odstęp pomiędzy szpaltami w ramce tekstowej &quot;nazwa&quot; wyrażony w punktach. 
+Zwraca odstęp pomiędzy łamami w ramce tekstowej &quot;nazwa&quot; wyrażony w punktach. 
 Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
     </message>
     <message>
@@ -272,7 +272,7 @@ given the currently selected item is used.
 </source>
         <translation>getColumns([&quot;nazwa&quot;]) -&gt; integer
 
-Zwraca ilość szpalt w ramce tekstowej &quot;nazwa&quot;. 
+Zwraca ilość łamów ramce tekstowej &quot;nazwa&quot;. 
 Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
     </message>
     <message>
@@ -353,7 +353,7 @@ May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
         <translation>setColumnGap(rozmiar, [&quot;nazwa&quot;])
 
-Przypisuje odstępowi między szpaltami w ramce &quot;nazwa&quot; wartość &quot;rozmiar&quot;. 
+Przypisuje odstępowi między łamami w ramce &quot;nazwa&quot; wartość &quot;rozmiar&quot;. 
 Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
 
 Może zwrócić błąd ValueError, jeśli odstęp między szpaltami będzie poza dopuszczalnym zakresem.</translation>
@@ -2488,6 +2488,13 @@ currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3751,7 +3758,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation>Wyświetlaj szpalty ramki tekstowej</translation>
+        <translation>Wyświetlaj łamy ramki tekstowej</translation>
     </message>
     <message>
         <source>Get Text 2...</source>
@@ -5667,18 +5674,25 @@ proszę wybrać inną nazwę.</translation>
     </message>
 </context>
 <context>
-    <name>CStyleWBase</name>
+    <name>CStylePBase</name>
     <message>
-        <source>Form2</source>
+        <source>Form1</source>
         <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation>Właściwości</translation>
     </message>
     <message>
         <source>Parent Style</source>
         <translation>Styl nadrzędny</translation>
+    </message>
+</context>
+<context>
+    <name>CStyleWBase</name>
+    <message>
+        <source>Properties</source>
+        <translation type="obsolete">Właściwości</translation>
+    </message>
+    <message>
+        <source>Parent Style</source>
+        <translation type="obsolete">Styl nadrzędny</translation>
     </message>
 </context>
 <context>
@@ -8520,6 +8534,10 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
         <source>Colorspace:</source>
         <translation>Przestrzeń barw:</translation>
     </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotone</translation>
+    </message>
 </context>
 <context>
     <name>Farbmanager</name>
@@ -9274,7 +9292,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Off</source>
-        <translation>Brak</translation>
+        <translation type="obsolete">Brak</translation>
     </message>
 </context>
 <context>
@@ -10953,11 +10971,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Ilość szpalt w ramce tekstowej</translation>
+        <translation>Ilość łamów w ramce tekstowej</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation>Ostęp pomiędzy szpaltami</translation>
+        <translation>Ostęp pomiędzy łamami</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
@@ -11045,11 +11063,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation>Przełącza pomiędzy szerokością odstępu a szerokością szpalty</translation>
+        <translation>Przełącza pomiędzy szerokością odstępu a szerokością łamu</translation>
     </message>
     <message>
         <source>Column width</source>
-        <translation>Szerokość szpalty</translation>
+        <translation>Szerokość łamu</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
@@ -11131,7 +11149,7 @@ Corners:</source>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Szp&amp;alty:</translation>
+        <translation>Ła&amp;my:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -11581,11 +11599,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Distance between automatically created columns</source>
-        <translation>Odstęp pomiędzy automatycznie tworzonymi szpaltami</translation>
+        <translation>Odstęp pomiędzy automatycznie tworzonymi łamami</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
-        <translation>Ilość szpalt w  automatycznie tworzonych ramkach tekstowych</translation>
+        <translation>Ilość łamów w  automatycznie tworzonych ramkach tekstowych</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -11629,11 +11647,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>Odstęp &amp;między szpaltami:</translation>
+        <translation>Odstęp &amp;między łamami:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Szpa&amp;lty:</translation>
+        <translation>Łam&amp;y:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -12195,11 +12213,11 @@ generowania podglądu. Dotyczy to tylko czcionek Type 1</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Wygładzanie &amp;tekstu</translation>
+        <translation type="obsolete">Wygładzanie &amp;tekstu</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Wygładzanie &amp;grafiki</translation>
+        <translation type="obsolete">Wygładzanie &amp;grafiki</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -12298,11 +12316,11 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Umożliwia ładniejszy widok tekstu w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu. Dotyczy tylko fontów Type 1</translation>
+        <translation type="obsolete">Umożliwia ładniejszy widok tekstu w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu. Dotyczy tylko fontów Type 1</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Umożliwia ładniejszy widok fontów TrueType  i OpenType, plików EPS, PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
+        <translation type="obsolete">Umożliwia ładniejszy widok fontów TrueType  i OpenType, plików EPS, PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -12329,6 +12347,26 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Force Overprint Mode</source>
         <translation>Wymuś tryb nadruku</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Włącz wy&amp;gładzanie</translation>
+    </message>
+    <message>
+        <source>Fit to Width</source>
+        <translation>Dopasuj do szerokości</translation>
+    </message>
+    <message>
+        <source>Fit to Height</source>
+        <translation>Dopasuj do wysokości</translation>
+    </message>
+    <message>
+        <source>Fit to Page</source>
+        <translation>Dopasuj do strony</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12374,7 +12412,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Character Style</source>
-        <translation>Styl znaków</translation>
+        <translation type="obsolete">Styl znaków</translation>
     </message>
     <message>
         <source>&amp;New</source>
@@ -12395,6 +12433,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Tabulators and Indentation</source>
         <translation>Tabulatory i wcięcie</translation>
+    </message>
+    <message>
+        <source>Ch&amp;aracter Style</source>
+        <translation>Styl &amp;znaków</translation>
     </message>
 </context>
 <context>
@@ -14908,7 +14950,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustalić liczby szpalt w ramce nietekstowej.</translation>
+        <translation>Nie można ustalić liczby łamów w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
@@ -14918,7 +14960,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustalić odstępu między szpaltami w ramce nietekstowej.</translation>
+        <translation>Nie można ustalić odstępu między łamami w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
@@ -15161,22 +15203,22 @@ Zewnętrzne dowiązania
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation>Odstęp między szpaltami poza dozwolonym zakresem, wartość powinna być dodatnia.</translation>
+        <translation>Odstęp między łamami poza dozwolonym zakresem, wartość powinna być dodatnia.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustawić odstępnu między szpaltami w ramce nietekstowej.</translation>
+        <translation>Nie można ustawić odstępu między łamami w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation>Ilość szpalt poza dozwolonym zakresem, powinna być  &gt; 1.</translation>
+        <translation>Ilość łamów poza dozwolonym zakresem, powinna być  &gt; 1.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustawić ilości szpalt dla ramki nietekstowej.</translation>
+        <translation>Nie można ustawić ilości łamów dla ramki nietekstowej.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
@@ -15779,7 +15821,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation type="obsolete">Font %1 jest wadliwy i zostaje odrzucony</translation>
+        <translation>Font %1 jest wadliwy i zostaje odrzucony</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
@@ -15815,7 +15857,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation>Font %1 zawiera wadliwy glif %2 (kod znaku %3) i zostaje odrzucony</translation>
+        <translation type="obsolete">Font %1 zawiera wadliwy glif %2 (kod znaku %3) i zostaje odrzucony</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
@@ -15859,7 +15901,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation>Font %1 jest wadliwy i zostaje odrzucony</translation>
+        <translation type="obsolete">Font %1 jest wadliwy i zostaje odrzucony</translation>
     </message>
     <message>
         <source> c</source>
@@ -16302,6 +16344,14 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>E</source>
         <translation>E</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 has broken glyph %2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16779,7 +16829,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="obsolete">&amp;Usuń</translation>
+        <translation>&amp;Usuń</translation>
     </message>
     <message>
         <source>Alt+D</source>
@@ -16811,7 +16861,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="obsolete">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
@@ -16834,12 +16884,32 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <translation>Alt+R</translation>
     </message>
     <message>
-        <source>dirty</source>
-        <translation type="unfinished"></translation>
+        <source>name</source>
+        <translation>nazwa</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nowy</translation>
+    </message>
+    <message>
+        <source>&amp;Clone</source>
+        <translation>K&amp;lonuj</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importuj</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation>Alt+I</translation>
     </message>
 </context>
 <context>
-    <name>SMCStyleWidget</name>
+    <name>SMCStylePage</name>
     <message>
         <source> pt</source>
         <translation>pt</translation>
@@ -16848,12 +16918,48 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source> %</source>
         <translation>%</translation>
     </message>
+    <message>
+        <source>Parent Style</source>
+        <translation>Styl nadrzędny</translation>
+    </message>
+</context>
+<context>
+    <name>SMCStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="obsolete">pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="obsolete">%</translation>
+    </message>
 </context>
 <context>
     <name>SMCharacterStyle</name>
     <message>
         <source>Character Styles</source>
         <translation>Style znaków</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation>Styl znaków</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nowy styl</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation>Klon %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation>%1 (%2)</translation>
     </message>
 </context>
 <context>
@@ -16868,6 +16974,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Line Styles</source>
+        <translation>Styl linii</translation>
+    </message>
+    <message>
+        <source>Line Style</source>
         <translation>Styl linii</translation>
     </message>
 </context>
@@ -16901,12 +17011,72 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>Distance from Text:</source>
         <translation>Odstęp od tekstu:</translation>
     </message>
+    <message>
+        <source>Parent Style</source>
+        <translation>Styl nadrzędny</translation>
+    </message>
+    <message>
+        <source>Distances and Alignment</source>
+        <translation>Odstępy i wyrównanie</translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation>Inicjały opuszczone</translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation>Tabulatory i wcięcie</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation>Właściwości</translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation>Styl znaków</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation>Definicja użytkownika</translation>
+    </message>
+    <message>
+        <source>From parent</source>
+        <translation>Od rodzica</translation>
+    </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
     <message>
         <source>Paragraph Styles</source>
         <translation>Style akapitów</translation>
+    </message>
+    <message>
+        <source>Paragrah Style</source>
+        <translation>Styl akapitu</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation>Nowy styl</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation>Klon %1</translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDia</name>
+    <message>
+        <source>Remove</source>
+        <translation>Usuń</translation>
+    </message>
+    <message>
+        <source>Replace with</source>
+        <translation>Zastąp przez</translation>
     </message>
 </context>
 <context>
@@ -16926,6 +17096,13 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Alt+N</source>
         <translation>Alt+N</translation>
+    </message>
+</context>
+<context>
+    <name>SMRowWidget</name>
+    <message>
+        <source>No Style</source>
+        <translation>Bez stylu</translation>
     </message>
 </context>
 <context>
@@ -18946,6 +19123,10 @@ Przesunięcie w pionie: %3</translation>
         <source>Paste Recent</source>
         <translation>Wklej poprzedni</translation>
     </message>
+    <message>
+        <source>Duotone</source>
+        <translation>Duotone</translation>
+    </message>
 </context>
 <context>
     <name>ScribusWin</name>
@@ -19765,7 +19946,7 @@ Przesunięcie w pionie: %3</translation>
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation>Został wybrany więcej niż jeden obiekt</translation>
+        <translation type="obsolete">Został wybrany więcej niż jeden obiekt</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
@@ -19778,6 +19959,70 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Shortcut</source>
         <translation>Skrót</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation>Nazwa:</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation>&amp;Wyzeruj</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation>&amp;Zastosuj</translation>
+    </message>
+    <message>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation>&lt;&lt; &amp;Wykonane</translation>
+    </message>
+    <message>
+        <source>&amp;Edit &gt;&gt;</source>
+        <translation>&amp;Edytuj &gt;&gt;</translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation>&amp;Nowy</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation>&amp;Importuj</translation>
+    </message>
+    <message>
+        <source>&amp;Clone</source>
+        <translation>K&amp;lonuj</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation>&amp;Usuń</translation>
+    </message>
+    <message>
+        <source>Reset all changes</source>
+        <translation>Wyzeruj wszystkie zmiany</translation>
+    </message>
+    <message>
+        <source>Apply all changes</source>
+        <translation>Zastosuj wszystkie zmiany</translation>
+    </message>
+    <message>
+        <source>Apply all changes and exit edit mode</source>
+        <translation>Zastosuj wszystkie zmiany i opuść tryb edycji</translation>
+    </message>
+    <message>
+        <source>Create a new style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import styles from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clone selected style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete selected styles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21982,11 +22227,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Szp&amp;alty:</translation>
+        <translation>Ł&amp;amy:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>Odstęp &amp;między szpaltami:</translation>
+        <translation>Odstęp &amp;między łamami:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -22130,11 +22375,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Ilość szpalt w ramce tekstowej</translation>
+        <translation>Ilość łamów w ramce tekstowej</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>Odstęp pomiędzy szpaltami w ramce tekstowej</translation>
+        <translation>Odstęp pomiędzy łamami w ramce tekstowej</translation>
     </message>
     <message>
         <source>Sample of your font</source>
