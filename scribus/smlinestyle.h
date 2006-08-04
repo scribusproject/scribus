@@ -50,7 +50,7 @@ public:
 	QString typeNamePlural();
 	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
-	QValueList<StyleName> styles();
+	QValueList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;

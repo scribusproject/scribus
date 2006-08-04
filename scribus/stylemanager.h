@@ -53,6 +53,11 @@ private:
 	ShortcutWidget     *shortcutWidget_;
 	QString             currentType_;
 	QPopupMenu         *newPopup_;
+	QPopupMenu         *rightClickPopup_;
+
+	int                 rcpDeleteId_;
+	int                 rcpCloneId_;
+	int                 rcpToScrapId_;
 
 	bool                isEditMode_;
 	int                 styleWidth_;
@@ -72,9 +77,9 @@ private:
 	// QPair.second will be the selected styles
 	QPair<QString, QStringList> namesFromSelection();
 	void loadType(const QString &name);
-	void addNewType(StyleItem *item);
+	void addNewType(StyleItem *item, bool loadFromDoc = true);
 	void createNewStyle(const QString &typeName, const QString &fromParent = QString::null);
-	void reloadStyleView();
+	void reloadStyleView(bool loadFromDoc = true); // are the styles loaded from doc or from tmp cache
 
 private slots:
 	void slotOk();
@@ -84,6 +89,8 @@ private slots:
 	void slotClone();
 	void slotNew();
 	void slotNewPopup(int);
+	void slotScrap();
+	void slotRightClick(QListViewItem *item, const QPoint &point, int col);
 
 	void slotNameChanged(const QString& name);
 	void slotSetupWidget();

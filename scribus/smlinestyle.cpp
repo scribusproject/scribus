@@ -220,7 +220,7 @@ void SMLineStyle::currentDoc(ScribusDoc *doc)
 		tmpLines = doc_->MLineStyles;
 }
 
-QValueList<StyleName> SMLineStyle::styles()
+QValueList<StyleName> SMLineStyle::styles(bool /*reloadFromDoc*/)
 {
 	QValueList<StyleName> tmp;
 	if (doc_) {

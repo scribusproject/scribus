@@ -27,7 +27,7 @@ public:
 	QString typeNamePlural();
 	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
-	QValueList<StyleName> styles();
+	QValueList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
@@ -49,6 +49,7 @@ private:
 	bool selectionIsDirty_;
 	QValueList<ParagraphStyle> tmpStyles_;
 	QValueList<ParagraphStyle*> selection_;
+	QValueList<RemoveItem> deleted_;
 
 	void setupConnections();
 	void removeConnections();
@@ -98,7 +99,7 @@ public:
 	QString typeNamePlural();
 	QString typeNameSingular();
 	void currentDoc(ScribusDoc *doc);
-	QValueList<StyleName> styles();
+	QValueList<StyleName> styles(bool reloadFromDoc = true);
 	void reload();
 	void selected(const QStringList &styleNames);
 	QString fromSelection() const;
@@ -120,6 +121,7 @@ private:
 	ScribusDoc   *doc_;
 	QValueList<CharStyle> tmpStyles_;
 	QValueList<CharStyle*> selection_;
+	QValueList<RemoveItem> deleted_;
 	bool selectionIsDirty_;
 
 	void reloadTmpStyles();

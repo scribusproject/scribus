@@ -63,14 +63,16 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 	}
 }
 
-QValueList<StyleName> SMParagraphStyle::styles()
+QValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 {
+	deleted_.clear();
 	QValueList<StyleName> tmpList;
 
 	if (!doc_)
 		return tmpList; // no doc available
 
-	reloadTmpStyles();
+	if (reloadFromDoc)
+		reloadTmpStyles();
 
 	for (uint i = 5 /* err */; i < tmpStyles_.count(); ++i)
 	{
@@ -236,6 +238,16 @@ start:
 void SMParagraphStyle::apply()
 {
 	Q_ASSERT(doc_);
+
+	for (uint i = 0; i < deleted_.count(); ++i)
+	{ // TODO apply also user defined replacement!!!
+		int index = findParagraphStyle(doc_, deleted_[i].first);
+		if (index > -1)
+		{
+			doc_->docParagraphStyles.remove(static_cast<uint>(index));
+		}
+	}
+	deleted_.clear();
 	doc_->docParagraphStyles.redefine(tmpStyles_);
 }
 
@@ -247,7 +259,26 @@ void SMParagraphStyle::editMode(bool isOn)
 
 void SMParagraphStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 {
-
+	for (uint i = 0; i < removeList.count(); ++i)
+	{
+		for (uint k = 0; k < selection_.count(); ++k)
+		{
+			if (selection_[k]->name() == removeList[i].first)
+			{
+				selection_.erase(selection_.at(k));
+				break;
+			}
+		}
+		for (uint j = 0; j < tmpStyles_.count(); ++j)
+		{
+			if (tmpStyles_[j].name() == removeList[i].first)
+			{
+				tmpStyles_.erase(tmpStyles_.at(j));
+				break;
+			}
+		}
+		deleted_.append(removeList[i]);
+	}
 }
 
 void SMParagraphStyle::nameChanged(const QString &newName)
@@ -273,6 +304,9 @@ void SMParagraphStyle::languageChange()
 
 void SMParagraphStyle::reloadTmpStyles()
 {
+	Q_ASSERT(doc_);
+	if (!doc_)
+		return;
 	selection_.clear();
 	tmpStyles_.clear();
 	StyleSet<ParagraphStyle> &tmp = doc_->docParagraphStyles;
@@ -767,14 +801,15 @@ void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 	}
 }
 
-QValueList<StyleName> SMCharacterStyle::styles()
+QValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 {
 	QValueList<StyleName> tmpList;
 
 	if (!doc_)
 		return tmpList; // no doc available
 
-	reloadTmpStyles();
+	if (reloadFromDoc)
+		reloadTmpStyles();
 
 	for (uint i = 0; i < tmpStyles_.count(); ++i)
 	{
@@ -894,6 +929,13 @@ start:
 void SMCharacterStyle::apply()
 {
 	Q_ASSERT(doc_);
+	for (uint i = 0; i < deleted_.count(); ++i)
+	{ // TODO apply also user defined replacement!!!
+		int index = doc_->docCharStyles.find(deleted_[i].first);
+		if (index > -1)
+			doc_->docCharStyles.remove(static_cast<uint>(index));
+	}
+	deleted_.clear();
 	doc_->docCharStyles.redefine(tmpStyles_);
 }
 
@@ -905,12 +947,38 @@ void SMCharacterStyle::editMode(bool isOn)
 
 void SMCharacterStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 {
-
+	for (uint i = 0; i < removeList.count(); ++i)
+	{
+		for (uint k = 0; k < selection_.count(); ++k)
+		{
+			if (selection_[k]->name() == removeList[i].first)
+			{
+				selection_.erase(selection_.at(k));
+				break;
+			}
+		}
+		for (uint j = 0; j < tmpStyles_.count(); ++j)
+		{
+			if (tmpStyles_[j].name() == removeList[i].first)
+			{
+				tmpStyles_.erase(tmpStyles_.at(j));
+				break;
+			}
+		}
+		deleted_ << removeList[i];
+	}
 }
 
 void SMCharacterStyle::nameChanged(const QString &newName)
 {
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->setName(newName);
 
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 void SMCharacterStyle::languageChange()

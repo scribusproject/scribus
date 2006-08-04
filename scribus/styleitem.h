@@ -63,9 +63,11 @@ public:
 	 * @brief existing styles in this category
 	 *
 	 * return the names of cached styles (even if those are changed)
+	 * @param reloadFromDoc should the styles be loaded from the document or
+	 * should function return currently cached and possibly changed styles
 	 * @return Name of the styles and their parent as a QValueList.
 	 */
-	virtual QValueList<StyleName> styles() = 0;
+	virtual QValueList<StyleName> styles(bool reloadFromDoc = true) = 0;
 
 	/** 
 	 * @brief Reload styles and remove all cached (and possibly changed ones).

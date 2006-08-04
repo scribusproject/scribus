@@ -64,10 +64,13 @@
                     </size>
                 </property>
                 <property name="frameShape">
-                    <enum>StyledPanel</enum>
+                    <enum>NoFrame</enum>
                 </property>
                 <property name="frameShadow">
-                    <enum>Raised</enum>
+                    <enum>Plain</enum>
+                </property>
+                <property name="lineWidth">
+                    <number>0</number>
                 </property>
                 <vbox>
                     <property name="name">
@@ -350,10 +353,13 @@
                     </size>
                 </property>
                 <property name="frameShape">
-                    <enum>StyledPanel</enum>
+                    <enum>NoFrame</enum>
                 </property>
                 <property name="frameShadow">
-                    <enum>Raised</enum>
+                    <enum>Plain</enum>
+                </property>
+                <property name="lineWidth">
+                    <number>0</number>
                 </property>
                 <vbox>
                     <property name="name">
