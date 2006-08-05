@@ -4455,21 +4455,21 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		{
 			PDF_Image(ite, ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
 			cc = QString::number(ite->pixm.width())+" 0 0 "+QString::number(ite->pixm.height())+" 0 0 cm\n";
-			cc += "/"+ResNam+QString::number(ResCount-1)+" Do";
+			cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
 			PDF_xForm(ite->pixm.width(), ite->pixm.height(), cc);
 		}
 		if (!ite->Pfile2.isEmpty())
 		{
 			PDF_Image(ite, ite->Pfile2, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
 			cc = QString::number(img.width())+" 0 0 "+QString::number(img.height())+" 0 0 cm\n";
-			cc += "/"+ResNam+QString::number(ResCount-1)+" Do";
+			cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
 			PDF_xForm(img.width(), img.height(), cc);
 		}
 		if (!ite->Pfile3.isEmpty())
 		{
 			PDF_Image(ite, ite->Pfile3, ite->imageXScale(), ite->imageYScale(), ite->imageXOffset(), -ite->imageYOffset(), true);
 			cc = QString::number(img2.width())+" 0 0 "+QString::number(img2.height())+" 0 0 cm\n";
-			cc += "/"+ResNam+QString::number(ResCount-1)+" Do";
+			cc += "/"+ResNam+"I"+QString::number(ResCount-1)+" Do";
 			PDF_xForm(img2.width(), img2.height(), cc);
 		}
 	}
@@ -5006,7 +5006,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			PutDoc(">>\nstream\n");
 			PutDoc(EncStreamArray(im2, ObjCounter-1));
 			PutDoc("\nendstream\nendobj\n");
-			Seite.ImgObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
+			Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-1;
 			ResCount++;
 		}
 		if (Options.UseRGB)
@@ -5161,7 +5161,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		PutDoc(EncStreamArray(im, ObjCounter-1));
 		PutDoc("\nendstream\nendobj\n");
 //		}
-		Seite.ImgObjects[ResNam+QString::number(ResCount)] = ObjCounter-1;
+		Seite.ImgObjects[ResNam+"I"+QString::number(ResCount)] = ObjCounter-1;
 		ImRes = ResCount;
 		ImWid = img.width();
 		ImHei = img.height();
@@ -5201,7 +5201,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 	}
 	if (!fromAN)
 	{
-		QString tmp(FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+" "+FToStr((-ImHei*syn+y*sy))+" cm\n/"+ResNam+QString::number(ImRes)+" Do\n");
+		QString tmp(FToStr(ImWid*sxn)+" 0 0 "+FToStr(ImHei*syn)+" "+FToStr(x*sx)+" "+FToStr((-ImHei*syn+y*sy))+" cm\n/"+ResNam+"I"+QString::number(ImRes)+" Do\n");
 		return tmp;
 	}
 	else

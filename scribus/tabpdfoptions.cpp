@@ -1346,7 +1346,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		EffectTime->setValue(EffVal[0].pageEffectDuration);
 		// XXX Optionen or Opts Changed here
-		if (doc->currentPageLayout == doublePage)
+/*		if (doc->currentPageLayout == doublePage)
 		{
 			if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
 				Opts.PageLayout = PDFOptions::TwoColumnLeft;
@@ -1361,7 +1361,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		{
 			if ((Opts.Version == 15) && (Opts.useLayers))
 				Opts.displayLayers = true;
-		}
+		} */
 		bool df = true;
 		if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
 			df = false;
