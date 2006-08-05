@@ -1503,7 +1503,7 @@ void TabPDFOptions::DoEffects()
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
-	useFullScreen->setChecked(setter);
+//	useFullScreen->setChecked(setter);
 }
 
 void TabPDFOptions::ValidDI(int nr)
