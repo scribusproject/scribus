@@ -71,6 +71,11 @@ const QImage& ScImage::qImage()
 	return *this;
 }
 
+QImage* ScImage::qImagePtr()
+{
+	return this;
+}
+
 QImage ScImage::smoothScale(int h, int w, QImage::ScaleMode mode) const
 {
 	return QImage::smoothScale(h,w,mode);

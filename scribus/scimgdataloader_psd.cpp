@@ -275,6 +275,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 						col2.setHsv(255 - (c >> 8), m >> 8, y >> 8);
 						col.fromQColor(col2);
 						colorTableSc.append(col);
+						qDebug("HSB as RGB = "+col.nameRGB());
 						break;
 					case 2:	// CMYK colour
 						col.setColor(c >> 8, m >> 8, y >> 8, k >> 8);

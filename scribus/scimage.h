@@ -83,6 +83,7 @@ public:
 	void initialize();
 
 	const QImage& qImage();
+	QImage* qImagePtr();
 	QImage smoothScale(int h, int w, QImage::ScaleMode mode = ScaleFree) const;
 	
 	int height() const { return QImage::height(); }

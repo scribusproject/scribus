@@ -665,6 +665,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		pageLayoutLayout->addWidget( doublePageRight );
 		LayoutSpecial->addWidget( pageLayout );
 		groupNavigation = new QButtonGroup( groupDisplay, "groupNavigation" );
+		groupNavigation->setRadioButtonExclusive(true);
 		groupNavigation->setTitle( tr( "Visual Appearance" ) );
 		groupNavigation->setColumnLayout(0, Qt::Vertical );
 		groupNavigation->layout()->setSpacing( 5 );
@@ -703,6 +704,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		fitWindow = new QCheckBox( tr( "Zoom Pages to fit Viewer Window" ), groupNavigation, "fitWindow" );
 // 		fitWindow->setChecked(Opts.fitWindow);
 		groupNavigationLayout->addWidget( fitWindow );
+		groupNavigation->setRadioButtonExclusive(true);
 		LayoutSpecial->addWidget( groupNavigation );
 		groupDisplayLayout->addLayout( LayoutSpecial );
 		tabSpecialLayout->addWidget( groupDisplay );
@@ -1365,7 +1367,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		bool df = true;
 		if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
 			df = false;
-		useViewDefault->setChecked(df);
+		if (df)
+			useViewDefault->setChecked(df);
 		useFullScreen->setChecked(Opts.displayFullscreen);
 		useBookmarks->setChecked(Opts.displayBookmarks);
 		useThumbnails->setChecked(Opts.displayThumbs);
@@ -1844,7 +1847,7 @@ void TabPDFOptions::DoEffects()
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
-	useFullScreen->setChecked(setter);
+//	useFullScreen->setChecked(setter);
 }
 
 void TabPDFOptions::ValidDI(int nr)
