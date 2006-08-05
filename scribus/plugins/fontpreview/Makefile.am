@@ -6,9 +6,9 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libfontpreview_la_LDFLAGS = -version-info 0:0:0
 libfontpreview_la_METASOURCES = AUTO
-libfontpreview_la_SOURCES = fontpreviewplugin.cpp fontpreview.cpp fontpreviewbase.cpp
+libfontpreview_la_SOURCES = fontpreviewplugin.cpp fontpreview.cpp fontpreviewbase.ui
 
-EXTRA_DIST = fontpreviewplugin.cpp fontpreviewplugin.h fontpreview.cpp fontpreview.h fontpreviewbase.cpp fontpreviewbase.h fontpreviewbase.ui
+EXTRA_DIST = fontpreviewplugin.cpp fontpreviewplugin.h fontpreview.cpp fontpreview.h fontpreviewbase.ui
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)
