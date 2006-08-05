@@ -603,7 +603,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 		QCString f;
 		if (!loadRawText(file, f))
 			return false;
-		if (qstrncmp(f.data(), "<SCRIBUSELEMUTF8", 16) == 0)
+		if (f.left(16) == "<SCRIBUSELEMUTF8")
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
@@ -632,6 +632,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 
 bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
+	QString ff = "";
 	struct CopyPasteBuffer OB;
 	ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, tmV, tmf;
@@ -651,24 +652,17 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		QCString f;
 		if (!loadRawText(fileName, f))
 			return false;
-		QString ff = "";
-		if (qstrncmp(f.data(), "<SCRIBUSELEMUTF8", 16) == 0)
+		if (f.left(16) == "<SCRIBUSELEMUTF8")
 			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		if(!docu.setContent(ff))
-			return false;
 	}
 	else
 	{
-		QString ff = "";
-		if (fileName.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(fileName);
-		else
-			ff = fileName;
-		if(!docu.setContent(ff))
-			return false;
+		ff = fileName;
 	}
+	if(!docu.setContent(ff))
+		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
