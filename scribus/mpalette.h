@@ -209,6 +209,8 @@ private slots:
 	void NewLocalXY();
 	void NewLocalSC();
 	void NewLocalDpi();
+	void EditEff();
+	void EditPSD();
 	void NewLS();
 	void NewLSty();
 	void NewLJoin();
@@ -488,6 +490,8 @@ protected:
 	QToolButton* NoResize;
 	QToolButton* Revert;
 	QToolButton* EditShape;
+	QToolButton* EditEffects;
+	QToolButton* EditPSDProps;
 
 	
 	bool _userActionOn;

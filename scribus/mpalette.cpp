@@ -674,6 +674,12 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	Layout24->addLayout( Layout18 );
 	pageLayout_4->addLayout( Layout24 );
 
+	EditEffects = new QToolButton( page_4, "EditEffects");
+	pageLayout_4->addWidget( EditEffects );
+
+	EditPSDProps = new QToolButton( page_4, "EditPSDProps");
+	pageLayout_4->addWidget( EditPSDProps );
+
 	GroupBoxCM = new QGroupBox( "", page_4, "GroupBoxcm" );
 	GroupBoxCM->setColumnLayout(0, Qt::Vertical );
 	GroupBoxCM->layout()->setSpacing( 2 );
@@ -832,6 +838,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(FreeScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(FrameScale, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
 	connect(Aspect, SIGNAL(clicked()), this, SLOT(ChangeScaling()));
+	connect(EditEffects, SIGNAL(clicked()), this, SLOT(EditEff()));
+	connect(EditPSDProps, SIGNAL(clicked()), this, SLOT(EditPSD()));
 	connect(Zup, SIGNAL(clicked()), this, SLOT(DoRaise()));
 	connect(ZDown, SIGNAL(clicked()), this, SLOT(DoLower()));
 	connect(ZTop, SIGNAL(clicked()), this, SLOT(DoFront()));
@@ -1192,6 +1200,8 @@ void Mpalette::setCurrentItem(PageItem *i)
 		if (i->asImageFrame())
 		{
 			updateCmsList();
+			EditEffects->setShown(i->PicAvail && i->isRaster);
+			EditPSDProps->setShown(i->PicAvail && i->pixm.imgInfo.valid);
 			setter = i->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
@@ -1407,6 +1417,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		if (i->asImageFrame())
 		{
 			updateCmsList();
+			EditEffects->setShown(i->PicAvail && i->isRaster);
+			EditPSDProps->setShown(i->PicAvail && i->pixm.imgInfo.valid);
 			setter = i->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
@@ -2732,6 +2744,25 @@ void Mpalette::NewLocalDpi()
 	}
 }
 
+void Mpalette::EditEff()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+		m_ScMW->ImageEffects();
+}
+
+void Mpalette::EditPSD()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		m_ScMW->view->editExtendedImageProperties();
+		emit DocChanged();
+	}
+}
+
 void Mpalette::NewLS()
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
@@ -3907,6 +3938,8 @@ void Mpalette::languageChange()
 	yscaleLabel->setText( tr("Y-Scal&e:"));
 	FrameScale->setText( tr("Scale &To Frame Size"));
 	Aspect->setText( tr("P&roportional"));
+	EditEffects->setText( tr("Image Effects"));
+	EditPSDProps->setText( tr("Extended Image Properties"));
 	TextCms1->setText( tr("Input Profile:"));
 	TextCms2->setText( tr("Rendering Intent:"));
 	lineSpacingPop->changeItem(lineSpacingPop->idAt(0), tr("Fixed Linespacing"));
