@@ -622,7 +622,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		insertTab( tabPresentation, tr( "E&xtras" ) );
 
 		// XXX Optionen or Opts Changed here
-		if (view->Doc->currentPageLayout == doublePage)
+/*		if (view->Doc->currentPageLayout == doublePage)
 		{
 			if (view->Doc->pageSets[view->Doc->currentPageLayout].FirstPage == 0)
 				Opts.PageLayout = PDFOptions::TwoColumnLeft;
@@ -637,7 +637,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		{
 			if ((Opts.Version == 15) && (Opts.useLayers))
 				Opts.displayLayers = true;
-		}
+		} */
 		tabSpecial = new QWidget( this, "tabSpecial" );
 		tabSpecialLayout = new QVBoxLayout( tabSpecial, 11, 6, "tabSpecialLayout");
 		groupDisplay = new QGroupBox( tabSpecial, "groupDisplay" );
