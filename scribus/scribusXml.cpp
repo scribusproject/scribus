@@ -1824,30 +1824,24 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 
 bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
 {
-	QString f;
+	QString ff = "";
 	QDomDocument docu("scridoc");
 	if (isFile)
 	{
-		if (!loadText(file, &f))
+		QCString f;
+		if (!loadRawText(file, f))
 			return false;
-		QString ff = "";
-		if (f.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(f);
+		if (f.left(16) == "<SCRIBUSELEMUTF8", 16)
+			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		if(!docu.setContent(ff))
-			return false;
 	}
 	else
 	{
-		QString ff = "";
-		if (file.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(file);
-		else
-			ff = file;
-		if(!docu.setContent(ff))
-			return false;
+		ff  = file;
 	}
+	if(!docu.setContent(ff))
+		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
@@ -1860,6 +1854,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 
 bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
+	QString ff = "";
 	struct CopyPasteBuffer OB;
 	struct ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;
@@ -1876,26 +1871,20 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QDomDocument docu("scridoc");
 	if (Fi)
 	{
-		if (!loadText(fileName, &f))
+		QCString f;
+		if (!loadRawText(fileName, f))
 			return false;
-		QString ff = "";
-		if (f.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(f);
+		if (f.left(16) == "<SCRIBUSELEMUTF8")
+			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		if(!docu.setContent(ff))
-			return false;
 	}
 	else
 	{
-		QString ff = "";
-		if (fileName.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(fileName);
-		else
-			ff = fileName;
-		if(!docu.setContent(ff))
-			return false;
+		ff = fileName;
 	}
+	if(!docu.setContent(ff))
+		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
@@ -2668,7 +2657,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ob.setAttribute("NEXTPAGE", -1);
 		elem.appendChild(ob);
 	}
-	return docu.toString().utf8();
+	return docu.toString();
 }
 
 void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
