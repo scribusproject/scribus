@@ -29,6 +29,7 @@ class SCRIBUS_API RulerT : public QWidget
 public:
 	RulerT(QWidget* parent, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid);
 	~RulerT() {};
+	void setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
 	void updateTabList();
 	bool mousePressed;
 	QValueList<ParagraphStyle::TabRecord> tabValues;
@@ -82,12 +83,12 @@ class SCRIBUS_API Tabruler : public QWidget
 public:
 	Tabruler( QWidget* parent,
 	          bool haveFirst = true,
-	          int ein = 1,
+	          int dEin = 1,
 	          QValueList<ParagraphStyle::TabRecord> Tabs = QValueList<ParagraphStyle::TabRecord>(),
-	          double wid = 0);
+	          double wid = -1);
 	~Tabruler() {};
 
-	void init(bool haveFirst, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, double wid);
+	void setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
 
 	QValueList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;

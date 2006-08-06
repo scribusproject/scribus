@@ -159,14 +159,18 @@ void SMPStyleWidget::setupCharStyle()
 	cpage = new SMCStylePage(characterBox);
 }
 
-void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles)
+void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
 {
 	lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode());
 	lineSpacing_->setValue(pstyle.lineSpacing());
 	alignement_->setStyle(pstyle.alignment());
+	tabList_->setTabs(pstyle.tabValues(), unitIndex);
 	tabList_->setFirstLineData(pstyle.firstIndent());
+	tabList_->setFirstLine();
 	tabList_->setLeftIndentData(pstyle.leftMargin());
+	tabList_->setLeftIndent();
 	tabList_->setRightIndentData(pstyle.rightMargin());
+	tabList_->setRightIndent();
 	spaceAbove_->setValue(pstyle.gapBefore());
 	spaceBelow_->setValue(pstyle.gapAfter());
 	dropCapsBox->setChecked(pstyle.hasDropCap());
@@ -212,10 +216,10 @@ void SMPStyleWidget::setupCStyleCombo(QValueList<CharStyle> &cstyles)
 		cstyleCombo->insertItem(cstyles[i].displayName());
 }
 
-void SMPStyleWidget::show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles)
+void SMPStyleWidget::show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex)
 {
 	if (pstyles.count() == 1)
-		show(pstyles[0], pstylesAll, cstyles);
+		show(pstyles[0], pstylesAll, cstyles, unitIndex);
 	else if (pstyles.count() > 1)
 	{
 		

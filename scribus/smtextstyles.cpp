@@ -58,12 +58,20 @@ QString SMParagraphStyle::typeNameSingular()
 
 void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 {
-	Q_ASSERT(doc);
 	doc_ = doc;
-	if (pwidget_)
+	if (doc_)
 	{
-		pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
-		pwidget_->cpage->fillColorCombo(doc_->PageColors);
+		if (pwidget_)
+		{
+			pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
+			pwidget_->cpage->fillColorCombo(doc_->PageColors);
+		}
+	}
+	else
+	{
+		removeConnections();
+		selection_.clear();
+		tmpStyles_.clear();
 	}
 }
 
@@ -102,6 +110,9 @@ void SMParagraphStyle::reload()
 
 void SMParagraphStyle::selected(const QStringList &styleNames)
 {
+	if (!doc_)
+		return;
+
 	selection_.clear();
 	selectionIsDirty_ = false;
 	removeConnections(); // we don't want to record changes during style setup
@@ -112,7 +123,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 		{
 			if (tmpStyles_[i].displayName() == styleNames[0])
 			{
-				pwidget_->show(tmpStyles_[i], tmpStyles_, cstyles);
+				pwidget_->show(tmpStyles_[i], tmpStyles_, cstyles, doc_->unitIndex());
 				selection_.append(&tmpStyles_[i]);
 			}
 		}
@@ -127,6 +138,9 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 QValueList<CharStyle> SMParagraphStyle::getCharStyles()
 {
 	QValueList<CharStyle> charStyles;
+	if (!doc_)
+		return charStyles; // no doc available
+
 	StyleSet<CharStyle> &tmp = doc_->docCharStyles;
 	for (uint i = 0; i < tmp.count(); ++i)
 		charStyles.append(tmp[i]);
@@ -135,8 +149,9 @@ QValueList<CharStyle> SMParagraphStyle::getCharStyles()
 
 QString SMParagraphStyle::fromSelection() const
 {
-	Q_ASSERT(doc_ && doc_->m_Selection);
 	QString lsName = QString::null;
+	if (!doc_)
+		return lsName; // no doc available
 
 	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
@@ -163,10 +178,8 @@ QString SMParagraphStyle::fromSelection() const
 
 void SMParagraphStyle::toSelection(const QString &styleName) const
 {
-	Q_ASSERT(doc_ && doc_->m_Selection);
-
-	if (doc_->m_Selection->isEmpty())
-		return; // nowhere to apply
+	if (!doc_ || doc_->m_Selection->isEmpty())
+		return; // nowhere to apply or no doc
 
 	int index = findParagraphStyle(doc_, styleName);
 	Q_ASSERT(index > -1);
@@ -184,7 +197,9 @@ void SMParagraphStyle::toSelection(const QString &styleName) const
 
 QString SMParagraphStyle::newStyle()
 {
-	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+	if (!doc_)
+		return QString::null;
+
 	QString s = getUniqueName(tr("New Style"));
 	// i suppose this is the default style to get the default attributes in
 	tmpStyles_.append(ParagraphStyle(doc_->docParagraphStyles[0]));
@@ -194,7 +209,6 @@ QString SMParagraphStyle::newStyle()
 
 QString SMParagraphStyle::newStyle(const QString &fromStyle)
 {
-	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
 	QString s = QString::null;
 
 	for (uint i = 0; i < tmpStyles_.count(); ++i)
@@ -242,7 +256,8 @@ start:
 // copied over from ScMW::saveStyles() and removed all the commented bits
 void SMParagraphStyle::apply()
 {
-	Q_ASSERT(doc_);
+	if (!doc_)
+		return;
 
 	QValueList<uint> ers;
 	QString nn;
@@ -293,7 +308,7 @@ void SMParagraphStyle::apply()
 				if (replacement.count() != 0)
 				{
 					QString ne = replacement[nn];
-					if (ne == tr("No Style") || ne == QString::null)
+					if (ne == QString::null)
 						ers.append(0);
 					else
 					{
@@ -399,8 +414,35 @@ void SMParagraphStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 
 void SMParagraphStyle::nameChanged(const QString &newName)
 {
-	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setName(newName);
+	if (selection_.count() != 1)
+		return;
+
+	QString oldName = selection_[0]->name();
+	tmpStyles_.append(ParagraphStyle(*(selection_[0])));
+	tmpStyles_.last().setName(newName);
+	selection_.clear();
+	selection_.append(&tmpStyles_.last());
+	for (uint j = 0; j < tmpStyles_.count(); ++j)
+	{
+		if (tmpStyles_[j].name() == oldName)
+		{
+			tmpStyles_.erase(tmpStyles_.at(j));
+			break;
+		}
+	}
+
+	QValueList<RemoveItem>::iterator it;
+	for (it = deleted_.begin(); it != deleted_.end(); ++it)
+	{
+		if ((*it).second == oldName)
+		{
+			oldName = (*it).first;
+			deleted_.remove(it);
+			break;
+		}
+	}
+
+	deleted_.append(RemoveItem(oldName, newName));
 
 	if (!selectionIsDirty_)
 	{
@@ -420,9 +462,9 @@ void SMParagraphStyle::languageChange()
 
 void SMParagraphStyle::reloadTmpStyles()
 {
-	Q_ASSERT(doc_);
 	if (!doc_)
 		return;
+
 	selection_.clear();
 	tmpStyles_.clear();
 	StyleSet<ParagraphStyle> &tmp = doc_->docParagraphStyles;
@@ -432,7 +474,8 @@ void SMParagraphStyle::reloadTmpStyles()
 
 void SMParagraphStyle::setupConnections()
 {
-	Q_ASSERT(pwidget_);
+	if (!pwidget_)
+		return;
 
 	// paragraph attributes
 	connect(pwidget_->lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingMode(int)));
@@ -472,7 +515,8 @@ void SMParagraphStyle::setupConnections()
 
 void SMParagraphStyle::removeConnections()
 {
-	Q_ASSERT(pwidget_);
+	if (!pwidget_)
+		return;
 
 	disconnect(pwidget_->lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingMode(int)));
 	disconnect(pwidget_->lineSpacing_, SIGNAL(valueChanged(int)), this, SLOT(slotLineSpacing()));
@@ -908,13 +952,22 @@ QString SMCharacterStyle::typeNameSingular()
 
 void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 {
-	Q_ASSERT(doc);
 	doc_ = doc;
-	if (page_)
+	if (doc_)
 	{
-		page_->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
-		page_->fillColorCombo(doc_->PageColors);
+		if (page_)
+		{
+			page_->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
+			page_->fillColorCombo(doc_->PageColors);
+		}
 	}
+	else
+	{
+		removeConnections();
+		selection_.clear();
+		tmpStyles_.clear();
+	}
+
 }
 
 QValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
@@ -1044,7 +1097,9 @@ start:
 
 void SMCharacterStyle::apply()
 {
-	Q_ASSERT(doc_);
+	if (!doc_)
+		return;
+
 	for (uint i = 0; i < deleted_.count(); ++i)
 	{ // TODO apply also user defined replacement!!!
 		int index = doc_->docCharStyles.find(deleted_[i].first);
@@ -1108,6 +1163,9 @@ void SMCharacterStyle::languageChange()
 
 void SMCharacterStyle::reloadTmpStyles()
 {
+	if (!doc_)
+		return;
+
 	selection_.clear();
 	tmpStyles_.clear();
 	StyleSet<CharStyle> &tmp = doc_->docCharStyles;
@@ -1117,7 +1175,8 @@ void SMCharacterStyle::reloadTmpStyles()
 
 void SMCharacterStyle::setupConnections()
 {
-	Q_ASSERT(page_);
+	if (!page_)
+		return;
 
 	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
@@ -1136,7 +1195,8 @@ void SMCharacterStyle::setupConnections()
 
 void SMCharacterStyle::removeConnections()
 {
-	Q_ASSERT(page_);
+	if (!page_)
+		return;
 
 	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));

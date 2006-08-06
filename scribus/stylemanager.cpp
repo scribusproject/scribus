@@ -39,6 +39,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	splitter->setMinimumWidth(0);
 	splitter->setResizeMode(leftFrame, QSplitter::KeepSize);
 	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
+	uniqueLabel->hide();
 	rightFrame->hide();
 	styleView->header()->hide();
 	applyButton->setEnabled(false);
@@ -124,11 +125,24 @@ void StyleManager::languageChange()
 
 void StyleManager::currentDoc(ScribusDoc *doc)
 {
-	static bool hasBeenConnected = false;
-	if (doc && doc->m_Selection && !hasBeenConnected)
+	if (doc)
 	{
+		newButton->setEnabled(true);
+		cloneButton->setEnabled(true);
+		importButton->setEnabled(true);
+		deleteButton->setEnabled(true);
+		rightClickPopup_->setEnabled(true);
+		newPopup_->setEnabled(true);
 		connect(doc->m_Selection, SIGNAL(selectionChanged()), this, SLOT(slotDocSelectionChanged()));
-		hasBeenConnected = true;
+	}
+	else
+	{
+		newButton->setEnabled(false);
+		cloneButton->setEnabled(false);
+		importButton->setEnabled(false);
+		deleteButton->setEnabled(false);
+		rightClickPopup_->setEnabled(false);
+		newPopup_->setEnabled(false);
 	}
 
 	// clear the style list and reload from new doc
@@ -149,8 +163,11 @@ void StyleManager::addStyle(StyleItem *item)
 
 void StyleManager::slotApply()
 {
-	for (uint i = 0; i < items_.count(); ++i)
-		items_.at(i)->apply();
+	if (applyButton->isEnabled())
+	{
+		for (uint i = 0; i < items_.count(); ++i)
+			items_.at(i)->apply();
+	}
 
 	slotClean();
 }
@@ -339,13 +356,17 @@ void StyleManager::slotOk()
 		height_ = height();
 		prefs_->set("SplitterH", height_);
 		prefs_->set("isEditMode", isEditMode_);
-		connect(styleView, SIGNAL(currentChanged(QListViewItem*)),
+		connect(styleView, SIGNAL(selectionChanged(QListViewItem*)),
 		        this, SLOT(slotApplyStyle(QListViewItem*)));
+		connect(styleView, SIGNAL(clicked(QListViewItem*)),
+				this, SLOT(slotApplyStyle(QListViewItem*)));
 	}
 	else
 	{
-		disconnect(styleView, SIGNAL(currentChanged(QListViewItem*)),
+		disconnect(styleView, SIGNAL(selectionChanged(QListViewItem*)),
 		           this, SLOT(slotApplyStyle(QListViewItem*)));
+		disconnect(styleView, SIGNAL(clicked(QListViewItem*)),
+				this, SLOT(slotApplyStyle(QListViewItem*)));
 		slotSetupWidget();
 		styleView->setSelectionMode(QListView::Extended);
 		editPosition_.setX(x());
@@ -436,6 +457,7 @@ void StyleManager::slotClean()
 	}
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
+	uniqueLabel->hide();
 }
 
 void StyleManager::reloadStyleView(bool loadFromDoc)
@@ -495,11 +517,38 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 
 void StyleManager::slotNameChanged(const QString& name)
 {
+	if (!nameIsUnique(name))
+	{
+		uniqueLabel->show();
+		okButton->setEnabled(false);
+		applyButton->setEnabled(false);
+		return;
+	}
+	else if (uniqueLabel->isVisible())
+	{
+		uniqueLabel->hide();
+		okButton->setEnabled(true);
+		applyButton->setEnabled(true);
+	}
+
 	styleView->currentItem()->setText(0, name);
 	if (item_)
 		item_->nameChanged(name);
+
+	applyButton->setEnabled(true);
+	resetButton->setEnabled(true);
 }
 
+bool StyleManager::nameIsUnique(const QString &name)
+{
+	QValueList<StyleName> names = item_->styles(false);
+	for (uint i = 0; i < names.count(); ++i)
+	{
+		if (names[i].first == name)
+			return false;
+	}
+	return true;
+}
 
 // setups the selected type and edit widgets related to it
 void StyleManager::slotSetupWidget()

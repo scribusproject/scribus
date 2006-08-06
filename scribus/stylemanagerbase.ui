@@ -434,6 +434,35 @@
                                     </widget>
                                 </hbox>
                             </widget>
+                            <widget class="QLabel">
+                                <property name="name">
+                                    <cstring>uniqueLabel</cstring>
+                                </property>
+                                <property name="maximumSize">
+                                    <size>
+                                        <width>32767</width>
+                                        <height>30</height>
+                                    </size>
+                                </property>
+                                <property name="paletteForegroundColor">
+                                    <color>
+                                        <red>235</red>
+                                        <green>0</green>
+                                        <blue>4</blue>
+                                    </color>
+                                </property>
+                                <property name="font">
+                                    <font>
+                                        <bold>1</bold>
+                                    </font>
+                                </property>
+                                <property name="text">
+                                    <string>Please select a unique name for the style</string>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignCenter</set>
+                                </property>
+                            </widget>
                             <spacer>
                                 <property name="name">
                                     <cstring>spacer21_2</cstring>
@@ -447,7 +476,7 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>31</width>
-                                        <height>6</height>
+                                        <height>5</height>
                                     </size>
                                 </property>
                             </spacer>

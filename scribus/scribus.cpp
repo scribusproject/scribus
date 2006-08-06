@@ -2139,6 +2139,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 			HaveNewSel(-1);
 	}
 	tocGenerator->setDoc(doc);
+	styleManager->currentDoc(doc);
 }
 
 void ScribusMainWindow::windowsMenuActivated( int id )
@@ -4154,6 +4155,7 @@ bool ScribusMainWindow::DoFileClose()
 		else
 			QDir::setCurrent( QDir::homeDirPath() );
 	}
+	styleManager->currentDoc(0);
 	return true;
 }
 

@@ -54,6 +54,15 @@ RulerT::RulerT(QWidget *pa, int ein, QValueList<ParagraphStyle::TabRecord> Tabs,
 	}
 }
 
+void RulerT::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+{
+	unitIndex = dEin;
+	iter=unitRulerGetIter1FromIndex(unitIndex);
+	iter2=unitRulerGetIter2FromIndex(unitIndex);
+	tabValues = Tabs;
+	repaint();
+}
+
 void RulerT::paintEvent(QPaintEvent *)
 {
 	double xl;
@@ -583,6 +592,22 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	}
 	tabData->setSuffix(ein);
 	haveF = haveFirst;
+}
+
+void Tabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
+{
+	docUnitRatio=unitGetRatioFromIndex(dEin);
+	QString ein = unitGetSuffixFromIndex(dEin);
+	tabData->setSuffix(ein);
+	if (haveF)
+	{
+		firstLineData->setSuffix(ein);
+		leftIndentData->setSuffix(ein);
+		rightIndentData->setSuffix(ein);
+	}
+	ruler->setTabs(Tabs, dEin);
+	if (Tabs.count() == 0)
+		clearButton->setEnabled(false);
 }
 
 void Tabruler::resetOFfL()

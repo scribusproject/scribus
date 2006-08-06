@@ -72,6 +72,8 @@ private:
 
 	void insertShortcutPage(QTabWidget *twidget);
 
+	bool nameIsUnique(const QString &name);
+
 	// QPair.first will be the type name (null if nothing is selected or
 	// if there are styles from more than one type in the selection)
 	// QPair.second will be the selected styles

@@ -222,7 +222,15 @@ void SMLineStyle::currentDoc(ScribusDoc *doc)
 {
 	doc_ = doc;
 	if (doc_)
+	{
 		tmpLines = doc_->MLineStyles;
+		selection_.clear();
+}
+	else
+	{
+		tmpLines.clear();
+		selection_.clear();
+	}
 }
 
 QValueList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
@@ -242,6 +250,9 @@ QValueList<StyleName> SMLineStyle::styles(bool reloadFromDoc)
 
 void SMLineStyle::reload()
 {
+	if (!doc_)
+		return;
+
 	selection_.clear();
 	tmpLines = doc_->MLineStyles;
 }
@@ -264,6 +275,9 @@ void SMLineStyle::selected(const QStringList &styleNames)
 
 void SMLineStyle::setSelection(const QString& styleName)
 {
+	if (!doc_)
+		return;
+
 	if (!tmpLines.contains(styleName))
 		return; // something's wrong here
 
@@ -288,8 +302,9 @@ void SMLineStyle::setMultiSelection(const QStringList& styles)
 
 QString SMLineStyle::fromSelection() const
 {
-	Q_ASSERT(doc_ && doc_->m_Selection);
 	QString lsName = QString::null;
+	if (!doc_)
+		return lsName;
 
 	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
@@ -310,7 +325,8 @@ QString SMLineStyle::fromSelection() const
 
 void SMLineStyle::toSelection(const QString &styleName) const
 {
-	Q_ASSERT(doc_ && doc_->m_Selection);
+	if (!doc_)
+		return;
 
 	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
 	{
@@ -375,6 +391,9 @@ start:
 
 void SMLineStyle::apply()
 {
+	if (!doc_)
+		return;
+
 	PageItem* ite;
 	doc_->MLineStyles = tmpLines;
 	QMap<QString, QString> replacement;
@@ -427,7 +446,28 @@ void SMLineStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 
 void SMLineStyle::nameChanged(const QString &newName)
 {
+	QString oldName = selection_.begin().key();
+	multiLine *tmpLine = selection_.begin().data();
+	multiLine newLine(*tmpLine);
+	
+	selection_.clear();
+	tmpLines.erase(oldName);
 
+	tmpLines.insert(newName, newLine);
+	selection_[newName] = &tmpLines[newName];
+
+	QValueList<RemoveItem>::iterator it;
+	for (it = deleted_.begin(); it != deleted_.end(); ++it)
+	{
+		if ((*it).second == oldName)
+		{
+			oldName = (*it).first;
+			deleted_.remove(it);
+			break;
+		}
+	}
+
+	deleted_.append(RemoveItem(oldName, newName));
 }
 
 void SMLineStyle::languageChange()
@@ -627,6 +667,9 @@ void SMLineStyle::slotLineWidth()
 
 void SMLineStyle::slotAddLine()
 {
+	if (!doc_)
+		return;
+
 	multiLine *tmpLine = selection_.begin().data();
 	struct SingleLine sl;
 	sl.Color = (*tmpLine)[currentLine_].Color;
@@ -699,6 +742,9 @@ void SMLineStyle::rebuildList()
 
 void SMLineStyle::slotDeleteLine()
 {
+	if (!doc_)
+		return;
+
 	multiLine *tmpLine = selection_.begin().data();
 
 	if ((*tmpLine).size() == 1)
@@ -798,6 +844,9 @@ void SMLineStyle::updatePreview()
 QColor SMLineStyle::calcFarbe(const QString &name, int shade)
 {
 	QColor tmpf;
+	if (!doc_)
+		return tmpf;
+
 	int h, s, v, sneu;
 	doc_->PageColors[name].getRGBColor().rgb(&h, &s, &v);
 	if ((h == s) && (s == v))
@@ -822,6 +871,9 @@ void SMLineStyle::slotCurrentLineChanged(int i)
 
 void SMLineStyle::resort()
 {
+	if (!doc_)
+		return;
+
 	int cc = 0;
 	struct SingleLine sl;
 	multiLine *tmpLine = selection_.begin().data();
