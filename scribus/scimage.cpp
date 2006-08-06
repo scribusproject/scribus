@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
+	#include "cmsutil.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
 extern cmsHTRANSFORM stdTransG;
@@ -4179,11 +4180,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
 			break;
 		case 1: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
 			break;
 		case 2: // RGB Proof
 			{
@@ -4192,11 +4193,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				else if(inputProfFormat == TYPE_RGBA_8)
 					inputProfFormat=TYPE_BGRA_8;
 				if (SoftProofing)
-					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-					                                   IntentPrinter, rend, cmsFlags);
+				{
+					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
+					                       CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
+					                       IntentPrinter, rend, cmsFlags);
+				}
 				else
-					xform = cmsCreateTransform(inputProf, inputProfFormat,
+					xform = scCmsCreateTransform(inputProf, inputProfFormat,
 					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;

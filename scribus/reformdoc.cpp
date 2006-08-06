@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "units.h"
+#include "mpalette.h"
 #include "mspinbox.h"
 #include "scribus.h"
 #include "tabpdfoptions.h"
@@ -960,7 +961,7 @@ void ReformDoc::updateDocumentSettings()
 	if (CMSavail)
 	{
 		bool oldCM = currDoc->CMSSettings.CMSinUse;
-		tabColorManagement->setValues();
+		tabColorManagement->updateDocSettings(currDoc);
 		if (tabColorManagement->changed)
 		{
 			ScMW->mainWindowStatusLabel->setText( tr("Adjusting Colors"));
@@ -984,7 +985,17 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
-			if ( currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles) )
+			if (!currDoc->CMSSettings.CMSinUse)
+			{
+				currDoc->HasCMS = false;
+				CMSuse = false;
+				if	(oldCM)
+				{
+					ScMW->recalcColors(ScMW->mainWindowProgressBar);
+					currDoc->RecalcPictures(&ScMW->InputProfiles, &ScMW->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+				}
+			}
+			else if ( currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles) )
 			{
 				stdProofG = currDoc->stdProof;
 				stdTransG = currDoc->stdTrans;
