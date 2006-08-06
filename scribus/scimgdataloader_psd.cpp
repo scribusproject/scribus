@@ -254,8 +254,8 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 			short signature;
 			short count;
 			unsigned short c, m, y, k;
+			uchar hc, sc, bc;
 			ScColor col;
-			QColor col2;
 			s >> signature;
 			s >> count;
 			bool specialColour = false;
@@ -268,19 +268,21 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 					case 0:	// RGB colour
 						col.setColorRGB(c >> 8, m >> 8, y >> 8);
 						colorTableSc.append(col);
-						qDebug("RGB = "+col.nameRGB());
+//						qDebug("RGB = "+col.nameRGB());
 						break;
 					case 1:	// HSB colour
-						col2 = QColor();
-						col2.setHsv(255 - (c >> 8), m >> 8, y >> 8);
-						col.fromQColor(col2);
+						hc = c >> 8;
+						sc = m >> 8;
+						bc = y >> 8;
+						HSVTORGB(hc, sc, bc);
+						col.setColorRGB(hc, sc, bc);
 						colorTableSc.append(col);
-						qDebug("HSB as RGB = "+col.nameRGB());
+//						qDebug("HSB as RGB = "+col.nameRGB());
 						break;
 					case 2:	// CMYK colour
 						col.setColor(c >> 8, m >> 8, y >> 8, k >> 8);
 						colorTableSc.append(col);
-						qDebug("CMYK = "+col.nameCMYK());
+//						qDebug("CMYK = "+col.nameCMYK());
 						break;
 					case 3:	// Pantone
 					case 4:	// Focoltone
@@ -1492,7 +1494,8 @@ bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
 
 void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 {
-	int c, c1, c2, c3, m, m1, m2, m3, y, y1, y2, y3;
+	int c, c1, c2, c3, m, m1, m2, m3, y, y1, y2, y3, k, k1, k2, k3;
+	uchar cb = 255 - cbyte;
 	if (colorTableSc.count() == 1)
 	{
 		colorTableSc[0].getRawRGBColor(&c, &m, &y);
@@ -1502,37 +1505,71 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	}
 	else if (colorTableSc.count() == 2)
 	{
-		colorTableSc[0].getRawRGBColor(&c, &m, &y);
-		colorTableSc[1].getRawRGBColor(&c1, &m1, &y1);
-		double deltac = (c1 - c) / 255.0;
-		double deltam = (m1 - m) / 255.0;
-		double deltay = (y1 - y) / 255.0;
-		ptr[2] = QMIN(qRound(c + (deltac * cbyte)), 255);
-		ptr[1] = QMIN(qRound(m + (deltam * cbyte)), 255);
-		ptr[0] = QMIN(qRound(y + (deltay * cbyte)), 255);
+		colorTableSc[0].getCMYK(&c, &m, &y, &k);
+		c = QMIN((c * cb) >> 8, 255);
+		m = QMIN((m * cb) >> 8, 255);
+		y = QMIN((y * cb) >> 8, 255);
+		k = QMIN((k * cb) >> 8, 255);
+		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
+		c1 = QMIN((c1 * cb) >> 8, 255);
+		m1 = QMIN((m1 * cb) >> 8, 255);
+		y1 = QMIN((y1 * cb) >> 8, 255);
+		k1 = QMIN((k1 * cb) >> 8, 255);
+		ScColor col = ScColor(QMIN(c+c1, 255), QMIN(m+m1, 255), QMIN(y+y1, 255), QMIN(k+k1, 255));
+		col.getRawRGBColor(&c, &m, &y);
+		ptr[2] = c;
+		ptr[1] = m;
+		ptr[0] = y;
 	}
 	else if (colorTableSc.count() == 3)
 	{
-		colorTableSc[0].getRawRGBColor(&c, &m, &y);
-		colorTableSc[1].getRawRGBColor(&c1, &m1, &y1);
-		colorTableSc[2].getRawRGBColor(&c2, &m2, &y2);
-		double deltac = (c1 - c) / 127.5;
-		double deltam = (m1 - m) / 127.5;
-		double deltay = (y1 - y) / 127.5;
-		double deltac2 = (c1 - c2) / 127.5;
-		double deltam2 = (m1 - m2) / 127.5;
-		double deltay2 = (y1 - y2) / 127.5;
-		if (cbyte > 127)
-		{
-			ptr[2] = QMIN(qRound(c + (deltac * (cbyte - 127))), 255);
-			ptr[1] = QMIN(qRound(m + (deltam * (cbyte - 127))), 255);
-			ptr[0] = QMIN(qRound(y + (deltay * (cbyte - 127))), 255);
-		}
-		else
-		{
-			ptr[2] = QMIN(qRound(c1 + (deltac2 * cbyte)), 255);
-			ptr[1] = QMIN(qRound(m1 + (deltam2 * cbyte)), 255);
-			ptr[0] = QMIN(qRound(y1 + (deltay2 * cbyte)), 255);
-		}
+		colorTableSc[0].getCMYK(&c, &m, &y, &k);
+		c = QMIN((c * cb) >> 8, 255);
+		m = QMIN((m * cb) >> 8, 255);
+		y = QMIN((y * cb) >> 8, 255);
+		k = QMIN((k * cb) >> 8, 255);
+		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
+		c1 = QMIN((c1 * cb) >> 8, 255);
+		m1 = QMIN((m1 * cb) >> 8, 255);
+		y1 = QMIN((y1 * cb) >> 8, 255);
+		k1 = QMIN((k1 * cb) >> 8, 255);
+		colorTableSc[2].getCMYK(&c2, &m2, &y2, &k2);
+		c2 = QMIN((c2 * cb) >> 8, 255);
+		m2 = QMIN((m2 * cb) >> 8, 255);
+		y2 = QMIN((y2 * cb) >> 8, 255);
+		k2 = QMIN((k2 * cb) >> 8, 255);
+		ScColor col = ScColor(QMIN(c+c1+c2, 255), QMIN(m+m1+m2, 255), QMIN(y+y1+y2, 255), QMIN(k+k1+k2, 255));
+		col.getRawRGBColor(&c, &m, &y);
+		ptr[2] = c;
+		ptr[1] = m;
+		ptr[0] = y;
+	}
+	else if (colorTableSc.count() == 4)
+	{
+		colorTableSc[0].getCMYK(&c, &m, &y, &k);
+		c = QMIN((c * cb) >> 8, 255);
+		m = QMIN((m * cb) >> 8, 255);
+		y = QMIN((y * cb) >> 8, 255);
+		k = QMIN((k * cb) >> 8, 255);
+		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
+		c1 = QMIN((c1 * cb) >> 8, 255);
+		m1 = QMIN((m1 * cb) >> 8, 255);
+		y1 = QMIN((y1 * cb) >> 8, 255);
+		k1 = QMIN((k1 * cb) >> 8, 255);
+		colorTableSc[2].getCMYK(&c2, &m2, &y2, &k2);
+		c2 = QMIN((c2 * cb) >> 8, 255);
+		m2 = QMIN((m2 * cb) >> 8, 255);
+		y2 = QMIN((y2 * cb) >> 8, 255);
+		k2 = QMIN((k2 * cb) >> 8, 255);
+		colorTableSc[3].getCMYK(&c3, &m3, &y3, &k3);
+		c3 = QMIN((c3 * cb) >> 8, 255);
+		m3 = QMIN((m3 * cb) >> 8, 255);
+		y3 = QMIN((y3 * cb) >> 8, 255);
+		k3 = QMIN((k3 * cb) >> 8, 255);
+		ScColor col = ScColor(QMIN(c+c1+c2+c3, 255), QMIN(m+m1+m2+m3, 255), QMIN(y+y1+y2+y3, 255), QMIN(k+k1+k2+k3, 255));
+		col.getRawRGBColor(&c, &m, &y);
+		ptr[2] = c;
+		ptr[1] = m;
+		ptr[0] = y;
 	}
 }
