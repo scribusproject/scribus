@@ -325,8 +325,8 @@ void PrefsManager::initDefaults()
 	appPrefs.DCMSset.SoftProofFullOn = false;
 	appPrefs.DCMSset.GamutCheck = false;
 	appPrefs.DCMSset.BlackPoint = true;
-	appPrefs.DCMSset.DefaultIntentColors = 0;
-	appPrefs.DCMSset.DefaultIntentImages = 1;
+	appPrefs.DCMSset.DefaultIntentColors = 1;
+	appPrefs.DCMSset.DefaultIntentImages = 0;
 	appPrefs.GFontSub.clear();
 	appPrefs.ScratchLeft = 100;
 	appPrefs.ScratchRight = 100;
