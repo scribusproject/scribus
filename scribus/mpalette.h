@@ -239,6 +239,9 @@ private slots:
 	void HandleTLines();
 	void setStartArrow(int id);
 	void setEndArrow(int id);
+	void toggleTextFlowsAroundFrame(bool);
+	void clickTextFlowUsesBoundingBox();
+	void clickTextFlowUsesContourLine();
 
 protected slots:
 	//virtual void reject();
@@ -399,7 +402,7 @@ protected:
 	QGroupBox* GroupBox3a;
 
 	QCheckBox* textFlowUsesBoundingBox;
-	QCheckBox* Textflow3;
+	QCheckBox* textFlowUsesContourLine;
 	QCheckBox* Aspect;
 	QCheckBox* showcurveCheckBox;
 	QCheckBox* TopLine;

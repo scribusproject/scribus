@@ -127,9 +127,9 @@ int callGS(const QStringList& args_in, const QString device)
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+		cmd = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+		cmd += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
 	if( !cmd.isEmpty() )
 		args.append( cmd );
 
@@ -189,9 +189,27 @@ int  convertPS2PS(QString in, QString out, const QStringList& opts, int level)
 	args.append( "-dNOPAUSE" );
 	args.append( "-dPARANOIDSAFER" );
 	args.append( "-dBATCH" );
-	args.append( "-sDEVICE=pswrite" );
-	if(level <= 3)
-		args.append( QString("-dLanguageLevel=%1").arg(level) );
+	if( level == 2 )
+	{
+		int major = 0, minor = 0;
+		// ps2write cannot be detected with testGSAvailability()
+		// so determine availability according to gs version.
+		getNumericGSVersion(major, minor);
+		if ((major >=8 && minor >= 53) || major > 8)
+			args.append( "-sDEVICE=ps2write" );
+		else
+		{
+			args.append( "-sDEVICE=pswrite" );
+			args.append( QString("-dLanguageLevel=%1").arg(level) );
+		}
+			
+	}
+	else
+	{
+		args.append( "-sDEVICE=pswrite" );
+		if(level <= 3)
+			args.append( QString("-dLanguageLevel=%1").arg(level) );
+	}
 	args += opts;
 	args.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(out)) );
 	args.append( QDir::convertSeparators(in) );
@@ -203,7 +221,14 @@ int  testGSAvailability( void )
 {
 	QStringList args;
 	PrefsManager* prefsManager = PrefsManager::instance();
-	args.append( getShortPathName(prefsManager->ghostscriptExecutable()) );
+	int ret = testGSAvailability(prefsManager->ghostscriptExecutable());
+	return ret;
+}
+
+int testGSAvailability( QString gsPath )
+{
+	QStringList args;
+	args.append( getShortPathName(gsPath) );
 	args.append( "-h" );
 	int ret = System( args );
 	return ret;

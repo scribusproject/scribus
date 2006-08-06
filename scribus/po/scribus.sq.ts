@@ -9541,7 +9541,7 @@ Mungesë suporti librarish tregohet me një *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>May</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9695,7 +9695,7 @@ Mungesë suporti librarish tregohet me një *</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">Pa&amp;stro Përmbajtje</translation>
+        <translation type="obsolete">Pa&amp;stro Përmbajtje</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -10402,14 +10402,6 @@ Mungesë suporti librarish tregohet me një *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10507,10 +10499,6 @@ Mungesë suporti librarish tregohet me një *</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10523,6 +10511,14 @@ Mungesë suporti librarish tregohet me një *</translation>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Jashtëvija</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11837,10 +11833,6 @@ UCR zvogëlon mundësinë e mbingopjes me bojëra CMY.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11965,6 +11957,18 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Zgjidhni një Drejtori</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14258,14 +14262,24 @@ dështoi!</translation>
         <translation>Gabim Fatal</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation type="unfinished">Gabim</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Gabim</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14603,6 +14617,18 @@ të ruhet në formën e tanishme. Gabimi qe:
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15575,7 +15601,11 @@ Emri i kartelës eksport do të jetë &apos;emërdokumenti-numërfaqeje.tipkarte
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Këtu mund të shtoni, ndryshoni ose hiqni Ndalesa Ngjyre.</translation>
+        <translation type="obsolete">Këtu mund të shtoni, ndryshoni ose hiqni Ndalesa Ngjyre.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18095,14 +18125,6 @@ Ju lutem zgjidhni një tjetër.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -18112,6 +18134,18 @@ Ju lutem zgjidhni një tjetër.</translation>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21549,7 +21583,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Vend sistemi kartelash për interpretuesin Ghostscript</translation>
+        <translation type="obsolete">Vend sistemi kartelash për interpretuesin Ghostscript</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -21901,6 +21935,10 @@ tejngopjeje me bojëra CMY.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23708,10 +23746,6 @@ Lidhje të Jashtme
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -24408,6 +24442,23 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26516,6 +26567,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -26972,6 +27027,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Përmbajtje</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -27237,6 +27300,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Përmbajtje</translation>
     </message>
 </context>
 <context>
@@ -28146,7 +28213,7 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Nënvijë</translation>
+        <translation type="obsolete">Nënvijë</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -28162,15 +28229,11 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Hequrvije</translation>
+        <translation type="obsolete">Hequrvije</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation type="obsolete">Jashtëvijëzo Tekst</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -28181,13 +28244,29 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
         <translation type="obsolete">Jashtëvijëzo</translation>
     </message>
     <message>
-        <source>Shadow</source>
+        <source>Outline</source>
+        <comment>Text Style Selector</comment>
+        <translation type="obsolete">Jashtëvijëzo</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation type="unfinished">Jashtëvijëzo</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -29094,7 +29173,7 @@ do të ruajë skemën dhe dukjen e dokumentit tuaj.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Koha gjatë së cilës tregohet faqja para se të nisë paraqitja në faqen e përzgjedhur.</translation>
+        <translation type="obsolete">Koha gjatë së cilës tregohet faqja para se të nisë paraqitja në faqen e përzgjedhur.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -29427,6 +29506,10 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

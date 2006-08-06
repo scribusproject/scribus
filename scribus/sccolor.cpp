@@ -412,6 +412,7 @@ void ScColor::RecalcRGB()
 		if (Model == colorModelRGB)
 		{
 			// allow RGB greys to go got to CMYK greys without transform
+			RGB = QColor(R, G, B);
 			if (R == G && G == B)
 			{
 				C = M = Y = 0;
@@ -422,28 +423,22 @@ void ScColor::RecalcRGB()
 				inC[0] = R * 257;
 				inC[1] = G * 257;
 				inC[2] = B * 257;
+				cmsDoTransform(stdTransCMYKG, inC, outC, 1);
+				C = outC[0] / 257;
+				M = outC[1] / 257;
+				Y = outC[2] / 257;
+				K = outC[3] / 257;
 				if (SoftProofing)
 				{
 					if ((R == 0) && (B == 0) && (G == 255))
 						alert = false;
 					cmsDoTransform(stdProofG, inC, outC, 1);
-					R = outC[0] / 257;
-					G = outC[1] / 257;
-					B = outC[2] / 257;
-					if ((alert) && (R == 0) && (B == 0) && (G == 255))
+					int Ro = outC[0] / 257;
+					int Go = outC[1] / 257;
+					int Bo = outC[2] / 257;
+					if ((alert) && (Ro == 0) && (Bo == 0) && (Go == 255))
 						outOfGamutFlag = true;
-					K = QMIN(QMIN(255 - R, 255 - G), 255 - B);
-					C = 255 - R - K;
-					M = 255 - G - K;
-					Y = 255 - B - K;
-				}
-				else
-				{
-					cmsDoTransform(stdTransCMYKG, inC, outC, 1);
-					C = outC[0] / 257;
-					M = outC[1] / 257;
-					Y = outC[2] / 257;
-					K = outC[3] / 257;
+					RGB = QColor(Ro, Go, Bo);
 				}
 			}
 		}
@@ -453,6 +448,11 @@ void ScColor::RecalcRGB()
 			inC[1] = M * 257;
 			inC[2] = Y * 257;
 			inC[3] = K * 257;
+			cmsDoTransform(stdTransRGBG, inC, outC, 1);
+			R = outC[0] / 257;
+			G = outC[1] / 257;
+			B = outC[2] / 257;
+			RGB = QColor(R, G, B);
 			if (SoftProofing)
 			{
 				if ((M == 0) && (K == 0) && (C == 255) && (Y == 255))
@@ -462,14 +462,13 @@ void ScColor::RecalcRGB()
 				if ((M == C) && (C == Y) && (Y == K))
 					alert = false;
 				cmsDoTransform(stdProofCMYKG, inC, outC, 1);
-				if ((alert) && (R == 0) && (B == 0) && (G == 255))
+				int Ro = outC[0] / 257;
+				int Go = outC[1] / 257;
+				int Bo = outC[2] / 257;
+				if ((alert) && (Ro == 0) && (Bo == 0) && (Go == 255))
 					outOfGamutFlag = true;
+				RGB = QColor(Ro, Go, Bo);
 			}
-			else
-				cmsDoTransform(stdTransRGBG, inC, outC, 1);
-			R = outC[0] / 257;
-			G = outC[1] / 257;
-			B = outC[2] / 257;
 		}
 	}
 	else
@@ -488,10 +487,10 @@ void ScColor::RecalcRGB()
 			G = 255 - QMIN(255, M + K);
 			B = 255 - QMIN(255, Y + K);
 		}
+		RGB = QColor(R, G, B);
 #ifdef HAVE_CMS
 	}
 #endif
-	RGB = QColor(R, G, B);
 }
 
 bool ScColor::isRegistrationColor()

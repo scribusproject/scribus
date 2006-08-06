@@ -107,7 +107,7 @@ public:
 
 	// Load an image into this ScImage instance
 	// TODO: document params, split into smaller functions
-	bool LoadPicture(const QString & fn, const QString & Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0);
+	bool LoadPicture(const QString & fn, const QString & Prof, int rend, bool useEmbedded, bool useProf, int requestType, int gsRes, bool *realCMYK = 0, bool showMsg = false);
 
 	struct PSDLayer
 	{

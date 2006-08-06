@@ -31,10 +31,10 @@ public:
 	\date
 	\brief Create the EPS importer window.
 	\param fName QString
-	\param isInteractive flag if it will raise GUI and allow user to place objects manually
+	\param flags combination of loadFlags
 	\retval EPSPlug plugin
 	*/
-	EPSPlug( QString fName, bool isInteractive, bool showProgress = true );
+	EPSPlug( QString fName, int flags, bool showProgress = true );
 	~EPSPlug() {};
 
 private:

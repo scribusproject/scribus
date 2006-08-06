@@ -49,6 +49,7 @@ using namespace std;
 ScriXmlDoc::ScriXmlDoc()
 {
 	prefsManager=PrefsManager::instance();
+	dummyFois.setAutoDelete(true);
 }
 
 bool ScriXmlDoc::IsScribus(QString fileName)
@@ -1255,6 +1256,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 		doc->setUnitIndex(dc.attribute("UNITS", "0").toInt());
 		doc->guidesSettings.gridShown = view->Prefs->guidesSettings.gridShown;
 		doc->guidesSettings.guidesShown = view->Prefs->guidesSettings.guidesShown;
+		doc->guidesSettings.colBordersShown = view->Prefs->guidesSettings.colBordersShown;
 		doc->guidesSettings.framesShown = view->Prefs->guidesSettings.framesShown;
 		doc->guidesSettings.marginsShown = view->Prefs->guidesSettings.marginsShown;
 		doc->guidesSettings.baseShown = view->Prefs->guidesSettings.baseShown;
@@ -1655,6 +1657,7 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			}
 			PAGE=PAGE.nextSibling();
 		}
+		doc->setMasterPageMode(false);
 		PAGE=DOC.firstChild();
 		while(!PAGE.isNull())
 		{
@@ -1821,30 +1824,24 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 
 bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y, double *w, double *h)
 {
-	QString f;
+	QString ff = "";
 	QDomDocument docu("scridoc");
 	if (isFile)
 	{
-		if (!loadText(file, &f))
+		QCString f;
+		if (!loadRawText(file, f))
 			return false;
-		QString ff = "";
-		if (f.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(f);
+		if (f.left(16) == "<SCRIBUSELEMUTF8", 16)
+			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		if(!docu.setContent(ff))
-			return false;
 	}
 	else
 	{
-		QString ff = "";
-		if (file.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(file);
-		else
-			ff = file;
-		if(!docu.setContent(ff))
-			return false;
+		ff  = file;
 	}
+	if(!docu.setContent(ff))
+		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
@@ -1857,6 +1854,7 @@ bool ScriXmlDoc::ReadElemHeader(QString file, bool isFile, double *x, double *y,
 
 bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, double Xp, double Yp, bool Fi, bool loc, QMap<QString,QString> &FontSub, ScribusView *view)
 {
+	QString ff = "";
 	struct CopyPasteBuffer OB;
 	struct ParagraphStyle vg;
 	QString tmp, tmpf, tmp2, tmp3, tmp4, f, tmV, tmf;
@@ -1873,26 +1871,20 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QDomDocument docu("scridoc");
 	if (Fi)
 	{
-		if (!loadText(fileName, &f))
+		QCString f;
+		if (!loadRawText(fileName, f))
 			return false;
-		QString ff = "";
-		if (f.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(f);
+		if (f.left(16) == "<SCRIBUSELEMUTF8")
+			ff = QString::fromUtf8(f.data());
 		else
 			ff = f;
-		if(!docu.setContent(ff))
-			return false;
 	}
 	else
 	{
-		QString ff = "";
-		if (fileName.startsWith("<SCRIBUSELEMUTF8"))
-			ff = QString::fromUtf8(fileName);
-		else
-			ff = fileName;
-		if(!docu.setContent(ff))
-			return false;
+		ff = fileName;
 	}
+	if(!docu.setContent(ff))
+		return false;
 	QDomElement elem=docu.documentElement();
 	if ((elem.tagName() != "SCRIBUSELEM") && (elem.tagName() != "SCRIBUSELEMUTF8"))
 		return false;
@@ -2665,7 +2657,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ob.setAttribute("NEXTPAGE", -1);
 		elem.appendChild(ob);
 	}
-	return docu.toString().utf8();
+	return docu.toString();
 }
 
 void ScriXmlDoc::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
@@ -3110,6 +3102,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	dc.setAttribute("MAJGRID", doc->guidesSettings.majorGrid);
 	dc.setAttribute("SHOWGRID", static_cast<int>(doc->guidesSettings.gridShown));
 	dc.setAttribute("SHOWGUIDES", static_cast<int>(doc->guidesSettings.guidesShown));
+	dc.setAttribute("showcolborders", static_cast<int>(doc->guidesSettings.colBordersShown));
 	dc.setAttribute("SHOWFRAME", static_cast<int>(doc->guidesSettings.framesShown));
 	dc.setAttribute("SHOWMARGIN", static_cast<int>(doc->guidesSettings.marginsShown));
 	dc.setAttribute("SHOWBASE", static_cast<int>(doc->guidesSettings.baseShown));
@@ -3529,13 +3522,15 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
  * <c.toepp@gmx.de>
 */
  #ifdef HAVE_LIBZ
+	QCString cs = docu.toCString(); // UTF-8 QCString
 	if(fileName.right(2) == "gz")
 	{
-  // zipped saving
+		// zipped saving
+		// XXX: latin1() should probably be local8Bit()
 		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
 		if(gzDoc == NULL)
 			return false;
-		gzputs(gzDoc, docu.toString().utf8());
+		gzputs(gzDoc, cs.data());
 		gzclose(gzDoc);
 	}
 	else
@@ -3544,8 +3539,7 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 		if(!f.open(IO_WriteOnly))
 			return false;
 		QTextStream s(&f);
-		QString wr = docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		s.writeRawBytes(cs, cs.length());
 		f.close();
 	}
 #else
@@ -3553,8 +3547,8 @@ bool ScriXmlDoc::WriteDoc(QString fileName, ScribusDoc *doc, QProgressBar *dia2)
 	if(!f.open(IO_WriteOnly))
 		return false;
 	QTextStream s(&f);
-	QString wr = docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	QCString cs = docu.toCString();
+	s.writeRawBytes(cs, cs.length());
 	f.close();
 #endif
 	return true;

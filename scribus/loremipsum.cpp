@@ -92,8 +92,9 @@ QString LoremParser::createLorem(uint parCount)
 		return QString::null;
 	// first paragraph is always the same
 	QString lorem(loremIpsum[0]);
-	for (uint i = 1; i < parCount + 1; ++i)
-		lorem += loremIpsum[rand()%loremIpsum.count()] + '\n';
+	if (!loremIpsum.isEmpty())
+		for (uint i = 1; i < parCount + 1; ++i)
+			lorem += loremIpsum[rand()%loremIpsum.count()] + '\n';
 	return lorem.stripWhiteSpace();
 }
 
@@ -240,6 +241,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 			delete ss;
 		}
+		delete lp;
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (currItem->document()->docHyphenator->AutoCheck)

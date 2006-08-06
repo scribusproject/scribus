@@ -410,6 +410,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	Sizing = false;
 	toPixmap = false;
 	UseEmbedded = true;
+	IRender = 1;
 	EmProfile = "";
 	Groups.clear();
 	LayerNr = m_Doc->activeLayer();
@@ -3346,7 +3347,7 @@ bool PageItem::mouseWithinItem(QWidget* vport, const int x, const int y, double 
 	return transRect.contains(x, y);
 }
 
-bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution)
+bool PageItem::loadImage(const QString& filename, const bool reload, const int gsResolution, bool showMsg)
 {
 	if (! asImageFrame())
 		return false;
@@ -3362,7 +3363,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
 	bool dummy;
-	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, 2, gsRes, &dummy))
+	if (!pixm.LoadPicture(filename, IProfile, IRender, UseEmbedded, true, 2, gsRes, &dummy, showMsg))
 	{
 		Pfile = fi.absFilePath();
 		PicAvail = false;

@@ -1,0 +1,44 @@
+<qt>
+<title>Color related Commands</title>
+<h2>Color related Commands</h2>
+
+<dl>
+
+<dt><a name="-changeColor"><strong>changeColor</strong></a>(...)</dt>
+<dd><code><a href="#-changeColor">changeColor</a>("name", c, m, y, k)</code>
+<p>Changes the color "name" to the specified CMYK value. The color value is defined via four components c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-defineColor"><strong>defineColor</strong></a>(...)</dt>
+<dd><code><a href="#-defineColor">defineColor</a>("name", c, m, y, k)</code>
+<p>Defines a new color "name". The color Value is defined via four components: c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in the range from 0 to 255.</p>
+<p>May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>
+<dd><code><a href="#-deleteColor">deleteColor</a>("name", "replace")</code>
+<p>Deletes the color "name". Every occurence of that color is replaced by the color "replace". If not specified, "replace" defaults to the color "None" - transparent.</p>
+<p>deleteColor works on the default document colors if there is no document open. In that case, "replace", if specified, has no effect.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if a named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-getColor"><strong>getColor</strong></a>(...)</dt>
+<dd><code><a href="#-getColor">getColor</a>("name") -&gt; tuple</code>
+<p>Returns a tuple (C, M, Y, K) containing the four color components of the color "name" from the current document. If no document is open, returns the value of the named color from the default document colors.</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-getColorAsRGB"><strong>getColorAsRGB</strong></a>(...)</dt>
+<dd><code><a href="#-getColorAsRGB">getColorAsRGB</a>("name") -&gt; tuple</code>
+<p>Returns a tuple (R,G,B) containing the three color components of the color "name" from the current document, converted to the RGB colour space. If no document is open, returns the value of the named color from the default document colors.</p>
+<p>May raise NotFoundError if the named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+<dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
+<dd><code><a href="#-getColorNames">getColorNames</a>() -&gt; list</code>
+<p>Returns a list containing the names of all defined colors in the document. If no document is open, returns a list of the default document colors.</p></dd>
+
+<dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
+<dd><code><a href="#-replaceColor">replaceColor</a>("name", "replace")</code>
+<p>Every occurence of the color "name" is replaced by the color "replace".</p>
+<p>May raise <a href="scripterapi.html#NotFoundError">NotFoundError</a> if a named color wasn't found. May raise ValueError if an invalid color name is specified.</p></dd>
+
+</dl>
+
+</qt>

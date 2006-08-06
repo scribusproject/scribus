@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 00:36+0100\n"
+"POT-Creation-Date: 2006-05-15 20:57+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -570,10 +570,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -592,9 +592,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -687,6 +684,11 @@ msgid "Document"
 msgstr "Документ "
 
 msgid "Background"
+msgstr ""
+
+msgid ""
+"An error occurred while opening icc profiles, color management is not "
+"enabled."
 msgstr ""
 
 msgid "New Layer"
@@ -1454,14 +1456,6 @@ msgstr "Преместване на страница(и)"
 msgid "Collecting..."
 msgstr ""
 
-#, fuzzy
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-"Настинали искате да запишете въху:\n"
-"%1 ?"
-
 msgid "Warning"
 msgstr "Внимания"
 
@@ -1469,6 +1463,14 @@ msgid ""
 "Cannot collect all files for output for file:\n"
 "%1"
 msgstr ""
+
+#, fuzzy
+msgid ""
+"Cannot collect the file: \n"
+"%1"
+msgstr ""
+"Настинали искате да запишете въху:\n"
+"%1 ?"
 
 #, fuzzy
 msgid "Manage Tabulators"
@@ -1565,6 +1567,10 @@ msgstr "Запиши"
 
 msgid "Conve&rt to"
 msgstr ""
+
+#, fuzzy
+msgid "Contents"
+msgstr "Съдържание"
 
 #, fuzzy
 msgid "Linking Text Frames"
@@ -2003,14 +2009,6 @@ msgid "&Selection"
 msgstr "Избери шрифт"
 
 #, fuzzy
-msgid "&Lock Guides"
-msgstr "Покажи помощните линии"
-
-#, fuzzy
-msgid "&Apply to All Pages"
-msgstr "От страница:"
-
-#, fuzzy
 msgid "&Close"
 msgstr "Затвори"
 
@@ -2020,6 +2018,14 @@ msgstr "Управление на илюстрации"
 
 msgid "Preview"
 msgstr "Преглед"
+
+#, fuzzy
+msgid "&Lock Guides"
+msgstr "Покажи помощните линии"
+
+#, fuzzy
+msgid "&Apply to All Pages"
+msgstr "От страница:"
 
 msgid ""
 "Set the guides in document. Guide manager is still opened but the changes "
@@ -2401,7 +2407,10 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -3608,7 +3617,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -4470,20 +4479,12 @@ msgid "&Copy"
 msgstr "Копиране"
 
 #, fuzzy
-msgid "Copy Contents"
+msgid "Paste (&Absolute)"
 msgstr "Съдържание"
 
 #, fuzzy
-msgid "Paste Contents"
-msgstr "Съдържание"
-
-#, fuzzy
-msgid "Paste Contents (Absolute)"
-msgstr "Съдържание"
-
-#, fuzzy
-msgid "C&lear Contents"
-msgstr "Съдържание"
+msgid "C&lear"
+msgstr "Изчистване"
 
 #, fuzzy
 msgid "Select &All"
@@ -5427,10 +5428,6 @@ msgstr "Вмъкване..."
 msgid "&Insert"
 msgstr "Вмъкване..."
 
-#, fuzzy
-msgid "C&lear"
-msgstr "Изчистване"
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -5665,12 +5662,12 @@ msgstr "Документи (*.scd);; Всички документи (*)"
 msgid "New Color"
 msgstr "Нов цвят"
 
+msgid "Add, change or remove color stops here"
+msgstr ""
+
 #, fuzzy
 msgid "Position:"
 msgstr "Описание:"
-
-msgid "Here you can add, change or remove Color-Stops."
-msgstr ""
 
 #, fuzzy
 msgid "Scribus "
@@ -6014,6 +6011,10 @@ msgid "Space"
 msgstr "Лице"
 
 #, fuzzy
+msgid "Liga&ture"
+msgstr "Илюстрации"
+
+#, fuzzy
 msgid "Do you really want to replace your existing image?"
 msgstr "Наистина ли искате да изтриете този стил?"
 
@@ -6031,21 +6032,32 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-#, fuzzy
-msgid "Underline Words Only"
-msgstr "Подчертаване"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
 #, fuzzy
 msgid "All Caps"
 msgstr "малки букви"
 
-#, fuzzy
-msgid "Strike Out"
-msgstr "Удар извън"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
 
-#, fuzzy
-msgid "Shadow"
-msgstr "Сянка"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
+msgstr ""
 
 msgid "Setup Printer"
 msgstr "Опции на принтера"
@@ -6516,9 +6528,8 @@ msgstr "Избери шрифт"
 msgid "About Scribus %1"
 msgstr "За Scribus"
 
-#, fuzzy
-msgid "March"
-msgstr "Търси"
+msgid "May"
+msgstr ""
 
 #, fuzzy
 msgid "%1 %2 %3"
@@ -6992,10 +7003,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -7014,6 +7030,9 @@ msgstr "Ръчено междубуквие"
 #, fuzzy
 msgid "Line Spacing"
 msgstr "Линейно разтояние"
+
+msgid "Click to select the line spacing mode"
+msgstr ""
 
 msgid "Style of current paragraph"
 msgstr ""
@@ -7368,6 +7387,13 @@ msgstr ""
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
+#, fuzzy
+msgid "Scrapbook (*.scs)"
+msgstr "Библиотека"
+
+msgid "Choose a scrapbook file to import"
+msgstr ""
+
 msgid ""
 "Name \"%1\" is not unique.\n"
 "Please choose another."
@@ -7389,6 +7415,10 @@ msgstr "Преглед"
 #, fuzzy
 msgid "&Load..."
 msgstr "Зареждане..."
+
+#, fuzzy
+msgid "&Import Scrapbook File..."
+msgstr "Вмъкване на страница"
 
 msgid "Polygon Properties"
 msgstr ""
@@ -8149,10 +8179,6 @@ msgid "Processing Master Pages:"
 msgstr "След страницата"
 
 #, fuzzy
-msgid "Contents"
-msgstr "Съдържание"
-
-#, fuzzy
 msgid "&Contents"
 msgstr "Съдържание"
 
@@ -8345,6 +8371,9 @@ msgstr ""
 msgid "Esperanto"
 msgstr ""
 
+msgid "Estonian"
+msgstr ""
+
 #, fuzzy
 msgid "German"
 msgstr "Немски:"
@@ -8374,6 +8403,9 @@ msgstr ""
 #, fuzzy
 msgid "Italian"
 msgstr "Курсив"
+
+msgid "Japanese"
+msgstr ""
 
 msgid "Korean"
 msgstr ""
@@ -9293,6 +9325,9 @@ msgstr ""
 msgid "Page number out of range."
 msgstr ""
 
+msgid "Given master page name does not match any existing."
+msgstr ""
+
 msgid "argument is not list: must be list of float values."
 msgstr ""
 
@@ -10035,9 +10070,6 @@ msgstr "Размаркиране на всичко"
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 msgid "Barcode"
 msgstr ""
 
@@ -10150,12 +10182,12 @@ msgstr ""
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr ""
 
+msgid "Variable number of digits"
+msgstr ""
+
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
-msgstr ""
-
-msgid "Variable number of digits"
 msgstr ""
 
 msgid "Variable number of digits and capital letters"
@@ -10227,16 +10259,24 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+#, fuzzy
+msgid "Importing PostScript"
+msgstr "Библиотека (*.scs);; Всички файлове (*)"
+
+#, fuzzy
+msgid "Analyzing PostScript:"
+msgstr "Прав формат"
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+msgid "Generating Items"
+msgstr ""
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 #, fuzzy
@@ -10253,6 +10293,34 @@ msgstr "Поставяне:"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Поставяне:"
+
+#, fuzzy
+#~ msgid "Copy Contents"
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "Paste Contents"
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "C&lear Contents"
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "Underline Words Only"
+#~ msgstr "Подчертаване"
+
+#, fuzzy
+#~ msgid "Strike Out"
+#~ msgstr "Удар извън"
+
+#, fuzzy
+#~ msgid "Shadow"
+#~ msgstr "Сянка"
+
+#, fuzzy
+#~ msgid "March"
+#~ msgstr "Търси"
 
 #, fuzzy
 #~ msgid "Image Settings"

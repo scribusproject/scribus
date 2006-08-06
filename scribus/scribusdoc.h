@@ -283,7 +283,7 @@ public:
 	bool deleteTaggedItems();
 
 	bool AddFont(QString name, int fsize = 10);
-	void OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
+	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
@@ -416,7 +416,7 @@ public:
 	 * @brief Load images into an image frame, moved from the view
 	 * @retval Return false on failure
 	 */
-	bool LoadPict(QString fn, int ItNr, bool reload = false);
+	bool LoadPict(QString fn, int ItNr, bool reload = false, bool showMsg = false);
 	/**
 	 * 
 	 * @param fn 
@@ -424,7 +424,7 @@ public:
 	 * @param reload 
 	 * @return 
 	 */
-	bool loadPict(QString fn, PageItem *pageItem, bool reload = false);
+	bool loadPict(QString fn, PageItem *pageItem, bool reload = false, bool showMsg = false);
 	/**
 	 * \brief Handle image with color profiles
 	 * @param Pr profile

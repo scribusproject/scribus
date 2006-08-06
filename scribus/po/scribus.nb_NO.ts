@@ -1909,7 +1909,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>March</source>
-        <translation>Mars</translation>
+        <translation type="obsolete">Mars</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2094,7 +2098,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>F&amp;jern innhold</translation>
+        <translation type="obsolete">F&amp;jern innhold</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2802,11 +2806,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Copy Contents</source>
-        <translation>Kopier innhold</translation>
+        <translation type="obsolete">Kopier innhold</translation>
     </message>
     <message>
         <source>Paste Contents</source>
-        <translation>Lim inn innhold</translation>
+        <translation type="obsolete">Lim inn innhold</translation>
     </message>
     <message>
         <source>&amp;Printing Enabled</source>
@@ -2906,10 +2910,6 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2922,6 +2922,14 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Oversikt</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">T&amp;øm</translation>
     </message>
 </context>
 <context>
@@ -4220,10 +4228,6 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4353,6 +4357,18 @@ Velg et annet.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation>Velg en katalog</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6695,14 +6711,24 @@ feilet!</translation>
         <translation>Alvorlig feil</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation>Feil</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation>Feil</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6971,6 +6997,18 @@ Er du sikker på at du vil overskrive den?</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7956,7 +7994,11 @@ Bruk 72 dpi for bilder som er ment for skjermen</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Her kan du legge til, forandre eller fjerne Color-Stops.</translation>
+        <translation type="obsolete">Her kan du legge til, forandre eller fjerne Color-Stops.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10333,14 +10375,6 @@ hjørner:</translation>
         <translation type="unfinished">Navnet &quot;%1&quot; er ikke unikt. &lt;br/&gt;Velg et annet.</translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10350,6 +10384,18 @@ hjørner:</translation>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13554,7 +13600,7 @@ gang tidsperioden utløper</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Ghostscript behandlerens posisjon i filsystemet</translation>
+        <translation type="obsolete">Ghostscript behandlerens posisjon i filsystemet</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -14234,6 +14280,10 @@ UCR reduserer muligheten for overmettning med CMY farger.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15845,10 +15895,6 @@ Eksterne lenker</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16581,6 +16627,23 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arabisk</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18877,6 +18940,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -19333,6 +19400,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Innhold</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -19598,6 +19673,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation>Gråskala</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Innhold</translation>
     </message>
 </context>
 <context>
@@ -20067,7 +20146,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Short Words</translation>
     </message>
 </context>
 <context>
@@ -20387,7 +20466,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Ligatur</translation>
     </message>
     <message>
         <source>Space</source>
@@ -20424,7 +20503,7 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Understreket</translation>
+        <translation type="obsolete">Understreket</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -20440,15 +20519,11 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Gjennomstrekking</translation>
+        <translation type="obsolete">Gjennomstrekking</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation type="obsolete">Fremhev tekst</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -20460,12 +20535,32 @@ til vinduet nedenunder, for å lage en ny side.</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Skygge</translation>
+        <translation type="obsolete">Skygge</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Oversikt</translation>
+        <translation type="obsolete">Oversikt</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21351,7 +21446,7 @@ og utseendet av ditt dokument vil bli beholdt.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation>Tidsrom siden er vist før presentasjonen starter på den valgte siden.</translation>
+        <translation type="obsolete">Tidsrom siden er vist før presentasjonen starter på den valgte siden.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -21754,6 +21849,10 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

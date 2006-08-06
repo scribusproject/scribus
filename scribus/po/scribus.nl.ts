@@ -5663,7 +5663,7 @@ steuning. De laaatse letter betekent de renderer C=cairo of A=libart. Ontbrekend
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>March</source>
+        <source>May</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5821,7 +5821,7 @@ steuning. De laaatse letter betekent de renderer C=cairo of A=libart. Ontbrekend
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>Inhoud &amp;leegmaken</translation>
+        <translation type="obsolete">Inhoud &amp;leegmaken</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -6528,14 +6528,6 @@ steuning. De laaatse letter betekent de renderer C=cairo of A=libart. Ontbrekend
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6633,10 +6625,6 @@ steuning. De laaatse letter betekent de renderer C=cairo of A=libart. Ontbrekend
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6649,6 +6637,14 @@ steuning. De laaatse letter betekent de renderer C=cairo of A=libart. Ontbrekend
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Outline</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">W&amp;issen</translation>
     </message>
 </context>
 <context>
@@ -7964,7 +7960,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Make check digit visible in text</source>
-        <translation type="unfinished">Controlecijfer zichtbaar</translation>
+        <translation type="obsolete">Controlecijfer zichtbaar</translation>
     </message>
     <message>
         <source>Co&amp;de:</source>
@@ -8092,6 +8088,18 @@ Kies een andere naam.</translation>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Kies een map</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9951,7 +9959,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -9959,7 +9967,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
         <source>Shown</source>
@@ -10096,7 +10104,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -10112,7 +10120,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -10394,14 +10402,24 @@ is mislukt!</translation>
         <translation>Fatale fout</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation type="unfinished">Fout</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Fout</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10619,6 +10637,18 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11522,7 +11552,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -11595,7 +11625,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Hier kunt u kleur-stops toevoegen, bewerken of verwijderen.</translation>
+        <translation type="obsolete">Hier kunt u kleur-stops toevoegen, bewerken of verwijderen.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11991,7 +12025,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Auteursrecht:</translation>
     </message>
     <message>
         <source>Scanner Model:</source>
@@ -13840,14 +13874,6 @@ Kies een andere naam.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13857,6 +13883,18 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16051,7 +16089,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -16067,7 +16105,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -17400,7 +17438,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Plaats van de Ghostscript-interpreter in uw bestandssysteem</translation>
+        <translation type="obsolete">Plaats van de Ghostscript-interpreter in uw bestandssysteem</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -17752,6 +17790,10 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19204,10 +19246,6 @@ Externe koppelingen
         <translation type="unfinished">Aangepast</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Scribus Development Version</source>
         <translation type="unfinished"></translation>
     </message>
@@ -19926,6 +19964,23 @@ is not exhaustive due to exceptions from called functions.
         <source>Luxembourgish</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -20406,7 +20461,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>C&amp;lone</source>
@@ -20422,7 +20477,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -22107,6 +22162,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -22563,6 +22622,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Inhoud</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -22648,7 +22715,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Wiki</translation>
     </message>
     <message>
         <source>Issues</source>
@@ -22948,6 +23015,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Inhoud</translation>
     </message>
 </context>
 <context>
@@ -23773,7 +23844,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Onderstreept</translation>
+        <translation type="obsolete">Onderstreept</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -23789,27 +23860,34 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Doorhalen</translation>
+        <translation type="obsolete">Doorhalen</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation type="obsolete">Outline tekst</translation>
     </message>
     <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Shadow</source>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23946,7 +24024,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -23954,7 +24032,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
@@ -24017,7 +24095,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -24025,7 +24103,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
@@ -24755,7 +24833,7 @@ dat layout en uiterlijk bewaard zullen blijven.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Hoe lang de pagina wordt weergegeven voordat de presentatie start op de geselecteerde pagina.</translation>
+        <translation type="obsolete">Hoe lang de pagina wordt weergegeven voordat de presentatie start op de geselecteerde pagina.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -25184,6 +25262,10 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

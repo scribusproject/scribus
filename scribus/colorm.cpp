@@ -354,6 +354,7 @@ ColorManager::ColorManager(QWidget* parent, ColorList doco, bool haveDoc, QStrin
 	QToolTip::add( DupF, "<qt>" + tr( "Make a copy of the currently selected color" ) + "</qt>");
 	QToolTip::add( DelF, "<qt>" + tr( "Delete the currently selected color" ) + "</qt>");
 	QToolTip::add( SaveF, "<qt>" + tr( "Make the current colorset the default color set" ) + "</qt>");
+        QToolTip::add( colorListBox, "<qt>" + tr( "If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management." ) + "</qt>");
 	connect( SaveF, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( CancF, SIGNAL( clicked() ), this, SLOT( reject() ) );
 	connect( NewF, SIGNAL( clicked() ), this, SLOT( neueFarbe() ) );
@@ -473,23 +474,37 @@ void ColorManager::loadDefaults(int id)
 			while (!tsC.atEnd())
 			{
 				ScColor tmp;
-				ColorEn = tsC.readLine();
+				ColorEn = tsC.readLine().stripWhiteSpace();
 				if (ColorEn.length()>0 && ColorEn[0]==QChar('#'))
 					continue;
-				QTextStream CoE(&ColorEn, IO_ReadOnly);
-				CoE >> Rval;
-				CoE >> Gval;
-				CoE >> Bval;
-				if (cus)
-				{
-					CoE >> Kval;
-					Cname = CoE.read().stripWhiteSpace();
-					tmp.setColor(Rval, Gval, Bval, Kval);
+				
+				if (ColorEn[0].isNumber()) {
+					QTextStream CoE(&ColorEn, IO_ReadOnly);
+					CoE >> Rval;
+					CoE >> Gval;
+					CoE >> Bval;
+					if (cus)
+					{
+						CoE >> Kval;
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColor(Rval, Gval, Bval, Kval);
+					}
+					else
+					{
+						Cname = CoE.read().stripWhiteSpace();
+						tmp.setColorRGB(Rval, Gval, Bval);
+					}
 				}
-				else
-				{
-					Cname = CoE.read().stripWhiteSpace();
-					tmp.setColorRGB(Rval, Gval, Bval);
+				else {
+					QStringList fields = QStringList::split(QChar(9), ColorEn);
+					if (fields.count() != 5)
+						continue;
+					Cname = fields[0];
+					Rval = fields[1].toInt();
+					Gval = fields[2].toInt();
+					Bval = fields[3].toInt();
+					Kval = fields[4].toInt();
+					tmp.setColor(Rval, Gval, Bval, Kval);
 				}
 				if ((c<customSetStartIndex) && (Cname.length()==0))
 				{

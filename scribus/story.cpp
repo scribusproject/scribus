@@ -272,6 +272,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 		case Keypad:
 		case ShiftButton:
 		case ControlButton|AltButton:
+		case ControlButton|AltButton|ShiftButton: // Shift + AltGr on Windows for polish characters
 			if (unicodeTextEditMode)
 			{
 				int conv = 0;
@@ -3615,8 +3616,8 @@ void StoryEditor::LoadTextFile()
 				seActions["editCopy"]->setEnabled(false);
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
-				delete ss;
 			}
+			delete ss;
 		}
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
