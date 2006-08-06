@@ -41,6 +41,7 @@ scribus_SOURCES = \
 	checkDocument.cpp	\
 	cmserrorhandling.cpp \
 	cmsprefs.cpp	\
+	cmsutil.cpp \
 	cmsettings.cpp \
 	cmykfw.cpp	\
 	collect4output.cpp \
@@ -313,6 +314,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/charselect.h                  $(prefix)/include/scribus/charselect.h
 	$(INSTALL_DATA) $(srcdir)/checkDocument.h               $(prefix)/include/scribus/checkDocument.h
 	$(INSTALL_DATA) $(srcdir)/cmsprefs.h                    $(prefix)/include/scribus/cmsprefs.h
+	$(INSTALL_DATA) $(srcdir)/cmsutil.h                     $(prefix)/include/scribus/cmsutil.h
 	$(INSTALL_DATA) $(srcdir)/cmykfw.h                      $(prefix)/include/scribus/cmykfw.h
 	$(INSTALL_DATA) $(srcdir)/collect4output.h              $(prefix)/include/scribus/collect4output.h
 	$(INSTALL_DATA) $(srcdir)/color.h                       $(prefix)/include/scribus/color.h
@@ -505,6 +507,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/charselect.h
 	-rm -f $(prefix)/include/scribus/checkDocument.h
 	-rm -f $(prefix)/include/scribus/cmsprefs.h
+	-rm -f $(prefix)/include/scribus/cmsutil.h
 	-rm -f $(prefix)/include/scribus/cmykfw.h
 	-rm -f $(prefix)/include/scribus/collect4output.h
 	-rm -f $(prefix)/include/scribus/color.h

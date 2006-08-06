@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API CMSPrefs : public QWidget
 {
 	Q_OBJECT
@@ -24,7 +26,9 @@ class SCRIBUS_API CMSPrefs : public QWidget
 public:
 	CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
 	~CMSPrefs() {};
+
 	void restoreDefaults(CMSData *prefs, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles);
+	void updateDocSettings(ScribusDoc* doc);
 
 	QCheckBox* checkBox1;
 	QGroupBox* sysProfiles;

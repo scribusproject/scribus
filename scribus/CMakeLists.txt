@@ -230,6 +230,7 @@ checkDocument.cpp
 cmserrorhandling.cpp
 cmykfw.cpp
 cmsprefs.cpp
+cmsutil.cpp
 cmsettings.cpp
 collect4output.cpp
 colorchart.cpp

@@ -63,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 
 #ifdef HAVE_CMS
+#include "cmsutil.h"
 #include "cmserrorhandling.h"
 #endif
 
@@ -622,80 +623,66 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	}
 	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
-	stdTransRGBMon = cmsCreateTransform(DocInputRGBProf, TYPE_RGB_16,
+	stdTransRGBMon  = scCmsCreateTransform(DocInputRGBProf, TYPE_RGB_16,
 										DocOutputProf, TYPE_RGB_16,
 										IntentColors,
 										dcmsFlags);
-	stdTransCMYKMon = cmsCreateTransform(DocInputCMYKProf, TYPE_CMYK_16,
+	stdTransCMYKMon = scCmsCreateTransform(DocInputCMYKProf, TYPE_CMYK_16,
 										DocOutputProf, TYPE_RGB_16,
 										IntentColors,
 										dcmsFlags);
 	// TODO : check input profiles used for images
-	stdProofImg = cmsCreateProofingTransform(DocInputRGBProf, TYPE_RGBA_8,
+	stdProofImg = scCmsCreateProofingTransform(DocInputRGBProf, TYPE_RGBA_8,
 	              DocOutputProf, TYPE_RGBA_8,
 	              DocPrinterProf,
 	              IntentImages,
 	              INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsGC | cmsFLAGS_SOFTPROOFING);
-	stdTransImg = cmsCreateTransform(DocInputRGBProf, TYPE_RGBA_8,
+	stdTransImg = scCmsCreateTransform(DocInputRGBProf, TYPE_RGBA_8,
 	                                 DocOutputProf, TYPE_RGBA_8,
 	                                 IntentImages,
 	                                 dcmsFlags);
-	stdTransRGB = cmsCreateTransform(DocInputCMYKProf, TYPE_CMYK_16,
+	stdTransRGB = scCmsCreateTransform(DocInputCMYKProf, TYPE_CMYK_16,
 						DocInputRGBProf, TYPE_RGB_16,
 						IntentColors,
 						dcmsFlags);
-	stdTransCMYK = cmsCreateTransform(DocInputRGBProf, TYPE_RGB_16,
+	stdTransCMYK = scCmsCreateTransform(DocInputRGBProf, TYPE_RGB_16,
 						DocInputCMYKProf, TYPE_CMYK_16,
 						IntentColors,
 						dcmsFlags);
+	cmsHPROFILE inputProfRGB = NULL;
+	cmsHPROFILE inputProfCMYK = NULL;
 	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
 	{
 		inputProf = (CMSSettings.SoftProofOn && CMSSettings.SoftProofFullOn) ? DocInputCMYKProf : DocPrinterProf;
-		stdProof = cmsCreateProofingTransform(DocInputRGBProf, TYPE_RGB_16,
-	                        DocOutputProf, TYPE_RGB_16,
-	                        DocPrinterProf,
-	                        IntentColors,
-	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-		stdProofGC = cmsCreateProofingTransform(DocInputRGBProf, TYPE_RGB_16,
-	                        DocOutputProf, TYPE_RGB_16,
-	                        DocPrinterProf,
-	                        IntentColors,
-	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-		stdProofCMYK = cmsCreateProofingTransform(inputProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentColors,
-							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-		stdProofCMYKGC = cmsCreateProofingTransform(inputProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentColors,
-							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+		inputProfRGB  = DocInputRGBProf;
+		inputProfCMYK = inputProf;
 	}
 	else
 	{
 		inputProf = (CMSSettings.SoftProofOn && CMSSettings.SoftProofFullOn) ? DocInputRGBProf : DocPrinterProf;
-		stdProof = cmsCreateProofingTransform(inputProf, TYPE_RGB_16,
-	                        DocOutputProf, TYPE_RGB_16,
-	                        DocPrinterProf,
-	                        IntentColors,
-	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-		stdProofGC = cmsCreateProofingTransform(inputProf, TYPE_RGB_16,
-	                        DocOutputProf, TYPE_RGB_16,
-	                        DocPrinterProf,
-	                        IntentColors,
-	                        INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-		stdProofCMYK = cmsCreateProofingTransform(DocInputCMYKProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentColors,
-							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-		stdProofCMYKGC = cmsCreateProofingTransform(DocInputCMYKProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentColors,
-							INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+		inputProfRGB  = inputProf;
+		inputProfCMYK = DocInputCMYKProf;
 	}
+	stdProof = scCmsCreateProofingTransform(inputProfRGB, TYPE_RGB_16,
+	                    DocOutputProf, TYPE_RGB_16,
+	                    DocPrinterProf,
+	                    IntentColors,
+	                    INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	stdProofGC = scCmsCreateProofingTransform(inputProfRGB, TYPE_RGB_16,
+	                    DocOutputProf, TYPE_RGB_16,
+	                    DocPrinterProf,
+	                    IntentColors,
+	                    INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+	stdProofCMYK = scCmsCreateProofingTransform(inputProfCMYK, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						DocPrinterProf,
+						IntentColors,
+						INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	stdProofCMYKGC = scCmsCreateProofingTransform(inputProfCMYK, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						DocPrinterProf,
+						IntentColors,
+						INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
 	cmsSetErrorHandler(NULL);
 	return true;
 #endif

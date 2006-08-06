@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
+	#include "cmsutil.h"
 #endif
 #include "gsutil.h"
 #include "exif.h"
@@ -1742,7 +1743,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	if (cmSettings.useColorManagement() && useProf && inputProf)
 	{
 		DWORD inputProfFormat = TYPE_RGBA_8;
-		DWORD prnProfFormat = TYPE_CMYK_8;
+		DWORD outputProfFormat = TYPE_CMYK_8;
 		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
 		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = TYPE_RGBA_8;
@@ -1750,11 +1751,11 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			inputProfFormat = TYPE_CMYK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
 			inputProfFormat = TYPE_GRAY_8;
-		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(cmSettings.printerProfile()));
-		if ( prnProfColorSpace == icSigRgbData )
-			prnProfFormat = TYPE_RGBA_8;
-		else if ( prnProfColorSpace == icSigCmykData )
-			prnProfFormat = TYPE_CMYK_8;
+		int outputProfColorSpace = static_cast<int>(cmsGetColorSpace(cmSettings.printerProfile()));
+		if ( outputProfColorSpace == icSigRgbData )
+			outputProfFormat = TYPE_RGBA_8;
+		else if ( outputProfColorSpace == icSigCmykData )
+			outputProfFormat = TYPE_CMYK_8;
 		if (cmSettings.doSoftProofing())
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -1766,15 +1767,15 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		switch (reqType)
 		{
 		case CMYKData: // CMYK
-			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), prnProfFormat, cmSettings.imageRenderingIntent(), 0);
-			if (prnProfColorSpace != icSigCmykData )
+			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), outputProfFormat, cmSettings.imageRenderingIntent(), 0);
+			if (outputProfColorSpace != icSigCmykData )
 				*realCMYK = isCMYK = false;
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
 			break;
 		case RGBProof: // RGB Proof
 			{
@@ -1783,12 +1784,14 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				else if(inputProfFormat == TYPE_RGBA_8)
 					inputProfFormat = TYPE_BGRA_8;
 				if (cmSettings.doSoftProofing())
-					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-					                                   cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
-					                                   cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
+				{
+					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
+					                     cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
+					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
+				}
 				else
-					xform = cmsCreateTransform(inputProf, inputProfFormat,
-					                           cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
+					xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), 
+										 TYPE_BGRA_8, cmSettings.intent(), cmsFlags);
 			}
 			break;
 		case RawData: // no Conversion just raw Data

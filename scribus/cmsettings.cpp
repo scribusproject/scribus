@@ -45,42 +45,42 @@ bool CMSettings::useColorManagement() const
 	return false;
 }
 
-QString CMSettings::defaultMonitorProfile()
+QString CMSettings::defaultMonitorProfile() const
 {
 	if (m_Doc)
 		return m_Doc->CMSSettings.DefaultMonitorProfile;
 	return QString();
 }
 
-QString CMSettings::defaultPrinterProfile()
+QString CMSettings::defaultPrinterProfile() const
 {
 	if (m_Doc)
 		return m_Doc->CMSSettings.DefaultPrinterProfile;
 	return QString();
 }
 
-QString CMSettings::defaultImageRGBProfile()
+QString CMSettings::defaultImageRGBProfile() const
 {
 	if (m_Doc)
 		return m_Doc->CMSSettings.DefaultImageRGBProfile;
 	return QString();
 }
 
-QString CMSettings::defaultImageCMYKProfile()
+QString CMSettings::defaultImageCMYKProfile() const
 {
 	if (m_Doc)
 		return m_Doc->CMSSettings.DefaultImageCMYKProfile;
 	return QString();
 }
 
-QString CMSettings::defaultSolidColorRGBProfile()
+QString CMSettings::defaultSolidColorRGBProfile() const
 {
 	if (m_Doc)
 		return m_Doc->CMSSettings.DefaultSolidColorRGBProfile;
 	return QString();
 }
 
-QString CMSettings::defaultSolidColorCMYKProfile()
+QString CMSettings::defaultSolidColorCMYKProfile() const
 {
 	if (m_Doc)
 		return m_Doc->CMSSettings.DefaultSolidColorCMYKProfile;

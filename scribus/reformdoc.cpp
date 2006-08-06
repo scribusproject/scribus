@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.h"
 #include "cmsprefs.h"
 #include "units.h"
+#include "mpalette.h"
 #include "mspinbox.h"
 #include "scribus.h"
 #include "scribuscore.h"
@@ -464,7 +465,7 @@ void ReformDoc::updateDocumentSettings()
 	if (ScCore->haveCMS())
 	{
 		bool oldCM = currDoc->CMSSettings.CMSinUse;
-		tabColorManagement->setValues();
+		tabColorManagement->updateDocSettings(currDoc);
 		if (tabColorManagement->changed)
 		{
 			ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
@@ -482,7 +483,16 @@ void ReformDoc::updateDocumentSettings()
 			currDoc->CMSSettings.CMSinUse = oldCM;
 			currDoc->CloseCMSProfiles();
 			currDoc->CMSSettings.CMSinUse = newCM;
-			if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
+			if (!currDoc->CMSSettings.CMSinUse)
+			{
+				currDoc->HasCMS = false;
+				if	(oldCM)
+				{
+					ScMW->recalcColors(ScMW->mainWindowProgressBar);
+					currDoc->RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, ScMW->mainWindowProgressBar);
+				}
+			}
+			else if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				currDoc->HasCMS = true;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigRgbData)

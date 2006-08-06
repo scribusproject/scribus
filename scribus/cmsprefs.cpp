@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "cmsprefs.h"
 #include "cmsprefs.moc"
+#include "scribusdoc.h"
 
 CMSPrefs::CMSPrefs( QWidget* parent, CMSData *Vor, ProfilesL *InputProfiles, ProfilesL *InputProfilesCMYK, ProfilesL *PrinterProfiles, ProfilesL *MonitorProfiles)
 	: QWidget( parent, "CMS" )
@@ -315,6 +316,37 @@ void CMSPrefs::setValues()
 	prefs->GamutCheck = gamutC->isChecked();
 	prefs->CMSinUse = checkBox1->isChecked();
 	prefs->BlackPoint = blackP->isChecked();
+}
+
+void CMSPrefs::updateDocSettings(ScribusDoc* doc)
+{
+	if ((doc->CMSSettings.DefaultImageRGBProfile != inputPRGBIm->currentText()) ||
+		(doc->CMSSettings.DefaultImageCMYKProfile != inputPCMYKIm->currentText()) ||
+		(doc->CMSSettings.DefaultSolidColorRGBProfile != inputPRGB->currentText()) ||
+		(doc->CMSSettings.DefaultSolidColorCMYKProfile != inputPCMYK->currentText()) ||
+		(doc->CMSSettings.DefaultMonitorProfile != monitorP->currentText()) ||
+		(doc->CMSSettings.DefaultPrinterProfile != printerP->currentText()) ||
+		(doc->CMSSettings.DefaultIntentColors != colorsI->currentItem()) ||
+		(doc->CMSSettings.DefaultIntentImages != imagesI->currentItem()) ||
+		(doc->CMSSettings.SoftProofOn != simulate->isChecked()) ||
+		(doc->CMSSettings.SoftProofFullOn != convertAll->isChecked()) ||
+		(doc->CMSSettings.GamutCheck != gamutC->isChecked()) ||
+		(doc->CMSSettings.BlackPoint != blackP->isChecked()) ||
+		(doc->CMSSettings.CMSinUse != checkBox1->isChecked()))
+			changed = true;
+	doc->CMSSettings.DefaultImageRGBProfile = inputPRGBIm->currentText();
+	doc->CMSSettings.DefaultImageCMYKProfile = inputPCMYKIm->currentText();
+	doc->CMSSettings.DefaultSolidColorRGBProfile = inputPRGB->currentText();
+	doc->CMSSettings.DefaultSolidColorCMYKProfile = inputPCMYK->currentText();
+	doc->CMSSettings.DefaultMonitorProfile = monitorP->currentText();
+	doc->CMSSettings.DefaultPrinterProfile = printerP->currentText();
+	doc->CMSSettings.DefaultIntentColors = colorsI->currentItem();
+	doc->CMSSettings.DefaultIntentImages = imagesI->currentItem();
+	doc->CMSSettings.SoftProofOn = simulate->isChecked();
+	doc->CMSSettings.SoftProofFullOn = convertAll->isChecked();
+	doc->CMSSettings.GamutCheck = gamutC->isChecked();
+	doc->CMSSettings.CMSinUse = checkBox1->isChecked();
+	doc->CMSSettings.BlackPoint = blackP->isChecked();
 }
 
 void CMSPrefs::slotSimula()

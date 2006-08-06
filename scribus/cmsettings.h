@@ -44,16 +44,20 @@ public:
 	
 	ScribusDoc* doc() const {return m_Doc;}
 	QString profileName() const {return m_ProfileName;}
+	QString outputProfile() const { return m_outputProfile; }
 	int intent() const {return m_Intent;}
+
+	bool useOutputProfile() const { return !m_outputProfile.isEmpty(); }
+	void setOutputProfile(const QString& prof) { m_outputProfile = prof; }
 
 	bool useColorManagement() const;
 
-	QString defaultMonitorProfile();
-	QString defaultPrinterProfile();
-	QString defaultImageRGBProfile();
-	QString defaultImageCMYKProfile();
-	QString defaultSolidColorRGBProfile();
-	QString defaultSolidColorCMYKProfile();
+	QString defaultMonitorProfile() const;
+	QString defaultPrinterProfile() const;
+	QString defaultImageRGBProfile() const;
+	QString defaultImageCMYKProfile() const;
+	QString defaultSolidColorRGBProfile() const;
+	QString defaultSolidColorCMYKProfile() const;
 
 	int colorRenderingIntent() const;
 	int imageRenderingIntent() const;
@@ -82,6 +86,7 @@ public:
 protected:
 	ScribusDoc* m_Doc;
 	QString m_ProfileName;
+	QString m_outputProfile;
 	int m_Intent;
 
 };
