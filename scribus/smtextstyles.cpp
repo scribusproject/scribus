@@ -23,6 +23,10 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "prefsmanager.h"
 #include "colorcombo.h"
+#include "story.h"
+#include "menumanager.h"
+#include "fmitem.h"
+#include "mpalette.h"
 
 #include <qtabwidget.h>
 
@@ -235,20 +239,132 @@ start:
 	return s;
 }
 
+// copied over from ScMW::saveStyles() and removed all the commented bits
 void SMParagraphStyle::apply()
 {
 	Q_ASSERT(doc_);
 
+	QValueList<uint> ers;
+	QString nn;
+	bool ff;
+	uint nr;
+	ers.clear();
+	ers.append(0);
+	ers.append(1);
+	ers.append(2);
+	ers.append(3);
+	ers.append(4);
+
+	QMap<QString, QString> replacement;
 	for (uint i = 0; i < deleted_.count(); ++i)
-	{ // TODO apply also user defined replacement!!!
-		int index = findParagraphStyle(doc_, deleted_[i].first);
-		if (index > -1)
+		replacement[deleted_[i].first] = deleted_[i].second;
+	deleted_.clear();
+
+	for (uint a=5; a<doc_->docParagraphStyles.count(); ++a)
+	{
+		ff = false;
+		nn = doc_->docParagraphStyles[a].name();
+		for (uint b=0; b<tmpStyles_.count(); ++b)
 		{
-			doc_->docParagraphStyles.remove(static_cast<uint>(index));
+			if (nn == tmpStyles_[b].name())
+			{
+				nr = b;
+				ff = true;
+				break;
+			}
+		}
+		if (ff)
+			ers.append(nr);
+		else
+		{
+			for (uint b=0; b<tmpStyles_.count(); ++b)
+			{
+				if (doc_->docParagraphStyles[a].equiv(tmpStyles_[b]))
+				{
+					nr = b;
+					ff = true;
+					break;
+				}
+			}
+			if (ff)
+				ers.append(nr);
+			else
+			{
+				if (replacement.count() != 0)
+				{
+					QString ne = replacement[nn];
+					if (ne == tr("No Style") || ne == QString::null)
+						ers.append(0);
+					else
+					{
+						for (uint b=0; b<tmpStyles_.count(); ++b)
+						{
+							if (ne == tmpStyles_[b].name())
+							{
+								nr = b;
+								ff = true;
+								break;
+							}
+						}
+						if (ff)
+							ers.append(nr);
+						else
+							ers.append(0);
+					}
+				}
+				else
+					ers.append(0);
+			}
 		}
 	}
-	deleted_.clear();
+
+	if (doc_->scMW()->CurrStED != NULL)
+	{
+		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
+		{
+			for (uint pa = 0; pa < doc_->scMW()->CurrStED->Editor->StyledText.count(); ++pa)
+			{
+				SEditor::ChList *chars;
+				chars = doc_->scMW()->CurrStED->Editor->StyledText.at(pa);
+				(*doc_->scMW()->CurrStED->Editor->ParagStyles.at(pa)) = ers[doc_->scMW()->CurrStED->Editor->ParagStyles[pa]];
+			}
+			doc_->scMW()->CurrStED->Editor->currentParaStyle = ers[doc_->scMW()->CurrStED->Editor->currentParaStyle];
+		}
+	}
 	doc_->docParagraphStyles.redefine(tmpStyles_);
+	if (doc_->scMW()->CurrStED != NULL)
+	{
+		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
+			doc_->scMW()->CurrStED->Editor->updateAll();
+	}
+
+	// TODO add some handy way to add used fonts to the used fonts menu
+// 	PrefsManager *prefsManager = PrefsManager::instance();
+// 	for (uint a=0; a<doc_->docParagraphStyles.count(); ++a)
+// 	{
+// 		if (!doc_->docParagraphStyles[a].charStyle().font().isNone())
+// 		{
+// 			QString nf = doc_->docParagraphStyles[a].charStyle().font().scName();
+// 			if (!doc_->UsedFonts.contains(nf))
+// 			{
+// 				if (doc_->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
+// 				{
+// // 					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
+// // 					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
+// 				}
+// 				else
+// 					doc_->docParagraphStyles[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc_->toolSettings.defFont]));
+// 			}
+// 		}
+// 	}
+
+	doc_->scMW()->propertiesPalette->Spal->updateFormatList();
+	doc_->scMW()->propertiesPalette->updateColorList();
+	doc_->scMW()->propertiesPalette->updateCList();
+// 	FIXME private access in ScMW
+// 	doc_->scMW()->updateColorMenu();
+	doc_->scMW()->view->DrawNew();
+	doc_->changed();
 }
 
 void SMParagraphStyle::editMode(bool isOn)

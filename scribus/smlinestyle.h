@@ -25,7 +25,7 @@ class LineStyleWidget : public LineStyleWBase // .ui implementation
 public:
 	LineStyleWidget();
 	~LineStyleWidget();
-	void showStyle(const multiLine &lineStyle, ColorList &colorList);
+	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
 
 private:
 	LineCombo *dashCombo;
@@ -36,8 +36,11 @@ private:
 	void updateLineList();
 	QColor getColor(const QString &name, int shade);
 
+	friend class SMLineStyle;
+
 protected slots:
 	void slotEditNewLine(int i);
+
 };
 
 class SMLineStyle : public StyleItem
@@ -67,14 +70,36 @@ signals:
 	void selectionDirty();
 
 private:
-	ScribusDoc              *doc_;
-	LineStyleWidget         *widget_;
-	QTabWidget              *twidget_;
-	QMap<QString, multiLine> tmpLines;
+	ScribusDoc               *doc_;
+	LineStyleWidget          *widget_;
+	QTabWidget               *twidget_;
+	QMap<QString, multiLine>  tmpLines;
+	bool                      selectionIsDirty_;
+	QMap<QString, multiLine*> selection_;
+	QValueList<RemoveItem>    deleted_;
+	int                       currentLine_;
 
-	void reset();
 	void setSelection(const QString& styleName);
 	void setMultiSelection(const QStringList& styles);
+	QString getUniqueName(const QString &name);
+	void setupConnections();
+	void removeConnections();
+	void updateSList();
+	void updatePreview();
+	void resort();
+	void rebuildList();
+	QColor calcFarbe(const QString &name, int shade);
+
+private slots:
+	void slotCurrentLineChanged(int i);
+	void slotLineStyle(int i);
+	void slotSetEnd(int i);
+	void slotSetJoin(int i);
+	void slotColor(const QString &s);
+	void slotShade(int i);
+	void slotLineWidth();
+	void slotAddLine();
+	void slotDeleteLine();
 };
 
 #endif

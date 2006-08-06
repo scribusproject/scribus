@@ -260,7 +260,7 @@
                         </spacer>
                         <widget class="QLabel">
                             <property name="name">
-                                <cstring>previewEdit</cstring>
+                                <cstring>previewLabel</cstring>
                             </property>
                             <property name="sizePolicy">
                                 <sizepolicy>
@@ -310,14 +310,6 @@
         </widget>
     </vbox>
 </widget>
-<connections>
-    <connection>
-        <sender>lineStyles</sender>
-        <signal>highlighted(int)</signal>
-        <receiver>LineStyleWBase</receiver>
-        <slot>slotEditNewLine(int)</slot>
-    </connection>
-</connections>
 <slots>
     <slot access="protected">slotEditNewLine(int i)</slot>
 </slots>
