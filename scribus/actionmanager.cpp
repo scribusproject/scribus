@@ -444,11 +444,14 @@ void ActionManager::initInsertMenuActions()
 {
 	QString name;
 	//Insert Menu
+	name="insertFrame";
+	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="insertGlyph";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="insertSampleText";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 
+	connect( (*scrActions)["insertFrame"], SIGNAL(activated()), mainWindow, SLOT(slotInsertFrame()) );
 	connect( (*scrActions)["insertGlyph"], SIGNAL(activated()), mainWindow, SLOT(slotCharSelect()) );
 	connect( (*scrActions)["insertSampleText"], SIGNAL(activated()), mainWindow, SLOT(insertSampleText()) );
 }
@@ -1262,6 +1265,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemConvertToTextFrame"]->setTexts( tr("&Text Frame"));
 
 	//Insert Menu
+	(*scrActions)["insertFrame"]->setTexts( tr("&Frame..."));
 	(*scrActions)["insertGlyph"]->setTexts( tr("&Glyph..."));
 	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text"));
 
@@ -1566,6 +1570,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("itemConvertToTextFrame", QKeySequence());
 
 	//Insert Menu
+	defKeys.insert("insertFrame", QKeySequence());
 	defKeys.insert("insertGlyph", QKeySequence());
 	defKeys.insert("insertSampleText", QKeySequence());
 
@@ -1773,7 +1778,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
-	itmenu->second << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame" << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier" << "toolsInsertFreehandLine" << "insertGlyph" << "insertSampleText";
+	itmenu->second << "insertFrame" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame" << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier" << "toolsInsertFreehandLine" << "insertGlyph" << "insertSampleText";
 	
 	itmenu->second << "unicodeSmartHyphen"  << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeCopyRight" << "unicodeRegdTM" << "unicodeTM" << "unicodeSolidus" << "unicodeBullet" << "unicodeMidpoint" << "unicodeDashEm" << "unicodeDashEn" << "unicodeDashFigure" << "unicodeDashQuotation";
 

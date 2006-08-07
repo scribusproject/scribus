@@ -25,6 +25,7 @@ aboutpluginsbase.ui
 docitemattrprefsbase.ui
 docsectionsbase.ui
 guidemanagerbase.ui
+insertaframebase.ui
 multiprogressdialogbase.ui
 pageitemattributesbase.ui
 smlinestylewbase.ui
@@ -99,6 +100,7 @@ hyask.h
 hyphenator.h
 hysettings.h
 imageinfodialog.h
+insertaframe.h
 insertTable.h
 inspage.h
 javadocs.h
@@ -291,6 +293,7 @@ hyphen.c
 hyphenator.cpp
 hysettings.cpp
 imageinfodialog.cpp
+insertaframe.cpp
 insertTable.cpp
 inspage.cpp
 ioapi.c

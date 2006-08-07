@@ -106,6 +106,8 @@ scribus_SOURCES = \
 	hyphen.c	\
 	hysettings.cpp	\
 	imageinfodialog.cpp	\
+	insertaframebase.ui	\
+	insertaframe.cpp	\
 	insertTable.cpp	\
 	inspage.cpp	\
 	ioapi.c	\

@@ -177,6 +177,7 @@ for which a new license (GPL+exception) is in place.
 #include "stencilreader.h"
 #include "langmgr.h"
 #include "smtextstyles.h"
+#include "insertaframe.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -710,6 +711,8 @@ void ScribusMainWindow::initMenuBar()
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", tr("I&nsert"));
+	//scrMenuMgr->addMenuItem(scrActions["insertFrame"], "Insert");
+	//scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTextFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertImageFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTableFrame"], "Insert");
@@ -1311,9 +1314,14 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		 * -- Use backspace or delete to delete the item
 		 * -- Use PageUp to raise an item
 		 * -- Use PageDown to lower an item
-		 * -- Use the arrow keys to move an item or group around:
+		 * -- Use the arrow keys to move an item or group around for !inches:
 		 		With no meta, by 1.0 unit
 		 		Ctrl, by 10.0 units
+		 		Shift by 0.1 units
+		 		Ctrl Shift 0.01 units
+		 	- For inches:
+		 		With no meta, by 1.0 pt
+		 		Ctrl, by 1.0 unit
 		 		Shift by 0.1 units
 		 		Ctrl Shift 0.01 units
 		 * -- Use the arrow keys to resize an item:
@@ -1331,13 +1339,26 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		if (doc->m_Selection->count() != 0)
 		{
 			double moveBy=1.0;
-			if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
-				moveBy=0.1;
-			else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
-				moveBy=10.0;
-			else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
-				moveBy=0.01;
-			moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+			if (doc->unitIndex()!=SC_INCHES)
+			{
+				if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+					moveBy=0.1;
+				else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+					moveBy=10.0;
+				else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+					moveBy=0.01;
+			
+				moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
+			}
+			else
+			{
+				if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+					moveBy=0.1/doc->unitRatio();
+				else if (!(buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+					moveBy=1.0/doc->unitRatio();
+				else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
+					moveBy=0.01/doc->unitRatio();
+			}
 			bool resizing=((buttonState & AltButton) && !(buttonState & ControlButton));
 			bool resizingsmaller=(resizing && (buttonState & ShiftButton));
 			double resizeBy=1.0;
@@ -8956,5 +8977,17 @@ void ScribusMainWindow::slotEditPasteContents(int absolute)
 				propertiesPalette->ShowCMS();
 			}
 		}
+	}
+}
+
+void ScribusMainWindow::slotInsertFrame()
+{
+	if (HaveDoc)
+	{
+		if (doc->m_Selection->count() != 0)
+			view->Deselect(false);
+		InsertAFrame *dia = new InsertAFrame(this);
+		dia->exec();
+		delete dia;
 	}
 }

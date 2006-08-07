@@ -523,6 +523,8 @@ public slots:
 	It's called from this->slotPrefsOrg() or from Preferences directly.
 	\param dia a reference to the Preferences dialog */
 	void prefsOrg(Preferences* dia);
+	//! \brief Insert a frame friendly dialog
+	void slotInsertFrame();
 	
 signals:
 	void TextISize(int);
