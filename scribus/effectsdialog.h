@@ -72,6 +72,39 @@ public:
 //	MSpinBox* blValue;
 	QWidget* WStackPage_7;
 	QSlider* solarizeSlider;
+	QWidget* WStackPage_8;
+	QLabel* textLabel1d;
+	QComboBox* colData1;
+	ShadeButton *shade1;
+	QLabel* textLabel2d;
+	QComboBox* colData2;
+	ShadeButton *shade2;
+
+	QWidget* WStackPage_9;
+	QLabel* textLabel1t;
+	QComboBox* colDatat1;
+	ShadeButton *shadet1;
+	QLabel* textLabel2t;
+	QComboBox* colDatat2;
+	ShadeButton *shadet2;
+	QLabel* textLabel3t;
+	QComboBox* colDatat3;
+	ShadeButton *shadet3;
+
+	QWidget* WStackPage_10;
+	QLabel* textLabel1q;
+	QComboBox* colDataq1;
+	ShadeButton *shadeq1;
+	QLabel* textLabel2q;
+	QComboBox* colDataq2;
+	ShadeButton *shadeq2;
+	QLabel* textLabel3q;
+	QComboBox* colDataq3;
+	ShadeButton *shadeq3;
+	QLabel* textLabel4q;
+	QComboBox* colDataq4;
+	ShadeButton *shadeq4;
+
 	QListBox* usedEffects;
 	QPushButton* effectUp;
 	QPushButton* effectDown;
@@ -117,6 +150,9 @@ protected:
 	QHBoxLayout* layout24;
 //	QHBoxLayout* layout25;
 	QVBoxLayout* WStackPage7Layout;
+	QGridLayout* WStackPage8Layout;
+	QGridLayout* WStackPage9Layout;
+	QGridLayout* WStackPage10Layout;
 	QHBoxLayout* layout26;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;

@@ -190,6 +190,126 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	solarizeSlider->setTickmarks( QSlider::Below );
 	WStackPage7Layout->addWidget( solarizeSlider );
 	optionStack->addWidget( WStackPage_7, 6 );
+
+	WStackPage_8 = new QWidget( optionStack, "WStackPage_8" );
+	WStackPage8Layout = new QGridLayout( WStackPage_8, 1, 1, 0, 5, "WStackPage8Layout");
+	textLabel1d = new QLabel( tr( "Color 1:" ), WStackPage_8, "textLabel1d" );
+	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
+	colData1 = new ScComboBox(false, WStackPage_8, "colData1");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colData1->insertItem(pm, it.key());
+	}
+	WStackPage8Layout->addWidget( colData1, 0, 1 );
+	shade1 = new ShadeButton(WStackPage_8);
+	shade1->setValue(100);
+	WStackPage8Layout->addWidget( shade1, 0, 2 );
+	textLabel2d = new QLabel( tr( "Color 2:" ), WStackPage_8, "textLabel2d" );
+	WStackPage8Layout->addWidget( textLabel2d, 1, 0 );
+	colData2 = new ScComboBox(false, WStackPage_8, "colData2");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colData2->insertItem(pm, it.key());
+	}
+	WStackPage8Layout->addWidget( colData2, 1, 1 );
+	shade2 = new ShadeButton(WStackPage_8);
+	shade2->setValue(100);
+	WStackPage8Layout->addWidget( shade2, 1, 2 );
+	optionStack->addWidget( WStackPage_8, 7 );
+
+	WStackPage_9 = new QWidget( optionStack, "WStackPage_9" );
+	WStackPage9Layout = new QGridLayout( WStackPage_9, 1, 1, 0, 5, "WStackPage9Layout");
+	textLabel1t = new QLabel( tr( "Color 1:" ), WStackPage_9, "textLabel1t" );
+	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
+	colDatat1 = new ScComboBox(false, WStackPage_9, "colDatat1");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDatat1->insertItem(pm, it.key());
+	}
+	WStackPage9Layout->addWidget( colDatat1, 0, 1 );
+	shadet1 = new ShadeButton(WStackPage_9);
+	shadet1->setValue(100);
+	WStackPage9Layout->addWidget( shadet1, 0, 2 );
+	textLabel2t = new QLabel( tr( "Color 2:" ), WStackPage_9, "textLabel2t" );
+	WStackPage9Layout->addWidget( textLabel2t, 1, 0 );
+	colDatat2 = new ScComboBox(false, WStackPage_9, "colDatat2");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDatat2->insertItem(pm, it.key());
+	}
+	WStackPage9Layout->addWidget( colDatat2, 1, 1 );
+	shadet2 = new ShadeButton(WStackPage_9);
+	shadet2->setValue(100);
+	WStackPage9Layout->addWidget( shadet2, 1, 2 );
+	textLabel3t = new QLabel( tr( "Color 3:" ), WStackPage_9, "textLabel3t" );
+	WStackPage9Layout->addWidget( textLabel3t, 2, 0 );
+	colDatat3 = new ScComboBox(false, WStackPage_9, "colDatat3");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDatat3->insertItem(pm, it.key());
+	}
+	WStackPage9Layout->addWidget( colDatat3, 2, 1 );
+	shadet3 = new ShadeButton(WStackPage_9);
+	shadet3->setValue(100);
+	WStackPage9Layout->addWidget( shadet3, 2, 2 );
+	optionStack->addWidget( WStackPage_9, 8 );
+
+	WStackPage_10 = new QWidget( optionStack, "WStackPage_10" );
+	WStackPage10Layout = new QGridLayout( WStackPage_10, 1, 1, 0, 5, "WStackPage10Layout");
+	textLabel1q = new QLabel( tr( "Color 1:" ), WStackPage_10, "textLabel1q" );
+	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
+	colDataq1 = new ScComboBox(false, WStackPage_10, "colDataq1");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDataq1->insertItem(pm, it.key());
+	}
+	WStackPage10Layout->addWidget( colDataq1, 0, 1 );
+	shadeq1 = new ShadeButton(WStackPage_10);
+	shadeq1->setValue(100);
+	WStackPage10Layout->addWidget( shadeq1, 0, 2 );
+	textLabel2q = new QLabel( tr( "Color 2:" ), WStackPage_10, "textLabel2q" );
+	WStackPage10Layout->addWidget( textLabel2q, 1, 0 );
+	colDataq2 = new ScComboBox(false, WStackPage_10, "colDataq2");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDataq2->insertItem(pm, it.key());
+	}
+	WStackPage10Layout->addWidget( colDataq2, 1, 1 );
+	shadeq2 = new ShadeButton(WStackPage_10);
+	shadeq2->setValue(100);
+	WStackPage10Layout->addWidget( shadeq2, 1, 2 );
+	textLabel3q = new QLabel( tr( "Color 3:" ), WStackPage_10, "textLabel3q" );
+	WStackPage10Layout->addWidget( textLabel3q, 2, 0 );
+	colDataq3 = new ScComboBox(false, WStackPage_10, "colDataq3");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDataq3->insertItem(pm, it.key());
+	}
+	WStackPage10Layout->addWidget( colDataq3, 2, 1 );
+	shadeq3 = new ShadeButton(WStackPage_10);
+	shadeq3->setValue(100);
+	WStackPage10Layout->addWidget( shadeq3, 2, 2 );
+	textLabel4q = new QLabel( tr( "Color 4:" ), WStackPage_10, "textLabel4q" );
+	WStackPage10Layout->addWidget( textLabel4q, 3, 0 );
+	colDataq4 = new ScComboBox(false, WStackPage_10, "colDataq4");
+	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
+	{
+		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
+		colDataq4->insertItem(pm, it.key());
+	}
+	WStackPage10Layout->addWidget( colDataq4, 3, 1 );
+	shadeq4 = new ShadeButton(WStackPage_10);
+	shadeq4->setValue(100);
+	WStackPage10Layout->addWidget( shadeq4, 3, 2 );
+	optionStack->addWidget( WStackPage_10, 9 );
 	
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
@@ -205,6 +325,9 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->insertItem( tr("Blur"));
 	availableEffects->insertItem( tr("Brightness"));
 	availableEffects->insertItem( tr("Colorize"));
+	availableEffects->insertItem( tr("Duotone"));
+	availableEffects->insertItem( tr("Tritone"));
+	availableEffects->insertItem( tr("Quadtone"));
 	availableEffects->insertItem( tr("Contrast"));
 	availableEffects->insertItem( tr("Grayscale"));
 	availableEffects->insertItem( tr("Invert"));
@@ -279,6 +402,21 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			usedEffects->insertItem( tr("Posterize"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_DUOTONE)
+		{
+			usedEffects->insertItem( tr("Duotone"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_TRITONE)
+		{
+			usedEffects->insertItem( tr("Tritone"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_QUADTONE)
+		{
+			usedEffects->insertItem( tr("Quadtone"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
 	}
 	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -331,6 +469,24 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( effectDown, SIGNAL( clicked() ), this, SLOT( moveEffectDown() ) );
 	connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
 	connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDataq3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
+	connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
+	connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
 	connect( brightnessSlider, SIGNAL(valueChanged(int)), this, SLOT(updateBright(int)));
 	connect( brightnessSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
 	connect( contrastSlider, SIGNAL(valueChanged(int)), this, SLOT(updateContrast(int)));
@@ -405,6 +561,51 @@ void EffectsDialog::saveValues(bool final)
 			QString tmp;
 			tmp.setNum(shade->getValue());
 			efval += "\n"+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Duotone"))
+		{
+			QString efval = "";
+			efval = colData1->currentText()+"\n";
+			efval += colData2->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shade1->getValue());
+			efval += tmp;
+			tmp.setNum(shade2->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Tritone"))
+		{
+			QString efval = "";
+			efval = colDatat1->currentText()+"\n";
+			efval += colDatat2->currentText()+"\n";
+			efval += colDatat3->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shadet1->getValue());
+			efval += tmp;
+			tmp.setNum(shadet2->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadet3->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Quadtone"))
+		{
+			QString efval = "";
+			efval = colDataq1->currentText()+"\n";
+			efval += colDataq2->currentText()+"\n";
+			efval += colDataq3->currentText()+"\n";
+			efval += colDataq4->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shadeq1->getValue());
+			efval += tmp;
+			tmp.setNum(shadeq2->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadeq3->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadeq4->getValue());
+			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Brightness"))
@@ -493,6 +694,21 @@ void EffectsDialog::saveValues(bool final)
 			ef.effectCode = ScImage::EF_SOLARIZE;
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
 		}
+		if (usedEffects->item(e)->text() == tr("Duotone"))
+		{
+			ef.effectCode = ScImage::EF_DUOTONE;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
+		if (usedEffects->item(e)->text() == tr("Tritone"))
+		{
+			ef.effectCode = ScImage::EF_TRITONE;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
+		if (usedEffects->item(e)->text() == tr("Quadtone"))
+		{
+			ef.effectCode = ScImage::EF_QUADTONE;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
 		effectsList.append(ef);
 	}
 }
@@ -519,6 +735,27 @@ void EffectsDialog::moveToEffects()
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n100";
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+	}
+	if (availableEffects->currentText() == tr("Duotone"))
+	{
+		ColorList::Iterator it;
+		it = doc->PageColors.begin();
+		QString efval = it.key()+"\n"+it.key()+"\n100 100";
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+	}
+	if (availableEffects->currentText() == tr("Tritone"))
+	{
+		ColorList::Iterator it;
+		it = doc->PageColors.begin();
+		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100";
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+	}
+	if (availableEffects->currentText() == tr("Quadtone"))
+	{
+		ColorList::Iterator it;
+		it = doc->PageColors.begin();
+		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
@@ -631,6 +868,51 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			tmp.setNum(solarizeSlider->value());
 			effectValMap[currentOptions] = tmp;
 		}
+		if (currentOptions->text() == tr("Duotone"))
+		{
+			QString efval = "";
+			efval = colData1->currentText()+"\n";
+			efval += colData2->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shade1->getValue());
+			efval += tmp;
+			tmp.setNum(shade2->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Tritone"))
+		{
+			QString efval = "";
+			efval = colDatat1->currentText()+"\n";
+			efval += colDatat2->currentText()+"\n";
+			efval += colDatat3->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shadet1->getValue());
+			efval += tmp;
+			tmp.setNum(shadet2->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadet3->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Quadtone"))
+		{
+			QString efval = "";
+			efval = colDataq1->currentText()+"\n";
+			efval += colDataq2->currentText()+"\n";
+			efval += colDataq3->currentText()+"\n";
+			efval += colDataq4->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shadeq1->getValue());
+			efval += tmp;
+			tmp.setNum(shadeq2->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadeq3->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadeq4->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	if (c)
 	{
@@ -656,7 +938,6 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			QString col;
 			int shading;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
-//			fp >> col;
 			col = fp.readLine();
 			fp >> shading;
 			colData->setCurrentText(col);
@@ -664,6 +945,102 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			optionStack->raiseWidget(1);
 			connect( colData, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade, SIGNAL(clicked()), this, SLOT(createPreview()));
+		}
+		else if (c->text() == tr("Duotone"))
+		{
+			disconnect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			QString tmpstr = effectValMap[c];
+			QString col1, col2;
+			int shading1, shading2;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			colData1->setCurrentText(col1);
+			shade1->setValue(shading1);
+			colData2->setCurrentText(col2);
+			shade2->setValue(shading2);
+			optionStack->raiseWidget(7);
+			connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
+		}
+		else if (c->text() == tr("Tritone"))
+		{
+			disconnect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			QString tmpstr = effectValMap[c];
+			QString col1, col2, col3;
+			int shading1, shading2, shading3;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			col3 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			fp >> shading3;
+			colDatat1->setCurrentText(col1);
+			shadet1->setValue(shading1);
+			colDatat2->setCurrentText(col2);
+			shadet2->setValue(shading2);
+			colDatat3->setCurrentText(col3);
+			shadet3->setValue(shading3);
+			optionStack->raiseWidget(8);
+			connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colDatat2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
+		}
+		else if (c->text() == tr("Quadtone"))
+		{
+			disconnect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colDataq3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			disconnect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
+			QString tmpstr = effectValMap[c];
+			QString col1, col2, col3, col4;
+			int shading1, shading2, shading3, shading4;
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			col1 = fp.readLine();
+			col2 = fp.readLine();
+			col3 = fp.readLine();
+			col4 = fp.readLine();
+			fp >> shading1;
+			fp >> shading2;
+			fp >> shading3;
+			fp >> shading4;
+			colDataq1->setCurrentText(col1);
+			shadeq1->setValue(shading1);
+			colDataq2->setCurrentText(col2);
+			shadeq2->setValue(shading2);
+			colDataq3->setCurrentText(col3);
+			shadeq3->setValue(shading3);
+			colDataq4->setCurrentText(col4);
+			shadeq4->setValue(shading4);
+			optionStack->raiseWidget(9);
+			connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colDataq2, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadeq2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colDataq3, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
+			connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Brightness"))
 		{
@@ -810,6 +1187,52 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			QString tmp;
 			tmp.setNum(solarizeSlider->value());
 			effectValMap[currentOptions] = tmp;
+		}
+		if (currentOptions->text() == tr("Duotone"))
+		{
+			QString efval = "";
+			efval = colData1->currentText()+"\n";
+			efval += colData2->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shade1->getValue());
+			efval += tmp;
+			tmp.setNum(shade2->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Tritone"))
+		{
+			QString efval = "";
+			efval = colDatat1->currentText()+"\n";
+			efval += colDatat2->currentText()+"\n";
+			efval += colDatat3->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shadet1->getValue());
+			efval += tmp;
+			tmp.setNum(shadet2->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadet3->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Quadtone"))
+		{
+			QString efval = "";
+			efval = colDataq1->currentText()+"\n";
+			efval += colDataq2->currentText()+"\n";
+			efval += colDataq3->currentText()+"\n";
+			efval += colDataq4->currentText()+"\n";
+			QString tmp;
+			tmp.setNum(shadeq1->getValue());
+			efval += tmp;
+			tmp.setNum(shadeq2->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadeq3->getValue());
+			efval += " "+tmp;
+			tmp.setNum(shadeq4->getValue());
+			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
 		}
 	}
 	currentOptions = 0;

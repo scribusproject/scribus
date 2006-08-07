@@ -175,6 +175,60 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				fp >> sigma;
 				solarize(sigma, cmyk);
 			}
+			if ((*effectsList.at(a)).effectCode == EF_DUOTONE)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString col1 = CommonStrings::None;
+				int shading1 = 100;
+				QString col2 = CommonStrings::None;
+				int shading2 = 100;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				col1 = fp.readLine();
+				col2 = fp.readLine();
+				fp >> shading1;
+				fp >> shading2;
+				duotone(colors[col1], shading1, colors[col2], shading2, cmyk);
+			}
+			if ((*effectsList.at(a)).effectCode == EF_TRITONE)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString col1 = CommonStrings::None;
+				QString col2 = CommonStrings::None;
+				QString col3 = CommonStrings::None;
+				int shading1 = 100;
+				int shading2 = 100;
+				int shading3 = 100;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				col1 = fp.readLine();
+				col2 = fp.readLine();
+				col3 = fp.readLine();
+				fp >> shading1;
+				fp >> shading2;
+				fp >> shading3;
+				tritone(colors[col1], shading1, colors[col2], shading2, colors[col3], shading3, cmyk);
+			}
+			if ((*effectsList.at(a)).effectCode == EF_QUADTONE)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				QString col1 = CommonStrings::None;
+				QString col2 = CommonStrings::None;
+				QString col3 = CommonStrings::None;
+				QString col4 = CommonStrings::None;
+				int shading1 = 100;
+				int shading2 = 100;
+				int shading3 = 100;
+				int shading4 = 100;
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				col1 = fp.readLine();
+				col2 = fp.readLine();
+				col3 = fp.readLine();
+				col4 = fp.readLine();
+				fp >> shading1;
+				fp >> shading2;
+				fp >> shading3;
+				fp >> shading4;
+				quadtone(colors[col1], shading1, colors[col2], shading2, colors[col3], shading3, colors[col4], shading4, cmyk);
+			}
 		}
 	}
 }
@@ -917,6 +971,144 @@ void ScImage::colorize(ScColor color, int shade, bool cmyk)
 				int a = qAlpha(r);
 				*s = qRgba(cc2, cm2, cy2, a);
 			}
+			s++;
+		}
+	}
+}
+
+void ScImage::duotone(ScColor color1, int shade1, ScColor color2, int shade2, bool cmyk)
+{
+	int h = height();
+	int w = width();
+	int c, c1, m, m1, y, y1, k, k1;
+	int cn, c1n, mn, m1n, yn, y1n, kn, k1n;
+	uchar cb;
+	color1.getShadeColorCMYK(&c, &m, &y, &k, shade1);
+	color2.getShadeColorCMYK(&c1, &m1, &y1, &k1, shade2);
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			if (cmyk)
+				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+			else
+				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			cn = QMIN((c * cb) >> 8, 255);
+			mn = QMIN((m * cb) >> 8, 255);
+			yn = QMIN((y * cb) >> 8, 255);
+			kn = QMIN((k * cb) >> 8, 255);
+			c1n = QMIN((c1 * cb) >> 8, 255);
+			m1n = QMIN((m1 * cb) >> 8, 255);
+			y1n = QMIN((y1 * cb) >> 8, 255);
+			k1n = QMIN((k1 * cb) >> 8, 255);
+			ScColor col = ScColor(QMIN(cn+c1n, 255), QMIN(mn+m1n, 255), QMIN(yn+y1n, 255), QMIN(kn+k1n, 255));
+			if (cmyk)
+				col.getCMYK(&cn, &mn, &yn, &kn);
+			else
+			{
+				col.getRawRGBColor(&cn, &mn, &yn);
+				kn = qAlpha(r);
+			}
+			*s = qRgba(cn, mn, yn, kn);
+			s++;
+		}
+	}
+}
+
+void ScImage::tritone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, bool cmyk)
+{
+	int h = height();
+	int w = width();
+	int c, c1, c2, m, m1, m2, y, y1, y2, k, k1, k2;
+	int cn, c1n, c2n, mn, m1n, m2n, yn, y1n, y2n, kn, k1n, k2n;
+	uchar cb;
+	color1.getShadeColorCMYK(&c, &m, &y, &k, shade1);
+	color2.getShadeColorCMYK(&c1, &m1, &y1, &k1, shade2);
+	color3.getShadeColorCMYK(&c2, &m2, &y2, &k2, shade3);
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			if (cmyk)
+				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+			else
+				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			cn = QMIN((c * cb) >> 8, 255);
+			mn = QMIN((m * cb) >> 8, 255);
+			yn = QMIN((y * cb) >> 8, 255);
+			kn = QMIN((k * cb) >> 8, 255);
+			c1n = QMIN((c1 * cb) >> 8, 255);
+			m1n = QMIN((m1 * cb) >> 8, 255);
+			y1n = QMIN((y1 * cb) >> 8, 255);
+			k1n = QMIN((k1 * cb) >> 8, 255);
+			c2n = QMIN((c2 * cb) >> 8, 255);
+			m2n = QMIN((m2 * cb) >> 8, 255);
+			y2n = QMIN((y2 * cb) >> 8, 255);
+			k2n = QMIN((k2 * cb) >> 8, 255);
+			ScColor col = ScColor(QMIN(cn+c1n+c2n, 255), QMIN(mn+m1n+m2n, 255), QMIN(yn+y1n+y2n, 255), QMIN(kn+k1n+k2n, 255));
+			if (cmyk)
+				col.getCMYK(&cn, &mn, &yn, &kn);
+			else
+			{
+				col.getRawRGBColor(&cn, &mn, &yn);
+				kn = qAlpha(r);
+			}
+			*s = qRgba(cn, mn, yn, kn);
+			s++;
+		}
+	}
+}
+
+void ScImage::quadtone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, ScColor color4, int shade4, bool cmyk)
+{
+	int h = height();
+	int w = width();
+	int c, c1, c2, c3, m, m1, m2, m3, y, y1, y2, y3, k, k1, k2, k3;
+	int cn, c1n, c2n, c3n, mn, m1n, m2n, m3n, yn, y1n, y2n, y3n, kn, k1n, k2n, k3n;
+	uchar cb;
+	color1.getShadeColorCMYK(&c, &m, &y, &k, shade1);
+	color2.getShadeColorCMYK(&c1, &m1, &y1, &k1, shade2);
+	color3.getShadeColorCMYK(&c2, &m2, &y2, &k2, shade3);
+	color4.getShadeColorCMYK(&c3, &m3, &y3, &k3, shade4);
+	for( int yi=0; yi < h; ++yi )
+	{
+		QRgb * s = (QRgb*)(scanLine( yi ));
+		for( int xi=0; xi < w; ++xi )
+		{
+			QRgb r=*s;
+			if (cmyk)
+				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
+			else
+				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			cn = QMIN((c * cb) >> 8, 255);
+			mn = QMIN((m * cb) >> 8, 255);
+			yn = QMIN((y * cb) >> 8, 255);
+			kn = QMIN((k * cb) >> 8, 255);
+			c1n = QMIN((c1 * cb) >> 8, 255);
+			m1n = QMIN((m1 * cb) >> 8, 255);
+			y1n = QMIN((y1 * cb) >> 8, 255);
+			k1n = QMIN((k1 * cb) >> 8, 255);
+			c2n = QMIN((c2 * cb) >> 8, 255);
+			m2n = QMIN((m2 * cb) >> 8, 255);
+			y2n = QMIN((y2 * cb) >> 8, 255);
+			k2n = QMIN((k2 * cb) >> 8, 255);
+			c3n = QMIN((c3 * cb) >> 8, 255);
+			m3n = QMIN((m3 * cb) >> 8, 255);
+			y3n = QMIN((y3 * cb) >> 8, 255);
+			k3n = QMIN((k3 * cb) >> 8, 255);
+			ScColor col = ScColor(QMIN(cn+c1n+c2n+c3n, 255), QMIN(mn+m1n+m2n+m3n, 255), QMIN(yn+y1n+y2n+y3n, 255), QMIN(kn+k1n+k2n+k3n, 255));
+			if (cmyk)
+				col.getCMYK(&cn, &mn, &yn, &kn);
+			else
+			{
+				col.getRawRGBColor(&cn, &mn, &yn);
+				kn = qAlpha(r);
+			}
+			*s = qRgba(cn, mn, yn, kn);
 			s++;
 		}
 	}

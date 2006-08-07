@@ -72,7 +72,10 @@ public:
 		EF_CONTRAST = 4,
 		EF_SHARPEN = 5,
 		EF_BLUR = 6,
-		EF_SOLARIZE = 7
+		EF_SOLARIZE = 7,
+		EF_DUOTONE = 8,
+		EF_TRITONE = 9,
+		EF_QUADTONE = 10
 	};
 
 	struct imageEffect
@@ -127,6 +130,9 @@ private:
 	void brightness(int brightnessValue, bool cmyk);
 	void invert(bool cmyk);
 	void colorize(ScColor color, int shade, bool cmyk);
+	void duotone(ScColor color1, int shade1, ScColor color2, int shade2, bool cmyk);
+	void tritone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, bool cmyk);
+	void quadtone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, ScColor color4, int shade4, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void swapRGBA();
 
