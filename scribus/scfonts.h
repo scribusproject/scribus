@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstrlist.h>
 #include <qstringlist.h>
 #include <qdict.h>
-#include <qvector.h>
+//#include <qvector.h>
 #include <qfont.h>
 #include <qmap.h>
 #include <qdatetime.h>

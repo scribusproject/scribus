@@ -14,9 +14,9 @@ virtual:      dispatch to constituents, handle embedding (-)
 */
 
 #include <qstring.h>
-#include <qvector.h>
+//#include <qvector.h>
 #include <qmap.h>
-#include <qarray.h>
+//#include <qarray.h>
 #include <utility>
 
 #include "fpointarray.h"

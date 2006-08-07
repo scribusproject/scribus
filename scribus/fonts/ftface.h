@@ -3,9 +3,9 @@
 
 
 #include <qstring.h>
-#include <qvector.h>
+//#include <qvector.h>
 #include <qmap.h>
-#include <qarray.h>
+//#include <qarray.h>
 
 #include "scribusapi.h"
 
