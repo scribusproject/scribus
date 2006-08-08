@@ -128,127 +128,97 @@
                     <property name="title">
                         <string></string>
                     </property>
-                    <widget class="QRadioButton">
+                    <property name="selectedId" stdset="0">
+                        <number>0</number>
+                    </property>
+                    <vbox>
                         <property name="name">
-                            <cstring>radioButton4</cstring>
+                            <cstring>unnamed</cstring>
                         </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>123</y>
-                                <width>69</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>Polygon</string>
-                        </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton5</cstring>
-                        </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>151</y>
-                                <width>48</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>Line</string>
-                        </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton6</cstring>
-                        </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>179</y>
-                                <width>98</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>Bezier Curve</string>
-                        </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton3</cstring>
-                        </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>95</y>
-                                <width>60</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>Shape</string>
-                        </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButtonTextFrame</cstring>
-                        </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>11</y>
-                                <width>89</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>&amp;Text Frame</string>
-                        </property>
-                        <property name="accel">
-                            <string>Alt+T</string>
-                        </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton2</cstring>
-                        </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>39</y>
-                                <width>101</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>&amp;Image Frame</string>
-                        </property>
-                        <property name="accel">
-                            <string>Alt+I</string>
-                        </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton8</cstring>
-                        </property>
-                        <property name="geometry">
-                            <rect>
-                                <x>11</x>
-                                <y>67</y>
-                                <width>56</width>
-                                <height>22</height>
-                            </rect>
-                        </property>
-                        <property name="text">
-                            <string>T&amp;able</string>
-                        </property>
-                        <property name="accel">
-                            <string>Alt+A</string>
-                        </property>
-                    </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButtonTextFrame</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Text Frame</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+T</string>
+                            </property>
+                            <property name="buttonGroupId">
+                                <number>0</number>
+                            </property>
+                        </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButton2</cstring>
+                            </property>
+                            <property name="text">
+                                <string>&amp;Image Frame</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+I</string>
+                            </property>
+                            <property name="buttonGroupId">
+                                <number>1</number>
+                            </property>
+                        </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButton8</cstring>
+                            </property>
+                            <property name="text">
+                                <string>T&amp;able</string>
+                            </property>
+                            <property name="accel">
+                                <string>Alt+A</string>
+                            </property>
+                            <property name="buttonGroupId">
+                                <number>2</number>
+                            </property>
+                        </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButton3</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Shape</string>
+                            </property>
+                        </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButton4</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Polygon</string>
+                            </property>
+                            <property name="buttonGroupId">
+                                <number>4</number>
+                            </property>
+                        </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButton5</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Line</string>
+                            </property>
+                            <property name="buttonGroupId">
+                                <number>5</number>
+                            </property>
+                        </widget>
+                        <widget class="QRadioButton">
+                            <property name="name">
+                                <cstring>radioButton6</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Bezier Curve</string>
+                            </property>
+                            <property name="buttonGroupId">
+                                <number>6</number>
+                            </property>
+                        </widget>
+                    </vbox>
                 </widget>
                 <widget class="QGroupBox">
                     <property name="name">
@@ -262,8 +232,14 @@
                             <verstretch>0</verstretch>
                         </sizepolicy>
                     </property>
+                    <property name="focusPolicy">
+                        <enum>NoFocus</enum>
+                    </property>
                     <property name="title">
                         <string></string>
+                    </property>
+                    <property name="alignment">
+                        <set>AlignAuto</set>
                     </property>
                     <hbox>
                         <property name="name">
@@ -295,6 +271,9 @@
                     </property>
                     <property name="title">
                         <string>Page Placement</string>
+                    </property>
+                    <property name="selectedId" stdset="0">
+                        <number>0</number>
                     </property>
                     <vbox>
                         <property name="name">
@@ -337,6 +316,9 @@
                     </property>
                     <property name="title">
                         <string>Position of Frame</string>
+                    </property>
+                    <property name="selectedId" stdset="0">
+                        <number>0</number>
                     </property>
                     <vbox>
                         <property name="name">
@@ -419,107 +401,114 @@
                 </property>
                 <property name="geometry">
                     <rect>
-                        <x>11</x>
-                        <y>11</y>
-                        <width>463</width>
-                        <height>220</height>
+                        <x>10</x>
+                        <y>10</y>
+                        <width>197</width>
+                        <height>162</height>
                     </rect>
+                </property>
+                <property name="lineWidth">
+                    <number>0</number>
                 </property>
                 <property name="title">
                     <string></string>
                 </property>
-                <widget class="QRadioButton">
+                <property name="selectedId" stdset="0">
+                    <number>0</number>
+                </property>
+                <vbox>
                     <property name="name">
-                        <cstring>radioButton12</cstring>
+                        <cstring>unnamed</cstring>
                     </property>
-                    <property name="geometry">
-                        <rect>
-                            <x>11</x>
-                            <y>11</y>
-                            <width>126</width>
-                            <height>22</height>
-                        </rect>
-                    </property>
-                    <property name="text">
-                        <string>Same as the Page</string>
-                    </property>
-                </widget>
-                <widget class="QRadioButton">
-                    <property name="name">
-                        <cstring>radioButton13</cstring>
-                    </property>
-                    <property name="geometry">
-                        <rect>
-                            <x>11</x>
-                            <y>39</y>
-                            <width>175</width>
-                            <height>22</height>
-                        </rect>
-                    </property>
-                    <property name="text">
-                        <string>Same as the Page Margins</string>
-                    </property>
-                </widget>
-                <widget class="QRadioButton">
-                    <property name="name">
-                        <cstring>radioButton14</cstring>
-                    </property>
-                    <property name="geometry">
-                        <rect>
-                            <x>11</x>
-                            <y>67</y>
-                            <width>98</width>
-                            <height>22</height>
-                        </rect>
-                    </property>
-                    <property name="text">
-                        <string>Custom Size:</string>
-                    </property>
-                </widget>
-                <widget class="QLayoutWidget">
-                    <property name="name">
-                        <cstring>layout34</cstring>
-                    </property>
-                    <property name="geometry">
-                        <rect>
-                            <x>30</x>
-                            <y>90</y>
-                            <width>160</width>
-                            <height>42</height>
-                        </rect>
-                    </property>
-                    <grid>
+                    <widget class="QRadioButton">
                         <property name="name">
-                            <cstring>unnamed</cstring>
+                            <cstring>radioButton12</cstring>
                         </property>
-                        <widget class="QLabel" row="0" column="0">
+                        <property name="text">
+                            <string>Same as the Page</string>
+                        </property>
+                    </widget>
+                    <widget class="QRadioButton">
+                        <property name="name">
+                            <cstring>radioButton13</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Same as the Page Margins</string>
+                        </property>
+                    </widget>
+                    <widget class="QRadioButton">
+                        <property name="name">
+                            <cstring>radioButton14</cstring>
+                        </property>
+                        <property name="text">
+                            <string>Custom Size:</string>
+                        </property>
+                    </widget>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout41</cstring>
+                        </property>
+                        <grid>
                             <property name="name">
-                                <cstring>textLabel2</cstring>
+                                <cstring>unnamed</cstring>
                             </property>
-                            <property name="text">
-                                <string>Width:</string>
-                            </property>
-                        </widget>
-                        <widget class="QLabel" row="1" column="0">
-                            <property name="name">
-                                <cstring>textLabel3_2</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Height:</string>
-                            </property>
-                        </widget>
-                        <widget class="MSpinBox" row="1" column="1">
-                            <property name="name">
-                                <cstring>mSpinBox2</cstring>
-                            </property>
-                        </widget>
-                        <widget class="MSpinBox" row="0" column="1">
-                            <property name="name">
-                                <cstring>mSpinBox1</cstring>
-                            </property>
-                        </widget>
-                    </grid>
-                </widget>
+                            <widget class="QLabel" row="1" column="0" rowspan="2" colspan="1">
+                                <property name="name">
+                                    <cstring>textLabel2_2_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Height:</string>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="2" column="1">
+                                <property name="name">
+                                    <cstring>mSpinBox6_2</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>24</height>
+                                    </size>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="0" column="1" rowspan="2" colspan="1">
+                                <property name="name">
+                                    <cstring>mSpinBox6_3</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>1</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="minimumSize">
+                                    <size>
+                                        <width>0</width>
+                                        <height>24</height>
+                                    </size>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>textLabel1_2_2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Width:</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
             </widget>
         </widget>
         <widget class="QWidget">
@@ -622,6 +611,7 @@
             <verstretch>0</verstretch>
         </sizepolicy>
         <pixmap>image0</pixmap>
+        <property type=""></property>
     </customwidget>
 </customwidgets>
 <images>
