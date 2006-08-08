@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 #include <qslider.h>
 #include <qpainter.h>
+#include "colorcombo.h"
 #include "cmsettings.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
@@ -79,14 +80,10 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel3 = new QLabel( tr( "Color:" ), WStackPage_2, "textLabel3" );
 	layout17->addWidget( textLabel3 );
 
-	colData = new ScComboBox(false, WStackPage_2, "colData");
+	colData = new ColorCombo(false, WStackPage_2, "colData");
 	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colData->insertItem(pm, it.key());
-	}
+		colData->insertSmallItem(doc->PageColors[it.key()], it.key());
 	layout17->addWidget( colData );
 	WStackPageLayout->addLayout( layout17 );
 
@@ -195,24 +192,18 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout = new QGridLayout( WStackPage_8, 1, 1, 0, 5, "WStackPage8Layout");
 	textLabel1d = new QLabel( tr( "Color 1:" ), WStackPage_8, "textLabel1d" );
 	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
-	colData1 = new ScComboBox(false, WStackPage_8, "colData1");
+	colData1 = new ColorCombo(false, WStackPage_8, "colData1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colData1->insertItem(pm, it.key());
-	}
+		colData1->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage8Layout->addWidget( colData1, 0, 1 );
 	shade1 = new ShadeButton(WStackPage_8);
 	shade1->setValue(100);
 	WStackPage8Layout->addWidget( shade1, 0, 2 );
 	textLabel2d = new QLabel( tr( "Color 2:" ), WStackPage_8, "textLabel2d" );
 	WStackPage8Layout->addWidget( textLabel2d, 1, 0 );
-	colData2 = new ScComboBox(false, WStackPage_8, "colData2");
+	colData2 = new ColorCombo(false, WStackPage_8, "colData2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colData2->insertItem(pm, it.key());
-	}
+		colData2->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage8Layout->addWidget( colData2, 1, 1 );
 	shade2 = new ShadeButton(WStackPage_8);
 	shade2->setValue(100);
@@ -223,36 +214,27 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout = new QGridLayout( WStackPage_9, 1, 1, 0, 5, "WStackPage9Layout");
 	textLabel1t = new QLabel( tr( "Color 1:" ), WStackPage_9, "textLabel1t" );
 	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
-	colDatat1 = new ScComboBox(false, WStackPage_9, "colDatat1");
+	colDatat1 = new ColorCombo(false, WStackPage_9, "colDatat1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDatat1->insertItem(pm, it.key());
-	}
+		colDatat1->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage9Layout->addWidget( colDatat1, 0, 1 );
 	shadet1 = new ShadeButton(WStackPage_9);
 	shadet1->setValue(100);
 	WStackPage9Layout->addWidget( shadet1, 0, 2 );
 	textLabel2t = new QLabel( tr( "Color 2:" ), WStackPage_9, "textLabel2t" );
 	WStackPage9Layout->addWidget( textLabel2t, 1, 0 );
-	colDatat2 = new ScComboBox(false, WStackPage_9, "colDatat2");
+	colDatat2 = new ColorCombo(false, WStackPage_9, "colDatat2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDatat2->insertItem(pm, it.key());
-	}
+		colDatat2->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage9Layout->addWidget( colDatat2, 1, 1 );
 	shadet2 = new ShadeButton(WStackPage_9);
 	shadet2->setValue(100);
 	WStackPage9Layout->addWidget( shadet2, 1, 2 );
 	textLabel3t = new QLabel( tr( "Color 3:" ), WStackPage_9, "textLabel3t" );
 	WStackPage9Layout->addWidget( textLabel3t, 2, 0 );
-	colDatat3 = new ScComboBox(false, WStackPage_9, "colDatat3");
+	colDatat3 = new ColorCombo(false, WStackPage_9, "colDatat3");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDatat3->insertItem(pm, it.key());
-	}
+		colDatat3->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage9Layout->addWidget( colDatat3, 2, 1 );
 	shadet3 = new ShadeButton(WStackPage_9);
 	shadet3->setValue(100);
@@ -263,48 +245,36 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout = new QGridLayout( WStackPage_10, 1, 1, 0, 5, "WStackPage10Layout");
 	textLabel1q = new QLabel( tr( "Color 1:" ), WStackPage_10, "textLabel1q" );
 	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
-	colDataq1 = new ScComboBox(false, WStackPage_10, "colDataq1");
+	colDataq1 = new ColorCombo(false, WStackPage_10, "colDataq1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDataq1->insertItem(pm, it.key());
-	}
+		colDataq1->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage10Layout->addWidget( colDataq1, 0, 1 );
 	shadeq1 = new ShadeButton(WStackPage_10);
 	shadeq1->setValue(100);
 	WStackPage10Layout->addWidget( shadeq1, 0, 2 );
 	textLabel2q = new QLabel( tr( "Color 2:" ), WStackPage_10, "textLabel2q" );
 	WStackPage10Layout->addWidget( textLabel2q, 1, 0 );
-	colDataq2 = new ScComboBox(false, WStackPage_10, "colDataq2");
+	colDataq2 = new ColorCombo(false, WStackPage_10, "colDataq2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDataq2->insertItem(pm, it.key());
-	}
+		colDataq2->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage10Layout->addWidget( colDataq2, 1, 1 );
 	shadeq2 = new ShadeButton(WStackPage_10);
 	shadeq2->setValue(100);
 	WStackPage10Layout->addWidget( shadeq2, 1, 2 );
 	textLabel3q = new QLabel( tr( "Color 3:" ), WStackPage_10, "textLabel3q" );
 	WStackPage10Layout->addWidget( textLabel3q, 2, 0 );
-	colDataq3 = new ScComboBox(false, WStackPage_10, "colDataq3");
+	colDataq3 = new ColorCombo(false, WStackPage_10, "colDataq3");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDataq3->insertItem(pm, it.key());
-	}
+		colDataq3->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage10Layout->addWidget( colDataq3, 2, 1 );
 	shadeq3 = new ShadeButton(WStackPage_10);
 	shadeq3->setValue(100);
 	WStackPage10Layout->addWidget( shadeq3, 2, 2 );
 	textLabel4q = new QLabel( tr( "Color 4:" ), WStackPage_10, "textLabel4q" );
 	WStackPage10Layout->addWidget( textLabel4q, 3, 0 );
-	colDataq4 = new ScComboBox(false, WStackPage_10, "colDataq4");
+	colDataq4 = new ColorCombo(false, WStackPage_10, "colDataq4");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colDataq4->insertItem(pm, it.key());
-	}
+		colDataq4->insertSmallItem(doc->PageColors[it.key()], it.key());
 	WStackPage10Layout->addWidget( colDataq4, 3, 1 );
 	shadeq4 = new ShadeButton(WStackPage_10);
 	shadeq4->setValue(100);
