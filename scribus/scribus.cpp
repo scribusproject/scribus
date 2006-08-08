@@ -711,8 +711,8 @@ void ScribusMainWindow::initMenuBar()
 
 	//Insert menu
 	scrMenuMgr->createMenu("Insert", tr("I&nsert"));
-	//scrMenuMgr->addMenuItem(scrActions["insertFrame"], "Insert");
-	//scrMenuMgr->addMenuSeparator("Insert");
+	scrMenuMgr->addMenuItem(scrActions["insertFrame"], "Insert");
+	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTextFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertImageFrame"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertTableFrame"], "Insert");
@@ -9034,7 +9034,7 @@ void ScribusMainWindow::slotInsertFrame()
 	{
 		if (doc->m_Selection->count() != 0)
 			view->Deselect(false);
-		InsertAFrame *dia = new InsertAFrame(this);
+		InsertAFrame *dia = new InsertAFrame(this, doc);
 		dia->exec();
 		delete dia;
 	}

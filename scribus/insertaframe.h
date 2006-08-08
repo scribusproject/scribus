@@ -19,14 +19,25 @@ for which a new license (GPL+exception) is in place.
 #include "insertaframebase.h"
 #include "scribusapi.h"
 
+class ScribusDoc;
+
 class SCRIBUS_API InsertAFrame : public InsertAFrameBase
 {
     Q_OBJECT
 
 public:
-	InsertAFrame(QWidget* parent);
+	InsertAFrame(QWidget* parent, ScribusDoc *doc);
 	~InsertAFrame(){};
 	
+protected:
+	ScribusDoc* m_Doc;
+	
+protected slots:
+	void slotSelectType(int id);
+	void slotSelectPagePlacement(int id);
+	void slotSelectPosition(int id);
+	void slotSelectSize(int id);
 };
 
 #endif
+

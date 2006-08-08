@@ -20,6 +20,8 @@ pageitemattributes.h
 aboutpluginsbase.h
 docitemattrprefsbase.h
 docsectionsbase.h
+insertaframebase.h
+insertaframebase.cpp
 guidemanagerbase.h
 multiprogressdialogbase.h
 pageitemattributesbase.h

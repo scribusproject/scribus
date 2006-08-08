@@ -18,562 +18,236 @@
     <property name="sizeGripEnabled">
         <bool>true</bool>
     </property>
-    <widget class="QLayoutWidget">
+    <vbox>
         <property name="name">
-            <cstring>Layout1</cstring>
+            <cstring>unnamed</cstring>
         </property>
-        <property name="geometry">
-            <rect>
-                <x>11</x>
-                <y>292</y>
-                <width>489</width>
-                <height>28</height>
-            </rect>
-        </property>
-        <hbox>
+        <widget class="QTabWidget">
             <property name="name">
-                <cstring>unnamed</cstring>
+                <cstring>tabFrameSetup</cstring>
             </property>
-            <property name="margin">
-                <number>0</number>
-            </property>
-            <property name="spacing">
-                <number>6</number>
-            </property>
-            <spacer>
+            <widget class="QWidget">
                 <property name="name">
-                    <cstring>Horizontal Spacing2</cstring>
+                    <cstring>tab</cstring>
                 </property>
-                <property name="orientation">
-                    <enum>Horizontal</enum>
-                </property>
-                <property name="sizeType">
-                    <enum>Expanding</enum>
-                </property>
-                <property name="sizeHint">
-                    <size>
-                        <width>20</width>
-                        <height>20</height>
-                    </size>
-                </property>
-            </spacer>
-            <widget class="QPushButton">
-                <property name="name">
-                    <cstring>buttonOk</cstring>
-                </property>
-                <property name="text">
-                    <string>&amp;OK</string>
-                </property>
-                <property name="accel">
-                    <string></string>
-                </property>
-                <property name="autoDefault">
-                    <bool>true</bool>
-                </property>
-                <property name="default">
-                    <bool>true</bool>
-                </property>
-            </widget>
-            <widget class="QPushButton">
-                <property name="name">
-                    <cstring>buttonCancel</cstring>
-                </property>
-                <property name="text">
-                    <string>&amp;Cancel</string>
-                </property>
-                <property name="accel">
-                    <string></string>
-                </property>
-                <property name="autoDefault">
-                    <bool>true</bool>
-                </property>
-            </widget>
-        </hbox>
-    </widget>
-    <widget class="QTabWidget">
-        <property name="name">
-            <cstring>tabFrameSetup</cstring>
-        </property>
-        <property name="geometry">
-            <rect>
-                <x>11</x>
-                <y>11</y>
-                <width>489</width>
-                <height>275</height>
-            </rect>
-        </property>
-        <widget class="QWidget">
-            <property name="name">
-                <cstring>tab</cstring>
-            </property>
-            <attribute name="title">
-                <string>T&amp;ype</string>
-            </attribute>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QButtonGroup">
-                    <property name="name">
-                        <cstring>buttonGroup1</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>1</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="title">
-                        <string></string>
-                    </property>
-                    <property name="selectedId" stdset="0">
-                        <number>0</number>
-                    </property>
-                    <vbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButtonTextFrame</cstring>
-                            </property>
-                            <property name="text">
-                                <string>&amp;Text Frame</string>
-                            </property>
-                            <property name="accel">
-                                <string>Alt+T</string>
-                            </property>
-                            <property name="buttonGroupId">
-                                <number>0</number>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton2</cstring>
-                            </property>
-                            <property name="text">
-                                <string>&amp;Image Frame</string>
-                            </property>
-                            <property name="accel">
-                                <string>Alt+I</string>
-                            </property>
-                            <property name="buttonGroupId">
-                                <number>1</number>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton8</cstring>
-                            </property>
-                            <property name="text">
-                                <string>T&amp;able</string>
-                            </property>
-                            <property name="accel">
-                                <string>Alt+A</string>
-                            </property>
-                            <property name="buttonGroupId">
-                                <number>2</number>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton3</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Shape</string>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton4</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Polygon</string>
-                            </property>
-                            <property name="buttonGroupId">
-                                <number>4</number>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton5</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Line</string>
-                            </property>
-                            <property name="buttonGroupId">
-                                <number>5</number>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton6</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Bezier Curve</string>
-                            </property>
-                            <property name="buttonGroupId">
-                                <number>6</number>
-                            </property>
-                        </widget>
-                    </vbox>
-                </widget>
-                <widget class="QGroupBox">
-                    <property name="name">
-                        <cstring>groupBox5</cstring>
-                    </property>
-                    <property name="sizePolicy">
-                        <sizepolicy>
-                            <hsizetype>7</hsizetype>
-                            <vsizetype>5</vsizetype>
-                            <horstretch>0</horstretch>
-                            <verstretch>0</verstretch>
-                        </sizepolicy>
-                    </property>
-                    <property name="focusPolicy">
-                        <enum>NoFocus</enum>
-                    </property>
-                    <property name="title">
-                        <string></string>
-                    </property>
-                    <property name="alignment">
-                        <set>AlignAuto</set>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QTextEdit">
-                            <property name="name">
-                                <cstring>textEdit2</cstring>
-                            </property>
-                        </widget>
-                    </hbox>
-                </widget>
-            </hbox>
-        </widget>
-        <widget class="QWidget">
-            <property name="name">
-                <cstring>tab</cstring>
-            </property>
-            <attribute name="title">
-                <string>&amp;Location</string>
-            </attribute>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QButtonGroup">
-                    <property name="name">
-                        <cstring>buttonGroup2</cstring>
-                    </property>
-                    <property name="title">
-                        <string>Page Placement</string>
-                    </property>
-                    <property name="selectedId" stdset="0">
-                        <number>0</number>
-                    </property>
-                    <vbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton9</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Current Page</string>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton11</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Range of Pages:</string>
-                            </property>
-                        </widget>
-                        <widget class="QLineEdit">
-                            <property name="name">
-                                <cstring>lineEdit1</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>5</hsizetype>
-                                    <vsizetype>0</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                        </widget>
-                    </vbox>
-                </widget>
-                <widget class="QButtonGroup">
-                    <property name="name">
-                        <cstring>buttonGroup8</cstring>
-                    </property>
-                    <property name="title">
-                        <string>Position of Frame</string>
-                    </property>
-                    <property name="selectedId" stdset="0">
-                        <number>0</number>
-                    </property>
-                    <vbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton28</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Top Left of Page</string>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton29</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Top Left of Margins</string>
-                            </property>
-                        </widget>
-                        <widget class="QRadioButton">
-                            <property name="name">
-                                <cstring>radioButton30</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Custom Position:</string>
-                            </property>
-                        </widget>
-                        <widget class="QLayoutWidget">
-                            <property name="name">
-                                <cstring>layout18</cstring>
-                            </property>
-                            <grid>
-                                <property name="name">
-                                    <cstring>unnamed</cstring>
-                                </property>
-                                <widget class="MSpinBox" row="1" column="1">
-                                    <property name="name">
-                                        <cstring>mSpinBox7</cstring>
-                                    </property>
-                                </widget>
-                                <widget class="QLabel" row="0" column="0">
-                                    <property name="name">
-                                        <cstring>textLabel1_2</cstring>
-                                    </property>
-                                    <property name="text">
-                                        <string>X:</string>
-                                    </property>
-                                </widget>
-                                <widget class="QLabel" row="1" column="0">
-                                    <property name="name">
-                                        <cstring>textLabel2_2</cstring>
-                                    </property>
-                                    <property name="text">
-                                        <string>Y:</string>
-                                    </property>
-                                </widget>
-                                <widget class="MSpinBox" row="0" column="1">
-                                    <property name="name">
-                                        <cstring>mSpinBox6</cstring>
-                                    </property>
-                                </widget>
-                            </grid>
-                        </widget>
-                    </vbox>
-                </widget>
-            </hbox>
-        </widget>
-        <widget class="QWidget">
-            <property name="name">
-                <cstring>TabPage</cstring>
-            </property>
-            <attribute name="title">
-                <string>&amp;Size</string>
-            </attribute>
-            <widget class="QButtonGroup">
-                <property name="name">
-                    <cstring>buttonGroup3</cstring>
-                </property>
-                <property name="geometry">
-                    <rect>
-                        <x>10</x>
-                        <y>10</y>
-                        <width>197</width>
-                        <height>162</height>
-                    </rect>
-                </property>
-                <property name="lineWidth">
-                    <number>0</number>
-                </property>
-                <property name="title">
-                    <string></string>
-                </property>
-                <property name="selectedId" stdset="0">
-                    <number>0</number>
-                </property>
-                <vbox>
+                <attribute name="title">
+                    <string>T&amp;ype</string>
+                </attribute>
+                <hbox>
                     <property name="name">
                         <cstring>unnamed</cstring>
                     </property>
-                    <widget class="QRadioButton">
+                    <widget class="QButtonGroup">
                         <property name="name">
-                            <cstring>radioButton12</cstring>
+                            <cstring>typeButtonGroup</cstring>
                         </property>
-                        <property name="text">
-                            <string>Same as the Page</string>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>1</hsizetype>
+                                <vsizetype>5</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
                         </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton13</cstring>
+                        <property name="title">
+                            <string></string>
                         </property>
-                        <property name="text">
-                            <string>Same as the Page Margins</string>
+                        <property name="exclusive">
+                            <bool>true</bool>
                         </property>
-                    </widget>
-                    <widget class="QRadioButton">
-                        <property name="name">
-                            <cstring>radioButton14</cstring>
-                        </property>
-                        <property name="text">
-                            <string>Custom Size:</string>
-                        </property>
-                    </widget>
-                    <widget class="QLayoutWidget">
-                        <property name="name">
-                            <cstring>layout41</cstring>
-                        </property>
-                        <grid>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <widget class="QLabel" row="1" column="0" rowspan="2" colspan="1">
-                                <property name="name">
-                                    <cstring>textLabel2_2_2</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Height:</string>
-                                </property>
-                            </widget>
-                            <widget class="MSpinBox" row="2" column="1">
-                                <property name="name">
-                                    <cstring>mSpinBox6_2</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>0</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>0</width>
-                                        <height>24</height>
-                                    </size>
-                                </property>
-                            </widget>
-                            <widget class="MSpinBox" row="0" column="1" rowspan="2" colspan="1">
-                                <property name="name">
-                                    <cstring>mSpinBox6_3</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>0</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="minimumSize">
-                                    <size>
-                                        <width>0</width>
-                                        <height>24</height>
-                                    </size>
-                                </property>
-                            </widget>
-                            <widget class="QLabel" row="0" column="0">
-                                <property name="name">
-                                    <cstring>textLabel1_2_2</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Width:</string>
-                                </property>
-                            </widget>
-                        </grid>
-                    </widget>
-                </vbox>
-            </widget>
-        </widget>
-        <widget class="QWidget">
-            <property name="name">
-                <cstring>TabPage</cstring>
-            </property>
-            <attribute name="title">
-                <string>&amp;Options</string>
-            </attribute>
-            <hbox>
-                <property name="name">
-                    <cstring>unnamed</cstring>
-                </property>
-                <widget class="QWidgetStack">
-                    <property name="name">
-                        <cstring>widgetStack3</cstring>
-                    </property>
-                    <widget class="QWidget">
-                        <property name="name">
-                            <cstring>TextImageStackPage</cstring>
-                        </property>
-                        <attribute name="id">
+                        <property name="selectedId" stdset="0">
                             <number>0</number>
-                        </attribute>
+                        </property>
                         <vbox>
                             <property name="name">
                                 <cstring>unnamed</cstring>
                             </property>
-                            <widget class="QLayoutWidget">
+                            <widget class="QRadioButton">
                                 <property name="name">
-                                    <cstring>layout31</cstring>
+                                    <cstring>radioButtonTextFrame</cstring>
                                 </property>
-                                <hbox>
+                                <property name="text">
+                                    <string>&amp;Text Frame</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+T</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>0</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonImageFrame</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>&amp;Image Frame</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+I</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>1</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonTable</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>T&amp;able</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+A</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>2</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonShape</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Shape</string>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonPolygon</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Polygon</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>4</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonLine</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Line</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>5</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonBezier</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Bezier Curve</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>6</number>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QTextEdit">
+                        <property name="name">
+                            <cstring>typeTextEdit</cstring>
+                        </property>
+                    </widget>
+                </hbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;Location</string>
+                </attribute>
+                <hbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>pagePlacementGroupBox</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Page Placement</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QButtonGroup">
+                                <property name="name">
+                                    <cstring>pagePlacementButtonGroup</cstring>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>NoFrame</enum>
+                                </property>
+                                <property name="frameShadow">
+                                    <enum>Plain</enum>
+                                </property>
+                                <property name="lineWidth">
+                                    <number>0</number>
+                                </property>
+                                <property name="title">
+                                    <string></string>
+                                </property>
+                                <property name="alignment">
+                                    <set>AlignAuto</set>
+                                </property>
+                                <property name="checkable">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="checked">
+                                    <bool>false</bool>
+                                </property>
+                                <property name="selectedId" stdset="0">
+                                    <number>0</number>
+                                </property>
+                                <vbox>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
                                     </property>
-                                    <widget class="QLabel">
+                                    <widget class="QRadioButton">
                                         <property name="name">
-                                            <cstring>textLabel7</cstring>
+                                            <cstring>radioButtonCurrentPage</cstring>
                                         </property>
                                         <property name="text">
-                                            <string>Source Document:</string>
+                                            <string>Current Page</string>
+                                        </property>
+                                        <property name="buttonGroupId">
+                                            <number>0</number>
                                         </property>
                                     </widget>
-                                    <widget class="QLineEdit">
+                                    <widget class="QRadioButton">
                                         <property name="name">
-                                            <cstring>lineEdit6</cstring>
-                                        </property>
-                                    </widget>
-                                    <widget class="QPushButton">
-                                        <property name="name">
-                                            <cstring>pushButton12</cstring>
+                                            <cstring>radioButtonRangeOfPages</cstring>
                                         </property>
                                         <property name="text">
-                                            <string>&amp;Select File...</string>
+                                            <string>Range of Pages:</string>
                                         </property>
-                                        <property name="accel">
-                                            <string>Alt+S</string>
+                                        <property name="buttonGroupId">
+                                            <number>1</number>
                                         </property>
                                     </widget>
-                                </hbox>
+                                </vbox>
+                            </widget>
+                            <widget class="QLineEdit">
+                                <property name="name">
+                                    <cstring>placementPagesLineEdit</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>5</hsizetype>
+                                        <vsizetype>0</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
                             </widget>
                             <spacer>
                                 <property name="name">
-                                    <cstring>spacer6</cstring>
+                                    <cstring>spacer11</cstring>
                                 </property>
                                 <property name="orientation">
                                     <enum>Vertical</enum>
@@ -584,16 +258,571 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>20</width>
-                                        <height>81</height>
+                                        <height>40</height>
                                     </size>
                                 </property>
                             </spacer>
                         </vbox>
                     </widget>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>framePositionGroupBox</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Position of Frame</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QButtonGroup">
+                                <property name="name">
+                                    <cstring>framePositionButtonGroup</cstring>
+                                </property>
+                                <property name="sizePolicy">
+                                    <sizepolicy>
+                                        <hsizetype>7</hsizetype>
+                                        <vsizetype>5</vsizetype>
+                                        <horstretch>0</horstretch>
+                                        <verstretch>0</verstretch>
+                                    </sizepolicy>
+                                </property>
+                                <property name="frameShape">
+                                    <enum>NoFrame</enum>
+                                </property>
+                                <property name="lineWidth">
+                                    <number>0</number>
+                                </property>
+                                <property name="margin">
+                                    <number>0</number>
+                                </property>
+                                <property name="title">
+                                    <string></string>
+                                </property>
+                                <property name="selectedId" stdset="0">
+                                    <number>0</number>
+                                </property>
+                                <vbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QRadioButton">
+                                        <property name="name">
+                                            <cstring>radioButtonTopLeftOfPages</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Top Left of Page</string>
+                                        </property>
+                                        <property name="buttonGroupId">
+                                            <number>0</number>
+                                        </property>
+                                    </widget>
+                                    <widget class="QRadioButton">
+                                        <property name="name">
+                                            <cstring>radioButtonTopLeftOfMargins</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Top Left of Margins</string>
+                                        </property>
+                                        <property name="buttonGroupId">
+                                            <number>1</number>
+                                        </property>
+                                    </widget>
+                                    <widget class="QRadioButton">
+                                        <property name="name">
+                                            <cstring>radioButtonCustomPosition</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Custom Position:</string>
+                                        </property>
+                                        <property name="buttonGroupId">
+                                            <number>2</number>
+                                        </property>
+                                    </widget>
+                                </vbox>
+                            </widget>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout47</cstring>
+                                </property>
+                                <hbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>spacer10</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Fixed</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>30</width>
+                                                <height>20</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                    <widget class="QLayoutWidget">
+                                        <property name="name">
+                                            <cstring>layout45</cstring>
+                                        </property>
+                                        <grid>
+                                            <property name="name">
+                                                <cstring>unnamed</cstring>
+                                            </property>
+                                            <widget class="QLabel" row="0" column="0">
+                                                <property name="name">
+                                                    <cstring>xPosLabel</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>X:</string>
+                                                </property>
+                                            </widget>
+                                            <widget class="MSpinBox" row="1" column="1">
+                                                <property name="name">
+                                                    <cstring>yPosMSpinBox</cstring>
+                                                </property>
+                                                <property name="sizePolicy">
+                                                    <sizepolicy>
+                                                        <hsizetype>1</hsizetype>
+                                                        <vsizetype>0</vsizetype>
+                                                        <horstretch>0</horstretch>
+                                                        <verstretch>0</verstretch>
+                                                    </sizepolicy>
+                                                </property>
+                                                <property name="minimumSize">
+                                                    <size>
+                                                        <width>50</width>
+                                                        <height>24</height>
+                                                    </size>
+                                                </property>
+                                            </widget>
+                                            <widget class="QLabel" row="1" column="0">
+                                                <property name="name">
+                                                    <cstring>yPosLabel</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Y:</string>
+                                                </property>
+                                            </widget>
+                                            <widget class="MSpinBox" row="0" column="1">
+                                                <property name="name">
+                                                    <cstring>xPosMSpinBox</cstring>
+                                                </property>
+                                                <property name="sizePolicy">
+                                                    <sizepolicy>
+                                                        <hsizetype>1</hsizetype>
+                                                        <vsizetype>0</vsizetype>
+                                                        <horstretch>0</horstretch>
+                                                        <verstretch>0</verstretch>
+                                                    </sizepolicy>
+                                                </property>
+                                                <property name="minimumSize">
+                                                    <size>
+                                                        <width>50</width>
+                                                        <height>24</height>
+                                                    </size>
+                                                </property>
+                                            </widget>
+                                        </grid>
+                                    </widget>
+                                    <spacer>
+                                        <property name="name">
+                                            <cstring>spacer9</cstring>
+                                        </property>
+                                        <property name="orientation">
+                                            <enum>Horizontal</enum>
+                                        </property>
+                                        <property name="sizeType">
+                                            <enum>Expanding</enum>
+                                        </property>
+                                        <property name="sizeHint">
+                                            <size>
+                                                <width>97</width>
+                                                <height>20</height>
+                                            </size>
+                                        </property>
+                                    </spacer>
+                                </hbox>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer12</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>30</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </vbox>
+                    </widget>
+                </hbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;Size</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QButtonGroup">
+                        <property name="name">
+                            <cstring>sizeButtonGroup</cstring>
+                        </property>
+                        <property name="lineWidth">
+                            <number>0</number>
+                        </property>
+                        <property name="title">
+                            <string></string>
+                        </property>
+                        <property name="selectedId" stdset="0">
+                            <number>0</number>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonPageSize</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Same as the Page</string>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonPageMarginSize</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Same as the Page Margins</string>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>radioButtonCustomSize</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Custom Size:</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QLayoutWidget">
+                        <property name="name">
+                            <cstring>layout50</cstring>
+                        </property>
+                        <hbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer10_2</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Fixed</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>30</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                            <widget class="QLayoutWidget">
+                                <property name="name">
+                                    <cstring>layout42</cstring>
+                                </property>
+                                <grid>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <widget class="QLabel" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>heightLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Height:</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="MSpinBox" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>heightMSpinBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>1</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>50</width>
+                                                <height>24</height>
+                                            </size>
+                                        </property>
+                                    </widget>
+                                    <widget class="MSpinBox" row="0" column="1">
+                                        <property name="name">
+                                            <cstring>widthMSpinBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>1</hsizetype>
+                                                <vsizetype>0</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="minimumSize">
+                                            <size>
+                                                <width>50</width>
+                                                <height>24</height>
+                                            </size>
+                                        </property>
+                                    </widget>
+                                    <widget class="QLabel" row="0" column="0">
+                                        <property name="name">
+                                            <cstring>widthLabel</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Width:</string>
+                                        </property>
+                                    </widget>
+                                </grid>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer16</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Horizontal</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>40</width>
+                                        <height>20</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </hbox>
+                    </widget>
+                    <spacer>
+                        <property name="name">
+                            <cstring>spacer17</cstring>
+                        </property>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
+                        </property>
+                        <property name="sizeType">
+                            <enum>Expanding</enum>
+                        </property>
+                        <property name="sizeHint">
+                            <size>
+                                <width>20</width>
+                                <height>40</height>
+                            </size>
+                        </property>
+                    </spacer>
+                </vbox>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;Options</string>
+                </attribute>
+                <hbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QWidgetStack">
+                        <property name="name">
+                            <cstring>optionsWidgetStack</cstring>
+                        </property>
+                        <widget class="QWidget">
+                            <property name="name">
+                                <cstring>TextImageStackPage</cstring>
+                            </property>
+                            <attribute name="id">
+                                <number>0</number>
+                            </attribute>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLayoutWidget">
+                                    <property name="name">
+                                        <cstring>layout31</cstring>
+                                    </property>
+                                    <hbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QLabel">
+                                            <property name="name">
+                                                <cstring>textLabel7</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Source Document:</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QLineEdit">
+                                            <property name="name">
+                                                <cstring>lineEdit6</cstring>
+                                            </property>
+                                        </widget>
+                                        <widget class="QPushButton">
+                                            <property name="name">
+                                                <cstring>pushButton12</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>&amp;Select File...</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+S</string>
+                                            </property>
+                                        </widget>
+                                    </hbox>
+                                </widget>
+                                <spacer>
+                                    <property name="name">
+                                        <cstring>spacer6</cstring>
+                                    </property>
+                                    <property name="orientation">
+                                        <enum>Vertical</enum>
+                                    </property>
+                                    <property name="sizeType">
+                                        <enum>Expanding</enum>
+                                    </property>
+                                    <property name="sizeHint">
+                                        <size>
+                                            <width>20</width>
+                                            <height>81</height>
+                                        </size>
+                                    </property>
+                                </spacer>
+                            </vbox>
+                        </widget>
+                        <widget class="QWidget">
+                            <property name="name">
+                                <cstring>emptyStackPage</cstring>
+                            </property>
+                            <attribute name="id">
+                                <number>1</number>
+                            </attribute>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLabel">
+                                    <property name="name">
+                                        <cstring>textLabel8</cstring>
+                                    </property>
+                                    <property name="text">
+                                        <string>There are no options for this type of frame</string>
+                                    </property>
+                                    <property name="alignment">
+                                        <set>AlignTop</set>
+                                    </property>
+                                </widget>
+                            </vbox>
+                        </widget>
+                    </widget>
+                </hbox>
+            </widget>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>okCancelLayout</cstring>
+            </property>
+            <hbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>0</number>
+                </property>
+                <property name="spacing">
+                    <number>6</number>
+                </property>
+                <spacer>
+                    <property name="name">
+                        <cstring>okCancelSpacer</cstring>
+                    </property>
+                    <property name="orientation">
+                        <enum>Horizontal</enum>
+                    </property>
+                    <property name="sizeType">
+                        <enum>Expanding</enum>
+                    </property>
+                    <property name="sizeHint">
+                        <size>
+                            <width>20</width>
+                            <height>20</height>
+                        </size>
+                    </property>
+                </spacer>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>okButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;OK</string>
+                    </property>
+                    <property name="accel">
+                        <string></string>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>true</bool>
+                    </property>
+                    <property name="default">
+                        <bool>true</bool>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>cancelButton</cstring>
+                    </property>
+                    <property name="text">
+                        <string>&amp;Cancel</string>
+                    </property>
+                    <property name="accel">
+                        <string></string>
+                    </property>
+                    <property name="autoDefault">
+                        <bool>true</bool>
+                    </property>
                 </widget>
             </hbox>
         </widget>
-    </widget>
+    </vbox>
 </widget>
 <customwidgets>
     <customwidget>
@@ -621,19 +850,19 @@
 </images>
 <connections>
     <connection>
-        <sender>buttonOk</sender>
+        <sender>okButton</sender>
         <signal>clicked()</signal>
         <receiver>InsertAFrameBase</receiver>
         <slot>accept()</slot>
     </connection>
     <connection>
-        <sender>buttonCancel</sender>
+        <sender>cancelButton</sender>
         <signal>clicked()</signal>
         <receiver>InsertAFrameBase</receiver>
         <slot>reject()</slot>
     </connection>
 </connections>
-<layoutdefaults spacing="6" margin="11"/>
+<layoutdefaults spacing="5" margin="11"/>
 <includehints>
     <includehint>mspinbox.h</includehint>
     <includehint>mspinbox.h</includehint>
