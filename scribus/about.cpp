@@ -54,7 +54,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "07";
+	QString BUILD_DAY = "08";
 	QString BUILD_MONTH = "August";
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
@@ -295,6 +295,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("th_TH").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Sira Nokyoungthong</td><td>Sira Nokyoungthong</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Barış Atasoy</td><td>batasoy@pozitifpc.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
