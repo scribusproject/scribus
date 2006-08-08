@@ -51,5 +51,6 @@ void ImageInfoRecord::init(void)
 	usedPath.setLength(0);
 	profileName.setLength(0);
 	layerInfo.clear();
+	duotoneColors.clear();
 	exifInfo.init();
 }

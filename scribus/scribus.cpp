@@ -6897,6 +6897,54 @@ void ScribusMainWindow::slotEditColors()
 					}
 				}
 			}
+			for (c=0; c<doc->DocItems.count(); ++c)
+			{
+				ite = doc->DocItems.at(c);
+				if (ite->asImageFrame())
+				{
+					if (ite->PicAvail)
+					{
+						bool fho = ite->imageFlippedH();
+						bool fvo = ite->imageFlippedV();
+						doc->LoadPict(ite->Pfile, ite->ItemNr, true);
+						ite->setImageFlippedH(fho);
+						ite->setImageFlippedV(fvo);
+						ite->AdjustPictScale();
+					}
+				}
+			}
+			for (c=0; c<doc->MasterItems.count(); ++c)
+			{
+				ite = doc->MasterItems.at(c);
+				if (ite->asImageFrame())
+				{
+					if (ite->PicAvail)
+					{
+						bool fho = ite->imageFlippedH();
+						bool fvo = ite->imageFlippedV();
+						doc->LoadPict(ite->Pfile, ite->ItemNr, true);
+						ite->setImageFlippedH(fho);
+						ite->setImageFlippedV(fvo);
+						ite->AdjustPictScale();
+					}
+				}
+			}
+			for (c=0; c<doc->FrameItems.count(); ++c)
+			{
+				ite = doc->FrameItems.at(c);
+				if (ite->asImageFrame())
+				{
+					if (ite->PicAvail)
+					{
+						bool fho = ite->imageFlippedH();
+						bool fvo = ite->imageFlippedV();
+						doc->LoadPict(ite->Pfile, ite->ItemNr, true);
+						ite->setImageFlippedH(fho);
+						ite->setImageFlippedV(fvo);
+						ite->AdjustPictScale();
+					}
+				}
+			}
 			doc->updateAllItemQColors();
 			view->DrawNew();
 		}

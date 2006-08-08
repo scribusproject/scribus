@@ -3210,6 +3210,43 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	}
 	if (PicAvail)
 	{
+		if ((pixm.imgInfo.colorspace == 3) && (pixm.imgInfo.duotoneColors.count() != 0) && (!reload))
+		{
+			QString efVal = "";
+			for (uint cc = 0; cc < pixm.imgInfo.duotoneColors.count(); cc++)
+			{
+				if (!m_Doc->PageColors.contains(pixm.imgInfo.duotoneColors[cc].Name))
+					m_Doc->PageColors.insert(pixm.imgInfo.duotoneColors[cc].Name, pixm.imgInfo.duotoneColors[cc].Color);
+				efVal += pixm.imgInfo.duotoneColors[cc].Name+"\n";
+			}
+			m_Doc->scMW()->propertiesPalette->updateColorList();
+			struct ScImage::imageEffect ef;
+			if (pixm.imgInfo.duotoneColors.count() == 1)
+			{
+				efVal += "100";
+				ef.effectCode = ScImage::EF_COLORIZE;
+				ef.effectParameters = efVal;
+			}
+			else if (pixm.imgInfo.duotoneColors.count() == 2)
+			{
+				efVal += "100 100";
+				ef.effectCode = ScImage::EF_DUOTONE;
+				ef.effectParameters = efVal;
+			}
+			else if (pixm.imgInfo.duotoneColors.count() == 3)
+			{
+				efVal += "100 100 100";
+				ef.effectCode = ScImage::EF_TRITONE;
+				ef.effectParameters = efVal;
+			}
+			else if (pixm.imgInfo.duotoneColors.count() == 4)
+			{
+				efVal += "100 100 100 100";
+				ef.effectCode = ScImage::EF_QUADTONE;
+				ef.effectParameters = efVal;
+			}
+			effectsInUse.append(ef);
+		}
 		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
 		if (pixm.imgInfo.lowResType != 0)
 		{

@@ -258,6 +258,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 			ScColor col;
 			s >> signature;
 			s >> count;
+			uint duodataStart = s.device()->at();
 			bool specialColour = false;
 			for (int cda = 0; cda < count; cda++)
 			{
@@ -288,6 +289,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 					case 4:	// Focoltone
 					case 5:	// Truematch
 					case 6:	// Toyo 88 colorfinder 1050
+					case 7:	// LAB colour space
 					case 10: // HKS colors
 						colorTableSc.clear();
 						colorTableSc.append(ScColor(0, 0, 0, 255));
@@ -301,6 +303,24 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 				}
 				if (specialColour)
 					break;
+			}
+			if (specialColour)
+			{
+				s.device()->at( duodataStart + 40 );
+				uint duoNameStart = s.device()->at();
+				for (int cda = 0; cda < count; cda++)
+				{
+					QString colName;
+					s.device()->at( duoNameStart + (64 * static_cast<uint>(cda)) );
+					colName = getPascalString(s);
+					PSDDuotone_Color colSpec;
+					colSpec.Name = colName;
+					if (cda == 0)
+						colSpec.Color = ScColor(0, 0, 0, 255);
+					else
+						colSpec.Color = ScColor(0, 0, 0, 0);
+					m_imageInfoRecord.duotoneColors.append(colSpec);
+				}
 			}
 		}
 		else
@@ -346,7 +366,19 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	s >> layerDataLen;
 	startLayers = s.device()->at();
 	if (layerDataLen != 0)
-		return parseLayer( s, header);
+	{
+		bool re = parseLayer(s, header);
+		if (re)
+			return re;
+		else
+		{
+			// Try to decode simple psd file, no layers
+			s.device()->at(startLayers + layerDataLen);
+			if(s.atEnd())
+				return false;
+			return loadLayer( s, header);
+		}
+	}
 	else
 	{
 		// Decoding simple psd file, no layers
@@ -383,6 +415,11 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 			s >> right;
 			lay.width = right - left;
 			s >> numChannels;
+			if (numChannels > 5)	// we don't support images with more than 5 channels yet
+			{
+				m_imageInfoRecord.layerInfo.clear();
+				return false;
+			}
 			lay.channelType.clear();
 			lay.channelLen.clear();
 			for (int channels = 0; channels < numChannels; channels++)
@@ -405,6 +442,14 @@ bool ScImgDataLoader_PSD::parseLayer( QDataStream & s, const PSDHeader & header 
 			s >> clipping;
 			lay.clipping = clipping;
 			s >> flags;
+			if (flags & 8)
+			{
+				if (flags & 16)	// Unknown combination of layer flags, probably an adjustment or effects layer
+				{
+					m_imageInfoRecord.layerInfo.clear();
+					return false;
+				}
+			}
 			lay.flags = flags;
 			s >> filler;
 			s >> extradata;

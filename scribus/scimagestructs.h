@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qmap.h>
 #include "fpointarray.h"
+#include "sccolor.h"
 
 struct ImageLoadRequest
 {
@@ -50,6 +51,12 @@ struct PSDLayer
 	QString layerName;
 	QString blend;
 	QImage thumb;
+};
+
+struct PSDDuotone_Color
+{
+	QString Name;
+	ScColor Color;
 };
 
 class ExifValues
@@ -95,6 +102,7 @@ public:
 	QString usedPath;
 	QString profileName;
 	QValueList<PSDLayer> layerInfo;
+	QValueList<PSDDuotone_Color> duotoneColors;
 	ExifValues exifInfo;
 };
 

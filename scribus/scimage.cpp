@@ -100,6 +100,7 @@ void ScImage::initialize()
 	imgInfo.clipPath = "";
 	imgInfo.usedPath = "";
 	imgInfo.layerInfo.clear();
+	imgInfo.duotoneColors.clear();
 	imgInfo.exifInfo.cameraName = "";
 	imgInfo.exifInfo.cameraVendor = "";
 	imgInfo.exifInfo.thumbnail = QImage();
