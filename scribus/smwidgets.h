@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "mspinbox.h"
 #include "sccombobox.h"
+#include "alignselect.h"
 
 class SMSpinBox : public QSpinBox
 {
@@ -92,11 +93,33 @@ private slots:
 	void currentChanged();
 };
 
-// class SMAlignSelect : public AlignSelect
-// {
-// 	Q_OBJECT
-// };
-// 
+class SMAlignSelect : public AlignSelect
+{
+	Q_OBJECT
+public:
+	SMAlignSelect(QWidget *parent);
+	~SMAlignSelect() {}
+
+	void setStyle(int i);
+	void setStyle(int i, bool isParentValue);
+
+	void setParentItem(int i);
+
+	bool useParentValue();
+
+	QToolButton *parentButton;
+
+private:
+	bool   hasParent_;
+	bool   useParentStyle_;
+	int    pStyle_;
+	void setFont(bool wantBold);
+
+private slots:
+	void styleChanged();
+	void pbPressed();
+};
+
 // class SMTabruler : public Tabruler
 // {
 // 	Q_OBJECT

@@ -491,6 +491,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	connect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 
 	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
@@ -536,6 +537,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->alignement_->TextC, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->TextB, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
+	disconnect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 
 	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
@@ -646,8 +648,12 @@ void SMParagraphStyle::slotSpaceBelow()
 
 void SMParagraphStyle::slotAlignment()
 {
+	int style = pwidget_->alignement_->getStyle();
+	if (pwidget_->alignement_->useParentValue())
+		style = Style::NOVALUE;
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setAlignment(pwidget_->alignement_->getStyle());
+		selection_[i]->setAlignment(style);
 
 	if (!selectionIsDirty_)
 	{

@@ -83,7 +83,7 @@ void SMPStyleWidget::setupDistances()
 	spaceBelow_->setSuffix( tr( " pt" ) );
 	distancesBoxLayout->addWidget( spaceBelow_, 2, 3 );
 
-	alignement_ = new AlignSelect(distancesBox);
+	alignement_ = new SMAlignSelect(distancesBox);
 	distancesBoxLayout->addMultiCellWidget(alignement_, 3,3,1,3);
 }
 
@@ -189,6 +189,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 		dropCapOffset_->setValue(pstyle.dropCapOffset(), pstyle.isPdropCapOffset());
 		dropCapOffset_->setParentValue(parent->dropCapOffset());
+
+		alignement_->setStyle(pstyle.alignment(), pstyle.isPalignment());
+		alignement_->setParentItem(parent->alignment());
 	}
 	else
 	{
@@ -198,11 +201,11 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		spaceBelow_->setValue(pstyle.gapAfter());
 		dropCapLines_->setValue(pstyle.dropCapLines());
 		dropCapOffset_->setValue(pstyle.dropCapOffset());
+		alignement_->setStyle(pstyle.alignment());
 	}
 
 	lineSpacing_->setEnabled(pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
 
-	alignement_->setStyle(pstyle.alignment());
 	tabList_->setTabs(pstyle.tabValues(), unitIndex);
 	tabList_->setFirstLineData(pstyle.firstIndent());
 	tabList_->setFirstLine();

@@ -20,7 +20,7 @@ class QLabel;
 class QTabWidget;
 class QString;
 class QComboBox;
-class AlignSelect;
+class SMAlignSelect;
 class SMSpinBox;
 class QVBoxLayout;
 class Tabruler;
@@ -70,9 +70,9 @@ private:
 	SMSpinBox   *dropCapLines_;
 	SMMSpinBox  *dropCapOffset_;
 
-	AlignSelect  *alignement_;
-	Tabruler     *tabList_;
-	SMCStylePage *cpage;
+	SMAlignSelect *alignement_;
+	Tabruler      *tabList_;
+	SMCStylePage  *cpage;
 
 	void setupDistances();
 	void setupDropCaps();
