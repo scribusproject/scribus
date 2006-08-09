@@ -221,6 +221,7 @@ scribus_SOURCES = \
 	smreplacedia.cpp \
 	smtextstyles.cpp \
 	smtextstylewidgets.cpp \
+	smwidgets.cpp \
 	spalette.cpp	\
 	splash.cpp	\
 	stencilreader.cpp	\
