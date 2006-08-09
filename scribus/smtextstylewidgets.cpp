@@ -221,7 +221,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 	if (hasParent)
 	{
-		cpage->parentCombo->insertItem(tr("From Parent"), 1);
+		cpage->parentCombo->insertItem(tr("Parent's Character Style"), 1);
 		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parent()->hasName())
 		{
 			QString pname = pstyle.charStyle().parent()->name();

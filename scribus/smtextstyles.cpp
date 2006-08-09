@@ -996,7 +996,11 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 			selection_[i]->charStyle().setParent(&(p->charStyle()));
 		}
 		else
+		{
+			QString name = selection_[i]->name();
 			*selection_[i] = doc_->docParagraphStyles[0]; // FIXME set to default style
+			selection_[i]->setName(name);
+		}
 
 		sel << selection_[i]->name();
 	}
@@ -1148,13 +1152,17 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	selection_.clear();
 	selectionIsDirty_ = false;
 	removeConnections();
+	QValueList<CharStyle> cstyles;
+	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
+		cstyles << doc_->docCharStyles[i];
+
 	if (styleNames.count() == 1)
 	{
 		for (uint i = 0; i < tmpStyles_.count(); ++i)
 		{
 			if (tmpStyles_[i].displayName() == styleNames[0])
 			{
-				page_->show(tmpStyles_[i], tmpStyles_);
+				page_->show(tmpStyles_[i], cstyles);
 				selection_.append(&tmpStyles_[i]);
 				break;
 			}
@@ -1585,15 +1593,33 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 {
 	QStringList sel;
 	CharStyle *c = 0;
+	bool setParent = true;
 
 	if (parent != "" && !parent.isEmpty() && parent != QString::null)
-		c = &(doc_->docCharStyles[doc_->docCharStyles.find(parent)]);
+	{
+		int index = doc_->docCharStyles.find(parent);
+		if (index > -1)
+			c = &(doc_->docCharStyles[index]);
+		else
+			setParent = false;
+	}
+	else
+		setParent = false;
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		// reset everything to NOVALUE
-		selection_[i]->eraseCharStyle(*selection_[i]); 
-		selection_[i]->setParent(c);
+		if (setParent)
+		{
+			// reset everything to NOVALUE
+			selection_[i]->eraseCharStyle(*selection_[i]); 
+			selection_[i]->setParent(c);
+		}
+		else
+		{
+			QString name = selection_[i]->name();
+			*selection_[i] = doc_->docParagraphStyles[0].charStyle(); // FIXME set to default style
+			selection_[i]->setName(name);
+		}
 		sel << selection_[i]->name();
 	}
 
