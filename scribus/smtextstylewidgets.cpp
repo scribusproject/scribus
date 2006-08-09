@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "style.h"
 #include "colorcombo.h"
+#include "smwidgets.h"
 
 #include <qgroupbox.h>
 #include <qlayout.h>
@@ -62,7 +63,7 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel0->setPixmap(loadIcon("linespacing2.png"));
 	distancesBoxLayout->addWidget(pixmapLabel0, 1, 0);
 
-	lineSpacing_ = new MSpinBox(1, 300, distancesBox, 1 );
+	lineSpacing_ = new SMMSpinBox(1, 300, distancesBox, 1 );
 	lineSpacing_->setSuffix(tr( " pt" ));
 	distancesBoxLayout->addWidget(lineSpacing_, 1,1);
 
@@ -70,7 +71,7 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel3->setPixmap( loadIcon("above.png") );
 	distancesBoxLayout->addWidget( pixmapLabel3, 1, 2 );
 
-	spaceAbove_ = new MSpinBox( 0, 300, distancesBox, 1 );
+	spaceAbove_ = new SMMSpinBox( 0, 300, distancesBox, 1 );
 	spaceAbove_->setSuffix( tr( " pt" ) );
 	distancesBoxLayout->addWidget( spaceAbove_, 1, 3 );
 
@@ -78,7 +79,7 @@ void SMPStyleWidget::setupDistances()
 	pixmapLabel4->setPixmap( loadIcon("below.png") );
 	distancesBoxLayout->addWidget( pixmapLabel4, 2, 2 );
 
-	spaceBelow_ = new MSpinBox( 0, 300, distancesBox, 1 );
+	spaceBelow_ = new SMMSpinBox( 0, 300, distancesBox, 1 );
 	spaceBelow_->setSuffix( tr( " pt" ) );
 	distancesBoxLayout->addWidget( spaceBelow_, 2, 3 );
 
@@ -103,7 +104,7 @@ void SMPStyleWidget::languageChange()
 	lineSpacing_->setSuffix(tr(" pt"));
 	spaceAbove_->setSuffix(tr(" pt"));
 	spaceBelow_->setSuffix(tr(" pt"));
-	parentLabel->setText(tr("Parent Style"));
+	parentLabel->setText(tr("Parent"));
 	distancesBox->setTitle(tr("Distances and Alignment"));
 	dropCapsBox->setTitle(tr("Drop Caps"));
 	tabsBox->setTitle(tr("Tabulators and Indentation"));
@@ -129,7 +130,7 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout->addWidget(capLabel1, 0, 0);
 	dropCapsBoxLayout->addWidget(dropCapLines_, 0, 1);
 
-	dropCapOffset_ = new MSpinBox(-3000, 3000, dropCapsBox, 1);
+	dropCapOffset_ = new SMMSpinBox(-3000, 3000, dropCapsBox, 1);
 	dropCapOffset_->setSuffix(tr(" pt"));
 	capLabel2 = new QLabel(dropCapLines_, tr("Distance from Text:"), dropCapsBox, "CapLabel2");
 	dropCapsBoxLayout->addWidget(capLabel2, 1, 0);
@@ -161,8 +162,33 @@ void SMPStyleWidget::setupCharStyle()
 
 void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
 {
+	bool hasParent = pstyle.hasParent();
+	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parent());
+
 	lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode());
-	lineSpacing_->setValue(pstyle.lineSpacing());
+
+	if (hasParent)
+	{
+		lineSpacing_->setValue(pstyle.lineSpacing(), pstyle.isPlineSpacing());
+		lineSpacing_->setParentValue(parent->lineSpacing());
+
+		spaceAbove_->setValue(pstyle.gapBefore(), pstyle.isPgapBefore());
+		spaceAbove_->setParentValue(parent->gapBefore());
+
+		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isPgapAfter());
+		spaceBelow_->setValue(parent->gapAfter());
+
+		dropCapOffset_->setValue(pstyle.dropCapOffset(), pstyle.isPdropCapOffset());
+		dropCapOffset_->setParentValue(parent->dropCapOffset());
+	}
+	else
+	{
+		lineSpacing_->setValue(pstyle.lineSpacing());
+		spaceAbove_->setValue(pstyle.gapBefore());
+		spaceBelow_->setValue(pstyle.gapAfter());
+		dropCapOffset_->setValue(pstyle.dropCapOffset());
+	}
+
 	alignement_->setStyle(pstyle.alignment());
 	tabList_->setTabs(pstyle.tabValues(), unitIndex);
 	tabList_->setFirstLineData(pstyle.firstIndent());
@@ -171,8 +197,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	tabList_->setLeftIndent();
 	tabList_->setRightIndentData(pstyle.rightMargin());
 	tabList_->setRightIndent();
-	spaceAbove_->setValue(pstyle.gapBefore());
-	spaceBelow_->setValue(pstyle.gapAfter());
+
+	
+
 	dropCapsBox->setChecked(pstyle.hasDropCap());
 	dropCapLines_->setValue(pstyle.dropCapLines());
 	dropCapOffset_->setValue(pstyle.dropCapOffset());
@@ -184,18 +211,18 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	cpage->show(pstyle.charStyle(), cstyles);
 	parentCombo->clear();
 	parentCombo->insertItem("");
-	for (uint i = 0; i < pstyles.count(); ++i)
+	for (uint i = 5; i < pstyles.count(); ++i)
 	{
 		if (pstyles[i].displayName() != pstyle.displayName())
 			parentCombo->insertItem(pstyles[i].displayName());
 	}
 
-	if (pstyle.hasParent())
+	if (hasParent)
 	{
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == pstyle.parent()->displayName())
+			if (parentCombo->text(i) == parent->displayName())
 			{
 				index = i;
 				break;
@@ -226,6 +253,11 @@ void SMPStyleWidget::show(QValueList<ParagraphStyle> &pstyles, QValueList<Paragr
 	}
 }
 
+void SMPStyleWidget::clearAll()
+{
+
+}
+
 SMPStyleWidget::~SMPStyleWidget()
 {
 	
@@ -247,7 +279,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	characterBoxLayout->addSpacing( 10 );
 
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
-	fontSize_ = new MSpinBox( 1, 2048, characterBox, 1 );
+	fontSize_ = new SMMSpinBox( 1, 2048, characterBox, 1 );
 	fontSize_->setMinimumSize( QSize( 70, 22 ) );
 	fontSize_->setSuffix( tr( " pt" ) );
 
@@ -264,7 +296,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
 	layout7->addWidget(pixmapLabel3_3);
 
-	tracking_ = new MSpinBox( -300, 300, characterBox, 1 );
+	tracking_ = new SMMSpinBox( -300, 300, characterBox, 1 );
 	tracking_->setSuffix( tr( " %" ) );
 	layout7->addWidget(tracking_);
 	
@@ -274,7 +306,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	pixmapLabel2->setMaximumSize( QSize( 22, 22 ) );
 	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
 	layout7->addWidget( pixmapLabel2 );
-	baselineOffset_ = new MSpinBox( -100, 100, characterBox, 1 );
+	baselineOffset_ = new SMMSpinBox( -100, 100, characterBox, 1 );
 	baselineOffset_->setSuffix( tr( " %" ) );
 	layout7->addWidget( baselineOffset_ );
 	layout7->addStretch(10);
@@ -288,7 +320,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
 	layout8->addWidget( pixmapLabel3 );
 
-	fontHScale_ = new MSpinBox( 10, 400, characterBox, 1 );
+	fontHScale_ = new SMMSpinBox( 10, 400, characterBox, 1 );
 	fontHScale_->setSuffix( tr( " %" ) );
 	layout8->addWidget( fontHScale_ );
 
@@ -298,7 +330,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	pixmapLabel3_2->setPixmap( loadIcon("textscalev.png") );
 	layout8->addWidget( pixmapLabel3_2 );
 
-	fontVScale_ = new MSpinBox( 10, 400, characterBox, 1 );
+	fontVScale_ = new SMMSpinBox( 10, 400, characterBox, 1 );
 	fontVScale_->setSuffix( tr( " %" ) );
 	layout8->addWidget( fontVScale_ );
 	layout8->addStretch(10);
@@ -377,7 +409,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 void SMCStylePage::languageChange()
 {
-	parentLabel->setText(tr("Parent Style"));
+	parentLabel->setText(tr("Parent"));
 	fontVScale_->setSuffix(tr(" %"));
 	fontHScale_->setSuffix(tr(" %"));
 	baselineOffset_->setSuffix(tr(" %"));
@@ -421,8 +453,35 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 
 void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 {
-	// ASK Avox!
-	fontSize_->setValue(cstyle.fontSize() / 10.0);
+	bool hasParent = cstyle.hasParent();
+	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parent());
+
+	if (hasParent)
+	{
+		fontSize_->setValue(cstyle.fontSize(), cstyle.isPfontSize());
+		fontSize_->setParentValue(parent->fontSize());
+
+		fontHScale_->setValue(cstyle.scaleH(), cstyle.isPscaleH());
+		fontHScale_->setParentValue(parent->scaleH());
+
+		fontVScale_->setValue(cstyle.scaleV(), cstyle.isPscaleV());
+		fontVScale_->setParentValue(parent->scaleV());
+
+		baselineOffset_->setValue(cstyle.baselineOffset(), cstyle.isPbaselineOffset());
+		baselineOffset_->setParentValue(parent->baselineOffset());
+
+		tracking_->setValue(cstyle.tracking(), cstyle.isPtracking());
+		tracking_->setParentValue(parent->tracking());
+	}
+	else
+	{
+		fontSize_->setValue(cstyle.fontSize());
+		fontHScale_->setValue(cstyle.scaleH());
+		fontVScale_->setValue(cstyle.scaleV());
+		baselineOffset_->setValue(cstyle.baselineOffset());
+		tracking_->setValue(cstyle.tracking());
+	}
+	
 	fillShade_->setValue(cstyle.fillShade());
 	strokeShade_->setValue(cstyle.strokeShade());
 	effects_->setStyle(static_cast<int>(cstyle.effects()));
@@ -433,10 +492,8 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	effects_->StrikeVal->LWidth->setValue(cstyle.strikethruWidth());
 	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset());
 	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth());
-	fontHScale_->setValue(cstyle.scaleH());
-	fontVScale_->setValue(cstyle.scaleV());
-	baselineOffset_->setValue(cstyle.baselineOffset());
-	tracking_->setValue(cstyle.tracking());
+	
+
 	fillColor_->setCurrentText(cstyle.fillColor());
 	strokeColor_->setCurrentText(cstyle.strokeColor());
 	fontFace_->setCurrentFont(cstyle.font().scName());
@@ -484,6 +541,11 @@ void SMCStylePage::show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &c
 	{
 		
 	}
+}
+
+void SMCStylePage::clearAll()
+{
+	
 }
 
 

@@ -180,6 +180,7 @@ smlinestyle.h
 smreplacedia.h
 smtextstyles.h
 smtextstylewidgets.h
+smwidgets.h
 spalette.h
 story.h
 styleitem.h
@@ -405,6 +406,7 @@ smlinestyle.cpp
 smreplacedia.cpp
 smtextstyles.cpp
 smtextstylewidgets.cpp
+smwidgets.cpp
 spalette.cpp
 splash.cpp
 stencilreader.cpp

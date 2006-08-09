@@ -510,7 +510,11 @@ void StyleManager::insertShortcutPage(QTabWidget *twidget)
 	if (twidget)
 	{
 		if (!shortcutWidget_)
+		{
 			shortcutWidget_ = new ShortcutWidget(0, "shortcutWidget_");
+			connect(shortcutWidget_, SIGNAL(newKey(const QString&)),
+					this, SLOT(slotShortcutChanged(const QString&)));
+		}
 		twidget->addTab(shortcutWidget_, tr("Shortcut"));
 	}
 }
@@ -531,12 +535,19 @@ void StyleManager::slotNameChanged(const QString& name)
 		applyButton->setEnabled(true);
 	}
 
-	styleView->currentItem()->setText(0, name);
+	styleView->currentItem()->setText(NAME_COL, name);
 	if (item_)
 		item_->nameChanged(name);
 
 	applyButton->setEnabled(true);
 	resetButton->setEnabled(true);
+}
+
+void StyleManager::slotShortcutChanged(const QString& shortcut)
+{
+	styleView->currentItem()->setText(SHORTCUT_COL, shortcut == QString::null ? "" : shortcut);
+// 	if (item_)
+// 		item_->shortcutChanged(shortcut);
 }
 
 bool StyleManager::nameIsUnique(const QString &name)
@@ -571,11 +582,13 @@ void StyleManager::slotSetupWidget()
 		{
 			nameEdit->setText("More than one style selected");
 			nameEdit->setEnabled(false);
+			shortcutWidget_->setEnabled(false);
 		}
 		else
 		{
 			nameEdit->setText(selection.second[0]);
 			nameEdit->setEnabled(true);
+			shortcutWidget_->setEnabled(true);
 		}
 		item_->selected(selection.second);
 	}
@@ -647,6 +660,11 @@ void StyleManager::slotDocSelectionChanged()
 
 	connect(styleView, SIGNAL(currentChanged(QListViewItem*)),
 	        this, SLOT(slotApplyStyle(QListViewItem*)));
+}
+
+void StyleManager::slotDocStylesChanged()
+{
+	qDebug("slotDocStylesChanged()");
 }
 
 // QPair.first == QString::null if nothing is selected or if
@@ -825,6 +843,7 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	keyDisplay->setFrameShape( QLabel::Panel );
 	keyDisplay->setFrameShadow( QLabel::Sunken );
 	keyDisplay->setAlignment( static_cast<int>( QLabel::AlignCenter ) );
+	keyDisplay->setMinimumHeight(40);
 
 	keyGroupLayout->addMultiCellWidget( keyDisplay, 3, 4, 0, 2 );
 
@@ -834,8 +853,8 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	keyGroupLayout->addMultiCellWidget( setKeyButton, 0, 2, 1, 1, Qt::AlignCenter );
 	keyManagerLayout->addWidget( keyGroup );
 
-	connect( noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
-	connect( setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
+	connect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
+	connect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 }
 
 void ShortcutWidget::languageChange()
@@ -913,11 +932,15 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 // 					userDef->setChecked(true);
 // 				}
 				setKeyButton->setOn(false);
+				userDef->setChecked(true);
 				releaseKeyboard();
+				emit newKey(keyDisplay->text());
 		}
 	}
 	if (setKeyButton->isOn())
+	{
 		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
+	}
 }
 
 void ShortcutWidget::keyReleaseEvent(QKeyEvent *k)
@@ -995,7 +1018,10 @@ void ShortcutWidget::setKeyText()
 void ShortcutWidget::setNoKey()
 {
 	if (noKey->isChecked())
+	{
 		keyDisplay->setText("");
+		emit newKey(QString::null);
+	}
 }
 
 ShortcutWidget::~ShortcutWidget()

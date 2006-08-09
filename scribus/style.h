@@ -204,8 +204,26 @@ public:
 	void setLanguage(QString l) { language_ = l; }
 	
 	void setFont(const ScFace& f) { cfont = f; } 
-	
-	
+
+	bool isPfontSize() const { return csize==NOVALUE && parent(); }
+	bool isPfillShade() const { return cshade==NOVALUE && parent(); }
+	bool isPstrokeShade() const { return cshade2==NOVALUE && parent(); }
+	bool isPeffects() const { return cstyle==ScStyle_None && parent(); }
+	bool isPscaleH() const { return cscale==NOVALUE && parent(); }
+	bool isPscaleV() const { return cscalev==NOVALUE && parent(); }
+	bool isPbaselineOffset() const { return cbase==NOVALUE && parent(); }
+	bool isPshadowXOffset() const { return cshadowx==NOVALUE && parent(); }
+	bool isPshadowYOffset() const { return cshadowy==NOVALUE && parent(); }
+	bool isPoutlineWidth() const { return coutline==NOVALUE && parent(); }
+	bool isPunderlineOffset() const { return cunderpos==NOVALUE && parent(); }
+	bool isPunderlineWidth() const { return cunderwidth==NOVALUE && parent(); }
+	bool isPstrikethruOffset() const { return cstrikepos==NOVALUE && parent(); }
+	bool isPstrikethruWidth() const { return cstrikewidth==NOVALUE && parent(); }
+	bool isPtracking() const { return cextra==NOVALUE && parent(); }
+	bool isPfillColor() const { return ccolor==NOCOLOR && parent(); }
+	bool isPstrokeColor() const { return cstroke==NOCOLOR && parent(); }
+	bool isPlanguage() const { return language_==NOLANG && parent(); }
+	bool isPfont() const { return cfont.isNone() && parent(); }
 	
 private:
 	// shorthand:
@@ -369,6 +387,19 @@ public:
 	void setUseBaselineGrid(bool p) { 
 		BaseAdj = p? 1 : 0; 
 	}
+
+	bool isPlineSpacingMode() const { return LineSpaMode==NOVALUE && parent(); }
+	bool isPlineSpacing() const { return LineSpa<=NOVALUE && parent(); }
+	bool isPalignment() const { return textAlignment==NOVALUE && parent(); }
+	bool isPfirstIndent() const { return First<=NOVALUE && parent(); }
+	bool isPleftMargin() const { return Indent<=NOVALUE && parent(); }
+	bool isPrightMargin() const { return rightMargin_<=NOVALUE && parent(); }
+	bool isPgapBefore() const { return gapBefore_<=NOVALUE && parent(); }
+	bool isPgapAfter() const { return gapAfter_<=NOVALUE && parent(); }
+	bool isPhasDropCap() const { return Drop==NOVALUE && parent(); }
+	bool isPdropCapLines() const { return DropLin==NOVALUE && parent(); }
+	bool isPdropCapOffset() const { return DropDist<=NOVALUE && parent(); }
+	bool isPuseBaselineGrid() const { return BaseAdj==NOVALUE && parent(); }
 	
 	// these return writeable references for now:
 	QValueList<TabRecord> & tabValues() { haveTabs = true; return TabValues; }

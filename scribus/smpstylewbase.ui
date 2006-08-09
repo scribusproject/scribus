@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>386</width>
-            <height>249</height>
+            <height>261</height>
         </rect>
     </property>
     <property name="caption">
@@ -64,7 +64,7 @@
                                     <cstring>parentLabel</cstring>
                                 </property>
                                 <property name="text">
-                                    <string>Parent Style</string>
+                                    <string>Parent</string>
                                 </property>
                             </widget>
                             <widget class="QComboBox">

@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 class QGridLayout;
 class QPopupMenu;
 class QToolButton;
+class SMMSpinBox;
 class MSpinBox;
 class QLabel;
 class QTabWidget;
@@ -45,6 +46,8 @@ public:
 	void show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex);
 	void show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex);
 
+	void clearAll();
+
 	void languageChange();
 
 private:
@@ -62,11 +65,11 @@ private:
 	QLabel      *capLabel1;
 	QLabel      *capLabel2;
 
-	MSpinBox    *lineSpacing_;
-	MSpinBox    *spaceAbove_;
-	MSpinBox    *spaceBelow_;
+	SMMSpinBox  *lineSpacing_;
+	SMMSpinBox  *spaceAbove_;
+	SMMSpinBox  *spaceBelow_;
 	QSpinBox    *dropCapLines_;
-	MSpinBox    *dropCapOffset_;
+	SMMSpinBox  *dropCapOffset_;
 
 	AlignSelect  *alignement_;
 	Tabruler     *tabList_;
@@ -78,10 +81,10 @@ private:
 	void setupCharStyle();
 	void setupCStyleCombo(QValueList<CharStyle> &cstyles);
 
+	friend class SMParagraphStyle;
+
 private slots:
 	void slotLineSpacingModeChanged(int);
-	
-	friend class SMParagraphStyle;
 };
 
 class SMCStylePage : public CStylePBase
@@ -96,6 +99,7 @@ public:
 	void fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang);
 	void fillColorCombo(ColorList &colors);
 	void languageChange();
+	void clearAll();
 
 private:
 	QVBoxLayout *characterBoxLayout;
@@ -113,11 +117,11 @@ private:
 	ShadeButton *strokeShade_;
 	ScComboBox  *language_;
 
-	MSpinBox    *fontSize_;
-	MSpinBox    *fontHScale_;
-	MSpinBox    *fontVScale_;
-	MSpinBox    *tracking_;
-	MSpinBox    *baselineOffset_;
+	SMMSpinBox  *fontSize_;
+	SMMSpinBox  *fontHScale_;
+	SMMSpinBox  *fontVScale_;
+	SMMSpinBox  *tracking_;
+	SMMSpinBox  *baselineOffset_;
 
 	QLabel      *TextF2;
 	QLabel      *pixmapLabel3;

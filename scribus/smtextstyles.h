@@ -85,7 +85,8 @@ private slots:
 	void slotTracking();
 	void slotBaselineOffset();
 	void slotFont(QString s);
-	
+	void slotParentChanged(const QString &parent);
+	void slotCharParentChanged(const QString &parent);
 };
 
 class SMCharacterStyle : public StyleItem
@@ -142,6 +143,7 @@ private slots:
 	void slotTracking();
 	void slotBaselineOffset();
 	void slotFont(QString s);
+	void slotParentChanged(const QString &parent);
 };
 
 #endif

@@ -49,7 +49,7 @@
                         <cstring>parentLabel</cstring>
                     </property>
                     <property name="text">
-                        <string>Parent Style</string>
+                        <string>Parent</string>
                     </property>
                 </widget>
                 <widget class="QComboBox">

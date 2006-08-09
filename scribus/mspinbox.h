@@ -113,7 +113,7 @@ public slots:
 	\brief Sets the Value of the Spinbox
 	\param val new Value
 	*/
-	void setValue(double val);
+	virtual void setValue(double val);
 	void setReadOnly(bool ro);
 	void setValues(double min, double max, int deci, double val);
 	void getValues(double *min, double *max, int *deci, double *val);

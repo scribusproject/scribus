@@ -95,9 +95,11 @@ private slots:
 	void slotRightClick(QListViewItem *item, const QPoint &point, int col);
 
 	void slotNameChanged(const QString& name);
+	void slotShortcutChanged(const QString& shortcut);
 	void slotSetupWidget();
 	void slotApplyStyle(QListViewItem *item);
 	void slotDocSelectionChanged();
+	void slotDocStylesChanged();
 
 	void slotDirty();
 	void slotClean();
@@ -143,6 +145,14 @@ public:
 public slots:
 	void setKeyText();
 	void setNoKey();
+
+signals:
+	/**
+	 * @brief emitted when a shrotcut is changed.
+	 *
+	 * Parameter will be QString::null when No key is used
+	 */
+	void newKey(const QString&);
 
 protected:
 	QVBoxLayout* keyManagerLayout;
