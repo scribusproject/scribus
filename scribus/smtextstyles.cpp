@@ -661,8 +661,10 @@ void SMParagraphStyle::slotDropCap(bool isOn)
 
 void SMParagraphStyle::slotDropCapLines(int lines)
 {
+	int l = pwidget_->dropCapLines_->useParentValue() ? Style::NOVALUE : lines;
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setDropCapLines(lines);
+		selection_[i]->setDropCapLines(l);
 
 	if (!selectionIsDirty_)
 	{

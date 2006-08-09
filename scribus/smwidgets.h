@@ -14,11 +14,33 @@ for which a new license (GPL+exception) is in place.
 // {
 // 	Q_OBJECT
 // };
-// 
-// class SMSpinBox : public QSpinBox
-// {
-// 	Q_OBJECT
-// };
+
+class SMSpinBox : public QSpinBox
+{
+	Q_OBJECT
+public:
+	SMSpinBox(QWidget *parent, const char *name);
+	~SMSpinBox() {};
+
+	void setValue(int val);
+	void setValue(int val, bool isParentVal);
+
+	void setParentValue(int val);
+
+	bool useParentValue();
+
+protected:
+	void interpretText();
+
+private:
+	bool   hasParent_;
+	bool   useParentValue_;
+	int    pValue_;
+	void setFont(bool wantBold);
+
+private slots:
+	void slotValueChanged();
+};
 
 class SMMSpinBox : public MSpinBox
 {
@@ -47,7 +69,6 @@ private:
 
 private slots:
 	void slotValueChanged();
-
 };
 
 // class SMAlignSelect : public AlignSelect

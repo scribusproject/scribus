@@ -16,13 +16,12 @@ class QGridLayout;
 class QPopupMenu;
 class QToolButton;
 class SMMSpinBox;
-class MSpinBox;
 class QLabel;
 class QTabWidget;
 class QString;
 class QComboBox;
 class AlignSelect;
-class QSpinBox;
+class SMSpinBox;
 class QVBoxLayout;
 class Tabruler;
 class FontComboH;
@@ -68,7 +67,7 @@ private:
 	SMMSpinBox  *lineSpacing_;
 	SMMSpinBox  *spaceAbove_;
 	SMMSpinBox  *spaceBelow_;
-	QSpinBox    *dropCapLines_;
+	SMSpinBox   *dropCapLines_;
 	SMMSpinBox  *dropCapOffset_;
 
 	AlignSelect  *alignement_;

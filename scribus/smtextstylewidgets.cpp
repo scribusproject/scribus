@@ -123,7 +123,7 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout = new QGridLayout(dropCapsBox->layout());
 	dropCapsBoxLayout->setAlignment(Qt::AlignTop);
 
-	dropCapLines_ = new QSpinBox(dropCapsBox, "DropLines");
+	dropCapLines_ = new SMSpinBox(dropCapsBox, "DropLines");
 	dropCapLines_->setMinValue(2);
 	dropCapLines_->setMaxValue(20);
 	capLabel1 = new QLabel(dropCapLines_, tr("&Lines:"), dropCapsBox, "CapLabel");
@@ -178,6 +178,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isPgapAfter());
 		spaceBelow_->setValue(parent->gapAfter());
 
+		dropCapLines_->setValue(pstyle.dropCapLines(), pstyle.isPdropCapLines());
+		dropCapLines_->setParentValue(parent->dropCapLines());
+
 		dropCapOffset_->setValue(pstyle.dropCapOffset(), pstyle.isPdropCapOffset());
 		dropCapOffset_->setParentValue(parent->dropCapOffset());
 	}
@@ -186,6 +189,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		lineSpacing_->setValue(pstyle.lineSpacing());
 		spaceAbove_->setValue(pstyle.gapBefore());
 		spaceBelow_->setValue(pstyle.gapAfter());
+		dropCapLines_->setValue(pstyle.dropCapLines());
 		dropCapOffset_->setValue(pstyle.dropCapOffset());
 	}
 
@@ -198,11 +202,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	tabList_->setRightIndentData(pstyle.rightMargin());
 	tabList_->setRightIndent();
 
-	
-
 	dropCapsBox->setChecked(pstyle.hasDropCap());
-	dropCapLines_->setValue(pstyle.dropCapLines());
-	dropCapOffset_->setValue(pstyle.dropCapOffset());
 
 //  ASK Avox!
 // 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }

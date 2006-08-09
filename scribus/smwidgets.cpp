@@ -8,6 +8,74 @@ for which a new license (GPL+exception) is in place.
 #include "smwidgets.h"
 #include "smwidgets.moc"
 
+/***********************************************************************/
+/***********************************************************************/
+
+SMSpinBox::SMSpinBox(QWidget *parent, const char *name)
+: QSpinBox(parent, name),
+  hasParent_(false),
+  useParentValue_(false),
+  pValue_(0)
+{
+	
+}
+
+void SMSpinBox::setValue(int val)
+{
+	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	hasParent_ = false;
+	pValue_ = 0;
+	setFont(false);
+
+	QSpinBox::setValue(val);
+}
+
+void SMSpinBox::setValue(int val, bool isParentVal)
+{
+	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	hasParent_ = true;
+	pValue_ = val;
+	setFont(!isParentVal);
+
+	QSpinBox::setValue(val);
+	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+}
+
+void SMSpinBox::setParentValue(int val)
+{
+	hasParent_ = true;
+	pValue_ = val;
+}
+
+bool SMSpinBox::useParentValue()
+{
+	bool ret = useParentValue_;
+	useParentValue_ = false;
+	return ret;
+}
+
+void SMSpinBox::interpretText()
+{
+	QString t = text();
+	if (hasParent_ && (t == "" || t.isEmpty() || t == QString::null))
+	{
+		useParentValue_ = true;
+		setValue(pValue_, true);
+	}
+}
+
+void SMSpinBox::setFont(bool wantBold)
+{
+	QFont f(font());
+	f.setBold(wantBold);
+	QSpinBox::setFont(f);
+}
+
+void SMSpinBox::slotValueChanged()
+{
+	if(hasParent_)
+		setFont(true);
+}
 
 /***********************************************************************/
 /***********************************************************************/
