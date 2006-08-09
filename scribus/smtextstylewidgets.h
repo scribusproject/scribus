@@ -27,7 +27,7 @@ class Tabruler;
 class FontComboH;
 class StyleSelect;
 class QSpacerItem;
-class ScComboBox;
+class SMScComboBox;
 class ShadeButton;
 class CharStyle;
 class ParagraphStyle;
@@ -54,7 +54,7 @@ private:
 	QGridLayout *dropCapsBoxLayout;
 	QVBoxLayout *tabsBoxLayout;
 
-	QComboBox   *lineSpacingMode_;
+	SMScComboBox *lineSpacingMode_;
 
 	QLabel      *pixmapLabel0;
 	QLabel      *pixmapLabel1;
@@ -114,7 +114,7 @@ private:
 	ShadeButton *fillShade_;
 	ColorCombo  *strokeColor_;
 	ShadeButton *strokeShade_;
-	ScComboBox  *language_;
+	SMScComboBox  *language_;
 
 	SMMSpinBox  *fontSize_;
 	SMMSpinBox  *fontHScale_;

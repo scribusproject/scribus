@@ -50,7 +50,7 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->setSpacing( 5 );
 	distancesBoxLayout->setMargin( 10 );
 
-	lineSpacingMode_ = new QComboBox(distancesBox, "linespacingCombo");
+	lineSpacingMode_ = new SMScComboBox(distancesBox, "linespacingCombo");
 	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
 	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
 	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
@@ -165,10 +165,16 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	bool hasParent = pstyle.hasParent();
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parent());
 
-	lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode());
+	lineSpacingMode_->clear();
+	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
 
 	if (hasParent)
 	{
+		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode(), pstyle.isPlineSpacingMode());
+		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
+
 		lineSpacing_->setValue(pstyle.lineSpacing(), pstyle.isPlineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
 
@@ -186,12 +192,15 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	}
 	else
 	{
+		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode());
 		lineSpacing_->setValue(pstyle.lineSpacing());
 		spaceAbove_->setValue(pstyle.gapBefore());
 		spaceBelow_->setValue(pstyle.gapAfter());
 		dropCapLines_->setValue(pstyle.dropCapLines());
 		dropCapOffset_->setValue(pstyle.dropCapOffset());
 	}
+
+	lineSpacing_->setEnabled(pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
 
 	alignement_->setStyle(pstyle.alignment());
 	tabList_->setTabs(pstyle.tabValues(), unitIndex);
@@ -344,7 +353,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 	layout9a->addSpacing(10);
 
-	language_ = new ScComboBox(false, characterBox, "language_");
+	language_ = new SMScComboBox(false, characterBox, "language_");
 	layout9a->addWidget(language_);
 
 	spacer1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -523,14 +532,27 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 		parentCombo->setCurrentItem(0);
 
 	QString clang = cstyle.language() == QString::null ? defaultLang_ : cstyle.language();
+	QString plang = QString::null;
+	if (hasParent)
+		plang = parent->language() == QString::null ? defaultLang_ : parent->language();
+
+	int ci, pi;
 	for (int i = 0; i < language_->count(); ++i)
 	{
 		if (language_->text(i) == langMap_[clang])
-		{
-			language_->setCurrentItem(i);
-			break;
-		}
+			ci = i;
+		
+		if (hasParent && language_->text(i) == langMap_[plang])
+			pi = i;
 	}
+
+	if (hasParent)
+	{
+		language_->setCurrentItem(ci, cstyle.isPlanguage());
+		language_->setParentItem(pi);
+	}
+	else
+		language_->setCurrentItem(ci);
 }
 
 void SMCStylePage::show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll)

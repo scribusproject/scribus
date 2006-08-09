@@ -33,17 +33,12 @@ for which a new license (GPL+exception) is in place.
 
 SMParagraphStyle::SMParagraphStyle() : StyleItem(), pwidget_(0), doc_(0), selectionIsDirty_(false)
 {
-
+	pwidget_ = new SMPStyleWidget();
+	Q_CHECK_PTR(pwidget_);
 }
 
 QTabWidget* SMParagraphStyle::widget()
 {
-	if (!pwidget_)
-	{
-		pwidget_ = new SMPStyleWidget();
-		Q_CHECK_PTR(pwidget_);
-	}
-
 	return pwidget_->tabWidget;
 }
 
@@ -479,7 +474,7 @@ void SMParagraphStyle::setupConnections()
 		return;
 
 	// paragraph attributes
-	connect(pwidget_->lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingMode(int)));
+	connect(pwidget_->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
 	connect(pwidget_->lineSpacing_, SIGNAL(valueChanged(int)), this, SLOT(slotLineSpacing()));
 	connect(pwidget_->spaceAbove_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceAbove()));
 	connect(pwidget_->spaceBelow_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceBelow()));
@@ -508,7 +503,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(pwidget_->cpage->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
 	connect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	connect(pwidget_->cpage->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	connect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
 	connect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
 	connect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
@@ -524,7 +519,7 @@ void SMParagraphStyle::removeConnections()
 	if (!pwidget_)
 		return;
 
-	disconnect(pwidget_->lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingMode(int)));
+	disconnect(pwidget_->lineSpacingMode_, SIGNAL(activated(int)), this, SLOT(slotLineSpacingMode(int)));
 	disconnect(pwidget_->lineSpacing_, SIGNAL(valueChanged(int)), this, SLOT(slotLineSpacing()));
 	disconnect(pwidget_->spaceAbove_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceAbove()));
 	disconnect(pwidget_->spaceBelow_, SIGNAL(valueChanged(int)), this, SLOT(slotSpaceBelow()));
@@ -552,7 +547,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
 	disconnect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	disconnect(pwidget_->cpage->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	disconnect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
 	disconnect(pwidget_->cpage->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
 	disconnect(pwidget_->cpage->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
@@ -565,8 +560,14 @@ void SMParagraphStyle::removeConnections()
 
 void SMParagraphStyle::slotLineSpacingMode(int mode)
 {
+	ParagraphStyle::LineSpacingMode lsm;
+	if (pwidget_->lineSpacingMode_->useParentValue())
+		lsm = static_cast<ParagraphStyle::LineSpacingMode>(Style::NOVALUE);
+	else
+		lsm = static_cast<ParagraphStyle::LineSpacingMode>(mode);
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(mode));
+		selection_[i]->setLineSpacingMode(lsm);
 
 	if (!selectionIsDirty_)
 	{
@@ -851,12 +852,17 @@ void SMParagraphStyle::slotLanguage()
 	QMap<QString,QString>::Iterator it;
 	QString language = doc_->Language;
 
-	for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
+	if (pwidget_->cpage->language_->useParentValue())
+		language = CharStyle::NOLANG;
+	else
 	{
-		if (it.data() == pwidget_->cpage->language_->currentText())
+		for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
 		{
-			language = it.key();
-			break;
+			if (it.data() == pwidget_->cpage->language_->currentText())
+			{
+				language = it.key();
+				break;
+			}
 		}
 	}
 
@@ -1265,7 +1271,7 @@ void SMCharacterStyle::setupConnections()
 	connect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	connect(page_->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
 	connect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	connect(page_->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	connect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
 	connect(page_->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
 	connect(page_->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
@@ -1287,7 +1293,7 @@ void SMCharacterStyle::removeConnections()
 	disconnect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
 	disconnect(page_->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
 	disconnect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
-	disconnect(page_->language_, SIGNAL(highlighted(int)), this, SLOT(slotLanguage()));
+	disconnect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
 	disconnect(page_->fontHScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleH()));
 	disconnect(page_->fontVScale_, SIGNAL(valueChanged(int)), this, SLOT(slotScaleV()));
@@ -1406,12 +1412,17 @@ void SMCharacterStyle::slotLanguage()
 	QMap<QString,QString>::Iterator it;
 	QString language = doc_->Language;
 
-	for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
+	if (page_->language_->useParentValue())
+		language = CharStyle::NOLANG;
+	else
 	{
-		if (it.data() == page_->language_->currentText())
+		for (it = doc_->scMW()->LangTransl.begin(); it != doc_->scMW()->LangTransl.end(); ++it)
 		{
-			language = it.key();
-			break;
+			if (it.data() == page_->language_->currentText())
+			{
+				language = it.key();
+				break;
+			}
 		}
 	}
 

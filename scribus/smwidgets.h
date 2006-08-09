@@ -9,11 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define SMWIDGETS_H
 
 #include "mspinbox.h"
-
-// class SMComboBox : public QComboBox
-// {
-// 	Q_OBJECT
-// };
+#include "sccombobox.h"
 
 class SMSpinBox : public QSpinBox
 {
@@ -71,6 +67,31 @@ private slots:
 	void slotValueChanged();
 };
 
+class SMScComboBox  : public ScComboBox
+{
+	Q_OBJECT
+public:
+	SMScComboBox(QWidget *parent, const char *name);
+	SMScComboBox(bool rw, QWidget* parent, const char* name);
+	~SMScComboBox() {};
+
+	void setCurrentItem(int i);
+	void setCurrentItem(int i, bool isParentValue);
+
+	void setParentItem(int i);
+
+	bool useParentValue();
+
+private:
+	bool   hasParent_;
+	bool   useParentValue_;
+	int    pItem_;
+	void setFont(bool wantBold);
+
+private slots:
+	void currentChanged();
+};
+
 // class SMAlignSelect : public AlignSelect
 // {
 // 	Q_OBJECT
@@ -107,11 +128,6 @@ private slots:
 // };
 // 
 // class SMShadeButton  : public ShadeButton
-// {
-// 	Q_OBJECT
-// };
-// 
-// class SMScComboBox  : public ScComboBox
 // {
 // 	Q_OBJECT
 // };
