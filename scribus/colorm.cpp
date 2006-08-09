@@ -547,9 +547,9 @@ void ColorManager::loadFarben()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)"));
 #else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -558,20 +558,77 @@ void ColorManager::loadFarben()
 	if (!fileName.isEmpty())
 	{
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
-		FileLoader fl(fileName);
-		if (fl.TestFile() == -1)
-		//TODO put in nice user warning
-			return;
-		ColorList LColors;
-		if (fl.ReadColors(fileName, LColors))
+		QFileInfo fi = QFileInfo(fileName);
+		QString ext = fi.extension(false).lower();
+		if ((ext == "ps") || (ext == "eps") || (ext == "ai"))
 		{
-			ColorList::Iterator it;
-			for (it = LColors.begin(); it != LColors.end(); ++it)
+			QString tmp, tmp2, FarNam;
+			double c, m, y, k;
+			ScColor cc;
+			QFile f(fileName);
+			if (f.open(IO_ReadOnly))
 			{
-				if (!EditColors.contains(it.key()))
-					EditColors.insert(it.key(), it.data());
+				QTextStream ts(&f);
+				while (!ts.atEnd())
+				{
+					tmp = ts.readLine();
+					if (tmp.startsWith("%%CMYKCustomColor"))
+					{
+						tmp = tmp.remove(0,18);
+						QTextStream ts2(&tmp, IO_ReadOnly);
+						ts2 >> c >> m >> y >> k;
+						FarNam = ts2.read();
+						FarNam = FarNam.stripWhiteSpace();
+						FarNam = FarNam.remove(0,1);
+						FarNam = FarNam.remove(FarNam.length()-1,1);
+						FarNam = FarNam.simplifyWhiteSpace();
+						cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+						cc.setSpotColor(true);
+						if (!EditColors.contains(FarNam))
+							EditColors.insert(FarNam, cc);
+						while (!ts.atEnd())
+						{
+							tmp = ts.readLine();
+							if (!tmp.startsWith("%%+"))
+								break;
+							tmp = tmp.remove(0,3);
+							QTextStream ts2(&tmp, IO_ReadOnly);
+							ts2 >> c >> m >> y >> k;
+							FarNam = ts2.read();
+							FarNam = FarNam.stripWhiteSpace();
+							FarNam = FarNam.remove(0,1);
+							FarNam = FarNam.remove(FarNam.length()-1,1);
+							FarNam = FarNam.simplifyWhiteSpace();
+							cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+							cc.setSpotColor(true);
+							if (!EditColors.contains(FarNam))
+								EditColors.insert(FarNam, cc);
+						}
+					}
+					if (tmp.startsWith("%%EndComments"))
+						break;
+				}
+				f.close();
+				updateCList();
 			}
-			updateCList();
+		}
+		else
+		{
+			FileLoader fl(fileName);
+			if (fl.TestFile() == -1)
+			//TODO put in nice user warning
+				return;
+			ColorList LColors;
+			if (fl.ReadColors(fileName, LColors))
+			{
+				ColorList::Iterator it;
+				for (it = LColors.begin(); it != LColors.end(); ++it)
+				{
+					if (!EditColors.contains(it.key()))
+						EditColors.insert(it.key(), it.data());
+				}
+				updateCList();
+			}
 		}
 	}
 }

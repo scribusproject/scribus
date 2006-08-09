@@ -43,6 +43,7 @@ public:
 	DynamicTip( QListBox* parent, ColorList* pale );
 	DynamicTip( QTable* parent );
 	DynamicTip( QHeader *parent );
+	virtual ~DynamicTip() {};
 	void addHeaderTip(QString tip);
 	void clearHeaderTips();
 protected:
