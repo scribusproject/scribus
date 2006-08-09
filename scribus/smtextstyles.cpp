@@ -106,26 +106,33 @@ void SMParagraphStyle::reload()
 }
 
 void SMParagraphStyle::selected(const QStringList &styleNames)
-{
+{ // TODO allow non saved styles to be used as a parent too
 	if (!doc_)
 		return;
 
 	selection_.clear();
 	selectionIsDirty_ = false;
 	removeConnections(); // we don't want to record changes during style setup
+
+	QValueList<ParagraphStyle> pstyles; // get saved styles
+	QValueList<CharStyle> cstyles;
+	for (uint i = 0; i < doc_->docParagraphStyles.count(); ++i)
+		pstyles << doc_->docParagraphStyles[i];
+	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
+		cstyles << doc_->docCharStyles[i];
+
 	if (styleNames.count() == 1)
 	{
-		QValueList<CharStyle> cstyles = getCharStyles();
 		for (uint i = 0; i < tmpStyles_.count(); ++i)
 		{
 			if (tmpStyles_[i].displayName() == styleNames[0])
 			{
-				pwidget_->show(tmpStyles_[i], tmpStyles_, cstyles, doc_->unitIndex());
+				pwidget_->show(tmpStyles_[i], pstyles, cstyles, doc_->unitIndex());
 				selection_.append(&tmpStyles_[i]);
 			}
 		}
 	}
-	else // more than one item selected do the magic tricks here
+	else // TODO more than one item selected do the magic tricks here
 	{
 		
 	}
@@ -968,15 +975,29 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 {
 	QStringList sel;
 	ParagraphStyle *p = 0;
+	bool setParent = false;
 
 	if (parent != "" && !parent.isEmpty() && parent != QString::null)
-		p = &(doc_->docParagraphStyles[doc_->docParagraphStyles.find(parent)]);
+	{
+		int index = doc_->docParagraphStyles.find(parent);
+		if (index > -1)
+		{
+			p = &(doc_->docParagraphStyles[index]);
+			setParent = true;
+		}
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		selection_[i]->eraseStyle(*selection_[i]); // reset everything to NOVALUE
-		selection_[i]->setParent(p);
-		selection_[i]->charStyle().setParent(&(p->charStyle()));
+		if (setParent)
+		{
+			selection_[i]->eraseStyle(*selection_[i]); // reset everything to NOVALUE
+			selection_[i]->setParent(p);
+			selection_[i]->charStyle().setParent(&(p->charStyle()));
+		}
+		else
+			*selection_[i] = doc_->docParagraphStyles[0]; // FIXME set to default style
+
 		sel << selection_[i]->name();
 	}
 
@@ -1004,7 +1025,13 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 		c = &(tmp->charStyle());
 	}
 	else if (parent != "" && !parent.isEmpty() && parent != QString::null)
-		c = &(doc_->docCharStyles[doc_->docCharStyles.find(parent)]);
+	{
+		int index = doc_->docCharStyles.find(parent);
+		if (index > -1)
+			c = &(doc_->docCharStyles[index]);
+		else
+			setParent = false;
+	}
 	else
 		setParent = false;
 
