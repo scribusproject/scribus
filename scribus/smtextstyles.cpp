@@ -61,6 +61,7 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 		{
 			pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
 			pwidget_->cpage->fillColorCombo(doc_->PageColors);
+			pwidget_->cpage->fontFace_->RebuildList(doc_);
 		}
 	}
 	else
@@ -975,29 +976,59 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 	{
 		selection_[i]->eraseStyle(*selection_[i]); // reset everything to NOVALUE
 		selection_[i]->setParent(p);
+		selection_[i]->charStyle().setParent(&(p->charStyle()));
 		sel << selection_[i]->name();
 	}
 
 	selected(sel);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 void SMParagraphStyle::slotCharParentChanged(const QString &parent)
-{
+{ // TODO Multiple selection
 	QStringList sel;
-	CharStyle *c = 0;
+	const CharStyle *c = 0;
+	bool setParent = true;
 
-	if (parent != "" && !parent.isEmpty() && parent != QString::null)
+	int cItem = pwidget_->cpage->parentCombo->currentItem();
+
+	if (selection_[0]->hasParent() && cItem == 1) // from parent
+	{
+		const Style *s = selection_[0]->parent();
+		const ParagraphStyle *tmp = dynamic_cast<const ParagraphStyle*>(s);
+		c = &(tmp->charStyle());
+	}
+	else if (parent != "" && !parent.isEmpty() && parent != QString::null)
 		c = &(doc_->docCharStyles[doc_->docCharStyles.find(parent)]);
+	else
+		setParent = false;
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		// reset everything to NOVALUE
-		selection_[i]->charStyle().eraseCharStyle(selection_[i]->charStyle()); 
-		selection_[i]->charStyle().setParent(c);
+		if (setParent)
+		{
+			// reset everything to NOVALUE
+			selection_[i]->charStyle().eraseCharStyle(selection_[i]->charStyle()); 
+			selection_[i]->charStyle().setParent(c);
+		}
+		else
+			selection_[i]->charStyle() = doc_->docParagraphStyles[0].charStyle();
+		
 		sel << selection_[i]->name();
 	}
 
 	selected(sel);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 SMParagraphStyle::~SMParagraphStyle()
@@ -1010,20 +1041,15 @@ SMParagraphStyle::~SMParagraphStyle()
 
 SMCharacterStyle::SMCharacterStyle() : StyleItem(), widget_(0), page_(0), doc_(0), selectionIsDirty_(false)
 {
-
+	widget_ = new QTabWidget();
+	Q_CHECK_PTR(widget_);
+	page_ = new SMCStylePage();
+	Q_CHECK_PTR(page_);
+	widget_->addTab(page_, tr("Properties"));
 }
 
 QTabWidget* SMCharacterStyle::widget()
 {
-	if (!widget_)
-	{
-		widget_ = new QTabWidget();
-		Q_CHECK_PTR(widget_);
-		page_ = new SMCStylePage();
-		Q_CHECK_PTR(page_);
-		widget_->addTab(page_, tr("Properties"));
-	}
-
 	return widget_;
 }
 
@@ -1046,6 +1072,7 @@ void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 		{
 			page_->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
 			page_->fillColorCombo(doc_->PageColors);
+			page_->fontFace_->RebuildList(doc_);
 		}
 	}
 	else
@@ -1544,6 +1571,12 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 	}
 
 	selected(sel);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 SMCharacterStyle::~SMCharacterStyle()

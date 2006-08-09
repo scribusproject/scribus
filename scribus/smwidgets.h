@@ -121,16 +121,7 @@ private slots:
 // {
 // 	Q_OBJECT
 // };
-// 
-// class SMColorCombo  : public ColorCombo
-// {
-// 	Q_OBJECT
-// };
-// 
-// class SMShadeButton  : public ShadeButton
-// {
-// 	Q_OBJECT
-// };
+
 
 #endif
 

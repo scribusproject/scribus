@@ -78,7 +78,6 @@ private:
 	void setupDropCaps();
 	void setupTabs();
 	void setupCharStyle();
-	void setupCStyleCombo(QValueList<CharStyle> &cstyles);
 
 	friend class SMParagraphStyle;
 

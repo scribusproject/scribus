@@ -216,46 +216,6 @@
                             </size>
                         </property>
                     </spacer>
-                    <widget class="QLayoutWidget">
-                        <property name="name">
-                            <cstring>layout17</cstring>
-                        </property>
-                        <hbox>
-                            <property name="name">
-                                <cstring>unnamed</cstring>
-                            </property>
-                            <widget class="QComboBox">
-                                <property name="name">
-                                    <cstring>cstyleCombo</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>1</hsizetype>
-                                        <vsizetype>0</vsizetype>
-                                        <horstretch>5</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                            </widget>
-                        </hbox>
-                    </widget>
-                    <spacer>
-                        <property name="name">
-                            <cstring>spacer10_2_2_2</cstring>
-                        </property>
-                        <property name="orientation">
-                            <enum>Vertical</enum>
-                        </property>
-                        <property name="sizeType">
-                            <enum>Fixed</enum>
-                        </property>
-                        <property name="sizeHint">
-                            <size>
-                                <width>21</width>
-                                <height>10</height>
-                            </size>
-                        </property>
-                    </spacer>
                     <widget class="QGroupBox">
                         <property name="name">
                             <cstring>characterBox</cstring>

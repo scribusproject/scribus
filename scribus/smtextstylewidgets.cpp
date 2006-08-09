@@ -182,7 +182,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		spaceAbove_->setParentValue(parent->gapBefore());
 
 		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isPgapAfter());
-		spaceBelow_->setValue(parent->gapAfter());
+		spaceBelow_->setParentValue(parent->gapAfter());
 
 		dropCapLines_->setValue(pstyle.dropCapLines(), pstyle.isPdropCapLines());
 		dropCapLines_->setParentValue(parent->dropCapLines());
@@ -216,10 +216,54 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 //  ASK Avox!
 // 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
 
-	setupCStyleCombo(cstyles);
+	cpage->parentLabel->setText(tr("Based on"));
 	cpage->show(pstyle.charStyle(), cstyles);
+
+	if (hasParent)
+	{
+		cpage->parentCombo->insertItem(tr("From Parent"), 1);
+		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parent()->hasName())
+		{
+			QString pname = pstyle.charStyle().parent()->name();
+			for (int i = 2; i < cpage->parentCombo->count(); ++i)
+			{
+				if (cpage->parentCombo->text(i) == pname)
+				{
+					cpage->parentCombo->setCurrentItem(i);
+					break;
+				}
+			}
+		}
+		else if (pstyle.charStyle().hasParent())
+			cpage->parentCombo->setCurrentItem(1); // from parent
+		else
+			cpage->parentCombo->setCurrentItem(0); // custom
+	}
+	else
+	{
+		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parent()->hasName())
+		{
+			QString pname = pstyle.charStyle().parent()->name();
+			for (int i = 1; i < cpage->parentCombo->count(); ++i)
+			{
+				if (cpage->parentCombo->text(i) == pname)
+				{
+					cpage->parentCombo->setCurrentItem(i);
+					break;
+				}
+			}
+		}
+		else
+		{
+			cpage->parentCombo->setCurrentItem(0); // custom
+		}
+	}
+
+	
+
 	parentCombo->clear();
 	parentCombo->insertItem("");
+
 	for (uint i = 5; i < pstyles.count(); ++i)
 	{
 		if (pstyles[i].displayName() != pstyle.displayName())
@@ -241,15 +285,6 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	}
 	else
 		parentCombo->setCurrentItem(0);
-}
-
-void SMPStyleWidget::setupCStyleCombo(QValueList<CharStyle> &cstyles)
-{
-	cstyleCombo->clear();
-	cstyleCombo->insertItem(tr("Custom"));
-	cstyleCombo->insertItem(tr("From parent"));
-	for (uint i = 0; i < cstyles.count(); ++i)
-		cstyleCombo->insertItem(cstyles[i].displayName());
 }
 
 void SMPStyleWidget::show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex)
@@ -531,6 +566,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	else
 		parentCombo->setCurrentItem(0);
 
+	fillLangCombo(langMap_, defaultLang_);
 	QString clang = cstyle.language() == QString::null ? defaultLang_ : cstyle.language();
 	QString plang = QString::null;
 	if (hasParent)
