@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "alignselect.h"
 #include "styleselect.h"
 #include "shadebutton.h"
+#include "colorcombo.h"
+#include "fontcombo.h"
 
 class SMSpinBox : public QSpinBox
 {
@@ -174,23 +176,45 @@ private slots:
 	void slotUseParent();
 };
 
+class SMColorCombo  : public ColorCombo
+{
+	Q_OBJECT
+public:
+	SMColorCombo(QWidget *parent, const char *name);
+	SMColorCombo(bool rw, QWidget* parent, const char* name);
+	~SMColorCombo() {};
+
+	void setCurrentItem(int i);
+	void setCurrentItem(int i, bool isParentValue);
+
+	void setCurrentText(const QString &s);
+	void setCurrentText(const QString &s, bool isParentValue);
+
+	void setParentItem(int i);
+	void setParentText(const QString &s);
+
+	bool useParentValue();
+
+private:
+	bool   hasParent_;
+	bool   useParentValue_;
+	int    pItem_;
+	QString pText_;
+	void setFont(bool wantBold);
+
+private slots:
+	void currentChanged();
+};
+
+class SMFontComboH  : public FontComboH
+{
+	Q_OBJECT
+};
 
 // class SMTabruler : public Tabruler
 // {
 // 	Q_OBJECT
 // };
-// 
-// class SMFontComboH  : public FontComboH
-// {
-// 	Q_OBJECT
-// };
-// class SMColorCombo  : public ColorCombo
-// {
-// 	Q_OBJECT
-// };
-// 
-
-
 
 #endif
 

@@ -907,8 +907,14 @@ void SMParagraphStyle::slotEffectProperties()
 
 void SMParagraphStyle::slotFillColor()
 {
+	QString c = CharStyle::NOCOLOR;
+
+	if (!pwidget_->cpage->fillColor_->useParentValue())
+		c = pwidget_->cpage->fillColor_->currentText();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->charStyle().setFillColor(pwidget_->cpage->fillColor_->currentText());
+		selection_[i]->charStyle().setFillColor(c);
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -934,8 +940,14 @@ void SMParagraphStyle::slotFillShade()
 
 void SMParagraphStyle::slotStrokeColor()
 {
+	QString c = CharStyle::NOCOLOR;
+
+	if (!pwidget_->cpage->strokeColor_->useParentValue())
+		c = pwidget_->cpage->strokeColor_->currentText();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->charStyle().setStrokeColor(pwidget_->cpage->strokeColor_->currentText());
+		selection_[i]->charStyle().setStrokeColor(c);
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -1627,8 +1639,13 @@ void SMCharacterStyle::slotEffectProperties()
 
 void SMCharacterStyle::slotFillColor()
 {
+	QString col = CharStyle::NOCOLOR;
+
+	if (!page_->fillColor_->useParentValue())
+		col = page_->fillColor_->currentText();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setFillColor(page_->fillColor_->currentText());
+		selection_[i]->setFillColor(col);
 
 	if (!selectionIsDirty_)
 	{
@@ -1655,8 +1672,13 @@ void SMCharacterStyle::slotFillShade()
 
 void SMCharacterStyle::slotStrokeColor()
 {
+	QString c = CharStyle::NOCOLOR;
+
+	if (!page_->strokeColor_->useParentValue())
+		c = page_->strokeColor_->currentText();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setStrokeColor(page_->strokeColor_->currentText());
+		selection_[i]->setStrokeColor(c);
 
 	if (!selectionIsDirty_)
 	{

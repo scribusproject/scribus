@@ -33,7 +33,7 @@ class CharStyle;
 class ParagraphStyle;
 class SMCStylePage;
 class ColorList;
-class ColorCombo;
+class SMColorCombo;
 class SMStyleSelect;
 
 class SMPStyleWidget : public PStyleWBase
@@ -110,9 +110,9 @@ private:
 
 	FontComboH  *fontFace_;
 	SMStyleSelect *effects_;
-	ColorCombo  *fillColor_;
+	SMColorCombo  *fillColor_;
 	SMShadeButton *fillShade_;
-	ColorCombo  *strokeColor_;
+	SMColorCombo  *strokeColor_;
 	SMShadeButton *strokeShade_;
 	SMScComboBox  *language_;
 

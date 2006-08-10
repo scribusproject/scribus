@@ -405,7 +405,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout5->addWidget( FillIcon );
 
-	fillColor_ = new ColorCombo(characterBox, "TxFill");
+	fillColor_ = new SMColorCombo(characterBox, "TxFill");
 	layout5->addWidget( fillColor_ );
 
 	pixmapLabel3_20 = new QLabel( characterBox, "pixmapLabel3_20" );
@@ -425,7 +425,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	layout6->addWidget( StrokeIcon );
 
-	strokeColor_ = new ColorCombo(characterBox, "TxStroke");
+	strokeColor_ = new SMColorCombo(characterBox, "TxStroke");
 	layout6->addWidget( strokeColor_ );
 
 	pixmapLabel3_19 = new QLabel( "", characterBox, "pixmapLabel3_19" );
@@ -530,6 +530,12 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 
 		strokeShade_->setValue(cstyle.strokeShade(), cstyle.isPstrokeShade());
 		strokeShade_->setParentValue(parent->strokeShade());
+
+		fillColor_->setCurrentText(cstyle.fillColor(), cstyle.isPfillColor());
+		fillColor_->setParentText(parent->fillColor());
+
+		strokeColor_->setCurrentText(cstyle.strokeColor(), cstyle.isPstrokeColor());
+		strokeColor_->setParentText(parent->strokeColor());
 	}
 	else
 	{
@@ -541,6 +547,8 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 		effects_->setStyle(static_cast<int>(cstyle.effects()));
 		fillShade_->setValue(cstyle.fillShade());
 		strokeShade_->setValue(cstyle.strokeShade());
+		fillColor_->setCurrentText(cstyle.fillColor());
+		strokeColor_->setCurrentText(cstyle.strokeColor());
 	}
 
 	effects_->ShadowVal->Xoffset->setValue(cstyle.shadowXOffset() / 10.0);
@@ -551,8 +559,6 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset() / 10.0);
 	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth() / 10.0);
 
-	fillColor_->setCurrentText(cstyle.fillColor());
-	strokeColor_->setCurrentText(cstyle.strokeColor());
 	fontFace_->setCurrentFont(cstyle.font().scName());
 
 	parentCombo->clear();
