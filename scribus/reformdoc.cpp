@@ -49,15 +49,16 @@ extern bool CMSavail;
 #ifdef HAVE_CMS
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransRGBDoc2CMYKG;
+extern cmsHTRANSFORM stdTransCMYK2RGBDocG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
+extern cmsHTRANSFORM stdProofRGBGCG;
+extern cmsHTRANSFORM stdProofCMYKG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
-extern cmsHTRANSFORM stdProofGCG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -997,15 +998,16 @@ void ReformDoc::updateDocumentSettings()
 			}
 			else if ( currDoc->OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles) )
 			{
-				stdProofG = currDoc->stdProof;
-				stdTransG = currDoc->stdTrans;
+				stdTransCMYK2RGBDocG = currDoc->stdTransCMYK2RGBDoc;
+				stdTransRGBDoc2CMYKG = currDoc->stdTransRGBDoc2CMYK;
+				stdTransRGBDoc2MonG = currDoc->stdTransRGBDoc2Mon;
+				stdTransCMYK2MonG = currDoc->stdTransCMYK2Mon;
+				stdProofRGBG = currDoc->stdProofRGB;
+				stdProofRGBGCG = currDoc->stdProofRGBGC;
+				stdProofCMYKG = currDoc->stdProofCMYK;
+				stdProofCMYKGCG = currDoc->stdProofCMYKGC;
 				stdProofImgG = currDoc->stdProofImg;
 				stdTransImgG = currDoc->stdTransImg;
-				stdProofCMYKG = currDoc->stdProofCMYK;
-				stdTransCMYKG = currDoc->stdTransCMYK;
-				stdProofGCG = currDoc->stdProofGC;
-				stdProofCMYKGCG = currDoc->stdProofCMYKGC;
-				stdTransRGBG = currDoc->stdTransRGB;
 				CMSoutputProf = currDoc->DocOutputProf;
 				CMSprinterProf = currDoc->DocPrinterProf;
 				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputProf)) == icSigRgbData)

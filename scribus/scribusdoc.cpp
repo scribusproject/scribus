@@ -68,15 +68,16 @@ extern ScribusQApp* ScQApp;
 #include "cmserrorhandling.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransRGBDoc2CMYKG;
+extern cmsHTRANSFORM stdTransCMYK2RGBDocG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
+extern cmsHTRANSFORM stdProofRGBGCG;
+extern cmsHTRANSFORM stdProofCMYKG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofGCG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -288,15 +289,16 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	DocInputProf = NULL;
 	DocOutputProf = NULL;
 	DocPrinterProf = NULL;
-	stdTrans = NULL;
-	stdProof = NULL;
+	stdTransRGBDoc2CMYK = NULL;
+	stdTransCMYK2RGBDoc = NULL;
+	stdTransRGBDoc2Mon = NULL;
+	stdTransCMYK2Mon = NULL;
+	stdProofRGB = NULL;
+	stdProofRGBGC = NULL;
+	stdProofCMYK = NULL;
+	stdProofCMYKGC = NULL;
 	stdTransImg = NULL;
 	stdProofImg = NULL;
-	stdTransCMYK = NULL;
-	stdProofCMYK = NULL;
-	stdTransRGB = NULL;
-	stdProofGC = NULL;
-	stdProofCMYKGC = NULL;
 #endif
 }
 
@@ -370,15 +372,16 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 #ifdef HAVE_CMS
 		if (OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles))
 		{
-			stdProofG = stdProof;
-			stdTransG = stdTrans;
+			stdTransRGBDoc2CMYKG = stdTransRGBDoc2CMYK;
+			stdTransCMYK2RGBDocG = stdTransCMYK2RGBDoc;
+			stdTransRGBDoc2MonG = stdTransRGBDoc2Mon;
+			stdTransCMYK2MonG = stdTransCMYK2Mon;
+			stdProofRGBG = stdProofRGB;
+			stdProofRGBGCG = stdProofRGBGC;
+			stdProofCMYKG = stdProofCMYK;
+			stdProofCMYKGCG = stdProofCMYKGC;
 			stdProofImgG = stdProofImg;
 			stdTransImgG = stdTransImg;
-			stdProofCMYKG = stdProofCMYK;
-			stdTransCMYKG = stdTransCMYK;
-			stdTransRGBG = stdTransRGB;
-			stdProofGCG = stdProofGC;
-			stdProofCMYKGCG = stdProofCMYKGC;
 			CMSoutputProf = DocOutputProf;
 			CMSprinterProf = DocPrinterProf;
 			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
@@ -427,36 +430,39 @@ void ScribusDoc::CloseCMSProfiles()
 			cmsCloseProfile(DocOutputProf);
 		if (DocPrinterProf)
 			cmsCloseProfile(DocPrinterProf);
-		if (stdTrans)
-			cmsDeleteTransform(stdTrans);
-		if (stdProof)
-			cmsDeleteTransform(stdProof);
+		if (stdTransRGBDoc2CMYK)
+			cmsDeleteTransform(stdTransRGBDoc2CMYK);
+		if (stdTransCMYK2RGBDoc)
+			cmsDeleteTransform(stdTransCMYK2RGBDoc);
+		if (stdTransRGBDoc2Mon)
+			cmsDeleteTransform(stdTransRGBDoc2Mon);
+		if (stdTransCMYK2Mon)
+			cmsDeleteTransform(stdTransCMYK2Mon);
+		if (stdProofRGB)
+			cmsDeleteTransform(stdProofRGB);
+		if (stdProofRGBGC)
+			cmsDeleteTransform(stdProofRGBGC);
+		if (stdProofCMYK)
+			cmsDeleteTransform(stdProofCMYK);
+		if (stdProofCMYKGC)
+			cmsDeleteTransform(stdProofCMYKGC);
 		if (stdTransImg)
 			cmsDeleteTransform(stdTransImg);
 		if (stdProofImg)
 			cmsDeleteTransform(stdProofImg);
-		if (stdTransCMYK)
-			cmsDeleteTransform(stdTransCMYK);
-		if (stdProofCMYK)
-			cmsDeleteTransform(stdProofCMYK);
-		if (stdTransRGB)
-			cmsDeleteTransform(stdTransRGB);
-		if (stdProofCMYKGC)
-			cmsDeleteTransform(stdProofCMYKGC);
-		if (stdProofGC)
-			cmsDeleteTransform(stdProofGC);
 		DocInputProf = NULL;
 		DocOutputProf = NULL;
 		DocPrinterProf = NULL;
-		stdTrans = NULL;
-		stdProof = NULL;
+		stdTransRGBDoc2CMYK = NULL;
+		stdTransCMYK2RGBDoc = NULL;
+		stdTransRGBDoc2Mon = NULL;
+		stdTransCMYK2Mon = NULL;
+		stdProofRGB = NULL;
+		stdProofRGBGC = NULL;
+		stdProofCMYK = NULL;
+		stdProofCMYKGC = NULL;
 		stdTransImg = NULL;
 		stdProofImg = NULL;
-		stdTransCMYK = NULL;
-		stdProofCMYK = NULL;
-		stdTransRGB = NULL;
-		stdProofCMYKGC = NULL;
-		stdProofGC = NULL;
 	}
 #endif
 }
@@ -495,54 +501,64 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 		return false;
 	}
 	int dcmsFlags = 0;
-	int dcmsFlags2 = 0;
+	int dcmsFlagsImg = 0;
 	dcmsFlags |= cmsFLAGS_LOWRESPRECALC;
-	dcmsFlags2 |= cmsFLAGS_LOWRESPRECALC;
-//	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
+	dcmsFlagsImg |= cmsFLAGS_LOWRESPRECALC;
 	if (CMSSettings.GamutCheck)
-		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
+		dcmsFlagsImg |= cmsFLAGS_GAMUTCHECK;
 	if (CMSSettings.BlackPoint)
 	{
-		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlags  |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlagsImg |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 	}
 	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
-	stdProof = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
-	                                      DocOutputProf, TYPE_RGB_16,
-	                                      DocPrinterProf,
-	                                      IntentPrinter,
-	                                      INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-	stdProofGC = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
-	                                      DocOutputProf, TYPE_RGB_16,
-	                                      DocPrinterProf,
-	                                      IntentPrinter,
-	                                      INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-	stdTrans = scCmsCreateTransform(DocInputProf, TYPE_RGB_16,
+	// Document RGB colorspace to monitor colorspace transform
+	stdTransRGBDoc2Mon = scCmsCreateTransform(DocInputProf, TYPE_RGB_16,
 	                              DocOutputProf, TYPE_RGB_16,
-	                              IntentMonitor,
-	                              dcmsFlags2);
+	                              IntentMonitor, dcmsFlags);
+	// Proof document RGB colorspace to monitor
+	stdProofRGB = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
+	                              DocOutputProf, TYPE_RGB_16,
+	                              DocPrinterProf, IntentPrinter,
+	                              INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	// Proof document RGB colorspace to monitor + gamut ckeck
+	stdProofRGBGC = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
+	                              DocOutputProf, TYPE_RGB_16,
+	                              DocPrinterProf, IntentPrinter,
+	                              INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+	// Document RGB to monitor colorspace image transform
+	stdTransImg = scCmsCreateTransform(DocInputProf, TYPE_RGBA_8,
+	                                DocOutputProf, TYPE_RGBA_8,
+	                                IntentMonitor, dcmsFlagsImg);
+	// Proof RGB images to monitor colorspace image proofing transform
 	stdProofImg = scCmsCreateProofingTransform(DocInputProf, TYPE_RGBA_8,
 									DocOutputProf, TYPE_RGBA_8,
 									DocPrinterProf, IntentPrinter,
-									IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-	stdTransImg = scCmsCreateTransform(DocInputProf, TYPE_RGBA_8,
-	                                DocOutputProf, TYPE_RGBA_8,
-	                                IntentMonitor, dcmsFlags2);
+									INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsImg | cmsFLAGS_SOFTPROOFING);
+	
 	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
 	{
-		stdProofCMYK = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							IntentPrinter, dcmsFlags2);
-		stdProofCMYKGC = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							IntentPrinter, dcmsFlags2);
-		stdTransCMYK = scCmsCreateTransform(DocInputProf, TYPE_RGB_16,
-						DocPrinterProf, TYPE_CMYK_16,
-						IntentPrinter, dcmsFlags2);
-		stdTransRGB = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+		// Document (and printer) CMYK colorspace to monitor colorspace transform
+		stdTransCMYK2Mon = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						IntentMonitor, dcmsFlags);
+		// Document (and printer) CMYK colorspace to document RGB colorspace transform
+		stdTransCMYK2RGBDoc = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
 						DocInputProf, TYPE_RGB_16,
-						IntentMonitor, dcmsFlags2);
+						IntentMonitor, dcmsFlags);
+		// Document RGB colorspace to document (and printer) CMYK colorspace transform
+		stdTransRGBDoc2CMYK = scCmsCreateTransform(DocInputProf, TYPE_RGB_16,
+						DocPrinterProf, TYPE_CMYK_16,
+						IntentMonitor, dcmsFlags);
+		// Proof document (and printer) CMYK colorspace on monitor
+		stdProofCMYK = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						IntentPrinter, dcmsFlags);
+		// Proof document (and printer) CMYK colorspace on monitor
+		stdProofCMYKGC = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						IntentPrinter, dcmsFlags);
 	}
 	else
 		assert(false);

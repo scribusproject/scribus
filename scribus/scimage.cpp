@@ -14,8 +14,9 @@ for which a new license (GPL+exception) is in place.
 	#include "cmsutil.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
 extern bool BlackPoint;
