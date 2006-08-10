@@ -572,9 +572,12 @@ void ColorManager::loadFarben()
 				while (!ts.atEnd())
 				{
 					tmp = ts.readLine();
-					if (tmp.startsWith("%%CMYKCustomColor"))
+					if ((tmp.startsWith("%%CMYKCustomColor")) || (tmp.startsWith("%%CMYKProcessColor")))
 					{
-						tmp = tmp.remove(0,18);
+						if (tmp.startsWith("%%CMYKCustomColor"))
+							tmp = tmp.remove(0,18);
+						else if (tmp.startsWith("%%CMYKProcessColor"))
+							tmp = tmp.remove(0,19);
 						QTextStream ts2(&tmp, IO_ReadOnly);
 						ts2 >> c >> m >> y >> k;
 						FarNam = ts2.read();
@@ -606,7 +609,34 @@ void ColorManager::loadFarben()
 						}
 					}
 					if (tmp.startsWith("%%EndComments"))
+					{
+						if (ext == "ai")
+						{
+							while (!ts.atEnd())
+							{
+								tmp = ts.readLine();
+								if ((tmp.endsWith("Xa") || tmp.endsWith(" k")) && (tmp.length() > 4))
+								{
+									QTextStream ts2(&tmp, IO_ReadOnly);
+									ts2 >> c >> m >> y >> k;
+									tmp = ts.readLine();
+									if (tmp.endsWith("Pc"))
+									{
+										tmp = tmp.stripWhiteSpace();
+										tmp = tmp.remove(0,1);
+										int en = tmp.find(")");
+										FarNam = tmp.mid(0, en);
+										FarNam = FarNam.simplifyWhiteSpace();
+										cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+										cc.setSpotColor(true);
+										if (!EditColors.contains(FarNam))
+											EditColors.insert(FarNam, cc);
+									}
+								}
+							}
+						}
 						break;
+					}
 				}
 				f.close();
 				updateCList();
