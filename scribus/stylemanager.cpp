@@ -397,24 +397,38 @@ void StyleManager::slotOk()
 	}
 }
 
-// f.e. Line Styles --> Paragraph Styles
 void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 {
 	if (item) {
 		item_ = item;
 
 		QValueList<StyleName> styles = item_->styles(loadFromDoc);
-		QListViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
+		StyleViewItem *rootItem = new StyleViewItem(styleView, item_->typeName());
 		rootItem->setOpen(true);
+		QMap<QString, StyleViewItem*> sitems;
+
 		for (uint i = 0; i < styles.count(); ++i) // set the list of styles of this type
 		{
 			if (styles[i].second == QString::null)
-				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
-			else // TODO Search the parent and insert accordingly
-				new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+			{
+				sitems[styles[i].first] = 
+						new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+				
+			}
+			else
+			{
+				StyleViewItem *parent = 0;
+				if (sitems.contains(styles[i].second))
+					parent = sitems[styles[i].second];
+				else
+					parent = rootItem;
+				
+				sitems[styles[i].first] =
+						new StyleViewItem(parent, styles[i].first, item_->typeName());
+				parent->setOpen(true);
+			}
 		}
 	}
-
 }
 
 void StyleManager::slotDirty()

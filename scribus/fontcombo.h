@@ -89,11 +89,11 @@ public slots:
 signals:
 	void fontSelected(QString);
 
-private slots:
+protected slots:
 	void familySelected(int id);
 	void styleSelected(int id);
 
-private:
+protected:
 	QComboBox* fontFamily;
 	QComboBox* fontStyle;
 	PrefsManager* prefsManager;
@@ -101,8 +101,6 @@ private:
 	QPixmap ttfFont;
 	QPixmap otfFont;
 	QPixmap psFont;
-
-protected:
 	QVBoxLayout* fontComboLayout;
 };
 

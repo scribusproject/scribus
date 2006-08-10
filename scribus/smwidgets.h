@@ -209,6 +209,27 @@ private slots:
 class SMFontComboH  : public FontComboH
 {
 	Q_OBJECT
+public:
+	SMFontComboH(QWidget *parent);
+	~SMFontComboH() {};
+	
+	void setCurrentFont(const QString &s);
+	void setCurrentFont(const QString &s, bool isParentValue);
+
+	void setParentFont(const QString &s);
+	
+	bool useParentFont();
+
+private:
+	bool   hasParent_;
+	bool   useParentValue_;
+	QString pFont_;
+	QString usePFont_;
+	void setFont(bool wantBold);
+
+private slots:
+	void currentChanged();
+	void checkStyle();
 };
 
 // class SMTabruler : public Tabruler

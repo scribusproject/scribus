@@ -8,16 +8,9 @@ for which a new license (GPL+exception) is in place.
 #include "smtextstylewidgets.h"
 #include "smtextstylewidgets.moc"
 #include "util.h"
-#include "mspinbox.h"
-#include "alignselect.h"
 #include "tabruler.h"
-#include "fontcombo.h"
-#include "styleselect.h"
-#include "sccombobox.h"
-#include "shadebutton.h"
 #include "commonstrings.h"
 #include "style.h"
-#include "colorcombo.h"
 #include "smwidgets.h"
 
 #include <qgroupbox.h>
@@ -320,7 +313,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	characterBoxLayout->setSpacing( 5 );
 	characterBoxLayout->setMargin( 10 );
 
-	fontFace_ = new FontComboH(characterBox);
+	fontFace_ = new SMFontComboH(characterBox);
 	characterBoxLayout->addWidget( fontFace_ );
 
 	characterBoxLayout->addSpacing( 10 );
@@ -536,6 +529,9 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 
 		strokeColor_->setCurrentText(cstyle.strokeColor(), cstyle.isPstrokeColor());
 		strokeColor_->setParentText(parent->strokeColor());
+
+		fontFace_->setCurrentFont(cstyle.font().scName(), cstyle.isPfont());
+		fontFace_->setParentFont(parent->font().scName());
 	}
 	else
 	{
@@ -549,6 +545,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 		strokeShade_->setValue(cstyle.strokeShade());
 		fillColor_->setCurrentText(cstyle.fillColor());
 		strokeColor_->setCurrentText(cstyle.strokeColor());
+		fontFace_->setCurrentFont(cstyle.font().scName());
 	}
 
 	effects_->ShadowVal->Xoffset->setValue(cstyle.shadowXOffset() / 10.0);
@@ -559,7 +556,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset() / 10.0);
 	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth() / 10.0);
 
-	fontFace_->setCurrentFont(cstyle.font().scName());
+	
 
 	parentCombo->clear();
 	parentCombo->insertItem("");

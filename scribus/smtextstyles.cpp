@@ -1090,8 +1090,13 @@ void SMParagraphStyle::slotBaselineOffset()
 
 void SMParagraphStyle::slotFont(QString s)
 {
+	ScFace sf;
+	if (!pwidget_->cpage->fontFace_->useParentFont())
+		sf = PrefsManager::instance()->appPrefs.AvailFonts[s];
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[s]);
+		selection_[i]->charStyle().setFont(sf);
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -1825,8 +1830,12 @@ void SMCharacterStyle::slotBaselineOffset()
 
 void SMCharacterStyle::slotFont(QString s)
 {
+	ScFace sf;
+	if (!page_->fontFace_->useParentFont())
+		sf = PrefsManager::instance()->appPrefs.AvailFonts[s];
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setFont(PrefsManager::instance()->appPrefs.AvailFonts[s]);
+		selection_[i]->setFont(sf);
 
 	if (!selectionIsDirty_)
 	{

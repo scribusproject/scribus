@@ -24,7 +24,7 @@ class SMAlignSelect;
 class SMSpinBox;
 class QVBoxLayout;
 class Tabruler;
-class FontComboH;
+class SMFontComboH;
 class StyleSelect;
 class QSpacerItem;
 class SMScComboBox;
@@ -108,7 +108,7 @@ private:
 	QHBoxLayout *layout5;
 	QHBoxLayout *layout6;
 
-	FontComboH  *fontFace_;
+	SMFontComboH  *fontFace_;
 	SMStyleSelect *effects_;
 	SMColorCombo  *fillColor_;
 	SMShadeButton *fillShade_;
