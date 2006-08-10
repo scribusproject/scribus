@@ -75,6 +75,7 @@ private slots:
 	// cstyle
 	void slotFontSize();
 	void slotEffects(int e);
+	void slotEffectProperties();
 	void slotFillColor();
 	void slotFillShade();
 	void slotStrokeColor();
@@ -133,6 +134,7 @@ private:
 private slots:
 	void slotFontSize();
 	void slotEffects(int e);
+	void slotEffectProperties();
 	void slotFillColor();
 	void slotFillShade();
 	void slotStrokeColor();

@@ -386,7 +386,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	characterBoxLayout->addSpacing( 10 );
 
 	layout9a = new QHBoxLayout( 0, 0, 0, "layout9");
-	effects_ = new StyleSelect(characterBox);
+	effects_ = new SMStyleSelect(characterBox);
 	layout9a->addWidget( effects_ );
 
 	layout9a->addSpacing(10);
@@ -414,7 +414,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	pixmapLabel3_20->setPixmap( loadIcon("shade.png") );
 	layout5->addWidget( pixmapLabel3_20 );
 
-	fillShade_ = new ShadeButton(characterBox);
+	fillShade_ = new SMShadeButton(characterBox);
 	layout5->addWidget( fillShade_ );
 	QSpacerItem* spacer3 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout5->addItem( spacer3 );
@@ -434,7 +434,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	pixmapLabel3_19->setPixmap( loadIcon("shade.png") );
 	layout6->addWidget( pixmapLabel3_19 );
 
-	strokeShade_ = new ShadeButton(characterBox);
+	strokeShade_ = new SMShadeButton(characterBox);
 	layout6->addWidget( strokeShade_ );
 
 	spacer4 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -486,13 +486,15 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	fillColor_->clear();
 	strokeColor_->clear();
 
+	QPixmap pm = QPixmap(15, 15);
 	fillColor_->insertItem(CommonStrings::NoneColor);
 	strokeColor_->insertItem(CommonStrings::NoneColor);
 	ColorList::Iterator itend=colors.end();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		fillColor_->insertSmallItem(colors[it.key()], it.key());
-		strokeColor_->insertSmallItem(colors[it.key()], it.key());
+		pm.fill(colors[it.key()].getRawRGBColor());
+		fillColor_->insertItem(pm, it.key());
+		strokeColor_->insertItem(pm, it.key());
 	}
 	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
@@ -505,41 +507,49 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 
 	if (hasParent)
 	{
-		fontSize_->setValue(cstyle.fontSize(), cstyle.isPfontSize());
+		fontSize_->setValue(cstyle.fontSize() / 10.0, cstyle.isPfontSize());
 		fontSize_->setParentValue(parent->fontSize());
 
-		fontHScale_->setValue(cstyle.scaleH(), cstyle.isPscaleH());
+		fontHScale_->setValue(cstyle.scaleH() / 10.0, cstyle.isPscaleH());
 		fontHScale_->setParentValue(parent->scaleH());
 
-		fontVScale_->setValue(cstyle.scaleV(), cstyle.isPscaleV());
+		fontVScale_->setValue(cstyle.scaleV() / 10.0, cstyle.isPscaleV());
 		fontVScale_->setParentValue(parent->scaleV());
 
-		baselineOffset_->setValue(cstyle.baselineOffset(), cstyle.isPbaselineOffset());
+		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0, cstyle.isPbaselineOffset());
 		baselineOffset_->setParentValue(parent->baselineOffset());
 
-		tracking_->setValue(cstyle.tracking(), cstyle.isPtracking());
+		tracking_->setValue(cstyle.tracking() / 10.0, cstyle.isPtracking());
 		tracking_->setParentValue(parent->tracking());
+
+		effects_->setStyle(static_cast<int>(cstyle.effects()), cstyle.isPeffects());
+		effects_->setParentItem(static_cast<int>(parent->effects()));
+
+		fillShade_->setValue(cstyle.fillShade(), cstyle.isPfillShade());
+		fillShade_->setParentValue(parent->fillShade());
+
+		strokeShade_->setValue(cstyle.strokeShade(), cstyle.isPstrokeShade());
+		strokeShade_->setParentValue(parent->strokeShade());
 	}
 	else
 	{
-		fontSize_->setValue(cstyle.fontSize());
-		fontHScale_->setValue(cstyle.scaleH());
-		fontVScale_->setValue(cstyle.scaleV());
-		baselineOffset_->setValue(cstyle.baselineOffset());
-		tracking_->setValue(cstyle.tracking());
+		fontSize_->setValue(cstyle.fontSize() / 10.0);
+		fontHScale_->setValue(cstyle.scaleH() / 10.0);
+		fontVScale_->setValue(cstyle.scaleV() / 10.0);
+		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0);
+		tracking_->setValue(cstyle.tracking() / 10.0);
+		effects_->setStyle(static_cast<int>(cstyle.effects()));
+		fillShade_->setValue(cstyle.fillShade());
+		strokeShade_->setValue(cstyle.strokeShade());
 	}
-	
-	fillShade_->setValue(cstyle.fillShade());
-	strokeShade_->setValue(cstyle.strokeShade());
-	effects_->setStyle(static_cast<int>(cstyle.effects()));
-	effects_->ShadowVal->Xoffset->setValue(cstyle.shadowXOffset());
-	effects_->ShadowVal->Yoffset->setValue(cstyle.shadowYOffset());
-	effects_->OutlineVal->LWidth->setValue(cstyle.outlineWidth());
-	effects_->StrikeVal->LPos->setValue(cstyle.strikethruOffset());
-	effects_->StrikeVal->LWidth->setValue(cstyle.strikethruWidth());
-	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset());
-	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth());
-	
+
+	effects_->ShadowVal->Xoffset->setValue(cstyle.shadowXOffset() / 10.0);
+	effects_->ShadowVal->Yoffset->setValue(cstyle.shadowYOffset() / 10.0);
+	effects_->OutlineVal->LWidth->setValue(cstyle.outlineWidth() / 10.0);
+	effects_->StrikeVal->LPos->setValue(cstyle.strikethruOffset() / 10.0);
+	effects_->StrikeVal->LWidth->setValue(cstyle.strikethruWidth() / 10.0);
+	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset() / 10.0);
+	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth() / 10.0);
 
 	fillColor_->setCurrentText(cstyle.fillColor());
 	strokeColor_->setCurrentText(cstyle.strokeColor());

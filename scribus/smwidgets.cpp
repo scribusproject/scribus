@@ -339,3 +339,199 @@ void SMAlignSelect::pbPressed()
 
 /***********************************************************************/
 /***********************************************************************/
+
+SMStyleSelect::SMStyleSelect(QWidget *parent)
+: StyleSelect(parent),
+  hasParent_(false),
+  useParentStyle_(false),
+  pStyle_(0)
+{
+	parentButton = new QToolButton(this, "parentButton");
+	parentButton->setMaximumSize(QSize(22, 22));
+	parentButton->setMinimumSize(QSize(22, 22));
+	parentButton->setText(tr("P", "P as in Parent"));
+	QToolTip::add(parentButton, tr("Use parent style's effects instead of overriding them"));
+	ssLayout->addWidget( parentButton, 0, 5 );
+	resize(minimumSizeHint());
+	parentButton->hide();
+}
+
+void SMStyleSelect::setStyle(int i)
+{
+	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Xoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Yoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(OutlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LPos, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+	setFont(false);
+	hasParent_ = false;
+	pStyle_ = 0;
+	parentButton->hide();
+	StyleSelect::setStyle(i);
+}
+
+void SMStyleSelect::setStyle(int i, bool isParentValue)
+{
+	disconnect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Xoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(ShadowVal->Yoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(OutlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LPos, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(UnderlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	disconnect(StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	disconnect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+	hasParent_ = true;
+	pStyle_ = i;
+	setFont(!isParentValue);
+	if (isParentValue)
+		parentButton->hide();
+	else
+		parentButton->show();
+	parentButton->setOn(true);
+	StyleSelect::setStyle(i);
+	connect(this, SIGNAL(State(int)), this, SLOT(styleChanged()));
+	connect(ShadowVal->Xoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	connect(ShadowVal->Yoffset, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	connect(OutlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	connect(UnderlineVal->LPos, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	connect(UnderlineVal->LWidth, SIGNAL(valueChanged(int)),this, SLOT(styleChanged()));
+	connect(StrikeVal->LPos, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	connect(StrikeVal->LWidth, SIGNAL(valueChanged(int)), this, SLOT(styleChanged()));
+	connect(parentButton, SIGNAL(pressed()), this, SLOT(pbPressed()));
+}
+
+void SMStyleSelect::setParentItem(int i)
+{
+	hasParent_ = true;
+	pStyle_ = i;
+}
+
+bool SMStyleSelect::useParentValue()
+{
+	bool ret = useParentStyle_;
+	useParentStyle_ = false;
+	if (ret)
+		setStyle(pStyle_, true);
+
+	return ret;
+}
+
+void SMStyleSelect::setFont(bool wantBold)
+{
+	QFont f(font());
+	f.setBold(wantBold);
+	parentButton->setFont(f);
+	ShadowVal->Xoffset->setFont(f);
+	ShadowVal->Yoffset->setFont(f);
+	OutlineVal->LWidth->setFont(f);
+	UnderlineVal->LPos->setFont(f);
+	UnderlineVal->LWidth->setFont(f);
+	StrikeVal->LPos->setFont(f);
+	StrikeVal->LWidth->setFont(f);
+	StyleSelect::setFont(f);
+}
+
+void SMStyleSelect::styleChanged()
+{
+	if (hasParent_)
+	{
+		setFont(true);
+		parentButton->show();
+	}
+}
+
+void SMStyleSelect::pbPressed()
+{
+	useParentStyle_ = true;
+	emit State(getStyle());
+}
+
+/***********************************************************************/
+/***********************************************************************/
+
+/***********************************************************************/
+/***********************************************************************/
+
+SMShadeButton::SMShadeButton(QWidget *parent)
+: ShadeButton(parent),
+  hasParent_(false),
+  useParentValue_(false),
+  pValue_(0)
+{
+	
+}
+
+void SMShadeButton::setValue(int i)
+{
+	disconnect(this, SIGNAL(pressed()), this, SLOT(currentChanged()));
+	setFont(false);
+	hasParent_ = false;
+	pValue_ = 0;
+	ShadeButton::setValue(i);
+}
+
+void SMShadeButton::setValue(int i, bool isParentValue)
+{
+	disconnect(this, SIGNAL(pressed()), this, SLOT(currentChanged()));
+	hasParent_ = true;
+	pValue_ = i;
+	setFont(!isParentValue);
+	ShadeButton::setValue(i);
+	connect(this, SIGNAL(pressed()), this, SLOT(currentChanged()));
+}
+
+void SMShadeButton::setParentValue(int i)
+{
+	hasParent_ = true;
+	pValue_ = i;
+}
+
+bool SMShadeButton::useParentValue()
+{
+	bool ret = useParentValue_;
+	useParentValue_ = false;
+
+	if (ret)
+	{
+		setValue(pValue_, true);
+		FillSh->removeItemAt(FillSh->count() - 1);
+	}
+	
+
+	return ret;
+}
+
+void SMShadeButton::setFont(bool wantBold)
+{
+	QFont f(font());
+	f.setBold(wantBold);
+	FillSh->setFont(f);
+	ShadeButton::setFont(f);
+}
+
+void SMShadeButton::currentChanged()
+{
+	if (hasParent_)
+	{
+		setFont(true);
+		QString upv = tr("Use Parent Value");
+		if (FillSh->text(FillSh->idAt(FillSh->count() - 1)) != upv)
+			FillSh->insertItem(upv, this, SLOT(slotUseParent()));
+	}
+}
+
+void SMShadeButton::slotUseParent()
+{
+	useParentValue_ = true;
+	FillSh->removeItemAt(FillSh->count() - 1);
+	emit clicked();
+}
+
+/***********************************************************************/
+/***********************************************************************/
+

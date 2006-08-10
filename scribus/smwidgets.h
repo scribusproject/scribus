@@ -11,6 +11,8 @@ for which a new license (GPL+exception) is in place.
 #include "mspinbox.h"
 #include "sccombobox.h"
 #include "alignselect.h"
+#include "styleselect.h"
+#include "shadebutton.h"
 
 class SMSpinBox : public QSpinBox
 {
@@ -120,6 +122,59 @@ private slots:
 	void pbPressed();
 };
 
+class SMStyleSelect  : public StyleSelect
+{
+	Q_OBJECT
+public:
+	SMStyleSelect(QWidget *parent);
+	~SMStyleSelect() {}
+
+	void setStyle(int i);
+	void setStyle(int i, bool isParentValue);
+
+	void setParentItem(int i);
+
+	bool useParentValue();
+
+	QToolButton *parentButton;
+
+private:
+	bool   hasParent_;
+	bool   useParentStyle_;
+	int    pStyle_;
+	void setFont(bool wantBold);
+
+private slots:
+	void styleChanged();
+	void pbPressed();
+};
+
+class SMShadeButton  : public ShadeButton
+{
+	Q_OBJECT
+public:
+	SMShadeButton(QWidget *parent);
+	~SMShadeButton() {};
+
+	void setValue(int i);
+	void setValue(int i, bool isParentValue);
+
+	void setParentValue(int i);
+
+	bool useParentValue();
+
+private:
+	bool   hasParent_;
+	bool   useParentValue_;
+	int    pValue_;
+	void setFont(bool wantBold);
+
+private slots:
+	void currentChanged();
+	void slotUseParent();
+};
+
+
 // class SMTabruler : public Tabruler
 // {
 // 	Q_OBJECT
@@ -129,21 +184,12 @@ private slots:
 // {
 // 	Q_OBJECT
 // };
-// 
-// class SMStyleSelect  : public StyleSelect
-// {
-// 	Q_OBJECT
-// };
-// 
 // class SMColorCombo  : public ColorCombo
 // {
 // 	Q_OBJECT
 // };
 // 
-// class SMShadeButton  : public ShadeButton
-// {
-// 	Q_OBJECT
-// };
+
 
 
 #endif

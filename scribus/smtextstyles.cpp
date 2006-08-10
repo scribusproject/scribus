@@ -508,9 +508,23 @@ void SMParagraphStyle::setupConnections()
 	// character attributes
 	connect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(pwidget_->cpage->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	connect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	connect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(pwidget_->cpage->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	connect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	connect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
@@ -553,9 +567,23 @@ void SMParagraphStyle::removeConnections()
 
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(pwidget_->cpage->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	disconnect(pwidget_->cpage->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+			this, SLOT(slotEffectProperties()));
+	disconnect(pwidget_->cpage->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(pwidget_->cpage->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	disconnect(pwidget_->cpage->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	disconnect(pwidget_->cpage->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(pwidget_->cpage->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(pwidget_->cpage->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
@@ -770,7 +798,10 @@ void SMParagraphStyle::slotFontSize()
 	if (pwidget_->cpage->fontSize_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		pwidget_->cpage->fontSize_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->charStyle().setFontSize(qRound(value));
@@ -787,20 +818,77 @@ void SMParagraphStyle::slotEffects(int e)
 	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
 	int c;
 
-	pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
-	pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+	StyleFlag s = ScStyle_None;
+	if (pwidget_->cpage->effects_->useParentValue())
+	{
+		sxo = syo = olw = ulp = ulw = slp = slw = Style::NOVALUE;
+	}
+	else
+	{
+		s = static_cast<StyleFlag>(e);
+		pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+		sxo = sxo * 10;
+		pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+		syo = syo * 10;
 
-	pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+		pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+		olw = olw * 10;
 
-	pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
-	pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+		pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+		ulp = ulp * 10;
+		pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+		ulw = ulw * 10;
 
-	pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
-	pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+		pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+		slp = slp * 10;
+		pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+		slw = slw * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		selection_[i]->charStyle().setEffects(static_cast<StyleFlag>(e));
+		selection_[i]->charStyle().setEffects(s);
+		selection_[i]->charStyle().setShadowXOffset(qRound(sxo));
+		selection_[i]->charStyle().setShadowYOffset(qRound(syo));
+		selection_[i]->charStyle().setOutlineWidth(qRound(olw));
+		selection_[i]->charStyle().setUnderlineOffset(qRound(ulp));
+		selection_[i]->charStyle().setUnderlineWidth(qRound(ulw));
+		selection_[i]->charStyle().setStrikethruOffset(qRound(slp));
+		selection_[i]->charStyle().setStrikethruWidth(qRound(slw));
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotEffectProperties()
+{
+	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
+	int c;
+
+	pwidget_->cpage->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+	sxo = sxo * 10;
+	pwidget_->cpage->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+	syo = syo * 10;
+
+	pwidget_->cpage->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+	olw = olw * 10;
+
+	pwidget_->cpage->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+	ulp = ulp * 10;
+	pwidget_->cpage->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+	ulw = ulw * 10;
+
+	pwidget_->cpage->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+	slp = slp * 10;
+	pwidget_->cpage->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+	slw = slw * 10;
+	
+	for (uint i = 0; i < selection_.count(); ++i)
+	{
 		selection_[i]->charStyle().setShadowXOffset(qRound(sxo));
 		selection_[i]->charStyle().setShadowYOffset(qRound(syo));
 		selection_[i]->charStyle().setOutlineWidth(qRound(olw));
@@ -830,8 +918,13 @@ void SMParagraphStyle::slotFillColor()
 
 void SMParagraphStyle::slotFillShade()
 {
+	int fs = Style::NOVALUE;
+	if (!pwidget_->cpage->fillShade_->useParentValue())
+		fs = pwidget_->cpage->fillShade_->getValue();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->charStyle().setFillShade(pwidget_->cpage->fillShade_->getValue());
+		selection_[i]->charStyle().setFillShade(fs);
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -852,8 +945,13 @@ void SMParagraphStyle::slotStrokeColor()
 
 void SMParagraphStyle::slotStrokeShade()
 {
+	int ss = Style::NOVALUE;
+	if (!pwidget_->cpage->strokeShade_->useParentValue())
+		ss = pwidget_->cpage->strokeShade_->getValue();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->charStyle().setStrokeShade(pwidget_->cpage->strokeShade_->getValue());
+		selection_[i]->charStyle().setStrokeShade(ss);
+
 	if (!selectionIsDirty_)
 	{
 		selectionIsDirty_ = true;
@@ -898,7 +996,10 @@ void SMParagraphStyle::slotScaleH()
 	if (pwidget_->cpage->fontHScale_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		pwidget_->cpage->fontHScale_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->charStyle().setScaleH(qRound(value));
@@ -917,7 +1018,10 @@ void SMParagraphStyle::slotScaleV()
 	if (pwidget_->cpage->fontVScale_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		pwidget_->cpage->fontVScale_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->charStyle().setScaleV(qRound(value));
@@ -936,7 +1040,10 @@ void SMParagraphStyle::slotTracking()
 	if (pwidget_->cpage->tracking_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		pwidget_->cpage->tracking_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->charStyle().setTracking(qRound(value));
@@ -955,7 +1062,10 @@ void SMParagraphStyle::slotBaselineOffset()
 	if (pwidget_->cpage->baselineOffset_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		pwidget_->cpage->baselineOffset_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->charStyle().setBaselineOffset(qRound(value));
@@ -1335,9 +1445,23 @@ void SMCharacterStyle::setupConnections()
 
 	connect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	connect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	connect(page_->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	connect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	connect(page_->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	connect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	connect(page_->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	connect(page_->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	connect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	connect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	connect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
@@ -1357,9 +1481,23 @@ void SMCharacterStyle::removeConnections()
 
 	disconnect(page_->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(page_->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
-	disconnect(page_->fillColor_, SIGNAL(highlighted(int)), this, SLOT(slotFillColor()));
+	disconnect(page_->effects_->ShadowVal->Xoffset, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->effects_->ShadowVal->Yoffset, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->effects_->OutlineVal->LWidth, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->effects_->UnderlineVal->LPos, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->effects_->UnderlineVal->LWidth, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->effects_->StrikeVal->LPos, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->effects_->StrikeVal->LWidth, SIGNAL(valueChanged(int)),
+			   this, SLOT(slotEffectProperties()));
+	disconnect(page_->fillColor_, SIGNAL(activated(const QString&)), this, SLOT(slotFillColor()));
 	disconnect(page_->fillShade_, SIGNAL(clicked()), this, SLOT(slotFillShade()));
-	disconnect(page_->strokeColor_, SIGNAL(highlighted(int)), this, SLOT(slotStrokeColor()));
+	disconnect(page_->strokeColor_, SIGNAL(activated(const QString&)), this, SLOT(slotStrokeColor()));
 	disconnect(page_->strokeShade_, SIGNAL(clicked()), this, SLOT(slotStrokeShade()));
 	disconnect(page_->language_, SIGNAL(activated(int)), this, SLOT(slotLanguage()));
 	disconnect(page_->fontSize_, SIGNAL(valueChanged(int)), this, SLOT(slotFontSize()));
@@ -1380,7 +1518,10 @@ void SMCharacterStyle::slotFontSize()
 	if (page_->fontSize_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		page_->fontSize_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setFontSize(qRound(value));
@@ -1397,20 +1538,77 @@ void SMCharacterStyle::slotEffects(int e)
 	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
 	int c;
 
-	page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
-	page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+	StyleFlag s = ScStyle_None;
+	if (page_->effects_->useParentValue())
+	{
+		sxo = syo = olw = ulp = ulw = slp = slw = Style::NOVALUE;
+	}
+	else
+	{
+		s = static_cast<StyleFlag>(e);
+		page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+		sxo = sxo * 10;
+		page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+		syo = syo * 10;
 
-	page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+		page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+		olw = olw * 10;
 
-	page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
-	page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+		page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+		ulp = ulp * 10;
+		page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+		ulw = ulw * 10;
 
-	page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
-	page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+		page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+		slp = slp * 10;
+		page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+		slw = slw * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		selection_[i]->setEffects(static_cast<StyleFlag>(e));
+		selection_[i]->setEffects(s);
+		selection_[i]->setShadowXOffset(qRound(sxo));
+		selection_[i]->setShadowYOffset(qRound(syo));
+		selection_[i]->setOutlineWidth(qRound(olw));
+		selection_[i]->setUnderlineOffset(qRound(ulp));
+		selection_[i]->setUnderlineWidth(qRound(ulw));
+		selection_[i]->setStrikethruOffset(qRound(slp));
+		selection_[i]->setStrikethruWidth(qRound(slw));
+	}
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMCharacterStyle::slotEffectProperties()
+{
+	double a, b, sxo, syo, olw, ulp, ulw, slp, slw;
+	int c;
+
+	page_->effects_->ShadowVal->Xoffset->getValues(&a, &b, &c, &sxo);
+	sxo = sxo * 10;
+	page_->effects_->ShadowVal->Yoffset->getValues(&a, &b, &c, &syo);
+	syo = syo * 10;
+
+	page_->effects_->OutlineVal->LWidth->getValues(&a, &b, &c, &olw);
+	olw = olw * 10;
+
+	page_->effects_->UnderlineVal->LPos->getValues(&a, &b, &c, &ulp);
+	ulp = ulp * 10;
+	page_->effects_->UnderlineVal->LWidth->getValues(&a, &b, &c, &ulw);
+	ulw = ulw * 10;
+
+	page_->effects_->StrikeVal->LPos->getValues(&a, &b, &c, &slp);
+	slp = slp * 10;
+	page_->effects_->StrikeVal->LWidth->getValues(&a, &b, &c, &slw);
+	slw = slw * 10;
+	
+	for (uint i = 0; i < selection_.count(); ++i)
+	{
 		selection_[i]->setShadowXOffset(qRound(sxo));
 		selection_[i]->setShadowYOffset(qRound(syo));
 		selection_[i]->setOutlineWidth(qRound(olw));
@@ -1441,8 +1639,12 @@ void SMCharacterStyle::slotFillColor()
 
 void SMCharacterStyle::slotFillShade()
 {
+	int fs = Style::NOVALUE;
+	if (!page_->fillShade_->useParentValue())
+		fs = page_->fillShade_->getValue();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setFillShade(page_->fillShade_->getValue());
+		selection_[i]->setFillShade(fs);
 
 	if (!selectionIsDirty_)
 	{
@@ -1465,8 +1667,12 @@ void SMCharacterStyle::slotStrokeColor()
 
 void SMCharacterStyle::slotStrokeShade()
 {
+	int ss = Style::NOVALUE;
+	if (!page_->strokeShade_->useParentValue())
+		ss = page_->strokeShade_->getValue();
+
 	for (uint i = 0; i < selection_.count(); ++i)
-		selection_[i]->setStrokeShade(page_->strokeShade_->getValue());
+		selection_[i]->setStrokeShade(ss);
 
 	if (!selectionIsDirty_)
 	{
@@ -1512,7 +1718,10 @@ void SMCharacterStyle::slotScaleH()
 	if (page_->fontHScale_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		page_->fontHScale_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setScaleH(qRound(value));
@@ -1532,7 +1741,10 @@ void SMCharacterStyle::slotScaleV()
 	if (page_->fontVScale_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		page_->fontVScale_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setScaleV(qRound(value));
@@ -1552,7 +1764,10 @@ void SMCharacterStyle::slotTracking()
 	if (page_->tracking_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		page_->tracking_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setTracking(qRound(value));
@@ -1571,7 +1786,10 @@ void SMCharacterStyle::slotBaselineOffset()
 	if (page_->baselineOffset_->useParentValue())
 		value = Style::NOVALUE;
 	else
+	{
 		page_->baselineOffset_->getValues(&a, &b, &c, &value);
+		value = value * 10;
+	}
 
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setBaselineOffset(qRound(value));

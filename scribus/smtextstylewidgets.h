@@ -28,12 +28,13 @@ class FontComboH;
 class StyleSelect;
 class QSpacerItem;
 class SMScComboBox;
-class ShadeButton;
+class SMShadeButton;
 class CharStyle;
 class ParagraphStyle;
 class SMCStylePage;
 class ColorList;
 class ColorCombo;
+class SMStyleSelect;
 
 class SMPStyleWidget : public PStyleWBase
 {
@@ -108,11 +109,11 @@ private:
 	QHBoxLayout *layout6;
 
 	FontComboH  *fontFace_;
-	StyleSelect *effects_;
+	SMStyleSelect *effects_;
 	ColorCombo  *fillColor_;
-	ShadeButton *fillShade_;
+	SMShadeButton *fillShade_;
 	ColorCombo  *strokeColor_;
-	ShadeButton *strokeShade_;
+	SMShadeButton *strokeShade_;
 	SMScComboBox  *language_;
 
 	SMMSpinBox  *fontSize_;

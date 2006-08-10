@@ -39,6 +39,10 @@ void ShadeButton::setShade(int id)
 	FillSh->setItemChecked(id, true);
 	if (c > 0)
 		b = (c-1) * 10;
+
+	if (b > 100)
+		return; // no need for > 100%, fix needed by SM, Riku
+	
 	if (c == 0)
 		{
 		Query* dia = new Query(this, "New", 1, 0, tr("&Shade:"), tr("Shade"));
