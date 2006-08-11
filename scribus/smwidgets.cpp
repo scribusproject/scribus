@@ -811,7 +811,7 @@ void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
 		left_->setDecimals(10000);
 		right_->setDecimals(10000);
 		tabData->setDecimals(10000);
-	}
+	} // TODO else What's the decimal for other dEins?
 	first_->setSuffix(ein);
 	left_->setSuffix(ein);
 	right_->setSuffix(ein);
@@ -833,14 +833,14 @@ void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin, b
 	QString ein = unitGetSuffixFromIndex(dEin);
 	if (dEin == 2)
 	{
-		firstLineData->setDecimals(10000);
-		leftIndentData->setDecimals(10000);
-		rightIndentData->setDecimals(10000);
+		first_->setDecimals(10000);
+		left_->setDecimals(10000);
+		right_->setDecimals(10000);
 		tabData->setDecimals(10000);
-	}
-	firstLineData->setSuffix(ein);
-	leftIndentData->setSuffix(ein);
-	rightIndentData->setSuffix(ein);
+	} // TODO else What's the decimal for other dEins?
+	first_->setSuffix(ein);
+	left_->setSuffix(ein);
+	right_->setSuffix(ein);
 	tabData->setSuffix(ein);
 
 	connect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
