@@ -54,7 +54,7 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
 	isEditMode_ = !prefs_->getBool("isEditMode", false);
 	splitterSizes_ << prefs_->getInt("Splitter1W", 190);
-	splitterSizes_ << prefs_->getInt("Splitter2W", 472);
+	splitterSizes_ << prefs_->getInt("Splitter2W", 478);
 	height_ = prefs_->getInt("SplitterH", 440);
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));

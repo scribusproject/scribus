@@ -69,9 +69,9 @@ private slots:
 	void slotSpaceBelow();
 	void slotAlignment();
 	void slotTabRuler();
-	void slotLeftIndent(double value);
-	void slotRightIndent(double value);
-	void slotFirstLine(double value);
+	void slotLeftIndent();
+	void slotRightIndent();
+	void slotFirstLine();
 	// cstyle
 	void slotFontSize();
 	void slotEffects(int e);

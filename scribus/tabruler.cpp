@@ -10,7 +10,6 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
-#include "mspinbox.h"
 #include <qtoolbutton.h>
 #include <qlayout.h>
 #include <qtooltip.h>
@@ -20,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 #include <qcolor.h>
 #include "units.h"
 #include "scribusstructs.h"
+#include "mspinbox.h"
+
 extern QPixmap loadIcon(QString nam);
 
 RulerT::RulerT(QWidget *pa, int ein, QValueList<ParagraphStyle::TabRecord> Tabs, bool ind, double wid) : QWidget(pa)
@@ -499,6 +500,8 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	layout1->addWidget( tabFillComboT );
 	layout1->addWidget( tabFillCombo );
 
+	layout4 = new QHBoxLayout(0, 0, 6, "layout3");
+
 	indentLayout = new QHBoxLayout(0, 0, 6, "indentLayout");
 	if (haveFirst)
 	{
@@ -514,8 +517,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 		leftIndentLabel = new QLabel( "", this, "leftIndentLabel" );
 		leftIndentLabel->setText("");
 		leftIndentLabel->setPixmap(loadIcon("leftindent.png"));
-		indentLayout->addWidget( leftIndentLabel );
-		indentLayout->addWidget( leftIndentData );
+		layout4->addWidget( leftIndentLabel );
+		layout4->addWidget( leftIndentData );
+		layout4->addStretch(10);
 		rightIndentLabel = new QLabel("", this, "rightIndentLabel");
 		rightIndentLabel->setText("");
 		rightIndentLabel->setPixmap(loadIcon("rightindent.png"));
@@ -526,7 +530,9 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	}
 	clearButton = new QPushButton( this, "clearButton" );
 	clearButton->setText( tr( "Delete All" ) );
+	indentLayout->addSpacing(20);
 	indentLayout->addWidget( clearButton);
+	indentLayout->addStretch(10);
 	if (!haveFirst)
 	{
 		QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
@@ -538,6 +544,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 	tabrulerLayout->addLayout( layout2 );
 	indentLayout->addStretch( 10 );
 	tabrulerLayout->addLayout( indentLayout );
+	tabrulerLayout->addLayout(layout4);
 
 	TypeCombo->setEnabled(false);
 	tabData->setEnabled(false);
@@ -565,6 +572,7 @@ Tabruler::Tabruler( QWidget* parent, bool haveFirst, int dEin, QValueList<Paragr
 		connect(ruler, SIGNAL(firstLineMoved(double)) , this, SLOT(setFirstLineData(double)));
 		connect(ruler, SIGNAL(leftIndentMoved(double)) , this, SLOT(setLeftIndentData(double)));
 		connect(ruler, SIGNAL(mouseReleased()), this, SIGNAL(tabrulerChanged()));
+		connect(ruler, SIGNAL(mouseReleased()), this, SLOT(slotMouseReleased()));
 		connect(firstLineData, SIGNAL(valueChanged(int)), this, SLOT(setFirstLine()));
 		connect(leftIndentData, SIGNAL(valueChanged(int)), this, SLOT(setLeftIndent()));
 		connect(rightIndentData, SIGNAL(valueChanged(int)), this, SLOT(setRightIndent()));
@@ -856,4 +864,9 @@ void Tabruler::setRightIndent()
 double Tabruler::getRightIndent()
 {
 	return rightIndentData->value() / docUnitRatio;
+}
+
+void Tabruler::slotMouseReleased()
+{
+	emit mouseReleased();
 }

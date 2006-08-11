@@ -498,9 +498,10 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapOffset()));
 
 	connect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	connect(pwidget_->tabList_, SIGNAL(leftIndentChanged(double)), this, SLOT(slotLeftIndent(double)));
-	connect(pwidget_->tabList_, SIGNAL(rightIndentChanged(double)), this, SLOT(slotRightIndent(double)));
-	connect(pwidget_->tabList_, SIGNAL(firstLineChanged(double)), this, SLOT(slotFirstLine(double)));
+	connect(pwidget_->tabList_, SIGNAL(mouseReleased()), this, SLOT(slotTabRuler()));
+	connect(pwidget_->tabList_->left_, SIGNAL(valueChanged(int)), this, SLOT(slotLeftIndent()));
+	connect(pwidget_->tabList_->right_, SIGNAL(valueChanged(int)), this, SLOT(slotRightIndent()));
+	connect(pwidget_->tabList_->first_, SIGNAL(valueChanged(int)), this, SLOT(slotFirstLine()));
 
 	connect(pwidget_->parentCombo, SIGNAL(activated(const QString&)),
 			this, SLOT(slotParentChanged(const QString&)));
@@ -561,9 +562,9 @@ void SMParagraphStyle::removeConnections()
 			this, SLOT(slotParentChanged(const QString&)));
 
 	disconnect(pwidget_->tabList_, SIGNAL(tabsChanged()), this, SLOT(slotTabRuler()));
-	disconnect(pwidget_->tabList_, SIGNAL(leftIndentChanged(double)), this, SLOT(slotLeftIndent(double)));
-	disconnect(pwidget_->tabList_, SIGNAL(rightIndentChanged(double)), this, SLOT(slotRightIndent(double)));
-	disconnect(pwidget_->tabList_, SIGNAL(firstLineChanged(double)), this, SLOT(slotFirstLine(double)));
+	disconnect(pwidget_->tabList_->left_, SIGNAL(valueChanged(int)), this, SLOT(slotLeftIndent()));
+	disconnect(pwidget_->tabList_->right_, SIGNAL(valueChanged(int)), this, SLOT(slotRightIndent()));
+	disconnect(pwidget_->tabList_->first_, SIGNAL(valueChanged(int)), this, SLOT(slotFirstLine()));
 
 	disconnect(pwidget_->cpage->fontFace_, SIGNAL(fontSelected(QString)), this, SLOT(slotFont(QString)));
 	disconnect(pwidget_->cpage->effects_, SIGNAL(State(int)), this, SLOT(slotEffects(int)));
@@ -738,13 +739,16 @@ void SMParagraphStyle::slotDropCapOffset()
 
 void SMParagraphStyle::slotTabRuler()
 {
-	QValueList<ParagraphStyle::TabRecord> newTabs = pwidget_->tabList_->getTabVals();
-	for (uint i = 0; i < selection_.count(); ++i)
+	if (pwidget_->tabList_->useParentTabs())
 	{
-		QValueList<ParagraphStyle::TabRecord> &tabs = selection_[i]->tabValues();
-		tabs.clear();
-		for (uint i = 0; i < newTabs.count(); ++i)
-			tabs.append(newTabs[i]);
+		for (uint i = 0; i < selection_.count(); ++i)
+			selection_[i]->useParentTabs();
+	}
+	else
+	{
+		QValueList<ParagraphStyle::TabRecord> newTabs = pwidget_->tabList_->getTabVals();
+		for (uint i = 0; i < selection_.count(); ++i)
+			selection_[i]->tabValues() = newTabs;
 	}
 
 	if (!selectionIsDirty_)
@@ -754,8 +758,16 @@ void SMParagraphStyle::slotTabRuler()
 	}
 }
 
-void SMParagraphStyle::slotLeftIndent(double value)
+void SMParagraphStyle::slotLeftIndent()
 {
+	double a, b, value;
+	int c;
+
+	if (pwidget_->tabList_->useParentLeftIndent())
+		value = Style::NOVALUE;
+	else
+		pwidget_->tabList_->left_->getValues(&a, &b, &c, &value);
+
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setLeftMargin(value);
 
@@ -766,8 +778,16 @@ void SMParagraphStyle::slotLeftIndent(double value)
 	}
 }
 
-void SMParagraphStyle::slotRightIndent(double value)
+void SMParagraphStyle::slotRightIndent()
 {
+	double a, b, value;
+	int c;
+
+	if (pwidget_->tabList_->useParentRightIndent())
+		value = Style::NOVALUE;
+	else
+		pwidget_->tabList_->right_->getValues(&a, &b, &c, &value);
+
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setRightMargin(value);
 
@@ -778,8 +798,16 @@ void SMParagraphStyle::slotRightIndent(double value)
 	}
 }
 
-void SMParagraphStyle::slotFirstLine(double value)
+void SMParagraphStyle::slotFirstLine()
 {
+	double a, b, value;
+	int c;
+
+	if (pwidget_->tabList_->useParentFirstLine())
+		value = Style::NOVALUE;
+	else
+		pwidget_->tabList_->first_->getValues(&a, &b, &c, &value);
+
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setFirstIndent(value);
 

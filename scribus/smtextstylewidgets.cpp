@@ -8,9 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtextstylewidgets.h"
 #include "smtextstylewidgets.moc"
 #include "util.h"
-#include "tabruler.h"
 #include "commonstrings.h"
-#include "style.h"
 #include "smwidgets.h"
 
 #include <qgroupbox.h>
@@ -141,7 +139,7 @@ void SMPStyleWidget::setupTabs()
 	tabsBoxLayout->setSpacing( 5 );
 	tabsBoxLayout->setMargin( 10 );
 
-	tabList_ = new Tabruler(tabsBox);
+	tabList_ = new SMTabruler(tabsBox);
 	tabsBoxLayout->addWidget( tabList_ );
 }
 
@@ -185,6 +183,25 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 		alignement_->setStyle(pstyle.alignment(), pstyle.isPalignment());
 		alignement_->setParentItem(parent->alignment());
+
+		bool hasParentTabs = pstyle.isPtabValues();
+		QValueList<ParagraphStyle::TabRecord> tabs;
+		if (hasParentTabs)
+			tabs = QValueList<ParagraphStyle::TabRecord>(parent->tabValues());
+		else
+			tabs = pstyle.tabValues();
+
+		tabList_->setTabs(tabs, unitIndex, hasParentTabs);
+		tabList_->setParentTabs(parent->tabValues());
+
+		tabList_->setLeftIndentValue(pstyle.leftMargin(),pstyle.isPleftMargin());
+		tabList_->setParentLeftIndent(parent->leftMargin());
+
+		tabList_->setFirstLineValue(pstyle.firstIndent(), pstyle.isPfirstIndent());
+		tabList_->setParentFirstLine(parent->firstIndent());
+
+		tabList_->setRightIndentValue(pstyle.rightMargin(), pstyle.isPrightMargin());
+		tabList_->setParentRightIndent(parent->rightMargin());
 	}
 	else
 	{
@@ -195,18 +212,13 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		dropCapLines_->setValue(pstyle.dropCapLines());
 		dropCapOffset_->setValue(pstyle.dropCapOffset());
 		alignement_->setStyle(pstyle.alignment());
+		tabList_->setTabs(pstyle.tabValues(), unitIndex);
+		tabList_->setLeftIndentValue(pstyle.leftMargin());
+		tabList_->setFirstLineValue(pstyle.firstIndent());
+		tabList_->setRightIndentValue(pstyle.rightMargin());
 	}
 
 	lineSpacing_->setEnabled(pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
-
-	tabList_->setTabs(pstyle.tabValues(), unitIndex);
-	tabList_->setFirstLineData(pstyle.firstIndent());
-	tabList_->setFirstLine();
-	tabList_->setLeftIndentData(pstyle.leftMargin());
-	tabList_->setLeftIndent();
-	tabList_->setRightIndentData(pstyle.rightMargin());
-	tabList_->setRightIndent();
-
 	dropCapsBox->setChecked(pstyle.hasDropCap());
 
 //  ASK Avox!

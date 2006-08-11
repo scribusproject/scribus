@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>680</width>
+            <width>705</width>
             <height>481</height>
         </rect>
     </property>
@@ -50,6 +50,14 @@
             <widget class="QFrame">
                 <property name="name">
                     <cstring>leftFrame</cstring>
+                </property>
+                <property name="sizePolicy">
+                    <sizepolicy>
+                        <hsizetype>1</hsizetype>
+                        <vsizetype>5</vsizetype>
+                        <horstretch>0</horstretch>
+                        <verstretch>0</verstretch>
+                    </sizepolicy>
                 </property>
                 <property name="minimumSize">
                     <size>
@@ -127,7 +135,7 @@
                                 </property>
                                 <property name="sizePolicy">
                                     <sizepolicy>
-                                        <hsizetype>5</hsizetype>
+                                        <hsizetype>1</hsizetype>
                                         <vsizetype>7</vsizetype>
                                         <horstretch>0</horstretch>
                                         <verstretch>4</verstretch>
@@ -196,7 +204,7 @@
                                 </property>
                                 <property name="sizePolicy">
                                     <sizepolicy>
-                                        <hsizetype>5</hsizetype>
+                                        <hsizetype>1</hsizetype>
                                         <vsizetype>5</vsizetype>
                                         <horstretch>0</horstretch>
                                         <verstretch>0</verstretch>

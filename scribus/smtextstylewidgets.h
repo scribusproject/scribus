@@ -23,7 +23,7 @@ class QComboBox;
 class SMAlignSelect;
 class SMSpinBox;
 class QVBoxLayout;
-class Tabruler;
+class SMTabruler;
 class SMFontComboH;
 class StyleSelect;
 class QSpacerItem;
@@ -72,7 +72,7 @@ private:
 	SMMSpinBox  *dropCapOffset_;
 
 	SMAlignSelect *alignement_;
-	Tabruler      *tabList_;
+	SMTabruler    *tabList_;
 	SMCStylePage  *cpage;
 
 	void setupDistances();

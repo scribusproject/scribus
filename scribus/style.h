@@ -400,10 +400,18 @@ public:
 	bool isPdropCapLines() const { return DropLin==NOVALUE && parent(); }
 	bool isPdropCapOffset() const { return DropDist<=NOVALUE && parent(); }
 	bool isPuseBaselineGrid() const { return BaseAdj==NOVALUE && parent(); }
-	
+	bool isPtabValues() const { return !haveTabs && parent(); };
+
 	// these return writeable references for now:
 	QValueList<TabRecord> & tabValues() { haveTabs = true; return TabValues; }
 	const QValueList<TabRecord> & tabValues() const { return !haveTabs && parent()? inh().tabValues() : TabValues; }
+	void useParentTabs() {
+		if (haveTabs && parent())
+		{
+			TabValues.clear();
+			haveTabs = false;
+		}
+	}
 
 	CharStyle & charStyle() { return cstyle; }
 	const CharStyle& charStyle() const { return cstyle; }

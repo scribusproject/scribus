@@ -88,7 +88,7 @@ public:
 	          double wid = -1);
 	~Tabruler() {};
 
-	void setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
+	virtual void setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin);
 
 	QValueList<ParagraphStyle::TabRecord> getTabVals();
 	bool haveF;
@@ -129,6 +129,7 @@ signals:
 	void rightIndentChanged(double);
 	/** emitted when first line is changed */
 	void firstLineChanged(double);
+	void mouseReleased();
 
 protected:
 	QVBoxLayout* tabrulerLayout;
@@ -136,6 +137,7 @@ protected:
 	QHBoxLayout* layout1;
 	QHBoxLayout* indentLayout;
 	QVBoxLayout* layout3;
+	QHBoxLayout *layout4;
 	QComboBox* TypeCombo;
 	QComboBox* tabFillCombo;
 	QLabel* tabFillComboT;
@@ -153,6 +155,8 @@ protected:
 	QPushButton* clearButton;
 
 	double docUnitRatio;
+protected slots:
+	void slotMouseReleased();
 };
 
 #endif // TABRULER_H
