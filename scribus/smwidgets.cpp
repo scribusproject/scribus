@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "smwidgets.h"
 #include "smwidgets.moc"
 #include <qtooltip.h>
+#include "units.h"
 
 /***********************************************************************/
 /***********************************************************************/
@@ -803,6 +804,18 @@ void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin)
 	parentButton_->hide();
 	Tabruler::setTabs(Tabs, dEin);
 	Tabruler::repaint();
+	QString ein = unitGetSuffixFromIndex(dEin);
+	if (dEin == 2)
+	{
+		first_->setDecimals(10000);
+		left_->setDecimals(10000);
+		right_->setDecimals(10000);
+		tabData->setDecimals(10000);
+	}
+	first_->setSuffix(ein);
+	left_->setSuffix(ein);
+	right_->setSuffix(ein);
+	tabData->setSuffix(ein);
 }
 
 void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin, bool isParentValue)
@@ -817,6 +830,19 @@ void SMTabruler::setTabs(QValueList<ParagraphStyle::TabRecord> Tabs, int dEin, b
 		parentButton_->show();
 	Tabruler::setTabs(Tabs, dEin);
 	Tabruler::repaint();
+	QString ein = unitGetSuffixFromIndex(dEin);
+	if (dEin == 2)
+	{
+		firstLineData->setDecimals(10000);
+		leftIndentData->setDecimals(10000);
+		rightIndentData->setDecimals(10000);
+		tabData->setDecimals(10000);
+	}
+	firstLineData->setSuffix(ein);
+	leftIndentData->setSuffix(ein);
+	rightIndentData->setSuffix(ein);
+	tabData->setSuffix(ein);
+
 	connect(this, SIGNAL(tabsChanged()), this, SLOT(slotTabsChanged()));
 	connect(this, SIGNAL(mouseReleased()), this, SLOT(slotTabsChanged()));
 }
