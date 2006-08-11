@@ -99,7 +99,6 @@ void SMPStyleWidget::languageChange()
 	distancesBox->setTitle(tr("Distances and Alignment"));
 	dropCapsBox->setTitle(tr("Drop Caps"));
 	tabsBox->setTitle(tr("Tabulators and Indentation"));
-	characterBox->setTitle(tr("Properties"));
 	tabWidget->setTabLabel(tabWidget->page(0), tr("Properties"));
 	tabWidget->setTabLabel(tabWidget->page(1), tr("Character Style"));
 }
@@ -145,10 +144,10 @@ void SMPStyleWidget::setupTabs()
 
 void SMPStyleWidget::setupCharStyle()
 {
-	characterBox->setColumns(3);
-	characterBox->setInsideMargin(5);
-	characterBox->setInsideSpacing(5);
+	QHBoxLayout *la = new QHBoxLayout(characterBox, 0, 0, "la");
 	cpage = new SMCStylePage(characterBox);
+	la->addWidget(cpage);
+	characterBox->setEnabled(true);
 }
 
 void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)

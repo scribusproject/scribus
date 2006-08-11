@@ -199,35 +199,21 @@
                     <property name="name">
                         <cstring>unnamed</cstring>
                     </property>
-                    <spacer>
-                        <property name="name">
-                            <cstring>spacer10_2_2</cstring>
-                        </property>
-                        <property name="orientation">
-                            <enum>Vertical</enum>
-                        </property>
-                        <property name="sizeType">
-                            <enum>Fixed</enum>
-                        </property>
-                        <property name="sizeHint">
-                            <size>
-                                <width>21</width>
-                                <height>10</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget class="QGroupBox">
+                    <widget class="QFrame">
                         <property name="name">
                             <cstring>characterBox</cstring>
                         </property>
+                        <property name="enabled">
+                            <bool>false</bool>
+                        </property>
                         <property name="frameShape">
-                            <enum>GroupBoxPanel</enum>
+                            <enum>NoFrame</enum>
                         </property>
                         <property name="frameShadow">
                             <enum>Plain</enum>
                         </property>
-                        <property name="title">
-                            <string>Properties</string>
+                        <property name="lineWidth">
+                            <number>0</number>
                         </property>
                     </widget>
                 </vbox>
