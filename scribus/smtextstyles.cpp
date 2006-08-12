@@ -74,14 +74,16 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 
 QValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 {
-	deleted_.clear();
 	QValueList<StyleName> tmpList;
 
 	if (!doc_)
 		return tmpList; // no doc available
 
 	if (reloadFromDoc)
+	{
+		deleted_.clear();
 		reloadTmpStyles();
+	}
 
 	for (uint i = 5 /* err */; i < tmpStyles_.count(); ++i)
 	{
@@ -277,7 +279,13 @@ void SMParagraphStyle::apply()
 	QMap<QString, QString> replacement;
 	for (uint i = 0; i < deleted_.count(); ++i)
 		replacement[deleted_[i].first] = deleted_[i].second;
-	deleted_.clear();
+
+	// append new styles to the docParagraphStyles
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	{
+		if (doc_->docParagraphStyles.find(tmpStyles_[i].name()) == -1)
+			doc_->docParagraphStyles.create(tmpStyles_[i]);
+	}
 
 	for (uint a=5; a<doc_->docParagraphStyles.count(); ++a)
 	{
@@ -296,85 +304,63 @@ void SMParagraphStyle::apply()
 			ers.append(nr);
 		else
 		{
-			for (uint b=0; b<tmpStyles_.count(); ++b)
+			if (replacement.count() != 0)
 			{
-				if (doc_->docParagraphStyles[a].equiv(tmpStyles_[b]))
-				{
-					nr = b;
-					ff = true;
-					break;
-				}
-			}
-			if (ff)
-				ers.append(nr);
-			else
-			{
-				if (replacement.count() != 0)
-				{
-					QString ne = replacement[nn];
-					if (ne == QString::null)
-						ers.append(0);
-					else
-					{
-						for (uint b=0; b<tmpStyles_.count(); ++b)
-						{
-							if (ne == tmpStyles_[b].name())
-							{
-								nr = b;
-								ff = true;
-								break;
-							}
-						}
-						if (ff)
-							ers.append(nr);
-						else
-							ers.append(0);
-					}
-				}
-				else
+				QString ne = replacement[nn];
+				if (ne == QString::null)
 					ers.append(0);
+				else
+				{
+					for (uint b=0; b<tmpStyles_.count(); ++b)
+					{
+						if (ne == tmpStyles_[b].name())
+						{
+							nr = b;
+							ff = true;
+							break;
+						}
+					}
+					if (ff)
+						ers.append(nr);
+					else
+						ers.append(0);
+				}
 			}
+			else
+				ers.append(0);
 		}
 	}
 
-	if (doc_->scMW()->CurrStED != NULL)
+	// finally remove the deleted styles from doc_->docPargraphStyles'
+	for (uint i = 0; i < deleted_.count(); ++i)
 	{
-		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
-		{
-			for (uint pa = 0; pa < doc_->scMW()->CurrStED->Editor->StyledText.count(); ++pa)
-			{
-				SEditor::ChList *chars;
-				chars = doc_->scMW()->CurrStED->Editor->StyledText.at(pa);
-				(*doc_->scMW()->CurrStED->Editor->ParagStyles.at(pa)) = ers[doc_->scMW()->CurrStED->Editor->ParagStyles[pa]];
-			}
-			doc_->scMW()->CurrStED->Editor->currentParaStyle = ers[doc_->scMW()->CurrStED->Editor->currentParaStyle];
-		}
+		int index = doc_->docParagraphStyles.find(deleted_[i].first);
+		if (index > -1)
+			doc_->docParagraphStyles.remove(index);
 	}
+
 	doc_->docParagraphStyles.redefine(tmpStyles_);
-	if (doc_->scMW()->CurrStED != NULL)
-	{
-		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
-			doc_->scMW()->CurrStED->Editor->updateAll();
-	}
 
-	// TODO add some handy way to add used fonts to the used fonts menu
-// 	PrefsManager *prefsManager = PrefsManager::instance();
-// 	for (uint a=0; a<doc_->docParagraphStyles.count(); ++a)
+	deleted_.clear(); // deletion done at this point
+
+// 	if (doc_->scMW()->CurrStED != NULL)
 // 	{
-// 		if (!doc_->docParagraphStyles[a].charStyle().font().isNone())
+// 		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
 // 		{
-// 			QString nf = doc_->docParagraphStyles[a].charStyle().font().scName();
-// 			if (!doc_->UsedFonts.contains(nf))
+// 			for (uint pa = 0; pa < doc_->scMW()->CurrStED->Editor->StyledText.count(); ++pa)
 // 			{
-// 				if (doc_->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
-// 				{
-// // 					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
-// // 					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
-// 				}
-// 				else
-// 					doc_->docParagraphStyles[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc_->toolSettings.defFont]));
+// 				SEditor::ChList *chars;
+// 				chars = doc_->scMW()->CurrStED->Editor->StyledText.at(pa);
+// 				(*doc_->scMW()->CurrStED->Editor->ParagStyles.at(pa)) = ers[doc_->scMW()->CurrStED->Editor->ParagStyles[pa]];
 // 			}
+// 			doc_->scMW()->CurrStED->Editor->currentParaStyle = ers[doc_->scMW()->CurrStED->Editor->currentParaStyle];
 // 		}
+// 	}
+// 
+// 	if (doc_->scMW()->CurrStED != NULL)
+// 	{
+// 		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
+// 			doc_->scMW()->CurrStED->Editor->updateAll();
 // 	}
 
 	doc_->scMW()->propertiesPalette->Spal->updateFormatList();

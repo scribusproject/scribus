@@ -1042,7 +1042,3 @@ ShortcutWidget::~ShortcutWidget()
 {
 
 }
-
-
-
-
