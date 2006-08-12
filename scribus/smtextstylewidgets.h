@@ -75,6 +75,9 @@ private:
 	SMTabruler    *tabList_;
 	SMCStylePage  *cpage;
 
+	bool hasParent_;
+	bool parentDropCap_;
+
 	void setupDistances();
 	void setupDropCaps();
 	void setupTabs();
@@ -84,6 +87,11 @@ private:
 
 private slots:
 	void slotLineSpacingModeChanged(int);
+	void slotDropCap();
+	void slotParentDropCap();
+
+signals:
+	void useParentDropCap();
 };
 
 class SMCStylePage : public CStylePBase
@@ -141,6 +149,9 @@ private:
 
 	friend class SMParagraphStyle;
 	friend class SMCharacterStyle;
+
+private slots:
+	void slotColorChange();
 };
 
 #endif

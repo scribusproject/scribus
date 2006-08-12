@@ -62,6 +62,7 @@ private slots:
 	// pstyle
 	void slotLineSpacingMode(int mode);
 	void slotLineSpacing();
+	void slotParentDropCap();
 	void slotDropCap(bool isOn);
 	void slotDropCapLines(int lines);
 	void slotDropCapOffset();

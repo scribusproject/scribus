@@ -377,6 +377,10 @@ public:
 	void setHasDropCap(bool p) { 
 		Drop = p? 1 : 0; 
 	}
+	void useParentDropCap() {
+		if (parent())
+			Drop = NOVALUE;
+	}
 	void setDropCapLines(int p) { 
 		DropLin = p; 
 	}

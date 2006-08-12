@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>386</width>
-            <height>261</height>
+            <width>393</width>
+            <height>303</height>
         </rect>
     </property>
     <property name="caption">
@@ -47,7 +47,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>10</height>
+                                <height>16</height>
                             </size>
                         </property>
                     </spacer>
@@ -95,13 +95,13 @@
                         <property name="sizeHint">
                             <size>
                                 <width>21</width>
-                                <height>10</height>
+                                <height>16</height>
                             </size>
                         </property>
                     </spacer>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout10</cstring>
+                            <cstring>layout4</cstring>
                         </property>
                         <hbox>
                             <property name="name">
@@ -129,24 +129,54 @@
                                     <string>Distances and Alignment</string>
                                 </property>
                             </widget>
-                            <widget class="QGroupBox">
+                            <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>dropCapsBox</cstring>
+                                    <cstring>layout3</cstring>
                                 </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>5</hsizetype>
-                                        <vsizetype>1</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="frameShape">
-                                    <enum>GroupBoxPanel</enum>
-                                </property>
-                                <property name="title">
-                                    <string>Drop Caps</string>
-                                </property>
+                                <vbox>
+                                    <property name="name">
+                                        <cstring>unnamed</cstring>
+                                    </property>
+                                    <property name="margin">
+                                        <number>0</number>
+                                    </property>
+                                    <property name="spacing">
+                                        <number>2</number>
+                                    </property>
+                                    <widget class="QGroupBox">
+                                        <property name="name">
+                                            <cstring>dropCapsBox</cstring>
+                                        </property>
+                                        <property name="sizePolicy">
+                                            <sizepolicy>
+                                                <hsizetype>5</hsizetype>
+                                                <vsizetype>1</vsizetype>
+                                                <horstretch>0</horstretch>
+                                                <verstretch>0</verstretch>
+                                            </sizepolicy>
+                                        </property>
+                                        <property name="frameShape">
+                                            <enum>GroupBoxPanel</enum>
+                                        </property>
+                                        <property name="title">
+                                            <string>Drop Caps</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton">
+                                        <property name="name">
+                                            <cstring>parentDropCapButton</cstring>
+                                        </property>
+                                        <property name="maximumSize">
+                                            <size>
+                                                <width>32767</width>
+                                                <height>20</height>
+                                            </size>
+                                        </property>
+                                        <property name="text">
+                                            <string>Parent's Drop Cap Status</string>
+                                        </property>
+                                    </widget>
+                                </vbox>
                             </widget>
                         </hbox>
                     </widget>
@@ -163,7 +193,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>20</width>
-                                <height>10</height>
+                                <height>16</height>
                             </size>
                         </property>
                     </spacer>

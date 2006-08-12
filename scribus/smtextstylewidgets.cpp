@@ -160,6 +160,8 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
 	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
 
+	hasParent_ = hasParent;
+
 	if (hasParent)
 	{
 		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode(), pstyle.isPlineSpacingMode());
@@ -173,6 +175,16 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isPgapAfter());
 		spaceBelow_->setParentValue(parent->gapAfter());
+
+		dropCapsBox->setChecked(pstyle.hasDropCap());;
+		parentDropCap_ = parent->hasDropCap();
+		if (pstyle.isPhasDropCap())
+			parentDropCapButton->hide();
+		else
+			parentDropCapButton->show();
+
+		connect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
+		connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 
 		dropCapLines_->setValue(pstyle.dropCapLines(), pstyle.isPdropCapLines());
 		dropCapLines_->setParentValue(parent->dropCapLines());
@@ -208,8 +220,13 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		lineSpacing_->setValue(pstyle.lineSpacing());
 		spaceAbove_->setValue(pstyle.gapBefore());
 		spaceBelow_->setValue(pstyle.gapAfter());
+		dropCapsBox->setChecked(pstyle.hasDropCap());
+		parentDropCapButton->hide();
+		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
+		disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 		dropCapLines_->setValue(pstyle.dropCapLines());
 		dropCapOffset_->setValue(pstyle.dropCapOffset());
+		parentDropCapButton->hide();
 		alignement_->setStyle(pstyle.alignment());
 		tabList_->setTabs(pstyle.tabValues(), unitIndex);
 		tabList_->setLeftIndentValue(pstyle.leftMargin());
@@ -218,7 +235,10 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	}
 
 	lineSpacing_->setEnabled(pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
-	dropCapsBox->setChecked(pstyle.hasDropCap());
+
+	QFont f(font());
+	f.setBold(true);
+	parentDropCapButton->setFont(f);
 
 //  ASK Avox!
 // 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
@@ -307,6 +327,22 @@ void SMPStyleWidget::show(QValueList<ParagraphStyle> &pstyles, QValueList<Paragr
 void SMPStyleWidget::clearAll()
 {
 
+}
+
+void SMPStyleWidget::slotDropCap()
+{
+	parentDropCapButton->show();
+}
+
+void SMPStyleWidget::slotParentDropCap()
+{
+	disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
+	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
+	parentDropCapButton->hide();
+	dropCapsBox->setChecked(parentDropCap_);
+	emit useParentDropCap();
+	connect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
+	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 }
 
 SMPStyleWidget::~SMPStyleWidget()
@@ -456,6 +492,8 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	StrokeIcon->setEnabled(false);
 	strokeShade_->setEnabled(false);
 	strokeColor_->setEnabled(false);
+
+	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
 void SMCStylePage::languageChange()
@@ -506,6 +544,7 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 
 void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 {
+	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	bool hasParent = cstyle.hasParent();
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parent());
 
@@ -566,6 +605,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	effects_->StrikeVal->LWidth->setValue(cstyle.strikethruWidth() / 10.0);
 	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset() / 10.0);
 	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth() / 10.0);
+	slotColorChange();
 
 	
 
@@ -616,6 +656,8 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	}
 	else
 		language_->setCurrentItem(ci);
+
+	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
 void SMCStylePage::show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll)
@@ -631,6 +673,19 @@ void SMCStylePage::show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &c
 void SMCStylePage::clearAll()
 {
 	
+}
+
+void SMCStylePage::slotColorChange()
+{
+	int s = effects_->getStyle();
+	bool enabled;
+	if ((s & 4) || (s & 256))
+		enabled = true;
+	else
+		enabled = false;
+	StrokeIcon->setEnabled(enabled);
+	strokeShade_->setEnabled(enabled);
+	strokeColor_->setEnabled(enabled);
 }
 
 

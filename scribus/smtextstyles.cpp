@@ -493,6 +493,7 @@ void SMParagraphStyle::setupConnections()
 	connect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	connect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 
+	connect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
 	connect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	connect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	connect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapOffset()));
@@ -554,6 +555,7 @@ void SMParagraphStyle::removeConnections()
 	disconnect(pwidget_->alignement_->TextF, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 	disconnect(pwidget_->alignement_->parentButton, SIGNAL(clicked()), this, SLOT(slotAlignment()));
 
+	disconnect(pwidget_, SIGNAL(useParentDropCap()), this, SLOT(slotParentDropCap()));
 	disconnect(pwidget_->dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	disconnect(pwidget_->dropCapLines_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapLines(int)));
 	disconnect(pwidget_->dropCapOffset_, SIGNAL(valueChanged(int)), this, SLOT(slotDropCapOffset()));
@@ -695,6 +697,18 @@ void SMParagraphStyle::slotDropCap(bool isOn)
 {
 	for (uint i = 0; i < selection_.count(); ++i)
 		selection_[i]->setHasDropCap(isOn);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
+}
+
+void SMParagraphStyle::slotParentDropCap()
+{
+	for (uint i = 0; i < selection_.count(); ++i)
+		selection_[i]->useParentDropCap();
 
 	if (!selectionIsDirty_)
 	{
