@@ -551,19 +551,19 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	if (hasParent)
 	{
 		fontSize_->setValue(cstyle.fontSize() / 10.0, cstyle.isPfontSize());
-		fontSize_->setParentValue(parent->fontSize());
+		fontSize_->setParentValue(parent->fontSize() / 10.0);
 
 		fontHScale_->setValue(cstyle.scaleH() / 10.0, cstyle.isPscaleH());
-		fontHScale_->setParentValue(parent->scaleH());
+		fontHScale_->setParentValue(parent->scaleH() / 10.0);
 
 		fontVScale_->setValue(cstyle.scaleV() / 10.0, cstyle.isPscaleV());
-		fontVScale_->setParentValue(parent->scaleV());
+		fontVScale_->setParentValue(parent->scaleV() / 10.0);
 
 		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0, cstyle.isPbaselineOffset());
-		baselineOffset_->setParentValue(parent->baselineOffset());
+		baselineOffset_->setParentValue(parent->baselineOffset() / 10.0);
 
 		tracking_->setValue(cstyle.tracking() / 10.0, cstyle.isPtracking());
-		tracking_->setParentValue(parent->tracking());
+		tracking_->setParentValue(parent->tracking() / 10.0);
 
 		effects_->setStyle(static_cast<int>(cstyle.effects()), cstyle.isPeffects());
 		effects_->setParentItem(static_cast<int>(parent->effects()));
