@@ -2,10 +2,10 @@
 <scribus>
 	<release stability="stable" platform="X11" version="1.2.5"/>
 	<release stability="stablecvs" platform="X11" version="1.2.5cvs"/>
-	<release stability="unstable" platform="X11" version="1.3.3.2"/>
+	<release stability="unstable" platform="X11" version="1.3.3.3"/>
 	<release stability="unstablecvs" platform="X11" version="1.3.4cvs"/>
-	<release stability="unstable" platform="Win32" version="1.3.3.2"/>
-	<release stability="unstable" platform="MacOSX" version="1.3.3.2"/>
+	<release stability="unstable" platform="Win32" version="1.3.3.3"/>
+	<release stability="unstable" platform="MacOSX" version="1.3.3.3"/>
 	<release stability="unstablecvs" platform="MacOSX" version="1.3.4cvs"/>
 	<message lang="en"> - Scribus 1.2.5 is the last expected release in the 1.2.x series.<![CDATA[<br>]]> - We have stabilised 1.3.3.x for those wishing to use some new features of the 1.3.x series but need more stability.<![CDATA[<br>]]> </message>
 </scribus>
