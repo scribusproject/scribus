@@ -94,6 +94,9 @@
                                 <property name="name">
                                     <cstring>radioButtonTable</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>T&amp;able</string>
                                 </property>
@@ -108,6 +111,9 @@
                                 <property name="name">
                                     <cstring>radioButtonShape</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>Shape</string>
                                 </property>
@@ -115,6 +121,9 @@
                             <widget class="QRadioButton">
                                 <property name="name">
                                     <cstring>radioButtonPolygon</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Polygon</string>
@@ -127,6 +136,9 @@
                                 <property name="name">
                                     <cstring>radioButtonLine</cstring>
                                 </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
+                                </property>
                                 <property name="text">
                                     <string>Line</string>
                                 </property>
@@ -137,6 +149,9 @@
                             <widget class="QRadioButton">
                                 <property name="name">
                                     <cstring>radioButtonBezier</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="text">
                                     <string>Bezier Curve</string>
@@ -695,7 +710,7 @@
                                         </widget>
                                         <widget class="QLineEdit">
                                             <property name="name">
-                                                <cstring>lineEdit6</cstring>
+                                                <cstring>sourceDocLineEdit</cstring>
                                             </property>
                                         </widget>
                                         <widget class="QPushButton">

@@ -792,6 +792,7 @@ void ScribusMainWindow::initMenuBar()
 
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
+	scrActions["insertFrame"]->setEnabled(false);
 	scrActions["insertGlyph"]->setEnabled(false);
 
 	//Page menu
@@ -2332,6 +2333,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["viewShowRulers"]->setEnabled(true);
 
 	scrMenuMgr->setMenuEnabled("Insert", true);
+	scrActions["insertFrame"]->setEnabled(true);
 	//scrMenuMgr->setMenuEnabled("Windows", true);
 	scrMenuMgr->setMenuEnabled("Page", true);
 	scrMenuMgr->setMenuEnabled("Extras", true);
@@ -4117,6 +4119,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["viewShowRulers"]->setEnabled(false);
 
 		scrMenuMgr->setMenuEnabled("Insert", false);
+		scrActions["insertFrame"]->setEnabled(false);
 		scrMenuMgr->setMenuEnabled("Page", false);
 		scrMenuMgr->setMenuEnabled("Extras", false);
 		scrMenuMgr->setMenuEnabled("Style", false);
@@ -9035,7 +9038,15 @@ void ScribusMainWindow::slotInsertFrame()
 		if (doc->m_Selection->count() != 0)
 			view->Deselect(false);
 		InsertAFrame *dia = new InsertAFrame(this, doc);
-		dia->exec();
+		if (dia->exec())
+		{
+			PageItem::ItemType frameType;
+			int locationType=0, positionType=0, sizeType=0;
+			double x=0.0, y=0.0, width=0.0, height=0.0;
+			QString source("");
+			dia->getNewFrameProperties(frameType, locationType, positionType, sizeType, x, y, width, height, source);
+			doc->itemAddUserFrame(frameType, locationType, positionType, sizeType, x, y, width, height, source);
+		}
 		delete dia;
 	}
 }

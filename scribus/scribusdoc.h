@@ -464,6 +464,8 @@ public:
 
 	/** Add an item to the page based on the x/y position. Item will be fitted to the closest guides/margins */
 	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
+	
+	int itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source);
 
 	/**
 	 * @brief Commit item creation when a user has click-drag created an item

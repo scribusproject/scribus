@@ -18,6 +18,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "insertaframebase.h"
 #include "scribusapi.h"
+#include "pageitem.h"
+
+#include <qstring.h>
 
 class ScribusDoc;
 
@@ -29,6 +32,7 @@ public:
 	InsertAFrame(QWidget* parent, ScribusDoc *doc);
 	~InsertAFrame(){};
 	
+	void getNewFrameProperties(PageItem::ItemType& frameType, int& locationType, int& positionType, int& sizeType, double& x, double& y, double& width, double& height, QString &source);
 protected:
 	ScribusDoc* m_Doc;
 	

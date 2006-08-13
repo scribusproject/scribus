@@ -35,6 +35,20 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	slotSelectPagePlacement(0);
 	slotSelectPosition(0);
 	slotSelectSize(0);
+	
+	int docUnitIndex = m_Doc->unitIndex();
+// 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
+	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
+	QString unitSuffix(unitGetSuffixFromIndex(docUnitIndex));
+	xPosMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	yPosMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	widthMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	heightMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	xPosMSpinBox->setSuffix(unitSuffix);
+	yPosMSpinBox->setSuffix(unitSuffix);
+	widthMSpinBox->setSuffix(unitSuffix);
+	heightMSpinBox->setSuffix(unitSuffix);
+
  	connect(typeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectType(int)));
  	connect(pagePlacementButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPagePlacement(int)));
  	connect(framePositionButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPosition(int)));
@@ -91,4 +105,41 @@ void InsertAFrame::slotSelectSize( int id )
 {
 	widthMSpinBox->setEnabled(id==2);
 	heightMSpinBox->setEnabled(id==2);
+}
+
+void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source )
+{
+	int type=typeButtonGroup->selectedId();
+	switch(type)
+	{
+		case 0:
+			frameType=PageItem::TextFrame;
+			break;
+		case 1:
+			frameType=PageItem::ImageFrame;
+			break;
+		case 2:
+// 			frameType=PageItem::
+			break;
+		case 3:
+			frameType=PageItem::Polygon;
+			break;
+		case 4:
+			frameType=PageItem::Polygon;
+			break;
+		case 5:
+			frameType=PageItem::Line;
+			break;
+		case 6:
+			frameType=PageItem::PolyLine;
+			break;
+	}
+	locationType=pagePlacementButtonGroup->selectedId();
+	positionType=framePositionButtonGroup->selectedId();
+	sizeType=sizeButtonGroup->selectedId();
+	x=xPosMSpinBox->value();
+	y=yPosMSpinBox->value();
+	width=widthMSpinBox->value();
+	height=heightMSpinBox->value();
+	source=sourceDocLineEdit->text();
 }

@@ -2788,6 +2788,57 @@ int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::I
 	return itemAdd(itemType, frameType, tl.first + xo, tl.second + yo, tr.first - tl.first, bl.second - tl.second, w, fill, outline, itemFinalised);
 }
 
+
+int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source)
+{
+	double x1=0.0,y1=0.0,w1=fWidth,h1=fHeight;
+	Page* targetPage=currentPage();
+	if (locationType!=0)
+	{
+		//handle non current page stuff
+	}
+	
+	if (positionType==0)
+	{
+		x1=targetPage->xOffset();
+		y1=targetPage->yOffset();
+	} 
+	else if (positionType==1)
+	{
+		x1=targetPage->xOffset()+targetPage->Margins.Top;
+		y1=targetPage->yOffset()+targetPage->Margins.Left;
+	}
+	else if (positionType==2)
+	{
+		x1=targetPage->xOffset()+fX/docUnitRatio;
+		y1=targetPage->yOffset()+fY/docUnitRatio;
+	}
+	
+	if (sizeType==0)
+	{
+		w1=targetPage->width();
+		h1=targetPage->height();
+	}
+	else if (sizeType==1)
+	{
+		w1=targetPage->width()-targetPage->Margins.Right-targetPage->Margins.Left;
+		h1=targetPage->height()-targetPage->Margins.Bottom-targetPage->Margins.Top;
+	}
+	else if (sizeType==2)
+	{
+		w1=fWidth/docUnitRatio;
+		h1=fHeight/docUnitRatio;
+	}
+	int z=itemAdd(type, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
+	if (z!=-1)
+	{
+		setRedrawBounding(Items->at(z));
+		changed();
+		emit updateContents();
+	}
+	return z;
+}
+
 void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber)
 {
 	PageItem* newItem=Items->at(itemNumber);
