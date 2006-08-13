@@ -340,7 +340,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout16->addWidget( textLabel5 );
 	optionStack = new QWidgetStack( this, "optionStack" );
 	optionStack->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, optionStack->sizePolicy().hasHeightForWidth() ) );
-	optionStack->setMinimumSize( QSize( 220, 80 ) );
+	optionStack->setMinimumSize( QSize( 220, 160 ) );
 	optionStack->setFrameShape( QWidgetStack::GroupBoxPanel );
 	WStackPage = new QWidget( optionStack, "WStackPage" );
 	optionStack->addWidget( WStackPage, 0 );

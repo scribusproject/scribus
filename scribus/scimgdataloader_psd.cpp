@@ -269,7 +269,6 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 					case 0:	// RGB colour
 						col.setColorRGB(c >> 8, m >> 8, y >> 8);
 						colorTableSc.append(col);
-//						qDebug("RGB = "+col.nameRGB());
 						break;
 					case 1:	// HSB colour
 						hc = c >> 8;
@@ -278,12 +277,10 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 						HSVTORGB(hc, sc, bc);
 						col.setColorRGB(hc, sc, bc);
 						colorTableSc.append(col);
-//						qDebug("HSB as RGB = "+col.nameRGB());
 						break;
 					case 2:	// CMYK colour
 						col.setColor(c >> 8, m >> 8, y >> 8, k >> 8);
 						colorTableSc.append(col);
-//						qDebug("CMYK = "+col.nameCMYK());
 						break;
 					case 3:	// Pantone
 					case 4:	// Focoltone
@@ -291,35 +288,106 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 					case 6:	// Toyo 88 colorfinder 1050
 					case 7:	// LAB colour space
 					case 10: // HKS colors
-						colorTableSc.clear();
-						colorTableSc.append(ScColor(0, 0, 0, 255));
-						colorTableSc.append(ScColor(0, 0, 0, 0));
-						specialColour = true;	// Reset the colourtable to black and white as we have no possibility to get the real colour values
+						if (colorTableSc.count() == 0)
+							colorTableSc.append(ScColor(0, 0, 0, 255));
+						else
+							colorTableSc.append(ScColor(0, 0, 0, 0));
+						specialColour = true;
 						break;
 					case 8: // Grayscale
 						c = qRound((c / 10000.0) * 255);
 						colorTableSc.append(ScColor(0, 0, 0, c));
 						break;
 				}
-				if (specialColour)
-					break;
 			}
-			if (specialColour)
+			if (specialColour) // we will only load the grayscale image data and do the colorizing with the Image Effects;
 			{
 				s.device()->at( duodataStart + 40 );
 				uint duoNameStart = s.device()->at();
+				uint duoCurveStart = duoNameStart+256;
 				for (int cda = 0; cda < count; cda++)
 				{
 					QString colName;
 					s.device()->at( duoNameStart + (64 * static_cast<uint>(cda)) );
 					colName = getPascalString(s);
+					s.device()->at( duoCurveStart + (28 * static_cast<uint>(cda)) );
+					FPointArray tmcu;
+					tmcu.resize(0);
+					for (int cu = 0; cu < 13; cu++)
+					{
+						short val;
+						s >> val;
+						if (val != -1)
+							tmcu.addPoint(cu * 1.0 / 12.0, val / 1000.0);
+					}
 					PSDDuotone_Color colSpec;
 					colSpec.Name = colName;
-					if (cda == 0)
-						colSpec.Color = ScColor(0, 0, 0, 255);
-					else
-						colSpec.Color = ScColor(0, 0, 0, 0);
+					colSpec.Color = colorTableSc[cda];
+					colSpec.Curve = tmcu;
 					m_imageInfoRecord.duotoneColors.append(colSpec);
+				}
+				// Initialize loading curve tables with default values
+				curveTable1.resize(256);
+				curveTable2.resize(256);
+				curveTable3.resize(256);
+				curveTable4.resize(256);
+				for (int x = 0 ; x < 256 ; x++)
+				{
+					curveTable1[x] = x;
+					curveTable2[x] = x;
+					curveTable3[x] = x;
+					curveTable4[x] = x;
+				}
+			}
+			else
+			{
+				s.device()->at( duodataStart + 40 );
+				uint duoNameStart = s.device()->at();
+				uint duoCurveStart = duoNameStart+256;
+				for (int cda = 0; cda < count; cda++)
+				{
+					s.device()->at( duoCurveStart + (28 * static_cast<uint>(cda)) );
+					FPointArray tmcu;
+					tmcu.resize(0);
+					for (int cu = 0; cu < 13; cu++)
+					{
+						short val;
+						s >> val;
+						if (val != -1)
+							tmcu.addPoint(cu * 1.0 / 12.0, val / 1000.0);
+					}
+					if (cda == 0)
+					{
+						curveTable1.resize(256);
+						for (int x = 0 ; x < 256 ; x++)
+						{
+							curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(tmcu, x / 255.0) * 255)));
+						}
+					}
+					else if (cda == 1)
+					{
+						curveTable2.resize(256);
+						for (int x = 0 ; x < 256 ; x++)
+						{
+							curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(tmcu, x / 255.0) * 255)));
+						}
+					}
+					else if (cda == 2)
+					{
+						curveTable3.resize(256);
+						for (int x = 0 ; x < 256 ; x++)
+						{
+							curveTable3[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(tmcu, x / 255.0) * 255)));
+						}
+					}
+					else if (cda == 3)
+					{
+						curveTable4.resize(256);
+						for (int x = 0 ; x < 256 ; x++)
+						{
+							curveTable4[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(tmcu, x / 255.0) * 255)));
+						}
+					}
 				}
 			}
 		}
@@ -1544,22 +1612,22 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	if (colorTableSc.count() == 1)
 	{
 		colorTableSc[0].getRawRGBColor(&c, &m, &y);
-		ptr[2] = QMIN((c * cbyte) >> 8, 255);
-		ptr[1] = QMIN((m * cbyte) >> 8, 255);
-		ptr[0] = QMIN((y * cbyte) >> 8, 255);
+		ptr[2] = QMIN((c * curveTable1[(int)cbyte]) >> 8, 255);
+		ptr[1] = QMIN((m * curveTable1[(int)cbyte]) >> 8, 255);
+		ptr[0] = QMIN((y * curveTable1[(int)cbyte]) >> 8, 255);
 	}
 	else if (colorTableSc.count() == 2)
 	{
 		colorTableSc[0].getCMYK(&c, &m, &y, &k);
-		c = QMIN((c * cb) >> 8, 255);
-		m = QMIN((m * cb) >> 8, 255);
-		y = QMIN((y * cb) >> 8, 255);
-		k = QMIN((k * cb) >> 8, 255);
+		c = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
+		m = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
+		y = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
+		k = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
 		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
-		c1 = QMIN((c1 * cb) >> 8, 255);
-		m1 = QMIN((m1 * cb) >> 8, 255);
-		y1 = QMIN((y1 * cb) >> 8, 255);
-		k1 = QMIN((k1 * cb) >> 8, 255);
+		c1 = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
+		m1 = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
+		y1 = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
+		k1 = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
 		ScColor col = ScColor(QMIN(c+c1, 255), QMIN(m+m1, 255), QMIN(y+y1, 255), QMIN(k+k1, 255));
 		col.getRawRGBColor(&c, &m, &y);
 		ptr[2] = c;
@@ -1569,20 +1637,20 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	else if (colorTableSc.count() == 3)
 	{
 		colorTableSc[0].getCMYK(&c, &m, &y, &k);
-		c = QMIN((c * cb) >> 8, 255);
-		m = QMIN((m * cb) >> 8, 255);
-		y = QMIN((y * cb) >> 8, 255);
-		k = QMIN((k * cb) >> 8, 255);
+		c = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
+		m = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
+		y = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
+		k = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
 		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
-		c1 = QMIN((c1 * cb) >> 8, 255);
-		m1 = QMIN((m1 * cb) >> 8, 255);
-		y1 = QMIN((y1 * cb) >> 8, 255);
-		k1 = QMIN((k1 * cb) >> 8, 255);
+		c1 = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
+		m1 = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
+		y1 = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
+		k1 = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
 		colorTableSc[2].getCMYK(&c2, &m2, &y2, &k2);
-		c2 = QMIN((c2 * cb) >> 8, 255);
-		m2 = QMIN((m2 * cb) >> 8, 255);
-		y2 = QMIN((y2 * cb) >> 8, 255);
-		k2 = QMIN((k2 * cb) >> 8, 255);
+		c2 = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
+		m2 = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
+		y2 = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
+		k2 = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
 		ScColor col = ScColor(QMIN(c+c1+c2, 255), QMIN(m+m1+m2, 255), QMIN(y+y1+y2, 255), QMIN(k+k1+k2, 255));
 		col.getRawRGBColor(&c, &m, &y);
 		ptr[2] = c;
@@ -1592,25 +1660,25 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	else if (colorTableSc.count() == 4)
 	{
 		colorTableSc[0].getCMYK(&c, &m, &y, &k);
-		c = QMIN((c * cb) >> 8, 255);
-		m = QMIN((m * cb) >> 8, 255);
-		y = QMIN((y * cb) >> 8, 255);
-		k = QMIN((k * cb) >> 8, 255);
+		c = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
+		m = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
+		y = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
+		k = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
 		colorTableSc[1].getCMYK(&c1, &m1, &y1, &k1);
-		c1 = QMIN((c1 * cb) >> 8, 255);
-		m1 = QMIN((m1 * cb) >> 8, 255);
-		y1 = QMIN((y1 * cb) >> 8, 255);
-		k1 = QMIN((k1 * cb) >> 8, 255);
+		c1 = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
+		m1 = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
+		y1 = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
+		k1 = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
 		colorTableSc[2].getCMYK(&c2, &m2, &y2, &k2);
-		c2 = QMIN((c2 * cb) >> 8, 255);
-		m2 = QMIN((m2 * cb) >> 8, 255);
-		y2 = QMIN((y2 * cb) >> 8, 255);
-		k2 = QMIN((k2 * cb) >> 8, 255);
+		c2 = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
+		m2 = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
+		y2 = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
+		k2 = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
 		colorTableSc[3].getCMYK(&c3, &m3, &y3, &k3);
-		c3 = QMIN((c3 * cb) >> 8, 255);
-		m3 = QMIN((m3 * cb) >> 8, 255);
-		y3 = QMIN((y3 * cb) >> 8, 255);
-		k3 = QMIN((k3 * cb) >> 8, 255);
+		c3 = QMIN((c3 * curveTable4[(int)cb]) >> 8, 255);
+		m3 = QMIN((m3 * curveTable4[(int)cb]) >> 8, 255);
+		y3 = QMIN((y3 * curveTable4[(int)cb]) >> 8, 255);
+		k3 = QMIN((k3 * curveTable4[(int)cb]) >> 8, 255);
 		ScColor col = ScColor(QMIN(c+c1+c2+c3, 255), QMIN(m+m1+m2+m3, 255), QMIN(y+y1+y2+y3, 255), QMIN(k+k1+k2+k3, 255));
 		col.getRawRGBColor(&c, &m, &y);
 		ptr[2] = c;
