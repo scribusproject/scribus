@@ -346,6 +346,7 @@ void Druck::SetOptions()
 void Druck::getOptions()
 {
 #ifdef HAVE_CUPS
+	PrinterOpts = "";
 	if (!cdia)
 		cdia = new CupsOptions(this, Geraet);
 	struct CupsOptions::OpData daten;
