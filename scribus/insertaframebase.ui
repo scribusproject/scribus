@@ -166,6 +166,9 @@
                         <property name="name">
                             <cstring>typeTextEdit</cstring>
                         </property>
+                        <property name="focusPolicy">
+                            <enum>NoFocus</enum>
+                        </property>
                     </widget>
                 </hbox>
             </widget>
@@ -877,6 +880,18 @@
         <slot>reject()</slot>
     </connection>
 </connections>
+<tabstops>
+    <tabstop>tabFrameSetup</tabstop>
+    <tabstop>radioButtonTextFrame</tabstop>
+    <tabstop>radioButtonCurrentPage</tabstop>
+    <tabstop>placementPagesLineEdit</tabstop>
+    <tabstop>radioButtonTopLeftOfPages</tabstop>
+    <tabstop>radioButtonPageSize</tabstop>
+    <tabstop>sourceDocLineEdit</tabstop>
+    <tabstop>pushButton12</tabstop>
+    <tabstop>okButton</tabstop>
+    <tabstop>cancelButton</tabstop>
+</tabstops>
 <layoutdefaults spacing="5" margin="11"/>
 <includehints>
     <includehint>mspinbox.h</includehint>
