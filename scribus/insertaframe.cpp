@@ -60,11 +60,11 @@ void InsertAFrame::slotSelectType( int id )
 	switch (id)
 	{
 		case 0:
-			typeTextEdit->setText("Insert a text frame");
+			typeTextEdit->setText("<b>Insert a text frame</b><br/>A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.<br/>Your text may be edited and formatted on the page directly or in the simple Story Editor.");
 			optionsWidgetStack->raiseWidget(0);
 			break;
 		case 1:
-			typeTextEdit->setText("Insert an image frame");
+			typeTextEdit->setText("<b>Insert an image frame</b><br/>An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.");
 			optionsWidgetStack->raiseWidget(0);
 			break;
 		case 2:
