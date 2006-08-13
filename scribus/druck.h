@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 class PrefsContext;
 class ScribusDoc;
+class CupsOptions;
 
 class SCRIBUS_API Druck : public QDialog
 {
@@ -34,7 +35,7 @@ class SCRIBUS_API Druck : public QDialog
 
 public:
 	Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots);
-	~Druck() {};
+	~Druck();
 	QString printerName();
 	QString outputFileName();
 	QCheckBox* OtherCom;
@@ -131,6 +132,8 @@ private:
 	bool getDefaultSettings( QString printerName );
 	bool initDeviceSettings( QString printerName );
 	*/
+	CupsOptions *cdia;
+	void getOptions();
 };
 
 #endif // DRUCK_H

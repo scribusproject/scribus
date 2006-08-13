@@ -34,6 +34,7 @@ extern bool previewDinUse;
 Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
 		: QDialog( parent, "Dr", true, 0)
 {
+	cdia = 0;
 	m_doc = doc;
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = PSettings;
@@ -313,65 +314,15 @@ void Druck::SetOptions()
 {
 #ifdef HAVE_CUPS
 	PrinterOpts = "";
-	CupsOptions* dia = new CupsOptions(this, Geraet);
-	if (dia->exec())
+	if (!cdia)
+		cdia = new CupsOptions(this, Geraet);
+	if (!cdia->exec())
 	{
-		struct CupsOptions::OpData daten;
-		QMap<QString,CupsOptions::OpData>::Iterator it;
-		for (it = dia->KeyToText.begin(); it != dia->KeyToText.end(); ++it)
-		{
-			if (dia->KeyToDefault[it.key()] != dia->FlagsOpt.at(it.data().Cnum)->currentText())
-			{
-				if (it.data().KeyW == "mirror")
-					PrinterOpts += " -o mirror";
-				else
-				{
-					if (it.data().KeyW == "page-set")
-					{
-						PrinterOpts += " -o "+it.data().KeyW+"=";
-						if (dia->FlagsOpt.at(it.data().Cnum)->currentItem() == 1)
-							PrinterOpts += "even";
-						else
-							PrinterOpts += "odd";
-					}
-					else
-					{
-						if (it.data().KeyW == "number-up")
-						{
-							PrinterOpts += " -o "+it.data().KeyW+"=";
-							switch (dia->FlagsOpt.at(it.data().Cnum)->currentItem())
-							{
-							case 1:
-								PrinterOpts += "2";
-								break;
-							case 2:
-								PrinterOpts += "4";
-								break;
-							case 3:
-								PrinterOpts += "6";
-								break;
-							case 4:
-								PrinterOpts += "9";
-								break;
-							case 5:
-								PrinterOpts += "16";
-								break;
-							}
-						}
-						else
-						{
-							if (it.data().KeyW == "orientation")
-								PrinterOpts += " -o landscape";
-							else
-								PrinterOpts += " -o " +
-								               it.data().KeyW+"="+dia->FlagsOpt.at(it.data().Cnum)->currentText();
-						}
-					}
-				}
-			}
-		}
+		delete cdia; // if options was canceled delete dia 
+		cdia = 0;    // so that getoptions() in the okButtonClicked() will get 
+		             // the default values from the last succesful run
 	}
-	delete dia;
+
 #elif defined(_WIN32)
 	bool done;
 	QString  printerS;
@@ -389,6 +340,68 @@ void Druck::SetOptions()
 						DM_IN_BUFFER | DM_IN_PROMPT | DM_OUT_BUFFER);
 	// Free the printer handle
 	ClosePrinter( handle );
+#endif
+}
+
+void Druck::getOptions()
+{
+#ifdef HAVE_CUPS
+	if (!cdia)
+		cdia = new CupsOptions(this, Geraet);
+	struct CupsOptions::OpData daten;
+	QMap<QString,CupsOptions::OpData>::Iterator it;
+	for (it = cdia->KeyToText.begin(); it != cdia->KeyToText.end(); ++it)
+	{
+		if (cdia->KeyToDefault[it.key()] != cdia->FlagsOpt.at(it.data().Cnum)->currentText())
+		{
+			if (it.data().KeyW == "mirror")
+				PrinterOpts += " -o mirror";
+			else
+			{
+				if (it.data().KeyW == "page-set")
+				{
+					PrinterOpts += " -o "+it.data().KeyW+"=";
+					if (cdia->FlagsOpt.at(it.data().Cnum)->currentItem() == 1)
+						PrinterOpts += "even";
+					else
+						PrinterOpts += "odd";
+				}
+				else
+				{
+					if (it.data().KeyW == "number-up")
+					{
+						PrinterOpts += " -o "+it.data().KeyW+"=";
+						switch (cdia->FlagsOpt.at(it.data().Cnum)->currentItem())
+						{
+							case 1:
+								PrinterOpts += "2";
+								break;
+							case 2:
+								PrinterOpts += "4";
+								break;
+							case 3:
+								PrinterOpts += "6";
+								break;
+							case 4:
+								PrinterOpts += "9";
+								break;
+							case 5:
+								PrinterOpts += "16";
+								break;
+						}
+					}
+					else
+					{
+						if (it.data().KeyW == "orientation")
+							PrinterOpts += " -o landscape";
+						else
+							PrinterOpts += " -o " +
+									it.data().KeyW+"="+cdia->FlagsOpt.at(it.data().Cnum)->currentText();
+					}
+				}
+			}
+		}
+	}
 #endif
 }
 
@@ -507,6 +520,8 @@ void Druck::setMinMax(int min, int max, int cur)
 
 void Druck::okButtonClicked()
 {
+	getOptions(); // options were not set get last options with this hack
+		
 	prefs->set("PrintDest", PrintDest->currentItem());
 	prefs->set("CurrentPrn", PrintDest->currentText());
 	prefs->set("OtherCom", OtherCom->isChecked());
@@ -679,3 +694,10 @@ bool Druck::ICCinUse()
 	return false;
 #endif
 }
+
+Druck::~Druck()
+{
+	delete cdia;
+	cdia = 0;
+}
+
