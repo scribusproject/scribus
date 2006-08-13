@@ -56,7 +56,7 @@
                             <bool>true</bool>
                         </property>
                         <property name="selectedId" stdset="0">
-                            <number>0</number>
+                            <number>-1</number>
                         </property>
                         <vbox>
                             <property name="name">
@@ -220,7 +220,7 @@
                                     <bool>false</bool>
                                 </property>
                                 <property name="selectedId" stdset="0">
-                                    <number>0</number>
+                                    <number>-1</number>
                                 </property>
                                 <vbox>
                                     <property name="name">
@@ -236,6 +236,9 @@
                                         <property name="buttonGroupId">
                                             <number>0</number>
                                         </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Selecting this will place the frame only on the current page.</string>
+                                        </property>
                                     </widget>
                                     <widget class="QRadioButton">
                                         <property name="name">
@@ -246,6 +249,9 @@
                                         </property>
                                         <property name="buttonGroupId">
                                             <number>1</number>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Selecting this will place frame on the selected range. </string>
                                         </property>
                                     </widget>
                                 </vbox>
@@ -318,7 +324,7 @@
                                     <string></string>
                                 </property>
                                 <property name="selectedId" stdset="0">
-                                    <number>0</number>
+                                    <number>-1</number>
                                 </property>
                                 <vbox>
                                     <property name="name">
@@ -334,6 +340,9 @@
                                         <property name="buttonGroupId">
                                             <number>0</number>
                                         </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Selecting this puts the frame on the top left with postion 0,0</string>
+                                        </property>
                                     </widget>
                                     <widget class="QRadioButton">
                                         <property name="name">
@@ -345,6 +354,9 @@
                                         <property name="buttonGroupId">
                                             <number>1</number>
                                         </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</string>
+                                        </property>
                                     </widget>
                                     <widget class="QRadioButton">
                                         <property name="name">
@@ -355,6 +367,9 @@
                                         </property>
                                         <property name="buttonGroupId">
                                             <number>2</number>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Set the dimensions wished below in the X: Y: dialog below.</string>
                                         </property>
                                     </widget>
                                 </vbox>
@@ -510,7 +525,7 @@
                             <string></string>
                         </property>
                         <property name="selectedId" stdset="0">
-                            <number>0</number>
+                            <number>-1</number>
                         </property>
                         <vbox>
                             <property name="name">
