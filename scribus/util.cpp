@@ -1745,3 +1745,53 @@ void tDebug(QString message)
 	QDateTime debugTime;
 	qDebug(QString("%1\t%2").arg(debugTime.currentDateTime().toString("hh:mm:ss:zzz")).arg(message));
 }
+
+double getCurveYValue(FPointArray &curve, double x)
+{
+    double t;
+    FPoint p;
+    FPoint p0,p1,p2,p3;
+    double c0,c1,c2,c3;
+    double val = 0.5;
+    if(curve.size() == 0)
+        return 0.5;
+    // First find curve segment
+    p = curve.point(0);
+    if(x < p.x())
+        return p.y();
+    p = curve.point(curve.size()-1);
+    if(x >= p.x())
+        return p.y();
+	uint cc = 0;
+    // Find the four control points (two on each side of x)    
+    p = curve.point(0);
+    while(x >= p.x())
+    {
+		cc++;
+        p = curve.point(cc);
+    }
+    if (cc > 1)
+    {
+    	p0 = curve.point(cc-2);
+    	p1 = curve.point(cc-1);
+    }
+    else
+        p1 = p0 = curve.point(0);
+    p2 = p;
+    if (cc < curve.size()-1)
+    	p3 = curve.point(cc+1);
+    else
+    	p3 = p;
+    // Calculate the value
+    t = (x - p1.x()) / (p2.x() - p1.x());
+    c2 = (p2.y() - p0.y()) * (p2.x()-p1.x()) / (p2.x()-p0.x());
+    c3 = p1.y();
+    c0 = -2*p2.y() + 2*c3 + c2 + (p3.y() - p1.y()) * (p2.x() - p1.x()) / (p3.x() - p1.x());
+    c1 = p2.y() - c3 - c2 - c0;
+    val = ((c0*t + c1)*t + c2)*t + c3;
+    if(val < 0.0)
+        val = 0.0;
+    if(val > 1.0)
+        val = 1.0;
+    return val;
+}

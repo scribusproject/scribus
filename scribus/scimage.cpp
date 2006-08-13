@@ -129,7 +129,6 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				QString col = CommonStrings::None;
 				int shading = 100;
 				QTextStream fp(&tmpstr, IO_ReadOnly);
-//				fp >> col;
 				col = fp.readLine();
 				fp >> shading;
 				colorize(colors[col], shading, cmyk);
@@ -230,6 +229,23 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				fp >> shading4;
 				quadtone(colors[col1], shading1, colors[col2], shading2, colors[col3], shading3, colors[col4], shading4, cmyk);
 			}
+			if ((*effectsList.at(a)).effectCode == EF_GRADUATE)
+			{
+				QString tmpstr = (*effectsList.at(a)).effectParameters;
+				int numVals;
+				double xval, yval;
+				FPointArray curve;
+				curve.resize(0);
+				QTextStream fp(&tmpstr, IO_ReadOnly);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve.addPoint(xval, yval);
+				}
+				doGraduate(curve, cmyk);
+			}
 		}
 	}
 }
@@ -253,170 +269,7 @@ void ScImage::solarize(double factor, bool cmyk)
 	}
 	applyCurve(cmyk);
 }
-/*
-void ScImage::blurScanLine(double *kernel, int width, unsigned int *src, unsigned int *dest, int columns)
-{
-	register double *p;
-	unsigned int *q;
-	register int x;
-	register long i;
-	double red, green, blue, alpha;
-	double scale = 0.0;
-	if(width > columns)
-	{
-		for(x=0; x < columns; ++x)
-		{
-			scale = 0.0;
-			red = blue = green = alpha = 0.0;
-			p = kernel;
-			q = src;
-			for(i=0; i < columns; ++i)
-			{
-				if((i >= (x-width/2)) && (i <= (x+width/2)))
-				{
-					red += (*p)*(qRed(*q)*257);
-					green += (*p)*(qGreen(*q)*257);
-					blue += (*p)*(qBlue(*q)*257);
-					alpha += (*p)*(qAlpha(*q)*257);
-				}
-				if(((i+width/2-x) >= 0) && ((i+width/2-x) < width))
-					scale+=kernel[i+width/2-x];
-				p++;
-				q++;
-			}
-			scale = 1.0/scale;
-			red = scale*(red+0.5);
-			green = scale*(green+0.5);
-			blue = scale*(blue+0.5);
-			alpha = scale*(alpha+0.5);
-			red = red < 0 ? 0 : red > 65535 ? 65535 : red;
-			green = green < 0 ? 0 : green > 65535 ? 65535 : green;
-			blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
-			alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
-			dest[x] = qRgba((unsigned char)(red/257UL),
-			                (unsigned char)(green/257UL),
-			                (unsigned char)(blue/257UL),
-			                (unsigned char)(alpha/257UL));
-		}
-		return;
-	}
 
-	for(x=0; x < width/2; ++x)
-	{
-		scale = 0.0;
-		red = blue = green = alpha = 0.0;
-		p = kernel+width/2-x;
-		q = src;
-		for(i=width/2-x; i < width; ++i)
-		{
-			red += (*p)*(qRed(*q)*257);
-			green += (*p)*(qGreen(*q)*257);
-			blue += (*p)*(qBlue(*q)*257);
-			alpha += (*p)*(qAlpha(*q)*257);
-			scale += (*p);
-			p++;
-			q++;
-		}
-		scale=1.0/scale;
-		red = scale*(red+0.5);
-		green = scale*(green+0.5);
-		blue = scale*(blue+0.5);
-		alpha = scale*(alpha+0.5);
-		red = red < 0 ? 0 : red > 65535 ? 65535 : red;
-		green = green < 0 ? 0 : green > 65535 ? 65535 : green;
-		blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
-		alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
-		dest[x] = qRgba((unsigned char)(red/257UL),
-		                (unsigned char)(green/257UL),
-		                (unsigned char)(blue/257UL),
-		                (unsigned char)(alpha/257UL));
-	}
-	for(; x < columns-width/2; ++x)
-	{
-		red = blue = green = alpha = 0.0;
-		p = kernel;
-		q = src+(x-width/2);
-		for (i=0; i < (long) width; ++i)
-		{
-			red += (*p)*(qRed(*q)*257);
-			green += (*p)*(qGreen(*q)*257);
-			blue += (*p)*(qBlue(*q)*257);
-			alpha += (*p)*(qAlpha(*q)*257);
-			p++;
-			q++;
-		}
-		red = scale*(red+0.5);
-		green = scale*(green+0.5);
-		blue = scale*(blue+0.5);
-		alpha = scale*(alpha+0.5);
-		red = red < 0 ? 0 : red > 65535 ? 65535 : red;
-		green = green < 0 ? 0 : green > 65535 ? 65535 : green;
-		blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
-		alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
-		dest[x] = qRgba((unsigned char)(red/257UL),
-		                (unsigned char)(green/257UL),
-		                (unsigned char)(blue/257UL),
-	int radius = static_cast<int>(radi);
-		                (unsigned char)(alpha/257UL));
-	}
-	for(; x < columns; ++x)
-	{
-		red = blue = green = alpha = 0.0;
-		scale=0;
-		p = kernel;
-		q = src+(x-width/2);
-		for(i=0; i < columns-x+width/2; ++i)
-		{
-			red += (*p)*(qRed(*q)*257);
-			green += (*p)*(qGreen(*q)*257);
-			blue += (*p)*(qBlue(*q)*257);
-			alpha += (*p)*(qAlpha(*q)*257);
-			scale += (*p);
-			p++;
-			q++;
-		}
-		scale=1.0/scale;
-		red = scale*(red+0.5);
-		green = scale*(green+0.5);
-		blue = scale*(blue+0.5);
-		alpha = scale*(alpha+0.5);
-		red = red < 0 ? 0 : red > 65535 ? 65535 : red;
-		green = green < 0 ? 0 : green > 65535 ? 65535 : green;
-		blue = blue < 0 ? 0 : blue > 65535 ? 65535 : blue;
-		alpha = alpha < 0 ? 0 : alpha > 65535 ? 65535 : alpha;
-		dest[x] = qRgba((unsigned char)(red/257UL),
-		                (unsigned char)(green/257UL),
-		                (unsigned char)(blue/257UL),
-		                (unsigned char)(alpha/257UL));
-	}
-}
-
-int ScImage::getBlurKernel(int width, double sigma, double **kernel)
-{
-	double alpha, normalize;
-	register long i;
-	int bias;
-	assert(sigma != 0.0);
-	if(width == 0)
-		width = 3;
-	*kernel=(double *)malloc(width*sizeof(double));
-	if(*kernel == (double *)NULL)
-		return(0);
-	memset(*kernel, 0, width*sizeof(double));
-	bias = 3*width/2;
-	for(i=(-bias); i <= bias; i++)
-	{
-		alpha=exp(-((double) i*i)/(2.0*3*3*sigma*sigma));
-		(*kernel)[(i+bias)/3]+=alpha/(2.50662827463100024161235523934010416269302368164062*sigma);
-	}
-	normalize=0;
-	for(i=0; i < width; i++)
-		normalize+=(*kernel)[i];
-	for(i=0; i < width; i++)
-		(*kernel)[i]/=normalize;
-	return(width);
-}
-*/
 // Stack Blur Algorithm by Mario Klingemann <mario@quasimondo.com>
 void ScImage::blur(int radius)
 {
@@ -660,87 +513,7 @@ void ScImage::blur(int radius)
     }
     delete [] stack;
 }
-/*
-void ScImage::blur(double radius, double sigma)
-{
-	double *kernel;
-	QImage dest;
-	int widthk;
-	int x, y;
-	unsigned int *scanline, *temp;
-	unsigned int *p, *q;
-	if(sigma == 0.0)
-		return;
-	kernel=(double *) NULL;
-	if(radius > 0)
-		widthk=getBlurKernel((int) (2*ceil(radius)+1),sigma,&kernel);
-	else
-	{
-		double *last_kernel;
-		last_kernel=(double *) NULL;
-		widthk=getBlurKernel(3,sigma,&kernel);
-		while ((long) (255*kernel[0]) > 0)
-		{
-			if(last_kernel != (double *)NULL)
-			{
-				liberateMemory((void **) &last_kernel);
-			}
-			last_kernel=kernel;
-			kernel = (double *)NULL;
-			widthk = getBlurKernel(widthk+2, sigma, &kernel);
-		}
-		if(last_kernel != (double *) NULL)
-		{
-			liberateMemory((void **) &kernel);
-			widthk-=2;
-			kernel = last_kernel;
-		}
-	}
-	if(widthk < 3)
-	{
-		liberateMemory((void **) &kernel);
-		return;
-	}
-	dest.create(width(), height(), 32);
-	scanline = (unsigned int *)malloc(sizeof(unsigned int)*height());
-	temp = (unsigned int *)malloc(sizeof(unsigned int)*height());
-	for(y=0; y < height(); ++y)
-	{
-		p = (unsigned int *)scanLine(y);
-		q = (unsigned int *)dest.scanLine(y);
-		blurScanLine(kernel, widthk, p, q, width());
-	}
-	unsigned int **srcTable = (unsigned int **) jumpTable();
-	unsigned int **destTable = (unsigned int **) dest.jumpTable();
-	for(x=0; x < width(); ++x)
-	{
-		for(y=0; y < height(); ++y)
-		{
-			scanline[y] = srcTable[y][x];
-		}
-		blurScanLine(kernel, widthk, scanline, temp, height());
-		for(y=0; y < height(); ++y)
-		{
-			destTable[y][x] = temp[y];
-		}
-	}
-	liberateMemory((void **) &scanline);
-	liberateMemory((void **) &temp);
-	liberateMemory((void **) &kernel);
-	for( int yi=0; yi < dest.height(); ++yi )
-	{
-		QRgb *s = (QRgb*)(dest.scanLine( yi ));
-		QRgb *d = (QRgb*)(scanLine( yi ));
-		for(int xi=0; xi < dest.width(); ++xi )
-		{
-			(*d) = (*s);
-			s++;
-			d++;
-		}
-	}
-	return;
-}
-*/
+
 bool ScImage::convolveImage(QImage *dest, const unsigned int order, const double *kernel)
 {
 	long widthk;
@@ -892,6 +665,16 @@ void ScImage::brightness(int brightnessValue, bool cmyk)
 	for (int i = 0; i < 256; ++i)
 	{
 		curveTable[i] = QMIN(255, QMAX(0, int(i * mc) + p1.y()));
+	}
+	applyCurve(cmyk);
+}
+
+void ScImage::doGraduate(FPointArray curve, bool cmyk)
+{
+	curveTable.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve, x / 255.0) * 255)));
 	}
 	applyCurve(cmyk);
 }

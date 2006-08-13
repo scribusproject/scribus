@@ -75,7 +75,8 @@ public:
 		EF_SOLARIZE = 7,
 		EF_DUOTONE = 8,
 		EF_TRITONE = 9,
-		EF_QUADTONE = 10
+		EF_QUADTONE = 10,
+		EF_GRADUATE = 11
 	};
 
 	struct imageEffect
@@ -134,6 +135,7 @@ private:
 	void tritone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, bool cmyk);
 	void quadtone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, ScColor color4, int shade4, bool cmyk);
 	void toGrayscale(bool cmyk);
+	void doGraduate(FPointArray curve, bool cmyk);
 	void swapRGBA();
 
 	// Misc implementation

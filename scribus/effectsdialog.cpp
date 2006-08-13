@@ -26,8 +26,280 @@ for which a new license (GPL+exception) is in place.
 #include "shadebutton.h"
 #include "mspinbox.h"
 #include "page.h"
+#include "util.h"
 
 extern QPixmap loadIcon(QString nam);
+
+KCurve::KCurve(QWidget *parent, const char *name, WFlags f) : QWidget(parent, name, f)
+{
+	m_grab_point     = FPoint();
+	m_dragging = false;
+	m_pix = NULL;
+	m_pos = 0;
+	setMouseTracking(true);
+	setPaletteBackgroundColor(Qt::NoBackground);
+	setMinimumSize(150, 150);
+	m_points.resize(0);
+	m_points.addPoint(0.0, 0.0);
+	m_points.addPoint(1.0, 1.0);
+	setFocusPolicy(QWidget::StrongFocus);
+}
+
+KCurve::~KCurve()
+{
+	if (m_pix) delete m_pix;
+}
+
+void KCurve::setPixmap(QPixmap pix)
+{
+	if (m_pix) delete m_pix;
+	m_pix = new QPixmap(pix);
+	repaint(false);
+}
+
+void KCurve::paintEvent(QPaintEvent *)
+{
+	int    x, y;
+	int    wWidth = width();
+	int    wHeight = height();
+	x  = 0;
+	y  = 0;
+	// Drawing selection or all histogram values.
+	// A QPixmap is used for enable the double buffering.
+	QPixmap pm(size());
+	QPainter p1;
+	p1.begin(&pm, this);
+	//  draw background
+	if(m_pix)
+	{
+		p1.scale(1.0*wWidth/m_pix->width(), 1.0*wHeight/m_pix->height());
+		p1.drawPixmap(0, 0, *m_pix);
+		p1.resetXForm();
+	}
+	else
+		pm.fill();
+	// Draw grid separators.
+	p1.setPen(QPen::QPen(Qt::gray, 1, Qt::SolidLine));
+	p1.drawLine(wWidth/3, 0, wWidth/3, wHeight);
+	p1.drawLine(2*wWidth/3, 0, 2*wWidth/3, wHeight);
+	p1.drawLine(0, wHeight/3, wWidth, wHeight/3);
+	p1.drawLine(0, 2*wHeight/3, wWidth, 2*wHeight/3);
+
+	// Draw curve.
+	double curvePrevVal = getCurveValue(0.0);
+	p1.setPen(QPen::QPen(Qt::black, 1, Qt::SolidLine));
+	for (x = 0 ; x < wWidth ; x++)
+	{
+		double curveX;
+		double curveVal;
+		curveX = (x + 0.5) / wWidth;
+//		curveX = x / static_cast<double>(wWidth);
+		curveVal = getCurveValue(curveX);
+		p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(curveVal * wHeight));
+		curvePrevVal = curveVal;
+	}
+	p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(getCurveValue(1.0) * wHeight));
+	for (uint dh = 0; dh < m_points.size(); dh++)
+	{
+		FPoint p = m_points.point(dh);
+		if(p == m_grab_point)
+		{
+			p1.setPen(QPen::QPen(Qt::red, 3, Qt::SolidLine));
+			p1.drawEllipse( int(p.x() * wWidth) - 2, wHeight - 2 - int(p.y() * wHeight), 4, 4 );
+		}
+		else
+		{
+			p1.setPen(QPen::QPen(Qt::red, 1, Qt::SolidLine));
+			p1.drawEllipse( int(p.x() * wWidth) - 3, wHeight - 3 - int(p.y() * wHeight), 6, 6 );
+		}
+	}
+	p1.end();
+	bitBlt(this, 0, 0, &pm);
+}
+
+void KCurve::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() == Qt::Key_Delete || e->key() == Qt::Key_Backspace)
+    {
+		if (m_points.size() > 2)
+		{
+			FPoint closest_point;
+			FPoint p = m_points.point(0);
+			int pos = 0;
+			uint cc =0;
+			double distance = 1000; // just a big number
+			while(cc < m_points.size())
+			{
+				if (fabs (m_grab_point.x() - p.x()) < distance)
+				{
+					distance = fabs(m_grab_point.x() - p.x());
+					closest_point = p;
+					m_pos = pos;
+				}
+				cc++;
+				p = m_points.point(cc);
+				pos++;
+			}
+			FPointArray cli;
+			cli.putPoints(0, m_pos, m_points);
+			cli.putPoints(cli.size(), m_points.size()-m_pos-1, m_points, m_pos+1);
+			m_points.resize(0);
+			m_points = cli.copy();
+			m_grab_point = closest_point;
+			repaint(false);
+			emit modified();
+			QWidget::keyPressEvent(e);
+		}
+	}
+}
+
+void KCurve::mousePressEvent ( QMouseEvent * e )
+{
+	FPoint closest_point = FPoint();
+	double distance;
+	if (e->button() != Qt::LeftButton)
+		return;
+	double x = e->pos().x() / (float)width();
+	double y = 1.0 - e->pos().y() / (float)height();
+	distance = 1000; // just a big number
+	FPoint p = m_points.point(0);
+	int insert_pos =0;
+	int pos = 0;
+	uint cc =0;
+	while(cc < m_points.size())
+	{
+		if (fabs (x - p.x()) < distance)
+		{
+			distance = fabs(x - p.x());
+			closest_point = p;
+			insert_pos = pos;
+		}
+		cc++;
+		p = m_points.point(cc);
+		pos++;
+	}
+	m_pos = insert_pos;
+	m_grab_point = closest_point;
+	m_grabOffsetX = m_grab_point.x() - x;
+	m_grabOffsetY = m_grab_point.y() - y;
+	m_grab_point = FPoint(x + m_grabOffsetX, y + m_grabOffsetY);
+	double curveVal = getCurveValue(x);
+	if(distance * width() > 5)
+	{
+		m_dragging = false;
+		if(fabs(y - curveVal) * width() > 5)
+			return;
+		if (m_points.size() < 14)
+		{
+			if (x > closest_point.x())
+				m_pos++;
+			FPointArray cli;
+			cli.putPoints(0, m_pos, m_points);
+			cli.resize(cli.size()+1);
+			cli.putPoints(cli.size()-1, 1, x, curveVal);
+			cli.putPoints(cli.size(), m_points.size()-m_pos, m_points, m_pos);
+			m_points.resize(0);
+			m_points = cli.copy();
+			m_dragging = true;
+			m_grab_point = m_points.point(m_pos);
+			m_grabOffsetX = m_grab_point.x() - x;
+			m_grabOffsetY = m_grab_point.y() - curveVal;
+			m_grab_point = FPoint(x + m_grabOffsetX, curveVal + m_grabOffsetY);
+			qApp->setOverrideCursor(QCursor(crossCursor), true);
+		}
+	}
+	else
+	{
+		if(fabs(y - closest_point.y()) * width() > 5)
+			return;
+		m_dragging = true;
+		qApp->setOverrideCursor(QCursor(crossCursor), true);
+	}
+	// Determine the leftmost and rightmost points.
+	m_leftmost = 0;
+	m_rightmost = 1;
+	repaint(false);
+	emit modified();
+}
+
+void KCurve::mouseReleaseEvent ( QMouseEvent * e )
+{
+	if (e->button() != Qt::LeftButton)
+		return;
+	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	m_dragging = false;
+	repaint(false);
+	emit modified();
+}
+
+void KCurve::mouseMoveEvent ( QMouseEvent * e )
+{
+	double x = e->pos().x() / (float)width();
+	double y = 1.0 - e->pos().y() / (float)height();
+
+	if (m_dragging == false)   // If no point is selected set the the cursor shape if on top
+	{
+		double distance = 1000;
+		double ydistance = 1000;
+		FPoint p = m_points.point(0);
+		uint cc =0;
+		while(cc < m_points.size())
+		{
+			if (fabs (x - p.x()) < distance)
+			{
+				distance = fabs(x - p.x());
+				ydistance = fabs(y - p.y());
+			}
+			cc++;
+			p = m_points.point(cc);
+		}
+		if (distance * width() > 5 || ydistance * height() > 5)
+			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+		else
+			qApp->setOverrideCursor(QCursor(crossCursor), true);
+	}
+	else  // Else, drag the selected point
+	{
+		qApp->setOverrideCursor(QCursor(crossCursor), true);
+		x += m_grabOffsetX;
+		y += m_grabOffsetY;
+		if (x <= m_leftmost)
+			x = m_leftmost + 1E-4; // the addition so we can grab the dot later.
+		if(x >= m_rightmost)
+			x = m_rightmost - 1E-4;
+		if(y > 1.0)
+			y = 1.0;
+		if(y < 0.0)
+			y = 0.0;
+		m_grab_point = FPoint(x, y);
+		m_points.setPoint( m_pos, m_grab_point);
+	}
+	repaint(false);
+	emit modified();
+}
+
+double KCurve::getCurveValue(double x)
+{
+	return getCurveYValue(m_points, x);
+}
+
+FPointArray KCurve::getCurve()
+{
+	return m_points.copy();
+}
+
+void KCurve::setCurve(FPointArray inlist)
+{
+	m_points.resize(0);
+	m_points = inlist.copy();
+	repaint(false);
+	emit modified();
+}
+
+void KCurve::leaveEvent( QEvent * )
+{
+	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+}
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent, "EffectsDialog", true, 0 )
 {
@@ -161,13 +433,6 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	blRadius->setValue(0);
 	layout24->addWidget( blRadius );
 	WStackPage6Layout->addLayout( layout24 );
-/*	layout25 = new QHBoxLayout( 0, 0, 5, "layout7");
-	textLabel13 = new QLabel( tr("Value:"), WStackPage_6, "textLabel11" );
-	layout25->addWidget( textLabel13 );
-	blValue = new MSpinBox( 0.0, 5.0, WStackPage_6, 1 );
-	blValue->setValue(1.0);
-	layout25->addWidget( blValue );
-	WStackPage6Layout->addLayout( layout25 ); */
 	optionStack->addWidget( WStackPage_6, 5 );
 
 	WStackPage_7 = new QWidget( optionStack, "WStackPage_4" );
@@ -280,7 +545,14 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	shadeq4->setValue(100);
 	WStackPage10Layout->addWidget( shadeq4, 3, 2 );
 	optionStack->addWidget( WStackPage_10, 9 );
-	
+
+	WStackPage_11 = new QWidget( optionStack, "WStackPage_11" );
+	WStackPage11Layout = new QVBoxLayout( WStackPage_11, 5, 5, "WStackPageLayout");
+	WStackPage11Layout->setAlignment( Qt::AlignTop );
+	Kdisplay = new KCurve(WStackPage_11);
+	WStackPage11Layout->addWidget( Kdisplay );
+	optionStack->addWidget( WStackPage_11, 10 );
+
 	layout16->addWidget( optionStack );
 	EffectsDialogLayout->addLayout( layout16 );
 
@@ -300,6 +572,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->insertItem( tr("Quadtone"));
 	availableEffects->insertItem( tr("Contrast"));
 	availableEffects->insertItem( tr("Grayscale"));
+	availableEffects->insertItem( tr("Curves"));
 	availableEffects->insertItem( tr("Invert"));
 	availableEffects->insertItem( tr("Posterize"));
 	availableEffects->insertItem( tr("Sharpen"));
@@ -387,6 +660,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 			usedEffects->insertItem( tr("Quadtone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
 		}
+		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRADUATE)
+		{
+			usedEffects->insertItem( tr("Curves"));
+			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+		}
 	}
 	layout8->addWidget( usedEffects );
 	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
@@ -464,9 +742,9 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( shRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( shValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-//	connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+	connect( Kdisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	tim.start();
 }
 
@@ -619,6 +897,20 @@ void EffectsDialog::saveValues(bool final)
 			tmp.setNum(solarizeSlider->value());
 			effectValMap[currentOptions] = tmp;
 		}
+		if (currentOptions->text() == tr("Curves"))
+		{
+			QString efval = "";
+			FPointArray Vals = Kdisplay->getCurve();
+			QString tmp;
+			tmp.setNum(Vals.size());
+			efval += tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	effectsList.clear();
 	struct ScImage::imageEffect ef;
@@ -679,6 +971,11 @@ void EffectsDialog::saveValues(bool final)
 			ef.effectCode = ScImage::EF_QUADTONE;
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
 		}
+		if (usedEffects->item(e)->text() == tr("Curves"))
+		{
+			ef.effectCode = ScImage::EF_GRADUATE;
+			ef.effectParameters = effectValMap[usedEffects->item(e)];
+		}
 		effectsList.append(ef);
 	}
 }
@@ -728,6 +1025,8 @@ void EffectsDialog::moveToEffects()
 		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
+	if (availableEffects->currentText() == tr("Curves"))
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0");
 	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
 	selectEffect(usedEffects->item(usedEffects->count()-1));
@@ -881,6 +1180,20 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			tmp.setNum(shadeq4->getValue());
 			efval += " "+tmp;
+			effectValMap[currentOptions] = efval;
+		}
+		if (currentOptions->text() == tr("Curves"))
+		{
+			QString efval = "";
+			FPointArray Vals = Kdisplay->getCurve();
+			QString tmp;
+			tmp.setNum(Vals.size());
+			efval += tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 	}
@@ -1062,17 +1375,15 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 		else if (c->text() == tr("Blur"))
 		{
 			disconnect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-//			disconnect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			double radius, sigma;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
 			fp >> radius;
 			fp >> sigma;
 			blRadius->setValue(radius);
-//			blValue->setValue(sigma);
+			//			blValue->setValue(sigma);
 			optionStack->raiseWidget(5);
 			connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
-//			connect( blValue, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Posterize"))
 		{
@@ -1089,6 +1400,26 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			optionStack->raiseWidget(6);
 			connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 			connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
+		}
+		else if (c->text() == tr("Curves"))
+		{
+			disconnect( Kdisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			QString tmpstr = effectValMap[c];
+			QTextStream fp(&tmpstr, IO_ReadOnly);
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			Kdisplay->setCurve(curve);
+			optionStack->raiseWidget(10);
+			connect( Kdisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else
 			optionStack->raiseWidget(0);
@@ -1204,10 +1535,23 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			effectValMap[currentOptions] = efval;
 		}
+		if (currentOptions->text() == tr("Curves"))
+		{
+			QString efval = "";
+			FPointArray Vals = Kdisplay->getCurve();
+			QString tmp;
+			tmp.setNum(Vals.size());
+			efval += tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			effectValMap[currentOptions] = efval;
+		}
 	}
 	currentOptions = 0;
 	usedEffects->clearSelection();
 	optionStack->raiseWidget(0);
 	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 }
-

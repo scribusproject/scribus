@@ -57,6 +57,7 @@ struct PSDDuotone_Color
 {
 	QString Name;
 	ScColor Color;
+	FPointArray Curve;
 };
 
 class ExifValues

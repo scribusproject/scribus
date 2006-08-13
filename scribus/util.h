@@ -202,4 +202,6 @@ Useful for duration holes finding.
 \author Petr Vanek */
 void tDebug(QString message);
 
+double SCRIBUS_API getCurveYValue(FPointArray &curve, double x);
+
 #endif

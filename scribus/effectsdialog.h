@@ -32,6 +32,43 @@ class QWidget;
 class QSlider;
 class MSpinBox;
 
+class SCRIBUS_API KCurve : public QWidget
+{
+	Q_OBJECT
+
+public:
+	KCurve(QWidget *parent = 0, const char *name = 0, WFlags f = 0);
+	virtual ~KCurve();
+	void setPixmap(QPixmap pix);
+
+protected:
+	void paintEvent(QPaintEvent *);
+	void keyPressEvent(QKeyEvent *);
+	void mousePressEvent (QMouseEvent * e);
+	void mouseReleaseEvent ( QMouseEvent * e );
+	void mouseMoveEvent ( QMouseEvent * e );
+	void leaveEvent ( QEvent * );
+
+public:
+	double getCurveValue(double x);
+	FPointArray getCurve();
+	void setCurve(FPointArray inlist);
+
+signals:
+	void modified();
+
+private:
+	double m_leftmost;
+	double m_rightmost;
+	FPoint m_grab_point;
+	int m_pos;
+	bool m_dragging;
+	double m_grabOffsetX;
+	double m_grabOffsetY;
+	FPointArray m_points;
+	QPixmap *m_pix;
+};
+
 class SCRIBUS_API EffectsDialog : public QDialog
 {
 	Q_OBJECT
@@ -53,7 +90,6 @@ public:
 	QLabel* textLabel10;
 	QLabel* textLabel11;
 	QLabel* textLabel12;
-//	QLabel* textLabel13;
 	QLabel* textLabel14;
 	QLabel* textLabel15;
 	QWidgetStack* optionStack;
@@ -70,7 +106,6 @@ public:
 	MSpinBox* shValue;
 	QWidget* WStackPage_6;
 	MSpinBox* blRadius;
-//	MSpinBox* blValue;
 	QWidget* WStackPage_7;
 	QSlider* solarizeSlider;
 	QWidget* WStackPage_8;
@@ -105,6 +140,9 @@ public:
 	QLabel* textLabel4q;
 	ColorCombo* colDataq4;
 	ShadeButton *shadeq4;
+
+	QWidget* WStackPage_11;
+	KCurve *Kdisplay;
 
 	QListBox* usedEffects;
 	QPushButton* effectUp;
@@ -149,11 +187,11 @@ protected:
 	QHBoxLayout* layout23;
 	QVBoxLayout* WStackPage6Layout;
 	QHBoxLayout* layout24;
-//	QHBoxLayout* layout25;
 	QVBoxLayout* WStackPage7Layout;
 	QGridLayout* WStackPage8Layout;
 	QGridLayout* WStackPage9Layout;
 	QGridLayout* WStackPage10Layout;
+	QVBoxLayout* WStackPage11Layout;
 	QHBoxLayout* layout26;
 	QHBoxLayout* layout17;
 	QHBoxLayout* layout19;
