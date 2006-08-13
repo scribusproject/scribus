@@ -41,6 +41,7 @@ protected slots:
 	void slotSelectPagePlacement(int id);
 	void slotSelectPosition(int id);
 	void slotSelectSize(int id);
+	void locateImageFile();
 };
 
 #endif

@@ -29,6 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.h"
 
 #include <utility>
+#include <qeventloop.h>
 #include <qfile.h>
 #include <qprogressbar.h>
 
@@ -47,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_polyline.h"
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
+#include "prefsfile.h"
 #include "prefsmanager.h"
 #include "scmessagebox.h"
 #include "scraction.h"
@@ -2832,7 +2834,26 @@ int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, int 
 	int z=itemAdd(type, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
 	if (z!=-1)
 	{
-		setRedrawBounding(Items->at(z));
+		PageItem* currItem=Items->at(z);
+		setRedrawBounding(currItem);
+		if (type==PageItem::ImageFrame && !source.isEmpty())
+		{
+			if (QFile::exists(source))
+			{
+ 				PrefsManager::instance()->prefsFile->getContext("dirs")->set("images", source.left(source.findRev("/")));
+				currItem->EmProfile = "";
+				currItem->pixm.imgInfo.isRequest = false;
+				currItem->UseEmbedded = true;
+				currItem->IProfile = CMSSettings.DefaultImageRGBProfile;
+				currItem->IRender = CMSSettings.DefaultIntentImages;
+				qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
+ 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				LoadPict(source, currItem->ItemNr, false, true);
+				currItem->AdjustPictScale();
+ 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+				qApp->restoreOverrideCursor();
+			}
+		}
 		changed();
 		emit updateContents();
 	}

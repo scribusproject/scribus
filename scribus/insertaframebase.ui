@@ -56,7 +56,7 @@
                             <bool>true</bool>
                         </property>
                         <property name="selectedId" stdset="0">
-                            <number>-1</number>
+                            <number>0</number>
                         </property>
                         <vbox>
                             <property name="name">
@@ -220,7 +220,7 @@
                                     <bool>false</bool>
                                 </property>
                                 <property name="selectedId" stdset="0">
-                                    <number>-1</number>
+                                    <number>0</number>
                                 </property>
                                 <vbox>
                                     <property name="name">
@@ -324,7 +324,7 @@
                                     <string></string>
                                 </property>
                                 <property name="selectedId" stdset="0">
-                                    <number>-1</number>
+                                    <number>0</number>
                                 </property>
                                 <vbox>
                                     <property name="name">
@@ -525,7 +525,7 @@
                             <string></string>
                         </property>
                         <property name="selectedId" stdset="0">
-                            <number>-1</number>
+                            <number>0</number>
                         </property>
                         <vbox>
                             <property name="name">
@@ -733,7 +733,7 @@
                                         </widget>
                                         <widget class="QPushButton">
                                             <property name="name">
-                                                <cstring>pushButton12</cstring>
+                                                <cstring>selectImageFileButton</cstring>
                                             </property>
                                             <property name="text">
                                                 <string>&amp;Select File...</string>
@@ -896,6 +896,7 @@
     </connection>
 </connections>
 <tabstops>
+    <tabstop>selectImageFileButton</tabstop>
     <tabstop>tabFrameSetup</tabstop>
     <tabstop>radioButtonTextFrame</tabstop>
     <tabstop>radioButtonCurrentPage</tabstop>
@@ -903,7 +904,6 @@
     <tabstop>radioButtonTopLeftOfPages</tabstop>
     <tabstop>radioButtonPageSize</tabstop>
     <tabstop>sourceDocLineEdit</tabstop>
-    <tabstop>pushButton12</tabstop>
     <tabstop>okButton</tabstop>
     <tabstop>cancelButton</tabstop>
 </tabstops>

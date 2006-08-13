@@ -1795,3 +1795,44 @@ double getCurveYValue(FPointArray &curve, double x)
         val = 1.0;
     return val;
 }
+
+QString setupImageFormats()
+{
+	QString formats = "";
+	QString formatD = QObject::tr("All Supported Formats")+" (";
+	QString form1 = "";
+	QString form2 = "";
+	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
+	{
+		form1 = QString(QImageIO::inputFormats().at(i)).lower();
+		form2 = QString(QImageIO::inputFormats().at(i)).upper();
+		if (form1 == "jpeg")
+		{
+			form1 = "jpg";
+			form2 = "JPG";
+		}
+		if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
+		{
+			formats += form2 + " (*."+form1+" *."+form2+");;";
+			formatD += "*."+form1+" *."+form2+" ";
+		}
+		else if (form1 == "jpg")
+		{
+			// JPEG is a special case because both .jpg and .jpeg
+			// are acceptable extensions.
+			formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
+			formatD += "*.jpg *.jpeg *.JPG *.JPEG ";
+		}
+	}
+#ifdef HAVE_TIFF
+	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
+	formatD += "*.tif *.tiff *.TIF *.TIFF";
+#endif
+	formats += "PSD (*.psd *.PSD);;";
+	formatD += " *.psd *.PSD";
+	formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + QObject::tr("All Files (*)");
+	formatD += " *.eps *.EPS *.pdf *.PDF";
+	formatD += ");;"+formats;
+	return formatD;
+}
+

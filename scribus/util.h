@@ -204,4 +204,6 @@ void tDebug(QString message);
 
 double SCRIBUS_API getCurveYValue(FPointArray &curve, double x);
 
+QString SCRIBUS_API setupImageFormats();
+
 #endif

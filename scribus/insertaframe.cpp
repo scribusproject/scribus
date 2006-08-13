@@ -15,11 +15,16 @@ for which a new license (GPL+exception) is in place.
 #include "insertaframe.h"
 #include "insertaframe.moc"
 
+#include "customfdialog.h"
 #include "mspinbox.h"
+#include "prefsfile.h"
+#include "prefsmanager.h"
 #include "scribusdoc.h"
+#include "util.h"
 
 #include <qbuttongroup.h>
 #include <qlineedit.h>
+#include <qpushbutton.h>
 #include <qtextedit.h>
 #include <qwidgetstack.h>
 
@@ -49,10 +54,12 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	widthMSpinBox->setSuffix(unitSuffix);
 	heightMSpinBox->setSuffix(unitSuffix);
 
+	sourceDocLineEdit->setText("");
  	connect(typeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectType(int)));
  	connect(pagePlacementButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPagePlacement(int)));
  	connect(framePositionButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPosition(int)));
  	connect(sizeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectSize(int)));
+ 	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
 }
 
 void InsertAFrame::slotSelectType( int id )
@@ -61,7 +68,7 @@ void InsertAFrame::slotSelectType( int id )
 	{
 		case 0:
 			typeTextEdit->setText("<b>Insert a text frame</b><br/>A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.<br/>Your text may be edited and formatted on the page directly or in the simple Story Editor.");
-			optionsWidgetStack->raiseWidget(0);
+			optionsWidgetStack->raiseWidget(1);
 			break;
 		case 1:
 			typeTextEdit->setText("<b>Insert an image frame</b><br/>An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.");
@@ -142,4 +149,23 @@ void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & l
 	width=widthMSpinBox->value();
 	height=heightMSpinBox->value();
 	source=sourceDocLineEdit->text();
+}
+
+void InsertAFrame::locateImageFile()
+{
+	QString formatD(setupImageFormats());
+	QString docDir = ".";
+	PrefsManager* prefsManager=PrefsManager::instance();
+	QString prefsDocDir(prefsManager->documentDir());
+	if (!prefsDocDir.isEmpty())
+		docDir = prefsManager->prefsFile->getContext("dirs")->get("images", prefsDocDir);
+	else
+		docDir = prefsManager->prefsFile->getContext("dirs")->get("images", ".");
+		
+	QString fileName("");
+	CustomFDialog dia(this, docDir, tr("Open"), formatD, fdShowPreview | fdExistingFiles);
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	
+	sourceDocLineEdit->setText(fileName);
 }
