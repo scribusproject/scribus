@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qbuttongroup.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qspinbox.h>
 #include <qtextedit.h>
 #include <qwidgetstack.h>
 
@@ -49,10 +50,12 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	yPosMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
 	widthMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
 	heightMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	textColumnGapMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
 	xPosMSpinBox->setSuffix(unitSuffix);
 	yPosMSpinBox->setSuffix(unitSuffix);
 	widthMSpinBox->setSuffix(unitSuffix);
 	heightMSpinBox->setSuffix(unitSuffix);
+	textColumnGapMSpinBox->setSuffix(unitSuffix);
 
 	sourceDocLineEdit->setText("");
  	connect(typeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectType(int)));
@@ -115,7 +118,7 @@ void InsertAFrame::slotSelectSize( int id )
 	heightMSpinBox->setEnabled(id==2);
 }
 
-void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source, ImportSetup& impsetup)
+void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source, ImportSetup& impsetup, int & columnCount, double & columnGap)
 {
 	int type=typeButtonGroup->selectedId();
 	source="";
@@ -153,6 +156,8 @@ void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & l
 	width=widthMSpinBox->value();
 	height=heightMSpinBox->value();
 	impsetup=m_ImportSetup;
+	columnCount=textColumnCountSpinBox->value();
+	columnGap=textColumnGapMSpinBox->value();
 }
 
 void InsertAFrame::locateImageFile()
@@ -180,9 +185,6 @@ void InsertAFrame::locateDocFile()
 	gtGetText* gt = new gtGetText(m_Doc);
 	m_ImportSetup=gt->run();
 	if (m_ImportSetup.runDialog)
-	{
 		sourceDocLineEdit->setText(m_ImportSetup.filename);
-// 		gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, true);
-	}
 	delete gt;
 }

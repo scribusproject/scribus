@@ -703,7 +703,7 @@ void PageItem::setGridOffset(double) { } // FIXME
 void PageItem::setGridDistance(double) { } // FIXME
 void PageItem::setColumns(int n) 
 {
-	Cols = n; //FIXME: undo
+	Cols = QMAX(1, n); //FIXME: undo
 }
 void PageItem::setColumnGap(double gap)
 {
