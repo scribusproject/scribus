@@ -70,6 +70,7 @@ colorcombo.h
 commonstrings.h
 cpalette.h
 cupsoptions.h
+curvewidget.h
 customfdialog.h
 dcolor.h
 deferredtask.h
@@ -244,6 +245,7 @@ colorutil.cpp
 commonstrings.cpp
 cpalette.cpp
 cupsoptions.cpp
+curvewidget.cpp
 customfdialog.cpp
 dcolor.cpp
 deferredtask.cpp

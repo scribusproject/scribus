@@ -53,6 +53,7 @@ scribus_SOURCES = \
 	commonstrings.cpp \
 	cpalette.cpp	\
 	cupsoptions.cpp	\
+	curvewidget.cpp	\
 	customfdialog.cpp	\
 	dcolor.cpp	\
 	deferredtask.cpp	\
@@ -329,6 +330,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/cpalette.h                    $(prefix)/include/scribus/cpalette.h
 	$(INSTALL_DATA) $(srcdir)/crypt.h                       $(prefix)/include/scribus/crypt.h
 	$(INSTALL_DATA) $(srcdir)/cupsoptions.h                 $(prefix)/include/scribus/cupsoptions.h
+	$(INSTALL_DATA) $(srcdir)/curvewidget.h                 $(prefix)/include/scribus/curvewidget.h
 	$(INSTALL_DATA) $(srcdir)/customfdialog.h               $(prefix)/include/scribus/customfdialog.h
 	$(INSTALL_DATA) $(srcdir)/dcolor.h                      $(prefix)/include/scribus/dcolor.h
 	$(INSTALL_DATA) $(srcdir)/delpages.h                    $(prefix)/include/scribus/delpages.h
@@ -523,6 +525,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/cpalette.h
 	-rm -f $(prefix)/include/scribus/crypt.h
 	-rm -f $(prefix)/include/scribus/cupsoptions.h
+	-rm -f $(prefix)/include/scribus/curvewidget.h
 	-rm -f $(prefix)/include/scribus/customfdialog.h
 	-rm -f $(prefix)/include/scribus/dcolor.h
 	-rm -f $(prefix)/include/scribus/delpages.h

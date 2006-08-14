@@ -19,6 +19,8 @@ for which a new license (GPL+exception) is in place.
 #include <qwidget.h>
 #include <qslider.h>
 #include <qpainter.h>
+#include <qtoolbutton.h>
+#include <qpopupmenu.h>
 #include "colorcombo.h"
 #include "cmsettings.h"
 #include "sccombobox.h"
@@ -27,279 +29,9 @@ for which a new license (GPL+exception) is in place.
 #include "mspinbox.h"
 #include "page.h"
 #include "colorutil.h"
+#include "curvewidget.h"
 
 extern QPixmap loadIcon(QString nam);
-
-KCurve::KCurve(QWidget *parent, const char *name, WFlags f) : QWidget(parent, name, f)
-{
-	m_grab_point     = FPoint();
-	m_dragging = false;
-	m_pix = NULL;
-	m_pos = 0;
-	setMouseTracking(true);
-	setPaletteBackgroundColor(Qt::NoBackground);
-	setMinimumSize(150, 150);
-	m_points.resize(0);
-	m_points.addPoint(0.0, 0.0);
-	m_points.addPoint(1.0, 1.0);
-	setFocusPolicy(QWidget::StrongFocus);
-}
-
-KCurve::~KCurve()
-{
-	if (m_pix) delete m_pix;
-}
-
-void KCurve::setPixmap(QPixmap pix)
-{
-	if (m_pix) delete m_pix;
-	m_pix = new QPixmap(pix);
-	repaint(false);
-}
-
-void KCurve::paintEvent(QPaintEvent *)
-{
-	int    x, y;
-	int    wWidth = width();
-	int    wHeight = height();
-	x  = 0;
-	y  = 0;
-	// Drawing selection or all histogram values.
-	// A QPixmap is used for enable the double buffering.
-	QPixmap pm(size());
-	QPainter p1;
-	p1.begin(&pm, this);
-	//  draw background
-	if(m_pix)
-	{
-		p1.scale(1.0*wWidth/m_pix->width(), 1.0*wHeight/m_pix->height());
-		p1.drawPixmap(0, 0, *m_pix);
-		p1.resetXForm();
-	}
-	else
-		pm.fill();
-	// Draw grid separators.
-	p1.setPen(QPen::QPen(Qt::gray, 1, Qt::SolidLine));
-	p1.drawLine(wWidth/3, 0, wWidth/3, wHeight);
-	p1.drawLine(2*wWidth/3, 0, 2*wWidth/3, wHeight);
-	p1.drawLine(0, wHeight/3, wWidth, wHeight/3);
-	p1.drawLine(0, 2*wHeight/3, wWidth, 2*wHeight/3);
-
-	// Draw curve.
-	double curvePrevVal = getCurveValue(0.0);
-	p1.setPen(QPen::QPen(Qt::black, 1, Qt::SolidLine));
-	for (x = 0 ; x < wWidth ; x++)
-	{
-		double curveX;
-		double curveVal;
-		curveX = (x + 0.5) / wWidth;
-//		curveX = x / static_cast<double>(wWidth);
-		curveVal = getCurveValue(curveX);
-		p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(curveVal * wHeight));
-		curvePrevVal = curveVal;
-	}
-	p1.drawLine(x - 1, wHeight - int(curvePrevVal * wHeight), x,     wHeight - int(getCurveValue(1.0) * wHeight));
-	for (uint dh = 0; dh < m_points.size(); dh++)
-	{
-		FPoint p = m_points.point(dh);
-		if(p == m_grab_point)
-		{
-			p1.setPen(QPen::QPen(Qt::red, 3, Qt::SolidLine));
-			p1.drawEllipse( int(p.x() * wWidth) - 2, wHeight - 2 - int(p.y() * wHeight), 4, 4 );
-		}
-		else
-		{
-			p1.setPen(QPen::QPen(Qt::red, 1, Qt::SolidLine));
-			p1.drawEllipse( int(p.x() * wWidth) - 3, wHeight - 3 - int(p.y() * wHeight), 6, 6 );
-		}
-	}
-	p1.end();
-	bitBlt(this, 0, 0, &pm);
-}
-
-void KCurve::keyPressEvent(QKeyEvent *e)
-{
-    if(e->key() == Qt::Key_Delete || e->key() == Qt::Key_Backspace)
-    {
-		if (m_points.size() > 2)
-		{
-			FPoint closest_point;
-			FPoint p = m_points.point(0);
-			int pos = 0;
-			uint cc =0;
-			double distance = 1000; // just a big number
-			while(cc < m_points.size())
-			{
-				if (fabs (m_grab_point.x() - p.x()) < distance)
-				{
-					distance = fabs(m_grab_point.x() - p.x());
-					closest_point = p;
-					m_pos = pos;
-				}
-				cc++;
-				p = m_points.point(cc);
-				pos++;
-			}
-			FPointArray cli;
-			cli.putPoints(0, m_pos, m_points);
-			cli.putPoints(cli.size(), m_points.size()-m_pos-1, m_points, m_pos+1);
-			m_points.resize(0);
-			m_points = cli.copy();
-			m_grab_point = closest_point;
-			repaint(false);
-			emit modified();
-			QWidget::keyPressEvent(e);
-		}
-	}
-}
-
-void KCurve::mousePressEvent ( QMouseEvent * e )
-{
-	FPoint closest_point = FPoint();
-	double distance;
-	if (e->button() != Qt::LeftButton)
-		return;
-	double x = e->pos().x() / (float)width();
-	double y = 1.0 - e->pos().y() / (float)height();
-	distance = 1000; // just a big number
-	FPoint p = m_points.point(0);
-	int insert_pos =0;
-	int pos = 0;
-	uint cc =0;
-	while(cc < m_points.size())
-	{
-		if (fabs (x - p.x()) < distance)
-		{
-			distance = fabs(x - p.x());
-			closest_point = p;
-			insert_pos = pos;
-		}
-		cc++;
-		p = m_points.point(cc);
-		pos++;
-	}
-	m_pos = insert_pos;
-	m_grab_point = closest_point;
-	m_grabOffsetX = m_grab_point.x() - x;
-	m_grabOffsetY = m_grab_point.y() - y;
-	m_grab_point = FPoint(x + m_grabOffsetX, y + m_grabOffsetY);
-	double curveVal = getCurveValue(x);
-	if(distance * width() > 5)
-	{
-		m_dragging = false;
-		if(fabs(y - curveVal) * width() > 5)
-			return;
-		if (m_points.size() < 14)
-		{
-			if (x > closest_point.x())
-				m_pos++;
-			FPointArray cli;
-			cli.putPoints(0, m_pos, m_points);
-			cli.resize(cli.size()+1);
-			cli.putPoints(cli.size()-1, 1, x, curveVal);
-			cli.putPoints(cli.size(), m_points.size()-m_pos, m_points, m_pos);
-			m_points.resize(0);
-			m_points = cli.copy();
-			m_dragging = true;
-			m_grab_point = m_points.point(m_pos);
-			m_grabOffsetX = m_grab_point.x() - x;
-			m_grabOffsetY = m_grab_point.y() - curveVal;
-			m_grab_point = FPoint(x + m_grabOffsetX, curveVal + m_grabOffsetY);
-			qApp->setOverrideCursor(QCursor(crossCursor), true);
-		}
-	}
-	else
-	{
-		if(fabs(y - closest_point.y()) * width() > 5)
-			return;
-		m_dragging = true;
-		qApp->setOverrideCursor(QCursor(crossCursor), true);
-	}
-	// Determine the leftmost and rightmost points.
-	m_leftmost = 0;
-	m_rightmost = 1;
-	repaint(false);
-	emit modified();
-}
-
-void KCurve::mouseReleaseEvent ( QMouseEvent * e )
-{
-	if (e->button() != Qt::LeftButton)
-		return;
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-	m_dragging = false;
-	repaint(false);
-	emit modified();
-}
-
-void KCurve::mouseMoveEvent ( QMouseEvent * e )
-{
-	double x = e->pos().x() / (float)width();
-	double y = 1.0 - e->pos().y() / (float)height();
-
-	if (m_dragging == false)   // If no point is selected set the the cursor shape if on top
-	{
-		double distance = 1000;
-		double ydistance = 1000;
-		FPoint p = m_points.point(0);
-		uint cc =0;
-		while(cc < m_points.size())
-		{
-			if (fabs (x - p.x()) < distance)
-			{
-				distance = fabs(x - p.x());
-				ydistance = fabs(y - p.y());
-			}
-			cc++;
-			p = m_points.point(cc);
-		}
-		if (distance * width() > 5 || ydistance * height() > 5)
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		else
-			qApp->setOverrideCursor(QCursor(crossCursor), true);
-	}
-	else  // Else, drag the selected point
-	{
-		qApp->setOverrideCursor(QCursor(crossCursor), true);
-		x += m_grabOffsetX;
-		y += m_grabOffsetY;
-		if (x <= m_leftmost)
-			x = m_leftmost + 1E-4; // the addition so we can grab the dot later.
-		if(x >= m_rightmost)
-			x = m_rightmost - 1E-4;
-		if(y > 1.0)
-			y = 1.0;
-		if(y < 0.0)
-			y = 0.0;
-		m_grab_point = FPoint(x, y);
-		m_points.setPoint( m_pos, m_grab_point);
-	}
-	repaint(false);
-	emit modified();
-}
-
-double KCurve::getCurveValue(double x)
-{
-	return getCurveYValue(m_points, x);
-}
-
-FPointArray KCurve::getCurve()
-{
-	return m_points.copy();
-}
-
-void KCurve::setCurve(FPointArray inlist)
-{
-	m_points.resize(0);
-	m_points = inlist.copy();
-	repaint(false);
-	emit modified();
-}
-
-void KCurve::leaveEvent( QEvent * )
-{
-	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-}
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent, "EffectsDialog", true, 0 )
 {
@@ -340,7 +72,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout16->addWidget( textLabel5 );
 	optionStack = new QWidgetStack( this, "optionStack" );
 	optionStack->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)7, (QSizePolicy::SizeType)7, 0, 0, optionStack->sizePolicy().hasHeightForWidth() ) );
-	optionStack->setMinimumSize( QSize( 220, 160 ) );
+	optionStack->setMinimumSize( QSize( 220, 180 ) );
 	optionStack->setFrameShape( QWidgetStack::GroupBoxPanel );
 	WStackPage = new QWidget( optionStack, "WStackPage" );
 	optionStack->addWidget( WStackPage, 0 );
@@ -454,102 +186,195 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	optionStack->addWidget( WStackPage_7, 6 );
 
 	WStackPage_8 = new QWidget( optionStack, "WStackPage_8" );
-	WStackPage8Layout = new QGridLayout( WStackPage_8, 1, 1, 0, 5, "WStackPage8Layout");
+	WStackPage8Layout = new QGridLayout( WStackPage_8, 1, 1, 4, 5, "WStackPage8Layout");
 	textLabel1d = new QLabel( tr( "Color 1:" ), WStackPage_8, "textLabel1d" );
 	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
 	colData1 = new ColorCombo(false, WStackPage_8, "colData1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colData1->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage8Layout->addWidget( colData1, 0, 1 );
+	WStackPage8Layout->addMultiCellWidget( colData1, 0, 0, 1, 2);
 	shade1 = new ShadeButton(WStackPage_8);
 	shade1->setValue(100);
-	WStackPage8Layout->addWidget( shade1, 0, 2 );
+	WStackPage8Layout->addWidget( shade1, 1, 1 );
+	CurveD1 = new CurveWidget( NULL );
+	CurveD1Pop = new QPopupMenu();
+	CurveD1Pop->insertItem(CurveD1);
+	CurveD1Button = new QToolButton( WStackPage_8, "CurveD1Button" );
+	CurveD1Button->setText( "" );
+	CurveD1Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveD1Button->setPixmap(loadIcon("curve.png"));
+	CurveD1Button->setPopup(CurveD1Pop);
+	CurveD1Button->setPopupDelay(40);
+	WStackPage8Layout->addWidget( CurveD1Button, 1, 2 );
+
 	textLabel2d = new QLabel( tr( "Color 2:" ), WStackPage_8, "textLabel2d" );
-	WStackPage8Layout->addWidget( textLabel2d, 1, 0 );
+	WStackPage8Layout->addWidget( textLabel2d, 2, 0 );
 	colData2 = new ColorCombo(false, WStackPage_8, "colData2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colData2->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage8Layout->addWidget( colData2, 1, 1 );
+	WStackPage8Layout->addMultiCellWidget( colData2, 2, 2, 1, 2);
 	shade2 = new ShadeButton(WStackPage_8);
 	shade2->setValue(100);
-	WStackPage8Layout->addWidget( shade2, 1, 2 );
+	WStackPage8Layout->addWidget( shade2, 3, 1 );
+	CurveD2 = new CurveWidget( NULL );
+	CurveD2Pop = new QPopupMenu();
+	CurveD2Pop->insertItem(CurveD2);
+	CurveD2Button = new QToolButton( WStackPage_8, "CurveD2Button" );
+	CurveD2Button->setText( "" );
+	CurveD2Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveD2Button->setPixmap(loadIcon("curve.png"));
+	CurveD2Button->setPopup(CurveD2Pop);
+	CurveD2Button->setPopupDelay(40);
+	WStackPage8Layout->addWidget( CurveD2Button, 3, 2 );
+	QSpacerItem *spacerD1 = new QSpacerItem( 1, 1, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	WStackPage8Layout->addItem( spacerD1, 4, 0 );
 	optionStack->addWidget( WStackPage_8, 7 );
 
 	WStackPage_9 = new QWidget( optionStack, "WStackPage_9" );
-	WStackPage9Layout = new QGridLayout( WStackPage_9, 1, 1, 0, 5, "WStackPage9Layout");
+	WStackPage9Layout = new QGridLayout( WStackPage_9, 1, 1, 4, 5, "WStackPage9Layout");
 	textLabel1t = new QLabel( tr( "Color 1:" ), WStackPage_9, "textLabel1t" );
 	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
 	colDatat1 = new ColorCombo(false, WStackPage_9, "colDatat1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDatat1->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage9Layout->addWidget( colDatat1, 0, 1 );
+	WStackPage9Layout->addMultiCellWidget( colDatat1, 0, 0, 1, 2 );
 	shadet1 = new ShadeButton(WStackPage_9);
 	shadet1->setValue(100);
-	WStackPage9Layout->addWidget( shadet1, 0, 2 );
+	WStackPage9Layout->addWidget( shadet1, 1, 1 );
+	CurveT1 = new CurveWidget( NULL );
+	CurveT1Pop = new QPopupMenu();
+	CurveT1Pop->insertItem(CurveT1);
+	CurveT1Button = new QToolButton( WStackPage_9, "CurveT1Button" );
+	CurveT1Button->setText( "" );
+	CurveT1Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveT1Button->setPixmap(loadIcon("curve.png"));
+	CurveT1Button->setPopup(CurveT1Pop);
+	CurveT1Button->setPopupDelay(40);
+	WStackPage9Layout->addWidget( CurveT1Button, 1, 2 );
 	textLabel2t = new QLabel( tr( "Color 2:" ), WStackPage_9, "textLabel2t" );
-	WStackPage9Layout->addWidget( textLabel2t, 1, 0 );
+	WStackPage9Layout->addWidget( textLabel2t, 2, 0 );
 	colDatat2 = new ColorCombo(false, WStackPage_9, "colDatat2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDatat2->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage9Layout->addWidget( colDatat2, 1, 1 );
+	WStackPage9Layout->addMultiCellWidget( colDatat2, 2, 2, 1, 2 );
 	shadet2 = new ShadeButton(WStackPage_9);
 	shadet2->setValue(100);
-	WStackPage9Layout->addWidget( shadet2, 1, 2 );
+	WStackPage9Layout->addWidget( shadet2, 3, 1 );
+	CurveT2 = new CurveWidget( NULL );
+	CurveT2Pop = new QPopupMenu();
+	CurveT2Pop->insertItem(CurveT2);
+	CurveT2Button = new QToolButton( WStackPage_9, "CurveT2Button" );
+	CurveT2Button->setText( "" );
+	CurveT2Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveT2Button->setPixmap(loadIcon("curve.png"));
+	CurveT2Button->setPopup(CurveT2Pop);
+	CurveT2Button->setPopupDelay(40);
+	WStackPage9Layout->addWidget( CurveT2Button, 3, 2 );
 	textLabel3t = new QLabel( tr( "Color 3:" ), WStackPage_9, "textLabel3t" );
-	WStackPage9Layout->addWidget( textLabel3t, 2, 0 );
+	WStackPage9Layout->addWidget( textLabel3t, 4, 0 );
 	colDatat3 = new ColorCombo(false, WStackPage_9, "colDatat3");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDatat3->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage9Layout->addWidget( colDatat3, 2, 1 );
+	WStackPage9Layout->addMultiCellWidget( colDatat3, 4, 4, 1, 2 );
 	shadet3 = new ShadeButton(WStackPage_9);
 	shadet3->setValue(100);
-	WStackPage9Layout->addWidget( shadet3, 2, 2 );
+	WStackPage9Layout->addWidget( shadet3, 5, 1 );
+	CurveT3 = new CurveWidget( NULL );
+	CurveT3Pop = new QPopupMenu();
+	CurveT3Pop->insertItem(CurveT3);
+	CurveT3Button = new QToolButton( WStackPage_9, "CurveT3Button" );
+	CurveT3Button->setText( "" );
+	CurveT3Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveT3Button->setPixmap(loadIcon("curve.png"));
+	CurveT3Button->setPopup(CurveT3Pop);
+	CurveT3Button->setPopupDelay(40);
+	WStackPage9Layout->addWidget( CurveT3Button, 5, 2 );
 	optionStack->addWidget( WStackPage_9, 8 );
 
 	WStackPage_10 = new QWidget( optionStack, "WStackPage_10" );
-	WStackPage10Layout = new QGridLayout( WStackPage_10, 1, 1, 0, 5, "WStackPage10Layout");
+	WStackPage10Layout = new QGridLayout( WStackPage_10, 1, 1, 4, 5, "WStackPage10Layout");
 	textLabel1q = new QLabel( tr( "Color 1:" ), WStackPage_10, "textLabel1q" );
 	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
 	colDataq1 = new ColorCombo(false, WStackPage_10, "colDataq1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDataq1->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage10Layout->addWidget( colDataq1, 0, 1 );
+	WStackPage10Layout->addMultiCellWidget( colDataq1, 0, 0, 1, 2 );
 	shadeq1 = new ShadeButton(WStackPage_10);
 	shadeq1->setValue(100);
-	WStackPage10Layout->addWidget( shadeq1, 0, 2 );
+	WStackPage10Layout->addWidget( shadeq1, 1, 1 );
+	CurveQ1 = new CurveWidget( NULL );
+	CurveQ1Pop = new QPopupMenu();
+	CurveQ1Pop->insertItem(CurveQ1);
+	CurveQ1Button = new QToolButton( WStackPage_10, "CurveQ1Button" );
+	CurveQ1Button->setText( "" );
+	CurveQ1Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveQ1Button->setPixmap(loadIcon("curve.png"));
+	CurveQ1Button->setPopup(CurveQ1Pop);
+	CurveQ1Button->setPopupDelay(40);
+	WStackPage10Layout->addWidget( CurveQ1Button, 1, 2 );
 	textLabel2q = new QLabel( tr( "Color 2:" ), WStackPage_10, "textLabel2q" );
-	WStackPage10Layout->addWidget( textLabel2q, 1, 0 );
+	WStackPage10Layout->addWidget( textLabel2q, 2, 0 );
 	colDataq2 = new ColorCombo(false, WStackPage_10, "colDataq2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDataq2->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage10Layout->addWidget( colDataq2, 1, 1 );
+	WStackPage10Layout->addMultiCellWidget( colDataq2, 2, 2, 1, 2 );
 	shadeq2 = new ShadeButton(WStackPage_10);
 	shadeq2->setValue(100);
-	WStackPage10Layout->addWidget( shadeq2, 1, 2 );
+	WStackPage10Layout->addWidget( shadeq2, 3, 1 );
+	CurveQ2 = new CurveWidget( NULL );
+	CurveQ2Pop = new QPopupMenu();
+	CurveQ2Pop->insertItem(CurveQ2);
+	CurveQ2Button = new QToolButton( WStackPage_10, "CurveQ2Button" );
+	CurveQ2Button->setText( "" );
+	CurveQ2Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveQ2Button->setPixmap(loadIcon("curve.png"));
+	CurveQ2Button->setPopup(CurveQ2Pop);
+	CurveQ2Button->setPopupDelay(40);
+	WStackPage10Layout->addWidget( CurveQ2Button, 3, 2 );
 	textLabel3q = new QLabel( tr( "Color 3:" ), WStackPage_10, "textLabel3q" );
-	WStackPage10Layout->addWidget( textLabel3q, 2, 0 );
+	WStackPage10Layout->addWidget( textLabel3q, 4, 0 );
 	colDataq3 = new ColorCombo(false, WStackPage_10, "colDataq3");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDataq3->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage10Layout->addWidget( colDataq3, 2, 1 );
+	WStackPage10Layout->addMultiCellWidget( colDataq3, 4, 4, 1, 2 );
 	shadeq3 = new ShadeButton(WStackPage_10);
 	shadeq3->setValue(100);
-	WStackPage10Layout->addWidget( shadeq3, 2, 2 );
+	WStackPage10Layout->addWidget( shadeq3, 5, 1 );
+	CurveQ3 = new CurveWidget( NULL );
+	CurveQ3Pop = new QPopupMenu();
+	CurveQ3Pop->insertItem(CurveQ3);
+	CurveQ3Button = new QToolButton( WStackPage_10, "CurveQ3Button" );
+	CurveQ3Button->setText( "" );
+	CurveQ3Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveQ3Button->setPixmap(loadIcon("curve.png"));
+	CurveQ3Button->setPopup(CurveQ1Pop);
+	CurveQ3Button->setPopupDelay(40);
+	WStackPage10Layout->addWidget( CurveQ3Button, 5, 2 );
 	textLabel4q = new QLabel( tr( "Color 4:" ), WStackPage_10, "textLabel4q" );
-	WStackPage10Layout->addWidget( textLabel4q, 3, 0 );
+	WStackPage10Layout->addWidget( textLabel4q, 6, 0 );
 	colDataq4 = new ColorCombo(false, WStackPage_10, "colDataq4");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 		colDataq4->insertSmallItem(doc->PageColors[it.key()], it.key());
-	WStackPage10Layout->addWidget( colDataq4, 3, 1 );
+	WStackPage10Layout->addMultiCellWidget( colDataq4, 6, 6, 1, 2 );
 	shadeq4 = new ShadeButton(WStackPage_10);
 	shadeq4->setValue(100);
-	WStackPage10Layout->addWidget( shadeq4, 3, 2 );
+	WStackPage10Layout->addWidget( shadeq4, 7, 1 );
+	CurveQ4 = new CurveWidget( NULL );
+	CurveQ4Pop = new QPopupMenu();
+	CurveQ4Pop->insertItem(CurveQ4);
+	CurveQ4Button = new QToolButton( WStackPage_10, "CurveQ4Button" );
+	CurveQ4Button->setText( "" );
+	CurveQ4Button->setMaximumSize( QSize( 22, 22 ) );
+	CurveQ4Button->setPixmap(loadIcon("curve.png"));
+	CurveQ4Button->setPopup(CurveQ1Pop);
+	CurveQ4Button->setPopupDelay(40);
+	WStackPage10Layout->addWidget( CurveQ4Button, 7, 2 );
 	optionStack->addWidget( WStackPage_10, 9 );
 
 	WStackPage_11 = new QWidget( optionStack, "WStackPage_11" );
 	WStackPage11Layout = new QVBoxLayout( WStackPage_11, 5, 5, "WStackPageLayout");
 	WStackPage11Layout->setAlignment( Qt::AlignTop );
-	Kdisplay = new KCurve(WStackPage_11);
+	Kdisplay = new CurveWidget(WStackPage_11);
 	WStackPage11Layout->addWidget( Kdisplay );
 	optionStack->addWidget( WStackPage_11, 10 );
 
@@ -744,7 +569,16 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( blRadius, SIGNAL(valueChanged(int)), this, SLOT(createPreview()));
 	connect( solarizeSlider, SIGNAL(valueChanged(int)), this, SLOT(updateSolarize(int)));
 	connect( solarizeSlider, SIGNAL(sliderReleased()), this, SLOT(createPreview()));
-	connect( Kdisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveD1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveD2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveT1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveT2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+	connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 	tim.start();
 }
 
@@ -821,6 +655,22 @@ void EffectsDialog::saveValues(bool final)
 			efval += tmp;
 			tmp.setNum(shade2->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveD1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveD2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Tritone"))
@@ -836,6 +686,30 @@ void EffectsDialog::saveValues(bool final)
 			efval += " "+tmp;
 			tmp.setNum(shadet3->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveT1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveT2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveT3->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Quadtone"))
@@ -854,6 +728,38 @@ void EffectsDialog::saveValues(bool final)
 			efval += " "+tmp;
 			tmp.setNum(shadeq4->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveQ1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ3->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ4->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Brightness"))
@@ -900,7 +806,7 @@ void EffectsDialog::saveValues(bool final)
 		if (currentOptions->text() == tr("Curves"))
 		{
 			QString efval = "";
-			FPointArray Vals = Kdisplay->getCurve();
+			FPointArray Vals = Kdisplay->cDisplay->getCurve();
 			QString tmp;
 			tmp.setNum(Vals.size());
 			efval += tmp;
@@ -1008,21 +914,21 @@ void EffectsDialog::moveToEffects()
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+"\n"+it.key()+"\n100 100";
+		QString efval = it.key()+"\n"+it.key()+"\n100 100 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	if (availableEffects->currentText() == tr("Tritone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100";
+		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	if (availableEffects->currentText() == tr("Quadtone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100";
+		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	if (availableEffects->currentText() == tr("Curves"))
@@ -1147,6 +1053,22 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += tmp;
 			tmp.setNum(shade2->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveD1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveD2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Tritone"))
@@ -1162,6 +1084,30 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			tmp.setNum(shadet3->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveT1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveT2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveT3->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Quadtone"))
@@ -1180,12 +1126,44 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			tmp.setNum(shadeq4->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveQ1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ3->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ4->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Curves"))
 		{
 			QString efval = "";
-			FPointArray Vals = Kdisplay->getCurve();
+			FPointArray Vals = Kdisplay->cDisplay->getCurve();
 			QString tmp;
 			tmp.setNum(Vals.size());
 			efval += tmp;
@@ -1235,6 +1213,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			disconnect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			disconnect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( CurveD1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveD2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			QString col1, col2;
 			int shading1, shading2;
@@ -1247,11 +1227,34 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			shade1->setValue(shading1);
 			colData2->setCurrentText(col2);
 			shade2->setValue(shading2);
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveD1->cDisplay->setCurve(curve);
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveD2->cDisplay->setCurve(curve);
 			optionStack->raiseWidget(7);
 			connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colData2, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade2, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( CurveD1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveD2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Tritone"))
 		{
@@ -1261,6 +1264,9 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
 			disconnect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			disconnect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( CurveT1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveT2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3;
 			int shading1, shading2, shading3;
@@ -1277,6 +1283,36 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			shadet2->setValue(shading2);
 			colDatat3->setCurrentText(col3);
 			shadet3->setValue(shading3);
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveT1->cDisplay->setCurve(curve);
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveT2->cDisplay->setCurve(curve);
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveT3->cDisplay->setCurve(curve);
 			optionStack->raiseWidget(8);
 			connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
@@ -1284,6 +1320,9 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			connect( shadet2, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colDatat3, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadet3, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( CurveT1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveT2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveT3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Quadtone"))
 		{
@@ -1295,6 +1334,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			disconnect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
 			disconnect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			disconnect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
+			disconnect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			QString col1, col2, col3, col4;
 			int shading1, shading2, shading3, shading4;
@@ -1315,6 +1358,45 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			shadeq3->setValue(shading3);
 			colDataq4->setCurrentText(col4);
 			shadeq4->setValue(shading4);
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveQ1->cDisplay->setCurve(curve);
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveQ2->cDisplay->setCurve(curve);
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveQ3->cDisplay->setCurve(curve);
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			CurveQ4->cDisplay->setCurve(curve);
 			optionStack->raiseWidget(9);
 			connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
@@ -1324,6 +1406,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			connect( shadeq3, SIGNAL(clicked()), this, SLOT(createPreview()));
 			connect( colDataq4, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadeq4, SIGNAL(clicked()), this, SLOT(createPreview()));
+			connect( CurveQ1->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveQ2->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveQ3->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( CurveQ4->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else if (c->text() == tr("Brightness"))
 		{
@@ -1403,7 +1489,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 		}
 		else if (c->text() == tr("Curves"))
 		{
-			disconnect( Kdisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			disconnect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 			QString tmpstr = effectValMap[c];
 			QTextStream fp(&tmpstr, IO_ReadOnly);
 			int numVals;
@@ -1417,9 +1503,9 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				fp >> yval;
 				curve.addPoint(xval, yval);
 			}
-			Kdisplay->setCurve(curve);
+			Kdisplay->cDisplay->setCurve(curve);
 			optionStack->raiseWidget(10);
-			connect( Kdisplay, SIGNAL(modified()), this, SLOT(createPreview()));
+			connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
 		else
 			optionStack->raiseWidget(0);
@@ -1499,7 +1585,22 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			efval += tmp;
 			tmp.setNum(shade2->getValue());
 			efval += " "+tmp;
-			effectValMap[currentOptions] = efval;
+			FPointArray Vals = CurveD1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveD2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Tritone"))
@@ -1515,6 +1616,30 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			tmp.setNum(shadet3->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveT1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveT2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveT3->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Quadtone"))
@@ -1533,12 +1658,44 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 			efval += " "+tmp;
 			tmp.setNum(shadeq4->getValue());
 			efval += " "+tmp;
+			FPointArray Vals = CurveQ1->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ2->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ3->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			Vals = CurveQ4->cDisplay->getCurve();
+			tmp.setNum(Vals.size());
+			efval += " "+tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Curves"))
 		{
 			QString efval = "";
-			FPointArray Vals = Kdisplay->getCurve();
+			FPointArray Vals = Kdisplay->cDisplay->getCurve();
 			QString tmp;
 			tmp.setNum(Vals.size());
 			efval += tmp;

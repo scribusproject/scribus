@@ -43,6 +43,7 @@ compfile16.png
 compfile.png
 Corner.xpm
 crop.png
+curve.png
 DateiClos16.png
 DateiClose.png
 DateiNeu16.png
@@ -127,6 +128,7 @@ hmirror.png
 Hoch.xpm
 hyphenate.png
 image.png
+invert.png
 irreg.png
 Kapital.xpm
 Kern.xpm

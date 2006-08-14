@@ -187,7 +187,27 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				col2 = fp.readLine();
 				fp >> shading1;
 				fp >> shading2;
-				duotone(colors[col1], shading1, colors[col2], shading2, cmyk);
+				int numVals;
+				double xval, yval;
+				FPointArray curve1;
+				curve1.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve1.addPoint(xval, yval);
+				}
+				FPointArray curve2;
+				curve2.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve2.addPoint(xval, yval);
+				}
+				duotone(colors[col1], shading1, curve1, colors[col2], shading2, curve2, cmyk);
 			}
 			if ((*effectsList.at(a)).effectCode == EF_TRITONE)
 			{
@@ -205,7 +225,36 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				fp >> shading1;
 				fp >> shading2;
 				fp >> shading3;
-				tritone(colors[col1], shading1, colors[col2], shading2, colors[col3], shading3, cmyk);
+				int numVals;
+				double xval, yval;
+				FPointArray curve1;
+				curve1.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve1.addPoint(xval, yval);
+				}
+				FPointArray curve2;
+				curve2.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve2.addPoint(xval, yval);
+				}
+				FPointArray curve3;
+				curve3.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve3.addPoint(xval, yval);
+				}
+				tritone(colors[col1], shading1, curve1, colors[col2], shading2, curve2, colors[col3], shading3, curve3, cmyk);
 			}
 			if ((*effectsList.at(a)).effectCode == EF_QUADTONE)
 			{
@@ -227,7 +276,45 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				fp >> shading2;
 				fp >> shading3;
 				fp >> shading4;
-				quadtone(colors[col1], shading1, colors[col2], shading2, colors[col3], shading3, colors[col4], shading4, cmyk);
+				int numVals;
+				double xval, yval;
+				FPointArray curve1;
+				curve1.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve1.addPoint(xval, yval);
+				}
+				FPointArray curve2;
+				curve2.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve2.addPoint(xval, yval);
+				}
+				FPointArray curve3;
+				curve3.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve3.addPoint(xval, yval);
+				}
+				FPointArray curve4;
+				curve4.resize(0);
+				fp >> numVals;
+				for (int nv = 0; nv < numVals; nv++)
+				{
+					fp >> xval;
+					fp >> yval;
+					curve4.addPoint(xval, yval);
+				}
+				quadtone(colors[col1], shading1, curve1, colors[col2], shading2, curve2, colors[col3], shading3, curve3, colors[col4], shading4, curve4, cmyk);
 			}
 			if ((*effectsList.at(a)).effectCode == EF_GRADUATE)
 			{
@@ -760,15 +847,27 @@ void ScImage::colorize(ScColor color, int shade, bool cmyk)
 	}
 }
 
-void ScImage::duotone(ScColor color1, int shade1, ScColor color2, int shade2, bool cmyk)
+void ScImage::duotone(ScColor color1, int shade1, FPointArray curve1, ScColor color2, int shade2, FPointArray curve2, bool cmyk)
 {
 	int h = height();
 	int w = width();
 	int c, c1, m, m1, y, y1, k, k1;
 	int cn, c1n, mn, m1n, yn, y1n, kn, k1n;
 	uchar cb;
+	QMemArray<int> curveTable1;
+	QMemArray<int> curveTable2;
 	color1.getShadeColorCMYK(&c, &m, &y, &k, shade1);
 	color2.getShadeColorCMYK(&c1, &m1, &y1, &k1, shade2);
+	curveTable1.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve1, x / 255.0) * 255)));
+	}
+	curveTable2.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0) * 255)));
+	}
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -779,14 +878,14 @@ void ScImage::duotone(ScColor color1, int shade1, ScColor color2, int shade2, bo
 				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
 				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			cn = QMIN((c * cb) >> 8, 255);
-			mn = QMIN((m * cb) >> 8, 255);
-			yn = QMIN((y * cb) >> 8, 255);
-			kn = QMIN((k * cb) >> 8, 255);
-			c1n = QMIN((c1 * cb) >> 8, 255);
-			m1n = QMIN((m1 * cb) >> 8, 255);
-			y1n = QMIN((y1 * cb) >> 8, 255);
-			k1n = QMIN((k1 * cb) >> 8, 255);
+			cn = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
+			mn = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
+			yn = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
+			kn = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
+			c1n = QMIN((c1 * curveTable1[(int)cb]) >> 8, 255);
+			m1n = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
+			y1n = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
+			k1n = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
 			ScColor col = ScColor(QMIN(cn+c1n, 255), QMIN(mn+m1n, 255), QMIN(yn+y1n, 255), QMIN(kn+k1n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);
@@ -801,16 +900,34 @@ void ScImage::duotone(ScColor color1, int shade1, ScColor color2, int shade2, bo
 	}
 }
 
-void ScImage::tritone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, bool cmyk)
+void ScImage::tritone(ScColor color1, int shade1, FPointArray curve1, ScColor color2, int shade2, FPointArray curve2, ScColor color3, int shade3, FPointArray curve3, bool cmyk)
 {
 	int h = height();
 	int w = width();
 	int c, c1, c2, m, m1, m2, y, y1, y2, k, k1, k2;
 	int cn, c1n, c2n, mn, m1n, m2n, yn, y1n, y2n, kn, k1n, k2n;
 	uchar cb;
+	QMemArray<int> curveTable1;
+	QMemArray<int> curveTable2;
+	QMemArray<int> curveTable3;
 	color1.getShadeColorCMYK(&c, &m, &y, &k, shade1);
 	color2.getShadeColorCMYK(&c1, &m1, &y1, &k1, shade2);
 	color3.getShadeColorCMYK(&c2, &m2, &y2, &k2, shade3);
+	curveTable1.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve1, x / 255.0) * 255)));
+	}
+	curveTable2.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0) * 255)));
+	}
+	curveTable3.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable3[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0) * 255)));
+	}
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -821,18 +938,18 @@ void ScImage::tritone(ScColor color1, int shade1, ScColor color2, int shade2, Sc
 				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
 				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			cn = QMIN((c * cb) >> 8, 255);
-			mn = QMIN((m * cb) >> 8, 255);
-			yn = QMIN((y * cb) >> 8, 255);
-			kn = QMIN((k * cb) >> 8, 255);
-			c1n = QMIN((c1 * cb) >> 8, 255);
-			m1n = QMIN((m1 * cb) >> 8, 255);
-			y1n = QMIN((y1 * cb) >> 8, 255);
-			k1n = QMIN((k1 * cb) >> 8, 255);
-			c2n = QMIN((c2 * cb) >> 8, 255);
-			m2n = QMIN((m2 * cb) >> 8, 255);
-			y2n = QMIN((y2 * cb) >> 8, 255);
-			k2n = QMIN((k2 * cb) >> 8, 255);
+			cn = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
+			mn = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
+			yn = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
+			kn = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
+			c1n = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
+			m1n = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
+			y1n = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
+			k1n = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
+			c2n = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
+			m2n = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
+			y2n = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
+			k2n = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
 			ScColor col = ScColor(QMIN(cn+c1n+c2n, 255), QMIN(mn+m1n+m2n, 255), QMIN(yn+y1n+y2n, 255), QMIN(kn+k1n+k2n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);
@@ -847,17 +964,41 @@ void ScImage::tritone(ScColor color1, int shade1, ScColor color2, int shade2, Sc
 	}
 }
 
-void ScImage::quadtone(ScColor color1, int shade1, ScColor color2, int shade2, ScColor color3, int shade3, ScColor color4, int shade4, bool cmyk)
+void ScImage::quadtone(ScColor color1, int shade1, FPointArray curve1, ScColor color2, int shade2, FPointArray curve2, ScColor color3, int shade3, FPointArray curve3, ScColor color4, int shade4, FPointArray curve4, bool cmyk)
 {
 	int h = height();
 	int w = width();
 	int c, c1, c2, c3, m, m1, m2, m3, y, y1, y2, y3, k, k1, k2, k3;
 	int cn, c1n, c2n, c3n, mn, m1n, m2n, m3n, yn, y1n, y2n, y3n, kn, k1n, k2n, k3n;
 	uchar cb;
+	QMemArray<int> curveTable1;
+	QMemArray<int> curveTable2;
+	QMemArray<int> curveTable3;
+	QMemArray<int> curveTable4;
 	color1.getShadeColorCMYK(&c, &m, &y, &k, shade1);
 	color2.getShadeColorCMYK(&c1, &m1, &y1, &k1, shade2);
 	color3.getShadeColorCMYK(&c2, &m2, &y2, &k2, shade3);
 	color4.getShadeColorCMYK(&c3, &m3, &y3, &k3, shade4);
+	curveTable1.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable1[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve1, x / 255.0) * 255)));
+	}
+	curveTable2.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable2[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve2, x / 255.0) * 255)));
+	}
+	curveTable3.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable3[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve3, x / 255.0) * 255)));
+	}
+	curveTable4.resize(256);
+	for (int x = 0 ; x < 256 ; x++)
+	{
+		curveTable4[x] = QMIN(255, QMAX(0, qRound(getCurveYValue(curve4, x / 255.0) * 255)));
+	}
 	for( int yi=0; yi < h; ++yi )
 	{
 		QRgb * s = (QRgb*)(scanLine( yi ));
@@ -868,22 +1009,22 @@ void ScImage::quadtone(ScColor color1, int shade1, ScColor color2, int shade2, S
 				cb = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
 			else
 				cb = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			cn = QMIN((c * cb) >> 8, 255);
-			mn = QMIN((m * cb) >> 8, 255);
-			yn = QMIN((y * cb) >> 8, 255);
-			kn = QMIN((k * cb) >> 8, 255);
-			c1n = QMIN((c1 * cb) >> 8, 255);
-			m1n = QMIN((m1 * cb) >> 8, 255);
-			y1n = QMIN((y1 * cb) >> 8, 255);
-			k1n = QMIN((k1 * cb) >> 8, 255);
-			c2n = QMIN((c2 * cb) >> 8, 255);
-			m2n = QMIN((m2 * cb) >> 8, 255);
-			y2n = QMIN((y2 * cb) >> 8, 255);
-			k2n = QMIN((k2 * cb) >> 8, 255);
-			c3n = QMIN((c3 * cb) >> 8, 255);
-			m3n = QMIN((m3 * cb) >> 8, 255);
-			y3n = QMIN((y3 * cb) >> 8, 255);
-			k3n = QMIN((k3 * cb) >> 8, 255);
+			cn = QMIN((c * curveTable1[(int)cb]) >> 8, 255);
+			mn = QMIN((m * curveTable1[(int)cb]) >> 8, 255);
+			yn = QMIN((y * curveTable1[(int)cb]) >> 8, 255);
+			kn = QMIN((k * curveTable1[(int)cb]) >> 8, 255);
+			c1n = QMIN((c1 * curveTable2[(int)cb]) >> 8, 255);
+			m1n = QMIN((m1 * curveTable2[(int)cb]) >> 8, 255);
+			y1n = QMIN((y1 * curveTable2[(int)cb]) >> 8, 255);
+			k1n = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
+			c2n = QMIN((c2 * curveTable3[(int)cb]) >> 8, 255);
+			m2n = QMIN((m2 * curveTable3[(int)cb]) >> 8, 255);
+			y2n = QMIN((y2 * curveTable3[(int)cb]) >> 8, 255);
+			k2n = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
+			c3n = QMIN((c3 * curveTable4[(int)cb]) >> 8, 255);
+			m3n = QMIN((m3 * curveTable4[(int)cb]) >> 8, 255);
+			y3n = QMIN((y3 * curveTable4[(int)cb]) >> 8, 255);
+			k3n = QMIN((k3 * curveTable4[(int)cb]) >> 8, 255);
 			ScColor col = ScColor(QMIN(cn+c1n+c2n+c3n, 255), QMIN(mn+m1n+m2n+m3n, 255), QMIN(yn+y1n+y2n+y3n, 255), QMIN(kn+k1n+k2n+k3n, 255));
 			if (cmyk)
 				col.getCMYK(&cn, &mn, &yn, &kn);

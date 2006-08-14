@@ -3230,18 +3230,93 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			else if (pixm.imgInfo.duotoneColors.count() == 2)
 			{
 				efVal += "100 100";
+				QString tmp;
+				FPointArray Vals = pixm.imgInfo.duotoneColors[0].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
+				Vals = pixm.imgInfo.duotoneColors[1].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
 				ef.effectCode = ScImage::EF_DUOTONE;
 				ef.effectParameters = efVal;
 			}
 			else if (pixm.imgInfo.duotoneColors.count() == 3)
 			{
 				efVal += "100 100 100";
+				QString tmp;
+				FPointArray Vals = pixm.imgInfo.duotoneColors[0].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
+				Vals = pixm.imgInfo.duotoneColors[1].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
+				Vals = pixm.imgInfo.duotoneColors[2].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
 				ef.effectCode = ScImage::EF_TRITONE;
 				ef.effectParameters = efVal;
 			}
 			else if (pixm.imgInfo.duotoneColors.count() == 4)
 			{
 				efVal += "100 100 100 100";
+				QString tmp;
+				FPointArray Vals = pixm.imgInfo.duotoneColors[0].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
+				Vals = pixm.imgInfo.duotoneColors[1].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
+				Vals = pixm.imgInfo.duotoneColors[2].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
+				Vals = pixm.imgInfo.duotoneColors[3].Curve;
+				tmp.setNum(Vals.size());
+				efVal += " "+tmp;
+				for (uint p = 0; p < Vals.size(); p++)
+				{
+					FPoint pv = Vals.point(p);
+					efVal += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+				}
 				ef.effectCode = ScImage::EF_QUADTONE;
 				ef.effectParameters = efVal;
 			}

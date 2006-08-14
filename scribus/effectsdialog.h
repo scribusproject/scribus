@@ -30,44 +30,10 @@ class ShadeButton;
 class QWidgetStack;
 class QWidget;
 class QSlider;
+class QPopupMenu;
+class QToolButton;
 class MSpinBox;
-
-class SCRIBUS_API KCurve : public QWidget
-{
-	Q_OBJECT
-
-public:
-	KCurve(QWidget *parent = 0, const char *name = 0, WFlags f = 0);
-	virtual ~KCurve();
-	void setPixmap(QPixmap pix);
-
-protected:
-	void paintEvent(QPaintEvent *);
-	void keyPressEvent(QKeyEvent *);
-	void mousePressEvent (QMouseEvent * e);
-	void mouseReleaseEvent ( QMouseEvent * e );
-	void mouseMoveEvent ( QMouseEvent * e );
-	void leaveEvent ( QEvent * );
-
-public:
-	double getCurveValue(double x);
-	FPointArray getCurve();
-	void setCurve(FPointArray inlist);
-
-signals:
-	void modified();
-
-private:
-	double m_leftmost;
-	double m_rightmost;
-	FPoint m_grab_point;
-	int m_pos;
-	bool m_dragging;
-	double m_grabOffsetX;
-	double m_grabOffsetY;
-	FPointArray m_points;
-	QPixmap *m_pix;
-};
+class CurveWidget;
 
 class SCRIBUS_API EffectsDialog : public QDialog
 {
@@ -112,37 +78,64 @@ public:
 	QLabel* textLabel1d;
 	ColorCombo* colData1;
 	ShadeButton *shade1;
+	CurveWidget *CurveD1;
+	QToolButton *CurveD1Button;
+	QPopupMenu *CurveD1Pop;
 	QLabel* textLabel2d;
 	ColorCombo* colData2;
 	ShadeButton *shade2;
+	CurveWidget *CurveD2;
+	QToolButton *CurveD2Button;
+	QPopupMenu *CurveD2Pop;
 
 	QWidget* WStackPage_9;
 	QLabel* textLabel1t;
 	ColorCombo* colDatat1;
 	ShadeButton *shadet1;
+	CurveWidget *CurveT1;
+	QToolButton *CurveT1Button;
+	QPopupMenu *CurveT1Pop;
 	QLabel* textLabel2t;
 	ColorCombo* colDatat2;
 	ShadeButton *shadet2;
+	CurveWidget *CurveT2;
+	QToolButton *CurveT2Button;
+	QPopupMenu *CurveT2Pop;
 	QLabel* textLabel3t;
 	ColorCombo* colDatat3;
 	ShadeButton *shadet3;
+	CurveWidget *CurveT3;
+	QToolButton *CurveT3Button;
+	QPopupMenu *CurveT3Pop;
 
 	QWidget* WStackPage_10;
 	QLabel* textLabel1q;
 	ColorCombo* colDataq1;
 	ShadeButton *shadeq1;
+	CurveWidget *CurveQ1;
+	QToolButton *CurveQ1Button;
+	QPopupMenu *CurveQ1Pop;
 	QLabel* textLabel2q;
 	ColorCombo* colDataq2;
 	ShadeButton *shadeq2;
+	CurveWidget *CurveQ2;
+	QToolButton *CurveQ2Button;
+	QPopupMenu *CurveQ2Pop;
 	QLabel* textLabel3q;
 	ColorCombo* colDataq3;
 	ShadeButton *shadeq3;
+	CurveWidget *CurveQ3;
+	QToolButton *CurveQ3Button;
+	QPopupMenu *CurveQ3Pop;
 	QLabel* textLabel4q;
 	ColorCombo* colDataq4;
 	ShadeButton *shadeq4;
+	CurveWidget *CurveQ4;
+	QToolButton *CurveQ4Button;
+	QPopupMenu *CurveQ4Pop;
 
 	QWidget* WStackPage_11;
-	KCurve *Kdisplay;
+	CurveWidget *Kdisplay;
 
 	QListBox* usedEffects;
 	QPushButton* effectUp;
