@@ -71,10 +71,12 @@ void KCurve::paintEvent(QPaintEvent *)
 		pm.fill();
 	// Draw grid separators.
 	p1.setPen(QPen::QPen(Qt::gray, 1, Qt::SolidLine));
-	p1.drawLine(wWidth/3, 0, wWidth/3, wHeight);
-	p1.drawLine(2*wWidth/3, 0, 2*wWidth/3, wHeight);
-	p1.drawLine(0, wHeight/3, wWidth, wHeight/3);
-	p1.drawLine(0, 2*wHeight/3, wWidth, 2*wHeight/3);
+	p1.drawLine(wWidth/4, 0, wWidth/4, wHeight);
+	p1.drawLine(wWidth/2, 0, wWidth/2, wHeight);
+	p1.drawLine(3*wWidth/4, 0, 3*wWidth/4, wHeight);
+	p1.drawLine(0, wHeight/4, wWidth, wHeight/4);
+	p1.drawLine(0, wHeight/2, wWidth, wHeight/2);
+	p1.drawLine(0, 3*wHeight/4, wWidth, 3*wHeight/4);
 
 	// Draw curve.
 	double curvePrevVal = getCurveValue(0.0);
@@ -209,6 +211,20 @@ void KCurve::mousePressEvent ( QMouseEvent * e )
 	// Determine the leftmost and rightmost points.
 	m_leftmost = 0;
 	m_rightmost = 1;
+	p = m_points.point(0);
+	cc = 0;
+	while(cc < m_points.size())
+	{
+		if (p != m_grab_point)
+		{
+			if(p.x() > m_leftmost && p.x() < x)
+				m_leftmost = p.x();
+			if(p.x() < m_rightmost && p.x() > x)
+				m_rightmost = p.x();
+		}
+		cc++;
+		p = m_points.point(cc);
+    }
 	repaint(false);
 	emit modified();
 }
@@ -281,8 +297,17 @@ FPointArray KCurve::getCurve()
 
 void KCurve::setCurve(FPointArray inlist)
 {
+	m_points_back = m_points.copy();
 	m_points.resize(0);
 	m_points = inlist.copy();
+	repaint(false);
+	emit modified();
+}
+
+void KCurve::resetCurve()
+{
+	m_points.resize(0);
+	m_points = m_points_back.copy();
 	repaint(false);
 	emit modified();
 }
@@ -346,11 +371,7 @@ void CurveWidget::doInvert()
 
 void CurveWidget::doReset()
 {
-	FPointArray curve;
-	curve.resize(0);
-	curve.addPoint(0.0, 0.0);
-	curve.addPoint(1.0, 1.0);
-	cDisplay->setCurve(curve);
+	cDisplay->resetCurve();
 }
 
 /*
@@ -363,5 +384,13 @@ void CurveWidget::languageChange()
 	resetButton->setText( QString::null );
 	loadButton->setText( QString::null );
 	saveButton->setText( QString::null );
+	QToolTip::remove( invertButton );
+	QToolTip::remove( resetButton );
+	QToolTip::remove( loadButton );
+	QToolTip::remove( saveButton );
+	QToolTip::add( invertButton, tr( "Inverts the curve" ) );
+	QToolTip::add( resetButton, tr( "Resets the curve" ) );
+	QToolTip::add( loadButton, tr( "Loads a curve" ) );
+	QToolTip::add( saveButton, tr( "Saves this curve" ) );
 }
 

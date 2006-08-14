@@ -41,6 +41,7 @@ public:
 	double getCurveValue(double x);
 	FPointArray getCurve();
 	void setCurve(FPointArray inlist);
+	void resetCurve();
 
 signals:
 	void modified();
@@ -54,6 +55,7 @@ private:
 	double m_grabOffsetX;
 	double m_grabOffsetY;
 	FPointArray m_points;
+	FPointArray m_points_back;
 	QPixmap *m_pix;
 };
 
