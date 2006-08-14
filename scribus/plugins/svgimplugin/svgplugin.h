@@ -133,8 +133,9 @@ public:
 		PLineEnd(Qt::FlatCap),
 		PLineJoin(Qt::MiterJoin),
 		StrokeCol("None"),
-		Transparency(0.0),
-		TranspStroke(0.0)
+		Opacity(0.0),
+		FillOpacity(0.0),
+		StrokeOpacity(0.0)
 		{
 		}
 	bool CSpace;
@@ -161,8 +162,9 @@ public:
 	Qt::PenCapStyle PLineEnd;
 	Qt::PenJoinStyle PLineJoin;
 	QString StrokeCol;
-	double Transparency;
-	double TranspStroke;
+	double Opacity;
+	double FillOpacity;
+	double StrokeOpacity;
 };
 
 class SVGPlug : public QObject

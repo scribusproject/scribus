@@ -622,8 +622,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			}
 			if( !b.attribute("id").isEmpty() )
 				ite->setItemName(" "+b.attribute("id"));
-			ite->setFillTransparency(gc->Transparency);
-			ite->setLineTransparency(gc->TranspStroke);
+			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			ite->setTextFlowsAroundFrame(false);
@@ -1357,14 +1357,11 @@ QString SVGPlug::parseColor( const QString &s )
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
 	if( command == "stroke-opacity" )
-		obj->TranspStroke  = 1.0 - fromPercentage(params);
+		obj->StrokeOpacity  = fromPercentage(params);
 	else if( command == "fill-opacity" )
-		obj->Transparency = 1.0 - fromPercentage(params);
+		obj->FillOpacity = fromPercentage(params);
 	else if( command == "opacity" )
-	{
-		obj->Transparency = 1.0 - fromPercentage(params);
-		obj->TranspStroke = 1.0 - fromPercentage(params);
-	}
+		obj->Opacity = fromPercentage(params);
 	else if( command == "fill" )
 	{
 		if ((obj->InherCol) && (params == "currentColor"))
@@ -1870,8 +1867,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->moveBy(0.0, -asce * mm.m22());
 			if( !e.attribute("id").isEmpty() )
 				ite->setItemName(" "+e.attribute("id"));
-			ite->setFillTransparency(gc->Transparency);
-			ite->setLineTransparency(gc->TranspStroke);
+			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			ite->setTextFlowsAroundFrame(false);
@@ -1956,8 +1953,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		currDoc->setRedrawBounding(ite);
 		if( !e.attribute("id").isEmpty() )
 			ite->setItemName(" "+e.attribute("id"));
-		ite->setFillTransparency(gc->Transparency);
-		ite->setLineTransparency(gc->TranspStroke);
+		ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+		ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
 		ite->PLineEnd = gc->PLineEnd;
 		ite->PLineJoin = gc->PLineJoin;
 		ite->setTextFlowsAroundFrame(false);
