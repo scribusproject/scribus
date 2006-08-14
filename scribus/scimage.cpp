@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "gsutil.h"
 #include "exif.h"
 #include "commonstrings.h"
-#include "util.h"
+#include "colorutil.h"
 
 using namespace std;
 

@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "units.h"
 #include "util.h"
+#include "colorutil.h"
 #ifdef HAVE_LIBZ
 	#include <zlib.h>
 #endif

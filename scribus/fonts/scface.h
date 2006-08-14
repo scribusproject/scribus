@@ -143,24 +143,24 @@ protected:
 			status = ScFace::UNKNOWN;
 		}
 		
-		virtual void loadGlyph(uint gl) const {}
+		virtual void loadGlyph(uint /*gl*/) const {}
 
 		// dummy implementations
 		virtual double ascent(double sz)           const { return sz; }
-		virtual double descent(double sz)          const { return 0.0; }
+		virtual double descent(double /*sz*/)          const { return 0.0; }
 		virtual double xHeight(double sz)          const { return sz; }
 		virtual double capHeight(double sz)        const { return sz; }
 		virtual double height(double sz)           const { return sz; }
 		virtual double strikeoutPos(double sz)     const { return sz / 2; }
-		virtual double underlinePos(double sz)     const { return -1.0; }
-		virtual double strokeWidth(double sz)      const { return 0.1; }
+		virtual double underlinePos(double /*sz*/)     const { return -1.0; }
+		virtual double strokeWidth(double /*sz*/)      const { return 0.1; }
 		virtual double maxAdvanceWidth(double sz)  const { return sz; }
-		virtual uint   char2CMap(QChar ch)         const { return 0; }
+		virtual uint   char2CMap(QChar /*ch*/)         const { return 0; }
 		virtual double glyphKerning(uint gl1, uint gl2, double sz) const;
 		virtual QMap<QString,QString> fontDictionary(double sz=1.0) const;
 		virtual GlyphMetrics glyphBBox(uint gl, double sz) const;
-		virtual bool EmbedFont(QString &str)       const { return false; }
-		virtual void RawData(QByteArray & bb)      const {}
+		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
+		virtual void RawData(QByteArray & /*bb*/)      const {}
 		virtual bool glyphNames(QMap<QChar, std::pair<uint, QString> >& gList) const;
 
 		// these use the cache:

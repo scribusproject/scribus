@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 
 #include "scconfig.h"
+#include "colorutil.h"
 #include "util.h"
 #include "dynamictip.h"
 

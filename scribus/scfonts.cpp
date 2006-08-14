@@ -15,10 +15,11 @@ for which a new license (GPL+exception) is in place.
 	version, at your discretion.
 */
 
-#include <qglobal.h>
 #include <qapplication.h>
+#include <qdom.h>
 #include <qfile.h>
 #include <qfileinfo.h>
+#include <qglobal.h>
 #include <qstrlist.h>
 #include <qstring.h>
 #include <qtextstream.h>

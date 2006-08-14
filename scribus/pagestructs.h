@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef PAGESTRUCTS_H
 #define PAGESTRUCTS_H
 
+#include <qmap.h>
 #include <qvaluevector.h>
 #include <qstring.h>
 

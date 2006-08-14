@@ -30,7 +30,7 @@ for which a new license (GPL+exception) is in place.
 #include "mpalette.h"
 #include "colorblind.h"
 #include "cwsetcolor.h"
-#include "util.h"
+#include "colorutil.h"
 #include "colorm.h"
 
 

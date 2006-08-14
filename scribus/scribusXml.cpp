@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include <zlib.h>
 #endif
 #include "util.h"
+#include "colorutil.h"
 
 using namespace std;
 

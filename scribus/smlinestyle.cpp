@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "linecombo.h"
 #include "mspinbox.h"
 #include "colorm.h"
-#include "util.h"
+#include "colorutil.h"
 #include "selection.h"
 #include "scribusview.h"
 #include "scribus.h"

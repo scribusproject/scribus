@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scpaths.h"
 #include "scribusdoc.h"
+#include "colorutil.h"
 #include "util.h"
 
 CMYKChoose::CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol  )

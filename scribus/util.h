@@ -9,33 +9,30 @@ for which a new license (GPL+exception) is in place.
 
 #include <vector>
 
+#include <qcolor.h>
 #include <qstring.h>
 #include <qpixmap.h>
-#include <qimage.h>
 #include <qstringlist.h>
-#include <qwidget.h>
-#include <qmap.h>
 #include <qpointarray.h>
 #include <qvaluelist.h>
 #include <qpoint.h>
-#include <qdom.h>
 
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "pagestructs.h"
-#include "sccolor.h"
+#include "style.h"
 #include "scribusapi.h"
 
 class ScribusDoc;
 class ParagraphStyle;
 class QDomElement;
+class QWidget;
 class ScribusView;
 struct CopyPasteBuffer;
 class PageItem;
 struct Layer;
-class Foi;
+// class Foi;
 
-QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
 void SCRIBUS_API GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB);
 /*! \brief Returns a sorted list of QStrings - sorted by locale specific rules!
 Uses compareQStrings() as rule. There is STL used!
@@ -62,24 +59,6 @@ double SCRIBUS_API xy2Deg(double x, double y);
 QPointArray SCRIBUS_API FlattenPath(FPointArray ina, QValueList<uint> &Segs);
 QPointArray SCRIBUS_API RegularPolygon(double w, double h, uint c, bool star, double factor, double rota);
 FPointArray SCRIBUS_API RegularPolygonF(double w, double h, uint c, bool star, double factor, double rota);
-QPixmap SCRIBUS_API *getSmallPixmap(QColor rgb);
-QPixmap SCRIBUS_API *getWidePixmap(QColor rgb);
-/*! \brief Create a cool all-infos pixmaps for the specified color.
-\param col Scribus color
-\retval QPixmap image with various icons depending on the col properties.
-*/
-QPixmap SCRIBUS_API *getFancyPixmap(ScColor col);
-/*! \brief Put toPaint pixmap into target at the x, y place.
-There is handled the alpha channel/transparency too. In the beginning
-is the target pixmap filled with all_transparent mask. In the case of
-the painting of tiPaint into x, y place, there is this pixmap enabled
-in alpha mask too.
-\param toPaint a pixmap to be painted into target
-\param target a base pixmap. Some kind of painter.
-\param x coordinate
-\param y coordinate
-*/
-void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
 QPixmap SCRIBUS_API loadIcon(QString nam);
 uint SCRIBUS_API getDouble(QString in, bool raw);
 //! \brief WARNING: loadText is INCORRECT - use loadRawText instead!
@@ -92,7 +71,6 @@ old contents. */
 bool SCRIBUS_API loadRawText(const QString & filename, QCString & buf);
 bool SCRIBUS_API loadRawBytes(const QString & filename, QByteArray & buf);
 QString SCRIBUS_API GetAttr(QDomElement *el, QString at, QString def="0");
-QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
 /**
 * @brief Synchronously execute a new process, optionally saving its output
    *
@@ -163,46 +141,11 @@ and using a setPixmap method for their changing.
 \author Petr Vanek */
 QPixmap SCRIBUS_API getQCheckBoxPixmap(const bool checked, const QColor background);
 
-/*! \brief Convert a color in RGB space to HSV space (Hue, Saturation, Value).
- * \param red the red component (modified in place).
- * \param green the green component (modified in place).
- * \param blue the blue component (modified in place).
- */
-unsigned char SCRIBUS_API INT_MULT ( unsigned char a, unsigned char b );
-/*! \brief Convert a color in HSV space to RGB space.
- * \param hue the hue component (modified in place).
- * \param saturation the saturation component (modified in place).
- * \param value the value component (modified in place).
- */
-void SCRIBUS_API RGBTOHSV ( uchar& red, uchar& green, uchar& blue );
-/*! \brief Convert a color in RGB space to HLS space (Hue, Lightness, Saturation).
- * \param red the red component (modified in place).
- * \param green the green component (modified in place).
- * \param blue the blue component (modified in place).
- */
-void SCRIBUS_API HSVTORGB ( uchar& hue, uchar& saturation, uchar& value );
-void SCRIBUS_API RGBTOHLS ( uchar& red, uchar& green, uchar& blue );
-/*! \brief Implement the HLS "double hex-cone".
- * \param n1 lightness fraction (?)
- * \param n2 saturation fraction (?)
- * \param hue hue "angle".
- * \return HLS value.
- */
-int SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
-/*! \brief Convert a color in HLS space to RGB space.
- * \param hue the hue component (modified in place).
- * \param lightness the lightness component (modified in place).
- * \param saturation the saturation component (modified in place).
- */
-void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
-
 /*! \brief performance measurements.
 It prints given message with it current timestamp.
 Useful for duration holes finding.
 \author Petr Vanek */
 void tDebug(QString message);
-
-double SCRIBUS_API getCurveYValue(FPointArray &curve, double x);
 
 QString SCRIBUS_API setupImageFormats();
 

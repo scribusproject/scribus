@@ -49,6 +49,7 @@ scribus_SOURCES = \
 	colorm.cpp	\
 	colorsetmanager.cpp	\
 	colorcombo.cpp \
+	colorutil.cpp \
 	commonstrings.cpp \
 	cpalette.cpp	\
 	cupsoptions.cpp	\
@@ -324,6 +325,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/colorchart.h                  $(prefix)/include/scribus/colorchart.h
 	$(INSTALL_DATA) $(srcdir)/colorcombo.h                  $(prefix)/include/scribus/colorcombo.h
 	$(INSTALL_DATA) $(srcdir)/colorm.h                      $(prefix)/include/scribus/colorm.h
+	$(INSTALL_DATA) $(srcdir)/colorutil.h                   $(prefix)/include/scribus/colorutil.h
 	$(INSTALL_DATA) $(srcdir)/cpalette.h                    $(prefix)/include/scribus/cpalette.h
 	$(INSTALL_DATA) $(srcdir)/crypt.h                       $(prefix)/include/scribus/crypt.h
 	$(INSTALL_DATA) $(srcdir)/cupsoptions.h                 $(prefix)/include/scribus/cupsoptions.h
@@ -517,6 +519,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/colorchart.h
 	-rm -f $(prefix)/include/scribus/colorcombo.h
 	-rm -f $(prefix)/include/scribus/colorm.h
+	-rm -f $(prefix)/include/scribus/colorutil.h
 	-rm -f $(prefix)/include/scribus/cpalette.h
 	-rm -f $(prefix)/include/scribus/crypt.h
 	-rm -f $(prefix)/include/scribus/cupsoptions.h

@@ -26,7 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "shadebutton.h"
 #include "mspinbox.h"
 #include "page.h"
-#include "util.h"
+#include "colorutil.h"
 
 extern QPixmap loadIcon(QString nam);
 

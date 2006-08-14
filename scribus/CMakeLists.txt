@@ -240,6 +240,7 @@ colorchart.cpp
 colorcombo.cpp
 colorm.cpp
 colorsetmanager.cpp
+colorutil.cpp
 commonstrings.cpp
 cpalette.cpp
 cupsoptions.cpp

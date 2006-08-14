@@ -18,6 +18,8 @@
 #define STYLE_H
 
 #include <qstring.h>
+#include <qvaluelist.h>
+#include "scfonts.h"
 #include "scribusapi.h"
 
 

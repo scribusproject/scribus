@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scribusdoc.h"
 #include "page.h"
-#include "util.h"
+#include "colorutil.h"
 #include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);

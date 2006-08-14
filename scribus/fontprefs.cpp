@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "prefsmanager.h"
 #include "scconfig.h"
+#include "colorutil.h"
 #include "util.h"
 
 extern QPixmap loadIcon(QString nam);

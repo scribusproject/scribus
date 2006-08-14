@@ -7,7 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "cwsetcolor.h"
 #include "commonstrings.h"
 #include "cmykfw.h"
-#include "util.h"
+#include "colorutil.h"
 
 #include <qlabel.h>
 #include <qlayout.h>
