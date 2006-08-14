@@ -34,7 +34,7 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
-	#include "util.h"
+	#include "colorutil.h"
 	#if defined(_WIN32)
 	#include <cairo-win32.h>
 	#elif defined(Q_WS_X11)
