@@ -244,6 +244,9 @@
                                         <property name="name">
                                             <cstring>radioButtonRangeOfPages</cstring>
                                         </property>
+                                        <property name="enabled">
+                                            <bool>false</bool>
+                                        </property>
                                         <property name="text">
                                             <string>Range of Pages:</string>
                                         </property>
@@ -259,6 +262,9 @@
                             <widget class="QLineEdit">
                                 <property name="name">
                                     <cstring>placementPagesLineEdit</cstring>
+                                </property>
+                                <property name="enabled">
+                                    <bool>false</bool>
                                 </property>
                                 <property name="sizePolicy">
                                     <sizepolicy>
@@ -838,71 +844,64 @@
                             </widget>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout60</cstring>
+                                    <cstring>layout62</cstring>
                                 </property>
                                 <hbox>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
                                     </property>
-                                    <widget class="QLabel">
+                                    <widget class="QLayoutWidget">
                                         <property name="name">
-                                            <cstring>textColumnCountLabel</cstring>
+                                            <cstring>layout61</cstring>
                                         </property>
-                                        <property name="text">
-                                            <string>Columns:</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QSpinBox">
-                                        <property name="name">
-                                            <cstring>textColumnCountSpinBox</cstring>
-                                        </property>
-                                        <property name="minValue">
-                                            <number>1</number>
-                                        </property>
-                                    </widget>
-                                    <spacer>
-                                        <property name="name">
-                                            <cstring>spacer28</cstring>
-                                        </property>
-                                        <property name="orientation">
-                                            <enum>Horizontal</enum>
-                                        </property>
-                                        <property name="sizeType">
-                                            <enum>Expanding</enum>
-                                        </property>
-                                        <property name="sizeHint">
-                                            <size>
-                                                <width>80</width>
-                                                <height>20</height>
-                                            </size>
-                                        </property>
-                                    </spacer>
-                                    <widget class="QLabel">
-                                        <property name="name">
-                                            <cstring>textColumnGapLabel</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>Gap:</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="MSpinBox">
-                                        <property name="name">
-                                            <cstring>textColumnGapMSpinBox</cstring>
-                                        </property>
-                                        <property name="sizePolicy">
-                                            <sizepolicy>
-                                                <hsizetype>1</hsizetype>
-                                                <vsizetype>0</vsizetype>
-                                                <horstretch>0</horstretch>
-                                                <verstretch>0</verstretch>
-                                            </sizepolicy>
-                                        </property>
-                                        <property name="minimumSize">
-                                            <size>
-                                                <width>50</width>
-                                                <height>24</height>
-                                            </size>
-                                        </property>
+                                        <grid>
+                                            <property name="name">
+                                                <cstring>unnamed</cstring>
+                                            </property>
+                                            <widget class="MSpinBox" row="1" column="1">
+                                                <property name="name">
+                                                    <cstring>textColumnGapMSpinBox</cstring>
+                                                </property>
+                                                <property name="sizePolicy">
+                                                    <sizepolicy>
+                                                        <hsizetype>1</hsizetype>
+                                                        <vsizetype>0</vsizetype>
+                                                        <horstretch>0</horstretch>
+                                                        <verstretch>0</verstretch>
+                                                    </sizepolicy>
+                                                </property>
+                                                <property name="minimumSize">
+                                                    <size>
+                                                        <width>50</width>
+                                                        <height>24</height>
+                                                    </size>
+                                                </property>
+                                            </widget>
+                                            <widget class="QSpinBox" row="0" column="1">
+                                                <property name="name">
+                                                    <cstring>textColumnCountSpinBox</cstring>
+                                                </property>
+                                                <property name="minValue">
+                                                    <number>1</number>
+                                                </property>
+                                            </widget>
+                                            <widget class="QLabel" row="0" column="0">
+                                                <property name="name">
+                                                    <cstring>textColumnCountLabel</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Columns:</string>
+                                                </property>
+                                            </widget>
+                                            <widget class="QLabel" row="1" column="0">
+                                                <property name="name">
+                                                    <cstring>textColumnGapLabel</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Gap:</string>
+                                                </property>
+                                            </widget>
+                                        </grid>
                                     </widget>
                                     <spacer>
                                         <property name="name">
@@ -916,7 +915,7 @@
                                         </property>
                                         <property name="sizeHint">
                                             <size>
-                                                <width>40</width>
+                                                <width>112</width>
                                                 <height>20</height>
                                             </size>
                                         </property>
@@ -936,7 +935,7 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>20</width>
-                                        <height>60</height>
+                                        <height>80</height>
                                     </size>
                                 </property>
                             </spacer>
