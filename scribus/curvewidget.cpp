@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "curvewidget.h"
 #include "curvewidget.moc"
 
+#include <cmath>
+
 #include <qpushbutton.h>
 #include <qlabel.h>
 #include <qlayout.h>
