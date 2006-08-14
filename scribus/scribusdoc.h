@@ -39,6 +39,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 #include <qtimer.h>
 
+#include "gtgettext.h" //CB For the ImportSetup struct and itemadduserframe
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "pagesize.h"
@@ -465,7 +466,7 @@ public:
 	/** Add an item to the page based on the x/y position. Item will be fitted to the closest guides/margins */
 	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
 	
-	int itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source);
+	int itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source,ImportSetup& impsetup);
 
 	/**
 	 * @brief Commit item creation when a user has click-drag created an item

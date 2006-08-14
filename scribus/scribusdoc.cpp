@@ -2791,7 +2791,7 @@ int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::I
 }
 
 
-int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source)
+int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source, ImportSetup& impsetup)
 {
 	double x1=0.0,y1=0.0,w1=fWidth,h1=fHeight;
 	Page* targetPage=currentPage();
@@ -2852,6 +2852,19 @@ int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, int 
 				currItem->AdjustPictScale();
  				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				qApp->restoreOverrideCursor();
+			}
+		}
+		if (type==PageItem::TextFrame && !source.isEmpty())
+		{
+			if (QFile::exists(source))
+			{
+				gtGetText* gt = new gtGetText(this);
+				if (impsetup.runDialog)
+				{
+// 					sourceDocLineEdit->setText(impsetup.filename);
+					gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, true, currItem);
+				}
+				delete gt;
 			}
 		}
 		changed();

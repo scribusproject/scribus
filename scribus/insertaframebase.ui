@@ -701,7 +701,7 @@
                         </property>
                         <widget class="QWidget">
                             <property name="name">
-                                <cstring>TextImageStackPage</cstring>
+                                <cstring>ImageStackPage</cstring>
                             </property>
                             <attribute name="id">
                                 <number>0</number>
@@ -720,15 +720,15 @@
                                         </property>
                                         <widget class="QLabel">
                                             <property name="name">
-                                                <cstring>textLabel7</cstring>
+                                                <cstring>sourceImageLabel</cstring>
                                             </property>
                                             <property name="text">
-                                                <string>Source Document:</string>
+                                                <string>Source Image:</string>
                                             </property>
                                         </widget>
                                         <widget class="QLineEdit">
                                             <property name="name">
-                                                <cstring>sourceDocLineEdit</cstring>
+                                                <cstring>sourceImageLineEdit</cstring>
                                             </property>
                                         </widget>
                                         <widget class="QPushButton">
@@ -785,6 +785,70 @@
                                         <set>AlignTop</set>
                                     </property>
                                 </widget>
+                            </vbox>
+                        </widget>
+                        <widget class="QWidget">
+                            <property name="name">
+                                <cstring>TextStackPage</cstring>
+                            </property>
+                            <attribute name="id">
+                                <number>2</number>
+                            </attribute>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QLayoutWidget">
+                                    <property name="name">
+                                        <cstring>layout31_2</cstring>
+                                    </property>
+                                    <hbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QLabel">
+                                            <property name="name">
+                                                <cstring>sourceDocLabel</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Source Document:</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QLineEdit">
+                                            <property name="name">
+                                                <cstring>sourceDocLineEdit</cstring>
+                                            </property>
+                                        </widget>
+                                        <widget class="QPushButton">
+                                            <property name="name">
+                                                <cstring>selectDocFileButton</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>&amp;Select File...</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+S</string>
+                                            </property>
+                                        </widget>
+                                    </hbox>
+                                </widget>
+                                <spacer>
+                                    <property name="name">
+                                        <cstring>spacer6_2</cstring>
+                                    </property>
+                                    <property name="orientation">
+                                        <enum>Vertical</enum>
+                                    </property>
+                                    <property name="sizeType">
+                                        <enum>Expanding</enum>
+                                    </property>
+                                    <property name="sizeHint">
+                                        <size>
+                                            <width>20</width>
+                                            <height>166</height>
+                                        </size>
+                                    </property>
+                                </spacer>
                             </vbox>
                         </widget>
                     </widget>
@@ -903,7 +967,7 @@
     <tabstop>placementPagesLineEdit</tabstop>
     <tabstop>radioButtonTopLeftOfPages</tabstop>
     <tabstop>radioButtonPageSize</tabstop>
-    <tabstop>sourceDocLineEdit</tabstop>
+    <tabstop>sourceImageLineEdit</tabstop>
     <tabstop>okButton</tabstop>
     <tabstop>cancelButton</tabstop>
 </tabstops>

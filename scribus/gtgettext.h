@@ -41,15 +41,22 @@ for which a new license (GPL+exception) is in place.
 #include "gtdialogs.h"
 #include "gtwriter.h"
 #include "scfonts.h"
-#include "pageitem.h"
 
-
+class PageItem;
 class ScribusDoc;
 
 struct ImporterData {
 	QString     soFilePath;
 	QString     fileFormatName;
 	QStringList fileEndings;
+};
+
+struct ImportSetup {
+	bool runDialog;
+	int importer;
+	QString filename;
+	bool textOnly;
+	QString encoding;
 };
 
 /*
@@ -61,9 +68,8 @@ private:
 	std::vector<ImporterData> importers;
 	QMap<QString, ImporterData*> importerMap; // map ImporterDatas to file endings for easy launc for desired plugin
 	void loadImporterPlugins();
-	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append);
 	void CallDLL(const ImporterData& idata, const QString& filePath,
-	             const QString& encoding, bool textOnly, bool append);
+	             const QString& encoding, bool textOnly, bool append, PageItem* importItem);
 	bool DLLName(QString name, QString *ffName, QStringList *fileEndings);
 	void createMap();
 	gtDialogs* dias;
@@ -72,7 +78,8 @@ private:
 public:
 	gtGetText(ScribusDoc* doc);
 	~gtGetText();
-	void run(bool append);
+	ImportSetup run();
+	void launchImporter(int importer, const QString& filename, bool textOnly, const QString& encoding, bool append, PageItem* target=0);
 };
 
 #endif

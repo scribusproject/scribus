@@ -60,6 +60,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
  	connect(framePositionButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPosition(int)));
  	connect(sizeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectSize(int)));
  	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
+ 	connect(selectDocFileButton, SIGNAL(clicked()), this, SLOT(locateDocFile()));
 }
 
 void InsertAFrame::slotSelectType( int id )
@@ -68,7 +69,7 @@ void InsertAFrame::slotSelectType( int id )
 	{
 		case 0:
 			typeTextEdit->setText("<b>Insert a text frame</b><br/>A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.<br/>Your text may be edited and formatted on the page directly or in the simple Story Editor.");
-			optionsWidgetStack->raiseWidget(1);
+			optionsWidgetStack->raiseWidget(2);
 			break;
 		case 1:
 			typeTextEdit->setText("<b>Insert an image frame</b><br/>An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.");
@@ -114,16 +115,19 @@ void InsertAFrame::slotSelectSize( int id )
 	heightMSpinBox->setEnabled(id==2);
 }
 
-void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source )
+void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source, ImportSetup& impsetup)
 {
 	int type=typeButtonGroup->selectedId();
+	source="";
 	switch(type)
 	{
 		case 0:
 			frameType=PageItem::TextFrame;
+			source=sourceDocLineEdit->text();
 			break;
 		case 1:
 			frameType=PageItem::ImageFrame;
+			source=sourceImageLineEdit->text();
 			break;
 		case 2:
 // 			frameType=PageItem::
@@ -148,7 +152,7 @@ void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & l
 	y=yPosMSpinBox->value();
 	width=widthMSpinBox->value();
 	height=heightMSpinBox->value();
-	source=sourceDocLineEdit->text();
+	impsetup=m_ImportSetup;
 }
 
 void InsertAFrame::locateImageFile()
@@ -167,5 +171,18 @@ void InsertAFrame::locateImageFile()
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	
-	sourceDocLineEdit->setText(fileName);
+	sourceImageLineEdit->setText(fileName);
+}
+
+void InsertAFrame::locateDocFile()
+{
+	m_ImportSetup.runDialog=false;
+	gtGetText* gt = new gtGetText(m_Doc);
+	m_ImportSetup=gt->run();
+	if (m_ImportSetup.runDialog)
+	{
+		sourceDocLineEdit->setText(m_ImportSetup.filename);
+// 		gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, true);
+	}
+	delete gt;
 }

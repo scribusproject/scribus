@@ -27,7 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "gtgettext.h"
 #include "pluginmanager.h"
 #include "scpaths.h"
-// #include "scribus.h"
+#include "pageitem.h"
 #include "scribusdoc.h"
 #include "selection.h"
 
@@ -40,8 +40,8 @@ gtGetText::gtGetText(ScribusDoc* doc)
 	loadImporterPlugins();
 }
 
-void gtGetText::launchImporter(int importer, const QString& filename,
-                               bool textOnly, const QString& encoding, bool append)
+void gtGetText::launchImporter(int importer, const QString& filename, bool textOnly, 
+								const QString& encoding, bool append, PageItem* target)
 {
 	struct ImporterData ida;
 	bool callImporter = true;
@@ -61,9 +61,12 @@ void gtGetText::launchImporter(int importer, const QString& filename,
 	{
 		ida = importers[importer];
 	}
+	PageItem* targetFrame=target;
+	if (targetFrame==0)
+		targetFrame=m_Doc->m_Selection->itemAt(0);
 
-	if (callImporter)
-		CallDLL(ida, filename, encoding, textOnly, append);
+	if (targetFrame!=0 && callImporter)
+		CallDLL(ida, filename, encoding, textOnly, append, targetFrame);
 }
 
 void gtGetText::loadImporterPlugins()
@@ -92,7 +95,7 @@ void gtGetText::loadImporterPlugins()
 	createMap();
 }
 
-void gtGetText::run(bool append)
+ImportSetup gtGetText::run()
 {
 	QString filters = "";
 	QString allSupported = QObject::tr("All Supported Formats") + " (";
@@ -117,16 +120,24 @@ void gtGetText::run(bool append)
 	for (uint i = 0;  i < importers.size(); ++i)
 		ilist.append(importers[i].fileFormatName);
 	dias = new gtDialogs();
+	ImportSetup impsetup;
+	impsetup.runDialog=false;
 	if (dias->runFileDialog(filters, ilist))
 	{
-		launchImporter(dias->getImporter(), dias->getFileName(),
-		               dias->importTextOnly(), dias->getEncoding(), append);
+		impsetup.runDialog=true;
+		impsetup.encoding=dias->getEncoding();
+		impsetup.filename=dias->getFileName();
+		impsetup.importer=dias->getImporter();
+		impsetup.textOnly=dias->importTextOnly();
+// 		launchImporter(dias->getImporter(), dias->getFileName(),
+// 		               dias->importTextOnly(), dias->getEncoding(), append);
 	}
 	delete dias;
+	return impsetup;
 }
 
 void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
-                        const QString& encoding, bool textOnly, bool append)
+                        const QString& encoding, bool textOnly, bool append, PageItem* importItem)
 {
 	void* gtplugin;
 	typedef void (*sdem)(QString filename, QString encoding, bool textOnly, gtWriter *writer);
@@ -145,7 +156,7 @@ void gtGetText::CallDLL(const ImporterData& idata, const QString& filePath,
 		PluginManager::unloadDLL(gtplugin);
 		return;
 	}
-	gtWriter *w = new gtWriter(append, m_Doc->m_Selection->itemAt(0));
+	gtWriter *w = new gtWriter(append, importItem);
 	(*fp_GetText)(filePath, encoding, textOnly, w);
 	delete w;
 	PluginManager::unloadDLL(gtplugin);

@@ -3785,7 +3785,11 @@ void ScribusMainWindow::slotGetContent()
 		if (currItem->asTextFrame())
 		{
 			gtGetText* gt = new gtGetText(doc);
-			gt->run(false);
+			ImportSetup impsetup=gt->run();
+			if (impsetup.runDialog)
+			{
+				gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false);
+			}
 			delete gt;
 			if (doc->docHyphenator->AutoCheck)
 				doc->docHyphenator->slotHyphenate(currItem);
@@ -3828,7 +3832,11 @@ void ScribusMainWindow::slotFileAppend()
 	if (doc->m_Selection->count() != 0)
 	{
 		gtGetText* gt = new gtGetText(doc);
-		gt->run(true);
+		ImportSetup impsetup=gt->run();
+		if (impsetup.runDialog)
+		{
+			gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, true);
+		}
 		delete gt;
 		//CB Hyphenating now emits doc changed, plus we change lang as appropriate
 		if (doc->docHyphenator->AutoCheck)
@@ -9009,9 +9017,10 @@ void ScribusMainWindow::slotInsertFrame()
 			PageItem::ItemType frameType;
 			int locationType=0, positionType=0, sizeType=0;
 			double x=0.0, y=0.0, width=0.0, height=0.0;
+			ImportSetup impsetup;
 			QString source("");
-			dia->getNewFrameProperties(frameType, locationType, positionType, sizeType, x, y, width, height, source);
-			doc->itemAddUserFrame(frameType, locationType, positionType, sizeType, x, y, width, height, source);
+			dia->getNewFrameProperties(frameType, locationType, positionType, sizeType, x, y, width, height, source, impsetup);
+			doc->itemAddUserFrame(frameType, locationType, positionType, sizeType, x, y, width, height, source, impsetup);
 		}
 		delete dia;
 	}

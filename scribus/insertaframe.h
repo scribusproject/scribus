@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef INSERTAFRAME_H
 #define INSERTAFRAME_H
 
+#include "gtgettext.h"
 #include "insertaframebase.h"
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -32,9 +33,10 @@ public:
 	InsertAFrame(QWidget* parent, ScribusDoc *doc);
 	~InsertAFrame(){};
 	
-	void getNewFrameProperties(PageItem::ItemType& frameType, int& locationType, int& positionType, int& sizeType, double& x, double& y, double& width, double& height, QString &source);
+	void getNewFrameProperties(PageItem::ItemType& frameType, int& locationType, int& positionType, int& sizeType, double& x, double& y, double& width, double& height, QString &source, ImportSetup& impsetup);
 protected:
 	ScribusDoc* m_Doc;
+	ImportSetup m_ImportSetup;
 	
 protected slots:
 	void slotSelectType(int id);
@@ -42,6 +44,7 @@ protected slots:
 	void slotSelectPosition(int id);
 	void slotSelectSize(int id);
 	void locateImageFile();
+	void locateDocFile();
 };
 
 #endif
