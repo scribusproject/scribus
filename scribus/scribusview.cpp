@@ -1886,9 +1886,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		SegP2 = -1;
 		currItem = Doc->m_Selection->itemAt(0);
 		operItemMoving = false;
-		AdjustItemSize(currItem);
-		emit DocChanged();
-		updateContents();
+
 		if (oldClip) // is there the old clip stored for the undo action
 		{
 			QString name = isContourLine ? Um::EditContour : Um::EditShape;
@@ -1900,6 +1898,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			state->set("IS_CONTOUR", isContourLine);
 			state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
 			undoManager->action(currItem, state);
+		}
+
+		AdjustItemSize(currItem);
+		emit DocChanged();
+		updateContents();
+		if (oldClip)
+		{
 			undoManager->commit();
 			oldClip = 0;
 		}
@@ -3441,6 +3446,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 	for (uint i = 0; i < Doc->m_Selection->count(); ++i)
 		Doc->m_Selection->itemAt(i)->checkChanges(true);
+
 	//Commit drag created items to undo manager. View needs to emit this AddObj() for the outline palette (for now)
 	if (Doc->m_Selection->itemAt(0)!=NULL)
 	{
