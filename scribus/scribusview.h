@@ -293,6 +293,13 @@ private: // Private attributes
 	bool forceRedraw;
 	double Scale;
 
+	// for shape/countour line editing undo actions
+	// store oldClip in mousePressed if in edit shape
+	// and in mouseRelease send the undo action with the 
+	// new clip
+	bool isContourLine;
+	FPointArray *oldClip;
+
 private slots:
 	void setZoom();
 	/**

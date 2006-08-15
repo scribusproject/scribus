@@ -923,7 +923,6 @@ void ShortcutWidget::keyPressEvent(QKeyEvent *k)
 				break;
 			default:
 				keyCode |= k->key();
-//				qDebug(QString("got key %1 %2").arg(keyCode).arg(getKeyText(keyCode)));
 				keyDisplay->setText(getKeyText(keyCode));
 // 				if (checkKey(keyCode))
 // 				{

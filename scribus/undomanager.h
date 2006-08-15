@@ -546,6 +546,7 @@ public:
 	static QString MenuUndoEmpty;
 	static QString MenuRedo;
 	static QString MenuRedoEmpty;
+	static QString EditContour;
 	/*@}*/
 
 	/**

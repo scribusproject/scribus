@@ -5491,7 +5491,7 @@ void ScribusMainWindow::ToggleFrameEdit()
 	else
 	{
 		//CB Enable/Disable undo in frame edit mode
-		undoManager->setUndoEnabled(false);
+// 		undoManager->setUndoEnabled(false);
 		scrActions["editUndoAction"]->setEnabled(false);
 		scrActions["editRedoAction"]->setEnabled(false);
 		slotSelect();
@@ -5583,8 +5583,8 @@ void ScribusMainWindow::NoFrameEdit()
 			HaveNewSel(-1);
 	}
 	actionManager->connectModeActions();
-	if (tmpClip)
-		undoManager->setUndoEnabled(true);
+// 	if (tmpClip)
+// 		undoManager->setUndoEnabled(true);
 }
 
 void ScribusMainWindow::slotSelect()

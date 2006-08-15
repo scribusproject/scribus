@@ -1838,6 +1838,21 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MarkClip(currItem, currItem->ContourLine, true);
 		else
 			MarkClip(currItem, currItem->PoLine, true);
+
+		if (oldClip) // is there the old clip stored for the undo action
+		{
+			QString name = isContourLine ? Um::EditContour : Um::EditShape;
+			FPointArray *newClip = new FPointArray(isContourLine ? currItem->ContourLine :
+					currItem->PoLine);
+			ItemState<QPair<FPointArray*, FPointArray*> > *state =
+					new ItemState<QPair<FPointArray*, FPointArray*> >(name);
+					state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+					state->set("IS_CONTOUR", isContourLine);
+					state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
+					undoManager->action(currItem, state);
+					undoManager->commit();
+					oldClip = 0;
+		}
 		return;
 	}
 /*	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
@@ -1874,6 +1889,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		AdjustItemSize(currItem);
 		emit DocChanged();
 		updateContents();
+		if (oldClip) // is there the old clip stored for the undo action
+		{
+			QString name = isContourLine ? Um::EditContour : Um::EditShape;
+			FPointArray *newClip = new FPointArray(isContourLine ? currItem->ContourLine :
+					currItem->PoLine);
+			ItemState<QPair<FPointArray*, FPointArray*> > *state =
+					new ItemState<QPair<FPointArray*, FPointArray*> >(name);
+					state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+			state->set("IS_CONTOUR", isContourLine);
+			state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
+			undoManager->action(currItem, state);
+			undoManager->commit();
+			oldClip = 0;
+		}
 		return;
 	}
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
@@ -3422,6 +3451,20 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	zoomSpinBox->clearFocus();
 	pageSelector->clearFocus();
+	if (oldClip) // is there the old clip stored for the undo action
+	{
+		QString name = isContourLine ? Um::EditContour : Um::EditShape;
+			FPointArray *newClip = new FPointArray(isContourLine ? currItem->ContourLine :
+					currItem->PoLine);
+		ItemState<QPair<FPointArray*, FPointArray*> > *state =
+				new ItemState<QPair<FPointArray*, FPointArray*> >(name);
+		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("IS_CONTOUR", isContourLine);
+		state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
+		undoManager->action(currItem, state);
+		undoManager->commit();
+		oldClip = 0;
+	}
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
@@ -4540,6 +4583,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	HaveSelRect = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
+	oldClip = 0;
 	moveTimer.start();
 	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 	Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
@@ -4572,10 +4616,21 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				FPointArray Clip;
 				bool edited = false;
 				bool pfound = false;
+				QString uAction;
 				if (EditContour)
+				{
 					Clip = currItem->ContourLine;
+					isContourLine = true;
+					uAction = Um::EditContour;
+				}
 				else
+				{
 					Clip = currItem->PoLine;
+					isContourLine = false;
+					uAction = Um::EditShape;
+				}
+				oldClip = new FPointArray(Clip);
+				undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), uAction);
 				p.begin(viewport());
 				Transform(currItem, &p);
 				npf2 = FPoint(p.xFormDev(m->pos()));
