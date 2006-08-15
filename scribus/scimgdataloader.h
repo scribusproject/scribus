@@ -48,6 +48,7 @@ public:
 	QImage& image(void) { return m_image; }
 	QByteArray& embeddedProfile(void) { return m_embeddedProfile; }
 	ImageInfoRecord& imageInfoRecord(void) { return m_imageInfoRecord; }
+	void setRequest(bool valid, QMap<int, ImageLoadRequest> req);
 
 	bool  issuedErrorMsg(void) const { return (m_msgType == errorMsg); }
 	bool  issuedWarningMsg(void) const { return (m_msgType == warningMsg); }

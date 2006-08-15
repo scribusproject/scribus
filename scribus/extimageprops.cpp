@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qwhatsthis.h>
 #include <qheader.h>
+#include <qpainter.h>
 
 #include "pageitem.h"
 #include "sccombobox.h"
@@ -119,8 +120,11 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	layerTable->setColumnReadOnly(0, true);
 	layerTable->setColumnReadOnly(1, true);
 	layerTable->setColumnReadOnly(2, true);
-	layerTable->setColumnWidth(0, 24);
-	layerTable->setColumnWidth(1, 40);
+	if (info->layerInfo.count() == 1)
+	{
+		layerTable->setColumnWidth(1, 40);
+		layerTable->setColumnWidth(0, 24);
+	}
 	layerTable->setColumnStretchable(2, true);
 	layerTable->setRowMovingEnabled(false);
 	layerTable->setSorting(false);
@@ -153,21 +157,60 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
 		{
 			QCheckBox *cp = new QCheckBox(this, (*it2).layerName);
+			cp->setPaletteBackgroundColor(white);
 			if ((info->isRequest) && (info->RequestProps.contains(counter)))
 				cp->setChecked(info->RequestProps[counter].visible);
 			else
 				cp->setChecked(!((*it2).flags & 2));
+			QPixmap pm;
+			pm.convertFromImage((*it2).thumb);
+			cp->setPixmap(pm);
 			FlagsSicht.append(cp);
 			connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
 			layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
-			QPixmap pm;
-			pm.convertFromImage((*it2).thumb);
-			layerTable->setPixmap(info->layerInfo.count()-counter-1, 1, pm);
+			if (!(*it2).thumb_mask.isNull())
+			{
+				QCheckBox *cp2 = new QCheckBox(this, (*it2).layerName);
+				cp2->setPaletteBackgroundColor(white);
+				if ((info->isRequest) && (info->RequestProps.contains(counter)))
+					cp2->setChecked(info->RequestProps[counter].useMask);
+				else
+					cp2->setChecked(true);
+				QPixmap pm2;
+				pm2.convertFromImage((*it2).thumb_mask);
+				cp2->setPixmap(pm2);
+				connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
+				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
+				FlagsMask.append(cp2);
+			}
+			else
+				FlagsMask.append(0);
+/*			QPixmap pm = QPixmap(85, 40);
+			QPainter p;
+			p.begin(&pm);
+			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
+			p.fillRect(0, 0, 85, 40, b);
+			p.drawImage((40 - (*it2).thumb.width()) / 2, (40 - (*it2).thumb.height()) / 2, (*it2).thumb);
+			if (!(*it2).thumb_mask.isNull())
+			{
+				p.drawImage((45 + (40 - (*it2).thumb_mask.width()) / 2), (40 - (*it2).thumb_mask.height()) / 2, (*it2).thumb_mask);
+				if (!info->RequestProps[counter].useMask)
+				{
+					p.setPen(QPen(red, 2));
+					p.drawLine(45, 0, 85, 40);
+					p.drawLine(45, 40, 85, 0);
+				}
+			}
+			p.end(); */
+//			pm.convertFromImage((*it2).thumb);
+//			layerTable->setPixmap(info->layerInfo.count()-counter-1, 1, pm);
 			layerTable->setText(info->layerInfo.count()-counter-1, 2, (*it2).layerName);
 			Header->setLabel(info->layerInfo.count()-counter-1, tmp.setNum(counter+1));
 			layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
 			counter++;
 		}
+		layerTable->adjustColumn(0);
+		layerTable->adjustColumn(1);
 	}
 	else
 	{
@@ -264,17 +307,21 @@ void ExtImageProps::changedLayer()
 			loadingInfo.blend = blendModesRev[blendMode->currentText()];
 			loadingInfo.opacity = qRound(opacitySpinBox->value() / 100.0 * 255);
 		}
-		else if (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->numRows() - r - 1))
+/*		else if (currentItem->pixm.imgInfo.RequestProps.contains(layerTable->numRows() - r - 1))
 		{
 			loadingInfo.blend = currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - r - 1].blend;
 			loadingInfo.opacity = currentItem->pixm.imgInfo.RequestProps[layerTable->numRows() - r - 1].opacity;
-		}
+		} */
 		else
 		{
 			loadingInfo.blend = currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - r - 1].blend;
 			loadingInfo.opacity = currentItem->pixm.imgInfo.layerInfo[layerTable->numRows() - r - 1].opacity;
 		}
 		loadingInfo.visible = FlagsSicht.at(layerTable->numRows() - r - 1)->isChecked();
+		if (FlagsMask.at(layerTable->numRows() - r - 1))
+			loadingInfo.useMask = FlagsMask.at(layerTable->numRows() - r - 1)->isChecked();
+		else
+			loadingInfo.useMask = true;
 		currentItem->pixm.imgInfo.RequestProps.insert(layerTable->numRows() - r - 1, loadingInfo);
 	}
 	viewWidget->Doc->LoadPict(currentItem->Pfile, currentItem->ItemNr, true);

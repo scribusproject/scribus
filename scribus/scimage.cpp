@@ -1781,7 +1781,10 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
 #endif // HAVE_TIFF
 	else if (ext == "psd")
+	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
 	else

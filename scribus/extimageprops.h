@@ -47,6 +47,7 @@ public:
 	QListBox* pathList;
 	QPushButton* resetPath;
 	QPtrList<QCheckBox> FlagsSicht;
+	QPtrList<QCheckBox> FlagsMask;
 	ScribusView *viewWidget;
 	PageItem *currentItem;
 	int currentLayer;

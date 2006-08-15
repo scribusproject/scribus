@@ -129,8 +129,11 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
-
+	bool valid = m_imageInfoRecord.isRequest;
+	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
+	m_imageInfoRecord.RequestProps = req;
+	m_imageInfoRecord.isRequest = valid;
 	m_imageInfoRecord.type = 2;
 	m_imageInfoRecord.exifDataValid = false;
 	QFile f(fn);
@@ -873,6 +876,22 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
 	      tmpImg2.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
 	layerInfo[layer].thumb = imt.copy();
+	QImage imt2;
+	if (!mask.isNull())
+	{
+		double sx = mask.width() / 40.0;
+		double sy = mask.height() / 40.0;
+		imt2 = mask.createAlphaMask();
+		imt2 = sy < sx ?  imt2.smoothScale(qRound(mask.width() / sx), qRound(mask.height() / sx)) :
+	      imt2.smoothScale(qRound(mask.width() / sy), qRound(mask.height() / sy));
+		layerInfo[layer].thumb_mask = imt2.copy();
+	}
+	else
+		layerInfo[layer].thumb_mask = QImage();
+	if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
+		m_imageInfoRecord.RequestProps[layer].useMask = m_imageInfoRecord.RequestProps[layer].useMask;
+	else
+		m_imageInfoRecord.RequestProps[layer].useMask = true;
 	bool visible = !(layerInfo[layer].flags & 2);
 	if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 		visible = m_imageInfoRecord.RequestProps[layer].visible;
@@ -1314,7 +1333,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 					int layOpa = layerInfo[layer].opacity;
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 						layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
-					if (!mask.isNull())
+					if ((!mask.isNull()) && (m_imageInfoRecord.RequestProps[layer].useMask))
 						layOpa = INT_MULT(mask_a, layOpa);
 					if (header.color_mode != CM_CMYK)
 						src_a = INT_MULT(src_a, layOpa);

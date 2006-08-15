@@ -21,6 +21,12 @@ void ScImgDataLoader::initialize(void)
 	m_profileComponents = 0;
 }
 
+void ScImgDataLoader::setRequest(bool valid, QMap<int, ImageLoadRequest> req)
+{
+	m_imageInfoRecord.RequestProps = req;
+	m_imageInfoRecord.isRequest = valid;
+}
+
 bool ScImgDataLoader::supportFormat(const QString& fmt) 
 {
 	QString format = fmt.lower();

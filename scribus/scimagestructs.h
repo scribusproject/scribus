@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 struct ImageLoadRequest
 {
 	bool visible;
+	bool useMask;
 	ushort opacity;
 	QString blend;
 };
@@ -51,6 +52,7 @@ struct PSDLayer
 	QString layerName;
 	QString blend;
 	QImage thumb;
+	QImage thumb_mask;
 };
 
 struct PSDDuotone_Color

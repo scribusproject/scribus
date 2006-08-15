@@ -2069,6 +2069,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 					loadingInfo.blend = it.attribute("Blend");
 					loadingInfo.opacity = it.attribute("Opacity").toInt();
 					loadingInfo.visible = static_cast<bool>(it.attribute("Visible").toInt());
+					loadingInfo.useMask = static_cast<bool>(it.attribute("useMask", "1").toInt());
 					currItem->pixm.imgInfo.RequestProps.insert(it.attribute("Layer").toInt(), loadingInfo);
 				}
 				IT=IT.nextSibling();
@@ -3301,6 +3302,7 @@ void Scribus13Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElem
 				QDomElement psd = docu->createElement("PSDLayer");
 				psd.setAttribute("Layer",it2.key());
 				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
+				psd.setAttribute("useMask", static_cast<int>(it2.data().useMask));
 				psd.setAttribute("Opacity", it2.data().opacity);
 				psd.setAttribute("Blend", it2.data().blend);
 				ob.appendChild(psd);
