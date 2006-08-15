@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qpointarray.h>
 #include <qptrlist.h>
+#include <qmap.h>
 #include <qpixmap.h>
 #include <qrect.h>
 #include <qstring.h>
@@ -53,19 +54,6 @@ struct CopyPasteBuffer;
 #include "sctextstruct.h"
 class ScText;
 class ScStyleRun;
-#else
-struct LineSpec 
-{
-	double x;
-	double y;
-	double width;
-	double ascent;
-	double descent;
-
-	int firstItem;
-	int lastItem;
-	double naturalWidth;
-};
 #endif
 
 class SCRIBUS_API PageItem_TextFrame : public PageItem
@@ -111,11 +99,14 @@ protected:
 	                  ScScriptItem *item, uint itemIndex);
 #endif
 	
-	QVector<LineSpec> lines;
 	bool unicodeTextEditMode;
 	int unicodeInputCount;
 	QString unicodeInputString;
-
+	
+private:
+	void setShadow();
+	QString currentShadow;
+	QMap<QString,StoryText> shadows;
 };
 
 #endif

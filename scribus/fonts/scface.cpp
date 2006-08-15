@@ -2,6 +2,7 @@
 
 #include "scribusapi.h"
 #include "fonts/scface.h"
+#include "text/storytext.h"
 
 
 double ScFace::ScFaceData::glyphKerning(uint gl1, uint gl2, double sz) const 
@@ -190,12 +191,31 @@ void ScFace::unload() const
 }
 
 
+static uint emulateGlyph(QChar ch)
+{
+	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP 
+		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK 
+		|| ch == SpecialChars::TAB)
+		return 2000000000 + ch.unicode();
+	else if (ch == SpecialChars::NBSPACE)
+		return 32;
+	else if(ch == SpecialChars::NBHYPHEN)
+		return QChar('-').unicode();
+	else
+		return 0;
+}
+
+
 uint ScFace::char2CMap(QChar ch) const
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();
 	}
-	return m->char2CMap(ch);
+	uint gl = m->char2CMap(ch);
+	if (gl == 0)
+		return emulateGlyph(ch);
+	else
+		return gl;
 }
 
 
@@ -203,12 +223,9 @@ bool ScFace::canRender(QChar ch) const
 {
 	if (!usable())
 		return false;
-	else if (ch.unicode() < 32) {
-		return ch.unicode() == 28 || ch.unicode() == 13 || ch.unicode() == 9; 
-	}
 	else {
 		uint gl = char2CMap(ch); //  calls load()
-		if (gl != 0) {
+		if (gl != 0 && gl < 2000000000) {
 			m->loadGlyph(gl);
 			return ! m->m_glyphOutline[gl].broken; 
 		}
@@ -227,7 +244,7 @@ double ScFace::charWidth(QChar ch, double size, QChar ch2) const
 		return ch.unicode() == 9 ? 1.0 : 0.0;
 	else {
 		uint gl1 = char2CMap(ch);
-		uint gl2 = ch2.unicode() != 32 ? char2CMap(ch2) : 0;
+		uint gl2 = char2CMap(ch2);
 		double width = glyphWidth(gl1, size);
 		if (gl2 != 0)
 			width += glyphKerning(gl1, gl2, size);

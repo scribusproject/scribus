@@ -7309,7 +7309,8 @@ bool ScribusView::slotSetCurs(int x, int y)
 		        (QRegion(p.xForm(currItem->Clip)).contains(mpo)))
 		{
 			m_cursorVisible = true;
-#ifndef NLS_PROTO
+#if 0
+//#ifndef NLS_PROTO
 			//Work out which column we are in
 			double colWidth=currItem->columnWidth();
 			double colGap=currItem->ColGap;
@@ -7500,6 +7501,13 @@ bool ScribusView::slotSetCurs(int x, int y)
 				currItem->CPos = 0;
 			p.end();
 
+#else
+			FPoint point((x + Doc->minCanvasCoordinate.x()) / Scale - currItem->xPos(), 
+						 (y + Doc->minCanvasCoordinate.x()) / Scale - currItem->yPos());
+			currItem->CPos = currItem->itemText.length() == 0 ? 0 :
+				currItem->itemText.screenToPosition(point);			
+#endif
+			
 			if (currItem->itemText.length() > 0)
 			{
 				int b=currItem->CPos-1;
@@ -7539,81 +7547,6 @@ bool ScribusView::slotSetCurs(int x, int y)
 				emit ItemTextBase(currItem->itemText.defaultStyle().charStyle().baselineOffset());
 				return true;
 			}
-#else
-			FPoint point((x + Doc->minCanvasCoordinate.x()) / Scale - currItem->xPos(), 
-						 (y + Doc->minCanvasCoordinate.x()) / Scale - currItem->yPos());
-			currItem->CPos = currItem->itemText.length() == 0 ? 0 :
-				currItem->itemText.screenToPosition(point);
-			
-			if (currItem->CPos < currItem->itemText.length())
-			{
-				const CharStyle& style = currItem->itemText.charStyle(currItem->CPos); 
-				Doc->CurrFont = style.cfont->scName();
-				Doc->CurrFontSize = style.csize;
-				Doc->CurrTextFill = style.ccolor;
-				Doc->CurrTextFillSh = style.cshade;
-				Doc->CurrTextStroke = style.cstroke;
-				Doc->CurrTextStrokeSh = style.cshade2;
-				Doc->CurrTextScale = style.cscale;
-				Doc->CurrTextScaleV = style.cscalev;
-				Doc->CurrTextBase = style.cbase;
-				Doc->CurrTextShadowX = style.cshadowx;
-				Doc->CurrTextShadowY = style.cshadowy;
-				Doc->CurrTextOutline = style.coutline;
-				Doc->CurrTextUnderPos = style.cunderpos;
-				Doc->CurrTextUnderWidth = style.cunderwidth;
-				Doc->CurrTextStrikePos = style.cstrikepos;
-				Doc->CurrTextStrikeWidth = style.cstrikewidth;
-				emit ItemTextStrike(style.cstrikepos, style.cstrikewidth);
-				emit ItemTextUnderline(style.cunderpos, style.cunderwidth);
-				emit ItemTextOutline(style.coutline);
-				emit ItemTextShadow(style.cshadowx, style.cshadowy);
-				emit ItemTextBase(style.cbase);
-				emit ItemTextSca(style.cscale);
-				emit ItemTextScaV(style.cscalev);
-				emit ItemTextFont(style.cfont->scName());
-				emit ItemTextSize(style.csize);
-				emit ItemTextUSval(style.cextra);
-				emit ItemTextStil(style.cstyle);
-				emit ItemTextAbs(findParagraphStyle(Doc, currItem->itemText.paragraphStyle(currItem->CPos))); 
-				emit ItemTextFarben(style.cstroke, style.ccolor, style.cshade2, style.cshade);
-				p.end();
-				return true;
-			}
-			else
-			{
-				Doc->CurrFontSize = currItem->fontSize();
-				Doc->CurrTextFill = currItem->TxtFill;
-				Doc->CurrTextFillSh = currItem->ShTxtFill;
-				Doc->CurrTextStroke = currItem->TxtStroke;
-				Doc->CurrTextStrokeSh = currItem->ShTxtStroke;
-				Doc->CurrTextScale = currItem->TxtScale;
-				Doc->CurrTextScaleV = currItem->TxtScaleV;
-				Doc->CurrTextBase = currItem->TxtBase;
-				Doc->CurrTextShadowX = currItem->TxtShadowX;
-				Doc->CurrTextShadowY = currItem->TxtShadowY;
-				Doc->CurrTextOutline = currItem->TxtOutline;
-				Doc->CurrTextUnderPos = currItem->TxtUnderPos;
-				Doc->CurrTextUnderWidth = currItem->TxtUnderWidth;
-				Doc->CurrTextStrikePos = currItem->TxtStrikePos;
-				Doc->CurrTextStrikeWidth = currItem->TxtStrikeWidth;
-				emit ItemTextStrike(currItem->TxtStrikePos, currItem->TxtStrikeWidth);
-				emit ItemTextUnderline(currItem->TxtUnderPos, currItem->TxtUnderWidth);
-				emit ItemTextOutline(currItem->TxtOutline);
-				emit ItemTextShadow(currItem->TxtShadowX, currItem->TxtShadowY);
-				emit ItemTextSca(currItem->TxtScale);
-				emit ItemTextScaV(currItem->TxtScaleV);
-				emit ItemTextFarben(currItem->TxtStroke, currItem->TxtFill, currItem->ShTxtStroke, currItem->ShTxtFill);
-				emit ItemTextFont(currItem->font());
-				emit ItemTextSize(currItem->fontSize());
-				emit ItemTextUSval(currItem->ExtraV);
-				emit ItemTextStil(currItem->TxTStyle);
-				emit ItemTextAbs(currItem->textAlignment);
-				emit ItemTextBase(currItem->TxtBase);
-				p.end();
-				return true;
-			}			
-#endif
 		}
 	}
 	return false;
@@ -7624,7 +7557,8 @@ void ScribusView::slotDoCurs(bool draw)
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-#ifndef NLS_PROTO
+#if 0
+//#ifndef NLS_PROTO
 		if (!currItem->asTextFrame())
 			return;
 		// don't mess around with itemText when layout() is about to happen
@@ -7772,17 +7706,21 @@ void ScribusView::slotDoCurs(bool draw)
 		}
 		p.end();
 #else
-	PageItem_TextFrame * textframe = currItem->asTextFrame();
+		PageItem_TextFrame * textframe = currItem->asTextFrame();
 		if ( !textframe )
+			return;
+		
+		// don't mess around with itemText when layout() is about to happen
+		if (currItem->invalid)
 			return;
 		
 		//              textframe->lastTextItem = QMIN(textframe->lastTextItem, 
 		//                                             signed(textframe->itemText.nrOfItems()) - 1);
-
-		if (textframe->firstTextItem() >= 0 
-			&& textframe->lastTextItem() >= textframe->firstTextItem() 
+		
+		if (textframe->firstInFrame() >= 0 
+			&& textframe->lastInFrame() >= textframe->firstInFrame() 
 			&& textframe->CPos > 0 
-			&& textframe->CPos <= textframe->itemText.endOfItem(textframe->lastTextItem()))
+			&& textframe->CPos <= textframe->itemText.endOfItem(textframe->lastInFrame()))
 		{
 			QPainter p;
 			p.begin(viewport());
@@ -7794,9 +7732,10 @@ void ScribusView::slotDoCurs(bool draw)
 				Doc->CurTimer->stop();
 			
 			int x, y, y1;
-			if (textframe->CPos == textframe->itemText.endOfItem(textframe->lastTextItem()))
+#ifdef NLS_PROTO
+			if (textframe->CPos == textframe->itemText.endOfItem(textframe->lastInFrame()))
 			{
-				ScScriptItem * last = textframe->itemText.item(textframe->lastTextItem());
+				ScScriptItem * last = textframe->itemText.item(textframe->lastInFrame());
 				x = static_cast<int>(last->x + last->naturalWidth);
 				y = static_cast<int>(last->y);
 				y1 = static_cast<int>(last->y - 12);
@@ -7808,10 +7747,25 @@ void ScribusView::slotDoCurs(bool draw)
 				x = static_cast<int>(bbox.x);
 				y = static_cast<int>(bbox.y);
 				y1 = static_cast<int>(bbox.y - bbox.height);
-				qDebug(QString("cursor at (%1,%2) + %3").arg(bbox.x).arg(bbox.y).arg(bbox.height));
+//				qDebug(QString("cursor at (%1,%2) + %3").arg(bbox.x).arg(bbox.y).arg(bbox.height));
 			}
-			
-			p.setPen(QPen(white, 2, SolidLine, FlatCap, MiterJoin));
+#else
+			if (textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame()))
+			{
+				FRect bbox = textframe->itemText.boundingBox(textframe->lastInFrame());
+				x = static_cast<int>(bbox.x() + textframe->itemText.item(textframe->lastInFrame())->glyph.wide());
+				y = static_cast<int>(bbox.y());
+				y1 = static_cast<int>(bbox.y() + bbox.height());
+			}
+			else
+			{
+				FRect bbox = textframe->itemText.boundingBox(textframe->CPos);
+				x = static_cast<int>(bbox.x());
+				y = static_cast<int>(bbox.y());
+				y1 = static_cast<int>(bbox.y() + bbox.height());
+			}
+#endif
+			p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
 			p.setRasterOp(XorROP);
 			if (draw)
 			{

@@ -54,8 +54,39 @@ struct SCRIBUS_API GlyphLayout {
 	double scaleH;
 	uint glyph;
 	GlyphLayout* more;
+	
 	GlyphLayout() : xadvance(0.0f), yadvance(0.0f), xoffset(0.0f), yoffset(0.0f),
-		scaleV(1.0), scaleH(1.0), glyph(0), more(NULL) { }
+		scaleV(1.0), scaleH(1.0), glyph(0), more(NULL) 
+	{ }
+	double wide() const 
+	{ 
+		double ret = 0; 
+		for(const GlyphLayout* p=this; p; p=p->more) 
+			ret += p->xadvance; 
+		return ret; 
+	}
+	GlyphLayout* last() 
+	{ 
+		if (more) 
+			return more->last();
+		else 
+			return this;
+	}
+	void shrink()
+	{
+		if (more) {
+			more->shrink();
+			delete more;
+			more = NULL;
+		}
+	}
+	void grow()
+	{
+		if (!more) {
+			more = new GlyphLayout();
+		}
+	}
+	
 };
 
 #ifndef NLS_PROTO
@@ -74,6 +105,15 @@ public:
 	ScText() : //cselect(false), cab(0), 
 		parstyle(NULL), glyph(), 
 		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), cembedded(NULL), ch() {}
+	ScText(const ScText& other) : 
+		CharStyle(other),
+		parstyle(NULL), glyph(other.glyph), 
+		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), 
+		cembedded(other.cembedded), ch(other.ch) 
+	{
+		if (other.parstyle)
+			parstyle = new ParagraphStyle(*other.parstyle);
+	}
 	~ScText();
 };
 #endif

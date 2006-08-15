@@ -73,6 +73,8 @@ public:
 		// handled by freetype:	PFB_MAC, DFONT, HQX, MACBIN,
 		SFNT, TTCF, UNKNOWN_FORMAT };
 
+	static const uint CONTROL_GLYPHS = 2000000000; // 2 billion
+	
 	struct GlyphData { 
 		FPointArray Outlines;
 		double x;
@@ -289,19 +291,19 @@ protected:
 	// glyph interface
 	
 	/// returns the glyphs normal advance width at size 'sz'
-	double glyphWidth(uint gl, double sz=1.0) const { return m->glyphWidth(gl, sz); }
+	double glyphWidth(uint gl, double sz=1.0) const { return gl < CONTROL_GLYPHS ? m->glyphWidth(gl, sz) : 0; }
 
 	/// returns the glyph kerning between 'gl1' and 'gl2' at size 'sz'
-	double glyphKerning(uint gl1, uint gl2, double sz=1.0) const { return m->glyphKerning(gl1, gl2, sz); } 
+	double glyphKerning(uint gl1, uint gl2, double sz=1.0) const { return QMAX(gl1,gl2) < CONTROL_GLYPHS ? m->glyphKerning(gl1, gl2, sz) : 0; } 
 
 	/// returns the glyphs bounding box at size 'sz', ie. the area where this glyph will produce marks
-	GlyphMetrics glyphBBox(uint gl, double sz=1.0) const { return m->glyphBBox(gl, sz); }
+	GlyphMetrics glyphBBox(uint gl, double sz=1.0) const { return m->glyphBBox(gl < CONTROL_GLYPHS? gl : 0, sz); }
 
 	/// returns the glyph's outline as a cubic Bezier path
-	FPointArray glyphOutline(uint gl, double sz=1.0) const { return m->glyphOutline(gl, sz); }
+	FPointArray glyphOutline(uint gl, double sz=1.0) const { return m->glyphOutline(gl < CONTROL_GLYPHS? gl : 0, sz); }
 
 	/// returns the glyph's origin FIXME: what's that exactly?
-	FPoint glyphOrigin(uint gl, double sz=1.0)    const { return m->glyphOrigin(gl, sz); }
+	FPoint glyphOrigin(uint gl, double sz=1.0)    const { return m->glyphOrigin(gl<CONTROL_GLYPHS? gl : 0, sz); }
 	
 	// char interface
 
@@ -312,7 +314,7 @@ protected:
 	uint char2CMap(QChar ch)   const;
 
 	/// returns the combined glyph width and kerning for 'ch' if followed by 'ch2'
-	double charWidth(QChar ch, double sz=1.0, QChar ch2 = QChar(32)) const;
+	double charWidth(QChar ch, double sz=1.0, QChar ch2 = QChar(0)) const;
 	
 	/// deprecated, see glyphBBox()
 	double realCharWidth(QChar ch, double sz=1.0) const { return glyphBBox(char2CMap(ch),sz).width; }

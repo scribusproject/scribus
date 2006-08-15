@@ -57,6 +57,7 @@ public:
 	virtual bool equiv(const Style& other) const = 0;
 	virtual bool operator==(const Style& other) const { return name() == other.name() && equiv(other); }
 	virtual bool operator!=(const Style& other) const { return ! ( (*this) == other ); }
+	virtual void erase() = 0;
 	// applyStyle(const SubStyle& other)
 	// eraseStyle(const SubStyle& other)
 	// assign(const SubStyle& other)
@@ -156,6 +157,7 @@ public:
 	
 	void applyCharStyle(const CharStyle & other);
 	void eraseCharStyle(const CharStyle & other);
+	void erase() { eraseCharStyle(*this); }
 	QString displayName() const;
 //	bool definesAll() const;
 //	bool inheritsAll() const;
@@ -424,6 +426,7 @@ public:
 	
 	void applyStyle(const ParagraphStyle& other);
 	void eraseStyle(const ParagraphStyle& other);
+	void erase() { eraseStyle(*this); }
 	QString displayName() const;
 //	bool definesAll() const;
 //	bool inheritsAll() const;

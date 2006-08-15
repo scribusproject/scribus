@@ -6,6 +6,8 @@ ${CMAKE_SOURCE_DIR}/scribus
 
 SET(SCRIBUS_TEXT_LIB_SOURCES
 storytext.cpp
+fsize.cpp
+frect.cpp
 )
 
 SET(SCRIBUS_TEXT_LIB "scribus_text_lib")

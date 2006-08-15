@@ -1,8 +1,8 @@
 noinst_LTLIBRARIES=libtext.la
 
-libtext_la_SOURCES=storytext.cpp 
+libtext_la_SOURCES=storytext.cpp  fsize.cpp frect.cpp
 
-EXTRA_DIST = storytext.h
+EXTRA_DIST = storytext.h fsize.h frect.h
 
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)

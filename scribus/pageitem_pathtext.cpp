@@ -102,7 +102,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
 			continue;
 		chs = hl->fontSize();
-//		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutglyphs
+//		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutGlyphs
 		if (chstr == QChar(29))
 			chstr2 = " ";
 		else if (chstr == QChar(24))
@@ -227,7 +227,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		Zli->strikewidth = hl->strikethruWidth();
 		Zli->embedded = 0;
 		if (!m_Doc->RePos)
-			DrawZeichenS(p, Zli); // FIXME: drawglyphs
+			DrawZeichenS(p, Zli); // FIXME: drawGlyphs
 		delete Zli;
 */		p->setWorldMatrix(savWM);
 		p->restore();

@@ -6,8 +6,9 @@
 #include <qptrvector.h>
 #include <qptrlist.h>
 
+
 //#include "text/paragraphlayout.h"
-//#include "text/frect.h"
+#include "text/frect.h"
 
 #ifdef NLS_CONFORMANCE
 #define NLS_PRIVATE private
@@ -28,6 +29,7 @@ public:
 	static QChar NBSPACE;
 	static QChar ZWNBSPACE;
 	static QChar ZWSPACE;
+	static QChar PAGENUMBER;
 //	static QChar SPACE;
 };
 
@@ -39,6 +41,20 @@ class PageItem;
 class ScText_Shared;
 class ScText;
 class ScribusDoc;
+
+
+struct LineSpec 
+{
+	double x;
+	double y;
+	double width;
+	double ascent;
+	double descent;
+	
+	int firstItem;
+	int lastItem;
+	double naturalWidth;
+};
 
 /**
  * This class holds the text of a Scribus textframe and pointers to its
@@ -59,10 +75,12 @@ class ScribusDoc;
  class SCRIBUS_API StoryText {
  public:
  	StoryText(ScribusDoc * doc);
+ 	StoryText();
  	StoryText(const StoryText & other);
  	StoryText& operator= (const StoryText & other);
  	virtual ~StoryText();
  	void clear();
+	StoryText copy() const;
 	void append(const StoryText& other);
  	void removeChars(int pos, uint len);
  	void insertChars(int pos, QString txt);
@@ -152,6 +170,7 @@ class ScribusDoc;
  	int layout(int startItem);
  	uint nrOfItems() const;
  	ScText * item(uint index);
+ 	const ScText * item(uint index) const;
 //	void bidiReorder(uint firstItem, uint lastItem, uint indices[]) const;
   	/** returns the Unicode string which belongs to this ScScriptItem */
  	const QString itemText(uint index) const;
@@ -167,13 +186,20 @@ class ScribusDoc;
 // 	ParagraphLayout layouter;
 
  	int screenToPosition(FPoint coord) const;
- 	FPoint  boundingBox(int pos, uint len = 1) const;
+ 	FRect  boundingBox(int pos, uint len = 1) const;
 
+	uint lines() const { return m_lines.count(); }
+	LineSpec line(uint i) const { return m_lines[i]; }
+	void appendLine(const LineSpec& ls) { m_lines.append(ls); }
+	void clearLines() { m_lines.clear(); }
+	
  private:
 	ScribusDoc * doc; 
 	int selFirst, selLast;
 	int firstFrameItem, lastFrameItem;
-
+	QValueVector<LineSpec> m_lines;
+	bool m_validLayout;
+	
  	/// mark these runs as invalid, ie. need itemize and shaping
  	void invalidate(int firstRun, int lastRun);
  	

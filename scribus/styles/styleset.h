@@ -14,11 +14,11 @@ public:
 	inline int find(QString name);
 	uint count() const { return (uint) styles.count(); }
 	void append(STYLE* style) { styles.append(style); }
-	inline void remove(uint index);
+	inline void remove(uint index, const STYLE* with = NULL);
 	inline void redefine(QValueList<STYLE> defs, bool removeUnused=false);
 	void create(const STYLE& proto) { styles.append(new STYLE(proto)); }
 	StyleSet() : styles() {}
-	~StyleSet() { while(styles.count()>0) remove(0); }
+	~StyleSet() { while(styles.count()>0) { delete styles.front(); styles.pop_front(); } }
 private:
 	StyleSet(const StyleSet&) {}
 	StyleSet& operator= (const StyleSet&) { return *this; }
@@ -26,12 +26,14 @@ private:
 };
 
 template<class STYLE>
-inline void StyleSet<STYLE>::remove(uint index)
+inline void StyleSet<STYLE>::remove(uint index, const STYLE* with)
 {
 	assert(index < styles.count()); 
 	typename QValueList<STYLE*>::Iterator it = styles.at(index);
-	delete *it;
-	styles.remove(it);
+	if (!with)
+		with = dynamic_cast<const STYLE*>((*it)->parent());
+	(*it)->erase();
+	(*it)->setParent(with);
 }
 
 template<class STYLE>
@@ -64,6 +66,7 @@ inline void StyleSet<STYLE>::redefine(QValueList<STYLE> defs, bool removeUnused)
 			create(defs[j]);
 		}
 	}
+// FIXME: replace temp parents with ones from this
 }
 
 #endif
