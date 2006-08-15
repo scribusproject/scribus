@@ -213,7 +213,7 @@ void PageItem_TextFrame::layout()
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
-	double desc, asce, maxDY, firstDes, desc2, maxDX, tabDist;
+	double desc, asce, maxDY, firstDes, desc2, maxDX;
 	int DropLines;
 	bool StartOfCol = true;
 	tTabValues.clear();
@@ -337,7 +337,6 @@ void PageItem_TextFrame::layout()
 		OFs2 = 0;
 		aSpa = 0;
 		MaxChars = 0;
-		tabDist = 0;
 		MaxText = itemText.length();
 		StartOfCol = true;
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
@@ -1453,7 +1452,6 @@ void PageItem_TextFrame::layout()
 					}
 				}
 				StartOfCol = false;
-				tabDist = ColBound.x();
 				uint loopC = BuPos3;
 				if (m_Doc->guidesSettings.showControls)
 					loopC++;  // ??? AV
@@ -1487,7 +1485,6 @@ void PageItem_TextFrame::layout()
 							wide = itemText.item(startLin+zc)->glyph.xoffset - xcoZli + itemText.item(startLin+zc)->glyph.xadvance;
 						}
 					}
-					tabDist = itemText.item(startLin+zc)->glyph.xoffset + itemText.item(startLin+zc)->glyph.xadvance;
 				}
 //				LiList.clear();
 				itemsInLine = 0;
@@ -1671,7 +1668,6 @@ void PageItem_TextFrame::layout()
 			}
 		}
 		StartOfCol = false;
-		tabDist = ColBound.x();
 		for (int zc = 0; zc < itemsInLine; ++zc)
 		{
 			double wide2 = 0;
@@ -1691,7 +1687,6 @@ void PageItem_TextFrame::layout()
 					wide = itemText.item(curLine.firstItem+zc)->glyph.xoffset - xcoZli + itemText.item(curLine.firstItem+zc)->glyph.xadvance;
 				}
 			}
-			tabDist = itemText.item(curLine.firstItem+zc-1)->glyph.xoffset + itemText.item(curLine.firstItem+zc-1)->glyph.xadvance;
 		}
 		goNextColumn = false;
 //		LiList.clear();
