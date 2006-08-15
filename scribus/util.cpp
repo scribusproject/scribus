@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 // #include <algorithm>
 // #include <cstdlib>
 #include <cmath>
-
+#include <algorithm>
 #include "scconfig.h"
 
 //#ifdef HAVE_UNISTD_H
