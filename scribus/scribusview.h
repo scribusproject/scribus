@@ -149,8 +149,6 @@ public:
 	//CB This MUST now be called AFTER a call to doc->addPage or doc->addMasterPage as it
 	//does NOT create a page anymore.
 	Page* addPage(int nr, bool mov = true);
-	//CB replaced with selection class, per ScribusDoc 
-	//QPtrList<PageItem> SelItem;
 	QPtrList<PageItem> linkedFramesToShow;
 	QValueList<int> SelNode;
 
@@ -169,7 +167,6 @@ public:
 	void hideMasterPage();
 	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
 	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
-	//void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	void RecalcPicturesRes();
 	void rulerMove(QMouseEvent *m);
 	/**
@@ -183,20 +180,13 @@ public:
 	void SetXGuide(QMouseEvent *m, int oldIndex);
 	bool ApplyGuides(double *x, double *y);
 	void SnapToGuides(PageItem *currItem);
-	QPoint ApplyGrid(const QPoint& in);
-	FPoint ApplyGridF(const FPoint& in);
-	//->doc void setRedrawBounding(PageItem *currItem);
 	void setGroupRect();
 	void getGroupRect(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
 	void ToView(QPainter *p);
-	//void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
-	//void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
-	//void UpdateClip(PageItem *currItem);
-	//void ConvertClip(PageItem *currItem);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
 	void TransformPoly(int mode, int rot = 1, double scaling = 1.0);
@@ -213,7 +203,6 @@ public:
 	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);
-	//void AdvanceSel(PageItem *currItem, int oldPos, int len, int dir, int expandSel, int state);
 	bool slotSetCurs(int x, int y);
 	void slotDoCurs(bool draw);
 	void HandleCurs(QPainter *p, PageItem *currItem, QRect mpo);
@@ -226,16 +215,11 @@ public:
 	bool SeleItem(QMouseEvent *m);
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
-	//void updateGradientVectors(PageItem *currItem);
-	//void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
-	//void insertColor(QString nam, double c, double m, double y, double k);
-
-	//void AdjustPictScale(PageItem *currItem, bool reload = true);
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
 	void QueryFarben();
 	void rememberPreviousSettings(int mx=0, int my=0);
@@ -244,8 +228,6 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	double scale() const { return Scale; }
-
-	//void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
 
 public slots: // Public slots
 	void languageChange();
@@ -259,9 +241,7 @@ public slots: // Public slots
 	void slotZoom100();
   /** Zooms in */
 	void slotZoomIn(int mx=0,int my=0);
-	//void slotZoomIn2(int mx=0,int my=0);
 	void slotZoomOut(int mx=0,int my=0);
-	//void slotZoomOut2(int mx=0,int my=0);
   /** Redraws everything */
 	void DrawNew();
 	void setMenTxt(int Seite);
@@ -273,8 +253,6 @@ public slots: // Public slots
 	void SetCPo(int x, int y);
 	void SetCCPo(int x, int y);
 	void editExtendedImageProperties();
-	//void TogglePic();
-	//void UpdatePic();
 	void RefreshItem(PageItem *currItem);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
@@ -282,8 +260,6 @@ public slots: // Public slots
 	void adjustFrametoImageSize();
 	void ToggleBookmark();
 	void ToggleAnnotation();
-	//void ToggleLock();
-	//void ToggleSizeLock();
 	void sentToScrap();
 	void ToBack();
 	void ToFront();
@@ -298,15 +274,10 @@ public slots: // Public slots
 	void UniteObj();
 	void SplitObj();
 	void Bezier2Poly();
-	//void ClearItem();
-	//void DeleteItem();
 	void PasteToPage();
 	void PasteRecentToPage(int id);
 	void TextToPath();
 	void blinkCursor();
-	//void updatePict(QString name);
-	//void removePict(QString name);
-	//void changePreview(int id);
 	void adjustCanvas(double width, double height, double dX=0.0, double dY=0.0);
 
 private: // Private attributes

@@ -2292,7 +2292,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			currItem = Doc->m_Selection->itemAt(0);
 			FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
-			np1 = ApplyGridF(np1);
+			np1 = Doc->ApplyGridF(np1);
 			currItem->setWidthHeight(np1.x() - currItem->xPos(), np1.y()- currItem->yPos());
 			FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 			FPoint np(cli.point(0));
@@ -2331,7 +2331,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			QPoint np = p.xFormDev(m->pos());
 			p.end();
 			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
-			np = ApplyGrid(np);
+			np = Doc->ApplyGrid(np);
 			double newRot=xy2Deg(np.x(), np.y());
 			//Constrain rotation angle, when the mouse is released from drawing a line
 			if (m->state() & ControlButton)
@@ -2366,7 +2366,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					ny = np2.y();
 					if (!ApplyGuides(&nx, &ny))
 					{
-						np2 = ApplyGrid(np2);
+						np2 = Doc->ApplyGrid(np2);
 						nx = np2.x();
 						ny = np2.y();
 					}
@@ -2439,7 +2439,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						npx = FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true);
 					}
 					else
-						npx = ApplyGridF(FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true));
+						npx = Doc->ApplyGridF(FPoint(nx, ny, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1, 1, true));
 					if ((frameResizeHandle == 1) && !(currItem->asLine()) && (Doc->SnapGuides))
 						SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = Doc->SnapGuides;
@@ -2549,7 +2549,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								double ny = m->pos().y()/Scale + Doc->minCanvasCoordinate.y();
 								if (Doc->useRaster)
 								{
-									FPoint ra(ApplyGridF(FPoint(nx, ny)));
+									FPoint ra(Doc->ApplyGridF(FPoint(nx, ny)));
 									nx = ra.x();
 									ny = ra.y();
 								}
@@ -2653,7 +2653,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 								double ny = m->pos().y()/Scale + Doc->minCanvasCoordinate.y();
 								if (Doc->useRaster)
 								{
-									FPoint ra(ApplyGridF(FPoint(nx, ny)));
+									FPoint ra(Doc->ApplyGridF(FPoint(nx, ny)));
 									nx = ra.x();
 									ny = ra.y();
 								}
@@ -3103,7 +3103,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					if (!ApplyGuides(&nx, &ny))
 					{
 						FPoint npx;
-						npx = ApplyGridF(FPoint(nx, ny));
+						npx = Doc->ApplyGridF(FPoint(nx, ny));
 						nx = npx.x();
 						ny = npx.y();
 					}
@@ -3133,7 +3133,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						if (!ApplyGuides(&nx, &ny))
 						{
 							FPoint npx;
-							npx = ApplyGridF(FPoint(nx, ny));
+							npx = Doc->ApplyGridF(FPoint(nx, ny));
 							nx = npx.x();
 							ny = npx.y();
 						}
@@ -3326,7 +3326,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		Transform(currItem, &p);
 		FPoint npf(p.xFormDev(m->pos()));
 		npf += FPoint(Doc->minCanvasCoordinate.x(), Doc->minCanvasCoordinate.y());
-		npf = ApplyGridF(npf);
+		npf = Doc->ApplyGridF(npf);
 		currItem->PoLine.addPoint(npf);
 		bool ssiz = currItem->Sizing;
 		currItem->Sizing = true;
@@ -3873,7 +3873,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					int ox2 = qRound((gx+gw)*sc);
 					int oy2 = qRound((gy+gh)*sc);
 					np2 = QPoint(newX, newY);
-					np2 = ApplyGrid(np2);
+					np2 = Doc->ApplyGrid(np2);
 					double nx = np2.x();
 					double ny = np2.y();
 					ApplyGuides(&nx, &ny);
@@ -3887,7 +3887,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							np2 = QPoint(qRound(newX), qRound(gy+(gh * ((newX-gx) / gw))));
 						else
 							np2 = QPoint(qRound(newX), qRound(newY));
-						np2 = ApplyGrid(np2);
+						np2 = Doc->ApplyGrid(np2);
 						nx = np2.x();
 						ny = np2.y();
 						ApplyGuides(&nx, &ny);
@@ -4007,7 +4007,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 										sizeItemY = hlen * sin(rba/(180.0/M_PI));
 									}
 									currItem->setRotation(rba);
-									np = ApplyGrid(np);
+									np = Doc->ApplyGrid(np);
 									erf = SizeItem(sizeItemX, sizeItemY, currItem->ItemNr);
 									if (Doc->SnapGuides)
 									{
@@ -4040,7 +4040,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
 									p.begin(viewport());
 									np2 = QPoint(newX, newY);
-									np2 = ApplyGrid(np2);
+									np2 = Doc->ApplyGrid(np2);
 									double nx = np2.x();
 									double ny = np2.y();
 									ApplyGuides(&nx, &ny);
@@ -4061,7 +4061,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						{
 							p.begin(viewport());
 							np2 = QPoint(newX, newY);
-							np2 = ApplyGrid(np2);
+							np2 = Doc->ApplyGrid(np2);
 							double nx = np2.x();
 							double ny = np2.y();
 							ApplyGuides(&nx, &ny);
@@ -4547,10 +4547,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	mpo.moveBy(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	if (Doc->appMode != modeEdit)
 	{
-		Rxp = ApplyGrid(QPoint(Mxp, Myp)).x();
+		Rxp = Doc->ApplyGrid(QPoint(Mxp, Myp)).x();
 		Rxpd = Mxp - Rxp;
 		Mxp = qRound(Rxp);
-		Ryp = ApplyGrid(QPoint(Mxp, Myp)).y();
+		Ryp = Doc->ApplyGrid(QPoint(Mxp, Myp)).y();
 		Rypd = Myp - Ryp;
 		Myp = qRound(Ryp);
 	}
@@ -4655,7 +4655,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 								else
 								{
 									cli.putPoints(0, EndInd-StartInd, Clip, StartInd);
-									//z = PaintPoly(currItem->xPos(), currItem->yPos(), currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
 									z = Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
 									bb = Doc->Items->at(z);
 									if (EditContour)
@@ -4694,10 +4693,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							currItem->ClipEdited = true;
 							edited = true;
 							Doc->EditClipMode = 0;
-							//currItem->convertTo(PageItem::PolyLine);
-							//currItem->SetPolyClip(qRound(QMAX(currItem->Pwidth / 2, 1)));
 							PageItem* newItem=Doc->convertItemTo(currItem, PageItem::PolyLine);
-							//newItem->SetPolyClip(qRound(QMAX(newItem->Pwidth / 2, 1)));
 							currItem=newItem;
 							emit PolyOpen();
 						}
@@ -4707,7 +4703,6 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							{
 								if ((ClRe > 1) && (ClRe < static_cast<int>(Clip.size()-2)))
 								{
-									//z = PaintPolyLine(currItem->xPos(), currItem->yPos(), currItem->Width, currItem->Height, currItem->Pwidth, currItem->fillColor(), currItem->lineColor());
 									z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, currItem->xPos(), currItem->yPos(), currItem->width(), currItem->height(), currItem->lineWidth(), currItem->fillColor(), currItem->lineColor(), true);
 									bb = Doc->Items->at(z);
 									if (EditContour)
@@ -5260,7 +5255,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					bb->BackBox = currItem;
 					bb->itemText = currItem->itemText;
 					// CB We need to do this because we draw in the order of the item list
-					// Which is also item numbver list.. but #3488: we must also renumber the items
+					// Which is also item number list.. but #3488: we must also renumber the items
 					if (bb->ItemNr < currItem->ItemNr)
 					{
 						Doc->Items->insert(currItem->ItemNr+1, bb);
@@ -5410,7 +5405,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			npf = FPoint(p.xFormDev(m->pos()));
 			p.end();
 			npf += FPoint(Doc->minCanvasCoordinate.x(), Doc->minCanvasCoordinate.y());
-			npf = ApplyGridF(npf);
+			npf = Doc->ApplyGridF(npf);
 			currItem->PoLine.addPoint(npf);
 			npf2 = getMinClipF(&currItem->PoLine);
 			if (npf2.x() < 0)
@@ -5743,36 +5738,6 @@ void ScribusView::SnapToGuides(PageItem *currItem)
 		}
 	}
 
-}
-
-//CB-->Doc
-QPoint ScribusView::ApplyGrid(const QPoint& in)
-{
-	QPoint np;
-	int onp = Doc->OnPage(in.x(), in.y());
-	if ((Doc->useRaster) && (onp != -1))
-	{
-		np.setX(static_cast<int>(qRound((in.x() - Doc->Pages->at(onp)->xOffset()) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages->at(onp)->xOffset()));
-		np.setY(static_cast<int>(qRound((in.y() - Doc->Pages->at(onp)->yOffset()) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages->at(onp)->yOffset()));
-	}
-	else
-		np = in;
-	return np;
-}
-
-//CB-->Doc
-FPoint ScribusView::ApplyGridF(const FPoint& in)
-{
-	FPoint np;
-	int onp = Doc->OnPage(in.x(), in.y());
-	if ((Doc->useRaster) && (onp != -1))
-	{
-		np.setX(qRound((in.x() - Doc->Pages->at(onp)->xOffset()) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages->at(onp)->xOffset());
-		np.setY(qRound((in.y() - Doc->Pages->at(onp)->yOffset()) / Doc->guidesSettings.minorGrid) * Doc->guidesSettings.minorGrid + Doc->Pages->at(onp)->yOffset());
-	}
-	else
-		np = in;
-	return np;
 }
 
 //CB-->Doc/selection

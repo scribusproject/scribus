@@ -132,34 +132,6 @@
                                     <number>4</number>
                                 </property>
                             </widget>
-                            <widget class="QRadioButton">
-                                <property name="name">
-                                    <cstring>radioButtonLine</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="text">
-                                    <string>Line</string>
-                                </property>
-                                <property name="buttonGroupId">
-                                    <number>5</number>
-                                </property>
-                            </widget>
-                            <widget class="QRadioButton">
-                                <property name="name">
-                                    <cstring>radioButtonBezier</cstring>
-                                </property>
-                                <property name="enabled">
-                                    <bool>false</bool>
-                                </property>
-                                <property name="text">
-                                    <string>Bezier Curve</string>
-                                </property>
-                                <property name="buttonGroupId">
-                                    <number>6</number>
-                                </property>
-                            </widget>
                         </vbox>
                     </widget>
                     <widget class="QTextEdit">

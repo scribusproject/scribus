@@ -466,6 +466,22 @@ public:
 	/** Add an item to the page based on the x/y position. Item will be fitted to the closest guides/margins */
 	int itemAddArea(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const double x, const double y, const double w, const QString& fill, const QString& outline, const bool itemFinalised);
 	
+	/**
+	 * @brief Allow the user to create a frame easily with some simple placement and sizing options
+	 * @param type Type of frame. @sa PageItem::ItemType
+	 * @param locationType Whether the item is only created on the current page or a range 
+	 * @param positionType Location of frame. 0 for 0,0 of page. 1 for 0,0 of page margins, 2, for custom
+	 * @param sizeType Size of frame. 0 for page size, 1 for margin size, 2 for custom
+	 * @param fX X position
+	 * @param fY Y position
+	 * @param fWidth Width of frame
+	 * @param fHeight Height of frame
+	 * @param source Source image or text file for image or text frames
+	 * @param impsetup Import setup for text frames for gtGetText
+	 * @param columnCount Number of columns if created item is a text frame
+	 * @param columnGap Gap between columns if created item is a text frame
+	 * @return 
+	 */
 	int itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source, ImportSetup& impsetup, int columnCount, double columnGap);
 
 	/**
@@ -685,6 +701,11 @@ public:
 	\param newPage New current page */
 	void setCurrentPage(Page *newPage);
 	bool hasGUI() const {return m_hasGUI;}
+	/*! \brief Apply grid to a QPoint, from ScribusView */
+	QPoint ApplyGrid(const QPoint& in);
+	/*! \brief Apply grid to an FPoint, from ScribusView */
+	FPoint ApplyGridF(const FPoint& in);
+
 	
 protected:
 	void addSymbols();

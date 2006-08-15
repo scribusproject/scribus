@@ -141,12 +141,6 @@ void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & l
 		case 4:
 			frameType=PageItem::Polygon;
 			break;
-		case 5:
-			frameType=PageItem::Line;
-			break;
-		case 6:
-			frameType=PageItem::PolyLine;
-			break;
 	}
 	locationType=pagePlacementButtonGroup->selectedId();
 	positionType=framePositionButtonGroup->selectedId();

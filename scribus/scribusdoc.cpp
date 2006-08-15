@@ -2795,38 +2795,38 @@ int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, int 
 {
 	double x1=0.0,y1=0.0,w1=fWidth,h1=fHeight;
 	Page* targetPage=currentPage();
-	if (locationType!=0)
+	if (locationType!=0) // On the current page or ona range of pages
 	{
 		//handle non current page stuff
 	}
 	
-	if (positionType==0)
+	if (positionType==0) // Frame starts at top left of page
 	{
 		x1=targetPage->xOffset();
 		y1=targetPage->yOffset();
 	} 
-	else if (positionType==1)
+	else if (positionType==1) // Frame starts at top left of page margins
 	{
 		x1=targetPage->xOffset()+targetPage->Margins.Top;
 		y1=targetPage->yOffset()+targetPage->Margins.Left;
 	}
-	else if (positionType==2)
+	else if (positionType==2) // Frame starts at custom position
 	{
 		x1=targetPage->xOffset()+fX/docUnitRatio;
 		y1=targetPage->yOffset()+fY/docUnitRatio;
 	}
 	
-	if (sizeType==0)
+	if (sizeType==0) // Frame is size of page
 	{
 		w1=targetPage->width();
 		h1=targetPage->height();
 	}
-	else if (sizeType==1)
+	else if (sizeType==1) // Frame is size of page margins
 	{
 		w1=targetPage->width()-targetPage->Margins.Right-targetPage->Margins.Left;
 		h1=targetPage->height()-targetPage->Margins.Bottom-targetPage->Margins.Top;
 	}
-	else if (sizeType==2)
+	else if (sizeType==2) // Frame is custom size
 	{
 		w1=fWidth/docUnitRatio;
 		h1=fHeight/docUnitRatio;
@@ -7309,4 +7309,32 @@ void ScribusDoc::setCurrentPage(Page *newPage)
 		m_ScMW->guidePalette->setDoc(this);
 		m_ScMW->guidePalette->setupPage();
 	}
+}
+
+QPoint ScribusDoc::ApplyGrid(const QPoint& in)
+{
+	QPoint np;
+	int onp = OnPage(in.x(), in.y());
+	if (useRaster && (onp != -1))
+	{
+		np.setX(static_cast<int>(qRound((in.x() - Pages->at(onp)->xOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->xOffset()));
+		np.setY(static_cast<int>(qRound((in.y() - Pages->at(onp)->yOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->yOffset()));
+	}
+	else
+		np = in;
+	return np;
+}
+
+FPoint ScribusDoc::ApplyGridF(const FPoint& in)
+{
+	FPoint np;
+	int onp = OnPage(in.x(), in.y());
+	if (useRaster && (onp != -1))
+	{
+		np.setX(qRound((in.x() - Pages->at(onp)->xOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->xOffset());
+		np.setY(qRound((in.y() - Pages->at(onp)->yOffset()) / guidesSettings.minorGrid) * guidesSettings.minorGrid + Pages->at(onp)->yOffset());
+	}
+	else
+		np = in;
+	return np;
 }
