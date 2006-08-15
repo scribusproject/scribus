@@ -128,9 +128,9 @@ public:
 		PLineEnd(Qt::FlatCap),
 		PLineJoin(Qt::MiterJoin),
 		StrokeCol("None"),
-		Opacity(0.0),
-		FillOpacity(0.0),
-		StrokeOpacity(0.0)
+		Opacity(1.0),
+		FillOpacity(1.0),
+		StrokeOpacity(1.0)
 		{
 		}
 	bool CSpace;
