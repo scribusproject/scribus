@@ -101,6 +101,7 @@ void PageItem_ImageFrame::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 			}
 			else
 			{
+				//If we are missing our image, draw a red cross in the frame
 				if ((!PicArt) || (!PicAvail))
 				{
 					if ((Frame) && (m_Doc->guidesSettings.framesShown))
