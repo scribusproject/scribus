@@ -813,6 +813,7 @@ void UndoManager::languageChange()
 	UndoManager::SetLayerName       = tr("Change name of the layer");
 	UndoManager::GetImage           = tr("Get image");
 	UndoManager::MultipleDuplicate  = tr("Multiple duplicate");
+	UndoManager::EditContour        = tr("Edit contour line");
 }
 
 /*** UndoManager::TransactionState *****************************************************/
@@ -1064,6 +1065,7 @@ QString UndoManager::DoNotPrintLayer    = "";
 QString UndoManager::SetLayerName       = "";
 QString UndoManager::GetImage           = "";
 QString UndoManager::MultipleDuplicate  = "";
+QString UndoManager::EditContour        = "";
 /*
 const QString UndoManager::AddVGuide          = tr("Add vertical guide");
 const QString UndoManager::AddHGuide          = tr("Add horizontal guide");

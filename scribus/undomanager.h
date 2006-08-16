@@ -565,6 +565,7 @@ public:
 	static QString SetLayerName;
 	static QString GetImage;
 	static QString MultipleDuplicate;
+	static QString EditContour;
 	/*@}*/
 
 	/**

@@ -984,6 +984,7 @@ protected:
 	void restoreContourLine(SimpleState *state, bool isUndo);
 	void restoreLayer(SimpleState *state, bool isUndo);
 	void restoreGetImage(SimpleState *state, bool isUndo);
+	void restoreShapeContour(SimpleState *state, bool isUndo);
 	/*@}*/
 
 	/**

@@ -2450,6 +2450,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreLayer(ss, isUndo);
 		else if (ss->contains("GET_IMAGE"))
 			restoreGetImage(ss, isUndo);
+		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
+			restoreShapeContour(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->currentPage = oldCurrentPage;
@@ -2949,6 +2951,44 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 	}
 	else
 		loadImage(fn, false);
+}
+
+void PageItem::restoreShapeContour(SimpleState *state, bool isUndo)
+{
+	ItemState<QPair<FPointArray*,FPointArray*> > *istate =
+			dynamic_cast<ItemState<QPair<FPointArray*,FPointArray*> >*>(state);
+	if (istate)
+	{
+		FPointArray *oldClip = istate->getItem().first;
+		FPointArray *newClip = istate->getItem().second;
+		bool isContour = istate->getBool("IS_CONTOUR");
+		double oldX = istate->getDouble("OLD_X");
+		double oldY = istate->getDouble("OLD_Y");
+		double newX = istate->getDouble("NEW_X");
+		double newY = istate->getDouble("NEW_Y");
+		double mx = oldX - newX;
+		double my = oldY - newY;
+
+		if (isUndo)
+		{
+			if (isContour)
+				ContourLine = *oldClip;
+			else
+				PoLine = *oldClip;
+		}
+		else
+		{
+			mx = -mx;
+			my = -my;
+			if (isContour)
+				ContourLine = *newClip;
+			else
+				PoLine = *newClip;
+		}
+		m_Doc->view()->AdjustItemSize(this);
+		m_Doc->view()->MoveItem(mx, my, this, false);
+		m_Doc->view()->slotUpdateContents();
+	}
 }
 
 void PageItem::select()
