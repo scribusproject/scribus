@@ -3486,6 +3486,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		undoManager->commit();
 		oldClip = 0;
 	}
+	oldClip = 0;
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
