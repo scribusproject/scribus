@@ -881,9 +881,9 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	{
 		double sx = mask.width() / 40.0;
 		double sy = mask.height() / 40.0;
-		imt2 = mask.createAlphaMask();
-		imt2 = sy < sx ?  imt2.smoothScale(qRound(mask.width() / sx), qRound(mask.height() / sx)) :
-	      imt2.smoothScale(qRound(mask.width() / sy), qRound(mask.height() / sy));
+		imt2 = sy < sx ?  mask.smoothScale(qRound(mask.width() / sx), qRound(mask.height() / sx)) :
+	      mask.smoothScale(qRound(mask.width() / sy), qRound(mask.height() / sy));
+		imt2.invertPixels();
 		layerInfo[layer].thumb_mask = imt2.copy();
 	}
 	else

@@ -44,6 +44,8 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	currentOptions = 0;
 	bool mode = false;
 	CMSettings cms(docc, "", 0);
+	image.imgInfo.RequestProps = currItem->pixm.imgInfo.RequestProps;
+	image.imgInfo.isRequest = true;
 	image.LoadPicture(currItem->Pfile, cms, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();

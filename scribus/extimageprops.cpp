@@ -185,25 +185,6 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 			}
 			else
 				FlagsMask.append(0);
-/*			QPixmap pm = QPixmap(85, 40);
-			QPainter p;
-			p.begin(&pm);
-			QBrush b(QColor(205,205,205), loadIcon("testfill.png"));
-			p.fillRect(0, 0, 85, 40, b);
-			p.drawImage((40 - (*it2).thumb.width()) / 2, (40 - (*it2).thumb.height()) / 2, (*it2).thumb);
-			if (!(*it2).thumb_mask.isNull())
-			{
-				p.drawImage((45 + (40 - (*it2).thumb_mask.width()) / 2), (40 - (*it2).thumb_mask.height()) / 2, (*it2).thumb_mask);
-				if (!info->RequestProps[counter].useMask)
-				{
-					p.setPen(QPen(red, 2));
-					p.drawLine(45, 0, 85, 40);
-					p.drawLine(45, 40, 85, 0);
-				}
-			}
-			p.end(); */
-//			pm.convertFromImage((*it2).thumb);
-//			layerTable->setPixmap(info->layerInfo.count()-counter-1, 1, pm);
 			layerTable->setText(info->layerInfo.count()-counter-1, 2, (*it2).layerName);
 			Header->setLabel(info->layerInfo.count()-counter-1, tmp.setNum(counter+1));
 			layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);

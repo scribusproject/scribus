@@ -51,8 +51,8 @@ void KCurve::setPixmap(QPixmap pix)
 void KCurve::paintEvent(QPaintEvent *)
 {
 	int    x, y;
-	int    wWidth = width();
-	int    wHeight = height();
+	int    wWidth = width() - 1;
+	int    wHeight = height() - 1;
 	x  = 0;
 	y  = 0;
 	// Drawing selection or all histogram values.
