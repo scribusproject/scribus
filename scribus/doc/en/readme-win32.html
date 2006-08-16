@@ -6,8 +6,13 @@
 <p>First, Scribus was developed first and foremost on Linux and Unix systems, so sometimes the way things work are not always the 'windows way', but a more OS neutral way. Scribus also is natively ported to MacOSX and the behavior changes are mostly in the way the menus work. Second, a great deal of time and effort has been put into Scribus to generate very high quality commercial grade PDF. Provided you follow the recommended workflow in the documentation, you should have few issues with commercial printing.</p>
 
 <h3>Hardware/Software Requirements:</h3>
-<p><strong>For Windows 2000 Only</strong> - The GDI+ library from <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=6a63ab9c-df12-4d41-933c-be590feaa05a&DisplayLang=en">http://www.microsoft.com</a>. Unfortunately, as Scribus is an open source application under the GNU GPL, we cannot include this file within the installer. Windows XP includes this library already.  </p>
-<p>Windows 2000 SP4 or Windows XP - Windows 98 and ME have not been tested and are <strong>not supported</strong>. Any and all bug reports relating to Windows 9X/ME will be closed quickly. </p>
+<p><strong>For Windows 2000 Only</strong> - The GDI+ library from <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=6a63ab9c-df12-4d41-933c-be590feaa05a&DisplayLang=en">http://www.microsoft.com</a>. Unfortunately, as Scribus is an open source application under the GNU GPL, we cannot include this file within the installer.  Install this in: </p>
+<pre>C:\Program Files\Scribus-1.3.x</pre>
+<p>or</p>
+<pre>C:\Winnt\system32</pre>
+directory or other directory in your path.
+<p><strong>Windows XP</strong> Windows XP includes GDI+ already.</p>
+<p><strong>Windows 98 and ME have not been tested and are not supported</strong>. Any and all bug reports relating to Windows 9X/ME will be closed quickly. Why? There are many functions in Scribus which depend on features available only on Windows 2000 or Windows XP.</p>
 <p>256 Mb or more system memory - the more the better. </p>
 <p>Pentium III or better - 750MHz or better</p>
 <h3>Recommended:</h3>
@@ -15,7 +20,7 @@
 
 <h3>Before Downloading</h3>
 <ul>
-   <li><strong>Install Ghostscript before installing Scribus.</strong> <a href="http://ghostscript.com/doc/AFPL/index.htm">Ghostscript 8.54+</a> or newer is recommended. This is important for EPS,PS import and printing. <strong>Note: The correct .exe name for Ghostscript is gswin32c.exe, not gswin32.exe.</strong> Setting this properly will avoid error messages on start up and Scribus will auto-detect Ghostscript's location on install. </li>
+   <li><strong>Install Ghostscript before installing Scribus.</strong> <a href="http://ghostscript.com/doc/AFPL/index.htm">Ghostscript 8.54+</a> or newer is recommended. This is important for EPS,PS import and printing. <strong>Note: The correct .exe name for Ghostscript is gswin32c.exe, not gswin32.exe.</strong> Setting this properly will avoid error messages on start up and Scribus will auto-detect Ghostscript's location on install. More details: <a href="settings1.html">Scribus Preferences</a> </li>
    <li>Scribus is very intolerant of poorly constructed or marginal grade fonts. Once installed, please read carefully the font setup section in the help documentation.  </li>
    <li>This is beta software which is undergoing many code changes daily. While it is fairly stable and usable, caution is advised. It is not recommended yet for production use. The underlying file format is undergoing rapid changes and will not be finished until the 1.3.4 or later version is released. </li>
  </ul>
