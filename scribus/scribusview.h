@@ -299,6 +299,8 @@ private: // Private attributes
 	// new clip
 	bool isContourLine;
 	FPointArray *oldClip;
+	double oldItemX;
+	double oldItemY;
 
 private slots:
 	void setZoom();

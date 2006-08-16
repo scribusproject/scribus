@@ -2809,6 +2809,13 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 		FPointArray *oldClip = istate->getItem().first;
 		FPointArray *newClip = istate->getItem().second;
 		bool isContour = istate->getBool("IS_CONTOUR");
+		double oldX = istate->getDouble("OLD_X");
+		double oldY = istate->getDouble("OLD_Y");
+		double newX = istate->getDouble("NEW_X");
+		double newY = istate->getDouble("NEW_Y");
+		double mx = oldX - newX;
+		double my = oldY - newY;
+
 		if (isUndo)
 		{
 			if (isContour)
@@ -2818,13 +2825,18 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 		}
 		else
 		{
+			mx = -mx;
+			my = -my;
 			if (isContour)
 				ContourLine = *newClip;
 			else
 				PoLine = *newClip;
 		}
+		m_Doc->view()->AdjustItemSize(this);
+		m_Doc->view()->MoveItem(mx, my, this, false);
+		m_Doc->view()->slotUpdateContents();
 	}
-	m_Doc->view()->slotUpdateContents();
+
 }
 
 void PageItem::select()
