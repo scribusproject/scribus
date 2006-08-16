@@ -2802,12 +2802,12 @@ void PageItem::restoreGetImage(SimpleState *state, bool isUndo)
 
 void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 {
-	ItemState<QPair<FPointArray*,FPointArray*> > *istate =
-			dynamic_cast<ItemState<QPair<FPointArray*,FPointArray*> >*>(state);
+	ItemState<QPair<FPointArray,FPointArray> > *istate =
+			dynamic_cast<ItemState<QPair<FPointArray,FPointArray> >*>(state);
 	if (istate)
 	{
-		FPointArray *oldClip = istate->getItem().first;
-		FPointArray *newClip = istate->getItem().second;
+		FPointArray oldClip = istate->getItem().first;
+		FPointArray newClip = istate->getItem().second;
 		bool isContour = istate->getBool("IS_CONTOUR");
 		double oldX = istate->getDouble("OLD_X");
 		double oldY = istate->getDouble("OLD_Y");
@@ -2819,18 +2819,18 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 		if (isUndo)
 		{
 			if (isContour)
-				ContourLine = *oldClip;
+				ContourLine = oldClip;
 			else
-				PoLine = *oldClip;
+				PoLine = oldClip;
 		}
 		else
 		{
 			mx = -mx;
 			my = -my;
 			if (isContour)
-				ContourLine = *newClip;
+				ContourLine = newClip;
 			else
-				PoLine = *newClip;
+				PoLine = newClip;
 		}
 		m_Doc->view()->AdjustItemSize(this);
 		m_Doc->view()->MoveItem(mx, my, this, false);

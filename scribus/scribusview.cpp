@@ -1842,19 +1842,19 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		if (oldClip) // is there the old clip stored for the undo action
 		{
 			QString name = isContourLine ? Um::EditContour : Um::EditShape;
-			FPointArray *newClip = new FPointArray(isContourLine ? currItem->ContourLine :
-					currItem->PoLine);
-			ItemState<QPair<FPointArray*, FPointArray*> > *state =
-					new ItemState<QPair<FPointArray*, FPointArray*> >(name);
+			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+			ItemState<QPair<FPointArray, FPointArray> > *state =
+					new ItemState<QPair<FPointArray, FPointArray> >(name);
 					state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 					state->set("IS_CONTOUR", isContourLine);
-					state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
+					state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
 					state->set("OLD_X", oldItemX);
 					state->set("OLD_Y", oldItemY);
 					state->set("NEW_X", currItem->xPos());
 					state->set("NEW_Y", currItem->yPos());
 					undoManager->action(currItem, state);
 					undoManager->commit();
+					delete oldClip;
 					oldClip = 0;
 		}
 		return;
@@ -1891,16 +1891,15 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		currItem = Doc->m_Selection->itemAt(0);
 		operItemMoving = false;
 
-		ItemState<QPair<FPointArray*, FPointArray*> > *state;
+		ItemState<QPair<FPointArray, FPointArray> > *state;
 		if (oldClip) // is there the old clip stored for the undo action
 		{
 			QString name = isContourLine ? Um::EditContour : Um::EditShape;
-			FPointArray *newClip = new FPointArray(isContourLine ? currItem->ContourLine :
-					currItem->PoLine);
-			state = new ItemState<QPair<FPointArray*, FPointArray*> >(name);
+			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+			state = new ItemState<QPair<FPointArray, FPointArray> >(name);
 			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 			state->set("IS_CONTOUR", isContourLine);
-			state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
+			state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
 			undoManager->setUndoEnabled(false);
 		}
 
@@ -1916,6 +1915,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			undoManager->setUndoEnabled(true);
 			undoManager->action(currItem, state);
 			undoManager->commit();
+			delete oldClip;
 			oldClip = 0;
 		}
 		return;
@@ -3471,21 +3471,22 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		currItem = Doc->m_Selection->itemAt(0);
 		QString name = isContourLine ? Um::EditContour : Um::EditShape;
-			FPointArray *newClip = new FPointArray(isContourLine ? currItem->ContourLine :
-					currItem->PoLine);
-		ItemState<QPair<FPointArray*, FPointArray*> > *state =
-				new ItemState<QPair<FPointArray*, FPointArray*> >(name);
+		FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+		ItemState<QPair<FPointArray, FPointArray> > *state =
+				new ItemState<QPair<FPointArray, FPointArray> >(name);
 		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
 		state->set("IS_CONTOUR", isContourLine);
-		state->setItem(QPair<FPointArray*, FPointArray*>(oldClip, newClip));
+		state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
 		state->set("OLD_X", oldItemX);
 		state->set("OLD_Y", oldItemY);
 		state->set("NEW_X", currItem->xPos());
 		state->set("NEW_Y", currItem->yPos());
 		undoManager->action(currItem, state);
 		undoManager->commit();
+		delete oldClip;
 		oldClip = 0;
 	}
+	delete oldClip;
 	oldClip = 0;
 }
 
