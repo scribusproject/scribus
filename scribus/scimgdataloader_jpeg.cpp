@@ -74,7 +74,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 	jpeg_stdio_src(&cinfo, infile);
 	jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 	jpeg_read_header(&cinfo, true);
-	jpeg_start_decompress(&cinfo);
+	//jpeg_start_decompress(&cinfo);
 	unsigned int EmbedLen = 0;
 	unsigned char* EmbedBuffer;
 	if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
@@ -91,7 +91,7 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 		cmsCloseProfile(prof);
 		free(EmbedBuffer);
 	}
-	(void) jpeg_finish_decompress(&cinfo);
+	//(void) jpeg_finish_decompress(&cinfo);
 	fclose (infile);
 	jpeg_destroy_decompress (&cinfo);
 #endif
