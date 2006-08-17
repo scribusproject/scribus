@@ -3350,7 +3350,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 		jpeg_stdio_src(&cinfo, infile);
 		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 		jpeg_read_header(&cinfo, true);
-		jpeg_start_decompress(&cinfo);
+		//jpeg_start_decompress(&cinfo);
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
 		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
@@ -3368,7 +3368,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 			cmsCloseProfile(tiffProf);
 			free(EmbedBuffer);
 		}
-		(void) jpeg_finish_decompress(&cinfo);
+		//(void) jpeg_finish_decompress(&cinfo);
 		fclose (infile);
 		jpeg_destroy_decompress (&cinfo);
 	}
