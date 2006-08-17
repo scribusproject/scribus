@@ -440,3 +440,21 @@ void FPointArray::pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, 
 	delete[]( q );
 	return;
 }
+
+bool FPointArray::operator==(const FPointArray &rhs) const
+{
+	return count == rhs.count && 
+	       capacity == rhs.capacity &&
+	       QMemArray<FPoint>::operator==(rhs);
+}
+
+bool FPointArray::operator!=(const FPointArray &rhs) const
+{
+	if (count != rhs.count)
+		return true;
+	if (capacity != rhs.capacity)
+		return true;
+	return QMemArray<FPoint>::operator!=(rhs);
+}
+
+

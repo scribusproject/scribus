@@ -66,6 +66,8 @@ public:
 	double lenPathDist(int seg, double t1, double t2);
 	void pointTangentNormalAt( int seg, double t, FPoint* p, FPoint* tn, FPoint* n );
 	void pointDerivativesAt( int seg, double t, FPoint* p, FPoint* d1, FPoint* d2 );
+	bool operator==(const FPointArray &rhs) const;
+	bool operator!=(const FPointArray &rhs) const;
 	~FPointArray() {};
 private:
 	uint count;

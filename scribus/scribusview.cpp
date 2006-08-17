@@ -1841,21 +1841,27 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 
 		if (oldClip) // is there the old clip stored for the undo action
 		{
-			QString name = isContourLine ? Um::EditContour : Um::EditShape;
 			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
-			ItemState<QPair<FPointArray, FPointArray> > *state =
-					new ItemState<QPair<FPointArray, FPointArray> >(name);
-					state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
-					state->set("IS_CONTOUR", isContourLine);
-					state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
-					state->set("OLD_X", oldItemX);
-					state->set("OLD_Y", oldItemY);
-					state->set("NEW_X", currItem->xPos());
-					state->set("NEW_Y", currItem->yPos());
-					undoManager->action(currItem, state);
-					undoManager->commit();
-					delete oldClip;
-					oldClip = 0;
+			if (*oldClip != newClip)
+			{
+				QString name = isContourLine ? Um::EditContour : Um::EditShape;
+				ItemState<QPair<FPointArray, FPointArray> > *state =
+						new ItemState<QPair<FPointArray, FPointArray> >(name);
+				state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+				state->set("IS_CONTOUR", isContourLine);
+				state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+				state->set("OLD_X", oldItemX);
+				state->set("OLD_Y", oldItemY);
+				state->set("NEW_X", currItem->xPos());
+				state->set("NEW_Y", currItem->yPos());
+				undoManager->action(currItem, state);
+				undoManager->commit();
+			}
+			else
+				undoManager->cancelTransaction();
+
+			delete oldClip;
+			oldClip = 0;
 		}
 		return;
 	}
@@ -1894,13 +1900,22 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		ItemState<QPair<FPointArray, FPointArray> > *state;
 		if (oldClip) // is there the old clip stored for the undo action
 		{
-			QString name = isContourLine ? Um::EditContour : Um::EditShape;
 			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
-			state = new ItemState<QPair<FPointArray, FPointArray> >(name);
-			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
-			state->set("IS_CONTOUR", isContourLine);
-			state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
-			undoManager->setUndoEnabled(false);
+			if (*oldClip != newClip)
+			{
+				QString name = isContourLine ? Um::EditContour : Um::EditShape;
+				state = new ItemState<QPair<FPointArray, FPointArray> >(name);
+				state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+				state->set("IS_CONTOUR", isContourLine);
+				state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+				undoManager->setUndoEnabled(false);
+			}
+			else
+			{
+				delete oldClip;
+				oldClip = 0;
+				undoManager->cancelTransaction();
+			}
 		}
 
 		AdjustItemSize(currItem);
@@ -3470,22 +3485,29 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	if (oldClip && Doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
 	{
 		currItem = Doc->m_Selection->itemAt(0);
-		QString name = isContourLine ? Um::EditContour : Um::EditShape;
 		FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
-		ItemState<QPair<FPointArray, FPointArray> > *state =
-				new ItemState<QPair<FPointArray, FPointArray> >(name);
-		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
-		state->set("IS_CONTOUR", isContourLine);
-		state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
-		state->set("OLD_X", oldItemX);
-		state->set("OLD_Y", oldItemY);
-		state->set("NEW_X", currItem->xPos());
-		state->set("NEW_Y", currItem->yPos());
-		undoManager->action(currItem, state);
-		undoManager->commit();
+		if (*oldClip != newClip)
+		{
+			QString name = isContourLine ? Um::EditContour : Um::EditShape;
+			ItemState<QPair<FPointArray, FPointArray> > *state =
+					new ItemState<QPair<FPointArray, FPointArray> >(name);
+			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+			state->set("IS_CONTOUR", isContourLine);
+			state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+			state->set("OLD_X", oldItemX);
+			state->set("OLD_Y", oldItemY);
+			state->set("NEW_X", currItem->xPos());
+			state->set("NEW_Y", currItem->yPos());
+			undoManager->action(currItem, state);
+			undoManager->commit();
+		}
+		else
+			undoManager->cancelTransaction();
+
 		delete oldClip;
 		oldClip = 0;
 	}
+
 	delete oldClip;
 	oldClip = 0;
 }
