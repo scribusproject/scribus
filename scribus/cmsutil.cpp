@@ -15,6 +15,8 @@ cmsHTRANSFORM scCmsCreateTransform(cmsHPROFILE Input, DWORD InputFormat,
 	cmsHTRANSFORM hTransform = NULL;
 	if ( Input == NULL || Output == NULL)
 		return NULL;
+	dwFlags &= (~cmsFLAGS_GAMUTCHECK);
+	dwFlags &= (~cmsFLAGS_SOFTPROOFING);
 	QString desc1 = cmsTakeProductDesc(Input);
 	QString desc2 = cmsTakeProductDesc(Output);
 	if ( desc1 == desc2 )
