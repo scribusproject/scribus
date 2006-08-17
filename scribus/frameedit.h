@@ -71,7 +71,6 @@ public:
 
 private slots:
 	void closeEvent(QCloseEvent *);
-	void EndEdit();
 	void MoveK();
 	void AddN();
 	void DelN();
@@ -106,6 +105,7 @@ public slots:
 	void PolyStatus(int typ, uint size);
 	void languageChange();
 	void unitChange();
+	void EndEdit(); // allow remote close
 
 protected:
 	QVBoxLayout* NodePaletteLayout;

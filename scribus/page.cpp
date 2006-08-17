@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "undostate.h"
 #include "guidemanagercore.h"
+#include "frameedit.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -293,6 +294,8 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	if (m_Doc->EditClip) // switch off from edit shape
+		m_Doc->scMW()->nodePalette->EndEdit();
 	if (isUndo)
 	{
 		if (m_Doc->m_Selection->findItem(ite)!=-1)
@@ -327,6 +330,8 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
+	if (m_Doc->EditClip) // switch off from edit shape
+		m_Doc->scMW()->nodePalette->EndEdit();
 	if (isUndo)
 	{
 		m_Doc->Items->append(ite);
