@@ -47,7 +47,7 @@
 // don't just silently undo people's defines: #undef topLeft
 #endif
 
-class Q_EXPORT FRect					// rectangle class
+class FRect					// rectangle class
 {
 public:
     FRect()	{ x1 = y1 = 0; x2 = y2 = -1; }
@@ -128,8 +128,8 @@ public:
     FRect  intersect( const FRect &r ) const;
     bool   intersects( const FRect &r ) const;
 
-    friend Q_EXPORT bool operator==( const FRect &, const FRect & );
-    friend Q_EXPORT bool operator!=( const FRect &, const FRect & );
+    friend bool operator==( const FRect &, const FRect & );
+    friend bool operator!=( const FRect &, const FRect & );
 
 private:
 #if defined(Q_WS_X11) || defined(Q_OS_TEMP)
@@ -143,8 +143,8 @@ private:
 
 };
 
-Q_EXPORT bool operator==( const FRect &, const FRect & );
-Q_EXPORT bool operator!=( const FRect &, const FRect & );
+bool operator==( const FRect &, const FRect & );
+bool operator!=( const FRect &, const FRect & );
 
 
 /*****************************************************************************

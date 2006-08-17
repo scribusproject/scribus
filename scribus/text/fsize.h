@@ -42,7 +42,7 @@
  #include "../fpoint.h" // ### change to qwindowdefs.h?
 // #endif // QT_H
 
-class Q_EXPORT FSize
+class FSize
 // ### Make FSize inherit Qt in Qt 4.0
 {
 public:
@@ -105,8 +105,8 @@ private:
   FSize stream functions
  *****************************************************************************/
 
-// Q_EXPORT QDataStream &operator<<( QDataStream &, const FSize & );
-// Q_EXPORT QDataStream &operator>>( QDataStream &, FSize & );
+// QDataStream &operator<<( QDataStream &, const FSize & );
+// QDataStream &operator>>( QDataStream &, FSize & );
 
 
 /*****************************************************************************
