@@ -163,7 +163,7 @@ protected:
 		virtual GlyphMetrics glyphBBox(uint gl, double sz) const;
 		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
-		virtual bool glyphNames(QMap<QChar, std::pair<uint, QString> >& gList) const;
+		virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const;
 
 		// these use the cache:
 		virtual double      glyphWidth(uint gl, double sz)   const;
@@ -194,7 +194,7 @@ protected:
 	
 	bool EmbedFont(QString &str);
 	void RawData(QByteArray & bb);
-	bool glyphNames(QMap<QChar, std::pair<uint, QString> >& gList);
+	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList);
 	
 	/// prevent unloading of face data
 	void increaseUsage() const;

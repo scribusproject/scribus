@@ -326,7 +326,7 @@ QPixmap fontSamples(ScFace * fnt, int s, QString ts, QColor back)
 }
 */
 
-bool GlyNames(FT_Face face, QMap<QChar, std::pair<uint, QString> >& GList)
+bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 {
 	bool error;
 	char buf[50];
@@ -347,9 +347,9 @@ bool GlyNames(FT_Face face, QMap<QChar, std::pair<uint, QString> >& GList)
 		// just in case FT gives empty string or ".notdef"
 		// no valid glyphname except ".notdef" starts with '.'		
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(QChar(static_cast<uint>(charcode)), std::make_pair(gindex,adobeGlyphName(charcode)));
+			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)),adobeGlyphName(charcode)));
 		else
-			GList.insert(QChar(static_cast<uint>(charcode)), std::make_pair(gindex,QString(reinterpret_cast<char*>(buf))));
+			GList.insert(gindex, std::make_pair(QChar(static_cast<uint>(charcode)),QString(reinterpret_cast<char*>(buf))));
 			
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 	}

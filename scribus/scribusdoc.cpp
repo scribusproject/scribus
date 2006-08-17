@@ -2156,7 +2156,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 							chr = chstr[0].unicode();
 							uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
 							gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-							Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
+							Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
 						}
 						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
 						{
@@ -2171,7 +2171,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 							chr = chstr[0].unicode();
 							uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
 							gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-							Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
+							Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
 						}
 						continue;
 					}
@@ -2218,7 +2218,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 							{
 								uint gl = it->itemText.charStyle(e).font().char2CMap(pageNumberText[pnti]);
 								FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
-								Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
+								Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
 							}
 						}
 						continue;
@@ -2234,7 +2234,7 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 					{
 						uint gl = it->itemText.charStyle(e).font().char2CMap(chr);
 						gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-						Really[it->itemText.charStyle(e).font().scName()].insert(chr, gly);
+						Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
 					}
 				}
 			}

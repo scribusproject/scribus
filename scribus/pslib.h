@@ -84,7 +84,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors);
 		virtual void PS_show(double x, double y);
 		virtual void PS_showSub(uint chr, QString font, double size, bool stroke);
-		virtual void PS_show_xyG(QString font, QString ch, double x, double y, bool stop);
+		virtual void PS_show_xyG(QString font, uint gl, double x, double y, bool stop);
 		virtual void PS_image(PageItem *c, double x, double y, QString fn, double scalex, double scaley, QString Prof, bool UseEmbedded, bool UseProf, QString Name = "");
 		virtual void PS_plate(int nr, QString name = "");
 		virtual void PS_setGray();
@@ -104,7 +104,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void HandleGradient(PageItem *c, double w, double h, bool gcr);
 		virtual void SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr);
 		virtual void setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg, bool sep, bool farb, bool ic, bool master);
-		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
+		virtual void setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool gcr, uint a, uint d, ScText *hl, const ParagraphStyle& pstyle, Page* pg, bool sep, bool farb, bool ic, bool master);
 		bool Art;
 	private:
 		void PutSeite(QString c);
@@ -137,7 +137,7 @@ class SCRIBUS_API PSLib : public QObject
 		QString Fonts;
 		QString FontDesc;
 		QMap<QString, QString> UsedFonts;
-		typedef QMap<QChar, std::pair<uint, QString> > GListe;
+		typedef QMap<uint, std::pair<QChar, QString> > GListe;
 		QMap<QString, GListe> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;

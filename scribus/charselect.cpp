@@ -402,13 +402,13 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsA.clear();
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
-	QMap<QChar, std::pair<uint, QString> > glyphs;
+	QMap<uint, std::pair<QChar, QString> > glyphs;
 	(*m_Item->doc()->AllFonts)[fontInUse].glyphNames(glyphs);
-	for (QMap<QChar, std::pair<uint, QString> >::iterator it=glyphs.begin();
+	for (QMap<uint, std::pair<QChar, QString> >::iterator it=glyphs.begin();
 		 it != glyphs.end(); ++it)
 	{
-		charcode = it.key().unicode();
-		gindex = it.data().first;
+		charcode = it.data().first.unicode();
+		gindex = it.key();
 		gname = it.data().second;
 		charactersFull.append(charcode);
 		if ((charcode >= 0x0020 ) && (charcode <= 0x007F))

@@ -11,7 +11,7 @@ double ScFace::ScFaceData::glyphKerning(uint gl1, uint gl2, double sz) const
 }
 
 
-bool ScFace::ScFaceData::glyphNames(QMap<QChar, std::pair<uint, QString> >& gList) const 
+bool ScFace::ScFaceData::glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const 
 { 
 	return false; 
 }
@@ -263,7 +263,7 @@ bool ScFace::EmbedFont(QString &str)
 }
 
 
-bool ScFace::glyphNames(QMap<QChar, std::pair<uint, QString> >& gList)
+bool ScFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& gList)
 {
 	if (m->status == ScFace::UNKNOWN) {
 		m->load();

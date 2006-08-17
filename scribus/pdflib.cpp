@@ -3159,10 +3159,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		out2=out.arg(doc.getSectionPageNumberForPageIndex(PNr), -(int)zae);
 		chstr = out2.mid(d-za2, 1);
 	}
-	uint cc = chstr[0].unicode();
+/*	uint cc = chstr[0].unicode();
 	uint idx = 0;
 	if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
 		idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
+	*/
+	uint idx = hl->glyph.glyph;
 	uint idx1 = (idx >> 8) & 0xFF;
 	if (hl->effects() & ScStyle_AllCaps)
 	{
@@ -3316,10 +3318,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 	}
 	else
 	{
-		cc = chstr[0].unicode();
+/*		cc = chstr[0].unicode();
 		idx = 0;
 		if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
 			idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
+		*/
+		idx = hl->glyph.glyph;
 		idx1 = (idx >> 8) & 0xFF;
 		tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 		if (hl->strokeColor() != CommonStrings::None)
@@ -3373,10 +3377,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 				double wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 				tmp += "1 0 0 1 "+FToStr(hl->glyph.xoffset+wtr)+" "+FToStr(-hl->glyph.yoffset)+" Tm\n";
 				chstr = "-";
-				cc = chstr[0].unicode();
+/*				cc = chstr[0].unicode();
 				idx = 0;
 				if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
 					idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
+				*/
+				idx = hl->font().char2CMap(QChar('-'));
 				idx1 = (idx >> 8) & 0xFF;
 				tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;

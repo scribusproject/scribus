@@ -1943,16 +1943,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			p->translate(0, Height * sc);
 			p->scale(1, -1);
 		}
-		CurrCol = 0;
-		ColWidth = columnWidth();
-		ColBound = FPoint((ColWidth + ColGap) * CurrCol+Extra + lineCorr, ColWidth * (CurrCol+1) + ColGap * CurrCol + Extra+lineCorr);
-		ColBound = FPoint(ColBound.x(), ColBound.y()+RExtra+lineCorr);
-		tabDist = ColBound.x();
 		uint tabCc = 0;
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
 		for (uint ll=0; ll < itemText.lines(); ++ll) {
 			LineSpec ls = itemText.line(ll);
+			tabDist = ls.x;
+			double CurX = ls.x;
 //			p->setLineWidth(0);
 //			p->setBrush(Qt::yellow);
 //			p->drawRect(ls.x, ls.y-ls.ascent, ls.width, ls.ascent);
@@ -2004,8 +2001,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					QChar tabFillChar(tTabValues[tabCc].tabFillChar);
 					double wt = charStyle.font().charWidth(tabFillChar, chs / 10.0);
-					int coun = static_cast<int>((ls.x - tabDist) / wt);
-					double sPos = tabDist - ls.x + hl->glyph.xoffset + 1;
+					int coun = static_cast<int>((CurX - tabDist) / wt);
+					double sPos = tabDist - CurX + hl->glyph.xoffset + 1;
 					desc = -charStyle.font().descent(chs / 10.0);
 					asce = charStyle.font().ascent(chs / 10.0);
 					GlyphLayout tglyph;
@@ -2017,7 +2014,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					for (int cx = 0; cx < coun; ++cx)
 					{
 						tglyph.xoffset =  sPos + wt * cx;
-						if (e2.intersects(pf2.xForm(QRect(qRound(ls.x + tglyph.xoffset),qRound(ls.y + tglyph.yoffset-asce), qRound(tglyph.xadvance+1), qRound(asce+desc)))))
+						if (e2.intersects(pf2.xForm(QRect(qRound(CurX + tglyph.xoffset),qRound(ls.y + tglyph.yoffset-asce), qRound(tglyph.xadvance+1), qRound(asce+desc)))))
 							drawGlyphs(p, charStyle, tglyph);
 					}
 					p->restore();
@@ -2027,7 +2024,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				// paint selection
 				if (!m_Doc->RePos)
 				{
-					double xcoZli = ls.x + hl->glyph.xoffset;
+					double xcoZli = CurX + hl->glyph.xoffset;
 					desc = - charStyle.font().descent(charStyle.fontSize() / 10.0);
 					asce = charStyle.font().ascent(charStyle.fontSize() / 10.0);
 					if ((selected && Select) || ((NextBox != 0 || BackBox != 0) && selected) && (m_Doc->appMode == modeEdit))
@@ -2039,8 +2036,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->setLineWidth(0);
 						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
 						{
-							xcoZli = ls.x + itemText.item(a-1)->glyph.xoffset + itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
-							wide = ls.x + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
+							xcoZli = CurX + itemText.item(a-1)->glyph.xoffset + itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
+							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
 						}
 						if (!m_Doc->RePos)
 							p->drawRect(xcoZli, qRound(ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), wide+1, qRound((asce+desc) * (hl->glyph.scaleV)));
@@ -2098,17 +2095,17 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 */
 					// paint glyphs
-					if (e2.intersects(pf2.xForm(QRect(qRound(ls.x + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
+					if (e2.intersects(pf2.xForm(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
 					{
 						p->save();
-						p->translate(ls.x * p->zoomFactor(), ls.y * p->zoomFactor());
+						p->translate(CurX * p->zoomFactor(), ls.y * p->zoomFactor());
 						if (hl->ch[0] == SpecialChars::OBJECT) {
 							DrawObj_Embedded(p, e, charStyle, hl->cembedded);
-							ls.x += (hl->cembedded->gWidth + hl->cembedded->lineWidth()) *  p->zoomFactor();
+							CurX += (hl->cembedded->gWidth + hl->cembedded->lineWidth()) *  p->zoomFactor();
 						}
 						else {
 							drawGlyphs(p, charStyle, hl->glyph);
-							ls.x += hl->glyph.wide();
+							CurX += hl->glyph.wide();
 						}
 						p->restore();
 					}
@@ -2122,7 +2119,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
  */			
 				}
-				tabDist = ls.x;
+				tabDist = CurX;
 			}
 		}
 		/*

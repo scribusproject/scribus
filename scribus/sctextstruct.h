@@ -109,7 +109,7 @@ public:
 		CharStyle(other),
 		parstyle(NULL), glyph(other.glyph), 
 		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), 
-		cembedded(other.cembedded), ch(other.ch) 
+		cembedded(other.cembedded), ch(other.ch), Style(other)
 	{
 		if (other.parstyle)
 			parstyle = new ParagraphStyle(*other.parstyle);
