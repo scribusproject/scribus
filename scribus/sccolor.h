@@ -196,11 +196,11 @@ private:
 	* If color management is enabled, returned value use the monitor color space. */
 	QColor getColorProof(int c, int m, int y, int k, bool gamutCkeck) const;
 
-	/** \brief Return a proofed QColor from a rgb color using doc rgb color space as input.
+	/** \brief Return a QColor from a rgb color using doc rgb color space as input.
 	* If color management is enabled, returned value use the monitor rgb color space. */
 	QColor getDisplayColor(int r, int g, int b) const;
 
-	/** \brief Return a proofed QColor from a cmyk color using doc cmyk color space as input.
+	/** \brief Return a QColor from a cmyk color using doc cmyk color space as input.
 	* If color management is enabled, returned value use the monitor rgb color space. */
 	QColor getDisplayColor(int c, int m, int y, int k) const;
 };
