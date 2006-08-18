@@ -3358,6 +3358,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			is12doc=true;
 		}
 
+		ScCore->getCMSProfilesDir(fi.dirPath(true)+"/");
 		prefsManager->appPrefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
 		prefsManager->appPrefs.AvailFonts.updateFontMap();
 		doc=new ScribusDoc();

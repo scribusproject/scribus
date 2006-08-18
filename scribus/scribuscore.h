@@ -92,6 +92,7 @@ public:
 	int havePNGAlpha() const {return m_HavePngAlpha;};
 	int haveTIFFSep() const {return m_HaveTiffSep;};
 	void getCMSProfiles();
+	void getCMSProfilesDir(QString pfad);
 	bool fileWatcherActive() const;
 	
 	//Main Window members
@@ -110,7 +111,6 @@ public:
 	
 protected:
 	void initCMS();
-	void getCMSProfilesDir(QString pfad);
 	
 	QPtrList<ScribusMainWindow> ScMWList;
 	uint m_currScMW;

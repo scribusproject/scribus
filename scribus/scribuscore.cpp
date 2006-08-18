@@ -404,29 +404,29 @@ void ScribusCore::getCMSProfilesDir(QString pfad)
 				{
 				case icSigInputClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						InputProfiles[nam] = pfad + d[dc];
+						InputProfiles.insert(nam, pfad + d[dc], false);
 					break;
 				case icSigColorSpaceClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
-						InputProfiles[nam] = pfad + d[dc];
+						InputProfiles.insert(nam, pfad + d[dc], false);
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						InputProfilesCMYK[nam] = pfad + d[dc];
+						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
 					break;
 				case icSigDisplayClass:
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigRgbData)
 					{
-						MonitorProfiles[nam] = pfad + d[dc];
-						InputProfiles[nam] = pfad + d[dc];
+						MonitorProfiles.insert(nam, pfad + d[dc], false);
+						InputProfiles.insert(nam, pfad + d[dc], false);
 					}
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
-						InputProfilesCMYK[nam] = pfad + d[dc];
+						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
 					break;
 				case icSigOutputClass:
-					PrinterProfiles[nam] = pfad + d[dc];
+					PrinterProfiles.insert(nam, pfad + d[dc], false);
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 					{
-						PDFXProfiles[nam] = pfad + d[dc];
-						InputProfilesCMYK[nam] = pfad + d[dc];
+						PDFXProfiles.insert(nam, pfad + d[dc], false);
+						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
 					}
 					break;
 				}
