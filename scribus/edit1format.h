@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "mspinbox.h"
 #include "fontcombo.h"
+#include "colorcombo.h"
 #include "alignselect.h"
 #include "shadebutton.h"
 
@@ -73,10 +74,10 @@ public:
 	MSpinBox* SizeC;
 	QLabel* TextF2;
 	QLabel* StrokeIcon;
-	QComboBox* TxStroke;
+	ColorCombo* TxStroke;
 	ShadeButton *PM1;
 	QLabel* FillIcon;
-	QComboBox* TxFill;
+	ColorCombo* TxFill;
 	ShadeButton *PM2;
 	QGroupBox* DropCaps;
 	QLabel* CapLabel;
