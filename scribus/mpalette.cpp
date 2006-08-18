@@ -1390,7 +1390,7 @@ void Mpalette::NewSel(int nr)
 		Width->setEnabled(true);
 		Height->setEnabled(true);
 		Rot->setEnabled(true);
-		TabStack->setCurrentIndex(0);
+//		TabStack->setCurrentIndex(0);
 		TabStack->item(0)->setEnabled(true);
 		TabStack->setItemEnabled(0, true);
 		NameEdit->setEnabled(false);
@@ -1442,7 +1442,7 @@ void Mpalette::NewSel(int nr)
 			RoundRect->setValue(0);
 			for (int ws = 1; ws < 6; ++ws)
 				TabStack->setItemEnabled(ws, false);
-			TabStack->setCurrentIndex(0);
+//			TabStack->setCurrentIndex(0);
 			TabStack->item(0)->setEnabled(false);
 			TabStack->setItemEnabled(0, false);
 			Cpal->ChooseGrad(0);
@@ -1461,8 +1461,8 @@ void Mpalette::NewSel(int nr)
 			if ((doc->m_Selection->itemAt(0)->FrameType == 0) || (doc->m_Selection->itemAt(0)->FrameType == 2))
 				RoundRect->setEnabled(true);
 			EditShape->setEnabled(true);
-			if (visID == 2)
-				TabStack->setCurrentIndex(0);
+//			if (visID == 2)
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 4:
@@ -1478,8 +1478,8 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(false);
 			Distance->setEnabled(true);
 			EditShape->setEnabled(true);
-			if (visID == 3)
-				TabStack->setCurrentIndex(0);
+//			if (visID == 3)
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 5:
@@ -1493,8 +1493,8 @@ void Mpalette::NewSel(int nr)
 			BottomLeft->setEnabled(false);
 			BottomRight->setEnabled(false);
 			Center->setEnabled(false);
-			if ((visID == 1) || (visID == 2) || (visID == 3))
-				TabStack->setCurrentIndex(0);
+//			if ((visID == 1) || (visID == 2) || (visID == 3))
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 1:
@@ -1511,8 +1511,8 @@ void Mpalette::NewSel(int nr)
 				RoundRect->setEnabled(true);
 			else
 				RoundRect->setEnabled(false);
-			if ((visID == 2) || (visID == 3))
-				TabStack->setCurrentIndex(0);
+//			if ((visID == 2) || (visID == 3))
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 7:
@@ -1521,8 +1521,8 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
-			if ((visID == 2) || (visID == 3))
-				TabStack->setCurrentIndex(0);
+//			if ((visID == 2) || (visID == 3))
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		case 8:
@@ -1531,8 +1531,8 @@ void Mpalette::NewSel(int nr)
 			TabStack->setItemEnabled(3, false);
 			TabStack->setItemEnabled(4, true);
 			EditShape->setEnabled(true);
-			if (visID == 3)
-				TabStack->setCurrentIndex(0);
+//			if (visID == 3)
+//				TabStack->setCurrentIndex(0);
 			HaveItem = true;
 			break;
 		}
@@ -3154,7 +3154,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			return;
 		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
-		TabStack->setCurrentIndex(1);
+//		TabStack->setCurrentIndex(1);
 	}
 }
 
