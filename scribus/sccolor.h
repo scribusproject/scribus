@@ -107,6 +107,10 @@ public:
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done. */
 	QColor getDisplayColor() const;
 
+	/** \brief Return a color with the specified shade converted to monitor color space. 
+	* No soft-proofing is done. */
+	QColor getDisplayColor(int level) const;
+
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done
 	* If gamut check is valid, the return value may be an gamut warning . */
 	QColor getDisplayColorGC();
@@ -115,7 +119,7 @@ public:
 	* If color management is enabled, returned value use the monitor color space. */
 	QColor getColorProof(bool gamutCheck = false) const;
 
-	/** \brief Return a proofed QColor with the specified shade.
+	/** \brief Return a QColor with the specified shade.
 	* If color management is enabled, returned value use the rgb solid colors space. */
 	QColor getShadeColor(int level) const;
 

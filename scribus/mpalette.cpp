@@ -3371,30 +3371,17 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 			QPainter p;
 			p.begin(&pm);
 			QColor tmpf;
-			int h, s, v, sneu;
 			multiLine ml = it.data();
 			for (int its = ml.size()-1; its > -1; its--)
 			{
-				dd->PageColors[ml[its].Color].getRawRGBColor().rgb(&h, &s, &v);
-				if ((h == s) && (s == v))
-				{
-					dd->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
-					sneu = 255 - ((255 - v) * ml[its].Shade / 100);
-					tmpf.setHsv(h, s, sneu);
-				}
-				else
-				{
-					dd->PageColors[ml[its].Color].getRawRGBColor().hsv(&h, &s, &v);
-					sneu = s * ml[its].Shade / 100;
-					tmpf.setHsv(h, sneu, v);
-				}
+				tmpf = dd->PageColors[ml[its].Color].getDisplayColor(ml[its].Shade);
 				p.setPen(QPen(tmpf,
 								QMAX(static_cast<int>(ml[its].Width), 1),
 								 static_cast<PenStyle>(ml[its].Dash),
 								 static_cast<PenCapStyle>(ml[its].LineEnd),
 								 static_cast<PenJoinStyle>(ml[its].LineJoin)));
 				p.drawLine(0, 18, 37, 18);
-				}
+			}
 			p.end();
 			StyledLine->insertItem(pm, it.key());
 		}

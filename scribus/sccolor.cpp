@@ -252,6 +252,24 @@ QColor ScColor::getDisplayColor() const
 	return tmp;
 }
 
+QColor ScColor::getDisplayColor(int level) const
+{
+	QColor tmp;
+	if (Model == colorModelRGB)
+	{
+		int r, g, b;
+		getShadeColorRGB(&r, &g, &b, level);
+		tmp = getDisplayColor(r, g, b);
+	}
+	else
+	{
+		int c, m, y, k;
+		getShadeColorCMYK(&c, &m, &y, &k, level);
+		tmp = getDisplayColor(c, m, y, k);
+	}
+	return tmp;
+}
+
 QColor ScColor::getDisplayColorGC()
 {
 	QColor tmp;
