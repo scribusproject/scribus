@@ -86,7 +86,7 @@ private:
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
 	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false);
 	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
-	void setTextCh(PageItem *ite, uint PNr, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
+	void setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
 
 	// Provide a couple of PutDoc implementations to ease transition away from
 	// QString abuse and to provide fast paths for constant strings.
