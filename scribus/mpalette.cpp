@@ -3268,7 +3268,7 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 			return;
 		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
-		TabStack->setCurrentIndex(1);
+// 		TabStack->setCurrentIndex(1);
 	}
 }
 
