@@ -2984,6 +2984,14 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
 		putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 	}
+	if (glyphs.more) {
+		// ugly hack until setTextCh interface is changed
+		ScText hl2(*hl);
+		hl2.glyph = *glyphs.more;
+		setTextCh(Doc, ite, x + glyphs.xadvance, y, gcr, argh, doh, &hl2, pstyle, pg, sep, farb, ic, master);
+		// don't let hl2's destructor delete these!
+		hl2.glyph.more = 0;
+	}
 /*	if (cstyle.effects() & 8192)
 	{
 		int chs = cstyle.fontSize();

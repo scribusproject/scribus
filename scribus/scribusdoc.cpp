@@ -2223,6 +2223,12 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 						}
 						continue;
 					}
+					if (it->itemText.charStyle(e).effects() & ScStyle_SmartHyphenVisible)
+					{
+						uint gl = it->itemText.charStyle(e).font().char2CMap(QChar('-'));
+						FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
+						Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+					}
 					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
 						chstr = it->itemText.text(e, 1);
