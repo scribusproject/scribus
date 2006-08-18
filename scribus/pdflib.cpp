@@ -541,7 +541,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	FileID = ComputeMD5(IDg);
 	if (Options.Encrypt)
 	{
-		KeyLen = Options.Version == 14 ? 16 : 5;
+		if ((Options.Version == 14) || (Options.Version == 15))
+			KeyLen = 16;
+		else
+			KeyLen = 5;
 		CalcOwnerKey(Options.PassOwner, Options.PassUser);
 		CalcUserKey(Options.PassUser, Options.Permissions);
 		for (uint cl2 = 0; cl2 < 32; ++cl2)
