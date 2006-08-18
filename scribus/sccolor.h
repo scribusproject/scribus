@@ -92,6 +92,10 @@ public:
 	/** \brief Return a color converted to monitor color space. No soft-proofing done. */
 	QColor getDisplayColor() const;
 
+	/** \brief Return a color with the specified shade converted to monitor color space. 
+	* No soft-proofing is done. */
+	QColor getDisplayColor(int level) const;
+
 	/** \brief Return a color converted to monitor color space. No soft-proofing is done
 	* If gamut check is valid, the return value may be an gamut warning . */
 	QColor getDisplayColorGC();
@@ -101,10 +105,10 @@ public:
 	QColor getColorProof(bool gamutCheck = false) const;
 
 	/** \brief get CMYK values of a specified shade */
-	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level);
+	void getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const;
 
 	/** \brief get RGB values of a specified shade */
-	void getShadeColorRGB(int *r, int *g, int *b, int level);
+	void getShadeColorRGB(int *r, int *g, int *b, int level) const;
 
 	/** \brief Return a proofed QColor with the specified shade */
 	QColor getShadeColorProof(int level);

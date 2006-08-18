@@ -142,6 +142,24 @@ QColor ScColor::getDisplayColor() const
 	return getDisplayColor(C, M, Y, K);
 }
 
+QColor ScColor::getDisplayColor(int level) const
+{
+	QColor tmp;
+	if (Model == colorModelRGB)
+	{
+		int r, g, b;
+		getShadeColorRGB(&r, &g, &b, level);
+		tmp = getDisplayColor(r, g, b);
+	}
+	else
+	{
+		int c, m, y, k;
+		getShadeColorCMYK(&c, &m, &y, &k, level);
+		tmp = getDisplayColor(c, m, y, k);
+	}
+	return tmp;
+}
+
 QColor ScColor::getDisplayColorGC()
 {
 	QColor tmp;
@@ -280,7 +298,7 @@ QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck) const
 	return QColor(r, g, b);
 }
  
-void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
+void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const
 {
 	if (Model == colorModelRGB)
 	{
@@ -299,7 +317,7 @@ void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level)
 	}
 }
 
-void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level)
+void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level) const
 {
 	int h, s, v, snew;
 	
