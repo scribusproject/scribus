@@ -17,7 +17,13 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qapplication.h>
 #include <qcursor.h>
+#include <qmessagebox.h>
 #include "colorutil.h"
+#include "customfdialog.h"
+#include "util.h"
+#include "prefsmanager.h"
+#include "prefsfile.h"
+#include "commonstrings.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -353,9 +359,8 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	clearWState( WState_Polished );
 	connect(invertButton, SIGNAL(clicked()), this, SLOT(doInvert()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(doReset()));
-// Remove that later
-	saveButton->setEnabled(false);
-	loadButton->setEnabled(false);
+	connect(loadButton, SIGNAL(clicked()), this, SLOT(doLoad()));
+	connect(saveButton, SIGNAL(clicked()), this, SLOT(doSave()));
 }
 
 void CurveWidget::doInvert()
@@ -372,6 +377,78 @@ void CurveWidget::doInvert()
 void CurveWidget::doReset()
 {
 	cDisplay->resetCurve();
+}
+
+void CurveWidget::doLoad()
+{
+	QString fileName;
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString wdir = dirs->get("curves", ".");
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Curve Files (*.scu);;All Files (*)"));
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	else
+		return;
+	if (!fileName.isEmpty())
+	{
+		if (!fileName.endsWith(".scu"))
+			fileName += ".scu";
+		dirs->set("curves", fileName.left(fileName.findRev("/")));
+		QFile f(fileName);
+		if (f.open(IO_ReadOnly))
+		{
+			QTextStream fp(&f);
+			int numVals;
+			double xval, yval;
+			FPointArray curve;
+			curve.resize(0);
+			fp >> numVals;
+			for (int nv = 0; nv < numVals; nv++)
+			{
+				fp >> xval;
+				fp >> yval;
+				curve.addPoint(xval, yval);
+			}
+			cDisplay->setCurve(curve);
+		}
+	}
+}
+
+void CurveWidget::doSave()
+{
+	QString fileName;
+	QString wdir = PrefsManager::instance()->prefsFile->getContext("dirs")->get("curves", ".");
+	CustomFDialog dia(this, wdir, tr("Save as"), tr("Curve Files (*.scu);;All Files (*)"), fdNone);
+	if (dia.exec() == QDialog::Accepted)
+		fileName = dia.selectedFile();
+	else
+		return;
+	if (!fileName.isEmpty())
+	{
+		PrefsManager::instance()->prefsFile->getContext("dirs")->set("curves", fileName.left(fileName.findRev("/")));
+		if (overwrite(this, fileName))
+		{
+			QString efval = "";
+			FPointArray Vals = cDisplay->getCurve();
+			QString tmp;
+			tmp.setNum(Vals.size());
+			efval += tmp;
+			for (uint p = 0; p < Vals.size(); p++)
+			{
+				FPoint pv = Vals.point(p);
+				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
+			}
+			QFile fx(fileName);
+			if (fx.open(IO_WriteOnly))
+			{
+				QTextStream tsx(&fx);
+				tsx << efval;
+				fx.close();
+			}
+			else
+				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(fileName), CommonStrings::tr_OK);
+		}
+	}
 }
 
 /*

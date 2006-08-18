@@ -76,6 +76,8 @@ public:
 private slots:
 	void doInvert();
 	void doReset();
+	void doLoad();
+	void doSave();
 
 protected:
 	QHBoxLayout* CurveWidgetLayout;
