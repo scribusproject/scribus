@@ -14,7 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcolordialog.h>
 #include <qcursor.h>
 
-#include "sccombobox.h"
+#include "colorcombo.h"
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "styleselect.h"
@@ -125,7 +125,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	FillIcon = new QLabel( "", GroupFont, "FillIcon" );
 	FillIcon->setPixmap(loadIcon("fill.png"));
 	layout5->addWidget( FillIcon );
-	TxFill = new ScComboBox( false, GroupFont, "TxFill" );
+	TxFill = new ColorCombo( false, GroupFont, "TxFill" );
 	layout5->addWidget( TxFill );
 	pixmapLabel3_20 = new QLabel( GroupFont, "pixmapLabel3_20" );
 	pixmapLabel3_20->setMinimumSize( QSize( 22, 22 ) );
@@ -142,7 +142,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	StrokeIcon = new QLabel( "", GroupFont, "StrokeIcon" );
 	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
 	layout6->addWidget( StrokeIcon );
-	TxStroke = new ScComboBox( false, GroupFont, "TxStroke" );
+	TxStroke = new ColorCombo( false, GroupFont, "TxStroke" );
 	layout6->addWidget( TxStroke );
 	pixmapLabel3_19 = new QLabel( "", GroupFont, "pixmapLabel3_19" );
 	pixmapLabel3_19->setMinimumSize( QSize( 22, 22 ) );
@@ -163,9 +163,8 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	TxStroke->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		TxFill->insertItem(pm, it.key());
-		TxStroke->insertItem(pm, it.key());
+		TxFill->insertSmallItem(doc->PageColors[it.key()], it.key());
+		TxStroke->insertSmallItem(doc->PageColors[it.key()], it.key());
 	}
 	StrokeIcon->setEnabled(false);
 	PM1->setEnabled(false);

@@ -528,15 +528,13 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	fillColor_->clear();
 	strokeColor_->clear();
 
-	QPixmap pm = QPixmap(15, 15);
 	fillColor_->insertItem(CommonStrings::NoneColor);
 	strokeColor_->insertItem(CommonStrings::NoneColor);
 	ColorList::Iterator itend=colors.end();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		pm.fill(colors[it.key()].getRawRGBColor());
-		fillColor_->insertItem(pm, it.key());
-		strokeColor_->insertItem(pm, it.key());
+		fillColor_->insertSmallItem(colors[it.key()], it.key());
+		strokeColor_->insertSmallItem(colors[it.key()], it.key());
 	}
 	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
