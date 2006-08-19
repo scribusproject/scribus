@@ -1885,7 +1885,7 @@ void ScribusMainWindow::startUpDialog()
 
 bool ScribusMainWindow::slotFileNew()
 {
-	bool retVal;
+	bool retVal = false;
 	NewDoc* dia = new NewDoc(this);
 	if (dia->exec())
 	{
@@ -1902,16 +1902,16 @@ bool ScribusMainWindow::slotFileNew()
 		bool autoframes = dia->AutoFrame->isChecked();
 		int orientation = dia->Orient;
 		int pageCount=dia->PgNum->value();
-		PageSize *ps2 = new PageSize(dia->pageSizeComboBox->currentText());
-		QString pagesize = ps2->getPageName();
-		retVal = doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount);
-		doc->pageSets[facingPages].FirstPage = firstPage;
-		mainWindowStatusLabel->setText( tr("Ready"));
-		delete ps2;
-		HaveNewDoc();
+		PageSize ps2(dia->pageSizeComboBox->currentText());
+		QString pagesize = ps2.getPageName();
+		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->ComboBox3->currentItem(), firstPage, orientation, 1, pagesize, pageCount))
+		{
+			doc->pageSets[facingPages].FirstPage = firstPage;
+			mainWindowStatusLabel->setText( tr("Ready"));
+			HaveNewDoc();
+			retVal = true;
+		}
 	}
-	else
-		retVal = false;
 	delete dia;
 	return retVal;
 }
