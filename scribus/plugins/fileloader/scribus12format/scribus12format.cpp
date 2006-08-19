@@ -1594,7 +1594,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	if (!fou)
 	{
-		docParagraphStyles.append(vg);
+		docParagraphStyles.create(*vg);
 		if (fl)
 		{
 			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);

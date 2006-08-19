@@ -700,66 +700,29 @@ void ScribusDoc::loadStylesFromFile(QString fileName, QValueList<ParagraphStyle>
 	StyleSet<ParagraphStyle> *wrkStyles = NULL;
 	/*
 	 * Use the working styles struct if passed, or work directly
-	 * on the document styles otherwise. Note that tempStyles,
-	 * if passed, MUST have the first five styles initialised already
-	 * or this function will segfault.
+	 * on the document styles otherwise. 
 	 */
-//	if (tempStyles != NULL)
-//		wrkStyles = tempStyles;
-//	 else
+	if (tempStyles != NULL) {
+		wrkStyles = new StyleSet<ParagraphStyle>;
+	}
+	else {
 		wrkStyles = &docParagraphStyles; 
+	}
 	if (!fileName.isEmpty())
 	{
 		FileLoader fl(fileName);
 		if (fl.TestFile() == -1)
 		//TODO put in nice user warning
 			return;
-		for (uint x = 5; x < wrkStyles->count(); ++x)
-			docParagraphStyles.create((*wrkStyles)[x]);//FIXME: this looks bogus, AV
 
-		uint old = wrkStyles->count()-5;
-		if (fl.ReadStyles(fileName, this, docParagraphStyles))
+		if (fl.ReadStyles(fileName, this, *wrkStyles))
 		{
-			if (docParagraphStyles.count() > old)
-			{
-				for (uint xx=old; xx<docParagraphStyles.count(); ++xx)
-				{
-					ParagraphStyle sty;
-					sty.setName(docParagraphStyles[xx].name());
-					sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(docParagraphStyles[xx].lineSpacingMode()));
-					sty.setLineSpacing(docParagraphStyles[xx].lineSpacing());
-					sty.setAlignment(docParagraphStyles[xx].alignment());
-					sty.setLeftMargin(docParagraphStyles[xx].leftMargin());
-					sty.setRightMargin(docParagraphStyles[xx].rightMargin());
-					sty.setFirstIndent(docParagraphStyles[xx].firstIndent());
-					sty.setGapBefore(docParagraphStyles[xx].gapBefore());
-					sty.setGapAfter(docParagraphStyles[xx].gapAfter());
-					sty.charStyle().setFont(docParagraphStyles[xx].charStyle().font());
-					sty.charStyle().setFontSize(docParagraphStyles[xx].charStyle().fontSize());
-					sty.tabValues() = docParagraphStyles[xx].tabValues();
-					sty.setHasDropCap(docParagraphStyles[xx].hasDropCap());
-					sty.setDropCapLines(docParagraphStyles[xx].dropCapLines());
-					sty.setDropCapOffset(docParagraphStyles[xx].dropCapOffset());
-					sty.charStyle().setEffects(docParagraphStyles[xx].charStyle().effects());
-					sty.charStyle().setFillColor(docParagraphStyles[xx].charStyle().fillColor());
-					sty.charStyle().setFillShade(docParagraphStyles[xx].charStyle().fillShade());
-					sty.charStyle().setStrokeColor(docParagraphStyles[xx].charStyle().strokeColor());
-					sty.charStyle().setStrokeShade(docParagraphStyles[xx].charStyle().strokeShade());
-					sty.setUseBaselineGrid(docParagraphStyles[xx].useBaselineGrid());
-					sty.charStyle().setShadowXOffset(docParagraphStyles[xx].charStyle().shadowXOffset());
-					sty.charStyle().setShadowYOffset(docParagraphStyles[xx].charStyle().shadowYOffset());
-					sty.charStyle().setOutlineWidth(docParagraphStyles[xx].charStyle().outlineWidth());
-					sty.charStyle().setUnderlineOffset(docParagraphStyles[xx].charStyle().underlineOffset());
-					sty.charStyle().setUnderlineWidth(docParagraphStyles[xx].charStyle().underlineWidth());
-					sty.charStyle().setStrikethruOffset(docParagraphStyles[xx].charStyle().strikethruOffset());
-					sty.charStyle().setStrikethruWidth(docParagraphStyles[xx].charStyle().strikethruWidth());
-					sty.charStyle().setScaleH(docParagraphStyles[xx].charStyle().scaleH());
-					sty.charStyle().setScaleV(docParagraphStyles[xx].charStyle().scaleV());
-					sty.charStyle().setBaselineOffset(docParagraphStyles[xx].charStyle().baselineOffset());
-					sty.charStyle().setTracking(docParagraphStyles[xx].charStyle().tracking());
-					wrkStyles->create(sty);
-				}
+			if (tempStyles != NULL) {
+				for(uint i=0; i < wrkStyles->count(); ++i)
+					tempStyles->append((*wrkStyles)[i]);
+				delete wrkStyles;
 			}
+			
 		}
 	}
 }
