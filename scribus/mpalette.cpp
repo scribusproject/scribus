@@ -3979,9 +3979,9 @@ void Mpalette::languageChange()
 	QToolTip::add(Locked, tr("Lock or unlock the object"));
 	QToolTip::add(NoResize, tr("Lock or unlock the size of the object"));
 	QToolTip::add(NoPrint, tr("Enable or disable printing of the object"));
-	QToolTip::add(textFlowsAroundFrame, tr("Make text in lower frames flow around the object shape"));
-	QToolTip::add(textFlowUsesBoundingBox, tr("Use a surrounding box instead of the frame's shape for text flow"));
-	QToolTip::add(textFlowUsesContourLine, tr("Use a second line originally based on the frame's shape for text flow"));
+	QToolTip::add(textFlowsAroundFrame, "<qt>" +  tr("Make text in lower frames flow around the object. The options below define how this is enabled.") + "</qt>" ); 
+	QToolTip::add(textFlowUsesBoundingBox, "<qt>" +  tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
+	QToolTip::add(textFlowUsesContourLine, "<qt>" +  tr("Use a second line originally based on the frame's shape for text flow of text frames below the object. ") + "</qt>" );
 
 	QToolTip::add(Fonts, tr("Font of selected text or object"));
 	QToolTip::add(Size, tr("Font Size"));
