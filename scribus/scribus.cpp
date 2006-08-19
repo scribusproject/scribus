@@ -1799,6 +1799,7 @@ void ScribusMainWindow::startUpDialog()
 
 bool ScribusMainWindow::slotFileNew()
 {
+	bool retVal = false;
 	NewDoc* dia = new NewDoc(this, RecentDocs);
 	if (dia->exec())
 	{
@@ -1816,14 +1817,16 @@ bool ScribusMainWindow::slotFileNew()
 		int orientation = dia->Orient;
 		int pageCount=dia->pageCountSpinBox->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());
-		if (!doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
-			return false;
-		doc->pageSets[facingPages].FirstPage = firstPage;
-		mainWindowStatusLabel->setText( tr("Ready"));
-		HaveNewDoc();
+		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
+		{
+			doc->pageSets[facingPages].FirstPage = firstPage;
+			mainWindowStatusLabel->setText( tr("Ready"));
+			HaveNewDoc();
+			retVal = true;
+		}
 	}
 	delete dia;
-	return true;
+	return retVal;
 }
 
 //TODO move to core, assign doc to doc list, optionally create gui for it
