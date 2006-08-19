@@ -461,13 +461,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 180:
-					tmp = ScColor(x, m, y, k).getRGBColor();
+					tmp = ScColor(x, m, y, k).getDisplayColorGC();
 					break;
 				case 300:
-					tmp = ScColor(c, x, y, k).getRGBColor();
+					tmp = ScColor(c, x, y, k).getDisplayColorGC();
 					break;
 				case 60:
-					tmp = ScColor(c, m, x, k).getRGBColor();
+					tmp = ScColor(c, m, x, k).getDisplayColorGC();
 					break;
 				}
 				p.setBrush(tmp);
@@ -477,13 +477,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 180:
-					tmp = ScColor(x, 0, 0, 0).getRGBColor();
+					tmp = ScColor(x, 0, 0, 0).getDisplayColorGC();
 					break;
 				case 300:
-				        tmp = ScColor(0, x, 0, 0).getRGBColor();
+				        tmp = ScColor(0, x, 0, 0).getDisplayColorGC();
 					break;
 				case 60:
-					tmp = ScColor(0, 0, x, 0).getRGBColor();
+					tmp = ScColor(0, 0, x, 0).getDisplayColorGC();
 					break;
 				}
 				p.setBrush(tmp);
@@ -497,13 +497,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 0:
-					tmp = ScColor(x, g, b).getRGBColor();
+					tmp = ScColor(x, g, b).getDisplayColorGC();
 					break;
 				case 120:
-					tmp = ScColor(r, x, b).getRGBColor();
+					tmp = ScColor(r, x, b).getDisplayColorGC();
 					break;
 				case 240:
-					tmp = ScColor(r, g, x).getRGBColor();
+					tmp = ScColor(r, g, x).getDisplayColorGC();
 					break;
 				}
 				p.setBrush(tmp);
@@ -513,13 +513,13 @@ QPixmap CMYKChoose::SliderPix(int farbe)
 				switch (farbe)
 				{
 				case 0:
-					tmp = ScColor(x, 0, 0).getRGBColor();
+					tmp = ScColor(x, 0, 0).getDisplayColorGC();
 					break;
 				case 120:
-				        tmp = ScColor(0, x, 0).getRGBColor();
+				        tmp = ScColor(0, x, 0).getDisplayColorGC();
 					break;
 				case 240:
-					tmp = ScColor(0, 0, x).getRGBColor();
+					tmp = ScColor(0, 0, x).getDisplayColorGC();
 					break;
 				}
 				p.setBrush(tmp);
@@ -543,9 +543,9 @@ QPixmap CMYKChoose::SliderBlack()
 	for (int x = 0; x < 255; x += 5)
 	{
 		if (dynamic)
-			p.setBrush(ScColor(c, m, y, x).getRGBColor());
+			p.setBrush(ScColor(c, m, y, x).getDisplayColorGC());
 		else
-			p.setBrush(ScColor(0, 0, 0, x).getRGBColor());
+			p.setBrush(ScColor(0, 0, 0, x).getDisplayColorGC());
 		p.drawRect(x, 0, 5, 10);
 		val -= 5;
 	}
@@ -666,7 +666,7 @@ void CMYKChoose::SelSwatch(int n)
 		QPixmap pm = QPixmap(30, 15);
 		for (it = CurrSwatch.begin(); it != CurrSwatch.end(); ++it)
 		{
-			pm.fill(CurrSwatch[it.key()].getRGBColor());
+			pm.fill(CurrSwatch[it.key()].getDisplayColor());
 			ColorSwatch->insertItem(pm, it.key());
 		}
 		ColorSwatch->setSelected(ColorSwatch->currentItem(), false);
@@ -812,6 +812,10 @@ void CMYKChoose::SelModel(const QString& mod)
 		Farbe.setColorModel(colorModelRGB);
 		setValues();
 	}
+	imageN.fill(Farbe.getDisplayColor());
+	if (Farbe.isOutOfGamut())
+		paintAlert(alertIcon, imageN, 2, 2, false);
+	NewC->setPixmap( imageN );
 	connect( CyanSp, SIGNAL( valueChanged(int) ), CyanSL, SLOT( setValue(int) ) );
 	connect( MagentaSp, SIGNAL( valueChanged(int) ), MagentaSL, SLOT( setValue(int) ) );
 	connect( YellowSp, SIGNAL( valueChanged(int) ), YellowSL, SLOT( setValue(int) ) );
