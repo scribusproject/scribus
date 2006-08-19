@@ -196,7 +196,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 		}
 	}
 	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
-	it->itemText.applyStyle(it->itemText.length()-1, textFrame->doc()->docParagraphStyles[paragraphStyle]);
+	it->itemText.applyStyle(QMAX(0,it->itemText.length()-1), textFrame->doc()->docParagraphStyles[paragraphStyle]);
 	
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
