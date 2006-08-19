@@ -165,21 +165,7 @@ void LineStyleWidget::updateLineList()
 
 QColor LineStyleWidget::getColor(const QString &name, int shade)
 {
-	QColor tmpf;
-	int h, s, v, sneu;
-	colors[name].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		colors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shade / 100);
-		tmpf.setHsv(h, s, sneu);
-	}
-	else
-	{
-		colors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shade / 100;
-		tmpf.setHsv(h, sneu, v);
-	}
+	QColor tmpf = colors[name].getDisplayColor(shade);
 	return tmpf;
 }
 
@@ -846,21 +832,7 @@ QColor SMLineStyle::calcFarbe(const QString &name, int shade)
 	QColor tmpf;
 	if (!doc_)
 		return tmpf;
-
-	int h, s, v, sneu;
-	doc_->PageColors[name].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		doc_->PageColors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shade / 100);
-		tmpf.setHsv(h, s, sneu);
-	}
-	else
-	{
-		doc_->PageColors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shade / 100;
-		tmpf.setHsv(h, sneu, v);
-	}
+	tmpf = doc_->PageColors[name].getDisplayColor(shade);
 	return tmpf;
 }
 
