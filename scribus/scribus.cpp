@@ -2225,7 +2225,7 @@ void ScribusMainWindow::SwitchWin()
 	buildFontMenu();
 	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
-	ActWin->setCaption(doc->DocName);
+	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	propertiesPalette->setDoc(doc);
@@ -2369,7 +2369,7 @@ void ScribusMainWindow::HaveNewDoc()
 	//Update palettes
 	propertiesPalette->updateColorList();
 	propertiesPalette->Cpal->ChooseGrad(0);
-	ActWin->setCaption(doc->DocName);
+	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
 	propertiesPalette->updateCList();
@@ -2925,7 +2925,7 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	}
 	if (!doc->isModified())
 		doc->setModified(true);
-	ActWin->setCaption( doc->DocName + "*");
+	updateActiveWindowCaption(doc->DocName + "*");
 // 	scrActions["fileSave"]->setEnabled(true);
 // 	scrActions["fileSaveAs"]->setEnabled(true);
 	scrActions["fileCollect"]->setEnabled(true);
@@ -3876,10 +3876,7 @@ void ScribusMainWindow::slotFileRevert()
 void ScribusMainWindow::slotAutoSaved()
 {
 	if (ActWin == sender())
-	{
-// 		scrActions["fileSave"]->setEnabled(false);
-		ActWin->setCaption(doc->DocName);
-	}
+		updateActiveWindowCaption(doc->DocName);
 }
 
 bool ScribusMainWindow::slotFileSave()
@@ -3973,7 +3970,7 @@ bool ScribusMainWindow::DoFileSave(QString fn)
 	qApp->processEvents();
 	if (ret)
 	{
-		ActWin->setCaption(fn);
+		updateActiveWindowCaption(fn);
 		undoManager->renameStack(fn);
 // 		scrActions["fileSave"]->setEnabled(false);
 		scrActions["fileRevert"]->setEnabled(false);
@@ -8888,7 +8885,7 @@ void ScribusMainWindow::updateActiveWindowCaption(const QString &newCaption)
 {
 	if (!HaveDoc)
 		return;
-	ActWin->setCaption(newCaption);
+	ActWin->setCaption(QDir::convertSeparators(newCaption));
 }
 
 void ScribusMainWindow::dragEnterEvent ( QDragEnterEvent* e)

@@ -86,7 +86,7 @@ void ScribusWin::slotAutoSave()
 		if (fl.SaveFile(m_Doc->DocName, m_Doc, 0))
 		{
 			m_Doc->setModified(false);
-			setCaption(m_Doc->DocName);
+			setCaption(QDir::convertSeparators(m_Doc->DocName));
 			qApp->processEvents();
 			emit AutoSaved();
 		}
@@ -97,9 +97,10 @@ void ScribusWin::closeEvent(QCloseEvent *ce)
 {
 	if (m_Doc->isModified() && (m_Doc->viewCount == 1))
 	{
-		int exit=ScMessageBox::information(m_MainWindow, CommonStrings::trWarning,
-		                                  tr("Document:")+" "+m_Doc->DocName+"\n"+ tr("has been changed since the last save."),
-		                                  CommonStrings::tr_Save, tr("&Discard"), CommonStrings::tr_Cancel, 2, 2);
+		int exit=ScMessageBox::information(m_MainWindow, CommonStrings::trWarning, tr("Document:")+" "+										QDir::convertSeparators(m_Doc->DocName)+"\n"+
+											tr("has been changed since the last save."),
+											CommonStrings::tr_Save, tr("&Discard"),
+											CommonStrings::tr_Cancel, 2, 2);
 		if (exit==2)
 			return;
 		if (exit==0)
