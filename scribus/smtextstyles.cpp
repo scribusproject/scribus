@@ -49,7 +49,7 @@ QString SMParagraphStyle::typeNamePlural()
 
 QString SMParagraphStyle::typeNameSingular()
 {
-	return tr("Paragrah Style");
+	return tr("Paragraph Style");
 }
 
 void SMParagraphStyle::currentDoc(ScribusDoc *doc)
