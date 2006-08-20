@@ -89,16 +89,20 @@ QString CMSettings::defaultSolidColorCMYKProfile() const
 
 int CMSettings::colorRenderingIntent() const
 {
+#ifdef HAVE_CMS
 	if (m_Doc)
 		return m_Doc->IntentColors;
-	return -1;
+#endif
+	return 1; // Use relative colorimetric by default
 }
 
 int CMSettings::imageRenderingIntent() const
 {
+#ifdef HAVE_CMS
 	if (m_Doc)
 		return m_Doc->IntentImages;
-	return -1;
+#endif
+	return 0; // Use perceptual by default
 }
 
 bool CMSettings::useBlackPoint() const

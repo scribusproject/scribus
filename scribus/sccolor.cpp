@@ -273,6 +273,7 @@ QColor ScColor::getDisplayColor(int level) const
 QColor ScColor::getDisplayColorGC()
 {
 	QColor tmp;
+#ifdef HAVE_CMS
 	bool doSoftProofing = m_doc ? m_doc->SoftProofing : false;
 	bool doGamutCheck = m_doc ? m_doc->Gamut : false;
 	if( doSoftProofing && doGamutCheck )
@@ -282,13 +283,20 @@ QColor ScColor::getDisplayColorGC()
 	}
 	else
 		tmp = getDisplayColor();
+#else
+	tmp = getDisplayColor();
+#endif
 	return tmp;
 }
 
 QColor ScColor::getColorProof(bool gamutCheck) const
 {
 	QColor tmp;
+#ifdef HAVE_CMS
 	bool gamutChkEnabled = m_doc ? m_doc->Gamut : false;
+#else
+	bool gamutChkEnabled = false;
+#endif
 	if (Model == colorModelRGB)
 		tmp = getColorProof(R, G, B, gamutCheck & gamutChkEnabled);
 	else
