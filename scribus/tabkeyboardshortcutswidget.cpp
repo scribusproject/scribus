@@ -512,14 +512,11 @@ void TabKeyboardShortcutsWidget::keyPressEvent(QKeyEvent *k)
 				keyDisplay->setText(getKeyText(keyCode));
 				if (checkKey(keyCode))
 				{
-					QMessageBox::information(this,
-											CommonStrings::trWarning,
+					QMessageBox::information(this, CommonStrings::trWarning,
 											tr("This key sequence is already in use"),
 											CommonStrings::tr_OK);
-					selectedLVI->setText(1,"");
-					keyDisplay->setText("");
-					keyMap[lviToActionMap[selectedLVI]].keySequence=QKeySequence();
-					noKey->setChecked(true);
+					selectedLVI->setText(1,keyMap[lviToActionMap[selectedLVI]].keySequence);
+					keyDisplay->setText(keyMap[lviToActionMap[selectedLVI]].keySequence);
 				}
 				else
 				{
@@ -573,7 +570,6 @@ void TabKeyboardShortcutsWidget::keyReleaseEvent(QKeyEvent *k)
 		keyDisplay->setText(Part0+Part1+Part2+Part3+Part4);
 	}
 }
-
 
 bool TabKeyboardShortcutsWidget::checkKey(int code)
 {
