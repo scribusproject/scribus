@@ -142,6 +142,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	evSpon(false),
 	forceRedraw(false),
 	Scale(Prefs->DisScale),
+	oldClip(0),
 	m_vhRulerHW(17),
 	m_cursorVisible(false)
 {
