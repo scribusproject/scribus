@@ -18,6 +18,7 @@ class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QPushButton;
+class QToolButton;
 class QLabel;
 
 class SCRIBUS_API KCurve : public QWidget
@@ -42,6 +43,8 @@ public:
 	FPointArray getCurve();
 	void setCurve(FPointArray inlist);
 	void resetCurve();
+	void setLinear(bool setter);
+	bool isLinear();
 
 signals:
 	void modified();
@@ -52,6 +55,7 @@ private:
 	FPoint m_grab_point;
 	int m_pos;
 	bool m_dragging;
+	bool m_linear;
 	double m_grabOffsetX;
 	double m_grabOffsetY;
 	FPointArray m_points;
@@ -66,9 +70,10 @@ class SCRIBUS_API CurveWidget : public QWidget
 public:
 	CurveWidget(QWidget* parent);
 	~CurveWidget() {};
-
+	void setLinear(bool setter);
 	QPushButton* invertButton;
 	QPushButton* resetButton;
+	QToolButton *linearButton;
 	QPushButton* loadButton;
 	QPushButton* saveButton;
 	KCurve* cDisplay;
@@ -76,6 +81,7 @@ public:
 private slots:
 	void doInvert();
 	void doReset();
+	void doLinear();
 	void doLoad();
 	void doSave();
 

@@ -44,6 +44,8 @@ compfile.png
 Corner.xpm
 crop.png
 curve.png
+curvebezier.png
+curvelinear.png
 DateiClos16.png
 DateiClose.png
 DateiNeu16.png

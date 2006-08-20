@@ -44,8 +44,11 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	currentOptions = 0;
 	bool mode = false;
 	CMSettings cms(docc, "", 0);
-	image.imgInfo.RequestProps = currItem->pixm.imgInfo.RequestProps;
-	image.imgInfo.isRequest = true;
+/*	if (currItem->pixm.imgInfo.RequestProps.count() != 0)
+	{
+		image.imgInfo.RequestProps = currItem->pixm.imgInfo.RequestProps;
+		image.imgInfo.isRequest = true;
+	} */
 	image.LoadPicture(currItem->Pfile, cms, false, false, ScImage::RGBData, 72, &mode);
 	int ix = image.width();
 	int iy = image.height();
@@ -665,6 +668,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveD1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveD2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -673,6 +680,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveD2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Tritone"))
@@ -696,6 +707,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveT2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -704,6 +719,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveT3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -712,6 +731,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT3->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Quadtone"))
@@ -738,6 +761,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -746,6 +773,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -754,6 +785,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ3->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ4->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -762,6 +797,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ4->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Brightness"))
@@ -817,6 +856,10 @@ void EffectsDialog::saveValues(bool final)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (Kdisplay->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 	}
@@ -916,25 +959,25 @@ void EffectsDialog::moveToEffects()
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+"\n"+it.key()+"\n100 100 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0";
+		QString efval = it.key()+"\n"+it.key()+"\n100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	if (availableEffects->currentText() == tr("Tritone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0";
+		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	if (availableEffects->currentText() == tr("Quadtone"))
 	{
 		ColorList::Iterator it;
 		it = doc->PageColors.begin();
-		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0 2 0.0 0.0 1.0 1.0";
+		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
 	}
 	if (availableEffects->currentText() == tr("Curves"))
-		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0");
+		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0 0");
 	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	usedEffects->setCurrentItem(usedEffects->item(usedEffects->count()-1));
 	selectEffect(usedEffects->item(usedEffects->count()-1));
@@ -1063,6 +1106,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveD1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveD2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1071,6 +1118,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveD2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Tritone"))
@@ -1094,6 +1145,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveT2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1102,6 +1157,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveT3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1110,6 +1169,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT3->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Quadtone"))
@@ -1136,6 +1199,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1144,6 +1211,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1152,6 +1223,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ3->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ4->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1160,6 +1235,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ4->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Curves"))
@@ -1174,6 +1253,10 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (Kdisplay->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 	}
@@ -1241,6 +1324,9 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveD1->cDisplay->setCurve(curve);
+			int lin;
+			fp >> lin;
+			CurveD1->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1250,6 +1336,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveD2->cDisplay->setCurve(curve);
+			fp >> lin;
+			CurveD2->setLinear(lin);
 			optionStack->raiseWidget(7);
 			connect( colData1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shade1, SIGNAL(clicked()), this, SLOT(createPreview()));
@@ -1297,6 +1385,9 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveT1->cDisplay->setCurve(curve);
+			int lin;
+			fp >> lin;
+			CurveT1->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1306,6 +1397,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveT2->cDisplay->setCurve(curve);
+			fp >> lin;
+			CurveT2->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1315,6 +1408,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveT3->cDisplay->setCurve(curve);
+			fp >> lin;
+			CurveT3->setLinear(lin);
 			optionStack->raiseWidget(8);
 			connect( colDatat1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadet1, SIGNAL(clicked()), this, SLOT(createPreview()));
@@ -1372,6 +1467,9 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveQ1->cDisplay->setCurve(curve);
+			int lin;
+			fp >> lin;
+			CurveQ1->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1381,6 +1479,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveQ2->cDisplay->setCurve(curve);
+			fp >> lin;
+			CurveQ2->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1390,6 +1490,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveQ3->cDisplay->setCurve(curve);
+			fp >> lin;
+			CurveQ3->setLinear(lin);
 			curve.resize(0);
 			fp >> numVals;
 			for (int nv = 0; nv < numVals; nv++)
@@ -1399,6 +1501,8 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			CurveQ4->cDisplay->setCurve(curve);
+			fp >> lin;
+			CurveQ4->setLinear(lin);
 			optionStack->raiseWidget(9);
 			connect( colDataq1, SIGNAL(activated(int)), this, SLOT( createPreview()));
 			connect( shadeq1, SIGNAL(clicked()), this, SLOT(createPreview()));
@@ -1506,6 +1610,12 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 				curve.addPoint(xval, yval);
 			}
 			Kdisplay->cDisplay->setCurve(curve);
+			int lin;
+			fp >> lin;
+			if (lin == 1)
+				Kdisplay->setLinear(true);
+			else
+				Kdisplay->setLinear(false);
 			optionStack->raiseWidget(10);
 			connect( Kdisplay->cDisplay, SIGNAL(modified()), this, SLOT(createPreview()));
 		}
@@ -1595,6 +1705,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveD1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveD2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1603,6 +1717,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveD2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Tritone"))
@@ -1626,6 +1744,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveT2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1634,6 +1756,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveT3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1642,6 +1768,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveT3->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Quadtone"))
@@ -1668,6 +1798,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ1->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ2->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1676,6 +1810,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ2->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ3->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1684,6 +1822,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ3->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			Vals = CurveQ4->cDisplay->getCurve();
 			tmp.setNum(Vals.size());
 			efval += " "+tmp;
@@ -1692,6 +1834,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (CurveQ4->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 		if (currentOptions->text() == tr("Curves"))
@@ -1706,6 +1852,10 @@ void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (Kdisplay->cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			effectValMap[currentOptions] = efval;
 		}
 	}

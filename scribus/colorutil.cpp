@@ -463,7 +463,7 @@ void HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation )
 	}
 }
 
-double getCurveYValue(FPointArray &curve, double x)
+double getCurveYValue(FPointArray &curve, double x, bool linear)
 {
     double t;
     FPoint p;
@@ -500,16 +500,28 @@ double getCurveYValue(FPointArray &curve, double x)
     else
     	p3 = p;
     // Calculate the value
-    t = (x - p1.x()) / (p2.x() - p1.x());
-    c2 = (p2.y() - p0.y()) * (p2.x()-p1.x()) / (p2.x()-p0.x());
-    c3 = p1.y();
-    c0 = -2*p2.y() + 2*c3 + c2 + (p3.y() - p1.y()) * (p2.x() - p1.x()) / (p3.x() - p1.x());
-    c1 = p2.y() - c3 - c2 - c0;
-    val = ((c0*t + c1)*t + c2)*t + c3;
-    if(val < 0.0)
-        val = 0.0;
-    if(val > 1.0)
-        val = 1.0;
-    return val;
+	if (linear)
+	{
+		double mc;
+		if (p1.x() - p2.x() != 0.0)
+			mc = (p1.y() - p2.y()) / (p1.x() - p2.x());
+		else
+			mc = p2.y() / p2.x();
+		val = (x - p1.x()) * mc + p1.y();
+	}
+	else
+	{
+		t = (x - p1.x()) / (p2.x() - p1.x());
+		c2 = (p2.y() - p0.y()) * (p2.x()-p1.x()) / (p2.x()-p0.x());
+		c3 = p1.y();
+		c0 = -2*p2.y() + 2*c3 + c2 + (p3.y() - p1.y()) * (p2.x() - p1.x()) / (p3.x() - p1.x());
+		c1 = p2.y() - c3 - c2 - c0;
+		val = ((c0*t + c1)*t + c2)*t + c3;
+	}
+	if(val < 0.0)
+		val = 0.0;
+	if(val > 1.0)
+		val = 1.0;
+	return val;
 }
 

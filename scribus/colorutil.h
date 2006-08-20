@@ -72,6 +72,6 @@ int SCRIBUS_API HLSVALUE ( double n1, double n2, double hue );
  */
 void SCRIBUS_API HLSTORGB ( uchar& hue, uchar& lightness, uchar& saturation );
 
-double SCRIBUS_API getCurveYValue(FPointArray &curve, double x);
+double SCRIBUS_API getCurveYValue(FPointArray &curve, double x, bool linear = false);
 
 #endif

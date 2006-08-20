@@ -31,6 +31,7 @@ KCurve::KCurve(QWidget *parent) : QWidget(parent)
 {
 	m_grab_point     = FPoint();
 	m_dragging = false;
+	m_linear = false;
 	m_pix = NULL;
 	m_pos = 0;
 	setMouseTracking(true);
@@ -293,7 +294,7 @@ void KCurve::mouseMoveEvent ( QMouseEvent * e )
 
 double KCurve::getCurveValue(double x)
 {
-	return getCurveYValue(m_points, x);
+	return getCurveYValue(m_points, x, m_linear);
 }
 
 FPointArray KCurve::getCurve()
@@ -318,6 +319,18 @@ void KCurve::resetCurve()
 	emit modified();
 }
 
+void KCurve::setLinear(bool setter)
+{
+	m_linear = setter;
+	repaint(false);
+	emit modified();
+}
+
+bool KCurve::isLinear()
+{
+	return m_linear;
+}
+
 void KCurve::leaveEvent( QEvent * )
 {
 	qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -338,6 +351,14 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	resetButton->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)0, (QSizePolicy::SizeType)0, 0, 0, resetButton->sizePolicy().hasHeightForWidth() ) );
 	resetButton->setPixmap( loadIcon("reload.png") );
 	layout1->addWidget( resetButton );
+	linearButton = new QToolButton( this, "linearButton" );
+	QIconSet ic;
+	ic.setPixmap(loadIcon("curvebezier.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	ic.setPixmap(loadIcon("curvelinear.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	linearButton->setIconSet(ic);
+	linearButton->setToggleButton( true );
+	linearButton->setOn(false);
+	layout1->addWidget( linearButton );
 	spacer1 = new QSpacerItem( 21, 31, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	layout1->addItem( spacer1 );
 
@@ -359,6 +380,7 @@ CurveWidget::CurveWidget( QWidget* parent ) : QWidget( parent )
 	clearWState( WState_Polished );
 	connect(invertButton, SIGNAL(clicked()), this, SLOT(doInvert()));
 	connect(resetButton, SIGNAL(clicked()), this, SLOT(doReset()));
+	connect(linearButton, SIGNAL(clicked()), this, SLOT(doLinear()));
 	connect(loadButton, SIGNAL(clicked()), this, SLOT(doLoad()));
 	connect(saveButton, SIGNAL(clicked()), this, SLOT(doSave()));
 }
@@ -377,6 +399,17 @@ void CurveWidget::doInvert()
 void CurveWidget::doReset()
 {
 	cDisplay->resetCurve();
+}
+
+void CurveWidget::doLinear()
+{
+	cDisplay->setLinear(linearButton->isOn());
+}
+
+void CurveWidget::setLinear(bool setter)
+{
+	cDisplay->setLinear(setter);
+	linearButton->setOn(setter);
 }
 
 void CurveWidget::doLoad()
@@ -410,6 +443,9 @@ void CurveWidget::doLoad()
 				curve.addPoint(xval, yval);
 			}
 			cDisplay->setCurve(curve);
+			int lin;
+			fp >> lin;
+			cDisplay->setLinear(lin);
 		}
 	}
 }
@@ -438,6 +474,10 @@ void CurveWidget::doSave()
 				FPoint pv = Vals.point(p);
 				efval += QString(" %1 %2").arg(pv.x()).arg(pv.y());
 			}
+			if (cDisplay->isLinear())
+				efval += " 1";
+			else
+				efval += " 0";
 			QFile fx(fileName);
 			if (fx.open(IO_WriteOnly))
 			{
@@ -463,10 +503,12 @@ void CurveWidget::languageChange()
 	saveButton->setText( QString::null );
 	QToolTip::remove( invertButton );
 	QToolTip::remove( resetButton );
+	QToolTip::remove( linearButton );
 	QToolTip::remove( loadButton );
 	QToolTip::remove( saveButton );
 	QToolTip::add( invertButton, tr( "Inverts the curve" ) );
 	QToolTip::add( resetButton, tr( "Resets the curve" ) );
+	QToolTip::add( linearButton, tr( "Switches between linear and cubic interpolation of the curve" ) );
 	QToolTip::add( loadButton, tr( "Loads a curve" ) );
 	QToolTip::add( saveButton, tr( "Saves this curve" ) );
 }
