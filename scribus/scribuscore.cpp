@@ -337,7 +337,7 @@ void ScribusCore::getCMSProfiles()
 		{
 			if(profDir.right(1) != "/")
 				profDir += "/";
-			getCMSProfilesDir(profDir);
+			getCMSProfilesDir(profDir, true);
 		}
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
@@ -346,7 +346,7 @@ void ScribusCore::getCMSProfiles()
 		m_HaveCMS = false;
 }
 
-void ScribusCore::getCMSProfilesDir(QString pfad)
+void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 {
 #ifdef HAVE_CMS
 	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
@@ -359,9 +359,11 @@ void ScribusCore::getCMSProfilesDir(QString pfad)
 		for (uint dc = 0; dc < d.count(); ++dc)
 		{
 			QFileInfo fi(pfad + "/" + d[dc]);
-			if (fi.isDir() && d[dc][0] != '.')
+			if (fi.isDir() && !recursive)
+				continue;
+			else if (fi.isDir() && d[dc][0] != '.')
 			{
-				getCMSProfilesDir(fi.filePath()+"/");
+				getCMSProfilesDir(fi.filePath()+"/", true);
 				continue;
 			}
 

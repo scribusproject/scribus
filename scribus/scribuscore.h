@@ -92,7 +92,7 @@ public:
 	int havePNGAlpha() const {return m_HavePngAlpha;};
 	int haveTIFFSep() const {return m_HaveTiffSep;};
 	void getCMSProfiles();
-	void getCMSProfilesDir(QString pfad);
+	void getCMSProfilesDir(QString pfad, bool recursive);
 	bool fileWatcherActive() const;
 	
 	//Main Window members
