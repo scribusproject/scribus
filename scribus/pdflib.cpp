@@ -944,7 +944,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					int crc = 0;
 					for (int ww2 = 32; ww2 < 256; ++ww2)
 					{
-						PutDoc(itg2.data().second+" ");
+						PutDoc("/"+itg2.data().second+" ");
 						if (itg2 == gl.end())
 							break;
 						++itg2;
