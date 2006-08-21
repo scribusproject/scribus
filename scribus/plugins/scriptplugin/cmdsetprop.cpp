@@ -309,3 +309,12 @@ PyObject *scribus_setmultiline(PyObject* /* self */, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdsetpropdocwarnings()
+{
+    QStringList s;
+    s << scribus_setgradfill__doc__ << scribus_setfillcolor__doc__ << scribus_setfilltrans__doc__  << scribus_setfillblend__doc__  <<  scribus_setlinecolor__doc__  <<  scribus_setlinetrans__doc__  << scribus_setlineblend__doc__  <<  scribus_setlinewidth__doc__  <<  scribus_setlineshade__doc__  << scribus_setlinejoin__doc__  <<  scribus_setlineend__doc__  <<  scribus_setlinestyle__doc__  << scribus_setfillshade__doc__  <<  scribus_setcornerrad__doc__  <<  scribus_setmultiline__doc__;
+}

@@ -209,3 +209,14 @@ PyObject *scribus_replcolor(PyObject* /* self */, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+/*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdcolordocswarnings()
+{
+    QStringList s;
+    s << scribus_colornames__doc__ << scribus_getcolor__doc__ << scribus_getcolorasrgb__doc__;
+    s << scribus_setcolor__doc__ << scribus_newcolor__doc__ << scribus_delcolor__doc__;
+    s << scribus_replcolor__doc__;
+}

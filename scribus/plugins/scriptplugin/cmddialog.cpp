@@ -128,3 +128,13 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	}
 	return PyString_FromString(ScCore->primaryMainWindow()->doc->docParagraphStyles[ScCore->primaryMainWindow()->doc->docParagraphStyles.count() - 1].name().utf8());
 }
+
+/*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmddialogdocwarnings()
+{
+    QStringList s;
+    s << scribus_newdocdia__doc__ << scribus_filedia__doc__ << scribus_messdia__doc__;
+    s << scribus_valdialog__doc__ << scribus_newstyledialog__doc__;
+}

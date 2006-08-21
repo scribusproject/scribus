@@ -134,7 +134,7 @@ PyObject *scribus_getpageitems(PyObject* /* self */)
 	if (ScCore->primaryMainWindow()->doc->Items->count() == 0)
 		return Py_BuildValue((char*)"[]");
 	uint counter = 0;
-	uint pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
+	int pageNr = ScCore->primaryMainWindow()->doc->currentPageNumber();
 	for (uint lam2 = 0; lam2 < ScCore->primaryMainWindow()->doc->Items->count(); ++lam2)
 	{
 		if (pageNr == ScCore->primaryMainWindow()->doc->Items->at(lam2)->OwnPage)
@@ -269,4 +269,13 @@ PyObject *scribus_getpagemargins(PyObject* /* self */)
 									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Right),
 									PointToValue(ScCore->primaryMainWindow()->doc->pageMargins.Bottom));
 	return margins;
+}
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdpagedocwarnings()
+{
+    QStringList s;
+    s << scribus_newpage__doc__ <<scribus_actualpage__doc__ << scribus_redraw__doc__ << scribus_savepageeps__doc__ << scribus_deletepage__doc__ << scribus_gotopage__doc__ << scribus_pagecount__doc__ << scribus_getHguides__doc__ <<scribus_setHguides__doc__ <<scribus_getVguides__doc__ <<scribus_setVguides__doc__ <<scribus_pagedimension__doc__ <<scribus_getpageitems__doc__ <<scribus_getpagemargins__doc__;
 }

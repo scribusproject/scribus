@@ -862,3 +862,12 @@ PyObject *scribus_ispdfbookmark(PyObject* /* self */, PyObject* args)
 		return PyBool_FromLong(1);
 	return PyBool_FromLong(0);
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdtextdocwarnings()
+{
+    QStringList s;
+    s << scribus_getfontsize__doc__ << scribus_getfont__doc__ << scribus_gettextsize__doc__ << scribus_getframetext__doc__ << scribus_gettext__doc__ << scribus_getlinespace__doc__ << scribus_getcolumngap__doc__ << scribus_getcolumns__doc__ <<scribus_setboxtext__doc__ <<scribus_inserttext__doc__ <<scribus_setfont__doc__ <<scribus_setfontsize__doc__ <<scribus_setlinespace__doc__ <<scribus_setcolumngap__doc__ <<scribus_setcolumns__doc__ <<scribus_setalign__doc__ <<scribus_selecttext__doc__ <<scribus_deletetext__doc__ <<scribus_settextfill__doc__ <<scribus_settextstroke__doc__ <<scribus_settextshade__doc__ <<scribus_linktextframes__doc__ <<scribus_unlinktextframes__doc__ <<scribus_tracetext__doc__ <<scribus_istextoverflowing__doc__ <<scribus_setpdfbookmark__doc__ <<scribus_ispdfbookmark__doc__;
+}

@@ -105,3 +105,12 @@ PyObject *scribus_zoomdocument(PyObject* /* self */, PyObject* args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void guiappdocwarnings()
+{
+    QStringList s;
+    s << scribus_messagebartext__doc__ << scribus_progressreset__doc__ << scribus_progresssettotalsteps__doc__ << scribus_progresssetprogress__doc__ << scribus_setcursor__doc__ << scribus_docchanged__doc__ << scribus_zoomdocument__doc__;
+}

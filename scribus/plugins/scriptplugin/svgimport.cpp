@@ -43,3 +43,11 @@ PyObject *scribus_importsvg(PyObject* /* self */, PyObject* args)
 	return Py_None;
 }
 
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void svgimportdocwarnings()
+{
+    QStringList s;
+    s << scribus_importsvg__doc__;
+}

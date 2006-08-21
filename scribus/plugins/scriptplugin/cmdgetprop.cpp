@@ -287,3 +287,12 @@ PyObject *scribus_getallobj(PyObject* /* self */, PyObject* args)
 	}
 	return l;
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdgetpropdocwarnings()
+{
+    QStringList s;
+    s << scribus_getfillcolor__doc__ <<scribus_getfilltrans__doc__ << scribus_getfillblend__doc__ << scribus_getlinecolor__doc__ << scribus_getlinetrans__doc__ << scribus_getlineblend__doc__ << scribus_getlinewidth__doc__ << scribus_getlineshade__doc__ <<scribus_getlinejoin__doc__ <<scribus_getlineend__doc__ <<scribus_getlinestyle__doc__ <<scribus_getfillshade__doc__ <<scribus_getcornerrad__doc__ <<scribus_getimgscale__doc__ <<scribus_getimgname__doc__ <<scribus_getposi__doc__ <<scribus_getsize__doc__ <<scribus_getrotation__doc__ <<  scribus_getallobj__doc__;
+}

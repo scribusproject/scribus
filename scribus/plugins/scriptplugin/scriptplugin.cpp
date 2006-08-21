@@ -783,3 +783,11 @@ is not exhaustive due to exceptions from called functions.\n\
 	wrappedMainWindow = NULL;
 }
 
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void scriptplugindocwarnings()
+{
+    QStringList s;
+    s <<printer__doc__<<pdffile__doc__<<imgexp__doc__<<imgexp_dpi__doc__<<imgexp_scale__doc__ <<imgexp_quality__doc__<<imgexp_filename__doc__<<imgexp_type__doc__<<imgexp_alltypes__doc__ << imgexp_save__doc__ << imgexp_saveas__doc__;
+}

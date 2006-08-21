@@ -741,3 +741,12 @@ PyObject *scribus_getlanguage(PyObject* /* self */)
 {
 	return PyString_FromString(ScCore->getGuiLanguage().utf8());
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdmiscdocwarnings()
+{
+    QStringList s;
+    s << scribus_setredraw__doc__ <<scribus_fontnames__doc__ << scribus_xfontnames__doc__ <<scribus_renderfont__doc__ << scribus_getlayers__doc__ << scribus_setactlayer__doc__ << scribus_getactlayer__doc__ << scribus_senttolayer__doc__ <<scribus_layervisible__doc__ <<scribus_layerprint__doc__ <<scribus_layerlock__doc__ <<scribus_layeroutline__doc__ <<scribus_layerflow__doc__ <<scribus_layerblend__doc__ <<scribus_layertrans__doc__ <<scribus_glayervisib__doc__ <<scribus_glayerprint__doc__ <<scribus_glayerlock__doc__ <<scribus_glayeroutline__doc__ <<scribus_glayerflow__doc__ <<scribus_glayerblend__doc__ <<scribus_glayertrans__doc__ <<scribus_removelayer__doc__ <<scribus_createlayer__doc__ <<scribus_getlanguage__doc__;
+}

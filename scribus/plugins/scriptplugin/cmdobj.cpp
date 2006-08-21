@@ -640,3 +640,12 @@ PyObject *scribus_duplicateobject(PyObject * /* self */, PyObject *args)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdobjdocwarnings()
+{
+    QStringList s;
+    s << scribus_newrect__doc__ <<scribus_newellipse__doc__ << scribus_newimage__doc__ << scribus_newtext__doc__ << scribus_newline__doc__ <<scribus_polyline__doc__ << scribus_polygon__doc__ << scribus_bezierline__doc__ <<scribus_pathtext__doc__ <<scribus_deleteobj__doc__ <<scribus_textflow__doc__ <<scribus_objectexists__doc__ <<scribus_setstyle__doc__ <<scribus_getstylenames__doc__ <<scribus_duplicateobject__doc__;
+}

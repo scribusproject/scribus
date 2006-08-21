@@ -487,3 +487,12 @@ PyObject* scribus_setproperty(PyObject* /*self*/, PyObject* args, PyObject* kw)
 	Py_INCREF(Py_None);
 	return Py_None;
 }
+
+/*! HACK: this removes "warning: 'blah' defined but not used" compiler warnings
+with header files structure untouched (docstrings are kept near declarations)
+PV */
+void cmdgetsetpropdocwarnings()
+{
+    QStringList s;
+    s << scribus_propertyctype__doc__ << scribus_getpropertynames__doc__ << scribus_getproperty__doc__ << scribus_setproperty__doc__ << scribus_getchildren__doc__ << scribus_getchild__doc__;
+}
