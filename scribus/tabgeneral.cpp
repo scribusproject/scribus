@@ -88,10 +88,10 @@ void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 	wheelJumpSpin->setValue( prefsData->Wheelval );
 	spinTimeout->setValue(prefsData->moveTimeout);
 	recentDocs->setValue( prefsData->RecentDCount );
-	Docs->setText(prefsData->DocDir);
-	ProPfad->setText(prefsData->ProfileDir);
-	ScriptPfad->setText(prefsData->ScriptDir);
-	DocumentTemplateDir->setText(prefsData->documentTemplatesDir);
+	Docs->setText(QDir::convertSeparators(prefsData->DocDir));
+	ProPfad->setText(QDir::convertSeparators(prefsData->ProfileDir));
+	ScriptPfad->setText(QDir::convertSeparators(prefsData->ScriptDir));
+	DocumentTemplateDir->setText(QDir::convertSeparators(prefsData->documentTemplatesDir));
 }
 
 void TabGeneral::setSelectedGUILang( const QString &newLang )

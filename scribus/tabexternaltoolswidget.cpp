@@ -46,12 +46,12 @@ TabExternalToolsWidget::~TabExternalToolsWidget()
 
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
-	psToolLineEdit->setText(prefsData->gs_exe);
+	psToolLineEdit->setText(QDir::convertSeparators(prefsData->gs_exe));
 	psAntialiasTextCheckBox->setChecked(prefsData->gs_AntiAliasText);
 	psAntialiasGraphicsCheckBox->setChecked(prefsData->gs_AntiAliasGraphics);
 	psResolutionSpinBox->setValue(prefsData->gs_Resolution);
-	imageToolLineEdit->setText(prefsData->imageEditorExecutable);
-	extBrowserToolLineEdit->setText(prefsData->extBrowserExecutable);
+	imageToolLineEdit->setText(QDir::convertSeparators(prefsData->imageEditorExecutable));
+	extBrowserToolLineEdit->setText(QDir::convertSeparators(prefsData->extBrowserExecutable));
 }
 
 void TabExternalToolsWidget::changePostScriptTool()
