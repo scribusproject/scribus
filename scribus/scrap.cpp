@@ -619,7 +619,7 @@ void Biblio::DropOn(QDropEvent *e)
 		}
 		else
 		{
-			if (text.startsWith("<SCRIBUSELEM>"))
+			if (text.startsWith("<SCRIBUSELEM"))
 			{
 				tmp = text;
 			}
