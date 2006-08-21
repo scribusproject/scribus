@@ -3253,9 +3253,19 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
 					//CB FIXME emit from selection when multiple selected instead
 						//CB #3523 bool redrawSelection=(a==docItemCount-1);
-						bool redrawSelection=true;
+						bool redrawSelection=false;
 						SelectItemNr(a, redrawSelection);
 					}
+				}
+				if (Doc->m_Selection->count() > 1)
+				{
+					setGroupRect();
+					paintGroupRect();
+					double x, y, w, h;
+					getGroupRect(&x, &y, &w, &h);
+					emit ItemPos(x, y);
+					emit ItemGeom(w, h);
+					emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
 				}
 			}
 			HaveSelRect = false;
