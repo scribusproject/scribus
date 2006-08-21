@@ -41,13 +41,12 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.moc"
 #include "scribuscore.h"
 #include "scribusdoc.h"
-#include "selection.h"
 #include "page.h"
 #include "units.h"
 #include "util.h"
 #include "commonstrings.h"
-#include "pagestructs.h"
 #include "scinputdialog.h"
+#include "selection.h"
 
 
 int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
@@ -71,16 +70,19 @@ GuideManager::GuideManager(QWidget* parent) :
 		currentPage(0)
 		//ScrPaletteBase(parent, "GuideManager", false, 0)
 {
+	m_drawGuides = false;
 	tabWidget->setEnabled(false);
 	setIcon(loadIcon("AppIcon.png"));
 	horizontalAutoGapSpin->setMinValue(0.0);
 	horizontalAutoGapSpin->setMaxValue(100.0);
 	verticalAutoGapSpin->setMinValue(0.0);
 	verticalAutoGapSpin->setMaxValue(100.0);
+	
 
 	// signals that cannot be defined in designer (mspinbox related)
 	connect(horizontalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(horizontalAutoGapSpin_valueChanged(int)));
 	connect(verticalAutoGapSpin, SIGNAL(valueChanged(int)), this, SLOT(verticalAutoGapSpin_valueChanged(int)));
+	m_drawGuides = true;
 }
 
 void GuideManager::setDoc(ScribusDoc* doc)
@@ -93,12 +95,13 @@ void GuideManager::setupPage()
 {
 	if (!m_Doc)
 		return;
+	m_drawGuides = false;
 	setEnabled(true);
 	// store old values for current page (=page to leave)
 	storePageValues(currentPage);
 	currentPage = m_Doc->currentPage();
 	unitChange();
-	resetMarginsForPage();
+
 	// restore values from new page
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
@@ -114,8 +117,8 @@ void GuideManager::setupPage()
 		horizontalAutoGapSpin->setEnabled(false);
 		horizontalAutoGapCheck->setEnabled(false);
 	}
-	else
-		getAutoHorizontals();
+//	else
+//		getAutoHorizontals();
 	// verticals
 	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
 	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
@@ -128,9 +131,14 @@ void GuideManager::setupPage()
 		verticalAutoGapSpin->setEnabled(false);
 		verticalAutoGapCheck->setEnabled(false);
 	}
-	else
-		getAutoVerticals();
+// 	else
+// 		getAutoVerticals();
 	bGroup->setButton(currentPage->guides.autoRefer());
+	// allow the selection radio button?
+	int docSelectionCount = m_Doc->m_Selection->count();
+	selectionAutoButton->setEnabled((docSelectionCount <= 0));
+	m_drawGuides = true;
+	drawGuides();
 }
 
 void GuideManager::storePageValues(Page *page)
@@ -141,13 +149,13 @@ void GuideManager::storePageValues(Page *page)
 	double gapValue = 0.0;
 	if (horizontalAutoGapCheck->isChecked())
 		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
-	page->guides.setHorizontalAutoGap(gapValue);
+	page->guides.setHorizontalAutoGap(value2pts(gapValue, docUnitIndex));
 	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
 		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
-	page->guides.setVerticalAutoGap(gapValue);
+	page->guides.setVerticalAutoGap(value2pts(gapValue, docUnitIndex));
 	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
 
 	page->guides.setAutoRefer(bGroup->selectedId());
@@ -276,69 +284,6 @@ void GuideManager::addVerButton_clicked()
 	addValueToList(verticalList);
 }
 
-void GuideManager::resetMarginsForPage()
-{
-	locPageWidth = currentPage->width();
-	locPageHeight = currentPage->height();
-	// whatif selection settings
-	FPoint selectionTopLeft = FPoint(0, 0);
-	FPoint selectionBottomRight = FPoint(0, 0);
-
-	int docSelectionCount = m_Doc->m_Selection->count();
-	// allow the selection radio button?
-	selectionAutoButton->setEnabled((docSelectionCount <= 0));
-
-	// multiselection
-	if (docSelectionCount > 1)
-	{
-		selectionTopLeft.setXY(m_Doc->view()->GroupX - currentPage->xOffset(),
-							   m_Doc->view()->GroupY - currentPage->yOffset());
-		selectionBottomRight.setXY(m_Doc->view()->GroupW,
-								   m_Doc->view()->GroupH);
-	}
-	// only one item selected
-	else if (docSelectionCount == 1)
-	{
-		PageItem *currItem = m_Doc->m_Selection->itemAt(0);
-		selectionTopLeft.setXY(currItem->xPos() - currentPage->xOffset(),
-							   currItem->yPos() - currentPage->yOffset());
-		selectionBottomRight.setXY(currItem->width(), currItem->height());
-	}
-
-	selected = true;
-	if (selectionBottomRight != FPoint(0, 0))
-	{
-		gy = selectionTopLeft.y();
-		gx = selectionTopLeft.x();
-		gw = selectionBottomRight.x();
-		gh = selectionBottomRight.y();
-	}
-	else selected = false;
-
-	locTop = m_Doc->pageMargins.Top;
-	locBottom = m_Doc->pageMargins.Bottom;
-
-	PageLocation pageLocation = m_Doc->locationOfPage(m_Doc->currentPageNumber());
-	switch (pageLocation)
-	{
-		case MiddlePage :
-			locLeft = m_Doc->pageMargins.Left;
-			locRight = m_Doc->pageMargins.Left;
-			break;
-		case LeftPage:
-			locLeft = m_Doc->pageMargins.Right;
-			locRight = m_Doc->pageMargins.Left;
-			break;
-		case RightPage:
-			locRight = m_Doc->pageMargins.Right;
-			locLeft = m_Doc->pageMargins.Left;
-			break;
-		default:
-			locRight = 0;
-			locLeft = 0;
-	}
-}
-
 void GuideManager::setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guides)
 {
 	QString tmp;
@@ -396,18 +341,26 @@ void GuideManager::horizontalAutoCountSpin_valueChanged(int val)
 		horizontalAutoGapSpin->setEnabled(true);
 	else
 		horizontalAutoGapSpin->setEnabled(false);
-	getAutoHorizontals();
+//	getAutoHorizontals();
+	currentPage->guides.setHorizontalAutoCount(val);
+	drawGuides();
 }
 
 void GuideManager::horizontalAutoGapSpin_valueChanged(int)
 {
-	getAutoHorizontals();
+	currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
+	//getAutoHorizontals();
+	drawGuides();
 }
 
 void GuideManager::horizontalAutoGapCheck_stateChanged( int )
 {
 	horizontalAutoGapSpin->setEnabled(horizontalAutoGapCheck->isChecked());
-	getAutoHorizontals();
+	if (horizontalAutoGapCheck->isChecked())
+		currentPage->guides.setHorizontalAutoGap(value2pts(horizontalAutoGapSpin->value(), docUnitIndex));
+	else
+		currentPage->guides.setHorizontalAutoGap(value2pts(0.0, docUnitIndex));
+	drawGuides();
 }
 
 void GuideManager::verticalAutoCountSpin_valueChanged(int val)
@@ -418,132 +371,37 @@ void GuideManager::verticalAutoCountSpin_valueChanged(int val)
 		verticalAutoGapSpin->setEnabled(true);
 	else
 		verticalAutoGapSpin->setEnabled(false);
-	getAutoVerticals();
+//	getAutoVerticals();
+	currentPage->guides.setVerticalAutoCount(val);
+	drawGuides();
 }
 
 void GuideManager::verticalAutoGapSpin_valueChanged(int)
 {
-	getAutoVerticals();
+	//getAutoVerticals();
+	currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
+	drawGuides();
 }
 
 void GuideManager::verticalAutoGapCheck_stateChanged( int )
 {
 	verticalAutoGapSpin->setEnabled(verticalAutoGapCheck->isChecked());
-	getAutoVerticals();
-}
-
-void GuideManager::bGroup_clicked( int )
-{
-	if (verticalAutoCountSpin->value() > 0)
-		getAutoVerticals();
-	if (horizontalAutoCountSpin->value() > 0)
-		getAutoHorizontals();
-}
-
-void GuideManager::getAutoHorizontals()
-{
-	int value = horizontalAutoCountSpin->value();
-	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
-	if (value == 0)
-	{
-		drawGuides();
-		return;
-	}
-	++value;
-
-	double offset = 0;
-	double newPageHeight = locPageHeight;
-
-	if (bGroup->selectedId() == 1)
-	{
-		newPageHeight = locPageHeight - locTop - locBottom;
-		offset = locTop;
-	}
-	else if (bGroup->selectedId() == 2)
-	{
-		offset = gy;
-		newPageHeight = gh;
-	}
-	QValueList<double> values;
-	double gapValue = 0.0;
-	double rowSize;
-	if (horizontalAutoGapCheck->isChecked())
-	{
-		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
-		rowSize = (newPageHeight - (value - 1) * gapValue) / value;
-	}
-	else
-		rowSize = newPageHeight / value;
-
-	for (int i = 1, gapCount = 0; i < value; ++i)
-	{
-		if (horizontalAutoGapCheck->isChecked())
-		{
-			currentPage->guides.addHorizontal(offset + i * rowSize + gapCount * gapValue,
-											  GuideManagerCore::Auto);
-			++gapCount;
-			currentPage->guides.addHorizontal(offset + i * rowSize + gapCount * gapValue,
-											  GuideManagerCore::Auto);
-		}
-		else
-			currentPage->guides.addHorizontal(offset + rowSize * i,
-											  GuideManagerCore::Auto);
-	}
-	drawGuides();
-	storePageValues(currentPage);
-}
-
-void GuideManager::getAutoVerticals()
-{
-	int value = verticalAutoCountSpin->value();
-	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
-	if (value == 0)
-	{
-		drawGuides();
-		return;
-	}
-	++value;
-	double offset = 0;
-	double newPageWidth = locPageWidth;
-
-	if (bGroup->selectedId() == 1)
-	{
-		newPageWidth = locPageWidth - locLeft - locRight;
-		offset = locLeft;
-	}
-	else if (bGroup->selectedId() == 2)
-	{
-		offset = gx;
-		newPageWidth = gw;
-	}
-
-	QValueList<double> values;
-	double gapValue = 0.0;
-	double columnSize;
+	//getAutoVerticals();
 	if (verticalAutoGapCheck->isChecked())
-	{
-		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
-		columnSize = (newPageWidth - (value - 1) * gapValue) / value;
-	}
+		currentPage->guides.setVerticalAutoGap(value2pts(verticalAutoGapSpin->value(), docUnitIndex));
 	else
-		columnSize = newPageWidth / value;
-
-	for (int i = 1, gapCount = 0; i < value; ++i)
-	{
-		if (verticalAutoGapCheck->isChecked())
-		{
-			currentPage->guides.addVertical(offset + i * columnSize + gapCount * gapValue,
-											GuideManagerCore::Auto);
-			++gapCount;
-			currentPage->guides.addVertical(offset + i * columnSize + gapCount * gapValue,
-											GuideManagerCore::Auto);
-		}
-		else
-			currentPage->guides.addVertical(offset + columnSize * i,
-											GuideManagerCore::Auto);
-	}
+		currentPage->guides.setVerticalAutoGap(value2pts(0.0, docUnitIndex));
 	drawGuides();
-	storePageValues(currentPage);
+}
+
+void GuideManager::bGroup_clicked( int val)
+{
+	currentPage->guides.setAutoRefer(val);
+	drawGuides();
+// 	if (verticalAutoCountSpin->value() > 0)
+// 		getAutoVerticals();
+// 	if (horizontalAutoCountSpin->value() > 0)
+// 		getAutoHorizontals();
 }
 
 void GuideManager::tabWidget_currentChanged( QWidget * )
@@ -614,7 +472,7 @@ void GuideManager::verticalList_selectionChanged()
 
 void GuideManager::drawGuides()
 {
-	if (!m_Doc)
+	if (!m_Doc || !m_drawGuides)
 		return;
 	ScCore->primaryMainWindow()->view->DrawNew();
 }

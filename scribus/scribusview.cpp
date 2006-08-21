@@ -999,27 +999,8 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	}
 	//Draw the guides
 	if (Doc->guidesSettings.guidesShown)
-	{
-		/* PV - guides refactoring
-		if (page->XGuides.count() != 0)
-		{
-			for (uint xg = 0; xg < page->XGuides.count(); ++xg)
-			{
-				if ((page->XGuides[xg] >= 0) && (page->XGuides[xg] <= page->width()))
-					p->drawLine(FPoint(page->XGuides[xg], 0), FPoint(page->XGuides[xg], pageHeight));
-			}
-		}
-		if (page->YGuides.count() != 0)
-		{
-			for (uint yg = 0; yg < page->YGuides.count(); ++yg)
-			{
-				if ((page->YGuides[yg] >= 0) && (page->YGuides[yg] <= pageHeight))
-					p->drawLine(FPoint(0, page->YGuides[yg]), FPoint(page->width(), page->YGuides[yg]));
-			}
-		}
-		*/
 		page->guides.drawPage(p, Doc, lineWidth);
-	}
+
 	p->restore();
 	p->setZoomFactor(z);
 }

@@ -29,7 +29,6 @@ Basic idea:
 - user can move only Stnadard ones
 - Auto guides can be deleted only in manipulation dialog
 - Auto guides are painted in different color / (propably) with diff. line.
-- it will need document format change (for auto guides)
 
 Implementing of class Guide() as standalone entity looks great in object
 design bit it's too slow */
@@ -69,10 +68,10 @@ public:
 
 	void setPage(Page *p);
 
-	QPair<double, double> topLeft(double x, double y) const;
-	QPair<double, double> topRight(double x, double y) const;
-	QPair<double, double> bottomLeft(double x, double y) const;
-	QPair<double, double> bottomRight(double x, double y) const;
+	QPair<double, double> topLeft(double x, double y);// const;
+	QPair<double, double> topRight(double x, double y);// const;
+	QPair<double, double> bottomLeft(double x, double y);// const;
+	QPair<double, double> bottomRight(double x, double y);// const;
 
 	/*! \brief Read the guides from XML attribute (file opening).
 	It's statis method sou you can call it without instance initialized:
@@ -125,19 +124,45 @@ private:
 	Page* m_page;
 	Guides horizontalStdG;
 	Guides verticalStdG;
-	Guides horizontalAutoG;
-	Guides verticalAutoG;
-	
+
 	double m_horizontalAutoGap;
 	double m_verticalAutoGap;
 	int m_horizontalAutoCount;
 	int m_verticalAutoCount;
 	int m_autoRefer;
 
-	double closestHorAbove(double y) const;
-	double closestHorBelow(double y) const;
-	double closestVertLeft(double x) const;
-	double closestVertRight(double x) const;
+	double closestHorAbove(double y);// const;
+	double closestHorBelow(double y);// const;
+	double closestVertLeft(double x);// const;
+	double closestVertRight(double x);// const;
+
+	//! \brief width of the current page
+	double locPageWidth;
+	//! \brief height of the current page
+	double locPageHeight;
+	//! \brief position of the group of selected objects
+	double gx, gy, gw, gh;
+	//! \brief top margin of the current page
+	double locTop;
+	//! \brief bottom margin of the current page
+	double locBottom;
+	//! \brief right margin of the current page
+	double locRight;
+	//! \brief left margin of the current page
+	double locLeft;
+
+	/*! \brief Create automatic horizontal guides.
+	Calculates positions of the guides. */
+	Guides getAutoHorizontals();
+
+	/*! \brief Create automatic vertical guides.
+	Calculates positions of the guides. */
+	Guides getAutoVerticals();
+
+	/*! \brief Recalculate the margins and measurements for the current page.
+	It's used for automatic guides position. It's called for every
+	page when is "apply to all pages" switched on */
+	void resetMarginsForPage();
 };
 
 #endif

@@ -62,7 +62,7 @@ public:
 /*! \brief GuideManager is the dialog for guides managing ;).
 It's scribus non-modal palette now.
 \warning Be careful with UI file guidemanagerbase.ui it uses ScrPaletteBase
-as base cleass instead of QDialog. It should provide correct header file too.
+as base class instead of QDialog. It should provide correct header file too.
 
 \author Petr Vanek <petr@yarpen.cz>
 \author Alessandro Rimoldi
@@ -98,7 +98,7 @@ public:
 	Guides selectedVerticals();
 
 	/*! \brief check the current page number to prevent drawing
-	marks on the others pages.
+	marks on the others pages. See GuideManagerCore::drawPage.
 	\retval uint page no */
 	uint pageNr() const { return currentPage->pageNr(); }
 
@@ -106,22 +106,8 @@ private:
 	ScribusDoc* m_Doc;
 	//! \brief a reference to the current pages
 	Page * currentPage;
-	//! \brief If there is a selection on the current page
-	bool selected;
-	//! \brief width of the current page
-	double locPageWidth;
-	//! \brief height of the current page
-	double locPageHeight;
-	//! \brief top margin of the current page
-	double locTop;
-	//! \brief bottom margin of the current page
-	double locBottom;
-	//! \brief right margin of the current page
-	double locRight;
-	//! \brief left margin of the current page
-	double locLeft;
-	//! \brief position of the group of selected objects
-	double gx, gy, gw, gh;
+	//! \brief A flag to prevent guides drawing when it's not needed
+	bool m_drawGuides;
 
 	//! \brief Mapping of the GUI representation to the real double values.
 	GuideGUIMap m_horMap;
@@ -145,11 +131,6 @@ private:
 	*/
 	void setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guides);
 
-	/*! \brief Recalculate the margins and measurements for the current page.
-	It's used for automatic guides position. It's called for every
-	page when is "apply to all pages" switched on */
-	void resetMarginsForPage();
-
 	/*! \brief Add a value from spin box to the list.
 	It's called by "add" slots.
 	\param list a reference to the QListView to add a value.
@@ -167,14 +148,6 @@ private:
 	\retval bool false on error
 	*/
 	bool deleteValueFormList(QListView *list);
-
-	/*! \brief Create automatic horizontal guides.
-	Calculates positions of the guides. */
-	void getAutoHorizontals();
-
-	/*! \brief Create automatic vertical guides.
-	Calculates positions of the guides. */
-	void getAutoVerticals();
 
 	/*! \brief Copy guides from currentPage to all remaining.
 	All gudes are deleted before copying.
