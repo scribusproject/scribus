@@ -843,7 +843,7 @@ void Biblio::DropOn(QDropEvent *e)
 		}
 		else
 		{
-			if (text.startsWith("<SCRIBUSELEM>"))
+			if (text.startsWith("<SCRIBUSELEM"))
 			{
 				tmp = text;
 			}
@@ -887,7 +887,7 @@ void Biblio::ObjFromMenu(QString text)
 		return;
 	}
 	delete dia;
-	QString ff = tmp;
+	QString ff = text;
 	QFile f(QDir::cleanDirPath(QDir::convertSeparators(activeBView->ScFilename + "/" + nam + ".sce")));
 	if(!f.open(IO_WriteOnly))
 		return ;
