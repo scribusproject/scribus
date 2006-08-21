@@ -51,6 +51,7 @@ extern QPixmap loadIcon(QString nam);
 
 ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( parent )
 {
+	saveButton->hide();
 	docUnitIndex = doc->unitIndex();
 	currDoc = doc;
 	ScMW = (ScribusMainWindow*)parent;
