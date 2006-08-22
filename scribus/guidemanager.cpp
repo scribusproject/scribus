@@ -106,7 +106,6 @@ void GuideManager::setupPage()
 	clearRestoreHorizontalList();
 	clearRestoreVerticalList();
 	// restore: brand "auto guides into GUI restore algorithm"
-	currentPage->guides.clearHorizontals(GuideManagerCore::Auto);
 	bool enable = currentPage->guides.horizontalAutoGap() > 0.0 ? true : false;
 	horizontalAutoGapCheck->setChecked(enable);
 	horizontalAutoGapSpin->setEnabled(enable);
@@ -117,10 +116,8 @@ void GuideManager::setupPage()
 		horizontalAutoGapSpin->setEnabled(false);
 		horizontalAutoGapCheck->setEnabled(false);
 	}
-//	else
-//		getAutoHorizontals();
+
 	// verticals
-	currentPage->guides.clearVerticals(GuideManagerCore::Auto);
 	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
 	verticalAutoGapCheck->setChecked(enable);
 	verticalAutoGapSpin->setEnabled(enable);
@@ -131,8 +128,6 @@ void GuideManager::setupPage()
 		verticalAutoGapSpin->setEnabled(false);
 		verticalAutoGapCheck->setEnabled(false);
 	}
-// 	else
-// 		getAutoVerticals();
 	bGroup->setButton(currentPage->guides.autoRefer());
 	// allow the selection radio button?
 	int docSelectionCount = m_Doc->m_Selection->count();
@@ -491,4 +486,28 @@ void GuideManager::clearRestoreVerticalList()
 	verticalList->clear();
 	setGuidesFromList(verticalList, &m_verMap,
 					  currentPage->guides.verticals(GuideManagerCore::Standard));
+}
+
+void GuideManager::deletePageButton_clicked()
+{
+	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
+	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
+	currentPage->guides.setHorizontalAutoCount(0);
+	currentPage->guides.setVerticalAutoCount(0);
+	currentPage->guides.setHorizontalAutoGap(0.0);
+	currentPage->guides.setVerticalAutoGap(0.0);
+	currentPage->guides.setAutoRefer(0);
+	horizontalAutoCountSpin->setValue(0);
+	verticalAutoCountSpin->setValue(0);
+	drawGuides();
+}
+
+void GuideManager::deleteAllGuides_clicked()
+{
+	m_drawGuides = false;
+	deletePageButton_clicked();
+	copyGuidesToAllPages(GuideManagerCore::Standard);
+	copyGuidesToAllPages(GuideManagerCore::Auto);
+	m_drawGuides = true;
+	drawGuides();
 }

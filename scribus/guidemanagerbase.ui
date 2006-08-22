@@ -10,8 +10,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>416</width>
-            <height>354</height>
+            <width>412</width>
+            <height>326</height>
         </rect>
     </property>
     <property name="caption">
@@ -531,6 +531,74 @@
                     </widget>
                 </grid>
             </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>miscPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>&amp;Misc</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <widget class="QLayoutWidget" row="0" column="0">
+                        <property name="name">
+                            <cstring>layout16</cstring>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <widget class="QPushButton">
+                                <property name="name">
+                                    <cstring>deletePageButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Delete &amp;Page Guides</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+P</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Delete all guides from the current page</string>
+                                </property>
+                            </widget>
+                            <widget class="QPushButton">
+                                <property name="name">
+                                    <cstring>deleteAllGuides</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Delete &amp;Document guides</string>
+                                </property>
+                                <property name="accel">
+                                    <string>Alt+D</string>
+                                </property>
+                                <property name="toolTip" stdset="0">
+                                    <string>Delete all guides from the current document</string>
+                                </property>
+                            </widget>
+                            <spacer>
+                                <property name="name">
+                                    <cstring>spacer1</cstring>
+                                </property>
+                                <property name="orientation">
+                                    <enum>Vertical</enum>
+                                </property>
+                                <property name="sizeType">
+                                    <enum>Expanding</enum>
+                                </property>
+                                <property name="sizeHint">
+                                    <size>
+                                        <width>20</width>
+                                        <height>40</height>
+                                    </size>
+                                </property>
+                            </spacer>
+                        </vbox>
+                    </widget>
+                </grid>
+            </widget>
         </widget>
     </grid>
 </widget>
@@ -689,10 +757,21 @@
         <receiver>GuideManagerBase</receiver>
         <slot>applyToAllAutoButton_clicked()</slot>
     </connection>
+    <connection>
+        <sender>deletePageButton</sender>
+        <signal>clicked()</signal>
+        <receiver>GuideManagerBase</receiver>
+        <slot>deletePageButton_clicked()</slot>
+    </connection>
+    <connection>
+        <sender>deleteAllGuides</sender>
+        <signal>clicked()</signal>
+        <receiver>GuideManagerBase</receiver>
+        <slot>deleteAllGuides_clicked()</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">scrpalettebase.h</include>
-    <include location="local" impldecl="in implementation">guidemanagerbase.ui.h</include>
 </includes>
 <slots>
     <slot>addHorButton_clicked()</slot>
@@ -714,6 +793,8 @@
     <slot>verticalList_selectionChanged()</slot>
     <slot>applyToAllStdButton_clicked()</slot>
     <slot>applyToAllAutoButton_clicked()</slot>
+    <slot>deletePageButton_clicked()</slot>
+    <slot>deleteAllGuides_clicked()</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>

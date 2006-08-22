@@ -184,6 +184,8 @@ protected slots:
 	void verticalList_doubleClicked( QListViewItem * );
 	void horizontalList_selectionChanged();
 	void verticalList_selectionChanged();
+	void deletePageButton_clicked();
+	void deleteAllGuides_clicked();
 };
 
 #endif // GUIDEMANAGER_H

@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qdialog.h>
 
-class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
@@ -44,8 +43,8 @@ public:
 
 protected:
 	QGridLayout* ScInputDialogLayout;
-	QVBoxLayout* layout2;
-	QHBoxLayout* Layout1;
+	//QVBoxLayout* layout2;
+	QHBoxLayout* layout1;
 	QSpacerItem* hspacing;
 
 protected slots:

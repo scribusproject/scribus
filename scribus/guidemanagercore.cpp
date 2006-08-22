@@ -206,6 +206,11 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 			horizontalStdG.clear();
 			break;
 		case Auto:
+			m_horizontalAutoGap = 0.0;
+			m_verticalAutoGap = 0.0;
+			m_horizontalAutoCount= 0;
+			m_verticalAutoCount = 0;
+			m_autoRefer = 0;
 			break;
 	}
 }
@@ -218,6 +223,11 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			verticalStdG.clear();
 			break;
 		case Auto:
+			m_horizontalAutoGap = 0.0;
+			m_verticalAutoGap = 0.0;
+			m_horizontalAutoCount= 0;
+			m_verticalAutoCount = 0;
+			m_autoRefer = 0;
 			break;
 	}
 }

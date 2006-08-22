@@ -24,32 +24,32 @@ ScInputDialog::ScInputDialog( QWidget* parent, const char* name, bool modal, WFl
 	setSizeGripEnabled( TRUE );
 	ScInputDialogLayout = new QGridLayout( this, 1, 1, 11, 6, "ScInputDialogLayout");
 
-	layout2 = new QVBoxLayout( 0, 0, 6, "layout2");
+	layout1 = new QHBoxLayout( 0, 0, 6, "layout1");
 
 	entryLabel = new QLabel( this, "entryLabel" );
-	layout2->addWidget( entryLabel );
+	layout1->addWidget( entryLabel );
 
 	entrySpin = new MSpinBox( this, "entrySpin" );
 	entrySpin->setMinimumSize( QSize( 0, 10 ) );
-	layout2->addWidget( entrySpin );
+	layout1->addWidget( entrySpin );
 
-	Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1");
-	hspacing = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout1->addItem( hspacing );
+	//Layout1 = new QHBoxLayout( 0, 0, 6, "Layout1");
+	//hspacing = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	//Layout2->addItem( hspacing );
 
 	buttonOk = new QPushButton( this, "buttonOk" );
 	buttonOk->setAutoDefault( TRUE );
 	buttonOk->setDefault( TRUE );
-	Layout1->addWidget( buttonOk );
+	layout1->addWidget( buttonOk );
 
 	buttonCancel = new QPushButton( this, "buttonCancel" );
 	buttonCancel->setAutoDefault( TRUE );
-	Layout1->addWidget( buttonCancel );
-	layout2->addLayout( Layout1 );
+	layout1->addWidget( buttonCancel );
+	//layout2->addLayout( Layout1 );
 
-	ScInputDialogLayout->addLayout( layout2, 0, 0 );
+	ScInputDialogLayout->addLayout( layout1, 0, 0 );
 	languageChange();
-	resize( QSize(283, 126).expandedTo(minimumSizeHint()) );
+	//resize( QSize(283, 60).expandedTo(minimumSizeHint()) );
 	clearWState( WState_Polished );
 
 	// signals and slots connections
