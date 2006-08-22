@@ -2740,9 +2740,11 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	dum.clear();
 	tsz = hl->fontSize();
 
+	QString chstr = hl->ch;
+
 	if (hl->effects() & 2048)
 	{
-		QString chstr; // dummy, FIXME: replace by glyph
+//		QString chstr; // dummy, FIXME: replace by glyph
 		if (pstyle.useBaselineGrid())
 			tsz = qRound(10 * ((Doc->typographicSettings.valueBaseGrid *  (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
 		else
@@ -2797,9 +2799,15 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 
 	if (glyph == (ScFace::CONTROL_GLYPHS + 29)) // NBSPACE
+	{
 		glyph = cstyle.font().char2CMap(QChar(' '));
+		chstr = " ";
+	}
 	else if (glyph == (ScFace::CONTROL_GLYPHS + 24)) // NBHYPHEN
+	{
 		glyph = cstyle.font().char2CMap(QChar('-'));
+		chstr = "-";
+	}
 	
 	if (glyph == 0 || glyph >= ScFace::CONTROL_GLYPHS)
 		return;

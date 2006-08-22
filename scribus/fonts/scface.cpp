@@ -16,6 +16,10 @@ bool ScFace::ScFaceData::glyphNames(QMap<uint, std::pair<QChar, QString> >& gLis
 	return false; 
 }
 
+bool ScFace::ScFaceData::glyphNameIndex(QMap<uint, std::pair<uint, QString> >& gList) const 
+{ 
+	return false; 
+}
 
 QMap<QString,QString> ScFace::ScFaceData::fontDictionary(double sz) const
 {
@@ -271,6 +275,14 @@ bool ScFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& gList)
 	return m->glyphNames(gList);
 }
 
+
+bool ScFace::glyphNameIndex(QMap<uint, std::pair<uint, QString> >& gList)
+{
+	if (m->status == ScFace::UNKNOWN) {
+		m->load();
+	}
+	return m->glyphNameIndex(gList);
+}
 
 void ScFace::RawData(QByteArray & bb)
 {

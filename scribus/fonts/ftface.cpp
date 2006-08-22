@@ -96,6 +96,11 @@ void FtFace::load() const
 	m_strikeoutPos = m_ascent / 3;
 	m_strokeWidth = m_face->underline_thickness / m_uniEM;
 	const_cast<FtFace*>(this)->isFixedPitch = m_face->face_flags & 4;
+	Ascent = QString::number(m_face->ascender);
+	CapHeight = QString::number(m_face->height);
+	Descender = QString::number(m_face->descender);
+	FontBBox = QString::number(m_face->bbox.xMin)+" "+QString::number(m_face->bbox.yMin)+" "+QString::number(m_face->bbox.xMax)+" "+QString::number(m_face->bbox.yMax);
+	ItalicAngle = "0";
 
 //FIXME:	FT_Set_Charmap(m_face, m_face->charmaps[m_encoding]);
 	setBestEncoding(m_face);
@@ -272,6 +277,11 @@ bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 	return GlyNames(ftFace(), GList);
 }
 
+
+bool FtFace::glyphNameIndex(QMap<uint, std::pair<uint, QString> >& GList) const
+{
+	return GlyIndex(ftFace(), GList);
+}
 
 void FtFace::RawData(QByteArray & bb) const
 {

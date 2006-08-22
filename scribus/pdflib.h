@@ -59,7 +59,7 @@ public:
 				  const std::vector<int> & pageNs, const QMap<int,QPixmap> & thumbs);
 
 private:
-	typedef QMap<uint, std::pair<QChar, QString> > GListe;
+	typedef QMap<uint, std::pair<uint, QString> > GListe;
 
 	bool PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, BookMView* vi);
 	void PDF_Begin_Page(const Page* pag, QPixmap pm = 0);

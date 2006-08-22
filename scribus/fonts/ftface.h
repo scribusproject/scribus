@@ -66,6 +66,11 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 	double underlinePos(double sz=1.0)    const { return m_underlinePos * sz; }
 	double strokeWidth(double sz=1.0)     const { return m_strokeWidth; }
 	double maxAdvanceWidth(double sz=1.0) const { return m_maxAdvanceWidth * sz; }
+	QString ascentAsString()    const { return Ascent; }
+	QString descentAsString()    const { return Descender; }
+	QString capHeightAsString()    const { return CapHeight; }
+	QString FontBBoxAsString()    const { return FontBBox; }
+	QString ItalicAngleAsString()    const { return ItalicAngle; }
 	
 	
 //FIXME	QMap<QString,QString> fontDictionary(double sz=1.0)      const;
@@ -77,6 +82,7 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 	void RawData   (QByteArray & bb)            const;
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;
+	bool glyphNameIndex(QMap<uint, std::pair<uint, QString> >& GList) const;
 	void load      ()                           const;
 	void unload    ()                           const;
 	void loadGlyph (uint ch)                    const;
@@ -86,13 +92,13 @@ protected:
 	
 	static FT_Library library;
 
-	QString Ascent;
-	QString CapHeight;
-	QString Descender;
-	QString ItalicAngle;
-	QString StdVW;
+	mutable QString Ascent;
+	mutable QString CapHeight;
+	mutable QString Descender;
+	mutable QString ItalicAngle;
+	mutable QString StdVW;
 	QString FontEnc;
-	QString FontBBox;
+	mutable QString FontBBox;
 
 	mutable int m_encoding;
 	

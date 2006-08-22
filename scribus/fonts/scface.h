@@ -149,6 +149,11 @@ protected:
 
 		// dummy implementations
 		virtual double ascent(double sz)           const { return sz; }
+		virtual QString ascentAsString()    const { return "0" ; }
+		virtual QString descentAsString()    const { return "0"; }
+		virtual QString capHeightAsString()    const { return "0"; }
+		virtual QString FontBBoxAsString()    const { return "0 0 0 0"; }
+		virtual QString ItalicAngleAsString()    const { return "0"; }
 		virtual double descent(double /*sz*/)          const { return 0.0; }
 		virtual double xHeight(double sz)          const { return sz; }
 		virtual double capHeight(double sz)        const { return sz; }
@@ -164,6 +169,7 @@ protected:
 		virtual bool EmbedFont(QString &/*str*/)       const { return false; }
 		virtual void RawData(QByteArray & /*bb*/)      const {}
 		virtual bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList) const;
+		virtual bool glyphNameIndex(QMap<uint, std::pair<uint, QString> >& gList) const;
 
 		// these use the cache:
 		virtual double      glyphWidth(uint gl, double sz)   const;
@@ -195,6 +201,7 @@ protected:
 	bool EmbedFont(QString &str);
 	void RawData(QByteArray & bb);
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& gList);
+	bool glyphNameIndex(QMap<uint, std::pair<uint, QString> >& gList);
 	
 	/// prevent unloading of face data
 	void increaseUsage() const;
@@ -268,6 +275,11 @@ protected:
 	
 	// font metrics
 	double ascent(double sz=1.0)          const { return m->ascent(sz); }
+	QString ascentAsString()    const { return m->ascentAsString() ; }
+	QString descentAsString()    const { return m->descentAsString() ; }
+	QString capHeightAsString()    const { return m->capHeightAsString() ; }
+	QString FontBBoxAsString()    const { return m->FontBBoxAsString() ; }
+	QString ItalicAngleAsString()    const { return m->ItalicAngleAsString() ; }
 	double descent(double sz=1.0)         const { return m->descent(sz); }
 	double xHeight(double sz=1.0)         const { return m->xHeight(sz); }
 	double capHeight(double sz=1.0)       const { return m->capHeight(sz); }

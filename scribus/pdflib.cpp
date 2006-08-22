@@ -850,7 +850,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			// TODO: think about QByteArray ScFace::getFontDescriptor() -- AV
 			PutDoc("<<\n/Type /FontDescriptor\n");
 			PutDoc("/FontName /"+AllFonts[it.key()].psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+"\n");
-			PutDoc("/FontBBox [ "+AllFonts[it.key()].fontBBox()+" ]\n");
+			PutDoc("/FontBBox [ "+AllFonts[it.key()].FontBBoxAsString()+" ]\n");
 			PutDoc("/Flags ");
 			//FIXME: isItalic() should be queried from ScFace, not from Qt -- AV
 			//QFontInfo fo = QFontInfo(it.data());
@@ -858,16 +858,21 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			if (AllFonts[it.key()].isFixedPitch())
 				pfl = pfl ^ 1;
 			//if (fo.italic())
-			if (AllFonts[it.key()].italicAngle() != "0")
+			if (AllFonts[it.key()].ItalicAngleAsString() != "0")
 				pfl = pfl ^ 64;
 //			pfl = pfl ^ 4;
 			pfl = pfl ^ 32;
 			PutDoc(QString::number(pfl)+"\n");
-			PutDoc("/Ascent "+QString::number(static_cast<int>(AllFonts[it.key()].ascent()))+"\n");
-			PutDoc("/Descent "+QString::number(static_cast<int>(AllFonts[it.key()].descent()))+"\n");
-			PutDoc("/CapHeight "+QString::number(static_cast<int>(AllFonts[it.key()].capHeight()))+"\n");
-			PutDoc("/ItalicAngle "+AllFonts[it.key()].italicAngle()+"\n");
-			PutDoc("/StemV "+ AllFonts[it.key()].stemV() + "\n");
+			PutDoc("/Ascent "+AllFonts[it.key()].ascentAsString()+"\n");
+			PutDoc("/Descent "+AllFonts[it.key()].descentAsString()+"\n");
+			PutDoc("/CapHeight "+AllFonts[it.key()].capHeightAsString()+"\n");
+			PutDoc("/ItalicAngle "+AllFonts[it.key()].ItalicAngleAsString()+"\n");
+//			PutDoc("/Ascent "+QString::number(static_cast<int>(AllFonts[it.key()].ascent()))+"\n");
+//			PutDoc("/Descent "+QString::number(static_cast<int>(AllFonts[it.key()].descent()))+"\n");
+//			PutDoc("/CapHeight "+QString::number(static_cast<int>(AllFonts[it.key()].capHeight()))+"\n");
+//			PutDoc("/ItalicAngle "+AllFonts[it.key()].italicAngle()+"\n");
+//			PutDoc("/StemV "+ AllFonts[it.key()].stemV() + "\n");
+			PutDoc("/StemV 1\n");
 			if ((fformat == ScFace::SFNT || fformat == ScFace::TTCF) && (Options.EmbedList.contains(it.key())))
 				PutDoc("/FontFile2 "+QString::number(ObjCounter-1)+" 0 R\n");
 			if ((fformat == ScFace::PFB) && (Options.EmbedList.contains(it.key())))
@@ -911,7 +916,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			else */
 //			{
 				GListe gl;
-				AllFonts[it.key()].glyphNames(gl);
+				AllFonts[it.key()].glyphNameIndex(gl);
 				GlyphsIdxOfFont.insert(it.key(), gl);
 				uint FontDes = ObjCounter - 1;
 				GListe::Iterator itg;
@@ -944,7 +949,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					int crc = 0;
 					for (int ww2 = 32; ww2 < 256; ++ww2)
 					{
-						PutDoc("/"+itg2.data().second+" ");
+						if (itg2.data().second != "")
+						{
+							PutDoc("/"+itg2.data().second+" ");
+						}
 						if (itg2 == gl.end())
 							break;
 						++itg2;
@@ -3327,12 +3335,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	}
 	else
 	{
-/*		cc = chstr[0].unicode();
-		idx = 0;
+		uint cc = chstr[0].unicode();
+		uint idx = 0;
 		if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
 			idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
-		*/
-		uint idx = hl->glyph.glyph;
 		uint idx1 = (idx >> 8) & 0xFF;
 		tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 		if (hl->strokeColor() != CommonStrings::None)
@@ -3386,12 +3392,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				double wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
 				tmp += "1 0 0 1 "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset)+" Tm\n";
 				chstr = "-";
-/*				cc = chstr[0].unicode();
+				cc = chstr[0].unicode();
 				idx = 0;
 				if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
 					idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
-				*/
-				idx = hl->font().char2CMap(QChar('-'));
+				
+//				idx = hl->font().char2CMap(QChar('-'));
 				idx1 = (idx >> 8) & 0xFF;
 				tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 				idx2 = idx & 0xFF;

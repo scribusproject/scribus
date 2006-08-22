@@ -355,20 +355,15 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 	}
 	return true;
 }
-/*
-bool GlyIndex(ScFace * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
+
+bool GlyIndex(FT_Face face, QMap<uint, std::pair<uint, QString> >& GList)
 {
-	struct PDFlib::GlNamInd gln;
 	bool error;
 	char buf[50];
-	FT_Library library;
-	FT_Face face;
 	FT_ULong  charcode;
 	FT_UInt   gindex;
 	uint counter1 = 32;
 	uint counter2 = 0;
-	error = FT_Init_FreeType(&library);
-	error = FT_New_Face(library, QFile::encodeName(fnt->fontFilePath()), fnt->faceIndex(), &face);
 	setBestEncoding(face);
 	gindex = 0;
 	charcode = FT_Get_First_Char(face, &gindex );
@@ -384,12 +379,9 @@ bool GlyIndex(ScFace * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 		// just in case FT gives empty string or ".notdef"
 		// no valid glyphname except ".notdef" starts with '.'		
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			gln.Name = "/" + adobeGlyphName(charcode);
+			GList.insert(charcode, std::make_pair(counter1 + counter2, adobeGlyphName(charcode)));
 		else
-			gln.Name = "/" + QString(buf);
-
-		gln.Code = counter1 + counter2;
-		GListInd->insert(charcode, gln);
+			GList.insert(charcode, std::make_pair(counter1 + counter2, QString(reinterpret_cast<char*>(buf))));
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter1++;
 		if (counter1 > 255)
@@ -398,10 +390,9 @@ bool GlyIndex(ScFace * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd)
 			counter2 += 0x100;
 		}
 	}
-	FT_Done_FreeType( library );
 	return true;
 }
-*/
+
 
 static int traceMoveto( FT_Vector *to, FPointArray *composite )
 {
