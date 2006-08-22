@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qmap.h>
 #include <qspinbox.h>
+#include <qstring.h>
 #include "scribusapi.h"
 
 class FunctionParser;
