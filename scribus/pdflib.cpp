@@ -3035,7 +3035,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 							ScText hl3;
 							static_cast<CharStyle&>(hl3) = static_cast<const CharStyle&>(hl2);
 							hl3.ch = hl2.ch;
-							
+							hl3.glyph.glyph = hl2.glyph.glyph;
+							hl3.setFillColor(hl2.strokeColor());
 							hl3.glyph.yoffset = hl2.glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 							hl3.glyph.xoffset = hl2.glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 							
@@ -3058,9 +3059,10 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 			{
 				ScText hl2;
 				hl2.ch = ch;
+				hl2.glyph.glyph = hl->glyph.glyph;
 				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				//			hl2.cselect = hl->cselect;
-				
+				hl2.setFillColor(hl->strokeColor());
 				hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 				hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
 				
