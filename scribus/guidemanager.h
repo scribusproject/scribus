@@ -46,7 +46,7 @@ class SCRIBUS_API GuideListItem : public QListViewItem
 {
 public:
 	//! \brief Only 2 columns here...
-	GuideListItem(QListView *parent, QString c1, QString c2) : QListViewItem(parent, c1, c2){};
+	GuideListItem(QListView *parent, QString c1) : QListViewItem(parent, c1){};
 
 	/*! \brief Reimplemented compare method to handle double values.
 	When is no double in column col parent string compare() is called.

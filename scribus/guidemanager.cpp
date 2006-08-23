@@ -160,6 +160,9 @@ void GuideManager::unitChange()
 {
 	if (!m_Doc)
 		return;
+	// a little bit magic to get Verticals (unit) into group boxes
+	horizontalGroupBox->setTitle(horizontalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
+	verticalGroupBox->setTitle(verticalGroupBox->title().remove(" ("+suffix.stripWhiteSpace()+")"));
 	docUnitIndex = m_Doc->unitIndex();
 	docUnitPrecision = unitGetPrecisionFromIndex(docUnitIndex);
 	docUnitRatio = unitGetRatioFromIndex(docUnitIndex);
@@ -170,6 +173,8 @@ void GuideManager::unitChange()
 	verticalAutoGapSpin->setSuffix(suffix);
 	horizontalAutoGapSpin->setDecimals(docUnitDecimals);
 	verticalAutoGapSpin->setDecimals(docUnitDecimals);
+	horizontalGroupBox->setTitle(horizontalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
+	verticalGroupBox->setTitle(verticalGroupBox->title() + " ("+suffix.stripWhiteSpace()+")");
 }
 
 bool GuideManager::deleteValueFormList(QListView *list)
@@ -259,7 +264,7 @@ bool GuideManager::addValueToList(QListView *list)
 		m_verMap[tmp] = ng;
 	}
 
-	GuideListItem *item = new GuideListItem(list, tmp, suffix);
+	GuideListItem *item = new GuideListItem(list, tmp);
 	item->setRenameEnabled(0, true);
 	list->insertItem(item);
 	list->setCurrentItem(item);
@@ -289,7 +294,7 @@ void GuideManager::setGuidesFromList(QListView *w, GuideGUIMap *map, Guides guid
 		// no insert for duplicates
 		if (w->findItem(tmp, 0) != 0)
 			continue;
-		GuideListItem *item = new GuideListItem(w, tmp, suffix);
+		GuideListItem *item = new GuideListItem(w, tmp);
 		w->insertItem(item);
 		map->insert(tmp, (*it));
 	}
@@ -492,6 +497,9 @@ void GuideManager::deletePageButton_clicked()
 {
 	currentPage->guides.clearHorizontals(GuideManagerCore::Standard);
 	currentPage->guides.clearVerticals(GuideManagerCore::Standard);
+	clearRestoreHorizontalList();
+	clearRestoreVerticalList();
+
 	currentPage->guides.setHorizontalAutoCount(0);
 	currentPage->guides.setVerticalAutoCount(0);
 	currentPage->guides.setHorizontalAutoGap(0.0);
@@ -499,6 +507,7 @@ void GuideManager::deletePageButton_clicked()
 	currentPage->guides.setAutoRefer(0);
 	horizontalAutoCountSpin->setValue(0);
 	verticalAutoCountSpin->setValue(0);
+
 	drawGuides();
 }
 

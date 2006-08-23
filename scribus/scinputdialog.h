@@ -13,8 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 
 class QHBoxLayout;
+class QVBoxLayout;
 class QGridLayout;
-class QSpacerItem;
 class MSpinBox;
 class QLabel;
 class QPushButton;
@@ -43,9 +43,9 @@ public:
 
 protected:
 	QGridLayout* ScInputDialogLayout;
-	//QVBoxLayout* layout2;
-	QHBoxLayout* layout1;
-	QSpacerItem* hspacing;
+	QVBoxLayout* mainLayout;
+	QHBoxLayout* labelEntryLayout;
+	QHBoxLayout* buttonLayout;
 
 protected slots:
 	virtual void languageChange();
