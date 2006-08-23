@@ -236,7 +236,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 				break;
 			if (gly.size() > 3)
 			{
-				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
 				ymax = QMAX(ymax, gp.y());
 				p->setupPolygon(&gly);
@@ -257,7 +257,7 @@ QPixmap FontSample(Foi * fnt, int s, QString ts, QColor back, bool force)
 			gly = traceChar(face, dv, s, &x, &y, &error);
 			if (gly.size() > 3)
 			{
-				gly.translate(static_cast<double>(pen_x) / 64.0, a);
+				gly.translate(static_cast<double>(pen_x) / 6400.0, a);
 				gp = getMaxClipF(&gly);
 				ymax = QMAX(ymax, gp.y());
 				p->setupPolygon(&gly);
