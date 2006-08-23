@@ -197,6 +197,12 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 {
 	bool error = false;
 	FT_UInt glyphIndex;
+	static FPointArray pts; 
+	FPointArray pts2;
+	pts.resize(0);
+	pts2.resize(0);
+	firstP = FPoint(0,0);
+	FirstM = true;
 	error = FT_Set_Char_Size( face, 0, chs*64, 72, 72 );
 	if (error)
 	{
@@ -204,7 +210,32 @@ FPointArray traceChar(FT_Face face, uint chr, int chs, double *x, double *y, boo
 		return FPointArray();
 	}
 	glyphIndex = FT_Get_Char_Index(face, chr);
-	return traceGlyph(face, glyphIndex, chs, x, y, err);
+	if (glyphIndex == 0)
+	{
+		*err = true;
+		return FPointArray();
+	}
+	double uniEM = static_cast<double>(face->units_per_EM);
+	error = FT_Load_Glyph( face, glyphIndex, FT_LOAD_NO_HINTING | FT_LOAD_NO_BITMAP );
+	if (error)
+	{
+		*err = error;
+		return pts2;
+	}
+	error = FT_Outline_Decompose(&face->glyph->outline, &OutlineMethods, reinterpret_cast<void*>(&pts));
+	if (error)
+	{
+		*err = error;
+		return pts2;
+	}
+	*x = face->glyph->metrics.horiBearingX / 64.0;
+	*y = face->glyph->metrics.horiBearingY / 64.0;
+	QWMatrix ma;
+	ma.scale(1, -1);
+	pts.map(ma);
+	pts.translate(0, chs);
+	pts2.putPoints(0, pts.size()-2, pts, 0);
+	return pts2;
 }
 
 

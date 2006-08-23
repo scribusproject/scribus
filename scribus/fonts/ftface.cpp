@@ -169,6 +169,9 @@ void FtFace::loadGlyph(uint gl) const
 		double ww = face->glyph->metrics.horiAdvance / m_uniEM;
 		double x, y;
 		bool error = false;
+		error = FT_Set_Char_Size( face, 0, 10, 72, 72 );
+		if (error)
+			m_glyphWidth[gl] = 1;
 		FPointArray outlines = traceGlyph(face, gl, 10, &x, &y, &error);
 		if (!error)
 		{
