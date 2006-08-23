@@ -173,6 +173,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
+	connect( loremList, SIGNAL(doubleClicked(QListViewItem *, const QPoint &, int)), this, SLOT(okButton_clicked()));
 }
 
 void LoremManager::languageChange()
