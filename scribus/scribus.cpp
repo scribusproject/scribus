@@ -2838,7 +2838,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["itemRaiseToTop"]->setEnabled(false);
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
-			scrActions["itemSendToScrapbook"]->setEnabled(false);
+			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
