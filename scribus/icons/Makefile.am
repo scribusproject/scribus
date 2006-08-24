@@ -53,7 +53,7 @@ EXTRA_DIST = curvelinear.png curvebezier.png curve.png invert.png page16.png pag
 16/draw-square-inverted-corners.png \
 16/draw-star.png \
 22/draw-star.png \
-17/draw-triangle1.png \
+16/draw-triangle1.png \
 22/draw-triangle1.png \
 22/draw-triangle2.png \
 22/draw-triangle2.png \
