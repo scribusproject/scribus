@@ -3234,6 +3234,28 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				Myp=static_cast<int>(tmp);
 			}
 			QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>((SeRx-Mxp)*sc), static_cast<int>((SeRy-Myp)*sc));
+			if (!Doc->masterPageMode())
+			{
+				uint docPagesCount=Doc->Pages->count();
+				uint docCurrPageNo=Doc->currentPageNumber();
+				for (uint i = 0; i < docPagesCount; ++i)
+				{
+					int x = static_cast<int>(Doc->Pages->at(i)->xOffset() * Scale);
+					int y = static_cast<int>(Doc->Pages->at(i)->yOffset() * Scale);
+					int w = static_cast<int>(Doc->Pages->at(i)->width() * Scale);
+					int h = static_cast<int>(Doc->Pages->at(i)->height() * Scale);
+					if (QRect(x, y, w, h).intersects(Sele))
+					{
+						if (docCurrPageNo != i)
+						{
+							Doc->setCurrentPage(Doc->Pages->at(i));
+							setMenTxt(i);
+						}
+						break;
+					}
+				}
+				setRulerPos(contentsX(), contentsY());
+			}
 			uint docItemCount=Doc->Items->count();
 			if (docItemCount != 0)
 			{
