@@ -63,6 +63,9 @@ public:
 	/*! \brief Right Margin
 	\retval double margin size */
 	double right();
+	/*! \brief Master Page
+	\retval QString Master Page Name */
+	QString masterPage();
 
 public slots:
 	//! \brief as setOrien for orientationQComboBox current item
@@ -85,6 +88,9 @@ public slots:
 private:
 	MarginWidget* GroupRand;
 	QGroupBox* dsGroupBox7;
+	QGroupBox* groupMaster;
+	QLabel* masterPageLabel;
+	QComboBox* masterPageComboBox;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
 	QLabel* widthQLabel;
@@ -107,6 +113,7 @@ private:
 	QGridLayout* dsGroupBox7Layout;
 	QVBoxLayout* dialogLayout;
 	QHBoxLayout* okCancelLayout;
+	QHBoxLayout* masterLayout;
 
 
 };

@@ -113,6 +113,35 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	GroupRand->setFacingPages(!(doc->currentPageLayout == singlePage));
 	dialogLayout->addWidget( GroupRand );
 
+	groupMaster = new QGroupBox( this, "groupMaster" );
+	groupMaster->setTitle( tr( "Other Settings" ) );
+	groupMaster->setColumnLayout(0, Qt::Vertical );
+	groupMaster->layout()->setSpacing( 0 );
+	groupMaster->layout()->setMargin( 0 );
+	masterLayout = new QHBoxLayout( groupMaster->layout() );
+	masterLayout->setAlignment( Qt::AlignTop );
+	masterLayout->setSpacing( 5 );
+	masterLayout->setMargin( 10 );
+	masterPageLabel = new QLabel( groupMaster, "masterPageLabel" );
+	masterPageLabel->setText( tr( "Master Page:" ) );
+	masterLayout->addWidget( masterPageLabel );
+	masterPageComboBox = new QComboBox( false, groupMaster, "masterPageComboBox" );
+	QString Nam = doc->currentPage()->MPageNam;
+	QString na = Nam == "Normal" ? tr("Normal") : Nam, in;
+	int cc = 0;
+	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
+	{
+		in = it.key() == "Normal" ? tr("Normal") : it.key();
+		masterPageComboBox->insertItem(in);
+		if (in == na)
+			masterPageComboBox->setCurrentItem(cc);
+		++cc;
+	}
+	masterLayout->addWidget( masterPageComboBox );
+	dialogLayout->addWidget( groupMaster );
+	if (doc->masterPageMode())
+		groupMaster->hide();
+
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 6 );
 	okCancelLayout->setMargin( 0 );
@@ -285,4 +314,9 @@ double MarginDialog::left()
 double MarginDialog::right()
 {
 	return GroupRand->right();
+}
+
+QString MarginDialog::masterPage()
+{
+	return masterPageComboBox->currentText();
 }

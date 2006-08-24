@@ -6112,6 +6112,7 @@ void ScribusMainWindow::changePageMargins()
 {
 	int lp=0;
 	NoFrameEdit();
+	QString Nam = doc->currentPage()->MPageNam;
 	MarginDialog *dia = new MarginDialog(this, doc);
 	if (dia->exec())
 	{
@@ -6133,6 +6134,8 @@ void ScribusMainWindow::changePageMargins()
 								   dia->left(), dia->right(),
 								   ph, pw, ph, pw, orientation,
 								   sizeName, doc->currentPage()->pageNr());
+		if (dia->masterPage() != Nam)
+			Apply_MasterPage(dia->masterPage(), doc->currentPage()->pageNr());
 		view->reformPages(dia->getMoveObjects());
 		view->DrawNew();
 	}
