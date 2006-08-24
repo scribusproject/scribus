@@ -189,7 +189,7 @@ void Preferences::setupGui()
 
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData);
+	tabView->restoreDefaults(prefsData, &prefsData->guidesSettings);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);

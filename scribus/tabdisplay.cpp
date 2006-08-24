@@ -41,7 +41,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
 }
 
-void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData)
+void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
@@ -55,12 +55,12 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData)
 	backColor->setPixmap(pm5);
 	backColor->setText( QString::null );
 	checkUnprintable->setChecked( prefsData->marginColored );
-	checkPictures->setChecked(prefsData->guidesSettings.showPic);
-	checkLink->setChecked(prefsData->guidesSettings.linkShown);
-	checkControl->setChecked(prefsData->guidesSettings.showControls);
-	checkFrame->setChecked(prefsData->guidesSettings.framesShown);
-	checkLayerM->setChecked(prefsData->guidesSettings.layerMarkersShown);
-	checkRuler->setChecked(prefsData->guidesSettings.rulerMode);
+	checkPictures->setChecked(guidesSettings->showPic);
+	checkLink->setChecked(guidesSettings->linkShown);
+	checkControl->setChecked(guidesSettings->showControls);
+	checkFrame->setChecked(guidesSettings->framesShown);
+	checkLayerM->setChecked(guidesSettings->layerMarkersShown);
+	checkRuler->setChecked(guidesSettings->rulerMode);
 	topScratch->setDecimals( decimals );
 	topScratch->setMaxValue(1000);
 	topScratch->setValue(prefsData->ScratchTop * unitRatio);

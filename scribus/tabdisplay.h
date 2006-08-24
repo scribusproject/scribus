@@ -21,7 +21,7 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 	public:
 		TabDisplay(QWidget* parent = 0, const char* name = 0);
 		~TabDisplay(){};
-		void restoreDefaults(struct ApplicationPrefs *prefsData);
+		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings);
 		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void hideReform();

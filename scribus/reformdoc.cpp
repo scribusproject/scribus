@@ -148,7 +148,7 @@ void ReformDoc::restoreDefaults()
 	//}
 	//else if (current == tabView)
 	//{
-	tabView->restoreDefaults(prefsData);
+	tabView->restoreDefaults(prefsData, &currDoc->guidesSettings);
 	//}
 	//else if (current == tabHyphenator)
 	//{
