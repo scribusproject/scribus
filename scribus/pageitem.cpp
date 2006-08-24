@@ -280,10 +280,10 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	CurX = 0;
 	CurY = 0;
 	CPos = 0;
-	Extra = 1;
-	TExtra = 1;
-	BExtra = 1;
-	RExtra = 1;
+	Extra = 0;
+	TExtra = 0;
+	BExtra = 0;
+	RExtra = 0;
 	ExtraV = 0;
 	itemText.clear();
 #ifndef NLS_PROTO
