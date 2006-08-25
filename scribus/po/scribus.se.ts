@@ -2169,7 +2169,7 @@ Avsaknad av stöd är markerat med *</translation>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Akt&amp;ivitetsläge för enhet</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -2445,7 +2445,7 @@ Avsaknad av stöd är markerat med *</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tecken...</translation>
     </message>
     <message>
         <source>Sample Text</source>
@@ -5025,7 +5025,7 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
-        <translation type="unfinished"></translation>
+        <translation>Små storlekar</translation>
     </message>
     <message>
         <source>Ligatures</source>
@@ -5096,7 +5096,7 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     </message>
     <message>
         <source>Glyphs missing</source>
-        <translation type="unfinished"></translation>
+        <translation>Saknade tecken</translation>
     </message>
     <message>
         <source>Text overflow</source>
@@ -5140,7 +5140,7 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Förhandskontroll</translation>
     </message>
     <message>
         <source>Object is a PDF Annotation or Field</source>
@@ -5347,7 +5347,7 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Triadisk</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
@@ -5391,23 +5391,23 @@ Det är ett reserverat namn för genomskinlig färg</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Första triaden</translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Andra triaden</translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>Första tetraeden (motsatt bas)</translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"></translation>
+        <translation>Andra tetraeden (vinkel)</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tredje tetraeden (motsatt vinkel)</translation>
     </message>
 </context>
 <context>
@@ -6379,117 +6379,117 @@ alternativt med en förkortning och en ISO-3166 landskod tillagt i slutet, t ex 
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Person eller organisation primärt ansvarig för skapandet av innehållet. Detta fält kan antingen bäddas in i Scribus-dokumentet som referens eller som metadata i en PDF</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentets namn. Fältet kan antingen bäddas in i Scribus-dokumentet eller som metadata i en PDF</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="unfinished"></translation>
+        <translation>En sammanfattning av dokumentinnehållet.Fältet är en kort beskrivning eller sammanfattning av dokumentet och bäddas in i PDF vid export</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>Ämnet för dokumentinnehållet. Detta fält innehåller nyckelord för dokumentinnehållet som du vill bädda in i PDF för att förenkla sökning och indexering av PDF-filer</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="unfinished"></translation>
+        <translation>Den fysiska eller digitala beskrivningen av dokumentet. Mediatyp och dimensioner bör anges. RFC2045, RFC2046 för MIME-typer är också bra att ange</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="unfinished"></translation>
+        <translation>Det språk i vilket dokumentet är skrivet, vanligtvis en ISO-639 kod med (möjligen) ett tillägg iform av bindestreck följt av en landskod (ISO-3166), t. ex. en-GB, sv-SE</translation>
     </message>
 </context>
 <context>
     <name>DocSections</name>
     <message>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till en sidnumrerat avsnitt till dokumentet. Det nya avsnittet kommer att läggas till efter det markerade avsnittet.</translation>
     </message>
     <message>
         <source>Delete the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort det markerade avsnittet.</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>1, 2, 3, ...</translation>
     </message>
     <message>
         <source>i, ii, iii, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>i, ii, iii, ...</translation>
     </message>
     <message>
         <source>I, II, III, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>I, II, III, ...</translation>
     </message>
     <message>
         <source>a, b, c, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>a, b, c, ...</translation>
     </message>
     <message>
         <source>A, B, C, ...</source>
-        <translation type="unfinished"></translation>
+        <translation>A, B, C, ...</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Namn:&lt;/b&gt;Valfritt namn för avsnitt, t. ex. Index&lt;br /&gt;&lt;b&gt;Visat:&lt;/b&gt;Välj för att visa sidnummer i etta avsnitt om det finns en eller flera textramar för detta ändamål.&lt;br /&gt;&lt;b&gt;Från:&lt;/b&gt;Det sidindex som detta avsnitt börjar på.&lt;br /&gt;&lt;b&gt;Till:&lt;/b&gt;Det sidindex som detta avsnitt ska sluta på.&lt;br /&gt;&lt;b&gt;Stil:&lt;/b&gt;Välj den stil som ska användas.&lt;br /&gt;&lt;b&gt;Start:&lt;/b&gt;Anger vilken position i stilen som skall inleda, t. ex. om Start=2 och Stil=a, b, c, ... så inleds indexeringen på b. I det första avsnittet i dokumentet kommer detta att ersätta sidnumret på förstasidan i den nya filen.</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidnumret utanför gränserna</translation>
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Det värde du har angett är utanför gränserna för det aktuella dokumentet (%1-%2).</translation>
     </message>
 </context>
 <context>
     <name>DocSectionsBase</name>
     <message>
         <source>Document Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentavsnitt</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Namn</translation>
+        <translation>Namn</translation>
     </message>
     <message>
         <source>From</source>
-        <translation type="unfinished"></translation>
+        <translation>Från</translation>
     </message>
     <message>
         <source>To</source>
-        <translation type="unfinished"></translation>
+        <translation>Till</translation>
     </message>
     <message>
         <source>Style</source>
-        <translation type="unfinished">Stil</translation>
+        <translation>Stil</translation>
     </message>
     <message>
         <source>Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Start</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Lägg till</translation>
+        <translation>&amp;Lägg till</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Ta bort</translation>
+        <translation>&amp;Ta bort</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Visad</translation>
     </message>
 </context>
 <context>
@@ -6500,35 +6500,35 @@ alternativt med en förkortning och en ISO-3166 landskod tillagt i slutet, t ex 
     </message>
     <message>
         <source>Relates To</source>
-        <translation type="unfinished"></translation>
+        <translation>Hänger samman med</translation>
     </message>
     <message>
         <source>Is Parent Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Är förälder till</translation>
     </message>
     <message>
         <source>Is Child Of</source>
-        <translation type="unfinished"></translation>
+        <translation>Är barn till</translation>
     </message>
     <message>
         <source>Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Textramar</translation>
     </message>
     <message>
         <source>Image Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildramar</translation>
     </message>
     <message>
         <source>Boolean</source>
-        <translation type="unfinished"></translation>
+        <translation>Logisk (Boolesk)</translation>
     </message>
     <message>
         <source>Integer</source>
-        <translation type="unfinished"></translation>
+        <translation>Heltal</translation>
     </message>
     <message>
         <source>String</source>
-        <translation type="unfinished"></translation>
+        <translation>Sträng</translation>
     </message>
     <message>
         <source>Name</source>
@@ -6561,88 +6561,88 @@ alternativt med en förkortning och en ISO-3166 landskod tillagt i slutet, t ex 
     <message>
         <source>None</source>
         <comment>relationship</comment>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <source>None</source>
         <comment>auto add</comment>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <source>None</source>
         <comment>types</comment>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <source>Real Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Reella tal</translation>
     </message>
 </context>
 <context>
     <name>DocumentItemAttributesBase</name>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Attribut för dokumentenhet</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation type="unfinished">Namn</translation>
+        <translation>Namn</translation>
     </message>
     <message>
         <source>Type</source>
-        <translation type="unfinished">Typ</translation>
+        <translation>Typ</translation>
     </message>
     <message>
         <source>Value</source>
-        <translation type="unfinished">Värde</translation>
+        <translation>Värde</translation>
     </message>
     <message>
         <source>Parameter</source>
-        <translation type="unfinished"></translation>
+        <translation>Parameter</translation>
     </message>
     <message>
         <source>Relationship</source>
-        <translation type="unfinished"></translation>
+        <translation>Samband</translation>
     </message>
     <message>
         <source>Relationship To</source>
-        <translation type="unfinished"></translation>
+        <translation>Samband med</translation>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till automatiskt till</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Lägg till</translation>
+        <translation>&amp;Lägg till</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kopiera</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Ta bort</translation>
+        <translation>&amp;Ta bort</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
-        <translation type="unfinished">Ra&amp;dera</translation>
+        <translation>Ra&amp;dera</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
 </context>
 <context>
@@ -6775,104 +6775,105 @@ av sidor eller en enskild sida.</translation>
     </message>
     <message>
         <source>Print Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut normalt</translation>
     </message>
     <message>
         <source>Print Separations</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut separationer</translation>
     </message>
     <message>
         <source>Print in Color if Available</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut i färg om tillgängligt</translation>
     </message>
     <message>
         <source>Print in Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut i gråskala</translation>
     </message>
     <message>
         <source>PostScript Level 1</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Nivå 1</translation>
     </message>
     <message>
         <source>PostScript Level 2</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Nivå 2</translation>
     </message>
     <message>
         <source>PostScript Level 3</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Nivå 3</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Sida</translation>
+        <translation>Sida</translation>
     </message>
     <message>
         <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation>Spegelvänd sida(or) horisontellt</translation>
     </message>
     <message>
         <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>Spegelvänd sida(or) vertikalt</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Ange storlek på media</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Färg</translation>
+        <translation>Färg</translation>
     </message>
     <message>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd underfärgsborttagning</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Omvandla tonplattor till processfärger</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd ICC-profiler</translation>
     </message>
     <message>
         <source>Advanced Options</source>
-        <translation type="unfinished">Avancerat</translation>
+        <translation>Avancerade alternativ</translation>
     </message>
     <message>
         <source>Preview...</source>
-        <translation type="unfinished"></translation>
+        <translation>Förhandsgranska...</translation>
     </message>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Sätter PostScript-nivå.
+Att sätta till Nivå 1 eller 2 kan skapa mycket stora filer</translation>
     </message>
     <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript-filer (*.ps);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd en annan utskriftshanterare, t. ex. kprinter eller gtklp, för att erhålla ytterligare utskriftsalternativ</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ett sätt att stänga av några av de gråtoner som består av cyan, gult och magenta för att istället använda svart. Underfärgsborttagning påverkar huvudsakligen delar av bilder som är neutrala och/eller mörka toner som är nära grått. Användning av detta kan förbättra utskriften av vissa bilder och kräver experimenterande med testutskrifter från fall till fall. Underfärgsborttagning minskar risken för övermättnad av CMG-färger.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåter att tonplattor konverteras till sammansatta färger. Om du inte tänker skriva ut färger som tonplattor på ett tryckeri bör du helst lämna denna aktiverad.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished"></translation>
+        <translation>Gör det möjligt att bädda in ICC-profiler i utskriftsströmmen när färghantering är aktiverad</translation>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Möjliggör för dig att uttryckligen ange mediastorlek för PostScript-filen. Bör ej användas om det inte uttryckligen krävs av tryckeriet.</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Beskär till sidmarginalerna</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -6880,19 +6881,19 @@ av sidor eller en enskild sida.</translation>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Misslyckades att hitta skrivarinställningarna</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa inte objekt utanför marginalerna för den tryckbara sidan</translation>
     </message>
     <message>
         <source>Force Overprint Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Påtvingad övertryckning</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåter övertryckning av hela dokumentet oavsett inställningar för objekt</translation>
     </message>
 </context>
 <context>
@@ -7138,31 +7139,31 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Växla mellan exempeltexter med styckets stilmall</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
-        <translation type="unfinished"></translation>
+        <translation>Stilmallens namn är inte unikt</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Bakgrund</translation>
+        <translation>Bakgrund</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj denna för ökad läsbarhet vid ljust färgade tecken</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Manuell spärrning</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Avvikelse från tecknens baslinje</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Klicka för val av radavstånd</translation>
     </message>
 </context>
 <context>
@@ -7240,35 +7241,35 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     <name>EffectsDialog</name>
     <message>
         <source>Image Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildeffekter</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativ:</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Färg:</translation>
+        <translation>Färg:</translation>
     </message>
     <message>
         <source>Shade:</source>
-        <translation type="unfinished">Nyans:</translation>
+        <translation>Nyans:</translation>
     </message>
     <message>
         <source>Brightness:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljushet:</translation>
     </message>
     <message>
         <source>Contrast:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrast:</translation>
     </message>
     <message>
         <source>Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Radie:</translation>
     </message>
     <message>
         <source>Value:</source>
-        <translation type="unfinished"></translation>
+        <translation>Värde:</translation>
     </message>
     <message>
         <source>Posterize:</source>
@@ -7276,31 +7277,31 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     </message>
     <message>
         <source>Available Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillgängiga effekter</translation>
     </message>
     <message>
         <source>Blur</source>
-        <translation type="unfinished"></translation>
+        <translation>Smeta ut</translation>
     </message>
     <message>
         <source>Brightness</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljushet</translation>
     </message>
     <message>
         <source>Colorize</source>
-        <translation type="unfinished"></translation>
+        <translation>Färga</translation>
     </message>
     <message>
         <source>Contrast</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrast</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gråskala</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation type="unfinished">Invertera</translation>
+        <translation>Invertera</translation>
     </message>
     <message>
         <source>Posterize</source>
@@ -7308,27 +7309,27 @@ Används för att styra läsaren till rätt stycke efter en ingress.</translatio
     </message>
     <message>
         <source>Sharpen</source>
-        <translation type="unfinished"></translation>
+        <translation>Öka skärpan</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&gt;&gt;</translation>
     </message>
     <message>
         <source>&lt;&lt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt;</translation>
     </message>
     <message>
         <source>Effects in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Effekter som används</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
 </context>
 <context>
@@ -7462,7 +7463,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     <name>ExtImageProps</name>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Utökade bildegenskaper</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -7470,15 +7471,15 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished"></translation>
+        <translation>Mörkare</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljusare</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished"></translation>
+        <translation>Färgton</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -7490,39 +7491,39 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished"></translation>
+        <translation>Luminans</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished"></translation>
+        <translation>Flerfaldiga</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Raster</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation>Dissolve</translation>
+        <translation>Upplösa</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Överlägg</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Hårt ljus</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Mjukt ljus</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished"></translation>
+        <translation>Skillnad</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Uteslutning</translation>
     </message>
     <message>
         <source>Color Dodge</source>
@@ -7534,11 +7535,11 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Exlusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Uteslutning</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Blandningsläge:</translation>
     </message>
     <message>
         <source>Opacity:</source>
@@ -7562,7 +7563,7 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Don&apos;t use any Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd ingen kurvlinje</translation>
     </message>
     <message>
         <source>Paths</source>
@@ -7597,11 +7598,11 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Upplösning:</translation>
     </message>
     <message>
         <source>DPI</source>
-        <translation type="unfinished"></translation>
+        <translation>DPI</translation>
     </message>
     <message>
         <source>CMYK</source>
@@ -7613,11 +7614,11 @@ Namnet på den exporterade filen blir &apos;dokumentnamn-sidnummer.filtyp&apos;<
     </message>
     <message>
         <source>Colorspace:</source>
-        <translation type="unfinished"></translation>
+        <translation>Färgrymd:</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gråskala</translation>
     </message>
 </context>
 <context>
@@ -8021,7 +8022,7 @@ Exempel: t* eller T* listar alla teckensnitt som börjar på t eller T. *bold* l
     </message>
     <message>
         <source>&amp;Quick Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Snabbsö&amp;kning:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
@@ -8029,7 +8030,7 @@ Exempel: t* eller T* listar alla teckensnitt som börjar på t eller T. *bold* l
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>Font Name</source>
@@ -8037,7 +8038,7 @@ Exempel: t* eller T* listar alla teckensnitt som börjar på t eller T. *bold* l
     </message>
     <message>
         <source>Doc</source>
-        <translation type="unfinished"></translation>
+        <translation>Doc</translation>
     </message>
     <message>
         <source>Type</source>
@@ -8049,11 +8050,11 @@ Exempel: t* eller T* listar alla teckensnitt som börjar på t eller T. *bold* l
     </message>
     <message>
         <source>Access</source>
-        <translation type="unfinished"></translation>
+        <translation>Åtkomst</translation>
     </message>
     <message>
         <source>&amp;Font Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckengra&amp;d:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -8061,19 +8062,19 @@ Exempel: t* eller T* listar alla teckensnitt som börjar på t eller T. *bold* l
     </message>
     <message>
         <source>Sample text to display</source>
-        <translation type="unfinished"></translation>
+        <translation>Exempeltext att visa</translation>
     </message>
     <message>
         <source>Se&amp;t</source>
-        <translation type="unfinished"></translation>
+        <translation>S&amp;täll in</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Reset the text</source>
-        <translation type="unfinished"></translation>
+        <translation>Återställ text</translation>
     </message>
     <message>
         <source>&amp;Append</source>
@@ -8081,7 +8082,7 @@ Exempel: t* eller T* listar alla teckensnitt som börjar på t eller T. *bold* l
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -8950,7 +8951,7 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation>Tangentbordsgenvägar är tillgänglikga för inläsning</translation>
+        <translation>Tangentbordsgenvägar är tillgängliga för inläsning</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
@@ -9033,11 +9034,11 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     </message>
     <message>
         <source>Raise layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Lyft upp lager</translation>
     </message>
     <message>
         <source>Lower layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Sänk ner lager</translation>
     </message>
     <message>
         <source>Opacity:</source>
@@ -9049,7 +9050,7 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Blandningsläge:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -9057,39 +9058,39 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished"></translation>
+        <translation>Mörkare</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished"></translation>
+        <translation>Ljusare</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished"></translation>
+        <translation>Flerfaldiga</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished"></translation>
+        <translation>Raster</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Överlägg</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Hårt ljus</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Mjukt ljus</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished"></translation>
+        <translation>Skillnad</translation>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Uteslutning</translation>
     </message>
     <message>
         <source>Color Dodge</source>
@@ -10663,11 +10664,11 @@ Vänligen välj ett annat.</translation>
     <name>MultiProgressDialogBase</name>
     <message>
         <source>Progress</source>
-        <translation type="unfinished"></translation>
+        <translation>Förlopp</translation>
     </message>
     <message>
         <source>Overall Progress:</source>
-        <translation type="unfinished"></translation>
+        <translation>Förloppet i sin helhet:</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -12800,7 +12801,7 @@ vektorgrafik vid förhandsvisning på bekostnad av långsammare visning</transla
     <name>PageLayouts</name>
     <message>
         <source>Page Layout</source>
-        <translation>Sidlayput</translation>
+        <translation>Sidlayout</translation>
     </message>
     <message>
         <source>First Page is:</source>
@@ -14293,7 +14294,7 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Kladdyta</translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -14405,59 +14406,59 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definierar tillgängligt utrymme på dokumentytan tillgängligt för att skapa och modifiera objekt för att sedan kunna dra in dem på den aktiva sidan</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definierar tillgängligt utrymme till höger på dokumentytan tillgängligt för att skapa och modifiera objekt för att sedan kunna dra in dem på den aktiva sidan</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definierar tillgängligt utrymme upptill på dokumentytan tillgängligt för att skapa och modifiera objekt för att sedan kunna dra in dem på den aktiva sidan</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Definierar tillgängligt utrymme underst på dokumentytan tillgängligt för att skapa och modifiera objekt för att sedan kunna dra in dem på den aktiva sidan</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>(Av)aktiverar  visning av länkade textramar.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj det språk du vill att Scribus ska använda. Lämna detta blankt om du vill använda miljövariablerna. Du kan gå förbi dessa genom att ange en modifierare vid start av Scribus från kommandoraden</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckengra&amp;d (Menyer):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckengrad (&amp;Paletter):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished"></translation>
+        <translation>Välj grundläggande utseende på fönster. Scribus ärver från tillgängliga KDE eller Qt-teman, om Qt är konfigurerat för att använda KDE-insticksprogram.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Standard teckengrad för verktygsfönster</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished"></translation>
+        <translation>Standardbibliotek för ICC-profiler. Kan inte ändras med ett dokument öppet. Som standard söker Scribus i systembiblioteken under Mac OSX och Windows. På Linux och Unix söker Scribus i $home/.color/icc, /usr/share/color/icc och /usr/local/share/color/icc </translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Om aktiverad sparar Scribus en kopia av filen med ändelsen .bak varje gång en viss tidsperiod har gått</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ange längden på historiken stegvis. Om den anges till 0 kommer ett obegränsat antal steg i historiken att sparas.</translation>
     </message>
     <message>
         <source>Show S&amp;plashscreen On Startup:</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa en s&amp;plash vid uppstart:</translation>
     </message>
 </context>
 <context>
@@ -14499,61 +14500,62 @@ UCR förhindrar risken för övermättnad med CMG färger.</translation>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation type="unfinished"></translation>
+        <translation>Föra över inställningar från tidigare Scribus?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus har upptäckt en existerande inställningsfil för Scribus 1.2.
+Vill du föra över dem till den nya versionen av Scribus?</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript</translation>
     </message>
     <message>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte öppna inställningsfilen &quot;%1&quot; för skrivning: %2</translation>
     </message>
     <message>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrivning till inställningsfilen &quot;%1&quot; misslyckades: QIODevice statuskod %2</translation>
     </message>
     <message>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Misslyckades att öppna inställningsfilen &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Misslyckades att läsa XML inställningar från &quot;%1&quot;: %2 på rad %3, kolumn %4</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.3</translation>
     </message>
     <message>
         <source>PDF 1.4</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF 1.4</translation>
     </message>
     <message>
         <source>PDF/X-3</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X-3</translation>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Fel vid skrivande till Inställningar</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Scribus kunde inte spara sina inställningar:&lt;br /&gt;%1&lt;br /&gt;kontrollera rättigheterna till filen och katalogen samt tillgängligt diskutrymme.</translation>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Fel vid inläsning av Inställningar</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrius kunde inte läsa in Inställningar:&lt;br /&gt;%1&lt;br /&gt;Standardinställningar kommer att läsas in.</translation>
     </message>
 </context>
 <context>
@@ -14584,7 +14586,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kan välja en fördefinierad sidlayout här. &apos;Inget&apos; behåller marginalerna som de är, Gutenberg anger klassiska mått och &apos;Magazine&apos; sätter alla marginaler lika. Indrag är värdet för vänster insida.</translation>
     </message>
     <message>
         <source>None</source>
@@ -15009,7 +15011,7 @@ Kontrollera sökväg och filnamn.</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation>�ersty&amp;kning</translation>
+        <translation>Översty&amp;kning</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
@@ -15060,7 +15062,7 @@ Kontrollera sökväg och filnamn.</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation>�&amp;gra</translation>
+        <translation>Ån&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
@@ -15291,7 +15293,7 @@ Kontrollera sökväg och filnamn.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�pna</translation>
+        <translation>Öppna</translation>
     </message>
     <message>
         <source>Save as &amp;Template...</source>
@@ -15733,7 +15735,7 @@ Externa länkar
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Enhetet utanför gränserna. Använd en av scribus.UNIT_* konstanter.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
@@ -15748,87 +15750,87 @@ Externa länkar
     <message>
         <source>Cannot get a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte hämta en färg utan ett namn.</translation>
     </message>
     <message>
         <source>Cannot change a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte ändra en färg utan namn.</translation>
     </message>
     <message>
         <source>Cannot create a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte skapa en färg utan namn.</translation>
     </message>
     <message>
         <source>Cannot delete a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte ta bort en färg utan namn.</translation>
     </message>
     <message>
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte ersätta en färg utan namn.</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org ordbehandlingsdokument</translation>
     </message>
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Färgen hittades inte - python-fel</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Anpassad (valfri) konfiguration: </translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Standardkonfiguration: </translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korta ord behandlas: Vänligen vänta...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korta ord behandlas. Klart.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
-        <translation type="unfinished">Afrikaan</translation>
+        <translation>Afrikaan</translation>
     </message>
     <message>
         <source>Turkish</source>
-        <translation type="unfinished"></translation>
+        <translation>Turkiska</translation>
     </message>
     <message>
         <source>Ukranian</source>
-        <translation type="unfinished"></translation>
+        <translation>Ukrainska</translation>
     </message>
     <message>
         <source>Welsh</source>
-        <translation type="unfinished"></translation>
+        <translation>Walesiska</translation>
     </message>
     <message>
         <source>The filename must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Filnamnet måste vara en sträng.</translation>
     </message>
     <message>
         <source>Cannot delete image type settings.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte ta bort inställningar för bildtyp.</translation>
     </message>
     <message>
         <source>The image type must be a string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bildtypen måste vara en sträng.</translation>
     </message>
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
@@ -16346,7 +16348,7 @@ Externa länkar
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckensnitt %1 har ett skadat tecken %2 (teckenkod %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
@@ -16855,7 +16857,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Normalize</source>
-        <translation>�erställ</translation>
+        <translation>Återställ</translation>
     </message>
     <message>
         <source>Minimize</source>
@@ -16874,7 +16876,7 @@ is not exhaustive due to exceptions from called functions.
     <name>QWorkspace</name>
     <message>
         <source>&amp;Restore</source>
-        <translation>�e&amp;rställ</translation>
+        <translation>Åte&amp;rställ</translation>
     </message>
     <message>
         <source>&amp;Move</source>
@@ -16906,7 +16908,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Restore Down</source>
-        <translation>�erställ nedåt</translation>
+        <translation>Återställ nedåt</translation>
     </message>
     <message>
         <source>Close</source>
@@ -16964,7 +16966,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>�ers&amp;t:</translation>
+        <translation>Övers&amp;t:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
@@ -17208,7 +17210,7 @@ Om Uppslag är valt kan denna marginal justeras för att uppnå korrekt marginal
     </message>
     <message>
         <source>Minimum Scratch Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimal kladdyta</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
@@ -19518,122 +19520,122 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vill du verkligen ersätta befintlig bild?</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Innehåll</translation>
+        <translation>Innehåll</translation>
     </message>
     <message>
         <source>&amp;Character</source>
-        <translation type="unfinished"></translation>
+        <translation>Te&amp;cken</translation>
     </message>
     <message>
         <source>&amp;Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Ci&amp;tat</translation>
     </message>
     <message>
         <source>S&amp;paces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Me&amp;llanslag &amp;&amp; brytningar</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>Liga&amp;turer</translation>
     </message>
 </context>
 <context>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished"></translation>
+        <translation>Ogiltigt argument: </translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Filen %1 finns inte - Avbryter.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished"></translation>
+        <translation>Användning: scribus [alternativ...] [fil]</translation>
     </message>
     <message>
         <source>Options:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alternativ:</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut hjälpen (detta meddelande) och avsluta</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Använder xx som genväg för språk, t. ex. &apos;en&apos; eller &apos;sv&apos;</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished"></translation>
+        <translation>Listar alla tillgängliga gränssnittspråk</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Visar information i konsolen när tecken laddas</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa inte splash vid uppstart</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv ut versionsinformation och avsluta</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd höger-vänster ordning på dialogknapparna (t. ex. Avbryt/Nej/Ja istället för Ja/Nej/Avbryt)</translation>
     </message>
     <message>
         <source>filename</source>
-        <translation type="unfinished"></translation>
+        <translation>filnamn</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd filnamn som sökväg för användarangivna inställningar</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Installerade gränssnittspråk för Scribus är följande:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv över standardval för språk:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation type="unfinished"></translation>
+        <translation>scribus -l xx eller scribus -lang xx, där xx är beteckningen för valt språk.</translation>
     </message>
     <message>
         <source>Scribus Version</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus version</translation>
     </message>
     <message>
         <source>Scribus, Open Source Desktop Publishing</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus, Desktop Publishing med öppen källkod</translation>
     </message>
     <message>
         <source>Homepage</source>
-        <translation type="unfinished">Hemsida</translation>
+        <translation>Hemsida</translation>
     </message>
     <message>
         <source>Documentation</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentation</translation>
     </message>
     <message>
         <source>Wiki</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiki</translation>
     </message>
     <message>
         <source>Issues</source>
-        <translation type="unfinished"></translation>
+        <translation>Uppgifter</translation>
     </message>
     <message>
         <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stoppa visning av splashen vid uppstart. Skriver en tom fil kallad .neversplash i ~/.scribus.</translation>
     </message>
 </context>
 <context>
@@ -19668,75 +19670,75 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Copy Here</source>
-        <translation type="unfinished">Kopiera hit</translation>
+        <translation>Kopiera hit</translation>
     </message>
     <message>
         <source>Move Here</source>
-        <translation type="unfinished">Flytta hit</translation>
+        <translation>Flytta hit</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
     <message>
         <source>&amp;Paste</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;listra in</translation>
     </message>
     <message>
         <source>Picture</source>
-        <translation type="unfinished">Bild</translation>
+        <translation>Bild</translation>
     </message>
     <message>
         <source>File: </source>
-        <translation type="unfinished">Fil:</translation>
+        <translation>Fil: </translation>
     </message>
     <message>
         <source>Original PPI: </source>
-        <translation type="unfinished">Ursprunglig PPI:</translation>
+        <translation>Ursprunglig PPI: </translation>
     </message>
     <message>
         <source>Actual PPI: </source>
-        <translation type="unfinished">Verklig PPI:</translation>
+        <translation>Verklig PPI: </translation>
     </message>
     <message>
         <source>Linked Text</source>
-        <translation type="unfinished">Länkad text</translation>
+        <translation>Länkad text</translation>
     </message>
     <message>
         <source>Text Frame</source>
-        <translation type="unfinished">Textram</translation>
+        <translation>Textram</translation>
     </message>
     <message>
         <source>Text on a Path</source>
-        <translation type="unfinished">Text på kurvlinje</translation>
+        <translation>Text på kurvlinje</translation>
     </message>
     <message>
         <source>Paragraphs: </source>
-        <translation type="unfinished">Stycken:</translation>
+        <translation>Stycken: </translation>
     </message>
     <message>
         <source>Words: </source>
-        <translation type="unfinished">Ord:</translation>
+        <translation>Ord: </translation>
     </message>
     <message>
         <source>Chars: </source>
-        <translation type="unfinished">Tecken:</translation>
+        <translation>Tecken: </translation>
     </message>
     <message>
         <source>Print: </source>
-        <translation type="unfinished">Skriv ut:</translation>
+        <translation>Skriv ut: </translation>
     </message>
     <message>
         <source>Enabled</source>
-        <translation type="unfinished">Aktiverad</translation>
+        <translation>Aktiverad</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Inaktiverad</translation>
+        <translation>Inaktiverad</translation>
     </message>
     <message>
         <source>In&amp;fo</source>
-        <translation type="unfinished">In&amp;fo</translation>
+        <translation>In&amp;fo</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
@@ -19776,7 +19778,7 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>&amp;PDF Options</source>
-        <translation type="unfinished">&amp;PDF-alternativ</translation>
+        <translation>&amp;PDF-alternativ</translation>
     </message>
     <message>
         <source>Edit Text...</source>
@@ -19804,7 +19806,7 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
-        <translation type="unfinished">Skicka till la&amp;ger</translation>
+        <translation>Skicka till la&amp;ger</translation>
     </message>
     <message>
         <source>&amp;Insert Sample Text</source>
@@ -19820,7 +19822,7 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Le&amp;vel</source>
-        <translation type="unfinished">Ni&amp;vå</translation>
+        <translation>Ni&amp;vå</translation>
     </message>
     <message>
         <source>Send to &amp;Back</source>
@@ -19856,11 +19858,11 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
-        <translation type="unfinished">Konve&amp;rtera till</translation>
+        <translation>Konve&amp;rtera till</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Ta bort</translation>
+        <translation>&amp;Ta bort</translation>
     </message>
     <message>
         <source>C&amp;lear Contents</source>
@@ -19880,51 +19882,51 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Inställningar för förhandsvisning</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Länkning av textramar</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du försöker länka till en fylld ram eller till samma ram.</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan inte konvertera enhet som används</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation type="unfinished"></translation>
+        <translation>Enheten %1 används av Textredigeraren. Konvertering till konturtecken av denna enhet avbryts därför</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Sida %1 till %2</translation>
     </message>
     <message>
         <source>Colorspace: </source>
-        <translation type="unfinished"></translation>
+        <translation>Färgrymd: </translation>
     </message>
     <message>
         <source>Unknown</source>
-        <translation type="unfinished">Okänd</translation>
+        <translation>Okänd</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMGS</translation>
+        <translation>CMGS</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gråskala</translation>
     </message>
     <message>
         <source>Contents</source>
-        <translation type="unfinished">Innehåll</translation>
+        <translation>Innehåll</translation>
     </message>
 </context>
 <context>
@@ -19959,18 +19961,18 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>&amp;Discard</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kasta</translation>
     </message>
 </context>
 <context>
     <name>ScriptPlugin</name>
     <message>
         <source>Embedded Python scripting support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Inbäddat stöd för Python-skript.</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript-editor</translation>
     </message>
 </context>
 <context>
@@ -20005,15 +20007,15 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Skriptfel</translation>
+        <translation>Skriptfel</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Om du kör ett officiellt skript, vänligen rapportera till &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;.</translation>
+        <translation>Om du kör ett officiellt skript, vänligen rapportera till &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;, tack.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Detta meddelande finns också på ditt klippbord. Använd Ctrl+V för att klistra in i felhanteraren.</translation>
+        <translation>Detta meddelande finns också på ditt klippbord. Använd Ctrl+V för att klistra in i felhanteraren.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
@@ -20025,31 +20027,31 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
+        <translation>Det uppstod ett internt fel när angivet kommando kördes. Detaljer om felet skrevs till stderr. </translation>
     </message>
     <message>
         <source>Examine Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Undersök skriptet</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
+        <translation>Inställning av Python-plugin misslyckades. Detaljer om felet skrevs till stderr. </translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Python skript (*.py);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Documentation for:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumentation för:</translation>
     </message>
     <message>
         <source>Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Skript</translation>
     </message>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
-        <translation type="unfinished"></translation>
+        <translation> innehåller inte någon &quot;docstring&quot;!</translation>
     </message>
 </context>
 <context>
@@ -20075,70 +20077,70 @@ Vertikal förskjutning: %3</translation>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Inställningar för Skript-editor</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåt utökande skript</translation>
     </message>
     <message>
         <source>Extensions</source>
-        <translation type="unfinished"></translation>
+        <translation>Utökning</translation>
     </message>
     <message>
         <source>Console</source>
-        <translation type="unfinished"></translation>
+        <translation>Konsol</translation>
     </message>
     <message>
         <source>Startup Script:</source>
-        <translation type="unfinished"></translation>
+        <translation>Startskript:</translation>
     </message>
     <message>
         <source>Errors:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Fel:</translation>
     </message>
     <message>
         <source>Comments:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kommentarer:</translation>
     </message>
     <message>
         <source>Keywords:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nyckelord:</translation>
     </message>
     <message>
         <source>Signs:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Skyltar:</translation>
     </message>
     <message>
         <source>Numbers:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Nummer:</translation>
     </message>
     <message>
         <source>Strings:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Strängar:</translation>
     </message>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation type="unfinished"></translation>
+        <translation>Grundtexter:</translation>
     </message>
     <message>
         <source>Select Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Markera färg</translation>
     </message>
     <message>
         <source>Change...</source>
-        <translation type="unfinished">�dra...</translation>
+        <translation>Ändra...</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitta startskript</translation>
     </message>
 </context>
 <context>
@@ -20271,7 +20273,7 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Sökning avslutad, hittade %1 matchningar</translation>
     </message>
 </context>
 <context>
@@ -20350,7 +20352,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     <name>ShadeButton</name>
     <message>
         <source>Other...</source>
-        <translation>�rigt...</translation>
+        <translation>Övrigt...</translation>
     </message>
     <message>
         <source>&amp;Shade:</source>
@@ -20365,15 +20367,15 @@ drar du en mall till Sidvisaren nedan.</translation>
     <name>ShadowValues</name>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Offset</translation>
     </message>
     <message>
         <source>Y-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Offset</translation>
     </message>
 </context>
 <context>
@@ -20381,11 +20383,11 @@ drar du en mall till Sidvisaren nedan.</translation>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kor&amp;ta ord...</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation type="unfinished"></translation>
+        <translation>Korta ord</translation>
     </message>
 </context>
 <context>
@@ -20396,7 +20398,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Edit Styles...</source>
-        <translation type="unfinished"></translation>
+        <translation>Redigera stilmall...</translation>
     </message>
 </context>
 <context>
@@ -20466,7 +20468,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�pna</translation>
+        <translation>Öppna</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
@@ -20482,7 +20484,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Importera</translation>
+        <translation>&amp;Importera</translation>
     </message>
 </context>
 <context>
@@ -20661,7 +20663,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation>�pna</translation>
+        <translation>Öppna</translation>
     </message>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
@@ -20677,73 +20679,73 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Infoga tecken...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Radera all text</translation>
     </message>
     <message>
         <source>Story Editor - %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Texthanteraren - %1</translation>
     </message>
     <message>
         <source>Do you really want to lose all your changes?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vill du verkligen förlora alla ändringar?</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation type="unfinished"></translation>
+        <translation>Vill du verkligen radera all text?</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
-        <translation type="unfinished">&amp;Infoga</translation>
+        <translation>&amp;Infoga</translation>
     </message>
     <message>
         <source>Character</source>
-        <translation type="unfinished">Tecken</translation>
+        <translation>Tecken</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Citat</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
-        <translation type="unfinished"></translation>
+        <translation>Mellanslag &amp;&amp; brytningar</translation>
     </message>
     <message>
         <source>Ligature</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligaturer</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Mellanslag</translation>
     </message>
 </context>
 <context>
     <name>StrikeValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiskt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Förskjutning</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjebredd</translation>
     </message>
 </context>
 <context>
     <name>StyleManager</name>
     <message>
         <source>More than one item selected</source>
-        <translation type="unfinished"></translation>
+        <translation>Mer än en enhet är vald</translation>
     </message>
 </context>
 <context>
@@ -20778,7 +20780,7 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>All Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Versaler</translation>
     </message>
     <message>
         <source>Outline</source>
@@ -20787,24 +20789,24 @@ drar du en mall till Sidvisaren nedan.</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Understruken text. Håll nere knappen kort för att ange alternativ för linjebredd och förskjutning.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Understrukna ord. Håll nere knappen kort för ange alternativ för linjebredd och avvikelse.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Genomstruket. Håll nere knappen kort för att ange alternativ för linjebredd och avvikelse.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished"></translation>
+        <translation>Konturlinje. Håll nere knappen kort för att ange bredd på konturlinjen.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Skuggad text. Håll knappen nere kort för ange skuggans avstånd.</translation>
     </message>
 </context>
 <context>
@@ -20852,389 +20854,389 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Skriv över stilmall för stycke</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåter att skriva över befintliga stilmallar i aktuellt Scribus-dokument</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammanfoga stilmallar</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sammanfoga stilmallar efter attribut. Det resulterar i färre likartade stilmallar och bibehåller stilattribut även om dokumentets stilmallar är annorlunda namngivna.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till dokumentnamn i början av stilmallsnamnet i Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Gör dessa inställningar till standard och fråga inte igen vid import av OpenOffice.org 1.x dokument.</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Avbryt</translation>
+        <translation>Avbryt</translation>
     </message>
 </context>
 <context>
     <name>TOCIndexPrefs</name>
     <message>
         <source>None</source>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <source>At the beginning</source>
-        <translation type="unfinished"></translation>
+        <translation>I början</translation>
     </message>
     <message>
         <source>At the end</source>
-        <translation type="unfinished"></translation>
+        <translation>I slutet</translation>
     </message>
     <message>
         <source>Not Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Visas ej</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Innehållsförteckning och index</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Innehållsförteckning</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Lägg till</translation>
+        <translation>&amp;Lägg till</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Ta bort</translation>
+        <translation>&amp;Ta bort</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Ram som innehållsförteckningen monteras inuti</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidnummer monteras:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Namn på enhetsegenskaper:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhetsegenskaper som används på ramar som grund för innehållsrubriker</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Montera sidnummer för innehållsrubriker i början eller slutet av raden. Eller inte alls</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista icke utskrivbara innehållsrubriker</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Inkludera även ramar som markerats för icke utskrift</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Stilmall för stycke som används på innehållsrubriker</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stilmall för stycke:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Målram:</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
+        <translation>Inde&amp;x</translation>
     </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Innehållsförteckning och index</translation>
     </message>
     <message>
         <source>Table Of Contents</source>
-        <translation type="unfinished"></translation>
+        <translation>Innehållsförteckning</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation type="unfinished">&amp;Lägg till</translation>
+        <translation>&amp;Lägg till</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">&amp;Ta bort</translation>
+        <translation>&amp;Ta bort</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Ram som innehållsförteckningen monteras inuti</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sidnummer monteras:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Namn på enhetsegenskaper:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Enhetsegenskaper som används på ramar som grund för innehållsrubriker</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Montera sidnummer för innehållsrubriker i början eller slutet av raden. Eller inte alls</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Lista icke utskrivbara innehållsrubriker</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Inkludera även ramar som markerats för icke utskrift</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation>Stilmall för stycke som används på innehållsrubriker</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Stilmall för stycke:</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
+        <translation>Målram:</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
+        <translation>Inde&amp;x</translation>
     </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
     <message>
         <source>Ignore all errors</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignorera alla fel</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera automatiskt före utskrift eller export</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
-        <translation type="unfinished"></translation>
+        <translation>Leta efter saknade tecken</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation type="unfinished"></translation>
+        <translation>Leta efter objekt som inte finns på någon sida</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera om textramar flödar över</translation>
     </message>
     <message>
         <source>Check for transparencies used</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera använda transparenser</translation>
     </message>
     <message>
         <source>Check for missing images</source>
-        <translation type="unfinished"></translation>
+        <translation>Leta efter saknade bilder</translation>
     </message>
     <message>
         <source>Check image resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera bildupplösning</translation>
     </message>
     <message>
         <source>Lowest allowed resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägsta tillåtna upplösning</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished">dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera PDF-anteckningar och fält</translation>
     </message>
     <message>
         <source>Add Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till profil</translation>
     </message>
     <message>
         <source>Remove Profile</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort profil</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera monterade PDF-filer</translation>
     </message>
     <message>
         <source>Highest allowed resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Högsta tillåtna upplösning</translation>
     </message>
     <message>
         <source>Check for GIF images</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollera bilder i GIF-format</translation>
     </message>
 </context>
 <context>
     <name>TabExternalToolsWidget</name>
     <message>
         <source>Locate Ghostscript</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitta Ghostscript</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitta din bildredigerare</translation>
     </message>
     <message>
         <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitta din webbläsare</translation>
     </message>
 </context>
 <context>
     <name>TabExternalToolsWidgetBase</name>
     <message>
         <source>External Tools</source>
-        <translation type="unfinished"></translation>
+        <translation>Externa verktyg</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript-tolk</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation type="unfinished">&amp;Namn på program.</translation>
+        <translation>&amp;Namn på program:</translation>
     </message>
     <message>
         <source>&amp;Change..</source>
-        <translation type="unfinished"></translation>
+        <translation>Ä&amp;ndra..</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation type="unfinished">Anti-alias &amp;text</translation>
+        <translation>Anti-alias &amp;text</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Anti-alias av text vid visning av EPS eller PDF på skärmen</translation>
+        <translation>Anti-alias av text vid visning av EPS eller PDF på skärmen</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation type="unfinished">Anti-alias &amp;grafik</translation>
+        <translation>Anti-alias &amp;grafik</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Anti-alias av grafik vid visning av EPS eller PDF på skärmen</translation>
+        <translation>Anti-alias av grafik vid visning av EPS eller PDF på skärmen</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation type="unfinished"></translation>
+        <translation>Upplösning:</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished">dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation type="unfinished">Verktyg för bildhantering</translation>
+        <translation>Verktyg för bildhantering</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation type="unfinished">Namn på &amp;program:</translation>
+        <translation>Namn på &amp;program:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation type="unfinished">�amp;ndra...</translation>
+        <translation>Än&amp;dra...</translation>
     </message>
     <message>
         <source>&amp;Rescan</source>
-        <translation type="unfinished"></translation>
+        <translation>Läs in i&amp;gen</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Lägger till sökväg till Ghostscript-tolken. Observera att på Windows måste sökvägen gå till gswin32c.exe - INTE till gswin32.exe. Risk finns att Scribus låser datorn vid uppstart om fel tolk används.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Sökväg till bildredigerare. Om du använder Gimp och din distribution inkluderar det så rekommenderar vi &apos;gimp-remote&apos;, eftersom det gör att du kan redigera en bild i en redan startad instans av Gimp.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Web Browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Webbläsare</translation>
     </message>
     <message>
         <source>Web Browser to launch with links from the Help system</source>
-        <translation type="unfinished"></translation>
+        <translation>Webbläsare som startas med länkar i hjälpsystemet</translation>
     </message>
     <message>
         <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;qt&gt;Sökväg till webbläsare. Används för externa länkar från hjälpsystemet.&lt;/qt&gt;</translation>
     </message>
     <message>
         <source>Rescan for the external tools if they do not exist in the already specified location</source>
-        <translation type="unfinished"></translation>
+        <translation>Läs in externa verktyg igen om de inte redan finns på angiven plats</translation>
     </message>
 </context>
 <context>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Allmänna inställningar</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Placering i dokumenten</translation>
     </message>
     <message>
         <source>In the Background</source>
-        <translation type="unfinished"></translation>
+        <translation>I bakgrunden</translation>
     </message>
     <message>
         <source>In the Foreground</source>
-        <translation type="unfinished"></translation>
+        <translation>I förgrunden</translation>
     </message>
     <message>
         <source>Snapping</source>
@@ -21250,7 +21252,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source> px</source>
-        <translation type="unfinished">px</translation>
+        <translation> px</translation>
     </message>
     <message>
         <source>Guides</source>
@@ -21258,31 +21260,31 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Show Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa stödlinjer</translation>
     </message>
     <message>
         <source>Show Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa marginaler</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa rutmönster</translation>
     </message>
     <message>
         <source>Major Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Stora rutor</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Färg:</translation>
+        <translation>Färg:</translation>
     </message>
     <message>
         <source>Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Avstånd:</translation>
     </message>
     <message>
         <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Små rutor</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -21290,7 +21292,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Show Baseline Grid</source>
-        <translation type="unfinished">Visa baslinjerna</translation>
+        <translation>Visa rutmönster av baslinjer</translation>
     </message>
     <message>
         <source> %</source>
@@ -21302,59 +21304,59 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
-        <translation type="unfinished">Baslin&amp;jer:</translation>
+        <translation>Mönster av baslin&amp;jer:</translation>
     </message>
     <message>
         <source>Baseline &amp;Offset:</source>
-        <translation type="unfinished">Baslinjer o&amp;ffset:</translation>
+        <translation>Baslinjer o&amp;ffset:</translation>
     </message>
     <message>
         <source>Distance between the minor grid lines</source>
-        <translation type="unfinished">Avstånd mellan smårutor i stödraster</translation>
+        <translation>Avstånd mellan smårutor i stödraster</translation>
     </message>
     <message>
         <source>Distance between the major grid lines</source>
-        <translation type="unfinished">Avstånd mellan stora rutor i stödraster</translation>
+        <translation>Avstånd mellan stora rutor i stödraster</translation>
     </message>
     <message>
         <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="unfinished">Avstånd inom vilket ett objekt låses till dina utplacerade stödlinjer</translation>
+        <translation>Avstånd inom vilket ett objekt låses till dina utplacerade stödlinjer</translation>
     </message>
     <message>
         <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="unfinished">Radien för det område som Scribus tillåter att du markerar handtagen på ett objekt</translation>
+        <translation>Radien för det område som Scribus tillåter att du markerar handtagen på ett objekt</translation>
     </message>
     <message>
         <source>Color of the minor grid lines</source>
-        <translation type="unfinished">Färg på smårutor i stödraster</translation>
+        <translation>Färg på linjer för smårutor i stödraster</translation>
     </message>
     <message>
         <source>Color of the major grid lines</source>
-        <translation type="unfinished">Färg på stora rutor i stödraster</translation>
+        <translation>Färg på linjer för stora rutor i stödraster</translation>
     </message>
     <message>
         <source>Color of the guide lines you insert</source>
-        <translation type="unfinished">Färg på införda stödlinjer</translation>
+        <translation>Färg på infogade stödlinjer</translation>
     </message>
     <message>
         <source>Color for the margin lines</source>
-        <translation type="unfinished">Färg för marginallinjer</translation>
+        <translation>Färg för marginallinjer</translation>
     </message>
     <message>
         <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår av och på baslinjemönstret</translation>
     </message>
     <message>
         <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår av och på rutmönster</translation>
     </message>
     <message>
         <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår av och på hjälplinjerna</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Slår av och på marginallinjer</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
@@ -21362,7 +21364,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Inställningar för baslinjen</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
@@ -21389,150 +21391,150 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     <name>TabKeyboardShortcutsWidget</name>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished"></translation>
+        <translation>Key Set XML filer (*.ksxml)</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Skift</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation type="unfinished"></translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation type="unfinished"></translation>
+        <translation>Meta+</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation type="unfinished">Shift+</translation>
+        <translation>Skift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation type="unfinished">Alt+</translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl+</translation>
+        <translation>Ctrl+</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
-        <translation type="unfinished"></translation>
+        <translation>Den här knappsekvensen används redan</translation>
     </message>
 </context>
 <context>
     <name>TabKeyboardShortcutsWidgetBase</name>
     <message>
         <source>Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Tangentbordsgenvägar</translation>
     </message>
     <message>
         <source>Search:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sök:</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Åtgärd</translation>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>Genväg</translation>
     </message>
     <message>
         <source>Shortcut for Selected Action</source>
-        <translation type="unfinished"></translation>
+        <translation>Genväg för vald åtgärd</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation type="unfinished">&amp;Ingen tangent</translation>
+        <translation>&amp;Ingen tangent</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation type="unfinished">&amp;Användardefinierad tangent</translation>
+        <translation>&amp;Användardefinierad tangent</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation type="unfinished">Välj &amp;tangent</translation>
+        <translation>Välj &amp;tangent</translation>
     </message>
     <message>
         <source>Alt+K</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>CTRL+ALT+SHIFT+W</source>
-        <translation type="unfinished"></translation>
+        <translation>CTRL+ALT+SKIFT+W</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished"></translation>
+        <translation>Inläsningsbara uppsättningar av genvägar</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished"></translation>
+        <translation>Tangentbordsgenvägar är tillgängliga för inläsning</translation>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Läs in</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation type="unfinished"></translation>
+        <translation>Läs in den valda uppsättningen av genvägar</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importera...</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Importera en uppsättning genvägar till aktuell konfiguration</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Exportera...</translation>
     </message>
     <message>
         <source>Alt+E</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+E</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportera aktuella genvägar till en importerbar fil</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>Åte&amp;rställ</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Ladda om Scribus standardgenvägar</translation>
     </message>
 </context>
 <context>
@@ -21554,55 +21556,55 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     <name>TabPDFOptions</name>
     <message>
         <source>Export Range</source>
-        <translation type="unfinished">Skriv ut</translation>
+        <translation>Skriv ut område</translation>
     </message>
     <message>
         <source>&amp;All Pages</source>
-        <translation type="unfinished">&amp;Alla sidor</translation>
+        <translation>&amp;Alla sidor</translation>
     </message>
     <message>
         <source>C&amp;hoose Pages</source>
-        <translation type="unfinished">Vä&amp;lj sidor</translation>
+        <translation>Vä&amp;lj sidor</translation>
     </message>
     <message>
         <source>&amp;Rotation:</source>
-        <translation type="unfinished">&amp;Rotation:</translation>
+        <translation>&amp;Rotation:</translation>
     </message>
     <message>
         <source>File Options</source>
-        <translation type="unfinished">Alternativ för fil</translation>
+        <translation>Alternativ för fil</translation>
     </message>
     <message>
         <source>Compatibilit&amp;y:</source>
-        <translation type="unfinished">Kompatibilit&amp;et:</translation>
+        <translation>Kompatibilit&amp;et:</translation>
     </message>
     <message>
         <source>&amp;Binding:</source>
-        <translation type="unfinished">&amp;Bindning:</translation>
+        <translation>&amp;Bindning:</translation>
     </message>
     <message>
         <source>Left Margin</source>
-        <translation type="unfinished">Vänster sida</translation>
+        <translation>Vänster marginal</translation>
     </message>
     <message>
         <source>Right Margin</source>
-        <translation type="unfinished">Höger sida</translation>
+        <translation>Höger marginal</translation>
     </message>
     <message>
         <source>Generate &amp;Thumbnails</source>
-        <translation type="unfinished">Skapa &amp;miniatyrer</translation>
+        <translation>Skapa minia&amp;tyrer</translation>
     </message>
     <message>
         <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation type="unfinished">Spara &amp;länkade textramar som PDF-artiklar</translation>
+        <translation>Spara &amp;länkade textramar som PDF-artiklar</translation>
     </message>
     <message>
         <source>&amp;Include Bookmarks</source>
-        <translation type="unfinished">&amp;Inkludera bokmärken</translation>
+        <translation>&amp;Inkludera bokmärken</translation>
     </message>
     <message>
         <source> dpi</source>
-        <translation type="unfinished">dpi</translation>
+        <translation> dpi</translation>
     </message>
     <message>
         <source>&amp;Resolution:</source>
@@ -21610,7 +21612,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="unfinished"></translation>
+        <translation>Kom&amp;primera text och vektorgrafik</translation>
     </message>
     <message>
         <source>Image Settings</source>
@@ -21618,7 +21620,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Automatic</source>
-        <translation type="unfinished">Automatisk</translation>
+        <translation>Automatisk</translation>
     </message>
     <message>
         <source>JPEG</source>
@@ -21630,7 +21632,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <source>&amp;Method:</source>
@@ -21642,23 +21644,23 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Maximum</source>
-        <translation type="unfinished">Maximum</translation>
+        <translation>Maximum</translation>
     </message>
     <message>
         <source>High</source>
-        <translation type="unfinished">Hög</translation>
+        <translation>Hög</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished">Medium</translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>Low</source>
-        <translation type="unfinished">Låg</translation>
+        <translation>Låg</translation>
     </message>
     <message>
         <source>Minimum</source>
-        <translation type="unfinished">Minimum</translation>
+        <translation>Minimum</translation>
     </message>
     <message>
         <source>&amp;Downsample Images to:</source>
@@ -21666,319 +21668,319 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>&amp;General</source>
-        <translation type="unfinished">&amp;Allmänt</translation>
+        <translation>&amp;Allmänt</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="unfinished">Bä&amp;dda in alla teckensnitt</translation>
+        <translation>Bädda in alla t&amp;eckensnitt</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="unfinished">&amp;Gruppera alla typsnitt</translation>
+        <translation>Gruppera alla tecken&amp;snitt</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation type="unfinished">Inbädda</translation>
+        <translation>Bäddar in</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="unfinished">Tillgängliga teckensnitt:</translation>
+        <translation>Tillgängliga teckensnitt:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
-        <translation type="unfinished">&amp;&gt;&gt;</translation>
+        <translation>&amp;&gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;&lt;&lt;</source>
-        <translation type="unfinished">&amp;&lt;&lt;</translation>
+        <translation>&amp;&lt;&lt;</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="unfinished">Teckensnitt att bädda in:</translation>
+        <translation>Teckensnitt att bädda in:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="unfinished">Typsnitt att gruppera:</translation>
+        <translation>Teckensnitt att gruppera:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="unfinished">&amp;Teckensnitt</translation>
+        <translation>&amp;Teckensnitt</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivera &amp;presentationseffekter</translation>
     </message>
     <message>
         <source>Page</source>
-        <translation type="unfinished">Sida</translation>
+        <translation>Sida</translation>
     </message>
     <message>
         <source>Show Page Pre&amp;views</source>
-        <translation type="unfinished">Förhands&amp;visning</translation>
+        <translation>Förhands&amp;visning</translation>
     </message>
     <message>
         <source>Effects</source>
-        <translation type="unfinished">Effekter</translation>
+        <translation>Effekter</translation>
     </message>
     <message>
         <source>&amp;Display Duration:</source>
-        <translation type="unfinished">Tid&amp;d för bildvisning:</translation>
+        <translation>Ti&amp;d för bildvisning:</translation>
     </message>
     <message>
         <source>Effec&amp;t Duration:</source>
-        <translation type="unfinished">Tid för effek&amp;t:</translation>
+        <translation>Tid för effek&amp;t:</translation>
     </message>
     <message>
         <source>Effect T&amp;ype:</source>
-        <translation type="unfinished">T&amp;yp av effekt:</translation>
+        <translation>T&amp;yp av effekt:</translation>
     </message>
     <message>
         <source>&amp;Moving Lines:</source>
-        <translation type="unfinished">Rörliga lin&amp;jer:</translation>
+        <translation>Rörliga lin&amp;jer:</translation>
     </message>
     <message>
         <source>F&amp;rom the:</source>
-        <translation type="unfinished">F&amp;rån:</translation>
+        <translation>F&amp;rån:</translation>
     </message>
     <message>
         <source>D&amp;irection:</source>
-        <translation type="unfinished">R&amp;iktning:</translation>
+        <translation>R&amp;iktning:</translation>
     </message>
     <message>
         <source> sec</source>
-        <translation type="unfinished">sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
         <source>No Effect</source>
-        <translation type="unfinished">Ingen effekt</translation>
+        <translation>Ingen effekt</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="unfinished">Blinds</translation>
+        <translation>Persienn</translation>
     </message>
     <message>
         <source>Box</source>
-        <translation type="unfinished">Box</translation>
+        <translation>LådaBox</translation>
     </message>
     <message>
         <source>Dissolve</source>
-        <translation type="unfinished">Dissolve</translation>
+        <translation>Upplösa</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation type="unfinished">Glitter</translation>
+        <translation>Glitter</translation>
     </message>
     <message>
         <source>Split</source>
-        <translation type="unfinished">Split</translation>
+        <translation>Uppdelning</translation>
     </message>
     <message>
         <source>Wipe</source>
-        <translation type="unfinished">Wipe</translation>
+        <translation>Torka</translation>
     </message>
     <message>
         <source>Horizontal</source>
-        <translation type="unfinished"></translation>
+        <translation>Horisontell</translation>
     </message>
     <message>
         <source>Vertical</source>
-        <translation type="unfinished"></translation>
+        <translation>Vertikal</translation>
     </message>
     <message>
         <source>Inside</source>
-        <translation type="unfinished">Inifrån</translation>
+        <translation>Inifrån</translation>
     </message>
     <message>
         <source>Outside</source>
-        <translation type="unfinished">Utifrån</translation>
+        <translation>Utifrån</translation>
     </message>
     <message>
         <source>Left to Right</source>
-        <translation type="unfinished">Vänster till höger</translation>
+        <translation>Vänster till höger</translation>
     </message>
     <message>
         <source>Top to Bottom</source>
-        <translation type="unfinished">Uppifrån och ner</translation>
+        <translation>Uppifrån och ner</translation>
     </message>
     <message>
         <source>Bottom to Top</source>
-        <translation type="unfinished">Nerifrån och upp</translation>
+        <translation>Nerifrån och upp</translation>
     </message>
     <message>
         <source>Right to Left</source>
-        <translation type="unfinished">Höger till vänster</translation>
+        <translation>Höger till vänster</translation>
     </message>
     <message>
         <source>Top-left to Bottom-Right</source>
-        <translation type="unfinished">Diagonalt från övre vänstra hörnet</translation>
+        <translation>Diagonalt från övre vänstra hörnet</translation>
     </message>
     <message>
         <source>&amp;Apply Effect on all Pages</source>
-        <translation type="unfinished">&amp;Applicera effekten på alla sidor</translation>
+        <translation>&amp;Applicera effekten på alla sidor</translation>
     </message>
     <message>
         <source>E&amp;xtras</source>
-        <translation type="unfinished">E&amp;xtra</translation>
+        <translation>E&amp;xtra</translation>
     </message>
     <message>
         <source>&amp;Use Encryption</source>
-        <translation type="unfinished">&amp;Använd kryptering</translation>
+        <translation>&amp;Använd kryptering</translation>
     </message>
     <message>
         <source>Passwords</source>
-        <translation type="unfinished">Lösenord</translation>
+        <translation>Lösenord</translation>
     </message>
     <message>
         <source>&amp;User:</source>
-        <translation type="unfinished">&amp;Användare:</translation>
+        <translation>&amp;Användare:</translation>
     </message>
     <message>
         <source>&amp;Owner:</source>
-        <translation type="unfinished">�amp;gare:</translation>
+        <translation>Ä&amp;gare:</translation>
     </message>
     <message>
         <source>Settings</source>
-        <translation type="unfinished">Inställningar</translation>
+        <translation>Inställningar</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
-        <translation type="unfinished">Tillåt &amp;utskrift av dokumentet</translation>
+        <translation>Tillåt &amp;utskrift av dokumentet</translation>
     </message>
     <message>
         <source>Allow &amp;Changing the Document</source>
-        <translation type="unfinished">Tillåt än&amp;dring av dokumentet</translation>
+        <translation>Tillåt än&amp;dring av dokumentet</translation>
     </message>
     <message>
         <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation type="unfinished">Tillåt kop&amp;iering av text och grafik</translation>
+        <translation>Tillåt kop&amp;iering av text och grafik</translation>
     </message>
     <message>
         <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation type="unfinished">Tillåt att lägga till &amp;anteckningar och fält</translation>
+        <translation>Tillåt att lägga till &amp;anteckningar och fält</translation>
     </message>
     <message>
         <source>S&amp;ecurity</source>
-        <translation type="unfinished">Säk&amp;erhet</translation>
+        <translation>Säk&amp;erhet</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">Allmänt</translation>
+        <translation>Allmänt</translation>
     </message>
     <message>
         <source>Output &amp;Intended For:</source>
-        <translation type="unfinished">Utmatning&amp;en är avsedd för:</translation>
+        <translation>Utmatning&amp;en är avsedd för:</translation>
     </message>
     <message>
         <source>Screen / Web</source>
-        <translation type="unfinished">Skärmen/webben</translation>
+        <translation>Skärmen/webben</translation>
     </message>
     <message>
         <source>Printer</source>
-        <translation type="unfinished">Skrivare</translation>
+        <translation>Skrivare</translation>
     </message>
     <message>
         <source>Grayscale</source>
-        <translation type="unfinished"></translation>
+        <translation>Gråskala</translation>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation type="unfinished">&amp;Använd anpassade inställningar för återgivningen</translation>
+        <translation>&amp;Använd anpassade inställningar för återgivningen</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation type="unfinished">Inställningar för återgivning</translation>
+        <translation>Inställningar för återgivning</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
-        <translation type="unfinished">Fre&amp;kvens:</translation>
+        <translation>Fre&amp;kvens:</translation>
     </message>
     <message>
         <source>&amp;Angle:</source>
-        <translation type="unfinished">&amp;Vinkel:</translation>
+        <translation>&amp;Vinkel:</translation>
     </message>
     <message>
         <source>S&amp;pot Function:</source>
-        <translation type="unfinished">&amp;Punktform:</translation>
+        <translation>&amp;Punktform:</translation>
     </message>
     <message>
         <source>Simple Dot</source>
-        <translation type="unfinished">Enkel punkt</translation>
+        <translation>Enkel punkt</translation>
     </message>
     <message>
         <source>Line</source>
-        <translation type="unfinished">Linje</translation>
+        <translation>Linje</translation>
     </message>
     <message>
         <source>Round</source>
-        <translation type="unfinished">Rund</translation>
+        <translation>Rund</translation>
     </message>
     <message>
         <source>Ellipse</source>
-        <translation type="unfinished">Ellips</translation>
+        <translation>Ellips</translation>
     </message>
     <message>
         <source>Solid Colors:</source>
-        <translation type="unfinished">Fyllda färger:</translation>
+        <translation>Fyllda färger:</translation>
     </message>
     <message>
         <source>Use ICC Profile</source>
-        <translation type="unfinished">Använd ICC-profil</translation>
+        <translation>Använd ICC-profil</translation>
     </message>
     <message>
         <source>Profile:</source>
-        <translation type="unfinished">Profil:</translation>
+        <translation>Profil:</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation type="unfinished">�ergivningsavsikt:</translation>
+        <translation>Återgivningsavsikt:</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation type="unfinished">Perceptuell</translation>
+        <translation>Perceptuell</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished">Relativ kolormetri</translation>
+        <translation>Relativ kolormetri</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished">Mättnad</translation>
+        <translation>Mättnad</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation type="unfinished">Absolut kolormetri</translation>
+        <translation>Absolut kolormetri</translation>
     </message>
     <message>
         <source>Images:</source>
-        <translation type="unfinished">Bilder:</translation>
+        <translation>Bilder:</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation type="unfinished">Använd inte inbäddade ICC-profiler</translation>
+        <translation>Använd inte inbäddade ICC-profiler</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation type="unfinished">Fä&amp;rg</translation>
+        <translation>Fä&amp;rg</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished">PDF/X-3 Utmatningsavsikt</translation>
+        <translation>PDF/X-3 Utmatningsavsikt</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
-        <translation type="unfinished">&amp;informationssträng:</translation>
+        <translation>&amp;Informationssträng:</translation>
     </message>
     <message>
         <source>Output &amp;Profile:</source>
-        <translation type="unfinished">Utmatnings&amp;profil:</translation>
+        <translation>Utmatnings&amp;profil:</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation type="unfinished">Trimmningsram</translation>
+        <translation>Trimmningsram</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
-        <translation type="unfinished">PDF/X-&amp;3</translation>
+        <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
@@ -21992,7 +21994,7 @@ bibehåller layout och utseende på ditt dokument.</translation>
     </message>
     <message>
         <source>Show page previews of each page listed above.</source>
-        <translation type="unfinished">Förhandsvisa varje sida i listan ovanför.</translation>
+        <translation>Förhandsvisa varje sida i listan ovanför.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
@@ -22006,31 +22008,31 @@ En kortare tis snabbar upp effekten, en längre gör den långsammare.</translat
     </message>
     <message>
         <source>Type of the display effect.</source>
-        <translation type="unfinished">Typ av visningseffekt.</translation>
+        <translation>Typ av visningseffekt.</translation>
     </message>
     <message>
         <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="unfinished">Riktning för effekten vid användande av effekterna Blinds eller Split.</translation>
+        <translation>Riktning för effekten vid användande av effekterna Blinds eller Split.</translation>
     </message>
     <message>
         <source>Starting position for the box and split effects.</source>
-        <translation type="unfinished">Startposition för effekterna Box eller Split.</translation>
+        <translation>Startposition för effekterna Låda eller Uppdelning.</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation type="unfinished">Riktning för effekterna Wipe eller Glitter.</translation>
+        <translation>Riktning för effekterna Torka eller Glitter.</translation>
     </message>
     <message>
         <source>Apply the selected effect to all pages.</source>
-        <translation type="unfinished">Använd vald effekt på alla sidor.</translation>
+        <translation>Använd vald effekt på alla sidor.</translation>
     </message>
     <message>
         <source>Export all pages to PDF</source>
-        <translation type="unfinished">Exportera alla sidor till PDF</translation>
+        <translation>Exportera alla sidor till PDF</translation>
     </message>
     <message>
         <source>Export a range of pages to PDF</source>
-        <translation type="unfinished">Exportera en grupp av sidor till PDF</translation>
+        <translation>Exportera en grupp av sidor till PDF</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where
@@ -22062,7 +22064,7 @@ En del PDF-läsare kan använda dessa för navigering.</translation>
     </message>
     <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="unfinished">Skapar PDF-artiklar, användbart för navigering av länkade artiklar i PDF</translation>
+        <translation>Skapar PDF-artiklar, användbart för navigering av länkade artiklar i PDF.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document.
@@ -22106,7 +22108,7 @@ Om du inte markerar kryssrutan återges de med urprunglig upplösning.</translat
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="unfinished">(DPI (Dotr Per Inch) för export av bilder.</translation>
+        <translation>DPI (Dots Per Inch) för export av bilder.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF.
@@ -22126,15 +22128,15 @@ säkerhetsfunktioner i din exporterade PDF-fil.</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="unfinished">Välj ett lösenord för dina användare som kan användas för att läsa din PDF-fil.</translation>
+        <translation>Välj ett lösenord för dina användare som kan användas för att läsa din PDF-fil.</translation>
     </message>
     <message>
         <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="unfinished">Tillåt utskrift av PDF-filen. Om ej markerad så tillåts ej utskrift.</translation>
+        <translation>Tillåt utskrift av PDF-filen. Om ej markerad så tillåts ej utskrift. </translation>
     </message>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="unfinished">Tillåt ändring av PDF-filen. Om ej kryssad är ändring förhindrad.</translation>
+        <translation>Tillåt ändring av PDF-filen. Om ej kryssad är ändring förhindrad.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. 
@@ -22166,35 +22168,35 @@ Annars riskerar din exporterade PDF-fil att inte tryckas korrekt och portabilite
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation type="unfinished">Bädda in en färgprofil för fyllda färger</translation>
+        <translation>Bädda in en färgprofil för fyllda färger</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
-        <translation type="unfinished">Färgprofil för fyllda färger</translation>
+        <translation>Färgprofil för fyllda färger</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation type="unfinished">�ergivningsavsikt för tonplattor</translation>
+        <translation>Återgivningsavsikt för tonplattor</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation type="unfinished">Bädda in en färgprofil för bilder</translation>
+        <translation>Bädda in en färgprofil för bilder</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="unfinished">Använd inte färgprofiler som är inbäddade i ursprungliga bildfiler.</translation>
+        <translation>Använd inte färgprofiler som är inbäddade i ursprungliga bildfiler</translation>
     </message>
     <message>
         <source>Color profile for images</source>
-        <translation type="unfinished">Färgprofil för bilder</translation>
+        <translation>Färgprofil för bilder</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation type="unfinished">�ergivningsavsikt för bilder</translation>
+        <translation>Återgivningsavsikt för bilder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="unfinished">Utmatningsprofil för utskrift. Om möjligt bör du rådgöra med din tryckare för korrekt val av profil.</translation>
+        <translation>Utmatningsprofil för utskrift. Om möjligt bör du rådgöra med din tryckare för korrekt val av profil.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
@@ -22204,63 +22206,63 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation type="unfinished">Avstånd för utfall räknat från övre kanten av pappret</translation>
+        <translation>Avstånd för utfall räknat från övre kanten av pappret</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="unfinished">Avstånd för utfall räknat från nedre kanten av pappret</translation>
+        <translation>Avstånd för utfall räknat från nedre kanten av pappret</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation type="unfinished">Avstånd för utfall räknat från vänstra kanten av pappret</translation>
+        <translation>Avstånd för utfall räknat från vänstra kanten av pappret</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation type="unfinished">Avstånd för utfall räknat från högra kanten av pappret</translation>
+        <translation>Avstånd för utfall räknat från högra kanten av pappret</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
-        <translation type="unfinished">Spegla sida(or) horisontellt</translation>
+        <translation>Spegla sida(or) horisontellt</translation>
     </message>
     <message>
         <source>Mirror Page(s) vertically</source>
-        <translation type="unfinished">Spegla sida(or) vertikalt</translation>
+        <translation>Spegla sida(or) vertikalt</translation>
     </message>
     <message>
         <source>&amp;Resolution for EPS Graphics:</source>
-        <translation type="unfinished"></translation>
+        <translation>Upplösning fö&amp;r EPS-grafik:</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Omvandla tonplattor till processfärger</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Komprimeringskvalitet:</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nivåer av komprimeringskvaliteter för kastande metoder: Minimum (25%), Låg (50%), Medium (75%), Hög (85%) och Maximum (95%). Notera att en given kvalitetsnivå inte bestämmer storleken på den resulterande filen - både storlek och kvalitetsförlust varierar från bild till bild för varje kvalitetsnivå.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåt kopiering av text eller grafik från PDF-filen. Om omarkerad kan inte text eller grafik kopieras.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåt tillägg av anteckningar och fält till PDF-filen. Om omarkerad kan redigering av anteckningar och fält inte göras.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tillåter att tonplattor konverteras till sammansatta färger. Om du inte tänker skriva ut färger som tonplattor på ett tryckeri bör du helst lämna denna aktiverad.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
-        <translation type="unfinished"></translation>
+        <translation>Inkludera la&amp;ger</translation>
     </message>
     <message>
         <source>Compression Metho&amp;d:</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprimeringsmeto&amp;d:</translation>
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
@@ -22268,23 +22270,23 @@ reglerna för PDF/X-3. Vi rekommenderar att du använder dokumentets titel.</tra
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bädda in teckensnitt i PDF-filen. Inbäddning bibehåller layout och utseende på ditt dokument.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidsrymd då effekten körs. En kortare tid gör effekten snabbare, en längre gör den långsammare.</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Infoga en kommaseparerad lista med symboler där en symbol kan vara * för alla sidor, 1-5 för ett avsnitt av sidor eller ett enskilt sidnummer.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestämmer bindningen av sidor i PDF-filen. Om du inte vet med dig att du behöver ändra låt standardvärdet (vänster) gälla.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Skapar miniatyrer av varje sida i PDF-filen. En del visare använder miniatyrer för navigering i dokumentet.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -22452,419 +22454,419 @@ when PDF document is opened:</source>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation type="unfinished">Teckensnitt:</translation>
+        <translation>Teckensnitt:</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished">pt</translation>
+        <translation>pt</translation>
     </message>
     <message>
         <source>Size:</source>
-        <translation type="unfinished">Storlek:</translation>
+        <translation>Storlek:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyllningsfärg:</translation>
     </message>
     <message>
         <source>Stroke Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Färg konturlinje:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolu&amp;mner:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Mellanrum:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished">Att lära utan att göra är som att älska utan att röra</translation>
+        <translation>Att lära utan att göra är som att älska utan att röra</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
-        <translation type="unfinished">Färg på &amp;linje:</translation>
+        <translation>Färg på &amp;linje:</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Shading:</source>
-        <translation type="unfinished">&amp;Toning:</translation>
+        <translation>&amp;Skuggning:</translation>
     </message>
     <message>
         <source>&amp;Fill Color:</source>
-        <translation type="unfinished">&amp;Fylnadsfärg:</translation>
+        <translation>&amp;Fyllnadsfärg:</translation>
     </message>
     <message>
         <source>S&amp;hading:</source>
-        <translation type="unfinished">To&amp;ning:</translation>
+        <translation>S&amp;kuggning:</translation>
     </message>
     <message>
         <source>Line Style:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjestil:</translation>
     </message>
     <message>
         <source>Line &amp;Width:</source>
-        <translation type="unfinished">Linje&amp;bredd:</translation>
+        <translation>Linje&amp;bredd:</translation>
     </message>
     <message>
         <source>Line S&amp;tyle:</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjes&amp;til:</translation>
     </message>
     <message>
         <source>Arrows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pilar:</translation>
     </message>
     <message>
         <source>Start:</source>
-        <translation type="unfinished"></translation>
+        <translation>Början:</translation>
     </message>
     <message>
         <source>End:</source>
-        <translation type="unfinished"></translation>
+        <translation>Avslutning:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Fri storleksförändring</translation>
     </message>
     <message>
         <source>&amp;Horizontal Scaling:</source>
-        <translation type="unfinished">&amp;Horisontell storleksförändring:</translation>
+        <translation>&amp;Horisontell storleksförändring:</translation>
     </message>
     <message>
         <source>&amp;Vertical Scaling:</source>
-        <translation type="unfinished">&amp;Vertikal storleksförändring</translation>
+        <translation>&amp;Vertikal storleksförändring:</translation>
     </message>
     <message>
         <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="unfinished">För&amp;stora bilden till ramstorlek</translation>
+        <translation>&amp;Storleksförändra bilden till ramstorlek</translation>
     </message>
     <message>
         <source>Keep Aspect &amp;Ratio</source>
-        <translation type="unfinished">Behåll p&amp;roportioner</translation>
+        <translation>Behåll p&amp;roportioner</translation>
     </message>
     <message>
         <source>F&amp;ill Color:</source>
-        <translation type="unfinished">F&amp;yllnadsfärg:</translation>
+        <translation>F&amp;yllningsfärg:</translation>
     </message>
     <message>
         <source>Mi&amp;nimum:</source>
-        <translation type="unfinished">Mi&amp;nimum:</translation>
+        <translation>Mi&amp;nimum:</translation>
     </message>
     <message>
         <source>Ma&amp;ximum:</source>
-        <translation type="unfinished">Ma&amp;ximum:</translation>
+        <translation>Ma&amp;ximum:</translation>
     </message>
     <message>
         <source>&amp;Stepping:</source>
-        <translation type="unfinished">&amp;Steglängd:</translation>
+        <translation>&amp;Steglängd:</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
-        <translation type="unfinished">Egenskaper för textramen</translation>
+        <translation>Egenskaper för textramen</translation>
     </message>
     <message>
         <source>Picture Frame Properties</source>
-        <translation type="unfinished">Egenskaper för bildram</translation>
+        <translation>Egenskaper för bildram</translation>
     </message>
     <message>
         <source>Shape Drawing Properties</source>
-        <translation type="unfinished">Egenskaper för geometriska figurer</translation>
+        <translation>Egenskaper för geometriska figurer</translation>
     </message>
     <message>
         <source>Magnification Level Defaults</source>
-        <translation type="unfinished">Standardvärden för förstoringsgrad</translation>
+        <translation>Standardvärden för förstoringsgrad</translation>
     </message>
     <message>
         <source>Line Drawing Properties</source>
-        <translation type="unfinished">Egenskaper för linjeritning</translation>
+        <translation>Egenskaper för linjeritning</translation>
     </message>
     <message>
         <source>Polygon Drawing Properties</source>
-        <translation type="unfinished">Egenskaper för polygonritning</translation>
+        <translation>Egenskaper för polygonritning</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="unfinished">Typsnitt i nya textramar</translation>
+        <translation>Teckensnitt i nya textramar</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
-        <translation type="unfinished">Typgrad för nya textramar</translation>
+        <translation>Teckengrad för nya textramar</translation>
     </message>
     <message>
         <source>Color of font</source>
-        <translation type="unfinished">Färg på typsnitt</translation>
+        <translation>Färg på teckensnitt</translation>
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation type="unfinished">Antal spalter i textramen</translation>
+        <translation>Antal spalter i textramen</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation type="unfinished">Spaltmellanrum mellan spalter i textramen</translation>
+        <translation>Spaltmellanrum mellan spalter i textramen</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="unfinished">Typsnittsexempel</translation>
+        <translation>Teckensnittsexempel</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="unfinished">Bildramar tillåter bilder att storleksförändras till vilken storlek som helst</translation>
+        <translation>Bildramar tillåter bilder att storleksförändras till vilken storlek som helst</translation>
     </message>
     <message>
         <source>Horizontal scaling of images</source>
-        <translation type="unfinished">Horisontell storleksförändring av bilder</translation>
+        <translation>Horisontell storleksförändring av bilder</translation>
     </message>
     <message>
         <source>Vertical scaling of images</source>
-        <translation type="unfinished">Vertikal storleksförändring av bilder</translation>
+        <translation>Vertikal storleksförändring av bilder</translation>
     </message>
     <message>
         <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="unfinished">Bibehåll proportionerna vid storleksförändring</translation>
+        <translation>Bibehåll proportionerna vid storleksförändring</translation>
     </message>
     <message>
         <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="unfinished">Bilder i bildram storleksförändras till ramens storlek</translation>
+        <translation>Bilder i bildram storleksförändras till ramens storlek</translation>
     </message>
     <message>
         <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="unfinished">Automatiskt storleksförändrade bilder bibehåller ursprungliga proportioner</translation>
+        <translation>Automatiskt storleksförändrade bilder bibehåller ursprungliga proportioner</translation>
     </message>
     <message>
         <source>Fill color of picture frames</source>
-        <translation type="unfinished">Bildramens fyllnadsfärg</translation>
+        <translation>Bildramens fyllnadsfärg</translation>
     </message>
     <message>
         <source>Saturation of color of fill</source>
-        <translation type="unfinished">Fyllnadsfärgens mättnad</translation>
+        <translation>Fyllnadsfärgens mättnad</translation>
     </message>
     <message>
         <source>Line color of shapes</source>
-        <translation type="unfinished">Färg på formens konturlinje</translation>
+        <translation>Färg på formens konturlinje</translation>
     </message>
     <message>
         <source>Saturation of color of lines</source>
-        <translation type="unfinished">Linjefärgens mättnad</translation>
+        <translation>Linjefärgens mättnad</translation>
     </message>
     <message>
         <source>Fill color of shapes</source>
-        <translation type="unfinished">Formernas fyllnadsfärg</translation>
+        <translation>Formernas fyllnadsfärg</translation>
     </message>
     <message>
         <source>Line style of shapes</source>
-        <translation type="unfinished">Formernas linjestil</translation>
+        <translation>Formernas linjestil</translation>
     </message>
     <message>
         <source>Line width of shapes</source>
-        <translation type="unfinished">Formernas linjebredd</translation>
+        <translation>Formernas linjebredd</translation>
     </message>
     <message>
         <source>Minimum magnification allowed</source>
-        <translation type="unfinished">Minsta tillåtna förstoringsgrad</translation>
+        <translation>Minsta tillåtna förstoringsgrad</translation>
     </message>
     <message>
         <source>Maximum magnification allowed</source>
-        <translation type="unfinished">Största tillåtna förstoringsgrad</translation>
+        <translation>Största tillåtna förstoringsgrad</translation>
     </message>
     <message>
         <source>Change in magnification for each zoom operation</source>
-        <translation type="unfinished">�dring av förstoringsgrad vid varje zoomning</translation>
+        <translation>Ändring av förstoringsgrad vid varje zoomning</translation>
     </message>
     <message>
         <source>Color of lines</source>
-        <translation type="unfinished">Färg på linjer</translation>
+        <translation>Färg på linjer</translation>
     </message>
     <message>
         <source>Saturation of color</source>
-        <translation type="unfinished"></translation>
+        <translation>Färgmättnad</translation>
     </message>
     <message>
         <source>Style of lines</source>
-        <translation type="unfinished">Stil på linjer</translation>
+        <translation>Stil på linjer</translation>
     </message>
     <message>
         <source>Width of lines</source>
-        <translation type="unfinished">Linjebredd</translation>
+        <translation>Linjebredd</translation>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyllnadstecken vid tab:</translation>
     </message>
     <message>
         <source>Tab Width:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab-bredd:</translation>
     </message>
     <message>
         <source>Use embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd inbäddad maskningskurva</translation>
     </message>
     <message>
         <source>On Screen Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Förhandsvisning</translation>
     </message>
     <message>
         <source>Full Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Förhandsvisning med full upplösning</translation>
     </message>
     <message>
         <source>Normal Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Förhandsvisning med normal upplösning</translation>
     </message>
     <message>
         <source>Low Resolution Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Förhandsvisning med låg upplösning</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anpassad:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Anpassad: </translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation type="unfinished"></translation>
+        <translation>Teckenfärg:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation type="unfinished"></translation>
+        <translation>Skuggning:</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation type="unfinished"></translation>
+        <translation>Konturlinje:</translation>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkt</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Bindestreck</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation>Understrykning</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Anpassad</translation>
+        <translation>Anpassad</translation>
     </message>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
 </context>
 <context>
     <name>TabTypograpy</name>
     <message>
         <source>Subscript</source>
-        <translation type="unfinished">Nedsänkt</translation>
+        <translation>Nedsänkt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>&amp;Displacement:</source>
-        <translation type="unfinished">&amp;Förflyttning</translation>
+        <translation>&amp;Förskjutning:</translation>
     </message>
     <message>
         <source>&amp;Scaling:</source>
-        <translation type="unfinished">&amp;Storleksförändring:</translation>
+        <translation>&amp;Storleksförändring:</translation>
     </message>
     <message>
         <source>Superscript</source>
-        <translation type="unfinished">Upphöjt</translation>
+        <translation>Upphöjt</translation>
     </message>
     <message>
         <source>D&amp;isplacement:</source>
-        <translation type="unfinished">Förfl&amp;yttning</translation>
+        <translation>Förskjutn&amp;ing:</translation>
     </message>
     <message>
         <source>S&amp;caling:</source>
-        <translation type="unfinished">S&amp;torleksförändring:</translation>
+        <translation>S&amp;torleksförändring:</translation>
     </message>
     <message>
         <source>Small Caps</source>
-        <translation type="unfinished">Kapitäler</translation>
+        <translation>Kapitäler</translation>
     </message>
     <message>
         <source>Sc&amp;aling:</source>
-        <translation type="unfinished">Stor&amp;leksförändring:</translation>
+        <translation>Stor&amp;leksförändring:</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="unfinished">Förskjutning ovanför teckensnittets baslinje</translation>
+        <translation>Förskjutning ovanför teckensnittets baslinje</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="unfinished">Relativ storlek för upphöjd text jämfört med normal teckengrad</translation>
+        <translation>Relativ storlek för upphöjd text jämfört med normal teckengrad</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="unfinished">Förskjutning nedanför typsnittets baslinje</translation>
+        <translation>Förskjutning nedanför teckensnittets baslinje</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="unfinished">Relativ storlek för nedsänkt text jämfört med normal typgrad</translation>
+        <translation>Relativ storlek för nedsänkt text jämfört med normal teckengrad</translation>
     </message>
     <message>
         <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="unfinished">Relativ storlek för kapitäler jämfört med normal typgrad</translation>
+        <translation>Relativ storlek för kapitäler jämfört med normal teckengrad</translation>
     </message>
     <message>
         <source>Underline</source>
-        <translation type="unfinished">Understruken</translation>
+        <translation>Understruken</translation>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Förskjutning:</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiskt</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation type="unfinished">Linjebredd:</translation>
+        <translation>Linjebredd:</translation>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation type="unfinished">�erstruken</translation>
+        <translation>Överstruken</translation>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiskt &amp;radavstånd</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Radavstånd:</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="unfinished">Procentuell ökning av radavstånd baserat på typgraden </translation>
+        <translation>Procentuell ökning av radavstånd baserat på teckengraden </translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="unfinished"></translation>
+        <translation>Förskjutning under baslinjen för teckensnittet uttryckt i procent av teckensnittets nerstapel</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Linjebredd uttryckt i procent av teckengrad</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="unfinished"></translation>
+        <translation>Förskjutning ovan baslinjen för teckensnittet uttryckt i procent av teckensnittets uppstapel</translation>
     </message>
 </context>
 <context>
@@ -22943,58 +22945,58 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punkt</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Bindestreck</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation>Understrykning</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Anpassad</translation>
+        <translation>Anpassad</translation>
     </message>
     <message>
         <source>Fill Char:</source>
-        <translation type="unfinished"></translation>
+        <translation>Fyllningstecken:</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anpassad:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation type="unfinished"></translation>
+        <translation>Anpassad: </translation>
     </message>
     <message>
         <source>None</source>
         <comment>tab fill</comment>
-        <translation type="unfinished">Inget</translation>
+        <translation>Inget</translation>
     </message>
 </context>
 <context>
     <name>TextBrowser</name>
     <message>
         <source>Locate your web browser</source>
-        <translation type="unfinished"></translation>
+        <translation>Hitta din webbläsare</translation>
     </message>
     <message>
         <source>External Web Browser Failed to Start</source>
-        <translation type="unfinished"></translation>
+        <translation>Extern webbläsare kunde inte starta</translation>
     </message>
     <message>
         <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus kunde inte starta extern webbläsare %1. Vänligen kontrollera inställningarna</translation>
     </message>
 </context>
 <context>
     <name>Tree</name>
     <message>
         <source>Outline</source>
-        <translation>�ersikt</translation>
+        <translation>Översikt</translation>
     </message>
     <message>
         <source>Element</source>
@@ -23068,45 +23070,45 @@ Vänligen välj ett annat.</translation>
     </message>
     <message>
         <source>Free Objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Lösgör objekt</translation>
     </message>
     <message>
         <source>Page </source>
-        <translation type="unfinished">Sida</translation>
+        <translation>Sida </translation>
     </message>
 </context>
 <context>
     <name>UnderlineValues</name>
     <message>
         <source>Auto</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatiskt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished">%</translation>
+        <translation> %</translation>
     </message>
     <message>
         <source>Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Förskjutning</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation type="unfinished"></translation>
+        <translation>Radbredd</translation>
     </message>
 </context>
 <context>
     <name>UndoManager</name>
     <message>
         <source>Add vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till vertikal hjälplinje</translation>
     </message>
     <message>
         <source>Add horizontal guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Lägg till horisontell hjälplinje</translation>
     </message>
     <message>
         <source>Remove vertical guide</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta bort vertikal hjälplinje</translation>
     </message>
     <message>
         <source>Remove horizontal guide</source>
@@ -23565,7 +23567,7 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">�&amp;gra</translation>
+        <translation type="unfinished">Ån&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo: %1</source>
@@ -23581,23 +23583,23 @@ X: %4, Y: %5</source>
     <name>UndoPalette</name>
     <message>
         <source>Action History</source>
-        <translation type="unfinished"></translation>
+        <translation>Historik över händelser</translation>
     </message>
     <message>
         <source>Show selected object only</source>
-        <translation type="unfinished"></translation>
+        <translation>Visa endast markerade objekt</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
-        <translation type="unfinished">�&amp;gra</translation>
+        <translation>Ån&amp;gra</translation>
     </message>
     <message>
         <source>&amp;Redo</source>
-        <translation type="unfinished">Gör &amp;om</translation>
+        <translation>Gör &amp;om</translation>
     </message>
     <message>
         <source>Initial State</source>
-        <translation type="unfinished"></translation>
+        <translation>Ursprungligt tillstånd</translation>
     </message>
 </context>
 <context>
@@ -23605,61 +23607,61 @@ X: %4, Y: %5</source>
     <message>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1: %2</translation>
     </message>
 </context>
 <context>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Minsta marginal för sidstorlek %1</translation>
     </message>
 </context>
 <context>
     <name>UsePrinterMarginsDialogBase</name>
     <message>
         <source>Use Printer Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Använd skrivarmarginaler</translation>
     </message>
     <message>
         <source>Select &amp;Printer:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vä&amp;lj skrivare:</translation>
     </message>
     <message>
         <source>Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Marginaler</translation>
     </message>
     <message>
         <source>Right:</source>
-        <translation type="unfinished"></translation>
+        <translation>Höger:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished"></translation>
+        <translation>Övers&amp;t:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;Nederst:</translation>
+        <translation>&amp;Nederst:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vä&amp;nster:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Avbryt</translation>
+        <translation>&amp;Avbryt</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -23887,7 +23889,7 @@ X: %4, Y: %5</source>
     </message>
     <message>
         <source>Import Text Only</source>
-        <translation type="unfinished"></translation>
+        <translation>Importera endast text</translation>
     </message>
 </context>
 <context>
@@ -23918,7 +23920,7 @@ för denna filtyp.</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kom ihåg koppling mellan filändelse och importfilter och fråga inte efter importfilter för denna filtyp.</translation>
     </message>
 </context>
 <context>
@@ -23941,7 +23943,7 @@ för denna filtyp.</translation>
     </message>
     <message>
         <source>&amp;Open</source>
-        <translation>�amp;ppna</translation>
+        <translation>Öppn&amp;a</translation>
     </message>
     <message>
         <source>All</source>
@@ -24017,7 +24019,7 @@ för denna filtyp.</translation>
     </message>
     <message>
         <source>Translating template.xml</source>
-        <translation>�ersätter template.xml</translation>
+        <translation>Översätter template.xml</translation>
     </message>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
