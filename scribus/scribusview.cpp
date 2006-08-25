@@ -1396,6 +1396,29 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 			updateContents();
 		}
+		if (!Doc->masterPageMode())
+		{
+			uint docPagesCount=Doc->Pages->count();
+			uint docCurrPageNo=Doc->currentPageNumber();
+			for (uint i = 0; i < docPagesCount; ++i)
+			{
+				int x = static_cast<int>(Doc->Pages->at(i)->xOffset() * Scale);
+				int y = static_cast<int>(Doc->Pages->at(i)->yOffset() * Scale);
+				int w = static_cast<int>(Doc->Pages->at(i)->width() * Scale);
+				int h = static_cast<int>(Doc->Pages->at(i)->height() * Scale);
+				if (QRect(x, y, w, h).contains(ex, ey))
+				{
+					if (docCurrPageNo != i)
+					{
+						Doc->setCurrentPage(Doc->Pages->at(i));
+						setMenTxt(i);
+						DrawNew();
+					}
+					break;
+				}
+			}
+			setRulerPos(contentsX(), contentsY());
+		}
 	}
 }
 
