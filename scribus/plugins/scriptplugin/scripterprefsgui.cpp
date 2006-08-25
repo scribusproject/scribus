@@ -186,7 +186,7 @@ void ScripterPrefsGui::changeStartupScript()
 	if (!fi.exists())
 		currentScript = QDir::homeDirPath();
 
-	QString s = QFileDialog::getOpenFileName(currentScript, "Python Scripts (*.py)", this, "d", tr("Locate Startup Script"));
+	QString s = QFileDialog::getOpenFileName(currentScript, "Python Scripts (*.py *.PY)", this, "d", tr("Locate Startup Script"));
 	if (!s.isEmpty())
 		startupScriptEdit->setText(s);
 }

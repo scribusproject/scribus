@@ -173,7 +173,7 @@ void PythonConsole::parsePythonString()
 void PythonConsole::slot_open()
 {
 	filename = QFileDialog::getOpenFileName(".",
-			tr("Python Scripts (*.py)"),
+			tr("Python Scripts (*.py *.PY)"),
 			this,
 			"ofdialog",
 			tr("Open Python Script File"));
@@ -208,7 +208,7 @@ void PythonConsole::slot_saveAs()
 {
 	QString oldFname = filename;
 	filename = QFileDialog::getSaveFileName(".",
-			tr("Python Scripts (*.py)"),
+			tr("Python Scripts (*.py *.PY)"),
 			this,
 			"sfdialog",
 			tr("Save the Python Commands in File"));

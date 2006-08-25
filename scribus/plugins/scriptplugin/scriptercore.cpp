@@ -86,7 +86,7 @@ void ScripterCore::buildScribusScriptsMenu()
 	QString pfad = ScPaths::instance().scriptDir();
 	QString pfad2;
 	pfad2 = QDir::convertSeparators(pfad);
-	QDir ds(pfad2, "*.py", QDir::Name, QDir::Files | QDir::NoSymLinks);
+	QDir ds(pfad2, "*.py", QDir::Name | QDir::IgnoreCase, QDir::Files | QDir::NoSymLinks);
 	if ((ds.exists()) && (ds.count() != 0))
 	{
 		for (uint dc = 0; dc < ds.count(); ++dc)
@@ -498,7 +498,7 @@ void ScripterCore::SavePlugPrefs()
 
 void ScripterCore::aboutScript()
 {
-	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py);;All Files (*)"), "", fdNone);
+	QString fname = ScCore->primaryMainWindow()->CFileDialog(".", tr("Examine Script"), tr("Python Scripts (*.py *.PY);;All Files (*)"), "", fdNone);
 	if (fname == QString::null)
 		return;
 	QString html("<html><body>");
