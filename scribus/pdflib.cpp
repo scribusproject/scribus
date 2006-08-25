@@ -5215,16 +5215,8 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		ImWid = SharedImages[fn].Width;
 		ImHei = SharedImages[fn].Height;
 		aufl = SharedImages[fn].aufl;
-		if (!((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale())))))
-		{
-			sxn = sx * (1.0 / aufl);
-			syn = sy * (1.0 / aufl);
-		}
-		else
-		{
-			sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
-			syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
-		}
+		sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
+		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 	}
 	if ((ext == "eps") || (ext == "pdf"))// compensate gsResolution setting
 	{
