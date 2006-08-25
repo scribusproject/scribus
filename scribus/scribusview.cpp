@@ -3547,21 +3547,11 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		if (MoveGY)
 		{
 			FromHRuler(m);
-			if (((m->y()/sc) < Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y())
-						   || ((m->y()/sc) > Doc->currentPage()->height()+Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y()))
-				qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
-			else
-				qApp->setOverrideCursor(QCursor(SPLITHC), true);
 			return;
 		}
 		if (MoveGX)
 		{
 			FromVRuler(m);
-			if (((m->x()/sc) < Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x())
-						   || ((m->x()/sc) > Doc->currentPage()->width()+Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()))
-				qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
-			else
-				qApp->setOverrideCursor(QCursor(SPLITVC), true);
 			return;
 		}
 	}
@@ -9381,6 +9371,10 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	p.drawLine(0, newY, viewport()->width(), newY);
 	p.end();
 	DrHY = newY;
+	if (((out.y()/Scale) < Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y()) || ((out.y()/Scale) > Doc->currentPage()->height()+Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y()))
+		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
+	else
+		qApp->setOverrideCursor(QCursor(SPLITHC), true);
 }
 
 void ScribusView::FromVRuler(QMouseEvent *m)
@@ -9399,6 +9393,10 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	p.drawLine(newY, 0, newY, viewport()->height());
 	p.end();
 	DrVX = newY;
+	if (((out.x()/Scale) < Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()) || ((out.x()/Scale) > Doc->currentPage()->width()+Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()))
+		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
+	else
+		qApp->setOverrideCursor(QCursor(SPLITVC), true);
 }
 
 // TODO: PV - guides refactoring
