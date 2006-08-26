@@ -1068,7 +1068,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	//if (!masterPageMode())
 	if (!masterPageName.isEmpty())
 		applyMasterPage(masterPageName, pageIndex);
-	setLocationBasedPageLRMargins(pageIndex);
+//	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
 	changed();
@@ -2403,8 +2403,46 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 	Mp->guides.copy(&Ap->guides);
 	Ap->initialMargins.Top = Mp->Margins.Top;
 	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-	Ap->initialMargins.Left = Mp->Margins.Left;
-	Ap->initialMargins.Right = Mp->Margins.Right;
+	if (pageSets[currentPageLayout].Columns != 1)
+	{
+		PageLocation pageLoc=locationOfPage(pageNumber);
+		if (pageLoc==LeftPage) //Left hand page
+		{
+			if (Mp->LeftPg != 0)
+			{
+				Ap->initialMargins.Right = Mp->initialMargins.Right;
+				Ap->initialMargins.Left = Mp->initialMargins.Left;
+			}
+			else
+			{
+				Ap->initialMargins.Left = Mp->initialMargins.Right;
+				Ap->initialMargins.Right = Mp->initialMargins.Left;
+			}
+		}
+		else if (pageLoc==RightPage) // Right hand page
+		{
+			if (Mp->LeftPg != 0)
+			{
+				Ap->initialMargins.Left = Mp->initialMargins.Right;
+				Ap->initialMargins.Right = Mp->initialMargins.Left;
+			}
+			else
+			{
+				Ap->initialMargins.Right = Mp->initialMargins.Right;
+				Ap->initialMargins.Left = Mp->initialMargins.Left;
+			}
+		}
+		else //Middle pages
+		{
+			Ap->initialMargins.Left = Mp->initialMargins.Left;
+			Ap->initialMargins.Right = Mp->initialMargins.Right;
+		}
+	}
+	else
+	{
+		Ap->initialMargins.Left = Mp->Margins.Left;
+		Ap->initialMargins.Right = Mp->Margins.Right;
+	}
 	//TODO make a return false if not possible to apply the master page
 	changed();
 	return true;
@@ -3916,6 +3954,7 @@ void ScribusDoc::setLocationBasedPageLRMargins(const uint pageIndex)
 	if (myRow>0)
 	{
 		int firstPageOnRow=pageIndex-myCol;
+	int setcol=pageSets[currentPageLayout].Columns;
 		for (int i=firstPageOnRow; i<pageIndex; ++i)
 			xOffset+=DocPages.at(i)->width()+pageSets[currentPageLayout].GapHorizontal;
 	}
@@ -3928,7 +3967,8 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex)
 	int setcol=pageSets[currentPageLayout].Columns;
 	if (setcol==1)
 		return LeftPage;
-	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
+//	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
+	int myCol = ((pageIndex % setcol)+pageSets[currentPageLayout].FirstPage)%setcol;
 
 	if (myCol==0) //Left hand page
 		return LeftPage;

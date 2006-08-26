@@ -1937,10 +1937,60 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
 	tempDoc->setMasterPageMode(false);
-	tempDoc->addMasterPage(0, "Normal");
-	int createCount=QMAX(pageCount,1);
-	for (int i = 0; i < createCount; ++i)
-		tempDoc->addPage(i, "Normal", true);
+/*	int setcol = tempDoc->pageSets[tempDoc->currentPageLayout].Columns;
+	if (setcol == 1)
+	{ */
+		tempDoc->addMasterPage(0, "Normal");
+		int createCount=QMAX(pageCount,1);
+		for (int i = 0; i < createCount; ++i)
+			tempDoc->addPage(i, "Normal", true);
+/*	}
+	else if (setcol == 2)
+	{
+		Page *lp = tempDoc->addMasterPage(0, "Normal Left");
+		lp->LeftPg = 1;
+		lp->Margins.Left = lp->initialMargins.Right;
+		lp->Margins.Right = lp->initialMargins.Left;
+		lp = tempDoc->addMasterPage(1, "Normal Right");
+		lp->LeftPg = 0;
+		lp->Margins.Right = lp->initialMargins.Right;
+		lp->Margins.Left = lp->initialMargins.Left;
+		int createCount=QMAX(pageCount,1);
+		for (int i = 0; i < createCount; ++i)
+		{
+			PageLocation pageLoc = tempDoc->locationOfPage(i);
+			if (pageLoc == LeftPage)
+				tempDoc->addPage(i, "Normal Left", true);
+			else
+				tempDoc->addPage(i, "Normal Right", true);
+		}
+	}
+	else if ((setcol == 3) || (setcol == 4))
+	{
+		Page *lp = tempDoc->addMasterPage(0, "Normal Left");
+		lp->LeftPg = 1;
+		lp->Margins.Left = lp->initialMargins.Right;
+		lp->Margins.Right = lp->initialMargins.Left;
+		lp = tempDoc->addMasterPage(1, "Normal Right");
+		lp->LeftPg = 0;
+		lp->Margins.Right = lp->initialMargins.Right;
+		lp->Margins.Left = lp->initialMargins.Left;
+		lp = tempDoc->addMasterPage(2, "Normal Middle");
+		lp->LeftPg = 2;
+		lp->Margins.Left = lp->initialMargins.Left;
+		lp->Margins.Right = lp->initialMargins.Left;
+		int createCount=QMAX(pageCount,1);
+		for (int i = 0; i < createCount; ++i)
+		{
+			PageLocation pageLoc = tempDoc->locationOfPage(i);
+			if (pageLoc == LeftPage)
+				tempDoc->addPage(i, "Normal Left", true);
+			else if (pageLoc == RightPage)
+				tempDoc->addPage(i, "Normal Right", true);
+			else
+				tempDoc->addPage(i, "Normal Middle", true);
+		}
+	} */
 	tempDoc->addSection();
 	tempDoc->setFirstSectionFromFirstPageNumber();
 	tempDoc->setModified(false);
@@ -5101,13 +5151,14 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		wot=doc->Pages->count();
 	for (cc = 0; cc < numPages; ++cc)
 	{
-		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
+		slotNewPage(wot, base[(wot+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns], mov); //Avoid the master page application with QString::null
+//		slotNewPage(wot, QString::null, mov); //Avoid the master page application with QString::null
 		doc->currentPage()->setInitialHeight(height);
 		doc->currentPage()->setInitialWidth(width);
 		doc->currentPage()->PageOri = orient;
 		doc->currentPage()->m_pageSize = siz;
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
-		applyNewMaster(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
+//		applyNewMaster(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
 		wot ++;
 	}
 	//Must use wo-1 as the dialog currently returns a page Index +1 due to old numbering scheme
