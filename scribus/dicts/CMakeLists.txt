@@ -18,6 +18,7 @@ hyph_fr.dic
 hyph_ga.dic
 hyph_hr.dic
 hyph_hu.dic
+hyph_id.dic
 hyph_is.dic
 hyph_it.dic
 hyph_lt.dic
