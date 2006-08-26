@@ -4928,6 +4928,11 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		ss->set("MOVED", mov);
 		undoManager->action(this, ss);
 	}
+
+	// disable recording of undo actions related to new page creating
+	// and object moving related to that
+	undoManager->setUndoEnabled(false);
+
 	QStringList base;
 	if (basedOn == NULL)
 	{
@@ -4959,6 +4964,9 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	view->reformPages(mov);
 	view->DrawNew();
 	outlinePalette->BuildTree();
+
+	undoManager->setUndoEnabled(true);
+
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
 }
