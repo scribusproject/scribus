@@ -2430,6 +2430,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		else
 			ob.setAttribute("ALIGN",item->textAlignment);
  		SetItemProps(&ob, item, false);
+		ob.setAttribute("LOCK", 0);
 		ob.setAttribute("XPOS",item->xPos() - doc->currentPage->xOffset());
 		ob.setAttribute("YPOS",item->yPos() - doc->currentPage->yOffset());
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
