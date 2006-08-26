@@ -1633,11 +1633,13 @@ bool PrefsManager::ReadPref(QString ho)
 			//#2516 work around old values until people wont have them anymore, not that these
 			//translated strings should be going into prefs anyway!
 			if (appPrefs.curCheckProfile == tr("Postscript"))
-				appPrefs.curCheckProfile == tr("PostScript");
+				appPrefs.curCheckProfile = tr("PostScript");
 		}
 		if (dc.tagName()=="CheckProfile")
 		{
 			QString name=dc.attribute("Name");
+			if (name == tr("Postscript"))
+				name = tr("PostScript");
 			struct checkerPrefs checkerSettings;
 			checkerSettings.ignoreErrors = static_cast<bool>(dc.attribute("ignoreErrors", "0").toInt());
 			checkerSettings.autoCheck = static_cast<bool>(dc.attribute("autoCheck", "1").toInt());

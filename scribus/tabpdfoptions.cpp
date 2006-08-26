@@ -1762,22 +1762,22 @@ void TabPDFOptions::EnableLPI(int a)
 		{
 			GroupBox9->show();
 			ProfsGroup->show();
-			UseLPI->hide();
-			useSpot->hide();
-			overprintMode->hide();
+//			UseLPI->hide();
+//			useSpot->hide();
+//			overprintMode->hide();
 		}
 		else
 		{
 			GroupBox9->hide();
 			ProfsGroup->hide();
-			useSpot->show();
-			overprintMode->show();
-			UseLPI->show();
-			if (UseLPI->isChecked())
-				LPIgroup->show();
-			else
-				LPIgroup->hide();
 		}
+		useSpot->show();
+		overprintMode->show();
+		UseLPI->show();
+		if (UseLPI->isChecked())
+			LPIgroup->show();
+		else
+			LPIgroup->hide();
 	}
 	else
 	{
