@@ -1937,14 +1937,14 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
 	tempDoc->setMasterPageMode(false);
-/*	int setcol = tempDoc->pageSets[tempDoc->currentPageLayout].Columns;
+	int setcol = tempDoc->pageSets[tempDoc->currentPageLayout].Columns;
 	if (setcol == 1)
-	{ */
+	{
 		tempDoc->addMasterPage(0, "Normal");
 		int createCount=QMAX(pageCount,1);
 		for (int i = 0; i < createCount; ++i)
 			tempDoc->addPage(i, "Normal", true);
-/*	}
+	}
 	else if (setcol == 2)
 	{
 		Page *lp = tempDoc->addMasterPage(0, "Normal Left");
@@ -1990,7 +1990,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 			else
 				tempDoc->addPage(i, "Normal Middle", true);
 		}
-	} */
+	}
 	tempDoc->addSection();
 	tempDoc->setFirstSectionFromFirstPageNumber();
 	tempDoc->setModified(false);
