@@ -2452,6 +2452,8 @@ void PageItem::restore(UndoState *state, bool isUndo)
 			restoreGetImage(ss, isUndo);
 		else if (ss->contains("EDIT_SHAPE_OR_CONTOUR"))
 			restoreShapeContour(ss, isUndo);
+		else if (ss->contains("APPLY_IMAGE_EFFECTS"))
+			restoreImageEffects(ss, isUndo);
 	}
 	if (!OnMasterPage.isEmpty())
 		m_Doc->currentPage = oldCurrentPage;
@@ -2988,6 +2990,23 @@ void PageItem::restoreShapeContour(SimpleState *state, bool isUndo)
 		m_Doc->view()->AdjustItemSize(this);
 		m_Doc->view()->MoveItem(mx, my, this, false);
 		m_Doc->view()->slotUpdateContents();
+	}
+}
+
+void PageItem::restoreImageEffects(SimpleState *state, bool isUndo)
+{
+	ItemState<QPair<QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *istate =
+	dynamic_cast<ItemState<QPair<QValueList<ScImage::imageEffect>,
+	                             QValueList<ScImage::imageEffect> > >*>(state);
+	if (istate)
+	{
+		if (isUndo)
+			effectsInUse = istate->getItem().first;
+		else
+			effectsInUse = istate->getItem().second;
+
+		select();
+		m_Doc->updatePic();
 	}
 }
 

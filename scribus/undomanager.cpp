@@ -816,6 +816,7 @@ void UndoManager::languageChange()
 	UndoManager::EditContour        = tr("Edit contour line");
 	UndoManager::ResetControlPoint  = tr("Reset control point");
 	UndoManager::ResetControlPoints = tr("Reset control points");
+	UndoManager::ImageEffects       = tr("Modify image effects");
 }
 
 /*** UndoManager::TransactionState *****************************************************/
@@ -1070,6 +1071,7 @@ QString UndoManager::MultipleDuplicate  = "";
 QString UndoManager::EditContour        = "";
 QString UndoManager::ResetControlPoint  = "";
 QString UndoManager::ResetControlPoints = "";
+QString UndoManager::ImageEffects       = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
