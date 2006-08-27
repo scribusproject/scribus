@@ -61,22 +61,22 @@ void AboutPlugins::displayPlugin(int sel)
 	QString html;
 	html = QString("<html><body><h1>%1</h1>").arg(plugin->fullTrName());
 	html += "<table>";
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Filename:")).arg(fi.baseName(true));
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Version:")).arg(about->version);
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:")).arg(fi.baseName(true));
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Version:")).arg(about->version);
 	QString ena;
 	pluginManager.enabled(name) ? ena = tr("Yes") : ena = tr("No");
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Enabled:")).arg(ena);
-	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg(tr("Release Date:")).arg(about->releaseDate.toString());
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Enabled:")).arg(ena);
+	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Release Date:")).arg(about->releaseDate.toString());
 	html += "</table>";
 	QString desc;
 	if (!about->shortDescription.isNull())
 		desc += QString("<p>%1</p>").arg(about->shortDescription);
 	if (!about->description.isNull())
 		desc += QString("<p>%1</p>").arg(about->description);
-	html += QString("<h2>%1</h2>%2").arg(tr("Description:")).arg(desc);
-	html += QString("<h2>%1</h2><p>%2</p>").arg(tr("Author(s):")).arg(htmlize(about->authors));
-	html += QString("<h2>%1</h2><p>%2</p>").arg(tr("Copyright:")).arg(about->copyright);
-	html += QString("<h2>%1</h2><p>%2</p>").arg(tr("License:")).arg(about->license);
+	html += QString("<h2>%1</h2>%2").arg( tr("Description:")).arg(desc);
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Author(s):")).arg(htmlize(about->authors));
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:")).arg(about->copyright);
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:")).arg(about->license);
 	html += "</html>";
 	infoBrowser->setText(html);
 	// Use the plugin to delete the about info, so we don't

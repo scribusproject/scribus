@@ -250,7 +250,7 @@ void StilFormate::selEditFormat(QListBoxItem *c)
 void StilFormate::dupFormat()
 {
 	ParagraphStyle sty; // = TempVorl[sFnumber];
-	sty.setName(tr("Copy of %1").arg(TempVorl[sFnumber].name()));
+	sty.setName( tr("Copy of %1").arg(TempVorl[sFnumber].name()));
 	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(TempVorl[sFnumber].lineSpacingMode()));
 	sty.setLineSpacing(TempVorl[sFnumber].lineSpacing());
 	sty.setAlignment(TempVorl[sFnumber].alignment());
@@ -280,7 +280,7 @@ void StilFormate::neuesFormat()
 	int selectedIndex=ListBox1->currentItem();
 	int topIndex=ListBox1->topItem();
 	ParagraphStyle sty;
-	sty.setName(tr("New Style"));
+	sty.setName( tr("New Style"));
 	sty.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(0));
 	sty.setLineSpacing(((Docu->toolSettings.defSize / 10.0) * 
 			static_cast<double>(Docu->typographicSettings.autoLineSpacing) / 100) 

@@ -206,7 +206,7 @@ QString SMParagraphStyle::newStyle()
 	if (!doc_)
 		return QString::null;
 
-	QString s = getUniqueName(tr("New Style"));
+	QString s = getUniqueName( tr("New Style"));
 	// i suppose this is the default style to get the default attributes in
 	tmpStyles_.append(ParagraphStyle(doc_->docParagraphStyles[0]));
 	tmpStyles_.last().setName(s);
@@ -221,7 +221,7 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 	{
 		if (tmpStyles_[i].name() == fromStyle)
 		{
-			s = getUniqueName(tr("Clone of %1").arg(fromStyle));
+			s = getUniqueName( tr("Clone of %1").arg(fromStyle));
 			tmpStyles_.append(ParagraphStyle(tmpStyles_[i]));
 			tmpStyles_.last().setName(s);
 			break;
@@ -1351,7 +1351,7 @@ QString SMCharacterStyle::newStyle()
 {
 	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
 
-	QString s = getUniqueName(tr("New Style"));
+	QString s = getUniqueName( tr("New Style"));
 	// fetching default values now from here
 	tmpStyles_.append(CharStyle(doc_->docParagraphStyles[0].charStyle()));
 	tmpStyles_.last().setName(s);
@@ -1368,7 +1368,7 @@ QString SMCharacterStyle::newStyle(const QString &fromStyle)
 	{
 		if (tmpStyles_[i].name() == fromStyle)
 		{
-			s = getUniqueName(tr("Clone of %1").arg(fromStyle));
+			s = getUniqueName( tr("Clone of %1").arg(fromStyle));
 			tmpStyles_.append(CharStyle(tmpStyles_[i]));
 			tmpStyles_.last().setName(s);
 			break;

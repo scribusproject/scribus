@@ -17,7 +17,7 @@ extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 satdialog::satdialog(QWidget* parent, QString tmplName, int pageW, int pageH) : QDialog(parent, "satdialog", true)
 {
-	setCaption(tr("Save as Template"));
+	setCaption( tr("Save as Template"));
 	setIcon(loadIcon("AppIcon.png"));
 	readPrefs();
 	
@@ -122,7 +122,7 @@ void satdialog::detailClicked()
 
 void satdialog::fullDetail() 
 {
-	detailButton->setText(tr("Less Details"));
+	detailButton->setText( tr("Less Details"));
 	psizeLabel->setHidden(false);
 	psizeLabel->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
 	catsLabel->setHidden(false);
@@ -158,7 +158,7 @@ void satdialog::fullDetail()
 
 void satdialog::minimumDetail()
 {
-	detailButton->setText(tr("More Details"));
+	detailButton->setText( tr("More Details"));
 	catsLabel->hide();
 	catsLabel->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 	psizeLabel->hide();

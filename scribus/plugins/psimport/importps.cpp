@@ -54,7 +54,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	if ( showProgress ) 
 	{
 		ScribusMainWindow* mw=(m_Doc==0) ? ScCore->primaryMainWindow() : m_Doc->scMW();
-		progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, mw, "psexportprogress");
+		progressDialog = new MultiProgressDialog( tr("Importing PostScript"), CommonStrings::tr_Cancel, mw, "psexportprogress");
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");

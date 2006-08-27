@@ -320,7 +320,7 @@ bool ScWinPrint::printPages( ScribusDoc* doc, PrintOptions& options, HDC printer
 	bool usingGui = ScCore->usingGUI();
 	if ( usingGui )
 	{
-		progress.reset( new MultiProgressDialog(tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW(), "printprogress") );
+		progress.reset( new MultiProgressDialog( tr("Printing..."), CommonStrings::tr_Cancel, doc->scMW(), "printprogress") );
 		progress->setOverallTotalSteps( options.pageNumbers.size() );
 		progress->setOverallProgress(0);
 		connect(progress->buttonCancel, SIGNAL(clicked()), this, SLOT(cancelRequested()));

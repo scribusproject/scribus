@@ -305,7 +305,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	previewCaption->setChecked(PrefsManager::instance()->appPrefs.haveStylePreview);
 	QSpacerItem* spacerBg = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 	previewBgColor = new QPushButton(this, "previewBgColor");
-	previewBgColor->setText(tr("Background"));
+	previewBgColor->setText( tr("Background"));
 	layoutPrevSet->addWidget(previewCaption);
 	layoutPrevSet->addItem(spacerBg);
 	layoutPrevSet->addWidget(previewBgColor);

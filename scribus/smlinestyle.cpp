@@ -336,7 +336,7 @@ QString SMLineStyle::newStyle()
 	sl.Width = 1.0;
 	multiLine ml;
 	ml.push_back(sl);
-	QString name = getUniqueName(tr("New Style"));
+	QString name = getUniqueName( tr("New Style"));
 	tmpLines[name] = ml;
 	return name;
 }
@@ -346,7 +346,7 @@ QString SMLineStyle::newStyle(const QString &fromStyle)
 	Q_ASSERT(tmpLines.contains(fromStyle));
 
 	multiLine ml(tmpLines[fromStyle]);
-	QString name = getUniqueName(tr("Clone of %1").arg(fromStyle));
+	QString name = getUniqueName( tr("Clone of %1").arg(fromStyle));
 	tmpLines[name] = ml;
 	return name;
 }

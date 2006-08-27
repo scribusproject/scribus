@@ -78,7 +78,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	rasterPDF->setText( tr( "Check for placed PDF Files" ) );
 	TabCheckDocLayout->addWidget( rasterPDF );
 	checkForGIF = new QCheckBox(this, "checkForGIF");
-	checkForGIF->setText(tr("Check for GIF images"));
+	checkForGIF->setText( tr("Check for GIF images"));
 	TabCheckDocLayout->addWidget(checkForGIF);
 	useAnnotations = new QCheckBox( this, "useAnnotations" );
 	useAnnotations->setText( tr( "Check for PDF Annotations and Fields" ) );

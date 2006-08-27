@@ -71,7 +71,7 @@ ScribusColorList::ScribusColorList(ScribusDoc* doc, QWidget* parent, const char*
 
 void ScribusColorList::languageChange()
 {
-	setCaption(tr("Document Colors"));
+	setCaption( tr("Document Colors"));
 	okButton->setText(CommonStrings::tr_OK);
 	cancelButton->setText(CommonStrings::tr_Cancel);
 }
@@ -93,14 +93,14 @@ ColorWheelDialog::ColorWheelDialog(ScribusDoc* doc, QWidget* parent, const char*
 
 	QMenuBar *menuBar = new QMenuBar(this, "menuBar");
 	QPopupMenu *colorMenu = new QPopupMenu(this);
-	colorMenu->insertItem(tr("Cr&eate color..."), this, SLOT(createColor()));
-	colorMenu->insertItem(tr("C&olor Components..."), this, SLOT(setColorComponents()));
-	colorMenu->insertItem(tr("&Import existing color..."), this, SLOT(importColor()));
+	colorMenu->insertItem( tr("Cr&eate color..."), this, SLOT(createColor()));
+	colorMenu->insertItem( tr("C&olor Components..."), this, SLOT(setColorComponents()));
+	colorMenu->insertItem( tr("&Import existing color..."), this, SLOT(importColor()));
 	colorMenu->insertSeparator();
-	colorMenu->insertItem(tr("&Merge colors"), this, SLOT(addButton_clicked()));
-	colorMenu->insertItem(tr("&Replace colors"), this, SLOT(replaceButton_clicked()));
-	colorMenu->insertItem(tr("E&xit"), this, SLOT(cancelButton_clicked()));
-	menuBar->insertItem(tr("C&olor"), colorMenu);
+	colorMenu->insertItem( tr("&Merge colors"), this, SLOT(addButton_clicked()));
+	colorMenu->insertItem( tr("&Replace colors"), this, SLOT(replaceButton_clicked()));
+	colorMenu->insertItem( tr("E&xit"), this, SLOT(cancelButton_clicked()));
+	menuBar->insertItem( tr("C&olor"), colorMenu);
 
 	formLayout = new QGridLayout(this, 1, 1, 11, 6, "formLayout");
 	formLayout->setMenuBar(menuBar);
@@ -176,11 +176,11 @@ ColorWheelDialog::ColorWheelDialog(ScribusDoc* doc, QWidget* parent, const char*
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Triadic), colorWheel->Triadic);
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
 	// defects
-	defectCombo->insertItem(tr("Normal Vision"));
-	defectCombo->insertItem(tr("Protanopia (Red)"));
-	defectCombo->insertItem(tr("Deuteranopia (Green)"));
-	defectCombo->insertItem(tr("Tritanopia (Blue)"));
-	defectCombo->insertItem(tr("Full Color Blindness"));
+	defectCombo->insertItem( tr("Normal Vision"));
+	defectCombo->insertItem( tr("Protanopia (Red)"));
+	defectCombo->insertItem( tr("Deuteranopia (Green)"));
+	defectCombo->insertItem( tr("Tritanopia (Blue)"));
+	defectCombo->insertItem( tr("Full Color Blindness"));
 
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
@@ -225,19 +225,19 @@ ColorWheelDialog::~ColorWheelDialog()
  */
 void ColorWheelDialog::languageChange()
 {
-	defectLabel->setText(tr("Vision Defect:"));
-	setCaption(tr("Color Wheel"));
-	colorList->addColumn(tr("Color"));
-	colorList->addColumn(tr("Name"));
-	colorList->addColumn(tr("C"));
-	colorList->addColumn(tr("M"));
-	colorList->addColumn(tr("Y"));
-	colorList->addColumn(tr("K"));
+	defectLabel->setText( tr("Vision Defect:"));
+	setCaption( tr("Color Wheel"));
+	colorList->addColumn( tr("Color"));
+	colorList->addColumn( tr("Name"));
+	colorList->addColumn( tr("C"));
+	colorList->addColumn( tr("M"));
+	colorList->addColumn( tr("Y"));
+	colorList->addColumn( tr("K"));
 	colorList->setSorting(1);
-	typeLabel->setText(tr("Select Method:"));
-	angleLabel->setText(tr("Angle (0 - 90 degrees):"));
-	addButton->setText(tr("&Merge Colors"));
-	replaceButton->setText(tr("&Replace Colors"));
+	typeLabel->setText( tr("Select Method:"));
+	angleLabel->setText( tr("Angle (0 - 90 degrees):"));
+	addButton->setText( tr("&Merge Colors"));
+	replaceButton->setText( tr("&Replace Colors"));
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	// tips
 	QToolTip::add(addButton, "<qt>" + tr("Merge created colors into the document colors") + "</qt>");

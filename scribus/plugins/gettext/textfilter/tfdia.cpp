@@ -22,7 +22,7 @@ extern QPixmap loadIcon(QString nam);
 
 tfDia::tfDia() : QDialog()
 {
-	setCaption(tr("Create filter"));
+	setCaption( tr("Create filter"));
 	setIcon(loadIcon("AppIcon.png"));
 	setMinimumWidth(524);
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("TextFilter");
@@ -42,10 +42,10 @@ void tfDia::createLayout()
 	layout = new QVBoxLayout(this);
 
 	QBoxLayout* layout1 = new QHBoxLayout(0, 5, 5, "layout1");
-	clearButton = new QPushButton(tr("C&lear"), this, "clearButton");
+	clearButton = new QPushButton( tr("C&lear"), this, "clearButton");
 	layout1->addWidget(clearButton);
 	layout1->addStretch(10);
-	deleteButton = new QPushButton(tr("&Delete"), this, "deleteButton");
+	deleteButton = new QPushButton( tr("&Delete"), this, "deleteButton");
 	deleteButton->setEnabled(false);
 	layout1->addWidget(deleteButton);
 	filtersCombo = new QComboBox(0, this, "filtersCombo");
@@ -97,7 +97,7 @@ void tfDia::createLayout()
 	layout2->addWidget(saveEdit, 10);
 	if (prefs->getBool("save_hint", true))
 	{
-		saveEdit->setText(tr("Give a name for saving"));
+		saveEdit->setText( tr("Give a name for saving"));
 		prefs->set("save_hint", false);
 	}
 	layout2->addSpacing(20);

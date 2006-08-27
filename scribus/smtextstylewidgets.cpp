@@ -42,9 +42,9 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->setMargin( 10 );
 
 	lineSpacingMode_ = new SMScComboBox(distancesBox, "linespacingCombo");
-	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
+	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
 	distancesBoxLayout->addMultiCellWidget(lineSpacingMode_, 0, 0, 1, 3);
 	connect(lineSpacingMode_, SIGNAL(highlighted(int)), this, SLOT(slotLineSpacingModeChanged(int)));
 
@@ -55,7 +55,7 @@ void SMPStyleWidget::setupDistances()
 	distancesBoxLayout->addWidget(pixmapLabel0, 1, 0);
 
 	lineSpacing_ = new SMMSpinBox(1, 300, distancesBox, 1 );
-	lineSpacing_->setSuffix(tr( " pt" ));
+	lineSpacing_->setSuffix( tr( " pt" ));
 	distancesBoxLayout->addWidget(lineSpacing_, 1,1);
 
 	pixmapLabel3 = new QLabel( "", distancesBox, "TextLabel1_2_2" );
@@ -89,16 +89,16 @@ void SMPStyleWidget::slotLineSpacingModeChanged(int i)
 void SMPStyleWidget::languageChange()
 {
 	lineSpacingMode_->clear();
-	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
-	lineSpacing_->setSuffix(tr(" pt"));
-	spaceAbove_->setSuffix(tr(" pt"));
-	spaceBelow_->setSuffix(tr(" pt"));
-	parentLabel->setText(tr("Parent"));
-	distancesBox->setTitle(tr("Distances and Alignment"));
-	dropCapsBox->setTitle(tr("Drop Caps"));
-	tabsBox->setTitle(tr("Tabulators and Indentation"));
+	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
+	lineSpacing_->setSuffix( tr(" pt"));
+	spaceAbove_->setSuffix( tr(" pt"));
+	spaceBelow_->setSuffix( tr(" pt"));
+	parentLabel->setText( tr("Parent"));
+	distancesBox->setTitle( tr("Distances and Alignment"));
+	dropCapsBox->setTitle( tr("Drop Caps"));
+	tabsBox->setTitle( tr("Tabulators and Indentation"));
 	tabWidget->setTabLabel(tabWidget->page(0), tr("Properties"));
 	tabWidget->setTabLabel(tabWidget->page(1), tr("Character Style"));
 }
@@ -121,7 +121,7 @@ void SMPStyleWidget::setupDropCaps()
 	dropCapsBoxLayout->addWidget(dropCapLines_, 0, 1);
 
 	dropCapOffset_ = new SMMSpinBox(-3000, 3000, dropCapsBox, 1);
-	dropCapOffset_->setSuffix(tr(" pt"));
+	dropCapOffset_->setSuffix( tr(" pt"));
 	capLabel2 = new QLabel(dropCapLines_, tr("Distance from Text:"), dropCapsBox, "CapLabel2");
 	dropCapsBoxLayout->addWidget(capLabel2, 1, 0);
 	dropCapsBoxLayout->addWidget(dropCapOffset_, 1, 1);
@@ -156,9 +156,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parent());
 
 	lineSpacingMode_->clear();
-	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
+	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
 
 	hasParent_ = hasParent;
 
@@ -243,12 +243,12 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 //  ASK Avox!
 // 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
 
-	cpage->parentLabel->setText(tr("Based on"));
+	cpage->parentLabel->setText( tr("Based on"));
 	cpage->show(pstyle.charStyle(), cstyles);
 
 	if (hasParent)
 	{
-		cpage->parentCombo->insertItem(tr("Parent's Character Style"), 1);
+		cpage->parentCombo->insertItem( tr("Parent's Character Style"), 1);
 		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parent()->hasName())
 		{
 			QString pname = pstyle.charStyle().parent()->name();
@@ -498,12 +498,12 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 void SMCStylePage::languageChange()
 {
-	parentLabel->setText(tr("Parent"));
-	fontVScale_->setSuffix(tr(" %"));
-	fontHScale_->setSuffix(tr(" %"));
-	baselineOffset_->setSuffix(tr(" %"));
-	tracking_->setSuffix(tr(" %"));
-	fontSize_->setSuffix(tr(" pt"));
+	parentLabel->setText( tr("Parent"));
+	fontVScale_->setSuffix( tr(" %"));
+	fontHScale_->setSuffix( tr(" %"));
+	baselineOffset_->setSuffix( tr(" %"));
+	tracking_->setSuffix( tr(" %"));
+	fontSize_->setSuffix( tr(" pt"));
 }
 
 void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang)

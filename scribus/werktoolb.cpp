@@ -38,7 +38,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar(tr("Tools"), "Tools", parent, QDockWindow::Vertical)
+ModeToolBar::ModeToolBar(ScribusMainWindow* parent) : ScToolBar( tr("Tools"), "Tools", parent, QDockWindow::Vertical)
 {
 	SubMode = 0;
 	ValCount = 32;

@@ -61,8 +61,8 @@ nftdialog::nftdialog(QWidget* parent, QString lang, QString templateDir) : QDial
 	tnailGrid->setItemsMovable(false);
 	
 	popUp = new QPopupMenu(tnailGrid, "popUp");
-	popUp->insertItem(tr("&Remove"), this, SLOT(removeTemplate()));
-	popUp->insertItem(tr("&Open"), this, SLOT(exitOK()));
+	popUp->insertItem( tr("&Remove"), this, SLOT(removeTemplate()));
+	popUp->insertItem( tr("&Open"), this, SLOT(exitOK()));
 	
 	QWidget* dtTmp = new QWidget(splitter, "dtTmp", 0);
 	dtTmp->setMinimumWidth(235);

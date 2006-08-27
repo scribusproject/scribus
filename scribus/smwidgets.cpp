@@ -205,7 +205,7 @@ void SMScComboBox::setCurrentItem(int i, bool isParentValue)
 	if (!isParentValue)
 	{
 		useParentValue_ = true;
-		insertItem(tr("Use Parent Value"));
+		insertItem( tr("Use Parent Value"));
 	}
 
 	ScComboBox::setCurrentItem(i);
@@ -249,7 +249,7 @@ void SMScComboBox::currentChanged()
 	if (hasParent_ && !useParentValue_)
 	{
 		setFont(true);
-		insertItem(tr("Use Parent Value"));
+		insertItem( tr("Use Parent Value"));
 		useParentValue_ = true;
 	}
 }
@@ -266,7 +266,7 @@ SMAlignSelect::SMAlignSelect(QWidget *parent)
 	parentButton = new QToolButton(this, "parentButton");
 	parentButton->setMaximumSize( QSize( 22, 22 ) );
 	parentButton->setToggleButton( true );
-	parentButton->setText(tr("P", "P as in Parent"));
+	parentButton->setText( tr("P", "P as in Parent"));
 	QToolTip::add(parentButton, tr("Use parent style's alignment instead of overriding it"));
 	GroupAlignLayout->addWidget( parentButton, 0, 5 );
 	resize(minimumSizeHint());
@@ -350,7 +350,7 @@ SMStyleSelect::SMStyleSelect(QWidget *parent)
 	parentButton = new QToolButton(this, "parentButton");
 	parentButton->setMaximumSize(QSize(22, 22));
 	parentButton->setMinimumSize(QSize(22, 22));
-	parentButton->setText(tr("P", "P as in Parent"));
+	parentButton->setText( tr("P", "P as in Parent"));
 	QToolTip::add(parentButton, tr("Use parent style's effects instead of overriding them"));
 	ssLayout->addWidget( parentButton, 0, 5 );
 	resize(minimumSizeHint());
@@ -647,7 +647,7 @@ void SMColorCombo::currentChanged()
 	if (hasParent_ && !useParentValue_)
 	{
 		setFont(true);
-		insertItem(tr("Use Parent Value"));
+		insertItem( tr("Use Parent Value"));
 		useParentValue_ = true;
 	}
 }
@@ -661,7 +661,7 @@ SMFontComboH::SMFontComboH(QWidget *parent)
   hasParent_(false),
   useParentValue_(false),
   pFont_(QString::null),
-  usePFont_(tr("Use Parent Font"))
+  usePFont_( tr("Use Parent Font"))
 {
 	
 }
@@ -755,7 +755,7 @@ SMTabruler::SMTabruler(QWidget* parent, bool haveFirst, int dEin,
 {
 	parentButton_ = new QToolButton(this, "parentButton_");
 	Q_CHECK_PTR(parentButton_);
-	parentButton_->setText(tr(" Parent Tabs "));
+	parentButton_->setText( tr(" Parent Tabs "));
 	indentLayout->addWidget(parentButton_);
 	parentButton_->hide();
 	QFont f(font());

@@ -136,9 +136,9 @@ void PrefsDialogBase::languageChange()
 {
 	buttonOk->setText( CommonStrings::tr_OK );
 	buttonCancel->setText( CommonStrings::tr_Cancel );
-	saveButton->setText(tr("Export..."));
+	saveButton->setText( tr("Export..."));
 	backToDefaults->setText( tr( "&Defaults" ) );
-	applyChangesButton->setText(tr("&Apply"));
+	applyChangesButton->setText( tr("&Apply"));
 	QToolTip::add(backToDefaults, "<qt>" + tr("All preferences can be reset here") + "</qt>");
 	QToolTip::add(applyChangesButton, "<qt>" + tr("Apply all changes without closing the dialog") + "</qt>");
 	QToolTip::add(saveButton, "<qt>" + tr("Export current preferences into file") + "</qt>");

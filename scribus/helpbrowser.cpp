@@ -307,9 +307,9 @@ HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLangu
 	searchingButtonLayout->addWidget(searchingButton);
 	searchingMainLayout->addLayout(searchingButtonLayout);
 	searchingView = new QListView(tabSearching, "searchingView");
-	searchingView->addColumn(tr("Contents"));
-	searchingView->addColumn(tr("Relevance"));
-	searchingView->addColumn(tr("Link" ) ,0);
+	searchingView->addColumn( tr("Contents"));
+	searchingView->addColumn( tr("Relevance"));
+	searchingView->addColumn( tr("Link" ) ,0);
 	searchingView->setColumnWidthMode( 0, QListView::Maximum );
 	searchingView->setColumnWidthMode( 1, QListView::Manual );
 	searchingView->setSorting(1, false);

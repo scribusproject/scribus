@@ -312,12 +312,12 @@ bool MarginWidget::getMarginsForAllPages()
  */
 PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(parent, name)
 {
-	insertItem(tr("None", "layout type"), PresetLayout::none);
-	insertItem(tr("Gutenberg"), PresetLayout::gutenberg);
-	insertItem(tr("Magazine"), PresetLayout::magazine);
-	insertItem(tr("Fibonacci"), PresetLayout::fibonacci);
-	insertItem(tr("Golden Mean"), PresetLayout::goldencut);
-	insertItem(tr("Nine Parts"), PresetLayout::nineparts);
+	insertItem( tr("None", "layout type"), PresetLayout::none);
+	insertItem( tr("Gutenberg"), PresetLayout::gutenberg);
+	insertItem( tr("Magazine"), PresetLayout::magazine);
+	insertItem( tr("Fibonacci"), PresetLayout::fibonacci);
+	insertItem( tr("Golden Mean"), PresetLayout::goldencut);
+	insertItem( tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentItem(PresetLayout::none);
 
 	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");

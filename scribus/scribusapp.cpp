@@ -429,10 +429,10 @@ void ScribusQApp::showHeader()
 	const int descwidth = -(heading.length() - urlwidth - 1);
 	ts << heading; endl(ts);
 	ts << separator; endl(ts);
-	ts << QString("%1 %2").arg(tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
-	ts << QString("%1 %2").arg(tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
-	ts << QString("%1 %2").arg(tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
-	ts << QString("%1 %2").arg(tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
+	ts << QString("%1 %2").arg( tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
 }
 

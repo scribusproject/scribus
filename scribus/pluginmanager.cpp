@@ -154,7 +154,7 @@ int PluginManager::initPlugin(const QString fileName)
 	pda.pluginDLL = 0;
 	pda.enabled = false;
 	pda.enableOnStartup = prefs->getBool(pda.pluginName, true);
-	ScCore->setSplashStatus(tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
+	ScCore->setSplashStatus( tr("Plugin: loading %1", "plugin manager").arg(pda.pluginName));
 	if (loadPlugin(pda))
 	{
 		if (pda.enableOnStartup)
@@ -309,10 +309,10 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 				mw->scrMenuMgr->addMenuItemAfter(mw->scrActions[ai.name], ai.menu, afterAction);
 			}
 			if (it.data().enabled)
-				ScCore->setSplashStatus(tr("Plugin: %1 initialized ok ", "plugin manager")
+				ScCore->setSplashStatus( tr("Plugin: %1 initialized ok ", "plugin manager")
 						.arg(plugin->fullTrName()));
 			else
-				ScCore->setSplashStatus(tr("Plugin: %1 failed post initialization", "plugin manager")
+				ScCore->setSplashStatus( tr("Plugin: %1 failed post initialization", "plugin manager")
 						.arg(plugin->fullTrName()));
 		}
 		else

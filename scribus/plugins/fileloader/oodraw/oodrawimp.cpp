@@ -89,7 +89,7 @@ OODrawImportPlugin::~OODrawImportPlugin()
 
 void OODrawImportPlugin::languageChange()
 {
-	importAction->setMenuText(tr("Import &OpenOffice.org Draw..."));
+	importAction->setMenuText( tr("Import &OpenOffice.org Draw..."));
 	// (Re)register file formats
 	unregisterAll();
 	registerFormats();

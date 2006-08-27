@@ -129,16 +129,16 @@ ScripterPrefsGui::~ScripterPrefsGui()
  */
 void ScripterPrefsGui::languageChange()
 {
-	setCaption(tr("Scripter Preferences"));
-	extensionScriptsChk->setText(tr("Enable Extension Scripts"));
-	startupScriptEditLabel->setText(tr("Startup Script:"));
-	errorLabel->setText(tr("Errors:", "syntax highlighting"));
-	commentLabel->setText(tr("Comments:", "syntax highlighting"));
-	keywordLabel->setText(tr("Keywords:", "syntax highlighting"));
-	signLabel->setText(tr("Signs:", "syntax highlighting"));
-	numberLabel->setText(tr("Numbers:", "syntax highlighting"));
-	stringLabel->setText(tr("Strings:", "syntax highlighting"));
-	textLabel->setText(tr("Base Texts:", "syntax highlighting"));
+	setCaption( tr("Scripter Preferences"));
+	extensionScriptsChk->setText( tr("Enable Extension Scripts"));
+	startupScriptEditLabel->setText( tr("Startup Script:"));
+	errorLabel->setText( tr("Errors:", "syntax highlighting"));
+	commentLabel->setText( tr("Comments:", "syntax highlighting"));
+	keywordLabel->setText( tr("Keywords:", "syntax highlighting"));
+	signLabel->setText( tr("Signs:", "syntax highlighting"));
+	numberLabel->setText( tr("Numbers:", "syntax highlighting"));
+	stringLabel->setText( tr("Strings:", "syntax highlighting"));
+	textLabel->setText( tr("Base Texts:", "syntax highlighting"));
 }
 
 // Apply changes to prefs. Auto connected.

@@ -68,7 +68,7 @@ const QStringList LoadSavePlugin::getDialogFilter(bool forLoad)
 			filterList.append((*it).filter);
 			lastID = (*it).formatId;
 		}
-	filterList.append(tr("All Files (*)"));
+	filterList.append( tr("All Files (*)"));
 	return filterList;
 }
 

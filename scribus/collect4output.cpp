@@ -65,7 +65,7 @@ QString CollectForOutput::collect()
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
-	ScCore->primaryMainWindow()->setStatusBarInfoText(tr("Collecting..."));
+	ScCore->primaryMainWindow()->setStatusBarInfoText( tr("Collecting..."));
 
 	if (!collectItems())
 	{

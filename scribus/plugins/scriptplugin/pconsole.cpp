@@ -46,15 +46,15 @@ PythonConsole::PythonConsole( QWidget* parent)
 	QPopupMenu *fileMenu = new QPopupMenu(this);
 	fileMenu->insertItem(loadIcon("fileopen.png"), tr("&Open..."), this, SLOT(slot_open()), CTRL+Key_O);
 	fileMenu->insertItem(loadIcon("DateiSave16.png"), tr("&Save"), this, SLOT(slot_save()), CTRL+Key_S);
-	fileMenu->insertItem(tr("Save &As..."), this, SLOT(slot_saveAs()));
+	fileMenu->insertItem( tr("Save &As..."), this, SLOT(slot_saveAs()));
 	fileMenu->insertSeparator();
 	fileMenu->insertItem(loadIcon("exit.png"), tr("&Exit"), this, SLOT(slot_quit()));
-	menuBar->insertItem(tr("&File"), fileMenu);
+	menuBar->insertItem( tr("&File"), fileMenu);
 	QPopupMenu *scriptMenu = new QPopupMenu(this);
 	scriptMenu->insertItem(loadIcon("ok.png"), tr("&Run"), this, SLOT(slot_runScript()), Key_F9);
-	scriptMenu->insertItem(tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), CTRL+Key_F9);
-	scriptMenu->insertItem(tr("&Save Output..."), this, SLOT(slot_saveOutput()));
-	menuBar->insertItem(tr("&Script"), scriptMenu);
+	scriptMenu->insertItem( tr("Run As &Console"), this, SLOT(slot_runScriptAsConsole()), CTRL+Key_F9);
+	scriptMenu->insertItem( tr("&Save Output..."), this, SLOT(slot_saveOutput()));
+	menuBar->insertItem( tr("&Script"), scriptMenu);
 
 	gridLayout = new QGridLayout( this, 1, 1, 11, 6, "gridLayout");
 	gridLayout->setMenuBar(menuBar);
@@ -130,7 +130,7 @@ void PythonConsole::closeEvent(QCloseEvent *)
  */
 void PythonConsole::languageChange()
 {
-	setCaption(tr("Script Console"));
+	setCaption( tr("Script Console"));
 	QToolTip::add(commandEdit, "<qt>" + tr("Write your commands here. A selection is processed as script") + "</qt>");
 	QToolTip::add(outputEdit, "<qt>" + tr("Output of your script") + "</qt>");
 }

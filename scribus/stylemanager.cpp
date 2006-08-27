@@ -76,15 +76,15 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 
 void StyleManager::languageChange()
 {
-	nameLabel->setText(tr("Name:"));
+	nameLabel->setText( tr("Name:"));
 
-	resetButton->setText(tr("&Reset"));
-	applyButton->setText(tr("&Apply"));
+	resetButton->setText( tr("&Reset"));
+	applyButton->setText( tr("&Apply"));
 	okButton->setText(isEditMode_ ? tr("<< &Done") : tr("&Edit >>"));
-	newButton->setText(tr("&New"));
-	importButton->setText(tr("&Import"));
-	cloneButton->setText(tr("&Clone"));
-	deleteButton->setText(tr("&Delete"));
+	newButton->setText( tr("&New"));
+	importButton->setText( tr("&Import"));
+	cloneButton->setText( tr("&Clone"));
+	deleteButton->setText( tr("&Delete"));
 
 	QToolTip::add(resetButton, tr("Reset all changes"));
 	QToolTip::add(applyButton, tr("Apply all changes"));
@@ -114,13 +114,13 @@ void StyleManager::languageChange()
 		addNewType(items_.at(i));
 
 	rightClickPopup_->clear();
-	rightClickPopup_->insertItem(tr("New"), newPopup_);
-	rightClickPopup_->insertItem(tr("Import"), this, SLOT(slotImport()));
+	rightClickPopup_->insertItem( tr("New"), newPopup_);
+	rightClickPopup_->insertItem( tr("Import"), this, SLOT(slotImport()));
 	rightClickPopup_->insertSeparator();
-	rcpCloneId_ = rightClickPopup_->insertItem(tr("Clone"), this, SLOT(slotClone()));
-	rcpToScrapId_ = rightClickPopup_->insertItem(tr("Send to Scrapbook"), this, SLOT(slotScrap()));
+	rcpCloneId_ = rightClickPopup_->insertItem( tr("Clone"), this, SLOT(slotClone()));
+	rcpToScrapId_ = rightClickPopup_->insertItem( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
 	rightClickPopup_->insertSeparator();
-	rcpDeleteId_ = rightClickPopup_->insertItem(tr("Delete"), this, SLOT(slotDelete()));
+	rcpDeleteId_ = rightClickPopup_->insertItem( tr("Delete"), this, SLOT(slotDelete()));
 }
 
 void StyleManager::currentDoc(ScribusDoc *doc)
@@ -331,7 +331,7 @@ void StyleManager::slotOk()
 		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 		slotApply();
 		styleView->setSelectionMode(QListView::Multi);
-		okButton->setText(QString("%1 >>").arg(tr("&Edit")));
+		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
 		editFrame->hide();
 		applyButton->hide();
 		resetButton->hide();
@@ -373,7 +373,7 @@ void StyleManager::slotOk()
 		editPosition_.setY(y());
 		prefs_->set("eX", x());
 		prefs_->set("eY", y());
-		okButton->setText(QString("<< %1").arg(tr("&Done")));
+		okButton->setText(QString("<< %1").arg( tr("&Done")));
 		editFrame->show();
 		applyButton->show();
 		resetButton->show();
@@ -873,9 +873,9 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 
 void ShortcutWidget::languageChange()
 {
-	noKey->setText(tr("&No Key"));
-	userDef->setText(tr("&User Defined Key"));
-	setKeyButton->setText(tr("Set &Key"));
+	noKey->setText( tr("&No Key"));
+	userDef->setText( tr("&User Defined Key"));
+	setKeyButton->setText( tr("Set &Key"));
 	
 }
 

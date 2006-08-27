@@ -79,8 +79,8 @@ bool UpgradeChecker::fetch()
 	getter->setHost("www.scribus.net");
 	if (retrieveError)
 		return true;
-	outputText("<b>"+tr("Attempting to get the Scribus version update file")+"</b>");
-	outputText(tr("(No data on your computer will be sent to an external location)"));
+	outputText("<b>"+ tr("Attempting to get the Scribus version update file")+"</b>");
+	outputText( tr("(No data on your computer will be sent to an external location)"));
 	if(!file.open(IO_ReadWrite))
 		return true;
 	getterID=getter->get("/downloads/"+filename, &file);

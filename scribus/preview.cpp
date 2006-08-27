@@ -237,7 +237,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout6->setSpacing(0);
 	Layout6->setMargin(0);
 	/* scaling */
-	scaleLabel = new QLabel(tr("Scaling:"), this, "scaleLabel");
+	scaleLabel = new QLabel( tr("Scaling:"), this, "scaleLabel");
 	scaleBox = new QComboBox( true, this, "unitSwitcher" );
 	scaleBox->setEditable(false);
 	scaleBox->setFocusPolicy(QWidget::NoFocus);

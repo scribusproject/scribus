@@ -23,7 +23,7 @@ SMRowWidget::SMRowWidget(const QString &toBeDeleted, QStringList replaceOptions,
 	layout->addWidget(deleteLabel);
 	optionsCombo = new QComboBox(this, "optionsCombo");
 	optionsCombo->insertStringList(replaceOptions);
-	optionsCombo->insertItem(tr("No Style"), 0);
+	optionsCombo->insertItem( tr("No Style"), 0);
 	layout->addWidget(optionsCombo);
 }
 

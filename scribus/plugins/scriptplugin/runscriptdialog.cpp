@@ -15,11 +15,11 @@ RunScriptDialog::RunScriptDialog(QWidget* parent = 0, bool extEnable = false) :
 	this->extEnable = extEnable;
 	PrefsManager *prefsManager=PrefsManager::instance();
 	setDir(!prefsManager->appPrefs.ScriptDir.isEmpty() ? prefsManager->appPrefs.ScriptDir : QDir::currentDirPath());
-	setFilters(tr("Python Scripts (*.py *.PY);; All Files (*)"));
+	setFilters( tr("Python Scripts (*.py *.PY);; All Files (*)"));
 
 	if (extEnable)
 	{
-		extChk = new QCheckBox(tr("Run as Extension Script", "run script dialog"), this);
+		extChk = new QCheckBox( tr("Run as Extension Script", "run script dialog"), this);
 		extChk->setChecked(false);
 		addWidgets(0, extChk, 0);
 	}

@@ -82,7 +82,7 @@ SVGImportPlugin::~SVGImportPlugin()
 
 void SVGImportPlugin::languageChange()
 {
-	importAction->setMenuText(tr("Import &SVG..."));
+	importAction->setMenuText( tr("Import &SVG..."));
 	// (Re)register file format support.
 	unregisterAll();
 	registerFormats();
