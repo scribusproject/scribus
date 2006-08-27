@@ -6461,17 +6461,20 @@ void ScribusView::Reset1Control()
 
 	undoManager->setUndoEnabled(true);
 	FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
-	ItemState<QPair<FPointArray, FPointArray> > *state =
-			new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
-															currItem->getUPixmap());
-	state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
-	state->set("IS_CONTOUR", EditContour);
-	state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
-	state->set("OLD_X", oldItemX);
-	state->set("OLD_Y", oldItemY);
-	state->set("NEW_X", currItem->xPos());
-	state->set("NEW_Y", currItem->yPos());
-	undoManager->action(currItem, state);
+	if (*oldClip != newClip)
+	{
+		ItemState<QPair<FPointArray, FPointArray> > *state =
+				new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
+																currItem->getUPixmap());
+		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("IS_CONTOUR", EditContour);
+		state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+		state->set("OLD_X", oldItemX);
+		state->set("OLD_Y", oldItemY);
+		state->set("NEW_X", currItem->xPos());
+		state->set("NEW_Y", currItem->yPos());
+		undoManager->action(currItem, state);
+	}
 	delete oldClip;
 	oldClip = 0;
 }
@@ -6537,17 +6540,20 @@ void ScribusView::ResetControl()
 
 	undoManager->setUndoEnabled(true);
 	FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
-	ItemState<QPair<FPointArray, FPointArray> > *state =
-			new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
-															currItem->getUPixmap());
-	state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
-	state->set("IS_CONTOUR", EditContour);
-	state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
-	state->set("OLD_X", oldItemX);
-	state->set("OLD_Y", oldItemY);
-	state->set("NEW_X", currItem->xPos());
-	state->set("NEW_Y", currItem->yPos());
-	undoManager->action(currItem, state);
+	if (*oldClip != newClip)
+	{
+		ItemState<QPair<FPointArray, FPointArray> > *state =
+				new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
+																currItem->getUPixmap());
+		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("IS_CONTOUR", EditContour);
+		state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+		state->set("OLD_X", oldItemX);
+		state->set("OLD_Y", oldItemY);
+		state->set("NEW_X", currItem->xPos());
+		state->set("NEW_Y", currItem->yPos());
+		undoManager->action(currItem, state);
+	}
 	delete oldClip;
 	oldClip = 0;
 }
