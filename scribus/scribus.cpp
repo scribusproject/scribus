@@ -320,7 +320,7 @@ ScribusMainWindow::~ScribusMainWindow()
 
 void ScribusMainWindow::initToolBars()
 {
-	fileToolBar = new ScToolBar(tr("File"), "File", this);
+	fileToolBar = new ScToolBar( tr("File"), "File", this);
 	scrActions["fileNew"]->addTo(fileToolBar);
 	scrActions["fileOpen"]->addTo(fileToolBar);
 	scrMenuMgr->addMenuToWidgetOfAction("FileOpenRecent", scrActions["fileOpen"]);
@@ -1920,7 +1920,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	
 	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
 	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
-	QString newDocName(tr("Document")+"-"+QString::number(DocNr));
+	QString newDocName( tr("Document")+"-"+QString::number(DocNr));
 	ScribusDoc *tempDoc = new ScribusDoc();
 	if (requiresGUI)
 		doc=tempDoc;
@@ -1940,18 +1940,18 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	int setcol = tempDoc->pageSets[tempDoc->currentPageLayout].Columns;
 	if (setcol == 1)
 	{
-		tempDoc->addMasterPage(0, "Normal");
+		tempDoc->addMasterPage(0, tr("Normal"));
 		int createCount=QMAX(pageCount,1);
 		for (int i = 0; i < createCount; ++i)
-			tempDoc->addPage(i, "Normal", true);
+			tempDoc->addPage(i, tr("Normal"), true);
 	}
 	else if (setcol == 2)
 	{
-		Page *lp = tempDoc->addMasterPage(0, "Normal Left");
+		Page *lp = tempDoc->addMasterPage(0, tr("Normal Left"));
 		lp->LeftPg = 1;
 		lp->Margins.Left = lp->initialMargins.Right;
 		lp->Margins.Right = lp->initialMargins.Left;
-		lp = tempDoc->addMasterPage(1, "Normal Right");
+		lp = tempDoc->addMasterPage(1, tr("Normal Right"));
 		lp->LeftPg = 0;
 		lp->Margins.Right = lp->initialMargins.Right;
 		lp->Margins.Left = lp->initialMargins.Left;
@@ -1960,22 +1960,22 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		{
 			PageLocation pageLoc = tempDoc->locationOfPage(i);
 			if (pageLoc == LeftPage)
-				tempDoc->addPage(i, "Normal Left", true);
+				tempDoc->addPage(i, tr("Normal Left"), true);
 			else
-				tempDoc->addPage(i, "Normal Right", true);
+				tempDoc->addPage(i, tr("Normal Right"), true);
 		}
 	}
 	else if ((setcol == 3) || (setcol == 4))
 	{
-		Page *lp = tempDoc->addMasterPage(0, "Normal Left");
+		Page *lp = tempDoc->addMasterPage(0, tr("Normal Left"));
 		lp->LeftPg = 1;
 		lp->Margins.Left = lp->initialMargins.Right;
 		lp->Margins.Right = lp->initialMargins.Left;
-		lp = tempDoc->addMasterPage(1, "Normal Right");
+		lp = tempDoc->addMasterPage(1, tr("Normal Right"));
 		lp->LeftPg = 0;
 		lp->Margins.Right = lp->initialMargins.Right;
 		lp->Margins.Left = lp->initialMargins.Left;
-		lp = tempDoc->addMasterPage(2, "Normal Middle");
+		lp = tempDoc->addMasterPage(2, tr("Normal Middle"));
 		lp->LeftPg = 2;
 		lp->Margins.Left = lp->initialMargins.Left;
 		lp->Margins.Right = lp->initialMargins.Left;
@@ -1984,11 +1984,11 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		{
 			PageLocation pageLoc = tempDoc->locationOfPage(i);
 			if (pageLoc == LeftPage)
-				tempDoc->addPage(i, "Normal Left", true);
+				tempDoc->addPage(i, tr("Normal Left"), true);
 			else if (pageLoc == RightPage)
-				tempDoc->addPage(i, "Normal Right", true);
+				tempDoc->addPage(i, tr("Normal Right"), true);
 			else
-				tempDoc->addPage(i, "Normal Middle", true);
+				tempDoc->addPage(i, tr("Normal Middle"), true);
 		}
 	}
 	tempDoc->addSection();
@@ -5133,7 +5133,15 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		if (basedOn != NULL)
 			ss->set("BASED", basedOn->join("|"));
 		else
-			ss->set("BASED", tr("Normal"));
+		{
+			int setcol = doc->pageSets[doc->currentPageLayout].Columns;
+			if (setcol == 1)
+				ss->set("BASED", tr("Normal"));
+			else if (setcol == 2)
+				ss->set("BASED", tr("Normal Left")+"|"+ tr("Normal Right"));
+			else if ((setcol == 3) || (setcol == 4))
+				ss->set("BASED", tr("Normal Left")+"|"+ tr("Normal Middle")+"|"+ tr("Normal Right"));
+		}
 		ss->set("HEIGHT", height);
 		ss->set("WIDTH", width);
 		ss->set("ORIENT", orient);
@@ -5148,8 +5156,27 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	QStringList base;
 	if (basedOn == NULL)
 	{
-		for (int b = 0; b < doc->currentPageLayout; ++b)
-			base.append(tr("Normal"));
+		int setcol = doc->pageSets[doc->currentPageLayout].Columns;
+		if (setcol == 1)
+			base.append( tr("Normal"));
+		else if (setcol == 2)
+		{
+			base.append( tr("Normal Left"));
+			base.append( tr("Normal Right"));
+		}
+		else if (setcol == 3)
+		{
+			base.append( tr("Normal Left"));
+			base.append( tr("Normal Middle"));
+			base.append( tr("Normal Right"));
+		}
+		else if (setcol == 4)
+		{
+			base.append( tr("Normal Left"));
+			base.append( tr("Normal Middle"));
+			base.append( tr("Normal Middle"));
+			base.append( tr("Normal Right"));
+		}
 	}
 	else
 		base = *basedOn;
@@ -7476,7 +7503,7 @@ void ScribusMainWindow::reallySaveAsEps()
 		scrActions["toolsPreflightVerifier"]->setOn(false);
 		disconnect(docCheckerPalette, SIGNAL(ignoreAllErrors()), this, SLOT(reallySaveAsEps()));
 	}
-	if (!doc->DocName.startsWith(tr("Document")))
+	if (!doc->DocName.startsWith( tr("Document")))
 	{
 		QFileInfo fi(doc->DocName);
 		fna = fi.dirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");

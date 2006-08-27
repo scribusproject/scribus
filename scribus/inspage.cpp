@@ -85,6 +85,42 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
 			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 				pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+			if (mp == 0)
+			{
+				if (currentDoc->MasterNames.contains( tr("Normal Left")))
+					pageData->setCurrentText( tr("Normal Left"));
+			}
+			else if (mp == 1)
+			{
+				if (currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count() > 2)
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Middle")))
+						pageData->setCurrentText( tr("Normal Middle"));
+				}
+				else
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Right")))
+						pageData->setCurrentText( tr("Normal Right"));
+				}
+			}
+			else if (mp == 2)
+			{
+				if (currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count() > 3)
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Middle")))
+						pageData->setCurrentText( tr("Normal Middle"));
+				}
+				else
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Right")))
+						pageData->setCurrentText( tr("Normal Right"));
+				}
+			}
+			else if (mp == 3)
+			{
+				if (currentDoc->MasterNames.contains( tr("Normal Right")))
+					pageData->setCurrentText( tr("Normal Right"));
+			}
 			QLabel* pageLabel = new QLabel(pageData,  currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp], masterPageGroup, "text");
 			masterPageLayout->addWidget(pageLabel, row, 0 );
 			masterPageLayout->addWidget(pageData, row, 1);
