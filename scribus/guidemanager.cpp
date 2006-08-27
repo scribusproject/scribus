@@ -88,6 +88,8 @@ GuideManager::GuideManager(QWidget* parent) :
 void GuideManager::setDoc(ScribusDoc* doc)
 {
 	m_Doc=doc;
+	if (!m_Doc)
+		currentPage = 0;
 	tabWidget->setEnabled(doc ? true : false);
 }
 
