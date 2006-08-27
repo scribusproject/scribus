@@ -8460,10 +8460,24 @@ void ScribusMainWindow::ImageEffects()
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
 			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
+			// store old effects for the undo action
+			QValueList<ScImage::imageEffect> oldEffects(currItem->effectsInUse);
 			if (dia->exec())
 			{
 				currItem->effectsInUse = dia->effectsList;
 				doc->updatePic();
+
+				// this messy part is for the undo action
+				ItemState<QPair<
+					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *state = 
+				new ItemState<QPair<
+					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > >(
+						Um::ImageEffects, "", currItem->getUPixmap());
+				state->set("APPLY_IMAGE_EFFECTS", "apply_image_effects");
+				state->setItem(
+					QPair<QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> >(
+						oldEffects, currItem->effectsInUse));
+				undoManager->action(currItem, state);
 			}
 			delete dia;
 			slotDocCh();

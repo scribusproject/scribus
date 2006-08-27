@@ -549,6 +549,7 @@ public:
 	static QString EditContour;
 	static QString ResetControlPoint;
 	static QString ResetControlPoints;
+	static QString ImageEffects;
 	/*@}*/
 
 	/**
