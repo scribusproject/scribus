@@ -6419,7 +6419,16 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 
 void ScribusView::Reset1Control()
 {
+	// do no record anything else but the core reset points action
+	undoManager->setUndoEnabled(false);
+
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
+
+	oldClip = new FPointArray(EditContour ? currItem->ContourLine.copy() : currItem->PoLine.copy());
+	oldItemX = currItem->xPos();
+	oldItemY = currItem->yPos();
+	isContourLine = EditContour;
+
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (EditContour)
@@ -6449,17 +6458,42 @@ void ScribusView::Reset1Control()
 		cli = currItem->PoLine;
 	MarkClip(currItem, cli, true);
 	emit DocChanged();
+
+	undoManager->setUndoEnabled(true);
+	FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+	ItemState<QPair<FPointArray, FPointArray> > *state =
+			new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
+															currItem->getUPixmap());
+	state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+	state->set("IS_CONTOUR", EditContour);
+	state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+	state->set("OLD_X", oldItemX);
+	state->set("OLD_Y", oldItemY);
+	state->set("NEW_X", currItem->xPos());
+	state->set("NEW_Y", currItem->yPos());
+	undoManager->action(currItem, state);
+	delete oldClip;
+	oldClip = 0;
 }
 
 void ScribusView::ResetControl()
 {
+	// do no record anything else but the core reset points action
+	undoManager->setUndoEnabled(false);
+
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
+	oldClip = new FPointArray(EditContour ? currItem->ContourLine.copy() : currItem->PoLine.copy());
+	oldItemX = currItem->xPos();
+	oldItemY = currItem->yPos();
+	isContourLine = EditContour;
+
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (EditContour)
 		np = currItem->ContourLine.point(ClRe);
 	else
 		np = currItem->PoLine.point(ClRe);
+
 	currItem->OldB2 = currItem->width();
 	currItem->OldH2 = currItem->height();
 	if ((ClRe == 0) || (ClRe == static_cast<int>(currItem->PoLine.size()-2)))
@@ -6498,7 +6532,24 @@ void ScribusView::ResetControl()
 	else
 		cli = currItem->PoLine;
 	MarkClip(currItem, cli, true);
+
 	emit DocChanged();
+
+	undoManager->setUndoEnabled(true);
+	FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+	ItemState<QPair<FPointArray, FPointArray> > *state =
+			new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
+															currItem->getUPixmap());
+	state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+	state->set("IS_CONTOUR", EditContour);
+	state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+	state->set("OLD_X", oldItemX);
+	state->set("OLD_Y", oldItemY);
+	state->set("NEW_X", currItem->xPos());
+	state->set("NEW_Y", currItem->yPos());
+	undoManager->action(currItem, state);
+	delete oldClip;
+	oldClip = 0;
 }
 
 //CB-->Doc
