@@ -5,11 +5,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 14:44+0200\n"
+"POT-Creation-Date: 2006-08-27 13:48+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
-"Content-Type: text/plain; charset=ISO-8859-13\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 0.8\n"
 
@@ -20,6 +20,83 @@ msgid "4A0"
 msgstr ""
 
 msgid "2A0"
+msgstr ""
+
+#, fuzzy
+msgid "Quarto"
+msgstr "Autorius:"
+
+#, fuzzy
+msgid "Foolscap"
+msgstr "Ä®rankiai"
+
+#, fuzzy
+msgid "Letter"
+msgstr "Per vidurÄ¯"
+
+#, fuzzy
+msgid "Govt. Letter"
+msgstr "Per vidurÄ¯"
+
+msgid "Legal"
+msgstr ""
+
+#, fuzzy
+msgid "Ledger"
+msgstr "Per vidurÄ¯"
+
+#, fuzzy
+msgid "Executive"
+msgstr "Veiksmas"
+
+#, fuzzy
+msgid "Post"
+msgstr "Ä®terpti"
+
+#, fuzzy
+msgid "Crown"
+msgstr "Ukrainos:"
+
+#, fuzzy
+msgid "Large Post"
+msgstr "apytiksli"
+
+msgid "Demy"
+msgstr ""
+
+msgid "Medium"
+msgstr "Vidutinis"
+
+msgid "Royal"
+msgstr ""
+
+#, fuzzy
+msgid "Elephant"
+msgstr "Slinktis"
+
+#, fuzzy
+msgid "Double Demy"
+msgstr "Lygiuoti deÅ¡inÄ—je"
+
+msgid "Quad Demy"
+msgstr ""
+
+msgid "STMT"
+msgstr ""
+
+msgid "A"
+msgstr ""
+
+msgid "B"
+msgstr ""
+
+msgid "C"
+msgstr ""
+
+msgid "D"
+msgstr ""
+
+msgid "E"
 msgstr ""
 
 #, fuzzy
@@ -34,7 +111,7 @@ msgstr "Nieko"
 
 #, fuzzy
 msgid "Manage Page Properties"
-msgstr "Aprağymo parinktys"
+msgstr "ApraÅ¡ymo parinktys"
 
 msgid "Page Size"
 msgstr "Lapo dydis"
@@ -51,7 +128,7 @@ msgid "Portrait"
 msgstr "Portretui"
 
 msgid "Landscape"
-msgstr "Peizaşui"
+msgstr "PeizaÅ¾ui"
 
 #, fuzzy
 msgid "&Width:"
@@ -59,7 +136,7 @@ msgstr "Plotis:"
 
 #, fuzzy
 msgid "&Height:"
-msgstr "Aukğtis:"
+msgstr "AukÅ¡tis:"
 
 msgid "Move Objects with their Page"
 msgstr ""
@@ -68,11 +145,22 @@ msgid "Type:"
 msgstr "Tipas:"
 
 msgid "Margin Guides"
-msgstr "Parağèiø linijos"
+msgstr "ParaÅ¡ÄiÅ³ linijos"
+
+#, fuzzy
+msgid "Other Settings"
+msgstr "PelÄ—s nuostatos"
+
+#, fuzzy
+msgid "Master Page:"
+msgstr "po puslapio"
+
+msgid "Normal"
+msgstr "Paprastas"
 
 #, fuzzy
 msgid "Delete Styles"
-msgstr "Pağalinti sluoksná"
+msgstr "PaÅ¡alinti sluoksnÄ¯"
 
 #, fuzzy
 msgid "&OK"
@@ -84,7 +172,7 @@ msgstr "Netinka"
 
 #, fuzzy
 msgid "Alt+N"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "pt"
 msgstr ""
@@ -127,23 +215,23 @@ msgstr "Veiksmas"
 
 #, fuzzy
 msgid "Shortcut"
-msgstr "Klaviğø deriniai..."
+msgstr "KlaviÅ¡Å³ deriniai..."
 
 #, fuzzy
 msgid "Keyboard Shortcuts"
-msgstr "Klaviğø deriniai..."
+msgstr "KlaviÅ¡Å³ deriniai..."
 
 #, fuzzy
 msgid "Search:"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #, fuzzy
 msgid "Shortcut for Selected Action"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 #, fuzzy
 msgid "&No Key"
-msgstr "Jokiø deriniø"
+msgstr "JokiÅ³ deriniÅ³"
 
 #, fuzzy
 msgid "&User Defined Key"
@@ -151,15 +239,15 @@ msgstr "Tavo pasirinktas derinys"
 
 #, fuzzy
 msgid "Alt+U"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #, fuzzy
 msgid "Set &Key"
-msgstr "Parinkti deriná"
+msgstr "Parinkti derinÄ¯"
 
 #, fuzzy
 msgid "Alt+K"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "CTRL+ALT+SHIFT+W"
 msgstr ""
@@ -176,7 +264,7 @@ msgstr "Atidaryti..."
 
 #, fuzzy
 msgid "Alt+L"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Load the selected shortcut set"
 msgstr ""
@@ -187,7 +275,7 @@ msgstr "Importuoti..."
 
 #, fuzzy
 msgid "Alt+I"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Import a shortcut set into the current configuration"
 msgstr ""
@@ -198,7 +286,7 @@ msgstr "Eksportuoti..."
 
 #, fuzzy
 msgid "Alt+E"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Export the current shortcuts into an importable file"
 msgstr ""
@@ -209,14 +297,14 @@ msgstr "Atitaisyti"
 
 #, fuzzy
 msgid "Alt+R"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Reload the default Scribus shortcuts"
 msgstr ""
 
 #, fuzzy
 msgid "Available Fonts"
-msgstr "Galimi ğriftai:"
+msgstr "Galimi Å¡riftai:"
 
 msgid "Font Substitutions"
 msgstr ""
@@ -226,11 +314,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Font Name"
-msgstr "Ğrifto dydis"
+msgstr "Å rifto dydis"
 
 #, fuzzy
 msgid "Use Font"
-msgstr "Naudoti şenkliukà"
+msgstr "Naudoti Å¾enkliukÄ…"
 
 #, fuzzy
 msgid "Embed in PostScript"
@@ -238,15 +326,15 @@ msgstr "JavaScript (*.js);; Visi failai (*)"
 
 #, fuzzy
 msgid "Subset"
-msgstr "Porağtis"
+msgstr "PoraÅ¡tis"
 
 #, fuzzy
 msgid "Path to Font File"
-msgstr "Ğriftu saugojimo vieta"
+msgstr "Å riftu saugojimo vieta"
 
 #, fuzzy
 msgid "&Available Fonts"
-msgstr "Galimi ğriftai:"
+msgstr "Galimi Å¡riftai:"
 
 #, fuzzy
 msgid "Replacement"
@@ -254,7 +342,7 @@ msgstr "Slinktis"
 
 #, fuzzy
 msgid "&Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 msgid "Font &Substitutions"
 msgstr ""
@@ -265,11 +353,11 @@ msgstr "Pakeisti..."
 
 #, fuzzy
 msgid "A&dd..."
-msgstr "Pridëti..."
+msgstr "PridÄ—ti..."
 
 #, fuzzy
 msgid "&Remove"
-msgstr "Pağalinti"
+msgstr "PaÅ¡alinti"
 
 msgid ""
 "Font search paths can only be set in Preferences, and only when there is no "
@@ -288,7 +376,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Alt"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Ctrl"
 msgstr ""
@@ -313,18 +401,18 @@ msgstr ""
 
 #, fuzzy
 msgid "This key sequence is already in use"
-msgstr "Ğis klaviğø derinys jau naudojamas"
+msgstr "Å is klaviÅ¡Å³ derinys jau naudojamas"
 
 #, fuzzy
 msgid "Page Layout"
-msgstr "Iğvaizda:"
+msgstr "IÅ¡vaizda:"
 
 #, fuzzy
 msgid "First Page is:"
 msgstr "Pradinis puslapis:"
 
 msgid "Subscript"
-msgstr "Porağtis"
+msgstr "PoraÅ¡tis"
 
 msgid " %"
 msgstr ""
@@ -338,7 +426,7 @@ msgid "&Scaling:"
 msgstr "Dydis:"
 
 msgid "Superscript"
-msgstr "Antrağtis"
+msgstr "AntraÅ¡tis"
 
 #, fuzzy
 msgid "D&isplacement:"
@@ -367,7 +455,7 @@ msgid "Strikethru"
 msgstr "Perbrauktas"
 
 msgid "Small Caps"
-msgstr "Maşos didşiosios"
+msgstr "MaÅ¾os didÅ¾iosios"
 
 #, fuzzy
 msgid "Sc&aling:"
@@ -375,11 +463,11 @@ msgstr "Dydis:"
 
 #, fuzzy
 msgid "Automatic &Line Spacing"
-msgstr "Autotarpai tarp eiluèiø:"
+msgstr "Autotarpai tarp eiluÄiÅ³:"
 
 #, fuzzy
 msgid "Line Spacing:"
-msgstr "Tarpas tarp eiluèiø"
+msgstr "Tarpas tarp eiluÄiÅ³"
 
 msgid "Displacement above the baseline of the font on a line"
 msgstr ""
@@ -418,14 +506,14 @@ msgstr "Objektas"
 
 #, fuzzy
 msgid "Group "
-msgstr "Sudaryti junginá"
+msgstr "Sudaryti junginÄ¯"
 
 #, fuzzy
 msgid "Page "
 msgstr "Puslapis"
 
 msgid "Outline"
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
 
 #, fuzzy
 msgid "Element"
@@ -433,47 +521,29 @@ msgstr "Slinktis"
 
 #, fuzzy
 msgid "Font:"
-msgstr "Ğriftas"
-
-msgid " pt"
-msgstr ""
+msgstr "Å riftas"
 
 msgid "Size:"
 msgstr "Dydis:"
 
 #, fuzzy
 msgid "Text Color:"
-msgstr "Iğtrinti spalvà"
+msgstr "IÅ¡trinti spalvÄ…"
 
 #, fuzzy
 msgid "Shading:"
-msgstr "Su ğeğëliu:"
+msgstr "Su Å¡eÅ¡Ä—liu:"
 
 #, fuzzy
 msgid "Text Stroke:"
-msgstr "Klaviğas:"
+msgstr "KlaviÅ¡as:"
 
 msgid "Fill Color:"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 #, fuzzy
 msgid "Stroke Color:"
 msgstr "Nauja spalva:"
-
-msgid "Dot"
-msgstr ""
-
-#, fuzzy
-msgid "Hyphen"
-msgstr "Simboliø parinktys"
-
-#, fuzzy
-msgid "Underscore"
-msgstr "vietoj to"
-
-#, fuzzy
-msgid "Custom: "
-msgstr "Nuosavas"
 
 #, fuzzy
 msgid "Tab Fill Character:"
@@ -499,19 +569,22 @@ msgstr "Linijos spalva:"
 
 #, fuzzy
 msgid "&Shading:"
-msgstr "Su ğeğëliu:"
+msgstr "Su Å¡eÅ¡Ä—liu:"
 
 #, fuzzy
 msgid "&Fill Color:"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 #, fuzzy
 msgid "S&hading:"
-msgstr "Su ğeğëliu:"
+msgstr "Su Å¡eÅ¡Ä—liu:"
 
 #, fuzzy
 msgid "Line Style:"
 msgstr "Linijos forma"
+
+msgid " pt"
+msgstr ""
 
 #, fuzzy
 msgid "Line &Width:"
@@ -526,7 +599,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Start:"
-msgstr "Şvaigşdë"
+msgstr "Å½vaigÅ¾dÄ—"
 
 #, fuzzy
 msgid "End:"
@@ -546,26 +619,26 @@ msgstr "Vertik. dydis"
 
 #, fuzzy
 msgid "&Scale Picture to Frame Size"
-msgstr "Paveiksliuko mastelis pagal rëmelio dydá"
+msgstr "Paveiksliuko mastelis pagal rÄ—melio dydÄ¯"
 
 #, fuzzy
 msgid "Keep Aspect &Ratio"
-msgstr "Iğlaikyti proporcijas"
+msgstr "IÅ¡laikyti proporcijas"
 
 #, fuzzy
 msgid "F&ill Color:"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 msgid "Use embedded Clipping Path"
 msgstr ""
 
 #, fuzzy
 msgid "On Screen Preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "Full Resolution Preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 msgid "Normal Resolution Preview"
 msgstr ""
@@ -576,34 +649,34 @@ msgstr "Skiriamoji geba:"
 
 #, fuzzy
 msgid "Mi&nimum:"
-msgstr "maşiausia"
+msgstr "maÅ¾iausia"
 
 #, fuzzy
 msgid "Ma&ximum:"
-msgstr "didşiausia"
+msgstr "didÅ¾iausia"
 
 #, fuzzy
 msgid "&Stepping:"
-msgstr "Şingsneliai:"
+msgstr "Å½ingsneliai:"
 
 #, fuzzy
 msgid "Text Frame Properties"
-msgstr "Laukeliø parinktys"
+msgstr "LaukeliÅ³ parinktys"
 
 #, fuzzy
 msgid "Picture Frame Properties"
-msgstr "Paveiksliuko rëmelis"
+msgstr "Paveiksliuko rÄ—melis"
 
 #, fuzzy
 msgid "Shape Drawing Properties"
-msgstr "Aprağymo parinktys"
+msgstr "ApraÅ¡ymo parinktys"
 
 msgid "Magnification Level Defaults"
 msgstr ""
 
 #, fuzzy
 msgid "Line Drawing Properties"
-msgstr "Aprağymo parinktys"
+msgstr "ApraÅ¡ymo parinktys"
 
 #, fuzzy
 msgid "Polygon Drawing Properties"
@@ -686,32 +759,29 @@ msgstr "Sodrumas"
 
 #, fuzzy
 msgid "Style of lines"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid "Width of lines"
 msgstr ""
 
+msgid "Dot"
+msgstr ""
+
+#, fuzzy
+msgid "Hyphen"
+msgstr "SimboliÅ³ parinktys"
+
+#, fuzzy
+msgid "Underscore"
+msgstr "vietoj to"
+
+#, fuzzy
+msgid "Custom: "
+msgstr "Nuosavas"
+
 #, fuzzy
 msgid "Custom:"
 msgstr "Nuosavas"
-
-msgid "Freetype2 library not available"
-msgstr ""
-
-msgid "Font %1(%2) is broken"
-msgstr ""
-
-msgid "Font %1 is broken (read stream), no embedding"
-msgstr ""
-
-msgid "Font %1 has broken glyph %2 (charcode %3)"
-msgstr ""
-
-msgid "Font %1 is broken and will be discarded"
-msgstr ""
-
-msgid "Font %1 cannot be read, no embedding"
-msgstr ""
 
 msgid "Creating Font Cache"
 msgstr ""
@@ -723,6 +793,9 @@ msgid "Failed to load font %1 - font type unknown"
 msgstr ""
 
 msgid "New Font found, checking..."
+msgstr ""
+
+msgid "Font %1 has broken glyph %2 (charcode %3)"
 msgstr ""
 
 msgid "Modified Font found, checking..."
@@ -748,13 +821,13 @@ msgstr ""
 
 #, fuzzy
 msgid "Searching for Fonts"
-msgstr "Perkelti virğun"
+msgstr "Perkelti virÅ¡un"
 
 msgid "Left"
-msgstr "Kairën"
+msgstr "KairÄ—n"
 
 msgid "Right"
-msgstr "Değinën"
+msgstr "DeÅ¡inÄ—n"
 
 msgid "Full Stop"
 msgstr ""
@@ -764,7 +837,7 @@ msgid "Comma"
 msgstr "Komanda:"
 
 msgid "Center"
-msgstr "Per vidurá"
+msgstr "Per vidurÄ¯"
 
 #, fuzzy
 msgid "&Position:"
@@ -772,11 +845,11 @@ msgstr "Komentarai:"
 
 #, fuzzy
 msgid "Fill Char:"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 #, fuzzy
 msgid "Delete All"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 msgid "Indentation for first line of the paragraph"
 msgstr ""
@@ -784,13 +857,26 @@ msgstr ""
 msgid "Indentation from the left for the whole paragraph"
 msgstr ""
 
+msgid "Indentation from the right for the whole paragraph"
+msgstr ""
+
 #, fuzzy
 msgid "Delete all Tabulators"
-msgstr "Iğtrinti spalvà"
+msgstr "IÅ¡trinti spalvÄ…"
+
+msgid "No Style"
+msgstr "Be stiliaus"
+
+msgid "Remove"
+msgstr "PaÅ¡alinti"
+
+#, fuzzy
+msgid "Replace with"
+msgstr "Pakeisti Ä¯:"
 
 #, fuzzy
 msgid "Plugin Manager"
-msgstr "Spausdinimo eiliğkumas"
+msgstr "Spausdinimo eiliÅ¡kumas"
 
 #, fuzzy
 msgid "Plugin"
@@ -804,7 +890,7 @@ msgstr "Tipas"
 
 #, fuzzy
 msgid "Load it?"
-msgstr "Ruoğiama..."
+msgstr "RuoÅ¡iama..."
 
 #, fuzzy
 msgid "Plugin ID"
@@ -837,12 +923,9 @@ msgstr ""
 msgid "New Layer"
 msgstr "Naujas sluoksnis"
 
-msgid "Normal"
-msgstr "Paprastas"
-
 #, fuzzy
 msgid "Do you really want to clear all your text?"
-msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
 
 msgid "Cannot Delete In-Use Item"
 msgstr ""
@@ -871,62 +954,62 @@ msgstr "Absoliutinis spalvos matavimas"
 
 #, fuzzy
 msgid "&X-Pos:"
-msgstr "X vieta èia pat:"
+msgstr "X vieta Äia pat:"
 
 #, fuzzy
 msgid "&Y-Pos:"
-msgstr "Y vieta èia pat:"
+msgstr "Y vieta Äia pat:"
 
 #, fuzzy
 msgid "Edit &Contour Line"
-msgstr "Keisti spalvà"
+msgstr "Keisti spalvÄ…"
 
 #, fuzzy
 msgid "&Reset Contour Line"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "&End Editing"
-msgstr "Rëmelio taisymo baigtis"
+msgstr "RÄ—melio taisymo baigtis"
 
 #, fuzzy
 msgid "Move Nodes"
-msgstr "Perkelti mazgà"
+msgstr "Perkelti mazgÄ…"
 
 #, fuzzy
 msgid "Move Control Points"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "Add Nodes"
-msgstr "Pridëti mazgà"
+msgstr "PridÄ—ti mazgÄ…"
 
 #, fuzzy
 msgid "Delete Nodes"
-msgstr "Nuimti mazgà"
+msgstr "Nuimti mazgÄ…"
 
 #, fuzzy
 msgid "Move Control Points Independently"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "Move Control Points Symmetrical"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 msgid "Reset Control Points"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "Reset this Control Point"
-msgstr "Atitaisyti ğiuos valdymo tağkus"
+msgstr "Atitaisyti Å¡iuos valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "Open a Polygon or Cuts a Bezier Curve"
-msgstr "Iğardyti daugiakampá arba iğkirpti atkarpà"
+msgstr "IÅ¡ardyti daugiakampÄ¯ arba iÅ¡kirpti atkarpÄ…"
 
 #, fuzzy
 msgid "Close this Bezier Curve"
-msgstr "Sujungti kreivës galus"
+msgstr "Sujungti kreivÄ—s galus"
 
 msgid "Mirror the Path Horizontally"
 msgstr ""
@@ -986,10 +1069,6 @@ msgid ""
 "relative to the Object."
 msgstr ""
 
-#, fuzzy
-msgid "Copy #%1 of "
-msgstr "Kopijuoti "
-
 msgid "Some fonts used by this document have been substituted:"
 msgstr ""
 
@@ -998,7 +1077,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Relates To"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid "Is Parent Of"
 msgstr ""
@@ -1008,7 +1087,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Text Frames"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 msgid "Image Frames"
@@ -1019,15 +1098,15 @@ msgstr ""
 
 #, fuzzy
 msgid "Integer"
-msgstr "Per vidurá"
+msgstr "Per vidurÄ¯"
 
 #, fuzzy
 msgid "Real Number"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 #, fuzzy
 msgid "String"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid "%1: %2"
 msgstr ""
@@ -1041,11 +1120,11 @@ msgstr "Veiksmas"
 
 #, fuzzy
 msgid "Show selected object only"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 #, fuzzy
 msgid "&Undo"
-msgstr "Gràşinti"
+msgstr "GrÄ…Å¾inti"
 
 #, fuzzy
 msgid "&Redo"
@@ -1053,19 +1132,19 @@ msgstr "Atitaisyti"
 
 #, fuzzy
 msgid "Table of Contents and Indexes"
-msgstr "Iğsaugoti kas sukaupta iğeinant"
+msgstr "IÅ¡saugoti kas sukaupta iÅ¡einant"
 
 #, fuzzy
 msgid "&Add"
-msgstr "Pridëti..."
+msgstr "PridÄ—ti..."
 
 #, fuzzy
 msgid "Alt+A"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #, fuzzy
 msgid "Alt+D"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "The frame the table of contents will be placed into"
 msgstr ""
@@ -1167,7 +1246,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Add vertical guide"
-msgstr "Vertikalûs tarpai"
+msgstr "VertikalÅ«s tarpai"
 
 #, fuzzy
 msgid "Add horizontal guide"
@@ -1175,7 +1254,7 @@ msgstr "Apverstas horizontaliai"
 
 #, fuzzy
 msgid "Remove vertical guide"
-msgstr "Vertikalûs tarpai"
+msgstr "VertikalÅ«s tarpai"
 
 #, fuzzy
 msgid "Remove horizontal guide"
@@ -1183,7 +1262,7 @@ msgstr "Apverstas horizontaliai"
 
 #, fuzzy
 msgid "Move vertical guide"
-msgstr "Vertikalûs tarpai"
+msgstr "VertikalÅ«s tarpai"
 
 #, fuzzy
 msgid "Move horizontal guide"
@@ -1207,7 +1286,7 @@ msgstr "Atitaisyti"
 
 #, fuzzy
 msgid "Rotate"
-msgstr "Pasukti objektà"
+msgstr "Pasukti objektÄ…"
 
 msgid ""
 "X1: %1, Y1: %2, %3\n"
@@ -1225,7 +1304,7 @@ msgstr "Efektai"
 
 #, fuzzy
 msgid "Change Image Scale"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid ""
 "X1: %1, Y1: %2\n"
@@ -1239,18 +1318,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Selection"
-msgstr "Paşymëti"
+msgstr "PaÅ¾ymÄ—ti"
 
 msgid "Group"
-msgstr "Sudaryti junginá"
+msgstr "Sudaryti junginÄ¯"
 
 #, fuzzy
 msgid "Selection/Group"
-msgstr "Pasirink ğriftà"
+msgstr "Pasirink Å¡riftÄ…"
 
 #, fuzzy
 msgid "Create"
-msgstr "Raidë"
+msgstr "RaidÄ—"
 
 msgid ""
 "X: %1, Y: %2\n"
@@ -1259,7 +1338,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Align/Distribute"
-msgstr "Iğskirstyti/iğligiuoti"
+msgstr "IÅ¡skirstyti/iÅ¡ligiuoti"
 
 msgid "Items involved"
 msgstr ""
@@ -1269,7 +1348,7 @@ msgstr "Netinka"
 
 #, fuzzy
 msgid "Set fill color"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 msgid "Color1: %1, Color2: %2"
 msgstr ""
@@ -1279,11 +1358,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Set line color"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 #, fuzzy
 msgid "Set line color shade"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 #, fuzzy
 msgid "Flip horizontally"
@@ -1317,14 +1396,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Ungroup"
-msgstr "Iğardyti junginá"
+msgstr "IÅ¡ardyti junginÄ¯"
 
 msgid "Delete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #, fuzzy
 msgid "Rename"
-msgstr "Pağalinti"
+msgstr "PaÅ¡alinti"
 
 msgid ""
 "From %1\n"
@@ -1337,10 +1416,10 @@ msgid "Apply Master Page"
 msgstr "Pritaikyti efektus visuose puslapiuose"
 
 msgid "Paste"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
 
 msgid "Cut"
-msgstr "Iğkirpti"
+msgstr "IÅ¡kirpti"
 
 msgid "Set fill color transparency"
 msgstr ""
@@ -1354,11 +1433,11 @@ msgstr "Linijos forma"
 
 #, fuzzy
 msgid "Set the style of line end"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Set the style of line join"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Set line width"
@@ -1382,26 +1461,26 @@ msgstr ""
 
 #, fuzzy
 msgid "Create table"
-msgstr "Prijungti teksto grandá"
+msgstr "Prijungti teksto grandÄ¯"
 
 msgid "Rows: %1, Cols: %2"
 msgstr ""
 
 #, fuzzy
 msgid "Set font"
-msgstr "Pasirink ğriftà"
+msgstr "Pasirink Å¡riftÄ…"
 
 #, fuzzy
 msgid "Set font size"
-msgstr "Ğrifto dydis"
+msgstr "Å rifto dydis"
 
 #, fuzzy
 msgid "Set font width"
-msgstr "Stulpeliø linijos"
+msgstr "StulpeliÅ³ linijos"
 
 #, fuzzy
 msgid "Set font height"
-msgstr "Stulpeliø linijos"
+msgstr "StulpeliÅ³ linijos"
 
 #, fuzzy
 msgid "Set font fill color"
@@ -1409,22 +1488,22 @@ msgstr "Sodrumas"
 
 #, fuzzy
 msgid "Set font stroke color"
-msgstr "Rodyti spalvø áranká"
+msgstr "Rodyti spalvÅ³ Ä¯rankÄ¯"
 
 msgid "Set font fill color shade"
 msgstr ""
 
 #, fuzzy
 msgid "Set font stroke color shade"
-msgstr "Áğsaugok savo darbà"
+msgstr "Ä®Å¡saugok savo darbÄ…"
 
 #, fuzzy
 msgid "Set kerning"
-msgstr "Dëmesio!"
+msgstr "DÄ—mesio!"
 
 #, fuzzy
 msgid "Set line spacing"
-msgstr "Tarpai tarp eiluèiø"
+msgstr "Tarpai tarp eiluÄiÅ³"
 
 #, fuzzy
 msgid "Set paragraph style"
@@ -1432,15 +1511,15 @@ msgstr "Stiliai..."
 
 #, fuzzy
 msgid "Set language"
-msgstr "Eilë:"
+msgstr "EilÄ—:"
 
 #, fuzzy
 msgid "Align text"
-msgstr "Lygiuoti kairëje"
+msgstr "Lygiuoti kairÄ—je"
 
 #, fuzzy
 msgid "Set font effect"
-msgstr "Be efektø"
+msgstr "Be efektÅ³"
 
 #, fuzzy
 msgid "Image frame"
@@ -1448,14 +1527,14 @@ msgstr "Paveiksliukas"
 
 #, fuzzy
 msgid "Text frame"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid "Polygon"
 msgstr "Daugiakampis"
 
 #, fuzzy
 msgid "Bezier curve"
-msgstr "Bezje kreivë"
+msgstr "Bezje kreivÄ—"
 
 #, fuzzy
 msgid "Polyline"
@@ -1463,11 +1542,11 @@ msgstr "Daugiakampis"
 
 #, fuzzy
 msgid "Text on a Path"
-msgstr "Priskirti tekstui marğtutà"
+msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 msgid "Convert to"
-msgstr "Pakeisti á"
+msgstr "Pakeisti Ä¯"
 
 #, fuzzy
 msgid "Import SVG image"
@@ -1475,7 +1554,7 @@ msgstr "Importuoti..."
 
 #, fuzzy
 msgid "Import EPS image"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "Import OpenOffice.org Draw image"
@@ -1486,24 +1565,28 @@ msgstr ""
 
 #, fuzzy
 msgid "Text flows around the frame"
-msgstr "Tekstas aplenks rëmelá"
+msgstr "Tekstas aplenks rÄ—melÄ¯"
 
 msgid "Text flows around bounding box"
 msgstr ""
 
 #, fuzzy
 msgid "Text flows around contour line"
-msgstr "Tekstas aplenks rëmelá"
+msgstr "Tekstas aplenks rÄ—melÄ¯"
 
 msgid "No text flow"
 msgstr ""
+
+#, fuzzy
+msgid "No object frame"
+msgstr "Teksto rÄ—melis"
 
 msgid "No bounding box"
 msgstr ""
 
 #, fuzzy
 msgid "No contour line"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "Page %1"
@@ -1515,7 +1598,7 @@ msgstr "Vertik. dydis"
 
 #, fuzzy
 msgid "Frame size"
-msgstr "Rëmelis"
+msgstr "RÄ—melis"
 
 #, fuzzy
 msgid "Free scaling"
@@ -1523,15 +1606,15 @@ msgstr "Laisvas mastelio keitimas"
 
 #, fuzzy
 msgid "Keep aspect ratio"
-msgstr "Iğlaikyti proporcijas"
+msgstr "IÅ¡laikyti proporcijas"
 
 #, fuzzy
 msgid "Break aspect ratio"
-msgstr "Iğlaikyti proporcijas"
+msgstr "IÅ¡laikyti proporcijas"
 
 #, fuzzy
 msgid "Edit contour line"
-msgstr "Keisti spalvà"
+msgstr "Keisti spalvÄ…"
 
 #, fuzzy
 msgid "Edit shape"
@@ -1539,7 +1622,7 @@ msgstr "Taisyti..."
 
 #, fuzzy
 msgid "Reset contour line"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "Add page"
@@ -1551,31 +1634,31 @@ msgstr "Visi puslapiai"
 
 #, fuzzy
 msgid "Delete page"
-msgstr "Iğplëğti puslapá"
+msgstr "IÅ¡plÄ—Å¡ti puslapÄ¯"
 
 #, fuzzy
 msgid "Delete pages"
-msgstr "Iğplëğti puslapius"
+msgstr "IÅ¡plÄ—Å¡ti puslapius"
 
 #, fuzzy
 msgid "Add layer"
-msgstr "Pridëti naujà sluoksná"
+msgstr "PridÄ—ti naujÄ… sluoksnÄ¯"
 
 #, fuzzy
 msgid "Delete layer"
-msgstr "Pağalinti sluoksná"
+msgstr "PaÅ¡alinti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Rename layer"
-msgstr "Iğkelti sluoksná"
+msgstr "IÅ¡kelti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Raise layer"
-msgstr "Iğkelti sluoksná"
+msgstr "IÅ¡kelti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Lower layer"
-msgstr "Nuleisti sluoksná"
+msgstr "Nuleisti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Send to layer"
@@ -1592,44 +1675,44 @@ msgstr ""
 
 #, fuzzy
 msgid "Get image"
-msgstr "Naudoti tekstà..."
+msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 msgid "Multiple duplicate"
-msgstr "Sukurti daug kopijø"
+msgstr "Sukurti daug kopijÅ³"
 
 #, fuzzy
 msgid "Apply text style"
-msgstr "Pritaikyti ğablonà"
+msgstr "Pritaikyti Å¡ablonÄ…"
 
 #, fuzzy
 msgid "&Undo: %1"
-msgstr "Gràşinti"
+msgstr "GrÄ…Å¾inti"
 
 #, fuzzy
 msgid "&Redo: %1"
-msgstr "Paruoğtas"
+msgstr "ParuoÅ¡tas"
 
 msgid "Move Pages"
 msgstr "Perkelti puslapius"
 
 msgid "Copy Page"
-msgstr "Kopijuoti puslapá"
+msgstr "Kopijuoti puslapÄ¯"
 
 #, fuzzy
 msgid "Move Page(s)"
-msgstr "Perkelti puslapá(ius):"
+msgstr "Perkelti puslapÄ¯(ius):"
 
 #, fuzzy
 msgid "To:"
-msgstr "Nuo virğaus:"
+msgstr "Nuo virÅ¡aus:"
 
 msgid "Number of copies:"
-msgstr "Kopijø skaièius"
+msgstr "KopijÅ³ skaiÄius"
 
 #, fuzzy
 msgid "Before Page"
-msgstr "prieğ puslapá"
+msgstr "prieÅ¡ puslapÄ¯"
 
 #, fuzzy
 msgid "After Page"
@@ -1637,17 +1720,14 @@ msgstr "po puslapio"
 
 #, fuzzy
 msgid "At End"
-msgstr "á galà"
+msgstr "Ä¯ galÄ…"
 
 msgid "Move Page(s):"
-msgstr "Perkelti puslapá(ius):"
+msgstr "Perkelti puslapÄ¯(ius):"
 
 #, fuzzy
 msgid "Collecting..."
-msgstr "Ruoğiama..."
-
-msgid "Warning"
-msgstr "Dëmesio!"
+msgstr "RuoÅ¡iama..."
 
 msgid ""
 "Cannot collect all files for output for file:\n"
@@ -1661,25 +1741,29 @@ msgid ""
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 #, fuzzy
 msgid "Manage Tabulators"
-msgstr "Prişiûrëti paveiksliukus"
+msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
 
 #, fuzzy
 msgid "Layer"
 msgstr "Sluoksniai"
 
 msgid "Copy Here"
-msgstr "Nukopijuok èia"
+msgstr "Nukopijuok Äia"
 
 msgid "Move Here"
-msgstr "Perkelk èia"
+msgstr "Perkelk Äia"
 
 #, fuzzy
 msgid "&Paste"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
+
+#, fuzzy
+msgid "Paste Recent"
+msgstr "Turinys"
 
 #, fuzzy
 msgid "Picture"
@@ -1701,7 +1785,7 @@ msgid "Colorspace: "
 msgstr "Spalva:"
 
 msgid "Unknown"
-msgstr "Neşinomas"
+msgstr "NeÅ¾inomas"
 
 msgid "RGB"
 msgstr ""
@@ -1713,11 +1797,15 @@ msgstr ""
 msgid "Grayscale"
 msgstr "Spausdinti nespalvotai"
 
+#, fuzzy
+msgid "Duotone"
+msgstr "Nutraukti darbus"
+
 msgid "Linked Text"
 msgstr ""
 
 msgid "Text Frame"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid "Paragraphs: "
 msgstr ""
@@ -1734,7 +1822,7 @@ msgstr "Spausdinti"
 
 #, fuzzy
 msgid "Enabled"
-msgstr "Keièiamas"
+msgstr "KeiÄiamas"
 
 #, fuzzy
 msgid "Disabled"
@@ -1757,11 +1845,11 @@ msgstr "Pereiti prie slouksnio"
 
 #, fuzzy
 msgid "Le&vel"
-msgstr "Nuoşulnus"
+msgstr "NuoÅ¾ulnus"
 
 #, fuzzy
 msgid "Conve&rt to"
-msgstr "Pakeisti á"
+msgstr "Pakeisti Ä¯"
 
 #, fuzzy
 msgid "Contents"
@@ -1769,7 +1857,7 @@ msgstr "Turinys"
 
 #, fuzzy
 msgid "Linking Text Frames"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid "You are trying to link to a filled frame, or a frame to itself."
 msgstr ""
@@ -1800,7 +1888,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Check for overflow in text frames"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid "Check for transparencies used"
 msgstr ""
@@ -1822,25 +1910,102 @@ msgstr ""
 
 #, fuzzy
 msgid "Check for placed PDF Files"
-msgstr "Sukurti PDF failà"
+msgstr "Sukurti PDF failÄ…"
 
 #, fuzzy
 msgid "Check for GIF images"
-msgstr "Sukurti PDF failà"
+msgstr "Sukurti PDF failÄ…"
 
 #, fuzzy
 msgid "Check for PDF Annotations and Fields"
-msgstr "Áterpti PDF-anotacijas"
+msgstr "Ä®terpti PDF-anotacijas"
 
 #, fuzzy
 msgid "Add Profile"
-msgstr "Spausdinti á failà:"
+msgstr "Spausdinti Ä¯ failÄ…:"
 
 #, fuzzy
 msgid "Remove Profile"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
-msgid "More than one item selected"
+msgid "Name:"
+msgstr "Pavadinimas:"
+
+#, fuzzy
+msgid "&Apply"
+msgstr "Pritaikyti"
+
+msgid "<< &Done"
+msgstr ""
+
+#, fuzzy
+msgid "&Edit >>"
+msgstr "Taisa"
+
+#, fuzzy
+msgid "&New"
+msgstr "Naujas"
+
+#, fuzzy
+msgid "&Import"
+msgstr "Importuoti..."
+
+#, fuzzy
+msgid "&Clone"
+msgstr "UÅ¾daryti"
+
+#, fuzzy
+msgid "Reset all changes"
+msgstr "Eksporto grupÄ—"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply all changes"
+msgstr "Pritaikyti efektus visuose puslapiuose"
+
+msgid "Apply all changes and exit edit mode"
+msgstr ""
+
+#, fuzzy
+msgid "Create a new style"
+msgstr "Linijos forma"
+
+#, fuzzy
+msgid "Import styles from another document"
+msgstr "ÄŒia galite matyti visus dokumento puslapius."
+
+#, fuzzy
+msgid "Clone selected style"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
+
+#, fuzzy
+msgid "Delete selected styles"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
+
+msgid "New"
+msgstr "Naujas"
+
+#, fuzzy
+msgid "Import"
+msgstr "Importuoti..."
+
+#, fuzzy
+msgid "Clone"
+msgstr "UÅ¾daryti"
+
+#, fuzzy
+msgid "Send to Scrapbook"
+msgstr "Ä® iÅ¡karpÅ³ krepÅ¡Ä¯"
+
+#, fuzzy
+msgid "&Edit"
+msgstr "Taisa"
+
+#, fuzzy
+msgid "&Done"
+msgstr "UÅ¾daryti"
+
+msgid "ALT+SHIFT+T"
 msgstr ""
 
 #, fuzzy
@@ -1853,22 +2018,22 @@ msgstr "Spausdintuvo nuostatos"
 
 #, fuzzy
 msgid "Margins"
-msgstr "Parağtë:"
+msgstr "ParaÅ¡tÄ—:"
 
 msgid "Right:"
-msgstr "Nuo değinës:"
+msgstr "Nuo deÅ¡inÄ—s:"
 
 #, fuzzy
 msgid "&Top:"
-msgstr "Nuo virğaus:"
+msgstr "Nuo virÅ¡aus:"
 
 #, fuzzy
 msgid "&Bottom:"
-msgstr "Nuo apaèios:"
+msgstr "Nuo apaÄios:"
 
 #, fuzzy
 msgid "&Left:"
-msgstr "Nuo kairës:"
+msgstr "Nuo kairÄ—s:"
 
 msgid "Alt+O"
 msgstr ""
@@ -1887,6 +2052,58 @@ msgstr "Puslapis"
 msgid "Master Page "
 msgstr "po puslapio"
 
+msgid "Color for paper"
+msgstr ""
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr ""
+
+msgid "Enable or disable  the display of linked frames."
+msgstr ""
+
+msgid ""
+"Display non-printing characters such as paragraph markers in text frames"
+msgstr ""
+
+msgid "Turns the display of frames on or off"
+msgstr ""
+
+msgid "Turns the display of layer indicators on or off"
+msgstr ""
+
+msgid "Turns the display of pictures on or off"
+msgstr ""
+
+msgid ""
+"Defines amount of space left of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space right of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space above the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space below the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+
+msgid "Set the default zoom level"
+msgstr ""
+
+msgid ""
+"Place a ruler against your screen and drag the slider to set the zoom level "
+"so Scribus will display your pages and objects on them at the correct size"
+msgstr ""
+
 #, fuzzy
 msgid "Scribus Crash"
 msgstr "Scribus vadovas"
@@ -1899,14 +2116,21 @@ msgstr ""
 
 #, fuzzy
 msgid "unknown error"
-msgstr "Neşinomas"
+msgstr "NeÅ¾inomas"
 
 msgid "Cannot find symbol (%1)"
 msgstr ""
 
 #, fuzzy
 msgid "Plugin: loading %1"
-msgstr "Spausdinimo eiliğkumas"
+msgstr "Spausdinimo eiliÅ¡kumas"
+
+msgid ""
+"There is a problem loading %1 of %2 plugins. %3 This is probably caused by "
+"some kind of dependency issue or old plugins existing in your install "
+"directory. IF you clean out your install directory and reinstall and this "
+"still occurs, please report it on bugs.scribus.net."
+msgstr ""
 
 #, fuzzy
 msgid "init failed"
@@ -1929,23 +2153,23 @@ msgstr ""
 
 #, fuzzy
 msgid "Flat Cap"
-msgstr "Plokğèias virğus"
+msgstr "PlokÅ¡Äias virÅ¡us"
 
 #, fuzzy
 msgid "Square Cap"
-msgstr "Kvadratinis virğus"
+msgstr "Kvadratinis virÅ¡us"
 
 #, fuzzy
 msgid "Round Cap"
-msgstr "Apvalus virğus"
+msgstr "Apvalus virÅ¡us"
 
 #, fuzzy
 msgid "Miter Join"
-msgstr "Áşambi jungtis"
+msgstr "Ä®Å¾ambi jungtis"
 
 #, fuzzy
 msgid "Bevel Join"
-msgstr "Nuoşulni jungtis"
+msgstr "NuoÅ¾ulni jungtis"
 
 #, fuzzy
 msgid "Round Join"
@@ -1953,7 +2177,7 @@ msgstr "Kreiva jungtis"
 
 #, fuzzy
 msgid "Solid Line"
-msgstr "Ryğkus"
+msgstr "RyÅ¡kus"
 
 #, fuzzy
 msgid "Dashed Line"
@@ -1969,11 +2193,49 @@ msgid "Dash Dot Dot Line"
 msgstr ""
 
 msgid "Properties"
-msgstr "Savybës"
+msgstr "SavybÄ—s"
 
 #, fuzzy
-msgid "Lines"
-msgstr "Linija"
+msgid "Line Styles"
+msgstr "Linijos forma"
+
+#, fuzzy
+msgid "Line Style"
+msgstr "Linijos forma"
+
+msgid "New Style"
+msgstr "Naujas stilius"
+
+#, fuzzy
+msgid "Clone of %1"
+msgstr "Kopijuoti "
+
+#, fuzzy
+msgid "%1 (%2)"
+msgstr "Kopijuoti "
+
+msgid " pt "
+msgstr ""
+
+#, fuzzy
+msgid "Use Parent Value"
+msgstr "Ä®klijuoti puslapÄ¯"
+
+msgid "P"
+msgstr ""
+
+msgid "Use parent style's alignment instead of overriding it"
+msgstr ""
+
+msgid "Use parent style's effects instead of overriding them"
+msgstr ""
+
+#, fuzzy
+msgid "Use Parent Font"
+msgstr "Naudoti Å¾enkliukÄ…"
+
+msgid " Parent Tabs "
+msgstr ""
 
 #, fuzzy
 msgid "%1 of %1"
@@ -2015,26 +2277,26 @@ msgstr "Perb&raukta"
 
 #, fuzzy
 msgid "+shadow "
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "-shadow "
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "+outline "
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
 
 #, fuzzy
 msgid "-outline "
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
 
 msgid "+tracking %1"
 msgstr ""
 
 #, fuzzy
 msgid "-tracking "
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid "+baseline %1"
 msgstr ""
@@ -2047,54 +2309,54 @@ msgstr ""
 
 #, fuzzy
 msgid "unnamed"
-msgstr "Pağalinti"
+msgstr "PaÅ¡alinti"
 
 #, fuzzy
 msgid "Icon Placement"
-msgstr "Şenkliuko áterpimas..."
+msgstr "Å½enkliuko Ä¯terpimas..."
 
 msgid "Layout:"
-msgstr "Iğvaizda:"
+msgstr "IÅ¡vaizda:"
 
 msgid "Caption only"
 msgstr "Tik pavadinimas"
 
 msgid "Icon only"
-msgstr "Tik şenkliukas"
+msgstr "Tik Å¾enkliukas"
 
 msgid "Caption below Icon"
-msgstr "Pavadinimas po şenkliuku"
+msgstr "Pavadinimas po Å¾enkliuku"
 
 msgid "Caption above Icon"
-msgstr "Pavadinimas virğ şenkliuko"
+msgstr "Pavadinimas virÅ¡ Å¾enkliuko"
 
 msgid "Caption right to Icon"
-msgstr "Pavadinimas şenkliuko değinëje"
+msgstr "Pavadinimas Å¾enkliuko deÅ¡inÄ—je"
 
 msgid "Caption left to Icon"
-msgstr "Pavadinimas şenkliuko kairëje"
+msgstr "Pavadinimas Å¾enkliuko kairÄ—je"
 
 msgid "Caption overlays Icon"
-msgstr "Pavadinimas virğ şenkliuko"
+msgstr "Pavadinimas virÅ¡ Å¾enkliuko"
 
 #, fuzzy
 msgid "Scale:"
-msgstr "Keisti mastelá kaip:"
+msgstr "Keisti mastelÄ¯ kaip:"
 
 msgid "Always"
 msgstr "Visada"
 
 msgid "When Icon is too small"
-msgstr "Kai şenkliukas per maşas"
+msgstr "Kai Å¾enkliukas per maÅ¾as"
 
 msgid "When Icon is too big"
-msgstr "Kai şenkliukas per didelis"
+msgstr "Kai Å¾enkliukas per didelis"
 
 msgid "Never"
 msgstr "Niekada"
 
 msgid "Scale How:"
-msgstr "Keisti mastelá kaip:"
+msgstr "Keisti mastelÄ¯ kaip:"
 
 msgid "Proportional"
 msgstr "Proporcingai"
@@ -2104,7 +2366,7 @@ msgstr "Ne proporcingai"
 
 #, fuzzy
 msgid "Icon"
-msgstr "Naudoti şenkliukà"
+msgstr "Naudoti Å¾enkliukÄ…"
 
 msgid "OK"
 msgstr "Tinka!"
@@ -2119,7 +2381,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Delete the currently selected section."
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid ""
 "<b>Name:</b> Optional name for section eg. Index<br/><b>Shown:</b> Select to "
@@ -2149,22 +2411,161 @@ msgstr ""
 
 #, fuzzy
 msgid "Page Number Out Of Bounds"
-msgstr "Kopijø skaièius:"
+msgstr "KopijÅ³ skaiÄius:"
 
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
 msgstr ""
 
+msgid "Open"
+msgstr "Atidaryti"
+
+#, fuzzy
+msgid "Insert A Frame"
+msgstr "Teksto rÄ—melis"
+
+#, fuzzy
+msgid "&Text Frame"
+msgstr "Teksto rÄ—melis"
+
+#, fuzzy
+msgid "Alt+T"
+msgstr "ViskÄ…"
+
+#, fuzzy
+msgid "&Image Frame"
+msgstr "Paveiksliukas"
+
+#, fuzzy
+msgid "T&able"
+msgstr "KeiÄiamas"
+
+#, fuzzy
+msgid "Shape"
+msgstr "Forma"
+
+#, fuzzy
+msgid "T&ype"
+msgstr "Tipas:"
+
+#, fuzzy
+msgid "Page Placement"
+msgstr "Slinktis"
+
+#, fuzzy
+msgid "Current Page"
+msgstr "Esamas derinys"
+
+msgid "Selecting this will place the frame only on the current page."
+msgstr ""
+
+#, fuzzy
+msgid "Range of Pages:"
+msgstr "Sutvarkyti puslapius"
+
+msgid "Selecting this will place frame on the selected range. "
+msgstr ""
+
+#, fuzzy
+msgid "Position of Frame"
+msgstr "Vieta"
+
+#, fuzzy
+msgid "Top Left of Page"
+msgstr "Kairysis puslapis"
+
+msgid "Selecting this puts the frame on the top left with postion 0,0"
+msgstr ""
+
+#, fuzzy
+msgid "Top Left of Margins"
+msgstr "Kairioji paraÅ¡tÄ—"
+
+msgid ""
+"Selecting this places the frame in the upper left of the page margins "
+"defined in your doc setup."
+msgstr ""
+
+#, fuzzy
+msgid "Custom Position:"
+msgstr "Komentarai:"
+
+msgid "Set the dimensions wished below in the X: Y: dialog below."
+msgstr ""
+
+msgid "X:"
+msgstr ""
+
+msgid "Y:"
+msgstr ""
+
+#, fuzzy
+msgid "&Location"
+msgstr "Pasukti:"
+
+#, fuzzy
+msgid "Same as the Page"
+msgstr "po puslapio"
+
+#, fuzzy
+msgid "Same as the Page Margins"
+msgstr "SlÄ—pti paraÅ¡tes"
+
+#, fuzzy
+msgid "Custom Size:"
+msgstr "Nuosavas"
+
+msgid "Height:"
+msgstr "AukÅ¡tis:"
+
+msgid "Width:"
+msgstr "Plotis:"
+
+msgid "&Size"
+msgstr "&Dydis"
+
+#, fuzzy
+msgid "Source Image:"
+msgstr "Rodyti paveiksliukus"
+
+#, fuzzy
+msgid "&Select File..."
+msgstr "IÅ¡saugoti kaip PDF..."
+
+#, fuzzy
+msgid "Alt+S"
+msgstr "ViskÄ…"
+
+#, fuzzy
+msgid "There are no options for this type of frame"
+msgstr "JÅ«sÅ³ sistemoje nÄ—ra postscriptiniÅ³ Å¡riftÅ³"
+
+#, fuzzy
+msgid "Source Document:"
+msgstr "Dokumentas "
+
+#, fuzzy
+msgid "Columns:"
+msgstr "Stulpeliai:"
+
+#, fuzzy
+msgid "Gap:"
+msgstr "Forma"
+
+#, fuzzy
+msgid "&Options"
+msgstr "Nuostatos"
+
 #, fuzzy
 msgid "Importing text"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid "Cancelled by user"
 msgstr ""
 
 msgid "Select Fields"
-msgstr "Pasirinkti laukelá"
+msgstr "Pasirinkti laukelÄ¯"
 
 msgid "Available Fields"
 msgstr "Pasiekiami laukleliai"
@@ -2187,7 +2588,7 @@ msgstr "Teksto langelis"
 
 #, fuzzy
 msgid "Import Text Only"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid "Import text without any formatting"
 msgstr ""
@@ -2227,7 +2628,7 @@ msgstr "Kopijuoti "
 
 #, fuzzy
 msgid "Edit Guide"
-msgstr "Slëpti pagalbines linijas"
+msgstr "SlÄ—pti pagalbines linijas"
 
 #, fuzzy
 msgid "Enter a position:"
@@ -2235,17 +2636,17 @@ msgstr "Kitos parinktys"
 
 #, fuzzy
 msgid "New Guide"
-msgstr "Pagalbinës linijos"
+msgstr "PagalbinÄ—s linijos"
 
 msgid "Other..."
 msgstr "Kita..."
 
 #, fuzzy
 msgid "&Shade:"
-msgstr "Ğeğëlis:"
+msgstr "Å eÅ¡Ä—lis:"
 
 msgid "Shade"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "Corn&ers:"
@@ -2284,116 +2685,32 @@ msgstr ""
 msgid "Preferences"
 msgstr "Parinktys"
 
-msgid "GUI"
-msgstr "Grafinë vartotojo aplinka"
-
-#, fuzzy
-msgid "&Language:"
-msgstr "Eilë:"
-
-#, fuzzy
-msgid "&Theme:"
-msgstr "Naujas ğablonas"
-
-msgid "Show S&plashscreen On Startup:"
-msgstr ""
-
-#, fuzzy
-msgid "&Font Size (Menus):"
-msgstr "Ğrifto dydis:"
-
-#, fuzzy
-msgid "Font Size (&Palettes):"
-msgstr "Ğrifto dydis:"
-
-#, fuzzy
-msgid "&Wheel Jump:"
-msgstr "Ratuko şingsnis"
-
-#, fuzzy
-msgid "&Recent Documents:"
-msgstr "Paskutinis dokumentas:"
-
-#, fuzzy
-msgid "Paths"
-msgstr "Kelias"
-
-#, fuzzy
-msgid "&Documents:"
-msgstr "Dokumentas "
-
-#, fuzzy
-msgid "&Change..."
-msgstr "Pakeisti..."
-
-#, fuzzy
-msgid "&ICC Profiles:"
-msgstr "Spausdinti á failà:"
-
-#, fuzzy
-msgid "&Scripts:"
-msgstr "Skriptas:"
-
-#, fuzzy
-msgid "Ch&ange..."
-msgstr "Pakeisti..."
-
-#, fuzzy
-msgid "Document T&emplates:"
-msgstr "Dokumento puslapiai:"
-
-#, fuzzy
-msgid "Cha&nge..."
-msgstr "Pakeisti..."
-
 msgid "General"
 msgstr "Pagrindinis"
 
-#, fuzzy
-msgid "Units:"
-msgstr "Vienetai"
-
-#, fuzzy
-msgid "Autosave"
-msgstr "Autoriai"
-
-msgid "min"
-msgstr ""
-
-#, fuzzy
-msgid "&Interval:"
-msgstr "Áterpti elipsæ"
-
-#, fuzzy
-msgid "Undo/Redo"
-msgstr "Gràşinti"
-
-msgid "Action history length"
-msgstr ""
-
 msgid "Guides"
-msgstr "Pagalbinës linijos"
+msgstr "PagalbinÄ—s linijos"
 
 #, fuzzy
 msgid "Typography"
 msgstr "Tipografiniai"
 
 msgid "Tools"
-msgstr "Árankiai"
+msgstr "Ä®rankiai"
 
 #, fuzzy
 msgid "Hyphenator"
-msgstr "Simboliø parinktys"
+msgstr "SimboliÅ³ parinktys"
 
 msgid "Fonts"
-msgstr "Ğriftai"
+msgstr "Å riftai"
 
 msgid "Preflight Verifier"
 msgstr ""
 
 #, fuzzy
 msgid "Color Management"
-msgstr "Spalvø valdymas..."
+msgstr "SpalvÅ³ valdymas..."
 
 #, fuzzy
 msgid "PDF Export"
@@ -2403,83 +2720,13 @@ msgstr "Eksportuoti..."
 msgid "Document Item Attributes"
 msgstr "Dokumento nuostatos"
 
-#, fuzzy
-msgid "Page Display"
-msgstr "Rodyti"
-
-msgid "Color:"
-msgstr "Spalva:"
-
-#, fuzzy
-msgid "Display &Unprintable Area in Margin Color"
-msgstr "Rodyti nespausdinamà srytá pasirinkta spalva"
-
-#, fuzzy
-msgid "Show Pictures"
-msgstr "Paveiksliukai"
-
-#, fuzzy
-msgid "Show Text Chains"
-msgstr "Rodyti parağtes"
-
-#, fuzzy
-msgid "Show Text Control Characters"
-msgstr "Rodyti parağtes"
-
-msgid "Show Frames"
-msgstr "Rodyti rëmelius"
-
-msgid "Rulers relative to Page"
-msgstr ""
-
-#, fuzzy
-msgid "Scratch Space"
-msgstr "Vertikalûs tarpai"
-
-#, fuzzy
-msgid "&Right:"
-msgstr "Nuo değinës:"
-
-#, fuzzy
-msgid "Gaps between Pages"
-msgstr "Iğplëğti puslapius"
-
-#, fuzzy
-msgid "Horizontal:"
-msgstr "Horizontaliai"
-
-#, fuzzy
-msgid "Vertical:"
-msgstr "Vertikaliai"
-
-msgid "&Adjust Display Size"
-msgstr ""
-
-msgid "To adjust the display drag the ruler below with the slider."
-msgstr ""
+msgid "Scrapbook"
+msgstr "KiÅ¡enÄ—"
 
 msgid "Display"
 msgstr "Rodyti"
 
 msgid "External Tools"
-msgstr ""
-
-msgid "Always ask before fonts are replaced when loading a document"
-msgstr ""
-
-msgid "Preview of current Paragraph Style visible when editing Styles"
-msgstr ""
-
-msgid "Show Startup Dialog"
-msgstr ""
-
-msgid "Lorem Ipsum"
-msgstr ""
-
-msgid "Always use standard Lorem Ipsum"
-msgstr ""
-
-msgid "Count of the Paragraphs:"
 msgstr ""
 
 msgid "Miscellaneous"
@@ -2489,129 +2736,24 @@ msgstr ""
 msgid "Plugins"
 msgstr "Paprastas"
 
-msgid "Enable or disable  the display of linked frames."
-msgstr ""
+#, fuzzy
+msgid "Select a file to import"
+msgstr "Pasirink spalvÄ…"
 
-msgid ""
-"Display non-printing characters such as paragraph markers in text frames"
-msgstr ""
+#, fuzzy
+msgid "Append"
+msgstr "Papildyk"
 
-msgid "Turns the display of frames on or off"
-msgstr ""
-
-msgid "Turns the display of pictures on or off"
-msgstr ""
-
-msgid ""
-"Select your default language for Scribus to run with. Leave this blank to "
-"choose based on environment variables. You can still override this by "
-"passing a command line option when starting Scribus"
-msgstr ""
-
-msgid ""
-"Choose the default window decoration and looks. Scribus inherits any "
-"available KDE or Qt themes, if Qt is configured to search KDE plugins."
-msgstr ""
-
-msgid "Default font size for the menus and windows"
-msgstr ""
-
-msgid "Default font size for the tool windows"
-msgstr ""
-
-msgid "Default unit of measurement for document editing"
-msgstr ""
-
-msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
-msgstr ""
-
-msgid "Number of recently edited documents to show in the File menu"
-msgstr ""
-
-msgid "Default documents directory"
-msgstr ""
-
-msgid ""
-"Default ICC profiles directory. This cannot be changed with a document open. "
-"By default, Scribus will look in the System Directories under Mac OSX and "
-"Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/"
-"color/icc and /usr/local/share/color/icc "
-msgstr ""
-
-msgid "Default Scripter scripts directory"
-msgstr ""
-
-msgid "Additional directory for document templates"
-msgstr ""
-
-msgid "Default page size, either a standard size or a custom size"
-msgstr ""
-
-msgid "Default orientation of document pages"
-msgstr ""
-
-msgid "Width of document pages, editable if you have chosen a custom page size"
-msgstr ""
-
-msgid ""
-"Height of document pages, editable if you have chosen a custom page size"
-msgstr ""
-
-msgid ""
-"When enabled, Scribus saves a backup copy of your file with the .bak "
-"extension each time the time period elapses"
-msgstr ""
-
-msgid "Time period between saving automatically"
-msgstr ""
-
-msgid ""
-"Set the length of the action history in steps. If set to 0 infinite amount "
-"of actions will be stored."
-msgstr ""
-
-msgid "Color for paper"
-msgstr ""
-
-msgid "Mask the area outside the margins in the margin color"
-msgstr ""
-
-msgid "Set the default zoom level"
-msgstr ""
-
-msgid ""
-"Place a ruler against your screen and drag the slider to set the zoom level "
-"so Scribus will display your pages and objects on them at the correct size"
-msgstr ""
-
-msgid ""
-"Defines amount of space left of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space right of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space above the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space below the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
+#, fuzzy
+msgid "Show options"
+msgstr "Rodyti kontÅ«rÅ³ Ä¯rankÄ¯"
 
 msgid "Could not open output file %1"
 msgstr ""
 
 #, fuzzy
 msgid "Output stream not writeable"
-msgstr "Iğvesti á failà:"
+msgstr "IÅ¡vesti Ä¯ failÄ…:"
 
 msgid "Verification of settings failed: %1"
 msgstr ""
@@ -2652,21 +2794,21 @@ msgstr ""
 msgid "element <lpiSettingsEntry> lacks `name' attribute"
 msgstr ""
 
+msgid "%1 may be corrupted : missing resolution tags"
+msgstr ""
+
 msgid "Delete Pages"
-msgstr "Iğplëğti puslapius"
+msgstr "IÅ¡plÄ—Å¡ti puslapius"
 
 #, fuzzy
 msgid "Delete From:"
-msgstr "Iğplëğti nuo:"
+msgstr "IÅ¡plÄ—Å¡ti nuo:"
 
 msgid "to:"
 msgstr "iki:"
 
 msgid "Edit Style"
-msgstr "Keisti stiliø"
-
-msgid " pt "
-msgstr ""
+msgstr "Keisti stiliÅ³"
 
 msgid "Name \"%1\" isn't unique.<br/>Please choose another."
 msgstr ""
@@ -2679,12 +2821,15 @@ msgstr "Efektai"
 msgid "Options:"
 msgstr "Nuostatos"
 
+msgid "Color:"
+msgstr "Spalva:"
+
 msgid "Shade:"
-msgstr "Ğeğëlis:"
+msgstr "Å eÅ¡Ä—lis:"
 
 #, fuzzy
 msgid "Brightness:"
-msgstr "Nuo değinës:"
+msgstr "Nuo deÅ¡inÄ—s:"
 
 #, fuzzy
 msgid "Contrast:"
@@ -2700,11 +2845,27 @@ msgstr "Patvirtinti"
 
 #, fuzzy
 msgid "Posterize:"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
+
+#, fuzzy
+msgid "Color 1:"
+msgstr "Spalva:"
+
+#, fuzzy
+msgid "Color 2:"
+msgstr "Spalva:"
+
+#, fuzzy
+msgid "Color 3:"
+msgstr "Spalva:"
+
+#, fuzzy
+msgid "Color 4:"
+msgstr "Spalva:"
 
 #, fuzzy
 msgid "Available Effects"
-msgstr "Galimi ğriftai:"
+msgstr "Galimi Å¡riftai:"
 
 #, fuzzy
 msgid "Blur"
@@ -2718,15 +2879,27 @@ msgid "Colorize"
 msgstr "Spalva"
 
 #, fuzzy
+msgid "Tritone"
+msgstr "AntraÅ¡tÄ—:"
+
+#, fuzzy
+msgid "Quadtone"
+msgstr "Nutraukti darbus"
+
+#, fuzzy
 msgid "Contrast"
 msgstr "Portretui"
+
+#, fuzzy
+msgid "Curves"
+msgstr "Rodyti kreivÄ™"
 
 msgid "Invert"
 msgstr "Invertuoti"
 
 #, fuzzy
 msgid "Posterize"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
 
 #, fuzzy
 msgid "Sharpen"
@@ -2746,11 +2919,11 @@ msgid "Opacity:"
 msgstr ""
 
 msgid "Delete Layer"
-msgstr "Pağalinti sluoksná"
+msgstr "PaÅ¡alinti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Do you want to delete all objects on this layer too?"
-msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
 
 msgid "Layers"
 msgstr "Sluoksniai"
@@ -2764,40 +2937,52 @@ msgstr "Data"
 
 #, fuzzy
 msgid "Lighten"
-msgstr "Değinën"
+msgstr "DeÅ¡inÄ—n"
 
 msgid "Multiply"
 msgstr ""
 
 #, fuzzy
 msgid "Screen"
-msgstr "&Şalia:"
+msgstr "&Å½alia:"
 
 msgid "Overlay"
 msgstr ""
 
 #, fuzzy
 msgid "Hard Light"
-msgstr "Aukğtis:"
+msgstr "AukÅ¡tis:"
 
 #, fuzzy
 msgid "Soft Light"
-msgstr "Iğ kairës değinën"
+msgstr "IÅ¡ kairÄ—s deÅ¡inÄ—n"
 
 #, fuzzy
 msgid "Difference"
 msgstr "Parinktys"
 
-msgid "Exlusion"
+msgid "Exclusion"
 msgstr ""
 
 #, fuzzy
 msgid "Color Dodge"
-msgstr "Spalvø modelis"
+msgstr "SpalvÅ³ modelis"
 
 #, fuzzy
 msgid "Color Burn"
 msgstr "Spalva"
+
+msgid "Hue"
+msgstr ""
+
+msgid "Saturation"
+msgstr "Sodrumas"
+
+msgid "Color"
+msgstr "Spalva"
+
+msgid "Luminosity"
+msgstr ""
 
 #, fuzzy
 msgid "Name"
@@ -2805,7 +2990,36 @@ msgstr "Pavadinimas:"
 
 #, fuzzy
 msgid "Add a new layer"
-msgstr "Pridëti naujà sluoksná"
+msgstr "PridÄ—ti naujÄ… sluoksnÄ¯"
+
+msgid ""
+"Color of the Layer Indicator - Each layer has a color assigned to display on "
+"the canvas when layer indicators are enabled. You can double click to edit "
+"the color. "
+msgstr ""
+
+msgid "Make Layer Visible - Uncheck to hide the layer from the display "
+msgstr ""
+
+msgid "Print Layer - Uncheck to disable printing. "
+msgstr ""
+
+msgid "Lock or Unlock Layer - Unchecked is unlocked "
+msgstr ""
+
+msgid ""
+"Text flows around objects in lower Layers - Enabling this forces text frames "
+"to flow around other objects, even in layers below"
+msgstr ""
+
+msgid ""
+"Outline Mode - Toggles the 'wireframe' display of objects to speed the "
+"display of very complex objects."
+msgstr ""
+
+msgid ""
+"Name of the Layer - Double clicking on the name of a layer enabled editing"
+msgstr ""
 
 #, fuzzy
 msgid "Locate Ghostscript"
@@ -2819,18 +3033,22 @@ msgstr ""
 
 #, fuzzy
 msgid "Save as PDF"
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "O&utput to File:"
-msgstr "Iğvesti á failà:"
+msgstr "IÅ¡vesti Ä¯ failÄ…:"
+
+#, fuzzy
+msgid "Cha&nge..."
+msgstr "Pakeisti..."
 
 msgid "Output one file for eac&h page"
 msgstr ""
 
 #, fuzzy
 msgid "&Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 msgid ""
 "This enables exporting one individually named PDF file for each page in the "
@@ -2844,22 +3062,86 @@ msgid ""
 msgstr ""
 
 msgid "Save as"
-msgstr "Iğsaugoti kitu vardu"
+msgstr "IÅ¡saugoti kitu vardu"
 
 #, fuzzy
 msgid "PDF Files (*.pdf);;All Files (*)"
 msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
 msgid "Delete Color"
-msgstr "Iğtrinti spalvà"
+msgstr "IÅ¡trinti spalvÄ…"
 
 #, fuzzy
 msgid "Delete Color:"
-msgstr "Iğtrinti spalvà"
+msgstr "IÅ¡trinti spalvÄ…"
 
 #, fuzzy
 msgid "Replace With:"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
+
+#, fuzzy
+msgid "Form2"
+msgstr "Formatas"
+
+#, fuzzy
+msgid "Page Display"
+msgstr "Rodyti"
+
+#, fuzzy
+msgid "Show Layer Indicators"
+msgstr "Paroddyti sluoksnÄ¯"
+
+msgid "Show Frames"
+msgstr "Rodyti rÄ—melius"
+
+#, fuzzy
+msgid "Show Text Chains"
+msgstr "Rodyti paraÅ¡tes"
+
+#, fuzzy
+msgid "Display &Unprintable Area in Margin Color"
+msgstr "Rodyti nespausdinamÄ… srytÄ¯ pasirinkta spalva"
+
+#, fuzzy
+msgid "Rulers Relative to Page"
+msgstr "Skiriamoji geba:"
+
+#, fuzzy
+msgid "Show Text Control Characters"
+msgstr "Rodyti paraÅ¡tes"
+
+#, fuzzy
+msgid "Show Pictures"
+msgstr "Paveiksliukai"
+
+#, fuzzy
+msgid "Scratch Space"
+msgstr "VertikalÅ«s tarpai"
+
+#, fuzzy
+msgid "&Right:"
+msgstr "Nuo deÅ¡inÄ—s:"
+
+#, fuzzy
+msgid "Gaps Between Pages"
+msgstr "IÅ¡plÄ—Å¡ti puslapius"
+
+#, fuzzy
+msgid "Horizontal:"
+msgstr "Horizontaliai"
+
+#, fuzzy
+msgid "Vertical:"
+msgstr "Vertikaliai"
+
+msgid "Adjust Display Size"
+msgstr ""
+
+msgid "To adjust the display drag the ruler below with the slider."
+msgstr ""
+
+msgid "textLabel16"
+msgstr ""
 
 msgid " mm"
 msgstr ""
@@ -2917,7 +3199,7 @@ msgstr "Parinktys..."
 
 #, fuzzy
 msgid "PDF Tools"
-msgstr "Árankiai"
+msgstr "Ä®rankiai"
 
 msgid "Possible Hyphenation"
 msgstr ""
@@ -2932,10 +3214,10 @@ msgid "Scribus crashes due to the following exception : %1"
 msgstr ""
 
 msgid "Missing Font"
-msgstr "Nerasti ğriftai"
+msgstr "Nerasti Å¡riftai"
 
 msgid "The Font %1 is not installed."
-msgstr "Ğriftas %1 neádiegtas."
+msgstr "Å riftas %1 neÄ¯diegtas."
 
 msgid "Use"
 msgstr "Naudoti"
@@ -2950,47 +3232,47 @@ msgstr "Programavo:"
 msgid "Overall Progress:"
 msgstr ""
 
-msgid "Font %1  has invalid glyph %2 (charcode %3), discarding it"
+msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
 
-msgid "extracting face %1 from font %2 (offset=%3, nTables=%4)"
+msgid ""
+"This enables the scrapbook to be used an extension to the copy/paste "
+"buffers. Simply copying an object or grouped object will send this to the "
+"Scrapbook automatically"
 msgstr ""
 
-msgid "memcpy header: %1 %2 %3"
+msgid "Keep Copied Items Permanently Across Sessions"
 msgstr ""
 
-msgid "table '%1'"
+msgid "This enables copied items to be kept permanently in the scrapbook."
 msgstr ""
 
-msgid "memcpy table: %1 %2 %3"
+msgid "Number of Copied Items to Keep in Scrapbook:"
 msgstr ""
 
-msgid "memcpy offset: %1 %2 %3"
+msgid "The minimum number is 1; the maximum us 100."
 msgstr ""
 
 #, fuzzy
 msgid "Print Preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
+msgid "Enable &Antialiasing"
 msgstr ""
 
 #, fuzzy
 msgid "Display Trans&parency"
-msgstr "Rodyti rëmelius"
+msgstr "Rodyti rÄ—melius"
 
 msgid "&Under Color Removal"
+msgstr ""
+
+msgid "Force Overprint Mode"
 msgstr ""
 
 #, fuzzy
 msgid "&Display CMYK"
 msgstr "Rodyti"
-
-msgid "Force Overprint Mode"
-msgstr ""
 
 msgid "&C"
 msgstr ""
@@ -3028,21 +3310,28 @@ msgstr "Riboti"
 msgid "Scaling:"
 msgstr "Dydis:"
 
+#, fuzzy
+msgid "Fit to Width"
+msgstr "Dydis kaip lango"
+
+#, fuzzy
+msgid "Fit to Height"
+msgstr "IÅ¡ kairÄ—s deÅ¡inÄ—n"
+
+#, fuzzy
+msgid "Fit to Page"
+msgstr "DeÅ¡inysis puslapis"
+
 msgid "Close"
-msgstr "Uşdaryti"
+msgstr "UÅ¾daryti"
 
 msgid "Print..."
 msgstr "Spausdinti..."
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense of "
-"a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType "
+"Fonts, EPS, PDF and vector graphics in the preview, at the expense of a "
+"slight slowdown in previewing"
 msgstr ""
 
 msgid ""
@@ -3080,11 +3369,50 @@ msgid "Enable/disable the K (Black) ink plate"
 msgstr ""
 
 msgid "All"
-msgstr "Viskà"
+msgstr "ViskÄ…"
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+#, fuzzy
+msgid "Error when attempting to get update file: %1"
+msgstr ""
+"Ar tikrai nori pakeisti esamo failo:\n"
+"%1\n"
+" turinÄ¯?"
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "Nutraukti darbÄ… su Å¡iuo dokumentu"
+
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr ""
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
+msgstr ""
 
 #, fuzzy
 msgid "Select Lorem Ipsum"
-msgstr "Paşymëti objekts"
+msgstr "PaÅ¾ymÄ—ti objekts"
 
 msgid "Author:"
 msgstr "Autorius:"
@@ -3095,6 +3423,9 @@ msgstr ""
 #, fuzzy
 msgid "XML File:"
 msgstr "Failas:"
+
+msgid "Lorem Ipsum"
+msgstr ""
 
 #, fuzzy
 msgid "Paragraphs:"
@@ -3112,10 +3443,10 @@ msgid "Colorspace:"
 msgstr "Spalva:"
 
 msgid "Title:"
-msgstr "Antrağtë:"
+msgstr "AntraÅ¡tÄ—:"
 
 msgid "No Title"
-msgstr "Be antrağtës"
+msgstr "Be antraÅ¡tÄ—s"
 
 #, fuzzy
 msgid "Scribus Document"
@@ -3123,11 +3454,15 @@ msgstr "Scribus-dokumentas"
 
 #, fuzzy
 msgid "&Compress File"
-msgstr "Suspausti failà"
+msgstr "Suspausti failÄ…"
 
 #, fuzzy
 msgid "&Include Fonts"
-msgstr "Átraukti nuorodas"
+msgstr "Ä®traukti nuorodas"
+
+#, fuzzy
+msgid "&Include ICC Profiles"
+msgstr "Spausdinti Ä¯ failÄ…:"
 
 msgid ""
 "Moves to your Document Directory.\n"
@@ -3136,28 +3471,20 @@ msgstr ""
 
 #, fuzzy
 msgid "Extended Image Properties"
-msgstr "Laukeliø parinktys"
-
-msgid "Hue"
-msgstr ""
-
-msgid "Saturation"
-msgstr "Sodrumas"
-
-msgid "Color"
-msgstr "Spalva"
-
-msgid "Luminosity"
-msgstr ""
+msgstr "LaukeliÅ³ parinktys"
 
 msgid "Dissolve"
-msgstr "Iğsisklaidymas"
+msgstr "IÅ¡sisklaidymas"
 
-msgid "Exclusion"
+msgid "Exlusion"
 msgstr ""
 
 msgid "Don't use any Path"
 msgstr ""
+
+#, fuzzy
+msgid "Paths"
+msgstr "Kelias"
 
 #, fuzzy
 msgid "Scribus: About Plug-ins"
@@ -3165,24 +3492,49 @@ msgstr "Nuosavas skriptas"
 
 #, fuzzy
 msgid "&Close"
-msgstr "Uşdaryti"
+msgstr "UÅ¾daryti"
+
+#, fuzzy
+msgid "Form1"
+msgstr "Formatas"
+
+#, fuzzy
+msgid "Parent"
+msgstr "Spausdinti"
+
+#, fuzzy
+msgid "Distances and Alignment"
+msgstr "Atstumas nuo kreivÄ—s"
+
+msgid "Drop Caps"
+msgstr ""
+
+msgid "Parent's Drop Cap Status"
+msgstr ""
+
+msgid "Tabulators and Indentation"
+msgstr ""
+
+#, fuzzy
+msgid "Ch&aracter Style"
+msgstr "RaidÄ—"
 
 msgid "Align Text Left"
-msgstr "Lygiuoti tekstà kairën"
+msgstr "Lygiuoti tekstÄ… kairÄ—n"
 
 msgid "Align Text Right"
-msgstr "Lygiuoti tekstà değinën"
+msgstr "Lygiuoti tekstÄ… deÅ¡inÄ—n"
 
 msgid "Align Text Center"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 #, fuzzy
 msgid "Align Text Justified"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 #, fuzzy
 msgid "Align Text Forced Justified"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 #, fuzzy
 msgid "Edit Master Pages"
@@ -3190,23 +3542,23 @@ msgstr "po puslapio"
 
 #, fuzzy
 msgid "Duplicate the selected master page"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 #, fuzzy
 msgid "Delete the selected master page"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 #, fuzzy
 msgid "Add a new master page"
-msgstr "Pridëti naujà sluoksná"
+msgstr "PridÄ—ti naujÄ… sluoksnÄ¯"
 
 #, fuzzy
 msgid "Import master pages from another document"
-msgstr "Èia galite matyti visus dokumento puslapius."
+msgstr "ÄŒia galite matyti visus dokumento puslapius."
 
 #, fuzzy
 msgid "Do you really want to delete this master page?"
-msgstr "Ar tikrai nori pağalinti ğá graşø ğablonà?"
+msgstr "Ar tikrai nori paÅ¡alinti Å¡Ä¯ graÅ¾Å³ Å¡ablonÄ…?"
 
 #, fuzzy
 msgid "&Yes"
@@ -3217,19 +3569,16 @@ msgid "&No"
 msgstr "Ne"
 
 #, fuzzy
+msgid "Copy #%1 of "
+msgstr "Kopijuoti "
+
+#, fuzzy
 msgid "&Name:"
 msgstr "Pavadinimas:"
 
 #, fuzzy
 msgid "New Master Page"
 msgstr "po puslapio"
-
-#, fuzzy
-msgid "Copy of %1"
-msgstr "Kopijuoti "
-
-msgid "Name:"
-msgstr "Pavadinimas:"
 
 #, fuzzy
 msgid "New MasterPage"
@@ -3240,8 +3589,23 @@ msgid "New Master Page %1"
 msgstr "po puslapio"
 
 #, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "Ä®kelti duomenis"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "po puslapio"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "Failo &vardas:"
+
+#, fuzzy
 msgid "Align and Distribute"
-msgstr "Iğskirstyti/iğligiuoti"
+msgstr "IÅ¡skirstyti/iÅ¡ligiuoti"
 
 msgid "Align"
 msgstr "Lygiuoti"
@@ -3252,15 +3616,15 @@ msgstr "Skiriamoji geba:"
 
 #, fuzzy
 msgid "First Selected"
-msgstr "Paşymëti"
+msgstr "PaÅ¾ymÄ—ti"
 
 #, fuzzy
 msgid "Last Selected"
-msgstr "Paşymëti"
+msgstr "PaÅ¾ymÄ—ti"
 
 #, fuzzy
 msgid "Guide"
-msgstr "Pagalbinës linijos"
+msgstr "PagalbinÄ—s linijos"
 
 msgid "Align right sides of objects to left side of anchor"
 msgstr ""
@@ -3270,11 +3634,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Align bottoms"
-msgstr "Lygiuoti kairëje"
+msgstr "Lygiuoti kairÄ—je"
 
 #, fuzzy
 msgid "Align right sides"
-msgstr "Lygiuoti değinëje"
+msgstr "Lygiuoti deÅ¡inÄ—je"
 
 msgid "Align tops of objects to bottom of anchor"
 msgstr ""
@@ -3284,7 +3648,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Align left sides"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 #, fuzzy
 msgid "Center on horizontal axis"
@@ -3295,7 +3659,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Align tops"
-msgstr "Lygiuoti kairëje"
+msgstr "Lygiuoti kairÄ—je"
 
 #, fuzzy
 msgid "&Selected Guide:"
@@ -3303,7 +3667,7 @@ msgstr "Parinkti laukeliai"
 
 #, fuzzy
 msgid "Distribute"
-msgstr "Iğskirstyti/iğligiuoti"
+msgstr "IÅ¡skirstyti/iÅ¡ligiuoti"
 
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
@@ -3346,7 +3710,7 @@ msgstr ""
 
 #, fuzzy
 msgid "None Selected"
-msgstr "Paşymëti"
+msgstr "PaÅ¾ymÄ—ti"
 
 #, c-format
 msgid "Y: %1%2"
@@ -3356,8 +3720,15 @@ msgstr ""
 msgid "X: %1%2"
 msgstr ""
 
+#, fuzzy
+msgid "Input Dialog"
+msgstr "Ä®vesties apibudinimas:"
+
+msgid "InputDialog"
+msgstr ""
+
 msgid "Export Range"
-msgstr "Eksporto grupë"
+msgstr "Eksporto grupÄ—"
 
 #, fuzzy
 msgid "&All Pages"
@@ -3369,7 +3740,7 @@ msgstr "Perkelti puslapius"
 
 #, fuzzy
 msgid "Clip to Page Margins"
-msgstr "Slëpti parağtes"
+msgstr "SlÄ—pti paraÅ¡tes"
 
 msgid "File Options"
 msgstr "Failo parinktys"
@@ -3383,10 +3754,10 @@ msgid "&Binding:"
 msgstr "Sietis:"
 
 msgid "Left Margin"
-msgstr "Kairioji parağtë"
+msgstr "Kairioji paraÅ¡tÄ—"
 
 msgid "Right Margin"
-msgstr "Değinioji parağtë"
+msgstr "DeÅ¡inioji paraÅ¡tÄ—"
 
 #, fuzzy
 msgid "Generate &Thumbnails"
@@ -3394,15 +3765,15 @@ msgstr "Sukurti miniatiuras"
 
 #, fuzzy
 msgid "Save &Linked Text Frames as PDF Articles"
-msgstr "Tekstø rëmelius su iğoriniu failu iğsaugoti kaip PDF-Artikulus"
+msgstr "TekstÅ³ rÄ—melius su iÅ¡oriniu failu iÅ¡saugoti kaip PDF-Artikulus"
 
 #, fuzzy
 msgid "&Include Bookmarks"
-msgstr "Átraukti nuorodas"
+msgstr "Ä®traukti nuorodas"
 
 #, fuzzy
 msgid "Include La&yers"
-msgstr "Slëpti sluoksná"
+msgstr "SlÄ—pti sluoksnÄ¯"
 
 #, fuzzy
 msgid "&Resolution for EPS Graphics:"
@@ -3410,7 +3781,7 @@ msgstr "EPS-paveiksliuko skyra:"
 
 #, fuzzy
 msgid "Com&press Text and Vector Graphics"
-msgstr "Suspausti tekstinius ir vektorinës grafikos failus"
+msgstr "Suspausti tekstinius ir vektorinÄ—s grafikos failus"
 
 #, fuzzy
 msgid "Image Compression Method"
@@ -3428,22 +3799,19 @@ msgstr "Suspaudimas"
 
 #, fuzzy
 msgid "Maximum"
-msgstr "didşiausia"
+msgstr "didÅ¾iausia"
 
 #, fuzzy
 msgid "High"
-msgstr "Aukğtis:"
-
-msgid "Medium"
-msgstr "Vidutinis"
+msgstr "AukÅ¡tis:"
 
 #, fuzzy
 msgid "Low"
-msgstr "Per vienà şemiau"
+msgstr "Per vienÄ… Å¾emiau"
 
 #, fuzzy
 msgid "Minimum"
-msgstr "maşiausia"
+msgstr "maÅ¾iausia"
 
 #, fuzzy
 msgid "Compression &Quality:"
@@ -3451,7 +3819,7 @@ msgstr "Suspaudimas"
 
 #, fuzzy
 msgid "Resa&mple Images to:"
-msgstr "Nusiûsti failus á:"
+msgstr "NusiÅ«sti failus Ä¯:"
 
 #, fuzzy
 msgid "&General"
@@ -3459,47 +3827,47 @@ msgstr "Pagrindinis"
 
 #, fuzzy
 msgid "&Embed all Fonts"
-msgstr "Átraukti naudotus ğriftus"
+msgstr "Ä®traukti naudotus Å¡riftus"
 
 #, fuzzy
 msgid "&Subset all Fonts"
-msgstr "Átraukti naudotus ğriftus"
+msgstr "Ä®traukti naudotus Å¡riftus"
 
 msgid "Embedding"
-msgstr "Ákelti"
+msgstr "Ä®kelti"
 
 msgid "Available Fonts:"
-msgstr "Galimi ğriftai:"
+msgstr "Galimi Å¡riftai:"
 
 msgid "Fonts to embed:"
-msgstr "Átraukti ğiuos ğriftus:"
+msgstr "Ä®traukti Å¡iuos Å¡riftus:"
 
 #, fuzzy
 msgid "Fonts to subset:"
-msgstr "Átraukti ğiuos ğriftus:"
+msgstr "Ä®traukti Å¡iuos Å¡riftus:"
 
 #, fuzzy
 msgid "&Fonts"
-msgstr "&Ğriftas"
+msgstr "&Å riftas"
 
 #, fuzzy
 msgid "Enable &Presentation Effects"
-msgstr "Galimi pristatymø efektai"
+msgstr "Galimi pristatymÅ³ efektai"
 
 #, fuzzy
 msgid "Show Page Pre&views"
-msgstr "Parodyti spausdinto puslapio iğvaizdà"
+msgstr "Parodyti spausdinto puslapio iÅ¡vaizdÄ…"
 
 msgid "Effects"
 msgstr "Efektai"
 
 #, fuzzy
 msgid "&Display Duration:"
-msgstr "Rodymo trukmë:"
+msgstr "Rodymo trukmÄ—:"
 
 #, fuzzy
 msgid "Effec&t Duration:"
-msgstr "Efekto trukmë:"
+msgstr "Efekto trukmÄ—:"
 
 #, fuzzy
 msgid "Effect T&ype:"
@@ -3507,11 +3875,11 @@ msgstr "Efekto tipas:"
 
 #, fuzzy
 msgid "&Moving Lines:"
-msgstr "Slenkanèios eilutës:"
+msgstr "SlenkanÄios eilutÄ—s:"
 
 #, fuzzy
 msgid "F&rom the:"
-msgstr "iğ:"
+msgstr "iÅ¡:"
 
 #, fuzzy
 msgid "D&irection:"
@@ -3521,13 +3889,13 @@ msgid " sec"
 msgstr ""
 
 msgid "No Effect"
-msgstr "Be efektø"
+msgstr "Be efektÅ³"
 
 msgid "Blinds"
-msgstr "Uşdangos"
+msgstr "UÅ¾dangos"
 
 msgid "Box"
-msgstr "Dëşutë"
+msgstr "DÄ—Å¾utÄ—"
 
 msgid "Glitter"
 msgstr "Blizgesys"
@@ -3548,23 +3916,23 @@ msgid "Inside"
 msgstr "Vidun"
 
 msgid "Outside"
-msgstr "Iğorën"
+msgstr "IÅ¡orÄ—n"
 
 msgid "Left to Right"
-msgstr "Iğ kairës değinën"
+msgstr "IÅ¡ kairÄ—s deÅ¡inÄ—n"
 
 msgid "Top to Bottom"
-msgstr "Iğ virğaus apaèion"
+msgstr "IÅ¡ virÅ¡aus apaÄion"
 
 msgid "Bottom to Top"
-msgstr "Iğ apaèios virğun"
+msgstr "IÅ¡ apaÄios virÅ¡un"
 
 msgid "Right to Left"
-msgstr "Iğ değinës kairën"
+msgstr "IÅ¡ deÅ¡inÄ—s kairÄ—n"
 
 #, fuzzy
 msgid "Top-left to Bottom-Right"
-msgstr "Iğ virğutinio kairio kampo á prieğingà"
+msgstr "IÅ¡ virÅ¡utinio kairio kampo Ä¯ prieÅ¡ingÄ…"
 
 # New in Version 0.8
 #, fuzzy
@@ -3577,7 +3945,7 @@ msgstr "Priedai"
 
 #, fuzzy
 msgid "Display Settings"
-msgstr "Simboliø parinktys"
+msgstr "SimboliÅ³ parinktys"
 
 #, fuzzy
 msgid "Single Page"
@@ -3589,15 +3957,15 @@ msgstr "Turinys"
 
 #, fuzzy
 msgid "Double Page Left"
-msgstr "Lygiuoti değinëje"
+msgstr "Lygiuoti deÅ¡inÄ—je"
 
 #, fuzzy
 msgid "Double Page Right"
-msgstr "Lygiuoti değinëje"
+msgstr "Lygiuoti deÅ¡inÄ—je"
 
 #, fuzzy
 msgid "Visual Appearance"
-msgstr "Iğvaizda"
+msgstr "IÅ¡vaizda"
 
 msgid "Use Viewers Defaults"
 msgstr ""
@@ -3627,7 +3995,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Special Actions"
-msgstr "Değimtainis:"
+msgstr "DeÅ¡imtainis:"
 
 msgid ""
 "Javascript to be executed\n"
@@ -3648,7 +4016,7 @@ msgstr "Komentarai:"
 
 #, fuzzy
 msgid "Passwords"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #, fuzzy
 msgid "&User:"
@@ -3660,19 +4028,19 @@ msgstr "Kita:"
 
 #, fuzzy
 msgid "Settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 #, fuzzy
 msgid "Allow &Printing the Document"
-msgstr "Atspausdink darbà"
+msgstr "Atspausdink darbÄ…"
 
 #, fuzzy
 msgid "Allow &Changing the Document"
-msgstr "Atspausdink darbà"
+msgstr "Atspausdink darbÄ…"
 
 #, fuzzy
 msgid "Allow Cop&ying Text and Graphics"
-msgstr "Suspausti tekstinius ir vektorinës grafikos failus"
+msgstr "Suspausti tekstinius ir vektorinÄ—s grafikos failus"
 
 msgid "Allow Adding &Annotations and Fields"
 msgstr ""
@@ -3683,7 +4051,7 @@ msgstr "Skr&iptas"
 
 #, fuzzy
 msgid "Output &Intended For:"
-msgstr "Iğvesti á failà:"
+msgstr "IÅ¡vesti Ä¯ failÄ…:"
 
 msgid "Screen / Web"
 msgstr ""
@@ -3703,7 +4071,7 @@ msgstr "Atvaizdavimo tikslumas"
 
 #, fuzzy
 msgid "Fre&quency:"
-msgstr "Prancûziğkai:"
+msgstr "PrancÅ«ziÅ¡kai:"
 
 #, fuzzy
 msgid "&Angle:"
@@ -3718,21 +4086,21 @@ msgstr "Pavyzdys"
 
 #, fuzzy
 msgid "Round"
-msgstr "Apvalus virğus"
+msgstr "Apvalus virÅ¡us"
 
 msgid "Ellipse"
 msgstr ""
 
 msgid "Solid Colors:"
-msgstr "Iğtisinës spalvos:"
+msgstr "IÅ¡tisinÄ—s spalvos:"
 
 #, fuzzy
 msgid "Use ICC Profile"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Profile:"
-msgstr "Spausdinti á failà:"
+msgstr "Spausdinti Ä¯ failÄ…:"
 
 #, fuzzy
 msgid "Rendering-Intent:"
@@ -3765,11 +4133,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Output &Profile:"
-msgstr "Iğvesti á failà:"
+msgstr "IÅ¡vesti Ä¯ failÄ…:"
 
 #, fuzzy
 msgid "Trim Box"
-msgstr "Sàrağo laukelis"
+msgstr "SÄ…raÅ¡o laukelis"
 
 msgid "PDF/X-&3"
 msgstr ""
@@ -3827,14 +4195,14 @@ msgid ""
 msgstr ""
 
 msgid ""
-"Determines the PDF compatibility. The default is PDF 1.3 which gives the "
-"widest compatibility. Choose PDF 1.4 if your file uses features such as "
-"transparency or you require 128 bit encryption. PDF 1.5 is necessary when "
-"you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is "
-"for exporting the PDF when you want color managed RGB for commercial "
-"printing and is selectable when you have activated color management. Use "
-"only when advised by your printer or in some cases printing to a 4 color "
-"digital color laser printer."
+"Determines the PDF compatibility.<br/>The default is <b>PDF 1.3</b> which "
+"gives the widest compatibility.<br/>Choose <b>PDF 1.4</b> if your file uses "
+"features such as transparency or you require 128 bit encryption.<br/><b>PDF "
+"1.5</b> is necessary when you wish to preserve objects in separate layers "
+"within the PDF.<br/><b>PDF/X-3</b> is for exporting the PDF when you want "
+"color managed RGB for commercial printing and is selectable when you have "
+"activated color management. Use only when advised by your printer or in some "
+"cases printing to a 4 color digital color laser printer."
 msgstr ""
 
 msgid ""
@@ -4061,7 +4429,7 @@ msgstr "Naujas dokumentas"
 
 #, fuzzy
 msgid "Open &Existing Document"
-msgstr "Naudok esamà dokumentà"
+msgstr "Naudok esamÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "Open Recent &Document"
@@ -4069,7 +4437,7 @@ msgstr "Paskutinis dokumentas:"
 
 #, fuzzy
 msgid "Do not show this dialog again"
-msgstr "Uşdaryti ğá dialogà"
+msgstr "UÅ¾daryti Å¡Ä¯ dialogÄ…"
 
 msgid "Document page size, either a standard size or a custom size"
 msgstr ""
@@ -4088,7 +4456,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Initial number of pages of the document"
-msgstr "Èia galite matyti visus dokumento puslapius."
+msgstr "ÄŒia galite matyti visus dokumento puslapius."
+
+msgid "Default unit of measurement for document editing"
+msgstr ""
 
 msgid "Create text frames automatically when new pages are added"
 msgstr ""
@@ -4104,7 +4475,7 @@ msgstr "Nuostatos"
 
 #, fuzzy
 msgid "N&umber of Pages:"
-msgstr "Kopijø skaièius:"
+msgstr "KopijÅ³ skaiÄius:"
 
 #, fuzzy
 msgid "&Default Unit:"
@@ -4114,16 +4485,13 @@ msgstr "Pagrindinis vienetas:"
 msgid "&Automatic Text Frames"
 msgstr "Teksto langelis"
 
-msgid "Open"
-msgstr "Atidaryti"
-
 #, fuzzy
 msgid "PostScript Interpreter"
 msgstr "Skr&iptas"
 
 #, fuzzy
 msgid "&Name of Executable:"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid ""
 "<qt>Add the path for the Ghostscript interpreter. On Windows, please note it "
@@ -4138,10 +4506,6 @@ msgstr "Pakeisti..."
 msgid "Antialias &Text"
 msgstr ""
 
-#, fuzzy
-msgid "Alt+T"
-msgstr "Viskà"
-
 msgid "Antialias text for EPS and PDF onscreen rendering"
 msgstr ""
 
@@ -4150,7 +4514,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Alt+G"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Antialias graphics for EPS and PDF onscreen rendering"
 msgstr ""
@@ -4160,13 +4524,17 @@ msgstr ""
 
 #, fuzzy
 msgid "Name of &Executable:"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid ""
 "<qt>File system location for graphics editor. If you use gimp and your "
 "distribution includes it, we recommend 'gimp-remote', as it allows you to "
 "edit the image in an already running instance of gimp.</qt>"
 msgstr ""
+
+#, fuzzy
+msgid "&Change..."
+msgstr "Pakeisti..."
 
 #, fuzzy
 msgid "Web Browser"
@@ -4182,7 +4550,7 @@ msgstr ""
 
 #, fuzzy
 msgid "&Rescan"
-msgstr "Staèiakampis"
+msgstr "StaÄiakampis"
 
 msgid ""
 "Rescan for the external tools if they do not exist in the already specified "
@@ -4199,11 +4567,11 @@ msgstr "Skiriamoji geba:"
 
 #, fuzzy
 msgid "Enabled:"
-msgstr "Keièiamas"
+msgstr "KeiÄiamas"
 
 #, fuzzy
 msgid "Release Date:"
-msgstr "Iğplëğti puslapá:"
+msgstr "IÅ¡plÄ—Å¡ti puslapÄ¯:"
 
 #, fuzzy
 msgid "Description:"
@@ -4222,8 +4590,12 @@ msgid "License:"
 msgstr "Linija"
 
 #, fuzzy
+msgid "Transparency Settings"
+msgstr "SimboliÅ³ parinktys"
+
+#, fuzzy
 msgid "Move Vector"
-msgstr "Perkelk èia"
+msgstr "Perkelk Äia"
 
 #, fuzzy
 msgid "Horizontal Gradient"
@@ -4250,11 +4622,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Edit Line Color Properties"
-msgstr "Laukeliø parinktys"
+msgstr "LaukeliÅ³ parinktys"
 
 #, fuzzy
 msgid "Edit Fill Color Properties"
-msgstr "Laukeliø parinktys"
+msgstr "LaukeliÅ³ parinktys"
 
 msgid "Normal or gradient fill method"
 msgstr ""
@@ -4271,58 +4643,35 @@ msgid "Document Setup"
 msgstr "Dokumento nuostatos"
 
 #, fuzzy
-msgid "&Unit:"
-msgstr "Vienetai"
-
-# New in Version 0.8
-#, fuzzy
-msgid "Apply size settings to all pages"
-msgstr "Pritaikyti efektus visuose puslapiuose"
-
-#, fuzzy
 msgid "Document Information"
 msgstr "Informacija"
 
 #, fuzzy
-msgid "Minimum Scratch Space"
-msgstr "Vertikalûs tarpai"
-
-#, fuzzy
 msgid "Sections"
-msgstr "Paşymëti"
-
-msgid "Enable or disable the display of linked text frames."
-msgstr ""
-
-msgid "Apply the page size changes to all existing pages in the document"
-msgstr ""
+msgstr "PaÅ¾ymÄ—ti"
 
 msgid "Adjusting Colors"
 msgstr "Parinkti spalvas"
 
 #, fuzzy
 msgid "Saving PDF"
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "Exporting Master Page:"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "Exporting Page:"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "Exporting Items on Current Page:"
-msgstr "Spausdinimo eiliğkumas"
-
-#, fuzzy
-msgid "Unit"
-msgstr "Vienetai"
+msgstr "Spausdinimo eiliÅ¡kumas"
 
 #, fuzzy
 msgid "Manage Guides"
-msgstr "Parağèiø linijos"
+msgstr "ParaÅ¡ÄiÅ³ linijos"
 
 #, fuzzy
 msgid "Horizontals"
@@ -4330,7 +4679,7 @@ msgstr "Horizontaliai"
 
 #, fuzzy
 msgid "D&elete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #, fuzzy
 msgid "Verticals"
@@ -4338,11 +4687,11 @@ msgstr "Vertikaliai"
 
 #, fuzzy
 msgid "A&dd"
-msgstr "Pridëti..."
+msgstr "PridÄ—ti..."
 
 #, fuzzy
 msgid "De&lete"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #, fuzzy
 msgid "&Lock Guides"
@@ -4355,33 +4704,29 @@ msgstr "Pritaikyti efektus visuose puslapiuose"
 
 #, fuzzy
 msgid "Alt+Y"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #, fuzzy
 msgid "&Standard"
-msgstr "Şvaigşdë"
+msgstr "Å½vaigÅ¾dÄ—"
 
 #, fuzzy
 msgid "&Number:"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 msgid "U&se Gap:"
 msgstr ""
 
 #, fuzzy
-msgid "Alt+S"
-msgstr "Viskà"
-
-#, fuzzy
 msgid "Nu&mber:"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 msgid "Use &Gap:"
 msgstr ""
 
 #, fuzzy
 msgid "Refer To"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 msgid "&Page"
@@ -4389,22 +4734,41 @@ msgstr "Puslapis"
 
 #, fuzzy
 msgid "Alt+P"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 #, fuzzy
 msgid "M&argins"
-msgstr "Parağtë:"
+msgstr "ParaÅ¡tÄ—:"
 
 #, fuzzy
 msgid "S&election"
-msgstr "Paşymëti"
+msgstr "PaÅ¾ymÄ—ti"
 
 #, fuzzy
 msgid "A&utomatic"
 msgstr "Teksto langelis"
 
+#, fuzzy
+msgid "Delete &Page Guides"
+msgstr "IÅ¡plÄ—Å¡ti puslapius"
+
+msgid "Delete all guides from the current page"
+msgstr ""
+
+#, fuzzy
+msgid "Delete &Document guides"
+msgstr "Paskutiniai dokumentai"
+
+#, fuzzy
+msgid "Delete all guides from the current document"
+msgstr "Nutraukti darbÄ… su Å¡iuo dokumentu"
+
+#, fuzzy
+msgid "&Misc"
+msgstr "Matomas"
+
 msgid "Field Properties"
-msgstr "Laukeliø parinktys"
+msgstr "LaukeliÅ³ parinktys"
 
 msgid "Button"
 msgstr "Mygtukas"
@@ -4419,20 +4783,17 @@ msgid "Combo Box"
 msgstr "Kombinuotas laukelis"
 
 msgid "List Box"
-msgstr "Sàrağo laukelis"
+msgstr "SÄ…raÅ¡o laukelis"
 
 msgid "Tool-Tip:"
-msgstr "Patarëjas:"
+msgstr "PatarÄ—jas:"
 
 #, fuzzy
 msgid "Font for use with PDF 1.3:"
-msgstr "Ğriftas naudojimui su PDF-1.3:"
+msgstr "Å riftas naudojimui su PDF-1.3:"
 
 msgid "Border"
-msgstr "Kontûras"
-
-msgid "Width:"
-msgstr "Plotis:"
+msgstr "KontÅ«ras"
 
 msgid "Thin"
 msgstr "Plonas"
@@ -4445,16 +4806,16 @@ msgid "Style:"
 msgstr "Stilius"
 
 msgid "Solid"
-msgstr "Ryğkus"
+msgstr "RyÅ¡kus"
 
 msgid "Dashed"
 msgstr "Punktyris"
 
 msgid "Beveled"
-msgstr "Nuoşulnus"
+msgstr "NuoÅ¾ulnus"
 
 msgid "Inset"
-msgstr "Áklija"
+msgstr "Ä®klija"
 
 msgid "Other"
 msgstr "Kita"
@@ -4463,10 +4824,10 @@ msgid "Read Only"
 msgstr "Tik skaitymui"
 
 msgid "Required"
-msgstr "Bûtinas"
+msgstr "BÅ«tinas"
 
 msgid "Don't Export Value"
-msgstr "Neperduoti reikğmës"
+msgstr "Neperduoti reikÅ¡mÄ—s"
 
 msgid "Visibility:"
 msgstr "Matomumas"
@@ -4475,7 +4836,7 @@ msgid "Visible"
 msgstr "Matomas"
 
 msgid "Hidden"
-msgstr "Paslëptas"
+msgstr "PaslÄ—ptas"
 
 msgid "No Print"
 msgstr "Nespausdinti"
@@ -4484,47 +4845,44 @@ msgid "No View"
 msgstr "Nerodyti"
 
 msgid "Appearance"
-msgstr "Iğvaizda"
+msgstr "IÅ¡vaizda"
 
 msgid "Text for Button Down"
-msgstr "Mygtuko şemyn tekstas"
+msgstr "Mygtuko Å¾emyn tekstas"
 
 msgid "Text for Roll Over"
-msgstr "Sàrağo tekstas"
+msgstr "SÄ…raÅ¡o tekstas"
 
 #, fuzzy
 msgid "Icons"
-msgstr "Naudoti şenkliukà"
+msgstr "Naudoti Å¾enkliukÄ…"
 
 msgid "Use Icons"
-msgstr "Naudoti şenkliukà"
-
-msgid "Remove"
-msgstr "Pağalinti"
+msgstr "Naudoti Å¾enkliukÄ…"
 
 msgid "Pressed"
 msgstr "Paspaustas"
 
 msgid "Roll Over"
-msgstr "Iğskleisti"
+msgstr "IÅ¡skleisti"
 
 msgid "Icon Placement..."
-msgstr "Şenkliuko áterpimas..."
+msgstr "Å½enkliuko Ä¯terpimas..."
 
 msgid "Highlight"
-msgstr "Paryğkinti"
+msgstr "ParyÅ¡kinti"
 
 msgid "Outlined"
-msgstr "Su kontûrais"
+msgstr "Su kontÅ«rais"
 
 msgid "Push"
 msgstr "Spausti"
 
 msgid "Multi-Line"
-msgstr "Daugiaeilë"
+msgstr "DaugiaeilÄ—"
 
 msgid "Password"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 msgid "Limit of"
 msgstr "Riba nuo"
@@ -4536,34 +4894,34 @@ msgid "Do Not Scroll"
 msgstr "Neprasukti"
 
 msgid "Do Not Spell Check"
-msgstr "Netikrinti rağybos"
+msgstr "Netikrinti raÅ¡ybos"
 
 msgid "Check Style:"
 msgstr "Langelio stilius"
 
 msgid "Check"
-msgstr "Şymëti"
+msgstr "Å½ymÄ—ti"
 
 msgid "Cross"
-msgstr "Kryşelis"
+msgstr "KryÅ¾elis"
 
 msgid "Diamond"
-msgstr "Prizmë"
+msgstr "PrizmÄ—"
 
 msgid "Circle"
 msgstr "Apskritimas"
 
 msgid "Star"
-msgstr "Şvaigşdë"
+msgstr "Å½vaigÅ¾dÄ—"
 
 msgid "Square"
 msgstr "Kvadratas"
 
 msgid "Default is Checked"
-msgstr "Pagrindinis paşymëjus"
+msgstr "Pagrindinis paÅ¾ymÄ—jus"
 
 msgid "Editable"
-msgstr "Keièiamas"
+msgstr "KeiÄiamas"
 
 #, fuzzy
 msgid "JavaScript"
@@ -4579,10 +4937,10 @@ msgid "Reset Form"
 msgstr "Atitaisyti"
 
 msgid "Import Data"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid "Event:"
-msgstr "Ávykis:"
+msgstr "Ä®vykis:"
 
 msgid "Mouse Up"
 msgstr "Mouse Up"
@@ -4615,7 +4973,7 @@ msgid "Submit Data as HTML"
 msgstr "Patvirtinti duomenis kaip HTML"
 
 msgid "Import Data from:"
-msgstr "Ákelti duomenis iğ:"
+msgstr "Ä®kelti duomenis iÅ¡:"
 
 msgid "Destination"
 msgstr "Vieta"
@@ -4632,11 +4990,11 @@ msgstr "Puslapis:"
 
 #, fuzzy
 msgid "X-Pos:"
-msgstr "X vieta èia pat:"
+msgstr "X vieta Äia pat:"
 
 #, fuzzy
 msgid "Y-Pos:"
-msgstr "Y vieta èia pat:"
+msgstr "Y vieta Äia pat:"
 
 msgid "Field is formatted as:"
 msgstr "Laukelis suformuotas kaip:"
@@ -4645,7 +5003,7 @@ msgid "Plain"
 msgstr "Paprastas"
 
 msgid "Number"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 msgid "Percentage"
 msgstr "Procentinis"
@@ -4657,16 +5015,16 @@ msgid "Time"
 msgstr "Laikas"
 
 msgid "Number Format"
-msgstr "Skaièiaus formatas"
+msgstr "SkaiÄiaus formatas"
 
 msgid "Decimals:"
-msgstr "Değimtainis:"
+msgstr "DeÅ¡imtainis:"
 
 msgid "Use Currency Symbol"
-msgstr "Naudoti valiutos şenklà"
+msgstr "Naudoti valiutos Å¾enklÄ…"
 
 msgid "Prepend Currency Symbol"
-msgstr "Parinktas valiutos şenklas"
+msgstr "Parinktas valiutos Å¾enklas"
 
 msgid "Formatting"
 msgstr "Formatavimas"
@@ -4687,19 +5045,19 @@ msgid "Format:"
 msgstr "Formatas:"
 
 msgid "Keystroke:"
-msgstr "Klaviğas:"
+msgstr "KlaviÅ¡as:"
 
 msgid "Format"
 msgstr "Formatas"
 
 msgid "Value is not validated"
-msgstr "Reikğmë negaliojanti"
+msgstr "ReikÅ¡mÄ— negaliojanti"
 
 msgid "Value must be greater than or equal to:"
-msgstr "Reikğmë turi bûti didesnë ar lygi negu:"
+msgstr "ReikÅ¡mÄ— turi bÅ«ti didesnÄ— ar lygi negu:"
 
 msgid "and less or equal to:"
-msgstr "ir maşesnë ar lygi negu:"
+msgstr "ir maÅ¾esnÄ— ar lygi negu:"
 
 msgid "Custom validate script:"
 msgstr "Nuosavas galiojimo scriptas:"
@@ -4708,10 +5066,10 @@ msgid "Validate"
 msgstr "Patvirtinti"
 
 msgid "Value is not calculated"
-msgstr "Reiğmë nesuskaièiuota"
+msgstr "ReiÅ¡mÄ— nesuskaiÄiuota"
 
 msgid "Value is the"
-msgstr "Reikğmë yra"
+msgstr "ReikÅ¡mÄ— yra"
 
 msgid "sum"
 msgstr "suma"
@@ -4723,38 +5081,38 @@ msgid "average"
 msgstr "apytiksli"
 
 msgid "minimum"
-msgstr "maşiausia"
+msgstr "maÅ¾iausia"
 
 msgid "maximum"
-msgstr "didşiausia"
+msgstr "didÅ¾iausia"
 
 msgid "of the following fields:"
-msgstr "iğ sekanèiø laukeliø:"
+msgstr "iÅ¡ sekanÄiÅ³ laukeliÅ³:"
 
 msgid "Pick..."
 msgstr "Parink..."
 
 msgid "Custom calculation script:"
-msgstr "Nuosavas skaièiavimø skriptas:"
+msgstr "Nuosavas skaiÄiavimÅ³ skriptas:"
 
 msgid "Calculate"
-msgstr "Skaièiuoti"
+msgstr "SkaiÄiuoti"
 
 #, fuzzy
 msgid "Flag is ignored for PDF 1.3"
-msgstr "Şymë ignoruojama PDF-1.3"
+msgstr "Å½ymÄ— ignoruojama PDF-1.3"
 
 #, fuzzy
 msgid "Enter a comma separated list of fields here"
-msgstr "Ávesti kableliu atskirtà sàrağà iğ laukeliø èia"
+msgstr "Ä®vesti kableliu atskirtÄ… sÄ…raÅ¡Ä… iÅ¡ laukeliÅ³ Äia"
 
 msgid "You need at least the Icon for Normal to use Icons for Buttons"
-msgstr "Reiktu turëti nors paprastus şenkliukus mygtukams"
+msgstr "Reiktu turÄ—ti nors paprastus Å¾enkliukus mygtukams"
 
 #, fuzzy
 msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
 msgstr ""
-"Tağkinë grafika (*.tif *.png *.jpg *.xpm);;Vektorinë grafika (*.eps);;Visi "
+"TaÅ¡kinÄ— grafika (*.tif *.png *.jpg *.xpm);;VektorinÄ— grafika (*.eps);;Visi "
 "failai (*)"
 
 msgid "Example:"
@@ -4767,17 +5125,13 @@ msgid "Result"
 msgstr "Rezultatas"
 
 msgid "Search Results for: "
-msgstr "Paieğkos rezultatai pagal: "
+msgstr "PaieÅ¡kos rezultatai pagal: "
 
 msgid "Preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 msgid "Select"
-msgstr "Paşymëti"
-
-#, fuzzy
-msgid "&New"
-msgstr "Naujas"
+msgstr "PaÅ¾ymÄ—ti"
 
 #, fuzzy
 msgid "&Open..."
@@ -4785,41 +5139,49 @@ msgstr "Atidaryti..."
 
 #, fuzzy
 msgid "Save &As..."
-msgstr "Iğsaugoti kitu vardu..."
+msgstr "IÅ¡saugoti kitu vardu..."
 
 #, fuzzy
 msgid "Re&vert to Saved"
-msgstr "Gráşti prie iğsaugoto"
+msgstr "GrÄ¯Å¾ti prie iÅ¡saugoto"
 
 msgid "Collect for O&utput..."
 msgstr ""
 
 msgid "Get Text..."
-msgstr "Naudoti tekstà..."
+msgstr "Naudoti tekstÄ…..."
+
+#, fuzzy
+msgid "Get Text 2..."
+msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 msgid "Append &Text..."
-msgstr "Naudoti tekstà..."
+msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 msgid "Get Image..."
-msgstr "Naudoti tekstà..."
+msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 msgid "Save &Text..."
-msgstr "Iğsaugoti kaip tekstà..."
+msgstr "IÅ¡saugoti kaip tekstÄ…..."
 
 #, fuzzy
 msgid "Save as &EPS..."
-msgstr "Iğsaugoti kaip EPS..."
+msgstr "IÅ¡saugoti kaip EPS..."
 
 #, fuzzy
 msgid "Save as P&DF..."
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "Document &Setup..."
-msgstr "Dokumento nuostatø keitimas..."
+msgstr "Dokumento nuostatÅ³ keitimas..."
+
+#, fuzzy
+msgid "P&references..."
+msgstr "Parinktys..."
 
 #, fuzzy
 msgid "&Print..."
@@ -4827,7 +5189,7 @@ msgstr "Spausdinti..."
 
 #, fuzzy
 msgid "Print Previe&w"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "&Quit"
@@ -4838,7 +5200,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Cu&t"
-msgstr "Iğkirpti"
+msgstr "IÅ¡kirpti"
 
 #, fuzzy
 msgid "&Copy"
@@ -4854,18 +5216,18 @@ msgstr "Trinti"
 
 #, fuzzy
 msgid "Select &All"
-msgstr "Paşymëti viskà"
+msgstr "PaÅ¾ymÄ—ti viskÄ…"
 
 #, fuzzy
 msgid "&Deselect All"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 msgid "&Search/Replace..."
 msgstr ""
 
 #, fuzzy
 msgid "Edit Image..."
-msgstr "Naudoti tekstà..."
+msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 msgid "C&olors..."
@@ -4891,10 +5253,6 @@ msgstr "po puslapio"
 msgid "&JavaScripts..."
 msgstr "Java Script"
 
-#, fuzzy
-msgid "P&references..."
-msgstr "Parinktys..."
-
 msgid "%1 pt"
 msgstr ""
 
@@ -4904,15 +5262,15 @@ msgstr "Kita..."
 
 #, fuzzy
 msgid "&Left"
-msgstr "Kairën"
+msgstr "KairÄ—n"
 
 #, fuzzy
 msgid "&Center"
-msgstr "Per vidurá"
+msgstr "Per vidurÄ¯"
 
 #, fuzzy
 msgid "&Right"
-msgstr "Değinën"
+msgstr "DeÅ¡inÄ—n"
 
 #, fuzzy
 msgid "&Block"
@@ -4946,23 +5304,23 @@ msgstr "Visi puslapiai"
 
 #, fuzzy
 msgid "Small &Caps"
-msgstr "Maşos didşiosios"
+msgstr "MaÅ¾os didÅ¾iosios"
 
 #, fuzzy
 msgid "Su&perscript"
-msgstr "Antrağtis"
+msgstr "AntraÅ¡tis"
 
 #, fuzzy
 msgid "Su&bscript"
-msgstr "Porağtis"
+msgstr "PoraÅ¡tis"
 
 #, fuzzy
 msgid "&Outline"
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
 
 #, fuzzy
 msgid "S&hadow"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "&Image Effects"
@@ -4970,7 +5328,7 @@ msgstr "Efektai"
 
 #, fuzzy
 msgid "&Tabulators..."
-msgstr "Ğablonai..."
+msgstr "Å ablonai..."
 
 #, fuzzy
 msgid "D&uplicate"
@@ -4978,15 +5336,15 @@ msgstr "Padvigubinti"
 
 #, fuzzy
 msgid "&Multiple Duplicate"
-msgstr "Sukurti daug kopijø"
+msgstr "Sukurti daug kopijÅ³"
 
 #, fuzzy
 msgid "&Group"
-msgstr "Sudaryti junginá"
+msgstr "Sudaryti junginÄ¯"
 
 #, fuzzy
 msgid "&Ungroup"
-msgstr "Iğardyti junginá"
+msgstr "IÅ¡ardyti junginÄ¯"
 
 msgid "Is &Locked"
 msgstr ""
@@ -5008,22 +5366,22 @@ msgstr "Apversk vertikaliai"
 
 #, fuzzy
 msgid "Lower to &Bottom"
-msgstr "Iğ virğaus apaèion"
+msgstr "IÅ¡ virÅ¡aus apaÄion"
 
 msgid "Raise to &Top"
 msgstr ""
 
 #, fuzzy
 msgid "&Lower"
-msgstr "Per vienà şemiau"
+msgstr "Per vienÄ… Å¾emiau"
 
 #, fuzzy
 msgid "&Raise"
-msgstr "Per vienà aukğèiau"
+msgstr "Per vienÄ… aukÅ¡Äiau"
 
 #, fuzzy
 msgid "Send to S&crapbook"
-msgstr "Á iğkarpø krepğá"
+msgstr "Ä® iÅ¡karpÅ³ krepÅ¡Ä¯"
 
 #, fuzzy
 msgid "&Attributes..."
@@ -5039,7 +5397,7 @@ msgstr "Paveiksliuko matomumas"
 
 #, fuzzy
 msgid "&Update Image"
-msgstr "Prişiûrëti paveiksliukus"
+msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
 
 msgid "Adjust Frame to Image"
 msgstr ""
@@ -5058,7 +5416,7 @@ msgstr "Skiriamoji geba:"
 
 #, fuzzy
 msgid "Is PDF &Bookmark"
-msgstr "Tai PDF-şymos"
+msgstr "Tai PDF-Å¾ymos"
 
 #, fuzzy
 msgid "Is PDF A&nnotation"
@@ -5066,11 +5424,11 @@ msgstr "Yra PDF anotacija"
 
 #, fuzzy
 msgid "Annotation P&roperties"
-msgstr "Aprağymo parinktys"
+msgstr "ApraÅ¡ymo parinktys"
 
 #, fuzzy
 msgid "Field P&roperties"
-msgstr "Laukeliø parinktys"
+msgstr "LaukeliÅ³ parinktys"
 
 #, fuzzy
 msgid "&Edit Shape..."
@@ -5078,39 +5436,35 @@ msgstr "Taisyti..."
 
 #, fuzzy
 msgid "&Attach Text to Path"
-msgstr "Priskirti tekstui marğtutà"
+msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 msgid "&Detach Text from Path"
-msgstr "Priskirti tekstui marğtutà"
+msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 msgid "&Combine Polygons"
-msgstr "Iğgaubtas daugiakampis"
+msgstr "IÅ¡gaubtas daugiakampis"
 
 #, fuzzy
 msgid "Split &Polygons"
-msgstr "Keisti daugiakampá"
+msgstr "Keisti daugiakampÄ¯"
 
 #, fuzzy
 msgid "&Bezier Curve"
-msgstr "Bezje kreivë"
-
-#, fuzzy
-msgid "&Image Frame"
-msgstr "Paveiksliukas"
+msgstr "Bezje kreivÄ—"
 
 #, fuzzy
 msgid "&Outlines"
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
 
 #, fuzzy
 msgid "&Polygon"
 msgstr "Daugiakampis"
 
 #, fuzzy
-msgid "&Text Frame"
-msgstr "Teksto rëmelis"
+msgid "&Frame..."
+msgstr "Pakeisti..."
 
 msgid "&Glyph..."
 msgstr ""
@@ -5121,7 +5475,7 @@ msgstr "Pavyzdinis tekstas"
 
 #, fuzzy
 msgid "&Insert..."
-msgstr "Áterpti..."
+msgstr "Ä®terpti..."
 
 #, fuzzy
 msgid "Im&port..."
@@ -5129,7 +5483,7 @@ msgstr "Importuoti..."
 
 #, fuzzy
 msgid "&Delete..."
-msgstr "Iğtrinti..."
+msgstr "IÅ¡trinti..."
 
 #, fuzzy
 msgid "&Copy..."
@@ -5141,15 +5495,15 @@ msgstr "Perkelti..."
 
 #, fuzzy
 msgid "&Apply Master Page..."
-msgstr "Pritaikyti ğablonà..."
+msgstr "Pritaikyti Å¡ablonÄ…..."
 
 #, fuzzy
 msgid "Convert to Master Page..."
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "Manage &Guides..."
-msgstr "Parağèiø linijos"
+msgstr "ParaÅ¡ÄiÅ³ linijos"
 
 #, fuzzy
 msgid "Manage Page Properties..."
@@ -5172,16 +5526,20 @@ msgid "&200%"
 msgstr ""
 
 #, fuzzy
+msgid "Preview Mode"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
+
+#, fuzzy
 msgid "&Thumbnails"
 msgstr "Bendras vaizdas"
 
 #, fuzzy
 msgid "Show &Margins"
-msgstr "Rodyti parağtes"
+msgstr "Rodyti paraÅ¡tes"
 
 #, fuzzy
 msgid "Show &Frames"
-msgstr "Rodyti rëmelius"
+msgstr "Rodyti rÄ—melius"
 
 #, fuzzy
 msgid "Show &Images"
@@ -5197,22 +5555,25 @@ msgstr "Rodyti pagalbines linijas"
 
 #, fuzzy
 msgid "Show Text Frame Columns"
-msgstr "Rodyti parağtes"
+msgstr "Rodyti paraÅ¡tes"
 
 msgid "Show &Baseline Grid"
 msgstr ""
 
 #, fuzzy
 msgid "Show &Text Chain"
-msgstr "Rodyti parağtes"
+msgstr "Rodyti paraÅ¡tes"
 
 #, fuzzy
 msgid "Show Control Characters"
-msgstr "Rodyti árankinæ"
+msgstr "Rodyti Ä¯rankinÄ™"
 
 #, fuzzy
 msgid "Show Rulers"
 msgstr "Rodyti pagalbines linijas"
+
+msgid "Rulers relative to Page"
+msgstr ""
 
 #, fuzzy
 msgid "Sn&ap to Grid"
@@ -5220,15 +5581,15 @@ msgstr "Pritraukti prie tinklelio"
 
 #, fuzzy
 msgid "Sna&p to Guides"
-msgstr "Pritraukti prie pagalbiniø linijø"
+msgstr "Pritraukti prie pagalbiniÅ³ linijÅ³"
 
 #, fuzzy
 msgid "&Properties"
-msgstr "Savybës"
+msgstr "SavybÄ—s"
 
 #, fuzzy
 msgid "&Scrapbook"
-msgstr "Kiğenë"
+msgstr "KiÅ¡enÄ—"
 
 #, fuzzy
 msgid "&Layers"
@@ -5244,7 +5605,7 @@ msgstr "Nuorodos"
 
 #, fuzzy
 msgid "&Measurements"
-msgstr "Rodyti matuoklá"
+msgstr "Rodyti matuoklÄ¯"
 
 msgid "Action &History"
 msgstr ""
@@ -5254,23 +5615,19 @@ msgstr ""
 
 #, fuzzy
 msgid "&Align and Distribute"
-msgstr "Iğskirstyti/iğligiuoti"
+msgstr "IÅ¡skirstyti/iÅ¡ligiuoti"
 
 #, fuzzy
 msgid "&Tools"
-msgstr "Árankiai"
+msgstr "Ä®rankiai"
 
 #, fuzzy
 msgid "P&DF Tools"
-msgstr "Árankiai"
+msgstr "Ä®rankiai"
 
 #, fuzzy
 msgid "Select Item"
-msgstr "Paşymëti objekts"
-
-#, fuzzy
-msgid "T&able"
-msgstr "Keièiamas"
+msgstr "PaÅ¾ymÄ—ti objekts"
 
 #, fuzzy
 msgid "&Shape"
@@ -5282,37 +5639,37 @@ msgstr "Linija"
 
 #, fuzzy
 msgid "&Freehand Line"
-msgstr "Áterpti linijas"
+msgstr "Ä®terpti linijas"
 
 msgid "Rotate Item"
-msgstr "Pasukti objektà"
+msgstr "Pasukti objektÄ…"
 
 #, fuzzy
 msgid "Zoom in or out"
-msgstr "Padidinti/sumaşinti"
+msgstr "Padidinti/sumaÅ¾inti"
 
 #, fuzzy
 msgid "Zoom in"
-msgstr "Padidinti/sumaşinti"
+msgstr "Padidinti/sumaÅ¾inti"
 
 #, fuzzy
 msgid "Zoom out"
-msgstr "Padidinti/sumaşinti"
+msgstr "Padidinti/sumaÅ¾inti"
 
 msgid "Edit Contents of Frame"
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Edit Text..."
-msgstr "Naudoti tekstà..."
+msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 msgid "Link Text Frames"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 msgid "Unlink Text Frames"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid "&Eye Dropper"
 msgstr ""
@@ -5326,47 +5683,47 @@ msgstr ""
 
 #, fuzzy
 msgid "Insert Text Frame"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 msgid "Insert Image Frame"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 msgid "Insert Table"
-msgstr "Áklijuoti puslapá"
+msgstr "Ä®klijuoti puslapÄ¯"
 
 #, fuzzy
 msgid "Insert Shape"
-msgstr "Áklijuoti puslapá"
+msgstr "Ä®klijuoti puslapÄ¯"
 
 #, fuzzy
 msgid "Insert Polygon"
-msgstr "Áterpti daugiakampá"
+msgstr "Ä®terpti daugiakampÄ¯"
 
 #, fuzzy
 msgid "Insert Line"
-msgstr "Áterpti linijas"
+msgstr "Ä®terpti linijas"
 
 #, fuzzy
 msgid "Insert Bezier Curve"
-msgstr "Bezje kreivë"
+msgstr "Bezje kreivÄ—"
 
 #, fuzzy
 msgid "Insert Freehand Line"
-msgstr "Áterpti linijas"
+msgstr "Ä®terpti linijas"
 
 #, fuzzy
 msgid "Insert PDF Push Button"
-msgstr "Áterpti PDF-anotacijas"
+msgstr "Ä®terpti PDF-anotacijas"
 
 #, fuzzy
 msgid "Insert PDF Text Field"
-msgstr "Áterpti PDF-laukelá"
+msgstr "Ä®terpti PDF-laukelÄ¯"
 
 #, fuzzy
 msgid "Insert PDF Check Box"
-msgstr "Áterpti PDF-laukelá"
+msgstr "Ä®terpti PDF-laukelÄ¯"
 
 #, fuzzy
 msgid "Insert PDF Combo Box"
@@ -5374,19 +5731,19 @@ msgstr "Kombinuotas laukelis"
 
 #, fuzzy
 msgid "Insert PDF List Box"
-msgstr "Áterpti PDF-laukelá"
+msgstr "Ä®terpti PDF-laukelÄ¯"
 
 #, fuzzy
 msgid "Insert Text Annotation"
-msgstr "Áterpti PDF-anotacijas"
+msgstr "Ä®terpti PDF-anotacijas"
 
 #, fuzzy
 msgid "Insert Link Annotation"
-msgstr "Áterpti PDF-anotacijas"
+msgstr "Ä®terpti PDF-anotacijas"
 
 #, fuzzy
 msgid "&Manage Pictures"
-msgstr "Prişiûrëti paveiksliukus"
+msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
 
 msgid "&Hyphenate Text"
 msgstr ""
@@ -5402,7 +5759,7 @@ msgstr ""
 
 #, fuzzy
 msgid "&Tile"
-msgstr "Antrağtë:"
+msgstr "AntraÅ¡tÄ—:"
 
 #, fuzzy
 msgid "&About Scribus"
@@ -5418,7 +5775,7 @@ msgstr "Apie Qt"
 
 #, fuzzy
 msgid "Toolti&ps"
-msgstr "Árankiai"
+msgstr "Ä®rankiai"
 
 #, fuzzy
 msgid "Scribus &Manual..."
@@ -5426,15 +5783,15 @@ msgstr "Scribus vadovas"
 
 #, fuzzy
 msgid "Toggle Palettes"
-msgstr "Slëpti puslapio paletæ"
+msgstr "SlÄ—pti puslapio paletÄ™"
 
 #, fuzzy
 msgid "Toggle Guides"
-msgstr "Stulpeliø linijos"
+msgstr "StulpeliÅ³ linijos"
 
 #, fuzzy
 msgid "Smart &Hyphen"
-msgstr "Gudrus brûkğnys"
+msgstr "Gudrus brÅ«kÅ¡nys"
 
 msgid "Non Breaking Dash"
 msgstr ""
@@ -5452,11 +5809,11 @@ msgstr "Naujas sluoksnis"
 
 #, fuzzy
 msgid "Frame Break"
-msgstr "Rëmelis"
+msgstr "RÄ—melis"
 
 #, fuzzy
 msgid "Column Break"
-msgstr "Stulpeliø linijos"
+msgstr "StulpeliÅ³ linijos"
 
 #, fuzzy
 msgid "Copyright"
@@ -5470,7 +5827,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Solidus"
-msgstr "Ryğkus"
+msgstr "RyÅ¡kus"
 
 msgid "Bullet"
 msgstr ""
@@ -5503,18 +5860,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Single Left"
-msgstr "Lygiuoti tekstà kairën"
+msgstr "Lygiuoti tekstÄ… kairÄ—n"
 
 #, fuzzy
 msgid "Single Right"
-msgstr "Lygiuoti değinëje"
+msgstr "Lygiuoti deÅ¡inÄ—je"
 
 msgid "Double Left"
 msgstr ""
 
 #, fuzzy
 msgid "Double Right"
-msgstr "Lygiuoti değinëje"
+msgstr "Lygiuoti deÅ¡inÄ—je"
 
 msgid "Single Reversed"
 msgstr ""
@@ -5578,7 +5935,7 @@ msgstr "Priekis"
 
 #, fuzzy
 msgid "Insert Smart Hyphen"
-msgstr "Gudrus brûkğnys"
+msgstr "Gudrus brÅ«kÅ¡nys"
 
 msgid "Insert Non Breaking Dash"
 msgstr ""
@@ -5588,7 +5945,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Insert Page Number"
-msgstr "Áklijuoti puslapá"
+msgstr "Ä®klijuoti puslapÄ¯"
 
 msgid "ff"
 msgstr ""
@@ -5607,14 +5964,14 @@ msgstr ""
 
 #, fuzzy
 msgid "ft"
-msgstr "Kairën"
+msgstr "KairÄ—n"
 
 msgid "st"
 msgstr ""
 
 #, fuzzy
 msgid "&Title:"
-msgstr "Antrağtë:"
+msgstr "AntraÅ¡tÄ—:"
 
 #, fuzzy
 msgid "&Author:"
@@ -5648,11 +6005,15 @@ msgstr "Formatas:"
 
 #, fuzzy
 msgid "Identi&fier:"
-msgstr "Kairioji átrauka:"
+msgstr "Kairioji Ä¯trauka:"
 
 #, fuzzy
 msgid "&Source:"
 msgstr "Pagreitintas"
+
+#, fuzzy
+msgid "&Language:"
+msgstr "EilÄ—:"
 
 #, fuzzy
 msgid "&Relation:"
@@ -5664,7 +6025,7 @@ msgstr "apytiksli"
 
 #, fuzzy
 msgid "Ri&ghts:"
-msgstr "Nuo değinës:"
+msgstr "Nuo deÅ¡inÄ—s:"
 
 #, fuzzy
 msgid "Documen&t"
@@ -5752,8 +6113,64 @@ msgid ""
 msgstr ""
 
 #, fuzzy
+msgid "Units:"
+msgstr "Vienetai"
+
+# New in Version 0.8
+#, fuzzy
+msgid "Apply size settings to all Pages"
+msgstr "Pritaikyti efektus visuose puslapiuose"
+
+#, fuzzy
+msgid "Autosave"
+msgstr "Autoriai"
+
+msgid "min"
+msgstr ""
+
+#, fuzzy
+msgid "&Interval:"
+msgstr "Ä®terpti elipsÄ™"
+
+#, fuzzy
+msgid "Undo/Redo"
+msgstr "GrÄ…Å¾inti"
+
+msgid "Action history length"
+msgstr ""
+
+msgid "Width of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid ""
+"Height of document pages, editable if you have chosen a custom page size"
+msgstr ""
+
+msgid "Default page size, either a standard size or a custom size"
+msgstr ""
+
+msgid "Default orientation of document pages"
+msgstr ""
+
+msgid ""
+"When enabled, Scribus saves a backup copy of your file with the .bak "
+"extension each time the time period elapses"
+msgstr ""
+
+msgid "Time period between saving automatically"
+msgstr ""
+
+msgid ""
+"Set the length of the action history in steps. If set to 0 infinite amount "
+"of actions will be stored."
+msgstr ""
+
+msgid "Apply the page size changes to all existing pages in the document"
+msgstr ""
+
+#, fuzzy
 msgid "Preset Layouts:"
-msgstr "Iğvaizda:"
+msgstr "IÅ¡vaizda:"
 
 # New in Version 0.8
 #, fuzzy
@@ -5791,11 +6208,11 @@ msgstr ""
 
 #, fuzzy
 msgid "&Inside:"
-msgstr "Vidinë parağtë:"
+msgstr "VidinÄ— paraÅ¡tÄ—:"
 
 #, fuzzy
 msgid "O&utside:"
-msgstr "Iğorinë parağtë:"
+msgstr "IÅ¡orinÄ— paraÅ¡tÄ—:"
 
 #, fuzzy
 msgid "Gutenberg"
@@ -5803,7 +6220,7 @@ msgstr "Pagrindinis"
 
 #, fuzzy
 msgid "Magazine"
-msgstr "Parağtë:"
+msgstr "ParaÅ¡tÄ—:"
 
 msgid "Fibonacci"
 msgstr ""
@@ -5828,7 +6245,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Select Character:"
-msgstr "Raidë"
+msgstr "RaidÄ—"
 
 #, fuzzy
 msgid "Character Class:"
@@ -5836,11 +6253,11 @@ msgstr "Simboliai"
 
 #, fuzzy
 msgid "&Insert Code:"
-msgstr "Áklija"
+msgstr "Ä®klija"
 
 #, fuzzy
 msgid "&Insert"
-msgstr "Áklija"
+msgstr "Ä®klija"
 
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
@@ -5860,7 +6277,7 @@ msgstr "Simboliai"
 
 #, fuzzy
 msgid "Basic Latin"
-msgstr "Ispanø ir katalonës:"
+msgstr "IspanÅ³ ir katalonÄ—s:"
 
 msgid "Latin-1 Supplement"
 msgstr ""
@@ -5877,18 +6294,18 @@ msgstr "Atitraukimas"
 
 #, fuzzy
 msgid "Super- and Subscripts"
-msgstr "Antrağtis"
+msgstr "AntraÅ¡tis"
 
 #, fuzzy
 msgid "Currency Symbols"
-msgstr "Naudoti valiutos şenklà"
+msgstr "Naudoti valiutos Å¾enklÄ…"
 
 msgid "Letterlike Symbols"
 msgstr ""
 
 #, fuzzy
 msgid "Number Forms"
-msgstr "Skaièiaus formatas"
+msgstr "SkaiÄiaus formatas"
 
 msgid "Arrows"
 msgstr ""
@@ -5921,11 +6338,11 @@ msgstr "Paveiksliukai"
 
 #, fuzzy
 msgid "Specials"
-msgstr "Değimtainis:"
+msgstr "DeÅ¡imtainis:"
 
 #, fuzzy
 msgid "Greek"
-msgstr "&Şalia:"
+msgstr "&Å½alia:"
 
 msgid "Greek Extended"
 msgstr ""
@@ -5949,11 +6366,11 @@ msgid "Hebrew"
 msgstr ""
 
 msgid "Edit Color"
-msgstr "Keisti spalvà"
+msgstr "Keisti spalvÄ…"
 
 #, fuzzy
 msgid "Color &Model"
-msgstr "Spalvø modelis"
+msgstr "SpalvÅ³ modelis"
 
 msgid "Web Safe RGB"
 msgstr ""
@@ -5965,9 +6382,6 @@ msgstr "Atskira spalva"
 #, fuzzy
 msgid "Is Registration Color"
 msgstr "Sodrumas"
-
-msgid "New"
-msgstr "Naujas"
 
 msgid "Old"
 msgstr "Senas"
@@ -5981,17 +6395,28 @@ msgstr ""
 msgid "M:"
 msgstr ""
 
-msgid "Y:"
-msgstr ""
-
 msgid "K:"
 msgstr ""
 
+msgid ""
+"Choosing this will enable printing this on all plates. Registration colors "
+"are used for printer marks such as crop marks, registration marks and the "
+"like. These are not typically used in the layout itself."
+msgstr ""
+
+msgid ""
+"Choosing this will make this color a spot color, thus creating another spot "
+"when creating plates or separations. This is used most often when a logo or "
+"other color needs exact representation or cannot be replicated with CMYK "
+"inks. Metallic and flourescent inks are good examples which cannot be easily "
+"replicated with CMYK inks."
+msgstr ""
+
 msgid "Dynamic Color Bars"
-msgstr "Kintanèios spalvø juostos"
+msgstr "KintanÄios spalvÅ³ juostos"
 
 msgid "Static Color Bars"
-msgstr "Pastovios spalvø juostos"
+msgstr "Pastovios spalvÅ³ juostos"
 
 msgid "R:"
 msgstr ""
@@ -6003,28 +6428,29 @@ msgid "B:"
 msgstr ""
 
 msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected. What this means is the color may not print exactly as "
+"indicated on screen. More hints about gamut warnings are in the online help "
+"under Color Management."
+msgstr ""
+
+msgid ""
 "You cannot create a color named \"%1\".\n"
 "It is a reserved name for transparent color"
 msgstr ""
 
-#, fuzzy
-msgid "Name of the color is not unique"
-msgstr "Stiliaus pavadinimas kartojasi"
+msgid ""
+"The name of the color already exists,\n"
+"please choose another one."
+msgstr ""
 
 msgid "Colors"
 msgstr "Spalvos"
 
 #, fuzzy
-msgid "&Import"
-msgstr "Importuoti..."
-
-#, fuzzy
-msgid "&Edit"
-msgstr "Taisa"
-
-#, fuzzy
 msgid "&Remove Unused"
-msgstr "Pağalinti"
+msgstr "PaÅ¡alinti"
 
 #, fuzzy
 msgid "Color Sets"
@@ -6043,7 +6469,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Save the current color set"
-msgstr "Áğsaugok savo darbà"
+msgstr "Ä®Å¡saugok savo darbÄ…"
 
 msgid "Remove unused colors from current document's color set"
 msgstr ""
@@ -6053,7 +6479,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Create a new color within the current set"
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 msgid "Edit the currently selected color"
 msgstr ""
@@ -6067,16 +6493,31 @@ msgstr ""
 msgid "Make the current colorset the default color set"
 msgstr ""
 
+msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected.What this means is the color may not print exactly as "
+"indicated on screen. Spot colors are indicated by a red circle. Registration "
+"colors will have a registration mark next to the color. More hints about "
+"gamut warnings are in the online help under Color Management."
+msgstr ""
+
 msgid "Choose a Name"
 msgstr ""
 
 #, fuzzy
-msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgid ""
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;"
+"All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;All Files (*)"
+msgid "Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
+msgid "Copy of %1"
+msgstr "Kopijuoti "
 
 msgid "New Color"
 msgstr "Nauja spalva"
@@ -6105,7 +6546,7 @@ msgstr "Spausdinu..."
 
 #, fuzzy
 msgid "Reading Scrapbook"
-msgstr "Slëpti kiğenæ"
+msgstr "SlÄ—pti kiÅ¡enÄ™"
 
 msgid "Edit"
 msgstr "Taisa"
@@ -6116,9 +6557,11 @@ msgstr "Scribus-dokumentas"
 
 msgid ""
 "You are running a development version of Scribus 1.3.x. The document you are "
-"working with was created in Scribus 1.2.3 or lower. The process of saving "
-"will make this file unusable again in Scribus 1.2.3 unless you use File-"
-">Save As. Are you sure you wish to proceed with this operation?"
+"working with was created in Scribus 1.2.x.  Saving the current file under "
+"1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve "
+"the ability to edit in 1.2.x, save this file under a different name and "
+"further edit the newly named file and the origial will be untouched. Are you "
+"sure you wish to proceed with this operation?"
 msgstr ""
 
 #, fuzzy
@@ -6127,7 +6570,7 @@ msgstr "Failas"
 
 #, fuzzy
 msgid "Open &Recent"
-msgstr "Naudok esamà dokumentà"
+msgstr "Naudok esamÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "&Export"
@@ -6141,15 +6584,12 @@ msgstr "Stilius"
 msgid "&Color"
 msgstr "Spalva"
 
-msgid "&Size"
-msgstr "&Dydis"
-
 #, fuzzy
 msgid "&Shade"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 msgid "&Font"
-msgstr "&Ğriftas"
+msgstr "&Å riftas"
 
 #, fuzzy
 msgid "&Effects"
@@ -6161,19 +6601,19 @@ msgstr "Objektas"
 
 #, fuzzy
 msgid "Level"
-msgstr "Nuoşulnus"
+msgstr "NuoÅ¾ulnus"
 
 #, fuzzy
 msgid "C&onvert To"
-msgstr "Pakeisti á"
+msgstr "Pakeisti Ä¯"
 
 #, fuzzy
 msgid "I&nsert"
-msgstr "Áklija"
+msgstr "Ä®klija"
 
 #, fuzzy
 msgid "&Character"
-msgstr "Raidë"
+msgstr "RaidÄ—"
 
 #, fuzzy
 msgid "&Quote"
@@ -6203,15 +6643,27 @@ msgid "&Alignment"
 msgstr "Lygiavimas"
 
 msgid "Ready"
-msgstr "Paruoğtas"
+msgstr "ParuoÅ¡tas"
+
+#, fuzzy
+msgid "Normal Left"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Paprastas"
 
 #, fuzzy
 msgid "Importing Pages..."
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "Import Page(s)"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid ""
 "<p>You are trying to import more pages than there are available in the "
@@ -6222,7 +6674,7 @@ msgstr ""
 
 #, fuzzy
 msgid "C&reate"
-msgstr "Raidë"
+msgstr "RaidÄ—"
 
 #, fuzzy
 msgid "Import done"
@@ -6232,13 +6684,13 @@ msgid "Found nothing to import"
 msgstr ""
 
 msgid "Fatal Error"
-msgstr "Tragiğka klaida"
+msgstr "TragiÅ¡ka klaida"
 
 msgid "File %1 is not in an acceptable format"
 msgstr ""
 
 msgid "Loading..."
-msgstr "Ruoğiama..."
+msgstr "RuoÅ¡iama..."
 
 msgid "Some ICC profiles used by this document are not installed:"
 msgstr ""
@@ -6258,19 +6710,23 @@ msgid ""
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 #, fuzzy
 msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
 msgid "Save As"
-msgstr "Iğsaugoti kitu vardu"
+msgstr "IÅ¡saugoti kitu vardu"
 
 #, fuzzy
 msgid "Saving..."
-msgstr "Ruoğiama..."
+msgstr "RuoÅ¡iama..."
 
 msgid ""
 "Scribus has detected some errors. Consider using the Preflight Verifier to "
@@ -6312,13 +6768,10 @@ msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
 #, fuzzy
 msgid "Convert Page to Master Page"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid "Size"
 msgstr "Dydis"
-
-msgid "No Style"
-msgstr "Be stiliaus"
 
 msgid ""
 "Number of copies: %1\n"
@@ -6328,15 +6781,15 @@ msgstr ""
 
 #, fuzzy
 msgid "The following programs are missing:"
-msgstr "Ğios programos nerastos:"
+msgstr "Å ios programos nerastos:"
 
 #, fuzzy
 msgid "Ghostscript : You cannot use EPS images or Print Preview"
-msgstr "Ghostscript: negalite naudoti EPS paveiksliukø"
+msgstr "Ghostscript: negalite naudoti EPS paveiksliukÅ³"
 
 #, fuzzy
 msgid "Ghostscript : You cannot use EPS images or PostScript Print Preview"
-msgstr "Ghostscript: negalite naudoti EPS paveiksliukø"
+msgstr "Ghostscript: negalite naudoti EPS paveiksliukÅ³"
 
 msgid "Ghostscript is missing : Postscript Print Preview is not available"
 msgstr ""
@@ -6372,7 +6825,7 @@ msgstr ""
 
 #, fuzzy
 msgid "The program %1 is missing!"
-msgstr "Ğios programos nerastos:"
+msgstr "Å ios programos nerastos:"
 
 msgid ""
 "The selected color does not exist in the document's color set. Please enter "
@@ -6381,7 +6834,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Color Not Found"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid ""
 "The name you have selected already exists. Please enter a different name for "
@@ -6390,7 +6843,7 @@ msgstr ""
 
 #, fuzzy
 msgid "&Level"
-msgstr "Nuoşulnus"
+msgstr "NuoÅ¾ulnus"
 
 #, fuzzy
 msgid "Send to Layer"
@@ -6398,10 +6851,10 @@ msgstr "Pereiti prie slouksnio"
 
 #, fuzzy
 msgid "Previe&w Settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid "Character"
-msgstr "Raidë"
+msgstr "RaidÄ—"
 
 #, fuzzy
 msgid "Quote"
@@ -6413,7 +6866,7 @@ msgstr "Priekis"
 
 #, fuzzy
 msgid "Do you really want to replace your existing image?"
-msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
 
 #, fuzzy
 msgid "Displacement"
@@ -6441,7 +6894,7 @@ msgstr ""
 
 #, fuzzy
 msgid "All Caps"
-msgstr "Maşos didşiosios"
+msgstr "MaÅ¾os didÅ¾iosios"
 
 msgid ""
 "Strike Out. Hold down the button momentarily to set line width and "
@@ -6473,7 +6926,7 @@ msgstr "Failas:"
 
 #, fuzzy
 msgid "A&lternative Printer Command"
-msgstr "Spausdinti naudojant kità komandà"
+msgstr "Spausdinti naudojant kitÄ… komandÄ…"
 
 #, fuzzy
 msgid "Co&mmand:"
@@ -6481,23 +6934,23 @@ msgstr "Komanda:"
 
 #, fuzzy
 msgid "Range"
-msgstr "Eilë:"
+msgstr "EilÄ—:"
 
 #, fuzzy
 msgid "Print &All"
-msgstr "Spausdinti viskà"
+msgstr "Spausdinti viskÄ…"
 
 #, fuzzy
 msgid "Print Current Pa&ge"
-msgstr "Spausdinimo eiliğkumas"
+msgstr "Spausdinimo eiliÅ¡kumas"
 
 #, fuzzy
 msgid "Print &Range"
-msgstr "Spausdinimo eiliğkumas"
+msgstr "Spausdinimo eiliÅ¡kumas"
 
 #, fuzzy
 msgid "N&umber of Copies:"
-msgstr "Kopijø skaièius:"
+msgstr "KopijÅ³ skaiÄius:"
 
 #, fuzzy
 msgid "Print Normal"
@@ -6509,7 +6962,7 @@ msgstr "Spausdinti skaidant spalvas"
 
 #, fuzzy
 msgid "Print in Color if Available"
-msgstr "Jei ámanoma, spausdinti visas spalvas"
+msgstr "Jei Ä¯manoma, spausdinti visas spalvas"
 
 #, fuzzy
 msgid "Print in Grayscale"
@@ -6542,7 +6995,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Apply ICC Profiles"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Advanced Options"
@@ -6550,7 +7003,7 @@ msgstr "Failo parinktys"
 
 #, fuzzy
 msgid "Preview..."
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "&Print"
@@ -6602,21 +7055,21 @@ msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 msgid "Insert Page"
-msgstr "Áklijuoti puslapá"
+msgstr "Ä®klijuoti puslapÄ¯"
 
 #, fuzzy
 msgid "Page(s)"
 msgstr "Puslapis(iai)"
 
 msgid "before Page"
-msgstr "prieğ puslapá"
+msgstr "prieÅ¡ puslapÄ¯"
 
 msgid "after Page"
 msgstr "po puslapio"
 
 #, fuzzy
 msgid "at End"
-msgstr "á galà"
+msgstr "Ä¯ galÄ…"
 
 #, fuzzy
 msgid "Master Pages"
@@ -6637,11 +7090,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Copy or Move a File"
-msgstr "Suspausti failà"
+msgstr "Suspausti failÄ…"
 
 #, fuzzy
 msgid "Read: %1"
-msgstr "Paruoğtas"
+msgstr "ParuoÅ¡tas"
 
 msgid "Write: %1"
 msgstr ""
@@ -6660,7 +7113,7 @@ msgid "Attributes"
 msgstr "Apie Scribus"
 
 msgid "Look &in:"
-msgstr "Ieğkok è&ia:"
+msgstr "IeÅ¡kok Ä&ia:"
 
 #, fuzzy
 msgid "Back"
@@ -6668,7 +7121,7 @@ msgstr "Riboti"
 
 #, fuzzy
 msgid "Create New Folder"
-msgstr "Sukurti PDF failà"
+msgstr "Sukurti PDF failÄ…"
 
 #, fuzzy
 msgid "List View"
@@ -6699,7 +7152,7 @@ msgstr "Paveiksliuko matomumas"
 
 #, fuzzy
 msgid "Symlink to File"
-msgstr "Spausdinti á failà:"
+msgstr "Spausdinti Ä¯ failÄ…:"
 
 msgid "Symlink to Directory"
 msgstr ""
@@ -6713,7 +7166,7 @@ msgstr "X-kryptis:"
 
 #, fuzzy
 msgid "Special"
-msgstr "Değimtainis:"
+msgstr "DeÅ¡imtainis:"
 
 #, fuzzy
 msgid "&Open"
@@ -6721,18 +7174,18 @@ msgstr "Atidaryti"
 
 #, fuzzy
 msgid "&Rename"
-msgstr "Pağalinti"
+msgstr "PaÅ¡alinti"
 
 #, fuzzy
 msgid "R&eload"
-msgstr "Paruoğtas"
+msgstr "ParuoÅ¡tas"
 
 msgid "Sort by &Name"
 msgstr ""
 
 #, fuzzy
 msgid "Sort by &Size"
-msgstr "Ğrifto dydis"
+msgstr "Å rifto dydis"
 
 msgid "Sort by &Date"
 msgstr ""
@@ -6750,7 +7203,7 @@ msgstr "Rodyti pagalbines linijas"
 
 #, fuzzy
 msgid "the file"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid "the directory"
 msgstr ""
@@ -6760,7 +7213,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Delete %1"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 msgid "<qt>Are you sure you wish to delete %1 \"%2\"?</qt>"
 msgstr ""
@@ -6785,11 +7238,11 @@ msgid "Directories"
 msgstr "Kryptis:"
 
 msgid "Save"
-msgstr "Iğsaugoti"
+msgstr "IÅ¡saugoti"
 
 #, fuzzy
 msgid "Error"
-msgstr "Tragiğka klaida"
+msgstr "TragiÅ¡ka klaida"
 
 msgid ""
 "%1\n"
@@ -6802,7 +7255,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Select a Directory"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 #, fuzzy
 msgid "Directory:"
@@ -6813,7 +7266,7 @@ msgstr "Trinti"
 
 #, fuzzy
 msgid "Select All"
-msgstr "Paşymëti viskà"
+msgstr "PaÅ¾ymÄ—ti viskÄ…"
 
 #, fuzzy
 msgid "Line up"
@@ -6825,11 +7278,11 @@ msgstr "Nuosavas"
 
 #, fuzzy
 msgid "System Menu"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Unshade"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "Normalize"
@@ -6864,14 +7317,14 @@ msgstr "Mouse Down"
 
 #, fuzzy
 msgid "Sh&ade"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 msgid "%1 - [%2]"
 msgstr ""
 
 #, fuzzy
 msgid "&Unshade"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 msgid "Hu&e:"
 msgstr ""
@@ -6886,16 +7339,16 @@ msgid "&Red:"
 msgstr "&Raudona:"
 
 msgid "&Green:"
-msgstr "&Şalia:"
+msgstr "&Å½alia:"
 
 msgid "Bl&ue:"
-msgstr "&Mëlyna:"
+msgstr "&MÄ—lyna:"
 
 msgid "A&lpha channel:"
 msgstr ""
 
 msgid "&Basic colors"
-msgstr "&Pagrindinës spalvos"
+msgstr "&PagrindinÄ—s spalvos"
 
 msgid "&Custom colors"
 msgstr "&Darbo spalvos"
@@ -6908,10 +7361,10 @@ msgid "&Add to Custom Colors"
 msgstr "P&apildyti darbo spalvas"
 
 msgid "Select color"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 msgid "Font st&yle"
-msgstr "Ğriftas ir &stilius"
+msgstr "Å riftas ir &stilius"
 
 msgid "Stri&keout"
 msgstr "Perb&raukta"
@@ -6930,7 +7383,7 @@ msgstr "Pritaikyti"
 
 #, fuzzy
 msgid "Select Font"
-msgstr "Pasirink ğriftà"
+msgstr "Pasirink Å¡riftÄ…"
 
 #, fuzzy
 msgid "About Scribus %1"
@@ -6974,11 +7427,11 @@ msgstr "Windows-stilius"
 
 #, fuzzy
 msgid "Official Documentation:"
-msgstr "Viskà aprağë:"
+msgstr "ViskÄ… apraÅ¡Ä—:"
 
 #, fuzzy
 msgid "Other Documentation:"
-msgstr "Viskà aprağë:"
+msgstr "ViskÄ… apraÅ¡Ä—:"
 
 msgid "Tango Project Icons:"
 msgstr ""
@@ -6995,7 +7448,7 @@ msgstr ""
 
 #, fuzzy
 msgid "&Translations"
-msgstr "Vertë"
+msgstr "VertÄ—"
 
 #, fuzzy
 msgid "Homepage"
@@ -7012,27 +7465,50 @@ msgstr ""
 
 #, fuzzy
 msgid "Mailing List"
-msgstr "Slenkanèios eilutës:"
+msgstr "SlenkanÄios eilutÄ—s:"
 
 #, fuzzy
 msgid "&Online"
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
+
+#, fuzzy
+msgid "&Updates"
+msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
+
+#, fuzzy
+msgid "Check for &Updates"
+msgstr "Sukurti PDF failÄ…"
 
 msgid ""
 "This panel shows the version, build date and compiled in library support in "
 "Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support "
 "F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart "
 "Missing library support is indicated by a *. This also indicates the version "
-"of Ghostscript which Scribus has detected."
+"of Ghostscript which Scribus has detected. The Windows version does not use "
+"fontconfig or CUPS libraries."
+msgstr ""
+
+msgid ""
+"Check for updates to Scribus. No data from your machine will be transferred "
+"off it."
 msgstr ""
 
 #, fuzzy
-msgid "Save..."
-msgstr "Iğsaugoti kitu vardu..."
+msgid "Export..."
+msgstr "Eksportuoti..."
 
 #, fuzzy
 msgid "&Defaults"
 msgstr "Pagrindinis vienetas:"
+
+msgid "All preferences can be reset here"
+msgstr ""
+
+msgid "Apply all changes without closing the dialog"
+msgstr ""
+
+msgid "Export current preferences into file"
+msgstr ""
 
 #, fuzzy
 msgid "Save Preferences"
@@ -7051,7 +7527,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Has Embedded Profile:"
-msgstr "Spausdinti á failà:"
+msgstr "Spausdinti Ä¯ failÄ…:"
 
 #, fuzzy
 msgid "Profile Name:"
@@ -7076,11 +7552,11 @@ msgstr "Komanda:"
 
 #, fuzzy
 msgid "User Comment:"
-msgstr "Naudoti şenkliukà"
+msgstr "Naudoti Å¾enkliukÄ…"
 
 #, fuzzy
 msgid "Camera Model:"
-msgstr "Spalvø modelis"
+msgstr "SpalvÅ³ modelis"
 
 msgid "Camera Manufacturer:"
 msgstr ""
@@ -7092,13 +7568,51 @@ msgstr "Pagreitintas"
 msgid "Scanner Manufacturer:"
 msgstr ""
 
-#, fuzzy
-msgid "&Apply"
-msgstr "Pritaikyti"
+msgid ""
+"Select your default language for Scribus to run with. Leave this blank to "
+"choose based on environment variables. You can still override this by "
+"passing a command line option when starting Scribus"
+msgstr ""
+
+msgid "Number of recently edited documents to show in the File menu"
+msgstr ""
+
+msgid "Number of lines Scribus will scroll for each move of the mouse wheel"
+msgstr ""
+
+msgid ""
+"Choose the default window decoration and looks. Scribus inherits any "
+"available KDE or Qt themes, if Qt is configured to search KDE plugins."
+msgstr ""
+
+msgid "Default font size for the menus and windows"
+msgstr ""
+
+msgid "Default font size for the tool windows"
+msgstr ""
+
+msgid "Default documents directory"
+msgstr ""
+
+msgid ""
+"Default ICC profiles directory. This cannot be changed with a document open. "
+"By default, Scribus will look in the System Directories under Mac OSX and "
+"Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/"
+"color/icc and /usr/local/share/color/icc "
+msgstr ""
+
+msgid "Default Scripter scripts directory"
+msgstr ""
+
+msgid "Additional directory for document templates"
+msgstr ""
+
+msgid "Warning"
+msgstr "DÄ—mesio!"
 
 #, fuzzy
 msgid "Double Sided"
-msgstr "Lygiuoti değinëje"
+msgstr "Lygiuoti deÅ¡inÄ—je"
 
 #, fuzzy
 msgid "3-Fold"
@@ -7124,7 +7638,7 @@ msgid "Middle Right"
 msgstr "Vidurinis"
 
 msgid "Right Page"
-msgstr "Değinysis puslapis"
+msgstr "DeÅ¡inysis puslapis"
 
 msgid "Monday"
 msgstr ""
@@ -7157,7 +7671,7 @@ msgstr ""
 
 #, fuzzy
 msgid "March"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #, fuzzy
 msgid "April"
@@ -7178,7 +7692,7 @@ msgstr "Autorius:"
 
 #, fuzzy
 msgid "September"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 #, fuzzy
 msgid "October"
@@ -7186,23 +7700,23 @@ msgstr "Kita"
 
 #, fuzzy
 msgid "November"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 #, fuzzy
 msgid "December"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 #, fuzzy
 msgid "Fixed Linespacing"
-msgstr "Tarpai tarp eiluèiø"
+msgstr "Tarpai tarp eiluÄiÅ³"
 
 #, fuzzy
 msgid "Automatic Linespacing"
-msgstr "Autotarpai tarp eiluèiø:"
+msgstr "Autotarpai tarp eiluÄiÅ³:"
 
 #, fuzzy
 msgid "Align to Baseline Grid"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 msgid "&X1:"
 msgstr ""
@@ -7222,7 +7736,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Column width"
-msgstr "Stulpeliø linijos"
+msgstr "StulpeliÅ³ linijos"
 
 msgid "X, Y, &Z"
 msgstr ""
@@ -7244,7 +7758,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Basepoint:"
-msgstr "Ğiuo pagrindu:"
+msgstr "Å iuo pagrindu:"
 
 #, fuzzy
 msgid "Shape:"
@@ -7258,33 +7772,33 @@ msgstr "Kampai:"
 
 #, fuzzy
 msgid "Distance of Text"
-msgstr "Atstumas nuo kreivës"
+msgstr "Atstumas nuo kreivÄ—s"
 
 #, fuzzy
 msgid "To&p:"
-msgstr "Nuo virğaus:"
+msgstr "Nuo virÅ¡aus:"
 
 #, fuzzy
 msgid "T&abulators..."
-msgstr "Ğablonai..."
+msgstr "Å ablonai..."
 
 #, fuzzy
 msgid "Path Text Properties"
-msgstr "Savybës"
+msgstr "SavybÄ—s"
 
 msgid "Show Curve"
-msgstr "Rodyti kreivæ"
+msgstr "Rodyti kreivÄ™"
 
 #, fuzzy
 msgid "Start Offset:"
-msgstr "Atğakos pradşia:"
+msgstr "AtÅ¡akos pradÅ¾ia:"
 
 msgid "Distance from Curve:"
-msgstr "Atstumas nuo kreivës"
+msgstr "Atstumas nuo kreivÄ—s"
 
 #, fuzzy
 msgid "Fill Rule"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 msgid "Even-Odd"
 msgstr ""
@@ -7294,15 +7808,19 @@ msgid "Non Zero"
 msgstr "Nieko"
 
 #, fuzzy
-msgid "Text &Flows Around Frame"
-msgstr "Tekstas aplenks rëmelá"
+msgid "Text &Flow Around Frame"
+msgstr "Tekstas aplenks rÄ—melÄ¯"
+
+#, fuzzy
+msgid "Use Frame &Shape"
+msgstr "Ä®klijuoti puslapÄ¯"
 
 msgid "Use &Bounding Box"
 msgstr ""
 
 #, fuzzy
 msgid "&Use Contour Line"
-msgstr "Atitaisyti valdymo tağkus"
+msgstr "Atitaisyti valdymo taÅ¡kus"
 
 #, fuzzy
 msgid "St&yle:"
@@ -7310,7 +7828,7 @@ msgstr "Stilius"
 
 #, fuzzy
 msgid "Lan&guage:"
-msgstr "Eilë:"
+msgstr "EilÄ—:"
 
 #, fuzzy
 msgid "Actual X-DPI:"
@@ -7322,15 +7840,15 @@ msgstr "Realus dydis"
 
 #, fuzzy
 msgid "X-Sc&ale:"
-msgstr "Keisti mastelá kaip:"
+msgstr "Keisti mastelÄ¯ kaip:"
 
 #, fuzzy
 msgid "Y-Scal&e:"
-msgstr "Keisti mastelá kaip:"
+msgstr "Keisti mastelÄ¯ kaip:"
 
 #, fuzzy
 msgid "Scale &To Frame Size"
-msgstr "Paveiksliuko mastelis pagal rëmelio dydá"
+msgstr "Paveiksliuko mastelis pagal rÄ—melio dydÄ¯"
 
 #, fuzzy
 msgid "P&roportional"
@@ -7338,25 +7856,25 @@ msgstr "Proporcingai"
 
 #, fuzzy
 msgid "Input Profile:"
-msgstr "Ávesties apibudinimas:"
+msgstr "Ä®vesties apibudinimas:"
 
 msgid "Rendering Intent:"
 msgstr "Atvaizdavimo tikslumas:"
 
 msgid "Left Point"
-msgstr "Kaurysis tağkas"
+msgstr "Kaurysis taÅ¡kas"
 
 #, fuzzy
 msgid "End Points"
-msgstr "Pabaigos tağkas"
+msgstr "Pabaigos taÅ¡kas"
 
 #, fuzzy
 msgid "&Basepoint:"
-msgstr "Ğiuo pagrindu:"
+msgstr "Å iuo pagrindu:"
 
 #, fuzzy
 msgid "T&ype of Line:"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid "Start Arrow:"
 msgstr ""
@@ -7366,7 +7884,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Ed&ges:"
-msgstr "Pakrağèiai:"
+msgstr "PakraÅ¡Äiai:"
 
 #, fuzzy
 msgid "&Endings:"
@@ -7374,22 +7892,22 @@ msgstr "Pabaigos:"
 
 #, fuzzy
 msgid "Cell Lines"
-msgstr "Áterpti linijas"
+msgstr "Ä®terpti linijas"
 
 msgid "Line at Top"
 msgstr ""
 
 #, fuzzy
 msgid "Line at the Left"
-msgstr "Iğ değinës kairën"
+msgstr "IÅ¡ deÅ¡inÄ—s kairÄ—n"
 
 #, fuzzy
 msgid "Line at the Right "
-msgstr "Iğ kairës değinën"
+msgstr "IÅ¡ kairÄ—s deÅ¡inÄ—n"
 
 #, fuzzy
 msgid "Line at Bottom"
-msgstr "Iğ virğaus apaèion"
+msgstr "IÅ¡ virÅ¡aus apaÄion"
 
 #, fuzzy
 msgid "Overprinting"
@@ -7403,7 +7921,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Name of selected object"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid "Horizontal position of current basepoint"
 msgstr ""
@@ -7417,7 +7935,7 @@ msgstr "Plotis:"
 
 #, fuzzy
 msgid "Height"
-msgstr "Aukğtis:"
+msgstr "AukÅ¡tis:"
 
 msgid "Rotation of object at current basepoint"
 msgstr ""
@@ -7459,7 +7977,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Move to back"
-msgstr "Perkelti apaèion"
+msgstr "Perkelti apaÄion"
 
 msgid ""
 "Indicates the level the object is on, 0 means the object is at the bottom"
@@ -7474,20 +7992,27 @@ msgstr ""
 msgid "Enable or disable printing of the object"
 msgstr ""
 
-msgid "Make text in lower frames flow around the object shape"
+msgid "Disable text flow from lower frames around object"
 msgstr ""
 
-msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgid "Use the frame shape for text flow of text frames below the object."
 msgstr ""
 
-msgid "Use a second line originally based on the frame's shape for text flow"
+msgid ""
+"Use the bounding box, which is always rectangular, instead of the frame's "
+"shape for text flow of text frames below the object. "
+msgstr ""
+
+msgid ""
+"Use a second line originally based on the frame's shape for text flow of "
+"text frames below the object. "
 msgstr ""
 
 msgid "Font of selected text or object"
 msgstr ""
 
 msgid "Font Size"
-msgstr "Ğrifto dydis"
+msgstr "Å rifto dydis"
 
 msgid "Offset to baseline of characters"
 msgstr ""
@@ -7517,7 +8042,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Right to Left Writing"
-msgstr "Iğ değinës kairën"
+msgstr "IÅ¡ deÅ¡inÄ—s kairÄ—n"
 
 #, fuzzy
 msgid "Manual Tracking"
@@ -7525,11 +8050,11 @@ msgstr "Pasirinktinis kerningas"
 
 #, fuzzy
 msgid "Line Spacing"
-msgstr "Tarpai tarp eiluèiø"
+msgstr "Tarpai tarp eiluÄiÅ³"
 
 #, fuzzy
 msgid "Click to select the line spacing mode"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 msgid "Style of current paragraph"
 msgstr ""
@@ -7554,7 +8079,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Line style of current object"
-msgstr "Atspausdink darbà"
+msgstr "Atspausdink darbÄ…"
 
 msgid "Choose the shape of frame..."
 msgstr ""
@@ -7585,7 +8110,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Edit tab settings of text frame..."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Allow the image to be a different size to the frame"
 msgstr ""
@@ -7607,7 +8132,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Keep the aspect ratio"
-msgstr "Iğlaikyti proporcijas"
+msgstr "IÅ¡laikyti proporcijas"
 
 msgid "Make the image fit within the size of the frame"
 msgstr ""
@@ -7651,6 +8176,11 @@ msgid ""
 "called .neversplash in ~/.scribus."
 msgstr ""
 
+msgid ""
+"Download a file from the Scribus website and show the latest available "
+"version."
+msgstr ""
+
 msgid "Output version information and exit"
 msgstr ""
 
@@ -7664,6 +8194,9 @@ msgid "filename"
 msgstr "Failo &vardas:"
 
 msgid "Use filename as path for user given preferences"
+msgstr ""
+
+msgid "Display a console window"
 msgstr ""
 
 msgid "Installed interface languages for Scribus are as follows:"
@@ -7694,29 +8227,29 @@ msgstr ""
 
 #, fuzzy
 msgid "Search for:"
-msgstr "Paieğkos rezultatai pagal: "
+msgstr "PaieÅ¡kos rezultatai pagal: "
 
 msgid "Paragraph Style"
 msgstr ""
 
 msgid "Font"
-msgstr "Ğriftas"
+msgstr "Å riftas"
 
 #, fuzzy
 msgid "Font Effects"
-msgstr "Be efektø"
+msgstr "Be efektÅ³"
 
 #, fuzzy
 msgid "Fill Color"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 #, fuzzy
 msgid "Fill Shade"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "Stroke Color"
-msgstr "Rodyti spalvø áranká"
+msgstr "Rodyti spalvÅ³ Ä¯rankÄ¯"
 
 msgid "Stroke Shade"
 msgstr ""
@@ -7729,7 +8262,7 @@ msgstr "Pagreitintas"
 
 #, fuzzy
 msgid "Replace with:"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 msgid "&Whole Word"
 msgstr ""
@@ -7739,15 +8272,15 @@ msgstr ""
 
 #, fuzzy
 msgid "&Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #, fuzzy
 msgid "&Replace"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 #, fuzzy
 msgid "Replace &All"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 msgid "Search finished"
 msgstr ""
@@ -7755,8 +8288,17 @@ msgstr ""
 msgid "Search finished, found %1 matches"
 msgstr ""
 
-msgid "Drop Caps"
-msgstr ""
+#, fuzzy
+msgid "Paragraph Styles"
+msgstr "Stiliai..."
+
+#, fuzzy
+msgid "Character Styles"
+msgstr "Simboliai"
+
+#, fuzzy
+msgid "Character Style"
+msgstr "RaidÄ—"
 
 #, fuzzy
 msgid "&Lines:"
@@ -7764,10 +8306,7 @@ msgstr "Linija"
 
 #, fuzzy
 msgid "Distance from Text:"
-msgstr "Atstumas nuo kreivës"
-
-msgid "Tabulators and Indentation"
-msgstr ""
+msgstr "Atstumas nuo kreivÄ—s"
 
 #, fuzzy
 msgid "Preview of the Paragraph Style"
@@ -7805,12 +8344,33 @@ msgstr "Stiliai..."
 msgid "Name of the style is not unique"
 msgstr "Stiliaus pavadinimas kartojasi"
 
+#, fuzzy
+msgid "Curve Files (*.scu);;All Files (*)"
+msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
+
+#, fuzzy
+msgid "Inverts the curve"
+msgstr "Bezje kreivÄ—"
+
+#, fuzzy
+msgid "Resets the curve"
+msgstr "IÅ¡ deÅ¡inÄ—s kairÄ—n"
+
+msgid "Switches between linear and cubic interpolation of the curve"
+msgstr ""
+
+msgid "Loads a curve"
+msgstr ""
+
+msgid "Saves this curve"
+msgstr ""
+
 msgid "Initializing Plugins"
 msgstr ""
 
 #, fuzzy
 msgid "Initializing Keyboard Shortcuts"
-msgstr "Tvarkyti klaviğø derinius veiksmams"
+msgstr "Tvarkyti klaviÅ¡Å³ derinius veiksmams"
 
 #, fuzzy
 msgid "Reading Preferences"
@@ -7818,7 +8378,7 @@ msgstr "Parinktys"
 
 #, fuzzy
 msgid "Reading ICC Profiles"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Initializing..."
@@ -7826,11 +8386,11 @@ msgstr "Spausdinu..."
 
 #, fuzzy
 msgid "There are no fonts found on your system."
-msgstr "Jûsø sistemoje nëra postscriptiniø ğriftø"
+msgstr "JÅ«sÅ³ sistemoje nÄ—ra postscriptiniÅ³ Å¡riftÅ³"
 
 #, fuzzy
 msgid "Exiting now."
-msgstr "Uşdaryti tuoj pat"
+msgstr "UÅ¾daryti tuoj pat"
 
 msgid "Font System Initialized"
 msgstr ""
@@ -7839,20 +8399,28 @@ msgid "Current Key"
 msgstr "Esamas derinys"
 
 msgid "Select a Key for this Action"
-msgstr "Pasirink deriná ğiam veiksmui"
-
-msgid "ALT+SHIFT+T"
-msgstr ""
+msgstr "Pasirink derinÄ¯ Å¡iam veiksmui"
 
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
 #, fuzzy
 msgid "Scrapbook (*.scs)"
-msgstr "Kiğenë"
+msgstr "KiÅ¡enÄ—"
 
 msgid "Choose a scrapbook file to import"
 msgstr ""
+
+#, fuzzy
+msgid "Copy To:"
+msgstr "Kopijuoti "
+
+#, fuzzy
+msgid "Move To:"
+msgstr "Perkelti..."
+
+msgid "New Entry"
+msgstr "Naujas Ä¯raÅ¡as"
 
 msgid ""
 "Name \"%1\" is not unique.\n"
@@ -7862,37 +8430,31 @@ msgstr ""
 msgid "Object"
 msgstr "Objektas"
 
-msgid "New Entry"
-msgstr "Naujas árağas"
-
-msgid "Scrapbook"
-msgstr "Kiğenë"
-
 #, fuzzy
 msgid "Create a new scrapbook page"
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "Load an existing scrapbook"
-msgstr "Slëpti kiğenæ"
+msgstr "SlÄ—pti kiÅ¡enÄ™"
 
 #, fuzzy
 msgid "Save the selected scrapbook"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 #, fuzzy
 msgid "Import an scrapbook file from Scribus <=1.3.2"
-msgstr "Ákelti duomenis iğ:"
+msgstr "Ä®kelti duomenis iÅ¡:"
 
 #, fuzzy
 msgid "Close the selected scrapbook"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid "Polygon Properties"
 msgstr "Daugiakampio parinktys"
 
 msgid "Manage Pictures"
-msgstr "Prişiûrëti paveiksliukus"
+msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
 
 msgid "Path"
 msgstr "Kelias"
@@ -7901,24 +8463,33 @@ msgid "Print"
 msgstr "Spausdinti"
 
 msgid "Status"
-msgstr "Bûsena"
+msgstr "BÅ«sena"
+
+#, fuzzy
+msgid "Search Directory"
+msgstr "Pasirink spalvÄ…"
+
+msgid ""
+"Set a new location for the selected items. Useful when you may have moved "
+"the document but not the images."
+msgstr ""
 
 msgid "Missing"
 msgstr "Neradau"
 
 msgid "Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #, fuzzy
 msgid "Cancel Search"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 msgid "Goto"
-msgstr "Keliauk á"
+msgstr "Keliauk Ä¯"
 
 #, fuzzy
 msgid "Select a base directory for search"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 #, fuzzy
 msgid "Scribus - Image Search"
@@ -7931,23 +8502,28 @@ msgid "No images named \"%1\" were found."
 msgstr ""
 
 #, fuzzy
+msgid "Select a base directory for your selected rows"
+msgstr "Pasirink spalvÄ…"
+
+#, fuzzy
 msgid "Edit Line Styles"
 msgstr "Keisti stilius"
 
-msgid "New Style"
-msgstr "Naujas stilius"
-
 #, fuzzy
 msgid "Do you really want to delete this style?"
-msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
+
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
+msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
 msgid "Import Master Page"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "&From Document:"
-msgstr "Nëra dokumento"
+msgstr "NÄ—ra dokumento"
 
 #, fuzzy
 msgid "Chan&ge..."
@@ -7955,11 +8531,11 @@ msgstr "Pakeisti..."
 
 #, fuzzy
 msgid "&Import Page(s):"
-msgstr "Ákelti duomenis iğ:"
+msgstr "Ä®kelti duomenis iÅ¡:"
 
 #, fuzzy
 msgid "&Import Master Page"
-msgstr "Ákelti duomenis iğ:"
+msgstr "Ä®kelti duomenis iÅ¡:"
 
 msgid ""
 "Insert a comma separated list of tokens import where a token can be * for "
@@ -7971,7 +8547,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Create Page(s)"
-msgstr "Iğplëğti puslapius"
+msgstr "IÅ¡plÄ—Å¡ti puslapius"
 
 msgid " from %1"
 msgstr ""
@@ -7981,18 +8557,18 @@ msgstr ""
 
 #, fuzzy
 msgid "At the end"
-msgstr "Á pabaigà"
+msgstr "Ä® pabaigÄ…"
 
 #, fuzzy
 msgid "Not Shown"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 msgid "Bookmarks"
 msgstr "Nuorodos"
 
 #, fuzzy
 msgid "Shown"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "From"
@@ -8000,21 +8576,21 @@ msgstr "Nuo:"
 
 #, fuzzy
 msgid "To"
-msgstr "Nuo virğaus:"
+msgstr "Nuo virÅ¡aus:"
 
 msgid "Style"
 msgstr "Stilius"
 
 #, fuzzy
 msgid "Start"
-msgstr "Şvaigşdë"
+msgstr "Å½vaigÅ¾dÄ—"
 
 #, fuzzy
 msgid "Document Sections"
 msgstr "Dokumento nuostatos"
 
 msgid "Annotation Properties"
-msgstr "Aprağymo parinktys"
+msgstr "ApraÅ¡ymo parinktys"
 
 msgid "Link"
 msgstr "Saitas"
@@ -8035,7 +8611,7 @@ msgstr "Puslapis"
 
 #, fuzzy
 msgid "&X-Pos"
-msgstr "X vieta èia pat:"
+msgstr "X vieta Äia pat:"
 
 #, fuzzy
 msgid "PDF-Documents (*.pdf);;All Files (*)"
@@ -8054,7 +8630,7 @@ msgstr "Dokumentas "
 
 #, fuzzy
 msgid "has been changed since the last save."
-msgstr "Po paskutinio iğsaugojimo dokumente padaryti pakeitimai."
+msgstr "Po paskutinio iÅ¡saugojimo dokumente padaryti pakeitimai."
 
 #, fuzzy
 msgid "&Discard"
@@ -8069,15 +8645,15 @@ msgstr "Spausdinti"
 
 #, fuzzy
 msgid "Number of rows:"
-msgstr "Kopijø skaièius"
+msgstr "KopijÅ³ skaiÄius"
 
 #, fuzzy
 msgid "Number of columns:"
-msgstr "Kopijø skaièius:"
+msgstr "KopijÅ³ skaiÄius:"
 
 #, fuzzy
 msgid "Font Substitution"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid ""
 "This document contains some fonts that are not installed on your system, "
@@ -8087,7 +8663,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Original Font"
-msgstr "Nerasti ğriftai"
+msgstr "Nerasti Å¡riftai"
 
 msgid "Substitution Font"
 msgstr ""
@@ -8110,29 +8686,29 @@ msgid ""
 msgstr ""
 
 msgid "Show Page Previews"
-msgstr "Parodyti spausdinto puslapio iğvaizdà"
+msgstr "Parodyti spausdinto puslapio iÅ¡vaizdÄ…"
 
 msgid "Double sided"
 msgstr ""
 
 #, fuzzy
 msgid "Drag pages or master pages onto the trashbin to delete them"
-msgstr "Perkelk puslapá ar ğablono puslapá á ğiukğlinæ kad pağalinti já."
+msgstr "Perkelk puslapÄ¯ ar Å¡ablono puslapÄ¯ Ä¯ Å¡iukÅ¡linÄ™ kad paÅ¡alinti jÄ¯."
 
 #, fuzzy
 msgid ""
 "Here are all your master pages. To create a new page, drag a master page to "
 "the page view below"
 msgstr ""
-"Èia visi ğablonai, kad sukurti naujà puslapá\n"
-"pertempk ğablonà á langà şemiau."
+"ÄŒia visi Å¡ablonai, kad sukurti naujÄ… puslapÄ¯\n"
+"pertempk Å¡ablonÄ… Ä¯ langÄ… Å¾emiau."
 
 msgid "Arrange Pages"
 msgstr "Sutvarkyti puslapius"
 
 #, fuzzy
 msgid "Available Master Pages:"
-msgstr "Esami ğablonai:"
+msgstr "Esami Å¡ablonai:"
 
 msgid "Document Pages:"
 msgstr "Dokumento puslapiai:"
@@ -8143,11 +8719,11 @@ msgstr "Keisti stilius"
 
 #, fuzzy
 msgid "Fill Color Settings"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 #, fuzzy
 msgid "Stroke Color Settings"
-msgstr "Rodyti spalvø áranká"
+msgstr "Rodyti spalvÅ³ Ä¯rankÄ¯"
 
 #, fuzzy
 msgid "Character Settings"
@@ -8155,15 +8731,15 @@ msgstr "Simboliai"
 
 #, fuzzy
 msgid "Style Settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 #, fuzzy
 msgid "Font Settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 #, fuzzy
 msgid "Font of selected text"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid "Spaces && Breaks"
 msgstr ""
@@ -8174,7 +8750,7 @@ msgstr "Paveiksliukai"
 
 #, fuzzy
 msgid "&Settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid "Story Editor"
 msgstr ""
@@ -8185,15 +8761,15 @@ msgstr "Pavyzdinis tekstas"
 
 #, fuzzy
 msgid "&Reload Text from Frame"
-msgstr "Priskirti tekstui marğtutà"
+msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 msgid "&Save to File..."
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "&Load from File..."
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "Save &Document"
@@ -8201,11 +8777,11 @@ msgstr "Naujas dokumentas"
 
 #, fuzzy
 msgid "&Update Text Frame and Exit"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 msgid "&Exit Without Updating Text Frame"
-msgstr "Uşdaryti neiğsaugant"
+msgstr "UÅ¾daryti neiÅ¡saugant"
 
 #, fuzzy
 msgid "&Edit Styles..."
@@ -8213,15 +8789,15 @@ msgstr "Keisti stilius"
 
 #, fuzzy
 msgid "&Fonts Preview..."
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "&Update Text Frame"
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 msgid "&Insert Glyph..."
-msgstr "Áterpti..."
+msgstr "Ä®terpti..."
 
 #, fuzzy
 msgid "&Background..."
@@ -8229,7 +8805,7 @@ msgstr "Pagrindas"
 
 #, fuzzy
 msgid "&Display Font..."
-msgstr "Rodymo trukmë:"
+msgstr "Rodymo trukmÄ—:"
 
 msgid "&Smart text selection"
 msgstr ""
@@ -8239,7 +8815,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Totals:"
-msgstr "Árankiai"
+msgstr "Ä®rankiai"
 
 msgid "Story Editor - %1"
 msgstr ""
@@ -8249,12 +8825,27 @@ msgstr ""
 
 #, fuzzy
 msgid "Do you really want to lose all your changes?"
-msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
 
 msgid "No Problems found"
 msgstr ""
 
+#, fuzzy
+msgid "Transparency used"
+msgstr "Rodyti rÄ—melius"
+
+#, fuzzy
+msgid "Blendmode used"
+msgstr "PaÅ¡alinti"
+
+#, fuzzy
+msgid "Layer \"%1\""
+msgstr "Sluoksniai"
+
 msgid "Problems found"
+msgstr ""
+
+msgid "&Ignore Errors"
 msgstr ""
 
 #, fuzzy
@@ -8263,18 +8854,15 @@ msgstr "Objektas"
 
 #, fuzzy
 msgid "Problems"
-msgstr "Spausdinti á failà:"
+msgstr "Spausdinti Ä¯ failÄ…:"
 
 #, fuzzy
 msgid "Current Profile:"
-msgstr "Ávesties apibudinimas:"
-
-msgid "&Ignore Errors"
-msgstr ""
+msgstr "Ä®vesties apibudinimas:"
 
 #, fuzzy
 msgid "Check again"
-msgstr "Şymëti"
+msgstr "Å½ymÄ—ti"
 
 #, fuzzy
 msgid "Glyphs missing"
@@ -8286,7 +8874,7 @@ msgstr "Teksto spalva:"
 
 #, fuzzy
 msgid "Object is not on a Page"
-msgstr "Reiğmë nesuskaièiuota"
+msgstr "ReiÅ¡mÄ— nesuskaiÄiuota"
 
 #, fuzzy
 msgid "Missing Image"
@@ -8303,7 +8891,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Object is a PDF Annotation or Field"
-msgstr "Áterpti PDF-anotacijas"
+msgstr "Ä®terpti PDF-anotacijas"
 
 msgid "Object is a placed PDF"
 msgstr ""
@@ -8318,11 +8906,11 @@ msgstr "Taisa"
 
 #, fuzzy
 msgid "&Save and Exit"
-msgstr "Iğsaugoti ir uşdaryti"
+msgstr "IÅ¡saugoti ir uÅ¾daryti"
 
 #, fuzzy
 msgid "&Exit without Saving"
-msgstr "Uşdaryti neiğsaugant"
+msgstr "UÅ¾daryti neiÅ¡saugant"
 
 #, fuzzy
 msgid "&Get Field Names"
@@ -8333,49 +8921,48 @@ msgid "JavaScripts (*.js);;All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 #, fuzzy
-msgid "Column 1"
-msgstr "Stulpeliø linijos"
+msgid "name"
+msgstr "PaÅ¡alinti"
+
+#, fuzzy
+msgid "shortcut"
+msgstr "KlaviÅ¡Å³ deriniai..."
 
 #, fuzzy
 msgid "Style Manager"
-msgstr "Spausdinimo eiliğkumas"
+msgstr "Spausdinimo eiliÅ¡kumas"
 
-#, fuzzy
-msgid "C&lone"
-msgstr "Uşdaryti"
-
-#, fuzzy
-msgid "O&K"
-msgstr "Tinka!"
+msgid "Please select a unique name for the style"
+msgstr ""
 
 msgid "Move Bookmark"
-msgstr "Perkelti nuorodà"
+msgstr "Perkelti nuorodÄ…"
 
 msgid "Insert Bookmark"
-msgstr "Áterpti nuorodà"
+msgstr "Ä®terpti nuorodÄ…"
 
 #, fuzzy
 msgid "Delete Style"
-msgstr "Pağalinti sluoksná"
+msgstr "PaÅ¡alinti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Delete Style:"
-msgstr "Pağalinti sluoksná"
+msgstr "PaÅ¡alinti sluoksnÄ¯"
 
 #, fuzzy
 msgid "Choose Styles"
-msgstr "Rodyti sliliø sàrağà"
+msgstr "Rodyti sliliÅ³ sÄ…raÅ¡Ä…"
 
 #, fuzzy
 msgid "Available Styles"
-msgstr "Galimi ğriftai:"
+msgstr "Galimi Å¡riftai:"
 
 msgid "Edit Styles"
 msgstr "Keisti stilius"
 
 #, fuzzy
 msgid "Common Settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 #, fuzzy
 msgid "Placing in Documents"
@@ -8383,15 +8970,15 @@ msgstr "Paskutinis dokumentas:"
 
 #, fuzzy
 msgid "In the Background"
-msgstr "Po apaèia"
+msgstr "Po apaÄia"
 
 #, fuzzy
 msgid "In the Foreground"
-msgstr "Virğuje"
+msgstr "VirÅ¡uje"
 
 #, fuzzy
 msgid "Snapping"
-msgstr "Dydşio keitimas"
+msgstr "DydÅ¾io keitimas"
 
 #, fuzzy
 msgid "Snap Distance:"
@@ -8401,14 +8988,11 @@ msgstr "Atstumas"
 msgid "Grab Radius:"
 msgstr "Pagriebimo atstumas"
 
-msgid " px"
-msgstr ""
-
 msgid "Show Guides"
 msgstr "Rodyti pagalbines linijas"
 
 msgid "Show Margins"
-msgstr "Rodyti parağtes"
+msgstr "Rodyti paraÅ¡tes"
 
 #, fuzzy
 msgid "Show Page Grid"
@@ -8420,7 +9004,7 @@ msgstr "Pagrindinio tinklelio spalva:"
 
 #, fuzzy
 msgid "Spacing:"
-msgstr "Tarpas tarp eiluèiø"
+msgstr "Tarpas tarp eiluÄiÅ³"
 
 #, fuzzy
 msgid "Minor Grid"
@@ -8431,11 +9015,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Baseline Settings"
-msgstr "Simboliø parinktys"
+msgstr "SimboliÅ³ parinktys"
 
 #, fuzzy
 msgid "Baseline &Grid:"
-msgstr "Slëpti pagalbines linijas"
+msgstr "SlÄ—pti pagalbines linijas"
 
 msgid "Baseline &Offset:"
 msgstr ""
@@ -8473,7 +9057,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Color for the baseline grid"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 msgid "Turns the basegrid on or off"
 msgstr ""
@@ -8491,6 +9075,9 @@ msgid "Turns the guides on or off"
 msgstr ""
 
 msgid "Turns the margins on or off"
+msgstr ""
+
+msgid " px"
 msgstr ""
 
 #, fuzzy
@@ -8518,7 +9105,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Alt+W"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid ""
 "Apply the selected master page to even, odd or all pages within the "
@@ -8529,9 +9116,62 @@ msgstr ""
 msgid "to"
 msgstr "iki:"
 
+msgid "GUI"
+msgstr "GrafinÄ— vartotojo aplinka"
+
+#, fuzzy
+msgid "&Theme:"
+msgstr "Naujas Å¡ablonas"
+
+msgid "Time before a Move or Resize starts:"
+msgstr ""
+
+msgid " ms"
+msgstr ""
+
+#, fuzzy
+msgid "&Font Size (Menus):"
+msgstr "Å rifto dydis:"
+
+#, fuzzy
+msgid "Font Size (&Palettes):"
+msgstr "Å rifto dydis:"
+
+#, fuzzy
+msgid "&Wheel Jump:"
+msgstr "Ratuko Å¾ingsnis"
+
+#, fuzzy
+msgid "&Recent Documents:"
+msgstr "Paskutinis dokumentas:"
+
+#, fuzzy
+msgid "&Documents:"
+msgstr "Dokumentas "
+
+#, fuzzy
+msgid "&ICC Profiles:"
+msgstr "Spausdinti Ä¯ failÄ…:"
+
+#, fuzzy
+msgid "Alt+H"
+msgstr "ViskÄ…"
+
+#, fuzzy
+msgid "&Scripts:"
+msgstr "Skriptas:"
+
+#, fuzzy
+msgid "Ch&ange..."
+msgstr "Pakeisti..."
+
+#, fuzzy
+msgid "Document &Templates:"
+msgstr "Dokumento puslapiai:"
+
 #, fuzzy
 msgid "Parameter"
-msgstr "Raidë"
+msgstr "RaidÄ—"
 
 #, fuzzy
 msgid "Relationship"
@@ -8547,11 +9187,11 @@ msgstr "Apie Scribus"
 
 #, fuzzy
 msgid "Top"
-msgstr "Nuo virğaus:"
+msgstr "Nuo virÅ¡aus:"
 
 #, fuzzy
 msgid "Bottom"
-msgstr "Nuo apaèios:"
+msgstr "Nuo apaÄios:"
 
 msgid "Allow Docking To..."
 msgstr ""
@@ -8562,10 +9202,10 @@ msgstr "Orientacija:"
 
 #, fuzzy
 msgid "&Activate Color Management"
-msgstr "Naudoti spalvø derinimà"
+msgstr "Naudoti spalvÅ³ derinimÄ…"
 
 msgid "System Profiles"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "&RGB Pictures:"
@@ -8577,11 +9217,11 @@ msgstr "Paveiksliukai:"
 
 #, fuzzy
 msgid "&RGB Solid Colors:"
-msgstr "Iğtisinës spalvos:"
+msgstr "IÅ¡tisinÄ—s spalvos:"
 
 #, fuzzy
 msgid "&CMYK Solid Colors:"
-msgstr "Iğtisinës spalvos:"
+msgstr "IÅ¡tisinÄ—s spalvos:"
 
 #, fuzzy
 msgid "&Monitor:"
@@ -8600,15 +9240,15 @@ msgstr "Paveiksliukai"
 
 #, fuzzy
 msgid "Sol&id Colors:"
-msgstr "Iğtisinës spalvos:"
+msgstr "IÅ¡tisinÄ—s spalvos:"
 
 #, fuzzy
 msgid "Sim&ulate Printer on the Screen"
-msgstr "Imituoti spausdintuvà ekrane"
+msgstr "Imituoti spausdintuvÄ… ekrane"
 
 #, fuzzy
 msgid "Convert all colors to printer space"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid "Mark Colors out of &Gamut"
 msgstr ""
@@ -8683,6 +9323,24 @@ msgstr "Spausdinimas nutrauktas"
 msgid "Processing Master Page:"
 msgstr "po puslapio"
 
+msgid "Always ask before fonts are replaced when loading a document"
+msgstr ""
+
+msgid "Preview of current Paragraph Style visible when editing Styles"
+msgstr ""
+
+msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Show Splashscreen on Startup"
+msgstr ""
+
+msgid "Always use standard Lorem Ipsum"
+msgstr ""
+
+msgid "Count of the Paragraphs:"
+msgstr ""
+
 msgid "External Web Browser Failed to Start"
 msgstr ""
 
@@ -8697,15 +9355,15 @@ msgstr "Turinys"
 
 #, fuzzy
 msgid "Relevance"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 #, fuzzy
 msgid "Se&arch"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #, fuzzy
 msgid "De&lete All"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #, fuzzy
 msgid "Book&marks"
@@ -8713,7 +9371,7 @@ msgstr "Nuorodos"
 
 #, fuzzy
 msgid "E&xit"
-msgstr "Iğeiti"
+msgstr "IÅ¡eiti"
 
 #, fuzzy
 msgid "&Find..."
@@ -8721,11 +9379,11 @@ msgstr "Spausdinti..."
 
 #, fuzzy
 msgid "Find &Next"
-msgstr "Lygiuoti kairëje"
+msgstr "Lygiuoti kairÄ—je"
 
 #, fuzzy
 msgid "Find &Previous"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "&Add Bookmark"
@@ -8733,7 +9391,7 @@ msgstr "Nuorodos"
 
 #, fuzzy
 msgid "D&elete All"
-msgstr "Iğtrinti"
+msgstr "IÅ¡trinti"
 
 #, fuzzy
 msgid "Scribus Online Help"
@@ -8754,11 +9412,11 @@ msgstr "Linija"
 
 #, fuzzy
 msgid "Search Term:"
-msgstr "Paieğkos rezultatai pagal: "
+msgstr "PaieÅ¡kos rezultatai pagal: "
 
 #, fuzzy
 msgid "New Bookmark"
-msgstr "Perkelti nuorodà"
+msgstr "Perkelti nuorodÄ…"
 
 #, fuzzy
 msgid "New Bookmark's Title:"
@@ -8774,7 +9432,7 @@ msgstr "Taisyti..."
 
 #, fuzzy
 msgid "&Add..."
-msgstr "Pridëti..."
+msgstr "PridÄ—ti..."
 
 msgid ""
 "Adds a new Script, predefines a function with the same name. If you want to "
@@ -8791,29 +9449,29 @@ msgstr "Naujas skriptas"
 
 #, fuzzy
 msgid "Do you really want to delete this script?"
-msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
 
 msgid "Multiple Duplicate"
-msgstr "Sukurti daug kopijø"
+msgstr "Sukurti daug kopijÅ³"
 
 #, fuzzy
 msgid "&Number of Copies:"
-msgstr "Kopijø skaièius:"
+msgstr "KopijÅ³ skaiÄius:"
 
 #, fuzzy
 msgid "&Horizontal Shift:"
-msgstr "Horiz. postûmis:"
+msgstr "Horiz. postÅ«mis:"
 
 #, fuzzy
 msgid "&Vertical Shift:"
-msgstr "Vert. postûmis:"
+msgstr "Vert. postÅ«mis:"
 
 msgid "Auto Add To"
 msgstr ""
 
 #, fuzzy
 msgid "&Hyphenation Suggestions"
-msgstr "Simboliø parinktys"
+msgstr "SimboliÅ³ parinktys"
 
 msgid "Hyphenate Text Automatically &During Typing"
 msgstr ""
@@ -8840,6 +9498,14 @@ msgid ""
 "A value of 0 means unlimited hyphenations."
 msgstr ""
 
+#, fuzzy
+msgid "Based on"
+msgstr "Popieriaus spalva"
+
+#, fuzzy
+msgid "Parent's Character Style"
+msgstr "Simboliai"
+
 msgid "Afrikaans"
 msgstr ""
 
@@ -8849,11 +9515,11 @@ msgstr "Lygiuoti"
 
 #, fuzzy
 msgid "Basque"
-msgstr "Ğiuo pagrindu:"
+msgstr "Å iuo pagrindu:"
 
 #, fuzzy
 msgid "Bulgarian"
-msgstr "Vengrø ir italø:"
+msgstr "VengrÅ³ ir italÅ³:"
 
 #, fuzzy
 msgid "Brazilian"
@@ -8891,31 +9557,38 @@ msgstr "Pabaigos:"
 
 #, fuzzy
 msgid "Esperanto"
-msgstr "Ávykis:"
+msgstr "Ä®vykis:"
 
 msgid "Estonian"
 msgstr ""
 
 #, fuzzy
 msgid "German"
-msgstr "Vokiğkai:"
+msgstr "VokiÅ¡kai:"
 
 #, fuzzy
 msgid "German (Trad.)"
-msgstr "Vokiğkai:"
+msgstr "VokiÅ¡kai:"
 
 msgid "Finnish"
 msgstr ""
 
 #, fuzzy
 msgid "French"
-msgstr "Prancûziğkai:"
+msgstr "PrancÅ«ziÅ¡kai:"
 
 #, fuzzy
 msgid "Galician"
 msgstr "Ukrainos:"
 
 msgid "Hungarian"
+msgstr ""
+
+#, fuzzy
+msgid "Latin"
+msgstr "Saitas"
+
+msgid "Icelandic"
 msgstr ""
 
 msgid "Indonesian"
@@ -8933,12 +9606,12 @@ msgstr ""
 
 #, fuzzy
 msgid "Lithuanian"
-msgstr "Lietuviø:"
+msgstr "LietuviÅ³:"
 
 msgid "Luxembourgish"
 msgstr ""
 
-msgid "Norwegian (Bokmaal)"
+msgid "Norwegian (BokmÃ¥l)"
 msgstr ""
 
 msgid "Norwegian (Nnyorsk)"
@@ -8957,6 +9630,10 @@ msgstr ""
 msgid "Portuguese (BR)"
 msgstr "Ukrainos:"
 
+#, fuzzy
+msgid "Romanian"
+msgstr "Lygiuoti"
+
 msgid "Russian"
 msgstr ""
 
@@ -8968,19 +9645,19 @@ msgstr ""
 
 #, fuzzy
 msgid "Spanish (Latin)"
-msgstr "Ispanø ir katalonës:"
+msgstr "IspanÅ³ ir katalonÄ—s:"
 
 #, fuzzy
 msgid "Slovak"
-msgstr "Slovakø:"
+msgstr "SlovakÅ³:"
 
 #, fuzzy
 msgid "Slovenian"
-msgstr "Slovakø:"
+msgstr "SlovakÅ³:"
 
 #, fuzzy
 msgid "Serbian"
-msgstr "Slovakø:"
+msgstr "SlovakÅ³:"
 
 #, fuzzy
 msgid "Thai"
@@ -9012,9 +9689,42 @@ msgstr "Puslapis"
 msgid "Minimum Margins for Page Size %1"
 msgstr ""
 
+msgid "Freetype2 library not available"
+msgstr ""
+
+msgid "Font %1(%2) is broken"
+msgstr ""
+
+msgid "Font %1 has broken glyph %2"
+msgstr ""
+
+msgid "Font %1 is broken (read stream), no embedding"
+msgstr ""
+
+msgid "extracting face %1 from font %2 (offset=%3, nTables=%4)"
+msgstr ""
+
+msgid "memcpy header: %1 %2 %3"
+msgstr ""
+
+msgid "table '%1'"
+msgstr ""
+
+msgid "memcpy table: %1 %2 %3"
+msgstr ""
+
+msgid "memcpy offset: %1 %2 %3"
+msgstr ""
+
+msgid "Font %1 is broken (no Face), discarding it"
+msgstr ""
+
+msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
 #, fuzzy
 msgid "New From Template"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 msgid "Description"
@@ -9026,7 +9736,7 @@ msgstr "Naudoti"
 
 #, fuzzy
 msgid "Created with"
-msgstr "Prijungti teksto grandá"
+msgstr "Prijungti teksto grandÄ¯"
 
 #, fuzzy
 msgid "Author"
@@ -9034,7 +9744,7 @@ msgstr "Autorius:"
 
 #, fuzzy
 msgid "Downloading Templates"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid ""
 "Document templates can be found at http://www.scribus.net/ in the Downloads "
@@ -9043,7 +9753,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Installing Templates"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid ""
 "Extract the package to the template directory ~/.scribus/templates for the "
@@ -9052,7 +9762,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Preparing a template"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid ""
 "Make sure images and fonts you use can be used freely. If fonts cannot be "
@@ -9068,7 +9778,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Removing a template"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid ""
 "Removing a template from the New From Template dialog will only remove the "
@@ -9090,14 +9800,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Newsletters"
-msgstr "Paşymëti objekts"
+msgstr "PaÅ¾ymÄ—ti objekts"
 
 msgid "Brochures"
 msgstr ""
 
 #, fuzzy
 msgid "Catalogs"
-msgstr "Uşdaryti"
+msgstr "UÅ¾daryti"
 
 #, fuzzy
 msgid "Flyers"
@@ -9124,7 +9834,7 @@ msgstr "Trinti"
 
 #, fuzzy
 msgid "Advertisements"
-msgstr "Matø sistema"
+msgstr "MatÅ³ sistema"
 
 #, fuzzy
 msgid "Labels"
@@ -9147,11 +9857,11 @@ msgstr "Vieta"
 
 #, fuzzy
 msgid "Magazines"
-msgstr "Parağtë:"
+msgstr "ParaÅ¡tÄ—:"
 
 #, fuzzy
 msgid "Posters"
-msgstr "Áterpti"
+msgstr "Ä®terpti"
 
 msgid "Announcements"
 msgstr ""
@@ -9169,11 +9879,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Own Templates"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 msgid "New &from Template..."
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid "Load documents with predefined layout"
 msgstr ""
@@ -9237,7 +9947,7 @@ msgstr ""
 
 #, fuzzy
 msgid "User settings"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid "System wide configuration"
 msgstr ""
@@ -9261,11 +9971,11 @@ msgid "Cannot write file %1."
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 #, fuzzy
 msgid "User settings saved"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 msgid "System wide configuration reloaded"
 msgstr ""
@@ -9275,19 +9985,19 @@ msgid "Cannot open file %1"
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 #, fuzzy
 msgid "Save as &Template..."
-msgstr "Iğsaugoti kaip tekstà..."
+msgstr "IÅ¡saugoti kaip tekstÄ…..."
 
 #, fuzzy
 msgid "Save As Template"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 msgid "Save a document as a template"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid ""
 "Save a document as a template. Good way to ease the initial work for "
@@ -9296,7 +10006,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Save as Template"
-msgstr "Naujas ğablonas"
+msgstr "Naujas Å¡ablonas"
 
 msgid "Category"
 msgstr ""
@@ -9310,19 +10020,12 @@ msgstr ""
 msgid "Less Details"
 msgstr ""
 
-msgid "Legal"
-msgstr ""
-
-#, fuzzy
-msgid "Letter"
-msgstr "Per vidurá"
-
 msgid "Tabloid"
 msgstr "11 x 17 coliai"
 
 #, fuzzy
 msgid "landscape"
-msgstr "Peizaşui"
+msgstr "PeizaÅ¾ui"
 
 #, fuzzy
 msgid "portrait"
@@ -9337,6 +10040,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Scribus 1.2.x Document"
+msgstr "Scribus-dokumentas"
+
+#, fuzzy
+msgid "Scribus 1.2.x Support"
 msgstr "Scribus-dokumentas"
 
 msgid "Import &OpenOffice.org Draw..."
@@ -9357,7 +10064,7 @@ msgstr ""
 
 #, fuzzy
 msgid "OpenDocument 1.0 Draw"
-msgstr "Naudok esamà dokumentà"
+msgstr "Naudok esamÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "OpenOffice.org 1.x Draw"
@@ -9370,6 +10077,21 @@ msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""
 
+#, fuzzy
+msgid "Scribus 1.3.4 Support"
+msgstr "Scribus-dokumentas"
+
+#, fuzzy
+msgid "Scribus 1.3.4 Document"
+msgstr "Scribus-dokumentas"
+
+msgid "Scribus 1.3.0->1.3.3.2 Support"
+msgstr ""
+
+#, fuzzy
+msgid "Scribus 1.3.0->1.3.3.2 Document"
+msgstr "Scribus-dokumentas"
+
 msgid "Doc"
 msgstr ""
 
@@ -9378,27 +10100,27 @@ msgstr ""
 
 #, fuzzy
 msgid "Fonts Preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "&Quick Search:"
-msgstr "Ieğkoti"
+msgstr "IeÅ¡koti"
 
 #, fuzzy
 msgid "&Font Size:"
-msgstr "Ğrifto dydis:"
+msgstr "Å rifto dydis:"
 
 #, fuzzy
 msgid "Sample text to display"
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "Se&t"
-msgstr "Paşymëti"
+msgstr "PaÅ¾ymÄ—ti"
 
 #, fuzzy
 msgid "Reset the text"
-msgstr "Iğ değinës kairën"
+msgstr "IÅ¡ deÅ¡inÄ—s kairÄ—n"
 
 #, fuzzy
 msgid "&Append"
@@ -9406,15 +10128,15 @@ msgstr "Papildyk"
 
 #, fuzzy
 msgid "&Font Preview..."
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "Font Preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 msgid "Font Preview dialog"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 msgid "Sorting, searching and browsing available fonts."
 msgstr ""
@@ -9424,7 +10146,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Leave preview"
-msgstr "Pasişiûrëti kaip atrodys"
+msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 msgid ""
 "Typing the text here provides quick searching in the font names. Searching "
@@ -9435,11 +10157,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Start searching"
-msgstr "Dëmesio!"
+msgstr "DÄ—mesio!"
 
 #, fuzzy
 msgid "Size of the selected font"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid "Sample will be shown after key release"
 msgstr ""
@@ -9450,7 +10172,7 @@ msgstr "Naudoti"
 
 #, fuzzy
 msgid "System"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Text Filters"
@@ -9458,7 +10180,7 @@ msgstr "Teksto laukelis"
 
 #, fuzzy
 msgid "Create filter"
-msgstr "Prijungti teksto grandá"
+msgstr "Prijungti teksto grandÄ¯"
 
 msgid "Choose a previously saved filter"
 msgstr ""
@@ -9477,11 +10199,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Add a new filter row"
-msgstr "Pridëti naujà sluoksná"
+msgstr "PridÄ—ti naujÄ… sluoksnÄ¯"
 
 #, fuzzy
 msgid "and"
-msgstr "á galà"
+msgstr "Ä¯ galÄ…"
 
 msgid "remove match"
 msgstr ""
@@ -9491,11 +10213,11 @@ msgstr ""
 
 #, fuzzy
 msgid "words"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #, fuzzy
 msgid "Replace"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 msgid "Value at the left is a regular expression"
 msgstr ""
@@ -9536,7 +10258,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Value delimiter:"
-msgstr "Reikğmë yra"
+msgstr "ReikÅ¡mÄ— yra"
 
 msgid "First row is a header"
 msgstr ""
@@ -9549,7 +10271,7 @@ msgstr ""
 
 #, fuzzy
 msgid "CSV_header"
-msgstr "Ğeğëlis"
+msgstr "Å eÅ¡Ä—lis"
 
 #, fuzzy
 msgid "Word Documents"
@@ -9620,11 +10342,11 @@ msgid "Could not open file %1"
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 msgid ""
-"This file is not recognized as a PDB document propably. Please, report this "
-"as a bug if you are sure it is one."
+"This file is not recognized as a PDB document. Please, report this as a bug "
+"if you are sure it is one."
 msgstr ""
 
 #, fuzzy
@@ -9661,11 +10383,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Failed to open document."
-msgstr "Áğsaugok savo darbà"
+msgstr "Ä®Å¡saugok savo darbÄ…"
 
 #, fuzzy
 msgid "Failed to save document."
-msgstr "Áğsaugok savo darbà"
+msgstr "Ä®Å¡saugok savo darbÄ…"
 
 msgid "Unit out of range. Use one of the scribus.UNIT_* constants."
 msgstr ""
@@ -9676,7 +10398,7 @@ msgstr "Apie Scribus"
 
 #, fuzzy
 msgid "Console"
-msgstr "Slëpti árankinæ"
+msgstr "SlÄ—pti Ä¯rankinÄ™"
 
 #, fuzzy
 msgid "Scripter Preferences"
@@ -9692,7 +10414,7 @@ msgstr "Nuosavas skriptas"
 
 #, fuzzy
 msgid "Errors:"
-msgstr "Tragiğka klaida"
+msgstr "TragiÅ¡ka klaida"
 
 #, fuzzy
 msgid "Comments:"
@@ -9700,7 +10422,7 @@ msgstr "Turinys"
 
 #, fuzzy
 msgid "Keywords:"
-msgstr "Slaptaşodis"
+msgstr "SlaptaÅ¾odis"
 
 #, fuzzy
 msgid "Signs:"
@@ -9708,11 +10430,11 @@ msgstr "Linija"
 
 #, fuzzy
 msgid "Numbers:"
-msgstr "Skaièius"
+msgstr "SkaiÄius"
 
 #, fuzzy
 msgid "Strings:"
-msgstr "Pelës nuostatos"
+msgstr "PelÄ—s nuostatos"
 
 #, fuzzy
 msgid "Base Texts:"
@@ -9720,7 +10442,7 @@ msgstr "Pavyzdinis tekstas"
 
 #, fuzzy
 msgid "Select Color"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 #, fuzzy
 msgid "Locate Startup Script"
@@ -9731,11 +10453,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Property not found"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Child not found"
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid "Couldn't convert result type '%1'."
 msgstr ""
@@ -9791,19 +10513,19 @@ msgstr ""
 
 #, fuzzy
 msgid "&Exit"
-msgstr "Iğeiti"
+msgstr "IÅ¡eiti"
 
 #, fuzzy
 msgid "&Run"
-msgstr "Apvalus virğus"
+msgstr "Apvalus virÅ¡us"
 
 #, fuzzy
 msgid "Run As &Console"
-msgstr "Rodyti árankinæ"
+msgstr "Rodyti Ä¯rankinÄ™"
 
 #, fuzzy
 msgid "&Save Output..."
-msgstr "Iğsaugoti kaip PDF..."
+msgstr "IÅ¡saugoti kaip PDF..."
 
 #, fuzzy
 msgid "&Script"
@@ -9811,7 +10533,7 @@ msgstr "Skriptas:"
 
 #, fuzzy
 msgid "Scribus Python Console"
-msgstr "Rodyti árankinæ"
+msgstr "Rodyti Ä¯rankinÄ™"
 
 msgid ""
 "This is derived from standard Python console so it contains some limitations "
@@ -9829,7 +10551,7 @@ msgid "Output of your script"
 msgstr ""
 
 #, fuzzy
-msgid "Python Scripts (*.py)"
+msgid "Python Scripts (*.py *.PY)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 #, fuzzy
@@ -9845,7 +10567,7 @@ msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 
 #, fuzzy
 msgid "Save Current Output"
-msgstr "Áğsaugok savo darbà"
+msgstr "Ä®Å¡saugok savo darbÄ…"
 
 msgid "Failed to save EPS."
 msgstr ""
@@ -9870,7 +10592,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Show &Console"
-msgstr "Rodyti árankinæ"
+msgstr "Rodyti Ä¯rankinÄ™"
 
 #, fuzzy
 msgid "&About Script..."
@@ -9908,7 +10630,7 @@ msgid "Examine Script"
 msgstr "Naujas skriptas"
 
 #, fuzzy
-msgid "Python Scripts (*.py);;All Files (*)"
+msgid "Python Scripts (*.py *.PY);;All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 #, fuzzy
@@ -9950,15 +10672,21 @@ msgstr ""
 
 #, fuzzy
 msgid "Object not found."
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Style not found."
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Cannot set style on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
+
+msgid "Transparency out of bounds, must be 0 <= transparency <= 1."
+msgstr ""
+
+msgid "Blendmode out of bounds, must be 0 <= blendmode <= 15."
+msgstr ""
 
 msgid "Line width out of bounds, must be 0 <= line_width <= 12."
 msgstr ""
@@ -9974,7 +10702,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Line style not found."
-msgstr "Atspausdink darbà"
+msgstr "Atspausdink darbÄ…"
 
 msgid "Target is not an image frame."
 msgstr ""
@@ -10002,7 +10730,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Cannot get text size of non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Cannot get column count of non-text frame."
 msgstr ""
@@ -10015,88 +10743,88 @@ msgstr ""
 
 #, fuzzy
 msgid "Cannot get text of non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot set text of non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Cannot insert text into non-text frame."
 msgstr ""
 
 #, fuzzy
 msgid "Insert index out of bounds."
-msgstr "Áterpti teksto langelá"
+msgstr "Ä®terpti teksto langelÄ¯"
 
 msgid "Alignment out of range. Use one of the scribus.ALIGN* constants."
 msgstr ""
 
 #, fuzzy
 msgid "Cannot set text alignment on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Font size out of bounds - must be 1 <= size <= 512."
 msgstr ""
 
 #, fuzzy
 msgid "Cannot set font size on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot set font on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Font not found."
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid "Line space out of bounds, must be >= 0.1."
 msgstr ""
 
 #, fuzzy
 msgid "Cannot set line spacing on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Column gap out of bounds, must be positive."
 msgstr ""
 
 #, fuzzy
 msgid "Cannot set column gap on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Column count out of bounds, must be > 1."
 msgstr ""
 
 #, fuzzy
 msgid "Cannot set number of columns on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Selection index out of bounds"
 msgstr ""
 
 #, fuzzy
 msgid "Cannot select text in a non-text frame"
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot delete text from a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot set text fill on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot set text stroke on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot set text shade on a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Can only link text frames."
-msgstr "Teksto rëmelis"
+msgstr "Teksto rÄ—melis"
 
 msgid "Target frame must be empty."
 msgstr ""
@@ -10112,7 +10840,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Cannot unlink a non-text frame."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Object is not a linked text frame, can't unlink."
 msgstr ""
@@ -10124,22 +10852,22 @@ msgstr ""
 
 #, fuzzy
 msgid "Cannot convert a non-text frame to outlines."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 msgid "Only text frames can be checked for overflowing"
 msgstr ""
 
 #, fuzzy
 msgid "Can't set bookmark on a non-text frame"
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Can't get info from a non-text frame"
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Insert value"
-msgstr "Áklijuoti puslapá"
+msgstr "Ä®klijuoti puslapÄ¯"
 
 msgid "Enter a value then press OK."
 msgstr ""
@@ -10152,61 +10880,61 @@ msgstr ""
 
 #, fuzzy
 msgid "Cannot render an empty sample."
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 msgid "Unable to save pixmap"
 msgstr ""
 
 #, fuzzy
 msgid "Cannot have an empty layer name."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Layer not found."
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 msgid "Cannot remove the last layer."
 msgstr ""
 
 #, fuzzy
 msgid "Cannot create layer without a name."
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "Color not found - python error"
-msgstr "Nutraukti darbà su ğiuo dokumentu"
+msgstr "Nutraukti darbÄ… su Å¡iuo dokumentu"
 
 #, fuzzy
 msgid "Cannot get a color with an empty name."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Color not found."
-msgstr "Sistemos ğablonai"
+msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 msgid "Cannot change a color with an empty name."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Color not found in document."
-msgstr "Nutraukti darbà su ğiuo dokumentu"
+msgstr "Nutraukti darbÄ… su Å¡iuo dokumentu"
 
 #, fuzzy
 msgid "Color not found in default colors."
-msgstr "Nutraukti darbà su ğiuo dokumentu"
+msgstr "Nutraukti darbÄ… su Å¡iuo dokumentu"
 
 #, fuzzy
 msgid "Cannot create a color with an empty name."
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "Cannot delete a color with an empty name."
-msgstr "Kà nors pakeisti rëmelyje"
+msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 msgid "Cannot replace a color with an empty name."
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 msgid "The filename must be a string."
 msgstr ""
@@ -10225,10 +10953,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Failed to export image"
-msgstr "Áğsaugok savo darbà"
+msgstr "Ä®Å¡saugok savo darbÄ…"
 
 #, fuzzy
-msgid "Python Scripts (*.py);; All Files (*)"
+msgid "Python Scripts (*.py *.PY);; All Files (*)"
 msgstr "JavaScript (*.js);; Visi failai (*)"
 
 #, fuzzy
@@ -10257,7 +10985,7 @@ msgstr ""
 
 #, fuzzy
 msgid "SVG-Images (*.svg *.svgz);;All Files (*)"
-msgstr "Kiğenë (*.scs);; Visi failai (*)"
+msgstr "KiÅ¡enÄ— (*.scs);; Visi failai (*)"
 
 #, fuzzy
 msgid "SVG-Images (*.svg);;All Files (*)"
@@ -10268,7 +10996,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Document Colors"
-msgstr "Viskà aprağë:"
+msgstr "ViskÄ… apraÅ¡Ä—:"
 
 #, fuzzy
 msgid "Cr&eate color..."
@@ -10280,7 +11008,7 @@ msgstr "Turinys"
 
 #, fuzzy
 msgid "&Import existing color..."
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 msgid "&Merge colors"
@@ -10288,7 +11016,7 @@ msgstr "Popieriaus spalva"
 
 #, fuzzy
 msgid "&Replace colors"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 #, fuzzy
 msgid "Normal Vision"
@@ -10305,17 +11033,14 @@ msgstr ""
 
 #, fuzzy
 msgid "Full Color Blindness"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 msgid "Vision Defect:"
 msgstr ""
 
 #, fuzzy
 msgid "Color Wheel"
-msgstr "Spalvø modelis"
-
-msgid "C"
-msgstr ""
+msgstr "SpalvÅ³ modelis"
 
 msgid "M"
 msgstr ""
@@ -10330,7 +11055,7 @@ msgstr "Tinka!"
 
 #, fuzzy
 msgid "Select Method:"
-msgstr "Pasirinkti laukelá"
+msgstr "Pasirinkti laukelÄ¯"
 
 msgid "Angle (0 - 90 degrees):"
 msgstr ""
@@ -10341,15 +11066,15 @@ msgstr "Popieriaus spalva"
 
 #, fuzzy
 msgid "&Replace Colors"
-msgstr "Pakeisti á:"
+msgstr "Pakeisti Ä¯:"
 
 #, fuzzy
 msgid "Merge created colors into the document colors"
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 #, fuzzy
 msgid "Replace created colors in the document colors"
-msgstr "Sukurk naujà dokumentà"
+msgstr "Sukurk naujÄ… dokumentÄ…"
 
 msgid "Leave colors untouched"
 msgstr ""
@@ -10364,7 +11089,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Sample color scheme"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 msgid ""
 "Select one of the methods to create a color scheme. Refer to documentation "
@@ -10379,11 +11104,11 @@ msgstr ""
 
 #, fuzzy
 msgid "Merging colors"
-msgstr "Pasirink spalvà"
+msgstr "Pasirink spalvÄ…"
 
 #, fuzzy
 msgid "Error: "
-msgstr "Tragiğka klaida"
+msgstr "TragiÅ¡ka klaida"
 
 msgid "Color %1 exists already!"
 msgstr ""
@@ -10396,7 +11121,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Color Merging"
-msgstr "Spalvø modelis"
+msgstr "SpalvÅ³ modelis"
 
 msgid ""
 "Unable to find the requested color. You have probably selected black, gray "
@@ -10409,7 +11134,7 @@ msgstr "Spalvos..."
 
 #, fuzzy
 msgid "Color setting helper"
-msgstr "Uşpildo spalva:"
+msgstr "UÅ¾pildo spalva:"
 
 msgid "Color selector with color theory included."
 msgstr ""
@@ -10432,15 +11157,15 @@ msgstr ""
 
 #, fuzzy
 msgid "Set &RGB"
-msgstr "Parinkti deriná"
+msgstr "Parinkti derinÄ¯"
 
 #, fuzzy
 msgid "Set C&MYK"
-msgstr "Parinkti deriná"
+msgstr "Parinkti derinÄ¯"
 
 #, fuzzy
 msgid "Set &HSV"
-msgstr "Parinkti deriná"
+msgstr "Parinkti derinÄ¯"
 
 msgid "Monochromatic"
 msgstr ""
@@ -10513,7 +11238,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Export as Image(s)"
-msgstr "Eksporto grupë"
+msgstr "Eksporto grupÄ—"
 
 #, fuzzy
 msgid "&Export to Directory:"
@@ -10537,18 +11262,18 @@ msgstr "Esamas derinys"
 
 #, fuzzy
 msgid "&Range"
-msgstr "Eilë:"
+msgstr "EilÄ—:"
 
 msgid "Image size in Pixels"
 msgstr ""
 
 #, fuzzy
 msgid "Export a range of pages"
-msgstr "Eksporto grupë"
+msgstr "Eksporto grupÄ—"
 
 #, fuzzy
 msgid "Export all pages"
-msgstr "Eksporto grupë"
+msgstr "Eksporto grupÄ—"
 
 msgid "Export only the current page"
 msgstr ""
@@ -10568,7 +11293,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Available export formats"
-msgstr "Esami ğablonai:"
+msgstr "Esami Å¡ablonai:"
 
 msgid ""
 "The output directory - the place to store your images.\n"
@@ -10580,18 +11305,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Save as &Image..."
-msgstr "Iğsaugoti kitu vardu..."
+msgstr "IÅ¡saugoti kitu vardu..."
 
 #, fuzzy
 msgid "Export As Image"
-msgstr "Eksporto grupë"
+msgstr "Eksporto grupÄ—"
 
 msgid "Exports selected pages as bitmap images."
 msgstr ""
 
 #, fuzzy
 msgid "Save as Image"
-msgstr "Iğsaugoti kitu vardu"
+msgstr "IÅ¡saugoti kitu vardu"
 
 msgid "Error writing the output file(s)."
 msgstr ""
@@ -10607,18 +11332,18 @@ msgstr ""
 
 #, fuzzy
 msgid "Yes all"
-msgstr "Nuimti şymëjimà"
+msgstr "Nuimti Å¾ymÄ—jimÄ…"
 
 msgid "Barcode Creator"
 msgstr ""
 
 #, fuzzy
 msgid "Barcode"
-msgstr "Kontûras"
+msgstr "KontÅ«ras"
 
 #, fuzzy
 msgid "Co&de:"
-msgstr "Ğeğëlis:"
+msgstr "Å eÅ¡Ä—lis:"
 
 msgid "Select one of the available barcode type here"
 msgstr ""
@@ -10644,7 +11369,7 @@ msgstr ""
 
 #, fuzzy
 msgid "I&nclude checksum"
-msgstr "Slëpti sluoksná"
+msgstr "SlÄ—pti sluoksnÄ¯"
 
 msgid "Generate and include a checksum in barcode"
 msgstr ""
@@ -10661,7 +11386,7 @@ msgstr "Pagrindas"
 
 #, fuzzy
 msgid "Alt+B"
-msgstr "Viskà"
+msgstr "ViskÄ…"
 
 msgid "Background color - under the code lines"
 msgstr ""
@@ -10672,11 +11397,11 @@ msgstr "Linija"
 
 #, fuzzy
 msgid "Color of the lines in barcode"
-msgstr "Tekstas per vidurá"
+msgstr "Tekstas per vidurÄ¯"
 
 #, fuzzy
 msgid "Color of the text and numbers"
-msgstr "Atğaukti objekto pağalinimà"
+msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 msgid "Hints and help is shown here"
 msgstr ""
@@ -10703,7 +11428,13 @@ msgstr ""
 msgid "2 digits"
 msgstr ""
 
-msgid "9 or 10 digits separated appropriately with dashes"
+msgid ""
+"For ISBN-10 the data should contain 9 or 10 \t\t\t\t\t\t\t\tdigits separated "
+"appropriately by dash characters.\n"
+"For ISBN-13 the data should contain 12 or 13 \t\t\t\t\t\t\t\tdigits "
+"separated appropriately by dash characters.\n"
+"If the last digit is not given then the ISBN \t\t\t\t\t\t\t\tcheckdigit is "
+"calculated automatically."
 msgstr ""
 
 msgid "Variable number of characters, digits and any of the symbols -. *$/+%."
@@ -10738,7 +11469,7 @@ msgid "Error opening file: %1"
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 #, fuzzy
 msgid "Barcode incomplete"
@@ -10755,7 +11486,7 @@ msgstr ""
 
 #, fuzzy
 msgid "Save as &SVG..."
-msgstr "Iğsaugoti kaip EPS..."
+msgstr "IÅ¡saugoti kaip EPS..."
 
 #, fuzzy
 msgid "SVG Export"
@@ -10774,7 +11505,7 @@ msgid ""
 msgstr ""
 "Ar tikrai nori pakeisti esamo failo:\n"
 "%1\n"
-" turiná?"
+" turinÄ¯?"
 
 #, fuzzy
 msgid "Import &EPS/PS..."
@@ -10786,7 +11517,7 @@ msgstr "Importuoti..."
 
 #, fuzzy
 msgid "Imports EPS Files"
-msgstr "Ákelti duomenis"
+msgstr "Ä®kelti duomenis"
 
 msgid ""
 "Imports most EPS files into the current document,\n"
@@ -10835,12 +11566,44 @@ msgstr "Paprastas"
 msgid "My Plugin"
 msgstr "Paprastas"
 
+#, fuzzy
+#~ msgid "Lines"
+#~ msgstr "Linija"
+
+#, fuzzy
+#~ msgid "&Unit:"
+#~ msgstr "Vienetai"
+
+#, fuzzy
+#~ msgid "Minimum Scratch Space"
+#~ msgstr "VertikalÅ«s tarpai"
+
+#, fuzzy
+#~ msgid "Unit"
+#~ msgstr "Vienetai"
+
+#, fuzzy
+#~ msgid "Name of the color is not unique"
+#~ msgstr "Stiliaus pavadinimas kartojasi"
+
+#, fuzzy
+#~ msgid "Save..."
+#~ msgstr "IÅ¡saugoti kitu vardu..."
+
+#, fuzzy
+#~ msgid "Column 1"
+#~ msgstr "StulpeliÅ³ linijos"
+
+#, fuzzy
+#~ msgid "O&K"
+#~ msgstr "Tinka!"
+
 #~ msgid "Embed in:"
-#~ msgstr "Áterpti á:"
+#~ msgstr "Ä®terpti Ä¯:"
 
 #, fuzzy
 #~ msgid "&Preview"
-#~ msgstr "Pasişiûrëti kaip atrodys"
+#~ msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 #~ msgid "&Load..."
@@ -10860,38 +11623,26 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Vertical Guides"
-#~ msgstr "Vertikalûs tarpai"
+#~ msgstr "VertikalÅ«s tarpai"
 
 #, fuzzy
 #~ msgid "&Rows:"
-#~ msgstr "X vieta èia pat:"
-
-#, fuzzy
-#~ msgid "C&olumns:"
-#~ msgstr "Stulpeliai:"
+#~ msgstr "X vieta Äia pat:"
 
 #, fuzzy
 #~ msgid "Colum&n Gap"
-#~ msgstr "Stulpeliø linijos"
+#~ msgstr "StulpeliÅ³ linijos"
 
 #, fuzzy
 #~ msgid "&Margins"
-#~ msgstr "Parağtë:"
+#~ msgstr "ParaÅ¡tÄ—:"
 
 #, fuzzy
 #~ msgid "&Selection"
-#~ msgstr "Paşymëti"
-
-#, fuzzy
-#~ msgid "&Update"
-#~ msgstr "Prişiûrëti paveiksliukus"
+#~ msgstr "PaÅ¾ymÄ—ti"
 
 #, fuzzy
 #~ msgid "Copy Contents"
-#~ msgstr "Turinys"
-
-#, fuzzy
-#~ msgid "Paste Contents"
 #~ msgstr "Turinys"
 
 #, fuzzy
@@ -10912,29 +11663,21 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Image Settings"
-#~ msgstr "Simboliø parinktys"
+#~ msgstr "SimboliÅ³ parinktys"
 
 #, fuzzy
 #~ msgid "Error creating preview"
-#~ msgstr "Klaida PDFo árağyme"
+#~ msgstr "Klaida PDFo Ä¯raÅ¡yme"
 
 #~ msgid "Other Options"
 #~ msgstr "Kitos parinktys"
 
 #, fuzzy
 #~ msgid "Sa&ve Contents on Changes"
-#~ msgstr "Iğsaugoti kas sukaupta iğeinant"
+#~ msgstr "IÅ¡saugoti kas sukaupta iÅ¡einant"
 
 #~ msgid "Small"
-#~ msgstr "Maşas"
-
-#, fuzzy
-#~ msgid "Large"
-#~ msgstr "apytiksli"
-
-#, fuzzy
-#~ msgid "File Name:"
-#~ msgstr "Failo &vardas:"
+#~ msgstr "MaÅ¾as"
 
 #, fuzzy
 #~ msgid "F&irst Page Number:"
@@ -10942,11 +11685,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Scrapbooks (*.scs);;All Files (*)"
-#~ msgstr "Kiğenë (*.scs);; Visi failai (*)"
+#~ msgstr "KiÅ¡enÄ— (*.scs);; Visi failai (*)"
 
 #, fuzzy
 #~ msgid "&Small"
-#~ msgstr "Maşas"
+#~ msgstr "MaÅ¾as"
 
 #, fuzzy
 #~ msgid "&Medium"
@@ -10958,31 +11701,27 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Load Text from File"
-#~ msgstr "Priskirti tekstui marğtutà"
+#~ msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 #~ msgid "Update Text Frame and Exit"
-#~ msgstr "Teksto rëmelis"
+#~ msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 #~ msgid "Exit Without Updating Text Frame"
-#~ msgstr "Uşdaryti neiğsaugant"
+#~ msgstr "UÅ¾daryti neiÅ¡saugant"
 
 #, fuzzy
 #~ msgid "Reload Text from Frame"
-#~ msgstr "Priskirti tekstui marğtutà"
+#~ msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 #~ msgid "Update Text Frame"
-#~ msgstr "Teksto rëmelis"
+#~ msgstr "Teksto rÄ—melis"
 
 #, fuzzy
 #~ msgid "unknown"
-#~ msgstr "Neşinomas"
-
-#, fuzzy
-#~ msgid "Active"
-#~ msgstr "Veiksmas"
+#~ msgstr "NeÅ¾inomas"
 
 #, fuzzy
 #~ msgid "End"
@@ -10994,7 +11733,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "SVG Images (*.svg *.svgz);;"
-#~ msgstr "Kiğenë (*.scs);; Visi failai (*)"
+#~ msgstr "KiÅ¡enÄ— (*.scs);; Visi failai (*)"
 
 #, fuzzy
 #~ msgid "SVG Images (*.svg);;"
@@ -11006,7 +11745,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Enabled"
-#~ msgstr "Keièiamas"
+#~ msgstr "KeiÄiamas"
 
 #, fuzzy
 #~ msgid "&Method:"
@@ -11030,19 +11769,19 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Do you really want to delete this Style?"
-#~ msgstr "Ar tu tikrai labai nori pağalinti stiliø?"
+#~ msgstr "Ar tu tikrai labai nori paÅ¡alinti stiliÅ³?"
 
 #, fuzzy
 #~ msgid "&Leave Anyway"
-#~ msgstr "Vistiek uşdaryti"
+#~ msgstr "Vistiek uÅ¾daryti"
 
 #, fuzzy
 #~ msgid "C&lose Anyway"
-#~ msgstr "Vistiek uşdaryti"
+#~ msgstr "Vistiek uÅ¾daryti"
 
 #, fuzzy
 #~ msgid "&Save Now"
-#~ msgstr "Iğsaugoti tuoj pat"
+#~ msgstr "IÅ¡saugoti tuoj pat"
 
 #, fuzzy
 #~ msgid "Export"
@@ -11050,11 +11789,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Show Master Page Names"
-#~ msgstr "Rodyti ğablono pavadinimà"
+#~ msgstr "Rodyti Å¡ablono pavadinimÄ…"
 
 #, fuzzy
 #~ msgid "Previews all the pages of your document"
-#~ msgstr "Èia galite matyti visus dokumento puslapius."
+#~ msgstr "ÄŒia galite matyti visus dokumento puslapius."
 
 #~ msgid "Facing Pages"
 #~ msgstr "Tituliniai puslapiai"
@@ -11065,11 +11804,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "S&etup editor..."
-#~ msgstr "Naudoti paveiksliukà..."
+#~ msgstr "Naudoti paveiksliukÄ…..."
 
 #, fuzzy
 #~ msgid "&Info and Languages..."
-#~ msgstr "Eilë:"
+#~ msgstr "EilÄ—:"
 
 #, fuzzy
 #~ msgid "About Short Words"
@@ -11105,18 +11844,18 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "First &Line:"
-#~ msgstr "Pirmoji eilutë:"
+#~ msgstr "Pirmoji eilutÄ—:"
 
 #, fuzzy
 #~ msgid "Left Ind&ent:"
-#~ msgstr "Kairioji átrauka:"
+#~ msgstr "Kairioji Ä¯trauka:"
 
 #~ msgid "Apply Template"
-#~ msgstr "Pritaikyti ğablonà"
+#~ msgstr "Pritaikyti Å¡ablonÄ…"
 
 #, fuzzy
 #~ msgid "&Template:"
-#~ msgstr "Naujas ğablonas"
+#~ msgstr "Naujas Å¡ablonas"
 
 # New in Version 0.8
 #, fuzzy
@@ -11130,7 +11869,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Update Picture"
-#~ msgstr "Prişiûrëti paveiksliukus"
+#~ msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
 
 #, fuzzy
 #~ msgid "&Edit Picture"
@@ -11138,7 +11877,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Edit Text..."
-#~ msgstr "Naudoti tekstà..."
+#~ msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 #~ msgid "Un&lock"
@@ -11146,48 +11885,44 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Lock Object &Size"
-#~ msgstr "Atğaukti objekto postûmá"
+#~ msgstr "AtÅ¡aukti objekto postÅ«mÄ¯"
 
 #, fuzzy
 #~ msgid "Unlock Object &Size"
-#~ msgstr "Atğaukti objekto postûmá"
+#~ msgstr "AtÅ¡aukti objekto postÅ«mÄ¯"
 
 #, fuzzy
 #~ msgid "Un&group"
-#~ msgstr "Iğardyti junginá"
+#~ msgstr "IÅ¡ardyti junginÄ¯"
 
 #, fuzzy
 #~ msgid "Send to &Back"
-#~ msgstr "Perkelti apaèion"
+#~ msgstr "Perkelti apaÄion"
 
 #, fuzzy
 #~ msgid "Bring to &Front"
-#~ msgstr "Perkelti virğun"
+#~ msgstr "Perkelti virÅ¡un"
 
 #, fuzzy
 #~ msgid "&Picture Frame"
-#~ msgstr "Paveiksliuko rëmelis"
+#~ msgstr "Paveiksliuko rÄ—melis"
 
 #, fuzzy
 #~ msgid "Pol&ygon"
 #~ msgstr "Daugiakampis"
 
 #~ msgid "Insert Picture"
-#~ msgstr "Áterpti paveiksliukà"
+#~ msgstr "Ä®terpti paveiksliukÄ…"
 
 #~ msgid "Edit Templates"
-#~ msgstr "Keisti ğablonus"
+#~ msgstr "Keisti Å¡ablonus"
 
 #~ msgid "New Template"
-#~ msgstr "Naujas ğablonas"
+#~ msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 #~ msgid "Folio"
 #~ msgstr "Pusjuodis"
-
-#, fuzzy
-#~ msgid "Ledger"
-#~ msgstr "Per vidurá"
 
 #, fuzzy
 #~ msgid "&Facing Pages"
@@ -11195,20 +11930,20 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Doc-Checker"
-#~ msgstr "Şymëti"
+#~ msgstr "Å½ymÄ—ti"
 
 #, fuzzy
 #~ msgid "&Outside:"
-#~ msgstr "Iğorinë parağtë:"
+#~ msgstr "IÅ¡orinÄ— paraÅ¡tÄ—:"
 
 #~ msgid "Distribute/Align"
-#~ msgstr "Iğskirstyti/iğligiuoti"
+#~ msgstr "IÅ¡skirstyti/iÅ¡ligiuoti"
 
 #~ msgid "Left Sides"
-#~ msgstr "pagal kairá krağtà"
+#~ msgstr "pagal kairÄ¯ kraÅ¡tÄ…"
 
 #~ msgid "Right Sides"
-#~ msgstr "pagal değiná krağtà"
+#~ msgstr "pagal deÅ¡inÄ¯ kraÅ¡tÄ…"
 
 #, fuzzy
 #~ msgid "&Between:"
@@ -11227,10 +11962,10 @@ msgstr "Paprastas"
 #~ msgstr "Slinktis"
 
 #~ msgid "Top Sides"
-#~ msgstr "pagal virğutiná krağtà"
+#~ msgstr "pagal virÅ¡utinÄ¯ kraÅ¡tÄ…"
 
 #~ msgid "Bottom Sides"
-#~ msgstr "pagal apatiná krağtà"
+#~ msgstr "pagal apatinÄ¯ kraÅ¡tÄ…"
 
 #, fuzzy
 #~ msgid "Bet&ween:"
@@ -11250,7 +11985,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Import Page(s)..."
-#~ msgstr "Áklijuoti puslapá"
+#~ msgstr "Ä®klijuoti puslapÄ¯"
 
 #, fuzzy
 #~ msgid "Document &Information..."
@@ -11258,7 +11993,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Templates..."
-#~ msgstr "Ğablonai..."
+#~ msgstr "Å ablonai..."
 
 #, fuzzy
 #~ msgid "&Invert"
@@ -11266,19 +12001,19 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Distribute/&Align..."
-#~ msgstr "Iğskirstyti/iğlygiuoti..."
+#~ msgstr "IÅ¡skirstyti/iÅ¡lygiuoti..."
 
 #, fuzzy
 #~ msgid "C&onvert to Outlines"
-#~ msgstr "Pakeisti á"
+#~ msgstr "Pakeisti Ä¯"
 
 #, fuzzy
 #~ msgid "P&age Palette"
-#~ msgstr "Slëpti puslapio paletæ"
+#~ msgstr "SlÄ—pti puslapio paletÄ™"
 
 #, fuzzy
 #~ msgid "&Insert Special"
-#~ msgstr "Áterpti apskritimà"
+#~ msgstr "Ä®terpti apskritimÄ…"
 
 #, fuzzy
 #~ msgid ""
@@ -11287,7 +12022,7 @@ msgstr "Paprastas"
 #~ msgstr ""
 #~ "Ar tikrai nori pakeisti esamo failo:\n"
 #~ "%1\n"
-#~ " turiná?"
+#~ " turinÄ¯?"
 
 #, fuzzy
 #~ msgid "Ukrainian"
@@ -11295,11 +12030,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Template (&Left Page):"
-#~ msgstr "Ğablonas pirmam puslapiui:"
+#~ msgstr "Å ablonas pirmam puslapiui:"
 
 #, fuzzy
 #~ msgid "Template (&Right Page):"
-#~ msgstr "Ğablonas pirmam puslapiui:"
+#~ msgstr "Å ablonas pirmam puslapiui:"
 
 #, fuzzy
 #~ msgid "Custom Spacing"
@@ -11307,15 +12042,15 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Kerning:"
-#~ msgstr "Dëmesio!"
+#~ msgstr "DÄ—mesio!"
 
 #, fuzzy
 #~ msgid "L&ine Spacing:"
-#~ msgstr "Tarpas tarp eiluèiø"
+#~ msgstr "Tarpas tarp eiluÄiÅ³"
 
 #, fuzzy
 #~ msgid "&Font:"
-#~ msgstr "&Ğriftas"
+#~ msgstr "&Å riftas"
 
 #, fuzzy
 #~ msgid "Si&ze:"
@@ -11334,15 +12069,15 @@ msgstr "Paprastas"
 #~ msgstr "Nauja spalva:"
 
 #~ msgid "Vertical Spaces"
-#~ msgstr "Vertikalûs tarpai"
+#~ msgstr "VertikalÅ«s tarpai"
 
 #, fuzzy
 #~ msgid "Adjust to Baseline &Grid"
-#~ msgstr "Slëpti pagalbines linijas"
+#~ msgstr "SlÄ—pti pagalbines linijas"
 
 #, fuzzy
 #~ msgid "Abo&ve:"
-#~ msgstr "Prieğ:"
+#~ msgstr "PrieÅ¡:"
 
 #, fuzzy
 #~ msgid "&Below:"
@@ -11350,22 +12085,22 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Import Template"
-#~ msgstr "Ákelti duomenis"
+#~ msgstr "Ä®kelti duomenis"
 
 #, fuzzy
 #~ msgid "&Import Template"
-#~ msgstr "Ákelti duomenis"
+#~ msgstr "Ä®kelti duomenis"
 
 #~ msgid "Left Page first"
 #~ msgstr "Kairysis puslapis pirmas"
 
 #, fuzzy
 #~ msgid "Kerning:"
-#~ msgstr "Dëmesio!"
+#~ msgstr "DÄ—mesio!"
 
 #, fuzzy
 #~ msgid "&Insert Special..."
-#~ msgstr "Áterpti..."
+#~ msgstr "Ä®terpti..."
 
 #, fuzzy
 #~ msgid "Brazilian Portugese"
@@ -11377,7 +12112,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Czech:"
-#~ msgstr "Prancûziğkai:"
+#~ msgstr "PrancÅ«ziÅ¡kai:"
 
 #, fuzzy
 #~ msgid "Danish:"
@@ -11393,13 +12128,13 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Esperanto:"
-#~ msgstr "Ávykis:"
+#~ msgstr "Ä®vykis:"
 
 #~ msgid "French:"
-#~ msgstr "Prancûziğkai:"
+#~ msgstr "PrancÅ«ziÅ¡kai:"
 
 #~ msgid "German:"
-#~ msgstr "Vokiğkai:"
+#~ msgstr "VokiÅ¡kai:"
 
 #, fuzzy
 #~ msgid "Italian:"
@@ -11411,14 +12146,14 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Serbian:"
-#~ msgstr "Slovakø:"
+#~ msgstr "SlovakÅ³:"
 
 #~ msgid "Slovak:"
-#~ msgstr "Slovakø:"
+#~ msgstr "SlovakÅ³:"
 
 #, fuzzy
 #~ msgid "Slovenian:"
-#~ msgstr "Slovakø:"
+#~ msgstr "SlovakÅ³:"
 
 #, fuzzy
 #~ msgid "Spanish:"
@@ -11429,7 +12164,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Basque:"
-#~ msgstr "Ğiuo pagrindu:"
+#~ msgstr "Å iuo pagrindu:"
 
 #, fuzzy
 #~ msgid "Brazilian:"
@@ -11441,14 +12176,14 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Hungarian:"
-#~ msgstr "Vengrø ir italø:"
+#~ msgstr "VengrÅ³ ir italÅ³:"
 
 #~ msgid "Lithuanian:"
-#~ msgstr "Lietuviø:"
+#~ msgstr "LietuviÅ³:"
 
 #, fuzzy
 #~ msgid "T&emplates:"
-#~ msgstr "Naujas ğablonas"
+#~ msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 #~ msgid "&Refresh"
@@ -11456,11 +12191,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Template: "
-#~ msgstr "Naujas ğablonas"
+#~ msgstr "Naujas Å¡ablonas"
 
 #, fuzzy
 #~ msgid "&Fonts Preview"
-#~ msgstr "Pasişiûrëti kaip atrodys"
+#~ msgstr "PasiÅ¾iÅ«rÄ—ti kaip atrodys"
 
 #, fuzzy
 #~ msgid "Update paragraph styles"
@@ -11472,15 +12207,15 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Global Font Settings"
-#~ msgstr "Visuotinës ğrifto nuostatos"
+#~ msgstr "VisuotinÄ—s Å¡rifto nuostatos"
 
 #, fuzzy
 #~ msgid "&Get Text..."
-#~ msgstr "Naudoti tekstà..."
+#~ msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 #~ msgid "&Append Text..."
-#~ msgstr "Naudoti tekstà..."
+#~ msgstr "Naudoti tekstÄ…..."
 
 #, fuzzy
 #~ msgid "Show P&roperties..."
@@ -11496,14 +12231,14 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Delete color:"
-#~ msgstr "Iğtrinti spalvà"
+#~ msgstr "IÅ¡trinti spalvÄ…"
 
 #~ msgid "Replace it with:"
-#~ msgstr "Pakeisti á:"
+#~ msgstr "Pakeisti Ä¯:"
 
 #, fuzzy
 #~ msgid "Do measurements"
-#~ msgstr "Matø sistema"
+#~ msgstr "MatÅ³ sistema"
 
 #, fuzzy
 #~ msgid "Points (pts)"
@@ -11513,124 +12248,111 @@ msgstr "Paprastas"
 #~ msgid "Orientation:"
 #~ msgstr "Orientacija:"
 
-#~ msgid "Height:"
-#~ msgstr "Aukğtis:"
-
 #, fuzzy
 #~ msgid "Portugese (Brazilian)"
 #~ msgstr "Ukrainos:"
 
 #, fuzzy
-#~ msgid "Close the current Document"
-#~ msgstr "Nutraukti darbà su ğiuo dokumentu"
-
-#, fuzzy
 #~ msgid "Print the current Document"
-#~ msgstr "Atspausdink darbà"
+#~ msgstr "Atspausdink darbÄ…"
 
 #, fuzzy
 #~ msgid "Save the current Document as PDF"
-#~ msgstr "Iğsaugok darbiná dokumentà PDF formatu"
+#~ msgstr "IÅ¡saugok darbinÄ¯ dokumentÄ… PDF formatu"
 
 #~ msgid "Align Center"
-#~ msgstr "Lygiuoti per vidurá"
+#~ msgstr "Lygiuoti per vidurÄ¯"
 
 #~ msgid "Attach Text to Path"
-#~ msgstr "Priskirti tekstui marğtutà"
-
-#~ msgid "Show Layers"
-#~ msgstr "Paroddyti sluoksná"
+#~ msgstr "Priskirti tekstui marÅ¡tutÄ…"
 
 #, fuzzy
 #~ msgid "Javascripts..."
 #~ msgstr "Java Script"
 
 #~ msgid "Show Page Palette"
-#~ msgstr "Rodyti puslapio paletæ"
+#~ msgstr "Rodyti puslapio paletÄ™"
 
 #~ msgid "Open..."
 #~ msgstr "Atidaryti..."
 
 #, fuzzy
 #~ msgid "&Get Text/Picture..."
-#~ msgstr "Naudoti tekstà/paveiksliukà..."
+#~ msgstr "Naudoti tekstÄ…/paveiksliukÄ…..."
 
 #~ msgid "Document Setup..."
-#~ msgstr "Dokumento nuostatø keitimas..."
+#~ msgstr "Dokumento nuostatÅ³ keitimas..."
 
 #~ msgid "Select all"
-#~ msgstr "Paşymëti viskà"
+#~ msgstr "PaÅ¾ymÄ—ti viskÄ…"
 
 #~ msgid "Templates..."
-#~ msgstr "Ğablonai..."
+#~ msgstr "Å ablonai..."
 
 #, fuzzy
 #~ msgid "Select New Font"
-#~ msgstr "Pasirink ğriftà"
+#~ msgstr "Pasirink Å¡riftÄ…"
 
 #~ msgid "Duplicate"
 #~ msgstr "Padvigubinti"
 
 #, fuzzy
 #~ msgid "Un-group"
-#~ msgstr "Iğardyti junginá"
+#~ msgstr "IÅ¡ardyti junginÄ¯"
 
 #~ msgid "Send to Back"
-#~ msgstr "Perkelti apaèion"
+#~ msgstr "Perkelti apaÄion"
 
 #~ msgid "Bring to Front"
-#~ msgstr "Perkelti virğun"
+#~ msgstr "Perkelti virÅ¡un"
 
 #~ msgid "Lower"
-#~ msgstr "Per vienà şemiau"
+#~ msgstr "Per vienÄ… Å¾emiau"
 
 #~ msgid "Raise"
-#~ msgstr "Per vienà aukğèiau"
+#~ msgstr "Per vienÄ… aukÅ¡Äiau"
 
 #~ msgid "Distribute/Align..."
-#~ msgstr "Iğskirstyti/iğlygiuoti..."
+#~ msgstr "IÅ¡skirstyti/iÅ¡lygiuoti..."
 
 #~ msgid "Insert..."
-#~ msgstr "Áterpti..."
+#~ msgstr "Ä®terpti..."
 
 #~ msgid "Delete..."
-#~ msgstr "Iğtrinti..."
+#~ msgstr "IÅ¡trinti..."
 
 #~ msgid "Move..."
 #~ msgstr "Perkelti..."
 
 #~ msgid "Apply Template..."
-#~ msgstr "Pritaikyti ğablonà..."
+#~ msgstr "Pritaikyti Å¡ablonÄ…..."
 
 #, fuzzy
 #~ msgid "Manage Guides..."
-#~ msgstr "Parağèiø linijos"
-
-#~ msgid "Fit in Window"
-#~ msgstr "Dydis kaip lango"
+#~ msgstr "ParaÅ¡ÄiÅ³ linijos"
 
 #~ msgid "Hide Margins"
-#~ msgstr "Slëpti parağtes"
+#~ msgstr "SlÄ—pti paraÅ¡tes"
 
 #~ msgid "Hide Frames"
-#~ msgstr "Slëpti rëmelius"
+#~ msgstr "SlÄ—pti rÄ—melius"
 
 #~ msgid "Hide Images"
-#~ msgstr "Slëpti paveiksliukus"
+#~ msgstr "SlÄ—pti paveiksliukus"
 
 #~ msgid "Snap to Grid"
 #~ msgstr "Pritraukti prie tinklelio"
 
 #, fuzzy
 #~ msgid "Tooltips"
-#~ msgstr "Árankiai"
+#~ msgstr "Ä®rankiai"
 
 #, fuzzy
 #~ msgid "&Fonts..."
-#~ msgstr "Ğriftai..."
+#~ msgstr "Å riftai..."
 
 #~ msgid "Fonts..."
-#~ msgstr "Ğriftai..."
+#~ msgstr "Å riftai..."
 
 #~ msgid "About Scribus"
 #~ msgstr "Apie Scribus"
@@ -11639,41 +12361,41 @@ msgstr "Paprastas"
 #~ msgstr "Pagalba tinkle..."
 
 #~ msgid "Get Text/Picture..."
-#~ msgstr "Naudoti tekstà/paveiksliukà..."
+#~ msgstr "Naudoti tekstÄ…/paveiksliukÄ…..."
 
 #~ msgid "Get Picture..."
-#~ msgstr "Naudoti paveiksliukà..."
+#~ msgstr "Naudoti paveiksliukÄ…..."
 
 #, fuzzy
 #~ msgid "&Undo Delete Object"
-#~ msgstr "Atğaukti objekto pağalinimà"
+#~ msgstr "AtÅ¡aukti objekto paÅ¡alinimÄ…"
 
 #, fuzzy
 #~ msgid "&Undo Object Move"
-#~ msgstr "Atğaukti objekto postûmá"
+#~ msgstr "AtÅ¡aukti objekto postÅ«mÄ¯"
 
 #, fuzzy
 #~ msgid "&Undo Object Change"
-#~ msgstr "Atğaukti objekto pakeitimus"
+#~ msgstr "AtÅ¡aukti objekto pakeitimus"
 
 #, fuzzy
 #~ msgid "Outline Text"
-#~ msgstr "Kontûras"
+#~ msgstr "KontÅ«ras"
 
 #, fuzzy
 #~ msgid "&Inserting"
-#~ msgstr "Áterpinëju"
+#~ msgstr "Ä®terpinÄ—ju"
 
 #~ msgid "Inserting"
-#~ msgstr "Áterpinëju"
+#~ msgstr "Ä®terpinÄ—ju"
 
 #, fuzzy
 #~ msgid "Color Management Settings"
-#~ msgstr "Spalvø derinimo parinktys"
+#~ msgstr "SpalvÅ³ derinimo parinktys"
 
 #, fuzzy
 #~ msgid "Grid Layout"
-#~ msgstr "Tinklelio iğdëstymas:"
+#~ msgstr "Tinklelio iÅ¡dÄ—stymas:"
 
 #, fuzzy
 #~ msgid "M&inor Grid Spacing:"
@@ -11697,7 +12419,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Placing"
-#~ msgstr "Áterpti:"
+#~ msgstr "Ä®terpti:"
 
 #, fuzzy
 #~ msgid "O&n"
@@ -11705,7 +12427,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Default &Font:"
-#~ msgstr "Nutylimas ğriftas"
+#~ msgstr "Nutylimas Å¡riftas"
 
 #, fuzzy
 #~ msgid "Default &Size:"
@@ -11713,11 +12435,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Type of Line:"
-#~ msgstr "Sistemos ğablonai"
+#~ msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 #~ msgid "Display Pages &Side by Side"
-#~ msgstr "Rodyti puslapius vienà po kito"
+#~ msgstr "Rodyti puslapius vienÄ… po kito"
 
 #, fuzzy
 #~ msgid "Scribus - New Macro"
@@ -11725,7 +12447,7 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Editing Macro:"
-#~ msgstr "Uşdaryti tuoj pat"
+#~ msgstr "UÅ¾daryti tuoj pat"
 
 #, fuzzy
 #~ msgid "&Ok"
@@ -11737,11 +12459,11 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "&Save Source As..."
-#~ msgstr "Iğsaugoti kitu vardu..."
+#~ msgstr "IÅ¡saugoti kitu vardu..."
 
 #, fuzzy
 #~ msgid "<qt>Create a new macro.</qt>"
-#~ msgstr "Sukurk naujà dokumentà"
+#~ msgstr "Sukurk naujÄ… dokumentÄ…"
 
 #, fuzzy
 #~ msgid "Return to Scribus"
@@ -11749,15 +12471,15 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Rena&me"
-#~ msgstr "Pağalinti"
+#~ msgstr "PaÅ¡alinti"
 
 #, fuzzy
 #~ msgid "Alt+M"
-#~ msgstr "Viskà"
+#~ msgstr "ViskÄ…"
 
 #, fuzzy
 #~ msgid "&Set Accel"
-#~ msgstr "Paşymëti viskà"
+#~ msgstr "PaÅ¾ymÄ—ti viskÄ…"
 
 #, fuzzy
 #~ msgid "E&xport"
@@ -11765,15 +12487,15 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Alt+X"
-#~ msgstr "Viskà"
+#~ msgstr "ViskÄ…"
 
 #, fuzzy
 #~ msgid "Delete &All"
-#~ msgstr "Iğtrinti"
+#~ msgstr "IÅ¡trinti"
 
 #, fuzzy
 #~ msgid "Delete all macros."
-#~ msgstr "Iğtrinti spalvà"
+#~ msgstr "IÅ¡trinti spalvÄ…"
 
 #, fuzzy
 #~ msgid "S&cript"
@@ -11789,19 +12511,15 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Save changes and close"
-#~ msgstr "Áğsaugok savo darbà"
+#~ msgstr "Ä®Å¡saugok savo darbÄ…"
 
 #, fuzzy
 #~ msgid "Cannot save to a blank filename."
-#~ msgstr "Kà nors pakeisti rëmelyje"
+#~ msgstr "KÄ… nors pakeisti rÄ—melyje"
 
 #, fuzzy
 #~ msgid "Manage Macros"
-#~ msgstr "Prişiûrëti paveiksliukus"
-
-#, fuzzy
-#~ msgid "&Options"
-#~ msgstr "Nuostatos"
+#~ msgstr "PriÅ¾iÅ«rÄ—ti paveiksliukus"
 
 #, fuzzy
 #~ msgid "&Fully Automatic"
@@ -11809,21 +12527,21 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Conve&x Polygon"
-#~ msgstr "Iğgaubtas daugiakampis"
+#~ msgstr "IÅ¡gaubtas daugiakampis"
 
 #~ msgid "Programming:"
 #~ msgstr "Programavo:"
 
 #, fuzzy
 #~ msgid "&Edit Frame"
-#~ msgstr "Keisti rëmelá"
+#~ msgstr "Keisti rÄ—melÄ¯"
 
 #, fuzzy
 #~ msgid "PDF Documents (*.pdf);;All Files (*)"
 #~ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #~ msgid "Convex Polygon"
-#~ msgstr "Iğgaubtas daugiakampis"
+#~ msgstr "IÅ¡gaubtas daugiakampis"
 
 #~ msgid "Factor:"
 #~ msgstr "Daugiklis:"
@@ -11842,7 +12560,7 @@ msgstr "Paprastas"
 #~ msgstr "Atitaisyti"
 
 #~ msgid "Left:"
-#~ msgstr "Nuo kairës:"
+#~ msgstr "Nuo kairÄ—s:"
 
 #, fuzzy
 #~ msgid "X-Pos.:"
@@ -11854,19 +12572,19 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Use ICC-Profile"
-#~ msgstr "Sistemos ğablonai"
+#~ msgstr "Sistemos Å¡ablonai"
 
 #, fuzzy
 #~ msgid "&Manage Guides..."
-#~ msgstr "Parağèiø linijos"
+#~ msgstr "ParaÅ¡ÄiÅ³ linijos"
 
 #, fuzzy
 #~ msgid "PDF-Tools"
-#~ msgstr "Árankiai"
+#~ msgstr "Ä®rankiai"
 
 #, fuzzy
 #~ msgid "Leave"
-#~ msgstr "Iğsaugoti"
+#~ msgstr "IÅ¡saugoti"
 
 #, fuzzy
 #~ msgid "Quality :"
@@ -11876,10 +12594,10 @@ msgstr "Paprastas"
 #~ msgstr "iki - "
 
 #~ msgid "Print last page first"
-#~ msgstr "Pradëti nuo paskutiniojo puslapio"
+#~ msgstr "PradÄ—ti nuo paskutiniojo puslapio"
 
 #~ msgid "Print first page first"
-#~ msgstr "Pradëti nuo pirmojo puslapio"
+#~ msgstr "PradÄ—ti nuo pirmojo puslapio"
 
 #, fuzzy
 #~ msgid "Document contains: 0 Page(s)"
@@ -11889,15 +12607,12 @@ msgstr "Paprastas"
 #~ msgid "Document contains: %1 Page(s)"
 #~ msgstr "Dokumento puslapiai:"
 
-#~ msgid "Show Images"
-#~ msgstr "Rodyti paveiksliukus"
-
 #, fuzzy
 #~ msgid "Hide Grid"
-#~ msgstr "Slëpti pagalbines linijas"
+#~ msgstr "SlÄ—pti pagalbines linijas"
 
 #~ msgid "Snap to Guides"
-#~ msgstr "Pritraukti prie pagalbiniø linijø"
+#~ msgstr "Pritraukti prie pagalbiniÅ³ linijÅ³"
 
 #~ msgid "Big"
 #~ msgstr "Didelis"
@@ -11907,15 +12622,15 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Hide &Margins"
-#~ msgstr "Slëpti parağtes"
+#~ msgstr "SlÄ—pti paraÅ¡tes"
 
 #, fuzzy
 #~ msgid "Hide &Frames"
-#~ msgstr "Slëpti rëmelius"
+#~ msgstr "SlÄ—pti rÄ—melius"
 
 #, fuzzy
 #~ msgid "Hide &Images"
-#~ msgstr "Slëpti paveiksliukus"
+#~ msgstr "SlÄ—pti paveiksliukus"
 
 #, fuzzy
 #~ msgid "Snap to &Grid"
@@ -11923,44 +12638,41 @@ msgstr "Paprastas"
 
 #, fuzzy
 #~ msgid "Hide G&uides"
-#~ msgstr "Slëpti pagalbines linijas"
+#~ msgstr "SlÄ—pti pagalbines linijas"
 
 #, fuzzy
 #~ msgid "Insert Special"
-#~ msgstr "Áterpti apskritimà"
+#~ msgstr "Ä®terpti apskritimÄ…"
 
 #~ msgid "Hide Measurements"
-#~ msgstr "Slëpti matuoklá"
+#~ msgstr "SlÄ—pti matuoklÄ¯"
 
 #~ msgid "Scaled to "
 #~ msgstr "Dydis pakeistas iki "
 
 #~ msgid "Gutter Width:"
-#~ msgstr "Uşribio plotis:"
+#~ msgstr "UÅ¾ribio plotis:"
 
 #~ msgid "W:"
 #~ msgstr "W:"
 
 #~ msgid "OK to delete Color:"
-#~ msgstr "Noriu iğtrinti spalvà:"
+#~ msgstr "Noriu iÅ¡trinti spalvÄ…:"
 
 #~ msgid "Edit Colors"
 #~ msgstr "Keisti spalvas"
 
 #~ msgid "Hide Colors"
-#~ msgstr "Slëpti spalvø áranká"
-
-#~ msgid "Show Outline"
-#~ msgstr "Rodyti kontûrø áranká"
+#~ msgstr "SlÄ—pti spalvÅ³ Ä¯rankÄ¯"
 
 #~ msgid "Hide Outline"
-#~ msgstr "Slëpti kontûrø áranká"
+#~ msgstr "SlÄ—pti kontÅ«rÅ³ Ä¯rankÄ¯"
 
 #~ msgid "Print to printer:"
 #~ msgstr "Spausdinti spausdintuvu:"
 
 #~ msgid "locally connected"
-#~ msgstr "prijungtas èia pat"
+#~ msgstr "prijungtas Äia pat"
 
 #~ msgid "Paper format"
 #~ msgstr "Lapo formatas"
@@ -11981,7 +12693,7 @@ msgstr "Paprastas"
 #~ msgstr "Spausdinimo klaida"
 
 #~ msgid "Saving aborted"
-#~ msgstr "Árağymas nutrauktas"
+#~ msgstr "Ä®raÅ¡ymas nutrauktas"
 
 #~ msgid "Loading aborted"
 #~ msgstr "Atidarymas nutrauktas"
@@ -11990,28 +12702,28 @@ msgstr "Paprastas"
 #~ msgstr " pakrautas"
 
 #~ msgid " saved"
-#~ msgstr " iğsaugotas"
+#~ msgstr " iÅ¡saugotas"
 
 #~ msgid "Unable to create PDF-File."
-#~ msgstr "Neámanoma árağyti PDFo."
+#~ msgstr "NeÄ¯manoma Ä¯raÅ¡yti PDFo."
 
 #~ msgid "Error during EPS-Export"
-#~ msgstr "Klaida EPSo árağyme"
+#~ msgstr "Klaida EPSo Ä¯raÅ¡yme"
 
 #~ msgid "To End"
-#~ msgstr "á pabaigà"
+#~ msgstr "Ä¯ pabaigÄ…"
 
 #~ msgid "Modify..."
 #~ msgstr "Pataisyti..."
 
 #~ msgid "Modify Textframe"
-#~ msgstr "Pataisyti teksto rëmelá"
+#~ msgstr "Pataisyti teksto rÄ—melÄ¯"
 
 #~ msgid "Modify Frame"
-#~ msgstr "Pataisyti rëmelá"
+#~ msgstr "Pataisyti rÄ—melÄ¯"
 
 #~ msgid "Don't print"
-#~ msgstr "Nespausdink ğito"
+#~ msgstr "Nespausdink Å¡ito"
 
 #~ msgid "Properties:"
 #~ msgstr "Nuostatos:"
@@ -12032,25 +12744,25 @@ msgstr "Paprastas"
 #~ msgstr "Apverstas vertikaliai"
 
 #~ msgid "Modify Pictureframe"
-#~ msgstr "Keisti pav.rëmelá"
+#~ msgstr "Keisti pav.rÄ—melÄ¯"
 
 #~ msgid "Scaling X:"
-#~ msgstr "Keisti X dydá:"
+#~ msgstr "Keisti X dydÄ¯:"
 
 #~ msgid "Scaling Y:"
-#~ msgstr "Keisti Y dydá:"
+#~ msgstr "Keisti Y dydÄ¯:"
 
 #~ msgid "Break Textchains"
-#~ msgstr "Nutraukti teksto grandá"
+#~ msgstr "Nutraukti teksto grandÄ¯"
 
 #~ msgid "Lithuaniain:"
-#~ msgstr "Lietuviø:"
+#~ msgstr "LietuviÅ³:"
 
 #~ msgid "New Style:"
 #~ msgstr "Naujas stilius:"
 
 #~ msgid "Hide Styles"
-#~ msgstr "Slëpti sliliø sàrağà"
+#~ msgstr "SlÄ—pti sliliÅ³ sÄ…raÅ¡Ä…"
 
 #~ msgid "Styles"
 #~ msgstr "Stiliai"
@@ -12059,34 +12771,34 @@ msgstr "Paprastas"
 #~ msgstr "AFM failas leistinas"
 
 #~ msgid "Show Scrapbook"
-#~ msgstr "Rodyti kiğenæ"
+#~ msgstr "Rodyti kiÅ¡enÄ™"
 
 #~ msgid "Left Page based on:"
 #~ msgstr "Kairysis puslapis pagal:"
 
 #~ msgid "Right Page based on:"
-#~ msgstr "Değinysis puslapis pagal:"
+#~ msgstr "DeÅ¡inysis puslapis pagal:"
 
 #~ msgid "Sorry, no Manual available!"
-#~ msgstr "Deja, pagalbiniø aprağymø nëra!"
+#~ msgstr "Deja, pagalbiniÅ³ apraÅ¡ymÅ³ nÄ—ra!"
 
 #~ msgid "Corner Radius:"
 #~ msgstr "Kampo apvalumas:"
 
 #~ msgid "Rounded Rectangle"
-#~ msgstr "Staèiakampis apvaliais kampais"
+#~ msgstr "StaÄiakampis apvaliais kampais"
 
 #~ msgid "Align Text Block"
-#~ msgstr "Iğlyginti abu teksto pakrağèius"
+#~ msgstr "IÅ¡lyginti abu teksto pakraÅ¡Äius"
 
 #~ msgid "Y-Dir:"
 #~ msgstr "Y-kryptis:"
 
 #~ msgid "Modify Pathtext"
-#~ msgstr "Pakeisti marğruto tekstà"
+#~ msgstr "Pakeisti marÅ¡ruto tekstÄ…"
 
 #~ msgid "Scale When:"
-#~ msgstr "Keisti mastelá kai:"
+#~ msgstr "Keisti mastelÄ¯ kai:"
 
 #~ msgid "Global JavaScripts"
-#~ msgstr "Globalûs JavaScriptai"
+#~ msgstr "GlobalÅ«s JavaScriptai"

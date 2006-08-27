@@ -78,8 +78,9 @@ void LanguageManager::generateLangList()
 	langList.insert("lt",       langPair("Lithuanian",          QObject::tr( "Lithuanian" )) );
 	langList.insert("lt_LT",    langPair("Lithuanian",          QObject::tr( "Lithuanian" )) );
 	langList.insert("lu",       langPair("Luxembourgish",       QObject::tr( "Luxembourgish" )) );
-	langList.insert("nb",       langPair("Norwegian (Bokmål)", QObject::tr( "Norwegian (Bokmål)" )) );
-	langList.insert("nb_NO",    langPair("Norwegian (Bokmål)", QObject::tr( "Norwegian (Bokmål)" )) );
+	//We might need &#00E5; for this accented a
+	langList.insert("nb",       langPair("Norwegian (Bokmål)",  QObject::tr( "Norwegian (Bokmål)" )) );
+	langList.insert("nb_NO",    langPair("Norwegian (Bokmål)",  QObject::tr( "Norwegian (Bokmål)" )) );
 	langList.insert("nn",       langPair("Norwegian (Nnyorsk)", QObject::tr( "Norwegian (Nnyorsk)" )) );
 	langList.insert("nn_NO",    langPair("Norwegian (Nnyorsk)", QObject::tr( "Norwegian (Nnyorsk)" )) );
 	langList.insert("no",       langPair("Norwegian",           QObject::tr( "Norwegian" )) );

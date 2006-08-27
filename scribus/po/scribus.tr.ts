@@ -1289,7 +1289,7 @@ false the layer won&apos;t be printed.
 May raise NotFoundError if the layer can&apos;t be found.
 May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
-        <translation>setLayerPrintable(&quot;layer&quot;, printable)
+        <translation type="obsolete">setLayerPrintable(&quot;layer&quot;, printable)
 
 Sets the layer &quot;layer&quot; to be printable or not. If is the printable set to
 false the layer won&apos;t be printed.
@@ -1605,7 +1605,7 @@ Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;na
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
 is not passed, text flow is toggled.
 </source>
-        <translation>textFlowsAroundFrame(&quot;name&quot; [, state])
+        <translation type="obsolete">textFlowsAroundFrame(&quot;name&quot; [, state])
 
 Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
 Called with parameters string name and optional boolean &quot;state&quot;. If &quot;state&quot;
@@ -2612,6 +2612,213 @@ Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </translation>
     </message>
+    <message>
+        <source>getFillTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the fill transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getFillBlendmode([&quot;name&quot;]) -&gt; integer
+
+Returns the fill blendmode of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineTransparency([&quot;name&quot;]) -&gt; float
+
+Returns the line transparency of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLineBlendmode([&quot;name&quot;]) -&gt; integer
+
+Returns the line blendmode of the object &quot;name&quot;. If &quot;name&quot;
+is not given the currently selected Item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If printable is set to
+false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerLocked(&quot;layer&quot;, locked)
+
+Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
+true the layer will be locked.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerOutlined&quot;layer&quot;, outline)
+
+Sets the layer &quot;layer&quot; to be locked or not. If outline is set to
+true the layer will be displayed outlined.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerFlow&quot;layer&quot;, flow)
+
+Sets the layers &quot;layer&quot;  flowcontrol to flow. If flow is set to
+true text in layers above this one will flow around objects on this layer.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerBlendmode&quot;layer&quot;, blend)
+
+Sets the layers &quot;layer&quot;  blendmode to blend.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerTransparency&quot;layer&quot;, trans)
+
+Sets the layers &quot;layer&quot;  transparency to trans.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerLocked(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is locked or not, a value of True means
+that the layer &quot;layer&quot; is editable, a value of False means that the layer
+&quot;layer&quot; is locked.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerOutlined(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is outlined or not, a value of True means
+that the layer &quot;layer&quot; is outlined, a value of False means that the layer
+&quot;layer&quot; is normal.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerFlow(&quot;layer&quot;) -&gt; bool
+
+Returns whether text flows around objects on layer &quot;layer&quot;, a value of True means
+that text flows around, a value of False means that the text does not flow around.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayerBlendmode(&quot;layer&quot;) -&gt; int
+
+Returns the &quot;layer&quot; layer blendmode,
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getLayerTransparency(&quot;layer&quot;) -&gt; float
+
+Returns the &quot;layer&quot; layer transparency,
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>textFlowMode(&quot;name&quot; [, state])
+
+Enables/disables &quot;Text Flows Around Frame&quot; feature for object &quot;name&quot;.
+Called with parameters string name and optional int &quot;state&quot; (0 &lt;= state &lt;= 3).
+Setting &quot;state&quot; to 0 will disable text flow.
+Setting &quot;state&quot; to 1 will make text flow around object frame.
+Setting &quot;state&quot; to 2 will make text flow around bounding box.
+Setting &quot;state&quot; to 3 will make text flow around contour line.
+If &quot;state&quot; is not passed, text flow is toggled.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillTransparency(transparency, [&quot;name&quot;])
+
+Sets the fill transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setFillBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the fill blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineTransparency(transparency, [&quot;name&quot;])
+
+Sets the line transparency of the object &quot;name&quot; to transparency
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLineBlendmode(blendmode, [&quot;name&quot;])
+
+Sets the line blendmode of the object &quot;name&quot; to blendmode
+is the name of one of the defined colors. If &quot;name&quot; is not given the
+currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2682,11 +2889,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Windows Port:</source>
-        <translation>Windowsa uyarlayan:</translation>
+        <translation type="obsolete">Windowsa uyarlayan:</translation>
     </message>
     <message>
         <source>Mac OSX Aqua Port:</source>
-        <translation>Mac OSX &apos;e uyarlayan:</translation>
+        <translation type="obsolete">Mac OSX &apos;e uyarlayan:</translation>
     </message>
     <message>
         <source>Wiki</source>
@@ -2718,11 +2925,39 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
-        <translation>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</translation>
+        <translation type="obsolete">This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</translation>
     </message>
     <message>
         <source>January</source>
-        <translation>Ocak</translation>
+        <translation type="obsolete">Ocak</translation>
+    </message>
+    <message>
+        <source>Mac OS&amp;#174; X Aqua Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows&amp;#174; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for &amp;Updates</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2735,6 +2970,38 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>No</source>
         <translation>Hayır</translation>
     </message>
+    <message>
+        <source>Filename:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Sürüm:</translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation type="unfinished">Etkin:</translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation type="unfinished">Sürüm Tarihi:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Tanım:</translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation type="unfinished">Yazar(lar):</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="unfinished">Lisans:</translation>
+    </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
@@ -2744,35 +3011,35 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>File Name:</source>
-        <translation>Dosya Adı:</translation>
+        <translation type="obsolete">Dosya Adı:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>Sürüm:</translation>
+        <translation type="obsolete">Sürüm:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation>Etkin:</translation>
+        <translation type="obsolete">Etkin:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation>Sürüm Tarihi:</translation>
+        <translation type="obsolete">Sürüm Tarihi:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation>Telif Hakkı:</translation>
+        <translation type="obsolete">Telif Hakkı:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation>Yazar(lar):</translation>
+        <translation type="obsolete">Yazar(lar):</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Tanım:</translation>
+        <translation type="obsolete">Tanım:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation>Lisans:</translation>
+        <translation type="obsolete">Lisans:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2839,7 +3106,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Save Page as &amp;EPS...</source>
-        <translation>Sayfayı &amp;EPS biçiminde kaydet...</translation>
+        <translation type="obsolete">Sayfayı &amp;EPS biçiminde kaydet...</translation>
     </message>
     <message>
         <source>Save as P&amp;DF...</source>
@@ -2883,7 +3150,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>İçeriği &amp;Temizle</translation>
+        <translation type="obsolete">İçeriği &amp;Temizle</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2983,7 +3250,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>Kontü&amp;r</translation>
+        <translation type="obsolete">Kontü&amp;r</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -3087,7 +3354,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>Anahat&amp;lar</translation>
+        <translation type="obsolete">Anahat&amp;lar</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3578,6 +3845,177 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>More Info...</source>
         <translation>Daha fazla bilgi...</translation>
     </message>
+    <message>
+        <source>Get Text 2...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as &amp;EPS...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Temizle</translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">Kontü&amp;r</translation>
+    </message>
+    <message>
+        <source>&amp;Printing Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">Anahat&amp;lar</translation>
+    </message>
+    <message>
+        <source>&amp;Frame...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Layer Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Rulers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>Document Outline Palette</comment>
+        <translation type="unfinished">Kontü&amp;r</translation>
+    </message>
+    <message>
+        <source>Insert PDF Push Button</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Text Field</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Check Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF Combo Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert PDF List Box</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Text Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Link Annotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solidus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Em Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thin Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thick Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mid Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hair Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Smart Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Page Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>st</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -3719,11 +4157,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation>Bazı nesneler kilitli.</translation>
+        <translation type="obsolete">Bazı nesneler kilitli.</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
-        <translation>Tümünü Çö&amp;z</translation>
+        <translation type="obsolete">Tümünü Çö&amp;z</translation>
     </message>
     <message>
         <source>Y: %1%2</source>
@@ -4292,6 +4730,16 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
         <translation>Resimler (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Tüm Dosyalar (*)</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -4424,7 +4872,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Apply the selected template to even, odd or all pages within the following range</source>
-        <translation>Seçili şablonu aşağıdaki sınırlar içindeki tek sayılı,çift sayılı ya da tüm sayfalara uygula</translation>
+        <translation type="obsolete">Seçili şablonu aşağıdaki sınırlar içindeki tek sayılı,çift sayılı ya da tüm sayfalara uygula</translation>
+    </message>
+    <message>
+        <source>Apply the selected master page to even, odd or all pages within the following range</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4435,6 +4887,213 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
 </context>
 <context>
+    <name>Barcode</name>
+    <message>
+        <source>&amp;Barcode Generator...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus frontend for Pure Postscript Barcode Writer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGenerator</name>
+    <message>
+        <source>12 or 13 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 or 12 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 or 8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
+For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
+If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error opening file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGeneratorBase</name>
+    <message>
+        <source>Barcode Creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished">&amp;Tip:</translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode type here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the barcode samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include text in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, there will be numbers in the barcode too</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Guard whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Draw arrows to be sure of space next the code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Renkler</translation>
+    </message>
+    <message>
+        <source>&amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color - under the code lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Color of the lines in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text</source>
+        <translation type="unfinished">&amp;Metin</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the text and numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hints and help is shown here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
@@ -4442,7 +5101,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Albümler (*.scs);;Tüm Dosyalar (*)</translation>
+        <translation type="obsolete">Albümler (*.scs);;Tüm Dosyalar (*)</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -4462,43 +5121,43 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;New</source>
-        <translation>Y&amp;eni</translation>
+        <translation type="obsolete">Y&amp;eni</translation>
     </message>
     <message>
         <source>&amp;Load...</source>
-        <translation>&amp;Yükle...</translation>
+        <translation type="obsolete">&amp;Yükle...</translation>
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Kaydet</translation>
+        <translation type="obsolete">&amp;Kaydet</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
-        <translation>&amp;Farklı kaydet...</translation>
+        <translation type="obsolete">&amp;Farklı kaydet...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Kapat</translation>
+        <translation type="obsolete">&amp;Kapat</translation>
     </message>
     <message>
         <source>&amp;Small</source>
-        <translation>&amp;Küçük</translation>
+        <translation type="obsolete">&amp;Küçük</translation>
     </message>
     <message>
         <source>&amp;Medium</source>
-        <translation>&amp;Orta</translation>
+        <translation type="obsolete">&amp;Orta</translation>
     </message>
     <message>
         <source>&amp;Large</source>
-        <translation>&amp;Büyük</translation>
+        <translation type="obsolete">&amp;Büyük</translation>
     </message>
     <message>
         <source>&amp;File</source>
-        <translation>&amp;Dosya</translation>
+        <translation type="obsolete">&amp;Dosya</translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation>Öni&amp;zleme</translation>
+        <translation type="obsolete">Öni&amp;zleme</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -4509,6 +5168,50 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 Please choose another.</source>
         <translation>&quot;%1&quot; ismi kullanımda.
 Başka seçin.</translation>
+    </message>
+    <message>
+        <source>Choose a Scrapbook Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Dizin Seçin</translation>
+    </message>
+    <message>
+        <source>Copy To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new scrapbook page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load an existing scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save the selected scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import an scrapbook file from Scribus &lt;=1.3.2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close the selected scrapbook</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4652,7 +5355,7 @@ Başka seçin.</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
-        <translation type="unfinished">Default colour profile for solid colours on the page</translation>
+        <translation type="obsolete">Default colour profile for solid colours on the page</translation>
     </message>
     <message>
         <source>Color profile that you have generated or received from the manufacturer.
@@ -4675,13 +5378,13 @@ It is recommended that you enable this if you have photos in your document.</tra
     <message>
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished">Default rendering intent for your monitor. Unless you know why to change it,
+        <translation type="obsolete">Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colourimetric or Perceptual should be chosen.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished">Default rendering intent for your printer. Unless you know why to change it,
+        <translation type="obsolete">Default rendering intent for your printer. Unless you know why to change it,
 Relative Colourimetric or Perceptual should be chosen.</translation>
     </message>
     <message>
@@ -4702,7 +5405,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
-        <translation type="unfinished">&amp;Solid Colours:</translation>
+        <translation type="obsolete">&amp;Solid Colours:</translation>
     </message>
     <message>
         <source>&amp;Monitor:</source>
@@ -4714,11 +5417,11 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>M&amp;onitor:</source>
-        <translation>M&amp;onitor:</translation>
+        <translation type="obsolete">M&amp;onitor:</translation>
     </message>
     <message>
         <source>Pr&amp;inter:</source>
-        <translation>&amp;Yazıcı:</translation>
+        <translation type="obsolete">&amp;Yazıcı:</translation>
     </message>
     <message>
         <source>Sim&amp;ulate Printer on the Screen</source>
@@ -4747,6 +5450,49 @@ This requires very accurate profiles and serves only as a warning.</translation>
     <message>
         <source>Default color profile for imported RGB images</source>
         <translation>RGB Resimler için öntanımlı renk profili </translation>
+    </message>
+    <message>
+        <source>&amp;RGB Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;CMYK Solid Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pictures:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sol&amp;id Colors:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Convert all colors to printer space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid RGB colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default color profile for solid CMYK colors on the page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for solid colors. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Default rendering intent for images. Unless you know why to change it,
+Relative Colorimetric or Perceptual should be chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Simulate a full color managed environment :
+all colors, rgb or cmyk, are converted to printer color space.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4829,7 +5575,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -4847,7 +5593,35 @@ Bu isim şeffaflık için ayrılmıştır</translation>
     </message>
     <message>
         <source>Name of the color is not unique</source>
-        <translation>Renk adı zaten mevcut</translation>
+        <translation type="obsolete">Renk adı zaten mevcut</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and flourescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name of the color already exists,
+please choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CStylePBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4893,7 +5667,7 @@ Bu isim şeffaflık için ayrılmıştır</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation>Bu diyaloğu kapat ve metin düzeltmeye geri dön.</translation>
+        <translation type="obsolete">Bu diyaloğu kapat ve metin düzeltmeye geri dön.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -5008,6 +5782,18 @@ Oklar</translation>
         <source>Hebrew</source>
         <translation>İbranice</translation>
     </message>
+    <message>
+        <source>&amp;Insert Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type in a four digit unicode value directly here</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CheckDocument</name>
@@ -5029,7 +5815,7 @@ Oklar</translation>
     </message>
     <message>
         <source>Image has a DPI-Value less than %1 DPI</source>
-        <translation>Resmin DPI değeri %1 DPI altında</translation>
+        <translation type="obsolete">Resmin DPI değeri %1 DPI altında</translation>
     </message>
     <message>
         <source>Object has transparency</source>
@@ -5083,6 +5869,38 @@ Oklar</translation>
         <source>&amp;Ignore Errors</source>
         <translation>Ha&amp;taları Yoksay</translation>
     </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blendmode used</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layer &quot;%1&quot;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check again</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution below %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image resolution above %1 DPI, currently %2 x %3 DPI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image is GIF</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChooseStyles</name>
@@ -5107,7 +5925,7 @@ Oklar</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Uyarı</translation>
+        <translation type="obsolete">Uyarı</translation>
     </message>
     <message>
         <source>Cannot collect all files for output for file:
@@ -5126,7 +5944,7 @@ Oklar</translation>
     <name>ColorListBox</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
 </context>
 <context>
@@ -5221,11 +6039,11 @@ Oklar</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation>Belgeler (*.sla *.sla.gz *.scd *.scd.gz);;Tüm dosyalar (*)</translation>
+        <translation type="obsolete">Belgeler (*.sla *.sla.gz *.scd *.scd.gz);;Tüm dosyalar (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Belgeler (*.sla *.scd);;Tüm Dosyalar (*)</translation>
+        <translation type="obsolete">Belgeler (*.sla *.scd);;Tüm Dosyalar (*)</translation>
     </message>
     <message>
         <source>Copy of %1</source>
@@ -5234,6 +6052,18 @@ Oklar</translation>
     <message>
         <source>New Color</source>
         <translation>Yeni Renk</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5513,7 +6343,7 @@ Oklar</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5526,6 +6356,128 @@ Oklar</translation>
     <message>
         <source>Warning</source>
         <translation>Uyarı</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>color name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <comment>CommonStrings, custom page size</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Tek Sayfa</translation>
+    </message>
+    <message>
+        <source>Double Sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="unfinished">3-katlama</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="unfinished">4-katlama</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="unfinished">Sol Sayfa</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">Orta</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="unfinished">Orta Sol</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished">Orta Sağ</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="unfinished">Sağ Sayfa</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished">Ocak</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5564,7 +6516,7 @@ Oklar</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -5626,6 +6578,74 @@ Oklar</translation>
         <source>Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</source>
         <translation type="unfinished">Move the start of the gradient vector with the left mouse button pressed and move the end of the gradient vector with the right mouse button pressed</translation>
     </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Karanlıklaştır</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Aydınlat</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Sert Işık</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Yumuşak Işık</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Fark</translation>
+    </message>
+    <message>
+        <source>Exlusion</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Doygunluk</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Renk</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -5659,7 +6679,12 @@ Oklar</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>delimiter</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5734,6 +6759,47 @@ Oklar</translation>
     </message>
 </context>
 <context>
+    <name>CurveWidget</name>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Aç</translation>
+    </message>
+    <message>
+        <source>Curve Files (*.scu);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="unfinished">Farklı kaydet</translation>
+    </message>
+    <message>
+        <source>Cannot write the file: 
+%1</source>
+        <translation type="unfinished">Dosya yazılamıyor:
+%1</translation>
+    </message>
+    <message>
+        <source>Inverts the curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resets the curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switches between linear and cubic interpolation of the curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loads a curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saves this curve</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CustomFDialog</name>
     <message>
         <source>Encoding:</source>
@@ -5752,6 +6818,10 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <message>
         <source>&amp;Include Fonts</source>
         <translation>&amp;Yazıtipi dosyalarını da al</translation>
+    </message>
+    <message>
+        <source>&amp;Include ICC Profiles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5840,7 +6910,7 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -5883,6 +6953,18 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <message>
         <source>No Style</source>
         <translation>Stil Yok</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6052,7 +7134,19 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     </message>
     <message>
         <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
+        <translation type="obsolete">Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Number Out Of Bounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6106,7 +7200,7 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -6143,6 +7237,21 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <message>
         <source>Real Number</source>
         <translation>Gerçek Sayı</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>auto add</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>types</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6408,6 +7517,22 @@ vigülle ayırarak (1,4,5 gibi) de verebilirsiniz.</translation>
         <source>Failed to retrieve printer settings</source>
         <translation>Yazıcı ayarları alınamadı</translation>
     </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -6422,6 +7547,26 @@ Başarısız oldu!</translation>
     <message>
         <source>Fatal Error</source>
         <translation>Kritik Hata</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Hata</translation>
     </message>
 </context>
 <context>
@@ -6440,7 +7585,7 @@ Başarısız oldu!</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -6537,6 +7682,22 @@ Başarısız oldu!</translation>
     <message>
         <source>Background</source>
         <translation>Arkaplan</translation>
+    </message>
+    <message>
+        <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6700,6 +7861,38 @@ Başarısız oldu!</translation>
         <source>Cancel</source>
         <translation>İptal</translation>
     </message>
+    <message>
+        <source>Color 1:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color 2:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color 3:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color 4:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quadtone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Curves</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ExportForm</name>
@@ -6814,6 +8007,10 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     <message>
         <source>Size of the images. 100% for no changes, 200% for two times larger etc.</source>
         <translation>Resimlerin boyutu. %100 değişiklik yok; %50 yarısı, %200 2 katı vs.</translation>
+    </message>
+    <message>
+        <source>Image size in Pixels</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6977,6 +8174,10 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
         <source>Colorspace:</source>
         <translation type="unfinished">Colourspace:</translation>
     </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>FileLoader</name>
@@ -7056,7 +8257,7 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     <message>
         <source>Embed in:</source>
         <comment>font preview</comment>
-        <translation>Bunun içine göm:</translation>
+        <translation type="obsolete">Bunun içine göm:</translation>
     </message>
     <message>
         <source>Subset</source>
@@ -7070,11 +8271,16 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>PostScript</source>
-        <translation>PostScript</translation>
+        <translation type="obsolete">PostScript</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
         <translation>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</translation>
+    </message>
+    <message>
+        <source>Embed in PostScript</source>
+        <comment>font preview</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7082,59 +8288,59 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Yazıtipi Adı</translation>
+        <translation type="obsolete">Yazıtipi Adı</translation>
     </message>
     <message>
         <source>Doc</source>
         <comment>font preview</comment>
-        <translation>Doc</translation>
+        <translation type="obsolete">Doc</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation>Tip</translation>
+        <translation type="obsolete">Tip</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Subset</translation>
+        <translation type="obsolete">Subset</translation>
     </message>
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation>Erişim</translation>
+        <translation type="obsolete">Erişim</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Yazıtipi ölçüsü:</translation>
+        <translation type="obsolete">Yazıtipi ölçüsü:</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation>Yazıtipi Önizleme</translation>
+        <translation type="obsolete">Yazıtipi Önizleme</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>Quick Search: </source>
-        <translation>Hızlı Arama:</translation>
+        <translation type="obsolete">Hızlı Arama:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>&amp;Ara</translation>
+        <translation type="obsolete">&amp;Ara</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <comment>font preview</comment>
-        <translation>&amp;Kapat</translation>
+        <translation type="obsolete">&amp;Kapat</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -7148,7 +8354,7 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation>Buraya bir metin yazarak hızlı arama yapabilirsiniz. Örneğin; Nimbus yazarak Nimbus ile başlayan tüm fontları listelersiniz. Aramada küçük büyük harf farkı gözetilmez.</translation>
+        <translation type="obsolete">Buraya bir metin yazarak hızlı arama yapabilirsiniz. Örneğin; Nimbus yazarak Nimbus ile başlayan tüm fontları listelersiniz. Aramada küçük büyük harf farkı gözetilmez.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7175,7 +8381,94 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Ekle</translation>
+        <translation type="obsolete">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewBase</name>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished">Yazıtipi Önizleme</translation>
+    </message>
+    <message>
+        <source>&amp;Quick Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Ara</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation type="unfinished">Yazıtipi Adı</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <translation type="unfinished">Doc</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Tip</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation type="unfinished">Subset</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <translation type="unfinished">Erişim</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Metin</translation>
+    </message>
+    <message>
+        <source>Sample text to display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Se&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -7240,119 +8533,270 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation type="unfinished">Here you can add, change or remove Colour-Stops.</translation>
+        <translation type="obsolete">Here you can add, change or remove Colour-Stops.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Kılavuz Yönetimi</translation>
+        <translation type="obsolete">Kılavuz Yönetimi</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
-        <translation>Yatay Kılavuzlar</translation>
+        <translation type="obsolete">Yatay Kılavuzlar</translation>
     </message>
     <message>
         <source>Vertical Guides</source>
-        <translation>Dikey Kılavuzlar</translation>
+        <translation type="obsolete">Dikey Kılavuzlar</translation>
     </message>
     <message>
         <source>&amp;Y-Pos:</source>
-        <translation>&amp;Y-Pos:</translation>
+        <translation type="obsolete">&amp;Y-Pos:</translation>
     </message>
     <message>
         <source>&amp;Add</source>
-        <translation>&amp;Ekle</translation>
+        <translation type="obsolete">&amp;Ekle</translation>
     </message>
     <message>
         <source>D&amp;elete</source>
-        <translation>&amp;Sil</translation>
+        <translation type="obsolete">&amp;Sil</translation>
     </message>
     <message>
         <source>&amp;X-Pos:</source>
-        <translation>&amp;X-Pos:</translation>
+        <translation type="obsolete">&amp;X-Pos:</translation>
     </message>
     <message>
         <source>A&amp;dd</source>
-        <translation>E&amp;kle</translation>
+        <translation type="obsolete">E&amp;kle</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation>&amp;Sil</translation>
+        <translation type="obsolete">&amp;Sil</translation>
     </message>
     <message>
         <source>&amp;Lock Guides</source>
-        <translation>Kılavuzları &amp;kilitle</translation>
+        <translation type="obsolete">Kılavuzları &amp;kilitle</translation>
     </message>
     <message>
         <source>&amp;Rows:</source>
-        <translation>S&amp;atırlar:</translation>
+        <translation type="obsolete">S&amp;atırlar:</translation>
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation>Süt&amp;unlar:</translation>
+        <translation type="obsolete">Süt&amp;unlar:</translation>
     </message>
     <message>
         <source>Refer to:</source>
-        <translation type="unfinished">Refer to:</translation>
+        <translation type="obsolete">Refer to:</translation>
     </message>
     <message>
         <source>&amp;Page</source>
-        <translation>S&amp;ayfa</translation>
+        <translation type="obsolete">S&amp;ayfa</translation>
     </message>
     <message>
         <source>&amp;Margins</source>
-        <translation>&amp;Kenarlıklar</translation>
+        <translation type="obsolete">&amp;Kenarlıklar</translation>
     </message>
     <message>
         <source>&amp;Selection</source>
-        <translation>&amp;Seçim</translation>
+        <translation type="obsolete">&amp;Seçim</translation>
     </message>
     <message>
         <source>&amp;Close</source>
-        <translation>&amp;Kapat</translation>
+        <translation type="obsolete">&amp;Kapat</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
-        <translation>Satır ve Sütunlar - Otomatik Kılavuzlar</translation>
+        <translation type="obsolete">Satır ve Sütunlar - Otomatik Kılavuzlar</translation>
     </message>
     <message>
         <source>Row &amp;Gap</source>
-        <translation>Sa&amp;tır Boşluğu</translation>
+        <translation type="obsolete">Sa&amp;tır Boşluğu</translation>
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation>Sütun B&amp;oşluğu</translation>
+        <translation type="obsolete">Sütun B&amp;oşluğu</translation>
     </message>
     <message>
         <source>&amp;Update</source>
-        <translation>&amp;Güncelle</translation>
+        <translation type="obsolete">&amp;Güncelle</translation>
     </message>
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
-        <translation type="unfinished">Set the guides in document. Guide manager is still opened but the changes are persistant</translation>
+        <translation type="obsolete">Set the guides in document. Guide manager is still opened but the changes are persistant</translation>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
-        <translation>&amp;Tüm Sayfalara Uygula</translation>
+        <translation type="obsolete">&amp;Tüm Sayfalara Uygula</translation>
     </message>
     <message>
         <source>Guide</source>
-        <translation>Kılavuz</translation>
+        <translation type="obsolete">Kılavuz</translation>
     </message>
     <message>
         <source>Unit</source>
-        <translation>Birim</translation>
+        <translation type="obsolete">Birim</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Önizleme</translation>
+        <translation type="obsolete">Önizleme</translation>
     </message>
     <message>
         <source>There is empty (0.0) guide already</source>
-        <translation>Zaten boş bir kılavuz var(0,0)</translation>
+        <translation type="obsolete">Zaten boş bir kılavuz var(0,0)</translation>
+    </message>
+    <message>
+        <source>Edit Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter a position:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Guide</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>GuideManagerBase</name>
+    <message>
+        <source>Manage Guides</source>
+        <translation type="unfinished">Kılavuz Yönetimi</translation>
+    </message>
+    <message>
+        <source>&amp;Standard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guide</source>
+        <translation type="unfinished">Kılavuz</translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>D&amp;elete</source>
+        <translation type="unfinished">&amp;Sil</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>Verticals</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;dd</source>
+        <translation type="unfinished">E&amp;kle</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">&amp;Sil</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;Lock Guides</source>
+        <translation type="unfinished">Kılavuzları &amp;kilitle</translation>
+    </message>
+    <message>
+        <source>Appl&amp;y to All Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+Y</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;utomatic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>U&amp;se Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Nu&amp;mber:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use &amp;Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Refer To</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Page</source>
+        <translation type="unfinished">S&amp;ayfa</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>M&amp;argins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;election</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Misc</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete &amp;Page Guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete all guides from the current page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete &amp;Document guides</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete all guides from the current document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7385,7 +8829,7 @@ adresini ziyaret edin.</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation>bilinmiyor</translation>
+        <translation type="obsolete">bilinmiyor</translation>
     </message>
     <message>
         <source>Find</source>
@@ -7466,6 +8910,10 @@ adresini ziyaret edin.</translation>
     <message>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Yer imleri</translation>
+    </message>
+    <message>
+        <source>Relevance</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7627,6 +9075,10 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <source>PostScript</source>
         <translation>PostScript</translation>
     </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InsPage</name>
@@ -7701,6 +9153,192 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>Master Pages</source>
         <translation>Mastar Sayfalar</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>InsertAFrame</name>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Aç</translation>
+    </message>
+</context>
+<context>
+    <name>InsertAFrameBase</name>
+    <message>
+        <source>Insert A Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>T&amp;ype</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text Frame</source>
+        <translation type="unfinished">&amp;Metin Çerçevesi</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Image Frame</source>
+        <translation type="unfinished">Resim Çe&amp;rçevesi</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>T&amp;able</source>
+        <translation type="unfinished">T&amp;ablo</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Polygon</source>
+        <translation type="unfinished">Çokgen</translation>
+    </message>
+    <message>
+        <source>&amp;Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Placement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Current Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selecting this will place the frame only on the current page.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Range of Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selecting this will place frame on the selected range. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Position of Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Left of Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selecting this puts the frame on the top left with postion 0,0</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Top Left of Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom Position:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Set the dimensions wished below in the X: Y: dialog below.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>&amp;Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Same as the Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Same as the Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">En:</translation>
+    </message>
+    <message>
+        <source>&amp;Options</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source Image:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Select File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are no options for this type of frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Source Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Tamam</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7910,6 +9548,110 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <source>Lower layer</source>
         <translation>Katmanı bir seviye düşür</translation>
     </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Opaklık:</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Karanlıklaştır</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Aydınlat</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Sert Işık</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Yumuşak Işık</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Fark</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Exclusion</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturation</source>
+        <translation type="unfinished">Doygunluk</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Renk</translation>
+    </message>
+    <message>
+        <source>Luminosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Print Layer - Uncheck to disable printing. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock or Unlock Layer - Unchecked is unlocked </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -7972,6 +9714,72 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>Do you really want to delete this style?</source>
         <translation>Bu stili gerçekten silmek istiyor musunuz?</translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>LineStyleWBase</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Düz Çizgi</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Kesintili Çizgi</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Kesintili Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Kesintili-Noktalı-Noktalı Çizgi</translation>
     </message>
 </context>
 <context>
@@ -8067,6 +9875,18 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <source>Type:</source>
         <translation>Tip:</translation>
     </message>
+    <message>
+        <source>Other Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
 </context>
 <context>
     <name>MarginWidget</name>
@@ -8122,6 +9942,14 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished">Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
     </message>
+    <message>
+        <source>Printer Margins...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MasterPagesPalette</name>
@@ -8151,7 +9979,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Copy of %1</source>
-        <translation>Kopyası #%1 of </translation>
+        <translation type="obsolete">Kopyası #%1 of </translation>
     </message>
     <message>
         <source>Name:</source>
@@ -8188,6 +10016,22 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>New Master Page %1</source>
         <translation>Yeni Mastar Sayfa %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8340,6 +10184,17 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>instead</source>
         <translation>yerine</translation>
+    </message>
+</context>
+<context>
+    <name>ModeToolBar</name>
+    <message>
+        <source>Tools</source>
+        <translation type="unfinished">Araçlar</translation>
+    </message>
+    <message>
+        <source>Properties...</source>
+        <translation type="unfinished">Özellikler...</translation>
     </message>
 </context>
 <context>
@@ -8501,7 +10356,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -8745,7 +10600,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Make text in lower frames flow around the object shape</translation>
+        <translation type="obsolete">Make text in lower frames flow around the object shape</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -8815,7 +10670,7 @@ Corners:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Gap:</translation>
+        <translation type="obsolete">&amp;Gap:</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
@@ -8839,7 +10694,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Text &amp;Flows Around Frame</source>
-        <translation>Text &amp;Flows Around Frame</translation>
+        <translation type="obsolete">Text &amp;Flows Around Frame</translation>
     </message>
     <message>
         <source>Use &amp;Bounding Box</source>
@@ -8915,11 +10770,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
+        <translation type="obsolete">Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="unfinished">Use a second line originally based on the frame&apos;s shape for text flow</translation>
+        <translation type="obsolete">Use a second line originally based on the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -8975,11 +10830,91 @@ Corners:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+    </message>
+    <message>
+        <source>Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation type="unfinished">En:</translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text &amp;Flow Around Frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disabled</source>
+        <translation type="unfinished">Devredışı</translation>
+    </message>
+    <message>
+        <source>Use Frame &amp;Shape</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Effects</source>
+        <translation type="unfinished">Resim Efektleri</translation>
+    </message>
+    <message>
+        <source>Extended Image Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprinting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Knockout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overprint</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable text flow from lower frames around object</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the frame shape for text flow of text frames below the object.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9134,7 +11069,7 @@ Corners:</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Belgenin ilk sayfasının numarası</translation>
+        <translation type="obsolete">Belgenin ilk sayfasının numarası</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -9170,7 +11105,7 @@ Corners:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>İ&amp;lk Sayfa Numarası:</translation>
+        <translation type="obsolete">İ&amp;lk Sayfa Numarası:</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
@@ -9215,6 +11150,10 @@ Corners:</translation>
     <message>
         <source>Open Recent &amp;Document</source>
         <translation>Son &amp;Kullanılan Belgeleri Aç</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9332,7 +11271,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished">Reduce the Size of the Path by shown %</translation>
+        <translation type="obsolete">Reduce the Size of the Path by shown %</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
@@ -9344,7 +11283,7 @@ Corners:</translation>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished">% to Enlarge or Reduce By</translation>
+        <translation type="obsolete">% to Enlarge or Reduce By</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -9365,6 +11304,33 @@ Corners:</translation>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation type="unfinished">When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</translation>
+    </message>
+    <message>
+        <source>Shrink the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OODPlug</name>
+    <message>
+        <source>This document does not seem to be an OpenOffice Draw file.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9495,6 +11461,17 @@ Corners:</translation>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation type="unfinished">This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</translation>
     </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PDFToolBar</name>
+    <message>
+        <source>PDF Tools</source>
+        <translation type="unfinished">PDF Araçları</translation>
+    </message>
 </context>
 <context>
     <name>PDFlib</name>
@@ -9504,15 +11481,23 @@ Corners:</translation>
     </message>
     <message>
         <source>Exporting Master Pages:</source>
-        <translation>Mastar sayfalar ihraç ediliyor:</translation>
+        <translation type="obsolete">Mastar sayfalar ihraç ediliyor:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>Sayfalar ihraç ediliyor:</translation>
+        <translation type="obsolete">Sayfalar ihraç ediliyor:</translation>
     </message>
     <message>
         <source>Exporting Items on Current Page:</source>
         <translation>Mevcut sayfadaki içerik ihraç ediliyor: </translation>
+    </message>
+    <message>
+        <source>Exporting Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9551,11 +11536,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Metinleri &amp;Yumuşat (Anti-alias)</translation>
+        <translation type="obsolete">Metinleri &amp;Yumuşat (Anti-alias)</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Resimleri &amp;Yumuşat (Anti-alias)</translation>
+        <translation type="obsolete">Resimleri &amp;Yumuşat (Anti-alias)</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -9615,11 +11600,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished">Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
+        <translation type="obsolete">Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished">Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
+        <translation type="obsolete">Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -9637,16 +11622,83 @@ Corners:</translation>
         <source>File</source>
         <translation>Dosya</translation>
     </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit to Width</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit to Height</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fit to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
     <message>
         <source>Processing Master Pages:</source>
-        <translation>Mastar Sayfalar işleniyor:</translation>
+        <translation type="obsolete">Mastar Sayfalar işleniyor:</translation>
     </message>
     <message>
         <source>Exporting Pages:</source>
-        <translation>Sayfalar ihraç ediliyor:</translation>
+        <translation type="obsolete">Sayfalar ihraç ediliyor:</translation>
+    </message>
+    <message>
+        <source>Processing Master Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exporting Page:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>PStyleWBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Özellikler</translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distances and Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parent&apos;s Drop Cap Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation type="unfinished">Cetvelleyici ve Girintileyiciler</translation>
+    </message>
+    <message>
+        <source>Ch&amp;aracter Style</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9684,7 +11736,7 @@ Corners:</translation>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -9697,6 +11749,11 @@ Corners:</translation>
     <message>
         <source>Is Child Of</source>
         <translation type="unfinished">Is Child Of</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9831,91 +11888,91 @@ Corners:</translation>
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation>Quarto</translation>
+        <translation type="obsolete">Quarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation>Foolscap</translation>
+        <translation type="obsolete">Foolscap</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation>Letter</translation>
+        <translation type="obsolete">Letter</translation>
     </message>
     <message>
         <source>Government Letter</source>
-        <translation>Government Letter</translation>
+        <translation type="obsolete">Government Letter</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation>Legal</translation>
+        <translation type="obsolete">Legal</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation>Ledger</translation>
+        <translation type="obsolete">Ledger</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation>Executive</translation>
+        <translation type="obsolete">Executive</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation>Post</translation>
+        <translation type="obsolete">Post</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation>Crown</translation>
+        <translation type="obsolete">Crown</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation>Large Post</translation>
+        <translation type="obsolete">Large Post</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation>Demy</translation>
+        <translation type="obsolete">Demy</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Medium</translation>
+        <translation type="obsolete">Medium</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation>Royal</translation>
+        <translation type="obsolete">Royal</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation>Elephant</translation>
+        <translation type="obsolete">Elephant</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation>Double Demy</translation>
+        <translation type="obsolete">Double Demy</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation>Quad Demy</translation>
+        <translation type="obsolete">Quad Demy</translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation>STMT</translation>
+        <translation type="obsolete">STMT</translation>
     </message>
     <message>
         <source>A</source>
-        <translation>A</translation>
+        <translation type="obsolete">A</translation>
     </message>
     <message>
         <source>B</source>
-        <translation>B</translation>
+        <translation type="obsolete">B</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>D</source>
-        <translation>D</translation>
+        <translation type="obsolete">D</translation>
     </message>
     <message>
         <source>E</source>
-        <translation>E</translation>
+        <translation type="obsolete">E</translation>
     </message>
 </context>
 <context>
@@ -10007,6 +12064,22 @@ Corners:</translation>
         <source>Select a base directory for search</source>
         <translation>Arama için başlangıç dizini seçin</translation>
     </message>
+    <message>
+        <source>Search Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <translation type="unfinished">Kapat</translation>
+    </message>
+    <message>
+        <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a base directory for your selected rows</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -10064,6 +12137,20 @@ Corners:</translation>
         <source>Plugin: %1 failed to load: %2</source>
         <comment>plugin manager</comment>
         <translation>Eklenti: %1 yüklenemedi: %2</translation>
+    </message>
+    <message>
+        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. IF you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 initialized ok </source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Plugin: %1 failed post initialization</source>
+        <comment>plugin manager</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10195,63 +12282,63 @@ Corners:</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation>GUI</translation>
+        <translation type="obsolete">GUI</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation>Yollar</translation>
+        <translation type="obsolete">Yollar</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Sayfa Boyutu</translation>
+        <translation type="obsolete">Sayfa Boyutu</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Özel</translation>
+        <translation type="obsolete">Özel</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Dikey</translation>
+        <translation type="obsolete">Dikey</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Yatay</translation>
+        <translation type="obsolete">Yatay</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Kenarlık Kılavuzları</translation>
+        <translation type="obsolete">Kenarlık Kılavuzları</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Otomatik Kaydet</translation>
+        <translation type="obsolete">Otomatik Kaydet</translation>
     </message>
     <message>
         <source>min</source>
-        <translation>min</translation>
+        <translation type="obsolete">min</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation> pt</translation>
+        <translation type="obsolete"> pt</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation>Diğer Seçenekler</translation>
+        <translation type="obsolete">Diğer Seçenekler</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Önizleme</translation>
+        <translation type="obsolete">Önizleme</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Küçük</translation>
+        <translation type="obsolete">Küçük</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Orta</translation>
+        <translation type="obsolete">Orta</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation>Dizin Seçin</translation>
+        <translation type="obsolete">Dizin Seçin</translation>
     </message>
     <message>
         <source>External Tools</source>
@@ -10259,223 +12346,223 @@ Corners:</translation>
     </message>
     <message>
         <source>Image Processing Tool</source>
-        <translation>Resim İşleme Aracı</translation>
+        <translation type="obsolete">Resim İşleme Aracı</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation>Yazdırma</translation>
+        <translation type="obsolete">Yazdırma</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished">Default font size for the menus and windows</translation>
+        <translation type="obsolete">Default font size for the menus and windows</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished">Default unit of measurement for document editing</translation>
+        <translation type="obsolete">Default unit of measurement for document editing</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished">Number of lines Scribus will scroll for each move of the mouse wheel</translation>
+        <translation type="obsolete">Number of lines Scribus will scroll for each move of the mouse wheel</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished">Number of recently edited documents to show in the File menu</translation>
+        <translation type="obsolete">Number of recently edited documents to show in the File menu</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation>Öntanımlı belge dizini</translation>
+        <translation type="obsolete">Öntanımlı belge dizini</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished">Default Scripter scripts directory</translation>
+        <translation type="obsolete">Default Scripter scripts directory</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished">Default page size, either a standard size or a custom size</translation>
+        <translation type="obsolete">Default page size, either a standard size or a custom size</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished">Default orientation of document pages</translation>
+        <translation type="obsolete">Default orientation of document pages</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Width of document pages, editable if you have chosen a custom page size</translation>
+        <translation type="obsolete">Width of document pages, editable if you have chosen a custom page size</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Height of document pages, editable if you have chosen a custom page size</translation>
+        <translation type="obsolete">Height of document pages, editable if you have chosen a custom page size</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation>Otomatik kaydetmeler arasaındaki zaman </translation>
+        <translation type="obsolete">Otomatik kaydetmeler arasaındaki zaman </translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="unfinished">Choose the size of the preview in the scrapbook palette</translation>
+        <translation type="obsolete">Choose the size of the preview in the scrapbook palette</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation>Kağıt için renk</translation>
+        <translation type="obsolete">Kağıt için renk</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Mask the area outside the margins in the margin colour</translation>
+        <translation type="obsolete">Mask the area outside the margins in the margin colour</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation>Öntanımlı zoom düzeyi</translation>
+        <translation type="obsolete">Öntanımlı zoom düzeyi</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Antialias text for EPS and PDF onscreen rendering</translation>
+        <translation type="obsolete">Antialias text for EPS and PDF onscreen rendering</translation>
     </message>
     <message>
         <source>Antialias graphics for EPS and PDF onscreen rendering</source>
-        <translation type="unfinished">Antialias graphics for EPS and PDF onscreen rendering</translation>
+        <translation type="obsolete">Antialias graphics for EPS and PDF onscreen rendering</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished">Do not show objects outside the margins on the printed page or exported file</translation>
+        <translation type="obsolete">Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="unfinished">Save the scrapbook contents everytime after a change</translation>
+        <translation type="obsolete">Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation>&amp;Tema:</translation>
+        <translation type="obsolete">&amp;Tema:</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation type="unfinished">&amp;Wheel Jump:</translation>
+        <translation type="obsolete">&amp;Wheel Jump:</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation>&amp;Son Kullanılan Belgeler:</translation>
+        <translation type="obsolete">&amp;Son Kullanılan Belgeler:</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
-        <translation>&amp;Belge:</translation>
+        <translation type="obsolete">&amp;Belge:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation>D&amp;eğiştir...</translation>
+        <translation type="obsolete">D&amp;eğiştir...</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
-        <translation>&amp;ICC Profilleri:</translation>
+        <translation type="obsolete">&amp;ICC Profilleri:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation>D&amp;eğiştir...</translation>
+        <translation type="obsolete">D&amp;eğiştir...</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation>&amp;Scriptler:</translation>
+        <translation type="obsolete">&amp;Scriptler:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation>D&amp;eğiştir...</translation>
+        <translation type="obsolete">D&amp;eğiştir...</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>Ö&amp;lçü:</translation>
+        <translation type="obsolete">Ö&amp;lçü:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>&amp;Yerleşim:</translation>
+        <translation type="obsolete">&amp;Yerleşim:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>E&amp;n:</translation>
+        <translation type="obsolete">E&amp;n:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Boy:</translation>
+        <translation type="obsolete">&amp;Boy:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Alt:</translation>
+        <translation type="obsolete">&amp;Alt:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>&amp;Üst:</translation>
+        <translation type="obsolete">&amp;Üst:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>Sa&amp;ğ:</translation>
+        <translation type="obsolete">Sa&amp;ğ:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Sol:</translation>
+        <translation type="obsolete">&amp;Sol:</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation>&amp;Aralık:</translation>
+        <translation type="obsolete">&amp;Aralık:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
-        <translation type="unfinished">Sa&amp;ve Contents on Changes</translation>
+        <translation type="obsolete">Sa&amp;ve Contents on Changes</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>Büyük</translation>
+        <translation type="obsolete">Büyük</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Yazdırılamayan Alanı &amp;Kenarlık Renginde Görüntüle</translation>
+        <translation type="obsolete">Yazdırılamayan Alanı &amp;Kenarlık Renginde Görüntüle</translation>
     </message>
     <message>
         <source>&amp;Adjust Display Size</source>
-        <translation type="unfinished">&amp;Adjust Display Size</translation>
+        <translation type="obsolete">&amp;Adjust Display Size</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
-        <translation>Çal&amp;ıştırılabilir Dosyanın Adı:</translation>
+        <translation type="obsolete">Çal&amp;ıştırılabilir Dosyanın Adı:</translation>
     </message>
     <message>
         <source>Antialias &amp;Text</source>
-        <translation>Metinleri &amp;Yumuşat (Anti-alias)</translation>
+        <translation type="obsolete">Metinleri &amp;Yumuşat (Anti-alias)</translation>
     </message>
     <message>
         <source>Antialias &amp;Graphics</source>
-        <translation>Resimleri &amp;Yumuşat (Anti-alias)</translation>
+        <translation type="obsolete">Resimleri &amp;Yumuşat (Anti-alias)</translation>
     </message>
     <message>
         <source>Name of &amp;Executable:</source>
-        <translation>Çal&amp;ıştırılabilir Dosyanın Adı:</translation>
+        <translation type="obsolete">Çal&amp;ıştırılabilir Dosyanın Adı:</translation>
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
-        <translation type="unfinished">Clip to Page &amp;Margins</translation>
+        <translation type="obsolete">Clip to Page &amp;Margins</translation>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation type="unfinished">Apply &amp;Under Colour Removal</translation>
+        <translation type="obsolete">Apply &amp;Under Colour Removal</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation>D&amp;eğiştir...</translation>
+        <translation type="obsolete">D&amp;eğiştir...</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation>&amp;Dil:</translation>
+        <translation type="obsolete">&amp;Dil:</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation>Belge Şa&amp;blonları:</translation>
+        <translation type="obsolete">Belge Şa&amp;blonları:</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation>Birimler:</translation>
+        <translation type="obsolete">Birimler:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation>Geri Al/Yinele</translation>
+        <translation type="obsolete">Geri Al/Yinele</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation>İşlem Geçmişi uzunluğu</translation>
+        <translation type="obsolete">İşlem Geçmişi uzunluğu</translation>
     </message>
     <message>
         <source>Hyphenator</source>
@@ -10507,31 +12594,31 @@ Corners:</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation>Sayfa Düzeni</translation>
+        <translation type="obsolete">Sayfa Düzeni</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>Renk:</translation>
+        <translation type="obsolete">Renk:</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation>Alt+U</translation>
+        <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Resimleri Göster</translation>
+        <translation type="obsolete">Resimleri Göster</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation>Metin Bağlarını Göster</translation>
+        <translation type="obsolete">Metin Bağlarını Göster</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Çerçeveleri Göster</translation>
+        <translation type="obsolete">Çerçeveleri Göster</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation>Karalama Alanı</translation>
+        <translation type="obsolete">Karalama Alanı</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
@@ -10543,59 +12630,59 @@ Corners:</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation>Çerçevelerin gösterilmesini açar veya kapatır</translation>
+        <translation type="obsolete">Çerçevelerin gösterilmesini açar veya kapatır</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Resimlerin gösterilmesini açar veya kapatır</translation>
+        <translation type="obsolete">Resimlerin gösterilmesini açar veya kapatır</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
-        <translation>Belge şablonları için diğer dizin</translation>
+        <translation type="obsolete">Belge şablonları için diğer dizin</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Ghostscript yorumlayıcısının yeri</translation>
+        <translation type="obsolete">Ghostscript yorumlayıcısının yeri</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation>Belge yüklenirken, değiştirilecek yazıtipi olursa beni uyar</translation>
+        <translation type="obsolete">Belge yüklenirken, değiştirilecek yazıtipi olursa beni uyar</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation>Metin Kontrol Karakterlerini Göster</translation>
+        <translation type="obsolete">Metin Kontrol Karakterlerini Göster</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished">Preview of current Paragraph Style visible when editing Styles</translation>
+        <translation type="obsolete">Preview of current Paragraph Style visible when editing Styles</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="unfinished">To adjust the display drag the ruler below with the slider.</translation>
+        <translation type="obsolete">To adjust the display drag the ruler below with the slider.</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>Paragraf işaretleri gibi yazdırılamayan kontrol karakterlerini de metin pencereleri içinde gösterir</translation>
+        <translation type="obsolete">Paragraf işaretleri gibi yazdırılamayan kontrol karakterlerini de metin pencereleri içinde gösterir</translation>
     </message>
     <message>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="unfinished">Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</translation>
+        <translation type="obsolete">Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+        <translation type="obsolete">Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+        <translation type="obsolete">Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+        <translation type="obsolete">Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+        <translation type="obsolete">Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -10603,99 +12690,99 @@ Corners:</translation>
     </message>
     <message>
         <source>dpi</source>
-        <translation>dpi</translation>
+        <translation type="obsolete">dpi</translation>
     </message>
     <message>
         <source>Resolution:</source>
-        <translation>Çözünürlük:</translation>
+        <translation type="obsolete">Çözünürlük:</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation>Lorem Ipsum</translation>
+        <translation type="obsolete">Lorem Ipsum</translation>
     </message>
     <message>
         <source>Always use standard Lorem Ipsum</source>
-        <translation>Daima standart Lorem Ipsum(Doldurma Metni) kullan</translation>
+        <translation type="obsolete">Daima standart Lorem Ipsum(Doldurma Metni) kullan</translation>
     </message>
     <message>
         <source>Count of the Paragraphs:</source>
-        <translation>Paragrafların Sayımı:</translation>
+        <translation type="obsolete">Paragrafların Sayımı:</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation>Cetveller sayfaya bağıntılı</translation>
+        <translation type="obsolete">Cetveller sayfaya bağıntılı</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation>Sayfa aralarındaki boşluk</translation>
+        <translation type="obsolete">Sayfa aralarındaki boşluk</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation>Yatay:</translation>
+        <translation type="obsolete">Yatay:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation>Dikey:</translation>
+        <translation type="obsolete">Dikey:</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation>Başlangıç Ekranını Göster</translation>
+        <translation type="obsolete">Başlangıç Ekranını Göster</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
-        <translation>Ghostscript&apos;i bulun</translation>
+        <translation type="obsolete">Ghostscript&apos;i bulun</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation>Resim editörünü bulun</translation>
+        <translation type="obsolete">Resim editörünü bulun</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation>PostScript Yorumlayıcısı</translation>
+        <translation type="obsolete">PostScript Yorumlayıcısı</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Bağlantılı metin çerçevelerinin gösterilmesini aç/kapat.</translation>
+        <translation type="obsolete">Bağlantılı metin çerçevelerinin gösterilmesini aç/kapat.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
+        <translation type="obsolete">Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation>&amp;Yazıtipi Boyutu(Menüler):</translation>
+        <translation type="obsolete">&amp;Yazıtipi Boyutu(Menüler):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>&amp;Yazıtipi Boyutu(Paletler):</translation>
+        <translation type="obsolete">&amp;Yazıtipi Boyutu(Paletler):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished">Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</translation>
+        <translation type="obsolete">Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished">Default font size for the tool windows</translation>
+        <translation type="obsolete">Default font size for the tool windows</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished">Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
+        <translation type="obsolete">Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished">When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</translation>
+        <translation type="obsolete">When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished">Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</translation>
+        <translation type="obsolete">Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished">File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
+        <translation type="obsolete">File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+        <translation type="obsolete">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
 </context>
 <context>
@@ -10706,11 +12793,31 @@ Corners:</translation>
     </message>
     <message>
         <source>Save...</source>
-        <translation>Kaydet...</translation>
+        <translation type="obsolete">Kaydet...</translation>
     </message>
     <message>
         <source>Save Preferences</source>
         <translation>Kayıt Tercihleri</translation>
+    </message>
+    <message>
+        <source>Export...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">&amp;Uygula</translation>
+    </message>
+    <message>
+        <source>All preferences can be reset here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply all changes without closing the dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Export current preferences into file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10743,39 +12850,39 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Tek Sayfa</translation>
+        <translation type="obsolete">Tek Sayfa</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation>Çift Taraflı</translation>
+        <translation type="obsolete">Çift Taraflı</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation>Sol Sayfa</translation>
+        <translation type="obsolete">Sol Sayfa</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Sağ Sayfa</translation>
+        <translation type="obsolete">Sağ Sayfa</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3-katlama</translation>
+        <translation type="obsolete">3-katlama</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation>Orta</translation>
+        <translation type="obsolete">Orta</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4-katlama</translation>
+        <translation type="obsolete">4-katlama</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation>Orta Sol</translation>
+        <translation type="obsolete">Orta Sol</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation>Orta Sağ</translation>
+        <translation type="obsolete">Orta Sağ</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -10819,7 +12926,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -10844,6 +12951,11 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Buradan sayfa mizanpajını seçebilirsiniz. &quot;Yok&quot; kenarlıkları olduğu gibi bırakır. Gutenberg klasik bir kenarlık düzeni uygular. &quot;Magazine&quot; eşit kenarlıklar ayarlar.</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>layout type</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10890,7 +13002,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
-        <translation>Python Scripts (*.py)</translation>
+        <translation type="obsolete">Python Scripts (*.py)</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
@@ -10898,7 +13010,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Uyarı</translation>
+        <translation type="obsolete">Uyarı</translation>
     </message>
     <message>
         <source>Text Files (*.txt)</source>
@@ -10927,6 +13039,10 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>Open Python Script File</source>
         <translation>Open Python Script File</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py *.PY)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11364,7 +13480,7 @@ Dizin ve dosya adını kontrol edin.</translation>
     </message>
     <message>
         <source>Warning</source>
-        <translation>Uyarı</translation>
+        <translation type="obsolete">Uyarı</translation>
     </message>
     <message>
         <source>Do you really want to overwrite the File:
@@ -11657,7 +13773,7 @@ Dışarı Link</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation>Norwegian (Bokmaal)</translation>
+        <translation type="obsolete">Norwegian (Bokmaal)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
@@ -11796,7 +13912,7 @@ Dışarı Link</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd);;Tüm Dosyalar (*)</translation>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;Tüm Dosyalar (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -12155,7 +14271,7 @@ Dışarı Link</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
+        <translation type="obsolete">Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -12491,7 +14607,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation type="unfinished">Font %1 is broken, no embedding</translation>
+        <translation type="obsolete">Font %1 is broken, no embedding</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
@@ -12499,7 +14615,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished">Font %1 is broken (FreeType2), discarding it</translation>
+        <translation type="obsolete">Font %1 is broken (FreeType2), discarding it</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
@@ -12511,7 +14627,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation type="unfinished">Font %1 is broken and will be discarded</translation>
+        <translation type="obsolete">Font %1 is broken and will be discarded</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
@@ -12539,11 +14655,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation type="unfinished">Font %1 is broken (FreeType), discarding it</translation>
+        <translation type="obsolete">Font %1 is broken (FreeType), discarding it</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation type="unfinished">Font %1  has invalid glyph %2 (charcode %3), discarding it</translation>
+        <translation type="obsolete">Font %1  has invalid glyph %2 (charcode %3), discarding it</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
@@ -12712,7 +14828,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished">You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</translation>
+        <translation type="obsolete">You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
@@ -12758,6 +14874,282 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Thai</source>
         <translation>Tayca</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arap</translation>
+    </message>
+    <message>
+        <source>Dzongkha</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Latin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Romanian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quarto</source>
+        <translation type="unfinished">Quarto</translation>
+    </message>
+    <message>
+        <source>Foolscap</source>
+        <translation type="unfinished">Foolscap</translation>
+    </message>
+    <message>
+        <source>Letter</source>
+        <translation type="unfinished">Letter</translation>
+    </message>
+    <message>
+        <source>Govt. Letter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Legal</source>
+        <translation type="unfinished">Legal</translation>
+    </message>
+    <message>
+        <source>Ledger</source>
+        <translation type="unfinished">Ledger</translation>
+    </message>
+    <message>
+        <source>Executive</source>
+        <translation type="unfinished">Executive</translation>
+    </message>
+    <message>
+        <source>Post</source>
+        <translation type="unfinished">Post</translation>
+    </message>
+    <message>
+        <source>Crown</source>
+        <translation type="unfinished">Crown</translation>
+    </message>
+    <message>
+        <source>Large Post</source>
+        <translation type="unfinished">Large Post</translation>
+    </message>
+    <message>
+        <source>Demy</source>
+        <translation type="unfinished">Demy</translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Royal</source>
+        <translation type="unfinished">Royal</translation>
+    </message>
+    <message>
+        <source>Elephant</source>
+        <translation type="unfinished">Elephant</translation>
+    </message>
+    <message>
+        <source>Double Demy</source>
+        <translation type="unfinished">Double Demy</translation>
+    </message>
+    <message>
+        <source>Quad Demy</source>
+        <translation type="unfinished">Quad Demy</translation>
+    </message>
+    <message>
+        <source>STMT</source>
+        <translation type="unfinished">STMT</translation>
+    </message>
+    <message>
+        <source>A</source>
+        <translation type="unfinished">A</translation>
+    </message>
+    <message>
+        <source>B</source>
+        <translation type="unfinished">B</translation>
+    </message>
+    <message>
+        <source>C</source>
+        <translation type="unfinished">C</translation>
+    </message>
+    <message>
+        <source>D</source>
+        <translation type="unfinished">D</translation>
+    </message>
+    <message>
+        <source>E</source>
+        <translation type="unfinished">E</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the origial will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>font %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>size %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+style </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+color </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-underline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-strikeout </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-shadow </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-outline </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>-tracking </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+stretch </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>parent= %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>unnamed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1(%2) is broken</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font %1 has broken glyph %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode Generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus 1.2.x Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.4 Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palm PDB Documents</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB_data</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB Import</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open file %1</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12885,71 +15277,71 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation>Kenarlık Kılavuzları</translation>
+        <translation type="obsolete">Kenarlık Kılavuzları</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation>&amp;Üst:</translation>
+        <translation type="obsolete">&amp;Üst:</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation>&amp;Sol:</translation>
+        <translation type="obsolete">&amp;Sol:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation>&amp;Alt:</translation>
+        <translation type="obsolete">&amp;Alt:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation>Sa&amp;ğ:</translation>
+        <translation type="obsolete">Sa&amp;ğ:</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation>Sayfa Boyutu</translation>
+        <translation type="obsolete">Sayfa Boyutu</translation>
     </message>
     <message>
         <source>Custom</source>
-        <translation>Özel</translation>
+        <translation type="obsolete">Özel</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation>Dikey</translation>
+        <translation type="obsolete">Dikey</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation>Yatay</translation>
+        <translation type="obsolete">Yatay</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation>Ö&amp;lçü:</translation>
+        <translation type="obsolete">Ö&amp;lçü:</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation>&amp;Yerleşim:</translation>
+        <translation type="obsolete">&amp;Yerleşim:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation>E&amp;n:</translation>
+        <translation type="obsolete">E&amp;n:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation>&amp;Boy:</translation>
+        <translation type="obsolete">&amp;Boy:</translation>
     </message>
     <message>
         <source>&amp;Unit:</source>
-        <translation>&amp;Birim:</translation>
+        <translation type="obsolete">&amp;Birim:</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation>Otomatik Kaydet</translation>
+        <translation type="obsolete">Otomatik Kaydet</translation>
     </message>
     <message>
         <source>min</source>
-        <translation>min</translation>
+        <translation type="obsolete">min</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation>&amp;Aralık:</translation>
+        <translation type="obsolete">&amp;Aralık:</translation>
     </message>
     <message>
         <source>Document</source>
@@ -12961,31 +15353,31 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Page Display</source>
-        <translation>Sayfa Görünümü</translation>
+        <translation type="obsolete">Sayfa Görünümü</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation>Renk:</translation>
+        <translation type="obsolete">Renk:</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Yazdırılamayan Alanı &amp;Kenarlık Renginde Görüntüle</translation>
+        <translation type="obsolete">Yazdırılamayan Alanı &amp;Kenarlık Renginde Görüntüle</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation>Alt+U</translation>
+        <translation type="obsolete">Alt+U</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation>Resimleri Göster</translation>
+        <translation type="obsolete">Resimleri Göster</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation>Metin Bağlarını Göster</translation>
+        <translation type="obsolete">Metin Bağlarını Göster</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation>Çerçeveleri Göster</translation>
+        <translation type="obsolete">Çerçeveleri Göster</translation>
     </message>
     <message>
         <source>Display</source>
@@ -13025,19 +15417,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation>Çerçevelerin gösterilmesini açar veya kapatır</translation>
+        <translation type="obsolete">Çerçevelerin gösterilmesini açar veya kapatır</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation>Resimlerin gösterimini açar/kapatır</translation>
+        <translation type="obsolete">Resimlerin gösterimini açar/kapatır</translation>
     </message>
     <message>
         <source>Color for paper</source>
-        <translation>Kağıt için renk</translation>
+        <translation type="obsolete">Kağıt için renk</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation>Kenarlıklar dışındaki alanı, kenarlık çizgisi rengiyle maskeler</translation>
+        <translation type="obsolete">Kenarlıklar dışındaki alanı, kenarlık çizgisi rengiyle maskeler</translation>
     </message>
     <message>
         <source>Document Information</source>
@@ -13045,11 +15437,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation>Metin Kontrol Karakterlerini Göster</translation>
+        <translation type="obsolete">Metin Kontrol Karakterlerini Göster</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>Paragraf işaretleri gibi yazdırılamayan kontrol karakterlerini de metin pencereleri içinde gösterir</translation>
+        <translation type="obsolete">Paragraf işaretleri gibi yazdırılamayan kontrol karakterlerini de metin pencereleri içinde gösterir</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
@@ -13057,23 +15449,23 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation>Cetveller sayfaya bağıntılı</translation>
+        <translation type="obsolete">Cetveller sayfaya bağıntılı</translation>
     </message>
     <message>
         <source>Minimum Scratch Space</source>
-        <translation>Minimum Karalama Alanı</translation>
+        <translation type="obsolete">Minimum Karalama Alanı</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
-        <translation>Sayfa aralarındaki boşluk</translation>
+        <translation type="obsolete">Sayfa aralarındaki boşluk</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation>Yatay:</translation>
+        <translation type="obsolete">Yatay:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation>Dikey:</translation>
+        <translation type="obsolete">Dikey:</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
@@ -13081,11 +15473,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
-        <translation>Bağlantılı metin çerçevelerinin gösterilmesini aç/kapat.</translation>
+        <translation type="obsolete">Bağlantılı metin çerçevelerinin gösterilmesini aç/kapat.</translation>
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation>Ölçü ayarlarını tüm sayfalara uygula</translation>
+        <translation type="obsolete">Ölçü ayarlarını tüm sayfalara uygula</translation>
     </message>
     <message>
         <source>Sections</source>
@@ -13093,19 +15485,376 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Sayfa ölçü değişimini belgedeki tüm sayfalara uygula</translation>
+        <translation type="obsolete">Sayfa ölçü değişimini belgedeki tüm sayfalara uygula</translation>
     </message>
 </context>
 <context>
     <name>RunScriptDialog</name>
     <message>
         <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation>Python Scripts (*.py);; All Files (*)</translation>
+        <translation type="obsolete">Python Scripts (*.py);; All Files (*)</translation>
     </message>
     <message>
         <source>Run as Extension Script</source>
         <comment>run script dialog</comment>
         <translation>Run as Extension Script</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py *.PY);; All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMAlignSelect</name>
+    <message>
+        <source>P</source>
+        <comment>P as in Parent</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use parent style&apos;s alignment instead of overriding it</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">Y&amp;eni</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Clone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Sil</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">İsim:</translation>
+    </message>
+    <message>
+        <source>Please select a unique name for the style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">&amp;Uygula</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">&amp;Sıfırla</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMCStylePage</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished"> %</translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMCharacterStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Özellikler</translation>
+    </message>
+    <message>
+        <source>Character Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation type="unfinished">Yeni Stil</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMColorCombo</name>
+    <message>
+        <source>Use Parent Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMFontComboH</name>
+    <message>
+        <source>Use Parent Font</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Özellikler</translation>
+    </message>
+    <message>
+        <source>Line Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation type="unfinished">Yeni Stil</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Düz Çizgi</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Kesintili Çizgi</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Kesintili Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Kesintili-Noktalı-Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source> pt </source>
+        <translation type="unfinished"> pt </translation>
+    </message>
+</context>
+<context>
+    <name>SMPStyleWidget</name>
+    <message>
+        <source>Fixed Linespacing</source>
+        <translation type="unfinished">Sabit Satır Boşluğu</translation>
+    </message>
+    <message>
+        <source>Automatic Linespacing</source>
+        <translation type="unfinished">Otomatik Satır Boşluğu</translation>
+    </message>
+    <message>
+        <source>Align to Baseline Grid</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Parent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distances and Alignment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Drop Caps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tabulators and Indentation</source>
+        <translation type="unfinished">Cetvelleyici ve Girintileyiciler</translation>
+    </message>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Özellikler</translation>
+    </message>
+    <message>
+        <source>Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lines:</source>
+        <translation type="unfinished">&amp;Satırlar:</translation>
+    </message>
+    <message>
+        <source>Distance from Text:</source>
+        <translation type="unfinished">Metinden Uzaklık:</translation>
+    </message>
+    <message>
+        <source>Based on</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Parent&apos;s Character Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMParagraphStyle</name>
+    <message>
+        <source>Paragraph Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paragraph Style</source>
+        <translation type="unfinished">Paragraf Stili</translation>
+    </message>
+    <message>
+        <source>New Style</source>
+        <translation type="unfinished">Yeni Stil</translation>
+    </message>
+    <message>
+        <source>Clone of %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 (%2)</source>
+        <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDia</name>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Kaldır</translation>
+    </message>
+    <message>
+        <source>Replace with</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMReplaceDiaBase</name>
+    <message>
+        <source>Delete Styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Tamam</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMRowWidget</name>
+    <message>
+        <source>No Style</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMScComboBox</name>
+    <message>
+        <source>Use Parent Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMShadeButton</name>
+    <message>
+        <source>Use Parent Value</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMStyleSelect</name>
+    <message>
+        <source>P</source>
+        <comment>P as in Parent</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use parent style&apos;s effects instead of overriding them</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMTabruler</name>
+    <message>
+        <source> Parent Tabs </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13123,7 +15872,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorF</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -13142,7 +15891,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorS</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -13207,7 +15956,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SVGExportPlugin</name>
     <message>
         <source>Save Page as &amp;SVG...</source>
-        <translation>Sayfayı &amp;SVG biçiminde kaydet...</translation>
+        <translation type="obsolete">Sayfayı &amp;SVG biçiminde kaydet...</translation>
     </message>
     <message>
         <source>Exports SVG Files</source>
@@ -13216,6 +15965,10 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Exports the current page into an SVG file.</source>
         <translation>Mevcut sayfayı SVG biçiminde kaydeder.</translation>
+    </message>
+    <message>
+        <source>Save as &amp;SVG...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13357,6 +16110,40 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
 </context>
 <context>
+    <name>ScGTFileDialog</name>
+    <message>
+        <source>Select a file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Append</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show options</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ScInputDialog</name>
+    <message>
+        <source>Input Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>InputDialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Tamam</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScPlugin</name>
     <message>
         <source>Persistent</source>
@@ -13378,6 +16165,48 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
 </context>
 <context>
+    <name>ScProgressBar</name>
+    <message>
+        <source>%1 of %2</source>
+        <translation type="unfinished">%1 of %2</translation>
+    </message>
+</context>
+<context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Sağ</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Sol</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Yatay</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Dikey</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
@@ -13388,11 +16217,48 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <name>ScriXmlDoc</name>
     <message>
         <source>Copy #%1 of </source>
-        <translation>Copy #%1 of </translation>
+        <translation type="obsolete">Copy #%1 of </translation>
     </message>
     <message>
         <source>Background</source>
-        <translation>Arkaplan</translation>
+        <translation type="obsolete">Arkaplan</translation>
+    </message>
+</context>
+<context>
+    <name>Scribus12Format</name>
+    <message>
+        <source>Scribus 1.2.x Document</source>
+        <translation type="unfinished">Scribus 1.2.x Belgesi</translation>
+    </message>
+    <message>
+        <source>Background</source>
+        <translation type="unfinished">Arkaplan</translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Scribus134Format</name>
+    <message>
+        <source>Scribus 1.3.4 Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Scribus13Format</name>
+    <message>
+        <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copy #%1 of </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13400,6 +16266,45 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>Document Colors</source>
         <translation>Belge Renkleri</translation>
+    </message>
+</context>
+<context>
+    <name>ScribusCore</name>
+    <message>
+        <source>Initializing Plugins</source>
+        <translation type="unfinished">Eklentiler Başlatılıyor</translation>
+    </message>
+    <message>
+        <source>Initializing Keyboard Shortcuts</source>
+        <translation type="unfinished">Klavye kısayolları başlatılıyor</translation>
+    </message>
+    <message>
+        <source>Reading Preferences</source>
+        <translation type="unfinished">Tercihler okunuyor</translation>
+    </message>
+    <message>
+        <source>Reading ICC Profiles</source>
+        <translation type="unfinished">ICC Profilleri okunuyor</translation>
+    </message>
+    <message>
+        <source>Searching for Fonts</source>
+        <translation type="unfinished">Yazıtipleri aranıyor</translation>
+    </message>
+    <message>
+        <source>There are no fonts found on your system.</source>
+        <translation type="unfinished">Sisteminizde kurulu yazıtipi bulunamadı.</translation>
+    </message>
+    <message>
+        <source>Exiting now.</source>
+        <translation type="unfinished">Çıkılıyor.</translation>
+    </message>
+    <message>
+        <source>Fatal Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font System Initialized</source>
+        <translation type="unfinished">Yazıtipi Sistemi başlatıldı</translation>
     </message>
 </context>
 <context>
@@ -13420,24 +16325,52 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <source>Background</source>
         <translation>Arkaplan</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished">Bütün metni temizlemek istediğinizden emin misiniz?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished">Kullanımda olan öğe silinemez</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished">%1 nesnesi şu an metin düzenleyici içinde düzenleniyor. Silme işlemi iptal edilecek</translation>
+    </message>
+    <message>
+        <source>Some objects are locked.</source>
+        <translation type="unfinished">Bazı nesneler kilitli.</translation>
+    </message>
+    <message>
+        <source>&amp;Unlock All</source>
+        <translation type="unfinished">Tümünü Çö&amp;z</translation>
+    </message>
+    <message>
+        <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation>Eklentiler Başlatılıyor</translation>
+        <translation type="obsolete">Eklentiler Başlatılıyor</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation>Klavye kısayolları başlatılıyor</translation>
+        <translation type="obsolete">Klavye kısayolları başlatılıyor</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Tercihler okunuyor</translation>
+        <translation type="obsolete">Tercihler okunuyor</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -13445,7 +16378,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation>ICC Profilleri okunuyor</translation>
+        <translation type="obsolete">ICC Profilleri okunuyor</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
@@ -13469,15 +16402,15 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Yazıtipleri aranıyor</translation>
+        <translation type="obsolete">Yazıtipleri aranıyor</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation>Sisteminizde kurulu yazıtipi bulunamadı.</translation>
+        <translation type="obsolete">Sisteminizde kurulu yazıtipi bulunamadı.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
-        <translation>Çıkılıyor.</translation>
+        <translation type="obsolete">Çıkılıyor.</translation>
     </message>
     <message>
         <source>Fatal Error</source>
@@ -13485,7 +16418,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Yazıtipi Sistemi başlatıldı</translation>
+        <translation type="obsolete">Yazıtipi Sistemi başlatıldı</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -13649,11 +16582,11 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>All Supported Formats</source>
-        <translation>Desteklenen tüm dosya türleri</translation>
+        <translation type="obsolete">Desteklenen tüm dosya türleri</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation>Tüm dosyalar (*)</translation>
+        <translation type="obsolete">Tüm dosyalar (*)</translation>
     </message>
     <message>
         <source>Cannot write the file: 
@@ -13739,7 +16672,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation>Yeni Mastar Sayfa</translation>
+        <translation type="obsolete">Yeni Mastar Sayfa</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -13861,6 +16794,56 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript kurulu değil : Postscript baskı önizlemeyi kullanamayacaksınız</translation>
     </message>
+    <message>
+        <source>Paste Recent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">İçerik</translation>
+    </message>
+    <message>
+        <source>&amp;Character</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Quote</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>S&amp;paces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished">Yeni Mastar Sayfa %1</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -13951,6 +16934,18 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Issues</source>
         <translation>Sorunlar</translation>
+    </message>
+    <message>
+        <source>Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Download a file from the Scribus website and show the latest available version.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14061,11 +17056,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation>Kullanımda olan öğe silinemez</translation>
+        <translation type="obsolete">Kullanımda olan öğe silinemez</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>%1 nesnesi şu an metin düzenleyici içinde düzenleniyor. Silme işlemi iptal edilecek</translation>
+        <translation type="obsolete">%1 nesnesi şu an metin düzenleyici içinde düzenleniyor. Silme işlemi iptal edilecek</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -14077,7 +17072,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Bütün metni temizlemek istediğinizden emin misiniz?</translation>
+        <translation type="obsolete">Bütün metni temizlemek istediğinizden emin misiniz?</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -14110,6 +17105,18 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Grayscale</source>
         <translation>Gri Tonlama</translation>
+    </message>
+    <message>
+        <source>Paste Recent</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Duotone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">İçerik</translation>
     </message>
 </context>
 <context>
@@ -14166,7 +17173,23 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
-        <translation>Python Scriptleri (*.py);;Tüm Dosyalar (*)</translation>
+        <translation type="obsolete">Python Scriptleri (*.py);;Tüm Dosyalar (*)</translation>
+    </message>
+    <message>
+        <source>Python Scripts (*.py *.PY);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documentation for:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> doesn&apos;t contain any docstring!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14229,6 +17252,14 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Select Color</source>
         <translation>Renk Seç</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Değiştir...</translation>
+    </message>
+    <message>
+        <source>Locate Startup Script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14310,7 +17341,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -14416,6 +17447,57 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Short Words</source>
         <translation>Kısa kelimeler</translation>
+    </message>
+</context>
+<context>
+    <name>ShortcutWidget</name>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished">T&amp;uş Yok</translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished">&amp;Kullanıcı Tanımlı Tuş</translation>
+    </message>
+    <message>
+        <source>ALT+SHIFT+T</source>
+        <translation type="unfinished">ALT+SHIFT+T</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished">Tuş A&amp;ta</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished">Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation type="unfinished">Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation type="unfinished">Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation type="unfinished">Ctrl+</translation>
     </message>
 </context>
 <context>
@@ -14596,27 +17678,27 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation>Metni Dosyadan Yükle</translation>
+        <translation type="obsolete">Metni Dosyadan Yükle</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation>Metni Dosyaya Kaydet</translation>
+        <translation type="obsolete">Metni Dosyaya Kaydet</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Metin Çerçevesini Güncelle ve Çık</translation>
+        <translation type="obsolete">Metin Çerçevesini Güncelle ve Çık</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Metin çerçevesini güncellemeden çık</translation>
+        <translation type="obsolete">Metin çerçevesini güncellemeden çık</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>Metni çerçeveden yeniden yükle</translation>
+        <translation type="obsolete">Metni çerçeveden yeniden yükle</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Metin Çerçevesini Güncelle</translation>
+        <translation type="obsolete">Metin Çerçevesini Güncelle</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
@@ -14640,7 +17722,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation>Ara/Değiştir</translation>
+        <translation type="obsolete">Ara/Değiştir</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -14666,6 +17748,30 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <source>Do you really want to clear all your text?</source>
         <translation>Bütün metni temizlemek istediğinizden emin misiniz?</translation>
     </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished">Karakter</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished">Aktarma Sözcüğü</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished">Boşluk</translation>
+    </message>
 </context>
 <context>
     <name>StrikeValues</name>
@@ -14687,10 +17793,109 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
 </context>
 <context>
+    <name>StyleManager</name>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">İsim:</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">&amp;Sıfırla</translation>
+    </message>
+    <message>
+        <source>&amp;Apply</source>
+        <translation type="unfinished">&amp;Uygula</translation>
+    </message>
+    <message>
+        <source>&lt;&lt; &amp;Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Edit &gt;&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;New</source>
+        <translation type="unfinished">Y&amp;eni</translation>
+    </message>
+    <message>
+        <source>&amp;Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Clone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Sil</translation>
+    </message>
+    <message>
+        <source>Reset all changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply all changes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply all changes and exit edit mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a new style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import styles from another document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clone selected style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete selected styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New</source>
+        <translation type="unfinished">Yeni</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Clone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Delete</source>
+        <translation type="unfinished">Sil</translation>
+    </message>
+    <message>
+        <source>&amp;Edit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Done</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Altı Çizili</translation>
+        <translation type="obsolete">Altı Çizili</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -14706,7 +17911,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Ortadan Çizgi</translation>
+        <translation type="obsolete">Ortadan Çizgi</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -14714,15 +17919,36 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Outline</source>
-        <translation>Kontür</translation>
+        <translation type="obsolete">Kontür</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Gölge</translation>
+        <translation type="obsolete">Gölge</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Sadece Kelimelerin Altını Çiz</translation>
+        <translation type="obsolete">Sadece Kelimelerin Altını Çiz</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <comment>Text Style Selector</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14988,6 +18214,523 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <source>Remove Profile</source>
         <translation>Profil Kaldır</translation>
     </message>
+    <message>
+        <source>Highest allowed resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Check for GIF images</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabDisplay</name>
+    <message>
+        <source>Color for paper</source>
+        <translation type="unfinished">Kağıt için renk</translation>
+    </message>
+    <message>
+        <source>Mask the area outside the margins in the margin color</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable or disable  the display of linked frames.</source>
+        <translation type="unfinished">Bağlantılı metin çerçevelerinin gösterilmesini aç/kapat.</translation>
+    </message>
+    <message>
+        <source>Display non-printing characters such as paragraph markers in text frames</source>
+        <translation type="unfinished">Paragraf işaretleri gibi yazdırılamayan kontrol karakterlerini de metin pencereleri içinde gösterir</translation>
+    </message>
+    <message>
+        <source>Turns the display of frames on or off</source>
+        <translation type="unfinished">Çerçevelerin gösterilmesini açar veya kapatır</translation>
+    </message>
+    <message>
+        <source>Turns the display of layer indicators on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Turns the display of pictures on or off</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished">Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+        <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished">Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+        <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished">Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+        <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
+        <translation type="unfinished">Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</translation>
+    </message>
+    <message>
+        <source>Set the default zoom level</source>
+        <translation type="unfinished">Öntanımlı zoom düzeyi</translation>
+    </message>
+    <message>
+        <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
+        <translation type="unfinished">Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</translation>
+    </message>
+</context>
+<context>
+    <name>TabDisplayBase</name>
+    <message>
+        <source>Form2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Layer Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Frames</source>
+        <translation type="unfinished">Çerçeveleri Göster</translation>
+    </message>
+    <message>
+        <source>Show Text Chains</source>
+        <translation type="unfinished">Metin Bağlarını Göster</translation>
+    </message>
+    <message>
+        <source>Display &amp;Unprintable Area in Margin Color</source>
+        <translation type="unfinished">Yazdırılamayan Alanı &amp;Kenarlık Renginde Görüntüle</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Rulers Relative to Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Text Control Characters</source>
+        <translation type="unfinished">Metin Kontrol Karakterlerini Göster</translation>
+    </message>
+    <message>
+        <source>Show Pictures</source>
+        <translation type="unfinished">Resimleri Göster</translation>
+    </message>
+    <message>
+        <source>Color:</source>
+        <translation type="unfinished">Renk:</translation>
+    </message>
+    <message>
+        <source>Scratch Space</source>
+        <translation type="unfinished">Karalama Alanı</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Alt:</translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished">&amp;Üst:</translation>
+    </message>
+    <message>
+        <source>Gaps Between Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal:</source>
+        <translation type="unfinished">Yatay:</translation>
+    </message>
+    <message>
+        <source>Vertical:</source>
+        <translation type="unfinished">Dikey:</translation>
+    </message>
+    <message>
+        <source>Adjust Display Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To adjust the display drag the ruler below with the slider.</source>
+        <translation type="unfinished">To adjust the display drag the ruler below with the slider.</translation>
+    </message>
+    <message>
+        <source>textLabel16</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabDocument</name>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Size</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Portrait</source>
+        <translation type="unfinished">Dikey</translation>
+    </message>
+    <message>
+        <source>Landscape</source>
+        <translation type="unfinished">Yatay</translation>
+    </message>
+    <message>
+        <source>Orie&amp;ntation:</source>
+        <translation type="unfinished">&amp;Yerleşim:</translation>
+    </message>
+    <message>
+        <source>Units:</source>
+        <translation type="unfinished">Birimler:</translation>
+    </message>
+    <message>
+        <source>&amp;Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Height:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply size settings to all Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margin Guides</source>
+        <translation type="unfinished">Kenarlık Kılavuzları</translation>
+    </message>
+    <message>
+        <source>Autosave</source>
+        <translation type="unfinished">Otomatik Kaydet</translation>
+    </message>
+    <message>
+        <source>min</source>
+        <translation type="unfinished">min</translation>
+    </message>
+    <message>
+        <source>&amp;Interval:</source>
+        <translation type="unfinished">&amp;Aralık:</translation>
+    </message>
+    <message>
+        <source>Undo/Redo</source>
+        <translation type="unfinished">Geri Al/Yinele</translation>
+    </message>
+    <message>
+        <source>Action history length</source>
+        <translation type="unfinished">İşlem Geçmişi uzunluğu</translation>
+    </message>
+    <message>
+        <source>Width of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished">Width of document pages, editable if you have chosen a custom page size</translation>
+    </message>
+    <message>
+        <source>Height of document pages, editable if you have chosen a custom page size</source>
+        <translation type="unfinished">Height of document pages, editable if you have chosen a custom page size</translation>
+    </message>
+    <message>
+        <source>Default page size, either a standard size or a custom size</source>
+        <translation type="unfinished">Default page size, either a standard size or a custom size</translation>
+    </message>
+    <message>
+        <source>Default orientation of document pages</source>
+        <translation type="unfinished">Default orientation of document pages</translation>
+    </message>
+    <message>
+        <source>Default unit of measurement for document editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
+        <translation type="unfinished">When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</translation>
+    </message>
+    <message>
+        <source>Time period between saving automatically</source>
+        <translation type="unfinished">Otomatik kaydetmeler arasaındaki zaman </translation>
+    </message>
+    <message>
+        <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
+        <translation type="unfinished">Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing pages in the document</source>
+        <translation type="unfinished">Sayfa ölçü değişimini belgedeki tüm sayfalara uygula</translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidget</name>
+    <message>
+        <source>Locate Ghostscript</source>
+        <translation type="unfinished">Ghostscript&apos;i bulun</translation>
+    </message>
+    <message>
+        <source>Locate your image editor</source>
+        <translation type="unfinished">Resim editörünü bulun</translation>
+    </message>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabExternalToolsWidgetBase</name>
+    <message>
+        <source>External Tools</source>
+        <translation type="unfinished">Dış Araçlar</translation>
+    </message>
+    <message>
+        <source>PostScript Interpreter</source>
+        <translation type="unfinished">PostScript Yorumlayıcısı</translation>
+    </message>
+    <message>
+        <source>&amp;Name of Executable:</source>
+        <translation type="unfinished">Çal&amp;ıştırılabilir Dosyanın Adı:</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change..</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Text</source>
+        <translation type="unfinished">Metinleri &amp;Yumuşat (Anti-alias)</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias text for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Antialias text for EPS and PDF onscreen rendering</translation>
+    </message>
+    <message>
+        <source>Antialias &amp;Graphics</source>
+        <translation type="unfinished">Resimleri &amp;Yumuşat (Anti-alias)</translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Antialias graphics for EPS and PDF onscreen rendering</source>
+        <translation type="unfinished">Antialias graphics for EPS and PDF onscreen rendering</translation>
+    </message>
+    <message>
+        <source>Resolution:</source>
+        <translation type="unfinished">Çözünürlük:</translation>
+    </message>
+    <message>
+        <source> dpi</source>
+        <translation type="unfinished"> dpi</translation>
+    </message>
+    <message>
+        <source>Image Processing Tool</source>
+        <translation type="unfinished">Resim İşleme Aracı</translation>
+    </message>
+    <message>
+        <source>Name of &amp;Executable:</source>
+        <translation type="unfinished">Çal&amp;ıştırılabilir Dosyanın Adı:</translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for graphics editor. If you use gimp and your distribution includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">D&amp;eğiştir...</translation>
+    </message>
+    <message>
+        <source>Web Browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Web Browser to launch with links from the Help system</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;qt&gt;File system location for your web browser. This is used for external links from the Help system.&lt;/qt&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Rescan</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rescan for the external tools if they do not exist in the already specified location</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabGeneral</name>
+    <message>
+        <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
+        <translation type="unfinished">Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</translation>
+    </message>
+    <message>
+        <source>Number of recently edited documents to show in the File menu</source>
+        <translation type="unfinished">Number of recently edited documents to show in the File menu</translation>
+    </message>
+    <message>
+        <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
+        <translation type="unfinished">Number of lines Scribus will scroll for each move of the mouse wheel</translation>
+    </message>
+    <message>
+        <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
+        <translation type="unfinished">Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</translation>
+    </message>
+    <message>
+        <source>Default font size for the menus and windows</source>
+        <translation type="unfinished">Default font size for the menus and windows</translation>
+    </message>
+    <message>
+        <source>Default font size for the tool windows</source>
+        <translation type="unfinished">Default font size for the tool windows</translation>
+    </message>
+    <message>
+        <source>Default documents directory</source>
+        <translation type="unfinished">Öntanımlı belge dizini</translation>
+    </message>
+    <message>
+        <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
+        <translation type="unfinished">Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </translation>
+    </message>
+    <message>
+        <source>Default Scripter scripts directory</source>
+        <translation type="unfinished">Default Scripter scripts directory</translation>
+    </message>
+    <message>
+        <source>Additional directory for document templates</source>
+        <translation type="unfinished">Belge şablonları için diğer dizin</translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Dizin Seçin</translation>
+    </message>
+</context>
+<context>
+    <name>TabGeneralBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>GUI</source>
+        <translation type="unfinished">GUI</translation>
+    </message>
+    <message>
+        <source>&amp;Language:</source>
+        <translation type="unfinished">&amp;Dil:</translation>
+    </message>
+    <message>
+        <source>&amp;Theme:</source>
+        <translation type="unfinished">&amp;Tema:</translation>
+    </message>
+    <message>
+        <source>Time before a Move or Resize starts:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> ms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Font Size (Menus):</source>
+        <translation type="unfinished">&amp;Yazıtipi Boyutu(Menüler):</translation>
+    </message>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Font Size (&amp;Palettes):</source>
+        <translation type="unfinished">&amp;Yazıtipi Boyutu(Paletler):</translation>
+    </message>
+    <message>
+        <source>&amp;Wheel Jump:</source>
+        <translation type="unfinished">&amp;Wheel Jump:</translation>
+    </message>
+    <message>
+        <source>&amp;Recent Documents:</source>
+        <translation type="unfinished">&amp;Son Kullanılan Belgeler:</translation>
+    </message>
+    <message>
+        <source>Paths</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Documents:</source>
+        <translation type="unfinished">&amp;Belge:</translation>
+    </message>
+    <message>
+        <source>&amp;Change...</source>
+        <translation type="unfinished">D&amp;eğiştir...</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>&amp;ICC Profiles:</source>
+        <translation type="unfinished">&amp;ICC Profilleri:</translation>
+    </message>
+    <message>
+        <source>C&amp;hange...</source>
+        <translation type="unfinished">D&amp;eğiştir...</translation>
+    </message>
+    <message>
+        <source>Alt+H</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Scripts:</source>
+        <translation type="unfinished">&amp;Scriptler:</translation>
+    </message>
+    <message>
+        <source>Ch&amp;ange...</source>
+        <translation type="unfinished">D&amp;eğiştir...</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>Document &amp;Templates:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cha&amp;nge...</source>
+        <translation type="unfinished">D&amp;eğiştir...</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabGuides</name>
@@ -15137,10 +18880,195 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
 </context>
 <context>
+    <name>TabKeyboardShortcutsWidget</name>
+    <message>
+        <source>Key Set XML Files (*.ksxml)</source>
+        <translation type="unfinished">Kısayol XML dosyaları (*.ksxml)</translation>
+    </message>
+    <message>
+        <source>Alt</source>
+        <translation type="unfinished">Alt</translation>
+    </message>
+    <message>
+        <source>Ctrl</source>
+        <translation type="unfinished">Ctrl</translation>
+    </message>
+    <message>
+        <source>Shift</source>
+        <translation type="unfinished">Shift</translation>
+    </message>
+    <message>
+        <source>Meta</source>
+        <translation type="unfinished">Meta</translation>
+    </message>
+    <message>
+        <source>Meta+</source>
+        <translation type="unfinished">Meta+</translation>
+    </message>
+    <message>
+        <source>Shift+</source>
+        <translation type="unfinished">Shift+</translation>
+    </message>
+    <message>
+        <source>Alt+</source>
+        <translation type="unfinished">Alt+</translation>
+    </message>
+    <message>
+        <source>Ctrl+</source>
+        <translation type="unfinished">Ctrl+</translation>
+    </message>
+    <message>
+        <source>This key sequence is already in use</source>
+        <translation type="unfinished">Bu tuş sırası zaten kullanımda</translation>
+    </message>
+</context>
+<context>
+    <name>TabKeyboardShortcutsWidgetBase</name>
+    <message>
+        <source>Keyboard Shortcuts</source>
+        <translation type="unfinished">Klavye Kısayolları</translation>
+    </message>
+    <message>
+        <source>Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Action</source>
+        <translation type="unfinished">İşlem</translation>
+    </message>
+    <message>
+        <source>Shortcut</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shortcut for Selected Action</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;No Key</source>
+        <translation type="unfinished">T&amp;uş Yok</translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;User Defined Key</source>
+        <translation type="unfinished">&amp;Kullanıcı Tanımlı Tuş</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Set &amp;Key</source>
+        <translation type="unfinished">Tuş A&amp;ta</translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CTRL+ALT+SHIFT+W</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Loadable Shortcut Sets</source>
+        <translation type="unfinished">Yüklenebilir Kısayol Kümeleri</translation>
+    </message>
+    <message>
+        <source>Keyboard shortcut sets available to load</source>
+        <translation type="unfinished">Yüklenebilecek klavye kısayolu kümeleri</translation>
+    </message>
+    <message>
+        <source>&amp;Load</source>
+        <translation type="unfinished">&amp;Yükle</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Load the selected shortcut set</source>
+        <translation type="unfinished">Seçili kısayol kümesini yükle</translation>
+    </message>
+    <message>
+        <source>&amp;Import...</source>
+        <translation type="unfinished">İth&amp;al et...</translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import a shortcut set into the current configuration</source>
+        <translation type="unfinished">Mevcut yapılandırmaya kısayol kümesi ekle</translation>
+    </message>
+    <message>
+        <source>&amp;Export...</source>
+        <translation type="unfinished">İ&amp;hraç et...</translation>
+    </message>
+    <message>
+        <source>Alt+E</source>
+        <translation type="unfinished">Alt+E</translation>
+    </message>
+    <message>
+        <source>Export the current shortcuts into an importable file</source>
+        <translation type="unfinished">Şu anki kısayolları alınabilir bir dosyaya yolla</translation>
+    </message>
+    <message>
+        <source>&amp;Reset</source>
+        <translation type="unfinished">&amp;Sıfırla</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reload the default Scribus shortcuts</source>
+        <translation type="unfinished">Scribus&apos;un öntanımlı kısayollarını geri yükle</translation>
+    </message>
+</context>
+<context>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
         <translation>Cetvelleyicileri Yönet</translation>
+    </message>
+</context>
+<context>
+    <name>TabMiscellaneousBase</name>
+    <message>
+        <source>Form1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Always ask before fonts are replaced when loading a document</source>
+        <translation type="unfinished">Belge yüklenirken, değiştirilecek yazıtipi olursa beni uyar</translation>
+    </message>
+    <message>
+        <source>Preview of current Paragraph Style visible when editing Styles</source>
+        <translation type="unfinished">Preview of current Paragraph Style visible when editing Styles</translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation type="unfinished">Başlangıç Ekranını Göster</translation>
+    </message>
+    <message>
+        <source>Show Splashscreen on Startup</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lorem Ipsum</source>
+        <translation type="unfinished">Lorem Ipsum</translation>
+    </message>
+    <message>
+        <source>Always use standard Lorem Ipsum</source>
+        <translation type="unfinished">Daima standart Lorem Ipsum(Doldurma Metni) kullan</translation>
+    </message>
+    <message>
+        <source>Count of the Paragraphs:</source>
+        <translation type="unfinished">Paragrafların Sayımı:</translation>
     </message>
 </context>
 <context>
@@ -15207,7 +19135,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>Resim Ayarları</translation>
+        <translation type="obsolete">Resim Ayarları</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -15215,11 +19143,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>JPEG</source>
-        <translation>JPEG</translation>
+        <translation type="obsolete">JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation>Zip</translation>
+        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -15567,7 +19495,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Length of time the page is shown before the presentation starts on the selected page.</translation>
+        <translation type="obsolete">Length of time the page is shown before the presentation starts on the selected page.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -15675,7 +19603,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation>Adobe&amp;#174; Reader&amp;#174 ile tam ekranda görüntüleme yaparken sunum efektlerinin etkin olmasını sağlar.</translation>
+        <translation type="obsolete">Adobe&amp;#174; Reader&amp;#174 ile tam ekranda görüntüleme yaparken sunum efektlerinin etkin olmasını sağlar.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
@@ -15687,11 +19615,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished">Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
+        <translation type="obsolete">Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished">Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
+        <translation type="obsolete">Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
@@ -15743,7 +19671,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation>Belgenizdeki katmanlar PDF çıktısına aktarılır, yalnızca PDF 1.5 seçili ise çalışır.</translation>
+        <translation type="obsolete">Belgenizdeki katmanlar PDF çıktısına aktarılır, yalnızca PDF 1.5 seçili ise çalışır.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -15759,7 +19687,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished">Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
+        <translation type="obsolete">Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -15771,7 +19699,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished">Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
+        <translation type="obsolete">Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -15848,7 +19776,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation>Belge açıldığında çalışacak
+        <translation type="obsolete">Belge açıldığında çalışacak
 JavaScript:</translation>
     </message>
     <message>
@@ -15858,6 +19786,98 @@ JavaScript:</translation>
     <message>
         <source>Viewer</source>
         <translation>Görüntüleyici</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Force Overprint Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TabScrapbookBase</name>
+    <message>
+        <source>Form2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send Copied Items Automatically to Scrapbook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Keep Copied Items Permanently Across Sessions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This enables copied items to be kept permanently in the scrapbook.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Copied Items to Keep in Scrapbook:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The minimum number is 1; the maximum us 100.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16170,6 +20190,11 @@ JavaScript:</translation>
         <source>Custom</source>
         <translation>Özel</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -16318,7 +20343,7 @@ JavaScript:</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Fill Char:</source>
@@ -16347,6 +20372,30 @@ JavaScript:</translation>
     <message>
         <source>Custom</source>
         <translation>Özel</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>tab fill</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Indentation from the right for the whole paragraph</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>TextBrowser</name>
+    <message>
+        <source>Locate your web browser</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>External Web Browser Failed to Start</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus was not able to start the external web browser application %1. Please check the setting in Preferences</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16825,6 +20874,62 @@ buraya %2</translation>
         <source>Text on a Path</source>
         <translation>Metni Eğriye Oturt</translation>
     </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No object frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply text style</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo: %1</source>
+        <comment>f.e. Undo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Undo</source>
+        <translation type="unfinished">Geri &amp;Al</translation>
+    </message>
+    <message>
+        <source>&amp;Redo: %1</source>
+        <comment>f.e. Redo: Move</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Redo</source>
+        <translation type="unfinished">&amp;Yinele</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -16858,6 +20963,104 @@ buraya %2</translation>
     </message>
 </context>
 <context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialog</name>
+    <message>
+        <source>Minimum Margins for Page Size %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialogBase</name>
+    <message>
+        <source>Use Printer Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select &amp;Printer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="unfinished">Kenarlıklar</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished">&amp;Üst:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Alt:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Tamam</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+</context>
+<context>
     <name>ValueDialog</name>
     <message>
         <source>Insert value</source>
@@ -16884,54 +21087,54 @@ buraya %2</translation>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
-        <translation>Araçlar</translation>
+        <translation type="obsolete">Araçlar</translation>
     </message>
     <message>
         <source>Properties...</source>
-        <translation>Özellikler...</translation>
+        <translation type="obsolete">Özellikler...</translation>
     </message>
 </context>
 <context>
     <name>WerkToolBP</name>
     <message>
         <source>Button</source>
-        <translation>Düğme</translation>
+        <translation type="obsolete">Düğme</translation>
     </message>
     <message>
         <source>Text Field</source>
-        <translation>Metin Kutusu</translation>
+        <translation type="obsolete">Metin Kutusu</translation>
     </message>
     <message>
         <source>Check Box</source>
-        <translation>Check Box</translation>
+        <translation type="obsolete">Check Box</translation>
     </message>
     <message>
         <source>Combo Box</source>
-        <translation>Combo Box</translation>
+        <translation type="obsolete">Combo Box</translation>
     </message>
     <message>
         <source>List Box</source>
-        <translation>Liste kutusu</translation>
+        <translation type="obsolete">Liste kutusu</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation>Metin</translation>
+        <translation type="obsolete">Metin</translation>
     </message>
     <message>
         <source>Link</source>
-        <translation>Link</translation>
+        <translation type="obsolete">Link</translation>
     </message>
     <message>
         <source>PDF Tools</source>
-        <translation>PDF Araçları</translation>
+        <translation type="obsolete">PDF Araçları</translation>
     </message>
     <message>
         <source>Insert PDF Fields</source>
-        <translation>PDF alanları ekle</translation>
+        <translation type="obsolete">PDF alanları ekle</translation>
     </message>
     <message>
         <source>Insert PDF Annotations</source>
-        <translation>PDF açıklamaları ekle</translation>
+        <translation type="obsolete">PDF açıklamaları ekle</translation>
     </message>
 </context>
 <context>
