@@ -779,6 +779,8 @@ void UndoManager::languageChange()
 	UndoManager::MenuRedo           = tr("&Redo: %1", "f.e. Redo: Move");
 	UndoManager::MenuRedoEmpty      = tr("&Redo");
 	UndoManager::EditContour        = tr("Edit contour line");
+	UndoManager::ResetControlPoint  = tr("Reset control point");
+	UndoManager::ResetControlPoints = tr("Reset control points");
 }
 
 void UndoManager::initIcons()
@@ -951,6 +953,8 @@ QString UndoManager::MenuUndoEmpty      = "";
 QString UndoManager::MenuRedo           = "";
 QString UndoManager::MenuRedoEmpty      = "";
 QString UndoManager::EditContour        = "";
+QString UndoManager::ResetControlPoint  = "";
+QString UndoManager::ResetControlPoints = "";
 
 /*** Icons for UndoObjects *******************************************/
 QPixmap *UndoManager::IImageFrame      = 0;
