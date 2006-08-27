@@ -566,6 +566,8 @@ public:
 	static QString GetImage;
 	static QString MultipleDuplicate;
 	static QString EditContour;
+	static QString ResetControlPoint;
+	static QString ResetControlPoints;
 	/*@}*/
 
 	/**
