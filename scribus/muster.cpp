@@ -99,7 +99,7 @@ void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 
 void MasterPagesPalette::deleteMasterPage()
 {
-	if (sMuster == "Normal")
+	if ((sMuster == "Normal") || (sMuster == tr("Normal")) || (sMuster == tr("Normal Left")) || (sMuster == tr("Normal Middle")) || (sMuster == tr("Normal Right")))
 		return;
 	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
@@ -116,14 +116,46 @@ void MasterPagesPalette::deleteMasterPage()
 		for (uint a = 0; a < currentDoc->Pages->count(); ++a)
 			currentDoc->MasterNames[currentDoc->Pages->at(a)->pageName()] = currentDoc->Pages->at(a)->pageNr();
 		// and fix up any pages that refer to the deleted master page
+		uint pageIndex = 0;
+		QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin();
 		for (Page* docPage = currentDoc->DocPages.first(); docPage; docPage = currentDoc->DocPages.next() )
 		{
 			if (docPage->MPageNam == sMuster)
-				docPage->MPageNam = "Normal";
+			{
+				PageLocation pageLoc = currentDoc->locationOfPage(pageIndex);
+				if (pageLoc == LeftPage)
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Left")))
+						docPage->MPageNam = tr("Normal Left");
+					else if (currentDoc->MasterNames.contains( tr("Normal")))
+						docPage->MPageNam = tr("Normal");
+					else
+						docPage->MPageNam = it.key();
+				}
+				else if (pageLoc == RightPage)
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Right")))
+						docPage->MPageNam = tr("Normal Right");
+					else if (currentDoc->MasterNames.contains( tr("Normal")))
+						docPage->MPageNam = tr("Normal");
+					else
+						docPage->MPageNam = it.key();
+				}
+				else
+				{
+					if (currentDoc->MasterNames.contains( tr("Normal Middle")))
+						docPage->MPageNam = tr("Normal Middle");
+					else if (currentDoc->MasterNames.contains( tr("Normal")))
+						docPage->MPageNam = tr("Normal");
+					else
+						docPage->MPageNam = it.key();
+				}
+			}
+			pageIndex++;
 		}
 		//>>
 		
-		sMuster = "Normal";
+		sMuster = it.key();
 		updateMasterPageList(sMuster);
 		//currentDoc->MasterPages = currentDoc->Pages;
 	}
@@ -140,7 +172,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	if (dia->exec())
 	{
 		QString MasterPageName = dia->Answer->text();
-		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
+		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == "Normal") || (MasterPageName == tr("Normal")) || (MasterPageName == tr("Normal Left")) || (MasterPageName == tr("Normal Middle")) || (MasterPageName == tr("Normal Right"))))
 		{
 			if (!dia->exec())
 			{
@@ -264,7 +296,7 @@ void MasterPagesPalette::newMasterPage()
 	if (dia->exec())
 	{
 		MasterPageName = dia->Answer->text();
-		while (currentDoc->MasterNames.contains(MasterPageName) || (MasterPageName == "Normal"))
+		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == "Normal") || (MasterPageName == tr("Normal")) || (MasterPageName == tr("Normal Left")) || (MasterPageName == tr("Normal Middle")) || (MasterPageName == tr("Normal Right"))))
 		{
 			if (!dia->exec())
 			{
@@ -385,7 +417,7 @@ void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 void MasterPagesPalette::renameMasterPage(QListBoxItem * item)
 {
 	QString oldName(item->text());
-	if (oldName=="Normal" || oldName==tr("Normal"))
+	if ((oldName == "Normal") || (oldName == tr("Normal")) || (oldName == tr("Normal Left")) || (oldName == tr("Normal Middle")) || (oldName == tr("Normal Right")))
 	{
 		QMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed."), QMessageBox::Ok );
 		return;
