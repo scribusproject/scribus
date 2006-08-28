@@ -19,6 +19,7 @@ class QLabel;
 class QButtonGroup;
 class QVBoxLayout;
 class QCheckBox;
+class ScribusDoc;
 
 /*! \brief Document panel for preferences dialog.
 This class is inherited from UI base class.
@@ -32,6 +33,7 @@ class SCRIBUS_API TabDocument : public QWidget
 		TabDocument(QWidget* parent = 0, const char* name = 0, const bool reform = false);
 		~TabDocument(){};
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
+		void restoreDefaults(ScribusDoc *prefsData);
 		void unitChange();
 		//! \brief Hide non-needed GUI for ReformDoc
 		void hideReform();

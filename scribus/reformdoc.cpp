@@ -144,7 +144,7 @@ void ReformDoc::restoreDefaults()
 	//QWidget* current = prefsWidgets->visibleWidget();
 	//if (current == tabPage)
 	//{
-	tabPage->restoreDefaults(prefsData);
+	tabPage->restoreDefaults(currDoc);
 	//}
 	//else if (current == tabView)
 	//{
@@ -263,6 +263,10 @@ void ReformDoc::updateDocumentSettings()
 		{
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
+			pp->setHeight(currDoc->pageHeight);
+			pp->setWidth(currDoc->pageWidth);
+			pp->m_pageSize = currDoc->m_pageSize;
+			pp->PageOri = currDoc->PageOri;
 		}
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
@@ -279,6 +283,10 @@ void ReformDoc::updateDocumentSettings()
 		{
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
+			pp->setHeight(currDoc->pageHeight);
+			pp->setWidth(currDoc->pageWidth);
+			pp->m_pageSize = currDoc->m_pageSize;
+			pp->PageOri = currDoc->PageOri;
 		}
 		if (tabPage->marginGroup->getMarginsForAllPages())
 		{
