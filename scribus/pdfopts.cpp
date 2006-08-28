@@ -15,6 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "pdfopts.h"
 #include "pdfopts.moc"
 
+#include <qmessagebox.h>
+
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -119,6 +121,30 @@ void PDFExportDialog::disableSave()
 void PDFExportDialog::DoExport()
 {
 	QString fn = fileNameLineEdit->text();
+	// checking if the path exists
+	// NOTE: Qt4 contains QDir::mkpath()
+	QDir d(fn);
+	QStringList dirList = QStringList::split(QDir::separator(), d.absPath());
+	QString existingPath("/");
+	for (QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it )
+	{
+		// last one is filename
+		if ((*it) == dirList[dirList.size()-1])
+			break;
+		existingPath += (*it) + QDir::separator();
+		if (!d.exists(existingPath))
+		{
+			if (!d.mkdir(existingPath))
+			{
+				QMessageBox::warning(this,
+									 CommonStrings::trWarning,
+									 tr("Cannot create directory: \n%1").arg(existingPath),
+									 CommonStrings::tr_OK);
+				return;
+			}
+		}
+	} // end of Qt4 QDir::mkpath() simulation
+
 	bool doIt = false;
 	if (multiFile->isChecked())
 		doIt = true;
