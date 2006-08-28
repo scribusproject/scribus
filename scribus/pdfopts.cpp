@@ -121,16 +121,25 @@ void PDFExportDialog::disableSave()
 void PDFExportDialog::DoExport()
 {
 	QString fn = fileNameLineEdit->text();
-	// checking if the path exists
+	// Checking if the path exists
+	QFileInfo fi(fn);
+	QString dirPath = QDir::convertSeparators(fi.dirPath(true));
+	if (!QFile::exists(fi.dirPath(true)))
+	{
+		int rep = QMessageBox::question(this, "", tr("%1 does not exists, do you want to create it?").arg(dirPath),
+										QMessageBox::Yes, QMessageBox::No);
+		if (rep != QMessageBox::Yes)
+			return;
+	}
 	// NOTE: Qt4 contains QDir::mkpath()
 	QDir d(fn);
-	QStringList dirList = QStringList::split(QDir::separator(), d.absPath());
-	QString existingPath("/");
+	QStringList dirList = QStringList::split(QDir::separator(), dirPath);
+	QString existingPath;
+#ifndef _WIN32
+	existingPath = QDir::separator();
+#endif
 	for (QStringList::Iterator it = dirList.begin(); it != dirList.end(); ++it )
 	{
-		// last one is filename
-		if ((*it) == dirList[dirList.size()-1])
-			break;
 		existingPath += (*it) + QDir::separator();
 		if (!d.exists(existingPath))
 		{
