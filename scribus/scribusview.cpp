@@ -1310,8 +1310,16 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						QPopupMenu *pmen = new QPopupMenu();
 						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 						pmen->insertItem( tr("Copy Here"));
-						pmen->insertItem( tr("Move Here"));
+						int mov = pmen->insertItem( tr("Move Here"));
 						pmen->insertItem( tr("Cancel"));
+						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
+						{
+							if (Doc->Items->at(Doc->DragElements[dre])->locked())
+							{
+								pmen->setItemEnabled(mov, false);
+								break;
+							}
+						}
 						re = pmen->indexOf(pmen->exec(QCursor::pos()));
 						delete pmen;
 						pmen=NULL;
@@ -3690,7 +3698,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 		newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
-		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) && (!currItem->locked()) && (!(currItem->isTableItem && currItem->isSingleSel)))
+		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) /* && (!currItem->locked()) */ && (!(currItem->isTableItem && currItem->isSingleSel)))
 		{
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
