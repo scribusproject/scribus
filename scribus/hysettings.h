@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include "prefsstructs.h"
+class ScribusDoc;
 
 class SCRIBUS_API HySettings : public QWidget
 { 
@@ -26,6 +27,7 @@ public:
 	HySettings( QWidget* parent, QMap<QString,QString>* langs);
 	~HySettings() {};
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
+	void restoreDefaults(ScribusDoc *prefsData);
 
 	QCheckBox* verbose;
 	QCheckBox* input;

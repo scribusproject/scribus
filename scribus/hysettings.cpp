@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "hysettings.h"
 #include "hysettings.moc"
 #include "sccombobox.h"
+#include "scribusdoc.h"
 
 HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidget( parent, "Settings" )
 {
@@ -57,4 +58,13 @@ void HySettings::restoreDefaults(struct ApplicationPrefs *prefsData)
 	wordLen->setValue(prefsData->MinWordLen);
 	maxCount->setValue(prefsData->HyCount);
 	
+}
+
+void HySettings::restoreDefaults(ScribusDoc *prefsData)
+{
+	verbose->setChecked(!prefsData->Automatic);
+	input->setChecked(prefsData->AutoCheck);
+	language->setCurrentText(langsMap[prefsData->Language]);
+	wordLen->setValue(prefsData->MinWordLen);
+	maxCount->setValue(prefsData->HyCount);
 }

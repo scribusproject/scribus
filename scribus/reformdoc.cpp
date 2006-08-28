@@ -152,7 +152,7 @@ void ReformDoc::restoreDefaults()
 	//}
 	//else if (current == tabHyphenator)
 	//{
-	tabHyphenator->restoreDefaults(prefsData);
+	tabHyphenator->restoreDefaults(currDoc);
 	//}
 	//else if (current == tabGuides)
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
