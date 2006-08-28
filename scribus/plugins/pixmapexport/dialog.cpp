@@ -159,6 +159,7 @@ void ExportForm::OutputDirectoryButton_pressed()
 	QString d = QFileDialog::getExistingDirectory(lastDir, this, "d", tr("Choose a Export Directory"), true);
 	if (d.length()>0)
 	{
+		d = QDir::convertSeparators(d);
 		OutputDirectory->setText(d);
 		prefs->set("wdir", d);
 	}
