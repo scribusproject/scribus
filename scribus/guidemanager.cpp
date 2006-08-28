@@ -228,14 +228,14 @@ bool GuideManager::editValueToList(QListView *list)
 
 	if (list == horizontalList)
 	{
-		currentPage->guides.moveHorizontal(m_horMap[original],
-										   newGuide / docUnitRatio, GuideManagerCore::Standard);
+		currentPage->guides.moveHorizontal(m_horMap[original], value2pts(newGuide, docUnitIndex),
+										   GuideManagerCore::Standard);
 		clearRestoreHorizontalList();
 	}
 	else
 	{
-		currentPage->guides.moveVertical(m_verMap[original],
-										 newGuide / docUnitRatio, GuideManagerCore::Standard);
+		currentPage->guides.moveVertical(m_verMap[original], value2pts(newGuide, docUnitIndex),
+										 GuideManagerCore::Standard);
 		clearRestoreVerticalList();
 	}
 	drawGuides();
@@ -254,7 +254,7 @@ bool GuideManager::addValueToList(QListView *list)
 
 	QString tmp;
 	tmp = tmp.setNum(newGuide, 'f', docUnitPrecision);
-	double ng = newGuide / docUnitRatio;
+	double ng = value2pts(newGuide, docUnitIndex);
 	if (list == horizontalList)
 	{
 		currentPage->guides.addHorizontal(ng, GuideManagerCore::Standard);
@@ -262,7 +262,7 @@ bool GuideManager::addValueToList(QListView *list)
 	}
 	else
 	{
-		currentPage->guides.addVertical(newGuide / docUnitRatio, GuideManagerCore::Standard);
+		currentPage->guides.addVertical(ng, GuideManagerCore::Standard);
 		m_verMap[tmp] = ng;
 	}
 
@@ -400,10 +400,6 @@ void GuideManager::bGroup_clicked( int val)
 {
 	currentPage->guides.setAutoRefer(val);
 	drawGuides();
-// 	if (verticalAutoCountSpin->value() > 0)
-// 		getAutoVerticals();
-// 	if (horizontalAutoCountSpin->value() > 0)
-// 		getAutoHorizontals();
 }
 
 void GuideManager::tabWidget_currentChanged( QWidget * )

@@ -27,6 +27,8 @@ GuideManagerCore::GuideManagerCore():
 	m_autoRefer = 0;
 	m_horizontalAutoCount = 0;
 	m_verticalAutoCount = 0;
+	clearHorizontals(Standard);
+	clearVerticals(Standard);
 }
 
 GuideManagerCore::GuideManagerCore(Page *parentPage):
@@ -38,6 +40,8 @@ GuideManagerCore::GuideManagerCore(Page *parentPage):
 	m_autoRefer = 0;
 	m_horizontalAutoCount = 0;
 	m_verticalAutoCount = 0;
+	clearHorizontals(Standard);
+	clearVerticals(Standard);
 }
 
 GuideManagerCore::~GuideManagerCore()
@@ -508,7 +512,7 @@ double GuideManagerCore::closestVertRight(double x)// const
 void GuideManagerCore::readVerticalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides)
 {
 	QStringList gVal(QStringList::split(' ', guideString));
-	page->guides.clearVerticals(type);
+
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addHorizontal((*it).toDouble(), type) :
@@ -518,7 +522,6 @@ void GuideManagerCore::readVerticalGuides(const QString guideString, Page *page,
 void GuideManagerCore::readHorizontalGuides(const QString guideString, Page *page, GuideType type, bool useOldGuides)
 {
 	QStringList gVal(QStringList::split(' ', guideString));
-	page->guides.clearHorizontals(type);
 	for (QStringList::Iterator it = gVal.begin(); it != gVal.end(); ++it )
 		useOldGuides ?
 			page->guides.addVertical((*it).toDouble(), type):
