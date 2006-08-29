@@ -1304,7 +1304,7 @@ QColor SVGPlug::parseColorN( const QString &rgbColor )
 QString SVGPlug::parseColor( const QString &s )
 {
 	QColor c;
-	QString ret = CommonStrings::NoneColor;
+	QString ret = CommonStrings::None;
 	if( s.startsWith( "rgb(" ) )
 	{
 		QString parse = s.stripWhiteSpace();
@@ -1376,7 +1376,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->FillCol = obj->CurCol;
 		else if (params == "none")
 		{
-			obj->FillCol = CommonStrings::NoneColor;
+			obj->FillCol = CommonStrings::None;
 		}
 		else if( params.startsWith( "url(" ) )
 		{
@@ -1421,7 +1421,7 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 				obj->GY2 = m_gradients[key].Y2;
 			if (m_gradients[key].matrixValid)
 				obj->matrixg = m_gradients[key].matrix;
-			obj->FillCol = CommonStrings::NoneColor;
+			obj->FillCol = CommonStrings::None;
 		}
 		else
 			obj->FillCol = parseColor(params);
@@ -1433,10 +1433,10 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	else if( command == "color" )
 	{
 		if (params == "none")
-			obj->CurCol = CommonStrings::NoneColor;
+			obj->CurCol = CommonStrings::None;
 		else if( params.startsWith( "url(" ) )
 		{
-			obj->CurCol = CommonStrings::NoneColor;
+			obj->CurCol = CommonStrings::None;
 		}
 		else
 		{
@@ -1449,11 +1449,11 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 			obj->StrokeCol = obj->CurCol;
 		else if (params == "none")
 		{
-			obj->StrokeCol = CommonStrings::NoneColor;
+			obj->StrokeCol = CommonStrings::None;
 		}
 		else if( params.startsWith( "url(" ) )
 		{
-			obj->StrokeCol = CommonStrings::NoneColor;
+			obj->StrokeCol = CommonStrings::None;
 		}
 		else
 			obj->StrokeCol = parseColor(params);
