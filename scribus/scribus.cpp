@@ -1264,6 +1264,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 
 		if ((doc->appMode != modeEdit) && (doc->m_Selection->count() == 0))
 		{
+			int pg;
 			switch (kk)
 			{
 			case Key_Space:
@@ -1275,12 +1276,34 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 				return;
 				break;
 			case Key_Prior:
-				view->scrollBy(0, -prefsManager->mouseWheelValue());
+				if (doc->masterPageMode())
+					view->scrollBy(0, -prefsManager->mouseWheelValue());
+				else
+				{
+					pg = doc->currentPageNumber();
+					if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+						pg--;
+					else
+						pg -= doc->pageSets[doc->currentPageLayout].Columns;
+					if (pg > -1)
+						view->GotoPage(pg);
+				}
 				keyrep = false;
 				return;
 				break;
 			case Key_Next:
-				view->scrollBy(0, prefsManager->mouseWheelValue());
+				if (doc->masterPageMode())
+					view->scrollBy(0, prefsManager->mouseWheelValue());
+				else
+				{
+					pg = doc->currentPageNumber();
+					if ((buttonState & ShiftButton) && !(buttonState & ControlButton) && !(buttonState & AltButton))
+						pg++;
+					else
+						pg += doc->pageSets[doc->currentPageLayout].Columns;
+					if (pg < doc->Pages->count())
+						view->GotoPage(pg);
+				}
 				keyrep = false;
 				return;
 				break;
