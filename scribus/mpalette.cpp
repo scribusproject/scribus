@@ -590,10 +590,10 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	styleLabel = new QLabel( Spal, "St&yle:", page_3, "styleLabel" );
 	GroupBox3aLayout->addWidget( styleLabel, 0, 0 );
 	GroupBox3aLayout->addWidget( Spal, 0, 1 );
-	langCombo = new ScComboBox( false, page_3, "Lang" );
+/*	langCombo = new ScComboBox( false, page_3, "Lang" );
 	langLabel = new QLabel( langCombo, "Lan&guage:", page_3, "langLabel" );
 	GroupBox3aLayout->addWidget( langLabel, 1, 0 );
-	GroupBox3aLayout->addWidget( langCombo, 1, 1 );
+	GroupBox3aLayout->addWidget( langCombo, 1, 1 ); */
 	pageLayout_3->addLayout(GroupBox3aLayout);
 
 	QSpacerItem* spacer8 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
@@ -874,7 +874,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect(InputP, SIGNAL(activated(const QString&)), this, SLOT(ChProf(const QString&)));
 	connect(MonitorI, SIGNAL(activated(int)), this, SLOT(ChIntent()));
 	connect(NameEdit, SIGNAL(Leaved()), this, SLOT(NewName()));
-	connect(langCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
+//	connect(langCombo, SIGNAL(activated(int)), this, SLOT(NewLanguage()));
 	connect( TabsButton, SIGNAL( clicked() ), this, SLOT( ManageTabs() ) );
 	connect( TopLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
 	connect( LeftLine, SIGNAL( clicked() ), this, SLOT( HandleTLines() ) );
@@ -1059,7 +1059,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
-	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
+//	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
 	if (TabStack->currentIndex() == 5)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
@@ -1319,7 +1319,7 @@ void Mpalette::SetCurItem(PageItem *i)
 	connect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
-	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
+//	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
 	bool setter;
 	if (i->NamedLStyle.isEmpty())
 	{
@@ -3915,7 +3915,7 @@ void Mpalette::languageChange()
 	textFlowUsesBoundingBox->setTextLabel( tr("Use &Bounding Box"));
 	textFlowUsesContourLine->setTextLabel( tr("&Use Contour Line"));
 	styleLabel->setText( tr("St&yle:"));
-	langLabel->setText( tr("Lan&guage:"));
+//	langLabel->setText( tr("Lan&guage:"));
 	FreeScale->setText( tr("&Free Scaling"));
 	imgDPIXLabel->setText( tr("Actual X-DPI:"));
 	imgDPIYLabel->setText( tr("Actual Y-DPI:"));
@@ -4063,7 +4063,7 @@ void Mpalette::languageChange()
 	QToolTip::remove(LineSp);
 	QToolTip::remove(linespacingButton);
 	QToolTip::remove(Spal);
-	QToolTip::remove(langCombo);
+//	QToolTip::remove(langCombo);
 
 	QToolTip::remove(LineMode);
 	QToolTip::remove(LStyle);
@@ -4138,7 +4138,7 @@ void Mpalette::languageChange()
 	QToolTip::add(LineSp, tr("Line Spacing"));
 	QToolTip::add(linespacingButton, tr("Click to select the line spacing mode"));
 	QToolTip::add(Spal, tr("Style of current paragraph"));
-	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
+//	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 
 	QToolTip::add(LineMode, tr("Change settings for left or end points"));
 	QToolTip::add(LStyle, tr("Pattern of line"));

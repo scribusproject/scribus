@@ -8420,7 +8420,7 @@ void ScribusMainWindow::initHyphenator()
 		if (datein.isEmpty())
 			prefsManager->appPrefs.Language = "English";
 	}
-	propertiesPalette->fillLangCombo(LangTransl);
+//	propertiesPalette->fillLangCombo(LangTransl);
 }
 
 QString ScribusMainWindow::GetLang(QString inLang)
