@@ -126,10 +126,15 @@ void PDFExportDialog::DoExport()
 	QString dirPath = QDir::convertSeparators(fi.dirPath(true));
 	if (!QFile::exists(fi.dirPath(true)))
 	{
-		int rep = QMessageBox::question(this, "", tr("%1 does not exists, do you want to create it?").arg(dirPath),
-										QMessageBox::Yes, QMessageBox::No);
-		if (rep != QMessageBox::Yes)
+		if (QMessageBox::question(this,
+									tr( "Save as PDF" ),
+									tr("%1 does not exists, do you want to create it?").arg(dirPath),
+									QMessageBox::Yes||QMessageBox::Default,
+									QMessageBox::No)
+				  != 0)//QMessageBox::Yes)
+		{
 			return;
+		}
 	}
 	// NOTE: Qt4 contains QDir::mkpath()
 	QDir d(fn);
