@@ -128,10 +128,9 @@ void PDFExportDialog::DoExport()
 	{
 		if (QMessageBox::question(this,
 									tr( "Save as PDF" ),
-									tr("%1 does not exists, do you want to create it?").arg(dirPath),
-									QMessageBox::Yes||QMessageBox::Default,
-									QMessageBox::No)
-				  != 0)//QMessageBox::Yes)
+									tr("%1 does not exists and will be created, continue?").arg(dirPath),
+									CommonStrings::tr_OK, CommonStrings::tr_Cancel, QString::null, 1, 1)
+				  != 0)
 		{
 			return;
 		}
