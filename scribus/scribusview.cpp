@@ -2073,6 +2073,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				InfoGroupLayout->setMargin( 0 );
 				QString txtC, txtC2;
 				QLabel *InfoT = new QLabel(InfoGroup, "ct");
+				QLabel *LinCT = new QLabel(InfoGroup, "lt");
+				QLabel *LinC = new QLabel(InfoGroup, "lc");
 				QLabel *ParCT = new QLabel(InfoGroup, "pt");
 				QLabel *ParC = new QLabel(InfoGroup, "pc");
 				QLabel *WordCT = new QLabel(InfoGroup, "wt");
@@ -2159,20 +2161,24 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					else
 						ParC->setText(txtC.setNum(Parag));
 					InfoGroupLayout->addWidget( ParC, 1, 1 );
+					LinCT->setText( tr("Lines: "));
+					InfoGroupLayout->addWidget( LinCT, 2, 0, Qt::AlignRight );
+					LinC->setText(txtC.setNum(currItem->itemText.lines()));
+					InfoGroupLayout->addWidget( LinC, 2, 1 );
 					WordCT->setText( tr("Words: "));
-					InfoGroupLayout->addWidget( WordCT, 2, 0, Qt::AlignRight );
+					InfoGroupLayout->addWidget( WordCT, 3, 0, Qt::AlignRight );
 					if (WordsN != 0)
 						WordC->setText(txtC.setNum(Words+WordsN)+" ("+txtC2.setNum(WordsN)+")");
 					else
 						WordC->setText(txtC.setNum(Words));
-					InfoGroupLayout->addWidget( WordC, 2, 1 );
+					InfoGroupLayout->addWidget( WordC, 3, 1 );
 					CharCT->setText( tr("Chars: "));
-					InfoGroupLayout->addWidget( CharCT, 3, 0, Qt::AlignRight );
+					InfoGroupLayout->addWidget( CharCT, 4, 0, Qt::AlignRight );
 					if (CharaN != 0)
 						CharC->setText(txtC.setNum(Chara+CharaN)+" ("+txtC2.setNum(CharaN)+")");
 					else
 						CharC->setText(txtC.setNum(Chara));
-					InfoGroupLayout->addWidget( CharC, 3, 1 );
+					InfoGroupLayout->addWidget( CharC, 4, 1 );
 				}
 
 				int row = InfoGroupLayout->numRows(); // <a.l.e>
