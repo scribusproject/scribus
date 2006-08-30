@@ -1288,6 +1288,103 @@ int ScribusDoc::addLayer(const QString& layerName, const bool activate)
 	return ll.LNr;
 }
 
+void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
+{
+	int GrMax = GroupCounter;
+	QMap<int,int> TableID;
+	QPtrList<PageItem> TableItems;
+	TableID.clear();
+	TableItems.clear();
+	uint oldItems = Items->count();
+	QPixmap pgPix(10, 10);
+	QRect rd = QRect(0,0,9,9);
+	ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
+	RePos = true;
+	for (uint ite = 0; ite < oldItems; ++ite)
+	{
+		PageItem *itemToCopy = Items->at(ite);
+		if (itemToCopy->LayerNr == layerNumberToCopy)
+		{
+			struct CopyPasteBuffer Buffer;
+			itemToCopy->copyToCopyPasteBuffer(&Buffer);
+			if (itemToCopy->Groups.count() != 0)
+			{
+				Buffer.Groups.clear();
+				QValueStack<int>::Iterator nx;
+				QValueStack<int> tmpGroup;
+				for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
+				{
+					tmpGroup.push((*nx)+GroupCounter);
+					GrMax = QMAX(GrMax, (*nx)+GroupCounter);
+				}
+				for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
+				{
+					Buffer.Groups.push((*nx));
+				}
+			}
+			m_View->PasteItem(&Buffer, true, true);
+			PageItem* Neu = Items->at(Items->count()-1);
+			Neu->LayerNr = whereToInsert;
+			Neu->OnMasterPage = "";
+			if (itemToCopy->isBookmark)
+				m_ScMW->AddBookMark(Neu);
+			if (Neu->isTableItem)
+			{
+				TableItems.append(Neu);
+				TableID.insert(ite, Neu->ItemNr);
+			}
+			bool upDtImg = false;
+			if (itemToCopy->pixm.imgInfo.valid)
+			{
+				Neu->pixm.imgInfo = itemToCopy->pixm.imgInfo;
+				upDtImg = true;
+			}
+			if (itemToCopy->effectsInUse.count() != 0)
+			{
+				Neu->effectsInUse = itemToCopy->effectsInUse;
+				upDtImg = true;
+			}
+			if (upDtImg)
+			{
+				int fho = Neu->imageFlippedH();
+				int fvo = Neu->imageFlippedV();
+				LoadPict(Neu->Pfile, Neu->ItemNr, true);
+				Neu->setImageFlippedH(fho);
+				Neu->setImageFlippedV(fvo);
+				Neu->AdjustPictScale();
+			}
+			Neu->DrawObj(painter, rd);
+		}
+	}
+	delete painter;
+	RePos = false;
+	if (TableItems.count() != 0)
+	{
+		for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
+		{
+			PageItem* ta = TableItems.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = Items->at(TableID[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = Items->at(TableID[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = Items->at(TableID[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = Items->at(TableID[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	GroupCounter = GrMax + 1;
+	changed();
+}
+
 bool ScribusDoc::deleteLayer(const int layerNumber, const bool deleteItems)
 {
 	if (Layers.count() < 2)

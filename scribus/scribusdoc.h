@@ -148,6 +148,13 @@ public:
 	 */
 	int addLayer(const QString& layerName=QString::null, const bool activate=false);
 	/**
+	 * @brief Copies a layer from the current document
+	 * @param layerNumberToCopy source layer
+	 * @param whereToInsert target layer
+	 * @return Success or failure
+	 */
+	void copyLayer(int layerNumberToCopy, int whereToInsert);
+	/**
 	 * @brief Delete a layer from the current document
 	 * @param layerNumber of layer
 	 * @param deleteItems the items on the layer too?

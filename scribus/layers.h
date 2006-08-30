@@ -59,6 +59,7 @@ public:
 public slots:
 	void updateName(int r);
 	void addLayer();
+	void dupLayer();
 	void removeLayer();
 	void upLayer();
 	void downLayer();
@@ -91,6 +92,7 @@ protected:
 	QSpinBox* opacitySpinBox;
 	QHeader* Header;
 	QPushButton* newLayerButton;
+	QPushButton* duplicateLayerButton;
 	QPushButton* deleteLayerButton;
 	QPushButton* raiseLayerButton;
 	QPushButton* lowerLayerButton;

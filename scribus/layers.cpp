@@ -165,6 +165,13 @@ LayerPalette::LayerPalette(QWidget* parent)
 	newLayerButton->setText( "" );
 	newLayerButton->setPixmap(loadIcon("Newlayer.png"));
 	Layout1->addWidget( newLayerButton );
+	
+	duplicateLayerButton = new QPushButton( this, "duplicateLayerButton" );
+	duplicateLayerButton->setMinimumSize( QSize( 50, 24 ) );
+	duplicateLayerButton->setMaximumSize( QSize( 50, 24 ) );
+	duplicateLayerButton->setText( "" );
+	duplicateLayerButton->setPixmap(loadIcon("editcopy.png"));
+	Layout1->addWidget( duplicateLayerButton );
 
 	deleteLayerButton = new QPushButton( this, "deleteLayerButton" );
 	deleteLayerButton->setMinimumSize( QSize( 50, 24 ) );
@@ -192,10 +199,10 @@ LayerPalette::LayerPalette(QWidget* parent)
 	languageChange();
 	
 	connect(newLayerButton, SIGNAL(clicked()), this, SLOT(addLayer()));
+	connect(duplicateLayerButton, SIGNAL(clicked()), this, SLOT(dupLayer()));
 	connect(deleteLayerButton, SIGNAL(clicked()), this, SLOT(removeLayer()));
 	connect(raiseLayerButton, SIGNAL(clicked()), this, SLOT(upLayer()));
 	connect(lowerLayerButton, SIGNAL(clicked()), this, SLOT(downLayer()));
-//	connect(Table, SIGNAL(valueChanged(int, int)), this, SLOT(changeName(int, int)));
 	connect(Table, SIGNAL(updtName(int)), this, SLOT(updateName(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -237,6 +244,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 	{
 		layers=0;
 		newLayerButton->setEnabled(false);
+		duplicateLayerButton->setEnabled(false);
 		deleteLayerButton->setEnabled(false);
 		raiseLayerButton->setEnabled(false);
 		lowerLayerButton->setEnabled(false);
@@ -248,6 +256,7 @@ void LayerPalette::setDoc(ScribusDoc* doc)
 
 	markActiveLayer(m_Doc->activeLayer());
 	newLayerButton->setEnabled(true);
+	duplicateLayerButton->setEnabled(true);
 	deleteLayerButton->setEnabled(true);
 	raiseLayerButton->setEnabled(true);
 	lowerLayerButton->setEnabled(true);
@@ -328,6 +337,17 @@ void LayerPalette::addLayer()
 	m_Doc->addLayer(QString::null, true);
 	rebuildList();
 	markActiveLayer();
+	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
+	m_Doc->changed();
+}
+
+void LayerPalette::dupLayer()
+{
+	int current = m_Doc->activeLayer();
+	m_Doc->addLayer(QString::null, true);
+	rebuildList();
+	markActiveLayer();
+	m_Doc->copyLayer(current, m_Doc->activeLayer());
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 	m_Doc->changed();
 }
@@ -555,15 +575,16 @@ void LayerPalette::languageChange()
 	blendMode->insertItem( tr("Saturation"));
 	blendMode->insertItem( tr("Color"));
 	blendMode->insertItem( tr("Luminosity"));
-//	blendMode->insertItem( tr("Overprint"));
 	textLabel2->setText( tr( "Opacity:" ) );
 	opacitySpinBox->setSuffix( tr(" %"));
 	Table->horizontalHeader()->setLabel(6, tr("Name"));
 	QToolTip::remove( newLayerButton );
+	QToolTip::remove( duplicateLayerButton );
 	QToolTip::remove( deleteLayerButton );
 	QToolTip::remove( raiseLayerButton );
 	QToolTip::remove( lowerLayerButton );
 	QToolTip::add( newLayerButton, tr( "Add a new layer" ) );
+	QToolTip::add( duplicateLayerButton, tr( "Duplicates the current layer" ) );
 	QToolTip::add( deleteLayerButton, tr( "Delete layer" ) );
 	QToolTip::add( raiseLayerButton, tr( "Raise layer" ) );
 	QToolTip::add( lowerLayerButton, tr( "Lower layer" ) );
