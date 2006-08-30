@@ -1396,11 +1396,47 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			if (Doc->m_Selection->count() > 1)
 			{
 				setGroupRect();
-				paintGroupRect();
-				double x, y, w, h;
-				getGroupRect(&x, &y, &w, &h);
-				emit ItemPos(x, y);
-				emit ItemGeom(w, h);
+				double gx, gy, gh, gw;
+				getGroupRect(&gx, &gy, &gw, &gh);
+				double nx = gx;
+				double ny = gy;
+				if (!ApplyGuides(&nx, &ny))
+				{
+					FPoint npx;
+					npx = Doc->ApplyGridF(FPoint(nx, ny));
+					nx = npx.x();
+					ny = npx.y();
+				}
+				moveGroup(nx-gx, ny-gy, false);
+				setGroupRect();
+				getGroupRect(&gx, &gy, &gw, &gh);
+				nx = gx+gw;
+				ny = gy+gh;
+				ApplyGuides(&nx, &ny);
+				moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+				setGroupRect();
+				getGroupRect(&gx, &gy, &gw, &gh);
+				emit ItemPos(gx, gy);
+				emit ItemGeom(gw, gh);
+			}
+			else
+			{
+				currItem = Doc->m_Selection->itemAt(0);
+				if (Doc->useRaster)
+				{
+					double nx = currItem->xPos();
+					double ny = currItem->yPos();
+					if (!ApplyGuides(&nx, &ny))
+					{
+						FPoint npx;
+						npx = Doc->ApplyGridF(FPoint(nx, ny));
+						nx = npx.x();
+						ny = npx.y();
+					}
+					MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+				}
+				else
+					MoveItem(0, 0, currItem, false);
 			}
 			updateContents();
 		}
