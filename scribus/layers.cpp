@@ -434,7 +434,10 @@ void LayerPalette::lockLayer()
 		return;
 	const QObject* senderBox=sender();
 	if (senderBox->isA("QCheckBox"))
+	{
 		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+		deleteLayerButton->setEnabled(!((QCheckBox*)(senderBox))->isChecked());
+	}
 	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 }
 
@@ -508,6 +511,7 @@ void LayerPalette::markActiveLayer(int layerNumber)
 	Table->setCurrentCell(m_Doc->layerCount()-1-m_Doc->layerLevelFromNumber(layerToMark), 6);
 	opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(layerToMark) * 100));
 	blendMode->setCurrentItem(m_Doc->layerBlendMode(layerToMark));
+	deleteLayerButton->setEnabled(!m_Doc->layerLocked( m_Doc->activeLayer() ));
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -524,6 +528,7 @@ void LayerPalette::setActiveLayer(int row)
 		m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 		opacitySpinBox->setValue(qRound(m_Doc->layerTransparency(m_Doc->activeLayer()) * 100));
 		blendMode->setCurrentItem(m_Doc->layerBlendMode(m_Doc->activeLayer()));
+		deleteLayerButton->setEnabled(!m_Doc->layerLocked( m_Doc->activeLayer() ));
 	}
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
