@@ -897,7 +897,6 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement elem=docu.documentElement();
 	QDomElement dc=docu.createElement("GUI");
 	dc.setAttribute("STILT",appPrefs.GUI);
-	dc.setAttribute("GUILanguage", appPrefs.guiLanguage);
 	dc.setAttribute("RAD",appPrefs.Wheelval);
 	dc.setAttribute("MOVT", appPrefs.moveTimeout);
 	dc.setAttribute("APF",appPrefs.AppFontSize);
@@ -1357,7 +1356,6 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="GUI")
 		{
 			appPrefs.GUI = dc.attribute("STILT","Default");
-			appPrefs.guiLanguage = dc.attribute("GUILanguage", "");
 			appPrefs.Wheelval = dc.attribute("RAD").toInt();
 			appPrefs.moveTimeout = dc.attribute("MOVT", "150").toInt();
 			appPrefs.guidesSettings.grabRad = dc.attribute("GRAB", "4").toInt();
