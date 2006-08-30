@@ -8354,6 +8354,29 @@ void ScribusMainWindow::changeLayer(int )
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	view->DrawNew();
+	bool setter = !doc->layerLocked( doc->activeLayer() );
+	scrActions["editPaste"]->setEnabled(((!Buffer2.isEmpty()) || (scrapbookPalette->tempBView->objectMap.count() > 0)) && (setter));
+	scrMenuMgr->setMenuEnabled("EditPasteRecent", ((scrapbookPalette->tempBView->objectMap.count() > 0) && (setter)));
+	scrActions["editSelectAll"]->setEnabled(setter);
+	scrActions["editDeselectAll"]->setEnabled(false);
+	scrMenuMgr->setMenuEnabled("Insert", setter);
+	scrActions["insertFrame"]->setEnabled(setter);
+	scrActions["toolsSelect"]->setEnabled(setter);
+	scrActions["toolsInsertTextFrame"]->setEnabled(setter);
+	scrActions["toolsInsertImageFrame"]->setEnabled(setter);
+	scrActions["toolsInsertTableFrame"]->setEnabled(setter);
+	scrActions["toolsInsertShape"]->setEnabled(setter);
+	scrActions["toolsInsertLine"]->setEnabled(setter);
+	scrActions["toolsInsertBezier"]->setEnabled(setter);
+	scrActions["toolsInsertFreehandLine"]->setEnabled(setter);
+	scrActions["toolsInsertPolygon"]->setEnabled(setter);
+	scrActions["toolsPDFPushButton"]->setEnabled(setter);
+	scrActions["toolsPDFTextField"]->setEnabled(setter);
+	scrActions["toolsPDFCheckBox"]->setEnabled(setter);
+	scrActions["toolsPDFComboBox"]->setEnabled(setter);
+	scrActions["toolsPDFListBox"]->setEnabled(setter);
+	scrActions["toolsPDFAnnotText"]->setEnabled(setter);
+	scrActions["toolsPDFAnnotLink"]->setEnabled(setter);
 }
 
 void ScribusMainWindow::showLayer()

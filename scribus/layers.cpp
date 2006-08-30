@@ -435,6 +435,7 @@ void LayerPalette::lockLayer()
 	const QObject* senderBox=sender();
 	if (senderBox->isA("QCheckBox"))
 		m_Doc->setLayerLocked(layerNumber,((QCheckBox*)(senderBox))->isChecked());
+	m_Doc->scMW()->changeLayer(m_Doc->activeLayer());
 }
 
 void LayerPalette::flowToggleLayer()
