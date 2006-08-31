@@ -1906,17 +1906,19 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 		}
 		else
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
-		}
-		else
-		{
+	
+		vg.charStyle().setFont(avail[ReplacedFonts[tmpf]]);
+	}
+	else
+	{
 			if (!doc->UsedFonts.contains(tmpf))
 			{
 				//						QFont fo = avail[tmpf]->Font;
 				//						fo.setPointSize(qRound(doc->toolSettings.defSize / 10.0));
 				doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 			}
+		vg.charStyle().setFont(avail[tmpf]);
 		}
-		vg.charStyle().setFont((*m_Doc->AllFonts)[tmpf]);
 		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
 		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
