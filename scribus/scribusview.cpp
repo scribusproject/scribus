@@ -10444,6 +10444,7 @@ void ScribusView::UniteObj()
 		currItem = Doc->m_Selection->itemAt(0);
 		currItem->Frame = false;
 		currItem->ClipEdited = true;
+		currItem->FrameType = 3;
 		currItem->Groups.clear();
 		for (uint a = 1; a < docSelectionCount; ++a)
 		{
