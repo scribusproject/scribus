@@ -27,6 +27,13 @@ class ScComboBox;
 class ScribusDoc;
 class DynamicTip;
 
+class SCRIBUS_API LayerLabel : public QTableItem
+{
+public:
+	LayerLabel(QTable* parent);
+	~LayerLabel() {};
+	virtual void paint(QPainter * p, const QColorGroup &cg, const QRect &cr, bool selected);
+};
 
 class SCRIBUS_API LayerTable : public QTable
 {

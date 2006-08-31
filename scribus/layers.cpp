@@ -39,7 +39,43 @@ for which a new license (GPL+exception) is in place.
 
 extern QPixmap loadIcon(QString nam);
 
+LayerLabel::LayerLabel(QTable *parent) : QTableItem (parent, QTableItem::OnTyping)
+{
+}
 
+void LayerLabel::paint(QPainter * p, const QColorGroup &cg, const QRect &cr, bool selected)
+{
+ 	p->fillRect( 0, 0, cr.width(), cr.height(), selected ? cg.brush( QColorGroup::Highlight ) : cg.brush( QColorGroup::Base ) );
+	int w = cr.width();
+	int h = cr.height();
+	int x = 0;
+	if ( selected )
+		p->setPen( cg.highlightedText() );
+	else
+		p->setPen( cg.text() );
+	QString txt = text();
+	QString ellipsis("...");
+	QString elided;
+	QFontMetrics fontMetrics(table()->font());
+	int ellipsisWidth = fontMetrics.width(ellipsis) + 4;
+	int length = txt.length();
+	int i = 0;
+	if (fontMetrics.width(txt) > w)
+	{
+		int offset = 0;
+		while (i < length && fontMetrics.width(elided + txt.at(offset)) + ellipsisWidth < w)
+		{
+			elided.append(txt.at(offset));
+			offset = ++i;
+		}
+		if (elided.isEmpty())
+			elided = txt.left(1);
+		elided.append(ellipsis);
+	}
+	else
+		elided = txt;
+	p->drawText( x + 2, 0, w - x - 4, h, alignment(), elided );
+}
 
 LayerTable::LayerTable(QWidget* parent) : QTable(parent)
 {
@@ -285,7 +321,6 @@ void LayerPalette::rebuildList()
 		//TODO once "layers" is not set anymore, need to get layer number differently
 		int layerLevel=m_Doc->layerLevelFromNumber(layerNumber);
 		int row=layerCount-layerLevel-1;
-		Table->setText(row, 6, m_Doc->layerName(layerNumber));
 		QToolButton *pb = new QToolButton(this, tmp.setNum(layerLevel));
 		pb->setAutoRaise(true);
 		pb->setText( "" );
@@ -323,10 +358,14 @@ void LayerPalette::rebuildList()
 		flagsOutline.append(cp5);
 		connect(cp5, SIGNAL(clicked()), this, SLOT(outlineToggleLayer()));
 		Table->setCellWidget(row, 5, cp5);
+		LayerLabel *lbl = new LayerLabel(Table);
+		lbl->setText(m_Doc->layerName(layerNumber));
+		Table->setItem(row, 6, lbl);
+//		Table->setText(row, 6, m_Doc->layerName(layerNumber));
 		Header->setLabel(row, tmp.setNum(layerLevel));
 	}
 	Table->setColumnStretchable(6, true);
-	Table->adjustColumn(6);
+//	Table->adjustColumn(6);
 	connect(Table, SIGNAL(currentChanged(int, int)), this, SLOT(setActiveLayer(int)));
 	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changeOpacity()));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changeBlendMode(int)));
@@ -417,7 +456,7 @@ void LayerPalette::changeName(int row, int col)
 		int layerLevel = m_Doc->layerCount()-1-row;
 		int layerNumber=m_Doc->layerNumberFromLevel(layerLevel);
 		if (layerNumber!=-1)
-			m_Doc->changeLayerName(layerNumber, Table->text(row, col));
+			m_Doc->changeLayerName(layerNumber, Table->item(row, col)->text());
 	}
 }
 
