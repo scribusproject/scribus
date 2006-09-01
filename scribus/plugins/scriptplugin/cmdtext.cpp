@@ -82,6 +82,24 @@ PyObject *scribus_gettextsize(PyObject* /* self */, PyObject* args)
 	return PyInt_FromLong(static_cast<long>(i->itemText.length()));
 }
 
+PyObject *scribus_gettextlines(PyObject* /* self */, PyObject* args)
+{
+	char *Name = const_cast<char*>("");
+	if (!PyArg_ParseTuple(args, "|es", "utf-8", &Name))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	PageItem *i = GetUniqueItem(QString::fromUtf8(Name));
+	if (i == NULL)
+		return NULL;
+	if (!(i->asTextFrame()) && !(i->asPathText()))
+	{
+		PyErr_SetString(WrongFrameTypeError, QObject::tr("Cannot get number of lines of non-text frame.","python error"));
+		return NULL;
+	}
+	return PyInt_FromLong(static_cast<long>(i->itemText.lines()));
+}
+
 PyObject *scribus_getcolumns(PyObject* /* self */, PyObject* args)
 {
 	char *Name = const_cast<char*>("");
@@ -869,5 +887,5 @@ PV */
 void cmdtextdocwarnings()
 {
     QStringList s;
-    s << scribus_getfontsize__doc__ << scribus_getfont__doc__ << scribus_gettextsize__doc__ << scribus_getframetext__doc__ << scribus_gettext__doc__ << scribus_getlinespace__doc__ << scribus_getcolumngap__doc__ << scribus_getcolumns__doc__ <<scribus_setboxtext__doc__ <<scribus_inserttext__doc__ <<scribus_setfont__doc__ <<scribus_setfontsize__doc__ <<scribus_setlinespace__doc__ <<scribus_setcolumngap__doc__ <<scribus_setcolumns__doc__ <<scribus_setalign__doc__ <<scribus_selecttext__doc__ <<scribus_deletetext__doc__ <<scribus_settextfill__doc__ <<scribus_settextstroke__doc__ <<scribus_settextshade__doc__ <<scribus_linktextframes__doc__ <<scribus_unlinktextframes__doc__ <<scribus_tracetext__doc__ <<scribus_istextoverflowing__doc__ <<scribus_setpdfbookmark__doc__ <<scribus_ispdfbookmark__doc__;
+    s << scribus_getfontsize__doc__ << scribus_getfont__doc__ << scribus_gettextlines__doc__ << scribus_gettextsize__doc__ << scribus_getframetext__doc__ << scribus_gettext__doc__ << scribus_getlinespace__doc__ << scribus_getcolumngap__doc__ << scribus_getcolumns__doc__ <<scribus_setboxtext__doc__ <<scribus_inserttext__doc__ <<scribus_setfont__doc__ <<scribus_setfontsize__doc__ <<scribus_setlinespace__doc__ <<scribus_setcolumngap__doc__ <<scribus_setcolumns__doc__ <<scribus_setalign__doc__ <<scribus_selecttext__doc__ <<scribus_deletetext__doc__ <<scribus_settextfill__doc__ <<scribus_settextstroke__doc__ <<scribus_settextshade__doc__ <<scribus_linktextframes__doc__ <<scribus_unlinktextframes__doc__ <<scribus_tracetext__doc__ <<scribus_istextoverflowing__doc__ <<scribus_setpdfbookmark__doc__ <<scribus_ispdfbookmark__doc__;
 }

@@ -47,6 +47,16 @@ If \"name\" is not given the currently selected item is used.\n\
 PyObject *scribus_gettextsize(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_gettextlines__doc__,
+QT_TR_NOOP("getTextLines([\"name\"]) -> integer\n\
+\n\
+Returns the number of lines of the text in the text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used.\n\
+"));
+/*! Get text lines */
+PyObject *scribus_gettextlines(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getframetext__doc__,
 QT_TR_NOOP("getText([\"name\"]) -> string\n\
 \n\
