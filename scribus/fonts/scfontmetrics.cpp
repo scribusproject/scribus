@@ -379,9 +379,9 @@ bool GlyIndex(FT_Face face, QMap<uint, std::pair<uint, QString> >& GList)
 		// just in case FT gives empty string or ".notdef"
 		// no valid glyphname except ".notdef" starts with '.'		
 		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(charcode, std::make_pair(counter1 + counter2, adobeGlyphName(charcode)));
+			GList.insert(gindex, std::make_pair(counter1 + counter2, adobeGlyphName(charcode)));
 		else
-			GList.insert(charcode, std::make_pair(counter1 + counter2, QString(reinterpret_cast<char*>(buf))));
+			GList.insert(gindex, std::make_pair(counter1 + counter2, QString(reinterpret_cast<char*>(buf))));
 		charcode = FT_Get_Next_Char(face, charcode, &gindex );
 		counter1++;
 		if (counter1 > 255)
