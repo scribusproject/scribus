@@ -7065,11 +7065,16 @@ void ScribusMainWindow::updtGradFill()
 {
 	if (HaveDoc)
 	{
-		if (doc->m_Selection->count() != 0)
+		uint selectedItemCount = doc->m_Selection->count();
+		if (selectedItemCount != 0)
 		{
-			PageItem *currItem = doc->m_Selection->itemAt(0);
-			currItem->fill_gradient = propertiesPalette->getFillGradient();
-			view->RefreshItem(currItem);
+			PageItem *currItem;
+			for (uint a = 0; a < selectedItemCount; ++a)
+			{
+				currItem = doc->m_Selection->itemAt(a);
+				currItem->fill_gradient = propertiesPalette->getFillGradient();
+				view->RefreshItem(currItem);
+			}
 			slotDocCh();
 		}
 	}
