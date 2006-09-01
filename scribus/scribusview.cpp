@@ -7174,10 +7174,11 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 		_groupTransactionStarted = true;
 	}
 	PageItem *bb;
-	double gx, gy, gh, gw, x, y, scaledWidth, scaledHeight;
+	double gx, gy, gh, gw, x, y;
 	int aa;
 	double sc = Scale;
-
+	int drm = Doc->RotMode;
+	Doc->RotMode = 0;
 	getGroupRect(&gx, &gy, &gw, &gh);
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
@@ -7234,8 +7235,6 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 			bb->setRotation(0.0);
 			bb->ClipEdited = true;
 			AdjustItemSize(bb);
-			scaledWidth = bb->width();
-			scaledHeight = bb->height();
 			QWMatrix ma3;
 			ma3.translate(gx, gy);
 			ma3.scale(scx, scy);
@@ -7243,14 +7242,14 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 			x = ma3.m11() * n.x() + ma3.m21() * n.y() + ma3.dx();
 			y = ma3.m22() * n.y() + ma3.m12() * n.x() + ma3.dy();
 			MoveItem(gx-x, gy-y, bb, true);
-/*			if (oldRot != 0)
+			if (oldRot != 0)
 			{
 				bb->setRotation(atan2(t1.y()-b1.y(),t1.x()-b1.x())*(180.0/M_PI));
 				QWMatrix ma;
 				ma.rotate(-bb->rotation());
 				bb->PoLine.map(ma);
 				AdjustItemSize(bb);
-			} */
+			}
 		}
 		if (scaleText)
 		{
@@ -7267,8 +7266,6 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 #endif
 		}
 		bb->setImageXYOffset(oldLocalX, oldLocalY);
-		double dX = scaledWidth - bb->OldB2;
-		double dY = scaledHeight - bb->OldH2;
 		bb->OldB2 = bb->width();
 		bb->OldH2 = bb->height();
 		QWMatrix ma4;
@@ -7281,29 +7278,12 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 		bb->GrEndX = gr.point(1).x();
 		bb->GrEndY = gr.point(1).y();
 		bb->updateGradientVectors();
-		if ((Doc->RotMode != 0) && (!Doc->isLoading()))
-		{
-			switch (Doc->RotMode)
-			{
-			case 2:
-				MoveItem(dX / 2.0, dY / 2.0, bb, true);
-				break;
-			case 4:
-				MoveItem(dX, dY, bb, true);
-				break;
-			case 3:
-				MoveItem(0.0, dY, bb, true);
-				break;
-			case 1:
-				MoveItem(dX, 0.0, bb, true);
-				break;
-			}
-		}
 	}
 	bb = Doc->m_Selection->itemAt(0);
 	Doc->GroupOnPage(bb);
 	setGroupRect();
 	getGroupRect(&gx, &gy, &gw, &gh);
+	Doc->RotMode = drm;
 	if ((Doc->RotMode != 0) && (!Doc->isLoading()))
 	{
 		switch (Doc->RotMode)
