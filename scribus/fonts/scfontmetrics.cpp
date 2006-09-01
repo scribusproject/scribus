@@ -356,43 +356,6 @@ bool GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList)
 	return true;
 }
 
-bool GlyIndex(FT_Face face, QMap<uint, std::pair<uint, QString> >& GList)
-{
-	bool error;
-	char buf[50];
-	FT_ULong  charcode;
-	FT_UInt   gindex;
-	uint counter1 = 32;
-	uint counter2 = 0;
-	setBestEncoding(face);
-	gindex = 0;
-	charcode = FT_Get_First_Char(face, &gindex );
-	const bool hasPSNames = FT_HAS_GLYPH_NAMES(face);
-	if (adobeGlyphNames.empty())
-		readAdobeGlyphNames();
-	while (gindex != 0)
-	{
-		bool notfound = true;
-		if (hasPSNames)
-			notfound = FT_Get_Glyph_Name(face, gindex, buf, 50);
-
-		// just in case FT gives empty string or ".notdef"
-		// no valid glyphname except ".notdef" starts with '.'		
-		if (notfound || buf[0] == '\0' || buf[0] == '.')
-			GList.insert(gindex, std::make_pair(counter1 + counter2, adobeGlyphName(charcode)));
-		else
-			GList.insert(gindex, std::make_pair(counter1 + counter2, QString(reinterpret_cast<char*>(buf))));
-		charcode = FT_Get_Next_Char(face, charcode, &gindex );
-		counter1++;
-		if (counter1 > 255)
-		{
-			counter1 = 32;
-			counter2 += 0x100;
-		}
-	}
-	return true;
-}
-
 
 static int traceMoveto( FT_Vector *to, FPointArray *composite )
 {

@@ -31,7 +31,5 @@ FPointArray SCRIBUS_API traceGlyph(FT_Face face, uint chr, int chs, double *x, d
 QPixmap SCRIBUS_API FontSample(const ScFace& fnt, int s, QString ts, QColor back, bool force = false);
 //QPixmap SCRIBUS_API fontSamples(const ScFace& fnt, int s, QString ts, QColor back);
 bool SCRIBUS_API GlyNames(FT_Face face, QMap<uint, std::pair<QChar, QString> >& GList);
-bool SCRIBUS_API GlyIndex(FT_Face face, QMap<uint, std::pair<uint, QString> >& GList);
-//bool SCRIBUS_API GlyIndex(ScFace * fnt, QMap<uint, PDFlib::GlNamInd> *GListInd);
 
 #endif

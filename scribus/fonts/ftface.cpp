@@ -281,11 +281,6 @@ bool FtFace::glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const
 }
 
 
-bool FtFace::glyphNameIndex(QMap<uint, std::pair<uint, QString> >& GList) const
-{
-	return GlyIndex(ftFace(), GList);
-}
-
 void FtFace::RawData(QByteArray & bb) const
 {
 	FT_Stream fts = ftFace()->stream;

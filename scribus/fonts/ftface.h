@@ -82,7 +82,6 @@ struct SCRIBUS_API FtFace : public ScFace::ScFaceData
 
 	void RawData   (QByteArray & bb)            const;
 	bool glyphNames(QMap<uint, std::pair<QChar, QString> >& GList) const;
-	bool glyphNameIndex(QMap<uint, std::pair<uint, QString> >& GList) const;
 	void load      ()                           const;
 	void unload    ()                           const;
 	void loadGlyph (uint ch)                    const;

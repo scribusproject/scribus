@@ -917,7 +917,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 //			{
 				QMap<uint,std::pair<QChar,QString> > gl;
 				AllFonts[it.key()].glyphNames(gl);
-//				GlyphsIdxOfFont.insert(it.key(), gl);
 				int nglyphs = 0;
 				QMap<uint,std::pair<QChar,QString> >::Iterator gli;
 				for (gli = gl.begin(); gli != gl.end(); ++gli) {
@@ -925,7 +924,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						nglyphs = gli.key();
 				}
 				++nglyphs;
-				qDebug(QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(AllFonts[it.key()].maxGlyph()));
+//				qDebug(QString("pdflib: nglyphs %1 max %2").arg(nglyphs).arg(AllFonts[it.key()].maxGlyph()));
 				uint FontDes = ObjCounter - 1;
 				uint Fcc = nglyphs / 224;
 				if ((nglyphs % 224) != 0)
@@ -935,8 +934,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					StartObj(ObjCounter);
 					int chCount = 32;
 					PutDoc("[ 0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 ");
-//					uint space = AllFonts[it.key()].char2CMap(QChar(32));
-//					PutDoc(QString::number(static_cast<int>(AllFonts[it.key()].glyphWidth(space)* 1000))+" ");
 					for (int ww = 32; ww < 256; ++ww)
 					{
 						uint glyph = 224 * Fc + ww - 32;
@@ -945,9 +942,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 						else
 							PutDoc("0 ");
 						
+						chCount++;
 						if (signed(glyph) == nglyphs-1)
 							break;
-						chCount++;
 					}
 					PutDoc("]\nendobj\n");
 					ObjCounter++;
@@ -3161,65 +3158,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		}
 		return;
 	}
-/*	if (hl->ch == SpecialChars::NBSPACE)
-		chstr = " ";
-	if (hl->ch == SpecialChars::NBHYPHEN)
-		chstr = "-";
-	if (hl->ch == QChar(0xA0))
-		chstr = " ";
-	if (hl->ch == QChar(30))
-	{
-		//FIXME Stop duplicating PageItem::ExpandToken code!!!
-		uint zae = 0;
-		uint za2 = d;
-		do
-		{
-			if (za2 == 0)
-				break;
-			za2--;
-		}
-		while (ite->itemText.text(za2) == QChar(30));
-		if (ite->itemText.text(za2) != QChar(30))
-			za2++;
-		while (ite->itemText.text(za2+zae) == QChar(30))
-		{
-			zae++;
-			if ( ! ite->frameDisplays(za2+zae) )
-				break;
-		}
-		QString out="%1";
-		QString out2;
-		//CB Section numbering
-		//out2 = out.arg(PNr+doc.FirstPnum, -zae);
-		out2=out.arg(doc.getSectionPageNumberForPageIndex(PNr), -(int)zae);
-		chstr = out2.mid(d-za2, 1);
-	}
-	*/
-/*	uint cc = chstr[0].unicode();
-	uint idx = 0;
-	if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
-		idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
-	*/
+
 	uint glyph = hl->glyph.glyph;
-//	uint idx1 = (glyph >> 8) & 0xFF;
-/*	if (hl->effects() & ScStyle_AllCaps)
-	{
-		if (chstr.upper() != chstr)
-			chstr = chstr.upper();
-	}
-	if (hl->effects() & ScStyle_SmallCaps)
-	{
-		if (chstr.upper() != chstr)
-		{
-			tsz = hl->fontSize() * doc.typographicSettings.valueSmallCaps / 100;
-			chstr = chstr.upper();
-		}
-	}
-	if (hl->effects() & ScStyle_Superscript)
-		tsz = hl->fontSize() * doc.typographicSettings.scalingSuperScript / 100;
-	if (hl->effects() & ScStyle_Subscript)
-		tsz = hl->fontSize() * doc.typographicSettings.scalingSubScript / 100;
-*/	if (hl->strokeColor() != CommonStrings::None)
+
+	if (hl->strokeColor() != CommonStrings::None)
 	{
 		StrokeColor = "";
 		StrokeColor += putColor(hl->strokeColor(), hl->strokeShade(), false);
@@ -3276,7 +3218,6 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				tmp2 += "/"+hl->font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
 			if (hl->effects() & ScStyle_Outline)
 			{
-//				uint gl = hl->font().char2CMap(chstr[0]);
 				FPointArray gly = hl->font().glyphOutline(glyph);
 				QWMatrix mat;
 				mat.scale(0.1, 0.1);
@@ -3309,55 +3250,12 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 				}
 				tmp2 += "s\n";
 			}
-/*			if (hl->effects() & ScStyle_SmartHyphenVisible)
-			{
-				int chs = hl->fontSize();
-				double wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
-				tmp2 += "1 0 0 1 "+FToStr(wtr / (tsz / 10.0))+" 0 cm\n";
-				chstr = "-";
-				chr = chstr[0].unicode();
-				uint gl = hl->font().char2CMap(chstr[0]);
-				FPointArray gly = hl->font().glyphOutline(gl);
-				QWMatrix mat;
-				mat.scale(0.1, 0.1);
-				gly.map(mat);
-				bool nPath = true;
-				FPoint np;
-				if (gly.size() > 3)
-				{
-					for (uint poi=0; poi<gly.size()-3; poi += 4)
-					{
-						if (gly.point(poi).x() > 900000)
-						{
-							tmp2 += "h\n";
-							nPath = true;
-							continue;
-						}
-						if (nPath)
-						{
-							np = gly.point(poi);
-							tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" m\n";
-							nPath = false;
-						}
-						np = gly.point(poi+1);
-						tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-						np = gly.point(poi+3);
-						tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" ";
-						np = gly.point(poi+2);
-						tmp2 += FToStr(np.x())+" "+FToStr(-np.y())+" c\n";
-					}
-				}
-				tmp2 += "f*\n";
-			}
-			*/
 			tmp2 += "Q\n";
 		}
 	}
 	else
 	{
 		uint idx = hl->glyph.glyph;
-//		if (GlyphsIdxOfFont[hl->font().scName()].contains(hl->glyph.glyph))
-//			idx = GlyphsIdxOfFont[hl->font().scName()][hl->glyph.glyph].first;		
 		
 		uint idx1 = idx / 224;
 		tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
@@ -3393,26 +3291,6 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			tmp += FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" 0 0 Tm\n";
 		uchar idx2 = idx % 224 + 32;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
-/*		if (! ite->asPathText())
-		{
-			if (hl->effects() & ScStyle_SmartHyphenVisible)
-			{
-				int chs = hl->fontSize();
-				double wtr = hl->font().charWidth(chstr[0], chs) * (hl->scaleH() / 1000.0);
-				tmp += "1 0 0 1 "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset)+" Tm\n";
-				chstr = "-";
-				cc = chstr[0].unicode();
-				idx = 0;
-				if (GlyphsIdxOfFont[hl->font().scName()].contains(cc))
-					idx = GlyphsIdxOfFont[hl->font().scName()][cc].first;
-				
-				idx = hl->font().char2CMap(QChar('-'));
-				idx1 = (idx >> 8) & 0xFF;
-				tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
-				idx2 = idx & 0xFF;
-				tmp += "<"+QString(toHex(idx2))+"> Tj\n";
-			}
-		}*/
 	}
 	if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
 	{
