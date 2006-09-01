@@ -47,6 +47,15 @@ Redraws all pages.\n\
 PyObject *scribus_redraw(PyObject */*self*/);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_pageposition__doc__,
+QT_TR_NOOP("getPageType() -> integer\n\
+\n\
+Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page\n\
+"));
+/*! Go to page */
+PyObject *scribus_pageposition(PyObject */*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_savepageeps__doc__,
 QT_TR_NOOP("savePageAsEPS(\"name\")\n\
 \n\

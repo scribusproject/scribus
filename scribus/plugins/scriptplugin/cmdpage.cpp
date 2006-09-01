@@ -25,6 +25,22 @@ PyObject *scribus_redraw(PyObject* /* self */)
 	return Py_None;
 }
 
+PyObject *scribus_pageposition(PyObject* /* self */, PyObject* args)
+{
+	int e;
+	if (!PyArg_ParseTuple(args, "i", &e))
+		return NULL;
+	if(!checkHaveDocument())
+		return NULL;
+	e--;
+	if ((e < 0) || (e > static_cast<int>(ScCore->primaryMainWindow()->doc->Pages->count())-1))
+	{
+		PyErr_SetString(PyExc_IndexError, QObject::tr("Page number out of range.","python error"));
+		return NULL;
+	}
+	return PyInt_FromLong(static_cast<long>(ScCore->primaryMainWindow()->doc->locationOfPage(e)));
+}
+
 PyObject *scribus_savepageeps(PyObject* /* self */, PyObject* args)
 {
 	char *Name;
@@ -277,5 +293,5 @@ PV */
 void cmdpagedocwarnings()
 {
     QStringList s;
-    s << scribus_newpage__doc__ <<scribus_actualpage__doc__ << scribus_redraw__doc__ << scribus_savepageeps__doc__ << scribus_deletepage__doc__ << scribus_gotopage__doc__ << scribus_pagecount__doc__ << scribus_getHguides__doc__ <<scribus_setHguides__doc__ <<scribus_getVguides__doc__ <<scribus_setVguides__doc__ <<scribus_pagedimension__doc__ <<scribus_getpageitems__doc__ <<scribus_getpagemargins__doc__;
+    s << scribus_newpage__doc__ << scribus_pageposition__doc__ << scribus_actualpage__doc__ << scribus_redraw__doc__ << scribus_savepageeps__doc__ << scribus_deletepage__doc__ << scribus_gotopage__doc__ << scribus_pagecount__doc__ << scribus_getHguides__doc__ <<scribus_setHguides__doc__ <<scribus_getVguides__doc__ <<scribus_setVguides__doc__ <<scribus_pagedimension__doc__ <<scribus_getpageitems__doc__ <<scribus_getpagemargins__doc__;
 }

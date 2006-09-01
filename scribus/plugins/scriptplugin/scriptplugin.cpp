@@ -341,6 +341,7 @@ PyMethodDef scribus_methods[] = {
 	{const_cast<char*>("getLineWidth"), scribus_getlinewidth, METH_VARARGS, tr(scribus_getlinewidth__doc__)},
 	{const_cast<char*>("getPageItems"), (PyCFunction)scribus_getpageitems, METH_NOARGS, tr(scribus_getpageitems__doc__)},
 	{const_cast<char*>("getPageMargins"), (PyCFunction)scribus_getpagemargins, METH_NOARGS, tr(scribus_getpagemargins__doc__)},
+	{const_cast<char*>("getPageType"), (PyCFunction)scribus_pageposition, METH_VARARGS, tr(scribus_pageposition__doc__)},
 	{const_cast<char*>("getPageSize"), (PyCFunction)scribus_pagedimension, METH_NOARGS, tr(scribus_pagedimension__doc__)}, // just an alias to PageDimension()
 	{const_cast<char*>("getPosition"), scribus_getposi, METH_VARARGS, tr(scribus_getposi__doc__)},
 	{const_cast<char*>("getRotation"), scribus_getrotation, METH_VARARGS, tr(scribus_getrotation__doc__)},
