@@ -2095,8 +2095,10 @@ void ScribusMainWindow::newView()
 	w->setView(view);
 	ActWin = w;
 	w->setCentralWidget(view);
+	actionManager->connectNewViewActions(view);
 	alignDistributePalette->setDoc(doc);
 	connect(undoManager, SIGNAL(undoRedoDone()), view, SLOT(DrawNew()));
+	view->show();
 	//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 }
 

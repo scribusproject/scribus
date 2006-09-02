@@ -1386,13 +1386,48 @@ void ScPainter::setClipPath2(FPointArray *points, bool closed)
 void ScPainter::drawImage( QImage *image )
 {
 #ifdef HAVE_CAIRO
+/* Code with Layers, crashes on cairo_push_group
+	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
+	cairo_push_group(m_cr);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
-	cairo_surface_t *image2;
-	image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
+	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_set_source_surface (m_cr, image2, 0, 0);
+    cairo_mask_surface (m_cr, image3, 0, 0);
+	cairo_surface_destroy (image2);
+	cairo_surface_destroy (image3);
+	cairo_pop_group_to_source (m_cr);
+	cairo_paint_with_alpha (m_cr, fill_trans);
+*/
+/* Working code, sadly we need to create an additional mask image with the same size as the image to be painted */
+	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
+	QImage mask;
+	mask.create(image->width(), image->height(), 32);
+	for( int yi = 0; yi < image->height(); ++yi )
+	{
+		QRgb * s = (QRgb*)(image->scanLine( yi ));
+		QRgb * d = (QRgb*)(mask.scanLine( yi ));
+		for( int xi=0; xi < image->width(); ++xi )
+		{
+			*d++ = qRgba(0,0,0,static_cast<unsigned char>(qAlpha(*s++) * fill_trans));
+		}
+	}
+	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
+	cairo_set_source_surface (m_cr, image2, 0, 0);
+	cairo_mask_surface (m_cr, image3, 0, 0);
+	cairo_surface_destroy (image2);
+	cairo_surface_destroy (image3);
+
+/* Original Code	
+	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
+	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
 	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_paint_with_alpha(m_cr, fill_trans);
 	cairo_surface_destroy (image2);
+*/
 #else
 	double affineresult[6];
 	affineresult[0] = m_matrix.m11() * m_zoomFactor;
