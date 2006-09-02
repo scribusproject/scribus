@@ -24,8 +24,8 @@ public:
 	{
 		formatCode = ScFace::SFNT;
 	}
-	bool EmbedFont(QString &str);
-	void RawData(QByteArray & bb);
+	bool EmbedFont(QString &str) const;
+	void RawData(QByteArray & bb) const;
 };
 
 #endif

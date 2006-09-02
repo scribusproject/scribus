@@ -40,14 +40,14 @@ class ScFace_postscript : public FtFace
 			typeCode = ScFace::TYPE1;
 		}
 
-		virtual void load()  // routine by Franz Schmid - modified by Alastair M. Robinson
+		virtual void load()  const // routine by Franz Schmid - modified by Alastair M. Robinson
 		{
-			ScFaceData::load();
+			FtFace::load();
 			bool error;
 			FT_Face face = ftFace();
 			if (!face)
 			{
-				usable = false;
+				const_cast<ScFace_postscript*>(this)->usable = false;
 				qDebug(QObject::tr("Font %1 is broken (no Face), discarding it").arg(fontFile));
 				return;
 			}
@@ -131,7 +131,7 @@ class ScFace_pfb : public ScFace_postscript
 			formatCode = ScFace::PFB;
 		}
 
-		virtual bool EmbedFont(QString &str)
+		virtual bool EmbedFont(QString &str) const
 		{
 			QByteArray bb;
 			RawData(bb);
@@ -217,7 +217,7 @@ class ScFace_pfa : public ScFace_postscript
 		{
 			formatCode = ScFace::PFA;
 		}
-		virtual bool EmbedFont(QString &str)
+		virtual bool EmbedFont(QString &str) const
 		{
 			QByteArray bb;
 			RawData(bb);
@@ -227,6 +227,7 @@ class ScFace_pfa : public ScFace_postscript
 				str.append(bb);
 				return true; 
 			}
+			qDebug(QObject::tr("Font %1 cannot be read, no embedding").arg(fontFile));
 			return false;
 		}
 };

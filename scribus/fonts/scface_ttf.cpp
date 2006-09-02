@@ -55,7 +55,7 @@ bool copy(QByteArray & dst, uint to, QByteArray & src, uint from, uint len)
 } //namespace
 
 
-void ScFace_ttf::RawData(QByteArray & bb) {
+void ScFace_ttf::RawData(QByteArray & bb) const {
 	if (formatCode == ScFace::TTCF) {
 		QByteArray coll;
 		FtFace::RawData(coll);
@@ -111,7 +111,7 @@ void ScFace_ttf::RawData(QByteArray & bb) {
 	}
 }
 
-bool ScFace_ttf::EmbedFont(QString &str)
+bool ScFace_ttf::EmbedFont(QString &str) const
 {
 	if (formatCode == ScFace::TYPE42) {
 		//easy:
