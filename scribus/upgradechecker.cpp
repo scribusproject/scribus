@@ -34,6 +34,8 @@ UpgradeChecker::UpgradeChecker()
 
 UpgradeChecker::~UpgradeChecker()
 {
+	if(getter)
+		delete getter;
 }
 
 void UpgradeChecker::init()
