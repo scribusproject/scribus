@@ -7390,6 +7390,8 @@ void ScribusView::slotDoCurs(bool draw)
 		if (currItem->CPos > 0)
 		{
 			int offs = QMIN(currItem->CPos-1, static_cast<int>(currItem->itemText.count()-1));
+			if (offs < 0)
+				offs = currItem->CPos - 1;
 			if (currItem->CPos < static_cast<int>(currItem->itemText.count()-1))
 			{
 				if (currItem->itemText.at(offs+1)->cstyle & 4096)
@@ -7433,7 +7435,7 @@ void ScribusView::slotDoCurs(bool draw)
 					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
 				}
 			}
-			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
+			if (currItem->CPos != static_cast<int>(currItem->itemText.count()) && (offs+1) < currItem->itemText.count())
 			{
 				if (currItem->itemText.at(offs)->yp != currItem->itemText.at(offs+1)->yp)
 				{
@@ -7468,7 +7470,7 @@ void ScribusView::slotDoCurs(bool draw)
 				desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numDescender * (-currItem->fontSize() / 10.0));
 				asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numAscent * (currItem->fontSize() / 10.0));
 			}
-			else
+			else if ( currItem->CPos < currItem->itemText.length() )
 			{
 				if ((currItem->itemText.at(currItem->CPos)->ch == QChar(9)) || (currItem->itemText.at(currItem->CPos)->ch == QChar(13)) || (currItem->itemText.at(currItem->CPos)->ch == QChar(28)))
 				{
@@ -7489,6 +7491,10 @@ void ScribusView::slotDoCurs(bool draw)
 					desc = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->numDescender * (-currItem->itemText.at(currItem->CPos)->csize / 10.0));
 					asce = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->numAscent * (currItem->itemText.at(currItem->CPos)->csize / 10.0));
 				}
+			}
+			else {
+				p.end();
+				return;
 			}
 		}
 		yp1 = yp - asce;
