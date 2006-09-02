@@ -668,7 +668,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				else
 				{
 					QWMatrix mm = gc->matrix;
-					mm = mm * gc->matrixg;
+					mm = gc->matrixg * mm;
 					FPointArray gra;
 					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
 					gra.map(mm);
@@ -676,10 +676,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					gc->GY1 = gra.point(0).y();
 					gc->GX2 = gra.point(1).x();
 					gc->GY2 = gra.point(1).y();
-					ite->GrStartX = gc->GX1 - ite->xPos()+BaseX;
-					ite->GrStartY = gc->GY1 - ite->yPos()+BaseY;
-					ite->GrEndX = gc->GX2 - ite->xPos()+BaseX;
-					ite->GrEndY = gc->GY2 - ite->yPos()+BaseY;
+					ite->GrStartX = gc->GX1 - ite->xPos() + BaseX;
+					ite->GrStartY = gc->GY1 - ite->yPos() + BaseY;
+					ite->GrEndX = gc->GX2 - ite->xPos() + BaseX;
+					ite->GrEndY = gc->GY2 - ite->yPos() + BaseY;
 				}
 				ite->GrType = gc->Gradient;
 			}
@@ -1671,22 +1671,22 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	{
 		if (e.hasAttribute("x1"))
 		{
-			gradhelper.X1 = e.attribute( "x1", "0").toDouble();
+			gradhelper.X1 = parseUnit(e.attribute("x1", "0"));
 			gradhelper.x1Valid = true;
 		}
 		if (e.hasAttribute("y1"))
 		{
-			gradhelper.Y1 = e.attribute( "y1", "0" ).toDouble();
+			gradhelper.Y1 = parseUnit(e.attribute("y1", "0"));
 			gradhelper.y1Valid = true;
 		}
 		if (e.hasAttribute("x2"))
 		{
-			gradhelper.X2 = e.attribute( "x2", "1" ).toDouble();
+			gradhelper.X2 = parseUnit(e.attribute("x2", "1"));
 			gradhelper.x2Valid = true;
 		}
 		if (e.hasAttribute("y2"))
 		{
-			gradhelper.Y2 = e.attribute( "y2", "0" ).toDouble();
+			gradhelper.Y2 = parseUnit(e.attribute("y2", "0"));
 			gradhelper.y2Valid = true;
 		}
 		gradhelper.Type = 6;
@@ -1696,17 +1696,17 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	{
 		if (e.hasAttribute("cx"))
 		{
-			x1 = e.attribute( "cx", "0.5").toDouble();
+			x1 = parseUnit(e.attribute("cx","0.5"));
 			gradhelper.x1Valid = true;
 		}
 		if (e.hasAttribute("cy"))
 		{
-			y1 = e.attribute( "cy", "0.5" ).toDouble();
+			y1 = parseUnit(e.attribute("cy", "0.5"));
 			gradhelper.y1Valid = true;
 		}
 		if (e.hasAttribute("r"))
 		{
-			x2 = e.attribute( "r", "0.5" ).toDouble();
+			x2 = parseUnit(e.attribute("r", "0.5"));
 			gradhelper.x2Valid = true;
 		}
 		y2 = y1;
@@ -1735,7 +1735,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	QString transf = e.attribute("gradientTransform");
 	if( !transf.isEmpty() )
 	{
-		gradhelper.matrix = parseTransform( e.attribute( "gradientTransform" ) );
+		gradhelper.matrix = parseTransform( e.attribute("gradientTransform") );
 		gradhelper.matrixValid = true;
 	}
 	else
