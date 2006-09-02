@@ -3702,7 +3702,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->updatePolyClip();
 				ite->DrawObj(painter, rd);
 			}
-			else
+			else if (ite->asTextFrame())
 			{
 				if ( ite->BackBox == 0 )
 					ite->asTextFrame()->layout();
@@ -5102,7 +5102,7 @@ void ScribusMainWindow::SaveText()
 
 void ScribusMainWindow::applyNewMaster(QString name)
 {
-	Apply_MasterPage(name, doc->currentPage()->pageNr());
+	Apply_MasterPage(name, doc->currentPage()->pageNr(), false);
 	view->reformPages();
 	view->DrawNew();
 	pagePalette->Rebuild();
@@ -5218,7 +5218,8 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		doc->currentPage()->PageOri = orient;
 		doc->currentPage()->m_pageSize = siz;
 		//CB If we want to add this master page setting into the slotnewpage call, the pagenumber must be +1 I think
-//		applyNewMaster(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns]);
+	//Apply_MasterPage(base[(doc->currentPage()->pageNr()+doc->pageSets[doc->currentPageLayout].FirstPage) % doc->pageSets[doc->currentPageLayout].Columns],
+//						 doc->currentPage()->pageNr(), false); // this Apply_MasterPage avoids DreawNew and PagePalette->ReBuild, which is much faster for 100 pp :-)
 		wot ++;
 	}
 	//Must use wo-1 as the dialog currently returns a page Index +1 due to old numbering scheme
