@@ -4940,9 +4940,22 @@ void ScribusMainWindow::slotEditPaste()
 					PageItem* currItem = doc->Items->at(as);
 					if (currItem->isBookmark)
 						AddBookMark(currItem);
-					view->SelectItemNr(as);
+					doc->m_Selection->addItem(currItem);
 				}
+				int docSelectionCount=doc->m_Selection->count();
+				if (docSelectionCount > 1)
+				{
+					view->setGroupRect();
+					view->paintGroupRect();
+					double x, y, w, h;
+					view->getGroupRect(&x, &y, &w, &h);
+					propertiesPalette->setXY(x, y);
+					propertiesPalette->setBH(w, h);
+				}
+				if (docSelectionCount > 0)
+					HaveNewSel(doc->m_Selection->itemAt(0)->itemType());
 			}
+			view->DrawNew();
 		}
 		slotDocCh(false);
 	}

@@ -1435,8 +1435,6 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					}
 					MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
 				}
-				else
-					MoveItem(0, 0, currItem, false);
 			}
 			updateContents();
 		}
@@ -8910,6 +8908,52 @@ void ScribusView::PasteToPage()
 		PageItem* currItem = Doc->Items->at(as);
 		if (currItem->isBookmark)
 			emit AddBM(currItem);
+		Doc->m_Selection->addItem(currItem);
+	}
+	if (Doc->m_Selection->count() > 1)
+	{
+		setGroupRect();
+		double gx, gy, gh, gw;
+		getGroupRect(&gx, &gy, &gw, &gh);
+		double nx = gx;
+		double ny = gy;
+		if (!ApplyGuides(&nx, &ny))
+		{
+			FPoint npx;
+			npx = Doc->ApplyGridF(FPoint(nx, ny));
+			nx = npx.x();
+			ny = npx.y();
+		}
+		moveGroup(nx-gx, ny-gy, false);
+		setGroupRect();
+		getGroupRect(&gx, &gy, &gw, &gh);
+		nx = gx+gw;
+		ny = gy+gh;
+		ApplyGuides(&nx, &ny);
+		moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+		setGroupRect();
+		getGroupRect(&gx, &gy, &gw, &gh);
+		emit ItemPos(gx, gy);
+		emit ItemGeom(gw, gh);
+		emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
+	}
+	else
+	{
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
+		if (Doc->useRaster)
+		{
+			double nx = currItem->xPos();
+			double ny = currItem->yPos();
+			if (!ApplyGuides(&nx, &ny))
+			{
+				FPoint npx;
+				npx = Doc->ApplyGridF(FPoint(nx, ny));
+				nx = npx.x();
+				ny = npx.y();
+			}
+			MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+		}
+		currItem->emitAllToGUI();
 	}
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -8954,6 +8998,52 @@ void ScribusView::PasteRecentToPage(int id)
 		PageItem* currItem = Doc->Items->at(as);
 		if (currItem->isBookmark)
 			emit AddBM(currItem);
+		Doc->m_Selection->addItem(currItem);
+	}
+	if (Doc->m_Selection->count() > 1)
+	{
+		setGroupRect();
+		double gx, gy, gh, gw;
+		getGroupRect(&gx, &gy, &gw, &gh);
+		double nx = gx;
+		double ny = gy;
+		if (!ApplyGuides(&nx, &ny))
+		{
+			FPoint npx;
+			npx = Doc->ApplyGridF(FPoint(nx, ny));
+			nx = npx.x();
+			ny = npx.y();
+		}
+		moveGroup(nx-gx, ny-gy, false);
+		setGroupRect();
+		getGroupRect(&gx, &gy, &gw, &gh);
+		nx = gx+gw;
+		ny = gy+gh;
+		ApplyGuides(&nx, &ny);
+		moveGroup(nx-(gx+gw), ny-(gy+gh), false);
+		setGroupRect();
+		getGroupRect(&gx, &gy, &gw, &gh);
+		emit ItemPos(gx, gy);
+		emit ItemGeom(gw, gh);
+		emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
+	}
+	else
+	{
+		PageItem *currItem = Doc->m_Selection->itemAt(0);
+		if (Doc->useRaster)
+		{
+			double nx = currItem->xPos();
+			double ny = currItem->yPos();
+			if (!ApplyGuides(&nx, &ny))
+			{
+				FPoint npx;
+				npx = Doc->ApplyGridF(FPoint(nx, ny));
+				nx = npx.x();
+				ny = npx.y();
+			}
+			MoveItem(nx-currItem->xPos(), ny-currItem->yPos(), currItem);
+		}
+		currItem->emitAllToGUI();
 	}
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
