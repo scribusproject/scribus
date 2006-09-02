@@ -1400,20 +1400,26 @@ void ScPainter::drawImage( QImage *image )
 	cairo_paint_with_alpha (m_cr, fill_trans);
 */
 /* Working code, sadly we need to create an additional mask image with the same size as the image to be painted */
+	cairo_surface_t *image3;
+	QImage mask;
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
-	QImage mask;
-	mask.create(image->width(), image->height(), 32);
-	for( int yi = 0; yi < image->height(); ++yi )
+	if (fill_trans != 1.0)
 	{
-		QRgb * s = (QRgb*)(image->scanLine( yi ));
-		QRgb * d = (QRgb*)(mask.scanLine( yi ));
-		for( int xi=0; xi < image->width(); ++xi )
+		mask.create(image->width(), image->height(), 32);
+		for( int yi = 0; yi < image->height(); ++yi )
 		{
-			*d++ = qRgba(0,0,0,static_cast<unsigned char>(qAlpha(*s++) * fill_trans));
+			QRgb * s = (QRgb*)(image->scanLine( yi ));
+			QRgb * d = (QRgb*)(mask.scanLine( yi ));
+			for( int xi=0; xi < image->width(); ++xi )
+			{
+				*d++ = qRgba(0,0,0,static_cast<unsigned char>(qAlpha(*s++) * fill_trans));
+			}
 		}
+		image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
 	}
-	cairo_surface_t *image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	else
+		image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
 	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_set_source_surface (m_cr, image2, 0, 0);
 	cairo_mask_surface (m_cr, image3, 0, 0);
