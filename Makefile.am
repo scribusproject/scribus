@@ -90,4 +90,4 @@ install-data-local:
 	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/doc/scribus-$(VERSION)/README.MacOSX
 	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/doc/scribus-$(VERSION)/README
 	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/doc/scribus-$(VERSION)/TODO
-	$(INSTALL_DATA) $(top_srcdir)/scribus.xml $(prefix)/mime/packages/scribus.xml
+	$(INSTALL_DATA) $(top_srcdir)/scribus.xml $(prefix)/share/mime/packages/scribus.xml
