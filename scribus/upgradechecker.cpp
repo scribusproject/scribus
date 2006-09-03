@@ -22,7 +22,7 @@ for which a new license (GPL+exception) is in place.
 
 #ifdef _WIN32
 #include <windows.h>
-#define sleep Sleep
+#define sleep(t) Sleep(t*1000)
 #endif
 
 UpgradeChecker::UpgradeChecker()
