@@ -72,6 +72,10 @@ SET(PLUGINDIR "lib/${MAIN_DIR_NAME}${TAG_VERSION}/plugins/")
 ADD_DEFINITIONS("-DPLUGINDIR=\\\"${CMAKE_INSTALL_PREFIX}/${PLUGINDIR}\\\"")
 set(CMAKE_INSTALL_RPATH ${PLUGINDIR})
 
+# Set the XDG mime stuff
+SET(MIMEDIR "mime/packages/")
+
+
 #BUILD SETUP
 #None, Debug, Release, .. or custom ones
 SET(WANT_DEBUG 1)
@@ -340,8 +344,12 @@ PACKAGING
 README
 README.MacOSX
 TODO
-scribus.xml
+
   DESTINATION ${DOCDIR}
+)
+INSTALL(FILES
+scribus.xml
+DESTINATION ${MIMEDIR}
 )
 
 # If the cmake version includes cpack, use it
