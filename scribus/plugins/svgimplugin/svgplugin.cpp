@@ -1764,6 +1764,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	setupTransform(e);
 	int desc = p.fontMetrics().descent();
 	int asce = p.fontMetrics().ascent();
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
 	QDomNode c = e.firstChild();
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
@@ -1791,8 +1793,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				double y1 = parseUnit( tspan.attribute( "y", "0" ) );
 				double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
 				double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
-				ite->setXPos(mx);
-				ite->setYPos(my);
+				ite->setXPos(mx + BaseX);
+				ite->setYPos(my + BaseY);
 			}
 			else
 			{
