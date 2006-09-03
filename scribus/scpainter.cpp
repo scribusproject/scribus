@@ -1406,17 +1406,22 @@ void ScPainter::drawImage( QImage *image )
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_RGB24, image->width(), image->height(), image->width()*4);
 	if (fill_trans != 1.0)
 	{
-		mask.create(image->width(), image->height(), 32);
+		mask.create(image->width(), image->height(), 8);
 		for( int yi = 0; yi < image->height(); ++yi )
 		{
 			QRgb * s = (QRgb*)(image->scanLine( yi ));
-			QRgb * d = (QRgb*)(mask.scanLine( yi ));
+			unsigned char *d = (unsigned char *)(mask.scanLine( yi ));
 			for( int xi=0; xi < image->width(); ++xi )
 			{
-				*d++ = qRgba(0,0,0,static_cast<unsigned char>(qAlpha(*s++) * fill_trans));
+				*d++ = static_cast<unsigned char>(qAlpha(*s++) * fill_trans);
 			}
 		}
-		image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+		int adj;
+		if (image->width() % 4 == 0)
+			adj = 0;
+		else
+			adj = 4 - (image->width() % 4);
+		image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_A8, image->width(), image->height(), image->width() + adj);
 	}
 	else
 		image3 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
