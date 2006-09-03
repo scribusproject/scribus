@@ -73,7 +73,7 @@ ADD_DEFINITIONS("-DPLUGINDIR=\\\"${CMAKE_INSTALL_PREFIX}/${PLUGINDIR}\\\"")
 set(CMAKE_INSTALL_RPATH ${PLUGINDIR})
 
 # Set the XDG mime stuff
-SET(MIMEDIR "mime/packages/")
+SET(MIMEDIR "share/mime/packages/")
 
 
 #BUILD SETUP
