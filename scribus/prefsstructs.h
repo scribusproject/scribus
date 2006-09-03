@@ -152,6 +152,7 @@ struct ApplicationPrefs
 	int AppFontSize;
 	int PaletteFontSize;
 	QColor DpapColor;
+	QColor DFrameColor;
 	QString GUI;
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSettings;

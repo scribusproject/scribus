@@ -242,6 +242,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.tabFillChar = "";
 	appPrefs.toolSettings.dTabWidth = 36.0;
 	appPrefs.DpapColor = QColor(white);
+	appPrefs.DFrameColor = QColor(red);
 	appPrefs.toolSettings.dCols = 1;
 	appPrefs.toolSettings.dGap = 0.0;
 	appPrefs.toolSettings.dShadeLine = 100;
@@ -942,6 +943,7 @@ bool PrefsManager::WritePref(QString ho)
 	elem.appendChild(dc1);
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("PAGEC",appPrefs.DpapColor.name());
+	dc1a.setAttribute("SELEC",appPrefs.DFrameColor.name());
 	dc1a.setAttribute("MARGC",appPrefs.guidesSettings.margColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
 	dc1a.setAttribute("DScale",appPrefs.DisScale);
@@ -1408,6 +1410,7 @@ bool PrefsManager::ReadPref(QString ho)
 		if (dc.tagName()=="PAGE")
 		{
 			appPrefs.DpapColor = QColor(dc.attribute("PAGEC"));
+			appPrefs.DFrameColor = QColor(dc.attribute("SELEC","#ff0000"));
 			appPrefs.guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
 			appPrefs.DisScale = dc.attribute("DScale", "1").toDouble();

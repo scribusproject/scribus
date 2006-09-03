@@ -27,6 +27,7 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 		void hideReform();
 
 		QColor colorPaper;
+		QColor colorFrame;
 		double DisScale;
 
 	private:
@@ -48,6 +49,11 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 		\brief Sets implicit paper color
 		*/
 		virtual void changePaperColor();
+		/*!
+		\author Franz Schmid
+		\brief Sets the color for the selection
+		*/
+		virtual void changeFrameColor();
 
 };
 

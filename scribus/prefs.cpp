@@ -340,6 +340,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.ScratchRight = tabView->rightScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchTop = tabView->topScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.DpapColor = tabView->colorPaper;
+	prefsManager->appPrefs.DFrameColor = tabView->colorFrame;
 	prefsManager->appPrefs.guidesSettings.framesShown = tabView->checkFrame->isChecked();
 	prefsManager->appPrefs.guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
 	prefsManager->appPrefs.guidesSettings.rulerMode = tabView->checkRuler->isChecked();

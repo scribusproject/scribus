@@ -1148,7 +1148,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					if (m_Locked)
 						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
 					else
-						pr.setPen(QPen(red, 1, DotLine, FlatCap, MiterJoin));
+						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, DotLine, FlatCap, MiterJoin));
 					pr.setBrush(NoBrush);
 					int lw2 = 1;
 					int lw = 1;
@@ -1175,8 +1175,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					}
 					else
 						pr.drawRect(-1, -1, qRound(Width*sc)+2, qRound(Height*sc)+2);
-					pr.setPen(QPen(red, 1, SolidLine, FlatCap, MiterJoin));
-					pr.setBrush(red);
+					pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, SolidLine, FlatCap, MiterJoin));
+					pr.setBrush(PrefsManager::instance()->appPrefs.DFrameColor);
 					if ((!m_Locked) && (!m_SizeLocked))
 					{
 						if (! asLine())
