@@ -26,8 +26,6 @@ void TabMiscellaneous::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	AskForSubs->setChecked(prefsData->askBeforeSubstituite);
 	stylePreview->setChecked(prefsData->haveStylePreview);
-	startUpDialog->setChecked(prefsData->showStartupDialog);
 	useStandardLI->setChecked(prefsData->useStandardLI);
 	paragraphsLI->setValue(prefsData->paragraphsLI);
-	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 }

@@ -92,6 +92,8 @@ void TabGeneral::restoreDefaults(struct ApplicationPrefs *prefsData)
 	ProPfad->setText(QDir::convertSeparators(prefsData->ProfileDir));
 	ScriptPfad->setText(QDir::convertSeparators(prefsData->ScriptDir));
 	DocumentTemplateDir->setText(QDir::convertSeparators(prefsData->documentTemplatesDir));
+	startUpDialog->setChecked(prefsData->showStartupDialog);
+	showSplashCheckBox->setChecked( !ScQApp->neverSplashExists() );
 }
 
 void TabGeneral::setSelectedGUILang( const QString &newLang )

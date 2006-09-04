@@ -10,144 +10,112 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>701</width>
-            <height>448</height>
+            <width>400</width>
+            <height>240</height>
         </rect>
     </property>
     <property name="caption">
         <string>Form1</string>
     </property>
-    <widget class="QLayoutWidget">
+    <vbox>
         <property name="name">
-            <cstring>layout4</cstring>
+            <cstring>unnamed</cstring>
         </property>
-        <property name="geometry">
-            <rect>
-                <x>11</x>
-                <y>11</y>
-                <width>679</width>
-                <height>426</height>
-            </rect>
-        </property>
-        <vbox>
+        <widget class="QCheckBox">
             <property name="name">
-                <cstring>unnamed</cstring>
+                <cstring>AskForSubs</cstring>
             </property>
-            <widget class="QCheckBox">
+            <property name="text">
+                <string>Always ask before fonts are replaced when loading a document</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>stylePreview</cstring>
+            </property>
+            <property name="text">
+                <string>Preview of current Paragraph Style visible when editing Styles</string>
+            </property>
+        </widget>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>groupBox1</cstring>
+            </property>
+            <property name="title">
+                <string>Lorem Ipsum</string>
+            </property>
+            <vbox>
                 <property name="name">
-                    <cstring>AskForSubs</cstring>
+                    <cstring>unnamed</cstring>
                 </property>
-                <property name="text">
-                    <string>Always ask before fonts are replaced when loading a document</string>
-                </property>
-            </widget>
-            <widget class="QCheckBox">
-                <property name="name">
-                    <cstring>stylePreview</cstring>
-                </property>
-                <property name="text">
-                    <string>Preview of current Paragraph Style visible when editing Styles</string>
-                </property>
-            </widget>
-            <widget class="QCheckBox">
-                <property name="name">
-                    <cstring>startUpDialog</cstring>
-                </property>
-                <property name="text">
-                    <string>Show Startup Dialog</string>
-                </property>
-            </widget>
-            <widget class="QCheckBox">
-                <property name="name">
-                    <cstring>showSplashCheckBox</cstring>
-                </property>
-                <property name="text">
-                    <string>Show Splashscreen on Startup</string>
-                </property>
-                <property name="accel">
-                    <string></string>
-                </property>
-            </widget>
-            <widget class="QGroupBox">
-                <property name="name">
-                    <cstring>groupBox1</cstring>
-                </property>
-                <property name="title">
-                    <string>Lorem Ipsum</string>
-                </property>
-                <vbox>
+                <widget class="QCheckBox">
                     <property name="name">
-                        <cstring>unnamed</cstring>
+                        <cstring>useStandardLI</cstring>
                     </property>
-                    <widget class="QCheckBox">
+                    <property name="text">
+                        <string>Always use standard Lorem Ipsum</string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout42</cstring>
+                    </property>
+                    <hbox>
                         <property name="name">
-                            <cstring>useStandardLI</cstring>
+                            <cstring>unnamed</cstring>
                         </property>
-                        <property name="text">
-                            <string>Always use standard Lorem Ipsum</string>
-                        </property>
-                    </widget>
-                    <widget class="QLayoutWidget">
-                        <property name="name">
-                            <cstring>layout20</cstring>
-                        </property>
-                        <hbox>
+                        <widget class="QLabel">
                             <property name="name">
-                                <cstring>unnamed</cstring>
+                                <cstring>textLabel1</cstring>
                             </property>
-                            <widget class="QLabel">
-                                <property name="name">
-                                    <cstring>textLabel1</cstring>
-                                </property>
-                                <property name="text">
-                                    <string>Count of the Paragraphs:</string>
-                                </property>
-                            </widget>
-                            <widget class="QSpinBox">
-                                <property name="name">
-                                    <cstring>paragraphsLI</cstring>
-                                </property>
-                            </widget>
-                            <spacer>
-                                <property name="name">
-                                    <cstring>spacer9</cstring>
-                                </property>
-                                <property name="orientation">
-                                    <enum>Horizontal</enum>
-                                </property>
-                                <property name="sizeType">
-                                    <enum>Expanding</enum>
-                                </property>
-                                <property name="sizeHint">
-                                    <size>
-                                        <width>40</width>
-                                        <height>20</height>
-                                    </size>
-                                </property>
-                            </spacer>
-                        </hbox>
-                    </widget>
-                </vbox>
-            </widget>
-            <spacer>
-                <property name="name">
-                    <cstring>spacer1</cstring>
-                </property>
-                <property name="orientation">
-                    <enum>Vertical</enum>
-                </property>
-                <property name="sizeType">
-                    <enum>Expanding</enum>
-                </property>
-                <property name="sizeHint">
-                    <size>
-                        <width>20</width>
-                        <height>110</height>
-                    </size>
-                </property>
-            </spacer>
-        </vbox>
-    </widget>
+                            <property name="text">
+                                <string>Count of the Paragraphs:</string>
+                            </property>
+                        </widget>
+                        <widget class="QSpinBox">
+                            <property name="name">
+                                <cstring>paragraphsLI</cstring>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer9</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>130</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+        <spacer>
+            <property name="name">
+                <cstring>spacer1</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>30</height>
+                </size>
+            </property>
+        </spacer>
+    </vbox>
 </widget>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
