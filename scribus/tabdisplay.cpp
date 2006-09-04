@@ -86,8 +86,8 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	gapVertical->setMaxValue(1000);
 	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
 	drawRuler();
-	//CaliSlider->setValue(static_cast<int>(100 * DisScale)-100);
-	setDisScale();
+	CaliSlider->setValue(qRound(100 * DisScale)-100);
+	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
 }
 
 void TabDisplay::unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion)
@@ -175,7 +175,7 @@ void TabDisplay::drawRuler()
 			break;
 	}
 
-	QPixmap pm(static_cast<int>(maxi*DisScale+30), 21);
+	QPixmap pm(qRound(maxi*DisScale+30), 21);
 	pm.fill();
 	QPainter p;
 	p.begin(&pm);
