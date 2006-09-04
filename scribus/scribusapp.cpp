@@ -43,6 +43,10 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "upgradechecker.h"
 
+#if defined(_WIN32)
+#include <windows.h>
+#endif
+
 #define ARG_VERSION "--version"
 #define ARG_HELP "--help"
 #define ARG_LANG "--lang"
@@ -273,6 +277,27 @@ QStringList ScribusQApp::getLang(QString lang)
 		langs.push_back(lang);
 	if (!(lang = ::getenv("LANG")).isEmpty())
 		langs.push_back(lang);
+
+#if defined(_WIN32)
+	wchar_t out[256];
+	QString language, sublanguage;
+	LCID lcIdo = GetUserDefaultLCID();
+	WORD sortId = SORTIDFROMLCID(lcIdo);
+	LANGID langId = GetUserDefaultUILanguage();
+	LCID lcIdn = MAKELCID(langId, sortId);
+	if ( GetLocaleInfoW(lcIdn, LOCALE_SISO639LANGNAME , out, 255) )
+	{
+		language = QString::fromUcs2( (ushort*)out );
+		if ( GetLocaleInfoW(lcIdn, LOCALE_SISO3166CTRYNAME, out, 255) )
+		{
+			sublanguage = QString::fromUcs2( (ushort*)out ).lower();
+			lang = language;
+			if ( sublanguage != language && !sublanguage.isEmpty() )
+				lang += "_" + sublanguage.upper();
+			langs.push_back(lang);
+		}
+	}
+#endif
 
 	langs.push_back(QString(QTextCodec::locale()));
 
