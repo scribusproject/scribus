@@ -144,88 +144,16 @@
                         </spacer>
                     </hbox>
                 </widget>
-                <widget class="QLayoutWidget" row="2" column="1">
+                <widget class="QCheckBox" row="2" column="1">
                     <property name="name">
-                        <cstring>layout10</cstring>
+                        <cstring>checkFrame</cstring>
                     </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QCheckBox">
-                            <property name="name">
-                                <cstring>checkFrame</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Show Frames</string>
-                            </property>
-                            <property name="accel">
-                                <string></string>
-                            </property>
-                        </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer3_2</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>21</width>
-                                    <height>21</height>
-                                </size>
-                            </property>
-                        </spacer>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>textLabel1</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Color:</string>
-                            </property>
-                        </widget>
-                        <widget class="QPushButton">
-                            <property name="name">
-                                <cstring>frameColor</cstring>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>60</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                            <property name="maximumSize">
-                                <size>
-                                    <width>60</width>
-                                    <height>20</height>
-                                </size>
-                            </property>
-                            <property name="text">
-                                <string></string>
-                            </property>
-                        </widget>
-                        <spacer>
-                            <property name="name">
-                                <cstring>spacer4</cstring>
-                            </property>
-                            <property name="orientation">
-                                <enum>Horizontal</enum>
-                            </property>
-                            <property name="sizeType">
-                                <enum>Expanding</enum>
-                            </property>
-                            <property name="sizeHint">
-                                <size>
-                                    <width>21</width>
-                                    <height>21</height>
-                                </size>
-                            </property>
-                        </spacer>
-                    </hbox>
+                    <property name="text">
+                        <string>Show Frames</string>
+                    </property>
+                    <property name="accel">
+                        <string></string>
+                    </property>
                 </widget>
             </grid>
         </widget>
@@ -520,7 +448,7 @@
 </customwidgets>
 <images>
     <image name="image0">
-        <data format="PNG" length="892">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000034349444154789cad9331681c4714863f8929de8004b320c32e3870020b74458a43e0e24085550a04b6408d418d5b130221a44a3024902686544aa3228588d238e7c26015329722480742170922d8800c7b85601774b00316cc832c28c55ea29c122b8d1e0ccbcc2cfffbf8df3f13fd833e54808185fb0b97dc42f5f7fb13137bfb7b88113a2f3b97cdf926de7bf2614ee94b2c9640b8f15bfa92f434a577d8ab014765c4080bf7172e5ffcf0822881640e1a958eae4b300294582340b83ae76a9f9e0a7cefe8bdf157c23a12298605d107900d7f42df65844ab116c21fe00b212f1441b033303b07220a152820d310dd51fe59468cd40cc3928047df1584ca63a71dd911747794a3c30231a09522c611df1396d722da8b01a13e775342dde61a71ee735a28a1cab1d6b1bfab6c6f7aa8c03921b92788403e50066f95efbeca28d66356d741a416ff4f626b2ca0d869213b82ce4874f961cc831548120b26a01ad1dd0974363d9dad0171dc64e991458c8e114ffed5295401104280d7af3c5a29cb0f63569f4094286a72fcb9e5f5cb92e5b588c71f3930c2f6568e0eff1db9716253e28b88f438c3b99a54a46eec2f1236be29c94e3ce5393cfd2ca1b7ebc97e57d23420322e3c466c8d90172518481a10dd0145f13e62e3cb9cf4c4234e682f463055d26c39b452f233d0ea9af0b8c72008548a9b1a0de53c61e3eb92eca48e979b1292bb100960408ca015c835e46b1e839d018c231d28aa96ee9b50934e09f15dc76050f0fc594e7a1491678a56ca6cc3c2cda92869ce41a3211403a5bb13585d8f28cf95f683882486e7cf60f0b6e0f38f73f4c213c78e660bf2e2068f414094e535412ba5b3e9e9ee943cfd24a1b51868b4029f7e9110c70e3f2ca082f68a6376fe7f731ca012da8b509cc574b6066c7f0bbd5d4ff3430706f2acc40fb5f61625fd45498f2d4edef3f2ca61397afb8a00abeb421c37e9fc98939e28e9f1000cf500671c4b8f1cbffeace4171ead228ae17b88d3d394341324aa49c4c0d24aa0bd9890a681fcac164d1a96660b66e7215db15025604ab2dfc63dfe9bb877d8834d214aea48a9fa3a6f78c4d43f8b81ecccd7b97d55dbe13da4474a5e8c13d33fe8035cdef69abc3ecddbaa4931427fbf3f71ebc25a2918d8dbdfbb35f1fe417fe24f1259cbaaa6ebcaa50000000049454e44ae426082</data>
+        <data format="PNG" length="872">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000032f49444154789cb5953148254718c77f1e5b7c030ab3e0c12e5ce00927f88a14af7d87c5590ac29d6013b0497b844008a9120e1248938354a6b1482131cde5a510b4f03081f07c8d4421c2063cd85708bbe0831938613ec8c0a5588dd1dc33452e5f33bb33c36f7ffbed7fd889fe7e9fcb7ad07df09ab750fdfdfec4c425787b6bfb757bae8df79e6a54e1bcc36008845b47e71dc549c1e06000f10a9e5c9a3effee39690ef92cb4a25e2c3b4804709844807035cfd57d7122f0ad65f0c25f0703d4a39af41d28473fa0af4a42548c81f007f85aa86a4510cc34cccc8288420405640ad2bbcadfeb2fb01b39021e7d5513a2c74c59ca43d8db510e0f6a24018d8a2496ecbeb0b892d29d0f08cdbc9d149ac7dc0057bea2831262853196fd5d6573dd43046b85fcbe2002d55019be54bef9a2a45ecd585e059106fe46639318403153427908bd0be8e2a38c874b90e70692806acade4ea0b7eee96d0cc9b2360b8f0d92e835e33b97172106400801b6b73c1a95c54719cbef439a2b9a54f833c3f68f8ec59594f73eb090089b1b153afa67e4ae1b270e5fa7144725d636a6228d853fcf59fbca511e7bdc193cf92467b0eb297f578a2220721d7ccdd82442553b48206f417a1714c5fb94b5cf2b8a638f58a13b9fc2a4a3ddb16854aa53d03806dcf4180481a8d8c98b8f7296b3f6a5a33c6ee2652785fc1ea4d2bcaf248246901bca377a0c661a482cc5505135ecbd088de9a490ddb30c8735cf9e5614872955a96854665a066e4f85a33d0bad96500f95bd9dc0f26a8a3b53ba0f53f20c9e3d85e1cb9a4f3facd0734f9659da1da8ea5b7a0c02a22cae081a95deba676fc7f1e4a39cce7ca0d5097cfc594e9659fca88608dd25cbccdcbfe6384014baf3509f66f436866c7e0d835d4ffb5d0b0954a5c38fb4e92d4af18b521c19ac8c39796ee42ecebe22c0f2aa90656d7adf5714c74a71346c7647b0d39685c7965f7f52aa738fc6947a34c6b83829284a41d2c6441258580a74e7738a22509d36d0bc65687760660e8a25033187c451fec69bc1838301ac0b69de444ad53779c32317bb2481f2d437b9dd6adae13d14874a558f3126c2e0e7cbc59be3b81abf7e67ecca7fac3bd0fca3fe17f0db86f7f7fb137f0208c29bb28f971c5b0000000049454e44ae426082</data>
     </image>
 </images>
 <layoutdefaults spacing="6" margin="11"/>

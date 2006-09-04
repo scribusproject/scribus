@@ -926,13 +926,13 @@ void PageItem::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (QMAX(view->scale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
-			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, SolidLine, FlatCap, MiterJoin);
 			if (m_Locked)
-				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, SolidLine, FlatCap, MiterJoin);
 
 			p->setFillMode(0);
 			if (itemType()==PathText)
@@ -1146,7 +1146,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 					pr.translate(out.x(), out.y());
 					pr.rotate(Rot);
 					if (m_Locked)
-						pr.setPen(QPen(darkRed, 1, SolidLine, FlatCap, MiterJoin));
+						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameLockColor, 1, SolidLine, FlatCap, MiterJoin));
 					else
 						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameColor, 1, DotLine, FlatCap, MiterJoin));
 					pr.setBrush(NoBrush);
@@ -1206,7 +1206,7 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 				}
 				else
 				{
-					p.setPen(QPen(darkCyan, 1, DotLine, FlatCap, MiterJoin));
+					p.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, DotLine, FlatCap, MiterJoin));
 					p.setBrush(NoBrush);
 					p.drawRect(-1, -1, static_cast<int>(Width+2), static_cast<int>(Height+2));
 					if (m_Doc->m_Selection->count() == 1)
@@ -1215,8 +1215,8 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 						pr.begin(view->viewport());
 						pr.translate(out.x(), out.y());
 						pr.rotate(Rot);
-						pr.setPen(QPen(darkCyan, 1, SolidLine, FlatCap, MiterJoin));
-						pr.setBrush(darkCyan);
+						pr.setPen(QPen(PrefsManager::instance()->appPrefs.DFrameGroupColor, 1, SolidLine, FlatCap, MiterJoin));
+						pr.setBrush(PrefsManager::instance()->appPrefs.DFrameGroupColor);
 						pr.drawRect(-1, -1, 6, 6);
 						pr.drawRect(static_cast<int>(Width*sc), static_cast<int>(Height*sc), -6, -6);
 						pr.drawRect(static_cast<int>(Width*sc), -1, -6, 6);
@@ -1403,7 +1403,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		points.map(chma * chma4 * chma5);
 		p->setupTextPolygon(&points);
 		QColor oldBrush = p->brush();
-		p->setBrush(Qt::darkRed);
+		p->setBrush(PrefsManager::instance()->appPrefs.DControlCharColor);
 		if (glyph == (32))
 		{
 			QColor tmp = p->pen();

@@ -370,7 +370,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					painter->setBrush(QColor(128,128,128));
 					painter->drawRect(x+5, y+5, w, h);
 					if (a == Doc->currentPageNumber())
-						painter->setPen(red, 2, SolidLine, FlatCap, MiterJoin);
+						painter->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
 					else
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(Doc->papColor);

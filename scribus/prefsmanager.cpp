@@ -243,6 +243,13 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dTabWidth = 36.0;
 	appPrefs.DpapColor = QColor(white);
 	appPrefs.DFrameColor = QColor(red);
+	appPrefs.DFrameNormColor = QColor(black);
+	appPrefs.DFrameGroupColor = QColor(darkCyan);
+	appPrefs.DFrameLockColor = QColor(darkRed);
+	appPrefs.DFrameLinkColor = QColor(red);
+	appPrefs.DFrameAnnotationColor = QColor(blue);
+	appPrefs.DPageBorderColor = QColor(red);
+	appPrefs.DControlCharColor = QColor(darkRed);
 	appPrefs.toolSettings.dCols = 1;
 	appPrefs.toolSettings.dGap = 0.0;
 	appPrefs.toolSettings.dShadeLine = 100;
@@ -944,6 +951,13 @@ bool PrefsManager::WritePref(QString ho)
 	QDomElement dc1a=docu.createElement("PAGE");
 	dc1a.setAttribute("PAGEC",appPrefs.DpapColor.name());
 	dc1a.setAttribute("SELEC",appPrefs.DFrameColor.name());
+	dc1a.setAttribute("DFrameNormColor",appPrefs.DFrameNormColor.name());
+	dc1a.setAttribute("DFrameGroupColor",appPrefs.DFrameGroupColor.name());
+	dc1a.setAttribute("DFrameLockColor",appPrefs.DFrameLockColor.name());
+	dc1a.setAttribute("DFrameLinkColor",appPrefs.DFrameLinkColor.name());
+	dc1a.setAttribute("DFrameAnnotationColor",appPrefs.DFrameAnnotationColor.name());
+	dc1a.setAttribute("DPageBorderColor",appPrefs.DPageBorderColor.name());
+	dc1a.setAttribute("DControlCharColor",appPrefs.DControlCharColor.name());
 	dc1a.setAttribute("MARGC",appPrefs.guidesSettings.margColor.name());
 	dc1a.setAttribute("RANDF", static_cast<int>(appPrefs.marginColored));
 	dc1a.setAttribute("DScale",appPrefs.DisScale);
@@ -1411,6 +1425,13 @@ bool PrefsManager::ReadPref(QString ho)
 		{
 			appPrefs.DpapColor = QColor(dc.attribute("PAGEC"));
 			appPrefs.DFrameColor = QColor(dc.attribute("SELEC","#ff0000"));
+			appPrefs.DFrameNormColor = QColor(dc.attribute("DFrameNormColor","#000000"));
+			appPrefs.DFrameGroupColor = QColor(dc.attribute("DFrameGroupColor","#008080"));
+			appPrefs.DFrameLockColor = QColor(dc.attribute("DFrameLockColor","#800000"));
+			appPrefs.DFrameLinkColor = QColor(dc.attribute("DFrameLinkColor","#ff0000"));
+			appPrefs.DFrameAnnotationColor = QColor(dc.attribute("DFrameAnnotationColor","#0000ff"));
+			appPrefs.DPageBorderColor = QColor(dc.attribute("DPageBorderColor","#ff0000"));
+			appPrefs.DControlCharColor = QColor(dc.attribute("DControlCharColor","#800000"));
 			appPrefs.guidesSettings.margColor = QColor(dc.attribute("MARGC","#0000ff"));
 			appPrefs.marginColored = static_cast<bool>(dc.attribute("RANDF", "0").toInt());
 			appPrefs.DisScale = dc.attribute("DScale", "1").toDouble();

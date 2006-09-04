@@ -153,6 +153,13 @@ struct ApplicationPrefs
 	int PaletteFontSize;
 	QColor DpapColor;
 	QColor DFrameColor;
+	QColor DFrameNormColor;
+	QColor DFrameGroupColor;
+	QColor DFrameLinkColor;
+	QColor DFrameLockColor;
+	QColor DFrameAnnotationColor;
+	QColor DPageBorderColor;
+	QColor DControlCharColor;
 	QString GUI;
 	guidesPrefs guidesSettings;
 	typoPrefs typographicSettings;

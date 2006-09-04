@@ -3705,13 +3705,13 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 		double scpInv = 1.0 / (QMAX(view->scale(), 1));
 		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 		{
-			p->setPen(black, scpInv, DotLine, FlatCap, MiterJoin);
+			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(blue, scpInv, DotLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, DotLine, FlatCap, MiterJoin);
 			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(red, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, SolidLine, FlatCap, MiterJoin);
 			if (m_Locked)
-				p->setPen(darkRed, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, SolidLine, FlatCap, MiterJoin);
 
 			p->setFillMode(0);
 			if (itemType()==PathText)

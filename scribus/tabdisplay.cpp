@@ -24,7 +24,6 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	: TabDisplayBase(parent, name, 0)
 {
 	QToolTip::add( backColor, "<qt>" + tr( "Color for paper" ) + "</qt>");
-	QToolTip::add( frameColor, "<qt>" + tr( "Selection color for frames" ) + "</qt>");
 	QToolTip::add( checkUnprintable, "<qt>" + tr( "Mask the area outside the margins in the margin color" ) + "</qt>" );
 	QToolTip::add( checkLink, "<qt>" + tr("Enable or disable  the display of linked frames.") + "</qt>");
 	QToolTip::add( checkControl, "<qt>" + tr("Display non-printing characters such as paragraph markers in text frames") + "</qt>");
@@ -40,7 +39,6 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
-	connect(frameColor, SIGNAL(clicked()), this, SLOT(changeFrameColor()));
 }
 
 void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings)
@@ -61,10 +59,6 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	checkLink->setChecked(guidesSettings->linkShown);
 	checkControl->setChecked(guidesSettings->showControls);
 	checkFrame->setChecked(guidesSettings->framesShown);
-	pm5.fill(prefsData->DFrameColor);
-	colorFrame = prefsData->DFrameColor;
-	frameColor->setPixmap(pm5);
-	frameColor->setText( QString::null );
 	checkLayerM->setChecked(guidesSettings->layerMarkersShown);
 	checkRuler->setChecked(guidesSettings->rulerMode);
 	topScratch->setDecimals( decimals );
@@ -134,19 +128,6 @@ void TabDisplay::changePaperColor()
 		pm.fill(neu);
 		colorPaper = neu;
 		backColor->setPixmap(pm);
-	}
-}
-
-void TabDisplay::changeFrameColor()
-{
-	QColor neu = QColor();
-	neu = QColorDialog::getColor(colorFrame, this);
-	if (neu.isValid())
-	{
-		QPixmap pm(54, 14);
-		pm.fill(neu);
-		colorFrame = neu;
-		frameColor->setPixmap(pm);
 	}
 }
 
@@ -233,6 +214,4 @@ void TabDisplay::drawRuler()
 void TabDisplay::hideReform()
 {
 	CaliGroup->hide();
-	textLabel1->hide();
-	frameColor->hide();
 }
