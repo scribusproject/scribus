@@ -209,7 +209,7 @@ void PageItem_TextFrame::layout()
 		return;
 	}
 	else if (!invalid && !OnMasterPage.isEmpty()) {
-//		qDebug("textframe: len=%d, no relayout", itemText.length());
+		qDebug(QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage));
 		return;
 	}
 //	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
@@ -354,7 +354,6 @@ void PageItem_TextFrame::layout()
 			CurY = itemText.paragraphStyle(0).lineSpacing() + TExtra+lineCorr-desc2;
 		}
 		firstDes = desc2;
-//!		LiList.clear();
 		int itemsInLine = 0;
 		curLine.firstItem = firstInFrame();
 		curLine.ascent = 10;
@@ -1080,17 +1079,16 @@ void PageItem_TextFrame::layout()
 					if (style.alignment() != 0)
 					{
 						// find end of line
-						EndX = floor(CurX + hl->glyph.xoffset - 1);
+						EndX = floor(QMAX(curLine.x, LastXp - 10));
 //						qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
-						do
-						{
+						do {
+							EndX += 0.125;
 							pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
 							pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-							EndX += 0.125;
-						}
-						while ((cl.contains(pf2.xForm(pt1))) 
-							   && (cl.contains(pf2.xForm(pt2))) 
-							   && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+						} while ((cl.contains(pf2.xForm(pt1))) 
+								 && (cl.contains(pf2.xForm(pt2))) 
+								 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+							
 						// end do
 //						qDebug(QString("endx @ %1").arg(EndX));
 						
@@ -1234,17 +1232,16 @@ void PageItem_TextFrame::layout()
 						if (style.alignment() != 0)
 						{
 							// find end of line
-							EndX = floor(curLine.x + hl->glyph.xoffset);
+							EndX = floor(QMAX(curLine.x, LastXp - 10));
 //							qDebug(QString("endx start=%1, hl is '%2'").arg(EndX).arg(hl->ch));
-							do
-							{
+							do {
+								EndX += 0.125;
 								pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
 								pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-								EndX += 0.125;
-							}
-							while ((cl.contains(pf2.xForm(pt1))) 
-								   && (cl.contains(pf2.xForm(pt2))) 
-								   && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+							} while ((cl.contains(pf2.xForm(pt1))) 
+									 && (cl.contains(pf2.xForm(pt2))) 
+									 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+								
 							// end do
 //							qDebug(QString("endx @ %1").arg(EndX));
 
@@ -1646,17 +1643,15 @@ void PageItem_TextFrame::layout()
 		curLine.lastItem = a;
 		if (style.alignment() != 0)
 		{
-			EndX = floor(CurX);
-			do
-			{
+			EndX = floor(QMAX(curLine.x, CurX - 10));
+			do {
+				EndX += 0.125;
 				pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
 				pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
-				EndX += 0.125;
-			}
-			while ((cl.contains(pf2.xForm(pt1))) 
-				   && (cl.contains(pf2.xForm(pt2))) 
-				   && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
-			
+			} while ((cl.contains(pf2.xForm(pt1))) 
+					 && (cl.contains(pf2.xForm(pt2))) 
+					 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+				
 			if (opticalMargins && itemsInLine > 0) {
 				double chs = itemText.charStyle(a).fontSize() * (itemText.charStyle(a).scaleH() / 1000.0);
 				QString chr = itemText.item(a)->glyph.more ? "-" : itemText.text(a,1);

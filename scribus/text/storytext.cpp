@@ -832,11 +832,13 @@ int StoryText::screenToPosition(FPoint coord) const
 	for (unsigned int i=0; i < lines(); ++i)
 	{
 		LineSpec ls = line(i);
+//		qDebug(QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent));
 		if (ls.y + ls.descent < coord.y())
 			continue;
 		if (ls.y - ls.ascent <= coord.y()) {
 			double xpos = ls.x;
 			for (int j = ls.firstItem; j < ls.lastItem; ++j) {
+//				qDebug(QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide()));
 				xpos += item(j)->glyph.wide();
 				if (xpos > coord.x())
 					return j;
