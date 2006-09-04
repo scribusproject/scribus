@@ -1068,7 +1068,7 @@ Page* ScribusDoc::addPage(const int pageIndex, const QString& masterPageName, co
 	//if (!masterPageMode())
 	if (!masterPageName.isEmpty())
 		applyMasterPage(masterPageName, pageIndex);
-//	setLocationBasedPageLRMargins(pageIndex);
+	setLocationBasedPageLRMargins(pageIndex);
 	if (addAutoFrame && automaticTextFrames)
 		addAutomaticTextFrame(pageIndex);
 	changed();
