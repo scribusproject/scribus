@@ -188,6 +188,8 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
 
 	setSize(prefsData->pageSize);
+	pageSizeComboBox->setCurrentText(prefsData->pageSize);
+	prefsPageSizeName = prefsData->pageSize;
 	setOrien(prefsData->pageOrientation);
 
 	docLayout->selectItem(prefsData->FacingPages);
@@ -215,6 +217,8 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	unitRatio = unitGetRatioFromIndex(prefsData->unitIndex());
 
 	setSize(prefsData->m_pageSize);
+	pageSizeComboBox->setCurrentText(prefsData->m_pageSize);
+	prefsPageSizeName = prefsData->m_pageSize;
 	setOrien(prefsData->PageOri);
 
 	docLayout->selectItem(prefsData->currentPageLayout);
