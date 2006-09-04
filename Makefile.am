@@ -79,6 +79,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share
 	$(mkinstalldirs) $(prefix)/share/scribus
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
+	$(mkinstalldirs) $(prefix)/share/mime/packages/
 	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/doc/scribus-$(VERSION)/AUTHORS
 	$(INSTALL_DATA) $(top_srcdir)/BUILDING $(prefix)/share/doc/scribus-$(VERSION)/BUILDING
 	$(INSTALL_DATA) $(top_srcdir)/ChangeLogCVS $(prefix)/share/doc/scribus-$(VERSION)/ChangeLogCVS
