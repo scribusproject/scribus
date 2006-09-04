@@ -1886,7 +1886,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 					else
 						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
-					if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
+					if ((hl->cstyle & 4) && (hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
 					{
 						uint chr = chx[0].unicode();
 						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
