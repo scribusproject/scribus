@@ -56,6 +56,7 @@ class SCRIBUS_API TabDocument : public QWidget
 		QSpinBox* urSpinBox;
 		// reform widgets
 		QCheckBox* sizeAllPages;
+		QCheckBox* sizeAllMasterPages;
 
 	private:
 		double unitRatio;
@@ -98,6 +99,8 @@ class SCRIBUS_API TabDocument : public QWidget
 		QLabel* unitComboText;
 		QLabel* ASText;
 		QLabel* urLabel;
+		QLabel* sizePages;
+		QHBoxLayout* sizePagesLayout;
 		QHBoxLayout* tabLayout_7;
 		QVBoxLayout* Layout21;
 		QHBoxLayout* dsLayout4p;

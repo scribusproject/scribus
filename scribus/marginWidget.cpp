@@ -70,16 +70,27 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	GroupLayout->addWidget( bText, 4, 0 );
 	if (showChangeAll)
 	{
-		marginsForAllPages = new QCheckBox( this, "moveObjects" );
-		marginsForAllPages->setText( tr( "Apply margin settings to all pages" ) );
+		marginsForPagesLayout = new QHBoxLayout( 0, 5, 5, "marginsForPagesLayout");
+		marginsForPages = new QLabel( tr( "Apply settings to:" ), this, "marginsForPages" );
+		marginsForPagesLayout->addWidget(marginsForPages);
+		marginsForAllPages = new QCheckBox( this, "marginsForAllPages" );
+		marginsForAllPages->setText( tr( "all Document Pages" ) );
 		marginsForAllPages->setChecked( false );
-		//GroupLayout->addMultiCellWidget( marginsForAllPages, 5, 5, 0, 1);
-		GroupLayout->addWidget( marginsForAllPages, 5, 0 );
+		marginsForPagesLayout->addWidget(marginsForAllPages);
+		marginsForAllMasterPages = new QCheckBox( this, "marginsForAllMasterPages" );
+		marginsForAllMasterPages->setText( tr( "all Master Pages" ) );
+		marginsForAllMasterPages->setChecked( false );
+		marginsForPagesLayout->addWidget(marginsForAllMasterPages);
+		GroupLayout->addMultiCellLayout( marginsForPagesLayout, 6, 6, 0, 1 );
 		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
 
 	}
 	else
+	{
+		marginsForPages=NULL;
 		marginsForAllPages=NULL;
+		marginsForAllMasterPages=NULL;
+	}
 
 	usePrinterMarginsButton=NULL;
 #if defined(HAVE_CUPS) || defined(_WIN32)
@@ -304,6 +315,11 @@ void MarginWidget::setNewMargins(double t, double b, double l, double r)
 bool MarginWidget::getMarginsForAllPages()
 {
 	return marginsForAllPages->isChecked();
+}
+
+bool MarginWidget::getMarginsForAllMasterPages()
+{
+	return marginsForAllMasterPages->isChecked();
 }
 
 

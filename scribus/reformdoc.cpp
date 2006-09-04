@@ -279,7 +279,7 @@ void ReformDoc::updateDocumentSettings()
 	for (uint p = 0; p < currDoc->MasterPages.count(); ++p)
 	{
 		Page *pp = currDoc->MasterPages.at(p);
-		if (tabPage->sizeAllPages->isChecked())
+		if (tabPage->sizeAllMasterPages->isChecked())
 		{
 			pp->setInitialWidth(currDoc->pageWidth);
 			pp->setInitialHeight(currDoc->pageHeight);
@@ -288,7 +288,7 @@ void ReformDoc::updateDocumentSettings()
 			pp->m_pageSize = currDoc->m_pageSize;
 			pp->PageOri = currDoc->PageOri;
 		}
-		if (tabPage->marginGroup->getMarginsForAllPages())
+		if (tabPage->marginGroup->getMarginsForAllMasterPages())
 		{
 			pp->initialMargins.Left = lr2;
 			pp->initialMargins.Right = rr2;

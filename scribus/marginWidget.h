@@ -118,6 +118,7 @@ public:
 	/*! \brief Return marginsForAllPages property
 	\retval bool true to apply for all pages */
 	bool getMarginsForAllPages();
+	bool getMarginsForAllMasterPages();
 
 private:
 	/*! Spinboxes */
@@ -132,7 +133,9 @@ private:
 	QLabel* tText;
 	QLabel* bText;
 	QLabel* presetLabel;
+	QLabel* marginsForPages;
 	QCheckBox* marginsForAllPages;
+	QCheckBox* marginsForAllMasterPages;
 	QPushButton* usePrinterMarginsButton;
 	/*! \brief Top margin value converted by unitRatio */
 	double RandT;
@@ -161,6 +164,7 @@ protected slots:
 
 protected:
 	QGridLayout* GroupLayout;
+	QHBoxLayout* marginsForPagesLayout;
 	QString m_pageSize;
 	QString m_suffix;
 	double m_unitRatio;

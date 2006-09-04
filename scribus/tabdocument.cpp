@@ -102,11 +102,21 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout5_2->addWidget( pageHeight );
 	GroupSizeLayout->addLayout( Layout5_2 );
 	
+	QBoxLayout *sizePagesLayout = new QHBoxLayout( 0, 0, 6, "sizePagesLayout");
+	sizePages = new QLabel( tr( "Apply settings to:" ), GroupSize, "sizePages" );
+	sizePagesLayout->addWidget(sizePages);
 	sizeAllPages = new QCheckBox( GroupSize, "sizeAllPages" );
-	sizeAllPages->setText( tr( "Apply size settings to all Pages" ) );
+	sizeAllPages->setText( tr( "all Document Pages" ) );
 	sizeAllPages->setChecked( false );
-	GroupSizeLayout->addWidget(sizeAllPages);
+	sizePagesLayout->addWidget(sizeAllPages);
+	sizeAllMasterPages = new QCheckBox( GroupSize, "sizeAllMasterPages" );
+	sizeAllMasterPages->setText( tr( "all Master Pages" ) );
+	sizeAllMasterPages->setChecked( false );
+	sizePagesLayout->addWidget(sizeAllMasterPages);
+	GroupSizeLayout->addLayout(sizePagesLayout);
+	sizePages->hide();
 	sizeAllPages->hide();
+	sizeAllMasterPages->hide();
 	
 	dsLayout4pv->addWidget( GroupSize );
 
@@ -352,7 +362,9 @@ void TabDocument::setPageSize()
 void TabDocument::hideReform()
 {
 	urGroup->hide();
+	sizePages->show();
 	sizeAllPages->show();
+	sizeAllMasterPages->show();
 }
 
 void TabDocument::slotUndo(bool isEnabled)
