@@ -17,92 +17,99 @@
     <property name="caption">
         <string>Form2</string>
     </property>
-    <grid>
+    <vbox>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <widget class="QLayoutWidget" row="0" column="0">
+        <widget class="QCheckBox">
             <property name="name">
-                <cstring>layout6</cstring>
+                <cstring>useScrapBookasExtension</cstring>
             </property>
-            <vbox>
+            <property name="text">
+                <string>Send Copied Items Automatically to Scrapbook</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</string>
+            </property>
+        </widget>
+        <widget class="QCheckBox">
+            <property name="name">
+                <cstring>persistentScrapbook</cstring>
+            </property>
+            <property name="text">
+                <string>Keep Copied Items Permanently Across Sessions</string>
+            </property>
+            <property name="toolTip" stdset="0">
+                <string>This enables copied items to be kept permanently in the scrapbook.</string>
+            </property>
+        </widget>
+        <widget class="QLayoutWidget">
+            <property name="name">
+                <cstring>layout3</cstring>
+            </property>
+            <hbox>
                 <property name="name">
                     <cstring>unnamed</cstring>
                 </property>
-                <widget class="QCheckBox">
+                <widget class="QLabel">
                     <property name="name">
-                        <cstring>useScrapBookasExtension</cstring>
+                        <cstring>textLabel2</cstring>
                     </property>
                     <property name="text">
-                        <string>Send Copied Items Automatically to Scrapbook</string>
+                        <string>Number of Copied Items to Keep in Scrapbook:</string>
                     </property>
                     <property name="toolTip" stdset="0">
-                        <string>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</string>
+                        <string>The minimum number is 1; the maximum us 100.</string>
                     </property>
                 </widget>
-                <widget class="QCheckBox">
+                <widget class="QSpinBox">
                     <property name="name">
-                        <cstring>persistentScrapbook</cstring>
+                        <cstring>numScrapCopies</cstring>
                     </property>
-                    <property name="text">
-                        <string>Keep Copied Items Permanently Across Sessions</string>
+                    <property name="maxValue">
+                        <number>100</number>
                     </property>
-                    <property name="toolTip" stdset="0">
-                        <string>This enables copied items to be kept permanently in the scrapbook.</string>
+                    <property name="minValue">
+                        <number>1</number>
                     </property>
-                </widget>
-                <widget class="QLayoutWidget">
-                    <property name="name">
-                        <cstring>layout5</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="QLabel">
-                            <property name="name">
-                                <cstring>textLabel2</cstring>
-                            </property>
-                            <property name="text">
-                                <string>Number of Copied Items to Keep in Scrapbook:</string>
-                            </property>
-                            <property name="toolTip" stdset="0">
-                                <string>The minimum number is 1; the maximum us 100.</string>
-                            </property>
-                        </widget>
-                        <widget class="QSpinBox">
-                            <property name="name">
-                                <cstring>numScrapCopies</cstring>
-                            </property>
-                            <property name="maxValue">
-                                <number>100</number>
-                            </property>
-                            <property name="minValue">
-                                <number>1</number>
-                            </property>
-                        </widget>
-                    </hbox>
                 </widget>
                 <spacer>
                     <property name="name">
-                        <cstring>spacer2</cstring>
+                        <cstring>spacer2_2</cstring>
                     </property>
                     <property name="orientation">
-                        <enum>Vertical</enum>
+                        <enum>Horizontal</enum>
                     </property>
                     <property name="sizeType">
                         <enum>Expanding</enum>
                     </property>
                     <property name="sizeHint">
                         <size>
-                            <width>20</width>
-                            <height>40</height>
+                            <width>40</width>
+                            <height>20</height>
                         </size>
                     </property>
                 </spacer>
-            </vbox>
+            </hbox>
         </widget>
-    </grid>
+        <spacer>
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>20</width>
+                    <height>97</height>
+                </size>
+            </property>
+        </spacer>
+    </vbox>
 </widget>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>

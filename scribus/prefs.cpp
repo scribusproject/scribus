@@ -339,7 +339,18 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.ScratchLeft = tabView->leftScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchRight = tabView->rightScratch->value() / prefsUnitRatio;
 	prefsManager->appPrefs.ScratchTop = tabView->topScratch->value() / prefsUnitRatio;
+	// GUI colors
 	prefsManager->appPrefs.DpapColor = tabView->colorPaper;
+	prefsManager->appPrefs.DFrameColor = tabView->colorFrame;
+	prefsManager->appPrefs.DFrameNormColor = tabView->colorFrameNorm;
+	prefsManager->appPrefs.DFrameGroupColor = tabView->colorFrameGroup;
+	prefsManager->appPrefs.DFrameLockColor = tabView->colorFrameLocked;
+	prefsManager->appPrefs.DFrameLinkColor = tabView->colorFrameLinked;
+	prefsManager->appPrefs.DFrameAnnotationColor = tabView->colorFrameAnnotation;
+	prefsManager->appPrefs.DPageBorderColor = tabView->colorPageBorder;
+	prefsManager->appPrefs.DControlCharColor = tabView->colorControlChars;
+	// Guides
+
 	prefsManager->appPrefs.guidesSettings.framesShown = tabView->checkFrame->isChecked();
 	prefsManager->appPrefs.guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
 	prefsManager->appPrefs.guidesSettings.rulerMode = tabView->checkRuler->isChecked();
@@ -381,15 +392,6 @@ void Preferences::updatePreferences()
 	// lorem ipsum
 	prefsManager->appPrefs.useStandardLI = tabMiscellaneous->useStandardLI->isChecked();
 	prefsManager->appPrefs.paragraphsLI = tabMiscellaneous->paragraphsLI->value();
-	// Some other GUI colors
-	prefsManager->appPrefs.DFrameColor = tabMiscellaneous->colorFrame;
-	prefsManager->appPrefs.DFrameNormColor = tabMiscellaneous->colorFrameNorm;
-	prefsManager->appPrefs.DFrameGroupColor = tabMiscellaneous->colorFrameGroup;
-	prefsManager->appPrefs.DFrameLockColor = tabMiscellaneous->colorFrameLocked;
-	prefsManager->appPrefs.DFrameLinkColor = tabMiscellaneous->colorFrameLinked;
-	prefsManager->appPrefs.DFrameAnnotationColor = tabMiscellaneous->colorFrameAnnotation;
-	prefsManager->appPrefs.DPageBorderColor = tabMiscellaneous->colorPageBorder;
-	prefsManager->appPrefs.DControlCharColor = tabMiscellaneous->colorControlChars;
 
 	prefsManager->appPrefs.docUnitIndex = tabDocument->unitCombo->currentItem();
 

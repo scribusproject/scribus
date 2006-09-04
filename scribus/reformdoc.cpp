@@ -71,7 +71,7 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 	addItem( tr("Guides"), loadIcon("guides.png"), tabGuides);
 
 	tabView = new TabDisplay( prefsWidgets, "tabView" );
-	tabView->hideReform();
+	tabView->setDocSetupMode();
 	addItem( tr("Display"), loadIcon("screen.png"), tabView);
 
 	tabTypo = new TabTypograpy(  prefsWidgets, &doc->typographicSettings);

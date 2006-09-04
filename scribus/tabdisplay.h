@@ -24,10 +24,18 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings);
 		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
 		//! \brief Hide non-needed widgets for ReformDoc widget
-		void hideReform();
+		void setDocSetupMode();
 
-		QColor colorPaper;
 		double DisScale;
+		QColor colorPaper;
+		QColor colorFrame;
+		QColor colorFrameNorm;
+		QColor colorFrameGroup;
+		QColor colorFrameLocked;
+		QColor colorFrameLinked;
+		QColor colorFrameAnnotation;
+		QColor colorPageBorder;
+		QColor colorControlChars;
 
 	private:
 		int docUnitIndex;
@@ -48,7 +56,14 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 		\brief Sets implicit paper color
 		*/
 		virtual void changePaperColor();
-
+		virtual void changeFrameColor();
+		virtual void changeNormFrameColor();
+		virtual void changeGroupFrameColor();
+		virtual void changeChainFrameColor();
+		virtual void changeLockFrameColor();
+		virtual void changeAnnotFrameColor();
+		virtual void changePageBorderColor();
+		virtual void changeControlCharsColor();
 };
 
 #endif

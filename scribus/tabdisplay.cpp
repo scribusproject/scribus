@@ -37,8 +37,17 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	QToolTip::add( CaliText, "<qt>" + tr( "Set the default zoom level" )  + "</qt>");
 	QToolTip::add( CaliGroup, "<qt>" + tr( "Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size" ) + "</qt>" );
 
-	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 	connect(backColor, SIGNAL(clicked()), this, SLOT(changePaperColor()));
+	connect(buttonFrameSelected, SIGNAL(clicked()), this, SLOT(changeFrameColor()));
+	connect(buttonFrameNormal, SIGNAL(clicked()), this, SLOT(changeNormFrameColor()));
+	connect(buttonFrameGrouped, SIGNAL(clicked()), this, SLOT(changeGroupFrameColor()));
+	connect(buttonFrameLinked, SIGNAL(clicked()), this, SLOT(changeChainFrameColor()));
+	connect(buttonFrameLocked, SIGNAL(clicked()), this, SLOT(changeLockFrameColor()));
+	connect(buttonFrameAnnotation, SIGNAL(clicked()), this, SLOT(changeAnnotFrameColor()));
+	connect(buttonSelectedPage, SIGNAL(clicked()), this, SLOT(changePageBorderColor()));
+	connect(buttonControlChars, SIGNAL(clicked()), this, SLOT(changeControlCharsColor()));
+
+	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 }
 
 void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings)
@@ -49,11 +58,44 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	DisScale = prefsData->DisScale;
 	int decimals = unitGetPrecisionFromIndex(docUnitIndex);
 	QString unitSuffix = unitGetSuffixFromIndex(docUnitIndex);
-	QPixmap pm5(54, 14);
-	pm5.fill(prefsData->DpapColor);
+	QPixmap pm(54, 14);
+	pm.fill(prefsData->DpapColor);
 	colorPaper = prefsData->DpapColor;
-	backColor->setPixmap(pm5);
+	backColor->setPixmap(pm);
 	backColor->setText( QString::null );
+	pm.fill(prefsData->DFrameColor);
+	colorFrame = prefsData->DFrameColor;
+	buttonFrameSelected->setText( QString::null );
+	buttonFrameSelected->setPixmap(pm);
+	pm.fill(prefsData->DFrameNormColor);
+	colorFrameNorm = prefsData->DFrameNormColor;
+	buttonFrameNormal->setText( QString::null );
+	buttonFrameNormal->setPixmap(pm);
+	pm.fill(prefsData->DFrameGroupColor);
+	colorFrameGroup = prefsData->DFrameGroupColor;
+	buttonFrameGrouped->setText( QString::null );
+	buttonFrameGrouped->setPixmap(pm);
+	pm.fill(prefsData->DFrameLinkColor);
+	colorFrameLinked = prefsData->DFrameLinkColor;
+	buttonFrameLinked->setText( QString::null );
+	buttonFrameLinked->setPixmap(pm);
+	pm.fill(prefsData->DFrameLockColor);
+	colorFrameLocked = prefsData->DFrameLockColor;
+	buttonFrameLocked->setText( QString::null );
+	buttonFrameLocked->setPixmap(pm);
+	pm.fill(prefsData->DFrameAnnotationColor);
+	colorFrameAnnotation = prefsData->DFrameAnnotationColor;
+	buttonFrameAnnotation->setText( QString::null );
+	buttonFrameAnnotation->setPixmap(pm);
+	pm.fill(prefsData->DPageBorderColor);
+	colorPageBorder = prefsData->DPageBorderColor;
+	buttonSelectedPage->setText( QString::null );
+	buttonSelectedPage->setPixmap(pm);
+	pm.fill(prefsData->DControlCharColor);
+	colorControlChars = prefsData->DControlCharColor;
+	buttonControlChars->setText( QString::null );
+	buttonControlChars->setPixmap(pm);
+
 	checkUnprintable->setChecked( prefsData->marginColored );
 	checkPictures->setChecked(guidesSettings->showPic);
 	checkLink->setChecked(guidesSettings->linkShown);
@@ -211,7 +253,115 @@ void TabDisplay::drawRuler()
 	CaliRuler->setPixmap(pm);
 }
 
-void TabDisplay::hideReform()
+void TabDisplay::setDocSetupMode()
 {
 	CaliGroup->hide();
+	selectedPageBorderLabel->hide();
+	buttonSelectedPage->hide();
+	groupObjFrame->hide();
+	textColorGroup->hide();
+}
+
+void TabDisplay::changeFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrame, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrame = neu;
+		buttonFrameSelected->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changeNormFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameNorm, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameNorm = neu;
+		buttonFrameNormal->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changeGroupFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameGroup, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameGroup = neu;
+		buttonFrameGrouped->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changeChainFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameLinked, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameLinked = neu;
+		buttonFrameLinked->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changeLockFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameLocked, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameLocked = neu;
+		buttonFrameLocked->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changeAnnotFrameColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorFrameAnnotation, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorFrameAnnotation = neu;
+		buttonFrameAnnotation->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changePageBorderColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorPageBorder, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorPageBorder = neu;
+		buttonSelectedPage->setPixmap(pm);
+	}
+}
+
+void TabDisplay::changeControlCharsColor()
+{
+	QColor neu = QColor();
+	neu = QColorDialog::getColor(colorControlChars, this);
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorControlChars = neu;
+		buttonControlChars->setPixmap(pm);
+	}
 }
