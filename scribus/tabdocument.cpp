@@ -48,6 +48,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	dsLayout4pv->setMargin( 0 );
 
 	GroupSize = new QButtonGroup( tr( "Page Size" ), this, "GroupSize" );
+	GroupSize->setSizePolicy(QSizePolicy(QSizePolicy::MinimumExpanding, QSizePolicy::Preferred));
 	GroupSize->setColumnLayout(0, Qt::Vertical );
 	GroupSize->layout()->setSpacing( 6 );
 	GroupSize->layout()->setMargin( 10 );
@@ -90,13 +91,13 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	Layout5_2 = new QHBoxLayout( 0, 0, 6, "Layout5_2");
 
 	pageWidth = new MSpinBox( 1, 100000, GroupSize, decimals );
-	pageWidth->setMinimumSize( QSize( 70, 20 ) );
+	pageWidth->setMinimumSize( QSize( 90, 20 ) );
 	GZText3 = new QLabel( pageWidth, tr( "&Width:" ), GroupSize, "GZText3" );
 	Layout5_2->addWidget( GZText3 );
 	Layout5_2->addWidget( pageWidth );
 
 	pageHeight = new MSpinBox( 1, 100000, GroupSize, decimals );
-	pageHeight->setMinimumSize( QSize( 70, 20 ) );
+	pageHeight->setMinimumSize( QSize( 90, 20 ) );
 	GZText4 = new QLabel( pageHeight, tr( "&Height:" ), GroupSize, "GZText4" );
 	Layout5_2->addWidget( GZText4 );
 	Layout5_2->addWidget( pageHeight );
