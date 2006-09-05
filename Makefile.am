@@ -77,6 +77,8 @@ AM_CPPFLAGS = \
 #
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share
+	$(mkinstalldirs) $(prefix)/share/mime
+	$(mkinstalldirs) $(prefix)/share/mime/packages
 	$(mkinstalldirs) $(prefix)/share/scribus
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
 	$(mkinstalldirs) $(prefix)/share/mime/packages/
