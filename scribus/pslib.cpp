@@ -2219,10 +2219,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(c->GrStartX, 0), c->width());
-			StartY = QMIN(QMAX(c->GrStartY, 0), c->height());
-			EndX = QMIN(QMAX(c->GrEndX, 0), c->width());
-			EndY = QMIN(QMAX(c->GrEndY, 0), c->height());
+			StartX = c->GrStartX;
+			StartY = c->GrStartY;
+			EndX = c->GrEndX;
+			EndY = c->GrEndY;
 			break;
 	}
 	QValueList<double> StopVec;
@@ -2245,12 +2245,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		StopVec.clear();
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
-			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
-			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-			double x = fabs(ma.m11() * w2 + ma.dx());
-			double y = fabs(ma.m12() * w2 + ma.dy());
+			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
 			StopVec.append(x);
 			StopVec.append(-y);
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);

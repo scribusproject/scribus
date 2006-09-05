@@ -3329,7 +3329,7 @@ void Mpalette::toggleGradientEdit()
 			m_ScMW->setAppMode(modeEditGradientVectors);
 		else
 			m_ScMW->setAppMode(modeNormal);
-		m_ScMW->view->RefreshItem(CurItem);
+		m_ScMW->view->RefreshGradient(CurItem);
 	}
 }
 

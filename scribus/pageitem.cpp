@@ -3583,10 +3583,6 @@ void PageItem::updateGradientVectors()
 		default:
 			break;
 	}
-	GrEndX = QMIN(QMAX(GrEndX, 0), Width);
-	GrEndY = QMIN(QMAX(GrEndY, 0), Height);
-	GrStartX = QMIN(QMAX(GrStartX, 0), Width);
-	GrStartY = QMIN(QMAX(GrStartY, 0), Height);
 	//if (ScMW->view->SelItem.count()!=0 && this==ScMW->view->SelItem.at(0))
 	//if (m_Doc->m_Selection->count()!=0 && m_Doc->m_Selection->primarySelectionIsMyself(this))
 	//	ScMW->propertiesPalette->updateColorSpecialGradient();

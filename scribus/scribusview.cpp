@@ -3654,23 +3654,21 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		newX = m->x();
 		newY = m->y();
+		double dx = abs(Mxp - newX) + 5;
+		double dy = abs(Myp - newY) + 5;
 		if (m->state() == LeftButton)
 		{
 			currItem->GrStartX -= (Mxp - newX) / Scale;
-			currItem->GrStartX = QMIN(QMAX(0.0, currItem->GrStartX), currItem->width());
 			currItem->GrStartY -= (Myp - newY) / Scale;
-			currItem->GrStartY = QMIN(QMAX(0.0, currItem->GrStartY), currItem->height());
 		}
 		if (m->state() == RightButton)
 		{
 			currItem->GrEndX -= (Mxp - newX) / Scale;
-			currItem->GrEndX = QMIN(QMAX(0.0, currItem->GrEndX), currItem->width());
 			currItem->GrEndY -= (Myp - newY) / Scale;
-			currItem->GrEndY = QMIN(QMAX(0.0, currItem->GrEndY), currItem->height());
 		}
 		Mxp = newX;
 		Myp = newY;
-		RefreshItem(currItem);
+		RefreshGradient(currItem, dx, dy);
 		m_ScMW->propertiesPalette->updateColorSpecialGradient();
 		return;
 	}
@@ -6029,9 +6027,34 @@ void ScribusView::ToView(QPainter *p)
 	p->translate(out.x(), out.y());
 }
 
+void ScribusView::ToView(QWMatrix& m)
+{
+	QPoint out(contentsToViewport(QPoint(0, 0)));
+	m.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
+	m.translate(out.x(), out.y());
+}
+
 void ScribusView::RefreshItem(PageItem *currItem)
 {
 	updateContents(currItem->getRedrawBounding(Scale));
+}
+
+void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
+{
+	QWMatrix matrix;
+	QRect rect = currItem->getRedrawBounding(Scale);
+	Transform(currItem, matrix);
+	FPointArray fpNew;
+	fpNew.setPoints(2, currItem->GrStartX, currItem->GrStartY, currItem->GrEndX, currItem->GrEndY);
+	fpNew.map(matrix);
+	if (dx < 8.0) dx = 8.0;
+	if (dy < 8.0) dy = 8.0;
+	double grl = QMIN(fpNew.point(0).x(), fpNew.point(1).x()) - dx;
+	double grr = QMAX(fpNew.point(0).x(), fpNew.point(1).x()) + dx;
+	double grb = QMAX(fpNew.point(0).y(), fpNew.point(1).y()) + dy;
+	double grt = QMIN(fpNew.point(0).y(), fpNew.point(1).y()) - dy;
+	rect |= QRect(grl, grt, grr-grl, grb-grt);
+	updateContents(rect);
 }
 
 //CB-->Doc
@@ -9688,6 +9711,13 @@ void ScribusView::Transform(PageItem *currItem, QPainter *p)
 	p->translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
 	p->scale(Scale, Scale);
 	p->rotate(currItem->rotation());
+}
+
+void ScribusView::Transform(PageItem *currItem, QWMatrix& m)
+{
+	m.translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
+	m.scale(Scale, Scale);
+	m.rotate(currItem->rotation());
 }
 
 void ScribusView::TransformM(PageItem *currItem, QPainter *p)

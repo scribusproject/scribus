@@ -186,6 +186,7 @@ public:
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
 	void ToView(QPainter *p);
+	void ToView(QWMatrix& m);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	void MarkClip(PageItem *currItem, FPointArray cli, bool once = false);
 	bool PointOnLine(QPoint Start, QPoint Ende, QRect MArea);
@@ -216,6 +217,7 @@ public:
 	void SetupDraw(int Nr);
 	void SetupDrawNoResize(int nr);
 	void Transform(PageItem *currItem, QPainter *p);
+	void Transform(PageItem *currItem, QWMatrix& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();
 	void SetFrameRounded();
@@ -254,6 +256,7 @@ public slots: // Public slots
 	void SetCCPo(int x, int y);
 	void editExtendedImageProperties();
 	void RefreshItem(PageItem *currItem);
+	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */

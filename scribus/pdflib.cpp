@@ -3832,10 +3832,10 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(currItem->GrStartX, 0), currItem->width());
-			StartY = QMIN(QMAX(currItem->GrStartY, 0), currItem->height());
-			EndX = QMIN(QMAX(currItem->GrEndX, 0), currItem->width());
-			EndY = QMIN(QMAX(currItem->GrEndY, 0), currItem->height());
+			StartX = currItem->GrStartX;
+			StartY = currItem->GrStartY;
+			EndX = currItem->GrEndX;
+			EndY = currItem->GrEndY;
 			break;
 	}
 	StopVec.clear();
@@ -3854,12 +3854,8 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
-			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
-			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-			double x = fabs(ma.m11() * w2 + ma.dx());
-			double y = fabs(ma.m12() * w2 + ma.dy());
+			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
 			StopVec.append(-y);
@@ -3876,8 +3872,8 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 	bool first = true;
 	double w = currItem->width();
 	double h = -currItem->height();
-	double w2 = QMIN(QMAX(currItem->GrStartX, 0), currItem->width());
-	double h2 = -1.0 * QMIN(QMAX(currItem->GrStartY, 0), currItem->height());
+	double w2 = currItem->GrStartX;
+	double h2 = -currItem->GrStartY;
 	uint colorsCountm1=Colors.count()-1;
 	for (uint c = 0; c < colorsCountm1; ++c)
 	{
