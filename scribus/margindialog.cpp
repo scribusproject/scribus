@@ -243,7 +243,7 @@ void MarginDialog::setOrien(int ori)
 	}
 	else
 	{
-		if (ori != 0)
+		if ((ori != 0) && (ori != oldOri))
 		{
 			br = widthMSpinBox->value();
 			widthMSpinBox->setValue(heightMSpinBox->value());
