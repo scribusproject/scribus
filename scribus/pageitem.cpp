@@ -1311,17 +1311,18 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		if (chst & ScStyle_Superscript)
 		{
 			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
+			layout.yoffset -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
 			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSuperScript / 100, 10 / style.fontSize());
 		}
 		else if (chst & ScStyle_Subscript)
 		{
 			retval += asce * m_Doc->typographicSettings.valueSubScript / 100;
+			layout.yoffset += asce * m_Doc->typographicSettings.valueSubScript / 100;
 			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSubScript / 100, 10 / style.fontSize());
 		}
 		else {
 			layout.scaleV = layout.scaleH = 1;
 		}
-//		layout.yoffset = retval;
 		layout.scaleH *= style.scaleH() / 1000.0;
 		layout.scaleV *= style.scaleV() / 1000.0;
 		if (chst & ScStyle_AllCaps)
@@ -1344,12 +1345,12 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		layout.scaleH = style.scaleH() / 1000.0;
 		layout.scaleV = style.scaleV() / 1000.0;
 	}
-	layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize()) * layout.scaleH;
-	layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize()).ascent * layout.scaleV;
+	layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
+	layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
 	if (chars.length() > 1) {
 		layout.grow();
 		layoutGlyphs(style, chars.mid(1), *layout.more);
-		layout.xadvance += style.font().glyphKerning(layout.glyph, layout.more->glyph, style.fontSize()) * layout.scaleH;
+		layout.xadvance += style.font().glyphKerning(layout.glyph, layout.more->glyph, style.fontSize() / 10) * layout.scaleH;
 		if (layout.more->yadvance > layout.yadvance)
 			layout.yadvance = layout.more->yadvance;
 	}
