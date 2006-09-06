@@ -4055,6 +4055,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			cc = "\\r";
 		bm += cc;
 	}
+	QString anTitle = ite->itemName().replace(".", "_" );
 	QStringList bmst = QStringList::split("\\r", bm);
 	const QString m[] = {"4", "5", "F", "l", "H", "n"};
 	QString ct(m[ite->annotation().ChkStil()]);
@@ -4097,7 +4098,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 6:
 			Seite.FormObjects.append(ObjCounter-1);
 			PutDoc("/Subtype /Widget\n");
-			PutDoc("/T "+EncString("("+ite->itemName()+")",ObjCounter-1)+"\n");
+			PutDoc("/T "+EncString("("+anTitle+")",ObjCounter-1)+"\n");
 			if (!ite->annotation().ToolTip().isEmpty())
 				PutDoc("/TU "+EncString("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
