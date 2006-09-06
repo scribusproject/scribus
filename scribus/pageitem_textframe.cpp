@@ -1855,11 +1855,11 @@ NoRoom:
 		if (uint(CPos) > nrc)
 		{
 			int nCP = CPos;
-			CPos = nrc;
+//			CPos = nrc;
 			if ((m_Doc->appMode == modeEdit) && (Tinput))
 			{
 				//							OwnPage->Deselect(true);
-				next->CPos = QMAX(nCP, itemText.length());
+				next->CPos = QMAX(nCP, nrc);
 				//							Doc->currentPage = NextBox->OwnPage;
 				//							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 //				qDebug("textframe: len=%d, leaving relayout in editmode && Tinput", itemText.length());
@@ -3782,6 +3782,7 @@ void PageItem_TextFrame::clearContents()
 	{
 		nextItem->CPos = 0;
 		nextItem->itemText.clear();
+		nextItem->invalid = true;
 		nextItem = nextItem->NextBox;
 	}
 }
