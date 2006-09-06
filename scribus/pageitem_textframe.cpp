@@ -2111,7 +2111,8 @@ void PageItem_TextFrame::clearContents()
 		}
 		nextItem->itemText.clear();
 		nextItem->CPos = 0;
-		nextItem->invalid = true;
+		nextItem->Dirty = true;
+		nextItem->Redrawn = false;
 		nextItem = nextItem->NextBox;
 	}
 }
