@@ -42,12 +42,14 @@ PAGE_4 is 4-fold.\n\
 firstPageOrder = What is position of first page in the document.\n\
 Indexed from 0 (0 = first).\n\
 \n\
+numPage = Number of pages to be created.\n\
+\n\
 The values for width, height and the margins are expressed in the given unit\n\
 for the document. PAPER_* constants are expressed in points. If your document\n\
 is not in points, make sure to account for this.\n\
 \n\
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,\n\
-PAGE_4, 3)\n\
+PAGE_4, 3, 1)\n\
 \n\
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.\n\
 "));
