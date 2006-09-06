@@ -1939,7 +1939,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			pf2.end();
 			p->restore();
 			break;
-			NoRoom: pf2.end();
+			
+NoRoom: 
+			pf2.end();
 			if (NextBox != 0)
 			{
 				nrc2 = itemText.count();
@@ -2109,6 +2111,7 @@ void PageItem_TextFrame::clearContents()
 		}
 		nextItem->itemText.clear();
 		nextItem->CPos = 0;
+		nextItem->invalid = true;
 		nextItem = nextItem->NextBox;
 	}
 }
