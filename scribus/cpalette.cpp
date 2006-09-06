@@ -103,12 +103,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientLayout->addWidget( GTextY1, 1, 0 );
 	gX1 = new MSpinBox( freeGradientQFrame, 2);
 	gX1->setDecimals(100);
-	gX1->setMinValue(0);
+	gX1->setMinValue(-3000);
 	gX1->setMaxValue(3000);
 	freeGradientLayout->addWidget( gX1, 0, 1 );
 	gY1 = new MSpinBox( freeGradientQFrame, 2 );
 	gY1->setDecimals(100);
-	gY1->setMinValue(0);
+	gY1->setMinValue(-3000);
 	gY1->setMaxValue(3000);
 	freeGradientLayout->addWidget( gY1, 1, 1 );
 	GTextX2 = new QLabel("X2:", freeGradientQFrame, "GTextX2" );
@@ -117,12 +117,12 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	freeGradientLayout->addWidget( GTextY2, 1, 2 );
 	gX2 = new MSpinBox( freeGradientQFrame, 2 );
 	gX2->setDecimals(100);
-	gX2->setMinValue(0);
+	gX2->setMinValue(-3000);
 	gX2->setMaxValue(3000);
 	freeGradientLayout->addWidget( gX2, 0, 3 );
 	gY2 = new MSpinBox( freeGradientQFrame, 2 );
 	gY2->setDecimals(100);
-	gY2->setMinValue(0);
+	gY2->setMinValue(-3000);
 	gY2->setMaxValue(3000);
 	freeGradientLayout->addWidget( gY2, 1, 3 );
 	gradEditButton = new QToolButton(freeGradientQFrame, "t1");
@@ -481,14 +481,6 @@ void Cpalette::setSpecialGradient(double x1, double y1, double x2, double y2, do
 	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-	gX1->setMaxValue(w);
-	gX2->setMaxValue(w);
-	gY1->setMaxValue(h);
-	gY2->setMaxValue(h);
-	gX1->setMinValue(0);
-	gX2->setMinValue(0);
-	gY1->setMinValue(0);
-	gY2->setMinValue(0);
 	gX1->setValue(x1);
 	gX2->setValue(x2);
 	gY1->setValue(y1);
@@ -555,19 +547,19 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	gX2->setSuffix( unitSuffix );
 	gY2->setSuffix( unitSuffix );
 
-	gX1->setMaxValue(oldXM * newUnitRatio);
+	gX1->setMinValue(-oldXM * newUnitRatio);
+	gX1->setMaxValue( oldXM * newUnitRatio);
 	gX1->setValue(oldX * newUnitRatio);
-	gY1->setMaxValue(oldYM * newUnitRatio);
+	gY1->setMinValue(-oldYM * newUnitRatio);
+	gY1->setMaxValue( oldYM * newUnitRatio);
 	gY1->setValue(oldY * newUnitRatio);
-	gX2->setMaxValue(oldWM * newUnitRatio);
+	gX2->setMinValue(-oldWM * newUnitRatio);
+	gX2->setMaxValue( oldWM * newUnitRatio);
 	gX2->setValue(oldW * newUnitRatio);
-	gY2->setMaxValue(oldHM * newUnitRatio);
+	gY2->setMinValue(-oldHM * newUnitRatio);
+	gY2->setMaxValue( oldHM * newUnitRatio);
 	gY2->setValue(oldH * newUnitRatio);
-	gX1->setMinValue(0);
-	gX2->setMinValue(0);
-	gY1->setMinValue(0);
-	gY2->setMinValue(0);
-
+	
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
