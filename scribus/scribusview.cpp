@@ -221,6 +221,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Doc->SubMode = -1;
 	storedFramesShown = Doc->guidesSettings.framesShown;
 	viewAsPreview = false;
+	shiftSelItems = false;
 #ifdef HAVE_CAIRO
 	m_ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
 #endif
@@ -3281,7 +3282,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 		}
 		//CB Drag selection performed here
-		if ((Doc->m_Selection->count() == 0) && (HaveSelRect) && (!MidButt))
+		if (((Doc->m_Selection->count() == 0) && (HaveSelRect) && (!MidButt)) || ((shiftSelItems) && (HaveSelRect) && (!MidButt)))
 		{
 			double sc = Scale;
 			QPainter p;
@@ -3362,6 +3363,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 			}
 			HaveSelRect = false;
+			shiftSelItems = false;
 		}
 		if (Doc->appMode != modeEdit)
 		{
@@ -3545,6 +3547,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	operItemMoving = false;
 	operItemResizing = false;
 	MidButt = false;
+	shiftSelItems = false;
 	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
 	{
@@ -3732,7 +3735,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		p.end();
 		return;
 	}
-	if (GetItem(&currItem))
+	if ((GetItem(&currItem)) && (!shiftSelItems))
 	{
 		newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 		newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
@@ -4581,7 +4584,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	}
 	else
 	{
-		if ((m_MouseButtonPressed) && (m->state() == LeftButton) && (GyM == -1) && (GxM == -1))
+		if ((m_MouseButtonPressed) && (m->state() & LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 			newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
@@ -4998,7 +5001,8 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					QRect ne = QRect();
 					PaintSizeRect(&p, ne);
 					p.end();
-					double gx, gy, gh, gw;;
+					double gx, gy, gh, gw;
+					bool shiftSel = true;
 					getGroupRect(&gx, &gy, &gw, &gh);
 					dragConstrainInitPtX = qRound(gx);
 					dragConstrainInitPtY = qRound(gy);
@@ -5068,14 +5072,17 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 							operItemResizing = true;
 					}
 					else
-						SeleItem(m);
-					if (Doc->m_Selection->count() == 0)
+						shiftSel = SeleItem(m);
+					if (((Doc->m_Selection->count() == 0) || (!shiftSel)) && (m->state() == ShiftButton))
 					{
+						shiftSelItems = true;
 						Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 						Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
 						SeRx = Mxp;
 						SeRy = Myp;
 					}
+					else
+						shiftSelItems = false;
 				}
 				else
 				{
@@ -8555,7 +8562,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		//else
 		//	emit signalGuideInformation(-1, 0.0);
 	}
-	Deselect(true);
+	if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
+		Deselect(true);
 	return false;
 }
 

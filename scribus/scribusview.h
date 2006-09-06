@@ -124,6 +124,7 @@ public:
 	bool EdPoints;
 	bool m_MouseButtonPressed;
 	bool operItemMoving;
+	bool shiftSelItems;
 	bool MoveGY;
 	bool MoveGX;
 	bool HaveSelRect;
