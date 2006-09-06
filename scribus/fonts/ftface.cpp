@@ -158,6 +158,9 @@ uint FtFace::char2CMap(QChar ch) const
 
 void FtFace::loadGlyph(uint gl) const
 {
+	if (m_glyphWidth.contains(gl))
+		return;
+	
 	ScFace::GlyphData GRec;
 	FT_Face face = ftFace();
 	if (FT_Load_Glyph( face, gl, FT_LOAD_NO_SCALE | FT_LOAD_NO_BITMAP ))
