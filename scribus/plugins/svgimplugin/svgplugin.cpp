@@ -365,6 +365,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
+		SvgStyle svgStyle;
+		parseStyle( &svgStyle, b );
+		if (!svgStyle.Display) 
+			continue;
 		QString STag = b.tagName();
 		if( STag == "g" )
 		{
@@ -1356,7 +1360,9 @@ QString SVGPlug::parseColor( const QString &s )
 
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
-	if( command == "stroke-opacity" )
+	if( command == "display" )
+		obj->Display = (params == "none") ? false : true;
+	else if( command == "stroke-opacity" )
 		obj->StrokeOpacity  = fromPercentage(params);
 	else if( command == "fill-opacity" )
 		obj->FillOpacity = fromPercentage(params);
@@ -1538,6 +1544,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	SvgStyle *gc = m_gc.current();
 	if (!gc)
 		return;
+	if( !e.attribute( "display" ).isEmpty() )
+		parsePA( obj, "display", e.attribute( "display" ) );
 	if( !e.attribute( "color" ).isEmpty() )
 	{
 		if (e.attribute( "color" ) == "inherit")
