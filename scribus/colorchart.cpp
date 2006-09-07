@@ -42,13 +42,13 @@ ColorChart::ColorChart(QWidget *parent, ScribusDoc* doc) : QLabel(parent), m_doc
 void ColorChart::mouseMoveEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), false);
+	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
 
 void ColorChart::mousePressEvent(QMouseEvent *m)
 {
 	drawMark(m->x(), m->y());
-	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), false);
+	emit ColorVal(m->x() * 359 / width(), m->y() * 255 / height(), true);
 }
 
 void ColorChart::mouseReleaseEvent(QMouseEvent *m)
