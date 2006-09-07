@@ -106,6 +106,7 @@ class SvgStyle
 {
 public:
 	SvgStyle() :
+		Display(true),
 		CSpace(false),
 		CurCol("None"),
 		dashOffset(0),
@@ -133,6 +134,7 @@ public:
 		StrokeOpacity(1.0)
 		{
 		}
+	bool Display;
 	bool CSpace;
 	QString CurCol;
 	QValueList<double> dashArray;
