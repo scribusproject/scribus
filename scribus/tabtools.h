@@ -63,6 +63,7 @@ public:
 	QToolButton* toolZoom;
 	QWidgetStack* subStackTools;
 	QWidget* subTabText;
+	QLabel* textHeadLine;
 	QLabel* textLabel3b;
 	QLabel* textLabel3b2;
 	QLabel* textLabel3b2t;
@@ -93,6 +94,7 @@ public:
 	MSpinBox* gapText;
 	MSpinBox* gapTab;
 	QWidget* subTabShape;
+	QLabel* shapeHeadLine;
 	QLabel* textLabel9b;
 	QLabel* textLabel10b;
 	MSpinBox* lineWidthShape;
@@ -106,6 +108,7 @@ public:
 	ColorCombo* colorComboLineShape;
 	QLabel* textLabel8b;
 	QWidget* subTabLine;
+	QLabel* lineHeadLine;
 	MSpinBox* lineWidthLine;
 	QSpinBox* shadingLine;
 	ColorCombo* colorComboLine;
@@ -115,6 +118,7 @@ public:
 	QLabel* textLabel16b;
 	LineCombo* comboStyleLine;
 	QWidget* subTabImage;
+	QLabel* imageHeadLine;
 	ColorCombo* comboFillImage;
 	QLabel* textLabel19b;
 	QSpinBox* shadingFillImage;
@@ -133,8 +137,10 @@ public:
 	QRadioButton* checkNormalRes;
 	QRadioButton* checkHalfRes;
 	QWidget* subTabPolygon;
+	QLabel* polygonHeadLine;
 	PolygonWidget* polyWidget;
 	QWidget* subTabZoom;
+	QLabel* zoomHeadLine;
 	QLabel* textLabel21b;
 	QSpinBox* minimumZoom;
 	QLabel* textLabel22b;
@@ -188,7 +194,7 @@ protected:
 	QGridLayout* buttonGroup3Layout;
 	QHBoxLayout* buttonGroup5Layout;
 	QVBoxLayout* buttonGroupResLayout;
-	QHBoxLayout* subTabPolygonLayout;
+	QGridLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
 	ScribusDoc* docu;
 	double unitRatio;
