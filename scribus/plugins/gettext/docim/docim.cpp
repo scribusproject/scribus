@@ -52,34 +52,24 @@ bool hasAntiword()
 
 QString FileFormatName()
 {
-	// should return string to fix #4216: Unknown Text-importer. See
-	// missing antiword message box in void GetText(). PV.
-// 	if (hasAntiword())
-//     	return QObject::tr("Word Documents");
-// 	else
-// 		return QString();
-	return QObject::tr("Word Documents");
+	if (hasAntiword())
+    	return QObject::tr("Word Documents");
+	else
+		return QString::null;
 }
 
 QStringList FileExtensions()
 {
-// 	if (hasAntiword())
-//     	return QStringList("doc");
-// 	else
-// 		return QStringList();
-	return QStringList("doc");
+	if (hasAntiword())
+    	return QStringList("doc");
+	else
+		return QStringList();
 }
 
 void GetText(QString filename, QString encoding, bool textOnly, gtWriter *writer)
 {
 	if (!hasAntiword())
-	{
-		QMessageBox::information(0,
-								 QObject::tr("Antiword not found", "Doc importer"),
-								 "<qt>" + QObject::tr("You need to have Antiword installed to import MS Word Documents. Read the documentation, please.", "Doc importer") + "</qt>",
-								 QMessageBox::Ok);
 		return;
-	}
 
 	DocIm *dim = new DocIm(filename, encoding, textOnly, writer);
 	while (dim->isRunning())
