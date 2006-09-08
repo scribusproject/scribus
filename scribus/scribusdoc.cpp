@@ -5964,6 +5964,9 @@ void ScribusDoc::itemSelection_FlipH()
 					MirrorPolyH(currItem);
 				currItem->moveBy(dx, 0, true);
 				currItem->setRedrawBounding();
+				double grx = currItem->GrStartX;
+				currItem->GrStartX = currItem->GrEndX;
+				currItem->GrEndX = grx;
 				undoManager->commit();
 			}
 		}
@@ -5986,6 +5989,9 @@ void ScribusDoc::itemSelection_FlipH()
 					currItem->moveBy(ix-ix2, iy-iy2, true);
 					currItem->setRedrawBounding();
 				}
+				double grx = currItem->GrStartX;
+				currItem->GrStartX = currItem->GrEndX;
+				currItem->GrEndX = grx;
 			}
 		}
 		emit updateContents();
@@ -6024,6 +6030,9 @@ void ScribusDoc::itemSelection_FlipV()
 					MirrorPolyV(currItem);
 				currItem->moveBy(0, dx, true);
 				currItem->setRedrawBounding();
+				double gry = currItem->GrStartY;
+				currItem->GrStartY = currItem->GrEndY;
+				currItem->GrEndY = gry;
 			}
 			emit updateContents();
 			undoManager->commit();
@@ -6047,6 +6056,9 @@ void ScribusDoc::itemSelection_FlipV()
 					currItem->moveBy(ix-ix2, iy-iy2, true);
 					currItem->setRedrawBounding();
 				}
+				double gry = currItem->GrStartY;
+				currItem->GrStartY = currItem->GrEndY;
+				currItem->GrEndY = gry;
 			}
 			emit updateContents();
 		}
