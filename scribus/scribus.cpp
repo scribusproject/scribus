@@ -5335,14 +5335,22 @@ void ScribusMainWindow::ToggleAllPalettes()
 	if (palettesStatus[0])
 	{
 		palettesStatus[0] = false;
-		propertiesPalette->show();
-		outlinePalette->show();
-		scrapbookPalette->show();
-		bookmarkPalette->show();
-		pagePalette->show();
-		layerPalette->show();
-		measurementPalette->show();
-		docCheckerPalette->show();
+		if (palettesStatus[1])
+			propertiesPalette->show();
+		if (palettesStatus[2])
+			outlinePalette->show();
+		if (palettesStatus[3])
+			scrapbookPalette->show();
+		if (palettesStatus[4])
+			layerPalette->show();
+		if (palettesStatus[5])
+			pagePalette->show();
+		if (palettesStatus[6])
+			bookmarkPalette->show();
+		if (palettesStatus[7])
+			measurementPalette->show();
+		if (palettesStatus[9])
+			docCheckerPalette->show();
 		setPagePalette(palettesStatus[5]);
 		setUndoPalette(palettesStatus[8]);
 	}
@@ -8072,6 +8080,14 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
+		for (uint a=0; a<selectedItemCount; ++a)
+		{
+			currItem = doc->m_Selection->itemAt(a);
+			currItem->gXpos = currItem->xPos() - x;
+			currItem->gYpos = currItem->yPos() - y;
+			currItem->gWidth = w;
+			currItem->gHeight = h;
+		}
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 		outlinePalette->BuildTree();
 		slotDocCh();
