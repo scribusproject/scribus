@@ -161,11 +161,16 @@ void PageItem_TextFrame::setShadow()
 {
 	if (OnMasterPage.isEmpty())
 		return;
+	
 //	QString newShadow = m_Doc->masterPageMode() ? QString::number(OwnPage) : OnMasterPage;
 //	QString newShadow = QString::number(OwnPage);
 	QString newShadow = m_Doc->masterPageMode() ? OnMasterPage : QString::number(OwnPage);
 	qDebug(QString("Pageitem_Textframe: shadow %1 ... %2").arg(currentShadow).arg(newShadow));
 	if (newShadow != currentShadow) {
+		if (currentShadow == OnMasterPage) {
+			// masterpage was edited, clear all shadows
+			shadows.clear();
+		}
 		if (!shadows.contains(newShadow)) {
 			if (!shadows.contains(OnMasterPage)) {
 				shadows[OnMasterPage] = itemText;
@@ -542,7 +547,7 @@ void PageItem_TextFrame::layout()
 				if (a+1 < itemText.length())
 				{
 					uint glyph2 = charStyle.font().char2CMap(itemText.text(a+1));
-					wide += charStyle.font().glyphKerning(hl->glyph.glyph, glyph2, chs / 10.0);
+					wide += charStyle.font().glyphKerning(hl->glyph.glyph, glyph2, chs / 10.0) * hl->glyph.scaleH;
 				}
 			}
 			if (DropCmode)
@@ -591,7 +596,7 @@ void PageItem_TextFrame::layout()
 					desc = desc2 = -charStyle.font().descent(hlcsize10);
 				}
 				asce = charStyle.font().ascent(hlcsize10);
-				wide = wide * hl->glyph.scaleH;
+//				wide = wide * hl->glyph.scaleH;
 			}
 			fBorder = false;
 			// end of col reached?
