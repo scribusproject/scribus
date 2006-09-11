@@ -28,6 +28,7 @@ guidemanagerbase.ui
 insertaframebase.ui
 multiprogressdialogbase.ui
 pageitemattributesbase.ui
+patterndialogbase.ui
 smlinestylewbase.ui
 smreplacediabase.ui
 smpstylewbase.ui
@@ -135,6 +136,7 @@ pageitem_polyline.h
 pageitem_textframe.h
 pagelayout.h
 pageselector.h
+patterndialog.h
 pdflib.h
 pdfopts.h
 picsearch.h
@@ -339,6 +341,7 @@ pageitem_textframe.cpp
 pagelayout.cpp
 pageselector.cpp
 pagesize.cpp
+patterndialog.cpp
 pdflib.cpp
 pdfoptions.cpp
 pdfoptionsio.cpp
@@ -382,6 +385,7 @@ scimgdataloader_tiff.cpp
 scgtplugin.cpp
 scpainter.cpp
 scpaths.cpp
+scpattern.cpp
 scplugin.cpp
 scpreview.cpp
 scprogressbar.cpp

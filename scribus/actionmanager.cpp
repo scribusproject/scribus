@@ -185,6 +185,8 @@ void ActionManager::initEditMenuActions()
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="editColors";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
+	name="editPatterns";
+	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="editStyles";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon), "", defKeys[name], mainWindow, name));
 	name="editParaStyles";
@@ -212,6 +214,7 @@ void ActionManager::initEditMenuActions()
 	connect( (*scrActions)["editSearchReplace"], SIGNAL(activated()), mainWindow, SLOT(SearchText()) );
 	connect( (*scrActions)["editEditWithImageEditor"], SIGNAL(activated()), mainWindow, SLOT(callImageEditor()) );
 	connect( (*scrActions)["editColors"], SIGNAL(activated()), mainWindow, SLOT(slotEditColors()) );
+	connect( (*scrActions)["editPatterns"], SIGNAL(activated()), mainWindow, SLOT(managePatterns()) );
 	connect( (*scrActions)["editStyles"], SIGNAL(activated()), mainWindow, SLOT(slotStyleManager()) );
 	connect( (*scrActions)["editParaStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditStyles()) );
 	connect( (*scrActions)["editLineStyles"], SIGNAL(activated()), mainWindow, SLOT(slotEditLineStyles()) );
@@ -1183,6 +1186,7 @@ void ActionManager::languageChange()
 	(*scrActions)["editSearchReplace"]->setTexts( tr("&Search/Replace..."));
 	(*scrActions)["editEditWithImageEditor"]->setTexts( tr("Edit Image..."));
 	(*scrActions)["editColors"]->setTexts( tr("C&olors..."));
+	(*scrActions)["editPatterns"]->setTexts( tr("Patterns..."));
 	(*scrActions)["editStyles"]->setTexts( tr("S&tyles..."));
 	(*scrActions)["editParaStyles"]->setTexts( tr("&Paragraph Styles..."));
 	(*scrActions)["editLineStyles"]->setTexts( tr("&Line Styles..."));
@@ -1488,6 +1492,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("editSearchReplace", Qt::CTRL+Qt::Key_F);
 	defKeys.insert("editEditWithImageEditor", QKeySequence());
 	defKeys.insert("editColors", QKeySequence());
+	defKeys.insert("editPatterns", QKeySequence());
 	defKeys.insert("editStyles", QKeySequence());
 	defKeys.insert("editParaStyles", QKeySequence());
 	defKeys.insert("editLineStyles", QKeySequence());

@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <qgroupbox.h>
 #include <qlabel.h>
 #include <qspinbox.h>
+#include <qiconview.h>
 #include "colorm.h"
 #include "sccombobox.h"
 #include "scribusdoc.h"
@@ -135,6 +136,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
 	dynTip = new DynamicTip(colorListQLBox, &colorList);
+	patternBox = new QIconView(this, "patternBox");
+	patternBox->setMinimumSize( QSize( 150, 30 ) );
+	patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+    patternBox->setResizeMode( QIconView::Adjust );
+    patternBox->setItemsMovable( FALSE );
+	Form1Layout->addWidget(patternBox);
+	patternBox->hide();
 	
 	TransGroup = new QGroupBox( tr( "Transparency Settings" ), this, "TransGroup" );
 	TransGroup->setColumnLayout(0, Qt::Vertical );
@@ -205,6 +213,10 @@ void Cpalette::InhaltButton()
 		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradEdit->hide();
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		patternBox->hide();
+		patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		colorListQLBox->show();
+		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		GradientMode = false;
 		layout()->activate();
 		updateCList();
@@ -245,6 +257,43 @@ void Cpalette::InnenButton()
 		repaint();
 	}
 	emit QueryItem();
+}
+
+void Cpalette::updatePatternList()
+{
+	disconnect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
+//	disconnect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
+	patternBox->clear();
+	QMap<QString, ScPattern>::Iterator it;
+	for (it = patternList->begin(); it != patternList->end(); ++it)
+	{
+		QPixmap pm;
+		if (it.data().getPattern()->width() > it.data().getPattern()->height())
+			pm.convertFromImage(it.data().getPattern()->scaleWidth(48));
+		else
+			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
+		(void) new QIconViewItem(patternBox, it.key(), pm);
+	}
+	if (patternList->count() == 0)
+		gradientQCombo->listBox()->item(8)->setSelectable(false);
+	else
+		gradientQCombo->listBox()->item(8)->setSelectable(true);
+	patternBox->setSelected(patternBox->currentItem(), false);
+	connect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
+//	connect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
+}
+
+void Cpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
+{
+	patternList = docPatterns;
+	updatePatternList();
+}
+
+void Cpalette::selectPattern(QIconViewItem *c)
+{
+	if (c == NULL)
+		return;
+	emit NewPattern(c->text());
 }
 
 void Cpalette::SetColors(ColorList newColorList)
@@ -289,7 +338,7 @@ void Cpalette::selectColor(QListBoxItem *c)
 			Color3 = sFarbe;
 			emit NewBrush(sFarbe);
 		}
-		else
+		else if (gradientQCombo->currentItem() < 8)
 		{
 			gradEdit->Preview->setActColor(setColor(sFarbe, Shade), sFarbe, Shade);
 			Color = sFarbe;
@@ -369,29 +418,51 @@ void Cpalette::ChooseGrad(int number)
 	if (number==-1)
 		gradientQCombo->setCurrentItem(0); //no need to disconnect as qcombobox only emits from user action
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
-	GradientMode = number == 0 ? false : true;
+	GradientMode = number == 0 ? false : number == 8 ? false : true;
 
 	if (number != 0)
 	{
-		gradEdit->show();
-		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
-		if (gradientQCombo->currentItem() > 5)
+		if (number == 8)
 		{
-			freeGradientQFrame->show();
-			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+			freeGradientQFrame->hide();
+			gradEdit->hide();
+			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			colorListQLBox->hide();
+			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			patternBox->show();
+			patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		}
 		else
 		{
-			freeGradientQFrame->hide();
-			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			patternBox->hide();
+			patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			colorListQLBox->show();
+			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+			gradEdit->show();
+			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred));
+			if (gradientQCombo->currentItem() > 5)
+			{
+				freeGradientQFrame->show();
+				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
+			}
+			else
+			{
+				freeGradientQFrame->hide();
+				freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			}
 		}
 	}
 	else
 	{
+		patternBox->hide();
+		patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		freeGradientQFrame->hide();
 		gradEdit->hide();
 		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		colorListQLBox->show();
+		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	}
 	layout()->activate();
 	disconnect(PM1, SIGNAL(valueChanged(int)), this, SLOT(setActShade()));
@@ -442,7 +513,7 @@ void Cpalette::changeBlendMode(int blend)
 		emit NewBlendS(blend);
 	else
 	{
-		if (gradientQCombo->currentItem() == 0)
+		if ((gradientQCombo->currentItem() == 0) || (gradientQCombo->currentItem() == 8))
 			emit NewBlend(blend);
 	}
 }
@@ -453,7 +524,7 @@ void Cpalette::slotTrans(int val)
 		emit NewTransS(static_cast<double>(100 - val) / 100.0);
 	else
 	{
-		if (gradientQCombo->currentItem() == 0)
+		if ((gradientQCombo->currentItem() == 0) || (gradientQCombo->currentItem() == 8))
 			emit NewTrans(static_cast<double>(100 - val) / 100.0);
 		else
 		{
@@ -518,6 +589,18 @@ void Cpalette::setActShade()
 		}
 		break;
 	}
+}
+
+
+void Cpalette::setActPattern(QString pattern)
+{
+	disconnect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
+//	disconnect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
+	QIconViewItem *it = patternBox->findItem(pattern);
+	if (it)
+		patternBox->setCurrentItem(it);
+	connect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
+//	connect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
 }
 
 void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
@@ -595,6 +678,7 @@ void Cpalette::languageChange()
 	gradientQCombo->insertItem( tr("Radial Gradient"));
 	gradientQCombo->insertItem( tr("Free linear Gradient"));
 	gradientQCombo->insertItem( tr("Free radial Gradient"));
+	gradientQCombo->insertItem( tr("Pattern"));
 	gradientQCombo->setCurrentItem(oldGradient);
 	TransGroup->setTitle( tr( "Transparency Settings" ));
 	TransTxt2->setText( tr( "Blend Mode:" ) );

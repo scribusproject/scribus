@@ -52,6 +52,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
 #include "styles/styleset.h"
+#include "scpattern.h"
 
 #ifdef HAVE_CMS
 	#include CMS_INC
@@ -875,6 +876,7 @@ public: // Public attributes
 	QTimer * const autoSaveTimer;
 	QMap<QString,multiLine> MLineStyles;
 	QValueList<ArrowDesc> arrowStyles;
+	QMap<QString, ScPattern> docPatterns;
 	QWidget* WinHan;
 	bool DoDrawing;
 	QValueList<int> OpenNodes;
@@ -965,6 +967,7 @@ public slots:
 	void ItemBrush(QString farbe);
 	void ItemBrushShade(int sha);
 	void ItemGradFill(int typ);
+	void ItemPatternFill(QString pattern);
 	
 	void updatePic();
 	void updatePict(QString name);

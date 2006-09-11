@@ -525,6 +525,8 @@ public slots:
 	void prefsOrg(Preferences* dia);
 	//! \brief Insert a frame friendly dialog
 	void slotInsertFrame();
+	//! \brief manages the documents patterns
+	void managePatterns();
 	
 signals:
 	void TextISize(int);

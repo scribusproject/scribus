@@ -31,6 +31,8 @@ for which a new license (GPL+exception) is in place.
 
 class QListBox;
 class QListBoxItem;
+class QIconView;
+class QIconViewItem;
 class QPixmap;
 class QRect;
 class QPopupMenu;
@@ -46,6 +48,7 @@ class DynamicTip;
 class ColorListBox;
 class MSpinBox;
 class ScComboBox;
+class ScPattern;
 
 /**
   *@author Franz Schmid
@@ -67,6 +70,9 @@ public slots:
 	void InnenButton();
 	void SetColors(ColorList newColorList);
 	void updateCList();
+	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
+	void selectPattern(QIconViewItem *c);
+	void updatePatternList();
 	void updateBoxS(QString Farbe);
 	void selectColor(QListBoxItem *c);
 	QColor setColor(QString farbe, int shad);
@@ -75,6 +81,7 @@ public slots:
 	void ChooseGrad(int nr);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(int typ);
+	void setActPattern(QString pattern);
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h);
 	void changeSpecial();
 	void setActShade();
@@ -92,6 +99,7 @@ signals:
 	void NewPenShade(int);
 	void NewBrushShade(int);
 	void NewGradient(int);
+	void NewPattern(QString);
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
@@ -116,6 +124,7 @@ protected:
 	
 	
 	ColorListBox *colorListQLBox;
+	QIconView *patternBox;
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;
@@ -140,6 +149,7 @@ protected:
 	int Mode;
 	QString sFarbe;
 	ColorList colorList;
+	QMap<QString, ScPattern> *patternList;
 	bool CSichtbar;
 	QString Color;
 	int Shade;

@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #include "guidemanager.h"
 
 #include "util.h"
+#include "scpattern.h"
 
 #include "text/nlsconfig.h"
 #ifdef HAVE_CAIRO
@@ -223,6 +224,7 @@ PageItem::PageItem(const PageItem & other)
 	m_annotation(other.m_annotation),
 	PicArt(other.PicArt),
 	m_lineWidth(other.m_lineWidth),
+	patternVal(other.patternVal),
 	Oldm_lineWidth(other.Oldm_lineWidth)
 {
 }
@@ -268,6 +270,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrStartY = 0;
 	GrEndX = w;
 	GrEndY = 0;
+	patternVal = "";
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
 	PLineArt = PenStyle(m_Doc->toolSettings.dLineArt);
@@ -777,27 +780,49 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 		p->setLineWidth(m_lineWidth);
 		if (GrType != 0)
 		{
-			p->setFillMode(ScPainter::Gradient);
-			p->fill_gradient = fill_gradient;
-			QWMatrix grm;
-			grm.rotate(Rot);
-			FPointArray gra;
-			switch (GrType)
+			if (GrType == 8)
 			{
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-				case 6:
-					gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-					gra.map(grm);
-					p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
-					break;
-				case 5:
-				case 7:
-					gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
-					p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
-					break;
+				if ((patternVal.isEmpty()) || (!m_Doc->docPatterns.contains(patternVal)))
+				{
+					p->fill_gradient = VGradient(VGradient::linear);
+					if (fillColor() != CommonStrings::None)
+					{
+						p->setBrush(fillQColor);
+						p->setFillMode(ScPainter::Solid);
+					}
+					else
+						p->setFillMode(ScPainter::None);
+				}
+				else
+				{
+					p->setPattern(m_Doc->docPatterns[patternVal].getPattern());
+					p->setFillMode(ScPainter::Pattern);
+				}
+			}
+			else
+			{
+				p->setFillMode(ScPainter::Gradient);
+				p->fill_gradient = fill_gradient;
+				QWMatrix grm;
+				grm.rotate(Rot);
+				FPointArray gra;
+				switch (GrType)
+				{
+					case 1:
+					case 2:
+					case 3:
+					case 4:
+					case 6:
+						gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+						gra.map(grm);
+						p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+						break;
+					case 5:
+					case 7:
+						gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
+						p->setGradient(VGradient::radial, gra.point(0), gra.point(1), gra.point(0));
+						break;
+				}
 			}
 		}
 		else
@@ -1245,6 +1270,116 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 // 	checkChanges(); // Check changes for undo actions
 }
 
+QImage PageItem::DrawObj_toImage()
+{
+	QImage retImg;
+	QPtrList<PageItem> emG;
+	emG.clear();
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	if (Groups.count() != 0)
+	{
+		for (uint ga=0; ga<m_Doc->Items->count(); ++ga)
+		{
+			if (m_Doc->Items->at(ga)->Groups.count() != 0)
+			{
+				if (m_Doc->Items->at(ga)->Groups.top() == Groups.top())
+				{
+					if (emG.find(m_Doc->Items->at(ga)) == -1)
+					{
+						emG.append(m_Doc->Items->at(ga));
+						PageItem *currItem = m_Doc->Items->at(ga);
+						if (currItem->rotation() != 0)
+						{
+							FPointArray pb(4);
+							pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
+							pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+							pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+							pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+							for (uint pc = 0; pc < 4; ++pc)
+							{
+								minx = QMIN(minx, pb.point(pc).x());
+								miny = QMIN(miny, pb.point(pc).y());
+								maxx = QMAX(maxx, pb.point(pc).x());
+								maxy = QMAX(maxy, pb.point(pc).y());
+							}
+						}
+						else
+						{
+							minx = QMIN(minx, currItem->xPos());
+							miny = QMIN(miny, currItem->yPos());
+							maxx = QMAX(maxx, currItem->xPos() + currItem->width());
+							maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+						}
+					}
+				}
+			}
+		}
+		for (uint em = 0; em < emG.count(); ++em)
+		{
+			PageItem* currItem = emG.at(em);
+			currItem->gXpos = currItem->xPos() - minx;
+			currItem->gYpos = currItem->yPos() - miny;
+			currItem->gWidth = maxx - minx;
+			currItem->gHeight = maxy - miny;
+		}
+	}
+	else
+	{
+		if (rotation() != 0)
+		{
+			FPointArray pb(4);
+			pb.setPoint(0, FPoint(xPos(), yPos()));
+			pb.setPoint(1, FPoint(width(), 0.0, xPos(), yPos(), rotation(), 1.0, 1.0));
+			pb.setPoint(2, FPoint(width(), height(), xPos(), yPos(), rotation(), 1.0, 1.0));
+			pb.setPoint(3, FPoint(0.0, height(), xPos(), yPos(), rotation(), 1.0, 1.0));
+			for (uint pc = 0; pc < 4; ++pc)
+			{
+				minx = QMIN(minx, pb.point(pc).x());
+				miny = QMIN(miny, pb.point(pc).y());
+				maxx = QMAX(maxx, pb.point(pc).x());
+				maxy = QMAX(maxy, pb.point(pc).y());
+			}
+		}
+		else
+		{
+			minx = QMIN(minx, xPos());
+			miny = QMIN(miny, yPos());
+			maxx = QMAX(maxx, xPos() + width());
+			maxy = QMAX(maxy, yPos() + height());
+		}
+		gXpos = xPos() - minx;
+		gYpos = yPos() - miny;
+		gWidth = maxx - minx;
+		gHeight = maxy - miny;
+		emG.append(this);
+	}
+	retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
+	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1.0, 0);
+	painter->setZoomFactor(1.0);
+	for (uint em = 0; em < emG.count(); ++em)
+	{
+		PageItem* embedded = emG.at(em);
+		painter->save();
+		double x = embedded->xPos();
+		double y = embedded->yPos();
+		embedded->Xpos = embedded->gXpos;
+		embedded->Ypos = embedded->gYpos;
+		painter->translate(embedded->gXpos, embedded->gYpos);
+		embedded->isEmbedded = true;
+		embedded->DrawObj(painter, QRect(0, 0, retImg.width(), retImg.height()));
+		embedded->Xpos = x;
+		embedded->Ypos = y;
+		embedded->isEmbedded = false;
+		painter->restore();
+	}
+	painter->end();
+	delete painter;
+	return retImg;
+}
+
 QString PageItem::ExpandToken(uint base)
 {
 	uint zae = 0;
@@ -1646,6 +1781,12 @@ void PageItem::setItemName(const QString& newName)
 	}
 	AnName = newName;
 	setUName(newName); // set the name for the UndoObject too
+}
+
+void PageItem::setPattern(const QString &newPattern)
+{
+	if (patternVal != newPattern)
+		patternVal = newPattern;
 }
 
 void PageItem::setFillColor(const QString &newColor)
@@ -3671,6 +3812,7 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(colors(QString, QString, int, int)), m_Doc->scMW(), SLOT(setCSMenu(QString, QString, int, int)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
+	connect(this, SIGNAL(patternFill(QString)), pp->Cpal, SLOT(setActPattern(QString)));
 	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
 	connect(this, SIGNAL(rotation(double)), pp, SLOT(setR(double)));
 	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));
@@ -3741,6 +3883,7 @@ void PageItem::emitAllToGUI()
 		emit transparency(fillTransparencyVal, lineTransparencyVal);
 		emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
 	}
+	emit patternFill(patternVal);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);
 	if (m_Doc->appMode == modeEdit)

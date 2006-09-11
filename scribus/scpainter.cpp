@@ -1106,6 +1106,18 @@ void ScPainter::setRasterOp( int   )
 {
 }
 
+void ScPainter::setPattern(QImage *image)
+{
+#ifdef HAVE_CAIRO
+	cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
+	m_pat = cairo_pattern_create_for_surface(image2);
+	cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
+	cairo_surface_destroy (image2);
+#else
+	m_pat = image;
+#endif
+}
+
 #ifdef HAVE_CAIRO
 void ScPainter::drawVPath( int mode )
 {
@@ -1116,7 +1128,15 @@ void ScPainter::drawVPath( int mode )
 			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 		else
 			cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_WINDING);
-		if (fillMode == 2)
+		if (fillMode == 1)
+		{
+			double r = qRed( m_fill.rgb() ) / 255.0;
+			double g = qGreen( m_fill.rgb() ) / 255.0;
+			double b = qBlue( m_fill.rgb() ) / 255.0;
+			cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
+			cairo_fill_preserve( m_cr );
+		}
+		else if (fillMode == 2)
 		{
 			cairo_pattern_t *pat;
 			double x1 = fill_gradient.origin().x() * m_zoomFactor;
@@ -1150,29 +1170,22 @@ void ScPainter::drawVPath( int mode )
 				double g = qGreen( qStopColor.rgb() ) / 255.0;
 				double b = qBlue( qStopColor.rgb() ) / 255.0;
 				double a = colorStops[offset]->opacity;
-/*				if (a == 1.0)
-					cairo_pattern_add_color_stop_rgb (pat, colorStops[ offset ]->rampPoint, r, g, b);
-				else */
-					cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
+				cairo_pattern_add_color_stop_rgba (pat, colorStops[ offset ]->rampPoint, r, g, b, a);
 			}
 			cairo_set_source (m_cr, pat);
 			cairo_clip_preserve (m_cr);
-/*			if (fill_trans == 1.0)
-				cairo_paint(m_cr);
-			else */
-				cairo_paint_with_alpha (m_cr, fill_trans);
+			cairo_paint_with_alpha (m_cr, fill_trans);
 			cairo_pattern_destroy (pat);
 		}
-		else
+		else if (fillMode == 3)
 		{
-			double r = qRed( m_fill.rgb() ) / 255.0;
-			double g = qGreen( m_fill.rgb() ) / 255.0;
-			double b = qBlue( m_fill.rgb() ) / 255.0;
-/*			if (fill_trans == 1.0)
-				cairo_set_source_rgb( m_cr, r, g, b);
-			else */
-				cairo_set_source_rgba( m_cr, r, g, b, fill_trans );
-			cairo_fill_preserve( m_cr );
+			cairo_matrix_t matrix;
+			cairo_matrix_init_scale (&matrix, 1.0 / m_zoomFactor, 1.0 / m_zoomFactor);
+			cairo_pattern_set_matrix (m_pat, &matrix);
+			cairo_set_source (m_cr, m_pat);
+			cairo_clip_preserve (m_cr);
+			cairo_paint_with_alpha (m_cr, fill_trans);
+			cairo_pattern_destroy (m_pat);
 		}
 	}
 	else
@@ -1193,10 +1206,7 @@ void ScPainter::drawVPath( int mode )
 		double r = qRed( m_stroke.rgb() ) / 255.0;
 		double g = qGreen( m_stroke.rgb() ) / 255.0;
 		double b = qBlue( m_stroke.rgb() ) / 255.0;
-/*		if (stroke_trans == 1.0)
-			cairo_set_source_rgb( m_cr, r, g, b);
-		else */
-			cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
+		cairo_set_source_rgba( m_cr, r, g, b, stroke_trans );
 		if( PLineEnd == Qt::RoundCap )
 			cairo_set_line_cap (m_cr, CAIRO_LINE_CAP_ROUND);
 		else if( PLineEnd == Qt::SquareCap )
@@ -1304,12 +1314,14 @@ void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 		{
 		if (fillMode == 2)
 			applyGradient( fillSvp, true );
+		else if (fillMode == 3)
+			applyPattern(fillSvp);
 		else
-			{
+		{
 			clampToViewport( *fillSvp, x0, y0, x1, y1 );
 			if( x0 != x1 && y0 != y1 )
 				art_rgb_svp_alpha_( fillSvp, x0, y0, x1, y1, fillColor, af, m_buffer + x0 * 4 + y0 * m_width * 4, m_width * 4, 0 );
-			}
+		}
 		art_svp_free( fillSvp );
 		}
 	if(( strokeSvp ) && (mode == 1))
@@ -1882,6 +1894,33 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 	}
 	offsets = offsets * 2 - 1;
 	return stopArray;
+}
+
+void ScPainter::applyPattern( ArtSVP *svp)
+{
+	if(!svp)
+		return;
+	int x0, y0, x1, y1;
+	clampToViewport( *svp, x0, y0, x1, y1 );
+	ArtRender *render = 0L;
+	ArtPattern *pattern = art_new( ArtPattern, 1 );
+	double dx = 0.0;
+	double dy =0.0;
+	QImage pat = m_pat->scale(m_pat->width() * m_zoomFactor, m_pat->height() * m_zoomFactor);
+	pattern->twidth = pat.width();
+	pattern->theight = pat.height();
+	pattern->buffer = pat.bits();
+	pattern->opacity = qRound( 255 * fill_trans );
+	pattern->angle = atan2( -dy, dx );
+	if( x0 != x1 && y0 != y1 )
+	{
+		render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * int(x0) + m_width * 4 * int(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );
+		art_render_svp( render, svp );
+		art_render_pattern( render, pattern, ART_FILTER_HYPER );
+	}
+	if( render )
+		art_render_invoke( render );
+	art_free( pattern );
 }
 //not HAVE_CAIRO
 #endif

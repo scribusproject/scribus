@@ -121,7 +121,7 @@ for which a new license (GPL+exception) is in place.
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
 #include "collect4output.h"
-#include "fpoint.h"
+#include "fpoint.h"docPatterns
 #include "fpointarray.h"
 #include "hysettings.h"
 #include "guidemanager.h"
@@ -178,6 +178,7 @@ for which a new license (GPL+exception) is in place.
 #include "langmgr.h"
 #include "smtextstyles.h"
 #include "insertaframe.h"
+#include "patterndialog.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -582,6 +583,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["editEditWithImageEditor"], "Edit");
 	scrMenuMgr->addMenuSeparator("Edit");
 	scrMenuMgr->addMenuItem(scrActions["editColors"], "Edit");
+	scrMenuMgr->addMenuItem(scrActions["editPatterns"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editParaStyles"], "Edit");
 	scrMenuMgr->addMenuItem(scrActions["editLineStyles"], "Edit");
@@ -601,6 +603,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editSelectAll"]->setEnabled(false);
 	scrActions["editDeselectAll"]->setEnabled(false);
 	scrActions["editSearchReplace"]->setEnabled(false);
+	scrActions["editPatterns"]->setEnabled(false);
 	scrActions["editParaStyles"]->setEnabled(false);
 	scrActions["editLineStyles"]->setEnabled(false);
 	scrActions["editMasterPages"]->setEnabled(false);
@@ -2400,6 +2403,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
 	scrActions["editSelectAll"]->setEnabled(true);
 	scrActions["editDeselectAll"]->setEnabled(false);
+	scrActions["editPatterns"]->setEnabled(true);
 	scrActions["editParaStyles"]->setEnabled(true);
 	scrActions["editLineStyles"]->setEnabled(true);
 	scrActions["editMasterPages"]->setEnabled(true);
@@ -4158,6 +4162,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSelectAll"]->setEnabled(false);
 		scrActions["editDeselectAll"]->setEnabled(false);
+		scrActions["editPatterns"]->setEnabled(false);
 		scrActions["editParaStyles"]->setEnabled(false);
 		scrActions["editLineStyles"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
@@ -9213,6 +9218,52 @@ void ScribusMainWindow::slotInsertFrame()
 			QString source("");
 			dia->getNewFrameProperties(frameType, locationType, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
 			doc->itemAddUserFrame(frameType, locationType, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
+		}
+		delete dia;
+	}
+}
+
+void ScribusMainWindow::managePatterns()
+{
+	if (HaveDoc)
+	{
+		PatternDialog *dia = new PatternDialog(this, &doc->docPatterns);
+		if (dia->exec())
+		{
+			doc->docPatterns.clear();
+			for (QMap<QString, ScPattern>::Iterator it = dia->dialogPatterns.begin(); it != dia->dialogPatterns.end(); ++it)
+			{
+				doc->docPatterns.insert(it.key(), it.data());
+			}
+			for (uint c=0; c<doc->DocItems.count(); ++c)
+			{
+				PageItem *ite = doc->DocItems.at(c);
+				if (!doc->docPatterns.contains(ite->pattern()))
+				{
+					ite->setPattern("");
+					ite->GrType = 0;
+				}
+			}
+			for (uint c=0; c<doc->MasterItems.count(); ++c)
+			{
+				PageItem *ite = doc->MasterItems.at(c);
+				if (!doc->docPatterns.contains(ite->pattern()))
+				{
+					ite->setPattern("");
+					ite->GrType = 0;
+				}
+			}
+			for (uint c=0; c<doc->FrameItems.count(); ++c)
+			{
+				PageItem *ite = doc->FrameItems.at(c);
+				if (!doc->docPatterns.contains(ite->pattern()))
+				{
+					ite->setPattern("");
+					ite->GrType = 0;
+				}
+			}
+			propertiesPalette->updateColorList();
+			view->DrawNew();
 		}
 		delete dia;
 	}

@@ -220,6 +220,7 @@ public:
 	void DrawObj_Pre(ScPainter *p, double &sc);
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc) = 0;
+	QImage DrawObj_toImage();
 protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
 	//void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);
@@ -499,6 +500,14 @@ public:
 	 */
 	void setItemName(const QString& newName);
 
+	/** @brief Get the (name of the) pattern of the object */
+	QString pattern() const { return patternVal; }
+	/**
+	 * @brief Set the fill pattern of the object.
+	 * @param newPattern fill pattern for the object
+	 */
+	void setPattern(const QString &newPattern);
+	
 	/** @brief Get the (name of the) fill color of the object */
 	QString fillColor() const { return fillColorVal; }
 	/**
@@ -890,6 +899,12 @@ protected:
 	QString AnName; 
 
 	/**
+	 * @brief Fill pattern name
+	 * @sa PageItem::pattern(), PageItem::setPattern()
+	 */
+	QString patternVal;
+
+	/**
 	 * @brief Fill color name
 	 * @sa PageItem::fillColor(), PageItem::setFillColor()
 	 */
@@ -1067,6 +1082,7 @@ signals:
 	void rotation(double); //Degrees rotation	
 	void colors(QString, QString, int, int); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
+	void patternFill(QString);
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
 	void blendmode(int, int); //fillBlendmode, lineBlendmode

@@ -152,6 +152,8 @@ scribus_SOURCES = \
 	pagelayout.cpp	\
 	pageselector.cpp	\
 	pagesize.cpp	\
+	patterndialogbase.ui \
+	patterndialog.cpp	\
 	pdflib.cpp	\
 	pdfoptions.cpp	\
 	pdfoptionsio.cpp	\
@@ -196,6 +198,7 @@ scribus_SOURCES = \
 	scgtplugin.cpp	\
 	scpainter.cpp	\
 	scpaths.cpp	\
+	scpattern.cpp	\
 	scplugin.cpp	\
 	scpreview.cpp	\
 	scprogressbar.cpp	\
@@ -412,6 +415,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/pageselector.h                $(prefix)/include/scribus/pageselector.h
 	$(INSTALL_DATA) $(srcdir)/pagesize.h                    $(prefix)/include/scribus/pagesize.h
 	$(INSTALL_DATA) $(srcdir)/pagestructs.h                 $(prefix)/include/scribus/pagestructs.h
+	$(INSTALL_DATA) $(srcdir)/patterndialog.h                 $(prefix)/include/scribus/patterndialog.h
 	$(INSTALL_DATA) $(srcdir)/pdfopts.h                     $(prefix)/include/scribus/pdfopts.h
 	$(INSTALL_DATA) $(srcdir)/picsearch.h                   $(prefix)/include/scribus/picsearch.h
 	$(INSTALL_DATA) $(srcdir)/picstatus.h                   $(prefix)/include/scribus/picstatus.h
@@ -440,6 +444,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scgtplugin.h                  $(prefix)/include/scribus/scgtplugin.h
 	$(INSTALL_DATA) $(srcdir)/scpainter.h                   $(prefix)/include/scribus/scpainter.h
 	$(INSTALL_DATA) $(srcdir)/scpaths.h                     $(prefix)/include/scribus/scpaths.h
+	$(INSTALL_DATA) $(srcdir)/scpattern.h                     $(prefix)/include/scribus/scpattern.h
 	$(INSTALL_DATA) $(srcdir)/scplugin.h                    $(prefix)/include/scribus/scplugin.h
 	$(INSTALL_DATA) $(srcdir)/scpreview.h                   $(prefix)/include/scribus/scpreview.h
 	$(INSTALL_DATA) $(srcdir)/scraction.h                   $(prefix)/include/scribus/scraction.h
@@ -609,6 +614,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/pageselector.h
 	-rm -f $(prefix)/include/scribus/pagesize.h
 	-rm -f $(prefix)/include/scribus/pagestructs.h
+	-rm -f $(prefix)/include/scribus/patterndialog.h
 	-rm -f $(prefix)/include/scribus/pdfopts.h
 	-rm -f $(prefix)/include/scribus/picsearch.h
 	-rm -f $(prefix)/include/scribus/picstatus.h
@@ -636,6 +642,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/scmessagebox.h
 	-rm -f $(prefix)/include/scribus/scpainter.h
 	-rm -f $(prefix)/include/scribus/scpaths.h
+	-rm -f $(prefix)/include/scribus/scpattern.h
 	-rm -f $(prefix)/include/scribus/scpreview.h
 	-rm -f $(prefix)/include/scribus/scraction.h
 	-rm -f $(prefix)/include/scribus/scrap.h

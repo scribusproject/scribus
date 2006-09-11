@@ -391,6 +391,8 @@ void ScribusDoc::init()
 	// Fixme: Check PDF version input
 	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
 
+	docPatterns.clear();
+
 	if (AutoSave && ScCore->usingGUI())
 		autoSaveTimer->start(AutoSaveTime);
 	//Do this after all the collections have been created and cleared!
@@ -4872,7 +4874,24 @@ void ScribusDoc::ItemGradFill(int typ)
 		{
 			currItem = m_Selection->itemAt(a);
 			currItem->GrType = typ;
-			currItem->updateGradientVectors();
+			if (typ != 8)
+				currItem->updateGradientVectors();
+			emit refreshItem(currItem);
+		}
+		changed();
+	}
+}
+
+void ScribusDoc::ItemPatternFill(QString pattern)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->setPattern(pattern);
 			emit refreshItem(currItem);
 		}
 		changed();

@@ -1417,6 +1417,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 				setGroupRect();
 				getGroupRect(&gx, &gy, &gw, &gh);
+				for (uint a = 0; a < Doc->m_Selection->count(); ++a)
+				{
+					PageItem *currItem = Doc->m_Selection->itemAt(a);
+					currItem->gXpos = currItem->xPos() - gx;
+					currItem->gYpos = currItem->yPos() - gy;
+					currItem->gWidth = gw;
+					currItem->gHeight = gh;
+				}
 				emit ItemPos(gx, gy);
 				emit ItemGeom(gw, gh);
 			}
@@ -3751,6 +3759,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					Doc->DragElements.append(Doc->m_Selection->itemAt(dre)->ItemNr);
 				ScriXmlDoc *ss = new ScriXmlDoc();
 				QDragObject *dr = new QTextDrag(ss->WriteElem(Doc, this, Doc->m_Selection), this);
+//				QImage drImg = currItem->DrawObj_toImage();
+//				QPixmap pm;
+//				pm.convertFromImage(drImg);
+//				dr->setPixmap(pm);
 				dr->setPixmap(loadIcon("DragPix.xpm"));
 				dr->drag();
 //				if (!dr->drag())
@@ -7334,6 +7346,16 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	gy -= Doc->minCanvasCoordinate.y();
 	setUpdatesEnabled(true);
 	updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
+	setGroupRect();
+	getGroupRect(&gx, &gy, &gw, &gh);
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		PageItem *currItem = Doc->m_Selection->itemAt(a);
+		currItem->gXpos = currItem->xPos() - gx;
+		currItem->gYpos = currItem->yPos() - gy;
+		currItem->gWidth = gw;
+		currItem->gHeight = gh;
+	}
 	emit DocChanged();
 }
 

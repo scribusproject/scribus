@@ -61,6 +61,7 @@ class QPainter;
 #ifdef HAVE_CAIRO
 typedef struct _cairo cairo_t;
 typedef struct _cairo_surface cairo_surface_t;
+typedef struct _cairo_pattern cairo_pattern_t;
 #else
 struct _ArtVpath;
 struct _ArtBpath;
@@ -78,7 +79,7 @@ public:
 	ScPainter( QString target, unsigned int w, unsigned int h, double transparency, int blendmode );
 #endif
 	virtual ~ScPainter();
-	enum FillMode { None, Solid, Gradient };
+	enum FillMode { None, Solid, Gradient, Pattern };
 #ifdef HAVE_CAIRO
 	virtual void beginLayer(double transparency, int blendmode);
 	virtual void endLayer();
@@ -111,6 +112,7 @@ public:
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
+	virtual void setPattern(QImage *image);
 	virtual void setClipPath();
 #ifndef HAVE_CAIRO
 	virtual void setClipPath2(FPointArray *points, bool closed);
@@ -157,6 +159,7 @@ private:
 #else
 	void drawVPath( struct _ArtVpath *vec, int mode, bool preCal = false );
 	void applyGradient( _ArtSVP *svp, bool fill );
+	void applyPattern( _ArtSVP *svp);
 	virtual void resize( unsigned int w, unsigned int h );
 	_ArtGradientStop *buildStopArray( VGradient &gradient, int & );
 	void clampToViewport( const _ArtSVP &svp, int &x0, int &y0, int &x1, int &y1 );
@@ -190,7 +193,7 @@ private:
 	QColor m_fill;
 	double fill_trans;
 	bool m_fillRule;
-	int fillMode;				// 0 = none, 1 = solid, 2 = gradient
+	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 	int gradientMode;		// 1 = linear, 2 = radial
 	/*! \brief Stroking */
 	QColor m_stroke;
@@ -213,6 +216,7 @@ private:
 	bool svgMode;
 #ifdef HAVE_CAIRO
 	cairo_t *m_cr;
+	cairo_pattern_t *m_pat;
 	struct layerProp
 	{
 		cairo_surface_t *data;
@@ -221,9 +225,11 @@ private:
 	};
 	QValueStack<layerProp> Layers;
 #elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
+	QImage *m_pat;
 	GC gc;
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	HDC dc;
+	QImage *m_pat;
 #endif
 };
 
