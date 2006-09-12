@@ -206,6 +206,11 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 
 static const bool opticalMargins = true;
 
+static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) {
+	
+}
+
+
 void PageItem_TextFrame::layout() 
 {
 	if (BackBox != NULL && BackBox->invalid) {
@@ -213,7 +218,7 @@ void PageItem_TextFrame::layout()
 		dynamic_cast<PageItem_TextFrame*>(BackBox)->layout();
 		return;
 	}
-	else if (!invalid && !OnMasterPage.isEmpty()) {
+	else if (!invalid && OnMasterPage.isEmpty()) {
 		qDebug(QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage));
 		return;
 	}
@@ -244,29 +249,15 @@ void PageItem_TextFrame::layout()
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	bool DropCmode = false;
 	bool AbsHasDrop = false;
-	double desc, asce, maxDY, firstDes, desc2, maxDX;
+	double desc, asce, maxDY, desc2, maxDX;
 	int DropLines;
+	double DropCapDrop = 0;
 	bool StartOfCol = true;
 	tTabValues.clear();
 	
 	itemText.clearLines();
 	LineSpec curLine;
-	
-/*
-	for (int xxx=0; xxx<5; ++xxx)
-	{
-		m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(LineSpMode));
-		m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(LineSpMode == ParagraphStyle::BaselineGridLineSpacing);
-		m_Doc->docParagraphStyles[xxx].setLineSpacing(LineSp);
-		m_Doc->docParagraphStyles[xxx].charStyle().fontSize() = m_FontSize;
-		m_Doc->docParagraphStyles[xxx].setLeftMargin(0);
-		m_Doc->docParagraphStyles[xxx].setFirstIndent(0);
-		m_Doc->docParagraphStyles[xxx].setGapBefore(0);
-		m_Doc->docParagraphStyles[xxx].setGapAfter(0);
-		m_Doc->docParagraphStyles[xxx].setAlignment(xxx);
-	}
-*/
-	
+		
 	// dump styles
 /*	
 	for (int i=0; i < itemText.nrOfParagraphs(); ++i) {
@@ -289,27 +280,7 @@ void PageItem_TextFrame::layout()
 	
 	setShadow();
 	if ((itemText.length() != 0)) // || (NextBox != 0))
-	{
-/*		// steal text from next boxes
-		if (NextBox != 0)
-		{
-			nextItem = NextBox;
-			while (nextItem != 0)
-			{
-				nextItem->invalid = true;
-				a = nextItem->itemText.count();
-				for (uint s=0; s<a; ++s)
-				{
-					itemText.append(nextItem->itemText.take(0));
-				}
-//FIXME:av				nextItem->MaxChars = 0;
-				nextItem = nextItem->NextBox;
-			}
-			nextItem = NextBox;
-		}
-//		m_Doc->docParagraphStyles[0].setLineSpacing(LineSp);
-*/		
-		
+	{		
 		// determine layout area
 		QRegion cl = availableRegion(QRegion(pf2.xForm(Clip)));
 		
@@ -348,17 +319,16 @@ void PageItem_TextFrame::layout()
 				else
 					chs = qRound(style.lineSpacing() * style.dropCapLines() * 10);
 			}
-			else
+			else 
 				chs = hl->fontSize();
 			desc2 = -hl->font().descent(chs / 10.0);
 			CurY = TExtra+lineCorr;
 		}
-		else // no dropcap:
+		else // empty itemText:
 		{
-			desc2 = -m_Doc->currentStyle.charStyle().font().descent(m_Doc->currentStyle.charStyle().fontSize() / 10.0);
-			CurY = itemText.paragraphStyle(0).lineSpacing() + TExtra+lineCorr-desc2;
+			desc2 = -itemText.defaultStyle().charStyle().font().descent(itemText.defaultStyle().charStyle().fontSize() / 10.0);
+			CurY = itemText.defaultStyle().lineSpacing() + TExtra+lineCorr-desc2;
 		}
-		firstDes = desc2;
 		int itemsInLine = 0;
 		curLine.firstItem = firstInFrame();
 		curLine.ascent = 10;
@@ -438,7 +408,7 @@ void PageItem_TextFrame::layout()
 					CurY += style.gapBefore();
 				}
 			}
-			{ 
+			{  // local block for 'fl'
 				StyleFlag fl = hl->effects();
 				fl &= ~ScStyle_DropCap;
 				fl &= ~ScStyle_SmartHyphenVisible;
@@ -463,6 +433,7 @@ void PageItem_TextFrame::layout()
 				if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == 0) && (BackBox == 0)) && (!StartOfCol))
 				{
 					CurY += style.gapBefore();
+					DropCapDrop = 0;
 					if (chstr != SpecialChars::PARSEP)
 						DropCmode = style.hasDropCap();
 					else
@@ -471,14 +442,15 @@ void PageItem_TextFrame::layout()
 					{
 						DropLines = style.dropCapLines();
 						if (style.useBaselineGrid())
-							CurY += m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
+							DropCapDrop = m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
 						else
 						{
 							if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-								CurY += style.lineSpacing() * (DropLines-1);
+								DropCapDrop = style.lineSpacing() * (DropLines-1);
 							else
-								CurY += charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
+								DropCapDrop = charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
 						}
+						CurY += DropCapDrop;
 					}
 				}
 			}
@@ -486,6 +458,16 @@ void PageItem_TextFrame::layout()
 			if (DropCmode)
 			{
 				// dropcap active?
+				if (style.useBaselineGrid())
+					DropCapDrop = m_Doc->typographicSettings.valueBaseGrid * (DropLines-1);
+				else
+				{
+					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
+						DropCapDrop = style.lineSpacing() * (DropLines-1);
+					else
+						DropCapDrop = charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
+				}
+
 				if (style.useBaselineGrid())
 				{
 					chsd = (10 * ((m_Doc->typographicSettings.valueBaseGrid * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / (charStyle.font().realCharHeight(chstr[0], 1))));
@@ -506,6 +488,7 @@ void PageItem_TextFrame::layout()
 					}
 				}
 				hl->setEffects(hl->effects() | ScStyle_DropCap);
+				hl->glyph.yoffset -= DropCapDrop;
 			}
 			else // ! dropCapMode
 			{
@@ -575,9 +558,10 @@ void PageItem_TextFrame::layout()
 					asce = charStyle.font().realCharHeight(chstr2[0], chsd / 10.0);
 					qDebug(QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]));
 					hl->glyph.scaleH /= hl->glyph.scaleV;
-					hl->glyph.scaleV = (asce / charStyle.font().ascent(charStyle.fontSize() / 10.0));
+					hl->glyph.scaleV = (asce / charStyle.font().realCharAscent(chstr2[0], charStyle.fontSize() / 10.0));
 					hl->glyph.scaleH *= hl->glyph.scaleV;
 				}
+				hl->glyph.xadvance = wide;
 				desc2 = 0;
 				desc = 0;
 			}
@@ -891,7 +875,7 @@ void PageItem_TextFrame::layout()
 			
 			// remember y pos
 //			hl->glyph.yoffset = CurY + oldCurY;
-			hl->glyph.yoffset = 0;
+//			hl->glyph.yoffset = 0;
 			if (DropCmode)
 				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr2[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr2[0], chsd / 10.0);
 			// find tracking
@@ -1010,6 +994,7 @@ void PageItem_TextFrame::layout()
 					int ol1 = qRound((by + CurY - m_Doc->typographicSettings.offsetBaseGrid) * 10000.0);
 					int ol2 = static_cast<int>(ol1 / m_Doc->typographicSettings.valueBaseGrid);
 					CurY = ceil(  ol2 / 10000.0 ) * m_Doc->typographicSettings.valueBaseGrid + m_Doc->typographicSettings.offsetBaseGrid - by;
+					//FIXME: use colBound.x() instead of xOffset?
 					tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 					tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*m_Doc->typographicSettings.valueBaseGrid)));
 				}
@@ -1033,6 +1018,7 @@ void PageItem_TextFrame::layout()
 				tcli.setPoint(3, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY)));
 				cm = QRegion(pf2.xForm(tcli));
 				cl = cl.subtract(cm);
+//				CurY = maxDY;
 			}
 			// end of line
 			if ((hl->ch == SpecialChars::PARSEP) 
@@ -1415,12 +1401,12 @@ void PageItem_TextFrame::layout()
 					if ((!AbsHasDrop) && (StartOfCol) && (!style.useBaselineGrid()))
 					{
 						double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
-						double currasce;
+						double currasce = 0;
 						if ((itemText.text(curLine.firstItem) == QChar(13)) || (itemText.text(curLine.firstItem) == QChar(28)))
 							currasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						else if (itemText.object(curLine.firstItem) != 0)
 							currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-						else
+						else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
 							currasce = itemText.charStyle(curLine.firstItem).font().realCharAscent(itemText.text(curLine.firstItem), itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						for (int zc = 0; zc < itemsInLine; ++zc)
 						{
@@ -1431,9 +1417,9 @@ void PageItem_TextFrame::layout()
 								|| (ch == SpecialChars::COLBREAK) || (ch == SpecialChars::LINEBREAK)
 								|| (ch == SpecialChars::FRAMEBREAK) || (ch == SpecialChars::NBSPACE))
 								continue;
-							if (itemText.object(curLine.firstItem) != 0)
-								currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (cStyle.scaleV() / 1000.0));
-							else
+							if (itemText.object(curLine.firstItem + zc) != 0)
+								currasce = QMAX(currasce, (itemText.object(curLine.firstItem + zc)->gHeight + itemText.object(curLine.firstItem + zc)->lineWidth()) * (cStyle.scaleV() / 1000.0));
+							else //if (itemText.charStyle(curLine.firstItem + zc).effects() & ScStyle_DropCap == 0)
 								currasce = QMAX(currasce, cStyle.font().realCharAscent(ch, cStyle.fontSize() / 10.0));
 						}
 						double adj = firstasce - currasce;
@@ -1441,14 +1427,14 @@ void PageItem_TextFrame::layout()
 						curLine.y -= adj;
 						CurY -= adj;
 					}
-					if ((!StartOfCol) && (!style.useBaselineGrid()) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+					else if ((!StartOfCol) && (!style.useBaselineGrid()) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 					{
 						QChar ch = itemText.text(curLine.firstItem);
 						double firstasce = style.lineSpacing();
 						double currasce = 0;
 						if (itemText.object(curLine.firstItem) != 0)
 							currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-						else
+						else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
 							currasce = itemText.charStyle(curLine.firstItem).font().height(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						for (int zc = 0; zc < itemsInLine; ++zc)
 						{
@@ -1458,15 +1444,22 @@ void PageItem_TextFrame::layout()
 								|| (ch == QChar(26)) || (ch == QChar(27))
 								|| (ch == QChar(28)) || (ch == QChar(29)))
 								continue;
-							if (itemText.object(curLine.firstItem) != 0)
-								currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-							else
-								currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem).font().height(itemText.charStyle(curLine.firstItem).fontSize() / 10.0));
+							if (itemText.object(curLine.firstItem + zc) != 0)
+								currasce = QMAX(currasce, (itemText.object(curLine.firstItem + zc)->gHeight + itemText.object(curLine.firstItem + zc)->lineWidth()) * (itemText.charStyle(curLine.firstItem + zc).scaleV() / 1000.0));
+							else //if (itemText.charStyle(curLine.firstItem + zc).effects() & ScStyle_DropCap == 0)
+								currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem + zc).font().height(itemText.charStyle(curLine.firstItem + zc).fontSize() / 10.0));
 						}
+							
 						double adj = firstasce - currasce;
 						curLine.ascent = currasce;
 						curLine.y -= adj;
 						CurY -= adj;
+					}
+					if ( itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap)
+					{
+						// put line back to top
+						curLine.y -= DropCapDrop;
+						itemText.item(curLine.firstItem)->glyph.yoffset += DropCapDrop;
 					}
 				}
 				
@@ -1543,14 +1536,6 @@ void PageItem_TextFrame::layout()
 					}
 				}
 			}
-			// set x/yoffset for dependent glyphs
-/*			GlyphLayout* glp =  & hl->glyph;
-			while (glp->more) {
-				qDebug(QString("dependent glyph %1").arg(glp->more->glyph));
-				glp->more->xoffset = glp->xoffset + glp->xadvance;
-				glp->more->yoffset = glp->yoffset;
-				glp = glp->more;
-			}	*/		
 		}
 // end of itemText
 		uint a = itemText.length()-1;
@@ -1653,7 +1638,7 @@ void PageItem_TextFrame::layout()
 					currasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				else if (itemText.object(curLine.firstItem) != 0)
 					currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-				else
+				else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
 					currasce = itemText.charStyle(curLine.firstItem).font().realCharAscent(itemText.text(curLine.firstItem), itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				for (int zc = 0; zc < itemsInLine; ++zc)
 				{
@@ -1664,7 +1649,7 @@ void PageItem_TextFrame::layout()
 						continue;
 					if (itemText.object(curLine.firstItem+zc) != 0)
 						currasce = QMAX(currasce, (itemText.object(curLine.firstItem+zc)->gHeight + itemText.object(curLine.firstItem+zc)->lineWidth()) * itemText.charStyle(curLine.firstItem+zc).scaleV() / 1000.0);
-					else
+					else //if (itemText.charStyle(curLine.firstItem+zc).effects() & ScStyle_DropCap == 0)
 						currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem+zc).font().realCharAscent(itemText.text(curLine.firstItem+zc), itemText.charStyle(curLine.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
@@ -1672,13 +1657,13 @@ void PageItem_TextFrame::layout()
 				curLine.y -= adj;
 				CurY -= adj;
 			}
-			if ((!StartOfCol) && (!style.useBaselineGrid()) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+			else if ((!StartOfCol) && (!style.useBaselineGrid()) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 			{
 				double firstasce = style.lineSpacing();
 				double currasce = 0;
 				if (itemText.object(curLine.firstItem) != 0)
 					currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
-				else
+				else //if (itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap == 0)
 					currasce = itemText.charStyle(curLine.firstItem).font().height(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				for (int zc = 0; zc < itemsInLine; ++zc)
 				{
@@ -1689,7 +1674,7 @@ void PageItem_TextFrame::layout()
 						continue;
 					if (itemText.object(curLine.firstItem+zc) != 0)
 						currasce = QMAX(currasce, (itemText.object(curLine.firstItem+zc)->gHeight + itemText.object(curLine.firstItem+zc)->lineWidth()) * (itemText.charStyle(curLine.firstItem+zc).scaleV() / 1000.0));
-					else
+					else //if (itemText.charStyle(curLine.firstItem+zc).effects() & ScStyle_DropCap == 0)
 						currasce = QMAX(currasce, itemText.charStyle(curLine.firstItem+zc).font().height(itemText.charStyle(curLine.firstItem+zc).fontSize() / 10.0));
 				}
 				double adj = firstasce - currasce;
@@ -1697,30 +1682,14 @@ void PageItem_TextFrame::layout()
 				curLine.y -= adj;
 				CurY -= adj;
 			}
-		}
-		StartOfCol = false;
-/* has no effect except setting wide, asce and desc
-		for (int zc = 0; zc < itemsInLine; ++zc)
-		{
-			double wide2 = 0;
-			double xcoZli = itemText.item(curLine.firstItem+zc)->glyph.xoffset;
-			
-			tTabValues = itemText.paragraphStyle(startLin+zc).tabValues();
-			
-			desc = - itemText.charStyle(curLine.firstItem+zc).font().descent(itemText.charStyle(curLine.firstItem+zc).fontSize() / 10.0);
-			asce = itemText.charStyle(curLine.firstItem+zc).font().ascent(itemText.charStyle(curLine.firstItem+zc).fontSize() / 10.0);
-			if ((((itemText.selected(curLine.firstItem+zc)) && (Select)) || (((NextBox != 0) || (BackBox != 0)) && (itemText.selected(curLine.firstItem+zc)))) && (m_Doc->appMode == modeEdit))
+			if ( itemText.charStyle(curLine.firstItem).effects() & ScStyle_DropCap )
 			{
-				wide = itemText.item(curLine.firstItem+zc)->glyph.xadvance;
-				if ((zc > 0) && (itemText.text(curLine.firstItem+zc) == SpecialChars::TAB))
-				{
-					wide2 = itemText.item(curLine.firstItem+zc-1)->glyph.xadvance;
-					xcoZli = itemText.item(curLine.firstItem+zc-1)->glyph.xoffset + wide2;
-					wide = itemText.item(curLine.firstItem+zc)->glyph.xoffset - xcoZli + itemText.item(curLine.firstItem+zc)->glyph.xadvance;
-				}
+				// put line back to top
+				curLine.y -= DropCapDrop;
+				itemText.item(curLine.firstItem)->glyph.yoffset += DropCapDrop;
 			}
 		}
- */
+		StartOfCol = false;
 		goNextColumn = false;
 		itemText.appendLine(curLine);
 		itemsInLine = 0;
