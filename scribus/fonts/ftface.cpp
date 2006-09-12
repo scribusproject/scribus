@@ -230,7 +230,7 @@ GlyphMetrics FtFace::glyphBBox (uint gl, double sz) const
 		result.width = QMAX(w, face->glyph->metrics.horiAdvance / m_uniEM * sz);
 		double height = face->glyph->metrics.height / m_uniEM * sz;
 		result.ascent = face->glyph->metrics.horiBearingY / m_uniEM * sz;
-		result.descent = result.ascent - height;
+		result.descent = height - result.ascent;
 	}
 	else {
 		result.width = result.ascent = sz;
