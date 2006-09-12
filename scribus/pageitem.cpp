@@ -795,7 +795,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				}
 				else
 				{
-					p->setPattern(m_Doc->docPatterns[patternVal].getPattern());
+					p->setPattern(&m_Doc->docPatterns[patternVal]);
 					p->setFillMode(ScPainter::Pattern);
 				}
 			}

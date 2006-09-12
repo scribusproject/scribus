@@ -823,18 +823,23 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->fill_gradient.clearStops();
 	if (OB->GrType != 0)
 	{
-		OB->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
-		OB->GrStartY = obj->attribute("GRSTARTY", "0.0").toDouble();
-		OB->GrEndX = obj->attribute("GRENDX", "0.0").toDouble();
-		OB->GrEndY = obj->attribute("GRENDY", "0.0").toDouble();
-		OB->GrColor = obj->attribute("GRCOLOR","");
-		if (OB->GrColor.isEmpty())
-			OB->GrColor = "Black";
-		OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
-		if (OB->GrColor2.isEmpty())
-			OB->GrColor2 = "Black";
-		OB->GrShade = obj->attribute("GRSHADE", "100").toInt();
-		OB->GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
+		if (OB->GrType == 8)
+			OB->pattern = obj->attribute("pattern", "");
+		else
+		{
+			OB->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
+			OB->GrStartY = obj->attribute("GRSTARTY", "0.0").toDouble();
+			OB->GrEndX = obj->attribute("GRENDX", "0.0").toDouble();
+			OB->GrEndY = obj->attribute("GRENDY", "0.0").toDouble();
+			OB->GrColor = obj->attribute("GRCOLOR","");
+			if (OB->GrColor.isEmpty())
+				OB->GrColor = "Black";
+			OB->GrColor2 = obj->attribute("GRCOLOR2","Black");
+			if (OB->GrColor2.isEmpty())
+				OB->GrColor2 = "Black";
+			OB->GrShade = obj->attribute("GRSHADE", "100").toInt();
+			OB->GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
+		}
 	}
 	OB->Rot=obj->attribute("ROT").toDouble();
 	OB->PLineArt=Qt::PenStyle(obj->attribute("PLINEART").toInt());

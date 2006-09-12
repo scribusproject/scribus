@@ -33,8 +33,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qimage.h>
 
-PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns) : patternDialogBase(parent)
+PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc) : patternDialogBase(parent)
 {
+	m_doc = doc;
 	patternView->clear();
 	for (QMap<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
 	{
@@ -80,6 +81,7 @@ void PatternDialog::loadPattern()
 		QFileInfo fi(fileName);
 		QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
 		ScPattern pat = ScPattern();
+		pat.setDoc(m_doc);
 		pat.setPattern(fileName);
 		if (!dialogPatterns.contains(patNam))
 		{

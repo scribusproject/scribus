@@ -47,6 +47,7 @@ struct CopyPasteBuffer
 	int GrShade2;
 	VGradient fill_gradient;
 	int GrType;
+	QString pattern;
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;

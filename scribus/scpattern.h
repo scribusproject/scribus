@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 
 class QString;
 class PageItem;
+class ScribusDoc;
 #include <qptrlist.h>
 #include <qimage.h>
 #include "scribusapi.h"
@@ -36,11 +37,15 @@ public:
 	ScPattern();
 	~ScPattern() {};
 	QImage* getPattern();
+	void setDoc(ScribusDoc *doc);
 	void setPattern(QString file);
-	void setPattern(QImage *image);
-	void setPattern(PageItem *item);
+	double offsetX;
+	double offsetY;
+	double scaleX;
+	double scaleY;
+	double rotation;
 private:
-	int typ;
+	ScribusDoc *m_doc;
 	QString file;
 	QImage pattern;
 	QPtrList<PageItem> items;

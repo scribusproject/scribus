@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "fpoint.h"
 #include "fpointarray.h"
 #include "vgradient.h"
+#include "scpattern.h"
 
 // If defined, use gdk-pixbuf for ScPainter::end() on X11 (ignored on other
 // platforms). Otherwise use portable ScPainter::end() and omit X11-specific
@@ -112,7 +113,7 @@ public:
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern(QImage *image);
+	virtual void setPattern(ScPattern *pattern);
 	virtual void setClipPath();
 #ifndef HAVE_CAIRO
 	virtual void setClipPath2(FPointArray *points, bool closed);
@@ -152,6 +153,7 @@ public:
 	unsigned char *buffer() { return m_buffer; }
 	VGradient fill_gradient;
 	VGradient stroke_gradient;
+	ScPattern *m_pattern;
 
 private:
 #ifdef HAVE_CAIRO
@@ -216,7 +218,6 @@ private:
 	bool svgMode;
 #ifdef HAVE_CAIRO
 	cairo_t *m_cr;
-	cairo_pattern_t *m_pat;
 	struct layerProp
 	{
 		cairo_surface_t *data;
@@ -225,11 +226,9 @@ private:
 	};
 	QValueStack<layerProp> Layers;
 #elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
-	QImage *m_pat;
 	GC gc;
 #elif defined(_WIN32) && defined(SC_USE_GDI)
 	HDC dc;
-	QImage *m_pat;
 #endif
 };
 

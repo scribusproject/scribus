@@ -2410,19 +2410,24 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	int GrShade2 = 0;
 	if (currItem->GrType != 0)
 	{
-		currItem->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
-		currItem->GrStartY = obj->attribute("GRSTARTY", "0.0").toDouble();
-		currItem->GrEndX = obj->attribute("GRENDX", "0.0").toDouble();
-		currItem->GrEndY = obj->attribute("GRENDY", "0.0").toDouble();
-		GrColor = obj->attribute("GRCOLOR","");
-		if (!GrColor.isEmpty())
+		if (currItem->GrType == 8)
+			currItem->setPattern(obj->attribute("pattern", ""));
+		else
 		{
-			GrColor2 = obj->attribute("GRCOLOR2","");
-			GrShade = obj->attribute("GRSHADE", "100").toInt();
-			GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
+			currItem->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
+			currItem->GrStartY = obj->attribute("GRSTARTY", "0.0").toDouble();
+			currItem->GrEndX = obj->attribute("GRENDX", "0.0").toDouble();
+			currItem->GrEndY = obj->attribute("GRENDY", "0.0").toDouble();
+			GrColor = obj->attribute("GRCOLOR","");
+			if (!GrColor.isEmpty())
+			{
+				GrColor2 = obj->attribute("GRCOLOR2","");
+				GrShade = obj->attribute("GRSHADE", "100").toInt();
+				GrShade2 = obj->attribute("GRSHADE2", "100").toInt();
+			}
 		}
 	}
-	if (currItem->GrType != 0)
+	if ((currItem->GrType != 0) && (currItem->GrType != 8))
 	{
 		currItem->fill_gradient.clearStops();
 		if ((!GrColor.isEmpty()) && (!GrColor2.isEmpty()))
@@ -3260,20 +3265,25 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		ob.setAttribute("gHeight", item->gHeight);
 		if (item->GrType != 0)
 		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
-			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+			if (item->GrType == 8)
+				ob.setAttribute("pattern", item->pattern());
+			else
 			{
-				QDomElement itcl = docu->createElement("CSTOP");
-				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
-				itcl.setAttribute("NAME", cstops.at(cst)->name);
-				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
-				itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
-				ob.appendChild(itcl);
+				QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+				{
+					QDomElement itcl = docu->createElement("CSTOP");
+					itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
+					itcl.setAttribute("NAME", cstops.at(cst)->name);
+					itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+					itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
+					ob.appendChild(itcl);
+				}
+				ob.setAttribute("GRSTARTX", item->GrStartX);
+				ob.setAttribute("GRSTARTY", item->GrStartY);
+				ob.setAttribute("GRENDX", item->GrEndX);
+				ob.setAttribute("GRENDY", item->GrEndY);
 			}
-			ob.setAttribute("GRSTARTX", item->GrStartX);
-			ob.setAttribute("GRSTARTY", item->GrStartY);
-			ob.setAttribute("GRENDX", item->GrEndX);
-			ob.setAttribute("GRENDY", item->GrEndY);
 		}
 		if (item->effectsInUse.count() != 0)
 		{

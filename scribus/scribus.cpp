@@ -9227,7 +9227,7 @@ void ScribusMainWindow::managePatterns()
 {
 	if (HaveDoc)
 	{
-		PatternDialog *dia = new PatternDialog(this, &doc->docPatterns);
+		PatternDialog *dia = new PatternDialog(this, &doc->docPatterns, doc);
 		if (dia->exec())
 		{
 			doc->docPatterns.clear();

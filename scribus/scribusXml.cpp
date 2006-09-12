@@ -1199,20 +1199,25 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		}
 		if (item->GrType != 0)
 		{
-			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
-			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+			if (item->GrType == 8)
+				ob.setAttribute("pattern", item->pattern());
+			else
 			{
-				QDomElement itcl = docu.createElement("CSTOP");
-				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
-				itcl.setAttribute("NAME", cstops.at(cst)->name);
-				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
-				itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
-				ob.appendChild(itcl);
+				QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
+				{
+					QDomElement itcl = docu.createElement("CSTOP");
+					itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
+					itcl.setAttribute("NAME", cstops.at(cst)->name);
+					itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+					itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
+					ob.appendChild(itcl);
+				}
+				ob.setAttribute("GRSTARTX", item->GrStartX);
+				ob.setAttribute("GRSTARTY", item->GrStartY);
+				ob.setAttribute("GRENDX", item->GrEndX);
+				ob.setAttribute("GRENDY", item->GrEndY);
 			}
-			ob.setAttribute("GRSTARTX", item->GrStartX);
-			ob.setAttribute("GRSTARTY", item->GrStartY);
-			ob.setAttribute("GRENDX", item->GrEndX);
-			ob.setAttribute("GRENDY", item->GrEndY);
 		}
 		QDir::setCurrent(CurDirP);
 		for(int k=0;k<item->itemText.length();++k)

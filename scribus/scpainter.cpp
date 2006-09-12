@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 // kopainter/libart wrapper
 
 #include "scpainter.h"
-
 #include <qpaintdevice.h>
 #include <qpixmap.h>
 #include <qpointarray.h>
@@ -1106,16 +1105,9 @@ void ScPainter::setRasterOp( int   )
 {
 }
 
-void ScPainter::setPattern(QImage *image)
+void ScPainter::setPattern(ScPattern *pattern)
 {
-#ifdef HAVE_CAIRO
-	cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
-	m_pat = cairo_pattern_create_for_surface(image2);
-	cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
-	cairo_surface_destroy (image2);
-#else
-	m_pat = image;
-#endif
+	m_pattern = pattern;
 }
 
 #ifdef HAVE_CAIRO
@@ -1179,8 +1171,15 @@ void ScPainter::drawVPath( int mode )
 		}
 		else if (fillMode == 3)
 		{
+			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
+			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
+			cairo_surface_destroy (image2);
 			cairo_matrix_t matrix;
 			cairo_matrix_init_scale (&matrix, 1.0 / m_zoomFactor, 1.0 / m_zoomFactor);
+			cairo_matrix_translate(&matrix, m_pattern->offsetX, m_pattern->offsetY);
+			cairo_matrix_rotate(&matrix, m_pattern->rotation);
+			cairo_matrix_scale(&matrix, 1.0 / m_pattern->scaleX, 1.0 / m_pattern->scaleY);
 			cairo_pattern_set_matrix (m_pat, &matrix);
 			cairo_set_source (m_cr, m_pat);
 			cairo_clip_preserve (m_cr);
@@ -1906,7 +1905,7 @@ void ScPainter::applyPattern( ArtSVP *svp)
 	ArtPattern *pattern = art_new( ArtPattern, 1 );
 	double dx = 0.0;
 	double dy =0.0;
-	QImage pat = m_pat->scale(m_pat->width() * m_zoomFactor, m_pat->height() * m_zoomFactor);
+	QImage pat = m_pattern->getPattern()->scale(m_pattern->getPattern()->width() * m_zoomFactor, m_pattern->getPattern()->height() * m_zoomFactor);
 	pattern->twidth = pat.width();
 	pattern->theight = pat.height();
 	pattern->buffer = pat.bits();

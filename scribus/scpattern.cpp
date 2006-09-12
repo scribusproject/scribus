@@ -24,17 +24,28 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 
 #include "scpattern.h"
-#include "scimage.h"
-#include "cmsettings.h"
 #include "pageitem.h"
+#include "pageitem_imageframe.h"
+#include "scribusdoc.h"
+#include "commonstrings.h"
 
 ScPattern::ScPattern()
 {
 	file = "";
-	items.setAutoDelete(true);
+//	items.setAutoDelete(true);
 	items.clear();
 	pattern = QImage();
+	offsetX = 0.0;
+	offsetY = 0.0;
+	scaleX = 1.0;
+	scaleY = 1.0;
+	rotation = 0.0;
 };
+
+void ScPattern::setDoc(ScribusDoc *doc)
+{
+	m_doc = doc;
+}
 
 QImage* ScPattern::getPattern()
 {
@@ -43,20 +54,18 @@ QImage* ScPattern::getPattern()
 
 void ScPattern::setPattern(QString name)
 {
-	typ = 0;
-	ScImage im;
-	CMSettings cms(0, "", 0);
-	bool mode;
-	if (im.LoadPicture(name, cms, false, false, ScImage::RGBData, 72, &mode))
+	items.clear();
+	PageItem* newItem = new PageItem_ImageFrame(m_doc, 0, 0, 1, 1, 0, CommonStrings::None, CommonStrings::None);
+	if (newItem->loadImage(name, false, 72, false))
 	{
-		pattern = im.qImage().copy();
+		pattern = newItem->pixm.qImage().copy();
+		scaleX = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+		scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
+		newItem->setWidth(pattern.width());
+		newItem->setHeight(pattern.height());
+		items.append(newItem);
 		file = name;
 	}
 	else
 		pattern = QImage();
-}
-
-void ScPattern::setPattern(PageItem *item)
-{
-	typ = 1;
 }

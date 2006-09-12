@@ -42,9 +42,10 @@ class SCRIBUS_API PatternDialog : public patternDialogBase
 	Q_OBJECT
 
 	public:
-		PatternDialog(struct QWidget* parent, QMap<QString, ScPattern> *docPatterns);
+		PatternDialog(struct QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc);
 		~PatternDialog() {};
 		void updatePatternList();
+		ScribusDoc *m_doc;
 		QMap<QString, ScPattern> dialogPatterns;
 	public slots:
 		void loadPattern();
