@@ -1445,18 +1445,18 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	{
 		if (chst & ScStyle_Superscript)
 		{
-			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
-			layout.yoffset -= asce * m_Doc->typographicSettings.valueSuperScript / 100;
-			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSuperScript / 100, 10 / style.fontSize());
+			retval -= asce * m_Doc->typographicSettings.valueSuperScript / 100.0;
+			layout.yoffset -= asce * m_Doc->typographicSettings.valueSuperScript / 100.0;
+			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSuperScript / 100.0, 10.0 / style.fontSize());
 		}
 		else if (chst & ScStyle_Subscript)
 		{
-			retval += asce * m_Doc->typographicSettings.valueSubScript / 100;
-			layout.yoffset += asce * m_Doc->typographicSettings.valueSubScript / 100;
-			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSubScript / 100, 10 / style.fontSize());
+			retval += asce * m_Doc->typographicSettings.valueSubScript / 100.0;
+			layout.yoffset += asce * m_Doc->typographicSettings.valueSubScript / 100.0;
+			layout.scaleV = layout.scaleH = QMAX(m_Doc->typographicSettings.scalingSubScript / 100.0, 10.0 / style.fontSize());
 		}
 		else {
-			layout.scaleV = layout.scaleH = 1;
+			layout.scaleV = layout.scaleH = 1.0;
 		}
 		layout.scaleH *= style.scaleH() / 1000.0;
 		layout.scaleV *= style.scaleV() / 1000.0;

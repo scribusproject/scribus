@@ -174,16 +174,16 @@ void PageItem_TextFrame::setShadow()
 		if (!shadows.contains(newShadow)) {
 			if (!shadows.contains(OnMasterPage)) {
 				shadows[OnMasterPage] = itemText;
-				qDebug(QString("Pageitem_Textframe: shadow itemText->%1").arg(OnMasterPage));
+//				qDebug(QString("Pageitem_Textframe: shadow itemText->%1").arg(OnMasterPage));
 			}
 			shadows[newShadow] = shadows[OnMasterPage].copy();
-			qDebug(QString("Pageitem_Textframe: shadow %1<-%2").arg(newShadow).arg(OnMasterPage));
+//			qDebug(QString("Pageitem_Textframe: shadow %1<-%2").arg(newShadow).arg(OnMasterPage));
 		}
 		itemText = shadows[newShadow];
 		invalid = true;
 		currentShadow = newShadow;
 	}
-	qDebug(QString("Pageitem_Textframe: shadow=%1").arg(itemText.text(0, itemText.length())));
+//	qDebug(QString("Pageitem_Textframe: shadow=%1").arg(itemText.text(0, itemText.length())));
 }
 		
 #ifdef NLS_PROTO
@@ -219,7 +219,7 @@ void PageItem_TextFrame::layout()
 		return;
 	}
 	else if (!invalid && OnMasterPage.isEmpty()) {
-		qDebug(QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage));
+//		qDebug(QString("textframe: len=%1, invalid=%2 OnMasterPage=%3: no relayout").arg(itemText.length()).arg(invalid).arg(OnMasterPage));
 		return;
 	}
 //	qDebug(QString("textframe(%1,%2): len=%3, start relayout at %4").arg(Xpos).arg(Ypos).arg(itemText.length()).arg(firstInFrame()));
@@ -556,7 +556,7 @@ void PageItem_TextFrame::layout()
 				{
 					wide = charStyle.font().realCharWidth(chstr2[0], chsd / 10.0);
 					asce = charStyle.font().realCharHeight(chstr2[0], chsd / 10.0);
-					qDebug(QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]));
+//					qDebug(QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]));
 					hl->glyph.scaleH /= hl->glyph.scaleV;
 					hl->glyph.scaleV = (asce / charStyle.font().realCharAscent(chstr2[0], charStyle.fontSize() / 10.0));
 					hl->glyph.scaleH *= hl->glyph.scaleV;
@@ -1305,7 +1305,7 @@ void PageItem_TextFrame::layout()
 								if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 								{
 									goNoRoom = true;
-									qDebug(QString("go no room 1: %1").arg(a));
+//									qDebug(QString("go no room 1: %1").arg(a));
 									break;
 								}
 								if (AbsHasDrop)
@@ -1343,7 +1343,7 @@ void PageItem_TextFrame::layout()
 							if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 							{
 								goNoRoom = true;
-								qDebug(QString("go no room 2: %1").arg(a));
+//								qDebug(QString("go no room 2: %1").arg(a));
 								break;
 							}
 							CurX--;
@@ -1513,7 +1513,7 @@ void PageItem_TextFrame::layout()
 				{
 					goNoRoom = false;
 					nrc = a+1;
-					qDebug(QString("no room C: %1").arg(a+1));
+//					qDebug(QString("no room C: %1").arg(a+1));
 					goto NoRoom;
 				}
 				if (goNextColumn)
@@ -1531,7 +1531,7 @@ void PageItem_TextFrame::layout()
 					else
 					{
 						nrc = a;
-						qDebug(QString("no room D: %1").arg(a));
+//						qDebug(QString("no room D: %1").arg(a));
 						goto NoRoom;
 					}
 				}
