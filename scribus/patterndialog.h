@@ -36,16 +36,19 @@ for which a new license (GPL+exception) is in place.
 #include "patterndialogbase.h"
 #include "scribusapi.h"
 #include "scribusdoc.h"
+#include "scribus.h"
 
 class SCRIBUS_API PatternDialog : public patternDialogBase
 {
 	Q_OBJECT
 
 	public:
-		PatternDialog(struct QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc);
+		PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow* scMW);
 		~PatternDialog() {};
 		void updatePatternList();
+		void loadVectors(QString data);
 		ScribusDoc *m_doc;
+		ScribusMainWindow *mainWin;
 		QMap<QString, ScPattern> dialogPatterns;
 	public slots:
 		void loadPattern();

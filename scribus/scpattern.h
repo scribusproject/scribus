@@ -44,11 +44,10 @@ public:
 	double scaleX;
 	double scaleY;
 	double rotation;
-private:
+	QPtrList<PageItem> items;
 	ScribusDoc *m_doc;
 	QString file;
 	QImage pattern;
-	QPtrList<PageItem> items;
 };
 
 #endif
