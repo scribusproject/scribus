@@ -2225,6 +2225,7 @@ QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded)
 {
 	QString tmp("");
+	ite->setRedrawBounding();
 	double x = pag->xOffset();
 	double y = pag->yOffset();
 	double w = pag->width();
@@ -2234,8 +2235,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	double y2 = ite->BoundingY - ilw / 2.0;
 	double w2 = ite->BoundingW + ilw;
 	double h2 = ite->BoundingH + ilw;
+	
+	qDebug(QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem));
+	qDebug(QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw));
 	if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 		return tmp;
+	qDebug("bb test done");
 	if (ite->ChangedMasterItem)
 		return tmp;
 	if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
@@ -2261,6 +2266,7 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
 	if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
 	{
+		qDebug("Q exit");
 		tmp += "Q\n";
 		return tmp;
 	}
@@ -2403,8 +2409,10 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 			}
 			break;
 		case PageItem::TextFrame:
+			qDebug("case TextFrame");
 			if ((ite->isAnnotation()) && (Options.Version != 12))
 			{
+				qDebug("Annotation");
 				PDF_Annotation(ite, PNr);
 				break;
 			}
@@ -2994,6 +3002,10 @@ QString PDFlib::setStrokeMulti(struct SingleLine *sl)
 // Return a PDF substring representing a PageItem's text
 QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 {
+	int savedOwnPage = ite->OwnPage;
+	ite->OwnPage = PNr;
+	ite->asTextFrame()->layout();
+	ite->OwnPage = savedOwnPage;
 	QString tmp("");
 	QString tmp2("");
 	uint tabCc = 0;
@@ -3080,7 +3092,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 				hl2.setFillColor(hl->strokeColor());
 				hl2.glyph.yoffset = hl->glyph.yoffset - (chstyle.fontSize() * chstyle.shadowYOffset() / 10000.0);
 				hl2.glyph.xoffset = hl->glyph.xoffset + (chstyle.fontSize() * chstyle.shadowXOffset() / 10000.0);
-				
+				hl2.glyph.scaleH = hl->glyph.scaleH;
+				hl2.glyph.scaleV = hl->glyph.scaleV;
+
 				setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
 			}
 			setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, hl, pstyle, pag);
@@ -3111,7 +3125,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	}
 	int tsz = hl->fontSize();
 	QString chstr = hl->ch;
-	if (hl->effects() & ScStyle_DropCap)
+/*	if (hl->effects() & ScStyle_DropCap)
 	{
 		if (pstyle.useBaselineGrid())
 			tsz = qRound(10 * ((doc.typographicSettings.valueBaseGrid * (pstyle.dropCapLines()-1)+(hl->font().ascent(pstyle.charStyle().fontSize() / 10.0))) / (hl->font().realCharHeight(chstr[0], 10))));
@@ -3126,6 +3140,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			}
 		}
 	}
+	*/
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
 	{
 		QPtrList<PageItem> emG;
@@ -3194,7 +3209,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			{
 				if (ite->reversed())
 				{
-					double wid = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
+					double wid = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
 					tmp2 += "1 0 0 1 "+FToStr(x+hl->glyph.xoffset)+" "+FToStr((y+hl->glyph.yoffset - (tsz / 10.0)) * -1 + ((tsz / 10.0) * (hl->baselineOffset() / 1000.0)))+" cm\n";
 					tmp2 += "-1 0 0 1 0 0 cm\n";
 					tmp2 += "1 0 0 1 "+FToStr(-wid)+" 0 cm\n";
@@ -3211,9 +3226,9 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 					tmp2 += "1 0 0 1 0 "+FToStr( -ite->BaseOffs)+" cm\n";
 				tmp2 += FToStr(tsz / 10.0)+" 0 0 "+FToStr(tsz / 10.0)+" 0 "+FToStr(tsz / 10.0)+" cm\n";
 			}
-			if (hl->scaleV() != 1000)
-				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->scaleV() / 1000.0)) / (tsz / 10.0)) * -1)+" cm\n";
-			tmp2 += FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" 0 0 cm\n";
+			if (hl->glyph.scaleV != 1.0)
+				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->glyph.scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
+			tmp2 += FToStr(QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4))+" 0 0 cm\n";
 			if (hl->fillColor() != CommonStrings::None)
 				tmp2 += "/"+hl->font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
 			if (hl->effects() & ScStyle_Outline)
@@ -3281,20 +3296,21 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			{
 				int chs = hl->fontSize();
 				double wtr = hl->glyph.xadvance;
-				tmp +=  FToStr(-QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
+				tmp +=  FToStr(-QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 //				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
 			}
 			else
-				tmp +=  FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
+				tmp +=  FToStr(QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 		}
 		else
-			tmp += FToStr(QMIN(QMAX(hl->scaleH(), 100), 4000) / 1000.0)+" 0 0 "+FToStr(QMIN(QMAX(hl->scaleV(), 100), 4000) / 1000.0)+" 0 0 Tm\n";
+			tmp += FToStr(QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4))+" 0 0 Tm\n";
 		uchar idx2 = idx % 224 + 32;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 	}
 	if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
 	{
-		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
+		Ulen = hl->glyph.xadvance;
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
@@ -3327,7 +3343,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 	}
 	if ((hl->effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
 	{
-		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->scaleH() / 1000.0);
+		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;
