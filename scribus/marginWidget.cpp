@@ -74,16 +74,16 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 		marginsForPages = new QLabel( tr( "Apply settings to:" ), this, "marginsForPages" );
 		marginsForPagesLayout->addWidget(marginsForPages);
 		marginsForAllPages = new QCheckBox( this, "marginsForAllPages" );
-		marginsForAllPages->setText( tr( "all Document Pages" ) );
+		marginsForAllPages->setText( tr( "All Document Pages" ) );
 		marginsForAllPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllPages);
 		marginsForAllMasterPages = new QCheckBox( this, "marginsForAllMasterPages" );
-		marginsForAllMasterPages->setText( tr( "all Master Pages" ) );
+		marginsForAllMasterPages->setText( tr( "All Master Pages" ) );
 		marginsForAllMasterPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllMasterPages);
 		GroupLayout->addMultiCellLayout( marginsForPagesLayout, 6, 6, 0, 1 );
 		QToolTip::add( marginsForAllPages, "<qt>" + tr( "Apply the margin changes to all existing pages in the document" ) + "</qt>" );
-
+		QToolTip::add( marginsForAllMasterPages, "<qt>" + tr( "Apply the margin changes to all existing master pages in the document" ) + "</qt>" );
 	}
 	else
 	{
@@ -336,7 +336,7 @@ PresetLayout::PresetLayout(QWidget *parent, const char * name) : QComboBox(paren
 	insertItem( tr("Nine Parts"), PresetLayout::nineparts);
 	setCurrentItem(PresetLayout::none);
 
-	QToolTip::add(this, "<qt>" +tr("You can select predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
+	QToolTip::add(this, "<qt>" +tr("You can select a predefined page layout here. 'None' leave margins as is, Gutenberg sets margins classically. 'Magazine' sets all margins for same value. Leading is Left/Inside value.") + "</qt>");
 }
 
 MarginStruct PresetLayout::getMargins(int index, double pageWidth, double pageHeight, double leftMargin)

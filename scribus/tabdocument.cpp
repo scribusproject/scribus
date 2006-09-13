@@ -107,11 +107,11 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	sizePages = new QLabel( tr( "Apply settings to:" ), GroupSize, "sizePages" );
 	sizePagesLayout->addWidget(sizePages);
 	sizeAllPages = new QCheckBox( GroupSize, "sizeAllPages" );
-	sizeAllPages->setText( tr( "all Document Pages" ) );
+	sizeAllPages->setText( tr( "All Document Pages" ) );
 	sizeAllPages->setChecked( false );
 	sizePagesLayout->addWidget(sizeAllPages);
 	sizeAllMasterPages = new QCheckBox( GroupSize, "sizeAllMasterPages" );
-	sizeAllMasterPages->setText( tr( "all Master Pages" ) );
+	sizeAllMasterPages->setText( tr( "All Master Pages" ) );
 	sizeAllMasterPages->setChecked( false );
 	sizePagesLayout->addWidget(sizeAllMasterPages);
 	GroupSizeLayout->addLayout(sizePagesLayout);
@@ -181,6 +181,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	QToolTip::add( ASTime, "<qt>" + tr( "Time period between saving automatically" ) + "</qt>" );
 	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
 	QToolTip::add( sizeAllPages, "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
+	QToolTip::add( sizeAllMasterPages, "<qt>" + tr( "Apply the page size changes to all existing master pages in the document" ) + "</qt>" );
 
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
