@@ -2276,6 +2276,11 @@ void PSLib::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bo
 
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page* pg, bool sep, bool farb, bool ic, bool master)
 {
+	qDebug(QString("pslib setTextSt: ownPage=%1 pageNr=%2 OnMasterPage=%3;").arg(ite->OwnPage).arg(pg->pageNr()).arg(ite->OnMasterPage));
+	int savedOwnPage = ite->OwnPage;
+	ite->OwnPage = argh;
+	ite->asTextFrame()->layout();
+	ite->OwnPage = savedOwnPage;
 #ifndef NLS_PROTO
 	ScText *hl;
 	uint tabCc = 0;
@@ -2349,12 +2354,14 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 			if ((hl->effects() & ScStyle_Shadowed) && (hl->strokeColor() != CommonStrings::None))
 			{
 				ScText hl2;
+				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				hl2.ch = hl->ch;
 				hl2.glyph.glyph = hl->glyph.glyph;
-				static_cast<CharStyle&>(hl2) = static_cast<const CharStyle&>(*hl);
 				hl2.setFillColor(hl->strokeColor());
 				hl2.glyph.yoffset = hl->glyph.yoffset - (hl->fontSize() * hl->shadowYOffset() / 10000.0);
 				hl2.glyph.xoffset = hl->glyph.xoffset + (hl->fontSize() * hl->shadowXOffset() / 10000.0);
+				hl2.glyph.scaleH = hl->glyph.scaleH;
+				hl2.glyph.scaleV = hl->glyph.scaleV;
 				
 				setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);
 			}
@@ -2740,7 +2747,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 
 	QString chstr = hl->ch;
 
-	if (hl->effects() & 2048)
+/*	if (hl->effects() & 2048)
 	{
 //		QString chstr; // dummy, FIXME: replace by glyph
 		if (pstyle.useBaselineGrid())
@@ -2756,7 +2763,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			}
 		}
 	}
-	
+	*/
 	if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
 	{
 		QPtrList<PageItem> emG;
@@ -2810,11 +2817,6 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	if (glyph == 0 || glyph >= ScFace::CONTROL_GLYPHS)
 		return;
 	
-	if (hl->effects() & 1)
-		tsz = hl->fontSize() * Doc->typographicSettings.scalingSuperScript / 100;
-	if (hl->effects() & 2)
-		tsz = hl->fontSize() * Doc->typographicSettings.scalingSuperScript / 100;
-
 	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
 	ScFace::FontType ftype = cstyle.font().type();
 	if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
@@ -2824,19 +2826,20 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			PS_save();
 			if (ite->reversed())
 			{
-				PS_translate(x + hl->glyph.xoffset, (y + hl->glyph.yoffset - (tsz / 10.0)) * -1);
+				PS_translate(x + hl->glyph.xoffset, (y + hl->glyph.yoffset - (tsz / 10.0) * glyphs.scaleV) * -1);
 				PS_scale(-1, 1);
 				PS_translate(-glyphs.xadvance, 0);
 			}
-			PS_translate(x + glyphs.xoffset, (y + glyphs.yoffset - (cstyle.fontSize() / 10.0) * glyphs.scaleV) * -1);
+			else
+				PS_translate(x + glyphs.xoffset, (y + glyphs.yoffset - (cstyle.fontSize() / 10.0)) * -1);
 			if (cstyle.baselineOffset() != 0)
 				PS_translate(0, (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0));
-			if (cstyle.scaleH() != 100)
-				PS_scale(cstyle.scaleH() / 1000.0, 1);
-			if (cstyle.scaleV() != 100)
+			if (glyphs.scaleH != 1.0)
+				PS_scale(glyphs.scaleH, 1);
+			if (glyphs.scaleV != 1.0)
 			{
-				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (cstyle.scaleV() / 1000.0)));
-				PS_scale(1, cstyle.scaleV() / 1000.0);
+				PS_translate(0, -((tsz / 10.0) - (tsz / 10.0) * (glyphs.scaleV)));
+				PS_scale(1, glyphs.scaleV);
 			}
 			if (cstyle.fillColor() != CommonStrings::None)
 			{
@@ -2853,7 +2856,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	else
 	{
-		PS_selectfont(cstyle.font().scName(), tsz / 10.0 * glyphs.scaleV);
+		PS_selectfont(cstyle.font().scName(), tsz / 10.0);
 		PS_save();
 		PS_translate(x + glyphs.xoffset, -y - glyphs.yoffset);
 		if (ite->reversed())
