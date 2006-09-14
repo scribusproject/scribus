@@ -31,8 +31,6 @@ for which a new license (GPL+exception) is in place.
 
 ScPattern::ScPattern()
 {
-	file = "";
-//	items.setAutoDelete(true);
 	items.clear();
 	pattern = QImage();
 	offsetX = 0.0;
@@ -40,6 +38,8 @@ ScPattern::ScPattern()
 	scaleX = 1.0;
 	scaleY = 1.0;
 	rotation = 0.0;
+	width = 0.0;
+	height = 0.0;
 };
 
 void ScPattern::setDoc(ScribusDoc *doc)
@@ -68,8 +68,9 @@ void ScPattern::setPattern(QString name)
 		newItem->gYpos = 0.0;
 		newItem->gWidth = pattern.width();
 		newItem->gHeight = pattern.height();
+		width = pattern.width();
+		height = pattern.height();
 		items.append(newItem);
-		file = name;
 	}
 	else
 		pattern = QImage();

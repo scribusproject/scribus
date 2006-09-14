@@ -165,6 +165,8 @@ void PatternDialog::loadVectors(QString data)
 	pat.setDoc(m_doc);
 	PageItem* currItem = m_doc->Items->at(ac);
 	pat.pattern = currItem->DrawObj_toImage();
+	pat.width = currItem->gWidth;
+	pat.height = currItem->gHeight;
 	for (uint as = ac; as < ae; ++as)
 	{
 		pat.items.append(m_doc->Items->take(ac));

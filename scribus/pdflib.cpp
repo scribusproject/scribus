@@ -3857,14 +3857,14 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		PutDoc("/PatternType 1\n");
 		PutDoc("/PaintType 1\n");
 		PutDoc("/TilingType 2\n");
-		PutDoc("/BBox [ 0 0 "+FToStr(pat->getPattern()->width())+" "+FToStr(-pat->getPattern()->height())+" ]\n");
-		double xdivi = (currItem->xPos() - ActPageP->xOffset()) / static_cast<double>(pat->getPattern()->width());
-		double xoffs = (xdivi - floor(xdivi)) * pat->getPattern()->width();
-		double ydivi = (ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) / static_cast<double>(pat->getPattern()->height());
-		double yoffs = (ydivi - floor(ydivi)) * pat->getPattern()->height();
+		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(-pat->height)+" ]\n");
+		double xdivi = (currItem->xPos() - ActPageP->xOffset()) / static_cast<double>(pat->width);
+		double xoffs = (xdivi - floor(xdivi)) * pat->width;
+		double ydivi = (ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) / static_cast<double>(pat->height);
+		double yoffs = (ydivi - floor(ydivi)) * pat->height;
 		PutDoc("/Matrix ["+FToStr(pat->scaleX)+" 0 0 "+FToStr(pat->scaleY)+" "+FToStr(xoffs)+" "+FToStr(yoffs)+"]\n");
-		PutDoc("/XStep "+FToStr(pat->getPattern()->width())+"\n");
-		PutDoc("/YStep "+FToStr(pat->getPattern()->height())+"\n");
+		PutDoc("/XStep "+FToStr(pat->width)+"\n");
+		PutDoc("/YStep "+FToStr(pat->height)+"\n");
 		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
 		if (Seite.ImgObjects.count() != 0)
 		{
