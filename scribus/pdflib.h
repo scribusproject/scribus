@@ -83,7 +83,7 @@ private:
 	QString putColor(const QString& color, int Shade, bool fill);
 	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
-	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false);
+	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
 	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
 	void setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
 
@@ -197,6 +197,7 @@ private:
 	QValueList<int> Threads;
 	QValueList<Bead> Beads;
 	QValueList<int> CalcFields;
+	QMap<QString,int> Patterns;
 	QMap<QString,int> Shadings;
 	QMap<QString,int> Transpar;
 	QMap<QString,ICCD> ICCProfiles;

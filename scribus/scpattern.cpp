@@ -63,6 +63,11 @@ void ScPattern::setPattern(QString name)
 		scaleY = (72.0 / newItem->pixm.imgInfo.xres) * newItem->pixm.imgInfo.lowResScale;
 		newItem->setWidth(pattern.width());
 		newItem->setHeight(pattern.height());
+		newItem->SetRectFrame();
+		newItem->gXpos = 0.0;
+		newItem->gYpos = 0.0;
+		newItem->gWidth = pattern.width();
+		newItem->gHeight = pattern.height();
 		items.append(newItem);
 		file = name;
 	}

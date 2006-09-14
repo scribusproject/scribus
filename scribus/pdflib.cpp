@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefscontext.h"
 #include "pdfoptions.h"
 #include "sccolor.h"
+#include "scpattern.h"
 
 #include "text/nlsconfig.h"
 
@@ -1616,6 +1617,14 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 						PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
 					PutDoc(">>\n");
 				}
+				if (Patterns.count() != 0)
+				{
+					PutDoc("/Pattern << \n");
+					QMap<QString,int>::Iterator it3p;
+					for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+						PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
+					PutDoc(">>\n");
+				}
 				if (Transpar.count() != 0)
 				{
 					PutDoc("/ExtGState << \n");
@@ -1692,7 +1701,7 @@ void PDFlib::PDF_End_Page()
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
 	int Gobj;
-	if ((Options.Version >= 14) && (Transpar.count() != 0))
+	if (Options.Version >= 14) //  && (Transpar.count() != 0))
 	{
 		StartObj(ObjCounter);
 		Gobj = ObjCounter;
@@ -1725,7 +1734,7 @@ void PDFlib::PDF_End_Page()
 		" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
-	if ((Options.Version >= 14) && (Transpar.count() != 0))
+	if (Options.Version >= 14) // && (Transpar.count() != 0))
 		PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	if (Options.Thumbnails)
 		PutDoc("/Thumb "+QString::number(Seite.Thumb)+" 0 R\n");
@@ -2058,6 +2067,14 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
 					PutDoc(">>\n");
 				}
+				if (Patterns.count() != 0)
+				{
+					PutDoc("/Pattern << \n");
+					QMap<QString,int>::Iterator it3p;
+					for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+						PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
+					PutDoc(">>\n");
+				}
 				if (Transpar.count() != 0)
 				{
 					PutDoc("/ExtGState << \n");
@@ -2222,7 +2239,7 @@ QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 	return tmp;
 }
 
-QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded)
+QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded, bool pattern)
 {
 	QString tmp("");
 	ite->setRedrawBounding();
@@ -2235,16 +2252,19 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 	double y2 = ite->BoundingY - ilw / 2.0;
 	double w2 = ite->BoundingW + ilw;
 	double h2 = ite->BoundingH + ilw;
-	
-	qDebug(QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem));
-	qDebug(QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw));
-	if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
-		return tmp;
-	qDebug("bb test done");
-	if (ite->ChangedMasterItem)
-		return tmp;
-	if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
-		return tmp;
+	if (!pattern)
+	{
+//		qDebug(QString("pdflib process item: pagename=%1 ownpage=%2 pagenr=%3 changedMP=%4").arg(pag->pageName()).arg(ite->OwnPage).arg(pag->pageNr()).arg(ite->ChangedMasterItem));
+//		qDebug(QString("pdflib process item: x=%1 x2=%2 y=%3 y2=%4 w=%5 w2=%6 h1=%7 h2=%8 ilw=%9").arg(x).arg(x2).arg(y).arg(y2).arg(w).arg(w2).arg(h1).arg(h2).arg(ilw));
+		if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+			return tmp;
+//		qDebug("bb test done");
+		if (ite->ChangedMasterItem)
+			return tmp;
+		if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
+			return tmp;
+	}
+
 	tmp += "q\n";
 	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
 	{
@@ -2264,11 +2284,14 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 //		tmp += PDF_Transparenz(ite);
 	if ((ite->isBookmark) && (Options.Bookmarks))
 		PDF_Bookmark(ite, pag->height() - (ite->yPos() - pag->yOffset()));
-	if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
+	if (!pattern)
 	{
-		qDebug("Q exit");
-		tmp += "Q\n";
-		return tmp;
+		if (!ite->printEnabled() || ((ite->itemType() == PageItem::TextFrame) && (!pag->pageName().isEmpty())))
+		{
+			qDebug("Q exit");
+			tmp += "Q\n";
+			return tmp;
+		}
 	}
 	if (ite->fillColor() != CommonStrings::None)
 		tmp += putColor(ite->fillColor(), ite->fillShade(), true);
@@ -3794,6 +3817,105 @@ QString PDFlib::PDF_TransparenzStroke(PageItem *currItem)
 
 QString PDFlib::PDF_Gradient(PageItem *currItem)
 {
+	if (currItem->GrType == 8)
+	{
+		QString tmp2 = "";
+		ScPattern *pat = &doc.docPatterns[currItem->pattern()];
+		for (uint em = 0; em < pat->items.count(); ++em)
+		{
+			PageItem* item = pat->items.at(em);
+			tmp2 += "q\n";
+			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-item->gYpos)+" cm\n";
+			tmp2 += PDF_ProcessItem(item, doc.Pages->at(0), 0, true, true);
+			tmp2 += "Q\n";
+		}
+		if ((Options.Compress) && (CompAvail))
+			tmp2 = CompressStr(&tmp2);
+		StartObj(ObjCounter);
+		ObjCounter++;
+		PutDoc("<< /Type /Pattern\n");
+		PutDoc("/PatternType 1\n");
+		PutDoc("/PaintType 1\n");
+		PutDoc("/TilingType 2\n");
+		PutDoc("/BBox [ 0 0 "+FToStr(pat->getPattern()->width())+" "+FToStr(-pat->getPattern()->height())+" ]\n");
+		double xdivi = (currItem->xPos() - ActPageP->xOffset()) / static_cast<double>(pat->getPattern()->width());
+		double xoffs = (xdivi - floor(xdivi)) * pat->getPattern()->width();
+		double ydivi = (ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) / static_cast<double>(pat->getPattern()->height());
+		double yoffs = (ydivi - floor(ydivi)) * pat->getPattern()->height();
+		PutDoc("/Matrix ["+FToStr(pat->scaleX)+" 0 0 "+FToStr(pat->scaleY)+" "+FToStr(xoffs)+" "+FToStr(yoffs)+"]\n");
+		PutDoc("/XStep "+FToStr(pat->getPattern()->width())+"\n");
+		PutDoc("/YStep "+FToStr(pat->getPattern()->height())+"\n");
+		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+		if (Seite.ImgObjects.count() != 0)
+		{
+			PutDoc("/XObject <<\n");
+			QMap<QString,int>::Iterator it;
+			for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
+				PutDoc("/"+it.key()+" "+QString::number(it.data())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		if (Seite.FObjects.count() != 0)
+		{
+			PutDoc("/Font << \n");
+			QMap<QString,int>::Iterator it2;
+			for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
+				PutDoc("/"+it2.key()+" "+QString::number(it2.data())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		if (Shadings.count() != 0)
+		{
+			PutDoc("/Shading << \n");
+			QMap<QString,int>::Iterator it3;
+			for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+				PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		if (Patterns.count() != 0)
+		{
+			PutDoc("/Pattern << \n");
+			QMap<QString,int>::Iterator it3p;
+			for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+				PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		if (Transpar.count() != 0)
+		{
+			PutDoc("/ExtGState << \n");
+			QMap<QString,int>::Iterator it3t;
+			for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
+				PutDoc("/"+it3t.key()+" "+QString::number(it3t.data())+" 0 R\n");
+			PutDoc(">>\n");
+		}
+		if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
+		{
+			PutDoc("/ColorSpace << \n");
+			QMap<QString,ICCD>::Iterator it3c;
+			if (ICCProfiles.count() != 0)
+			{
+				for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+					PutDoc("/"+it3c.data().ResName+" "+QString::number(it3c.data().ResNum)+" 0 R\n");
+			}
+			QMap<QString,SpotC>::Iterator it3sc;
+			if (spotMap.count() != 0)
+			{
+			for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+				PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
+			}
+			PutDoc(">>\n");
+		}
+		PutDoc(">>\n");
+		PutDoc("/Length "+QString::number(tmp2.length()));
+		if ((Options.Compress) && (CompAvail))
+			PutDoc("\n/Filter /FlateDecode");
+		PutDoc(" >>\nstream\n"+EncStream(tmp2, ObjCounter-1)+"\nendstream\nendobj\n");
+		Patterns.insert("Pattern"+currItem->pattern()+QString::number(ResCount), ObjCounter-1);
+		QString tmp = "/Pattern cs\n";
+		tmp += "/Pattern"+currItem->pattern()+QString::number(ResCount)+" scn\n";
+		tmp += SetClipPath(currItem);
+		tmp += "h\nf*\n";
+		ResCount++;
+		return tmp;
+	}
 	double w = currItem->width();
 	double h = -currItem->height();
 	double w2 = w / 2.0;
@@ -5228,6 +5350,14 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 		QMap<QString,int>::Iterator it3;
 		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
 			PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Patterns.count() != 0)
+	{
+		PutDoc("/Pattern << \n");
+		QMap<QString,int>::Iterator it3p;
+		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
 		PutDoc(">>\n");
 	}
 	if (Transpar.count() != 0)

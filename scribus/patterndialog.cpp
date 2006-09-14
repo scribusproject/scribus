@@ -70,7 +70,7 @@ void PatternDialog::updatePatternList()
 void PatternDialog::loadPattern()
 {
 	QString fileName;
-	QString formats = "";
+	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;";
 	QString form1 = "";
 	QString form2 = "";
 	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
@@ -97,7 +97,7 @@ void PatternDialog::loadPattern()
 	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
 #endif
 	formats += "PSD (*.psd *.PSD);;";
-	formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;Scribus Objects (*.sce *.SCE);;" + tr("All Files (*)");
+	formats += tr("All Files (*)");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");
 	CustomFDialog dia(this, wdir, tr("Open"), formats, fdExistingFiles);
