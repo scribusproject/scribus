@@ -1876,7 +1876,18 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						if (! ite->asTextFrame())
 							PutPage(name+" Do\n");
 						else
+						{
+							double oldX = ite->xPos();
+							double oldY = ite->yPos();
+							double OldBX = ite->BoundingX;
+							double OldBY = ite->BoundingY;
+							ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
+							ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
 							PutPage(PDF_ProcessItem(ite, pag, pag->pageNr()));
+							ite->setXYPos(oldX, oldY, true);
+							ite->BoundingX = OldBX;
+							ite->BoundingY = OldBY;
+						}
 					}
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
 					{
@@ -1889,7 +1900,16 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							continue;
 						if (!ite->isTableItem)
 							continue;
+						double oldX = ite->xPos();
+						double oldY = ite->yPos();
+						double OldBX = ite->BoundingX;
+						double OldBY = ite->BoundingY;
+						ite->setXPos(ite->xPos() - mPage->xOffset() + pag->xOffset(), true);
+						ite->setYPos(ite->yPos() - mPage->yOffset() + pag->yOffset(), true);
 						PutPage(PDF_ProcessTableItem(ite, pag));
+						ite->setXYPos(oldX, oldY, true);
+						ite->BoundingX = OldBX;
+						ite->BoundingY = OldBY;
 					}
 					if ((Options.Version == 15) && (Options.useLayers))
 						PutPage("EMC\n");
@@ -3251,7 +3271,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			}
 			if (hl->glyph.scaleV != 1.0)
 				tmp2 += "1 0 0 1 0 "+FToStr( (((tsz / 10.0) - (tsz / 10.0) * (hl->glyph.scaleV)) / (tsz / 10.0)) * -1)+" cm\n";
-			tmp2 += FToStr(QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4))+" 0 0 cm\n";
+			tmp2 += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 cm\n";
 			if (hl->fillColor() != CommonStrings::None)
 				tmp2 += "/"+hl->font().psName().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" )+QString::number(glyph)+" Do\n";
 			if (hl->effects() & ScStyle_Outline)
@@ -3319,14 +3339,14 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 			{
 				int chs = hl->fontSize();
 				double wtr = hl->glyph.xadvance;
-				tmp +=  FToStr(-QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
+				tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 //				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
 			}
 			else
-				tmp +=  FToStr(QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
+				tmp +=  FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" "+FToStr(x+hl->glyph.xoffset)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 		}
 		else
-			tmp += FToStr(QMIN(QMAX(hl->glyph.scaleH, 0.1), 4))+" 0 0 "+FToStr(QMIN(QMAX(hl->glyph.scaleV, 0.1), 4))+" 0 0 Tm\n";
+			tmp += FToStr(QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1))+" 0 0 Tm\n";
 		uchar idx2 = idx % 224 + 32;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 	}
