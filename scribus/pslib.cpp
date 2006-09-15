@@ -25,13 +25,13 @@ for which a new license (GPL+exception) is in place.
 #include "pslib.moc"
 
 #include <qfileinfo.h>
-#include <qtextstream.h>
 #include <qimage.h>
 #include <qcolor.h>
 #include <qcstring.h>
 #include <qfontinfo.h>
 #include <cstdlib>
 #include <qregexp.h>
+#include <qbuffer.h>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -46,6 +46,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "multiprogressdialog.h"
 #include "scribusapp.h"
+#include "scpattern.h"
 
 #include "text/nlsconfig.h"
 
@@ -238,98 +239,92 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray
 
 void PSLib::PutSeite(QString c)
 {
-	QTextStream t(&Spool);
-	t.writeRawBytes(c, c.length());
+	spoolStream.writeRawBytes(c, c.length());
 }
 
 void PSLib::PutSeite(QByteArray& array, bool hexEnc)
 {
-	QTextStream t(&Spool);
 	if(hexEnc)
 	{
 		int length = 0;
 		for (uint i = 0; i < array.size(); i++)
 		{
 			length++;
-			t << toHex(array[i]);
+			spoolStream << toHex(array[i]);
 			if ( length > 40 )
 			{
-				t << "\n";
+				spoolStream << "\n";
 				length = 0;
 			}
 		}
 	}
 	else
-		t.writeRawBytes(array, array.size());
+		spoolStream.writeRawBytes(array, array.size());
 }
 
 void PSLib::PutSeite(const char* array, int length, bool hexEnc)
 {
-	QTextStream t(&Spool);
 	if(hexEnc)
 	{
 		int len = 0;
 		for (int i = 0; i < length; i++)
 		{
 			len++;
-			t << toHex(array[i]);
+			spoolStream << toHex(array[i]);
 			if ( len > 40 )
 			{
-				t << "\n";
+				spoolStream << "\n";
 				len = 0;
 			}
 		}
 	}
 	else
-		t.writeRawBytes(array, length);
+		spoolStream.writeRawBytes(array, length);
 }
 
 void PSLib::PutDoc(QString c)
 {
-	QTextStream t(&Spool);
-	t.writeRawBytes(c, c.length());
+	spoolStream.writeRawBytes(c, c.length());
 }
 
 void PSLib::PutDoc(QByteArray& array, bool hexEnc)
 {
-	QTextStream t(&Spool);
 	if(hexEnc)
 	{
 		int length = 0;
 		for (uint i = 0; i < array.size(); i++)
 		{
 			length++;
-			t << toHex(array[i]);
+			spoolStream << toHex(array[i]);
 			if ( length > 40 )
 			{
-				t << "\n";
+				spoolStream << "\n";
 				length = 0;
 			}
 		}
 	}
 	else
-		t.writeRawBytes(array, array.size());
+		spoolStream.writeRawBytes(array, array.size());
 }
 
 void PSLib::PutDoc(const char* array, int length, bool hexEnc)
 {
-	QTextStream t(&Spool);
 	if(hexEnc)
 	{
 		int len = 0;
 		for (int i = 0; i < length; i++)
 		{
 			len++;
-			t << toHex(array[i]);
+			spoolStream << toHex(array[i]);
 			if ( len > 40 )
 			{
-				t << "\n";
+				spoolStream << "\n";
 				len = 0;
 			}
 		}
 	}
 	else
-		t.writeRawBytes(array, length);
+		spoolStream.writeRawBytes(array, length);
 }
 
 QString PSLib::ToStr(double c)
@@ -357,11 +352,14 @@ void PSLib::PS_set_Info(QString art, QString was)
 bool PSLib::PS_set_file(QString fn)
 {
 	Spool.setName(fn);
-	return Spool.open(IO_WriteOnly);
+	bool ret = Spool.open(IO_WriteOnly);
+	spoolStream.setDevice(&Spool);
+	return ret;
 }
 
-void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool over)
+void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr, bool over)
 {
+	m_Doc = doc;
 	PutDoc(Header);
 	PutDoc("%%For: " + User + "\n");
 	PutDoc("%%Title: " + Titel + "\n");
@@ -398,6 +396,43 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 	{
 		PutDoc("true setoverprint\n");
 		PutDoc("true setoverprintmode\n");
+	}
+	QMap<QString, ScPattern>::Iterator itPat;
+	for (itPat = m_Doc->docPatterns.begin(); itPat != m_Doc->docPatterns.end(); ++itPat)
+	{
+		ScPattern pa = itPat.data();
+		for (uint em = 0; em < pa.items.count(); ++em)
+		{
+			PageItem* item = pa.items.at(em);
+			if ((item->asImageFrame()) && (item->PicAvail) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!sep) && (farb))
+				PS_ImageData(item, item->Pfile, item->itemName(), item->IProfile, item->UseEmbedded, ic);
+		}
+		PutDoc("/Pattern"+itPat.key()+" 8 dict def\n");
+		PutDoc("Pattern"+itPat.key()+" begin\n");
+		PutDoc("/PatternType 1 def\n");
+		PutDoc("/PaintType 1 def\n");
+		PutDoc("/TilingType 2 def\n");
+		PutDoc("/BBox [ 0 0 "+ToStr(pa.width)+" "+ToStr(-pa.height)+"] def\n");
+		PutDoc("/XStep "+ToStr(pa.width)+" def\n");
+		PutDoc("/YStep "+ToStr(pa.height)+" def\n");
+		PutDoc("/PaintProc {\n");
+		QIODevice *spStream = spoolStream.device();
+		QByteArray buf;
+		QBuffer b(buf);
+		b.open( IO_WriteOnly );
+		spoolStream.setDevice(&b);
+		for (uint em = 0; em < pa.items.count(); ++em)
+		{
+			PageItem* item = pa.items.at(em);
+			PS_save();
+			PS_translate(item->gXpos, -item->gYpos);
+			ProcessItem(m_Doc, m_Doc->Pages->at(0), item, 0, sep, farb, ic, gcr, false, true, true);
+			PS_restore();
+		}
+		spoolStream.setDevice(spStream);
+		PutDoc(buf);
+		PutDoc("} def\n");
+		PutDoc("end\n");
 	}
 	PutDoc("%%EndSetup\n");
 	Prolog = "";
@@ -1157,11 +1192,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		int pgNum = pageNs[0]-1;
 		gx -= Doc->Pages->at(pgNum)->xOffset();
 		gy -= Doc->Pages->at(pgNum)->yOffset();
-		PS_begin_doc(Doc->PageOri, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep, over);
+		PS_begin_doc(Doc, gx, Doc->pageHeight - (gy+gh), gx + gw, Doc->pageHeight - gy, 1*pagemult, false, sep, farb, Ic, gcr, over);
 	}
 	else
 	{
-		PS_begin_doc(Doc->PageOri, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep, over);
+		PS_begin_doc(Doc, 0.0, 0.0, Doc->pageWidth, Doc->pageHeight, pageNs.size()*pagemult, doDev, sep, farb, Ic, gcr, over);
 	}
 	uint ap=0;
 	for (; ap < Doc->MasterPages.count() && !abortExport; ++ap)
@@ -2176,6 +2211,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	double StartY = 0;
 	double EndX = 0;
 	double EndY =0;
+	ScPattern *pat;
 	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
@@ -2223,6 +2259,15 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			StartY = c->GrStartY;
 			EndX = c->GrEndX;
 			EndY = c->GrEndY;
+			break;
+		case 8:
+			pat = &m_Doc->docPatterns[c->pattern()];
+			PutSeite("Pattern"+c->pattern()+" ["+ToStr(pat->scaleX)+" 0 0 "+ToStr(pat->scaleY)+" "+ToStr(pat->offsetX)+" "+ToStr(pat->offsetY)+"] makepattern setpattern\n");
+			if (fillRule)
+				PutSeite("eofill\n");
+			else
+				PutSeite("fill\n");
+			return;
 			break;
 	}
 	QValueList<double> StopVec;

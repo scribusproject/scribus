@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcstring.h>
 #include <qpen.h>
 #include <qfile.h>
+#include <qtextstream.h>
 #include <vector>
 #include <utility>
 class ScribusDoc;
@@ -54,7 +55,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual ~PSLib() {};
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
-		virtual void PS_begin_doc(int Ori, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool over = false);
+		virtual void PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, double hoehe, int numpage, bool doDev, bool sep, bool farb, bool ic, bool gcr, bool over = false);
 		virtual void PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping);
 		virtual void PS_end_page();
 		virtual void PS_curve(double x1, double y1, double x2, double y2, double x3, double y3);
@@ -141,6 +142,7 @@ class SCRIBUS_API PSLib : public QObject
 		QMap<QString, GListe> GlyphsOfFont;
 		bool isPDF;
 		QFile Spool;
+		QTextStream spoolStream;
 		bool CompAvail;
 		int Plate;
 		bool DoSep;
@@ -150,6 +152,7 @@ class SCRIBUS_API PSLib : public QObject
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;
+		ScribusDoc *m_Doc;
 		QMap<QString, QString> spotMap;
 		MultiProgressDialog* progressDialog;
 		bool usingGUI;
