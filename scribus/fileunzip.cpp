@@ -80,10 +80,16 @@ QString FileUnzip::getFile(QString name)
 	if (!fi.isWritable())
 		outDir = ScPaths::getApplicationDataDir();
 	QDir::setCurrent(outDir);
-	const char *zipfilename = zipFile.ascii();
-	const char *filename_to_extract = name.ascii();
-	unzFile uf = unzOpen(zipfilename);;
-	int ret = do_extract_onefile(uf,filename_to_extract, 0, 1, NULL);
+	const QCString zipfilename(zipFile.local8Bit());
+	// NOTE that the ODF specification does not specify what text
+	// encoding strings in a zip file must have. Given this, we're
+	// forced to just guess. I've chosen to use the local 8 bit
+	// encoding, but it's possible that latin-1 is more compatible
+	// depending on the behaviour of the various ODF supporting
+	// apps. --CR
+	const QCString filename_to_extract(name.local8Bit());
+	unzFile uf = unzOpen(zipfilename.data());;
+	int ret = do_extract_onefile(uf,filename_to_extract.data(), 0, 1, NULL);
 	unzCloseCurrentFile(uf);
 	QDir::setCurrent(pwd);
 	if (ret != 0)
