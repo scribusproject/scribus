@@ -190,6 +190,7 @@ public:
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
 	void ToView(QPainter *p);
+	void ToView(QWMatrix& m);
 	//void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	//void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
@@ -226,6 +227,7 @@ public:
 	//void updateGradientVectors(PageItem *currItem);
 	//void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);
+	void Transform(PageItem *currItem, QWMatrix& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();
 	void SetFrameRounded();
@@ -272,6 +274,7 @@ public slots: // Public slots
 	//void TogglePic();
 	//void UpdatePic();
 	void RefreshItem(PageItem *currItem);
+	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */
