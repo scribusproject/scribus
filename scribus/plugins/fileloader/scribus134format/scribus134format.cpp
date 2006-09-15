@@ -1093,6 +1093,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				ScPattern pat;
 				QDomNode pa = PAGE.firstChild();
 				uint ac = m_Doc->Items->count();
+				bool savedAlignGrid = m_Doc->useRaster;
+				bool savedAlignGuides = m_Doc->SnapGuides;
+				m_Doc->useRaster = false;
+				m_Doc->SnapGuides = false;
 				while(!pa.isNull())
 				{
 					QDomElement pite = pa.toElement();
@@ -1188,6 +1192,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					}
 					pa = pa.nextSibling();
 				}
+				m_Doc->useRaster = savedAlignGrid;
+				m_Doc->SnapGuides = savedAlignGuides;
 				uint ae = m_Doc->Items->count();
 				pat.setDoc(m_Doc);
 				PageItem* currItem = m_Doc->Items->at(ac);
@@ -2981,6 +2987,131 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				bok.Next = pg.attribute("Next").toInt();
 				bok.Parent = pg.attribute("Parent").toInt();
 				m_Doc->BookMarks.append(bok);
+			}
+			if(pg.tagName()=="Pattern")
+			{
+				ScPattern pat;
+				QDomNode pa = PAGE.firstChild();
+				uint ac = m_Doc->Items->count();
+				bool savedAlignGrid = m_Doc->useRaster;
+				bool savedAlignGuides = m_Doc->SnapGuides;
+				m_Doc->useRaster = false;
+				m_Doc->SnapGuides = false;
+				while(!pa.isNull())
+				{
+					QDomElement pite = pa.toElement();
+					m_Doc->setMasterPageMode(false);
+					if ((pite.attribute("NEXTITEM").toInt() != -1) || (static_cast<bool>(pite.attribute("AUTOTEXT").toInt())))
+					{
+						if (pite.attribute("BACKITEM").toInt() == -1)
+							LFrames.append(m_Doc->Items->count());
+					}
+					int docGc = m_Doc->GroupCounter;
+					m_Doc->GroupCounter = 0;
+					Neu = PasteItem(&pite, m_Doc);
+					Neu->setRedrawBounding();
+					Neu->OwnPage = pite.attribute("OwnPage").toInt();
+					Neu->OnMasterPage = "";
+					m_Doc->GroupCounter = docGc;
+					tmpf = pite.attribute("IFONT", m_Doc->toolSettings.defFont);
+					if ((!m_AvailableFonts->contains(tmpf)) || (!(*m_AvailableFonts)[tmpf].usable()))
+					{
+						if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!(*m_AvailableFonts)[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+						{
+							newReplacement = true;
+							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
+						}
+						else
+							ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+					}
+					else
+					{
+						if (!m_Doc->UsedFonts.contains(tmpf))
+							m_Doc->AddFont(tmpf, qRound(m_Doc->toolSettings.defSize / 10.0));
+					}
+					QDomNode IT=pite.firstChild();
+					LastStyles * last = new LastStyles();
+					while(!IT.isNull())
+					{
+						QDomElement it=IT.toElement();
+						if (it.tagName()=="CSTOP")
+						{
+							QString name = it.attribute("NAME");
+							double ramp = it.attribute("RAMP", "0.0").toDouble();
+							int shade = it.attribute("SHADE", "100").toInt();
+							double opa = it.attribute("TRANS", "1").toDouble();
+							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
+						}
+						if (it.tagName()=="ITEXT")
+							GetItemText(&it, m_Doc, Neu, last);
+						if(it.tagName()=="PageItemAttributes")
+						{
+							QDomNode PIA = it.firstChild();
+							ObjAttrVector pageItemAttributes;
+							while(!PIA.isNull())
+							{
+								QDomElement itemAttr = PIA.toElement();
+								if(itemAttr.tagName() == "ItemAttribute")
+								{
+									ObjectAttribute objattr;
+									objattr.name=itemAttr.attribute("Name");
+									objattr.type=itemAttr.attribute("Type");
+									objattr.value=itemAttr.attribute("Value");
+									objattr.parameter=itemAttr.attribute("Parameter");
+									objattr.relationship=itemAttr.attribute("Relationship");
+									objattr.relationshipto=itemAttr.attribute("RelationshipTo");
+									objattr.autoaddto=itemAttr.attribute("AutoAddTo");
+									pageItemAttributes.append(objattr);
+								}
+								PIA = PIA.nextSibling();
+							}
+							Neu->setObjectAttributes(&pageItemAttributes);
+						}
+						IT=IT.nextSibling();
+					}
+					delete last;
+					if (Neu->fill_gradient.Stops() == 0)
+					{
+						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+					}
+					Neu->isAutoText = static_cast<bool>(pite.attribute("AUTOTEXT").toInt());
+					Neu->isEmbedded = static_cast<bool>(pite.attribute("isInline", "0").toInt());
+					Neu->gXpos = pite.attribute("gXpos", "0.0").toDouble();
+					Neu->gYpos = pite.attribute("gYpos", "0.0").toDouble();
+					QString defaultVal;
+					defaultVal.setNum(Neu->width());
+					Neu->gWidth = pite.attribute("gWidth",defaultVal).toDouble();
+					defaultVal.setNum(Neu->height());
+					Neu->gHeight = pite.attribute("gHeight",defaultVal).toDouble();
+					Neu->NextIt = pite.attribute("NEXTITEM").toInt();
+					if (Neu->isTableItem)
+					{
+						TableItems.append(Neu);
+						TableID.insert(pite.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+					}
+					pa = pa.nextSibling();
+				}
+				m_Doc->useRaster = savedAlignGrid;
+				m_Doc->SnapGuides = savedAlignGuides;
+				uint ae = m_Doc->Items->count();
+				pat.setDoc(m_Doc);
+				PageItem* currItem = m_Doc->Items->at(ac);
+				pat.pattern = currItem->DrawObj_toImage();
+				for (uint as = ac; as < ae; ++as)
+				{
+					Neu = m_Doc->Items->take(ac);
+					Neu->ItemNr = pat.items.count();
+					pat.items.append(Neu);
+				}
+				pat.offsetX = pg.attribute("offsetX", "0").toDouble();
+				pat.offsetY = pg.attribute("offsetY", "0").toDouble();
+				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
+				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
+				pat.rotation = pg.attribute("rotation", "0").toDouble();
+				pat.width = pg.attribute("width", "0").toDouble();
+				pat.height = pg.attribute("height", "0").toDouble();
+				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
 			PAGE=PAGE.nextSibling();
 		}
