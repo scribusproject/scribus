@@ -4494,7 +4494,7 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	//TODO: CB clean
 	ScribusView* view = m_Doc->view();
 	double scp1 = 1 ;// / ScMW->view->scale();
-	double ofwh = 10 * scp1;
+	double ofwh = 8 * scp1;
 	//CB moved down while locked marker disabled
 	//double ofx = Width - ofwh/2;
 	//double ofy = Height - ofwh*3.0;
