@@ -93,10 +93,12 @@ void ScImgDataLoader_PDF::preloadAlphaChannel(const QString& fn, int gsRes)
 	xres = gsRes;
 	yres = gsRes;
 	args.append("-r"+QString::number(gsRes));
-	args.append("-sOutputFile=\""+tmpFile + "\"");
+//	args.append("-sOutputFile=\""+tmpFile + "\"");
+	args.append("-sOutputFile="+tmpFile);
 	args.append("-dFirstPage=1");
 	args.append("-dLastPage=1");
-	args.append("\""+picFile+"\"");
+//	args.append("\""+picFile+"\"");
+	args.append(picFile);
 	int retg = callGS(args);
 	if (retg == 0)
 	{
