@@ -4016,7 +4016,7 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
 			TransVec.append(cstops.at(cst)->opacity);
 			StopVec.append(x);
-			StopVec.append(-y);
+			StopVec.append(y);
 			Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
 		}
 	}
