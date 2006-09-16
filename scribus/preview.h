@@ -158,5 +158,8 @@ protected:
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout6;
 	PrefsManager *prefsManager;
+	
+	void getUserSelection();
+	void imageLoadError(QPixmap &);
 };
 #endif // QUERY_H
