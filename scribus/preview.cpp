@@ -669,6 +669,12 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				Bild.resize(1,1);
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				APage = Seite;
+				CMode = EnableCMYK->isChecked();
+				GsAl = AntiAlias->isChecked();
+				Trans = AliasTr->isChecked();
+				GMode = EnableGCR->isChecked();
+				SMode = scaleBox->currentItem();
+				OMode = EnableOverprint->isChecked();
 				return Bild;
 			}
 		}
@@ -678,6 +684,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	{
 		int cyan, magenta, yellow, black, alpha;
 		uint *p;
+		bool loaderror;
 		if (HaveTiffSep == 0)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
@@ -685,6 +692,19 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	       	 || (EnableOverprint->isChecked() != OMode)  && (!EnableCMYK->isChecked())))
 			{
 				ret = RenderPreviewSep(Seite, Res);
+				if (ret != 0)
+				{
+					Bild.resize(1,1);
+					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					APage = Seite;
+					CMode = EnableCMYK->isChecked();
+					GsAl = AntiAlias->isChecked();
+					Trans = AliasTr->isChecked();
+					GMode = EnableGCR->isChecked();
+					SMode = scaleBox->currentItem();
+					OMode = EnableOverprint->isChecked();
+					return Bild;
+				}
 			}
 			ScImage im;
 			bool mode;
@@ -705,25 +725,64 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			if (flagsVisible["Cyan"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+				if (!loaderror)
+				{
+					Bild.resize(1,1);
+					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					APage = Seite;
+					CMode = EnableCMYK->isChecked();
+					GsAl = AntiAlias->isChecked();
+					Trans = AliasTr->isChecked();
+					GMode = EnableGCR->isChecked();
+					SMode = scaleBox->currentItem();
+					OMode = EnableOverprint->isChecked();
+					return Bild;
+				}
 				blendImages(image, im, ScColor(255, 0, 0, 0));
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+				if (!loaderror)
+				{
+					Bild.resize(1,1);
+					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					APage = Seite;
+					CMode = EnableCMYK->isChecked();
+					GsAl = AntiAlias->isChecked();
+					Trans = AliasTr->isChecked();
+					GMode = EnableGCR->isChecked();
+					SMode = scaleBox->currentItem();
+					OMode = EnableOverprint->isChecked();
+					return Bild;
+				}
 				blendImages(image, im, ScColor(0, 255, 0, 0));
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
 				if (GsMinor < 54)
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+				if (!loaderror)
+				{
+					Bild.resize(1,1);
+					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					APage = Seite;
+					CMode = EnableCMYK->isChecked();
+					GsAl = AntiAlias->isChecked();
+					Trans = AliasTr->isChecked();
+					GMode = EnableGCR->isChecked();
+					SMode = scaleBox->currentItem();
+					OMode = EnableOverprint->isChecked();
+					return Bild;
+				}
 				blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
 			QMap<QString, int>::Iterator sepit;
@@ -736,7 +795,19 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						fnam = QString(ScPaths::getTempFileDir()+"/sc.tif.s%1.tif").arg(sepit.data());
 					else
 						fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.data());
-					im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode);
+					if (!im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode))
+					{
+						Bild.resize(1,1);
+						qApp->setOverrideCursor(QCursor(arrowCursor), true);
+						APage = Seite;
+						CMode = EnableCMYK->isChecked();
+						GsAl = AntiAlias->isChecked();
+						Trans = AliasTr->isChecked();
+						GMode = EnableGCR->isChecked();
+						SMode = scaleBox->currentItem();
+						OMode = EnableOverprint->isChecked();
+						return Bild;
+					}
 					blendImages(image, im, doc->PageColors[sepit.key()]);
 				}
 			}
@@ -744,9 +815,22 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				CMSettings cms(doc, "", 0);
 				if (GsMinor < 54)
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.tif.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				else
-					im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
+				if (!loaderror)
+				{
+					Bild.resize(1,1);
+					qApp->setOverrideCursor(QCursor(arrowCursor), true);
+					APage = Seite;
+					CMode = EnableCMYK->isChecked();
+					GsAl = AntiAlias->isChecked();
+					Trans = AliasTr->isChecked();
+					GMode = EnableGCR->isChecked();
+					SMode = scaleBox->currentItem();
+					OMode = EnableOverprint->isChecked();
+					return Bild;
+				}
 				blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
 			for( int yi=0; yi < h2; ++yi )
@@ -807,11 +891,36 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				}
 				f.close();
 			}
+			else
+			{
+				Bild.resize(1,1);
+				qApp->setOverrideCursor(QCursor(arrowCursor), true);
+				APage = Seite;
+				CMode = EnableCMYK->isChecked();
+				GsAl = AntiAlias->isChecked();
+				Trans = AliasTr->isChecked();
+				GMode = EnableGCR->isChecked();
+				SMode = scaleBox->currentItem();
+				OMode = EnableOverprint->isChecked();
+				return Bild;
+			}
 		}
 	}
 	else
 	{
-		image.load(ScPaths::getTempFileDir()+"/sc.png");
+		if (!image.load(ScPaths::getTempFileDir()+"/sc.png"))
+		{
+			Bild.resize(1,1);
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			APage = Seite;
+			CMode = EnableCMYK->isChecked();
+			GsAl = AntiAlias->isChecked();
+			Trans = AliasTr->isChecked();
+			GMode = EnableGCR->isChecked();
+			SMode = scaleBox->currentItem();
+			OMode = EnableOverprint->isChecked();
+			return Bild;
+		}
 		image = image.convertDepth(32);
 		if ((AliasTr->isChecked()) && (HavePngAlpha == 0))
 		{
