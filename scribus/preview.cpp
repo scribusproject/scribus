@@ -666,7 +666,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			ret = RenderPreview(Seite, Res);
 			if (ret != 0)
 			{
-				imageLoadError(Bild);
+				imageLoadError(Bild, Seite);
 				return Bild;
 			}
 		}
@@ -686,7 +686,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				ret = RenderPreviewSep(Seite, Res);
 				if (ret != 0)
 				{
-					imageLoadError(Bild);
+					imageLoadError(Bild, Seite);
 					return Bild;
 				}
 			}
@@ -714,7 +714,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Cyan.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild);
+					imageLoadError(Bild, Seite);
 					return Bild;
 				}
 				blendImages(image, im, ScColor(255, 0, 0, 0));
@@ -727,7 +727,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Magenta.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild);
+					imageLoadError(Bild, Seite);
 					return Bild;
 				}
 				blendImages(image, im, ScColor(0, 255, 0, 0));
@@ -740,7 +740,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Yellow.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild);
+					imageLoadError(Bild, Seite);
 					return Bild;
 				}
 				blendImages(image, im, ScColor(0, 0, 255, 0));
@@ -757,7 +757,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 						fnam = QString(ScPaths::getTempFileDir()+"/sc.s%1.tif").arg(sepit.data());
 					if (!im.LoadPicture(fnam, cms, false, false, ScImage::RGBData, 72, &mode))
 					{
-						imageLoadError(Bild);
+						imageLoadError(Bild, Seite);
 						return Bild;
 					}
 					blendImages(image, im, doc->PageColors[sepit.key()]);
@@ -772,7 +772,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 					loaderror = im.LoadPicture(ScPaths::getTempFileDir()+"/sc.Black.tif", cms, false, false, ScImage::RGBData, 72, &mode);
 				if (!loaderror)
 				{
-					imageLoadError(Bild);
+					imageLoadError(Bild, Seite);
 					return Bild;
 				}
 				blendImages(image, im, ScColor(0, 0, 0, 255));
@@ -837,7 +837,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			else
 			{
-				imageLoadError(Bild);
+				imageLoadError(Bild, Seite);
 				return Bild;
 			}
 		}
@@ -846,7 +846,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	{
 		if (!image.load(ScPaths::getTempFileDir()+"/sc.png"))
 		{
-			imageLoadError(Bild);
+			imageLoadError(Bild, Seite);
 			return Bild;
 		}
 		image = image.convertDepth(32);
@@ -880,7 +880,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	else
 		Bild.convertFromImage(image);
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	getUserSelection();
+	getUserSelection(Seite);
 	return Bild;
 }
 
@@ -902,9 +902,9 @@ bool PPreview::usePostscriptPreview(QString printerName)
 
 //-------------------------------------------------------------------------------------------------
 
-void PPreview::getUserSelection()
+void PPreview::getUserSelection(int page)
 {
-	APage = Seite;
+	APage = page;
 	CMode = EnableCMYK->isChecked();
 	GsAl = AntiAlias->isChecked();
 	Trans = AliasTr->isChecked();
@@ -913,9 +913,9 @@ void PPreview::getUserSelection()
 	OMode = EnableOverprint->isChecked();
 }
 
-void PPreview::imageLoadError(QPixmap &Bild)
+void PPreview::imageLoadError(QPixmap &Bild, int page)
 {
 	Bild.resize(1,1);
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
-	getUserSelection();
+	getUserSelection(page);
 }

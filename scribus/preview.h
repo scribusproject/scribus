@@ -159,7 +159,7 @@ protected:
 	QHBoxLayout* Layout6;
 	PrefsManager *prefsManager;
 	
-	void getUserSelection();
-	void imageLoadError(QPixmap &);
+	void getUserSelection(int);
+	void imageLoadError(QPixmap &, int);
 };
 #endif // QUERY_H
