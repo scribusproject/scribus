@@ -121,11 +121,10 @@ for which a new license (GPL+exception) is in place.
 #include "tocindexprefs.h"
 #include "tocgenerator.h"
 #include "collect4output.h"
-#include "fpoint.h"docPatterns
+#include "fpoint.h"
 #include "fpointarray.h"
 #include "hysettings.h"
 #include "guidemanager.h"
-#include "keymanager.h"
 #include "mergedoc.h"
 #include "lineformats.h"
 #include "story.h"
