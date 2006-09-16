@@ -411,7 +411,7 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc("Pattern"+itPat.key()+" begin\n");
 		PutDoc("/PatternType 1 def\n");
 		PutDoc("/PaintType 1 def\n");
-		PutDoc("/TilingType 2 def\n");
+		PutDoc("/TilingType 1 def\n");
 		PutDoc("/BBox [ 0 0 "+ToStr(pa.width)+" "+ToStr(-pa.height)+"] def\n");
 		PutDoc("/XStep "+ToStr(pa.width)+" def\n");
 		PutDoc("/YStep "+ToStr(pa.height)+" def\n");

@@ -1745,6 +1745,16 @@ void PDFlib::PDF_End_Page()
 			PutDoc(QString::number(Seite.AObjects[b])+" 0 R ");
 		PutDoc("]\n");
 	}
+	if (Patterns.count() != 0)
+	{
+		PutDoc("/Resources\n<< /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+		PutDoc("/Pattern << \n");
+		QMap<QString,int>::Iterator it3p;
+		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
+		PutDoc(">>\n>>\n");
+		Patterns.clear();
+	}
 	if (Options.PresentMode)
 	{
 		if (Options.PresentVals[PgNr].pageViewDuration > 0)
@@ -3856,13 +3866,12 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		PutDoc("<< /Type /Pattern\n");
 		PutDoc("/PatternType 1\n");
 		PutDoc("/PaintType 1\n");
-		PutDoc("/TilingType 2\n");
+		PutDoc("/TilingType 1\n");
 		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(-pat->height)+" ]\n");
-		double xdivi = (currItem->xPos() - ActPageP->xOffset()) / static_cast<double>(pat->width);
-		double xoffs = (xdivi - floor(xdivi)) * pat->width;
-		double ydivi = (ActPageP->height() - (currItem->yPos() - ActPageP->yOffset())) / static_cast<double>(pat->height);
-		double yoffs = (ydivi - floor(ydivi)) * pat->height;
-		PutDoc("/Matrix ["+FToStr(pat->scaleX)+" 0 0 "+FToStr(pat->scaleY)+" "+FToStr(xoffs)+" "+FToStr(yoffs)+"]\n");
+		QWMatrix mpa;
+		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
+		mpa.rotate(-currItem->rotation());
+		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(currItem->xPos() - ActPageP->xOffset())+" "+FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()))+"]\n");
 		PutDoc("/XStep "+FToStr(pat->width)+"\n");
 		PutDoc("/YStep "+FToStr(pat->height)+"\n");
 		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
@@ -5372,14 +5381,14 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
 		PutDoc(">>\n");
 	}
-	if (Patterns.count() != 0)
+/*	if (Patterns.count() != 0)
 	{
 		PutDoc("/Pattern << \n");
 		QMap<QString,int>::Iterator it3p;
 		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
 			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
 		PutDoc(">>\n");
-	}
+	} */
 	if (Transpar.count() != 0)
 	{
 		PutDoc("/ExtGState << \n");
