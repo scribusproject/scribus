@@ -3001,7 +3001,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 			newItem->setLineShade(toolSettings.dTextLineShade);
 			break;
 		case PageItem::Line:
-			newItem->PLineArt = PenStyle(toolSettings.dLstyleLine);
+			newItem->PLineArt = Qt::PenStyle(toolSettings.dLstyleLine);
 			newItem->setLineShade(toolSettings.dShadeLine);
 			break;
 		case PageItem::Polygon:
@@ -3042,7 +3042,7 @@ void ScribusDoc::itemAddDetails(const PageItem::ItemType itemType, const PageIte
 	//ItemType Polygon
 	if (itemType==PageItem::Polygon || itemType==PageItem::PolyLine)
 	{
-		newItem->PLineArt = PenStyle(toolSettings.dLineArt);
+		newItem->PLineArt = Qt::PenStyle(toolSettings.dLineArt);
 		newItem->setFillShade(toolSettings.dShade);
 		newItem->setLineShade(toolSettings.dShade2);
 	}
@@ -4238,7 +4238,7 @@ void ScribusDoc::ChLineWidth(double w)
 	}
 }
 
-void ScribusDoc::ChLineArt(PenStyle w)
+void ScribusDoc::ChLineArt(Qt::PenStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4256,7 +4256,7 @@ void ScribusDoc::ChLineArt(PenStyle w)
 	}
 }
 
-void ScribusDoc::ChLineJoin(PenJoinStyle w)
+void ScribusDoc::ChLineJoin(Qt::PenJoinStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4274,7 +4274,7 @@ void ScribusDoc::ChLineJoin(PenJoinStyle w)
 	}
 }
 
-void ScribusDoc::ChLineEnd(PenCapStyle w)
+void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)

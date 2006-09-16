@@ -260,27 +260,6 @@ void MultiLine::RebuildList()
 		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
 		tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>((*it).Dash));
-/*		switch (static_cast<PenStyle>((*it).Dash))
-		{
-		case SolidLine:
-			tmp2 += tr("Solid Line");
-			break;
-		case DashLine:
-			tmp2 += tr("Dashed Line");
-			break;
-		case DotLine:
-			tmp2 += tr("Dotted Line");
-			break;
-		case DashDotLine:
-			tmp2 += tr("Dash Dot Line");
-			break;
-		case DashDotDotLine:
-			tmp2 += tr("Dash Dot Dot Line");
-			break;
-		default:
-			tmp2 += tr("Solid Line");
-			break;
-		}*/
 		tmp2 += " ";
 		Styles->insertItem(*pm2, tmp2);
 	}

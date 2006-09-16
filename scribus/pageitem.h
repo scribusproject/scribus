@@ -102,12 +102,12 @@ class SCRIBUS_API PageItem : public QObject, public UndoObject
 	// FIXME: QMetaProperty can't translate these to/from enumerator names, probably because the
 	// properties aren't moc'd in the Qt sources. They work fine in their
 	// current state as plain integer properties.
-	Q_ENUMS(PenStyle)
-	Q_PROPERTY(PenStyle lineStyle READ lineStyle WRITE setLineStyle DESIGNABLE false)
-	Q_ENUMS(PenCapStyle)
-	Q_PROPERTY(PenCapStyle lineEnd READ lineEnd WRITE setLineEnd DESIGNABLE false)
-	Q_ENUMS(PenJoinStyle)
-	Q_PROPERTY(PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
+//  	Q_ENUMS(PenStyle)
+// 	Q_PROPERTY(PenStyle lineStyle READ lineStyle WRITE setLineStyle DESIGNABLE false)
+// 	Q_ENUMS(PenCapStyle)
+// 	Q_PROPERTY(PenCapStyle lineEnd READ lineEnd WRITE setLineEnd DESIGNABLE false)
+// 	Q_ENUMS(PenJoinStyle)
+// 	Q_PROPERTY(PenJoinStyle lineJoin READ lineJoin WRITE setLineJoin DESIGNABLE false)
 
 	// This property may not hang around for too long, but should be useful
 	// when testing out the pageitem refactoring work.  Setting it is unlikely
@@ -300,9 +300,9 @@ public:
 	double gridValue_;
 
 	/** Linestyle */
-	PenStyle PLineArt;
-	PenCapStyle PLineEnd;
-	PenJoinStyle PLineJoin;
+	Qt::PenStyle PLineArt;
+	Qt::PenCapStyle PLineEnd;
+	Qt::PenJoinStyle PLineJoin;
 	QString NamedLStyle;
   /** Defines clipping region of the elements; */
 	QPointArray Clip;
@@ -578,13 +578,13 @@ public:
 	void setFillQColor();
 
 	/** @brief Get the style of line */
-	PenStyle lineStyle() const { return PLineArt; }
+	Qt::PenStyle lineStyle() const { return PLineArt; }
 	/**
 	 * @brief Set the style of line.
 	 * @param newStyle style of line
 	 * @sa Qt::PenStyle
 	 */
-	void setLineStyle(PenStyle newStyle);
+	void setLineStyle(Qt::PenStyle newStyle);
 
 	/** @brief Get the width of the line */
 	double lineWidth() const { return m_lineWidth; }
@@ -595,22 +595,22 @@ public:
 	void setLineWidth(double newWidth);
 
 	/** @brief Get the end cap style of the line */
-	PenCapStyle lineEnd() const { return PLineEnd; }
+	Qt::PenCapStyle lineEnd() const { return PLineEnd; }
 	/**
 	 * @brief Set the end style of line
 	 * @param newStyle end style of line
 	 * @sa Qt::PenCapStyle
 	 */
-	void setLineEnd(PenCapStyle newStyle);
+	void setLineEnd(Qt::PenCapStyle newStyle);
 
 	/** @brief Get the join style of multi-segment lines */
-	PenJoinStyle lineJoin() const { return PLineJoin; }
+	Qt::PenJoinStyle lineJoin() const { return PLineJoin; }
 	/**
 	 * @brief Set the join style of line
 	 * @param newStyle join style of line
 	 * @sa Qt::PenJoinStyle
 	 */
-	void setLineJoin(PenJoinStyle newStyle);
+	void setLineJoin(Qt::PenJoinStyle newStyle);
 
 	/** @brief Get name of active custom line style */
 	QString customLineStyle() const { return NamedLStyle; }

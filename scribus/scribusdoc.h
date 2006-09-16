@@ -664,9 +664,9 @@ public:
 	void itemSelection_ApplyTextStyle(const CharStyle & newstyle);
 
 	void ChLineWidth(double w);
-	void ChLineArt(PenStyle w);
-	void ChLineJoin(PenJoinStyle w);
-	void ChLineEnd(PenCapStyle w);
+	void ChLineArt(Qt::PenStyle w);
+	void ChLineJoin(Qt::PenJoinStyle w);
+	void ChLineEnd(Qt::PenCapStyle w);
 	void ChLineSpa(double w);
 	void ChLineSpaMode(int w);
 	//void ChLocalXY(double x, double y);
