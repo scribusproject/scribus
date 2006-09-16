@@ -259,7 +259,8 @@ void MultiLine::RebuildList()
 	{
 		pm2 = getWidePixmap(calcFarbe((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		switch (static_cast<PenStyle>((*it).Dash))
+		tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>((*it).Dash));
+/*		switch (static_cast<PenStyle>((*it).Dash))
 		{
 		case SolidLine:
 			tmp2 += tr("Solid Line");
@@ -279,7 +280,7 @@ void MultiLine::RebuildList()
 		default:
 			tmp2 += tr("Solid Line");
 			break;
-		}
+		}*/
 		tmp2 += " ";
 		Styles->insertItem(*pm2, tmp2);
 	}

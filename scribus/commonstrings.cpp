@@ -57,6 +57,13 @@ QString CommonStrings::trPageLocMiddleLeft  = "";
 QString CommonStrings::trPageLocMiddleRight = "";
 QString CommonStrings::trPageLocRight       = "";
 
+QString CommonStrings::trPenStyle_SolidLine      = "";
+QString CommonStrings::trPenStyle_DashedLine     = "";
+QString CommonStrings::trPenStyle_DottedLine     = "";
+QString CommonStrings::trPenStyle_DashDotLine    = "";
+QString CommonStrings::trPenStyle_DashDotDotLine = "";
+
+
 QString CommonStrings::monday="", CommonStrings::tuesday="", CommonStrings::wednesday="";
 QString CommonStrings::thursday="", CommonStrings::friday="", CommonStrings::saturday="", CommonStrings::sunday="";
 QString CommonStrings::january="", CommonStrings::february="", CommonStrings::march="";
@@ -168,6 +175,12 @@ void CommonStrings::languageChange()
 	CommonStrings::trPageLocMiddleRight = tr( "Middle Right" );
 	CommonStrings::trPageLocRight       = tr( "Right Page" );
 	
+	CommonStrings::trPenStyle_SolidLine      = "Solid Line";
+	CommonStrings::trPenStyle_DashedLine     = "Dashed Line";
+	CommonStrings::trPenStyle_DottedLine     = "Dotted Line";
+	CommonStrings::trPenStyle_DashDotLine    = "Dash Dot Line";
+	CommonStrings::trPenStyle_DashDotDotLine = "Dash Dot Dot Line";
+	
 	CommonStrings::monday    = tr("Monday");
 	CommonStrings::tuesday   = tr("Tuesday");
 	CommonStrings::wednesday = tr("Wednesday");
@@ -187,5 +200,20 @@ void CommonStrings::languageChange()
 	CommonStrings::october   = tr("October");
 	CommonStrings::november  = tr("November");
 	CommonStrings::december  = tr("December");
+}
+
+const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
+{
+	if (ps == Qt::DashLine)
+		return trPenStyle_DashedLine;
+	if (ps == Qt::DotLine)
+		return trPenStyle_DottedLine;
+	if (ps == Qt::DashDotLine)
+		return trPenStyle_DashDotLine;
+	if (ps == Qt::DashDotDotLine)
+		return trPenStyle_DashDotDotLine;
+	//Return SolidLine as default or if SolidLine
+	//if (ps == Qt::SolidLine)
+	return trPenStyle_SolidLine;
 }
 

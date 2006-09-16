@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "mspinbox.h"
 #include "colorm.h"
 #include "colorutil.h"
+#include "commonstrings.h"
 #include "selection.h"
 #include "scribusview.h"
 #include "scribus.h"
@@ -137,7 +138,8 @@ void LineStyleWidget::updateLineList()
 	{
 		pm2 = getWidePixmap(getColor((*it).Color, (*it).Shade));
 		tmp2 = " "+tmp.setNum((*it).Width)+ tr(" pt")+" ";
-		switch (static_cast<PenStyle>((*it).Dash))
+		tmp2 += CommonStrings::translatePenStyleName(static_cast<PenStyle>((*it).Dash));
+/*		switch (static_cast<PenStyle>((*it).Dash))
 		{
 		case SolidLine:
 			tmp2 += tr("Solid Line");
@@ -157,7 +159,7 @@ void LineStyleWidget::updateLineList()
 		default:
 			tmp2 += tr("Solid Line");
 			break;
-		}
+		}*/
 		tmp2 += " ";
 		lineStyles->insertItem(*pm2, tmp2);
 	}

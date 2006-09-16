@@ -72,6 +72,12 @@ public:
 	 * @return "untranslated" string
 	 */
 	static const QString& untranslatePageSetLocString(const QString &trString);
+	/**
+	 * \brief Return the untranslated Page Set Location string if given the translated one
+	 * @param trString translated string
+	 * @return "untranslated" string
+	 */
+	static const QString& translatePenStyleName(Qt::PenStyle ps);
 	static void languageChange();
 	static QString _Apply;
 	static QString tr_Apply;
@@ -109,6 +115,13 @@ public:
 	static QString trPageLocMiddleLeft;
 	static QString trPageLocMiddleRight;
 	static QString trPageLocRight;
+	
+	//Pen Styles
+	static QString trPenStyle_SolidLine;
+	static QString trPenStyle_DashedLine;
+	static QString trPenStyle_DottedLine;
+	static QString trPenStyle_DashDotLine;
+	static QString trPenStyle_DashDotDotLine;
 	
 	//Days and Months
 	static QString monday; 
