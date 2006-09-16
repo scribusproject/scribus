@@ -108,7 +108,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	OldName = item->itemName();
 
 	TextLabel30 = new QLabel( GroupBox10, "TextLabel3" );
-	TextLabel30->setText( tr( "Tool-Tip:" ) );
+	TextLabel30->setText( tr( "Tooltip:" ) );
 	Layout60->addWidget( TextLabel30, 1, 0);
 	GroupBox10Layout->addLayout( Layout60 );
 
@@ -216,7 +216,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 	Required->setChecked(item->annotation().Flag() & 2);
 	GroupBox30Layout->addMultiCellWidget( Required, 1, 1, 0, 1 );
 	NoExport = new QCheckBox( GroupBox30, "NoExport" );
-	NoExport->setText( tr( "Don't Export Value" ) );
+	NoExport->setText( tr( "Do Not Export Value" ) );
 	if (item->annotation().Type() == 2)
 		NoExport->setEnabled(false);
 	NoExport->setChecked(item->annotation().Flag() & 4);
