@@ -33,7 +33,7 @@ public:
 	InsertAFrame(QWidget* parent, ScribusDoc *doc);
 	~InsertAFrame(){};
 	
-	void getNewFrameProperties(PageItem::ItemType& frameType, int& locationType, int& positionType, int& sizeType, double& x, double& y, double& width, double& height, QString &source, ImportSetup& impsetup, int & columnCount, double & columnGap);
+	void getNewFrameProperties(PageItem::ItemType& frameType, int& locationType, QString & pageList, int& positionType, int& sizeType, double& x, double& y, double& width, double& height, QString &source, ImportSetup& impsetup, int & columnCount, double & columnGap);
 protected:
 	ScribusDoc* m_Doc;
 	ImportSetup m_ImportSetup;

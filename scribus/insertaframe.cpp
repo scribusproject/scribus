@@ -68,6 +68,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 
 void InsertAFrame::slotSelectType( int id )
 {
+	checkBoxLinkCreatedTextFrames->setEnabled(id==0);
 	switch (id)
 	{
 		case 0:
@@ -104,6 +105,7 @@ void InsertAFrame::slotSelectType( int id )
 void InsertAFrame::slotSelectPagePlacement( int id )
 {
 	placementPagesLineEdit->setEnabled(id==1);
+	checkBoxLinkCreatedTextFrames->setEnabled(id==1);
 }
 
 void InsertAFrame::slotSelectPosition( int id )
@@ -118,7 +120,7 @@ void InsertAFrame::slotSelectSize( int id )
 	heightMSpinBox->setEnabled(id==2);
 }
 
-void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source, ImportSetup& impsetup, int & columnCount, double & columnGap)
+void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, QString & pageList, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source, ImportSetup& impsetup, int & columnCount, double & columnGap)
 {
 	int type=typeButtonGroup->selectedId();
 	source="";
@@ -143,6 +145,7 @@ void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & l
 			break;
 	}
 	locationType=pagePlacementButtonGroup->selectedId();
+	pageList=placementPagesLineEdit->text();
 	positionType=framePositionButtonGroup->selectedId();
 	sizeType=sizeButtonGroup->selectedId();
 	x=xPosMSpinBox->value();

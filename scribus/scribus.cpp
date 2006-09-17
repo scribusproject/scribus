@@ -7508,7 +7508,7 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, /*view, */pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false, true);
+			dd->CreatePS(doc, pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false, true);
 		else
 			return_value = false;
 		delete dd;
@@ -9215,8 +9215,9 @@ void ScribusMainWindow::slotInsertFrame()
 			double x=0.0, y=0.0, width=0.0, height=0.0, colGap=0.0;
 			ImportSetup impsetup;
 			QString source("");
-			dia->getNewFrameProperties(frameType, locationType, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
-			doc->itemAddUserFrame(frameType, locationType, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
+			QString pageString("");
+			dia->getNewFrameProperties(frameType, locationType, pageString, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
+			doc->itemAddUserFrame(frameType, locationType, pageString, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
 		}
 		delete dia;
 	}

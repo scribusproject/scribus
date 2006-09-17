@@ -490,7 +490,7 @@ public:
 	 * @param columnGap Gap between columns if created item is a text frame
 	 * @return 
 	 */
-	int itemAddUserFrame(PageItem::ItemType type, int locationType, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source, ImportSetup& impsetup, int columnCount, double columnGap);
+	int itemAddUserFrame(PageItem::ItemType type, int locationType, QString & pageList, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source, ImportSetup& impsetup, int columnCount, double columnGap);
 
 	/**
 	 * @brief Commit item creation when a user has click-drag created an item
