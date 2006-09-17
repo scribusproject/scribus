@@ -120,41 +120,42 @@ void InsertAFrame::slotSelectSize( int id )
 	heightMSpinBox->setEnabled(id==2);
 }
 
-void InsertAFrame::getNewFrameProperties( PageItem::ItemType &frameType, int & locationType, QString & pageList, int & positionType, int & sizeType, double & x, double & y, double & width, double & height, QString & source, ImportSetup& impsetup, int & columnCount, double & columnGap)
+void InsertAFrame::getNewFrameProperties(insertAFrameData &iafData)
 {
 	int type=typeButtonGroup->selectedId();
-	source="";
+	iafData.source="";
 	switch(type)
 	{
 		case 0:
-			frameType=PageItem::TextFrame;
-			source=sourceDocLineEdit->text();
+			iafData.frameType=PageItem::TextFrame;
+			iafData.source=sourceDocLineEdit->text();
 			break;
 		case 1:
-			frameType=PageItem::ImageFrame;
-			source=sourceImageLineEdit->text();
+			iafData.frameType=PageItem::ImageFrame;
+			iafData.source=sourceImageLineEdit->text();
 			break;
 		case 2:
-// 			frameType=PageItem::
+// 			iafData.frameType=PageItem::
 			break;
 		case 3:
-			frameType=PageItem::Polygon;
+			iafData.frameType=PageItem::Polygon;
 			break;
 		case 4:
-			frameType=PageItem::Polygon;
+			iafData.frameType=PageItem::Polygon;
 			break;
 	}
-	locationType=pagePlacementButtonGroup->selectedId();
-	pageList=placementPagesLineEdit->text();
-	positionType=framePositionButtonGroup->selectedId();
-	sizeType=sizeButtonGroup->selectedId();
-	x=xPosMSpinBox->value();
-	y=yPosMSpinBox->value();
-	width=widthMSpinBox->value();
-	height=heightMSpinBox->value();
-	impsetup=m_ImportSetup;
-	columnCount=textColumnCountSpinBox->value();
-	columnGap=textColumnGapMSpinBox->value();
+	iafData.locationType=pagePlacementButtonGroup->selectedId();
+	iafData.pageList=placementPagesLineEdit->text();
+	iafData.positionType=framePositionButtonGroup->selectedId();
+	iafData.sizeType=sizeButtonGroup->selectedId();
+	iafData.x=xPosMSpinBox->value();
+	iafData.y=yPosMSpinBox->value();
+	iafData.width=widthMSpinBox->value();
+	iafData.height=heightMSpinBox->value();
+	iafData.impsetup=m_ImportSetup;
+	iafData.columnCount=textColumnCountSpinBox->value();
+	iafData.columnGap=textColumnGapMSpinBox->value();
+	iafData.linkTextFrames=checkBoxLinkCreatedTextFrames->isChecked();
 }
 
 void InsertAFrame::locateImageFile()

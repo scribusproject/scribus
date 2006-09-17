@@ -9213,11 +9213,11 @@ void ScribusMainWindow::slotInsertFrame()
 			PageItem::ItemType frameType;
 			int locationType=0, positionType=0, sizeType=0, colCount=1;
 			double x=0.0, y=0.0, width=0.0, height=0.0, colGap=0.0;
-			ImportSetup impsetup;
 			QString source("");
 			QString pageString("");
-			dia->getNewFrameProperties(frameType, locationType, pageString, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
-			doc->itemAddUserFrame(frameType, locationType, pageString, positionType, sizeType, x, y, width, height, source, impsetup, colCount, colGap);
+			insertAFrameData iafData;
+			dia->getNewFrameProperties(iafData);
+			doc->itemAddUserFrame(iafData);
 		}
 		delete dia;
 	}

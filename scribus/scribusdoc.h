@@ -51,6 +51,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem_line.h"
 #include "pageitem_textframe.h"
 #include "pagestructs.h"
+#include "usertaskstructs.h"
 #include "styles/styleset.h"
 #include "scpattern.h"
 
@@ -496,7 +497,7 @@ public:
 	 * @param columnGap Gap between columns if created item is a text frame
 	 * @return 
 	 */
-	int itemAddUserFrame(PageItem::ItemType type, int locationType, QString & pageList, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source, ImportSetup& impsetup, int columnCount, double columnGap);
+	int itemAddUserFrame(insertAFrameData &iafData);
 
 	/**
 	 * @brief Commit item creation when a user has click-drag created an item

@@ -2968,63 +2968,64 @@ int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::I
 }
 
 
-int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, QString & pageList, int positionType, int sizeType, double fX, double fY, double fWidth, double fHeight, QString &source, ImportSetup& impsetup, int columnCount, double columnGap)
+int ScribusDoc::itemAddUserFrame(insertAFrameData &iafData)
 {
-	double x1=0.0,y1=0.0,w1=fWidth,h1=fHeight;
+	double x1=0.0,y1=0.0,w1=iafData.width,h1=iafData.height;
 	std::vector<int> pageNs;
-	if (locationType==0) // On the current page or ona range of pages
+	if (iafData.locationType==0) // On the current page or ona range of pages
 		pageNs.push_back(currentPage()->pageNr()+1);
 	else
-		parsePagesString(pageList, &pageNs, DocPages.count());
+		parsePagesString(iafData.pageList, &pageNs, DocPages.count());
 	Page* oldCurrentPage = currentPage();
 	int z=-2;
+	PageItem *prevItem=0; //Previous item for text frame linking
 	for (int i=0;i<pageNs.size();++i)
 	{
 		Page* targetPage=Pages->at(pageNs[i]-1);
 		//We need this for the itemAdd, FIXME later
 		setCurrentPage(targetPage);
 		
-		if (positionType==0) // Frame starts at top left of page
+		if (iafData.positionType==0) // Frame starts at top left of page
 		{
 			x1=targetPage->xOffset();
 			y1=targetPage->yOffset();
 		} 
-		else if (positionType==1) // Frame starts at top left of page margins
+		else if (iafData.positionType==1) // Frame starts at top left of page margins
 		{
 			x1=targetPage->xOffset()+targetPage->Margins.Top;
 			y1=targetPage->yOffset()+targetPage->Margins.Left;
 		}
-		else if (positionType==2) // Frame starts at custom position
+		else if (iafData.positionType==2) // Frame starts at custom position
 		{
-			x1=targetPage->xOffset()+fX/docUnitRatio;
-			y1=targetPage->yOffset()+fY/docUnitRatio;
+			x1=targetPage->xOffset()+iafData.x/docUnitRatio;
+			y1=targetPage->yOffset()+iafData.y/docUnitRatio;
 		}
 		
-		if (sizeType==0) // Frame is size of page
+		if (iafData.sizeType==0) // Frame is size of page
 		{
 			w1=targetPage->width();
 			h1=targetPage->height();
 		}
-		else if (sizeType==1) // Frame is size of page margins
+		else if (iafData.sizeType==1) // Frame is size of page margins
 		{
 			w1=targetPage->width()-targetPage->Margins.Right-targetPage->Margins.Left;
 			h1=targetPage->height()-targetPage->Margins.Bottom-targetPage->Margins.Top;
 		}
-		else if (sizeType==2) // Frame is custom size
+		else if (iafData.sizeType==2) // Frame is custom size
 		{
-			w1=fWidth/docUnitRatio;
-			h1=fHeight/docUnitRatio;
+			w1=iafData.width/docUnitRatio;
+			h1=iafData.height/docUnitRatio;
 		}
-		z=itemAdd(type, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
+		z=itemAdd(iafData.frameType, PageItem::Unspecified, x1, y1, w1, h1, toolSettings.dWidth, CommonStrings::None, toolSettings.dPenText, true);
 		if (z!=-1)
 		{
 			PageItem* currItem=Items->at(z);
 			setRedrawBounding(currItem);
-			if (type==PageItem::ImageFrame && !source.isEmpty())
+			if (iafData.frameType==PageItem::ImageFrame && !iafData.source.isEmpty())
 			{
-				if (QFile::exists(source))
+				if (QFile::exists(iafData.source))
 				{
-					PrefsManager::instance()->prefsFile->getContext("dirs")->set("images", source.left(source.findRev("/")));
+					PrefsManager::instance()->prefsFile->getContext("dirs")->set("images", iafData.source.left(iafData.source.findRev("/")));
 					currItem->EmProfile = "";
 					currItem->pixm.imgInfo.isRequest = false;
 					currItem->UseEmbedded = true;
@@ -3032,23 +3033,38 @@ int ScribusDoc::itemAddUserFrame(PageItem::ItemType type, int locationType, QStr
 					currItem->IRender = CMSSettings.DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-					LoadPict(source, currItem->ItemNr, false, true);
+					LoadPict(iafData.source, currItem->ItemNr, false, true);
 					currItem->AdjustPictScale();
 					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 					qApp->restoreOverrideCursor();
 				}
 			}
-			if (type==PageItem::TextFrame && !source.isEmpty())
+			if (iafData.frameType==PageItem::TextFrame)
 			{
-				currItem->setColumns(columnCount);
-				currItem->setColumnGap(columnGap/docUnitRatio);
-				if (QFile::exists(source))
+				if (iafData.linkTextFrames)
 				{
-					gtGetText* gt = new gtGetText(this);
-					if (impsetup.runDialog)
-						gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, true, currItem);
-					delete gt;
+					if (prevItem!=0)
+					{
+						currItem->BackBox = prevItem;
+						prevItem->NextBox = currItem;
+						currItem->itemText = prevItem->itemText;
+					}
 				}
+				
+				if (!iafData.source.isEmpty() && prevItem==0)
+				{
+					currItem->setColumns(iafData.columnCount);
+					currItem->setColumnGap(iafData.columnGap/docUnitRatio);
+					if (QFile::exists(iafData.source))
+					{
+						gtGetText* gt = new gtGetText(this);
+						if (iafData.impsetup.runDialog)
+							gt->launchImporter(iafData.impsetup.importer, iafData.impsetup.filename, iafData.impsetup.textOnly, iafData.impsetup.encoding, true, currItem);
+						delete gt;
+					}
+				}
+				
+				prevItem=currItem;
 			}
 		}
 		changed();
