@@ -223,6 +223,7 @@ private:
 	QMap<QString, SpotC> spotMap;
 	QString spotNam;
 	int spotCount;
+	int inPattern;
 	QTextStream outStream;
 	QMap<QString, QString> StdFonts;
 	MultiProgressDialog* progressDialog;

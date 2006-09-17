@@ -1070,9 +1070,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 
 QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
 {
-//	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
-//	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-//	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2, xp, yp;
 	double xp, yp;
 	QString tmp, tmpy;
 	PageItem *item;
@@ -1080,12 +1077,9 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
 	docu.setContent(st);
 	QDomElement elem=docu.documentElement();
-	//item = Selitems->at(0);
 	item = selection->itemAt(0);
 	QValueList<uint> ELL;
-	//for (uint cor=0; cor<Selitems->count(); ++cor)
 	for (uint cor=0; cor<selection->count(); ++cor)
-		//ELL.append(Selitems->at(cor)->ItemNr);
 		ELL.append(selection->itemAt(cor)->ItemNr);
 	qHeapSort(ELL);
 	if (selection->isMultipleSelection())
@@ -1097,14 +1091,14 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	}
 	else
 	{
-		double minx = 99999.9;
-		double miny = 99999.9;
-		double maxx = -99999.9;
-		double maxy = -99999.9;
-		double xpo = item->xPos() - doc->currentPage()->xOffset();
-		double ypo = item->yPos() - doc->currentPage()->yOffset();
 		if (item->rotation() != 0)
 		{
+			double minx = 99999.9;
+			double miny = 99999.9;
+			double maxx = -99999.9;
+			double maxy = -99999.9;
+			double xpo = item->xPos() - doc->currentPage()->xOffset();
+			double ypo = item->yPos() - doc->currentPage()->yOffset();
 			FPointArray pb(4);
 			pb.setPoint(0, FPoint(xpo, ypo));
 			pb.setPoint(1, FPoint(item->width(), 0.0, xpo, ypo, item->rotation(), 1.0, 1.0));
@@ -1117,22 +1111,19 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 				maxx = QMAX(maxx, pb.point(pc).x());
 				maxy = QMAX(maxy, pb.point(pc).y());
 			}
+			elem.setAttribute("W", maxx - minx);
+			elem.setAttribute("H", maxy - miny);
 		}
 		else
 		{
-			minx = QMIN(minx, xpo);
-			miny = QMIN(miny, ypo);
-			maxx = QMAX(maxx, xpo + item->width());
-			maxy = QMAX(maxy, ypo + item->height());
+			elem.setAttribute("W", item->width());
+			elem.setAttribute("H", item->height());
 		}
-		xp = xpo - minx;
-		yp = ypo - miny;
-		elem.setAttribute("W", maxx - minx);
-		elem.setAttribute("H", maxy - miny);
+		xp = item->xPos() - doc->currentPage()->xOffset();
+		yp = item->yPos() - doc->currentPage()->yOffset();
 	}
 	elem.setAttribute("XP", xp);
 	elem.setAttribute("YP", yp);
-	//elem.setAttribute("COUNT", Selitems->count());
 	elem.setAttribute("COUNT", selection->count());
 	elem.setAttribute("Version", QString(VERSION));
 	QMap<QString,int>::Iterator itf;

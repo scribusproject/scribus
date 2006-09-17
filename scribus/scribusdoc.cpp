@@ -2156,6 +2156,50 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 				colorsToUse.insert(it.key(), it.data());
 			continue;
 		}
+		QStringList patterns = getUsedPatterns();
+		for (uint c = 0; c < patterns.count(); ++c)
+		{
+			ScPattern pa = docPatterns[patterns[c]];
+			for (uint o = 0; o < pa.items.count(); o++)
+			{
+				ite = pa.items.at(o);
+				QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+				for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+				{
+					if (it.key() == cstops.at(cst)->name)
+						found = true;
+					if (found)
+						break;
+				}
+				if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+				{
+					for (int d=0; d<ite->itemText.length(); ++d)
+					{
+						/* PFJ - 29.02.04 - Merged if's */
+						if ((it.key() == ite->itemText.charStyle(d).fillColor()) || (it.key() == ite->itemText.charStyle(d).strokeColor()))
+							found = true;
+						if (found)
+							break;
+					}
+				}
+				/* PFJ - 29.02.04 - Merged if's */
+				if ((it.key() == ite->fillColor()) || (it.key() == ite->lineColor()))
+					found = true;
+				if (found)
+					break;
+			}
+			if (found)
+			{
+				if (spot)
+				{
+					if (it.data().isSpotColor())
+						colorsToUse.insert(it.key(), it.data());
+				}
+				else
+					colorsToUse.insert(it.key(), it.data());
+				continue;
+			}
+		}
 	}
 }
 
@@ -2233,8 +2277,6 @@ QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &resu
 void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 {
 	PageItem* it = NULL;
-	FPointArray gly;
-	QString chstr;
 	uint counter = 0;
 	for (uint lc = 0; lc < 3; ++lc)
 	{
@@ -2264,118 +2306,134 @@ void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 					it = FrameItems.at(d);
 					break;
 			}
-			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+			checkItemForFonts(it, Really, lc);
+		}
+	}
+	QStringList patterns = getUsedPatterns();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			checkItemForFonts(pa.items.at(o), Really, 3);
+		}
+	}
+}
+
+void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPointArray> > & Really, uint lc)
+{
+	FPointArray gly;
+	QString chstr;
+	if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
+	{
+			for (int e = 0; e < it->itemText.length(); ++e)
 			{
-				for (int e = 0; e < it->itemText.length(); ++e)
+				if (! Really.contains(it->itemText.charStyle(e).font().scName()) ) {
+					Really.insert(it->itemText.charStyle(e).font().scName(), QMap<uint, FPointArray>());
+			}
+			uint chr = it->itemText.text(e).unicode();
+			if ((chr == 13) || (chr == 32) || (chr == 29))
+				continue;
+			if (chr == 9)
+			{
+				for (uint t1 = 0; t1 < it->itemText.paragraphStyle(e).tabValues().count(); t1++)
 				{
-					if (! Really.contains(it->itemText.charStyle(e).font().scName()) ) {
-						Really.insert(it->itemText.charStyle(e).font().scName(), QMap<uint, FPointArray>());
-					}
-					uint chr = it->itemText.text(e).unicode();
-					if ((chr == 13) || (chr == 32) || (chr == 29))
+					if (it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
 						continue;
-					if (chr == 9)
+					chstr = QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
+					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						for (uint t1 = 0; t1 < it->itemText.paragraphStyle(e).tabValues().count(); t1++)
-						{
-							if (it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar.isNull())
-								continue;
-							chstr = QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar);
-							if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
-							{
-								if (chstr.upper() != QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
-									chstr = chstr.upper();
-							}
-							chr = chstr[0].unicode();
-							uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
-							gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-							Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
-						}
-						for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
-						{
-							if (it->TabValues[t1].tabFillChar.isNull())
-								continue;
-							chstr = QString(it->TabValues[t1].tabFillChar);
-							if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
-							{
-								if (chstr.upper() != QString(it->TabValues[t1].tabFillChar))
-									chstr = chstr.upper();
-							}
-							chr = chstr[0].unicode();
-							uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
-							gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-							Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
-						}
-						continue;
+						if (chstr.upper() != QString(it->itemText.paragraphStyle(e).tabValues()[t1].tabFillChar))
+							chstr = chstr.upper();
 					}
-					if (chr == 30)
-					{
-						/* CB Removed forced loading of 0-9 for section based numbering
-						for (uint numco = 0x30; numco < 0x3A; ++numco)
-						{
-							if (it->itemText.charStyle(e)->cfont->CharWidth.contains(numco))
-							{
-								gly = it->itemText.charStyle(e)->cfont->GlyphArray[numco].Outlines.copy();
-								it->itemText.charStyle(e)->cfont->RealGlyphs.insert(numco, gly);
-							}
-						}*/
-						//Our page number collection string
-						QString pageNumberText(QString::null);
-						//If not on a master page just get the page number for the page and the text
-						if (lc!=0)
-							pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
-						else
-						{
-							//Else, for a page number in a text frame on a master page we must scan
-							//all pages to see which ones use this page and get their page numbers.
-							//We only add each character of the pages' page number text if its nothing
-							//already in the pageNumberText variable. No need to add glyphs twice.
-							QString newText;
-							uint docPageCount=DocPages.count();
-							for (uint a = 0; a < docPageCount; ++a)
-							{
-								if (DocPages.at(a)->MPageNam == it->OnMasterPage)
-								{
-									newText=getSectionPageNumberForPageIndex(a);
-									for (uint nti=0;nti<newText.length();++nti)
-										if (pageNumberText.find(newText[nti])==-1)
-											pageNumberText+=newText[nti];
-								}
-							}
-						}
-						//Now scan and add any glyphs used in page numbers
-						for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
-						{
-							uint chr = pageNumberText[pnti].unicode();
-							if (it->itemText.charStyle(e).font().canRender(chr))
-							{
-								uint gl = it->itemText.charStyle(e).font().char2CMap(pageNumberText[pnti]);
-								FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
-								Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
-							}
-						}
+					chr = chstr[0].unicode();
+					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
+					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
+					Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+				}
+				for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
+				{
+					if (it->TabValues[t1].tabFillChar.isNull())
 						continue;
-					}
-					if (it->itemText.charStyle(e).effects() & ScStyle_SmartHyphenVisible)
+					chstr = QString(it->TabValues[t1].tabFillChar);
+					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 					{
-						uint gl = it->itemText.charStyle(e).font().char2CMap(QChar('-'));
+						if (chstr.upper() != QString(it->TabValues[t1].tabFillChar))
+							chstr = chstr.upper();
+					}
+					chr = chstr[0].unicode();
+					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
+					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
+					Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+				}
+				continue;
+			}
+			if (chr == 30)
+			{
+				/* CB Removed forced loading of 0-9 for section based numbering
+				for (uint numco = 0x30; numco < 0x3A; ++numco)
+				{
+					if (it->itemText.charStyle(e)->cfont->CharWidth.contains(numco))
+					{
+						gly = it->itemText.charStyle(e)->cfont->GlyphArray[numco].Outlines.copy();
+						it->itemText.charStyle(e)->cfont->RealGlyphs.insert(numco, gly);
+					}
+				}*/
+				//Our page number collection string
+				QString pageNumberText(QString::null);
+				//If not on a master page just get the page number for the page and the text
+				if (lc!=0)
+					pageNumberText=getSectionPageNumberForPageIndex(it->OwnPage);
+				else
+				{
+					//Else, for a page number in a text frame on a master page we must scan
+					//all pages to see which ones use this page and get their page numbers.
+					//We only add each character of the pages' page number text if its nothing
+					//already in the pageNumberText variable. No need to add glyphs twice.
+					QString newText;
+					uint docPageCount=DocPages.count();
+					for (uint a = 0; a < docPageCount; ++a)
+					{
+						if (DocPages.at(a)->MPageNam == it->OnMasterPage)
+						{
+							newText=getSectionPageNumberForPageIndex(a);
+							for (uint nti=0;nti<newText.length();++nti)
+								if (pageNumberText.find(newText[nti])==-1)
+									pageNumberText+=newText[nti];
+						}
+					}
+				}
+				//Now scan and add any glyphs used in page numbers
+				for (uint pnti=0;pnti<pageNumberText.length(); ++pnti)
+				{
+					uint chr = pageNumberText[pnti].unicode();
+					if (it->itemText.charStyle(e).font().canRender(chr))
+					{
+						uint gl = it->itemText.charStyle(e).font().char2CMap(pageNumberText[pnti]);
 						FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
 						Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
 					}
-					if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
-					{
-						chstr = it->itemText.text(e, 1);
-						if (chstr.upper() != it->itemText.text(e, 1))
-							chstr = chstr.upper();
-						chr = chstr[0].unicode();
-					}
-					if (it->itemText.charStyle(e).font().canRender(chr))
-					{
-						uint gl = it->itemText.charStyle(e).font().char2CMap(chr);
-						gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-						Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
-					}
 				}
+				continue;
+			}
+			if (it->itemText.charStyle(e).effects() & ScStyle_SmartHyphenVisible)
+			{
+				uint gl = it->itemText.charStyle(e).font().char2CMap(QChar('-'));
+				FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
+				Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+			}
+			if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
+			{
+				chstr = it->itemText.text(e, 1);
+				if (chstr.upper() != it->itemText.text(e, 1))
+					chstr = chstr.upper();
+				chr = chstr[0].unicode();
+			}
+			if (it->itemText.charStyle(e).font().canRender(chr))
+			{
+				uint gl = it->itemText.charStyle(e).font().char2CMap(chr);
+				gly = it->itemText.charStyle(e).font().glyphOutline(gl);
+				Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
 			}
 		}
 	}

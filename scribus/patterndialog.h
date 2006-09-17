@@ -47,9 +47,11 @@ class SCRIBUS_API PatternDialog : public patternDialogBase
 		~PatternDialog() {};
 		void updatePatternList();
 		void loadVectors(QString data);
+		QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
 		ScribusDoc *m_doc;
 		ScribusMainWindow *mainWin;
 		QMap<QString, ScPattern> dialogPatterns;
+		QStringList origPatterns;
 	public slots:
 		void loadPattern();
 		void patternSelected(QIconViewItem* it);

@@ -466,6 +466,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	QFileInfo fd;
 	QString fext;
 	int a;
+	inPattern = 0;
 	Bvie = vi;
 	BookMinUse = false;
 	UsedFontsP.clear();
@@ -656,6 +657,24 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
 				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
+			}
+		}
+	}
+	QStringList patterns = doc.getUsedPatterns();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = doc.docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			pgit = pa.items.at(o);
+			if ((pgit->itemType() == PageItem::TextFrame) || (pgit->itemType() == PageItem::PathText))
+			{
+				if (pgit->isAnnotation())
+					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
+				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
+				{
+					ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
+				}
 			}
 		}
 	}
@@ -3856,7 +3875,11 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			PageItem* item = pat->items.at(em);
 			tmp2 += "q\n";
 			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-item->gYpos)+" cm\n";
+			item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
+			inPattern++;
 			tmp2 += PDF_ProcessItem(item, doc.Pages->at(0), 0, true, true);
+			item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
+			inPattern--;
 			tmp2 += "Q\n";
 		}
 		if ((Options.Compress) && (CompAvail))
@@ -3870,7 +3893,8 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(-pat->height)+" ]\n");
 		QWMatrix mpa;
 		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
-		mpa.rotate(-currItem->rotation());
+		if (inPattern == 0)
+			mpa.rotate(-currItem->rotation());
 		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(currItem->xPos() - ActPageP->xOffset())+" "+FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()))+"]\n");
 		PutDoc("/XStep "+FToStr(pat->width)+"\n");
 		PutDoc("/YStep "+FToStr(pat->height)+"\n");

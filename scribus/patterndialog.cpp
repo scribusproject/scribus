@@ -44,6 +44,7 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	{
 		dialogPatterns.insert(it.key(), it.data());
 	}
+	origPatterns = docPatterns->keys();
 	updatePatternList();
 	buttonRemove->setEnabled(false);
 	connect(buttonOK, SIGNAL(clicked()), this, SLOT(accept()));
@@ -174,8 +175,13 @@ void PatternDialog::loadVectors(QString data)
 	if (!dialogPatterns.contains(patNam))
 	{
 		dialogPatterns.insert(patNam, pat);
-		updatePatternList();
 	}
+	for (QMap<QString, ScPattern>::Iterator it = m_doc->docPatterns.begin(); it != m_doc->docPatterns.end(); ++it)
+	{
+		if (!origPatterns.contains(it.key()))
+			dialogPatterns.insert(it.key(), it.data());
+	}
+	updatePatternList();
 }
 
 void PatternDialog::patternSelected(QIconViewItem* it)
@@ -194,7 +200,47 @@ void PatternDialog::removePattern()
 	QIconViewItem *it = patternView->currentItem();
 	if (it)
 	{
-		dialogPatterns.remove(it->text());
+		QStringList patterns2Del;
+		QStringList mainPatterns = dialogPatterns.keys();
+		for (uint a = 0; a < mainPatterns.count(); a++)
+		{
+			if (mainPatterns[a] != it->text())
+			{
+				QStringList subPatterns;
+				subPatterns = getUsedPatternsHelper(mainPatterns[a], subPatterns);
+				if (subPatterns.contains(it->text()))
+					patterns2Del.append(mainPatterns[a]);
+			}
+		}
+		QStringList subPatterns;
+		subPatterns = getUsedPatternsHelper(it->text(), subPatterns);
+		if (!subPatterns.isEmpty())
+			patterns2Del += subPatterns;
+		patterns2Del.append(it->text());
+		for (uint a = 0; a < patterns2Del.count(); a++)
+		{
+			dialogPatterns.remove(patterns2Del[a]);
+		}
 		updatePatternList();
 	}
+}
+
+QStringList PatternDialog::getUsedPatternsHelper(QString pattern, QStringList &results)
+{
+	ScPattern *pat = &dialogPatterns[pattern];
+	QStringList pats;
+	pats.clear();
+	for (uint c = 0; c < pat->items.count(); ++c)
+	{
+		if ((!results.contains(pat->items.at(c)->pattern())) && (pat->items.at(c)->GrType == 8))
+			pats.append(pat->items.at(c)->pattern());
+	}
+	if (!pats.isEmpty())
+	{
+		for (uint c = 0; c < pats.count(); ++c)
+		{
+			getUsedPatternsHelper(pats[c], results);
+		}
+	}
+	return pats;
 }

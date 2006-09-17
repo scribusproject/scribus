@@ -398,6 +398,7 @@ public:
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
 	void getUsedFonts(QMap<QString,QMap<uint, FPointArray> > &Really);
+	void checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPointArray> > & Really, uint lc);
 	/*!
 	* @brief Builds a qmap of the colours used within the document
 	*/
