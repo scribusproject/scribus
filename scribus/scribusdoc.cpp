@@ -3041,36 +3041,28 @@ int ScribusDoc::itemAddUserFrame(insertAFrameData &iafData)
 			}
 			if (iafData.frameType==PageItem::TextFrame)
 			{
-				if (iafData.linkTextFrames)
+				currItem->setColumns(iafData.columnCount);
+				currItem->setColumnGap(iafData.columnGap/docUnitRatio);
+				if (iafData.linkTextFrames && prevItem!=0)
 				{
-					if (prevItem!=0)
-					{
-						currItem->BackBox = prevItem;
-						prevItem->NextBox = currItem;
-						currItem->itemText = prevItem->itemText;
-					}
+					currItem->BackBox = prevItem;
+					prevItem->NextBox = currItem;
+					currItem->itemText = prevItem->itemText;
 				}
-				
-				if (!iafData.source.isEmpty() && prevItem==0)
+				if (!iafData.source.isEmpty() && prevItem==0 && QFile::exists(iafData.source))
 				{
-					currItem->setColumns(iafData.columnCount);
-					currItem->setColumnGap(iafData.columnGap/docUnitRatio);
-					if (QFile::exists(iafData.source))
-					{
-						gtGetText* gt = new gtGetText(this);
-						if (iafData.impsetup.runDialog)
-							gt->launchImporter(iafData.impsetup.importer, iafData.impsetup.filename, iafData.impsetup.textOnly, iafData.impsetup.encoding, true, currItem);
-						delete gt;
-					}
+					gtGetText* gt = new gtGetText(this);
+					if (iafData.impsetup.runDialog)
+						gt->launchImporter(iafData.impsetup.importer, iafData.impsetup.filename, iafData.impsetup.textOnly, iafData.impsetup.encoding, true, currItem);
+					delete gt;
 				}
-				
 				prevItem=currItem;
 			}
 		}
-		changed();
-		emit updateContents();
 	}
 	setCurrentPage(oldCurrentPage);
+	changed();
+	emit updateContents();
 	return z;
 }
 
