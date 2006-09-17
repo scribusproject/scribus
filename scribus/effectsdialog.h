@@ -42,6 +42,7 @@ class SCRIBUS_API EffectsDialog : public QDialog
 public:
 	EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc );
 	~EffectsDialog() {};
+	void selectEffectHelper(bool final = false);
 
 	QLabel* pixmapLabel1;
 	QLabel* textLabel1;
