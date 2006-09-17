@@ -25,6 +25,7 @@ insertaframebase.cpp
 guidemanagerbase.h
 multiprogressdialogbase.h
 pageitemattributesbase.h
+patterndialogbase.h
 smcstylewbase.h
 smlinestylewbase.h
 smpstylewbase.h
@@ -44,6 +45,7 @@ docsectionsbase.cpp
 guidemanagerbase.cpp
 multiprogressdialogbase.cpp
 pageitemattributesbase.cpp
+patterndialogbase.cpp
 smcstylewbase.cpp
 smlinestylewbase.cpp
 smpstylewbase.cpp
