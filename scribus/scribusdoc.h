@@ -405,6 +405,7 @@ public:
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
 	QStringList getUsedPatterns();
+	QStringList getUsedPatternsSelection();
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
 	/*!
 	* @brief Builds a qmap of the icc profiles used within the document

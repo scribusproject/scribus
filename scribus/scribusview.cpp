@@ -10173,7 +10173,10 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	if (Buffer->GrType != 0)
 	{
 		if (Buffer->GrType == 8)
+		{
 			currItem->setPattern(Buffer->pattern);
+			currItem->GrType = Buffer->GrType;
+		}
 		else
 		{
 			if ((!Buffer->GrColor.isEmpty()) && (!Buffer->GrColor2.isEmpty()))

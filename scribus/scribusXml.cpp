@@ -45,6 +45,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "util.h"
 #include "colorutil.h"
+#include "scpattern.h"
 
 using namespace std;
 
@@ -786,6 +787,145 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			GetStyle(&pg, &vg, doc->docParagraphStyles, doc, true);
 			VorLFound = true;
 		}
+		if(pg.tagName()=="Pattern")
+		{
+			ScPattern pat;
+			QDomNode pa = DOC.firstChild();
+			uint ac = doc->Items->count();
+			bool savedAlignGrid = doc->useRaster;
+			bool savedAlignGuides = doc->SnapGuides;
+			doc->useRaster = false;
+			doc->SnapGuides = false;
+			while(!pa.isNull())
+			{
+				QDomElement pite = pa.toElement();
+				GetItemProps(newVersion, &pite, &OB);
+				OB.Xpos = pite.attribute("XPOS").toDouble() + doc->currentPage()->xOffset();
+				OB.Ypos = pite.attribute("YPOS").toDouble() + doc->currentPage()->yOffset();
+				OB.startArrowIndex =  arrowID[pite.attribute("startArrowIndex", "0").toInt()];
+				OB.endArrowIndex =  arrowID[pite.attribute("endArrowIndex", "0").toInt()];
+				OB.isBookmark=pite.attribute("BOOKMARK").toInt();
+				OB.NamedLStyle = pite.attribute("NAMEDLST", "");
+				if (!doc->MLineStyles.contains(OB.NamedLStyle))
+					OB.NamedLStyle = "";
+				OB.textAlignment = DoVorl[pite.attribute("ALIGN", "0").toInt()].toUInt();
+				tmf = pite.attribute("IFONT", doc->toolSettings.defFont);
+				if (tmf.isEmpty())
+					tmf = doc->toolSettings.defFont;
+				if (DoFonts[tmf].isEmpty())
+					OB.IFont = doc->toolSettings.defFont;
+				else
+					OB.IFont = DoFonts[tmf];
+				OB.LayerNr = 0;
+				OB.Language = pite.attribute("LANGUAGE", doc->Language);
+				tmp = "";
+				if ((pite.hasAttribute("GROUPS")) && (pite.attribute("NUMGROUP", "0").toInt() != 0))
+				{
+					tmp = pite.attribute("GROUPS");
+					QTextStream fg(&tmp, IO_ReadOnly);
+					OB.Groups.clear();
+					for (int cx = 0; cx < pite.attribute("NUMGROUP", "0").toInt(); ++cx)
+					{
+						fg >> x;
+						OB.Groups.push(x+doc->GroupCounter);
+						GrMax = QMAX(GrMax, x+doc->GroupCounter);
+					}
+					tmp = "";
+				}
+				else
+					OB.Groups.clear();
+				tmp = "";
+				QDomNode IT=pite.firstChild();
+				while(!IT.isNull())
+				{
+					QDomElement it=IT.toElement();
+					if (it.tagName()=="CSTOP")
+					{
+						QString name = it.attribute("NAME");
+						double ramp = it.attribute("RAMP", "0.0").toDouble();
+						int shade = it.attribute("SHADE", "100").toInt();
+						double opa = it.attribute("TRANS", "1").toDouble();
+						OB.fill_gradient.addStop(SetColor(doc, name, shade), ramp, 0.5, opa, name, shade);
+						OB.GrColor = "";
+						OB.GrColor2 = "";
+					}
+					if (it.tagName()=="Tabs")
+					{
+						ParagraphStyle::TabRecord tb;
+						tb.tabPosition = it.attribute("Pos").toDouble();
+						tb.tabType = it.attribute("Type").toInt();
+						QString tbCh = "";
+						tbCh = it.attribute("Fill","");
+						if (tbCh.isEmpty())
+							tb.tabFillChar = QChar();
+						else
+							tb.tabFillChar = tbCh[0];
+						OB.TabValues.append(tb);
+					}
+					IT=IT.nextSibling();
+				}
+				OB.itemText = "";
+				OB.LayerNr = -1;
+				view->PasteItem(&OB, true, true);
+				PageItem* Neu = doc->Items->at(doc->Items->count()-1);
+				Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
+				IT=pite.firstChild();
+				while(!IT.isNull())
+				{
+					QDomElement it=IT.toElement();
+					if (it.tagName()=="ITEXT")
+						GetItemText(&it, doc, VorLFound, true, Neu);
+					if (it.tagName()=="ImageEffect")
+					{
+						struct ScImage::imageEffect ef;
+						ef.effectParameters = it.attribute("Param");
+						ef.effectCode = it.attribute("Code").toInt();
+						Neu->effectsInUse.append(ef);
+					}
+					if (it.tagName() == "PSDLayer")
+					{
+						struct ImageLoadRequest loadingInfo;
+						loadingInfo.blend = it.attribute("Blend");
+						loadingInfo.opacity = it.attribute("Opacity").toInt();
+						loadingInfo.visible = static_cast<bool>(it.attribute("Visible").toInt());
+						loadingInfo.useMask = static_cast<bool>(it.attribute("useMask", "1").toInt());
+						Neu->pixm.imgInfo.RequestProps.insert(it.attribute("Layer").toInt(), loadingInfo);
+						Neu->pixm.imgInfo.isRequest = true;
+					}
+					IT=IT.nextSibling();
+				}
+				if ((Neu->effectsInUse.count() != 0) || (Neu->pixm.imgInfo.RequestProps.count() != 0))
+					doc->LoadPict(Neu->Pfile, Neu->ItemNr, true);
+				if (Neu->isTableItem)
+				{
+					TableItems.append(Neu);
+					TableID.insert(pite.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+				}
+				if (Neu->asPathText())
+					Neu->updatePolyClip();
+				pa = pa.nextSibling();
+			}
+			doc->useRaster = savedAlignGrid;
+			doc->SnapGuides = savedAlignGuides;
+			uint ae = doc->Items->count();
+			pat.setDoc(doc);
+			PageItem* currItem = doc->Items->at(ac);
+			pat.pattern = currItem->DrawObj_toImage();
+			for (uint as = ac; as < ae; ++as)
+			{
+				PageItem* Neu = doc->Items->take(ac);
+				Neu->ItemNr = pat.items.count();
+				pat.items.append(Neu);
+			}
+			pat.offsetX = pg.attribute("offsetX", "0").toDouble();
+			pat.offsetY = pg.attribute("offsetY", "0").toDouble();
+			pat.scaleX = pg.attribute("scaleX", "0").toDouble();
+			pat.scaleY = pg.attribute("scaleY", "0").toDouble();
+			pat.rotation = pg.attribute("rotation", "0").toDouble();
+			pat.width = pg.attribute("width", "0").toDouble();
+			pat.height = pg.attribute("height", "0").toDouble();
+			doc->docPatterns.insert(pg.attribute("Name"), pat);
+		}
 		DOC=DOC.nextSibling();
 	}
 	DOC=elem.firstChild();
@@ -930,9 +1070,11 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 
 QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
 {
-	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
-	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
-	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2, xp, yp;
+//	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
+//	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
+//	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2, xp, yp;
+	double xp, yp;
+	QString tmp, tmpy;
 	PageItem *item;
 	QDomDocument docu("scribus");
 	QString st="<SCRIBUSELEMUTF8></SCRIBUSELEMUTF8>";
@@ -955,10 +1097,38 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	}
 	else
 	{
-		xp = item->xPos() - doc->currentPage()->xOffset();
-		yp = item->yPos() - doc->currentPage()->yOffset();
-		elem.setAttribute("W", item->width());
-		elem.setAttribute("H", item->height());
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		double xpo = item->xPos() - doc->currentPage()->xOffset();
+		double ypo = item->yPos() - doc->currentPage()->yOffset();
+		if (item->rotation() != 0)
+		{
+			FPointArray pb(4);
+			pb.setPoint(0, FPoint(xpo, ypo));
+			pb.setPoint(1, FPoint(item->width(), 0.0, xpo, ypo, item->rotation(), 1.0, 1.0));
+			pb.setPoint(2, FPoint(item->width(), item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
+			pb.setPoint(3, FPoint(0.0, item->height(), xpo, ypo, item->rotation(), 1.0, 1.0));
+			for (uint pc = 0; pc < 4; ++pc)
+			{
+				minx = QMIN(minx, pb.point(pc).x());
+				miny = QMIN(miny, pb.point(pc).y());
+				maxx = QMAX(maxx, pb.point(pc).x());
+				maxy = QMAX(maxy, pb.point(pc).y());
+			}
+		}
+		else
+		{
+			minx = QMIN(minx, xpo);
+			miny = QMIN(miny, ypo);
+			maxx = QMAX(maxx, xpo + item->width());
+			maxy = QMAX(maxy, ypo + item->height());
+		}
+		xp = xpo - minx;
+		yp = ypo - miny;
+		elem.setAttribute("W", maxx - minx);
+		elem.setAttribute("H", maxy - miny);
 	}
 	elem.setAttribute("XP", xp);
 	elem.setAttribute("YP", yp);
@@ -1140,235 +1310,158 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			}
 		}
 	}
-	//for (uint co=0; co<Selitems->count(); ++co)
+	QStringList patterns = doc->getUsedPatternsSelection();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = doc->docPatterns[patterns[c]];
+		QDomElement pat = docu.createElement("Pattern");
+		pat.setAttribute("Name", patterns[c]);
+		pat.setAttribute("offsetX", pa.offsetX);
+		pat.setAttribute("offsetY", pa.offsetY);
+		pat.setAttribute("scaleX", pa.scaleX);
+		pat.setAttribute("scaleY", pa.scaleY);
+		pat.setAttribute("rotation", pa.rotation);
+		pat.setAttribute("width", pa.width);
+		pat.setAttribute("height", pa.height);
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			item = pa.items.at(o);
+			QDomElement ob = docu.createElement("PatternItem");
+			WriteObject(doc, docu, ob, UsedMapped2Saved, item);
+			pat.appendChild(ob);
+		}
+		elem.appendChild(pat);
+	}
 	for (uint co=0; co<selection->count(); ++co)
 	{
-		QString CurDirP = QDir::currentDirPath();
 		QDir::setCurrent(QDir::homeDirPath());
 		item = doc->Items->at(ELL[co]);
-		QDomElement ob=docu.createElement("ITEM");
-		int textAlignment = findParagraphStyle(doc, item->itemText.defaultStyle());
-		if (textAlignment > 4)
-			ob.setAttribute("ALIGN",UsedMapped2Saved[textAlignment]);
+		QDomElement ob = docu.createElement("ITEM");
+		WriteObject(doc, docu, ob, UsedMapped2Saved, item);
+		elem.appendChild(ob);
+	}
+	return docu.toString();
+}
+
+void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &ob, QMap<int, int> &UsedMapped2Saved, PageItem *item)
+{
+	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
+	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
+	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	QString CurDirP = QDir::currentDirPath();
+	int textAlignment = findParagraphStyle(doc, item->itemText.defaultStyle());
+	if (textAlignment > 4)
+		ob.setAttribute("ALIGN",UsedMapped2Saved[textAlignment]);
+	else
+		ob.setAttribute("ALIGN",textAlignment);
+	SetItemProps(&ob, item, false);
+	ob.setAttribute("LOCK", 0);
+	ob.setAttribute("XPOS",item->xPos() - doc->currentPage()->xOffset());
+	ob.setAttribute("YPOS",item->yPos() - doc->currentPage()->yOffset());
+	ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
+	ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
+	ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
+	if (item->effectsInUse.count() != 0)
+	{
+		for (uint a = 0; a < item->effectsInUse.count(); ++a)
+		{
+			QDomElement imeff = docu.createElement("ImageEffect");
+			imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
+			imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
+			ob.appendChild(imeff);
+		}
+	}
+	if (item->TabValues.count() != 0)
+	{
+		for (uint a = 0; a < item->TabValues.count(); ++a)
+		{
+			QDomElement tabs = docu.createElement("Tabs");
+			tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
+			tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
+			QString tabCh = "";
+			if (!(*item->TabValues.at(a)).tabFillChar.isNull())
+				tabCh = QString((*item->TabValues.at(a)).tabFillChar);
+			tabs.setAttribute("Fill", tabCh);
+			ob.appendChild(tabs);
+		}
+	}
+	if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
+	{
+		QMap<int, ImageLoadRequest>::iterator it2;
+		for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
+		{
+			QDomElement psd = docu.createElement("PSDLayer");
+			psd.setAttribute("Layer",it2.key());
+			psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
+			psd.setAttribute("useMask", static_cast<int>(it2.data().useMask));
+			psd.setAttribute("Opacity", it2.data().opacity);
+			psd.setAttribute("Blend", it2.data().blend);
+			ob.appendChild(psd);
+		}
+	}
+	if (item->GrType != 0)
+	{
+		if (item->GrType == 8)
+			ob.setAttribute("pattern", item->pattern());
 		else
-			ob.setAttribute("ALIGN",textAlignment);
- 		SetItemProps(&ob, item, false);
-		ob.setAttribute("LOCK", 0);
-		ob.setAttribute("XPOS",item->xPos() - doc->currentPage()->xOffset());
-		ob.setAttribute("YPOS",item->yPos() - doc->currentPage()->yOffset());
-		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
-		ob.setAttribute("fillRule", static_cast<int>(item->fillRule));
-		ob.setAttribute("doOverprint", static_cast<int>(item->doOverprint));
-		if (item->effectsInUse.count() != 0)
 		{
-			for (uint a = 0; a < item->effectsInUse.count(); ++a)
+			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
+			for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
 			{
-				QDomElement imeff = docu.createElement("ImageEffect");
-				imeff.setAttribute("Code", (*item->effectsInUse.at(a)).effectCode);
-				imeff.setAttribute("Param", (*item->effectsInUse.at(a)).effectParameters);
-				ob.appendChild(imeff);
+				QDomElement itcl = docu.createElement("CSTOP");
+				itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
+				itcl.setAttribute("NAME", cstops.at(cst)->name);
+				itcl.setAttribute("SHADE", cstops.at(cst)->shade);
+				itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
+				ob.appendChild(itcl);
 			}
+			ob.setAttribute("GRSTARTX", item->GrStartX);
+			ob.setAttribute("GRSTARTY", item->GrStartY);
+			ob.setAttribute("GRENDX", item->GrEndX);
+			ob.setAttribute("GRENDY", item->GrEndY);
 		}
-		if (item->TabValues.count() != 0)
-		{
-			for (uint a = 0; a < item->TabValues.count(); ++a)
-			{
-				QDomElement tabs = docu.createElement("Tabs");
-				tabs.setAttribute("Type", (*item->TabValues.at(a)).tabType);
-				tabs.setAttribute("Pos", (*item->TabValues.at(a)).tabPosition);
-				QString tabCh = "";
-				if (!(*item->TabValues.at(a)).tabFillChar.isNull())
-					tabCh = QString((*item->TabValues.at(a)).tabFillChar);
-				tabs.setAttribute("Fill", tabCh);
-				ob.appendChild(tabs);
-			}
-		}
-		if (((item->asImageFrame()) || (item->asTextFrame())) && (!item->Pfile.isEmpty()) && (item->pixm.imgInfo.layerInfo.count() != 0) && (item->pixm.imgInfo.isRequest))
-		{
-			QMap<int, ImageLoadRequest>::iterator it2;
-			for (it2 = item->pixm.imgInfo.RequestProps.begin(); it2 != item->pixm.imgInfo.RequestProps.end(); ++it2)
-			{
-				QDomElement psd = docu.createElement("PSDLayer");
-				psd.setAttribute("Layer",it2.key());
-				psd.setAttribute("Visible", static_cast<int>(it2.data().visible));
-				psd.setAttribute("useMask", static_cast<int>(it2.data().useMask));
-				psd.setAttribute("Opacity", it2.data().opacity);
-				psd.setAttribute("Blend", it2.data().blend);
-				ob.appendChild(psd);
-			}
-		}
-		if (item->GrType != 0)
-		{
-			if (item->GrType == 8)
-				ob.setAttribute("pattern", item->pattern());
-			else
-			{
-				QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();
-				for (uint cst = 0; cst < item->fill_gradient.Stops(); ++cst)
-				{
-					QDomElement itcl = docu.createElement("CSTOP");
-					itcl.setAttribute("RAMP", cstops.at(cst)->rampPoint);
-					itcl.setAttribute("NAME", cstops.at(cst)->name);
-					itcl.setAttribute("SHADE", cstops.at(cst)->shade);
-					itcl.setAttribute("TRANS", cstops.at(cst)->opacity);
-					ob.appendChild(itcl);
-				}
-				ob.setAttribute("GRSTARTX", item->GrStartX);
-				ob.setAttribute("GRSTARTY", item->GrStartY);
-				ob.setAttribute("GRENDX", item->GrEndX);
-				ob.setAttribute("GRENDY", item->GrEndY);
-			}
-		}
-		QDir::setCurrent(CurDirP);
-		for(int k=0;k<item->itemText.length();++k)
-		{
-			const CharStyle& style4(item->itemText.charStyle(k));
-			QChar ch = item->itemText.text(k);
-			QDomElement it=docu.createElement("ITEXT");
-			ts = style4.fontSize() / 10.0;
-			tf = style4.font().scName();
-			tc = style4.fillColor();
-			te = style4.tracking();
-			tsh = style4.fillShade();
-			tst = style4.effects() & 2047;
+	}
+	QDir::setCurrent(CurDirP);
+	for(int k=0;k<item->itemText.length();++k)
+	{
+		const CharStyle& style4(item->itemText.charStyle(k));
+		QChar ch = item->itemText.text(k);
+		QDomElement it=docu.createElement("ITEXT");
+		ts = style4.fontSize() / 10.0;
+		tf = style4.font().scName();
+		tc = style4.fillColor();
+		te = style4.tracking();
+		tsh = style4.fillShade();
+		tst = style4.effects() & 2047;
 #if 0 // FIXME NLS ndef NLS_PROTO
 			if (item->itemText.item(k)->cab > 4)
 				tsb = UsedMapped2Saved[item->itemText.item(k)->cab];
 			else
 				tsb = item->itemText.item(k)->cab;
 #else
-			tsb = 0;
+		tsb = 0;
 #endif
-			tcs = style4.strokeColor();
-			tshs = style4.strokeShade();
-			tsc = style4.scaleH() / 10.0;
-			tscv = style4.scaleV() / 10.0;
-			tb = style4.baselineOffset() / 10.0;
-			tsx = style4.shadowXOffset() / 10.0;
-			tsy = style4.shadowYOffset() / 10.0;
-			tout = style4.outlineWidth() / 10.0;
-			tulp = style4.underlineOffset() / 10.0;
-			tulw = style4.underlineWidth() / 10.0;
-			tstp = style4.strikethruOffset()/ 10.0;
-			tstw = style4.strikethruWidth() / 10.0;
-			if (ch == SpecialChars::PARSEP)
-				text = QChar(5);
-			else if (ch == SpecialChars::TAB)
-				text = QChar(4);
-			else
-				text = ch;
-			++k;
-			if (k == item->itemText.length())
-			{
-				it.setAttribute("CH",text);
-				it.setAttribute("CSIZE",ts);
-				it.setAttribute("CFONT",tf);
-				it.setAttribute("CCOLOR",tc);
-				it.setAttribute("CKERN",te);
-				it.setAttribute("CSHADE",tsh);
-				it.setAttribute("CSTYLE",tst);
-				it.setAttribute("CAB",tsb);
-				it.setAttribute("CSTROKE",tcs);
-				it.setAttribute("CSHADE2",tshs);
-				it.setAttribute("CSCALE",tsc);
-				it.setAttribute("CSCALEV",tscv);
-				it.setAttribute("CBASE",tb);
-				it.setAttribute("CSHX",tsx);
-				it.setAttribute("CSHY",tsy);
-				it.setAttribute("COUT",tout);
-				it.setAttribute("CULP",tulp);
-				it.setAttribute("CULW",tulw);
-				it.setAttribute("CSTP",tstp);
-				it.setAttribute("CSTW",tstw);
-				ob.appendChild(it);
-				break;
-			}
-			const CharStyle& style5(item->itemText.charStyle(k));
-			ch = item->itemText.text(k);
-			ts2 = style5.fontSize() / 10.0;
-			tf2 = style5.font().scName();
-			tc2 = style5.fillColor();
-			te2 = style5.tracking();
-			tsh2 = style5.fillShade();
-			tst2 = style5.effects() & 2047;
-#if 0 //FIXME NLS ndef NLS_PROTO
-			if (item->itemText.item(k)->cab > 4)
-				tsb2 = UsedMapped2Saved[item->itemText.item(k)->cab];
-			else
-				tsb2 = item->itemText.item(k)->cab;
-#else
-			tsb2 = 0;
-#endif
-			tcs2 = style5.strokeColor();
-			tshs2 = style5.strokeShade();
-			tsc2 = style5.scaleH() / 10.0;
-			tscv2 = style5.scaleV() / 10.0;
-			tb2 = style5.baselineOffset() / 10.0;
-			tsx2 = style5.shadowXOffset() / 10.0;
-			tsy2 = style5.shadowYOffset() / 10.0;
-			tout2 = style5.outlineWidth() / 10.0;
-			tulp2 = style5.underlineOffset() / 10.0;
-			tulw2 = style5.underlineWidth() / 10.0;
-			tstp2 = style5.strikethruOffset() / 10.0;
-			tstw2 = style5.strikethruWidth() / 10.0;
-			while ((ts2 == ts)
-							&& (tsb2 == tsb)
-							&& (tf2 == tf)
-							&& (tc2 == tc)
-							&& (te2 == te)
-							&& (tsh2 == tsh)
-							&& (tshs2 == tshs)
-							&& (tsc2 == tsc)
-							&& (tscv2 == tscv)
-							&& (tcs2 == tcs)
-							&& (tb2 == tb)
-							&& (tsx2 == tsx)
-							&& (tsy2 == tsy)
-							&& (tout2 == tout)
-							&& (tulp2 == tulp)
-							&& (tulw2 == tulw)
-							&& (tstp2 == tstp)
-							&& (tstw2 == tstw)
-							&& (tst2 == tst))
-			{
-				if (ch == QChar(13))
-					text += QChar(5);
-				else if (ch == QChar(9))
-					text += QChar(4);
-				else
-					text += ch;
-				++k;
-				if (k == item->itemText.length())
-					break;
-				const CharStyle& style6(item->itemText.charStyle(k));
-				ch = item->itemText.text(k);
-				ts2 = style6.fontSize() / 10.0;
-				tf2 = style6.font().scName();
-				tc2 = style6.fillColor();
-				te2 = style6.tracking();
-				tsh2 = style6.fillShade();
-				tst2 = style6.effects() & 2047;
-#if 0 //FIXME NLS ndef NLS_PROTO
-				if (item->itemText.item(k)->cab > 4)
-					tsb2 = UsedMapped2Saved[item->itemText.item(k)->cab];
-				else
-					tsb2 = item->itemText.item(k)->cab;
-#else
-				tsb2 = 0;
-#endif
-				tcs2 = style6.strokeColor();
-				tshs2 = style6.strokeShade();
-				tsc2 = style6.scaleH() / 10.0;
-				tscv2 = style6.scaleV() / 10.0;
-				tb2 = style6.baselineOffset() / 10.0;
-				tsx2 = style6.shadowXOffset() / 10.0;
-				tsy2 = style6.shadowYOffset() / 10.0;
-				tout2 = style6.outlineWidth() / 10.0;
-				tulp2 = style6.underlineOffset() / 10.0;
-				tulw2 = style6.underlineWidth() / 10.0;
-				tstp2 = style6.strikethruOffset() / 10.0;
-				tstw2 = style6.strikethruWidth() / 10.0;
-			}
+		tcs = style4.strokeColor();
+		tshs = style4.strokeShade();
+		tsc = style4.scaleH() / 10.0;
+		tscv = style4.scaleV() / 10.0;
+		tb = style4.baselineOffset() / 10.0;
+		tsx = style4.shadowXOffset() / 10.0;
+		tsy = style4.shadowYOffset() / 10.0;
+		tout = style4.outlineWidth() / 10.0;
+		tulp = style4.underlineOffset() / 10.0;
+		tulw = style4.underlineWidth() / 10.0;
+		tstp = style4.strikethruOffset()/ 10.0;
+		tstw = style4.strikethruWidth() / 10.0;
+		if (ch == SpecialChars::PARSEP)
+			text = QChar(5);
+		else if (ch == SpecialChars::TAB)
+			text = QChar(4);
+		else
+			text = ch;
+		++k;
+		if (k == item->itemText.length())
+		{
 			it.setAttribute("CH",text);
 			it.setAttribute("CSIZE",ts);
 			it.setAttribute("CFONT",tf);
@@ -1389,23 +1482,129 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			it.setAttribute("CULW",tulw);
 			it.setAttribute("CSTP",tstp);
 			it.setAttribute("CSTW",tstw);
-			k--;
 			ob.appendChild(it);
+			break;
 		}
-		ob.setAttribute("NUMTEXT",item->itemText.length());
-		QString txnu = "";
-		for(int kt = 0; kt < item->itemText.length(); ++kt)
-#ifndef NLS_PROTO
-			txnu += tmp.setNum(item->itemText.item(kt)->glyph.xoffset) + " " + tmpy.setNum(item->itemText.item(kt)->glyph.yoffset) + " ";
+		const CharStyle& style5(item->itemText.charStyle(k));
+		ch = item->itemText.text(k);
+		ts2 = style5.fontSize() / 10.0;
+		tf2 = style5.font().scName();
+		tc2 = style5.fillColor();
+		te2 = style5.tracking();
+		tsh2 = style5.fillShade();
+		tst2 = style5.effects() & 2047;
+#if 0 //FIXME NLS ndef NLS_PROTO
+			if (item->itemText.item(k)->cab > 4)
+				tsb2 = UsedMapped2Saved[item->itemText.item(k)->cab];
+			else
+				tsb2 = item->itemText.item(k)->cab;
 #else
-			txnu += "0 0 ";
+		tsb2 = 0;
 #endif
-		ob.setAttribute("TEXTCOOR", txnu);
-		ob.setAttribute("BACKITEM", -1);
-		ob.setAttribute("BACKPAGE", -1);
-		ob.setAttribute("NEXTITEM", -1);
-		ob.setAttribute("NEXTPAGE", -1);
-		elem.appendChild(ob);
+		tcs2 = style5.strokeColor();
+		tshs2 = style5.strokeShade();
+		tsc2 = style5.scaleH() / 10.0;
+		tscv2 = style5.scaleV() / 10.0;
+		tb2 = style5.baselineOffset() / 10.0;
+		tsx2 = style5.shadowXOffset() / 10.0;
+		tsy2 = style5.shadowYOffset() / 10.0;
+		tout2 = style5.outlineWidth() / 10.0;
+		tulp2 = style5.underlineOffset() / 10.0;
+		tulw2 = style5.underlineWidth() / 10.0;
+		tstp2 = style5.strikethruOffset() / 10.0;
+		tstw2 = style5.strikethruWidth() / 10.0;
+		while ((ts2 == ts)
+						&& (tsb2 == tsb)
+						&& (tf2 == tf)
+						&& (tc2 == tc)
+						&& (te2 == te)
+						&& (tsh2 == tsh)
+						&& (tshs2 == tshs)
+						&& (tsc2 == tsc)
+						&& (tscv2 == tscv)
+						&& (tcs2 == tcs)
+						&& (tb2 == tb)
+						&& (tsx2 == tsx)
+						&& (tsy2 == tsy)
+						&& (tout2 == tout)
+						&& (tulp2 == tulp)
+						&& (tulw2 == tulw)
+						&& (tstp2 == tstp)
+						&& (tstw2 == tstw)
+						&& (tst2 == tst))
+		{
+			if (ch == QChar(13))
+				text += QChar(5);
+			else if (ch == QChar(9))
+				text += QChar(4);
+			else
+				text += ch;
+			++k;
+			if (k == item->itemText.length())
+				break;
+			const CharStyle& style6(item->itemText.charStyle(k));
+			ch = item->itemText.text(k);
+			ts2 = style6.fontSize() / 10.0;
+			tf2 = style6.font().scName();
+			tc2 = style6.fillColor();
+			te2 = style6.tracking();
+			tsh2 = style6.fillShade();
+			tst2 = style6.effects() & 2047;
+#if 0 //FIXME NLS ndef NLS_PROTO
+				if (item->itemText.item(k)->cab > 4)
+					tsb2 = UsedMapped2Saved[item->itemText.item(k)->cab];
+				else
+					tsb2 = item->itemText.item(k)->cab;
+#else
+			tsb2 = 0;
+#endif
+			tcs2 = style6.strokeColor();
+			tshs2 = style6.strokeShade();
+			tsc2 = style6.scaleH() / 10.0;
+			tscv2 = style6.scaleV() / 10.0;
+			tb2 = style6.baselineOffset() / 10.0;
+			tsx2 = style6.shadowXOffset() / 10.0;
+			tsy2 = style6.shadowYOffset() / 10.0;
+			tout2 = style6.outlineWidth() / 10.0;
+			tulp2 = style6.underlineOffset() / 10.0;
+			tulw2 = style6.underlineWidth() / 10.0;
+			tstp2 = style6.strikethruOffset() / 10.0;
+			tstw2 = style6.strikethruWidth() / 10.0;
+		}
+		it.setAttribute("CH",text);
+		it.setAttribute("CSIZE",ts);
+		it.setAttribute("CFONT",tf);
+		it.setAttribute("CCOLOR",tc);
+		it.setAttribute("CKERN",te);
+		it.setAttribute("CSHADE",tsh);
+		it.setAttribute("CSTYLE",tst);
+		it.setAttribute("CAB",tsb);
+		it.setAttribute("CSTROKE",tcs);
+		it.setAttribute("CSHADE2",tshs);
+		it.setAttribute("CSCALE",tsc);
+		it.setAttribute("CSCALEV",tscv);
+		it.setAttribute("CBASE",tb);
+		it.setAttribute("CSHX",tsx);
+		it.setAttribute("CSHY",tsy);
+		it.setAttribute("COUT",tout);
+		it.setAttribute("CULP",tulp);
+		it.setAttribute("CULW",tulw);
+		it.setAttribute("CSTP",tstp);
+		it.setAttribute("CSTW",tstw);
+		k--;
+		ob.appendChild(it);
 	}
-	return docu.toString();
+	ob.setAttribute("NUMTEXT",item->itemText.length());
+	QString txnu = "";
+	for(int kt = 0; kt < item->itemText.length(); ++kt)
+#ifndef NLS_PROTO
+		txnu += tmp.setNum(item->itemText.item(kt)->glyph.xoffset) + " " + tmpy.setNum(item->itemText.item(kt)->glyph.yoffset) + " ";
+#else
+		txnu += "0 0 ";
+#endif
+	ob.setAttribute("TEXTCOOR", txnu);
+	ob.setAttribute("BACKITEM", -1);
+	ob.setAttribute("BACKPAGE", -1);
+	ob.setAttribute("NEXTITEM", -1);
+	ob.setAttribute("NEXTPAGE", -1);
 }
