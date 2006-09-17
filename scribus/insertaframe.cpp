@@ -25,6 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include <qbuttongroup.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qtextedit.h>
 #include <qwidgetstack.h>
@@ -33,6 +34,11 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	InsertAFrameBase(parent),
 	m_Doc(doc)
 {
+	//Hide some unused items for now
+	radioButtonTable->setShown(false);
+	radioButtonShape->setShown(false);
+	radioButtonPolygon->setShown(false);
+	
 	typeButtonGroup->setButton(0);
 	pagePlacementButtonGroup->setButton(0);
 	framePositionButtonGroup->setButton(0);
