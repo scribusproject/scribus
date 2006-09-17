@@ -397,18 +397,18 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc("true setoverprint\n");
 		PutDoc("true setoverprintmode\n");
 	}
-	QMap<QString, ScPattern>::Iterator itPat;
-	for (itPat = m_Doc->docPatterns.begin(); itPat != m_Doc->docPatterns.end(); ++itPat)
+	QStringList patterns = m_Doc->getUsedPatterns();
+	for (uint c = 0; c < patterns.count(); ++c)
 	{
-		ScPattern pa = itPat.data();
+		ScPattern pa = m_Doc->docPatterns[patterns[c]];
 		for (uint em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
 			if ((item->asImageFrame()) && (item->PicAvail) && (!item->Pfile.isEmpty()) && (item->printEnabled()) && (!sep) && (farb))
 				PS_ImageData(item, item->Pfile, item->itemName(), item->IProfile, item->UseEmbedded, ic);
 		}
-		PutDoc("/Pattern"+itPat.key()+" 8 dict def\n");
-		PutDoc("Pattern"+itPat.key()+" begin\n");
+		PutDoc("/Pattern"+patterns[c]+" 8 dict def\n");
+		PutDoc("Pattern"+patterns[c]+" begin\n");
 		PutDoc("/PatternType 1 def\n");
 		PutDoc("/PaintType 1 def\n");
 		PutDoc("/TilingType 1 def\n");

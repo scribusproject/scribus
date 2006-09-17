@@ -2159,6 +2159,53 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	}
 }
 
+QStringList ScribusDoc::getUsedPatterns()
+{
+	QStringList results;
+	for (uint c = 0; c < MasterItems.count(); ++c)
+	{
+		if ((!results.contains(MasterItems.at(c)->pattern())) && (MasterItems.at(c)->GrType == 8))
+			results.append(MasterItems.at(c)->pattern());
+	}
+	for (uint c = 0; c < DocItems.count(); ++c)
+	{
+		if ((!results.contains(DocItems.at(c)->pattern())) && (DocItems.at(c)->GrType == 8))
+			results.append(DocItems.at(c)->pattern());
+	}
+	for (uint c = 0; c < FrameItems.count(); ++c)
+	{
+		if ((!results.contains(FrameItems.at(c)->pattern())) && (FrameItems.at(c)->GrType == 8))
+			results.append(FrameItems.at(c)->pattern());
+	}
+	for (uint c = 0; c < results.count(); ++c)
+	{
+		QStringList pats = getUsedPatternsHelper(results[c], results);
+		if (!pats.isEmpty())
+			results += pats;
+	}
+	return results;
+}
+
+QStringList ScribusDoc::getUsedPatternsHelper(QString pattern, QStringList &results)
+{
+	ScPattern *pat = &docPatterns[pattern];
+	QStringList pats;
+	pats.clear();
+	for (uint c = 0; c < pat->items.count(); ++c)
+	{
+		if ((!results.contains(pat->items.at(c)->pattern())) && (pat->items.at(c)->GrType == 8))
+			pats.append(pat->items.at(c)->pattern());
+	}
+	if (!pats.isEmpty())
+	{
+		for (uint c = 0; c < pats.count(); ++c)
+		{
+			getUsedPatternsHelper(pats[c], results);
+		}
+	}
+	return pats;
+}
+
 void ScribusDoc::getUsedFonts(QMap<QString, QMap<uint, FPointArray> > & Really)
 {
 	PageItem* it = NULL;

@@ -3941,7 +3941,10 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		QString tmp = "/Pattern cs\n";
 		tmp += "/Pattern"+currItem->pattern()+QString::number(ResCount)+" scn\n";
 		tmp += SetClipPath(currItem);
-		tmp += "h\nf*\n";
+		if (currItem->fillRule)
+			tmp += "h\nf*\n";
+		else
+			tmp += "h\nf\n";
 		ResCount++;
 		return tmp;
 	}
