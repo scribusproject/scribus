@@ -1027,14 +1027,27 @@
     </connection>
 </connections>
 <tabstops>
-    <tabstop>selectImageFileButton</tabstop>
     <tabstop>tabFrameSetup</tabstop>
     <tabstop>radioButtonTextFrame</tabstop>
+    <tabstop>radioButtonImageFrame</tabstop>
+    <tabstop>radioButtonTable</tabstop>
+    <tabstop>radioButtonShape</tabstop>
+    <tabstop>radioButtonPolygon</tabstop>
     <tabstop>radioButtonCurrentPage</tabstop>
+    <tabstop>radioButtonRangeOfPages</tabstop>
     <tabstop>placementPagesLineEdit</tabstop>
     <tabstop>radioButtonTopLeftOfPages</tabstop>
+    <tabstop>radioButtonTopLeftOfMargins</tabstop>
+    <tabstop>radioButtonCustomPosition</tabstop>
     <tabstop>radioButtonPageSize</tabstop>
+    <tabstop>radioButtonPageMarginSize</tabstop>
+    <tabstop>radioButtonCustomSize</tabstop>
+    <tabstop>sourceDocLineEdit</tabstop>
+    <tabstop>selectDocFileButton</tabstop>
+    <tabstop>textColumnCountSpinBox</tabstop>
+    <tabstop>checkBoxLinkCreatedTextFrames</tabstop>
     <tabstop>sourceImageLineEdit</tabstop>
+    <tabstop>selectImageFileButton</tabstop>
     <tabstop>okButton</tabstop>
     <tabstop>cancelButton</tabstop>
 </tabstops>

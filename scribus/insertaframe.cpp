@@ -39,6 +39,13 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	radioButtonShape->setShown(false);
 	radioButtonPolygon->setShown(false);
 	
+	//set tab order
+	QWidget::setTabOrder(radioButtonCustomPosition, xPosMSpinBox);
+	QWidget::setTabOrder(xPosMSpinBox, yPosMSpinBox);
+	QWidget::setTabOrder(radioButtonCustomSize, widthMSpinBox);
+	QWidget::setTabOrder(widthMSpinBox, heightMSpinBox);
+	QWidget::setTabOrder(textColumnCountSpinBox, textColumnGapMSpinBox);
+	
 	typeButtonGroup->setButton(0);
 	pagePlacementButtonGroup->setButton(0);
 	framePositionButtonGroup->setButton(0);
