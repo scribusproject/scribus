@@ -25,11 +25,11 @@ for which a new license (GPL+exception) is in place.
 #define SCPATTERN_H
 
 class QString;
-class PageItem;
 class ScribusDoc;
 #include <qptrlist.h>
 #include <qimage.h>
 #include "scribusapi.h"
+#include "pageitem.h"
 
 class SCRIBUS_API ScPattern
 {
