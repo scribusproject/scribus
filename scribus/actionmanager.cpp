@@ -370,6 +370,8 @@ void ActionManager::initItemMenuActions()
 	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("16/go-up.png"), loadIcon("22/go-up.png")), "", defKeys[name], mainWindow, name));
 	name="itemSendToScrapbook";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
+	name="itemSendToPattern";
+	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="itemImageInfo";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
 	name="itemAttributes";
@@ -438,6 +440,7 @@ void ActionManager::initItemMenuActions()
 	connect( (*scrActions)["itemPDFAnnotationProps"], SIGNAL(activated()), mainWindow, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemPDFFieldProps"], SIGNAL(activated()), mainWindow, SLOT(ModifyAnnot()) );
 	connect( (*scrActions)["itemSendToScrapbook"], SIGNAL(activated()), mainWindow, SLOT(PutScrap()) );
+	connect( (*scrActions)["itemSendToPattern"], SIGNAL(activated()), mainWindow, SLOT(PutToPatterns()) );
 	connect( (*scrActions)["itemAttributes"], SIGNAL(activated()), mainWindow, SLOT(objectAttributes()) );
 	connect( (*scrActions)["itemShapeEdit"], SIGNAL(activated()), mainWindow, SLOT(ToggleFrameEdit()) );
 	connect( (*scrActions)["itemImageInfo"], SIGNAL(activated()), mainWindow, SLOT(getImageInfo()) );
@@ -1244,6 +1247,7 @@ void ActionManager::languageChange()
 	(*scrActions)["itemLower"]->setTexts( tr("&Lower"));
 	(*scrActions)["itemRaise"]->setTexts( tr("&Raise"));
 	(*scrActions)["itemSendToScrapbook"]->setTexts( tr("Send to S&crapbook"));
+	(*scrActions)["itemSendToPattern"]->setTexts( tr("Send to Patterns"));
 	(*scrActions)["itemAttributes"]->setTexts( tr("&Attributes..."));
 	(*scrActions)["itemImageInfo"]->setTexts( tr("More Info..."));
 	(*scrActions)["itemImageIsVisible"]->setTexts( tr("I&mage Visible"));
@@ -1550,6 +1554,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("itemLower", Qt::CTRL+Qt::Key_End);
 	defKeys.insert("itemRaise", Qt::CTRL+Qt::Key_Home);
 	defKeys.insert("itemSendToScrapbook", QKeySequence());
+	defKeys.insert("itemSendToPattern", QKeySequence());
 	defKeys.insert("itemAttributes", QKeySequence());
 	defKeys.insert("itemImageInfo", QKeySequence());
 	defKeys.insert("itemImageIsVisible", QKeySequence());
@@ -1780,7 +1785,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "typeEffectNormal" << "typeEffectUnderline" << "typeEffectUnderlineWords" << "typeEffectStrikeThrough" << "typeEffectAllCaps" << "typeEffectSmallCaps" << "typeEffectSuperscript" << "typeEffectSubscript" << "typeEffectOutline" << "typeEffectShadow" << "styleImageEffects" << "styleTabulators";
 	//Item
 	++itmenu;
-	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
+	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
 	itmenu->second << "insertFrame" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame" << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier" << "toolsInsertFreehandLine" << "insertGlyph" << "insertSampleText";

@@ -273,6 +273,7 @@ public slots:
 	void slotTest();
 	void slotTest2();
 	void PutScrap();
+	void PutToPatterns();
 	void changeLayer(int);
 	void showLayer();
 	//void LayerRemove(int l, bool dl = false);

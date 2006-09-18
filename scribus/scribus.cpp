@@ -665,6 +665,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuToMenu("ItemLayer", "Item");
 	layerMenuName="ItemLayer";
 	scrMenuMgr->addMenuItem(scrActions["itemSendToScrapbook"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemSendToPattern"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAttributes"], "Item");
 	scrMenuMgr->createMenu("ItemPDFOptions", tr("&PDF Options"));
@@ -2917,6 +2918,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["itemRaise"]->setEnabled(false);
 			scrActions["itemLower"]->setEnabled(false);
 			scrActions["itemSendToScrapbook"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
+			scrActions["itemSendToPattern"]->setEnabled(!(currItem->isTableItem && currItem->isSingleSel));
 			scrActions["editCut"]->setEnabled(false);
 			scrActions["editClearContents"]->setEnabled(false);
 			scrActions["toolsRotate"]->setEnabled(false);
@@ -2932,6 +2934,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["itemRaise"]->setEnabled(setter);
 			scrActions["itemLower"]->setEnabled(setter);
 			scrActions["itemSendToScrapbook"]->setEnabled(setter);
+			scrActions["itemSendToPattern"]->setEnabled(setter);
 		}
 		scrActions["itemLock"]->setOn(currItem->locked());
 		scrActions["itemLockSize"]->setOn(currItem->sizeLocked());
@@ -9221,6 +9224,36 @@ void ScribusMainWindow::slotInsertFrame()
 		}
 		delete dia;
 	}
+}
+
+void ScribusMainWindow::PutToPatterns()
+{
+	QString patternName = "Pattern_"+doc->m_Selection->itemAt(0)->itemName();
+	patternName = patternName.stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	QString objectString = ss->WriteElem(doc, view, doc->m_Selection);
+	uint ac = doc->Items->count();
+	bool savedAlignGrid = doc->useRaster;
+	bool savedAlignGuides = doc->SnapGuides;
+	doc->useRaster = false;
+	doc->SnapGuides = false;
+	slotElemRead(objectString, doc->currentPage()->xOffset(), doc->currentPage()->yOffset(), false, true, doc, view);
+	doc->useRaster = savedAlignGrid;
+	doc->SnapGuides = savedAlignGuides;
+	uint ae = doc->Items->count();
+	ScPattern pat = ScPattern();
+	pat.setDoc(doc);
+	PageItem* currItem = doc->Items->at(ac);
+	pat.pattern = currItem->DrawObj_toImage();
+	pat.width = currItem->gWidth;
+	pat.height = currItem->gHeight;
+	for (uint as = ac; as < ae; ++as)
+	{
+		pat.items.append(doc->Items->take(ac));
+	}
+	doc->docPatterns.insert(patternName, pat);
+	propertiesPalette->updateColorList();
+	delete ss;
 }
 
 void ScribusMainWindow::managePatterns()

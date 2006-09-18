@@ -2265,6 +2265,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (!currItem->isSingleSel)
 			{
 				m_ScMW->scrActions["itemSendToScrapbook"]->addTo(pmen);
+				m_ScMW->scrActions["itemSendToPattern"]->addTo(pmen);
 				if (Doc->layerCount() > 1)
 				{
 					QMap<int,int> layerMap;
