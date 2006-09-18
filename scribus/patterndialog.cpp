@@ -98,6 +98,7 @@ void PatternDialog::loadPattern()
 	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
 #endif
 	formats += "PSD (*.psd *.PSD);;";
+	formats += "Gimp Patterns (*.pat *.PAT);;";
 	formats += tr("All Files (*)");
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("patterns", ".");

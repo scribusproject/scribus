@@ -187,6 +187,7 @@ scribus_SOURCES = \
 	scimage.cpp	\
 	scimagestructs.cpp \
 	scimgdataloader.cpp \
+	scimgdataloader_gimp.cpp \
 	scimgdataloader_jpeg.cpp \
 	scimgdataloader_pdf.cpp \
 	scimgdataloader_ps.cpp \

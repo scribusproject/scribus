@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scpaths.h"
 #include "scribuscore.h"
+#include "scimgdataloader_gimp.h"
 #include "scimgdataloader_jpeg.h"
 #include "scimgdataloader_pdf.h"
 #include "scimgdataloader_ps.h"
@@ -1807,6 +1808,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 		pDataLoader.reset( new ScImgDataLoader_JPEG() );
+	else if (ext == "pat")
+		pDataLoader.reset( new ScImgDataLoader_GIMP() );
 	else
 		pDataLoader.reset( new ScImgDataLoader_QT() );
 
