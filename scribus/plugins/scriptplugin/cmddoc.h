@@ -155,7 +155,7 @@ PyObject *scribus_savedocas(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_setinfo__doc__,
-QT_TR_NOOP("saveDocAs(\"author\", \"info\", \"description\") -> bool\n\
+QT_TR_NOOP("setInfo(\"author\", \"info\", \"description\") -> bool\n\
 \n\
 Sets the document information. \"Author\", \"Info\", \"Description\" are\n\
 strings.\n\
