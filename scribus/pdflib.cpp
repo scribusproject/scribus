@@ -5044,7 +5044,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					}
 				}
 				PutDoc("<<\n");
-				if ((Options.CompressMethod != 3) && (CompAvail))
+				if ((Options.CompressMethod != 3) && (CompAvail) && (Options.Compress))
 				{
 					PutDoc("/Filter /FlateDecode\n");
 					dataP = CompressArray(&dataP);
