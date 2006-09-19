@@ -3895,7 +3895,14 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 		if (inPattern == 0)
 			mpa.rotate(-currItem->rotation());
-		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(currItem->xPos() - ActPageP->xOffset())+" "+FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()))+"]\n");
+		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		mpa.translate(patternOffsetX, -patternOffsetY);
+		mpa.rotate(-patternRotation);
+		mpa.scale(pat->scaleX, pat->scaleY);
+		mpa.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(mpa.dx())+" "+FToStr(mpa.dy())+"]\n");
+//		PutDoc("/Matrix ["+FToStr(mpa.m11())+" "+FToStr(mpa.m12())+" "+FToStr(mpa.m21())+" "+FToStr(mpa.m22())+" "+FToStr(currItem->xPos() - ActPageP->xOffset())+" "+FToStr(ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()))+"]\n");
 		PutDoc("/XStep "+FToStr(pat->width)+"\n");
 		PutDoc("/YStep "+FToStr(pat->height)+"\n");
 		PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");

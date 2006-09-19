@@ -1206,6 +1206,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				pat.width = pg.attribute("width", "0").toDouble();
 				pat.height = pg.attribute("height", "0").toDouble();
+				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
+				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
 				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
 			PAGE=PAGE.nextSibling();
@@ -1790,6 +1792,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		ScPattern pa = itPat.data();
 		pat.setAttribute("width", pa.width);
 		pat.setAttribute("height", pa.height);
+		pat.setAttribute("scaleX", pa.scaleX);
+		pat.setAttribute("scaleY", pa.scaleY);
 		WriteObjects(m_Doc, &docu, &pat, 0, 0, 3, &pa.items);
 		dc.appendChild(pat);
 	}
@@ -3104,6 +3108,8 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				}
 				pat.width = pg.attribute("width", "0").toDouble();
 				pat.height = pg.attribute("height", "0").toDouble();
+				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
+				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
 				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
 			}
 			PAGE=PAGE.nextSibling();

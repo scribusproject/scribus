@@ -2267,6 +2267,7 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 			patternMatrix.translate(patternOffsetX, -patternOffsetY);
 			patternMatrix.rotate(-patternRotation);
+			patternMatrix.scale(pat->scaleX, pat->scaleY);
 			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
 			PutSeite("Pattern"+c->pattern()+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 			if (fillRule)

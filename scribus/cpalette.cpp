@@ -777,7 +777,7 @@ void Cpalette::languageChange()
 	spinYscaling->setSuffix( pctSuffix );
 	groupRotation->setTitle( tr( "Rotation" ) );
 	textLabel7->setText( tr( "Angle" ) );
-	spinAngle->setSuffix( trUtf8( "\x20\xc2\xb0" ) );
+//	spinAngle->setSuffix( trUtf8( "\x20\xc2\xb0" ) );
 
 	ShadeTxt->setText( tr( "Shade:" ) );
 	TransTxt->setText( tr( "Opacity:" ) );
