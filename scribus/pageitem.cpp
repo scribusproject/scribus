@@ -225,6 +225,11 @@ PageItem::PageItem(const PageItem & other)
 	PicArt(other.PicArt),
 	m_lineWidth(other.m_lineWidth),
 	patternVal(other.patternVal),
+	patternScaleX(other.patternScaleX),
+	patternScaleY(other.patternScaleY),
+	patternOffsetX(other.patternOffsetX),
+	patternOffsetY(other.patternOffsetY),
+	patternRotation(other.patternRotation),
 	Oldm_lineWidth(other.Oldm_lineWidth)
 {
 }
@@ -271,6 +276,11 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	GrEndX = w;
 	GrEndY = 0;
 	patternVal = "";
+	patternScaleX = 100;
+	patternScaleY = 100;
+	patternOffsetX = 0;
+	patternOffsetY = 0;
+	patternRotation = 0;
 	m_lineWidth = w2;
 	Oldm_lineWidth = w2;
 	PLineArt = PenStyle(m_Doc->toolSettings.dLineArt);
@@ -795,7 +805,7 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				}
 				else
 				{
-					p->setPattern(&m_Doc->docPatterns[patternVal]);
+					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 					p->setFillMode(ScPainter::Pattern);
 				}
 			}
@@ -1787,6 +1797,24 @@ void PageItem::setPattern(const QString &newPattern)
 {
 	if (patternVal != newPattern)
 		patternVal = newPattern;
+}
+
+void PageItem::setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+{
+	patternScaleX = scaleX;
+	patternScaleY = scaleY;
+	patternOffsetX = offsetX;
+	patternOffsetY = offsetY;
+	patternRotation = rotation;
+}
+
+void  PageItem::patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation)
+{
+	 scaleX = patternScaleX;
+	 scaleY = patternScaleY;
+	 offsetX = patternOffsetX;
+	 offsetY = patternOffsetY;
+	 rotation = patternRotation;
 }
 
 void PageItem::setFillColor(const QString &newColor)
@@ -3812,7 +3840,7 @@ bool PageItem::connectToGUI()
 	connect(this, SIGNAL(colors(QString, QString, int, int)), m_Doc->scMW(), SLOT(setCSMenu(QString, QString, int, int)));
 	connect(this, SIGNAL(colors(QString, QString, int, int)), pp->Cpal, SLOT(setActFarben(QString, QString, int, int)));
 	connect(this, SIGNAL(gradientType(int)), pp->Cpal, SLOT(setActGradient(int)));
-	connect(this, SIGNAL(patternFill(QString)), pp->Cpal, SLOT(setActPattern(QString)));
+	connect(this, SIGNAL(patternFill(QString, double, double, double, double, double)), pp->Cpal, SLOT(setActPattern(QString, double, double, double, double, double)));
 	connect(this, SIGNAL(gradientColorUpdate(double, double, double, double, double, double)), pp->Cpal, SLOT(setSpecialGradient(double, double, double, double, double, double)));
 	connect(this, SIGNAL(rotation(double)), pp, SLOT(setR(double)));
 	connect(this, SIGNAL(transparency(double, double)), pp->Cpal, SLOT(setActTrans(double, double)));
@@ -3883,7 +3911,7 @@ void PageItem::emitAllToGUI()
 		emit transparency(fillTransparencyVal, lineTransparencyVal);
 		emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
 	}
-	emit patternFill(patternVal);
+	emit patternFill(patternVal, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);
 	if (m_Doc->appMode == modeEdit)

@@ -2212,6 +2212,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	double EndX = 0;
 	double EndY =0;
 	ScPattern *pat;
+	QWMatrix patternMatrix;
+	double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 	QPtrVector<VColorStop> cstops = c->fill_gradient.colorStops();
 	switch (c->GrType)
 	{
@@ -2262,7 +2264,11 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 8:
 			pat = &m_Doc->docPatterns[c->pattern()];
-			PutSeite("Pattern"+c->pattern()+" ["+ToStr(pat->scaleX)+" 0 0 "+ToStr(pat->scaleY)+" "+ToStr(pat->offsetX)+" "+ToStr(pat->offsetY)+"] makepattern setpattern\n");
+			c->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			patternMatrix.translate(patternOffsetX, -patternOffsetY);
+			patternMatrix.rotate(-patternRotation);
+			patternMatrix.scale(patternScaleX / 100.0 , patternScaleY / 100.0);
+			PutSeite("Pattern"+c->pattern()+" ["+ToStr(patternMatrix.m11())+" "+ToStr(patternMatrix.m12())+" "+ToStr(patternMatrix.m21())+" "+ToStr(patternMatrix.m22())+" "+ToStr(patternMatrix.dx())+" "+ToStr(patternMatrix.dy())+"] makepattern setpattern\n");
 			if (fillRule)
 				PutSeite("eofill\n");
 			else

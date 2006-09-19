@@ -1105,9 +1105,14 @@ void ScPainter::setRasterOp( int   )
 {
 }
 
-void ScPainter::setPattern(ScPattern *pattern)
+void ScPainter::setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
 	m_pattern = pattern;
+	patternScaleX = scaleX / 100.0;
+	patternScaleY = scaleY / 100.0;
+	patternOffsetX = offsetX;
+	patternOffsetY = offsetY;
+	patternRotation = rotation;
 }
 
 #ifdef HAVE_CAIRO
@@ -1176,10 +1181,13 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 			cairo_surface_destroy (image2);
 			cairo_matrix_t matrix;
-			cairo_matrix_init_scale (&matrix, 1.0 / m_zoomFactor, 1.0 / m_zoomFactor);
-			cairo_matrix_translate(&matrix, m_pattern->offsetX, m_pattern->offsetY);
-			cairo_matrix_rotate(&matrix, m_pattern->rotation);
-			cairo_matrix_scale(&matrix, 1.0 / m_pattern->scaleX, 1.0 / m_pattern->scaleY);
+			QWMatrix qmatrix;
+			qmatrix.scale(m_zoomFactor, m_zoomFactor);
+			qmatrix.translate(patternOffsetX, patternOffsetY);
+			qmatrix.rotate(patternRotation);
+			qmatrix.scale(patternScaleX, patternScaleY);
+			cairo_matrix_init(&matrix, qmatrix.m11(), qmatrix.m12(), qmatrix.m21(), qmatrix.m22(), qmatrix.dx(), qmatrix.dy());
+			cairo_matrix_invert(&matrix);
 			cairo_pattern_set_matrix (m_pat, &matrix);
 			cairo_set_source (m_cr, m_pat);
 			cairo_clip_preserve (m_cr);

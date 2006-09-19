@@ -5044,6 +5044,22 @@ void ScribusDoc::ItemPatternFill(QString pattern)
 	}
 }
 
+void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
+{
+	uint selectedItemCount=m_Selection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem;
+		for (uint a = 0; a < selectedItemCount; ++a)
+		{
+			currItem = m_Selection->itemAt(a);
+			currItem->setPatternTransform(scaleX, scaleY, offsetX, offsetY, rotation);
+			emit refreshItem(currItem);
+		}
+		changed();
+	}
+}
+
 void ScribusDoc::chTyStyle(int s)
 {
 	uint selectedItemCount=m_Selection->count();

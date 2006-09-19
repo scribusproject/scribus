@@ -1393,7 +1393,16 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 	if (item->GrType != 0)
 	{
 		if (item->GrType == 8)
+		{
 			ob.setAttribute("pattern", item->pattern());
+			double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
+			item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+			ob.setAttribute("pScaleX", patternScaleX);
+			ob.setAttribute("pScaleY", patternScaleY);
+			ob.setAttribute("pOffsetX", patternOffsetX);
+			ob.setAttribute("pOffsetY", patternOffsetY);
+			ob.setAttribute("pRotation", patternRotation);
+		}
 		else
 		{
 			QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();

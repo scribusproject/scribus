@@ -824,7 +824,14 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	if (OB->GrType != 0)
 	{
 		if (OB->GrType == 8)
+		{
 			OB->pattern = obj->attribute("pattern", "");
+			OB->patternScaleX = obj->attribute("pScaleX", "100.0").toDouble();
+			OB->patternScaleY = obj->attribute("pScaleY", "100.0").toDouble();
+			OB->patternOffsetX = obj->attribute("pOffsetX", "0.0").toDouble();
+			OB->patternOffsetY = obj->attribute("pOffsetY", "0.0").toDouble();
+			OB->patternRotation = obj->attribute("pRotation", "0.0").toDouble();
+		}
 		else
 		{
 			OB->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();

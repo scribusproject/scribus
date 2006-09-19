@@ -500,14 +500,24 @@ public:
 	 */
 	void setItemName(const QString& newName);
 
-	/** @brief Get the (name of the) pattern of the object */
+	/** @brief Get the name of the pattern of the object */
 	QString pattern() const { return patternVal; }
+
+	/** @brief Get the pattern transformation matrix of the object */
+	void patternTransform(double &scaleX, double &scaleY, double &offsetX, double &offsetY, double &rotation);
+
 	/**
 	 * @brief Set the fill pattern of the object.
 	 * @param newPattern fill pattern for the object
 	 */
 	void setPattern(const QString &newPattern);
 	
+	/**
+	 * @brief Set the fill pattern transformation of the object.
+	 * @param matrix fill pattern transformation matrix for the object
+	 */
+	void setPatternTransform(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+
 	/** @brief Get the (name of the) fill color of the object */
 	QString fillColor() const { return fillColorVal; }
 	/**
@@ -903,6 +913,14 @@ protected:
 	 * @sa PageItem::pattern(), PageItem::setPattern()
 	 */
 	QString patternVal;
+	/**
+	 * @brief Fill pattern transformation matrix
+	 */
+	double patternScaleX;
+	double patternScaleY;
+	double patternOffsetX;
+	double patternOffsetY;
+	double patternRotation;
 
 	/**
 	 * @brief Fill color name
@@ -1082,7 +1100,7 @@ signals:
 	void rotation(double); //Degrees rotation	
 	void colors(QString, QString, int, int); //lineColor, fillColor, lineShade, fillShade
 	void gradientType(int); //Normal, horizontal, vertical, etc.
-	void patternFill(QString);
+	void patternFill(QString, double, double, double, double, double);
 	void gradientColorUpdate(double, double, double, double, double, double); //Cpal updatespecialgradient
 	void transparency(double, double); //fillTransparency, lineTransparency
 	void blendmode(int, int); //fillBlendmode, lineBlendmode

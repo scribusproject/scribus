@@ -378,6 +378,18 @@ bool MSpinBox::isReadOnly() const
 	return readOnly;
 }
 
+void MSpinBox::setNewUnit(double oldUnitRatio, double newUnitRatio, int unitIndex)
+{
+	double oldVal = value() / oldUnitRatio;
+	double oldMax = maxValue() / oldUnitRatio;
+	double oldMin = minValue() / oldUnitRatio;
+	setSuffix(unitGetSuffixFromIndex(unitIndex));
+	setDecimals(unitGetDecimalsFromIndex(unitIndex));
+	setMinValue(oldMin * newUnitRatio);
+	setMaxValue(oldMax * newUnitRatio);
+	setValue(oldVal * newUnitRatio);
+}
+
 void MSpinBox::setConstants(const QMap<QString, double>& newConstants)
 {
 	functionParserConstants=newConstants;

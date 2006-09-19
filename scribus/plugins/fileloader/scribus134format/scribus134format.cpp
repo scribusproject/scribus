@@ -1204,11 +1204,6 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->ItemNr = pat.items.count();
 					pat.items.append(Neu);
 				}
-				pat.offsetX = pg.attribute("offsetX", "0").toDouble();
-				pat.offsetY = pg.attribute("offsetY", "0").toDouble();
-				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
-				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
-				pat.rotation = pg.attribute("rotation", "0").toDouble();
 				pat.width = pg.attribute("width", "0").toDouble();
 				pat.height = pg.attribute("height", "0").toDouble();
 				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
@@ -1793,11 +1788,6 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		QDomElement pat = docu.createElement("Pattern");
 		pat.setAttribute("Name",itPat.key());
 		ScPattern pa = itPat.data();
-		pat.setAttribute("offsetX", pa.offsetX);
-		pat.setAttribute("offsetY", pa.offsetY);
-		pat.setAttribute("scaleX", pa.scaleX);
-		pat.setAttribute("scaleY", pa.scaleY);
-		pat.setAttribute("rotation", pa.rotation);
 		pat.setAttribute("width", pa.width);
 		pat.setAttribute("height", pa.height);
 		WriteObjects(m_Doc, &docu, &pat, 0, 0, 3, &pa.items);
@@ -2552,7 +2542,15 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	if (currItem->GrType != 0)
 	{
 		if (currItem->GrType == 8)
+		{
 			currItem->setPattern(obj->attribute("pattern", ""));
+			double patternScaleX = obj->attribute("pScaleX", "100.0").toDouble();
+			double patternScaleY = obj->attribute("pScaleY", "100.0").toDouble();
+			double patternOffsetX = obj->attribute("pOffsetX", "0.0").toDouble();
+			double patternOffsetY = obj->attribute("pOffsetY", "0.0").toDouble();
+			double patternRotation = obj->attribute("pRotation", "0.0").toDouble();
+			currItem->setPatternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+		}
 		else
 		{
 			currItem->GrStartX = obj->attribute("GRSTARTX", "0.0").toDouble();
@@ -3104,11 +3102,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->ItemNr = pat.items.count();
 					pat.items.append(Neu);
 				}
-				pat.offsetX = pg.attribute("offsetX", "0").toDouble();
-				pat.offsetY = pg.attribute("offsetY", "0").toDouble();
-				pat.scaleX = pg.attribute("scaleX", "0").toDouble();
-				pat.scaleY = pg.attribute("scaleY", "0").toDouble();
-				pat.rotation = pg.attribute("rotation", "0").toDouble();
 				pat.width = pg.attribute("width", "0").toDouble();
 				pat.height = pg.attribute("height", "0").toDouble();
 				m_Doc->docPatterns.insert(pg.attribute("Name"), pat);
@@ -3539,7 +3532,16 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		if (item->GrType != 0)
 		{
 			if (item->GrType == 8)
+			{
 				ob.setAttribute("pattern", item->pattern());
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternXStep, patternYStep;
+				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+				ob.setAttribute("pScaleX", patternScaleX);
+				ob.setAttribute("pScaleY", patternScaleY);
+				ob.setAttribute("pOffsetX", patternOffsetX);
+				ob.setAttribute("pOffsetY", patternOffsetY);
+				ob.setAttribute("pRotation", patternRotation);
+			}
 			else
 			{
 				QPtrVector<VColorStop> cstops = item->fill_gradient.colorStops();

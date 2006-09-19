@@ -969,14 +969,15 @@ public slots:
 	void itemSelection_DistributeLeft();
 	void itemSelection_DistributeCenterV();
 	void itemSelection_DistributeTop();
-	
+
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);
 	void ItemBrush(QString farbe);
 	void ItemBrushShade(int sha);
 	void ItemGradFill(int typ);
 	void ItemPatternFill(QString pattern);
-	
+	void ItemPatternProps(double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
+
 	void updatePic();
 	void updatePict(QString name);
 	void removePict(QString name);

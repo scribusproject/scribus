@@ -136,14 +136,81 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 	Form1Layout->addWidget(colorListQLBox);
 	dynTip = new DynamicTip(colorListQLBox, &colorList);
-	patternBox = new QIconView(this, "patternBox");
+
+	patternFrame = new QFrame( this, "frame3" );
+	patternFrame->setFrameShape( QFrame::NoFrame );
+	frame3Layout = new QVBoxLayout( patternFrame, 0, 2, "frame3Layout");
+	patternBox = new QIconView(patternFrame, "patternBox");
 	patternBox->setMinimumSize( QSize( 150, 30 ) );
 	patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
-    patternBox->setResizeMode( QIconView::Adjust );
-    patternBox->setItemsMovable( FALSE );
-	Form1Layout->addWidget(patternBox);
-	patternBox->hide();
-	
+	patternBox->setResizeMode( QIconView::Adjust );
+	patternBox->setItemsMovable( false );
+	frame3Layout->addWidget( patternBox );
+
+	groupOffset = new QGroupBox( patternFrame, "groupOffset" );
+	groupOffset->setColumnLayout(0, Qt::Vertical );
+	groupOffset->layout()->setSpacing( 2 );
+	groupOffset->layout()->setMargin( 3 );
+	groupOffsetLayout = new QHBoxLayout( groupOffset->layout() );
+	groupOffsetLayout->setAlignment( Qt::AlignTop );
+	textLabel1 = new QLabel( groupOffset, "textLabel1" );
+	groupOffsetLayout->addWidget( textLabel1 );
+	spinXoffset = new MSpinBox( groupOffset, 2 );
+	spinXoffset->setDecimals(100);
+	spinXoffset->setMinValue(-3000);
+	spinXoffset->setMaxValue(3000);
+	groupOffsetLayout->addWidget( spinXoffset );
+	textLabel2 = new QLabel( groupOffset, "textLabel2" );
+	groupOffsetLayout->addWidget( textLabel2 );
+	spinYoffset = new MSpinBox( groupOffset, 2 );
+	spinYoffset->setDecimals(100);
+	spinYoffset->setMinValue(-3000);
+	spinYoffset->setMaxValue(3000);
+	groupOffsetLayout->addWidget( spinYoffset );
+	frame3Layout->addWidget( groupOffset );
+
+	groupScale = new QGroupBox( patternFrame, "groupScale" );
+	groupScale->setColumnLayout(0, Qt::Vertical );
+	groupScale->layout()->setSpacing( 2 );
+	groupScale->layout()->setMargin( 3 );
+	groupScaleLayout = new QHBoxLayout( groupScale->layout() );
+	groupScaleLayout->setAlignment( Qt::AlignTop );
+	textLabel5 = new QLabel( groupScale, "textLabel5" );
+	groupScaleLayout->addWidget( textLabel5 );
+	spinXscaling = new MSpinBox( groupScale, 0);
+	spinXscaling->setDecimals(1);
+	spinXscaling->setMaxValue( 500 );
+	spinXscaling->setMinValue( 1 );
+	spinXscaling->setValue( 100 );
+	groupScaleLayout->addWidget( spinXscaling );
+	textLabel6 = new QLabel( groupScale, "textLabel6" );
+	groupScaleLayout->addWidget( textLabel6 );
+	spinYscaling = new MSpinBox( groupScale, 0 );
+	spinYscaling->setDecimals(1);
+	spinYscaling->setMaxValue( 500 );
+	spinYscaling->setMinValue( 1 );
+	spinYscaling->setValue( 100 );
+	groupScaleLayout->addWidget( spinYscaling );
+	frame3Layout->addWidget( groupScale );
+
+	groupRotation = new QGroupBox( patternFrame, "groupRotation" );
+	groupRotation->setColumnLayout(0, Qt::Vertical );
+	groupRotation->layout()->setSpacing( 2 );
+	groupRotation->layout()->setMargin( 3 );
+	groupRotationLayout = new QHBoxLayout( groupRotation->layout() );
+	groupRotationLayout->setAlignment( Qt::AlignTop );
+	textLabel7 = new QLabel( groupRotation, "textLabel7" );
+	groupRotationLayout->addWidget( textLabel7 );
+	spinAngle = new MSpinBox( groupRotation, 1 );
+	spinAngle->setDecimals(10);
+	spinAngle->setMaxValue( 180 );
+	spinAngle->setMinValue( -180 );
+	spinAngle->setValue( 0 );
+	groupRotationLayout->addWidget( spinAngle );
+	frame3Layout->addWidget( groupRotation );
+	Form1Layout->addWidget(patternFrame);
+	patternFrame->hide();
+
 	TransGroup = new QGroupBox( tr( "Transparency Settings" ), this, "TransGroup" );
 	TransGroup->setColumnLayout(0, Qt::Vertical );
 	TransGroup->layout()->setSpacing( 0 );
@@ -174,7 +241,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	TransTxt2->hide();
 #endif
 #endif
-	
+
 	Inhalt->setOn(true);
 	InnenButton();
 	GradientMode = false;
@@ -194,6 +261,11 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	connect(gradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
 	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
 	connect(gradEdit, SIGNAL(gradientChanged()), this, SIGNAL(gradientChanged()));
@@ -213,8 +285,8 @@ void Cpalette::InhaltButton()
 		gradientQCombo->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		gradEdit->hide();
 		gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-		patternBox->hide();
-		patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		patternFrame->hide();
+		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		colorListQLBox->show();
 		colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		GradientMode = false;
@@ -262,7 +334,6 @@ void Cpalette::InnenButton()
 void Cpalette::updatePatternList()
 {
 	disconnect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
-//	disconnect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
 	patternBox->clear();
 	QMap<QString, ScPattern>::Iterator it;
 	for (it = patternList->begin(); it != patternList->end(); ++it)
@@ -280,7 +351,6 @@ void Cpalette::updatePatternList()
 		gradientQCombo->listBox()->item(8)->setSelectable(true);
 	patternBox->setSelected(patternBox->currentItem(), false);
 	connect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
-//	connect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
 }
 
 void Cpalette::SetPatterns(QMap<QString, ScPattern> *docPatterns)
@@ -294,6 +364,11 @@ void Cpalette::selectPattern(QIconViewItem *c)
 	if (c == NULL)
 		return;
 	emit NewPattern(c->text());
+}
+
+void Cpalette::changePatternProps()
+{
+	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value());
 }
 
 void Cpalette::SetColors(ColorList newColorList)
@@ -430,13 +505,13 @@ void Cpalette::ChooseGrad(int number)
 			gradEdit->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			colorListQLBox->hide();
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
-			patternBox->show();
-			patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
+			patternFrame->show();
+			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 		}
 		else
 		{
-			patternBox->hide();
-			patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+			patternFrame->hide();
+			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			colorListQLBox->show();
 			colorListQLBox->setSizePolicy(QSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding));
 			gradEdit->show();
@@ -455,8 +530,8 @@ void Cpalette::ChooseGrad(int number)
 	}
 	else
 	{
-		patternBox->hide();
-		patternBox->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
+		patternFrame->hide();
+		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		freeGradientQFrame->hide();
 		gradEdit->hide();
 		freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
@@ -592,15 +667,28 @@ void Cpalette::setActShade()
 }
 
 
-void Cpalette::setActPattern(QString pattern)
+void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation)
 {
 	disconnect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
-//	disconnect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
+	disconnect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	QIconViewItem *it = patternBox->findItem(pattern);
 	if (it)
 		patternBox->setCurrentItem(it);
+	spinXoffset->setValue(offsetX);
+	spinYoffset->setValue(offsetY);
+	spinXscaling->setValue(scaleX);
+	spinYscaling->setValue(scaleY);
+	spinAngle->setValue(rotation);
 	connect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
-//	connect(patternBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectPattern(QListBoxItem*)));
+	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 }
 
 void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitIndex)
@@ -609,7 +697,15 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	disconnect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	disconnect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
-
+	disconnect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	gX1->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+	gY1->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+	gX2->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+	gY2->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+	spinXoffset->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+	spinYoffset->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
+/*
 	double oldX = gX1->value() / oldUnitRatio;
 	double oldXM = gX1->maxValue() / oldUnitRatio;
 	double oldY = gY1->value() / oldUnitRatio;
@@ -625,10 +721,18 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	gY1->setDecimals( unitDecimals );
 	gX2->setDecimals( unitDecimals );
 	gY2->setDecimals( unitDecimals );
+	spinXoffset->setDecimals( unitDecimals );
+	spinYoffset->setDecimals( unitDecimals );
+	spinYspacing->setDecimals( unitDecimals );
+	gY2->setDecimals( unitDecimals );
 	gX1->setSuffix( unitSuffix );
 	gY1->setSuffix( unitSuffix );
 	gX2->setSuffix( unitSuffix );
 	gY2->setSuffix( unitSuffix );
+	spinXoffset->setSuffix( unitSuffix );
+	spinYoffset->setSuffix( unitSuffix );
+	spinXspacing->setSuffix( unitSuffix );
+	spinYspacing->setSuffix( unitSuffix );
 
 	gX1->setMinValue(-oldXM * newUnitRatio);
 	gX1->setMaxValue( oldXM * newUnitRatio);
@@ -642,11 +746,13 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	gY2->setMinValue(-oldHM * newUnitRatio);
 	gY2->setMaxValue( oldHM * newUnitRatio);
 	gY2->setValue(oldH * newUnitRatio);
-	
+*/
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
+	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 }
 
 void Cpalette::languageChange()
@@ -659,6 +765,19 @@ void Cpalette::languageChange()
 	QString pctSuffix=tr(" %");
 	PM1->setSuffix(pctSuffix);
 	TransSpin->setSuffix(pctSuffix);
+	groupOffset->setTitle( tr( "Offsets" ) );
+	textLabel1->setText( tr( "X:" ) );
+	spinXoffset->setSuffix( ptSuffix );
+	textLabel2->setText( tr( "Y:" ) );
+	spinYoffset->setSuffix( ptSuffix );
+	groupScale->setTitle( tr( "Scaling" ) );
+	textLabel5->setText( tr( "X:" ) );
+	spinXscaling->setSuffix( pctSuffix );
+	textLabel6->setText( tr( "Y:" ) );
+	spinYscaling->setSuffix( pctSuffix );
+	groupRotation->setTitle( tr( "Rotation" ) );
+	textLabel7->setText( tr( "Angle" ) );
+	spinAngle->setSuffix( trUtf8( "\x20\xc2\xb0" ) );
 
 	ShadeTxt->setText( tr( "Shade:" ) );
 	TransTxt->setText( tr( "Opacity:" ) );

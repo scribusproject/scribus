@@ -48,6 +48,11 @@ struct CopyPasteBuffer
 	VGradient fill_gradient;
 	int GrType;
 	QString pattern;
+	double patternScaleX;
+	double patternScaleY;
+	double patternOffsetX;
+	double patternOffsetY;
+	double patternRotation;
 	double GrStartX;
 	double GrStartY;
 	double GrEndX;

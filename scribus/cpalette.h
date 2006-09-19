@@ -57,9 +57,9 @@ class ScPattern;
 class SCRIBUS_API Cpalette : public QWidget
 {
 	Q_OBJECT
-	
-friend class Mpalette;	
-	
+
+	friend class Mpalette;
+
 public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
@@ -72,6 +72,7 @@ public slots:
 	void updateCList();
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
 	void selectPattern(QIconViewItem *c);
+	void changePatternProps();
 	void updatePatternList();
 	void updateBoxS(QString Farbe);
 	void selectColor(QListBoxItem *c);
@@ -81,7 +82,7 @@ public slots:
 	void ChooseGrad(int nr);
 	void setActFarben(QString p, QString b, int shp, int shb);
 	void setActGradient(int typ);
-	void setActPattern(QString pattern);
+	void setActPattern(QString pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	void setSpecialGradient(double x1, double y1, double x2, double y2, double w, double h);
 	void changeSpecial();
 	void setActShade();
@@ -100,6 +101,7 @@ signals:
 	void NewBrushShade(int);
 	void NewGradient(int);
 	void NewPattern(QString);
+	void NewPatternProps(double, double, double, double, double);
 	void NewSpecial(double, double, double, double);
 	void NewTrans(double);
 	void NewTransS(double);
@@ -121,10 +123,29 @@ protected:
 	QPixmap spotIcon;
 	QPixmap regIcon;
 	DynamicTip* dynTip;
-	
-	
+
+
 	ColorListBox *colorListQLBox;
+	QFrame* patternFrame;
 	QIconView *patternBox;
+	QGroupBox* groupOffset;
+	QLabel* textLabel1;
+	MSpinBox* spinXoffset;
+	QLabel* textLabel2;
+	MSpinBox* spinYoffset;
+	QGroupBox* groupScale;
+	QLabel* textLabel5;
+	MSpinBox* spinXscaling;
+	QLabel* textLabel6;
+	MSpinBox* spinYscaling;
+	QGroupBox* groupRotation;
+	QLabel* textLabel7;
+	MSpinBox* spinAngle;
+	QVBoxLayout* frame3Layout;
+	QHBoxLayout* groupOffsetLayout;
+	QHBoxLayout* groupScaleLayout;
+	QHBoxLayout* groupRotationLayout;
+
 	QToolButton *Inhalt;
 	QToolButton *Innen;
 	QSpinBox *PM1;

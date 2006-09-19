@@ -956,6 +956,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	disconnect(this->Cpal, SIGNAL(NewBlend(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewBlendS(int)), 0, 0);
 	disconnect(this->Cpal, SIGNAL(NewPattern(QString)), 0, 0);
+	disconnect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), 0, 0);
 
 	doc = d;
 	Umrech=doc->unitRatio();
@@ -1009,6 +1010,7 @@ void Mpalette::setDoc(ScribusDoc *d)
 	connect(this->Cpal, SIGNAL(NewBrushShade(int)), doc, SLOT(ItemBrushShade(int)));
 	connect(this->Cpal, SIGNAL(NewGradient(int)), doc, SLOT(ItemGradFill(int)));
 	connect(this->Cpal, SIGNAL(NewPattern(QString)), doc, SLOT(ItemPatternFill(QString)));
+	connect(this->Cpal, SIGNAL(NewPatternProps(double, double, double, double, double)), doc, SLOT(ItemPatternProps(double, double, double, double, double)));
 }
 
 void Mpalette::unsetDoc()

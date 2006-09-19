@@ -113,7 +113,7 @@ public:
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
 	virtual void setGradient( VGradient::VGradientType mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
-	virtual void setPattern(ScPattern *pattern);
+	virtual void setPattern(ScPattern *pattern, double scaleX, double scaleY, double offsetX, double offsetY, double rotation);
 	virtual void setClipPath();
 #ifndef HAVE_CAIRO
 	virtual void setClipPath2(FPointArray *points, bool closed);
@@ -197,6 +197,11 @@ private:
 	bool m_fillRule;
 	int fillMode;				// 0 = none, 1 = solid, 2 = gradient 3 = pattern
 	int gradientMode;		// 1 = linear, 2 = radial
+	double patternScaleX;
+	double patternScaleY;
+	double patternOffsetX;
+	double patternOffsetY;
+	double patternRotation;
 	/*! \brief Stroking */
 	QColor m_stroke;
 	double stroke_trans;

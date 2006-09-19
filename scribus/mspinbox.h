@@ -87,6 +87,14 @@ public:
 	\retval int The Value
 	*/
 	virtual int mapTextToValue(bool *ok);
+	/*!
+	\author Franz Schmid
+	\brief Sets a new unit for the spinbox, doing the value conversions
+	\param oldUnitRatio conversion factor for the old unit
+	\param newUnitRatio conversion factor for the new unit
+	\param unitIndex the unitIndex for the new unit
+	*/
+	void setNewUnit(double oldUnitRatio, double newUnitRatio, int unitIndex);
 	int Decimals;
 	int Width;
 	QLineEdit *ed;
