@@ -3050,8 +3050,8 @@ int ScribusDoc::itemAddUserFrame(insertAFrameData &iafData)
 		} 
 		else if (iafData.positionType==1) // Frame starts at top left of page margins
 		{
-			x1=targetPage->xOffset()+targetPage->Margins.Top;
-			y1=targetPage->yOffset()+targetPage->Margins.Left;
+			x1=targetPage->xOffset()+targetPage->Margins.Left;
+			y1=targetPage->yOffset()+targetPage->Margins.Top;
 		}
 		else if (iafData.positionType==2) // Frame starts at custom position
 		{
