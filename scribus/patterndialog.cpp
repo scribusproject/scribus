@@ -34,6 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include <qpixmap.h>
 #include <qimage.h>
+#include <qdir.h>
+#include <qfiledialog.h>
 
 PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : patternDialogBase(parent)
 {
@@ -50,6 +52,7 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	connect(buttonOK, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(buttonCancel, SIGNAL(clicked()), this, SLOT(reject()));
 	connect(buttonLoad, SIGNAL(clicked()), this, SLOT(loadPattern()));
+	connect(buttonLoadDir, SIGNAL(clicked()), this, SLOT(loadPatternDir()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removePattern()));
 	connect(patternView, SIGNAL(clicked(QIconViewItem*)), this, SLOT(patternSelected(QIconViewItem*)));
 }
@@ -65,6 +68,64 @@ void PatternDialog::updatePatternList()
 		else
 			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));
 		(void) new QIconViewItem(patternView, it.key(), pm);
+	}
+}
+
+void PatternDialog::loadPatternDir()
+{
+	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+	QString wdir = dirs->get("patterns", ".");
+	QString fileName = QFileDialog::getExistingDirectory(wdir, this, "d", tr("Choose a Directory"), true);
+	if (!fileName.isEmpty())
+	{
+		QStringList formats;
+		formats += "eps";
+		formats += "pdf";
+		QString form1 = "";
+		for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
+		{
+			form1 = QString(QImageIO::inputFormats().at(i)).lower();
+			if (form1 == "jpeg")
+				form1 = "jpg";
+			if ((form1 == "png") || (form1 == "xpm") || (form1 == "gif"))
+			formats += form1;
+			else if (form1 == "jpg")
+			{
+				formats += "jpg";
+				formats += "jpeg";
+			}
+		}
+#ifdef HAVE_TIFF
+		formats += "tif";
+	 	formats += "tiff";
+#endif
+		formats += "psd";
+		formats += "pat";
+		QDir d(fileName, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
+		if ((d.exists()) && (d.count() != 0))
+		{
+			for (uint dc = 0; dc < d.count(); ++dc)
+			{
+				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				QString ext = fi.extension(true).lower();
+				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
+					loadVectors(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+				else if (formats.contains(ext))
+				{
+					QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
+					ScPattern pat = ScPattern();
+					pat.setDoc(m_doc);
+					pat.setPattern(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
+					if (!dialogPatterns.contains(patNam))
+						dialogPatterns.insert(patNam, pat);
+				}
+				else
+					continue;
+			}
+		}
+		d.cdUp();
+		dirs->set("patterns", d.absPath());
+		updatePatternList();
 	}
 }
 
@@ -112,7 +173,10 @@ void PatternDialog::loadPattern()
 		PrefsManager::instance()->prefsFile->getContext("dirs")->set("patterns", fileName.left(fileName.findRev("/")));
 		QFileInfo fi(fileName);
 		if ((fi.extension(true).lower() == "sml") || (fi.extension(true).lower() == "shape") || (fi.extension(true).lower() == "sce"))
+		{
 			loadVectors(fileName);
+			updatePatternList();
+		}
 		else
 		{
 			QString patNam = fi.baseName().stripWhiteSpace().simplifyWhiteSpace().replace(" ", "_");
@@ -182,7 +246,6 @@ void PatternDialog::loadVectors(QString data)
 		if (!origPatterns.contains(it.key()))
 			dialogPatterns.insert(it.key(), it.data());
 	}
-	updatePatternList();
 }
 
 void PatternDialog::patternSelected(QIconViewItem* it)

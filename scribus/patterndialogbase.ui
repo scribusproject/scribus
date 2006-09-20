@@ -33,7 +33,7 @@
         </widget>
         <widget class="QLayoutWidget">
             <property name="name">
-                <cstring>layout1</cstring>
+                <cstring>layout2</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -45,6 +45,14 @@
                     </property>
                     <property name="text">
                         <string>Load</string>
+                    </property>
+                </widget>
+                <widget class="QPushButton">
+                    <property name="name">
+                        <cstring>buttonLoadDir</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Load Set</string>
                     </property>
                 </widget>
                 <widget class="QPushButton">
@@ -68,7 +76,7 @@
                     <property name="sizeHint">
                         <size>
                             <width>21</width>
-                            <height>81</height>
+                            <height>30</height>
                         </size>
                     </property>
                 </spacer>

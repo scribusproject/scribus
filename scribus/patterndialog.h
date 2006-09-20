@@ -53,6 +53,7 @@ class SCRIBUS_API PatternDialog : public patternDialogBase
 		QMap<QString, ScPattern> dialogPatterns;
 		QStringList origPatterns;
 	public slots:
+		void loadPatternDir();
 		void loadPattern();
 		void patternSelected(QIconViewItem* it);
 		void removePattern();
