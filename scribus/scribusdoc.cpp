@@ -2786,6 +2786,22 @@ void ScribusDoc::recalculateColors()
 			cstops.at(cst)->color = tmpc;
 		}
 	}
+	QStringList patterns = docPatterns.keys();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *ite = pa.items.at(o);
+			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+			{
+				QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
+				cstops.at(cst)->color = tmpc;
+			}
+		}
+	}
 }
 
 void ScribusDoc::setScTextDefaultsFromDoc(ScText *sctextdata)
@@ -4243,6 +4259,17 @@ void ScribusDoc::updateAllItemQColors()
 		PageItem *ite = FrameItems.at(c);
 		ite->setLineQColor();
 		ite->setFillQColor();
+	}
+	QStringList patterns = docPatterns.keys();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *ite = pa.items.at(o);
+			ite->setLineQColor();
+			ite->setFillQColor();
+		}
 	}
 }
 
