@@ -1764,16 +1764,6 @@ void PDFlib::PDF_End_Page()
 			PutDoc(QString::number(Seite.AObjects[b])+" 0 R ");
 		PutDoc("]\n");
 	}
-	if (Patterns.count() != 0)
-	{
-		PutDoc("/Resources\n<< /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
-		PutDoc("/Pattern << \n");
-		QMap<QString,int>::Iterator it3p;
-		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
-			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
-		PutDoc(">>\n>>\n");
-		Patterns.clear();
-	}
 	if (Options.PresentMode)
 	{
 		if (Options.PresentVals[PgNr].pageViewDuration > 0)
@@ -5414,14 +5404,14 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 			PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
 		PutDoc(">>\n");
 	}
-/*	if (Patterns.count() != 0)
+	if (Patterns.count() != 0)
 	{
 		PutDoc("/Pattern << \n");
 		QMap<QString,int>::Iterator it3p;
 		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
 			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
 		PutDoc(">>\n");
-	} */
+	}
 	if (Transpar.count() != 0)
 	{
 		PutDoc("/ExtGState << \n");
