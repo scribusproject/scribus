@@ -39,11 +39,8 @@ public:
 	QImage* getPattern();
 	void setDoc(ScribusDoc *doc);
 	void setPattern(QString file);
-	double offsetX;
-	double offsetY;
 	double scaleX;
 	double scaleY;
-	double rotation;
 	double height;
 	double width;
 	QPtrList<PageItem> items;

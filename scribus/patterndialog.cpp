@@ -227,6 +227,20 @@ void PatternDialog::loadVectors(QString data)
 	m_doc->useRaster = savedAlignGrid;
 	m_doc->SnapGuides = savedAlignGuides;
 	uint ae = m_doc->Items->count();
+	for (uint as = ac; as < ae; ++as)
+	{
+		PageItem* ite = m_doc->Items->at(ac);
+		if (ite->itemType() == PageItem::PathText)
+		{
+			ite->Frame = true;
+			ite->updatePolyClip();
+		}
+		else if (ite->itemType() == PageItem::TextFrame)
+		{
+			if ( ite->BackBox == 0 )
+				ite->asTextFrame()->layout();
+		}
+	}
 	ScPattern pat = ScPattern();
 	pat.setDoc(m_doc);
 	PageItem* currItem = m_doc->Items->at(ac);

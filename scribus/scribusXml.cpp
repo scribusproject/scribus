@@ -917,11 +917,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				Neu->ItemNr = pat.items.count();
 				pat.items.append(Neu);
 			}
-			pat.offsetX = pg.attribute("offsetX", "0").toDouble();
-			pat.offsetY = pg.attribute("offsetY", "0").toDouble();
 			pat.scaleX = pg.attribute("scaleX", "0").toDouble();
 			pat.scaleY = pg.attribute("scaleY", "0").toDouble();
-			pat.rotation = pg.attribute("rotation", "0").toDouble();
 			pat.width = pg.attribute("width", "0").toDouble();
 			pat.height = pg.attribute("height", "0").toDouble();
 			doc->docPatterns.insert(pg.attribute("Name"), pat);
@@ -1307,11 +1304,8 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 		ScPattern pa = doc->docPatterns[patterns[c]];
 		QDomElement pat = docu.createElement("Pattern");
 		pat.setAttribute("Name", patterns[c]);
-		pat.setAttribute("offsetX", pa.offsetX);
-		pat.setAttribute("offsetY", pa.offsetY);
 		pat.setAttribute("scaleX", pa.scaleX);
 		pat.setAttribute("scaleY", pa.scaleY);
-		pat.setAttribute("rotation", pa.rotation);
 		pat.setAttribute("width", pa.width);
 		pat.setAttribute("height", pa.height);
 		for (uint o = 0; o < pa.items.count(); o++)
