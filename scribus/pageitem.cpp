@@ -1379,6 +1379,7 @@ QImage PageItem::DrawObj_toImage()
 		embedded->Ypos = embedded->gYpos;
 		painter->translate(embedded->gXpos, embedded->gYpos);
 		embedded->isEmbedded = true;
+		embedded->invalid = true;
 		embedded->DrawObj(painter, QRect(0, 0, retImg.width(), retImg.height()));
 		embedded->Xpos = x;
 		embedded->Ypos = y;
