@@ -1758,12 +1758,16 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
 	double desc, asce, maxDY, tabDist;
 	tTabValues.clear();
-	
-	QRect e2 = QRect(qRound(e.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + m_Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
-
 	p->save();
 	pf2.begin(view->viewport());
-	pf2.translate(Xpos, Ypos);
+	QRect e2;
+	if (isEmbedded)
+		e2 = e;
+	else
+	{
+		e2 = QRect(qRound(e.x()  / sc + m_Doc->minCanvasCoordinate.x()), qRound(e.y()  / sc + m_Doc->minCanvasCoordinate.y()), qRound(e.width() / sc), qRound(e.height() / sc));
+		pf2.translate(Xpos, Ypos);
+	}
 	pf2.rotate(Rot);
 	if (!m_Doc->layerOutline(LayerNr))
 	{
