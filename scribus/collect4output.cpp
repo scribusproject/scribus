@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "filewatcher.h"
 #include "pageitem.h"
 #include "scraction.h"
-#include "scraction.h"
+#include "scpattern.h"
 
 #include <qmessagebox.h>
 #include <qstring.h>
@@ -169,20 +169,56 @@ bool CollectForOutput::collectItems()
 					ite = m_Doc->FrameItems.at(b);
 					break;
 			}
-			if (ite->asImageFrame())
+			processItem(ite);
+		}
+	}
+	QStringList patterns = m_Doc->getUsedPatterns();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = m_Doc->docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			processItem(pa.items.at(o));
+		}
+	}
+	return true;
+}
+
+void CollectForOutput::processItem(PageItem *ite)
+{
+	if (ite->asImageFrame())
+	{
+		/* hack for subsequent c4o "./" -> "/doc/full/path" */
+		QString ofName(ite->Pfile);
+		QFileInfo itf = QFileInfo(ofName);
+		if (!itf.exists())
+		{
+			ofName = QDir::convertSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
+			itf.setFile(ofName);
+		}
+		// end of hack
+		if (itf.exists())
+		{
+			QString oldFile = ofName;
+			ite->Pfile = collectFile(oldFile, itf.fileName());
+			if (ScCore->fileWatcherActive())
 			{
-				/* hack for subsequent c4o "./" -> "/doc/full/path" */
-				QString ofName(ite->Pfile);
-				QFileInfo itf = QFileInfo(ofName);
-				if (!itf.exists())
-				{
-					ofName = QDir::convertSeparators(PrefsManager::instance()->documentDir() + "/" + ofName);
-					itf.setFile(ofName);
-				}
-				// end of hack
+				ScCore->fileWatcher->removeFile(oldFile);
+				ScCore->fileWatcher->addFile(ite->Pfile);
+			}
+		}
+	}
+	if (ite->asTextFrame())
+	{
+		if (ite->isAnnotation())
+		{
+			QFileInfo itf;
+			if (!ite->Pfile.isEmpty())
+			{
+				itf = QFileInfo(ite->Pfile);
 				if (itf.exists())
 				{
-					QString oldFile = ofName;
+					QString oldFile = ite->Pfile;
 					ite->Pfile = collectFile(oldFile, itf.fileName());
 					if (ScCore->fileWatcherActive())
 					{
@@ -191,42 +227,20 @@ bool CollectForOutput::collectItems()
 					}
 				}
 			}
-			if (ite->asTextFrame())
+			if (!ite->Pfile2.isEmpty())
 			{
-				if (ite->isAnnotation())
-				{
-					QFileInfo itf;
-					if (!ite->Pfile.isEmpty())
-					{
-						itf = QFileInfo(ite->Pfile);
-						if (itf.exists())
-						{
-							QString oldFile = ite->Pfile;
-							ite->Pfile = collectFile(oldFile, itf.fileName());
-							if (ScCore->fileWatcherActive())
-							{
-								ScCore->fileWatcher->removeFile(oldFile);
-								ScCore->fileWatcher->addFile(ite->Pfile);
-							}
-						}
-					}
-					if (!ite->Pfile2.isEmpty())
-					{
-						itf = QFileInfo(ite->Pfile2);
-						if (itf.exists())
-							ite->Pfile2 = collectFile(ite->Pfile2, itf.fileName());
-					}
-					if (!ite->Pfile3.isEmpty())
-					{
-						itf = QFileInfo(ite->Pfile3);
-						if (itf.exists())
-							ite->Pfile3 = collectFile(ite->Pfile3, itf.fileName());
-					}
-				}
+				itf = QFileInfo(ite->Pfile2);
+				if (itf.exists())
+					ite->Pfile2 = collectFile(ite->Pfile2, itf.fileName());
+			}
+			if (!ite->Pfile3.isEmpty())
+			{
+				itf = QFileInfo(ite->Pfile3);
+				if (itf.exists())
+					ite->Pfile3 = collectFile(ite->Pfile3, itf.fileName());
 			}
 		}
 	}
-	return true;
 }
 
 bool CollectForOutput::collectFonts()

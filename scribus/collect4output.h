@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 class QString;
 class ScribusDoc;
 class PrefsContext;
+class PageItem;
 
 
 /*! \brief Performs "Collect for Output" tasks.
@@ -66,6 +67,8 @@ private:
 	/*! Collect all related items, esp. images.
 	\retval true on success */
 	bool collectItems();
+	/*! Processes the item, helper function for collectItems() */
+	void processItem(PageItem *ite);
 	/*! Collect used fonts if requested.
 	\retval true on success */
 	bool collectFonts();
