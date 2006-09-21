@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 20:57+0200\n"
+"POT-Creation-Date: 2006-09-21 23:04+0200\n"
 "PO-Revision-Date: 2006-03-13 18:31-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
@@ -627,10 +627,13 @@ msgstr "Documento"
 msgid "Background"
 msgstr "Plano de Fundo"
 
+#, fuzzy
 msgid ""
-"An error occurred while opening icc profiles, color management is not "
+"An error occurred while opening ICC profiles, color management is not "
 "enabled."
 msgstr ""
+"Permite que você incorpore perfis ICC no fluxo de impressão quando o "
+"gerenciamento de cor está habilitado"
 
 msgid "New Layer"
 msgstr "Nova camada"
@@ -1284,6 +1287,18 @@ msgstr "Obter imagem"
 
 msgid "Multiple duplicate"
 msgstr "Duplicações múltiplas"
+
+#, fuzzy
+msgid "Reset control point"
+msgstr "Reconfigura os pontos de controle"
+
+#, fuzzy
+msgid "Reset control points"
+msgstr "Reconfigura os pontos de controle"
+
+#, fuzzy
+msgid "Modify image effects"
+msgstr "Efeitos de imagem"
 
 msgid "Move Pages"
 msgstr "Mover páginas"
@@ -2586,11 +2601,9 @@ msgstr "offset do memcpy: %1 %2 %3"
 msgid "Print Preview"
 msgstr "Visualizar impressão"
 
-msgid "Anti-alias &Text"
-msgstr "Suavizar (anti-alias) &texto"
-
-msgid "Anti-alias &Graphics"
-msgstr "Suavizar (anti-alias) &imagens"
+#, fuzzy
+msgid "Enable &Antialiasing"
+msgstr "Habilitar impressão do item"
 
 msgid "Display Trans&parency"
 msgstr "Mostrar trans&parência"
@@ -2637,17 +2650,11 @@ msgstr "Fechar"
 msgid "Print..."
 msgstr "Imprimir..."
 
+#, fuzzy
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense of "
-"a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-"Oferece uma visão mais agradável dos ítens de texto, ao custo de uma ligeira "
-"lentidão na visualização. Isso afeta somente fontes Type 1"
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType "
+"Fonts, EPS, PDF and vector graphics in the preview, at the expense of a "
+"slight slowdown in previewing"
 msgstr ""
 "Oferece uma visão mais agradável das fontes True Type e Open Type, EPS, PDF "
 "e imagens vetoriais, ao custo de uma ligeira lentidão na visualização"
@@ -2807,6 +2814,9 @@ msgstr "Não usar nenhum caminho"
 
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus - Sobre os Plug-ins"
+
+msgid "%1 may be corrupted : missing resolution tags"
+msgstr ""
 
 msgid "Align Text Left"
 msgstr "Alinhar o texto à esquerda"
@@ -4526,6 +4536,10 @@ msgstr "Mostrar &grade"
 msgid "Show G&uides"
 msgstr "Mostrar g&uias"
 
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "Mostrar conexões de texto"
+
 msgid "Show &Baseline Grid"
 msgstr "Mostrar &pauta"
 
@@ -5227,6 +5241,20 @@ msgstr "Y:"
 msgid "K:"
 msgstr "K:"
 
+msgid ""
+"Choosing this will enable printing this on all plates. Registration colors "
+"are used for printer marks such as crop marks, registration marks and the "
+"like. These are not typically used in the layout itself."
+msgstr ""
+
+msgid ""
+"Choosing this will make this color a spot color, thus creating another spot "
+"when creating plates or separations. This is used most often when a logo or "
+"other color needs exact representation or cannot be replicated with CMYK "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
+"replicated with CMYK inks."
+msgstr ""
+
 msgid "Dynamic Color Bars"
 msgstr "Barras de cor dinâmicas"
 
@@ -5299,6 +5327,16 @@ msgstr "Exclui a cor selecionada"
 
 msgid "Make the current colorset the default color set"
 msgstr "Faz com que o conjunto atual de cores seja o padrão"
+
+msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected. What this means is the color many not be able to be "
+"printed exactly as displayed on screen. Spot colors are indicated by a red "
+"circle. Registration colors will have a registration mark next to the color. "
+"More hints about gamut warnings are in the online help under Color "
+"Management."
+msgstr ""
 
 msgid "Choose a Name"
 msgstr "Escolha um nome"
@@ -6123,9 +6161,6 @@ msgstr "Selecionar fonte"
 msgid "About Scribus %1"
 msgstr "Sobre o Scribus %1"
 
-msgid "May"
-msgstr ""
-
 msgid "%1 %2 %3"
 msgstr "%1 %2 %3"
 
@@ -6164,6 +6199,9 @@ msgstr "Documentação oficial:"
 
 msgid "Other Documentation:"
 msgstr "Outras documentações:"
+
+msgid "Tango Project Icons:"
+msgstr ""
 
 msgid "A&uthors"
 msgstr "A&utores"
@@ -6520,14 +6558,23 @@ msgstr "Trava ou destrava o tamanho do objeto"
 msgid "Enable or disable printing of the object"
 msgstr "Habilita ou desabilita a impressão do objeto"
 
-msgid "Make text in lower frames flow around the object shape"
+#, fuzzy
+msgid ""
+"Make text in lower frames flow around the object. The options below define "
+"how this is enabled."
 msgstr "Faz o texto nos quadros inferiores fluir ao redor do objeto"
 
-msgid "Use a surrounding box instead of the frame's shape for text flow"
+#, fuzzy
+msgid ""
+"Use the bounding box, which is always rectangular, instead of the frame's "
+"shape for text flow of text frames below the object. "
 msgstr ""
 "Usa uma caixa circundante ao invés do formato do quadro para o fluxo do texto"
 
-msgid "Use a second line originally based on the frame's shape for text flow"
+#, fuzzy
+msgid ""
+"Use a second line originally based on the frame's shape for text flow of "
+"text frames below the object. "
 msgstr ""
 "Usar uma segunda linha, baseada originalmente no formato do quadro para o "
 "fluxo do texto"
@@ -6703,6 +6750,9 @@ msgstr "nome de arquivo"
 
 msgid "Use filename as path for user given preferences"
 msgstr "Usa o nome de arquivo como caminho para as preferências de usuário"
+
+msgid "Display a console window"
+msgstr ""
 
 msgid "Installed interface languages for Scribus are as follows:"
 msgstr "Os idiomas de interface instalados no Scribus são os seguintes:"
@@ -6907,6 +6957,10 @@ msgstr "Essa seqüência de teclas já está em uso"
 msgid "Key Set XML Files (*.ksxml)"
 msgstr "Arquivo XML de definições de teclas (*.ksxml)"
 
+#, fuzzy
+msgid "Main"
+msgstr "Margens"
+
 msgid "Choose a Scrapbook Directory"
 msgstr "Selecione um diretório do Bloco de Rascunhos"
 
@@ -7065,9 +7119,6 @@ msgstr "Pos.&X"
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documentos PDF (*.pdf);;Todos os arquivos (*)"
-
-msgid "LineStyleWBase"
-msgstr "LineStyleWBase"
 
 msgid "%"
 msgstr "%"
@@ -7831,6 +7882,9 @@ msgstr "Húngaro"
 msgid "Indonesian"
 msgstr "Indonésio"
 
+msgid "Icelandic"
+msgstr ""
+
 msgid "Italian"
 msgstr "Italiano"
 
@@ -8482,9 +8536,10 @@ msgstr "Importar PDB"
 msgid "Could not open file %1"
 msgstr "Não foi possível abrir o arquivo %1"
 
+#, fuzzy
 msgid ""
-"This file is not recognized as a PDB document propably. Please, report this "
-"as a bug if you are sure it is one."
+"This file is not recognized as a PDB document. Please, report this as a bug "
+"if you are sure it is one."
 msgstr ""
 "Este arquivo não é reconhecido como um documento PDB. Por favor, informe "
 "isto como uma falha caso você tenha certeza que este é um arquivo válido."
@@ -9644,6 +9699,22 @@ msgstr "Meu &Plugin"
 
 msgid "My Plugin"
 msgstr "Meu Plugin"
+
+#~ msgid "Anti-alias &Text"
+#~ msgstr "Suavizar (anti-alias) &texto"
+
+#~ msgid "Anti-alias &Graphics"
+#~ msgstr "Suavizar (anti-alias) &imagens"
+
+#~ msgid ""
+#~ "Provides a more pleasant view of text items in the viewer, at the expense "
+#~ "of a slight slowdown in previewing. This only affects Type 1 fonts"
+#~ msgstr ""
+#~ "Oferece uma visão mais agradável dos ítens de texto, ao custo de uma "
+#~ "ligeira lentidão na visualização. Isso afeta somente fontes Type 1"
+
+#~ msgid "LineStyleWBase"
+#~ msgstr "LineStyleWBase"
 
 #~ msgid "Font %1 (found using fontconfig) is broken, discarding it"
 #~ msgstr ""

@@ -206,7 +206,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(size, margins, orientation, firstPageNumber,
+        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder) -&gt; bool
 
 Creates a new document and returns true if successful. The parameters have the
@@ -244,6 +244,49 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -572,7 +615,7 @@ May raise ScribusError if the save fails.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
@@ -2612,6 +2655,21 @@ Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2682,11 +2740,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Windows Port:</source>
-        <translation>Windowsa uyarlayan:</translation>
+        <translation type="obsolete">Windowsa uyarlayan:</translation>
     </message>
     <message>
         <source>Mac OSX Aqua Port:</source>
-        <translation>Mac OSX &apos;e uyarlayan:</translation>
+        <translation type="obsolete">Mac OSX &apos;e uyarlayan:</translation>
     </message>
     <message>
         <source>Wiki</source>
@@ -2722,7 +2780,19 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>January</source>
-        <translation>Ocak</translation>
+        <translation type="obsolete">Ocak</translation>
+    </message>
+    <message>
+        <source>Mac OS&amp;#174; X Aqua Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Windows&amp;#174; Port:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2735,6 +2805,38 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>No</source>
         <translation>Hayır</translation>
     </message>
+    <message>
+        <source>Filename:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Version:</source>
+        <translation type="unfinished">Sürüm:</translation>
+    </message>
+    <message>
+        <source>Enabled:</source>
+        <translation type="unfinished">Etkin:</translation>
+    </message>
+    <message>
+        <source>Release Date:</source>
+        <translation type="unfinished">Sürüm Tarihi:</translation>
+    </message>
+    <message>
+        <source>Description:</source>
+        <translation type="unfinished">Tanım:</translation>
+    </message>
+    <message>
+        <source>Author(s):</source>
+        <translation type="unfinished">Yazar(lar):</translation>
+    </message>
+    <message>
+        <source>Copyright:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>License:</source>
+        <translation type="unfinished">Lisans:</translation>
+    </message>
 </context>
 <context>
     <name>AboutPluginsBase</name>
@@ -2744,35 +2846,35 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>File Name:</source>
-        <translation>Dosya Adı:</translation>
+        <translation type="obsolete">Dosya Adı:</translation>
     </message>
     <message>
         <source>Version:</source>
-        <translation>Sürüm:</translation>
+        <translation type="obsolete">Sürüm:</translation>
     </message>
     <message>
         <source>Enabled:</source>
-        <translation>Etkin:</translation>
+        <translation type="obsolete">Etkin:</translation>
     </message>
     <message>
         <source>Release Date:</source>
-        <translation>Sürüm Tarihi:</translation>
+        <translation type="obsolete">Sürüm Tarihi:</translation>
     </message>
     <message>
         <source>Copyright:</source>
-        <translation>Telif Hakkı:</translation>
+        <translation type="obsolete">Telif Hakkı:</translation>
     </message>
     <message>
         <source>Author(s):</source>
-        <translation>Yazar(lar):</translation>
+        <translation type="obsolete">Yazar(lar):</translation>
     </message>
     <message>
         <source>Description:</source>
-        <translation>Tanım:</translation>
+        <translation type="obsolete">Tanım:</translation>
     </message>
     <message>
         <source>License:</source>
-        <translation>Lisans:</translation>
+        <translation type="obsolete">Lisans:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -2883,7 +2985,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation>İçeriği &amp;Temizle</translation>
+        <translation type="obsolete">İçeriği &amp;Temizle</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2983,7 +3085,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outline</source>
-        <translation>Kontü&amp;r</translation>
+        <translation type="obsolete">Kontü&amp;r</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -3087,7 +3189,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Outlines</source>
-        <translation>Anahat&amp;lar</translation>
+        <translation type="obsolete">Anahat&amp;lar</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -3577,6 +3679,129 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>More Info...</source>
         <translation>Daha fazla bilgi...</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">&amp;Temizle</translation>
+    </message>
+    <message>
+        <source>S&amp;tyles...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>type effect</comment>
+        <translation type="unfinished">Kontü&amp;r</translation>
+    </message>
+    <message>
+        <source>&amp;Printing Enabled</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Horizontally</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Flip Vertically</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outlines</source>
+        <comment>Convert to oulines</comment>
+        <translation type="unfinished">Anahat&amp;lar</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Rulers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Outline</source>
+        <comment>Document Outline Palette</comment>
+        <translation type="unfinished">Kontü&amp;r</translation>
+    </message>
+    <message>
+        <source>Solidus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Middle Dot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>En Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Em Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thin Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thick Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mid Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hair Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Smart Hyphen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Dash</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Non Breaking Space</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Insert Page Number</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ff</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>fl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ffl</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ft</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>st</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4292,6 +4517,16 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
         <translation>Resimler (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;Tüm Dosyalar (*)</translation>
     </message>
+    <message>
+        <source>None</source>
+        <comment>highlight</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>action</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -4424,7 +4659,11 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Apply the selected template to even, odd or all pages within the following range</source>
-        <translation>Seçili şablonu aşağıdaki sınırlar içindeki tek sayılı,çift sayılı ya da tüm sayfalara uygula</translation>
+        <translation type="obsolete">Seçili şablonu aşağıdaki sınırlar içindeki tek sayılı,çift sayılı ya da tüm sayfalara uygula</translation>
+    </message>
+    <message>
+        <source>Apply the selected master page to even, odd or all pages within the following range</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4435,6 +4674,211 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
 </context>
 <context>
+    <name>Barcode</name>
+    <message>
+        <source>&amp;Barcode Generator...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribus frontend for Pure Postscript Barcode Writer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGenerator</name>
+    <message>
+        <source>12 or 13 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>11 or 12 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>7 or 8 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>5 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>2 digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>9 or 10 digits separated appropriately with dashes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of characters, digits and any of the symbols -. *$/+%.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of ASCII characters and special function symbols, starting with the appropriate start character for the initial character set. UCC/EAN-128s must have a mandatory FNC 1 symbol immediately following the start character.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and any of the symbols -$:/.+ABCD.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits. An ITF-14 is 14 characters and does not have a check digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of digits and capital letters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Variable number of hexadecimal characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error opening file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode incomplete</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>BarcodeGeneratorBase</name>
+    <message>
+        <source>Barcode Creator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Type:</source>
+        <translation type="unfinished">&amp;Tip:</translation>
+    </message>
+    <message>
+        <source>Co&amp;de:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the available barcode type here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The numeric representation of the code itself. See the help message below</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the barcode samples</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Include text in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+I</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>If checked, there will be numbers in the barcode too</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Guard whitespace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Draw arrows to be sure of space next the code</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>I&amp;nclude checksum</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generate and include a checksum in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Incl&amp;ude checksum digit</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Include the checksum digit in the barcode text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Renkler</translation>
+    </message>
+    <message>
+        <source>&amp;Background</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+B</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Background color - under the code lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Color of the lines in barcode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Text</source>
+        <translation type="unfinished">&amp;Metin</translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of the text and numbers</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hints and help is shown here</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Preview of the result. 72dpi sample.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>Biblio</name>
     <message>
         <source>Scrapbook</source>
@@ -4442,7 +4886,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation>Albümler (*.scs);;Tüm Dosyalar (*)</translation>
+        <translation type="obsolete">Albümler (*.scs);;Tüm Dosyalar (*)</translation>
     </message>
     <message>
         <source>Delete</source>
@@ -4470,7 +4914,7 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Save</source>
-        <translation>&amp;Kaydet</translation>
+        <translation type="obsolete">&amp;Kaydet</translation>
     </message>
     <message>
         <source>Save &amp;As...</source>
@@ -4482,15 +4926,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
         <source>&amp;Small</source>
-        <translation>&amp;Küçük</translation>
+        <translation type="obsolete">&amp;Küçük</translation>
     </message>
     <message>
         <source>&amp;Medium</source>
-        <translation>&amp;Orta</translation>
+        <translation type="obsolete">&amp;Orta</translation>
     </message>
     <message>
         <source>&amp;Large</source>
-        <translation>&amp;Büyük</translation>
+        <translation type="obsolete">&amp;Büyük</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -4509,6 +4953,30 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 Please choose another.</source>
         <translation>&quot;%1&quot; ismi kullanımda.
 Başka seçin.</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Scrapbook Directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Dizin Seçin</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4829,7 +5297,7 @@ This requires very accurate profiles and serves only as a warning.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -4848,6 +5316,14 @@ Bu isim şeffaflık için ayrılmıştır</translation>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Renk adı zaten mevcut</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4893,7 +5369,7 @@ Bu isim şeffaflık için ayrılmıştır</translation>
     </message>
     <message>
         <source>Close this dialog and return to text editing.</source>
-        <translation>Bu diyaloğu kapat ve metin düzeltmeye geri dön.</translation>
+        <translation type="obsolete">Bu diyaloğu kapat ve metin düzeltmeye geri dön.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -5007,6 +5483,18 @@ Oklar</translation>
     <message>
         <source>Hebrew</source>
         <translation>İbranice</translation>
+    </message>
+    <message>
+        <source>&amp;Insert Code:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close this dialog and return to text editing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Type in a four digit unicode value directly here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5126,7 +5614,7 @@ Oklar</translation>
     <name>ColorListBox</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
 </context>
 <context>
@@ -5234,6 +5722,10 @@ Oklar</translation>
     <message>
         <source>New Color</source>
         <translation>Yeni Renk</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5513,7 +6005,7 @@ Oklar</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -5526,6 +6018,52 @@ Oklar</translation>
     <message>
         <source>Warning</source>
         <translation>Uyarı</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>color name</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <comment>CommonStrings, custom page size</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Single Page</source>
+        <translation type="unfinished">Tek Sayfa</translation>
+    </message>
+    <message>
+        <source>Double Sided</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>3-Fold</source>
+        <translation type="unfinished">3-katlama</translation>
+    </message>
+    <message>
+        <source>4-Fold</source>
+        <translation type="unfinished">4-katlama</translation>
+    </message>
+    <message>
+        <source>Left Page</source>
+        <translation type="unfinished">Sol Sayfa</translation>
+    </message>
+    <message>
+        <source>Middle</source>
+        <translation type="unfinished">Orta</translation>
+    </message>
+    <message>
+        <source>Middle Left</source>
+        <translation type="unfinished">Orta Sol</translation>
+    </message>
+    <message>
+        <source>Middle Right</source>
+        <translation type="unfinished">Orta Sağ</translation>
+    </message>
+    <message>
+        <source>Right Page</source>
+        <translation type="unfinished">Sağ Sayfa</translation>
     </message>
 </context>
 <context>
@@ -5564,7 +6102,7 @@ Oklar</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Shade:</source>
@@ -5659,7 +6197,12 @@ Oklar</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>delimiter</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5840,7 +6383,7 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Delete Color:</source>
@@ -5883,6 +6426,18 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <message>
         <source>No Style</source>
         <translation>Stil Yok</translation>
+    </message>
+</context>
+<context>
+    <name>DocIm</name>
+    <message>
+        <source>Importing failed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Importing Word document failed 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6052,7 +6607,19 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     </message>
     <message>
         <source>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</source>
-        <translation>Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
+        <translation type="obsolete">Name: Optional name for section eg. Index&lt;br/&gt;Shown: Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;From: The page index for this section to start at.&lt;br/&gt;To: The page index for this section to stop at.&lt;br/&gt;Style: Select the page number style to be used.&lt;br/&gt;Start: The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b.</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Number Out Of Bounds</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6106,7 +6673,7 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <name>DocumentItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -6143,6 +6710,21 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <message>
         <source>Real Number</source>
         <translation>Gerçek Sayı</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>auto add</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>types</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6408,6 +6990,14 @@ vigülle ayırarak (1,4,5 gibi) de verebilirsiniz.</translation>
         <source>Failed to retrieve printer settings</source>
         <translation>Yazıcı ayarları alınamadı</translation>
     </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins on the printed page</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>EPSPlug</name>
@@ -6422,6 +7012,26 @@ Başarısız oldu!</translation>
     <message>
         <source>Fatal Error</source>
         <translation>Kritik Hata</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="unfinished">Hata</translation>
     </message>
 </context>
 <context>
@@ -6440,7 +7050,7 @@ Başarısız oldu!</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -6537,6 +7147,22 @@ Başarısız oldu!</translation>
     <message>
         <source>Background</source>
         <translation>Arkaplan</translation>
+    </message>
+    <message>
+        <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7082,59 +7708,59 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Yazıtipi Adı</translation>
+        <translation type="obsolete">Yazıtipi Adı</translation>
     </message>
     <message>
         <source>Doc</source>
         <comment>font preview</comment>
-        <translation>Doc</translation>
+        <translation type="obsolete">Doc</translation>
     </message>
     <message>
         <source>Type</source>
         <comment>font preview</comment>
-        <translation>Tip</translation>
+        <translation type="obsolete">Tip</translation>
     </message>
     <message>
         <source>Subset</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Subset</translation>
+        <translation type="obsolete">Subset</translation>
     </message>
     <message>
         <source>Access</source>
         <comment>font preview</comment>
-        <translation>Erişim</translation>
+        <translation type="obsolete">Erişim</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation>Yazıtipi ölçüsü:</translation>
+        <translation type="obsolete">Yazıtipi ölçüsü:</translation>
     </message>
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation>Yazıtipi Önizleme</translation>
+        <translation type="obsolete">Yazıtipi Önizleme</translation>
     </message>
     <message>
         <source>Alt+O</source>
         <comment>font preview</comment>
-        <translation>Alt+O</translation>
+        <translation type="obsolete">Alt+O</translation>
     </message>
     <message>
         <source>Quick Search: </source>
-        <translation>Hızlı Arama:</translation>
+        <translation type="obsolete">Hızlı Arama:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
-        <translation>&amp;Ara</translation>
+        <translation type="obsolete">&amp;Ara</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <comment>font preview</comment>
-        <translation>&amp;Kapat</translation>
+        <translation type="obsolete">&amp;Kapat</translation>
     </message>
     <message>
         <source>Alt+C</source>
         <comment>font preview</comment>
-        <translation>Alt+C</translation>
+        <translation type="obsolete">Alt+C</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -7148,7 +7774,7 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. E.g. &apos;bold&apos; shows all fonts with Bold in name. Searching is case insensitive.</source>
-        <translation>Buraya bir metin yazarak hızlı arama yapabilirsiniz. Örneğin; Nimbus yazarak Nimbus ile başlayan tüm fontları listelersiniz. Aramada küçük büyük harf farkı gözetilmez.</translation>
+        <translation type="obsolete">Buraya bir metin yazarak hızlı arama yapabilirsiniz. Örneğin; Nimbus yazarak Nimbus ile başlayan tüm fontları listelersiniz. Aramada küçük büyük harf farkı gözetilmez.</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -7175,7 +7801,94 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>&amp;Append</source>
-        <translation>&amp;Ekle</translation>
+        <translation type="obsolete">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample will be shown after key release</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>FontPreviewBase</name>
+    <message>
+        <source>Fonts Preview</source>
+        <translation type="unfinished">Yazıtipi Önizleme</translation>
+    </message>
+    <message>
+        <source>&amp;Quick Search:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Search</source>
+        <translation type="unfinished">&amp;Ara</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Font Name</source>
+        <translation type="unfinished">Yazıtipi Adı</translation>
+    </message>
+    <message>
+        <source>Doc</source>
+        <translation type="unfinished">Doc</translation>
+    </message>
+    <message>
+        <source>Type</source>
+        <translation type="unfinished">Tip</translation>
+    </message>
+    <message>
+        <source>Subset</source>
+        <translation type="unfinished">Subset</translation>
+    </message>
+    <message>
+        <source>Access</source>
+        <translation type="unfinished">Erişim</translation>
+    </message>
+    <message>
+        <source>&amp;Font Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Metin</translation>
+    </message>
+    <message>
+        <source>Sample text to display</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Se&amp;t</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+T</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset the text</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Append</source>
+        <translation type="unfinished">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>&amp;Close</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>
@@ -7240,7 +7953,11 @@ Sadece ekranda görüntülenecekse 72 dpi yeterlidir</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation type="unfinished">Here you can add, change or remove Colour-Stops.</translation>
+        <translation type="obsolete">Here you can add, change or remove Colour-Stops.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7385,7 +8102,7 @@ adresini ziyaret edin.</translation>
     </message>
     <message>
         <source>unknown</source>
-        <translation>bilinmiyor</translation>
+        <translation type="obsolete">bilinmiyor</translation>
     </message>
     <message>
         <source>Find</source>
@@ -7466,6 +8183,10 @@ adresini ziyaret edin.</translation>
     <message>
         <source>&amp;Bookmarks</source>
         <translation>&amp;Yer imleri</translation>
+    </message>
+    <message>
+        <source>Relevance</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7626,6 +8347,10 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>PostScript</source>
         <translation>PostScript</translation>
+    </message>
+    <message>
+        <source>PDF</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7975,6 +8700,68 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
 </context>
 <context>
+    <name>LineStyleWBase</name>
+    <message>
+        <source>%</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line Width:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>LineStyleWidget</name>
+    <message>
+        <source> pt</source>
+        <translation type="unfinished"> pt</translation>
+    </message>
+    <message>
+        <source>Flat Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Square Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round Cap</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miter Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bevel Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Round Join</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Solid Line</source>
+        <translation type="unfinished">Düz Çizgi</translation>
+    </message>
+    <message>
+        <source>Dashed Line</source>
+        <translation type="unfinished">Kesintili Çizgi</translation>
+    </message>
+    <message>
+        <source>Dotted Line</source>
+        <translation type="unfinished">Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source>Dash Dot Line</source>
+        <translation type="unfinished">Kesintili Noktalı Çizgi</translation>
+    </message>
+    <message>
+        <source>Dash Dot Dot Line</source>
+        <translation type="unfinished">Kesintili-Noktalı-Noktalı Çizgi</translation>
+    </message>
+</context>
+<context>
     <name>LoadSavePlugin</name>
     <message>
         <source>All Files (*)</source>
@@ -8121,6 +8908,14 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
         <translation type="unfinished">Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</translation>
+    </message>
+    <message>
+        <source>Printer Margins...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Import the margins for the selected page size from the available printers.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8501,7 +9296,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -8745,7 +9540,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Make text in lower frames flow around the object shape</translation>
+        <translation type="obsolete">Make text in lower frames flow around the object shape</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
@@ -8915,11 +9710,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
+        <translation type="obsolete">Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="unfinished">Use a second line originally based on the frame&apos;s shape for text flow</translation>
+        <translation type="obsolete">Use a second line originally based on the frame&apos;s shape for text flow</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -8975,11 +9770,47 @@ Corners:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+        <translation type="obsolete">Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
+    </message>
+    <message>
+        <source>Fill Rule</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even-Odd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9134,7 +9965,7 @@ Corners:</translation>
     </message>
     <message>
         <source>First page number of the document</source>
-        <translation>Belgenin ilk sayfasının numarası</translation>
+        <translation type="obsolete">Belgenin ilk sayfasının numarası</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
@@ -9170,7 +10001,7 @@ Corners:</translation>
     </message>
     <message>
         <source>F&amp;irst Page Number:</source>
-        <translation>İ&amp;lk Sayfa Numarası:</translation>
+        <translation type="obsolete">İ&amp;lk Sayfa Numarası:</translation>
     </message>
     <message>
         <source>&amp;Default Unit:</source>
@@ -9215,6 +10046,10 @@ Corners:</translation>
     <message>
         <source>Open Recent &amp;Document</source>
         <translation>Son &amp;Kullanılan Belgeleri Aç</translation>
+    </message>
+    <message>
+        <source>Custom</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9332,7 +10167,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by shown %</source>
-        <translation type="unfinished">Reduce the Size of the Path by shown %</translation>
+        <translation type="obsolete">Reduce the Size of the Path by shown %</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by shown %</source>
@@ -9344,7 +10179,7 @@ Corners:</translation>
     </message>
     <message>
         <source>% to Enlarge or Reduce By</source>
-        <translation type="unfinished">% to Enlarge or Reduce By</translation>
+        <translation type="obsolete">% to Enlarge or Reduce By</translation>
     </message>
     <message>
         <source>Activate Contour Line Editing Mode</source>
@@ -9365,6 +10200,33 @@ Corners:</translation>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
         <translation type="unfinished">When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</translation>
+    </message>
+    <message>
+        <source>Shrink the Size of the Path by shown %</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reduce the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enlarge the Size of the Path by the shown value</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>% to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Value to Enlarge or Shrink By</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>OODPlug</name>
+    <message>
+        <source>This document does not seem to be an OpenOffice Draw file.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9495,6 +10357,10 @@ Corners:</translation>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
         <translation type="unfinished">This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</translation>
     </message>
+    <message>
+        <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PDFlib</name>
@@ -9551,11 +10417,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Metinleri &amp;Yumuşat (Anti-alias)</translation>
+        <translation type="obsolete">Metinleri &amp;Yumuşat (Anti-alias)</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Resimleri &amp;Yumuşat (Anti-alias)</translation>
+        <translation type="obsolete">Resimleri &amp;Yumuşat (Anti-alias)</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -9615,11 +10481,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished">Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
+        <translation type="obsolete">Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished">Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
+        <translation type="obsolete">Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -9636,6 +10502,14 @@ Corners:</translation>
     <message>
         <source>File</source>
         <translation>Dosya</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9684,7 +10558,7 @@ Corners:</translation>
     <name>PageItemAttributes</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Relates To</source>
@@ -9697,6 +10571,11 @@ Corners:</translation>
     <message>
         <source>Is Child Of</source>
         <translation type="unfinished">Is Child Of</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>relationship</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10187,7 +11066,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation>Albüm</translation>
+        <translation type="obsolete">Albüm</translation>
     </message>
     <message>
         <source>Display</source>
@@ -10235,19 +11114,19 @@ Corners:</translation>
     </message>
     <message>
         <source>Other Options</source>
-        <translation>Diğer Seçenekler</translation>
+        <translation type="obsolete">Diğer Seçenekler</translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Önizleme</translation>
+        <translation type="obsolete">Önizleme</translation>
     </message>
     <message>
         <source>Small</source>
-        <translation>Küçük</translation>
+        <translation type="obsolete">Küçük</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation>Orta</translation>
+        <translation type="obsolete">Orta</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -10263,7 +11142,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Printing</source>
-        <translation>Yazdırma</translation>
+        <translation type="obsolete">Yazdırma</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
@@ -10311,7 +11190,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="unfinished">Choose the size of the preview in the scrapbook palette</translation>
+        <translation type="obsolete">Choose the size of the preview in the scrapbook palette</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -10335,11 +11214,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="unfinished">Do not show objects outside the margins on the printed page or exported file</translation>
+        <translation type="obsolete">Do not show objects outside the margins on the printed page or exported file</translation>
     </message>
     <message>
         <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="unfinished">Save the scrapbook contents everytime after a change</translation>
+        <translation type="obsolete">Save the scrapbook contents everytime after a change</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
@@ -10415,11 +11294,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Sa&amp;ve Contents on Changes</source>
-        <translation type="unfinished">Sa&amp;ve Contents on Changes</translation>
+        <translation type="obsolete">Sa&amp;ve Contents on Changes</translation>
     </message>
     <message>
         <source>Large</source>
-        <translation>Büyük</translation>
+        <translation type="obsolete">Büyük</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -10447,11 +11326,11 @@ Corners:</translation>
     </message>
     <message>
         <source>Clip to Page &amp;Margins</source>
-        <translation type="unfinished">Clip to Page &amp;Margins</translation>
+        <translation type="obsolete">Clip to Page &amp;Margins</translation>
     </message>
     <message>
         <source>Apply &amp;Under Color Removal</source>
-        <translation type="unfinished">Apply &amp;Under Colour Removal</translation>
+        <translation type="obsolete">Apply &amp;Under Colour Removal</translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
@@ -10555,7 +11434,7 @@ Corners:</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Ghostscript yorumlayıcısının yeri</translation>
+        <translation type="obsolete">Ghostscript yorumlayıcısının yeri</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
@@ -10695,7 +11574,11 @@ Corners:</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+        <translation type="obsolete">A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10743,39 +11626,39 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Tek Sayfa</translation>
+        <translation type="obsolete">Tek Sayfa</translation>
     </message>
     <message>
         <source>Double sided</source>
-        <translation>Çift Taraflı</translation>
+        <translation type="obsolete">Çift Taraflı</translation>
     </message>
     <message>
         <source>Left Page</source>
-        <translation>Sol Sayfa</translation>
+        <translation type="obsolete">Sol Sayfa</translation>
     </message>
     <message>
         <source>Right Page</source>
-        <translation>Sağ Sayfa</translation>
+        <translation type="obsolete">Sağ Sayfa</translation>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3-katlama</translation>
+        <translation type="obsolete">3-katlama</translation>
     </message>
     <message>
         <source>Middle</source>
-        <translation>Orta</translation>
+        <translation type="obsolete">Orta</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4-katlama</translation>
+        <translation type="obsolete">4-katlama</translation>
     </message>
     <message>
         <source>Middle Left</source>
-        <translation>Orta Sol</translation>
+        <translation type="obsolete">Orta Sol</translation>
     </message>
     <message>
         <source>Middle Right</source>
-        <translation>Orta Sağ</translation>
+        <translation type="obsolete">Orta Sağ</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -10819,7 +11702,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     <name>PresetLayout</name>
     <message>
         <source>None</source>
-        <translation>None</translation>
+        <translation type="obsolete">None</translation>
     </message>
     <message>
         <source>Magazine</source>
@@ -10844,6 +11727,11 @@ Do you want to migrate them to the new Scribus version?</translation>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
         <translation>Buradan sayfa mizanpajını seçebilirsiniz. &quot;Yok&quot; kenarlıkları olduğu gibi bırakır. Gutenberg klasik bir kenarlık düzeni uygular. &quot;Magazine&quot; eşit kenarlıklar ayarlar.</translation>
+    </message>
+    <message>
+        <source>None</source>
+        <comment>layout type</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11796,7 +12684,7 @@ Dışarı Link</translation>
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation>OpenOffice.org Draw (*.sxd);;Tüm Dosyalar (*)</translation>
+        <translation type="obsolete">OpenOffice.org Draw (*.sxd);;Tüm Dosyalar (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -12155,7 +13043,7 @@ Dışarı Link</translation>
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
+        <translation type="obsolete">Font %1 (found using fontconfig) is broken, discarding it</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -12759,6 +13647,72 @@ is not exhaustive due to exceptions from called functions.
         <source>Thai</source>
         <translation>Tayca</translation>
     </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Arap</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Barcode Generator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Word Documents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Palm PDB Documents</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB_data</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>PDB Import</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open file %1</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -13109,6 +14063,80 @@ is not exhaustive due to exceptions from called functions.
     </message>
 </context>
 <context>
+    <name>SMBase</name>
+    <message>
+        <source>Style Manager</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Column 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add</source>
+        <translation type="unfinished">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>C&amp;lone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>&amp;Delete</source>
+        <translation type="unfinished">&amp;Sil</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>Name:</source>
+        <translation type="unfinished">İsim:</translation>
+    </message>
+    <message>
+        <source>O&amp;K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+K</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A&amp;pply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>Ca&amp;ncel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SMLineStyle</name>
+    <message>
+        <source>Properties</source>
+        <translation type="unfinished">Özellikler</translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SToolBAlign</name>
     <message>
         <source>Style of current paragraph</source>
@@ -13123,7 +14151,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorF</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -13142,7 +14170,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorS</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -13378,6 +14406,41 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
 </context>
 <context>
+    <name>ScToolBar</name>
+    <message>
+        <source>Top</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Right</source>
+        <translation type="unfinished">Sağ</translation>
+    </message>
+    <message>
+        <source>Bottom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Left</source>
+        <translation type="unfinished">Sol</translation>
+    </message>
+    <message>
+        <source>Allow Docking To...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal</source>
+        <translation type="unfinished">Yatay</translation>
+    </message>
+    <message>
+        <source>Vertical</source>
+        <translation type="unfinished">Dikey</translation>
+    </message>
+    <message>
+        <source>Floating Orientation...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ScWinPrint</name>
     <message>
         <source>Printing...</source>
@@ -13420,12 +14483,28 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <source>Background</source>
         <translation>Arkaplan</translation>
     </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation type="unfinished">Bütün metni temizlemek istediğinizden emin misiniz?</translation>
+    </message>
+    <message>
+        <source>Cannot Delete In-Use Item</source>
+        <translation type="unfinished">Kullanımda olan öğe silinemez</translation>
+    </message>
+    <message>
+        <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
+        <translation type="unfinished">%1 nesnesi şu an metin düzenleyici içinde düzenleniyor. Silme işlemi iptal edilecek</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
@@ -13739,7 +14818,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>New Master Page</source>
-        <translation>Yeni Mastar Sayfa</translation>
+        <translation type="obsolete">Yeni Mastar Sayfa</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -13861,6 +14940,36 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
         <translation>Ghostscript kurulu değil : Postscript baskı önizlemeyi kullanamayacaksınız</translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">İçerik</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Master Page %1</source>
+        <translation type="unfinished">Yeni Mastar Sayfa %1</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do you really want to replace your existing image?</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -13951,6 +15060,10 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Issues</source>
         <translation>Sorunlar</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14061,11 +15174,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation>Kullanımda olan öğe silinemez</translation>
+        <translation type="obsolete">Kullanımda olan öğe silinemez</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation>%1 nesnesi şu an metin düzenleyici içinde düzenleniyor. Silme işlemi iptal edilecek</translation>
+        <translation type="obsolete">%1 nesnesi şu an metin düzenleyici içinde düzenleniyor. Silme işlemi iptal edilecek</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -14077,7 +15190,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
-        <translation>Bütün metni temizlemek istediğinizden emin misiniz?</translation>
+        <translation type="obsolete">Bütün metni temizlemek istediğinizden emin misiniz?</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
@@ -14110,6 +15223,10 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Grayscale</source>
         <translation>Gri Tonlama</translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">İçerik</translation>
     </message>
 </context>
 <context>
@@ -14167,6 +15284,18 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
         <translation>Python Scriptleri (*.py);;Tüm Dosyalar (*)</translation>
+    </message>
+    <message>
+        <source>Documentation for:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Script</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> doesn&apos;t contain any docstring!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14229,6 +15358,14 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Select Color</source>
         <translation>Renk Seç</translation>
+    </message>
+    <message>
+        <source>Change...</source>
+        <translation type="unfinished">Değiştir...</translation>
+    </message>
+    <message>
+        <source>Locate Startup Script</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14310,7 +15447,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>None</source>
-        <translation>Yok</translation>
+        <translation type="obsolete">Yok</translation>
     </message>
     <message>
         <source>Replace with:</source>
@@ -14596,27 +15733,27 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Load Text from File</source>
-        <translation>Metni Dosyadan Yükle</translation>
+        <translation type="obsolete">Metni Dosyadan Yükle</translation>
     </message>
     <message>
         <source>Save Text to File</source>
-        <translation>Metni Dosyaya Kaydet</translation>
+        <translation type="obsolete">Metni Dosyaya Kaydet</translation>
     </message>
     <message>
         <source>Update Text Frame and Exit</source>
-        <translation>Metin Çerçevesini Güncelle ve Çık</translation>
+        <translation type="obsolete">Metin Çerçevesini Güncelle ve Çık</translation>
     </message>
     <message>
         <source>Exit Without Updating Text Frame</source>
-        <translation>Metin çerçevesini güncellemeden çık</translation>
+        <translation type="obsolete">Metin çerçevesini güncellemeden çık</translation>
     </message>
     <message>
         <source>Reload Text from Frame</source>
-        <translation>Metni çerçeveden yeniden yükle</translation>
+        <translation type="obsolete">Metni çerçeveden yeniden yükle</translation>
     </message>
     <message>
         <source>Update Text Frame</source>
-        <translation>Metin Çerçevesini Güncelle</translation>
+        <translation type="obsolete">Metin Çerçevesini Güncelle</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
@@ -14640,7 +15777,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Search/Replace</source>
-        <translation>Ara/Değiştir</translation>
+        <translation type="obsolete">Ara/Değiştir</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -14666,6 +15803,30 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
         <source>Do you really want to clear all your text?</source>
         <translation>Bütün metni temizlemek istediğinizden emin misiniz?</translation>
     </message>
+    <message>
+        <source>&amp;Insert</source>
+        <translation type="unfinished">&amp;Ekle</translation>
+    </message>
+    <message>
+        <source>Character</source>
+        <translation type="unfinished">Karakter</translation>
+    </message>
+    <message>
+        <source>Quote</source>
+        <translation type="unfinished">Aktarma Sözcüğü</translation>
+    </message>
+    <message>
+        <source>Spaces &amp;&amp; Breaks</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ligature</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Space</source>
+        <translation type="unfinished">Boşluk</translation>
+    </message>
 </context>
 <context>
     <name>StrikeValues</name>
@@ -14687,10 +15848,17 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
 </context>
 <context>
+    <name>StyleManager</name>
+    <message>
+        <source>More than one item selected</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Altı Çizili</translation>
+        <translation type="obsolete">Altı Çizili</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -14706,7 +15874,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Ortadan Çizgi</translation>
+        <translation type="obsolete">Ortadan Çizgi</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -14714,15 +15882,35 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Outline</source>
-        <translation>Kontür</translation>
+        <translation type="obsolete">Kontür</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Gölge</translation>
+        <translation type="obsolete">Gölge</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Sadece Kelimelerin Altını Çiz</translation>
+        <translation type="obsolete">Sadece Kelimelerin Altını Çiz</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15207,7 +16395,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Image Settings</source>
-        <translation>Resim Ayarları</translation>
+        <translation type="obsolete">Resim Ayarları</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -15215,11 +16403,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>JPEG</source>
-        <translation>JPEG</translation>
+        <translation type="obsolete">JPEG</translation>
     </message>
     <message>
         <source>Zip</source>
-        <translation>Zip</translation>
+        <translation type="obsolete">Zip</translation>
     </message>
     <message>
         <source>None</source>
@@ -15567,7 +16755,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Length of time the page is shown before the presentation starts on the selected page.</translation>
+        <translation type="obsolete">Length of time the page is shown before the presentation starts on the selected page.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -15675,7 +16863,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; in full screen mode.</source>
-        <translation>Adobe&amp;#174; Reader&amp;#174 ile tam ekranda görüntüleme yaparken sunum efektlerinin etkin olmasını sağlar.</translation>
+        <translation type="obsolete">Adobe&amp;#174; Reader&amp;#174 ile tam ekranda görüntüleme yaparken sunum efektlerinin etkin olmasını sağlar.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
@@ -15687,11 +16875,11 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished">Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
+        <translation type="obsolete">Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished">Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
+        <translation type="obsolete">Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
@@ -15743,7 +16931,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is choosen.</source>
-        <translation>Belgenizdeki katmanlar PDF çıktısına aktarılır, yalnızca PDF 1.5 seçili ise çalışır.</translation>
+        <translation type="obsolete">Belgenizdeki katmanlar PDF çıktısına aktarılır, yalnızca PDF 1.5 seçili ise çalışır.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
@@ -15759,7 +16947,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</source>
-        <translation type="unfinished">Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
+        <translation type="obsolete">Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. This can increase memory usage and slow down export.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
@@ -15771,7 +16959,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="unfinished">Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
+        <translation type="obsolete">Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer.</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
@@ -15848,7 +17036,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Javascript to be executed
 when Document is opened:</source>
-        <translation>Belge açıldığında çalışacak
+        <translation type="obsolete">Belge açıldığında çalışacak
 JavaScript:</translation>
     </message>
     <message>
@@ -15858,6 +17046,59 @@ JavaScript:</translation>
     <message>
         <source>Viewer</source>
         <translation>Görüntüleyici</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Image Compression Method</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossy - JPEG</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lossless - Zip</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Javascript to be executed
+when PDF document is opened:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16825,6 +18066,48 @@ buraya %2</translation>
         <source>Text on a Path</source>
         <translation>Metni Eğriye Oturt</translation>
     </message>
+    <message>
+        <source>Change Image Offset</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Change Image Scale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X1: %1, Y1: %2
+X2: %4, Y2: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X: %1, Y: %2
+X: %4, Y: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable Item Printing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Multiple duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -16855,6 +18138,60 @@ buraya %2</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialog</name>
+    <message>
+        <source>Minimum Margins for Page Size %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UsePrinterMarginsDialogBase</name>
+    <message>
+        <source>Use Printer Margins</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select &amp;Printer:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Margins</source>
+        <translation type="unfinished">Kenarlıklar</translation>
+    </message>
+    <message>
+        <source>Right:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Top:</source>
+        <translation type="unfinished">&amp;Üst:</translation>
+    </message>
+    <message>
+        <source>&amp;Bottom:</source>
+        <translation type="unfinished">&amp;Alt:</translation>
+    </message>
+    <message>
+        <source>&amp;Left:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;Tamam</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
     </message>
 </context>
 <context>

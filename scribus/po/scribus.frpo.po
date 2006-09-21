@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 20:57+0200\n"
+"POT-Creation-Date: 2006-09-21 23:04+0200\n"
 "PO-Revision-Date: 2006-03-13 15:27+0100\n"
 "Last-Translator: Louis Desjardins <louis_desjardins@mardigrafe.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -665,10 +665,13 @@ msgstr "Document"
 msgid "Background"
 msgstr "Fond de page"
 
+#, fuzzy
 msgid ""
-"An error occurred while opening icc profiles, color management is not "
+"An error occurred while opening ICC profiles, color management is not "
 "enabled."
 msgstr ""
+"Permet d'incorporer des profils colorimétriques ICC dans votre processus "
+"d'impression lorsque la gestion des couleurs est active."
 
 msgid "New Layer"
 msgstr "Nouveau calque"
@@ -1320,6 +1323,18 @@ msgstr "Charger une image"
 
 msgid "Multiple duplicate"
 msgstr "Dupliquer-Déplacer multiples"
+
+#, fuzzy
+msgid "Reset control point"
+msgstr "Remise à zéro des points de contrôle"
+
+#, fuzzy
+msgid "Reset control points"
+msgstr "Remise à zéro des points de contrôle"
+
+#, fuzzy
+msgid "Modify image effects"
+msgstr "Effets"
 
 msgid "Move Pages"
 msgstr "Déplacer une(des) page(s)"
@@ -2625,11 +2640,9 @@ msgstr "décalage memcpy : %1 %2 %3"
 msgid "Print Preview"
 msgstr "Aperçu avant impression"
 
-msgid "Anti-alias &Text"
-msgstr "Lisser les &textes"
-
-msgid "Anti-alias &Graphics"
-msgstr "Lisser les objets &graphiques"
+#, fuzzy
+msgid "Enable &Antialiasing"
+msgstr "Autoriser l'impression de l'objet"
 
 msgid "Display Trans&parency"
 msgstr "Afficher les trans&parences"
@@ -2676,18 +2689,11 @@ msgstr "Fermer"
 msgid "Print..."
 msgstr "Imprimer..."
 
+#, fuzzy
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense of "
-"a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-"Donne un affichage plus agréable des textes, avec pour effet un léger "
-"ralentissement lors d'une prévisualisation. Fonctionne uniquement avec les "
-"polices Type 1"
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType "
+"Fonts, EPS, PDF and vector graphics in the preview, at the expense of a "
+"slight slowdown in previewing"
 msgstr ""
 "Donne un affichage plus agréable des polices TrueType, OpenType, des "
 "fichiers EPS, PDF ainsi que des graphiques vectoriels lors d'une "
@@ -2846,6 +2852,9 @@ msgstr "N'utiliser aucun chemin"
 
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus : À propos des extensions"
+
+msgid "%1 may be corrupted : missing resolution tags"
+msgstr ""
 
 msgid "Align Text Left"
 msgstr "Texte aligné à gauche"
@@ -4555,6 +4564,10 @@ msgstr "Afficher la &grille"
 msgid "Show G&uides"
 msgstr "Afficher les &repères"
 
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "Afficher les liens de cadres"
+
 msgid "Show &Baseline Grid"
 msgstr "Afficher la grille t&ypographique"
 
@@ -5244,6 +5257,20 @@ msgstr "J :"
 msgid "K:"
 msgstr "N :"
 
+msgid ""
+"Choosing this will enable printing this on all plates. Registration colors "
+"are used for printer marks such as crop marks, registration marks and the "
+"like. These are not typically used in the layout itself."
+msgstr ""
+
+msgid ""
+"Choosing this will make this color a spot color, thus creating another spot "
+"when creating plates or separations. This is used most often when a logo or "
+"other color needs exact representation or cannot be replicated with CMYK "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
+"replicated with CMYK inks."
+msgstr ""
+
 msgid "Dynamic Color Bars"
 msgstr "Barres de couleur dynamique"
 
@@ -5316,6 +5343,16 @@ msgstr "Supprimer la couleur sélectionnée"
 
 msgid "Make the current colorset the default color set"
 msgstr "Faire du jeu de couleurs courant celui par défaut"
+
+msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected. What this means is the color many not be able to be "
+"printed exactly as displayed on screen. Spot colors are indicated by a red "
+"circle. Registration colors will have a registration mark next to the color. "
+"More hints about gamut warnings are in the online help under Color "
+"Management."
+msgstr ""
 
 msgid "Choose a Name"
 msgstr "Choisissez un nom"
@@ -6140,9 +6177,6 @@ msgstr "Sélectionnez une police"
 msgid "About Scribus %1"
 msgstr "À propos de Scribus %1"
 
-msgid "May"
-msgstr ""
-
 msgid "%1 %2 %3"
 msgstr "%1 %2 %3"
 
@@ -6181,6 +6215,9 @@ msgstr "Documentation officielle :"
 
 msgid "Other Documentation:"
 msgstr "Autre documentation :"
+
+msgid "Tango Project Icons:"
+msgstr ""
 
 msgid "A&uthors"
 msgstr "A&uteurs"
@@ -6536,15 +6573,24 @@ msgstr "Verrouiller ou non les dimensions de l'objet"
 msgid "Enable or disable printing of the object"
 msgstr "Autoriser ou non l'impression de l'objet"
 
-msgid "Make text in lower frames flow around the object shape"
+#, fuzzy
+msgid ""
+"Make text in lower frames flow around the object. The options below define "
+"how this is enabled."
 msgstr ""
 "La justification du texte situé au-dessous est soumise aux contours de "
 "l'objet"
 
-msgid "Use a surrounding box instead of the frame's shape for text flow"
+#, fuzzy
+msgid ""
+"Use the bounding box, which is always rectangular, instead of the frame's "
+"shape for text flow of text frames below the object. "
 msgstr "Utiliser les limites du cadre pour la justification du texte"
 
-msgid "Use a second line originally based on the frame's shape for text flow"
+#, fuzzy
+msgid ""
+"Use a second line originally based on the frame's shape for text flow of "
+"text frames below the object. "
 msgstr ""
 "Utiliser une ligne basée sur les contours de l'objet pour la justification "
 "du texte"
@@ -6723,6 +6769,9 @@ msgid "Use filename as path for user given preferences"
 msgstr ""
 "Utiliser le nom du fichier comme chemin pour les préférences données d'un "
 "utilisateur"
+
+msgid "Display a console window"
+msgstr ""
 
 msgid "Installed interface languages for Scribus are as follows:"
 msgstr ""
@@ -6926,6 +6975,10 @@ msgstr "Raccourci déjà utilisé"
 msgid "Key Set XML Files (*.ksxml)"
 msgstr "Fichiers de raccourcis clavier XML (*.ksxml)"
 
+#, fuzzy
+msgid "Main"
+msgstr "Marges"
+
 msgid "Choose a Scrapbook Directory"
 msgstr "Sélectionnez un dossier pour l'Album"
 
@@ -7084,9 +7137,6 @@ msgstr "&X"
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Documents PDF (*.pdf);;Tous les fichiers (*)"
-
-msgid "LineStyleWBase"
-msgstr "LineStyleWBase"
 
 msgid "%"
 msgstr " %"
@@ -7849,6 +7899,9 @@ msgstr "Hongrois"
 msgid "Indonesian"
 msgstr "Indonésien"
 
+msgid "Icelandic"
+msgstr ""
+
 msgid "Italian"
 msgstr "Italien"
 
@@ -8497,9 +8550,10 @@ msgstr "Import PDB"
 msgid "Could not open file %1"
 msgstr "Impossible d'ouvrir le fichier %1"
 
+#, fuzzy
 msgid ""
-"This file is not recognized as a PDB document propably. Please, report this "
-"as a bug if you are sure it is one."
+"This file is not recognized as a PDB document. Please, report this as a bug "
+"if you are sure it is one."
 msgstr ""
 "Ce fichier n'est probablement reconnu comme étant un document PDB. Veuillez "
 "s.v.p. rapporter ceci comme un bogue si vous êtes sûr que c'en est un."
@@ -9659,6 +9713,23 @@ msgstr "Mon &extension"
 
 msgid "My Plugin"
 msgstr "Mon extension"
+
+#~ msgid "Anti-alias &Text"
+#~ msgstr "Lisser les &textes"
+
+#~ msgid "Anti-alias &Graphics"
+#~ msgstr "Lisser les objets &graphiques"
+
+#~ msgid ""
+#~ "Provides a more pleasant view of text items in the viewer, at the expense "
+#~ "of a slight slowdown in previewing. This only affects Type 1 fonts"
+#~ msgstr ""
+#~ "Donne un affichage plus agréable des textes, avec pour effet un léger "
+#~ "ralentissement lors d'une prévisualisation. Fonctionne uniquement avec "
+#~ "les polices Type 1"
+
+#~ msgid "LineStyleWBase"
+#~ msgstr "LineStyleWBase"
 
 #~ msgid "Font %1 (found using fontconfig) is broken, discarding it"
 #~ msgstr ""

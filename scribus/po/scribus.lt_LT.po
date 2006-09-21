@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 20:57+0200\n"
+"POT-Creation-Date: 2006-09-21 23:04+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -699,7 +699,7 @@ msgid "Background"
 msgstr "Fonas"
 
 msgid ""
-"An error occurred while opening icc profiles, color management is not "
+"An error occurred while opening ICC profiles, color management is not "
 "enabled."
 msgstr ""
 
@@ -1456,6 +1456,18 @@ msgstr "Naudoti tekstà..."
 #, fuzzy
 msgid "Multiple duplicate"
 msgstr "Sukurti daug kopijø"
+
+#, fuzzy
+msgid "Reset control point"
+msgstr "Atitaisyti valdymo taðkus"
+
+#, fuzzy
+msgid "Reset control points"
+msgstr "Atitaisyti valdymo taðkus"
+
+#, fuzzy
+msgid "Modify image effects"
+msgstr "Efektai"
 
 msgid "Move Pages"
 msgstr "Perkelti puslapius"
@@ -2855,10 +2867,7 @@ msgstr ""
 msgid "Print Preview"
 msgstr "Pasiþiûrëti kaip atrodys"
 
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
+msgid "Enable &Antialiasing"
 msgstr ""
 
 #, fuzzy
@@ -2915,14 +2924,9 @@ msgid "Print..."
 msgstr "Spausdinti..."
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense of "
-"a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType "
+"Fonts, EPS, PDF and vector graphics in the preview, at the expense of a "
+"slight slowdown in previewing"
 msgstr ""
 
 msgid ""
@@ -3085,6 +3089,9 @@ msgstr ""
 #, fuzzy
 msgid "Scribus: About Plug-ins"
 msgstr "Nuosavas skriptas"
+
+msgid "%1 may be corrupted : missing resolution tags"
+msgstr ""
 
 msgid "Align Text Left"
 msgstr "Lygiuoti tekstà kairën"
@@ -4935,6 +4942,10 @@ msgstr "Rodyti pagalbines linijas"
 msgid "Show G&uides"
 msgstr "Rodyti pagalbines linijas"
 
+#, fuzzy
+msgid "Show Text Frame Columns"
+msgstr "Rodyti paraðtes"
+
 msgid "Show &Baseline Grid"
 msgstr ""
 
@@ -5695,6 +5706,20 @@ msgstr ""
 msgid "K:"
 msgstr ""
 
+msgid ""
+"Choosing this will enable printing this on all plates. Registration colors "
+"are used for printer marks such as crop marks, registration marks and the "
+"like. These are not typically used in the layout itself."
+msgstr ""
+
+msgid ""
+"Choosing this will make this color a spot color, thus creating another spot "
+"when creating plates or separations. This is used most often when a logo or "
+"other color needs exact representation or cannot be replicated with CMYK "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
+"replicated with CMYK inks."
+msgstr ""
+
 msgid "Dynamic Color Bars"
 msgstr "Kintanèios spalvø juostos"
 
@@ -5773,6 +5798,16 @@ msgid "Delete the currently selected color"
 msgstr ""
 
 msgid "Make the current colorset the default color set"
+msgstr ""
+
+msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected. What this means is the color many not be able to be "
+"printed exactly as displayed on screen. Spot colors are indicated by a red "
+"circle. Registration colors will have a registration mark next to the color. "
+"More hints about gamut warnings are in the online help under Color "
+"Management."
 msgstr ""
 
 msgid "Choose a Name"
@@ -6670,9 +6705,6 @@ msgstr "Pasirink ðriftà"
 msgid "About Scribus %1"
 msgstr "Apie Scribus"
 
-msgid "May"
-msgstr ""
-
 #, fuzzy
 msgid "%1 %2 %3"
 msgstr "Kopijuoti "
@@ -6716,6 +6748,9 @@ msgstr "Viskà apraðë:"
 #, fuzzy
 msgid "Other Documentation:"
 msgstr "Viskà apraðë:"
+
+msgid "Tango Project Icons:"
+msgstr ""
 
 #, fuzzy
 msgid "A&uthors"
@@ -7132,13 +7167,19 @@ msgstr ""
 msgid "Enable or disable printing of the object"
 msgstr ""
 
-msgid "Make text in lower frames flow around the object shape"
+msgid ""
+"Make text in lower frames flow around the object. The options below define "
+"how this is enabled."
 msgstr ""
 
-msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgid ""
+"Use the bounding box, which is always rectangular, instead of the frame's "
+"shape for text flow of text frames below the object. "
 msgstr ""
 
-msgid "Use a second line originally based on the frame's shape for text flow"
+msgid ""
+"Use a second line originally based on the frame's shape for text flow of "
+"text frames below the object. "
 msgstr ""
 
 msgid "Font of selected text or object"
@@ -7317,6 +7358,9 @@ msgid "filename"
 msgstr "Failo &vardas:"
 
 msgid "Use filename as path for user given preferences"
+msgstr ""
+
+msgid "Display a console window"
 msgstr ""
 
 msgid "Installed interface languages for Scribus are as follows:"
@@ -7545,6 +7589,10 @@ msgstr "Ðis klaviðø derinys jau naudojamas"
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
+#, fuzzy
+msgid "Main"
+msgstr "Paraðtë:"
+
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
@@ -7719,10 +7767,6 @@ msgstr "X vieta èia pat:"
 #, fuzzy
 msgid "PDF-Documents (*.pdf);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
-
-#, fuzzy
-msgid "LineStyleWBase"
-msgstr "Linijos forma"
 
 msgid "%"
 msgstr ""
@@ -8584,6 +8628,9 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
+msgid "Icelandic"
+msgstr ""
+
 #, fuzzy
 msgid "Italian"
 msgstr "Pasviras"
@@ -9294,8 +9341,8 @@ msgstr ""
 " turiná?"
 
 msgid ""
-"This file is not recognized as a PDB document propably. Please, report this "
-"as a bug if you are sure it is one."
+"This file is not recognized as a PDB document. Please, report this as a bug "
+"if you are sure it is one."
 msgstr ""
 
 #, fuzzy
@@ -10510,6 +10557,10 @@ msgstr "Paprastas"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Paprastas"
+
+#, fuzzy
+#~ msgid "LineStyleWBase"
+#~ msgstr "Linijos forma"
 
 #, fuzzy
 #~ msgid "Copy Contents"

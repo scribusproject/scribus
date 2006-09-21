@@ -302,7 +302,7 @@ Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 	Frame3 = new QTabWidget( this, "Frame3" );
 
 	activeBView = new BibView(this);
-	Frame3->addTab(activeBView, "Main");
+	Frame3->addTab(activeBView, tr("Main"));
 	BiblioLayout->addWidget( Frame3 );
 	languageChange();
 	connect(activeBView, SIGNAL(dropped(QDropEvent *, const QValueList<QIconDragItem> &)), this, SLOT(DropOn(QDropEvent *)));

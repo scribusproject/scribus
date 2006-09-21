@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-15 20:57+0200\n"
+"POT-Creation-Date: 2006-09-21 23:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -615,7 +615,7 @@ msgid "Background"
 msgstr ""
 
 msgid ""
-"An error occurred while opening icc profiles, color management is not "
+"An error occurred while opening ICC profiles, color management is not "
 "enabled."
 msgstr ""
 
@@ -1243,6 +1243,15 @@ msgid "Get image"
 msgstr ""
 
 msgid "Multiple duplicate"
+msgstr ""
+
+msgid "Reset control point"
+msgstr ""
+
+msgid "Reset control points"
+msgstr ""
+
+msgid "Modify image effects"
 msgstr ""
 
 msgid "Move Pages"
@@ -2474,10 +2483,7 @@ msgstr ""
 msgid "Print Preview"
 msgstr ""
 
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
+msgid "Enable &Antialiasing"
 msgstr ""
 
 msgid "Display Trans&parency"
@@ -2526,14 +2532,9 @@ msgid "Print..."
 msgstr ""
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense of "
-"a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType "
+"Fonts, EPS, PDF and vector graphics in the preview, at the expense of a "
+"slight slowdown in previewing"
 msgstr ""
 
 msgid ""
@@ -2678,6 +2679,9 @@ msgid "Don't use any Path"
 msgstr ""
 
 msgid "Scribus: About Plug-ins"
+msgstr ""
+
+msgid "%1 may be corrupted : missing resolution tags"
 msgstr ""
 
 msgid "Align Text Left"
@@ -4287,6 +4291,9 @@ msgstr ""
 msgid "Show G&uides"
 msgstr ""
 
+msgid "Show Text Frame Columns"
+msgstr ""
+
 msgid "Show &Baseline Grid"
 msgstr ""
 
@@ -4941,6 +4948,20 @@ msgstr ""
 msgid "K:"
 msgstr ""
 
+msgid ""
+"Choosing this will enable printing this on all plates. Registration colors "
+"are used for printer marks such as crop marks, registration marks and the "
+"like. These are not typically used in the layout itself."
+msgstr ""
+
+msgid ""
+"Choosing this will make this color a spot color, thus creating another spot "
+"when creating plates or separations. This is used most often when a logo or "
+"other color needs exact representation or cannot be replicated with CMYK "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
+"replicated with CMYK inks."
+msgstr ""
+
 msgid "Dynamic Color Bars"
 msgstr ""
 
@@ -5010,6 +5031,16 @@ msgid "Delete the currently selected color"
 msgstr ""
 
 msgid "Make the current colorset the default color set"
+msgstr ""
+
+msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected. What this means is the color many not be able to be "
+"printed exactly as displayed on screen. Spot colors are indicated by a red "
+"circle. Registration colors will have a registration mark next to the color. "
+"More hints about gamut warnings are in the online help under Color "
+"Management."
 msgstr ""
 
 msgid "Choose a Name"
@@ -5772,9 +5803,6 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr ""
 
-msgid "May"
-msgstr ""
-
 msgid "%1 %2 %3"
 msgstr ""
 
@@ -5812,6 +5840,9 @@ msgid "Official Documentation:"
 msgstr ""
 
 msgid "Other Documentation:"
+msgstr ""
+
+msgid "Tango Project Icons:"
 msgstr ""
 
 msgid "A&uthors"
@@ -6161,13 +6192,19 @@ msgstr ""
 msgid "Enable or disable printing of the object"
 msgstr ""
 
-msgid "Make text in lower frames flow around the object shape"
+msgid ""
+"Make text in lower frames flow around the object. The options below define "
+"how this is enabled."
 msgstr ""
 
-msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgid ""
+"Use the bounding box, which is always rectangular, instead of the frame's "
+"shape for text flow of text frames below the object. "
 msgstr ""
 
-msgid "Use a second line originally based on the frame's shape for text flow"
+msgid ""
+"Use a second line originally based on the frame's shape for text flow of "
+"text frames below the object. "
 msgstr ""
 
 msgid "Font of selected text or object"
@@ -6337,6 +6374,9 @@ msgid "filename"
 msgstr ""
 
 msgid "Use filename as path for user given preferences"
+msgstr ""
+
+msgid "Display a console window"
 msgstr ""
 
 msgid "Installed interface languages for Scribus are as follows:"
@@ -6540,6 +6580,9 @@ msgstr ""
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
+msgid "Main"
+msgstr ""
+
 msgid "Choose a Scrapbook Directory"
 msgstr ""
 
@@ -6689,9 +6732,6 @@ msgid "&X-Pos"
 msgstr ""
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
-msgstr ""
-
-msgid "LineStyleWBase"
 msgstr ""
 
 msgid "%"
@@ -7413,6 +7453,9 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
+msgid "Icelandic"
+msgstr ""
+
 msgid "Italian"
 msgstr ""
 
@@ -8018,8 +8061,8 @@ msgid "Could not open file %1"
 msgstr ""
 
 msgid ""
-"This file is not recognized as a PDB document propably. Please, report this "
-"as a bug if you are sure it is one."
+"This file is not recognized as a PDB document. Please, report this as a bug "
+"if you are sure it is one."
 msgstr ""
 
 msgid "OpenOffice.org Writer Documents"

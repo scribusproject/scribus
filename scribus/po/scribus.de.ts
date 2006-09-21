@@ -252,7 +252,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(size, margins, orientation, firstPageNumber,
+        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder) -&gt; bool
 
 Creates a new document and returns true if successful. The parameters have the
@@ -290,6 +290,49 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -518,7 +561,7 @@ Schlägt das Sichern fehl, tritt der Fehler ScribusError auf.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;Autor&quot;, &quot;Info&quot;, &quot;Beschreibung&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;Autor&quot;, &quot;Info&quot;, &quot;Beschreibung&quot;) -&gt; bool
 
 Speichert die Dokumenteigenschaften Autor, Informationen und Beschreibung.
 Angabe als Strings.</translation>
@@ -2494,6 +2537,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 Zoom the document in main GUI window. Actions have whole number(new line)
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2662,7 +2720,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>May</source>
-        <translation>Mai</translation>
+        <translation type="obsolete">Mai</translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -3687,6 +3749,10 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation>&amp;Umrisse</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5089,6 +5155,10 @@ Bitte wählen Sie eine andere.</translation>
         <source>&amp;Import Scrapbook File...</source>
         <translation>Bibliothek &amp;importieren...</translation>
     </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -5465,6 +5535,14 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Der Name der Farbe ist nicht eindeutig</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5882,6 +5960,10 @@ zusammengestellt werden</translation>
     <message>
         <source>New Color</source>
         <translation>Neue Farbe</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9395,7 +9477,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation>LinienStileWBase</translation>
+        <translation type="obsolete">LinienStileWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -10337,7 +10419,7 @@ Bitte wählen Sie einen anderen.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Text in untergeordneten Textrahmen um die Objektform fließen lassen</translation>
+        <translation type="obsolete">Text in untergeordneten Textrahmen um die Objektform fließen lassen</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -10503,11 +10585,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Für den Textumfluss wird das umgebende Rechteck statt der Form genutzt</translation>
+        <translation type="obsolete">Für den Textumfluss wird das umgebende Rechteck statt der Form genutzt</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Für den Textumfluss wird eine zweite Linie benutzt, die auf der ursprünglichen Form basiert</translation>
+        <translation type="obsolete">Für den Textumfluss wird eine zweite Linie benutzt, die auf der ursprünglichen Form basiert</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -10596,6 +10678,18 @@ ab&amp;runden:</translation>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation>Farbe des ausgewählten Texts. Falls die Textauszeichnung &quot;Umriss&quot; gewählt ist, ist dies die Füllfarbe der Zeichen. Wenn die Textauszeichnung &quot;Schlagschatten&quot; gewählt ist, wird dies die Vordergrundfarbe sein.</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11358,11 +11452,11 @@ Funktioniert nur mit Type-1-Schriftarten</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Text &amp;weichzeichnen</translation>
+        <translation type="obsolete">Text &amp;weichzeichnen</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Bil&amp;der weichzeichnen</translation>
+        <translation type="obsolete">Bil&amp;der weichzeichnen</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -11459,12 +11553,12 @@ Benutzen Sie den Druckvorstufen-Check, um die Fehler zu beheben</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Stellt den Text auf Kosten der Rendergeschwindigkeit glatter dar.
+        <translation type="obsolete">Stellt den Text auf Kosten der Rendergeschwindigkeit glatter dar.
 Funktioniert nur mit Type-1-Schriften</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Schriften (TrueType und OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt.
+        <translation type="obsolete">Schriften (TrueType und OpenType), EPS, PDF und Vektorgrafiken werden schöner dargestellt.
 Dafür erhöht sich benötigte Renderzeit geringfügig</translation>
     </message>
     <message>
@@ -11487,6 +11581,14 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     <message>
         <source>File</source>
         <translation>Datei</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15163,7 +15265,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation>Diese Datei wird nicht als PDB-Dokument erkannt. Falls es doch eins ist, melden Sie uns bitte einen Fehler.</translation>
+        <translation type="obsolete">Diese Datei wird nicht als PDB-Dokument erkannt. Falls es doch eins ist, melden Sie uns bitte einen Fehler.</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
@@ -15185,6 +15287,19 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Estonian</source>
         <translation>Estnisch</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16732,7 +16847,11 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation>Es ist ein Fehler beim Öffnen der ICC-Profile aufgetreten: Das Farbmanagement ist nicht aktiviert.</translation>
+        <translation type="obsolete">Es ist ein Fehler beim Öffnen der ICC-Profile aufgetreten: Das Farbmanagement ist nicht aktiviert.</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17298,6 +17417,10 @@ Vertikaler Versatz: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Bugs</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20681,6 +20804,18 @@ X2: %4, Y2: %5</translation>
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
