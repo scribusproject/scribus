@@ -811,7 +811,7 @@ void Cpalette::languageChange()
 	blendMode->insertItem( tr("Hard Light"));
 	blendMode->insertItem( tr("Soft Light"));
 	blendMode->insertItem( tr("Difference"));
-	blendMode->insertItem( tr("Exlusion"));
+	blendMode->insertItem( tr("Exclusion"));
 	blendMode->insertItem( tr("Color Dodge"));
 	blendMode->insertItem( tr("Color Burn"));
 	blendMode->insertItem( tr("Hue"));

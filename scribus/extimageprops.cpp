@@ -69,7 +69,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	blendModesRev.insert( tr("Hard Light"), "hLit");
 	blendModesRev.insert( tr("Soft Light"), "sLit");
 	blendModesRev.insert( tr("Difference"), "diff");
-	blendModesRev.insert( tr("Exlusion"), "smud");
+	blendModesRev.insert( tr("Exclusion"), "smud");
 	blendModesRev.insert( tr("Color Dodge"), "div ");
 	blendModesRev.insert( tr("Color Burn"), "idiv");
 	propsTab = new QTabWidget( this, "propsTab" );
@@ -96,7 +96,7 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	blendMode->insertItem( tr("Hard Light"));
 	blendMode->insertItem( tr("Soft Light"));
 	blendMode->insertItem( tr("Difference"));
-	blendMode->insertItem( tr("Exlusion"));
+	blendMode->insertItem( tr("Exclusion"));
 	blendMode->insertItem( tr("Color Dodge"));
 	blendMode->insertItem( tr("Color Burn"));
 	layout1->addWidget( blendMode );
