@@ -866,7 +866,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				}
 				OB.itemText = "";
 				OB.LayerNr = -1;
-				view->PasteItem(&OB, true, true);
+				view->PasteItem(&OB, true, true, false);
 				PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 				Neu->setXYPos(Neu->xPos() - doc->currentPage()->xOffset(), Neu->yPos() - doc->currentPage()->yOffset(), true);
 				IT=pite.firstChild();
@@ -998,7 +998,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			}
 			OB.itemText = "";
 			OB.LayerNr = -1;
-			view->PasteItem(&OB, true, true);
+			view->PasteItem(&OB, true, true, false);
 			PageItem* Neu = doc->Items->at(doc->Items->count()-1);
 			IT=DOC.firstChild();
 			while(!IT.isNull())

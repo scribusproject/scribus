@@ -223,7 +223,7 @@ public:
 	void SetFrameRect();
 	void SetFrameRounded();
 	void SetFrameOval();
-	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false);
+	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false, bool noResize = true);
 	void QueryFarben();
 	void rememberPreviousSettings(int mx=0, int my=0);
 	bool mousePressed();

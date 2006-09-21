@@ -1297,6 +1297,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
+					Doc->setRedrawBounding(currItem);
 					Doc->m_Selection->addItem(currItem);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
@@ -1389,6 +1390,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				for (uint as = oldDocItemCount; as < Doc->Items->count(); ++as)
 				{
 					currItem = Doc->Items->at(as);
+					Doc->setRedrawBounding(currItem);
 					Doc->m_Selection->addItem(currItem);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
@@ -9861,7 +9863,7 @@ void ScribusView::adjustFrametoImageSize()
 
 //CB Stop using this for putting items on pages apart from pasting
 //IE write a more generic function in the doc
-void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag)
+void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag, bool resize)
 {
 	QColor tmp;
 	if (!loading)
@@ -10214,7 +10216,8 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 		}
 	}
 	currItem->setObjectAttributes(&(Buffer->pageItemAttributes));
-	Doc->setRedrawBounding(currItem);
+	if (resize)
+		Doc->setRedrawBounding(currItem);
 	currItem->OwnPage = Doc->OnPage(currItem);
 	if (!loading)
 	{
