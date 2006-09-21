@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-27 13:48+0200\n"
+"POT-Creation-Date: 2006-09-21 22:27+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -519,6 +519,9 @@ msgstr "Kontūras"
 msgid "Element"
 msgstr "Slinktis"
 
+msgid "Text"
+msgstr "Tekstas"
+
 #, fuzzy
 msgid "Font:"
 msgstr "Šriftas"
@@ -564,6 +567,10 @@ msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr ""
 
 #, fuzzy
+msgid "Shapes"
+msgstr "Forma"
+
+#, fuzzy
 msgid "&Line Color:"
 msgstr "Linijos spalva:"
 
@@ -591,6 +598,10 @@ msgid "Line &Width:"
 msgstr "Linijos storis:"
 
 #, fuzzy
+msgid "Lines"
+msgstr "Linija"
+
+#, fuzzy
 msgid "Line S&tyle:"
 msgstr "Linijos forma"
 
@@ -604,6 +615,10 @@ msgstr "Žvaigždė"
 #, fuzzy
 msgid "End:"
 msgstr "Pabaigos:"
+
+#, fuzzy
+msgid "Images"
+msgstr "Paveiksliukai:"
 
 #, fuzzy
 msgid "&Free Scaling"
@@ -646,6 +661,14 @@ msgstr ""
 #, fuzzy
 msgid "Low Resolution Preview"
 msgstr "Skiriamoji geba:"
+
+#, fuzzy
+msgid "Regular Polygons"
+msgstr "Įterpti daugiakampį"
+
+#, fuzzy
+msgid "Zoom"
+msgstr "Padidinti/sumažinti"
 
 #, fuzzy
 msgid "Mi&nimum:"
@@ -1693,6 +1716,18 @@ msgstr "Grąžinti"
 msgid "&Redo: %1"
 msgstr "Paruoštas"
 
+#, fuzzy
+msgid "Reset control point"
+msgstr "Atitaisyti valdymo taškus"
+
+#, fuzzy
+msgid "Reset control points"
+msgstr "Atitaisyti valdymo taškus"
+
+#, fuzzy
+msgid "Apply image effects"
+msgstr "Efektai"
+
 msgid "Move Pages"
 msgstr "Perkelti puslapius"
 
@@ -1809,6 +1844,10 @@ msgstr "Teksto rėmelis"
 
 msgid "Paragraphs: "
 msgstr ""
+
+#, fuzzy
+msgid "Lines: "
+msgstr "Linija"
 
 msgid "Words: "
 msgstr ""
@@ -2128,7 +2167,7 @@ msgstr "Spausdinimo eiliškumas"
 msgid ""
 "There is a problem loading %1 of %2 plugins. %3 This is probably caused by "
 "some kind of dependency issue or old plugins existing in your install "
-"directory. IF you clean out your install directory and reinstall and this "
+"directory. If you clean out your install directory and reinstall and this "
 "still occurs, please report it on bugs.scribus.net."
 msgstr ""
 
@@ -2175,23 +2214,6 @@ msgstr "Nuožulni jungtis"
 msgid "Round Join"
 msgstr "Kreiva jungtis"
 
-#, fuzzy
-msgid "Solid Line"
-msgstr "Ryškus"
-
-#, fuzzy
-msgid "Dashed Line"
-msgstr "Punktyris"
-
-msgid "Dotted Line"
-msgstr ""
-
-msgid "Dash Dot Line"
-msgstr ""
-
-msgid "Dash Dot Dot Line"
-msgstr ""
-
 msgid "Properties"
 msgstr "Savybės"
 
@@ -2213,6 +2235,23 @@ msgstr "Kopijuoti "
 #, fuzzy
 msgid "%1 (%2)"
 msgstr "Kopijuoti "
+
+#, fuzzy
+msgid "Solid Line"
+msgstr "Ryškus"
+
+#, fuzzy
+msgid "Dashed Line"
+msgstr "Punktyris"
+
+msgid "Dotted Line"
+msgstr ""
+
+msgid "Dash Dot Line"
+msgstr ""
+
+msgid "Dash Dot Dot Line"
+msgstr ""
 
 msgid " pt "
 msgstr ""
@@ -2554,6 +2593,10 @@ msgid "Gap:"
 msgstr "Forma"
 
 #, fuzzy
+msgid "Link Created Frames"
+msgstr "Teksto rėmelis"
+
+#, fuzzy
 msgid "&Options"
 msgstr "Nuostatos"
 
@@ -2611,9 +2654,6 @@ msgstr ""
 
 msgid "Image"
 msgstr "Paveiksliukas"
-
-msgid "Text"
-msgstr "Tekstas"
 
 msgid "Line"
 msgstr "Linija"
@@ -2992,6 +3032,10 @@ msgstr "Pavadinimas:"
 msgid "Add a new layer"
 msgstr "Pridėti naują sluoksnį"
 
+#, fuzzy
+msgid "Duplicates the current layer"
+msgstr "Atšaukti objekto pašalinimą"
+
 msgid ""
 "Color of the Layer Indicator - Each layer has a color assigned to display on "
 "the canvas when layer indicators are enabled. You can double click to edit "
@@ -3061,6 +3105,18 @@ msgid ""
 "info string is missing from the PDF/X-3 tab."
 msgstr ""
 
+msgid "%1 does not exists and will be created, continue?"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Cannot create directory: \n"
+"%1"
+msgstr ""
+"Ar tikrai nori pakeisti esamo failo:\n"
+"%1\n"
+" turinį?"
+
 msgid "Save as"
 msgstr "Išsaugoti kitu vardu"
 
@@ -3088,31 +3144,31 @@ msgid "Page Display"
 msgstr "Rodyti"
 
 #, fuzzy
-msgid "Show Layer Indicators"
-msgstr "Paroddyti sluoksnį"
-
-msgid "Show Frames"
-msgstr "Rodyti rėmelius"
-
-#, fuzzy
-msgid "Show Text Chains"
-msgstr "Rodyti paraštes"
-
-#, fuzzy
-msgid "Display &Unprintable Area in Margin Color"
-msgstr "Rodyti nespausdinamą srytį pasirinkta spalva"
-
-#, fuzzy
-msgid "Rulers Relative to Page"
-msgstr "Skiriamoji geba:"
+msgid "Show Pictures"
+msgstr "Paveiksliukai"
 
 #, fuzzy
 msgid "Show Text Control Characters"
 msgstr "Rodyti paraštes"
 
 #, fuzzy
-msgid "Show Pictures"
-msgstr "Paveiksliukai"
+msgid "Rulers Relative to Page"
+msgstr "Skiriamoji geba:"
+
+#, fuzzy
+msgid "Show Text Chains"
+msgstr "Rodyti paraštes"
+
+msgid "Show Frames"
+msgstr "Rodyti rėmelius"
+
+#, fuzzy
+msgid "Show Layer Indicators"
+msgstr "Paroddyti sluoksnį"
+
+#, fuzzy
+msgid "Display &Unprintable Area in Margin Color"
+msgstr "Rodyti nespausdinamą srytį pasirinkta spalva"
 
 #, fuzzy
 msgid "Scratch Space"
@@ -3142,6 +3198,53 @@ msgstr ""
 
 msgid "textLabel16"
 msgstr ""
+
+#, fuzzy
+msgid "Pages:"
+msgstr "Puslapis:"
+
+#, fuzzy
+msgid "Selected Page Border:"
+msgstr "Išplėšti puslapius"
+
+#, fuzzy
+msgid "Frames"
+msgstr "Rėmelis"
+
+#, fuzzy
+msgid "Locked:"
+msgstr "Riboti"
+
+#, fuzzy
+msgid "Normal:"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Selected:"
+msgstr "Pažymėti"
+
+#, fuzzy
+msgid "Linked:"
+msgstr "Linija"
+
+#, fuzzy
+msgid "Grouped:"
+msgstr "Sudaryti junginį"
+
+#, fuzzy
+msgid "Annotation:"
+msgstr "Pasukti:"
+
+#, fuzzy
+msgid "Text:"
+msgstr "Tekstas"
+
+#, fuzzy
+msgid "Control Characters:"
+msgstr "Rodyti įrankinę"
+
+msgid "Colors"
+msgstr "Spalvos"
 
 msgid " mm"
 msgstr ""
@@ -3231,6 +3334,18 @@ msgstr "Programavo:"
 
 msgid "Overall Progress:"
 msgstr ""
+
+#, fuzzy
+msgid "Patterns"
+msgstr "Įterpti"
+
+#, fuzzy
+msgid "Load"
+msgstr "Atidaryti..."
+
+#, fuzzy
+msgid "Load Set"
+msgstr "Ruošiama..."
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -3476,9 +3591,6 @@ msgstr "Laukelių parinktys"
 msgid "Dissolve"
 msgstr "Išsisklaidymas"
 
-msgid "Exlusion"
-msgstr ""
-
 msgid "Don't use any Path"
 msgstr ""
 
@@ -3555,6 +3667,18 @@ msgstr "Pridėti naują sluoksnį"
 #, fuzzy
 msgid "Import master pages from another document"
 msgstr "Čia galite matyti visus dokumento puslapius."
+
+#, fuzzy
+msgid "Normal Left"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Paprastas"
 
 #, fuzzy
 msgid "Do you really want to delete this master page?"
@@ -4594,6 +4718,22 @@ msgid "Transparency Settings"
 msgstr "Simbolių parinktys"
 
 #, fuzzy
+msgid "Offsets"
+msgstr "Efektai"
+
+#, fuzzy
+msgid "Scaling"
+msgstr "Dydis:"
+
+#, fuzzy
+msgid "Rotation"
+msgstr "Pasukti:"
+
+#, fuzzy
+msgid "Angle"
+msgstr "Kampas:"
+
+#, fuzzy
 msgid "Move Vector"
 msgstr "Perkelk čia"
 
@@ -4619,6 +4759,10 @@ msgstr ""
 
 msgid "Free radial Gradient"
 msgstr ""
+
+#, fuzzy
+msgid "Pattern"
+msgstr "Įterpti"
 
 #, fuzzy
 msgid "Edit Line Color Properties"
@@ -4668,6 +4812,10 @@ msgstr "Įkelti duomenis"
 #, fuzzy
 msgid "Exporting Items on Current Page:"
 msgstr "Spausdinimo eiliškumas"
+
+#, fuzzy
+msgid "Loading Patterns"
+msgstr "Atidarymas nutrauktas"
 
 #, fuzzy
 msgid "Manage Guides"
@@ -4785,8 +4933,9 @@ msgstr "Kombinuotas laukelis"
 msgid "List Box"
 msgstr "Sąrašo laukelis"
 
-msgid "Tool-Tip:"
-msgstr "Patarėjas:"
+#, fuzzy
+msgid "Tooltip:"
+msgstr "Įrankiai"
 
 #, fuzzy
 msgid "Font for use with PDF 1.3:"
@@ -4826,7 +4975,8 @@ msgstr "Tik skaitymui"
 msgid "Required"
 msgstr "Būtinas"
 
-msgid "Don't Export Value"
+#, fuzzy
+msgid "Do Not Export Value"
 msgstr "Neperduoti reikšmės"
 
 msgid "Visibility:"
@@ -5234,6 +5384,10 @@ msgid "C&olors..."
 msgstr "Spalvos..."
 
 #, fuzzy
+msgid "Patterns..."
+msgstr "Spausdinti..."
+
+#, fuzzy
 msgid "S&tyles..."
 msgstr "Stiliai..."
 
@@ -5382,6 +5536,10 @@ msgstr "Per vieną aukščiau"
 #, fuzzy
 msgid "Send to S&crapbook"
 msgstr "Į iškarpų krepšį"
+
+#, fuzzy
+msgid "Send to Patterns"
+msgstr "Pereiti prie slouksnio"
 
 #, fuzzy
 msgid "&Attributes..."
@@ -6118,8 +6276,16 @@ msgstr "Vienetai"
 
 # New in Version 0.8
 #, fuzzy
-msgid "Apply size settings to all Pages"
+msgid "Apply settings to:"
 msgstr "Pritaikyti efektus visuose puslapiuose"
+
+#, fuzzy
+msgid "All Document Pages"
+msgstr "Dokumento puslapiai:"
+
+#, fuzzy
+msgid "All Master Pages"
+msgstr "po puslapio"
 
 #, fuzzy
 msgid "Autosave"
@@ -6168,16 +6334,18 @@ msgstr ""
 msgid "Apply the page size changes to all existing pages in the document"
 msgstr ""
 
+msgid ""
+"Apply the page size changes to all existing master pages in the document"
+msgstr ""
+
 #, fuzzy
 msgid "Preset Layouts:"
 msgstr "Išvaizda:"
 
-# New in Version 0.8
-#, fuzzy
-msgid "Apply margin settings to all pages"
-msgstr "Pritaikyti efektus visuose puslapiuose"
-
 msgid "Apply the margin changes to all existing pages in the document"
+msgstr ""
+
+msgid "Apply the margin changes to all existing master pages in the document"
 msgstr ""
 
 #, fuzzy
@@ -6232,7 +6400,7 @@ msgid "Nine Parts"
 msgstr ""
 
 msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
+"You can select a predefined page layout here. 'None' leave margins as is, "
 "Gutenberg sets margins classically. 'Magazine' sets all margins for same "
 "value. Leading is Left/Inside value."
 msgstr ""
@@ -6408,7 +6576,7 @@ msgid ""
 "Choosing this will make this color a spot color, thus creating another spot "
 "when creating plates or separations. This is used most often when a logo or "
 "other color needs exact representation or cannot be replicated with CMYK "
-"inks. Metallic and flourescent inks are good examples which cannot be easily "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
 "replicated with CMYK inks."
 msgstr ""
 
@@ -6444,9 +6612,6 @@ msgid ""
 "The name of the color already exists,\n"
 "please choose another one."
 msgstr ""
-
-msgid "Colors"
-msgstr "Spalvos"
 
 #, fuzzy
 msgid "&Remove Unused"
@@ -6560,8 +6725,8 @@ msgid ""
 "working with was created in Scribus 1.2.x.  Saving the current file under "
 "1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve "
 "the ability to edit in 1.2.x, save this file under a different name and "
-"further edit the newly named file and the origial will be untouched. Are you "
-"sure you wish to proceed with this operation?"
+"further edit the newly named file and the original will be untouched. Are "
+"you sure you wish to proceed with this operation?"
 msgstr ""
 
 #, fuzzy
@@ -6646,16 +6811,8 @@ msgid "Ready"
 msgstr "Paruoštas"
 
 #, fuzzy
-msgid "Normal Left"
-msgstr "Paprastas"
-
-#, fuzzy
-msgid "Normal Right"
-msgstr "Paprastas"
-
-#, fuzzy
-msgid "Normal Middle"
-msgstr "Paprastas"
+msgid "Updating Pictures"
+msgstr "Prižiūrėti paveiksliukus"
 
 #, fuzzy
 msgid "Importing Pages..."
@@ -6772,12 +6929,6 @@ msgstr "Įkelti duomenis"
 
 msgid "Size"
 msgstr "Dydis"
-
-msgid ""
-"Number of copies: %1\n"
-"Horizontal shift: %2\n"
-"Vertical shift: %3"
-msgstr ""
 
 #, fuzzy
 msgid "The following programs are missing:"
@@ -7827,10 +7978,6 @@ msgid "St&yle:"
 msgstr "Stilius"
 
 #, fuzzy
-msgid "Lan&guage:"
-msgstr "Eilė:"
-
-#, fuzzy
 msgid "Actual X-DPI:"
 msgstr "Realus dydis"
 
@@ -8057,9 +8204,6 @@ msgid "Click to select the line spacing mode"
 msgstr "Tekstas per vidurį"
 
 msgid "Style of current paragraph"
-msgstr ""
-
-msgid "Hyphenation language of frame"
 msgstr ""
 
 msgid "Change settings for left or end points"
@@ -8395,11 +8539,13 @@ msgstr "Uždaryti tuoj pat"
 msgid "Font System Initialized"
 msgstr ""
 
-msgid "Current Key"
-msgstr "Esamas derinys"
+#, fuzzy
+msgid "Main"
+msgstr "Paraštė:"
 
-msgid "Select a Key for this Action"
-msgstr "Pasirink derinį šiam veiksmui"
+#, fuzzy
+msgid "Copied Items"
+msgstr "Pasukti objektą"
 
 msgid "Choose a Scrapbook Directory"
 msgstr ""
@@ -8961,6 +9107,22 @@ msgid "Edit Styles"
 msgstr "Keisti stilius"
 
 #, fuzzy
+msgid "&Horizontal Shift:"
+msgstr "Horiz. postūmis:"
+
+#, fuzzy
+msgid "&Vertical Shift:"
+msgstr "Vert. postūmis:"
+
+#, fuzzy
+msgid "&Horizontal Gap:"
+msgstr "Horizontaliai"
+
+#, fuzzy
+msgid "&Vertical Gap:"
+msgstr "Vertikaliai"
+
+#, fuzzy
 msgid "Common Settings"
 msgstr "Pelės nuostatos"
 
@@ -9116,25 +9278,25 @@ msgstr ""
 msgid "to"
 msgstr "iki:"
 
-msgid "GUI"
-msgstr "Grafinė vartotojo aplinka"
+msgid "User Interface"
+msgstr ""
 
 #, fuzzy
 msgid "&Theme:"
 msgstr "Naujas šablonas"
 
-msgid "Time before a Move or Resize starts:"
-msgstr ""
-
 msgid " ms"
 msgstr ""
 
-#, fuzzy
-msgid "&Font Size (Menus):"
-msgstr "Šrifto dydis:"
+msgid "Time before a Move or Resize starts:"
+msgstr ""
 
 #, fuzzy
 msgid "Font Size (&Palettes):"
+msgstr "Šrifto dydis:"
+
+#, fuzzy
+msgid "&Font Size (Menus):"
 msgstr "Šrifto dydis:"
 
 #, fuzzy
@@ -9145,6 +9307,20 @@ msgstr "Ratuko žingsnis"
 msgid "&Recent Documents:"
 msgstr "Paskutinis dokumentas:"
 
+msgid "Show Startup Dialog"
+msgstr ""
+
+msgid "Show Splashscreen on Startup"
+msgstr ""
+
+#, fuzzy
+msgid "Ch&ange..."
+msgstr "Pakeisti..."
+
+#, fuzzy
+msgid "Document &Templates:"
+msgstr "Dokumento puslapiai:"
+
 #, fuzzy
 msgid "&Documents:"
 msgstr "Dokumentas "
@@ -9154,20 +9330,49 @@ msgid "&ICC Profiles:"
 msgstr "Spausdinti į failą:"
 
 #, fuzzy
-msgid "Alt+H"
-msgstr "Viską"
-
-#, fuzzy
 msgid "&Scripts:"
 msgstr "Skriptas:"
 
 #, fuzzy
-msgid "Ch&ange..."
-msgstr "Pakeisti..."
+msgid "Alt+H"
+msgstr "Viską"
+
+msgid "Multiple Duplicate"
+msgstr "Sukurti daug kopijų"
 
 #, fuzzy
-msgid "Document &Templates:"
-msgstr "Dokumento puslapiai:"
+msgid "&Number of Copies:"
+msgstr "Kopijų skaičius:"
+
+#, fuzzy
+msgid "Create &Gap Between Items Of"
+msgstr "Linijos forma"
+
+msgid "&Shift Created Items By"
+msgstr ""
+
+#, fuzzy
+msgid "&By Number of Copies"
+msgstr "Kopijų skaičius:"
+
+#, fuzzy
+msgid "Vertical Gap:"
+msgstr "Vertikaliai"
+
+#, fuzzy
+msgid "Horizontal Gap:"
+msgstr "Horizontaliai"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Kopijų skaičius"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Kopijų skaičius:"
+
+msgid "By &Rows && Columns"
+msgstr ""
 
 #, fuzzy
 msgid "Parameter"
@@ -9329,12 +9534,6 @@ msgstr ""
 msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
-msgid "Show Startup Dialog"
-msgstr ""
-
-msgid "Show Splashscreen on Startup"
-msgstr ""
-
 msgid "Always use standard Lorem Ipsum"
 msgstr ""
 
@@ -9450,21 +9649,6 @@ msgstr "Naujas skriptas"
 #, fuzzy
 msgid "Do you really want to delete this script?"
 msgstr "Ar tu tikrai labai nori pašalinti stilių?"
-
-msgid "Multiple Duplicate"
-msgstr "Sukurti daug kopijų"
-
-#, fuzzy
-msgid "&Number of Copies:"
-msgstr "Kopijų skaičius:"
-
-#, fuzzy
-msgid "&Horizontal Shift:"
-msgstr "Horiz. postūmis:"
-
-#, fuzzy
-msgid "&Vertical Shift:"
-msgstr "Vert. postūmis:"
 
 msgid "Auto Add To"
 msgstr ""
@@ -10569,10 +10753,10 @@ msgstr "Tekstinis failas (*.txt);;Visi failai (*)"
 msgid "Save Current Output"
 msgstr "Įšsaugok savo darbą"
 
-msgid "Failed to save EPS."
+msgid "Page number out of range."
 msgstr ""
 
-msgid "Page number out of range."
+msgid "Failed to save EPS."
 msgstr ""
 
 msgid "Given master page name does not match any existing."
@@ -10730,6 +10914,10 @@ msgstr ""
 
 #, fuzzy
 msgid "Cannot get text size of non-text frame."
+msgstr "Ką nors pakeisti rėmelyje"
+
+#, fuzzy
+msgid "Cannot get number of lines of non-text frame."
 msgstr "Ką nors pakeisti rėmelyje"
 
 msgid "Cannot get column count of non-text frame."
@@ -11566,9 +11754,26 @@ msgstr "Paprastas"
 msgid "My Plugin"
 msgstr "Paprastas"
 
+#~ msgid "Tool-Tip:"
+#~ msgstr "Patarėjas:"
+
+# New in Version 0.8
 #, fuzzy
-#~ msgid "Lines"
-#~ msgstr "Linija"
+#~ msgid "Apply margin settings to all pages"
+#~ msgstr "Pritaikyti efektus visuose puslapiuose"
+
+#, fuzzy
+#~ msgid "Lan&guage:"
+#~ msgstr "Eilė:"
+
+#~ msgid "Current Key"
+#~ msgstr "Esamas derinys"
+
+#~ msgid "Select a Key for this Action"
+#~ msgstr "Pasirink derinį šiam veiksmui"
+
+#~ msgid "GUI"
+#~ msgstr "Grafinė vartotojo aplinka"
 
 #, fuzzy
 #~ msgid "&Unit:"
@@ -11866,10 +12071,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "Apply to all &even Pages"
 #~ msgstr "Pritaikyti efektus visuose puslapiuose"
-
-#, fuzzy
-#~ msgid "&Update Picture"
-#~ msgstr "Prižiūrėti paveiksliukus"
 
 #, fuzzy
 #~ msgid "&Edit Picture"
@@ -12344,10 +12545,6 @@ msgstr "Paprastas"
 #~ msgstr "Pritraukti prie tinklelio"
 
 #, fuzzy
-#~ msgid "Tooltips"
-#~ msgstr "Įrankiai"
-
-#, fuzzy
 #~ msgid "&Fonts..."
 #~ msgstr "Šriftai..."
 
@@ -12694,9 +12891,6 @@ msgstr "Paprastas"
 
 #~ msgid "Saving aborted"
 #~ msgstr "Įrašymas nutrauktas"
-
-#~ msgid "Loading aborted"
-#~ msgstr "Atidarymas nutrauktas"
 
 #~ msgid " loaded"
 #~ msgstr " pakrautas"

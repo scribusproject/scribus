@@ -108,7 +108,7 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
     </message>
     <message>
         <source>newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder) -&gt; bool
+                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
 
 Creates a new document and returns true if successful. The parameters have the
 following meaning:
@@ -136,12 +136,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -491,14 +493,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1809,6 +1803,29 @@ currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageType() -&gt; integer
+
+Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextLines([&quot;name&quot;]) -&gt; integer
+
+Returns the number of lines of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3100,6 +3117,14 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Patterns...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -3495,7 +3520,7 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation>Алат-Савет:</translation>
+        <translation type="obsolete">Алат-Савет:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -3571,7 +3596,7 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
-        <translation>Немој да извозиш вредност</translation>
+        <translation type="obsolete">Немој да извозиш вредност</translation>
     </message>
     <message>
         <source>Visibility:</source>
@@ -4006,6 +4031,14 @@ UCR смањује могућност презасићености CMY маст�
         <source>None</source>
         <comment>action</comment>
         <translation type="unfinished">Ниједан</translation>
+    </message>
+    <message>
+        <source>Tooltip:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do Not Export Value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4540,6 +4573,14 @@ Please choose another.</source>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copied Items</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -4968,16 +5009,16 @@ It is a reserved name for transparent color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and flourescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The name of the color already exists,
 please choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6008,10 +6049,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Exlusion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Color Dodge</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6033,6 +6070,38 @@ please choose another one.</source>
     </message>
     <message>
         <source>Luminosity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offsets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="unfinished">X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7790,10 +7859,6 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Exlusion</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Blend Mode:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9219,6 +9284,10 @@ converting their vector data into Scribus objects.</source>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Откажи</translation>
     </message>
+    <message>
+        <source>Link Created Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InsertTable</name>
@@ -9314,31 +9383,31 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Action</source>
-        <translation>Акција</translation>
+        <translation type="obsolete">Акција</translation>
     </message>
     <message>
         <source>Current Key</source>
-        <translation>Текуће дугме</translation>
+        <translation type="obsolete">Текуће дугме</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
-        <translation>Изаберите дугме за ову акцију</translation>
+        <translation type="obsolete">Изаберите дугме за ову акцију</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation>&amp;Нема дугмета</translation>
+        <translation type="obsolete">&amp;Нема дугмета</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation>&amp;Дугме дефинисано од стране корисника</translation>
+        <translation type="obsolete">&amp;Дугме дефинисано од стране корисника</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
-        <translation>ALT+SHIFT+T</translation>
+        <translation type="obsolete">ALT+SHIFT+T</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation>Постави &amp;дугме</translation>
+        <translation type="obsolete">Постави &amp;дугме</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -9350,27 +9419,27 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Alt</source>
-        <translation>Alt</translation>
+        <translation type="obsolete">Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation>Ctrl</translation>
+        <translation type="obsolete">Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation>Shift</translation>
+        <translation type="obsolete">Shift</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation>Shift+</translation>
+        <translation type="obsolete">Shift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation>Alt+</translation>
+        <translation type="obsolete">Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation>Ctrl+</translation>
+        <translation type="obsolete">Ctrl+</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -9379,62 +9448,6 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>This Key Sequence is already in use</source>
         <translation type="obsolete">Та комбинација дугмади је већ у употреби</translation>
-    </message>
-    <message>
-        <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Load</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Import...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Export...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Keyboard shortcut sets available to load</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Load the selected shortcut set</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Import a shortcut set into the current configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Export the current shortcuts into an importable file</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Reload the default Scribus shortcuts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This key sequence is already in use</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Meta</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Meta+</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9595,6 +9608,10 @@ converting their vector data into Scribus objects.</source>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Duplicates the current layer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -9726,23 +9743,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Непрекидна линија</translation>
+        <translation type="obsolete">Непрекидна линија</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Испрекидана линија</translation>
+        <translation type="obsolete">Испрекидана линија</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Тачкаста линија</translation>
+        <translation type="obsolete">Тачкаста линија</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Црта-тачка</translation>
+        <translation type="obsolete">Црта-тачка</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Црта-тачка-тачка</translation>
+        <translation type="obsolete">Црта-тачка-тачка</translation>
     </message>
 </context>
 <context>
@@ -9957,10 +9974,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Apply margin settings to all pages</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Apply the margin changes to all existing pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9978,6 +9991,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the margin changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10065,6 +10094,18 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>New Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -10582,7 +10623,7 @@ Corners:</source>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation>Је&amp;зик:</translation>
+        <translation type="obsolete">Је&amp;зик:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
@@ -10846,7 +10887,7 @@ Corners:</source>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
-        <translation>Језик оквира за спајање цртицом</translation>
+        <translation type="obsolete">Језик оквира за спајање цртицом</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -11241,6 +11282,92 @@ Please choose another.</source>
     <message>
         <source>Overall Progress:</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Откажи</translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicate</name>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished">&amp;Водоравна промена:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished">&amp;Усправна промена:</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicateBase</name>
+    <message>
+        <source>Multiple Duplicate</source>
+        <translation type="unfinished">Многоструки дупликат</translation>
+    </message>
+    <message>
+        <source>&amp;By Number of Copies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation type="unfinished">&amp;Број копија:</translation>
+    </message>
+    <message>
+        <source>Create &amp;Gap Between Items Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Shift Created Items By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished">&amp;Водоравна промена:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished">&amp;Усправна промена:</translation>
+    </message>
+    <message>
+        <source>By &amp;Rows &amp;&amp; Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation type="unfinished">Број редова:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation type="unfinished">Број колона:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;У реду</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -11969,6 +12096,15 @@ otherwise Coordinates are relative to the Object.</source>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 does not exists and will be created, continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create directory: 
+%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13475,6 +13611,25 @@ UCR смањује могућност презасићења CMY мастили�
     </message>
 </context>
 <context>
+    <name>PatternDialog</name>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Изаберите директоријум</translation>
+    </message>
+    <message>
+        <source>Loading Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Сви фајлови (*)</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Отвори</translation>
+    </message>
+</context>
+<context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
@@ -13666,7 +13821,7 @@ UCR смањује могућност презасићења CMY мастили�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. IF you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
+        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14968,13 +15123,13 @@ Do you want to migrate them to the new Scribus version?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>None</source>
         <comment>layout type</comment>
         <translation type="unfinished">Ниједан</translation>
+    </message>
+    <message>
+        <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17187,10 +17342,6 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the origial will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17219,6 +17370,15 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get number of lines of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20172,12 +20332,6 @@ Consider using the Preflight Verifier to correct them</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Number of copies: %1
-Horizontal shift: %2
-Vertical shift: %3</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20223,6 +20377,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20633,6 +20791,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Duotone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22054,7 +22216,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Боја:</translation>
+        <translation type="obsolete">Боја:</translation>
     </message>
     <message>
         <source>Scratch Space</source>
@@ -22100,6 +22262,62 @@ edited to match the one being imported, or left untouched</source>
         <source>textLabel16</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished">Опште</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Боје</translation>
+    </message>
+    <message>
+        <source>Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected Page Border:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locked:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grouped:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control Characters:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabDocument</name>
@@ -22138,10 +22356,6 @@ edited to match the one being imported, or left untouched</source>
     <message>
         <source>&amp;Height:</source>
         <translation type="unfinished">&amp;Висина:</translation>
-    </message>
-    <message>
-        <source>Apply size settings to all Pages</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -22201,6 +22415,22 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing master pages in the document</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22373,7 +22603,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>GUI</source>
-        <translation type="unfinished">Кориснички интерфејс</translation>
+        <translation type="obsolete">Кориснички интерфејс</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -22461,6 +22691,18 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Alt+N</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>User Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Splashscreen on Startup</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22808,14 +23050,6 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Startup Dialog</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Show Splashscreen on Startup</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -24069,6 +24303,30 @@ when PDF document is opened:</source>
         <comment>tab fill</comment>
         <translation type="unfinished">Ниједан</translation>
     </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Текст</translation>
+    </message>
+    <message>
+        <source>Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Regular Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -24886,6 +25144,18 @@ X: %4, Y: %5</source>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply image effects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -25373,6 +25643,33 @@ files of this type.</source>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Копирајте постојећи template.xml у фајл под називом template.lang_COUNTRY.xml (користите исти код језика који је присутан у qm фајлу за Ваш језик), на пример template.fi.xml за Фински језик. Копија се мора налазити у истом директоријуму као и оригинални template.xml да би Scribus могао да га учита.</translation>
+    </message>
+</context>
+<context>
+    <name>patternDialogBase</name>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Уклони</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">У реду</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Поништи</translation>
     </message>
 </context>
 <context>

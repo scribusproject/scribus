@@ -389,7 +389,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(tamaño, marxes, orientación, númeroPrimeiraPáxina,
+        <translation type="obsolete">newDocument(tamaño, marxes, orientación, númeroPrimeiraPáxina,
                      unidade, tipoPáxinas, ordePrimeiraPáxina) -&gt; booleano
 
 Crea un documento novo e devolve verdadeiro se o consegue. Os parámetros teñen o
@@ -426,6 +426,49 @@ PAGE_4, 3)
 
 Pode provocar un Scribuserror se ordePrimeiraPáxina é maior do que permite tipoPáxinas.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -714,7 +757,7 @@ Pode provocar un ScribusError se non se puido gardar.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;autor&quot;, &quot;información&quot;, &quot;descrición&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;autor&quot;, &quot;información&quot;, &quot;descrición&quot;) -&gt; bool
 
 Consigna a información do documento. &quot;Autor&quot;, &quot;Información&quot;, &quot;Descrición&quot;
 son cadeas.</translation>
@@ -3122,6 +3165,29 @@ currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageType() -&gt; integer
+
+Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextLines([&quot;name&quot;]) -&gt; integer
+
+Returns the number of lines of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -4551,6 +4617,14 @@ Convertir a siluetas</translation>
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Patterns...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4968,7 +5042,7 @@ que llo pida o seu impresor.</translation>
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation>Suxestión:</translation>
+        <translation type="obsolete">Suxestión:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -5040,7 +5114,7 @@ que llo pida o seu impresor.</translation>
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
-        <translation>Non Exportar o Valor</translation>
+        <translation type="obsolete">Non Exportar o Valor</translation>
     </message>
     <message>
         <source>Visibility:</source>
@@ -5483,6 +5557,14 @@ resalte</translation>
         <translation>Nengunha
 
 acción</translation>
+    </message>
+    <message>
+        <source>Tooltip:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do Not Export Value</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6058,6 +6140,14 @@ Escolla outro.</translation>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copied Items</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -6491,16 +6581,16 @@ It is a reserved name for transparent color</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and flourescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The name of the color already exists,
 please choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7571,7 +7661,7 @@ CommonStrings, tamaño personalizado da páxina</translation>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation type="unfinished">Exlusión</translation>
+        <translation type="obsolete">Exlusión</translation>
     </message>
     <message>
         <source>Color Dodge</source>
@@ -7596,6 +7686,38 @@ CommonStrings, tamaño personalizado da páxina</translation>
     <message>
         <source>Luminosity</source>
         <translation type="unfinished">Luminosidade</translation>
+    </message>
+    <message>
+        <source>Offsets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="unfinished">X:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Exclusión</translation>
     </message>
 </context>
 <context>
@@ -9557,7 +9679,7 @@ O nome do ficheiro de exportación será &quot;nomedodocumento-númerodepáxina.
     </message>
     <message>
         <source>Exlusion</source>
-        <translation>Exlusión</translation>
+        <translation type="obsolete">Exlusión</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
@@ -11135,6 +11257,10 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
         <source>&amp;Cancel</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Link Created Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InsertTable</name>
@@ -11230,31 +11356,31 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     </message>
     <message>
         <source>Action</source>
-        <translation>Acción</translation>
+        <translation type="obsolete">Acción</translation>
     </message>
     <message>
         <source>Current Key</source>
-        <translation>Tecla Actual</translation>
+        <translation type="obsolete">Tecla Actual</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
-        <translation>Escolla unha Tecla para esta Acción</translation>
+        <translation type="obsolete">Escolla unha Tecla para esta Acción</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation>&amp;Nengunha Tecla</translation>
+        <translation type="obsolete">&amp;Nengunha Tecla</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation>Tecla Definida polo &amp;Usuario</translation>
+        <translation type="obsolete">Tecla Definida polo &amp;Usuario</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
-        <translation>ALT+SHIFT+T</translation>
+        <translation type="obsolete">ALT+SHIFT+T</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation>Asignar &amp;Tecla</translation>
+        <translation type="obsolete">Asignar &amp;Tecla</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -11266,27 +11392,27 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation>Alt</translation>
+        <translation type="obsolete">Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation>Ctrl</translation>
+        <translation type="obsolete">Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation>Maiúsculas</translation>
+        <translation type="obsolete">Maiúsculas</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation>Maiúsculas+</translation>
+        <translation type="obsolete">Maiúsculas+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation>Alt+</translation>
+        <translation type="obsolete">Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation>Ctrl+</translation>
+        <translation type="obsolete">Ctrl+</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -11298,59 +11424,59 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation>Conxuntos de Atallos Carregábeis</translation>
+        <translation type="obsolete">Conxuntos de Atallos Carregábeis</translation>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation>&amp;Carregar</translation>
+        <translation type="obsolete">&amp;Carregar</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation>&amp;Importar...</translation>
+        <translation type="obsolete">&amp;Importar...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation>&amp;Exportar...</translation>
+        <translation type="obsolete">&amp;Exportar...</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation>Desface&amp;r</translation>
+        <translation type="obsolete">Desface&amp;r</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation>Conxuntos de atallos de teclado que se poden carregar</translation>
+        <translation type="obsolete">Conxuntos de atallos de teclado que se poden carregar</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation>Carregar o conxunto de atallos seleccionado</translation>
+        <translation type="obsolete">Carregar o conxunto de atallos seleccionado</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation>Importar un conxunto de atallos na configuración actual</translation>
+        <translation type="obsolete">Importar un conxunto de atallos na configuración actual</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation>Exportar os atallos actuais para un ficheiro importábel</translation>
+        <translation type="obsolete">Exportar os atallos actuais para un ficheiro importábel</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation>Recarregar os atallos pré-definidos de Scribus</translation>
+        <translation type="obsolete">Recarregar os atallos pré-definidos de Scribus</translation>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Conxunto Key de Ficheiros XML (*.ksxml)</translation>
+        <translation type="obsolete">Conxunto Key de Ficheiros XML (*.ksxml)</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
-        <translation>Esta secuencia de teclas xa se está a utilizar</translation>
+        <translation type="obsolete">Esta secuencia de teclas xa se está a utilizar</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation>Meta</translation>
+        <translation type="obsolete">Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation>Meta+</translation>
+        <translation type="obsolete">Meta+</translation>
     </message>
 </context>
 <context>
@@ -11515,6 +11641,10 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Duplicates the current layer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -11646,23 +11776,23 @@ convertindo os seus datos vectoriais en obxectos de Scribus.</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Liña continua</translation>
+        <translation type="obsolete">Liña continua</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Liña tracexada</translation>
+        <translation type="obsolete">Liña tracexada</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Liña de puntos</translation>
+        <translation type="obsolete">Liña de puntos</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Liña guión-punto</translation>
+        <translation type="obsolete">Liña guión-punto</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Liña guión-punto-punto</translation>
+        <translation type="obsolete">Liña guión-punto-punto</translation>
     </message>
 </context>
 <context>
@@ -12186,7 +12316,7 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
-        <translation>Aplicar a configuración de marxes a todas as páxinas</translation>
+        <translation type="obsolete">Aplicar a configuración de marxes a todas as páxinas</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
@@ -12207,6 +12337,22 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
         <translation>Importar as marxes para o tamaño de páxina escollida das impresoras disponíbeis.</translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the margin changes to all existing master pages in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -12309,6 +12455,18 @@ Se se escollen Páxinas Enfrentadas, este espazo de marxe pódese usar para obte
     </message>
     <message>
         <source>New Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -12796,7 +12954,7 @@ Arred&amp;ondadas:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation>Lin&amp;gua:</translation>
+        <translation type="obsolete">Lin&amp;gua:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
@@ -13064,7 +13222,7 @@ Arred&amp;ondadas:</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
-        <translation>Lingua da moldura para cortar con guións</translation>
+        <translation type="obsolete">Lingua da moldura para cortar con guións</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -13463,6 +13621,92 @@ Escolla outro.</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Cancelar</translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicate</name>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished">Desprazamento &amp;Horizontal:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished">Desprazamento &amp;Vertical:</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicateBase</name>
+    <message>
+        <source>Multiple Duplicate</source>
+        <translation type="unfinished">Duplicados Múltiples</translation>
+    </message>
+    <message>
+        <source>&amp;By Number of Copies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation type="unfinished">&amp;Número de Copias:</translation>
+    </message>
+    <message>
+        <source>Create &amp;Gap Between Items Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished">Alt+G</translation>
+    </message>
+    <message>
+        <source>&amp;Shift Created Items By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished">Alt+S</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished">Desprazamento &amp;Horizontal:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished">Desprazamento &amp;Vertical:</translation>
+    </message>
+    <message>
+        <source>By &amp;Rows &amp;&amp; Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation type="unfinished">Número de Fileiras:</translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation type="unfinished">Número de Columnas:</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14188,6 +14432,15 @@ nome de formato de importación/exportación</translation>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
         <translation>O botón gardar desactivarase se tenta exportar PDF/X-3 e falta a cadea info da pestana PDF/X-3.</translation>
+    </message>
+    <message>
+        <source>%1 does not exists and will be created, continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create directory: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15826,6 +16079,25 @@ relación</translation>
     </message>
 </context>
 <context>
+    <name>PatternDialog</name>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Escolla un Directorio</translation>
+    </message>
+    <message>
+        <source>Loading Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Todos os Ficheiros (*)</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
@@ -16039,7 +16311,7 @@ xestor de extensións</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. IF you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
+        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17582,7 +17854,7 @@ erro da aplicación scribus.</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Pode escoller aquí a disposición de páxina predefinida. &quot;Nengunha&quot; deixa as marxes como están. Gutenberg dispón as marxes clásicas. &quot;Revista&quot; dalles a todas as marxes o mesmo valor. O principal é o valor Esquerda/Interior.</translation>
+        <translation type="obsolete">Pode escoller aquí a disposición de páxina predefinida. &quot;Nengunha&quot; deixa as marxes como están. Gutenberg dispón as marxes clásicas. &quot;Revista&quot; dalles a todas as marxes o mesmo valor. O principal é o valor Esquerda/Interior.</translation>
     </message>
     <message>
         <source>None</source>
@@ -17590,6 +17862,10 @@ erro da aplicación scribus.</translation>
         <translation>Nengunha
 
 tipo de disposición</translation>
+    </message>
+    <message>
+        <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20354,10 +20630,6 @@ Importador de PDB</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the origial will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -20386,6 +20658,15 @@ Importador de PDB</translation>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get number of lines of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -23677,7 +23958,7 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation>Número de copias: %1
+        <translation type="obsolete">Número de copias: %1
 Desprazamento horizontal: %2
 Desprazamento vertical: %3</translation>
     </message>
@@ -23727,6 +24008,10 @@ Desprazamento vertical: %3</translation>
     </message>
     <message>
         <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24029,6 +24314,10 @@ Desprazamento vertical: %3</translation>
     </message>
     <message>
         <source>Duotone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -25676,7 +25965,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Cor:</translation>
+        <translation type="obsolete">Cor:</translation>
     </message>
     <message>
         <source>Scratch Space</source>
@@ -25722,6 +26011,62 @@ Selector de Estilo de Texto</translation>
         <source>textLabel16</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished">Xeral</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Cores</translation>
+    </message>
+    <message>
+        <source>Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished">Cor de Enchido:</translation>
+    </message>
+    <message>
+        <source>Selected Page Border:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locked:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grouped:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control Characters:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabDocument</name>
@@ -25763,7 +26108,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Apply size settings to all Pages</source>
-        <translation type="unfinished">Aplicar a configuración de tamaño a todas as Páxinas</translation>
+        <translation type="obsolete">Aplicar a configuración de tamaño a todas as Páxinas</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -25824,6 +26169,22 @@ Selector de Estilo de Texto</translation>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished">Aplicar as modificacións no tamaño da páxina a todas as páxinas existentes do documento</translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing master pages in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25995,7 +26356,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation type="unfinished">Aparencia</translation>
+        <translation type="obsolete">Aparencia</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -26084,6 +26445,18 @@ Selector de Estilo de Texto</translation>
     <message>
         <source>Alt+N</source>
         <translation type="unfinished">Alt+N</translation>
+    </message>
+    <message>
+        <source>User Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation type="unfinished">Mostrar o Diálogo de Inicio</translation>
+    </message>
+    <message>
+        <source>Show Splashscreen on Startup</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -26414,11 +26787,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">Mostrar o Diálogo de Inicio</translation>
-    </message>
-    <message>
-        <source>Show Splashscreen on Startup</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Mostrar o Diálogo de Inicio</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
@@ -27688,6 +28057,30 @@ ao abrir o documento PDF:</translation>
         <comment>tab fill</comment>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Texto</translation>
+    </message>
+    <message>
+        <source>Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished">Liñas</translation>
+    </message>
+    <message>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Regular Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -28511,6 +28904,18 @@ X: %4, Y: %5</translation>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply image effects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -29149,6 +29554,33 @@ para ficheiros deste tipo.</translation>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Copie un template.xml xa existente a un ficheiro chamado template.lang_PAÍS.xml (use o mesmo código de lingua que o do ficheiro qm para a súa lingua). Por exemplo, o template.fi.xml para finlandés para template.xml. A copia debe estar situada no mesmo directorio que o template.xml orixinal para que Scribus o poida carregar.</translation>
+    </message>
+</context>
+<context>
+    <name>patternDialogBase</name>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Eliminar</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished">Cancelar</translation>
     </message>
 </context>
 <context>

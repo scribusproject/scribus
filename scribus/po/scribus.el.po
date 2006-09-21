@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-27 13:48+0200\n"
+"POT-Creation-Date: 2006-09-21 22:27+0200\n"
 "PO-Revision-Date: 2006-06-05 21:23+0300\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -481,6 +481,9 @@ msgstr "Περίγραμμα"
 msgid "Element"
 msgstr "Στοιχείο"
 
+msgid "Text"
+msgstr "Κείμενο"
+
 msgid "Font:"
 msgstr "Γραμματοσειρά:"
 
@@ -517,6 +520,10 @@ msgstr "&Κενό:"
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr "Νήψον ανομήματα μη μόναν όψιν"
 
+#, fuzzy
+msgid "Shapes"
+msgstr "Σχήμα:"
+
 msgid "&Line Color:"
 msgstr "&Χρώμα γραμμής:"
 
@@ -538,6 +545,9 @@ msgstr " σημ"
 msgid "Line &Width:"
 msgstr "&Πλάτος γραμμής:"
 
+msgid "Lines"
+msgstr "Γραμμές"
+
 msgid "Line S&tyle:"
 msgstr "&Στυλ γραμμής:"
 
@@ -549,6 +559,10 @@ msgstr "Αρχή:"
 
 msgid "End:"
 msgstr "Τέλος:"
+
+#, fuzzy
+msgid "Images"
+msgstr "Εικόνες:"
 
 msgid "&Free Scaling"
 msgstr "&Ελεύθερη κλιμάκωση"
@@ -582,6 +596,14 @@ msgstr "Προεπισκόπηση κανονικής ανάλυσης"
 
 msgid "Low Resolution Preview"
 msgstr "Προεπισκόπηση χαμηλής ανάλυσης"
+
+#, fuzzy
+msgid "Regular Polygons"
+msgstr "Εισαγωγή πολυγώνου"
+
+#, fuzzy
+msgid "Zoom"
+msgstr "Μεγέθυνση"
 
 msgid "Mi&nimum:"
 msgstr "Ελά&χιστο:"
@@ -1510,6 +1532,18 @@ msgstr "Α&ναίρεση"
 msgid "&Redo: %1"
 msgstr "Ανάγνωση: %1"
 
+#, fuzzy
+msgid "Reset control point"
+msgstr "Επαναφορά σημείων ελέγχου"
+
+#, fuzzy
+msgid "Reset control points"
+msgstr "Επαναφορά σημείων ελέγχου"
+
+#, fuzzy
+msgid "Apply image effects"
+msgstr "Εφέ εικόνας"
+
 msgid "Move Pages"
 msgstr "Μετακίνηση σελίδων"
 
@@ -1612,6 +1646,10 @@ msgstr "Πλαίσιο κειμένου"
 
 msgid "Paragraphs: "
 msgstr "Παράγραφοι: "
+
+#, fuzzy
+msgid "Lines: "
+msgstr "&Γραμμές:"
 
 msgid "Words: "
 msgstr "Λέξεις:"
@@ -1922,7 +1960,7 @@ msgstr "Πρόσθετο: φόρτωση %1"
 msgid ""
 "There is a problem loading %1 of %2 plugins. %3 This is probably caused by "
 "some kind of dependency issue or old plugins existing in your install "
-"directory. IF you clean out your install directory and reinstall and this "
+"directory. If you clean out your install directory and reinstall and this "
 "still occurs, please report it on bugs.scribus.net."
 msgstr ""
 
@@ -1964,21 +2002,6 @@ msgstr "Λοξή ένωση"
 msgid "Round Join"
 msgstr "Στρογγυλή ένωση"
 
-msgid "Solid Line"
-msgstr "Συμπαγής γραμμή"
-
-msgid "Dashed Line"
-msgstr "Γραμμή με παύλες"
-
-msgid "Dotted Line"
-msgstr "Γραμμή με τελείες"
-
-msgid "Dash Dot Line"
-msgstr "Γραμμή με παύλες και τελείες"
-
-msgid "Dash Dot Dot Line"
-msgstr "Γραμμή με παύλες και δύο τελείες"
-
 msgid "Properties"
 msgstr "Ιδιότητες"
 
@@ -2000,6 +2023,21 @@ msgstr "Αντίγραφο του %1"
 #, fuzzy
 msgid "%1 (%2)"
 msgstr "%1: %2"
+
+msgid "Solid Line"
+msgstr "Συμπαγής γραμμή"
+
+msgid "Dashed Line"
+msgstr "Γραμμή με παύλες"
+
+msgid "Dotted Line"
+msgstr "Γραμμή με τελείες"
+
+msgid "Dash Dot Line"
+msgstr "Γραμμή με παύλες και τελείες"
+
+msgid "Dash Dot Dot Line"
+msgstr "Γραμμή με παύλες και δύο τελείες"
 
 msgid " pt "
 msgstr " σημ "
@@ -2347,6 +2385,10 @@ msgid "Gap:"
 msgstr "&Κενό:"
 
 #, fuzzy
+msgid "Link Created Frames"
+msgstr "Σύνδεση πλαισίων κειμένου"
+
+#, fuzzy
 msgid "&Options"
 msgstr "Επιλογές"
 
@@ -2401,9 +2443,6 @@ msgstr ""
 
 msgid "Image"
 msgstr "Εικόνα"
-
-msgid "Text"
-msgstr "Κείμενο"
 
 msgid "Line"
 msgstr "Γραμμή"
@@ -2745,6 +2784,10 @@ msgstr "Όνομα"
 msgid "Add a new layer"
 msgstr "Προσθήκη ενός νέου στρώματος"
 
+#, fuzzy
+msgid "Duplicates the current layer"
+msgstr "Αντίγραφο της επιλεγμένης πρωτότυπης σελίδας"
+
 msgid ""
 "Color of the Layer Indicator - Each layer has a color assigned to display on "
 "the canvas when layer indicators are enabled. You can double click to edit "
@@ -2815,6 +2858,17 @@ msgstr ""
 "Το κουμπί αποθήκευσης θα απενεργοποιηθεί αν προσπαθείτε την εξαγωγή σε PDF/X-"
 "3 και η συμβολοσειρά πληροφοριών λείπει από την καρτέλα PDF/X-3."
 
+msgid "%1 does not exists and will be created, continue?"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Cannot create directory: \n"
+"%1"
+msgstr ""
+"Αδυναμία εγγραφής στο αρχείο: \n"
+"%1"
+
 msgid "Save as"
 msgstr "Αποθήκευση ως"
 
@@ -2837,27 +2891,27 @@ msgstr "Μορφή"
 msgid "Page Display"
 msgstr "Εμφάνιση σελίδας"
 
-msgid "Show Layer Indicators"
-msgstr ""
+msgid "Show Pictures"
+msgstr "Εμφάνιση εικόνων"
 
-msgid "Show Frames"
-msgstr "Εμφάνιση πλαισίων"
-
-msgid "Show Text Chains"
-msgstr "Εμφάνιση ακολουθιών κειμένου"
-
-msgid "Display &Unprintable Area in Margin Color"
-msgstr "Εμφάνιση &μη εκτυπώσιμης περιοχής με χρώμα περιθωρίου"
+msgid "Show Text Control Characters"
+msgstr "Εμφάνιση χαρακτήρων ελέγχου κειμένου"
 
 #, fuzzy
 msgid "Rulers Relative to Page"
 msgstr "Κανόνες σχετικά με τη σελίδα"
 
-msgid "Show Text Control Characters"
-msgstr "Εμφάνιση χαρακτήρων ελέγχου κειμένου"
+msgid "Show Text Chains"
+msgstr "Εμφάνιση ακολουθιών κειμένου"
 
-msgid "Show Pictures"
-msgstr "Εμφάνιση εικόνων"
+msgid "Show Frames"
+msgstr "Εμφάνιση πλαισίων"
+
+msgid "Show Layer Indicators"
+msgstr ""
+
+msgid "Display &Unprintable Area in Margin Color"
+msgstr "Εμφάνιση &μη εκτυπώσιμης περιοχής με χρώμα περιθωρίου"
 
 msgid "Scratch Space"
 msgstr "Κενό χάραξης"
@@ -2885,6 +2939,53 @@ msgstr ""
 
 msgid "textLabel16"
 msgstr ""
+
+#, fuzzy
+msgid "Pages:"
+msgstr "Σελίδα:"
+
+#, fuzzy
+msgid "Selected Page Border:"
+msgstr "Διαγραφή σελίδων"
+
+#, fuzzy
+msgid "Frames"
+msgstr "Μέγεθος πλαισίου"
+
+#, fuzzy
+msgid "Locked:"
+msgstr "Κλείδωμα"
+
+#, fuzzy
+msgid "Normal:"
+msgstr "Κανονικό"
+
+#, fuzzy
+msgid "Selected:"
+msgstr "Επιλογή"
+
+#, fuzzy
+msgid "Linked:"
+msgstr "Γραμμή"
+
+#, fuzzy
+msgid "Grouped:"
+msgstr "Ομαδοποίηση"
+
+#, fuzzy
+msgid "Annotation:"
+msgstr "&Περιστροφή:"
+
+#, fuzzy
+msgid "Text:"
+msgstr "Κείμενο"
+
+#, fuzzy
+msgid "Control Characters:"
+msgstr "Εμφάνιση χαρακτήρων ελέγχου"
+
+msgid "Colors"
+msgstr "Χρώματα"
 
 msgid " mm"
 msgstr " mm"
@@ -2969,6 +3070,18 @@ msgstr "Πρόοδος"
 
 msgid "Overall Progress:"
 msgstr "Συνολική πρόοδος:"
+
+#, fuzzy
+msgid "Patterns"
+msgstr "Αφίσες"
+
+#, fuzzy
+msgid "Load"
+msgstr "&Φόρτωση"
+
+#, fuzzy
+msgid "Load Set"
+msgstr "Φόρτωση;"
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -3212,9 +3325,6 @@ msgstr "Επεκταμένες ιδιότητες εικόνας"
 msgid "Dissolve"
 msgstr "Διάλυση"
 
-msgid "Exlusion"
-msgstr "Αποκλεισμός"
-
 msgid "Don't use any Path"
 msgstr "Να μη γίνει χρήση διαδρομής"
 
@@ -3281,6 +3391,18 @@ msgstr "Προσθήκη μιας νέας πρωτότυπης σελίδας"
 
 msgid "Import master pages from another document"
 msgstr "Εισαγωγή πρωτότυπων σελίδων από άλλο έγγραφο"
+
+#, fuzzy
+msgid "Normal Left"
+msgstr "Κανονικό"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Κανονικό μέγεθος"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Κανονικό μέγεθος"
 
 msgid "Do you really want to delete this master page?"
 msgstr "Επιθυμείτε πραγματικά τη διαγραφή αυτής της πρωτότυπης σελίδας;"
@@ -4318,6 +4440,22 @@ msgstr "Άδεια:"
 msgid "Transparency Settings"
 msgstr "Ρυθμίσεις εμφάνισης"
 
+#, fuzzy
+msgid "Offsets"
+msgstr "X-Μετατοπ"
+
+#, fuzzy
+msgid "Scaling"
+msgstr "Κλιμάκωση:"
+
+#, fuzzy
+msgid "Rotation"
+msgstr "&Περιστροφή:"
+
+#, fuzzy
+msgid "Angle"
+msgstr "Γωνία:"
+
 msgid "Move Vector"
 msgstr "Μετακίνηση διανύσματος"
 
@@ -4341,6 +4479,10 @@ msgstr "Ελεύθερη γραμμική διαβάθμιση"
 
 msgid "Free radial Gradient"
 msgstr "Ελεύθερη ακτινική διαβάθμιση"
+
+#, fuzzy
+msgid "Pattern"
+msgstr "Επικόλληση"
 
 msgid "Edit Line Color Properties"
 msgstr "Επεξεργασία ιδιοτήτων χρώματος γραμμής"
@@ -4387,6 +4529,10 @@ msgstr "Εξαγωγή σελίδων:"
 
 msgid "Exporting Items on Current Page:"
 msgstr "Εξαγωγή αντικειμένων της τρέχουσας σελίδας:"
+
+#, fuzzy
+msgid "Loading Patterns"
+msgstr "Σφάλμα κατά τη φόρτωση προτιμήσεων"
 
 msgid "Manage Guides"
 msgstr "Διαχείριση οδηγών"
@@ -4498,8 +4644,9 @@ msgstr "Πλαίσιο συνδυασμών"
 msgid "List Box"
 msgstr "Λίστα"
 
-msgid "Tool-Tip:"
-msgstr "Εργαλείο συμβουλής:"
+#, fuzzy
+msgid "Tooltip:"
+msgstr "&Συμβουλές εργαλείων"
 
 msgid "Font for use with PDF 1.3:"
 msgstr "Γραμματοσειρά για χρήση με το PDF 1.3:"
@@ -4537,7 +4684,8 @@ msgstr "Μόνο για ανάγνωση"
 msgid "Required"
 msgstr "Απαιτείται"
 
-msgid "Don't Export Value"
+#, fuzzy
+msgid "Do Not Export Value"
 msgstr "Να μη εξαχθεί η τιμή"
 
 msgid "Visibility:"
@@ -4916,6 +5064,10 @@ msgstr "Επεξεργασία εικόνας..."
 msgid "C&olors..."
 msgstr "Χ&ρώματα..."
 
+#, fuzzy
+msgid "Patterns..."
+msgstr "Εκτύπωση..."
+
 msgid "S&tyles..."
 msgstr "Σ&τυλ..."
 
@@ -5032,6 +5184,10 @@ msgstr "&Ανύψωση"
 
 msgid "Send to S&crapbook"
 msgstr "Αποστολή στο βιβλίο απο&κομμάτων"
+
+#, fuzzy
+msgid "Send to Patterns"
+msgstr "Αποστολή στο στρώμα"
 
 msgid "&Attributes..."
 msgstr "&Ιδιότητες..."
@@ -5681,8 +5837,16 @@ msgid "Units:"
 msgstr "Μονάδες:"
 
 #, fuzzy
-msgid "Apply size settings to all Pages"
+msgid "Apply settings to:"
 msgstr "Εφαρμογή ρυθμίσεων μεγέθους σε όλες τις σελίδες"
+
+#, fuzzy
+msgid "All Document Pages"
+msgstr "Σελίδες εγγράφου:"
+
+#, fuzzy
+msgid "All Master Pages"
+msgstr "Πρωτότυπες σελίδες"
 
 msgid "Autosave"
 msgstr "Αυτόματη αποθήκευση"
@@ -5740,13 +5904,22 @@ msgstr ""
 "Εφαρμογή της αλλαγής του μεγέθους σελίδας σε όλες τις υπάρχουσες σελίδες του "
 "εγγράφου"
 
+#, fuzzy
+msgid ""
+"Apply the page size changes to all existing master pages in the document"
+msgstr ""
+"Εφαρμογή της αλλαγής του μεγέθους σελίδας σε όλες τις υπάρχουσες σελίδες του "
+"εγγράφου"
+
 msgid "Preset Layouts:"
 msgstr "Προκαθορισμένες διατάξεις:"
 
-msgid "Apply margin settings to all pages"
-msgstr "Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις σελίδες"
-
 msgid "Apply the margin changes to all existing pages in the document"
+msgstr ""
+"Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις υπάρχουσες σελίδες του εγγράφου"
+
+#, fuzzy
+msgid "Apply the margin changes to all existing master pages in the document"
 msgstr ""
 "Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις υπάρχουσες σελίδες του εγγράφου"
 
@@ -5804,8 +5977,9 @@ msgstr "Χρυσός μέσος"
 msgid "Nine Parts"
 msgstr "Εννέα μέλη"
 
+#, fuzzy
 msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
+"You can select a predefined page layout here. 'None' leave margins as is, "
 "Gutenberg sets margins classically. 'Magazine' sets all margins for same "
 "value. Leading is Left/Inside value."
 msgstr ""
@@ -5971,7 +6145,7 @@ msgid ""
 "Choosing this will make this color a spot color, thus creating another spot "
 "when creating plates or separations. This is used most often when a logo or "
 "other color needs exact representation or cannot be replicated with CMYK "
-"inks. Metallic and flourescent inks are good examples which cannot be easily "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
 "replicated with CMYK inks."
 msgstr ""
 
@@ -6012,9 +6186,6 @@ msgid ""
 msgstr ""
 "Το όνομα που επιλέξατε υπάρχει ήδη. Παρακαλώ εισάγετε ένα διαφορετικό όνομα "
 "για το νέο χρώμα."
-
-msgid "Colors"
-msgstr "Χρώματα"
 
 msgid "&Remove Unused"
 msgstr "&Αφαίρεση αχρησιμοποίητων"
@@ -6119,8 +6290,8 @@ msgid ""
 "working with was created in Scribus 1.2.x.  Saving the current file under "
 "1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve "
 "the ability to edit in 1.2.x, save this file under a different name and "
-"further edit the newly named file and the origial will be untouched. Are you "
-"sure you wish to proceed with this operation?"
+"further edit the newly named file and the original will be untouched. Are "
+"you sure you wish to proceed with this operation?"
 msgstr ""
 "Χρησιμοποιείτε μία έκδοση ανάπτυξης του Scribus 1.3.x. Το έγγραφο στο οποίο "
 "δουλεύετε έχει δημιουργηθεί στο Scribus 1.2.3 ή παλαιότερο. Αν γίνει "
@@ -6195,16 +6366,8 @@ msgid "Ready"
 msgstr "Έτοιμο"
 
 #, fuzzy
-msgid "Normal Left"
-msgstr "Κανονικό"
-
-#, fuzzy
-msgid "Normal Right"
-msgstr "Κανονικό μέγεθος"
-
-#, fuzzy
-msgid "Normal Middle"
-msgstr "Κανονικό μέγεθος"
+msgid "Updating Pictures"
+msgstr "Διαχείριση εικόνων"
 
 msgid "Importing Pages..."
 msgstr "Εισαγωγή σελίδων..."
@@ -6319,15 +6482,6 @@ msgstr "Μετατροπή σελίδας σε πρωτότυπη σελίδα"
 
 msgid "Size"
 msgstr "Μέγεθος"
-
-msgid ""
-"Number of copies: %1\n"
-"Horizontal shift: %2\n"
-"Vertical shift: %3"
-msgstr ""
-"Αριθμός αντιγράφων: %1\n"
-"Οριζόντια μετατόπιση: %2\n"
-"Κατακόρυφη μετατόπιση: %3"
 
 msgid "The following programs are missing:"
 msgstr "Τα παρακάτω προγράμματα δεν υπάρχουν:"
@@ -7318,9 +7472,6 @@ msgstr "&Χρήση περιγράμματος"
 msgid "St&yle:"
 msgstr "&Στυλ:"
 
-msgid "Lan&guage:"
-msgstr "Γ&λώσσα:"
-
 msgid "Actual X-DPI:"
 msgstr "Πραγματικά X-DPI:"
 
@@ -7538,9 +7689,6 @@ msgstr "Κάντε κλικ για την επιλογή λειτουργίας 
 
 msgid "Style of current paragraph"
 msgstr "Στυλ της τρέχουσας παραγράφου"
-
-msgid "Hyphenation language of frame"
-msgstr "Γλώσσα συλλαβισμού του πλαισίου"
 
 msgid "Change settings for left or end points"
 msgstr "Τροποποίηση ρυθμίσεων του αριστερού σημείου ή του σημείου τέλους"
@@ -7851,11 +7999,13 @@ msgstr "Τερματισμός τώρα."
 msgid "Font System Initialized"
 msgstr "Το σύστημα γραμματοσειρών αρχικοποιήθηκε"
 
-msgid "Current Key"
-msgstr "Τρέχον πλήκτρο"
+#, fuzzy
+msgid "Main"
+msgstr "Περιθώρια"
 
-msgid "Select a Key for this Action"
-msgstr "Επιλέξτε πλήκτρο γι' αυτήν την ενέργεια"
+#, fuzzy
+msgid "Copied Items"
+msgstr "Περιστροφή αντικειμένου"
 
 msgid "Choose a Scrapbook Directory"
 msgstr "Επιλέξτε έναν κατάλογο βιβλίου αποκομμάτων"
@@ -8356,6 +8506,20 @@ msgstr "Διαθέσιμα στυλ"
 msgid "Edit Styles"
 msgstr "Επεξεργασία στυλ"
 
+msgid "&Horizontal Shift:"
+msgstr "&Οριζόντια μετατόπιση:"
+
+msgid "&Vertical Shift:"
+msgstr "&Κατακόρυφη μετατόπιση"
+
+#, fuzzy
+msgid "&Horizontal Gap:"
+msgstr "Οριζόντια:"
+
+#, fuzzy
+msgid "&Vertical Gap:"
+msgstr "Κατακόρυφα:"
+
 msgid "Common Settings"
 msgstr "Κοινές ρυθμίσεις"
 
@@ -8497,24 +8661,24 @@ msgstr ""
 msgid "to"
 msgstr "σε"
 
-msgid "GUI"
-msgstr "GUI"
+msgid "User Interface"
+msgstr ""
 
 msgid "&Theme:"
 msgstr "&Θέμα:"
-
-msgid "Time before a Move or Resize starts:"
-msgstr ""
 
 #, fuzzy
 msgid " ms"
 msgstr " cm"
 
-msgid "&Font Size (Menus):"
-msgstr "&Μέγεθος γραμματοσειράς (μενού):"
+msgid "Time before a Move or Resize starts:"
+msgstr ""
 
 msgid "Font Size (&Palettes):"
 msgstr "Μέγεθος γραμματοσειράς (&παλέτες):"
+
+msgid "&Font Size (Menus):"
+msgstr "&Μέγεθος γραμματοσειράς (μενού):"
 
 msgid "&Wheel Jump:"
 msgstr "Ά&λμα με ροδάκι:"
@@ -8522,18 +8686,12 @@ msgstr "Ά&λμα με ροδάκι:"
 msgid "&Recent Documents:"
 msgstr "&Πρόσφατα έγγραφα"
 
-msgid "&Documents:"
-msgstr "Έ&γγραφα:"
-
-msgid "&ICC Profiles:"
-msgstr "Προφίλ &ICC:"
+msgid "Show Startup Dialog"
+msgstr "Εμφάνιση διαλόγου έναρξης"
 
 #, fuzzy
-msgid "Alt+H"
-msgstr "Alt+"
-
-msgid "&Scripts:"
-msgstr "&Σενάρια:"
+msgid "Show Splashscreen on Startup"
+msgstr "Μη εμφάνιση της εισαγωγικής οθόνης κατά την εκκίνηση"
 
 msgid "Ch&ange..."
 msgstr "&Τροποποίηση..."
@@ -8541,6 +8699,55 @@ msgstr "&Τροποποίηση..."
 #, fuzzy
 msgid "Document &Templates:"
 msgstr "Πρότυπα ε&γγράφου:"
+
+msgid "&Documents:"
+msgstr "Έ&γγραφα:"
+
+msgid "&ICC Profiles:"
+msgstr "Προφίλ &ICC:"
+
+msgid "&Scripts:"
+msgstr "&Σενάρια:"
+
+#, fuzzy
+msgid "Alt+H"
+msgstr "Alt+"
+
+msgid "Multiple Duplicate"
+msgstr "Πολλαπλό αντίγραφο"
+
+msgid "&Number of Copies:"
+msgstr "&Αριθμός αντιγράφων:"
+
+#, fuzzy
+msgid "Create &Gap Between Items Of"
+msgstr "Ορισμός στυλ γραμμής"
+
+msgid "&Shift Created Items By"
+msgstr ""
+
+#, fuzzy
+msgid "&By Number of Copies"
+msgstr "&Αριθμός αντιγράφων:"
+
+#, fuzzy
+msgid "Vertical Gap:"
+msgstr "Κατακόρυφα:"
+
+#, fuzzy
+msgid "Horizontal Gap:"
+msgstr "Οριζόντια:"
+
+#, fuzzy
+msgid "Number of Rows:"
+msgstr "Αριθμός γραμμών:"
+
+#, fuzzy
+msgid "Number of Columns:"
+msgstr "Αριθμός στηλών:"
+
+msgid "By &Rows && Columns"
+msgstr ""
 
 msgid "Parameter"
 msgstr "Παράμετρος"
@@ -8713,13 +8920,6 @@ msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 "Ορατή προεπισκόπηση του τρέχοντος στυλ παραγράφου κατά την επεξεργασία στυλ"
 
-msgid "Show Startup Dialog"
-msgstr "Εμφάνιση διαλόγου έναρξης"
-
-#, fuzzy
-msgid "Show Splashscreen on Startup"
-msgstr "Μη εμφάνιση της εισαγωγικής οθόνης κατά την εκκίνηση"
-
 msgid "Always use standard Lorem Ipsum"
 msgstr "Πάντα χρήση τυπικού δείγματος κειμένου"
 
@@ -8820,18 +9020,6 @@ msgstr "Νέο σενάριο"
 
 msgid "Do you really want to delete this script?"
 msgstr "Επιθυμείτε πραγματικά τη διαγραφή αυτού του σεναρίου;"
-
-msgid "Multiple Duplicate"
-msgstr "Πολλαπλό αντίγραφο"
-
-msgid "&Number of Copies:"
-msgstr "&Αριθμός αντιγράφων:"
-
-msgid "&Horizontal Shift:"
-msgstr "&Οριζόντια μετατόπιση:"
-
-msgid "&Vertical Shift:"
-msgstr "&Κατακόρυφη μετατόπιση"
 
 msgid "Auto Add To"
 msgstr "Αυτόματη προσθήκη σε"
@@ -9905,11 +10093,11 @@ msgstr "Αρχεία κειμένου (*.txt)"
 msgid "Save Current Output"
 msgstr "Αποθήκευση τρέχουσας εξόδου"
 
-msgid "Failed to save EPS."
-msgstr "Αποτυχία αποθήκευσης του EPS."
-
 msgid "Page number out of range."
 msgstr "Αριθμός σελίδας εκτός εύρους."
+
+msgid "Failed to save EPS."
+msgstr "Αποτυχία αποθήκευσης του EPS."
 
 msgid "Given master page name does not match any existing."
 msgstr ""
@@ -10076,6 +10264,11 @@ msgstr ""
 msgid "Cannot get text size of non-text frame."
 msgstr ""
 "Αδυναμία ανάκτησης μεγέθους κειμένου ενός πλαισίου διαφορετικού από κείμενο."
+
+#, fuzzy
+msgid "Cannot get number of lines of non-text frame."
+msgstr ""
+"Αδυναμία καθορισμού αριθμού στηλών σε ένα πλαίσιο διαφορετικό από κείμενο."
 
 msgid "Cannot get column count of non-text frame."
 msgstr ""
@@ -10861,6 +11054,39 @@ msgstr "Το &πρόσθετό μου"
 msgid "My Plugin"
 msgstr "Το πρόσθετό μου"
 
+#~ msgid "Exlusion"
+#~ msgstr "Αποκλεισμός"
+
+#~ msgid "Tool-Tip:"
+#~ msgstr "Εργαλείο συμβουλής:"
+
+#~ msgid "Apply margin settings to all pages"
+#~ msgstr "Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις σελίδες"
+
+#~ msgid ""
+#~ "Number of copies: %1\n"
+#~ "Horizontal shift: %2\n"
+#~ "Vertical shift: %3"
+#~ msgstr ""
+#~ "Αριθμός αντιγράφων: %1\n"
+#~ "Οριζόντια μετατόπιση: %2\n"
+#~ "Κατακόρυφη μετατόπιση: %3"
+
+#~ msgid "Lan&guage:"
+#~ msgstr "Γ&λώσσα:"
+
+#~ msgid "Hyphenation language of frame"
+#~ msgstr "Γλώσσα συλλαβισμού του πλαισίου"
+
+#~ msgid "Current Key"
+#~ msgstr "Τρέχον πλήκτρο"
+
+#~ msgid "Select a Key for this Action"
+#~ msgstr "Επιλέξτε πλήκτρο γι' αυτήν την ενέργεια"
+
+#~ msgid "GUI"
+#~ msgstr "GUI"
+
 #~ msgid "Embed in:"
 #~ msgstr "Ενσωμάτωση σε:"
 
@@ -10872,9 +11098,6 @@ msgstr "Το πρόσθετό μου"
 
 #~ msgid "More than one item selected"
 #~ msgstr "Περισσότερα από ένα αντικείμενα επιλεγμένα"
-
-#~ msgid "Lines"
-#~ msgstr "Γραμμές"
 
 #~ msgid "Horizontal Guides"
 #~ msgstr "Οριζόντιοι οδηγοί"

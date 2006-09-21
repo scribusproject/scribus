@@ -19,47 +19,6 @@ Returns true if a new document was created.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-numbers if you&apos;re creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getFillColor([&quot;name&quot;]) -&gt; string
 
 Returns the name of the fill color of the object &quot;name&quot;.
@@ -144,6 +103,49 @@ must be UTF8 encoded or &apos;unicode&apos; string(recommended).
 
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or &apos;unicode&apos; string(recommended).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder, numPages) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -380,14 +382,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1809,6 +1803,29 @@ currently selected item is used.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPageType() -&gt; integer
+
+Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a right Page
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getTextLines([&quot;name&quot;]) -&gt; integer
+
+Returns the number of lines of the text in the text frame &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2944,6 +2961,14 @@ currently selected item is used.
         <source>Show Layer Indicators</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Patterns...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send to Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AlignDistributePalette</name>
@@ -3155,7 +3180,7 @@ currently selected item is used.
     </message>
     <message>
         <source>Tool-Tip:</source>
-        <translation>Kohtspikker:</translation>
+        <translation type="obsolete">Kohtspikker:</translation>
     </message>
     <message>
         <source>Text</source>
@@ -3227,7 +3252,7 @@ currently selected item is used.
     </message>
     <message>
         <source>Don&apos;t Export Value</source>
-        <translation>Väärtust ei ekspordita</translation>
+        <translation type="obsolete">Väärtust ei ekspordita</translation>
     </message>
     <message>
         <source>Visibility:</source>
@@ -3659,6 +3684,14 @@ currently selected item is used.
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-failid (*.pdf);;Kõik failid (*)</translation>
     </message>
+    <message>
+        <source>Tooltip:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Do Not Export Value</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Annota</name>
@@ -4088,6 +4121,14 @@ Palun vali mõni muu nimi.</translation>
         <source>Move To:</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Copied Items</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -4446,16 +4487,16 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and flourescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>The name of the color already exists,
 please choose another one.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5442,7 +5483,7 @@ please choose another one.</source>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation type="unfinished">Väljajätmine</translation>
+        <translation type="obsolete">Väljajätmine</translation>
     </message>
     <message>
         <source>Color Dodge</source>
@@ -5467,6 +5508,38 @@ please choose another one.</source>
     <message>
         <source>Luminosity</source>
         <translation type="unfinished">Valgsus</translation>
+    </message>
+    <message>
+        <source>Offsets</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>Scaling</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Angle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pattern</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Väljajätmine</translation>
     </message>
 </context>
 <context>
@@ -6892,7 +6965,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>Exlusion</source>
-        <translation>Väljajätmine</translation>
+        <translation type="obsolete">Väljajätmine</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
@@ -7966,6 +8039,10 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <source>&amp;Cancel</source>
         <translation type="unfinished">&amp;Loobu</translation>
     </message>
+    <message>
+        <source>Link Created Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>InsertTable</name>
@@ -8033,111 +8110,111 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>KeyManager</name>
     <message>
         <source>Action</source>
-        <translation>Toiming</translation>
+        <translation type="obsolete">Toiming</translation>
     </message>
     <message>
         <source>Current Key</source>
-        <translation>Aktiivne klahv</translation>
+        <translation type="obsolete">Aktiivne klahv</translation>
     </message>
     <message>
         <source>Select a Key for this Action</source>
-        <translation>Toimingu klahvi valimine</translation>
+        <translation type="obsolete">Toimingu klahvi valimine</translation>
     </message>
     <message>
         <source>&amp;No Key</source>
-        <translation>&amp;Klahv puudub</translation>
+        <translation type="obsolete">&amp;Klahv puudub</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation>Kas&amp;utaja määratud klahv</translation>
+        <translation type="obsolete">Kas&amp;utaja määratud klahv</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
-        <translation>ALT+SHIFT+T</translation>
+        <translation type="obsolete">ALT+SHIFT+T</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation>&amp;Määra klahv</translation>
+        <translation type="obsolete">&amp;Määra klahv</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation>Laaditavad kiirklahvikomplektid</translation>
+        <translation type="obsolete">Laaditavad kiirklahvikomplektid</translation>
     </message>
     <message>
         <source>&amp;Load</source>
-        <translation>&amp;Laadi</translation>
+        <translation type="obsolete">&amp;Laadi</translation>
     </message>
     <message>
         <source>&amp;Import...</source>
-        <translation>&amp;Impordi...</translation>
+        <translation type="obsolete">&amp;Impordi...</translation>
     </message>
     <message>
         <source>&amp;Export...</source>
-        <translation>&amp;Ekspordi...</translation>
+        <translation type="obsolete">&amp;Ekspordi...</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation>Lä&amp;htesta</translation>
+        <translation type="obsolete">Lä&amp;htesta</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
-        <translation>Saadaolevad kiirklahvikomplektid</translation>
+        <translation type="obsolete">Saadaolevad kiirklahvikomplektid</translation>
     </message>
     <message>
         <source>Load the selected shortcut set</source>
-        <translation>Laadi valitud kiirklahvikomplekt</translation>
+        <translation type="obsolete">Laadi valitud kiirklahvikomplekt</translation>
     </message>
     <message>
         <source>Import a shortcut set into the current configuration</source>
-        <translation>Impordib kiirklahvikomplekti praegusse seadistusse</translation>
+        <translation type="obsolete">Impordib kiirklahvikomplekti praegusse seadistusse</translation>
     </message>
     <message>
         <source>Export the current shortcuts into an importable file</source>
-        <translation>Ekspordib aktiivsed kiirklahvid imporditavasse faili</translation>
+        <translation type="obsolete">Ekspordib aktiivsed kiirklahvid imporditavasse faili</translation>
     </message>
     <message>
         <source>Reload the default Scribus shortcuts</source>
-        <translation>Laadib uuesti Scribuse vaikimisi kiirklahvid</translation>
+        <translation type="obsolete">Laadib uuesti Scribuse vaikimisi kiirklahvid</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation>Alt</translation>
+        <translation type="obsolete">Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation>Ctrl</translation>
+        <translation type="obsolete">Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation>Shift</translation>
+        <translation type="obsolete">Shift</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation>Meta</translation>
+        <translation type="obsolete">Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation>Meta+</translation>
+        <translation type="obsolete">Meta+</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation>Shift+</translation>
+        <translation type="obsolete">Shift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation>Alt+</translation>
+        <translation type="obsolete">Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation>Ctrl+</translation>
+        <translation type="obsolete">Ctrl+</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
-        <translation>See klahvikombinatsioon on juba kasutusel</translation>
+        <translation type="obsolete">See klahvikombinatsioon on juba kasutusel</translation>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Klahvikomplektide XML-failid (*.ksxml)</translation>
+        <translation type="obsolete">Klahvikomplektide XML-failid (*.ksxml)</translation>
     </message>
 </context>
 <context>
@@ -8282,6 +8359,10 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Duplicates the current layer</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>LineFormate</name>
@@ -8393,23 +8474,23 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation>Ühtlane joon</translation>
+        <translation type="obsolete">Ühtlane joon</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation>Punktiirjoon</translation>
+        <translation type="obsolete">Punktiirjoon</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation>Punktjoon</translation>
+        <translation type="obsolete">Punktjoon</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation>Kriipspunktjoon</translation>
+        <translation type="obsolete">Kriipspunktjoon</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation>Kriipspunktpunktjoon</translation>
+        <translation type="obsolete">Kriipspunktpunktjoon</translation>
     </message>
 </context>
 <context>
@@ -8541,7 +8622,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
-        <translation>Veeriseseadistusi rakendatakse kõigile lehekülgedele</translation>
+        <translation type="obsolete">Veeriseseadistusi rakendatakse kõigile lehekülgedele</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
@@ -8578,6 +8659,22 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <source>O&amp;utside:</source>
         <translation>Vä&amp;limine:</translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the margin changes to all existing master pages in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8660,6 +8757,18 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>New Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9067,7 +9176,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Lan&amp;guage:</source>
-        <translation>&amp;Keel:</translation>
+        <translation type="obsolete">&amp;Keel:</translation>
     </message>
     <message>
         <source>&amp;Free Scaling</source>
@@ -9379,7 +9488,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
-        <translation>Tekstikastis kasutatav keel</translation>
+        <translation type="obsolete">Tekstikastis kasutatav keel</translation>
     </message>
     <message>
         <source>Change settings for left or end points</source>
@@ -9622,6 +9731,92 @@ n&amp;urgad:</translation>
     <message>
         <source>&amp;Cancel</source>
         <translation>&amp;Loobu</translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicate</name>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished">Ni&amp;he rõhtsuunas:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished">&amp;Nihe püstsuunas:</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MultipleDuplicateBase</name>
+    <message>
+        <source>Multiple Duplicate</source>
+        <translation type="unfinished">Mitmekordne kloonimine</translation>
+    </message>
+    <message>
+        <source>&amp;By Number of Copies</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Number of Copies:</source>
+        <translation type="unfinished">Koo&amp;piate arv:</translation>
+    </message>
+    <message>
+        <source>Create &amp;Gap Between Items Of</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+G</source>
+        <translation type="unfinished">Alt+G</translation>
+    </message>
+    <message>
+        <source>&amp;Shift Created Items By</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished">Alt+S</translation>
+    </message>
+    <message>
+        <source>&amp;Horizontal Shift:</source>
+        <translation type="unfinished">Ni&amp;he rõhtsuunas:</translation>
+    </message>
+    <message>
+        <source>&amp;Vertical Shift:</source>
+        <translation type="unfinished">&amp;Nihe püstsuunas:</translation>
+    </message>
+    <message>
+        <source>By &amp;Rows &amp;&amp; Columns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal Gap:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Rows:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Columns:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Loobu</translation>
     </message>
 </context>
 <context>
@@ -10065,6 +10260,15 @@ n&amp;urgad:</translation>
     <message>
         <source>PDF Files (*.pdf);;All Files (*)</source>
         <translation>PDF-failid (*.pdf);;Kõik failid (*)</translation>
+    </message>
+    <message>
+        <source>%1 does not exists and will be created, continue?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot create directory: 
+%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10557,6 +10761,25 @@ n&amp;urgad:</translation>
     </message>
 </context>
 <context>
+    <name>PatternDialog</name>
+    <message>
+        <source>Choose a Directory</source>
+        <translation type="unfinished">Kataloogi valik</translation>
+    </message>
+    <message>
+        <source>Loading Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Files (*)</source>
+        <translation type="unfinished">Kõik failid (*)</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Avamine</translation>
+    </message>
+</context>
+<context>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
@@ -10730,7 +10953,7 @@ n&amp;urgad:</translation>
         <translation>Plugin: %1 ebaõnnestus initsialiseerimise järel</translation>
     </message>
     <message>
-        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. IF you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
+        <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11392,7 +11615,11 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Siin saab valida lehekülje valmispaigutuse. &apos;Puudub&apos; jätab veerised endiseks, Gutenberg määratleb need klassikaliselt, &apos;Magazine&apos; aga kõik veerised võrdseks. Aluseks võetakse vasak/sisemise veerise väärtus.</translation>
+        <translation type="obsolete">Siin saab valida lehekülje valmispaigutuse. &apos;Puudub&apos; jätab veerised endiseks, Gutenberg määratleb need klassikaliselt, &apos;Magazine&apos; aga kõik veerised võrdseks. Aluseks võetakse vasak/sisemise veerise väärtus.</translation>
+    </message>
+    <message>
+        <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13509,10 +13736,6 @@ Välised lingid
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the origial will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Font %1 has broken glyph %2</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13541,6 +13764,15 @@ Välised lingid
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cannot get number of lines of non-text frame.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15083,7 +15315,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation>Koopiate arv: %1
+        <translation type="obsolete">Koopiate arv: %1
 Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
@@ -15217,6 +15449,10 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15479,6 +15715,10 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Duotone</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16636,7 +16876,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Color:</source>
-        <translation type="unfinished">Värv:</translation>
+        <translation type="obsolete">Värv:</translation>
     </message>
     <message>
         <source>Scratch Space</source>
@@ -16682,6 +16922,62 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <source>textLabel16</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>General</source>
+        <translation type="unfinished">Üldine</translation>
+    </message>
+    <message>
+        <source>Colors</source>
+        <translation type="unfinished">Värvid</translation>
+    </message>
+    <message>
+        <source>Pages:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fill Color:</source>
+        <translation type="unfinished">Täidise värv:</translation>
+    </message>
+    <message>
+        <source>Selected Page Border:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Frames</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locked:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Selected:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Linked:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Grouped:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Annotation:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Text:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Control Characters:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabDocument</name>
@@ -16720,10 +17016,6 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>&amp;Height:</source>
         <translation type="unfinished">&amp;Kõrgus:</translation>
-    </message>
-    <message>
-        <source>Apply size settings to all Pages</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -16784,6 +17076,22 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
         <translation type="unfinished">Lehekülje suuruse muudatused rakendatakse kõigile dokumendi olemasolevatele lehekülgedele</translation>
+    </message>
+    <message>
+        <source>Apply settings to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Document Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All Master Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply the page size changes to all existing master pages in the document</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16963,7 +17271,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>GUI</source>
-        <translation type="unfinished">Kasutajaliides</translation>
+        <translation type="obsolete">Kasutajaliides</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -17052,6 +17360,18 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Alt+N</source>
         <translation type="unfinished">Alt+N</translation>
+    </message>
+    <message>
+        <source>User Interface</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Show Startup Dialog</source>
+        <translation type="unfinished">Käivitusdialoogi näitamine</translation>
+    </message>
+    <message>
+        <source>Show Splashscreen on Startup</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17374,11 +17694,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">Käivitusdialoogi näitamine</translation>
-    </message>
-    <message>
-        <source>Show Splashscreen on Startup</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Käivitusdialoogi näitamine</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
@@ -18476,6 +18792,30 @@ käivitatav JavaScript:</translation>
         <source>Custom: </source>
         <translation>Kohandatud: </translation>
     </message>
+    <message>
+        <source>Text</source>
+        <translation type="unfinished">Tekst</translation>
+    </message>
+    <message>
+        <source>Shapes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lines</source>
+        <translation type="unfinished">Read</translation>
+    </message>
+    <message>
+        <source>Images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Regular Polygons</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -19209,6 +19549,18 @@ to %2</source>
         <source>No object frame</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply image effects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -19497,6 +19849,33 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Copy an existing template.xml to a file called template.lang_COUNTRY.xml (use the same lang code that is present in the qm file for your language), for example template.fi.xml for Finnish language template.xml. The copy must be located in the same directory as the original template.xml so Scribus can load it.</source>
         <translation>Kopeeri olemasolev fail template.xml nimega template.KEEL.xml (kasuta sama keelekoodi, mis vastab sinu keele qm-failile), näiteks eesti keele puhul template.et.xml. Koopia peab asuma originaalse failiga template.xml samas kataloogis, et Scribus seda laadida saaks.</translation>
+    </message>
+</context>
+<context>
+    <name>patternDialogBase</name>
+    <message>
+        <source>Patterns</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Load Set</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="unfinished">Eemalda</translation>
+    </message>
+    <message>
+        <source>OK</source>
+        <translation type="unfinished">OK</translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
