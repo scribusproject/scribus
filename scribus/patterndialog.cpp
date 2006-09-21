@@ -36,6 +36,9 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qdir.h>
 #include <qfiledialog.h>
+#include <qapplication.h>
+#include <qeventloop.h>
+#include <qcursor.h>
 
 PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatterns, ScribusDoc *doc, ScribusMainWindow *scMW) : patternDialogBase(parent)
 {
@@ -104,8 +107,15 @@ void PatternDialog::loadPatternDir()
 		QDir d(fileName, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
 		if ((d.exists()) && (d.count() != 0))
 		{
+			mainWin->setStatusBarInfoText( tr("Loading Patterns"));
+			mainWin->mainWindowProgressBar->reset();
+			mainWin->mainWindowProgressBar->setTotalSteps(d.count());
+			qApp->setOverrideCursor(QCursor(waitCursor), true);
+			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 			for (uint dc = 0; dc < d.count(); ++dc)
 			{
+				mainWin->mainWindowProgressBar->setProgress(dc);
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 				QFileInfo fi(QDir::cleanDirPath(QDir::convertSeparators(fileName + "/" + d[dc])));
 				QString ext = fi.extension(true).lower();
 				if ((ext == "sml") || (ext == "shape") || (ext == "sce"))
@@ -122,9 +132,12 @@ void PatternDialog::loadPatternDir()
 				else
 					continue;
 			}
+			d.cdUp();
+			dirs->set("patterns", d.absPath());
+			qApp->setOverrideCursor(QCursor(arrowCursor), true);
+			mainWin->setStatusBarInfoText("");
+			mainWin->mainWindowProgressBar->reset();
 		}
-		d.cdUp();
-		dirs->set("patterns", d.absPath());
 		updatePatternList();
 	}
 }
