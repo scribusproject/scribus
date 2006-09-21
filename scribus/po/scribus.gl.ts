@@ -23502,10 +23502,6 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
         <translation>O elemento %1 está a ser modificado no Editor de Artigos. Cancelarase a operación de eliminación</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -23515,6 +23511,10 @@ Considere utilizar o Comprobador Pré-voo para corrixilos</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

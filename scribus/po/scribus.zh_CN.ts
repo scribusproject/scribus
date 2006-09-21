@@ -16468,10 +16468,6 @@ converting their vector data into Scribus objects.</source>
         <translation type="unfinished">项目 %1 正被故事编辑器使用中。删除操作将被取消。</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished">某些对象被锁定</translation>
     </message>
@@ -16481,6 +16477,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

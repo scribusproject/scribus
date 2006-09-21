@@ -19041,7 +19041,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation>Podczas wczytywania profili ICC wystąpił błąd, zarządzanie kolorami zostanie wyłączone.</translation>
+        <translation type="obsolete">Podczas wczytywania profili ICC wystąpił błąd, zarządzanie kolorami zostanie wyłączone.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -19054,6 +19054,10 @@ materiału wejściowego, aby je poprawić</translation>
     <message>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Pomiń zabezpieczone obiekty</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

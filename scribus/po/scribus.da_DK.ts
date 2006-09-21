@@ -16482,7 +16482,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation>Der opstod en fejl under indlæsning af icc-profiler, farvestyring er ikke aktiveret.</translation>
+        <translation type="obsolete">Der opstod en fejl under indlæsning af icc-profiler, farvestyring er ikke aktiveret.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -16494,6 +16494,10 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

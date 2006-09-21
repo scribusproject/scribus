@@ -20652,7 +20652,7 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation>Ett fel uppstod vid öppnandet av ICC-profiler. Färghanteringen är därför inte aktiverad.</translation>
+        <translation type="obsolete">Ett fel uppstod vid öppnandet av ICC-profiler. Färghanteringen är därför inte aktiverad.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -20665,6 +20665,10 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     <message>
         <source>&amp;Skip locked objects</source>
         <translation>Hoppa över lå&amp;sta objekt</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

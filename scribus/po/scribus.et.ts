@@ -14964,7 +14964,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation>ICC profiilide avamisel tekkis viga, värvihaldus ei ole sisse lülitatud.</translation>
+        <translation type="obsolete">ICC profiilide avamisel tekkis viga, värvihaldus ei ole sisse lülitatud.</translation>
     </message>
     <message>
         <source>New Layer</source>
@@ -14997,6 +14997,10 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Jäta lukustatud objektid vahele</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

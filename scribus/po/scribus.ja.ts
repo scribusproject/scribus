@@ -15361,10 +15361,6 @@ converting their vector data into Scribus objects.</source>
         <translation>標準</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished">本当に全てのテキストを消去しますか?</translation>
     </message>
@@ -15386,6 +15382,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

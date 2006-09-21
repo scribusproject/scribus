@@ -16400,10 +16400,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Об&apos;єкт %1 в даний час редагується в редакторі тексту. Операція видалення буде відмінена</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -16413,6 +16409,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

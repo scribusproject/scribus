@@ -15172,10 +15172,6 @@ short words plugin</comment>
         <translation>%1 elem jelenleg a szövegszerkesztőben változtatható. A törlés megszakítva.</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished">Néhány objektum zárolt.</translation>
     </message>
@@ -15185,6 +15181,10 @@ short words plugin</comment>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

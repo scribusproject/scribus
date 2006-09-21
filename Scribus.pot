@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-27 13:52+0200\n"
+"POT-Creation-Date: 2006-09-21 23:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -452,6 +452,9 @@ msgstr ""
 msgid "Element"
 msgstr ""
 
+msgid "Text"
+msgstr ""
+
 msgid "Font:"
 msgstr ""
 
@@ -488,6 +491,9 @@ msgstr ""
 msgid "Woven silk pyjamas exchanged for blue quartz"
 msgstr ""
 
+msgid "Shapes"
+msgstr ""
+
 msgid "&Line Color:"
 msgstr ""
 
@@ -509,6 +515,9 @@ msgstr ""
 msgid "Line &Width:"
 msgstr ""
 
+msgid "Lines"
+msgstr ""
+
 msgid "Line S&tyle:"
 msgstr ""
 
@@ -519,6 +528,9 @@ msgid "Start:"
 msgstr ""
 
 msgid "End:"
+msgstr ""
+
+msgid "Images"
 msgstr ""
 
 msgid "&Free Scaling"
@@ -552,6 +564,12 @@ msgid "Normal Resolution Preview"
 msgstr ""
 
 msgid "Low Resolution Preview"
+msgstr ""
+
+msgid "Regular Polygons"
+msgstr ""
+
+msgid "Zoom"
 msgstr ""
 
 msgid "Mi&nimum:"
@@ -795,7 +813,7 @@ msgid "Background"
 msgstr ""
 
 msgid ""
-"An error occurred while opening icc profiles, color management is not "
+"An error occurred while opening ICC profiles, color management is not "
 "enabled."
 msgstr ""
 
@@ -1440,6 +1458,15 @@ msgstr ""
 msgid "&Redo: %1"
 msgstr ""
 
+msgid "Reset control point"
+msgstr ""
+
+msgid "Reset control points"
+msgstr ""
+
+msgid "Apply image effects"
+msgstr ""
+
 msgid "Move Pages"
 msgstr ""
 
@@ -1535,6 +1562,9 @@ msgid "Text Frame"
 msgstr ""
 
 msgid "Paragraphs: "
+msgstr ""
+
+msgid "Lines: "
 msgstr ""
 
 msgid "Words: "
@@ -1810,7 +1840,7 @@ msgstr ""
 msgid ""
 "There is a problem loading %1 of %2 plugins. %3 This is probably caused by "
 "some kind of dependency issue or old plugins existing in your install "
-"directory. IF you clean out your install directory and reinstall and this "
+"directory. If you clean out your install directory and reinstall and this "
 "still occurs, please report it on bugs.scribus.net."
 msgstr ""
 
@@ -1850,21 +1880,6 @@ msgstr ""
 msgid "Round Join"
 msgstr ""
 
-msgid "Solid Line"
-msgstr ""
-
-msgid "Dashed Line"
-msgstr ""
-
-msgid "Dotted Line"
-msgstr ""
-
-msgid "Dash Dot Line"
-msgstr ""
-
-msgid "Dash Dot Dot Line"
-msgstr ""
-
 msgid "Properties"
 msgstr ""
 
@@ -1881,6 +1896,21 @@ msgid "Clone of %1"
 msgstr ""
 
 msgid "%1 (%2)"
+msgstr ""
+
+msgid "Solid Line"
+msgstr ""
+
+msgid "Dashed Line"
+msgstr ""
+
+msgid "Dotted Line"
+msgstr ""
+
+msgid "Dash Dot Line"
+msgstr ""
+
+msgid "Dash Dot Dot Line"
 msgstr ""
 
 msgid " pt "
@@ -2176,6 +2206,9 @@ msgstr ""
 msgid "Gap:"
 msgstr ""
 
+msgid "Link Created Frames"
+msgstr ""
+
 msgid "&Options"
 msgstr ""
 
@@ -2227,9 +2260,6 @@ msgid ""
 msgstr ""
 
 msgid "Image"
-msgstr ""
-
-msgid "Text"
 msgstr ""
 
 msgid "Line"
@@ -2555,6 +2585,9 @@ msgstr ""
 msgid "Add a new layer"
 msgstr ""
 
+msgid "Duplicates the current layer"
+msgstr ""
+
 msgid ""
 "Color of the Layer Indicator - Each layer has a color assigned to display on "
 "the canvas when layer indicators are enabled. You can double click to edit "
@@ -2619,6 +2652,14 @@ msgid ""
 "info string is missing from the PDF/X-3 tab."
 msgstr ""
 
+msgid "%1 does not exists and will be created, continue?"
+msgstr ""
+
+msgid ""
+"Cannot create directory: \n"
+"%1"
+msgstr ""
+
 msgid "Save as"
 msgstr ""
 
@@ -2640,25 +2681,25 @@ msgstr ""
 msgid "Page Display"
 msgstr ""
 
-msgid "Show Layer Indicators"
-msgstr ""
-
-msgid "Show Frames"
-msgstr ""
-
-msgid "Show Text Chains"
-msgstr ""
-
-msgid "Display &Unprintable Area in Margin Color"
-msgstr ""
-
-msgid "Rulers Relative to Page"
+msgid "Show Pictures"
 msgstr ""
 
 msgid "Show Text Control Characters"
 msgstr ""
 
-msgid "Show Pictures"
+msgid "Rulers Relative to Page"
+msgstr ""
+
+msgid "Show Text Chains"
+msgstr ""
+
+msgid "Show Frames"
+msgstr ""
+
+msgid "Show Layer Indicators"
+msgstr ""
+
+msgid "Display &Unprintable Area in Margin Color"
 msgstr ""
 
 msgid "Scratch Space"
@@ -2683,6 +2724,42 @@ msgid "To adjust the display drag the ruler below with the slider."
 msgstr ""
 
 msgid "textLabel16"
+msgstr ""
+
+msgid "Pages:"
+msgstr ""
+
+msgid "Selected Page Border:"
+msgstr ""
+
+msgid "Frames"
+msgstr ""
+
+msgid "Locked:"
+msgstr ""
+
+msgid "Normal:"
+msgstr ""
+
+msgid "Selected:"
+msgstr ""
+
+msgid "Linked:"
+msgstr ""
+
+msgid "Grouped:"
+msgstr ""
+
+msgid "Annotation:"
+msgstr ""
+
+msgid "Text:"
+msgstr ""
+
+msgid "Control Characters:"
+msgstr ""
+
+msgid "Colors"
 msgstr ""
 
 msgid " mm"
@@ -2767,6 +2844,15 @@ msgid "Progress"
 msgstr ""
 
 msgid "Overall Progress:"
+msgstr ""
+
+msgid "Patterns"
+msgstr ""
+
+msgid "Load"
+msgstr ""
+
+msgid "Load Set"
 msgstr ""
 
 msgid "Send Copied Items Automatically to Scrapbook"
@@ -2986,9 +3072,6 @@ msgstr ""
 msgid "Dissolve"
 msgstr ""
 
-msgid "Exlusion"
-msgstr ""
-
 msgid "Don't use any Path"
 msgstr ""
 
@@ -3050,6 +3133,15 @@ msgid "Add a new master page"
 msgstr ""
 
 msgid "Import master pages from another document"
+msgstr ""
+
+msgid "Normal Left"
+msgstr ""
+
+msgid "Normal Middle"
+msgstr ""
+
+msgid "Normal Right"
 msgstr ""
 
 msgid "Do you really want to delete this master page?"
@@ -3960,6 +4052,18 @@ msgstr ""
 msgid "Transparency Settings"
 msgstr ""
 
+msgid "Offsets"
+msgstr ""
+
+msgid "Scaling"
+msgstr ""
+
+msgid "Rotation"
+msgstr ""
+
+msgid "Angle"
+msgstr ""
+
 msgid "Move Vector"
 msgstr ""
 
@@ -3982,6 +4086,9 @@ msgid "Free linear Gradient"
 msgstr ""
 
 msgid "Free radial Gradient"
+msgstr ""
+
+msgid "Pattern"
 msgstr ""
 
 msgid "Edit Line Color Properties"
@@ -4023,6 +4130,9 @@ msgid "Exporting Page:"
 msgstr ""
 
 msgid "Exporting Items on Current Page:"
+msgstr ""
+
+msgid "Loading Patterns"
 msgstr ""
 
 msgid "Manage Guides"
@@ -4118,7 +4228,7 @@ msgstr ""
 msgid "List Box"
 msgstr ""
 
-msgid "Tool-Tip:"
+msgid "Tooltip:"
 msgstr ""
 
 msgid "Font for use with PDF 1.3:"
@@ -4157,7 +4267,7 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-msgid "Don't Export Value"
+msgid "Do Not Export Value"
 msgstr ""
 
 msgid "Visibility:"
@@ -4532,6 +4642,9 @@ msgstr ""
 msgid "C&olors..."
 msgstr ""
 
+msgid "Patterns..."
+msgstr ""
+
 msgid "S&tyles..."
 msgstr ""
 
@@ -4647,6 +4760,9 @@ msgid "&Raise"
 msgstr ""
 
 msgid "Send to S&crapbook"
+msgstr ""
+
+msgid "Send to Patterns"
 msgstr ""
 
 msgid "&Attributes..."
@@ -5254,7 +5370,13 @@ msgstr ""
 msgid "Units:"
 msgstr ""
 
-msgid "Apply size settings to all Pages"
+msgid "Apply settings to:"
+msgstr ""
+
+msgid "All Document Pages"
+msgstr ""
+
+msgid "All Master Pages"
 msgstr ""
 
 msgid "Autosave"
@@ -5301,13 +5423,17 @@ msgstr ""
 msgid "Apply the page size changes to all existing pages in the document"
 msgstr ""
 
+msgid ""
+"Apply the page size changes to all existing master pages in the document"
+msgstr ""
+
 msgid "Preset Layouts:"
 msgstr ""
 
-msgid "Apply margin settings to all pages"
+msgid "Apply the margin changes to all existing pages in the document"
 msgstr ""
 
-msgid "Apply the margin changes to all existing pages in the document"
+msgid "Apply the margin changes to all existing master pages in the document"
 msgstr ""
 
 msgid "Printer Margins..."
@@ -5357,7 +5483,7 @@ msgid "Nine Parts"
 msgstr ""
 
 msgid ""
-"You can select predefined page layout here. 'None' leave margins as is, "
+"You can select a predefined page layout here. 'None' leave margins as is, "
 "Gutenberg sets margins classically. 'Magazine' sets all margins for same "
 "value. Leading is Left/Inside value."
 msgstr ""
@@ -5516,7 +5642,7 @@ msgid ""
 "Choosing this will make this color a spot color, thus creating another spot "
 "when creating plates or separations. This is used most often when a logo or "
 "other color needs exact representation or cannot be replicated with CMYK "
-"inks. Metallic and flourescent inks are good examples which cannot be easily "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
 "replicated with CMYK inks."
 msgstr ""
 
@@ -5551,9 +5677,6 @@ msgstr ""
 msgid ""
 "The name of the color already exists,\n"
 "please choose another one."
-msgstr ""
-
-msgid "Colors"
 msgstr ""
 
 msgid "&Remove Unused"
@@ -5653,8 +5776,8 @@ msgid ""
 "working with was created in Scribus 1.2.x.  Saving the current file under "
 "1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve "
 "the ability to edit in 1.2.x, save this file under a different name and "
-"further edit the newly named file and the origial will be untouched. Are you "
-"sure you wish to proceed with this operation?"
+"further edit the newly named file and the original will be untouched. Are "
+"you sure you wish to proceed with this operation?"
 msgstr ""
 
 msgid "&File"
@@ -5720,13 +5843,7 @@ msgstr ""
 msgid "Ready"
 msgstr ""
 
-msgid "Normal Left"
-msgstr ""
-
-msgid "Normal Right"
-msgstr ""
-
-msgid "Normal Middle"
+msgid "Updating Pictures"
 msgstr ""
 
 msgid "Importing Pages..."
@@ -5826,12 +5943,6 @@ msgid "Convert Page to Master Page"
 msgstr ""
 
 msgid "Size"
-msgstr ""
-
-msgid ""
-"Number of copies: %1\n"
-"Horizontal shift: %2\n"
-"Vertical shift: %3"
 msgstr ""
 
 msgid "The following programs are missing:"
@@ -6732,9 +6843,6 @@ msgstr ""
 msgid "St&yle:"
 msgstr ""
 
-msgid "Lan&guage:"
-msgstr ""
-
 msgid "Actual X-DPI:"
 msgstr ""
 
@@ -6935,9 +7043,6 @@ msgid "Click to select the line spacing mode"
 msgstr ""
 
 msgid "Style of current paragraph"
-msgstr ""
-
-msgid "Hyphenation language of frame"
 msgstr ""
 
 msgid "Change settings for left or end points"
@@ -7240,10 +7345,10 @@ msgstr ""
 msgid "Font System Initialized"
 msgstr ""
 
-msgid "Current Key"
+msgid "Main"
 msgstr ""
 
-msgid "Select a Key for this Action"
+msgid "Copied Items"
 msgstr ""
 
 msgid "Choose a Scrapbook Directory"
@@ -7709,6 +7814,18 @@ msgstr ""
 msgid "Edit Styles"
 msgstr ""
 
+msgid "&Horizontal Shift:"
+msgstr ""
+
+msgid "&Vertical Shift:"
+msgstr ""
+
+msgid "&Horizontal Gap:"
+msgstr ""
+
+msgid "&Vertical Gap:"
+msgstr ""
+
 msgid "Common Settings"
 msgstr ""
 
@@ -7844,22 +7961,22 @@ msgstr ""
 msgid "to"
 msgstr ""
 
-msgid "GUI"
+msgid "User Interface"
 msgstr ""
 
 msgid "&Theme:"
 msgstr ""
 
-msgid "Time before a Move or Resize starts:"
-msgstr ""
-
 msgid " ms"
 msgstr ""
 
-msgid "&Font Size (Menus):"
+msgid "Time before a Move or Resize starts:"
 msgstr ""
 
 msgid "Font Size (&Palettes):"
+msgstr ""
+
+msgid "&Font Size (Menus):"
 msgstr ""
 
 msgid "&Wheel Jump:"
@@ -7868,22 +7985,58 @@ msgstr ""
 msgid "&Recent Documents:"
 msgstr ""
 
-msgid "&Documents:"
+msgid "Show Startup Dialog"
 msgstr ""
 
-msgid "&ICC Profiles:"
-msgstr ""
-
-msgid "Alt+H"
-msgstr ""
-
-msgid "&Scripts:"
+msgid "Show Splashscreen on Startup"
 msgstr ""
 
 msgid "Ch&ange..."
 msgstr ""
 
 msgid "Document &Templates:"
+msgstr ""
+
+msgid "&Documents:"
+msgstr ""
+
+msgid "&ICC Profiles:"
+msgstr ""
+
+msgid "&Scripts:"
+msgstr ""
+
+msgid "Alt+H"
+msgstr ""
+
+msgid "Multiple Duplicate"
+msgstr ""
+
+msgid "&Number of Copies:"
+msgstr ""
+
+msgid "Create &Gap Between Items Of"
+msgstr ""
+
+msgid "&Shift Created Items By"
+msgstr ""
+
+msgid "&By Number of Copies"
+msgstr ""
+
+msgid "Vertical Gap:"
+msgstr ""
+
+msgid "Horizontal Gap:"
+msgstr ""
+
+msgid "Number of Rows:"
+msgstr ""
+
+msgid "Number of Columns:"
+msgstr ""
+
+msgid "By &Rows && Columns"
 msgstr ""
 
 msgid "Parameter"
@@ -8025,12 +8178,6 @@ msgstr ""
 msgid "Preview of current Paragraph Style visible when editing Styles"
 msgstr ""
 
-msgid "Show Startup Dialog"
-msgstr ""
-
-msgid "Show Splashscreen on Startup"
-msgstr ""
-
 msgid "Always use standard Lorem Ipsum"
 msgstr ""
 
@@ -8124,18 +8271,6 @@ msgid "New Script"
 msgstr ""
 
 msgid "Do you really want to delete this script?"
-msgstr ""
-
-msgid "Multiple Duplicate"
-msgstr ""
-
-msgid "&Number of Copies:"
-msgstr ""
-
-msgid "&Horizontal Shift:"
-msgstr ""
-
-msgid "&Vertical Shift:"
 msgstr ""
 
 msgid "Auto Add To"
@@ -9085,10 +9220,10 @@ msgstr ""
 msgid "Save Current Output"
 msgstr ""
 
-msgid "Failed to save EPS."
+msgid "Page number out of range."
 msgstr ""
 
-msgid "Page number out of range."
+msgid "Failed to save EPS."
 msgstr ""
 
 msgid "Given master page name does not match any existing."
@@ -9231,6 +9366,9 @@ msgid "Cannot get font of non-text frame."
 msgstr ""
 
 msgid "Cannot get text size of non-text frame."
+msgstr ""
+
+msgid "Cannot get number of lines of non-text frame."
 msgstr ""
 
 msgid "Cannot get column count of non-text frame."

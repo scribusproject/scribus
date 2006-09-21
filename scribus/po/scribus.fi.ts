@@ -16294,10 +16294,6 @@ converting their vector data into Scribus objects.</source>
         <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Poisto-operaatio peruutetaan.</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished">Jotkin kohteet ovat lukittuina.</translation>
     </message>
@@ -16307,6 +16303,10 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

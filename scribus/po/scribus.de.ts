@@ -19030,7 +19030,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation>Beim Öffnen von ICC-Profilen ist ein Fehler aufgetreten. Farbmanagement ist nicht aktiviert.</translation>
+        <translation type="obsolete">Beim Öffnen von ICC-Profilen ist ein Fehler aufgetreten. Farbmanagement ist nicht aktiviert.</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -19043,6 +19043,10 @@ diese zu finden und zu korrigieren</translation>
     <message>
         <source>&amp;Skip locked objects</source>
         <translation>&amp;Gesperrte Objekte überspringen</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

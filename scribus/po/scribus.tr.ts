@@ -16603,10 +16603,6 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
         <translation>Arkaplan</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Do you really want to clear all your text?</source>
         <translation type="unfinished">Bütün metni temizlemek istediğinizden emin misiniz?</translation>
     </message>
@@ -16628,6 +16624,10 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -21652,10 +21652,6 @@ Uporabite Končno preverjanje da jih odpravite</translation>
         <translation>Predmet %1 uporablja urejevalnik zgodbe. Izrezovanje je bilo preklicano</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished">Nekateri predmeti so zaklenjeni.</translation>
     </message>
@@ -21665,6 +21661,10 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

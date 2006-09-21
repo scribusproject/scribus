@@ -23382,10 +23382,6 @@ Considera fer servir el Verificador per corregir-los</translation>
         <translation>L&apos;element %1 està sent editat amb l&apos;Editor de Notícies. La conversió demanada es cancel.larà</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished">Alguns objectes estan bloquejats.</translation>
     </message>
@@ -23395,6 +23391,10 @@ Considera fer servir el Verificador per corregir-los</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

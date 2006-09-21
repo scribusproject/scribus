@@ -16750,10 +16750,6 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
         <translation type="unfinished">Položka %1 práve upravovaná v Story Editore. Operácia odstránenie bola zrušená</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation type="unfinished">Niektoré objekty sú uzamknuté.</translation>
     </message>
@@ -16763,6 +16759,10 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>&amp;Skip locked objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
