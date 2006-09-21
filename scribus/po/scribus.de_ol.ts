@@ -964,7 +964,7 @@ May raise ValueError if the layer name isn&apos;t acceptable.
 </source>
         <translation>sentToLayer(&quot;layer&quot; [, &quot;name&quot;])
 
-Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muss
+Verschiebt das Objekt &quot;name&quot; auf die Ebene &quot;layer&quot;. Die Ebene muß
 vorhanden sein. Ist &quot;name&quot; nicht angegeben, wird das aktive Objekt benutzt.
 
 Ist die Ebene nicht vorhanden, tritt der Fehler NotFoundError auf.
@@ -1692,7 +1692,7 @@ used.
         <translation>setText(&quot;text&quot;, [&quot;name&quot;])
 
 Ändert den Text im Rahmen &quot;name&quot; auf den String &quot;text&quot;.
-Der Text muß URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
+Der Text muß UTF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
 Lesen Sie in der FAQ nach für weitere Informationen. Ist &quot;name&quot; nicht angegeben, 
 wird der aktuelle Textrahmen verwendet.</translation>
     </message>
@@ -1951,7 +1951,7 @@ Sie geben die Gesamtzahl der Schritte an und dann immer die fertigen Schritte - 
 anzeige zeigt immer den Prozentsatz der fertigen Schritte an. Die Gesamtzahl der Schritte können
 Sie mit progressTotal() festlegen, die aktuelle Zahl der Schritte mit progressSet().
 Die Fortschrittsanzeige kann mit progressReset() zurückgesetzt werden. [Infos sind aus den 
-Qt-Dokumenten von Trolltech]</translation>
+Dokumenten von Trolltech Qt]</translation>
     </message>
     <message>
         <source>setCursor()
@@ -2141,7 +2141,7 @@ gefiltert mit dem String &quot;filter&quot;. Ein Standard-Dateiname oder -pfad k
 angegeben werden. Lassen Sie diesen String leer, wenn Sie ihn nicht verwenden
 möchten. Der Wert &quot;True&quot; für &quot;haspreview&quot; aktiviert die Dateivorschau im FileSelect-
 Dialog. Wenn der &quot;issave&quot;-Parameter den Wert &quot;True&quot; hat, verhält sich der Dialog wie
-der &quot;Speichern unter&quot;-Dialog, ansonsten wie der &quot;Datei öffnen&quot;-Dialog. Wenn der &quot;isdir&quot;-
+der &quot;Speichern unter&quot;-Dialog, ansonsten wie der &quot;Date öffnen&quot;-Dialog. Wenn der &quot;isdir&quot;-
 Parameter den Wert &quot;True&quot; hat, zeigt der Dialog lediglich Verzeichnisse an. Der Standard-
 wert aller optionalen Parameter ist &quot;False&quot;</translation>
     </message>
@@ -2646,11 +2646,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation>Mac OS&amp;#174; X Aqua Port:</translation>
+        <translation>Mac OS&amp;#174; X Aqua-Portierung:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Windows&amp;#174; Port:</translation>
+        <translation>Windows&amp;#174;-Portierung:</translation>
     </message>
     <message>
         <source>March</source>
@@ -2662,7 +2662,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Mai</translation>
     </message>
 </context>
 <context>
@@ -3363,7 +3363,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Toolti&amp;ps</source>
-        <translation>Tool&amp;tips</translation>
+        <translation>Tool&amp;tipps</translation>
     </message>
     <message>
         <source>Scribus &amp;Manual...</source>
@@ -4940,7 +4940,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Hints and help is shown here</source>
-        <translation>Hier sehen Sie Tips und Tricks</translation>
+        <translation>Hier sehen Sie Tipps und Tricks</translation>
     </message>
     <message>
         <source>Preview of the result. 72dpi sample.</source>
@@ -5283,7 +5283,7 @@ gewählten Druckerprofils.</translation>
         <source>Method of showing colors on the screen which may not print properly.
 This requires very accurate profiles and serves only as a warning.</source>
         <translation>Aktiviert die Gamut-Warnung, d. h. die Anzeige von Farben, welche 
-auf Grund der Eigenschaften des gewählten Ausgabegerätes für den 
+aufgrund der Eigenschaften des gewählten Ausgabegerätes für den 
 Druck nicht korrekt wiedergegeben werden können. Bitte beachten Sie, 
 daß dies sehr genaue Geräteprofile erfordert.</translation>
     </message>
@@ -6888,7 +6888,7 @@ einen Bindestrich und den ISO-3166 Ländercode, wie z. B. en-GB oder fr-CH</tran
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Sil:&lt;/b&gt; Wählen Sie den Nummerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
+        <translation>&lt;b&gt;Name:&lt;/b&gt; Optionale Bezeichnung für den Abschnitt, z. B. Index.&lt;br/&gt;&lt;b&gt;Sichtbar:&lt;/b&gt; Entscheiden Sie, ob die Seitennummern angezeigt werden sollen.&lt;br/&gt;&lt;b&gt;Von:&lt;/b&gt; Der Seitenindex für diesen Abschnitt, mit dem die Zählung beginnen soll.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt;Der Seitenindex für diesen Abschnitt, mit dem die Zählung enden soll.&lt;br/&gt;&lt;b&gt;Sil:&lt;/b&gt; Wählen Sie den Numerierungsstil aus.&lt;br/&gt;&lt;b&gt;Beginn:&lt;/b&gt; Die Seitennummer, ab der die Zählung beginnen soll. Wenn Sie beispielsweise hier 2 eintragen und als Stil a, b, c wählen, wird mit b angefangen.</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
@@ -10567,11 +10567,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
+        <translation type="obsolete">Farbe der Textumrandung. Nur möglich, wenn als Textoption &quot;Umriss&quot; gewählt ist.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriß&quot; gewählt ist.</translation>
+        <translation type="obsolete">Farbe der Textfüllung. Nur möglich, wenn als Textoption &quot;Umriss&quot; gewählt ist.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -10591,11 +10591,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe des Textumrisses und/oder des Schlagschattens, je nachdem, welches von beiden ausgewählt ist. Falls beide ausgewählt sind, haben sie dieselbe Farbe.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe des ausgewählten Texts. Falls die Textauszeichnung &quot;Umriß&quot; gewählt ist, ist dies die Füllfarbe der Zeichen. Wenn die Textauszeichnung &quot;Schlagschatten&quot; gewählt ist, wird dies die Vordergrundfarbe sein.</translation>
     </message>
 </context>
 <context>
@@ -11250,7 +11250,7 @@ Dies ist außerordentlich nützlich für das Ausschießen von PDF-Dateien im pro
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Jede Seite wird mit automatischer Nummerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
+        <translation>Jede Seite wird mit automatischer Numerierung als separate PDF-Datei exportiert. Hilfreich fürs Ausschießen.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
@@ -13027,7 +13027,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Wählen Sie festgelegte Seitenlayouts. &apos;Keins&apos; verändert keine Einstellungen, Gutenberg setzt klassische Ränder, Magazine stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für Links/Innen.</translation>
+        <translation>Wählen Sie festgelegte Seitenlayouts. &apos;Keins&apos; verändert keine Einstellungen, &apos;Gutenberg&apos; setzt klassische Ränder, &apos;Magazine&apos; stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für links/innen.</translation>
     </message>
     <message>
         <source>None</source>
@@ -13815,7 +13815,7 @@ Externe Links</translation>
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Die Schriftart %1 ist fehlerhaft und wird ab sofort ignoriert</translation>
+        <translation>Die Schrift %1 ist fehlerhaft und wird ab sofort ignoriert</translation>
     </message>
     <message>
         <source>Text Filters</source>
@@ -15180,11 +15180,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished">Arabisch</translation>
+        <translation>Arabisch</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Estnisch</translation>
     </message>
 </context>
 <context>
@@ -16732,7 +16732,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist ein Fehler beim Öffnen der ICC-Profile aufgetreten: Das Farbmanagement ist nicht aktiviert.</translation>
     </message>
 </context>
 <context>
@@ -16799,7 +16799,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Fontsystem initialisiert</translation>
+        <translation>Schriftsystem initialisiert</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -17206,7 +17206,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>Liga&amp;tur</translation>
     </message>
 </context>
 <context>
@@ -17640,7 +17640,7 @@ umgewandelt werden</translation>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation>Base Texts:</translation>
+        <translation>Normaler Text:</translation>
     </message>
     <message>
         <source>Select Color</source>
@@ -18283,27 +18283,27 @@ umgewandelt werden</translation>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation type="obsolete">Umriß</translation>
+        <translation type="obsolete">Umriss</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterstrichener Text. Halten Sie die Maustaste einen Moment gedrückt, um Linienbreite und Versatz einzustellen.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterstrichene Wörter. Halten Sie die Maustaste einen Moment gedrückt, um Linienbreite und Versatz einzustellen.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Durchgestrichener Text. Halten Sie die Maustaste einen Moment gedrückt, um Linienbreite und Versatz einzustellen.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation type="unfinished"></translation>
+        <translation>Umriß. Halten Sie die Maustaste einen Moment gedrückt, um die Breite der Umrißlinie einzustellen.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlagschatten. Halten Sie die Maustaste einen Moment gedrückt, um den Versatz einzustellen.</translation>
     </message>
 </context>
 <context>
@@ -18401,7 +18401,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation>Placierung der Seitenzahlen:</translation>
+        <translation>Plazierung der Seitenzahlen:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -18413,7 +18413,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Placierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
+        <translation>Plazierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -18472,7 +18472,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation>Placierung der Seitenzahlen:</translation>
+        <translation>Plazierung der Seitenzahlen:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
@@ -18484,7 +18484,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation>Placierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
+        <translation>Plazierung von Seitennummern am Anfang oder am Ende einer Zeile, beziehungsweise überhaupt nicht</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
@@ -18527,7 +18527,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation>Auf Objekte überprüfen, die außerhalb des Dokuments placiert sind</translation>
+        <translation>Auf Objekte überprüfen, die außerhalb des Dokuments plaziert sind</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
@@ -18578,7 +18578,7 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation>Placierung im Dokument</translation>
+        <translation>Plazierung im Dokument</translation>
     </message>
     <message>
         <source>In the Background</source>
@@ -19664,7 +19664,7 @@ der PDF-Datei ausgeführt wird:</translation>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Legt die PDF-Kompatiblität fest. Standard ist PDF 1.3, weil das die größte Kompatiblität ermöglicht.
-Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen. PDF 1.5 ist notwendig, um Objekte in verschiedenen Ebenen in der PDF-Datei zu erhalten.
+Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128-Bit-Verschlüsselung benötigen. PDF 1.5 ist notwendig, um Objekte in verschiedenen Ebenen in der PDF-Datei zu erhalten.
 PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farbmanagement aktiviert haben. Verwenden Sie es nur, wenn Ihr Drucker dies verlangt oder in einigen Fällen zum Ausdruck auf einem Vierfarb-Digital-Laserdrucker.</translation>
     </message>
     <message>

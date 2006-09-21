@@ -4,6 +4,31 @@ Changes since 1.2 (all applicable changes from 1.2 to 1.2.5 at the time of 1.3.3
 
 Scribus - 1.3.3.4cvs
 ====================
+- 0003702: [Undo/Redo] Undo not working after shape edit (Tsoots)
+- 0004244: [Picture Frames] Setting low-resolution preview in document setup doesn't change already existing image frames. (fschmid)
+- 0004271: [Internal] Input ICC profiles should not be compressed when "Compress text and vector graphics" is off (fschmid)
+- 0004258: [Translation] Original message's wrong function description (subik)
+- 0004251: [Import / Export] PDF export fails with imported OO draw doc (fschmid)
+- 0004253: [General] image with some transparency.. if its shading is set to < 100%, the items below the transparency lose shading, not just the item (fschmid)
+- 0004152: [Documentation] Empty language setting is not OS language but English (jghali)
+- 0004216: [Plug-ins] Unknown Text-importer (subik)
+- 0004230: [General] Flipping a groups mirros the objects independantly (fschmid)
+- 0003847: [Import / Export] Radial Gradients in SVG do not import correctly (jghali)
+- 0004205: [Story Editor / Text Frames] refesh issue after inserting sampletext in textchain (avox)
+- 0004237: [Usability] Print dialog "remembers" copies setting from previous job (fschmid)
+- 0004206: [Integration] Mime file doesn't include magic (plinnell)
+- 0004219: [Scripter] missing functionality newDoc in Scripter API does not have parameter to specify number of pages (fschmid)
+- 0004210: [Import / Export] ps export: incorrect outline of text attached to a bezier curve (fschmid)
+- 0002222: [Import / Export] SVG import failure (jghali)
+- 0004048: [General] copy of elements disappears on changing the page by "jumper" (fschmid)
+- 0004150: [User Interface] drag & drop into scrapbook broken (fschmid)
+- 0004204: [General] Crash when inserting text in chained text frames (jghali)
+- 0003587: [Usability] send to scrapbook disabled for locked frames (fschmid)
+- 0004114: [User Interface] Colors in Edit->Colors... does not reflect Color Management properties (jghali)
+- 0004186: [Picture Frames] Adding Picture effects is not recorded by the undo system (Tsoots)
+- 0003490: [Import / Export] Group objects automatically during page import (fschmid)
+- 0004137: [Import / Export] PDF Export may position wrongly images used multiple times (jghali)
+- 0004163: [User Interface] Double click on language should insert sample text (fschmid)
 - 0004154: [General] horizontal ruler is flashing after selecting object with rectangle (fschmid)
 - 0004150: [User Interface] drag & drop into scrapbook broken (fschmid)
 - 0004056: [Internal] SampleItem won't work after 08/22/06 weekend grand changes (avox)
@@ -14,7 +39,7 @@ Scribus - 1.3.3.4cvs
 - 0004056: [Internal] SampleItem won't work after 08/22/06 weekend grand changes (avox)
 - 0004066: [Story Editor / Text Frames] crashes (sig 11) when moving text frame after closing text editor (avox)
 - 0004120: [Import / Export] SVG import incorrectly handle transparency (jghali)
-- 0004110: [Translation] Turkish translation update from Bar&#305;&#351; Atasoy for 1.3.3.2 (plinnell)
+- 0004110: [Translation] Turkish translation update from Bar Atasoy for 1.3.3.2 (plinnell)
 
 Scribus - 1.3.3.3
 =================

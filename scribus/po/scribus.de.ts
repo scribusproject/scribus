@@ -1692,7 +1692,7 @@ used.
         <translation>setText(&quot;text&quot;, [&quot;name&quot;])
 
 Ändert den Text im Rahmen &quot;name&quot; auf den String &quot;text&quot;.
-Der Text muss URF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
+Der Text muss UTF8-kodiert sein - verwenden Sie z.B. unicode(text, &apos;iso-8859-2&apos;).
 Lesen Sie in der FAQ nach für weitere Informationen. Ist &quot;name&quot; nicht angegeben, 
 wird der aktuelle Textrahmen verwendet.</translation>
     </message>
@@ -2646,11 +2646,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Mac OS&amp;#174; X Aqua Port:</source>
-        <translation>Mac OS&amp;#174; X Aqua Port:</translation>
+        <translation>Mac OS&amp;#174; X Aqua-Portierung:</translation>
     </message>
     <message>
         <source>Windows&amp;#174; Port:</source>
-        <translation>Windows&amp;#174; Port:</translation>
+        <translation>Windows&amp;#174;-Portierung:</translation>
     </message>
     <message>
         <source>March</source>
@@ -2662,7 +2662,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Mai</translation>
     </message>
 </context>
 <context>
@@ -10591,11 +10591,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe des Textumrisses und/oder des Schlagschattens, je nachdem, welches von beiden ausgewählt ist. Falls beide ausgewählt sind, haben sie dieselbe Farbe.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farbe des ausgewählten Texts. Falls die Textauszeichnung &quot;Umriss&quot; gewählt ist, ist dies die Füllfarbe der Zeichen. Wenn die Textauszeichnung &quot;Schlagschatten&quot; gewählt ist, wird dies die Vordergrundfarbe sein.</translation>
     </message>
 </context>
 <context>
@@ -13027,7 +13027,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Wählen Sie festgelegte Seitenlayouts. &apos;Keins&apos; verändert keine Einstellungen, Gutenberg setzt klassische Ränder, Magazine stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für Links/Innen.</translation>
+        <translation>Wählen Sie festgelegte Seitenlayouts. &apos;Keins&apos; verändert keine Einstellungen, Gutenberg setzt klassische Ränder, &apos;Magazine&apos; stellt alle Ränder auf den gleichen Wert. Maßgeblich ist der Wert für links/innen.</translation>
     </message>
     <message>
         <source>None</source>
@@ -15180,11 +15180,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished">Arabisch</translation>
+        <translation>Arabisch</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Estnisch</translation>
     </message>
 </context>
 <context>
@@ -16732,7 +16732,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist ein Fehler beim Öffnen der ICC-Profile aufgetreten: Das Farbmanagement ist nicht aktiviert.</translation>
     </message>
 </context>
 <context>
@@ -17206,7 +17206,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>Liga&amp;tur</translation>
     </message>
 </context>
 <context>
@@ -17640,7 +17640,7 @@ umgewandelt werden</translation>
     <message>
         <source>Base Texts:</source>
         <comment>syntax highlighting</comment>
-        <translation>Base Texts:</translation>
+        <translation>Normaler Text:</translation>
     </message>
     <message>
         <source>Select Color</source>
@@ -18287,23 +18287,23 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterstrichener Text. Halten Sie die Maustaste einen Moment gedrückt, um Linienbreite und Versatz einzustellen.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Unterstrichene Wörter. Halten Sie die Maustaste einen Moment gedrückt, um Linienbreite und Versatz einzustellen.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Durchgestrichener Text. Halten Sie die Maustaste einen Moment gedrückt, um Linienbreite und Versatz einzustellen.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation type="unfinished"></translation>
+        <translation>Umriss. Halten Sie die Maustaste einen Moment gedrückt, um die Breite der Umrisslinie einzustellen.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schlagschatten. Halten Sie die Maustaste einen Moment gedrückt, um den Versatz einzustellen.</translation>
     </message>
 </context>
 <context>
@@ -19664,7 +19664,7 @@ der PDF-Datei ausgeführt wird:</translation>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
         <translation>Legt die PDF-Kompatiblität fest. Standard ist PDF 1.3, weil das die größte Kompatiblität ermöglicht.
-Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128 bit-Verschlüsselung benötigen. PDF 1.5 ist notwendig, um Objekte in verschiedenen Ebenen in der PDF-Datei zu erhalten.
+Wählen Sie PDF 1.4, wenn Sie Funktionen wie Transparenz oder 128-Bit-Verschlüsselung benötigen. PDF 1.5 ist notwendig, um Objekte in verschiedenen Ebenen in der PDF-Datei zu erhalten.
 PDF/X-3 ist gedacht für gewerbliche Druckereien und nur möglich, wenn Sie das Farbmanagement aktiviert haben. Verwenden Sie es nur, wenn Ihr Drucker dies verlangt oder in einigen Fällen zum Ausdruck auf einem Vierfarb-Digital-Laserdrucker.</translation>
     </message>
     <message>
