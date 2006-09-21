@@ -3414,6 +3414,7 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 	pixm.imgInfo.layerInfo.clear();
 	pixm.imgInfo.usedPath="";
 	imageClip.resize(0);
+	int lowResTypeBack = pixm.imgInfo.lowResType;
 	int gsRes=gsResolution;
 	if (gsResolution==-1) //If it wasn't supplied, get it from PrefsManager.
 		gsRes=PrefsManager::instance()->gsResolution();
@@ -3613,6 +3614,8 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			effectsInUse.append(ef);
 		}
 		pixm.applyEffect(effectsInUse, m_Doc->PageColors, false);
+		if (reload)
+			pixm.imgInfo.lowResType = lowResTypeBack;
 		if (pixm.imgInfo.lowResType != 0)
 		{
 			double scaling = pixm.imgInfo.xres / 36.0;
