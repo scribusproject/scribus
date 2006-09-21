@@ -2260,7 +2260,16 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	slotChangeUnit(dia->getSelectedUnit(), false);
 	dia->updateDocumentSettings();
 	if (dia->imageResolutionChanged())
+	{
+		setStatusBarInfoText( tr("Updating Pictures"));
+		mainWindowProgressBar->reset();
+		qApp->setOverrideCursor(QCursor(waitCursor), true);
+		qApp->processEvents();
 		doc->recalcPicturesRes();
+		qApp->setOverrideCursor(QCursor(arrowCursor), true);
+		setStatusBarInfoText("");
+		mainWindowProgressBar->reset();
+	}
 	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);

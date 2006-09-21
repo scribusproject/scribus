@@ -5903,6 +5903,27 @@ void ScribusDoc::updatePict(QString name)
 //CB Same as updatePict apart from the name checking, this should be able to be removed
 void ScribusDoc::recalcPicturesRes()
 {
+	int cc = 0;
+	int ca = 0;
+	for (uint a = 0; a < DocItems.count(); ++a)
+	{
+		PageItem *currItem = DocItems.at(a);
+		if (currItem->PicAvail)
+		  cc++;
+	}
+	for (uint a = 0; a < MasterItems.count(); ++a)
+	{
+		PageItem *currItem = MasterItems.at(a);
+		if (currItem->PicAvail)
+			cc++;
+	}
+	for (uint a = 0; a < FrameItems.count(); ++a)
+	{
+		PageItem *currItem = FrameItems.at(a);
+		if (currItem->PicAvail)
+			cc++;
+	}
+	m_ScMW->mainWindowProgressBar->setTotalSteps(cc);
 	for (uint a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
@@ -5915,6 +5936,9 @@ void ScribusDoc::recalcPicturesRes()
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
+			ca++;
+			m_ScMW->mainWindowProgressBar->setProgress(ca);
+			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
 	for (uint a = 0; a < MasterItems.count(); ++a)
@@ -5929,6 +5953,9 @@ void ScribusDoc::recalcPicturesRes()
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
+			ca++;
+			m_ScMW->mainWindowProgressBar->setProgress(ca);
+			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
 	for (uint a = 0; a < FrameItems.count(); ++a)
@@ -5943,6 +5970,9 @@ void ScribusDoc::recalcPicturesRes()
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
+			ca++;
+			m_ScMW->mainWindowProgressBar->setProgress(ca);
+			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
 	emit updateContents();
