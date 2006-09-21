@@ -4944,6 +4944,7 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
+			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -4957,6 +4958,7 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
+			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -4970,6 +4972,7 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
+			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
