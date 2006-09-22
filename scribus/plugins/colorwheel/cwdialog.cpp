@@ -7,7 +7,6 @@ for which a new license (GPL+exception) is in place.
 
 #include "cwdialog.h"
 #include "cwdialog.moc"
-#include "cwdialogbase.moc"
 
 #include <qvariant.h>
 #include <qcombobox.h>
