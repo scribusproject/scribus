@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/* $Id$ */
+
 #ifndef COLORWHEEL_H
 #define COLORWHEEL_H
 
@@ -16,7 +16,7 @@ Harmonious colors are colors that work well together, that produce a color
 scheme that looks attractive; the color wheel can be used as a valuable
 tool for determining harmonious colors.
 More on: http://en.wikipedia.org/wiki/Color_wheel
-\author Petr Vanek; petr@yarpen.cz
+\author Petr Vanek <petr@scribus.info>
 \date April 2005
 */
 class PLUGIN_API ColorWheelPlugin : public ScActionPlugin

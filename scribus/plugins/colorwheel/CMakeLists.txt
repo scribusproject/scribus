@@ -3,12 +3,16 @@ ${CMAKE_SOURCE_DIR}
 ${CMAKE_SOURCE_DIR}/scribus
 )
 
+SET(COLORWHEEL_PLUGIN_UI_SRC
+cwdialogbase.ui
+)
+
 SET(COLORWHEEL_PLUGIN_MOC_CLASSES
 colorblind.h
 colorwheel.h
 colorwheelwidget.h
 cwdialog.h
-cwsetcolor.h
+cwdialogbase.h
 )
 
 SET(COLORWHEEL_PLUGIN_SOURCES
@@ -16,10 +20,15 @@ colorblind.cpp
 colorwheel.cpp
 colorwheelwidget.cpp
 cwdialog.cpp
-cwsetcolor.cpp
+cwdialogbase.cxx
 )
 
 SET(SCRIBUS_COLORWHEEL_PLUGIN "colorwheel")
+
+IF(QT_WRAP_UI)
+  QT_WRAP_UI(${SCRIBUS_COLORWHEEL_PLUGIN} COLORWHEEL_PLUGIN_UI_H COLORWHEEL_PLUGIN_UI_CPP ${COLORWHEEL_PLUGIN_UI_SRC})
+ENDIF(QT_WRAP_UI)
+
 IF(QT_WRAP_CPP)
   SCRIBUS_QT_WRAP_CPP(COLORWHEEL_PLUGIN_MOC_SOURCES ${COLORWHEEL_PLUGIN_MOC_CLASSES})
 ENDIF(QT_WRAP_CPP)

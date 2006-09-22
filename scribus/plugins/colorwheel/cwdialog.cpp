@@ -4,9 +4,10 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/* $Id$ */
+
 #include "cwdialog.h"
 #include "cwdialog.moc"
+#include "cwdialogbase.moc"
 
 #include <qvariant.h>
 #include <qcombobox.h>
@@ -22,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <qmenubar.h>
 #include <qgroupbox.h>
 #include <qslider.h>
+#include <qtabwidget.h>
 
 #include "prefsmanager.h"
 #include "commonstrings.h"
@@ -29,145 +31,15 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "mpalette.h"
 #include "colorblind.h"
-#include "cwsetcolor.h"
 #include "colorutil.h"
 #include "colorm.h"
 
 
-ScribusColorList::ScribusColorList(ScribusDoc* doc, QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl),
-	m_Doc(doc)
+CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, WFlags fl)
+	: CWDialogBase (parent, name, modal, fl),
+	  m_Doc(doc)
 {
-	if (!name)
-		setName("ScribusColorList");
-	ScribusColorListLayout = new QGridLayout(this, 1, 1, 11, 6, "ScribusColorListLayout");
-
-	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
-
-	listView = new ColorListBox(this, "listView");
-	listLayout->addWidget(listView);
-	listView->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
-
-	btnLayout = new QHBoxLayout(0, 0, 6, "btnLayout");
-	btnSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-	btnLayout->addItem(btnSpacer);
-
-	okButton = new QPushButton(this, "okButton");
-	btnLayout->addWidget(okButton);
-
-	cancelButton = new QPushButton(this, "cancelButton");
-	btnLayout->addWidget(cancelButton);
-	listLayout->addLayout(btnLayout);
-
-	ScribusColorListLayout->addLayout(listLayout, 0, 0);
-	languageChange();
-	resize(QSize(288, 310).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
-
-	connect(listView, SIGNAL(doubleClicked(QListBoxItem *)), this, SLOT(okButton_clicked()));
-	connect(okButton, SIGNAL(clicked()), this, SLOT(okButton_clicked()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
-}
-
-void ScribusColorList::languageChange()
-{
-	setCaption( tr("Document Colors"));
-	okButton->setText(CommonStrings::tr_OK);
-	cancelButton->setText(CommonStrings::tr_Cancel);
-}
-
-void ScribusColorList::okButton_clicked()
-{
-	ScColor c = m_Doc->PageColors[listView->currentText()];
-	selectedColor = c.getRGBColor();
-	accept();
-}
-
-
-ColorWheelDialog::ColorWheelDialog(ScribusDoc* doc, QWidget* parent, const char* name, bool modal, WFlags fl)
-	: QDialog(parent, name, modal, fl),
-	m_Doc(doc)
-{
-	if (!name)
-		setName("ColorWheelDialog");
-
-	QMenuBar *menuBar = new QMenuBar(this, "menuBar");
-	QPopupMenu *colorMenu = new QPopupMenu(this);
-	colorMenu->insertItem( tr("Cr&eate color..."), this, SLOT(createColor()));
-	colorMenu->insertItem( tr("C&olor Components..."), this, SLOT(setColorComponents()));
-	colorMenu->insertItem( tr("&Import existing color..."), this, SLOT(importColor()));
-	colorMenu->insertSeparator();
-	colorMenu->insertItem( tr("&Merge colors"), this, SLOT(addButton_clicked()));
-	colorMenu->insertItem( tr("&Replace colors"), this, SLOT(replaceButton_clicked()));
-	colorMenu->insertItem( tr("E&xit"), this, SLOT(cancelButton_clicked()));
-	menuBar->insertItem( tr("C&olor"), colorMenu);
-
-	formLayout = new QGridLayout(this, 1, 1, 11, 6, "formLayout");
-	formLayout->setMenuBar(menuBar);
-	mainLayout = new QHBoxLayout(0, 0, 6, "mainLayout");
-	wheelLayout = new QVBoxLayout(0, 0, 6, "wheelLayout");
-
-	colorWheel = new ColorWheel(this, "colorWheel");
-	colorWheel->setFrameShape(QFrame::Box);
-	colorWheel->setMinimumSize(QSize(300, 300));
-	colorWheel->setMaximumSize(QSize(300, 300));
-	wheelLayout->addWidget(colorWheel);
-
-	typeLabel = new QLabel(this, "typeLabel");
-	wheelLayout->addWidget(typeLabel);
-	typeCombo = new QComboBox(false, this, "typeCombo");
-	wheelLayout->addWidget(typeCombo);
-
-	angleLabel = new QLabel(this, "angleLabel");
-	angleLayout = new QHBoxLayout(0, 0, 6, "angleLayout");
-	angleLayout->addWidget(angleLabel);
-	angleSpin = new QSpinBox(this, "angleSpin");
-	angleSpin->setMinValue(0);
-	angleSpin->setMaxValue(90);
-	angleLayout->addWidget(angleSpin);
-	wheelLayout->addLayout(angleLayout);
-
-	spacer1 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-	wheelLayout->addItem(spacer1);
-	mainLayout->addLayout(wheelLayout);
-
-	listLayout = new QVBoxLayout(0, 0, 6, "listLayout");
-
-	defectLayout = new QHBoxLayout(0, 0, 6, "defectLayout");
-	defectLabel = new QLabel(this, "defectLabel");
-	defectLayout->addWidget(defectLabel);
-	defectCombo = new QComboBox(false, this, "defectCombo");
-	defectLayout->addWidget(defectCombo);
-	listLayout->addLayout(defectLayout);
-
-	previewLabel = new QLabel(this, "previewLabel");
-	previewLabel->setFrameShape(QFrame::Box);
-	previewLabel->setMinimumSize(QSize(400, 160));
-	previewLabel->setMaximumSize(QSize(400, 160));
-	listLayout->addWidget(previewLabel);
-
-	colorList = new QListView(this, "colorList");
-	listLayout->addWidget(colorList);
-
-	buttonLayout = new QHBoxLayout(0, 0, 6, "buttonLayout");
-	addButton = new QPushButton(this, "addButton");
-	addButton->setAutoDefault(false);
-	buttonLayout->addWidget(addButton);
-	replaceButton = new QPushButton(this, "replaceButton");
-	replaceButton->setAutoDefault(false);
-	buttonLayout->addWidget(replaceButton);
-	cancelButton = new QPushButton(this, "cancelButton");
-	cancelButton->setAutoDefault(false);
-	buttonLayout->addWidget(cancelButton);
-
-	listLayout->addLayout(buttonLayout);
-	mainLayout->addLayout(listLayout);
-	formLayout->addLayout(mainLayout, 0, 0);
-
-	languageChange();
-	resize(QSize(600, 480).expandedTo(minimumSizeHint()));
-	clearWState(WState_Polished);
-
+	connectSlots(false);
 	// setup combobox
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Monochromatic), colorWheel->Monochromatic);
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Analogous), colorWheel->Analogous);
@@ -181,199 +53,155 @@ ColorWheelDialog::ColorWheelDialog(ScribusDoc* doc, QWidget* parent, const char*
 	defectCombo->insertItem( tr("Deuteranopia (Green)"));
 	defectCombo->insertItem( tr("Tritanopia (Blue)"));
 	defectCombo->insertItem( tr("Full Color Blindness"));
-
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
-	colorWheel->actualColor = QColor(prefs->getInt("cw_r", 0), prefs->getInt("cw_g", 0), prefs->getInt("cw_b", 0));
+	colorspaceTab->setCurrentPage(prefs->getInt("cw_space", 0));
+	colorWheel->actualColor.setColor(prefs->getInt("cw_c", 0),
+									 prefs->getInt("cw_m", 0),
+									 prefs->getInt("cw_y", 0),
+									 prefs->getInt("cw_k", 0));
+	resize(QSize(prefs->getInt("cw_width", 640),
+		   prefs->getInt("cw_height", 480)).expandedTo(minimumSizeHint()));
+	previewLabel->resize(prefs->getInt("cw_samplex", 300), prefs->getInt("cw_sampley", 100));
+	// document colors
+	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
+	// setup
+	colorspaceTab_currentChanged(colorspaceTab->currentPage());
 
-	// actions
-	typeCombo_activated(typeCombo->currentItem());
-
-	// signals and slots connections
-	connect(typeCombo, SIGNAL(activated(int)), this, SLOT(typeCombo_activated(int)));
-	connect(defectCombo, SIGNAL(activated(int)), this, SLOT(defectCombo_activated(int)));
-	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)), this, SLOT(colorWheel_clicked(int, const QPoint&)));
-	colorWheel_clicked(0, QPoint(0, 0));
-	connect(angleSpin, SIGNAL(valueChanged(int)), this, SLOT(angleSpin_valueChanged(int)));
-	connect(addButton, SIGNAL(clicked()), this, SLOT(addButton_clicked()));
-	connect(replaceButton, SIGNAL(clicked()), this, SLOT(replaceButton_clicked()));
-	connect(cancelButton, SIGNAL(clicked()), this, SLOT(cancelButton_clicked()));
+	// signals and slots that cannot be in ui file
+	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
+			this, SLOT(colorWheel_clicked(int, const QPoint&)));
+	connect(documentColorList, SIGNAL(currentChanged(QListBoxItem *)),
+			this, SLOT(documentColorList_currentChanged(QListBoxItem *)));
+	connectSlots(true);
 }
 
-/*
- *  Destroys the object and frees any allocated resources
- */
-ColorWheelDialog::~ColorWheelDialog()
+CWDialog::~CWDialog()
 {
-	// no need to delete child widgets, Qt does it all for us
 	// preferences
 	prefs->set("cw_type", typeCombo->currentItem());
 	prefs->set("cw_angle", angleSpin->value());
 	prefs->set("cw_baseangle", colorWheel->baseAngle);
-	prefs->set("cw_r", colorWheel->actualColor.red());
-	prefs->set("cw_g", colorWheel->actualColor.green());
-	prefs->set("cw_b", colorWheel->actualColor.blue());
+	prefs->set("cw_r", rSpin->value());
+	prefs->set("cw_g", gSpin->value());
+	prefs->set("cw_b", bSpin->value());
+	prefs->set("cw_c", cSpin->value());
+	prefs->set("cw_m", mSpin->value());
+	prefs->set("cw_y", ySpin->value());
+	prefs->set("cw_k", kSpin->value());
+	prefs->set("cw_space", colorspaceTab->currentPageIndex());
+	// GUI settings
+	prefs->set("cw_width", width());
+	prefs->set("cw_height", height());
+	prefs->set("cw_samplex", previewLabel->width());
+	prefs->set("cw_sampley", previewLabel->height());
 }
 
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
-void ColorWheelDialog::languageChange()
+void CWDialog::connectSlots(bool conn)
 {
-	defectLabel->setText( tr("Vision Defect:"));
-	setCaption( tr("Color Wheel"));
-	colorList->addColumn( tr("Color"));
-	colorList->addColumn( tr("Name"));
-	colorList->addColumn( tr("C"));
-	colorList->addColumn( tr("M"));
-	colorList->addColumn( tr("Y"));
-	colorList->addColumn( tr("K"));
-	colorList->setSorting(1);
-	typeLabel->setText( tr("Select Method:"));
-	angleLabel->setText( tr("Angle (0 - 90 degrees):"));
-	addButton->setText( tr("&Merge Colors"));
-	replaceButton->setText( tr("&Replace Colors"));
-	cancelButton->setText(CommonStrings::tr_Cancel);
-	// tips
-	QToolTip::add(addButton, "<qt>" + tr("Merge created colors into the document colors") + "</qt>");
-	QToolTip::add(replaceButton, "<qt>" + tr("Replace created colors in the document colors") + "</qt>");
-	QToolTip::add(cancelButton, "<qt>" + tr("Leave colors untouched") + "</qt>");
-	QToolTip::add(angleSpin, "<qt>" + tr("Difference between the selected value and the counted ones. Refer to documentation for more information.") + "</qt>");
-	QToolTip::add(colorWheel, "<qt>" + tr("Click the wheel to get the base color. It is hue in HSV mode.") + "</qt>");
-	QToolTip::add(previewLabel, "<qt>" + tr("Sample color scheme") + "</qt>");
-	QToolTip::add(typeCombo, "<qt>" + tr("Select one of the methods to create a color scheme. Refer to documentation for more information.") + "</qt>");
-	QToolTip::add(colorList, "<qt>" + tr("Colors of your chosen color scheme") + "</qt>");
-	QToolTip::add(defectCombo, "<qt>" + tr("Simulate common vision defects here. Select type of the defect.") + "</qt>");
-}
-
-void ColorWheelDialog::fillColorList()
-{
-	colorList->clear();
-	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
+	if (conn)
 	{
-		int c, m, y, k;
-		QListViewItem *item = new QListViewItem(colorList);
-		QPixmap *pm = getSmallPixmap(it.data().getRGBColor());
-		item->setPixmap(0, *pm);
-		item->setText(1, it.key());
-		it.data().getCMYK(&c, &m, &y, &k);
-		item->setText(2, QString("%1").arg(c));
-		item->setText(3, QString("%1").arg(m));
-		item->setText(4, QString("%1").arg(y));
-		item->setText(5, QString("%1").arg(k));
+		connect( cSpin, SIGNAL( valueChanged(int) ), this, SLOT( cSpin_valueChanged(int) ) );
+		connect( mSpin, SIGNAL( valueChanged(int) ), this, SLOT( mSpin_valueChanged(int) ) );
+		connect( ySpin, SIGNAL( valueChanged(int) ), this, SLOT( ySpin_valueChanged(int) ) );
+		connect( kSpin, SIGNAL( valueChanged(int) ), this, SLOT( kSpin_valueChanged(int) ) );
+		connect( rSpin, SIGNAL( valueChanged(int) ), this, SLOT( rSpin_valueChanged(int) ) );
+		connect( gSpin, SIGNAL( valueChanged(int) ), this, SLOT( gSpin_valueChanged(int) ) );
+		connect( bSpin, SIGNAL( valueChanged(int) ), this, SLOT( bSpin_valueChanged(int) ) );
+	}
+	else
+	{
+		disconnect( cSpin, SIGNAL( valueChanged(int) ), this, SLOT( cSpin_valueChanged(int) ) );
+		disconnect( mSpin, SIGNAL( valueChanged(int) ), this, SLOT( mSpin_valueChanged(int) ) );
+		disconnect( ySpin, SIGNAL( valueChanged(int) ), this, SLOT( ySpin_valueChanged(int) ) );
+		disconnect( kSpin, SIGNAL( valueChanged(int) ), this, SLOT( kSpin_valueChanged(int) ) );
+		disconnect( rSpin, SIGNAL( valueChanged(int) ), this, SLOT( rSpin_valueChanged(int) ) );
+		disconnect( gSpin, SIGNAL( valueChanged(int) ), this, SLOT( gSpin_valueChanged(int) ) );
+		disconnect( bSpin, SIGNAL( valueChanged(int) ), this, SLOT( bSpin_valueChanged(int) ) );
 	}
 }
 
-void ColorWheelDialog::typeCombo_activated(int index)
+void CWDialog::documentColorList_currentChanged(QListBoxItem *item)
 {
+	if (!item)
+		return;
+	ScColor c = m_Doc->PageColors[documentColorList->currentText()];
+	colorWheel->currentColorSpace = c.getColorModel();
+	setupColorComponents();
+}
+
+void CWDialog::colorspaceTab_currentChanged( QWidget * tab)
+{
+	if (tab == tabCMYK)
+		colorWheel->currentColorSpace = colorModelCMYK;
+	if (tab == tabRGB)
+		colorWheel->currentColorSpace = colorModelRGB;
+	if (tab == tabDocument)
+	{
+		if (documentColorList->currentItem() == -1)
+			documentColorList->setSelected(0, true);
+		documentColorList_currentChanged(documentColorList->item(documentColorList->currentItem()));
+	}
+	processColors(typeCombo->currentItem(), true);
+}
+
+void CWDialog::typeCombo_activated(int index)
+{
+	processColors(index, false);
+}
+
+void CWDialog::processColors(int index, bool updateSpins)
+{
+	bool angEnable = false;
 	colorList->clear();
 	if (index == colorWheel->Monochromatic)
-	{
-		angleSpin->setEnabled(false);
-		angleLabel->setEnabled(false);
-		colorWheel->makeMonochromatic();
-	}
+		colorWheel->currentType = colorWheel->Monochromatic;
 	if (index == colorWheel->Analogous)
 	{
-		angleSpin->setEnabled(true);
-		angleLabel->setEnabled(true);
-		colorWheel->makeAnalogous();
+		angEnable = true;
+		colorWheel->currentType = colorWheel->Analogous;
 	}
 	if (index == colorWheel->Complementary)
-	{
-		angleSpin->setEnabled(false);
-		angleLabel->setEnabled(false);
-		colorWheel->makeComplementary();
-	}
+		colorWheel->currentType = colorWheel->Complementary;
 	if (index == colorWheel->Split)
 	{
-		angleSpin->setEnabled(true);
-		angleLabel->setEnabled(true);
-		colorWheel->makeSplit();
+		angEnable = true;
+		colorWheel->currentType = colorWheel->Split;
 	}
 	if (index == colorWheel->Triadic)
-	{
-		angleSpin->setEnabled(false);
-		angleLabel->setEnabled(false);
-		colorWheel->makeTriadic();
-	}
+		colorWheel->currentType = colorWheel->Triadic;
 	if (index == colorWheel->Tetradic)
 	{
-		angleSpin->setEnabled(true);
-		angleLabel->setEnabled(true);
-		colorWheel->makeTetradic();
+		angEnable = true;
+		colorWheel->currentType = colorWheel->Tetradic;
 	}
+	angleSpin->setEnabled(angEnable);
+	angleLabel->setEnabled(angEnable);
+	colorWheel->makeColors();
 	fillColorList();
 	setPreview();
+	if (updateSpins)
+		setupFromColor(colorWheel->actualColor);
+	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
+	rgbLabel->setText(colorWheel->actualColor.nameRGB());
 }
 
-void ColorWheelDialog::colorWheel_clicked(int, const QPoint&)
+void CWDialog::colorWheel_clicked(int, const QPoint&)
 {
-	typeCombo_activated(typeCombo->currentItem());
+	processColors(typeCombo->currentItem(), true);
 }
 
-void ColorWheelDialog::angleSpin_valueChanged(int value)
+void CWDialog::angleSpin_valueChanged(int value)
 {
 	colorWheel->angle = value;
-	typeCombo_activated(typeCombo->currentItem());
+	processColors(typeCombo->currentItem(), false);
 }
 
-void ColorWheelDialog::addButton_clicked()
-{
-	QString status("<qt><h2>" + tr("Merging colors") + "</h2><p>");
-	bool err = false;
-	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
-	{
-		if (m_Doc->PageColors.contains(it.key()))
-		{
-			status += "<b>" + tr("Error: ") + "</b>" + tr("Color %1 exists already!").arg(it.key()) + "<br/>";
-			err = true;
-		}
-		else
-		{
-			status += tr("Color %1 appended.").arg(it.key()) + "<br/>";
-			m_Doc->PageColors[it.key()] = it.data();
-		}
-	}
-	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
-	if (err)
-	{
-		QMessageBox::information(this, tr("Color Merging"), status);
-		m_Doc->scMW()->slotEditColors();
-		return;
-	}
-	m_Doc->scMW()->propertiesPalette->updateColorList();
-	m_Doc->scMW()->propertiesPalette->updateCList();
-	accept();
-}
-
-void ColorWheelDialog::replaceButton_clicked()
-{
-	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
-	{
-		m_Doc->PageColors[it.key()] = it.data();
-	}
-	m_Doc->scMW()->propertiesPalette->updateColorList();
-	m_Doc->scMW()->propertiesPalette->updateCList();
-	accept();
-}
-
-void ColorWheelDialog::cancelButton_clicked()
-{
-	reject();
-}
-
-void ColorWheelDialog::defectCombo_activated(int /*index*/)
-{
-	setPreview();
-}
-
-void ColorWheelDialog::setPreview()
+void CWDialog::setPreview()
 {
 	int x = previewLabel->width();
 	int y = previewLabel->height();
@@ -405,7 +233,7 @@ void ColorWheelDialog::setPreview()
 	previewLabel->setPixmap(pm);
 }
 
-QColor ColorWheelDialog::computeDefect(QColor c)
+QColor CWDialog::computeDefect(QColor c)
 {
 	if (defectCombo->currentItem() == VisionDefectColor::normalVision)
 		return c;
@@ -417,44 +245,160 @@ QColor ColorWheelDialog::computeDefect(QColor c)
 	return nc;
 }
 
-void ColorWheelDialog::createColor()
+void CWDialog::fillColorList()
 {
-	ScColor beginColor;
-	/* these 2 variables are defined for CMYKChoose constructor.
-	No other need to use them. */
-	ColorList tmpcl;
-	QStringList tmpsl;
-
-	beginColor.fromQColor(colorWheel->actualColor);
-	CMYKChoose* dia = new CMYKChoose(this, m_Doc, beginColor, tr("New Color"), &tmpcl, tmpsl, true);
-	if (dia->exec())
-		userColorInput(dia->Farbe.getRGBColor());
-	delete dia;
+	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
 }
 
-void ColorWheelDialog::setColorComponents()
+void CWDialog::defectCombo_activated(int)
 {
-	CwSetColor *dia = new CwSetColor(colorWheel->actualColor, this);
-	if (dia->exec())
-		userColorInput(dia->newColor);
-	delete dia;
+	setPreview();
 }
 
-void ColorWheelDialog::importColor()
+void CWDialog::addButton_clicked()
 {
-	ScribusColorList *dia = new ScribusColorList(m_Doc, this, "dia", true, 0);
-	if (dia->exec())
-		userColorInput(dia->selectedColor);
-	delete dia;
+	QString status("<qt><h2>" + tr("Merging colors") + "</h2><p>");
+	bool err = false;
+	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
+	{
+		if (m_Doc->PageColors.contains(it.key()))
+		{
+			status += "<b>" + tr("Error: ") + "</b>" + tr("Color %1 exists already!").arg(it.key()) + "<br/>";
+			err = true;
+		}
+		else
+		{
+			status += tr("Color %1 appended.").arg(it.key()) + "<br/>";
+			m_Doc->PageColors[it.key()] = it.data();
+		}
+	}
+	status += "<p>" + tr("Now opening the color manager.") + "</p></qt>";
+	if (err)
+	{
+		QMessageBox::information(this, tr("Color Merging"), status);
+		m_Doc->scMW()->slotEditColors();
+		return;
+	}
+	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->propertiesPalette->updateCList();
+	accept();
 }
 
-void ColorWheelDialog::userColorInput(QColor c)
+void CWDialog::replaceButton_clicked()
 {
+	for (ColorList::iterator it = colorWheel->colorList.begin(); it != colorWheel->colorList.end(); ++it)
+	{
+		m_Doc->PageColors[it.key()] = it.data();
+	}
+	m_Doc->scMW()->propertiesPalette->updateColorList();
+	m_Doc->scMW()->propertiesPalette->updateCList();
+	accept();
+}
+
+void CWDialog::cancelButton_clicked()
+{
+	reject();
+}
+
+void CWDialog::cSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::mSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::ySpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::kSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::rSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::gSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::bSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+ScColor CWDialog::setupRGBComponent()
+{
+	int r, g, b;
+	ScColor col(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
+	col.getRGB(&r, &g, &b);
+	connectSlots(false);
+	rSpin->setValue(r);
+	gSpin->setValue(g);
+	bSpin->setValue(b);
+	connectSlots(true);
+	return col;
+}
+
+ScColor CWDialog::setupCMYKComponent()
+{
+	int c, m, y, k;
+	ScColor col(rSpin->value(), gSpin->value(), bSpin->value());
+	col.getCMYK(&c, &m, &y, &k);
+	connectSlots(false);
+	cSpin->setValue(c);
+	mSpin->setValue(m);
+	ySpin->setValue(y);
+	kSpin->setValue(k);
+	connectSlots(true);
+	return col;
+}
+
+ScColor CWDialog::setupFromColor(ScColor col)
+{
+	int r, g, b, c, m, y, k;
+	col.getRGB(&r, &g, &b);
+	col.getCMYK(&c, &m, &y, &k);
+	connectSlots(false);
+	rSpin->setValue(r);
+	gSpin->setValue(g);
+	bSpin->setValue(b);
+	cSpin->setValue(c);
+	mSpin->setValue(m);
+	ySpin->setValue(y);
+	kSpin->setValue(k);
+	connectSlots(true);
+	return col;
+}
+
+void CWDialog::setupColorComponents()
+{
+	ScColor c;
+	if (colorspaceTab->currentPage() == tabCMYK)
+		c = setupRGBComponent();
+	if (colorspaceTab->currentPage() == tabRGB)
+		c = setupCMYKComponent();
+	if (colorspaceTab->currentPage() == tabDocument)
+		c = setupFromColor(m_Doc->PageColors[documentColorList->currentText()]);
+
 	if (colorWheel->recomputeColor(c))
-		typeCombo_activated(typeCombo->currentItem());
+		processColors(typeCombo->currentItem(), false);
 	else
+	{
+		colorList->clear();
 		QMessageBox::information(this, caption(),
-				"<qt>" + tr("Unable to find the requested color. "
-							"You have probably selected black, gray or white. "
-							"There is no way to process this color.") + "</qt>");
+								 "<qt>" + tr("Unable to find the requested color. "
+										 "You have probably selected black, gray or white. "
+										 "There is no way to process this color.") + "</qt>");
+	}
+	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
+	rgbLabel->setText(colorWheel->actualColor.nameRGB());
 }

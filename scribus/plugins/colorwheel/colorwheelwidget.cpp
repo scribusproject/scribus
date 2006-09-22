@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/* $Id$ */
+
 #include "colorwheelwidget.h"
 #include "colorwheelwidget.moc"
 #include <qpainter.h>
@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, WNoAutoErase)
 {
+	currentColorSpace = colorModelRGB;
 	baseAngle = 0;
 	angleShift = 270;
 	widthH = heightH = 150;
@@ -28,8 +29,9 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, nam
 	{
 		QColor c;
 		c.setHsv(i, 255, 255);
-		colorMap[mapIndex] = c;
-		++mapIndex;
+		ScColor col;
+		col.fromQColor(c);
+		colorMap[mapIndex++] = col;
 		if (mapIndex > 359)
 			mapIndex = 0;
 	}
@@ -49,6 +51,7 @@ void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 {
 	baseAngle = valueFromPoint(e->pos());
 	actualColor = colorMap[baseAngle];
+	actualColor.setColorModel(currentColorSpace);
 	emit clicked(e->button(), e->pos());
 }
 
@@ -56,6 +59,11 @@ void ColorWheel::paintEvent(QPaintEvent *)
 {
 	paintWheel();
 	paintCenterSample();
+	makeColors();
+}
+
+void ColorWheel::makeColors()
+{
 	if (currentType == Monochromatic)
 		makeMonochromatic();
 	if (currentType == Analogous)
@@ -75,7 +83,7 @@ void ColorWheel::paintCenterSample()
 	QPainter p;
 	p.begin(this);
 	p.setPen(QPen(Qt::black, 2));
-	p.setBrush(actualColor);
+	p.setBrush(actualColor.getRGBColor());
 	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
 	p.end();
 }
@@ -83,7 +91,8 @@ void ColorWheel::paintCenterSample()
 void ColorWheel::paintWheel()
 {
 	int h, s, v;
-	actualColor.hsv(&h, &s, &v);
+	QColor col(actualColor.getRGBColor());
+	col.hsv(&h, &s, &v);
 	int width = this->width();
 	int height = this->height();
 	QPainter p;
@@ -130,22 +139,20 @@ ScColor ColorWheel::sampleByAngle(int angle)
 	while (angle < 0)
 		angle += 359;
 	drawBorderPoint(angle);
-	return cmykColor(colorMap[angle]);
+	return colorSpaceColor(colorMap[angle]);
 }
 
-ScColor ColorWheel::cmykColor(QColor col)
+ScColor ColorWheel::colorSpaceColor(ScColor col)
 {
-	ScColor c = ScColor();
-	/* Dirty Hack to avoid Color Managed RGB -> CMYK conversion */
-	c.setSpotColor(true);
-	int h, sm, vm, s, v;
-	actualColor.getHsv(&h, &s, &v);
-	col.getHsv(&h, &sm, &vm);
-	col.setHsv(h, s, v);
-	c.fromQColor(col);
-	c.setColorModel(colorModelCMYK);
-	c.setSpotColor(false);
-	return c;
+	QColor newcol;
+	ScColor ret;
+	int h, s, v;
+	
+	col.getRGBColor().getHsv(&h, &s, &v);
+	newcol.setHsv(h, s, v);
+	ret.fromQColor(newcol);
+	ret.setColorModel(currentColorSpace);
+	return ret;
 }
 
 void ColorWheel::baseColor()
@@ -154,18 +161,20 @@ void ColorWheel::baseColor()
 	drawBorderPoint(baseAngle, true);
 	paintCenterSample();
 	colorList.clear();
-	colorList[ tr("Base Color")] = cmykColor(actualColor);
+	colorList[tr("Base Color")] = colorSpaceColor(actualColor);
 }
 
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
-	ScColor l = ScColor();
-	l.fromQColor(actualColor.light());
-	ScColor d = ScColor();
-	d.fromQColor(actualColor.dark());
+	QColor col(actualColor.getRGBColor());
+	ScColor l;
+	l.fromQColor(col.light());
+	l.setColorModel(currentColorSpace);
 	colorList[tr("Monochromatic Light")] = l;
-	colorList[tr("Monochromatic Dark")] = d;
+	l.fromQColor(col.dark());
+	l.setColorModel(currentColorSpace);
+	colorList[tr("Monochromatic Dark")] = l;
 	currentType = Monochromatic;
 }
 
@@ -266,19 +275,24 @@ int ColorWheel::valueFromPoint(const QPoint & p) const
 	return val;
 }
 
-bool ColorWheel::recomputeColor(QColor col)
+bool ColorWheel::recomputeColor(ScColor col)
 {
 	int origh, origs, origv;
 	ColorMap::iterator it;
+	QColor c(col.getRGBColor());
+	QColor act(actualColor.getRGBColor());
 
-	col.hsv(&origh, &origs, &origv);
+	c.hsv(&origh, &origs, &origv);
 	for (it = colorMap.begin(); it != colorMap.end(); ++it)
 	{
 		int tmph, tmps, tmpv;
-		it.data().hsv(&tmph, &tmps, &tmpv);
+		QColor col(it.data().getRGBColor());
+		col.hsv(&tmph, &tmps, &tmpv);
 		if (origh == tmph)
 		{
-			actualColor.setHsv(tmph, origs, origv);
+			act.setHsv(tmph, origs, origv);
+			actualColor.fromQColor(act);
+			actualColor.setColorModel(currentColorSpace);
 			baseAngle = it.key();
 			return true;
 		}

@@ -4,7 +4,7 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-/* $Id$ */
+
 #ifndef COLORWHEELWIDGET_H
 #define COLORWHEELWIDGET_H
 
@@ -12,15 +12,17 @@ for which a new license (GPL+exception) is in place.
 #include <qvaluevector.h>
 #include <scribusstructs.h>
 
+#include "sccolor.h"
+
 
 /*! \brief Mapping angle - color in the color wheel */
-typedef QMap<int,QColor> ColorMap;
+typedef QMap<int,ScColor> ColorMap;
 
 /**
-\brief Widget ColorWheel graphicaly shows a color wheel for color theory.
+\brief Widget ColorWheel graphically shows a color wheel for color theory.
 Class ColorWheel is new widget inherited from the QLabel.
 See e.g. http://en.wikipedia.org/wiki/Color_wheel for more info.
-\author Petr Vanek; petr@yarpen.cz
+\author Petr Vanek <petr@scribus.info>
 \date April 2005
 */
 class ColorWheel : public QLabel
@@ -31,7 +33,7 @@ class ColorWheel : public QLabel
 		ColorWheel(QWidget * parent, const char * name = 0);
 		~ColorWheel(){};
 
-		/** It can handle these color theory methods */
+		//! \brief It can handle these color theory methods
 		enum MethodType {
 			Monochromatic,
 			Analogous,
@@ -40,6 +42,12 @@ class ColorWheel : public QLabel
 			Triadic,
 			Tetradic
 		};
+
+		//! \brief Which color model is in use.
+		colorModel currentColorSpace;
+
+		//! \brief Actual type of color computing. See MethodType.
+		MethodType currentType;
 
 		/** \brief Difference between selected value and counted ones.
 		Let's set angle = 15 and base point e.g. 60 (everything in grades).
@@ -51,8 +59,8 @@ class ColorWheel : public QLabel
 		/*! \brief Angle of the base color */
 		int baseAngle;
 
-		/** \brief RGB interpretation of the leading point. */
-		QColor actualColor;
+		/** \brief RGB interpretation of the leading point in the wheel. */
+		ScColor actualColor;
 
 		/** \brief List of the colors created in this widget.
 		Colors can be added into Scribus color list later. */
@@ -62,6 +70,53 @@ class ColorWheel : public QLabel
 		\param aType Type of the color algorithm. See MethodType.
 		\retval QString Translated method name. */
 		QString getTypeDescription(MethodType aType);
+
+		//! \brief Call one of makeFoo() methods depending on the currentType value.
+		void makeColors();
+
+		/*! \brief Setup the values by given QColor.
+		It sets all options by given color (from input color dialogs).
+		\param col examined color
+		\retval true on color found, false when color not found - black or white etc.*/
+		bool recomputeColor(ScColor col);
+
+	signals:
+		/** \brief Signal raised by mouse click on widget by user.
+		\param button Mouse button number. See Qt docs.
+		\param point Coordinates of the mouse pointer. */
+		void clicked(int button, const QPoint & point);
+
+	protected:
+		/*! \brief Internal color mapping.
+		It provides angle-color dictionary.
+		*/
+		ColorMap colorMap;
+
+		/** \brief Angle diff between colorMap and painted wheel itself.
+		QWMatrix wheel and colorMap have different start points.
+		It's taken from Qt. */
+		int angleShift;
+
+		/*! \brief Half of the widget sizes.
+		To prevent all width()/2 divisions. */
+		int widthH;
+		int heightH;
+
+		/** \brief An event for mouse actions handling.
+		See \see clicked() for more info.
+		\param e Mouse properties. */
+		void mouseReleaseEvent(QMouseEvent *e);
+		/** \brief Mouse handling.
+		It calls mouseReleaseEvent
+		\param e Mouse properties.*/
+		void mousePressEvent(QMouseEvent *e);
+		/** \brief Mouse handling.
+		It calls mouseReleaseEvent
+		\param e Mouse properties.*/
+		void mouseMoveEvent(QMouseEvent *e);
+		/*! \brief Repaint the widget.
+		It prevents the bugs with another window moving over it */
+		void paintEvent(QPaintEvent *);
 
 		/** \brief Counts the monochromatic colors.
 		The monochromatic color scheme uses variations in lightness
@@ -92,52 +147,6 @@ class ColorWheel : public QLabel
 		It's two times complementary. */
 		void makeTetradic();
 
-		/*! \brief Setup the values by given QColor.
-		It sets all options by given color (from input color dialogs).
-		\param col examined color
-		\retval true on color found, false when color not found - black or white etc.*/
-		bool recomputeColor(QColor col);
-
-	signals:
-		/** \brief Signal raised by mouse click on widget by user.
-		\param button Mouse button number. See Qt docs.
-		\param point Coordinates of the mouse pointer. */
-		void clicked(int button, const QPoint & point);
-
-	protected:
-		/*! \brief Internal color mapping.
-		It provides angle-color dictionary.
-		*/
-		ColorMap colorMap;
-
-		/** \brief Angle diff between colorMap and painted wheel itself.
-		QWMatrix wheel and colorMap have different start points.
-		It's taken from Qt. */
-		int angleShift;
-
-		/*! \brief Half of the widget sizes.
-		To prevent all width()/2 divisions. */
-		int widthH;
-		int heightH;
-
-		MethodType currentType;
-
-		/** \brief An event for mouse actions handling.
-		See \see clicked() for more info.
-		\param e Mouse properties. */
-		void mouseReleaseEvent(QMouseEvent *e);
-		/** \brief Mouse handling.
-		It calls mouseReleaseEvent
-		\param e Mouse properties.*/
-		void mousePressEvent(QMouseEvent *e);
-		/** \brief Mouse handling.
-		It calls mouseReleaseEvent
-		\param e Mouse properties.*/
-		void mouseMoveEvent(QMouseEvent *e);
-		/*! \brief Repaint the widget.
-		It prevents the bugs with another window moving over it */
-		void paintEvent(QPaintEvent *);
-
 		/** \brief Draw center circle filled with base color */
 		void paintCenterSample();
 		/** \brief Draw a color wheel. */
@@ -154,9 +163,10 @@ class ColorWheel : public QLabel
 		void baseColor();
 
 		/** \brief Creates a Scribus ScColor from rgb value.
-		\param col a QColor to convert.
+		Its result depends on the currentColorSpace value.
+		\param col a ScColor to convert.
 		\retval ScColor Scribus color structure */
-		ScColor cmykColor(QColor col);
+		ScColor colorSpaceColor(ScColor col);
 
 		/** \brief Display user selection - selected colors.
 		Chosen colors are marked via bullets on the border of
