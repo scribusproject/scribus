@@ -26,6 +26,7 @@ docitemattrprefsbase.ui
 docsectionsbase.ui
 guidemanagerbase.ui
 insertaframebase.ui
+multipleduplicatebase.ui
 multiprogressdialogbase.ui
 pageitemattributesbase.ui
 patterndialogbase.ui
@@ -121,6 +122,7 @@ missing.h
 mpalette.h
 mspinbox.h
 multiline.h
+multipleduplicate.h
 multiprogressdialog.h
 muster.h
 navigator.h
@@ -324,6 +326,7 @@ missing.cpp
 mpalette.cpp
 mspinbox.cpp
 multiline.cpp
+multipleduplicate.cpp
 multiprogressdialog.cpp
 muster.cpp
 navigator.cpp

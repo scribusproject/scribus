@@ -63,6 +63,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "query.h"
 #include "mdup.h"
+#include "multipleduplicate.h"
 #include "docinfo.h"
 #include "reformdoc.h"
 #include "serializer.h"
@@ -499,7 +500,7 @@ bool ScribusMainWindow::warningVersion(QWidget *parent)
 {
 	bool retval = false;
 	int t = ScMessageBox::warning(parent, QObject::tr("Scribus Development Version"), "<qt>" +
-								 QObject::tr("You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the origial will be untouched. Are you sure you wish to proceed with this operation?") + "</qt>",
+								 QObject::tr("You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?") + "</qt>",
 								 CommonStrings::tr_OK, CommonStrings::tr_Cancel, "", 1, 0);
 	if (t == 0)
 		retval = true;
@@ -7127,11 +7128,10 @@ void ScribusMainWindow::GetBrushPen()
 
 	//why this.. ugh. setActiveWindow();
 	//
-	if (HaveDoc)
-	{
-		view->QueryFarben();
-		slotDocCh();
-	}
+	if (!HaveDoc)
+		return;
+	view->QueryFarben();
+	slotDocCh();
 }
 
 //CB-->??
@@ -7181,21 +7181,20 @@ void ScribusMainWindow::ObjektDup()
 //CB-->Doc
 void ScribusMainWindow::ObjektDupM()
 {
+	if (!HaveDoc)
+		return;
 	slotSelect();
 	NoFrameEdit();
-	Mdup *dia = new Mdup(this, DispX * doc->unitRatio(), DispY * doc->unitRatio(), doc->unitIndex());
-	if (UndoManager::undoEnabled())
-	{ // Make multiple duplicate a single action in the action history
-		if (doc->m_Selection->count() > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate,"",Um::IMultipleDuplicate);
-		else
-		{
-			PageItem* item=doc->m_Selection->itemAt(0);
-			undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
-		}
-	}
+	MultipleDuplicate *dia = new MultipleDuplicate(doc->unitIndex(), this);
+// 	Mdup *dia = new Mdup(this, DispX * doc->unitRatio(), DispY * doc->unitRatio(), doc->unitIndex());
+
 	if (dia->exec())
 	{
+		itemMultipleDuplicateData mdData;
+		dia->getMultiplyData(mdData);
+		doc->itemSelection_MultipleDuplicate(mdData);
+
+/*
 		bool savedAlignGrid = doc->useRaster;
 		bool savedAlignGuides = doc->SnapGuides;
 		doc->useRaster = false;
@@ -7227,17 +7226,16 @@ void ScribusMainWindow::ObjektDupM()
 			slotDocCh();
 			view->Deselect(true);
 			QString tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3").arg(anz).arg(dH).arg(dV);
-			if (UndoManager::undoEnabled())
-				undoManager->commit("", 0, "", tooltip, 0);
+
 		}
 		else
 			undoManager->cancelTransaction();
 		doc->useRaster = savedAlignGrid;
 		doc->SnapGuides = savedAlignGuides;
-
+*/
 	}
-	else if (UndoManager::undoEnabled())
-		undoManager->cancelTransaction();
+/*	else if (UndoManager::undoEnabled())
+		undoManager->cancelTransaction();*/
 	delete dia;
 }
 

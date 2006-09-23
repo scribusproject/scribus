@@ -132,6 +132,8 @@ class SCRIBUS_API Selection : public QObject
 		bool isMultipleSelection() const { return m_hasGroupSelection; }
 		bool isGUISelection() const { return m_isGUISelection; }
 		void setIsGUISelection(bool guiSelection) { m_isGUISelection=guiSelection; }
+		double width();
+		double height();
 		
 	protected:
 		SelectionList m_SelList;

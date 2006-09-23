@@ -286,3 +286,42 @@ QStringList Selection::getSelectedItemsByName()
 	return names;
 }
 
+double Selection::width( )
+{
+	if (m_SelList.isEmpty())
+		return 0.0;
+	double minX=9999999.9;
+	double maxX=-9999999.9;
+	SelectionList::Iterator it=m_SelList.begin();
+	SelectionList::Iterator itend=m_SelList.end();
+	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
+	for ( ; it!=itend ; ++it)
+	{
+		(*it)->getBoundingRect(&x1, &y1, &x2, &y2);
+		if (x1<minX)
+			minX=x1;
+		if (x2>maxX)
+			maxX=x2;
+	}
+	return maxX-minX;
+}
+
+double Selection::height( )
+{
+	if (m_SelList.isEmpty())
+		return 0.0;
+	double minY=9999999.9;
+	double maxY=-9999999.9;
+	SelectionList::Iterator it=m_SelList.begin();
+	SelectionList::Iterator itend=m_SelList.end();
+	double x1=0.0,x2=0.0,y1=0.0,y2=0.0;
+	for ( ; it!=itend ; ++it)
+	{
+		(*it)->getBoundingRect(&x1, &y1, &x2, &y2);
+		if (y1<minY)
+			minY=y1;
+		if (y2>maxY)
+			maxY=y2;
+	}
+	return maxY-minY;
+}

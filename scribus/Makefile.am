@@ -133,6 +133,8 @@ scribus_SOURCES = \
 	mpalette.cpp	\
 	mspinbox.cpp	\
 	multiline.cpp	\
+	multipleduplicatebase.ui \
+	multipleduplicate.cpp \
 	multiprogressdialogbase.ui	\
 	multiprogressdialog.cpp	\
 	muster.cpp	\

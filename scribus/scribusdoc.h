@@ -969,6 +969,7 @@ public slots:
 	void itemSelection_DistributeLeft();
 	void itemSelection_DistributeCenterV();
 	void itemSelection_DistributeTop();
+	void itemSelection_MultipleDuplicate(itemMultipleDuplicateData&);
 
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);

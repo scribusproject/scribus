@@ -10,9 +10,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <qvariant.h>
 #include <qdialog.h>
+
+#include "cwdialogbase.h"
 #include "colorwheelwidget.h"
 #include "scribus.h"
-#include "cwdialogbase.h"
 
 class QVBoxLayout;
 class QHBoxLayout;

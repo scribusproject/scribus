@@ -23,6 +23,7 @@ docsectionsbase.h
 insertaframebase.h
 insertaframebase.cpp
 guidemanagerbase.h
+multipleduplicatebase.h
 multiprogressdialogbase.h
 pageitemattributesbase.h
 patterndialogbase.h
@@ -43,6 +44,7 @@ aboutpluginsbase.cpp
 docitemattrprefsbase.cpp
 docsectionsbase.cpp
 guidemanagerbase.cpp
+multipleduplicatebase.cpp
 multiprogressdialogbase.cpp
 pageitemattributesbase.cpp
 patterndialogbase.cpp

@@ -591,7 +591,7 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 		CloseCMSProfiles();
 		cmsErrorAction(LCMS_ERROR_ABORT);
 		CMSSettings.CMSinUse = false;
-		QString message = tr("An error occurred while opening icc profiles, color management is not enabled." );
+		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
 		if (ScCore->usingGUI())
 			QMessageBox::warning(m_ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
 		else
@@ -7696,4 +7696,87 @@ FPoint ScribusDoc::ApplyGridF(const FPoint& in)
 	else
 		np = in;
 	return np;
+}
+
+void ScribusDoc::itemSelection_MultipleDuplicate(itemMultipleDuplicateData& mdData)
+{
+	if ((mdData.duplicateType==0 && mdData.copyCount<1) || (mdData.duplicateType==1 && (mdData.gridRows==1 && mdData.gridCols==1)))
+		return;
+	QString tooltip("");
+	if (UndoManager::undoEnabled())
+	{ // Make multiple duplicate a single action in the action history
+		if (m_Selection->count() > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::MultipleDuplicate,"",Um::IMultipleDuplicate);
+		else
+		{
+			PageItem* item=m_Selection->itemAt(0);
+			undoManager->beginTransaction(item->getUName(), item->getUPixmap(), Um::MultipleDuplicate, "", Um::IMultipleDuplicate);
+		}
+	}
+	//FIXME: Enable paste without doing this save/restore, and stop using paste with all the refreshes
+	bool savedAlignGrid = useRaster;
+	bool savedAlignGuides = SnapGuides;
+	useRaster = false;
+	SnapGuides = false;
+	if (mdData.duplicateType==0) // Copy and offset or set a gap
+	{
+		double dH = mdData.copyShiftGapH / docUnitRatio;
+		double dV = mdData.copyShiftGapV / docUnitRatio;
+		double dH2 = dH;
+		double dV2 = dV;
+		if (mdData.copyShiftOrGap==1)
+		{
+			dH2+=m_Selection->width();
+			dV2+=m_Selection->height();
+		}
+		m_ScMW->slotEditCopy();
+		m_View->Deselect(true);
+		for (int i=0; i<mdData.copyCount; ++i)
+		{
+			m_ScMW->slotEditPaste();
+			for (uint b=0; b<m_Selection->count(); ++b)
+			{
+				PageItem* bItem=m_Selection->itemAt(b);
+				bItem->setLocked(false);
+				m_View->MoveItem(dH2, dV2, bItem, true);
+			}
+			dH2 += dH;
+			dV2 += dV;
+		}
+		changed();
+		m_View->Deselect(true);
+		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3").arg(mdData.copyCount).arg(dH).arg(dV);
+	}
+	else
+	if (mdData.duplicateType==1) // Create a grid of duplicated items
+	{
+		m_ScMW->slotEditCopy();
+		int copyCount=mdData.gridRows*mdData.gridCols;
+		double dX=mdData.gridGapH/docUnitRatio + m_Selection->width();
+		double dY=mdData.gridGapV/docUnitRatio + m_Selection->height();
+		m_View->Deselect(true);
+		for (int i=0; i<mdData.gridRows; ++i) //skip 0, the item is the one we are copying
+		{
+			for (int j=0; j<mdData.gridCols; ++j) //skip 0, the item is the one we are copying
+			{
+				if (i==0 && j==0)
+					continue;
+				m_ScMW->slotEditPaste();
+				for (uint b=0; b<m_Selection->count(); ++b)
+				{
+					PageItem* bItem=m_Selection->itemAt(b);
+					bItem->setLocked(false);
+					m_View->MoveItem(j*dX, i*dY, bItem, true);
+				}
+			}
+		}
+		changed();
+		m_View->Deselect(true);
+		tooltip = tr("Number of copies: %1\nHorizontal gap: %2\nVertical gap: %3").arg(copyCount-1).arg(mdData.gridGapH).arg(mdData.gridGapV);
+	}
+	if (UndoManager::undoEnabled())
+		undoManager->commit("", 0, "", tooltip, 0);
+	//FIXME: Enable paste without doing this save/restore
+	useRaster = savedAlignGrid;
+	SnapGuides = savedAlignGuides;
 }

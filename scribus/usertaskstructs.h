@@ -29,4 +29,17 @@ struct insertAFrameData
 	bool linkTextFrames;
 };
 
+struct itemMultipleDuplicateData
+{
+	int duplicateType;
+	int copyCount;
+	int copyShiftOrGap;
+	double copyShiftGapH;
+	double copyShiftGapV;
+	int gridRows;
+	int gridCols;
+	double gridGapH;
+	double gridGapV;
+};
+
 #endif
