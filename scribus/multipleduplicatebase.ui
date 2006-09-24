@@ -47,7 +47,7 @@
                     </property>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout25</cstring>
+                            <cstring>layout9</cstring>
                         </property>
                         <hbox>
                             <property name="name">
@@ -55,7 +55,7 @@
                             </property>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout24</cstring>
+                                    <cstring>layout8</cstring>
                                 </property>
                                 <vbox>
                                     <property name="name">
@@ -111,53 +111,48 @@
                                         <property name="title">
                                             <string></string>
                                         </property>
+                                        <property name="alignment">
+                                            <set>AlignVCenter</set>
+                                        </property>
                                         <property name="exclusive">
                                             <bool>true</bool>
                                         </property>
-                                        <widget class="QRadioButton">
+                                        <vbox>
                                             <property name="name">
-                                                <cstring>createGapRadioButton</cstring>
+                                                <cstring>unnamed</cstring>
                                             </property>
-                                            <property name="geometry">
-                                                <rect>
-                                                    <x>0</x>
-                                                    <y>20</y>
-                                                    <width>204</width>
-                                                    <height>22</height>
-                                                </rect>
-                                            </property>
-                                            <property name="text">
-                                                <string>Create &amp;Gap Between Items Of</string>
-                                            </property>
-                                            <property name="accel">
-                                                <string>Alt+G</string>
-                                            </property>
-                                            <property name="buttonGroupId">
-                                                <number>1</number>
-                                            </property>
-                                        </widget>
-                                        <widget class="QRadioButton">
-                                            <property name="name">
-                                                <cstring>shiftCreatedItemsRadioButton</cstring>
-                                            </property>
-                                            <property name="geometry">
-                                                <rect>
-                                                    <x>-1</x>
-                                                    <y>-3</y>
-                                                    <width>204</width>
-                                                    <height>22</height>
-                                                </rect>
-                                            </property>
-                                            <property name="text">
-                                                <string>&amp;Shift Created Items By</string>
-                                            </property>
-                                            <property name="accel">
-                                                <string>Alt+S</string>
-                                            </property>
-                                            <property name="buttonGroupId">
+                                            <property name="margin">
                                                 <number>0</number>
                                             </property>
-                                        </widget>
+                                            <widget class="QRadioButton">
+                                                <property name="name">
+                                                    <cstring>shiftCreatedItemsRadioButton</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>&amp;Shift Created Items By</string>
+                                                </property>
+                                                <property name="accel">
+                                                    <string>Alt+S</string>
+                                                </property>
+                                                <property name="buttonGroupId">
+                                                    <number>0</number>
+                                                </property>
+                                            </widget>
+                                            <widget class="QRadioButton">
+                                                <property name="name">
+                                                    <cstring>createGapRadioButton</cstring>
+                                                </property>
+                                                <property name="text">
+                                                    <string>Create &amp;Gap Between Items Of</string>
+                                                </property>
+                                                <property name="accel">
+                                                    <string>Alt+G</string>
+                                                </property>
+                                                <property name="buttonGroupId">
+                                                    <number>1</number>
+                                                </property>
+                                            </widget>
+                                        </vbox>
                                     </widget>
                                     <widget class="QLayoutWidget">
                                         <property name="name">
@@ -227,7 +222,7 @@
                                 </property>
                                 <property name="sizeHint">
                                     <size>
-                                        <width>40</width>
+                                        <width>61</width>
                                         <height>20</height>
                                     </size>
                                 </property>
