@@ -96,7 +96,7 @@ void TOCIndexPrefs::languageChange()
 	tocParagraphStyleLabel->setText( tr( "Paragraph Style:" ) );
 	tocDestFrameLabel->setText( tr( "Destination Frame:" ) );
 	tabTOCIndexWidget->changeTab( tab, tr( "Table Of Contents" ) );
-	tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
+// 	tabTOCIndexWidget->changeTab( tab_2, tr( "Inde&x" ) );
 }
 
 void TOCIndexPrefs::init()
