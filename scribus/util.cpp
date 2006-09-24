@@ -803,6 +803,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	}
 	OB->Shade = obj->attribute("SHADE").toInt();
 	OB->Shade2 = obj->attribute("SHADE2").toInt();
+	OB->FillRule = obj->attribute("fillRule", "1").toInt();
 	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
 	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
 	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();

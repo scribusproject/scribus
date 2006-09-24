@@ -3135,6 +3135,7 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->Pcolor2 = lineColor();
 	Buffer->Shade = fillShade();
 	Buffer->Shade2 = lineShade();
+	Buffer->FillRule = fillRule;
 	Buffer->GrColor = "";
 	Buffer->GrColor2 = "";
 	Buffer->GrShade = 100;

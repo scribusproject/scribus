@@ -10091,6 +10091,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineColor(Buffer->Pcolor2);
 	currItem->setFillShade(Buffer->Shade);
 	currItem->setLineShade(Buffer->Shade2);
+	currItem->fillRule = Buffer->FillRule;
 /*	currItem->TxtStroke = Buffer->TxtStroke;
 	currItem->TxtFill = Buffer->TxtFill;
 	currItem->ShTxtStroke = Buffer->ShTxtStroke;
