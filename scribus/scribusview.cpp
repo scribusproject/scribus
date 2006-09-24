@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcstring.h>
 #include <qfileinfo.h>
 #include <qfile.h>
+#include <qptrstack.h>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -654,6 +655,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
+	QPtrStack<PageItem> groupStack;
+	QPtrStack<PageItem> groupClips;
 	double z = painter->zoomFactor();
 	if (!page->MPageNam.isEmpty())
 	{
@@ -690,6 +693,16 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							continue;
 						if ((previewMode) && (!currItem->printEnabled()))
 							continue;
+						if (currItem->isGroupControl)
+						{
+							painter->save();
+#ifdef HAVE_CAIRO
+							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode());
+#endif
+							groupClips.push(currItem);
+							groupStack.push(currItem->groupsLastItem);
+							continue;
+						}
 						currItem->savedOwnPage = currItem->OwnPage;
 //						int savedOwnPage = currItem->OwnPage;
 						double OldX = currItem->xPos();
@@ -717,6 +730,23 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->setXYPos(OldX, OldY, true);
 							currItem->BoundingX = OldBX;
 							currItem->BoundingY = OldBY;
+						}
+						if (groupStack.count() != 0)
+						{
+							while (currItem == groupStack.top())
+							{
+								PageItem *tmpItem = groupClips.pop();
+								FPointArray cl = tmpItem->PoLine.copy();
+								QWMatrix mm;
+								mm.translate(tmpItem->xPos(), tmpItem->yPos());
+								mm.rotate(tmpItem->rotation());
+								cl.map( mm );
+#ifdef HAVE_CAIRO
+								painter->endLayer(&cl);
+#endif
+								painter->restore();
+								groupStack.pop();
+							}
 						}
 					}
 					for (uint a = 0; a < pageFromMasterCount; ++a)
@@ -789,6 +819,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	linkedFramesToShow.clear();
 	double z = painter->zoomFactor();
+	QPtrStack<PageItem> groupStack;
+	QPtrStack<PageItem> groupClips;
 	if (Doc->Items->count() != 0)
 	{
 		int Lnr=0;
@@ -824,6 +856,16 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					{
 						if (currItem->OnMasterPage != Doc->currentPage()->pageName())
 							continue;
+					}
+					if (currItem->isGroupControl)
+					{
+						painter->save();
+#ifdef HAVE_CAIRO
+						painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode());
+#endif
+						groupClips.push(currItem);
+						groupStack.push(currItem->groupsLastItem);
+						continue;
 					}
 					QRect oldR(currItem->getRedrawBounding(Scale));
 					if (clip.intersects(oldR))
@@ -874,6 +916,23 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 								horizRuler->TabValues = currItem->currentStyle().tabValues();
 								horizRuler->repaint();
 							}
+						}
+					}
+					if (groupStack.count() != 0)
+					{
+						while (currItem == groupStack.top())
+						{
+							PageItem *tmpItem = groupClips.pop();
+							FPointArray cl = tmpItem->PoLine.copy();
+							QWMatrix mm;
+							mm.translate(tmpItem->xPos(), tmpItem->yPos());
+							mm.rotate(tmpItem->rotation());
+							cl.map( mm );
+#ifdef HAVE_CAIRO
+							painter->endLayer(&cl);
+#endif
+							painter->restore();
+							groupStack.pop();
 						}
 					}
 				}
@@ -2358,13 +2417,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					pmen->insertItem( tr("Conve&rt to"), pmen2);
 			}
 			pmen->insertSeparator();
-			if (!currItem->locked() && !(currItem->isTableItem && currItem->isSingleSel))
+			if (!currItem->locked() && !(currItem->isSingleSel))
 				m_ScMW->scrActions["editCut"]->addTo(pmen);
-			if (!(currItem->isTableItem && currItem->isSingleSel))
+			if (!(currItem->isSingleSel))
 				m_ScMW->scrActions["editCopy"]->addTo(pmen);
 			if ((Doc->appMode == modeEdit) && (m_ScMW->Buffer2.startsWith("<SCRIBUSTEXT")) && (currItem->itemType() == PageItem::TextFrame))
 				m_ScMW->scrActions["editPaste"]->addTo(pmen);
-			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isTableItem && currItem->isSingleSel)))
+			if (!currItem->locked() && (Doc->appMode != modeEdit) && (!(currItem->isSingleSel)))
 				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
@@ -3750,7 +3809,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 		newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
-		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) /* && (!currItem->locked()) */ && (!(currItem->isTableItem && currItem->isSingleSel)))
+		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) /* && (!currItem->locked()) */ && (!(currItem->isSingleSel)))
 		{
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
@@ -10055,6 +10114,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setPrintEnabled(Buffer->isPrintable);
 	currItem->isBookmark = Buffer->isBookmark;
 //	currItem->BMnr = Buffer->BMnr;
+	currItem->Groups = Buffer->Groups;
 	currItem->setIsAnnotation(Buffer->m_isAnnotation);
 	currItem->setAnnotation(Buffer->m_annotation);
 	if (!Buffer->AnName.isEmpty())
@@ -10074,6 +10134,11 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 			currItem->setItemName(currItem->generateUniqueCopyName(Buffer->AnName));
 			currItem->AutoName = false;
 		}
+	}
+	else
+	{
+		if (currItem->isGroupControl)
+			currItem->setItemName( tr("Group%1").arg(currItem->Groups.top()));
 	}
 
 	currItem->TopLine = Buffer->TopLine;
@@ -10095,7 +10160,6 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 //	currItem->setFont(Buffer->IFont);
 //	currItem->setFontSize(Buffer->ISize);
 //	currItem->ExtraV = Buffer->ExtraV;
-	currItem->Groups = Buffer->Groups;
 	currItem->TabValues = Buffer->TabValues;
 	currItem->DashValues = Buffer->DashValues;
 	currItem->DashOffset = Buffer->DashOffset;

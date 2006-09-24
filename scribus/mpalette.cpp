@@ -37,6 +37,9 @@ for which a new license (GPL+exception) is in place.
 #include "undomanager.h"
 #include "util.h"
 #include "text/nlsconfig.h"
+#ifdef HAVE_CAIRO
+#include <cairo.h>
+#endif
 
 using namespace std;
 
@@ -477,6 +480,59 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	pageLayout_2->addItem( spacer6 );
 	idShapeItem=TabStack->addItem( page_2, "&Shape" );
 
+	page_group = new QWidget(TabStack, "page_group");
+	page_group_layout = new QVBoxLayout( page_group, 0, 5, "pageLayout_2");
+
+	ShapeGroup2 = new QButtonGroup( "", page_group, "ShapeGroup2" );
+	ShapeGroup2->setFrameShape( QButtonGroup::NoFrame );
+	ShapeGroup2->setExclusive( true );
+	ShapeGroup2->setColumnLayout(0, Qt::Vertical );
+	ShapeGroup2->layout()->setSpacing( 2 );
+	ShapeGroup2->layout()->setMargin( 0 );
+	ShapeGroupLayout2 = new QHBoxLayout( ShapeGroup2->layout() );
+	ShapeGroupLayout2->setAlignment( Qt::AlignTop );
+	SRect2 = new QLabel( "Shape:", ShapeGroup2, "SRect" );
+	ShapeGroupLayout2->addWidget( SRect2 );
+	SCustom2 = new Autoforms( ShapeGroup2 );
+	ShapeGroupLayout2->addWidget( SCustom2 );
+	page_group_layout->addWidget( ShapeGroup2 );
+	EditShape2 = new QToolButton( page_group, "EditShape" );
+	page_group_layout->addWidget( EditShape2 );
+	TransGroup = new QGroupBox( tr( "Transparency Settings" ), page_group, "TransGroup" );
+	TransGroup->setColumnLayout(0, Qt::Vertical );
+	TransGroup->layout()->setSpacing( 0 );
+	TransGroup->layout()->setMargin( 0 );
+	Layout1t = new QGridLayout( TransGroup->layout() );
+	Layout1t->setAlignment( Qt::AlignTop );
+	Layout1t->setSpacing( 5 );
+	Layout1t->setMargin( 5 );
+	TransTxt = new QLabel( TransGroup, "Transtxt" );
+	Layout1t->addWidget( TransTxt, 0, 0 );
+	TransSpin = new QSpinBox( TransGroup, "traspin" );
+	TransSpin->setMinValue(0);
+	TransSpin->setMaxValue(100);
+	TransSpin->setLineStep(10);
+	TransSpin->setValue(100);
+	Layout1t->addWidget(TransSpin, 0, 1);
+	TransTxt2 = new QLabel( TransGroup, "textLabel1" );
+	Layout1t->addWidget( TransTxt2, 1, 0 );
+	blendMode = new ScComboBox( false, TransGroup, "blendMode" );
+	Layout1t->addWidget( blendMode, 1, 1 );
+	page_group_layout->addWidget(TransGroup);
+//	TransGroup->setEnabled(false);
+#ifndef HAVE_CAIRO
+	blendMode->hide();
+	TransTxt2->hide();
+#else
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
+	blendMode->hide();
+	TransTxt2->hide();
+#endif
+#endif
+	QSpacerItem* spacerTr2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	page_group_layout->addItem( spacerTr2 );
+	idGroupItem = TabStack->addItem(page_group, "Groups");
+
 	page_3 = new QWidget( TabStack, "page_3" );
 	pageLayout_3 = new QVBoxLayout( page_3, 0, 5, "pageLayout_3");
 	pageLayout_3->setAlignment( Qt::AlignLeft );
@@ -850,6 +906,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 
 	connect(SCustom, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
 	connect(EditShape, SIGNAL(clicked()), this, SLOT(EditSh()));
+	connect(SCustom2, SIGNAL(FormSel(int, int, double *)), this, SLOT(MakeIrre(int, int, double *)));
+	connect(EditShape2, SIGNAL(clicked()), this, SLOT(EditSh2()));
 	connect(dGap, SIGNAL(valueChanged(int)), this, SLOT(NewGap()));
 	connect(DCol, SIGNAL(valueChanged(int)), this, SLOT(NewCols()));
 	connect(DTop, SIGNAL(valueChanged(int)), this, SLOT(NewTDist()));
@@ -892,6 +950,8 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect( NonZero, SIGNAL( clicked() ), this, SLOT( handleFillRule() ) );
 	connect( KnockOut, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
 	connect( Overprint, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
+	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -902,7 +962,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	RoundRect->setValue(0);
 	TabStack3->raiseWidget(0);
 	TabStack2->raiseWidget(0);
-	for (int ws = 1; ws < 6; ++ws)
+	for (int ws = 1; ws < 7; ++ws)
 		TabStack->setItemEnabled(ws, false);
 	TabStack->setCurrentIndex(0);
 	TabStack->item(0)->setEnabled(false);
@@ -936,7 +996,7 @@ void Mpalette::SelTab(int t)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
-	if ((HaveDoc) && (HaveItem) && (t == 5))
+	if ((HaveDoc) && (HaveItem) && (t == idColorsItem))
 	{
 		Cpal->setActGradient(CurItem->GrType);
 		updateColorSpecialGradient();
@@ -1065,7 +1125,7 @@ void Mpalette::setCurrentItem(PageItem *i)
 	connect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
 	*/
 //	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
-	if (TabStack->currentIndex() == 5)
+	if (TabStack->currentIndex() == idColorsItem)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
@@ -1142,6 +1202,24 @@ void Mpalette::setCurrentItem(PageItem *i)
 	else
 		TabStack3->raiseWidget(0);
 	LayerGroup->setEnabled(!setter);
+	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
+	if (i->isGroupControl)
+	{
+		TabStack->setItemEnabled(idGroupItem, true);
+		if (i->FrameType == 0)
+			SCustom2->setPixmap(SCustom2->getIconPixmap(0));
+		if (i->FrameType == 1)
+			SCustom2->setPixmap(SCustom2->getIconPixmap(1));
+		if (i->FrameType > 3)
+			SCustom2->setPixmap(SCustom2->getIconPixmap(i->FrameType-2));
+		TransSpin->setValue(qRound(100 - (i->fillTransparency() * 100)));
+		blendMode->setCurrentItem(i->fillBlendmode());
+	}
+	else
+		TabStack->setItemEnabled(idGroupItem, false);
+	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	/*
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
@@ -1176,13 +1254,16 @@ void Mpalette::setCurrentItem(PageItem *i)
 	KnockOut->setChecked(!i->doOverprint);
 	Overprint->setChecked(i->doOverprint);
 
-	if ((i->itemType() == PageItem::Line) && LMode) {
+	if ((i->itemType() == PageItem::Line) && LMode)
+	{
 		xposLabel->setText( tr( "&X1:" ) );
 		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
 		heightLabel->setText( tr( "&Y2:" ) );
 		Rot->setEnabled(false);
-	} else {
+	}
+	else
+	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
@@ -1264,34 +1345,35 @@ void Mpalette::SetCurItem(PageItem *i)
 
 	HaveItem = false;
 	CurItem = i;
-	if (TabStack->currentIndex() == 5)
+
+	if (TabStack->currentIndex() == idColorsItem)
 		Cpal->setActGradient(CurItem->GrType);
 	updateColorSpecialGradient();
 	Cpal->gradEdit->Preview->fill_gradient = CurItem->fill_gradient;
 	Cpal->gradEdit->Preview->updateDisplay();
-	if (i->FrameType == 0)
+	if (CurItem->FrameType == 0)
 		SCustom->setPixmap(SCustom->getIconPixmap(0));
-	if (i->FrameType == 1)
+	if (CurItem->FrameType == 1)
 		SCustom->setPixmap(SCustom->getIconPixmap(1));
-	if (i->FrameType > 3)
-		SCustom->setPixmap(SCustom->getIconPixmap(i->FrameType-2));
-	if ((i->asLine()) || (i->asPolyLine()))
+	if (CurItem->FrameType > 3)
+		SCustom->setPixmap(SCustom->getIconPixmap(CurItem->FrameType-2));
+	if ((CurItem->asLine()) || (CurItem->asPolyLine()))
 	{
 		startArrow->setEnabled(true);
 		endArrow->setEnabled(true);
-		startArrow->setCurrentItem(i->startArrowIndex());
-		endArrow->setCurrentItem(i->endArrowIndex());
+		startArrow->setCurrentItem(CurItem->startArrowIndex());
+		endArrow->setCurrentItem(CurItem->endArrowIndex());
 	}
 	else
 	{
 		startArrow->setEnabled(false);
 		endArrow->setEnabled(false);
 	}
-	NameEdit->setText(i->itemName());
-	RoundRect->setValue(i->cornerRadius()*Umrech);
+	NameEdit->setText(CurItem->itemName());
+	RoundRect->setValue(CurItem->cornerRadius()*Umrech);
 	QString tm;
-	LevelTxt->setText(tm.setNum(i->ItemNr));
-	PageItem_TextFrame *i2=i->asTextFrame();
+	LevelTxt->setText(tm.setNum(CurItem->ItemNr));
+	PageItem_TextFrame *i2=CurItem->asTextFrame();
 	if (i2!=0)
 	{
 		DCol->setMaxValue(QMAX(qRound(i2->width() / QMAX(i2->ColGap, 10.0)), 1));
@@ -1314,8 +1396,8 @@ void Mpalette::SetCurItem(PageItem *i)
 		DBottom->setValue(i2->textToFrameDistBottom()*Umrech);
 		DRight->setValue(i2->textToFrameDistRight()*Umrech);
 	}
-	Revert->setOn(i->reversed());
-	setTextFlowMode(i->textFlowMode());
+	Revert->setOn(CurItem->reversed());
+	setTextFlowMode(CurItem->textFlowMode());
 	/*
 	disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 	disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1326,14 +1408,14 @@ void Mpalette::SetCurItem(PageItem *i)
 	*/
 //	langCombo->setCurrentText(m_ScMW->LangTransl[i->doc()->Language]);
 	bool setter;
-	if (i->NamedLStyle.isEmpty())
+	if (CurItem->NamedLStyle.isEmpty())
 	{
 		StyledLine->setCurrentItem(0);
 		setter = true;
 	}
 	else
 	{
-		StyledLine->setSelected(StyledLine->findItem(i->NamedLStyle), true);
+		StyledLine->setSelected(StyledLine->findItem(CurItem->NamedLStyle), true);
 		setter = false;
 	}
 	LStyle->setEnabled(setter);
@@ -1348,58 +1430,79 @@ void Mpalette::SetCurItem(PageItem *i)
 	//NoPrint->setOn(!i->printEnabled());
 	//setLocked(i->locked());
 	//setSizeLocked(i->sizeLocked());
-	if ((i->isTableItem) && (i->isSingleSel))
+	if ((CurItem->isTableItem) && (CurItem->isSingleSel))
 	{
 		setter = true;
 		TabStack3->raiseWidget(1);
-		TopLine->setChecked(i->TopLine);
-		LeftLine->setChecked(i->LeftLine);
-		RightLine->setChecked(i->RightLine);
-		BottomLine->setChecked(i->BottomLine);
+		TopLine->setChecked(CurItem->TopLine);
+		LeftLine->setChecked(CurItem->LeftLine);
+		RightLine->setChecked(CurItem->RightLine);
+		BottomLine->setChecked(CurItem->BottomLine);
 	}
 	else
 		TabStack3->raiseWidget(0);
 	LayerGroup->setEnabled(!setter);
+	disconnect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
+	disconnect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
+	if (CurItem->isGroupControl)
+	{
+		TabStack->setItemEnabled(idGroupItem, true);
+		if (CurItem->FrameType == 0)
+			SCustom2->setPixmap(SCustom2->getIconPixmap(0));
+		if (CurItem->FrameType == 1)
+			SCustom2->setPixmap(SCustom2->getIconPixmap(1));
+		if (CurItem->FrameType > 3)
+			SCustom2->setPixmap(SCustom2->getIconPixmap(CurItem->FrameType-2));
+		TransSpin->setValue(qRound(100 - (CurItem->fillTransparency() * 100)));
+		blendMode->setCurrentItem(CurItem->fillBlendmode());
+	}
+	else
+		TabStack->setItemEnabled(idGroupItem, false);
+	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
+	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
 	/*
 	Xpos->setReadOnly(setter);
 	Ypos->setReadOnly(setter);
 	Rot->setReadOnly(setter);
 	*/
-	if (i->asPathText())
+	if (CurItem->asPathText())
 	{
 		TabStack2->raiseWidget(1);
-		showcurveCheckBox->setChecked(i->PoShow);
-		LineW->setValue(i->BaseOffs * -1);
-		Dist->setValue(i->textToFrameDistLeft());
+		showcurveCheckBox->setChecked(CurItem->PoShow);
+		LineW->setValue(CurItem->BaseOffs * -1);
+		Dist->setValue(CurItem->textToFrameDistLeft());
 	}
-	else if (i->asPolygon())
+	else if (CurItem->asPolygon())
 	{
 		TabStack2->raiseWidget(2);
-		NonZero->setChecked(!i->fillRule);
-		EvenOdd->setChecked(i->fillRule);
+		NonZero->setChecked(!CurItem->fillRule);
+		EvenOdd->setChecked(CurItem->fillRule);
 	}
 	else
 		TabStack2->raiseWidget(0);
 	// Frame type 3 is obsolete: CR 2005-02-06
 	//if (((i->itemType() == PageItem::TextFrame) || (i->itemType() == PageItem::ImageFrame) || (i->itemType() == 3)) &&  (!i->ClipEdited))
-	if (((i->asTextFrame()) || (i->asImageFrame())) &&  (!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
+	if (((CurItem->asTextFrame()) || (CurItem->asImageFrame())) &&  (!CurItem->ClipEdited) && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
 		RoundRect->setEnabled(true);
 	else
 	{
-		if ((i->asPolygon()) &&  (!i->ClipEdited)  && ((i->FrameType == 0) || (i->FrameType == 2)))
+		if ((CurItem->asPolygon()) &&  (!CurItem->ClipEdited)  && ((CurItem->FrameType == 0) || (CurItem->FrameType == 2)))
 			RoundRect->setEnabled(true);
 		else
 			RoundRect->setEnabled(false);
 	}
-	KnockOut->setChecked(!i->doOverprint);
-	Overprint->setChecked(i->doOverprint);
-	if ((i->itemType() == PageItem::Line) && LMode) {
+	KnockOut->setChecked(!CurItem->doOverprint);
+	Overprint->setChecked(CurItem->doOverprint);
+	if ((CurItem->itemType() == PageItem::Line) && LMode)
+	{
 		xposLabel->setText( tr( "&X1:" ) );
 		widthLabel->setText( tr( "X&2:" ) );
 		yposLabel->setText( tr( "Y&1:" ) );
 		heightLabel->setText( tr( "&Y2:" ) );
 		Rot->setEnabled(false);
-	} else {
+	}
+	else
+	{
 		xposLabel->setText( tr( "&X-Pos:" ) );
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
@@ -1407,10 +1510,10 @@ void Mpalette::SetCurItem(PageItem *i)
 		Rot->setEnabled(true);
 	}
 	HaveItem = true;
-	if (i->asLine())
+	if (CurItem->asLine())
 	{
 		keepFrameWHRatioButton->setEnabled(false);
-		if (LMode && !i->locked())
+		if (LMode && !CurItem->locked())
 			Height->setEnabled(true);
 		else
 			Height->setEnabled(false);
@@ -1419,12 +1522,12 @@ void Mpalette::SetCurItem(PageItem *i)
 	{
 		Height->setEnabled(true);
 		keepFrameWHRatioButton->setEnabled(true);
-		if (i->asImageFrame())
+		if (CurItem->asImageFrame())
 		{
 			updateCmsList();
-			EditEffects->setShown(i->PicAvail && i->isRaster);
-			EditPSDProps->setShown(i->PicAvail && i->pixm.imgInfo.valid);
-			setter = i->ScaleType;
+			EditEffects->setShown(CurItem->PicAvail && CurItem->isRaster);
+			EditPSDProps->setShown(CurItem->PicAvail && CurItem->pixm.imgInfo.valid);
+			setter = CurItem->ScaleType;
 			FreeScale->setChecked(setter);
 			FrameScale->setChecked(!setter);
 //CB Why do we need this? Setting it too much here
@@ -1434,7 +1537,7 @@ void Mpalette::SetCurItem(PageItem *i)
 // 				keepImageDPIRatioButton->setOn(setter);
 // 			}
 			Aspect->setEnabled(!setter);
-			Aspect->setChecked(i->AspectRatio);
+			Aspect->setChecked(CurItem->AspectRatio);
 			imageXOffsetSpinBox->setEnabled(setter);
 			imageYOffsetSpinBox->setEnabled(setter);
 			imageXScaleSpinBox->setEnabled(setter);
@@ -1443,7 +1546,7 @@ void Mpalette::SetCurItem(PageItem *i)
 			imgDpiY->setEnabled(setter);
 		}
 	}
-	setXY(i->xPos(), i->yPos());
+	setXY(CurItem->xPos(), CurItem->yPos());
 
 	updateSpinBoxConstants();
 }
@@ -1489,9 +1592,9 @@ void Mpalette::NewSel(int nr)
 		Rot->setEnabled(true);
 // 		TabStack->setCurrentIndex(0);
 		TabStack->item(0)->setEnabled(true);
-		TabStack->setItemEnabled(0, true);
+		TabStack->setItemEnabled(idXYZItem, true);
 		NameEdit->setEnabled(false);
-		TabStack->setItemEnabled(5, true);
+		TabStack->setItemEnabled(idColorsItem, true);
 		FlipH->setToggleButton( true );
 		FlipV->setToggleButton( true );
 		FlipH->setOn(false);
@@ -1523,8 +1626,8 @@ void Mpalette::NewSel(int nr)
 		Center->setEnabled(true);
 		visID = TabStack->currentIndex ();
 		TabStack->item(0)->setEnabled(true);
-		TabStack->setItemEnabled(0, true);
-		TabStack->setItemEnabled(5, true);
+		TabStack->setItemEnabled(idXYZItem, true);
+		TabStack->setItemEnabled(idColorsItem, true);
 		/*
 		disconnect(FlipH, SIGNAL(clicked()), this, SLOT(handleFlipH()));
 		disconnect(FlipV, SIGNAL(clicked()), this, SLOT(handleFlipV()));
@@ -1567,18 +1670,18 @@ void Mpalette::NewSel(int nr)
 			Height->setValue(0);
 			Rot->setValue(0);
 			RoundRect->setValue(0);
-			for (int ws = 1; ws < 6; ++ws)
+			for (int ws = 1; ws < 7; ++ws)
 				TabStack->setItemEnabled(ws, false);
 // 			TabStack->setCurrentIndex(0);
 			TabStack->item(0)->setEnabled(false);
-			TabStack->setItemEnabled(0, false);
+			TabStack->setItemEnabled(idXYZItem, false);
 			Cpal->ChooseGrad(0);
 			break;
 		case 2:
-			TabStack->setItemEnabled(1, true);
-			TabStack->setItemEnabled(2, false);
-			TabStack->setItemEnabled(3, true);
-			TabStack->setItemEnabled(4, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, true);
+			TabStack->setItemEnabled(idLineItem, true);
 			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
 				RoundRect->setEnabled(!i->locked());
 			else
@@ -1589,10 +1692,10 @@ void Mpalette::NewSel(int nr)
 // 				TabStack->setCurrentIndex(0);
 			break;
 		case 4:
-			TabStack->setItemEnabled(1, true);
-			TabStack->setItemEnabled(2, true);
-			TabStack->setItemEnabled(3, false);
-			TabStack->setItemEnabled(4, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idTextItem, true);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, true);
 			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
 				RoundRect->setEnabled(!i->locked());
 			else
@@ -1602,10 +1705,10 @@ void Mpalette::NewSel(int nr)
 // 				TabStack->setCurrentIndex(0);
 			break;
 		case 5:
-			TabStack->setItemEnabled(1, false);
-			TabStack->setItemEnabled(2, false);
-			TabStack->setItemEnabled(3, false);
-			TabStack->setItemEnabled(4, true);
+			TabStack->setItemEnabled(idShapeItem, false);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, true);
 			RoundRect->setEnabled(false);
 			LineMode->setEnabled(true);
 			TopLeft->setEnabled(false);
@@ -1619,10 +1722,10 @@ void Mpalette::NewSel(int nr)
 		case 1:
 		case 3:
 		case 6:
-			TabStack->setItemEnabled(1, true);
-			TabStack->setItemEnabled(2, false);
-			TabStack->setItemEnabled(3, false);
-			TabStack->setItemEnabled(4, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, true);
 			if ((!i->ClipEdited) && ((i->FrameType == 0) || (i->FrameType == 2)))
 				RoundRect->setEnabled(!i->locked());
 			else
@@ -1631,19 +1734,19 @@ void Mpalette::NewSel(int nr)
 // 				TabStack->setCurrentIndex(0);
 			break;
 		case 7:
-			TabStack->setItemEnabled(1, true);
-			TabStack->setItemEnabled(2, false);
-			TabStack->setItemEnabled(3, false);
-			TabStack->setItemEnabled(4, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idTextItem, false);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, true);
 			RoundRect->setEnabled(false);
 // 			if ((visID == 2) || (visID == 3))
 // 				TabStack->setCurrentIndex(0);
 			break;
 		case 8:
-			TabStack->setItemEnabled(1, true);
-			TabStack->setItemEnabled(2, true);
-			TabStack->setItemEnabled(3, false);
-			TabStack->setItemEnabled(4, true);
+			TabStack->setItemEnabled(idShapeItem, true);
+			TabStack->setItemEnabled(idTextItem, true);
+			TabStack->setItemEnabled(idImageItem, false);
+			TabStack->setItemEnabled(idLineItem, true);
 			RoundRect->setEnabled(false);
 // 			if (visID == 3)
 // 				TabStack->setCurrentIndex(0);
@@ -1663,6 +1766,18 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 	//FlipH->setEnabled(!isMultiple);
 	//FlipV->setEnabled(!isMultiple);
 	NameEdit->setEnabled(!isMultiple);
+	if (doc->m_Selection->count() > 1)
+	{
+		PageItem *i;
+		uint lowestItem = 999999;
+		for (uint a=0; a<doc->m_Selection->count(); ++a)
+		{
+			i = doc->m_Selection->itemAt(a);
+			lowestItem = QMIN(lowestItem, i->ItemNr);
+		}
+		i = doc->Items->at(lowestItem);
+		SetCurItem(i);
+	}
 }
 
 void Mpalette::unitChange()
@@ -3863,6 +3978,7 @@ void Mpalette::languageChange()
 	TabStack->setItemLabel(idShapeItem, tr("&Shape"));
 	TabStack->setItemLabel(idLineItem, tr("&Line"));
 	TabStack->setItemLabel(idColorsItem, tr("&Colors"));
+	TabStack->setItemLabel(idGroupItem, tr("&Group"));
 
 	NameGroup->setTitle( tr("Name"));
 	GeoGroup->setTitle( tr("Geometry"));
@@ -3875,6 +3991,27 @@ void Mpalette::languageChange()
 	LayerGroup->setTitle( tr("Level"));
 	SRect->setText( tr("Shape:"));
 	EditShape->setText( tr("&Edit Shape..."));
+	SRect2->setText( tr("Shape:"));
+	EditShape2->setText( tr("&Edit Shape..."));
+	TransGroup->setTitle( tr( "Transparency Settings" ));
+	TransTxt->setText( tr( "Opacity:" ) );
+	TransTxt2->setText( tr( "Blend Mode:" ) );
+	blendMode->clear();
+	blendMode->insertItem( tr("Normal"));
+	blendMode->insertItem( tr("Darken"));
+	blendMode->insertItem( tr("Lighten"));
+	blendMode->insertItem( tr("Multiply"));
+	blendMode->insertItem( tr("Screen"));
+	blendMode->insertItem( tr("Overlay"));
+	blendMode->insertItem( tr("Hard Light"));
+	blendMode->insertItem( tr("Soft Light"));
+	blendMode->insertItem( tr("Difference"));
+	blendMode->insertItem( tr("Exclusion"));
+	blendMode->insertItem( tr("Color Dodge"));
+	blendMode->insertItem( tr("Color Burn"));
+	blendMode->insertItem( tr("Hue"));
+	blendMode->insertItem( tr("Saturation"));
+	blendMode->insertItem( tr("Color"));
 	rndcornersLabel->setText( tr("R&ound\nCorners:"));
 	Distance->setTitle( tr("Distance of Text"));
 	columnsLabel->setText( tr("Colu&mns:"));
@@ -4266,3 +4403,33 @@ void Mpalette::setFlippedV(bool isFlippedV)
 	FlipV->setOn(isFlippedV);
 }
 
+void Mpalette::setGroupTransparency(int trans)
+{
+	if ((HaveDoc) && (HaveItem))
+	{
+		CurItem->setFillTransparency(static_cast<double>(100 - trans) / 100.0);
+		m_ScMW->view->RefreshItem(CurItem);
+		emit DocChanged();
+	}
+}
+
+void Mpalette::setGroupBlending(int blend)
+{
+		CurItem->setFillBlendmode(blend);
+		m_ScMW->view->RefreshItem(CurItem);
+		emit DocChanged();
+}
+
+void Mpalette::EditSh2()
+{
+	if (!m_ScMW || m_ScMW->ScriptRunning)
+		return;
+	if ((HaveDoc) && (HaveItem))
+	{
+		doc->m_Selection->clear();
+		doc->m_Selection->addItem(CurItem);
+		CurItem->isSingleSel = true;
+		m_ScMW->view->RefreshItem(CurItem);
+		emit ShapeEdit();
+	}
+}

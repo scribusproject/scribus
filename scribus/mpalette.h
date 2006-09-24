@@ -119,6 +119,7 @@ public:
 
 	Cpalette *Cpal;
 	Autoforms* SCustom;
+	Autoforms* SCustom2;
 	Spalette *Spal;	
 	FontComboH* Fonts;
 	ArrowChooser* startArrow;
@@ -227,6 +228,7 @@ private slots:
 	void DoFlow(int id);
 	void MakeIrre(int f, int c, double *vals);
 	void EditSh();
+	void EditSh2();
 	void NewTDist();
 	void NewSpGradient(double x1, double y1, double x2, double y2);
 	void toggleGradientEdit();
@@ -246,6 +248,8 @@ private slots:
 	void HandleTLines();
 	void setStartArrow(int id);
 	void setEndArrow(int id);
+	void setGroupTransparency(int trans);
+	void setGroupBlending(int blend);
 
 protected slots:
 	//virtual void reject();
@@ -305,6 +309,9 @@ protected:
 	QVBoxLayout* textFlowOptionsLayout;
 	QHBoxLayout* layout23;
 	QHBoxLayout* layout24;
+	QVBoxLayout* page_group_layout;
+	QHBoxLayout* ShapeGroupLayout2;
+	QGridLayout* Layout1t;
 	
 	NameWidget* NameEdit;
 	
@@ -319,6 +326,7 @@ protected:
 	QWidget* page_5a;
 	QWidget* page_5b;
 	QWidget* page_6;
+	QWidget* page_group;
 	
 	QLabel* xposLabel;
 	QLabel* widthLabel;
@@ -328,6 +336,7 @@ protected:
 	QLabel* basepointLabel;
 	QLabel* LevelTxt;
 	QLabel* SRect;
+	QLabel* SRect2;
 	QLabel* rndcornersLabel;
 	QLabel* startoffsetLabel;
 	QLabel* distfromcurveLabel;
@@ -361,7 +370,9 @@ protected:
 	QLabel* imgDPIXLabel;
 	QLabel* imgDPIYLabel;
 	QLabel* startArrowText;
-	QLabel* endArrowText;	
+	QLabel* endArrowText;
+	QLabel* TransTxt;
+	QLabel* TransTxt2;
 	
 
 //	LabelButton* colgapLabel;
@@ -386,6 +397,7 @@ protected:
 
 
 	QButtonGroup* ShapeGroup;
+	QButtonGroup* ShapeGroup2;
 	QButtonGroup* Distance3;
 	QButtonGroup* OverP;
 
@@ -409,6 +421,7 @@ protected:
 	QGroupBox* GroupBoxCM;
 	QGroupBox* TLines;
 	QGroupBox* GroupBox3a;
+	QGroupBox* TransGroup;
 
 	QToolButton* textFlowDisabled;
 	QToolButton* textFlowUsesFrameShape;
@@ -429,6 +442,7 @@ protected:
 	QComboBox* LJoinStyle;
 	QComboBox* LEndStyle;
 	ColorCombo* TxFill;
+	ScComboBox* blendMode;
 
 	QListBox* StyledLine;
 
@@ -460,6 +474,7 @@ protected:
 	MSpinBox* ChScaleV;
 	MSpinBox* ChBase;
 	QSpinBox* DCol;
+	QSpinBox* TransSpin;
 
 	QRadioButton* TopLeft;
 	QRadioButton* TopRight;
@@ -490,6 +505,7 @@ protected:
 	QToolButton* NoResize;
 	QToolButton* Revert;
 	QToolButton* EditShape;
+	QToolButton* EditShape2;
 	QToolButton* EditEffects;
 	QToolButton* EditPSDProps;
 
@@ -504,6 +520,7 @@ protected:
 	int idImageItem;
 	int idLineItem;
 	int idColorsItem;
+	int idGroupItem;
 };
 
 class SCRIBUS_API UserActionSniffer : public QObject

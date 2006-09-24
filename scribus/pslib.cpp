@@ -32,6 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <cstdlib>
 #include <qregexp.h>
 #include <qbuffer.h>
+#include <qptrstack.h>
 
 #include "commonstrings.h"
 #include "scconfig.h"
@@ -1106,6 +1107,7 @@ void PSLib::PS_insert(QString i)
 
 int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip, bool over)
 {
+	QPtrStack<PageItem> groupStack;
 	int sepac;
 	int pagemult;
 	doOverprint = over;
@@ -1314,6 +1316,20 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 							if ((ite->LayerNr != ll.LNr) || (!ite->printEnabled()))
 								continue;
+							if (ite->isGroupControl)
+							{
+								PS_save();
+								FPointArray cl = ite->PoLine.copy();
+								QWMatrix mm;
+								mm.translate(ite->xPos() - Doc->Pages->at(a)->xOffset(), (ite->yPos() - Doc->Pages->at(a)->yOffset()) - Doc->Pages->at(a)->height());
+								mm.rotate(-ite->rotation());
+								cl.map( mm );
+								SetClipPath(&cl);
+								PS_closepath();
+								PS_clip(true);
+								groupStack.push(ite->groupsLastItem);
+								continue;
+							}
 							if (!(ite->asTextFrame()) && !(ite->asImageFrame()))
 								PS_UseTemplate(Doc->Pages->at(a)->MPageNam + tmps.setNum(ite->ItemNr));
 							else if (ite->asImageFrame())
@@ -1468,6 +1484,14 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 									}
 								}
 								PS_restore();
+							}
+							if (groupStack.count() != 0)
+							{
+								while (ite == groupStack.top())
+								{
+									PS_restore();
+									groupStack.pop();
+								}
 							}
 						}
 					}
@@ -2082,6 +2106,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 	QString chstr, chglyph, tmp;
 	PageItem *c;
 	QPtrList<PageItem> PItems;
+	QPtrStack<PageItem> groupStack;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -2122,7 +2147,29 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 					continue;
 				if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 					continue;
+				if (c->isGroupControl)
+				{
+					PS_save();
+					FPointArray cl = c->PoLine.copy();
+					QWMatrix mm;
+					mm.translate(c->xPos() - a->xOffset(), (c->yPos() - a->yOffset()) - a->height());
+					mm.rotate(-c->rotation());
+					cl.map( mm );
+					SetClipPath(&cl);
+					PS_closepath();
+					PS_clip(true);
+					groupStack.push(c->groupsLastItem);
+					continue;
+				}
 				ProcessItem(Doc, a, c, PNr, sep, farb, ic, gcr, false);
+				if (groupStack.count() != 0)
+				{
+					while (c == groupStack.top())
+					{
+						PS_restore();
+						groupStack.pop();
+					}
+				}
 			}
 		}
 		for (b = 0; b < PItems.count(); ++b)

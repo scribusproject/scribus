@@ -427,6 +427,12 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 			ob->setAttribute("BottomLINK", -1);
 		ob->setAttribute("OwnLINK", item->ItemNr);
 	}
+	ob->setAttribute("isGroupControl", static_cast<int>(item->isGroupControl));
+	if (item->isGroupControl)
+	{
+		if (item->groupsLastItem != 0)
+			ob->setAttribute("groupsLastItem", item->groupsLastItem->ItemNr - item->ItemNr);
+	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";
 	QValueList<double>::Iterator dax;
@@ -641,6 +647,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 	QMap<QString,QString> DoMul;
 	QMap<int,int> TableID;
 	QMap<int,int> arrowID;
+	QMap<PageItem*, int> groupID;
 	QPtrList<PageItem> TableItems;
 	bool VorLFound = false;
 	bool newVersion = false;
@@ -901,6 +908,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 					TableItems.append(Neu);
 					TableID.insert(pite.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 				}
+				Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
+				if (Neu->isGroupControl)
+					groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 				if (Neu->asPathText())
 					Neu->updatePolyClip();
 				pa = pa.nextSibling();
@@ -1032,6 +1042,9 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				TableItems.append(Neu);
 				TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 			}
+			Neu->isGroupControl = static_cast<bool>(pg.attribute("isGroupControl", "0").toInt());
+			if (Neu->isGroupControl)
+				groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 			if (Neu->asPathText())
 				Neu->updatePolyClip();
 		}
@@ -1058,6 +1071,14 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				ta->BottomLink = doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
+		}
+	}
+	if (groupID.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupID.begin(); it != groupID.end(); ++it)
+		{
+			it.key()->groupsLastItem = doc->Items->at(it.data());
 		}
 	}
 	doc->GroupCounter = GrMax + 1;

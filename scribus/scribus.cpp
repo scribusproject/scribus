@@ -292,6 +292,8 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
 	ToggleTips();
 	propertiesPalette->setFontSize();
+	if (scrActions["SaveAsDocumentTemplate"])
+		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
 	
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 	connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
@@ -554,6 +556,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["fileExportText"]->setEnabled(false);
 	scrActions["fileExportAsEPS"]->setEnabled(false);
 	scrActions["fileExportAsPDF"]->setEnabled(false);
+	scrMenuMgr->setMenuEnabled("FileImport", false);
 	scrMenuMgr->setMenuEnabled("FileExport", false);
 	scrActions["fileDocSetup"]->setEnabled(false);
 	scrActions["filePrint"]->setEnabled(false);
@@ -2392,6 +2395,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["fileRevert"]->setEnabled(false);
 	scrActions["fileCollect"]->setEnabled(true);
 	scrActions["fileSaveAs"]->setEnabled(true);
+	scrMenuMgr->setMenuEnabled("FileImport", true);
 	scrMenuMgr->setMenuEnabled("FileExport", true);
 	scrActions["fileExportAsEPS"]->setEnabled(true);
 	scrActions["fileExportAsPDF"]->setEnabled(true);
@@ -2558,7 +2562,16 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	{
 		if (doc->m_Selection->count() != 0)
 		{
-			currItem = doc->m_Selection->itemAt(0);
+			uint lowestItem = 999999;
+			for (uint a=0; a<doc->m_Selection->count(); ++a)
+			{
+				currItem = doc->m_Selection->itemAt(a);
+				lowestItem = QMIN(lowestItem, currItem->ItemNr);
+			}
+			currItem = doc->Items->at(lowestItem);
+//			doc->m_Selection->removeItem(currItem);
+//			doc->m_Selection->prependItem(currItem);
+//			currItem = doc->m_Selection->itemAt(0);
 			if (!currItem)
 				Nr=-1;
 		}
@@ -2935,10 +2948,10 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		}
 		else
 		{
-			bool setter=!(currItem->isTableItem && currItem->isSingleSel);
+			bool setter=!(currItem->isTableItem && currItem->isSingleSel && currItem->isGroupControl);
 			scrActions["itemDuplicate"]->setEnabled(setter);
 			scrActions["itemMulDuplicate"]->setEnabled(setter);
-			scrActions["itemDelete"]->setEnabled(setter);
+			scrActions["itemDelete"]->setEnabled(!currItem->isSingleSel);
 			scrActions["itemLowerToBottom"]->setEnabled(setter);
 			scrActions["itemRaiseToTop"]->setEnabled(setter);
 			scrActions["itemRaise"]->setEnabled(setter);
@@ -4155,6 +4168,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrActions["PrintPreview"]->setEnabled(false);
 		if (scrActions["SaveAsDocumentTemplate"])
 			scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
+		scrMenuMgr->setMenuEnabled("FileImport", false);
 		scrMenuMgr->setMenuEnabled("FileExport", false);
 		scrActions["fileExportAsPDF"]->setEnabled(false);
 		scrActions["fileExportText"]->setEnabled(false);
@@ -4589,7 +4603,7 @@ void ScribusMainWindow::slotEditCut()
 		}
 		else
 		{
-			if (currItem->isTableItem && currItem->isSingleSel)
+			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
@@ -4680,7 +4694,7 @@ void ScribusMainWindow::slotEditCopy()
 		}
 		else
 		{
-			if (currItem->isTableItem && currItem->isSingleSel)
+			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return;
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			BufferI = ss->WriteElem(doc, view, doc->m_Selection);
@@ -8094,6 +8108,8 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
+		uint lowestItem = 999999;
+		uint highestItem = 0;
 		for (uint a=0; a<selectedItemCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
@@ -8101,7 +8117,58 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			currItem->gYpos = currItem->yPos() - y;
 			currItem->gWidth = w;
 			currItem->gHeight = h;
+			lowestItem = QMIN(lowestItem, currItem->ItemNr);
+			highestItem = QMAX(highestItem, currItem->ItemNr);
 		}
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		for (uint ep = 0; ep < selectedItemCount; ++ep)
+		{
+			PageItem* currItem = doc->m_Selection->itemAt(ep);
+			double lw = currItem->lineWidth() / 2.0;
+			if (currItem->rotation() != 0)
+			{
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = QMIN(minx, pb.point(pc).x());
+					miny = QMIN(miny, pb.point(pc).y());
+					maxx = QMAX(maxx, pb.point(pc).x());
+					maxy = QMAX(maxy, pb.point(pc).y());
+				}
+			}
+			else
+			{
+				minx = QMIN(minx, currItem->xPos()-lw);
+				miny = QMIN(miny, currItem->yPos()-lw);
+				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+			}
+		}
+		double gx = minx;
+		double gy = miny;
+		double gw = maxx - minx;
+		double gh = maxy - miny;
+		PageItem *high = doc->Items->at(highestItem);
+		int z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, doc->toolSettings.dWidth, doc->toolSettings.dBrush, doc->toolSettings.dPen, true);
+		PageItem *neu = doc->Items->take(z);
+		doc->Items->insert(lowestItem, neu);
+		neu->Groups.push(doc->GroupCounter-1);
+		neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+		neu->isGroupControl = true;
+		neu->groupsLastItem = high;
+		for (uint a = 0; a < doc->Items->count(); ++a)
+		{
+			doc->Items->at(a)->ItemNr = a;
+		}
+		doc->m_Selection->prependItem(neu);
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 		outlinePalette->BuildTree();
 		slotDocCh();
@@ -8123,6 +8190,7 @@ void ScribusMainWindow::UnGroupObj()
 		ss->set("itemcount", docSelectionCount);
 		QString tooltip = Um::ItemsInvolved + "\n";
 		PageItem *currItem;
+		uint lowestItem = 999999;
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
@@ -8132,12 +8200,21 @@ void ScribusMainWindow::UnGroupObj()
 			currItem->RightLink = 0;
 			currItem->TopLink = 0;
 			currItem->BottomLink = 0;
+			lowestItem = QMIN(lowestItem, currItem->ItemNr);
 			ss->set(QString("item%1").arg(a), currItem->ItemNr);
 			tooltip += "\t" + currItem->getUName() + "\n";
 		}
+		view->Deselect(true);
+		if (doc->Items->at(lowestItem)->isGroupControl)
+		{
+			doc->Items->remove(lowestItem);
+			for (uint a = 0; a < doc->Items->count(); ++a)
+			{
+				doc->Items->at(a)->ItemNr = a;
+			}
+		}
 		outlinePalette->BuildTree();
 		slotDocCh();
-		view->Deselect(true);
 
 		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 	}

@@ -83,7 +83,7 @@ public:
 	enum FillMode { None, Solid, Gradient, Pattern };
 #ifdef HAVE_CAIRO
 	virtual void beginLayer(double transparency, int blendmode);
-	virtual void endLayer();
+	virtual void endLayer(FPointArray *clipArray = 0);
 #endif
 	virtual void begin();
 	virtual void end();

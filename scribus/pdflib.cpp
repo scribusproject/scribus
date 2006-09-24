@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdir.h>
 #include <cstdlib>
 #include <cmath>
+#include <qptrstack.h>
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
@@ -1845,6 +1846,7 @@ void PDFlib::PDF_End_Page()
 
 void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
+	QPtrStack<PageItem> groupStack;
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
@@ -1892,6 +1894,22 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 						if ((!pag->pageName().isEmpty()) && (ite->OwnPage != static_cast<int>(pag->pageNr())) && (ite->OwnPage != -1))
 							continue;
 						QString name = "/"+pag->MPageNam.simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ) + QString::number(ite->ItemNr);
+						if (ite->isGroupControl)
+						{
+							PutPage("q\n");
+							FPointArray cl = ite->PoLine.copy();
+							FPointArray clb = ite->PoLine.copy();
+							QWMatrix mm;
+							mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - mPage->height());
+							mm.rotate(-ite->rotation());
+							cl.map( mm );
+							ite->PoLine = cl;
+							PutPage(SetClipPath(ite));
+							PutPage("h W* n\n");
+							groupStack.push(ite->groupsLastItem);
+							ite->PoLine = clb.copy();
+							continue;
+						}
 						if (! ite->asTextFrame())
 							PutPage(name+" Do\n");
 						else
@@ -1906,6 +1924,14 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 							ite->setXYPos(oldX, oldY, true);
 							ite->BoundingX = OldBX;
 							ite->BoundingY = OldBY;
+						}
+						if (groupStack.count() != 0)
+						{
+							while (ite == groupStack.top())
+							{
+								PutPage("Q\n");
+								groupStack.pop();
+							}
 						}
 					}
 					for (uint am = 0; am < pag->FromMaster.count(); ++am)
@@ -1965,10 +1991,42 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				ite = PItems.at(a);
 				if (ite->LayerNr != ll.LNr)
 					continue;
+				QString grcon = "";
+				if (ite->isGroupControl)
+				{
+					grcon += "q\n";
+					FPointArray cl = ite->PoLine.copy();
+					FPointArray clb = ite->PoLine.copy();
+					QWMatrix mm;
+					mm.translate(ite->xPos() - pag->xOffset(), (ite->yPos() - pag->yOffset()) - pag->height());
+					mm.rotate(-ite->rotation());
+					cl.map( mm );
+					ite->PoLine = cl;
+					grcon += SetClipPath(ite);
+					grcon += "h W* n\n";
+					groupStack.push(ite->groupsLastItem);
+					if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+						inh += grcon;
+					else
+						PutPage(grcon);
+					ite->PoLine = clb.copy();
+					continue;
+				}
 				if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
 					inh += PDF_ProcessItem(ite, pag, PNr);
 				else
 					PutPage(PDF_ProcessItem(ite, pag, PNr));
+				if (groupStack.count() != 0)
+				{
+					while (ite == groupStack.top())
+					{
+						if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+							inh += "Q\n";
+						else
+							PutPage("Q\n");
+						groupStack.pop();
+					}
+				}
 			}
 			for (uint a = 0; a < PItems.count() && !abortExport; ++a)
 			{

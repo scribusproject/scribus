@@ -4331,7 +4331,7 @@ bool ScribusDoc::sendItemSelectionToBack()
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (currItem->isTableItem && currItem->isSingleSel)
+			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return false;
 			ObjOrder.insert(currItem->ItemNr, c);
 			int d = Items->findRef(currItem);
@@ -4361,7 +4361,7 @@ bool ScribusDoc::bringItemSelectionToFront()
 		for (uint c = 0; c < docSelectionCount; ++c)
 		{
 			currItem = m_Selection->itemAt(c);
-			if (currItem->isTableItem && currItem->isSingleSel)
+			if (((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem)))
 				return false;
 			ObjOrder.insert(currItem->ItemNr, c);
 			int d = Items->findRef(currItem);
@@ -6393,7 +6393,7 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 	for (uint de = 0; de < selectedItemCount; ++de)
 	{
 		currItem = itemSelection->itemAt(offs);
-		if ((currItem->isTableItem && currItem->isSingleSel) || (currItem->locked()))
+			if ((((currItem->isSingleSel) && (currItem->isGroupControl)) || ((currItem->isSingleSel) && (currItem->isTableItem))) || (currItem->locked()))
 		{
 			offs++;
 			continue;
@@ -6505,6 +6505,8 @@ void ScribusDoc::itemSelection_SetItemFillTransparency(double t)
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = m_Selection->itemAt(i);
+			if (currItem->isGroupControl)
+				continue;
 			currItem->setFillTransparency(t);
 		}
 		emit updateContents();
@@ -6534,6 +6536,8 @@ void ScribusDoc::itemSelection_SetItemFillBlend(int t)
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = m_Selection->itemAt(i);
+			if (currItem->isGroupControl)
+				continue;
 			currItem->setFillBlendmode(t);
 		}
 		emit updateContents();

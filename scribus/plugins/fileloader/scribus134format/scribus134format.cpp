@@ -242,6 +242,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QFont fo;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
+	QMap<PageItem*, int> groupID;
 	int a;
 	PageItem *Neu;
 	Page* Apage;
@@ -1047,6 +1048,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						TableItems.append(Neu);
 						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
+					Neu->isGroupControl = static_cast<bool>(pg.attribute("isGroupControl", "0").toInt());
+					if (Neu->isGroupControl)
+						groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
@@ -1190,6 +1194,9 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						TableItems.append(Neu);
 						TableID.insert(pite.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
+					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
+					if (Neu->isGroupControl)
+						groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 					pa = pa.nextSibling();
 				}
 				m_Doc->useRaster = savedAlignGrid;
@@ -1235,6 +1242,14 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
+		}
+	}
+	if (groupID.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupID.begin(); it != groupID.end(); ++it)
+		{
+			it.key()->groupsLastItem = m_Doc->Items->at(it.data());
 		}
 	}
 	m_Doc->setActiveLayer(layerToSetActive);
@@ -2619,6 +2634,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 	QFont fo;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
+	QMap<PageItem*, int> groupID;
 	int a, counter, baseobj;
 	double pageX = 0, pageY = 0;
 	bool newVersion = false;
@@ -2962,6 +2978,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						TableItems.append(Neu);
 						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
+					Neu->isGroupControl = static_cast<bool>(pg.attribute("isGroupControl", "0").toInt());
+					if (Neu->isGroupControl)
+						groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
@@ -3092,6 +3111,9 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 						TableItems.append(Neu);
 						TableID.insert(pite.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
 					}
+					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
+					if (Neu->isGroupControl)
+						groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 					pa = pa.nextSibling();
 				}
 				m_Doc->useRaster = savedAlignGrid;
@@ -3137,6 +3159,14 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 				ta->BottomLink = m_Doc->Items->at(TableID[ta->BottomLinkID]);
 			else
 				ta->BottomLink = 0;
+		}
+	}
+	if (groupID.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupID.begin(); it != groupID.end(); ++it)
+		{
+			it.key()->groupsLastItem = m_Doc->Items->at(it.data());
 		}
 	}
 	if (LFrames.count() != 0)
@@ -3540,7 +3570,7 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 			if (item->GrType == 8)
 			{
 				ob.setAttribute("pattern", item->pattern());
-				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation, patternXStep, patternYStep;
+				double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 				item->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 				ob.setAttribute("pScaleX", patternScaleX);
 				ob.setAttribute("pScaleY", patternScaleY);
@@ -3986,6 +4016,12 @@ void Scribus134Format::SetItemProps(QDomElement *ob, PageItem* item, bool newFor
 		else
 			ob->setAttribute("BottomLINK", -1);
 		ob->setAttribute("OwnLINK", item->ItemNr);
+	}
+	ob->setAttribute("isGroupControl", static_cast<int>(item->isGroupControl));
+	if (item->isGroupControl)
+	{
+		if (item->groupsLastItem != 0)
+			ob->setAttribute("groupsLastItem", item->groupsLastItem->ItemNr - item->ItemNr);
 	}
 	ob->setAttribute("NUMDASH", static_cast<int>(item->DashValues.count()));
 	QString dlp = "";

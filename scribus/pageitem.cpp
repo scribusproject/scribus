@@ -163,6 +163,8 @@ PageItem::PageItem(const PageItem & other)
 	BottomLine(other.BottomLine),
 	isTableItem(other.isTableItem),
 	isSingleSel(other.isSingleSel),
+	isGroupControl(other.isGroupControl),
+	groupsLastItem(other.groupsLastItem),
 	BoundingX(other.BoundingX),
 	BoundingY(other.BoundingY),
 	BoundingW(other.BoundingW),
@@ -430,6 +432,8 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	isSingleSel = false;
 	Dirty = false;
 	invalid = true;
+	isGroupControl = false;
+	groupsLastItem = 0;
 	ChangedMasterItem = false;
 	isEmbedded = false;
 	OnMasterPage = m_Doc->currentPage()->pageName();

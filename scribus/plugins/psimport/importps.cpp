@@ -23,6 +23,8 @@ for which a new license (GPL+exception) is in place.
 #include <qcursor.h>
 #include <qdragobject.h>
 #include <qregexp.h>
+#include <qptrstack.h>
+#include <qvaluestack.h>
 #include <cmath>
 #include <cstdlib>
 
@@ -196,10 +198,60 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (interactive))
 		{
+			double minx = 99999.9;
+			double miny = 99999.9;
+			double maxx = -99999.9;
+			double maxy = -99999.9;
+			uint lowestItem = 999999;
+			uint highestItem = 0;
 			for (uint a = 0; a < Elements.count(); ++a)
 			{
 				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+				PageItem* currItem = Elements.at(a);
+				lowestItem = QMIN(lowestItem, currItem->ItemNr);
+				highestItem = QMAX(highestItem, currItem->ItemNr);
+				double lw = currItem->lineWidth() / 2.0;
+				if (currItem->rotation() != 0)
+				{
+					FPointArray pb;
+					pb.resize(0);
+					pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+					pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+					pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+					pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+					for (uint pc = 0; pc < 4; ++pc)
+					{
+						minx = QMIN(minx, pb.point(pc).x());
+						miny = QMIN(miny, pb.point(pc).y());
+						maxx = QMAX(maxx, pb.point(pc).x());
+						maxy = QMAX(maxy, pb.point(pc).y());
+					}
+				}
+				else
+				{
+					minx = QMIN(minx, currItem->xPos()-lw);
+					miny = QMIN(miny, currItem->yPos()-lw);
+					maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+					maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+				}
 			}
+			double gx = minx;
+			double gy = miny;
+			double gw = maxx - minx;
+			double gh = maxy - miny;
+			PageItem *high = m_Doc->Items->at(highestItem);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, m_Doc->toolSettings.dWidth, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+			PageItem *neu = m_Doc->Items->take(z);
+			m_Doc->Items->insert(lowestItem, neu);
+			neu->Groups.push(m_Doc->GroupCounter);
+			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+			neu->isGroupControl = true;
+			neu->groupsLastItem = high;
+			for (uint a = 0; a < doc->Items->count(); ++a)
+			{
+				m_Doc->Items->at(a)->ItemNr = a;
+			}
+			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
 		}
 		m_Doc->DoDrawing = true;
@@ -304,8 +356,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	if( !cmd.isEmpty() )
 		args.append( cmd );
 	// then finish building the command and call gs
-	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound((b-x)*4))).arg(tmp3.setNum(qRound((h-y)*4))) );
-	args.append( "-r288");
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound((b-x)))).arg(tmp3.setNum(qRound((h-y)))) );
+	args.append( "-r72");
 	args.append( "-dTextAlphaBits=4" );
 	args.append( "-dGraphicsAlphaBits=4" );
 	args.append( "-c" );
@@ -377,6 +429,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	double dcp;
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
+	QPtrStack<PageItem> groupStack;
+	QValueStack<int> gsStack;
+	QValueStack<int> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
 	pagecount = 1;
@@ -467,6 +522,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setFillTransparency(1.0 - Opacity);
 						m_Doc->view()->AdjustItemSize(ite);
+						if (groupStack.count() != 0)
+						{
+							QValueStack<int> groupOld = groupStack.top()->Groups;
+							for (uint gg = 0; gg < groupOld.count(); gg++)
+							{
+								ite->Groups.push(groupOld[gg]);
+							}
+						}
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -509,6 +572,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 						ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 						ite->setLineTransparency(1.0 - Opacity);
 						m_Doc->view()->AdjustItemSize(ite);
+						if (groupStack.count() != 0)
+						{
+							QValueStack<int> groupOld = groupStack.top()->Groups;
+							for (uint gg = 0; gg < groupOld.count(); gg++)
+							{
+								ite->Groups.push(groupOld[gg]);
+							}
+						}
 						Elements.append(ite);
 					}
 					lastPath = currPath;
@@ -522,9 +593,56 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			else if (token == "ci")
 			{
 				clipCoords = Coords;
+				if (Coords.size() != 0)
+				{
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, 0, 0, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					ite = m_Doc->Items->at(z);
+					ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
+					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
+					ite->ClipEdited = true;
+					ite->FrameType = 3;
+//					ite->fillRule = (fillRuleEvenOdd);
+					FPoint wh = getMaxClipF(&ite->PoLine);
+					ite->setWidthHeight(wh.x(),wh.y());
+					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+//					ite->setFillTransparency(1.0 - Opacity);
+					m_Doc->view()->AdjustItemSize(ite);
+					ite->Groups.push(m_Doc->GroupCounter);
+					if (groupStack.count() != 0)
+					{
+						QValueStack<int> groupOld = groupStack.top()->Groups;
+						for (uint gg = 0; gg < groupOld.count(); gg++)
+						{
+							ite->Groups.push(groupOld[gg]);
+						}
+					}
+					ite->isGroupControl = true;
+					ite->setItemName( tr("Group%1").arg(ite->Groups.top()));
+					Elements.append(ite);
+					groupStack.push(ite);
+					gsStackMarks.push(gsStack.count());
+					m_Doc->GroupCounter++;
+				}
 				Coords   = FPointArray(0);
 				lastPath = "";
 				currPath = "";
+			}
+			else if (token == "gs")
+			{
+				gsStack.push(1);
+			}
+			else if (token == "gr")
+			{
+				gsStack.pop();
+				if (groupStack.count() != 0)
+				{
+					if (gsStack.count() < gsStackMarks.top())
+					{
+						PageItem *ite = groupStack.pop();
+						ite->groupsLastItem = Elements.at(Elements.count()-1);
+						gsStackMarks.pop();
+					}
+				}
 			}
 			else if (token == "w")
 			{
@@ -600,6 +718,14 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 			lasttoken = token;
 		}
 		f.close();
+		if (groupStack.count() != 0)
+		{
+			while (!groupStack.isEmpty())
+			{
+				PageItem *ite = groupStack.pop();
+				ite->groupsLastItem = Elements.at(Elements.count()-1);
+			}
+		}
 	}
 	if (failedImages > 0)
 	{

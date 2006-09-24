@@ -529,8 +529,8 @@ currentpagedevice /HWResolution get aload pop
 % modified: 18.10.96
 /i_close
 {
-	(cp\n) print
 	beginX beginY i_line
+	(cp\n) print
 } bind def
 
 /storeMatrix
@@ -788,8 +788,8 @@ currentpagedevice /HWResolution get aload pop
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-	clipCnt 1 eq 
-		{ pathClipForStroke } if
+%	clipCnt 1 eq 
+%		{ pathClipForStroke } if
 	storeMatrix
 
 	{i_move} {i_line} {i_curve} {i_close} pathforall
@@ -805,8 +805,8 @@ currentpagedevice /HWResolution get aload pop
 	writecurrentlinecap
 	writecurrentlinejoin
 	writecurrentdash
-	clipCnt 1 eq
-		{ pathClipAndClose } if
+%	clipCnt 1 eq
+%		{ pathClipAndClose } if
 	storeMatrix			% take transformation, scaling, rotation from PostScript
 	{i_move} {i_line} {i_curve} {i_close} pathforall
 	(f\n)print			% close polygon
@@ -833,8 +833,26 @@ currentpagedevice /HWResolution get aload pop
 
 	(ci\n)print			% close clip polygon begin path
 						% we have to close the path!!
-	clip
-	/clipCnt 1 def
+%	clip
+%	/clipCnt 1 def
+	newpath				% clear stack
+	end
+} i_shortcutOverload
+
+/eoclip
+{
+	userdict begin
+	(n\n)print			% start clip polygon
+
+% FIXME: pathClipAndClose first?
+
+	storeMatrix			% take transformation, scaling, rotation from PostScript
+	{i_move} {i_line} {i_curve} {i_close} pathforall
+
+	(ci\n)print			% close clip polygon begin path
+						% we have to close the path!!
+%	clip
+%	/clipCnt 1 def
 	newpath				% clear stack
 	end
 } i_shortcutOverload
@@ -879,8 +897,8 @@ currentpagedevice /HWResolution get aload pop
 	
 	(ci\n)print			% close clip polygon begin path
 						% we have to close the path!!
-	rectclip
-	/clipCnt 1 def
+%	rectclip
+%	/clipCnt 1 def
 	newpath				% clear stack
 	end
 } i_shortcutOverload
@@ -1106,6 +1124,7 @@ currentpagedevice /HWResolution get aload pop
 /stateTop 0 def
 /gsave
 {
+	(gs\n) print
 	userdict begin
 %	(gs\n) print
 	stateArray stateTop gstate currentgstate put
@@ -1115,6 +1134,7 @@ currentpagedevice /HWResolution get aload pop
 
 /grestore
 {
+	(gr\n) print
 	userdict begin
 	stateTop 1 lt
 	{

@@ -381,7 +381,7 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 #endif
 }
 
-void ScPainter::endLayer()
+void ScPainter::endLayer(FPointArray *clipArray)
 {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
@@ -397,8 +397,6 @@ void ScPainter::endLayer()
 				int stride = cairo_image_surface_get_stride(tmp);
 				unsigned char *s = cairo_image_surface_get_data(tmp);
 				unsigned char *d = cairo_image_surface_get_data(tmpB);
-//				int h = m_image->height();
-//				int w = m_image->width();
 				int h = cairo_image_surface_get_height(tmp);
 				int w = cairo_image_surface_get_width(tmp);
 				for( int yi=0; yi < h; ++yi )
@@ -582,6 +580,11 @@ void ScPainter::endLayer()
 	layerProp la;
 	la = Layers.pop();
 	cairo_pop_group_to_source (m_cr);
+	if (clipArray != NULL)
+	{
+		setupPolygon(clipArray);
+		setClipPath();
+	}
 	if (m_blendMode == 0)
 	{
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);

@@ -407,6 +407,8 @@ public:
 	bool BottomLine;
 	bool isTableItem;
 	bool isSingleSel;
+	bool isGroupControl;
+	PageItem *groupsLastItem;
 	double BoundingX;
 	double BoundingY;
 	double BoundingW;
