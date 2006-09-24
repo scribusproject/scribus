@@ -232,26 +232,7 @@ void LineFormate::UpdateFList()
 	ListBox1->clear();
 	QMap<QString,multiLine>::Iterator it;
 	for (it = TempStyles.begin(); it != TempStyles.end(); ++it)
-	{
-		QPixmap pm = QPixmap(37, 37);
-		pm.fill(white);
-		QPainter p;
-		p.begin(&pm);
-		QColor tmpf;
-		multiLine ml = it.data();
-		for (int its = ml.size()-1; its > -1; its--)
-		{
-			tmpf = Docu->PageColors[ml[its].Color].getDisplayColor(ml[its].Shade);
-			p.setPen(QPen(tmpf,
-							QMAX(static_cast<int>(ml[its].Width), 1),
-							static_cast<PenStyle>(ml[its].Dash),
-							static_cast<PenCapStyle>(ml[its].LineEnd),
-							static_cast<PenJoinStyle>(ml[its].LineJoin)));
-			p.drawLine(0, 18, 37, 18);
-		}
-		p.end();
-		ListBox1->insertItem(pm, it.key());
-	}
+		ListBox1->insertItem( new LineFormateItem(Docu, it.data(), it.key()) );
 	if (ListBox1->count() > 0)
 		ListBox1->setSelected(ListBox1->findItem(sFnumber), true);
 	bool setter = ListBox1->count() == 0 ? true : false;
@@ -263,4 +244,60 @@ void LineFormate::UpdateFList()
 	ListBox1->sort( true );
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
+}
+
+LineFormateItem::LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text) : QListBoxItem()
+{
+	setText(Text);
+	mLine = MultiLine;
+	doc = Doc;
+}
+
+int	LineFormateItem::width( const QListBox* lb)  const
+{
+	if ( text().isEmpty() )
+		return QMAX( 43, QApplication::globalStrut().width() );
+    return QMAX( 43 + lb->fontMetrics().width( text() ),QApplication::globalStrut().width() );
+}
+
+int	LineFormateItem::height( const QListBox* lb) const
+{
+	int h;
+	if ( text().isEmpty() )
+		h = 37;
+    else
+		h = QMAX( 37, lb->fontMetrics().lineSpacing() + 2 );
+    return QMAX( h, QApplication::globalStrut().height() );
+}
+
+void LineFormateItem::paint(QPainter* qpainter)
+{
+	QColor tmpf;
+	static QPixmap pixmap(37, 37);
+	pixmap.fill(Qt::white);
+	QPainter p;
+	p.begin(&pixmap);
+	for (int its = mLine.size()-1; its > -1; its--)
+	{
+		tmpf = doc->PageColors[mLine[its].Color].getDisplayColor(mLine[its].Shade);
+		p.setPen(QPen(tmpf,
+						QMAX(static_cast<int>(mLine[its].Width), 1),
+						static_cast<Qt::PenStyle>(mLine[its].Dash),
+						static_cast<Qt::PenCapStyle>(mLine[its].LineEnd),
+						static_cast<Qt::PenJoinStyle>(mLine[its].LineJoin)));
+		p.drawLine(0, 18, 37, 18);
+	}
+	p.end();
+
+	int yPos;
+	int itemHeight = height( listBox() );
+	if ( !pixmap.isNull() ) {
+		yPos = ( itemHeight - pixmap.height() ) / 2;
+		qpainter->drawPixmap( 3, yPos, pixmap);
+    }
+    if ( !text().isEmpty() ) {
+		QFontMetrics fm = qpainter->fontMetrics();
+		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
+		qpainter->drawText( pixmap.width() + 5, yPos, text() );
+    }
 }

@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "colorm.h"
 #include "cpalette.h"
+#include "lineformats.h"
 #include "sccombobox.h"
 #include "scfonts.h"
 #include "scribus.h"
@@ -3369,26 +3370,7 @@ void Mpalette::SetLineFormats(ScribusDoc *dd)
 	{
 		QMap<QString,multiLine>::Iterator it;
 		for (it = dd->MLineStyles.begin(); it != dd->MLineStyles.end(); ++it)
-		{
-			QPixmap pm = QPixmap(37, 37);
-			pm.fill(white);
-			QPainter p;
-			p.begin(&pm);
-			QColor tmpf;
-			multiLine ml = it.data();
-			for (int its = ml.size()-1; its > -1; its--)
-			{
-				tmpf = dd->PageColors[ml[its].Color].getDisplayColor(ml[its].Shade);
-				p.setPen(QPen(tmpf,
-								QMAX(static_cast<int>(ml[its].Width), 1),
-								 static_cast<PenStyle>(ml[its].Dash),
-								 static_cast<PenCapStyle>(ml[its].LineEnd),
-								 static_cast<PenJoinStyle>(ml[its].LineJoin)));
-				p.drawLine(0, 18, 37, 18);
-			}
-			p.end();
-			StyledLine->insertItem(pm, it.key());
-		}
+			StyledLine->insertItem( new LineFormateItem(dd, it.data(), it.key()) );
 		StyledLine->sort( true );
 		StyledLine->insertItem( tr("No Style"), 0);
 		StyledLine->setSelected(StyledLine->currentItem(), false);
