@@ -1,0 +1,16 @@
+
+//Syntax: ATTRDEF( datatype, gettername, name, defaultvalue)
+
+ATTRDEF(ParagraphStyle::LineSpacingMode, lineSpacingMode, LineSpacingMode, ParagraphStyle::FixedLineSpacing)
+ATTRDEF(double, lineSpacing, LineSpacing, 0.0)
+ATTRDEF(ParagraphStyle::AlignmentType, alignment, Alignment, Leftaligned)
+ATTRDEF(double, leftMargin, LeftMargin, 0.0)
+ATTRDEF(double, rightMargin, RightMargin, 0.0)
+ATTRDEF(double, firstIndent, FirstIndent, 0.0)
+ATTRDEF(double, gapBefore, GapBefore, 0.0)
+ATTRDEF(double, gapAfter, GapAfter, 0.0)
+ATTRDEF(QValueList<TabRecord>, tabValues, TabValues, QValueList<TabRecord>())
+ATTRDEF(int, dropCapLines, DropCapLines, 0)
+ATTRDEF(bool, hasDropCap, HasDropCap, false)
+ATTRDEF(double, dropCapOffset, DropCapOffset, 0.0)
+ATTRDEF(bool, useBaselineGrid, UseBaselineGrid, false)
