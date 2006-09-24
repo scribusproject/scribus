@@ -9220,11 +9220,6 @@ void ScribusMainWindow::slotInsertFrame()
 		InsertAFrame *dia = new InsertAFrame(this, doc);
 		if (dia->exec())
 		{
-			PageItem::ItemType frameType;
-			int locationType=0, positionType=0, sizeType=0, colCount=1;
-			double x=0.0, y=0.0, width=0.0, height=0.0, colGap=0.0;
-			QString source("");
-			QString pageString("");
 			insertAFrameData iafData;
 			dia->getNewFrameProperties(iafData);
 			doc->itemAddUserFrame(iafData);

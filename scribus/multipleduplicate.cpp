@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qbuttongroup.h>
 #include <qlabel.h>
 #include <qpushbutton.h>
+#include <qradiobutton.h>
 #include <qspinbox.h>
 #include <qtabwidget.h>
 
@@ -20,6 +21,14 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	: MultipleDuplicateBase(parent, name, fl),
 	m_unitIndex(unitIndex)
 {
+
+	//set tab order
+	QWidget::setTabOrder(createGapRadioButton, horizShiftMSpinBox);
+	QWidget::setTabOrder(horizShiftMSpinBox, vertShiftMSpinBox);
+	QWidget::setTabOrder(gridColsSpinBox, horizRCGapMSpinBox);
+	QWidget::setTabOrder(horizRCGapMSpinBox, vertRCGapMSpinBox);
+	
+	//set up mspinboxes
 	int decimals = unitGetDecimalsFromIndex(unitIndex);
 	QString unitSuffix(unitGetSuffixFromIndex(unitIndex));
 	horizShiftMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
