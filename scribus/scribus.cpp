@@ -3802,11 +3802,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
 		}
-		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
+/*		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->hasName = false;
 			slotFileSaveAs();
-		}
+		} */
 		delete fileLoader;
 		view->setUpdatesEnabled(true);
 		w->setUpdatesEnabled(true);

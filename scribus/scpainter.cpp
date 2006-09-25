@@ -92,6 +92,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	m_x = x;
 	m_y = y;
 	m_buffer = 0L;
+	m_clipPath = 0L;
 #ifdef HAVE_CAIRO
 #else
 	m_path = 0L;
@@ -172,6 +173,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	m_y = y;
 	m_buffer = 0L;
 	m_index = 0;
+	m_clipPath = 0L;
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
@@ -222,6 +224,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	m_height= h;
 	m_buffer = 0L;
 	m_index = 0;
+	m_clipPath = 0L;
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
@@ -273,6 +276,7 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h,
 	m_width = w;
 	m_height= h;
 	m_buffer = 0L;
+	m_clipPath = 0L;
 	m_index = 0;
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
@@ -1268,6 +1272,7 @@ void ScPainter::drawVPath( struct _ArtVpath *vec, int mode, bool preCal )
 #endif
 		ArtSvpWriter *swr;
 		ArtSVP *temp;
+		ArtSVP *temp2;
 		temp = art_svp_from_vpath( vec );
 		if( m_fillRule )
 			swr = art_svp_writer_rewind_new( ART_WIND_RULE_ODDEVEN );
@@ -1473,6 +1478,7 @@ void ScPainter::drawImage( QImage *image )
 					 image->bits(), image->width(), image->height(), image->width() * 4,
 					 affineresult, qRound( 255 * fill_trans ), 0L );
 	art_svp_free( m_clipPath );
+	m_clipPath = 0;
 #endif
 }
 
