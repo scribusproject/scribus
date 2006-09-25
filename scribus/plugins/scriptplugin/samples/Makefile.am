@@ -1,10 +1,11 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = Sample1.py Calender.py trait_de_coupe.py pochette_cd.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe sample_db_usage.py
+EXTRA_DIST = boilerplate.py Sample1.py Calender.py trait_de_coupe.py pochette_cd.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe sample_db_usage.py
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/samples/
+	$(INSTALL_DATA) $(srcdir)/boilerplate.py $(prefix)/share/scribus/samples/boilerplate.py
 	$(INSTALL_DATA) $(srcdir)/golden-mean.py $(prefix)/share/scribus/samples/golden-mean.py
 	$(INSTALL_DATA) $(srcdir)/quote.py $(prefix)/share/scribus/samples/quote.py
 	$(INSTALL_DATA) $(srcdir)/wordcount.py $(prefix)/share/scribus/samples/wordcount.py
@@ -21,6 +22,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/sample_db_usage.py $(prefix)/share/scribus/samples/sample_db_usage.py
 
 uninstall-local:
+	-rm -f $(prefix)/share/scribus/samples/boilerplate.py
 	-rm -f $(prefix)/share/scribus/samples/quote.py
 	-rm -f $(prefix)/share/scribus/samples/wordcount.py
 	-rm -f $(prefix)/share/scribus/samples/Sample1.py
