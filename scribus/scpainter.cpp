@@ -92,10 +92,10 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 	m_x = x;
 	m_y = y;
 	m_buffer = 0L;
-	m_clipPath = 0L;
 #ifdef HAVE_CAIRO
 #else
 	m_path = 0L;
+	m_clipPath = 0L;
 #endif
 	m_index = 0;
 	m_stroke = QColor(0,0,0);
@@ -173,7 +173,6 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	m_y = y;
 	m_buffer = 0L;
 	m_index = 0;
-	m_clipPath = 0L;
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
@@ -211,6 +210,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	resize( m_width, m_height );
 	clear();
 	m_path = 0L;
+	m_clipPath = 0L;
 #endif
 }
 
@@ -224,7 +224,6 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	m_height= h;
 	m_buffer = 0L;
 	m_index = 0;
-	m_clipPath = 0L;
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
 	fill_trans = 1.0;
@@ -276,7 +275,6 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h,
 	m_width = w;
 	m_height= h;
 	m_buffer = 0L;
-	m_clipPath = 0L;
 	m_index = 0;
 	m_stroke = QColor(0,0,0);
 	m_fill = QColor(0,0,0);
