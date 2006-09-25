@@ -504,24 +504,6 @@ void ReformDoc::updateDocumentSettings()
 			else if ( currDoc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
 			{
 				currDoc->HasCMS = true;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigRgbData)
-					currDoc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigCmykData)
-					currDoc->CMSSettings.ComponentsInput2 = 4;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputRGBProf)) == icSigCmyData)
-					currDoc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputCMYKProf)) == icSigRgbData)
-					currDoc->CMSSettings.ComponentsInput3 = 3;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputCMYKProf)) == icSigCmykData)
-					currDoc->CMSSettings.ComponentsInput3 = 4;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocInputCMYKProf)) == icSigCmyData)
-					currDoc->CMSSettings.ComponentsInput3 = 3;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigRgbData)
-					currDoc->CMSSettings.ComponentsPrinter = 3;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmykData)
-					currDoc->CMSSettings.ComponentsPrinter = 4;
-				if (static_cast<int>(cmsGetColorSpace(currDoc->DocPrinterProf)) == icSigCmyData)
-					currDoc->CMSSettings.ComponentsPrinter = 3;
 				currDoc->PDF_Options.SComp = currDoc->CMSSettings.ComponentsInput2;
 				currDoc->PDF_Options.SolidProf = currDoc->CMSSettings.DefaultSolidColorRGBProfile;
 				currDoc->PDF_Options.ImageProf = currDoc->CMSSettings.DefaultImageRGBProfile;

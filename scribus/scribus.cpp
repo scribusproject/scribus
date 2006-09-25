@@ -3558,23 +3558,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		}
 		//connect(w, SIGNAL(Schliessen()), this, SLOT(DoFileClose()));
 		if (!doc->CMSSettings.CMSinUse)
-		{
-			doc->CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
-			doc->CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
-			doc->CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
-			doc->CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile;
-			doc->CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
-			doc->CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
-			//doc->CMSSettings.DefaultIntentPrinter = prefsManager->appPrefs.DCMSset.DefaultIntentPrinter;
-			//doc->CMSSettings.DefaultIntentMonitor = prefsManager->appPrefs.DCMSset.DefaultIntentMonitor;
-			doc->CMSSettings.DefaultIntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
-			doc->CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
-			doc->CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
-			doc->CMSSettings.SoftProofFullOn = prefsManager->appPrefs.DCMSset.SoftProofFullOn;
-			doc->CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
-			doc->CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
 			doc->HasCMS = false;
-		}
 		if ((ScCore->haveCMS()) && (doc->CMSSettings.CMSinUse))
 		{
 			bool cmsWarning = false;
@@ -3661,24 +3645,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			if (doc->OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 			{
 				doc->HasCMS = true;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigRgbData)
-					doc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigCmykData)
-					doc->CMSSettings.ComponentsInput2 = 4;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputRGBProf)) == icSigCmyData)
-					doc->CMSSettings.ComponentsInput2 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputCMYKProf)) == icSigRgbData)
-					doc->CMSSettings.ComponentsInput3 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputCMYKProf)) == icSigCmykData)
-					doc->CMSSettings.ComponentsInput3 = 4;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocInputCMYKProf)) == icSigCmyData)
-					doc->CMSSettings.ComponentsInput3 = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigRgbData)
-					doc->CMSSettings.ComponentsPrinter = 3;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmykData)
-					doc->CMSSettings.ComponentsPrinter = 4;
-				if (static_cast<int>(cmsGetColorSpace(doc->DocPrinterProf)) == icSigCmyData)
-					doc->CMSSettings.ComponentsPrinter = 3;
 				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 			}
 #endif
