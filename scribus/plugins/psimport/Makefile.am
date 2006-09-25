@@ -10,14 +10,16 @@ libimportps_la_LDFLAGS = -version-info 0:0:0
 libimportps_la_METASOURCES = AUTO
 libimportps_la_SOURCES = importps.cpp importpsplugin.cpp
 
-EXTRA_DIST = import.prolog importps.h importpsplugin.h
+EXTRA_DIST = import.prolog import_la.prolog importps.h importpsplugin.h
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
 	$(INSTALL_DATA) $(srcdir)/import.prolog $(libdir)/scribus/import.prolog
+	$(INSTALL_DATA) $(srcdir)/import_la.prolog $(libdir)/scribus/import_la.prolog
 
 uninstall-local:
 	-rm -f $(libdir)/scribus/import.prolog
+	-rm -f $(libdir)/scribus/import_la.prolog
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

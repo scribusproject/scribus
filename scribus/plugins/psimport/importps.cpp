@@ -329,7 +329,11 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString tmpFile = getShortPathName(PrefsManager::instance()->preferencesLocation())+ "/ps.out";
 	QString errFile = getShortPathName(PrefsManager::instance()->preferencesLocation())+ "/ps.err";
 	QString pfad = ScPaths::instance().libDir();
+#ifdef HAVE_CAIRO
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
+#else
+	QString pfad2 = QDir::convertSeparators(pfad + "import_la.prolog");
+#endif
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	
@@ -356,8 +360,13 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	if( !cmd.isEmpty() )
 		args.append( cmd );
 	// then finish building the command and call gs
+#ifdef HAVE_CAIRO
 	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound((b-x)))).arg(tmp3.setNum(qRound((h-y)))) );
 	args.append( "-r72");
+#else
+	args.append( QString("-g%1x%2").arg(tmp2.setNum(qRound((b-x)*4))).arg(tmp3.setNum(qRound((h-y)*4))) );
+	args.append( "-r288");
+#endif
 	args.append( "-dTextAlphaBits=4" );
 	args.append( "-dGraphicsAlphaBits=4" );
 	args.append( "-c" );
