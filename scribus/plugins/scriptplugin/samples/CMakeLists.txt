@@ -3,6 +3,7 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
+boilerplate.py
 Sample1.py
 Calender.py
 trait_de_coupe.py
