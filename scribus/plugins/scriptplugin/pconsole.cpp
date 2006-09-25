@@ -13,6 +13,7 @@ the Free Software Foundation; either version 2 of the License, or
 
 #include "pconsole.h"
 #include "pconsole.moc"
+
 #include <qpixmap.h>
 #include <qvariant.h>
 #include <qpushbutton.h>
@@ -25,6 +26,8 @@ the Free Software Foundation; either version 2 of the License, or
 #include <qwhatsthis.h>
 #include <qmenubar.h>
 #include <qfiledialog.h>
+#include <qstatusbar.h>
+
 #include <qsyntaxhighlighter.h>
 #include "scribus.h"
 #include "prefsmanager.h"
@@ -32,6 +35,7 @@ the Free Software Foundation; either version 2 of the License, or
 #include "prefscontext.h"
 #include "scmessagebox.h"
 #include "commonstrings.h"
+
 
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
@@ -56,7 +60,7 @@ PythonConsole::PythonConsole( QWidget* parent)
 	scriptMenu->insertItem( tr("&Save Output..."), this, SLOT(slot_saveOutput()));
 	menuBar->insertItem( tr("&Script"), scriptMenu);
 
-	gridLayout = new QGridLayout( this, 1, 1, 11, 6, "gridLayout");
+	gridLayout = new QGridLayout( this, 0, 0, 1, 6, "gridLayout");
 	gridLayout->setMenuBar(menuBar);
 
 	editorsLayout = new QVBoxLayout( 0, 0, 6, "editorsLayout");
@@ -83,6 +87,11 @@ PythonConsole::PythonConsole( QWidget* parent)
 	outputEditSize.setVerData(QSizePolicy::Expanding);
 	outputEdit->setSizePolicy(outputEditSize);
 
+	statusBar = new QStatusBar(this, "statusBar");
+	statusBar->setSizeGripEnabled(true);
+	commandEdit_cursorPositionChanged(0, 0);
+	editorsLayout->addWidget(statusBar);
+	
 	gridLayout->addLayout( editorsLayout, 0, 0 );
 	languageChange();
 	resize(QSize(640, 480).expandedTo(minimumSizeHint()));
@@ -100,6 +109,8 @@ PythonConsole::PythonConsole( QWidget* parent)
 	welcomeText += "\"\"\"\n";
 	commandEdit->setText(welcomeText);
 	commandEdit->selectAll(true);
+
+	connect(commandEdit, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(commandEdit_cursorPositionChanged(int, int)));
 }
 
 /*
@@ -124,10 +135,11 @@ void PythonConsole::closeEvent(QCloseEvent *)
 	emit paletteShown(false);
 }
 
-/*
- *  Sets the strings of the subwidgets using the current
- *  language.
- */
+void PythonConsole::commandEdit_cursorPositionChanged(int para, int pos)
+{
+	statusBar->message(tr("Line: %1 Column: %2").arg(para+1).arg(pos+1));
+}
+
 void PythonConsole::languageChange()
 {
 	setCaption( tr("Script Console"));

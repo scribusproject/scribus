@@ -28,6 +28,8 @@ class QListView;
 class QListViewItem;
 class QTextEdit;
 class QMenuBar;
+class QStatusBar;
+
 
 /*! \brief This is simple "IDE"/python console for interactive commands execution.
 It's used e.g. like Tora (SQLnavigator) console. Sample: highlight some code,
@@ -47,15 +49,15 @@ class PythonConsole : public QWidget
 		/*! \brief The command string
 		\retval QString with prepared Python commands */
 		QString command() { return m_command; };
-		//! File name for saving the contents
+		//! \brief File name for saving the contents
 		QString filename;
 
-		//! Programmer's editor ;)
+		//! \brief Programmer's editor ;)
 		QTextEdit* commandEdit;
-		//! Results viewer
+		//! \brief Results viewer
 		QTextEdit* outputEdit;
 
-		//! Close event for turning the action off
+		//! \brief Close event for turning the action off
 		void closeEvent(QCloseEvent *);
 
 	public slots:
@@ -67,20 +69,26 @@ class PythonConsole : public QWidget
 		virtual void slot_saveAs();
 		virtual void slot_saveOutput();
 		virtual void slot_quit();
+		/*! \brief Slot processed after user change cursor postion in "programmer's editor".
+		\param para number of the paragraph (0 = 1st...)
+		\param pos position in the text like (0 = 1st...)
+		*/
+		virtual void commandEdit_cursorPositionChanged(int para, int pos);
 
 	signals:
-		//! Menu indication trigger
+		//! \brief Menu indication trigger
 		void paletteShown(bool);
-		//! Scripter Core launcher
+		//! \brief Scripter Core launcher
 		void runCommand();
 
 	protected:
-		//! prepare Python "script" from GUI widget
+		//! \brief prepare Python "script" from GUI widget
 		void parsePythonString();
 		QGridLayout* gridLayout;
 		QVBoxLayout* editorsLayout;
 		QMenuBar* menuBar;
-		//! String with the script to run (part of the all text)
+		QStatusBar* statusBar;
+		//! \brief String with the script to run (part of the all text)
 		QString m_command;
 
 	protected slots:
@@ -122,14 +130,14 @@ class SyntaxHighlighter : public QSyntaxHighlighter
 	public:
 		SyntaxHighlighter(QTextEdit *textEdit);
 
-		/*! Reimplementation of the Qt highligtion for python.
+		/*! \brief Reimplementation of the Qt highligtion for python.
 		\param text string (one row) provided by text editor via QSyntaxHighlighter inheritance.
 		\param endStateOfLastPara how is the syntax left for next paragraph? 0 - normal text, 1 - multirows comment continues
 		*/
 		int highlightParagraph(const QString &text, int endStateOfLastPara);
 
 	private:
-		//! Reserved python keywords
+		//! \brief Reserved python keywords
 		QStringList keywords;
 		SyntaxColors colors;
 
