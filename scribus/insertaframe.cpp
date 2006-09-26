@@ -56,7 +56,6 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	slotSelectSize(0);
 	
 	int docUnitIndex = m_Doc->unitIndex();
-// 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString unitSuffix(unitGetSuffixFromIndex(docUnitIndex));
 	xPosMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);

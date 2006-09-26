@@ -22,6 +22,8 @@ for which a new license (GPL+exception) is in place.
 #ifndef ALIGNDISTRIBUTEPALETTE_H
 #define ALIGNDISTRIBUTEPALETTE_H
 
+#include "aligndistributebase.h"
+
 #include <qvariant.h>
 #include <qpixmap.h>
 #include <qdialog.h>
@@ -46,7 +48,7 @@ class ScribusMainWindow;
 class ScribusDoc;
 class UndoManager;
 
-class SCRIBUS_API AlignDistributePalette : public ScrPaletteBase
+class SCRIBUS_API AlignDistributePalette : public AlignDistributeBase
 {
 	Q_OBJECT
 
@@ -63,56 +65,6 @@ public slots:
 protected:
 	ScribusView *currView;
 	
-	
-	QGroupBox* alignGroupBox;
-	QLabel* alignRelativeToLabel;
-	QComboBox* alignRelativeToCombo;
-	QToolButton* alignLeftOutToolButton;
-	QToolButton* alignRightOutToolButton;
-	QToolButton* alignBottomInToolButton;
-	QToolButton* alignRightInToolButton;
-	QToolButton* alignBottomOutToolButton;
-	QToolButton* alignCenterHorToolButton;
-	QToolButton* alignLeftInToolButton;
-	QToolButton* alignCenterVerToolButton;
-	QToolButton* alignTopOutToolButton;
-	QToolButton* alignTopInToolButton;
-	QLabel *alignGuideLabel;
-	QLineEdit* alignGuideLineEdit;
-	QGroupBox* distributeGroupBox;
-	QToolButton* distributeDistHToolButton;
-	QToolButton* distributeDistValueHToolButton;
-	QToolButton* distributeRightToolButton;
-	QToolButton* distributeBottomToolButton;
-	QToolButton* distributeCenterHToolButton;
-	QToolButton* distributeDistVToolButton;
-	QToolButton* distributeDistValueVToolButton;
-	QToolButton* distributeLeftToolButton;
-	QToolButton* distributeCenterVToolButton;
-	QToolButton* distributeTopToolButton;
-	QLabel* distributeDistLabel;
-	MSpinBox* distributeDistMSpinBox;
-
-	QVBoxLayout* AlignDistributePaletteLayout;
-	QGridLayout* alignGroupBoxLayout;
-	QHBoxLayout* alignGuideLayout;
-	QSpacerItem* alignGuideLeftSpacer;
-	QSpacerItem* alignGuideRightSpacer;
-
-	QHBoxLayout* layout11;
-	QHBoxLayout* layout14;
-	QSpacerItem* spacer15;
-	QSpacerItem* spacer16;
-	QGridLayout* layout2;
-	QGridLayout* distributeGroupBoxLayout;
-	QHBoxLayout* layout4;
-	QSpacerItem* distributeLeftSpacer;
-	QSpacerItem* distributeRightSpacer;
-	QGridLayout* layout1;
-	QHBoxLayout* distanceLayout;
-	QSpacerItem* distributeDistLeftSpacer;
-	QSpacerItem* distributeDistRightSpacer;
-
 protected slots:
 	virtual void languageChange();
 	

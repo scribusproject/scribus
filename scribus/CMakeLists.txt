@@ -22,6 +22,7 @@ ADD_SUBDIRECTORY(desaxe)
 
 SET(SCRIBUS_UI_SRC
 aboutpluginsbase.ui
+aligndistributebase.ui
 docitemattrprefsbase.ui
 docsectionsbase.ui
 guidemanagerbase.ui

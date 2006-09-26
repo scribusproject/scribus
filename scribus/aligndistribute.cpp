@@ -20,10 +20,10 @@ for which a new license (GPL+exception) is in place.
 ***************************************************************************/
 
 #include "aligndistribute.h"
+#include "aligndistribute.moc"
 
 #include <qvariant.h>
 #include <qpushbutton.h>
-#include <qgroupbox.h>
 #include <qlabel.h>
 #include <qcombobox.h>
 #include <qtoolbutton.h>
@@ -34,10 +34,8 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qlineedit.h>
 
-#include "aligndistribute.moc"
 #include "page.h"
 #include "scmessagebox.h"
-//#include "scribus.h"
 #include "scribusdoc.h"
 #include "selection.h"
 #include "undomanager.h"
@@ -48,186 +46,36 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 //TODO Distribute with 
-//TODO Handle locked items
 
-/*
- *  Constructs a AlignDistributePalette as a child of 'parent', with the
- *  name 'name' and widget flags set to 'f'.
- *
- *  The dialog will by default be modeless, unless you set 'modal' to
- *  true to construct a modal dialog.
- */
 AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool modal, WFlags fl )
-	: ScrPaletteBase( parent, name, modal, fl )
+	: AlignDistributeBase( parent, name )
 {
 	if ( !name )
 		setName( "AlignDistributePalette" );
 	currDoc=NULL;
-	AlignDistributePaletteLayout = new QVBoxLayout( this, 5, 6, "AlignDistributePaletteLayout"); 
 
-	alignGroupBox = new QGroupBox( this, "alignGroupBox" );
-	alignGroupBox->setColumnLayout(0, Qt::Vertical );
-	alignGroupBox->layout()->setSpacing( 6 );
-	alignGroupBox->layout()->setMargin( 11 );
-	alignGroupBoxLayout = new QGridLayout( alignGroupBox->layout() );
-	//alignGroupBoxLayout = new QVBoxLayout( alignGroupBox->layout() );
-	alignGroupBoxLayout->setAlignment( Qt::AlignTop );
-
-	layout11 = new QHBoxLayout( 0, 0, 6, "layout11"); 
-
-	alignRelativeToLabel = new QLabel( alignGroupBox, "alignRelativeToLabel" );
-	layout11->addWidget( alignRelativeToLabel );
-
-	alignRelativeToCombo = new QComboBox( false, alignGroupBox, "alignRelativeToCombo" );
-	layout11->addWidget( alignRelativeToCombo );
-	alignGroupBoxLayout->addLayout( layout11, 0, 0 );
-
-	layout14 = new QHBoxLayout( 0, 0, 6, "layout14"); 
-	spacer15 = new QSpacerItem( 21, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout14->addItem( spacer15 );
-
-	layout2 = new QGridLayout( 0, 1, 1, 0, 6, "layout2"); 
-
-	alignLeftOutToolButton = new QToolButton( alignGroupBox, "alignLeftOutToolButton" );
-	layout2->addWidget( alignLeftOutToolButton, 0, 0 );
-
-	alignRightOutToolButton = new QToolButton( alignGroupBox, "alignRightOutToolButton" );
-	layout2->addWidget( alignRightOutToolButton, 0, 4 );
-
-	alignBottomInToolButton = new QToolButton( alignGroupBox, "alignBottomInToolButton" );
-	layout2->addWidget( alignBottomInToolButton, 1, 3 );
-
-	alignRightInToolButton = new QToolButton( alignGroupBox, "alignRightInToolButton" );
-	layout2->addWidget( alignRightInToolButton, 0, 3 );
-
-	alignBottomOutToolButton = new QToolButton( alignGroupBox, "alignBottomOutToolButton" );
-	layout2->addWidget( alignBottomOutToolButton, 1, 4 );
-
-	alignCenterHorToolButton = new QToolButton( alignGroupBox, "alignCenterHorToolButton" );
-	layout2->addWidget( alignCenterHorToolButton, 0, 2 );
-
-	alignLeftInToolButton = new QToolButton( alignGroupBox, "alignLeftInToolButton" );
-	layout2->addWidget( alignLeftInToolButton, 0, 1 );
-
-	alignCenterVerToolButton = new QToolButton( alignGroupBox, "alignCenterVerToolButton" );
-	layout2->addWidget( alignCenterVerToolButton, 1, 2 );
-
-	alignTopOutToolButton = new QToolButton( alignGroupBox, "alignTopOutToolButton" );
-	layout2->addWidget( alignTopOutToolButton, 1, 0 );
-
-	alignTopInToolButton = new QToolButton( alignGroupBox, "alignTopInToolButton" );
-	layout2->addWidget( alignTopInToolButton, 1, 1 );
-	layout14->addLayout( layout2 );
-	spacer16 = new QSpacerItem( 21, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout14->addItem( spacer16 );
-	alignGroupBoxLayout->addLayout( layout14, 1, 0 );
-	
-	alignGuideLayout = new QHBoxLayout( 0, 0, 6, "alignGuideLayout"); 
-	alignGuideLeftSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	alignGuideLayout->addItem( alignGuideLeftSpacer );
-	alignGuideLineEdit = new QLineEdit( "", alignGroupBox, "alignGuideLineEdit");
-	alignGuideLineEdit->setMinimumSize( QSize( 80, 20 ) );
-	alignGuideLineEdit->setReadOnly(true);
-	alignGuideLabel = new QLabel( alignGuideLineEdit, "", alignGroupBox, "alignGuideLabel");
-	alignGuideLayout->addWidget( alignGuideLabel );
-
-	alignGuideLayout->addWidget( alignGuideLineEdit );
-	alignGuideRightSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	alignGuideLayout->addItem( alignGuideRightSpacer);
-	alignGroupBoxLayout->addLayout( alignGuideLayout, 2, 0 );
-	
-	AlignDistributePaletteLayout->addWidget( alignGroupBox );
-
-	distributeGroupBox = new QGroupBox( this, "distributeGroupBox" );
-	distributeGroupBox->setColumnLayout(0, Qt::Vertical );
-	distributeGroupBox->layout()->setSpacing( 6 );
-	distributeGroupBox->layout()->setMargin( 11 );
-	distributeGroupBoxLayout = new QGridLayout( distributeGroupBox->layout() );
-	distributeGroupBoxLayout->setAlignment( Qt::AlignTop );
-
-	layout4 = new QHBoxLayout( 0, 0, 6, "layout4"); 
-	distributeLeftSpacer = new QSpacerItem( 35, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout4->addItem( distributeLeftSpacer );
-
-	layout1 = new QGridLayout( 0, 1, 1, 0, 6, "layout1"); 
-
-	distributeDistHToolButton = new QToolButton( distributeGroupBox, "distributeDistHToolButton" );
-	layout1->addWidget( distributeDistHToolButton, 0, 3 );
-	
-	distributeDistValueHToolButton = new QToolButton( distributeGroupBox, "distributeDistValueHToolButton" );
-	layout1->addWidget( distributeDistValueHToolButton, 0, 4 );
-
-	distributeRightToolButton = new QToolButton( distributeGroupBox, "distributeRightToolButton" );
-	layout1->addWidget( distributeRightToolButton, 0, 2 );
-
-	distributeBottomToolButton = new QToolButton( distributeGroupBox, "distributeBottomToolButton" );
-	layout1->addWidget( distributeBottomToolButton, 1, 0 );
-
-	distributeCenterHToolButton = new QToolButton( distributeGroupBox, "distributeCenterHToolButton" );
-	layout1->addWidget( distributeCenterHToolButton, 0, 1 );
-
-	distributeDistVToolButton = new QToolButton( distributeGroupBox, "distributeDistVToolButton" );
-	layout1->addWidget( distributeDistVToolButton, 1, 3 );
-	
-	distributeDistValueVToolButton = new QToolButton( distributeGroupBox, "distributeDistValueVToolButton" );
-	layout1->addWidget( distributeDistValueVToolButton, 1, 4 );
-
-	distributeLeftToolButton = new QToolButton( distributeGroupBox, "distributeLeftToolButton" );
-	layout1->addWidget( distributeLeftToolButton, 0, 0 );
-
-	distributeCenterVToolButton = new QToolButton( distributeGroupBox, "distributeCenterVToolButton" );
-	layout1->addWidget( distributeCenterVToolButton, 1, 1 );
-
-	distributeTopToolButton = new QToolButton( distributeGroupBox, "distributeTopToolButton" );
-	layout1->addWidget( distributeTopToolButton, 1, 2 );
-	layout4->addLayout( layout1 );
-	distributeRightSpacer = new QSpacerItem( 35, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout4->addItem( distributeRightSpacer );
-
-	distributeGroupBoxLayout->addLayout( layout4, 0, 0 );
-	
-	distanceLayout = new QHBoxLayout( 0, 0, 6, "distanceLayout"); 
-	distributeDistLeftSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	distanceLayout->addItem( distributeDistLeftSpacer );
-	distributeDistLabel = new QLabel( distributeGroupBox, "distributeDistLabel");
-	distanceLayout->addWidget( distributeDistLabel );
-	distributeDistMSpinBox = new MSpinBox( -1000, 1000, distributeGroupBox, 2);
-	distributeDistMSpinBox->setMinimumSize( QSize( 80, 20 ) );
-	distributeDistMSpinBox->setValue(0);
-	distanceLayout->addWidget( distributeDistMSpinBox );
-	distributeDistRightSpacer = new QSpacerItem( 20, 10, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	distanceLayout->addItem( distributeDistRightSpacer);
-	distributeGroupBoxLayout->addLayout( distanceLayout, 1, 0 );
-	
-	AlignDistributePaletteLayout->addWidget( distributeGroupBox );
-	languageChange();
-
-	resize( QSize(222, 232).expandedTo(minimumSizeHint()) );
-	clearWState( WState_Polished );
+	//set up mspinboxes
+	distributeDistMSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
 
 	// buddies
 	alignRelativeToLabel->setBuddy( alignRelativeToCombo );
+	alignGuideLabel->setBuddy( alignGuideLineEdit );
 	distributeDistLabel->setBuddy( distributeDistMSpinBox );
+	
+	resize( QSize(100, 100).expandedTo(minimumSizeHint()) );
+	clearWState( WState_Polished );
+	
 	init();
 	setDoc(NULL);
 }
 
-/*
-*  Destroys the object and frees any allocated resources
-*/
 AlignDistributePalette::~AlignDistributePalette()
 {
-	// no need to delete child widgets, Qt does it all for us
 }
 
-/*
-*  Sets the strings of the subwidgets using the current
-*  language.
-*/
 void AlignDistributePalette::languageChange()
 {
 	setCaption( tr( "Align and Distribute" ) );
-	alignGroupBox->setTitle( tr( "Align" ) );
 	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
 	int alignComboValue=alignRelativeToCombo->currentItem();
 	alignRelativeToCombo->clear();
@@ -262,7 +110,6 @@ void AlignDistributePalette::languageChange()
 	
 	alignGuideLabel->setText( tr( "&Selected Guide:" ) );
 	
-	distributeGroupBox->setTitle( tr( "Distribute" ) );
 	distributeDistHToolButton->setText( QString::null );
 	QToolTip::add( distributeDistHToolButton, tr( "Make horizontal gaps between objects equal" ) );
 	distributeDistValueHToolButton->setText( QString::null );

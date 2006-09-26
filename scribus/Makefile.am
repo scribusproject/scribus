@@ -27,6 +27,7 @@ scribus_SOURCES = \
 	aboutplugins.cpp	\
 	actionmanager.cpp	\
 	aligndistribute.cpp	\
+	aligndistributebase.ui	\
 	alignselect.cpp	\
 	annota.cpp	\
 	annot.cpp	\

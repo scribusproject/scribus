@@ -439,8 +439,7 @@ void ScribusMainWindow::initPalettes()
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
-	//alignDistributePalette->hide();
-
+	
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
