@@ -299,20 +299,7 @@ void ScribusDoc::init()
 #endif
 
 	PrefsManager *prefsManager = PrefsManager::instance();
-	CMSSettings.DefaultImageRGBProfile = prefsManager->appPrefs.DCMSset.DefaultImageRGBProfile;
-	CMSSettings.DefaultImageCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultImageCMYKProfile;
-	CMSSettings.DefaultSolidColorRGBProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
-	CMSSettings.DefaultSolidColorCMYKProfile = prefsManager->appPrefs.DCMSset.DefaultSolidColorCMYKProfile;
-	CMSSettings.DefaultMonitorProfile = prefsManager->appPrefs.DCMSset.DefaultMonitorProfile;
-	CMSSettings.DefaultPrinterProfile = prefsManager->appPrefs.DCMSset.DefaultPrinterProfile;
-	CMSSettings.DefaultIntentColors = prefsManager->appPrefs.DCMSset.DefaultIntentColors;
-	CMSSettings.DefaultIntentImages = prefsManager->appPrefs.DCMSset.DefaultIntentImages;
-	CMSSettings.SoftProofOn = prefsManager->appPrefs.DCMSset.SoftProofOn;
-	CMSSettings.SoftProofFullOn = prefsManager->appPrefs.DCMSset.SoftProofFullOn;
-	CMSSettings.GamutCheck = prefsManager->appPrefs.DCMSset.GamutCheck;
-	CMSSettings.BlackPoint = prefsManager->appPrefs.DCMSset.BlackPoint;
-	CMSSettings.CMSinUse = prefsManager->appPrefs.DCMSset.CMSinUse;
-
+	CMSSettings = prefsManager->appPrefs.DCMSset;
 	PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
 	PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
