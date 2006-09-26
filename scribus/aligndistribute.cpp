@@ -47,7 +47,7 @@ extern QPixmap loadIcon(QString nam);
 
 //TODO Distribute with 
 
-AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool modal, WFlags fl )
+AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* name, bool /*modal*/, WFlags /*fl*/ )
 	: AlignDistributeBase( parent, name )
 {
 	if ( !name )
@@ -114,6 +114,7 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( distributeDistHToolButton, tr( "Make horizontal gaps between objects equal" ) );
 	distributeDistValueHToolButton->setText( QString::null );
 	QToolTip::add( distributeDistValueHToolButton, tr( "Make horizontal gaps between objects equal to the value specified" ) );
+	
 	distributeRightToolButton->setText( QString::null );
 	distributeRightToolButton->setTextLabel( tr( "Distribute right sides equidistantly" ) );
 	distributeBottomToolButton->setText( QString::null );
@@ -130,6 +131,10 @@ void AlignDistributePalette::languageChange()
 	QToolTip::add( distributeCenterVToolButton, tr( "Distribute centers equidistantly vertically" ) );
 	distributeTopToolButton->setText( QString::null );
 	QToolTip::add( distributeTopToolButton, tr( "Distribute tops equidistantly" ) );
+	distributeAcrossPageToolButton->setText( QString::null );
+	QToolTip::add( distributeAcrossPageToolButton, tr( "Make horizontal gaps between objects and sides of page equal" ) );
+	distributeDownPageToolButton->setText( QString::null );
+	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between objects and the top and bottom of page equal" ) );
 	
 	distributeDistLabel->setText( tr( "&Distance:" ) );
 	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
@@ -157,12 +162,15 @@ void AlignDistributePalette::init()
 	distributeCenterHToolButton->setIconSet(QIconSet(loadIcon("distribute_hcentre.png"), QIconSet::Small));
 	distributeRightToolButton->setIconSet(QIconSet(loadIcon("distribute_right.png"), QIconSet::Small));
 	distributeDistHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist.png"), QIconSet::Small));
-	distributeDistValueHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist_val.png"), QIconSet::Small));
 	
 	distributeBottomToolButton->setIconSet(QIconSet(loadIcon("distribute_bottom.png"), QIconSet::Small));
 	distributeCenterVToolButton->setIconSet(QIconSet(loadIcon("distribute_vcentre.png"), QIconSet::Small));
 	distributeTopToolButton->setIconSet(QIconSet(loadIcon("distribute_top.png"), QIconSet::Small));
 	distributeDistVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist.png"), QIconSet::Small));
+	
+	distributeAcrossPageToolButton->setIconSet(QIconSet(loadIcon("distribute_acrosspage.png"), QIconSet::Small));
+	distributeDownPageToolButton->setIconSet(QIconSet(loadIcon("distribute_downpage.png"), QIconSet::Small));
+	distributeDistValueHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist_val.png"), QIconSet::Small));
 	distributeDistValueVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist_val.png"), QIconSet::Small));
 	
 	connect(alignLeftOutToolButton, SIGNAL(clicked()), this, SLOT(alignLeftOut()));

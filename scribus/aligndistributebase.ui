@@ -392,10 +392,10 @@
                                     </widget>
                                     <widget class="QToolButton" row="2" column="0">
                                         <property name="name">
-                                            <cstring>toolButton8_10_2</cstring>
+                                            <cstring>distributeAcrossPageToolButton</cstring>
                                         </property>
                                         <property name="enabled">
-                                            <bool>false</bool>
+                                            <bool>true</bool>
                                         </property>
                                         <property name="text">
                                             <string>...</string>
@@ -419,10 +419,10 @@
                                     </widget>
                                     <widget class="QToolButton" row="2" column="1">
                                         <property name="name">
-                                            <cstring>toolButton8_9_2</cstring>
+                                            <cstring>distributeDownPageToolButton</cstring>
                                         </property>
                                         <property name="enabled">
-                                            <bool>false</bool>
+                                            <bool>true</bool>
                                         </property>
                                         <property name="text">
                                             <string>...</string>

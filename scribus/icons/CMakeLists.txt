@@ -61,8 +61,10 @@ DeleteNode.png
 DelPoint.png
 dist22.png
 dist.png
+distribute_acrosspage.png
 distribute_bottom.png
 distribute_hcentre.png
+distribute_downpage.png
 distribute_hdist.png
 distribute_hdist_val.png
 distribute_left.png
