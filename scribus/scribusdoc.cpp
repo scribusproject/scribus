@@ -7459,7 +7459,7 @@ void ScribusDoc::itemSelection_DistributeDistH(bool usingDistance, double distan
 	uint left=X1sorted.begin().data();
 	uint right=X2sorted[X2sorted.keys().back()];
 	double minX=AObjects[left].x2;
-	double separation;
+	double separation=0.0;
 	if (!usingDistance)
 	{
 		double maxX=AObjects[right].x1;
@@ -7624,7 +7624,7 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 	uint top=Y1sorted.begin().data();
 	uint bottom=Y2sorted[Y2sorted.keys().back()];
 	double minY=AObjects[top].y2;
-	double separation;
+	double separation=0.0;
 	if (!usingDistance)
 	{
 		double maxY=AObjects[bottom].y1;
@@ -7664,6 +7664,79 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 }
 
 
+void ScribusDoc::itemSelection_DistributeAcrossPage()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> X1sorted, X2sorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+	{
+		X1sorted.insert(AObjects[a].x1, a, false);
+		X2sorted.insert(AObjects[a].x2, a, false);
+	}	
+	
+	double totalSpace=currentPage()->width();
+	double totalWidth=0.0;
+	uint insideObjectCount=0;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+	{
+		totalWidth += AObjects[a].width;
+		++insideObjectCount;
+	}
+	double separation=(totalSpace-totalWidth)/(insideObjectCount+1);
+		
+	double currX=currentPage()->xOffset();
+	for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
+	{
+		currX+=separation;
+		double diff=currX-AObjects[it.data()].x1;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(diff, 0.0);
+		currX+=AObjects[it.data()].width;
+	}
+	endAlign();
+}
+
+void ScribusDoc::itemSelection_DistributeDownPage()
+{
+	if (!startAlign())
+		return;
+	uint alignObjectsCount=AObjects.count();
+	if (alignObjectsCount<=1)
+		return;
+	QMap<double,uint> Y1sorted, Y2sorted;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+	{
+		Y1sorted.insert(AObjects[a].y1, a, false);
+		Y2sorted.insert(AObjects[a].y2, a, false);
+	}	
+	
+	double totalSpace=currentPage()->height();
+	double totalHeight=0.0;
+	uint insideObjectCount=0;
+	for (uint a = 0; a < alignObjectsCount; ++a)
+	{
+		totalHeight += AObjects[a].height;
+		++insideObjectCount;
+	}
+	double separation=(totalSpace-totalHeight)/(insideObjectCount+1);
+		
+	double currY=currentPage()->yOffset();
+	for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
+	{
+		currY+=separation;
+		double diff=currY-AObjects[it.data()].y1;
+		for (uint j = 0; j < AObjects[it.data()].Objects.count(); ++j)
+			if (!AObjects[it.data()].Objects.at(j)->locked())
+				AObjects[it.data()].Objects.at(j)->moveBy(0.0, diff);
+		currY+=AObjects[it.data()].height;
+	}
+	endAlign();
+}
 
 void ScribusDoc::changed()
 {

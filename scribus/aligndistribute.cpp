@@ -193,6 +193,8 @@ void AlignDistributePalette::init()
 	connect(distributeLeftToolButton, SIGNAL(clicked()), this, SLOT(distributeLeft()));
 	connect(distributeCenterVToolButton, SIGNAL(clicked()), this, SLOT(distributeCenterV()));
 	connect(distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
+	connect(distributeAcrossPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossPage()));
+	connect(distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
 	
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 	
@@ -314,10 +316,22 @@ void AlignDistributePalette::distributeDistH(bool usingDistance)
 		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistMSpinBox->value());
 }
 
+void AlignDistributePalette::distributeDistAcrossPage()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeAcrossPage();
+}
+
 void AlignDistributePalette::distributeDistValH()
 {
 	if (currDoc!=NULL)
 		distributeDistH(true);
+}
+
+void AlignDistributePalette::distributeDistDownPage()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeDownPage();
 }
 
 void AlignDistributePalette::distributeBottom()
