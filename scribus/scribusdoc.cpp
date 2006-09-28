@@ -7687,8 +7687,13 @@ void ScribusDoc::itemSelection_DistributeAcrossPage()
 		++insideObjectCount;
 	}
 	double separation=(totalSpace-totalWidth)/(insideObjectCount+1);
-		
 	double currX=currentPage()->xOffset();
+	if (separation<0.0)
+	{
+		separation=(totalSpace-totalWidth)/(insideObjectCount-1);
+		currX-=separation;
+	}
+		
 	for ( QMap<double,uint>::Iterator it = X1sorted.begin(); it != X1sorted.end(); ++it )
 	{
 		currX+=separation;
@@ -7724,8 +7729,13 @@ void ScribusDoc::itemSelection_DistributeDownPage()
 		++insideObjectCount;
 	}
 	double separation=(totalSpace-totalHeight)/(insideObjectCount+1);
-		
 	double currY=currentPage()->yOffset();
+	if (separation<0.0)
+	{
+		separation=(totalSpace-totalHeight)/(insideObjectCount-1);
+		currY-=separation;
+	}
+		
 	for ( QMap<double,uint>::Iterator it = Y1sorted.begin(); it != Y1sorted.end(); ++it )
 	{
 		currY+=separation;
