@@ -226,6 +226,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 #ifdef HAVE_CAIRO
 	m_ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
 #endif
+	m_SnapCounter = 0;
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
 	connect(zoomInToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomIn()));
 	connect(zoomDefaultToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoom100()));
@@ -1656,6 +1657,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
+	m_SnapCounter = 0;
 	if (Doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
@@ -4757,6 +4759,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 
 void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 {
+	m_SnapCounter = 0;
 	bool inText;
 	uint a;
 	int z;
@@ -5779,13 +5782,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 //CB-->Doc?
 bool ScribusView::ApplyGuides(double *x, double *y)
 {
+	m_SnapCounter++;
 	bool ret = false;
 	int pg = Doc->OnPage(*x, *y);
 	if (pg == -1)
 		return ret;
 	Page* page = Doc->Pages->at(pg);
-	if (Doc->SnapGuides)
+	if ((Doc->SnapGuides) && (m_SnapCounter > 5))
 	{
+		m_SnapCounter = 3;
 		/* PV - guides refactoring
 		if (page->YGuides.count() != 0)
 		{
@@ -5855,6 +5860,8 @@ bool ScribusView::ApplyGuides(double *x, double *y)
 			ret = true;
 		}
 	}
+	if (m_SnapCounter > 10)
+		m_SnapCounter = 0;
 	return ret;
 }
 

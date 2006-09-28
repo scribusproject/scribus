@@ -103,6 +103,7 @@ public:
 	int dragConstrainInitPtY;
 	int Dxp;
 	int Dyp;
+	int m_SnapCounter;
 	/*!
 	 * Frame handle used for resize
 	 * 283
