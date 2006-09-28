@@ -1657,7 +1657,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 {
 	PageItem *currItem;
 	m_MouseButtonPressed = false;
-	m_SnapCounter = 0;
 	if (Doc->guidesSettings.guidesShown)
 	{
 		bool foundGuide = false;
@@ -1982,6 +1981,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete oldClip;
 			oldClip = 0;
 		}
+		m_SnapCounter = 0;
 		return;
 	}
 /*	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
@@ -2052,6 +2052,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			delete oldClip;
 			oldClip = 0;
 		}
+		m_SnapCounter = 0;
 		return;
 	}
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
@@ -3620,6 +3621,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	operItemResizing = false;
 	MidButt = false;
 	shiftSelItems = false;
+	m_SnapCounter = 0;
 	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
 	{
