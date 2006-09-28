@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "dynamictip.h"
 #include "commonstrings.h"
+#include "linkbutton.h"
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #endif
@@ -173,24 +174,29 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	groupScale->setColumnLayout(0, Qt::Vertical );
 	groupScale->layout()->setSpacing( 2 );
 	groupScale->layout()->setMargin( 3 );
-	groupScaleLayout = new QHBoxLayout( groupScale->layout() );
+	groupScaleLayout = new QGridLayout( groupScale->layout() );
 	groupScaleLayout->setAlignment( Qt::AlignTop );
 	textLabel5 = new QLabel( groupScale, "textLabel5" );
-	groupScaleLayout->addWidget( textLabel5 );
+	groupScaleLayout->addWidget( textLabel5, 0, 0 );
 	spinXscaling = new MSpinBox( groupScale, 0);
 	spinXscaling->setDecimals(1);
 	spinXscaling->setMaxValue( 500 );
 	spinXscaling->setMinValue( 1 );
 	spinXscaling->setValue( 100 );
-	groupScaleLayout->addWidget( spinXscaling );
+	groupScaleLayout->addWidget( spinXscaling, 0, 1 );
 	textLabel6 = new QLabel( groupScale, "textLabel6" );
-	groupScaleLayout->addWidget( textLabel6 );
+	groupScaleLayout->addWidget( textLabel6, 1, 0 );
 	spinYscaling = new MSpinBox( groupScale, 0 );
 	spinYscaling->setDecimals(1);
 	spinYscaling->setMaxValue( 500 );
 	spinYscaling->setMinValue( 1 );
 	spinYscaling->setValue( 100 );
-	groupScaleLayout->addWidget( spinYscaling );
+	groupScaleLayout->addWidget( spinYscaling, 1, 1 );
+	keepScaleRatio = new LinkButton( groupScale );
+	keepScaleRatio->setToggleButton( true );
+	keepScaleRatio->setAutoRaise( true );
+	keepScaleRatio->setMaximumSize( QSize( 15, 32767 ) );
+	groupScaleLayout->addMultiCellWidget( keepScaleRatio, 0, 1, 2, 2 );
 	frame3Layout->addWidget( groupScale );
 
 	groupRotation = new QGroupBox( patternFrame, "groupRotation" );
@@ -263,8 +269,9 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	connect(gY2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	connect(keepScaleRatio, SIGNAL(clicked()), this, SLOT(ToggleKette()));
 	connect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	connect(gradEdit->Preview, SIGNAL(selectedColor(QString, int )), this, SLOT(slotColor(QString, int )));
 	connect(gradEdit->Preview, SIGNAL(currTrans(double )), this, SLOT(setGradTrans(double )));
@@ -369,6 +376,44 @@ void Cpalette::selectPattern(QIconViewItem *c)
 void Cpalette::changePatternProps()
 {
 	emit NewPatternProps(spinXscaling->value(), spinYscaling->value(), spinXoffset->value(), spinYoffset->value(), spinAngle->value());
+}
+
+void Cpalette::ToggleKette()
+{
+	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	if (keepScaleRatio->isOn())
+	{
+		spinYscaling->setValue(spinXscaling->value());
+		changePatternProps();
+		keepScaleRatio->setOn(true);
+	}
+	else
+		keepScaleRatio->setOn(false);
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+}
+
+void Cpalette::HChange()
+{
+	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	if (keepScaleRatio->isOn())
+		spinYscaling->setValue(spinXscaling->value());
+	changePatternProps();
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+}
+
+void Cpalette::VChange()
+{
+	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
+	if (keepScaleRatio->isOn())
+		spinXscaling->setValue(spinYscaling->value());
+	changePatternProps();
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 }
 
 void Cpalette::SetColors(ColorList newColorList)
@@ -672,8 +717,8 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	disconnect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
 	disconnect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	disconnect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	disconnect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	disconnect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	disconnect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	QIconViewItem *it = patternBox->findItem(pattern);
 	if (it)
@@ -683,11 +728,15 @@ void Cpalette::setActPattern(QString pattern, double scaleX, double scaleY, doub
 	spinXscaling->setValue(scaleX);
 	spinYscaling->setValue(scaleY);
 	spinAngle->setValue(rotation);
+	if (scaleX == scaleY)
+		keepScaleRatio->setOn(true);
+	else
+		keepScaleRatio->setOn(false);
 	connect(patternBox, SIGNAL(clicked(QIconViewItem*)), this, SLOT(selectPattern(QIconViewItem*)));
 	connect(spinXoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 	connect(spinYoffset, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
-	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
+	connect(spinXscaling, SIGNAL(valueChanged(int)), this, SLOT(HChange()));
+	connect(spinYscaling, SIGNAL(valueChanged(int)), this, SLOT(VChange()));
 	connect(spinAngle, SIGNAL(valueChanged(int)), this, SLOT(changePatternProps()));
 }
 
@@ -705,48 +754,6 @@ void Cpalette::unitChange(double oldUnitRatio, double newUnitRatio, int unitInde
 	gY2->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
 	spinXoffset->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
 	spinYoffset->setNewUnit(oldUnitRatio, newUnitRatio, unitIndex);
-/*
-	double oldX = gX1->value() / oldUnitRatio;
-	double oldXM = gX1->maxValue() / oldUnitRatio;
-	double oldY = gY1->value() / oldUnitRatio;
-	double oldYM = gY1->maxValue() / oldUnitRatio;
-	double oldW = gX2->value() / oldUnitRatio;
-	double oldWM = gX2->maxValue() / oldUnitRatio;
-	double oldH = gY2->value() / oldUnitRatio;
-	double oldHM = gY2->maxValue() / oldUnitRatio;
-
-	QString unitSuffix = unitGetSuffixFromIndex(unitIndex);
-	int unitDecimals = unitGetDecimalsFromIndex(unitIndex);
-	gX1->setDecimals( unitDecimals );
-	gY1->setDecimals( unitDecimals );
-	gX2->setDecimals( unitDecimals );
-	gY2->setDecimals( unitDecimals );
-	spinXoffset->setDecimals( unitDecimals );
-	spinYoffset->setDecimals( unitDecimals );
-	spinYspacing->setDecimals( unitDecimals );
-	gY2->setDecimals( unitDecimals );
-	gX1->setSuffix( unitSuffix );
-	gY1->setSuffix( unitSuffix );
-	gX2->setSuffix( unitSuffix );
-	gY2->setSuffix( unitSuffix );
-	spinXoffset->setSuffix( unitSuffix );
-	spinYoffset->setSuffix( unitSuffix );
-	spinXspacing->setSuffix( unitSuffix );
-	spinYspacing->setSuffix( unitSuffix );
-
-	gX1->setMinValue(-oldXM * newUnitRatio);
-	gX1->setMaxValue( oldXM * newUnitRatio);
-	gX1->setValue(oldX * newUnitRatio);
-	gY1->setMinValue(-oldYM * newUnitRatio);
-	gY1->setMaxValue( oldYM * newUnitRatio);
-	gY1->setValue(oldY * newUnitRatio);
-	gX2->setMinValue(-oldWM * newUnitRatio);
-	gX2->setMaxValue( oldWM * newUnitRatio);
-	gX2->setValue(oldW * newUnitRatio);
-	gY2->setMinValue(-oldHM * newUnitRatio);
-	gY2->setMaxValue( oldHM * newUnitRatio);
-	gY2->setValue(oldH * newUnitRatio);
-*/
 	connect(gX1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gX2, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
 	connect(gY1, SIGNAL(valueChanged(int)), this, SLOT(changeSpecial()));
@@ -771,13 +778,12 @@ void Cpalette::languageChange()
 	textLabel2->setText( tr( "Y:" ) );
 	spinYoffset->setSuffix( ptSuffix );
 	groupScale->setTitle( tr( "Scaling" ) );
-	textLabel5->setText( tr( "X:" ) );
+	textLabel5->setText( tr( "X-Scale:" ) );
 	spinXscaling->setSuffix( pctSuffix );
-	textLabel6->setText( tr( "Y:" ) );
+	textLabel6->setText( tr( "Y-Scale:" ) );
 	spinYscaling->setSuffix( pctSuffix );
 	groupRotation->setTitle( tr( "Rotation" ) );
 	textLabel7->setText( tr( "Angle" ) );
-//	spinAngle->setSuffix( trUtf8( "\x20\xc2\xb0" ) );
 
 	ShadeTxt->setText( tr( "Shade:" ) );
 	TransTxt->setText( tr( "Opacity:" ) );

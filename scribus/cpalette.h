@@ -49,6 +49,7 @@ class ColorListBox;
 class MSpinBox;
 class ScComboBox;
 class ScPattern;
+class LinkButton;
 
 /**
   *@author Franz Schmid
@@ -73,6 +74,9 @@ public slots:
 	void SetPatterns(QMap<QString, ScPattern> *docPatterns);
 	void selectPattern(QIconViewItem *c);
 	void changePatternProps();
+	void ToggleKette();
+	void HChange();
+	void VChange();
 	void updatePatternList();
 	void updateBoxS(QString Farbe);
 	void selectColor(QListBoxItem *c);
@@ -138,12 +142,13 @@ protected:
 	MSpinBox* spinXscaling;
 	QLabel* textLabel6;
 	MSpinBox* spinYscaling;
+	LinkButton* keepScaleRatio;
 	QGroupBox* groupRotation;
 	QLabel* textLabel7;
 	MSpinBox* spinAngle;
 	QVBoxLayout* frame3Layout;
 	QHBoxLayout* groupOffsetLayout;
-	QHBoxLayout* groupScaleLayout;
+	QGridLayout* groupScaleLayout;
 	QHBoxLayout* groupRotationLayout;
 
 	QToolButton *Inhalt;
