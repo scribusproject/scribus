@@ -12,6 +12,7 @@
 		<submenuitem text="Scribus Source &amp; CVS" file="install1.html"/>
 		<submenuitem text="Requirements" file="install2.html"/>
 		<submenuitem text="Compiling &amp; Installing" file="install3.html"/>
+		<submenuitem text="Compiling &amp; Installing using CMake" file="install4.html"/>
 		<submenuitem text="Parallel Install" file="parallel-install.html"/>
 		<submenuitem text="Debian dpkg Information" file="install-dpkg.html"/>
 	</submenuitem>

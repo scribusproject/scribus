@@ -45,6 +45,7 @@ index.html
 install1.html
 install2.html
 install3.html
+install4.html
 install-dpkg.html
 install.html
 intro.html
