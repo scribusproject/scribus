@@ -9,7 +9,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 #include <memory>
+#include <qapplication.h>
 #include <qlistbox.h>
+#include <qpainter.h>
 #include <qpixmap.h>
 using namespace std;
 
