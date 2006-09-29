@@ -53,6 +53,10 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	if ( !name )
 		setName( "AlignDistributePalette" );
 	currDoc=NULL;
+	
+	//hide spare controls 
+	toolButtonDummy1->hide();
+	toolButtonDummy2->hide();
 
 	//set up mspinboxes
 	distributeDistMSpinBox->setValues(-1000.0, 1000.0, 2, 0.0);
