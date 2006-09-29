@@ -246,37 +246,19 @@ void LineFormate::UpdateFList()
 	connect( ListBox1, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selEditFormat(QListBoxItem*) ) );
 }
 
-LineFormateItem::LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text) : QListBoxItem()
+LineFormateItem::LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text) : ScListBoxPixmap<37, 37>()
 {
 	setText(Text);
 	mLine = MultiLine;
 	doc = Doc;
 }
 
-int	LineFormateItem::width( const QListBox* lb)  const
-{
-	if ( text().isEmpty() )
-		return QMAX( 43, QApplication::globalStrut().width() );
-    return QMAX( 43 + lb->fontMetrics().width( text() ),QApplication::globalStrut().width() );
-}
-
-int	LineFormateItem::height( const QListBox* lb) const
-{
-	int h;
-	if ( text().isEmpty() )
-		h = 37;
-    else
-		h = QMAX( 37, lb->fontMetrics().lineSpacing() + 2 );
-    return QMAX( h, QApplication::globalStrut().height() );
-}
-
-void LineFormateItem::paint(QPainter* qpainter)
+void LineFormateItem::redraw(void)
 {
 	QColor tmpf;
-	static QPixmap pixmap(37, 37);
-	pixmap.fill(Qt::white);
+	pmap->fill(Qt::white);
 	QPainter p;
-	p.begin(&pixmap);
+	p.begin(pmap.get());
 	for (int its = mLine.size()-1; its > -1; its--)
 	{
 		tmpf = doc->PageColors[mLine[its].Color].getDisplayColor(mLine[its].Shade);
@@ -288,16 +270,4 @@ void LineFormateItem::paint(QPainter* qpainter)
 		p.drawLine(0, 18, 37, 18);
 	}
 	p.end();
-
-	int yPos;
-	int itemHeight = height( listBox() );
-	if ( !pixmap.isNull() ) {
-		yPos = ( itemHeight - pixmap.height() ) / 2;
-		qpainter->drawPixmap( 3, yPos, pixmap);
-    }
-    if ( !text().isEmpty() ) {
-		QFontMetrics fm = qpainter->fontMetrics();
-		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-		qpainter->drawText( pixmap.width() + 5, yPos, text() );
-    }
 }

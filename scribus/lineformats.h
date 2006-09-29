@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "multiline.h"
 #include "scribusstructs.h"
+#include "sclistboxpixmap.h"
 
 class QListBox;
 class QPushButton;
@@ -60,17 +61,15 @@ protected:
 	QVBoxLayout* Layout15;
 };
 
-class SCRIBUS_API LineFormateItem : public QListBoxItem
+class SCRIBUS_API LineFormateItem : public ScListBoxPixmap<37, 37>
 {
 public:
 	LineFormateItem(ScribusDoc* Doc, const multiLine& MultiLine, const QString& Text);
-	virtual int	width( const QListBox * )  const;
-	virtual int	height( const QListBox * ) const;
-	virtual void paint( QPainter * );
 	virtual int rtti() const { return 148523874; }
 protected:
 	multiLine mLine;
 	ScribusDoc* doc;
+	virtual void redraw(void);
 };
 
 #endif
