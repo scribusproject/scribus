@@ -672,16 +672,84 @@ void PSLib::PS_newpath()
 	PutSeite("newpath\n");
 }
 
-void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors)
+void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueList<double> Stops, QStringList Colors, QStringList colorNames, QValueList<int> colorShades)
 {
 	bool first = true;
+	bool oneSpot1 = false;
+	bool oneSpot2 = false;
+	bool twoSpot = false;
+	int cc, mc, yc, kc;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
 	for (uint c = 0; c < Colors.count()-1; ++c)
 	{
+		oneSpot1 = false;
+		oneSpot2 = false;
+		twoSpot = false;
+		QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+		QString spot1 = colorNames[c];
+		QString spot2 = colorNames[c+1];
 		PutSeite("<<\n");
 		PutSeite("/ShadingType 3\n");
-		PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
+		if (DoSep)
+			PutSeite("/ColorSpace /DeviceGray\n");
+		else
+		{
+			if (spotMap.contains(colorNames[c]))
+				oneSpot1 = true;
+			else if  (spotMap.contains(colorNames[c+1]))
+				oneSpot2 = true;
+			if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+			{
+				oneSpot1 = false;
+				oneSpot2 = false;
+				twoSpot = true;
+			}
+			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors)) 
+				PutSeite("/ColorSpace /DeviceCMYK\n");
+			else
+			{
+				PutSeite("/ColorSpace [ /DeviceN [");
+				if (oneSpot1)
+				{
+					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot1+") ]\n");
+					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				}
+				else if (oneSpot2)
+				{
+					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot2+") ]\n");
+					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				}
+				else if (twoSpot)
+				{
+					PutSeite(" ("+spot1+") ("+spot2+") ]\n");
+				}
+				PutSeite("/DeviceCMYK\n");
+				PutSeite("{\n");
+				if (twoSpot)
+				{
+					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+					PutSeite("exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n");
+					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+				}
+				else
+				{
+					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+				}
+				PutSeite("} ]\n");
+			}
+		}
 		PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
 		if (Colors.count() == 2)
 			PutDoc("/Extend [true true]\n");
@@ -712,8 +780,34 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 		}
 		else
 		{
-			PutSeite("/C0 ["+Colors[c+1]+"]\n");
-			PutSeite("/C1 ["+Colors[c]+"]\n");
+			if (useSpotColors)
+			{
+				if (oneSpot1)
+				{
+					PutSeite("/C1 [0 0 0 0 "+ToStr(colorShades[c] / 100.0)+"]\n");
+					PutSeite("/C0 ["+Colors[c+1]+" 0 ]\n");
+				}
+				else if (oneSpot2)
+				{
+					PutSeite("/C1 ["+Colors[c]+" 0 ]\n");
+					PutSeite("/C0 [0 0 0 0 "+ToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (twoSpot)
+				{
+					PutSeite("/C1 ["+ToStr(colorShades[c] / 100.0)+" 0]\n");
+					PutSeite("/C0 [0 "+ToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else
+				{
+					PutSeite("/C1 ["+Colors[c]+"]\n");
+					PutSeite("/C0 ["+Colors[c+1]+"]\n");
+				}
+			}
+			else
+			{
+				PutSeite("/C1 ["+Colors[c]+"]\n");
+				PutSeite("/C0 ["+Colors[c+1]+"]\n");
+			}
 		}
 		PutSeite("/N 1\n");
 		PutSeite(">>\n");
@@ -724,16 +818,84 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 	PutSeite("cliprestore\n");
 }
 
-void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors)
+void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QStringList Colors, QStringList colorNames, QValueList<int> colorShades)
 {
 	bool first = true;
+	bool oneSpot1 = false;
+	bool oneSpot2 = false;
+	bool twoSpot = false;
+	int cc, mc, yc, kc;
 	PutSeite( "clipsave\n" );
 	PutSeite("eoclip\n");
 	for (uint c = 0; c < Colors.count()-1; ++c)
 	{
+		oneSpot1 = false;
+		oneSpot2 = false;
+		twoSpot = false;
+		QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+		QString spot1 = colorNames[c];
+		QString spot2 = colorNames[c+1];
 		PutSeite("<<\n");
 		PutSeite("/ShadingType 2\n");
-		PutSeite( DoSep ? "/ColorSpace /DeviceGray\n" : "/ColorSpace /DeviceCMYK\n" );
+		if (DoSep)
+			PutSeite("/ColorSpace /DeviceGray\n");
+		else
+		{
+			if (spotMap.contains(colorNames[c]))
+				oneSpot1 = true;
+			else if  (spotMap.contains(colorNames[c+1]))
+				oneSpot2 = true;
+			if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+			{
+				oneSpot1 = false;
+				oneSpot2 = false;
+				twoSpot = true;
+			}
+			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors)) 
+				PutSeite("/ColorSpace /DeviceCMYK\n");
+			else
+			{
+				PutSeite("/ColorSpace [ /DeviceN [");
+				if (oneSpot1)
+				{
+					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot1+") ]\n");
+					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				}
+				else if (oneSpot2)
+				{
+					PutSeite(" /Cyan /Magenta /Yellow /Black ("+spot2+") ]\n");
+					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				}
+				else if (twoSpot)
+				{
+					PutSeite(" ("+spot1+") ("+spot2+") ]\n");
+				}
+				PutSeite("/DeviceCMYK\n");
+				PutSeite("{\n");
+				if (twoSpot)
+				{
+					m_Doc->PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+					PutSeite("exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul exch\n");
+					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n");
+					m_Doc->PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+				}
+				else
+				{
+					PutSeite("dup "+ToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n");
+					PutSeite("dup "+ToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n");
+				}
+				PutSeite("} ]\n");
+			}
+		}
 		PutSeite("/BBox [0 "+ToStr(h)+" "+ToStr(w)+" 0]\n");
 		if (Colors.count() == 2)
 			PutDoc("/Extend [true true]\n");
@@ -765,8 +927,34 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 		}
 		else
 		{
-			PutSeite("/C0 ["+Colors[c]+"]\n");
-			PutSeite("/C1 ["+Colors[c+1]+"]\n");
+			if (useSpotColors)
+			{
+				if (oneSpot1)
+				{
+					PutSeite("/C0 [0 0 0 0 "+ToStr(colorShades[c] / 100.0)+"]\n");
+					PutSeite("/C1 ["+Colors[c+1]+" 0 ]\n");
+				}
+				else if (oneSpot2)
+				{
+					PutSeite("/C0 ["+Colors[c]+" 0 ]\n");
+					PutSeite("/C1 [0 0 0 0 "+ToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (twoSpot)
+				{
+					PutSeite("/C0 ["+ToStr(colorShades[c] / 100.0)+" 0]\n");
+					PutSeite("/C1 [0 "+ToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else
+				{
+					PutSeite("/C0 ["+Colors[c]+"]\n");
+					PutSeite("/C1 ["+Colors[c+1]+"]\n");
+				}
+			}
+			else
+			{
+				PutSeite("/C0 ["+Colors[c]+"]\n");
+				PutSeite("/C1 ["+Colors[c+1]+"]\n");
+			}
 		}
 		PutSeite("/N 1\n");
 		PutSeite(">>\n");
@@ -2326,6 +2514,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	}
 	QValueList<double> StopVec;
 	QStringList Gcolors;
+	QStringList colorNames;
+	QValueList<int> colorShades;
 	QString hs,ss,vs,ks;
 	if ((c->GrType == 5) || (c->GrType == 7))
 	{
@@ -2336,8 +2526,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
 			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.prepend(GCol);
+			colorNames.prepend(cstops.at(cst)->name);
+			colorShades.prepend(cstops.at(cst)->shade);
 		}
-		PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors);
+		PS_MultiRadGradient(w, -h, StartX, -StartY, StopVec, Gcolors, colorNames, colorShades);
 	}
 	else
 	{
@@ -2351,8 +2543,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
 			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.append(GCol);
+			colorNames.append(cstops.at(cst)->name);
+			colorShades.append(cstops.at(cst)->shade);
 		}
-		PS_MultiLinGradient(w, -h, StopVec, Gcolors);
+		PS_MultiLinGradient(w, -h, StopVec, Gcolors, colorNames, colorShades);
 	}
 }
 
