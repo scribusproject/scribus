@@ -4037,6 +4037,8 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	QValueList<double> StopVec;
 	QValueList<double> TransVec;
 	QStringList Gcolors;
+	QStringList colorNames;
+	QValueList<int> colorShades;
 	QPtrVector<VColorStop> cstops = currItem->fill_gradient.colorStops();
 	switch (currItem->GrType)
 	{
@@ -4089,6 +4091,8 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 	StopVec.clear();
 	TransVec.clear();
 	Gcolors.clear();
+	colorNames.clear();
+	colorShades.clear();
 	if ((currItem->GrType == 5) || (currItem->GrType == 7))
 	{
 		for (uint cst = 0; cst < currItem->fill_gradient.Stops(); ++cst)
@@ -4096,6 +4100,8 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			TransVec.prepend(cstops.at(cst)->opacity);
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
 			Gcolors.prepend(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+			colorNames.prepend(cstops.at(cst)->name);
+			colorShades.prepend(cstops.at(cst)->shade);
 		}
 	}
 	else
@@ -4108,16 +4114,23 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			StopVec.append(x);
 			StopVec.append(y);
 			Gcolors.append(SetFarbeGrad(cstops.at(cst)->name, cstops.at(cst)->shade));
+			colorNames.append(cstops.at(cst)->name);
+			colorShades.append(cstops.at(cst)->shade);
 		}
 	}
-	QString tmp(PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors));
+	QString tmp(PDF_DoLinGradient(currItem, StopVec, TransVec, Gcolors, colorNames, colorShades));
 	return tmp;
 }
 
-QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors)
+QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, QValueList<double> Trans, const QStringList& Colors, QStringList colorNames, QValueList<int> colorShades)
 {
 	QString tmp("");
 	bool first = true;
+	bool oneSpot1 = false;
+	bool oneSpot2 = false;
+	bool twoSpot = false;
+	bool spotMode = false;
+	int cc, mc, yc, kc;
 	double w = currItem->width();
 	double h = -currItem->height();
 	double w2 = currItem->GrStartX;
@@ -4125,6 +4138,12 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 	uint colorsCountm1=Colors.count()-1;
 	for (uint c = 0; c < colorsCountm1; ++c)
 	{
+		oneSpot1 = false;
+		oneSpot2 = false;
+		twoSpot = false;
+		spotMode = false;
+		QString spot1 = colorNames[c].simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
+		QString spot2 = colorNames[c+1].simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
 		QString TRes("");
 		if ((Options.Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 		{
@@ -4215,9 +4234,36 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 				if ((doc.HasCMS) && (Options.UseProfiles))
 					PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
 				else
+				{
 #endif
-				PutDoc("/ColorSpace /DeviceCMYK\n");
+				if (spotMap.contains(colorNames[c]))
+					oneSpot1 = true;
+				else if  (spotMap.contains(colorNames[c+1]))
+					oneSpot2 = true;
+				if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+				{
+					oneSpot1 = false;
+					oneSpot2 = false;
+					twoSpot = true;
+				}
+				if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!Options.UseSpotColors)) 
+					PutDoc("/ColorSpace /DeviceCMYK\n");
+				else
+				{
+					spotMode = true;
+					PutDoc("/ColorSpace [ /DeviceN [");
+					if (oneSpot1)
+						PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot1+" ]\n");
+					else if (oneSpot2)
+						PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot2+" ]\n");
+					else if (twoSpot)
+						PutDoc(" /"+spot1+" /"+spot2+" ]\n");
+					PutDoc("/DeviceCMYK\n");
+					PutDoc(QString::number(ObjCounter)+" 0 R\n");
+					PutDoc("]\n");
+				}
 #ifdef HAVE_CMS
+				}
 			}
 #endif
 		}
@@ -4241,8 +4287,34 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			}
 			first = false;
 			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-			PutDoc("/C0 ["+Colors[c+1]+"]\n");
-			PutDoc("/C1 ["+Colors[c]+"]\n");
+			if (Options.UseSpotColors)
+			{
+				if (oneSpot1)
+				{
+					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
+					PutDoc("/C0 ["+Colors[c+1]+" 0 ]\n");
+				}
+				else if (oneSpot2)
+				{
+					PutDoc("/C1 ["+Colors[c]+" 0 ]\n");
+					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (twoSpot)
+				{
+					PutDoc("/C1 ["+FToStr(colorShades[c] / 100.0)+" 0]\n");
+					PutDoc("/C0 [0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else
+				{
+					PutDoc("/C1 ["+Colors[c]+"]\n");
+					PutDoc("/C0 ["+Colors[c+1]+"]\n");
+				}
+			}
+			else
+			{
+				PutDoc("/C0 ["+Colors[c+1]+"]\n");
+				PutDoc("/C1 ["+Colors[c]+"]\n");
+			}
 		}
 		else
 		{
@@ -4263,10 +4335,73 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			}
 			first = false;
 			PutDoc("/Function\n<<\n/FunctionType 2\n/Domain [0 1]\n");
-			PutDoc("/C0 ["+Colors[c]+"]\n");
-			PutDoc("/C1 ["+Colors[c+1]+"]\n");
+			if (Options.UseSpotColors)
+			{
+				if (oneSpot1)
+				{
+					PutDoc("/C0 [0 0 0 0 "+FToStr(colorShades[c] / 100.0)+"]\n");
+					PutDoc("/C1 ["+Colors[c+1]+" 0 ]\n");
+				}
+				else if (oneSpot2)
+				{
+					PutDoc("/C0 ["+Colors[c]+" 0 ]\n");
+					PutDoc("/C1 [0 0 0 0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else if (twoSpot)
+				{
+					PutDoc("/C0 ["+FToStr(colorShades[c] / 100.0)+" 0]\n");
+					PutDoc("/C1 [0 "+FToStr(colorShades[c+1] / 100.0)+"]\n");
+				}
+				else
+				{
+					PutDoc("/C0 ["+Colors[c]+"]\n");
+					PutDoc("/C1 ["+Colors[c+1]+"]\n");
+				}
+			}
+			else
+			{
+				PutDoc("/C0 ["+Colors[c]+"]\n");
+				PutDoc("/C1 ["+Colors[c+1]+"]\n");
+			}
 		}
 		PutDoc("/N 1\n>>\n>>\nendobj\n");
+		if (spotMode)
+		{
+			QString colorDesc;
+			StartObj(ObjCounter);
+			ObjCounter++;
+			PutDoc("<<\n/FunctionType 4\n");
+			if (twoSpot)
+			{
+				PutDoc("/Domain [0.0 1.0 0.0 1.0]\n");
+				doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc = "{\nexch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul exch\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul exch pop 5 -1 roll\n";
+				doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc += "dup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n}\n";
+			}
+			else
+			{
+				PutDoc("/Domain [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
+				if (oneSpot1)
+					doc.PageColors[colorNames[c]].getCMYK(&cc, &mc, &yc, &kc);
+				else
+					doc.PageColors[colorNames[c+1]].getCMYK(&cc, &mc, &yc, &kc);
+				colorDesc = "{\ndup "+FToStr(static_cast<double>(cc) / 255.0)+" mul 6 -1 roll add dup 1.0 gt {pop 1.0} if 5 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(mc) / 255.0)+" mul 5 -1 roll add dup 1.0 gt {pop 1.0} if 4 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(yc) / 255.0)+" mul 4 -1 roll add dup 1.0 gt {pop 1.0} if 3 1 roll\n";
+				colorDesc += "dup "+FToStr(static_cast<double>(kc) / 255.0)+" mul 3 -1 roll add dup 1.0 gt {pop 1.0} if 2 1 roll pop\n}\n";
+			}
+			PutDoc("/Range [0.0 1.0 0.0 1.0 0.0 1.0 0.0 1.0]\n");
+			PutDoc("/Length "+QString::number(colorDesc.length()+1)+"\n");
+			PutDoc(">>\nstream\n"+EncStream(colorDesc, ObjCounter-1)+"\nendstream\nendobj\n");
+		}
 		tmp += "q\n";
 		if ((Options.Version == 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 			tmp += "/"+TRes+" gs\n";

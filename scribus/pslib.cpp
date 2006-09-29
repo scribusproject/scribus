@@ -686,7 +686,6 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 		oneSpot1 = false;
 		oneSpot2 = false;
 		twoSpot = false;
-		QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 		QString spot1 = colorNames[c];
 		QString spot2 = colorNames[c+1];
 		PutSeite("<<\n");
