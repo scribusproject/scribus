@@ -3227,6 +3227,8 @@ void PageItem::copyToCopyPasteBuffer(struct CopyPasteBuffer *Buffer)
 	Buffer->LockRes = sizeLocked();
 	Buffer->Transparency = fillTransparency();
 	Buffer->TranspStroke = lineTransparency();
+	Buffer->TransBlend = fillBlendmode();
+	Buffer->TransBlendS = lineBlendmode();
 	Buffer->Reverse = Reverse;
 	Buffer->NamedLStyle = NamedLStyle;
 	Buffer->Cols = Cols;
