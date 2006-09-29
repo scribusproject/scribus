@@ -7664,7 +7664,7 @@ void ScribusDoc::itemSelection_DistributeDistV(bool usingDistance, double distan
 }
 
 
-void ScribusDoc::itemSelection_DistributeAcrossPage()
+void ScribusDoc::itemSelection_DistributeAcrossPage(bool useMargins)
 {
 	if (!startAlign())
 		return;
@@ -7678,7 +7678,11 @@ void ScribusDoc::itemSelection_DistributeAcrossPage()
 		X2sorted.insert(AObjects[a].x2, a, false);
 	}	
 	
-	double totalSpace=currentPage()->width();
+	double totalSpace=0.0;
+	if (useMargins)
+		totalSpace=currentPage()->width()-currentPage()->Margins.Left-currentPage()->Margins.Right;
+	else
+		totalSpace=currentPage()->width();
 	double totalWidth=0.0;
 	uint insideObjectCount=0;
 	for (uint a = 0; a < alignObjectsCount; ++a)
@@ -7688,6 +7692,9 @@ void ScribusDoc::itemSelection_DistributeAcrossPage()
 	}
 	double separation=(totalSpace-totalWidth)/(insideObjectCount+1);
 	double currX=currentPage()->xOffset();
+	if (useMargins)
+		currX+=currentPage()->Margins.Left;
+	//Handle when our items are too wide for the page.
 	if (separation<0.0)
 	{
 		separation=(totalSpace-totalWidth)/(insideObjectCount-1);
@@ -7706,7 +7713,7 @@ void ScribusDoc::itemSelection_DistributeAcrossPage()
 	endAlign();
 }
 
-void ScribusDoc::itemSelection_DistributeDownPage()
+void ScribusDoc::itemSelection_DistributeDownPage(bool useMargins)
 {
 	if (!startAlign())
 		return;
@@ -7720,7 +7727,11 @@ void ScribusDoc::itemSelection_DistributeDownPage()
 		Y2sorted.insert(AObjects[a].y2, a, false);
 	}	
 	
-	double totalSpace=currentPage()->height();
+	double totalSpace=0.0;
+	if (useMargins)
+		totalSpace=currentPage()->height()-currentPage()->Margins.Top-currentPage()->Margins.Bottom;
+	else
+		totalSpace=currentPage()->height();
 	double totalHeight=0.0;
 	uint insideObjectCount=0;
 	for (uint a = 0; a < alignObjectsCount; ++a)
@@ -7730,6 +7741,9 @@ void ScribusDoc::itemSelection_DistributeDownPage()
 	}
 	double separation=(totalSpace-totalHeight)/(insideObjectCount+1);
 	double currY=currentPage()->yOffset();
+	if (useMargins)
+		currY+=currentPage()->Margins.Top;
+	//Handle when our items are too high for the page.
 	if (separation<0.0)
 	{
 		separation=(totalSpace-totalHeight)/(insideObjectCount-1);

@@ -11,8 +11,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>269</width>
-            <height>184</height>
+            <width>251</width>
+            <height>218</height>
         </rect>
     </property>
     <property name="minimumSize">
@@ -295,7 +295,7 @@
                     </property>
                     <widget class="QLayoutWidget">
                         <property name="name">
-                            <cstring>layout12</cstring>
+                            <cstring>layout25</cstring>
                         </property>
                         <hbox>
                             <property name="name">
@@ -313,51 +313,19 @@
                                 </property>
                                 <property name="sizeHint">
                                     <size>
-                                        <width>40</width>
+                                        <width>63</width>
                                         <height>20</height>
                                     </size>
                                 </property>
                             </spacer>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout9</cstring>
+                                    <cstring>layout24</cstring>
                                 </property>
                                 <grid>
                                     <property name="name">
                                         <cstring>unnamed</cstring>
                                     </property>
-                                    <widget class="QToolButton" row="1" column="3">
-                                        <property name="name">
-                                            <cstring>distributeDistVToolButton</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>...</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QToolButton" row="2" column="3">
-                                        <property name="name">
-                                            <cstring>distributeDistValueVToolButton</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>...</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QToolButton" row="2" column="2">
-                                        <property name="name">
-                                            <cstring>distributeDistValueHToolButton</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>...</string>
-                                        </property>
-                                    </widget>
-                                    <widget class="QToolButton" row="1" column="0">
-                                        <property name="name">
-                                            <cstring>distributeBottomToolButton</cstring>
-                                        </property>
-                                        <property name="text">
-                                            <string>...</string>
-                                        </property>
-                                    </widget>
                                     <widget class="QToolButton" row="0" column="3">
                                         <property name="name">
                                             <cstring>distributeDistHToolButton</cstring>
@@ -374,9 +342,36 @@
                                             <string>...</string>
                                         </property>
                                     </widget>
+                                    <widget class="QToolButton" row="1" column="1">
+                                        <property name="name">
+                                            <cstring>distributeCenterVToolButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
                                     <widget class="QToolButton" row="0" column="2">
                                         <property name="name">
                                             <cstring>distributeRightToolButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton" row="3" column="0">
+                                        <property name="name">
+                                            <cstring>toolButtonDummy1</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton" row="2" column="2">
+                                        <property name="name">
+                                            <cstring>distributeAcrossMarginsToolButton</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>true</bool>
                                         </property>
                                         <property name="text">
                                             <string>...</string>
@@ -401,6 +396,25 @@
                                             <string>...</string>
                                         </property>
                                     </widget>
+                                    <widget class="QToolButton" row="3" column="1">
+                                        <property name="name">
+                                            <cstring>distributeDistValueHToolButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton" row="2" column="3">
+                                        <property name="name">
+                                            <cstring>distributeDownMarginsToolButton</cstring>
+                                        </property>
+                                        <property name="enabled">
+                                            <bool>true</bool>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
                                     <widget class="QToolButton" row="0" column="1">
                                         <property name="name">
                                             <cstring>distributeCenterHToolButton</cstring>
@@ -409,9 +423,9 @@
                                             <string>...</string>
                                         </property>
                                     </widget>
-                                    <widget class="QToolButton" row="1" column="1">
+                                    <widget class="QToolButton" row="3" column="3">
                                         <property name="name">
-                                            <cstring>distributeCenterVToolButton</cstring>
+                                            <cstring>toolButtonDummy2</cstring>
                                         </property>
                                         <property name="text">
                                             <string>...</string>
@@ -423,6 +437,30 @@
                                         </property>
                                         <property name="enabled">
                                             <bool>true</bool>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton" row="3" column="2">
+                                        <property name="name">
+                                            <cstring>distributeDistValueVToolButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton" row="1" column="3">
+                                        <property name="name">
+                                            <cstring>distributeDistVToolButton</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>...</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QToolButton" row="1" column="0">
+                                        <property name="name">
+                                            <cstring>distributeBottomToolButton</cstring>
                                         </property>
                                         <property name="text">
                                             <string>...</string>
@@ -442,7 +480,7 @@
                                 </property>
                                 <property name="sizeHint">
                                     <size>
-                                        <width>40</width>
+                                        <width>62</width>
                                         <height>20</height>
                                     </size>
                                 </property>
@@ -541,7 +579,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>20</width>
-                                <height>40</height>
+                                <height>16</height>
                             </size>
                         </property>
                     </spacer>

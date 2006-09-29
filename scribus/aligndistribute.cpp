@@ -134,7 +134,11 @@ void AlignDistributePalette::languageChange()
 	distributeAcrossPageToolButton->setText( QString::null );
 	QToolTip::add( distributeAcrossPageToolButton, tr( "Make horizontal gaps between objects and sides of page equal" ) );
 	distributeDownPageToolButton->setText( QString::null );
-	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between objects and the top and bottom of page equal" ) );
+	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between objects and the top and bottom of page margins equal" ) );
+	distributeAcrossMarginsToolButton->setText( QString::null );
+	QToolTip::add( distributeAcrossMarginsToolButton, tr( "Make horizontal gaps between objects and sides of page margins equal" ) );
+	distributeDownMarginsToolButton->setText( QString::null );
+	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between objects and the top and bottom of page equal" ) );
 	
 	distributeDistLabel->setText( tr( "&Distance:" ) );
 	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
@@ -170,6 +174,8 @@ void AlignDistributePalette::init()
 	
 	distributeAcrossPageToolButton->setIconSet(QIconSet(loadIcon("distribute_acrosspage.png"), QIconSet::Small));
 	distributeDownPageToolButton->setIconSet(QIconSet(loadIcon("distribute_downpage.png"), QIconSet::Small));
+	distributeAcrossMarginsToolButton->setIconSet(QIconSet(loadIcon("distribute_acrossmargins.png"), QIconSet::Small));
+	distributeDownMarginsToolButton->setIconSet(QIconSet(loadIcon("distribute_downmargins.png"), QIconSet::Small));
 	distributeDistValueHToolButton->setIconSet(QIconSet(loadIcon("distribute_hdist_val.png"), QIconSet::Small));
 	distributeDistValueVToolButton->setIconSet(QIconSet(loadIcon("distribute_vdist_val.png"), QIconSet::Small));
 	
@@ -195,6 +201,8 @@ void AlignDistributePalette::init()
 	connect(distributeTopToolButton, SIGNAL(clicked()), this, SLOT(distributeTop()));
 	connect(distributeAcrossPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossPage()));
 	connect(distributeDownPageToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownPage()));
+	connect(distributeAcrossMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistAcrossMargins()));
+	connect(distributeDownMarginsToolButton, SIGNAL(clicked()), this, SLOT(distributeDistDownMargins()));
 	
 	connect(alignRelativeToCombo, SIGNAL(activated(int)), this, SLOT(alignToChanged(int)));
 	
@@ -316,16 +324,16 @@ void AlignDistributePalette::distributeDistH(bool usingDistance)
 		currDoc->itemSelection_DistributeDistH(usingDistance, distributeDistMSpinBox->value());
 }
 
-void AlignDistributePalette::distributeDistAcrossPage()
-{
-	if (currDoc!=NULL)
-		currDoc->itemSelection_DistributeAcrossPage();
-}
-
 void AlignDistributePalette::distributeDistValH()
 {
 	if (currDoc!=NULL)
 		distributeDistH(true);
+}
+
+void AlignDistributePalette::distributeDistAcrossPage()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeAcrossPage();
 }
 
 void AlignDistributePalette::distributeDistDownPage()
@@ -333,6 +341,19 @@ void AlignDistributePalette::distributeDistDownPage()
 	if (currDoc!=NULL)
 		currDoc->itemSelection_DistributeDownPage();
 }
+
+void AlignDistributePalette::distributeDistAcrossMargins()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeAcrossPage(true);
+}
+
+void AlignDistributePalette::distributeDistDownMargins()
+{
+	if (currDoc!=NULL)
+		currDoc->itemSelection_DistributeDownPage(true);
+}
+
 
 void AlignDistributePalette::distributeBottom()
 {

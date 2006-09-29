@@ -81,12 +81,14 @@ protected slots:
 	void distributeDistH(bool usingDistance=false);
 	void distributeDistValH();
 	void distributeDistAcrossPage();
+	void distributeDistAcrossMargins();
 	void distributeRight();
 	void distributeBottom();
 	void distributeCenterH();
 	void distributeDistV(bool usingDistance=false);
 	void distributeDistValV();
 	void distributeDistDownPage();
+	void distributeDistDownMargins();
 	void distributeLeft();
 	void distributeCenterV();
 	void distributeTop();
