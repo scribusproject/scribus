@@ -6139,10 +6139,10 @@ void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
 	fpNew.map(matrix);
 	if (dx < 8.0) dx = 8.0;
 	if (dy < 8.0) dy = 8.0;
-	double grl = QMIN(fpNew.point(0).x(), fpNew.point(1).x()) - dx;
-	double grr = QMAX(fpNew.point(0).x(), fpNew.point(1).x()) + dx;
-	double grb = QMAX(fpNew.point(0).y(), fpNew.point(1).y()) + dy;
-	double grt = QMIN(fpNew.point(0).y(), fpNew.point(1).y()) - dy;
+	int grl = (int) floor( QMIN(fpNew.point(0).x(), fpNew.point(1).x()) - dx );
+	int grr = (int) ceil ( QMAX(fpNew.point(0).x(), fpNew.point(1).x()) + dx );
+	int grb = (int) ceil ( QMAX(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
+	int grt = (int) floor( QMIN(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
 	rect |= QRect(grl, grt, grr-grl, grb-grt);
 	updateContents(rect);
 }
