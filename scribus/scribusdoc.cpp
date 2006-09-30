@@ -401,6 +401,7 @@ void ScribusDoc::init()
 	// Fixme: Check PDF version input
 	PDF_Options.Version = (PDFOptions::PDFVersion)prefsData.PDF_Options.Version;
 
+	PDF_Options.firstUse = true;
 	docPatterns.clear();
 
 	if (AutoSave && ScCore->usingGUI())

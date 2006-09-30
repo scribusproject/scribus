@@ -1283,7 +1283,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		FromEmbed->setEnabled(false);
 		ToSubset->setEnabled(false);
 		FromSubset->setEnabled(false);
-		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0))
+		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
 		{
 			EmbedFonts->setChecked(true);
 			EmbedAll();
@@ -1297,15 +1297,15 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 				EmbedList->insertItem(Opts.EmbedList[fe]);
 				FontsToEmbed.append(Opts.EmbedList[fe]);
 			}
-		}
-		if (Opts.SubsetList.count() != 0)
-		{
-			SubsetList->clear();
-			FontsToSubset.clear();
-			for (uint fe = 0; fe < Opts.SubsetList.count(); ++fe)
+			if (Opts.SubsetList.count() != 0)
 			{
-				SubsetList->insertItem(Opts.SubsetList[fe]);
-				FontsToSubset.append(Opts.SubsetList[fe]);
+				SubsetList->clear();
+				FontsToSubset.clear();
+				for (uint fe = 0; fe < Opts.SubsetList.count(); ++fe)
+				{
+					SubsetList->insertItem(Opts.SubsetList[fe]);
+					FontsToSubset.append(Opts.SubsetList[fe]);
+				}
 			}
 		}
 		CheckBox10->setChecked(Opts.PresentMode);

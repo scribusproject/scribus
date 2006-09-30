@@ -669,6 +669,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->PDF_Options.Quality = pg.attribute("Quality", "0").toInt();
 				m_Doc->PDF_Options.RecalcPic = static_cast<bool>(pg.attribute("RecalcPic").toInt());
 				m_Doc->PDF_Options.Bookmarks = static_cast<bool>(pg.attribute("Bookmarks").toInt());
+				if (pg.hasAttribute("firstUse"))
+					m_Doc->PDF_Options.firstUse = static_cast<bool>(pg.attribute("firstUse").toInt());
+				else
+					m_Doc->PDF_Options.firstUse = true;
 				if (pg.hasAttribute("MirrorH"))
 					m_Doc->PDF_Options.MirrorH = static_cast<bool>(pg.attribute("MirrorH").toInt());
 				else
@@ -1622,6 +1626,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		dc.appendChild(la);
 	}
 	QDomElement pdf = docu.createElement("PDF");
+	pdf.setAttribute("firstUse", static_cast<int>(m_Doc->PDF_Options.firstUse));
 	pdf.setAttribute("Thumbnails", static_cast<int>(m_Doc->PDF_Options.Thumbnails));
 	pdf.setAttribute("Articles", static_cast<int>(m_Doc->PDF_Options.Articles));
 	pdf.setAttribute("Bookmarks", static_cast<int>(m_Doc->PDF_Options.Bookmarks));

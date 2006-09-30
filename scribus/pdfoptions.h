@@ -81,6 +81,7 @@ public:
 	PDFOptions::VerifyResults verify(QString* problemDescription);
 	PDFOptions::VerifyResults verify();
 
+	bool firstUse;
 	bool Thumbnails;
 	bool Articles;
 	bool useLayers;

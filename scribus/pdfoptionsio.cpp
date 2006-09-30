@@ -95,6 +95,7 @@ QString PDFOptionsIO::buildXMLString()
 // Build up the stored settings into the passed DOM objects
 void PDFOptionsIO::buildSettings()
 {
+	addElem(m_root, "firstUse", m_opts->firstUse);
 	addElem(m_root, "thumbnails", m_opts->Thumbnails);
 	addElem(m_root, "articles", m_opts->Articles);
 	addElem(m_root, "useLayers", m_opts->useLayers);
@@ -312,6 +313,8 @@ bool PDFOptionsIO::readSettings()
 			.arg(QObject::tr("null root node", "Load PDF settings"));
 	}
 	// and start processing elements
+	if (!readElem(m_root, "firstUse", &m_opts->firstUse))
+		return false;
 	if (!readElem(m_root, "thumbnails", &m_opts->Thumbnails))
 		return false;
 	if (!readElem(m_root, "articles", &m_opts->Articles))

@@ -7657,6 +7657,7 @@ void ScribusMainWindow::doSaveAsPDF()
 	{
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		dia.updateDocOptions();
+		doc->PDF_Options.firstUse = false;
 		ReOrderText(doc, view);
 		QString pageString(dia.getPagesString());
 		std::vector<int> pageNs;
