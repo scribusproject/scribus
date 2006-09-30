@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -967,10 +967,6 @@ msgstr "Vieta"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "Turinys"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "Vidun"
 
 #, fuzzy
 msgid "Printer Options"
@@ -3277,11 +3273,9 @@ msgstr ""
 msgid "&Unlock All"
 msgstr "Riboti"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -10557,6 +10551,10 @@ msgstr "Paprastas"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Paprastas"
+
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "Vidun"
 
 #, fuzzy
 #~ msgid "LineStyleWBase"

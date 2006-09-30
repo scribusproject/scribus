@@ -15729,7 +15729,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Інде&amp;кс</translation>
+        <translation type="obsolete">Інде&amp;кс</translation>
     </message>
 </context>
 <context>
@@ -15800,7 +15800,7 @@ Scribus.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Інде&amp;кс</translation>
+        <translation type="obsolete">Інде&amp;кс</translation>
     </message>
 </context>
 <context>

@@ -16405,7 +16405,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -16476,7 +16476,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>

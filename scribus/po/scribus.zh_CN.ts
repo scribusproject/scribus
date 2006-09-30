@@ -15908,7 +15908,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;X 索引</translation>
+        <translation type="obsolete">&amp;X 索引</translation>
     </message>
 </context>
 <context>
@@ -15979,7 +15979,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation type="unfinished">Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>

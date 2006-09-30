@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: 2006-03-13 18:31-0300\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team:  <pt@li.org>\n"
@@ -871,9 +871,6 @@ msgstr "Quadro de destino:"
 
 msgid "Table Of Contents"
 msgstr "Tabela de conteúdos"
-
-msgid "Inde&x"
-msgstr "Índi&ce"
 
 msgid "Printer Options"
 msgstr "Opções da impressora"
@@ -2975,11 +2972,9 @@ msgstr "Alguns objetos estão travados."
 msgid "&Unlock All"
 msgstr "&Destravar todos"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr "Y: %1%2"
 
-#, c-format
 msgid "X: %1%2"
 msgstr "X: %1%2"
 
@@ -9699,6 +9694,9 @@ msgstr "Meu &Plugin"
 
 msgid "My Plugin"
 msgstr "Meu Plugin"
+
+#~ msgid "Inde&x"
+#~ msgstr "Índi&ce"
 
 #~ msgid "Anti-alias &Text"
 #~ msgstr "Suavizar (anti-alias) &texto"

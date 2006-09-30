@@ -24123,10 +24123,6 @@ zonder u telkens om bevestiging te vragen</translation>
         <source>Destination Frame:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
@@ -24192,10 +24188,6 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inde&amp;x</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

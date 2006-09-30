@@ -15713,7 +15713,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;ks</translation>
+        <translation type="obsolete">Inde&amp;ks</translation>
     </message>
 </context>
 <context>
@@ -15784,7 +15784,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;ks</translation>
+        <translation type="obsolete">Inde&amp;ks</translation>
     </message>
 </context>
 <context>

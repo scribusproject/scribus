@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -966,10 +966,6 @@ msgstr "Destino"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "Contenidos"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "Interior"
 
 #, fuzzy
 msgid "Printer Options"
@@ -3275,11 +3271,9 @@ msgstr ""
 msgid "&Unlock All"
 msgstr "Bloque"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -7845,7 +7839,7 @@ msgid ""
 "the page view below"
 msgstr ""
 "Aquí están todas tus Plantillas; para crear una nueva Página\n"
-"rrastra una Plantilla en la Vista de Página de abajo."
+"\arrastra una Plantilla en la Vista de Página de abajo."
 
 msgid "Arrange Pages"
 msgstr "Ordenar Páginas"
@@ -10549,6 +10543,10 @@ msgstr "Plano"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Plano"
+
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "Interior"
 
 #, fuzzy
 #~ msgid "LineStyleWBase"

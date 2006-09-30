@@ -20758,7 +20758,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Innhol&amp;d</translation>
+        <translation type="obsolete">Innhol&amp;d</translation>
     </message>
 </context>
 <context>
@@ -20829,7 +20829,7 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Innhol&amp;d</translation>
+        <translation type="obsolete">Innhol&amp;d</translation>
     </message>
 </context>
 <context>

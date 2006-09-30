@@ -15550,7 +15550,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <translation type="obsolete">&amp;Hakemisto</translation>
     </message>
 </context>
 <context>
@@ -15621,7 +15621,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <translation type="obsolete">&amp;Hakemisto</translation>
     </message>
 </context>
 <context>

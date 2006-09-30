@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -923,10 +923,6 @@ msgstr "Celo"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "&Forviŝu entenon"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "Interna"
 
 msgid "Printer Options"
 msgstr "Printil-opcioj"
@@ -3197,11 +3193,11 @@ msgstr "Kelkaj objektoj estas ŝlositaj."
 msgid "&Unlock All"
 msgstr "Malŝlosu ĉiujn"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "Y: %1%2"
 msgstr "%1 - [%2]"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "X: %1%2"
 msgstr "%1 - [%2]"
 
@@ -10387,6 +10383,10 @@ msgstr "Normala"
 #, fuzzy
 msgid "My Plugin"
 msgstr "Normala"
+
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "Interna"
 
 #~ msgid "Anti-alias &Text"
 #~ msgstr "Glatigita &teksto"

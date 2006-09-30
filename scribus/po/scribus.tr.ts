@@ -16044,7 +16044,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>İnde&amp;ks</translation>
+        <translation type="obsolete">İnde&amp;ks</translation>
     </message>
 </context>
 <context>
@@ -16115,7 +16115,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>İnde&amp;ks</translation>
+        <translation type="obsolete">İnde&amp;ks</translation>
     </message>
 </context>
 <context>

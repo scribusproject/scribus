@@ -23338,7 +23338,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índi&amp;ce</translation>
+        <translation type="obsolete">Índi&amp;ce</translation>
     </message>
 </context>
 <context>
@@ -23409,7 +23409,7 @@ Selector de Estilo de Texto</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índi&amp;ce</translation>
+        <translation type="obsolete">Índi&amp;ce</translation>
     </message>
 </context>
 <context>

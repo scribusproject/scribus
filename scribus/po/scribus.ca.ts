@@ -23258,7 +23258,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índe&amp;x</translation>
+        <translation type="obsolete">Índe&amp;x</translation>
     </message>
 </context>
 <context>
@@ -23329,7 +23329,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índe&amp;x</translation>
+        <translation type="obsolete">Índe&amp;x</translation>
     </message>
 </context>
 <context>

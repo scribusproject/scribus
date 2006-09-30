@@ -15205,7 +15205,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Re&amp;gister</translation>
+        <translation type="obsolete">Re&amp;gister</translation>
     </message>
 </context>
 <context>
@@ -15276,7 +15276,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Re&amp;gister</translation>
+        <translation type="obsolete">Re&amp;gister</translation>
     </message>
 </context>
 <context>

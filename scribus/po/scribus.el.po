@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: 2006-06-05 21:23+0300\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -874,9 +874,6 @@ msgstr "Πλαίσιο προορισμού:"
 
 msgid "Table Of Contents"
 msgstr "Πίνακας περιεχομένων"
-
-msgid "Inde&x"
-msgstr "&Ευρετήριο"
 
 msgid "Printer Options"
 msgstr "Επιλογές εκτυπωτή"
@@ -3002,11 +2999,9 @@ msgstr "Μερικά αντικείμενα είναι κλειδωμένα."
 msgid "&Unlock All"
 msgstr "&Ξεκλείδωμα όλων"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr "Y: %1%2"
 
-#, c-format
 msgid "X: %1%2"
 msgstr "X: %1%2"
 
@@ -9792,6 +9787,9 @@ msgstr "Το &πρόσθετό μου"
 
 msgid "My Plugin"
 msgstr "Το πρόσθετό μου"
+
+#~ msgid "Inde&x"
+#~ msgstr "&Ευρετήριο"
 
 #~ msgid "Anti-alias &Text"
 #~ msgstr "Εξομάλυνση &κειμένου"

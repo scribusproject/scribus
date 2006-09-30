@@ -14962,7 +14962,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>インデックス(&amp;X)</translation>
+        <translation type="obsolete">インデックス(&amp;X)</translation>
     </message>
 </context>
 <context>
@@ -15033,7 +15033,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>インデックス(&amp;X)</translation>
+        <translation type="obsolete">インデックス(&amp;X)</translation>
     </message>
 </context>
 <context>

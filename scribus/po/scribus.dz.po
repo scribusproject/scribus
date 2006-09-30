@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -919,10 +919,6 @@ msgstr "འགྲོ་ཡུལ།"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "ནང་དོན་ཚུ་བསལ་ཏོག་ཏོ།(&l)"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "ནང་ན།"
 
 msgid "Printer Options"
 msgstr "དཔར་བསྐྲུན་གྱི་གདམ་ཁ་ཚུ།"
@@ -3182,11 +3178,9 @@ msgstr "དངོས་པོ་ཚུ་ལ་ལུ་ཅིག་ལྡེ་
 msgid "&Unlock All"
 msgstr "ཆ་མཉམ་ལྡེ་མིག་མ་རྐྱབས།"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -10285,6 +10279,10 @@ msgstr ""
 
 msgid "My Plugin"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "ནང་ན།"
 
 #~ msgid "Global Font Settings"
 #~ msgstr "སྤྱི་ཁྱབ་ཡིག་གཟུགས་གཞི་སྒྲིག་ཚུ།"

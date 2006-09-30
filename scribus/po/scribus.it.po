@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:04+0200\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: 2006-03-14 00:29+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team:  <it@li.org>\n"
@@ -885,9 +885,6 @@ msgstr "Cornice di destinazione:"
 
 msgid "Table Of Contents"
 msgstr "Tabella dei contenuti"
-
-msgid "Inde&x"
-msgstr "Indi&ce"
 
 msgid "Printer Options"
 msgstr "Opzioni stampante"
@@ -2998,11 +2995,9 @@ msgstr "Alcuni oggetti sono bloccati."
 msgid "&Unlock All"
 msgstr "&Sblocca tutti"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr "Y: %1%2"
 
-#, c-format
 msgid "X: %1%2"
 msgstr "X: %1%2"
 
@@ -9759,6 +9754,9 @@ msgstr "La mia &Estensione"
 
 msgid "My Plugin"
 msgstr "La mia Estensione"
+
+#~ msgid "Inde&x"
+#~ msgstr "Indi&ce"
 
 #~ msgid "Anti-alias &Text"
 #~ msgstr "&Testo antialias"

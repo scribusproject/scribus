@@ -18510,7 +18510,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Indeks</translation>
+        <translation type="obsolete">&amp;Indeks</translation>
     </message>
 </context>
 <context>
@@ -18581,7 +18581,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Indeks</translation>
+        <translation type="obsolete">&amp;Indeks</translation>
     </message>
 </context>
 <context>
