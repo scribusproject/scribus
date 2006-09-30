@@ -210,7 +210,7 @@ More info can be found in the README.
 Red Hat / Fedora
 ================
 
-Recommended packages for compiling from source on FC3 / FC4:
+Recommended packages for compiling from source on FC4 / FC5
 	libstdc++-devel (Required)
 	gcc-c++ (Required)
 	qt-devel (Required)
