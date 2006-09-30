@@ -32,6 +32,19 @@ int VGradient::VColorStopList::compareItems( QPtrCollection::Item item1, QPtrCol
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradient::VColorStopList::compareItems
 
+
+void VGradient::VColorStopList::inSort( QPtrCollection::Item d )
+{
+	int index = 0;
+	first();
+	register VColorStop *n = first();
+	while ( n && compareItems((QPtrCollection::Item) n,d) <= 0 ){ // find position in list
+		n = next();
+		index++;
+	}
+	insertAt( index, d );
+}
+
 VGradient::VGradient( VGradientType type )
 		: m_type( type )
 {
@@ -131,6 +144,41 @@ void VGradient::removeStop( const VColorStop& colorstop )
 void VGradient::removeStop( uint n )
 {
 	m_colorStops.remove( n );
+}
+
+void VGradient::filterStops(void)
+{
+	VColorStop* colorStop = NULL;
+	bool zeroFound = false;
+	colorStop = m_colorStops.last();
+	while(colorStop != NULL)
+	{
+		if (colorStop->rampPoint == 0.0 && zeroFound)
+			m_colorStops.remove();
+		else if (colorStop->rampPoint == 0.0)
+			zeroFound = true;
+		colorStop = m_colorStops.prev();
+	}
+	bool oneFound = false;
+	colorStop = m_colorStops.first();
+	while(colorStop != NULL)
+	{
+		if (colorStop->rampPoint == 1.0 && oneFound)
+		{
+			bool isLast = (colorStop == m_colorStops.getLast());
+			m_colorStops.remove();
+			if (isLast)
+				colorStop = m_colorStops.next();
+			colorStop = m_colorStops.current();
+		}
+		else if (colorStop->rampPoint == 1.0)
+		{
+			oneFound = true;
+			colorStop = m_colorStops.next();
+		}
+		else
+			colorStop = m_colorStops.next();
+	}
 }
 
 void VGradient::transform( const QWMatrix &m )

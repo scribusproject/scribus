@@ -1641,6 +1641,8 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 		gradient->gradient.addStop( m_Doc->PageColors[Col].getRGBColor(), offset, 0.5, opa, Col, 100 );
 		gradient->gradientValid = true;
 	}
+	if (gradient->gradientValid)
+		gradient->gradient.filterStops();
 }
 
 void SVGPlug::parseGradient( const QDomElement &e )

@@ -91,12 +91,15 @@ public:
 	    repeat  = 2
 	};
 
-class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
+	class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
 	{
 	protected:
 		virtual int compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 );
-	}
-	; // VColorStopList
+	public:
+		// Reimplement inSort so that two color stop with same offset can be found
+		// in the same order they are inserted
+		void inSort( QPtrCollection::Item d );
+	}; // VColorStopList
 
 	VGradient( VGradientType type = linear );
 	VGradient( const VGradient& gradient );
@@ -116,6 +119,10 @@ class SCRIBUS_API VColorStopList : public QPtrList<VColorStop>
 	void removeStop( uint n );
 	void clearStops();
 	uint Stops() { return m_colorStops.count(); }
+
+	// This function let only one stop with offset value equal to 0 and 1.0
+	// by removing the firsts with 0.0 value and the lasts with 1.0 value;
+	void filterStops(void);
 
 	FPoint origin() const { return m_origin; }
 	void setOrigin( const FPoint &origin ) { m_origin = origin; }
