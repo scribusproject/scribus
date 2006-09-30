@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qbitmap.h>
 #include <qregexp.h>
 #include <qmessagebox.h>
+#include <qptrstack.h>
 #include <cmath>
 #include <cassert>
 
@@ -1373,9 +1374,20 @@ QImage PageItem::DrawObj_toImage()
 	retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1.0, 0);
 	painter->setZoomFactor(1.0);
+	QPtrStack<PageItem> groupStack;
+	QPtrStack<PageItem> groupClips;
 	for (uint em = 0; em < emG.count(); ++em)
 	{
 		PageItem* embedded = emG.at(em);
+		if (embedded->isGroupControl)
+		{
+#ifdef HAVE_CAIRO
+			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode());
+#endif
+			groupClips.push(embedded);
+			groupStack.push(embedded->groupsLastItem);
+			continue;
+		}
 		painter->save();
 		double x = embedded->xPos();
 		double y = embedded->yPos();
@@ -1389,6 +1401,23 @@ QImage PageItem::DrawObj_toImage()
 		embedded->Ypos = y;
 		embedded->isEmbedded = false;
 		painter->restore();
+		if (groupStack.count() != 0)
+		{
+			while (embedded == groupStack.top())
+			{
+				PageItem *tmpItem = groupClips.pop();
+				FPointArray cl = tmpItem->PoLine.copy();
+				QWMatrix mm;
+				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
+				mm.rotate(tmpItem->rotation());
+				cl.map( mm );
+#ifdef HAVE_CAIRO
+				painter->endLayer(&cl);
+#endif
+				painter->restore();
+				groupStack.pop();
+			}
+		}
 	}
 	painter->end();
 	delete painter;

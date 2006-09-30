@@ -422,13 +422,36 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		QBuffer b(buf);
 		b.open( IO_WriteOnly );
 		spoolStream.setDevice(&b);
+		QPtrStack<PageItem> groupStack;
 		for (uint em = 0; em < pa.items.count(); ++em)
 		{
 			PageItem* item = pa.items.at(em);
+			if (item->isGroupControl)
+			{
+				PS_save();
+				FPointArray cl = item->PoLine.copy();
+				QWMatrix mm;
+				mm.translate(item->gXpos, item->gYpos);
+				mm.rotate(-item->rotation());
+				cl.map( mm );
+				SetClipPath(&cl);
+				PS_closepath();
+				PS_clip(true);
+				groupStack.push(item->groupsLastItem);
+				continue;
+			}
 			PS_save();
 			PS_translate(item->gXpos, -item->gYpos);
 			ProcessItem(m_Doc, m_Doc->Pages->at(0), item, 0, sep, farb, ic, gcr, false, true, true);
 			PS_restore();
+			if (groupStack.count() != 0)
+			{
+				while (item == groupStack.top())
+				{
+					PS_restore();
+					groupStack.pop();
+				}
+			}
 		}
 		spoolStream.setDevice(spStream);
 		PutDoc(buf);

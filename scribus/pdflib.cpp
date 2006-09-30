@@ -3916,11 +3916,28 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 {
 	if (currItem->GrType == 8)
 	{
+		QPtrStack<PageItem> groupStack;
 		QString tmp2 = "";
 		ScPattern *pat = &doc.docPatterns[currItem->pattern()];
 		for (uint em = 0; em < pat->items.count(); ++em)
 		{
 			PageItem* item = pat->items.at(em);
+			if (item->isGroupControl)
+			{
+				tmp2 += "q\n";
+				FPointArray cl = item->PoLine.copy();
+				FPointArray clb = item->PoLine.copy();
+				QWMatrix mm;
+				mm.translate(item->gXpos, item->gYpos);
+				mm.rotate(-item->rotation());
+				cl.map( mm );
+				item->PoLine = cl;
+				tmp2 += SetClipPath(item);
+				tmp2 += "h W* n\n";
+				groupStack.push(item->groupsLastItem);
+				item->PoLine = clb.copy();
+				continue;
+			}
 			tmp2 += "q\n";
 			tmp2 +=  "1 0 0 1 "+FToStr(item->gXpos)+" "+FToStr(-item->gYpos)+" cm\n";
 			item->setXYPos(item->xPos() + ActPageP->xOffset(), item->yPos() + ActPageP->yOffset(), true);
@@ -3929,6 +3946,14 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 			item->setXYPos(item->xPos() - ActPageP->xOffset(), item->yPos() - ActPageP->yOffset(), true);
 			inPattern--;
 			tmp2 += "Q\n";
+			if (groupStack.count() != 0)
+			{
+				while (item == groupStack.top())
+				{
+					tmp2 += "Q\n";
+					groupStack.pop();
+				}
+			}
 		}
 		if ((Options.Compress) && (CompAvail))
 			tmp2 = CompressStr(&tmp2);
@@ -3940,9 +3965,11 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		PutDoc("/TilingType 1\n");
 		PutDoc("/BBox [ 0 0 "+FToStr(pat->width)+" "+FToStr(-pat->height)+" ]\n");
 		QWMatrix mpa;
-		mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 		if (inPattern == 0)
+		{
+			mpa.translate(currItem->xPos() - ActPageP->xOffset(), ActPageP->height() - (currItem->yPos() - ActPageP->yOffset()));
 			mpa.rotate(-currItem->rotation());
+		}
 		double patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation;
 		currItem->patternTransform(patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 		mpa.translate(patternOffsetX, -patternOffsetY);
