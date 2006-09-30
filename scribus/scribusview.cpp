@@ -1181,7 +1181,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						pmen->insertItem( tr("Cancel"));
 						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							if (Doc->Items->at(Doc->DragElements[dre])->locked());
+							if (Doc->Items->at(Doc->DragElements[dre])->locked())
 							{
 								pmen->setItemEnabled(mov, false);
 								break;
