@@ -323,7 +323,7 @@ void SVGPlug::convert(int flags)
 		currDoc->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		if (!dr->drag())
-			qDebug("svgimport: could start drag operation!");
+			qDebug("%s", QString("SVGImport: Could not start drag operation!").ascii());
 		delete ss;
 		currDoc->DragP = false;
 		currDoc->DraggedElem = 0;
@@ -575,7 +575,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
-			qDebug(QString("unsupported SVG feature: %1").arg(STag));
+			qDebug("%s", QString("Unsupported SVG Feature: %1").arg(STag).ascii());
 			// warn if unsupported SVG feature
 			unsupported = true;
 			continue;
