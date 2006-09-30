@@ -72,6 +72,9 @@ public:
 }
 ; // VColorStop
 
+// comparison function for use with stable_sort
+bool compareStops( const VColorStop* item1, const VColorStop* item2 );
+
 class SCRIBUS_API VGradient
 {
 	// friend class VGradientWidget;

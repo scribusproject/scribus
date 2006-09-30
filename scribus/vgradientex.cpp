@@ -23,6 +23,15 @@ for which a new license (GPL+exception) is in place.
    Boston, MA 02111-1307, USA.
 */
 #include "vgradientex.h"
+#include <algorithm>
+
+// comparison function for use with stable_sort
+bool compareStopsEx( const VColorStopEx* item1, const VColorStopEx* item2 )
+{
+	double r1 = item1->rampPoint;
+	double r2 = item2->rampPoint;
+	return ( r1 < r2 ? true : false );
+}
 
 int VGradientEx::VColorStopExList::compareItems( QPtrCollection::Item item1, QPtrCollection::Item item2 )
 {
@@ -31,6 +40,18 @@ int VGradientEx::VColorStopExList::compareItems( QPtrCollection::Item item1, QPt
 
 	return ( r1 == r2 ? 0 : r1 < r2 ? -1 : 1 );
 } // VGradientEx::VColorStopList::compareItems
+
+void VGradientEx::VColorStopExList::inSort( QPtrCollection::Item d )
+{
+	int index = 0;
+	first();
+	register VColorStopEx *n = first();
+	while ( n && compareItems((QPtrCollection::Item) n,d) <= 0 ){ // find position in list
+		n = next();
+		index++;
+	}
+	insertAt( index, d );
+}
 
 VGradientEx::VGradientEx( VGradientEx::Type type ) : m_type( type )
 {
@@ -57,9 +78,9 @@ VGradientEx::VGradientEx( const VGradientEx& gradient )
 
 	m_colorStops.clear();
 	QPtrVector<VColorStopEx> cs = gradient.colorStops();
+	std::stable_sort( cs.data(), cs.data() + cs.count(), compareStopsEx);
 	for( uint i = 0; i < cs.count(); ++i)
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
-	m_colorStops.sort();
 }
 
 VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
@@ -74,6 +95,7 @@ VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 
 	m_colorStops.clear();
 	QPtrVector<VColorStop> stops = gradient.colorStops();
+	std::stable_sort( stops.data(), stops.data() + stops.count(), compareStops);
 	for( uint i = 0; i < stops.count(); ++i)
 	{
 		VColorStop stop( *stops[i] );
@@ -85,7 +107,6 @@ VGradientEx::VGradientEx( const VGradient& gradient, ScribusDoc& doc )
 		QString name = stop.name;
 		m_colorStops.append( new VColorStopEx(ramp, mid, color, opacity, name, shade) );
 	}
-	m_colorStops.sort();
 }
 
 VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
@@ -103,10 +124,9 @@ VGradientEx& VGradientEx::operator=( const VGradientEx& gradient )
 
 	m_colorStops.clear();
 	QPtrVector<VColorStopEx> cs = gradient.colorStops();
+	std::stable_sort( cs.data(), cs.data() + cs.count(), compareStopsEx);
 	for( uint i = 0; i < cs.count(); ++i )
 		m_colorStops.append( new VColorStopEx( *cs[i] ) );
-	m_colorStops.sort();
-
 	return *this;
 } // VGradientEx::operator=
 
