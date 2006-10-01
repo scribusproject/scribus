@@ -349,7 +349,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				QClipboard *cp = QApplication::clipboard();
 				cp->setText(errorMsg);
 				ScMW->closeSplash();
-				QMessageBox::warning(ScCore->primaryMainWindow(),
+				QMessageBox::warning(ScMW,
 									tr("Script error"),
 									"<qt><p>"
 									+tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
