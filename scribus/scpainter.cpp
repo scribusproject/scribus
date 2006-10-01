@@ -1931,12 +1931,12 @@ void ScPainter::applyPattern( ArtSVP *svp)
 	ArtPattern *pattern = art_new( ArtPattern, 1 );
 	double dx = 0.0;
 	double dy =0.0;
-	QImage pat = m_pattern->getPattern()->scale(m_pattern->getPattern()->width() * m_zoomFactor, m_pattern->getPattern()->height() * m_zoomFactor);
+	QImage pat = m_pattern->getPattern()->scale(m_pattern->getPattern()->width() * m_zoomFactor * patternScaleX, m_pattern->getPattern()->height() * m_zoomFactor * patternScaleY);
 	pattern->twidth = pat.width();
 	pattern->theight = pat.height();
 	pattern->buffer = pat.bits();
 	pattern->opacity = qRound( 255 * fill_trans );
-	pattern->angle = atan2( -dy, dx );
+	pattern->angle = patternRotation * 3.1415927 / 180.0;
 	if( x0 != x1 && y0 != y1 )
 	{
 		render = art_render_new( x0, y0, x1, y1, m_buffer + 4 * int(x0) + m_width * 4 * int(y0), m_width * 4, 3, 8, ART_ALPHA_PREMUL, 0 );

@@ -810,7 +810,11 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 				}
 				else
 				{
+#ifdef HAVE_CAIRO
 					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
+#else
+					p->setPattern(&m_Doc->docPatterns[patternVal], patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation+Rot);
+#endif
 					p->setFillMode(ScPainter::Pattern);
 				}
 			}

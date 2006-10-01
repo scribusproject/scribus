@@ -240,6 +240,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Layout1t->addWidget( blendMode, 1, 1 );
 	Form1Layout->addWidget(TransGroup);
 #ifndef HAVE_CAIRO
+	groupOffset->hide();
 	blendMode->hide();
 	TransTxt2->hide();
 #else
