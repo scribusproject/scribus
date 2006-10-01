@@ -5374,6 +5374,8 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsLinkTextFrame"]->setEnabled(false);
 		scrActions["toolsUnlinkTextFrame"]->setEnabled(false);
 		scrActions["toolsMeasurements"]->setEnabled(false);
+		scrActions["toolsCopyProperties"]->setEnabled(false);
+		scrActions["toolsEyeDropper"]->setEnabled(false);
 		pdfToolBar->PDFTool->setEnabled(false);
 		pdfToolBar->PDFaTool->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
@@ -5412,6 +5414,8 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsEditContents"]->setOn(false);
 	scrActions["toolsEditWithStoryEditor"]->setOn(false);
 	scrActions["toolsMeasurements"]->setEnabled(true);
+	scrActions["toolsCopyProperties"]->setEnabled(true);
+	scrActions["toolsEyeDropper"]->setEnabled(true);
 	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setOn(false);
