@@ -404,6 +404,11 @@ public:
 	*/
 	void getUsedColors(ColorList &colorsToUse, bool spot = false);
 	/*!
+	* @brief Set the patterns for a document
+	*/
+	bool addPattern(QString &name, ScPattern& pattern);
+	void setPatterns(QMap<QString, ScPattern> &patterns);
+	/*!
 	* @brief Builds a QStringList of the patterns used within the document
 	*/
 	QStringList getUsedPatterns();

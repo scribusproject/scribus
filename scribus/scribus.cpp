@@ -9296,7 +9296,7 @@ void ScribusMainWindow::PutToPatterns()
 	{
 		pat.items.append(doc->Items->take(ac));
 	}
-	doc->docPatterns.insert(patternName, pat);
+	doc->addPattern(patternName, pat);
 	propertiesPalette->updateColorList();
 	delete ss;
 }
@@ -9307,43 +9307,14 @@ void ScribusMainWindow::managePatterns()
 	{
 		bool undoState = UndoManager::undoEnabled();
 		undoManager->setUndoEnabled(false);
-		PatternDialog *dia = new PatternDialog(this, &doc->docPatterns, doc, this);
+		QMap<QString, ScPattern> docPatterns(doc->docPatterns);
+		PatternDialog *dia = new PatternDialog(this, &docPatterns, doc, this);
 		if (dia->exec())
 		{
-			doc->docPatterns.clear();
-			for (QMap<QString, ScPattern>::Iterator it = dia->dialogPatterns.begin(); it != dia->dialogPatterns.end(); ++it)
-			{
-				doc->docPatterns.insert(it.key(), it.data());
-			}
-			for (uint c=0; c<doc->DocItems.count(); ++c)
-			{
-				PageItem *ite = doc->DocItems.at(c);
-				if ((!doc->docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
-				{
-					ite->setPattern("");
-					ite->GrType = 0;
-				}
-			}
-			for (uint c=0; c<doc->MasterItems.count(); ++c)
-			{
-				PageItem *ite = doc->MasterItems.at(c);
-				if ((!doc->docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
-				{
-					ite->setPattern("");
-					ite->GrType = 0;
-				}
-			}
-			for (uint c=0; c<doc->FrameItems.count(); ++c)
-			{
-				PageItem *ite = doc->FrameItems.at(c);
-				if ((!doc->docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
-				{
-					ite->setPattern("");
-					ite->GrType = 0;
-				}
-			}
+			doc->setPatterns(dia->dialogPatterns);
 			propertiesPalette->updateColorList();
 			view->DrawNew();
+			undoManager->setUndoEnabled(undoState);
 		}
 		delete dia;
 		undoManager->setUndoEnabled(undoState);

@@ -2216,6 +2216,48 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 	}
 }
 
+bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
+{
+	docPatterns.insert(name, pattern);
+}
+
+void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
+{
+	docPatterns.clear();
+	docPatterns=patterns;
+// 	for (QMap<QString, ScPattern>::Iterator it = patterns.begin(); it != patterns.end(); ++it)
+// 	{
+// 		docPatterns.insert(it.key(), it.data());
+// 	}
+	for (uint c=0; c<DocItems.count(); ++c)
+	{
+		PageItem *ite = DocItems.at(c);
+		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
+		{
+			ite->setPattern("");
+			ite->GrType = 0;
+		}
+	}
+	for (uint c=0; c<MasterItems.count(); ++c)
+	{
+		PageItem *ite = MasterItems.at(c);
+		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
+		{
+			ite->setPattern("");
+			ite->GrType = 0;
+		}
+	}
+	for (uint c=0; c<FrameItems.count(); ++c)
+	{
+		PageItem *ite = FrameItems.at(c);
+		if ((!docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
+		{
+			ite->setPattern("");
+			ite->GrType = 0;
+		}
+	}
+}
+
 QStringList ScribusDoc::getUsedPatterns()
 {
 	QStringList results;
