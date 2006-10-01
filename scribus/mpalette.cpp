@@ -1354,7 +1354,7 @@ void Mpalette::SetCurItem(PageItem *i)
 
 void Mpalette::NewSel(int nr)
 {
-	if (ScMW->ScriptRunning)
+	if (!HaveDoc || ScMW->ScriptRunning)
 		return;
 	int visID;
 	PageItem *i;
