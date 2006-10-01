@@ -4516,6 +4516,8 @@ void ScribusMainWindow::slotEditPaste()
 	{
 		if (Buffer2.isNull())
 			return;
+		if (UndoManager::undoEnabled())
+			undoManager->beginTransaction(doc->currentPage->getUName(), 0, Um::Paste, "", Um::IPaste);
 		if (doc->appMode == modeEdit)
 		{
 			PageItem_TextFrame *currItem = dynamic_cast<PageItem_TextFrame*>(doc->m_Selection->itemAt(0));
@@ -4710,6 +4712,8 @@ void ScribusMainWindow::slotEditPaste()
 				}
 			}
 		}
+		if (UndoManager::undoEnabled())
+			undoManager->commit();
 		slotDocCh(false);
 	}
 }
