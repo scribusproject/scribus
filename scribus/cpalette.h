@@ -182,6 +182,7 @@ protected:
 	QString Color3;
 	int Shade3;
 	bool GradientMode;
+	int currentGradient;
 };
 
 #endif

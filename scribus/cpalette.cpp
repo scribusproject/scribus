@@ -59,6 +59,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Color3 = "";
 	Shade = 100;
 	Shade3 = 100;
+	currentGradient = 0;
 	Form1Layout = new QVBoxLayout( this, 0, 0, "Form1Layout");
 	Layout1 = new QGridLayout;
 	Layout1->setSpacing( 4 );
@@ -529,6 +530,11 @@ void Cpalette::slotColor(QString n, int s)
 
 void Cpalette::slotGrad(int number)
 {
+	if ((number == 8) && (patternList->count() == 0))
+	{
+		gradientQCombo->setCurrentItem(currentGradient);
+		return;
+	}
 	ChooseGrad(number);
 	emit NewGradient(number);
 }
@@ -536,7 +542,11 @@ void Cpalette::slotGrad(int number)
 void Cpalette::ChooseGrad(int number)
 {
 	if (number==-1)
-		gradientQCombo->setCurrentItem(0); //no need to disconnect as qcombobox only emits from user action
+	{
+		gradientQCombo->setCurrentItem(0);
+		currentGradient = 0;
+	}
+	//no need to disconnect as qcombobox only emits from user action
 	/* PFJ - 29.02.04 - Removed GradGroup and Gradient mode from switch */
 	GradientMode = number == 0 ? false : number == 8 ? false : true;
 
@@ -660,6 +670,7 @@ void Cpalette::setActGradient(int typ)
 	disconnect(gradientQCombo, SIGNAL(activated(int)), this, SLOT(slotGrad(int)));
 	if (Mode == 2)
 	{
+		currentGradient = typ;
 		gradientQCombo->setCurrentItem(typ);
 		ChooseGrad(typ);
 	}
