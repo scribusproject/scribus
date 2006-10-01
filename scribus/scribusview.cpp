@@ -356,14 +356,16 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					else
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(Doc->papColor);
-					painter->drawRect(x, y, w, h);
+					painter->drawRect(x, y, w, h); 
 					if ((Doc->guidesSettings.before) && (!viewAsPreview))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 					if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 							painter->endLayer();
 #else
 					painter->endLayer();
+#endif
 #endif
 				}
 			}
