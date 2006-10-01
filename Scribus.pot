@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,6 +98,27 @@ msgid "DLE"
 msgstr ""
 
 msgid "None"
+msgstr ""
+
+msgid "Align and Distribute"
+msgstr ""
+
+msgid "&Selected Guide:"
+msgstr ""
+
+msgid "&Relative To:"
+msgstr ""
+
+msgid "..."
+msgstr ""
+
+msgid "Align"
+msgstr ""
+
+msgid "&Distance:"
+msgstr ""
+
+msgid "Distribute"
 msgstr ""
 
 msgid "Manage Page Properties"
@@ -840,6 +861,18 @@ msgstr ""
 msgid "&Skip locked objects"
 msgstr ""
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr ""
 
@@ -1046,9 +1079,6 @@ msgid "Destination Frame:"
 msgstr ""
 
 msgid "Table Of Contents"
-msgstr ""
-
-msgid "Inde&x"
 msgstr ""
 
 msgid "Printer Options"
@@ -1612,6 +1642,9 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr ""
 
+msgid "Group%1"
+msgstr ""
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2094,6 +2127,23 @@ msgstr ""
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3180,12 +3230,6 @@ msgstr ""
 msgid "New Name:"
 msgstr ""
 
-msgid "Align and Distribute"
-msgstr ""
-
-msgid "Align"
-msgstr ""
-
 msgid "&Relative to:"
 msgstr ""
 
@@ -3228,12 +3272,6 @@ msgstr ""
 msgid "Align tops"
 msgstr ""
 
-msgid "&Selected Guide:"
-msgstr ""
-
-msgid "Distribute"
-msgstr ""
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3264,7 +3302,18 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr ""
 
-msgid "&Distance:"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
 msgstr ""
 
 msgid "Distribute the items with the distance specified"
@@ -3273,11 +3322,9 @@ msgstr ""
 msgid "None Selected"
 msgstr ""
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -4056,6 +4103,12 @@ msgid "Offsets"
 msgstr ""
 
 msgid "Scaling"
+msgstr ""
+
+msgid "X-Scale:"
+msgstr ""
+
+msgid "Y-Scale:"
 msgstr ""
 
 msgid "Rotation"
@@ -5893,10 +5946,10 @@ msgid ""
 "%1"
 msgstr ""
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
 msgstr ""
 
-msgid "Documents (*.sla *.scd);;All Files (*)"
+msgid "Documents (*.sla);;All Files (*)"
 msgstr ""
 
 msgid "Save As"
@@ -7451,6 +7504,9 @@ msgstr ""
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr ""
 
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr ""
+
 msgid "Import Master Page"
 msgstr ""
 
@@ -8015,10 +8071,10 @@ msgstr ""
 msgid "&Number of Copies:"
 msgstr ""
 
-msgid "Create &Gap Between Items Of"
+msgid "&Shift Created Items By"
 msgstr ""
 
-msgid "&Shift Created Items By"
+msgid "Create &Gap Between Items Of"
 msgstr ""
 
 msgid "&By Number of Copies"
@@ -8499,6 +8555,12 @@ msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
+msgid "+tracking %1 "
+msgstr ""
+
+msgid "+baseline %1 "
 msgstr ""
 
 msgid "New From Template"
@@ -9196,6 +9258,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr ""
 
@@ -9591,24 +9656,6 @@ msgstr ""
 msgid "SVG file contains some unsupported features"
 msgstr ""
 
-msgid "Document Colors"
-msgstr ""
-
-msgid "Cr&eate color..."
-msgstr ""
-
-msgid "C&olor Components..."
-msgstr ""
-
-msgid "&Import existing color..."
-msgstr ""
-
-msgid "&Merge colors"
-msgstr ""
-
-msgid "&Replace colors"
-msgstr ""
-
 msgid "Normal Vision"
 msgstr ""
 
@@ -9622,64 +9669,6 @@ msgid "Tritanopia (Blue)"
 msgstr ""
 
 msgid "Full Color Blindness"
-msgstr ""
-
-msgid "Vision Defect:"
-msgstr ""
-
-msgid "Color Wheel"
-msgstr ""
-
-msgid "M"
-msgstr ""
-
-msgid "Y"
-msgstr ""
-
-msgid "K"
-msgstr ""
-
-msgid "Select Method:"
-msgstr ""
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-msgid "&Merge Colors"
-msgstr ""
-
-msgid "&Replace Colors"
-msgstr ""
-
-msgid "Merge created colors into the document colors"
-msgstr ""
-
-msgid "Replace created colors in the document colors"
-msgstr ""
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-msgid "Sample color scheme"
-msgstr ""
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-msgid "Colors of your chosen color scheme"
-msgstr ""
-
-msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 msgid "Merging colors"
@@ -9708,34 +9697,67 @@ msgstr ""
 msgid "&Color Wheel..."
 msgstr ""
 
+msgid "Color Wheel"
+msgstr ""
+
 msgid "Color setting helper"
 msgstr ""
 
 msgid "Color selector with color theory included."
 msgstr ""
 
-msgid "Set Color Components"
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
 msgstr ""
 
-msgid "HSV"
+msgid "RGB:"
 msgstr ""
 
-msgid "H:"
+msgid "CMYK:"
 msgstr ""
 
-msgid "S:"
+msgid "Color Scheme Method:"
 msgstr ""
 
-msgid "V:"
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
 msgstr ""
 
-msgid "Set &RGB"
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
 msgstr ""
 
-msgid "Set C&MYK"
+msgid "Preview:"
 msgstr ""
 
-msgid "Set &HSV"
+msgid "Vision Defect Type:"
+msgstr ""
+
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+
+msgid "Sample color scheme."
+msgstr ""
+
+msgid "Colors of your chosen color scheme."
+msgstr ""
+
+msgid "&Merge"
+msgstr ""
+
+msgid "Alt+M"
+msgstr ""
+
+msgid "Merge created colors into the document colors"
+msgstr ""
+
+msgid "Replace created colors in the document colors"
+msgstr ""
+
+msgid "Leave colors untouched"
 msgstr ""
 
 msgid "Monochromatic"

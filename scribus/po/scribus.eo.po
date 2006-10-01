@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -115,6 +115,33 @@ msgstr ""
 
 msgid "None"
 msgstr "Neniu"
+
+#, fuzzy
+msgid "Align and Distribute"
+msgstr "Dismetu/Alĝustigu"
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "Elektitaj kampoj"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "Ril&ato:"
+
+#, fuzzy
+msgid "..."
+msgstr "Al&donu..."
+
+msgid "Align"
+msgstr "Alĝustigu"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "Distancoj"
+
+#, fuzzy
+msgid "Distribute"
+msgstr "Dismetu/Alĝustigu"
 
 #, fuzzy
 msgid "Manage Page Properties"
@@ -929,6 +956,18 @@ msgstr "Malŝlosu ĉiujn"
 msgid "&Skip locked objects"
 msgstr "Ŝlosu aŭ malŝlosu la objekton"
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr "Nodoj"
 
@@ -1162,10 +1201,6 @@ msgstr "Celo"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "&Forviŝu entenon"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "Interna"
 
 msgid "Printer Options"
 msgstr "Printil-opcioj"
@@ -1843,6 +1878,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "Paĝo"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "Grupigu"
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2378,6 +2417,23 @@ msgstr "Paĝonumero eksterintervala"
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3649,13 +3705,6 @@ msgid "New Name:"
 msgstr "Dosier&nomo:"
 
 #, fuzzy
-msgid "Align and Distribute"
-msgstr "Dismetu/Alĝustigu"
-
-msgid "Align"
-msgstr "Alĝustigu"
-
-#, fuzzy
 msgid "&Relative to:"
 msgstr "Ril&ato:"
 
@@ -3706,14 +3755,6 @@ msgstr ""
 msgid "Align tops"
 msgstr "Maldekstremigu"
 
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "Elektitaj kampoj"
-
-#, fuzzy
-msgid "Distribute"
-msgstr "Dismetu/Alĝustigu"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3746,9 +3787,19 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "Dism&etu regule"
 
-#, fuzzy
-msgid "&Distance:"
-msgstr "Distancoj"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr ""
 
 msgid "Distribute the items with the distance specified"
 msgstr ""
@@ -3757,11 +3808,11 @@ msgstr ""
 msgid "None Selected"
 msgstr "Elektu"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "Y: %1%2"
 msgstr "%1 - [%2]"
 
-#, fuzzy, c-format
+#, fuzzy
 msgid "X: %1%2"
 msgstr "%1 - [%2]"
 
@@ -4680,6 +4731,14 @@ msgstr "Efektoj"
 #, fuzzy
 msgid "Scaling"
 msgstr "Sk&alado:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "X-Sk&alo:"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Y-Skal&o:"
 
 #, fuzzy
 msgid "Rotation"
@@ -6753,10 +6812,12 @@ msgstr ""
 "Ne eblas skribi la dosieron: \n"
 "%1"
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
-msgstr "Dokumentoj (*.sla *.sla.gz *.scd *scd.gz);; Ĉiaj dosieroj (*)"
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
+msgstr "Dokumentoj (*.sla *.scd);; Ĉiaj dosieroj (*)"
 
-msgid "Documents (*.sla *.scd);;All Files (*)"
+#, fuzzy
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "Dokumentoj (*.sla *.scd);; Ĉiaj dosieroj (*)"
 
 msgid "Save As"
@@ -8481,6 +8542,9 @@ msgstr "Ĉu vi vere intencas forigi ĉi tiun stilon?"
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Documentoj (*.sla *.sla.gz *.scd *.scd.gz);;Ĉiaj dosieroj (*)"
 
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumentoj (*.sla *.scd);; Ĉiaj dosieroj (*)"
+
 #, fuzzy
 msgid "Import Master Page"
 msgstr "Importu datumojn"
@@ -9135,12 +9199,12 @@ msgstr "Multobligu"
 msgid "&Number of Copies:"
 msgstr "Kopi&nombro:"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "Redaktu linistilojn"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9710,6 +9774,14 @@ msgstr "La tiparo %1 estas damaĝita, ne estas utiligata"
 
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "Agordaro"
+
+#, fuzzy
+msgid "+baseline %1 "
+msgstr "Bazlinia krado"
 
 msgid "New From Template"
 msgstr "Nova el ŝablono"
@@ -10553,6 +10625,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr "Skriptokonzolo"
 
@@ -11036,30 +11111,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 
 #, fuzzy
-msgid "Document Colors"
-msgstr "Dokumento"
-
-#, fuzzy
-msgid "Cr&eate color..."
-msgstr "K&oloroj..."
-
-#, fuzzy
-msgid "C&olor Components..."
-msgstr "&Forviŝu entenon"
-
-#, fuzzy
-msgid "&Import existing color..."
-msgstr "Importas paĝojn..."
-
-#, fuzzy
-msgid "&Merge colors"
-msgstr "Paĝkoloroj"
-
-#, fuzzy
-msgid "&Replace colors"
-msgstr "&Anstataŭu"
-
-#, fuzzy
 msgid "Normal Vision"
 msgstr "Normaligu"
 
@@ -11075,75 +11126,6 @@ msgstr ""
 #, fuzzy
 msgid "Full Color Blindness"
 msgstr "Plenigkolora agordaro"
-
-msgid "Vision Defect:"
-msgstr ""
-
-#, fuzzy
-msgid "Color Wheel"
-msgstr "Ko&lorŝablono"
-
-#, fuzzy
-msgid "M"
-msgstr "&M"
-
-#, fuzzy
-msgid "Y"
-msgstr "&Y"
-
-#, fuzzy
-msgid "K"
-msgstr "&K"
-
-#, fuzzy
-msgid "Select Method:"
-msgstr "Elektu kampojn"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-#, fuzzy
-msgid "&Merge Colors"
-msgstr "Paĝkoloroj"
-
-#, fuzzy
-msgid "&Replace Colors"
-msgstr "&Anstataŭu"
-
-#, fuzzy
-msgid "Merge created colors into the document colors"
-msgstr "Igu apriora ĉi tiun kolor-aron"
-
-#, fuzzy
-msgid "Replace created colors in the document colors"
-msgstr "Forigu neuzatajn kolorojn el ĉi tiu dokumenta kolor-aro"
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-#, fuzzy
-msgid "Sample color scheme"
-msgstr "Linikoloro de la formoj"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-#, fuzzy
-msgid "Colors of your chosen color scheme"
-msgstr "Kolorprofilo por homogenaj koloroj"
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
 
 #, fuzzy
 msgid "Merging colors"
@@ -11177,39 +11159,80 @@ msgid "&Color Wheel..."
 msgstr "Koloroj..."
 
 #, fuzzy
+msgid "Color Wheel"
+msgstr "Ko&lorŝablono"
+
+#, fuzzy
 msgid "Color setting helper"
 msgstr "Plenigkolora agordaro"
 
 msgid "Color selector with color theory included."
 msgstr ""
 
-#, fuzzy
-msgid "Set Color Components"
-msgstr "Kon&servu kolor-aron"
-
-msgid "HSV"
-msgstr ""
-
-msgid "H:"
-msgstr ""
-
-msgid "S:"
-msgstr ""
-
-msgid "V:"
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
 msgstr ""
 
 #, fuzzy
-msgid "Set &RGB"
-msgstr "&Agordu klavon"
+msgid "RGB:"
+msgstr "RGB"
 
 #, fuzzy
-msgid "Set C&MYK"
-msgstr "&Agordu klavon"
+msgid "CMYK:"
+msgstr "CMYK"
 
 #, fuzzy
-msgid "Set &HSV"
-msgstr "&Agordu klavon"
+msgid "Color Scheme Method:"
+msgstr "Elektu kampojn"
+
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
+msgstr ""
+
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
+msgstr ""
+
+#, fuzzy
+msgid "Preview:"
+msgstr "Antaŭrigardo"
+
+#, fuzzy
+msgid "Vision Defect Type:"
+msgstr "Efektoti&po:"
+
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "Linikoloro de la formoj"
+
+#, fuzzy
+msgid "Colors of your chosen color scheme."
+msgstr "Kolorprofilo por homogenaj koloroj"
+
+#, fuzzy
+msgid "&Merge"
+msgstr "&Granda"
+
+#, fuzzy
+msgid "Alt+M"
+msgstr "Alt+"
+
+#, fuzzy
+msgid "Merge created colors into the document colors"
+msgstr "Igu apriora ĉi tiun kolor-aron"
+
+#, fuzzy
+msgid "Replace created colors in the document colors"
+msgstr "Forigu neuzatajn kolorojn el ĉi tiu dokumenta kolor-aro"
+
+msgid "Leave colors untouched"
+msgstr ""
 
 msgid "Monochromatic"
 msgstr ""
@@ -11608,6 +11631,73 @@ msgstr "Normala"
 msgid "My Plugin"
 msgstr "Normala"
 
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "Interna"
+
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr "Dokumentoj (*.sla *.sla.gz *.scd *scd.gz);; Ĉiaj dosieroj (*)"
+
+#, fuzzy
+#~ msgid "Document Colors"
+#~ msgstr "Dokumento"
+
+#, fuzzy
+#~ msgid "Cr&eate color..."
+#~ msgstr "K&oloroj..."
+
+#, fuzzy
+#~ msgid "C&olor Components..."
+#~ msgstr "&Forviŝu entenon"
+
+#, fuzzy
+#~ msgid "&Import existing color..."
+#~ msgstr "Importas paĝojn..."
+
+#, fuzzy
+#~ msgid "&Merge colors"
+#~ msgstr "Paĝkoloroj"
+
+#, fuzzy
+#~ msgid "&Replace colors"
+#~ msgstr "&Anstataŭu"
+
+#, fuzzy
+#~ msgid "M"
+#~ msgstr "&M"
+
+#, fuzzy
+#~ msgid "Y"
+#~ msgstr "&Y"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "&K"
+
+#, fuzzy
+#~ msgid "&Merge Colors"
+#~ msgstr "Paĝkoloroj"
+
+#, fuzzy
+#~ msgid "&Replace Colors"
+#~ msgstr "&Anstataŭu"
+
+#, fuzzy
+#~ msgid "Set Color Components"
+#~ msgstr "Kon&servu kolor-aron"
+
+#, fuzzy
+#~ msgid "Set &RGB"
+#~ msgstr "&Agordu klavon"
+
+#, fuzzy
+#~ msgid "Set C&MYK"
+#~ msgstr "&Agordu klavon"
+
+#, fuzzy
+#~ msgid "Set &HSV"
+#~ msgstr "&Agordu klavon"
+
 #~ msgid "Tool-Tip:"
 #~ msgstr "Sugesto:"
 
@@ -11807,9 +11897,6 @@ msgstr "Normala"
 
 #~ msgid "&Medium"
 #~ msgstr "&Meza"
-
-#~ msgid "&Large"
-#~ msgstr "&Granda"
 
 #~ msgid "Load Text from File"
 #~ msgstr "Ŝargu tekston el la dosiero"
@@ -12636,10 +12723,6 @@ msgstr "Normala"
 #, fuzzy
 #~ msgid "Rena&me"
 #~ msgstr "Alinomu"
-
-#, fuzzy
-#~ msgid "Alt+M"
-#~ msgstr "Alt+"
 
 #, fuzzy
 #~ msgid "<qt>Delete the currently selected macro.</qt>"

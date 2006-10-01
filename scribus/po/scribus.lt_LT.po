@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -108,6 +108,33 @@ msgstr ""
 
 msgid "None"
 msgstr "Nieko"
+
+#, fuzzy
+msgid "Align and Distribute"
+msgstr "Išskirstyti/išligiuoti"
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "Parinkti laukeliai"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "Skiriamoji geba:"
+
+#, fuzzy
+msgid "..."
+msgstr "Pridėti..."
+
+msgid "Align"
+msgstr "Lygiuoti"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "Atstumas"
+
+#, fuzzy
+msgid "Distribute"
+msgstr "Išskirstyti/išligiuoti"
 
 #, fuzzy
 msgid "Manage Page Properties"
@@ -968,6 +995,18 @@ msgstr "Riboti"
 msgid "&Skip locked objects"
 msgstr ""
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr "Mazgai"
 
@@ -1210,10 +1249,6 @@ msgstr "Vieta"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "Turinys"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "Vidun"
 
 #, fuzzy
 msgid "Printer Options"
@@ -1905,6 +1940,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "Puslapis"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "Sudaryti junginį"
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2455,6 +2494,23 @@ msgstr "Kopijų skaičius:"
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3728,13 +3784,6 @@ msgid "New Name:"
 msgstr "Failo &vardas:"
 
 #, fuzzy
-msgid "Align and Distribute"
-msgstr "Išskirstyti/išligiuoti"
-
-msgid "Align"
-msgstr "Lygiuoti"
-
-#, fuzzy
 msgid "&Relative to:"
 msgstr "Skiriamoji geba:"
 
@@ -3785,14 +3834,6 @@ msgstr ""
 msgid "Align tops"
 msgstr "Lygiuoti kairėje"
 
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "Parinkti laukeliai"
-
-#, fuzzy
-msgid "Distribute"
-msgstr "Išskirstyti/išligiuoti"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3825,9 +3866,19 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "Paskirstyti tolygiai"
 
-#, fuzzy
-msgid "&Distance:"
-msgstr "Atstumas"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr ""
 
 msgid "Distribute the items with the distance specified"
 msgstr ""
@@ -3836,11 +3887,9 @@ msgstr ""
 msgid "None Selected"
 msgstr "Pažymėti"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -4724,6 +4773,14 @@ msgstr "Efektai"
 #, fuzzy
 msgid "Scaling"
 msgstr "Dydis:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "Keisti mastelį kaip:"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Keisti mastelį kaip:"
 
 #, fuzzy
 msgid "Rotation"
@@ -6870,11 +6927,11 @@ msgstr ""
 " turinį?"
 
 #, fuzzy
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;All Files (*)"
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
@@ -8664,6 +8721,10 @@ msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Dokumentai (*.sdc);; Visi failai (*)"
 
 #, fuzzy
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
 msgid "Import Master Page"
 msgstr "Įkelti duomenis"
 
@@ -9344,12 +9405,12 @@ msgstr "Sukurti daug kopijų"
 msgid "&Number of Copies:"
 msgstr "Kopijų skaičius:"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "Linijos forma"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9904,6 +9965,13 @@ msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "Pelės nuostatos"
+
+msgid "+baseline %1 "
 msgstr ""
 
 #, fuzzy
@@ -10725,6 +10793,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr ""
 
@@ -11183,30 +11254,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 
 #, fuzzy
-msgid "Document Colors"
-msgstr "Viską aprašė:"
-
-#, fuzzy
-msgid "Cr&eate color..."
-msgstr "Spalvos..."
-
-#, fuzzy
-msgid "C&olor Components..."
-msgstr "Turinys"
-
-#, fuzzy
-msgid "&Import existing color..."
-msgstr "Įkelti duomenis"
-
-#, fuzzy
-msgid "&Merge colors"
-msgstr "Popieriaus spalva"
-
-#, fuzzy
-msgid "&Replace colors"
-msgstr "Pakeisti į:"
-
-#, fuzzy
 msgid "Normal Vision"
 msgstr "Paprastas"
 
@@ -11222,73 +11269,6 @@ msgstr ""
 #, fuzzy
 msgid "Full Color Blindness"
 msgstr "Užpildo spalva:"
-
-msgid "Vision Defect:"
-msgstr ""
-
-#, fuzzy
-msgid "Color Wheel"
-msgstr "Spalvų modelis"
-
-msgid "M"
-msgstr ""
-
-#, fuzzy
-msgid "Y"
-msgstr "Taip"
-
-#, fuzzy
-msgid "K"
-msgstr "Tinka!"
-
-#, fuzzy
-msgid "Select Method:"
-msgstr "Pasirinkti laukelį"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-#, fuzzy
-msgid "&Merge Colors"
-msgstr "Popieriaus spalva"
-
-#, fuzzy
-msgid "&Replace Colors"
-msgstr "Pakeisti į:"
-
-#, fuzzy
-msgid "Merge created colors into the document colors"
-msgstr "Sukurk naują dokumentą"
-
-#, fuzzy
-msgid "Replace created colors in the document colors"
-msgstr "Sukurk naują dokumentą"
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-#, fuzzy
-msgid "Sample color scheme"
-msgstr "Pasirink spalvą"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-msgid "Colors of your chosen color scheme"
-msgstr ""
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
 
 #, fuzzy
 msgid "Merging colors"
@@ -11321,39 +11301,77 @@ msgid "&Color Wheel..."
 msgstr "Spalvos..."
 
 #, fuzzy
+msgid "Color Wheel"
+msgstr "Spalvų modelis"
+
+#, fuzzy
 msgid "Color setting helper"
 msgstr "Užpildo spalva:"
 
 msgid "Color selector with color theory included."
 msgstr ""
 
-#, fuzzy
-msgid "Set Color Components"
-msgstr "Santykinis spalvos matavimas"
-
-msgid "HSV"
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
 msgstr ""
 
-msgid "H:"
+msgid "RGB:"
 msgstr ""
 
-msgid "S:"
-msgstr ""
-
-msgid "V:"
+msgid "CMYK:"
 msgstr ""
 
 #, fuzzy
-msgid "Set &RGB"
-msgstr "Parinkti derinį"
+msgid "Color Scheme Method:"
+msgstr "Pasirinkti laukelį"
+
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
+msgstr ""
+
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
+msgstr ""
 
 #, fuzzy
-msgid "Set C&MYK"
-msgstr "Parinkti derinį"
+msgid "Preview:"
+msgstr "Pasižiūrėti kaip atrodys"
 
 #, fuzzy
-msgid "Set &HSV"
-msgstr "Parinkti derinį"
+msgid "Vision Defect Type:"
+msgstr "Efekto tipas:"
+
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "Pasirink spalvą"
+
+msgid "Colors of your chosen color scheme."
+msgstr ""
+
+#, fuzzy
+msgid "&Merge"
+msgstr "Puslapis"
+
+#, fuzzy
+msgid "Alt+M"
+msgstr "Viską"
+
+#, fuzzy
+msgid "Merge created colors into the document colors"
+msgstr "Sukurk naują dokumentą"
+
+#, fuzzy
+msgid "Replace created colors in the document colors"
+msgstr "Sukurk naują dokumentą"
+
+msgid "Leave colors untouched"
+msgstr ""
 
 msgid "Monochromatic"
 msgstr ""
@@ -11754,6 +11772,70 @@ msgstr "Paprastas"
 msgid "My Plugin"
 msgstr "Paprastas"
 
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "Vidun"
+
+#, fuzzy
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr "Dokumentai (*.sdc);; Visi failai (*)"
+
+#, fuzzy
+#~ msgid "Document Colors"
+#~ msgstr "Viską aprašė:"
+
+#, fuzzy
+#~ msgid "Cr&eate color..."
+#~ msgstr "Spalvos..."
+
+#, fuzzy
+#~ msgid "C&olor Components..."
+#~ msgstr "Turinys"
+
+#, fuzzy
+#~ msgid "&Import existing color..."
+#~ msgstr "Įkelti duomenis"
+
+#, fuzzy
+#~ msgid "&Merge colors"
+#~ msgstr "Popieriaus spalva"
+
+#, fuzzy
+#~ msgid "&Replace colors"
+#~ msgstr "Pakeisti į:"
+
+#, fuzzy
+#~ msgid "Y"
+#~ msgstr "Taip"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "Tinka!"
+
+#, fuzzy
+#~ msgid "&Merge Colors"
+#~ msgstr "Popieriaus spalva"
+
+#, fuzzy
+#~ msgid "&Replace Colors"
+#~ msgstr "Pakeisti į:"
+
+#, fuzzy
+#~ msgid "Set Color Components"
+#~ msgstr "Santykinis spalvos matavimas"
+
+#, fuzzy
+#~ msgid "Set &RGB"
+#~ msgstr "Parinkti derinį"
+
+#, fuzzy
+#~ msgid "Set C&MYK"
+#~ msgstr "Parinkti derinį"
+
+#, fuzzy
+#~ msgid "Set &HSV"
+#~ msgstr "Parinkti derinį"
+
 #~ msgid "Tool-Tip:"
 #~ msgstr "Patarėjas:"
 
@@ -11899,10 +11981,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "&Medium"
 #~ msgstr "Vidutinis"
-
-#, fuzzy
-#~ msgid "&Large"
-#~ msgstr "Puslapis"
 
 #, fuzzy
 #~ msgid "Load Text from File"
@@ -12669,10 +12747,6 @@ msgstr "Paprastas"
 #, fuzzy
 #~ msgid "Rena&me"
 #~ msgstr "Pašalinti"
-
-#, fuzzy
-#~ msgid "Alt+M"
-#~ msgstr "Viską"
 
 #, fuzzy
 #~ msgid "&Set Accel"

@@ -3003,6 +3003,37 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Выравнивание и распределение</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Выравнивание</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">&amp;Направляющая:</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Распределение</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">&amp;Расстояние:</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -3010,7 +3041,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Align</source>
-        <translation>Выравнивание</translation>
+        <translation type="obsolete">Выравнивание</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3078,7 +3109,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Распределение</translation>
+        <translation type="obsolete">Распределение</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -3155,6 +3186,22 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4616,6 +4663,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Нормальное зрение</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Протанопия (красный)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Дейтеронопия (зелёный)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Тританопия (синий)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Полное неразличение цветов</translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Объединяются цвета</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Ошибка: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">Цвет %1 уже существует!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished">Цвет %1 добавлен.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Сейчас откроется диалог управления цветами.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Объединение цветов</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished">Невозможно найти запрошенный цвет. Вероятно, был запрошен  чёрный, серый или белый цвет. Ни один из них невозможно обработать.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished">Цветовой круг</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Документ</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">Выберите один из способов создания цветовой схемы. Подробнее см. документацию.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Угол:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Разница между выбранным значением и рассчитанными значениями. Подробнее см. в документации.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Внести созданные цвета в список доступных для документа</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">За&amp;менить</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Заменить созданными цветами все цвета, доступные для документа</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">О&amp;тменить</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished">Оставить цвета нетронутыми</translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
@@ -5133,167 +5362,167 @@ please choose another one.</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Color Wheel</source>
-        <translation>Цветовой круг</translation>
+        <translation type="obsolete">Цветовой круг</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Цвет</translation>
+        <translation type="obsolete">Цвет</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Имя</translation>
+        <translation type="obsolete">Имя</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Выберите метод:</translation>
+        <translation type="obsolete">Выберите метод:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Угол (0 - 90 градусов):</translation>
+        <translation type="obsolete">Угол (0 - 90 градусов):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>&amp;Объединить цвета</translation>
+        <translation type="obsolete">&amp;Объединить цвета</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>&amp;Заменить цвета</translation>
+        <translation type="obsolete">&amp;Заменить цвета</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Внести созданные цвета в список доступных для документа</translation>
+        <translation type="obsolete">Внести созданные цвета в список доступных для документа</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Заменить созданными цветами все цвета, доступные для документа</translation>
+        <translation type="obsolete">Заменить созданными цветами все цвета, доступные для документа</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation>Оставить цвета нетронутыми</translation>
+        <translation type="obsolete">Оставить цвета нетронутыми</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation>Объединяются цвета</translation>
+        <translation type="obsolete">Объединяются цвета</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Ошибка: </translation>
+        <translation type="obsolete">Ошибка: </translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Сейчас откроется диалог управления цветами.</translation>
+        <translation type="obsolete">Сейчас откроется диалог управления цветами.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Объединение цветов</translation>
+        <translation type="obsolete">Объединение цветов</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation>Нормальное зрение</translation>
+        <translation type="obsolete">Нормальное зрение</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation>Полное неразличение цветов</translation>
+        <translation type="obsolete">Полное неразличение цветов</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation>Дефект зрения:</translation>
+        <translation type="obsolete">Дефект зрения:</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>&amp;Создать цвет...</translation>
+        <translation type="obsolete">&amp;Создать цвет...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>&amp;Импортировать готовый цвет...</translation>
+        <translation type="obsolete">&amp;Импортировать готовый цвет...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>&amp;Объединить цвета</translation>
+        <translation type="obsolete">&amp;Объединить цвета</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>&amp;Заменить цвета</translation>
+        <translation type="obsolete">&amp;Заменить цвета</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>В&amp;ыйти</translation>
+        <translation type="obsolete">В&amp;ыйти</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>Ц&amp;вет</translation>
+        <translation type="obsolete">Ц&amp;вет</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Разница между выбранным значением и рассчитанными значениями. Подробнее см. в документации.</translation>
+        <translation type="obsolete">Разница между выбранным значением и рассчитанными значениями. Подробнее см. в документации.</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation>Щёлкните по колесу для получения основного цвета, каковым будет тон в режиме HSV.</translation>
+        <translation type="obsolete">Щёлкните по колесу для получения основного цвета, каковым будет тон в режиме HSV.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Получаемая цветовая схема</translation>
+        <translation type="obsolete">Получаемая цветовая схема</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation>Выберите один из способов создания цветовой схемы. Подробнее см. документацию.</translation>
+        <translation type="obsolete">Выберите один из способов создания цветовой схемы. Подробнее см. документацию.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>Цвета выбранной схемы</translation>
+        <translation type="obsolete">Цвета выбранной схемы</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Можно эмулировать различные дефекты зрения. Выберите подходящий из списка.</translation>
+        <translation type="obsolete">Можно эмулировать различные дефекты зрения. Выберите подходящий из списка.</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>Цвет %1 уже существует!</translation>
+        <translation type="obsolete">Цвет %1 уже существует!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation>Цвет %1 добавлен.</translation>
+        <translation type="obsolete">Цвет %1 добавлен.</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Новый цвет</translation>
+        <translation type="obsolete">Новый цвет</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Невозможно найти запрошенный цвет. Вероятно, был запрошен  чёрный, серый или белый цвет. Ни один из них невозможно обработать.</translation>
+        <translation type="obsolete">Невозможно найти запрошенный цвет. Вероятно, был запрошен  чёрный, серый или белый цвет. Ни один из них невозможно обработать.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>&amp;Компоненты цвета...</translation>
+        <translation type="obsolete">&amp;Компоненты цвета...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation>Протанопия (красный)</translation>
+        <translation type="obsolete">Протанопия (красный)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Дейтеронопия (зелёный)</translation>
+        <translation type="obsolete">Дейтеронопия (зелёный)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation>Тританопия (синий)</translation>
+        <translation type="obsolete">Тританопия (синий)</translation>
     </message>
 </context>
 <context>
@@ -5650,6 +5879,14 @@ please choose another one.</source>
         <source>Exclusion</source>
         <translation type="unfinished">Вычитание</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -5828,71 +6065,71 @@ This can be set in the Preferences.</source>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation>Установка компонентов цвета</translation>
+        <translation type="obsolete">Установка компонентов цвета</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation>CMYK</translation>
+        <translation type="obsolete">CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation>RGB</translation>
+        <translation type="obsolete">RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation>HSV</translation>
+        <translation type="obsolete">HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation type="obsolete">H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation>S:</translation>
+        <translation type="obsolete">S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation>V:</translation>
+        <translation type="obsolete">V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="obsolete">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="obsolete">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="obsolete">B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation type="obsolete">C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation type="obsolete">M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation type="obsolete">K:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation>Установить &amp;RGB</translation>
+        <translation type="obsolete">Установить &amp;RGB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation>Установить C&amp;MYK</translation>
+        <translation type="obsolete">Установить C&amp;MYK</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation>Установить &amp;HSV</translation>
+        <translation type="obsolete">Установить &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -6558,6 +6795,10 @@ failed!</source>
     <message>
         <source>Converting of %1 images failed!</source>
         <translation>Преобразование %1 изображений не удалось!</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8093,6 +8334,14 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Open</source>
         <translation type="unfinished">Открыть</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9872,6 +10121,78 @@ Corners:</source>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">С&amp;группировать</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Непрозрачность:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Режим совмещения:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Затемнение</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Осветление</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Умножение</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Экран</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Перекрытие</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Жёсткий свет</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Мягкий свет</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Разница</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Вычитание</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Затемнение штрихов</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Осветление штрихов</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Тон</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Цвет</translation>
     </message>
 </context>
 <context>
@@ -12029,6 +12350,10 @@ Do you want to migrate them to the new Scribus version?</source>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -14113,6 +14438,14 @@ is not exhaustive due to exceptions from called functions.
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15259,7 +15592,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusColorList</name>
     <message>
         <source>Document Colors</source>
-        <translation>Цвета документа</translation>
+        <translation type="obsolete">Цвета документа</translation>
     </message>
 </context>
 <context>
@@ -15345,6 +15678,20 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished">Количество копий: %1
+Смещение по горизонтали: %2
+Смещение по вертикали: %3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15586,11 +15933,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
+        <translation type="obsolete">Документы (*.sla *.sla.gz *.scd *.scd.gz);;Все файлы (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Документы (*.sla *.scd);;Все файлы (*)</translation>
+        <translation type="obsolete">Документы (*.sla *.scd);;Все файлы (*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -15842,6 +16189,18 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16108,6 +16467,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16437,6 +16800,10 @@ Vertical shift: %3</source>
     <message>
         <source>Short Words</source>
         <translation>Короткие слова</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17048,7 +17415,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Индекс</translation>
+        <translation type="obsolete">&amp;Индекс</translation>
     </message>
 </context>
 <context>
@@ -17119,7 +17486,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Индекс</translation>
+        <translation type="obsolete">&amp;Индекс</translation>
     </message>
 </context>
 <context>

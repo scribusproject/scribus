@@ -4092,6 +4092,37 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Hizala ve Dağıt</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Hizala</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">Seçili &amp;Kılavuz:</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Dağıt</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">&amp;Mesafe:</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -4099,7 +4130,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Align</source>
-        <translation>Hizala</translation>
+        <translation type="obsolete">Hizala</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4167,7 +4198,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Dağıt</translation>
+        <translation type="obsolete">Dağıt</translation>
     </message>
     <message>
         <source>Distribute left sides equidistantly</source>
@@ -4244,6 +4275,22 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5715,6 +5762,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Normal Görüş</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Protanopia (Kırmızı Körlüğü)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Deuteranopia (Yeşil Körlüğü)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Tritanopia (Mavi Körlüğü)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Tam Renk Körlüğü</translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Merging colours</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Hata: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">Renk %1 zaten mevcut!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished">Renk %1 eklendi.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Renk Yönetimi açılıyor.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Renk Birleştirme</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished">Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Belge</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Açı:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Oluşturulan renkleri belge renkleriyle birleştir</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">&amp;Değiştir</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Oluşturulan renkleri belge renkleriyle değiş</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished">Renkleri olduğu gibi bırak</translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
@@ -6243,167 +6472,167 @@ Oklar</translation>
     <name>ColorWheelDialog</name>
     <message>
         <source>Color Wheel</source>
-        <translation>Renk Çarkı</translation>
+        <translation type="obsolete">Renk Çarkı</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Renk</translation>
+        <translation type="obsolete">Renk</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>İsim</translation>
+        <translation type="obsolete">İsim</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Metodu Seçin:</translation>
+        <translation type="obsolete">Metodu Seçin:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Açı (0 - 90 derece):</translation>
+        <translation type="obsolete">Açı (0 - 90 derece):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>Renkleri &amp;Birleştir</translation>
+        <translation type="obsolete">Renkleri &amp;Birleştir</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>Renkleri D&amp;eğiştir</translation>
+        <translation type="obsolete">Renkleri D&amp;eğiştir</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Oluşturulan renkleri belge renkleriyle birleştir</translation>
+        <translation type="obsolete">Oluşturulan renkleri belge renkleriyle birleştir</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Oluşturulan renkleri belge renkleriyle değiş</translation>
+        <translation type="obsolete">Oluşturulan renkleri belge renkleriyle değiş</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation>Renkleri olduğu gibi bırak</translation>
+        <translation type="obsolete">Renkleri olduğu gibi bırak</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation type="unfinished">Merging colours</translation>
+        <translation type="obsolete">Merging colours</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Hata: </translation>
+        <translation type="obsolete">Hata: </translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Renk Yönetimi açılıyor.</translation>
+        <translation type="obsolete">Renk Yönetimi açılıyor.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Renk Birleştirme</translation>
+        <translation type="obsolete">Renk Birleştirme</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation>Normal Görüş</translation>
+        <translation type="obsolete">Normal Görüş</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation>Tam Renk Körlüğü</translation>
+        <translation type="obsolete">Tam Renk Körlüğü</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation>Görüş Kusuru:</translation>
+        <translation type="obsolete">Görüş Kusuru:</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>Renk &amp;Oluştur...</translation>
+        <translation type="obsolete">Renk &amp;Oluştur...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>Mevcut rengi a&amp;l...</translation>
+        <translation type="obsolete">Mevcut rengi a&amp;l...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>Renkleri &amp;Birleştir</translation>
+        <translation type="obsolete">Renkleri &amp;Birleştir</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>Renkleri D&amp;eğiştir</translation>
+        <translation type="obsolete">Renkleri D&amp;eğiştir</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>E&amp;xit</translation>
+        <translation type="obsolete">E&amp;xit</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>&amp;Renk</translation>
+        <translation type="obsolete">&amp;Renk</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Yeni Renk</translation>
+        <translation type="obsolete">Yeni Renk</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished">Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
+        <translation type="obsolete">Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation type="unfinished">Click the wheel to get the base colour. It is hue in HSV mode.</translation>
+        <translation type="obsolete">Click the wheel to get the base colour. It is hue in HSV mode.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Örnek renk taslağı</translation>
+        <translation type="obsolete">Örnek renk taslağı</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished">Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
+        <translation type="obsolete">Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation type="unfinished">Colors of your chosen colour scheme</translation>
+        <translation type="obsolete">Colors of your chosen colour scheme</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished">Simulate common vision defects here. Select type of the defect.</translation>
+        <translation type="obsolete">Simulate common vision defects here. Select type of the defect.</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
+        <translation type="obsolete">Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>Renk %1 zaten mevcut!</translation>
+        <translation type="obsolete">Renk %1 zaten mevcut!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation>Renk %1 eklendi.</translation>
+        <translation type="obsolete">Renk %1 eklendi.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>Renk B&amp;ileşenleri...</translation>
+        <translation type="obsolete">Renk B&amp;ileşenleri...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation>Protanopia (Kırmızı Körlüğü)</translation>
+        <translation type="obsolete">Protanopia (Kırmızı Körlüğü)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Deuteranopia (Yeşil Körlüğü)</translation>
+        <translation type="obsolete">Deuteranopia (Yeşil Körlüğü)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation>Tritanopia (Mavi Körlüğü)</translation>
+        <translation type="obsolete">Tritanopia (Mavi Körlüğü)</translation>
     </message>
 </context>
 <context>
@@ -6764,6 +6993,14 @@ Oklar</translation>
         <source>Exclusion</source>
         <translation type="unfinished">Exclusion</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -6946,71 +7183,71 @@ Dizinin yerini Tercihlerden ayarlayabilirsiniz.</translation>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation>Renk Bileşenlerini Ayarla</translation>
+        <translation type="obsolete">Renk Bileşenlerini Ayarla</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation>CMYK</translation>
+        <translation type="obsolete">CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation>RGB</translation>
+        <translation type="obsolete">RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation>HSV</translation>
+        <translation type="obsolete">HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation type="obsolete">H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation>S:</translation>
+        <translation type="obsolete">S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation>V:</translation>
+        <translation type="obsolete">V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="obsolete">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="obsolete">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="obsolete">B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation type="obsolete">C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation type="obsolete">M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation type="obsolete">K:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation>&amp;RGB Ayarla</translation>
+        <translation type="obsolete">&amp;RGB Ayarla</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation>C&amp;MYK Ayarla</translation>
+        <translation type="obsolete">C&amp;MYK Ayarla</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation>&amp;HSV Ayarla</translation>
+        <translation type="obsolete">&amp;HSV Ayarla</translation>
     </message>
 </context>
 <context>
@@ -7685,6 +7922,10 @@ Başarısız oldu!</translation>
     <message>
         <source>Error</source>
         <translation type="unfinished">Hata</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9290,6 +9531,14 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <message>
         <source>Open</source>
         <translation type="unfinished">Aç</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11069,6 +11318,78 @@ Corners:</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Grupla</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Opaklık:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Karanlıklaştır</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Aydınlat</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Sert Işık</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Yumuşak Işık</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Fark</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Exclusion</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Renk</translation>
     </message>
 </context>
 <context>
@@ -13316,6 +13637,10 @@ Do you want to migrate them to the new Scribus version?</translation>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -15428,6 +15753,14 @@ is not exhaustive due to exceptions from called functions.
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16542,7 +16875,7 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     <name>ScribusColorList</name>
     <message>
         <source>Document Colors</source>
-        <translation>Belge Renkleri</translation>
+        <translation type="obsolete">Belge Renkleri</translation>
     </message>
 </context>
 <context>
@@ -16628,6 +16961,18 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16873,11 +17218,11 @@ bilgilerini Scribus nesnesine dönüştürür.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Belgeler (*.sla *.sla.gz *.scd *.scd.gz);;Tüm dosyalar (*)</translation>
+        <translation type="obsolete">Belgeler (*.sla *.sla.gz *.scd *.scd.gz);;Tüm dosyalar (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Belgeler (*.sla *.scd);; Tüm Dosyalar(*)</translation>
+        <translation type="obsolete">Belgeler (*.sla *.scd);; Tüm Dosyalar(*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -17117,6 +17462,18 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17395,6 +17752,10 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17726,6 +18087,10 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     <message>
         <source>Short Words</source>
         <translation>Kısa kelimeler</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18361,7 +18726,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>İnde&amp;ks</translation>
+        <translation type="obsolete">İnde&amp;ks</translation>
     </message>
 </context>
 <context>
@@ -18432,7 +18797,7 @@ Baskı denetleyicisi aracını kullanarak düzeltmeyi deneyebilirsiniz</translat
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>İnde&amp;ks</translation>
+        <translation type="obsolete">İnde&amp;ks</translation>
     </message>
 </context>
 <context>

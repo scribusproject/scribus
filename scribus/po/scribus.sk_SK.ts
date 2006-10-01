@@ -3062,6 +3062,37 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Zarovnať a umiestniť</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Zarovnať</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">&amp;Zvolené vodítka:</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Umiestniť</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">Vz&amp;dialenosť:</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -3069,7 +3100,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>Align</source>
-        <translation>Zarovnať</translation>
+        <translation type="obsolete">Zarovnať</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3145,7 +3176,7 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Umiestniť</translation>
+        <translation type="obsolete">Umiestniť</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -3218,6 +3249,22 @@ C-C-T-F vyjadruje podporu C=littlecms C=CUPS T=TIFF a F=Fontconfig. Posledné p�
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4714,6 +4761,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Normálny zrak</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Protanopia (necitlivosť na červenú)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Deuteranopia (necitlivosť na zelenú)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Tritanopia (necitlivosť na modrú)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Celofarebná slepota</translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Zlúčenie farieb</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Chyba: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">Farba %1 už existuje!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished">Farba %1 pridaná.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Teraz otváram správcu farieb.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Zlúčenie farieb</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished">Nie je možné nájsť požadovanú farbu. Pravdepodobne ste vybrali čiernu, šedú alebo bielu. Takúto farbu nie je možné spracovať.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished">Farebný kruh</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">Vyberte jednu z metód pre vytvorenie farebnej schémy. V dokumentácií je viac informácií.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Uhol:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Rozdiel medzi zvolenou hodnotou a vypočítanou. V dokumentácií je viac informácií.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Zlúčiť vytvorené farby do farieb dokumentu</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Nahradiť vytvorené farby farbami dokumentu</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Zrušiť</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished">Nechať farby nedotknutými</translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press
@@ -5241,31 +5470,31 @@ a kláves Delete odstráni posledný vložený</translation>
     <name>ColorWheelDialog</name>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>Vytvoriť &amp;farbu...</translation>
+        <translation type="obsolete">Vytvoriť &amp;farbu...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>&amp;Importovanie existujúcich farieb...</translation>
+        <translation type="obsolete">&amp;Importovanie existujúcich farieb...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>&amp;Zlúčenie farieb</translation>
+        <translation type="obsolete">&amp;Zlúčenie farieb</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>&amp;Nahradenie farieb</translation>
+        <translation type="obsolete">&amp;Nahradenie farieb</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Koniec</translation>
+        <translation type="obsolete">&amp;Koniec</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>&amp;Farba</translation>
+        <translation type="obsolete">&amp;Farba</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation>Normálny zrak</translation>
+        <translation type="obsolete">Normálny zrak</translation>
     </message>
     <message>
         <source>Protanopia (red)</source>
@@ -5281,11 +5510,11 @@ a kláves Delete odstráni posledný vložený</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation>Celofarebná slepota</translation>
+        <translation type="obsolete">Celofarebná slepota</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation>Poškodenia zraku:</translation>
+        <translation type="obsolete">Poškodenia zraku:</translation>
     </message>
     <message>
         <source>Saturation:</source>
@@ -5297,63 +5526,63 @@ a kláves Delete odstráni posledný vložený</translation>
     </message>
     <message>
         <source>Color Wheel</source>
-        <translation>Farebný kruh</translation>
+        <translation type="obsolete">Farebný kruh</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Farba</translation>
+        <translation type="obsolete">Farba</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Názov</translation>
+        <translation type="obsolete">Názov</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Vyberte metódu:</translation>
+        <translation type="obsolete">Vyberte metódu:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Uhol (0 -90 stupňov):</translation>
+        <translation type="obsolete">Uhol (0 -90 stupňov):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>&amp;Splynúť farby</translation>
+        <translation type="obsolete">&amp;Splynúť farby</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>&amp;Nahradiť farby</translation>
+        <translation type="obsolete">&amp;Nahradiť farby</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Zlúčiť vytvorené farby do farieb dokumentu</translation>
+        <translation type="obsolete">Zlúčiť vytvorené farby do farieb dokumentu</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Nahradiť vytvorené farby farbami dokumentu</translation>
+        <translation type="obsolete">Nahradiť vytvorené farby farbami dokumentu</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation>Nechať farby nedotknutými</translation>
+        <translation type="obsolete">Nechať farby nedotknutými</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Rozdiel medzi zvolenou hodnotou a vypočítanou. V dokumentácií je viac informácií.</translation>
+        <translation type="obsolete">Rozdiel medzi zvolenou hodnotou a vypočítanou. V dokumentácií je viac informácií.</translation>
     </message>
     <message>
         <source>Saturation component in HSV mode</source>
@@ -5365,71 +5594,71 @@ a kláves Delete odstráni posledný vložený</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation>Kliknite na kruh a vyberte základnú farbu. Je to odtieň v režime HSV.</translation>
+        <translation type="obsolete">Kliknite na kruh a vyberte základnú farbu. Je to odtieň v režime HSV.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Ukážková farebná schéma</translation>
+        <translation type="obsolete">Ukážková farebná schéma</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation>Vyberte jednu z metód pre vytvorenie farebnej schémy. V dokumentácií je viac informácií.</translation>
+        <translation type="obsolete">Vyberte jednu z metód pre vytvorenie farebnej schémy. V dokumentácií je viac informácií.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>Farby vami zvolenej farebnej schémy</translation>
+        <translation type="obsolete">Farby vami zvolenej farebnej schémy</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Tu sa simulujú bežné zrakové chyby. Vyberte si typ chyby.</translation>
+        <translation type="obsolete">Tu sa simulujú bežné zrakové chyby. Vyberte si typ chyby.</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation>Zlúčenie farieb</translation>
+        <translation type="obsolete">Zlúčenie farieb</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Chyba: </translation>
+        <translation type="obsolete">Chyba: </translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>Farba %1 už existuje!</translation>
+        <translation type="obsolete">Farba %1 už existuje!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation>Farba %1 pridaná.</translation>
+        <translation type="obsolete">Farba %1 pridaná.</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Teraz otváram správcu farieb.</translation>
+        <translation type="obsolete">Teraz otváram správcu farieb.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Zlúčenie farieb</translation>
+        <translation type="obsolete">Zlúčenie farieb</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Nová farba</translation>
+        <translation type="obsolete">Nová farba</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Nie je možné nájsť požadovanú farbu. Pravdepodobne ste vybrali čiernu, šedú alebo bielu. Takúto farbu nie je možné spracovať.</translation>
+        <translation type="obsolete">Nie je možné nájsť požadovanú farbu. Pravdepodobne ste vybrali čiernu, šedú alebo bielu. Takúto farbu nie je možné spracovať.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>Farebné k&amp;omponenty...</translation>
+        <translation type="obsolete">Farebné k&amp;omponenty...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation>Protanopia (necitlivosť na červenú)</translation>
+        <translation type="obsolete">Protanopia (necitlivosť na červenú)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Deuteranopia (necitlivosť na zelenú)</translation>
+        <translation type="obsolete">Deuteranopia (necitlivosť na zelenú)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation>Tritanopia (necitlivosť na modrú)</translation>
+        <translation type="obsolete">Tritanopia (necitlivosť na modrú)</translation>
     </message>
 </context>
 <context>
@@ -5790,6 +6019,14 @@ a kláves Delete odstráni posledný vložený</translation>
         <source>Exclusion</source>
         <translation type="unfinished">Vylúčenie</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -5983,72 +6220,40 @@ V nastaveniach je toto možné určiť.</translation>
 <context>
     <name>CwSetColor</name>
     <message>
-        <source>Set Color Components</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation type="obsolete">CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
-    </message>
-    <message>
-        <source>HSV</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>H:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>S:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>V:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">RGB</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation type="obsolete">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation type="obsolete">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation type="obsolete">B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation type="obsolete">C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation type="obsolete">M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
-    </message>
-    <message>
-        <source>Set &amp;RGB</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set C&amp;MYK</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Set &amp;HSV</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">K:</translation>
     </message>
 </context>
 <context>
@@ -6816,6 +7021,10 @@ sa nepodarila!</translation>
     </message>
     <message>
         <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8524,6 +8733,14 @@ konvertuje ich vektorové dáta do Scribus objektov.</translation>
     <message>
         <source>Open</source>
         <translation type="unfinished">Otvoriť</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10367,6 +10584,78 @@ Corners:</source>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">Zos&amp;kupiť</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Krytie:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Režim miešania:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Stmavené</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Zosvetlené</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Násobiť</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Obrazovka</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Prekrytie</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Tvrdé svetlo</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Mäkké svetlo</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Rozdiel</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Vylúčenie</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Farebný úskok</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Farba</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Odtieň</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Farba</translation>
     </message>
 </context>
 <context>
@@ -12745,6 +13034,10 @@ Chcete ich migrovať na novú verziu?</translation>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -14921,6 +15214,14 @@ Externé odkazy
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16677,7 +16978,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Document Colors</source>
-        <translation>Farby dokumentu</translation>
+        <translation type="obsolete">Farby dokumentu</translation>
     </message>
 </context>
 <context>
@@ -16763,6 +17064,18 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17004,11 +17317,11 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *scd.gz);;Všetky súbory (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.sla.gz *.scd *scd.gz);;Všetky súbory (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Všetky súbory (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Všetky súbory (*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -17252,6 +17565,18 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17534,6 +17859,10 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17943,6 +18272,10 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Špeciálny modul pre pridávanie nezalomiteľných medzier pred a za krátke slová.</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18606,7 +18939,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -18677,7 +19010,7 @@ Skúste použiť Predletovú kontrolu na ich opravu</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>

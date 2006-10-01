@@ -3959,6 +3959,37 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Jaa ja tasaa</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Tasaa</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">&amp;Valittu apuviiva:</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Jaa</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">&amp;Etäisyys:</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -3966,7 +3997,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Align</source>
-        <translation>Tasaa</translation>
+        <translation type="obsolete">Tasaa</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4034,7 +4065,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Jaa</translation>
+        <translation type="obsolete">Jaa</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -4111,6 +4142,22 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5561,6 +5608,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Normaali näkö</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Punasokeus</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Vihersokeus</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Sinisokeus</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Täysi värisokeus</translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Lisätään värejä</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Virhe: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">Väri %1 on jo olemassa</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished">Väri %1 lisättiin.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Avataan värien hallinta.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Värien lisäys</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished">Haluttua väriä ei löydy. Olet luultavasti valinnut mustan, harmaan tai valkoisen. Tätä väriä ei voida prosessoida.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished">Väripyörä</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Asiakirja</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">Valitse jokin tyyli luoda väriteema. Lisää tietoa löytyy dokumentaatiosta.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Kulma:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Erotus valitun arvon ja laskettujen välillä. Lisää tietoa löytyy dokumentaatiosta.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Lisää luodut värit asiakirjan väreihin</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">&amp;Korvaa</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Korvaa luodut värit asiakirjan väreissä</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Peruuta</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished">Älä tee muutoksia väreihin</translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
@@ -6077,167 +6306,167 @@ please choose another one.</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Color Wheel</source>
-        <translation>Väripyörä</translation>
+        <translation type="obsolete">Väripyörä</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Väri</translation>
+        <translation type="obsolete">Väri</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nimi</translation>
+        <translation type="obsolete">Nimi</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Valintamenetelmä:</translation>
+        <translation type="obsolete">Valintamenetelmä:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Kulma (0-90 astetta):</translation>
+        <translation type="obsolete">Kulma (0-90 astetta):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>&amp;Lisää värit</translation>
+        <translation type="obsolete">&amp;Lisää värit</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>&amp;Korvaa värit</translation>
+        <translation type="obsolete">&amp;Korvaa värit</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Lisää luodut värit asiakirjan väreihin</translation>
+        <translation type="obsolete">Lisää luodut värit asiakirjan väreihin</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Korvaa luodut värit asiakirjan väreissä</translation>
+        <translation type="obsolete">Korvaa luodut värit asiakirjan väreissä</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation>Älä tee muutoksia väreihin</translation>
+        <translation type="obsolete">Älä tee muutoksia väreihin</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation>Lisätään värejä</translation>
+        <translation type="obsolete">Lisätään värejä</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Virhe: </translation>
+        <translation type="obsolete">Virhe: </translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Avataan värien hallinta.</translation>
+        <translation type="obsolete">Avataan värien hallinta.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Värien lisäys</translation>
+        <translation type="obsolete">Värien lisäys</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>&amp;Luo väri...</translation>
+        <translation type="obsolete">&amp;Luo väri...</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>&amp;Värien komponentit...</translation>
+        <translation type="obsolete">&amp;Värien komponentit...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>&amp;Tuo värejä...</translation>
+        <translation type="obsolete">&amp;Tuo värejä...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>&amp;Lisää värejä</translation>
+        <translation type="obsolete">&amp;Lisää värejä</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>&amp;Korvaa värejä</translation>
+        <translation type="obsolete">&amp;Korvaa värejä</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Poistu</translation>
+        <translation type="obsolete">&amp;Poistu</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>&amp;Väri</translation>
+        <translation type="obsolete">&amp;Väri</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation>Normaali näkö</translation>
+        <translation type="obsolete">Normaali näkö</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation>Punasokeus</translation>
+        <translation type="obsolete">Punasokeus</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Vihersokeus</translation>
+        <translation type="obsolete">Vihersokeus</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation>Sinisokeus</translation>
+        <translation type="obsolete">Sinisokeus</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation>Täysi värisokeus</translation>
+        <translation type="obsolete">Täysi värisokeus</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation>Näön vääristymä:</translation>
+        <translation type="obsolete">Näön vääristymä:</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Erotus valitun arvon ja laskettujen välillä. Lisää tietoa löytyy dokumentaatiosta.</translation>
+        <translation type="obsolete">Erotus valitun arvon ja laskettujen välillä. Lisää tietoa löytyy dokumentaatiosta.</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation>Valitse hiirellä perusväri väripyörästä. HSV-tilassa se on sävy.</translation>
+        <translation type="obsolete">Valitse hiirellä perusväri väripyörästä. HSV-tilassa se on sävy.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Värikarttaesimerkki</translation>
+        <translation type="obsolete">Värikarttaesimerkki</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation>Valitse jokin tyyli luoda väriteema. Lisää tietoa löytyy dokumentaatiosta.</translation>
+        <translation type="obsolete">Valitse jokin tyyli luoda väriteema. Lisää tietoa löytyy dokumentaatiosta.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>Valitun värikartan värit</translation>
+        <translation type="obsolete">Valitun värikartan värit</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Mallinna yleisiä näön rajoituksia. Valitse rajoituksen tyyppi.</translation>
+        <translation type="obsolete">Mallinna yleisiä näön rajoituksia. Valitse rajoituksen tyyppi.</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>Väri %1 on jo olemassa</translation>
+        <translation type="obsolete">Väri %1 on jo olemassa</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation>Väri %1 lisättiin.</translation>
+        <translation type="obsolete">Väri %1 lisättiin.</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Uusi väri</translation>
+        <translation type="obsolete">Uusi väri</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Haluttua väriä ei löydy. Olet luultavasti valinnut mustan, harmaan tai valkoisen. Tätä väriä ei voida prosessoida.</translation>
+        <translation type="obsolete">Haluttua väriä ei löydy. Olet luultavasti valinnut mustan, harmaan tai valkoisen. Tätä väriä ei voida prosessoida.</translation>
     </message>
 </context>
 <context>
@@ -6594,6 +6823,14 @@ please choose another one.</source>
         <source>Exclusion</source>
         <translation type="unfinished">Poisto</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -6772,71 +7009,71 @@ Voit määrittää sen asetuksissa.</translation>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation>Aseta osavärit</translation>
+        <translation type="obsolete">Aseta osavärit</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation>CMYK</translation>
+        <translation type="obsolete">CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation>RGB</translation>
+        <translation type="obsolete">RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation>HSV</translation>
+        <translation type="obsolete">HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation type="obsolete">H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation>S:</translation>
+        <translation type="obsolete">S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation>V:</translation>
+        <translation type="obsolete">V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="obsolete">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="obsolete">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="obsolete">B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation type="obsolete">C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation type="obsolete">M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation type="obsolete">K:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation>Aseta &amp;RGB</translation>
+        <translation type="obsolete">Aseta &amp;RGB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation>Aseta &amp;CMYK</translation>
+        <translation type="obsolete">Aseta &amp;CMYK</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation>Aseta &amp;HSV</translation>
+        <translation type="obsolete">Aseta &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -7508,6 +7745,10 @@ failed!</source>
     <message>
         <source>Converting of %1 images failed!</source>
         <translation>Kuvan %1 tuominen epäonnistui</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9042,6 +9283,14 @@ vektoridatan Scribus-objekteiksi.</translation>
     <message>
         <source>Open</source>
         <translation type="unfinished">Avaa</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10819,6 +11068,78 @@ Corners:</source>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Ryhmitä</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Läpinäkyvyys:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Sekoitustila:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Tummenna</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Vaalenna</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Kerroin</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Rasterointi</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Sulautus</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Kova valo</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Pehmeä valo</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Erotus</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Poisto</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Valotus</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Varjostus</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Sävy</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Väri</translation>
     </message>
 </context>
 <context>
@@ -12970,6 +13291,10 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -15076,6 +15401,14 @@ is not exhaustive due to exceptions from called functions.
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -16221,7 +16554,7 @@ converting their vector data into Scribus objects.</source>
     <name>ScribusColorList</name>
     <message>
         <source>Document Colors</source>
-        <translation>Asiakirjan värit</translation>
+        <translation type="obsolete">Asiakirjan värit</translation>
     </message>
 </context>
 <context>
@@ -16307,6 +16640,20 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished">kopioiden lukumäärä: %1\n
+vaakasuora siirtyminen: %2\n
+pystysuora siirtyminen: %3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16548,11 +16895,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Asiakirjat (*.sla *.sla.gz *.scd *scd.gz);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">Asiakirjat (*.sla *.sla.gz *.scd *scd.gz);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
+        <translation type="obsolete">Asiakirjat (*.sla *.scd);;Kaikki tiedostot (*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -16805,6 +17152,18 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17071,6 +17430,10 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17398,6 +17761,10 @@ pystysuora siirtyminen: %3</translation>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation>Short &amp;Words...</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18009,7 +18376,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <translation type="obsolete">&amp;Hakemisto</translation>
     </message>
 </context>
 <context>
@@ -18080,7 +18447,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <translation type="obsolete">&amp;Hakemisto</translation>
     </message>
 </context>
 <context>

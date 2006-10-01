@@ -2989,6 +2989,37 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Espacer - Aligner</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Aligner</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">Repère sélectionné</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Espacer</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">&amp;Distance :</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -2996,7 +3027,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Align</source>
-        <translation>Aligner</translation>
+        <translation type="obsolete">Aligner</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3072,7 +3103,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Espacer</translation>
+        <translation type="obsolete">Espacer</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -3141,6 +3172,22 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>X: %1%2</source>
         <translation>X : %1 %2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4586,6 +4633,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Vision normale</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Cécité au rouge</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Cécité au vert</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Cécité au bleu</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Daltonisme</translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Fusion des couleurs</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Erreur :</translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">La couleur %1 existe déjà !</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished">Couleur %1 ajoutée.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Ouverture du gestionnaire de couleurs</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Fusion de couleurs</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished">Impossible de trouver la couleur demandée. Vous avez certainement choisi noir, gris ou blanc. Il est impossible de traiter cette couleur.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished">Cercle chromatique</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMJN</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C :</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M :</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">J :</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">N :</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RVB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R :</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">V :</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B :</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Document</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">Choisir une méthode de création pour le schéma de couleur. Voir la documentation pour plus de détails</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Angle :</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Différence entre la valeur sélectionnée et celle comptée. Voir la documentation pour plus d&apos;informations</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Fusionner les couleurs créées avec celles du document</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">Substitue&amp;r</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Remplacer les couleurs créées dans le document</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Annuler</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished">Laisser les couleurs inchangées</translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
@@ -5102,167 +5331,167 @@ pour la sortie du fichier %1</translation>
     <name>ColorWheelDialog</name>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>Cré&amp;er une couleur...</translation>
+        <translation type="obsolete">Cré&amp;er une couleur...</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>C&amp;omposantes de couleurs...</translation>
+        <translation type="obsolete">C&amp;omposantes de couleurs...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>&amp;Importer une couleur existante...</translation>
+        <translation type="obsolete">&amp;Importer une couleur existante...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>&amp;Fusion des couleurs</translation>
+        <translation type="obsolete">&amp;Fusion des couleurs</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>Substitue&amp;r les couleurs</translation>
+        <translation type="obsolete">Substitue&amp;r les couleurs</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>&amp;Quitter</translation>
+        <translation type="obsolete">&amp;Quitter</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>C&amp;ouleur</translation>
+        <translation type="obsolete">C&amp;ouleur</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation>Vision normale</translation>
+        <translation type="obsolete">Vision normale</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation>Cécité au rouge</translation>
+        <translation type="obsolete">Cécité au rouge</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Cécité au vert</translation>
+        <translation type="obsolete">Cécité au vert</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation>Cécité au bleu</translation>
+        <translation type="obsolete">Cécité au bleu</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation>Daltonisme</translation>
+        <translation type="obsolete">Daltonisme</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation>Anomalie de la vision</translation>
+        <translation type="obsolete">Anomalie de la vision</translation>
     </message>
     <message>
         <source>Color Wheel</source>
-        <translation>Cercle chromatique</translation>
+        <translation type="obsolete">Cercle chromatique</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Couleur</translation>
+        <translation type="obsolete">Couleur</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Nom</translation>
+        <translation type="obsolete">Nom</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>J</translation>
+        <translation type="obsolete">J</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>N</translation>
+        <translation type="obsolete">N</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Méthode de sélection :</translation>
+        <translation type="obsolete">Méthode de sélection :</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Angle·(0·-·90·degrés) :</translation>
+        <translation type="obsolete">Angle·(0·-·90·degrés) :</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>&amp;Fusionner les couleurs</translation>
+        <translation type="obsolete">&amp;Fusionner les couleurs</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>Substitue&amp;r les couleurs</translation>
+        <translation type="obsolete">Substitue&amp;r les couleurs</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Fusionner les couleurs créées avec celles du document</translation>
+        <translation type="obsolete">Fusionner les couleurs créées avec celles du document</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Remplacer les couleurs créées dans le document</translation>
+        <translation type="obsolete">Remplacer les couleurs créées dans le document</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation>Laisser les couleurs inchangées</translation>
+        <translation type="obsolete">Laisser les couleurs inchangées</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Différence entre la valeur sélectionnée et celle comptée. Voir la documentation pour plus d&apos;informations</translation>
+        <translation type="obsolete">Différence entre la valeur sélectionnée et celle comptée. Voir la documentation pour plus d&apos;informations</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation>Choisissez la couleur de base en cliquant sur le cercle chromatique. En mode HSV, vous choisissez la teinte.</translation>
+        <translation type="obsolete">Choisissez la couleur de base en cliquant sur le cercle chromatique. En mode HSV, vous choisissez la teinte.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Exemple de schéma de couleur</translation>
+        <translation type="obsolete">Exemple de schéma de couleur</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation>Choisir une méthode de création pour le schéma de couleur. Voir la documentation pour plus de détails</translation>
+        <translation type="obsolete">Choisir une méthode de création pour le schéma de couleur. Voir la documentation pour plus de détails</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>Couleurs du schéma de couleurs choisi</translation>
+        <translation type="obsolete">Couleurs du schéma de couleurs choisi</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Simulez des anomalies de la vision courantes. Choississez parmi les anomalies suivantes.</translation>
+        <translation type="obsolete">Simulez des anomalies de la vision courantes. Choississez parmi les anomalies suivantes.</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation>Fusion des couleurs</translation>
+        <translation type="obsolete">Fusion des couleurs</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Erreur :</translation>
+        <translation type="obsolete">Erreur :</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>La couleur %1 existe déjà !</translation>
+        <translation type="obsolete">La couleur %1 existe déjà !</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation>Couleur %1 ajoutée.</translation>
+        <translation type="obsolete">Couleur %1 ajoutée.</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Ouverture du gestionnaire de couleurs</translation>
+        <translation type="obsolete">Ouverture du gestionnaire de couleurs</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Fusion de couleurs</translation>
+        <translation type="obsolete">Fusion de couleurs</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Nouvelle couleur</translation>
+        <translation type="obsolete">Nouvelle couleur</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Impossible de trouver la couleur demandée. Vous avez certainement choisi noir, gris ou blanc. Il est impossible de traiter cette couleur.</translation>
+        <translation type="obsolete">Impossible de trouver la couleur demandée. Vous avez certainement choisi noir, gris ou blanc. Il est impossible de traiter cette couleur.</translation>
     </message>
 </context>
 <context>
@@ -5619,6 +5848,14 @@ pour la sortie du fichier %1</translation>
         <source>Exclusion</source>
         <translation type="unfinished">Exclusion</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -5797,71 +6034,71 @@ peut être défini à partir du menu Préférences.</translation>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation>Définir les composantes de couleur</translation>
+        <translation type="obsolete">Définir les composantes de couleur</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation>CMJN</translation>
+        <translation type="obsolete">CMJN</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation>RVB</translation>
+        <translation type="obsolete">RVB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation>Modèle de couleurs HSV</translation>
+        <translation type="obsolete">Modèle de couleurs HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation>Teinte</translation>
+        <translation type="obsolete">Teinte</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation>Saturation</translation>
+        <translation type="obsolete">Saturation</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation>Luminosité</translation>
+        <translation type="obsolete">Luminosité</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R :</translation>
+        <translation type="obsolete">R :</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>V :</translation>
+        <translation type="obsolete">V :</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B :</translation>
+        <translation type="obsolete">B :</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C :</translation>
+        <translation type="obsolete">C :</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M :</translation>
+        <translation type="obsolete">M :</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>J :</translation>
+        <translation type="obsolete">J :</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>N :</translation>
+        <translation type="obsolete">N :</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation>Définir en &amp;RVB</translation>
+        <translation type="obsolete">Définir en &amp;RVB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation>Définir en C&amp;MJN</translation>
+        <translation type="obsolete">Définir en C&amp;MJN</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation>Définir en &amp;HSV</translation>
+        <translation type="obsolete">Définir en &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -6545,6 +6782,10 @@ failed!</source>
     <message>
         <source>Converting of %1 images failed!</source>
         <translation type="unfinished">Echec de la conversion de %1 images !</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8099,6 +8340,14 @@ convertissant les données vectorielles en objets Scribus.</translation>
     <message>
         <source>Open</source>
         <translation type="unfinished">Ouvrir</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9882,6 +10131,78 @@ arr&amp;ondis :</translation>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Grouper</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Opacité :</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Mode de fusion :</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Assombrir</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Eclaircir</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Multiplier</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Écran</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Superposer</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Lumière dure</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Lumière douce</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Différence</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Exclusion</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Fusion de couleurs</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished">Multiplier</translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Teinte</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Couleur</translation>
     </message>
 </context>
 <context>
@@ -11960,6 +12281,10 @@ Voulez-vous migrer les paramètres vers la nouvelle version ?</translation>
     </message>
     <message>
         <source>Python Scripts (*.py *.PY)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14075,6 +14400,14 @@ Liens externes
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15221,7 +15554,7 @@ convertissant les données vectorielles en objets Scribus.</translation>
     <name>ScribusColorList</name>
     <message>
         <source>Document Colors</source>
-        <translation>Couleurs du document</translation>
+        <translation type="obsolete">Couleurs du document</translation>
     </message>
 </context>
 <context>
@@ -15307,6 +15640,20 @@ convertissant les données vectorielles en objets Scribus.</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished">Nombre d&apos;exemplaires : %1
+Décalage horizontal : %2
+Décalage vertical : %3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15552,11 +15899,11 @@ convertissant les données vectorielles en objets Scribus.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)</translation>
+        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Documents (*.sla *.scd);;Tous les fichiers (*)</translation>
+        <translation type="obsolete">Documents (*.sla *.scd);;Tous les fichiers (*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -15809,6 +16156,18 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16080,6 +16439,10 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16407,6 +16770,10 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
         <source>Short Words</source>
         <translation>Espaces insécables</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17018,7 +17385,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -17089,7 +17456,7 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>

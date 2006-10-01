@@ -3008,6 +3008,37 @@ Convert to oulines</comment>
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Igazítás és elosztás</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Igazítás</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">&amp;Kiválasztott segítség:</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Elosztás</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">&amp;Távolság:</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -3015,7 +3046,7 @@ Convert to oulines</comment>
     </message>
     <message>
         <source>Align</source>
-        <translation>Igazítás</translation>
+        <translation type="obsolete">Igazítás</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3091,7 +3122,7 @@ Convert to oulines</comment>
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Elosztás</translation>
+        <translation type="obsolete">Elosztás</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -3160,6 +3191,22 @@ Convert to oulines</comment>
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4594,6 +4641,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Normál nézet</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Színek összefésülése</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Hiba: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">%1 szín már létezik!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Szín kezelő megnyitása folyik.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Szín összefésülés</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished">Színkerék</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMYK</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished">Y:</translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">K:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokumentum</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">A szín séma létrehozásához válasszon a módszerek közül. További információt a dokumentációban talál.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Szög:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Különbség a kiválasztott érték és a számított között. További információért forduljon a dokumentációhoz.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Létrehozott színek összefésülése a dokumentum színeivel</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">&amp;Csere</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Helyettesítse a létrejött színekkel a dokumentum színeit</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Mégsem</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
@@ -5104,167 +5333,123 @@ please choose another one.</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Normal Vision</source>
-        <translation>Normál nézet</translation>
-    </message>
-    <message>
-        <source>Full Color Blindness</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Vision Defect:</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Normál nézet</translation>
     </message>
     <message>
         <source>Color Wheel</source>
-        <translation>Színkerék</translation>
+        <translation type="obsolete">Színkerék</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Szín</translation>
+        <translation type="obsolete">Szín</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Név</translation>
+        <translation type="obsolete">Név</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Módszer kiválasztása:</translation>
+        <translation type="obsolete">Módszer kiválasztása:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Szög (0 - 90 fok):</translation>
+        <translation type="obsolete">Szög (0 - 90 fok):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>&amp;Színek összefésülése</translation>
+        <translation type="obsolete">&amp;Színek összefésülése</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>Színek &amp;kicserélése</translation>
+        <translation type="obsolete">Színek &amp;kicserélése</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Létrehozott színek összefésülése a dokumentum színeivel</translation>
+        <translation type="obsolete">Létrehozott színek összefésülése a dokumentum színeivel</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Helyettesítse a létrejött színekkel a dokumentum színeit</translation>
-    </message>
-    <message>
-        <source>Leave colors untouched</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Helyettesítse a létrejött színekkel a dokumentum színeit</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation>Színek összefésülése</translation>
+        <translation type="obsolete">Színek összefésülése</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Hiba: </translation>
+        <translation type="obsolete">Hiba: </translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Szín kezelő megnyitása folyik.</translation>
+        <translation type="obsolete">Szín kezelő megnyitása folyik.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Szín összefésülés</translation>
+        <translation type="obsolete">Szín összefésülés</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>Szín létrehozása...</translation>
+        <translation type="obsolete">Szín létrehozása...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>Létező szín importálása...</translation>
+        <translation type="obsolete">Létező szín importálása...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>Színek összefésülése</translation>
+        <translation type="obsolete">Színek összefésülése</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>Színek kicserélése</translation>
+        <translation type="obsolete">Színek kicserélése</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>Kilépés</translation>
+        <translation type="obsolete">Kilépés</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>&amp;Szín</translation>
+        <translation type="obsolete">&amp;Szín</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Különbség a kiválasztott érték és a számított között. További információért forduljon a dokumentációhoz.</translation>
-    </message>
-    <message>
-        <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Különbség a kiválasztott érték és a számított között. További információért forduljon a dokumentációhoz.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Szín séma minta</translation>
+        <translation type="obsolete">Szín séma minta</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation>A szín séma létrehozásához válasszon a módszerek közül. További információt a dokumentációban talál.</translation>
+        <translation type="obsolete">A szín séma létrehozásához válasszon a módszerek közül. További információt a dokumentációban talál.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>A kiválasztott szín séma színei</translation>
-    </message>
-    <message>
-        <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">A kiválasztott szín séma színei</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Új szín</translation>
-    </message>
-    <message>
-        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>C&amp;olor Components...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Protanopia (Red)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Deuteranopia (Green)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Tritanopia (Blue)</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Új szín</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>%1 szín már létezik!</translation>
-    </message>
-    <message>
-        <source>Color %1 appended.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">%1 szín már létezik!</translation>
     </message>
 </context>
 <context>
@@ -5635,6 +5820,14 @@ CommonStrings, custom page size</comment>
         <source>Exclusion</source>
         <translation type="unfinished">Kivétel</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -5818,71 +6011,71 @@ This can be set in the Preferences.</source>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation>Szín komponensek beállítása</translation>
+        <translation type="obsolete">Szín komponensek beállítása</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation>CMYK</translation>
+        <translation type="obsolete">CMYK</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation>RGB</translation>
+        <translation type="obsolete">RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation>HSV</translation>
+        <translation type="obsolete">HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation type="obsolete">H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation>S:</translation>
+        <translation type="obsolete">S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation>V:</translation>
+        <translation type="obsolete">V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="obsolete">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="obsolete">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="obsolete">B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation type="obsolete">C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation type="obsolete">M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>K:</translation>
+        <translation type="obsolete">K:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation>&amp;RGB beállítása</translation>
+        <translation type="obsolete">&amp;RGB beállítása</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation>&amp;CMYK beállítása</translation>
+        <translation type="obsolete">&amp;CMYK beállítása</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation>&amp;HSV beállítása</translation>
+        <translation type="obsolete">&amp;HSV beállítása</translation>
     </message>
 </context>
 <context>
@@ -6567,6 +6760,10 @@ failed!</source>
     </message>
     <message>
         <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -8085,6 +8282,14 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Open</source>
         <translation type="unfinished">Megnyitás</translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9846,6 +10051,78 @@ Corners:</source>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Csoport</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Átlátszatlanság:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Szemcsézés módja:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normál</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Sötétít</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Világosít</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Többszörös</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Képernyő</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Átfedés</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Különbség</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Kivétel</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished">Szín trükk</translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Színárnyalat</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Szín</translation>
     </message>
 </context>
 <context>
@@ -11868,6 +12145,10 @@ layout type</comment>
     </message>
     <message>
         <source>Python Scripts (*.py *.PY)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13921,6 +14202,14 @@ is not exhaustive due to exceptions from called functions.
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QTextEdit</name>
@@ -15099,7 +15388,7 @@ short words plugin</comment>
     <name>ScribusColorList</name>
     <message>
         <source>Document Colors</source>
-        <translation>Dokumentum színei</translation>
+        <translation type="obsolete">Dokumentum színei</translation>
     </message>
 </context>
 <context>
@@ -15185,6 +15474,20 @@ short words plugin</comment>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished">Másolatok száma: %1 
+Vízszintes eltolás: %2 
+Függőleges eltolás :%3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15425,11 +15728,11 @@ short words plugin</comment>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokumentumok (*.sla *.sla.gz *.scd *scd.gz);;Minden fájl (*)</translation>
+        <translation type="obsolete">Dokumentumok (*.sla *.sla.gz *.scd *scd.gz);;Minden fájl (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokumentumok (*.sla *.scd);;Minden fájl (*)</translation>
+        <translation type="obsolete">Dokumentumok (*.sla *.scd);;Minden fájl (*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -15671,6 +15974,18 @@ Függőleges eltolás :%3</translation>
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -15937,6 +16252,10 @@ Függőleges eltolás :%3</translation>
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16264,6 +16583,10 @@ Függőleges eltolás :%3</translation>
     <message>
         <source>Short Words</source>
         <translation>Rövid szavak</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16877,7 +17200,7 @@ Text Style Selector</comment>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Index</translation>
+        <translation type="obsolete">&amp;Index</translation>
     </message>
 </context>
 <context>
@@ -16948,7 +17271,7 @@ Text Style Selector</comment>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Index</translation>
+        <translation type="obsolete">&amp;Index</translation>
     </message>
 </context>
 <context>

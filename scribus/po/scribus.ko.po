@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -105,6 +105,32 @@ msgstr ""
 
 msgid "None"
 msgstr "없음"
+
+#, fuzzy
+msgid "Align and Distribute"
+msgstr "배치/정열"
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "전체 선택"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "이른 바꾸기"
+
+#, fuzzy
+msgid "..."
+msgstr "수정..."
+
+msgid "Align"
+msgstr "정열"
+
+msgid "&Distance:"
+msgstr ""
+
+#, fuzzy
+msgid "Distribute"
+msgstr "배치/정열"
 
 #, fuzzy
 msgid "Manage Page Properties"
@@ -882,6 +908,18 @@ msgstr ""
 msgid "&Skip locked objects"
 msgstr ""
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr ""
 
@@ -1097,9 +1135,6 @@ msgid "Destination Frame:"
 msgstr "목적 대상"
 
 msgid "Table Of Contents"
-msgstr ""
-
-msgid "Inde&x"
 msgstr ""
 
 msgid "Printer Options"
@@ -1699,6 +1734,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "페이지:"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "그룹"
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2208,6 +2247,23 @@ msgstr "숫자 형식"
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3377,13 +3433,6 @@ msgid "New Name:"
 msgstr "이름:"
 
 #, fuzzy
-msgid "Align and Distribute"
-msgstr "배치/정열"
-
-msgid "Align"
-msgstr "정열"
-
-#, fuzzy
 msgid "&Relative to:"
 msgstr "이른 바꾸기"
 
@@ -3431,14 +3480,6 @@ msgstr ""
 msgid "Align tops"
 msgstr "정열"
 
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "전체 선택"
-
-#, fuzzy
-msgid "Distribute"
-msgstr "배치/정열"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3471,7 +3512,18 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "고르게 정열(&E)"
 
-msgid "&Distance:"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
 msgstr ""
 
 msgid "Distribute the items with the distance specified"
@@ -3480,11 +3532,9 @@ msgstr ""
 msgid "None Selected"
 msgstr ""
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -4280,6 +4330,12 @@ msgstr ""
 #, fuzzy
 msgid "Scaling"
 msgstr "별"
+
+msgid "X-Scale:"
+msgstr ""
+
+msgid "Y-Scale:"
+msgstr ""
 
 #, fuzzy
 msgid "Rotation"
@@ -6212,11 +6268,13 @@ msgid ""
 "%1"
 msgstr ""
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
-msgstr ""
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
+msgstr "스크립트:"
 
-msgid "Documents (*.sla *.scd);;All Files (*)"
-msgstr ""
+#, fuzzy
+msgid "Documents (*.sla);;All Files (*)"
+msgstr "스크립트:"
 
 msgid "Save As"
 msgstr ""
@@ -7820,6 +7878,9 @@ msgstr ""
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr ""
 
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr ""
+
 #, fuzzy
 msgid "Import Master Page"
 msgstr "데이타 불러들이기"
@@ -8419,12 +8480,12 @@ msgstr ""
 msgid "&Number of Copies:"
 msgstr ""
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "새문서 만들기"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -8932,6 +8993,13 @@ msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "별"
+
+msgid "+baseline %1 "
 msgstr ""
 
 msgid "New From Template"
@@ -9673,6 +9741,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr ""
 
@@ -10092,29 +10163,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 
 #, fuzzy
-msgid "Document Colors"
-msgstr "기존문서 열기"
-
-#, fuzzy
-msgid "Cr&eate color..."
-msgstr "색깔(&C)..."
-
-#, fuzzy
-msgid "C&olor Components..."
-msgstr "색깔(&C)..."
-
-msgid "&Import existing color..."
-msgstr ""
-
-#, fuzzy
-msgid "&Merge colors"
-msgstr "색깔"
-
-#, fuzzy
-msgid "&Replace colors"
-msgstr "전체 선택(&A)"
-
-#, fuzzy
 msgid "Normal Vision"
 msgstr "보통"
 
@@ -10128,67 +10176,6 @@ msgid "Tritanopia (Blue)"
 msgstr ""
 
 msgid "Full Color Blindness"
-msgstr ""
-
-msgid "Vision Defect:"
-msgstr ""
-
-msgid "Color Wheel"
-msgstr ""
-
-msgid "M"
-msgstr ""
-
-msgid "Y"
-msgstr ""
-
-msgid "K"
-msgstr ""
-
-#, fuzzy
-msgid "Select Method:"
-msgstr "새로운 글꼴 선택"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-#, fuzzy
-msgid "&Merge Colors"
-msgstr "색깔"
-
-#, fuzzy
-msgid "&Replace Colors"
-msgstr "전체 선택(&A)"
-
-msgid "Merge created colors into the document colors"
-msgstr ""
-
-msgid "Replace created colors in the document colors"
-msgstr ""
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-msgid "Sample color scheme"
-msgstr ""
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-msgid "Colors of your chosen color scheme"
-msgstr ""
-
-msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 msgid "Merging colors"
@@ -10218,34 +10205,70 @@ msgstr ""
 msgid "&Color Wheel..."
 msgstr "색깔..."
 
+msgid "Color Wheel"
+msgstr ""
+
 msgid "Color setting helper"
 msgstr ""
 
 msgid "Color selector with color theory included."
 msgstr ""
 
-msgid "Set Color Components"
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
 msgstr ""
 
-msgid "HSV"
+msgid "RGB:"
 msgstr ""
 
-msgid "H:"
+msgid "CMYK:"
 msgstr ""
 
-msgid "S:"
+#, fuzzy
+msgid "Color Scheme Method:"
+msgstr "새로운 글꼴 선택"
+
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
 msgstr ""
 
-msgid "V:"
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
 msgstr ""
 
-msgid "Set &RGB"
+#, fuzzy
+msgid "Preview:"
+msgstr "프린트..."
+
+msgid "Vision Defect Type:"
 msgstr ""
 
-msgid "Set C&MYK"
+msgid "imulate common vision defects here. Select type of the defect."
 msgstr ""
 
-msgid "Set &HSV"
+msgid "Sample color scheme."
+msgstr ""
+
+msgid "Colors of your chosen color scheme."
+msgstr ""
+
+#, fuzzy
+msgid "&Merge"
+msgstr "페이지:"
+
+msgid "Alt+M"
+msgstr ""
+
+msgid "Merge created colors into the document colors"
+msgstr ""
+
+msgid "Replace created colors in the document colors"
+msgstr ""
+
+msgid "Leave colors untouched"
 msgstr ""
 
 msgid "Monochromatic"
@@ -10608,6 +10631,34 @@ msgstr "단순"
 #, fuzzy
 msgid "My Plugin"
 msgstr "단순"
+
+#, fuzzy
+#~ msgid "Document Colors"
+#~ msgstr "기존문서 열기"
+
+#, fuzzy
+#~ msgid "Cr&eate color..."
+#~ msgstr "색깔(&C)..."
+
+#, fuzzy
+#~ msgid "C&olor Components..."
+#~ msgstr "색깔(&C)..."
+
+#, fuzzy
+#~ msgid "&Merge colors"
+#~ msgstr "색깔"
+
+#, fuzzy
+#~ msgid "&Replace colors"
+#~ msgstr "전체 선택(&A)"
+
+#, fuzzy
+#~ msgid "&Merge Colors"
+#~ msgstr "색깔"
+
+#, fuzzy
+#~ msgid "&Replace Colors"
+#~ msgstr "전체 선택(&A)"
 
 #, fuzzy
 #~ msgid "O&K"

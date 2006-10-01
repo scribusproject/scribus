@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -104,6 +104,33 @@ msgstr ""
 
 msgid "None"
 msgstr "None"
+
+#, fuzzy
+msgid "Align and Distribute"
+msgstr "Разпеределено подравняване"
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "Изтриване на страници"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "Разделителна способност:"
+
+#, fuzzy
+msgid "..."
+msgstr "Запиши като..."
+
+msgid "Align"
+msgstr "Подравняване"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "Разтояние"
+
+#, fuzzy
+msgid "Distribute"
+msgstr "Разпеределено подравняване"
 
 #, fuzzy
 msgid "Manage Page Properties"
@@ -947,6 +974,18 @@ msgstr "Блок"
 msgid "&Skip locked objects"
 msgstr ""
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr "Върхове"
 
@@ -1178,9 +1217,6 @@ msgstr "Отпечатай описание"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "Съдържание"
-
-msgid "Inde&x"
-msgstr ""
 
 #, fuzzy
 msgid "Printer Options"
@@ -1853,6 +1889,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "Страница"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "Групиране"
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2388,6 +2428,23 @@ msgstr "Брой на копията:"
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3643,13 +3700,6 @@ msgid "New Name:"
 msgstr "Datei&name:"
 
 #, fuzzy
-msgid "Align and Distribute"
-msgstr "Разпеределено подравняване"
-
-msgid "Align"
-msgstr "Подравняване"
-
-#, fuzzy
 msgid "&Relative to:"
 msgstr "Разделителна способност:"
 
@@ -3698,14 +3748,6 @@ msgstr ""
 msgid "Align tops"
 msgstr "Подравняване"
 
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "Изтриване на страници"
-
-#, fuzzy
-msgid "Distribute"
-msgstr "Разпеределено подравняване"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3738,9 +3780,19 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "Разпредели независимо"
 
-#, fuzzy
-msgid "&Distance:"
-msgstr "Разтояние"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr ""
 
 msgid "Distribute the items with the distance specified"
 msgstr ""
@@ -3748,11 +3800,9 @@ msgstr ""
 msgid "None Selected"
 msgstr ""
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -4608,6 +4658,14 @@ msgstr "Ефекти"
 
 #, fuzzy
 msgid "Scaling"
+msgstr "Мащабиране:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "Мащабиране:"
+
+#, fuzzy
+msgid "Y-Scale:"
 msgstr "Мащабиране:"
 
 #, fuzzy
@@ -6721,11 +6779,11 @@ msgstr ""
 "%1 ?"
 
 #, fuzzy
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
 msgstr "Документи (*.scd);; Всички документи (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;All Files (*)"
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "Документи (*.scd);; Всички документи (*)"
 
 #, fuzzy
@@ -8485,6 +8543,10 @@ msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Документи (*.scd);; Всички документи (*)"
 
 #, fuzzy
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Документи (*.scd);; Всички документи (*)"
+
+#, fuzzy
 msgid "Import Master Page"
 msgstr "Вмъкване на страница"
 
@@ -9147,12 +9209,12 @@ msgstr "Многократно повторение"
 msgid "&Number of Copies:"
 msgstr "Брой на копията:"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "Стил на линия"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9696,6 +9758,13 @@ msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "Опции на мишката"
+
+msgid "+baseline %1 "
 msgstr ""
 
 #, fuzzy
@@ -10505,6 +10574,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr ""
 
@@ -10961,30 +11033,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 
 #, fuzzy
-msgid "Document Colors"
-msgstr "Документация:"
-
-#, fuzzy
-msgid "Cr&eate color..."
-msgstr "Цветове..."
-
-#, fuzzy
-msgid "C&olor Components..."
-msgstr "Съдържание"
-
-#, fuzzy
-msgid "&Import existing color..."
-msgstr "Вмъкване на страница"
-
-#, fuzzy
-msgid "&Merge colors"
-msgstr "Цветове на страница"
-
-#, fuzzy
-msgid "&Replace colors"
-msgstr "Замени с:"
-
-#, fuzzy
 msgid "Normal Vision"
 msgstr "Стандартно"
 
@@ -11000,73 +11048,6 @@ msgstr ""
 #, fuzzy
 msgid "Full Color Blindness"
 msgstr "Цвят на запълване:"
-
-msgid "Vision Defect:"
-msgstr ""
-
-#, fuzzy
-msgid "Color Wheel"
-msgstr "Цветови модел"
-
-msgid "M"
-msgstr ""
-
-#, fuzzy
-msgid "Y"
-msgstr "да"
-
-#, fuzzy
-msgid "K"
-msgstr "Да"
-
-#, fuzzy
-msgid "Select Method:"
-msgstr "Избери шрифт"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-#, fuzzy
-msgid "&Merge Colors"
-msgstr "Цветове на страница"
-
-#, fuzzy
-msgid "&Replace Colors"
-msgstr "Замени с:"
-
-#, fuzzy
-msgid "Merge created colors into the document colors"
-msgstr "Създаване на нов документ"
-
-#, fuzzy
-msgid "Replace created colors in the document colors"
-msgstr "Създаване на нов документ"
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-#, fuzzy
-msgid "Sample color scheme"
-msgstr "Избери цвят"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-msgid "Colors of your chosen color scheme"
-msgstr ""
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
 
 #, fuzzy
 msgid "Merging colors"
@@ -11099,35 +11080,76 @@ msgid "&Color Wheel..."
 msgstr "Цветове..."
 
 #, fuzzy
+msgid "Color Wheel"
+msgstr "Цветови модел"
+
+#, fuzzy
 msgid "Color setting helper"
 msgstr "Цвят на запълване:"
 
 msgid "Color selector with color theory included."
 msgstr ""
 
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
+msgstr ""
+
+msgid "RGB:"
+msgstr ""
+
+msgid "CMYK:"
+msgstr ""
+
 #, fuzzy
-msgid "Set Color Components"
-msgstr "Нов цвят"
+msgid "Color Scheme Method:"
+msgstr "Избери шрифт"
 
-msgid "HSV"
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
 msgstr ""
 
-msgid "H:"
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
 msgstr ""
 
-msgid "S:"
+#, fuzzy
+msgid "Preview:"
+msgstr "Преглед"
+
+#, fuzzy
+msgid "Vision Defect Type:"
+msgstr "Ефекти"
+
+msgid "imulate common vision defects here. Select type of the defect."
 msgstr ""
 
-msgid "V:"
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "Избери цвят"
+
+msgid "Colors of your chosen color scheme."
 msgstr ""
 
-msgid "Set &RGB"
-msgstr ""
+#, fuzzy
+msgid "&Merge"
+msgstr "Страница"
 
-msgid "Set C&MYK"
-msgstr ""
+#, fuzzy
+msgid "Alt+M"
+msgstr "Всички"
 
-msgid "Set &HSV"
+#, fuzzy
+msgid "Merge created colors into the document colors"
+msgstr "Създаване на нов документ"
+
+#, fuzzy
+msgid "Replace created colors in the document colors"
+msgstr "Създаване на нов документ"
+
+msgid "Leave colors untouched"
 msgstr ""
 
 msgid "Monochromatic"
@@ -11517,6 +11539,54 @@ msgid "My Plugin"
 msgstr "Поставяне:"
 
 #, fuzzy
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr "Документи (*.scd);; Всички документи (*)"
+
+#, fuzzy
+#~ msgid "Document Colors"
+#~ msgstr "Документация:"
+
+#, fuzzy
+#~ msgid "Cr&eate color..."
+#~ msgstr "Цветове..."
+
+#, fuzzy
+#~ msgid "C&olor Components..."
+#~ msgstr "Съдържание"
+
+#, fuzzy
+#~ msgid "&Import existing color..."
+#~ msgstr "Вмъкване на страница"
+
+#, fuzzy
+#~ msgid "&Merge colors"
+#~ msgstr "Цветове на страница"
+
+#, fuzzy
+#~ msgid "&Replace colors"
+#~ msgstr "Замени с:"
+
+#, fuzzy
+#~ msgid "Y"
+#~ msgstr "да"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "Да"
+
+#, fuzzy
+#~ msgid "&Merge Colors"
+#~ msgstr "Цветове на страница"
+
+#, fuzzy
+#~ msgid "&Replace Colors"
+#~ msgstr "Замени с:"
+
+#, fuzzy
+#~ msgid "Set Color Components"
+#~ msgstr "Нов цвят"
+
+#, fuzzy
 #~ msgid "Apply margin settings to all pages"
 #~ msgstr "От страница:"
 
@@ -11539,10 +11609,6 @@ msgstr "Поставяне:"
 #, fuzzy
 #~ msgid "Name of the color is not unique"
 #~ msgstr "Името на стила не е уникално"
-
-#, fuzzy
-#~ msgid "Save..."
-#~ msgstr "Запиши като..."
 
 #, fuzzy
 #~ msgid "Column 1"
@@ -11640,10 +11706,6 @@ msgstr "Поставяне:"
 #, fuzzy
 #~ msgid "&Medium"
 #~ msgstr "Среден"
-
-#, fuzzy
-#~ msgid "&Large"
-#~ msgstr "Страница"
 
 #, fuzzy
 #~ msgid "Load Text from File"
@@ -12278,10 +12340,6 @@ msgstr "Поставяне:"
 #, fuzzy
 #~ msgid "Return to Scribus"
 #~ msgstr "За Scribus"
-
-#, fuzzy
-#~ msgid "Alt+M"
-#~ msgstr "Всички"
 
 #, fuzzy
 #~ msgid "&Set Accel"

@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2006-03-13 15:27+0100\n"
 "Last-Translator: Louis Desjardins <louis_desjardins@mardigrafe.com>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
@@ -141,6 +141,29 @@ msgstr "DLE (enveloppe)"
 
 msgid "None"
 msgstr "Aucune"
+
+msgid "Align and Distribute"
+msgstr "Espacer - Aligner"
+
+msgid "&Selected Guide:"
+msgstr "Repère sélectionné"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "En &rapport avec :"
+
+#, fuzzy
+msgid "..."
+msgstr "A&jouter..."
+
+msgid "Align"
+msgstr "Aligner"
+
+msgid "&Distance:"
+msgstr "&Distance :"
+
+msgid "Distribute"
+msgstr "Espacer"
 
 msgid "Manage Page Properties"
 msgstr "Propriétés de la page"
@@ -922,6 +945,25 @@ msgstr "To&ut déverrouiller"
 msgid "&Skip locked objects"
 msgstr "Verrouiller ou non l'objet"
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+"Nombre d'exemplaires : %1\n"
+"Décalage horizontal : %2\n"
+"Décalage vertical : %3"
+
+#, fuzzy
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+"Nombre d'exemplaires : %1\n"
+"Décalage horizontal : %2\n"
+"Décalage vertical : %3"
+
 msgid "Nodes"
 msgstr "Points"
 
@@ -1135,9 +1177,6 @@ msgstr "Cadre de destination :"
 
 msgid "Table Of Contents"
 msgstr "Table des matières"
-
-msgid "Inde&x"
-msgstr "Inde&x"
 
 msgid "Printer Options"
 msgstr "Options d'impression"
@@ -1733,6 +1772,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "Pages %1 à %2"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "Grouper"
+
 msgid "Cannot Convert In-Use Item"
 msgstr "Impossible de convertir un objet en cours d'utilisation"
 
@@ -2287,6 +2330,23 @@ msgid ""
 msgstr ""
 "La valeur que vous avez entrée est plus grande que le nombre de pages du "
 "présent document (%1-%2)."
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
+msgstr ""
 
 msgid "Open"
 msgstr "Ouvrir"
@@ -3474,12 +3534,6 @@ msgstr "Nouveau gabarit"
 msgid "New Name:"
 msgstr "Nom du fichier :"
 
-msgid "Align and Distribute"
-msgstr "Espacer - Aligner"
-
-msgid "Align"
-msgstr "Aligner"
-
 msgid "&Relative to:"
 msgstr "En &rapport avec :"
 
@@ -3522,12 +3576,6 @@ msgstr "Aligner le bas des objets avec le haut de l'ancre"
 msgid "Align tops"
 msgstr "Aligner le haut des objets"
 
-msgid "&Selected Guide:"
-msgstr "Repère sélectionné"
-
-msgid "Distribute"
-msgstr "Espacer"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr "Rendre égal l'espacement horizontal entre les objets"
 
@@ -3558,8 +3606,23 @@ msgstr "Distribution régulière verticale des centres"
 msgid "Distribute tops equidistantly"
 msgstr "Distribution régulière en haut"
 
-msgid "&Distance:"
-msgstr "&Distance :"
+#, fuzzy
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr "Rendre égal l'espacement horizontal entre les objets"
+
+#, fuzzy
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr "Rendre égaux les espaces entre les objets"
+
+#, fuzzy
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr "Rendre égal l'espacement horizontal entre les objets"
+
+#, fuzzy
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr "Rendre égaux les espaces entre les objets"
 
 msgid "Distribute the items with the distance specified"
 msgstr "Distribution des objets à la distance spécifiée"
@@ -3567,11 +3630,9 @@ msgstr "Distribution des objets à la distance spécifiée"
 msgid "None Selected"
 msgstr "Aucune sélection"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr "Y : %1 %2"
 
-#, c-format
 msgid "X: %1%2"
 msgstr "X : %1 %2"
 
@@ -4457,6 +4518,14 @@ msgstr "Décalage horizontal"
 #, fuzzy
 msgid "Scaling"
 msgstr "Mise à l'échelle :"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "Échelle &horizontale :"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Échelle &verticale :"
 
 #, fuzzy
 msgid "Rotation"
@@ -6416,10 +6485,12 @@ msgstr ""
 "Impossible d'enregistrer le fichier : \n"
 "%1"
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
-msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
+msgstr "Documents (*.sla *.scd);;Tous les fichiers (*)"
 
-msgid "Documents (*.sla *.scd);;All Files (*)"
+#, fuzzy
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "Documents (*.sla *.scd);;Tous les fichiers (*)"
 
 msgid "Save As"
@@ -8085,6 +8156,9 @@ msgstr "Effacer définitivement ce style ?"
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
 
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Documents (*.sla *.scd);;Tous les fichiers (*)"
+
 msgid "Import Master Page"
 msgstr "Importer un gabarit"
 
@@ -8682,12 +8756,12 @@ msgstr "Dupliquer-Déplacer multiples"
 msgid "&Number of Copies:"
 msgstr "&Nombre de copies :"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "Édition des styles de filets"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9221,6 +9295,14 @@ msgstr "La police %1 est défectueuse, elle sera ignorée"
 
 msgid "Font %1 cannot be read, no embedding"
 msgstr "Impossible de lire la police %1. Elle ne sera pas incorporée"
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "Interlettrage :"
+
+#, fuzzy
+msgid "+baseline %1 "
+msgstr "Grille typographique"
 
 msgid "New From Template"
 msgstr "Nouveau d'après modèle"
@@ -10007,6 +10089,10 @@ msgstr ""
 "limité.En particulier dans le cas d'espaces blancs. Veuillez consulter le "
 "manuel de Scribus pour plus d'information."
 
+#, fuzzy
+msgid "Line: %1 Column: %2"
+msgstr "Lignes : %1, Colonnes : %2"
+
 msgid "Script Console"
 msgstr "Console de script"
 
@@ -10446,24 +10532,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 "Le fichier SVG contient des fonctionnalités qui ne sont pas prises en charge"
 
-msgid "Document Colors"
-msgstr "Couleurs du document"
-
-msgid "Cr&eate color..."
-msgstr "Cré&er une couleur..."
-
-msgid "C&olor Components..."
-msgstr "C&omposantes de couleurs..."
-
-msgid "&Import existing color..."
-msgstr "&Importer une couleur existante..."
-
-msgid "&Merge colors"
-msgstr "&Fusion des couleurs"
-
-msgid "&Replace colors"
-msgstr "Substitue&r les couleurs"
-
 msgid "Normal Vision"
 msgstr "Vision normale"
 
@@ -10478,72 +10546,6 @@ msgstr "Cécité au bleu"
 
 msgid "Full Color Blindness"
 msgstr "Daltonisme"
-
-msgid "Vision Defect:"
-msgstr "Anomalie de la vision"
-
-msgid "Color Wheel"
-msgstr "Cercle chromatique"
-
-msgid "M"
-msgstr "M"
-
-msgid "Y"
-msgstr "J"
-
-msgid "K"
-msgstr "N"
-
-msgid "Select Method:"
-msgstr "Méthode de sélection :"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr "Angle·(0·-·90·degrés) :"
-
-msgid "&Merge Colors"
-msgstr "&Fusionner les couleurs"
-
-msgid "&Replace Colors"
-msgstr "Substitue&r les couleurs"
-
-msgid "Merge created colors into the document colors"
-msgstr "Fusionner les couleurs créés avec celles du document"
-
-msgid "Replace created colors in the document colors"
-msgstr "Remplacer les couleurs créées dans le document"
-
-msgid "Leave colors untouched"
-msgstr "Laisser les couleurs inchangées"
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-"Différence entre la valeur sélectionnée et celle comptée. Voir la "
-"documentation pour plus d'informations"
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-"Choisissez la couleur de base en cliquant sur le cercle chromatique. En mode "
-"HSV, vous choisissez la teinte."
-
-msgid "Sample color scheme"
-msgstr "Exemple de schéma de couleur"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-"Choisir une méthode de création pour le schéma de couleur. Voir la "
-"documentation pour plus de détails"
-
-msgid "Colors of your chosen color scheme"
-msgstr "Couleurs du schéma de couleurs choisi"
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
-"Simulez des anomalies de la vision courants. Choississez parmi les anomalies "
-"suivantes."
 
 msgid "Merging colors"
 msgstr "Fusion des couleurs"
@@ -10573,35 +10575,86 @@ msgstr ""
 msgid "&Color Wheel..."
 msgstr "Cercle chromatique"
 
+msgid "Color Wheel"
+msgstr "Cercle chromatique"
+
 msgid "Color setting helper"
 msgstr "Assistant au paramétrage des couleurs"
 
 msgid "Color selector with color theory included."
 msgstr "Nuancier de couleur. Théorie des couleurs inclus."
 
-msgid "Set Color Components"
-msgstr "Définir les composantes de couleur"
+#, fuzzy
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
+msgstr ""
+"Choisissez la couleur de base en cliquant sur le cercle chromatique. En mode "
+"HSV, vous choisissez la teinte."
 
-msgid "HSV"
-msgstr "Modèle de couleurs HSV"
+#, fuzzy
+msgid "RGB:"
+msgstr "RVB"
 
-msgid "H:"
-msgstr "Teinte"
+#, fuzzy
+msgid "CMYK:"
+msgstr "CMJN"
 
-msgid "S:"
-msgstr "Saturation"
+#, fuzzy
+msgid "Color Scheme Method:"
+msgstr "Méthode de sélection :"
 
-msgid "V:"
-msgstr "Luminosité"
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
+msgstr ""
+"Choisir une méthode de création pour le schéma de couleur. Voir la "
+"documentation pour plus de détails"
 
-msgid "Set &RGB"
-msgstr "Définir en &RVB"
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
+msgstr ""
+"Différence entre la valeur sélectionnée et celle comptée. Voir la "
+"documentation pour plus d'informations"
 
-msgid "Set C&MYK"
-msgstr "Définir en C&MJN"
+#, fuzzy
+msgid "Preview:"
+msgstr "Prévisualisation"
 
-msgid "Set &HSV"
-msgstr "Définir en &HSV"
+#, fuzzy
+msgid "Vision Defect Type:"
+msgstr "Anomalie de la vision"
+
+#, fuzzy
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+"Simulez des anomalies de la vision courants. Choississez parmi les anomalies "
+"suivantes."
+
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "Exemple de schéma de couleur"
+
+#, fuzzy
+msgid "Colors of your chosen color scheme."
+msgstr "Couleurs du schéma de couleurs choisi"
+
+#, fuzzy
+msgid "&Merge"
+msgstr "&Large"
+
+msgid "Alt+M"
+msgstr "Alt+M"
+
+msgid "Merge created colors into the document colors"
+msgstr "Fusionner les couleurs créés avec celles du document"
+
+msgid "Replace created colors in the document colors"
+msgstr "Remplacer les couleurs créées dans le document"
+
+msgid "Leave colors untouched"
+msgstr "Laisser les couleurs inchangées"
 
 msgid "Monochromatic"
 msgstr "Monochromatique"
@@ -10979,6 +11032,72 @@ msgstr "Mon &extension"
 msgid "My Plugin"
 msgstr "Mon extension"
 
+#~ msgid "Inde&x"
+#~ msgstr "Inde&x"
+
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr "Documents (*.sla *.sla.gz *.scd *.scd.gz);;Tous les fichiers (*)"
+
+#~ msgid "Document Colors"
+#~ msgstr "Couleurs du document"
+
+#~ msgid "Cr&eate color..."
+#~ msgstr "Cré&er une couleur..."
+
+#~ msgid "C&olor Components..."
+#~ msgstr "C&omposantes de couleurs..."
+
+#~ msgid "&Import existing color..."
+#~ msgstr "&Importer une couleur existante..."
+
+#~ msgid "&Merge colors"
+#~ msgstr "&Fusion des couleurs"
+
+#~ msgid "&Replace colors"
+#~ msgstr "Substitue&r les couleurs"
+
+#~ msgid "M"
+#~ msgstr "M"
+
+#~ msgid "Y"
+#~ msgstr "J"
+
+#~ msgid "K"
+#~ msgstr "N"
+
+#~ msgid "Angle (0 - 90 degrees):"
+#~ msgstr "Angle·(0·-·90·degrés) :"
+
+#~ msgid "&Merge Colors"
+#~ msgstr "&Fusionner les couleurs"
+
+#~ msgid "&Replace Colors"
+#~ msgstr "Substitue&r les couleurs"
+
+#~ msgid "Set Color Components"
+#~ msgstr "Définir les composantes de couleur"
+
+#~ msgid "HSV"
+#~ msgstr "Modèle de couleurs HSV"
+
+#~ msgid "H:"
+#~ msgstr "Teinte"
+
+#~ msgid "S:"
+#~ msgstr "Saturation"
+
+#~ msgid "V:"
+#~ msgstr "Luminosité"
+
+#~ msgid "Set &RGB"
+#~ msgstr "Définir en &RVB"
+
+#~ msgid "Set C&MYK"
+#~ msgstr "Définir en C&MJN"
+
+#~ msgid "Set &HSV"
+#~ msgstr "Définir en &HSV"
+
 #~ msgid "Exlusion"
 #~ msgstr "Exclusion"
 
@@ -10987,15 +11106,6 @@ msgstr "Mon extension"
 
 #~ msgid "Apply margin settings to all pages"
 #~ msgstr "Appliquer les marges à toutes les pages"
-
-#~ msgid ""
-#~ "Number of copies: %1\n"
-#~ "Horizontal shift: %2\n"
-#~ "Vertical shift: %3"
-#~ msgstr ""
-#~ "Nombre d'exemplaires : %1\n"
-#~ "Décalage horizontal : %2\n"
-#~ "Décalage vertical : %3"
 
 #~ msgid "Lan&guage:"
 #~ msgstr "L&angue :"
@@ -11211,9 +11321,6 @@ msgstr "Mon extension"
 
 #~ msgid "&Medium"
 #~ msgstr "&Moyen"
-
-#~ msgid "&Large"
-#~ msgstr "&Large"
 
 #~ msgid "Load Text from File"
 #~ msgstr "Charger le texte depuis un fichier"
@@ -12398,9 +12505,6 @@ msgstr "Mon extension"
 
 #~ msgid "Rena&me"
 #~ msgstr "Reno&mmer"
-
-#~ msgid "Alt+M"
-#~ msgstr "Alt+M"
 
 #~ msgid ""
 #~ "<qt>Rename the selected macro. You will be prompted for the new name.</qt>"

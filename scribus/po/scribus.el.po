@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2006-06-05 21:23+0300\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -109,6 +109,29 @@ msgstr "DLE"
 
 msgid "None"
 msgstr "Κανένα"
+
+msgid "Align and Distribute"
+msgstr "Στοίχιση και κατανομή"
+
+msgid "&Selected Guide:"
+msgstr "&Επιλεγμένος οδηγός:"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "&Σχετικά με:"
+
+#, fuzzy
+msgid "..."
+msgstr "Προσ&θήκη..."
+
+msgid "Align"
+msgstr "Στοίχιση"
+
+msgid "&Distance:"
+msgstr "&Απόσταση:"
+
+msgid "Distribute"
+msgstr "Κατανομή"
 
 msgid "Manage Page Properties"
 msgstr "Διαχείριση ιδιοτήτων σελίδας"
@@ -885,6 +908,25 @@ msgstr "&Ξεκλείδωμα όλων"
 msgid "&Skip locked objects"
 msgstr "Κλείδωμα ή ξεκλείδωμα του αντικειμένου"
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+"Αριθμός αντιγράφων: %1\n"
+"Οριζόντια μετατόπιση: %2\n"
+"Κατακόρυφη μετατόπιση: %3"
+
+#, fuzzy
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+"Αριθμός αντιγράφων: %1\n"
+"Οριζόντια μετατόπιση: %2\n"
+"Κατακόρυφη μετατόπιση: %3"
+
 msgid "Nodes"
 msgstr "Κόμβοι"
 
@@ -1100,9 +1142,6 @@ msgstr "Πλαίσιο προορισμού:"
 
 msgid "Table Of Contents"
 msgstr "Πίνακας περιεχομένων"
-
-msgid "Inde&x"
-msgstr "&Ευρετήριο"
 
 msgid "Printer Options"
 msgstr "Επιλογές εκτυπωτή"
@@ -1699,6 +1738,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "Σελίδα %1 έως %2"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "Ομαδοποίηση"
+
 msgid "Cannot Convert In-Use Item"
 msgstr "Αδυναμία μετατροπής αντικειμένου σε χρήση"
 
@@ -2252,6 +2295,23 @@ msgid ""
 msgstr ""
 "Η τιμή που έχετε εισάγει είναι εκτός ορίου του αριθμού σελίδων στο τρέχον "
 "έγγραφο (%1-%2)."
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
+msgstr ""
 
 msgid "Open"
 msgstr "Άνοιγμα"
@@ -3444,12 +3504,6 @@ msgstr "Νέα πρωτότυπη σελίδα"
 msgid "New Name:"
 msgstr "Όνομα:"
 
-msgid "Align and Distribute"
-msgstr "Στοίχιση και κατανομή"
-
-msgid "Align"
-msgstr "Στοίχιση"
-
 msgid "&Relative to:"
 msgstr "&Σχετικά με:"
 
@@ -3494,12 +3548,6 @@ msgstr "Στοίχιση του κάτω μέρους στην κορυφή τη
 msgid "Align tops"
 msgstr "Στοίχιση άνω μέρους"
 
-msgid "&Selected Guide:"
-msgstr "&Επιλεγμένος οδηγός:"
-
-msgid "Distribute"
-msgstr "Κατανομή"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
 
@@ -3534,8 +3582,23 @@ msgstr "Κατανομή κέντρων κατακόρυφα σε ίση από�
 msgid "Distribute tops equidistantly"
 msgstr "Κατανομή άνω μέρους σε ίση απόσταση"
 
-msgid "&Distance:"
-msgstr "&Απόσταση:"
+#, fuzzy
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr "Δημιουργία ίσων οριζόντιων κενών ανάμεσα στα αντικείμενα"
+
+#, fuzzy
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr "Δημιουργία ίσων κατακόρυφων κενών ανάμεσα στα αντικείμενα"
 
 msgid "Distribute the items with the distance specified"
 msgstr "Κατανομή των αντικειμένων με την καθορισμένη απόσταση"
@@ -3543,11 +3606,9 @@ msgstr "Κατανομή των αντικειμένων με την καθορ�
 msgid "None Selected"
 msgstr "Καμία επιλογή"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr "Y: %1%2"
 
-#, c-format
 msgid "X: %1%2"
 msgstr "X: %1%2"
 
@@ -4448,6 +4509,14 @@ msgstr "X-Μετατοπ"
 #, fuzzy
 msgid "Scaling"
 msgstr "Κλιμάκωση:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "X-&κλιμάκωση:"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Y-κ&λιμάκωση:"
 
 #, fuzzy
 msgid "Rotation"
@@ -6428,10 +6497,12 @@ msgstr ""
 "Αδυναμία εγγραφής στο αρχείο: \n"
 "%1"
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
-msgstr "Έγγραφα (*.sla *.sla.gz *.scd *scd.gz);;Όλα τα αρχεία (*)"
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
+msgstr "Έγγραφα (*.sla *.scd);;Όλα τα αρχεία (*)"
 
-msgid "Documents (*.sla *.scd);;All Files (*)"
+#, fuzzy
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "Έγγραφα (*.sla *.scd);;Όλα τα αρχεία (*)"
 
 msgid "Save As"
@@ -8118,6 +8189,9 @@ msgstr "Επιθυμείτε πραγματικά τη διαγραφή αυτο
 msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Έγγραφα (*.sla *.sla.gz *.scd *.scd.gz);;Όλα τα αρχεία (*)"
 
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Έγγραφα (*.sla *.scd);;Όλα τα αρχεία (*)"
+
 msgid "Import Master Page"
 msgstr "Εισαγωγή πρωτότυπης σελίδας"
 
@@ -8720,12 +8794,12 @@ msgstr "Πολλαπλό αντίγραφο"
 msgid "&Number of Copies:"
 msgstr "&Αριθμός αντιγράφων:"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "Ορισμός στυλ γραμμής"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9266,6 +9340,13 @@ msgstr "Η γραμματοσειρά %1 είναι κατεστραμμένη (
 
 msgid "Font %1 cannot be read, no embedding"
 msgstr "Η γραμματοσειρά %1 δεν μπορεί να αναγνωσθεί, δε γίνεται ενσωμάτωση"
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "Συμβολοσειρά"
+
+msgid "+baseline %1 "
+msgstr ""
 
 msgid "New From Template"
 msgstr "Νέο από πρότυπο"
@@ -10069,6 +10150,10 @@ msgstr ""
 "περιορισμούς ειδικά στην περίπτωση των κενών χαρακτήρων. Παρακαλώ "
 "συμβουλευτείτε το εγχειρίδιο του Scribus για περισσότερες πληροφορίες."
 
+#, fuzzy
+msgid "Line: %1 Column: %2"
+msgstr "Γραμμές: %1, Στήλες: %2"
+
 msgid "Script Console"
 msgstr "Κονσόλα σεναρίου"
 
@@ -10519,24 +10604,6 @@ msgstr "Εικόνες SVG (*.svg);;Όλα τα αρχεία (*)"
 msgid "SVG file contains some unsupported features"
 msgstr "Το αρχείο SVG περιέχει κάποια μη υποστηριζόμενα χαρακτηριστικά"
 
-msgid "Document Colors"
-msgstr "Χρώματα εγγράφου"
-
-msgid "Cr&eate color..."
-msgstr "&Δημιουργία χρώματος..."
-
-msgid "C&olor Components..."
-msgstr "Σ&υστατικά χρώματος..."
-
-msgid "&Import existing color..."
-msgstr "&Εισαγωγή υπάρχοντος χρώματος..."
-
-msgid "&Merge colors"
-msgstr "&Συγχώνευση χρωμάτων"
-
-msgid "&Replace colors"
-msgstr "&Αντικατάσταση χρωμάτων"
-
 msgid "Normal Vision"
 msgstr "Κανονική όραση"
 
@@ -10551,71 +10618,6 @@ msgstr "Αφαίρεση τρίτου χρώματος (Μπλε)"
 
 msgid "Full Color Blindness"
 msgstr "Αφαίρεση πλήρους χρώματος"
-
-msgid "Vision Defect:"
-msgstr "Ορατότητα:"
-
-msgid "Color Wheel"
-msgstr "Χρωματικός τροχός"
-
-msgid "M"
-msgstr "M"
-
-msgid "Y"
-msgstr "Y"
-
-msgid "K"
-msgstr "K"
-
-msgid "Select Method:"
-msgstr "Επιλογή μεθόδου:"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr "Γωνία (0 - 90 μοίρες):"
-
-msgid "&Merge Colors"
-msgstr "&Συγχώνευση χρωμάτων"
-
-msgid "&Replace Colors"
-msgstr "&Αντικατάσταση χρωμάτων"
-
-msgid "Merge created colors into the document colors"
-msgstr "Συγχώνευση δημιουργημένων χρωμάτων στα χρώματα του εγγράφου"
-
-msgid "Replace created colors in the document colors"
-msgstr "Αντικατάσταση δημιουργημένων χρωμάτων στα χρώματα του εγγράφου"
-
-msgid "Leave colors untouched"
-msgstr "Μη τροποποίηση χρωμάτων"
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-"Διαφορά μεταξύ της επιλεγμένης τιμής και των υπολογισμένων. Ανατρέξτε στην "
-"τεκμηρίωση για περισσότερες πληροφορίες."
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-"Κάντε κλικ στον τροχό για την επιλογή του βασικού χρώματος. Αυτό θα είναι "
-"απόχρωση στη λειτουργία HSV."
-
-msgid "Sample color scheme"
-msgstr "Σχήμα χρωματικού δείγματος"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-"Επιλέξτε μια από τις μεθόδους για τη δημιουργία ενός χρωματικού δείγματος. "
-"Ανατρέξτε στην τεκμηρίωση για περισσότερες πληροφορίες."
-
-msgid "Colors of your chosen color scheme"
-msgstr "Χρώματα του επιλεγμένου χρωματικού δείγματος"
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
-"Εξομοίωση κοινών προβλημάτων όρασης. Επιλέξτε τον τύπο του προβλήματος."
 
 msgid "Merging colors"
 msgstr "Συγχώνευση χρωμάτων"
@@ -10645,35 +10647,86 @@ msgstr ""
 msgid "&Color Wheel..."
 msgstr "&Τροχός χρωμάτων..."
 
+msgid "Color Wheel"
+msgstr "Χρωματικός τροχός"
+
 msgid "Color setting helper"
 msgstr "Βοηθός ρύθμισης χρώματος"
 
 msgid "Color selector with color theory included."
 msgstr "Επιλογέας χρώματος με ενσωματωμένη τη θεωρία χρωμάτων."
 
-msgid "Set Color Components"
-msgstr "Ορισμός συστατικών χρώματος"
+#, fuzzy
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
+msgstr ""
+"Κάντε κλικ στον τροχό για την επιλογή του βασικού χρώματος. Αυτό θα είναι "
+"απόχρωση στη λειτουργία HSV."
 
-msgid "HSV"
-msgstr "HSV"
+#, fuzzy
+msgid "RGB:"
+msgstr "RGB"
 
-msgid "H:"
-msgstr "H:"
+#, fuzzy
+msgid "CMYK:"
+msgstr "CMYK"
 
-msgid "S:"
-msgstr "S:"
+#, fuzzy
+msgid "Color Scheme Method:"
+msgstr "Επιλογή μεθόδου:"
 
-msgid "V:"
-msgstr "V:"
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
+msgstr ""
+"Επιλέξτε μια από τις μεθόδους για τη δημιουργία ενός χρωματικού δείγματος. "
+"Ανατρέξτε στην τεκμηρίωση για περισσότερες πληροφορίες."
 
-msgid "Set &RGB"
-msgstr "Ορισμός &RGB"
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
+msgstr ""
+"Διαφορά μεταξύ της επιλεγμένης τιμής και των υπολογισμένων. Ανατρέξτε στην "
+"τεκμηρίωση για περισσότερες πληροφορίες."
 
-msgid "Set C&MYK"
-msgstr "Ορισμός C&MYK"
+#, fuzzy
+msgid "Preview:"
+msgstr "Προεπισκόπηση"
 
-msgid "Set &HSV"
-msgstr "Ορισμός &HSV"
+#, fuzzy
+msgid "Vision Defect Type:"
+msgstr "Ορατότητα:"
+
+#, fuzzy
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+"Εξομοίωση κοινών προβλημάτων όρασης. Επιλέξτε τον τύπο του προβλήματος."
+
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "Σχήμα χρωματικού δείγματος"
+
+#, fuzzy
+msgid "Colors of your chosen color scheme."
+msgstr "Χρώματα του επιλεγμένου χρωματικού δείγματος"
+
+#, fuzzy
+msgid "&Merge"
+msgstr "&Πρωτότυπη σελίδα:"
+
+#, fuzzy
+msgid "Alt+M"
+msgstr "Alt+"
+
+msgid "Merge created colors into the document colors"
+msgstr "Συγχώνευση δημιουργημένων χρωμάτων στα χρώματα του εγγράφου"
+
+msgid "Replace created colors in the document colors"
+msgstr "Αντικατάσταση δημιουργημένων χρωμάτων στα χρώματα του εγγράφου"
+
+msgid "Leave colors untouched"
+msgstr "Μη τροποποίηση χρωμάτων"
 
 msgid "Monochromatic"
 msgstr "Μονοχρωμία"
@@ -11055,6 +11108,72 @@ msgstr "Το &πρόσθετό μου"
 msgid "My Plugin"
 msgstr "Το πρόσθετό μου"
 
+#~ msgid "Inde&x"
+#~ msgstr "&Ευρετήριο"
+
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr "Έγγραφα (*.sla *.sla.gz *.scd *scd.gz);;Όλα τα αρχεία (*)"
+
+#~ msgid "Document Colors"
+#~ msgstr "Χρώματα εγγράφου"
+
+#~ msgid "Cr&eate color..."
+#~ msgstr "&Δημιουργία χρώματος..."
+
+#~ msgid "C&olor Components..."
+#~ msgstr "Σ&υστατικά χρώματος..."
+
+#~ msgid "&Import existing color..."
+#~ msgstr "&Εισαγωγή υπάρχοντος χρώματος..."
+
+#~ msgid "&Merge colors"
+#~ msgstr "&Συγχώνευση χρωμάτων"
+
+#~ msgid "&Replace colors"
+#~ msgstr "&Αντικατάσταση χρωμάτων"
+
+#~ msgid "M"
+#~ msgstr "M"
+
+#~ msgid "Y"
+#~ msgstr "Y"
+
+#~ msgid "K"
+#~ msgstr "K"
+
+#~ msgid "Angle (0 - 90 degrees):"
+#~ msgstr "Γωνία (0 - 90 μοίρες):"
+
+#~ msgid "&Merge Colors"
+#~ msgstr "&Συγχώνευση χρωμάτων"
+
+#~ msgid "&Replace Colors"
+#~ msgstr "&Αντικατάσταση χρωμάτων"
+
+#~ msgid "Set Color Components"
+#~ msgstr "Ορισμός συστατικών χρώματος"
+
+#~ msgid "HSV"
+#~ msgstr "HSV"
+
+#~ msgid "H:"
+#~ msgstr "H:"
+
+#~ msgid "S:"
+#~ msgstr "S:"
+
+#~ msgid "V:"
+#~ msgstr "V:"
+
+#~ msgid "Set &RGB"
+#~ msgstr "Ορισμός &RGB"
+
+#~ msgid "Set C&MYK"
+#~ msgstr "Ορισμός C&MYK"
+
+#~ msgid "Set &HSV"
+#~ msgstr "Ορισμός &HSV"
+
 #~ msgid "Exlusion"
 #~ msgstr "Αποκλεισμός"
 
@@ -11063,15 +11182,6 @@ msgstr "Το πρόσθετό μου"
 
 #~ msgid "Apply margin settings to all pages"
 #~ msgstr "Εφαρμογή ρυθμίσεων περιθωρίων σε όλες τις σελίδες"
-
-#~ msgid ""
-#~ "Number of copies: %1\n"
-#~ "Horizontal shift: %2\n"
-#~ "Vertical shift: %3"
-#~ msgstr ""
-#~ "Αριθμός αντιγράφων: %1\n"
-#~ "Οριζόντια μετατόπιση: %2\n"
-#~ "Κατακόρυφη μετατόπιση: %3"
 
 #~ msgid "Lan&guage:"
 #~ msgstr "Γ&λώσσα:"

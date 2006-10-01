@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -117,6 +117,32 @@ msgstr ""
 
 msgid "None"
 msgstr "ཅི་མེད།"
+
+msgid "Align and Distribute"
+msgstr ""
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད་འབདཝ།"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "མཐུན་འབྲེལ:(&R)"
+
+#, fuzzy
+msgid "..."
+msgstr "ཁ་སྐོང་རྐྱབ...(&d)"
+
+msgid "Align"
+msgstr "ཕྲང་།"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "གྱང་ཚད་ཚུ།"
+
+#, fuzzy
+msgid "Distribute"
+msgstr "བགོ་བཀྲམ་འབད་/ཕྲང་།"
 
 #, fuzzy
 msgid "Manage Page Properties"
@@ -922,6 +948,18 @@ msgstr "ཆ་མཉམ་ལྡེ་མིག་མ་རྐྱབས།"
 msgid "&Skip locked objects"
 msgstr "དངོས་པོ་འདི་ལྡེ་མིག་རྐྱབ་ནི་དང་ ཡང་ཅིན་ ལྡེ་མིག་མ་རྐྱབ་པར་བཞག "
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr "མཐུད་མཚམས་ཚུ།"
 
@@ -1152,10 +1190,6 @@ msgstr "འགྲོ་ཡུལ།"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "ནང་དོན་ཚུ་བསལ་ཏོག་ཏོ།(&l)"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "ནང་ན།"
 
 msgid "Printer Options"
 msgstr "དཔར་བསྐྲུན་གྱི་གདམ་ཁ་ཚུ།"
@@ -1828,6 +1862,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr ""
 
+#, fuzzy
+msgid "Group%1"
+msgstr "སྡེ་ཚན།"
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2356,6 +2394,23 @@ msgstr "ཁྱབ་ཚད་ལས་བརྒལ་བའི་ཤོག་ལ
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3616,12 +3671,6 @@ msgstr "ཤོག་ལེབ་ཀྱི་ཤུལ་མ།"
 msgid "New Name:"
 msgstr "མིང་:"
 
-msgid "Align and Distribute"
-msgstr ""
-
-msgid "Align"
-msgstr "ཕྲང་།"
-
 #, fuzzy
 msgid "&Relative to:"
 msgstr "མཐུན་འབྲེལ:(&R)"
@@ -3672,14 +3721,6 @@ msgstr ""
 msgid "Align tops"
 msgstr "གཡོན་ཕྲང་།"
 
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད་འབདཝ།"
-
-#, fuzzy
-msgid "Distribute"
-msgstr "བགོ་བཀྲམ་འབད་/ཕྲང་།"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3712,9 +3753,19 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།(&E)"
 
-#, fuzzy
-msgid "&Distance:"
-msgstr "གྱང་ཚད་ཚུ།"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr ""
 
 msgid "Distribute the items with the distance specified"
 msgstr ""
@@ -3723,11 +3774,9 @@ msgstr ""
 msgid "None Selected"
 msgstr "སེལ་འཐུ་འབད།"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -4655,6 +4704,14 @@ msgstr "ནུས་པ་ཚུ།"
 #, fuzzy
 msgid "Scaling"
 msgstr "ཚད་རྟགས།:(&a)"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "ཆ་ཚད་-ཨེགསི་:(&S)"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "ཆ་ཚད་-ཝའི:(&S)"
 
 #, fuzzy
 msgid "Rotation"
@@ -6732,12 +6789,12 @@ msgstr ""
 "ཡིག་སྣོད་འདི་འབྲི་མི་བཏུབ་པས:\n"
 "%1"
 
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
-msgstr ""
-"ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *ཨེསི་སི་ཌི་.ཇི་ཛེཌི་);;ཡིག་སྣོད་ཚུ་ཆ་"
-"མཉམ་ (*)"
+#, fuzzy
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
+msgstr "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་སི་ཌི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ། (*)"
 
-msgid "Documents (*.sla *.scd);;All Files (*)"
+#, fuzzy
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་སི་ཌི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ། (*)"
 
 msgid "Save As"
@@ -8459,6 +8516,9 @@ msgstr ""
 "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *.ཨེ་སི་ཌི་.ཇི་ཛེཌ་);;ཡིག་སྣོད་ཚུ་ཆ་"
 "མཉམ། (*)"
 
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་སི་ཌི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ། (*)"
+
 #, fuzzy
 msgid "Import Master Page"
 msgstr "གནས་སྡུད་ནང་འདྲེན་འབད།"
@@ -9104,12 +9164,12 @@ msgstr "རྫུན་མ་སྣ་མང་།"
 msgid "&Number of Copies:"
 msgstr "འདྲ་བཤུས་ཚུ་གི་ཨང་གྲངས:(&N)"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "ཡིག་ཆ་གསརཔ་ཅིག་གསར་བསྐྲུན་འབད།"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9669,6 +9729,14 @@ msgstr "བཏོན་བཀོག་འབདཝ་ལས་ཡིག་གཟ
 
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "ཊེ་ཀིང་:"
+
+#, fuzzy
+msgid "+baseline %1 "
+msgstr "གཞི་རྟེན་གྱལ་རིམ་གིརིཊི།"
 
 msgid "New From Template"
 msgstr "ཊེམ་པེལེཊི་ལས་གསརཔ།"
@@ -10489,6 +10557,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr "ཡིག་ཚུགས་མ་སྒྲོམ།"
 
@@ -10928,30 +10999,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 
 #, fuzzy
-msgid "Document Colors"
-msgstr "ཡིག་ཆ།"
-
-#, fuzzy
-msgid "Cr&eate color..."
-msgstr "ཚོས་གཞི་ཚུ...(&o)"
-
-#, fuzzy
-msgid "C&olor Components..."
-msgstr "ནང་དོན་ཚུ་བསལ་ཏོག་ཏོ།(&l)"
-
-#, fuzzy
-msgid "&Import existing color..."
-msgstr "ཤོག་ལེབ་འདི་ནང་འདྲེན་འབད་དོ..."
-
-#, fuzzy
-msgid "&Merge colors"
-msgstr "ཤོག་ལེབ་ཚོས་གཞི་ཚུ།"
-
-#, fuzzy
-msgid "&Replace colors"
-msgstr "ཚོས་གཞི་གི་གཞི་རྟེན།(&B)"
-
-#, fuzzy
 msgid "Normal Vision"
 msgstr "སྤྱིར་བཏང་གི།"
 
@@ -10967,75 +11014,6 @@ msgstr ""
 #, fuzzy
 msgid "Full Color Blindness"
 msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་སྒྲིག་འབད་མི་ཚུ།"
-
-msgid "Vision Defect:"
-msgstr ""
-
-#, fuzzy
-msgid "Color Wheel"
-msgstr "ཚོས་གཞི་གི་དཔེ།(&M)"
-
-#, fuzzy
-msgid "M"
-msgstr "ཨེམ།(&M)"
-
-#, fuzzy
-msgid "Y"
-msgstr "ཝའི།(&Y)"
-
-#, fuzzy
-msgid "K"
-msgstr "ཀེ(&K)"
-
-#, fuzzy
-msgid "Select Method:"
-msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད།"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-#, fuzzy
-msgid "&Merge Colors"
-msgstr "ཤོག་ལེབ་ཚོས་གཞི་ཚུ།"
-
-#, fuzzy
-msgid "&Replace Colors"
-msgstr "ཚབ་བཙུགས།(&R)"
-
-#, fuzzy
-msgid "Merge created colors into the document colors"
-msgstr "ད་ལྟོའི་ཚོས་གཞི་གཞི་སྒྲིག་འདི་  སྔོན་སྒྲིག་ཚོས་གཞི་གཞི་སྒྲིག་བཟོ།"
-
-#, fuzzy
-msgid "Replace created colors in the document colors"
-msgstr "ད་ལྟོ་ཡིག་ཆའི་ཚོས་གཞི་གཞི་སྒྲིག་ལས་ལག་ལེན་མ་འཐབ་པའི་ཚོས་གཞི་ཚུ་རྩ་བསྐྲད་གཏང་།"
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-#, fuzzy
-msgid "Sample color scheme"
-msgstr "ཟུར་མང་དབྱིབས་ཀྱི་དཔེ་ཚད།"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-#, fuzzy
-msgid "Colors of your chosen color scheme"
-msgstr "ཚོས་གཞི་རགས་པ་ཚུ་གི་དོན་ལས་ཚོས་གཞི་གསལ་སྡུད།"
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
 
 #, fuzzy
 msgid "Merging colors"
@@ -11069,39 +11047,79 @@ msgid "&Color Wheel..."
 msgstr "ཚོས་གཞི་འཛིན་སྐྱོང་...(&C)"
 
 #, fuzzy
+msgid "Color Wheel"
+msgstr "ཚོས་གཞི་གི་དཔེ།(&M)"
+
+#, fuzzy
 msgid "Color setting helper"
 msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་སྒྲིག་འབད་མི་ཚུ།"
 
 msgid "Color selector with color theory included."
 msgstr ""
 
-#, fuzzy
-msgid "Set Color Components"
-msgstr "ཚོས་གཞི་གི་གཞི་སྒྲིག་འདི་སྲུང་བཞག(&S)"
-
-msgid "HSV"
-msgstr ""
-
-msgid "H:"
-msgstr ""
-
-msgid "S:"
-msgstr ""
-
-msgid "V:"
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
 msgstr ""
 
 #, fuzzy
-msgid "Set &RGB"
-msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
+msgid "RGB:"
+msgstr "ཨར་ཇི་བི།"
 
 #, fuzzy
-msgid "Set C&MYK"
-msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
+msgid "CMYK:"
+msgstr "སི་ཨེམ་ཝའི་ཀེ།"
 
 #, fuzzy
-msgid "Set &HSV"
-msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
+msgid "Color Scheme Method:"
+msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད།"
+
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
+msgstr ""
+
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
+msgstr ""
+
+#, fuzzy
+msgid "Preview:"
+msgstr "སྔོན་ལྟ།"
+
+#, fuzzy
+msgid "Vision Defect Type:"
+msgstr "ནུས་ཅན་གྱི་དབྱེ་བ:(&y)"
+
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "ཟུར་མང་དབྱིབས་ཀྱི་དཔེ་ཚད།"
+
+#, fuzzy
+msgid "Colors of your chosen color scheme."
+msgstr "ཚོས་གཞི་རགས་པ་ཚུ་གི་དོན་ལས་ཚོས་གཞི་གསལ་སྡུད།"
+
+#, fuzzy
+msgid "&Merge"
+msgstr "སྦོམ།(&L)"
+
+msgid "Alt+M"
+msgstr "གདམ་ལྡེ་+ཨེམ།"
+
+#, fuzzy
+msgid "Merge created colors into the document colors"
+msgstr "ད་ལྟོའི་ཚོས་གཞི་གཞི་སྒྲིག་འདི་  སྔོན་སྒྲིག་ཚོས་གཞི་གཞི་སྒྲིག་བཟོ།"
+
+#, fuzzy
+msgid "Replace created colors in the document colors"
+msgstr "ད་ལྟོ་ཡིག་ཆའི་ཚོས་གཞི་གཞི་སྒྲིག་ལས་ལག་ལེན་མ་འཐབ་པའི་ཚོས་གཞི་ཚུ་རྩ་བསྐྲད་གཏང་།"
+
+msgid "Leave colors untouched"
+msgstr ""
 
 msgid "Monochromatic"
 msgstr ""
@@ -11485,6 +11503,75 @@ msgstr ""
 
 msgid "My Plugin"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "ནང་ན།"
+
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr ""
+#~ "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *ཨེསི་སི་ཌི་.ཇི་ཛེཌི་);;ཡིག་སྣོད་ཚུ་ཆ་"
+#~ "མཉམ་ (*)"
+
+#, fuzzy
+#~ msgid "Document Colors"
+#~ msgstr "ཡིག་ཆ།"
+
+#, fuzzy
+#~ msgid "Cr&eate color..."
+#~ msgstr "ཚོས་གཞི་ཚུ...(&o)"
+
+#, fuzzy
+#~ msgid "C&olor Components..."
+#~ msgstr "ནང་དོན་ཚུ་བསལ་ཏོག་ཏོ།(&l)"
+
+#, fuzzy
+#~ msgid "&Import existing color..."
+#~ msgstr "ཤོག་ལེབ་འདི་ནང་འདྲེན་འབད་དོ..."
+
+#, fuzzy
+#~ msgid "&Merge colors"
+#~ msgstr "ཤོག་ལེབ་ཚོས་གཞི་ཚུ།"
+
+#, fuzzy
+#~ msgid "&Replace colors"
+#~ msgstr "ཚོས་གཞི་གི་གཞི་རྟེན།(&B)"
+
+#, fuzzy
+#~ msgid "M"
+#~ msgstr "ཨེམ།(&M)"
+
+#, fuzzy
+#~ msgid "Y"
+#~ msgstr "ཝའི།(&Y)"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "ཀེ(&K)"
+
+#, fuzzy
+#~ msgid "&Merge Colors"
+#~ msgstr "ཤོག་ལེབ་ཚོས་གཞི་ཚུ།"
+
+#, fuzzy
+#~ msgid "&Replace Colors"
+#~ msgstr "ཚབ་བཙུགས།(&R)"
+
+#, fuzzy
+#~ msgid "Set Color Components"
+#~ msgstr "ཚོས་གཞི་གི་གཞི་སྒྲིག་འདི་སྲུང་བཞག(&S)"
+
+#, fuzzy
+#~ msgid "Set &RGB"
+#~ msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
+
+#, fuzzy
+#~ msgid "Set C&MYK"
+#~ msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
+
+#, fuzzy
+#~ msgid "Set &HSV"
+#~ msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
 
 #~ msgid "Tool-Tip:"
 #~ msgstr "ལག་ཆས་ཕན་བསླབ:"
@@ -11953,9 +12040,6 @@ msgstr ""
 #~ msgid "&Medium"
 #~ msgstr "འབྲིང་མ།(&M)"
 
-#~ msgid "&Large"
-#~ msgstr "སྦོམ།(&L)"
-
 #~ msgid "&Preview"
 #~ msgstr "སྔོན་ལྟ།(&P)"
 
@@ -12409,9 +12493,6 @@ msgstr ""
 
 #~ msgid "Rena&me"
 #~ msgstr "བསྐྱར་མིང་བཏགས་པ།(&m)"
-
-#~ msgid "Alt+M"
-#~ msgstr "གདམ་ལྡེ་+ཨེམ།"
 
 #~ msgid ""
 #~ "<qt>Rename the selected macro. You will be prompted for the new name.</qt>"

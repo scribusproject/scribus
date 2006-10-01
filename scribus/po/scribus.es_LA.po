@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-09-21 23:05+0200\n"
+"POT-Creation-Date: 2006-10-01 21:54+0200\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -107,6 +107,33 @@ msgstr ""
 
 msgid "None"
 msgstr "Ninguno"
+
+#, fuzzy
+msgid "Align and Distribute"
+msgstr "Distribución/Alineación"
+
+#, fuzzy
+msgid "&Selected Guide:"
+msgstr "Seleccionar Campos"
+
+#, fuzzy
+msgid "&Relative To:"
+msgstr "Resolución"
+
+#, fuzzy
+msgid "..."
+msgstr "Añadir..."
+
+msgid "Align"
+msgstr "Alineación"
+
+#, fuzzy
+msgid "&Distance:"
+msgstr "Distancias"
+
+#, fuzzy
+msgid "Distribute"
+msgstr "Distribución/Alineación"
 
 #, fuzzy
 msgid "Manage Page Properties"
@@ -967,6 +994,18 @@ msgstr "Bloque"
 msgid "&Skip locked objects"
 msgstr ""
 
+msgid ""
+"Number of copies: %1\n"
+"Horizontal shift: %2\n"
+"Vertical shift: %3"
+msgstr ""
+
+msgid ""
+"Number of copies: %1\n"
+"Horizontal gap: %2\n"
+"Vertical gap: %3"
+msgstr ""
+
 msgid "Nodes"
 msgstr "Nodos"
 
@@ -1209,10 +1248,6 @@ msgstr "Destino"
 #, fuzzy
 msgid "Table Of Contents"
 msgstr "Contenidos"
-
-#, fuzzy
-msgid "Inde&x"
-msgstr "Interior"
 
 #, fuzzy
 msgid "Printer Options"
@@ -1903,6 +1938,10 @@ msgstr ""
 msgid "Page %1 to %2"
 msgstr "Página"
 
+#, fuzzy
+msgid "Group%1"
+msgstr "Agrupar"
+
 msgid "Cannot Convert In-Use Item"
 msgstr ""
 
@@ -2453,6 +2492,23 @@ msgstr "Número de Copias:"
 msgid ""
 "The value you have entered is outside the range of page numbers in the "
 "current document (%1-%2)."
+msgstr ""
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
 msgstr ""
 
 msgid "Open"
@@ -3724,13 +3780,6 @@ msgid "New Name:"
 msgstr "&Nombre Fichero:"
 
 #, fuzzy
-msgid "Align and Distribute"
-msgstr "Distribución/Alineación"
-
-msgid "Align"
-msgstr "Alineación"
-
-#, fuzzy
 msgid "&Relative to:"
 msgstr "Resolución"
 
@@ -3781,14 +3830,6 @@ msgstr ""
 msgid "Align tops"
 msgstr "Alinear Izquierda"
 
-#, fuzzy
-msgid "&Selected Guide:"
-msgstr "Seleccionar Campos"
-
-#, fuzzy
-msgid "Distribute"
-msgstr "Distribución/Alineación"
-
 msgid "Make horizontal gaps between objects equal"
 msgstr ""
 
@@ -3821,9 +3862,19 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "Distribuir equitativamente"
 
-#, fuzzy
-msgid "&Distance:"
-msgstr "Distancias"
+msgid "Make horizontal gaps between objects and sides of page equal"
+msgstr ""
+
+msgid ""
+"Make vertical gaps between objects and the top and bottom of page margins "
+"equal"
+msgstr ""
+
+msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgstr ""
+
+msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgstr ""
 
 msgid "Distribute the items with the distance specified"
 msgstr ""
@@ -3832,11 +3883,9 @@ msgstr ""
 msgid "None Selected"
 msgstr "Selecciona"
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -4720,6 +4769,14 @@ msgstr "Efectos"
 #, fuzzy
 msgid "Scaling"
 msgstr "Escala:"
+
+#, fuzzy
+msgid "X-Scale:"
+msgstr "Tipo de Escala:"
+
+#, fuzzy
+msgid "Y-Scale:"
+msgstr "Tipo de Escala:"
 
 #, fuzzy
 msgid "Rotation"
@@ -6866,11 +6923,11 @@ msgstr ""
 "%1 ?"
 
 #, fuzzy
-msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+msgid "Documents (*.sla *.sla.gz);;All Files (*)"
 msgstr "Documentos (*.scd);; Todos los archivos (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;All Files (*)"
+msgid "Documents (*.sla);;All Files (*)"
 msgstr "Documentos (*.scd);; Todos los archivos (*)"
 
 #, fuzzy
@@ -8659,6 +8716,10 @@ msgid "Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)"
 msgstr "Documentos (*.scd);; Todos los archivos (*)"
 
 #, fuzzy
+msgid "Documents (*.sla *.scd);;All Files (*)"
+msgstr "Documentos (*.scd);; Todos los archivos (*)"
+
+#, fuzzy
 msgid "Import Master Page"
 msgstr "Importar datos"
 
@@ -8842,7 +8903,7 @@ msgid ""
 "the page view below"
 msgstr ""
 "Aquí están todas tus Plantillas; para crear una nueva Página\n"
-"rrastra una Plantilla en la Vista de Página de abajo."
+"\arrastra una Plantilla en la Vista de Página de abajo."
 
 msgid "Arrange Pages"
 msgstr "Ordenar Páginas"
@@ -9339,12 +9400,12 @@ msgstr "Múltiples Duplicados"
 msgid "&Number of Copies:"
 msgstr "Número de Copias:"
 
+msgid "&Shift Created Items By"
+msgstr ""
+
 #, fuzzy
 msgid "Create &Gap Between Items Of"
 msgstr "Estilo Línea:"
-
-msgid "&Shift Created Items By"
-msgstr ""
 
 #, fuzzy
 msgid "&By Number of Copies"
@@ -9899,6 +9960,13 @@ msgid "Font %1 is broken (no Face), discarding it"
 msgstr ""
 
 msgid "Font %1 cannot be read, no embedding"
+msgstr ""
+
+#, fuzzy
+msgid "+tracking %1 "
+msgstr "Configuración del Ratón"
+
+msgid "+baseline %1 "
 msgstr ""
 
 #, fuzzy
@@ -10717,6 +10785,9 @@ msgid ""
 "informations."
 msgstr ""
 
+msgid "Line: %1 Column: %2"
+msgstr ""
+
 msgid "Script Console"
 msgstr ""
 
@@ -11175,30 +11246,6 @@ msgid "SVG file contains some unsupported features"
 msgstr ""
 
 #, fuzzy
-msgid "Document Colors"
-msgstr "Documentación:"
-
-#, fuzzy
-msgid "Cr&eate color..."
-msgstr "Colores..."
-
-#, fuzzy
-msgid "C&olor Components..."
-msgstr "Contenidos"
-
-#, fuzzy
-msgid "&Import existing color..."
-msgstr "Importar datos"
-
-#, fuzzy
-msgid "&Merge colors"
-msgstr "Color de las Páginas"
-
-#, fuzzy
-msgid "&Replace colors"
-msgstr "Reemplazar Con:"
-
-#, fuzzy
 msgid "Normal Vision"
 msgstr "Normal"
 
@@ -11214,73 +11261,6 @@ msgstr ""
 #, fuzzy
 msgid "Full Color Blindness"
 msgstr "Color de Relleno:"
-
-msgid "Vision Defect:"
-msgstr ""
-
-#, fuzzy
-msgid "Color Wheel"
-msgstr "Modelo de Color"
-
-msgid "M"
-msgstr ""
-
-#, fuzzy
-msgid "Y"
-msgstr "Sí"
-
-#, fuzzy
-msgid "K"
-msgstr "Aceptar"
-
-#, fuzzy
-msgid "Select Method:"
-msgstr "Seleccionar Campos"
-
-msgid "Angle (0 - 90 degrees):"
-msgstr ""
-
-#, fuzzy
-msgid "&Merge Colors"
-msgstr "Color de las Páginas"
-
-#, fuzzy
-msgid "&Replace Colors"
-msgstr "Reemplazar Con:"
-
-#, fuzzy
-msgid "Merge created colors into the document colors"
-msgstr "Crea un Nuevo Documento"
-
-#, fuzzy
-msgid "Replace created colors in the document colors"
-msgstr "Crea un Nuevo Documento"
-
-msgid "Leave colors untouched"
-msgstr ""
-
-msgid ""
-"Difference between the selected value and the counted ones. Refer to "
-"documentation for more information."
-msgstr ""
-
-msgid "Click the wheel to get the base color. It is hue in HSV mode."
-msgstr ""
-
-#, fuzzy
-msgid "Sample color scheme"
-msgstr "Seleccionar color"
-
-msgid ""
-"Select one of the methods to create a color scheme. Refer to documentation "
-"for more information."
-msgstr ""
-
-msgid "Colors of your chosen color scheme"
-msgstr ""
-
-msgid "Simulate common vision defects here. Select type of the defect."
-msgstr ""
 
 #, fuzzy
 msgid "Merging colors"
@@ -11313,39 +11293,77 @@ msgid "&Color Wheel..."
 msgstr "Colores..."
 
 #, fuzzy
+msgid "Color Wheel"
+msgstr "Modelo de Color"
+
+#, fuzzy
 msgid "Color setting helper"
 msgstr "Color de Relleno:"
 
 msgid "Color selector with color theory included."
 msgstr ""
 
-#, fuzzy
-msgid "Set Color Components"
-msgstr "Medición de Color Relativa"
-
-msgid "HSV"
+msgid ""
+"Click the wheel to get the base color. Its color model depends on the chosen "
+"tab."
 msgstr ""
 
-msgid "H:"
+msgid "RGB:"
 msgstr ""
 
-msgid "S:"
-msgstr ""
-
-msgid "V:"
+msgid "CMYK:"
 msgstr ""
 
 #, fuzzy
-msgid "Set &RGB"
-msgstr "Define Tecla"
+msgid "Color Scheme Method:"
+msgstr "Seleccionar Campos"
+
+msgid ""
+"Select one of the methods to create a color scheme. Refer to documentation "
+"for more information."
+msgstr ""
+
+msgid ""
+"Difference between the selected value and the counted ones. Refer to "
+"documentation for more information."
+msgstr ""
 
 #, fuzzy
-msgid "Set C&MYK"
-msgstr "Define Tecla"
+msgid "Preview:"
+msgstr "Previsualizar"
 
 #, fuzzy
-msgid "Set &HSV"
-msgstr "Define Tecla"
+msgid "Vision Defect Type:"
+msgstr "Tipo de Efecto:"
+
+msgid "imulate common vision defects here. Select type of the defect."
+msgstr ""
+
+#, fuzzy
+msgid "Sample color scheme."
+msgstr "Seleccionar color"
+
+msgid "Colors of your chosen color scheme."
+msgstr ""
+
+#, fuzzy
+msgid "&Merge"
+msgstr "Página"
+
+#, fuzzy
+msgid "Alt+M"
+msgstr "Todos"
+
+#, fuzzy
+msgid "Merge created colors into the document colors"
+msgstr "Crea un Nuevo Documento"
+
+#, fuzzy
+msgid "Replace created colors in the document colors"
+msgstr "Crea un Nuevo Documento"
+
+msgid "Leave colors untouched"
+msgstr ""
 
 msgid "Monochromatic"
 msgstr ""
@@ -11744,6 +11762,70 @@ msgstr "Plano"
 msgid "My Plugin"
 msgstr "Plano"
 
+#, fuzzy
+#~ msgid "Inde&x"
+#~ msgstr "Interior"
+
+#, fuzzy
+#~ msgid "Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)"
+#~ msgstr "Documentos (*.scd);; Todos los archivos (*)"
+
+#, fuzzy
+#~ msgid "Document Colors"
+#~ msgstr "Documentación:"
+
+#, fuzzy
+#~ msgid "Cr&eate color..."
+#~ msgstr "Colores..."
+
+#, fuzzy
+#~ msgid "C&olor Components..."
+#~ msgstr "Contenidos"
+
+#, fuzzy
+#~ msgid "&Import existing color..."
+#~ msgstr "Importar datos"
+
+#, fuzzy
+#~ msgid "&Merge colors"
+#~ msgstr "Color de las Páginas"
+
+#, fuzzy
+#~ msgid "&Replace colors"
+#~ msgstr "Reemplazar Con:"
+
+#, fuzzy
+#~ msgid "Y"
+#~ msgstr "Sí"
+
+#, fuzzy
+#~ msgid "K"
+#~ msgstr "Aceptar"
+
+#, fuzzy
+#~ msgid "&Merge Colors"
+#~ msgstr "Color de las Páginas"
+
+#, fuzzy
+#~ msgid "&Replace Colors"
+#~ msgstr "Reemplazar Con:"
+
+#, fuzzy
+#~ msgid "Set Color Components"
+#~ msgstr "Medición de Color Relativa"
+
+#, fuzzy
+#~ msgid "Set &RGB"
+#~ msgstr "Define Tecla"
+
+#, fuzzy
+#~ msgid "Set C&MYK"
+#~ msgstr "Define Tecla"
+
+#, fuzzy
+#~ msgid "Set &HSV"
+#~ msgstr "Define Tecla"
+
 #~ msgid "Tool-Tip:"
 #~ msgstr "Consejos de Herramienta:"
 
@@ -11889,10 +11971,6 @@ msgstr "Plano"
 #, fuzzy
 #~ msgid "&Medium"
 #~ msgstr "Mediano"
-
-#, fuzzy
-#~ msgid "&Large"
-#~ msgstr "Página"
 
 #, fuzzy
 #~ msgid "Load Text from File"
@@ -12658,10 +12736,6 @@ msgstr "Plano"
 #, fuzzy
 #~ msgid "Rena&me"
 #~ msgstr "Borrar"
-
-#, fuzzy
-#~ msgid "Alt+M"
-#~ msgstr "Todos"
 
 #, fuzzy
 #~ msgid "&Set Accel"

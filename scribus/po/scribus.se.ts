@@ -3513,6 +3513,37 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
 </context>
 <context>
+    <name>AlignDistributeBase</name>
+    <message>
+        <source>Align and Distribute</source>
+        <translation type="unfinished">Justera och fördela</translation>
+    </message>
+    <message>
+        <source>Align</source>
+        <translation type="unfinished">Justera</translation>
+    </message>
+    <message>
+        <source>&amp;Selected Guide:</source>
+        <translation type="unfinished">Vald hjälp&amp;linje:</translation>
+    </message>
+    <message>
+        <source>&amp;Relative To:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Distribute</source>
+        <translation type="unfinished">Fördela</translation>
+    </message>
+    <message>
+        <source>&amp;Distance:</source>
+        <translation type="unfinished">Avstån&amp;d:</translation>
+    </message>
+</context>
+<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -3520,7 +3551,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation>Justera</translation>
+        <translation type="obsolete">Justera</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -3596,7 +3627,7 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation>Fördela</translation>
+        <translation type="obsolete">Fördela</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
@@ -3661,6 +3692,22 @@ UCR förhindrar risken för övermättnad med CMG färger</translation>
     <message>
         <source>X: %1%2</source>
         <translation>X: %1%2</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between objects and sides of page margins equal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5254,6 +5301,188 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CWDialog</name>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Normalsyn</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Protanopia (Red)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Deuteranopia (Green)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Tritanopia (Blue)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Full färgblindhet</translation>
+    </message>
+    <message>
+        <source>Merging colors</source>
+        <translation type="unfinished">Sammanfoga färger</translation>
+    </message>
+    <message>
+        <source>Error: </source>
+        <translation type="unfinished">Fel: </translation>
+    </message>
+    <message>
+        <source>Color %1 exists already!</source>
+        <translation type="unfinished">Färgen %1 finns redan!</translation>
+    </message>
+    <message>
+        <source>Color %1 appended.</source>
+        <translation type="unfinished">Färgen %1 tillagd.</translation>
+    </message>
+    <message>
+        <source>Now opening the color manager.</source>
+        <translation type="unfinished">Nu öpnnas färghanteraren.</translation>
+    </message>
+    <message>
+        <source>Color Merging</source>
+        <translation type="unfinished">Färger sammanfogas</translation>
+    </message>
+    <message>
+        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
+        <translation type="unfinished">Kan inte hitta den begärda färgen. Du har antagligen valt svart, grå eller vit. Det finns inget sätt att hantera denna färg.</translation>
+    </message>
+</context>
+<context>
+    <name>CWDialogBase</name>
+    <message>
+        <source>Color Wheel</source>
+        <translation type="unfinished">Färghjul</translation>
+    </message>
+    <message>
+        <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>CMYK</source>
+        <translation type="unfinished">CMGS</translation>
+    </message>
+    <message>
+        <source>C:</source>
+        <translation type="unfinished">C:</translation>
+    </message>
+    <message>
+        <source>M:</source>
+        <translation type="unfinished">M:</translation>
+    </message>
+    <message>
+        <source>Y:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>K:</source>
+        <translation type="unfinished">S:</translation>
+    </message>
+    <message>
+        <source>RGB:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>RGB</source>
+        <translation type="unfinished">RGB</translation>
+    </message>
+    <message>
+        <source>R:</source>
+        <translation type="unfinished">R:</translation>
+    </message>
+    <message>
+        <source>G:</source>
+        <translation type="unfinished">G:</translation>
+    </message>
+    <message>
+        <source>B:</source>
+        <translation type="unfinished">B:</translation>
+    </message>
+    <message>
+        <source>CMYK:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document</source>
+        <translation type="unfinished">Dokument</translation>
+    </message>
+    <message>
+        <source>Color Scheme Method:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
+        <translation type="unfinished">Välj en av metoderna för att skapa ett färgschema. Mer information finns i dokumentationen.</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation type="unfinished">Vinkel:</translation>
+    </message>
+    <message>
+        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
+        <translation type="unfinished">Skillnad upptäckt mellan valt värde och de beräknade. Mer information finns i dokumentationen.</translation>
+    </message>
+    <message>
+        <source>Preview:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vision Defect Type:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>imulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Colors of your chosen color scheme.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Merge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+M</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merge created colors into the document colors</source>
+        <translation type="unfinished">Sammanfoga skapade färger med dokumentets färger</translation>
+    </message>
+    <message>
+        <source>&amp;Replace</source>
+        <translation type="unfinished">E&amp;rsätt</translation>
+    </message>
+    <message>
+        <source>Alt+R</source>
+        <translation type="unfinished">Alt+R</translation>
+    </message>
+    <message>
+        <source>Replace created colors in the document colors</source>
+        <translation type="unfinished">Byt ut skapade färger i dokumentets färger</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Avbryt</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+    <message>
+        <source>Leave colors untouched</source>
+        <translation type="unfinished">Lämna färger orörda</translation>
+    </message>
+</context>
+<context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
@@ -5785,59 +6014,59 @@ please choose another one.</source>
     <name>ColorWheelDialog</name>
     <message>
         <source>Normal Vision</source>
-        <translation>Normalsyn</translation>
+        <translation type="obsolete">Normalsyn</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation>Full färgblindhet</translation>
+        <translation type="obsolete">Full färgblindhet</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation>Synfel:</translation>
+        <translation type="obsolete">Synfel:</translation>
     </message>
     <message>
         <source>Color Wheel</source>
-        <translation>Färghjul</translation>
+        <translation type="obsolete">Färghjul</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation>Färg</translation>
+        <translation type="obsolete">Färg</translation>
     </message>
     <message>
         <source>Name</source>
-        <translation>Namn</translation>
+        <translation type="obsolete">Namn</translation>
     </message>
     <message>
         <source>C</source>
-        <translation>C</translation>
+        <translation type="obsolete">C</translation>
     </message>
     <message>
         <source>M</source>
-        <translation>M</translation>
+        <translation type="obsolete">M</translation>
     </message>
     <message>
         <source>Y</source>
-        <translation>Y</translation>
+        <translation type="obsolete">Y</translation>
     </message>
     <message>
         <source>K</source>
-        <translation>K</translation>
+        <translation type="obsolete">K</translation>
     </message>
     <message>
         <source>Select Method:</source>
-        <translation>Välj metod:</translation>
+        <translation type="obsolete">Välj metod:</translation>
     </message>
     <message>
         <source>Angle (0 - 90 degrees):</source>
-        <translation>Vinkel (0 - 90 grader):</translation>
+        <translation type="obsolete">Vinkel (0 - 90 grader):</translation>
     </message>
     <message>
         <source>&amp;Merge Colors</source>
-        <translation>Sa&amp;mmanfoga färger</translation>
+        <translation type="obsolete">Sa&amp;mmanfoga färger</translation>
     </message>
     <message>
         <source>&amp;Replace Colors</source>
-        <translation>Byt ut fä&amp;rger</translation>
+        <translation type="obsolete">Byt ut fä&amp;rger</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
@@ -5845,111 +6074,111 @@ please choose another one.</source>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation>Sammanfoga skapade färger med dokumentets färger</translation>
+        <translation type="obsolete">Sammanfoga skapade färger med dokumentets färger</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation>Byt ut skapade färger i dokumentets färger</translation>
+        <translation type="obsolete">Byt ut skapade färger i dokumentets färger</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation>Lämna färger orörda</translation>
+        <translation type="obsolete">Lämna färger orörda</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation>Sammanfoga färger</translation>
+        <translation type="obsolete">Sammanfoga färger</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation>Fel: </translation>
+        <translation type="obsolete">Fel: </translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation>Nu öpnnas färghanteraren.</translation>
+        <translation type="obsolete">Nu öpnnas färghanteraren.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation>Färger sammanfogas</translation>
+        <translation type="obsolete">Färger sammanfogas</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
-        <translation>Skapa fär&amp;g...</translation>
+        <translation type="obsolete">Skapa fär&amp;g...</translation>
     </message>
     <message>
         <source>&amp;Import existing color...</source>
-        <translation>&amp;Importera existerande färg...</translation>
+        <translation type="obsolete">&amp;Importera existerande färg...</translation>
     </message>
     <message>
         <source>&amp;Merge colors</source>
-        <translation>Sa&amp;mmanfoga färger</translation>
+        <translation type="obsolete">Sa&amp;mmanfoga färger</translation>
     </message>
     <message>
         <source>&amp;Replace colors</source>
-        <translation>Byt ut fä&amp;rger</translation>
+        <translation type="obsolete">Byt ut fä&amp;rger</translation>
     </message>
     <message>
         <source>E&amp;xit</source>
-        <translation>A&amp;vsluta</translation>
+        <translation type="obsolete">A&amp;vsluta</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
-        <translation>Fä&amp;rg</translation>
+        <translation type="obsolete">Fä&amp;rg</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation>Skillnad upptäckt mellan valt värde och de beräknade. Mer information finns i dokumentationen.</translation>
+        <translation type="obsolete">Skillnad upptäckt mellan valt värde och de beräknade. Mer information finns i dokumentationen.</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation>Klicka på hjulet för att få basfärgen. Tonen ges i HSV-värde.</translation>
+        <translation type="obsolete">Klicka på hjulet för att få basfärgen. Tonen ges i HSV-värde.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation>Exempel på färgschema</translation>
+        <translation type="obsolete">Exempel på färgschema</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation>Välj en av metoderna för att skapa ett färgschema. Mer information finns i dokumentationen.</translation>
+        <translation type="obsolete">Välj en av metoderna för att skapa ett färgschema. Mer information finns i dokumentationen.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>Färger från det valda färgschemat</translation>
+        <translation type="obsolete">Färger från det valda färgschemat</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation>Simulera vanliga synfel här. Välj typ av synfel.</translation>
+        <translation type="obsolete">Simulera vanliga synfel här. Välj typ av synfel.</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation>Ny färg</translation>
+        <translation type="obsolete">Ny färg</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation>Kan inte hitta den begärda färgen. Du har antagligen valt svart, grå eller vit. Det finns inget sätt att hantera denna färg.</translation>
+        <translation type="obsolete">Kan inte hitta den begärda färgen. Du har antagligen valt svart, grå eller vit. Det finns inget sätt att hantera denna färg.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation>Färgk&amp;omponenter...</translation>
+        <translation type="obsolete">Färgk&amp;omponenter...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation>Protanopia (Red)</translation>
+        <translation type="obsolete">Protanopia (Red)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation>Deuteranopia (Green)</translation>
+        <translation type="obsolete">Deuteranopia (Green)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation>Tritanopia (Blue)</translation>
+        <translation type="obsolete">Tritanopia (Blue)</translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation>Färgen %1 finns redan!</translation>
+        <translation type="obsolete">Färgen %1 finns redan!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation>Färgen %1 tillagd.</translation>
+        <translation type="obsolete">Färgen %1 tillagd.</translation>
     </message>
 </context>
 <context>
@@ -6330,6 +6559,14 @@ please choose another one.</source>
         <source>Exclusion</source>
         <translation type="unfinished">Uteslutning</translation>
     </message>
+    <message>
+        <source>X-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Scale:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>CsvDialog</name>
@@ -6532,71 +6769,71 @@ Du kan ange dokumentmapp i Inställningar.</translation>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation>Ange färgkomponenter</translation>
+        <translation type="obsolete">Ange färgkomponenter</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation>CMGS</translation>
+        <translation type="obsolete">CMGS</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation>RGB</translation>
+        <translation type="obsolete">RGB</translation>
     </message>
     <message>
         <source>HSV</source>
-        <translation>HSV</translation>
+        <translation type="obsolete">HSV</translation>
     </message>
     <message>
         <source>H:</source>
-        <translation>H:</translation>
+        <translation type="obsolete">H:</translation>
     </message>
     <message>
         <source>S:</source>
-        <translation>S:</translation>
+        <translation type="obsolete">S:</translation>
     </message>
     <message>
         <source>V:</source>
-        <translation>V:</translation>
+        <translation type="obsolete">V:</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation>R:</translation>
+        <translation type="obsolete">R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation>G:</translation>
+        <translation type="obsolete">G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation>B:</translation>
+        <translation type="obsolete">B:</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation>C:</translation>
+        <translation type="obsolete">C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation>M:</translation>
+        <translation type="obsolete">M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation>Y:</translation>
+        <translation type="obsolete">Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation>S:</translation>
+        <translation type="obsolete">S:</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation>Ange &amp;RGB</translation>
+        <translation type="obsolete">Ange &amp;RGB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation>Ange C&amp;MGS</translation>
+        <translation type="obsolete">Ange C&amp;MGS</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation>Ange &amp;HSV</translation>
+        <translation type="obsolete">Ange &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -7445,6 +7682,10 @@ misslyckades!</translation>
     <message>
         <source>Converting of %1 images failed!</source>
         <translation>Konvertering av %1 bilder misslyckades!</translation>
+    </message>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9357,6 +9598,14 @@ och konverterar deras vektordata till Scribusobjekt.</translation>
     <name>InsertAFrame</name>
     <message>
         <source>Open</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11479,6 +11728,78 @@ Vänligen välj ett annat.</translation>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Transparency Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Group</source>
+        <translation type="unfinished">&amp;Gruppera</translation>
+    </message>
+    <message>
+        <source>Opacity:</source>
+        <translation type="unfinished">Täckning:</translation>
+    </message>
+    <message>
+        <source>Blend Mode:</source>
+        <translation type="unfinished">Blandningsläge:</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normal</translation>
+    </message>
+    <message>
+        <source>Darken</source>
+        <translation type="unfinished">Mörkare</translation>
+    </message>
+    <message>
+        <source>Lighten</source>
+        <translation type="unfinished">Ljusare</translation>
+    </message>
+    <message>
+        <source>Multiply</source>
+        <translation type="unfinished">Flerfaldiga</translation>
+    </message>
+    <message>
+        <source>Screen</source>
+        <translation type="unfinished">Raster</translation>
+    </message>
+    <message>
+        <source>Overlay</source>
+        <translation type="unfinished">Överlägg</translation>
+    </message>
+    <message>
+        <source>Hard Light</source>
+        <translation type="unfinished">Hårt ljus</translation>
+    </message>
+    <message>
+        <source>Soft Light</source>
+        <translation type="unfinished">Mjukt ljus</translation>
+    </message>
+    <message>
+        <source>Difference</source>
+        <translation type="unfinished">Skillnad</translation>
+    </message>
+    <message>
+        <source>Exclusion</source>
+        <translation type="unfinished">Uteslutning</translation>
+    </message>
+    <message>
+        <source>Color Dodge</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color Burn</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hue</source>
+        <translation type="unfinished">Färgton</translation>
+    </message>
+    <message>
+        <source>Color</source>
+        <translation type="unfinished">Färg</translation>
     </message>
 </context>
 <context>
@@ -15751,6 +16072,10 @@ Vill du föra över dem till den nya versionen av Scribus?</translation>
         <source>Python Scripts (*.py *.PY)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Line: %1 Column: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>QColorDialog</name>
@@ -18017,6 +18342,14 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+tracking %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>+baseline %1 </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20578,7 +20911,7 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>Document Colors</source>
-        <translation>Dokumentfärger</translation>
+        <translation type="obsolete">Dokumentfärger</translation>
     </message>
 </context>
 <context>
@@ -20668,6 +21001,20 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</source>
+        <translation type="unfinished">Antal kopior: %1
+Horisontell förskjutning: %2
+Vertikal förskjutning: %3</translation>
+    </message>
+    <message>
+        <source>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20897,11 +21244,11 @@ Välj något av följande:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Skapa&lt;/b&gt;
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation>Dokument (*.sla *.sla.gz *.scd *scd.gz);;Alla filer (*)</translation>
+        <translation type="obsolete">Dokument (*.sla *.sla.gz *.scd *scd.gz);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation>Dokument (*.sla *.scd);;Alla filer (*)</translation>
+        <translation type="obsolete">Dokument (*.sla *.scd);;Alla filer (*)</translation>
     </message>
     <message>
         <source>Save As</source>
@@ -21145,6 +21492,18 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Updating Pictures</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Documents (*.sla);;All Files (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -21551,6 +21910,10 @@ Vertikal förskjutning: %3</translation>
     </message>
     <message>
         <source>Lines: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Group%1</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22017,6 +22380,10 @@ drar du en mall till Sidvisaren nedan.</translation>
     <message>
         <source>Short Words</source>
         <translation>Korta ord</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22741,7 +23108,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -22812,7 +23179,7 @@ dokument från OpenOffice.org och aldrig mer fråga igen</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
