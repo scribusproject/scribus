@@ -206,7 +206,11 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	NodePaletteLayout->addWidget( editEditButton );
 
 	languageChange();
-	
+	connectSignals();	
+}
+
+void NodePalette::connectSignals()
+{
 	// signals and slots connections
 	connect(editEditButton, SIGNAL(clicked()), this, SLOT(EndEdit()));
 	connect(DeleteNode, SIGNAL(clicked()), this, SLOT(DelN()));
@@ -238,23 +242,64 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	connect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 }
 
+void NodePalette::disconnectSignals()
+{
+	// signals and slots disconnetions
+	disconnect(editEditButton, SIGNAL(clicked()), this, SLOT(EndEdit()));
+	disconnect(DeleteNode, SIGNAL(clicked()), this, SLOT(DelN()));
+	disconnect(AddNode, SIGNAL(clicked()), this, SLOT(AddN()));
+	disconnect(MoveNode, SIGNAL(clicked()), this, SLOT(MoveN()));
+	disconnect(AsymMove, SIGNAL(clicked()), this, SLOT(SetAsym()));
+	disconnect(SymMove, SIGNAL(clicked()), this, SLOT(SetSym()));
+	disconnect(ResNode, SIGNAL(clicked()), this, SLOT(ResetControl()));
+	disconnect(Res1Node, SIGNAL(clicked()), this, SLOT(Reset1Control()));
+	disconnect(BezierClose, SIGNAL(clicked()), this, SLOT(CloseBezier()));
+	disconnect(PolySplit, SIGNAL(clicked()), this, SLOT(SplitPoly()));
+	disconnect(MoveControl, SIGNAL(clicked()), this, SLOT(MoveK()));
+	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
+	disconnect(PolyMirrorH, SIGNAL(clicked()), this, SLOT(MirrorH()));
+	disconnect(PolyMirrorV, SIGNAL(clicked()), this, SLOT(MirrorV()));
+	disconnect(PolyShearR, SIGNAL(clicked()), this, SLOT(ShearR()));
+	disconnect(PolyShearL, SIGNAL(clicked()), this, SLOT(ShearL()));
+	disconnect(PolyShearU, SIGNAL(clicked()), this, SLOT(ShearU()));
+	disconnect(PolyShearD, SIGNAL(clicked()), this, SLOT(ShearD()));
+	disconnect(RotateCCW, SIGNAL(clicked()), this, SLOT(doRotCCW()));
+	disconnect(RotateCW, SIGNAL(clicked()), this, SLOT(doRotCW()));
+	disconnect(Shrink, SIGNAL(clicked()), this, SLOT(doShrink()));
+	disconnect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
+	disconnect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
+	disconnect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));	
+	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
+	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
+}
+
 void NodePalette::setDoc(ScribusDoc *dc, ScribusView *vi)
 {
 	doc = dc;
 	view = vi;
+
 	unitChange();
 	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	YSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
-	XSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
+	if (doc!=0)
+	{
+		YSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
+		XSpin->setSuffix(unitGetSuffixFromIndex(doc->unitIndex()));
+	}
 	AbsMode->setChecked(false);
 	EditCont->setChecked(false);
-	connect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	connect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
+	if (doc==0)
+		disconnectSignals();
+	else
+		connectSignals();
 }
 
 void NodePalette::SplitPoly()
 {
+	if (doc==0)
+		return;
 	MoveN();
 	doc->EditClipMode = 3;
 	PolySplit->setOn(true);
@@ -262,6 +307,8 @@ void NodePalette::SplitPoly()
 
 void NodePalette::IsOpen()
 {
+	if (doc==0)
+		return;
 	PolySplit->setOn(false);
 	BezierClose->setEnabled(true);
 	PolySplit->setEnabled(true);
@@ -270,6 +317,8 @@ void NodePalette::IsOpen()
 
 void NodePalette::PolyStatus(int typ, uint size)
 {
+	if (doc==0)
+		return;
 	bool setter;
 	switch (typ)
 	{
@@ -291,6 +340,8 @@ void NodePalette::PolyStatus(int typ, uint size)
 
 void NodePalette::CloseBezier()
 {
+	if (doc==0)
+		return;
 	MoveN();
 	view->Bezier2Poly();
 	BezierClose->setEnabled(false);
@@ -372,12 +423,14 @@ void NodePalette::MirrorV()
 
 void NodePalette::ResetControl()
 {
-	view->ResetControl();
+	if (doc != 0)
+		view->ResetControl();
 }
 
 void NodePalette::Reset1Control()
 {
-	view->Reset1Control();
+	if (doc != 0)
+		view->Reset1Control();
 }
 
 void NodePalette::ResetContour()
@@ -404,6 +457,8 @@ void NodePalette::ResetContour()
 
 void NodePalette::MovePoint()
 {
+	if (doc==0)
+		return;
 	if (doc->EditClipMode == 0)
 	{
 		FPoint np(XSpin->value()/doc->unitRatio(), YSpin->value()/doc->unitRatio());
@@ -418,16 +473,20 @@ void NodePalette::MovePoint()
 
 void NodePalette::SetSym()
 {
-	view->MoveSym = true;
+	if (doc != 0)
+		view->MoveSym = true;
 }
 
 void NodePalette::SetAsym()
 {
-	view->MoveSym = false;
+	if (doc != 0)
+		view->MoveSym = false;
 }
 
 void NodePalette::SetXY(double x, double y)
 {
+	if (doc==0)
+		return;
 	FPoint zp(0.0, 0.0);
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
 	disconnect(YSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -442,6 +501,8 @@ void NodePalette::SetXY(double x, double y)
 
 void NodePalette::ToggleAbsMode()
 {
+	if (doc==0)
+		return;
 	//FPoint zp = FPoint(view->SelItem.at(0)->xPos(), view->SelItem.at(0)->yPos());
 	FPoint zp(doc->m_Selection->itemAt(0)->xPos(), doc->m_Selection->itemAt(0)->yPos());
 	disconnect(XSpin, SIGNAL(valueChanged(int)), this, SLOT(MovePoint()));
@@ -489,6 +550,8 @@ void NodePalette::ToggleConMode()
 
 void NodePalette::HaveNode(bool have, bool mov)
 {
+	if (doc==0)
+		return;
 	bool setter = have ? true : false;
 	XSpin->setEnabled(setter);
 	YSpin->setEnabled(setter);
@@ -547,6 +610,8 @@ void NodePalette::HaveNode(bool have, bool mov)
 
 void NodePalette::MoveK()
 {
+	if (doc==0)
+		return;
 	doc->EditClipMode = 0;
 	view->EdPoints = false;
 	//PageItem *currItem = view->SelItem.at(0);
@@ -563,6 +628,8 @@ void NodePalette::MoveK()
 
 void NodePalette::MoveN()
 {
+	if (doc==0)
+		return;
 	doc->EditClipMode = 0;
 	view->EdPoints = true;
 	//PageItem *currItem = view->SelItem.at(0);
@@ -580,6 +647,8 @@ void NodePalette::MoveN()
 
 void NodePalette::AddN()
 {
+	if (doc==0)
+		return;
 	doc->EditClipMode = 1;
 	view->EdPoints = true;
 	SymMove->setEnabled(false);
@@ -590,6 +659,8 @@ void NodePalette::AddN()
 
 void NodePalette::DelN()
 {
+	if (doc==0)
+		return;
 	doc->EditClipMode = 2;
 	view->EdPoints = true;
 	SymMove->setEnabled(false);
@@ -688,4 +759,9 @@ void NodePalette::unitChange()
 	int decimals = unitGetDecimalsFromIndex(doc->unitIndex());
 	scaleDistance->setValues( minVal, maxVal, decimals, newScaleDistance );
 	//scaleDistance->setMinimumWidth(fontMetrics().width( scaleDistance->text() ));
+}
+
+ScribusDoc* NodePalette::currentDocument() const
+{
+	return doc;
 }
