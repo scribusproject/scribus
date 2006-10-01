@@ -93,7 +93,7 @@ const ScActionPlugin::AboutData* ShortWordsPlugin::getAboutData() const
 			"Christoph Schäfer <christoph-schaefer@gmx.de>, "
 			"intrigeri <intrigeri@boum.org>");
 	about->shortDescription = tr("Short Words");
-	about->description = tr("Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: " + QString::fromUtf8(SWConfig::getAvailableLanguages()));
+	about->description = tr("Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: ") + SWConfig::getAvailableLanguages();
 	// about->version
 	// about->releaseDate
 	// about->copyright

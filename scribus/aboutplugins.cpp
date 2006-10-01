@@ -75,8 +75,8 @@ void AboutPlugins::displayPlugin(int sel)
 		desc += QString("<p>%1</p>").arg(about->description);
 	html += QString("<h2>%1</h2>%2").arg( tr("Description:")).arg(desc);
 	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Author(s):")).arg(htmlize(about->authors));
-	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:")).arg(about->copyright);
-	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:")).arg(about->license);
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("Copyright:")).arg(htmlize(about->copyright));
+	html += QString("<h2>%1</h2><p>%2</p>").arg( tr("License:")).arg(htmlize(about->license));
 	html += "</html>";
 	infoBrowser->setText(html);
 	// Use the plugin to delete the about info, so we don't
