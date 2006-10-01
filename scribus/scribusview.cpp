@@ -273,6 +273,7 @@ void ScribusView::togglePreview()
 	m_ScMW->scrActions["viewShowBaseline"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowTextChain"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowTextControls"]->setEnabled(!viewAsPreview);
+//	Doc->updateAllItemQColors();
 	updateContents();
 }
 
@@ -325,31 +326,6 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		if (!Doc->masterPageMode())
 		{
 			uint docPagesCount=Doc->Pages->count();
-			if (viewAsPreview)
-			{
-#ifdef HAVE_CAIRO
-				painter->newPath();
-				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
-				{
-					double x = Doc->Pages->at(a)->xOffset() * Scale;
-					double y = Doc->Pages->at(a)->yOffset() * Scale;
-					double w = Doc->Pages->at(a)->width() * Scale;
-					double h = Doc->Pages->at(a)->height() * Scale;
-					QRect drawRect = QRect(qRound(x), qRound(y), qRound(w)+5,qRound(h)+5);
-					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
-					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
-					{
-						QRect clR = QRect(qRound(x), qRound(y), qRound(w),qRound(h)).intersect(QRect(clipx, clipy, clipw, cliph));
-						painter->moveTo( clR.x(), clR.y() );
-						painter->lineTo( clR.x()+clR.width(), clR.y() );
-						painter->lineTo( clR.x()+clR.width(), clR.y()+clR.height() );
-						painter->lineTo( clR.x(), clR.y()+clR.height() );
-						painter->closePath();
-					}
-				}
-				painter->setClipPath();
-#endif
-			}
 			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
 				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
@@ -370,8 +346,11 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #endif
 					painter->setFillMode(ScPainter::Solid);
 					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-					painter->setBrush(QColor(128,128,128));
-					painter->drawRect(x+5, y+5, w, h);
+					if (!viewAsPreview)
+					{
+						painter->setBrush(QColor(128,128,128));
+						painter->drawRect(x+5, y+5, w, h);
+					}
 					if (a == Doc->currentPageNumber())
 						painter->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
 					else
@@ -380,13 +359,11 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					painter->drawRect(x, y, w, h);
 					if ((Doc->guidesSettings.before) && (!viewAsPreview))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 					if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-						painter->endLayer();
+							painter->endLayer();
 #else
 					painter->endLayer();
-#endif
 #endif
 				}
 			}
@@ -404,11 +381,45 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			}
 			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
+			if (viewAsPreview)
+			{
+				FPointArray PoLine;
+				bool first = true;
+				for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
+				{
+					if (!first)
+						PoLine.setMarker();
+					first = false;
+					double x = Doc->Pages->at(a)->xOffset() * Scale;
+					double y = Doc->Pages->at(a)->yOffset() * Scale;
+					double w = Doc->Pages->at(a)->width() * Scale;
+					double h = Doc->Pages->at(a)->height() * Scale;
+					static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
+													1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
+													0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
+					for (int a = 0; a < 29; a += 4)
+					{
+						PoLine.addPoint(x + w * rect[a], y + h * rect[a+1]);
+						PoLine.addPoint(x + w * rect[a+2], y + h * rect[a+3]);
+					}
+				}
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
-			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-				painter->endLayer();
+				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+					painter->endLayer(&PoLine);
 #else
-			painter->endLayer();
+				painter->endLayer(&PoLine);
+#endif
+#endif
+			}
+			else
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
+			{
+				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
+					painter->endLayer();
+			}
+#else
+				painter->endLayer();
 #endif
 #endif
 			if ((!Doc->guidesSettings.before) && (!viewAsPreview))
