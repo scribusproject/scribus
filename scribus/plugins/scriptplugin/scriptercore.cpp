@@ -356,9 +356,11 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				ScCore->closeSplash();
 				QMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
-									tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
-									+ "<pre>" +errorMsg + "</pre>"
-									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker."));
+									"<qt><p>"
+									+tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
+									+ "</p><pre>" +errorMsg + "</pre><p>"
+									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.")
+									+ "</p></qt>");
 			}
 		} // end if result == NULL
 		// Because 'result' may be NULL, not a PyObject*, we must call PyXDECREF not Py_DECREF
