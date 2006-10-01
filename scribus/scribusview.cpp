@@ -411,10 +411,8 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #else
 				painter->endLayer(&PoLine);
 #endif
-#endif
 			}
 			else
-#ifdef HAVE_CAIRO
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 			{
 				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
