@@ -872,6 +872,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		OB->Pcolor = CommonStrings::None;
+	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
 	OB->Textflow=obj->attribute("TEXTFLOW").toInt();
 	OB->Textflow2 =obj->attribute("TEXTFLOW2", "0").toInt();
 	OB->UseContour = obj->attribute("TEXTFLOW3", "0").toInt();
