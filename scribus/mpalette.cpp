@@ -1553,7 +1553,7 @@ void Mpalette::SetCurItem(PageItem *i)
 
 void Mpalette::NewSel(int nr)
 {
-	if (!m_ScMW || m_ScMW->ScriptRunning)
+	if (!HaveDoc || !m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	int visID;
 	PageItem *i=0;

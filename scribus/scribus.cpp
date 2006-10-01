@@ -4070,13 +4070,9 @@ bool ScribusMainWindow::slotFileClose()
 
 bool ScribusMainWindow::DoFileClose()
 {
+	view->Deselect(false);
 	if (doc==storyEditor->currentDocument())
 		storyEditor->close();
-	if (doc->EditClip)
-	{
-		nodePalette->setDoc(0,0);
-		nodePalette->hide();
-	}
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
@@ -4117,6 +4113,11 @@ bool ScribusMainWindow::DoFileClose()
 	pagePalette->Rebuild();
 	propertiesPalette->Spal->setFormats(0);
 	propertiesPalette->SetLineFormats(0);
+	if (doc->EditClip)
+	{
+		ToggleFrameEdit();
+		nodePalette->setDoc(0,0);
+	}
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -5711,7 +5712,7 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setOn(false);
-	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
+// 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
 		doc->EditClip = false;
