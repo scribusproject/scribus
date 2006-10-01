@@ -9305,6 +9305,8 @@ void ScribusMainWindow::managePatterns()
 {
 	if (HaveDoc)
 	{
+		bool undoState = UndoManager::undoEnabled();
+		undoManager->setUndoEnabled(false);
 		PatternDialog *dia = new PatternDialog(this, &doc->docPatterns, doc, this);
 		if (dia->exec())
 		{
@@ -9316,7 +9318,7 @@ void ScribusMainWindow::managePatterns()
 			for (uint c=0; c<doc->DocItems.count(); ++c)
 			{
 				PageItem *ite = doc->DocItems.at(c);
-				if (!doc->docPatterns.contains(ite->pattern()))
+				if ((!doc->docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
 				{
 					ite->setPattern("");
 					ite->GrType = 0;
@@ -9325,7 +9327,7 @@ void ScribusMainWindow::managePatterns()
 			for (uint c=0; c<doc->MasterItems.count(); ++c)
 			{
 				PageItem *ite = doc->MasterItems.at(c);
-				if (!doc->docPatterns.contains(ite->pattern()))
+				if ((!doc->docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
 				{
 					ite->setPattern("");
 					ite->GrType = 0;
@@ -9334,7 +9336,7 @@ void ScribusMainWindow::managePatterns()
 			for (uint c=0; c<doc->FrameItems.count(); ++c)
 			{
 				PageItem *ite = doc->FrameItems.at(c);
-				if (!doc->docPatterns.contains(ite->pattern()))
+				if ((!doc->docPatterns.contains(ite->pattern())) && (ite->GrType == 8))
 				{
 					ite->setPattern("");
 					ite->GrType = 0;
@@ -9344,5 +9346,6 @@ void ScribusMainWindow::managePatterns()
 			view->DrawNew();
 		}
 		delete dia;
+		undoManager->setUndoEnabled(undoState);
 	}
 }
