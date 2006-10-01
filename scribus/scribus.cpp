@@ -3940,6 +3940,11 @@ bool ScribusMainWindow::DoFileClose()
 {
 	if (doc==storyEditor->currentDocument())
 		storyEditor->close();
+	if (doc->EditClip)
+	{
+		nodePalette->setDoc(0,0);
+		nodePalette->hide();
+	}
 	actionManager->disconnectNewDocActions();
 	actionManager->disconnectNewViewActions();
 	disconnect(view, SIGNAL(signalGuideInformation(int, double)), alignDistributePalette, SLOT(setGuide(int, double)));
@@ -3980,8 +3985,8 @@ bool ScribusMainWindow::DoFileClose()
 	pagePalette->Rebuild();
 	propertiesPalette->Spal->setFormats(0);
 	propertiesPalette->SetLineFormats(0);
-	if (doc->EditClip)
-		nodePalette->doc = 0;
+//	if (doc->EditClip)
+//		nodePalette->doc = 0;
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
