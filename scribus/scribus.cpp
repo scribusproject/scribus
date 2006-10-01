@@ -4006,11 +4006,11 @@ bool ScribusMainWindow::slotFileSaveAs()
 		fna += doc->DocName + ".sla";
 	}
 #ifdef HAVE_LIBZ
-	QString fileSpec=tr("Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)");
+	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
 	bool setter=true;
 	int optionFlags = fdCompressFile;
 #else
-	QString fileSpec=tr("Documents (*.sla *.scd);;All Files (*)");
+	QString fileSpec=tr("Documents (*.sla);;All Files (*)");
 	int optionFlags = fdNone;
 #endif
 	QString fn = CFileDialog( wdir, tr("Save As"), fileSpec, fna, optionFlags);
