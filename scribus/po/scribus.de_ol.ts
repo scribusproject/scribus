@@ -2724,7 +2724,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tango-Projekt-Icons:</translation>
     </message>
 </context>
 <context>
@@ -3752,7 +3752,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Spalten in Textrahmen anzeigen</translation>
     </message>
 </context>
 <context>
@@ -5157,7 +5157,7 @@ Bitte wählen Sie eine andere.</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Hauptbibliothek</translation>
     </message>
 </context>
 <context>
@@ -5538,11 +5538,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ermöglicht den Druck auf allen Druckplatten. Registrierungsfarben werden als Druckmarken wie Schneidemarken, Falzmarken usw. verwendet. Sie werden normalerweise nicht im Layout selbst eingesetzt.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Legt diese Farbe als Schmuckfarbe fest, die mit einer gesonderten Platte gedruckt wird. Schmuckfarben werden meist verwendet, wenn ein Farbe sehr genau wiedergegeben muß oder nicht aus CMYK-Farben gemischt werden kann. Metallic- oder Leuchtfarben sind gute Beispiele für Farben, die mit CMYK-Tinten nicht hergestellt werden können.</translation>
     </message>
 </context>
 <context>
@@ -5963,7 +5963,7 @@ zusammengestellt werden</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wenn das Farbmanagement aktiviert ist, zeigt das Warndreieck an, daß die Farbe außerhalb des Bereiches ist, der im gewählten Druckerprofil angegeben ist. Dies bedeutet, daß die Farbe möglicherweise nicht so gedruckt wird, wie sie am Bildschirm erscheint. Schmuckfarben sind durch einen roten Kreis gekennzeichnet. Registrierungsfarben zeigen ein Registrierungszeichen neben der Farbe. Weitere Informationen zum Thema Farbgamut finden Sie in der Online-Hilfe unter &quot;Farbmanagement&quot;.</translation>
     </message>
 </context>
 <context>
@@ -10681,15 +10681,15 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Text in tieferliegenden Rahmen umfließt das Objekt. Die Optionen weiter unten legen fest, wie dies aktiviert wird.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendet den umgebenden Rahmen, der immer rechteckig ist, anstatt des Rahmenumrisses für den Textumfluß.</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Verwendet eine auf dem ursprünglichen Rahmen basierende Linie für den Textumfluß.</translation>
     </message>
 </context>
 <context>
@@ -11584,11 +11584,11 @@ erzielen. Zudem reduziert UFR die Gefahr der Übersättigung.</translation>
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Antialiasing ermöglichen</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ermöglicht eine angenehmere Vorschau von Type-1-, TrueType- und OpenType-Schriften sowie EPS-, PDF- und Vektordateien in der Vorschau, allerdings um den Preis eines langsameren Bildaufbaus</translation>
     </message>
 </context>
 <context>
@@ -15290,16 +15290,16 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Isländisch</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 könnte beschädigt sein: fehlende Auflösungstags</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Diese Datei scheint kein PDB-Dokument zu sein. Bitte senden Sie eine Fehlermeldung, falls Sie sicher sind, daß es sich doch um ein solches handelt.</translation>
     </message>
 </context>
 <context>
@@ -16851,7 +16851,7 @@ diese zu finden und zu korrigieren</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler beim Öffnen der ICC-Profile. Das Farbmanagement ist nicht aktiviert.</translation>
     </message>
 </context>
 <context>
@@ -17420,7 +17420,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
+        <translation>Textkonsole öffnen</translation>
     </message>
 </context>
 <context>
@@ -18025,6 +18025,10 @@ umgewandelt werden</translation>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Ein spezielles Plug-In, um ein geschütztes Leerzeichen vor oder hinter Abkürzungen einzufügen.</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation>Plug-In, um geschützte Leerzeichen vor oder nach bestimmten Abkürzungen (z. B. Dr.) einzufügen. Verfügbar in den folgenden Sprachen:</translation>
     </message>
 </context>
 <context>
@@ -20807,15 +20811,15 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollpunkte zurücksetzen</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollpunkte zurücksetzen</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Bildeffekte ändern</translation>
     </message>
 </context>
 <context>
