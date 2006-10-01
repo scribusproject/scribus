@@ -1885,6 +1885,8 @@ void ScribusMainWindow::startUpDialog()
 
 bool ScribusMainWindow::slotFileNew()
 {
+	if (HaveDoc && doc->EditClip)
+		ToggleFrameEdit();
 	bool retVal = false;
 	NewDoc* dia = new NewDoc(this);
 	if (dia->exec())
@@ -2038,6 +2040,8 @@ void ScribusMainWindow::newActWin(QWidget *w)
 		ActWin = NULL;
 		return;
 	}
+	if (doc!=0 && doc->EditClip)
+		ToggleFrameEdit();
 	ActWin = (ScribusWin*)w;
 	if (ActWin->document()==NULL)
 		return;
@@ -5389,6 +5393,7 @@ void ScribusMainWindow::NoFrameEdit()
 {
 	disconnect(view, SIGNAL(HavePoint(bool, bool)), nodePalette, SLOT(HaveNode(bool, bool)));
 	actionManager->disconnectModeActions();
+	nodePalette->setDoc(0,0);
 	nodePalette->hide();
 	scrActions["toolsSelect"]->setEnabled(true);
 	scrActions["toolsSelect"]->setOn(true);
