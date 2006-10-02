@@ -340,6 +340,7 @@ void SVGPlug::convert(int flags)
 	else
 	{
 		m_Doc->changed();
+		m_Doc->reformPages();
 	}
 }
 

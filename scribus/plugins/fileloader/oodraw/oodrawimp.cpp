@@ -426,6 +426,7 @@ bool OODPlug::convert(int flags)
 	else
 	{
 		m_Doc->changed();
+		m_Doc->reformPages();
 	}
 	return true;
 }

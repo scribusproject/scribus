@@ -4887,8 +4887,12 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				oldItemY = currItem->yPos();
 				undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), uAction);
 				p.begin(viewport());
+				p.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
 				Transform(currItem, &p);
 				npf2 = FPoint(p.xFormDev(m->pos()));
+				p.end();
+				p.begin(viewport());
+				Transform(currItem, &p);
 				ClRe = -1;
 				for (a=0; a<Clip.size(); ++a)
 				{

@@ -303,6 +303,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 		else
 		{
 			m_Doc->changed();
+			m_Doc->reformPages();
 		}
 	}
 	else
@@ -440,7 +441,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	PageItem* ite;
 	QPtrStack<PageItem> groupStack;
 	QValueStack<int> gsStack;
-	QValueStack<int> gsStackMarks;
+	QValueStack<uint> gsStackMarks;
 	QFile f(fn);
 	lasttoken = "";
 	pagecount = 1;
