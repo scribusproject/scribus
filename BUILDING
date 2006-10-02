@@ -12,7 +12,7 @@ Requirements:
 	Freetype >= 2.1.3 (2.1.9+ recommended)
 	libart >= 2.3.8+ (2.3.17+ recommended)
 	libtiff >= 3.6.0
-	LittleCMS (liblcms) = 1.12 (1.14+ recommended)
+	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
 
 Recommended:
 	CUPS
@@ -22,6 +22,7 @@ Recommended:
 	Python >= 2.3
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
+	pkgconfig (to assist finding other libraries)
 
 If any recommended libraries (and their dev/devel packages or headers) are not
 installed, some features will be disabled by configure. If you later install
