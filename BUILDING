@@ -11,12 +11,12 @@ Requirements:
 	Qt >= 3.3 (3.3.3 recommended)
 	Freetype >= 2.1.3 (2.1.9+ recommended)
 	libart >= 2.3.8+ (2.3.17+ recommended)
+	libtiff >= 3.6.0
+	LittleCMS (liblcms) = 1.12 (1.14+ recommended)
 
 Recommended:
 	CUPS
-	libtiff >= 3.6.0
 	Fontconfig >= 2.0
-	LittleCMS = 1.12 (1.14+ recommended)
 	LibXML2 >= 2.6.0
 	GhostScript >= 8.0 (8.15 or greater preferred)
 	Python >= 2.3
