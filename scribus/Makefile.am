@@ -46,6 +46,7 @@ scribus_SOURCES = \
 	cmsettings.cpp \
 	cmykfw.cpp	\
 	collect4output.cpp \
+	colorblind.cpp	\
 	colorchart.cpp	\
 	colorm.cpp	\
 	colorsetmanager.cpp	\
@@ -330,6 +331,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/cmykfw.h                      $(prefix)/include/scribus/cmykfw.h
 	$(INSTALL_DATA) $(srcdir)/collect4output.h              $(prefix)/include/scribus/collect4output.h
 	$(INSTALL_DATA) $(srcdir)/color.h                       $(prefix)/include/scribus/color.h
+	$(INSTALL_DATA) $(srcdir)/colorblind.h                  $(prefix)/include/scribus/colorblind.h
 	$(INSTALL_DATA) $(srcdir)/colorchart.h                  $(prefix)/include/scribus/colorchart.h
 	$(INSTALL_DATA) $(srcdir)/colorcombo.h                  $(prefix)/include/scribus/colorcombo.h
 	$(INSTALL_DATA) $(srcdir)/colorm.h                      $(prefix)/include/scribus/colorm.h
@@ -527,6 +529,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/cmykfw.h
 	-rm -f $(prefix)/include/scribus/collect4output.h
 	-rm -f $(prefix)/include/scribus/color.h
+	-rm -f $(prefix)/include/scribus/colorblind.h
 	-rm -f $(prefix)/include/scribus/colorchart.h
 	-rm -f $(prefix)/include/scribus/colorcombo.h
 	-rm -f $(prefix)/include/scribus/colorm.h
