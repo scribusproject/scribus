@@ -131,18 +131,19 @@ bool SVGImportPlugin::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */)
+bool SVGImportPlugin::loadFile(const QString & fileName, const FileFormat & /* fmt */, int flags, int /*index*/)
 {
 	// For now, "load file" and import are the same thing for this plugin
-	return import(fileName);
+	return import(fileName, flags);
 }
 
-bool SVGImportPlugin::import(QString filename)
+bool SVGImportPlugin::import(QString filename, int flags)
 {
-	bool interactive = false;
+	if (!checkFlags(flags))
+		return false;
 	if (filename.isEmpty())
 	{
-		interactive = true;
+		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("SVGPlugin");
 		QString wdir = prefs->get("wdir", ".");
 #ifdef HAVE_LIBZ
@@ -164,7 +165,7 @@ bool SVGImportPlugin::import(QString filename)
 	}
 	else if (UndoManager::undoEnabled() && !ScMW->HaveDoc)
 		UndoManager::instance()->setUndoEnabled(false);
-	SVGPlug *dia = new SVGPlug(filename, interactive);
+	SVGPlug *dia = new SVGPlug(filename, flags);
 	Q_CHECK_PTR(dia);
 	if (UndoManager::undoEnabled())
 		UndoManager::instance()->commit();
@@ -180,11 +181,11 @@ bool SVGImportPlugin::import(QString filename)
 	return true;
 }
 
-SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
+SVGPlug::SVGPlug( QString fName, int flags ) :
 	QObject(ScMW)
 {
 	unsupported = false;
-	interactive = isInteractive;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f = "";
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
@@ -213,11 +214,11 @@ SVGPlug::SVGPlug( QString fName, bool isInteractive ) :
 	QString CurDirP = QDir::currentDirPath();
 	QFileInfo efp(fName);
 	QDir::setCurrent(efp.dirPath());
-	convert();
+	convert(flags);
 	QDir::setCurrent(CurDirP);
 }
 
-void SVGPlug::convert()
+void SVGPlug::convert(int flags)
 {
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
@@ -226,7 +227,7 @@ void SVGPlug::convert()
 	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 	Conversion = 0.8;
-	if (!interactive)
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		ScMW->doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
 		ScMW->doc->addPage(0);
@@ -234,7 +235,7 @@ void SVGPlug::convert()
 	}
 	else
 	{
-		if (!ScMW->HaveDoc)
+		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
 			ScMW->doFileNew(width, height, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ScMW->HaveNewDoc();
@@ -322,7 +323,7 @@ void SVGPlug::convert()
 		currDoc->maxCanvasCoordinate = maxSize;
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		if (!dr->drag())
-			qDebug("svgimport: could start drag operation!");
+			qDebug("%s", QString("SVGImport: Could not start drag operation!").ascii());
 		delete ss;
 		currDoc->DragP = false;
 		currDoc->DraggedElem = 0;
@@ -363,6 +364,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		int z = -1;
 		QDomElement b = n.toElement();
 		if( b.isNull() )
+			continue;
+		SvgStyle svgStyle;
+		parseStyle( &svgStyle, b );
+		if (!svgStyle.Display) 
 			continue;
 		QString STag = b.tagName();
 		if( STag == "g" )
@@ -570,7 +575,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
-			qDebug(QString("unsupported SVG feature: %1").arg(STag));
+			qDebug("%s", QString("Unsupported SVG Feature: %1").arg(STag).ascii());
 			// warn if unsupported SVG feature
 			unsupported = true;
 			continue;
@@ -621,8 +626,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			}
 			if( !b.attribute("id").isEmpty() )
 				ite->setItemName(" "+b.attribute("id"));
-			ite->setFillTransparency(gc->Transparency);
-			ite->setLineTransparency(gc->TranspStroke);
+			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			ite->setTextFlowsAroundFrame(false);
@@ -659,7 +664,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 				else
 				{
 					QWMatrix mm = gc->matrix;
-					mm = mm * gc->matrixg;
+					mm = gc->matrixg * mm;
 					FPointArray gra;
 					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
 					gra.map(mm);
@@ -667,10 +672,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					gc->GY1 = gra.point(0).y();
 					gc->GX2 = gra.point(1).x();
 					gc->GY2 = gra.point(1).y();
-					ite->GrStartX = gc->GX1 - ite->xPos()+BaseX;
-					ite->GrStartY = gc->GY1 - ite->yPos()+BaseY;
-					ite->GrEndX = gc->GX2 - ite->xPos()+BaseX;
-					ite->GrEndY = gc->GY2 - ite->yPos()+BaseY;
+					ite->GrStartX = gc->GX1 - ite->xPos() + BaseX;
+					ite->GrStartY = gc->GY1 - ite->yPos() + BaseY;
+					ite->GrEndX = gc->GX2 - ite->xPos() + BaseX;
+					ite->GrEndY = gc->GY2 - ite->yPos() + BaseY;
 				}
 				ite->GrType = gc->Gradient;
 			}
@@ -1355,15 +1360,14 @@ QString SVGPlug::parseColor( const QString &s )
 
 void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &params )
 {
-	if( command == "stroke-opacity" )
-		obj->TranspStroke  = 1.0 - fromPercentage(params);
+	if( command == "display" )
+		obj->Display = (params == "none") ? false : true;
+	else if( command == "stroke-opacity" )
+		obj->StrokeOpacity  = fromPercentage(params);
 	else if( command == "fill-opacity" )
-		obj->Transparency = 1.0 - fromPercentage(params);
+		obj->FillOpacity = fromPercentage(params);
 	else if( command == "opacity" )
-	{
-		obj->Transparency = 1.0 - fromPercentage(params);
-		obj->TranspStroke = 1.0 - fromPercentage(params);
-	}
+		obj->Opacity = fromPercentage(params);
 	else if( command == "fill" )
 	{
 		if ((obj->InherCol) && (params == "currentColor"))
@@ -1540,6 +1544,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 	SvgStyle *gc = m_gc.current();
 	if (!gc)
 		return;
+	if( !e.attribute( "display" ).isEmpty() )
+		parsePA( obj, "display", e.attribute( "display" ) );
 	if( !e.attribute( "color" ).isEmpty() )
 	{
 		if (e.attribute( "color" ) == "inherit")
@@ -1627,6 +1633,8 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 		gradient->gradient.addStop( currDoc->PageColors[Col].getRGBColor(), offset, 0.5, opa, Col, 100 );
 		gradient->gradientValid = true;
 	}
+	if (gradient->gradientValid)
+		gradient->gradient.filterStops();
 }
 
 void SVGPlug::parseGradient( const QDomElement &e )
@@ -1665,22 +1673,22 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	{
 		if (e.hasAttribute("x1"))
 		{
-			gradhelper.X1 = e.attribute( "x1", "0").toDouble();
+			gradhelper.X1 = parseUnit(e.attribute( "x1", "0"));
 			gradhelper.x1Valid = true;
 		}
 		if (e.hasAttribute("y1"))
 		{
-			gradhelper.Y1 = e.attribute( "y1", "0" ).toDouble();
+			gradhelper.Y1 = parseUnit(e.attribute( "y1", "0" ));
 			gradhelper.y1Valid = true;
 		}
 		if (e.hasAttribute("x2"))
 		{
-			gradhelper.X2 = e.attribute( "x2", "1" ).toDouble();
+			gradhelper.X2 = parseUnit(e.attribute( "x2", "1" ));
 			gradhelper.x2Valid = true;
 		}
 		if (e.hasAttribute("y2"))
 		{
-			gradhelper.Y2 = e.attribute( "y2", "0" ).toDouble();
+			gradhelper.Y2 = parseUnit(e.attribute( "y2", "0" ));
 			gradhelper.y2Valid = true;
 		}
 		gradhelper.Type = 6;
@@ -1688,19 +1696,19 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	}
 	else
 	{
-		if (e.hasAttribute("x1"))
+		if (e.hasAttribute("cx"))
 		{
-			x1 = e.attribute( "cx", "0.5").toDouble();
+			x1 = parseUnit(e.attribute("cx", "0.5"));
 			gradhelper.x1Valid = true;
 		}
-		if (e.hasAttribute("y1"))
+		if (e.hasAttribute("cy"))
 		{
-			y1 = e.attribute( "cy", "0.5" ).toDouble();
+			y1 = parseUnit(e.attribute("cy", "0.5" ));
 			gradhelper.y1Valid = true;
 		}
-		if (e.hasAttribute("x2"))
+		if (e.hasAttribute("r"))
 		{
-			x2 = e.attribute( "r", "0.5" ).toDouble();
+			x2 = parseUnit(e.attribute("r", "0.5" ));
 			gradhelper.x2Valid = true;
 		}
 		y2 = y1;
@@ -1729,7 +1737,7 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	QString transf = e.attribute("gradientTransform");
 	if( !transf.isEmpty() )
 	{
-		gradhelper.matrix = parseTransform( e.attribute( "gradientTransform" ) );
+		gradhelper.matrix = parseTransform( e.attribute("gradientTransform") );
 		gradhelper.matrixValid = true;
 	}
 	else
@@ -1759,6 +1767,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	setupTransform(e);
 	int desc = p.fontMetrics().descent();
 	int asce = p.fontMetrics().ascent();
+	double BaseX = currDoc->currentPage->xOffset();
+	double BaseY = currDoc->currentPage->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
 	QDomNode c = e.firstChild();
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
@@ -1785,8 +1795,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 				double y1 = parseUnit( tspan.attribute( "y", "0" ) );
 				double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
 				double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
-				ite->setXPos(mx);
-				ite->setYPos(my);
+				ite->setXPos(mx + BaseX);
+				ite->setYPos(my + BaseY);
 			}
 			else
 			{
@@ -1869,8 +1879,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 			ite->moveBy(0.0, -asce * mm.m22());
 			if( !e.attribute("id").isEmpty() )
 				ite->setItemName(" "+e.attribute("id"));
-			ite->setFillTransparency(gc->Transparency);
-			ite->setLineTransparency(gc->TranspStroke);
+			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			ite->setTextFlowsAroundFrame(false);
@@ -1955,8 +1965,8 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 		currDoc->setRedrawBounding(ite);
 		if( !e.attribute("id").isEmpty() )
 			ite->setItemName(" "+e.attribute("id"));
-		ite->setFillTransparency(gc->Transparency);
-		ite->setLineTransparency(gc->TranspStroke);
+		ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+		ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
 		ite->PLineEnd = gc->PLineEnd;
 		ite->PLineJoin = gc->PLineJoin;
 		ite->setTextFlowsAroundFrame(false);

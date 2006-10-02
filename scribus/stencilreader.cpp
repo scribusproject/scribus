@@ -690,5 +690,5 @@ QString StencilReader::createObjects(QString datain)
 		}
 		DOC = DOC.nextSibling();
 	}
-	return data.toString().utf8();
+	return data.toString();
 }

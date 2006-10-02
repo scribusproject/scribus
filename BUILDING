@@ -11,17 +11,18 @@ Requirements:
 	Qt >= 3.3 (3.3.3 recommended)
 	Freetype >= 2.1.3 (2.1.9+ recommended)
 	libart >= 2.3.8+ (2.3.17+ recommended)
+	libtiff >= 3.6.0
+	LittleCMS (liblcms) = 1.12 (1.15+ recommended)
 
 Recommended:
 	CUPS
-	libtiff >= 3.6.0
 	Fontconfig >= 2.0
-	LittleCMS = 1.12 (1.14+ recommended)
 	LibXML2 >= 2.6.0
 	GhostScript >= 8.0 (8.15 or greater preferred)
 	Python >= 2.3
 	tkinter for the font sampler script
 	python-imaging for the font sampler preview
+	pkgconfig (to assist finding other libraries)
 
 If any recommended libraries (and their dev/devel packages or headers) are not
 installed, some features will be disabled by configure. If you later install
@@ -210,7 +211,7 @@ More info can be found in the README.
 Red Hat / Fedora
 ================
 
-Recommended packages for compiling from source on FC3 / FC4:
+Recommended packages for compiling from source on FC4 / FC5
 	libstdc++-devel (Required)
 	gcc-c++ (Required)
 	qt-devel (Required)

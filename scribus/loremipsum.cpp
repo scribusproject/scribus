@@ -92,8 +92,9 @@ QString LoremParser::createLorem(uint parCount)
 		return QString::null;
 	// first paragraph is always the same
 	QString lorem(loremIpsum[0]);
-	for (uint i = 1; i < parCount + 1; ++i)
-		lorem += loremIpsum[rand()%loremIpsum.count()] + '\n';
+	if (!loremIpsum.isEmpty())
+		for (uint i = 1; i < parCount + 1; ++i)
+			lorem += loremIpsum[rand()%loremIpsum.count()] + '\n';
 	return lorem.stripWhiteSpace();
 }
 
@@ -171,6 +172,7 @@ LoremManager::LoremManager(QWidget* parent, const char* name, bool modal, WFlags
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( okButton_clicked() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( cancelButton_clicked() ) );
+	connect( loremList, SIGNAL(doubleClicked(QListViewItem *, const QPoint &, int)), this, SLOT(okButton_clicked()));
 }
 
 void LoremManager::languageChange()
@@ -240,6 +242,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
 			delete ss;
 		}
+		delete lp;
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
 		if (currItem->document()->docHyphenator->AutoCheck)

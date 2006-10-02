@@ -6,14 +6,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimage.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include <qtextstream.h>
 #include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
+	#include "cmsutil.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
 extern bool BlackPoint;
@@ -81,6 +84,7 @@ void ScImage::initialize()
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
+	imgInfo.isEmbedded = false;
 	imgInfo.exifDataValid = false;
 	imgInfo.lowResType = 1;
 	imgInfo.lowResScale = 1.0;
@@ -2869,10 +2873,12 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		xres = gsRes;
 		yres = gsRes;
 		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile=\""+tmpFile + "\"");
+//		args.append("-sOutputFile=\""+tmpFile + "\"");
+		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append("\""+picFile+"\"");
+//		args.append("\""+picFile+"\"");
+		args.append(picFile);
 		retg = callGS(args);
 		if (retg == 0)
 		{
@@ -3346,7 +3352,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 		jpeg_stdio_src(&cinfo, infile);
 		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 		jpeg_read_header(&cinfo, true);
-		jpeg_start_decompress(&cinfo);
+		//jpeg_start_decompress(&cinfo);
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
 		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
@@ -3364,7 +3370,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 			cmsCloseProfile(tiffProf);
 			free(EmbedBuffer);
 		}
-		(void) jpeg_finish_decompress(&cinfo);
+		//(void) jpeg_finish_decompress(&cinfo);
 		fclose (infile);
 		jpeg_destroy_decompress (&cinfo);
 	}
@@ -3375,7 +3381,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 
 bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						  int rend, bool useEmbedded, bool useProf,
-						  int requestType, int gsRes, bool *realCMYK)
+						  int requestType, int gsRes, bool *realCMYK, 
+						  bool showMsg)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
@@ -3402,6 +3409,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	double x, y, b, h;
 	bool found = false;
 	int retg = -1;
+	QString message;
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
@@ -3587,6 +3595,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			imgInfo.exifInfo.artist = QString(artist);
 			imgInfo.exifInfo.thumbnail = QImage();
 			imgInfo.exifDataValid = true;
+
+			if( xres <= 1.0 || yres <= 1.0 )
+			{
+				xres = yres = 72.0;
+				QFileInfo qfi(fn);
+				message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+			}
 
 			if (!create(widtht,heightt,32))
 			{
@@ -3878,6 +3893,12 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				xres = cinfo.X_density * 2.54;
 				yres = cinfo.Y_density * 2.54;
 			}
+			if( xres <= 1.0 || yres <= 1.0 )
+			{
+				xres = yres = 72.0;
+				QFileInfo qfi(fn);
+				message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+			}
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
 			if (cinfo.output_components == 4)
@@ -3943,6 +3964,12 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			yres = cinfo.Y_density * 2.54;
 			setDotsPerMeterX( int(100. * cinfo.X_density) );
 			setDotsPerMeterY( int(100. * cinfo.Y_density) );
+		}
+		if( xres <= 1.0 || yres <= 1.0 )
+		{
+			xres = yres = 72.0;
+			QFileInfo qfi(fn);
+			message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
 		}
 		imgInfo.xres = qRound(xres);
 		imgInfo.yres = qRound(yres);
@@ -4131,15 +4158,19 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	if (CMSuse && useProf && inputProf)
 	{
 		DWORD inputProfFormat = TYPE_RGBA_8;
-		switch (static_cast<int>(cmsGetColorSpace(inputProf)))
-		{
-		case icSigRgbData:
+		DWORD prnProfFormat = TYPE_CMYK_8;
+		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
+		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = TYPE_RGBA_8;
-			break;
-		case icSigCmykData:
+		else if ( inputProfColorSpace == icSigCmykData )
 			inputProfFormat = TYPE_CMYK_8;
-			break;
-		}
+		else if ( inputProfColorSpace == icSigGrayData )
+			inputProfFormat = TYPE_GRAY_8;
+		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
+		if ( prnProfColorSpace == icSigRgbData )
+			prnProfFormat = TYPE_RGBA_8;
+		else if ( prnProfColorSpace == icSigCmykData )
+			prnProfFormat = TYPE_CMYK_8;
 		if (SoftProofing)
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -4152,24 +4183,26 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
 			break;
 		case 1: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
 			break;
 		case 2: // RGB Proof
 			{
 				if (inputProfFormat==TYPE_CMYK_8)
 					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-				else
+				else if(inputProfFormat == TYPE_RGBA_8)
 					inputProfFormat=TYPE_BGRA_8;
 				if (SoftProofing)
-					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-					                                   IntentPrinter, rend, cmsFlags);
+				{
+					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
+					                       CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
+					                       IntentPrinter, rend, cmsFlags);
+				}
 				else
-					xform = cmsCreateTransform(inputProf, inputProfFormat,
+					xform = scCmsCreateTransform(inputProf, inputProfFormat,
 					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
@@ -4182,7 +4215,32 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				cmsDoTransform(xform, ptr, ptr, width());
+				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != 0) )
+				{
+					unsigned char* ucs = ptr + 1;
+					unsigned char* uc = new unsigned char[width()];
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						uc[uci] = *ucs;
+						ucs += 4;
+					}
+					cmsDoTransform(xform, uc, ptr, width());
+					delete[] uc;
+				}
+				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == 0) )
+				{
+					unsigned char  value;
+					unsigned char* ucs = ptr;
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						value = 255 - *(ucs + 1);
+						ucs[0] = ucs[1] = ucs[2] = 0;
+						ucs[3] = value;
+						ucs += 4;
+					}
+				}
+				else
+					cmsDoTransform(xform, ptr, ptr, width());
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
 				if (isCMYK && reqType != 0 && !bilevel)
@@ -4201,7 +4259,6 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	else
 #endif // HAVE_CMS
-
 	{
 		switch (reqType)
 		{
@@ -4252,5 +4309,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
 	imgInfo.xres = QMAX(72, qRound(xres));
 	imgInfo.yres = QMAX(72, qRound(yres)); */
+	if	(ScQApp->usingGUI() && !message.isEmpty() && showMsg)
+	{
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, message, 1, 0, 0);
+	}
+	else if (!message.isEmpty())
+		qWarning( message.local8Bit().data() );
 	return true;
 }

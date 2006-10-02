@@ -1192,7 +1192,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							else if (ite->asImageFrame())
 							{
 								PS_save();
-								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
+								// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
+								ProcessItem(Doc, Doc->Pages->at(a), ite, a, sep, farb, Ic, gcr, false, false, true);
+								/*PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
 								if (ite->rotation() != 0)
 									PS_rotate(-ite->rotation());
 								if (ite->fillColor() != CommonStrings::None)
@@ -1226,9 +1228,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								{
 									PS_translate(0, -ite->BBoxH*ite->imageYScale());
 									if ((!sep) && (farb))
-										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
+										PS_image(ite, ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
 									else
-										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
+										PS_image(ite, ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
@@ -1259,7 +1261,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 											putColor(ml[it].Color, ml[it].Shade, false);
 										}
 									}
-								}
+								}*/
 								PS_restore();
 							}
 							else if (ite->asTextFrame())
@@ -1406,7 +1408,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		return 2; //CB Lets leave 1 for general error condition
 }
 
-void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded)
+void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded, bool useTemplate)
 {
 	int h, s, v, k, tsz;
 	uint d;
@@ -1475,7 +1477,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
 			{
 				PS_translate(0, -c->BBoxH*c->imageYScale());
-				if ((!a->PageNam.isEmpty()) && (!sep) && (farb))
+				if (((!a->PageNam.isEmpty()) && (!sep) && (farb)) || useTemplate)
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
@@ -1851,7 +1853,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							else
 								PutSeite(FillColor + " cmyk");
 							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
-							if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
+							if ((hl->cstyle & 4) && ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0)))
 							{
 								PS_save();
 								PS_setlinewidth(tsz * hl->coutline / 10000.0);
@@ -1884,7 +1886,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 					else
 						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
-					if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
+					if ((hl->cstyle & 4) && (hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
 					{
 						uint chr = chx[0].unicode();
 						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
@@ -2082,10 +2084,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(c->GrStartX, 0), c->width());
-			StartY = QMIN(QMAX(c->GrStartY, 0), c->height());
-			EndX = QMIN(QMAX(c->GrEndX, 0), c->width());
-			EndY = QMIN(QMAX(c->GrEndY, 0), c->height());
+			StartX = c->GrStartX;
+			StartY = c->GrStartY;
+			EndX = c->GrEndX;
+			EndY = c->GrEndY;
 			break;
 	}
 	QValueList<double> StopVec;
@@ -2108,12 +2110,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		StopVec.clear();
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
-			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
-			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-			double x = fabs(ma.m11() * w2 + ma.dx());
-			double y = fabs(ma.m12() * w2 + ma.dy());
+			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
 			StopVec.append(x);
 			StopVec.append(-y);
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);

@@ -87,7 +87,7 @@ bool OldScribusFormat::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OldScribusFormat::loadFile(const QString & /* fileName */, const FileFormat & /* fmt */)
+bool OldScribusFormat::loadFile(const QString & /* fileName */, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
 	return false;
 }

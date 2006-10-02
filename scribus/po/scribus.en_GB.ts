@@ -197,12 +197,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -235,12 +237,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </translation>
@@ -564,18 +568,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </translation>
     </message>
     <message>
@@ -2612,6 +2604,28 @@ Zoom the document in main GUI window. Actions have whole number
 values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2720,8 +2734,8 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation>March</translation>
+        <source>Tango Project Icons:</source>
+        <translation>Tango Project Icons:</translation>
     </message>
 </context>
 <context>
@@ -3682,6 +3696,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
         <source>C&amp;lear</source>
         <translation>C&amp;lear</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Show Text Frame Columns</translation>
     </message>
 </context>
 <context>
@@ -4817,6 +4835,22 @@ Please choose another.</translation>
         <source>Choose a Directory</source>
         <translation>Choose a Directory</translation>
     </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Scrapbook (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Choose a scrapbook file to import</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Import Scrapbook File...</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation>Main</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -5151,6 +5185,14 @@ It is a reserved name for transparent colour</translation>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Name of the colour is not unique</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation>Choosing this will enable printing this on all plates. Registration colours are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation>Choosing this will make this colour a spot colour, thus creating another spot when creating plates or separations. This is used most often when a logo or other colour needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</translation>
     </message>
 </context>
 <context>
@@ -5538,6 +5580,10 @@ It is a reserved name for transparent colour</translation>
         <source>New Color</source>
         <translation>New Colour</translation>
     </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>If colour management is enabled, a triangle warning indicator is a warning the the colour maybe outside of the colour gamut of the current printer profile selected. What this means is the colour many not be able to be printed exactly as displayed on screen. Spot colours are indicated by a red circle. Registration colours will have a registration mark next to the colour. More hints about gamut warnings are in the online help under Colour Management.</translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -5754,7 +5800,7 @@ It is a reserved name for transparent colour</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>Colors of your chosen colour scheme</translation>
+        <translation>Colours of your chosen colour scheme</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
@@ -8413,10 +8459,6 @@ converting their vector data into Scribus objects.</translation>
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <source>LineStyleWBase</source>
-        <translation>LineStyleWBase</translation>
-    </message>
-    <message>
         <source>%</source>
         <translation>%</translation>
     </message>
@@ -9249,10 +9291,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>Indicates the level the object is on, 0 means the object is at the bottom</translation>
     </message>
     <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation>Make text in lower frames flow around the object shape</translation>
-    </message>
-    <message>
         <source>Switches between Gap or Column width</source>
         <translation>Switches between Gap or Column width</translation>
     </message>
@@ -9419,14 +9457,6 @@ Corners:</translation>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Use a surrounding box instead of the frame&apos;s shape for text flow</translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Use a second line originally based on the frame&apos;s shape for text flow</translation>
-    </message>
-    <message>
         <source>Hyphenation language of frame</source>
         <translation>Hyphenation language of frame</translation>
     </message>
@@ -9479,14 +9509,6 @@ Corners:</translation>
         <translation>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text stroke. Only available with &quot;outline&quot; text decoration.</translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Colour of text fill. Only available with &quot;outline&quot; text decoration.</translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation>Fill Rule</translation>
     </message>
@@ -9501,6 +9523,26 @@ Corners:</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Click to select the line spacing mode</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Colour of selected text. If Outline text decoration is enabled, this colour will be the fill colour. If Drop Shadow Text is enabled, then this will be the top most colour.</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation>Make text in lower frames flow around the object. The options below define how this is enabled.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </translation>
     </message>
 </context>
 <context>
@@ -10090,14 +10132,6 @@ Corners:</translation>
         <translation>Enable/disable the K (Black) ink plate</translation>
     </message>
     <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>Anti-alias &amp;Text</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Anti-alias &amp;Graphics</translation>
-    </message>
-    <message>
         <source>Display Trans&amp;parency</source>
         <translation>Display Trans&amp;parency</translation>
     </message>
@@ -10154,14 +10188,6 @@ Corners:</translation>
         <translation>Print...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
@@ -10176,6 +10202,14 @@ Corners:</translation>
     <message>
         <source>File</source>
         <translation>File</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Enable &amp;Antialiasing</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
 </context>
 <context>
@@ -11179,8 +11213,8 @@ Corners:</translation>
         <translation>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Filesystem location for the Ghostscript interpreter.</translation>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</translation>
     </message>
 </context>
 <context>
@@ -12599,10 +12633,6 @@ External Links</translation>
         <translation>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (found using fontconfig) is broken, discarding it</translation>
-    </message>
-    <message>
         <source>Scribus Development Version</source>
         <translation>Scribus Development Version</translation>
     </message>
@@ -13237,17 +13267,38 @@ is not exhaustive due to exceptions from called functions.
         <translation>Could not open file %1</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation>This file is not recognised as a PDB document propably. Please, report this as a bug if you are sure it is one.</translation>
-    </message>
-    <message>
         <source>Luxembourgish</source>
         <translation>Luxembourgish</translation>
     </message>
     <message>
         <source>Japanese</source>
         <translation>Japanese</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Given master page name does not match any existing.</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>Arabic</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Estonian</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>Icelandic</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 may be corrupted : missing resolution tags</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>This file is not recognised as a PDB document. Please, report this as a bug if you are sure it is one.</translation>
     </message>
 </context>
 <context>
@@ -14023,6 +14074,10 @@ converting their vector data into Scribus objects.</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation>An error occurred while opening ICC profiles, colour management is not enabled.</translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14484,6 +14539,10 @@ Vertical shift: %3</translation>
         <source>Contents</source>
         <translation>Contents</translation>
     </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>Liga&amp;ture</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -14574,6 +14633,10 @@ Vertical shift: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Issues</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Display a console window</translation>
     </message>
 </context>
 <context>
@@ -15322,10 +15385,6 @@ Vertical shift: %3</translation>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation>Underline</translation>
-    </message>
-    <message>
         <source>Small Caps</source>
         <translation>Small Caps</translation>
     </message>
@@ -15338,25 +15397,28 @@ Vertical shift: %3</translation>
         <translation>Superscript</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Strike Out</translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation>All Caps</translation>
     </message>
     <message>
-        <source>Shadow</source>
-        <translation>Shadow</translation>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Underline Text. Hold down the button momentarily to set line width and displacement options.</translation>
     </message>
     <message>
-        <source>Underline Words Only</source>
-        <translation>Underline Words Only</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation>Outline</translation>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Strike Out. Hold down the button momentarily to set line width and displacement options.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Outline. Hold down the button momentarily to change the outline stroke width.</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</translation>
     </message>
 </context>
 <context>
@@ -15490,7 +15552,7 @@ Vertical shift: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -15561,7 +15623,7 @@ Vertical shift: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Inde&amp;x</translation>
+        <translation type="obsolete">Inde&amp;x</translation>
     </message>
 </context>
 <context>
@@ -16475,7 +16537,7 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</translation>
+        <translation>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want colour managed RGB for commercial printing and is selectable when you have activated colour management. Use only when advised by your printer or in some cases printing to a 4 colour digital colour laser printer.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
@@ -16483,7 +16545,7 @@ when PDF document is opened:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</translation>
+        <translation>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -17499,6 +17561,18 @@ X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation>Reset control point</translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation>Reset control points</translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation>Modify image effects</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -17697,7 +17771,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source></source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Remember association</source>

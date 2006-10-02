@@ -5,6 +5,7 @@ This folder contains some Example Scripts:
 Calender.py = Creates a Calendar of the current Month in the current Document as a Group
 ReadMe = this file
 Sample1.py = Very simple Example, creates a Docmument with some Objects, saves the Document and closes it.
+boilerplate.py = A template for your scripts
 golden-mean.py = Creates a non printable marks in the Golden Mean of the page.
 legende.py = Creates a legende for Image (filename)
 moins_10_pourcent_group.py = Decrease size of the object by 10%

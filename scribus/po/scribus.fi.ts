@@ -193,7 +193,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(size, margins, orientation, firstPageNumber,
+        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,
                         unit, pagesType, firstPageOrder) -&gt; bool
 
 Creates a new document and returns true if successful. The parameters have the
@@ -231,6 +231,49 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -452,7 +495,7 @@ Saattaa aiheuttaa ScribusError:n, jos tallennus epäonnistuu.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Asettaa asiakirjan tiedot. &quot;author&quot; (tekijä), &quot;info&quot; (tietoja) ja &quot;description&quot; (kuvaus) ovat stringejä.</translation>
     </message>
@@ -2533,6 +2576,24 @@ Delete the named master page.
 Delete the named master page.
 </translation>
     </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</translation>
+    </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2641,8 +2702,8 @@ Delete the named master page.
         <translation>Windows&amp;#174; -versio:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation>maaliskuu</translation>
+        <source>Tango Project Icons:</source>
+        <translation>Tango-projektin kuvakkeet:</translation>
     </message>
 </context>
 <context>
@@ -3603,6 +3664,10 @@ Delete the named master page.
     <message>
         <source>C&amp;lear</source>
         <translation>T&amp;yhjennä</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Näytä tekstikehyksen palstat</translation>
     </message>
 </context>
 <context>
@@ -4738,6 +4803,22 @@ Valitse toinen nimi.</translation>
         <source>Choose a Directory</source>
         <translation>Valitse hakemisto</translation>
     </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Leikekirja (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Valitse leikekirjatiedosto</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Tuo leikekirjatiedosto...</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -5072,6 +5153,14 @@ Sitä ei voi käyttää.</translation>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Värin nimi on jo olemassa</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5458,6 +5547,10 @@ Sitä ei voi käyttää.</translation>
     <message>
         <source>New Color</source>
         <translation>Uusi väri</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8351,10 +8444,6 @@ vektoridatan Scribus-objekteiksi.</translation>
         <source>%</source>
         <translation>%</translation>
     </message>
-    <message>
-        <source>LineStyleWBase</source>
-        <translation>LineStyleWBase</translation>
-    </message>
 </context>
 <context>
     <name>LineStyleWidget</name>
@@ -9185,7 +9274,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Pakota alempien kehysten teksti kiertämään kohteen muoto</translation>
+        <translation type="obsolete">Pakota alempien kehysten teksti kiertämään kohteen muoto</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -9354,11 +9443,11 @@ Corners:</source>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Käytä ympäröivää kehystä kohteen muodon sijaan tekstin kierron rajana</translation>
+        <translation type="obsolete">Käytä ympäröivää kehystä kohteen muodon sijaan tekstin kierron rajana</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Käytä vapaasti muokattavaa reunusta tekstin kierron rajana</translation>
+        <translation type="obsolete">Käytä vapaasti muokattavaa reunusta tekstin kierron rajana</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -9409,14 +9498,6 @@ Corners:</source>
         <translation>Nimi %1 on jo käytössä.&lt;br/&gt;Ole hyvä ja valitse toinen.</translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Tekstin ääriviivan väri. Käytettävissä tekstille ääriviivaefektin kanssa.</translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Tekstin täytön väri. Käytettävissä tekstille ääriviivaefektin kanssa.</translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation>Täyttösääntö</translation>
     </message>
@@ -9431,6 +9512,26 @@ Corners:</source>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Paina valitaksesi rivivälin tyypin</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Tekstin ääriviivojen tai varjon väri. Jos molemmat ovat valittuna, ne jakavat saman värin.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Valitun tekstin väri. Jos tekstille on valittu ääriviivat tämä väri on täyttöväri. Jos käytössä on teksti varjolla, tämä on tekstin väri.</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10020,14 +10121,6 @@ Corners:</source>
         <translation>Näytä/Älä näytä K (musta) muste</translation>
     </message>
     <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation>&amp;Reunanpehmennys tekstiin</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation>Reunanpehmennys &amp;grafiikkaan</translation>
-    </message>
-    <message>
         <source>Display Trans&amp;parency</source>
         <translation>Näytä &amp;läpinäkyvyys</translation>
     </message>
@@ -10088,14 +10181,6 @@ Corners:</source>
         <translation>Tulosta...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Parantaa tekstikohteitten ulkonäkö esikatselun nopeuden kustannuksella. Koskee ainoastaan Type 1 -kirjaintyyppejä</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Parantaa True Type sekä Open Type kirjaintyyppien että EPS, PDF ja vektorigrafiikan esitystä nopeuden kustannuksella.</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>Tapa vaihtaa C, Y ja M värien tekemä harmaa mustalla tehdyksi. 
 UCR vaikuttaa kuvien kohdissa, jotka ovat neutraaleja tai lähellä harmaata 
@@ -10111,6 +10196,14 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
         <source>File</source>
         <translation>Tiedosto</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Käytä reun&amp;anpehmennystä</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Parantaa Type 1, TrueType- ja OpenType-fonttien sekä vektorigrafiikan ulkonäköä esikatselussa. Saattaa hidastaa prosessia hieman.</translation>
     </message>
 </context>
 <context>
@@ -11114,8 +11207,8 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
         <translation>Oletushakemisto ICC-profiileille. Tätä ei voi muuttaa asiakirjan ollessa avoinna. Oletuksena Scribus hakee profiileja järjestelmähakemistoista Windowsissa ja Mac OSX:ssä. Linuxissa ja Unixeissa profiileja etsitään hakemistoista $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc </translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Ghostscript-tulkin sijainti tiedostojärjestelmässä</translation>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Lisää Ghostscript-tulkin sijainti. Windowsissa käytä ohjelmaa nimeltä gswin32c.exe (ei gswin32.exe).</translation>
     </message>
 </context>
 <context>
@@ -11229,17 +11322,6 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
         <source>None</source>
         <comment>layout type</comment>
         <translation>Ei mitään</translation>
-    </message>
-</context>
-<context>
-    <name>PropertiesToolBar</name>
-    <message>
-        <source>Properties</source>
-        <translation>Ominaisuudet</translation>
-    </message>
-    <message>
-        <source>X, Y, Z</source>
-        <translation>X, Y, Z</translation>
     </message>
 </context>
 <context>
@@ -12611,10 +12693,6 @@ External Links
         <translation>Ladataan kirjaintyyppiä %1 (löydettiin fontconfigilla)</translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Kirjaintyyppi %1 (löydettiin fontconfigilla) on viallinen. Sitä ei käytetä</translation>
-    </message>
-    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation>Kirjaintyypin lataus epäonnistui. Freetype2 ei löytänyt tiedostoa</translation>
     </message>
@@ -13181,17 +13259,38 @@ is not exhaustive due to exceptions from called functions.
         <translation>Tiedostoa %1 ei voitu avata</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation>Tiedosto ei ole PDB-asiakirja. Jos tiedät tiedoston olevan PDB-asiakirja, lähetä bugiraportti.</translation>
-    </message>
-    <message>
         <source>Luxembourgish</source>
         <translation>Luxemburg</translation>
     </message>
     <message>
         <source>Japanese</source>
         <translation>Japani</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Annetulla mallisivun nimellä ei löydy mallisivua.</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>arabia</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>viro</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>islanti</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 saattaa olla virheellinen. Tarkkuustiedot puuttuvat.</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>Tiedostoa ei tunnistettu PDB-asiakirjaksi. Jos tiedät sen olevan sellainen, kirjoita virheraportti.</translation>
     </message>
 </context>
 <context>
@@ -13966,6 +14065,14 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Poisto-operaatio peruutetaan.</translation>
     </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="obsolete">Virhe icc-profiileja avattaessa. Värien hallintaa ei käytetä.</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -14428,6 +14535,10 @@ pystysuora siirtyminen: %3</translation>
         <source>Contents</source>
         <translation>Sisältö</translation>
     </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>Liga&amp;tuurit</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -14518,6 +14629,10 @@ pystysuora siirtyminen: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Bugit ja kehitysideat</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Näytä konsoli-ikkuna</translation>
     </message>
 </context>
 <context>
@@ -15266,10 +15381,6 @@ pystysuora siirtyminen: %3</translation>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation>Alleviivattu</translation>
-    </message>
-    <message>
         <source>Small Caps</source>
         <translation>Kapiteelit</translation>
     </message>
@@ -15282,25 +15393,30 @@ pystysuora siirtyminen: %3</translation>
         <translation>Yläindeksi</translation>
     </message>
     <message>
-        <source>Strike Out</source>
-        <translation>Yliviivattu</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation>Alleviivaa ainoastaan sanat</translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation>Kaikki versaalina</translation>
     </message>
     <message>
-        <source>Shadow</source>
-        <translation>Varjo</translation>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Alleviivaa tekstiä. Pidä näppäin alhaalla asettaaksesi viivan leveyden ja sijainnin.</translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation>Ääriviivat</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Alleviivaa ainoastaan sanoja. Pidä näppäin alhaalla asettaaksesi viivan leveyden ja sijainnin.</translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Yliviivaus. Pidä näppäin alhaalla asettaaksesi viivan leveyden ja sijainnin.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Ääriviivat. Pidä näppäin alhaalla asettaaksesi viivan leveyden</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Teksti varjolla. Pidä näppäin alhaalla asettaaksesi varjon sijainnin.
+
+</translation>
     </message>
 </context>
 <context>
@@ -15434,7 +15550,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <translation type="obsolete">&amp;Hakemisto</translation>
     </message>
 </context>
 <context>
@@ -15505,7 +15621,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Hakemisto</translation>
+        <translation type="obsolete">&amp;Hakemisto</translation>
     </message>
 </context>
 <context>
@@ -17445,6 +17561,18 @@ X2: %4, Y2: %5</translation>
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

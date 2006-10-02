@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 01:02+0100\n"
+"POT-Creation-Date: 2006-09-30 20:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -509,10 +509,10 @@ msgstr ""
 msgid "Font %1 cannot be read, no embedding"
 msgstr ""
 
-msgid "Font %1 is broken, discarding it"
+msgid "Creating Font Cache"
 msgstr ""
 
-msgid "Creating Font Cache"
+msgid "Font %1 is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load font %1 - font type unknown"
@@ -531,9 +531,6 @@ msgid "Font %1(%2) is duplicate of %3"
 msgstr ""
 
 msgid "Loading font %1 (found using fontconfig)"
-msgstr ""
-
-msgid "Font %1 (found using fontconfig) is broken, discarding it"
 msgstr ""
 
 msgid "Failed to load a font - freetype2 couldn't find the font file"
@@ -615,6 +612,11 @@ msgid "Document"
 msgstr ""
 
 msgid "Background"
+msgstr ""
+
+msgid ""
+"An error occurred while opening ICC profiles, color management is not "
+"enabled."
 msgstr ""
 
 msgid "New Layer"
@@ -843,9 +845,6 @@ msgid "Destination Frame:"
 msgstr ""
 
 msgid "Table Of Contents"
-msgstr ""
-
-msgid "Inde&x"
 msgstr ""
 
 msgid "Printer Options"
@@ -1243,6 +1242,15 @@ msgstr ""
 msgid "Multiple duplicate"
 msgstr ""
 
+msgid "Reset control point"
+msgstr ""
+
+msgid "Reset control points"
+msgstr ""
+
+msgid "Modify image effects"
+msgstr ""
+
 msgid "Move Pages"
 msgstr ""
 
@@ -1273,16 +1281,16 @@ msgstr ""
 msgid "Collecting..."
 msgstr ""
 
-msgid ""
-"Cannot collect the file: \n"
-"%1"
-msgstr ""
-
 msgid "Warning"
 msgstr ""
 
 msgid ""
 "Cannot collect all files for output for file:\n"
+"%1"
+msgstr ""
+
+msgid ""
+"Cannot collect the file: \n"
 "%1"
 msgstr ""
 
@@ -1368,6 +1376,9 @@ msgid "Le&vel"
 msgstr ""
 
 msgid "Conve&rt to"
+msgstr ""
+
+msgid "Contents"
 msgstr ""
 
 msgid "Linking Text Frames"
@@ -1761,12 +1772,6 @@ msgstr ""
 msgid "&Selection"
 msgstr ""
 
-msgid "&Lock Guides"
-msgstr ""
-
-msgid "&Apply to All Pages"
-msgstr ""
-
 msgid "&Close"
 msgstr ""
 
@@ -1774,6 +1779,12 @@ msgid "&Update"
 msgstr ""
 
 msgid "Preview"
+msgstr ""
+
+msgid "&Lock Guides"
+msgstr ""
+
+msgid "&Apply to All Pages"
 msgstr ""
 
 msgid ""
@@ -2118,7 +2129,10 @@ msgid ""
 "so Scribus will display your pages and objects on them at the correct size"
 msgstr ""
 
-msgid "Filesystem location for the Ghostscript interpreter"
+msgid ""
+"Add the path for the Ghostscript interpreter. On Windows, please note it is "
+"important to note you need to use the program named gswin32c.exe - NOT "
+"gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus."
 msgstr ""
 
 msgid "Antialias text for EPS and PDF onscreen rendering"
@@ -2466,10 +2480,7 @@ msgstr ""
 msgid "Print Preview"
 msgstr ""
 
-msgid "Anti-alias &Text"
-msgstr ""
-
-msgid "Anti-alias &Graphics"
+msgid "Enable &Antialiasing"
 msgstr ""
 
 msgid "Display Trans&parency"
@@ -2518,14 +2529,9 @@ msgid "Print..."
 msgstr ""
 
 msgid ""
-"Provides a more pleasant view of text items in the viewer, at the expense of "
-"a slight slowdown in previewing. This only affects Type 1 fonts"
-msgstr ""
-
-msgid ""
-"Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF "
-"and vector graphics in the preview, at the expense of a slight slowdown in "
-"previewing"
+"Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType "
+"Fonts, EPS, PDF and vector graphics in the preview, at the expense of a "
+"slight slowdown in previewing"
 msgstr ""
 
 msgid ""
@@ -2670,6 +2676,9 @@ msgid "Don't use any Path"
 msgstr ""
 
 msgid "Scribus: About Plug-ins"
+msgstr ""
+
+msgid "%1 may be corrupted : missing resolution tags"
 msgstr ""
 
 msgid "Align Text Left"
@@ -2825,11 +2834,9 @@ msgstr ""
 msgid "&Unlock All"
 msgstr ""
 
-#, c-format
 msgid "Y: %1%2"
 msgstr ""
 
-#, c-format
 msgid "X: %1%2"
 msgstr ""
 
@@ -3198,7 +3205,7 @@ msgstr ""
 
 msgid ""
 "Length of time the page is shown before the presentation starts on the "
-"selected page."
+"selected page. Setting 0 will disable automatic page transition."
 msgstr ""
 
 msgid ""
@@ -4006,16 +4013,10 @@ msgstr ""
 msgid "&Copy"
 msgstr ""
 
-msgid "Copy Contents"
+msgid "Paste (&Absolute)"
 msgstr ""
 
-msgid "Paste Contents"
-msgstr ""
-
-msgid "Paste Contents (Absolute)"
-msgstr ""
-
-msgid "C&lear Contents"
+msgid "C&lear"
 msgstr ""
 
 msgid "Select &All"
@@ -4283,6 +4284,9 @@ msgid "Show &Grid"
 msgstr ""
 
 msgid "Show G&uides"
+msgstr ""
+
+msgid "Show Text Frame Columns"
 msgstr ""
 
 msgid "Show &Baseline Grid"
@@ -4807,9 +4811,6 @@ msgstr ""
 msgid "&Insert"
 msgstr ""
 
-msgid "C&lear"
-msgstr ""
-
 msgid "Insert the characters at the cursor in the text"
 msgstr ""
 
@@ -4942,6 +4943,20 @@ msgstr ""
 msgid "K:"
 msgstr ""
 
+msgid ""
+"Choosing this will enable printing this on all plates. Registration colors "
+"are used for printer marks such as crop marks, registration marks and the "
+"like. These are not typically used in the layout itself."
+msgstr ""
+
+msgid ""
+"Choosing this will make this color a spot color, thus creating another spot "
+"when creating plates or separations. This is used most often when a logo or "
+"other color needs exact representation or cannot be replicated with CMYK "
+"inks. Metallic and fluorescent inks are good examples which cannot be easily "
+"replicated with CMYK inks."
+msgstr ""
+
 msgid "Dynamic Color Bars"
 msgstr ""
 
@@ -5013,6 +5028,16 @@ msgstr ""
 msgid "Make the current colorset the default color set"
 msgstr ""
 
+msgid ""
+"If color management is enabled, a triangle warning indicator is a warning "
+"the the color maybe outside of the color gamut of the current printer "
+"profile selected. What this means is the color many not be able to be "
+"printed exactly as displayed on screen. Spot colors are indicated by a red "
+"circle. Registration colors will have a registration mark next to the color. "
+"More hints about gamut warnings are in the online help under Color "
+"Management."
+msgstr ""
+
 msgid "Choose a Name"
 msgstr ""
 
@@ -5025,10 +5050,10 @@ msgstr ""
 msgid "New Color"
 msgstr ""
 
-msgid "Position:"
+msgid "Add, change or remove color stops here"
 msgstr ""
 
-msgid "Here you can add, change or remove Color-Stops."
+msgid "Position:"
 msgstr ""
 
 msgid "Scribus "
@@ -5319,6 +5344,9 @@ msgstr ""
 msgid "Space"
 msgstr ""
 
+msgid "Liga&ture"
+msgstr ""
+
 msgid "Do you really want to replace your existing image?"
 msgstr ""
 
@@ -5334,16 +5362,30 @@ msgstr ""
 msgid "Y-Offset"
 msgstr ""
 
-msgid "Underline Words Only"
+msgid ""
+"Underline Text. Hold down the button momentarily to set line width and "
+"displacement options."
+msgstr ""
+
+msgid ""
+"Underline Words Only. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
 msgid "All Caps"
 msgstr ""
 
-msgid "Strike Out"
+msgid ""
+"Strike Out. Hold down the button momentarily to set line width and "
+"displacement options."
 msgstr ""
 
-msgid "Shadow"
+msgid ""
+"Outline. Hold down the button momentarily to change the outline stroke width."
+msgstr ""
+
+msgid ""
+"Shadowed Text. Hold down the button momentarily to enable the offset spacing."
 msgstr ""
 
 msgid "Setup Printer"
@@ -5756,9 +5798,6 @@ msgstr ""
 msgid "About Scribus %1"
 msgstr ""
 
-msgid "March"
-msgstr ""
-
 msgid "%1 %2 %3"
 msgstr ""
 
@@ -5796,6 +5835,9 @@ msgid "Official Documentation:"
 msgstr ""
 
 msgid "Other Documentation:"
+msgstr ""
+
+msgid "Tango Project Icons:"
 msgstr ""
 
 msgid "A&uthors"
@@ -6145,13 +6187,19 @@ msgstr ""
 msgid "Enable or disable printing of the object"
 msgstr ""
 
-msgid "Make text in lower frames flow around the object shape"
+msgid ""
+"Make text in lower frames flow around the object. The options below define "
+"how this is enabled."
 msgstr ""
 
-msgid "Use a surrounding box instead of the frame's shape for text flow"
+msgid ""
+"Use the bounding box, which is always rectangular, instead of the frame's "
+"shape for text flow of text frames below the object. "
 msgstr ""
 
-msgid "Use a second line originally based on the frame's shape for text flow"
+msgid ""
+"Use a second line originally based on the frame's shape for text flow of "
+"text frames below the object. "
 msgstr ""
 
 msgid "Font of selected text or object"
@@ -6169,10 +6217,15 @@ msgstr ""
 msgid "Scaling height of characters"
 msgstr ""
 
-msgid "Color of text stroke. Only available with \"outline\" text decoration."
+msgid ""
+"Color of text stroke and/or drop shadow, depending which is chosen.If both "
+"are chosen, then they share the same color."
 msgstr ""
 
-msgid "Color of text fill. Only available with \"outline\" text decoration."
+msgid ""
+"Color of selected text. If Outline text decoration is enabled, this color "
+"will be the fill color. If Drop Shadow Text is enabled, then this will be "
+"the top most color."
 msgstr ""
 
 msgid "Saturation of color of text stroke"
@@ -6188,6 +6241,9 @@ msgid "Manual Tracking"
 msgstr ""
 
 msgid "Line Spacing"
+msgstr ""
+
+msgid "Click to select the line spacing mode"
 msgstr ""
 
 msgid "Style of current paragraph"
@@ -6313,6 +6369,9 @@ msgid "filename"
 msgstr ""
 
 msgid "Use filename as path for user given preferences"
+msgstr ""
+
+msgid "Display a console window"
 msgstr ""
 
 msgid "Installed interface languages for Scribus are as follows:"
@@ -6516,7 +6575,16 @@ msgstr ""
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
+msgid "Main"
+msgstr ""
+
 msgid "Choose a Scrapbook Directory"
+msgstr ""
+
+msgid "Scrapbook (*.scs)"
+msgstr ""
+
+msgid "Choose a scrapbook file to import"
 msgstr ""
 
 msgid ""
@@ -6537,6 +6605,9 @@ msgid "&Preview"
 msgstr ""
 
 msgid "&Load..."
+msgstr ""
+
+msgid "&Import Scrapbook File..."
 msgstr ""
 
 msgid "Polygon Properties"
@@ -6656,9 +6727,6 @@ msgid "&X-Pos"
 msgstr ""
 
 msgid "PDF-Documents (*.pdf);;All Files (*)"
-msgstr ""
-
-msgid "LineStyleWBase"
 msgstr ""
 
 msgid "%"
@@ -7190,9 +7258,6 @@ msgstr ""
 msgid "Processing Master Pages:"
 msgstr ""
 
-msgid "Contents"
-msgstr ""
-
 msgid "&Contents"
 msgstr ""
 
@@ -7359,6 +7424,9 @@ msgstr ""
 msgid "Esperanto"
 msgstr ""
 
+msgid "Estonian"
+msgstr ""
+
 msgid "German"
 msgstr ""
 
@@ -7380,7 +7448,13 @@ msgstr ""
 msgid "Indonesian"
 msgstr ""
 
+msgid "Icelandic"
+msgstr ""
+
 msgid "Italian"
+msgstr ""
+
+msgid "Japanese"
 msgstr ""
 
 msgid "Korean"
@@ -7982,8 +8056,8 @@ msgid "Could not open file %1"
 msgstr ""
 
 msgid ""
-"This file is not recognized as a PDB document propably. Please, report this "
-"as a bug if you are sure it is one."
+"This file is not recognized as a PDB document. Please, report this as a bug "
+"if you are sure it is one."
 msgstr ""
 
 msgid "OpenOffice.org Writer Documents"
@@ -8177,6 +8251,9 @@ msgid "Failed to save EPS."
 msgstr ""
 
 msgid "Page number out of range."
+msgstr ""
+
+msgid "Given master page name does not match any existing."
 msgstr ""
 
 msgid "argument is not list: must be list of float values."
@@ -8829,9 +8906,6 @@ msgstr ""
 msgid "Barcode Creator"
 msgstr ""
 
-msgid "Make check digit visible in text"
-msgstr ""
-
 msgid "Barcode"
 msgstr ""
 
@@ -8936,12 +9010,12 @@ msgstr ""
 msgid "Variable number of digits and any of the symbols -$:/.+ABCD."
 msgstr ""
 
+msgid "Variable number of digits"
+msgstr ""
+
 msgid ""
 "Variable number of digits. An ITF-14 is 14 characters and does not have a "
 "check digit"
-msgstr ""
-
-msgid "Variable number of digits"
 msgstr ""
 
 msgid "Variable number of digits and capital letters"
@@ -9002,16 +9076,22 @@ msgstr ""
 msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
 msgstr ""
 
+msgid "Importing PostScript"
+msgstr ""
+
+msgid "Analyzing PostScript:"
+msgstr ""
+
 msgid ""
 "Importing File:\n"
 "%1\n"
 "failed!"
 msgstr ""
 
-msgid ""
-"Converting Image:\n"
-"%1\n"
-"failed!"
+msgid "Generating Items"
+msgstr ""
+
+msgid "Converting of %1 images failed!"
 msgstr ""
 
 msgid "Scribus - My Plugin"

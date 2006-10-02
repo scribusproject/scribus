@@ -44,6 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "pageselector.h"
 #include "printerutil.h"
+#include "gsutil.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -71,12 +72,12 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	HaveTiffSep = postscriptPreview ? tiffSep : 1;
 	APage = -1;
 	CMode = false;
-	TxtAl = false;
-	GrAl = false;
+	GsAl = false;
 	Trans = false;
 	GMode = true;
 	scaleFactor = 1.0;
 	SMode = 1;
+	getNumericGSVersion(GsMajor, GsMinor);
 
 	setIcon(loadIcon("AppIcon.png"));
 	PLayout = new QVBoxLayout(this, 0, 0, "PLayout");
@@ -91,26 +92,22 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	Layout2 = new QVBoxLayout();
 	Layout2->setSpacing(0);
 	Layout2->setMargin(0);
-	AliasText = new QCheckBox(this, "TextAntiAlias");
-	AliasText->setText( tr("Anti-alias &Text"));
-	AliasText->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AlphaText : false);
-	AliasText->setEnabled( postscriptPreview );
-	Layout2->addWidget(AliasText);
-	AliasGr = new QCheckBox(this, "GraphicsAntiAlias");
-	AliasGr->setText( tr("Anti-alias &Graphics"));
-	AliasGr->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AlphaGraphics : false);
-	AliasGr->setEnabled( postscriptPreview );
-	Layout2->addWidget(AliasGr);
+	AntiAlias = new QCheckBox(this, "AntiAlias");
+	AntiAlias->setText( tr("Enable &Antialiasing"));
+	AntiAlias->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_AntiAliasing : false);
+	AntiAlias->setEnabled( postscriptPreview );
+	Layout2->addWidget(AntiAlias);
+	AliasTr = new QCheckBox(this, "DisplayTransparency");
+	AliasTr->setText( tr("Display Trans&parency"));
+	AliasTr->setChecked(prefsManager->appPrefs.PrPr_Transparency);
+	AliasTr->setEnabled( postscriptPreview );
+	Layout2->addWidget(AliasTr);
 	Layout1->addLayout(Layout2);
 
 	Layout3 = new QVBoxLayout();
 	Layout3->setSpacing(0);
 	Layout3->setMargin(0);
-	AliasTr = new QCheckBox(this, "DisplayTransparency");
-	AliasTr->setText( tr("Display Trans&parency"));
-	AliasTr->setChecked(prefsManager->appPrefs.PrPr_Transparency);
-	AliasTr->setEnabled( postscriptPreview );
-	Layout3->addWidget(AliasTr);
+	Layout3->setAlignment(Qt::AlignTop);
 	EnableGCR = new QCheckBox(this, "DisplayGCR");
 	EnableGCR->setText( tr("&Under Color Removal"));
 	EnableGCR->setChecked( postscriptPreview ? prefsManager->appPrefs.Gcr_Mode : false);
@@ -129,6 +126,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	EnableCMYK->setChecked( postscriptPreview ? prefsManager->appPrefs.PrPr_Mode : false);
 	EnableCMYK->setEnabled( postscriptPreview );
 	Layout4->addWidget(EnableCMYK);
+
 	if (HaveTiffSep != 0)
 	{
 		Layout5 = new QHBoxLayout();
@@ -273,15 +271,13 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 			Table->setEnabled(false);
 	}
 	// tooltips
-	QToolTip::add( AliasText, "<qt>" + tr( "Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts" ) + "</qt>" );
-	QToolTip::add( AliasGr, "<qt>" + tr( "Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
+	QToolTip::add( AntiAlias, "<qt>" + tr( "Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing" ) + "</qt>" );
 	QToolTip::add( AliasTr, "<qt>" + tr( "Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later" ) + "</qt>");
 	QToolTip::add( EnableCMYK, "<qt>" + tr( "Gives a print preview using simulations of generic CMYK inks, instead of RGB colors" ) + "</qt>");
 	QToolTip::add( EnableGCR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>" );
 	QToolTip::add(scaleBox, "<qt>" + tr("Resize the scale of the page.") + "</qt>");
 	//signals and slots
-	connect(AliasText, SIGNAL(clicked()), this, SLOT(ToggleTextAA()));
-	connect(AliasGr, SIGNAL(clicked()), this, SLOT(ToggleGr()));
+	connect(AntiAlias, SIGNAL(clicked()), this, SLOT(ToggleAA()));
 	connect(AliasTr, SIGNAL(clicked()), this, SLOT(ToggleTr()));
 	connect(EnableCMYK, SIGNAL(clicked()), this, SLOT(ToggleCMYK()));
 	connect(EnableGCR, SIGNAL(clicked()), this, SLOT(ToggleGCR()));
@@ -310,12 +306,7 @@ void PPreview::ToSeite(int num)
 	Anz->setPixmap(CreatePreview(n, qRound(72 * scaleFactor)));
 }
 
-void PPreview::ToggleTextAA()
-{
-	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
-}
-
-void PPreview::ToggleGr()
+void PPreview::ToggleAA()
 {
 	Anz->setPixmap(CreatePreview(APage, qRound(72 * scaleFactor)));
 }
@@ -449,18 +440,20 @@ int PPreview::RenderPreview(int Seite, int Res)
 		else
 			args.append( "-sDEVICE=pngalpha" );
 	}
-	if (AliasText->isChecked())
+	if (AntiAlias->isChecked())
+	{
 		args.append( "-dTextAlphaBits=4" );
-	if (AliasGr->isChecked())
 		args.append( "-dGraphicsAlphaBits=4" );
+	}
+		
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd1 = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+		cmd1 = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd1 += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+		cmd1 += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
 	if( !cmd1.isEmpty() )
 		args.append( cmd1 );
 	// then add any final args and call gs
@@ -511,18 +504,19 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	args1.append( "-dPARANOIDSAFER" );
 	args1.append( QString("-r%1").arg(tmp.setNum(qRound(Res))) );
 	args1.append( QString("-g%1x%2").arg(tmp2.setNum(qRound(b))).arg(tmp3.setNum(qRound(h))) ); 
-	if (AliasText->isChecked())
+	if (AntiAlias->isChecked())
+	{
 		args1.append("-dTextAlphaBits=4");
-	if (AliasGr->isChecked())
 		args1.append("-dGraphicsAlphaBits=4");
+	}
 	// Add any extra font paths being used by Scribus to gs's font search path
 	PrefsContext *pc = prefsManager->prefsFile->getContext("Fonts");
 	PrefsTable *extraFonts = pc->getTable("ExtraFontDirs");
 	const char sep = ScPaths::envPathSeparator;
 	if (extraFonts->getRowCount() >= 1)
-		cmd = QString("-sFONTPATH=%1").arg(extraFonts->get(0,0));
+		cmd = QString("-sFONTPATH=%1").arg(QDir::convertSeparators(extraFonts->get(0,0)));
 	for (int i = 1; i < extraFonts->getRowCount(); ++i)
-		cmd += QString("%1%2").arg(sep).arg(extraFonts->get(i,0));
+		cmd += QString("%1%2").arg(sep).arg(QDir::convertSeparators(extraFonts->get(i,0)));
 	if( !cmd.isEmpty() )
 		args1.append( cmd );
 	args1.append( QString("-sOutputFile=%1").arg(QDir::convertSeparators(prefsManager->preferencesLocation()+"/sc.tif")) );
@@ -633,7 +627,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	double h = doc->Pages->at(Seite)->height() * Res / 72.0;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
-	        || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
+	        || (AntiAlias->isChecked() != GsAl) || (EnableGCR->isChecked() != GMode)
 	        || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 	{
 		if (!EnableCMYK->isChecked() || (HaveTiffSep != 0))
@@ -656,7 +650,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		if (HaveTiffSep == 0)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
-	       	 || (AliasText->isChecked() != TxtAl) || (AliasGr->isChecked() != GrAl) || (EnableGCR->isChecked() != GMode)
+	       	 || (AntiAlias->isChecked() != GsAl) || (EnableGCR->isChecked() != GMode)
 	       	 || ((AliasTr->isChecked() != Trans) && (!EnableCMYK->isChecked())))
 			{
 				ret = RenderPreviewSep(Seite, Res);
@@ -678,17 +672,26 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			}
 			if (flagsVisible["Cyan"]->isChecked())
 			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", "", 0, false, false, 1, 72, &mode);
+				if (GsMinor < 54)
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Cyan.tif", "", 0, false, false, 1, 72, &mode);
+				else
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Cyan.tif", "", 0, false, false, 1, 72, &mode);
 				blendImages(image, im, ScColor(255, 0, 0, 0));
 			}
 			if (flagsVisible["Magenta"]->isChecked())
 			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", "", 0, false, false, 1, 72, &mode);
+				if (GsMinor < 54)
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Magenta.tif", "", 0, false, false, 1, 72, &mode);
+				else
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Magenta.tif", "", 0, false, false, 1, 72, &mode);
 				blendImages(image, im, ScColor(0, 255, 0, 0));
 			}
 			if (flagsVisible["Yellow"]->isChecked())
 			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", "", 0, false, false, 1, 72, &mode);
+				if (GsMinor < 54)
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Yellow.tif", "", 0, false, false, 1, 72, &mode);
+				else
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Yellow.tif", "", 0, false, false, 1, 72, &mode);
 				blendImages(image, im, ScColor(0, 0, 255, 0));
 			}
 			QMap<QString, int>::Iterator sepit;
@@ -696,14 +699,21 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			{
 				if (flagsVisible[sepit.key()]->isChecked())
 				{
-					QString fnam = QString(prefsManager->preferencesLocation()+"/sc.tif.s%1.tif").arg(sepit.data());
+					QString fnam;
+					if (GsMinor < 54)
+						fnam = QString(prefsManager->preferencesLocation()+"/sc.tif.s%1.tif").arg(sepit.data());
+					else
+						fnam = QString(prefsManager->preferencesLocation()+"/sc.s%1.tif").arg(sepit.data());
 					im.LoadPicture(fnam, "", 0, false, false, 1, 72, &mode);
 					blendImages(image, im, doc->PageColors[sepit.key()]);
 				}
 			}
 			if (flagsVisible["Black"]->isChecked())
 			{
-				im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Black.tif", "", 0, false, false, 1, 72, &mode);
+				if (GsMinor < 54)
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.tif.Black.tif", "", 0, false, false, 1, 72, &mode);
+				else
+					im.LoadPicture(prefsManager->preferencesLocation()+"/sc.Black.tif", "", 0, false, false, 1, 72, &mode);
 				blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
 			for( int yi=0; yi < h2; ++yi )
@@ -802,8 +812,7 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 	qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	APage = Seite;
 	CMode = EnableCMYK->isChecked();
-	TxtAl = AliasText->isChecked();
-	GrAl = AliasGr->isChecked();
+	GsAl = AntiAlias->isChecked();
 	Trans = AliasTr->isChecked();
 	GMode = EnableGCR->isChecked();
 	SMode = scaleBox->currentItem();

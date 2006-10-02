@@ -142,6 +142,7 @@ ScribusView::ScribusView(QWidget *parent, ScribusDoc *doc) :
 	evSpon(false),
 	forceRedraw(false),
 	Scale(Prefs->DisScale),
+	oldClip(0),
 	m_vhRulerHW(17),
 	m_cursorVisible(false)
 {
@@ -627,7 +628,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 	}
 	painter->setZoomFactor(z);
 }
-
+/*backport the #3586 fix from 1.3.4cvs */
 void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	linkedFramesToShow.clear();
@@ -759,7 +760,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	painter->setZoomFactor(z);
 }
 
-void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
+void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 {
 	double z = p->zoomFactor();
 	p->save();
@@ -801,6 +802,10 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 		double endx = pageWidth;
 		double sty = 0;
 		double endy = pageHeight;
+		double lowerBx = clip.x() / Scale + Doc->minCanvasCoordinate.x() - page->xOffset();
+		double lowerBy = clip.y() / Scale + Doc->minCanvasCoordinate.y() - page->yOffset();
+		double highBx = lowerBx + clip.width() / Scale;
+		double highBy = lowerBy + clip.height() / Scale;
 /*		double stx = QMAX((clip.x() - page->Xoffset) / Scale, 0);
 		double endx = QMIN(stx + clip.width() / Scale, page->width());
 		double sty = QMAX((clip.y() - page->Yoffset) / Scale, 0);
@@ -812,22 +817,34 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect)
 			p->setPen(Doc->guidesSettings.majorColor, lineWidth, SolidLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
-			for (double b = start; b < endy; b+=i)
-				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
+			for (double b = start; b <= endy; b+=i)
+			{
+				if ((b >= lowerBy) && (b <= highBy))
+					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+			}
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
+			{
+				if ((b >= lowerBx) && (b <= highBx))
+					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+			}
 			i = Doc->guidesSettings.minorGrid;
 			p->setPen(Doc->guidesSettings.minorColor, lineWidth, DotLine, FlatCap, MiterJoin);
 			start=floor(sty/i);
 			start*=i;
-			for (double b = start; b < endy; b+=i)
-				p->drawLine(FPoint(0, b), FPoint(pageWidth, b));
+			for (double b = start; b <= endy; b+=i)
+			{
+				if ((b >= lowerBy) && (b <= highBy))
+					p->drawLine(FPoint(QMAX(lowerBx, 0), b), FPoint(QMIN(pageWidth, highBx), b));
+			}
 			start=floor(stx/i);
 			start*=i;
 			for (double b = start; b <= endx; b+=i)
-				p->drawLine(FPoint(b, 0), FPoint(b, pageHeight));
+			{
+				if ((b >= lowerBx) && (b <= highBx))
+					p->drawLine(FPoint(b, QMAX(lowerBy, 0)), FPoint(b, QMIN(pageHeight, highBy)));
+			}
 		}
 	}
 	//Draw the guides
@@ -1160,8 +1177,16 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						QPopupMenu *pmen = new QPopupMenu();
 						qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 						pmen->insertItem( tr("Copy Here"));
-						pmen->insertItem( tr("Move Here"));
+						int mov = pmen->insertItem( tr("Move Here"));
 						pmen->insertItem( tr("Cancel"));
+						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
+						{
+							if (Doc->Items->at(Doc->DragElements[dre])->locked())
+							{
+								pmen->setItemEnabled(mov, false);
+								break;
+							}
+						}
 						re = pmen->indexOf(pmen->exec(QCursor::pos()));
 						delete pmen;
 						pmen=NULL;
@@ -1245,6 +1270,29 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				emit ItemGeom(w, h);
 			}
 			updateContents();
+		}
+		if (!Doc->masterPageMode())
+		{
+			uint docPagesCount=Doc->Pages->count();
+			uint docCurrPageNo=Doc->currentPageNumber();
+			for (uint i = 0; i < docPagesCount; ++i)
+			{
+				int x = static_cast<int>(Doc->Pages->at(i)->xOffset());
+				int y = static_cast<int>(Doc->Pages->at(i)->yOffset());
+				int w = static_cast<int>(Doc->Pages->at(i)->width());
+				int h = static_cast<int>(Doc->Pages->at(i)->height());
+				if (QRect(x, y, w, h).contains(ex, ey))
+				{
+					if (docCurrPageNo != i)
+					{
+						Doc->currentPage = Doc->Pages->at(i);
+						setMenTxt(i);
+						DrawNew();
+					}
+					break;
+				}
+			}
+			setRulerPos(contentsX(), contentsY());
 		}
 	}
 }
@@ -1658,6 +1706,32 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			MarkClip(currItem, currItem->ContourLine, true);
 		else
 			MarkClip(currItem, currItem->PoLine, true);
+	
+		if (oldClip) // is there the old clip stored for the undo action
+		{
+			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+			if (*oldClip != newClip)
+			{
+				QString name = isContourLine ? Um::EditContour : Um::EditShape;
+				
+				ItemState<QPair<FPointArray, FPointArray> > *state =
+						new ItemState<QPair<FPointArray, FPointArray> >(name);
+				state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+				state->set("IS_CONTOUR", isContourLine);
+				state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+				state->set("OLD_X", oldItemX);
+				state->set("OLD_Y", oldItemY);
+				state->set("NEW_X", currItem->xPos());
+				state->set("NEW_Y", currItem->yPos());
+				undoManager->action(currItem, state);
+				undoManager->commit();
+			}
+			else
+				undoManager->cancelTransaction();
+
+			delete oldClip;
+			oldClip = 0;
+		}
 		return;
 	}
 /*	if (moveTimerElapsed() && (Doc->EditClip) && (SegP1 == -1) && (SegP2 == -1))
@@ -1691,9 +1765,45 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		SegP2 = -1;
 		currItem = Doc->m_Selection->itemAt(0);
 		operItemMoving = false;
+
+		ItemState<QPair<FPointArray, FPointArray> > *state;
+		if (oldClip) // is there the old clip stored for the undo action
+		{
+			FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+			if (*oldClip != newClip)
+			{
+				QString name = isContourLine ? Um::EditContour : Um::EditShape;
+				state = new ItemState<QPair<FPointArray, FPointArray> >(name);
+				state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+				state->set("IS_CONTOUR", isContourLine);
+				state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+				undoManager->setUndoEnabled(false);
+			}
+			else
+			{
+				delete oldClip;
+				oldClip = 0;
+				undoManager->cancelTransaction();
+			}
+		}
+
 		AdjustItemSize(currItem);
 		emit DocChanged();
 		updateContents();
+
+		if (oldClip)
+		{
+			state->set("OLD_X", oldItemX);
+			state->set("OLD_Y", oldItemY);
+			state->set("NEW_X", currItem->xPos());
+			state->set("NEW_Y", currItem->yPos());
+			undoManager->setUndoEnabled(true);
+			undoManager->action(currItem, state);
+			undoManager->commit();
+			delete oldClip;
+			oldClip = 0;
+		}
+
 		return;
 	}
 	if ((!GetItem(&currItem)) && (m->button() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal))
@@ -2999,6 +3109,29 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			uint docItemCount=Doc->Items->count();
 			if (docItemCount != 0)
 			{
+				if (!Doc->masterPageMode())
+				{
+					uint docPagesCount=Doc->Pages->count();
+					uint docCurrPageNo=Doc->currentPageNumber();
+					for (uint i = 0; i < docPagesCount; ++i)
+					{
+						int x = static_cast<int>(Doc->Pages->at(i)->xOffset() * Scale);
+						int y = static_cast<int>(Doc->Pages->at(i)->yOffset() * Scale);
+						int w = static_cast<int>(Doc->Pages->at(i)->width() * Scale);
+						int h = static_cast<int>(Doc->Pages->at(i)->height() * Scale);
+						if (QRect(x, y, w, h).intersects(Sele))
+						{
+							if (docCurrPageNo != i)
+							{
+								Doc->currentPage = Doc->Pages->at(i);
+								setMenTxt(i);
+								DrawNew();
+							}
+							break;
+						}
+					}
+					setRulerPos(contentsX(), contentsY());
+				}
 				for (uint a = 0; a < docItemCount; ++a)
 				{
 					PageItem* docItem = Doc->Items->at(a);
@@ -3015,9 +3148,19 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					//CB set draw to true to (dis)enable some actions via emit to HaveNewSel in scapp.
 					//CB FIXME emit from selection when multiple selected instead
 						//CB #3523 bool redrawSelection=(a==docItemCount-1);
-						bool redrawSelection=true;
+						bool redrawSelection=false;
 						SelectItemNr(a, redrawSelection);
 					}
+				}
+				if (Doc->m_Selection->count() > 1)
+				{
+					setGroupRect();
+					paintGroupRect();
+					double x, y, w, h;
+					getGroupRect(&x, &y, &w, &h);
+					emit ItemPos(x, y);
+					emit ItemGeom(w, h);
+					emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
 				}
 			}
 			HaveSelRect = false;
@@ -3226,6 +3369,34 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	//Make sure the Zoom spinbox and page selector dont have focus if we click on the canvas
 	zoomSpinBox->clearFocus();
 	pageSelector->clearFocus();
+
+	if (oldClip && Doc->m_Selection->itemAt(0) != 0) // is there the old clip stored for the undo action
+	{
+		currItem = Doc->m_Selection->itemAt(0);
+		FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+		if (*oldClip != newClip)
+		{
+			QString name = isContourLine ? Um::EditContour : Um::EditShape;
+			ItemState<QPair<FPointArray, FPointArray> > *state =
+						new ItemState<QPair<FPointArray, FPointArray> >(name);
+			state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+			state->set("IS_CONTOUR", isContourLine);
+			state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+			state->set("OLD_X", oldItemX);
+			state->set("OLD_Y", oldItemY);
+			state->set("NEW_X", currItem->xPos());
+			state->set("NEW_Y", currItem->yPos());
+			undoManager->action(currItem, state);
+			undoManager->commit();
+		}
+		else
+			undoManager->cancelTransaction();
+
+		delete oldClip;
+		oldClip = 0;
+	}
+	delete oldClip;
+	oldClip = 0;
 }
 
 void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
@@ -3293,23 +3464,21 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
 		newX = m->x();
 		newY = m->y();
+		double dx = abs(Mxp - newX) + 5;
+		double dy = abs(Myp - newY) + 5;
 		if (m->state() == LeftButton)
 		{
 			currItem->GrStartX -= (Mxp - newX) / Scale;
-			currItem->GrStartX = QMIN(QMAX(0.0, currItem->GrStartX), currItem->width());
 			currItem->GrStartY -= (Myp - newY) / Scale;
-			currItem->GrStartY = QMIN(QMAX(0.0, currItem->GrStartY), currItem->height());
 		}
 		if (m->state() == RightButton)
 		{
 			currItem->GrEndX -= (Mxp - newX) / Scale;
-			currItem->GrEndX = QMIN(QMAX(0.0, currItem->GrEndX), currItem->width());
 			currItem->GrEndY -= (Myp - newY) / Scale;
-			currItem->GrEndY = QMIN(QMAX(0.0, currItem->GrEndY), currItem->height());
 		}
 		Mxp = newX;
 		Myp = newY;
-		RefreshItem(currItem);
+		RefreshGradient(currItem, dx, dy);
 		ScMW->propertiesPalette->updateColorSpecialGradient();
 		return;
 	}
@@ -3377,7 +3546,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 	{
 		newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 		newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
-		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) && (!currItem->locked()) && (!(currItem->isTableItem && currItem->isSingleSel)))
+		if (moveTimerElapsed() && (m_MouseButtonPressed) && (m->state() == RightButton) && (!Doc->DragP) && (Doc->appMode == modeNormal) /* && (!currItem->locked()) */ && (!(currItem->isTableItem && currItem->isSingleSel)))
 		{
 			if ((abs(Dxp - newX) > 10) || (abs(Dyp - newY) > 10))
 			{
@@ -3623,6 +3792,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					npf.setY(Clip.point(SegP2).y() + np.y() / Scale);
 					ClRe = SegP2;
 					MoveClipPoint(currItem, npf);
+					if (EditContour)
+						Clip = currItem->ContourLine;
+					else
+						Clip = currItem->PoLine;
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
 					ClRe = SegP1;
@@ -3639,6 +3812,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						int storedClRe = ClRe;
 						for (uint itm = 0; itm < SelNode.count(); ++itm)
 						{
+							if (EditContour)
+								Clip = currItem->ContourLine;
+							else
+								Clip = currItem->PoLine;
 							npf.setX(Clip.point(*SelNode.at(itm)).x() + np.x() / Scale);
 							npf.setY(Clip.point(*SelNode.at(itm)).y() + np.y() / Scale);
 							ClRe = *SelNode.at(itm);
@@ -4076,7 +4253,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					else
 						qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 					if (Doc->appMode == modeRotation)
-						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+						qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 				}
 				else
 				{
@@ -4137,9 +4314,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 								if (Doc->EditClipMode == 0)
 									qApp->setOverrideCursor(QCursor(SizeAllCursor), true);
 								if (Doc->EditClipMode == 2)
-									qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
+									qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1), true);
 								if (Doc->EditClipMode == 3)
-									qApp->setOverrideCursor(QCursor(loadIcon("Split.png"), 4, 3), true);
+									qApp->setOverrideCursor(QCursor(loadIcon("Split.png"), 1, 1), true);
 								p.end();
 								return;
 							}
@@ -4159,7 +4336,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									if (Doc->EditClipMode == 0)
 										qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 									if (Doc->EditClipMode == 1)
-										qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 4, 3), true);
+										qApp->setOverrideCursor(QCursor(loadIcon("AddPoint.png"), 1, 1), true);
 									ClRe2 = poi;
 									p.end();
 									return;
@@ -4176,7 +4353,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					if ((tx.intersects(mpo)) && (!currItem->locked()))
 					{
 						if (Doc->appMode == modeRotation)
-							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+							qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 						else
 						if (Doc->appMode == modeEdit)
 						{
@@ -4303,6 +4480,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	HaveSelRect = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
+	oldClip = 0;
 	moveTimer.start();
 	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
 	Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
@@ -4335,10 +4513,23 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				FPointArray Clip;
 				bool edited = false;
 				bool pfound = false;
+				QString uAction;
 				if (EditContour)
+				{
 					Clip = currItem->ContourLine;
+					isContourLine = true;
+					uAction = Um::EditContour;
+				}
 				else
+				{
 					Clip = currItem->PoLine;
+					isContourLine = false;
+					uAction = Um::EditShape;
+				}
+				oldClip = new FPointArray(Clip);
+				oldItemX = currItem->xPos();
+				oldItemY = currItem->yPos();
+				undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(), uAction);
 				p.begin(viewport());
 				Transform(currItem, &p);
 				npf2 = FPoint(p.xFormDev(m->pos()));
@@ -4374,6 +4565,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				{
 					SegP1 = ClRe2;
 					SegP2 = ClRe2+2;
+					ClRe = ClRe2;
 				}
 				FPointArray cli;
 				uint EndInd = Clip.size();
@@ -5447,9 +5639,34 @@ void ScribusView::ToView(QPainter *p)
 	p->translate(out.x(), out.y());
 }
 
+void ScribusView::ToView(QWMatrix& m)
+{
+	QPoint out(contentsToViewport(QPoint(0, 0)));
+	m.translate(qRound(-Doc->minCanvasCoordinate.x()*Scale), qRound(-Doc->minCanvasCoordinate.y()*Scale));
+	m.translate(out.x(), out.y());
+}
+
 void ScribusView::RefreshItem(PageItem *currItem)
 {
 	updateContents(currItem->getRedrawBounding(Scale));
+}
+
+void ScribusView::RefreshGradient(PageItem *currItem, double dx, double dy)
+{
+	QWMatrix matrix;
+	QRect rect = currItem->getRedrawBounding(Scale);
+	Transform(currItem, matrix);
+	FPointArray fpNew;
+	fpNew.setPoints(2, currItem->GrStartX, currItem->GrStartY, currItem->GrEndX, currItem->GrEndY);
+	fpNew.map(matrix);
+	if (dx < 8.0) dx = 8.0;
+	if (dy < 8.0) dy = 8.0;
+	int grl = (int) floor( QMIN(fpNew.point(0).x(), fpNew.point(1).x()) - dx );
+	int grr = (int) ceil ( QMAX(fpNew.point(0).x(), fpNew.point(1).x()) + dx );
+	int grb = (int) ceil ( QMAX(fpNew.point(0).y(), fpNew.point(1).y()) + dy );
+	int grt = (int) floor( QMIN(fpNew.point(0).y(), fpNew.point(1).y()) - dy );
+	rect |= QRect(grl, grt, grr-grl, grb-grt);
+	updateContents(rect);
 }
 
 //CB-->Doc
@@ -5660,13 +5877,27 @@ bool ScribusView::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
 				return true;
 		}
 	}
-	an = Start.x() > Ende.x() ? Ende : Start;
-	en = an == Ende ? Start : Ende;
-	double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
-	for (int a = an.x(); a < en.x(); ++a)
+	if (abs(Start.x() - Ende.x()) > abs(Start.y() - Ende.y()))
 	{
-		if (MArea.contains(QPoint(a, an.y()+qRound((a-an.x())*stg))))
-			return true;
+		an = Start.x() > Ende.x() ? Ende : Start;
+		en = an == Ende ? Start : Ende;
+		double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
+		for (int a = an.x(); a < en.x(); ++a)
+		{
+			if (MArea.contains(QPoint(a, an.y()+qRound((a-an.x())*stg))))
+				return true;
+		}
+	}
+	else
+	{
+		an = Start.y() > Ende.y() ? Ende : Start;
+		en = an == Ende ? Start : Ende;
+		double stg = (en.x() - an.x()) / static_cast<double>((en.y() - an.y()));
+		for (int a = an.y(); a < en.y(); ++a)
+		{
+			if (MArea.contains(QPoint(an.x()+qRound((a-an.y())*stg), a)))
+				return true;
+		}
 	}
 	return false;
 }
@@ -5713,6 +5944,35 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 			break;
 		case 9:
 			ma.scale(1.0 + (scaling / 100.0), 1.0 + (scaling / 100.0));
+			break;
+		//10-13 are for scaling the contour line in shape edit mode
+		case 10:
+			{
+				double s=1.0 - (scaling/(tp2.x() - tp.x()));
+				ma.scale(s, 1);
+				ma.translate(-scaling/s/2,0);
+			}
+			break;
+		case 11:
+			{
+				double s=1.0 - (scaling/(tp2.x() - tp.x()));
+				ma.scale(s, 1);
+				ma.translate(scaling/s/2,0);
+			}
+			break;
+		case 12:
+			{
+				double s=1.0 - (scaling/(tp2.y() - tp.y()));
+				ma.scale(1, s);
+				ma.translate(0,-scaling/s/2);
+			}
+			break;
+		case 13:
+			{
+				double s=1.0 - (scaling/(tp2.y() - tp.y()));
+				ma.scale(1, s);
+				ma.translate(0,scaling/s/2);
+			}
 			break;
 		}
 		currItem->ContourLine.map(ma);
@@ -5842,7 +6102,16 @@ void ScribusView::TransformPoly(int mode, int rot, double scaling)
 
 void ScribusView::Reset1Control()
 {
+	// do no record anything else but the core reset points action
+	undoManager->setUndoEnabled(false);
+
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
+
+	oldClip = new FPointArray(EditContour ? currItem->ContourLine.copy() : currItem->PoLine.copy());
+	oldItemX = currItem->xPos();
+	oldItemY = currItem->yPos();
+	isContourLine = EditContour;
+
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (EditContour)
@@ -5872,11 +6141,41 @@ void ScribusView::Reset1Control()
 		cli = currItem->PoLine;
 	MarkClip(currItem, cli, true);
 	emit DocChanged();
+
+
+	undoManager->setUndoEnabled(true);
+	FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+
+	if (*oldClip != newClip)
+	{
+		ItemState<QPair<FPointArray, FPointArray> > *state =
+				new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoint, "",
+																currItem->getUPixmap());
+		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("IS_CONTOUR", EditContour);
+		state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+		state->set("OLD_X", oldItemX);
+		state->set("OLD_Y", oldItemY);
+		state->set("NEW_X", currItem->xPos());
+		state->set("NEW_Y", currItem->yPos());
+		undoManager->action(currItem, state);
+	}
+	delete oldClip;
+	oldClip = 0;
 }
 
 void ScribusView::ResetControl()
 {
+	// do no record anything else but the core reset points action
+	undoManager->setUndoEnabled(false);
+
 	PageItem *currItem = Doc->m_Selection->itemAt(0);
+
+	oldClip = new FPointArray(EditContour ? currItem->ContourLine.copy() : currItem->PoLine.copy());
+	oldItemX = currItem->xPos();
+	oldItemY = currItem->yPos();
+	isContourLine = EditContour;
+
 	currItem->ClipEdited = true;
 	FPoint np;
 	if (EditContour)
@@ -5922,6 +6221,27 @@ void ScribusView::ResetControl()
 		cli = currItem->PoLine;
 	MarkClip(currItem, cli, true);
 	emit DocChanged();
+
+	undoManager->setUndoEnabled(true);
+	FPointArray newClip(isContourLine ? currItem->ContourLine : currItem->PoLine);
+
+	if (*oldClip != newClip)
+	{
+		ItemState<QPair<FPointArray, FPointArray> > *state =
+				new ItemState<QPair<FPointArray, FPointArray> >(Um::ResetControlPoints, "",
+																currItem->getUPixmap());
+		state->set("EDIT_SHAPE_OR_CONTOUR", "edit_shape_or_contour");
+		state->set("IS_CONTOUR", EditContour);
+		state->setItem(QPair<FPointArray, FPointArray>(*oldClip, newClip));
+		state->set("OLD_X", oldItemX);
+		state->set("OLD_Y", oldItemY);
+		state->set("NEW_X", currItem->xPos());
+		state->set("NEW_Y", currItem->yPos());
+		undoManager->action(currItem, state);
+	}
+
+	delete oldClip;
+	oldClip = 0;
 }
 
 //CB-->Doc
@@ -7093,6 +7413,8 @@ void ScribusView::slotDoCurs(bool draw)
 		if (currItem->CPos > 0)
 		{
 			int offs = QMIN(currItem->CPos-1, static_cast<int>(currItem->itemText.count()-1));
+			if (offs < 0)
+				offs = currItem->CPos - 1;
 			if (currItem->CPos < static_cast<int>(currItem->itemText.count()-1))
 			{
 				if (currItem->itemText.at(offs+1)->cstyle & 4096)
@@ -7136,7 +7458,7 @@ void ScribusView::slotDoCurs(bool draw)
 					xp += qRound(Cwidth(Doc, currItem->itemText.at(offs)->cfont, chx, chs)*(currItem->itemText.at(offs)->cscale / 1000.0));
 				}
 			}
-			if (currItem->CPos != static_cast<int>(currItem->itemText.count()))
+			if (currItem->CPos != static_cast<int>(currItem->itemText.count()) && (offs+1) < currItem->itemText.count())
 			{
 				if (currItem->itemText.at(offs)->yp != currItem->itemText.at(offs+1)->yp)
 				{
@@ -7171,7 +7493,7 @@ void ScribusView::slotDoCurs(bool draw)
 				desc = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numDescender * (-currItem->fontSize() / 10.0));
 				asce = static_cast<int>((*Doc->AllFonts)[currItem->font()]->numAscent * (currItem->fontSize() / 10.0));
 			}
-			else
+			else if ( currItem->CPos < currItem->itemText.length() )
 			{
 				if ((currItem->itemText.at(currItem->CPos)->ch == QChar(9)) || (currItem->itemText.at(currItem->CPos)->ch == QChar(13)) || (currItem->itemText.at(currItem->CPos)->ch == QChar(28)))
 				{
@@ -7192,6 +7514,10 @@ void ScribusView::slotDoCurs(bool draw)
 					desc = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->numDescender * (-currItem->itemText.at(currItem->CPos)->csize / 10.0));
 					asce = static_cast<int>(currItem->itemText.at(currItem->CPos)->cfont->numAscent * (currItem->itemText.at(currItem->CPos)->csize / 10.0));
 				}
+			}
+			else {
+				p.end();
+				return;
 			}
 		}
 		yp1 = yp - asce;
@@ -7238,7 +7564,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (Doc->appMode == modeRotation)
-			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 		else
 		{
 			double rr = fabs(currItem->rotation());
@@ -7273,7 +7599,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 	if (mpo.contains(tx) || mpo.contains(tx2))
 	{
 		if (Doc->appMode == modeRotation)
-			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.xpm")), true);
+			qApp->setOverrideCursor(QCursor(loadIcon("Rotieren2.png")), true);
 		else
 		{
 			double rr = fabs(currItem->rotation());
@@ -8487,7 +8813,7 @@ void ScribusView::hideMasterPage()
 //	DrawNew();
 }
 
-QImage ScribusView::MPageToPixmap(QString name, int maxGr)
+QImage ScribusView::MPageToPixmap(QString name, int maxGr, bool drawFrame)
 {
 	QImage pm;
 	QImage im;
@@ -8499,17 +8825,25 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 	if ((clipw > 0) && (cliph > 0))
 	{
 		double sca = Scale;
+		double cx = Doc->minCanvasCoordinate.x();
+		double cy = Doc->minCanvasCoordinate.y();
+		Doc->minCanvasCoordinate = FPoint(0, 0);
 		bool frs = Doc->guidesSettings.framesShown;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->MasterPages.at(Nr);
 		Doc->guidesSettings.framesShown = false;
 		setScale(1.0);
 		previewMode = true;
+		forceRedraw = true;
 		pm = QImage(clipw, cliph, 32, QImage::BigEndian);
 		ScPainter *painter = new ScPainter(&pm, pm.width(), pm.height());
 		painter->clear(white);
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
+		if (drawFrame)
+			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+		else
+			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		//Hmm do we need master page mode before this? Seiten.cpp uses this function.
@@ -8527,11 +8861,13 @@ QImage ScribusView::MPageToPixmap(QString name, int maxGr)
 		delete painter;
 		painter=NULL;
 		previewMode = false;
+		forceRedraw = false;
+		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }
 
-QImage ScribusView::PageToPixmap(int Nr, int maxGr)
+QImage ScribusView::PageToPixmap(int Nr, int maxGr, bool drawFrame)
 {
 //	QImage pm;
 	QImage im;
@@ -8546,9 +8882,13 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 	{
 		double sca = Scale;
 		bool frs = Doc->guidesSettings.framesShown;
+		double cx = Doc->minCanvasCoordinate.x();
+		double cy = Doc->minCanvasCoordinate.y();
+		Doc->minCanvasCoordinate = FPoint(0, 0);
 		Doc->guidesSettings.framesShown = false;
 		Scale = sc;
 		previewMode = true;
+		forceRedraw = true;
 		Page* act = Doc->currentPage;
 		Doc->currentPage = Doc->Pages->at(Nr);
 		im = QImage(clipw, cliph, 32, QImage::BigEndian);
@@ -8556,7 +8896,10 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		painter->clear(Doc->papColor);
 		painter->translate(-clipx, -clipy);
 		painter->setFillMode(ScPainter::Solid);
-		painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+		if (drawFrame)
+			painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+		else
+			painter->setPen(NoPen);
 		painter->setBrush(Doc->papColor);
 		painter->drawRect(clipx, clipy, clipw, cliph);
 		DrawMasterItems(painter, Doc->Pages->at(Nr), QRect(clipx, clipy, clipw, cliph));
@@ -8574,6 +8917,8 @@ QImage ScribusView::PageToPixmap(int Nr, int maxGr)
 		delete painter;
 		painter=NULL;
 		previewMode = false;
+		forceRedraw = false;
+		Doc->minCanvasCoordinate = FPoint(cx, cy);
 	}
 	return im;
 }
@@ -8730,6 +9075,13 @@ void ScribusView::Transform(PageItem *currItem, QPainter *p)
 	p->translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
 	p->scale(Scale, Scale);
 	p->rotate(currItem->rotation());
+}
+
+void ScribusView::Transform(PageItem *currItem, QWMatrix& m)
+{
+	m.translate(static_cast<int>(currItem->xPos()*Scale), static_cast<int>(currItem->yPos()*Scale));
+	m.scale(Scale, Scale);
+	m.rotate(currItem->rotation());
 }
 
 void ScribusView::TransformM(PageItem *currItem, QPainter *p)
@@ -9007,6 +9359,7 @@ void ScribusView::PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool d
 	currItem->setLineColor(Buffer->Pcolor2);
 	currItem->setFillShade(Buffer->Shade);
 	currItem->setLineShade(Buffer->Shade2);
+	currItem->fillRule = Buffer->FillRule;
 	currItem->TxtStroke = Buffer->TxtStroke;
 	currItem->TxtFill = Buffer->TxtFill;
 	currItem->ShTxtStroke = Buffer->ShTxtStroke;

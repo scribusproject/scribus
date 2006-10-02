@@ -40,6 +40,7 @@ for which a new license (GPL+exception) is in place.
 #include "scmessagebox.h"
 #include "util.h"
 #include "customfdialog.h"
+#include "sctextstruct.h"
 
 
 int svgexplugin_getPluginAPIVersion()
@@ -169,7 +170,7 @@ SVGExPlug::SVGExPlug( QString fName )
 	ProcessPage(Seite, &docu, &elem);
 #ifdef HAVE_LIBZ
 	if(fName.right(2) == "gz")
-		{
+	{
 // zipped saving
 		gzFile gzDoc = gzopen(fName.latin1(),"wb");
 		if(gzDoc == NULL)
@@ -177,26 +178,27 @@ SVGExPlug::SVGExPlug( QString fName )
 		gzputs(gzDoc, vo);
 		gzputs(gzDoc, docu.toString().utf8());
 		gzclose(gzDoc);
-		}
+	}
 	else
-		{
+	{
 		QFile f(fName);
 		if(!f.open(IO_WriteOnly))
 			return;
 		QTextStream s(&f);
 		QString wr = vo;
-		wr += docu.toString().utf8();
-		s.writeRawBytes(wr, wr.length());
+		wr += docu.toString();
+		QCString utf8wr = wr.utf8();
+		s.writeRawBytes(utf8wr.data(), utf8wr.length());
 		f.close();
-		}
+	}
 #else
 	QFile f(fName);
 	if(!f.open(IO_WriteOnly))
 		return;
 	QTextStream s(&f);
-	QString wr = vo;
-	wr += docu.toString().utf8();
-	s.writeRawBytes(wr, wr.length());
+	wr += docu.toString();
+	QCString utf8wr = wr.utf8();
+	s.writeRawBytes(utf8wr.data(), utf8wr.length());
 	f.close();
 #endif
 }
@@ -205,7 +207,7 @@ void SVGExPlug::ProcessPage(Page *Seite, QDomDocument *docu, QDomElement *elem)
 {
 	QString tmp, trans, fill, stroke, strokeW, strokeLC, strokeLJ, strokeDA, gradi, Clipi, chx;
 	uint d;
-	struct ScText *hl;
+	ScText *hl;
 	int Lnr = 0;
 	struct Layer ll;
 	ll.isPrintable = false;
@@ -693,7 +695,7 @@ QString SVGExPlug::IToStr(int c)
 	return cc.setNum(c);
 }
 
-void SVGExPlug::SetTextProps(QDomElement *tp, struct ScText *hl)
+void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 {
 	int chst = hl->cstyle & 127;
 	if (hl->ccolor != CommonStrings::None)

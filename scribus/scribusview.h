@@ -165,8 +165,8 @@ public:
 	void updateLayerMenu();
 	void showMasterPage(int nr);
 	void hideMasterPage();
-	QImage PageToPixmap(int Nr, int maxGr);
-	QImage MPageToPixmap(QString name, int maxGr);
+	QImage PageToPixmap(int Nr, int maxGr, bool drawFrame = true);
+	QImage MPageToPixmap(QString name, int maxGr, bool drawFrame = true);
 	//void RecalcPictures(ProfilesL *Pr, ProfilesL *PrCMYK, QProgressBar *dia = 0);
 	void RecalcPicturesRes();
 	void rulerMove(QMouseEvent *m);
@@ -190,6 +190,7 @@ public:
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);
 	void ToView(QPainter *p);
+	void ToView(QWMatrix& m);
 	//void RefreshItem(PageItem *currItem);
 	bool MoveItem(double newX, double newY, PageItem* ite, bool fromMP = false);
 	//void MoveItemI(PageItem* currItem, double newX, double newY, bool redraw = true);
@@ -226,6 +227,7 @@ public:
 	//void updateGradientVectors(PageItem *currItem);
 	//void EmitValues(PageItem *currItem);
 	void Transform(PageItem *currItem, QPainter *p);
+	void Transform(PageItem *currItem, QWMatrix& m);
 	void TransformM(PageItem *currItem, QPainter *p);
 	void SetFrameRect();
 	void SetFrameRounded();
@@ -272,6 +274,7 @@ public slots: // Public slots
 	//void TogglePic();
 	//void UpdatePic();
 	void RefreshItem(PageItem *currItem);
+	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);
 	/**
 	 * Adjust an image frame's size to fit the size of the image in it
 	 */
@@ -316,6 +319,15 @@ private: // Private attributes
 	bool evSpon;
 	bool forceRedraw;
 	double Scale;
+
+	// for shape/countour line editing undo actions
+	// store oldClip in mousePressed if in edit shape
+	// and in mouseRelease send the undo action with the 
+	// new clip
+	bool isContourLine;
+	FPointArray *oldClip;
+	double oldItemX;
+	double oldItemY;
 
 private slots:
 	void setZoom();

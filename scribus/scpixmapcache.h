@@ -22,12 +22,12 @@ public:
 template <typename T>
 ScPixmapCache<T>::~ScPixmapCache()
 {
-	QMap<typename T, QPixmap*>::iterator it;
-	QMap<typename T, QPixmap*>::iterator itEnd;
+	typename QMap<T, QPixmap*>::iterator it;
+	typename QMap<T, QPixmap*>::iterator itEnd;
 
-	itEnd = end();
-	for (it = begin(); it != itEnd; it++)
-		delete (*it);
+	itEnd = this->end();
+	for (it = this->begin(); it != itEnd; it++)
+		delete (it.data());
 };
 
 #endif

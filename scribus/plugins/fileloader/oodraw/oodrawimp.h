@@ -12,12 +12,10 @@ for which a new license (GPL+exception) is in place.
 #include <qptrlist.h>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
+#include "../../formatidlist.h"
 #include "stylestack.h"
 #include "pageitem.h"
 #include "scribusstructs.h"
-
-#define FORMATID_ODGIMPORT 1
-#define FORMATID_SXDIMPORT 2
 
 class ScrAction;
 
@@ -34,11 +32,11 @@ class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 		virtual void deleteAboutData(const AboutData* about) const;
 		virtual void languageChange();
 		virtual bool fileSupported(QIODevice* file) const;
-		virtual bool loadFile(const QString & fileName, const FileFormat & fmt);
+		virtual bool loadFile(const QString & fileName, const FileFormat & fmt, int flags, int index = 0);
 
 		// Special features - File->Import slot
 	public slots:
-		virtual bool import(QString target = QString::null);
+		virtual bool import(QString target = QString::null, int flags = lfUseCurrentPage|lfInteractive);
 
 	private:
 		void registerFormats();
@@ -65,12 +63,12 @@ public:
 	OODPlug();
 	~OODPlug();
 
-	bool import( QString fName, bool isInteractive );
+	bool import( QString fName, int flags );
 	static double parseUnit(const QString &unit);
 
 protected:
 
-	bool convert();
+	bool convert(int flags);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	void createStyleMap( QDomDocument &docstyles );
 	void insertDraws( const QDomElement& styles );

@@ -310,12 +310,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -634,7 +636,7 @@ Puede lanzar la excepción ScribusError si se produce un error al guardar.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
 
 Establece la información básica del documento: autor, información y 
 descripción. Todos los parámetros son strings.
@@ -2761,6 +2763,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3014,7 +3031,7 @@ Las bibliotecas que falten se indican con un *
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3168,7 +3185,7 @@ Las bibliotecas que falten se indican con un *
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">B&amp;orrar contenidos</translation>
+        <translation type="obsolete">B&amp;orrar contenidos</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -3875,14 +3892,6 @@ Las bibliotecas que falten se indican con un *
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3980,10 +3989,6 @@ Las bibliotecas que falten se indican con un *
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3996,6 +4001,18 @@ Las bibliotecas que falten se indican con un *
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Contorno</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">B&amp;orrar</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5296,10 +5313,6 @@ lo pida tu impresora.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5424,6 +5437,22 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Elige un directorio</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5807,6 +5836,14 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Name of the color is not unique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6211,6 +6248,10 @@ It is a reserved name for transparent color</source>
     <message>
         <source>New Color</source>
         <translation type="unfinished">Nuevo color</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -7736,14 +7777,24 @@ failed!</source>
         <translation>Error fatal</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Error</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8106,6 +8157,18 @@ se pudo salvar en su forma actual. El error fue:
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished">Espacio entre caracteres manual</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9081,7 +9144,11 @@ El nombre del archivo será &apos;documento-página.tipo&apos;</translation>
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Aquí puedes añadir, cambiar o eliminar límites de colores.</translation>
+        <translation type="obsolete">Aquí puedes añadir, cambiar o eliminar límites de colores.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9983,10 +10050,6 @@ converting their vector data into Scribus objects.</source>
 </context>
 <context>
     <name>LineStyleWBase</name>
-    <message>
-        <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <source>%</source>
         <translation type="unfinished"></translation>
@@ -11325,15 +11388,15 @@ Corners:</source>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Hacer que el texto en los marcos de debajo fluya alrededor de la forma del objeto</translation>
+        <translation type="obsolete">Hacer que el texto en los marcos de debajo fluya alrededor de la forma del objeto</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Usar el cuadro circunscrito en vez de la forma del marco para que fluya el texto</translation>
+        <translation type="obsolete">Usar el cuadro circunscrito en vez de la forma del marco para que fluya el texto</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Usar una segund línea basada originalmente en la forma del marco para que fluya el texto</translation>
+        <translation type="obsolete">Usar una segund línea basada originalmente en la forma del marco para que fluya el texto</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -11598,14 +11661,6 @@ Por favor elige otro.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11615,6 +11670,30 @@ Por favor elige otro.</translation>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13192,11 +13271,11 @@ Si no se selecciona, se impedirá la edición de anotaciones y campos.</translat
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Suavizar &amp;Texto</translation>
+        <translation type="obsolete">Suavizar &amp;Texto</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Suavizar &amp;Gráficos</translation>
+        <translation type="obsolete">Suavizar &amp;Gráficos</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -13312,14 +13391,6 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
         <translation type="unfinished">Imprimir...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -13334,6 +13405,14 @@ UCR reduce la posibilidad de sobresaturación con tintas CMY (cian, magenta, ama
     <message>
         <source>File</source>
         <translation type="unfinished">Archivo</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15428,10 +15507,6 @@ ejecutando.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15497,6 +15572,10 @@ ejecutando.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17244,10 +17323,6 @@ en la documentación de la función.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -17788,12 +17863,37 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
+        <source>Luxembourgish</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Luxembourgish</source>
+        <source>Arabic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19956,6 +20056,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -20412,6 +20516,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contenidos</translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -20501,6 +20613,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20681,6 +20797,10 @@ Vertical shift: %3</source>
     <message>
         <source>Grayscale</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished">Contenidos</translation>
     </message>
 </context>
 <context>
@@ -21664,7 +21784,7 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Subrayado</translation>
+        <translation type="obsolete">Subrayado</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -21680,15 +21800,11 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Tachado</translation>
+        <translation type="obsolete">Tachado</translation>
     </message>
     <message>
         <source>Outline Text</source>
         <translation type="obsolete">Contorno</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -21699,13 +21815,29 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
         <translation type="obsolete">Esquema</translation>
     </message>
     <message>
-        <source>Shadow</source>
+        <source>Outline</source>
+        <comment>Text Style Selector</comment>
+        <translation type="obsolete">Esquema</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation type="unfinished">Esquema</translation>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21841,10 +21973,6 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
         <source>Destination Frame:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
@@ -21910,10 +22038,6 @@ arrastra una plantilla en la vista de páginas de abajo.</translation>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inde&amp;x</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22576,7 +22700,7 @@ el diseño y la apariencia del documento.</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Cuanto tiempo se muestra la página antes de que la presentación empiece en la página actual.</translation>
+        <translation type="obsolete">Cuanto tiempo se muestra la página antes de que la presentación empiece en la página actual.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -22961,6 +23085,10 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24039,6 +24167,18 @@ X2: %4, Y2: %5</source>
     <message>
         <source>X: %1, Y: %2
 X: %4, Y: %5</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

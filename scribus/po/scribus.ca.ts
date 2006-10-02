@@ -390,7 +390,7 @@ PAGE_4, 3)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation>newDocument(size, margins, orientation, firstPageNumber,(new line)
+        <translation type="obsolete">newDocument(size, margins, orientation, firstPageNumber,(new line)
                          unit, pagesType, firstPageOrder) -&gt; bool
 
 Crea un nou document i retorna cert si ha funcionat. Els paràmetres tenen el
@@ -428,6 +428,49 @@ PAGE_4, 3)
 
 Pot generar un ScribusError si firstPageOrder és més gran que el permès per pagesType.
 </translation>
+    </message>
+    <message>
+        <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1097,7 +1140,7 @@ Pot generar un ScribusError si falla el desat.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;autor&quot;, &quot;info&quot;, &quot;descripcio&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;autor&quot;, &quot;info&quot;, &quot;descripcio&quot;) -&gt; bool
 
 Posa la informació al document. &quot;Autor&quot;, &quot;Informació&quot;, &quot;Descripció&quot; són
 cadenes.
@@ -3022,6 +3065,21 @@ Aplia la visualització del document en la finestra principal. Les accions han d
 tenir un número com 20.0, 100.0, etc.. Ampliar a la mida de la finestra és -100.
 </translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -3316,7 +3374,11 @@ Les llibreries que manquen es mostren amb un *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Març</translation>
+        <translation type="obsolete">Març</translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4341,6 +4403,10 @@ Les llibreries que manquen es mostren amb un *</translation>
     <message>
         <source>C&amp;lear</source>
         <translation>B&amp;uida</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5757,6 +5823,22 @@ Si us plau, tria&apos;n un altre.</translation>
         <source>Choose a Directory</source>
         <translation>Tria un Directori</translation>
     </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -6141,6 +6223,14 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Name of the color is not unique</source>
         <translation>El nom del color no és únic</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6558,6 +6648,10 @@ i la Esborrar elimina la darrera inserció</translation>
     <message>
         <source>New Color</source>
         <translation>Nou Color</translation>
+    </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10426,7 +10520,7 @@ convertint el seu vector de dades en objectes Scribus.</translation>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation>LineStyleWBase</translation>
+        <translation type="obsolete">LineStyleWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -11765,15 +11859,15 @@ A&amp;rrodonits:</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Fa que el text de capes inferiors flueixi al voltant del marc</translation>
+        <translation type="obsolete">Fa que el text de capes inferiors flueixi al voltant del marc</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Fa servir una caixa envoltant en comptes del marc per fer fluir el text</translation>
+        <translation type="obsolete">Fa servir una caixa envoltant en comptes del marc per fer fluir el text</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Fer servir una segona línia basada en el marc per fer fluir el text</translation>
+        <translation type="obsolete">Fer servir una segona línia basada en el marc per fer fluir el text</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -12031,11 +12125,11 @@ Si us plau tria&apos;n un altre.</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Color del subratllat de text. Només disponible amb la decoració esquemàtica.</translation>
+        <translation type="obsolete">Color del subratllat de text. Només disponible amb la decoració esquemàtica.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Color d&apos;emplenat del text. Només disponible amb decoració de text esquemàtica.</translation>
+        <translation type="obsolete">Color d&apos;emplenat del text. Només disponible amb decoració de text esquemàtica.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -12052,6 +12146,26 @@ Si us plau tria&apos;n un altre.</translation>
     <message>
         <source>Click to select the line spacing mode</source>
         <translation>Clica per seleccionar el mode d&apos;espaiat</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13637,11 +13751,11 @@ Ajustos PDF/X-3. Recomanem fer servir el títol del document.</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Antiàlies de &amp;Text</translation>
+        <translation type="obsolete">Antiàlies de &amp;Text</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Antiàlies de &amp;Gràfics</translation>
+        <translation type="obsolete">Antiàlies de &amp;Gràfics</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -13779,11 +13893,11 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Fa que el text sigui més agradable, però això pot provocar una lleugera baixada de rendiment en la visualització. Això només afecta en les fonts Type 1</translation>
+        <translation type="obsolete">Fa que el text sigui més agradable, però això pot provocar una lleugera baixada de rendiment en la visualització. Això només afecta en les fonts Type 1</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Fa que el text TrueType, OpenType, EPS, PDF i gràfics vectorials siguin més agradables, però això pot provocar una lleugera baixada de rendiment en la visualització</translation>
+        <translation type="obsolete">Fa que el text TrueType, OpenType, EPS, PDF i gràfics vectorials siguin més agradables, però això pot provocar una lleugera baixada de rendiment en la visualització</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -13800,6 +13914,14 @@ els gràfics vectorials en la previsualització, però la previsualitació serà
     <message>
         <source>File</source>
         <translation>Fitxer</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16015,7 +16137,11 @@ s&apos;estigui executant.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Localització de l&apos;intèrpret de Ghostscript.</translation>
+        <translation type="obsolete">Localització de l&apos;intèrpret de Ghostscript.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18031,7 +18157,7 @@ la documentació de la funció.
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>La font %1 (trobada amb fontconfig) està malmesa, descartant-la</translation>
+        <translation type="obsolete">La font %1 (trobada amb fontconfig) està malmesa, descartant-la</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -18683,7 +18809,7 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation>Aquest fitxer no es reconeix com un document PDB. Si us plau, avisa de l&apos;error si estas segur que si que ho és.</translation>
+        <translation type="obsolete">Aquest fitxer no es reconeix com un document PDB. Si us plau, avisa de l&apos;error si estas segur que si que ho és.</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
@@ -18692,6 +18818,32 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <source>Japanese</source>
         <translation>Japonès</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished">Àrab</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21058,6 +21210,10 @@ Considera fer servir el Verificador per corregir-los</translation>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>L&apos;element %1 està sent editat amb l&apos;Editor de Notícies. La conversió demanada es cancel.larà</translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -21527,6 +21683,10 @@ Desplaçament vertical: %3</translation>
         <source>Contents</source>
         <translation>Contingut</translation>
     </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -21617,6 +21777,10 @@ Desplaçament vertical: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Números</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -22847,7 +23011,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Subratllat</translation>
+        <translation type="obsolete">Subratllat</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -22863,7 +23027,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Barrat</translation>
+        <translation type="obsolete">Barrat</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -22871,7 +23035,7 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Només les paraules subratllades</translation>
+        <translation type="obsolete">Només les paraules subratllades</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -22883,12 +23047,32 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Ombra</translation>
+        <translation type="obsolete">Ombra</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Esquema</translation>
+        <translation type="obsolete">Esquema</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -23074,7 +23258,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índe&amp;x</translation>
+        <translation type="obsolete">Índe&amp;x</translation>
     </message>
 </context>
 <context>
@@ -23145,7 +23329,7 @@ després d&apos;importar-lo.</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>Índe&amp;x</translation>
+        <translation type="obsolete">Índe&amp;x</translation>
     </message>
 </context>
 <context>
@@ -25353,6 +25537,18 @@ X2: %4, Y2: %5</translation>
 X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
+    </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
