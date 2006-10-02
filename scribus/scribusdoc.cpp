@@ -901,7 +901,7 @@ void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)
 bool ScribusDoc::AddFont(QString name, int fsize)
 {
 	bool ret = false;
-	FT_Face      face;
+//	FT_Face      face;
 
 	if (UsedFonts.contains(name))
 		return true;
@@ -2219,6 +2219,7 @@ void ScribusDoc::getUsedColors(ColorList &colorsToUse, bool spot)
 bool ScribusDoc::addPattern(QString &name, ScPattern& pattern)
 {
 	docPatterns.insert(name, pattern);
+	return true;
 }
 
 void ScribusDoc::setPatterns(QMap<QString, ScPattern> &patterns)
@@ -3108,7 +3109,7 @@ int ScribusDoc::itemAddUserFrame(insertAFrameData &iafData)
 	Page* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
-	for (int i=0;i<pageNs.size();++i)
+	for (uint i=0;i<pageNs.size();++i)
 	{
 		Page* targetPage=Pages->at(pageNs[i]-1);
 		//We need this for the itemAdd, FIXME later
@@ -5951,6 +5952,24 @@ void ScribusDoc::updatePict(QString name)
 			currItem->AdjustPictScale();
 		}
 	}
+	QStringList patterns = docPatterns.keys();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if ((currItem->PicAvail) && (currItem->Pfile == name))
+			{
+				bool fho = currItem->imageFlippedH();
+				bool fvo = currItem->imageFlippedV();
+				LoadPict(currItem->Pfile, currItem->ItemNr, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
+				currItem->AdjustPictScale();
+			}
+		}
+	}
 	emit updateContents();
 	changed();
 }
@@ -5977,6 +5996,17 @@ void ScribusDoc::recalcPicturesRes()
 		PageItem *currItem = FrameItems.at(a);
 		if (currItem->PicAvail)
 			cc++;
+	}
+	QStringList patterns = docPatterns.keys();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if (currItem->PicAvail)
+				cc++;
+		}
 	}
 	m_ScMW->mainWindowProgressBar->setTotalSteps(cc);
 	for (uint a = 0; a < DocItems.count(); ++a)
@@ -6030,6 +6060,27 @@ void ScribusDoc::recalcPicturesRes()
 			qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 		}
 	}
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if (currItem->PicAvail)
+			{
+				bool fho = currItem->imageFlippedH();
+				bool fvo = currItem->imageFlippedV();
+				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+				LoadPict(currItem->Pfile, currItem->ItemNr, true);
+				currItem->setImageFlippedH(fho);
+				currItem->setImageFlippedV(fvo);
+				currItem->AdjustPictScale();
+				ca++;
+				m_ScMW->mainWindowProgressBar->setProgress(ca);
+				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
+			}
+		}
+	}
 	emit updateContents();
 	changed();
 }
@@ -6061,6 +6112,20 @@ void ScribusDoc::removePict(QString name)
 		{
 			currItem->PicAvail = false;
 			currItem->pixm = ScImage();
+		}
+	}
+	QStringList patterns = docPatterns.keys();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if ((currItem->PicAvail) && (currItem->Pfile == name))
+			{
+				currItem->PicAvail = false;
+				currItem->pixm = ScImage();
+			}
 		}
 	}
 	emit updateContents();

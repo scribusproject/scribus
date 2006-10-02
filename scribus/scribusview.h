@@ -79,13 +79,16 @@ public:
 	QToolButton *zoomDefaultToolbarButton;
 	QToolButton *zoomOutToolbarButton;
 	QToolButton *zoomInToolbarButton;
+	QToolButton *previewToolbarButton;
 #else
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
+	QPushButton *previewToolbarButton;
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
 	QComboBox *unitSwitcher; //Menu for units at bottom of view
+	QComboBox *visualMenu;
   /** Dokument zu dem die Seite gehoert */
 	ScribusDoc * const Doc;
 	ApplicationPrefs * const Prefs;
@@ -143,6 +146,7 @@ public:
 	bool previewMode;
 	bool viewAsPreview;
 	bool storedFramesShown;
+	int previewVisual;
 	FPoint RCenter;
 	FPointArray RecordP;
 	void DrawMasterItems(ScPainter *painter, Page *page, QRect clip);
@@ -235,6 +239,7 @@ public:
 
 public slots: // Public slots
 	void languageChange();
+	void switchPreviewVisual(int vis);
 	void togglePreview();
 	void unitChange();
 	void setRulersShown(bool isShown);

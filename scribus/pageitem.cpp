@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "util.h"
 #include "scpattern.h"
+#include "colorblind.h"
 
 #include "text/nlsconfig.h"
 #ifdef HAVE_CAIRO
@@ -1454,6 +1455,12 @@ QString PageItem::ExpandToken(uint base)
 void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 {
 	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
+	if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	{
+		VisionDefectColor *defect = new VisionDefectColor();
+		*tmp = defect->convertDefect(*tmp, m_Doc->view()->previewVisual);
+		delete defect;
+	}
 }
 
 
@@ -1971,12 +1978,24 @@ void PageItem::setLineQColor()
 {
 	if (lineColorVal != CommonStrings::None)
 		strokeQColor = m_Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
+	if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	{
+		VisionDefectColor *defect = new VisionDefectColor();
+		strokeQColor = defect->convertDefect(strokeQColor, m_Doc->view()->previewVisual);
+		delete defect;
+	}
 }
 
 void PageItem::setFillQColor()
 {
 	if (fillColorVal != CommonStrings::None)
 		fillQColor = m_Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
+	if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	{
+		VisionDefectColor *defect = new VisionDefectColor();
+		fillQColor = defect->convertDefect(fillQColor, m_Doc->view()->previewVisual);
+		delete defect;
+	}
 }
 
 void PageItem::setLineTransparency(double newTransparency)
@@ -3663,6 +3682,29 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 				scaling = pixm.imgInfo.xres / 72.0;
 			pixm.createLowRes(scaling);
 			pixm.imgInfo.lowResScale = scaling;
+		}
+		if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+		{
+			VisionDefectColor *defect = new VisionDefectColor();
+			QColor tmpC;
+			int h = pixm.qImagePtr()->height();
+			int w = pixm.qImagePtr()->width();
+			int r, g, b, a;
+			for( int yi=0; yi < h; ++yi )
+			{
+				QRgb * s = (QRgb*)(pixm.qImagePtr()->scanLine( yi ));
+				for( int xi = 0; xi < w; ++xi )
+				{
+					QRgb rgb = *s;
+					tmpC.setRgb(rgb);
+					tmpC = defect->convertDefect(tmpC, m_Doc->view()->previewVisual);
+					a = qAlpha(rgb);
+					tmpC.getRgb(&r, &g, &b);
+					*s = qRgba(r, g, b, a);
+					s++;
+				}
+			}
+			delete defect;
 		}
 	}
 	return true;

@@ -6940,11 +6940,7 @@ void ScribusMainWindow::slotEditColors()
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
-							{
-								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-								cstops.at(cst)->color = tmpc;
 								cstops.at(cst)->name = it.data();
-							}
 						}
 					}
 				}
@@ -6980,11 +6976,7 @@ void ScribusMainWindow::slotEditColors()
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
-							{
-								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-								cstops.at(cst)->color = tmpc;
 								cstops.at(cst)->name = it.data();
-							}
 						}
 					}
 				}
@@ -7020,64 +7012,56 @@ void ScribusMainWindow::slotEditColors()
 						for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 						{
 							if (it.key() == cstops.at(cst)->name)
-							{
-								ite->SetFarbe(&tmpc, it.data(), cstops.at(cst)->shade);
-								cstops.at(cst)->color = tmpc;
 								cstops.at(cst)->name = it.data();
+						}
+					}
+				}
+				for (it = ers.begin(); it != ers.end(); ++it)
+				{
+					QStringList patterns = doc->docPatterns.keys();
+					for (uint c = 0; c < patterns.count(); ++c)
+					{
+						ScPattern pa = doc->docPatterns[patterns[c]];
+						for (uint o = 0; o < pa.items.count(); o++)
+						{
+							PageItem *ite = pa.items.at(o);
+							if ((ite->itemType() == PageItem::TextFrame) || (ite->itemType() == PageItem::PathText))
+							{
+								CharStyle lastStyle;
+								int lastStyleStart = 0;
+								for (d=0; d<ite->itemText.length(); ++d)
+								{
+									CharStyle newStyle;
+									if (it.key() == ite->itemText.charStyle(d).fillColor())
+										newStyle.setFillColor(it.data());
+									if (it.key() == ite->itemText.charStyle(d).strokeColor())
+										newStyle.setStrokeColor(it.data());
+									if (newStyle != lastStyle) {
+										ite->itemText.applyCharStyle(lastStyleStart, d-lastStyleStart, lastStyle);
+										lastStyle = newStyle;
+										lastStyleStart = d;
+									}
+								}
+								ite->itemText.applyCharStyle(lastStyleStart, ite->itemText.length()-lastStyleStart, lastStyle);
+							}
+							if (it.key() == ite->fillColor())
+								ite->setFillColor(it.data());
+							if (it.key() == ite->lineColor())
+								ite->setLineColor(it.data());
+							QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
+							for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
+							{
+								if (it.key() == cstops.at(cst)->name)
+								{
+									cstops.at(cst)->name = it.data();
+								}
 							}
 						}
 					}
 				}
 			}
-			for (c=0; c<doc->DocItems.count(); ++c)
-			{
-				ite = doc->DocItems.at(c);
-				if (ite->asImageFrame())
-				{
-					if (ite->PicAvail)
-					{
-						bool fho = ite->imageFlippedH();
-						bool fvo = ite->imageFlippedV();
-						doc->LoadPict(ite->Pfile, ite->ItemNr, true);
-						ite->setImageFlippedH(fho);
-						ite->setImageFlippedV(fvo);
-						ite->AdjustPictScale();
-					}
-				}
-			}
-			for (c=0; c<doc->MasterItems.count(); ++c)
-			{
-				ite = doc->MasterItems.at(c);
-				if (ite->asImageFrame())
-				{
-					if (ite->PicAvail)
-					{
-						bool fho = ite->imageFlippedH();
-						bool fvo = ite->imageFlippedV();
-						doc->LoadPict(ite->Pfile, ite->ItemNr, true);
-						ite->setImageFlippedH(fho);
-						ite->setImageFlippedV(fvo);
-						ite->AdjustPictScale();
-					}
-				}
-			}
-			for (c=0; c<doc->FrameItems.count(); ++c)
-			{
-				ite = doc->FrameItems.at(c);
-				if (ite->asImageFrame())
-				{
-					if (ite->PicAvail)
-					{
-						bool fho = ite->imageFlippedH();
-						bool fvo = ite->imageFlippedV();
-						doc->LoadPict(ite->Pfile, ite->ItemNr, true);
-						ite->setImageFlippedH(fho);
-						ite->setImageFlippedV(fvo);
-						ite->AdjustPictScale();
-					}
-				}
-			}
-			doc->updateAllItemQColors();
+			doc->recalculateColors();
+			doc->recalcPicturesRes();
 			view->DrawNew();
 		}
 		else

@@ -311,6 +311,8 @@ wordsOnly.png
 Zeichen.xpm
 vpl.png
 layer-outline.png
+previewOn.png
+previewOff.png
   DESTINATION ${ICONDIR}
 )
 

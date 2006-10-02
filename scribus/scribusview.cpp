@@ -176,9 +176,16 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomOutToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton = new QToolButton(this);
 	zoomInToolbarButton = new QToolButton(this);
+	previewToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	previewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	previewToolbarButton->setToggleButton(true);
+	QIconSet ic;
+	ic.setPixmap(loadIcon("previewOff.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	ic.setPixmap(loadIcon("previewOn.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	previewToolbarButton->setIconSet(ic);
 #else
 	zoomDefaultToolbarButton = new QPushButton(this);
 	zoomDefaultToolbarButton->setFocusPolicy(QWidget::NoFocus);
@@ -195,6 +202,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	previewToolbarButton = new QPushButton(this);
+	previewToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	previewToolbarButton->setDefault( false );
+	previewToolbarButton->setAutoDefault( false );
+	previewToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	previewToolbarButton->setPixmap(loadIcon("previewOn.png"));
 #endif
 	//zoomDefaultToolbarButton->setText("1:1");
 	zoomDefaultToolbarButton->setPixmap(loadIcon("16/zoom-original.png"));
@@ -207,6 +220,10 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	layerMenu->setEditable(false);
 	layerMenu->setFont(fo);
 	layerMenu->setFocusPolicy(QWidget::NoFocus);
+	visualMenu = new QComboBox( false, this, "visualMenu" );
+	visualMenu->setFocusPolicy(QWidget::NoFocus);
+	visualMenu->setFont(fo);
+	visualMenu->setEnabled(false);
 	horizRuler = new Hruler(this, Doc);
 	vertRuler = new Vruler(this, Doc);
 	rulerMover = new RulerMover(this);
@@ -216,12 +233,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	setAcceptDrops(true);
 	viewport()->setAcceptDrops(true);
 	setDragAutoScroll(false);
-	//languageChange();
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
 	Doc->SubMode = -1;
 	storedFramesShown = Doc->guidesSettings.framesShown;
 	viewAsPreview = false;
+	previewVisual = 0;
 	shiftSelItems = false;
 #ifdef HAVE_CAIRO
 	m_ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
@@ -234,23 +251,43 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(pageSelector, SIGNAL(GotoPage(int)), this, SLOT(GotoPa(int)));
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+	connect(previewToolbarButton, SIGNAL(clicked()), this, SLOT(togglePreview()));
+	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
+	languageChange();
 }
 
 void ScribusView::languageChange()
 {
-	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	disconnect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
-	zoomSpinBox->setSuffix( tr( " %" ) );
-	layerMenu->setCurrentText( tr("Layer")+" 0");
+//	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+//	disconnect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
+//	zoomSpinBox->setSuffix( tr( " %" ) );
+//	layerMenu->setCurrentText( tr("Layer")+" 0");
 	//CB TODO Convert to actions later
-	unitSwitcher->clear();
-	for (int i=0;i<=unitGetMaxIndex();++i)
-		unitSwitcher->insertItem(unitGetStrFromIndex(i));
-	unitSwitcher->setCurrentText(unitGetStrFromIndex(Doc->unitIndex()));
-	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+//	unitSwitcher->clear();
+//	for (int i=0;i<=unitGetMaxIndex();++i)
+//		unitSwitcher->insertItem(unitGetStrFromIndex(i));
+	visualMenu->clear();
+	visualMenu->insertItem( tr("Normal Vision"));
+	visualMenu->insertItem( tr("Protanopia (Red)"));
+	visualMenu->insertItem( tr("Deuteranopia (Green)"));
+	visualMenu->insertItem( tr("Tritanopia (Blue)"));
+	visualMenu->insertItem( tr("Full Color Blindness"));
+	visualMenu->setCurrentItem(previewVisual);
+//	unitSwitcher->setCurrentText(unitGetStrFromIndex(Doc->unitIndex()));
+	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
+//	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
+//	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+}
+
+void ScribusView::switchPreviewVisual(int vis)
+{
+	previewVisual = vis;
+	Doc->recalculateColors();
+	Doc->recalcPicturesRes();
+	updateContents();
 }
 
 void ScribusView::togglePreview()
@@ -273,7 +310,12 @@ void ScribusView::togglePreview()
 	m_ScMW->scrActions["viewShowBaseline"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowTextChain"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowTextControls"]->setEnabled(!viewAsPreview);
-//	Doc->updateAllItemQColors();
+#if OPTION_USE_QTOOLBUTTON
+	previewToolbarButton->setOn(viewAsPreview);
+#endif
+	visualMenu->setEnabled(viewAsPreview);
+	Doc->recalculateColors();
+	Doc->recalcPicturesRes();
 	updateContents();
 }
 
@@ -356,7 +398,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					else
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(Doc->papColor);
-					painter->drawRect(x, y, w, h); 
+					painter->drawRect(x, y, w, h);
 					if ((Doc->guidesSettings.before) && (!viewAsPreview))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO

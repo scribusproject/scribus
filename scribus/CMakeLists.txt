@@ -66,6 +66,7 @@ checkDocument.h
 cmsprefs.h
 cmykfw.h
 collect4output.h
+colorblind.h
 colorchart.h
 colorm.h
 colorsetmanager.h
@@ -242,6 +243,7 @@ cmsprefs.cpp
 cmsutil.cpp
 cmsettings.cpp
 collect4output.cpp
+colorblind.cpp
 colorchart.cpp
 colorcombo.cpp
 colorm.cpp
