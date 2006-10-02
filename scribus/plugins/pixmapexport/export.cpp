@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include "scraction.h"
 #include "menumanager.h"
 #include "util.h"
+#include "commonstrings.h"
+
 
 int scribusexportpixmap_getPluginAPIVersion()
 {
@@ -185,8 +187,8 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 		over = ScMessageBox::warning(doc->scMW(),
 				QObject::tr("File exists. Overwrite?"),
 				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
-				QObject::tr("Yes"),
-				QObject::tr("No"),
+				CommonStrings::trYes,
+				CommonStrings::trNo,
 				// hack for multiple overwritting (petr)
 				(single==true) ? QString::null : QObject::tr("Yes all"),
 				0, 0);

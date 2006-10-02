@@ -31,9 +31,9 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	emProfile = new QLabel( "", GenGroup, "emProfile" );
 	layout3->addWidget( emProfile, 1, 1 );
 	if (info->isEmbedded)
-		emProfile->setText( tr("Yes"));
+		emProfile->setText(CommonStrings::trYes);
 	else
-		emProfile->setText( tr("No"));
+		emProfile->setText(CommonStrings::trNo);
 	Text2g = new QLabel( tr( "Profile Name:" ), GenGroup, "Text2g" );
 	layout3->addWidget( Text2g, 2, 0 );
 	emProfileN = new QLabel( info->profileName, GenGroup, "emProfileN" );
@@ -43,17 +43,17 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	emPath = new QLabel( "", GenGroup, "emPath" );
 	layout3->addWidget( emPath, 3, 1 );
 	if (info->PDSpathData.count() != 0)
-		emPath->setText( tr("Yes"));
+		emPath->setText(CommonStrings::trYes);
 	else
-		emPath->setText( tr("No"));
+		emPath->setText(CommonStrings::trNo);
 	Text4g = new QLabel( tr( "Has Layers:" ), GenGroup, "Text3g" );
 	layout3->addWidget( Text4g, 4, 0 );
 	emLayer = new QLabel( "", GenGroup, "emLayer" );
 	layout3->addWidget( emLayer, 4, 1 );
 	if (info->layerInfo.count() != 0)
-		emLayer->setText( tr("Yes"));
+		emLayer->setText(CommonStrings::trYes);
 	else
-		emLayer->setText( tr("No"));
+		emLayer->setText(CommonStrings::trNo);
 	ImageInfoDialogLayout->addWidget(GenGroup);
 
 	ExGroup = new QGroupBox(this, "ExGroup");

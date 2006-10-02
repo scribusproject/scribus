@@ -35,6 +35,11 @@ QString CommonStrings::tr_Save     = "";
 QString CommonStrings::Warning     = "";
 QString CommonStrings::trWarning   = "";
 
+QString CommonStrings::trYes       = "";
+QString CommonStrings::trNo        = "";
+QString CommonStrings::trYesKey    = "";
+QString CommonStrings::trNoKey     = "";
+
 QString CommonStrings::customPageSize = "";
 QString CommonStrings::trCustomPageSize = "";
 
@@ -152,6 +157,11 @@ void CommonStrings::languageChange()
 	CommonStrings::Warning    = "Warning";
 	CommonStrings::trWarning  = tr( "Warning" );
 
+	CommonStrings::trYes      = tr("Yes");
+	CommonStrings::trNo       = tr("No");
+	CommonStrings::trYesKey   = tr("&Yes");
+	CommonStrings::trNoKey    = tr("&No");
+	
 	CommonStrings::customPageSize = "Custom";
 	CommonStrings::trCustomPageSize = tr( "Custom", "CommonStrings, custom page size" );
 

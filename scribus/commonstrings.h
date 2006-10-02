@@ -91,6 +91,14 @@ public:
 	static QString tr_Save;
 	static QString Warning;
 	static QString trWarning;
+	//! \brief Translated "Yes"
+	static QString trYes;
+	//! \brief Translated "No"
+	static QString trNo;
+	//! \brief Translated "Yes" with key accelerator "&Yes"
+	static QString trYesKey;
+	//! \brief Translated "No" with key accelerator "&No"
+	static QString trNoKey;
 
 	//Page Size
 	static QString customPageSize;

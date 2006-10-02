@@ -114,8 +114,8 @@ void JavaDocs::slotDelete()
 	int exit=ScMessageBox::warning(this,
 	                               CommonStrings::trWarning,
 	                               tr("Do you really want to delete this script?"),
-	                               tr("&Yes"),
-	                               tr("&No"),
+	                               CommonStrings::trYesKey,
+	                               CommonStrings::trNoKey,
 	                               0, 0, 0);
 	if (exit == 0)
 	{

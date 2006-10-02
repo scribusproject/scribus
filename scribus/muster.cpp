@@ -104,8 +104,8 @@ void MasterPagesPalette::deleteMasterPage()
 	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
 	                              tr("Do you really want to delete this master page?"),
-	                              tr("&Yes"),
-	                              tr("&No"),
+	                              CommonStrings::trYesKey,
+	                              CommonStrings::trNoKey,
 	                              0, QMessageBox::No, QMessageBox::Yes);
 	if (exit == 0)
 	{

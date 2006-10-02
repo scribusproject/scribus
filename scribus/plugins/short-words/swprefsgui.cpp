@@ -97,8 +97,8 @@ void SWPrefsGui::okButton_pressed()
 		if ((ScMessageBox::warning(this, tr("Short Words"),
 				"<qt>" + tr("User configuration exists elready. "
 						"Do you really want to overwrite it?") + "</qt>",
-				QObject::tr("Yes"),
-				QObject::tr("No"), 0, 0, 1)
+				CommonStrings::trYes,
+				CommonStrings::trNo, 0, 0, 1)
 			) == 1)
 			return;
 	}

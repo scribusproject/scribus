@@ -37,6 +37,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "filesearch.h"
 #include "scribuscore.h"
+#include "commonstrings.h"
+
 extern QPixmap loadIcon(QString nam);
 
 
@@ -114,7 +116,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-			cp2->setText( tr("Yes"));
+			cp2->setText(CommonStrings::trYes);
 			cp2->setChecked(m_Doc->MasterItems.at(i)->printEnabled());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);
@@ -155,7 +157,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
 			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
 			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-			cp2->setText( tr("Yes"));
+			cp2->setText(CommonStrings::trYes);
 			cp2->setChecked(m_Doc->Items->at(i)->printEnabled());
 			cp2->setEraseColor(white);
 			FlagsPic.append(cp2);

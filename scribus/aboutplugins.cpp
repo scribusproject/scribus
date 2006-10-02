@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "aboutplugins.moc"
 #include "pluginmanager.h"
 #include "scplugin.h"
+#include "commonstrings.h"
 
 #include <qlistbox.h>
 #include <qstring.h>
@@ -64,7 +65,7 @@ void AboutPlugins::displayPlugin(int sel)
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Filename:")).arg(fi.baseName(true));
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Version:")).arg(about->version);
 	QString ena;
-	pluginManager.enabled(name) ? ena = tr("Yes") : ena = tr("No");
+	ena = pluginManager.enabled(name) ? CommonStrings::trYes : CommonStrings::trNo;
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Enabled:")).arg(ena);
 	html += QString("<tr><th>%1</th><td>%2</td></tr>").arg( tr("Release Date:")).arg(about->releaseDate.toString());
 	html += "</table>";

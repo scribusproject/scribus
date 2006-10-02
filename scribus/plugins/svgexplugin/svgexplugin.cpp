@@ -136,8 +136,8 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 			{
 				int exit=ScMessageBox::warning(doc->scMW(), CommonStrings::trWarning,
 					QObject::tr("Do you really want to overwrite the File:\n%1 ?").arg(fileName),
-					QObject::tr("Yes"),
-					QObject::tr("No"),
+					CommonStrings::trYes,
+					CommonStrings::trNo,
 					0, 0, 1);
 				if (exit != 0)
 					return true;

@@ -140,14 +140,14 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Daten.Cnum = static_cast<int>(FlagsOpt.count()-1);
 	Daten.KeyW = "mirror";
 	KeyToText["Mirror"] = Daten;
-	item2->insertItem( tr("No"));
-	item2->insertItem( tr("Yes"));
+	item2->insertItem(CommonStrings::trNo);
+	item2->insertItem(CommonStrings::trYes);
 	item2->setCurrentItem(0);
 	lastSelected = prefs->getInt( tr("Mirror"), 0);
 	if (lastSelected >= 2)
 		lastSelected = 0;
 	item2->setCurrentItem(lastSelected);
-	KeyToDefault["Mirror"] = tr("No");
+	KeyToDefault["Mirror"] = CommonStrings::trNo;
 	Table->setCellWidget(Table->numRows()-1, 1, item2);
 	Table->setNumRows(Table->numRows()+1);
 	Table->setText(Table->numRows()-1, 0, QString( tr("Orientation")));

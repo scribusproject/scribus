@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "pluginmanager.h"
 #include "scplugin.h"
 #include "util.h"
+#include "commonstrings.h"
 
 #include <qlayout.h>
 #include <qlistview.h>
@@ -74,7 +75,7 @@ PluginManagerPrefsGui::PluginManagerPrefsGui(QWidget * parent)
 		// load at start?
 		bool onstart = pluginManager.enableOnStartup(*it);
 		plugItem->setPixmap(3, onstart ? checkOn : checkOff);
-		plugItem->setText(3, onstart ? tr("Yes") : tr("No"));
+		plugItem->setText(3, onstart ? CommonStrings::trYes : CommonStrings::trNo);
 		plugItem->setText(4, QString("%1").arg(*it)); // plugname for developers
 		plugItem->setText(5, pluginManager.getPluginPath(*it)); // file path for developers
 		// Populate the working settings info for the plug-in
@@ -102,17 +103,17 @@ void PluginManagerPrefsGui::updateSettings(QListViewItem *item, const QPoint &, 
 		return;
 	PluginSettings& settings = pluginSettings[item->text(4).latin1()];
 	bool onstartup;
-	if (item->text(3) == tr("Yes"))
+	if (item->text(3) == CommonStrings::trYes)
 	{
 		item->setPixmap(3, checkOff);
-		item->setText(3, tr("No"));
+		item->setText(3, CommonStrings::trNo);
 		// Update our stored settings with the new flag
 		onstartup = false;
 	}
 	else
 	{
 		item->setPixmap(3, checkOn);
-		item->setText(3, tr("Yes"));
+		item->setText(3, CommonStrings::trYes);
 		onstartup = true;
 	}
 	// Store changed setting(s) into working setting info
