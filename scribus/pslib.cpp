@@ -1853,7 +1853,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 							else
 								PutSeite(FillColor + " cmyk");
 							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
-							if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
+							if ((hl->cstyle & 4) && ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0)))
 							{
 								PS_save();
 								PS_setlinewidth(tsz * hl->coutline / 10000.0);
