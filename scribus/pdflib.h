@@ -84,6 +84,7 @@ private:
 	QString putColorUncached(const QString& color, int Shade, bool fill);
 	QString PDF_ProcessTableItem(PageItem* ite, const Page* pag);
 	QString PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool embedded = false, bool pattern = false);
+	QString Write_TransparencyGroup(double trans, int blend, QString &data);
 	QString setTextSt(PageItem *ite, uint PNr, const Page* pag);
 	void setTextCh(PageItem *ite, uint PNr, double x, double y, uint d,  QString &tmp, QString &tmp2, const ScText * hl, const ParagraphStyle& pstyle, const Page* pag);
 
@@ -190,6 +191,14 @@ private:
 	{
 		int ResNum;
 		QString ResName;
+	};
+	struct gData
+	{
+		int ResNumG;
+		int ResNumX;
+		QString ResNamG;
+		QString ResNamX;
+		QString data;
 	};
 	QMap<QString,ShIm> SharedImages;
 	QValueList<uint> XRef;

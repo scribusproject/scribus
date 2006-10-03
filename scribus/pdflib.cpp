@@ -65,9 +65,8 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif
+#include <tiffio.h>
+
 
 PDFlib::PDFlib(ScribusDoc & docu)
 	: QObject(&docu),
@@ -1060,7 +1059,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		ResCount++;
 		ObjCounter++;
 	}
-#ifdef HAVE_CMS
 	if ((doc.HasCMS) && (Options.UseProfiles))
 	{
 		StartObj(ObjCounter);
@@ -1087,7 +1085,6 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 		ResCount++;
 		ObjCounter++;
 	}
-#endif
 	if (((Options.isGrayscale == false) && (Options.UseRGB == false)) && (Options.UseSpotColors))
 	{
 		doc.getUsedColors(colorsToUse);
@@ -1734,16 +1731,12 @@ void PDFlib::PDF_End_Page()
 			if (Options.isGrayscale)
 				PutDoc("/CS /DeviceGray\n");
 			else
-#ifdef HAVE_CMS
 			{
 				if ((doc.HasCMS) && (Options.UseProfiles))
 					PutDoc("/CS "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
 				else
-#endif
 					PutDoc("/CS /DeviceCMYK\n");
-#ifdef HAVE_CMS
 			}
-#endif
 		}
 		PutDoc(">>\nendobj\n");
 	}
@@ -1847,6 +1840,8 @@ void PDFlib::PDF_End_Page()
 void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 {
 	QPtrStack<PageItem> groupStack;
+	QPtrStack<PageItem> groupStackS;
+	QValueStack<QString> groupDataStack;
 	QString tmp;
 	ActPageP = pag;
 	PageItem* ite;
@@ -2005,10 +2000,19 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 					grcon += SetClipPath(ite);
 					grcon += "h W* n\n";
 					groupStack.push(ite->groupsLastItem);
+					groupStackS.push(ite);
 					if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+					{
 						inh += grcon;
+						groupDataStack.push(inh);
+						inh = "";
+					}
 					else
+					{
 						PutPage(grcon);
+						groupDataStack.push(Inhalt);
+						Inhalt = "";
+					}
 					ite->PoLine = clb.copy();
 					continue;
 				}
@@ -2020,10 +2024,28 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 				{
 					while (ite == groupStack.top())
 					{
+						QString tmpData;
+						PageItem *controlItem = groupStackS.pop();
 						if (((ll.transparency != 1) || (ll.blendMode != 0)) && (Options.Version >= 14))
+						{
+							tmpData = inh;
+							inh = groupDataStack.pop();
+							if (Options.Version >= 14)
+								inh += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
+							else
+								inh += tmpData;
 							inh += "Q\n";
+						}
 						else
+						{
+							tmpData = Inhalt;
+							Inhalt = groupDataStack.pop();
+							if (Options.Version >= 14)
+								Inhalt += Write_TransparencyGroup(controlItem->fillTransparency(), controlItem->fillBlendmode(), tmpData);
+							else
+								Inhalt += tmpData;
 							PutPage("Q\n");
+						}
 						groupStack.pop();
 					}
 				}
@@ -2214,6 +2236,160 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 			}
 		Lnr++;
 	}
+}
+
+QString PDFlib::Write_TransparencyGroup(double trans, int blend, QString &data)
+{
+	QString retString = "";
+	StartObj(ObjCounter);
+	int Gobj = ObjCounter;
+	ObjCounter++;
+	PutDoc("<< /Type /Group\n");
+	PutDoc("/S /Transparency\n");
+	PutDoc("/I false\n");
+	PutDoc("/K false\n");
+	PutDoc(">>\nendobj\n");
+	StartObj(ObjCounter);
+	QString ShName = ResNam+QString::number(ResCount);
+	Transpar[ShName] = ObjCounter;
+	ResCount++;
+	ObjCounter++;
+	PutDoc("<< /Type /ExtGState\n");
+	PutDoc("/CA "+FToStr(1.0 - trans)+"\n");
+	PutDoc("/ca "+FToStr(1.0 - trans)+"\n");
+	PutDoc("/SMask /None\n/AIS false\n/OPM 1\n");
+	PutDoc("/BM /");
+	switch (blend)
+	{
+		case 0:
+			PutDoc("Normal");
+			break;
+		case 1:
+			PutDoc("Darken");
+			break;
+		case 2:
+			PutDoc("Lighten");
+			break;
+		case 3:
+			PutDoc("Multiply");
+			break;
+		case 4:
+			PutDoc("Screen");
+			break;
+		case 5:
+			PutDoc("Overlay");
+			break;
+		case 6:
+			PutDoc("HardLight");
+			break;
+		case 7:
+			PutDoc("SoftLight");
+			break;
+		case 8:
+			PutDoc("Difference");
+			break;
+		case 9:
+			PutDoc("Exclusion");
+			break;
+		case 10:
+			PutDoc("ColorDodge");
+			break;
+		case 11:
+			PutDoc("ColorBurn");
+			break;
+		case 12:
+			PutDoc("Hue");
+			break;
+		case 13:
+			PutDoc("Saturation");
+			break;
+		case 14:
+			PutDoc("Color");
+			break;
+		case 15:
+			PutDoc("Luminosity");
+			break;
+	}
+	PutDoc("\n>>\nendobj\n");
+	StartObj(ObjCounter);
+	ObjCounter++;
+	PutDoc("<<\n/Type /XObject\n/Subtype /Form\n/FormType 1\n");
+	PutDoc("/BBox [ 0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" ]\n");
+	PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
+	PutDoc("/Resources << /ProcSet [/PDF /Text /ImageB /ImageC /ImageI]\n");
+	if ((Seite.ImgObjects.count() != 0) || (Seite.XObjects.count() != 0))
+	{
+		PutDoc("/XObject <<\n");
+		QMap<QString,int>::Iterator it;
+		for (it = Seite.ImgObjects.begin(); it != Seite.ImgObjects.end(); ++it)
+			PutDoc("/"+it.key()+" "+QString::number(it.data())+" 0 R\n");
+		QMap<QString,int>::Iterator iti;
+		for (iti = Seite.XObjects.begin(); iti != Seite.XObjects.end(); ++iti)
+			PutDoc("/"+iti.key()+" "+QString::number(iti.data())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Seite.FObjects.count() != 0)
+	{
+		PutDoc("/Font << \n");
+		QMap<QString,int>::Iterator it2;
+		for (it2 = Seite.FObjects.begin(); it2 != Seite.FObjects.end(); ++it2)
+			PutDoc("/"+it2.key()+" "+QString::number(it2.data())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Shadings.count() != 0)
+	{
+		PutDoc("/Shading << \n");
+		QMap<QString,int>::Iterator it3;
+		for (it3 = Shadings.begin(); it3 != Shadings.end(); ++it3)
+			PutDoc("/"+it3.key()+" "+QString::number(it3.data())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Patterns.count() != 0)
+	{
+		PutDoc("/Pattern << \n");
+		QMap<QString,int>::Iterator it3p;
+		for (it3p = Patterns.begin(); it3p != Patterns.end(); ++it3p)
+			PutDoc("/"+it3p.key()+" "+QString::number(it3p.data())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if (Transpar.count() != 0)
+	{
+		PutDoc("/ExtGState << \n");
+		QMap<QString,int>::Iterator it3t;
+		for (it3t = Transpar.begin(); it3t != Transpar.end(); ++it3t)
+			PutDoc("/"+it3t.key()+" "+QString::number(it3t.data())+" 0 R\n");
+		PutDoc(">>\n");
+	}
+	if ((ICCProfiles.count() != 0) || (spotMap.count() != 0))
+	{
+		PutDoc("/ColorSpace << \n");
+		QMap<QString,ICCD>::Iterator it3c;
+		if (ICCProfiles.count() != 0)
+		{
+			for (it3c = ICCProfiles.begin(); it3c != ICCProfiles.end(); ++it3c)
+				PutDoc("/"+it3c.data().ResName+" "+QString::number(it3c.data().ResNum)+" 0 R\n");
+		}
+		QMap<QString,SpotC>::Iterator it3sc;
+		if (spotMap.count() != 0)
+		{
+		for (it3sc = spotMap.begin(); it3sc != spotMap.end(); ++it3sc)
+			PutDoc("/"+it3sc.data().ResName+" "+QString::number(it3sc.data().ResNum)+" 0 R\n");
+		}
+		PutDoc(">>\n");
+	}
+	PutDoc(">>\n");
+	if ((Options.Compress) && (CompAvail))
+		data = CompressStr(&data);
+	PutDoc("/Length "+QString::number(data.length()+1));
+	if ((Options.Compress) && (CompAvail))
+		PutDoc("\n/Filter /FlateDecode");
+	PutDoc(" >>\nstream\n"+EncStream(data, ObjCounter-1)+"\nendstream\nendobj\n");
+	QString name = ResNam+QString::number(ResCount);
+	ResCount++;
+	Seite.XObjects[name] = ObjCounter-1;
+	retString += "/"+ShName+" gs\n";
+	retString += "/"+name+" Do\n";
+	return retString;
 }
 
 QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
@@ -2881,7 +3057,6 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 	}
 	else
 	{
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
@@ -2915,7 +3090,6 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 		}
 		else
 		{
-#endif
 			if (color != CommonStrings::None)
 			{
 				if (fill)
@@ -2923,9 +3097,7 @@ QString PDFlib::putColor(const QString& color, int shade, bool fill)
 				else
 					tmp += colString+" K\n";
 			}
-#ifdef HAVE_CMS
 		}
-#endif
 	}
 	return tmp;
 }
@@ -3008,7 +3180,6 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 	}
 	else
 	{
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
@@ -3042,7 +3213,6 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 		}
 		else
 		{
-#endif
 			if (color != CommonStrings::None)
 			{
 				if (fill)
@@ -3050,9 +3220,7 @@ QString PDFlib::putColorUncached(const QString& color, int shade, bool fill)
 				else
 					tmp += colString+" K\n";
 			}
-#ifdef HAVE_CMS
 		}
-#endif
 	}
 	return tmp;
 }
@@ -3533,7 +3701,6 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	}
 	else
 	{
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
@@ -3557,13 +3724,10 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 		}
 		else
 		{
-#endif
 			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
 			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 		}
-#ifdef HAVE_CMS
 	}
-#endif
 	return tmp;
 }
 
@@ -3589,7 +3753,6 @@ QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
 	}
 	else
 	{
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (Options.SComp == 3)
@@ -3605,13 +3768,10 @@ QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
 		}
 		else
 		{
-#endif
 			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
 			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 		}
-#ifdef HAVE_CMS
 	}
-#endif
 	return tmp;
 }
 
@@ -4256,43 +4416,39 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 			if (Options.isGrayscale)
 				PutDoc("/ColorSpace /DeviceGray\n");
 			else
-#ifdef HAVE_CMS
 			{
 				if ((doc.HasCMS) && (Options.UseProfiles))
 					PutDoc("/ColorSpace "+ICCProfiles[Options.SolidProf].ICCArray+"\n");
 				else
 				{
-#endif
-				if (spotMap.contains(colorNames[c]))
-					oneSpot1 = true;
-				else if  (spotMap.contains(colorNames[c+1]))
-					oneSpot2 = true;
-				if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
-				{
-					oneSpot1 = false;
-					oneSpot2 = false;
-					twoSpot = true;
-				}
-				if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!Options.UseSpotColors)) 
-					PutDoc("/ColorSpace /DeviceCMYK\n");
-				else
-				{
-					spotMode = true;
-					PutDoc("/ColorSpace [ /DeviceN [");
-					if (oneSpot1)
-						PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot1+" ]\n");
-					else if (oneSpot2)
-						PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot2+" ]\n");
-					else if (twoSpot)
-						PutDoc(" /"+spot1+" /"+spot2+" ]\n");
-					PutDoc("/DeviceCMYK\n");
-					PutDoc(QString::number(ObjCounter)+" 0 R\n");
-					PutDoc("]\n");
-				}
-#ifdef HAVE_CMS
+					if (spotMap.contains(colorNames[c]))
+						oneSpot1 = true;
+					else if  (spotMap.contains(colorNames[c+1]))
+						oneSpot2 = true;
+					if ((spotMap.contains(colorNames[c])) && (spotMap.contains(colorNames[c+1])))
+					{
+						oneSpot1 = false;
+						oneSpot2 = false;
+						twoSpot = true;
+					}
+					if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!Options.UseSpotColors)) 
+						PutDoc("/ColorSpace /DeviceCMYK\n");
+					else
+					{
+						spotMode = true;
+						PutDoc("/ColorSpace [ /DeviceN [");
+						if (oneSpot1)
+							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot1+" ]\n");
+						else if (oneSpot2)
+							PutDoc(" /Cyan /Magenta /Yellow /Black /"+spot2+" ]\n");
+						else if (twoSpot)
+							PutDoc(" /"+spot1+" /"+spot2+" ]\n");
+						PutDoc("/DeviceCMYK\n");
+						PutDoc(QString::number(ObjCounter)+" 0 R\n");
+						PutDoc("]\n");
+					}
 				}
 			}
-#endif
 		}
 		PutDoc("/BBox [0 "+FToStr(h)+" "+FToStr(w)+" 0]\n");
 		if ((currItem->GrType == 5) || (currItem->GrType == 7))
@@ -5082,19 +5238,15 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 					img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, afl);
 				else
 				{
-#ifdef HAVE_CMS
 					if ((doc.HasCMS) && (Options.UseProfiles2))
 						img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 					else
 					{
-#endif
 						if (Options.isGrayscale)
 							img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 						else
 							img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
-#ifdef HAVE_CMS
 					}
-#endif
 				}
 			}
 			else
@@ -5137,19 +5289,15 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 							img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, afl);
 						else
 						{
-#ifdef HAVE_CMS
 							if ((doc.HasCMS) && (Options.UseProfiles2))
 								img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 							else
 							{
-#endif
 								if (Options.isGrayscale)
 									img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, afl);
 								else
 									img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, afl);
-#ifdef HAVE_CMS
 							}
-#endif
 						}
 					}
 				}
@@ -5173,19 +5321,15 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBProof, 72, &realCMYK);
 			else
 			{
-#ifdef HAVE_CMS
 				if ((doc.HasCMS) && (Options.UseProfiles2))
 					img.LoadPicture(fn, cms, Embedded, true, ScImage::RawData, 72, &realCMYK);
 				else
 				{
-#endif
 					if (Options.isGrayscale)
 						img.LoadPicture(fn, cms, Embedded, true, ScImage::RGBData, 72, &realCMYK);
 					else
 						img.LoadPicture(fn, cms, Embedded, true, ScImage::CMYKData, 72, &realCMYK);
-#ifdef HAVE_CMS
 				}
-#endif
 			}
 			if ((Options.RecalcPic) && (Options.PicRes < (QMAX(72.0 / c->imageXScale(), 72.0 / c->imageYScale()))))
 			{
@@ -5211,7 +5355,6 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 			}
 			aufl = 1;
 		}
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles2))
 		{
 			if (!ICCProfiles.contains(Profil))
@@ -5274,7 +5417,6 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				ObjCounter++;
 			}
 		}
-#endif
 		QByteArray im2;
 		ScImage img2;
 		if (Options.Version >= 14)
@@ -5341,12 +5483,10 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				im = img.ImageToGray();
 			else
 			{
-#ifdef HAVE_CMS
 				if ((doc.HasCMS) && (Options.UseProfiles2) && (!realCMYK))
 					im = img.ImageToArray();
 				else
-#endif
-				im = img.ImageToCMYK_PDF(true);
+					im = img.ImageToCMYK_PDF(true);
 			}
 		}
 		StartObj(ObjCounter);
@@ -5356,7 +5496,6 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		PutDoc("<<\n/Type /XObject\n/Subtype /Image\n");
 		PutDoc("/Width "+QString::number(img.width())+"\n");
 		PutDoc("/Height "+QString::number(img.height())+"\n");
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles2))
 		{
 			PutDoc("/ColorSpace "+ICCProfiles[Profil].ICCArray+"\n");
@@ -5369,7 +5508,6 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		}
 		else
 		{
-#endif
 			if (Options.UseRGB)
 				PutDoc("/ColorSpace /DeviceRGB\n");
 			else
@@ -5379,9 +5517,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 				else
 					PutDoc("/ColorSpace /DeviceCMYK\n");
 			}
-#ifdef HAVE_CMS
 		}
-#endif
 		int cm = Options.CompressMethod;
 		bool specialCMYK = false;
 		if (((ext == "jpg") || (ext == "jpeg")) && (cm != 3))
