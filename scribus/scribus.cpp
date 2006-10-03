@@ -8129,8 +8129,24 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		doc->Items->insert(lowestItem, neu);
 		neu->Groups.push(doc->GroupCounter-1);
 		neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+		neu->AutoName = false;
 		neu->isGroupControl = true;
 		neu->groupsLastItem = high;
+
+		QMap<int, uint> ObjOrder;
+		for (uint c = 0; c < selectedItemCount; ++c)
+		{
+			currItem = doc->m_Selection->itemAt(c);
+			ObjOrder.insert(currItem->ItemNr, c);
+			int d = doc->Items->findRef(currItem);
+			doc->Items->take(d);
+		}
+		QValueList<uint> Oindex = ObjOrder.values();
+		for (int c = static_cast<int>(Oindex.count()-1); c > -1; c--)
+		{
+			doc->Items->insert(lowestItem+1, doc->m_Selection->itemAt(Oindex[c]));
+		}
+
 		for (uint a = 0; a < doc->Items->count(); ++a)
 		{
 			doc->Items->at(a)->ItemNr = a;
