@@ -3500,12 +3500,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		w->setCentralWidget(view);
 		w->setUpdatesEnabled(false);
 		view->setUpdatesEnabled(false);
-#ifdef HAVE_CMS
 		doc->SoftProofing = false;
 		doc->Gamut = false;
-		/*bool cmsu = CMSuse;
-		CMSuse = false;*/
-#endif
 		ScriptRunning = true;
 		bool loadSuccess=fileLoader->LoadFile(doc);
 		//Do the font replacement check from here, when we have a GUI. TODO do this also somehow without the GUI
@@ -3538,9 +3534,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->Deselect(true);
 		mainWindowStatusLabel->setText("");
 		mainWindowProgressBar->reset();
-#ifdef HAVE_CMS
-		//CMSuse = cmsu;
-#endif
 		HaveDoc++;
 		if (doc->checkerProfiles.count() == 0)
 		{
@@ -3642,7 +3635,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				}
 				QMessageBox::warning(this, CommonStrings::trWarning, mess, 1, 0, 0);
 			}
-#ifdef HAVE_CMS
 			doc->SoftProofing = doc->CMSSettings.SoftProofOn;
 			doc->Gamut = doc->CMSSettings.GamutCheck;
 			doc->IntentColors = doc->CMSSettings.DefaultIntentColors;
@@ -3652,7 +3644,6 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				doc->HasCMS = true;
 				doc->PDF_Options.SComp = doc->CMSSettings.ComponentsInput2;
 			}
-#endif
 			if (doc->HasCMS)
 			{
 				recalcColors();

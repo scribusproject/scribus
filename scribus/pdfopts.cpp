@@ -297,7 +297,6 @@ void PDFExportDialog::updateDocOptions()
 		{
 			Opts.isGrayscale = false;
 			Opts.UseRGB = false;
-#ifdef HAVE_CMS
 			if (doc->HasCMS)
 			{
 				Opts.UseProfiles = Options->EmbedProfs->isChecked();
@@ -340,10 +339,6 @@ void PDFExportDialog::updateDocOptions()
 				Opts.UseProfiles = false;
 				Opts.UseProfiles2 = false;
 			}
-#else
-			Opts.UseProfiles = false;
-			Opts.UseProfiles2 = false;
-#endif
 		}
 	}
 }

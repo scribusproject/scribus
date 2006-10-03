@@ -9,14 +9,8 @@ for which a new license (GPL+exception) is in place.
 #include <qobject.h>
 #include "scconfig.h"
 #include "scimgdataloader_tiff.h"
-
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif
-
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include <tiffio.h>
+#include CMS_INC
 
 ScImgDataLoader_TIFF::ScImgDataLoader_TIFF(void) : ScImgDataLoader()
 {
@@ -34,7 +28,6 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
-#ifdef HAVE_CMS
 	if ( !QFile::exists(fn) )
 		return;
 	TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
@@ -57,7 +50,6 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 		}
 		TIFFClose(tif);
 	}
-#endif
 }
 
 void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
@@ -69,7 +61,6 @@ void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
 	if (!fi.exists())
 		return;
 	QString tmp, BBox, tmp2;
-#ifdef HAVE_TIFF
 	TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
 	if(tif)
 	{
@@ -110,9 +101,6 @@ void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
 			TIFFClose(tif);
 		}
 	}
-#else
-	qDebug("TIFF Support not available");
-#endif // HAVE_TIFF
 }
 
 bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*thumbnail*/)
@@ -243,7 +231,6 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 			}
 		}
 		swapRGBA();
-#ifdef HAVE_CMS
 		DWORD EmbedLen = 0;
 		LPBYTE EmbedBuffer;
 		if (TIFFGetField(tif, TIFFTAG_ICCPROFILE, &EmbedLen, &EmbedBuffer))
@@ -261,7 +248,6 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 			m_imageInfoRecord.isEmbedded = false;
 			m_imageInfoRecord.profileName = "";
 		}
-#endif // HAVE_CMS
 		unsigned int PhotoshopLen = 0;
 		unsigned char* PhotoshopBuffer;
 		if (TIFFGetField(tif, TIFFTAG_PHOTOSHOP, &PhotoshopLen, &PhotoshopBuffer) )

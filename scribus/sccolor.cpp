@@ -29,9 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scconfig.h"
 
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include CMS_INC
 bool ScColor::UseProf = true;
 
 ScColor::ScColor(ScribusDoc* doc, bool retainDoc)
@@ -273,7 +271,6 @@ QColor ScColor::getDisplayColor(int level) const
 QColor ScColor::getDisplayColorGC()
 {
 	QColor tmp;
-#ifdef HAVE_CMS
 	bool doSoftProofing = m_doc ? m_doc->SoftProofing : false;
 	bool doGamutCheck = m_doc ? m_doc->Gamut : false;
 	if( doSoftProofing && doGamutCheck )
@@ -283,20 +280,13 @@ QColor ScColor::getDisplayColorGC()
 	}
 	else
 		tmp = getDisplayColor();
-#else
-	tmp = getDisplayColor();
-#endif
 	return tmp;
 }
 
 QColor ScColor::getColorProof(bool gamutCheck) const
 {
 	QColor tmp;
-#ifdef HAVE_CMS
 	bool gamutChkEnabled = m_doc ? m_doc->Gamut : false;
-#else
-	bool gamutChkEnabled = false;
-#endif
 	if (Model == colorModelRGB)
 		tmp = getColorProof(R, G, B, gamutCheck & gamutChkEnabled);
 	else
@@ -309,13 +299,9 @@ QColor ScColor::getShadeColorProof(int level)
 	QColor tmp;
 	ScColor tmp2;
 	int r, g, b, c, m ,y, k;
-#if defined HAVE_CMS
 	bool doGC = false;
 	if (m_doc)
 		doGC = m_doc->Gamut;
-#else
-	bool doGC = false;
-#endif
 	
 	if (Model == colorModelRGB)
 	{
@@ -360,19 +346,15 @@ void ScColor::getCMYK(int *c, int *m, int *y, int *k) const
 
 void ScColor::applyGCR()
 {
-#ifdef HAVE_CMS
 	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
 	if (!(ScCore->haveCMS() && cmsUse))
 	{
-#endif
 		int k = QMIN(QMIN(C, M), Y);
 		C = C - k;
 		M = M - k;
 		Y = Y - k;
 		K = QMIN((K + k), 255);
-#ifdef HAVE_CMS
 	}
-#endif
 }
 
 QString ScColor::name()
@@ -487,7 +469,6 @@ void ScColor::checkGamut()
 	outOfGamutFlag = false;
 	if (Spot)
 		return;
-#ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
@@ -527,14 +508,12 @@ void ScColor::checkGamut()
 				outOfGamutFlag = true;
 		}
 	}
-#endif
 }
 
 void ScColor::RecalcRGB()
 {
 	outOfGamutFlag = false;
 	bool alert = true;
-#ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool cmsUse = (m_doc) ? m_doc->HasCMS : false;
@@ -576,7 +555,6 @@ void ScColor::RecalcRGB()
 	}
 	else
 	{
-#endif
 		if (Model == colorModelRGB)
 		{
 			K = QMIN(QMIN(255 - R, 255 - G), 255 - B);
@@ -590,15 +568,12 @@ void ScColor::RecalcRGB()
 			G = 255 - QMIN(255, M + K);
 			B = 255 - QMIN(255, Y + K);
 		}
-#ifdef HAVE_CMS
 	}
-#endif
 	RGB = QColor(R, G, B);
 }
 
 QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck) const
 {
-#ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
@@ -624,14 +599,12 @@ QColor ScColor::getColorProof(int r, int g, int b, bool gamutCkeck) const
 			b = outC[2] / 257;
 		}
 	}
-#endif
 	return QColor(r, g, b);
 }
 
 QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck) const
 {
 	int  r = 0, g = 0, b = 0;
-#ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
@@ -660,19 +633,15 @@ QColor ScColor::getColorProof(int c, int m, int y, int k, bool gamutCkeck) const
 	}
 	else
 	{
-#endif
 		r = 255 - QMIN(255, c + k);
 		g = 255 - QMIN(255, m + k);
 		b = 255 - QMIN(255, y + k);
-#ifdef HAVE_CMS
 	}
-#endif
 	return QColor(r, g, b);
 }
 
 QColor ScColor::getDisplayColor(int r, int g, int b) const
 {
-#ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
@@ -687,14 +656,12 @@ QColor ScColor::getDisplayColor(int r, int g, int b) const
 		g = outC[1] / 257;
 		b = outC[2] / 257;
 	}
-#endif
 	return QColor(r, g, b);
 }
 
 QColor ScColor::getDisplayColor(int c, int m, int y, int k) const
 {
 	int  r = 0, g = 0, b = 0;
-#ifdef HAVE_CMS
 	WORD inC[4];
 	WORD outC[4];
 	bool alert = true;
@@ -712,13 +679,10 @@ QColor ScColor::getDisplayColor(int c, int m, int y, int k) const
 	}
 	else
 	{
-#endif
 		r = 255 - QMIN(255, c + k);
 		g = 255 - QMIN(255, m + k);
 		b = 255 - QMIN(255, y + k);
-#ifdef HAVE_CMS
 	}
-#endif
 	return QColor(r, g, b);
 }
 

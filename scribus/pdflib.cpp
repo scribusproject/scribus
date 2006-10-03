@@ -3804,7 +3804,6 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 	}
 	else
 	{
-#ifdef HAVE_CMS
 		if ((doc.HasCMS) && (Options.UseProfiles))
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
@@ -3828,13 +3827,10 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 		}
 		else
 		{
-#endif
 			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
 			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 		}
-#ifdef HAVE_CMS
 	}
-#endif
 	lastColorData = tmp;
 	return tmp;
 }

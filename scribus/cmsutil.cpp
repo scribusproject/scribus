@@ -5,7 +5,6 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cmsutil.h"
-#ifdef HAVE_CMS
 #include <qstring.h>
 
 cmsHTRANSFORM scCmsCreateTransform(cmsHPROFILE Input, DWORD InputFormat,
@@ -53,5 +52,3 @@ cmsHTRANSFORM scCmsCreateProofingTransform(cmsHPROFILE Input, DWORD InputFormat,
 	}
 	return hTransform;
 }
-
-#endif

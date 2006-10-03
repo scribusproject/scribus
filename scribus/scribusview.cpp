@@ -82,12 +82,8 @@ for which a new license (GPL+exception) is in place.
 #include "pageselector.h"
 #include "scpaths.h"
 #include "actionmanager.h"
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include <tiffio.h>
+#include CMS_INC
 
 #include "scmessagebox.h"
 #include "util.h"

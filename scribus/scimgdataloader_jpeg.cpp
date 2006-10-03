@@ -12,9 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_jpeg.h"
 #include "exif.h"
 
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include CMS_INC
 
 typedef struct my_error_mgr
 {
@@ -52,7 +50,6 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
-#ifdef HAVE_CMS
 	if (!QFile::exists(fn))
 		return;
 	struct jpeg_decompress_struct cinfo;
@@ -94,7 +91,6 @@ void ScImgDataLoader_JPEG::loadEmbeddedProfile(const QString& fn)
 	//(void) jpeg_finish_decompress(&cinfo);
 	fclose (infile);
 	jpeg_destroy_decompress (&cinfo);
-#endif
 }
 
 void ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int res)
@@ -189,7 +185,6 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	}
 	else
 		m_imageInfoRecord.exifDataValid = false;
-#ifdef HAVE_CMS
 	unsigned int EmbedLen = 0;
 	unsigned char* EmbedBuffer;
 	if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
@@ -207,7 +202,6 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		m_imageInfoRecord.isEmbedded = false;
 		m_imageInfoRecord.profileName = "";
 	}
-#endif // HAVE_CMS
 	unsigned int PhotoshopLen = 0;
 	unsigned char * PhotoshopBuffer;
 	if (cinfo.density_unit == 0)

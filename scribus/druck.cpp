@@ -228,14 +228,12 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	overprintMode = new QCheckBox( colorOpts, "overprintMode" );
 	overprintMode->setText( tr( "Force Overprint Mode" ) );
 	colorOptsLayout->addWidget( overprintMode );
-#ifdef HAVE_CMS
 	if (m_doc->HasCMS)
 	{
 		UseICC = new QCheckBox( colorOpts, "UseICC" );
 		UseICC->setText( tr( "Apply ICC Profiles" ) );
 		colorOptsLayout->addWidget( UseICC );
 	}
-#endif
 	tabLayout_2->addWidget( colorOpts );
 	printOptions->insertTab( tab_2, tr( "Advanced Options" ) );
 	DruckLayout->addWidget( printOptions );
@@ -280,10 +278,8 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	QToolTip::add( GcR, "<qt>" + tr( "A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks." ) + "</qt>");
 	QToolTip::add(spotColors,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
-	#ifdef HAVE_CMS
 	if (m_doc->HasCMS)
 		QToolTip::add(UseICC,"<qt>" + tr( "Allows you to embed ICC profiles in the print stream when color management is enabled" ) + "</qt>");
-	#endif
 	QToolTip::add(devPar, "<qt>" + tr( "This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer." ) + "</qt>");
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( okButtonClicked() ) );
@@ -454,10 +450,8 @@ void Druck::SelPrinter(const QString& prn)
 	{
 		psLevel->setEnabled( true );
 		PrintSep->setEnabled( true );
-#ifdef HAVE_CMS
 		if (m_doc->HasCMS)
 			UseICC->setEnabled( true );
-#endif
 	}
 	else
 	{
@@ -467,13 +461,11 @@ void Druck::SelPrinter(const QString& prn)
 		SepArt->setCurrentText( tr("All") );
 		SepArt->setEnabled( false );
 		ToSeparation = false;
-#ifdef HAVE_CMS
 		if (m_doc->HasCMS)
 		{
 			UseICC->setEnabled( false );
 			UseICC->setChecked( false );
 		}
-#endif
 	}
 	Geraet = prn;
 }
@@ -542,10 +534,8 @@ void Druck::okButtonClicked()
 	prefs->set("doDev", devPar->isChecked());
 	prefs->set("doSpot", !spotColors->isChecked());
 	prefs->set("doOverprint", overprintMode->isChecked());
-#ifdef HAVE_CMS
 	if (m_doc->HasCMS)
 		prefs->set("ICCinUse", UseICC->isChecked());
-#endif
 	accept();
 }
 
@@ -585,7 +575,6 @@ void Druck::setStoredValues(bool gcr)
 	ClipMarg->setChecked(prefs->getBool("Clip", false));
 	spotColors->setChecked(!prefs->getBool("doSpot", true));
 	overprintMode->setChecked(prefs->getBool("doOverprint", false));
-#ifdef HAVE_CMS
 	if (m_doc->HasCMS)
 	{
 		bool iccInUse = prefs->getBool("ICCinUse", false);
@@ -593,7 +582,6 @@ void Druck::setStoredValues(bool gcr)
 		UseICC->setChecked( psPrinter ? iccInUse : false );
 		UseICC->setEnabled( psPrinter );
 	}
-#endif
 }
 
 QString Druck::printerName()
@@ -686,14 +674,10 @@ bool Druck::doOverprint()
 
 bool Druck::ICCinUse()
 {
-#ifdef HAVE_CMS
 	if (m_doc->HasCMS)
 		return UseICC->isChecked();
 	else
 		return false;
-#else
-	return false;
-#endif
 }
 
 Druck::~Druck()

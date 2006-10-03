@@ -92,13 +92,6 @@ extern "C"
 #ifdef HAVE_LIBZ
 	#include <zlib.h>
 #endif
-/*
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif*/
-// #ifdef HAVE_CMS
-// 	#include CMS_INC
-// #endif
 
 
 using namespace std;
@@ -1428,10 +1421,8 @@ QString setupImageFormats()
 			formatD += "*.jpg *.jpeg *.JPG *.JPEG ";
 		}
 	}
-#ifdef HAVE_TIFF
 	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
 	formatD += "*.tif *.tiff *.TIF *.TIFF";
-#endif
 	formats += "PSD (*.psd *.PSD);;";
 	formatD += " *.psd *.PSD";
 	formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + QObject::tr("All Files (*)");

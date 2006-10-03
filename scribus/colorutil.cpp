@@ -76,20 +76,7 @@ extern "C"
 #endif
 }
 
-/*#include "scribus.h"
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include FT_OUTLINE_H
-#include FT_GLYPH_H
-#ifdef HAVE_LIBZ
-	#include <zlib.h>
-#endif
-#ifdef HAVE_TIFF
-	#include <tiffio.h>
-#endif*/
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include CMS_INC
 
 
 using namespace std;
@@ -97,7 +84,6 @@ using namespace std;
 
 QImage ProofImage(QImage *Image, ScribusDoc* doc)
 {
-#ifdef HAVE_CMS
 	QImage out = Image->copy();
 	bool cmsUse = doc ? doc->HasCMS : false;
 	bool softProofing = doc ? doc->SoftProofing : false;
@@ -123,9 +109,6 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 		}
 	}
 	return out;
-#else
-	return Image->copy();
-#endif
 }
 
 QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)

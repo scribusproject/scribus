@@ -38,9 +38,7 @@ for which a new license (GPL+exception) is in place.
 
 extern ScribusQApp* ScQApp;
 
-#ifdef HAVE_CMS
 #include "cmserrorhandling.h"
-#endif
 
 ScribusCore::ScribusCore() : QObject()
 {
@@ -348,7 +346,6 @@ void ScribusCore::getCMSProfiles()
 
 void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 {
-#ifdef HAVE_CMS
 	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
 	{
@@ -438,7 +435,6 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 		}
 		cmsSetErrorHandler(NULL);
 	}
-#endif
 }
 
 void ScribusCore::initCMS()

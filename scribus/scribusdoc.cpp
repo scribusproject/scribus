@@ -64,10 +64,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "text/nlsconfig.h"
 
-#ifdef HAVE_CMS
 #include "cmsutil.h"
 #include "cmserrorhandling.h"
-#endif
 
 extern QPixmap loadIcon(QString nam);
 
@@ -281,7 +279,6 @@ void ScribusDoc::init()
 	HasCMS = false;
 	CMSSettings.CMSinUse = false;
 
-#ifdef HAVE_CMS
 	DocInputRGBProf = NULL;
 	DocInputCMYKProf = NULL;
 	DocOutputProf = NULL;
@@ -296,7 +293,6 @@ void ScribusDoc::init()
 	stdTransRGB = NULL;
 	stdProofGC = NULL;
 	stdProofCMYKGC = NULL;
-#endif
 
 	PrefsManager *prefsManager = PrefsManager::instance();
 	CMSSettings = prefsManager->appPrefs.DCMSset;
@@ -472,15 +468,12 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
 	PDF_Options.Intent = CMSSettings.DefaultIntentColors;
 	PDF_Options.Intent2 = CMSSettings.DefaultIntentImages;
-#ifdef HAVE_CMS
 	SoftProofing = CMSSettings.SoftProofOn;
 	Gamut = CMSSettings.GamutCheck;
 	IntentColors = CMSSettings.DefaultIntentColors;
 	IntentImages = CMSSettings.DefaultIntentImages;
-#endif
 	if (ScCore->haveCMS() && CMSSettings.CMSinUse)
 	{
-#ifdef HAVE_CMS
 		if (OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles))
 		{
 			HasCMS = true;
@@ -488,7 +481,6 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 		}
 		else
 			HasCMS = false;
-#endif
 	}
 }
 
@@ -519,7 +511,6 @@ ScribusView* ScribusDoc::view() const
 
 void ScribusDoc::CloseCMSProfiles()
 {
-#ifdef HAVE_CMS
 	HasCMS = false;
 	if (ScCore->haveCMS() /*&& CMSSettings.CMSinUse*/)
 	{
@@ -566,12 +557,10 @@ void ScribusDoc::CloseCMSProfiles()
 		stdProofCMYKGC = NULL;
 		stdProofGC = NULL;
 	}
-#endif
 }
 
 bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo)
 {
-#ifdef HAVE_CMS
 	HasCMS = false;
 	cmsHPROFILE inputProf = NULL;
 	cmsErrorAction(LCMS_ERROR_ABORT);
@@ -702,7 +691,6 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 
 	cmsSetErrorHandler(NULL);
 	return true;
-#endif
 }
 
 /*

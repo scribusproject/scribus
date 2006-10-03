@@ -55,9 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "styles/styleset.h"
 #include "scpattern.h"
 
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include CMS_INC
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -839,7 +837,6 @@ public: // Public attributes
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
-#ifdef HAVE_CMS
 	cmsHPROFILE DocInputRGBProf;
 	cmsHPROFILE DocInputCMYKProf;
 	cmsHPROFILE DocOutputProf;
@@ -858,7 +855,6 @@ public: // Public attributes
 	bool Gamut;
 	int IntentColors;
 	int IntentImages;
-#endif
 	bool HasCMS;
 	QMap<QString,QString> JavaScripts;
 	int TotalItems;

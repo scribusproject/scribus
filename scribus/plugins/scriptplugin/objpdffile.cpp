@@ -1089,7 +1089,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 	else
 	{
 		ScCore->primaryMainWindow()->doc->PDF_Options.UseRGB = false;
-#ifdef HAVE_CMS
 		if (ScCore->primaryMainWindow()->doc->HasCMS)
 		{
 			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = self->profiles;
@@ -1135,10 +1134,6 @@ static PyObject *PDFfile_save(PDFfile *self)
 			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = false;
 			ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = false;
 		}
-#else
-		ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles = false;
-		ScCore->primaryMainWindow()->doc->PDF_Options.UseProfiles2 = false;
-#endif
 
 	}
 	QMap<int,QPixmap> thumbs;

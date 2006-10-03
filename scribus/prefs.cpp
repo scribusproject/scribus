@@ -624,7 +624,6 @@ void Preferences::updatePreferences()
 		{
 			prefsManager->appPrefs.PDF_Options.isGrayscale = false;
 			prefsManager->appPrefs.PDF_Options.UseRGB = false;
-#ifdef HAVE_CMS
 			if (/*CMSuse*/ ScCore->haveCMS())
 			{
 				prefsManager->appPrefs.PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
@@ -636,7 +635,6 @@ void Preferences::updatePreferences()
 				prefsManager->appPrefs.PDF_Options.ImageProf = tabPDF->ImageP->currentText();
 				prefsManager->appPrefs.PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
 			}
-#endif
 		}
 	}
 	prefsManager->appPrefs.defaultItemAttributes = *(tabDefaultItemAttributes->getNewAttributes());

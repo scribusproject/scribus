@@ -98,10 +98,8 @@ void PatternDialog::loadPatternDir()
 				formats += "jpeg";
 			}
 		}
-#ifdef HAVE_TIFF
 		formats += "tif";
 	 	formats += "tiff";
-#endif
 		formats += "psd";
 		formats += "pat";
 		QDir d(fileName, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::NoSymLinks);
@@ -168,9 +166,7 @@ void PatternDialog::loadPattern()
 			formats += "JPEG (*.jpg *.jpeg *.JPG *.JPEG);;";
 		}
 	}
-#ifdef HAVE_TIFF
 	formats += "TIFF (*.tif *.tiff *.TIF *.TIFF);;";
-#endif
 	formats += "PSD (*.psd *.PSD);;";
 	formats += "Gimp Patterns (*.pat *.PAT);;";
 	formats += tr("All Files (*)");

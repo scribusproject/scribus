@@ -79,11 +79,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 		 built = tr("%3-%2-%1 %4 %5").arg(BUILD_DAY).arg(BUILD_MONTH).arg(BUILD_YEAR).arg(BUILD_TIME).arg(BUILD_TZ);
 
 	QString bu;
-#ifdef HAVE_CMS
 	bu += "C";
-#else
-	bu += "*";
-#endif
 	bu += "-";
 #ifdef HAVE_CUPS
 	bu += "C";
@@ -91,11 +87,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	bu += "*";
 #endif
 	bu += "-";
-#ifdef HAVE_TIFF
 	bu += "T";
-#else
-	bu += "*";
-#endif
 	bu += "-";
 #ifdef HAVE_FONTCONFIG
 	bu += "F";

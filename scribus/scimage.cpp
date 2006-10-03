@@ -20,10 +20,8 @@ for which a new license (GPL+exception) is in place.
 #include <qtextstream.h>
 #include <memory>
 #include <cassert>
-#ifdef HAVE_CMS
-	#include CMS_INC
-	#include "cmsutil.h"
-#endif
+#include CMS_INC
+#include "cmsutil.h"
 #include "gsutil.h"
 #include "exif.h"
 #include "commonstrings.h"
@@ -1658,10 +1656,8 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		pDataLoader = new ScImgDataLoader_PDF();
 	else if ((ext == "eps") || (ext == "ps"))
 		pDataLoader = new ScImgDataLoader_PS();
-#ifdef HAVE_TIFF
 	else if ((ext == "tif") || (ext == "tiff"))
 		pDataLoader = new ScImgDataLoader_TIFF();
-#endif // HAVE_TIFF
 	else if (ext == "psd")
 		pDataLoader = new ScImgDataLoader_PSD();
 	else
@@ -1725,7 +1721,6 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 	Q_ASSERT(profile);
 	Q_ASSERT(components);
 	ScImgDataLoader* pDataLoader = NULL;
-#ifdef HAVE_CMS
 	cmsHPROFILE prof = 0;
 
 	profile->resize(0);
@@ -1737,10 +1732,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 
 	if (ext == "psd")
 		pDataLoader = new ScImgDataLoader_PSD();
-#ifdef HAVE_TIFF
 	else if ((ext == "tif") || (ext == "tiff"))
 		pDataLoader = new ScImgDataLoader_TIFF();
-#endif
 	else if ((ext == "jpg") || (ext == "jpeg"))
 		pDataLoader = new ScImgDataLoader_JPEG();
 
@@ -1763,7 +1756,6 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 		}
 		delete pDataLoader;
 	}
-#endif // HAVE_CMS
 }
 
 bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
@@ -1779,11 +1771,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	bool bilevel = false;
 	short resolutionunit = 0;
 	RequestType reqType = requestType;
-#ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
 	int cmsFlags = 0;
-#endif
 	auto_ptr<ScImgDataLoader> pDataLoader;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -1797,10 +1787,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
 	else if ((ext == "eps") || (ext == "ps"))
 		pDataLoader.reset( new ScImgDataLoader_PS() );
-#ifdef HAVE_TIFF
 	else if ((ext == "tif") || (ext == "tiff"))
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
-#endif // HAVE_TIFF
 	else if (ext == "psd")
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );
@@ -1851,7 +1839,6 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	if (isNull())
 		return  ret;
 
-#ifdef HAVE_CMS
 	QByteArray embeddedProfile = pDataLoader->embeddedProfile();
 	if (cmSettings.useColorManagement() && useProf)
 	{
@@ -1988,7 +1975,6 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			cmsCloseProfile(inputProf);
 	}
 	else
-#endif // HAVE_CMS
 	{
 		switch (reqType)
 		{

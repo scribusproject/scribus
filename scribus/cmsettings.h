@@ -32,9 +32,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 class ScribusDoc;
 
-#ifdef HAVE_CMS
 #include "lcms.h"
-#endif
 
 class SCRIBUS_API CMSettings
 {
@@ -66,7 +64,6 @@ public:
 	bool doSoftProofing() const;
 	bool doGamutCheck() const;
 
-#ifdef HAVE_CMS
 	cmsHPROFILE monitorProfile() const;
 	cmsHPROFILE printerProfile() const;
 
@@ -81,7 +78,6 @@ public:
 	cmsHTRANSFORM cmykColorProofingTransform() const; // stdProofCMYKG
 	cmsHTRANSFORM cmykToRgbColorTransform() const;    // stdTransRGBG
 	cmsHTRANSFORM cmykGamutCheckTransform() const;    //stdProofCMYKGCG
-#endif
 
 protected:
 	ScribusDoc* m_Doc;

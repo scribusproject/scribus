@@ -11,9 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qfile.h>
 #include <qfileinfo.h>
 
-#ifdef HAVE_CMS
-	#include CMS_INC
-#endif
+#include CMS_INC
 
 static QDataStream & operator>> ( QDataStream & s, PSDHeader & header )
 {
@@ -46,7 +44,6 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 {
 	m_embeddedProfile.resize(0);
 	m_profileComponents = 0;
-#ifdef HAVE_CMS
 	cmsHPROFILE prof = 0;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -88,7 +85,6 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 		else
 			return;
 	}
-#endif
 }
 
 void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
@@ -155,7 +151,6 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 			header.reserved[0] = 't';
 		if( !LoadPSD(s, header) )
 			return false;
-#ifdef HAVE_CMS
 		if (m_embeddedProfile.size() > 0)
 		{
 			cmsHPROFILE prof = cmsOpenProfileFromMem(m_embeddedProfile.data(), m_embeddedProfile.size());
@@ -164,7 +159,6 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 			m_imageInfoRecord.profileName = QString(Descriptor);
 			m_imageInfoRecord.isEmbedded = true;
 		}
-#endif // HAVE_CMS
 		if (header.color_mode == CM_CMYK)
 			isCMYK = true;
 		else

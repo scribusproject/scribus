@@ -296,7 +296,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	PDFVersionCombo->insertItem("PDF 1.3 (Acrobat 4)");
 	PDFVersionCombo->insertItem("PDF 1.4 (Acrobat 5)");
 	PDFVersionCombo->insertItem("PDF 1.5 (Acrobat 6)");
-#ifdef HAVE_CMS
 	cms = doc ? (ScCore->haveCMS() && doc->HasCMS) : false;
 	if (cms && (!PDFXProfiles.isEmpty()))
 		PDFVersionCombo->insertItem("PDF/X-3");
@@ -307,9 +306,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	}
 	else
 		PDFVersionCombo->setCurrentItem(0);*/
-#else
-	cms = false;
-#endif
 /*	if (Opts.Version == PDFOptions::PDFVersion_13)
 		PDFVersionCombo->setCurrentItem(0);
 	if (Opts.Version == PDFOptions::PDFVersion_14)
@@ -941,69 +937,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	IntendI->setEditable(false);
 	ProfsGroupLayout->addWidget( IntendI, 3, 1 );
 	tabColorLayout->addWidget( ProfsGroup );
-/*	if ((Opts.UseRGB) || (Opts.isGrayscale))
-	{
-		ProfsGroup->setEnabled(false);
-		GroupBox9->setEnabled(false);
-		EnablePr(0);
-	}
-	else
-		EnablePr(1);*/
-// 	EnablePG();
-// 	EnablePGI();
-// #ifdef HAVE_CMS
-
-/*	QString tp = Opts.SolidProf;
-	if (!ScCore->InputProfiles.contains(tp))
-	{
-		if (vie != 0)
-			tp = vie->Doc->CMSSettings.DefaultSolidColorRGBProfile;
-		else
-			tp = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
-	}*/
-/*	ProfilesL::Iterator itp;
-	ProfilesL::Iterator itpend=ScCore->InputProfiles.end();
-	for (itp = ScCore->InputProfiles.begin(); itp != itpend; ++itp)
-	{
-		SolidPr->insertItem(itp.key());
-		if (itp.key() == tp)
-		{
-			if ((CMSuse) && (CMSavail))
-				SolidPr->setCurrentItem(SolidPr->count()-1);
-		}
-	}*/
-/*	if ((CMSuse) && (CMSavail))
-		IntendS->setCurrentItem(Opts.Intent);*/
-/*	QString tp1 = Opts.ImageProf;
-	if (!ScCore->InputProfiles.contains(tp1))
-	{
-		if (vie != 0)
-			tp1 = vie->Doc->CMSSettings.DefaultSolidColorRGBProfile;
-		else
-			tp1 = PrefsManager::instance()->appPrefs.DCMSset.DefaultSolidColorRGBProfile;
-	}
-	ProfilesL::Iterator itp2;
-	ProfilesL::Iterator itp2end=ScCore->InputProfiles.end();
-	for (itp2 = ScCore->InputProfiles.begin(); itp2 != itp2end; ++itp2)
-	{
-		ImageP->insertItem(itp2.key());
-		if (itp2.key() == tp1)
-		{
-			if ((CMSuse) && (CMSavail))
-				ImageP->setCurrentItem(ImageP->count()-1);
-		}
-	}
-	if ((CMSuse) && (CMSavail))
-		IntendI->setCurrentItem(Opts.Intent2);
-	if ((!CMSuse) || (!CMSavail))
-	{
-		GroupBox9->hide();
-		ProfsGroup->hide();
-	}*/
-// #else
-// 	GroupBox9->hide();
-// 	ProfsGroup->hide();
-// #endif
 
 	QSpacerItem* spacerCG = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	tabColorLayout->addItem( spacerCG );
@@ -1020,24 +953,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	X3GroupLayout->setAlignment( Qt::AlignTop );
 	PrintProfC = new QComboBox( true, X3Group, "PrintProfC" );
 	PrintProfC->setEditable(false);
-// #ifdef HAVE_CMS
-// 
-// 	ProfilesL::const_iterator itp3;
-// 	QString tp3 = Opts.PrintProf;
-// 	if (!PDFXProfiles.contains(tp3))
-// 	{
-// 		if (vie != 0)
-// 			tp3 = vie->Doc->CMSSettings.DefaultPrinterProfile;
-// 		else
-// 			tp3 = PrefsManager::instance()->appPrefs.DCMSset.DefaultPrinterProfile;
-// 	}
-// 	for (itp3 = PDFXProfiles.constBegin(); itp3 != PDFXProfiles.constEnd(); ++itp3)
-// 	{
-// 		PrintProfC->insertItem(itp3.key());
-// 		if (itp3.key() == tp3)
-// 			PrintProfC->setCurrentItem(PrintProfC->count()-1);
-// 	}
-// #endif
 	X3GroupLayout->addWidget( PrintProfC, 0, 1 );
 	InfoString = new QLineEdit( X3Group, "InfoString" );
 // 	InfoString->setText(Opts.Info);
@@ -1091,41 +1006,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedLeft->setSuffix( unit );
 	BleedLeft->setMinValue(0);
 	BleedLeft->setMaxValue(PageB*unitRatio);
-// 	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
-// #ifdef HAVE_CMS
-// 	if ((!CMSuse) || (!CMSavail))
-// 		setTabEnabled(tabPDFX, false);
-// 	if ((CMSuse) && (CMSavail) && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
-// 		EnablePDFX(3);
-// 	else
-// 		setTabEnabled(tabPDFX, false);
-// #else
-// 	setTabEnabled(tabPDFX, false);
-// #endif
-// 	BleedChanged();
 
 	restoreDefaults(Optionen, AllFonts, PDFXProfiles, DocFonts,
 					Eff, unitIndex, PageH, PageB, doc, pdfExport);
 
 	if (doc != 0 && exporting)
 	{
-// 		PgSel = 0;
-// 		Pages->setCurrentItem(0);
-// 		SetEffOpts(0);
-// 		Pages->setEnabled(false);
-// 		Effects->setEnabled(false);
-// 		PagePrev->setEnabled(false);
-// 		DoEffects();
-// 		if (CheckBox10->isChecked())
-// 		{
-// 			PageTime->setValue(EffVal[0].pageViewDuration);
-// 			EffectTime->setValue(EffVal[0].pageEffectDuration);
-// 			EffectType->setCurrentItem(EffVal[0].effectType);
-// 			EDirection->setCurrentItem(EffVal[0].Dm);
-// 			EDirection_2->setCurrentItem(EffVal[0].M);
-// 			EDirection_2_2->setCurrentItem(EffVal[0].Di);
-// 			SetEffOpts(EffectType->currentItem());
-// 		}
 		connect(EmbedFonts, SIGNAL(clicked()), this, SLOT(EmbedAll()));
 		connect(AvailFlist, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelAFont(QListBoxItem*)));
 		connect(EmbedList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelEFont(QListBoxItem*)));
@@ -1234,7 +1120,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	MirrorH->setOn(Opts.MirrorH);
 	MirrorV->setOn(Opts.MirrorV);
 	ClipMarg->setChecked(Opts.doClip);
-#ifdef HAVE_CMS
 	bool cmsUse = mdoc ? (ScCore->haveCMS() && mdoc->HasCMS) : false;
 	if (cmsUse)
 	{
@@ -1243,7 +1128,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	}
 	else
 		PDFVersionCombo->setCurrentItem(0);
-#endif
 	if (Opts.Version == PDFOptions::PDFVersion_13)
 		PDFVersionCombo->setCurrentItem(0);
 	if (Opts.Version == PDFOptions::PDFVersion_14)
@@ -1443,8 +1327,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		EnablePr(1);
 	EnablePG();
 	EnablePGI();
-#ifdef HAVE_CMS
-
 	QString tp = Opts.SolidProf;
 	if (!ScCore->InputProfiles.contains(tp))
 	{
@@ -1494,12 +1376,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		GroupBox9->hide();
 		ProfsGroup->hide();
 	}
-#else
-	GroupBox9->hide();
-	ProfsGroup->hide();
-#endif
-
-#ifdef HAVE_CMS
 
 	ProfilesL::const_iterator itp3;
 	QString tp3 = Opts.PrintProf;
@@ -1517,22 +1393,17 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		if (itp3.key() == tp3)
 			PrintProfC->setCurrentItem(PrintProfC->count()-1);
 	}
-#endif
 	InfoString->setText(Opts.Info);
 	BleedTop->setValue(Opts.BleedTop*unitRatio);
 	BleedBottom->setValue(Opts.BleedBottom*unitRatio);
 	BleedRight->setValue(Opts.BleedRight*unitRatio);
 	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
-#ifdef HAVE_CMS
 	if (!cmsUse)
 		setTabEnabled(tabPDFX, false);
 	if (cmsUse && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(3);
 	else
 		setTabEnabled(tabPDFX, false);
-#else
-	setTabEnabled(tabPDFX, false);
-#endif
 	BleedChanged();
 	if (mdoc != 0  && exporting)
 	{
@@ -1712,7 +1583,6 @@ void TabPDFOptions::EnableLPI(int a)
 {
 	if (a == 1)
 	{
-#ifdef HAVE_CMS
 		QString tp = Opts.SolidProf;
 		if (!ScCore->InputProfiles.contains(tp))
 		{
@@ -1757,7 +1627,6 @@ void TabPDFOptions::EnableLPI(int a)
 		}
 		if (cms)
 			IntendI->setCurrentItem(Opts.Intent2);
-#endif
 		if (cms)
 		{
 			GroupBox9->show();

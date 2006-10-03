@@ -481,7 +481,6 @@ void ReformDoc::updateDocumentSettings()
 			ScMW->mainWindowProgressBar->reset();
 			int cc = currDoc->PageColors.count() + currDoc->Items->count();
 			ScMW->mainWindowProgressBar->setTotalSteps(cc);
-#ifdef HAVE_CMS
 			currDoc->HasCMS = currDoc->CMSSettings.CMSinUse;
 			currDoc->SoftProofing = currDoc->CMSSettings.SoftProofOn;
 			currDoc->Gamut = currDoc->CMSSettings.GamutCheck;
@@ -514,7 +513,6 @@ void ReformDoc::updateDocumentSettings()
 			}
 			else
 				currDoc->HasCMS = false;
-#endif
 			ScMW->mainWindowProgressBar->setProgress(cc);
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			ScMW->setStatusBarInfoText("");
@@ -631,7 +629,6 @@ void ReformDoc::updateDocumentSettings()
 		{
 			currDoc->PDF_Options.isGrayscale = false;
 			currDoc->PDF_Options.UseRGB = false;
-#ifdef HAVE_CMS
 			if (currDoc->HasCMS)
 			{
 				currDoc->PDF_Options.UseProfiles = tabPDF->EmbedProfs->isChecked();
@@ -643,7 +640,6 @@ void ReformDoc::updateDocumentSettings()
 				currDoc->PDF_Options.ImageProf = tabPDF->ImageP->currentText();
 				currDoc->PDF_Options.PrintProf = tabPDF->PrintProfC->currentText();
 			}
-#endif
 		}
 	}
 

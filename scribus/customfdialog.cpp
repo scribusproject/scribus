@@ -119,10 +119,8 @@ void FDialogPreview::GenPreview(QString name)
 	QStringList formats;
 	formats = QStringList::fromStrList(QImageIO::inputFormats());
 	formats.append("jpg");
-#ifdef HAVE_TIFF
 	formats.append("tif");
 	formats.append("tiff");
-#endif
 	formats.append("psd");
 	formats.append("eps");
 	formats.append("pdf");
