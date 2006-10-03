@@ -726,6 +726,8 @@ public:
 	QPoint ApplyGrid(const QPoint& in);
 	/*! \brief Apply grid to an FPoint, from ScribusView */
 	FPoint ApplyGridF(const FPoint& in);
+	/*! \brief Does this doc have any TOC setups and potentially a TOC to generate */
+	bool hasTOCSetup() { return !docToCSetups.empty(); }
 
 	
 protected:

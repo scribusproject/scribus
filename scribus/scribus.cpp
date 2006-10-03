@@ -2229,6 +2229,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
 	scrActions["viewShowRulers"]->setOn(doc->guidesSettings.rulersShown);
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
+	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	if (!doc->masterPageMode())
 		pagePalette->Rebuild();
 	outlinePalette->setDoc(doc);
@@ -2291,6 +2292,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	scrActions["viewShowTextControls"]->setOn(doc->guidesSettings.showControls);
 	scrActions["viewShowRulers"]->setOn(doc->guidesSettings.rulersShown);
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
+	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	view->reformPages();
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
