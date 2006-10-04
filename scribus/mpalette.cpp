@@ -3300,8 +3300,8 @@ void Mpalette::updateCList()
 	ColorList::Iterator itend=doc->PageColors.end();
 	for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 	{
-		TxFill->insertSmallItem( doc->PageColors[it.key()], it.key() );
-		TxStroke->insertSmallItem( doc->PageColors[it.key()], it.key() );
+		TxFill->insertFancyItem( doc->PageColors[it.key()], it.key() );
+		TxStroke->insertFancyItem( doc->PageColors[it.key()], it.key() );
 	}
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
