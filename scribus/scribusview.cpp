@@ -826,7 +826,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							painter->save();
 							painter->translate(currItem->xPos()*Scale, currItem->yPos()*Scale);
 							painter->rotate(currItem->rotation());
-							if (currItem->lineColor() != CommonStrings::None)
+							if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 							{
 								QColor tmp;
 								currItem->SetFarbe(&tmp, currItem->lineColor(), currItem->lineShade());
@@ -1001,7 +1001,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						painter->save();
 						painter->translate(currItem->xPos()*Scale, currItem->yPos()*Scale);
 						painter->rotate(currItem->rotation());
-						if (currItem->lineColor() != CommonStrings::None)
+						if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 						{
 							QColor tmp;
 							currItem->SetFarbe(&tmp, currItem->lineColor(), currItem->lineShade());
