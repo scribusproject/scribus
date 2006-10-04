@@ -167,6 +167,7 @@ public:
 	double Opacity;
 	double FillOpacity;
 	double StrokeOpacity;
+	QString textAnchor;
 };
 
 class SVGPlug : public QObject
@@ -205,6 +206,7 @@ public:
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
 	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
+	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 
 	ScribusDoc* currDoc;
 	QDomDocument inpdoc;
