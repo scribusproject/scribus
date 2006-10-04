@@ -310,7 +310,7 @@ public:
 	FPointArray ContourLine;
 	FPointArray imageClip;
 	QValueList<uint> Segments;
-	QValueList<ScImage::imageEffect> effectsInUse;
+	ScImageEffectList effectsInUse;
 	bool PoShow;
 	double BaseOffs;
 	bool ClipEdited;

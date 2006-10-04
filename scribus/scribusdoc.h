@@ -429,7 +429,7 @@ public:
 	/**
 	 * @brief Apply a master page
 	 */
-	bool applyMasterPage(const QString& in, const int);
+	bool applyMasterPage(const QString& pageName, const int pageNumber);
 	/**
 	 * @brief Undo function for applying a master page
 	 */
@@ -945,6 +945,9 @@ public slots:
 	void itemSelection_SetItemLineTransparency(double t);
 	void itemSelection_SetItemFillBlend(int t);
 	void itemSelection_SetItemLineBlend(int t);
+	void itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection=0);
+	void itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection=0);
+	void itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection=0);
 	void itemSelection_FlipH();
 	void itemSelection_FlipV();
 	void itemSelection_DoHyphenate();

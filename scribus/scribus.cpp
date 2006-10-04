@@ -4111,10 +4111,7 @@ bool ScribusMainWindow::DoFileClose()
 	propertiesPalette->Spal->setFormats(0);
 	propertiesPalette->SetLineFormats(0);
 	if (doc->EditClip)
-	{
-		ToggleFrameEdit();
-		nodePalette->setDoc(0,0);
-	}
+		NoFrameEdit();
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
 	bookmarkPalette->BView->First = 1;
@@ -7077,28 +7074,16 @@ void ScribusMainWindow::slotStyleManager()
 
 void ScribusMainWindow::updtGradFill()
 {
-	if (HaveDoc)
-	{
-		uint selectedItemCount = doc->m_Selection->count();
-		if (selectedItemCount != 0)
-		{
-			PageItem *currItem;
-			for (uint a = 0; a < selectedItemCount; ++a)
-			{
-				currItem = doc->m_Selection->itemAt(a);
-				currItem->fill_gradient = propertiesPalette->getFillGradient();
-				view->RefreshItem(currItem);
-			}
-			slotDocCh();
-		}
-	}
+	if (!HaveDoc)
+		return;
+	VGradient vg(propertiesPalette->getFillGradient());
+	doc->itemSelection_SetFillGradient(vg);
 }
 
 //CB-->Doc
 void ScribusMainWindow::GetBrushPen()
 {
 	//What? we come back here from mpalette and then go to the view.. someones kidding
-
 	//why this.. ugh. setActiveWindow();
 	//
 	if (!HaveDoc)
@@ -7151,7 +7136,6 @@ void ScribusMainWindow::ObjektDup()
 	doc->SnapGuides = savedAlignGuides;
 }
 
-//CB-->Doc
 void ScribusMainWindow::ObjektDupM()
 {
 	if (!HaveDoc)
@@ -7159,56 +7143,12 @@ void ScribusMainWindow::ObjektDupM()
 	slotSelect();
 	NoFrameEdit();
 	MultipleDuplicate *dia = new MultipleDuplicate(doc->unitIndex(), this);
-// 	Mdup *dia = new Mdup(this, DispX * doc->unitRatio(), DispY * doc->unitRatio(), doc->unitIndex());
-
 	if (dia->exec())
 	{
 		itemMultipleDuplicateData mdData;
 		dia->getMultiplyData(mdData);
 		doc->itemSelection_MultipleDuplicate(mdData);
-
-/*
-		bool savedAlignGrid = doc->useRaster;
-		bool savedAlignGuides = doc->SnapGuides;
-		doc->useRaster = false;
-		doc->SnapGuides = false;
-		int anz = dia->Ncopies->value();
-		double dH = dia->ShiftH->value() / doc->unitRatio();
-		double dV = dia->ShiftV->value() / doc->unitRatio();
-		double dH2 = dH;
-		double dV2 = dV;
-		int a;
-		if (anz>0)
-		{
-			slotEditCopy();
-			view->Deselect(true);
-			for (a=0; a<anz; ++a)
-			{
-				slotEditPaste();
-				for (uint b=0; b<doc->m_Selection->count(); ++b)
-				{
-					PageItem* bItem=doc->m_Selection->itemAt(b);
-					bItem->setLocked(false);
-					view->MoveItem(dH2, dV2, bItem, true);
-				}
-				dH2 += dH;
-				dV2 += dV;
-			}
-			DispX = dH;
-			DispY = dV;
-			slotDocCh();
-			view->Deselect(true);
-			QString tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3").arg(anz).arg(dH).arg(dV);
-
-		}
-		else
-			undoManager->cancelTransaction();
-		doc->useRaster = savedAlignGrid;
-		doc->SnapGuides = savedAlignGuides;
-*/
 	}
-/*	else if (UndoManager::undoEnabled())
-		undoManager->cancelTransaction();*/
 	delete dia;
 }
 
@@ -7243,7 +7183,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			double viewScale=view->scale();
 			if ((qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
 				(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale),
+				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale), 
 									view->contentsWidth()),
 									QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
@@ -7275,16 +7215,14 @@ void ScribusMainWindow::buildFontMenu()
 {
 	FontID.clear();
 	FontMenu->clear();
-	int a;
-	QString b = " ";
 	SCFontsIterator it(prefsManager->appPrefs.AvailFonts);
 	FontSub = new FontCombo(0);
 	FontMenu->insertItem(FontSub);
 	connect(FontSub, SIGNAL(activated(int)), this, SLOT(setItemFont2(int)));
 	FontMenu->insertSeparator();
+	int a=0;
 	if (!HaveDoc)
 	{
-//		it.toFirst();
 		a = FontMenu->insertItem(new FmItem(it.currentKey(), it.current()));
 		FontMenu->setItemChecked(a, true);
 		FontID.insert(a, it.current().scName());
@@ -8000,11 +7938,11 @@ void ScribusMainWindow::ApplyMasterPage()
 	delete dia;
 }
 
-void ScribusMainWindow::Apply_MasterPage(QString in, int Snr, bool reb)
+void ScribusMainWindow::Apply_MasterPage(QString pageName, int pageNumber, bool reb)
 {
 	if (!HaveDoc)
 		return;
-	doc->applyMasterPage(in, Snr);
+	doc->applyMasterPage(pageName, pageNumber);
 	if (reb)
 	{
 		view->DrawNew();
@@ -8202,9 +8140,9 @@ void ScribusMainWindow::restore(UndoState* state, bool isUndo)
 	if (ss)
 	{
 		if (ss->contains("GROUP"))
-			restoreGroupping(ss, isUndo);
+			restoreGrouping(ss, isUndo);
 		else if (ss->contains("UNGROUP"))
-			restoreUngroupping(ss, isUndo);
+			restoreUngrouping(ss, isUndo);
 		else if (ss->contains("ADD_PAGE"))
 			restoreAddPage(ss, isUndo);
 		else if (ss->contains("DELETE_PAGE"))
@@ -8251,9 +8189,9 @@ void ScribusMainWindow::restoreDeletePage(SimpleState *state, bool isUndo)
 
 void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 {
-	int wo         = state->getInt("PAGE");
-	int where      = state->getInt("WHERE");
-	int count      = state->getInt("COUNT");
+	int wo    = state->getInt("PAGE");
+	int where = state->getInt("WHERE");
+	int count = state->getInt("COUNT");
 	QStringList based = QStringList::split("|", state->get("BASED"));
 	double height = state->getDouble("HEIGHT");
 	double width = state->getDouble("WIDTH");
@@ -8307,7 +8245,7 @@ void ScribusMainWindow::restoreAddPage(SimpleState *state, bool isUndo)
 	}
 }
 
-void ScribusMainWindow::restoreGroupping(SimpleState *state, bool isUndo)
+void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
 {
 	int itemCount = state->getInt("itemcount");
 	view->Deselect();
@@ -8322,7 +8260,7 @@ void ScribusMainWindow::restoreGroupping(SimpleState *state, bool isUndo)
 		GroupObj(false);
 }
 
-void ScribusMainWindow::restoreUngroupping(SimpleState *state, bool isUndo)
+void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 {
 	int itemCount = state->getInt("itemcount");
 	view->Deselect();
@@ -8605,44 +8543,21 @@ void ScribusMainWindow::ImageEffects()
 {
 	if (HaveDoc)
 	{
-		uint docSelectionCount=doc->m_Selection->count();
-		if (docSelectionCount != 0)
+		if (doc->m_Selection->count() != 0)
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
 			EffectsDialog* dia = new EffectsDialog(this, currItem, doc);
-			// store old effects for the undo action
-			QValueList<ScImage::imageEffect> oldEffects(currItem->effectsInUse);
 			if (dia->exec())
-			{
-				currItem->effectsInUse = dia->effectsList;
-				doc->updatePic();
-
-				// this messy part is for the undo action
-				ItemState<QPair<
-					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *state = 
-				new ItemState<QPair<
-					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > >(
-						Um::ImageEffects, "", currItem->getUPixmap());
-				state->set("APPLY_IMAGE_EFFECTS", "apply_image_effects");
-				state->setItem(
-					QPair<QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> >(
-						oldEffects, currItem->effectsInUse));
-				undoManager->action(currItem, state);
-			}
+				doc->itemSelection_ApplyImageEffects(dia->effectsList);
 			delete dia;
-			slotDocCh();
 		}
 	}
 }
 
 QString ScribusMainWindow::Collect(bool compress, bool withFonts, const bool withProfiles, const QString& )
 {
-	CollectForOutput *c = new CollectForOutput(doc, withFonts, withProfiles, compress);
-	Q_CHECK_PTR(c);
-	QString ret = c->collect();
-	delete c;
-	c=NULL;
-	return ret;
+	CollectForOutput c(doc, withFonts, withProfiles, compress);
+	return c.collect();
 }
 
 void ScribusMainWindow::ReorgFonts()

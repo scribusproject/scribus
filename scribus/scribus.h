@@ -171,8 +171,8 @@ public:
 	 */
 	bool isObjectSpecificUndo();
 	void restore(UndoState* state, bool isUndo);
-	void restoreGroupping(SimpleState *state, bool isUndo);
-	void restoreUngroupping(SimpleState *state, bool isUndo);
+	void restoreGrouping(SimpleState *state, bool isUndo);
+	void restoreUngrouping(SimpleState *state, bool isUndo);
 	void restoreAddPage(SimpleState *state, bool isUndo);
 	void restoreDeletePage(SimpleState *state, bool isUndo);
 	struct CopyPasteBuffer Buffer;
@@ -495,7 +495,7 @@ public slots:
 	 * @todo Make this work with real page numbers, negative numbers and document sections when they are implemented
 	*/
 	void ApplyMasterPage();
-	void Apply_MasterPage(QString in, int Snr, bool reb = true);
+	void Apply_MasterPage(QString pageName, int pageNumber, bool reb = true);
 	void GroupObj(bool showLockDia = true);
 	void UnGroupObj();
 	void StatusPic();

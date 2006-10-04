@@ -153,4 +153,7 @@ private:
 	int random_table[4096];
 	
 };
+
+typedef QValueList<ScImage::imageEffect> ScImageEffectList;
+
 #endif

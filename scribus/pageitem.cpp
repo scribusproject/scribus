@@ -3070,9 +3070,8 @@ void PageItem::restoreShapeContour(UndoState *state, bool isUndo)
 
 void PageItem::restoreImageEffects(UndoState *state, bool isUndo)
 {
-	ItemState<QPair<QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *istate =
-	dynamic_cast<ItemState<QPair<QValueList<ScImage::imageEffect>,
-	                             QValueList<ScImage::imageEffect> > >*>(state);
+	ItemState<QPair<ScImageEffectList, ScImageEffectList> > *istate =
+	dynamic_cast<ItemState<QPair<ScImageEffectList,ScImageEffectList> >*>(state);
 	if (istate)
 	{
 		if (isUndo)

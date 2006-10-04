@@ -2614,21 +2614,21 @@ double ScribusDoc::unitRatio() const
 	return docUnitRatio;
 }
 
-bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
+bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 {
 	if (UndoManager::undoEnabled())
 	{
-		if (DocPages.at(pageNumber)->MPageNam != in)
+		if (DocPages.at(pageNumber)->MPageNam != pageName)
 		{
-			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->MPageNam).arg(in));
+			SimpleState *ss = new SimpleState(Um::ApplyMasterPage, QString(Um::FromTo).arg(DocPages.at(pageNumber)->MPageNam).arg(pageName));
 			ss->set("PAGE_NUMBER", pageNumber);
 			ss->set("OLD_MASTERPAGE", DocPages.at(pageNumber)->MPageNam);
-			ss->set("NEW_MASTERPAGE", in);
+			ss->set("NEW_MASTERPAGE", pageName);
 			undoManager->action(this, ss);
 		}
 	}
 
-	QString mna = in;
+	QString mna = pageName;
 	if (mna == tr("Normal"))
 		mna = "Normal";
 	if (!MasterNames.contains(mna))
@@ -6668,6 +6668,32 @@ void ScribusDoc::itemSelection_SetItemLineBlend(int t)
 	}
 }
 
+void ScribusDoc::itemSelection_SetLineGradient(VGradient& newGradient, Selection* customSelection)
+{
+//Teaser for jghali
+}
+
+void ScribusDoc::itemSelection_SetFillGradient(VGradient& newGradient, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=NULL);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount != 0)
+	{
+		for (uint i = 0; i < selectedItemCount; ++i)
+		{
+			PageItem *currItem;
+			currItem = itemSelection->itemAt(i);
+			currItem->fill_gradient = newGradient;
+			if (selectedItemCount==1)
+				emit refreshItem(currItem);
+		}
+		if (selectedItemCount>1)
+			emit updateContents();
+		changed();
+	}
+}
+
 void ScribusDoc::itemSelection_DoHyphenate()
 {
 	uint selectedItemCount=m_Selection->count();
@@ -7988,4 +8014,27 @@ void ScribusDoc::itemSelection_MultipleDuplicate(itemMultipleDuplicateData& mdDa
 	//FIXME: Enable paste without doing this save/restore
 	useRaster = savedAlignGrid;
 	SnapGuides = savedAlignGuides;
+}
+
+void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectList, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=NULL);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount != 0)
+	{
+		PageItem *currItem = itemSelection->itemAt(0);
+		ScImageEffectList oldEffects(currItem->effectsInUse);
+		currItem->effectsInUse = newEffectList;
+		updatePic();
+		
+		// this messy part is for the undo action
+		ItemState<QPair<ScImageEffectList, ScImageEffectList> > *state = 
+		new ItemState<QPair<ScImageEffectList, ScImageEffectList> >(
+				Um::ImageEffects, "", currItem->getUPixmap());
+		state->set("APPLY_IMAGE_EFFECTS", "apply_image_effects");
+		state->setItem(QPair<ScImageEffectList, ScImageEffectList>(oldEffects, currItem->effectsInUse));
+		undoManager->action(currItem, state);
+		changed();
+	}
 }
