@@ -166,54 +166,73 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 		uint32 *bits = 0;
 		if (photometric == PHOTOMETRIC_SEPARATED)
 		{
-			if (TIFFIsTiled(tif))
+			if (samplesperpixel > 4)  // we can't handle CMYKA yet
 			{
-				uint32 columns, rows;
-				uint32 *tile_buf;
-				uint32 xt, yt;
-				TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
-				TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
-				tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
-				if (tile_buf == NULL)
+				bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+				if(bits)
 				{
-					TIFFClose(tif);
-					return false;
-				}
-				uint32 tileW = columns, tileH = rows;
-				for (yt = 0; yt < (uint32) m_image.height(); yt += rows)
-				{
-					if (yt > (uint) m_image.height())
-						break;
-					if (m_image.height()-yt < rows)
-						tileH = m_image.height()-yt;
-					tileW = columns;
-					register uint32 yi;
-					for (xt = 0; xt < (uint) m_image.width(); xt += columns)
+					if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 					{
-						TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
-						for (yi = 0; yi < tileH; yi++)
-							_TIFFmemcpy(m_image.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+						for(unsigned int y = 0; y < heightt; y++)
+							memcpy(m_image.scanLine(heightt - 1 - y), bits + y * widtht, widtht * 4);
 					}
+					_TIFFfree(bits);
+					if (bitspersample == 1)
+						bilevel = true;
+					isCMYK = false;
 				}
-				_TIFFfree(tile_buf);
 			}
 			else
 			{
-				tsize_t bytesperrow = TIFFScanlineSize(tif);
-				bits = (uint32 *) _TIFFmalloc(bytesperrow);
-				if (bits)
+				if (TIFFIsTiled(tif))
 				{
-					for (unsigned int y = 0; y < heightt; y++)
+					uint32 columns, rows;
+					uint32 *tile_buf;
+					uint32 xt, yt;
+					TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
+					TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
+					tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
+					if (tile_buf == NULL)
 					{
-						if (TIFFReadScanline(tif, bits, y, 0))
+						TIFFClose(tif);
+						return false;
+					}
+					uint32 tileW = columns, tileH = rows;
+					for (yt = 0; yt < (uint32) m_image.height(); yt += rows)
+					{
+						if (yt > (uint) m_image.height())
+							break;
+						if (m_image.height()-yt < rows)
+							tileH = m_image.height()-yt;
+						tileW = columns;
+						register uint32 yi;
+						for (xt = 0; xt < (uint) m_image.width(); xt += columns)
 						{
-							memcpy(m_image.scanLine(y), bits, widtht * 4);
+							TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+							for (yi = 0; yi < tileH; yi++)
+								_TIFFmemcpy(m_image.scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
 						}
 					}
-					_TIFFfree(bits);
+					_TIFFfree(tile_buf);
 				}
+				else
+				{
+					tsize_t bytesperrow = TIFFScanlineSize(tif);
+					bits = (uint32 *) _TIFFmalloc(bytesperrow);
+					if (bits)
+					{
+						for (unsigned int y = 0; y < heightt; y++)
+						{
+							if (TIFFReadScanline(tif, bits, y, 0))
+							{
+								memcpy(m_image.scanLine(y), bits, widtht * 4);
+							}
+						}
+						_TIFFfree(bits);
+					}
+				}
+				isCMYK = true;
 			}
-			isCMYK = true;
 		}
 		else
 		{
