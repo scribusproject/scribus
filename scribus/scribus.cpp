@@ -6826,31 +6826,24 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 //CB-->Doc
 void ScribusMainWindow::setNewAlignment(int a)
 {
-	//setActiveWindow();
 	if (HaveDoc)
 	{
 		doc->currentStyle = doc->docParagraphStyles[a];
 		doc->itemSelection_SetParagraphStyle(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		//view->RefreshItem(currItem); //CB Now calling drawnew in itemSelection_SetParagraphStyle
 		setTBvals(currItem);
-		slotDocCh();
 	}
 }
 
 void ScribusMainWindow::setNewParStyle(int a)
 {
-	//setActiveWindow();
 	if (HaveDoc)
 	{
 		doc->currentStyle = doc->docParagraphStyles[a];
 		doc->itemSelection_SetParagraphStyle(a);
-//done in setTBvals		propertiesPalette->setParStyle(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
-		//view->RefreshItem(currItem); //CB Now calling drawnew in itemSelection_SetParagraphStyle
 		setTBvals(currItem);
-		slotDocCh();
 	}
 }
 

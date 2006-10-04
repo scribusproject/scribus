@@ -6782,6 +6782,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(int s)
 								tooltip,
 								Um::IFont);
 		view()->DrawNew(); //CB draw new until NLS for redraw through text chains
+		changed();
 	}
 }
 
