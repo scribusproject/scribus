@@ -1071,17 +1071,21 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = m_Doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				m_Doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < m_Doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = m_Doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					m_Doc->BookMarks.append(bok);
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -2834,17 +2838,21 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = m_Doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				m_Doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < m_Doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = m_Doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					m_Doc->BookMarks.append(bok);
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
