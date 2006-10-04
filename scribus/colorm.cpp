@@ -28,110 +28,46 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "dynamictip.h"
 
-ColorListBoxItem::ColorListBoxItem( const ScColor& col, const QString colName ) : QListBoxItem()
+ColorSmallPixmapItem::ColorSmallPixmapItem( const ScColor& col, const QString colName ) : ScListBoxPixmap<15,15>()
 {
 	color = col;
 	setText(colName);
 }
 
-int	ColorListBoxItem::height( const QListBox *lb ) const
+void ColorSmallPixmapItem::redraw(void)
 {
-	int h;
-	QString colorName = text();
-    if ( colorName.isEmpty() )
-		h = 15;
-    else
-		h = QMAX( 15, lb->fontMetrics().lineSpacing() + 2 );
-    return QMAX( h, QApplication::globalStrut().height() );
-}
-
-ColorSmallPixmapItem::ColorSmallPixmapItem( const ScColor& col, const QString colName ) : ColorListBoxItem(col, colName)
-{
-}
-
-void ColorSmallPixmapItem::paint( QPainter *p )
-{
-	static QPixmap smallPix(15, 15);
-
-	int itemHeight = height( listBox() );
-    int yPos;
-
+	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.get();
 	QColor rgb = color.getDisplayColor();
-	smallPix.fill(rgb);
-	QPainter painter(&smallPix);
+	pPixmap->fill(rgb);
+	QPainter painter(pPixmap);
 	painter.setBrush(Qt::NoBrush);
 	QPen b(Qt::black, 1);
 	painter.setPen(b);
 	painter.drawRect(0, 0, 15, 15);
 	painter.end();
-
-	QRect rect;
-	rect.setCoords(3, 0, 15, 15);
-
-	yPos = ( itemHeight - 15 ) / 2;
-	p->drawPixmap( 3, yPos, smallPix );
-
-	if( !text().isEmpty() )
-	{
-		QFontMetrics fm = p->fontMetrics();
-		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-		p->drawText( smallPix.width() + 5, yPos, text() );
-	}
 }
 
-int	ColorSmallPixmapItem::width( const QListBox *lb )  const
+ColorWidePixmapItem::ColorWidePixmapItem( const ScColor& col, const QString colName ) : ScListBoxPixmap<30,15>()
 {
-	QString colorName = text();
-    if ( text().isEmpty() )
-		return QMAX( 21, QApplication::globalStrut().width() );
-    return QMAX( 21 + lb->fontMetrics().width( colorName ), QApplication::globalStrut().width() );
+	color = col;
+	setText(colName);
 }
 
-ColorWidePixmapItem::ColorWidePixmapItem( const ScColor& col, const QString colName ) : ColorListBoxItem(col, colName)
+void ColorWidePixmapItem::redraw(void)
 {
-}
-
-void ColorWidePixmapItem::paint( QPainter *p )
-{
-	static QPixmap widePix(30, 15);
-
-	int itemHeight = height( listBox() );
-    int yPos;
-
 	QColor rgb = color.getDisplayColor();
-	widePix.fill(rgb);
-
-	QRect rect;
-	rect.setCoords(3, 0, 30, 15);
-
-	yPos = ( itemHeight - 15 ) / 2;
-	p->drawPixmap( 3, yPos, widePix );
-
-	if( !text().isEmpty() )
-	{
-		QFontMetrics fm = p->fontMetrics();
-		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-		p->drawText( widePix.width() + 5, yPos, text() );
-	}
+	ScListBoxPixmap<30,15>::pmap->fill(rgb);
 }
 
-int	ColorWidePixmapItem::width( const QListBox *lb )  const
+ColorFancyPixmapItem::ColorFancyPixmapItem( const ScColor& col, const QString colName ) : ScListBoxPixmap<60,15>()
 {
-	QString colorName = text();
-    if ( text().isEmpty() )
-		return QMAX( 36, QApplication::globalStrut().width() );
-    return QMAX( 36 + lb->fontMetrics().width( colorName ), QApplication::globalStrut().width() );
+	color = col;
+	setText(colName);
 }
 
-ColorFancyPixmapItem::ColorFancyPixmapItem( const ScColor& col, const QString colName ) : ColorListBoxItem(col, colName)
+void ColorFancyPixmapItem::redraw(void)
 {
-}
-
-void ColorFancyPixmapItem::paint( QPainter *p )
-{
-	static QPixmap cellPix(60, 15);
 	static QPixmap smallPix(15, 15);
-
 	static QPixmap alertIcon;
 	static QPixmap cmykIcon;
 	static QPixmap rgbIcon;
@@ -148,9 +84,6 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 		iconsInitialized = true;
 	}
 
-	int itemHeight = height( listBox() );
-    int yPos;
-
 	QColor rgb = color.getDisplayColor();
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
@@ -160,40 +93,20 @@ void ColorFancyPixmapItem::paint( QPainter *p )
 	painter.drawRect(0, 0, 15, 15);
 	painter.end();
 
-	cellPix.fill(Qt::white);
-	paintAlert(smallPix, cellPix, 0, 0);
+	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
+	pPixmap->fill(Qt::white);
+	paintAlert(smallPix, *pPixmap, 0, 0);
 	color.checkGamut();
 	if (color.isOutOfGamut())
-		paintAlert(alertIcon, cellPix, 15, 0);
+		paintAlert(alertIcon, *pPixmap, 15, 0);
 	if ((color.getColorModel() == colorModelCMYK) || (color.isSpotColor()))
-		paintAlert(cmykIcon, cellPix, 30, 0);
+		paintAlert(cmykIcon, *pPixmap, 30, 0);
 	else
-		paintAlert(rgbIcon, cellPix, 30, 0);
+		paintAlert(rgbIcon, *pPixmap, 30, 0);
 	if (color.isSpotColor())
-		paintAlert(spotIcon, cellPix, 46, 2);
+		paintAlert(spotIcon, *pPixmap, 46, 2);
 	if (color.isRegistrationColor())
-		paintAlert(regIcon, cellPix, 45, 0);
-
-	QRect rect;
-	rect.setCoords(3, 0, 60, 15);
-
-	yPos = ( itemHeight - 15 ) / 2;
-	p->drawPixmap( 3, yPos, cellPix );
-
-	if( !text().isEmpty() )
-	{
-		QFontMetrics fm = p->fontMetrics();
-		yPos = ( ( itemHeight - fm.height() ) / 2 ) + fm.ascent();
-		p->drawText( cellPix.width() + 5, yPos, text() );
-	}
-}
-
-int	ColorFancyPixmapItem::width( const QListBox *lb )  const
-{
-	QString colorName = text();
-    if ( text().isEmpty() )
-		return QMAX( 66, QApplication::globalStrut().width() );
-    return QMAX( 66 + lb->fontMetrics().width( colorName ), QApplication::globalStrut().width() );
+		paintAlert(regIcon, *pPixmap, 45, 0);
 }
 
 ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)

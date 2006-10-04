@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 using namespace std;
 
 template<unsigned int pixWidth, unsigned int pixHeight>
-class SCRIBUS_API ScListBoxPixmap : public QListBoxItem
+class ScListBoxPixmap : public QListBoxItem
 {
 public:
 	ScListBoxPixmap(void);

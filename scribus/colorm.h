@@ -21,57 +21,45 @@ for which a new license (GPL+exception) is in place.
 #include "colorsetmanager.h"
 #include "scribusapi.h"
 #include "scribusstructs.h"
+#include "sclistboxpixmap.h"
 #include "query.h"
 
 class DynamicTip;
 class ScribusDoc;
 
-class SCRIBUS_API ColorListBoxItem : public QListBoxItem
+class SCRIBUS_API ColorSmallPixmapItem : public ScListBoxPixmap<15,15>
 {
 	protected:
-
 		ScColor color;
-
-	public:
-		ColorListBoxItem( const ScColor& col, const QString colName );
-		~ColorListBoxItem() {};
-
-		virtual int	height( const QListBox * ) const;
-};
-
-class SCRIBUS_API ColorSmallPixmapItem : public ColorListBoxItem
-{
 	public:
 		ColorSmallPixmapItem( const ScColor& col, const QString colName );
 		~ColorSmallPixmapItem() {};
 
-		virtual int	width( const QListBox * )  const;
-
-		virtual void paint( QPainter * );
+		virtual void redraw(void);
 		virtual int rtti() const { return 654873547; };
 };
 
-class SCRIBUS_API ColorWidePixmapItem : public ColorListBoxItem
+class SCRIBUS_API ColorWidePixmapItem : public ScListBoxPixmap<30,15>
 {
+	protected:
+		ScColor color;
 	public:
 		ColorWidePixmapItem( const ScColor& col, const QString colName );
 		~ColorWidePixmapItem() {};
 
-		virtual int	width( const QListBox * )  const;
-
-		virtual void paint( QPainter * );
+		virtual void redraw(void);
 		virtual int rtti() const { return 654873548; };
 };
 
-class SCRIBUS_API ColorFancyPixmapItem : public ColorListBoxItem
+class SCRIBUS_API ColorFancyPixmapItem : public ScListBoxPixmap<60,15>
 {
+	protected:
+		ScColor color;
 	public:
 		ColorFancyPixmapItem( const ScColor& col, const QString colName );
 		~ColorFancyPixmapItem() {};
 
-		virtual int	width( const QListBox * )  const;
-
-		virtual void paint( QPainter * );
+		virtual void redraw(void);
 		virtual int rtti() const { return 654873549; };
 };
 
