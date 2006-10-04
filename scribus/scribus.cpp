@@ -3988,10 +3988,7 @@ bool ScribusMainWindow::DoFileClose()
 //	if (doc->EditClip)
 //		nodePalette->doc = 0;
 	if (doc->EditClip)
-	{
-		ToggleFrameEdit();
-		nodePalette->setDoc(0,0);
-	}
+		NoFrameEdit();
 
 	bookmarkPalette->BView->clear();
 	bookmarkPalette->BView->NrItems = 0;
