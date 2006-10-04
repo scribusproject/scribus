@@ -13,7 +13,7 @@
 <li><strong>MacOSX:</strong> Under User/%username/.scribus</li>
 <li><strong>Windows:</strong> Documents and Settings/%username/.scribus</li>
 </ul>
- Within the directory is a <code>.scribus13.rc</code> file and a <code>scribusfont.rc</code> file which preserves your font preferences. This file is stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts. There might also be several directories, which are configuration or history files. If you are troubleshooting starting Scribus, <strong>rename</strong>, do not delete these files and directories. If you rename the directory, on re-starting Scribus, the launch time will be somewhat longer, as Scribus creates a cache of installed fonts. On the second re-start of Scribus, it will be much quicker. </p>
+ Within the directory is a <code>.scribus13.rc</code> file, a <code>scribusfont.rc</code> file which preserves your font preferences and a <code>prefs13.xml</code>. These files are stored in XML format, so you can inspect its contents with a text editor. If you have installed the scripter plug-in, there will also be a <code>scripter.rc</code> file which lists most recently used scripts. There might also be several directories, which are configuration or history files. If you are troubleshooting starting Scribus, <strong>rename</strong>, do not delete these files and directories. If you rename the directory, on re-starting Scribus, the launch time will be somewhat longer, as Scribus creates a cache of installed fonts. On the second re-start of Scribus, it will be much quicker. </p>
 
 <p>You can change the Document Setup preferences while a document is open and those preferences will remain only for the currently open doc. When you change the application preferences, any new documents will inherit these preferences and default settings.</p>
 
@@ -67,9 +67,6 @@ precise, but sometimes more difficult selection of smaller objects.</p>
 
 <h3>Fonts</h3>
 <p>Selecting and installing fonts correctly is one of the most important configuration items with Scribus and an extensive set of notes is here: <a href="fonts1.html">Fonts and Scribus</a>. If there is one part of the documentation you really must read, it is this one.</p>
-
-
-
 
 <h3>Color Management Settings</h3>
 <p>Note in this dialog, the setting of sRGB is <strong>incorrect</strong> for a monitor profile. There are detailed notes on <a href="cms.html"> Color Management under Scribus</a> and <a href="moncal.html">Creating a Monitor Profile with Littlecms</a>. MacOSX and Windows users can use commercially available tools like Monaco's Color Tools,  Eye-One, Adobe Gamma and Scribus can use them along side other color savvy applications. MacOSX users can use any of the profiles available to Color Sync. Scribus will automatically discover any system profiles installed.</p>
