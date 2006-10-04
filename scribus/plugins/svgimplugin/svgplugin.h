@@ -131,7 +131,8 @@ public:
 		StrokeCol("None"),
 		Opacity(1.0),
 		FillOpacity(1.0),
-		StrokeOpacity(1.0)
+		StrokeOpacity(1.0),
+		textAnchor("start")
 		{
 		}
 	bool Display;
@@ -162,6 +163,7 @@ public:
 	double Opacity;
 	double FillOpacity;
 	double StrokeOpacity;
+	QString textAnchor;
 };
 
 class SVGPlug : public QObject
@@ -200,6 +202,7 @@ public:
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
 	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
+	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;

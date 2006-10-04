@@ -1544,6 +1544,8 @@ void SVGPlug::parsePA( SvgStyle *obj, const QString &command, const QString &par
 	}
 	else if( command == "font-size" )
 		obj->FontSize = static_cast<int>(parseUnit(params) * 10.0);
+	else if( command == "text-anchor" )
+		obj->textAnchor = params;
 	else
 		unsupported = true;
 }
@@ -1588,6 +1590,8 @@ void SVGPlug::parseStyle( SvgStyle *obj, const QDomElement &e )
 		parsePA( obj, "font-family", e.attribute( "font-family" ) );
 	if( !e.attribute( "font-size" ).isEmpty() )
 		parsePA( obj, "font-size", e.attribute( "font-size" ) );
+	if( !e.attribute( "text-anchor" ).isEmpty() )
+		parsePA( obj, "text-anchor", e.attribute( "text-anchor" ) );
 	QString style = e.attribute( "style" ).simplifyWhiteSpace();
 	QStringList substyles = QStringList::split( ';', style );
 	for( QStringList::Iterator it = substyles.begin(); it != substyles.end(); ++it )
@@ -1765,6 +1769,43 @@ void SVGPlug::parseGradient( const QDomElement &e )
 
 QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 {
+	QPtrList<PageItem> GElements;
+	setupTransform(e);
+	QDomNode c = e.firstChild();
+	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
+	{
+		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
+		{
+			QDomElement tspan = n.toElement();
+			addGraphicContext();
+			SvgStyle *gc = m_gc.current();
+			parseStyle(gc, tspan);
+			if (!gc->Display)
+				continue;
+			QPtrList<PageItem> el = parseTextElement(x, y, tspan);
+			for (uint ec = 0; ec < el.count(); ++ec)
+			{
+				GElements.append(el.at(ec));
+				Elements.append(el.at(ec));
+			}
+			delete( m_gc.pop() );
+		}
+	}
+	else
+	{
+		SvgStyle *gc = m_gc.current();
+		QPtrList<PageItem> el = parseTextElement(x, y, e);
+		for (uint ec = 0; ec < el.count(); ++ec)
+		{
+			GElements.append(el.at(ec));
+			Elements.append(el.at(ec));
+		}
+	}
+	return GElements;
+}
+
+QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElement &e)
+{
 	QPainter p;
 	QPtrList<PageItem> GElements;
 	p.begin(m_Doc->view()->viewport());
@@ -1772,220 +1813,136 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 	QFont ff(m_gc.current()->Family);
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	p.setFont(ff);
-	setupTransform(e);
 	int desc = p.fontMetrics().descent();
 	int asce = p.fontMetrics().ascent();
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
 	QDomNode c = e.firstChild();
-	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
-	{
-		double tempW = 0;
-		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
-		{
-			tempW = 0;
-			QDomElement tspan = n.toElement();
-			addGraphicContext();
-			SvgStyle *gc = m_gc.current();
-			parseStyle(gc, tspan);
-			if (!gc->Display)
-				continue;
-			//int z = m_Doc->view()->PaintText(x, y, 10, 10, gc->LWidth, gc->FillCol);
-			int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+	if ( e.tagName() == "tspan" && e.text().isNull() )
+			Text = " ";
+
+	double tempW = 0;
+	SvgStyle *gc = m_gc.current();
+	int ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
+	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
 //FIXME:av			ite->setLineSpacing(gc->FontSize / 10.0 + 2);
-			const double lineSpacing = gc->FontSize / 10.0 + 2;
-			ite->setHeight(lineSpacing +desc+2);
-			m_Doc->scMW()->SetNewFont(gc->Family);
-			QWMatrix mm = gc->matrix;
-			if( (!tspan.attribute("x").isEmpty()) && (!tspan.attribute("y").isEmpty()) )
-			{
-				double x1 = parseUnit( tspan.attribute( "x", "0" ) );
-				double y1 = parseUnit( tspan.attribute( "y", "0" ) );
-				double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
-				double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
-				ite->setXPos(mx + BaseX);
-				ite->setYPos(my + BaseY);
-			}
-			else
-			{
-				double mx = mm.m11() * x + mm.m21() * y + mm.dx();
-				double my = mm.m22() * y + mm.m12() * x + mm.dy();
-				ite->setXPos(mx);
-				ite->setYPos(my);
-			}
-			if (!tspan.text().isNull())
-				Text = QString::fromUtf8(tspan.text()).stripWhiteSpace();
-			else
-				Text = " ";
-			/*
-			ite->setFont(gc->Family);
-			ite->TxtFill = gc->FillCol;
-			ite->ShTxtFill = 100;
-			ite->TxtStroke = gc->StrokeCol;
-			ite->ShTxtStroke = 100;
-			ite->setFontSize(gc->FontSize);
-			ite->TxTStyle = 0;
-			ite->TxtScale = 1000;
-			ite->TxtScaleV = 1000;
-			ite->TxtBase = 0;
-			ite->TxtShadowX = 50;
-			ite->TxtShadowY = -50;
-			ite->TxtOutline = 10;
-			ite->TxtUnderPos = -1;
-			ite->TxtUnderWidth = -1;
-			ite->TxtStrikePos = -1;
-			ite->TxtStrikeWidth = -1;
-			 */
-			for (uint tt = 0; tt < Text.length(); ++tt)
-			{
-				CharStyle nstyle;
-				QString ch = Text.mid(tt,1);
-				nstyle.setFont((*m_Doc->AllFonts)[gc->Family]);
-				nstyle.setFontSize(gc->FontSize);
-				nstyle.setFillColor(gc->FillCol);
-				nstyle.setTracking(0);
-				nstyle.setFillShade(100);
-				nstyle.setStrokeColor(gc->StrokeCol);
-				nstyle.setStrokeShade(100);
-				nstyle.setScaleH(1000);
-				nstyle.setScaleV(1000);
-				nstyle.setBaselineOffset(0);
-				nstyle.setShadowXOffset(50);
-				nstyle.setShadowYOffset(-50);
-				nstyle.setOutlineWidth(10);
-				nstyle.setUnderlineOffset(-1);
-				nstyle.setUnderlineWidth(-1);
-				nstyle.setStrikethruOffset(-1);
-				nstyle.setStrikethruWidth(-1);
-				if( !tspan.attribute( "stroke" ).isEmpty() )
-					nstyle.setEffects(ScStyle_Outline);
-				else
-					nstyle.setEffects(ScStyle_Default);
-				int pos = ite->itemText.length();
-				ite->itemText.insertChars(pos, ch);
-				ite->itemText.applyCharStyle(pos, 1, nstyle);
-				tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize())+1;
-				if (ch == SpecialChars::PARSEP)
-				{
-					ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
-					tempW = 0;
-				}
-			}
-			ite->setWidth(QMAX(ite->width(), tempW));
-			ite->SetRectFrame();
-			m_Doc->setRedrawBounding(ite);
-			ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-			m_Doc->m_Selection->addItem(ite);
-			m_Doc->view()->frameResizeHandle = 1;
-			m_Doc->view()->setGroupRect();
-			m_Doc->view()->scaleGroup(mm.m11(), mm.m22());
-			m_Doc->view()->Deselect();
-			ite->moveBy(0.0, -asce * mm.m22());
-			if( !e.attribute("id").isEmpty() )
-				ite->setItemName(" "+e.attribute("id"));
-			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
-			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
-			ite->PLineEnd = gc->PLineEnd;
-			ite->PLineJoin = gc->PLineJoin;
-			//ite->setTextFlowsAroundFrame(false);
-			ite->setTextFlowMode(PageItem::TextFlowDisabled);
-			ite->DashOffset = gc->dashOffset;
-			ite->DashValues = gc->dashArray;
-			/*			if (gc->Gradient != 0)
-						{
-							ite->fill_gradient = gc->GradCo;
-							m_Doc->view()->SelItem.append(ite);
-							m_Doc->view()->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
-							m_Doc->view()->SelItem.clear();
-						} */
-			GElements.append(ite);
-			Elements.append(ite);
-			delete( m_gc.pop() );
-		}
+	const double lineSpacing = gc->FontSize / 10.0 + 2;
+	ite->setHeight(lineSpacing +desc+2);
+	m_Doc->scMW()->SetNewFont(gc->Family);
+	QWMatrix mm = gc->matrix;
+	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
+	{
+		double x1 = parseUnit( e.attribute( "x", "0" ) );
+		double y1 = parseUnit( e.attribute( "y", "0" ) );
+		double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
+		double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
+		ite->setXPos(mx + BaseX);
+		ite->setYPos(my + BaseY);
 	}
 	else
 	{
-		SvgStyle *gc = m_gc.current();
-		//int z = m_Doc->view()->PaintText(x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, gc->FillCol);
-		int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, y - qRound(gc->FontSize / 10.0), 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
-//FIXME:av		ite->setLineSpacing(gc->FontSize / 10.0 + 2);
-		m_Doc->scMW()->SetNewFont(gc->Family);
-		/*
-		ite->setFont(gc->Family);
-		ite->TxtFill = gc->FillCol;
-		ite->ShTxtFill = 100;
-		ite->TxtStroke = gc->StrokeCol;
-		ite->ShTxtStroke = 100;
-		ite->setFontSize(gc->FontSize);
-		ite->TxTStyle = 0;
-		ite->TxtScale = 1000;
-		ite->TxtScaleV = 1000;
-		ite->TxtBase = 0;
-		ite->TxtShadowX = 50;
-		ite->TxtShadowY = -50;
-		ite->TxtOutline = 10;
-		ite->TxtUnderPos = -1;
-		ite->TxtUnderWidth = -1;
-		ite->TxtStrikePos = -1;
-		ite->TxtStrikeWidth = -1;
-		 */
-		for (uint cc = 0; cc<Text.length(); ++cc)
+		double mx = mm.m11() * x + mm.m21() * y + mm.dx();
+		double my = mm.m22() * y + mm.m12() * x + mm.dy();
+		ite->setXPos(mx);
+		ite->setYPos(my);
+	}
+	/*
+	ite->setFont(gc->Family);
+	ite->TxtFill = gc->FillCol;
+	ite->ShTxtFill = 100;
+	ite->TxtStroke = gc->StrokeCol;
+	ite->ShTxtStroke = 100;
+	ite->setFontSize(gc->FontSize);
+	ite->TxTStyle = 0;
+	ite->TxtScale = 1000;
+	ite->TxtScaleV = 1000;
+	ite->TxtBase = 0;
+	ite->TxtShadowX = 50;
+	ite->TxtShadowY = -50;
+	ite->TxtOutline = 10;
+	ite->TxtUnderPos = -1;
+	ite->TxtUnderWidth = -1;
+	ite->TxtStrikePos = -1;
+	ite->TxtStrikeWidth = -1;
+		*/
+	for (uint tt = 0; tt < Text.length(); ++tt)
+	{
+		CharStyle nstyle;
+		QString ch = Text.mid(tt,1);
+		nstyle.setFont((*m_Doc->AllFonts)[gc->Family]);
+		nstyle.setFontSize(gc->FontSize);
+		nstyle.setFillColor(gc->FillCol);
+		nstyle.setTracking(0);
+		nstyle.setFillShade(100);
+		nstyle.setStrokeColor(gc->StrokeCol);
+		nstyle.setStrokeShade(100);
+		nstyle.setScaleH(1000);
+		nstyle.setScaleV(1000);
+		nstyle.setBaselineOffset(0);
+		nstyle.setShadowXOffset(50);
+		nstyle.setShadowYOffset(-50);
+		nstyle.setOutlineWidth(10);
+		nstyle.setUnderlineOffset(-1);
+		nstyle.setUnderlineWidth(-1);
+		nstyle.setStrikethruOffset(-1);
+		nstyle.setStrikethruWidth(-1);
+		if( !e.attribute( "stroke" ).isEmpty() )
+			nstyle.setEffects(ScStyle_Outline);
+		else
+			nstyle.setEffects(ScStyle_Default);
+		int pos = ite->itemText.length();
+		ite->itemText.insertChars(pos, ch);
+		ite->itemText.applyCharStyle(pos, 1, nstyle);
+		tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize())+1;
+		if (ch == SpecialChars::PARSEP)
 		{
-			CharStyle nstyle;
-			QString ch = Text.mid(cc,1);
-			nstyle.setFont((*m_Doc->AllFonts)[gc->Family]);
-			nstyle.setFontSize(gc->FontSize);
-			nstyle.setFillColor(gc->FillCol);
-			nstyle.setTracking(0);
-			nstyle.setFillShade(100);
-			nstyle.setStrokeColor(gc->StrokeCol);
-			nstyle.setStrokeShade(100);
-			nstyle.setScaleH(1000);
-			nstyle.setScaleV(1000);
-			nstyle.setBaselineOffset(0);
-			nstyle.setShadowXOffset(50);
-			nstyle.setShadowYOffset(-50);
-			nstyle.setOutlineWidth(10);
-			nstyle.setUnderlineOffset(-1);
-			nstyle.setUnderlineWidth(-1);
-			nstyle.setStrikethruOffset(-1);
-			nstyle.setStrikethruWidth(-1);
-			if( !e.attribute( "stroke" ).isEmpty() )
-				nstyle.setEffects(ScStyle_Outline);
-			else
-				nstyle.setEffects(ScStyle_Default);
-			int pos = ite->itemText.length();
-			ite->itemText.insertChars(pos, ch);
-			ite->itemText.applyCharStyle(pos, 1, nstyle);
-			ite->setWidth(ite->width() + nstyle.font().realCharWidth(ch[0], nstyle.fontSize())+1);
-			ite->setHeight(gc->FontSize / 10.0 + 2 +desc+2);
+			ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
+			tempW = 0;
 		}
-		ite->SetRectFrame();
-		m_Doc->setRedrawBounding(ite);
-		if( !e.attribute("id").isEmpty() )
-			ite->setItemName(" "+e.attribute("id"));
-		ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
-		ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
-		ite->PLineEnd = gc->PLineEnd;
-		ite->PLineJoin = gc->PLineJoin;
-		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		ite->DashOffset = gc->dashOffset;
-		ite->DashValues = gc->dashArray;
-		/*		if (gc->Gradient != 0)
+	}
+	ite->setWidth(QMAX(ite->width(), tempW));	
+	if( gc->textAnchor == "middle" )
+	{
+		m_Doc->currentStyle = m_Doc->docParagraphStyles[1];
+		m_Doc->chAbStyle(ite, 1);
+		ite->setXPos(x - ite->width() / 2);
+	}
+	else if( gc->textAnchor == "end")
+	{
+		m_Doc->currentStyle = m_Doc->docParagraphStyles[2];
+		m_Doc->chAbStyle(ite, 2);
+		ite->setXPos(x - ite->width());
+	}
+	ite->SetRectFrame();
+	m_Doc->setRedrawBounding(ite);
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	m_Doc->m_Selection->addItem(ite);
+	m_Doc->view()->frameResizeHandle = 1;
+	m_Doc->view()->setGroupRect();
+	m_Doc->view()->scaleGroup(mm.m11(), mm.m22());
+	m_Doc->view()->Deselect();
+	ite->moveBy(0.0, -asce * mm.m22());
+	if( !e.attribute("id").isEmpty() )
+		ite->setItemName(" "+e.attribute("id"));
+	ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
+	ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
+	ite->PLineEnd = gc->PLineEnd;
+	ite->PLineJoin = gc->PLineJoin;
+	//ite->setTextFlowsAroundFrame(false);
+	ite->setTextFlowMode(PageItem::TextFlowDisabled);
+	ite->DashOffset = gc->dashOffset;
+	ite->DashValues = gc->dashArray;
+	/*			if (gc->Gradient != 0)
 				{
 					ite->fill_gradient = gc->GradCo;
 					m_Doc->view()->SelItem.append(ite);
 					m_Doc->view()->ItemGradFill(gc->Gradient, gc->GCol2, 100, gc->GCol1, 100);
 					m_Doc->view()->SelItem.clear();
 				} */
-		GElements.append(ite);
-		Elements.append(ite);
-	}
+	GElements.append(ite);
 	p.end();
 	return GElements;
 }
