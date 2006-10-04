@@ -1664,17 +1664,21 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					doc->BookMarks.append(bok);
+				}
 			}
 			if(pg.tagName()=="PDF")
 			{
