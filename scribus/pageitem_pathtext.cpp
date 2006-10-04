@@ -84,10 +84,32 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 	CurX = Extra;
 	if (!m_Doc->layerOutline(LayerNr))
 	{
-		if (lineColor() != CommonStrings::None && PoShow)
+		if (PoShow)
 		{
-			p->setupPolygon(&PoLine, false);
-			p->strokePath();
+			if (lineColor() != CommonStrings::None && PoShow)
+			{
+				p->setupPolygon(&PoLine, false);
+				p->strokePath();
+			}
+			else
+			{
+				if (NamedLStyle.isEmpty())
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				else
+				{
+					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+					QColor tmp;
+					for (int it = ml.size()-1; it > -1; it--)
+					{
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+							p->setPen(tmp, ml[it].Width, static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+							p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+						}
+					}
+				}
+			}
 		}
 	}
 	if (itemText.length() != 0)

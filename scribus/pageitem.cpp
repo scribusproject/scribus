@@ -949,12 +949,12 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-						p->setPen(tmp, ml[it].Width,
-								static_cast<PenStyle>(ml[it].Dash),
-								static_cast<PenCapStyle>(ml[it].LineEnd),
-								static_cast<PenJoinStyle>(ml[it].LineJoin));
-						p->strokePath();
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+							p->setPen(tmp, ml[it].Width, static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+							p->strokePath();
+						}
 					}
 				}
 			}

@@ -1343,9 +1343,12 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite));
+										PutPage("h\nS\n");
+									}
 								}
 							}
 						}
@@ -1366,10 +1369,13 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 							for (int it = ml.size()-1; it > -1; it--)
 							{
-								PutPage(setStrokeMulti(&ml[it]));
-								PutPage("0 0 m\n");
-								PutPage(FToStr(ite->width())+" 0 l\n");
-								PutPage("S\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage("0 0 m\n");
+										PutPage(FToStr(ite->width())+" 0 l\n");
+										PutPage("S\n");
+									}
 							}
 						}
 						if (ite->startArrowIndex() != 0)
@@ -1453,9 +1459,12 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite));
-									PutPage("h\nS\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite));
+										PutPage("h\nS\n");
+									}
 								}
 							}
 						}
@@ -1490,9 +1499,12 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 								multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 								for (int it = ml.size()-1; it > -1; it--)
 								{
-									PutPage(setStrokeMulti(&ml[it]));
-									PutPage(SetClipPath(ite, false));
-									PutPage("S\n");
+									if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+									{
+										PutPage(setStrokeMulti(&ml[it]));
+										PutPage(SetClipPath(ite, false));
+										PutPage("S\n");
+									}
 								}
 							}
 						}
@@ -1587,13 +1599,15 @@ void PDFlib::PDF_TemplatePage(const Page* pag, bool )
 									else
 									{
 										multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-										for (int it = ml.size()-1;
-											it > -1; it--)
+										for (int it = ml.size()-1; it > -1; it--)
+										{
+											if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 											{
-											PutPage(setStrokeMulti(&ml[it]));
-											PutPage(SetClipPath(ite, false));
-											PutPage("S\n");
+												PutPage(setStrokeMulti(&ml[it]));
+												PutPage(SetClipPath(ite, false));
+												PutPage("S\n");
 											}
+										}
 									}
 								}
 								PutPage("Q\n");
@@ -2394,6 +2408,8 @@ QString PDFlib::Write_TransparencyGroup(double trans, int blend, QString &data)
 
 QString PDFlib::PDF_ProcessTableItem(PageItem* ite, const Page* pag)
 {
+	if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
+		return "";
 	QString tmp("");
 	tmp += "q\n";
 	if ((ite->doOverprint) && (!Options.doOverprint) && (!Options.UseRGB))
@@ -2697,9 +2713,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite);
+							tmp += "h\nS\n";
+						}
 					}
 				}
 			}
@@ -2745,9 +2764,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite);
+							tmp += "h\nS\n";
+						}
 					}
 				}
 			}
@@ -2766,10 +2788,13 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 				multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					tmp += setStrokeMulti(&ml[it]);
-					tmp += "0 0 m\n";
-					tmp += FToStr(ite->width())+" 0 l\n";
-					tmp += "S\n";
+					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					{
+						tmp += setStrokeMulti(&ml[it]);
+						tmp += "0 0 m\n";
+						tmp += FToStr(ite->width())+" 0 l\n";
+						tmp += "S\n";
+					}
 				}
 			}
 			if (ite->startArrowIndex() != 0)
@@ -2856,9 +2881,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite);
-						tmp += "h\nS\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite);
+							tmp += "h\nS\n";
+						}
 					}
 				}
 			}
@@ -2893,9 +2921,12 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 					multiLine ml = doc.MLineStyles[ite->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						tmp += setStrokeMulti(&ml[it]);
-						tmp += SetClipPath(ite, false);
-						tmp += "S\n";
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							tmp += setStrokeMulti(&ml[it]);
+							tmp += SetClipPath(ite, false);
+							tmp += "S\n";
+						}
 					}
 				}
 			}
@@ -2990,13 +3021,15 @@ QString PDFlib::PDF_ProcessItem(PageItem* ite, const Page* pag, uint PNr, bool e
 						else
 						{
 							multiLine ml = doc.MLineStyles[ite->NamedLStyle];
-							for (int it = ml.size()-1;
-								it > -1; it--)
+							for (int it = ml.size()-1; it > -1; it--)
+							{
+								if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
 								{
-								tmp += setStrokeMulti(&ml[it]);
-								tmp += SetClipPath(ite, false);
-								tmp += "S\n";
+									tmp += setStrokeMulti(&ml[it]);
+									tmp += SetClipPath(ite, false);
+									tmp += "S\n";
 								}
+							}
 						}
 					}
 					tmp += "Q\n";
