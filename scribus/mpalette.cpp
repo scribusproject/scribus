@@ -3528,15 +3528,8 @@ void Mpalette::updateCList()
 		return;
 	TxFill->clear();
 	TxStroke->clear();
-
-	TxFill->insertItem(CommonStrings::NoneColor);
-	TxStroke->insertItem(CommonStrings::NoneColor);
-	ColorList::Iterator itend=doc->PageColors.end();
-	for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
-	{
-		TxFill->insertSmallItem( doc->PageColors[it.key()], it.key() );
-		TxStroke->insertSmallItem( doc->PageColors[it.key()], it.key() );
-	}
+	TxFill->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
+	TxStroke->updateBox(doc->PageColors, ColorCombo::fancyPixmaps, true);
 	TxFill->listBox()->setMinimumWidth(TxFill->listBox()->maxItemWidth()+24);
 	TxStroke->listBox()->setMinimumWidth(TxStroke->listBox()->maxItemWidth()+24);
 }

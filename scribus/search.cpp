@@ -122,11 +122,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SEffVal, 4, 1, Qt::AlignLeft );
 	SFillVal = new ColorCombo( true, Search, "SFillVal" );
 	SFillVal->setEditable(false);
-	SFillVal->insertItem(CommonStrings::NoneColor);
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		SFillVal->insertWideItem( doc->PageColors[it.key()], it.key() );
-	}
+	SFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	SFillVal->listBox()->setMinimumWidth(SFillVal->listBox()->maxItemWidth()+24);
 	SFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	SFillVal->setEnabled(false);
@@ -136,11 +132,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	SearchLayout->addWidget( SFillSVal, 6, 1, Qt::AlignLeft );
 	SStrokeVal = new ColorCombo( true, Search, "SStrokeVal" );
 	SStrokeVal->setEditable(false);
-	SStrokeVal->insertItem(CommonStrings::NoneColor);
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		SStrokeVal->insertWideItem( doc->PageColors[it.key()], it.key() );
-	}
+	SStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	SStrokeVal->listBox()->setMinimumWidth(SStrokeVal->listBox()->maxItemWidth()+24);
 	SStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	SStrokeVal->setEnabled(false);
@@ -218,11 +210,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( REffVal, 4, 1, Qt::AlignLeft );
 	RFillVal = new ColorCombo( true, Replace, "RFillVal" );
 	RFillVal->setEditable(false);
-	RFillVal->insertItem(CommonStrings::NoneColor);
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		RFillVal->insertWideItem( doc->PageColors[it.key()], it.key() );
-	}
+	RFillVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	RFillVal->listBox()->setMinimumWidth(RFillVal->listBox()->maxItemWidth()+24);
 	RFillVal->setCurrentText(doc->currentStyle.charStyle().fillColor());
 	RFillVal->setEnabled(false);
@@ -232,11 +220,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	ReplaceLayout->addWidget( RFillSVal, 6, 1, Qt::AlignLeft );
 	RStrokeVal = new ColorCombo( true, Replace, "RStrokeVal" );
 	RStrokeVal->setEditable(false);
-	RStrokeVal->insertItem(CommonStrings::NoneColor);
-	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		RStrokeVal->insertWideItem( doc->PageColors[it.key()], it.key() );
-	}
+	RStrokeVal->updateBox(doc->PageColors, ColorCombo::widePixmaps, true);
 	RStrokeVal->listBox()->setMinimumWidth(RStrokeVal->listBox()->maxItemWidth()+24);
 	RStrokeVal->setCurrentText(doc->currentStyle.charStyle().strokeColor());
 	RStrokeVal->setEnabled(false);

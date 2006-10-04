@@ -94,7 +94,19 @@ class SCRIBUS_API ColorListBox : public QListBox
 		\param list a ColorList to present. 
 		\param the pixmap type to use
 		\param if the list should be cleared first */
-		void updateBox(ColorList list, ColorListBox::PixmapType type, bool clearFirst = true);
+		void updateBox(ColorList& list, ColorListBox::PixmapType type, bool clearFirst = true);
+
+		/*! \brief Insert ColorSmallPixmapItems into the list
+		\param list a ColorList to present. */
+		void insertSmallPixmapItems(ColorList& list);
+
+		/*! \brief Insert ColorWidePixmapItems into the list
+		\param list a ColorList to present. */
+		void insertWidePixmapItems(ColorList& list);
+
+		/*! \brief Insert ColorFancyPixmapItems into the list
+		\param list a ColorList to present. */
+		void insertFancyPixmapItems(ColorList& list);
 };
 
 

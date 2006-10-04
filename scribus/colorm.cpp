@@ -116,24 +116,51 @@ ColorListBox::ColorListBox(QWidget * parent, const char * name, WFlags f)
 		setName("ColorListBox");
 }
 
-void ColorListBox::updateBox(ColorList list, ColorListBox::PixmapType type, bool clearFirst)
+void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type, bool clearFirst)
 {
-	ColorList::Iterator it;
 	if (clearFirst)
 		clear();
+	if (type == ColorListBox::fancyPixmap)
+		insertFancyPixmapItems( list );
+	else if (type == ColorListBox::widePixmap)
+		insertWidePixmapItems( list );
+	else if (type == ColorListBox::smallPixmap)
+		insertSmallPixmapItems( list );
+}
+
+void ColorListBox::insertSmallPixmapItems(ColorList& list)
+{
+	ColorList::Iterator it;
 	for (it = list.begin(); it != list.end(); ++it)
 	{
-		// if condition 10/21/2004 pv #1191
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-
 		ScColor col = list[it.key()];
-		if (type == ColorListBox::fancyPixmap)
-			insertItem( new ColorFancyPixmapItem(col, it.key()) );
-		else if (type == ColorListBox::widePixmap)
-			insertItem( new ColorWidePixmapItem(col, it.key()) );
-		else if (type == ColorListBox::smallPixmap)
-			insertItem( new ColorSmallPixmapItem(col, it.key()) );
+		insertItem( new ColorSmallPixmapItem(col, it.key()) );
+	}
+}
+
+void ColorListBox::insertWidePixmapItems(ColorList& list)
+{
+	ColorList::Iterator it;
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+			continue;
+		ScColor col = list[it.key()];
+		insertItem( new ColorWidePixmapItem(col, it.key()) );
+	}
+}
+
+void ColorListBox::insertFancyPixmapItems(ColorList& list)
+{
+	ColorList::Iterator it;
+	for (it = list.begin(); it != list.end(); ++it)
+	{
+		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
+			continue;
+		ScColor col = list[it.key()];
+		insertItem( new ColorFancyPixmapItem(col, it.key()) );
 	}
 }
 
