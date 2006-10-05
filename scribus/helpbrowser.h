@@ -95,6 +95,7 @@ public slots:
 	On Windows, the default web browser is launched if a web link is clicked
 	*/
 	virtual void setSource(const QString& name);
+	virtual void overLink(const QString& link);
 };
 
 

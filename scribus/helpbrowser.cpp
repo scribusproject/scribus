@@ -62,6 +62,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpaintdevicemetrics.h>
 #include <qsimplerichtext.h>
 #include <qxml.h>
+#include <qcursor.h>
 
 #include "scpaths.h"
 #include "util.h"
@@ -193,6 +194,7 @@ int HelpListItem::compare(QListViewItem *i, int col, bool asc) const
 
 TextBrowser::TextBrowser(QWidget * parent, const char * name) : QTextBrowser(parent, name)
 {
+	connect(this, SIGNAL(highlighted(const QString &)), this, SLOT(overLink(const QString &)));
 }
 
 void TextBrowser::setSource(const QString &name)
@@ -238,6 +240,14 @@ void TextBrowser::setSource(const QString &name)
 #else
 	QTextBrowser::setSource(name);
 #endif
+}
+
+void TextBrowser::overLink(const QString &link)
+{
+	if ((link.isNull()) || (link.isEmpty()))
+		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+	else
+		qApp->setOverrideCursor(QCursor(PointingHandCursor), true);
 }
 
 HelpBrowser::HelpBrowser( QWidget* parent, QString /*caption*/, QString guiLanguage, QString jumpToSection, QString jumpToFile)
