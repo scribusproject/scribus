@@ -46,7 +46,6 @@ for which a new license (GPL+exception) is in place.
 #include <unistd.h>
 #endif
 
-#include <qcursor.h>
 #include <qurl.h>
 #include <qdir.h>
 #include <qevent.h>
@@ -1113,6 +1112,40 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 
 	p->restore();
 	p->setZoomFactor(z);
+}
+
+void ScribusView::enterEvent(QEvent *)
+{
+	if (!m_MouseButtonPressed)
+	{
+		switch (Doc->appMode)
+		{
+			case modeDrawShapes:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawFrame.xpm")), true);
+				break;
+			case modeDrawPicture:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawImageFrame.xpm")), true);
+				break;
+			case modeDrawText:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawTextFrame.xpm")), true);
+				break;
+			case modeDrawTable:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawTable.xpm")), true);
+				break;
+			case modeDrawRegularPolygon:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
+				break;
+			case modeMagnifier:
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				break;
+			case modePanning:
+				qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
+				break;
+			default:
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			break;
+		}
+	}
 }
 
 void ScribusView::leaveEvent(QEvent *)

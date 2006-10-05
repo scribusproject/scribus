@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qprogressdialog.h>
 #include <qspinbox.h>
+#include <qcursor.h>
 // application specific includes
 #include "scribusapi.h"
 #include "scribusdoc.h"
@@ -327,6 +328,7 @@ private slots:
 protected: // Protected methods
 	virtual void viewportPaintEvent ( QPaintEvent * p );
 	virtual void drawContents(QPainter *p, int clipx, int clipy, int clipw, int cliph);
+	virtual void enterEvent(QEvent *);
 	virtual void leaveEvent(QEvent *);
 	virtual void contentsDragEnterEvent(QDragEnterEvent *e);
 	virtual void contentsDragMoveEvent(QDragMoveEvent *e);
