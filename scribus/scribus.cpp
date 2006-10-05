@@ -5612,11 +5612,13 @@ void ScribusMainWindow::ToggleRulerMode()
 void ScribusMainWindow::ToggleURaster()
 {
 	doc->useRaster = !doc->useRaster;
+	slotDocCh();
 }
 
 void ScribusMainWindow::ToggleUGuides()
 {
 	doc->SnapGuides = !doc->SnapGuides;
+	slotDocCh();
 }
 
 void ScribusMainWindow::ToggleFrameEdit()
@@ -7987,16 +7989,6 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			}
 		}
 
-		SimpleState *ss = new SimpleState(Um::Group, tooltip);
-		ss->set("GROUP", "group");
-		ss->set("itemcount", selectedItemCount);
-
-		for (uint a=0; a<selectedItemCount; ++a)
-		{
-			currItem = doc->m_Selection->itemAt(a);
-			currItem->Groups.push(doc->GroupCounter);
-			ss->set(QString("item%1").arg(a), currItem->ItemNr);
-		}
 		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
 		uint lowestItem = 999999;
@@ -8074,6 +8066,16 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		for (uint a = 0; a < doc->Items->count(); ++a)
 		{
 			doc->Items->at(a)->ItemNr = a;
+		}
+		SimpleState *ss = new SimpleState(Um::Group, tooltip);
+		ss->set("GROUP", "group");
+		ss->set("itemcount", selectedItemCount);
+
+		for (uint a=0; a<selectedItemCount; ++a)
+		{
+			currItem = doc->m_Selection->itemAt(a);
+			currItem->Groups.push(doc->GroupCounter);
+			ss->set(QString("item%1").arg(a), currItem->ItemNr);
 		}
 		doc->m_Selection->prependItem(neu);
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
