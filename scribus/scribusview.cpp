@@ -8229,7 +8229,8 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 
 void ScribusView::SelectItemNr(int nr, bool draw, bool single)
 {
-	SelectItem(Doc->Items->at(nr), draw, single);
+	if (nr < Doc->Items->count())
+		SelectItem(Doc->Items->at(nr), draw, single);
 }
 
 //CB-->Doc/Fix

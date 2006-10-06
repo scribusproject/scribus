@@ -7988,8 +7988,6 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				}
 			}
 		}
-
-		doc->GroupCounter++;
 		view->getGroupRect(&x, &y, &w, &h);
 		uint lowestItem = 999999;
 		uint highestItem = 0;
@@ -8040,14 +8038,16 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		double gw = maxx - minx;
 		double gh = maxy - miny;
 		PageItem *high = doc->Items->at(highestItem);
+		undoManager->setUndoEnabled(false);
 		int z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, doc->toolSettings.dWidth, doc->toolSettings.dBrush, doc->toolSettings.dPen, true);
 		PageItem *neu = doc->Items->take(z);
 		doc->Items->insert(lowestItem, neu);
-		neu->Groups.push(doc->GroupCounter-1);
-		neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+//		neu->Groups.push(doc->GroupCounter);
+		neu->setItemName( tr("Group%1").arg(doc->GroupCounter));
 		neu->AutoName = false;
 		neu->isGroupControl = true;
 		neu->groupsLastItem = high;
+		undoManager->setUndoEnabled(true);
 
 		QMap<int, uint> ObjOrder;
 		for (uint c = 0; c < selectedItemCount; ++c)
@@ -8067,6 +8067,8 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		{
 			doc->Items->at(a)->ItemNr = a;
 		}
+		doc->m_Selection->prependItem(neu);
+		selectedItemCount=doc->m_Selection->count();
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
 		ss->set("itemcount", selectedItemCount);
@@ -8077,7 +8079,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 			currItem->Groups.push(doc->GroupCounter);
 			ss->set(QString("item%1").arg(a), currItem->ItemNr);
 		}
-		doc->m_Selection->prependItem(neu);
+		doc->GroupCounter++;
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
 		outlinePalette->BuildTree();
 		slotDocCh();
@@ -8093,11 +8095,7 @@ void ScribusMainWindow::UnGroupObj()
 {
 	if (HaveDoc)
 	{
-		SimpleState *ss = new SimpleState(Um::Ungroup);
-		ss->set("UNGROUP", "ungroup");
 		uint docSelectionCount=doc->m_Selection->count();
-		ss->set("itemcount", docSelectionCount);
-		QString tooltip = Um::ItemsInvolved + "\n";
 		PageItem *currItem;
 		uint lowestItem = 999999;
 		for (uint a=0; a<docSelectionCount; ++a)
@@ -8110,18 +8108,28 @@ void ScribusMainWindow::UnGroupObj()
 			currItem->TopLink = 0;
 			currItem->BottomLink = 0;
 			lowestItem = QMIN(lowestItem, currItem->ItemNr);
-			ss->set(QString("item%1").arg(a), currItem->ItemNr);
-			tooltip += "\t" + currItem->getUName() + "\n";
 		}
-		view->Deselect(true);
 		if (doc->Items->at(lowestItem)->isGroupControl)
 		{
+			doc->m_Selection->removeItem(doc->Items->at(lowestItem));
 			doc->Items->remove(lowestItem);
 			for (uint a = 0; a < doc->Items->count(); ++a)
 			{
 				doc->Items->at(a)->ItemNr = a;
 			}
 		}
+		docSelectionCount = doc->m_Selection->count();
+		SimpleState *ss = new SimpleState(Um::Ungroup);
+		ss->set("UNGROUP", "ungroup");
+		ss->set("itemcount", docSelectionCount);
+		QString tooltip = Um::ItemsInvolved + "\n";
+		for (uint a=0; a<docSelectionCount; ++a)
+		{
+			currItem = doc->m_Selection->itemAt(a);
+			ss->set(QString("item%1").arg(a), currItem->ItemNr);
+			tooltip += "\t" + currItem->getUName() + "\n";
+		}
+		view->Deselect(true);
 		outlinePalette->BuildTree();
 		slotDocCh();
 
