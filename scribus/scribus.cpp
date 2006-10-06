@@ -8071,13 +8071,14 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		selectedItemCount=doc->m_Selection->count();
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
-		ss->set("itemcount", selectedItemCount);
+		ss->set("itemcount", selectedItemCount-1);
 
 		for (uint a=0; a<selectedItemCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
 			currItem->Groups.push(doc->GroupCounter);
-			ss->set(QString("item%1").arg(a), currItem->ItemNr);
+			if (a != 0)
+				ss->set(QString("item%1").arg(a), currItem->ItemNr);
 		}
 		doc->GroupCounter++;
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
@@ -8258,7 +8259,24 @@ void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
 		view->SelectItemNr(itemNr);
 	}
 	if (isUndo)
+	{
+		uint docSelectionCount=doc->m_Selection->count();
+		PageItem *currItem;
+		uint lowestItem = 999999;
+		for (uint a=0; a<docSelectionCount; ++a)
+		{
+			currItem = doc->m_Selection->itemAt(a);
+			lowestItem = QMIN(lowestItem, currItem->ItemNr);
+		}
+		if ((lowestItem > 0) && (doc->Items->at(lowestItem-1)->Groups.count() != 0))
+		{
+			if (doc->Items->at(lowestItem-1)->Groups.top() == doc->m_Selection->itemAt(0)->Groups.top())
+			{
+				view->SelectItemNr(lowestItem-1);
+			}
+		}
 		UnGroupObj();
+	}
 	else
 		GroupObj(false);
 }
@@ -8275,7 +8293,24 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 	if (isUndo)
 		GroupObj(false);
 	else
+	{
+		uint docSelectionCount=doc->m_Selection->count();
+		PageItem *currItem;
+		uint lowestItem = 999999;
+		for (uint a=0; a<docSelectionCount; ++a)
+		{
+			currItem = doc->m_Selection->itemAt(a);
+			lowestItem = QMIN(lowestItem, currItem->ItemNr);
+		}
+		if ((lowestItem > 0) && (doc->Items->at(lowestItem-1)->Groups.count() != 0))
+		{
+			if (doc->Items->at(lowestItem-1)->Groups.top() == doc->m_Selection->itemAt(0)->Groups.top())
+			{
+				view->SelectItemNr(lowestItem-1);
+			}
+		}
 		UnGroupObj();
+	}
 }
 
 void ScribusMainWindow::StatusPic()

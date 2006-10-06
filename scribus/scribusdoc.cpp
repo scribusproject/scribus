@@ -5967,6 +5967,7 @@ void ScribusDoc::recalcPicturesRes()
 {
 	int cc = 0;
 	int ca = 0;
+	m_ScMW->mainWindowProgressBar->reset();
 	for (uint a = 0; a < DocItems.count(); ++a)
 	{
 		PageItem *currItem = DocItems.at(a);
@@ -6071,6 +6072,7 @@ void ScribusDoc::recalcPicturesRes()
 	}
 	emit updateContents();
 	changed();
+	m_ScMW->mainWindowProgressBar->reset();
 }
 
 void ScribusDoc::removePict(QString name)
