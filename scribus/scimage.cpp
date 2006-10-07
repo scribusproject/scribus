@@ -1788,7 +1788,10 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	else if ((ext == "eps") || (ext == "ps"))
 		pDataLoader.reset( new ScImgDataLoader_PS() );
 	else if ((ext == "tif") || (ext == "tiff"))
+	{
 		pDataLoader.reset( new ScImgDataLoader_TIFF() );
+		pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 	else if (ext == "psd")
 	{
 		pDataLoader.reset( new ScImgDataLoader_PSD() );

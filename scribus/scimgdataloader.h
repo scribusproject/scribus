@@ -35,6 +35,7 @@ protected:
 	QString m_message;
 
 	void swapRGBA(void);
+	void swapRGBA(QImage *img);
 
 	QString getPascalString(QDataStream & s);
 	void parseRessourceData( QDataStream & s, const PSDHeader & header, uint size );

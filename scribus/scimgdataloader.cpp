@@ -72,6 +72,24 @@ void ScImgDataLoader::swapRGBA()
 	}
 }
 
+void ScImgDataLoader::swapRGBA(QImage *img)
+{
+	for (int i = 0; i < img->height(); ++i)
+	{
+		unsigned int *ptr = (unsigned int *) img->scanLine(i);
+		unsigned char r, b;
+		for (int j = 0; j < img->width(); ++j)
+		{
+			unsigned char *p = (unsigned char *) ptr;
+			r = p[0];
+			b = p[2];
+			p[2] = r;
+			p[0] = b;
+			ptr++;
+		}
+	}
+}
+
 void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & header, uint size )
 {
 	uint signature, resSize, offset, resBase, vRes, hRes, adj;

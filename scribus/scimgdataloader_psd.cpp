@@ -938,6 +938,9 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 			layBlend2 = m_imageInfoRecord.RequestProps[layer].blend;
 		if ((layBlend2 == "diss") && (header.color_mode != CM_CMYK))
 		{
+			int layOpa = layerInfo[layer].opacity;
+			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
+				layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
 			for (int l = 0; l < tmpImg.height(); l++)
 			{
 				srand(random_table[ l  % 4096]);
@@ -945,7 +948,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 				{
 					int rand_val = rand() & 0xff;
 					QRgb pixel = tmpImg.pixel(k, l);
-					if (rand_val > 128)
+					if (rand_val > layOpa)
 						tmpImg.setPixel(k, l, qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), 0));
 				}
 			}
@@ -1329,8 +1332,13 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 						layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
 					if ((!mask.isNull()) && (m_imageInfoRecord.RequestProps[layer].useMask))
 						layOpa = INT_MULT(mask_a, layOpa);
-					if (header.color_mode != CM_CMYK)
-						src_a = INT_MULT(src_a, layOpa);
+					if (layBlend != "diss")
+					{
+						if (header.color_mode != CM_CMYK)
+							src_a = INT_MULT(src_a, layOpa);
+					}
+					else
+						layOpa = 255;
 					if (d[3] > 0)
 					{
 						r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;

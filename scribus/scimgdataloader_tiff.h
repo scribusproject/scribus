@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #ifndef SCIMGDATALOADER_TIFF_H
 #define SCIMGDATALOADER_TIFF_H
 
+#include <tiffio.h>
 #include "scimgdataloader.h"
 
 class ScImgDataLoader_TIFF : public ScImgDataLoader
@@ -14,6 +15,10 @@ class ScImgDataLoader_TIFF : public ScImgDataLoader
 protected:
 
 	void initSupportedFormatList();
+	int getLayers(const QString& fn);
+	bool getImageData(TIFF* tif, QImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
+	void blendOntoTarget(QImage *tmp, int layOpa, QString layBlend, bool cmyk);
+	int random_table[4096];
 
 public:
 	ScImgDataLoader_TIFF(void);
