@@ -327,8 +327,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 	QString cmd, cmd1, cmd2, cmd3, tmp, tmp2, tmp3, tmp4;
 	// import.prolog do not cope with filenames containing blank spaces
 	// so take care that output filename does not (win32 compatibility)
-	QString tmpFile = getShortPathName(PrefsManager::instance()->preferencesLocation())+ "/ps.out";
-	QString errFile = getShortPathName(PrefsManager::instance()->preferencesLocation())+ "/ps.err";
+	QString tmpFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.out";
+	QString errFile = getShortPathName(ScPaths::getTempFileDir())+ "/ps.err";
 	QString pfad = ScPaths::instance().libDir();
 #ifdef HAVE_CAIRO
 	QString pfad2 = QDir::convertSeparators(pfad + "import.prolog");
