@@ -413,6 +413,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		else {
 			qDebug("-- no output --");
 		}
+		if (progressDialog)
+			progressDialog->close();
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;
