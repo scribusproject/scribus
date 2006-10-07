@@ -1594,6 +1594,7 @@ void Mpalette::NewSel(int nr)
 		TabStack->item(0)->setEnabled(true);
 		TabStack->setItemEnabled(idXYZItem, true);
 		NameEdit->setEnabled(false);
+		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
 		FlipH->setToggleButton( true );
 		FlipV->setToggleButton( true );

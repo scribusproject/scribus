@@ -267,7 +267,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
-				m_Doc->m_Selection->addItem(Elements.at(dre));
+				m_Doc->m_Selection->addItem(Elements.at(dre), true);
 			}
 			m_Doc->view()->setGroupRect();
 			ScriXmlDoc *ss = new ScriXmlDoc();

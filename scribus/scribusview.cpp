@@ -1440,7 +1440,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					currItem = Doc->Items->at(as);
 					Doc->setRedrawBounding(currItem);
-					Doc->m_Selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem, true);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
@@ -1486,7 +1486,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 						Doc->m_Selection->clear();
 						for (uint dre=0; dre<Doc->DragElements.count(); ++dre)
 						{
-							Doc->m_Selection->addItem(Doc->Items->at(Doc->DragElements[dre]));
+							Doc->m_Selection->addItem(Doc->Items->at(Doc->DragElements[dre]), true);
 						}
 						PageItem* bb;
 						int fin;
@@ -1533,13 +1533,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 				{
 					currItem = Doc->Items->at(as);
 					Doc->setRedrawBounding(currItem);
-					Doc->m_Selection->addItem(currItem);
+					Doc->m_Selection->addItem(currItem, true);
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
 			}
 			if (Doc->m_Selection->count() > 1)
 			{
+				Doc->m_Selection->connectItemToGUI();
 				setGroupRect();
 				double gx, gy, gh, gw;
 				getGroupRect(&gx, &gy, &gw, &gh);
@@ -1574,6 +1575,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			}
 			else
 			{
+				Doc->m_Selection->connectItemToGUI();
 				currItem = Doc->m_Selection->itemAt(0);
 				if (Doc->useRaster)
 				{
@@ -8440,10 +8442,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							if (Doc->m_Selection->count() != 0)
 							{
 								if (Doc->m_Selection->findItem(currItem) == -1)
-									Doc->m_Selection->addItem(currItem);
+									Doc->m_Selection->addItem(currItem, true);
 							}
 							else
-								Doc->m_Selection->addItem(currItem);
+								Doc->m_Selection->addItem(currItem, true);
 							if (m->state() != (ControlButton | AltButton))
 							{
 								for (uint ga=0; ga<Doc->Items->count(); ++ga)
@@ -8456,7 +8458,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 											{
 												if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
 												{
-													Doc->m_Selection->addItem(Doc->Items->at(ga));
+													Doc->m_Selection->addItem(Doc->Items->at(ga), true);
 												}
 
 											}
@@ -8475,7 +8477,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						}
 						else
 						{
-							Doc->m_Selection->addItem(currItem);
+							Doc->m_Selection->addItem(currItem, true);
 							currItem->FrameOnly = true;
 							currItem->paintObj();
 						}
@@ -8500,6 +8502,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							PageItem *bb = Doc->m_Selection->itemAt(aa);
 							bb->paintObj();
 						}
+						Doc->m_Selection->connectItemToGUI();
 						setGroupRect();
 						paintGroupRect();
 						double x, y, w, h;
@@ -8577,10 +8580,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						if (Doc->m_Selection->count() != 0)
 						{
 							if (Doc->m_Selection->findItem(currItem) == -1)
-								Doc->m_Selection->addItem(currItem);
+								Doc->m_Selection->addItem(currItem, true);
 						}
 						else
-							Doc->m_Selection->addItem(currItem);
+							Doc->m_Selection->addItem(currItem, true);
 						//CB This is where we add the items of an unselected group
 						if (m->state() != (ControlButton | AltButton))
 						{
@@ -8593,7 +8596,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 										if (Doc->Items->at(ga)->ItemNr != currItem->ItemNr)
 										{
 											if (Doc->m_Selection->findItem(Doc->Items->at(ga)) == -1)
-												Doc->m_Selection->addItem(Doc->Items->at(ga));
+												Doc->m_Selection->addItem(Doc->Items->at(ga), true);
 										}
 										Doc->Items->at(ga)->isSingleSel = false;
 										Doc->Items->at(ga)->FrameOnly = true;
@@ -8611,7 +8614,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					else
 					//If we are just selecting one item
 					{
-						Doc->m_Selection->addItem(currItem);
+						Doc->m_Selection->addItem(currItem, true);
 						currItem->FrameOnly = true;
 						currItem->paintObj();
 					}
@@ -8637,6 +8640,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						PageItem *bb = Doc->m_Selection->itemAt(aa);
 						bb->paintObj();
 					}
+					Doc->m_Selection->connectItemToGUI();
 					setGroupRect();
 					paintGroupRect();
 					double x, y, w, h;
@@ -8647,6 +8651,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				}
 				else
 				{
+					Doc->m_Selection->connectItemToGUI();
 					//CB Dont need this as creating the 0th selection does this
 					currItem->paintObj();
 				}

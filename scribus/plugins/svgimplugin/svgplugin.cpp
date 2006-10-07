@@ -315,7 +315,7 @@ void SVGPlug::convert(int flags)
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
-			m_Doc->m_Selection->addItem(Elements.at(dre));
+			m_Doc->m_Selection->addItem(Elements.at(dre), true);
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
 		m_Doc->view()->setGroupRect();

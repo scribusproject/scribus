@@ -98,8 +98,9 @@ bool Selection::clear()
 
 bool Selection::connectItemToGUI()
 {
+	bool ret = false;
 	if (!m_isGUISelection || m_SelList.isEmpty())
-		return false;
+		return ret;
 	if (m_hasGroupSelection==false)
 	{
 		QGuardedPtr<PageItem> pi=m_SelList.first();
@@ -107,11 +108,20 @@ bool Selection::connectItemToGUI()
 		if (pi.isNull())
 		{
 			m_SelList.remove(pi);
-			return false;
+			return ret;
 		}
-		return pi->connectToGUI();
+		ret = pi->connectToGUI();
+		pi->emitAllToGUI();
+		emit selectionChanged();
 	}
-	return false;
+	else
+	{
+		ret = m_SelList.first()->connectToGUI();
+		m_SelList.first()->emitAllToGUI();
+		emit selectionChanged();
+		emit selectionIsMultiple(m_hasGroupSelection);
+	}
+	return ret;
 }
 
 bool Selection::disconnectAllItemsFromGUI()
@@ -136,9 +146,9 @@ bool Selection::addItem(PageItem *item, bool ignoreGUI)
 	if (listWasEmpty || !m_SelList.contains(item))
 	{
 		m_SelList.append(item);
-		if (m_isGUISelection)
+		item->setSelected(true);
+		if (m_isGUISelection && !ignoreGUI)
 		{
-			item->setSelected(true);
 			emit selectionChanged();
 		}
 
