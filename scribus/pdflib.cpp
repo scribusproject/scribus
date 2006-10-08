@@ -3810,9 +3810,9 @@ QString PDFlib::PDF_Gradient(PageItem *currItem)
 		case 6:
 		case 7:
 			StartX = currItem->GrStartX;
-			StartY = currItem->GrStartY;
+			StartY = -currItem->GrStartY;
 			EndX = currItem->GrEndX;
-			EndY = currItem->GrEndY;
+			EndY = -currItem->GrEndY;
 			break;
 	}
 	StopVec.clear();
