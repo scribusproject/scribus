@@ -2323,7 +2323,6 @@ void ScribusMainWindow::SwitchWin()
 	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
-	//ShadeMenu->setItemChecked(ShadeMenu->idAt(11), true);
 	propertiesPalette->setDoc(doc);
 	propertiesPalette->updateCList();
 	pagePalette->setView(view);
@@ -2338,7 +2337,9 @@ void ScribusMainWindow::SwitchWin()
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
-	nodePalette->setDoc(doc, view);
+	//Do not set this!, it doesnt get valid pointers unless its in EditClip mode and its not
+	//if we are switching windows #4357
+	//nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
 	if (doc->EditClip)
 	{
@@ -3088,6 +3089,7 @@ void ScribusMainWindow::loadRecent(QString fn)
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
+		//CB Why not just removeRecent()?
 		RecentDocs.remove(fn);
 		ScCore->fileWatcher->removeFile(fn);
 		rebuildRecentFileMenu();
@@ -6253,7 +6255,6 @@ void ScribusMainWindow::CopyPage()
 
 void ScribusMainWindow::changePageMargins()
 {
-	int lp=0;
 	NoFrameEdit();
 	QString Nam = doc->currentPage()->MPageNam;
 	MarginDialog *dia = new MarginDialog(this, doc);
@@ -6265,6 +6266,7 @@ void ScribusMainWindow::changePageMargins()
 		QString sizeName = dia->getpPrefsPageSizeName();
 		if (doc->masterPageMode())
 		{
+			int lp=0;
 			if (doc->currentPageLayout != singlePage)
 				lp = dia->pageOrder();
 			doc->changePageMargins(dia->top(), dia->bottom(),
