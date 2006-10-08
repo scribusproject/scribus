@@ -306,7 +306,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		}
 		Selection tempSelection(m_Doc, false);
 		tempSelection.addItem(ite);
-		m_Doc->itemSelection_DeleteItem(&tempSelection);
+		m_Doc->itemSelection_DeleteItem(&tempSelection, false);
 		/*
 		m_Doc->m_Selection->clear();
 		m_Doc->m_Selection->addItem(ite, true);
