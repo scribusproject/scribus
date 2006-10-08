@@ -731,7 +731,7 @@ def draw_selection(fontList, getSizeOnly):
         if userPrefs['wantDoubleSided']:
             facingPages = scribus.FACINGPAGES
         # now create a new document with empty page and start building...
-        scribus.newDocument(dD['paperSize'], dD['paperMargins'], scribus.PORTRAIT, 1, scribus.UNIT_POINTS, facingPages, scribus.FIRSTPAGERIGHT)
+        scribus.newDocument(dD['paperSize'], dD['paperMargins'], scribus.PORTRAIT, 1, scribus.UNIT_POINTS, facingPages, scribus.FIRSTPAGERIGHT, 1)
         scribus.zoomDocument(-100)
         # A new doc gives us a new page by default so set it up first...
         set_odd_even(pageNum)
