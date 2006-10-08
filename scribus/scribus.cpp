@@ -2230,7 +2230,9 @@ void ScribusMainWindow::SwitchWin()
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
 	doc->currentParaStyle = 0;
-	nodePalette->setDoc(doc, view);
+	//Do not set this!, it doesnt get valid pointers unless its in EditClip mode and its not
+	//if we are switching windows #4357
+	//nodePalette->setDoc(doc, view);
 	slotChangeUnit(doc->unitIndex(), false);
 	if (doc->EditClip)
 	{
@@ -8347,7 +8349,7 @@ void ScribusMainWindow::ImageEffects()
 
 				// this messy part is for the undo action
 				ItemState<QPair<
-					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *state = 
+					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > > *state =
 				new ItemState<QPair<
 					QValueList<ScImage::imageEffect>, QValueList<ScImage::imageEffect> > >(
 						Um::ImageEffects, "", currItem->getUPixmap());
