@@ -5423,7 +5423,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	}
 }
 
-void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
+void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool forceDeletion)
 {
 	if (EditClip)
 		return;
@@ -5448,8 +5448,13 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 		//CB FIXME remove this and include of story.h too
 		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && this==ScMW->storyEditor->currentDocument())
 		{
-			QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
-			return;
+			if (forceDeletion)
+				ScMW->storyEditor->setCurrentDocumentAndItem(this, NULL);
+			else
+			{
+				QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				return;
+			}
 		}
 		tooltip += "\t" + currItem->getUName() + "\n";
 		delItems.append(itemSelection->takeItem(offs));

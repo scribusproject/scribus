@@ -302,7 +302,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 		}
 		Selection tempSelection(ScMW->doc, false);
 		tempSelection.addItem(ite);
-		ScMW->doc->itemSelection_DeleteItem(&tempSelection);
+		ScMW->doc->itemSelection_DeleteItem(&tempSelection, true);
 		/*
 		ScMW->doc->m_Selection->clear();
 		ScMW->doc->m_Selection->addItem(ite, true);
