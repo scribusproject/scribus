@@ -1849,6 +1849,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		ite->setXPos(mx);
 		ite->setYPos(my);
 	}
+	ite->setFillColor(CommonStrings::None);
 	/*
 	ite->setFont(gc->Family);
 	ite->TxtFill = gc->FillCol;
@@ -1903,28 +1904,44 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 			tempW = 0;
 		}
 	}
-	ite->setWidth(QMAX(ite->width(), tempW));	
+	double xpos = ite->xPos();
+	double ypos = ite->yPos();
+	ite->setWidth(QMAX(ite->width(), tempW));
+	double xoffset = 0.0, yoffset = 0.0;
 	if( gc->textAnchor == "middle" )
 	{
 		m_Doc->currentStyle = m_Doc->docParagraphStyles[1];
 		m_Doc->chAbStyle(ite, 1);
-		ite->setXPos(x - ite->width() / 2);
+		xoffset = -ite->width() / 2;
 	}
 	else if( gc->textAnchor == "end")
 	{
 		m_Doc->currentStyle = m_Doc->docParagraphStyles[2];
 		m_Doc->chAbStyle(ite, 2);
-		ite->setXPos(x - ite->width());
+		xoffset = -ite->width();
 	}
+	double rotation = getRotationFromMatrix(gc->matrix, 0.0);
+	if (rotation != 0.0)
+	{
+		double temp = xoffset;
+		xoffset = cos(-rotation) * temp;
+		yoffset = sin(-rotation) * temp;
+	}
+	ite->setXPos(xpos + xoffset);
+	ite->setYPos(ypos + yoffset);
+	ite->setRotation(-rotation * 180 / M_PI);
 	ite->SetRectFrame();
 	m_Doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	m_Doc->m_Selection->addItem(ite);
 	m_Doc->view()->frameResizeHandle = 1;
 	m_Doc->view()->setGroupRect();
-	m_Doc->view()->scaleGroup(mm.m11(), mm.m22());
+	double scalex = sqrt(mm.m11() * mm.m11() + mm.m12() * mm.m12());
+	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
+	m_Doc->view()->scaleGroup(scalex, scaley);
 	m_Doc->view()->Deselect();
-	ite->moveBy(0.0, -asce * mm.m22());
+	double nmat = sqrt(abs(mm.det()))/2;
+	ite->moveBy(asce * sin(-rotation) * nmat, -asce * cos(-rotation) * nmat);
 	if( !e.attribute("id").isEmpty() )
 		ite->setItemName(" "+e.attribute("id"));
 	ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);

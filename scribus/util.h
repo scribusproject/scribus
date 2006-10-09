@@ -122,6 +122,13 @@ inline double SCRIBUS_API distance(double, double);
    \retval double Constrained angle
  */
 double SCRIBUS_API constrainAngle(double angle);
+/*! \brief Get the rotation angle (in radian) from a transformation matrix
+   Will make code simpler and reduce interval or provide as a parameter
+   \param matrix the transformation matrix
+   \param def the value that should be return if matrix is not a rotation matrix
+   \retval double the rotation angle
+ */
+double SCRIBUS_API getRotationFromMatrix(QWMatrix& matrix, double def);
 const QString SCRIBUS_API getStringFromSequence(DocumentSectionType type, uint position);
 const QString SCRIBUS_API arabicToRoman(uint i);
 const QString SCRIBUS_API numberToLetterSequence(uint i);

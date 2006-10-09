@@ -797,7 +797,6 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->Shade = obj->attribute("SHADE").toInt();
 	OB->Shade2 = obj->attribute("SHADE2").toInt();
 	OB->FillRule = obj->attribute("fillRule", "1").toInt();
-	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
 	OB->TxtStroke=obj->attribute("TXTSTROKE", CommonStrings::None);
 	OB->ShTxtFill=obj->attribute("TXTFILLSH", "100").toInt();
 	OB->ShTxtStroke=obj->attribute("TXTSTRSH", "100").toInt();
@@ -903,6 +902,7 @@ void GetItemProps(bool newVersion, QDomElement *obj, struct CopyPasteBuffer *OB)
 	OB->m_annotation.setScaleW(obj->attribute("ANSCALE", "0").toInt());
 	if (obj->attribute("TRANSPARENT", "0").toInt() == 1)
 		OB->Pcolor = CommonStrings::None;
+	OB->textAlignment=obj->attribute("ALIGN", "0").toInt();
 	if ( obj->hasAttribute("TEXTFLOWMODE") )
 		OB->TextflowMode = (PageItem::TextFlowMode) obj->attribute("TEXTFLOWMODE", "0").toInt();
 	else if ( obj->attribute("TEXTFLOW").toInt() )
@@ -1126,6 +1126,26 @@ double constrainAngle(double angle)
 	if (newAngle==360.0)
 		newAngle=0.0;
 	return newAngle;
+}
+
+double getRotationFromMatrix(QWMatrix& matrix, double def)
+{
+	double value = def;
+	double norm = sqrt(abs(matrix.det()));
+	if (norm > 0.0000001)
+	{
+		double m11 = matrix.m11() / norm;
+		double m12 = matrix.m12() / norm;
+		double m21 = matrix.m21() / norm;
+		double m22 = matrix.m22() / norm;
+		QWMatrix mat(m11, m12, m21, m22, 0, 0);
+		if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
+		{
+			double ac = acos(mat.m11());
+			value = (mat.m21() >= 0.0) ? ac : (-ac);
+		}
+	}
+	return value;
 }
 
 const QString getStringFromSequence(DocumentSectionType type, uint position)
