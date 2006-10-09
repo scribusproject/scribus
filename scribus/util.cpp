@@ -1223,6 +1223,26 @@ double constrainAngle(double angle)
 	return newAngle;
 }
 
+double getRotationFromMatrix(QWMatrix& matrix, double def)
+{
+	double value = def;
+	double norm = sqrt(abs(matrix.det()));
+	if (norm > 0.0000001)
+	{
+		double m11 = matrix.m11() / norm;
+		double m12 = matrix.m12() / norm;
+		double m21 = matrix.m21() / norm;
+		double m22 = matrix.m22() / norm;
+		QWMatrix mat(m11, m12, m21, m22, 0, 0);
+		if (abs(mat.det()-1.0) < 0.00001 && (mat.m12() == -mat.m21()))
+		{
+			double ac = acos(mat.m11());
+			value = (mat.m21() >= 0.0) ? ac : (-ac);
+		}
+	}
+	return value;
+}
+
 const QString getStringFromSequence(DocumentSectionType type, uint position)
 {
 	QString retVal("");
