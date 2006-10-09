@@ -2845,6 +2845,8 @@ void ScribusDoc::recalculateColors()
 				cstops.at(cst)->color = tmpc;
 			}
 		}
+		PageItem *ite = pa.items.at(0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
 }
 
@@ -5957,6 +5959,8 @@ void ScribusDoc::updatePict(QString name)
 				currItem->AdjustPictScale();
 			}
 		}
+		PageItem *ite = pa.items.at(0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
 	emit updateContents();
 	changed();
@@ -6069,6 +6073,8 @@ void ScribusDoc::recalcPicturesRes()
 				qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 			}
 		}
+		PageItem *ite = pa.items.at(0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
 	emit updateContents();
 	changed();
@@ -6117,6 +6123,8 @@ void ScribusDoc::removePict(QString name)
 				currItem->pixm = ScImage();
 			}
 		}
+		PageItem *ite = pa.items.at(0);
+		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
 	}
 	emit updateContents();
 	changed();

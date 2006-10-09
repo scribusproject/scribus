@@ -6884,9 +6884,6 @@ void ScribusMainWindow::slotEditColors()
 			QColor tmpc;
 			slotDocCh();
 			doc->PageColors = dia->EditColors;
-			propertiesPalette->updateColorList();
-			propertiesPalette->updateCList();
-			updateColorMenu();
 			ers = dia->replaceMap;
 			if (!ers.isEmpty())
 			{
@@ -7049,6 +7046,9 @@ void ScribusMainWindow::slotEditColors()
 			}
 			doc->recalculateColors();
 			doc->recalcPicturesRes();
+			propertiesPalette->updateColorList();
+			propertiesPalette->updateCList();
+			updateColorMenu();
 			view->DrawNew();
 		}
 		else

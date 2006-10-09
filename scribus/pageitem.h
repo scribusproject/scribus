@@ -221,6 +221,7 @@ public:
 	virtual void DrawObj_Post(ScPainter *p);
 	virtual void DrawObj_Item(ScPainter *p, QRect e, double sc) = 0;
 	QImage DrawObj_toImage();
+	QImage DrawObj_toImage(QPtrList<PageItem> &emG);
 protected:
 	void DrawObj_ImageFrame(ScPainter *p, double sc);
 	//void DrawObj_TextFrame(ScPainter *p, QRect e, double sc);

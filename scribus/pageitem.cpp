@@ -1292,7 +1292,6 @@ void PageItem::paintObj(QRect e, QPixmap *ppX)
 
 QImage PageItem::DrawObj_toImage()
 {
-	QImage retImg;
 	QPtrList<PageItem> emG;
 	emG.clear();
 	double minx = 99999.9;
@@ -1376,7 +1375,12 @@ QImage PageItem::DrawObj_toImage()
 		gHeight = maxy - miny;
 		emG.append(this);
 	}
-	retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
+	return DrawObj_toImage(emG);
+}
+
+QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
+{
+	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1.0, 0);
 	painter->setZoomFactor(1.0);
 	QPtrStack<PageItem> groupStack;
