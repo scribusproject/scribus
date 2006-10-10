@@ -1195,7 +1195,29 @@ void ScPainter::drawVPath( int mode )
 			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
-			cairo_surface_destroy (image2);
+			QImage mask;
+			cairo_surface_t *image3;
+			if (fill_trans != 1.0)
+			{
+				mask.create(m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), 8);
+				for( int yi = 0; yi < m_pattern->getPattern()->height(); ++yi )
+				{
+					QRgb * s = (QRgb*)(m_pattern->getPattern()->scanLine( yi ));
+					unsigned char *d = (unsigned char *)(mask.scanLine( yi ));
+					for( int xi=0; xi < m_pattern->getPattern()->width(); ++xi )
+					{
+						*d++ = static_cast<unsigned char>(qAlpha(*s++) * fill_trans);
+					}
+				}
+				int adj;
+				if (m_pattern->getPattern()->width() % 4 == 0)
+					adj = 0;
+				else
+					adj = 4 - (m_pattern->getPattern()->width() % 4);
+				image3 = cairo_image_surface_create_for_data ((uchar*)mask.bits(), CAIRO_FORMAT_A8, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width() + adj);
+			}
+			else
+				image3 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_matrix_t matrix;
 			QWMatrix qmatrix;
 			qmatrix.scale(m_zoomFactor, m_zoomFactor);
@@ -1207,8 +1229,14 @@ void ScPainter::drawVPath( int mode )
 			cairo_pattern_set_matrix (m_pat, &matrix);
 			cairo_set_source (m_cr, m_pat);
 			cairo_clip_preserve (m_cr);
-			cairo_paint_with_alpha (m_cr, fill_trans);
+			cairo_pattern_t *m_pat2 = cairo_pattern_create_for_surface(image3);
+			cairo_pattern_set_extend(m_pat2, CAIRO_EXTEND_REPEAT);
+			cairo_pattern_set_matrix (m_pat2, &matrix);
+			cairo_mask (m_cr, m_pat2);
 			cairo_pattern_destroy (m_pat);
+			cairo_pattern_destroy (m_pat2);
+			cairo_surface_destroy (image2);
+			cairo_surface_destroy (image3);
 		}
 	}
 	else
