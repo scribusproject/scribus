@@ -909,7 +909,7 @@ QWMatrix SVGPlug::parseTransform( const QString &transform )
 				result.setMatrix(sx, params[1].toDouble(), params[2].toDouble(), sy, params[4].toDouble() * Conversion, params[5].toDouble() * Conversion);
 			}
 		}
-		ret = ret * result;
+		ret = result * ret;
 	}
 	return ret;
 }
