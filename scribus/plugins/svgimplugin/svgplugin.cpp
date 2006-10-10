@@ -295,10 +295,60 @@ void SVGPlug::convert(int flags)
 	m_Doc->m_Selection->clear();
 	if (Elements.count() > 1)
 	{
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		uint lowestItem = 999999;
+		uint highestItem = 0;
 		for (uint a = 0; a < Elements.count(); ++a)
 		{
 			Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+			PageItem* currItem = Elements.at(a);
+			lowestItem = QMIN(lowestItem, currItem->ItemNr);
+			highestItem = QMAX(highestItem, currItem->ItemNr);
+			double lw = currItem->lineWidth() / 2.0;
+			if (currItem->rotation() != 0)
+			{
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = QMIN(minx, pb.point(pc).x());
+					miny = QMIN(miny, pb.point(pc).y());
+					maxx = QMAX(maxx, pb.point(pc).x());
+					maxy = QMAX(maxy, pb.point(pc).y());
+				}
+			}
+			else
+			{
+				minx = QMIN(minx, currItem->xPos()-lw);
+				miny = QMIN(miny, currItem->yPos()-lw);
+				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+			}
 		}
+		double gx = minx;
+		double gy = miny;
+		double gw = maxx - minx;
+		double gh = maxy - miny;
+		PageItem *high = m_Doc->Items->at(highestItem);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, m_Doc->toolSettings.dWidth, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+		PageItem *neu = m_Doc->Items->take(z);
+		m_Doc->Items->insert(lowestItem, neu);
+		neu->Groups.push(m_Doc->GroupCounter);
+		neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+		neu->isGroupControl = true;
+		neu->groupsLastItem = high;
+		for (uint a = 0; a < m_Doc->Items->count(); ++a)
+		{
+			m_Doc->Items->at(a)->ItemNr = a;
+		}
+		Elements.prepend(neu);
 		m_Doc->GroupCounter++;
 	}
 	m_Doc->DoDrawing = true;
@@ -384,11 +434,77 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			SvgStyle *gc = m_gc.current();
 			setupTransform( b );
 			parseStyle( gc, b );
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+			PageItem *neu = m_Doc->Items->at(z);
+			GElements.append(neu);
+			Elements.append(neu);
 			QPtrList<PageItem> gElements = parseGroup( b );
-			for (uint gr = 0; gr < gElements.count(); ++gr)
+			if (gElements.count() == 0)
 			{
-				gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
-				GElements.append(gElements.at(gr));
+				GElements.removeLast();
+				Elements.removeLast();
+				m_Doc->Items->take(z);
+				delete neu;
+			}
+			else
+			{
+				double minx = 99999.9;
+				double miny = 99999.9;
+				double maxx = -99999.9;
+				double maxy = -99999.9;
+				for (uint gr = 0; gr < gElements.count(); ++gr)
+				{
+					PageItem* currItem = gElements.at(gr);
+					double lw = currItem->lineWidth() / 2.0;
+					if (currItem->rotation() != 0)
+					{
+						FPointArray pb;
+						pb.resize(0);
+						pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+						pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+						pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+						pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+						for (uint pc = 0; pc < 4; ++pc)
+						{
+							minx = QMIN(minx, pb.point(pc).x());
+							miny = QMIN(miny, pb.point(pc).y());
+							maxx = QMAX(maxx, pb.point(pc).x());
+							maxy = QMAX(maxy, pb.point(pc).y());
+						}
+					}
+					else
+					{
+						minx = QMIN(minx, currItem->xPos()-lw);
+						miny = QMIN(miny, currItem->yPos()-lw);
+						maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+						maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+					}
+				}
+				double gx = minx;
+				double gy = miny;
+				double gw = maxx - minx;
+				double gh = maxy - miny;
+				neu->setXYPos(gx, gy);
+				neu->setWidthHeight(gw, gh);
+				if (ImgClip.size() != 0)
+					neu->PoLine = ImgClip.copy();
+				else
+					neu->SetRectFrame();
+				ImgClip.resize(0);
+				neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+				neu->Groups.push(m_Doc->GroupCounter);
+				neu->isGroupControl = true;
+				neu->groupsLastItem = gElements.at(gElements.count()-1);
+				if( !b.attribute("id").isEmpty() )
+					neu->setItemName(b.attribute("id"));
+				else
+					neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+				neu->setFillTransparency(1 - gc->Opacity);
+				for (uint gr = 0; gr < gElements.count(); ++gr)
+				{
+					gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
+					GElements.append(gElements.at(gr));
+				}
 			}
 			delete( m_gc.pop() );
 			m_Doc->GroupCounter++;
@@ -634,8 +750,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			}
 			if( !b.attribute("id").isEmpty() )
 				ite->setItemName(" "+b.attribute("id"));
-			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
-			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity);
+			ite->setFillTransparency( 1 - gc->FillOpacity); // * gc->Opacity);
+			ite->setLineTransparency( 1 - gc->StrokeOpacity); // * gc->Opacity);
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			//ite->setTextFlowsAroundFrame(false);

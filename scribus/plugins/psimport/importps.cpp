@@ -247,7 +247,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
 			neu->isGroupControl = true;
 			neu->groupsLastItem = high;
-			for (uint a = 0; a < doc->Items->count(); ++a)
+			for (uint a = 0; a < m_Doc->Items->count(); ++a)
 			{
 				m_Doc->Items->at(a)->ItemNr = a;
 			}
