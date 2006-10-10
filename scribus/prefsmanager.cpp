@@ -241,6 +241,8 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dTextStrokeShade = 100;
 	appPrefs.toolSettings.tabFillChar = "";
 	appPrefs.toolSettings.dTabWidth = 36.0;
+	appPrefs.toolSettings.dispX = 10.0;
+	appPrefs.toolSettings.dispY = 10.0;
 	appPrefs.DpapColor = QColor(white);
 	appPrefs.DFrameColor = QColor(red);
 	appPrefs.DFrameNormColor = QColor(black);
@@ -1034,6 +1036,8 @@ bool PrefsManager::WritePref(QString ho)
 	dc9.setAttribute("HalfRes", appPrefs.toolSettings.lowResType);
 	dc9.setAttribute("StartArrow", appPrefs.toolSettings.dStartArrow);
 	dc9.setAttribute("EndArrow", appPrefs.toolSettings.dEndArrow);
+	dc9.setAttribute("dispX", appPrefs.toolSettings.dispX);
+	dc9.setAttribute("dispY", appPrefs.toolSettings.dispY);
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
 	dc4.setAttribute("XPOS",appPrefs.mainWinSettings.xPosition);
@@ -1512,6 +1516,8 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.polyS = static_cast<bool>(dc.attribute("POLYS", "0").toInt());
 			appPrefs.toolSettings.dStartArrow = dc.attribute("StartArrow", "0").toInt();
 			appPrefs.toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
+			appPrefs.toolSettings.dispX = dc.attribute("dispX", "10").toDouble();
+			appPrefs.toolSettings.dispY = dc.attribute("dispY", "10").toDouble();
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{

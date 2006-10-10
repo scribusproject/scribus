@@ -353,8 +353,6 @@ void ScribusMainWindow::initDefaultValues()
 	view = NULL;
 	doc = NULL;
 	Buffer2 = "";
-	DispX = 10;
-	DispY = 10;
 	DocNr = 1;
 	PrinterUsed = false;
 	PDef.Pname = "";
@@ -7127,7 +7125,7 @@ void ScribusMainWindow::ObjektDup()
 	for (uint b=0; b<doc->m_Selection->count(); ++b)
 	{
 		doc->m_Selection->itemAt(b)->setLocked(false);
-		view->MoveItem(DispX, DispY, doc->m_Selection->itemAt(b));
+		view->MoveItem(doc->toolSettings.dispX, doc->toolSettings.dispY, doc->m_Selection->itemAt(b));
 	}
 	doc->useRaster = savedAlignGrid;
 	doc->SnapGuides = savedAlignGuides;

@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scribusapi.h"
 
+class QGroupBox;
 class LinkButton;
 class QSpinBox;
 class FontCombo;
@@ -61,6 +62,7 @@ public:
 	QToolButton* toolText;
 	QToolButton* toolLine;
 	QToolButton* toolZoom;
+	QToolButton* toolMisc;
 	QWidgetStack* subStackTools;
 	QWidget* subTabText;
 	QLabel* textHeadLine;
@@ -152,6 +154,13 @@ public:
 	QLabel* startArrowText;
 	QLabel* endArrowText;
 	QLabel* arrowText;
+	QWidget* subTabGeneral;
+	QLabel* generalHeadLine;
+	QGroupBox* genDispBox;
+	QLabel* genText1;
+	QLabel* genText2;
+	MSpinBox* genDispX;
+	MSpinBox* genDispY;
 
 protected slots:
 	/*!
@@ -196,6 +205,8 @@ protected:
 	QVBoxLayout* buttonGroupResLayout;
 	QGridLayout* subTabPolygonLayout;
 	QGridLayout* subTabZoomLayout;
+	QGridLayout* subTabGeneralLayout;
+	QGridLayout* subTabGeneralLayout2;
 	ScribusDoc* docu;
 	double unitRatio;
 	QString unit;

@@ -306,6 +306,8 @@ void ScribusDoc::init()
 	toolSettings.defFont = prefsData.toolSettings.defFont;
 	toolSettings.defSize = prefsData.toolSettings.defSize;
 	toolSettings.tabFillChar = prefsData.toolSettings.tabFillChar;
+	toolSettings.dispX = prefsData.toolSettings.dispX;
+	toolSettings.dispY = prefsData.toolSettings.dispY;
 
 	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	PageColors.insert("White", ScColor(0, 0, 0, 0));

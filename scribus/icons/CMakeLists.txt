@@ -41,6 +41,7 @@ cmyk.png
 colorpicker.png
 compfile16.png
 compfile.png
+configure.png
 Corner.xpm
 crop.png
 curve.png

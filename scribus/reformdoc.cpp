@@ -458,6 +458,8 @@ void ReformDoc::updateDocumentSettings()
 	}
 	else
 		viewToRecalcPictureRes=false;
+	currDoc->toolSettings.dispX = tabTools->genDispX->value();
+	currDoc->toolSettings.dispY = tabTools->genDispY->value();
 	tabTools->polyWidget->getValues(&currDoc->toolSettings.polyC, &currDoc->toolSettings.polyFd, &currDoc->toolSettings.polyF, &currDoc->toolSettings.polyS, &currDoc->toolSettings.polyR);
 	currDoc->AutoSave = tabPage->GroupAS->isChecked();
 	currDoc->AutoSaveTime = tabPage->ASTime->value() * 60 * 1000;

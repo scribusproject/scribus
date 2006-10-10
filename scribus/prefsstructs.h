@@ -139,6 +139,9 @@ struct toolPrefs
 	int magMin;
 	int magMax;
 	int magStep;
+	/* Item Duplicate Offset */
+	double dispX;
+	double dispY;
 };
 
 struct ApplicationPrefs

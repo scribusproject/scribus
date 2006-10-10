@@ -180,8 +180,6 @@ public:
 	QString Buffer2;
 	QString Buffer3;
 	bool BuFromApp;
-	double DispX;
-	double DispY;
 	int HaveDoc;
 	PrefsContext* dirs;
 	/** \brief view is the main widget which represents your working area. The View

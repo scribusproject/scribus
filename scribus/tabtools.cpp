@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabtools.moc"
 #include <qtooltip.h>
 #include <qspinbox.h>
+#include <qgroupbox.h>
 
 #include "sccombobox.h"
 #include "colorcombo.h"
@@ -74,6 +75,11 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	toolZoom->setText( QString::null );
 	toolZoom->setIconSet( QIconSet( loadIcon("16/zoom.png") ) );
 	buttonGroupToolsLayout->addWidget( toolZoom );
+	toolMisc = new QToolButton( buttonGroupTools, "toolMisc" );
+	toolMisc->setToggleButton( true );
+	toolMisc->setText( QString::null );
+	toolMisc->setIconSet( QIconSet( loadIcon("configure.png") ) );
+	buttonGroupToolsLayout->addWidget( toolMisc );
 	tabToolsLayout->addWidget( buttonGroupTools );
 	subStackTools = new QWidgetStack( this, "subStackTools" );
 	subStackTools->setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)3, (QSizePolicy::SizeType)5, 0, 0, subStackTools->sizePolicy().hasHeightForWidth() ) );
@@ -379,26 +385,54 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	minimumZoom = new QSpinBox( subTabZoom, "minimumZoom" );
 	minimumZoom->setMaxValue( 3200 );
 	minimumZoom->setMinValue( 10 );
-
 	minimumZoom->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( minimumZoom, 1, 1, Qt::AlignLeft );
 	textLabel21b = new QLabel( minimumZoom, tr( "Mi&nimum:" ), subTabZoom, "textLabel21b" );
 	subTabZoomLayout->addWidget( textLabel21b, 1, 0);
+
 	maximumZoom = new QSpinBox( subTabZoom, "maximumZoom" );
 	maximumZoom->setMaxValue( 3200 );
 	maximumZoom->setMinValue( 10 );
-
 	maximumZoom->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( maximumZoom, 2, 1, Qt::AlignLeft );
 	textLabel22b = new QLabel( maximumZoom, tr( "Ma&ximum:" ), subTabZoom, "textLabel22b" );
 	subTabZoomLayout->addWidget( textLabel22b, 2, 0 );
+	
 	zoomStep = new QSpinBox( 101, 500, 1, subTabZoom, "zoomStep" );
-
 	zoomStep->setSuffix( tr( " %" ) );
 	subTabZoomLayout->addWidget( zoomStep, 3, 1, Qt::AlignLeft );
 	textLabel23b = new QLabel( zoomStep, tr( "&Stepping:" ), subTabZoom, "textLabel23b" );
 	subTabZoomLayout->addWidget( textLabel23b, 3, 0 );
 	subStackTools->addWidget( subTabZoom, 5 );
+
+	subTabGeneral = new QWidget( subStackTools, "subTabGeneral" );
+	subTabGeneralLayout = new QGridLayout( subTabGeneral, 1, 1, 11, 6, "subTabGeneralLayout");
+	subTabGeneralLayout->setAlignment( Qt::AlignTop );
+	generalHeadLine = new QLabel( tr( "Misc. Settings" ), subTabGeneral, "generalHeadLine" );
+	generalHeadLine->setFont(f);
+	subTabGeneralLayout->addMultiCellWidget( generalHeadLine, 0, 0, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+
+	genDispBox = new QGroupBox( subTabGeneral, "genDispBox" );
+	genDispBox->setTitle( tr( "Object Duplicate" ) );
+	genDispBox->setColumnLayout(0, Qt::Vertical );
+	genDispBox->layout()->setSpacing( 5 );
+	genDispBox->layout()->setMargin( 10 );
+	subTabGeneralLayout2 = new QGridLayout( genDispBox->layout() );
+
+	genDispX = new MSpinBox( -1000, 1000, genDispBox, 1 );
+	genDispX->setSuffix( tr( " pt" ) );
+	subTabGeneralLayout2->addWidget( genDispX, 0, 1, Qt::AlignLeft );
+	genText1 = new QLabel( genDispX, tr( "X-Displacement" ), genDispBox, "genText1" );
+	subTabGeneralLayout2->addWidget( genText1, 0, 0);
+
+	genDispY = new MSpinBox( -1000, 1000, genDispBox, 1 );
+	genDispY->setSuffix( tr( " pt" ) );
+	subTabGeneralLayout2->addWidget( genDispY, 1, 1, Qt::AlignLeft );
+	genText2 = new QLabel( genDispY, tr( "Y-Displacement" ), genDispBox, "genText2" );
+	subTabGeneralLayout2->addWidget( genText2, 1, 0);
+	subTabGeneralLayout->addMultiCellWidget( genDispBox, 1, 1, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+	subStackTools->addWidget( subTabGeneral, 6 );
+
 	tabToolsLayout->addWidget( subStackTools );
 	toolText->setOn(true);
 
@@ -411,6 +445,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( toolZoom, tr( "Magnification Level Defaults" ) );
 	QToolTip::add( toolLine, tr( "Line Drawing Properties" ) );
 	QToolTip::add( toolPoly, tr( "Polygon Drawing Properties" ) );
+	QToolTip::add( toolMisc, tr( "Other Properties" ) );
 	QToolTip::add( fontComboText, tr( "Font for new text frames" ) );
 	QToolTip::add( sizeComboText, tr( "Size of font for new text frames" ) );
 	QToolTip::add( colorComboText, tr( "Color of font" ) );
@@ -438,6 +473,8 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( shadingLine, tr( "Saturation of color" ) );
 	QToolTip::add( comboStyleLine, tr( "Style of lines" ) );
 	QToolTip::add( lineWidthLine, tr( "Width of lines" ) );
+	QToolTip::add( genDispX, tr( "Horizontal displacement of objects") );
+	QToolTip::add( genDispY, tr( "Vertical displacement of objects" ) );
 	//enableSignals(true);
 }
 
@@ -451,6 +488,7 @@ void TabTools::enableSignals(bool on)
 		connect(toolText, SIGNAL(clicked()), this, SLOT(setTool()));
 		connect(toolLine, SIGNAL(clicked()), this, SLOT(setTool()));
 		connect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
+		connect(toolMisc, SIGNAL(clicked()), this, SLOT(setTool()));
 		connect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
 		connect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
 		connect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
@@ -472,6 +510,7 @@ void TabTools::enableSignals(bool on)
 		disconnect(toolText, SIGNAL(clicked()), this, SLOT(setTool()));
 		disconnect(toolLine, SIGNAL(clicked()), this, SLOT(setTool()));
 		disconnect(toolZoom, SIGNAL(clicked()), this, SLOT(setTool()));
+		disconnect(toolMisc, SIGNAL(clicked()), this, SLOT(setTool()));
 		disconnect(fontComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
 		disconnect(sizeComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
 		disconnect(colorComboText, SIGNAL(activated(int)), this, SLOT(setSample()));
@@ -847,6 +886,9 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	maximumZoom->setValue(prefsData->magMax);
 	zoomStep->setValue( prefsData->magStep );
 
+	genDispX->setValue(prefsData->dispX);
+	genDispY->setValue(prefsData->dispY);
+
 	setSample();
 
 	enableSignals(true);
@@ -990,6 +1032,8 @@ void TabTools::setTool()
 		subStackTools->raiseWidget(4);
 	if (toolZoom == sender())
 		subStackTools->raiseWidget(5);
+	if (toolMisc == sender())
+		subStackTools->raiseWidget(6);
 }
 
 void TabTools::enableFontPreview(bool state)
@@ -1008,4 +1052,8 @@ void TabTools::unitChange(QString unit, int docUnitIndex, int decimals, double i
 	gapText->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	gapTab->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	gapTab->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	genDispX->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	genDispX->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+	genDispY->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	genDispY->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 }

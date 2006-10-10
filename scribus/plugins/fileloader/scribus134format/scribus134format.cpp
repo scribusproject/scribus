@@ -454,6 +454,8 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->toolSettings.magMin = dc.attribute("MAGMIN", "10").toInt();
 		m_Doc->toolSettings.magMax = dc.attribute("MAGMAX", "3200").toInt();
 		m_Doc->toolSettings.magStep = dc.attribute("MAGSTEP", "200").toInt();
+		m_Doc->toolSettings.dispX = dc.attribute("dispX", "10").toDouble();
+		m_Doc->toolSettings.dispY = dc.attribute("dispY", "10").toDouble();
 		//CB Reset doc zoom step value to 200% instead of old values.
 		if (m_Doc->toolSettings.magStep<100)
 			m_Doc->toolSettings.magStep=200;
@@ -1452,6 +1454,8 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	dc.setAttribute("PASPECT", static_cast<int>(m_Doc->toolSettings.aspectRatio));
 	dc.setAttribute("EmbeddedPath", static_cast<int>(m_Doc->toolSettings.useEmbeddedPath));
 	dc.setAttribute("HalfRes", m_Doc->toolSettings.lowResType);
+	dc.setAttribute("dispX", m_Doc->toolSettings.dispX);
+	dc.setAttribute("dispY", m_Doc->toolSettings.dispY);
 	dc.setAttribute("MINORC",m_Doc->guidesSettings.minorColor.name());
 	dc.setAttribute("MAJORC",m_Doc->guidesSettings.majorColor.name());
 	dc.setAttribute("GuideC", m_Doc->guidesSettings.guideColor.name());
