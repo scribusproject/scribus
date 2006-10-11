@@ -337,7 +337,7 @@ void SVGPlug::convert(int flags)
 		double gw = maxx - minx;
 		double gh = maxy - miny;
 		PageItem *high = m_Doc->Items->at(highestItem);
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, m_Doc->toolSettings.dWidth, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
 		PageItem *neu = m_Doc->Items->take(z);
 		m_Doc->Items->insert(lowestItem, neu);
 		neu->Groups.push(m_Doc->GroupCounter);

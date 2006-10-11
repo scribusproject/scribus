@@ -8039,7 +8039,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		double gh = maxy - miny;
 		PageItem *high = doc->Items->at(highestItem);
 		undoManager->setUndoEnabled(false);
-		int z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, doc->toolSettings.dWidth, doc->toolSettings.dBrush, doc->toolSettings.dPen, true);
+		int z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, doc->toolSettings.dBrush, doc->toolSettings.dPen, true);
 		PageItem *neu = doc->Items->take(z);
 		doc->Items->insert(lowestItem, neu);
 //		neu->Groups.push(doc->GroupCounter);
