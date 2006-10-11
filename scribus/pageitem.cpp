@@ -833,9 +833,13 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 					case 3:
 					case 4:
 					case 6:
+#ifdef HAVE_CAIRO
+						p->setGradient(VGradient::linear, FPoint(GrStartX, GrStartY), FPoint(GrEndX, GrEndY));
+#else
 						gra.setPoints(2, GrStartX, GrStartY, GrEndX, GrEndY);
 						gra.map(grm);
 						p->setGradient(VGradient::linear, gra.point(0), gra.point(1));
+#endif
 						break;
 					case 5:
 					case 7:
