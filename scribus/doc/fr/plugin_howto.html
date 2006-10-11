@@ -1,0 +1,260 @@
+<qt>
+<title>Comment &eacute;crire une extension pour Scribus</title>
+<h2>Comment &eacute;crire une extension pour Scribus</h2>
+
+<h3>Pr&eacute;face</h3>
+
+<p>La pr&eacute;sente section vous montre comment &eacute;crire une extension pour Scribus. Les extensions sont des librairies qui sont charg&eacute;es dans
+l'application principale au moment de l'ex&eacute;cution. Les extensions peuvent &eacute;tendre, voire modifier le comportement de l'application sans n&eacute;cessiter de r&eacute;&eacute;criture ni de recompilation. Elles
+permettent d'ajouter des outils suppl&eacute;mentaires, de nouvelles fonctions d'importation et d'exportation, et plusieurs autres fonctionnalit&eacute;s &eacute;volu&eacute;es. </p>
+
+<p>Ce document pr&eacute;suppose une connaissance de base du langage C++. Vous devez savoir ce qu'est un fichier d'en-t&ecirc;te
+et comment fonctionne l'inclusion de fichier;aussi, vous devez poss&eacute;der des connaissance sur l'h&eacute;ritage des classes et une certaine ma&icirc;trise du langage C++. La connaissance de Qt - principalement QString et QObject - sera &eacute;galement utile. Des questions comme les fonctions virtuelles et purement virtuelles, les d&eacute;clarations "extern C", les d&eacute;tails de la gestion de m&eacute;moire, etc. sont &eacute;lud&eacute;es dans ce document. Vous n'avez pas &agrave; les conna&icirc;tre, mais elles pourraient vous aider &agrave; mieux suivre ce qui ce passe. </p>
+
+<p>Nous n'allons pas tenter d'expliquer ici les d&eacute;tails du fonctionnement du syst&egrave;me d'extensions de Scribus. Le pr&eacute;sent document explique seulement comment &eacute;crire une extension. La documentation des texte d'aide <code>scplugin.h</code> et <code>pluginmanager.h</code> explique le fonctionnement du syst&egrave;me.</p>
+
+<h3>O&ugrave; puis-je trouver les extensions Scribus ?</h3>
+
+<p>Scribus est livr&eacute; avec un certain nombre d'extensions standard. Celles-ci seront install&eacute;es en m&ecirc;me temps que le programme Scribus et ses autres fichiers. Sous UNIX, les extensions seront install&eacute;es sous le m&ecirc;me pr&eacute;fixe que l'application principale. Sous Mac OS X elles sont incluses avec l'application. Si vous voulez savoir ce que font ces extensions, le meilleur moyen de le d&eacute;couvrir est de d&eacute;marrer Scribus et d'aller dans <code>Fichier-&gt;Pr&eacute;f&eacute;rences</code>
+puis de cliquer sur l'ic&ocirc;ne "extensions". &Agrave; partir de l&agrave;, vous obtiendrez une liste des extensions install&eacute;es, des types d'extensions associ&eacute;s et des emplacements des fichiers.</p>
+
+<p>En plus des extensions livr&eacute;es en standard avec Scribus, il est possible de compiler et d'installer des extensions obtenues ailleurs, ou d'&eacute;crire et d'ajouter la v&ocirc;tre.</p>
+
+<h3>Avant de commencer &agrave; coder</h3>
+
+<p>Supposons que vous avez eu une bonne id&eacute;e pour am&eacute;liorer Scribus et que vous &ecirc;tes impatient d'&eacute;crire un code C++ de qualit&eacute;. <b>Patientez quelques minutes</b> et lisez la pr&eacute;sente section; vous pourriez gagner du temps et vous &eacute;viter des probl&egrave;mes.</p>
+
+	<h4>Important</h4>
+
+	<p>Peut-&ecirc;tre que vous &ecirc;tes sur le point de "r&eacute;inventer la roue", c'est-&agrave;-dire de r&eacute;-&eacute;crire ce que quelqu'un d'autre a d&eacute;j&agrave; fait. Vous devriez vous joindre &agrave; la liste de diffusion et afficher votre id&eacute;e, ou vous connecter au canal <code>#scribus</code> sur <code>irc.freenode.net</code>. Votre sujet sera soumis &agrave; l'&eacute;tude, et vous obtiendrez probablement de l'aide et des id&eacute;es des d&eacute;veloppeurs et des utilisateurs. Comme Scribus est distribu&eacute; sous licence libre, vous pouvez travailler en solitaire, mais vous devriez au moins avoir une conversation d'introduction sur IRC ou envoyer un courriel &agrave; la liste de diffusion, ce qui   pourrait vous &eacute;viter des heures de travail et des maux de t&ecirc;te. Nous voulons faciliter l'&eacute;criture d'extensions le plus possible pour les personnes int&eacute;ress&eacute;es.
+<h4>Compatibilit&eacute;</h4>
+
+	<p>Scribus n'a pas une API fixe en C++ pour accommoder les extensions. Les versions ne sont pas compatibles en binaire, et les versions instables enfreignent souvent la compatibilit&eacute; avec le code source.
+La compatibilit&eacute; source n'est pas garantie actuellement, m&ecirc;me entre des versions stables, lorsque des changements sont requis pour corriger un probl&egrave;me. Nous esp&eacute;rons redresser la situation dans l'avenir et fournir une API C++ stable pour le code externe. Pour l'instant, vous devez tenter d'int&eacute;grer l'essentiel de vos fonctionnalit&eacute;s dans un module s&eacute;par&eacute; qui d&eacute;pend le moins possible des rouages internes de Scribus.</p>
+
+	<p>Ce document traite de la mise en oeuvre d'une extension pour Scribus 1.3.1cvs.  Les exigences sont radicalement diff&eacute;rentes de celles des versions 1.2.x. Les changements futurs devraient &ecirc;tre moins importants.</p>
+
+	<p>Il est peu pratique de pr&eacute;voir l'&eacute;criture d'une extension pouvant fonctionner sous les versions 1.2.x et 1.3.x de Scribus.</p>
+
+<h3>D&eacute;marrage rapide</h3>
+
+<p>Il n'est pas trop difficile de se mettre &agrave; &eacute;crire une extension. La documentation ci-dessous d&eacute;crit l'implantation d'une extension et vous renvoie &agrave; des compl&eacute;ments d'information au besoin. Un "mod&egrave;le d'extension" vous est fourni, et vous pouvez en faire une copie au moment de d&eacute;buter la programmation. Des instructions de base sont incluses dans le fichier et, en cas doute, vous pouvez consulter ce document.</p>
+
+<p>Nous allons b&acirc;tir l'extension comme un composant de Scribus. C'est la mani&egrave;re la plus simple de commencer,
+m&ecirc;me si vous pr&eacute;voyez de la distribuer s&eacute;par&eacute;ment plus tard (voir plus loin). Pour commencer &agrave; travailler sur une extension (de type Action) :</p>
+
+<ul>
+	<li>Copiez <code>scribus/plugins/myplugin</code>
+ dans <code>scribus/plugins/pluginname</code>
+ (o&ugrave; "pluginname" est le nom que vous voulez donner &agrave; votre extension).
+	pluginname doit &ecirc;tre un identifiant C valide - je sugg&egrave;re d'utiliser seulement les caract&egrave;res minuscules.</li>
+
+	<li>&Eacute;ditez <code>scribus/plugins/Makefile.am</code> et ajoutez "pluginname" &agrave; Makefile.am. Cela indique au syst&egrave;me d'int&eacute;gration de Scribus de compiler votre extension.</li>
+
+	<li>Renommez tous les fichiers dans <code>scribus/plugins/pluginname/</code>
+ de <code>myplugin</code> en <code>pluginname</code>, par exemple
+ <code>myplugin.h</code> en <code>pluginname.h</code>.
+	<i>Ne renommez pas Makefile.am</i>.</li>
+
+	<li>Renommez <code>myplugin</code> l&agrave; o&ugrave; il figure dans les fichiers en
+ <code>pluginname</code>, par exemple <code>myplugin_getPluginAPIVersion()</code>
+ en <code>pluginname_getPluginAPIVersion()</code>. Faites de m&ecirc;me pour
+ <code>MyPlugin</code> et <code>MYPLUGIN</code>. Sous UNIX, vous pouvez utiliser cette commande :<br/>
+ <code>sed -i -e "s/myplugin/pluginname/g" -e "s/MyPlugin/PluginName/g" -e "s/MYPLUGIN/PLUGINNAME/g" myplugin*</code><br/>
+ (tout sur une ligne, ex&eacute;cut&eacute; &agrave; partir de <code>scribus/plugins/pluginname/</code>).
+	</li>
+</ul>
+
+<p>Vous &ecirc;tes maintenant pr&ecirc;t &agrave; commencer &agrave; travailler sur votre extension. Premi&egrave;rement, vous devez entrer des renseignements &agrave; propos de votre extension dans <code>pluginname.cpp</code> :</p>
+
+<ul>
+	<li>Dans <code>PluginName::languageChange()</code> :
+ 	<ul>
+			<li>Changez <code>m_actionInfo.text</code> pour le texte de l'&eacute;l&eacute;ment de menu qui doit lancer votre extension.</li>
+			<li>Changez <code>m_actionInfo.menu</code> pour le nom du menu qui doit afficher cet &eacute;l&eacute;ment. Voir <b><i>FIXME where????
+     FIXME</i></b> pour une liste de noms de menu.</li>
+			<li>Pour activer un raccourci clavier, d&eacute;commentez <code>m_actionInfo.keySequence</code> et inscrivez-y votre raccourci pr&eacute;f&eacute;r&eacute;. L'exemple ci-dessousdevrait vous montrer comment cela fonctionne.</li>
+		</ul>
+	</li>
+
+	<li>Changez le nom inscrit dans <code>PluginName::fullTrName()</code>
+pour le nom de votre extension tel que vous voulez qu'il figure &agrave; l'&eacute;cran Aide-&gt;&Agrave; propos des extensions et dans le panneau de gestion des extensions (dans les pr&eacute;f&eacute;rences).</li>
+
+	<li>Si vous souhaitez afficher de l'information (p. ex. l'auteur et la description) &agrave; l'utilisateur qui clique sur Aide-&gt;&Agrave; propos des extensions, remplissez les zones pr&eacute;vues &agrave; cet effet en assignant les membres de la section <code>&Agrave; propos</code>. Pour conna&icirc;tre l'information possible, consultez la d&eacute;finition de <code>AboutData</code> dans <code>scplugin.h</code>.</li>
+</ul>
+
+<p>Vous avez termin&eacute; la mise en place de l'extension et vous pouvez maintenant commencer &agrave; programmer.  Votre code
+doit &ecirc;tre plac&eacute; dans <code>pluginnameimpl.cpp</code> et
+<code>pluginnameimpl.h</code>. Le code existant devrait afficher une bo&icirc;te de dialogue contenant un message.</p>
+
+<p>Pour compiler l'extension, il suffit d'ex&eacute;cuter une nouvelle fois <code>make -f Makefile.cvs</code>, <code>./configure</code>, et <code>make</code> dans le r&eacute;pertoire sup&eacute;rieur de Scribus.
+Une fois la compilation termin&eacute;e, ex&eacute;cutez <code>make install</code> et d&eacute;marrez Scribus.
+Votre extension doit maintenant figurer dans le gestionnaire d'extensions (dans les pr&eacute;f&eacute;rences) et doit &ecirc;tre associ&eacute;e &agrave; un &eacute;l&eacute;ment de menu. Si vous appuyez sur l'&eacute;l&eacute;ment de menu, vous devriez obtenir une bo&icirc;te de dialogue.</p>
+
+<h3>B&acirc;tir les extension en dehors de la hi&eacute;rarchie de Scribus</h3>
+
+<h4>Utilisation rapide et directe de QMake</h4>
+
+ <b>Avertissement</b>
+	<p>Attention, il est facile d'utiliser un projet qmake, mais il ne s'agit pas n&eacute;cessairement de la m&eacute;thode standard pour distribuer un logiciel sur une plateforme Linux. Le processus sert &agrave; titre d'exemple seulement, pour le d&eacute;veloppement. Quand vous cr&eacute;erez votre progiciel op&eacute;rationnel, sans bogues, prenez le temps de pr&eacute;parer la distribution compl&egrave;te automagic (autoconf, automake)
+tel que d&eacute;crit dans la prochaine section.</p>
+
+	<p>Compilons maintenant l'extension (ce n'est pas aussi simple que de taper <code>gcc
+  myplugin.cpp</code> ;). Voici un proc&eacute;d&eacute; simple : qmake de Qt (parce que certaines personnes h&eacute;sitent &agrave; utiliser autoconf et automake en raison de leur complexit&eacute;). Nota : vous devrez cr&eacute;er un fichier vide <code>config.h</code> avant d'ex&eacute;cuter ces &eacute;tapes. </p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#qmake -project
+</pre>
+</td></tr></table></blockquote>
+
+<p>Maintenant que le fichier projet est cr&eacute;&eacute;, nous allons y apporter quelques petits changements.</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+######################################################################
+# Automatically generated by qmake (1.06c) Sun Dec 14 13:32:11 2003
+######################################################################
+
+#change TEMPLATE = app. Nous ne travaillons pas sur l'application, seulement sur l'extension
+TEMPLATE = lib
+INCLUDEPATH += .
+#Comme nous travaillons avec Scribus, nous avons besoin des inclusions de Scribus aussi.
+INCLUDEPATH += /home/subzero/devel/Scribus/include/Scribus/
+#Et Scribus doit utiliser freetype2.
+#Donc nous devons le lier aussi. Utilisez les chemins retourn&eacute;s par
+##freetype-config --cflags and --libs
+INCLUDEPATH += /usr/include/freetype2
+LIBS += -lfreetype -lz
+
+# Entr&eacute;e
+#cr&eacute;e un fichier config.h vide
+HEADERS += myplugin.h config.h
+SOURCES += myplugin.cpp
+</pre>
+</td></tr></table></blockquote>
+
+	<p>Apr&egrave;s ces changements, vous &ecirc;tes pr&ecirc;t &agrave; compiler</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#qmake
+#make
+</pre>
+</td></tr></table></blockquote>
+
+	<p>Ex&eacute;cuter Qmake cr&eacute;e le Makefile et, en l'ex&eacute;cutant, vous compilez votre extension.</p>
+
+	<p>Ensuite : Copiez seulement les fichiers *so* dans le r&eacute;pertoire d'extensions de Scribus et lancez Scribus.
+Vous lirez "Do Nothing Plugin" dans le menu Extra.</p>
+
+	<p>Il est clair que vous devez utiliser une autre m&eacute;thode pour distribuer votre code aux autres utilisateurs - certains utilisent les fichiers autog&eacute;n&eacute;r&eacute;s qmake pro, d'autres, la combinaison autoconf/automake.</p>
+
+	<h4>Distribuez-le! (autrement dit compilez-le! 2e &eacute;dition)</h4>
+
+	<p>Qmake est facile &agrave; utiliser et convient bien &agrave; un d&eacute;veloppement rapide, mais il y a une mani&egrave;re standard de compiler ou de distribuer un logiciel pour Linux, *BSD, etc. : autoconf et automake. Nous d&eacute;signerons ces deux programmes sous l'acronyme automagic dans le texte qui suit.</p>
+
+	<p>Pour utiliser automagic avec succ&egrave;s, vous aurez besoin d'un pentagramme dessin&eacute; &agrave; la craie sur le sol et orient&eacute; au nord (Carrefour, 2&#8364;), d'un costume de diablotin rouge et noir (Hugo Boss, 2000&#8364;) et d'un pingouin sacrifi&eacute; sur l'autel domestique (une heure de frayeur au zoo le plus proche). Ce n'&eacute;tait
+qu'une blague... ne faites pas de mal aux mignons pingouins, ce n'est pas n&eacute;cessaire!!</p>
+
+	<p>T&eacute;l&eacute;chargez l'exemple <code>donothingplugin-1.0.tar.gz</code> &agrave; partir de http://docs.scribus.net, d&eacute;comprimez-le et parcourez son contenu.</p>
+
+	<p>Quand vous acc&eacute;dez au r&eacute;pertoire principal, vous apercevez beaucoup de fichiers et de r&eacute;pertoires. <b>Attention</b> : Ne changez rien dans le r&eacute;pertoire admin.
+	Ce contenu vous est INTERDIT!</p>
+
+	<p>Puisque vous avez lu la documentation d'automagic (s&ucirc;rement), vous savez que chaque r&eacute;pertoire de votre projet contient un fichier important appel&eacute; <code>Makefile.am</code>. Voici un court exemple comment&eacute; :</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+# indique o&ugrave; l'extension sera install&eacute;e
+pluginsdir = $(prefix)/lib/scribus/plugins
+# sp&eacute;cifie les inclusions additionnelles pour la compilation
+AM_CPPFLAGS = -I$(prefix)/include/scribus
+# sp&eacute;cifie les r&eacute;pertoires &agrave; parcourir (avec les sous-niveaux) 
+SUBDIRS = translation doc
+# nom de l'extension = librairie
+plugins_LTLIBRARIES = libscribusvlna.la
+# join toutes les inclusions
+INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
+# divers relatifs &agrave; la librairie - symlinks, etc.
+libscribusvlna_la_LDFLAGS = -version-info 0:0:0
+libscribusvlna_la_METASOURCES = AUTO
+#
+# liste des fichiers source de votre projet
+libscribusvlna_la_SOURCES = frame.cpp selection.cpp vlnadialog.cpp vlnapage.cpp svlna.cpp
+EXTRA_DIST = frame.cpp selection.cpp svlna.cpp vlnadialog.cpp vlnapage.cpp frame.h /
+  selection.h svlna.h vlnadialog.h vlnapage$
+# comment compiler
+KDE_OPTIONS = qtonly
+AM_LDFLAGS =    -s $(LIBFREETYPE_LIBS)
+</pre>
+</td></tr></table></blockquote>
+
+	<p>Pour r&eacute;capituler : Si vous prenez le fichier <code>donothingplugin-1.0.tar.gz</code> (si vous le renommez, bien s&ucirc;r) et si vous analysez le contenu des fichiers <code>Makefile.am</code>, vous obtiendrez un progiciel op&eacute;rationnel.</p>
+
+	<p>Il reste une derni&egrave;re chose &agrave; faire. Vous devez aussi sp&eacute;cifier la structure de r&eacute;pertoire dans le fichier <code>configure.in</code> du r&eacute;pertoire racine du projet : </p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([svlna/Makefile])
+AC_CONFIG_FILES([svlna/translation/Makefile])
+AC_CONFIG_FILES([svlna/doc/Makefile])
+</pre>
+</td></tr></table></blockquote>
+
+	<p>Et maintenant, comment &ccedil;a marche?</p>
+
+	<p>Premi&egrave;rement lancez <code>make -f Makefile.dist</code> dans le r&eacute;pertoire racine. Les mod&egrave;les
+de <code>Makefile.in</code> sont cr&eacute;&eacute;s (comme par magie).</p>
+
+	<p>Ensuite, <code>./configure ; make ; make install</code>
+devrait fonctionnner pour vous. Profitez-en.</p>
+
+<h3>Compl&eacute;ment d'information</h3>
+
+<p>&Agrave; ce stade, vous devriez lire <code>scplugin.h</code> et comprendre le texte d'aide. Pour des pr&eacute;cisions sur le fonctionnement du syst&egrave;me d'extensions <a href="WHERE">ici</a>. Surtout, vous apprendrez la proc&eacute;dure en lisant les autres extensions et le code central de Scribus.</p>
+
+	<h4>Comment conserver les pr&eacute;f&eacute;rences de votre extension :</h4>
+
+	<p>Scribus fournit une API de pr&eacute;f&eacute;rences pour les d&eacute;veloppeurs d'extensions qui permet de conserver les donn&eacute;es entre les d&eacute;marrages de Scribus. Il y a deux types de formats disponibles : Paires "cl&eacute;-valeur" et Tables.</p>
+
+	<p>Tout d'abord, vous devrez obtenir l'objet <code>PrefsContext</code> pour votre extension. Ensuite, vous pouvez extraire de <code>PrefsContext</code> une valeur de cl&eacute; sp&eacute;cifique ou vous pouvez solliciter <code>PrefsTable</code> par son nom. Voici un court exemple qui utilise les paires cl&eacute;-valeur.</p>
+
+<pre>
+#include &lt;prefsfile.h&gt;
+#include &lt;prefscontext.h&gt;
+
+extern PrefsFile* prefsFile;
+
+PrefsContext *myPluginPrefs = prefsFile-&gt;getPluginContext("MyPlugin");
+
+// la valeur par d&eacute;faut 1 sera utilis&eacute;e si "i" n'existe pas d&eacute;j&agrave;
+int i = myPluginPrefs-&gt;getInt("i");
+
+// la valeur par d&eacute;faut "chien" sera utilis&eacute;e si "s" n'existe pas
+QString s = myPluginPrefs-&gt;get("s", "chien");
+
+myPluginPrefs-&gt;set("i", 221);
+myPluginPrefs-&gt;set("s", "chat");
+</pre>
+
+	<h4>Mod&egrave;le objet de Scribus</h4>
+
+	<p>Le code source de Scribus n'est pas document&eacute; en d&eacute;tail. Beaucoup d'efforts sont d&eacute;ploy&eacute;s pour corriger la situation, mais &eacute;tant donn&eacute; la taille du code, cela prend du temps. Essayez de suivre l'&eacute;volution en vous basant sur les fichiers d'en-t&ecirc;te et sur le code. En cas de doute, n'h&eacute;sitez pas &agrave; consulter le canal IRC ou &agrave; poser des questions via la liste de diffusion, et vous obtiendrez probablement une r&eacute;ponse. Soyezpatient, car nous ne sommes pas toujours disponibles ou pr&eacute;sents sur IRC.
+</p>
+
+	<p>Si vous souhaitez am&eacute;liorer la documentation ou corriger l'API de g&eacute;n&eacute;ration doxygen api, nous vous en saurons gr&eacute;. </p>
+
+	<p>Il est important de noter que l'acc&egrave;s au coeur de l'application Scribus passe par l'aide du pointeur statique global <code>ScApp</code>, d&eacute;clar&eacute; dans <code>scribus.h</code>. Attention &agrave; la confusion : c'est aussi une sous-classe de QMainWindow.
+Vous pouvez &eacute;galement aller &agrave; la sous-classe QApplication utilis&eacute;e comme <code>ScQApp</code> &agrave; partir de <code>scribusapp.h</code>.</p>
+
+	<p>Certains sous-syst&egrave;mes majeurs sont des classes uniques qui sont accessibles via ClassName::instance() . Il y a par exemple <code>PluginManager</code>,
+<code>ScPaths</code>, ainsi qu'un nombre croissant d'autres classes. L'avantage
+de cette approche est de vous permettre d'interagir avec ces classes sans p&eacute;n&eacute;trer dans les rouages de ScApp.</p>
+
+<h3>Liens associ&eacute;s aux extensions</h3>
+<a href="http://doc.trolltech.com/">Documentation de Qt par Trolltech</a><br />
+<a href="http://doc.trolltech.com/3.3/qmake-manual.html">Documentation de QMake par Trolltech</a><br />
+<a href="http://www.murrayc.com/learning/linux/automake/automake.shtml">Exemple automake/autoconf</a><br />
+</qt>
+o

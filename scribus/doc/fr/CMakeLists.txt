@@ -13,9 +13,6 @@ gettexthowto.html
 lipsum.html
 machints1.html
 machints2.html
-Makefile
-Makefile.am
-Makefile.in
 moncal.html
 plugin_howto.html
 readme-win32.html
@@ -25,3 +22,4 @@ scripterapi-page.html
 scripterapi-pydoc.html
 DESTINATION ${DOCDIR}fr
 )
+
