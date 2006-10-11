@@ -1484,7 +1484,7 @@ void Annot::DecodeNum()
 		}
 	if (item->annotation().Format() == 3)
 		{
-		Format0c->setCurrentText(pfol[0]);
+		Format0c->setCurrentText(pfol[0].remove("\""));
 		setDateSample(pfol[0]);
 		}
 	if (item->annotation().Format() == 4)
