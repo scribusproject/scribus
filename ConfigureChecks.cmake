@@ -40,8 +40,10 @@ endif(BZIP2_FOUND)
 
 if(LIBART_FOUND)
    set(HAVE_LIBART 1)
+   set(HAVE_CAIRO 0)
 else(LIBART_FOUND)
    set(HAVE_LIBART 0)
+   set(HAVE_CAIRO 1)
 endif(LIBART_FOUND)
 
 if(CARBON_FOUND)
