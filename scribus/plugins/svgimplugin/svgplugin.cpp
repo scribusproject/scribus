@@ -483,12 +483,12 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
 			parseStyle( gc, b );
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			FPointArray pArray;
+			PageItem::ItemType itype = parseSVG(b.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
+			z = currDoc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
 			ite->fillRule = (gc->fillRule != "nonzero"); 
-			ite->PoLine.resize(0);
-			if (parseSVG( b.attribute( "d" ), &ite->PoLine ))
-				ite->convertTo(PageItem::PolyLine);
+			ite->PoLine = pArray;
 			if (ite->PoLine.size() < 4)
 			{
 				currDoc->m_Selection->addItem(ite);
