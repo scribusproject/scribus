@@ -1,0 +1,104 @@
+<qt>
+<title>Conseils pour Mac OSX - CVS</title>
+<h2>Conseils pour Mac OSX - CVS</h2>
+
+<p><strong>Note du r&eacute;dacteur :</strong> ces conseils ont &eacute;t&eacute; gracieusement fournis par Martin Costabel. Il a effectu&eacute; un excellent travail de maintenance du progiciel Scribus fink, sans oublier l'aide fournie aux utilisateurs fink sur la liste de diffusion. </p>
+
+<h3>Construire la version Scribus CVS</h3>
+
+<p>Installez les librairies requises. La mani&egrave;re la plus facile de les obtenir dans Fink est d'ex&eacute;cuter <code>fink install scribus</code> et d'arr&ecirc;ter le programme d&egrave;s que les composants essentiels ont &eacute;t&eacute; charg&eacute;s et que Fink commence &agrave; construire Scribus. La liste des progiciels requis se trouve dans le fichier Fink scribus.info, sous les lignes "Depends" et "BuildDepends". Les d&eacute;pendances sont &eacute;tablies automatiquement par l'installateur Fink.</p>
+<p><strong>D&eacute;pendances</strong></p>
+<ul>
+	<li>x11</li>
+	<li>ghostscript</li>
+	<li>qt3-shlibs</li>
+	<li>libjpeg-shlibs</li>
+	<li>libjpeg-bin</li>
+	<li>lcms-shlibs (>=1.09)</li>
+	<li>libart2-shlibs</li>
+	<li>libpng3-shlibs</li>
+	<li>libtiff-shlibs</li>
+	<li>freetype2-shlibs ou freetype2-hinting-shlibs</li>
+</ul>
+<p><strong>D&eacute;pendances &agrave; la construction</strong></p>
+<ul>
+	<li>x11-dev</li>
+	<li>lcms</li>
+	<li>libjpeg</li>
+	<li>qt3</li>
+	<li>libart2</li>
+	<li>cups-dev</li>
+	<li>libpng3</li>
+	<li>libtiff</li>
+	<li>freetype2-dev ou freetype2-hinting-dev</li> 
+</ul>
+
+<p><strong>Configurer l'environnement</strong> :</p>
+
+<p>En utilisant tcsh comme interpr&eacute;teur :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>setenv CFLAGS -I/sw/include
+setenv LDFLAGS -L/sw/lib
+setenv CXXFLAGS $CFLAGS
+setenv CPPFLAGS $CXXFLAGS
+setenv ACLOCAL_FLAGS "-I /sw/share/aclocal"
+setenv PKG_CONFIG_PATH "/sw/lib/pkgconfig"
+</pre>
+</td></tr></table></blockquote>
+
+<p>En utilisant bash comme interpr&eacute;teur :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>export CFLAGS=-I/sw/include
+export LDFLAGS=-L/sw/lib
+export CXXFLAGS=$CFLAGS
+export CPPFLAGS=$CXXFLAGS
+export ACLOCAL_FLAGS="-I /sw/share/aclocal"
+export PKG_CONFIG_PATH="/sw/lib/pkgconfig"
+</pre>
+</td></tr></table></blockquote>
+
+<p>Il est ensuite possible d'ex&eacute;cuter :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>make -f Makefile.dist</pre>
+</td></tr></table></blockquote>
+<p>Il n'est pas n&eacute;cessaire d'installer autoconf et automake &agrave; partir de Fink, car ils existent d&eacute;j&agrave; dans Mac OSX 10.3. Ensuite, utilisez <code>configure</code> comme suit :</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>./configure --with-qt-dir=/sw --with-qt-includes=/sw/include/qt --with-qt-libraries=/sw/lib<br /> --with-extra-includes=/sw/include<br /> --with-pythondir=/System/Library/Frameworks/Python.framework/Versions/2.3/</pre>
+</td></tr></table></blockquote>
+
+<p>Avant d'ex&eacute;cuter <code>make</code>, il faut appliquer les mises &agrave; jour pr&eacute;vues par le PatchScript du fichier scribus.info de Fink.</p>
+
+<p>Le premier groupe de mises &agrave; jour permet de rep&eacute;rer les bonnes versions des en-t&ecirc;tes et des librairies freetype (ceux de Fink, le X11 d'Apple ayant une version freetype trop ancienne), ainsi que la version appropri&eacute;e de Python (celui de Mac OSX) :</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+perl -pi -e 's,usr/X11/bin,usr/X11R6/bin,g' configure
+perl -pi -e 's,FREETYPE_CONFIG=\"\",FREETYPE_CONFIG=\"/sw/lib/freetype2/bin/freetype-config\",g' configure
+perl -pi -e 's,LIBS=\"\-lfreetype,LIBS=\"\$LIBFREETYPE_LIBS,g' configure
+perl -pi -e "s,PYTHONLIB=.*,PYTHONLIB='-framework Python'\npython_libdir=yes\nLIBPYTHON=' ',g" configure
+perl -pi -e "s,LIBPYTHON =.*,LIBPYTHON=,g" scribus/plugins/scriptplugin/Makefile.in
+</pre>
+</td></tr></table></blockquote>
+
+<p>Le deuxi&egrave;me groupe est n&eacute;cessaire pour construire les modules externes. Il s'agit d'une manipulation qui peut probablement &ecirc;tre ex&eacute;cut&eacute;e de plusieurs fa&ccedil;ons.</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+perl -pi -e 's|^AM_LDFLAGS = .*\-s|AM_LDFLAGS = \$(all_libraries) \$(LIB_QT)|g' `find . -name Makefile.in`
+perl -pi -e 's|(lib.*)\.la|$1.so|g' `find . -name Makefile.in`
+perl -pi -e 's|-version-info 0:0:0|-bundle -undefined dynamic_lookup -bind_at_load|g' `find . -name Makefile.in`
+perl -pi -e 's|libpdf_la_LIBADD =|libpdf_la_LIBADD =\$(LIBTIFF)|g' scribus/libpdf/Makefile.in
+</pre>
+</td></tr></table></blockquote>
+
+<p>Il est alors possible de lancer les commandes suivantes :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+make
+sudo make install
+</pre>
+</td></tr></table></blockquote>
+<p>Scribus est alors install&eacute; dans <code>/usr/local</code>, ce qui &eacute;vite toute interf&eacute;rence avec une version diff&eacute;rente install&eacute;e par Fink, qui se place dans <code>/sw</code>.</p>
+</qt>
+ 

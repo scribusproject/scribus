@@ -1,0 +1,416 @@
+<qt>
+<title>R&egrave;gles de codage de Scribus</title>
+<h2>R&egrave;gles de codage de Scribus</h2>
+
+<p>
+Document initial : Paul F. Johnson, 26 f&eacute;v.  2004, version : 0.04<br/>
+R&eacute;vis&eacute; par Craig Ringer le 16 ao&ucirc;t 2005, version : 0.05 (encodage du texte, exceptions, &agrave; qui envoyer les mises &agrave; jour)<br />
+R&eacute;vis&eacute; par Peter Linnell le 06 sept. 2005, version : 0.06 (&eacute;l&eacute;ments d'encodage de texte ajout&eacute;s pour tenir compte des des entretiens r&eacute;cents)</p>
+
+<p>Ce document se veut un guide pour tous les d&eacute;veloppeurs et contributeurs du projet Scribus. Il s'agit d'un outil convivial qui aide &agrave; pr&eacute;server la simplicit&eacute; du code source et &agrave; en assurer la maintenance.</p>
+
+<h3>Documentation du code</h3>
+
+<p>Tout le code doit &ecirc;tre document&eacute; clairement.</p>
+
+<p>Avant d'utiliser une m&eacute;thode en particulier, les &eacute;l&eacute;ments suivants doivent &ecirc;tre pr&eacute;sents :</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+/*!
+ \fn functionName::functionName()
+ \author Nom des auteurs
+ \date
+ \brief Constructeur pour la classe
+ \param Aucun
+ \retval Aucun
+ */
+</pre>
+</td></tr></table></blockquote>
+
+<p>Vous devez mettre en place quelque chose de semblable avant d'&eacute;tablir les d&eacute;finitions de classe.</p>
+
+<p>De pr&eacute;f&eacute;rence, tous les d&eacute;tails devraient r&eacute;dig&eacute;s &ecirc;tre en anglais. Cela inclut les commentaires.</p>
+
+<p>&Agrave; moins qu'un commentaire n'occupe une seule ligne, vous devez utiliser <code>//</code> de pr&eacute;f&eacute;rence &agrave; <code>/* */</code>.</p>
+
+<h3>Code</h3>
+
+<h4>Convention de noms de variable</h4>
+<p>Tous les noms de variable doivent commencer en lettres minuscules. Si le nom comporte plusieurs parties,
+la deuxi&egrave;me partie doit commencer par une lettre majuscule. Par exemple : <code>int foo</code> et <code>int fooBar</code>. Sous aucune circonstance, vous ne devez utiliser le caract&egrave;re de soulignement (_).</p>
+<p>Les variables doivent &ecirc;tre nomm&eacute;es clairement. La seule exception r&eacute;side dans une boucle for. De pr&eacute;f&eacute;rence, les variables doivent &ecirc;tre libell&eacute;es
+en anglais. Nous avons entrepris de convertir et de modifier les variables existantes en fonction de ce mod&egrave;le.</p>
+<p>Les variables temporaires (comme celles utilis&eacute;es dans une boucle <code>for</code> ou celles qui d&eacute;pendent d'un contexte)doivent &ecirc;tre d&eacute;clar&eacute;es uniquement lorsqu'elles sont n&eacute;cessaires et si elles ne sont pas utilis&eacute;es dans un contexte global. S'il y a une condition
+au d&eacute;but d'une m&eacute;thode, toutes les variables n&eacute;cessaires doivent &ecirc;tre d&eacute;clar&eacute;es, mais rien d'autre. Par exemple :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+void foo::bar(f *b)
+{
+ int j;
+ string g = b-&gt;passed_in;
+ double fg, m, c;
+ which_string(g, &amp;j);
+ if (j == true)
+  return;
+ // rest of the code
+}
+</pre>
+</td></tr></table></blockquote>
+<p>ne doit pas avoir de d&eacute;claration de variables doubles. On peut se demander si g doit &ecirc;tre d&eacute;clar&eacute;e, mais dans cet exemple, cela n'a pas d'importance.</p>
+
+<p>Si une variable n'a pas d'utilit&eacute;, ne la cr&eacute;ez pas. Dans l'exemple ci-dessus, rien n'exige l'utilisation de g. </p>
+
+<h4>Convention de tabulation</h4>
+<ol>
+	<li>
+		<p>D&eacute;finitions &agrave; l'int&eacute;rieur d'une classe</p>
+		<p>&Agrave; l'exception des d&eacute;clarations d'acc&egrave;s, vous devez placer une tabulation avant chaque d&eacute;finition de m&eacute;thode et de variable. Il ne doit pas y avoir de tabulation avant les d&eacute;claration d'acc&egrave;s. Il y a une tabulation avant <code>Q_Object</code>.</p>
+	</li>
+	<li>
+		<p>Dans le code principal :</p>
+		<p>Il doit y avoir une tabulation au d&eacute;but de chaque ligne. Sur toutes les lignes conditionnelles, il doit y avoir une accolade ouvrante seule. Sur les lignes suivantes, il doit y avoir une autre tabulation avant le code. L'accolade fermante doit &ecirc;tre align&eacute;e sous l'accolade ouvrante.</p>
+	</li>
+</ol>
+
+<h4>Conditions</h4>
+<p>Construisez toujours des conditions logiques. Cela peut para&icirc;tre simpliste, mais observez l'exemple qui suit :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int foobar(bool m)
+{
+ if (m == true)
+	{
+  somethingA(1);
+  somethingB(1);
+  somethingC(1);
+	}
+ else
+	{
+  somethingA(0);
+  somethingB(0);
+  somethingC(0);
+	}
+}
+</pre>
+</td></tr></table></blockquote>
+
+<p>Voici comment on peut rendre les choses plus claires :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int foobar(bool m)
+{
+   int c = m == true ? 1 : 0;
+   somethingA(c);
+   somethingB(c);
+   somethingC(c);
+}
+</pre>
+</td></tr></table></blockquote>
+<p>Cette pr&eacute;sentation est beaucoup plus lisible et sera g&eacute;n&eacute;ralement plus facile &agrave; optimiser. </p>
+
+<p>Utilisez des conditions ternaires (?) au lieu de <code>if</code> / <code>else</code>. Elles sont beaucoup plus rapides &agrave; ex&eacute;cuter une fois que le code est compil&eacute;.</p>
+
+<p>Selon la t&acirc;che &agrave; accomplir, il vaut mieux &eacute;viter les &eacute;nonc&eacute;s switch. Il existe souvent une mani&egrave;re plus simple de proc&eacute;der. Par exemple :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int b;
+string s;
+switch (f)
+{
+ case 1 :
+  b = 4;
+  s = "four";
+  break;
+ case 2 :
+  b = 8;
+  s = "eight";
+  break;
+ case 3 :
+  b = 12;
+  s = "twelve";
+}
+</pre>
+</td></tr></table></blockquote>
+<p>peut &ecirc;tre r&eacute;-&eacute;crit comme ceci : </p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+int b = f * 4;
+char *number[] = {"four", "eight", "twelve"};
+size_t no = sizeof(number) / sizeof(*number);
+s = number(f);
+</pre>
+</td></tr></table></blockquote>
+<p>Le switch a disparu et le code g&eacute;n&eacute;r&eacute; tourne beaucoup plus vite; comme les conditions n'ont pas besoin d'&ecirc;tre cr&eacute;&eacute;es, il sera mieux optimis&eacute;. Note : avec la fonction <code>QObject::tr()</code> , il se peut que char* ne fonctionne pas toujours correctement. Une solution de rechange consiste &agrave; utiliser <code>QString number[] = {"four", "eight", "twelve"};</code> etc.
+<p>&Eacute;videmment, vous ne pouvez utiliser le code ci-dessus pour des conditions switch plus complexes.</p>
+
+<h4>Formatage des conditions </h4>
+
+<p>Le formatage devrait ressembler &agrave; ceci :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (fred == 5)
+{
+ // something
+ // something
+}
+</pre>
+</td></tr></table></blockquote>
+<p>Le formatage du switch doit ressembler &agrave; ceci :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+switch (f)
+{
+ case 0:
+  if (fred == 1)
+		{
+   // something
+   // more
+   // ok
+		}
+  else
+		{
+   if (jimmy == 0)
+			{
+    // hi
+    // code
+			}
+   // something here
+		}
+  break;
+}
+</pre>
+</td></tr></table></blockquote>
+<p>Le code est facile &agrave; lire et on peut d&eacute;terminer ais&eacute;ment o&ugrave; la condition prend fin.</p>
+<p>N'&eacute;crivez jamais, sous AUCUNE consid&eacute;ration, une ligne telle que celle-ci : </p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (foo == bar) { somethingA(0); }
+</pre>
+</td></tr></table></blockquote>
+<p>Employez plut&ocirc;t cette pr&eacute;sentation : </p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (foo == bar)
+ somethingA(0);
+</pre>
+</td></tr></table></blockquote>
+<p>Si les accolades ne sont pas requises, ne les utilisez pas. Par exemple, les accolades ne seraient pas requises ici</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+for (int j = 0; j &lt; 10; ++j)
+ cout &lt;&lt; j &lt;&lt; &quot;\n&quot;?;
+</pre>
+</td></tr></table></blockquote>
+<h4>Pr&eacute;incr&eacute;mentation et postimcr&eacute;mentation</h4>
+
+<p>Dans les boucles, vous devez choisir la pr&eacute;incr&eacute;mentation (++a plut&ocirc;t que a++). Avec les processeurs ARM et x64 (v&eacute;rifier &agrave; pour ia64) ++a requiert la moiti&eacute; moins de cycles d'horloge que le style postfix. Dans certaines circonstances, ++a est beaucoup plus efficace sous ia32. Cela est vrai m&ecirc;me avec des it&eacute;rateurs. La postincr&eacute;mentation doit &ecirc;tre utilis&eacute;e dans le genre de code ci-dessous :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+if (b == true)
+{
+ m-&gt;wibble(c);
+ m-&gt;wobble(c++);
+}
+</pre>
+</td></tr></table></blockquote>
+
+<h4>Espacements</h4>
+<p>Il doit y avoir un espace :</p>
+<ul>
+	<li>Apr&egrave;s toutes les virgules et tous les points-virgules (dans une condition for)</li>
+	<li>Entre chaque conditionnel (<code>if (a == true)</code> - il y a un espace de chaque c&ocirc;t&eacute; du conditionnel <code>==</code>)</li>
+	<li><p>Avant une parenth&egrave;se ouverte ou apr&egrave;s une parenth&egrave;se ferm&eacute;e :</p>
+		<ul>
+			<li>Il est interdit de placer un espace tout de suite apr&egrave;s une parenth&egrave;se ou &agrave; la fin d'un &eacute;nonc&eacute; entre parenth&egrave;ses.</li>
+			<li>N'ins&eacute;rez jamais d'espace en d&eacute;but de ligne. Utilisez plut&ocirc;t une tabulation. Une tabulation correspond &agrave; un nombre pr&eacute;cis d'espaces, qui peut
+varier si vous les introduisez &agrave; la main.</li>
+		</ul>
+	</li>
+</ul>
+
+<h4>Utilisation de mod&egrave;les</h4>
+
+<p>Il convient d'utiliser les mod&egrave;les pour les types et les classes. Les responsables du projet recommandent d'utiliser g++ 3.x, qui supporte parfaitement les mod&egrave;les et les classes mod&egrave;les. N'oubliez pas la charge de calcul suppl&eacute;mentaire due &agrave; l'utilisation des mod&egrave;les!</p>
+<p>Lorsque vous utilisez des mod&egrave;les, rappelez-vous ce qui suit :</p>
+<ul>
+	<li>Le binaire final sera plus volumineux.</li>
+	<li>Utilisez les mod&egrave;les correctement. On peut se laisser s&eacute;duire par l'id&eacute;e de "faire un mod&egrave;le" quand, en fait, il conviendrait de cr&eacute;er (par exemple) un mod&egrave;le g&eacute;n&eacute;rique qui h&eacute;rite des classes de base Qt en question.</li>
+	<li>Dans certains cas de figure, un mod&egrave;le ne sera pas aussi efficace qu'un appel autonome.</li>
+</ul>
+
+<h4>Optimisation</h4>
+
+<p>&Agrave; moins de savoir exactement ce que vous faites et, surtout, ce que le code fait, n'essayez pas d'optimiser le code. &Agrave; beaucoup d'&eacute;gards, l'optimisation est davantage un art qu'une science. </p>
+<p>Du code comme <code>a = b = c = 0;</code> est plus efficace (lorsqu'il est trait&eacute; par le compilateur) que <code>a=0; b=0; c=0;</code></p>
+<p>Il vaut mieux se concentrer sur la mani&egrave;re dont le code fonctionnne plut&ocirc;t que d'essayer une des "astuces" du m&eacute;tier.</p>
+<p>Tout changement &agrave; grande &eacute;chelle doit &ecirc;tre approuv&eacute; au pr&eacute;alable. Parfois, un changement minime peut avoir des r&eacute;percussions tr&egrave;s importantes.</p>
+<p>Des lignes s&eacute;par&eacute;es contenant des appels aux m&eacute;thodes Qt sont beaucoup moins efficaces que des appels regroup&eacute;s dans une boucle for.</p>
+
+<h4>Initialisation</h4>
+
+<p><code>QString fred = QString("bob")</code> n'est pas la m&ecirc;me chose que <code>QString fred("bob")</code>. Le premier cr&eacute;e un &eacute;l&eacute;ment temporaire qui est ensuite abandonn&eacute;. Cette technique est lente et doit &ecirc;tre &eacute;vit&eacute;e.</p>
+
+<p>Dans les constructeurs, il est pr&eacute;f&eacute;rable d'utiliser ce qui suit : </p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+Fred::Fred() : ParentClass(),
+ argument1("initialValue"),
+ argument2(INITIAL_VALUE)
+{
+}
+</td></tr></table></blockquote>
+
+<p>que</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+Fred::Fred() : ParentClass()
+{
+ argument1 = "initialvalue";
+ argument2 = INITIAL_VALUE;
+}
+</td></tr></table></blockquote>
+
+<p>pour les raisons expliqu&eacute;es plus haut. Il vaut mieux initialiser les membres dans l'ordre o&ugrave; ils sont list&eacute;s dans la d&eacute;claration de la classe.</p>
+
+<h4>V&eacute;rification de la m&eacute;moire</h4>
+
+<p>Comme les exceptions ne sont pas disponibles (voir ci-dessous), nous utilisons <code>Q_CHECK_PTR</code> pour v&eacute;rifier les allocations. Cela signifie que vous obtenez un abandon avec un message explicatif plut&ocirc;t qu'un segfault sans aucun d&eacute;tail.<p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+int *m = new int[2048];
+Q_CHECK_PTR(m);
+</td></tr></table></blockquote>
+
+<h5>Exceptions</h5>
+
+<p>Id&eacute;alement, tous les appels &agrave; <code>new</code> doivent &ecirc;tre captur&eacute;s. Cette fonctionnalit&eacute; n'existe pas dans les versions courantes. La m&eacute;thode souhaitable serait :</p>
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+<pre>
+#include &lt;new&gt;
+
+try
+{
+  m = new int[2048];
+}
+
+catch(bad_exception)
+{
+  cout &lt;&lt; "memory allocation to m failed - &lt;method name&lt;" &lt;&lt; endl;
+  exit(EXIT_FAILURE);
+}
+</pre>
+</td></tr></table></blockquote>
+<p>Comme il y a plusieurs appels &agrave; new dans Scribus, ceux-ci devront &ecirc;tre encapsul&eacute;s.</p>
+<p>Les utilisateurs de Qt qui compilent eux-m&ecirc;mes le programme doivent inclure dans leur code le script <code>./configure</code>, qui doit lever une exception C++. Sinon, les catch n'intercepteraient rien et Scribus ne s'ex&eacute;cuterait pas.</p>
+<p>En ce moment (pour v3.2 - v3.4), KDE recommande que Qt soit compil&eacute; sans exceptions. La suggestion est mauvaise, puisqu'elle signifie que les exceptions pour allocation de m&eacute;moire erron&eacute;e ne seront pas intercept&eacute;es &agrave; l'aide de la m&eacute;thode choisie. Comme la plupart des distributions suivent cette recommandation, cela signifie que nous (de Scribus) devrions nous priver des exceptions.</p>
+
+<h4>Encodage du texte</h4>
+
+<p>L'encodage du texte doit &ecirc;tre trait&eacute; avec soin. Si vous traitez du texte UTF-8 comme du latin-1, par exemple, vous risquez d'obtenir des incoh&eacute;rences et des erreurs. Ces probl&egrave;mes sont souvent difficiles &agrave; rep&eacute;rer, d'o&ugrave; la n&eacute;cessit&eacute; d'&eacute;crire le code avec vigilance. Les d&eacute;tails de l'encodage du texte ne sont pas abord&eacute;s ici, mais vous trouverez quelques pr&eacute;cisions ailleurs dans la documentation. La partie qui suit consiste en une version ant&eacute;rieure du texte; vos commentaires sont bienvenus.</p>
+
+<p>La premi&egrave;re chose que vous devez comprendre est que les <code>QString</code> de Qt, et la plupart des autres classes de Qt, connaissent leur propre encodage et prennent soin des questions de l'encodage du texte pour vous, pour qu'ils puissent &ecirc;tre trait&eacute;s comme "seulement du texte" lorsque pass&eacute;s dans Scribus ou &agrave; d'autres classes Qt. C'est uniquement &agrave; l'interface entre le code orient&eacute; octet et le code orient&eacute; "texte" qu'un soin particulier est requis. Ces interfaces peuvent ne pas &ecirc;tre &eacute;videntes &agrave; trouver (la conversion implicite d'un <code>QString</code> &agrave; un <code>QCString</code> ou <code>char*</code>, par exemple, est facilement manqu&eacute;e) donc il faut lire avec attention et pr&eacute;caution la documentation de l'API.</p>
+
+<p>Bien qu'il n'y ait pas de r&eacute;el substitut &agrave; la <i>compr&eacute;hension</i> des encodages de texte, voici quelques r&egrave;gles importantes &agrave; suivre:</p>
+
+<p>Construisez toujours un <code>QString</code> &agrave; partir d'un octet en utilisant une des m&eacute;thodes <code>QString::fromblah(...)</code> . Vous ne devriez jamais utiliser <code>QString(char*)</code> ou <code>QString(QCString)</code>. Vous devez d&eacute;terminer dans quel encodage est la cha&icirc;ne d'octets avec laquelle vous travaillez et utiliser l'appel correct, en examinant la documentation du syst&egrave;me/librairie que vous appelez. Il n'y a g&eacute;n&eacute;ralement aucun moyen de dire quel est l'encodage de la cha&icirc;ne en l'examinant - au mieux il s'agit de deviner. N'assumez <b>pas</b> qu'une cha&icirc;ne est en utf-8 ou latin-1, parce que m&ecirc;me si &ccedil;a fonctionne pour vous, avec certains langages ce ne sera pas le cas. Pour lire des donn&eacute;es &agrave; partir du syst&egrave;me d'exploitation ou de librairies C, vous utiliserez en g&eacute;n&eacute;ral <code>QString::fromLocal8Bit(...)</code>. En cas de doute, demandez &agrave; quelqu'un.</p>
+
+<p>De mani&egrave;re similaire, vous devriez toujours utiliser les m&eacute;thodes de conversion<code>QString</code> appropri&eacute;es pour convertir des <code>QString</code> en cha&icirc;nes d'octets (par exemple <code>QCString</code>, <code>QByteArray</code>, ou <code>char*</code>). Notez que de telles conversions peuvent survenir automatiquement, donc surveillez les conversions implicites. Pour envoyer des donn&eacute;es aux appels syst&egrave;mes ou librairies C, vous utiliserez en g&eacute;n&eacute;ral <code>QString::local8Bit()</code> mais vous devez v&eacute;rifier et confirmer que c'est adapt&eacute; &agrave; l'appel sp&eacute;cifique que vous effectuez. Certains appels win32, par exemple, attendent des donn&eacute;es UCS-2 (wchar), et certaines librairies C attendent des cha&icirc;nes UTF-8 comme arguments &agrave; certaines m&eacute;thodes.</p>
+
+<p>Vous ne devez absolument jamais &eacute;crire ceci :</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+QString blah = anotherQString.utf8();
+</td></tr></table></blockquote>
+
+<p>Le code ci-dessus:</p>
+<ul>
+	<li>Convertit anotherQString de son encodage interne UCS-2 &agrave; une cha&icirc;ne d'octets UTF-8 conserv&eacute;e dans un <code>QCString</code>; alors</li>
+	<li>il la passe au constructeur <code>QString(QCString)</code> de blah;</li>
+	<li><code>QString(QCString)</code> d&eacute;code le <code>QCString</code> pass&eacute; <i>conform&eacute;ment au param&egrave;tre de langage par d&eacute;faut de qt</i> qui est habituellement latin-1 (ne vous y fiez; cela peut avec le langage &agrave; un certain point.).</li>
+</ul>
+
+<p>Donc, vous finissez par effectuer beaucoup de travail inutile d'encodage et de d&eacute;codage de la cha&icirc;ne, et de plus il y aura probablement corruption en d&eacute;codant une cha&icirc;ne utf-8 comme latin-1. Habituellement, vous ne le noterez pas, parce que vous envoyez probablement uniquement des donn&eacute;es ASCII, et ainsi le bug sera d&eacute;couvert beaucoup plus tard lorsque des personnes dans d'autres langages utilisent d'autres encodage de texte. Ces questions tendent &agrave; &ecirc;tre difficiles &agrave; d&eacute;pister.</p>
+
+<p>Pour des raisons similaires, lorsque vous lisez ou &eacute;crivez un <code>QTextStream</code>, rappelez-vous d'appeler <code>QTextStream::setEncoding(...)</code> avant de lire/&eacute;crire toute donn&eacute;e. Utilisez <code>l'op&eacute;rateur&lt;&lt;</code> avec les<code>QString</code>, mais <code>WriteRawBytes(...)</code> pour &eacute;crire des cha&icirc;ne d'octets qui sont d&eacute;j&agrave; dans l'encodage correct. Les cha&icirc;nes d'octets dans d'autes encodages doivent &ecirc;tre converties &agrave; <code>QString</code> ou transcod&eacute;es en utilisant <code>QTextCodec</code>. N'assumez <b>pas</b> que le <code>QTextStream</code> &eacute;crira en UTF-8. L'encodage correct d&eacute;pend de l'endroit o&ugrave; les donn&eacute;es vont et d'o&ugrave; elles viennent. Par exemple, un fichier texte seul que l'utilisateur &eacute;dite devrait &ecirc;tre dans l'encodage qui convient &agrave; sa langue. Si vous n'&ecirc;tes pas s&ucirc;r, demandez &agrave; quelqu'un.</p>
+
+<p>Ne convertissez pas un QString en une cha&icirc;ne d'octets lorsque vous &eacute;crivez dans un QTextStream - le QTextStream le fait pour vous avez l'op&eacute;rateur&lt;&lt;. Par exemple:</p>
+
+<blockquote><table width="100%" border="1" bgcolor="#eeeeee"><tr><td border="0">
+QTextStream ts(&amp;file);
+// Dans ce cas, nous voulons &eacute;crire de UTF8 dans ce fichier, pas &eacute;crire dans l'encodage local une cha&icirc;ne d'octets 8 bits.
+ts.setEncoding(QTextStream::UnicodeUTF8);
+ts &lt;&lt; someQString.utf8();
+</td></tr></table></blockquote>
+
+<p>Il s'agit de la m&ecirc;me erreur que dans l'exemple pr&eacute;c&eacute;dent, mais &eacute;crit d'une mani&egrave;re diff&eacute;rente. &Agrave; la place, vous devriez omettre le <code>.utf8()</code>.</p>
+
+<p>La meilleure mani&egrave;re de g&eacute;rer les encodages de texte est de les convertir en cha&icirc;nes d'octets 8 bits en <code>QString</code> ou une autre classe "s&eacute;curitaire" aussit&ocirc;t que possible &agrave; l'entr&eacute;e, et de convertir en cha&icirc;nes d'octets 8 bits le plus tard possible &agrave; la sortie. Par-dessus tout, ne le faites qu'une seule fois et surveillez les conversions implicites. Vous devez penser aux encodages en passant du texte &agrave; travers toute interface qui demande des cha&icirc;nes orient&eacute;es octets plut&ocirc;t que des <code>QString</code>s. Rappelez-vous de <b>lire la documentation</b> des API que vous utilisez pour d&eacute;terminer comment elles se comportent face &agrave; l'encodage du texte, et si vous n'&ecirc;tes pas s&ucirc;r, <i>demandez &agrave; quelqu'un</i>.</p>
+
+<p>Il est fortement recommand&eacute; de lire <a href="http://doc.trolltech.com/3.3/i18n.html">http://doc.trolltech.com/3.3/i18n.html</a> pour de plus amples informations sur cette question, en particulier la section "Support for Encodings". Vous devriez &eacute;galement lire<a href="http://doc.trolltech.com/qq/qq05-achtung.html">Achtung! Binary and Character data</a>.</p>
+
+<h4>Indices pour la traduction - Questions d'encodages</h4>
+<p>Veuillez utiliser:</p> 
+<pre> "&#060;qt&#062;" + tr("text for translation") + "&#060;/qt&#062;"</pre>
+<p>et non pas ceci:</p>
+<pre> tr("&#060;qt&#062;text for translation&#060;/qt&#062;")</pre>
+<p>qui est r&eacute;ellement ennuyeux pour les traducteurs.</p>
+
+<p>Si vous &eacute;crivez une classe qui n'h&eacute;rite pas de QObject ou d'une classe Qt, vous ne pouvez pas utiliser la m&eacute;thode h&eacute;rit&eacute;e tr(). Si vous utilisez quelque chose comme suit:</p>
+<pre> QObject::tr("text for translation")</pre>
+<p>remplacez-le par:</p>
+ <pre>QObject::tr("text for translation", "describe what is it related")</pre>
+<p>Un exemple du scripteur:</p>
+ <pre>QObject::tr("Item is not text frame", "scripter error")</pre>
+<p>Cela aide les traducteurs &agrave; situer le contexte et leur indique &eacute;galement ce qu'ils traduisent, m&ecirc;me si dans certains cas les cha&icirc;nes sont g&eacute;n&eacute;riques de nature.</p>
+
+
+<p>Il y a un autre point concernant les traductions, m&ecirc;me s'il concerne plus l'encodage correct, etc.: veuillez ne pas utiliser:</p>
+
+<pre>tr( QString("blah %1").arg(something) )</pre>
+
+ou sinon utilisez un QString &agrave; l'int&eacute;rieur d'un tr(...) . Le faire causerait une conversion implicite en
+'const char*', que le QString convertirait en une cha&icirc;ne d'octets latin-1. Si des caract&egrave;res ne peuvent pas &ecirc;tre repr&eacute;sent&eacute;s en latin-1, ils sont remplac&eacute;s par '?'. L'usage correct est:
+
+<pre>tr("blah %1","context").arg("something")</pre>
+
+<p>... en exploitant le fait que tr(...) retourne un QString et que vous pouvez encha&icirc;ner les appels &agrave; QString::arg. Cela &eacute;vite toute conversion implicite et &eacute;vitera toute une s&eacute;rie de bug d'encodages bizarres.</p>
+
+<p>Si vous devez r&eacute;ellement traduire du texte qui ne peut pas &ecirc;tre repr&eacute;sent&eacute; en latin-1, vous devez utiliser <strong>QObject::trUtf8(...).</strong> Si vous voulez traduire une cha&icirc;ne avec "?" (delta majuscule) &agrave; l'int&eacute;rieur, par exemple, vous pourriez essayer:</p>
+
+      <p> tr("? is %1", "context")</p>
+
+<p>ce qui est faux, non portable, peut ne pas compil&eacute;, ou pire peut donner des r&eacute;sultats diff&eacute;rents sur des syst&egrave;mes diff&eacute;rents. <strong>Il faut utiliser des cha&icirc;nes de caract&egrave;res &eacute;chapp&eacute;s au lieu d'inclure un caract&egrave;re Unicode ou latin-1 &eacute;tendu directement dans la source. </strong>La s&eacute;quence d'octets UTF-8 pour ce caract&egrave;re est \xce\x94, donc il faut essayer:</p>
+
+       <pre>tr("\xce\x94 is %1", "context")</pre>
+
+<p>mais c'est &eacute;galement faux, parce que la s&eacute;quence d'octets Unicode sera interpr&eacute;t&eacute;e comme du latin-1 et vous obtiendrez un r&eacute;sultat corrompu. &Agrave; la place, vous devez utiliser:</p>
+
+     <pre> trUtf8("\xce\x94 is %1", "context")</pre>
+
+<p>De m&ecirc;me, si vous voulez inclure le symbole &#169; (copyright), qui existe aussi en latin-1, vous pouvez utiliser au choix:</p>
+
+       <pre>tr("something \xa9 someone", "context")</pre>
+
+<p>ou</p>
+
+       <pre>trUtf8("something \xc2\xa9 someone", "context")</pre>
+
+<h4>Portabilit&eacute;</h4>
+
+<p>Ne convertissez pas un pointeur en entier (int), cela cause des probl&egrave;mes de portabilit&eacute; o&ugrave; sizeof(int) != sizeof(void*). Vous devriez chercher une
+autre m&eacute;thode pour atteindre le r&eacute;sultat souhait&eacute;.</p>
+
+<h4>Soumettre les mises &agrave; jour</h4>
+
+<p>Les mises &agrave; jour du code doivent &ecirc;tre envoy&eacute;es &agrave; Franz, Craig Bradney, ou Paul. Les mises &agrave; jour de la documentation doivent &ecirc;tre envoy&eacute;es &agrave; Peter et Craig Bradney. Cela est sujet &agrave; changement. Les questions de scripting doivent &ecirc;tre adress&eacute;es &agrave; Petr et Craig Ringer.</p>
+<p>Les mises &agrave; jour doivent &ecirc;tre en texte seul. <code>diff -u old_file.cpp new_file.cpp &gt;difference.diff</code> est la meilleure mani&egrave;re de les envoyer. Veuillez ne pas envoyer pas de mises &agrave; jour &agrave; la liste principale. Rappelez-vous d'utiliser <code>-u</code> (diff unifi&eacute;) parce que les autres types de diff sont difficiles &agrave; utiliser.</p>
+<p>Veuillez vous assurer lorsque vous avez chang&eacute; quelque chose de mettre un commentaire juste avant le changement. Assurez-vous de mettre la date, l'auteur du changement et la raison de ce changement. V&eacute;rifiez que les commentaires incluent la ligne de code originale. Avec le temps, elles seront supprim&eacute;es, mais il est utile de voir ce qui a &eacute;t&eacute; alt&eacute;r&eacute;.</p>
+<p>Envoyez un seul diff pour chaque fichier modifi&eacute;. Cela rend la soumission des changements beaucoup plus simple pour nous!</p>
+
+<h4>&Eacute;crire des extensions</h4>
+
+<p>Veuillez utiliser les fonctions actuelles et  vous r&eacute;f&eacute;rer &agrave; <a href="plugin_howto.html">Plugin howto</a> pour plus d'information.</p>
+<p>Tout code appel&eacute; &agrave; partir de l'application Scribus principale doit &ecirc;tre entour&eacute;e avec un <code>extern "C" { ... };</code> pour permettre &agrave; l'extension de fonctionner.
+Assurez-vous que tout le code est document&eacute; et suit les directives sp&eacute;cifi&eacute;es plus haut.</p>
+</qt>m
