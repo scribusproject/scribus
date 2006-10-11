@@ -47,6 +47,7 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	checkerSettings.checkAnnotations = currDoc->checkerProfiles[currDoc->curCheckProfile].checkAnnotations;
 	checkerSettings.checkRasterPDF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkRasterPDF;
 	checkerSettings.checkForGIF = currDoc->checkerProfiles[currDoc->curCheckProfile].checkForGIF;
+	checkerSettings.ignoreOffLayers = currDoc->checkerProfiles[currDoc->curCheckProfile].ignoreOffLayers;
 	currDoc->docItemErrors.clear();
 	currDoc->masterItemErrors.clear();
 	currDoc->docLayerErrors.clear();
@@ -61,6 +62,10 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	{
 		layerError.clear();
 		Level2Layer(currDoc, &ll, Lnr);
+		if ((!ll.isViewable) && (checkerSettings.ignoreOffLayers))
+			continue;
+		if ((!ll.isPrintable) && (checkerSettings.ignoreOffLayers))
+			continue;
 		if ((ll.transparency != 1.0) && (checkerSettings.checkTransparency))
 			layerError.insert(Transparency, 0);
 		if ((ll.blendMode != 0) && (checkerSettings.checkTransparency))
@@ -73,6 +78,8 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	{
 		currItem = currDoc->MasterItems.at(d);
 		if (!currItem->printEnabled())
+			continue;
+		if (!(currDoc->layerPrintable(currItem->LayerNr)) && (checkerSettings.ignoreOffLayers))
 			continue;
 		itemError.clear();
 		if (((currItem->isAnnotation()) || (currItem->isBookmark)) && (checkerSettings.checkAnnotations))
@@ -183,6 +190,8 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 	{
 		currItem = currDoc->DocItems.at(d);
 		if (!currItem->printEnabled())
+			continue;
+		if (!(currDoc->layerPrintable(currItem->LayerNr)) && (checkerSettings.ignoreOffLayers))
 			continue;
 		itemError.clear();
 		if (((currItem->fillTransparency() != 0.0) || (currItem->lineTransparency() != 0.0) || (currItem->fillBlendmode() != 0) || (currItem->lineBlendmode() != 0)) && (checkerSettings.checkTransparency))

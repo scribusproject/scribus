@@ -83,6 +83,9 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	useAnnotations = new QCheckBox( this, "useAnnotations" );
 	useAnnotations->setText( tr( "Check for PDF Annotations and Fields" ) );
 	TabCheckDocLayout->addWidget( useAnnotations );
+	ignoreOffLayers = new QCheckBox( this, "ignoreOffLayers" );
+	ignoreOffLayers->setText( tr( "Ignore non-printable Layers" ) );
+	TabCheckDocLayout->addWidget( ignoreOffLayers );
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	layout1->addItem( spacer );
@@ -113,6 +116,7 @@ TabCheckDoc::TabCheckDoc( QWidget* parent, CheckerPrefsList prefsData, QString p
 	connect(checkForGIF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(resolutionValue, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
 	connect(resolutionValueM, SIGNAL(valueChanged(int)), this, SLOT(putProfile()));
+	connect(ignoreOffLayers, SIGNAL(clicked()), this, SLOT(putProfile()));
 	
 	connect(removeProfile, SIGNAL(clicked()), this, SLOT(delProf()));
 	connect(addProfile, SIGNAL(clicked()), this, SLOT(addProf()));
@@ -139,6 +143,7 @@ void TabCheckDoc::restoreDefaults(CheckerPrefsList *prefsData, QString prefProfi
 	useAnnotations->setChecked(checkerProfile[prefProfile].checkAnnotations);
 	rasterPDF->setChecked(checkerProfile[prefProfile].checkRasterPDF);
 	checkForGIF->setChecked(checkerProfile[prefProfile].checkForGIF);
+	ignoreOffLayers->setChecked(checkerProfile[prefProfile].ignoreOffLayers);
 	resolutionValue->setValue( qRound(checkerProfile[prefProfile].minResolution) );
 	resolutionValueM->setValue( qRound(checkerProfile[prefProfile].maxResolution) );
 	currentProfile = prefProfile;
@@ -165,6 +170,7 @@ void TabCheckDoc::putProfile()
 		checkerProfile[currentProfile].checkAnnotations = useAnnotations->isChecked();
 		checkerProfile[currentProfile].checkRasterPDF = rasterPDF->isChecked();
 		checkerProfile[currentProfile].checkForGIF = checkForGIF->isChecked();
+		checkerProfile[currentProfile].ignoreOffLayers = ignoreOffLayers->isChecked();
 	}
 }
 
@@ -198,6 +204,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	disconnect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(checkForGIF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	disconnect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
+	disconnect(ignoreOffLayers, SIGNAL(clicked()), this, SLOT(putProfile()));
 	ignoreErrors->setChecked(checkerProfile[name].ignoreErrors);
 	automaticCheck->setChecked(checkerProfile[name].autoCheck);
 	missingGlyphs->setChecked(checkerProfile[name].checkGlyphs);
@@ -211,6 +218,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	useAnnotations->setChecked(checkerProfile[name].checkAnnotations);
 	rasterPDF->setChecked(checkerProfile[name].checkRasterPDF);
 	checkForGIF->setChecked(checkerProfile[name].checkForGIF);
+	ignoreOffLayers->setChecked(checkerProfile[name].ignoreOffLayers);
 	currentProfile = name;
 	connect(ignoreErrors, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(automaticCheck, SIGNAL(clicked()), this, SLOT(putProfile()));
@@ -224,6 +232,7 @@ void TabCheckDoc::updateProfile(const QString& name)
 	connect(rasterPDF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(checkForGIF, SIGNAL(clicked()), this, SLOT(putProfile()));
 	connect(useAnnotations, SIGNAL(clicked()), this, SLOT(putProfile()));
+	connect(ignoreOffLayers, SIGNAL(clicked()), this, SLOT(putProfile()));
 }
 
 void TabCheckDoc::addProf()
@@ -242,6 +251,7 @@ void TabCheckDoc::addProf()
 	checkerSettings.checkAnnotations = useAnnotations->isChecked();
 	checkerSettings.checkRasterPDF = rasterPDF->isChecked();
 	checkerSettings.checkForGIF = checkForGIF->isChecked();
+	checkerSettings.ignoreOffLayers = ignoreOffLayers->isChecked();
 	checkerProfile.insert(tempNewProfileName, checkerSettings);
 	currentProfile = tempNewProfileName;
 	if (checkerProfile.count() > 1)

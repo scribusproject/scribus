@@ -32,6 +32,7 @@ struct checkerPrefs
 	bool checkAnnotations;
 	bool checkRasterPDF;
 	bool checkForGIF;
+	bool ignoreOffLayers;
 };
 
 typedef QMap<QString, checkerPrefs> CheckerPrefsList;

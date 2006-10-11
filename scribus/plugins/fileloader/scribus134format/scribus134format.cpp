@@ -542,6 +542,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				checkerSettings.checkAnnotations = static_cast<bool>(pg.attribute("checkAnnotations", "0").toInt());
 				checkerSettings.checkRasterPDF = static_cast<bool>(pg.attribute("checkRasterPDF", "1").toInt());
 				checkerSettings.checkForGIF = static_cast<bool>(pg.attribute("checkForGIF", "1").toInt());
+				checkerSettings.ignoreOffLayers = static_cast<bool>(pg.attribute("ignoreOffLayers", "0").toInt());
 				m_Doc->checkerProfiles[pg.attribute("Name")] = checkerSettings;
 			}
 			// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
@@ -1487,6 +1488,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
 		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
+		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.data().ignoreOffLayers));
 		dc.appendChild(dc79a);
 	}
 	QMap<QString,multiLine>::Iterator itMU;

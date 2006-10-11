@@ -45,6 +45,7 @@ public:
 	QCheckBox* useAnnotations;
 	QCheckBox* rasterPDF;
 	QCheckBox* checkForGIF;
+	QCheckBox* ignoreOffLayers;
 	QGroupBox* pictResolution;
 	QLabel* textLabel1;
 	QSpinBox* resolutionValue;
