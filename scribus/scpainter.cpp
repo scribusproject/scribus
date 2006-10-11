@@ -1192,7 +1192,7 @@ void ScPainter::drawVPath( int mode )
 		}
 		else if (fillMode == 3)
 		{
-			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_ARGB32, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
+			cairo_surface_t *image2 = cairo_image_surface_create_for_data ((uchar*)m_pattern->getPattern()->bits(), CAIRO_FORMAT_RGB24, m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), m_pattern->getPattern()->width()*4);
 			cairo_pattern_t *m_pat = cairo_pattern_create_for_surface(image2);
 			cairo_pattern_set_extend(m_pat, CAIRO_EXTEND_REPEAT);
 			QImage mask;
