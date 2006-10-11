@@ -243,6 +243,7 @@ void PrefsManager::initDefaults()
 	appPrefs.toolSettings.dTabWidth = 36.0;
 	appPrefs.toolSettings.dispX = 10.0;
 	appPrefs.toolSettings.dispY = 10.0;
+	appPrefs.toolSettings.constrain = 15.0;
 	appPrefs.DpapColor = QColor(white);
 	appPrefs.DFrameColor = QColor(red);
 	appPrefs.DFrameNormColor = QColor(black);
@@ -1038,6 +1039,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc9.setAttribute("EndArrow", appPrefs.toolSettings.dEndArrow);
 	dc9.setAttribute("dispX", appPrefs.toolSettings.dispX);
 	dc9.setAttribute("dispY", appPrefs.toolSettings.dispY);
+	dc9.setAttribute("constrain", appPrefs.toolSettings.constrain);
 	elem.appendChild(dc9);
 	QDomElement dc4=docu.createElement("MAINWINDOW");
 	dc4.setAttribute("XPOS",appPrefs.mainWinSettings.xPosition);
@@ -1518,6 +1520,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.toolSettings.dEndArrow = dc.attribute("EndArrow", "0").toInt();
 			appPrefs.toolSettings.dispX = dc.attribute("dispX", "10").toDouble();
 			appPrefs.toolSettings.dispY = dc.attribute("dispY", "10").toDouble();
+			appPrefs.toolSettings.constrain = dc.attribute("constrain", "15").toDouble();
 		}
 		if (dc.tagName()=="MAINWINDOW")
 		{

@@ -430,7 +430,24 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabGeneralLayout2->addWidget( genDispY, 1, 1, Qt::AlignLeft );
 	genText2 = new QLabel( genDispY, tr( "Y-Displacement" ), genDispBox, "genText2" );
 	subTabGeneralLayout2->addWidget( genText2, 1, 0);
-	subTabGeneralLayout->addMultiCellWidget( genDispBox, 1, 1, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
+	subTabGeneralLayout->addWidget( genDispBox, 1, 0);
+
+
+	genRotBox = new QGroupBox( subTabGeneral, "genRotBox" );
+	genRotBox->setTitle( tr( "Rotation Tool" ) );
+	genRotBox->setColumnLayout(0, Qt::Vertical );
+	genRotBox->layout()->setSpacing( 5 );
+	genRotBox->layout()->setMargin( 10 );
+	subTabGeneralLayout3 = new QGridLayout( genRotBox->layout() );
+
+	genRot = new MSpinBox( 1, 90, genRotBox, 1 );
+	subTabGeneralLayout3->addWidget( genRot, 0, 1, Qt::AlignLeft );
+	genText3 = new QLabel( genRot, tr( "Constrain to:" ), genRotBox, "genText3" );
+	subTabGeneralLayout3->addWidget( genText3, 0, 0);
+	genText4 = new QLabel( "degrees", genRotBox, "genText4" );
+	subTabGeneralLayout3->addWidget( genText4, 0, 2);
+	subTabGeneralLayout->addWidget( genRotBox, 1, 1);
+
 	subStackTools->addWidget( subTabGeneral, 6 );
 
 	tabToolsLayout->addWidget( subStackTools );
@@ -475,6 +492,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( lineWidthLine, tr( "Width of lines" ) );
 	QToolTip::add( genDispX, tr( "Horizontal displacement of objects") );
 	QToolTip::add( genDispY, tr( "Vertical displacement of objects" ) );
+	QToolTip::add( genRot, tr( "Constrain value for the rotation tool when the CTRL-Key is pressed" ) );
 	//enableSignals(true);
 }
 
@@ -888,6 +906,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 
 	genDispX->setValue(prefsData->dispX);
 	genDispY->setValue(prefsData->dispY);
+	genRot->setValue(prefsData->constrain);
 
 	setSample();
 

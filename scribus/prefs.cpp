@@ -536,6 +536,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.toolSettings.lowResType = haRes;
 	prefsManager->appPrefs.toolSettings.dispX = tabTools->genDispX->value();
 	prefsManager->appPrefs.toolSettings.dispY = tabTools->genDispY->value();
+	prefsManager->appPrefs.toolSettings.constrain = tabTools->genRot->value();
 	prefsManager->appPrefs.AutoSave = tabDocument->GroupAS->isChecked();
 	prefsManager->appPrefs.AutoSaveTime = tabDocument->ASTime->value() * 60 * 1000;
 	prefsManager->appPrefs.MinWordLen = tabHyphenator->wordLen->value();

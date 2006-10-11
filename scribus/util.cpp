@@ -1116,10 +1116,10 @@ inline double distance(double x, double y)
 	return sqrt(x*x+y*y);
 }
 
-double constrainAngle(double angle)
+double constrainAngle(double angle, double constrain)
 {
 	double newAngle=angle;
-	double constrainTo=15.0;
+	double constrainTo=constrain;
 	if (newAngle<0.0)
 		newAngle+=360.0;
 	newAngle=qRound(angle/constrainTo)*constrainTo;

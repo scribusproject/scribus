@@ -119,9 +119,10 @@ inline double SCRIBUS_API distance(double, double);
 /*! \brief Constrains an angle of rotation to 45 degree intervals
    Will make code simpler and reduce interval or provide as a parameter
    \param double angle Angle in degrees
+   \param double contrain value in degrees
    \retval double Constrained angle
  */
-double SCRIBUS_API constrainAngle(double angle);
+double SCRIBUS_API constrainAngle(double angle, double constrain);
 /*! \brief Get the rotation angle (in radian) from a transformation matrix
    Will make code simpler and reduce interval or provide as a parameter
    \param matrix the transformation matrix

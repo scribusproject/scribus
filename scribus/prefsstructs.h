@@ -142,6 +142,8 @@ struct toolPrefs
 	/* Item Duplicate Offset */
 	double dispX;
 	double dispY;
+	/* Rotation Tool constrain value */
+	double constrain;
 };
 
 struct ApplicationPrefs

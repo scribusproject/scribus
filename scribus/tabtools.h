@@ -161,6 +161,10 @@ public:
 	QLabel* genText2;
 	MSpinBox* genDispX;
 	MSpinBox* genDispY;
+	QGroupBox* genRotBox;
+	QLabel* genText3;
+	QLabel* genText4;
+	MSpinBox* genRot;
 
 protected slots:
 	/*!
@@ -207,6 +211,7 @@ protected:
 	QGridLayout* subTabZoomLayout;
 	QGridLayout* subTabGeneralLayout;
 	QGridLayout* subTabGeneralLayout2;
+	QGridLayout* subTabGeneralLayout3;
 	ScribusDoc* docu;
 	double unitRatio;
 	QString unit;

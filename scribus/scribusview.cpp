@@ -2605,7 +2605,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			double newRot=xy2Deg(np.x(), np.y());
 			//Constrain rotation angle, when the mouse is released from drawing a line
 			if (m->state() & ControlButton)
-				newRot=constrainAngle(newRot);
+				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
 			currItem->setRotation(newRot);
 			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
 			currItem->Sizing = false;
@@ -3937,8 +3937,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			double newW = xy2Deg(m->x()/sc - RCenter.x(), m->y()/sc - RCenter.y());
 			if (m->state() & ControlButton)
 			{
-				newW=constrainAngle(newW);
-				oldW=constrainAngle(oldW);
+				newW=constrainAngle(newW, Doc->toolSettings.constrain);
+				oldW=constrainAngle(oldW, Doc->toolSettings.constrain);
 				//RotateGroup uses MoveBy so its pretty hard to constrain the result
 				if (Doc->m_Selection->isMultipleSelection())
 					RotateGroup(newW-oldW);
@@ -4048,7 +4048,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					newRot=-newRot;
 				else
 					newRot=360-newRot;
-				newRot=constrainAngle(newRot);
+				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
 				double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
 				newX = qRound(currItem->xPos()+(hlen * cos(newRot/(180.0/M_PI))));
 				newY = qRound(currItem->yPos()-(hlen * sin(newRot/(180.0/M_PI))));
@@ -4327,7 +4327,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 									if (m->state() & ControlButton)
 									{
 										double newRot=xy2Deg(np.x(), np.y());
-										rba=constrainAngle(newRot);
+										rba=constrainAngle(newRot, Doc->toolSettings.constrain);
 										double hlen=sqrt(pow(newX - currItem->xPos(),2)+pow(newY - currItem->yPos(),2));
 										sizeItemX = hlen * cos(rba/(180.0/M_PI));
 										sizeItemY = hlen * sin(rba/(180.0/M_PI));
