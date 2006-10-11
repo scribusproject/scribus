@@ -3995,11 +3995,8 @@ void PageItem::emitAllToGUI()
 	emit gradientType(GrType);
 	double dur=m_Doc->unitRatio();
 	emit gradientColorUpdate(GrStartX*dur, GrStartY*dur, GrEndX*dur, GrEndY*dur, Width*dur, Height*dur);
-	if (GrType == 0)
-	{
-		emit transparency(fillTransparencyVal, lineTransparencyVal);
-		emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
-	}
+	emit transparency(fillTransparencyVal, lineTransparencyVal);
+	emit blendmode(fillBlendmodeVal, lineBlendmodeVal);
 	emit patternFill(patternVal, patternScaleX, patternScaleY, patternOffsetX, patternOffsetY, patternRotation);
 	emit textToFrameDistances(Extra, TExtra, BExtra, RExtra);
 	emit columns(Cols, ColGap);
