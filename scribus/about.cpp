@@ -207,6 +207,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("af").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Kobus Wolvaardt</td><td>kobuswolf@diewereld.co.za</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Iñaki Larrañaga Murgoitio</td><td>dooteo@euskalgnu.org</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ca").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
