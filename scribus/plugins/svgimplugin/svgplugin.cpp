@@ -1934,7 +1934,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	ScMW->view->scaleGroup(scalex, scaley);
 	ScMW->view->Deselect();
-	double nmat = sqrt(abs(mm.det()))/2;
+	double nmat = sqrt(fabs(mm.det())) / 2.0;
 	ite->moveBy(asce * sin(-rotation) * nmat, -asce * cos(-rotation) * nmat);
 	if( !e.attribute("id").isEmpty() )
 		ite->setItemName(" "+e.attribute("id"));
