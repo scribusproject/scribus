@@ -1,5 +1,5 @@
 ADD_SUBDIRECTORY(tutorials)
-ADD_SUBDIRECTORY(images)
+
 
 INSTALL(FILES
 cms2.html
