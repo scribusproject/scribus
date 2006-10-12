@@ -80,7 +80,7 @@ public:
 	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll=false);
 	~MarginWidget() {};
 	/*! \brief Setup the labels by facing pages option */
-	void setFacingPages(bool facing);
+	void setFacingPages(bool facing, int pagetype = 0);
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by width and height */
 	void setPageWidthHeight(double width, double height);
 	/*! \brief Setup the spinboxes properties (min/max value etc.) by width */
@@ -171,6 +171,7 @@ protected:
 	int m_docUnitIndex;
 	//! \brief if the outer facing palette points to the facing pages item
 	bool facingPages;
+	int pageType;
 };
 
 #endif

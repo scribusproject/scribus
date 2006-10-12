@@ -114,9 +114,10 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
 }
 
-void MarginWidget::setFacingPages(bool facing)
+void MarginWidget::setFacingPages(bool facing, int pagetype)
 {
 	facingPages = facing;
+	pageType = pagetype;
 	lText->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
 	rText->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
 	setPreset();
@@ -240,6 +241,8 @@ void MarginWidget::setPreset()
 		topR->setEnabled(true);
 		bottomR->setEnabled(true);
 	}
+	if (pageType == 1)
+		rightR->setEnabled(false);
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
