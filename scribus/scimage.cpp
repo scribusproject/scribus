@@ -3912,11 +3912,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				xres = cinfo.X_density * 2.54;
 				yres = cinfo.Y_density * 2.54;
 			}
-			if( xres <= 1.0 || yres <= 1.0 )
+			if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
 			{
 				xres = yres = 72.0;
 				QFileInfo qfi(fn);
-				message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+				message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
 			}
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
@@ -3984,11 +3984,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			setDotsPerMeterX( int(100. * cinfo.X_density) );
 			setDotsPerMeterY( int(100. * cinfo.Y_density) );
 		}
-		if( xres <= 1.0 || yres <= 1.0 )
+		if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
 		{
 			xres = yres = 72.0;
+			setDotsPerMeterX(2834);
+			setDotsPerMeterY(2834);
 			QFileInfo qfi(fn);
-			message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+			message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
 		}
 		imgInfo.xres = qRound(xres);
 		imgInfo.yres = qRound(yres);
@@ -4028,6 +4030,16 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				yres = imgInfo.yres;
 				setDotsPerMeterX( int(100. * imgInfo.xres / 2.54) );
 				setDotsPerMeterY( int(100. * imgInfo.yres / 2.54) );
+				if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+				{
+					xres = yres = 72.0;
+					imgInfo.xres = xres;
+					imgInfo.yres = yres;
+					setDotsPerMeterX(2834);
+					setDotsPerMeterY(2834);
+					QFileInfo qfi(fn);
+					message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
+				}
 				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask
 				arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 				free( PhotoshopBuffer );
