@@ -160,11 +160,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			xres = cinfo.X_density * 2.54;
 			yres = cinfo.Y_density * 2.54;
 		}
-		if( xres <= 1.0 || yres <= 1.0 )
+		if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
 		{
 			xres = yres = 72.0;
 			QFileInfo qfi(fn);
-			m_message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+			m_message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
 			m_msgType = warningMsg;
 		}
 		m_imageInfoRecord.xres = qRound(xres);
@@ -225,11 +225,13 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		m_image.setDotsPerMeterX( int(100. * cinfo.X_density) );
 		m_image.setDotsPerMeterY( int(100. * cinfo.Y_density) );
 	}
-	if( xres <= 1.0 || yres <= 1.0 )
+	if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
 	{
 		xres = yres = 72.0;
+		m_image.setDotsPerMeterX(2834);
+		m_image.setDotsPerMeterY(2834);
 		QFileInfo qfi(fn);
-		m_message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+		m_message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
 		m_msgType = warningMsg;
 	}
 	m_imageInfoRecord.xres = qRound(xres);
@@ -270,6 +272,17 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			yres = m_imageInfoRecord.yres;
 			m_image.setDotsPerMeterX( int(100. * m_imageInfoRecord.xres / 2.54) );
 			m_image.setDotsPerMeterY( int(100. * m_imageInfoRecord.yres / 2.54) );
+			if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+			{
+				xres = yres = 72.0;
+				m_imageInfoRecord.xres = xres;
+				m_imageInfoRecord.yres = yres;
+				m_image.setDotsPerMeterX(2834);
+				m_image.setDotsPerMeterY(2834);
+				QFileInfo qfi(fn);
+				m_message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
+				m_msgType = warningMsg;
+			}
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 			free( PhotoshopBuffer );
