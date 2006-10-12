@@ -3413,11 +3413,8 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		int y = static_cast<int>(currentPage()->yOffset());
 		int w = static_cast<int>(currentPage()->width());
 		int h = static_cast<int>(currentPage()->height());
-		int x2 = static_cast<int>(currItem->xPos());
-		int y2 = static_cast<int>(currItem->yPos());
-		int w2 = QMAX(static_cast<int>(currItem->width()), 1);
-		int h2 = QMAX(static_cast<int>(currItem->height()), 1);
-		if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+		QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
+		if (QRect(x, y, w, h).intersects(itemRect))
 			retw = currentPage()->pageNr();
 	}
 	else
@@ -3429,11 +3426,8 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			int y = static_cast<int>(Pages->at(a)->yOffset());
 			int w = static_cast<int>(Pages->at(a)->width());
 			int h = static_cast<int>(Pages->at(a)->height());
-			int x2 = static_cast<int>(currItem->xPos());
-			int y2 = static_cast<int>(currItem->yPos());
-			int w2 = QMAX(static_cast<int>(currItem->width()), 1);
-			int h2 = QMAX(static_cast<int>(currItem->height()), 1);
-			if (QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+			QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
+			if (QRect(x, y, w, h).intersects(itemRect))
 			{
 				retw = static_cast<int>(a);;
 				break;
