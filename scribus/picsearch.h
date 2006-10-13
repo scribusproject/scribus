@@ -17,8 +17,13 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 
 #include "scribusapi.h"
+#include "picsearchbase.h"
 
-class SCRIBUS_API PicSearch : public QDialog
+
+/*! \brief Dialog for selecting one of all images founded.
+It's called after image search Extras/Manage Pictures/ Click [Search] button for chosen
+image frame item. */
+class SCRIBUS_API PicSearch : public PicSearchBase
 { 
 	Q_OBJECT
 
@@ -28,48 +33,38 @@ public:
 	\brief Constructor for PicSearch.[dox?]. Used in Extras / Manage Pictures / Search function
 	\param parent QWidget pointer to parent window
 	\param fileName QString name of image
-	\param alt QStringList List of Paths where an Image with the given Name is present
+	\param avalableFiles QStringList List of Paths where an Image with the given Name is present
 	*/
-	PicSearch( QWidget* parent, const QString & fileName, const QStringList & alt);
+	PicSearch( QWidget* parent, const QString & fileName, const QStringList & avalableFiles);
 	~PicSearch() {};
 
-	QLabel* TextLabel1;
-	QLabel* Datei;
-	QListBox* ListBox1;
-	QCheckBox* Preview;
-	QPushButton* UseB;
-	QPushButton* CancelB;
-	QLabel* PixmapLabel1;
-	QSize minS;
-	QString Bild;
+	//! \brief Currently selected image with its full path
+	QString currentImage;
 
 private slots:
 	/*!
 	\author Franz Schmid
 	\brief If preview is desired (checked) then the image preview is shown and generated, otherwise hidden.
 	*/
-	void ShowPrev();
+	void previewCheckBox_clicked();
 	/*!
 	\author Franz Schmid
 	\brief When image is selected from the ListBox then the image preview may be shown and the Use button is enabled.
 	\param c QListBoxItem
 	*/
-	void selBild(QListBoxItem *c);
+	void foundFilesBox_clicked(QListBoxItem *c);
 	/*!
 	\author Franz Schmid
 	\brief Generates image preview for the found Picture
 	*/
-	void GenPreview();
+	void createPreview();
 
 signals:
 	//! \brief Emitted when the pic for a row is replaced. Arg is row index.
 	void rowPicChanged(unsigned int);
 
 protected:
-	QVBoxLayout* PicSearchLayout;
-	QHBoxLayout* Layout2;
-	QHBoxLayout* Layout3;
-	QVBoxLayout* Layout1;
+	QSize minS;
 };
 
 #endif // PICSEARCH_H

@@ -22,6 +22,8 @@ class ScribusDoc;
 class FileSearch;
 
 
+/*! \brief Constructs a Dialog, which list all Images in the current Document.
+In this Dialog it is possible to search for missing Images. */
 class SCRIBUS_API PicStatus : public QDialog
 { 
 	Q_OBJECT
@@ -112,6 +114,9 @@ private:
 	QPushButton* cancelButton;
 	QPushButton* okButton;
 	QPushButton* searchAllButton;
+#ifndef _WIN32
+	QCheckBox* caseInsensitiveCheck;
+#endif
 	ScribusDoc *m_Doc;
 	int Zeilen;
 	QPtrList<QCheckBox> FlagsPic;

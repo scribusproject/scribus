@@ -31,6 +31,7 @@ multipleduplicatebase.ui
 multiprogressdialogbase.ui
 pageitemattributesbase.ui
 patterndialogbase.ui
+picsearchbase.ui
 smlinestylewbase.ui
 smreplacediabase.ui
 smpstylewbase.ui

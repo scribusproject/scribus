@@ -7,6 +7,8 @@ for which a new license (GPL+exception) is in place.
 #include "filesearch.h"
 #include "filesearch.moc"
 #include <qtimer.h>
+#include <qregexp.h>
+
 
 enum FileSearchStatus
 {
@@ -17,13 +19,19 @@ enum FileSearchStatus
 	Status_Finished,
 };
 
-FileSearch::FileSearch(QObject* parent, const QString & fileName, const QString & searchBase, int depthLimit) :
+
+FileSearch::FileSearch(QObject* parent, const QString & fileName,const QString & searchBase, int depthLimit, bool caseSensitive) :
 	DeferredTask(parent),
 	m_searchBase(searchBase.isNull() ? QDir::homeDirPath() : searchBase),
 	m_fileName(fileName),
 	m_depth(0),
 	m_maxdepth(depthLimit)
 {
+	m_caseSensitive = caseSensitive;
+#ifdef _WIN32
+	// it has no meaning to set case sensitiveness on win
+	m_caseSensitive = false;
+#endif
 	DeferredTask::init();
 	m_dir.setPath(m_searchBase);
 	Q_ASSERT(m_dir.exists());
@@ -126,13 +134,27 @@ void FileSearch::pushStack()
 
 void FileSearch::addCurrentDirFiles()
 {
-	// Search files in this dir
-	const QFileInfoList *filist = m_dir.entryInfoList(m_fileName, QDir::Files);
+	const QFileInfoList *filist = m_dir.entryInfoList(m_caseSensitive ? m_fileName : "*", QDir::Files);
 	QFileInfoListIterator it( *filist );
 	QFileInfo *fi;
-	while ( ( fi = it.current() ) != 0 )
+	// Search files in this dir
+	if (m_caseSensitive)
 	{
-		++it;
-		m_matchingFiles.push_back(fi->absFilePath());
+		while ( ( fi = it.current() ) != 0 )
+		{
+			++it;
+			m_matchingFiles.push_back(fi->absFilePath());
+		}
+	}
+	else
+	{
+		// unix only, resp. no meaning in windows
+		QRegExp r(m_fileName, false, true);
+		while ( ( fi = it.current() ) != 0 )
+		{
+			++it;
+			if (r.exactMatch(fi->fileName()))
+				m_matchingFiles.push_back(fi->absFilePath());
+		}
 	}
 }

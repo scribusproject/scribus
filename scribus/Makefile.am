@@ -162,6 +162,7 @@ scribus_SOURCES = \
 	pdfoptions.cpp	\
 	pdfoptionsio.cpp	\
 	pdfopts.cpp	\
+	picsearchbase.ui \
 	picsearch.cpp	\
 	picstatus.cpp	\
 	pluginmanager.cpp	\

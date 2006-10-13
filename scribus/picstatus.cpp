@@ -204,6 +204,14 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 3 );
 	Layout2->setMargin( 0 );
+
+	caseInsensitiveCheck = new QCheckBox(tr("Case insensitive search"), this, "caseInsensitiveCheck");
+	caseInsensitiveCheck->setChecked(false);
+	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
+	Layout2->addWidget(caseInsensitiveCheck);
+#ifdef _WIN32
+	caseInsensitiveCheck->hide();
+#endif
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	Layout2->addItem( spacer );
 	searchAllButton = new QPushButton( tr( "Search Directory" ), this, "searchAllButton" );
@@ -260,7 +268,9 @@ void PicStatus::SearchPic()
 	// that it's done.
 	// Note: search will be deleted when this PicStatus is, so there's no
 	// need to worry about cleanup.
-	FileSearch* search = new FileSearch(this, fileName, searchBase);
+	// case sensitive note: it has no meaning on windows
+
+	FileSearch* search = new FileSearch(this, fileName, searchBase, -1, !caseInsensitiveCheck->isChecked());
 	Q_CHECK_PTR(search);
 	connect(search,
 			SIGNAL(searchComplete(const QStringList&, const QString&)),
@@ -309,8 +319,8 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 		PicSearch *dia = new PicSearch(this, fileName, matches);
 		if (dia->exec())
 		{
-			Q_ASSERT(!dia->Bild.isEmpty());
-			loadPictByRow(dia->Bild, row);
+			Q_ASSERT(!dia->currentImage.isEmpty());
+			loadPictByRow(dia->currentImage, row);
 			m_Doc->view()->DrawNew();
 		}
 		delete dia;
@@ -338,6 +348,8 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 		PicTable->setPixmap(row, COL_PREVIEW, pm);
 		PicTable->adjustRow(row);
 	}
+	// let's suppose we update all succesfully - file name is changed too - PV
+	PicTable->setText(row, COL_FILENAME, QFileInfo(newFilePath).fileName());
 	return item->PicAvail;
 }
 
