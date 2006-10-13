@@ -63,9 +63,9 @@ void MultipleDuplicate::setCopiesShiftGap(int sel)
 	}
 }
 
-void MultipleDuplicate::getMultiplyData(itemMultipleDuplicateData& mdData)
+void MultipleDuplicate::getMultiplyData(ItemMultipleDuplicateData& mdData)
 {
-	mdData.duplicateType=tabWidget->currentPageIndex();
+	mdData.type=tabWidget->currentPageIndex();
 	mdData.copyCount=numberOfCopiesSpinBox->value();
 	mdData.copyShiftOrGap=copiesCreateButtonGroup->selectedId();
 	mdData.copyShiftGapH=horizShiftMSpinBox->value();

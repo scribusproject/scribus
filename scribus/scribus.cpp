@@ -7142,7 +7142,7 @@ void ScribusMainWindow::ObjektDupM()
 	MultipleDuplicate *dia = new MultipleDuplicate(doc->unitIndex(), this);
 	if (dia->exec())
 	{
-		itemMultipleDuplicateData mdData;
+		ItemMultipleDuplicateData mdData;
 		dia->getMultiplyData(mdData);
 		doc->itemSelection_MultipleDuplicate(mdData);
 	}
@@ -9228,7 +9228,7 @@ void ScribusMainWindow::slotInsertFrame()
 		InsertAFrame *dia = new InsertAFrame(this, doc);
 		if (dia->exec())
 		{
-			insertAFrameData iafData;
+			InsertAFrameData iafData;
 			dia->getNewFrameProperties(iafData);
 			doc->itemAddUserFrame(iafData);
 		}

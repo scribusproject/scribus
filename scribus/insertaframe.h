@@ -33,7 +33,7 @@ public:
 	InsertAFrame(QWidget* parent, ScribusDoc *doc);
 	~InsertAFrame(){};
 	
-	void getNewFrameProperties(insertAFrameData &iafData);
+	void getNewFrameProperties(InsertAFrameData &iafData);
 protected:
 	ScribusDoc* m_Doc;
 	ImportSetup m_ImportSetup;

@@ -11,7 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "pageitem.h"
 #include "gtgettext.h"
 
-struct insertAFrameData
+struct InsertAFrameData
 {
 	PageItem::ItemType frameType;
 	int locationType;
@@ -29,9 +29,9 @@ struct insertAFrameData
 	bool linkTextFrames;
 };
 
-struct itemMultipleDuplicateData
+struct ItemMultipleDuplicateData
 {
-	int duplicateType;
+	int type;
 	int copyCount;
 	int copyShiftOrGap;
 	double copyShiftGapH;
@@ -40,6 +40,11 @@ struct itemMultipleDuplicateData
 	int gridCols;
 	double gridGapH;
 	double gridGapV;
+};
+
+struct CreateRangeData
+{
+	QString pageRange;
 };
 
 #endif

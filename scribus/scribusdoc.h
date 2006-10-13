@@ -501,7 +501,7 @@ public:
 	 * @param columnGap Gap between columns if created item is a text frame
 	 * @return 
 	 */
-	int itemAddUserFrame(insertAFrameData &iafData);
+	int itemAddUserFrame(InsertAFrameData &iafData);
 
 	/**
 	 * @brief Commit item creation when a user has click-drag created an item
@@ -978,7 +978,7 @@ public slots:
 	void itemSelection_DistributeLeft();
 	void itemSelection_DistributeCenterV();
 	void itemSelection_DistributeTop();
-	void itemSelection_MultipleDuplicate(itemMultipleDuplicateData&);
+	void itemSelection_MultipleDuplicate(ItemMultipleDuplicateData&);
 
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);

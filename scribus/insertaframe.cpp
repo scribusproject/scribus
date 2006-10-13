@@ -132,7 +132,7 @@ void InsertAFrame::slotSelectSize( int id )
 	heightMSpinBox->setEnabled(id==2);
 }
 
-void InsertAFrame::getNewFrameProperties(insertAFrameData &iafData)
+void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 {
 	int type=typeButtonGroup->selectedId();
 	iafData.source="";

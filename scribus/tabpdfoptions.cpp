@@ -16,11 +16,13 @@ for which a new license (GPL+exception) is in place.
 #include "tabpdfoptions.moc"
 
 #include <qpainter.h>
-#include "units.h"
+#include "createrange.h"
 #include "pdfoptions.h"
 #include "prefsmanager.h"
 #include "scribuscore.h"
 #include "scconfig.h"
+#include "units.h"
+#include "usertaskstructs.h"
 
 extern QPixmap loadIcon(QString nam);
 #include "scribuscore.h"
@@ -145,6 +147,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	GroupPassLayout(0),
 	GroupSecSet(0),
 	GroupSecSetLayout(0),
+	pageNumberSelectorLayout(0),
 	Layout11(0),
 	Layout11a(0),
 	Layout13(0),
@@ -210,6 +213,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	textLPI3(0),
 	TextSec1(0),
 	TextSec2(0),
+	pageNrButton(0),
 	ToEmbed(0),
 	ToSubset(0),
 	useViewDefault(0),
@@ -247,9 +251,16 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Layout11 = new QGridLayout( 0, 1, 1, 0, 5, "Layout11");
 	OnlySome = new QRadioButton( tr( "C&hoose Pages" ), RangeGroup, "OnlySome" );
 	Layout11->addWidget( OnlySome, 0, 0 );
+ 	pageNumberSelectorLayout = new QHBoxLayout( 0, 0, 5, "pageNumberSelectorLayout" );
 	PageNr = new QLineEdit( RangeGroup, "PageNr" );
 // 	PageNr->setEnabled(false);
-	Layout11->addWidget( PageNr, 1, 0 );
+ 	pageNumberSelectorLayout->addWidget( PageNr );
+ 	pageNrButton = new QPushButton( QString::fromUtf8("…"), RangeGroup, "PageNrButton" );
+//  	pageNrButton->setMaximumWidth(pageNrButton->minimumSizeHint().width());
+ 	pageNrButton->setPixmap(loadIcon("up.png"));
+// 	PageNr->setEnabled(false);
+ 	pageNumberSelectorLayout->addWidget( pageNrButton );
+ 	Layout11->addLayout( pageNumberSelectorLayout, 1, 0 );
 	RangeGroupLayout->addLayout( Layout11 );
 	TextLabel3 = new QLabel( tr( "&Rotation:" ), RangeGroup, "TextLabel3" );
 	RangeGroupLayout->addWidget( TextLabel3 );
@@ -1042,6 +1053,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		QToolTip::add( EonAllPg, "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
 	}
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
+	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 	connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
 	connect(MirrorH, SIGNAL(clicked()), this, SLOT(PDFMirror()));
 	connect(MirrorV, SIGNAL(clicked()), this, SLOT(PDFMirror()));
@@ -1116,6 +1128,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 {
 	AllPages->setChecked( true );
 	PageNr->setEnabled(false);
+	pageNrButton->setEnabled(false);
 	RotateDeg->setCurrentItem(Opts.RotateDeg / 90);
 	MirrorH->setOn(Opts.MirrorH);
 	MirrorV->setOn(Opts.MirrorV);
@@ -1681,6 +1694,7 @@ void TabPDFOptions::SelRange(bool e)
 {
 	bool setter = e ? false : true;
 	PageNr->setEnabled( setter );
+	pageNrButton->setEnabled( setter );
 	if (setter == false)
 		CheckBM->setChecked(false);
 }
@@ -2056,4 +2070,20 @@ void TabPDFOptions::unitChange(QString unit, int docUnitIndex, int decimals, dou
 	BleedRight->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	BleedLeft->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
+}
+
+void TabPDFOptions::createPageNumberRange( )
+{
+	if (doc!=0)
+	{
+		CreateRange cr(doc->Pages->count(), this);
+		if (cr.exec())
+		{
+			CreateRangeData crData;
+			cr.getCreateRangeData(crData);
+			PageNr->setText(crData.pageRange);
+			return;
+		}
+	}
+	PageNr->setText(QString::null);
 }

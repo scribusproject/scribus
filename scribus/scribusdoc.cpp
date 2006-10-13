@@ -3091,7 +3091,7 @@ int ScribusDoc::itemAddArea(const PageItem::ItemType itemType, const PageItem::I
 }
 
 
-int ScribusDoc::itemAddUserFrame(insertAFrameData &iafData)
+int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 {
 	double x1=0.0,y1=0.0,w1=iafData.width,h1=iafData.height;
 	std::vector<int> pageNs;
@@ -7946,9 +7946,9 @@ FPoint ScribusDoc::ApplyGridF(const FPoint& in)
 	return np;
 }
 
-void ScribusDoc::itemSelection_MultipleDuplicate(itemMultipleDuplicateData& mdData)
+void ScribusDoc::itemSelection_MultipleDuplicate(ItemMultipleDuplicateData& mdData)
 {
-	if ((mdData.duplicateType==0 && mdData.copyCount<1) || (mdData.duplicateType==1 && (mdData.gridRows==1 && mdData.gridCols==1)))
+	if ((mdData.type==0 && mdData.copyCount<1) || (mdData.type==1 && (mdData.gridRows==1 && mdData.gridCols==1)))
 		return;
 	QString tooltip("");
 	if (UndoManager::undoEnabled())
@@ -7966,7 +7966,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(itemMultipleDuplicateData& mdDa
 	bool savedAlignGuides = SnapGuides;
 	useRaster = false;
 	SnapGuides = false;
-	if (mdData.duplicateType==0) // Copy and offset or set a gap
+	if (mdData.type==0) // Copy and offset or set a gap
 	{
 		double dH = mdData.copyShiftGapH / docUnitRatio;
 		double dV = mdData.copyShiftGapV / docUnitRatio;
@@ -7996,7 +7996,7 @@ void ScribusDoc::itemSelection_MultipleDuplicate(itemMultipleDuplicateData& mdDa
 		tooltip = tr("Number of copies: %1\nHorizontal shift: %2\nVertical shift: %3").arg(mdData.copyCount).arg(dH).arg(dV);
 	}
 	else
-	if (mdData.duplicateType==1) // Create a grid of duplicated items
+	if (mdData.type==1) // Create a grid of duplicated items
 	{
 		m_ScMW->slotEditCopy();
 		int copyCount=mdData.gridRows*mdData.gridCols;

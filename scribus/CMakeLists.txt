@@ -23,6 +23,7 @@ ADD_SUBDIRECTORY(desaxe)
 SET(SCRIBUS_UI_SRC
 aboutpluginsbase.ui
 aligndistributebase.ui
+createrangebase.ui
 docitemattrprefsbase.ui
 docsectionsbase.ui
 guidemanagerbase.ui
@@ -74,6 +75,7 @@ colorsetmanager.h
 colorcombo.h
 commonstrings.h
 cpalette.h
+createrange.h
 cupsoptions.h
 curvewidget.h
 customfdialog.h
@@ -252,6 +254,7 @@ colorsetmanager.cpp
 colorutil.cpp
 commonstrings.cpp
 cpalette.cpp
+createrange.cpp
 cupsoptions.cpp
 curvewidget.cpp
 customfdialog.cpp

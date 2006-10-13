@@ -54,6 +54,8 @@ scribus_SOURCES = \
 	colorutil.cpp \
 	commonstrings.cpp \
 	cpalette.cpp	\
+	createrangebase.ui \
+	createrange.cpp \
 	cupsoptions.cpp	\
 	curvewidget.cpp	\
 	customfdialog.cpp	\

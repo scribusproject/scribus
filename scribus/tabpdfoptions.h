@@ -149,6 +149,9 @@ public slots:
 	void enableCMS(bool enable);
 	void checkInfo();
 
+protected slots:
+	void createPageNumberRange();
+
 protected:
 	// PDFExportDialog should really privately inherit from us, but it can't
 	// since it needs to be a dialog not a tab widget. Allow it access to
@@ -223,6 +226,7 @@ private:
 	QGroupBox* GroupSecSet;
 	QVBoxLayout* GroupSecSetLayout;
 	QGridLayout* Layout11;
+	QHBoxLayout *pageNumberSelectorLayout;
 	QGridLayout* Layout11a;
 	QHBoxLayout* Layout13;
 	QHBoxLayout* Layout2;
@@ -287,6 +291,7 @@ private:
 	QLabel* textLPI3;
 	QLabel* TextSec1;
 	QLabel* TextSec2;
+	QPushButton* pageNrButton;
 	QPushButton* ToEmbed;
 	QPushButton* ToSubset;
 	QRadioButton* useViewDefault;
