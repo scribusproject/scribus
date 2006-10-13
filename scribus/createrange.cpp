@@ -1,0 +1,152 @@
+/*
+For general Scribus (>=1.3.2) copyright and licensing information please refer
+to the COPYING file provided with the program. Following this notice may exist
+a copyright and/or license notice that predates the release of Scribus 1.3.2
+for which a new license (GPL+exception) is in place.
+*/
+#include "createrange.h"
+#include "createrange.moc"
+
+#include <qbuttongroup.h>
+#include <qlabel.h>
+#include <qlistbox.h>
+#include <qpushbutton.h>
+#include <qradiobutton.h>
+#include <qspinbox.h>
+#include <qstring.h>
+#include <qtabwidget.h>
+
+CreateRange::CreateRange( int pageCount, QWidget* parent, const char* name, WFlags fl )
+	: CreateRangeBase(parent, name, fl),
+	m_PageCount(pageCount),
+	m_RangeType(0),
+	m_BasicRangeType(0)
+{
+	pageCountValueLabel->setText(QString("%1").arg(pageCount));
+	basicConsecutiveFromSpinBox->setMinValue(1);
+	basicConsecutiveToSpinBox->setMinValue(1);
+	basicConsecutiveFromSpinBox->setMaxValue(pageCount);
+	basicConsecutiveToSpinBox->setMaxValue(pageCount);
+	basicSelectRangeType(m_BasicRangeType);
+	advPageGroupSizeSpinBox->setMaxValue(pageCount);
+	// signals and slots connections
+	connect(tabWidget, SIGNAL(currentChanged(QWidget*)), this, SLOT(selectRangeType(QWidget*)));
+	connect(basicRangeAddButton, SIGNAL(clicked()), this, SLOT(basicAddToRange()));
+	connect(basicRangeDelButton, SIGNAL(clicked()), this, SLOT(basicDelFromRange()));
+	connect(basicConsecutiveRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeConsec()));
+	connect(basicCommaSepRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeComma()));
+	connect(basicRangeUpButton, SIGNAL(clicked()), this, SLOT(basicMoveUp()));
+	connect(basicRangeDownButton, SIGNAL(clicked()), this, SLOT(basicMoveDown()));
+	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(advSpinChange(int)));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+	advPageGroupSizeSpinBox->setValue(4);
+}
+
+CreateRange::~CreateRange()
+{
+}
+
+void CreateRange::getCreateRangeData(CreateRangeData& crData)
+{
+	crData.pageRange="";
+	if (m_RangeType==0)
+	{
+		for (uint i=0;i<basicRangeListBox->count();++i)
+		{
+			if (i!=0 && i<basicRangeListBox->count())
+				crData.pageRange+=",";
+			crData.pageRange+=basicRangeListBox->text(i);
+		}
+	}
+	else
+		crData.pageRange=m_PageString;
+}
+
+void CreateRange::basicAddToRange( )
+{
+	if (m_BasicRangeType==0)
+		basicRangeListBox->insertItem(QString("%1-%2").arg(basicConsecutiveFromSpinBox->value()).arg(basicConsecutiveToSpinBox->value()));
+	else
+		basicRangeListBox->insertItem(basicCommaSepLineEdit->text());
+}
+
+void CreateRange::basicDelFromRange()
+{
+	basicRangeListBox->removeItem(basicRangeListBox->currentItem());
+}
+
+void CreateRange::basicSelectRangeTypeConsec()
+{
+	basicSelectRangeType(0);
+}
+
+void CreateRange::basicSelectRangeTypeComma()
+{
+	basicSelectRangeType(1);
+}
+
+void CreateRange::basicSelectRangeType(int i)
+{
+	m_BasicRangeType=i;
+	bool basicRangeTypeIsConsecutive=(i==0);
+	basicConsecutiveFromLabel->setEnabled(basicRangeTypeIsConsecutive);
+	basicConsecutiveFromSpinBox->setEnabled(basicRangeTypeIsConsecutive);
+	basicConsecutiveToLabel->setEnabled(basicRangeTypeIsConsecutive);
+	basicConsecutiveToSpinBox->setEnabled(basicRangeTypeIsConsecutive);
+	basicCommaSepLineEdit->setEnabled(!basicRangeTypeIsConsecutive);
+}
+
+void CreateRange::selectRangeType(QWidget *)
+{
+	m_RangeType=tabWidget->currentPageIndex();
+}
+
+
+void CreateRange::basicMoveUp()
+{
+	int index=basicRangeListBox->currentItem();
+	if (index==0)
+		return;
+	basicRangeListBox->clearSelection();
+	QListBoxItem* clbi=basicRangeListBox->item(index);
+	basicRangeListBox->takeItem(clbi);
+	basicRangeListBox->insertItem(clbi, QMAX(0, index-1));
+	basicRangeListBox->setCurrentItem(clbi);
+}
+
+void CreateRange::basicMoveDown()
+{
+	int index=basicRangeListBox->currentItem();
+	if (index==static_cast<int>(basicRangeListBox->count())-1)
+		return;
+	basicRangeListBox->clearSelection();
+	QListBoxItem* clbi=basicRangeListBox->item(index);
+	basicRangeListBox->takeItem(clbi);
+	basicRangeListBox->insertItem(clbi, index+1);
+	basicRangeListBox->setCurrentItem(clbi);
+}
+
+
+void CreateRange::advSpinChange(int /*v*/)
+{
+	m_PageString="";
+	int mp1=m_PageCount+1;
+	//locked at 4 for now.
+	if (m_PageCount % 4 == 0)
+	{
+	//28,1,2,27, 26,3,4,25
+		for (int i=m_PageCount;i>m_PageCount/2;i-=2)
+		{
+			if (i!=m_PageCount)
+				m_PageString+=",";
+			m_PageString+=QString("%1").arg(i);
+			m_PageString+=QString(",%1").arg(mp1-i);
+			m_PageString+=QString(",%1").arg(mp1-i+1);
+			m_PageString+=QString(",%1").arg(i-1);
+		}
+	}
+	QString tmp(m_PageString);
+	tmp.truncate(20);
+	advSampleOrderExampleLabel->setText(tmp+"...");
+}
