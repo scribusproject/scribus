@@ -687,8 +687,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 				QDataStream strPhot(arrayPhot,IO_ReadOnly);
 				strPhot.setByteOrder( QDataStream::BigEndian );
 				PSDHeader fakeHeader;
-				fakeHeader.width = m_image.width();
-				fakeHeader.height = m_image.height();
+				fakeHeader.width = widtht;
+				fakeHeader.height = heightt;
 				parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
 				if (!m_imageInfoRecord.valid)
 					m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;

@@ -29,7 +29,7 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn)
 	m_profileComponents = 0;
 }
 
-bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool /*thumbnail*/)
+bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnail)
 {
 	QStringList args;
 	double x, y, b, h;
@@ -51,6 +51,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool /*thumbn
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
 	{
+		bool psFound = false;
 		QTextStream ts(&f);
 		while (!ts.atEnd())
 		{
@@ -76,10 +77,78 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool /*thumbn
 				}
 			}
 			if (tmp.startsWith("%%EndComments"))
+			{
+				while (!ts.atEnd())
+				{
+					tc = ' ';
+					tmp = "";
+					while ((tc != '\n') && (tc != '\r'))
+					{
+						ts >> tc;
+						if ((tc != '\n') && (tc != '\r'))
+							tmp += tc;
+					}
+					if ((!tmp.isEmpty()) && (!tmp.startsWith("%")))
+					{
+						psFound = true;
+						break;
+					}
+					if (tmp.startsWith("%BeginPhotoshop"))
+					{
+						QByteArray psdata;
+						while (!ts.atEnd())
+						{
+							tc = ' ';
+							tmp = "";
+							while ((tc != '\n') && (tc != '\r'))
+							{
+								ts >> tc;
+								if ((tc != '\n') && (tc != '\r'))
+									tmp += tc;
+							}
+							if (tmp.startsWith("%EndPhotoshop"))
+							{
+								QDataStream strPhot(psdata,IO_ReadOnly);
+								strPhot.setByteOrder( QDataStream::BigEndian );
+								PSDHeader fakeHeader;
+								QTextStream ts2(&BBox, IO_ReadOnly);
+								ts2 >> x >> y >> b >> h;
+								fakeHeader.width = b;
+								fakeHeader.height = h;
+								parseRessourceData(strPhot, fakeHeader, psdata.size());
+								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0 ? true : false;
+								psFound = true;
+								break;
+							}
+							for (uint a = 2; a < tmp.length(); a += 2)
+							{
+								bool ok;
+								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
+								psdata.resize(psdata.size()+1);
+								psdata[psdata.size()-1] = data;
+							}
+						}
+						if (psFound)
+							break;
+					}
+					if (psFound)
+						break;
+				}
+			}
+			if (psFound)
 				break;
 		}
 	}
 	f.close();
+	if ((thumbnail) && (m_imageInfoRecord.exifDataValid))
+	{
+		QTextStream ts2(&BBox, IO_ReadOnly);
+		ts2 >> x >> y >> b >> h;
+		m_imageInfoRecord.exifInfo.width = b;
+		m_imageInfoRecord.exifInfo.height = h;
+		m_image = m_imageInfoRecord.exifInfo.thumbnail;
+		return true;
+	}
 	if (found)
 	{
 		QTextStream ts2(&BBox, IO_ReadOnly);

@@ -247,6 +247,8 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 						m_imageInfoRecord.exifInfo.thumbnail = imth.swapRGB();
 					else
 						m_imageInfoRecord.exifInfo.thumbnail = imth;
+					m_imageInfoRecord.exifInfo.width = imth.width();
+					m_imageInfoRecord.exifInfo.height = imth.height();
 					m_imageInfoRecord.exifDataValid = true;
 					free(buffer);
 				}
