@@ -1059,7 +1059,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	PutSeite("/"+PSEncode(Name)+"Bild exch def\n");
 	imgArray.resize(0);
 	QByteArray maskArray;
-	maskArray = image.getAlpha(fn, false, false);
+	maskArray = image.getAlpha(fn, false, false, 300);
 	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
 	{
 		if (CompAvail)
@@ -1134,11 +1134,12 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 			scaley *= PrefsManager::instance()->appPrefs.gs_Resolution / 300.0;
 		}
  		PutSeite(ToStr(x*scalex) + " " + ToStr(y*scaley) + " tr\n");
- 		PutSeite(ToStr(scalex*w) + " " + ToStr(scaley*h) + " sc\n");
+ 		PutSeite(ToStr(qRound(scalex*w)) + " " + ToStr(qRound(scaley*h)) + " sc\n");
  		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
 		QByteArray maskArray;
 		ScImage img2;
-		maskArray = img2.getAlpha(fn, false, false);
+		if (c->pixm.imgInfo.type != 7)
+			maskArray = img2.getAlpha(fn, false, false, 300);
  		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
  		{
 			if (DoSep)
