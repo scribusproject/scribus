@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 
 #include "scribusdoc.h"
+#include "createrange.h"
 #include "commonstrings.h"
 #include "prefsmanager.h"
 #include "prefscontext.h"
@@ -29,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "printerutil.h"
 #include "util.h"
+#include "usertaskstructs.h"
+
 extern bool previewDinUse;
 
 Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QString PCom, QByteArray& PSettings, bool gcr, QStringList spots)
@@ -143,9 +146,15 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	rangeGroupLayout->addMultiCellWidget( CurrentPage, 1, 1, 0, 1 );
 	RadioButton2 = new QRadioButton( tr( "Print &Range" ), rangeGroup, "RadioButton2" );
 	rangeGroupLayout->addWidget( RadioButton2, 2, 0 );
-	PageNr = new QLineEdit( rangeGroup, "PageNr" );
-	rangeGroupLayout->addWidget( PageNr, 2, 1 );
-	PageNr->setEnabled(false);
+	pageNumberSelectorLayout = new QHBoxLayout( 0, 0, 5, "pageNumberSelectorLayout" );
+	pageNr = new QLineEdit( rangeGroup, "pageNr" );
+ 	pageNumberSelectorLayout->addWidget( pageNr );
+ 	pageNrButton = new QPushButton( QString::fromUtf8("…"), rangeGroup, "pageNrButton" );
+ 	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
+ 	pageNumberSelectorLayout->addWidget( pageNrButton );
+	rangeGroupLayout->addLayout( pageNumberSelectorLayout, 2, 1 );
+	pageNr->setEnabled(false);
+	pageNrButton->setEnabled(false);
 	Copies = new QSpinBox( rangeGroup, "Copies" );
 	Copies->setEnabled( true );
 	Copies->setMinimumSize( QSize( 70, 22 ) );
@@ -270,7 +279,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page" ) + "</qt>" );
-	QToolTip::add( PageNr, tr( "Insert a comma separated list of tokens where\n"
+	QToolTip::add( pageNr, tr( "Insert a comma separated list of tokens where\n"
 		                           "a token can be * for all the pages, 1-5 for\n"
 		                           "a range of pages or a single page number.") );
 	QToolTip::add( OtherCom,"<qt>" + tr( "Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options") + "</qt>" );
@@ -287,6 +296,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	connect( PrintDest, SIGNAL(activated(const QString&)), this, SLOT(SelPrinter(const QString&)));
 	connect( RadioButton1, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect( CurrentPage, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
+	connect( pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 	connect( PrintSep, SIGNAL(activated(int)), this, SLOT(SelMode(int)));
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
@@ -304,6 +314,12 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 		psLevel->setEnabled( true );
 	else
 		psLevel->setEnabled( false );
+}
+
+Druck::~Druck()
+{
+	delete cdia;
+	cdia = 0;
 }
 
 void Druck::SetOptions()
@@ -472,7 +488,8 @@ void Druck::SelPrinter(const QString& prn)
 
 void Druck::SelRange(bool e)
 {
-	PageNr->setEnabled(!e);
+	pageNr->setEnabled(!e);
+	pageNrButton->setEnabled(!e);
 }
 
 void Druck::SelMode(int e)
@@ -508,7 +525,7 @@ void Druck::setMinMax(int min, int max, int cur)
 {
 	QString tmp, tmp2;
 	CurrentPage->setText( tr( "Print Current Pa&ge" )+" ("+tmp.setNum(cur)+")");
-	PageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
+	pageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 
 void Druck::okButtonClicked()
@@ -521,7 +538,7 @@ void Druck::okButtonClicked()
 	prefs->set("PrintAll", RadioButton1->isChecked());
 	prefs->set("CurrentPage", CurrentPage->isChecked());
 	prefs->set("PrintRange", RadioButton2->isChecked());
-	prefs->set("PageNr", PageNr->text());
+	prefs->set("PageNr", pageNr->text());
 	prefs->set("Copies", Copies->value());
 	prefs->set("Separations", PrintSep->currentItem());
 	prefs->set("PrintColor", colorType->currentItem());
@@ -557,8 +574,8 @@ void Druck::setStoredValues(bool gcr)
 	CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
 	bool printRangeChecked=prefs->getBool("PrintRange", false);
 	RadioButton2->setChecked(printRangeChecked);
-	PageNr->setEnabled(printRangeChecked);
-	PageNr->setText(prefs->get("PageNr", "1-1"));
+	pageNr->setEnabled(printRangeChecked);
+	pageNr->setText(prefs->get("PageNr", "1-1"));
 	Copies->setValue(prefs->getInt("Copies", 1));
 	PrintSep->setCurrentItem(prefs->getInt("Separations", 0));
 	colorType->setCurrentItem(prefs->getInt("PrintColor", 0));
@@ -680,9 +697,19 @@ bool Druck::ICCinUse()
 		return false;
 }
 
-Druck::~Druck()
-{
-	delete cdia;
-	cdia = 0;
-}
 
+void Druck::createPageNumberRange( )
+{
+	if (m_doc!=0)
+	{
+		CreateRange cr(m_doc->DocPages.count(), this);
+		if (cr.exec())
+		{
+			CreateRangeData crData;
+			cr.getCreateRangeData(crData);
+			pageNr->setText(crData.pageRange);
+			return;
+		}
+	}
+	pageNr->setText(QString::null);
+}

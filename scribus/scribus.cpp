@@ -4317,7 +4317,7 @@ void ScribusMainWindow::slotReallyPrint()
 			if (printer->RadioButton1->isChecked())
 				parsePagesString("*", &options.pageNumbers, doc->DocPages.count());
 			else
-				parsePagesString(printer->PageNr->text(), &options.pageNumbers, doc->DocPages.count());
+				parsePagesString(printer->pageNr->text(), &options.pageNumbers, doc->DocPages.count());
 		}
 		options.copies = printer->numCopies();
 		options.outputSeparations = printer->outputSeparations();

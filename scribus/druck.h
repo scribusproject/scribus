@@ -43,7 +43,7 @@ public:
 	QLineEdit* Command;
 	QRadioButton* RadioButton1;
 	QRadioButton* CurrentPage;
-	QLineEdit* PageNr;
+	QLineEdit* pageNr;
 	bool outputToFile();
 	int numCopies();
 	bool outputSeparations();
@@ -68,6 +68,16 @@ public slots:
 signals:
 	void doPreview();
 
+protected slots:
+	void createPageNumberRange();
+	void SetOptions();
+	void SelPrinter(const QString& prn);
+	void SelRange(bool e);
+	void SelMode(int e);
+	void SelFile();
+	void SelComm();
+	void okButtonClicked();
+
 protected:
 	QVBoxLayout* DruckLayout;
 	QGridLayout* DruckerLayout;
@@ -80,17 +90,7 @@ protected:
 	QHBoxLayout* tabLayout_2;
 	QVBoxLayout* pageOptsLayout;
 	QVBoxLayout* colorOptsLayout;
-
-private slots:
-	void SetOptions();
-	void SelPrinter(const QString& prn);
-	void SelRange(bool e);
-	void SelMode(int e);
-	void SelFile();
-	void SelComm();
-	void okButtonClicked();
-
-private:
+	QHBoxLayout *pageNumberSelectorLayout;
 	QGroupBox* Drucker;
 	QComboBox* PrintDest;
 	QLabel* DateiT;
@@ -121,6 +121,7 @@ private:
 	QPushButton* OKButton;
 	QPushButton* previewButton;
 	QPushButton* OptButton;
+	QPushButton* pageNrButton;
 	ScribusDoc* m_doc;
 	QString Geraet;
 	bool ToFile;

@@ -96,7 +96,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 	Q_ASSERT(!doc->masterPageMode());
 	bool res;
 	ExportBitmap *ex = new ExportBitmap();
-	ExportForm *dia = new ExportForm(doc->scMW(), ex->pageDPI, ex->quality, ex->bitmapType, doc->pageWidth, doc->pageHeight);
+	ExportForm *dia = new ExportForm(doc->scMW(), ex->pageDPI, ex->quality, ex->bitmapType, doc->pageWidth, doc->pageHeight, doc->DocPages.count());
 
 	// interval widgets handling
 	QString tmp;

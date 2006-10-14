@@ -253,12 +253,9 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	Layout11->addWidget( OnlySome, 0, 0 );
  	pageNumberSelectorLayout = new QHBoxLayout( 0, 0, 5, "pageNumberSelectorLayout" );
 	PageNr = new QLineEdit( RangeGroup, "PageNr" );
-// 	PageNr->setEnabled(false);
  	pageNumberSelectorLayout->addWidget( PageNr );
  	pageNrButton = new QPushButton( QString::fromUtf8("…"), RangeGroup, "PageNrButton" );
-//  	pageNrButton->setMaximumWidth(pageNrButton->minimumSizeHint().width());
  	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
-// 	PageNr->setEnabled(false);
  	pageNumberSelectorLayout->addWidget( pageNrButton );
  	Layout11->addLayout( pageNumberSelectorLayout, 1, 0 );
 	RangeGroupLayout->addLayout( Layout11 );
@@ -2076,7 +2073,7 @@ void TabPDFOptions::createPageNumberRange( )
 {
 	if (doc!=0)
 	{
-		CreateRange cr(doc->Pages->count(), this);
+		CreateRange cr(doc->DocPages.count(), this);
 		if (cr.exec())
 		{
 			CreateRangeData crData;

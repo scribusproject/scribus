@@ -20,10 +20,13 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qdir.h>
 #include <qfiledialog.h>
+#include "createrange.h"
 #include "prefsmanager.h"
-#include <prefsfile.h>
-#include <prefscontext.h>
+#include "prefsfile.h"
+#include "prefscontext.h"
 #include "mspinbox.h"
+#include "usertaskstructs.h"
+#include "util.h"
 
 #include "commonstrings.h"
 
@@ -34,8 +37,9 @@ for which a new license (GPL+exception) is in place.
  *  The dialog will by default be modeless, unless you set 'modal' to
  *  true to construct a modal dialog.
  */
-ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, double cPageW, double cPageH)
-	: QDialog(parent, "ExportForm", true, 0)
+ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, double cPageW, double cPageH, int pageCount)
+	: QDialog(parent, "ExportForm", true, 0),
+	m_PageCount(pageCount)
 {
 	pw = cPageW;
 	ph = cPageH;
@@ -108,9 +112,17 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, dou
 	layout2 = new QHBoxLayout( 0, 0, 5, "layout2");
 	IntervalPagesRadio = new QRadioButton( ButtonGroup1, "IntervalPagesRadio" );
 	layout2->addWidget( IntervalPagesRadio );
+
+// 	pageNumberSelectorLayout = new QHBoxLayout( 0, 0, 5, "pageNumberSelectorLayout" );
 	RangeVal = new QLineEdit( ButtonGroup1, "RangeVal" );
+//  	pageNumberSelectorLayout->addWidget( RangeVal );
 	layout2->addWidget( RangeVal );
+ 	pageNrButton = new QPushButton( QString::fromUtf8("…"), ButtonGroup1, "pageNrButton" );
+ 	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
+ 	layout2->addWidget( pageNrButton );
+// 	layout2->addLayout( pageNumberSelectorLayout, 2, 1 );
 	RangeVal->setEnabled(false);
+	pageNrButton->setEnabled(false);
 	ButtonGroup1Layout->addLayout( layout2 );
 	layout3->addWidget( ButtonGroup1 );
 	ExportFormLayout->addLayout( layout3 );
@@ -142,6 +154,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, dou
 	connect(OnePageRadio, SIGNAL(stateChanged(int)), this, SLOT(OnePageRadio_stateChanged(int)));
 	connect(EnlargementBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
 	connect(DPIBox, SIGNAL(valueChanged(int)), this, SLOT(computeSize()));
+	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 }
 
 void ExportForm::computeSize()
@@ -175,16 +188,19 @@ void ExportForm::OkButton_pressed()
 void ExportForm::IntervalPagesRadio_stateChanged(int)
 {
 	RangeVal->setEnabled(true);
+	pageNrButton->setEnabled(true);
 }
 
 void ExportForm::AllPagesRadio_stateChanged(int)
 {
 	RangeVal->setEnabled(false);
+	pageNrButton->setEnabled(false);
 }
 
 void ExportForm::OnePageRadio_stateChanged(int)
 {
 	RangeVal->setEnabled(false);
+	pageNrButton->setEnabled(false);
 }
 
 /*
@@ -255,5 +271,15 @@ void ExportForm::writeConfig()
 	prefs->set("ButtonGroup1", ButtonGroup1->id(ButtonGroup1->selected()));
 	prefs->set("BitmapType",BitmapType->currentItem());
 	prefs->set("RangeVal", RangeVal->text());
+}
 
+void ExportForm::createPageNumberRange( )
+{
+	CreateRange cr(m_PageCount, this);
+	if (cr.exec())
+	{
+		CreateRangeData crData;
+		cr.getCreateRangeData(crData);
+		RangeVal->setText(crData.pageRange);
+	}
 }
