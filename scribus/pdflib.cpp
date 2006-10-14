@@ -5250,7 +5250,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		}
 		else
 		{ */
-		if ((ext == "eps") || (ext == "pdf"))
+		if (((ext == "eps") || (ext == "pdf")) && (c->pixm.imgInfo.type != 7))
 		{
 			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 			if (Options.RecalcPic)
@@ -5448,12 +5448,17 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		}
 		QByteArray im2;
 		ScImage img2;
-		if (Options.Version >= 14)
-			im2 = img2.getAlpha(fn, true, true, afl);
+		if (c->pixm.imgInfo.type == 7)
+			alphaM = false;
 		else
-			im2 = img2.getAlpha(fn, true, false, afl);
-		if (!im2.isEmpty())
-			alphaM = true;
+		{
+			if (Options.Version >= 14)
+				im2 = img2.getAlpha(fn, true, true, afl);
+			else
+				im2 = img2.getAlpha(fn, true, false, afl);
+			if (!im2.isEmpty())
+				alphaM = true;
+		}
 		bool imgE = false;
 		if ((Options.UseRGB) || (Options.isGrayscale))
 			imgE = false;

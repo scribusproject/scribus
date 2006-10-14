@@ -171,7 +171,7 @@ void FDialogPreview::GenPreview(QString name)
 			p.drawText(2, h-29, tr("Size:")+" "+tmp.setNum(ix)+" x "+tmp2.setNum(iy));
 			p.drawText(2, h-17, tr("Resolution:")+" "+tmp.setNum(xres)+" x "+tmp2.setNum(yres)+" "+ tr("DPI"));
 			QString cSpace;
-			if ((ext == "pdf") || (ext == "eps") || (ext == "ps"))
+			if (((ext == "pdf") || (ext == "eps") || (ext == "ps")) && (im.imgInfo.type != 7))
 				cSpace = tr("Unknown");
 			else
 			{

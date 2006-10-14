@@ -1014,7 +1014,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	QCString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	if (ext == "eps")
+	if ((ext == "eps") && (c->pixm.imgInfo.type != 7))
 	{
 		if (loadRawText(fn, tmp))
 		{
@@ -1060,7 +1060,7 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	imgArray.resize(0);
 	QByteArray maskArray;
 	maskArray = image.getAlpha(fn, false, false);
-	if (maskArray.size() > 0)
+	if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
 	{
 		if (CompAvail)
 		{
@@ -1081,7 +1081,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	QCString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	if (ext == "eps")
+	if ((ext == "eps") && (c->pixm.imgInfo.type != 7))
 	{
 		if (loadRawText(fn, tmp))
 		{
@@ -1121,7 +1121,10 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		image.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
 		image.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		CMSettings cms(c->doc(), Prof, c->IRender);
-		image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
+		if (c->pixm.imgInfo.type == 7)
+			image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, 72, &dummy);
+		else
+			image.LoadPicture(fn, cms, UseEmbedded, UseProf, ScImage::CMYKData, 300, &dummy);
 		image.applyEffect(c->effectsInUse, colorsToUse, true);
 		int w = image.width();
 		int h = image.height();
@@ -1136,7 +1139,7 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 		QByteArray maskArray;
 		ScImage img2;
 		maskArray = img2.getAlpha(fn, false, false);
- 		if (maskArray.size() > 0)
+ 		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))
  		{
 			if (DoSep)
 				imgArray = image.ImageToCMYK_PS(Plate, true);

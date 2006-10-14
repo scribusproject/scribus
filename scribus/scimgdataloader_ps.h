@@ -14,6 +14,12 @@ class ScImgDataLoader_PS : public ScImgDataLoader
 protected:
 
 	void initSupportedFormatList();
+	bool parseData(QString fn);
+	void loadDCS1(QString fn, int gsRes);
+	void blendImages(QImage &source, ScColor col);
+	QMap<QString, QString> colorPlates;
+	QString BBox;
+	bool isDCS1;
 
 public:
 	ScImgDataLoader_PS(void);

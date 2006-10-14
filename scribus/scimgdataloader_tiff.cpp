@@ -690,6 +690,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 				fakeHeader.width = widtht;
 				fakeHeader.height = heightt;
 				parseRessourceData(strPhot, fakeHeader, PhotoshopLen);
+				m_imageInfoRecord.exifInfo.width = widtht;
+				m_imageInfoRecord.exifInfo.height = heightt;
 				if (!m_imageInfoRecord.valid)
 					m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;
 			}
