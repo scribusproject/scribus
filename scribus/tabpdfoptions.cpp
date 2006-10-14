@@ -257,7 +257,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
  	pageNumberSelectorLayout->addWidget( PageNr );
  	pageNrButton = new QPushButton( QString::fromUtf8("…"), RangeGroup, "PageNrButton" );
 //  	pageNrButton->setMaximumWidth(pageNrButton->minimumSizeHint().width());
- 	pageNrButton->setPixmap(loadIcon("up.png"));
+ 	pageNrButton->setPixmap(loadIcon("ellipsis.png"));
 // 	PageNr->setEnabled(false);
  	pageNumberSelectorLayout->addWidget( pageNrButton );
  	Layout11->addLayout( pageNumberSelectorLayout, 1, 0 );

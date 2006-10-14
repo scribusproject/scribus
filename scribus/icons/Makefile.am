@@ -3,6 +3,7 @@ EXTRA_DIST = configure.png previewOn.png previewOff.png curvelinear.png curvebez
  docattributes.png tabtocindex.png colorpicker.png wizard.png flow-bounding.png flow-contour.png flow-frame.png flow-none.png\
  al_bottom_in.png al_bottom_out.png al_center_hor.png al_center_ver.png al_left_in.png al_left_out.png al_right_in.png al_right_out.png al_top_in.png al_top_out.png distribute_acrosspage.png distribute_acrossmargins.png distribute_bottom.png distribute_downpage.png distribute_downmargins.png distribute_hcentre.png \
  distribute_hdist.png distribute_hdist_val.png distribute_left.png distribute_right.png distribute_top.png distribute_vcentre.png distribute_vdist.png distribute_vdist_val.png vpl.png noicon.xpm clear_right.png layer-outline.png\
+ellipsis.png \
 22/checkbox.png \
 16/close.png \
 22/close.png \
@@ -134,6 +135,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/16/
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/22/
 	$(mkinstalldirs) $(prefix)/share/pixmaps/
+	$(INSTALL_DATA) $(srcdir)/ellipsis.png $(prefix)/share/scribus/icons/ellipsis.png
 	$(INSTALL_DATA) $(srcdir)/configure.png $(prefix)/share/scribus/icons/configure.png
 	$(INSTALL_DATA) $(srcdir)/previewOn.png $(prefix)/share/scribus/icons/previewOn.png
 	$(INSTALL_DATA) $(srcdir)/previewOff.png $(prefix)/share/scribus/icons/previewOff.png
@@ -568,6 +570,7 @@ install-data-local:
 
 
 uninstall-local:
+	-rm -f $(prefix)/share/pixmaps/ellipsis.png
 	-rm -f $(prefix)/share/pixmaps/curvelinear.png
 	-rm -f $(prefix)/share/pixmaps/curvebezier.png
 	-rm -f $(prefix)/share/pixmaps/curve.png

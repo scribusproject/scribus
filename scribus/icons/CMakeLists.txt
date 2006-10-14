@@ -4,6 +4,7 @@ ${CMAKE_SOURCE_DIR}/scribus
 )
 
 INSTALL(FILES
+ellipsis.png
 above.png
 acrobat.png
 acroread.png
