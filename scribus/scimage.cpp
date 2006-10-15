@@ -729,19 +729,37 @@ void ScImage::swapRGBA()
 {
 	for (int i = 0; i < height(); ++i)
 	{
-		unsigned int *ptr = (unsigned int *) scanLine(i);
-		unsigned char r, b;
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		unsigned char r, g, b, a;
 		for (int j = 0; j < width(); ++j)
 		{
-			unsigned char *p = (unsigned char *) ptr;
-			r = p[0];
-			b = p[2];
-			p[2] = r;
-			p[0] = b;
-			ptr++;
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			*ptr++ = qRgba(b,g,r,a);
 		}
 	}
 }
+
+
+void ScImage::swapByteOrder()
+{
+	for (int i = 0; i < height(); ++i)
+	{
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		unsigned char r, g, b, a;
+		for (int j = 0; j < width(); ++j)
+		{			
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			*ptr++ = qRgba(g,r,a,b);
+		}
+	}
+}
+
 
 void ScImage::createLowRes(double scale)
 {
@@ -2057,6 +2075,9 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 		return false;
 	}
 	uint channel_num = header.channel_count;
+	bool systemBigEndian;
+	int systemWordsize;
+	qSysInfo( &systemWordsize, &systemBigEndian );
 	if (channel_num < 4)
 	{
 		for (int i = 0; i < height(); i++)
@@ -2070,7 +2091,22 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 	}
 //	channel_num = 4;
 	const uint pixel_count = header.height * header.width;
-	static const uint components[4] = {2, 1, 0, 3};
+	uint components[4] = {2, 1, 0, 3};
+	if (header.color_mode == CM_RGB) {
+/*	dunno if this is needed -- av
+		components[0] = 0;
+		components[1] = 1;
+		components[2] = 2;
+		components[3] = 3;
+*/
+	}
+	else if (systemBigEndian ) {
+/*		components[0] = 1;
+		components[1] = 2;
+		components[2] = 3;
+		components[3] = 0;
+*/
+	}
 	if( compression )
 	{
 		// Skip row lengths.
@@ -3393,6 +3429,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	bool bilevel = false;
 	float xres, yres;
 	short resolutionunit = 0;
+	bool systemBigEndian;
+	int systemWordsize;
+	qSysInfo( &systemWordsize, &systemBigEndian);
 	int reqType = requestType;
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
@@ -3627,6 +3666,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 							bilevel = true;
 						isCMYK = false;
 					}
+					swapRGBA();
 				}
 				else
 				{
@@ -3677,9 +3717,14 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 							_TIFFfree(bits);
 						}
 					}
-					isCMYK = true;
 					if (realCMYK != 0)
 						*realCMYK = true;
+					if (systemBigEndian) {
+						swapByteOrder();
+					}
+					else {
+						swapRGBA();
+					}
 				}
 			}
 			else
@@ -3696,8 +3741,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					if (bitspersample == 1)
 						bilevel = true;
 				}
+				swapRGBA();
 			}
-			swapRGBA();
 #ifdef HAVE_CMS
 			DWORD EmbedLen = 0;
 			LPBYTE EmbedBuffer;
