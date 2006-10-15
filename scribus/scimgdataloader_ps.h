@@ -17,12 +17,20 @@ protected:
 	void initSupportedFormatList();
 	bool parseData(QString fn);
 	void loadDCS1(QString fn, int gsRes);
+	void loadDCS2(QString fn, int gsRes);
 	void blendImages(QImage &source, ScColor col);
+	struct plateOffsets
+	{
+		uint pos;
+		uint len;
+	};
+	QMap<QString, plateOffsets> colorPlates2;
 	QMap<QString, QString> colorPlates;
 	QString BBox;
+	QString Creator;
 	bool isDCS1;
 	bool isDCS2;
-	ColorList CustColors;
+	QMap<QString,ScColor> CustColors;
 
 public:
 	ScImgDataLoader_PS(void);

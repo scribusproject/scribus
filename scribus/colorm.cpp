@@ -532,9 +532,13 @@ void ColorManager::loadFarben()
 							EditColors.insert(FarNam, cc);
 						while (!ts.atEnd())
 						{
+							uint oldPos = ts.device()->at();
 							tmp = ts.readLine();
 							if (!tmp.startsWith("%%+"))
+							{
+								ts.device()->at(oldPos);
 								break;
+							}
 							tmp = tmp.remove(0,3);
 							QTextStream ts2(&tmp, IO_ReadOnly);
 							ts2 >> c >> m >> y >> k;
