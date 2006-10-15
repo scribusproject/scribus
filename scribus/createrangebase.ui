@@ -9,7 +9,7 @@
             <x>0</x>
             <y>0</y>
             <width>502</width>
-            <height>321</height>
+            <height>355</height>
         </rect>
     </property>
     <property name="caption">
@@ -191,6 +191,22 @@
                             <widget class="QLineEdit">
                                 <property name="name">
                                     <cstring>basicCommaSepLineEdit</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>basicEvenRadioButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Even Pages</string>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>basicOddRadioButton</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Odd Pages</string>
                                 </property>
                             </widget>
                             <widget class="QLayoutWidget">

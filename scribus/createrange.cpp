@@ -35,6 +35,8 @@ CreateRange::CreateRange( int pageCount, QWidget* parent, const char* name, WFla
 	connect(basicRangeDelButton, SIGNAL(clicked()), this, SLOT(basicDelFromRange()));
 	connect(basicConsecutiveRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeConsec()));
 	connect(basicCommaSepRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeComma()));
+	connect(basicEvenRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeEven()));
+	connect(basicOddRadioButton, SIGNAL(clicked()), this, SLOT(basicSelectRangeTypeOdd()));
 	connect(basicRangeUpButton, SIGNAL(clicked()), this, SLOT(basicMoveUp()));
 	connect(basicRangeDownButton, SIGNAL(clicked()), this, SLOT(basicMoveDown()));
 	connect(advPageGroupSizeSpinBox, SIGNAL(valueChanged(int)), this, SLOT(advSpinChange(int)));
@@ -65,10 +67,46 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 
 void CreateRange::basicAddToRange( )
 {
-	if (m_BasicRangeType==0)
-		basicRangeListBox->insertItem(QString("%1-%2").arg(basicConsecutiveFromSpinBox->value()).arg(basicConsecutiveToSpinBox->value()));
-	else
-		basicRangeListBox->insertItem(basicCommaSepLineEdit->text());
+	switch (m_BasicRangeType)
+	{
+		case 0:
+			{
+				int from=basicConsecutiveFromSpinBox->value();
+				int to=basicConsecutiveToSpinBox->value();
+				if (from==to)
+					basicRangeListBox->insertItem(QString("%1").arg(from));
+				else
+					basicRangeListBox->insertItem(QString("%1-%2").arg(from).arg(to));
+			}
+			break;
+		case 1:
+			basicRangeListBox->insertItem(basicCommaSepLineEdit->text());
+			break;
+		case 2:
+			{
+				QString numbers;
+				for (int i=2; i<=m_PageCount; i+=2)
+				{
+					if (i!=2)
+						numbers+=",";
+					numbers+=QString("%1").arg(i);
+				}
+				basicRangeListBox->insertItem(numbers);
+			}
+			break;
+		case 3:
+			{
+				QString numbers;
+				for (int i=1; i<=m_PageCount; i+=2)
+				{
+					if (i!=1)
+						numbers+=",";
+					numbers+=QString("%1").arg(i);
+				}
+				basicRangeListBox->insertItem(numbers);
+			}
+			break;
+	}
 }
 
 void CreateRange::basicDelFromRange()
@@ -84,6 +122,16 @@ void CreateRange::basicSelectRangeTypeConsec()
 void CreateRange::basicSelectRangeTypeComma()
 {
 	basicSelectRangeType(1);
+}
+
+void CreateRange::basicSelectRangeTypeEven()
+{
+	basicSelectRangeType(2);
+}
+
+void CreateRange::basicSelectRangeTypeOdd()
+{
+	basicSelectRangeType(3);
 }
 
 void CreateRange::basicSelectRangeType(int i)

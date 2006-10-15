@@ -29,6 +29,8 @@ class CreateRange : public CreateRangeBase
 		void basicMoveDown();
 		void basicSelectRangeTypeConsec();
 		void basicSelectRangeTypeComma();
+		void basicSelectRangeTypeEven();
+		void basicSelectRangeTypeOdd();
 		void basicSelectRangeType(int);
 		void advSpinChange(int);
 		
