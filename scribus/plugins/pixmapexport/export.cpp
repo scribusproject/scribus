@@ -19,7 +19,6 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "commonstrings.h"
 
-
 int scribusexportpixmap_getPluginAPIVersion()
 {
 	return PLUGIN_API_VERSION;
@@ -67,7 +66,7 @@ void PixmapExportPlugin::languageChange()
 
 const QString PixmapExportPlugin::fullTrName() const
 {
-	return QObject::tr("Export As Image");
+	return tr("Export As Image");
 }
 
 const ScActionPlugin::AboutData* PixmapExportPlugin::getAboutData() const
@@ -94,7 +93,6 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 {
 	Q_ASSERT(target.isEmpty());
 	Q_ASSERT(!doc->masterPageMode());
-	bool res;
 	ExportBitmap *ex = new ExportBitmap();
 	ExportForm *dia = new ExportForm(doc->scMW(), ex->pageDPI, ex->quality, ex->bitmapType, doc->pageWidth, doc->pageHeight, doc->DocPages.count());
 
@@ -112,6 +110,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
 		doc->scMW()->mainWindowProgressBar->reset();
+		bool res;
 		if (dia->OnePageRadio->isChecked())
 			res = ex->exportCurrent(doc);
 		else
@@ -126,14 +125,12 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		QApplication::restoreOverrideCursor();
 		if (!res)
 		{
-			QMessageBox::warning(doc->scMW(), QObject::tr("Save as Image"), QObject::tr("Error writing the output file(s)."));
-			doc->scMW()->setStatusBarInfoText(QObject::tr("Error writing the output file(s)."));
+			QMessageBox::warning(doc->scMW(),  tr("Save as Image"), tr("Error writing the output file(s)."));
+			doc->scMW()->setStatusBarInfoText( tr("Error writing the output file(s)."));
 		}
 		else
-		{
-			doc->scMW()->setStatusBarInfoText(QObject::tr("Export successful."));
-		}
-	} // if accepted
+			doc->scMW()->setStatusBarInfoText( tr("Export successful"));
+	}
 	// clean the trash
 	delete ex;
 	delete dia;
@@ -163,7 +160,7 @@ ExportBitmap::~ExportBitmap()
 bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 {
 	uint over = 0;
-	QString fileName = getFileName(doc, pageNr);
+	QString fileName(getFileName(doc, pageNr));
 
 	if (!doc->Pages->at(pageNr))
 		return false;
@@ -172,26 +169,19 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	* We need to know the right size of the page for landscape,
 	* portrait and user defined sizes.
 	*/
-	double pixmapSize;
-	pixmapSize = (doc->pageHeight > doc->pageWidth) ? doc->pageHeight : doc->pageWidth;
-	QImage im = doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false);
+	double pixmapSize = (doc->pageHeight > doc->pageWidth) ? doc->pageHeight : doc->pageWidth;
+	QImage im(doc->view()->PageToPixmap(pageNr, qRound(pixmapSize * enlargement * (pageDPI / 72.0) / 100.0), false));
 	int dpm = qRound(100.0 / 2.54 * pageDPI);
 	im.setDotsPerMeterY(dpm);
 	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
 		QApplication::restoreOverrideCursor();
-/* Changed the following Code from the original QMessageBox::question to QMessageBox::warning
-	 to keep the Code compatible to Qt-3.1.x
-	 f.s 12.05.2004 */
-		over = ScMessageBox::warning(doc->scMW(),
-				QObject::tr("File exists. Overwrite?"),
-				fileName +"\n"+ QObject::tr("exists already. Overwrite?"),
-				CommonStrings::trYes,
-				CommonStrings::trNo,
-				// hack for multiple overwritting (petr)
-				(single==true) ? QString::null : QObject::tr("Yes all"),
-				0, 0);
+		over = ScMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
+				fileName +"\n"+ tr("exists already. Overwrite?"),
+				CommonStrings::trYes, CommonStrings::trNo,
+				// hack for multiple overwritting (petr) 
+				(single==true) ? QString::null : tr("All"), 0, 0);
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		if (over == 0)
 			return im.save(fileName, bitmapType, quality);
@@ -208,13 +198,11 @@ bool ExportBitmap::exportCurrent(ScribusDoc* doc)
 
 bool ExportBitmap::exportInterval(ScribusDoc* doc, std::vector<int> &pageNs)
 {
-	bool res;
 	doc->scMW()->mainWindowProgressBar->setTotalSteps(pageNs.size());
 	for (uint a = 0; a < pageNs.size(); ++a)
 	{
 		doc->scMW()->mainWindowProgressBar->setProgress(a);
-		res = exportPage(doc, pageNs[a]-1, false);
-		if (!res)
+		if (!exportPage(doc, pageNs[a]-1, false))
 			return false;
 	}
 	return true;
