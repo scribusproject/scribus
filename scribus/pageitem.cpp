@@ -178,6 +178,12 @@ PageItem::PageItem(const PageItem & other)
 	// protected
 	undoManager(other.undoManager),
 	AnName(other.AnName),
+	patternVal(other.patternVal),
+	patternScaleX(other.patternScaleX),
+	patternScaleY(other.patternScaleY),
+	patternOffsetX(other.patternOffsetX),
+	patternOffsetY(other.patternOffsetY),
+	patternRotation(other.patternRotation),
 	fillColorVal(other.fillColorVal),
 	lineColorVal(other.lineColorVal),
 	lineShadeVal(other.lineShadeVal),
@@ -228,12 +234,6 @@ PageItem::PageItem(const PageItem & other)
 	m_annotation(other.m_annotation),
 	PicArt(other.PicArt),
 	m_lineWidth(other.m_lineWidth),
-	patternVal(other.patternVal),
-	patternScaleX(other.patternScaleX),
-	patternScaleY(other.patternScaleY),
-	patternOffsetX(other.patternOffsetX),
-	patternOffsetY(other.patternOffsetY),
-	patternRotation(other.patternRotation),
 	Oldm_lineWidth(other.Oldm_lineWidth)
 {
 }
@@ -1463,7 +1463,7 @@ QString PageItem::ExpandToken(uint base)
 void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 {
 	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
-	if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
 		*tmp = defect->convertDefect(*tmp, m_Doc->view()->previewVisual);
@@ -1986,7 +1986,7 @@ void PageItem::setLineQColor()
 {
 	if (lineColorVal != CommonStrings::None)
 		strokeQColor = m_Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
-	if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
 		strokeQColor = defect->convertDefect(strokeQColor, m_Doc->view()->previewVisual);
@@ -1998,7 +1998,7 @@ void PageItem::setFillQColor()
 {
 	if (fillColorVal != CommonStrings::None)
 		fillQColor = m_Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
-	if ((m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
+	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
 		fillQColor = defect->convertDefect(fillQColor, m_Doc->view()->previewVisual);
