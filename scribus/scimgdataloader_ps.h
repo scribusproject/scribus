@@ -30,6 +30,7 @@ protected:
 	QString Creator;
 	bool isDCS1;
 	bool isDCS2;
+	bool isDCS2multi;
 	QMap<QString,ScColor> CustColors;
 
 public:

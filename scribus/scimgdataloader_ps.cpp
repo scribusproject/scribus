@@ -85,6 +85,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	bool found = false;
 	isDCS1 = false;
 	isDCS2 = false;
+	isDCS2multi = false;
 	int plateCount = 0;
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
@@ -136,13 +137,13 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				QString plateNam = tmp.left(endNam);
 				tmp = tmp.remove(plateNam+")");
 				QTextStream ts2(&tmp, IO_ReadOnly);
-				QString posStr, dummy;
-				uint len;
-				ts2 >> dummy >> posStr >> len;
+				QString posStr, dummy, lenStr;
+				ts2 >> dummy >> posStr >> lenStr;
 				if (posStr.startsWith("#"))
 				{
 					posStr = posStr.remove(0, 1);
 					uint pos = posStr.toUInt();
+					uint len = lenStr.toUInt();
 					struct plateOffsets offs;
 					if (Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weired entries
 					{
@@ -156,7 +157,11 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 					plateCount++;
 				}
 				else
-					isDCS2 = false;
+				{
+					colorPlates.insert(plateNam, lenStr);
+					isDCS2 = true;
+					isDCS2multi = true;
+				}
 			}
 			if (tmp.startsWith("%%CMYKCustomColor"))
 			{
@@ -447,6 +452,7 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	QString ext = fi.extension(false).lower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString tmpFile2 = QDir::convertSeparators(ScPaths::getTempFileDir() + "tmp.eps");
+	QString baseFile = fi.dirPath(true);
 	QString picFile = QDir::convertSeparators(fn);
 	float xres = gsRes;
 	float yres = gsRes;
@@ -456,34 +462,57 @@ void ScImgDataLoader_PS::loadDCS2(QString fn, int gsRes)
 	yres = gsRes;
 	m_image.create( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), 32 );
 	m_image.fill(qRgba(0, 0, 0, 0));
-	for (QMap<QString, plateOffsets>::Iterator it = colorPlates2.begin(); it != colorPlates2.end(); ++it)
+	if (!isDCS2multi)
 	{
-		QByteArray imgc(it.data().len);
-		QFile f(picFile);
-		if (f.open(IO_ReadOnly))
+		for (QMap<QString, plateOffsets>::Iterator it = colorPlates2.begin(); it != colorPlates2.end(); ++it)
 		{
-			f.at(it.data().pos);
-			uint readB = f.readBlock(imgc.data(), it.data().len);
+			QByteArray imgc(it.data().len);
+			QFile f(picFile);
+			if (f.open(IO_ReadOnly))
+			{
+				f.at(it.data().pos);
+				uint readB = f.readBlock(imgc.data(), it.data().len);
+			}
+			f.close();
+			QFile f2(tmpFile2);
+			if (f2.open(IO_WriteOnly))
+				f2.writeBlock(imgc.data(), it.data().len);
+			f2.close();
+			imgc.resize(0);
+			args.append("-dEPSCrop");
+			args.append("-r"+QString::number(gsRes));
+			args.append("-sOutputFile="+tmpFile);
+			args.append(tmpFile2);
+			int retg = callGS(args);
+			if (retg == 0)
+			{
+				QImage tmpImg;
+				tmpImg.load(tmpFile);
+				blendImages(tmpImg, CustColors[it.key()]);
+				unlink(tmpFile);
+			}
+			unlink(tmpFile2);
 		}
-		f.close();
-		QFile f2(tmpFile2);
-		if (f2.open(IO_WriteOnly))
-			f2.writeBlock(imgc.data(), it.data().len);
-		f2.close();
-		args.append("-dEPSCrop");
-		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile="+tmpFile);
-		args.append(tmpFile2);
-		int retg = callGS(args);
-		if (retg == 0)
+	}
+	else
+	{
+		for (QMap<QString, QString>::Iterator it = colorPlates.begin(); it != colorPlates.end(); ++it)
 		{
-			QImage tmpImg;
-			tmpImg.load(tmpFile);
-			blendImages(tmpImg, CustColors[it.key()]);
-			unlink(tmpFile);
+			tmpFile2 = QDir::convertSeparators(baseFile+"/"+it.data());
+			args.append("-dEPSCrop");
+			args.append("-r"+QString::number(gsRes));
+			args.append("-sOutputFile="+tmpFile);
+			args.append(tmpFile2);
+			int retg = callGS(args);
+			if (retg == 0)
+			{
+				QImage tmpImg;
+				tmpImg.load(tmpFile);
+				blendImages(tmpImg, CustColors[it.key()]);
+				unlink(tmpFile);
+			}
+			args.clear();
 		}
-		unlink(tmpFile2);
-		imgc.resize(0);
 	}
 	if (ext == "eps")
 	{
