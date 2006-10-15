@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include <qfile.h>
 #include <qfileinfo.h>
+#include <qregexp.h>
 #include "gsutil.h"
 #include "scpaths.h"
 #include "scribuscore.h"
@@ -37,27 +38,29 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn)
 		QTextStream ts(&f);
 		while (!ts.atEnd())
 		{
-			tc = ' ';
+			tmp = ts.readLine();
+/*			tc = ' ';
 			tmp = "";
 			while ((tc != '\n') && (tc != '\r'))
 			{
 				ts >> tc;
 				if ((tc != '\n') && (tc != '\r'))
 					tmp += tc;
-			}
+			} */
 			if (tmp.startsWith("%%BeginICCProfile:"))
 			{
 				QByteArray psdata;
 				while (!ts.atEnd())
 				{
-					tc = ' ';
+					tmp = ts.readLine();
+/*					tc = ' ';
 					tmp = "";
 					while ((tc != '\n') && (tc != '\r'))
 					{
 						ts >> tc;
 						if ((tc != '\n') && (tc != '\r'))
 							tmp += tc;
-					}
+					} */
 					for (uint a = 2; a < tmp.length(); a += 2)
 					{
 						bool ok;
@@ -92,10 +95,12 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn)
 bool ScImgDataLoader_PS::parseData(QString fn)
 {
 	QChar tc;
-	QString tmp;
-	double x, y, b, h;
+	QString tmp, FarNam;
+	ScColor cc;
+	double x, y, b, h, c, m, k;
 	bool found = false;
 	isDCS1 = false;
+	isDCS2 = false;
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
 	{
@@ -103,14 +108,15 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		QTextStream ts(&f);
 		while (!ts.atEnd())
 		{
-			tc = ' ';
+			tmp = ts.readLine();
+/*			tc = ' ';
 			tmp = "";
 			while ((tc != '\n') && (tc != '\r'))
 			{
 				ts >> tc;
 				if ((tc != '\n') && (tc != '\r'))
 					tmp += tc;
-			}
+			} */
 			if (tmp.startsWith("%%BoundingBox:"))
 			{
 				found = true;
@@ -144,18 +150,52 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				colorPlates.insert("Black", tmp.remove("%%BlackPlate: "));
 				isDCS1 = true;
 			}
+			if (tmp.startsWith("%%CMYKCustomColor"))
+			{
+				tmp = tmp.remove(0,18);
+				QTextStream ts2(&tmp, IO_ReadOnly);
+				ts2 >> c >> m >> y >> k;
+				FarNam = ts2.read();
+				FarNam = FarNam.stripWhiteSpace();
+				FarNam = FarNam.remove(0,1);
+				FarNam = FarNam.remove(FarNam.length()-1,1);
+				QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+				FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
+				cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+				cc.setSpotColor(true);
+				CustColors.insert(FarNam, cc);
+				while (!ts.atEnd())
+				{
+					tmp = ts.readLine();
+					if (!tmp.startsWith("%%+"))
+						break;
+					tmp = tmp.remove(0,3);
+					QTextStream ts2(&tmp, IO_ReadOnly);
+					ts2 >> c >> m >> y >> k;
+					FarNam = ts2.read();
+					FarNam = FarNam.stripWhiteSpace();
+					FarNam = FarNam.remove(0,1);
+					FarNam = FarNam.remove(FarNam.length()-1,1);
+					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
+					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
+					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
+					cc.setSpotColor(true);
+					CustColors.insert(FarNam, cc);
+				}
+			}
 			if (tmp.startsWith("%%EndComments"))
 			{
 				while (!ts.atEnd())
 				{
-					tc = ' ';
+					tmp = ts.readLine();
+/*					tc = ' ';
 					tmp = "";
 					while ((tc != '\n') && (tc != '\r'))
 					{
 						ts >> tc;
 						if ((tc != '\n') && (tc != '\r'))
 							tmp += tc;
-					}
+					} */
 					if ((!tmp.isEmpty()) && (!tmp.startsWith("%")))
 					{
 						psFound = true;
@@ -166,14 +206,15 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						QByteArray psdata;
 						while (!ts.atEnd())
 						{
-							tc = ' ';
+							tmp = ts.readLine();
+/*							tc = ' ';
 							tmp = "";
 							while ((tc != '\n') && (tc != '\r'))
 							{
 								ts >> tc;
 								if ((tc != '\n') && (tc != '\r'))
 									tmp += tc;
-							}
+							} */
 							if (tmp.startsWith("%EndPhotoshop"))
 							{
 								QDataStream strPhot(psdata,IO_ReadOnly);
@@ -181,11 +222,11 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								PSDHeader fakeHeader;
 								QTextStream ts2(&BBox, IO_ReadOnly);
 								ts2 >> x >> y >> b >> h;
-								fakeHeader.width = b;
-								fakeHeader.height = h;
+								fakeHeader.width = qRound(b);
+								fakeHeader.height = qRound(h);
 								parseRessourceData(strPhot, fakeHeader, psdata.size());
 								m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size()) > 0 ? true : false;
-								psFound = true;
+//								psFound = true;
 								break;
 							}
 							for (uint a = 2; a < tmp.length(); a += 2)
@@ -196,8 +237,49 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								psdata[psdata.size()-1] = data;
 							}
 						}
-						if (psFound)
-							break;
+//						if (psFound)
+//							break;
+					}
+					if (tmp.startsWith("%%BeginICCProfile:"))
+					{
+						QByteArray psdata;
+						while (!ts.atEnd())
+						{
+							tmp = ts.readLine();
+/*							tc = ' ';
+							tmp = "";
+							while ((tc != '\n') && (tc != '\r'))
+							{
+								ts >> tc;
+								if ((tc != '\n') && (tc != '\r'))
+									tmp += tc;
+							} */
+							for (uint a = 2; a < tmp.length(); a += 2)
+							{
+								bool ok;
+								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
+								psdata.resize(psdata.size()+1);
+								psdata[psdata.size()-1] = data;
+							}
+							if (tmp.startsWith("%%EndICCProfile"))
+							{
+								cmsHPROFILE prof = cmsOpenProfileFromMem(psdata.data(), psdata.size());
+								if (prof)
+								{
+									if (static_cast<int>(cmsGetColorSpace(prof)) == icSigRgbData)
+										m_profileComponents = 3;
+									if (static_cast<int>(cmsGetColorSpace(prof)) == icSigCmykData)
+										m_profileComponents = 4;
+									const char *Descriptor;
+									Descriptor = cmsTakeProductDesc(prof);
+									m_imageInfoRecord.profileName = QString(Descriptor);
+									m_imageInfoRecord.isEmbedded = true;
+									m_embeddedProfile.duplicate((const char*)psdata.data(), psdata.size());
+								}
+								cmsCloseProfile(prof);
+								break;
+							}
+						}
 					}
 					if (psFound)
 						break;
@@ -234,19 +316,16 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	{
 		QTextStream ts2(&BBox, IO_ReadOnly);
 		ts2 >> x >> y >> b >> h;
-		m_imageInfoRecord.exifInfo.width = b;
-		m_imageInfoRecord.exifInfo.height = h;
+		m_imageInfoRecord.exifInfo.width = qRound(b);
+		m_imageInfoRecord.exifInfo.height = qRound(h);
 		m_image = m_imageInfoRecord.exifInfo.thumbnail;
 		return true;
 	}
 	if (found)
 	{
 		if (isDCS1)
-		{
-			loadEmbeddedProfile(fn);
 			loadDCS1(fn, gsRes);
-		}
-		else
+		else if ((!m_imageInfoRecord.isEmbedded) || ((m_imageInfoRecord.isEmbedded) && (m_profileComponents == 3)))
 		{
 			QTextStream ts2(&BBox, IO_ReadOnly);
 			ts2 >> x >> y >> b >> h;
@@ -294,7 +373,71 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 				}
 				m_imageInfoRecord.xres = qRound(gsRes);
 				m_imageInfoRecord.yres = qRound(gsRes);
+				if ((m_imageInfoRecord.isEmbedded) && (m_profileComponents == 3))
+					m_imageInfoRecord.type = 7;
 				m_imageInfoRecord.colorspace = 0;
+				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
+				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
+			}
+		}
+		else
+		{
+			QTextStream ts2(&BBox, IO_ReadOnly);
+			ts2 >> x >> y >> b >> h;
+			h = h * gsRes / 72.0;
+			QStringList args;
+			xres = gsRes;
+			yres = gsRes;
+			if (ext == "eps")
+				args.append("-dEPSCrop");
+			args.append("-dGrayValues=256");
+			args.append("-r"+QString::number(gsRes));
+			args.append("-sOutputFile="+tmpFile);
+			args.append(picFile);
+			int retg = callGS(args, "bitcmyk");
+			if (retg == 0)
+			{
+				m_image.create( qRound(b * gsRes / 72.0), qRound(h * gsRes / 72.0), 32 );
+				int w = qRound(b * gsRes / 72.0);
+				int w2 = 4*w;
+				int h2 = qRound(h * gsRes / 72.0);
+				uint *p;
+				int cyan, magenta, yellow, black;
+				QByteArray imgc(w2);
+				QFile f(tmpFile);
+				if (f.open(IO_ReadOnly))
+				{
+					for (int y=0; y < h2; ++y )
+					{
+						p = (uint *)m_image.scanLine( y );
+						f.readBlock(imgc.data(), w2);
+						for (int x=0; x < w2; x += 4 )
+						{
+							cyan = uchar(imgc[x]);
+							magenta = uchar(imgc[x + 1]);
+							yellow = uchar(imgc[x + 2]);
+							black = uchar(imgc[x + 3]);
+							*p = qRgba(cyan, magenta, yellow, black);
+							p++;
+						}
+					}
+					f.close();
+				}
+				unlink(tmpFile);
+				if (ext == "eps")
+				{
+					m_imageInfoRecord.BBoxX = static_cast<int>(x);
+					m_imageInfoRecord.BBoxH = static_cast<int>(h);
+				}
+				else
+				{
+					m_imageInfoRecord.BBoxX = 0;
+					m_imageInfoRecord.BBoxH = m_image.height();
+				}
+				m_imageInfoRecord.xres = qRound(gsRes);
+				m_imageInfoRecord.yres = qRound(gsRes);
+				m_imageInfoRecord.colorspace = 1;
+				m_imageInfoRecord.type = 7;
 				m_image.setDotsPerMeterX ((int) (xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (yres / 0.0254));
 			}

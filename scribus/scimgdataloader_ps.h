@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #define SCIMGDATALOADER_PS_H
 
 #include "scimgdataloader.h"
+#include "sccolor.h"
 
 class ScImgDataLoader_PS : public ScImgDataLoader
 {
@@ -20,6 +21,8 @@ protected:
 	QMap<QString, QString> colorPlates;
 	QString BBox;
 	bool isDCS1;
+	bool isDCS2;
+	ColorList CustColors;
 
 public:
 	ScImgDataLoader_PS(void);
