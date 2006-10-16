@@ -1336,7 +1336,11 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 	PS_set_Info("Title", Doc->documentInfo.getTitle());
 	if (!farb)
 		PS_setGray();
-
+	applyICC = Ic;
+	if ((Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
+		solidTransform = cmsCreateTransform(Doc->DocInputCMYKProf, TYPE_CMYK_16, Doc->DocPrinterProf, TYPE_CMYK_16, Doc->IntentColors, 0);
+	else
+		applyICC = false;
 	if (usingGUI)
 	{
 		QString title=QObject::tr("Exporting PostScript File");
@@ -1796,6 +1800,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 	}
 	PS_close();
 	if (usingGUI) progressDialog->close();
+	if ((Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
+		cmsDeleteTransform(solidTransform);
 	if (!abortExport)
 		return 0;
 	else
@@ -2612,10 +2618,31 @@ void PSLib::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bo
 	if ((gcr) && (!tmp.isRegistrationColor()))
 		tmp.applyGCR();
 	tmp.getCMYK(&h1, &s1, &v1, &k1);
-	*h = h1 * shade / 100;
-	*s = s1 * shade / 100;
-	*v = v1 * shade / 100;
-	*k = k1 * shade / 100;
+	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
+	{
+		h1 = h1 * shade / 100;
+		s1 = s1 * shade / 100;
+		v1 = v1 * shade / 100;
+		k1 = k1 * shade / 100;
+		WORD inC[4];
+		WORD outC[4];
+		inC[0] = h1 * 257;
+		inC[1] = s1 * 257;
+		inC[2] = v1 * 257;
+		inC[3] = k1 * 257;
+		cmsDoTransform(solidTransform, inC, outC, 1);
+		*h= outC[0] / 257;
+		*s = outC[1] / 257;
+		*v = outC[2] / 257;
+		*k = outC[3] / 257;
+	}
+	else
+	{
+		*h = h1 * shade / 100;
+		*s = s1 * shade / 100;
+		*v = v1 * shade / 100;
+		*k = k1 * shade / 100;
+	}
 }
 
 void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page* pg, bool sep, bool farb, bool ic, bool master)

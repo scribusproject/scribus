@@ -35,6 +35,7 @@ class ScribusDoc;
 #include "scribusapi.h"
 #include "page.h"
 #include "pageitem.h"
+#include CMS_INC
 
 #ifdef NLS_PROTO
 class ScText;
@@ -149,6 +150,8 @@ class SCRIBUS_API PSLib : public QObject
 		bool useSpotColors;
 		bool fillRule;
 		bool doOverprint;
+		bool applyICC;
+		cmsHTRANSFORM solidTransform;
 		QString currentSpot;
 		ColorList colorsToUse;
 		QString colorDesc;

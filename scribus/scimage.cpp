@@ -1900,7 +1900,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		switch (reqType)
 		{
 		case CMYKData: // CMYK
-			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
+//			if ((!isCMYK && (outputProfColorSpace == icSigCmykData)) || (isCMYK && (outputProfColorSpace == icSigRgbData)) )
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.printerProfile(), outputProfFormat, cmSettings.imageRenderingIntent(), 0);
 			if (outputProfColorSpace != icSigCmykData )
 				*realCMYK = isCMYK = false;
