@@ -1798,14 +1798,12 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElement &e)
 {
 	ScText *hg;
-	QPainter p;
 	QPtrList<PageItem> GElements;
-	p.begin(ScMW->view->viewport());
 	QFont ff(m_gc.current()->Family);
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
-	p.setFont(ff);
-	int desc = p.fontMetrics().descent();
-	int asce = p.fontMetrics().ascent();
+	QFontMetrics fontMetrics(ff);
+	int desc = fontMetrics.descent();
+	int asce = fontMetrics.ascent();
 	double BaseX = currDoc->currentPage->xOffset();
 	double BaseY = currDoc->currentPage->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
@@ -1953,7 +1951,6 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	//	ScMW->view->SelItem.clear();
 	//} 
 	GElements.append(ite);
-	p.end();
 	return GElements;
 }
 
