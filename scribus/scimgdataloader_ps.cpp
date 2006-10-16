@@ -139,28 +139,31 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 				QTextStream ts2(&tmp, IO_ReadOnly);
 				QString posStr, dummy, lenStr;
 				ts2 >> dummy >> posStr >> lenStr;
-				if (posStr.startsWith("#"))
+				if (dummy == "EPS")
 				{
-					posStr = posStr.remove(0, 1);
-					uint pos = posStr.toUInt();
-					uint len = lenStr.toUInt();
-					struct plateOffsets offs;
-					if (Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weired entries
+					if (posStr.startsWith("#"))
 					{
-						pos -= (191 + plateCount * 83);
-						len -= 83;
+						posStr = posStr.remove(0, 1);
+						uint pos = posStr.toUInt();
+						uint len = lenStr.toUInt();
+						struct plateOffsets offs;
+						if (Creator.contains("Photoshop Version 9"))	// This is very strange, it seems that there is a bug in PS 9 which writes weired entries
+						{
+							pos -= (191 + plateCount * 83);
+							len -= 83;
+						}
+						offs.pos = pos;
+						offs.len = len;
+						colorPlates2.insert(plateNam, offs);
+						isDCS2 = true;
+						plateCount++;
 					}
-					offs.pos = pos;
-					offs.len = len;
-					colorPlates2.insert(plateNam, offs);
-					isDCS2 = true;
-					plateCount++;
-				}
-				else
-				{
-					colorPlates.insert(plateNam, lenStr);
-					isDCS2 = true;
-					isDCS2multi = true;
+					else
+					{
+						colorPlates.insert(plateNam, lenStr);
+						isDCS2 = true;
+						isDCS2multi = true;
+					}
 				}
 			}
 			if (tmp.startsWith("%%CMYKCustomColor"))
