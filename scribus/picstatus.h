@@ -114,9 +114,7 @@ private:
 	QPushButton* cancelButton;
 	QPushButton* okButton;
 	QPushButton* searchAllButton;
-#ifndef _WIN32
 	QCheckBox* caseInsensitiveCheck;
-#endif
 	ScribusDoc *m_Doc;
 	int Zeilen;
 	QPtrList<QCheckBox> FlagsPic;

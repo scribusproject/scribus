@@ -210,6 +210,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
 	Layout2->addWidget(caseInsensitiveCheck);
 #ifdef _WIN32
+	caseInsensitiveCheck->setChecked(true);
 	caseInsensitiveCheck->hide();
 #endif
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
