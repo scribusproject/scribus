@@ -60,7 +60,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "13";
+	QString BUILD_DAY = "17";
 	QString BUILD_MONTH = CommonStrings::october;
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
@@ -209,6 +209,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Iñaki Larrañaga Murgoitio</td><td>dooteo@euskalgnu.org</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("br").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Alan Monfort</td><td>alan.monfort@free.fr</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ca").utf8()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
