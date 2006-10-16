@@ -750,8 +750,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			}
 			if( !b.attribute("id").isEmpty() )
 				ite->setItemName(" "+b.attribute("id"));
-			ite->setFillTransparency( 1 - gc->FillOpacity); // * gc->Opacity);
-			ite->setLineTransparency( 1 - gc->StrokeOpacity); // * gc->Opacity);
+			ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
+			ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
 			ite->PLineEnd = gc->PLineEnd;
 			ite->PLineJoin = gc->PLineJoin;
 			//ite->setTextFlowsAroundFrame(false);
@@ -1922,15 +1922,13 @@ QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
 
 QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomElement &e)
 {
-	QPainter p;
 	QPtrList<PageItem> GElements;
-	p.begin(m_Doc->view()->viewport());
 //	QFont ff(m_Doc->UsedFonts[m_gc.current()->Family]);
 	QFont ff(m_gc.current()->Family);
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
-	p.setFont(ff);
-	int desc = p.fontMetrics().descent();
-	int asce = p.fontMetrics().ascent();
+	QFontMetrics fontMetrics(ff);
+	int desc = fontMetrics.descent();
+	int asce = fontMetrics.ascent();
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
@@ -2076,7 +2074,6 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 					m_Doc->view()->SelItem.clear();
 				} */
 	GElements.append(ite);
-	p.end();
 	return GElements;
 }
 
