@@ -7,13 +7,14 @@ for which a new license (GPL+exception) is in place.
 #ifndef CREATERANGE
 #define CREATERANGE
 
+#include "scribusapi.h"
 #include "createrangebase.h"
 #include "usertaskstructs.h"
 
 #include <qstring.h>
 #include <qwidget.h>
 
-class CreateRange : public CreateRangeBase
+class SCRIBUS_API CreateRange : public CreateRangeBase
 {
 	Q_OBJECT
 	public:
