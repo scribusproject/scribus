@@ -2927,16 +2927,16 @@ void StoryEditor::Do_insSp()
 		charSelect->setItem(currItem);
 		rescan = true;
 	}
-	if (charSelect->fontInUse != Editor->CurrFont)
+	if (charSelect->fontInUse() != Editor->CurrFont)
 	{
-		charSelect->fontInUse = Editor->CurrFont;
+		charSelect->setFontInUse(Editor->CurrFont);
 		rescan = true;
 	}
 	if (rescan)
 	{
 		charSelect->scanFont();
 		charSelect->generatePreview(0);
-		charSelect->characterClass = 0;
+		charSelect->setCharacterClass(0);
 		charSelect->setupRangeCombo();
 	}
 	if (!charSelect->isShown())

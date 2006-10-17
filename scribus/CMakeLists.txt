@@ -65,6 +65,7 @@ bookmwin.h
 bookpalette.h
 buttonicon.h
 charselect.h
+chartable.h
 checkDocument.h
 cmsprefs.h
 cmykfw.h
@@ -240,6 +241,7 @@ bookmwin.cpp
 bookpalette.cpp
 buttonicon.cpp
 charselect.cpp
+chartable.cpp
 checkDocument.cpp
 cmserrorhandling.cpp
 cmykfw.cpp

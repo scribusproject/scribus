@@ -4,23 +4,9 @@ to the COPYING file provided with the program. Following this notice may exist
 a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
-#include <qtextcodec.h>
-#include <qcursor.h>
-#include <qtimer.h>
-#include <qlabel.h>
-#include <qpixmap.h>
-#include <qpushbutton.h>
 #include <qtable.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qstringlist.h>
-#include <qcombobox.h>
-#include <qfont.h>
-#include <qpopupmenu.h>
-#include <qwidget.h>
 
 #include "scconfig.h"
-
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -33,216 +19,10 @@ for which a new license (GPL+exception) is in place.
 #include "fonts/scfontmetrics.h"
 #include "util.h"
 
-#ifdef QT_MAC
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder | WType_Popup)
-#else
-Zoom::Zoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder)
-#endif
-{
-	int newwidth=pix.width()+2;
-	int newheight=pix.height()+20;
-	resize(newwidth,newheight);
-	setMinimumSize(QSize(newwidth,newheight));
-	setMaximumSize(QSize(newwidth,newheight));
-	pixm = pix;
-	QString tmp;
-	tmp.sprintf("%04X", val);
-	valu = "0x"+tmp;
-}
-
-void Zoom::paintEvent(QPaintEvent *)
-{
-	QPainter p;
-	p.begin(this);
-	p.setPen(black);
-	p.setBrush(NoBrush);
-	p.drawRect(0, 0, width(), height());
-	p.drawPixmap(1, 1, pixm);
-	p.drawText(5, height()-3, valu);
-	p.end();
-}
-
-ChTable::ChTable(CharSelect* parent, PageItem* pi) : QTable(parent)
-{
-	watchTimer = new QTimer(this);
-//	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
-	mPressed = false;
-	alternate = false;
-	rowA = 0;
-	colA = 0;
-	m_Item = pi;
-	par = parent;
-	dia = 0;
-	QToolTip::add(this, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
-}
-
-
-QRect ChTable::cellGeometry ( int /*row*/, int /*col*/ ) const
-{
-	int widthHeight = QMAX(18 + qRound(-(*m_Item->doc()->AllFonts)[par->fontInUse].descent() * 18) + 5, 18);
-	return QRect(0, 0, widthHeight, widthHeight+20);
-
-}
-
-
-void ChTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool /*selected*/, const QColorGroup & /*cg*/ )
-{
-	static QPixmap pixm;
-
-	uint cc = row * 16 + col;
-	if (cc >= maxCount)
-	return;
-
-	QRect sz = cellGeometry(row, col);
-	pixm.resize(sz.width(), sz.height());
-
-	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height());
-	p->clear();
-	pixm.fill(white);
-	QWMatrix chma;
-	chma.scale(1.6, 1.6);
-	qp->eraseRect(0, 0, cr.width(), cr.height());
-	QFont fo = qp->font();
-	fo.setPixelSize(9);
-	qp->setFont(fo);
-	static FPointArray gly;
-	ScFace face = (*m_Item->doc()->AllFonts)[par->fontInUse];
-	uint gl = face.char2CMap(par->characters[cc]);
-	gly = face.glyphOutline(gl);
-	if (gly.size() > 4)
-	{
-		gly.map(chma);
-		double ww = sz.width() - face.glyphWidth(gl)*16;
-		p->translate(ww / 2, 1);
-		p->setBrush(black);
-		p->setFillMode(1);
-		p->setupPolygon(&gly);
-		p->fillPath();
-		p->end();
-		int x = QMAX(0, (cr.width() - sz.width()) / 2);
-		qp->drawPixmap(x, 1, pixm);
-		QString tmp;
-		tmp.sprintf("%04X", par->characters[row*16+col]);
-//		tmp.prepend("0x");
-		qp->setPen(black);
-		qp->drawText(QRect(2, cr.height()-10, cr.width()-4, 9),Qt::AlignCenter, tmp);
-	}
-	qp->setPen(gray);
-	qp->drawRect(0, 0, cr.width(), cr.height());
-	delete p;
-}
-
-
-void ChTable::keyPressEvent(QKeyEvent *k)
-{
-	switch (k->key())
-	{
-		case Key_Backspace:
-		case Key_Delete:
-			emit delChar();
-			break;
-		case Key_Insert:
-			emit selectChar(currentRow(), currentColumn());
-			break;
-	}
-	QTable::keyPressEvent(k);
-}
-
-void ChTable::contentsMousePressEvent(QMouseEvent* e)
-{
-	e->accept();
-	uint r = rowAt(e->pos().y());
-	uint c = columnAt(e->pos().x());
-	QString font;
-	font = par->fontInUse;
-	mPressed = true;
-	alternate = false;
-	if ((e->button() == RightButton) && ((r*16+c) < maxCount))
-	{
-		watchTimer->stop();
-		int bh = 48 + qRound(-(*m_Item->doc()->AllFonts)[font].descent() * 48) + 3;
-		QPixmap pixm(bh,bh);
-		ScPainter *p = new ScPainter(&pixm, bh, bh);
-		p->clear();
-		pixm.fill(white);
-		QWMatrix chma;
-		chma.scale(4.8, 4.8);
-		ScFace face = (*m_Item->doc()->AllFonts)[font];
-		uint gl = face.char2CMap(par->characters[r*16+c]);
-		FPointArray gly = face.glyphOutline(gl);
-		double ww = bh - face.glyphWidth(gl, 48);
-		if (gly.size() > 4)
-		{
-			gly.map(chma);
-			p->translate(ww / 2, 1);
-			p->setBrush(black);
-			p->setFillMode(1);
-			p->setupPolygon(&gly);
-			p->fillPath();
-			p->end();
-		}
-		delete p;
-		dia = new Zoom(this, pixm, par->characters[r*16+c]);
-		QPoint ps = QCursor::pos();
-		dia->move(ps.x()-2, ps.y()-2);
-		dia->setModal(false);
-		dia->show();
-	}
-/*	if (e->button() == LeftButton)
-	{
-		rowA = rowAt(e->pos().y());
-		colA = columnAt(e->pos().x());
-		watchTimer->start(3000, true);
-	} */
-	QTable::contentsMousePressEvent(e);
-}
-
-void ChTable::contentsMouseReleaseEvent(QMouseEvent* e)
-{
-	e->accept();
-	watchTimer->stop();
-	if ((e->button() == RightButton) && (mPressed))
-	{
-		if (dia)
-		{
-			dia->close();
-			delete dia;
-			dia = 0;
-		}
-	}
-	if ((e->button() == LeftButton) && (!alternate))
-		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
-	mPressed = false;
-	alternate = false;
-	QTable::contentsMouseReleaseEvent(e);
-}
-
-void ChTable::showAlternate()
-{
-/*	watchTimer->stop();
-	alternate = true;
-	QString font;
-	QString chToIns = "";
-	font = par->fontInUse;
-	uint baseChar = rowA*16+colA;
-	if (baseChar < maxCount)
-	{
-		QPopupMenu *pmen = new QPopupMenu();
-		chToIns = QChar(par->characters[baseChar]);
-		pmen->insertItem(FontSample((*m_Item->doc()->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
-		if ((*m_Item->doc()->AllFonts)[font]->CharWidth.contains(par->characters[baseChar] + 0xF720))
-		{
-			chToIns = QChar(par->characters[baseChar] + 0xF720);
-			pmen->insertItem(FontSample((*m_Item->doc()->AllFonts)[font], 20, chToIns, paletteBackgroundColor(), true));
-		}
-		int re = pmen->indexOf(pmen->exec(QCursor::pos()));
-		delete pmen;
-	} */
-}
 
 CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
 {
-	fontInUse = item->doc()->currentStyle.charStyle().font().scName();
+	m_fontInUse = item->doc()->currentStyle.charStyle().font().scName();
 	needReturn = false;
 	installEventFilter(this);
 	run(parent, item);
@@ -251,7 +31,7 @@ CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "Cha
 CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font, bool modal)
 	: QDialog( parent, "CharSelect", modal, 0 )
 {
-	fontInUse = font;
+	m_fontInUse = font;
 	needReturn = true;
 	installEventFilter(this);
 	run(parent, item);
@@ -266,7 +46,7 @@ const QString & CharSelect::getCharacters()
 
 void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 {
-	setCaption( tr( "Select Character:" )+" "+fontInUse );
+	setCaption( tr( "Select Character:" )+" "+m_fontInUse );
 	m_Item = item;
 	setIcon(loadIcon("AppIcon.png"));
 	zAuswahlLayout = new QVBoxLayout( this );
@@ -281,7 +61,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	selectionsLayout->addWidget( fontLabel );
 	fontSelector = new FontCombo(this);
 	fontSelector->setMaximumSize(190, 30);
-	fontSelector->setCurrentText(fontInUse);
+	fontSelector->setCurrentText(m_fontInUse);
 	selectionsLayout->addWidget( fontSelector );
 	if ( /* FIXME:av (ap->doc->currentStyle > 4) || */ needReturn)
 		fontSelector->setEnabled(false);
@@ -289,24 +69,14 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	rangeLabel->setText( tr( "Character Class:" ) );
 	selectionsLayout->addWidget( rangeLabel );
 	rangeSelector = new ScComboBox( false, this, "rangeSelector" );
-	characterClass = 0;
+	m_characterClass = 0;
 	selectionsLayout->addWidget( rangeSelector );
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	selectionsLayout->addItem( spacer2 );
 	zAuswahlLayout->addLayout(selectionsLayout);
-	zTabelle = new ChTable( this, m_Item);
-	zTabelle->setNumCols( 16 );
-	zTabelle->setLeftMargin(0);
-	zTabelle->verticalHeader()->hide();
-	zTabelle->setTopMargin(0);
-	zTabelle->horizontalHeader()->hide();
-	zTabelle->setSorting(false);
-	zTabelle->setSelectionMode(QTable::NoSelection);
-	zTabelle->setColumnMovingEnabled(false);
-	zTabelle->setRowMovingEnabled(false);
-	zTabelle->setReadOnly(true);
+	charTable = new CharTable(this, 16, m_Item, m_fontInUse);
 	scanFont();
-	zAuswahlLayout->addWidget( zTabelle );
+	zAuswahlLayout->addWidget( charTable );
 	
 	layout3 = new QHBoxLayout;
 	layout3->setSpacing( 6 );
@@ -358,8 +128,8 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
-	connect(zTabelle, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
-	connect(zTabelle, SIGNAL(delChar()), this, SLOT(delChar()));
+	connect(charTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
+	connect(charTable, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
@@ -403,7 +173,7 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
 	QMap<uint, std::pair<QChar, QString> > glyphs;
-	(*m_Item->doc()->AllFonts)[fontInUse].glyphNames(glyphs);
+	(*m_Item->doc()->AllFonts)[m_fontInUse].glyphNames(glyphs);
 	for (QMap<uint, std::pair<QChar, QString> >::iterator it=glyphs.begin();
 		 it != glyphs.end(); ++it)
 	{
@@ -672,48 +442,39 @@ void CharSelect::setupRangeCombo()
 
 void CharSelect::generatePreview(int charClass)
 {
-	zTabelle->maxCount = 0;
 	characters.clear();
-	zTabelle->setNumRows( 0 );
 	characters = allClasses[charClass];
-	maxCount = characters.count();
-	zTabelle->maxCount = maxCount;
-	int ab = maxCount / 16;
-	int ac = maxCount % 16;
-	if (ac != 0)
-		ab++;
-	zTabelle->setNumRows( ab );
-	recalcCellSizes();
+	charTable->setCharacters(characters);
 }
 
 void CharSelect::newCharClass(int c)
 {
-	characterClass = usedCharClasses[c];
-	generatePreview(characterClass);
+	m_characterClass = usedCharClasses[c];
+	generatePreview(m_characterClass);
 }
 
 void CharSelect::newFont(int font)
 {
-	zTabelle->maxCount = 0;
-	QString oldFont = fontInUse;
-	fontInUse = fontSelector->text(font);
-	(*m_Item->doc()->AllFonts)[fontInUse].increaseUsage();
+	QString oldFont(m_fontInUse);
+	m_fontInUse = fontSelector->text(font);
+	charTable->setFontInUse(m_fontInUse);
+	(*m_Item->doc()->AllFonts)[m_fontInUse].increaseUsage();
 	(*m_Item->doc()->AllFonts)[oldFont].decreaseUsage();
 	delEdit();
-	setCaption( tr( "Select Character:" )+" "+fontInUse );
-	ScCore->primaryMainWindow()->SetNewFont(fontInUse);
-	if (m_Item->doc()->currentStyle.charStyle().font().scName() != fontInUse)
+	setCaption( tr( "Select Character:" )+" "+m_fontInUse );
+	ScCore->primaryMainWindow()->SetNewFont(m_fontInUse);
+	if (m_Item->doc()->currentStyle.charStyle().font().scName() != m_fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 		fontSelector->RebuildList(m_Item->doc());
-		fontInUse = m_Item->doc()->currentStyle.charStyle().font().scName();
-		setCaption( tr( "Select Character:" )+" "+fontInUse );
-		fontSelector->setCurrentText(fontInUse);
+		m_fontInUse = m_Item->doc()->currentStyle.charStyle().font().scName();
+		setCaption( tr( "Select Character:" )+" "+m_fontInUse );
+		fontSelector->setCurrentText(m_fontInUse);
 		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	}
 	scanFont();
 	generatePreview(0);
-	characterClass = 0;
+	m_characterClass = 0;
 	setupRangeCombo();
 }
 
@@ -726,20 +487,20 @@ void CharSelect::newChar()
 	if ((ok) && (code > 31))
 	{
 		chToIns += QChar(code);
-		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 	}
 }
 
 void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
 {
-	if ((r*16+c) < maxCount)
+	if ((r*charTable->numCols()+c) < characters.count())
 	{
-		chToIns += QChar(characters[r*16+c]);
-		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+		chToIns += QChar(characters[r*charTable->numCols()+c]);
+		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 		insertButton->setEnabled(true);
 		QString tmp;
-		tmp.sprintf("%04X", characters[r*16+c]);
+		tmp.sprintf("%04X", characters[r*charTable->numCols()+c]);
 		insCode->setText(tmp);
 	}
 }
@@ -754,7 +515,7 @@ void CharSelect::delChar()
 		return;
 	}
 	chToIns.truncate(chToIns.length() - 1);
-	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 }
 
@@ -794,24 +555,12 @@ void CharSelect::insChar()
 	delEdit();
 }
 
-bool CharSelect::eventFilter( QObject* /*obj*/, QEvent *ev )
+bool CharSelect::eventFilter( QObject */*obj*/, QEvent *ev )
 {
 	if ( ev->type() == QEvent::Show )
 	{
-		recalcCellSizes();
+		charTable->recalcCellSizes();
 		return true;
 	}
-	else
-		return false;
-}
-
-void CharSelect::recalcCellSizes()
-{
-	int cellWidth = zTabelle->width() / 16;
-	int cellHeight = cellWidth;
-	for (int d = 0; d < 16; ++d)
-		zTabelle->setColumnStretchable(d, TRUE);
-	for (int d = 0; d < zTabelle->numRows(); ++d)
-		zTabelle->setRowHeight(d, cellHeight);
-	zTabelle->updateScrollBars();
+	return false;
 }
