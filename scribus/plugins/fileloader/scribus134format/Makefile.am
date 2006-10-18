@@ -6,7 +6,7 @@ INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
 
 libscribus134format_la_LDFLAGS = -version-info 0:0:0
 libscribus134format_la_METASOURCES = AUTO
-libscribus134format_la_SOURCES = scribus134format.cpp scribus134formatimpl.cpp
+libscribus134format_la_SOURCES = scribus134format.cpp scribus134format_save.cpp scribus134formatimpl.cpp
 
 EXTRA_DIST = scribus134format.h scribus134formatimpl.h
 
