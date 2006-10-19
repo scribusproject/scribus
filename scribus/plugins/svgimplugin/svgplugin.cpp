@@ -1928,7 +1928,6 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	QFontMetrics fontMetrics(ff);
 	int desc = fontMetrics.descent();
-	int asce = fontMetrics.ascent();
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
@@ -1936,7 +1935,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	if ( e.tagName() == "tspan" && e.text().isNull() )
 			Text = " ";
 
-	double tempW = 0;
+	double maxHeight = 0;
+	double tempW = 0, tempH = 0;
 	SvgStyle *gc = m_gc.current();
 	int ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
 	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
@@ -2012,12 +2012,15 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		int pos = ite->itemText.length();
 		ite->itemText.insertChars(pos, ch);
 		ite->itemText.applyCharStyle(pos, 1, nstyle);
-		tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize())+1;
+		tempW += nstyle.font().realCharWidth(ch[0], nstyle.fontSize() / 10.0)+1;
+		tempH  = nstyle.font().realCharHeight(ch[0], nstyle.fontSize() / 10.0);
 		if (ch == SpecialChars::PARSEP)
 		{
 			ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + lineSpacing+desc);
 			tempW = 0;
 		}
+		if(tempH > maxHeight)
+			maxHeight = tempH;
 	}
 	double xpos = ite->xPos();
 	double ypos = ite->yPos();
@@ -2055,8 +2058,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	m_Doc->view()->scaleGroup(scalex, scaley);
 	m_Doc->view()->Deselect();
-	double nmat = sqrt(fabs(mm.det())) / 2.0;
-	ite->moveBy(asce * sin(-rotation) * nmat, -asce * cos(-rotation) * nmat);
+	// Probably some scalex and scaley to add somewhere
+	ite->moveBy(maxHeight * sin(-rotation), -maxHeight * cos(-rotation));
 	if( !e.attribute("id").isEmpty() )
 		ite->setItemName(" "+e.attribute("id"));
 	ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
