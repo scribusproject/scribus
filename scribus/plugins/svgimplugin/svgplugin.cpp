@@ -1803,7 +1803,6 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	ff.setPointSize(QMAX(qRound(m_gc.current()->FontSize / 10.0), 1));
 	QFontMetrics fontMetrics(ff);
 	int desc = fontMetrics.descent();
-	int asce = fontMetrics.ascent();
 	double BaseX = currDoc->currentPage->xOffset();
 	double BaseY = currDoc->currentPage->yOffset();
 	QString Text = QString::fromUtf8(e.text()).stripWhiteSpace();
@@ -1811,7 +1810,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	if ( e.tagName() == "tspan" && e.text().isNull() )
 			Text = " ";
 	
-	double tempW = 0;
+	double maxHeight = 0;
+	double tempW = 0, tempH = 0;
 	SvgStyle *gc = m_gc.current();
 	int ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
 	int z = currDoc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
@@ -1891,11 +1891,14 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		hg->cembedded = 0;
 		ite->itemText.append(hg);
 		tempW += RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1;
+		tempH  = RealCHeight(currDoc, hg->cfont, hg->ch, hg->csize);
 		if (hg->ch == QChar(13))
 		{
 			ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + ite->lineSpacing()+desc);
 			tempW = 0;
 		}
+		if(tempH > maxHeight)
+			maxHeight = tempH;
 	}
 	double xpos = ite->xPos();
 	double ypos = ite->yPos();
@@ -1933,8 +1936,8 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	ScMW->view->scaleGroup(scalex, scaley);
 	ScMW->view->Deselect();
-	double nmat = sqrt(fabs(mm.det())) / 2.0;
-	ite->moveBy(asce * sin(-rotation) * nmat, -asce * cos(-rotation) * nmat);
+	// Probably some scalex and scaley to add somewhere
+	ite->moveBy(maxHeight * sin(-rotation), -maxHeight * cos(-rotation));
 	if( !e.attribute("id").isEmpty() )
 		ite->setItemName(" "+e.attribute("id"));
 	ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
