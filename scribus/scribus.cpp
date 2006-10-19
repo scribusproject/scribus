@@ -7778,6 +7778,7 @@ void ScribusMainWindow::UnGroupObj()
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
+			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
 			currItem->Groups.pop();
 			currItem->isTableItem = false;
 			currItem->LeftLink = 0;
@@ -7928,6 +7929,8 @@ void ScribusMainWindow::restoreUngroupping(SimpleState *state, bool isUndo)
 	for (int i = 0; i < itemCount; ++i)
 	{
 		int itemNr = state->getInt(QString("item%1").arg(i));
+		if (isUndo)
+			doc->Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
 		view->SelectItemNr(itemNr);
 	}
 	if (isUndo)

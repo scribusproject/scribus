@@ -578,7 +578,7 @@ void Druck::setStoredValues(bool gcr)
 	}
 	psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
 	MirrorHor->setChecked(prefs->getBool("MirrorH", false));
-	MirrorHor->setChecked(prefs->getBool("MirrorV", false));
+	MirrorVert->setChecked(prefs->getBool("MirrorV", false));
 	devPar->setChecked(prefs->getBool("doDev", false));
 	GcR->setChecked(prefs->getBool("DoGCR", gcr));
 	ClipMarg->setChecked(prefs->getBool("Clip", false));
