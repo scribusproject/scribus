@@ -1964,6 +1964,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		ite->setYPos(my);
 	}
 	ite->setFillColor(CommonStrings::None);
+	ite->setLineColor(CommonStrings::None);
 	/*
 	ite->setFont(gc->Family);
 	ite->TxtFill = gc->FillCol;
