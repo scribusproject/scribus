@@ -300,7 +300,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	connect( PrintSep, SIGNAL(activated(int)), this, SLOT(SelMode(int)));
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
-	connect( previewButton, SIGNAL(clicked()), this, SIGNAL(doPreview()));
+	connect( previewButton, SIGNAL(clicked()), this, SLOT(previewButtonClicked()));
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
@@ -528,7 +528,7 @@ void Druck::setMinMax(int min, int max, int cur)
 	pageNr->setText(tmp.setNum(min)+"-"+tmp2.setNum(max));
 }
 
-void Druck::okButtonClicked()
+void Druck::storeValues()
 {
 	getOptions(); // options were not set get last options with this hack
 		
@@ -553,7 +553,18 @@ void Druck::okButtonClicked()
 	prefs->set("doOverprint", overprintMode->isChecked());
 	if (m_doc->HasCMS)
 		prefs->set("ICCinUse", UseICC->isChecked());
+}
+
+void Druck::okButtonClicked()
+{
+	storeValues();
 	accept();
+}
+
+void Druck::previewButtonClicked()
+{
+	storeValues();
+	emit doPreview();
 }
 
 void Druck::setStoredValues(bool gcr)
@@ -589,7 +600,7 @@ void Druck::setStoredValues(bool gcr)
 	}
 	psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
 	MirrorHor->setChecked(prefs->getBool("MirrorH", false));
-	MirrorHor->setChecked(prefs->getBool("MirrorV", false));
+	MirrorVert->setChecked(prefs->getBool("MirrorV", false));
 	devPar->setChecked(prefs->getBool("doDev", false));
 	GcR->setChecked(prefs->getBool("DoGCR", gcr));
 	ClipMarg->setChecked(prefs->getBool("Clip", false));

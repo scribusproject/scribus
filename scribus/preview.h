@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcombobox.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
+#include <qgroupbox.h>
 #include "scribusapi.h"
 
 class PageSelector;
@@ -77,8 +78,16 @@ public:
 	QCheckBox* EnableCMYK_K;
 	QCheckBox* EnableGCR;
 	QCheckBox* EnableOverprint;
+	QCheckBox* MirrorHor;
+	QCheckBox* MirrorVert;
+	QCheckBox* ClipMarg;
+	QCheckBox* spotColors;
+	QCheckBox* useGray;
+	QCheckBox* UseICC;
 	QScrollView* Anzeige;
 	QLabel* Anz;
+	QGroupBox* devTitle;
+	QGroupBox* jobTitle;
 	QPushButton *closeButton;
 	QPushButton *printButton;
 	/*! scaling GUI */
@@ -98,6 +107,12 @@ public:
 	bool Trans;
 	bool GMode;
 	bool OMode;
+	bool mHor;
+	bool mVer;
+	bool fClip;
+	bool fSpot;
+	bool fGray;
+	bool fICC;
 	bool postscriptPreview;
 	QMap<QString, int> sepsToFileNum;
 	QMap<QString, QCheckBox*> flagsVisible;
@@ -112,19 +127,9 @@ public slots:
 	void ToSeite(int num);
 	/*!
 	\author Franz Schmid
-	\brief Toggle anti-aliasing and create the new preview
+	\brief Create the new preview
 	*/
-	void ToggleAA();
-	/*!
-	\author Franz Schmid
-	\brief Toggle transparency and create the new preview
-	*/
-	void ToggleTr();
-	/*!
-	\author Franz Schmid
-	\brief Toggle overprint mode and create the new preview
-	*/
-	void ToggleOv();
+	void redisplay();
 	/*!
 	\author Craig Bradney
 	\brief When CMYK preview is toggled, (dis)enable the CMYK controls and create the new preview
@@ -134,7 +139,6 @@ public slots:
 	\author Craig Bradney
 	\brief If CMYK preview is enabled, create a new preview with the new CMYK plate settings
 	*/
-	void ToggleGCR();
 	void ToggleCMYK_Colour();
 	/*!
 	\author Petr Vanek
@@ -151,14 +155,14 @@ protected:
 	/*! \brief Percentage value of the scaling widget */
 	double scaleFactor;
 	QVBoxLayout* PLayout;
-	QHBoxLayout* Layout1;
+	QVBoxLayout* Layout1;
 	QVBoxLayout* Layout2;
-	QVBoxLayout* Layout3;
-	QVBoxLayout* Layout4;
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout6;
+	QVBoxLayout* settingsBarLayout;
 	PrefsManager *prefsManager;
-	
+
+	void setValues();
 	void getUserSelection(int);
 	void imageLoadError(QPixmap &, int);
 };

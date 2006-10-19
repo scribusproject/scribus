@@ -77,6 +77,7 @@ protected slots:
 	void SelFile();
 	void SelComm();
 	void okButtonClicked();
+	void previewButtonClicked();
 
 protected:
 	QVBoxLayout* DruckLayout;
@@ -135,6 +136,7 @@ protected:
 	*/
 	CupsOptions *cdia;
 	void getOptions();
+	void storeValues();
 };
 
 #endif // DRUCK_H
