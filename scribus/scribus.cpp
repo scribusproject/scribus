@@ -8105,11 +8105,10 @@ void ScribusMainWindow::UnGroupObj()
 		{
 			currItem = doc->m_Selection->itemAt(a);
 			currItem->Groups.pop();
-			currItem->isTableItem = false;
-			currItem->LeftLink = 0;
+/*			currItem->LeftLink = 0;
 			currItem->RightLink = 0;
 			currItem->TopLink = 0;
-			currItem->BottomLink = 0;
+			currItem->BottomLink = 0; */
 			lowestItem = QMIN(lowestItem, currItem->ItemNr);
 		}
 		if (doc->Items->at(lowestItem)->isGroupControl)
@@ -8130,7 +8129,9 @@ void ScribusMainWindow::UnGroupObj()
 		{
 			currItem = doc->m_Selection->itemAt(a);
 			ss->set(QString("item%1").arg(a), currItem->ItemNr);
+			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
 			tooltip += "\t" + currItem->getUName() + "\n";
+			currItem->isTableItem = false;
 		}
 		view->Deselect(true);
 		outlinePalette->BuildTree();
@@ -8290,6 +8291,8 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 	for (int i = 0; i < itemCount; ++i)
 	{
 		int itemNr = state->getInt(QString("item%1").arg(i));
+		if (isUndo)
+			doc->Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
 		view->SelectItemNr(itemNr);
 	}
 	if (isUndo)
