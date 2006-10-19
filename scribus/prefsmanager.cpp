@@ -1734,30 +1734,34 @@ bool PrefsManager::ReadPref(QString ho)
 		}
 		if (dc.tagName()=="FONTS")
 		{
-			QString tmpf = dc.attribute("FACE");
-			QString newFont = "";
-			if (!appPrefs.AvailFonts.contains(tmpf))
+			QString tmpf(dc.attribute("FACE"));
+			if (!tmpf.isEmpty())
 			{
-				ScCore->showSplash(false);
-				MissingFont *dia = new MissingFont(0, tmpf, 0);
-				dia->exec();
-				newFont = dia->getReplacementFont();
-				delete dia;
+				QString newFont = "";
+				if (!appPrefs.AvailFonts.contains(tmpf))
+				{
+					ScCore->showSplash(false);
+					MissingFont *dia = new MissingFont(0, tmpf, 0);
+					dia->exec();
+					newFont = dia->getReplacementFont();
+					delete dia;
+				}
+				else
+					newFont = tmpf;
+				if (!newFont.isEmpty())
+					appPrefs.toolSettings.defFont = newFont;
+				appPrefs.toolSettings.defSize = qRound(dc.attribute("SIZE").toDouble() * 10.0);
+				appPrefs.askBeforeSubstituite = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
 			}
-			else
-				newFont = dc.attribute("FACE");
-			if (!newFont.isEmpty())
-				appPrefs.toolSettings.defFont = newFont;
-			appPrefs.toolSettings.defSize = qRound(dc.attribute("SIZE").toDouble() * 10.0);
-			appPrefs.askBeforeSubstituite = static_cast<bool>(dc.attribute("AutomaticSubst", "1").toInt());
 		}
 		if (dc.tagName()=="FONT")
 		{
-			if (appPrefs.AvailFonts.contains(dc.attribute("NAME")))
+			QString tmpf(dc.attribute("NAME"));
+			if (!tmpf.isEmpty() && appPrefs.AvailFonts.contains(tmpf))
 			{
-				appPrefs.AvailFonts[dc.attribute("NAME")].embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
-				appPrefs.AvailFonts[dc.attribute("NAME")].usable(appPrefs.AvailFonts[dc.attribute("NAME")].usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
-				appPrefs.AvailFonts[dc.attribute("NAME")].subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
+				appPrefs.AvailFonts[tmpf].embedPs(static_cast<bool>(dc.attribute("EMBED").toInt()));
+				appPrefs.AvailFonts[tmpf].usable(appPrefs.AvailFonts[tmpf].usable() && static_cast<bool>(dc.attribute("USE", "1").toInt()));
+				appPrefs.AvailFonts[tmpf].subset(static_cast<bool>(dc.attribute("SUBSET", "0").toInt()));
 			}
 		}
 		if (dc.tagName()=="COLOR")

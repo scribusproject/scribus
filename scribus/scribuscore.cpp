@@ -130,14 +130,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 	initSplash(showSplash);
 	prefsManager = PrefsManager::instance();
 	prefsManager->setup();
-	prefsManager->initDefaults();
-	prefsManager->initDefaultGUIFont(qApp->font());
-	prefsManager->initArrowStyles();
-	undoManager = UndoManager::instance();
-	fileWatcher = new FileWatcher(this);
-	pluginManager = new PluginManager();
-	setSplashStatus( tr("Initializing Plugins") );
-	pluginManager->initPlugs();
+	//CB #4428 Get fonts before prefs are set to default
 	bool haveFonts=false;
 #ifdef QT_MAC
 	haveFonts=ScCore->initFonts(true);
@@ -146,6 +139,24 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 #endif
 	if (!haveFonts)
 		return 1;
+	prefsManager->initDefaults();
+	prefsManager->initDefaultGUIFont(qApp->font());
+	prefsManager->initArrowStyles();
+	undoManager = UndoManager::instance();
+	fileWatcher = new FileWatcher(this);
+	pluginManager = new PluginManager();
+	setSplashStatus( tr("Initializing Plugins") );
+	pluginManager->initPlugs();
+/* #4428, remove block later if ok
+	bool haveFonts=false;
+#ifdef QT_MAC
+	haveFonts=ScCore->initFonts(true);
+#else
+	haveFonts=ScCore->initFonts(showFontInfo);
+#endif
+	if (!haveFonts)
+		return 1;
+*/
 	setSplashStatus( tr("Initializing Keyboard Shortcuts") );
 	prefsManager->initDefaultActionKeys();
 	setSplashStatus( tr("Reading Preferences") );
