@@ -55,8 +55,10 @@ private:
 	QString m_characters;
 	//! \brief Currently selected character category. See usedCharClasses.
 	int m_characterClass;
-	//! \brief A character table widget.
+	//! \brief A all font's character table widget.
 	CharTable* charTable;
+	//! \brief User's defined char palette
+	CharTable* userTable;
 
 	QValueList<CharClassDef> allClasses;
 	CharClassDef characters;
@@ -93,7 +95,8 @@ private:
 
 public slots:
 	void newChar();
-	void newChar(uint r, uint c);
+	//void newChar(uint r, uint c);
+	void newChar(uint i);
 	void delChar();
 	void newFont(int font);
 	void newCharClass(int c);
@@ -115,6 +118,7 @@ protected:
 	// GUI
 	QVBoxLayout* zAuswahlLayout;
 	QHBoxLayout* selectionsLayout;
+	QHBoxLayout* charPalettesLayout;
 	QHBoxLayout* layout1;
 	QVBoxLayout* layout2;
 	QHBoxLayout* layout3;

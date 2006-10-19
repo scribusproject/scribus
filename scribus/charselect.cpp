@@ -74,9 +74,18 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	selectionsLayout->addItem( spacer2 );
 	zAuswahlLayout->addLayout(selectionsLayout);
+
 	charTable = new CharTable(this, 16, m_Item, m_fontInUse);
+	charTable->enableDrops(false);
 	scanFont();
-	zAuswahlLayout->addWidget( charTable );
+	userTable = new CharTable(this, 2, m_Item, m_fontInUse);
+	userTable->setMaximumWidth(100);
+	userTable->setMinimumWidth(100);
+	userTable->enableDrops(true);
+	charPalettesLayout = new QHBoxLayout();
+	charPalettesLayout->addWidget(charTable);
+	charPalettesLayout->addWidget(userTable);
+	zAuswahlLayout->addLayout(charPalettesLayout);
 	
 	layout3 = new QHBoxLayout;
 	layout3->setSpacing( 6 );
@@ -97,7 +106,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 
 	layout3->addLayout(layout2, Qt::AlignLeft);
 
-	sample = new QLabel( this, "Zeichen" );
+	sample = new QLabel( this, "sample" );
 	sample->setFrameShape(QFrame::Box);
 	sample->setPaletteBackgroundColor(paletteBackgroundColor());
 	sample->setMinimumHeight(52);
@@ -120,16 +129,21 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	zAuswahlLayout->addLayout( layout1 );
 	delEdit();
 //tooltips
-	QToolTip::add( insertButton, tr( "Insert the characters at the cursor in the text" ) );
-	QToolTip::add( deleteButton, tr( "Delete the current selection(s)." ) );
-	QToolTip::add( closeButton, tr( "Close this dialog and return to text editing" ) );
-	QToolTip::add( insCode, tr( "Type in a four digit unicode value directly here" ) );
+	QToolTip::add( insertButton, "<qt>" + tr( "Insert the characters at the cursor in the text") + "</qt>");
+	QToolTip::add( deleteButton, "<qt>" + tr( "Delete the current selection(s).") + "</qt>");
+	QToolTip::add( closeButton, "<qt>" + tr( "Close this dialog and return to text editing") + "</qt>");
+	QToolTip::add( insCode, "<qt>" + tr( "Type in a four digit unicode value directly here") + "</qt>");
+	QToolTip::add( charTable, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
 	// signals and slots connections
 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
-	connect(charTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
+	//connect(charTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
+	connect(charTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
 	connect(charTable, SIGNAL(delChar()), this, SLOT(delChar()));
+	//connect(userTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
+	connect(userTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
+	connect(userTable, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
@@ -492,17 +506,15 @@ void CharSelect::newChar()
 	}
 }
 
-void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
+//void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
+void CharSelect::newChar(uint i) // , int b, const QPoint &pp)
 {
-	if ((r*charTable->numCols()+c) < characters.count())
-	{
-		chToIns += QChar(characters[r*charTable->numCols()+c]);
-		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
-		insertButton->setEnabled(true);
-		QString tmp;
-		tmp.sprintf("%04X", characters[r*charTable->numCols()+c]);
-		insCode->setText(tmp);
-	}
+	chToIns += QChar(i);
+	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	insertButton->setEnabled(true);
+	QString tmp;
+	tmp.sprintf("%04X", i);
+	insCode->setText(tmp);
 }
 
 void CharSelect::delChar()
@@ -560,6 +572,7 @@ bool CharSelect::eventFilter( QObject */*obj*/, QEvent *ev )
 	if ( ev->type() == QEvent::Show )
 	{
 		charTable->recalcCellSizes();
+		userTable->recalcCellSizes();
 		return true;
 	}
 	return false;

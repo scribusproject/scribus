@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qtable.h>
 //#include <qtimer.h>
+#include <qdragobject.h>
 
 #include "scribuscore.h"
 #include "scribusdoc.h"
@@ -48,19 +49,15 @@ void CharZoom::paintEvent(QPaintEvent *)
 
 CharTable::CharTable(QWidget* parent, int cols, PageItem* pi, QString font)
 	: QTable(parent),
-	m_Item(pi)
+	mPressed(false),
+	zoom(0),
+	m_Item(pi),
+	m_fontInUse(font)
 {
-	m_fontInUse = font;
 	m_characters.clear();
 	//watchTimer = new QTimer(this);
 //	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
-	mPressed = false;
 // 	alternate = false;
-	//rowA = 0;
-	//colA = 0;
-	//m_Item = pi;
-	//par = parent;
-	zoom = 0;
 	// gui
 	setNumCols(cols);
 	setLeftMargin(0);
@@ -72,8 +69,10 @@ CharTable::CharTable(QWidget* parent, int cols, PageItem* pi, QString font)
 	setColumnMovingEnabled(false);
 	setRowMovingEnabled(false);
 	setReadOnly(true);
+	setDragEnabled(true);
+	enableDrops(true);
 
-	QToolTip::add(this, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
+	connect(this, SIGNAL(dropped(QDropEvent *)), this, SLOT(slotDropped(QDropEvent *)));
 }
 
 
@@ -140,7 +139,8 @@ void CharTable::keyPressEvent(QKeyEvent *k)
 			emit delChar();
 			break;
 		case Key_Insert:
-			emit selectChar(currentRow(), currentColumn());
+			//emit selectChar(currentRow(), currentColumn());
+			emit selectChar(m_characters[currentRow() * numCols() + currentColumn()]);
 			break;
 	}
 	QTable::keyPressEvent(k);
@@ -148,12 +148,18 @@ void CharTable::keyPressEvent(QKeyEvent *k)
 
 void CharTable::contentsMousePressEvent(QMouseEvent* e)
 {
-	e->accept();
+	//e->accept();
 	uint r = rowAt(e->pos().y());
 	uint c = columnAt(e->pos().x());
 
 	mPressed = true;
-	if ((e->button() == RightButton) && ((r*numCols()+c) < m_characters.count()))
+	m_mousePosition = QCursor::pos();
+	uint index = r * numCols() + c;
+	int currentChar = -1;
+	if (index < m_characters.count())
+		currentChar = m_characters[index];
+
+	if (e->button() == RightButton && currentChar > -1)
 	{
 		//watchTimer->stop();
 		int bh = 48 + qRound(-(*m_Item->doc()->AllFonts)[m_fontInUse].descent() * 48) + 3;
@@ -164,7 +170,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 		QWMatrix chma;
 		chma.scale(4.8, 4.8);
 		ScFace face = (*m_Item->doc()->AllFonts)[m_fontInUse];
-		uint gl = face.char2CMap(m_characters[r*numCols()+c]);
+		uint gl = face.char2CMap(currentChar);
 		FPointArray gly = face.glyphOutline(gl);
 		double ww = bh - face.glyphWidth(gl, 48);
 		if (gly.size() > 4)
@@ -178,9 +184,8 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 			p->end();
 		}
 		delete p;
-		zoom = new CharZoom(this, pixm, m_characters[r*numCols()+c]);
-		QPoint ps = QCursor::pos();
-		zoom->move(ps.x()-2, ps.y()-2);
+		zoom = new CharZoom(this, pixm, currentChar);
+		zoom->move(m_mousePosition.x()-2, m_mousePosition.y()-2);
 		zoom->setModal(false);
 		zoom->show();
 	}
@@ -208,7 +213,8 @@ void CharTable::contentsMouseReleaseEvent(QMouseEvent* e)
 	}
 	//if ((e->button() == LeftButton) && (!alternate))
 	if (e->button() == LeftButton)
-		emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
+		//emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
+		emit selectChar(m_characters[rowAt(e->pos().y()) * numCols() + columnAt(e->pos().x())]);
 	mPressed = false;
 // 	alternate = false;
 	QTable::contentsMouseReleaseEvent(e);
@@ -262,7 +268,46 @@ void CharTable::setCharacters(CharClassDef ch)
 
 void CharTable::setFontInUse(QString font)
 {
-	// no need to call recalcCellSizes() here!
 	m_fontInUse = font;
 	recalcCellSizes();
+}
+
+// D'n'D
+
+void CharTable::enableDrops(bool e)
+{
+	viewport()->setAcceptDrops(e);
+}
+
+QDragObject * CharTable::dragObject()
+{
+	qDebug("QDragObject * CharTable::dragObject()");
+	QString s("%1");
+	s.arg(m_characters[rowAt(m_mousePosition.y()) * numCols() +  columnAt(m_mousePosition.x())]);
+	qDebug("dragObject: "+s);
+	return new QTextDrag(s, this);
+}
+
+void CharTable::slotDropped(QDropEvent *evt)
+{
+	qDebug("void CharTable::slotDropped(QDropEvent *evt)");
+	if (evt->source() == this)
+	{
+		qDebug("CharTable D'n'D: the same widget!");
+		return;
+	}
+	QString label;
+	bool ok;
+	if ( QTextDrag::decode(evt, label))
+	{
+		int val = label.toInt(&ok, 16);
+		if (ok)
+		{
+			qDebug("CharTable D'n'D accepted: " + label);
+			m_characters.append(val);
+			recalcCellSizes();
+		}
+		else
+			qDebug("CharTable D'n'D error. Label: " + label);
+	}
 }

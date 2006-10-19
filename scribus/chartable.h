@@ -47,6 +47,7 @@ public:
 	void setCharacters(CharClassDef ch);
 	//! \brief "Repaint" and refill the table with new font characters
 	void recalcCellSizes();
+	void enableDrops(bool e);
 
 public slots:
 	//! \brief No usage now.
@@ -54,7 +55,8 @@ public slots:
 
 signals:
 	//! \brief A signal emitted when user selects exact cell
-	void selectChar(uint, uint);
+	//void selectChar(uint, uint);
+	void selectChar(uint);
 	//! \brief When user press the DELETE/BACKSPACE key
 	void delChar();
 
@@ -73,14 +75,22 @@ private:
 	//! \brief Magnify dialog reference
 	CharZoom* zoom;
 	PageItem *m_Item;
+	//! \brief True when its in dragging mode
+	bool dragging;
+
+private slots:
+	void slotDropped(QDropEvent *evt);
 
 protected:
 	QString m_fontInUse;
 	CharClassDef m_characters;
+	QPoint m_mousePosition;
 
-	virtual void keyPressEvent(QKeyEvent *k);
-	virtual void contentsMouseReleaseEvent(QMouseEvent *m);
-	virtual void contentsMousePressEvent(QMouseEvent* e);
+	void keyPressEvent(QKeyEvent *k);
+	void contentsMouseReleaseEvent(QMouseEvent *m);
+	void contentsMousePressEvent(QMouseEvent* e);
+	// d'n'd
+	QDragObject * dragObject();
 };
 
 #endif
