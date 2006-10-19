@@ -727,8 +727,13 @@ void PSLib::PS_MultiRadGradient(double w, double h, double x, double y, QValueLi
 				oneSpot2 = false;
 				twoSpot = true;
 			}
-			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors)) 
-				PutSeite("/ColorSpace /DeviceCMYK\n");
+			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors) || (GraySc))
+			{
+				if (GraySc)
+					PutSeite("/ColorSpace /DeviceGray\n");
+				else
+					PutSeite("/ColorSpace /DeviceCMYK\n");
+			}
 			else
 			{
 				PutSeite("/ColorSpace [ /DeviceN [");
@@ -873,8 +878,13 @@ void PSLib::PS_MultiLinGradient(double w, double h, QValueList<double> Stops, QS
 				oneSpot2 = false;
 				twoSpot = true;
 			}
-			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors)) 
-				PutSeite("/ColorSpace /DeviceCMYK\n");
+			if ((!oneSpot1) && (!oneSpot2) && (!twoSpot) || (!useSpotColors) || (GraySc))
+			{
+				if (GraySc)
+					PutSeite("/ColorSpace /DeviceGray\n");
+				else
+					PutSeite("/ColorSpace /DeviceCMYK\n");
+			}
 			else
 			{
 				PutSeite("/ColorSpace [ /DeviceN [");
@@ -2581,7 +2591,11 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		{
 			StopVec.prepend(sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint);
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
-			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			QString GCol;
+			if (GraySc)
+				GCol = hs.setNum((255.0 - QMIN(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+			else
+				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.prepend(GCol);
 			colorNames.prepend(cstops.at(cst)->name);
 			colorShades.prepend(cstops.at(cst)->shade);
@@ -2598,7 +2612,11 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			StopVec.append(x);
 			StopVec.append(-y);
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
-			QString GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
+			QString GCol;
+			if (GraySc)
+				GCol = hs.setNum((255.0 - QMIN(0.3 * ch + 0.59 * cs + 0.11 * cv + ck, 255.0))  / 255.0);
+			else
+				GCol = hs.setNum(ch / 255.0)+" "+ss.setNum(cs / 255.0)+" "+vs.setNum(cv / 255.0)+" "+ks.setNum(ck / 255.0);
 			Gcolors.append(GCol);
 			colorNames.append(cstops.at(cst)->name);
 			colorShades.append(cstops.at(cst)->shade);
