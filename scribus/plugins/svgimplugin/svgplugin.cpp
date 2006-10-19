@@ -1839,6 +1839,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	}
 	ite->setFont(gc->Family);
 	ite->setFillColor(CommonStrings::None);
+	ite->setLineColor(CommonStrings::None);
 	ite->TxtFill = gc->FillCol;
 	ite->ShTxtFill = 100;
 	ite->TxtStroke = gc->StrokeCol;
