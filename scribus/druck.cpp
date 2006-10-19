@@ -583,7 +583,10 @@ void Druck::setStoredValues(bool gcr)
 	if ((selectedSep > -1) && (selectedSep < 5))
 		SepArt->setCurrentItem(selectedSep);
 	if (PrintSep->currentItem() == 1)
+	{
 		SepArt->setEnabled(true);
+		ToSeparation = true;
+	}
 	psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
 	MirrorHor->setChecked(prefs->getBool("MirrorH", false));
 	MirrorHor->setChecked(prefs->getBool("MirrorV", false));
