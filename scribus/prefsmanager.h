@@ -57,9 +57,10 @@ public:
 	static void deleteInstance();
 
 	void setup();
-	/**
-	* @brief Initialise the defaults for prefs in this class
-	* Only set the GUI font stuff up if we have a GUI!!!
+	/*!
+	\brief Initialise the defaults for prefs in this class
+	Only set the GUI font stuff up if we have a GUI!!!
+	Must be run after: PrefsManager::GetAllFonts()
 	*/
 	void initDefaults();
 	void initDefaultGUIFont(const QFont&);
@@ -151,7 +152,12 @@ public:
 	ColorList* colorSetPtr();
 	//! \brief Returns the preferences' color set name
 	const QString& colorSetName();
-	const bool GetAllFonts(bool showFontInfo);
+	/*! \brief Finds the fonts on the system
+	Must be run after: PrefsManager::setup()
+	Must be run before: PrefsManager::initDefaults()
+	\param ho a file name to write
+	\retval bool true on finding 1 or more fonts */
+	bool GetAllFonts(bool showFontInfo);
 
 	ApplicationPrefs* applicationPrefs();
 	PrefsFile* applicationPrefsFile();

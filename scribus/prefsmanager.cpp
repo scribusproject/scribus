@@ -818,12 +818,10 @@ const int PrefsManager::mouseWheelValue()
 }
 
 //Changed to return false when we have no fonts
-const bool PrefsManager::GetAllFonts(bool showFontInfo)
+bool PrefsManager::GetAllFonts(bool showFontInfo)
 {
 	appPrefs.AvailFonts.GetFonts(prefsLocation, showFontInfo);
-	if (appPrefs.AvailFonts.isEmpty())
-		return false;
-	return true;
+	return !appPrefs.AvailFonts.isEmpty();
 }
 
 void PrefsManager::setShowStartupDialog(const bool showDialog)
