@@ -3205,7 +3205,47 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	
 	if (glyph == 0 || glyph >= ScFace::CONTROL_GLYPHS)
 		return;
-	
+
+	if (((cstyle.effects() & ScStyle_Underline)) //FIXME && (chstr != QChar(13)))  
+		|| ((cstyle.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
+	{
+//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
+		double Ulen = glyphs.xadvance;
+		double Upos, lw, kern;
+		if (cstyle.effects() & ScStyle_StartOfLine)
+			kern = 0;
+		else
+			kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
+		if ((cstyle.underlineOffset() != -1) || (cstyle.underlineWidth() != -1))
+		{
+			if (cstyle.underlineOffset() != -1)
+				Upos = (cstyle.underlineOffset() / 1000.0) * (cstyle.font().descent(cstyle.fontSize() / 10.0));
+			else
+				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
+			if (cstyle.underlineWidth() != -1)
+				lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
+			else
+				lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+		}
+		else
+		{
+			Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
+			lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
+		}
+		if (cstyle.baselineOffset() != 0)
+			Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
+		if (cstyle.fillColor() != CommonStrings::None)
+		{
+			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
+			PS_setdash(Qt::SolidLine, 0, dum);
+			SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
+			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+		}
+		PS_setlinewidth(lw);
+		PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
+		PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
+		putColor(cstyle.fillColor(), cstyle.fillShade(), false);
+	}
 	/* Subset all TTF Fonts until the bug in the TTF-Embedding Code is fixed */
 	ScFace::FontType ftype = cstyle.font().type();
 	if ((ftype == ScFace::TTF) || (hl->font().isOTF()) || (hl->font().subset()))
@@ -3308,7 +3348,8 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	if ((cstyle.effects() & ScStyle_Strikethrough))//&& (chstr != QChar(13)))
 	{
-		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
+//		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
+		double Ulen = glyphs.xadvance;
 		double Upos, lw, kern;
 		if (cstyle.effects() & 16384)
 			kern = 0;
@@ -3342,46 +3383,6 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 		PS_setlinewidth(lw);
 		PS_moveto(x + glyphs.xoffset-kern, -y-glyphs.yoffset+Upos);
 		PS_lineto(x + glyphs.xoffset+Ulen, -y-glyphs.yoffset+Upos);
-		putColor(cstyle.fillColor(), cstyle.fillShade(), false);
-	}
-	if (((cstyle.effects() & ScStyle_Underline)) //FIXME && (chstr != QChar(13)))  
-		|| ((cstyle.effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
-	{
-		double Ulen = cstyle.font().glyphWidth(glyph, cstyle.fontSize()) * glyphs.scaleH;
-		Ulen = glyphs.xadvance;
-		double Upos, lw, kern;
-		if (cstyle.effects() & ScStyle_StartOfLine)
-			kern = 0;
-		else
-			kern = cstyle.fontSize() * cstyle.tracking() / 10000.0;
-		if ((cstyle.underlineOffset() != -1) || (cstyle.underlineWidth() != -1))
-		{
-			if (cstyle.underlineOffset() != -1)
-				Upos = (cstyle.underlineOffset() / 1000.0) * (cstyle.font().descent(cstyle.fontSize() / 10.0));
-			else
-				Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-			if (cstyle.underlineWidth() != -1)
-				lw = (cstyle.underlineWidth() / 1000.0) * (cstyle.fontSize() / 10.0);
-			else
-				lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
-		}
-		else
-		{
-			Upos = cstyle.font().underlinePos(cstyle.fontSize() / 10.0);
-			lw = QMAX(cstyle.font().strokeWidth(cstyle.fontSize() / 10.0), 1);
-		}
-		if (cstyle.baselineOffset() != 0)
-			Upos += (cstyle.fontSize() / 10.0) * (cstyle.baselineOffset() / 1000.0);
-		if (cstyle.fillColor() != CommonStrings::None)
-		{
-			PS_setcapjoin(Qt::FlatCap, Qt::MiterJoin);
-			PS_setdash(Qt::SolidLine, 0, dum);
-			SetFarbe(cstyle.fillColor(), cstyle.fillShade(), &h, &s, &v, &k, gcr);
-			PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-		}
-		PS_setlinewidth(lw);
-		PS_moveto(x + glyphs.xoffset-kern, -y - glyphs.yoffset+Upos);
-		PS_lineto(x + glyphs.xoffset+Ulen, -y - glyphs.yoffset+Upos);
 		putColor(cstyle.fillColor(), cstyle.fillShade(), false);
 	}
 	if (glyphs.more) {

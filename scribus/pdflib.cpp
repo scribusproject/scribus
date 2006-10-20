@@ -3507,6 +3507,40 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		FillColor = "";
 		FillColor += putColor(hl->fillColor(), hl->fillShade(), true);
 	}
+	if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
+	{
+//		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
+		double Ulen = hl->glyph.xadvance;
+		double Upos, Uwid, kern;
+		if (hl->effects() & ScStyle_StartOfLine)
+			kern = 0;
+		else
+			kern = hl->fontSize() * hl->tracking() / 10000.0;
+		if ((hl->underlineOffset() != -1) || (hl->underlineWidth() != -1))
+		{
+			if (hl->underlineOffset() != -1)
+				Upos = (hl->underlineOffset() / 1000.0) * (hl->font().descent(hl->fontSize() / 10.0));
+			else
+				Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
+			if (hl->underlineWidth() != -1)
+				Uwid = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
+			else
+				Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+		}
+		else
+		{
+			Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
+			Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
+		}
+		if (hl->baselineOffset() != 0)
+			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
+		if (hl->fillColor() != CommonStrings::None)
+			tmp2 += putColor(hl->fillColor(), hl->fillShade(), false);
+		tmp2 += FToStr(Uwid)+" w\n";
+		tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
+		tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
+		tmp2 += "S\n";
+	}
 	if ((hl->font().isOTF()) || (!hl->font().hasNames()) || (hl->font().subset()) || (Options.SubsetList.contains(hl->font().scName())))
 	{
 //		uint chr = chstr[0].unicode();
@@ -3628,43 +3662,10 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		uchar idx2 = idx % 224 + 32;
 		tmp += "<"+QString(toHex(idx2))+"> Tj\n";
 	}
-	if (((hl->effects() & ScStyle_Underline) && (chstr != SpecialChars::PARSEP))  || ((hl->effects() & ScStyle_UnderlineWords) && (!chstr[0].isSpace())))
-	{
-		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
-		Ulen = hl->glyph.xadvance;
-		double Upos, Uwid, kern;
-		if (hl->effects() & ScStyle_StartOfLine)
-			kern = 0;
-		else
-			kern = hl->fontSize() * hl->tracking() / 10000.0;
-		if ((hl->underlineOffset() != -1) || (hl->underlineWidth() != -1))
-		{
-			if (hl->underlineOffset() != -1)
-				Upos = (hl->underlineOffset() / 1000.0) * (hl->font().descent(hl->fontSize() / 10.0));
-			else
-				Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
-			if (hl->underlineWidth() != -1)
-				Uwid = (hl->underlineWidth() / 1000.0) * (hl->fontSize() / 10.0);
-			else
-				Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
-		}
-		else
-		{
-			Upos = hl->font().underlinePos(hl->fontSize() / 10.0);
-			Uwid = QMAX(hl->font().strokeWidth(hl->fontSize() / 10.0), 1);
-		}
-		if (hl->baselineOffset() != 0)
-			Upos += (hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0);
-		if (hl->fillColor() != CommonStrings::None)
-			tmp2 += putColor(hl->fillColor(), hl->fillShade(), false);
-		tmp2 += FToStr(Uwid)+" w\n";
-		tmp2 += FToStr(x+hl->glyph.xoffset-kern)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" m\n";
-		tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
-		tmp2 += "S\n";
-	}
 	if ((hl->effects() & ScStyle_Strikethrough) && (chstr != SpecialChars::PARSEP))
 	{
-		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
+//		double Ulen = hl->font().charWidth(chstr[0], hl->fontSize()) * (hl->glyph.scaleH);
+		double Ulen = hl->glyph.xadvance;
 		double Upos, Uwid, kern;
 		if (hl->effects() & ScStyle_StartOfLine)
 			kern = 0;

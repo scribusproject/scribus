@@ -1639,10 +1639,10 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		if ((style.effects() & ScStyle_Underline) || ((style.effects() & ScStyle_UnderlineWords) && glyph != style.font().char2CMap(QChar(' '))))
 		{
 			double st, lw;
-			if ((style.font().underlinePos() != -1) || (style.underlineWidth() != -1))
+			if ((style.underlineOffset() != -1) || (style.underlineWidth() != -1))
 			{
-				if (style.font().underlinePos() != -1)
-					st = (style.font().underlinePos() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
+				if (style.underlineOffset() != -1)
+					st = (style.underlineOffset() / 1000.0) * (style.font().descent(style.fontSize() / 10.0));
 				else
 					st = style.font().underlinePos(style.fontSize() / 10.0);
 				if (style.underlineWidth() != -1)
