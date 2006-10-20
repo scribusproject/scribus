@@ -819,23 +819,54 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 				}
 				blendImages(image, im, ScColor(0, 0, 0, 255));
 			}
-			for( int yi=0; yi < h2; ++yi )
+			if (doc->HasCMS)
 			{
-				QRgb *q = (QRgb*)(image.scanLine( yi ));
-				for(int xi=0; xi < w; ++xi )
+				QRgb alphaFF = qRgba(0,0,0,255);
+				QRgb alphaOO = qRgba(255,255,255,0);
+				cmsHTRANSFORM transCMYK = cmsCreateTransform(doc->DocPrinterProf, (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1)), doc->DocOutputProf, TYPE_BGRA_8, INTENT_RELATIVE_COLORIMETRIC, cmsFLAGS_LOWRESPRECALC);
+				for( int yi=0; yi < h2; ++yi )
 				{
-					cyan = qRed(*q);
-					magenta = qGreen(*q);
-					yellow = qBlue(*q);
-					black = qAlpha(*q);
-					if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
-						*q = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
-					else
+					LPBYTE ptr = image.scanLine( yi );
+					cmsDoTransform(transCMYK, ptr, ptr, image.width());
+					QRgb *q = (QRgb *) ptr;
+					for (int xi = 0; xi < image.width(); xi++, q++)
 					{
-						if (!AliasTr->isChecked())
-							*q = qRgba(255, 255, 255, 255);
+						if (AliasTr->isChecked())
+						{
+							cyan = qRed(*q);
+							magenta = qGreen(*q);
+							yellow = qBlue(*q);
+							if	((cyan == 255) && (magenta == 255) && (yellow == 255))
+								*q = alphaOO;
+							else
+								*q |= alphaFF;
+						}
+						else
+							*q |= alphaFF;
 					}
-					q++;
+				}
+				cmsDeleteTransform (transCMYK);
+			}
+			else
+			{
+				for( int yi=0; yi < h2; ++yi )
+				{
+					QRgb *q = (QRgb*)(image.scanLine( yi ));
+					for(int xi=0; xi < w; ++xi )
+					{
+						cyan = qRed(*q);
+						magenta = qGreen(*q);
+						yellow = qBlue(*q);
+						black = qAlpha(*q);
+						if ((cyan != 0) || (magenta != 0) || (yellow != 0 ) || (black != 0))
+							*q = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), 255);
+						else
+						{
+							if (!AliasTr->isChecked())
+								*q = qRgba(255, 255, 255, 255);
+						}
+						q++;
+					}
 				}
 			}
 		}
@@ -849,30 +880,80 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 			QFile f(ScPaths::getTempFileDir()+"/sc.png");
 			if (f.open(IO_ReadOnly))
 			{
-				for (int y=0; y < h2; ++y )
+				if (doc->HasCMS)
 				{
-					p = (uint *)image.scanLine( y );
-					f.readBlock(imgc.data(), w2);
-					for (int x=0; x < w2; x += 4 )
+					QRgb alphaFF = qRgba(0,0,0,255);
+					QRgb alphaOO = qRgba(255,255,255,0);
+					cmsHTRANSFORM transCMYK = cmsCreateTransform(doc->DocPrinterProf, (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1)), doc->DocOutputProf, TYPE_BGRA_8, INTENT_RELATIVE_COLORIMETRIC, cmsFLAGS_LOWRESPRECALC);
+					for (int y=0; y < h2; ++y )
 					{
-						cyan = uchar(imgc[x]);
-						magenta = uchar(imgc[x + 1]);
-						yellow = uchar(imgc[x + 2]);
-						black = uchar(imgc[x + 3]);
-						if (!EnableCMYK_C->isChecked())
-							cyan = 0;
-						if (!EnableCMYK_M->isChecked())
-							magenta = 0;
-						if (!EnableCMYK_Y->isChecked())
-							yellow = 0;
-						if (!EnableCMYK_K->isChecked())
-							black = 0;
-						if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
-							alpha = 0;
-						else
-							alpha = 255;
-						*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
-						p++;
+						LPBYTE ptr = image.scanLine( y );
+						f.readBlock(imgc.data(), w2);
+						p = (uint *)image.scanLine( y );
+						for (int x=0; x < w2; x += 4 )
+						{
+							cyan = uchar(imgc[x]);
+							magenta = uchar(imgc[x + 1]);
+							yellow = uchar(imgc[x + 2]);
+							black = uchar(imgc[x + 3]);
+							if (!EnableCMYK_C->isChecked())
+								cyan = 0;
+							if (!EnableCMYK_M->isChecked())
+								magenta = 0;
+							if (!EnableCMYK_Y->isChecked())
+								yellow = 0;
+							if (!EnableCMYK_K->isChecked())
+								black = 0;
+							*p = qRgba(cyan, magenta, yellow, black);
+							p++;
+						}
+						cmsDoTransform(transCMYK, ptr, ptr, image.width());
+						QRgb *q = (QRgb *) ptr;
+						for (int xi = 0; xi < image.width(); xi++, q++)
+						{
+							if (AliasTr->isChecked())
+							{
+								cyan = qRed(*q);
+								magenta = qGreen(*q);
+								yellow = qBlue(*q);
+								if	((cyan == 255) && (magenta == 255) && (yellow == 255))
+									*q = alphaOO;
+								else
+									*q |= alphaFF;
+							}
+							else
+								*q |= alphaFF;
+						}
+					}
+					cmsDeleteTransform (transCMYK);
+				}
+				else
+				{
+					for (int y=0; y < h2; ++y )
+					{
+						p = (uint *)image.scanLine( y );
+						f.readBlock(imgc.data(), w2);
+						for (int x=0; x < w2; x += 4 )
+						{
+							cyan = uchar(imgc[x]);
+							magenta = uchar(imgc[x + 1]);
+							yellow = uchar(imgc[x + 2]);
+							black = uchar(imgc[x + 3]);
+							if (!EnableCMYK_C->isChecked())
+								cyan = 0;
+							if (!EnableCMYK_M->isChecked())
+								magenta = 0;
+							if (!EnableCMYK_Y->isChecked())
+								yellow = 0;
+							if (!EnableCMYK_K->isChecked())
+								black = 0;
+							if (AliasTr->isChecked() && ((cyan == 0) && (magenta == 0) && (yellow == 0 ) && (black == 0)))
+								alpha = 0;
+							else
+								alpha = 255;
+							*p = qRgba(255-QMIN(255, cyan+black), 255-QMIN(255,magenta+black), 255-QMIN(255,yellow+black), alpha);
+							p++;
+						}
 					}
 				}
 				f.close();
