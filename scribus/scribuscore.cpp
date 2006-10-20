@@ -496,6 +496,12 @@ ScribusMainWindow * ScribusCore::primaryMainWindow( )
 	return mw;
 }
 
+void ScribusCore::recheckGS()
+{
+	m_HaveGS = testGSAvailability();
+	m_HavePngAlpha = testGSDeviceAvailability("pngalpha");
+	m_HaveTiffSep = testGSDeviceAvailability("tiffsep");
+}
 
 bool ScribusCore::fileWatcherActive() const
 {

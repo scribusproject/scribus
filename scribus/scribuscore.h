@@ -94,6 +94,7 @@ public:
 	void getCMSProfiles();
 	void getCMSProfilesDir(QString pfad, bool recursive);
 	bool fileWatcherActive() const;
+	void recheckGS();
 	
 	//Main Window members
 	ScribusMainWindow* primaryMainWindow();
