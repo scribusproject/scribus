@@ -1770,6 +1770,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		*realCMYK = false;
 	bool bilevel = false;
 	short resolutionunit = 0;
+	bool thumb = false;
 	RequestType reqType = requestType;
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -1809,7 +1810,10 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		*this = pDataLoader->image();
 		imgInfo = pDataLoader->imageInfoRecord();
 		if (requestType == Thumbnail)
+		{
+			thumb = true;
 			requestType = RGBData;
+		}
 		if (!cmSettings.useColorManagement() || !useProf)
 		{
 			imgInfo.isEmbedded = false;
@@ -1907,6 +1911,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case Thumbnail:
 		case RGBData: // RGB
+			if ((thumb) && (imgInfo.exifDataValid) && (!imgInfo.exifInfo.thumbnail.isNull()))
+				break;
 			if (isCMYK)
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
 			break;
@@ -2002,6 +2008,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case RGBData:
 		case RGBProof:
 		case Thumbnail:
+			if ((thumb) && (imgInfo.exifDataValid) && (!imgInfo.exifInfo.thumbnail.isNull()))
+				break;
 			if (isCMYK)
 			{
 				for (int i = 0; i < height(); i++)

@@ -16,6 +16,7 @@ protected:
 
 	void initSupportedFormatList();
 	bool parseData(QString fn);
+	void loadPhotoshop(QString fn, int gsRes);
 	void loadDCS1(QString fn, int gsRes);
 	void loadDCS2(QString fn, int gsRes);
 	void blendImages(QImage &source, ScColor col);
@@ -31,6 +32,15 @@ protected:
 	bool isDCS1;
 	bool isDCS2;
 	bool isDCS2multi;
+	bool isPhotoshop;
+	bool hasPhotoshopImageData;
+	int psXSize;
+	int psYSize;
+	int psDepth;
+	int psMode;
+	int psChannel;
+	int psBlock;
+	QString psCommand;
 	QMap<QString,ScColor> CustColors;
 
 public:
