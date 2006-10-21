@@ -47,6 +47,10 @@ For revision history see the ChangeLog file.
 Bugs and future plans are listed in the TODO file.
 See NEWS for new features since last version.
 
+WHATS NEW v0.8.2tk:
+A one liner change by Jean Ghali to line #734 to add the extra parameter missing.
+See: http://bugs.scribus.net/view.php?id=4377
+
 WHATS NEW v0.8.1tk:
 After reloading users saved preferences the status bar was not showing
 correct calculations.
