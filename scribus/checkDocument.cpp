@@ -817,10 +817,7 @@ void CheckDocument::languageChange()
 void CheckDocument::setIgnoreEnabled(bool state)
 {
 	noButton = !state;
-	if (state)
-		ignoreErrors->show();
-	else
-		ignoreErrors->hide();
+	ignoreErrors->setShown(state);
 }
 
 bool CheckDocument::isIgnoreEnabled()

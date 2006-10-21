@@ -101,15 +101,16 @@ public:
 	// Add, delete and move pages
 	
 	Page* addPage(const int pageNumber, const QString& masterPageName=QString::null, const bool addAutoFrame=false);
-	void deleteMasterPage(const int);
 	void deletePage(const int);
-	/**
-	 * @brief Add a master page with this function, do not use addPage
-	 */
+	//! @brief Add a master page with this function, do not use addPage
 	Page* addMasterPage(const int, const QString&);
+	void deleteMasterPage(const int);
 	//! @brief Rename a master page
 	bool renameMasterPage(const QString& oldPageName, const QString& newPageName);
-
+	//! @brief Create the default master pages based on the layout selected by the user, ie, Normal, Normal Left, etc.
+	void createDefaultMasterPages();
+	//! @brief Create the requested pages in a new document, run after createDefaultMasterPages()
+	void createNewDocPages(int pageCount);
 	/**
 	 * @brief Add the automatic text frame to the page
 	 * @param pageNumber page number

@@ -59,7 +59,7 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 
 	if (masterPageName.isEmpty())
 	{
-//		sMuster = "Normal";
+//		sMuster = CommonStrings::masterPageNormal;
 		sMuster = currentDoc->MasterNames.begin().key();
 		updateMasterPageList(sMuster);
 		currentView->showMasterPage(0);
@@ -100,7 +100,7 @@ void MasterPagesPalette::closeEvent(QCloseEvent *closeEvent)
 
 void MasterPagesPalette::deleteMasterPage()
 {
-	if ((sMuster == "Normal") || (sMuster == tr("Normal")) || (sMuster == tr("Normal Left")) || (sMuster == tr("Normal Middle")) || (sMuster == tr("Normal Right")))
+	if ((sMuster == CommonStrings::masterPageNormal) || (sMuster == CommonStrings::trMasterPageNormal) || (sMuster == CommonStrings::trMasterPageNormalLeft) || (sMuster == CommonStrings::trMasterPageNormalMiddle) || (sMuster == CommonStrings::trMasterPageNormalRight))
 		return;
 	int exit=ScMessageBox::warning(this,
 	                              CommonStrings::trWarning,
@@ -126,28 +126,28 @@ void MasterPagesPalette::deleteMasterPage()
 				PageLocation pageLoc = currentDoc->locationOfPage(pageIndex);
 				if (pageLoc == LeftPage)
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Left")))
-						docPage->MPageNam = tr("Normal Left");
-					else if (currentDoc->MasterNames.contains( tr("Normal")))
-						docPage->MPageNam = tr("Normal");
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
+						docPage->MPageNam = CommonStrings::trMasterPageNormalLeft;
+					else if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
+						docPage->MPageNam = CommonStrings::trMasterPageNormal;
 					else
 						docPage->MPageNam = it.key();
 				}
 				else if (pageLoc == RightPage)
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Right")))
-						docPage->MPageNam = tr("Normal Right");
-					else if (currentDoc->MasterNames.contains( tr("Normal")))
-						docPage->MPageNam = tr("Normal");
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+						docPage->MPageNam = CommonStrings::trMasterPageNormalRight;
+					else if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
+						docPage->MPageNam = CommonStrings::trMasterPageNormal;
 					else
 						docPage->MPageNam = it.key();
 				}
 				else
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Middle")))
-						docPage->MPageNam = tr("Normal Middle");
-					else if (currentDoc->MasterNames.contains( tr("Normal")))
-						docPage->MPageNam = tr("Normal");
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
+						docPage->MPageNam = CommonStrings::trMasterPageNormalMiddle;
+					else if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormal))
+						docPage->MPageNam = CommonStrings::trMasterPageNormal;
 					else
 						docPage->MPageNam = it.key();
 				}
@@ -173,7 +173,7 @@ void MasterPagesPalette::duplicateMasterPage()
 	if (dia->exec())
 	{
 		QString MasterPageName = dia->Answer->text();
-		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == "Normal") || (MasterPageName == tr("Normal")) || (MasterPageName == tr("Normal Left")) || (MasterPageName == tr("Normal Middle")) || (MasterPageName == tr("Normal Right"))))
+		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == CommonStrings::masterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormalLeft) || (MasterPageName == CommonStrings::trMasterPageNormalMiddle) || (MasterPageName == CommonStrings::trMasterPageNormalRight)))
 		{
 			if (!dia->exec())
 			{
@@ -297,7 +297,7 @@ void MasterPagesPalette::newMasterPage()
 	if (dia->exec())
 	{
 		MasterPageName = dia->Answer->text();
-		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == "Normal") || (MasterPageName == tr("Normal")) || (MasterPageName == tr("Normal Left")) || (MasterPageName == tr("Normal Middle")) || (MasterPageName == tr("Normal Right"))))
+		while (currentDoc->MasterNames.contains(MasterPageName) || ((MasterPageName == CommonStrings::masterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormal) || (MasterPageName == CommonStrings::trMasterPageNormalLeft) || (MasterPageName == CommonStrings::trMasterPageNormalMiddle) || (MasterPageName == CommonStrings::trMasterPageNormalRight)))
 		{
 			if (!dia->exec())
 			{
@@ -377,9 +377,9 @@ void MasterPagesPalette::selectMasterPage(QListBoxItem *item)
 {
 	sMuster = item->text();
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
-	if (sMuster == tr("Normal"))
+	if (sMuster == CommonStrings::trMasterPageNormal)
 	{
-		sMuster = "Normal";
+		sMuster = CommonStrings::masterPageNormal;
 		deleteButton->setEnabled(false);
 	}
 	else
@@ -391,9 +391,9 @@ void MasterPagesPalette::selectMasterPage(QString name)
 {
 	sMuster = name;
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
-	if (sMuster == tr("Normal"))
+	if (sMuster == CommonStrings::trMasterPageNormal)
 	{
-		sMuster = "Normal";
+		sMuster = CommonStrings::masterPageNormal;
 		deleteButton->setEnabled(false);
 	}
 	else
@@ -405,11 +405,11 @@ void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 {
 	masterPageListBox->clear();
 	for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-		masterPageListBox->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+		masterPageListBox->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 	deleteButton->setEnabled(currentDoc->MasterNames.count() == 1 ? false : true);
-	if (MasterPageName == "Normal")
+	if (MasterPageName == CommonStrings::masterPageNormal)
 	{
-		MasterPageName = tr("Normal");
+		MasterPageName = CommonStrings::trMasterPageNormal;
 		deleteButton->setEnabled(false);
 	}
 	masterPageListBox->setSelected(masterPageListBox->index(masterPageListBox->findItem(MasterPageName)), true);
@@ -418,7 +418,7 @@ void MasterPagesPalette::updateMasterPageList(QString MasterPageName)
 void MasterPagesPalette::renameMasterPage(QListBoxItem * item)
 {
 	QString oldName(item->text());
-	if ((oldName == "Normal") || (oldName == tr("Normal")) || (oldName == tr("Normal Left")) || (oldName == tr("Normal Middle")) || (oldName == tr("Normal Right")))
+	if ((oldName == CommonStrings::masterPageNormal) || (oldName == CommonStrings::trMasterPageNormal) || (oldName == CommonStrings::trMasterPageNormalLeft) || (oldName == CommonStrings::trMasterPageNormalMiddle) || (oldName == CommonStrings::trMasterPageNormalRight))
 	{
 		QMessageBox::information( this, tr("Unable to Rename Master Page"), tr("The Normal page is not allowed to be renamed."), QMessageBox::Ok );
 		return;

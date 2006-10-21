@@ -34,7 +34,8 @@ see scribusstructs.h) and parsed into tree view in CheckDocument widgets.
 class SCRIBUS_API DocumentChecker
 {
 	public:
-		static void checkDocument(ScribusDoc *currDoc);
+		//! Check the passed document for errors, return true on error found
+		static bool checkDocument(ScribusDoc *currDoc);
 };
 
 #endif

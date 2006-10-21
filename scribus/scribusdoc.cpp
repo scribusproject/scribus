@@ -1110,7 +1110,7 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 
 bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& newPageName)
 {
-	Q_ASSERT(oldPageName!="Normal" && oldPageName!=tr("Normal"));
+	Q_ASSERT(oldPageName!=CommonStrings::masterPageNormal && oldPageName!=CommonStrings::trMasterPageNormal);
 	if (MasterNames.contains(oldPageName) && !MasterNames.contains(newPageName))
 	{
 		//Rename our master page lists
@@ -1155,7 +1155,7 @@ void ScribusDoc::deleteMasterPage(const int pageNumber)
 	for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
 	{
 		if (docPage->MPageNam == oldPageName)
-			docPage->MPageNam = "Normal";
+			docPage->MPageNam = CommonStrings::masterPageNormal;
 	}
 	*/
 	//QPtrList docs: The item after the removed item becomes the new current list item if the removed item is not the last item in the list. If the last item is removed, the new last item becomes the current item.
@@ -2632,10 +2632,10 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 	}
 
 	QString mna = pageName;
-	if (mna == tr("Normal"))
-		mna = "Normal";
+	if (mna == CommonStrings::trMasterPageNormal)
+		mna = CommonStrings::masterPageNormal;
 	if (!MasterNames.contains(mna))
-		mna = "Normal";
+		mna = CommonStrings::masterPageNormal;
 	Page* Ap = DocPages.at(pageNumber);
 	Ap->MPageNam = mna;
 	int MpNr = MasterNames[mna];
@@ -4271,9 +4271,7 @@ PageLocation ScribusDoc::locationOfPage(int pageIndex)
 	int setcol=pageSets[currentPageLayout].Columns;
 	if (setcol==1)
 		return LeftPage;
-//	int myCol=(pageIndex+pageSets[currentPageLayout].FirstPage)%setcol;
 	int myCol = ((pageIndex % setcol)+pageSets[currentPageLayout].FirstPage)%setcol;
-
 	if (myCol==0) //Left hand page
 		return LeftPage;
 	else if (myCol>= setcol-1) // Right hand page
@@ -8049,5 +8047,75 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 		state->setItem(QPair<ScImageEffectList, ScImageEffectList>(oldEffects, currItem->effectsInUse));
 		undoManager->action(currItem, state);
 		changed();
+	}
+}
+
+void ScribusDoc::createDefaultMasterPages()
+{
+	int setcol = pageSets[currentPageLayout].Columns;
+	if (setcol == 1)
+	{
+		addMasterPage(0, CommonStrings::trMasterPageNormal);
+	}
+	else if (setcol == 2)
+	{
+		Page *lp = addMasterPage(0, CommonStrings::trMasterPageNormalLeft);
+		lp->LeftPg = 1;
+		lp->Margins.Left = lp->initialMargins.Right;
+		lp->Margins.Right = lp->initialMargins.Left;
+		lp = addMasterPage(1, CommonStrings::trMasterPageNormalRight);
+		lp->LeftPg = 0;
+		lp->Margins.Right = lp->initialMargins.Right;
+		lp->Margins.Left = lp->initialMargins.Left;
+	}
+	else if ((setcol == 3) || (setcol == 4))
+	{
+		Page *lp = addMasterPage(0, CommonStrings::trMasterPageNormalLeft);
+		lp->LeftPg = 1;
+		lp->Margins.Left = lp->initialMargins.Right;
+		lp->Margins.Right = lp->initialMargins.Left;
+		lp = addMasterPage(1, CommonStrings::trMasterPageNormalRight);
+		lp->LeftPg = 0;
+		lp->Margins.Right = lp->initialMargins.Right;
+		lp->Margins.Left = lp->initialMargins.Left;
+		lp = addMasterPage(2, CommonStrings::trMasterPageNormalMiddle);
+		lp->LeftPg = 2;
+		lp->Margins.Left = lp->initialMargins.Left;
+		lp->Margins.Right = lp->initialMargins.Left;
+	}
+}
+
+void ScribusDoc::createNewDocPages(int pageCount)
+{
+	int setcol = pageSets[currentPageLayout].Columns;
+	int createCount=QMAX(pageCount,1);
+	if (setcol == 1)
+	{
+		for (int i = 0; i < createCount; ++i)
+			addPage(i, CommonStrings::trMasterPageNormal, true);
+	}
+	else if (setcol == 2)
+	{
+		for (int i = 0; i < createCount; ++i)
+		{
+			PageLocation pageLoc = locationOfPage(i);
+			if (pageLoc == LeftPage)
+				addPage(i, CommonStrings::trMasterPageNormalLeft, true);
+			else
+				addPage(i, CommonStrings::trMasterPageNormalRight, true);
+		}
+	}
+	else if ((setcol == 3) || (setcol == 4))
+	{
+		for (int i = 0; i < createCount; ++i)
+		{
+			PageLocation pageLoc = locationOfPage(i);
+			if (pageLoc == LeftPage)
+				addPage(i, CommonStrings::trMasterPageNormalLeft, true);
+			else if (pageLoc == RightPage)
+				addPage(i, CommonStrings::trMasterPageNormalRight, true);
+			else
+				addPage(i, CommonStrings::trMasterPageNormalMiddle, true);
+		}
 	}
 }

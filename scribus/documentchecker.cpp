@@ -29,7 +29,7 @@ for which a new license (GPL+exception) is in place.
 #include "text/nlsconfig.h"
 #include "util.h"
 
-void DocumentChecker::checkDocument(ScribusDoc *currDoc)
+bool DocumentChecker::checkDocument(ScribusDoc *currDoc)
 {
 	PageItem* currItem;
 	QString chstr;
@@ -298,4 +298,6 @@ void DocumentChecker::checkDocument(ScribusDoc *currDoc)
 		if (itemError.count() != 0)
 			currDoc->docItemErrors.insert(currItem->ItemNr, itemError);
 	}
+	
+	return ((currDoc->docItemErrors.count() != 0) || (currDoc->masterItemErrors.count() != 0) || (currDoc->docLayerErrors.count() != 0));
 }

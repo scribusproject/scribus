@@ -124,6 +124,16 @@ public:
 	static QString trPageLocMiddleRight;
 	static QString trPageLocRight;
 	
+	//Master Page Default Names
+	static QString masterPageNormal;
+	static QString trMasterPageNormal;
+	static QString masterPageNormalLeft;
+	static QString trMasterPageNormalLeft;
+	static QString masterPageNormalMiddle;
+	static QString trMasterPageNormalMiddle;
+	static QString masterPageNormalRight;
+	static QString trMasterPageNormalRight;
+	
 	//Pen Styles
 	static QString trPenStyle_SolidLine;
 	static QString trPenStyle_DashedLine;

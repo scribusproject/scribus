@@ -127,11 +127,11 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	masterLayout->addWidget( masterPageLabel );
 	masterPageComboBox = new QComboBox( false, groupMaster, "masterPageComboBox" );
 	QString Nam = doc->currentPage()->MPageNam;
-	QString na = Nam == "Normal" ? tr("Normal") : Nam, in;
+	QString na = Nam == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : Nam, in;
 	int cc = 0;
 	for (QMap<QString,int>::Iterator it = doc->MasterNames.begin(); it != doc->MasterNames.end(); ++it)
 	{
-		in = it.key() == "Normal" ? tr("Normal") : it.key();
+		in = it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key();
 		masterPageComboBox->insertItem(in);
 		if (in == na)
 			masterPageComboBox->setCurrentItem(cc);

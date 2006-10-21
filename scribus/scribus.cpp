@@ -1878,10 +1878,10 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 	//CB NOTE should be all done now
 	doc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, columnCount, autoTextFrames, pageArrangement);
 	doc->setMasterPageMode(false);
-	doc->addMasterPage(0, "Normal");
+	doc->addMasterPage(0, CommonStrings::masterPageNormal);
 	int createCount=QMAX(pageCount,1);
 	for (int i = 0; i < createCount; ++i)
-		doc->addPage(i, "Normal", true);
+		doc->addPage(i, CommonStrings::masterPageNormal, true);
 	doc->addSection();
 	doc->setFirstSectionFromFirstPageNumber();
 	doc->setModified(false);
@@ -1966,60 +1966,8 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	//CB NOTE should be all done now
 	tempDoc->setPage(width, height, topMargin, leftMargin, rightMargin, bottomMargin, columnCount, columnDistance, autoTextFrames, pageArrangement);
 	tempDoc->setMasterPageMode(false);
-	int setcol = tempDoc->pageSets[tempDoc->currentPageLayout].Columns;
-	if (setcol == 1)
-	{
-		tempDoc->addMasterPage(0, tr("Normal"));
-		int createCount=QMAX(pageCount,1);
-		for (int i = 0; i < createCount; ++i)
-			tempDoc->addPage(i, tr("Normal"), true);
-	}
-	else if (setcol == 2)
-	{
-		Page *lp = tempDoc->addMasterPage(0, tr("Normal Left"));
-		lp->LeftPg = 1;
-		lp->Margins.Left = lp->initialMargins.Right;
-		lp->Margins.Right = lp->initialMargins.Left;
-		lp = tempDoc->addMasterPage(1, tr("Normal Right"));
-		lp->LeftPg = 0;
-		lp->Margins.Right = lp->initialMargins.Right;
-		lp->Margins.Left = lp->initialMargins.Left;
-		int createCount=QMAX(pageCount,1);
-		for (int i = 0; i < createCount; ++i)
-		{
-			PageLocation pageLoc = tempDoc->locationOfPage(i);
-			if (pageLoc == LeftPage)
-				tempDoc->addPage(i, tr("Normal Left"), true);
-			else
-				tempDoc->addPage(i, tr("Normal Right"), true);
-		}
-	}
-	else if ((setcol == 3) || (setcol == 4))
-	{
-		Page *lp = tempDoc->addMasterPage(0, tr("Normal Left"));
-		lp->LeftPg = 1;
-		lp->Margins.Left = lp->initialMargins.Right;
-		lp->Margins.Right = lp->initialMargins.Left;
-		lp = tempDoc->addMasterPage(1, tr("Normal Right"));
-		lp->LeftPg = 0;
-		lp->Margins.Right = lp->initialMargins.Right;
-		lp->Margins.Left = lp->initialMargins.Left;
-		lp = tempDoc->addMasterPage(2, tr("Normal Middle"));
-		lp->LeftPg = 2;
-		lp->Margins.Left = lp->initialMargins.Left;
-		lp->Margins.Right = lp->initialMargins.Left;
-		int createCount=QMAX(pageCount,1);
-		for (int i = 0; i < createCount; ++i)
-		{
-			PageLocation pageLoc = tempDoc->locationOfPage(i);
-			if (pageLoc == LeftPage)
-				tempDoc->addPage(i, tr("Normal Left"), true);
-			else if (pageLoc == RightPage)
-				tempDoc->addPage(i, tr("Normal Right"), true);
-			else
-				tempDoc->addPage(i, tr("Normal Middle"), true);
-		}
-	}
+	tempDoc->createDefaultMasterPages();
+	tempDoc->createNewDocPages(pageCount);
 	tempDoc->addSection();
 	tempDoc->setFirstSectionFromFirstPageNumber();
 	tempDoc->setModified(false);
@@ -3670,7 +3618,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
-			doc->addMasterPage(0, "Normal");
+			doc->addMasterPage(0, CommonStrings::masterPageNormal);
 		//Add doc sections if we have none
 		if (doc->sections.count()==0)
 		{
@@ -4237,8 +4185,7 @@ void ScribusMainWindow::slotFilePrint()
 {
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
-		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
+		if (scanDocument())
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -5172,11 +5119,11 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 		{
 			int setcol = doc->pageSets[doc->currentPageLayout].Columns;
 			if (setcol == 1)
-				ss->set("BASED", tr("Normal"));
+				ss->set("BASED", CommonStrings::trMasterPageNormal);
 			else if (setcol == 2)
-				ss->set("BASED", tr("Normal Left")+"|"+ tr("Normal Right"));
+				ss->set("BASED", CommonStrings::trMasterPageNormalLeft+"|"+ CommonStrings::trMasterPageNormalRight);
 			else if ((setcol == 3) || (setcol == 4))
-				ss->set("BASED", tr("Normal Left")+"|"+ tr("Normal Middle")+"|"+ tr("Normal Right"));
+				ss->set("BASED", CommonStrings::trMasterPageNormalLeft+"|"+ CommonStrings::trMasterPageNormalMiddle+"|"+ CommonStrings::trMasterPageNormalRight);
 		}
 		ss->set("HEIGHT", height);
 		ss->set("WIDTH", width);
@@ -5194,24 +5141,24 @@ void ScribusMainWindow::addNewPages(int wo, int where, int numPages, double heig
 	{
 		int setcol = doc->pageSets[doc->currentPageLayout].Columns;
 		if (setcol == 1)
-			base.append( tr("Normal"));
+			base.append( CommonStrings::trMasterPageNormal);
 		else if (setcol == 2)
 		{
-			base.append( tr("Normal Left"));
-			base.append( tr("Normal Right"));
+			base.append( CommonStrings::trMasterPageNormalLeft);
+			base.append( CommonStrings::trMasterPageNormalRight);
 		}
 		else if (setcol == 3)
 		{
-			base.append( tr("Normal Left"));
-			base.append( tr("Normal Middle"));
-			base.append( tr("Normal Right"));
+			base.append( CommonStrings::trMasterPageNormalLeft);
+			base.append( CommonStrings::trMasterPageNormalMiddle);
+			base.append( CommonStrings::trMasterPageNormalRight);
 		}
 		else if (setcol == 4)
 		{
-			base.append( tr("Normal Left"));
-			base.append( tr("Normal Middle"));
-			base.append( tr("Normal Middle"));
-			base.append( tr("Normal Right"));
+			base.append( CommonStrings::trMasterPageNormalLeft);
+			base.append( CommonStrings::trMasterPageNormalMiddle);
+			base.append( CommonStrings::trMasterPageNormalMiddle);
+			base.append( CommonStrings::trMasterPageNormalRight);
 		}
 	}
 	else
@@ -5288,7 +5235,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 			diaLinksCount=static_cast<int>(dia->Links->count());
 		}
 		QString masterPageName = dia->Answer->text();
-		while (doc->MasterNames.contains(masterPageName) || (masterPageName == "Normal"))
+		while (doc->MasterNames.contains(masterPageName) || (masterPageName == CommonStrings::masterPageNormal))
 		{
 			if (!dia->exec())
 			{
@@ -7382,8 +7329,7 @@ void ScribusMainWindow::printPreview()
 {
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
-		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
+		if (scanDocument())
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -7441,8 +7387,7 @@ void ScribusMainWindow::SaveAsEps()
 {
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
-		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
+		if (scanDocument())
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -7521,8 +7466,7 @@ void ScribusMainWindow::SaveAsPDF()
 {
 	if (doc->checkerProfiles[doc->curCheckProfile].autoCheck)
 	{
-		scanDocument();
-		if ((doc->docItemErrors.count() != 0) || (doc->masterItemErrors.count() != 0) || (doc->docLayerErrors.count() != 0))
+		if (scanDocument())
 		{
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
@@ -8635,10 +8579,10 @@ void ScribusMainWindow::docCheckToggle(bool visible)
 	}
 }
 
-void ScribusMainWindow::scanDocument()
+bool ScribusMainWindow::scanDocument()
 {
 	DocumentChecker docChecker;
-	docChecker.checkDocument(doc);
+	return docChecker.checkDocument(doc);
 }
 
 void ScribusMainWindow::HaveRaster(bool art)

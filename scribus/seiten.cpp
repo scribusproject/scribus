@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "seiten.h"
 #include "seiten.moc"
 #include <qcursor.h>
+#include "commonstrings.h"
 #include "scribus.h"
 #include "scribusview.h"
 #include "dynamictip.h"
@@ -544,7 +545,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 
 void PagePalette::DelMPage(QString tmp)
 {
-	if (tmp == tr("Normal"))
+	if (tmp == CommonStrings::trMasterPageNormal)
 		return;
 	int Nr = currView->Doc->MasterNames[tmp];
 	Page* Seite = currView->Doc->MasterPages.at(Nr);
@@ -572,7 +573,7 @@ void PagePalette::DelMPage(QString tmp)
 	for (uint b=0; b<currView->Doc->DocPages.count(); ++b)
 	{
 		if (currView->Doc->DocPages.at(b)->MPageNam == tmp)
-			currView->Doc->DocPages.at(b)->MPageNam = "Normal";
+			currView->Doc->DocPages.at(b)->MPageNam = CommonStrings::masterPageNormal;
 	}
 	currView->DrawNew();
 	RebuildTemp();
@@ -651,10 +652,10 @@ void PagePalette::RebuildTemp()
 		if (masterPageList->Thumb)
 		{
 			pm.convertFromImage(currView->MPageToPixmap(it.key(),60));
-			masterPageList->insertItem(pm, it.key() == "Normal" ? tr("Normal") : it.key());
+			masterPageList->insertItem(pm, it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 		}
 		else
-			masterPageList->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+			masterPageList->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 	}
 }
 

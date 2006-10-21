@@ -508,7 +508,8 @@ public slots:
 	/*! \brief call gimp and wait upon completion */
 	void callImageEditor();
 	void docCheckToggle(bool visible);
-	void scanDocument();
+	//! \brief Scan a document for errors, return true on errors found
+	bool scanDocument();
 	void setUndoMode(bool isObjectSpecific);
 	//! \brief Apply a Lorem Ipsum to the each item in a selection
 	void insertSampleText();

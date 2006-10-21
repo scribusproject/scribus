@@ -71,7 +71,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	{
 		QComboBox* pageData = new QComboBox(false, masterPageGroup, "masterPageData");
 		for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-			pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+			pageData->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 		masterPageLabel = new QLabel(pageData,  tr("&Master Page:"), masterPageGroup, "text");
 		masterPageLayout->addWidget( masterPageLabel, 0, 0 );
 		masterPageLayout->addWidget(pageData, 0, 1);
@@ -84,42 +84,42 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		{
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
 			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-				pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
+				pageData->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 			if (mp == 0)
 			{
-				if (currentDoc->MasterNames.contains( tr("Normal Left")))
-					pageData->setCurrentText( tr("Normal Left"));
+				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
+					pageData->setCurrentText( CommonStrings::trMasterPageNormalLeft);
 			}
 			else if (mp == 1)
 			{
 				if (currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count() > 2)
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Middle")))
-						pageData->setCurrentText( tr("Normal Middle"));
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
+						pageData->setCurrentText( CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Right")))
-						pageData->setCurrentText( tr("Normal Right"));
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+						pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 2)
 			{
 				if (currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count() > 3)
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Middle")))
-						pageData->setCurrentText( tr("Normal Middle"));
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
+						pageData->setCurrentText( CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
-					if (currentDoc->MasterNames.contains( tr("Normal Right")))
-						pageData->setCurrentText( tr("Normal Right"));
+					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+						pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 3)
 			{
-				if (currentDoc->MasterNames.contains( tr("Normal Right")))
-					pageData->setCurrentText( tr("Normal Right"));
+				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
+					pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 			}
 			QLabel* pageLabel = new QLabel(pageData,  currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp], masterPageGroup, "text");
 			masterPageLayout->addWidget(pageLabel, row, 0 );

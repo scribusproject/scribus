@@ -62,6 +62,15 @@ QString CommonStrings::trPageLocMiddleLeft  = "";
 QString CommonStrings::trPageLocMiddleRight = "";
 QString CommonStrings::trPageLocRight       = "";
 
+QString CommonStrings:: masterPageNormal         = "";
+QString CommonStrings:: trMasterPageNormal       = "";
+QString CommonStrings:: masterPageNormalLeft     = "";
+QString CommonStrings:: trMasterPageNormalLeft   = "";
+QString CommonStrings:: masterPageNormalMiddle   = "";
+QString CommonStrings:: trMasterPageNormalMiddle = "";
+QString CommonStrings:: masterPageNormalRight    = "";
+QString CommonStrings:: trMasterPageNormalRight  = "";
+
 QString CommonStrings::trPenStyle_SolidLine      = "";
 QString CommonStrings::trPenStyle_DashedLine     = "";
 QString CommonStrings::trPenStyle_DottedLine     = "";
@@ -184,6 +193,15 @@ void CommonStrings::languageChange()
 	CommonStrings::trPageLocMiddleLeft  = tr( "Middle Left" );
 	CommonStrings::trPageLocMiddleRight = tr( "Middle Right" );
 	CommonStrings::trPageLocRight       = tr( "Right Page" );
+	
+	CommonStrings:: masterPageNormal         = "Normal";
+	CommonStrings:: trMasterPageNormal       = tr( "Normal" );
+	CommonStrings:: masterPageNormalLeft     = "Normal Left";
+	CommonStrings:: trMasterPageNormalLeft   = tr( "Normal Left" );
+	CommonStrings:: masterPageNormalMiddle   = "Normal Middle";
+	CommonStrings:: trMasterPageNormalMiddle = tr( "Normal Middle" );
+	CommonStrings:: masterPageNormalRight    = "Normal Right";
+	CommonStrings:: trMasterPageNormalRight  = tr( "Normal Right" );
 	
 	CommonStrings::trPenStyle_SolidLine      = "Solid Line";
 	CommonStrings::trPenStyle_DashedLine     = "Dashed Line";
