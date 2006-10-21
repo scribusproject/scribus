@@ -107,6 +107,9 @@ svg1.png
 swdialog.png
 swmenu.png
 symbole.png
+toolbar1.png
+toolbar1d.png
+toolbar3.png
 ulica.png
 wlasciwosci_pola.png
 wyslij_formularz.png
