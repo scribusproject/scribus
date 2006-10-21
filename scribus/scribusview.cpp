@@ -10693,7 +10693,7 @@ void ScribusView::TextToPath()
 						bb->setWidthHeight(tp.x(), tp.y());
 						bb->Clip = FlattenPath(bb->PoLine, bb->Segments);
 						double textX = CurX + hl->glyph.xoffset;
-						double textY = ls.y + hl->glyph.yoffset;
+						double textY = ls.y;  // + hl->glyph.yoffset;
 						chma6 = QWMatrix();
 						if (charStyle.baselineOffset() != 0)
 							textY -= (charStyle.fontSize() / 10.0) * (charStyle.baselineOffset() / 1000.0);
