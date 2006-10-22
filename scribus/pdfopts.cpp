@@ -59,12 +59,17 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 		fileNameLineEdit->setText(Opts.Datei);
 	else
 	{
-		PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
-		QFileInfo fi = QFileInfo(docFileName);
-		QString pdfdir = dirs->get("pdf", fi.dirPath());
-		if (pdfdir.right(1) != "/")
-			pdfdir += "/";
-		fileNameLineEdit->setText(pdfdir+fi.baseName()+".pdf");
+		QFileInfo fi(docFileName);
+		if (fi.exists())
+			fileNameLineEdit->setText(fi.dirPath()+"/"+fi.baseName()+".pdf");
+		else
+		{
+			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
+			QString pdfdir = dirs->get("pdf", fi.dirPath());
+			if (pdfdir.right(1) != "/")
+				pdfdir += "/";
+			fileNameLineEdit->setText(pdfdir+fi.baseName()+".pdf");
+		}
 	}
 	NameLayout->addWidget( fileNameLineEdit, 0, 0 );
 	FileC = new QToolButton( Name, "FileC" );
