@@ -171,10 +171,17 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomOutToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton = new QToolButton(this);
 	zoomInToolbarButton = new QToolButton(this);
+	cmsToolbarButton = new QToolButton(this);
 	previewToolbarButton = new QToolButton(this);
 	zoomDefaultToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomOutToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	zoomInToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	cmsToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
+	cmsToolbarButton->setToggleButton(true);
+	QIconSet ic2;
+	ic2.setPixmap(loadIcon("cmsOff.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	ic2.setPixmap(loadIcon("cmsOn.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
+	cmsToolbarButton->setIconSet(ic2);
 	previewToolbarButton->setAutoRaise(OPTION_FLAT_BUTTON);
 	previewToolbarButton->setToggleButton(true);
 	QIconSet ic;
@@ -197,6 +204,12 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	zoomInToolbarButton->setDefault( false );
 	zoomInToolbarButton->setAutoDefault( false );
 	zoomInToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	previewToolbarButton = new QPushButton(this);
+	cmsToolbarButton->setFocusPolicy(QWidget::NoFocus);
+	cmsToolbarButton->setDefault( false );
+	cmsToolbarButton->setAutoDefault( false );
+	cmsToolbarButton->setFlat(OPTION_FLAT_BUTTON);
+	cmsToolbarButton->setPixmap(loadIcon("cmsOn.png"));
 	previewToolbarButton = new QPushButton(this);
 	previewToolbarButton->setFocusPolicy(QWidget::NoFocus);
 	previewToolbarButton->setDefault( false );
@@ -247,6 +260,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 	connect(previewToolbarButton, SIGNAL(clicked()), this, SLOT(togglePreview()));
+	connect(cmsToolbarButton, SIGNAL(clicked()), this, SLOT(toggleCMS()));
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 	connect(this, SIGNAL(HaveSel(int)), this, SLOT(selectionChanged()));
@@ -275,6 +289,12 @@ void ScribusView::languageChange()
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 //	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
 //	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+}
+
+void ScribusView::toggleCMS()
+{
+	Doc->enableCMS(!Doc->HasCMS);
+	updateContents();
 }
 
 void ScribusView::switchPreviewVisual(int vis)

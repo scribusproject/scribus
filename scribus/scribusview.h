@@ -80,11 +80,13 @@ public:
 	QToolButton *zoomDefaultToolbarButton;
 	QToolButton *zoomOutToolbarButton;
 	QToolButton *zoomInToolbarButton;
+	QToolButton *cmsToolbarButton;
 	QToolButton *previewToolbarButton;
 #else
 	QPushButton *zoomDefaultToolbarButton;
 	QPushButton *zoomOutToolbarButton;
 	QPushButton *zoomInToolbarButton;
+	QToolButton *cmsToolbarButton;
 	QPushButton *previewToolbarButton;
 #endif
 	QComboBox *layerMenu; //Menu for layers at bottom of view
@@ -240,6 +242,7 @@ public:
 
 public slots: // Public slots
 	void languageChange();
+	void toggleCMS();
 	void switchPreviewVisual(int vis);
 	void togglePreview();
 	void unitChange();

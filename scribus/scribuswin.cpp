@@ -62,6 +62,7 @@ void ScribusWin::setView(ScribusView* newView)
 	m_View->zoomInToolbarButton->reparent(statusFrame, point);
 	m_View->pageSelector->reparent(statusFrame, point);
 	m_View->zoomSpinBox->reparent(statusFrame, point);
+	m_View->cmsToolbarButton->reparent(statusFrame, point);
 	m_View->previewToolbarButton->reparent(statusFrame, point);
 	m_View->visualMenu->reparent(statusFrame, point);
 	statusFrameLayout->addWidget(m_View->unitSwitcher);
@@ -73,6 +74,7 @@ void ScribusWin::setView(ScribusView* newView)
 	statusFrameLayout->addWidget(m_View->layerMenu);
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
 	statusFrameLayout->addItem( spacer );
+	statusFrameLayout->addWidget(m_View->cmsToolbarButton);
 	statusFrameLayout->addWidget(m_View->previewToolbarButton);
 	statusFrameLayout->addWidget(m_View->visualMenu);
 #ifndef HAVE_CAIRO

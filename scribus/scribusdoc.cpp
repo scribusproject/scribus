@@ -696,6 +696,49 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	return true;
 }
 
+void ScribusDoc::enableCMS(bool enable)
+{
+	m_ScMW->setStatusBarInfoText( tr("Adjusting Colors"));
+	m_ScMW->mainWindowProgressBar->reset();
+	int cc = PageColors.count() + Items->count();
+	m_ScMW->mainWindowProgressBar->setTotalSteps(cc);
+	HasCMS = CMSSettings.CMSinUse;
+	SoftProofing = CMSSettings.SoftProofOn;
+	Gamut = CMSSettings.GamutCheck;
+	IntentColors = CMSSettings.DefaultIntentColors;
+	IntentImages = CMSSettings.DefaultIntentImages;
+	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	bool oldCM = CMSSettings.CMSinUse;
+	bool newCM = enable;
+	CloseCMSProfiles();
+	CMSSettings.CMSinUse = newCM;
+	if (!CMSSettings.CMSinUse)
+	{
+		HasCMS = false;
+		if	(oldCM)
+		{
+			m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
+			RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
+		}
+	}
+	else if (OpenCMSProfiles(ScCore->InputProfiles, ScCore->InputProfilesCMYK, ScCore->MonitorProfiles, ScCore->PrinterProfiles) )
+	{
+		HasCMS = true;
+		PDF_Options.SComp = CMSSettings.ComponentsInput2;
+		PDF_Options.SolidProf = CMSSettings.DefaultSolidColorRGBProfile;
+		PDF_Options.ImageProf = CMSSettings.DefaultImageRGBProfile;
+		PDF_Options.PrintProf = CMSSettings.DefaultPrinterProfile;
+		PDF_Options.Intent = CMSSettings.DefaultIntentColors;
+		m_ScMW->recalcColors(m_ScMW->mainWindowProgressBar);
+		RecalcPictures(&ScCore->InputProfiles, &ScCore->InputProfilesCMYK, m_ScMW->mainWindowProgressBar);
+	}
+	else
+		HasCMS = false;
+	m_ScMW->mainWindowProgressBar->setProgress(cc);
+	qApp->setOverrideCursor(QCursor(arrowCursor), true);
+	m_ScMW->setStatusBarInfoText("");
+	m_ScMW->mainWindowProgressBar->reset();
+}
 /*
  * Split out from loadStyles in editFormats.cpp so it's callable from anywhere,
  * including plugins.

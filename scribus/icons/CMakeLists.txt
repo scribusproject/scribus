@@ -45,6 +45,8 @@ compfile.png
 configure.png
 Corner.xpm
 crop.png
+cmsOff.png
+cmsOn.png
 curve.png
 curvebezier.png
 curvelinear.png

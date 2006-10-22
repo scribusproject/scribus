@@ -367,6 +367,11 @@ public:
 	bool AddFont(QString name, int fsize = 10);
 	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
+	/**
+	 * @brief Switched Colormanagement on or of
+	 * @param enable bool, if true Colormanagement is switched on, else off
+	 */
+	void enableCMS(bool enable);
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
 	/**
 	 * @brief Should guides be locked or not

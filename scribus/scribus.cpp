@@ -2033,6 +2033,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		connect(ScCore->fileWatcher, SIGNAL(fileChanged(QString)), tempDoc, SLOT(updatePict(QString)));
 		connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString)), tempDoc, SLOT(removePict(QString)));
 		//scrActions["fileSave"]->setEnabled(false);
+		tempView->cmsToolbarButton->setOn(tempDoc->HasCMS);
 		undoManager->switchStack(tempDoc->DocName);
 		styleManager->currentDoc(tempDoc);
 		tocGenerator->setDoc(tempDoc);
@@ -2233,6 +2234,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	scrActions["viewShowRulers"]->setOn(doc->guidesSettings.rulersShown);
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
+	view->cmsToolbarButton->setOn(doc->HasCMS);
 	view->reformPages();
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
@@ -3722,6 +3724,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		view->show();
 		newActWin(w);
 		doc->setCurrentPage(doc->DocPages.at(0));
+		view->cmsToolbarButton->setOn(doc->HasCMS);
 		view->slotDoZoom();
 		view->GotoPage(0);
 		connect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
