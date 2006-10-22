@@ -1451,6 +1451,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			uint oldDocItemCount = Doc->Items->count();
 			if ((!img) && (Doc->DraggedElem == 0))
 			{
+				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
 				if ((fi.exists()) && (!img))
 					emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
 				else
@@ -1464,6 +1465,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					if (currItem->isBookmark)
 						emit AddBM(currItem);
 				}
+				undoManager->commit();
 			}
 			else
 			{
