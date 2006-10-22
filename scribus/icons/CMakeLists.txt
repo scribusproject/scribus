@@ -130,6 +130,7 @@ frame_table16.png
 frame_table.png
 gohome.png
 goto.png
+group.png
 guides.png
 HandC.xpm
 hmirror.png
@@ -285,6 +286,7 @@ u_margins_locked.png
 u_margins.png
 u_move.png
 u_multiple.png
+ungroup.png
 unlock.png
 Unlock.xpm
 Unter.xpm

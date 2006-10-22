@@ -185,7 +185,6 @@ public slots:
 	void setFlippedV(bool);
 
 private slots:
-
 	void SelTab(int t);
 	void NewX();
 	void NewY();
@@ -250,6 +249,7 @@ private slots:
 	void setEndArrow(int id);
 	void setGroupTransparency(int trans);
 	void setGroupBlending(int blend);
+	void doGrouping();
 
 protected slots:
 	//virtual void reject();
@@ -498,6 +498,8 @@ protected:
 	QPopupMenu* lineSpacingPop;
 
 	QToolButton* linespacingButton;
+	QToolButton* DoGroup;
+	QToolButton* DoUnGroup;
 	QToolButton* FlipH;
 	QToolButton* FlipV;
 	QToolButton* Locked;

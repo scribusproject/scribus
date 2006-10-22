@@ -279,35 +279,43 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout60->addItem( spacer2 );
 
 	Layout44 = new QGridLayout( 0, 1, 1, 8, 4, "Layout44");
+
+	DoGroup = new QToolButton( page, "DoGroup" );
+	DoGroup->setPixmap(loadIcon("group.png"));
+	Layout44->addWidget( DoGroup, 0, 0 );
+	DoUnGroup = new QToolButton( page, "DoUnGroup" );
+	DoUnGroup->setPixmap(loadIcon("ungroup.png"));
+	Layout44->addWidget( DoUnGroup, 1, 0 );
+
 	FlipH = new QToolButton( page, "MirrorH" );
 	FlipH->setPixmap(loadIcon("16/flip-object-horizontal.png"));
 	FlipH->setToggleButton( true );
-	Layout44->addWidget( FlipH, 0, 0 );
+	Layout44->addWidget( FlipH, 0, 1 );
 	FlipV = new QToolButton( page, "MirrorV" );
 	FlipV->setPixmap(loadIcon("16/flip-object-vertical.png"));
 	FlipV->setToggleButton( true );
-	Layout44->addWidget( FlipV, 1, 0 );
+	Layout44->addWidget( FlipV, 1, 1 );
 	Locked = new QToolButton( page, "Lock" );
 	Locked->setToggleButton( true );
 	QIconSet a = QIconSet();
 	a.setPixmap(loadIcon("16/lock.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
 	a.setPixmap(loadIcon("16/lock-unlocked.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 	Locked->setIconSet(a);
-	Layout44->addWidget( Locked, 0, 1 );
+	Layout44->addWidget( Locked, 0, 2 );
 	NoPrint = new QToolButton( page, "NoPrint" );
 	NoPrint->setToggleButton( true );
 	QIconSet a2 = QIconSet();
 	a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
 	a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 	NoPrint->setIconSet(a2);
-	Layout44->addWidget( NoPrint, 1, 1 );
+	Layout44->addWidget( NoPrint, 1, 2 );
 	NoResize = new QToolButton( page, "NoResize" );
 	NoResize->setToggleButton( true );
 	QIconSet a3 = QIconSet();
 	a3.setPixmap(loadIcon("framenoresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
 	a3.setPixmap(loadIcon("frameresize.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 	NoResize->setIconSet(a3);
-	Layout44->addWidget( NoResize, 0, 2 );
+	Layout44->addWidget( NoResize, 0, 3 );
 	layout60->addLayout( Layout44 );
 
 	pageLayout->addLayout( layout60 );
@@ -952,6 +960,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	connect( Overprint, SIGNAL( clicked() ), this, SLOT( handleOverprint() ) );
 	connect(TransSpin, SIGNAL(valueChanged(int)), this, SLOT(setGroupTransparency(int)));
 	connect(blendMode, SIGNAL(activated(int)), this, SLOT(setGroupBlending(int)));
+	connect(DoGroup, SIGNAL(clicked()), this, SLOT(doGrouping()) );
 
 	HaveItem = false;
 	Xpos->setValue(0);
@@ -989,6 +998,7 @@ void Mpalette::setMainWindow(ScribusMainWindow* mw)
 	connect(this->Cpal, SIGNAL(QueryItem()), m_ScMW, SLOT(GetBrushPen()));
 	connect(this->Cpal->gradEdit->Preview, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
 	connect(this->Cpal, SIGNAL(gradientChanged()), m_ScMW, SLOT(updtGradFill()));
+	connect(DoUnGroup, SIGNAL(clicked()), m_ScMW, SLOT(UnGroupObj()) );
 	
 }
 
@@ -1548,6 +1558,29 @@ void Mpalette::SetCurItem(PageItem *i)
 	}
 	setXY(CurItem->xPos(), CurItem->yPos());
 
+	DoGroup->setEnabled(false);
+	DoUnGroup->setEnabled(false);
+	if (doc->m_Selection->count() > 1)
+	{
+		bool isGroup = true;
+		int firstElem = -1;
+		if (CurItem->Groups.count() != 0)
+			firstElem = CurItem->Groups.top();
+		for (uint bx = 0; bx < doc->m_Selection->count(); ++bx)
+		{
+			if (doc->m_Selection->itemAt(bx)->Groups.count() != 0)
+			{
+				if (doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
+		}
+		if (!isGroup)
+			DoGroup->setEnabled(true);
+		if (CurItem->Groups.count() != 0)
+			DoUnGroup->setEnabled(true);
+	}
 	updateSpinBoxConstants();
 }
 
@@ -1612,6 +1645,8 @@ void Mpalette::NewSel(int nr)
 		}
 		else
 		{
+			DoGroup->setEnabled(false);
+			DoUnGroup->setEnabled(false);
 			EditShape->setEnabled(false);
 			ShapeGroup->setEnabled(false);
 		}
@@ -4226,6 +4261,8 @@ void Mpalette::languageChange()
 	QToolTip::add(BottomLeft, tr("Select bottom left for basepoint"));
 	QToolTip::add(BottomRight, tr("Select bottom right for basepoint"));
 	QToolTip::add(Center, tr("Select center for basepoint"));
+	QToolTip::add(DoGroup, tr("Group the selected objects"));
+	QToolTip::add(DoUnGroup, tr("Destroys the selected group"));
 	QToolTip::add(FlipH, tr("Flip Horizontal"));
 	QToolTip::add(FlipV, tr("Flip Vertical"));
 	QToolTip::add(Zup, tr("Move one level up"));
@@ -4412,6 +4449,14 @@ void Mpalette::setGroupBlending(int blend)
 		CurItem->setFillBlendmode(blend);
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
+}
+
+void Mpalette::doGrouping()
+{
+	m_ScMW->GroupObj();
+	DoGroup->setEnabled(false);
+	DoUnGroup->setEnabled(true);
+	setMultipleSelection(true);
 }
 
 void Mpalette::EditSh2()
