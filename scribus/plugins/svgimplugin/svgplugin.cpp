@@ -1940,7 +1940,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	ScMW->view->scaleGroup(scalex, scaley);
 	ScMW->view->Deselect();
 	// Probably some scalex and scaley to add somewhere
-	ite->moveBy(maxHeight * sin(-rotation), -maxHeight * cos(-rotation));
+	ite->moveBy(maxHeight * sin(-rotation) * scaley, -maxHeight * cos(-rotation) * scaley);
 	if( !e.attribute("id").isEmpty() )
 		ite->setItemName(" "+e.attribute("id"));
 	ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity);
