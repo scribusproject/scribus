@@ -2734,13 +2734,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						SizeItem(npx.x(), npx.y(), currItem->ItemNr);
 					bool sav = Doc->SnapGuides;
 					Doc->SnapGuides = false;
-					if (frameResizeHandle!=1 && frameResizeHandle!=5 && frameResizeHandle!=6)
+					if (UndoManager::undoEnabled())
 					{
-						if (UndoManager::undoEnabled())
-						{
-							undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
-													Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize);
-						}
+						undoManager->beginTransaction(currItem->getUName(), currItem->getUPixmap(),
+							Um::Resize, QString(Um::ResizeFromTo).arg(currItem->width()).arg(currItem->height()).arg(currItem->width() - npx.x()).arg(currItem->height() - npx.y()), Um::IResize);
 					}
 					switch (frameResizeHandle)
 					{
@@ -3312,9 +3309,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							currItem->moveImageInFrame(0, (currItem->height() - currItem->OldH2)/currItem->imageYScale());
 						break;
 					}
-					if (frameResizeHandle!=1 && frameResizeHandle!=5 && frameResizeHandle!=6)
-						if (UndoManager::undoEnabled())
-							undoManager->commit();
+
+					if (UndoManager::undoEnabled())
+						undoManager->commit();
 
 							
 					//TextFrame resize - Resize text with resize of frame
