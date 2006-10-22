@@ -317,6 +317,8 @@ void UndoManager::removeGui(UndoGui* gui)
 
 void UndoManager::switchStack(const QString& stackName)
 {
+	if (stackName == currentDoc_)
+		return; // already current stack
 	currentDoc_ = stackName;
 	if (!stacks_.contains(currentDoc_))
 		stacks_[currentDoc_] = UndoStack();

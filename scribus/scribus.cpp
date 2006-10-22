@@ -1946,7 +1946,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	{
 		doc->OpenNodes = outlinePalette->buildReopenVals();
 	}
-	
+	undoManager->setUndoEnabled(false);
 	MarginStruct margins(topMargin, leftMargin, bottomMargin, rightMargin);
 	DocPagesSetup pagesSetup(pageArrangement, firstPageLocation, firstPageNumber, orientation, autoTextFrames, columnDistance, columnCount);
 	QString newDocName( tr("Document")+"-"+QString::number(DocNr));
@@ -2037,6 +2037,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		styleManager->currentDoc(tempDoc);
 		tocGenerator->setDoc(tempDoc);
 	}
+	undoManager->setUndoEnabled(true);
 	return tempDoc;
 }
 
@@ -2099,23 +2100,16 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	ActWin = scw;
 	if (ActWin->doc()==NULL)
 		return;
-	QString oldDocName = "";
-	if (ActWin && ActWin->doc())
-	{
-		oldDocName = ActWin->doc()->DocName;
-	}
+
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 	} */
 	docCheckerPalette->clearErrorList();
-	QString newDocName = "";
-	if (ActWin && ActWin->doc())
-		newDocName = ActWin->doc()->DocName;
 
-	if (oldDocName != newDocName)
-		undoManager->switchStack(newDocName);
+	doc = ActWin->doc();
+	undoManager->switchStack(doc->DocName);
 
 	if (view!=NULL)
 	{
@@ -2127,7 +2121,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 			//disconnect(doc->m_Selection, SIGNAL(empty()), 0, 0);
 		}
 	}
-	doc = ActWin->doc();
+
 	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
