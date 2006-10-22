@@ -487,7 +487,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			PageItem::ItemType itype = parseSVG(b.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
 			z = currDoc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			PageItem* ite = currDoc->Items->at(z);
-			ite->fillRule = (gc->fillRule != "nonzero"); 
+			ite->fillRule = (gc->fillRule != "nonzero");
 			ite->PoLine = pArray;
 			if (ite->PoLine.size() < 4)
 			{
@@ -585,6 +585,9 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			setupTransform( b );
 			SvgStyle *gc = m_gc.current();
 			PageItem* ite = currDoc->Items->at(z);
+			QWMatrix gcm = gc->matrix;
+			double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
+			double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
 			switch (ite->itemType())
 			{
 			case PageItem::ImageFrame:
@@ -592,7 +595,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					QWMatrix mm = gc->matrix;
 					ite->moveBy(mm.dx(), mm.dy());
 					ite->setWidthHeight(ite->width() * mm.m11(), ite->height() * mm.m22());
-					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));
+					ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
 					if (ite->PicAvail)
 						ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
 					break;
@@ -600,7 +603,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			case PageItem::TextFrame:
 				{
 					QWMatrix mm = gc->matrix;
-					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));
+					ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
 				}
 				break;
 			default:
@@ -616,7 +619,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 						mv.scale(viewScaleX, viewScaleY);
 						ite->PoLine.map(mv);
 					}
-					ite->setLineWidth(ite->lineWidth() * ((mm.m11() + mm.m22()) / 2.0));
+					ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
 					FPoint wh = getMaxClipF(&ite->PoLine);
 					ite->setWidthHeight(wh.x(), wh.y());
 					ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
