@@ -134,11 +134,37 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	bool exi = ExifInf.scan(fn);
 	if ((exi) && (ExifInf.exifDataValid))
 	{
+		if (cinfo.output_components == 4)
+			m_imageInfoRecord.colorspace = 1;
+		else if (cinfo.output_components == 3)
+			m_imageInfoRecord.colorspace = 0;
+		else if (cinfo.output_components == 1)
+			m_imageInfoRecord.colorspace = 2;
 		if ((!ExifInf.isNullThumbnail()) && thumbnail)
+		{
 			m_image = ExifInf.getThumbnail();
+			m_imageInfoRecord.exifInfo.thumbnail = ExifInf.getThumbnail();
+			if (cinfo.output_components == 4)
+			{
+				for( int yit=0; yit < m_image.height(); ++yit )
+				{
+					QRgb *s = (QRgb*)(m_image.scanLine( yit ));
+					for(int xit=0; xit < m_image.width(); ++xit )
+					{
+						unsigned char cc = 255 - qRed(*s);
+						unsigned char cm = 255 - qGreen(*s);
+						unsigned char cy = 255 - qBlue(*s);
+						unsigned char ck = QMIN(QMIN(cc, cm), cy);
+						*s = qRgba(cc-ck,cm-ck,cy-ck,ck);
+					}
+					s++;
+				}
+			}
+		}
+		else
+			m_imageInfoRecord.exifInfo.thumbnail = QImage();
 		m_imageInfoRecord.exifInfo.cameraName = ExifInf.getCameraModel();
 		m_imageInfoRecord.exifInfo.cameraVendor = ExifInf.getCameraMake();
-		m_imageInfoRecord.exifInfo.thumbnail = ExifInf.getThumbnail();
 		m_imageInfoRecord.exifInfo.comment = ExifInf.getComment();
 		m_imageInfoRecord.exifInfo.width = ExifInf.getWidth();
 		m_imageInfoRecord.exifInfo.height = ExifInf.getHeight();
@@ -169,12 +195,6 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		}
 		m_imageInfoRecord.xres = qRound(xres);
 		m_imageInfoRecord.yres = qRound(yres);
-		if (cinfo.output_components == 4)
-			m_imageInfoRecord.colorspace = 1;
-		else if (cinfo.output_components == 3)
-			m_imageInfoRecord.colorspace = 0;
-		else if (cinfo.output_components == 1)
-			m_imageInfoRecord.colorspace = 2;
 		m_imageInfoRecord.progressive = jpeg_has_multiple_scans(&cinfo);
 		if ((!ExifInf.isNullThumbnail()) && thumbnail)
 		{
@@ -185,6 +205,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 	}
 	else
 		m_imageInfoRecord.exifDataValid = false;
+	m_imageInfoRecord.exifInfo.thumbnail = QImage();
 	unsigned int EmbedLen = 0;
 	unsigned char* EmbedBuffer;
 	if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
@@ -286,6 +307,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 			free( PhotoshopBuffer );
+			m_imageInfoRecord.exifInfo.thumbnail = QImage();
 			m_imageInfoRecord.exifDataValid = savEx;
 		}
 	}

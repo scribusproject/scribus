@@ -318,7 +318,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
 	CustColors.insert("Black", ScColor(0, 0, 0, 255));
 	found = parseData(fn);
-	if ((thumbnail) && (m_imageInfoRecord.exifDataValid))
+	if ((thumbnail) && (m_imageInfoRecord.exifDataValid) && (!m_imageInfoRecord.exifInfo.thumbnail.isNull()))
 	{
 		QTextStream ts2(&BBox, IO_ReadOnly);
 		ts2 >> x >> y >> b >> h;
@@ -329,10 +329,27 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 		{
 			m_imageInfoRecord.type = 7;
 			if (psMode == 4)
+			{
 				m_imageInfoRecord.colorspace = 1;
+				for( int yit=0; yit < m_image.height(); ++yit )
+				{
+					QRgb *s = (QRgb*)(m_image.scanLine( yit ));
+					for(int xit=0; xit < m_image.width(); ++xit )
+					{
+						unsigned char cc = 255 - qRed(*s);
+						unsigned char cm = 255 - qGreen(*s);
+						unsigned char cy = 255 - qBlue(*s);
+						unsigned char ck = QMIN(QMIN(cc, cm), cy);
+						*s = qRgba(cc-ck,cm-ck,cy-ck,ck);
+						s++;
+					}
+				}
+			}
 			else
 				m_imageInfoRecord.colorspace = 0;
 		}
+		else
+			m_imageInfoRecord.colorspace = 0;
 		return true;
 	}
 	if (found)
