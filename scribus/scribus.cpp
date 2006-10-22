@@ -1922,6 +1922,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 									double sp, bool atf, int fp, int einh, int firstleft, int Ori, int SNr,
 									const QString& defaultPageSize, int pageCount, bool showView)
 {
+	undoManager->setUndoEnabled(false); //disable undo while creating a doc
 	QString cc;
 	if (HaveDoc)
 	{
@@ -1986,6 +1987,7 @@ bool ScribusMainWindow::doFileNew(double width, double h, double tpr, double lr,
 	connect(fileWatcher, SIGNAL(fileChanged(QString)), doc, SLOT(updatePict(QString)));
 	connect(fileWatcher, SIGNAL(fileDeleted(QString)), doc, SLOT(removePict(QString)));
 	scrActions["fileSave"]->setEnabled(false);
+	undoManager->setUndoEnabled(true);
 	undoManager->switchStack(doc->DocName);
 	styleManager->currentDoc(doc);
 	tocGenerator->setDoc(doc);
@@ -2045,23 +2047,16 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	ActWin = (ScribusWin*)w;
 	if (ActWin->document()==NULL)
 		return;
-	QString oldDocName = "";
-	if (ActWin && ActWin->document())
-	{
-		oldDocName = ActWin->document()->DocName;
-	}
+
+	doc = ActWin->document();
+	undoManager->switchStack(doc->DocName);
+
 /*	if (doc != NULL)
 	{
 		if ((HaveDoc) && (doc != ActWin->doc))
 			doc->OpenNodes = outlinePalette->buildReopenVals();
 	} */
 	docCheckerPalette->clearErrorList();
-	QString newDocName = "";
-	if (ActWin && ActWin->document())
-		newDocName = ActWin->document()->DocName;
-
-	if (oldDocName != newDocName)
-		undoManager->switchStack(newDocName);
 
 	if (view!=NULL)
 	{
@@ -2073,7 +2068,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 			//disconnect(doc->m_Selection, SIGNAL(empty()), 0, 0);
 		}
 	}
-	doc = ActWin->document();
+
 	view = ActWin->view();
 	actionManager->connectNewViewActions(view);
 	actionManager->disconnectNewDocActions();
