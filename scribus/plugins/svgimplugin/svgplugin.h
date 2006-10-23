@@ -201,7 +201,7 @@ public:
 	void parseGradient( const QDomElement &e );
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
-	QPtrList<PageItem> parseText(double x, double y, const QDomElement &e);
+	QPtrList<PageItem> parseText(const QDomElement &e);
 	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 
 	QDomDocument inpdoc;
@@ -215,7 +215,6 @@ public:
 	double viewTransformY;
 	double viewScaleX;
 	double viewScaleY;
-	bool haveViewBox;
 	bool interactive;
 	//! \brief Indicator if there is any unsupported feature in imported svg.
 	bool unsupported;
