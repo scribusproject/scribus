@@ -2937,10 +2937,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 							currItem->moveImageInFrame(0, (currItem->height() - currItem->OldH2)/currItem->imageYScale());
 						break;
 					}
-
-					if (UndoManager::undoEnabled())
-						undoManager->commit();
-
 							
 					//TextFrame resize - Resize text with resize of frame
 					//alt resize, free resize with text scaling
@@ -2998,6 +2994,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					evSpon = false;
 					updateContents();
 					emit DocChanged();
+					currItem->checkChanges();
+					if (UndoManager::undoEnabled())
+						undoManager->commit();
+
 				}
 				Doc->setRedrawBounding(currItem);
 				currItem->OwnPage = Doc->OnPage(currItem);
