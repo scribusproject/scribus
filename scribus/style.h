@@ -232,6 +232,10 @@ public:
 		return m_default->base() ? m_version ^ m_default->base()->version() : m_version; 
 	}
 		
+	const Style* defaultStyle() const { return m_default; }
+	
+	void setDefaultStyle(const Style* def) { m_default = def; }
+	
 private:
 	const Style* m_default;
 };

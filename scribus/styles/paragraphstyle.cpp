@@ -18,10 +18,10 @@
 
 #include "style.h"
 
-ParagraphStyle::ParagraphStyle() : Style(), StyleBaseProxy(PAR_LEVEL, &cstyle), cstyle()
+ParagraphStyle::ParagraphStyle() : Style(), StyleBaseProxy(PAR_LEVEL, NULL), cstyle()
 {
-//	const Style* cdefault = resolve("");
-//	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(cdefault->base())));
+	setDefaultStyle( &cstyle );
+//	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(defaultStyle()->base())));
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = attr_DEFAULT; \
 	inh_##attr_NAME = true;
@@ -30,8 +30,9 @@ ParagraphStyle::ParagraphStyle() : Style(), StyleBaseProxy(PAR_LEVEL, &cstyle), 
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), StyleBaseProxy(PAR_LEVEL, &cstyle), cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), StyleBaseProxy(PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
+	setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
