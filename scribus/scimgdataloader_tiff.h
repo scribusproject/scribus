@@ -18,6 +18,7 @@ protected:
 	int getLayers(const QString& fn);
 	bool getImageData(TIFF* tif, QImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
 	void blendOntoTarget(QImage *tmp, int layOpa, QString layBlend, bool cmyk);
+	QString getLayerString(QDataStream & s);
 	int random_table[4096];
 
 public:

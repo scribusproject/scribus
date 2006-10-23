@@ -696,6 +696,139 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 					m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false;
 			}
 		}
+/*		PhotoshopLen = 0;
+		if (TIFFGetField(tif, 37724, &PhotoshopLen, &PhotoshopBuffer) )
+		{
+			if (PhotoshopLen != 0)
+			{
+				QByteArray arrayPhot(PhotoshopLen);
+				arrayPhot.duplicate((const char*)PhotoshopBuffer,PhotoshopLen);
+				QDataStream s(arrayPhot,IO_ReadOnly);
+				s.setByteOrder( QDataStream::LittleEndian );
+				uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
+				int top, left, bottom, right;
+				short numLayers, numChannels;
+				short channelType;
+				uchar blendKey[4];
+				uchar opacity, clipping, flags, filler;
+				QString layerName, blend;
+				struct PSDLayer lay;
+				do
+				{
+					s >> signature;
+				}
+				while (signature != 0x4c617972);
+				s >> layerinfo;
+				s >> numLayers;
+				if (numLayers < 0)
+					numLayers = -numLayers;
+				if (numLayers != 0)
+				{
+					for (int layer = 0; layer < numLayers; layer++)
+					{
+						s >> top;
+						lay.ypos = top;
+						s >> left;
+						lay.xpos = left;
+						s >> bottom;
+						lay.height = bottom - top;
+						s >> right;
+						lay.width = right - left;
+						s >> numChannels;
+						if (numChannels > 5)	// we don't support images with more than 5 channels yet
+						{
+							m_imageInfoRecord.layerInfo.clear();
+							return false;
+						}
+						lay.channelType.clear();
+						lay.channelLen.clear();
+						for (int channels = 0; channels < numChannels; channels++)
+						{
+							s >> channelType;
+							s >> channelLen;
+							lay.channelType.append(channelType);
+							lay.channelLen.append(channelLen);
+						}
+						s >> signature;
+						blend = "";
+						for( int i = 0; i < 4; i++ )
+						{
+							s >> blendKey[i];
+							blend.prepend(QChar(blendKey[i]));
+						}
+						lay.blend = blend;
+						s >> opacity;
+						lay.opacity = opacity;
+						s >> clipping;
+						lay.clipping = clipping;
+						s >> flags;
+						if (flags & 8)
+						{
+							if (flags & 16)	// Unknown combination of layer flags, probably an adjustment or effects layer
+							{
+								m_imageInfoRecord.layerInfo.clear();
+								return false;
+							}
+						}
+						lay.flags = flags;
+						s >> filler;
+						s >> extradata;
+						s >> layermasksize;
+						lay.maskYpos = 0;
+						lay.maskXpos = 0;
+						lay.maskHeight = 0;
+						lay.maskWidth = 0;
+						if (layermasksize != 0)
+						{
+							s >> lay.maskYpos;
+							s >> lay.maskXpos;
+							s >> dummy;
+							lay.maskHeight = dummy - lay.maskYpos;
+							s >> dummy;
+							lay.maskWidth = dummy - lay.maskXpos;
+							s >> dummy;
+						}
+						s >> layerRange;
+						s.device()->at( s.device()->at() + layerRange );
+						lay.layerName = getLayerString(s);
+						m_imageInfoRecord.layerInfo.append(lay);
+						s >> signature;
+						if( signature == 0x3842494D )
+						{
+							while (signature == 0x3842494D )
+							{
+								s >> signature;
+								s >> addRes;
+								s.device()->at( s.device()->at() + addRes );
+								s >> signature;
+							}
+							s.device()->at( s.device()->at() - 4 );
+						}
+						else
+						{
+							s.device()->at( s.device()->at() - 2 );
+							s >> signature;
+							if( signature == 0x3842494D )
+							{
+								while (signature == 0x3842494D )
+								{
+									s >> signature;
+									s >> addRes;
+									s.device()->at( s.device()->at() + addRes );
+									s >> signature;
+								}
+								s.device()->at( s.device()->at() - 4 );
+							}
+							else
+								s.device()->at( s.device()->at() - 6 );
+						}
+					}
+				}
+				uint base = s.device()->at();
+				ushort compression;
+				s >> compression;
+			}
+		} */
 		if( xres <= 1.0 || yres <= 1.0 )
 		{
 			xres = yres = 72.0;
@@ -795,4 +928,29 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int /*gsRes*/, bool /*
 		return true;
 	}
 	return false;
+}
+
+QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
+{
+	uchar len, tmp;
+	uint adj;
+	QString ret = "";
+	s >> len;
+	if (len == 0)
+	{
+		s >> tmp;
+		s >> tmp;
+		s >> tmp;
+		return ret;
+	}
+	for( int i = 0; i < len; i++ )
+	{
+		s >> tmp;
+		ret += QChar(tmp);
+	}
+	adj = 0;
+	if (((ret.length()+1) % 4) != 0)
+		adj = 4 - ((ret.length()+1) % 4);
+	s.device()->at( s.device()->at() + adj );
+	return ret;
 }

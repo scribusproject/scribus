@@ -1418,7 +1418,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 	}
 //	channel_num = 4;
 	const uint pixel_count = header.height * header.width;
-	static const uint components[4] = {2, 1, 0, 3};
+	static const uint components[5] = {2, 1, 0, 3, 3};
 	if( compression )
 	{
 		// Skip row lengths.
@@ -1444,6 +1444,8 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 					// Copy next len+1 bytes literally.
 					len++;
 					count += len;
+					if (channel > 3)
+						continue;
 					if ( count > pixel_count )
 						return false;
 					while( len != 0 )
@@ -1487,6 +1489,8 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 					len ^= 0xFF;
 					len += 2;
 					count += len;
+					if (channel > 3)
+						continue;
 					if(s.atEnd() || count > pixel_count)
 						return false;
 					uchar val;
