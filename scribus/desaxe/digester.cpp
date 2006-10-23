@@ -129,12 +129,15 @@ void Digester::addRule(const Xml_string pattern, Action action)
 }
 
 
-void Digester::reset()
+void Digester::beginDoc()
 {
 	state->reset();
 	state->dump();
 }
 
+void Digester::endDoc()
+{
+}
 
 void Digester::begin(Xml_string tag, Xml_attr attr)
 {

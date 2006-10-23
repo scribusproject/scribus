@@ -677,33 +677,38 @@ public:
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
 
-	/** Workhorse for the following methods */
-	void itemSelection_ApplyTextStyle(const CharStyle & newstyle);
+	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle);
+	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle);
+	void itemSelection_ApplyCharStyle(const CharStyle & newstyle);
+	void itemSelection_SetCharStyle(const CharStyle & newstyle);
 
 	void ChLineWidth(double w);
 	void ChLineArt(Qt::PenStyle w);
 	void ChLineJoin(Qt::PenJoinStyle w);
 	void ChLineEnd(Qt::PenCapStyle w);
-	void ChLineSpa(double w);
-	void ChLineSpaMode(int w);
+	void itemSelection_SetAlignment(int w);
+	void itemSelection_SetLineSpacing(double w);
+	void itemSelection_SetLineSpacingMode(int w);
 	//void ChLocalXY(double x, double y);
 	//void ChLocalSc(double x, double y);
-	void ItemFont(QString fon);
-	void ItemTextBrush(QString farbe);
-	void ItemTextBrushS(int sha);
-	void ItemTextPen(QString farbe);
-	void ItemTextPenS(int sha);
-	void ItemTextScaleV(int sha);
-	void ItemTextScale(int sha);
-	void setItemTextBase(int sha);
-	void setItemTextOutline(int sha);
-	void setItemTextShadow(int shx, int shy);
-	void setItemTextUnderline(int pos, int wid);
-	void setItemTextStrike(int pos, int wid);
-	void chTyStyle(int s);
-	void chAbStyle(PageItem *currItem, int s);
-	void chKerning(int us);
-	void chFSize(int size);
+	void itemSelection_SetFont(QString fon);
+	void itemSelection_SetFillColor(QString farbe);
+	void itemSelection_SetFillShade(int sha);
+	void itemSelection_SetStrokeColor(QString farbe);
+	void itemSelection_SetStrokeShade(int sha);
+	void itemSelection_SetScaleV(int);
+	void itemSelection_SetScaleH(int);
+	void itemSelection_SetBaselineOffset(int);
+	void itemSelection_SetOutlineWidth(int);
+	void itemSelection_SetShadowOffsets(int shx, int shy);
+	void itemSelection_SetUnderline(int pos, int wid);
+	void itemSelection_SetStrikethru(int pos, int wid);
+	void itemSelection_SetEffects(int s);
+	
+//	void chAbStyle(PageItem *currItem, int s);
+
+	void itemSelection_SetTracking(int us);
+	void itemSelection_SetFontSize(int size);
 	//void FlipImageH();
 	//void FlipImageV();
 	void MirrorPolyH(PageItem *currItem);
@@ -960,7 +965,6 @@ public slots:
 	void itemSelection_DoHyphenate();
 	void itemSelection_DoDeHyphenate();
 	void itemSelection_SendToLayer(int layerNumber);
-	void itemSelection_SetParagraphStyle(int s);
 	void itemSelection_SetImageOffset(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScale(double x, double y, Selection* customSelection=0);
 	void itemSelection_SetImageScaleAndOffset(double ox, double oy, double sx, double sy, Selection* customSelection=0);

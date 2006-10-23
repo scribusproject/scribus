@@ -994,7 +994,7 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	{
 //		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
 		const ParagraphStyle currPStyle(currItem->currentStyle());
-		int currentParaStyle = currPStyle.parent()? findParagraphStyle(doc, *dynamic_cast<const ParagraphStyle*>(currPStyle.parent())) : 0;
+		int currentParaStyle = currPStyle.parentStyle()? findParagraphStyle(doc, *dynamic_cast<const ParagraphStyle*>(currPStyle.parentStyle())) : 0;
 		setAbsValue(currPStyle.alignment());
 		propertiesPalette->setParStyle(currentParaStyle);
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
@@ -2698,9 +2698,9 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			else
 				view->horizRuler->Revers = false;
 			view->horizRuler->ItemPosValid = true;
-			if (findParagraphStyle(doc, doc->currentStyle) < 5)
-				view->horizRuler->TabValues = currItem->TabValues;
-			else
+//			if (findParagraphStyle(doc, doc->currentStyle) < 5)
+//				view->horizRuler->TabValues = currItem->TabValues;
+//			else
 				view->horizRuler->TabValues = doc->currentStyle.tabValues();
 			view->horizRuler->repaint();
 		}
@@ -3639,7 +3639,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				ite->updatePolyClip();
 				ite->DrawObj(painter, rd);
 			}
-			else if (ite->asTextFrame())
+			else if (ite->asTextFrame() && ite->asTextFrame()->itemText.length()  > 0)
 			{
 				if ( ite->BackBox == 0 )
 					ite->asTextFrame()->layout();
@@ -4856,10 +4856,10 @@ void ScribusMainWindow::slotEditPaste()
 				ss->Objekt = Buffer2;
 //FIXME: that st business doesn't look right
 				int st = findParagraphStyle(doc, doc->currentStyle);
-				if (st > 5)
+//				if (st > 5)
 					ss->GetText(currItem, st, doc->docParagraphStyles[st].charStyle().font().scName(), doc->docParagraphStyles[st].charStyle().fontSize(), true);
-				else
-					ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
+//				else
+//					ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
 				delete ss;
 			}
 			view->RefreshItem(currItem);
@@ -5992,7 +5992,7 @@ void ScribusMainWindow::setItemHoch(int h)
 	{
 		doc->currentStyle.charStyle().setEffects(static_cast<StyleFlag>(h));
 		setStilvalue(h);
-		doc->chTyStyle(h);
+		doc->itemSelection_SetEffects(h);
 	}
 }
 
@@ -6274,7 +6274,7 @@ void ScribusMainWindow::SetNewFont(const QString& nf)
 		}
 	}
 	AdjustFontMenu(nf2);
-	doc->ItemFont(nf2);
+	doc->itemSelection_SetFont(nf2);
 	doc->currentStyle.charStyle().setFont((*doc->AllFonts)[nf2]);
 	slotDocCh();
 }
@@ -6295,7 +6295,7 @@ void ScribusMainWindow::setItemFSize(int id)
 {
 	int c = id;
 	if (c != -1)
-		doc->chFSize(c*10);
+		doc->itemSelection_SetFontSize(c*10);
 	else
 	{
 		bool ok = false;
@@ -6304,7 +6304,7 @@ void ScribusMainWindow::setItemFSize(int id)
 		{
 			c = qRound(dia->getEditText().toDouble(&ok));
 			if ((ok) && (c < 1025) && (c > 0))
-				doc->chFSize(c*10);
+				doc->itemSelection_SetFontSize(c*10);
 		}
 		delete dia;
 	}
@@ -6325,7 +6325,7 @@ void ScribusMainWindow::setItemFarbe(int id)
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-			doc->ItemTextBrush(ColorMenC->text(id));
+			doc->itemSelection_SetFillColor(ColorMenC->text(id));
 		else
 			doc->ItemBrush(ColorMenC->text(id));
 	}
@@ -6344,7 +6344,7 @@ void ScribusMainWindow::setItemShade(int id)
 		if (c != -1)
 		{
 			if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-				doc->ItemTextBrushS(c);
+				doc->itemSelection_SetFillShade(c);
 			else
 				doc->ItemBrushShade(c);
 		}
@@ -6357,7 +6357,7 @@ void ScribusMainWindow::setItemShade(int id)
 				if (ok)
 				{
 					if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
-						doc->ItemTextBrushS(c);
+						doc->itemSelection_SetFillShade(c);
 					else
 						doc->ItemBrushShade(c);
 				}	
@@ -6480,12 +6480,15 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	bool ff;
 	uint nr;
 	ers.clear();
+	/*FIXME:NLS
 	ers.append(0);
 	ers.append(1);
 	ers.append(2);
 	ers.append(3);
 	ers.append(4);
 	for (uint a=5; a<doc->docParagraphStyles.count(); ++a)
+*/
+	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)
 	{
 		ff = false;
 		nn = doc->docParagraphStyles[a].name();
@@ -6776,8 +6779,8 @@ void ScribusMainWindow::setNewAlignment(int a)
 {
 	if (HaveDoc)
 	{
-		doc->currentStyle = doc->docParagraphStyles[a];
-		doc->itemSelection_SetParagraphStyle(a);
+//		doc->currentStyle = doc->docParagraphStyles[a];
+		doc->itemSelection_SetAlignment(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
@@ -6788,8 +6791,8 @@ void ScribusMainWindow::setNewParStyle(int a)
 {
 	if (HaveDoc)
 	{
-		doc->currentStyle = doc->docParagraphStyles[a];
-		doc->itemSelection_SetParagraphStyle(a);
+//		doc->currentStyle = doc->docParagraphStyles[a];
+		doc->itemSelection_ApplyParagraphStyle(doc->docParagraphStyles[a]);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
@@ -6798,7 +6801,7 @@ void ScribusMainWindow::setNewParStyle(int a)
 void ScribusMainWindow::setAbsValue(int a)
 {
 //	doc->currentStyle = doc->docParagraphStyles[a];
-	doc->currentStyle.setAlignment(a<5 ? a : 0);
+	doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a<5 ? a : 0));
 	propertiesPalette->setAli(a);
 	QString alignment[] = {"Left", "Center", "Right", "Block", "Forced"};
 	for (int b=0; b<5; ++b)
@@ -8899,7 +8902,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 					if (currItem!=NULL)
 					{
 						if ((m->stateAfter() & Qt::ControlButton) && (currItem->asTextFrame() || currItem->asPathText()))
-							doc->ItemTextBrush(colorName); //Text colour
+							doc->itemSelection_SetFillColor(colorName); //Text colour
 						else
 						if (m->stateAfter() & Qt::AltButton) //Line colour
 							doc->ItemPen(colorName);

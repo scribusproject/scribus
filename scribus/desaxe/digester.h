@@ -19,6 +19,7 @@
 #include <string>
 
 #include "desaxe_conf.h"
+#include "saxhandler.h"
 
 namespace desaxe {
 	
@@ -33,7 +34,7 @@ class RuleState;
    attributes, or call methods. Actions operate on intermediate objects which 
    are hold on a stack maintained by Digester.  
  */
-class Digester {	
+class Digester : public SaxHandler {	
 public:
 	Digester();
 	Digester& operator=(const Digester& other);
@@ -49,7 +50,8 @@ public:
 	const Xml_string getError(int i) const;
 	
 // called by SAX parser:
-	void reset();
+	void beginDoc();
+	void endDoc();
 	void begin(Xml_string tag, Xml_attr attr);
 	void end(Xml_string tag);
 	void chars(Xml_string text);

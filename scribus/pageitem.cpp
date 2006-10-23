@@ -2893,7 +2893,8 @@ void PageItem::restorePStyle(SimpleState *state, bool isUndo)
 	int styleid = state->getInt("OLD_STYLE");
 	if (!isUndo)
 		styleid = state->getInt("NEW_STYLE");
-	m_Doc->chAbStyle(this, styleid);
+	//will be done later with other text-undo:
+	//	m_Doc->chAbStyle(this, styleid);
 }
 
 

@@ -263,7 +263,7 @@ void StilFormate::dupFormat()
 	sty.setDropCapLines(TempVorl[sFnumber].dropCapLines());
 	sty.setDropCapOffset(TempVorl[sFnumber].dropCapOffset());
 	sty.setUseBaselineGrid(TempVorl[sFnumber].useBaselineGrid());
-	sty.tabValues() = TempVorl[sFnumber].tabValues();
+	sty.setTabValues(TempVorl[sFnumber].tabValues());
 	sty.charStyle() = TempVorl[sFnumber].charStyle();
 	TempVorl.append(sty);
 	sFnumber = TempVorl.count()-1;
@@ -285,7 +285,7 @@ void StilFormate::neuesFormat()
 	sty.setLineSpacing(((Docu->toolSettings.defSize / 10.0) * 
 			static_cast<double>(Docu->typographicSettings.autoLineSpacing) / 100) 
 			  + (Docu->toolSettings.defSize / 10.0));
-	sty.setAlignment(0);
+	sty.setAlignment(ParagraphStyle::Leftaligned);
 	sty.setLeftMargin(0);
 	sty.setRightMargin(0);
 	sty.setFirstIndent(0);
@@ -293,7 +293,7 @@ void StilFormate::neuesFormat()
 	sty.setGapAfter(0);
 	sty.charStyle() = CharStyle(PrefsManager::instance()->appPrefs.AvailFonts[Docu->toolSettings.defFont],
 								Docu->toolSettings.defSize);
-	sty.tabValues().clear();
+//	sty.tabValues().clear();
 	sty.setHasDropCap(false);
 	sty.setDropCapLines(2);
 	sty.setDropCapOffset(0);

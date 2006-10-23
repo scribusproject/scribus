@@ -133,17 +133,17 @@ void SideBar::paintEvent(QPaintEvent *e)
 						st = editor->StyledText.at(pa)->at(0)->cab;
 					else
 						st = editor->ParagStyles[pa];
-					if (st < 5)
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
-					else
+//					if (st < 5)
+//						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
+//					else
 						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].name());
 				}
 				else
 				{
 					st = editor->currentParaStyle;
-					if (st < 5)
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
-					else
+//					if (st < 5)
+//						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
+//					else
 						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].name());
 				}
 			}
@@ -2766,7 +2766,7 @@ void StoryEditor::updateProps(int p, int ch)
 	Editor->currentParaStyle = Editor->ParagStyles[p];
 	if (chars->count() == 0)
 	{
-		if (Editor->currentParaStyle > 4)
+//		if (Editor->currentParaStyle > 4)
 		{
 			Editor->prevFont = Editor->CurrFont;
 			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
@@ -3284,17 +3284,17 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			chars = Editor->StyledText.at(pa);
 			for (uint s = 0; s < chars->count(); ++s)
 			{
-				if (Editor->currentParaStyle > 4)
+//				if (Editor->currentParaStyle > 4)
 				{
 					if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 					{
 						chars->at(s)->charStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle();
 					}
 				}
-				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
-				{
-					chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
-				}
+//				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
+//				{
+//					chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
+//				}
 				chars->at(s)->cab = Editor->currentParaStyle;
 			}
 			Editor->updateFromChars(pa);
@@ -3306,7 +3306,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	}
 	else
 	{
-		if (Editor->currentParaStyle > 4)
+//		if (Editor->currentParaStyle > 4)
 		{
 			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 			{
@@ -3327,7 +3327,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
 			}
 		}
-		else
+/*		else
 		{
 			Editor->CurrTextFill = currItem->itemText.defaultStyle().charStyle().fillColor();
 			Editor->CurrTextFillSh = currItem->itemText.defaultStyle().charStyle().fillShade();
@@ -3349,6 +3349,7 @@ void StoryEditor::changeAlignSB(int pa, int align)
 			Editor->CurrTextStrikePos = currItem->itemText.defaultStyle().charStyle().strikethruOffset();
 			Editor->CurrTextStrikeWidth = currItem->itemText.defaultStyle().charStyle().strikethruWidth();
 		}
+		*/
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
 		{
@@ -3401,17 +3402,17 @@ void StoryEditor::changeAlign(int )
 				chars = Editor->StyledText.at(pa);
 				for (uint s = 0; s < chars->count(); ++s)
 				{
-					if (Editor->currentParaStyle > 4)
+//					if (Editor->currentParaStyle > 4)
 					{
 						if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 						{
 							chars->at(s)->charStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle();
 						}
 					}
-					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
-					{
-						chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
-					}
+//					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
+//					{
+//						chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
+//					}
 					chars->at(s)->cab = Editor->currentParaStyle;
 				}
 			Editor->updateFromChars(pa);
@@ -3426,7 +3427,7 @@ void StoryEditor::changeAlign(int )
 	}
 	else
 	{
-		if (Editor->currentParaStyle > 4)
+//		if (Editor->currentParaStyle > 4)
 		{
 			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
 			{
@@ -3447,7 +3448,7 @@ void StoryEditor::changeAlign(int )
 				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
 			}
 		}
-		else
+/*		else
 		{
 			const CharStyle& currStyle = currItem->itemText.defaultStyle().charStyle();
 			Editor->CurrTextFill = currStyle.fillColor();
@@ -3470,6 +3471,7 @@ void StoryEditor::changeAlign(int )
 			Editor->CurrTextStrikePos = currStyle.strikethruOffset();
 			Editor->CurrTextStrikeWidth = currStyle.strikethruWidth();
 		}
+		*/
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
 		{

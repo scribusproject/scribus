@@ -152,8 +152,8 @@ void SMPStyleWidget::setupCharStyle()
 
 void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
 {
-	bool hasParent = pstyle.hasParent();
-	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parent());
+	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle());
+	bool hasParent = parent != NULL;
 
 	lineSpacingMode_->clear();
 	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
@@ -164,21 +164,21 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 	if (hasParent)
 	{
-		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode(), pstyle.isPlineSpacingMode());
+		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode(), pstyle.isInhLineSpacingMode());
 		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
 
-		lineSpacing_->setValue(pstyle.lineSpacing(), pstyle.isPlineSpacing());
+		lineSpacing_->setValue(pstyle.lineSpacing(), pstyle.isInhLineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
 
-		spaceAbove_->setValue(pstyle.gapBefore(), pstyle.isPgapBefore());
+		spaceAbove_->setValue(pstyle.gapBefore(), pstyle.isInhGapBefore());
 		spaceAbove_->setParentValue(parent->gapBefore());
 
-		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isPgapAfter());
+		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isInhGapAfter());
 		spaceBelow_->setParentValue(parent->gapAfter());
 
 		dropCapsBox->setChecked(pstyle.hasDropCap());;
 		parentDropCap_ = parent->hasDropCap();
-		if (pstyle.isPhasDropCap())
+		if (pstyle.isInhHasDropCap())
 			parentDropCapButton->hide();
 		else
 			parentDropCapButton->show();
@@ -186,16 +186,16 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		connect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
 		connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 
-		dropCapLines_->setValue(pstyle.dropCapLines(), pstyle.isPdropCapLines());
+		dropCapLines_->setValue(pstyle.dropCapLines(), pstyle.isInhDropCapLines());
 		dropCapLines_->setParentValue(parent->dropCapLines());
 
-		dropCapOffset_->setValue(pstyle.dropCapOffset(), pstyle.isPdropCapOffset());
+		dropCapOffset_->setValue(pstyle.dropCapOffset(), pstyle.isInhDropCapOffset());
 		dropCapOffset_->setParentValue(parent->dropCapOffset());
 
-		alignement_->setStyle(pstyle.alignment(), pstyle.isPalignment());
+		alignement_->setStyle(pstyle.alignment(), pstyle.isInhAlignment());
 		alignement_->setParentItem(parent->alignment());
 
-		bool hasParentTabs = pstyle.isPtabValues();
+		bool hasParentTabs = pstyle.isInhTabValues();
 		QValueList<ParagraphStyle::TabRecord> tabs;
 		if (hasParentTabs)
 			tabs = QValueList<ParagraphStyle::TabRecord>(parent->tabValues());
@@ -205,13 +205,13 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		tabList_->setTabs(tabs, unitIndex, hasParentTabs);
 		tabList_->setParentTabs(parent->tabValues());
 
-		tabList_->setLeftIndentValue(pstyle.leftMargin(),pstyle.isPleftMargin());
+		tabList_->setLeftIndentValue(pstyle.leftMargin(),pstyle.isInhLeftMargin());
 		tabList_->setParentLeftIndent(parent->leftMargin());
 
-		tabList_->setFirstLineValue(pstyle.firstIndent(), pstyle.isPfirstIndent());
+		tabList_->setFirstLineValue(pstyle.firstIndent(), pstyle.isInhFirstIndent());
 		tabList_->setParentFirstLine(parent->firstIndent());
 
-		tabList_->setRightIndentValue(pstyle.rightMargin(), pstyle.isPrightMargin());
+		tabList_->setRightIndentValue(pstyle.rightMargin(), pstyle.isInhRightMargin());
 		tabList_->setParentRightIndent(parent->rightMargin());
 	}
 	else
@@ -249,9 +249,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	if (hasParent)
 	{
 		cpage->parentCombo->insertItem( tr("Parent's Character Style"), 1);
-		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parent()->hasName())
+		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parentStyle()->hasName())
 		{
-			QString pname = pstyle.charStyle().parent()->name();
+			QString pname = pstyle.charStyle().parentStyle()->name();
 			for (int i = 2; i < cpage->parentCombo->count(); ++i)
 			{
 				if (cpage->parentCombo->text(i) == pname)
@@ -268,9 +268,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	}
 	else
 	{
-		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parent()->hasName())
+		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parentStyle()->hasName())
 		{
-			QString pname = pstyle.charStyle().parent()->name();
+			QString pname = pstyle.charStyle().parentStyle()->name();
 			for (int i = 1; i < cpage->parentCombo->count(); ++i)
 			{
 				if (cpage->parentCombo->text(i) == pname)
@@ -544,41 +544,41 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	bool hasParent = cstyle.hasParent();
-	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parent());
+	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parentStyle());
 
 	if (hasParent)
 	{
-		fontSize_->setValue(cstyle.fontSize() / 10.0, cstyle.isPfontSize());
+		fontSize_->setValue(cstyle.fontSize() / 10.0, cstyle.isInhFontSize());
 		fontSize_->setParentValue(parent->fontSize() / 10.0);
 
-		fontHScale_->setValue(cstyle.scaleH() / 10.0, cstyle.isPscaleH());
+		fontHScale_->setValue(cstyle.scaleH() / 10.0, cstyle.isInhScaleH());
 		fontHScale_->setParentValue(parent->scaleH() / 10.0);
 
-		fontVScale_->setValue(cstyle.scaleV() / 10.0, cstyle.isPscaleV());
+		fontVScale_->setValue(cstyle.scaleV() / 10.0, cstyle.isInhScaleV());
 		fontVScale_->setParentValue(parent->scaleV() / 10.0);
 
-		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0, cstyle.isPbaselineOffset());
+		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0, cstyle.isInhBaselineOffset());
 		baselineOffset_->setParentValue(parent->baselineOffset() / 10.0);
 
-		tracking_->setValue(cstyle.tracking() / 10.0, cstyle.isPtracking());
+		tracking_->setValue(cstyle.tracking() / 10.0, cstyle.isInhTracking());
 		tracking_->setParentValue(parent->tracking() / 10.0);
 
-		effects_->setStyle(static_cast<int>(cstyle.effects()), cstyle.isPeffects());
+		effects_->setStyle(static_cast<int>(cstyle.effects()), cstyle.isInhEffects());
 		effects_->setParentItem(static_cast<int>(parent->effects()));
 
-		fillShade_->setValue(cstyle.fillShade(), cstyle.isPfillShade());
+		fillShade_->setValue(cstyle.fillShade(), cstyle.isInhFillShade());
 		fillShade_->setParentValue(parent->fillShade());
 
-		strokeShade_->setValue(cstyle.strokeShade(), cstyle.isPstrokeShade());
+		strokeShade_->setValue(cstyle.strokeShade(), cstyle.isInhStrokeShade());
 		strokeShade_->setParentValue(parent->strokeShade());
 
-		fillColor_->setCurrentText(cstyle.fillColor(), cstyle.isPfillColor());
+		fillColor_->setCurrentText(cstyle.fillColor(), cstyle.isInhFillColor());
 		fillColor_->setParentText(parent->fillColor());
 
-		strokeColor_->setCurrentText(cstyle.strokeColor(), cstyle.isPstrokeColor());
+		strokeColor_->setCurrentText(cstyle.strokeColor(), cstyle.isInhStrokeColor());
 		strokeColor_->setParentText(parent->strokeColor());
 
-		fontFace_->setCurrentFont(cstyle.font().scName(), cstyle.isPfont());
+		fontFace_->setCurrentFont(cstyle.font().scName(), cstyle.isInhFont());
 		fontFace_->setParentFont(parent->font().scName());
 	}
 	else
@@ -620,7 +620,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == cstyle.parent()->displayName())
+			if (parentCombo->text(i) == cstyle.parentStyle()->displayName())
 			{
 				index = i;
 				break;
@@ -649,7 +649,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 
 	if (hasParent)
 	{
-		language_->setCurrentItem(ci, cstyle.isPlanguage());
+		language_->setCurrentItem(ci, cstyle.isInhLanguage());
 		language_->setParentItem(pi);
 	}
 	else

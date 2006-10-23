@@ -194,14 +194,14 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 {
 	qDebug(QString("%6%1/%2 @ %3: %4--%5")
 		   .arg(pstyle.name())
-		   .arg(pstyle.parent()? pstyle.parent()->name() : "-")
+		   .arg(pstyle.parent())
 		   .arg( (unsigned long int) &pstyle)
 		   .arg(pstyle.leftMargin())
 		   .arg(pstyle.rightMargin())
 		   .arg(indent));
 	static QString more("  ");
-	if (pstyle.parent())
-		dumpIt(*dynamic_cast<const ParagraphStyle*>(pstyle.parent()), more + indent);
+	if (pstyle.hasParent())
+		dumpIt(*dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle()), more + indent);
 }
 
 static const bool opticalMargins = true;
@@ -1724,7 +1724,7 @@ NoRoom:
 			if ((m_Doc->appMode == modeEdit) && (Tinput))
 			{
 				//							OwnPage->Deselect(true);
-				next->CPos = QMAX(nCP, nrc);
+				next->CPos = QMAX(nCP, signed(nrc));
 				//							Doc->currentPage = NextBox->OwnPage;
 				//							NextBox->OwnPage->SelectItemNr(NextBox->ItemNr);
 //				qDebug("textframe: len=%d, leaving relayout in editmode && Tinput", itemText.length());
@@ -4179,7 +4179,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
-			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
+//			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
 			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);
@@ -4208,7 +4208,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		Tinput = false;
 		if ((cr == QChar(13)) && (itemText.length() != 0))
 		{
-			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
+//			m_Doc->chAbStyle(this, findParagraphStyle(m_Doc, itemText.paragraphStyle(QMAX(CPos-1,0))));
 			Tinput = false;
 		}
 		m_Doc->scMW()->setTBvals(this);

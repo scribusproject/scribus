@@ -181,6 +181,56 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	dc.setAttribute("MARGC",m_Doc->guidesSettings.margColor.name());
 	dc.setAttribute("RANDF", static_cast<int>(m_Doc->marginColored));
 	dc.setAttribute("currentProfile", m_Doc->curCheckProfile);
+	elem.appendChild(dc);
+	writeCheckerProfiles(docu);
+	writeLinestyles(docu);
+	writeJavascripts(docu);
+	writeBookmarks(docu);
+	writeColors(docu);
+	writePStyles(docu);
+	writeCStyles(docu);
+	writeLayers(docu);
+	writePdfOptions(docu);
+	writeDocItemAttributes(docu);
+	writeTOC(docu);
+	writePageSets(docu);
+	writeSections(docu);
+	writeContent(docu);
+	/**
+		* changed to enable saving
+	 * of *.gz documents
+	 * 2.7.2002 C.Toepp
+	 * <c.toepp@gmx.de>
+	 */
+	QCString cs = docu.toCString(); // UTF-8 QCString
+#ifdef HAVE_LIBZ
+	if(fileName.right(2) == "gz")
+	{
+		// zipped saving
+		// XXX: latin1() should probably be local8Bit()
+		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
+		if(gzDoc == NULL)
+			return false;
+		gzputs(gzDoc, cs.data());
+		gzclose(gzDoc);
+	}
+	else
+#endif
+	{
+		QFile f(fileName);
+		if(!f.open(IO_WriteOnly))
+			return false;
+		QTextStream s(&f);
+		s.writeRawBytes(cs, cs.length());
+		f.close();
+	}
+	return true;
+}
+
+void Scribus134Format::writeCheckerProfiles(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	CheckerPrefsList::Iterator itcp;
 	CheckerPrefsList::Iterator itcpend=m_Doc->checkerProfiles.end();
 	for (itcp = m_Doc->checkerProfiles.begin(); itcp != itcpend; ++itcp)
@@ -200,9 +250,15 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		dc79a.setAttribute("checkAnnotations", static_cast<int>(itcp.data().checkAnnotations));
 		dc79a.setAttribute("checkRasterPDF", static_cast<int>(itcp.data().checkRasterPDF));
 		dc79a.setAttribute("checkForGIF", static_cast<int>(itcp.data().checkForGIF));
-		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.data().ignoreOffLayers));
+		dc79a.setAttribute("ignoreOffLayers", static_cast<int>(itcp.data().ignoreOffLayers));		
 		dc.appendChild(dc79a);
 	}
+}
+
+void Scribus134Format::writeLinestyles(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = m_Doc->MLineStyles.begin(); itMU != m_Doc->MLineStyles.end(); ++itMU)
 	{
@@ -243,6 +299,13 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 			dc.appendChild(ar);
 		}
 	}
+}
+
+
+void Scribus134Format::writeJavascripts(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QMap<QString,QString>::Iterator itja;
 	for (itja = m_Doc->JavaScripts.begin(); itja != m_Doc->JavaScripts.end(); ++itja)
 	{
@@ -251,6 +314,14 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		jav.setAttribute("SCRIPT",itja.data());
 		dc.appendChild(jav);
 	}
+	
+}
+
+
+void Scribus134Format::writeBookmarks(QDomDocument & docu) 
+{	
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QValueList<ScribusDoc::BookMa>::Iterator itbm;
 	for (itbm = m_Doc->BookMarks.begin(); itbm != m_Doc->BookMarks.end(); ++itbm)
 	{
@@ -267,6 +338,13 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		fn.setAttribute("Parent", (*itbm).Parent);
 		dc.appendChild(fn);
 	}
+}
+
+
+void Scribus134Format::writeColors(QDomDocument & docu) 
+{	
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	ColorList::Iterator itc;
 	for (itc = m_Doc->PageColors.begin(); itc != m_Doc->PageColors.end(); ++itc)
 	{
@@ -280,26 +358,48 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		co.setAttribute("Register",static_cast<int>(m_Doc->PageColors[itc.key()].isRegistrationColor()));
 		dc.appendChild(co);
 	}
-	if (m_Doc->docParagraphStyles.count() > 5)
+	
+}
+
+void Scribus134Format::writePStyles(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
+	//	if (m_Doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 5; ff < m_Doc->docParagraphStyles.count(); ++ff)
+		for (uint ff = 0; ff < m_Doc->docParagraphStyles.count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",m_Doc->docParagraphStyles[ff].name());
-			fo.setAttribute("ALIGN",m_Doc->docParagraphStyles[ff].alignment());
-			fo.setAttribute("LINESPMode",m_Doc->docParagraphStyles[ff].lineSpacingMode());
-			fo.setAttribute("LINESP",m_Doc->docParagraphStyles[ff].lineSpacing());
-			fo.setAttribute("INDENT",m_Doc->docParagraphStyles[ff].leftMargin());
-			fo.setAttribute("FIRST",m_Doc->docParagraphStyles[ff].firstIndent());
-			fo.setAttribute("VOR",m_Doc->docParagraphStyles[ff].gapBefore());
-			fo.setAttribute("NACH",m_Doc->docParagraphStyles[ff].gapAfter());
-			fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().font().scName());
-			fo.setAttribute("FONTSIZE",m_Doc->docParagraphStyles[ff].charStyle().fontSize() / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(m_Doc->docParagraphStyles[ff].hasDropCap()));
-			fo.setAttribute("DROPLIN", m_Doc->docParagraphStyles[ff].dropCapLines());
-			fo.setAttribute("DROPDIST", m_Doc->docParagraphStyles[ff].dropCapOffset());
-			fo.setAttribute("EFFECT", m_Doc->docParagraphStyles[ff].charStyle().effects());
-			if (m_Doc->docParagraphStyles[ff].tabValues().count() != 0)
+			const Style * parent = m_Doc->docParagraphStyles[ff].parentStyle();
+			if ( parent != NULL)
+				fo.setAttribute("PARENT", m_Doc->docParagraphStyles[ff].parent());
+
+			if ( ! m_Doc->docParagraphStyles[ff].isInhAlignment())
+				fo.setAttribute("ALIGN",m_Doc->docParagraphStyles[ff].alignment());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhLineSpacingMode())
+				fo.setAttribute("LINESPMode",m_Doc->docParagraphStyles[ff].lineSpacingMode());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhLineSpacing())
+				fo.setAttribute("LINESP",m_Doc->docParagraphStyles[ff].lineSpacing());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhUseBaselineGrid())
+				fo.setAttribute("BASE", static_cast<int>(m_Doc->docParagraphStyles[ff].useBaselineGrid()));
+			if ( ! m_Doc->docParagraphStyles[ff].isInhLeftMargin())
+				fo.setAttribute("INDENT",m_Doc->docParagraphStyles[ff].leftMargin());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhRightMargin())
+				fo.setAttribute("RMARGIN",m_Doc->docParagraphStyles[ff].rightMargin());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhFirstIndent())
+				fo.setAttribute("FIRST",m_Doc->docParagraphStyles[ff].firstIndent());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhGapBefore())
+				fo.setAttribute("VOR",m_Doc->docParagraphStyles[ff].gapBefore());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhGapAfter())
+				fo.setAttribute("NACH",m_Doc->docParagraphStyles[ff].gapAfter());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhHasDropCap())
+				fo.setAttribute("DROP", static_cast<int>(m_Doc->docParagraphStyles[ff].hasDropCap()));
+			if ( ! m_Doc->docParagraphStyles[ff].isInhDropCapLines())
+				fo.setAttribute("DROPLIN", m_Doc->docParagraphStyles[ff].dropCapLines());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhDropCapOffset())
+				fo.setAttribute("DROPDIST", m_Doc->docParagraphStyles[ff].dropCapOffset());
+			if ( ! m_Doc->docParagraphStyles[ff].isInhTabValues())
 			{
 				for (uint a = 0; a < m_Doc->docParagraphStyles[ff].tabValues().count(); ++a)
 				{
@@ -313,25 +413,103 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 					fo.appendChild(tabs);
 				}
 			}
-			fo.setAttribute("FCOLOR",m_Doc->docParagraphStyles[ff].charStyle().fillColor());
-			fo.setAttribute("FSHADE",m_Doc->docParagraphStyles[ff].charStyle().fillShade());
-			fo.setAttribute("SCOLOR",m_Doc->docParagraphStyles[ff].charStyle().strokeColor());
-			fo.setAttribute("SSHADE",m_Doc->docParagraphStyles[ff].charStyle().strokeShade());
-			fo.setAttribute("BASE", static_cast<int>(m_Doc->docParagraphStyles[ff].useBaselineGrid()));
-			fo.setAttribute("TXTSHX",m_Doc->docParagraphStyles[ff].charStyle().shadowXOffset() / 10.0);
-			fo.setAttribute("TXTSHY",m_Doc->docParagraphStyles[ff].charStyle().shadowYOffset() / 10.0);
-			fo.setAttribute("TXTOUT",m_Doc->docParagraphStyles[ff].charStyle().outlineWidth() / 10.0);
-			fo.setAttribute("TXTULP",m_Doc->docParagraphStyles[ff].charStyle().underlineOffset() / 10.0);
-			fo.setAttribute("TXTULW",m_Doc->docParagraphStyles[ff].charStyle().underlineWidth() / 10.0);
-			fo.setAttribute("TXTSTP",m_Doc->docParagraphStyles[ff].charStyle().strikethruOffset() / 10.0);
-			fo.setAttribute("TXTSTW",m_Doc->docParagraphStyles[ff].charStyle().strikethruWidth() / 10.0);
-			fo.setAttribute("SCALEH",m_Doc->docParagraphStyles[ff].charStyle().scaleH() / 10.0);
-			fo.setAttribute("SCALEV",m_Doc->docParagraphStyles[ff].charStyle().scaleV() / 10.0);
-			fo.setAttribute("BASEO",m_Doc->docParagraphStyles[ff].charStyle().baselineOffset() / 10.0);
-			fo.setAttribute("KERN",m_Doc->docParagraphStyles[ff].charStyle().tracking() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhFont())
+				fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().font().scName());
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhFontSize())
+				fo.setAttribute("FONTSIZE",m_Doc->docParagraphStyles[ff].charStyle().fontSize() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhFillColor())
+				fo.setAttribute("FCOLOR",m_Doc->docParagraphStyles[ff].charStyle().fillColor());
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhFillShade())
+				fo.setAttribute("FSHADE",m_Doc->docParagraphStyles[ff].charStyle().fillShade());
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhStrokeColor())
+				fo.setAttribute("SCOLOR",m_Doc->docParagraphStyles[ff].charStyle().strokeColor());
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhStrokeShade())
+				fo.setAttribute("SSHADE",m_Doc->docParagraphStyles[ff].charStyle().strokeShade());
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhEffects())
+				fo.setAttribute("EFFECT", m_Doc->docParagraphStyles[ff].charStyle().effects());
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhShadowXOffset())
+				fo.setAttribute("TXTSHX",m_Doc->docParagraphStyles[ff].charStyle().shadowXOffset() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhShadowYOffset())
+				fo.setAttribute("TXTSHY",m_Doc->docParagraphStyles[ff].charStyle().shadowYOffset() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhOutlineWidth())
+				fo.setAttribute("TXTOUT",m_Doc->docParagraphStyles[ff].charStyle().outlineWidth() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhUnderlineOffset())
+				fo.setAttribute("TXTULP",m_Doc->docParagraphStyles[ff].charStyle().underlineOffset() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhUnderlineWidth())
+				fo.setAttribute("TXTULW",m_Doc->docParagraphStyles[ff].charStyle().underlineWidth() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhStrikethruOffset())
+				fo.setAttribute("TXTSTP",m_Doc->docParagraphStyles[ff].charStyle().strikethruOffset() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhStrikethruWidth())
+				fo.setAttribute("TXTSTW",m_Doc->docParagraphStyles[ff].charStyle().strikethruWidth() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhScaleH())
+				fo.setAttribute("SCALEH",m_Doc->docParagraphStyles[ff].charStyle().scaleH() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhScaleV())
+				fo.setAttribute("SCALEV",m_Doc->docParagraphStyles[ff].charStyle().scaleV() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhBaselineOffset())
+				fo.setAttribute("BASEO",m_Doc->docParagraphStyles[ff].charStyle().baselineOffset() / 10.0);
+			if ( ! m_Doc->docParagraphStyles[ff].charStyle().isInhTracking())
+				fo.setAttribute("KERN",m_Doc->docParagraphStyles[ff].charStyle().tracking() / 10.0);
 			dc.appendChild(fo);
 		}
 	}
+}
+
+void Scribus134Format::writeCStyles(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+	
+	for (uint ff = 0; ff < m_Doc->docCharStyles.count(); ++ff)
+	{
+		QDomElement fo=docu.createElement("CHARSTYLE");
+		fo.setAttribute("NAME",m_Doc->docCharStyles[ff].name());
+		const Style * parent = m_Doc->docCharStyles[ff].parentStyle();
+		if ( parent != NULL)
+			fo.setAttribute("PARENT", m_Doc->docCharStyles[ff].parent());
+		if ( ! m_Doc->docCharStyles[ff].isInhFont())	
+			fo.setAttribute("FONT",m_Doc->docCharStyles[ff].font().scName());
+		if ( ! m_Doc->docCharStyles[ff].isInhFontSize())
+			fo.setAttribute("FONTSIZE",m_Doc->docCharStyles[ff].fontSize() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhEffects())
+			fo.setAttribute("EFFECT", m_Doc->docCharStyles[ff].effects());
+		if ( ! m_Doc->docCharStyles[ff].isInhFillColor())
+			fo.setAttribute("FCOLOR",m_Doc->docCharStyles[ff].fillColor());
+		if ( ! m_Doc->docCharStyles[ff].isInhFillShade())
+			fo.setAttribute("FSHADE",m_Doc->docCharStyles[ff].fillShade());
+		if ( ! m_Doc->docCharStyles[ff].isInhStrokeColor())
+			fo.setAttribute("SCOLOR",m_Doc->docCharStyles[ff].strokeColor());
+		if ( ! m_Doc->docCharStyles[ff].isInhStrokeShade())
+			fo.setAttribute("SSHADE",m_Doc->docCharStyles[ff].strokeShade());
+		if ( ! m_Doc->docCharStyles[ff].isInhShadowXOffset())
+			fo.setAttribute("TXTSHX",m_Doc->docCharStyles[ff].shadowXOffset() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhShadowYOffset())
+			fo.setAttribute("TXTSHY",m_Doc->docCharStyles[ff].shadowYOffset() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhOutlineWidth())
+			fo.setAttribute("TXTOUT",m_Doc->docCharStyles[ff].outlineWidth() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhUnderlineOffset())
+			fo.setAttribute("TXTULP",m_Doc->docCharStyles[ff].underlineOffset() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhUnderlineWidth())
+			fo.setAttribute("TXTULW",m_Doc->docCharStyles[ff].underlineWidth() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhStrikethruOffset())
+			fo.setAttribute("TXTSTP",m_Doc->docCharStyles[ff].strikethruOffset() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhStrikethruWidth())
+			fo.setAttribute("TXTSTW",m_Doc->docCharStyles[ff].strikethruWidth() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhScaleH())
+			fo.setAttribute("SCALEH",m_Doc->docCharStyles[ff].scaleH() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhScaleV())
+			fo.setAttribute("SCALEV",m_Doc->docCharStyles[ff].scaleV() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhBaselineOffset())
+			fo.setAttribute("BASEO",m_Doc->docCharStyles[ff].baselineOffset() / 10.0);
+		if ( ! m_Doc->docCharStyles[ff].isInhTracking())
+			fo.setAttribute("KERN",m_Doc->docCharStyles[ff].tracking() / 10.0);
+
+		dc.appendChild(fo);
+	}
+}
+
+void Scribus134Format::writeLayers(QDomDocument & docu) 
+{	
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	uint layerCount=m_Doc->layerCount();
 	for (uint lay = 0; lay < layerCount; ++lay)
 	{
@@ -349,6 +527,13 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		la.setAttribute("LAYERC",m_Doc->Layers[lay].markerColor.name());
 		dc.appendChild(la);
 	}
+}
+
+
+void Scribus134Format::writePdfOptions(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QDomElement pdf = docu.createElement("PDF");
 	pdf.setAttribute("firstUse", static_cast<int>(m_Doc->PDF_Options.firstUse));
 	pdf.setAttribute("Thumbnails", static_cast<int>(m_Doc->PDF_Options.Thumbnails));
@@ -434,6 +619,12 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		pdf.appendChild(pdf4);
 	}
 	dc.appendChild(pdf);
+}
+
+void Scribus134Format::writeDocItemAttributes(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QDomElement docItemAttrs = docu.createElement("DocItemAttributes");
 	for(ObjAttrVector::Iterator objAttrIt = m_Doc->docItemAttributes.begin() ; objAttrIt != m_Doc->docItemAttributes.end(); ++objAttrIt )
 	{
@@ -448,6 +639,13 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		docItemAttrs.appendChild(itemAttr);
 	}
 	dc.appendChild(docItemAttrs);
+}
+
+
+void Scribus134Format::writeTOC(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QDomElement tocElem = docu.createElement("TablesOfContents");
 	for(ToCSetupVector::Iterator tocSetupIt = m_Doc->docToCSetups.begin() ; tocSetupIt != m_Doc->docToCSetups.end(); ++tocSetupIt )
 	{
@@ -472,6 +670,13 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		tocElem.appendChild(tocsetup);
 	}
 	dc.appendChild(tocElem);
+}
+
+
+void Scribus134Format::writeSections(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	QDomElement sectionElem = docu.createElement("Sections");
 	for(DocumentSectionMap::Iterator it = m_Doc->sections.begin() ; it != m_Doc->sections.end(); ++it )
 	{
@@ -504,6 +709,12 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		sectionElem.appendChild(currsection);
 	}
 	dc.appendChild(sectionElem);
+}
+
+
+void Scribus134Format::writePageSets(QDomDocument & docu) 
+{	
+	QDomElement dc=docu.documentElement().firstChild().toElement();
 
 	QDomElement pageSetAttr = docu.createElement("PageSets");
 	QValueList<PageSet>::Iterator itpgset;
@@ -528,6 +739,12 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		pageSetAttr.appendChild(pgst);
 	}
 	dc.appendChild(pageSetAttr);
+}
+
+void Scribus134Format::writePatterns(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+	
 	QMap<QString, ScPattern>::Iterator itPat;
 	for (itPat = m_Doc->docPatterns.begin(); itPat != m_Doc->docPatterns.end(); ++itPat)
 	{
@@ -540,7 +757,13 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		pat.setAttribute("scaleY", pa.scaleY);
 		WriteObjects(m_Doc, &docu, &pat, 0, 0, 3, &pa.items);
 		dc.appendChild(pat);
-	}
+	}	
+}
+
+void Scribus134Format::writeContent(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
 	if (m_mwProgressBar != 0)
 	{
 		m_mwProgressBar->setTotalSteps(m_Doc->DocPages.count()+m_Doc->MasterPages.count()+m_Doc->DocItems.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count());
@@ -551,46 +774,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count(), 2);
 	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->FrameItems.count(), 0);
 	WriteObjects(m_Doc, &docu, &dc, m_mwProgressBar, m_Doc->MasterPages.count()+m_Doc->DocPages.count()+m_Doc->MasterItems.count()+m_Doc->FrameItems.count(), 1);
-	elem.appendChild(dc);
-/**
- * changed to enable saving
- * of *.gz documents
- * 2.7.2002 C.Toepp
- * <c.toepp@gmx.de>
-*/
- #ifdef HAVE_LIBZ
-	QCString cs = docu.toCString(); // UTF-8 QCString
-	if(fileName.right(2) == "gz")
-	{
-		// zipped saving
-		// XXX: latin1() should probably be local8Bit()
-		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
-		if(gzDoc == NULL)
-			return false;
-		gzputs(gzDoc, cs.data());
-		gzclose(gzDoc);
-	}
-	else
-	{
-		QFile f(fileName);
-		if(!f.open(IO_WriteOnly))
-			return false;
-		QTextStream s(&f);
-		s.writeRawBytes(cs, cs.length());
-		f.close();
-	}
-#else
-	QFile f(fileName);
-	if(!f.open(IO_WriteOnly))
-		return false;
-	QTextStream s(&f);
-	QCString cs = docu.toCString();
-	s.writeRawBytes(cs, cs.length());
-	f.close();
-#endif
-	return true;
 }
-
 
 void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, bool master)
 {
@@ -645,11 +829,201 @@ void Scribus134Format::WritePages(ScribusDoc *doc, QDomDocument *docu, QDomEleme
 	}
 }
 
-void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items)
+void writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElement ob, PageItem* item)
 {
 	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2, tobj, tobj2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy, Ndir;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
+	for(int k = 0; k < item->itemText.length(); ++k)
+	{
+		const CharStyle& style1(item->itemText.charStyle(k));
+		QChar ch = item->itemText.text(k);
+		QDomElement it=docu->createElement("ITEXT");
+		ts = style1.fontSize() / 10.0;
+		tf = style1.font().scName();
+		tc = style1.fillColor();
+		te = style1.tracking();
+		tsh = style1.fillShade();
+		tst = style1.effects() & 2047;
+#ifndef NLS_PROTO
+		tsb = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
+#else
+		tsb = 0;
+#endif
+		tcs = style1.strokeColor();
+		tshs = style1.strokeShade();
+		tsc = style1.scaleH() / 10.0;
+		tscv = style1.scaleV() / 10.0;
+		tb = style1.baselineOffset() / 10.0;
+		tsx = style1.shadowXOffset() / 10.0;
+		tsy = style1.shadowYOffset() / 10.0;
+		tout = style1.outlineWidth() / 10.0;
+		tulp = style1.underlineOffset() / 10.0;
+		tulw = style1.underlineWidth() / 10.0;
+		tstp = style1.strikethruOffset() / 10.0;
+		tstw = style1.strikethruWidth() / 10.0;
+#ifndef NLS_PROTO
+		if ((ch == SpecialChars::OBJECT) && (item->itemText.item(k)->cembedded != 0))
+			tobj = item->itemText.item(k)->cembedded->ItemNr;
+		else
+#endif
+			tobj = -1;
+		if (ch == QChar(13))
+			text = QChar(5);
+		else if (ch == QChar(9))
+			text = QChar(4);
+		else
+			text = ch;
+		++k;
+		if (k == item->itemText.length())
+		{
+			it.setAttribute("CH",text);
+			it.setAttribute("CSIZE",ts);
+			it.setAttribute("CFONT",tf);
+			it.setAttribute("CCOLOR",tc);
+			it.setAttribute("CKERN",te);
+			it.setAttribute("CSHADE",tsh);
+			it.setAttribute("CSTYLE",tst);
+			it.setAttribute("CAB",tsb);
+			it.setAttribute("CSTROKE",tcs);
+			it.setAttribute("CSHADE2",tshs);
+			it.setAttribute("CSCALE",tsc);
+			it.setAttribute("CSCALEV",tscv);
+			it.setAttribute("CBASE",tb);
+			it.setAttribute("CSHX",tsx);
+			it.setAttribute("CSHY",tsy);
+			it.setAttribute("COUT",tout);
+			it.setAttribute("CULP",tulp);
+			it.setAttribute("CULW",tulw);
+			it.setAttribute("CSTP",tstp);
+			it.setAttribute("CSTW",tstw);
+			if (tobj != -1)
+				it.setAttribute("COBJ", tobj);
+			ob.appendChild(it);
+			break;
+		}
+		const CharStyle& style2(item->itemText.charStyle(k));
+		ch = item->itemText.text(k);
+		ts2 = style2.fontSize() / 10.0;
+		tf2 = style2.font().scName();
+		tc2 = style2.fillColor();
+		te2 = style2.tracking();
+		tsh2 = style2.fillShade();
+		tst2 = style2.effects() & 2047;
+#ifndef NLS_PROTO
+		tsb2 = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
+#else
+		tsb2 = 0;
+#endif
+		tcs2 = style2.strokeColor();
+		tshs2 = style2.strokeShade();
+		tsc2 = style2.scaleH() / 10.0;
+		tscv2 = style2.scaleV() / 10.0;
+		tb2 = style2.baselineOffset() / 10.0;
+		tsx2 = style2.shadowXOffset() / 10.0;
+		tsy2 = style2.shadowYOffset() / 10.0;
+		tout2 = style2.outlineWidth() / 10.0;
+		tulp2 = style2.underlineOffset() / 10.0;
+		tulw2 = style2.underlineWidth() / 10.0;
+		tstp2 = style2.strikethruOffset() / 10.0;
+		tstw2 = style2.strikethruWidth() / 10.0;
+#ifndef NLS_PROTO
+		if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
+			tobj2 = item->itemText.item(k)->cembedded->ItemNr;
+		else
+#endif
+			tobj2 = -1;
+		while ((ts2 == ts)
+			   && (tsb2 == tsb)
+			   && (tf2 == tf)
+			   && (tc2 == tc)
+			   && (te2 == te)
+			   && (tsh2 == tsh)
+			   && (tshs2 == tshs)
+			   && (tsc2 == tsc)
+			   && (tscv2 == tscv)
+			   && (tcs2 == tcs)
+			   && (tb2 == tb)
+			   && (tsx2 == tsx)
+			   && (tsy2 == tsy)
+			   && (tout2 == tout)
+			   && (tulp2 == tulp)
+			   && (tulw2 == tulw)
+			   && (tstp2 == tstp)
+			   && (tstw2 == tstw)
+			   && (tobj2 == tobj)
+			   && (tst2 == tst))
+		{
+			if (ch == QChar(13))
+				text += QChar(5);
+			else if (ch == QChar(9))
+				text += QChar(4);
+			else
+				text += ch;
+			++k;
+			if (k == item->itemText.length())
+				break;
+			const CharStyle& style3(item->itemText.charStyle(k));
+			ch = item->itemText.text(k);
+			ts2 = style3.fontSize() / 10.0;
+			tf2 = style3.font().scName();
+			tc2 = style3.fillColor();
+			te2 = style3.tracking();
+			tsh2 = style3.fillShade();
+			tst2 = style3.effects() & 2047;
+#ifndef NLS_PROTO
+			tsb2 = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
+#else
+			tsb2 = 0;
+#endif
+			tcs2 = style3.strokeColor();
+			tshs2 = style3.strokeShade();
+			tsc2 = style3.scaleH() / 10.0;
+			tscv2 = style3.scaleV() / 10.0;
+			tb2 = style3.baselineOffset() / 10.0;
+			tsx2 = style3.shadowXOffset() / 10.0;
+			tsy2 = style3.shadowYOffset() / 10.0;
+			tout2 = style3.outlineWidth() / 10.0;
+			tulp2 = style3.underlineOffset() / 10.0;
+			tulw2 = style3.underlineWidth() / 10.0;
+			tstp2 = style3.strikethruOffset() / 10.0;
+			tstw2 = style3.strikethruWidth() / 10.0;
+#ifndef NLS_PROTO
+			if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
+				tobj2 = item->itemText.item(k)->cembedded->ItemNr;
+			else
+#endif
+				tobj2 = -1;
+		}
+		it.setAttribute("CH",text);
+		it.setAttribute("CSIZE",ts);
+		it.setAttribute("CFONT",tf);
+		it.setAttribute("CCOLOR",tc);
+		it.setAttribute("CKERN",te);
+		it.setAttribute("CSHADE",tsh);
+		it.setAttribute("CSTYLE",tst);
+		it.setAttribute("CAB",tsb);
+		it.setAttribute("CSTROKE",tcs);
+		it.setAttribute("CSHADE2",tshs);
+		it.setAttribute("CSCALE",tsc);
+		it.setAttribute("CSCALEV",tscv);
+		it.setAttribute("CBASE",tb);
+		it.setAttribute("CSHX",tsx);
+		it.setAttribute("CSHY",tsy);
+		it.setAttribute("COUT",tout);
+		it.setAttribute("CULP",tulp);
+		it.setAttribute("CULW",tulw);
+		it.setAttribute("CSTP",tstp);
+		it.setAttribute("CSTW",tstw);
+		if (tobj != -1)
+			it.setAttribute("COBJ", tobj);
+		k--;
+		ob.appendChild(it);
+	}
+}
+
+void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomElement *dc, QProgressBar *dia2, uint maxC, int master, QPtrList<PageItem> *items)
+{
 	uint ObCount = maxC;
 	PageItem *item;
 	QDomElement ob;
@@ -775,192 +1149,8 @@ void Scribus134Format::WriteObjects(ScribusDoc *doc, QDomDocument *docu, QDomEle
 		}
 		ob.setAttribute("ALIGN",findParagraphStyle(doc, item->itemText.defaultStyle()));
 		ob.setAttribute("BOOKMARK", item->isBookmark ? 1 : 0);
-		for(int k = 0; k < item->itemText.length(); ++k)
-		{
-			const CharStyle& style1(item->itemText.charStyle(k));
-			QChar ch = item->itemText.text(k);
-			QDomElement it=docu->createElement("ITEXT");
-			ts = style1.fontSize() / 10.0;
-			tf = style1.font().scName();
-			tc = style1.fillColor();
-			te = style1.tracking();
-			tsh = style1.fillShade();
-			tst = style1.effects() & 2047;
-#ifndef NLS_PROTO
-			tsb = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
-#else
-			tsb = 0;
-#endif
-			tcs = style1.strokeColor();
-			tshs = style1.strokeShade();
-			tsc = style1.scaleH() / 10.0;
-			tscv = style1.scaleV() / 10.0;
-			tb = style1.baselineOffset() / 10.0;
-			tsx = style1.shadowXOffset() / 10.0;
-			tsy = style1.shadowYOffset() / 10.0;
-			tout = style1.outlineWidth() / 10.0;
-			tulp = style1.underlineOffset() / 10.0;
-			tulw = style1.underlineWidth() / 10.0;
-			tstp = style1.strikethruOffset() / 10.0;
-			tstw = style1.strikethruWidth() / 10.0;
-#ifndef NLS_PROTO
-			if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
-				tobj = item->itemText.item(k)->cembedded->ItemNr;
-			else
-#endif
-				tobj = -1;
-			if (ch == QChar(13))
-				text = QChar(5);
-			else if (ch == QChar(9))
-				text = QChar(4);
-			else
-				text = ch;
-			++k;
-			if (k == item->itemText.length())
-			{
-				it.setAttribute("CH",text);
-				it.setAttribute("CSIZE",ts);
-				it.setAttribute("CFONT",tf);
-				it.setAttribute("CCOLOR",tc);
-				it.setAttribute("CKERN",te);
-				it.setAttribute("CSHADE",tsh);
-				it.setAttribute("CSTYLE",tst);
-				it.setAttribute("CAB",tsb);
-				it.setAttribute("CSTROKE",tcs);
-				it.setAttribute("CSHADE2",tshs);
-				it.setAttribute("CSCALE",tsc);
-				it.setAttribute("CSCALEV",tscv);
-				it.setAttribute("CBASE",tb);
-				it.setAttribute("CSHX",tsx);
-				it.setAttribute("CSHY",tsy);
-				it.setAttribute("COUT",tout);
-				it.setAttribute("CULP",tulp);
-				it.setAttribute("CULW",tulw);
-				it.setAttribute("CSTP",tstp);
-				it.setAttribute("CSTW",tstw);
-				if (tobj != -1)
-					it.setAttribute("COBJ", tobj);
-				ob.appendChild(it);
-				break;
-			}
-			const CharStyle& style2(item->itemText.charStyle(k));
-			ch = item->itemText.text(k);
-			ts2 = style2.fontSize() / 10.0;
-			tf2 = style2.font().scName();
-			tc2 = style2.fillColor();
-			te2 = style2.tracking();
-			tsh2 = style2.fillShade();
-			tst2 = style2.effects() & 2047;
-#ifndef NLS_PROTO
-			tsb2 = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
-#else
-			tsb2 = 0;
-#endif
-			tcs2 = style2.strokeColor();
-			tshs2 = style2.strokeShade();
-			tsc2 = style2.scaleH() / 10.0;
-			tscv2 = style2.scaleV() / 10.0;
-			tb2 = style2.baselineOffset() / 10.0;
-			tsx2 = style2.shadowXOffset() / 10.0;
-			tsy2 = style2.shadowYOffset() / 10.0;
-			tout2 = style2.outlineWidth() / 10.0;
-			tulp2 = style2.underlineOffset() / 10.0;
-			tulw2 = style2.underlineWidth() / 10.0;
-			tstp2 = style2.strikethruOffset() / 10.0;
-			tstw2 = style2.strikethruWidth() / 10.0;
-#ifndef NLS_PROTO
-			if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
-				tobj2 = item->itemText.item(k)->cembedded->ItemNr;
-			else
-#endif
-				tobj2 = -1;
-			while ((ts2 == ts)
-						&& (tsb2 == tsb)
-						&& (tf2 == tf)
-						&& (tc2 == tc)
-						&& (te2 == te)
-						&& (tsh2 == tsh)
-						&& (tshs2 == tshs)
-						&& (tsc2 == tsc)
-						&& (tscv2 == tscv)
-						&& (tcs2 == tcs)
-						&& (tb2 == tb)
-						&& (tsx2 == tsx)
-						&& (tsy2 == tsy)
-						&& (tout2 == tout)
-						&& (tulp2 == tulp)
-						&& (tulw2 == tulw)
-						&& (tstp2 == tstp)
-						&& (tstw2 == tstw)
-						&& (tobj2 == tobj)
-						&& (tst2 == tst))
-			{
-				if (ch == QChar(13))
-					text += QChar(5);
-				else if (ch == QChar(9))
-					text += QChar(4);
-				else
-					text += ch;
-				++k;
-				if (k == item->itemText.length())
-					break;
-				const CharStyle& style3(item->itemText.charStyle(k));
-				ch = item->itemText.text(k);
-				ts2 = style3.fontSize() / 10.0;
-				tf2 = style3.font().scName();
-				tc2 = style3.fillColor();
-				te2 = style3.tracking();
-				tsh2 = style3.fillShade();
-				tst2 = style3.effects() & 2047;
-#ifndef NLS_PROTO
-				tsb2 = findParagraphStyle(doc, item->itemText.paragraphStyle(k));
-#else
-				tsb2 = 0;
-#endif
-				tcs2 = style3.strokeColor();
-				tshs2 = style3.strokeShade();
-				tsc2 = style3.scaleH() / 10.0;
-				tscv2 = style3.scaleV() / 10.0;
-				tb2 = style3.baselineOffset() / 10.0;
-				tsx2 = style3.shadowXOffset() / 10.0;
-				tsy2 = style3.shadowYOffset() / 10.0;
-				tout2 = style3.outlineWidth() / 10.0;
-				tulp2 = style3.underlineOffset() / 10.0;
-				tulw2 = style3.underlineWidth() / 10.0;
-				tstp2 = style3.strikethruOffset() / 10.0;
-				tstw2 = style3.strikethruWidth() / 10.0;
-#ifndef NLS_PROTO
-				if ((ch == QChar(25)) && (item->itemText.item(k)->cembedded != 0))
-					tobj2 = item->itemText.item(k)->cembedded->ItemNr;
-				else
-#endif
-					tobj2 = -1;
-			}
-			it.setAttribute("CH",text);
-			it.setAttribute("CSIZE",ts);
-			it.setAttribute("CFONT",tf);
-			it.setAttribute("CCOLOR",tc);
-			it.setAttribute("CKERN",te);
-			it.setAttribute("CSHADE",tsh);
-			it.setAttribute("CSTYLE",tst);
-			it.setAttribute("CAB",tsb);
-			it.setAttribute("CSTROKE",tcs);
-			it.setAttribute("CSHADE2",tshs);
-			it.setAttribute("CSCALE",tsc);
-			it.setAttribute("CSCALEV",tscv);
-			it.setAttribute("CBASE",tb);
-			it.setAttribute("CSHX",tsx);
-			it.setAttribute("CSHY",tsy);
-			it.setAttribute("COUT",tout);
-			it.setAttribute("CULP",tulp);
-			it.setAttribute("CULW",tulw);
-			it.setAttribute("CSTP",tstp);
-			it.setAttribute("CSTW",tstw);
-			if (tobj != -1)
-				it.setAttribute("COBJ", tobj);
-			k--;
-			ob.appendChild(it);
-		}
+
+		writeITEXTs(doc, docu, ob, item); 
 		if (item->BackBox != 0)
 			ob.setAttribute("BACKITEM", item->BackBox->ItemNr);
 		else

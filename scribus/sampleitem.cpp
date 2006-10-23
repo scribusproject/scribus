@@ -56,7 +56,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 	tmpStyle.setLineSpacing((m_Doc->toolSettings.defSize / 10.0)
 		* static_cast<double>(m_Doc->typographicSettings.autoLineSpacing) / 100
 		+ (m_Doc->toolSettings.defSize / 10.0));
-	tmpStyle.setAlignment(0);
+	tmpStyle.setAlignment(ParagraphStyle::Leftaligned);
 	tmpStyle.setLeftMargin(0);
 	tmpStyle.setFirstIndent(0);
 	tmpStyle.setRightMargin(0);
@@ -64,7 +64,7 @@ SampleItem::SampleItem(ScribusDoc* doc) :
 	tmpStyle.setGapAfter(0);
 	tmpStyle.charStyle().setFont(PrefsManager::instance()->appPrefs.AvailFonts[m_Doc->toolSettings.defFont]);
 	tmpStyle.charStyle().setFontSize(m_Doc->toolSettings.defSize);
-	tmpStyle.tabValues().clear();
+//	tmpStyle.tabValues().clear();
 	tmpStyle.setHasDropCap(false);
 	tmpStyle.setDropCapLines(0);//2;
 	tmpStyle.setDropCapOffset(0);
@@ -155,7 +155,7 @@ void SampleItem::setLineSpa(double lineSpa)
 
 void SampleItem::setTextAlignment(int textAlignment)
 {
-	tmpStyle.setAlignment(textAlignment);
+	tmpStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(textAlignment));
 }
 
 void SampleItem::setIndent(double indent)
@@ -323,8 +323,8 @@ QPixmap SampleItem::getSample(int width, int height)
 		previouslyUsedFont = true;
 
 	m_Doc->AddFont(tmpStyle.charStyle().font().scName(), qRound(m_Doc->toolSettings.defSize / 10.0));
-	m_Doc->docParagraphStyles.create(tmpStyle);
-	int tmpIndex = m_Doc->docParagraphStyles.count() - 1;
+//	m_Doc->docParagraphStyles.create(tmpStyle);
+//	int tmpIndex = m_Doc->docParagraphStyles.count() - 1;
 
 	previewItem->FrameType = PageItem::TextFrame;
 	previewItem->itemText.clear();
@@ -332,7 +332,11 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->Cols = 1;
 	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
 	previewItem->itemText.insertChars(0, text);
-	m_Doc->chAbStyle(previewItem, tmpIndex);
+	for (int pos=0; pos < text.length(); ++pos) {
+		if (previewItem->itemText.text(pos) == SpecialChars::PARSEP) {
+			previewItem->itemText.applyStyle(pos, tmpStyle);
+		}
+	}
 	previewItem->itemText.applyCharStyle(0, text.length(), tmpStyle.charStyle());
 	previewItem->setFillColor("__whiteforpreviewbg__");
 	previewItem->setFillShade(bgShade);
@@ -349,7 +353,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	if (m_Doc->view() != NULL)
 		m_Doc->view()->setScale(sca);
 	m_Doc->appMode = userAppMode;
-	m_Doc->docParagraphStyles.remove(tmpIndex);
+//	m_Doc->docParagraphStyles.remove(tmpIndex);
 	UndoManager::instance()->setUndoEnabled(true);
 	return pm;
 }

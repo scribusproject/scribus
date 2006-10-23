@@ -107,6 +107,8 @@ struct LineSpec
  	const ParagraphStyle& paragraphStyle(int pos) const;
  	const ParagraphStyle& defaultStyle() const;
  	void setDefaultStyle(const ParagraphStyle& style);
+ 	void setCharStyle(int pos, uint len, const CharStyle& style);
+ 	void setStyle(int pos, const ParagraphStyle& style);
  	void applyCharStyle(int pos, uint len, const CharStyle& style);
  	void applyStyle(int pos, const ParagraphStyle& style);
  	void eraseCharStyle(int pos, uint len, const CharStyle& style);

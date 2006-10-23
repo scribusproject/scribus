@@ -1,7 +1,27 @@
+/*
+ For general Scribus (>=1.3.2) copyright and licensing information please refer
+ to the COPYING file provided with the program. Following this notice may exist
+ a copyright and/or license notice that predates the release of Scribus 1.3.2
+ for which a new license (GPL+exception) is in place.
+ */
+/***************************************************************************
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+***************************************************************************/
 
 
-ParagraphStyle::ParagraphStyle() : Style(), cstyle()
+
+
+#include "style.h"
+
+ParagraphStyle::ParagraphStyle() : Style(), StyleBaseProxy(PAR_LEVEL, &cstyle), cstyle()
 {
+	const Style* cdefault = resolve("");
+	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(cdefault->base())));
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = attr_DEFAULT; \
 	inh_##attr_NAME = true;
@@ -10,8 +30,10 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyle()
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), StyleBaseProxy(PAR_LEVEL, &cstyle), cstyle(other.charStyle())
 {
+	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
+
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -31,7 +53,7 @@ QString ParagraphStyle::displayName() const
 }
 
 namespace {
-bool operator==(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueList<ParagraphStyle::TabRecord>& other)
+bool sametabs(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueList<ParagraphStyle::TabRecord>& other)
 {
 	ParagraphStyle::TabRecord tb;
 	bool tabEQ = false;
@@ -44,6 +66,7 @@ bool operator==(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueL
 			tb.tabPosition = other[t1].tabPosition;
 			tb.tabType = other[t1].tabType;
 			tb.tabFillChar = other[t1].tabFillChar;
+			tabEQ = false;
 			for (uint t2 = 0; t2 < tabs.count(); t2++)
 			{
 				ParagraphStyle::TabRecord tb2;
@@ -56,7 +79,7 @@ bool operator==(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueL
 					break;
 				}
 			}
-			if (tabEQ)
+			if (!tabEQ)
 				break;
 		}
 	}
@@ -69,10 +92,10 @@ bool ParagraphStyle::equiv(const Style& other) const
 {
 	const ParagraphStyle* oth = dynamic_cast<const ParagraphStyle*> ( & other );
 	return  oth &&
-		parent == oth->parent() &&
+		parent() == oth->parent() 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-		inh_##attr_NAME == oth->inh_##attr_NAME &&\
-		(inh_##attr_NAME || m_##attr_NAME == oth->m_##attr_NAME) &&
+		&& (inh_##attr_NAME == oth->inh_##attr_NAME) \
+		&& (inh_##attr_NAME || m_##attr_NAME == oth->m_##attr_NAME)
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 		;
@@ -82,13 +105,14 @@ bool ParagraphStyle::equiv(const Style& other) const
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+	static_cast<StyleBaseProxy&>(*this) = static_cast<const StyleBaseProxy&>(other);
 	cstyle = other.charStyle();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	m_##attr_NAME = oth->m_##attr_NAME; \
-	inh_##attr_NAME = oth->inh_##attr_NAME);
+	m_##attr_NAME = other.m_##attr_NAME; \
+	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
+	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 	return *this;
 }
 
@@ -101,7 +125,7 @@ void ParagraphStyle::update(StyleBase* base)
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		if (inh_##attr_NAME) \
-			m_##attr_NAME = oth->##attr_GETTER;
+			m_##attr_NAME = oth->attr_GETTER();
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	}
@@ -126,7 +150,7 @@ void ParagraphStyle::eraseStyle(const ParagraphStyle& other)
 	Style::eraseStyle(other);
 	cstyle.eraseCharStyle(other.charStyle());
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if (!inh_##attr_NAME && m_##attr_NAME == other.##attr_GETTER()) \
+	if (!inh_##attr_NAME && m_##attr_NAME == other.attr_GETTER()) \
 		reset##attr_NAME();
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF

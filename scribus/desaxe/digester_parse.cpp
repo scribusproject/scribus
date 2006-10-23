@@ -22,7 +22,7 @@ public:
 	DigesterParser(Digester* digester) : dig(digester) {}
 	bool startDocument()
 	{
-		dig->reset();
+		dig->beginDoc();
 		return true;
 	}
     bool startElement( const QString& nsURI, const QString& locName, const QString& qName,

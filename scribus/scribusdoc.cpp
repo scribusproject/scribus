@@ -335,43 +335,51 @@ void ScribusDoc::init()
 	toolSettings.dTextBackGround = prefsData.toolSettings.dTextBackGround;
 	if (prefsData.toolSettings.dTextLineColor != CommonStrings::None)
 		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
+
+	
 	ParagraphStyle vg;
-	vg.setName("Normal Internal");
+//	vg.setName("Normal Internal");
 	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	vg.setLineSpacing(15);
-	vg.setAlignment(0);
+	vg.setAlignment(ParagraphStyle::Leftaligned);
 	vg.setLeftMargin(0);
 	vg.setFirstIndent(0);
 	vg.setRightMargin(0);
 	vg.setGapBefore(0);
 	vg.setGapAfter(0);
-	vg.charStyle().setFont(prefsData.AvailFonts[toolSettings.defFont]);
-	vg.charStyle().setFontSize(toolSettings.defSize);
-	vg.tabValues().clear();
+//	vg.tabValues().clear();
 	vg.setHasDropCap(false);
 	vg.setDropCapLines(2);
 	vg.setDropCapOffset(0);
 	vg.setUseBaselineGrid(false);
-	vg.charStyle().setEffects(ScStyle_Default);
-	vg.charStyle().setFillColor(toolSettings.dBrush);
-	vg.charStyle().setFillShade(toolSettings.dShade);
-	vg.charStyle().setStrokeColor(toolSettings.dPen);
-	vg.charStyle().setStrokeShade(toolSettings.dShade2);
-	vg.charStyle().setBaselineOffset(0);
-	vg.charStyle().setShadowXOffset(50);
-	vg.charStyle().setShadowYOffset(-50);
-	vg.charStyle().setOutlineWidth(10);
-	vg.charStyle().setUnderlineOffset(typographicSettings.valueUnderlinePos);
-	vg.charStyle().setUnderlineWidth(typographicSettings.valueUnderlineWidth);
-	vg.charStyle().setStrikethruOffset(typographicSettings.valueStrikeThruPos);
-	vg.charStyle().setStrikethruWidth(typographicSettings.valueStrikeThruPos);
-	vg.charStyle().setScaleH(1000);
-	vg.charStyle().setScaleV(1000);
-	vg.charStyle().setTracking(0);
+	vg.charStyle().setBase( & docCharStyles );
+
+	
+	CharStyle& cstyle(vg.charStyle());
+	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
+	cstyle.setFontSize(toolSettings.defSize);
+	cstyle.setEffects(ScStyle_Default);
+	cstyle.setFillColor(toolSettings.dBrush);
+	cstyle.setFillShade(toolSettings.dShade);
+	cstyle.setStrokeColor(toolSettings.dPen);
+	cstyle.setStrokeShade(toolSettings.dShade2);
+	cstyle.setBaselineOffset(0);
+	cstyle.setShadowXOffset(50);
+	cstyle.setShadowYOffset(-50);
+	cstyle.setOutlineWidth(10);
+	cstyle.setUnderlineOffset(typographicSettings.valueUnderlinePos);
+	cstyle.setUnderlineWidth(typographicSettings.valueUnderlineWidth);
+	cstyle.setStrikethruOffset(typographicSettings.valueStrikeThruPos);
+	cstyle.setStrikethruWidth(typographicSettings.valueStrikeThruPos);
+	cstyle.setScaleH(1000);
+	cstyle.setScaleV(1000);
+	cstyle.setTracking(0);
+	
 	docParagraphStyles.create(vg);
+	docCharStyles.setBase( &docParagraphStyles[0] );
 	
 	currentStyle = vg;
-	
+#if 0
 	vg.setName("Center Internal");
 	vg.setAlignment(1);
 	docParagraphStyles.create(vg);
@@ -384,6 +392,8 @@ void ScribusDoc::init()
 	vg.setName("EBlock Internal");
 	vg.setAlignment(4);
 	docParagraphStyles.create(vg);
+#endif
+	
 	struct Layer ll;
 	ll.LNr = 0;
 	ll.Level = 0;
@@ -4549,7 +4559,7 @@ void ScribusDoc::ChLineEnd(Qt::PenCapStyle w)
 	}
 }
 
-void ScribusDoc::ChLineSpa(double w)
+void ScribusDoc::itemSelection_SetLineSpacing(double w)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4568,7 +4578,7 @@ void ScribusDoc::ChLineSpa(double w)
 	}
 }
 
-void ScribusDoc::ItemFont(QString fon)
+void ScribusDoc::itemSelection_SetFont(QString fon)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4651,7 +4661,7 @@ void ScribusDoc::ItemPen(QString farbe)
 	changed();
 }
 
-void ScribusDoc::ItemTextBrush(QString farbe)
+void ScribusDoc::itemSelection_SetFillColor(QString farbe)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4689,7 +4699,7 @@ void ScribusDoc::ItemTextBrush(QString farbe)
 	}
 }
 
-void ScribusDoc::ItemTextBrushS(int sha)
+void ScribusDoc::itemSelection_SetFillShade(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4725,7 +4735,7 @@ void ScribusDoc::ItemTextBrushS(int sha)
 	}
 }
 
-void ScribusDoc::ItemTextPen(QString farbe)
+void ScribusDoc::itemSelection_SetStrokeColor(QString farbe)
 {
 	if (farbe == CommonStrings::NoneColor)
 		farbe = CommonStrings::None;
@@ -4763,7 +4773,7 @@ void ScribusDoc::ItemTextPen(QString farbe)
 	}
 }
 
-void ScribusDoc::ItemTextPenS(int sha)
+void ScribusDoc::itemSelection_SetStrokeShade(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4799,7 +4809,7 @@ void ScribusDoc::ItemTextPenS(int sha)
 	}
 }
 
-void ScribusDoc::ItemTextScaleV(int sha)
+void ScribusDoc::itemSelection_SetScaleV(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4834,7 +4844,7 @@ void ScribusDoc::ItemTextScaleV(int sha)
 	}
 }
 
-void ScribusDoc::ItemTextScale(int sha)
+void ScribusDoc::itemSelection_SetScaleH(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4870,7 +4880,7 @@ void ScribusDoc::ItemTextScale(int sha)
 	}
 }
 
-void ScribusDoc::setItemTextShadow(int shx, int shy)
+void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4911,7 +4921,7 @@ void ScribusDoc::setItemTextShadow(int shx, int shy)
 	}
 }
 
-void ScribusDoc::setItemTextUnderline(int pos, int wid)
+void ScribusDoc::itemSelection_SetUnderline(int pos, int wid)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4952,7 +4962,7 @@ void ScribusDoc::setItemTextUnderline(int pos, int wid)
 	}
 }
 
-void ScribusDoc::setItemTextStrike(int pos, int wid)
+void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -4993,7 +5003,7 @@ void ScribusDoc::setItemTextStrike(int pos, int wid)
 	}
 }
 
-void ScribusDoc::setItemTextBase(int sha)
+void ScribusDoc::itemSelection_SetBaselineOffset(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5024,7 +5034,7 @@ void ScribusDoc::setItemTextBase(int sha)
 	}
 }
 
-void ScribusDoc::setItemTextOutline(int sha)
+void ScribusDoc::itemSelection_SetOutlineWidth(int sha)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -5171,7 +5181,7 @@ void ScribusDoc::ItemPatternProps(double scaleX, double scaleY, double offsetX, 
 	}
 }
 
-void ScribusDoc::chTyStyle(int s)
+void ScribusDoc::itemSelection_SetEffects(int s)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0 && s != ScStyle_None)
@@ -5218,7 +5228,7 @@ void ScribusDoc::chTyStyle(int s)
 		changed();
 	}
 }
-
+#if 0
 void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 {
 #if 0
@@ -5507,8 +5517,9 @@ void ScribusDoc::chAbStyle(PageItem *currItem, int s)
 		m_View->horizRuler->repaint();
 	}
 }
+#endif
 
-void ScribusDoc::chKerning(int us)
+void ScribusDoc::itemSelection_SetTracking(int us)
 {
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
@@ -5554,7 +5565,7 @@ void ScribusDoc::chKerning(int us)
 	}
 }
 
-void ScribusDoc::ChLineSpaMode(int w)
+void ScribusDoc::itemSelection_SetLineSpacingMode(int w)
 {
 	if (appMode != modeEdit)
 	{
@@ -5587,7 +5598,7 @@ void ScribusDoc::ChLineSpaMode(int w)
 	}
 }
 
-void ScribusDoc::chFSize(int size)
+void ScribusDoc::itemSelection_SetFontSize(int size)
 {
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
@@ -5652,30 +5663,31 @@ void ScribusDoc::chFSize(int size)
 	}
 }
 
-void ScribusDoc::itemSelection_ApplyTextStyle(const CharStyle & newstyle)
+void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle)
 {
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										  newstyle.asString(), Um::IFont);
+										  newStyle.displayName(), Um::IFont);
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
 			uint currItemTextCount=currItem->itemText.length();
 			if (currItemTextCount != 0)
 			{
+				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
+				int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
 				if (appMode == modeEdit)
 				{
-					int start = currItem->itemText.startOfSelection();
-					int length = currItem->itemText.endOfSelection();
-					if (length > 0)
-						currItem->itemText.applyCharStyle(start, length, newstyle);
+					start = currItem->itemText.startOfSelection();
+					stop = currItem->itemText.endOfSelection();
 				}
-				else
-				{
-					currItem->itemText.applyCharStyle(0, currItemTextCount, newstyle);
+				for (int pos=start; pos < stop; ++pos) {
+					if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
+						currItem->itemText.setStyle(pos, newStyle);
+					}
 				}
 				if (currItem->asPathText())
 				{
@@ -5690,6 +5702,125 @@ void ScribusDoc::itemSelection_ApplyTextStyle(const CharStyle & newstyle)
 		emit updateContents();
 	}
 }
+
+
+void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newStyle)
+{
+	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
+										  newStyle.displayName(), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = m_Selection->itemAt(aa);
+			uint currItemTextCount=currItem->itemText.length();
+			if (currItemTextCount != 0)
+			{
+				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
+				int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
+				if (appMode == modeEdit)
+				{
+					start = currItem->itemText.startOfSelection();
+					stop = currItem->itemText.endOfSelection();
+				}
+				for (int pos=start; pos < stop; ++pos) {
+					if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
+						currItem->itemText.applyStyle(pos, newStyle);
+					}
+				}
+				if (currItem->asPathText())
+				{
+					currItem->updatePolyClip();
+					view()->AdjustItemSize(currItem);
+				}
+				//				emit refreshItem(currItem);
+			}
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit updateContents();
+	}
+}
+
+void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
+{
+	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
+										  newstyle.asString(), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = m_Selection->itemAt(aa);
+			uint currItemTextCount=currItem->itemText.length();
+			if (currItemTextCount != 0)
+			{
+				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
+				int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
+				if (appMode == modeEdit)
+				{
+					start = currItem->itemText.startOfSelection();
+					length = currItem->itemText.endOfSelection() - start;
+				}
+				currItem->itemText.applyCharStyle(start, length, newstyle);
+				
+				if (currItem->asPathText())
+				{
+					currItem->updatePolyClip();
+					view()->AdjustItemSize(currItem);
+				}
+				//				emit refreshItem(currItem);
+			}
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit updateContents();
+	}
+}
+
+
+
+void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
+{
+	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
+										  newstyle.asString(), Um::IFont);
+		for (uint aa = 0; aa < docSelectionCount; ++aa)
+		{
+			PageItem *currItem = m_Selection->itemAt(aa);
+			uint currItemTextCount=currItem->itemText.length();
+			if (currItemTextCount != 0)
+			{
+				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
+				int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
+				if (appMode == modeEdit)
+				{
+					start = currItem->itemText.startOfSelection();
+					length = currItem->itemText.endOfSelection() - start;
+				}
+				currItem->itemText.setCharStyle(start, length, newstyle);
+				
+				if (currItem->asPathText())
+				{
+					currItem->updatePolyClip();
+					view()->AdjustItemSize(currItem);
+				}
+				//				emit refreshItem(currItem);
+			}
+		}
+		if (docSelectionCount > 1)
+			undoManager->commit();
+		emit updateContents();
+	}
+}
+
+
 /*
 template<typename Arg, void (PageItem::*Fun)(Arg)>
 void ScribusDoc::itemSelection_forall(Arg newVal)
@@ -6811,7 +6942,7 @@ void ScribusDoc::itemSelection_SendToLayer(int layerNumber)
 }
 
 
-void ScribusDoc::itemSelection_SetParagraphStyle(int s)
+void ScribusDoc::itemSelection_SetAlignment(int s)
 {
 	uint selectedItemCount=m_Selection->count();
 	if (selectedItemCount != 0)
@@ -6824,14 +6955,17 @@ void ScribusDoc::itemSelection_SetParagraphStyle(int s)
 			PageItem *currItem = m_Selection->itemAt(a);
 			if (currItem!=NULL)
 			{
-				chAbStyle(currItem, s);
+//				chAbStyle(currItem, s);
 				tooltip += "\t" + currItem->getUName() + "\n";
 			}
 		}
+		ParagraphStyle pstyle;
+		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(s));
+		itemSelection_ApplyParagraphStyle(pstyle);
 		if (UndoManager::undoEnabled() && selectedItemCount > 1)
 			undoManager->commit(Um::Selection,
 								Um::IGroup,
-								s > 4 ? Um::SetStyle : Um::AlignText,
+								Um::AlignText,
 								tooltip,
 								Um::IFont);
 		view()->DrawNew(); //CB draw new until NLS for redraw through text chains

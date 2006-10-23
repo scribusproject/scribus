@@ -434,12 +434,13 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 			}
 			if(pg.tagName()=="STYLE")
 			{
+				vg.erase();
 				vg.setName(pg.attribute("NAME"));
 				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
 				vg.setLineSpacing(pg.attribute("LINESP").toDouble());
 				vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
 				vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
-				vg.setAlignment(pg.attribute("ALIGN").toInt());
+				vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 				vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 				vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 				tmpf = pg.attribute("FONT", m_Doc->toolSettings.defFont);
@@ -488,7 +489,8 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				{
 					tmp = pg.attribute("TABS");
 					QTextStream tgv(&tmp, IO_ReadOnly);
-					vg.tabValues().clear();
+//					vg.tabValues().clear();
+					QValueList<ParagraphStyle::TabRecord> tbs;
 					ParagraphStyle::TabRecord tb;
 					for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 					{
@@ -497,13 +499,14 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 						tb.tabPosition = xf2;
 						tb.tabType = static_cast<int>(xf);
 						tb.tabFillChar = QChar();
-						vg.tabValues().append(tb);
+						tbs.append(tb);
 					}
+					vg.setTabValues(tbs);
 					tmp = "";
 				}
-				else
-					vg.tabValues().clear();
-				m_Doc->docParagraphStyles.append(new ParagraphStyle(vg));
+//				else
+//					vg.tabValues().clear();
+				m_Doc->docParagraphStyles.create(vg);
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -1094,6 +1097,16 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 		int pos = obj->itemText.length();
 		obj->itemText.insertChars(pos, QString(ch));
 		obj->itemText.applyCharStyle(pos, 1, style); // FIXME:NLS
+		if (ch == SpecialChars::PARSEP) {
+			ParagraphStyle pstyle;
+			if (ab < 5) {
+				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(ab));
+			}
+			else {
+				pstyle.setParent( doc->docParagraphStyles[ab-5].name());
+			}
+			obj->itemText.applyStyle(pos, pstyle); 
+		}
 	}
 #endif	
 	return;
@@ -1487,7 +1500,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->setLineSpacing(pg->attribute("LINESP").toDouble());
 	vg->setLeftMargin(pg->attribute("INDENT", "0").toDouble());
 	vg->setFirstIndent(pg->attribute("FIRST", "0").toDouble());
-	vg->setAlignment(pg->attribute("ALIGN").toInt());
+	vg->setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg->attribute("ALIGN").toInt()));
 	vg->setGapBefore(pg->attribute("VOR", "0").toDouble());
 	vg->setGapAfter(pg->attribute("NACH", "0").toDouble());
 	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
@@ -1521,13 +1534,13 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->charStyle().setScaleV(qRound(pg->attribute("SCALEV", "100").toDouble() * 10));
 	vg->charStyle().setBaselineOffset(qRound(pg->attribute("BASEO", "0").toDouble() * 10));
 	vg->charStyle().setTracking(qRound(pg->attribute("KERN", "0").toDouble() * 10));
-	vg->tabValues().clear();
+//	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
-		vg->tabValues().clear();
 		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -1535,12 +1548,14 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
 			tb.tabFillChar = QChar();
-			vg->tabValues().append(tb);
+			tbs.append(tb);
 		}
+		vg->setTabValues(tbs);
 		tmp = "";
 	}
 	else
 	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg->firstChild();
 		while(!IT.isNull())
 		{
@@ -1556,8 +1571,9 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
-				vg->tabValues().append(tb);
+				tbs.append(tb);
 			}
+			vg->setTabValues(tbs);
 			IT=IT.nextSibling();
 		}
 	}

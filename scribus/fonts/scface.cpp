@@ -82,7 +82,7 @@ FPoint ScFace::ScFaceData::glyphOrigin(uint gl, double sz) const
    unicode emulate: spaces, hyphen, ligatures?, diacritics?
  *****/
 
-ScFace::ScFace()
+ScFace::ScFace() :  replacedName(), replacedInDoc()
 {
 	m = new ScFaceData();
 	m->refs = 1;
@@ -108,14 +108,14 @@ ScFace::ScFace()
 }
 
 
-ScFace::ScFace(ScFaceData* data)
+ScFace::ScFace(ScFaceData* data) : replacedName(), replacedInDoc()
 {
 	m = data;
 	m->refs = 1;
 	m->cachedStatus = ScFace::UNKNOWN;
 }
 
-ScFace::ScFace(const ScFace& other)
+ScFace::ScFace(const ScFace& other) : replacedName(other.replacedName), replacedInDoc(other.replacedInDoc)
 {
 	m = other.m;
 	++(m->refs);
@@ -139,6 +139,7 @@ ScFace& ScFace::operator=(const ScFace& other)
 		delete m;
 	}
 	m = other.m;
+	replacedName = other.replacedName;
 	return *this;
 }
 
@@ -148,7 +149,8 @@ agree on family, style, variant and fontpath
 */
 bool ScFace::operator==(const ScFace& other) const
 {
-	return ( (isNone() && other.isNone() )
+	return replacedName == other.replacedName && 
+		( (isNone() && other.isNone() )
 			 || (m == other.m)
 			 || (m->family == other.m->family
 				 && m->style == other.m->style

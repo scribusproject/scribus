@@ -211,8 +211,24 @@ protected:
 	void unload()      const;
 	
 	/// the name Scribus uses for this font
-	QString scName()   const { return m->scName; }
+	QString scName()   const { return replacedName.isEmpty() ? m->scName : replacedName; }
 	
+	/// the name of the font which was used for replacement
+	QString replacementName()   const { return m->scName; }
+	
+	/// the name of the font which was used for replacement
+	QString replacementForDoc()   const { return replacedInDoc; }
+	
+	/// check if this is a replacement font
+	bool isReplacement()   const { return !replacedName.isEmpty(); }
+	
+	/// makes a repalcement font for font "name" using this fonts data
+	ScFace mkReplacementFor(QString name, QString doc) { 
+		ScFace result(m); 
+		result.replacedName = name; 
+		result.replacedInDoc = doc; 
+		return result; }
+
 	/// the name PostScript uses for this font
 	QString psName()   const { return m->psName; }
 	
@@ -344,6 +360,8 @@ private:
 	
 	ScFace(ScFaceData* md);
 	ScFaceData* m;
+	QString replacedName;
+	QString replacedInDoc;
 	
 	void initFaceData();
 	void checkAllGlyphs();

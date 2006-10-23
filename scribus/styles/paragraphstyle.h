@@ -16,7 +16,7 @@
 
 // DONT INCLUDE this file directly, include "style.h" instead!
 
-class SCRIBUS_API ParagraphStyle : public virtual Style
+class SCRIBUS_API ParagraphStyle : public virtual Style, public StyleBaseProxy
 {
 public:
 	enum LineSpacingMode { 
@@ -36,6 +36,13 @@ public:
 		double tabPosition;
 		int tabType;
 		QChar tabFillChar;
+		bool operator==(const TabRecord& other) const {
+			return tabPosition==other.tabPosition && tabType==other.tabType && tabFillChar == other.tabFillChar;
+		}
+		bool operator<(const TabRecord& other)  const { return tabPosition < other.tabPosition; }
+		bool operator<=(const TabRecord& other) const { return tabPosition <= other.tabPosition; }
+		bool operator>(const TabRecord& other)  const { return tabPosition > other.tabPosition; }
+		bool operator>=(const TabRecord& other) const { return tabPosition >= other.tabPosition; }
 	};
 
 	ParagraphStyle();
@@ -79,7 +86,18 @@ public:
 	
 	/** isInherited: returns true if the attriute is inherited */
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	bool isInh##attr_NAME() { return inh_##attr_NAME; }
+	bool isInh##attr_NAME() const { return inh_##attr_NAME; }
+#include "paragraphstyle.attrdefs.cxx"
+#undef ATTRDEF
+	
+	
+	/** isDefined: returns true if the attribute is defined in this style or any parent */
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	bool isDef##attr_NAME() const { \
+		if (inh_##attr_NAME) return true; \
+		const ParagraphStyle * par = dynamic_cast<const ParagraphStyle*>(parentStyle()); \
+		return par && par->isDef##attr_NAME(); \
+	}
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
 	

@@ -25,11 +25,12 @@ for which a new license (GPL+exception) is in place.
 /* Adapted for Scribus 22.08.2003 by Franz Schmid */
 // kopainter/libart wrapper
 
-#include "scpainter.h"
 #include <qpaintdevice.h>
 #include <qpixmap.h>
 #include <qpointarray.h>
 #include <qimage.h>
+
+#include "scpainter.h"
 
 #ifdef HAVE_CAIRO
 	#include <cairo.h>
@@ -39,7 +40,7 @@ for which a new license (GPL+exception) is in place.
 	#elif defined(Q_WS_X11)
 	#include <cairo-xlib.h>
 	#elif defined(Q_WS_MAC)
-	#include <cairo-quartz.h>
+//	#include <cairo-quartz.h>
 	#endif
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#include <cairo-svg.h>
@@ -82,6 +83,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 
 #include <math.h>
+
 
 /// screen painter
 ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )

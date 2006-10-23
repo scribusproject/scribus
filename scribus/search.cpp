@@ -95,9 +95,9 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	size_t ar_sty = sizeof(tmp_sty) / sizeof(*tmp_sty);
 	for (uint a = 0; a < ar_sty; ++a)
 		SStyleVal->insertItem(tmp_sty[a]);
-	if (doc->docParagraphStyles.count() > 5)
+//	if (doc->docParagraphStyles.count() >5)
 	{
-		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
+		for (uint x = 0; x < doc->docParagraphStyles.count(); ++x)
 			SStyleVal->insertItem(doc->docParagraphStyles[x].name());
 	}
 	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
@@ -183,7 +183,7 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 	RStyleVal->setEditable(false);
 	for (uint a = 0; a < ar_sty; ++a)
 		RStyleVal->insertItem(tmp_sty[a]);
-	if (doc->docParagraphStyles.count() > 5)
+//	if (doc->docParagraphStyles.count() > 5)
 	{
 		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
 			RStyleVal->insertItem(doc->docParagraphStyles[x].name());
@@ -740,19 +740,19 @@ void SearchReplace::slotDoReplace()
 			}
 		}
 		if (RStyle->isChecked())
-			emit NewAbs(RStyleVal->currentItem());
+			Doc->itemSelection_ApplyParagraphStyle(Doc->docParagraphStyles[RStyleVal->currentItem()]);
 		if (RFill->isChecked())
-			Doc->ItemTextBrush(RFillVal->currentText());
+			Doc->itemSelection_SetFillColor(RFillVal->currentText());
 		if (RFillS->isChecked())
-			Doc->ItemTextBrushS(RFillSVal->getValue());
+			Doc->itemSelection_SetFillShade(RFillSVal->getValue());
 		if (RStroke->isChecked())
-			Doc->ItemTextPen(RStrokeVal->currentText());
+			Doc->itemSelection_SetStrokeColor(RStrokeVal->currentText());
 		if (RStrokeS->isChecked())
-			Doc->ItemTextPenS(RStrokeSVal->getValue());
+			Doc->itemSelection_SetStrokeShade(RStrokeSVal->getValue());
 		if (RFont->isChecked())
-			emit NewFont(RFontVal->currentText());
+			Doc->itemSelection_SetFont(RFontVal->currentText());
 		if (RSize->isChecked())
-			Doc->chFSize(qRound(RSizeVal->value() * 10.0));
+			Doc->itemSelection_SetFontSize(qRound(RSizeVal->value() * 10.0));
 		if (REffect->isChecked())
 		{
 #ifndef NLS_PROTO

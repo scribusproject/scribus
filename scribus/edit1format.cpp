@@ -512,7 +512,7 @@ void EditStyle::copyStyleSettings(ParagraphStyle& parstyle)
 {
 	CharStyle charstyle;
 	charstyle.setEffects(static_cast<StyleFlag>(EffeS->getStyle()));
-	parstyle.setAlignment(AligS->getStyle());
+	parstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(AligS->getStyle()));
 	for (uint al = 0; al < lineSpacingPop->count(); ++al)
 	{
 		if (lineSpacingPop->isItemChecked(lineSpacingPop->idAt(al)))
@@ -537,7 +537,7 @@ void EditStyle::copyStyleSettings(ParagraphStyle& parstyle)
 	charstyle.setFillShade(PM2->getValue());
 	charstyle.setStrokeColor(TxStroke->currentText());
 	charstyle.setStrokeShade(PM1->getValue());
-	parstyle.tabValues() = TabList->getTabVals();
+	parstyle.setTabValues(TabList->getTabVals());
 	charstyle.setShadowXOffset(qRound(EffeS->ShadowVal->Xoffset->value() * 10.0));
 	charstyle.setShadowYOffset(qRound(EffeS->ShadowVal->Yoffset->value() * 10.0));
 	charstyle.setOutlineWidth(qRound(EffeS->OutlineVal->LWidth->value() * 10.0));

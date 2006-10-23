@@ -346,7 +346,7 @@ PyObject *scribus_setfontsize(PyObject* /* self */, PyObject* args)
 	ScCore->primaryMainWindow()->doc->m_Selection->addItem(i);
 	if (i->HasSel)
 		ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-	ScCore->primaryMainWindow()->doc->chFSize(qRound(size * 10.0));
+	ScCore->primaryMainWindow()->doc->itemSelection_SetFontSize(qRound(size * 10.0));
 	ScCore->primaryMainWindow()->doc->appMode = Apm;
 	ScCore->primaryMainWindow()->view->Deselect();
 	Py_INCREF(Py_None);

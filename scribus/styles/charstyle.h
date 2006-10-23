@@ -113,9 +113,20 @@ public:
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	
-	/** isInherited: returns true if the attriute is inherited */
+	/** isInherited: returns true if the attribute is inherited */
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	bool isInh##attr_NAME() { return inh_##attr_NAME; }
+	bool isInh##attr_NAME() const { return inh_##attr_NAME; }
+#include "charstyle.attrdefs.cxx"
+#undef ATTRDEF
+	
+	
+	/** isDefined: returns true if the attribute is defined in this style or any parent */
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	bool isDef##attr_NAME() const { \
+		if (inh_##attr_NAME) return true; \
+		const CharStyle * par = dynamic_cast<const CharStyle*>(parentStyle()); \
+		return par && par->isDef##attr_NAME(); \
+	}
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	

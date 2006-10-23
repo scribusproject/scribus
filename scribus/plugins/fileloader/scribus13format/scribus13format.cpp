@@ -219,7 +219,7 @@ void Scribus13Format::getReplacedFontData(bool & getNewReplacement, QMap<QString
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
-	getDummyScFaces=dummyScFaces;
+//	getDummyScFaces=dummyScFaces;
 }
 
 bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -561,7 +561,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if(pg.tagName()=="STYLE")
 			{
 				readParagraphStyle(vg, pg, *m_AvailableFonts, m_Doc);
-				m_Doc->docParagraphStyles.append(new ParagraphStyle(vg));
+				m_Doc->docParagraphStyles.create(vg);
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -1030,7 +1030,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*FIXME					if (Neu->lineSpacingMode() == 3)
+/*					if (Neu->lineSpacingMode() == 3)
 					{
 						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
@@ -1415,9 +1415,9 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 		co.setAttribute("Register",static_cast<int>(m_Doc->PageColors[itc.key()].isRegistrationColor()));
 		dc.appendChild(co);
 	}
-	if (m_Doc->docParagraphStyles.count() > 5)
+//	if (m_Doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 5; ff < m_Doc->docParagraphStyles.count(); ++ff)
+		for (uint ff = 0; ff < m_Doc->docParagraphStyles.count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
 			fo.setAttribute("NAME",m_Doc->docParagraphStyles[ff].name());
@@ -1425,6 +1425,7 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 			fo.setAttribute("LINESPMode",m_Doc->docParagraphStyles[ff].lineSpacingMode());
 			fo.setAttribute("LINESP",m_Doc->docParagraphStyles[ff].lineSpacing());
 			fo.setAttribute("INDENT",m_Doc->docParagraphStyles[ff].leftMargin());
+			fo.setAttribute("RMARGIN",m_Doc->docParagraphStyles[ff].rightMargin());
 			fo.setAttribute("FIRST",m_Doc->docParagraphStyles[ff].firstIndent());
 			fo.setAttribute("VOR",m_Doc->docParagraphStyles[ff].gapBefore());
 			fo.setAttribute("NACH",m_Doc->docParagraphStyles[ff].gapAfter());
@@ -1739,15 +1740,17 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	ScFace dummy = ScFace::none();
 	bool unknown = false;
 	QString tmp2, tmpf;
+	CharStyle newStyle;
+
 	tmp2 = it->attribute("CH");
 	tmp2.replace(QRegExp("\r"), QChar(13));
 	tmp2.replace(QRegExp("\n"), QChar(13));
 	tmp2.replace(QRegExp("\t"), QChar(9));
-	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
+	tmpf = it->attribute("CFONT", "");
 	PrefsManager* prefsManager=PrefsManager::instance();
-	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
+	if (!tmpf.isEmpty() && (!prefsManager->appPrefs.AvailFonts.contains(tmpf) || !prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
-		bool isThere = false;
+/*		bool isThere = false;
 		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
 			if ((*dummyScFaces.at(dl)).scName() == tmpf)
@@ -1762,7 +1765,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 //			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
 			dummyScFaces.append(dummy);
 		}
-		unknown = true;
+*/		unknown = true;
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
@@ -1770,81 +1773,104 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		}
 		else
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+		dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
+		prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
 	}
 	else
 	{
-		if (!doc->UsedFonts.contains(tmpf))
+		if (! tmpf.isEmpty() && !doc->UsedFonts.contains(tmpf))
 		{
 			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 		}
 	}
-	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
-	QString fcolor = it->attribute("CCOLOR");
-	int extra;
+
+	if (! tmpf.isEmpty() )
+		newStyle.setFont((*doc->AllFonts)[tmpf]);
+
+	if (it->hasAttribute("CSIZE"))
+		newStyle.setFontSize(qRound(it->attribute("CSIZE").toDouble() * 10));
+	
+	if (it->hasAttribute("CCOLOR"))
+		newStyle.setFillColor(it->attribute("CCOLOR"));
+	
 	if (it->hasAttribute("CEXTRA"))
-		extra = qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0);
-	else
-		extra = it->attribute("CKERN").toInt();
-	int shade = it->attribute("CSHADE").toInt();
-	int style = it->attribute("CSTYLE").toInt();
-	int ab = it->attribute("CAB", "0").toInt();
-	QString stroke = it->attribute("CSTROKE", CommonStrings::None);
-	int shade2 = it->attribute("CSHADE2", "100").toInt();
-	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
-	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
-	int base = qRound(it->attribute("CBASE", "0").toDouble() * 10);
-	int shX = qRound(it->attribute("CSHX", "5").toDouble() * 10);
-	int shY = qRound(it->attribute("CSHY", "-5").toDouble() * 10);
-	int outL = qRound(it->attribute("COUT", "1").toDouble() * 10);
-	int ulp = qRound(it->attribute("CULP", "-0.1").toDouble() * 10);
-	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
-	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
-	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
+		newStyle.setTracking(qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0));
+	else if (it->hasAttribute("CKERN"))
+		newStyle.setTracking(it->attribute("CKERN").toInt());
+	
+	
+	if (it->hasAttribute("CSHADE"))
+		newStyle.setFillShade(it->attribute("CSHADE").toInt());
+	
+	if (it->hasAttribute("CSTYLE"))
+		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()));
+
+	QString pstylename = it->attribute("PSTYLE", "");
+	int calign = it->attribute("CALIGN", "-1").toInt();		
+	
+	int ab = it->attribute("CAB", "-1").toInt();
+	if (ab >= 5) {
+		pstylename = doc->docParagraphStyles[ab-5].name();
+		calign = -1;
+	}
+	else if (ab >= 0) {
+		pstylename = "";
+		calign = ab;
+	}
+	
+	if (it->hasAttribute("CSTROKE"))
+		newStyle.setStrokeColor(it->attribute("CSTROKE", CommonStrings::None));
+	
+	if (it->hasAttribute("CSHADE2"))
+		newStyle.setStrokeShade(it->attribute("CSHADE2", "100").toInt());
+	
+	if (it->hasAttribute("CSCALE"))
+		newStyle.setScaleH(QMIN(QMAX(qRound(it->attribute("CSCALE", "100").toDouble() * 10), 100), 4000));
+	
+	if (it->hasAttribute("CSCALEV"))
+		newStyle.setScaleV(QMIN(QMAX(qRound(it->attribute("CSCALEV", "100").toDouble() * 10), 100), 4000));
+	
+	if (it->hasAttribute("CBASE"))
+		newStyle.setBaselineOffset(qRound(it->attribute("CBASE", "0").toDouble() * 10));
+
+	if (it->hasAttribute("CSHX"))
+	newStyle.setShadowXOffset(qRound(it->attribute("CSHX", "5").toDouble() * 10));
+
+	if (it->hasAttribute("CSHY"))
+		newStyle.setShadowYOffset(qRound(it->attribute("CSHY", "-5").toDouble() * 10));
+	
+	if (it->hasAttribute("COUT"))
+		newStyle.setOutlineWidth(qRound(it->attribute("COUT", "1").toDouble() * 10));
+
+	if (it->hasAttribute("CULP"))
+		newStyle.setUnderlineOffset(qRound(it->attribute("CULP", "-0.1").toDouble() * 10));
+
+	if (it->hasAttribute("CULW"))
+		newStyle.setUnderlineWidth(qRound(it->attribute("CULW", "-0.1").toDouble() * 10));
+
+	
+	if (it->hasAttribute("CSTP"))
+		newStyle.setStrikethruOffset(qRound(it->attribute("CSTP", "-0.1").toDouble() * 10));
+	
+	if (it->hasAttribute("CSTW"))
+		newStyle.setStrikethruWidth(qRound(it->attribute("CSTW", "-0.1").toDouble() * 10));
+
 	int iobj = it->attribute("COBJ", "-1").toInt();
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
-		CharStyle newStyle;
-		QChar ch = tmp2.at(cxx);
-		if (ch == QChar(5))
-			ch = SpecialChars::PARSEP;
-		if (ch == QChar(4))
-			ch = SpecialChars::TAB;
-		if (unknown)
-			newStyle.setFont(dummy);
-		else
-			newStyle.setFont((*doc->AllFonts)[tmpf]);
-		newStyle.setFontSize(size);
-		newStyle.setFillColor(fcolor);
-		newStyle.setTracking(extra);
-		newStyle.setFillShade(shade);
-		newStyle.setEffects(static_cast<StyleFlag>(style));
-		if (ab >= 5) breakPoint();
-		if (impo)
-		{
-			if (VorLFound)
-				last->ParaStyle = DoVorl[ab].toUInt();
-			else
-			{
-				if (ab < 5)
-					last->ParaStyle = ab;
-				else
-					last->ParaStyle = 0;
-			}
+		QChar ch = tmp2.at(cxx);		
+		{ // Legacy mode
+			if (ch == QChar(5))
+				ch = SpecialChars::PARSEP;
+			if (ch == QChar(4))
+				ch = SpecialChars::TAB;
 		}
+		
+		if (impo && ab >= 0 && VorLFound)
+			last->ParaStyle = DoVorl[ab].toInt();
 		else
-			last->ParaStyle = ab;
-		newStyle.setStrokeColor(stroke);
-		newStyle.setStrokeShade(shade2);
-		newStyle.setScaleH(QMIN(QMAX(scale, 100), 4000));
-		newStyle.setScaleV(QMIN(QMAX(scalev, 100), 4000));
-		newStyle.setBaselineOffset(base);
-		newStyle.setShadowXOffset(shX);
-		newStyle.setShadowYOffset(shY);
-		newStyle.setOutlineWidth(outL);
-		newStyle.setUnderlineOffset(ulp);
-		newStyle.setUnderlineWidth(ulw);
-		newStyle.setStrikethruOffset(stp);
-		newStyle.setStrikethruWidth(stw);
+			last->ParaStyle = doc->docParagraphStyles.find(pstylename);
+
 		int pos = obj->itemText.length();
 		if (ch == SpecialChars::OBJECT) {
 			if (iobj != -1) {
@@ -1864,27 +1890,26 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		}
 		if (ch == SpecialChars::PARSEP) {
 			ParagraphStyle pstyle;
-			if (last->ParaStyle < 5) {
-				pstyle.setAlignment(QMAX(0, last->ParaStyle));
+			if (last->ParaStyle >= 0) {
+				pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
 			}
-			else {
-				pstyle.setParent( & doc->docParagraphStyles[last->ParaStyle]);
-			}
-			qDebug(QString("par style at %1: %2/%3 (%4)").arg(pos).arg(pstyle.name()).arg(pstyle.parent()?pstyle.parent()->name():"").arg(last->ParaStyle));
+			if (calign >= 0)
+				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
+			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
-	if (last->ParaStyle < 5) {
-		pstyle.setAlignment(QMAX(0, last->ParaStyle));
+	if (last->ParaStyle >= 0) {
+		pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
 	}
-	else {
-		pstyle.setParent( & doc->docParagraphStyles[last->ParaStyle]);
-	}
+	if (calign >= 0)
+		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	return;
 }
+
 
 void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
 {
@@ -1897,7 +1922,7 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	else
 		vg.setRightMargin(0);
 	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
-	vg.setAlignment(pg.attribute("ALIGN").toInt());
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	PrefsManager * prefsManager = PrefsManager::instance();
@@ -1945,9 +1970,10 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
 		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
 		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
-		vg.tabValues().clear();
+//		vg.tabValues().clear();
 		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 		{
+			QValueList<ParagraphStyle::TabRecord> tbs;
 			ParagraphStyle::TabRecord tb;
 			QString tmp = pg.attribute("TABS");
 			QTextStream tgv(&tmp, IO_ReadOnly);
@@ -1959,12 +1985,14 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 				tb.tabPosition = xf2;
 				tb.tabType = static_cast<int>(xf);
 				tb.tabFillChar =  QChar();
-				vg.tabValues().append(tb);
+				tbs.append(tb);
 			}
+			vg.setTabValues(tbs);
 			tmp = "";
 		}
 		else
 		{
+			QValueList<ParagraphStyle::TabRecord> tbs;
 			QDomNode IT = pg.firstChild();
 			while(!IT.isNull())
 			{
@@ -1980,8 +2008,9 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 						tb.tabFillChar = QChar();
 					else
 						tb.tabFillChar = tbCh[0];
-					vg.tabValues().append(tb);
+					tbs.append(tb);
 				}
+				vg.setTabValues(tbs);
 				IT=IT.nextSibling();
 			}
 		}
@@ -2174,7 +2203,7 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	// for some reason IFONT is set later, check at the place where PasteItem() is called.
 	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
 	pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
-	pstyle.setAlignment(obj->attribute("ALIGN", "0").toInt());
+	pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(obj->attribute("ALIGN", "0").toInt()));
 	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
 	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
@@ -2810,12 +2839,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*FIXME					if (Neu->lineSpacingMode() == 3)
+/*					if (Neu->lineSpacingMode() == 3)
 					{
 						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
 					}
-*/					if (Neu->isAutoText)
+*/
+					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					Neu->NextIt = baseobj + pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)

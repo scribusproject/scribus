@@ -479,7 +479,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 	vg->setLineSpacing(pg->attribute("LINESP").toDouble());
 	vg->setLeftMargin(pg->attribute("INDENT", "0").toDouble());
 	vg->setFirstIndent(pg->attribute("FIRST", "0").toDouble());
-	vg->setAlignment(pg->attribute("ALIGN").toInt());
+	vg->setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg->attribute("ALIGN").toInt()));
 	vg->setGapBefore(pg->attribute("VOR", "0").toDouble());
 	vg->setGapAfter(pg->attribute("NACH", "0").toDouble());
 	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
@@ -512,13 +512,14 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 	vg->charStyle().setScaleV(qRound(pg->attribute("SCALEV", "100").toDouble() * 10));
 	vg->charStyle().setBaselineOffset(qRound(pg->attribute("BASEO", "0").toDouble() * 10));
 	vg->charStyle().setTracking(qRound(pg->attribute("KERN", "0").toDouble() * 10));
-	vg->tabValues().clear();
+//	vg->tabValues().clear();
 	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
 	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
 		QString tmp = pg->attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
-		vg->tabValues().clear();
+		tbs.clear();
 		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
@@ -526,12 +527,14 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 			tb.tabPosition = xf2;
 			tb.tabType = static_cast<int>(xf);
 			tb.tabFillChar = QChar();
-			vg->tabValues().append(tb);
+			tbs.append(tb);
 		}
+		vg->setTabValues(tbs);
 		tmp = "";
 	}
 	else
 	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
 		QDomNode IT = pg->firstChild();
 		while(!IT.isNull())
 		{
@@ -547,10 +550,11 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 					tb.tabFillChar = QChar();
 				else
 					tb.tabFillChar = tbCh[0];
-				vg->tabValues().append(tb);
+				tbs.append(tb);
 			}
 			IT=IT.nextSibling();
 		}
+		vg->setTabValues(tbs);
 	}
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
@@ -1170,7 +1174,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	UsedStyles.clear();
 	UsedMapped2Saved.clear();
 	ParagraphStyle vg;
-	if (doc->docParagraphStyles.count() > 5)
+//	if (doc->docParagraphStyles.count() > 5)
 	{
 		//for (uint co=0; co<Selitems->count(); ++co)
 		for (uint co=0; co<selection->count(); ++co)

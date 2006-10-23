@@ -219,7 +219,7 @@ void Scribus134Format::getReplacedFontData(bool & getNewReplacement, QMap<QStrin
 {
 	getNewReplacement=newReplacement;
 	getReplacedFonts=ReplacedFonts;
-	getDummyScFaces=dummyScFaces;
+//	getDummyScFaces=dummyScFaces;
 }
 
 bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* fmt */, int /* flags */, int /* index */)
@@ -565,7 +565,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			if(pg.tagName()=="STYLE")
 			{
 				readParagraphStyle(vg, pg, *m_AvailableFonts, m_Doc);
-				m_Doc->docParagraphStyles.append(new ParagraphStyle(vg));
+				m_Doc->docParagraphStyles.create(vg);
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -1043,12 +1043,13 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*FIXME					if (Neu->lineSpacingMode() == 3)
+/*					if (Neu->lineSpacingMode() == 3)
 					{
 						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
 					}
-*/					if (Neu->isAutoText)
+*/
+					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
 					Neu->NextIt = pg.attribute("NEXTITEM").toInt();
 					if (Neu->isTableItem)
@@ -1335,13 +1336,82 @@ void scribus134format_freePlugin(ScPlugin* plugin)
 	delete plug;
 }
 
-void breakPoint() {}
+
+namespace {
+	const int NOVLAUE = -16000;
+	
+	void fixLegacyCharStyle(CharStyle& cstyle) 
+	{
+		if (! cstyle.font().usable())
+			cstyle.resetFont();
+		if (cstyle.fontSize() <= -16000 / 10)
+			cstyle.resetFontSize();
+		if (cstyle.fontSize() == 65535)
+			cstyle.resetEffects();
+		if (cstyle.fillColor().isEmpty())
+			cstyle.resetFillColor();
+		if (cstyle.fillShade() <= -16000)
+			cstyle.resetFillShade();
+		if (cstyle.strokeColor().isEmpty())
+			cstyle.resetStrokeColor();
+		if (cstyle.strokeShade() <= -16000)
+			cstyle.resetStrokeShade();
+		if (cstyle.shadowXOffset() <= -16000 / 10)
+			cstyle.resetShadowXOffset();
+		if (cstyle.shadowYOffset() <= -16000 / 10)
+			cstyle.resetShadowYOffset();
+		if (cstyle.outlineWidth() <= -16000 / 10)
+			cstyle.resetOutlineWidth();
+		if (cstyle.underlineOffset() <= -16000 / 10)
+			cstyle.resetUnderlineOffset();
+		if (cstyle.underlineWidth() <= -16000 / 10)
+			cstyle.resetUnderlineWidth();
+		if (cstyle.strikethruOffset() <= -16000 / 10)
+			cstyle.resetStrikethruOffset();
+		if (cstyle.strikethruWidth() <= -16000 / 10)
+			cstyle.resetStrikethruWidth();
+		if (cstyle.scaleH() <= -16000 / 10)
+			cstyle.resetScaleH();
+		if (cstyle.scaleV() <= -16000 / 10)
+			cstyle.resetScaleV();
+		if (cstyle.baselineOffset() <= -16000 / 10)
+			cstyle.resetBaselineOffset();
+		if (cstyle.tracking() <= -16000 / 10)
+			cstyle.resetTracking();
+	}
+	
+	void fixLegacyParStyle(ParagraphStyle& pstyle) 
+	{
+		pstyle.resetLineSpacing();
+		if (pstyle.leftMargin() <= -16000)
+			pstyle.resetLeftMargin();
+		if (pstyle.rightMargin() <= -16000)
+			pstyle.resetRightMargin();
+		if (pstyle.firstIndent() <= -16000)
+			pstyle.resetFirstIndent();
+		if (pstyle.alignment() < 0)
+			pstyle.resetAlignment();
+		if (pstyle.gapBefore() <= -16000)
+			pstyle.resetGapBefore();
+		if (pstyle.gapAfter() <= -16000)
+			pstyle.resetGapAfter();
+		if (pstyle.dropCapLines() < 0)
+			pstyle.resetDropCapLines();
+		if (pstyle.dropCapOffset() <= -16000)
+			pstyle.resetDropCapOffset();
+		fixLegacyCharStyle(pstyle.charStyle());
+	}
+	
+}// namespace
+
+
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
 	ScFace dummy = ScFace::none();
 	bool unknown = false;
 	QString tmp2, tmpf;
+	CharStyle newStyle;
 	tmp2 = it->attribute("CH");
 	tmp2.replace(QRegExp("\r"), QChar(13));
 	tmp2.replace(QRegExp("\n"), QChar(13));
@@ -1350,7 +1420,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	PrefsManager* prefsManager=PrefsManager::instance();
 	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
 	{
-		bool isThere = false;
+/*		bool isThere = false;
 		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
 		{
 			if ((*dummyScFaces.at(dl)).scName() == tmpf)
@@ -1365,10 +1435,13 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 //			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
 			dummyScFaces.append(dummy);
 		}
+*/
 		unknown = true;
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
+			dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
+			prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 		}
 		else
@@ -1381,73 +1454,97 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
 		}
 	}
-	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
-	QString fcolor = it->attribute("CCOLOR");
-	int extra;
+	if (! tmpf.isEmpty() )
+		newStyle.setFont((*doc->AllFonts)[tmpf]);
+	
+	if (it->hasAttribute("CSIZE"))
+		newStyle.setFontSize(qRound(it->attribute("CSIZE").toDouble() * 10));
+	
+	if (it->hasAttribute("CCOLOR"))
+		newStyle.setFillColor(it->attribute("CCOLOR"));
+	
 	if (it->hasAttribute("CEXTRA"))
-		extra = qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0);
+		newStyle.setTracking(qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0));
+	else if (it->hasAttribute("CKERN"))
+		newStyle.setTracking(it->attribute("CKERN").toInt());
+	
+	
+	if (it->hasAttribute("CSHADE"))
+		newStyle.setFillShade(it->attribute("CSHADE").toInt());
+	
+	if (it->hasAttribute("CSTYLE"))
+		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()));
+
+	QString pstylename = it->attribute("PSTYLE", "");
+	int calign = it->attribute("CALIGN", "-1").toInt();		
+	
+	int ab = it->attribute("CAB", "-1").toInt();
+	if (ab >= 5) {
+		pstylename = doc->docParagraphStyles[ab-5].name();
+		calign = -1;
+	}
+	else if (ab >= 0) {
+		pstylename = "";
+		calign = ab;
+	}
+	
+	if (it->hasAttribute("CSTROKE"))
+		newStyle.setStrokeColor(it->attribute("CSTROKE", CommonStrings::None));
+	
+	if (it->hasAttribute("CSHADE2"))
+		newStyle.setStrokeShade(it->attribute("CSHADE2", "100").toInt());
+	
+	if (it->hasAttribute("CSCALE"))
+		newStyle.setScaleH(QMIN(QMAX(qRound(it->attribute("CSCALE", "100").toDouble() * 10), 100), 4000));
+	
+	if (it->hasAttribute("CSCALEV"))
+		newStyle.setScaleV(QMIN(QMAX(qRound(it->attribute("CSCALEV", "100").toDouble() * 10), 100), 4000));
+	
+	if (it->hasAttribute("CBASE"))
+		newStyle.setBaselineOffset(qRound(it->attribute("CBASE", "0").toDouble() * 10));
+	
+	if (it->hasAttribute("CSHX"))
+		newStyle.setShadowXOffset(qRound(it->attribute("CSHX", "5").toDouble() * 10));
+	
+	if (it->hasAttribute("CSHY"))
+		newStyle.setShadowYOffset(qRound(it->attribute("CSHY", "-5").toDouble() * 10));
+	
+	if (it->hasAttribute("COUT"))
+		newStyle.setOutlineWidth(qRound(it->attribute("COUT", "1").toDouble() * 10));
+	
+	if (it->hasAttribute("CULP"))
+		newStyle.setUnderlineOffset(qRound(it->attribute("CULP", "-0.1").toDouble() * 10));
+	
+	if (it->hasAttribute("CULW"))
+		newStyle.setUnderlineWidth(qRound(it->attribute("CULW", "-0.1").toDouble() * 10));
+	
+	
+	if (it->hasAttribute("CSTP"))
+		newStyle.setStrikethruOffset(qRound(it->attribute("CSTP", "-0.1").toDouble() * 10));
+	
+	if (it->hasAttribute("CSTW"))
+		newStyle.setStrikethruWidth(qRound(it->attribute("CSTW", "-0.1").toDouble() * 10));
+	
+	fixLegacyCharStyle(newStyle);
+	
+	if (impo && ab >= 0 && VorLFound)
+		last->ParaStyle = DoVorl[ab].toInt();
 	else
-		extra = it->attribute("CKERN").toInt();
-	int shade = it->attribute("CSHADE").toInt();
-	int style = it->attribute("CSTYLE").toInt();
-	int ab = it->attribute("CAB", "0").toInt();
-	QString stroke = it->attribute("CSTROKE", CommonStrings::None);
-	int shade2 = it->attribute("CSHADE2", "100").toInt();
-	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
-	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
-	int base = qRound(it->attribute("CBASE", "0").toDouble() * 10);
-	int shX = qRound(it->attribute("CSHX", "5").toDouble() * 10);
-	int shY = qRound(it->attribute("CSHY", "-5").toDouble() * 10);
-	int outL = qRound(it->attribute("COUT", "1").toDouble() * 10);
-	int ulp = qRound(it->attribute("CULP", "-0.1").toDouble() * 10);
-	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
-	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
-	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
+	{
+		last->ParaStyle = doc->docParagraphStyles.find(pstylename);
+	}
+	
 	int iobj = it->attribute("COBJ", "-1").toInt();
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
-		CharStyle newStyle;
-		QChar ch = tmp2.at(cxx);
-		if (ch == QChar(5))
-			ch = QChar(13);
-		if (ch == QChar(4))
-			ch = QChar(9);
-		if (unknown)
-			newStyle.setFont(dummy);
-		else
-			newStyle.setFont((*doc->AllFonts)[tmpf]);
-		newStyle.setFontSize(size);
-		newStyle.setFillColor(fcolor);
-		newStyle.setTracking(extra);
-		newStyle.setFillShade(shade);
-		newStyle.setEffects(static_cast<StyleFlag>(style));
-		if (ab >= 5) breakPoint();
-		if (impo)
-		{
-			if (VorLFound)
-				last->ParaStyle = DoVorl[ab].toUInt();
-			else
-			{
-				if (ab < 5)
-					last->ParaStyle = ab;
-				else
-					last->ParaStyle = 0;
-			}
+		QChar ch = tmp2.at(cxx);		
+		{ // Legacy mode
+			if (ch == QChar(5))
+				ch = SpecialChars::PARSEP;
+			if (ch == QChar(4))
+				ch = SpecialChars::TAB;
 		}
-		else
-			last->ParaStyle = ab;
-		newStyle.setStrokeColor(stroke);
-		newStyle.setStrokeShade(shade2);
-		newStyle.setScaleH(QMIN(QMAX(scale, 100), 4000));
-		newStyle.setScaleV(QMIN(QMAX(scalev, 100), 4000));
-		newStyle.setBaselineOffset(base);
-		newStyle.setShadowXOffset(shX);
-		newStyle.setShadowYOffset(shY);
-		newStyle.setOutlineWidth(outL);
-		newStyle.setUnderlineOffset(ulp);
-		newStyle.setUnderlineWidth(ulw);
-		newStyle.setStrikethruOffset(stp);
-		newStyle.setStrikethruWidth(stw);
+		
 		int pos = obj->itemText.length();
 		if (ch == SpecialChars::OBJECT) {
 			if (iobj != -1) {
@@ -1466,16 +1563,28 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			last->StyleStart = pos;
 		}
 		if (ch == SpecialChars::PARSEP) {
-			const ParagraphStyle& pstyle( doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
-			qDebug(QString("par style134 at %1: %2/%3 (%4)").arg(pos).arg(pstyle.name()).arg(pstyle.parent()? pstyle.parent()->name():"").arg(last->ParaStyle));
+			ParagraphStyle pstyle;
+			if (last->ParaStyle >= 0) {
+				pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
+			}
+			if (calign >= 0)
+				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
+			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
 			obj->itemText.applyStyle(pos, pstyle);
-			obj->itemText.applyStyle(pos, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
 		}
 	}
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
-	obj->itemText.applyStyle(obj->itemText.length()-1, doc->docParagraphStyles[QMAX(0,last->ParaStyle)]);
+	ParagraphStyle pstyle;
+	if (last->ParaStyle >= 0) {
+		pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
+	}
+	if (calign >= 0)
+		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
+	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	return;
 }
+
+
 
 void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc)
 {
@@ -1488,7 +1597,7 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 	else
 		vg.setRightMargin(0);
 	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
-	vg.setAlignment(pg.attribute("ALIGN").toInt());
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	PrefsManager * prefsManager = PrefsManager::instance();
@@ -1514,68 +1623,75 @@ void Scribus134Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement&
 		}
 		vg.charStyle().setFont(avail[tmpf]);
 	}
-		vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
-		vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
-		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
-		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
-		vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
-		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
-		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
-		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
-		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
-		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
-		vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
-		vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
-		vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
-		vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
-		vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
-		vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
-		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
-		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
-		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
-		vg.tabValues().clear();
-		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+	
+	vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
+	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
+	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
+	vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
+	vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+	vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
+	vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
+	vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
+	vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
+	vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+	vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
+	vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
+	vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
+	vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
+	vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
+	vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
+	vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
+	vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
+	vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
+	vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
+	vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
+	//		vg.tabValues().clear();
+	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
+		ParagraphStyle::TabRecord tb;
+		QString tmp = pg.attribute("TABS");
+		QTextStream tgv(&tmp, IO_ReadOnly);
+		double xf, xf2;
+		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
-			ParagraphStyle::TabRecord tb;
-			QString tmp = pg.attribute("TABS");
-			QTextStream tgv(&tmp, IO_ReadOnly);
-			double xf, xf2;
-			for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
-			{
-				tgv >> xf;
-				tgv >> xf2;
-				tb.tabPosition = xf2;
-				tb.tabType = static_cast<int>(xf);
-				tb.tabFillChar =  QChar();
-				vg.tabValues().append(tb);
-			}
-			tmp = "";
+			tgv >> xf;
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar =  QChar();
+			tbs.append(tb);
 		}
-		else
+		vg.setTabValues(tbs);
+		tmp = "";
+	}
+	else
+	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
+		QDomNode IT = pg.firstChild();
+		while(!IT.isNull())
 		{
-			QDomNode IT = pg.firstChild();
-			while(!IT.isNull())
+			QDomElement it = IT.toElement();
+			if (it.tagName()=="Tabs")
 			{
-				QDomElement it = IT.toElement();
-				if (it.tagName()=="Tabs")
-				{
-					ParagraphStyle::TabRecord tb;
-					tb.tabPosition = it.attribute("Pos").toDouble();
-					tb.tabType = it.attribute("Type").toInt();
-					QString tbCh = "";
-					tbCh = it.attribute("Fill","");
-					if (tbCh.isEmpty())
-						tb.tabFillChar = QChar();
-					else
-						tb.tabFillChar = tbCh[0];
-					vg.tabValues().append(tb);
-				}
-				IT=IT.nextSibling();
+				ParagraphStyle::TabRecord tb;
+				tb.tabPosition = it.attribute("Pos").toDouble();
+				tb.tabType = it.attribute("Type").toInt();
+				QString tbCh = "";
+				tbCh = it.attribute("Fill","");
+				if (tbCh.isEmpty())
+					tb.tabFillChar = QChar();
+				else
+					tb.tabFillChar = tbCh[0];
+				tbs.append(tb);
 			}
+			vg.setTabValues(tbs);
+			IT=IT.nextSibling();
 		}
+	}
+	fixLegacyParStyle(vg);
 }
+
 
 PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 {
@@ -1763,7 +1879,7 @@ PageItem* Scribus134Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	ParagraphStyle pstyle;
 	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
 	pstyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(obj->attribute("LINESPMode", "0").toInt()));
-	pstyle.setAlignment(obj->attribute("ALIGN", "0").toInt());
+	pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(obj->attribute("ALIGN", "0").toInt()));
 	pstyle.charStyle().setFontSize(qRound(obj->attribute("ISIZE", "12").toDouble() * 10));
 	pstyle.charStyle().setStrokeColor(obj->attribute("TXTSTROKE", CommonStrings::None));
 	pstyle.charStyle().setFillColor(obj->attribute("TXTFILL", "Black"));
@@ -2418,7 +2534,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					Neu->gWidth = pg.attribute("gWidth",defaultVal).toDouble();
 					defaultVal.setNum(Neu->height());
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
-/*FIXME					if (Neu->lineSpacingMode() == 3)
+/*					if (Neu->lineSpacingMode() == 3)
 					{
 						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);

@@ -10,7 +10,7 @@
 #include <qobject.h>
 #include "sctextstruct.h"
 #include "scfonts.h"
-
+#include "style.h"
 
 
 StyleFlag& operator&= (StyleFlag& left, StyleFlag right){        
@@ -65,7 +65,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 {
 	Style::eraseStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if (!inh_##attr_NAME && m_##attr_NAME == other.##attr_GETTER()) \
+	if (!inh_##attr_NAME && m_##attr_NAME == other.attr_GETTER()) \
 		reset##attr_NAME();
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
@@ -75,10 +75,10 @@ bool CharStyle::equiv(const Style & other) const
 {
 	const CharStyle * oth = dynamic_cast<const CharStyle*> ( & other );
 	return  oth &&
-		parent == oth->parent() &&
+		parent() == oth->parent() 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-		inh_##attr_NAME == oth->inh_##attr_NAME &&\
-		(inh_##attr_NAME || m_##attr_NAME == oth->m_##attr_NAME) &&
+		&& (inh_##attr_NAME == oth->inh_##attr_NAME) \
+		&& (inh_##attr_NAME || m_##attr_NAME == oth->m_##attr_NAME)
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 		;	
@@ -110,10 +110,10 @@ QString CharStyle::asString() const
 		result += QObject::tr("+color ");
 	if ( !inh_UnderlineWidth  ||  !inh_UnderlineOffset )
 		result += underlineWidth() > 0 ? QObject::tr("+underline ") : QObject::tr("-underline ");
-	if ( !inh_StrikethruWidth || !inh_StrikethruPos )
+	if ( !inh_StrikethruWidth || !inh_StrikethruOffset )
 		result += strikethruWidth() > 0 ? QObject::tr("+strikeout ") : QObject::tr("-strikeout ");
 	if ( !inh_ShadowXOffset || !inh_ShadowYOffset )
-		result += shadowXOffset() != 0 || shadowYOffset != 0 ? QObject::tr("+shadow ") : QObject::tr("-shadow ");
+		result += shadowXOffset() != 0 || shadowYOffset() != 0 ? QObject::tr("+shadow ") : QObject::tr("-shadow ");
 	if ( !inh_OutlineWidth )
 		result += outlineWidth() > 0 ? QObject::tr("+outline ") : QObject::tr("-outline ");
 	if ( !inh_Tracking )
@@ -135,7 +135,7 @@ void CharStyle::update(StyleBase* base)
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		if (inh_##attr_NAME) \
-			m_##attr_NAME = oth->##attr_GETTER;
+			m_##attr_NAME = oth->attr_GETTER();
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
 	}

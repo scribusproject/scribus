@@ -24,18 +24,30 @@ QChar SpecialChars::PAGENUMBER      = QChar(30);
 //QChar SpecialChars::SPACE      = QChar(32);
 
 
+
 class ScText_Shared : public QPtrList<ScText>
 {
 public:
 	ParagraphStyle defaultStyle;
+	StyleBaseProxy pstyleBase;
 	uint refs;
 	uint len;
-	ScText_Shared() : QPtrList<ScText>(), defaultStyle(), refs(1), len(0)
-	{ 
-		setAutoDelete(true); 
+	ScText_Shared(StyleBase* pstyles, StyleBase* cstyles) : QPtrList<ScText>(), 
+		defaultStyle(), 
+		pstyleBase(StyleBase::STORY_LEVEL, & defaultStyle),
+		refs(1), len(0)
+	{
+		setAutoDelete(true);
+		defaultStyle.setBase( pstyles );
+		defaultStyle.charStyle().setBase( cstyles );
+		qDebug(QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles)));
 	}
+			
+
 	ScText_Shared(const ScText_Shared& other) : QPtrList<ScText>(), 
-		defaultStyle(other.defaultStyle), refs(1), len(0) 
+		defaultStyle(other.defaultStyle), 
+		pstyleBase(other.pstyleBase),
+		refs(1), len(0) 
 	{
 		setAutoDelete(true); 
 		QPtrListIterator<ScText> it( other );
@@ -44,12 +56,17 @@ public:
 			++it;
 			ScText* elem2 = new ScText(*elem);
 			append(elem2);
-			if (elem->parstyle)
-				replaceParentStyle(count()-1, & elem->parstyle->charStyle(), & elem2->parstyle->charStyle());
+			if (elem2->parstyle) {
+				elem2->parstyle->setBase( & pstyleBase);
+				elem2->parstyle->charStyle().setBase( & defaultStyle);
+				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle);
+			}
 		}
 		len = count();
-		replaceParentStyle(len, & other.defaultStyle.charStyle(), & defaultStyle.charStyle());
+		replaceCharStyleBaseInParagraph(len,  & defaultStyle);
+		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 	}
+
 	ScText_Shared& operator= (const ScText_Shared& other) 
 	{
 		clear();
@@ -59,21 +76,30 @@ public:
 			++it;
 			ScText* elem2 = new ScText(*elem);
 			append(elem2);
-			if (elem->parstyle)
-				replaceParentStyle(count()-1, & elem->parstyle->charStyle(), & elem2->parstyle->charStyle());
+			if (elem2->parstyle) {
+				elem2->parstyle->setBase( & pstyleBase);
+				elem2->parstyle->charStyle().setBase( & defaultStyle);
+				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle);
+			}
 		}
 		len = count();
 		defaultStyle = other.defaultStyle;
-		replaceParentStyle(len, & other.defaultStyle.charStyle(), & defaultStyle.charStyle());
+		replaceCharStyleBaseInParagraph(len,  & defaultStyle);
 		refs = 1;
+		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 		return *this;
 	}
+
+	~ScText_Shared() {
+		qDebug(QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this)));
+	}
+	
 	/**
-		A CharStyle's parent is usually the charstyle of default paragraphstyle, 
-     unless explicitly changed. This routines makes sure that all parent pointers 
-     to the default paragraphStyle's charstyle are up-to-date
+	   A char's stylebase is the containing paragraph's style, 
+       This routines makes sure that all charstyles look for defaults
+	   in the parstyle first.
 	 */
-	void replaceParentStyle(int pos, const CharStyle* oldP, const CharStyle* newP)
+	void replaceCharStyleBaseInParagraph(int pos, const StyleBase* newBase)
 	{
 		QPtrListIterator<ScText> it( *this );
 		it += (pos-1);
@@ -81,8 +107,7 @@ public:
 		while ( (elem = it.current()) != NULL ) {
 			if (elem->ch[0] == SpecialChars::PARSEP)
 				break;
-			else if (elem->parent() == NULL || elem->parent() == oldP)
-				elem->setParent(newP);
+			elem->setBase(newBase);
 			--it;
 		}	
 	}
@@ -91,13 +116,18 @@ public:
 
 StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 {
-	d = new ScText_Shared();
+	if (doc_) {
+		d = new ScText_Shared(&doc_->docParagraphStyles, &doc_->docCharStyles);
+	}
+	else {
+		d = new ScText_Shared(NULL, NULL);
+	}
 	clear();
 }
 
 StoryText::StoryText() : doc(NULL)
 {
-	d = new ScText_Shared();
+	d = new ScText_Shared(NULL, NULL);
 }
 
 StoryText::StoryText(const StoryText & other) : doc(other.doc)
@@ -185,11 +215,7 @@ void StoryText::clear()
 	firstFrameItem = 0;
 	lastFrameItem = -1;
 	
-	d->defaultStyle = ParagraphStyle();
-	if (doc) {
-		d->defaultStyle.setParent( & doc->docParagraphStyles[0]);
-		d->defaultStyle.charStyle().setParent( & doc->docParagraphStyles[0].charStyle());
-	}
+	d->defaultStyle.erase();
 	
 	for (ScText *it = d->first(); it != 0; it = d->next())
 	{
@@ -250,12 +276,12 @@ void StoryText::append(const StoryText& other)
 static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
 {
 	ScText* it = that->item(pos);
-	const ParagraphStyle& pstyle(that->paragraphStyle(pos));
-	if(!it->parstyle)
-		it->parstyle = new ParagraphStyle(pstyle);
-	const CharStyle* oldP = & pstyle.charStyle();
-	const CharStyle* newP = & it->parstyle->charStyle();
-	d->replaceParentStyle(pos, oldP, newP);
+	if(!it->parstyle) {
+		it->parstyle = new ParagraphStyle();
+		it->parstyle->setBase( & d->pstyleBase);
+		it->parstyle->charStyle().setBase( & d->defaultStyle);
+	}
+	d->replaceCharStyleBaseInParagraph(pos, it->parstyle);
 }
 /**
      need to remove the ParagraphStyle structure and replace all pointers
@@ -265,12 +291,13 @@ static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 {
 	ScText* it = that->item(pos);
 	if (it->parstyle) {
-		const CharStyle* oldP = & it->parstyle->charStyle();
-		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
-		d->replaceParentStyle(pos, oldP, newP);
+//		const CharStyle* oldP = & it->parstyle->charStyle();
+//		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
+//		d->replaceParentStyle(pos, oldP, newP);
 		delete it->parstyle;
 		it->parstyle = 0;
 	}
+	d->replaceCharStyleBaseInParagraph(pos, & that->paragraphStyle(pos+1));	
 }
 
 void StoryText::removeChars(int pos, uint len)
@@ -314,7 +341,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		return;
 	
 	const CharStyle style = pos == 0 ? defaultStyle().charStyle() : charStyle(pos - 1);
-	assert( !style.font().isNone() );
+//	assert( !style.font().isNone() );
 	
 //	const int paraStyle = pos == 0 ? 0 : at(pos - 1)->cab;
 	
@@ -325,7 +352,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		d->insert(pos + i, item);
 		d->len++;
 		if (item->ch[0] == SpecialChars::PARSEP) {
-//			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
+			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
 			insertParSep(this, this->d, pos + i);
 		}
 	}
@@ -462,6 +489,8 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	assert(pos >= 0);
 	assert(pos <= length());
 
+	assert(d);
+	
 	StoryText * that = const_cast<StoryText *> (this);
 //	assert( that->at(pos)->cab >= 0 );
 //	assert( that->at(pos)->cab < doc->docParagraphStyles.count() );
@@ -479,30 +508,30 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 	else if ( !that->d->current()->parstyle ) {
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
 		that->d->current()->parstyle = new ParagraphStyle();
-		that->d->current()->parstyle->setParent( & that->d->defaultStyle);
-		that->d->current()->parstyle->charStyle().setParent( & that->d->defaultStyle.charStyle() );
+		that->d->current()->parstyle->setBase( & d->pstyleBase);
+		that->d->current()->parstyle->charStyle().setBase( & d->defaultStyle);
 	}
 	else {
 //		qDebug(QString("using parstyle at %1").arg(pos));
 	}
+	assert (that->d->current()->parstyle);
 	return *that->d->current()->parstyle;
 }
 
 const ParagraphStyle& StoryText::defaultStyle() const
 {
+	assert(d);
 	return d->defaultStyle;
 }
 
 
 void StoryText::setDefaultStyle(const ParagraphStyle& style)
 {
+	const StyleBase * oldPBase = d->defaultStyle.base();
+	const StyleBase * oldCBase = d->defaultStyle.charStyle().base();
 	d->defaultStyle = style;
-	if (doc) {
-		if (!d->defaultStyle.parent())
-			d->defaultStyle.setParent( & doc->docParagraphStyles[0] );
-		if (!d->defaultStyle.charStyle().parent())
-			d->defaultStyle.charStyle().setParent( & doc->docParagraphStyles[0].charStyle() );
-	}
+	d->defaultStyle.setBase( oldPBase );
+	d->defaultStyle.charStyle().setBase( oldCBase );
 }
 
 
@@ -581,15 +610,11 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 		if (!d->at(i)->parstyle) {
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
+			d->at(i)->parstyle->setBase( & d->pstyleBase);
+			d->at(i)->parstyle->charStyle().setBase( & d->defaultStyle);
 		}
 //		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->applyStyle(style);
-		if (!d->at(i)->parstyle->parent()) {
-			d->at(i)->parstyle->setParent( & d->defaultStyle );
-		}
-		if (!d->at(i)->parstyle->charStyle().parent()) {
-			d->at(i)->parstyle->charStyle().setParent( & d->defaultStyle.charStyle() );
-		}
 	}
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
@@ -614,21 +639,32 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 		if (!d->at(i)->parstyle) {
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
+			d->at(i)->parstyle->setBase( & d->pstyleBase);
+			d->at(i)->parstyle->charStyle().setBase( & d->defaultStyle);
 		}
 		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->eraseStyle(style);
-		if (!d->at(i)->parstyle->parent()) {
-			d->at(i)->parstyle->setParent( & d->defaultStyle );
-		}
-		if (!d->at(i)->parstyle->charStyle().parent()) {
-			d->at(i)->parstyle->charStyle().setParent( & d->defaultStyle.charStyle() );
-		}
 	}
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
 		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->defaultStyle.eraseStyle(style);
 	}
+}
+
+
+void StoryText::setStyle(int pos, const ParagraphStyle& style)
+{
+	eraseStyle(pos, paragraphStyle(pos));
+	applyStyle(pos, style);
+}
+
+
+void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
+{
+	// FIXME
+	eraseCharStyle(pos, len, charStyle(pos));
+	applyCharStyle(pos, len, style);
 }
 
 

@@ -2031,14 +2031,16 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double xoffset = 0.0, yoffset = 0.0;
 	if( gc->textAnchor == "middle" )
 	{
-		m_Doc->currentStyle = m_Doc->docParagraphStyles[1];
-		m_Doc->chAbStyle(ite, 1);
+		m_Doc->m_Selection->clear();
+		m_Doc->m_Selection->addItem(ite, true);
+		m_Doc->itemSelection_SetAlignment(1);
 		xoffset = -ite->width() / 2;
 	}
 	else if( gc->textAnchor == "end")
 	{
-		m_Doc->currentStyle = m_Doc->docParagraphStyles[2];
-		m_Doc->chAbStyle(ite, 2);
+		m_Doc->m_Selection->clear();
+		m_Doc->m_Selection->addItem(ite, true);
+		m_Doc->itemSelection_SetAlignment(2);
 		xoffset = -ite->width();
 	}
 	double rotation = getRotationFromMatrix(gc->matrix, 0.0);

@@ -222,7 +222,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 							TabValues[ActTab].tabType = 0;
 					}
 //					if (currDoc->currentParaStyle > 4)
-						currItem->changeCurrentStyle().tabValues() = TabValues;
+						currItem->changeCurrentStyle().setTabValues(TabValues);
 //					else
 //						currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
 					emit DocChanged(false);
@@ -240,7 +240,7 @@ void Hruler::mouseReleaseEvent(QMouseEvent *m)
 				TabValues.remove(it);
 				ActTab = 0;
 //				if (currDoc->currentParaStyle > 4)
-					currItem->changeCurrentStyle().tabValues() = TabValues;
+					currItem->changeCurrentStyle().setTabValues(TabValues);
 //				else
 //					currDoc->m_Selection->itemAt(0)->TabValues = TabValues;
 				emit DocChanged(false);

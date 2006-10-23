@@ -325,13 +325,10 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
 	ScribusDoc* currDoc=textFrame->doc();
-	if (currDoc->docParagraphStyles.count() > 5)
+	for (uint i = 0; i < currDoc->docParagraphStyles.count(); ++i)
 	{
-		for (uint i = 5; i < currDoc->docParagraphStyles.count(); ++i)
-		{
-			if (currDoc->docParagraphStyles[i].name() == pstyle->getName())
-				return;
-		}
+		if (currDoc->docParagraphStyles[i].name() == pstyle->getName())
+			return;
 	}
 	gtFont* font = pstyle->getFont();
 	ParagraphStyle vg;
@@ -343,20 +340,14 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 		linesp = pstyle->getLineSpacing();
 	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	vg.setLineSpacing(linesp);
-	vg.setAlignment(pstyle->getAlignment());
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
 	vg.setLeftMargin(pstyle->getIndent());
 	vg.setFirstIndent(pstyle->getFirstLineIndent());
 	vg.setGapBefore(pstyle->getSpaceAbove());
 	vg.setGapAfter(pstyle->getSpaceBelow());
 	vg.charStyle().setFont(validateFont(font));
 	vg.charStyle().setFontSize(font->getSize());
-	vg.tabValues().clear();
-	QValueList<ParagraphStyle::TabRecord> *tabs = pstyle->getTabValues();
-	for (uint i = 0; i < tabs->size(); ++i)
-	{
-		ParagraphStyle::TabRecord tmp = (*tabs)[i];
-		vg.tabValues().append(tmp);
-	}
+	vg.setTabValues(*pstyle->getTabValues());
 	vg.setHasDropCap(pstyle->hasDropCap());
 	vg.setDropCapLines(pstyle->getDropCapHeight());
 	vg.setDropCapOffset(0);
@@ -412,20 +403,14 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 		linesp = pstyle->getLineSpacing();
 	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	vg.setLineSpacing(linesp);
-	vg.setAlignment(pstyle->getAlignment());
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pstyle->getAlignment()));
 	vg.setLeftMargin(pstyle->getIndent());
 	vg.setFirstIndent(pstyle->getFirstLineIndent());
 	vg.setGapBefore(pstyle->getSpaceAbove());
 	vg.setGapAfter(pstyle->getSpaceBelow());
 	vg.charStyle().setFont(validateFont(font));
 	vg.charStyle().setFontSize(font->getSize());
-	vg.tabValues().clear();
-	QValueList<ParagraphStyle::TabRecord> *tabs = pstyle->getTabValues();
-	for (uint i = 0; i < tabs->size(); ++i)
-	{
-		ParagraphStyle::TabRecord tmp = (*tabs)[i];
-		vg.tabValues().append(tmp);
-	}
+	vg.setTabValues(*pstyle->getTabValues());
 	vg.setHasDropCap(pstyle->hasDropCap());
 	vg.setDropCapLines(pstyle->getDropCapHeight());
 	vg.setDropCapOffset(0);

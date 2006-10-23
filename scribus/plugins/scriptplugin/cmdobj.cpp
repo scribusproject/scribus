@@ -576,9 +576,8 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		else // for multiple selection
 		{
 			int mode = ScCore->primaryMainWindow()->doc->appMode;
-			ScCore->primaryMainWindow()->doc->appMode = modeEdit;
-			for (uint i = 0; i < ScCore->primaryMainWindow()->doc->m_Selection->count(); ++i)
-				ScCore->primaryMainWindow()->doc->chAbStyle(ScCore->primaryMainWindow()->doc->m_Selection->itemAt(i), styleid);
+			ScCore->primaryMainWindow()->doc->appMode = modeNormal;
+			ScCore->primaryMainWindow()->doc->itemSelection_ApplyParagraphStyle(ScCore->primaryMainWindow()->doc->docParagraphStyles[styleid]);
 			ScCore->primaryMainWindow()->doc->appMode = mode;
 		}
 	}

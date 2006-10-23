@@ -354,7 +354,7 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 	else
 		vg.setRightMargin(0);
 	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
-	vg.setAlignment(pg.attribute("ALIGN").toInt());
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
 	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
 	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
 	PrefsManager * prefsManager = PrefsManager::instance();
@@ -400,9 +400,9 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
 		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
 		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
-		vg.tabValues().clear();
 		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 		{
+			QValueList<ParagraphStyle::TabRecord> tbs;
 			ParagraphStyle::TabRecord tb;
 			QString tmp = pg.attribute("TABS");
 			QTextStream tgv(&tmp, IO_ReadOnly);
@@ -414,12 +414,14 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 				tb.tabPosition = xf2;
 				tb.tabType = static_cast<int>(xf);
 				tb.tabFillChar =  QChar();
-				vg.tabValues().append(tb);
+				tbs.append(tb);
 			}
+			vg.setTabValues(tbs);
 			tmp = "";
 		}
 		else
 		{
+			QValueList<ParagraphStyle::TabRecord> tbs;
 			QDomNode IT = pg.firstChild();
 			while(!IT.isNull())
 			{
@@ -435,10 +437,11 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 						tb.tabFillChar = QChar();
 					else
 						tb.tabFillChar = tbCh[0];
-					vg.tabValues().append(tb);
+					tbs.append(tb);
 				}
 				IT=IT.nextSibling();
 			}
+			vg.setTabValues(tbs);
 		}
 }
 

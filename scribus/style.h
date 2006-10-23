@@ -17,423 +17,229 @@
 #ifndef STYLE_H
 #define STYLE_H
 
+#include <cassert>
 #include <qstring.h>
 #include <qvaluelist.h>
 #include "scfonts.h"
 #include "scribusapi.h"
 
 
+
+class Style;
+
+
+/**
+  Style inheritance works with names. A StyleBase finds the Style to a given name.
+  If there are changes to the Styles contained in a StyleBase, you have to call
+  invalidate() to increase the version info. Styles using this StyleBase will then
+  update their cached values the next time they are used.
+*/
+class StyleBase {
+public:
+	static const int DOC_LEVEL = 1;
+	static const int STORY_LEVEL = 1024;
+	static const int PAR_LEVEL = 1024 * 1024;
+
+	StyleBase(int level = DOC_LEVEL) 
+		: m_version(0), m_level(level) 
+	{
+		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
+	}
+		
+	StyleBase(const StyleBase& o) 
+		: m_version(o.m_version), m_level(o.m_level)
+	{
+		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
+	}
+	
+
+	StyleBase& operator= (const StyleBase& o)
+	{
+		m_version = o.m_version;
+		m_level = o.m_level;
+		return *this;
+	}
+	
+	
+	virtual int version() const  { return m_version; }
+	void invalidate()    { m_version += m_level; }
+	
+	virtual const Style* resolve(QString name) const = 0;
+	virtual ~StyleBase() 
+	{
+		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
+	}
+	
+
+protected:
+	int m_version;
+	int m_level;
+};
+
+
+
 /**
  *  This as a virtual base class for all style-like objects: CharStyles, 
  *  ParagraphStyles(indirectly), LineStyles, FrameStyles, CellStyles,
  *  FlowStyles,...
- *  It provides a name and an inheritance mechanism.
+ *  It provides a name and an inheritance mechanism which uses a StyleBase.
+ *  Before any attribute is queried, you have to call validate(), which checks
+ *  the stored m_baseversion against the StyleBase's version and updates all
+ *  attributes if they are different.
  */
 class Style {
-private:
-	QString name_;
-	const Style*  parent_;
+protected:
+	QString m_name;
+	const StyleBase* m_base;
+	int m_baseversion;
+	QString m_parent;
 public:
-	static const short NOVALUE = -16000;
+//	static const short NOVALUE = -16000;
 
-	Style(): name_(""),parent_(NULL)  {}
-    Style(QString n): name_(n), parent_(NULL)  {}
+	Style(): m_name(""), m_base(NULL), m_baseversion(-1), m_parent()  {}
+
+    Style(StyleBase* b, QString n): m_name(n), m_base(b), m_baseversion(-1), m_parent()  {}
+	
 	Style& operator=(const Style& o) 
 	{ //assert(typeinfo() == o.typeinfo()); 
-		name_ = o.name_; parent_ = o.parent_; return *this;
+		m_name = o.m_name; 
+		m_base = o.m_base; 
+		m_baseversion = o.m_baseversion; 
+		m_parent = o.m_parent; 
+		return *this;
 	}
-	Style(const Style& o) : name_(o.name_), parent_(o.parent_) {} 
 	
-	QString name() const             { return name_; }
-	void setName(QString n)          { name_ = n; }
-	bool hasName() const             { return ! name_.isEmpty(); }
-	const Style* parent() const      { return parent_; }
-	void setParent(const Style* p)   { parent_ = p; }
-	bool hasParent() const           { return parent_ != NULL; }
+	Style(const Style& o) : m_name(o.m_name), 
+		m_base(o.m_base), m_baseversion(o.m_baseversion), m_parent(o.m_parent) {} 
+	
 	virtual ~Style()                 {}
-	virtual QString displayName() const { return name(); }
-//	virtual bool definesAll() const = 0;
-//	virtual bool inheritsAll() const = 0;
+
+	QString name() const             { return m_name; }
+	void setName(QString n)          { m_name = n; }
+	bool hasName() const             { return ! m_name.isEmpty(); }
+
+	virtual QString displayName() const { 	
+		if ( hasName() || !hasParent() || !m_base)
+			return name();
+		//	else if ( inheritsAll() )
+		//		return parent()->displayName();
+		else 
+			return parentStyle()->displayName();
+	}
+	
+	QString parent() const           { return m_parent; }
+	void setParent(QString p)        { m_parent = p; }
+	bool hasParent() const           { return ! m_parent.isEmpty(); }
+	const Style* parentStyle() const { qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_base),16));
+		return m_base ? m_base->resolve(m_parent) : NULL; }
+	
+	
+	void setBase(const StyleBase* base)  { m_base = base; m_baseversion = -1;
+	 qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+	}
+	const StyleBase* base() const        { return m_base; }
+	
+	/**
+		sets a new StyleBase if b is not NULL and then uses the StyleBase
+		to set all inherited attributes to their valid value.
+	 */
+	virtual void update(const StyleBase* b = NULL) 
+	{
+		qDebug(QString("update %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+		if (b)
+			m_base = b;
+		if (m_base)
+			m_baseversion = m_base->version(); 
+	}
+	
+	/**
+		Checks if this Style needs an update
+	 */
+	void validate() const
+	{ 
+		qDebug(QString("validate %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+		if (m_base && m_baseversion != m_base->version()) 
+			const_cast<Style*>(this)->update(m_base); 
+	}
+
+	
+	/**
+		returns true if both Styles are of the same type, inherit the same attributes,
+	    have the same parent, and agree on all attributes which are not inherited.
+	    The StyleBase, the name and any inherited attrinutes may be different.
+	 */
 	virtual bool equiv(const Style& other) const = 0;
+	/**
+		returns true if both Styles are equivalent and have the same name.
+	    Since the base is not tested, this does *not* ensure they will return
+	    the same values for all attributes.
+	 */
 	virtual bool operator==(const Style& other) const { return name() == other.name() && equiv(other); }
 	virtual bool operator!=(const Style& other) const { return ! ( (*this) == other ); }
+
+	/**
+		resets all attributes to their defaults and makes them inherited.
+	    name and parent are not affected.
+	 */
 	virtual void erase() = 0;
-	// applyStyle(const SubStyle& other)
-	// eraseStyle(const SubStyle& other)
-	// assign(const SubStyle& other)
+	/**
+		if other has a parent, replace this parent with the other ones
+	 */
+	void applyStyle(const Style& other) { 
+		if (other.hasParent())
+			setParent(other.parent());
+	}
+	/** 
+		if other has the same parent, remove this parent 
+	 */
+	void eraseStyle(const Style& other) {
+		if (other.parent() == parent())
+			setParent("");
+	}
 };
 
 
-
-
-enum StyleFlag {
-	ScStyle_Default       = 0,
-    ScStyle_Superscript   = 1,
-    ScStyle_Subscript     = 2,
-    ScStyle_Outline       = 4,
-    ScStyle_Underline     = 8,
-    ScStyle_Strikethrough = 16,
-    ScStyle_AllCaps       = 32,
-    ScStyle_SmallCaps     = 64,
-    ScStyle_HyphenationPossible=128, //Hyphenation possible here (Smart Hyphen)
-    ScStyle_Shadowed      = 256,
-    ScStyle_UnderlineWords= 512,
-    ScStyle_Reserved01    = 1024, //free, not used in the moment
-    ScStyle_DropCap       = 2048,
-    ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
-    ScStyle_SmartHyphenVisible=8192, //Smart Hyphen visible at line end
-    ScStyle_StartOfLine   = 16384,
-	ScStyle_UserStyles    = 2047, // 1919, // == 1024 + 512 + 256 + 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1
-	ScStyle_None          = 65535
-};
-
-SCRIBUS_API StyleFlag& operator&= (StyleFlag& left, StyleFlag right);
-
-SCRIBUS_API StyleFlag& operator|= (StyleFlag& left, StyleFlag right);
-
-SCRIBUS_API StyleFlag operator& (StyleFlag left, StyleFlag right);
-
-SCRIBUS_API StyleFlag operator| (StyleFlag left, StyleFlag right);
-
-SCRIBUS_API StyleFlag operator^ (StyleFlag left, StyleFlag right);
-
-SCRIBUS_API StyleFlag operator~ (StyleFlag arg);
-
-
-
-
-class SCRIBUS_API CharStyle : public virtual Style {
-public:
-	static const QString NOCOLOR;
-	static const QString NOLANG;
-	
-    CharStyle() : Style(), cfont(ScFace::none()) {
-        csize = NOVALUE;
-        cshade = NOVALUE;
-        cshade2 = NOVALUE;
-        cstyle = ScStyle_None;
-        cscale = NOVALUE;
-        cscalev = NOVALUE;
-        cbase = NOVALUE;
-        cshadowx = NOVALUE;
-        cshadowy = NOVALUE;
-        coutline = NOVALUE;
-        cunderpos = NOVALUE;
-        cunderwidth = NOVALUE;
-        cstrikepos = NOVALUE;
-        cstrikewidth = NOVALUE;
-        cextra = NOVALUE;
-		
-        ccolor = NOCOLOR;
-        cstroke = NOCOLOR;
-		language_ = NOLANG;
-    };
-	
-    CharStyle(const ScFace& font, int size, StyleFlag style = ScStyle_Default) : Style(), cfont(font) {
-        csize = size;
-        cshade = 1;
-        cshade2 = 1;
-        cstyle = style;
-        cscale = 1000;
-        cscalev = 1000;
-        cbase = 0;
-        cshadowx = 0;
-        cshadowy = 0;
-        coutline = 0;
-        cunderpos = 0;
-        cunderwidth = 0;
-        cstrikepos = 0;
-        cstrikewidth = 0;
-        cextra = 0;
-		
-        ccolor = "Black";
-        cstroke = "Black";
-		language_ = "";
-    };
-	
-	CharStyle(const CharStyle & other);
-	
-	CharStyle & operator=(const CharStyle & other);
-	
-	void applyCharStyle(const CharStyle & other);
-	void eraseCharStyle(const CharStyle & other);
-	void erase() { eraseCharStyle(*this); }
-	QString displayName() const;
-//	bool definesAll() const;
-//	bool inheritsAll() const;
-	bool equiv(const Style& other) const;	
-	
-	QString asString() const;
-	
-	int fontSize() const { return csize==NOVALUE && parent()? inh().fontSize() : csize; }
-	int fillShade() const { return cshade==NOVALUE && parent()? inh().fillShade() : cshade; }
-	int strokeShade() const { return cshade2==NOVALUE && parent()? inh().strokeShade() : cshade2; }
-	StyleFlag effects() const { return cstyle==ScStyle_None && parent()? inh().effects() : cstyle; }
-	int scaleH() const { return cscale==NOVALUE && parent()? inh().scaleH() : cscale; }
-	int scaleV() const { return cscalev==NOVALUE && parent()? inh().scaleV() : cscalev; }
-	int baselineOffset() const { return cbase==NOVALUE && parent()? inh().baselineOffset() : cbase; }
-	int shadowXOffset() const { return cshadowx==NOVALUE && parent()? inh().shadowXOffset() : cshadowx; }
-	int shadowYOffset() const { return cshadowy==NOVALUE && parent()? inh().shadowYOffset() : cshadowy; }
-	int outlineWidth() const { return coutline==NOVALUE && parent()? inh().outlineWidth() : coutline; }
-	int underlineOffset() const { return cunderpos==NOVALUE && parent()? inh().underlineOffset() : cunderpos; }
-	int underlineWidth() const { return cunderwidth==NOVALUE && parent()? inh().underlineWidth() : cunderwidth; }
-	int strikethruOffset() const { return cstrikepos==NOVALUE && parent()? inh().strikethruOffset() : cstrikepos; }
-	int strikethruWidth() const { return cstrikewidth==NOVALUE && parent()? inh().strikethruWidth() : cstrikewidth; }
-	int tracking() const { return cextra==NOVALUE && parent()? inh().tracking() : cextra; }
-	
-	QString fillColor() const { return ccolor==NOCOLOR && parent()? inh().fillColor() : ccolor; }
-	QString strokeColor() const { return cstroke==NOCOLOR && parent()? inh().strokeColor() : cstroke; }
-	QString language() const { return language_==NOLANG && parent()? inh().language() : language_; }
-	
-	const ScFace& font() const { return cfont.isNone() && parent()? inh().font() : cfont; } 
-	
-	void setFontSize(int s) { csize = s; }
-	void setFillShade(int s) { cshade = s; }
-	void setStrokeShade(int s) { cshade2 = s; }
-	void setEffects(StyleFlag e) { cstyle = e; }
-	void setScaleH(int s) { cscale = s; }
-	void setScaleV(int s) { cscalev = s; }
-	void setBaselineOffset(int o) { cbase = o; }
-	void setShadowXOffset(int o) { cshadowx = o; }
-	void setShadowYOffset(int o) { cshadowy = o; }
-	void setOutlineWidth(int w) { coutline = w; }
-	void setUnderlineOffset(int o) { cunderpos = o; }
-	void setUnderlineWidth(int w) { cunderwidth = w; }
-	void setStrikethruOffset(int o) { cstrikepos = o; }
-	void setStrikethruWidth(int w) { cstrikewidth = w; }
-	void setTracking(int t) { cextra = t; }
-	
-	void setFillColor(QString c) { ccolor = c; }
-	void setStrokeColor(QString c) { cstroke = c; }
-	void setLanguage(QString l) { language_ = l; }
-	
-	void setFont(const ScFace& f) { cfont = f; } 
-
-	bool isPfontSize() const { return csize==NOVALUE && parent(); }
-	bool isPfillShade() const { return cshade==NOVALUE && parent(); }
-	bool isPstrokeShade() const { return cshade2==NOVALUE && parent(); }
-	bool isPeffects() const { return cstyle==ScStyle_None && parent(); }
-	bool isPscaleH() const { return cscale==NOVALUE && parent(); }
-	bool isPscaleV() const { return cscalev==NOVALUE && parent(); }
-	bool isPbaselineOffset() const { return cbase==NOVALUE && parent(); }
-	bool isPshadowXOffset() const { return cshadowx==NOVALUE && parent(); }
-	bool isPshadowYOffset() const { return cshadowy==NOVALUE && parent(); }
-	bool isPoutlineWidth() const { return coutline==NOVALUE && parent(); }
-	bool isPunderlineOffset() const { return cunderpos==NOVALUE && parent(); }
-	bool isPunderlineWidth() const { return cunderwidth==NOVALUE && parent(); }
-	bool isPstrikethruOffset() const { return cstrikepos==NOVALUE && parent(); }
-	bool isPstrikethruWidth() const { return cstrikewidth==NOVALUE && parent(); }
-	bool isPtracking() const { return cextra==NOVALUE && parent(); }
-	bool isPfillColor() const { return ccolor==NOCOLOR && parent(); }
-	bool isPstrokeColor() const { return cstroke==NOCOLOR && parent(); }
-	bool isPlanguage() const { return language_==NOLANG && parent(); }
-	bool isPfont() const { return cfont.isNone() && parent(); }
-	
-private:
-	// shorthand:
-	const CharStyle& inh() const { return *dynamic_cast<const CharStyle*>(parent()); };
-    int csize;
-    short cshade;
-    short cshade2;
-    StyleFlag cstyle;
-    short cscale;
-    short cscalev;
-    short cbase;
-    short cshadowx;
-    short cshadowy;
-    short coutline;
-    short cunderpos;
-    short cunderwidth;
-    short cstrikepos;
-    short cstrikewidth;
-    short cextra;
-	
-    ScFace  cfont;
-    QString ccolor;
-    QString cstroke;
-    QString language_;
-	
-};
-
-
-inline CharStyle & CharStyle::operator=(const CharStyle & other)
-{
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
-	csize = other.csize;
-	cshade = other.cshade;
-	cshade2 = other.cshade2;
-	cstyle = other.cstyle;
-	cscale = other.cscale;
-	cscalev = other.cscalev;
-	cbase = other.cbase;
-	cshadowx = other.cshadowx;
-	cshadowy = other.cshadowy;
-	coutline = other.coutline;
-	cunderpos = other.cunderpos;
-	cunderwidth = other.cunderwidth;
-	cstrikepos = other.cstrikepos;
-	cstrikewidth = other.cstrikewidth;
-	cextra = other.cextra;
-	cfont = other.cfont;
-	ccolor = other.ccolor;
-	cstroke = other.cstroke;
-	language_ = other.language_;
-	return *this;
-}
-
-inline CharStyle::CharStyle(const CharStyle & other) : Style(other), cfont(other.cfont)
-{
-	csize = other.csize;
-	cshade = other.cshade;
-	cshade2 = other.cshade2;
-	cstyle = other.cstyle;
-	cscale = other.cscale;
-	cscalev = other.cscalev;
-	cbase = other.cbase;
-	cshadowx = other.cshadowx;
-	cshadowy = other.cshadowy;
-	coutline = other.coutline;
-	cunderpos = other.cunderpos;
-	cunderwidth = other.cunderwidth;
-	cstrikepos = other.cstrikepos;
-	cstrikewidth = other.cstrikewidth;
-	cextra = other.cextra;
-	ccolor = other.ccolor;
-	cstroke = other.cstroke;
-	language_ = other.language_;
-}
-
-
-class SCRIBUS_API ParagraphStyle : public virtual Style
+/** This class turns a style into a new stylebase:
+ *  it maps the empty name "" to the given default style and uses
+ *  the style's base to resolve all other names.
+ */
+class StyleBaseProxy: public StyleBase 
 {
 public:
-	enum LineSpacingMode { 
-		FixedLineSpacing        = 0, 
-		AutomaticLineSpacing    = 1,
-		BaselineGridLineSpacing = 2
-	};
-	struct TabRecord
+	const Style* resolve(QString name) const {
+		if (name.isEmpty() || ! m_default->base())
+			return m_default;
+		else
+			return m_default->base()->resolve(name);
+	}
+	
+	StyleBaseProxy(int level, const Style* style) 
+	: StyleBase(level), m_default(style) {}
+	
+	StyleBaseProxy(const StyleBaseProxy& other)
+	: StyleBase(other), m_default(other.m_default) {}
+	
+	StyleBaseProxy& operator= (const StyleBaseProxy& other)
 	{
-		double tabPosition;
-		int tabType;
-		QChar tabFillChar;
-	};
+		static_cast<StyleBase&>(*this) = static_cast<const StyleBase&>(other); 
+		m_default = other.m_default;
+		return *this;
+	}
 	
+	int version() const  { 
+		assert (this != m_default->base());
+		qDebug(QString("version? %1 default %2 base %3").arg(reinterpret_cast<int>(this)).arg(reinterpret_cast<int>(m_default)).arg(reinterpret_cast<int>(m_default->base())));
+		return m_default->base() ? m_version ^ m_default->base()->version() : m_version; 
+	}
+		
 private:
-	// shorthand
-	const ParagraphStyle& inh() const { return *dynamic_cast<const ParagraphStyle*>(parent()); }
-	CharStyle cstyle;
-	LineSpacingMode LineSpaMode;
-	double LineSpa;
-	int textAlignment;
-	double Indent;
-	double rightMargin_;
-	double First;
-	double gapBefore_;
-	double gapAfter_;
-	QValueList<TabRecord> TabValues;
-	bool haveTabs;
-	int Drop;
-	int DropLin;
-	double DropDist;
-	int BaseAdj;
-	
-public:
-	ParagraphStyle();
-	ParagraphStyle(const ParagraphStyle& other);
-	int lineSpacingMode() const { return LineSpaMode==NOVALUE && parent()? inh().lineSpacingMode() : LineSpaMode; }
-	double lineSpacing() const { return LineSpa<=NOVALUE && parent()? inh().lineSpacing() : LineSpa; }
-	int alignment() const { return textAlignment==NOVALUE && parent()? inh().alignment() : textAlignment; }
-	double firstIndent() const { return First<=NOVALUE && parent()? inh().firstIndent() : First; }
-	double leftMargin() const { return Indent<=NOVALUE && parent()? inh().leftMargin() : Indent; }
-	double rightMargin() const { return rightMargin_<=NOVALUE && parent()? inh().rightMargin() : rightMargin_; }
-	double gapBefore() const { return gapBefore_<=NOVALUE && parent()? inh().gapBefore() : gapBefore_; }
-	double gapAfter() const { return gapAfter_<=NOVALUE && parent()? inh().gapAfter() : gapAfter_; }
-	bool hasDropCap() const { return Drop==NOVALUE && parent()? inh().hasDropCap() : Drop > 0; }
-	int dropCapLines() const { return DropLin==NOVALUE && parent()? inh().dropCapLines() : DropLin; }
-	double dropCapOffset() const { return DropDist<=NOVALUE && parent()? inh().dropCapOffset() : DropDist; }
-	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
-	
-	void setLineSpacingMode(LineSpacingMode p) { 
-		LineSpaMode = p; 
-	}
-	void setLineSpacing(double p) { 
-		LineSpa = p; 
-	}
-	void setAlignment(int p) { 
-		textAlignment = p; 
-	}
-	void setFirstIndent(double p) { 
-		First = p; 
-	}
-	void setLeftMargin(double p) { 
-		Indent = p; 
-	}
-	void setRightMargin(double p) { 
-		rightMargin_ = p; 
-	}
-	void setGapBefore(double p) {
-		gapBefore_ = p;
-	}
-	void setGapAfter(double p) {
-		gapAfter_ = p;
-	}
-	void setHasDropCap(bool p) { 
-		Drop = p? 1 : 0; 
-	}
-	void useParentDropCap() {
-		if (parent())
-			Drop = NOVALUE;
-	}
-	void setDropCapLines(int p) { 
-		DropLin = p; 
-	}
-	void setDropCapOffset(double p) { 
-		DropDist = p; 
-	}
-	
-	void setUseBaselineGrid(bool p) { 
-		BaseAdj = p? 1 : 0; 
-	}
-
-	bool isPlineSpacingMode() const { return LineSpaMode==NOVALUE && parent(); }
-	bool isPlineSpacing() const { return LineSpa<=NOVALUE && parent(); }
-	bool isPalignment() const { return textAlignment==NOVALUE && parent(); }
-	bool isPfirstIndent() const { return First<=NOVALUE && parent(); }
-	bool isPleftMargin() const { return Indent<=NOVALUE && parent(); }
-	bool isPrightMargin() const { return rightMargin_<=NOVALUE && parent(); }
-	bool isPgapBefore() const { return gapBefore_<=NOVALUE && parent(); }
-	bool isPgapAfter() const { return gapAfter_<=NOVALUE && parent(); }
-	bool isPhasDropCap() const { return Drop==NOVALUE && parent(); }
-	bool isPdropCapLines() const { return DropLin==NOVALUE && parent(); }
-	bool isPdropCapOffset() const { return DropDist<=NOVALUE && parent(); }
-	bool isPuseBaselineGrid() const { return BaseAdj==NOVALUE && parent(); }
-	bool isPtabValues() const { return !haveTabs && parent(); };
-
-	// these return writeable references for now:
-	QValueList<TabRecord> & tabValues() { haveTabs = true; return TabValues; }
-	const QValueList<TabRecord> & tabValues() const { return !haveTabs && parent()? inh().tabValues() : TabValues; }
-	void useParentTabs() {
-		if (haveTabs && parent())
-		{
-			TabValues.clear();
-			haveTabs = false;
-		}
-	}
-
-	CharStyle & charStyle() { return cstyle; }
-	const CharStyle& charStyle() const { return cstyle; }
-	
-	void applyStyle(const ParagraphStyle& other);
-	void eraseStyle(const ParagraphStyle& other);
-	void erase() { eraseStyle(*this); }
-	QString displayName() const;
-//	bool definesAll() const;
-//	bool inheritsAll() const;
-
-	ParagraphStyle& operator=(const ParagraphStyle& other);
-
-	bool equiv(const Style& other) const;	
+	const Style* m_default;
 };
+
+
+
+#include "styles/charstyle.h"
+#include "styles/paragraphstyle.h"
+
 
 #endif
