@@ -268,20 +268,23 @@ void SVGPlug::convert(int flags)
 	viewTransformY = 0;
 	viewScaleX = 1;
 	viewScaleY = 1;
-	haveViewBox = false;
 	if( !docElem.attribute( "viewBox" ).isEmpty() )
 	{
 		Conversion = 1.0;
 		double w2 = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
 		double h2 = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
 		Conversion = 0.8;
+		QWMatrix matrix;
+		addGraphicContext();
 		QString viewbox( docElem.attribute( "viewBox" ) );
 		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
 		viewTransformX = points[0].toDouble();
 		viewTransformY = points[1].toDouble();
 		viewScaleX = w2 / points[2].toDouble();
 		viewScaleY = h2 / points[3].toDouble();
-		haveViewBox = true;
+		matrix.translate(viewTransformX, viewTransformY);
+		matrix.scale(viewScaleX, viewScaleY);
+		m_gc.current()->matrix = matrix;
 	}
 	parseGroup( docElem );
 	currDoc->m_Selection->clear();
@@ -545,10 +548,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		{
 			addGraphicContext();
 			SvgStyle *gc = m_gc.current();
-			double x = b.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(b.attribute("x"));
-			double y = b.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(b.attribute("y"));
 			parseStyle(gc, b);
-			QPtrList<PageItem> el = parseText(x+BaseX, y+BaseY, b);
+			QPtrList<PageItem> el = parseText(b);
 			for (uint ec = 0; ec < el.count(); ++ec)
 			{
 				GElements.append(el.at(ec));
@@ -612,13 +613,13 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 					ite->FrameType = 3;
 					QWMatrix mm = gc->matrix;
 					ite->PoLine.map(mm);
-					if (haveViewBox)
+					/*if (haveViewBox)
 					{
 						QWMatrix mv;
 						mv.translate(viewTransformX, viewTransformY);
 						mv.scale(viewScaleX, viewScaleY);
 						ite->PoLine.map(mv);
-					}
+					}*/
 					ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
 					FPoint wh = getMaxClipF(&ite->PoLine);
 					ite->setWidthHeight(wh.x(), wh.y());
@@ -1761,11 +1762,15 @@ void SVGPlug::parseGradient( const QDomElement &e )
 	m_gradients.insert(e.attribute("id"), gradhelper);
 }
 
-QPtrList<PageItem> SVGPlug::parseText(double x, double y, const QDomElement &e)
+QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
 	setupTransform(e);
 	QDomNode c = e.firstChild();
+	double BaseX = currDoc->currentPage->xOffset();
+	double BaseY = currDoc->currentPage->yOffset();
+	double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
+	double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
 	{
 		for(QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling())
@@ -1813,7 +1818,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	if ( e.tagName() == "tspan" && e.text().isNull() )
 			Text = " ";
 	
-	double maxHeight = 0;
+	double maxWidth = 0, maxHeight = 0;
 	double tempW = 0, tempH = 0;
 	SvgStyle *gc = m_gc.current();
 	int ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
@@ -1824,21 +1829,23 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	ite->setHeight(ite->lineSpacing()+desc+2);
 	ScMW->SetNewFont(gc->Family);
 	QWMatrix mm = gc->matrix;
+	double scalex = sqrt(mm.m11() * mm.m11() + mm.m12() * mm.m12());
+	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	if( (!e.attribute("x").isEmpty()) && (!e.attribute("y").isEmpty()) )
 	{
 		double x1 = parseUnit( e.attribute( "x", "0" ) );
 		double y1 = parseUnit( e.attribute( "y", "0" ) );
 		double mx = mm.m11() * x1 + mm.m21() * y1 + mm.dx();
-		double my = mm.m22() * y1 + mm.m12() * x1 + mm.dy();
+		double my = mm.m12() * x1 + mm.m22() * y1 + mm.dy();
 		ite->setXPos(mx + BaseX);
 		ite->setYPos(my + BaseY);
 	}
 	else
 	{
 		double mx = mm.m11() * x + mm.m21() * y + mm.dx();
-		double my = mm.m22() * y + mm.m12() * x + mm.dy();
-		ite->setXPos(mx);
-		ite->setYPos(my);
+		double my = mm.m12() * x + mm.m22() * y + mm.dy();
+		ite->setXPos(mx + BaseX);
+		ite->setYPos(my + BaseY);
 	}
 	ite->setFont(gc->Family);
 	ite->setFillColor(CommonStrings::None);
@@ -1894,18 +1901,18 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 		hg->cembedded = 0;
 		ite->itemText.append(hg);
 		tempW += RealCWidth(currDoc, hg->cfont, hg->ch, hg->csize)+1;
-		tempH  = RealCHeight(currDoc, hg->cfont, hg->ch, hg->csize);
+		tempH  = RealCHeight(currDoc, hg->cfont, hg->ch, hg->csize)+1;
+		maxWidth  = (tempW > maxWidth) ? tempW : maxWidth;
+		maxHeight = (tempH > maxHeight) ? tempH : maxHeight;
 		if (hg->ch == QChar(13))
 		{
 			ite->setWidthHeight(QMAX(ite->width(), tempW), ite->height() + ite->lineSpacing()+desc);
 			tempW = 0;
 		}
-		if(tempH > maxHeight)
-			maxHeight = tempH;
 	}
 	double xpos = ite->xPos();
 	double ypos = ite->yPos();
-	ite->setWidth(QMAX(ite->width(), tempW));
+	ite->setWidthHeight(QMAX(ite->width(), maxWidth), QMAX(ite->height(), maxHeight));
 	double xoffset = 0.0, yoffset = 0.0;
 	if( gc->textAnchor == "middle" )
 	{
@@ -1935,9 +1942,9 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	currDoc->m_Selection->addItem(ite);
 	ScMW->view->frameResizeHandle = 1;
 	ScMW->view->setGroupRect();
-	double scalex = sqrt(mm.m11() * mm.m11() + mm.m12() * mm.m12());
-	double scaley = sqrt(mm.m21() * mm.m21() + mm.m22() * mm.m22());
 	ScMW->view->scaleGroup(scalex, scaley);
+	// scaleGroup scale may modify position... weird...
+	ite->setXYPos(xpos + xoffset, ypos + yoffset);
 	ScMW->view->Deselect();
 	// Probably some scalex and scaley to add somewhere
 	ite->moveBy(maxHeight * sin(-rotation) * scaley, -maxHeight * cos(-rotation) * scaley);
