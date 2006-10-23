@@ -40,7 +40,7 @@ public:
 		setAutoDelete(true);
 		defaultStyle.setBase( pstyles );
 		defaultStyle.charStyle().setBase( cstyles );
-		qDebug(QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles)));
+//		qDebug(QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles)));
 	}
 			
 
@@ -64,7 +64,7 @@ public:
 		}
 		len = count();
 		replaceCharStyleBaseInParagraph(len,  & defaultStyle);
-		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
+//		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 	}
 
 	ScText_Shared& operator= (const ScText_Shared& other) 
@@ -86,12 +86,12 @@ public:
 		defaultStyle = other.defaultStyle;
 		replaceCharStyleBaseInParagraph(len,  & defaultStyle);
 		refs = 1;
-		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
+//		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 		return *this;
 	}
 
 	~ScText_Shared() {
-		qDebug(QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this)));
+//		qDebug(QString("~ScText_Shared() %1").arg(reinterpret_cast<uint>(this)));
 	}
 	
 	/**
@@ -171,13 +171,13 @@ StoryText StoryText::copy() const
 {
 	StoryText result(doc);
 	*(result.d) = *d;
-	qDebug(QString("StoryText::copy:"));
+//	qDebug(QString("StoryText::copy:"));
 	QPtrListIterator<ScText> it( *(result.d) );
 	ScText* elem;
 	int i=0;
 	while ( (elem = it.current()) != NULL ) {
 		++it;
-		qDebug(QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize()));
+//		qDebug(QString("\tchar '%1' size %2 (orig %3)").arg(elem->ch).arg(elem->fontSize()).arg(charStyle(i++).fontSize()));
 	}
 	
 	return result;
@@ -352,7 +352,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		d->insert(pos + i, item);
 		d->len++;
 		if (item->ch[0] == SpecialChars::PARSEP) {
-			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
+//			qDebug(QString("new PARSEP %2 at %1").arg(pos).arg(paragraphStyle(pos).name()));
 			insertParSep(this, this->d, pos + i);
 		}
 	}
@@ -469,7 +469,7 @@ const CharStyle & StoryText::charStyle(int pos) const
 	assert(pos <= length());
 
 	if (length() == 0) {
-		qDebug("storytext::charstyle: default");
+//		qDebug("storytext::charstyle: default");
 		return defaultStyle().charStyle();
 	}
 	else if (pos == length()) {

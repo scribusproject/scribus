@@ -43,13 +43,13 @@ public:
 	StyleBase(int level = DOC_LEVEL) 
 		: m_version(0), m_level(level) 
 	{
-		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
+//		qDebug(QString("constr. %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 		
 	StyleBase(const StyleBase& o) 
 		: m_version(o.m_version), m_level(o.m_level)
 	{
-		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
+//		qDebug(QString("constr. cp %1 /%2").arg(reinterpret_cast<uint>(this),16).arg(m_level));
 	}
 	
 
@@ -67,7 +67,7 @@ public:
 	virtual const Style* resolve(QString name) const = 0;
 	virtual ~StyleBase() 
 	{
-		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
+//		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
 	}
 	
 
@@ -130,12 +130,12 @@ public:
 	QString parent() const           { return m_parent; }
 	void setParent(QString p)        { m_parent = p; }
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
-	const Style* parentStyle() const { qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_base),16));
+	const Style* parentStyle() const { //qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_base),16));
 		return m_base ? m_base->resolve(m_parent) : NULL; }
 	
 	
 	void setBase(const StyleBase* base)  { m_base = base; m_baseversion = -1;
-	 qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+	  //qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
 	}
 	const StyleBase* base() const        { return m_base; }
 	
@@ -145,7 +145,7 @@ public:
 	 */
 	virtual void update(const StyleBase* b = NULL) 
 	{
-		qDebug(QString("update %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+//		qDebug(QString("update %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
 		if (b)
 			m_base = b;
 		if (m_base)
@@ -157,7 +157,7 @@ public:
 	 */
 	void validate() const
 	{ 
-		qDebug(QString("validate %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
+//		qDebug(QString("validate %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
 		if (m_base && m_baseversion != m_base->version()) 
 			const_cast<Style*>(this)->update(m_base); 
 	}
@@ -228,7 +228,7 @@ public:
 	
 	int version() const  { 
 		assert (this != m_default->base());
-		qDebug(QString("version? %1 default %2 base %3").arg(reinterpret_cast<int>(this)).arg(reinterpret_cast<int>(m_default)).arg(reinterpret_cast<int>(m_default->base())));
+//		qDebug(QString("version? %1 default %2 base %3").arg(reinterpret_cast<int>(this)).arg(reinterpret_cast<int>(m_default)).arg(reinterpret_cast<int>(m_default->base())));
 		return m_default->base() ? m_version ^ m_default->base()->version() : m_version; 
 	}
 		
