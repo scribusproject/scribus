@@ -67,10 +67,10 @@ int GuideListItem::compare(QListViewItem *i, int col, bool asc) const
 GuideManager::GuideManager(QWidget* parent) :
 		GuideManagerBase(parent, "GuideManager"),
 		m_Doc(0),
-		currentPage(0)
+		currentPage(0),
+		m_drawGuides(false)
 		//ScrPaletteBase(parent, "GuideManager", false, 0)
 {
-	m_drawGuides = false;
 	tabWidget->setEnabled(false);
 	setIcon(loadIcon("AppIcon.png"));
 	horizontalAutoGapSpin->setMinValue(0.0);
@@ -118,6 +118,9 @@ void GuideManager::setupPage()
 		horizontalAutoGapSpin->setEnabled(false);
 		horizontalAutoGapCheck->setEnabled(false);
 	}
+	horizontalReferGroup->setButton(currentPage->guides.horizontalAutoRefer());
+	// allow the selection radio button?
+	horizontalSelectionAutoButton->setEnabled((m_Doc->m_Selection->count() <= 0));
 
 	// verticals
 	enable = currentPage->guides.verticalAutoGap() > 0.0 ? true : false;
@@ -130,10 +133,10 @@ void GuideManager::setupPage()
 		verticalAutoGapSpin->setEnabled(false);
 		verticalAutoGapCheck->setEnabled(false);
 	}
-	bGroup->setButton(currentPage->guides.autoRefer());
+	verticalReferGroup->setButton(currentPage->guides.verticalAutoRefer());
 	// allow the selection radio button?
-	int docSelectionCount = m_Doc->m_Selection->count();
-	selectionAutoButton->setEnabled((docSelectionCount <= 0));
+	verticalSelectionAutoButton->setEnabled((m_Doc->m_Selection->count() <= 0));
+
 	m_drawGuides = true;
 	drawGuides();
 }
@@ -148,14 +151,14 @@ void GuideManager::storePageValues(Page *page)
 		gapValue = value2pts(horizontalAutoGapSpin->value(), docUnitIndex);
 	page->guides.setHorizontalAutoGap(value2pts(gapValue, docUnitIndex));
 	page->guides.setHorizontalAutoCount(horizontalAutoCountSpin->value());
+	page->guides.setHorizontalAutoRefer(horizontalReferGroup->selectedId());
 
 	gapValue = 0.0;
 	if (verticalAutoGapCheck->isChecked())
 		gapValue = value2pts(verticalAutoGapSpin->value(), docUnitIndex);
 	page->guides.setVerticalAutoGap(value2pts(gapValue, docUnitIndex));
 	page->guides.setVerticalAutoCount(verticalAutoCountSpin->value());
-
-	page->guides.setAutoRefer(bGroup->selectedId());
+	page->guides.setVerticalAutoRefer(verticalReferGroup->selectedId());
 }
 
 void GuideManager::unitChange()
@@ -396,9 +399,15 @@ void GuideManager::verticalAutoGapCheck_stateChanged( int )
 	drawGuides();
 }
 
-void GuideManager::bGroup_clicked( int val)
+void GuideManager::horizontalReferGroup_clicked( int val)
 {
-	currentPage->guides.setAutoRefer(val);
+	currentPage->guides.setHorizontalAutoRefer(val);
+	drawGuides();
+}
+
+void GuideManager::verticalReferGroup_clicked( int val)
+{
+	currentPage->guides.setVerticalAutoRefer(val);
 	drawGuides();
 }
 
@@ -502,7 +511,8 @@ void GuideManager::deletePageButton_clicked()
 	currentPage->guides.setVerticalAutoCount(0);
 	currentPage->guides.setHorizontalAutoGap(0.0);
 	currentPage->guides.setVerticalAutoGap(0.0);
-	currentPage->guides.setAutoRefer(0);
+	currentPage->guides.setHorizontalAutoRefer(0);
+	currentPage->guides.setVerticalAutoRefer(0);
 	horizontalAutoCountSpin->setValue(0);
 	verticalAutoCountSpin->setValue(0);
 

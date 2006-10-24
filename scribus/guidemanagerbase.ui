@@ -11,7 +11,7 @@
             <x>0</x>
             <y>0</y>
             <width>412</width>
-            <height>326</height>
+            <height>375</height>
         </rect>
     </property>
     <property name="caption">
@@ -30,7 +30,7 @@
                     <cstring>standardPage</cstring>
                 </property>
                 <attribute name="title">
-                    <string>&amp;Standard</string>
+                    <string>&amp;Single</string>
                 </attribute>
                 <grid>
                     <property name="name">
@@ -249,7 +249,7 @@
                     <cstring>autoPage</cstring>
                 </property>
                 <attribute name="title">
-                    <string>A&amp;utomatic</string>
+                    <string>&amp;Column/Row</string>
                 </attribute>
                 <grid>
                     <property name="name">
@@ -257,7 +257,7 @@
                     </property>
                     <widget class="QLayoutWidget" row="0" column="0">
                         <property name="name">
-                            <cstring>layout17</cstring>
+                            <cstring>layout21</cstring>
                         </property>
                         <vbox>
                             <property name="name">
@@ -265,7 +265,7 @@
                             </property>
                             <widget class="QLayoutWidget">
                                 <property name="name">
-                                    <cstring>layout18</cstring>
+                                    <cstring>layout20</cstring>
                                 </property>
                                 <hbox>
                                     <property name="name">
@@ -284,7 +284,7 @@
                                             </property>
                                             <widget class="QLayoutWidget" row="0" column="0">
                                                 <property name="name">
-                                                    <cstring>layout16</cstring>
+                                                    <cstring>layout17</cstring>
                                                 </property>
                                                 <vbox>
                                                     <property name="name">
@@ -344,6 +344,73 @@
                                                             </size>
                                                         </property>
                                                     </widget>
+                                                    <widget class="QButtonGroup">
+                                                        <property name="name">
+                                                            <cstring>horizontalReferGroup</cstring>
+                                                        </property>
+                                                        <property name="sizePolicy">
+                                                            <sizepolicy>
+                                                                <hsizetype>5</hsizetype>
+                                                                <vsizetype>0</vsizetype>
+                                                                <horstretch>0</horstretch>
+                                                                <verstretch>0</verstretch>
+                                                            </sizepolicy>
+                                                        </property>
+                                                        <property name="title">
+                                                            <string>Refer To</string>
+                                                        </property>
+                                                        <grid>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLayoutWidget" row="0" column="0">
+                                                                <property name="name">
+                                                                    <cstring>layout16</cstring>
+                                                                </property>
+                                                                <vbox>
+                                                                    <property name="name">
+                                                                        <cstring>unnamed</cstring>
+                                                                    </property>
+                                                                    <widget class="QRadioButton">
+                                                                        <property name="name">
+                                                                            <cstring>horizontalPageAutoButton</cstring>
+                                                                        </property>
+                                                                        <property name="text">
+                                                                            <string>&amp;Page</string>
+                                                                        </property>
+                                                                        <property name="accel">
+                                                                            <string>Alt+P</string>
+                                                                        </property>
+                                                                        <property name="checked">
+                                                                            <bool>true</bool>
+                                                                        </property>
+                                                                    </widget>
+                                                                    <widget class="QRadioButton">
+                                                                        <property name="name">
+                                                                            <cstring>horizontalMarginsAutoButton</cstring>
+                                                                        </property>
+                                                                        <property name="text">
+                                                                            <string>M&amp;argins</string>
+                                                                        </property>
+                                                                        <property name="accel">
+                                                                            <string>Alt+A</string>
+                                                                        </property>
+                                                                    </widget>
+                                                                    <widget class="QRadioButton">
+                                                                        <property name="name">
+                                                                            <cstring>horizontalSelectionAutoButton</cstring>
+                                                                        </property>
+                                                                        <property name="text">
+                                                                            <string>S&amp;election</string>
+                                                                        </property>
+                                                                        <property name="accel">
+                                                                            <string>Alt+E</string>
+                                                                        </property>
+                                                                    </widget>
+                                                                </vbox>
+                                                            </widget>
+                                                        </grid>
+                                                    </widget>
                                                 </vbox>
                                             </widget>
                                         </grid>
@@ -361,7 +428,7 @@
                                             </property>
                                             <widget class="QLayoutWidget" row="0" column="0">
                                                 <property name="name">
-                                                    <cstring>layout17</cstring>
+                                                    <cstring>layout19</cstring>
                                                 </property>
                                                 <vbox>
                                                     <property name="name">
@@ -421,78 +488,78 @@
                                                             </size>
                                                         </property>
                                                     </widget>
+                                                    <widget class="QButtonGroup">
+                                                        <property name="name">
+                                                            <cstring>verticalReferGroup</cstring>
+                                                        </property>
+                                                        <property name="sizePolicy">
+                                                            <sizepolicy>
+                                                                <hsizetype>5</hsizetype>
+                                                                <vsizetype>0</vsizetype>
+                                                                <horstretch>0</horstretch>
+                                                                <verstretch>0</verstretch>
+                                                            </sizepolicy>
+                                                        </property>
+                                                        <property name="title">
+                                                            <string>Refer To</string>
+                                                        </property>
+                                                        <grid>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLayoutWidget" row="0" column="0">
+                                                                <property name="name">
+                                                                    <cstring>layout16_2</cstring>
+                                                                </property>
+                                                                <vbox>
+                                                                    <property name="name">
+                                                                        <cstring>unnamed</cstring>
+                                                                    </property>
+                                                                    <widget class="QRadioButton">
+                                                                        <property name="name">
+                                                                            <cstring>verticalPageAutoButton</cstring>
+                                                                        </property>
+                                                                        <property name="text">
+                                                                            <string>&amp;Page</string>
+                                                                        </property>
+                                                                        <property name="accel">
+                                                                            <string>Alt+P</string>
+                                                                        </property>
+                                                                        <property name="checked">
+                                                                            <bool>true</bool>
+                                                                        </property>
+                                                                    </widget>
+                                                                    <widget class="QRadioButton">
+                                                                        <property name="name">
+                                                                            <cstring>verticalMarginsAutoButton</cstring>
+                                                                        </property>
+                                                                        <property name="text">
+                                                                            <string>M&amp;argins</string>
+                                                                        </property>
+                                                                        <property name="accel">
+                                                                            <string>Alt+A</string>
+                                                                        </property>
+                                                                    </widget>
+                                                                    <widget class="QRadioButton">
+                                                                        <property name="name">
+                                                                            <cstring>verticalSelectionAutoButton</cstring>
+                                                                        </property>
+                                                                        <property name="text">
+                                                                            <string>S&amp;election</string>
+                                                                        </property>
+                                                                        <property name="accel">
+                                                                            <string>Alt+E</string>
+                                                                        </property>
+                                                                    </widget>
+                                                                </vbox>
+                                                            </widget>
+                                                        </grid>
+                                                    </widget>
                                                 </vbox>
                                             </widget>
                                         </grid>
                                     </widget>
                                 </hbox>
-                            </widget>
-                            <widget class="QButtonGroup">
-                                <property name="name">
-                                    <cstring>bGroup</cstring>
-                                </property>
-                                <property name="sizePolicy">
-                                    <sizepolicy>
-                                        <hsizetype>5</hsizetype>
-                                        <vsizetype>0</vsizetype>
-                                        <horstretch>0</horstretch>
-                                        <verstretch>0</verstretch>
-                                    </sizepolicy>
-                                </property>
-                                <property name="title">
-                                    <string>Refer To</string>
-                                </property>
-                                <grid>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QLayoutWidget" row="0" column="0">
-                                        <property name="name">
-                                            <cstring>layout14</cstring>
-                                        </property>
-                                        <hbox>
-                                            <property name="name">
-                                                <cstring>unnamed</cstring>
-                                            </property>
-                                            <widget class="QRadioButton">
-                                                <property name="name">
-                                                    <cstring>pageAutoButton</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>&amp;Page</string>
-                                                </property>
-                                                <property name="accel">
-                                                    <string>Alt+P</string>
-                                                </property>
-                                                <property name="checked">
-                                                    <bool>true</bool>
-                                                </property>
-                                            </widget>
-                                            <widget class="QRadioButton">
-                                                <property name="name">
-                                                    <cstring>marginsAutoButton</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>M&amp;argins</string>
-                                                </property>
-                                                <property name="accel">
-                                                    <string>Alt+A</string>
-                                                </property>
-                                            </widget>
-                                            <widget class="QRadioButton">
-                                                <property name="name">
-                                                    <cstring>selectionAutoButton</cstring>
-                                                </property>
-                                                <property name="text">
-                                                    <string>S&amp;election</string>
-                                                </property>
-                                                <property name="accel">
-                                                    <string>Alt+E</string>
-                                                </property>
-                                            </widget>
-                                        </hbox>
-                                    </widget>
-                                </grid>
                             </widget>
                             <widget class="QPushButton">
                                 <property name="name">
@@ -676,12 +743,6 @@
         <slot>verticalAutoCountSpin_valueChanged(int)</slot>
     </connection>
     <connection>
-        <sender>bGroup</sender>
-        <signal>clicked(int)</signal>
-        <receiver>GuideManagerBase</receiver>
-        <slot>bGroup_clicked(int)</slot>
-    </connection>
-    <connection>
         <sender>tabWidget</sender>
         <signal>currentChanged(QWidget*)</signal>
         <receiver>GuideManagerBase</receiver>
@@ -747,9 +808,22 @@
         <receiver>GuideManagerBase</receiver>
         <slot>deleteAllGuides_clicked()</slot>
     </connection>
+    <connection>
+        <sender>horizontalReferGroup</sender>
+        <signal>clicked(int)</signal>
+        <receiver>GuideManagerBase</receiver>
+        <slot>horizontalReferGroup_clicked(int)</slot>
+    </connection>
+    <connection>
+        <sender>verticalReferGroup</sender>
+        <signal>clicked(int)</signal>
+        <receiver>GuideManagerBase</receiver>
+        <slot>verticalReferGroup_clicked(int)</slot>
+    </connection>
 </connections>
 <includes>
     <include location="local" impldecl="in declaration">scrpalettebase.h</include>
+    <include location="local" impldecl="in implementation">guidemanagerbase.ui.h</include>
 </includes>
 <slots>
     <slot>addHorButton_clicked()</slot>
@@ -773,6 +847,8 @@
     <slot>applyToAllAutoButton_clicked()</slot>
     <slot>deletePageButton_clicked()</slot>
     <slot>deleteAllGuides_clicked()</slot>
+    <slot>horizontalReferGroup_clicked( int )</slot>
+    <slot>verticalReferGroup_clicked( int )</slot>
 </slots>
 <layoutdefaults spacing="6" margin="11"/>
 <includehints>

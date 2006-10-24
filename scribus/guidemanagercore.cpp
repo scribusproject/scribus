@@ -20,26 +20,29 @@ for which a new license (GPL+exception) is in place.
 
 
 GuideManagerCore::GuideManagerCore():
-	undoManager(UndoManager::instance())
+	undoManager(UndoManager::instance()),
+	m_page(0),
+	m_horizontalAutoGap(0.0),
+	m_verticalAutoGap(0.0),
+	m_horizontalAutoCount(0),
+	m_verticalAutoCount(0),
+	m_horizontalAutoRefer(0),
+	m_verticalAutoRefer(0)
 {
-	m_horizontalAutoGap = 0.0;
-	m_verticalAutoGap = 0.0;
-	m_autoRefer = 0;
-	m_horizontalAutoCount = 0;
-	m_verticalAutoCount = 0;
 	clearHorizontals(Standard);
 	clearVerticals(Standard);
 }
 
 GuideManagerCore::GuideManagerCore(Page *parentPage):
-	undoManager(UndoManager::instance())
+	undoManager(UndoManager::instance()),
+	m_page(parentPage),
+	m_horizontalAutoGap(0.0),
+	m_verticalAutoGap(0.0),
+	m_horizontalAutoCount(0),
+	m_verticalAutoCount(0),
+	m_horizontalAutoRefer(0),
+	m_verticalAutoRefer(0)
 {
-	m_page = parentPage;
-	m_horizontalAutoGap = 0.0;
-	m_verticalAutoGap = 0.0;
-	m_autoRefer = 0;
-	m_horizontalAutoCount = 0;
-	m_verticalAutoCount = 0;
 	clearHorizontals(Standard);
 	clearVerticals(Standard);
 }
@@ -214,7 +217,7 @@ void GuideManagerCore::clearHorizontals(GuideType type)
 			m_verticalAutoGap = 0.0;
 			m_horizontalAutoCount= 0;
 			m_verticalAutoCount = 0;
-			m_autoRefer = 0;
+			m_horizontalAutoRefer = 0;
 			break;
 	}
 }
@@ -231,7 +234,7 @@ void GuideManagerCore::clearVerticals(GuideType type)
 			m_verticalAutoGap = 0.0;
 			m_horizontalAutoCount= 0;
 			m_verticalAutoCount = 0;
-			m_autoRefer = 0;
+			m_verticalAutoRefer = 0;
 			break;
 	}
 }
@@ -283,7 +286,8 @@ void GuideManagerCore::copy(GuideManagerCore *target)
 	target->setVerticalAutoCount(m_verticalAutoCount);
 	target->setHorizontalAutoGap(m_horizontalAutoGap);
 	target->setVerticalAutoGap(m_verticalAutoGap);
-	target->setAutoRefer(m_autoRefer);
+	target->setHorizontalAutoRefer(m_horizontalAutoRefer);
+	target->setVerticalAutoRefer(m_verticalAutoRefer);
 }
 
 void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
@@ -299,7 +303,8 @@ void GuideManagerCore::copy(GuideManagerCore *target, GuideType type)
 			target->setVerticalAutoCount(m_verticalAutoCount);
 			target->setHorizontalAutoGap(m_horizontalAutoGap);
 			target->setVerticalAutoGap(m_verticalAutoGap);
-			target->setAutoRefer(m_autoRefer);
+			target->setHorizontalAutoRefer(m_horizontalAutoRefer);
+			target->setVerticalAutoRefer(m_verticalAutoRefer);
 			break;
 	}
 }
@@ -570,12 +575,12 @@ Guides GuideManagerCore::getAutoVerticals()
 		return retval;
 	++value;
 
-	if (m_autoRefer == 1)
+	if (m_verticalAutoRefer == 1)
 	{
 		newPageWidth = locPageWidth - locLeft - locRight;
 		offset = locLeft;
 	}
-	else if (m_autoRefer == 2)
+	else if (m_verticalAutoRefer == 2)
 	{
 		offset = gx;
 		newPageWidth = gw;
@@ -614,12 +619,12 @@ Guides GuideManagerCore::getAutoHorizontals()
 		return retval;
 	++value;
 
-	if (m_autoRefer == 1)
+	if (m_horizontalAutoRefer == 1)
 	{
 		newPageHeight = locPageHeight - locTop - locBottom;
 		offset = locTop;
 	}
-	else if (m_autoRefer == 2)
+	else if (m_horizontalAutoRefer == 2)
 	{
 		offset = gy;
 		newPageHeight = gh;
@@ -682,7 +687,7 @@ void GuideManagerCore::resetMarginsForPage()
 	locTop = m_page->doc()->pageMargins.Top;
 	locBottom = m_page->doc()->pageMargins.Bottom;
 
-	PageLocation pageLocation = m_page->doc()->locationOfPage(m_page->doc()->currentPageNumber());
+	PageLocation pageLocation = m_page->doc()->locationOfPage(m_page->pageNr());
 	switch (pageLocation)
 	{
 		case MiddlePage :

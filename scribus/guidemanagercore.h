@@ -115,9 +115,13 @@ public:
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
 	void setVerticalAutoGap(double gap){ m_verticalAutoGap = gap; };
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	int autoRefer() { return m_autoRefer; };
+	int horizontalAutoRefer() { return m_horizontalAutoRefer; };
 	//! \brief Properties for Auto guides remembrance. See GuideManager.
-	void setAutoRefer(int val) { m_autoRefer = val; };
+	void setHorizontalAutoRefer(int val) { m_horizontalAutoRefer = val; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	int verticalAutoRefer() { return m_verticalAutoRefer; };
+	//! \brief Properties for Auto guides remembrance. See GuideManager.
+	void setVerticalAutoRefer(int val) { m_verticalAutoRefer = val; };
 
 private:
 	UndoManager * const undoManager;
@@ -129,7 +133,8 @@ private:
 	double m_verticalAutoGap;
 	int m_horizontalAutoCount;
 	int m_verticalAutoCount;
-	int m_autoRefer;
+	int m_horizontalAutoRefer;
+	int m_verticalAutoRefer;
 
 	double closestHorAbove(double y);// const;
 	double closestHorBelow(double y);// const;

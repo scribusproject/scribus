@@ -176,7 +176,8 @@ protected slots:
 	void verticalAutoCountSpin_valueChanged( int );
 	void horizontalAutoGapSpin_valueChanged(int);
 	void verticalAutoGapSpin_valueChanged(int);
-	void bGroup_clicked( int );
+	void horizontalReferGroup_clicked( int );
+	void verticalReferGroup_clicked( int );
 	void tabWidget_currentChanged( QWidget * );
 	void horizontalList_doubleClicked( QListViewItem * );
 	void horizontalList_returnPressed( QListViewItem * );
