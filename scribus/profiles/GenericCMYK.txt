@@ -1,0 +1,1 @@
+The GenericCMYK.icm profile was created thanks to Graeme Gill from the Argyll CMS project and given to us as public domain. You can confirm this when viewing the profile with an ICC aware profile viewing applications or a hex editor.  
