@@ -519,6 +519,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				la.isPrintable = pg.attribute("DRUCKEN").toInt();
 				la.isEditable = true;
 				la.flowControl = true;
+				la.outlineMode = false;
 				la.blendMode = 0;
 				la.transparency = 1.0;
 				QColor marker;
@@ -878,6 +879,12 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 		la.Name = tr("Background");
 		la.isViewable = true;
 		la.isPrintable = true;
+		la.isEditable = true;
+		la.blendMode = 0;
+		la.transparency = 1.0;
+		la.flowControl = false;
+		la.outlineMode = false;
+		la.markerColor = QColor(Qt::black);
 		m_Doc->Layers.append(la);
 	}
 	m_Doc->setActiveLayer(activeLayer);
