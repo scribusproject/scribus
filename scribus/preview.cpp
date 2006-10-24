@@ -720,10 +720,9 @@ QPixmap PPreview::CreatePreview(int Seite, int Res)
 		if (HaveTiffSep == 0)
 		{
 			if ((Seite != APage) || (EnableCMYK->isChecked() != CMode) || (SMode != scaleBox->currentItem())
-	       	 || (AntiAlias->isChecked() != GsAl) || ((AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
-	       	 || (EnableOverprint->isChecked() != OMode)  && (!EnableCMYK->isChecked()))
-			 || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor) || (MirrorVert->isChecked() != mVer)
-			 || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
+	       	 || (AntiAlias->isChecked() != GsAl) || (AliasTr->isChecked() != Trans) || (EnableGCR->isChecked() != GMode)
+	       	 || (EnableOverprint->isChecked() != OMode) || (useGray->isChecked() != fGray) || (MirrorHor->isChecked() != mHor)
+	       	 || (MirrorVert->isChecked() != mVer) || (ClipMarg->isChecked() != fClip) || (UseICC->isChecked() != fICC) || (spotColors->isChecked() != fSpot))
 			{
 				ret = RenderPreviewSep(Seite, Res);
 				if (ret != 0)
