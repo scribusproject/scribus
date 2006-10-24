@@ -7426,12 +7426,18 @@ void ScribusMainWindow::reallySaveAsEps()
 	if (!doc->DocName.startsWith( tr("Document")))
 	{
 		QFileInfo fi(doc->DocName);
-		fna = fi.dirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
+		if (doc->m_Selection->count() != 0)
+			fna = fi.dirPath() + "/" + fi.baseName(true) + "_selection.eps";
+		else
+			fna = fi.dirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	else
 	{
 		QDir di = QDir();
-		fna = di.currentDirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
+		if (doc->m_Selection->count() != 0)
+			fna = di.currentDirPath() + "/" + doc->DocName + "_selection.eps";
+		else
+			fna = di.currentDirPath() + "/" + getFileNameByPage(doc, doc->currentPage()->pageNr(), "eps");
 	}
 	fna = QDir::convertSeparators(fna);
 	QString wdir = ".";

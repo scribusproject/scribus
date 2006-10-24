@@ -84,8 +84,8 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray
 	GrayCalc += "               dup 1 gt {pop 1} if 1 exch sub oldsetgray} bind def\n";
 	GrayCalc += "/setrgbcolor {0.11 mul exch 0.59 mul add exch 0.3 mul add\n";
 	GrayCalc += "              oldsetgray} bind def\n";
-	Farben = "%%CMYKCustomColor: ";
-	FNamen = "%%DocumentCustomColors: ";
+	Farben = "";
+	FNamen = "";
 	ColorList::Iterator itf;
 	int c, m, y, k;
 	bool erst = true;
@@ -373,8 +373,10 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 		PutDoc(BBox);
 		PutDoc(BBoxH);
 	}
-	PutDoc(FNamen);
-	PutDoc(Farben);
+	if (!FNamen.isEmpty())
+		PutDoc("%%DocumentCustomColors: "+FNamen);
+	if (!Farben.isEmpty())
+		PutDoc("%%CMYKCustomColor: "+Farben);
 	PutDoc("%%LanguageLevel: 3\n");
 	PutDoc("%%EndComments\n");
 	PutDoc(Prolog);
@@ -486,17 +488,34 @@ void PSLib::PS_TemplateEnd()
 	PutDoc("} bind def\n");
 }
 
-void PSLib::PS_begin_page(double breite, double hoehe, struct MarginStruct* Ma, bool Clipping)
+void PSLib::PS_begin_page(Page* pg, struct MarginStruct* Ma, bool Clipping)
 {
 	if (Clipping)
 	{
 		PDev = ToStr(Ma->Left) + " " + ToStr(Ma->Bottom) + " m\n";
-		PDev += ToStr(breite - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
-		PDev += ToStr(breite - Ma->Right) + " " + ToStr(hoehe - Ma->Top) + " li\n";
-		PDev += ToStr(Ma->Left) + " " + ToStr(hoehe - Ma->Top) + " li cl clip newpath\n";
+		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
+		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(pg->height() - Ma->Top) + " li\n";
+		PDev += ToStr(Ma->Left) + " " + ToStr(pg->height() - Ma->Top) + " li cl clip newpath\n";
 	}
 	Seiten++;
-	PutSeite("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\nsave\n");
+	PutSeite("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
+	PutSeite("%%PageOrientation: ");
+// when creating EPS files determine the orientation from the bounding box
+  	if (!Art)
+	{
+		if ((pg->width() - Ma->Left - Ma->Right) <= (pg->height() - Ma->Bottom - Ma->Top))
+			PutSeite("Portrait\n");
+		else
+			PutSeite("Landscape\n");
+	}
+	else
+	{
+		if (pg->PageOri == 0)
+			PutSeite("Portrait\n");
+		else
+			PutSeite("Landscape\n");
+	}
+	PutSeite("save\n");
 	if (Clipping)
 		PutSeite(PDev);
   	PutSeite("/DeviceCMYK setcolorspace\n");
@@ -1492,10 +1511,10 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 			Ma.Top = gy;
 			Ma.Bottom = Doc->Pages->at(a)->height() - (gy + gh);
 			Ma.Right = Doc->Pages->at(a)->width() - (gx + gw);
-			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Ma, true);
+			PS_begin_page(Doc->Pages->at(a), &Ma, true);
 		}
 		else
-			PS_begin_page(Doc->Pages->at(a)->width(), Doc->Pages->at(a)->height(), &Doc->Pages->at(a)->Margins, doClip);
+			PS_begin_page(Doc->Pages->at(a), &Doc->Pages->at(a)->Margins, doClip);
 		if (Hm)
 		{
 			PS_translate(Doc->Pages->at(a)->width(), 0);
