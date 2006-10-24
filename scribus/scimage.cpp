@@ -1732,6 +1732,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 
 	if (ext == "psd")
 		pDataLoader = new ScImgDataLoader_PSD();
+	else if (ext == "eps")
+		pDataLoader = new ScImgDataLoader_PS();
 	else if ((ext == "tif") || (ext == "tiff"))
 		pDataLoader = new ScImgDataLoader_TIFF();
 	else if ((ext == "jpg") || (ext == "jpeg"))
