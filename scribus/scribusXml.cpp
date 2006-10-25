@@ -115,7 +115,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	else
 		extra = it->attribute("CKERN").toInt();
 	int shade = it->attribute("CSHADE").toInt();
-	int cstyle = it->attribute("CSTYLE").toInt() & 255;
+	int cstyle = it->attribute("CSTYLE").toInt() & 2047;
 	int ab = it->attribute("CAB", "0").toInt();
 	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
