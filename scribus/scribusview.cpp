@@ -269,15 +269,13 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 
 void ScribusView::languageChange()
 {
-//	disconnect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-//	disconnect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
+	QToolTip::remove(cmsToolbarButton);
+	QToolTip::remove(previewToolbarButton);
+	QToolTip::remove(visualMenu);
+	QToolTip::add(cmsToolbarButton, tr("Switches Colormangement on or off"));
+	QToolTip::add(previewToolbarButton, tr("Enables the Preview Mode"));
+	QToolTip::add(visualMenu, tr("Here you can select the visual appearance of the display\nYou can choose between normal and several color blindness forms"));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
-//	zoomSpinBox->setSuffix( tr( " %" ) );
-//	layerMenu->setCurrentText( tr("Layer")+" 0");
-	//CB TODO Convert to actions later
-//	unitSwitcher->clear();
-//	for (int i=0;i<=unitGetMaxIndex();++i)
-//		unitSwitcher->insertItem(unitGetStrFromIndex(i));
 	visualMenu->clear();
 	visualMenu->insertItem( tr("Normal Vision"));
 	visualMenu->insertItem( tr("Protanopia (Red)"));
@@ -285,10 +283,7 @@ void ScribusView::languageChange()
 	visualMenu->insertItem( tr("Tritanopia (Blue)"));
 	visualMenu->insertItem( tr("Full Color Blindness"));
 	visualMenu->setCurrentItem(previewVisual);
-//	unitSwitcher->setCurrentText(unitGetStrFromIndex(Doc->unitIndex()));
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
-//	connect(layerMenu, SIGNAL(activated(int)), this, SLOT(GotoLa(int)));
-//	connect(unitSwitcher, SIGNAL(activated(int)), this, SLOT(ChgUnit(int)));
 }
 
 void ScribusView::toggleCMS()
