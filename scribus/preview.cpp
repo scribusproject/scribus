@@ -99,7 +99,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	settingsBarLayout->setSpacing(3);
 	settingsBarLayout->setMargin(0);
 	devTitle = new QGroupBox( this, "devTitle" );
-	devTitle->setTitle( tr( "Device Settings" ) );
+	devTitle->setTitle( tr( "Display Settings" ) );
 	devTitle->setColumnLayout(0, Qt::Vertical );
 	devTitle->layout()->setSpacing( 5 );
 	devTitle->layout()->setMargin( 5 );
@@ -204,7 +204,7 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 	}
 	settingsBarLayout->addWidget(devTitle);
 	jobTitle = new QGroupBox( this, "jobTitle" );
-	jobTitle->setTitle( tr( "Job Settings" ) );
+	jobTitle->setTitle( tr( "Print Settings" ) );
 	jobTitle->setColumnLayout(0, Qt::Vertical );
 	jobTitle->layout()->setSpacing( 5 );
 	jobTitle->layout()->setMargin( 5 );
