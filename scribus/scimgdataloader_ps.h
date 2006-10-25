@@ -15,6 +15,7 @@ class ScImgDataLoader_PS : public ScImgDataLoader
 protected:
 
 	void initSupportedFormatList();
+	void scanForFonts(QString fn);
 	bool parseData(QString fn);
 	void loadPhotoshop(QString fn, int gsRes);
 	void loadDCS1(QString fn, int gsRes);
@@ -42,6 +43,7 @@ protected:
 	int psBlock;
 	QString psCommand;
 	QMap<QString,ScColor> CustColors;
+	QStringList FontListe;
 
 public:
 	ScImgDataLoader_PS(void);

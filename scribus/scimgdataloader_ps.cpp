@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include "scpaths.h"
 #include "scribuscore.h"
 #include "scimgdataloader_ps.h"
+#include "prefsmanager.h"
 
 ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader()
 {
@@ -76,6 +77,28 @@ void ScImgDataLoader_PS::loadEmbeddedProfile(const QString& fn)
 	}
 }
 
+void ScImgDataLoader_PS::scanForFonts(QString fn)
+{
+	QString tmp;
+	QFile f(fn);
+	if (f.open(IO_ReadOnly))
+	{
+		QTextStream ts(&f);
+		while (!ts.atEnd())
+		{
+			tmp = ts.readLine();
+			if (tmp.startsWith("%%BeginFont:"))
+			{
+				tmp = tmp.remove("%%BeginFont:");
+				QTextStream ts2(&tmp, IO_ReadOnly);
+				QString tmp2;
+				ts2 >> tmp2;
+				FontListe.remove(tmp2);
+			}
+		}
+	}
+}
+
 bool ScImgDataLoader_PS::parseData(QString fn)
 {
 	QChar tc;
@@ -89,6 +112,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	isPhotoshop = false;
 	hasPhotoshopImageData = false;
 	int plateCount = 0;
+	FontListe.clear();
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
 	{
@@ -166,6 +190,31 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						isDCS2 = true;
 						isDCS2multi = true;
 					}
+				}
+			}
+			if (tmp.startsWith("%%DocumentFonts:"))
+			{
+				tmp = tmp.remove("%%DocumentFonts:");
+				QTextStream ts2(&tmp, IO_ReadOnly);
+				QString tmp2;
+				ts2 >> tmp2;
+				if (!tmp2.isEmpty())
+					FontListe.append(tmp2);
+				while (!ts.atEnd())
+				{
+					uint oldPos = ts.device()->at();
+					tmp = ts.readLine();
+					if (!tmp.startsWith("%%+"))
+					{
+						ts.device()->at(oldPos);
+						break;
+					}
+					tmp = tmp.remove(0,3);
+					QTextStream ts2(&tmp, IO_ReadOnly);
+					QString tmp2;
+					ts2 >> tmp2;
+					if (!tmp2.isEmpty())
+						FontListe.append(tmp2);
 				}
 			}
 			if (tmp.startsWith("%%CMYKCustomColor"))
@@ -318,6 +367,28 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	CustColors.insert("Yellow", ScColor(0, 0, 255, 0));
 	CustColors.insert("Black", ScColor(0, 0, 0, 255));
 	found = parseData(fn);
+	if (FontListe.count() != 0)
+	{
+		scanForFonts(fn);
+		if (FontListe.count() != 0)
+		{
+			bool missing = false;
+			QString missingF = "";
+			for (uint fo = 0; fo < FontListe.count(); fo++)
+			{
+				if (!PrefsManager::instance()->appPrefs.AvailFonts.contains(FontListe[fo]))
+				{
+					missing = true;
+					missingF += FontListe[fo]+"\n";
+				}
+			}
+			if (missing)
+			{
+				m_message = QObject::tr("The Font(s):\n%1 are not available.\nThey have been replaced by \"Courier\"\nTherefore the image may be not correct").arg(missingF);
+				m_msgType = warningMsg;
+			}
+		}
+	}
 	if ((thumbnail) && (m_imageInfoRecord.exifDataValid) && (!m_imageInfoRecord.exifInfo.thumbnail.isNull()))
 	{
 		QTextStream ts2(&BBox, IO_ReadOnly);
