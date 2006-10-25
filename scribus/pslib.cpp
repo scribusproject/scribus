@@ -288,8 +288,10 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 		PutDoc(BBox);
 		PutDoc(BBoxH);
 	}
-	PutDoc(FNamen);
-	PutDoc(Farben);
+	if (!FNamen.isEmpty())
+		PutDoc("%%DocumentCustomColors: "+FNamen);
+	if (!Farben.isEmpty())
+		PutDoc("%%CMYKCustomColor: "+Farben);
 	PutDoc("%%LanguageLevel: 3\n");
 	PutDoc("%%EndComments\n");
 	PutDoc(Prolog);
