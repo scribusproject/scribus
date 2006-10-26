@@ -18,6 +18,8 @@ protected:
 	void scanForFonts(QString fn);
 	bool parseData(QString fn);
 	void loadPhotoshop(QString fn, int gsRes);
+	void decodeA85(QByteArray &psdata, QString tmp);
+	bool loadPSjpeg(QString fn);
 	void loadPhotoshopBinary(QString fn);
 	void loadDCS1(QString fn, int gsRes);
 	void loadDCS2(QString fn, int gsRes);

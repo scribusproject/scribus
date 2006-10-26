@@ -13,6 +13,20 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_ps.h"
 #include "prefsmanager.h"
 
+extern "C"
+{
+#define XMD_H           // shut JPEGlib up
+#if defined(Q_OS_UNIXWARE)
+#  define HAVE_BOOLEAN  // libjpeg under Unixware seems to need this
+#endif
+#include <jpeglib.h>
+#include <jerror.h>
+#undef HAVE_STDLIB_H
+#ifdef const
+#  undef const          // remove crazy C hackery in jconfig.h
+#endif
+}
+
 ScImgDataLoader_PS::ScImgDataLoader_PS(void) : ScImgDataLoader()
 {
 	initSupportedFormatList();
@@ -560,7 +574,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 
 void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 {
-	if ((psDataType == 1) || (psDataType == 2))
+	if ((psDataType >= 1) && (psDataType <= 6))
 	{
 		loadPhotoshopBinary(fn);
 		return;
@@ -570,8 +584,6 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
-	float xres = gsRes;
-	float yres = gsRes;
 	int retg;
 	int GsMajor;
 	int GsMinor;
@@ -661,45 +673,215 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 			m_imageInfoRecord.BBoxX = 0;
 			m_imageInfoRecord.BBoxH = m_image.height();
 		}
-//		m_imageInfoRecord.xres = qRound(gsRes);
-//		m_imageInfoRecord.yres = qRound(gsRes);
 		m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
 	}
+}
+
+void ScImgDataLoader_PS::decodeA85(QByteArray &psdata, QString tmp)
+{
+	uchar byte;
+	ushort data;
+	unsigned long sum = 0;
+    int quintet = 0;
+	for (uint c = 0; c < tmp.length(); c++)
+	{
+		byte = uchar(QChar(tmp.at(c)));
+		if (byte >= '!' && byte <= 'u')
+		{
+			sum = sum * 85 + ((unsigned long)byte - '!');
+			quintet++;
+			if (quintet == 5)
+			{
+				psdata.resize(psdata.size()+4);
+				data = sum >> 24;
+				psdata[psdata.size()-4] = data;
+				data = (sum >> 16) & 0xFF;
+				psdata[psdata.size()-3] = data;
+				data = (sum >> 8) & 0xFF;
+				psdata[psdata.size()-2] = data;
+				data = sum & 0xFF;
+				psdata[psdata.size()-1] = data;
+				quintet = 0;
+				sum = 0;
+	    	}
+		}
+		else if (byte == 'z')
+		{
+			psdata.resize(psdata.size()+4);
+			psdata[psdata.size()-4] = 0;
+			psdata[psdata.size()-3] = 0;
+			psdata[psdata.size()-2] = 0;
+			psdata[psdata.size()-1] = 0;
+		}
+		else if (byte == '~')
+		{
+			if (quintet)
+			{
+				int i;
+				for (i = 0; i < 5 - quintet; i++)
+					sum *= 85;
+				if (quintet > 1)
+					sum += (0xFFFFFF >> ((quintet - 2) * 8));
+				for (i = 0; i < quintet - 1; i++)
+				{
+					data = (sum >> (24 - 8 * i)) & 0xFF;
+					psdata.resize(psdata.size()+1);
+					psdata[psdata.size()-1] = data;
+				}
+				quintet = 0;
+			}
+			break;
+		}
+	}
+}
+
+typedef struct my_error_mgr
+{
+	struct jpeg_error_mgr pub;            /* "public" fields */
+	jmp_buf setjmp_buffer;  /* for return to caller */
+} *my_error_ptr;
+
+static void my_error_exit (j_common_ptr cinfo)
+{
+	my_error_ptr myerr = (my_error_ptr) cinfo->err;
+	(*cinfo->err->output_message) (cinfo);
+	longjmp (myerr->setjmp_buffer, 1);
+}
+
+bool ScImgDataLoader_PS::loadPSjpeg(QString fn)
+{
+	if (!QFile::exists(fn))
+		return false;
+	struct jpeg_decompress_struct cinfo;
+	struct my_error_mgr         jerr;
+	FILE     *infile;
+	cinfo.err = jpeg_std_error (&jerr.pub);
+	jerr.pub.error_exit = my_error_exit;
+	infile = NULL;
+	if (setjmp (jerr.setjmp_buffer))
+	{
+		jpeg_destroy_decompress (&cinfo);
+		if (infile)
+			fclose (infile);
+		return false;
+	}
+	jpeg_create_decompress (&cinfo);
+	if ((infile = fopen (fn.local8Bit(), "rb")) == NULL)
+		return false;
+	jpeg_stdio_src(&cinfo, infile);
+	jpeg_read_header(&cinfo, true);
+	jpeg_start_decompress(&cinfo);
+	if ( cinfo.output_components == 3 || cinfo.output_components == 4)
+		m_image.create( cinfo.output_width, cinfo.output_height, 32 );
+	else if ( cinfo.output_components == 1 )
+	{
+		m_image.create( cinfo.output_width, cinfo.output_height, 8, 256 );
+		for (int i=0; i<256; i++)
+			m_image.setColor(i, qRgb(i,i,i));
+	}
+	if (!m_image.isNull())
+	{
+		uchar** lines = m_image.jumpTable();
+		while (cinfo.output_scanline < cinfo.output_height)
+			(void) jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline, cinfo.output_height);
+		if ( cinfo.output_components == 3 )
+		{
+			for (uint j=0; j<cinfo.output_height; j++)
+			{
+				uchar *in = m_image.scanLine(j) + cinfo.output_width * 3;
+				QRgb *out = (QRgb*) m_image.scanLine(j);
+				for (uint i=cinfo.output_width; i--; )
+				{
+					in -= 3;
+					out[i] = qRgb(in[0], in[1], in[2]);
+				}
+			}
+		}
+		if ( cinfo.output_components == 4 )
+		{
+			for (int i = 0; i < m_image.height(); i++)
+			{
+				QRgb *ptr = (QRgb*)  m_image.scanLine(i);
+				unsigned char c, m, y ,k;
+				if ((cinfo.jpeg_color_space == JCS_YCCK) || ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker)))
+				{
+					for (int j = 0; j <  m_image.width(); j++)
+					{
+						unsigned char *p = (unsigned char *) ptr;
+						c = p[0];
+						m = p[1];
+						y =  p[2];
+						k =  p[3];
+						*ptr = qRgba(c, m, y, k);
+						ptr++;
+					}
+				}
+				else
+				{
+					for (int j = 0; j <  m_image.width(); j++)
+					{
+						unsigned char *p = (unsigned char *) ptr;
+						c = p[0];
+						m = p[1];
+						y =  p[2];
+						k =  p[3];
+						*ptr = qRgba(y, m, c, k);
+						ptr++;
+					}
+				}
+			}
+		}
+		if ( cinfo.output_components == 1 )
+		{
+			QImage tmpImg = m_image.convertDepth(32);
+			 m_image.create( cinfo.output_width, cinfo.output_height, 32 );
+			for( int yi=0; yi < tmpImg.height(); ++yi )
+			{
+				QRgb *s = (QRgb*)(tmpImg.scanLine( yi ));
+				QRgb *d = (QRgb*)(m_image.scanLine( yi ));
+				for(int xi=0; xi < tmpImg.width(); ++xi )
+				{
+					(*d) = (*s);
+					s++;
+					d++;
+				}
+			}
+		}
+		m_image.setAlphaBuffer(true);
+	}
+	(void) jpeg_finish_decompress(&cinfo);
+	fclose (infile);
+	jpeg_destroy_decompress (&cinfo);
+	return (!m_image.isNull());
 }
 
 void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
-	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.jpg");
+	QFile f2(tmpFile);
 	QString tmp;
 	m_image.create(psXSize, psYSize, 32);
 	m_image.fill(qRgba(0, 0, 0, 0));
 	QByteArray psdata;
 	QFile f(fn);
-	int xCount = 0;
 	int yCount = 0;
-//	uint binaryLen;
-	uchar *ptr =  m_image.scanLine(yCount);
 	if (f.open(IO_ReadOnly))
 	{
+		if (psDataType > 2)
+		{
+			f2.open(IO_WriteOnly);
+		}
 		QTextStream ts(&f);
 		while (!ts.atEnd())
 		{
 			tmp = ts.readLine();
-/*			if (tmp.startsWith("%%BeginBinary:"))
-			{
-				tmp.remove("%%BeginBinary:");
-				QTextStream ts2(&tmp, IO_ReadOnly);
-				ts2 >> binaryLen;
-			} */
 			if (tmp == psCommand)
 			{
 				if (psDataType == 1)
 				{
-//					psdata.resize(binaryLen);
-//					f.readBlock(psdata.data(), binaryLen);
 					for (int y=0; y < m_image.height(); ++y )
 					{
 						if (psMode == 4)
@@ -722,40 +904,58 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 						}
 					}
 				}
-				else if (psDataType == 2)
+				else if (psDataType > 1)
 				{
 					while (!ts.atEnd())
 					{
 						tmp = ts.readLine();
 						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
 							break;
-						for (uint a = 0; a < tmp.length(); a += 2)
+						if (psDataType == 2)
 						{
-							bool ok;
-							ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
-							psdata.resize(psdata.size()+1);
-							psdata[psdata.size()-1] = data;
+							for (uint a = 0; a < tmp.length(); a += 2)
+							{
+								bool ok;
+								ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
+								psdata.resize(psdata.size()+1);
+								psdata[psdata.size()-1] = data;
+							}
+						}
+						else
+						{
+							decodeA85(psdata, tmp);
+							f2.writeBlock(psdata.data(), psdata.size());
+							psdata.resize(0);
 						}
 					}
-					for (int y=0; y < m_image.height(); ++y )
+					if (psDataType > 2)
 					{
-						QRgb *p = (QRgb *)m_image.scanLine( y );
-						for (int x=0; x < m_image.width(); ++x )
+						f2.close();
+						loadPSjpeg(tmpFile);
+						unlink(tmpFile);
+					}
+					else
+					{
+						for (int y=0; y < m_image.height(); ++y )
 						{
-							uchar cc = psdata[yCount+x];
-							uchar cm = psdata[yCount+psXSize+x];
-							uchar cy = psdata[yCount+psXSize*2+x];
-							uchar ck = psdata[yCount+psXSize*3+x];
+							QRgb *p = (QRgb *)m_image.scanLine( y );
+							for (int x=0; x < m_image.width(); ++x )
+							{
+								uchar cc = psdata[yCount+x];
+								uchar cm = psdata[yCount+psXSize+x];
+								uchar cy = psdata[yCount+psXSize*2+x];
+								uchar ck = psdata[yCount+psXSize*3+x];
+								if (psMode == 4)
+									*p = qRgba(cc, cm, cy, ck);
+								else
+									*p = qRgba(cc, cm, cy, 255);
+								p++;
+							}
 							if (psMode == 4)
-								*p = qRgba(cc, cm, cy, ck);
+								yCount += psXSize * (4 + psChannel);
 							else
-								*p = qRgba(cc, cm, cy, 255);
-							p++;
+								yCount += psXSize * (3 + psChannel);
 						}
-						if (psMode == 4)
-							yCount += psXSize * (4 + psChannel);
-						else
-							yCount += psXSize * (3 + psChannel);
 					}
 				}
 				if (psMode == 4)
