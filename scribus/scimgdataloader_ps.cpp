@@ -265,7 +265,9 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 						hasPhotoshopImageData = true;
 						tmp.remove("%ImageData: ");
 						QTextStream ts2(&tmp, IO_ReadOnly);
-						ts2 >> psXSize >> psYSize >> psDepth >> psMode >> psChannel >> psBlock >> psCommand;
+						ts2 >> psXSize >> psYSize >> psDepth >> psMode >> psChannel >> psBlock >> psDataType >> psCommand;
+						psCommand = psCommand.remove(0,1);
+						psCommand = psCommand.remove(psCommand.length()-1,1);
 					}
 					if (tmp.startsWith("%BeginPhotoshop"))
 					{
@@ -398,6 +400,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 		m_image = m_imageInfoRecord.exifInfo.thumbnail;
 		if ((isPhotoshop) && (hasPhotoshopImageData))
 		{
+			m_imageInfoRecord.exifInfo.width = qRound(psXSize);
+			m_imageInfoRecord.exifInfo.height = qRound(psYSize);
 			m_imageInfoRecord.type = 7;
 			if (psMode == 4)
 			{
@@ -556,6 +560,11 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 
 void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 {
+	if ((psDataType == 1) || (psDataType == 2))
+	{
+		loadPhotoshopBinary(fn);
+		return;
+	}
 	QStringList args;
 	double x, y, b, h;
 	QFileInfo fi = QFileInfo(fn);
@@ -656,6 +665,90 @@ void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 //		m_imageInfoRecord.yres = qRound(gsRes);
 		m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
+	}
+}
+
+void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
+{
+	QFileInfo fi = QFileInfo(fn);
+	QString ext = fi.extension(false).lower();
+	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
+	QString tmp;
+	m_image.create(psXSize, psYSize, 32);
+	m_image.fill(qRgba(0, 0, 0, 0));
+	QByteArray psdata;
+	QFile f(fn);
+	int xCount = 0;
+	int yCount = 0;
+	uint binaryLen;
+	uchar *ptr =  m_image.scanLine(yCount);
+	if (f.open(IO_ReadOnly))
+	{
+		QTextStream ts(&f);
+		while (!ts.atEnd())
+		{
+			tmp = ts.readLine();
+			if (tmp.startsWith("%%BeginBinary:"))
+			{
+				tmp.remove("%%BeginBinary:");
+				QTextStream ts2(&tmp, IO_ReadOnly);
+				ts2 >> binaryLen;
+			}
+			if (tmp == psCommand)
+			{
+				if (psDataType == 1)
+				{
+					psdata.resize(binaryLen);
+					f.readBlock(psdata.data(), binaryLen);
+				}
+				else if (psDataType == 2)
+				{
+					while (!ts.atEnd())
+					{
+						tmp = ts.readLine();
+						if ((tmp.isEmpty()) || (tmp.startsWith("%%EndBinary")))
+							break;
+						for (uint a = 0; a < tmp.length(); a += 2)
+						{
+							bool ok;
+							ushort data = tmp.mid(a, 2).toUShort(&ok, 16);
+							psdata.resize(psdata.size()+1);
+							psdata[psdata.size()-1] = data;
+						}
+					}
+				}
+				for (int y=0; y < m_image.height(); ++y )
+				{
+					QRgb *p = (QRgb *)m_image.scanLine( y );
+					for (int x=0; x < m_image.width(); ++x )
+					{
+						uchar cc = psdata[yCount+x];
+						uchar cm = psdata[yCount+psXSize+x];
+						uchar cy = psdata[yCount+psXSize*2+x];
+						uchar ck = psdata[yCount+psXSize*3+x];
+						if (psMode == 4)
+							*p = qRgba(cc, cm, cy, ck);
+						else
+							*p = qRgba(cc, cm, cy, 255);
+						p++;
+					}
+					if (psMode == 4)
+						yCount += psXSize * (4 + psChannel);
+					else
+						yCount += psXSize * (3 + psChannel);
+				}
+				if (psMode == 4)
+					m_imageInfoRecord.colorspace = 1;
+				else
+					m_imageInfoRecord.colorspace = 0;
+				m_imageInfoRecord.type = 7;
+				m_imageInfoRecord.BBoxX = 0;
+				m_imageInfoRecord.BBoxH = m_image.height();
+				m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
+				m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
+			}
+		}
+		f.close();
 	}
 }
 

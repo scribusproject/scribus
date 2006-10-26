@@ -18,6 +18,7 @@ protected:
 	void scanForFonts(QString fn);
 	bool parseData(QString fn);
 	void loadPhotoshop(QString fn, int gsRes);
+	void loadPhotoshopBinary(QString fn);
 	void loadDCS1(QString fn, int gsRes);
 	void loadDCS2(QString fn, int gsRes);
 	void blendImages(QImage &source, ScColor col);
@@ -41,6 +42,7 @@ protected:
 	int psMode;
 	int psChannel;
 	int psBlock;
+	int psDataType;
 	QString psCommand;
 	QMap<QString,ScColor> CustColors;
 	QStringList FontListe;
