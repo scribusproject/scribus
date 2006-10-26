@@ -574,7 +574,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 
 void ScImgDataLoader_PS::loadPhotoshop(QString fn, int gsRes)
 {
-	if ((psDataType >= 1) && (psDataType <= 6))
+	if ((psDataType >= 1) && (psDataType <= 6) && ((psMode == 3) || (psMode == 4)))
 	{
 		loadPhotoshopBinary(fn);
 		return;
