@@ -214,10 +214,12 @@ public:
 	}
 	
 	StyleBaseProxy(int level, const Style* style) 
-	: StyleBase(level), m_default(style) {}
+	: StyleBase(level), m_default(style) {
+	}
 	
 	StyleBaseProxy(const StyleBaseProxy& other)
-	: StyleBase(other), m_default(other.m_default) {}
+	: StyleBase(other), m_default(other.m_default) {
+	}
 	
 	StyleBaseProxy& operator= (const StyleBaseProxy& other)
 	{
@@ -228,13 +230,15 @@ public:
 	
 	int version() const  { 
 		assert (this != m_default->base());
-//		qDebug(QString("version? %1 default %2 base %3").arg(reinterpret_cast<int>(this)).arg(reinterpret_cast<int>(m_default)).arg(reinterpret_cast<int>(m_default->base())));
+//		qDebug(QString("version? %1 default %2 base %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<int>(m_default)).arg(reinterpret_cast<int>(m_default->base())));
 		return m_default->base() ? m_version ^ m_default->base()->version() : m_version; 
 	}
 		
 	const Style* defaultStyle() const { return m_default; }
 	
-	void setDefaultStyle(const Style* def) { m_default = def; }
+	void setDefaultStyle(const Style* def) { 
+		m_default = def; 
+	}
 	
 private:
 	const Style* m_default;

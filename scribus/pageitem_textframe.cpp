@@ -165,7 +165,7 @@ void PageItem_TextFrame::setShadow()
 //	QString newShadow = m_Doc->masterPageMode() ? QString::number(OwnPage) : OnMasterPage;
 //	QString newShadow = QString::number(OwnPage);
 	QString newShadow = m_Doc->masterPageMode() ? OnMasterPage : QString::number(OwnPage);
-	qDebug(QString("Pageitem_Textframe: shadow %1 ... %2").arg(currentShadow).arg(newShadow));
+//	qDebug(QString("Pageitem_Textframe: shadow %1 ... %2").arg(currentShadow).arg(newShadow));
 	if (newShadow != currentShadow) {
 		if (currentShadow == OnMasterPage) {
 			// masterpage was edited, clear all shadows
@@ -213,6 +213,8 @@ static void layoutDropCap(GlyphLayout layout, double curX, double curY, double o
 
 void PageItem_TextFrame::layout() 
 {
+	itemText.invalidateAll(); // HACK, remove soon - av
+
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
 		dynamic_cast<PageItem_TextFrame*>(BackBox)->layout();
@@ -236,7 +238,8 @@ void PageItem_TextFrame::layout()
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal, RTabX;
 	QString chstr, chstr2, chstr3;
 	ScText *hl;
-	ParagraphStyle style;
+	ParagraphStyle lastStyle;
+	double lineSpacing;
 	
 	bool outs = false;
 	bool fBorder = false;
@@ -304,20 +307,20 @@ void PageItem_TextFrame::layout()
 		// find start of first line
 		if (itemText.length() > 0)
 		{
+			const ParagraphStyle& firstStyle(itemText.paragraphStyle(0));
 			hl = itemText.item(0);
-			style = itemText.paragraphStyle(0);
-			if (style.rightMargin() < 0) {
+			if (firstStyle.rightMargin() < 0) {
 				qDebug(QString("style pos 0:"));
-				dumpIt(style);
+				dumpIt(firstStyle);
 			}
 //			qDebug(QString("style @0: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():""));
-			if (style.hasDropCap())
+			if (firstStyle.hasDropCap())
 			{
-				if (style.useBaselineGrid())
-					chs = qRound(m_Doc->typographicSettings.valueBaseGrid  * style.dropCapLines() * 10);
+				if (firstStyle.useBaselineGrid())
+					chs = qRound(m_Doc->typographicSettings.valueBaseGrid  * firstStyle.dropCapLines() * 10);
 				else
-					chs = qRound(style.lineSpacing() * style.dropCapLines() * 10);
+					chs = qRound(firstStyle.lineSpacing() * firstStyle.dropCapLines() * 10);
 			}
 			else 
 				chs = hl->fontSize();
@@ -346,8 +349,8 @@ void PageItem_TextFrame::layout()
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
 		{
 			hl = itemText.item(a);
-			style = itemText.paragraphStyle(a);
-			const CharStyle& charStyle = itemText.charStyle(a);
+			const ParagraphStyle& style(itemText.paragraphStyle(a));
+			const CharStyle& charStyle(itemText.charStyle(a));
 //			qDebug(QString("charstyle pos %1: %2 (%3)").arg(a).arg(charStyle.asString()).arg(charStyle.fontSize()));
 			if (style.rightMargin() < 0) {
 				qDebug(QString("style pos %1:").arg(a));
@@ -364,8 +367,12 @@ void PageItem_TextFrame::layout()
 //			qDebug(QString("expanded token: '%1'").arg(chstr));
 			if (chstr.isEmpty())
 				continue;
+			
 			if (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing)
-				style.setLineSpacing(charStyle.font().height(charStyle.fontSize() / 10.0));
+				lineSpacing = charStyle.font().height(charStyle.fontSize() / 10.0);
+			else 
+				lineSpacing = style.lineSpacing();
+			
 			// find out about par gap and dropcap
 			if (a == firstInFrame())
 			{
@@ -446,7 +453,7 @@ void PageItem_TextFrame::layout()
 						else
 						{
 							if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-								DropCapDrop = style.lineSpacing() * (DropLines-1);
+								DropCapDrop = lineSpacing * (DropLines-1);
 							else
 								DropCapDrop = charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
 						}
@@ -463,7 +470,7 @@ void PageItem_TextFrame::layout()
 				else
 				{
 					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-						DropCapDrop = style.lineSpacing() * (DropLines-1);
+						DropCapDrop = lineSpacing * (DropLines-1);
 					else
 						DropCapDrop = charStyle.font().height(style.charStyle().fontSize() / 10.0) * (DropLines-1);
 				}
@@ -477,8 +484,8 @@ void PageItem_TextFrame::layout()
 				{
 					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
-						chsd = (10 * ((style.lineSpacing() * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / (charStyle.font().realCharHeight(chstr[0], 1))));
-						chs = (10 * ((style.lineSpacing() * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharAscent(chstr[0], 1)));
+						chsd = (10 * ((lineSpacing * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / (charStyle.font().realCharHeight(chstr[0], 1))));
+						chs = (10 * ((lineSpacing * (DropLines-1)+(charStyle.font().ascent(style.charStyle().fontSize() / 10.0))) / charStyle.font().realCharAscent(chstr[0], 1)));
 					}
 					else
 					{
@@ -544,7 +551,7 @@ void PageItem_TextFrame::layout()
 					else
 					{
 						if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
-							asce = style.lineSpacing() * DropLines;
+							asce = lineSpacing * DropLines;
 						else
 							asce = charStyle.font().height(style.charStyle().fontSize() / 10.0) * DropLines;
 					}
@@ -609,7 +616,7 @@ void PageItem_TextFrame::layout()
 							if (style.useBaselineGrid())
 								desc2 = -charStyle.font().descent() * m_Doc->typographicSettings.valueBaseGrid * style.dropCapLines();
 							else
-								desc2 = -charStyle.font().descent() * style.lineSpacing() * style.dropCapLines();
+								desc2 = -charStyle.font().descent() * lineSpacing * style.dropCapLines();
 						}
 						if (DropCmode)
 							DropLines = style.dropCapLines();
@@ -689,7 +696,7 @@ void PageItem_TextFrame::layout()
 						}
 						else
 						{
-							CurY += style.lineSpacing();
+							CurY += lineSpacing;
 							CurX = ColBound.x();
 						}
 						if (style.useBaselineGrid())
@@ -724,7 +731,7 @@ void PageItem_TextFrame::layout()
 										if (style.useBaselineGrid())
 											desc2 = -charStyle.font().descent() * m_Doc->typographicSettings.valueBaseGrid * style.dropCapLines();
 										else
-											desc2 = -charStyle.font().descent() * style.lineSpacing() * style.dropCapLines();
+											desc2 = -charStyle.font().descent() * lineSpacing * style.dropCapLines();
 									}
 									if (DropCmode)
 										DropLines = style.dropCapLines();
@@ -1002,9 +1009,9 @@ void PageItem_TextFrame::layout()
 				{
 					if (style.lineSpacingMode() == ParagraphStyle::FixedLineSpacing)
 					{
-						CurY -= style.lineSpacing() * (DropLines-1);
-						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY - DropLines * style.lineSpacing())));
-						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*style.lineSpacing())));
+						CurY -= lineSpacing * (DropLines-1);
+						tcli.setPoint(0, QPoint(qRound(hl->glyph.xoffset), qRound(maxDY - DropLines * lineSpacing)));
+						tcli.setPoint(1, QPoint(qRound(maxDX), qRound(maxDY-DropLines*lineSpacing)));
 					}
 					else
 					{
@@ -1119,13 +1126,13 @@ void PageItem_TextFrame::layout()
 						assert( a >= 0 );
 						assert( a < itemText.length() );
 						hl = itemText.item(a);
-						style = itemText.paragraphStyle(a);
-						if (style.rightMargin() < 0) {
+						lastStyle = itemText.paragraphStyle(a);
+						if (lastStyle.rightMargin() < 0) {
 							qDebug(QString("style pos < %1:").arg(a));
 							dumpIt(style);
 						}
-//						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
-//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
+//						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(lastStyle.leftMargin()).arg(lastStyle.rightMargin())
+//							   .arg(lastStyle.charStyle().asString()).arg(lastStyle.name()).arg(lastStyle.parent()?lastStyle.parent()->name():"")
 //							   .arg(a));
 //not needed any more:	a++;
 						// Fix incorrect right flush for full lines: ? -AV
@@ -1155,7 +1162,7 @@ void PageItem_TextFrame::layout()
 						}
 						BuPos = LastSP;
 						// Justification
-						if (style.alignment() != 0)
+						if (lastStyle.alignment() != 0)
 						{
 							// find end of line
 							EndX = floor(QMAX(curLine.x, LastXp - 10));
@@ -1166,7 +1173,7 @@ void PageItem_TextFrame::layout()
 								pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
 							} while ((cl.contains(pf2.xForm(pt1))) 
 									 && (cl.contains(pf2.xForm(pt2))) 
-									 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+									 && (EndX+RExtra+lineCorr < ColBound.y() - lastStyle.rightMargin()));
 								
 							// end do
 //							qDebug(QString("endx @ %1").arg(EndX));
@@ -1205,12 +1212,12 @@ void PageItem_TextFrame::layout()
 							}
 							curLine.naturalWidth = LastXp - curLine.x;
 							curLine.width = EndX - curLine.x;
-							if (style.alignment() == 2)
+							if (lastStyle.alignment() == 2)
 								OFs = EndX - LastXp;
-							if (style.alignment() == 1)
+							if (lastStyle.alignment() == 1)
 								OFs = (EndX - LastXp) / 2;
-							if ((style.alignment() == 3) 
-								|| (style.alignment() == 4))
+							if ((lastStyle.alignment() == 3) 
+								|| (lastStyle.alignment() == 4))
 							{
 								// count available spaces
 								aSpa = 0; 
@@ -1259,17 +1266,20 @@ void PageItem_TextFrame::layout()
 						assert( a >= 0 );
 						assert( a < itemText.length() );
 						hl = itemText.item(a);
-						style = itemText.paragraphStyle(a);
-						if (style.rightMargin() < 0) {
+						lastStyle = itemText.paragraphStyle(a);
+						if (lastStyle.rightMargin() < 0) {
 							qDebug(QString("style nb pos %1:").arg(a));
 							dumpIt(style);
 						}
-//						qDebug(QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
-//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
+//						qDebug(QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(lastStyle.leftMargin()).arg(lastStyle.rightMargin())
+//							   .arg(lastStyle.charStyle().asString()).arg(lastStyle.name()).arg(lastStyle.parent()?lastStyle.parent()->name():"")
 //							   .arg(a));
 						curLine.naturalWidth = CurX - curLine.x;
 						curLine.width = CurX - curLine.x;
 						BuPos--;
+					}
+					else {
+						lastStyle = style;
 					}
 				}
 				uint BuPos3 = BuPos;
@@ -1279,7 +1289,7 @@ void PageItem_TextFrame::layout()
 					|| (hl->ch == SpecialChars::FRAMEBREAK) 
 					|| ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1)))
 				{
-					if ((outs) && (CurX+RExtra+lineCorr < ColBound.y() - style.rightMargin()))
+					if ((outs) && (CurX+RExtra+lineCorr < ColBound.y() - lastStyle.rightMargin()))
 					{
 						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK) 
 							&& AbsHasDrop)
@@ -1292,16 +1302,16 @@ void PageItem_TextFrame::layout()
 						double BotOffset = desc+BExtra+lineCorr;
 						pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-						while (CurX+RExtra+lineCorr < ColBound.y() - style.rightMargin())
+						while (CurX+RExtra+lineCorr < ColBound.y() - lastStyle.rightMargin())
 						{
 							CurX++;
-							if (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin())
+							if (CurX+RExtra+lineCorr > ColBound.y() - lastStyle.rightMargin())
 							{
 								fromOut = false;
-								if (style.useBaselineGrid())
+								if (lastStyle.useBaselineGrid())
 									CurY += m_Doc->typographicSettings.valueBaseGrid;
 								else
-									CurY += style.lineSpacing();
+									CurY += lastStyle.lineSpacing();
 								if ((CurY+desc+BExtra+lineCorr > Height) && (CurrCol+1 == Cols))
 								{
 									goNoRoom = true;
@@ -1326,7 +1336,7 @@ void PageItem_TextFrame::layout()
 									|| (hl->ch == SpecialChars::COLBREAK))
 								{
 									if (hl->ch == SpecialChars::PARSEP)
-										CurY += style.gapAfter();
+										CurY += lastStyle.gapAfter();
 									if (BuPos3 > 0)
 										BuPos3 -= 1;
 									HyphenCount = 0;
@@ -1359,14 +1369,14 @@ void PageItem_TextFrame::layout()
 							if (CurY < maxDY)
 								CurY = maxDY;
 						}
-						if (style.useBaselineGrid())
+						if (lastStyle.useBaselineGrid())
 							CurY += m_Doc->typographicSettings.valueBaseGrid;
 						else
 						{
 							if (a < lastInFrame())
 								CurY += itemText.paragraphStyle(a+1).lineSpacing();
 							else
-								CurY += style.lineSpacing();
+								CurY += lastStyle.lineSpacing();
 						}
 						if (AbsHasDrop)
 						{
@@ -1386,7 +1396,7 @@ void PageItem_TextFrame::layout()
 							 || hl->ch == SpecialChars::COLBREAK )
 						{
 							if (hl->ch == SpecialChars::PARSEP)
-								CurY += style.gapAfter();
+								CurY += lastStyle.gapAfter();
 							if (BuPos3 > 0)
 								BuPos3 -= 1;
 							HyphenCount = 0;
@@ -1398,7 +1408,7 @@ void PageItem_TextFrame::layout()
 				// calc. needed vertical space
 				if (itemsInLine != 0)
 				{
-					if ((!AbsHasDrop) && (StartOfCol) && (!style.useBaselineGrid()))
+					if ((!AbsHasDrop) && (StartOfCol) && (!lastStyle.useBaselineGrid()))
 					{
 						double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 						double currasce = 0;
@@ -1427,10 +1437,10 @@ void PageItem_TextFrame::layout()
 						curLine.y -= adj;
 						CurY -= adj;
 					}
-					else if ((!StartOfCol) && (!style.useBaselineGrid()) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+					else if ((!StartOfCol) && (!lastStyle.useBaselineGrid()) && (lastStyle.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 					{
 						QChar ch = itemText.text(curLine.firstItem);
-						double firstasce = style.lineSpacing();
+						double firstasce = lastStyle.lineSpacing();
 						double currasce = 0;
 						if (itemText.object(curLine.firstItem) != 0)
 							currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));
@@ -1540,7 +1550,7 @@ void PageItem_TextFrame::layout()
 // end of itemText
 		uint a = itemText.length()-1;
 		curLine.lastItem = a;
-		if (style.alignment() != 0)
+		if (lastStyle.alignment() != 0)
 		{
 			EndX = floor(QMAX(curLine.x, CurX - 10));
 			do {
@@ -1549,7 +1559,7 @@ void PageItem_TextFrame::layout()
 				pt2 = QPoint(qRound(EndX+RExtra), static_cast<int>(ceil(CurY-asce)));
 			} while ((cl.contains(pf2.xForm(pt1))) 
 					 && (cl.contains(pf2.xForm(pt2))) 
-					 && (EndX+RExtra+lineCorr < ColBound.y() - style.rightMargin()));
+					 && (EndX+RExtra+lineCorr < ColBound.y() - lastStyle.rightMargin()));
 				
 			if (opticalMargins && itemsInLine > 0) {
 				double chs = itemText.charStyle(a).fontSize() * (itemText.charStyle(a).scaleH() / 1000.0);
@@ -1585,13 +1595,13 @@ void PageItem_TextFrame::layout()
 			}
 			curLine.naturalWidth = CurX - curLine.x;
 			curLine.width = EndX - curLine.x;
-			if (style.alignment() == 2)
+			if (lastStyle.alignment() == 2)
 				OFs = EndX - CurX;
-			if (style.alignment() == 1)
+			if (lastStyle.alignment() == 1)
 				OFs = (EndX - CurX) / 2;
-			if (style.alignment() == 3)
+			if (lastStyle.alignment() == 3)
 				OFs = 0;
-			if (style.alignment() == 4)
+			if (lastStyle.alignment() == 4)
 			{
 				aSpa = 0;
 				for (int sof = 0; sof < itemsInLine; ++sof)
@@ -1630,7 +1640,7 @@ void PageItem_TextFrame::layout()
 		}
 		if (itemsInLine != 0)
 		{
-			if ((!AbsHasDrop) && (StartOfCol) && (!style.useBaselineGrid()))
+			if ((!AbsHasDrop) && (StartOfCol) && (!lastStyle.useBaselineGrid()))
 			{
 				double firstasce = itemText.charStyle(curLine.firstItem).font().ascent(itemText.charStyle(curLine.firstItem).fontSize() / 10.0);
 				double currasce = 0;
@@ -1657,9 +1667,9 @@ void PageItem_TextFrame::layout()
 				curLine.y -= adj;
 				CurY -= adj;
 			}
-			else if ((!StartOfCol) && (!style.useBaselineGrid()) && (style.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
+			else if ((!StartOfCol) && (!lastStyle.useBaselineGrid()) && (lastStyle.lineSpacingMode() == ParagraphStyle::AutomaticLineSpacing))
 			{
-				double firstasce = style.lineSpacing();
+				double firstasce = lastStyle.lineSpacing();
 				double currasce = 0;
 				if (itemText.object(curLine.firstItem) != 0)
 					currasce = QMAX(currasce, (itemText.object(curLine.firstItem)->gHeight + itemText.object(curLine.firstItem)->lineWidth()) * (itemText.charStyle(curLine.firstItem).scaleV() / 1000.0));

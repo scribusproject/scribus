@@ -22,14 +22,14 @@ public:
 	StyleSet() : styles(), m_base(NULL), m_baseversion(-1) {}
 	~StyleSet() { while(styles.count()>0) { delete styles.front(); styles.pop_front(); } }
 
-	void setBase(StyleBase* base)    { m_base = base; m_baseversion = -1; }
-	StyleBase* base()                { return m_base; }
+	void setBase(const StyleBase* base)   { m_base = base; m_baseversion = -1; }
+	const StyleBase* base()               { return m_base; }
 	
 private:
 	StyleSet(const StyleSet&) {}
 	StyleSet& operator= (const StyleSet&) { return *this; }
 	QValueList<STYLE*> styles;
-	StyleBase* m_base;
+	const StyleBase* m_base;
 	int m_baseversion;
 };
 

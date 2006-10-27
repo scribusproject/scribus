@@ -376,7 +376,7 @@ void ScribusDoc::init()
 	cstyle.setTracking(0);
 	
 	docParagraphStyles.create(vg);
-	docCharStyles.setBase( &docParagraphStyles[0] );
+	docCharStyles.setBase( docParagraphStyles[0].charStyleBase() );
 	
 	currentStyle = vg;
 #if 0

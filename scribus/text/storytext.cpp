@@ -34,9 +34,10 @@ public:
 	uint len;
 	ScText_Shared(StyleBase* pstyles, StyleBase* cstyles) : QPtrList<ScText>(), 
 		defaultStyle(), 
-		pstyleBase(StyleBase::STORY_LEVEL, & defaultStyle),
+		pstyleBase(StyleBase::STORY_LEVEL, NULL),
 		refs(1), len(0)
 	{
+		pstyleBase.setDefaultStyle( & defaultStyle );
 		setAutoDelete(true);
 		defaultStyle.setBase( pstyles );
 		defaultStyle.charStyle().setBase( cstyles );
@@ -58,12 +59,12 @@ public:
 			append(elem2);
 			if (elem2->parstyle) {
 				elem2->parstyle->setBase( & pstyleBase);
-				elem2->parstyle->charStyle().setBase( & defaultStyle);
-				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle);
+				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
+				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
 			}
 		}
 		len = count();
-		replaceCharStyleBaseInParagraph(len,  & defaultStyle);
+		replaceCharStyleBaseInParagraph(len,  defaultStyle.charStyleBase() );
 //		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 	}
 
@@ -78,13 +79,13 @@ public:
 			append(elem2);
 			if (elem2->parstyle) {
 				elem2->parstyle->setBase( & pstyleBase);
-				elem2->parstyle->charStyle().setBase( & defaultStyle);
-				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle);
+				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
+				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
 			}
 		}
 		len = count();
 		defaultStyle = other.defaultStyle;
-		replaceCharStyleBaseInParagraph(len,  & defaultStyle);
+		replaceCharStyleBaseInParagraph(len,  defaultStyle.charStyleBase());
 		refs = 1;
 //		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 		return *this;
@@ -109,7 +110,30 @@ public:
 				break;
 			elem->setBase(newBase);
 			--it;
-		}	
+		}
+		// assert that all chars point to the following parstyle
+		QPtrListIterator<ScText> test( *this );
+		const StyleBase* lastBase = NULL;
+		while ( (elem = it.current()) != NULL ) {
+			if (elem->ch[0] == SpecialChars::PARSEP)
+			{
+				assert( elem->parstyle );
+				if ( lastBase )
+					assert( lastBase == elem->parstyle->charStyleBase() );
+				lastBase = NULL;
+			}
+			else if (lastBase == NULL)
+			{
+				lastBase = elem->base();
+			}
+			else
+			{
+				assert( lastBase == elem->base() );
+			}
+			++it;
+		}
+		if ( lastBase )
+			assert( lastBase == defaultStyle.charStyleBase() );
 	}
 };
 
@@ -279,9 +303,9 @@ static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
 	if(!it->parstyle) {
 		it->parstyle = new ParagraphStyle();
 		it->parstyle->setBase( & d->pstyleBase);
-		it->parstyle->charStyle().setBase( & d->defaultStyle);
+		it->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase() );
 	}
-	d->replaceCharStyleBaseInParagraph(pos, it->parstyle);
+	d->replaceCharStyleBaseInParagraph(pos, it->parstyle->charStyleBase());
 }
 /**
      need to remove the ParagraphStyle structure and replace all pointers
@@ -297,7 +321,7 @@ static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 		delete it->parstyle;
 		it->parstyle = 0;
 	}
-	d->replaceCharStyleBaseInParagraph(pos, & that->paragraphStyle(pos+1));	
+	d->replaceCharStyleBaseInParagraph(pos, that->paragraphStyle(pos+1).charStyleBase());	
 }
 
 void StoryText::removeChars(int pos, uint len)
@@ -509,7 +533,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
 		that->d->current()->parstyle = new ParagraphStyle();
 		that->d->current()->parstyle->setBase( & d->pstyleBase);
-		that->d->current()->parstyle->charStyle().setBase( & d->defaultStyle);
+		that->d->current()->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase());
 	}
 	else {
 //		qDebug(QString("using parstyle at %1").arg(pos));
@@ -611,7 +635,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setBase( & d->pstyleBase);
-			d->at(i)->parstyle->charStyle().setBase( & d->defaultStyle);
+			d->at(i)->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase() );
 		}
 //		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->applyStyle(style);
@@ -640,7 +664,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 			qDebug(QString("PARSEP without style at pos %1").arg(i));
 			d->at(i)->parstyle = new ParagraphStyle();
 			d->at(i)->parstyle->setBase( & d->pstyleBase);
-			d->at(i)->parstyle->charStyle().setBase( & d->defaultStyle);
+			d->at(i)->parstyle->charStyle().setBase( d->defaultStyle.charStyleBase());
 		}
 		//		qDebug(QString("applying parstyle %2 at %1 for %3").arg(i).arg(paragraphStyle(pos).name()).arg(pos));
 		d->at(i)->parstyle->eraseStyle(style);
@@ -842,6 +866,7 @@ void StoryText::invalidateLayout()
 
 void StoryText::invalidateAll()
 {
+	d->replaceCharStyleBaseInParagraph(0, NULL);
 }
 
 void StoryText::invalidate(int firstitem, int lastitem)

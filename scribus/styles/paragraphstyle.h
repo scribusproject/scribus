@@ -16,7 +16,7 @@
 
 // DONT INCLUDE this file directly, include "style.h" instead!
 
-class SCRIBUS_API ParagraphStyle : public virtual Style, public StyleBaseProxy
+class SCRIBUS_API ParagraphStyle : public virtual Style
 {
 public:
 	enum LineSpacingMode { 
@@ -48,6 +48,7 @@ public:
 	ParagraphStyle();
 	ParagraphStyle(const ParagraphStyle& other);
 	ParagraphStyle& operator=(const ParagraphStyle& other);
+	~ParagraphStyle();
 
 	QString displayName() const;
 
@@ -59,6 +60,7 @@ public:
 	void eraseStyle(const ParagraphStyle& other);
 	void erase() { eraseStyle(*this); }	
 
+	const StyleBase* charStyleBase() const { return & cstyleBase; }
 	CharStyle & charStyle() { return cstyle; }
 	const CharStyle& charStyle() const { return cstyle; }
 	
@@ -105,7 +107,7 @@ public:
 private:
 		
 		// member declarations:
-		
+		StyleBaseProxy cstyleBase;
 		CharStyle cstyle;
 	
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \

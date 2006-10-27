@@ -18,9 +18,9 @@
 
 #include "style.h"
 
-ParagraphStyle::ParagraphStyle() : Style(), StyleBaseProxy(PAR_LEVEL, NULL), cstyle()
+ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle()
 {
-	setDefaultStyle( &cstyle );
+	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(defaultStyle()->base())));
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = attr_DEFAULT; \
@@ -30,9 +30,9 @@ ParagraphStyle::ParagraphStyle() : Style(), StyleBaseProxy(PAR_LEVEL, NULL), cst
 }
 
 
-ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), StyleBaseProxy(PAR_LEVEL, NULL), cstyle(other.charStyle())
+ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
-	setDefaultStyle( &cstyle );
+	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -42,7 +42,11 @@ ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), Styl
 #undef ATTRDEF
 }
 
-
+ParagraphStyle::~ParagraphStyle()
+{
+//	qDebug(QString("~ParagraphStyle %1").arg(reinterpret_cast<uint>(this)));
+}
+	
 QString ParagraphStyle::displayName() const
 {
 	if ( hasName() || !hasParent() || !m_base)
@@ -106,14 +110,17 @@ bool ParagraphStyle::equiv(const Style& other) const
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
-	static_cast<StyleBaseProxy&>(*this) = static_cast<const StyleBaseProxy&>(other);
+	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 	cstyle = other.charStyle();
+	cstyleBase = other.cstyleBase;
+	// we dont want cstyleBase to point to other's charstyle...
+	cstyleBase.setDefaultStyle( &cstyle );
+	cstyleBase.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
-	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 	return *this;
 }
 
