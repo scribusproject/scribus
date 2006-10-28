@@ -275,7 +275,7 @@ void ExportForm::writeConfig()
 
 void ExportForm::createPageNumberRange( )
 {
-	CreateRange cr(m_PageCount, this);
+	CreateRange cr(RangeVal->text(), m_PageCount, this);
 	if (cr.exec())
 	{
 		CreateRangeData crData;

@@ -18,7 +18,7 @@ class SCRIBUS_API CreateRange : public CreateRangeBase
 {
 	Q_OBJECT
 	public:
-		CreateRange(int pageCount, QWidget* parent, const char* name = "" , WFlags fl=0);
+		CreateRange(QString currText, int pageCount, QWidget* parent, const char* name = "" , WFlags fl=0);
 		~CreateRange();
 		void getCreateRangeData(CreateRangeData&);
 		

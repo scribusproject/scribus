@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstring.h>
 #include <qtabwidget.h>
 
-CreateRange::CreateRange( int pageCount, QWidget* parent, const char* name, WFlags fl )
+CreateRange::CreateRange(QString currText, int pageCount, QWidget* parent, const char* name, WFlags fl )
 	: CreateRangeBase(parent, name, fl),
 	m_PageCount(pageCount),
 	m_RangeType(0),
@@ -29,6 +29,10 @@ CreateRange::CreateRange( int pageCount, QWidget* parent, const char* name, WFla
 	basicConsecutiveToSpinBox->setMaxValue(pageCount);
 	basicSelectRangeType(m_BasicRangeType);
 	advPageGroupSizeSpinBox->setMaxValue(pageCount);
+	if (m_PageCount==1)
+	   basicEvenRadioButton->setShown(false);
+	if (currText.length()>0)
+		basicRangeListBox->insertItem(currText);
 	// signals and slots connections
 	connect(tabWidget, SIGNAL(currentChanged(QWidget*)), this, SLOT(selectRangeType(QWidget*)));
 	connect(basicRangeAddButton, SIGNAL(clicked()), this, SLOT(basicAddToRange()));
@@ -67,6 +71,7 @@ void CreateRange::getCreateRangeData(CreateRangeData& crData)
 
 void CreateRange::basicAddToRange( )
 {
+	QString newEntry;
 	switch (m_BasicRangeType)
 	{
 		case 0:
@@ -74,13 +79,13 @@ void CreateRange::basicAddToRange( )
 				int from=basicConsecutiveFromSpinBox->value();
 				int to=basicConsecutiveToSpinBox->value();
 				if (from==to)
-					basicRangeListBox->insertItem(QString("%1").arg(from));
+					newEntry=QString("%1").arg(from);
 				else
-					basicRangeListBox->insertItem(QString("%1-%2").arg(from).arg(to));
+					newEntry=QString("%1-%2").arg(from).arg(to);
 			}
 			break;
 		case 1:
-			basicRangeListBox->insertItem(basicCommaSepLineEdit->text());
+			newEntry=basicCommaSepLineEdit->text();
 			break;
 		case 2:
 			{
@@ -91,7 +96,7 @@ void CreateRange::basicAddToRange( )
 						numbers+=",";
 					numbers+=QString("%1").arg(i);
 				}
-				basicRangeListBox->insertItem(numbers);
+				newEntry=numbers;
 			}
 			break;
 		case 3:
@@ -103,10 +108,12 @@ void CreateRange::basicAddToRange( )
 						numbers+=",";
 					numbers+=QString("%1").arg(i);
 				}
-				basicRangeListBox->insertItem(numbers);
+				newEntry=numbers;
 			}
 			break;
 	}
+	if (newEntry.length()!=0)
+		basicRangeListBox->insertItem(newEntry);
 }
 
 void CreateRange::basicDelFromRange()

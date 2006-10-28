@@ -716,7 +716,7 @@ void Druck::createPageNumberRange( )
 {
 	if (m_doc!=0)
 	{
-		CreateRange cr(m_doc->DocPages.count(), this);
+		CreateRange cr(pageNr->text(), m_doc->DocPages.count(), this);
 		if (cr.exec())
 		{
 			CreateRangeData crData;

@@ -2073,7 +2073,7 @@ void TabPDFOptions::createPageNumberRange( )
 {
 	if (doc!=0)
 	{
-		CreateRange cr(doc->DocPages.count(), this);
+		CreateRange cr(PageNr->text(), doc->DocPages.count(), this);
 		if (cr.exec())
 		{
 			CreateRangeData crData;
