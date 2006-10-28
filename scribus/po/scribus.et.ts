@@ -1966,11 +1966,11 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Yes</source>
-        <translation>Jah</translation>
+        <translation type="obsolete">Jah</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ei</translation>
+        <translation type="obsolete">Ei</translation>
     </message>
     <message>
         <source>Enabled:</source>
@@ -3803,7 +3803,7 @@ If &quot;name&quot; is not given the currently selected item is used.
     <name>ApplyMasterPageDialog</name>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
@@ -4692,10 +4692,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>imulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sample color scheme.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4739,12 +4735,16 @@ please choose another one.</source>
         <source>Leave colors untouched</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ChTable</name>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation>Hiire paremat klahvi all hoides näeb pisipilti. Klahviga Insert saab glüüfi allolevasse valikukasti lisada, klahviga Delete viimati lisatud glüüfi eemaldada.</translation>
+        <translation type="obsolete">Hiire paremat klahvi all hoides näeb pisipilti. Klahviga Insert saab glüüfi allolevasse valikukasti lisada, klahviga Delete viimati lisatud glüüfi eemaldada.</translation>
     </message>
 </context>
 <context>
@@ -4904,6 +4904,10 @@ please choose another one.</source>
     <message>
         <source>Hebrew</source>
         <translation>Heebrea</translation>
+    </message>
+    <message>
+        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
+        <translation type="unfinished">Hiire paremat klahvi all hoides näeb pisipilti. Klahviga Insert saab glüüfi allolevasse valikukasti lisada, klahviga Delete viimati lisatud glüüfi eemaldada.</translation>
     </message>
 </context>
 <context>
@@ -5463,6 +5467,38 @@ please choose another one.</source>
         <source>December</source>
         <translation>Detsember</translation>
     </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Jah</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Ei</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation type="unfinished">&amp;Jah</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation type="unfinished">&amp;Ei</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normaalne</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -5668,6 +5704,121 @@ please choose another one.</source>
     </message>
 </context>
 <context>
+    <name>CreateRangeBase</name>
+    <message>
+        <source>Create Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Pages in Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Doc Page Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Range Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a Range of Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished">leheküljele:</translation>
+    </message>
+    <message>
+        <source>Comma Separated List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odd Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add To Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>Range of Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move &amp;Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Move &amp;Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">&amp;Kustuta</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Advanced Reordering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Group Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Page Order:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished">&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">&amp;Loobu</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
@@ -5731,11 +5882,11 @@ please choose another one.</source>
     </message>
     <message>
         <source>No</source>
-        <translation>Ei</translation>
+        <translation type="obsolete">Ei</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Jah</translation>
+        <translation type="obsolete">Jah</translation>
     </message>
     <message>
         <source>Orientation</source>
@@ -6884,6 +7035,21 @@ import ebaõnnestus!</translation>
     </message>
 </context>
 <context>
+    <name>ExportBitmap</name>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation type="unfinished">Fail on olemas. Kas kirjutada üle?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation type="unfinished">on juba olemas. Kas kirjutada üle?</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Kõik</translation>
+    </message>
+</context>
+<context>
     <name>ExportForm</name>
     <message>
         <source>Choose a Export Directory</source>
@@ -7483,7 +7649,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>&amp;Standard</source>
-        <translation>&amp;Standard</translation>
+        <translation type="obsolete">&amp;Standard</translation>
     </message>
     <message>
         <source>Horizontals</source>
@@ -7547,7 +7713,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>A&amp;utomatic</source>
-        <translation>A&amp;utomaatne</translation>
+        <translation type="obsolete">A&amp;utomaatne</translation>
     </message>
     <message>
         <source>&amp;Number:</source>
@@ -7611,6 +7777,14 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>Delete all guides from the current document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Single</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Column/Row</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7808,11 +7982,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Jah</translation>
+        <translation type="obsolete">Jah</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ei</translation>
+        <translation type="obsolete">Ei</translation>
     </message>
     <message>
         <source>Profile Name:</source>
@@ -7924,7 +8098,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
@@ -7965,18 +8139,6 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <message>
         <source>Move Objects with their Page</source>
         <translation>Objektide liigutamine koos leheküljega</translation>
-    </message>
-    <message>
-        <source>Normal Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8220,11 +8382,11 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Jah</translation>
+        <translation type="obsolete">&amp;Jah</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ei</translation>
+        <translation type="obsolete">&amp;Ei</translation>
     </message>
 </context>
 <context>
@@ -8529,11 +8691,11 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Jah</translation>
+        <translation type="obsolete">&amp;Jah</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ei</translation>
+        <translation type="obsolete">&amp;Ei</translation>
     </message>
     <message>
         <source>Open</source>
@@ -8716,7 +8878,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
 </context>
 <context>
@@ -8826,11 +8988,11 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Jah</translation>
+        <translation type="obsolete">&amp;Jah</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ei</translation>
+        <translation type="obsolete">&amp;Ei</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -8862,7 +9024,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
@@ -8878,18 +9040,6 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9835,6 +9985,14 @@ n&amp;urgad:</translation>
         <source>Color</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Group the selected objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destroys the selected group</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>MultiLine</name>
@@ -10636,6 +10794,50 @@ n&amp;urgad:</translation>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished">Vaateseadistused</translation>
+    </message>
+    <message>
+        <source>Print Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation type="unfinished">Lehekülgede peegeldamine rõhtsalt</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation type="unfinished">Lehekülgede peegeldamine püstiselt</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished">Kärpimine lehekülje veeriste juures</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation type="unfinished">Halltoonis trükk</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation type="unfinished">ICC profiilide rakendamine</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished">Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished">Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished">Võimaldab värvihalduse korral põimida trükkimisandmetesse ICC profiilid</translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -10836,7 +11038,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
@@ -10976,23 +11178,50 @@ n&amp;urgad:</translation>
     <name>PicSearch</name>
     <message>
         <source>Result</source>
-        <translation>Tulemus</translation>
+        <translation type="obsolete">Tulemus</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation>Otsingutulemused: </translation>
+        <translation type="obsolete">Otsingutulemused: </translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Eelvaatlus</translation>
+        <translation type="obsolete">Eelvaatlus</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>Vali</translation>
+        <translation type="obsolete">Vali</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Loobu</translation>
+        <translation type="obsolete">Loobu</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearchBase</name>
+    <message>
+        <source>Result</source>
+        <translation type="unfinished">Tulemus</translation>
+    </message>
+    <message>
+        <source>Search Results for: </source>
+        <translation type="unfinished">Otsingutulemused: </translation>
+    </message>
+    <message>
+        <source>&amp;Preview</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished">Alt+S</translation>
     </message>
 </context>
 <context>
@@ -11023,7 +11252,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Jah</translation>
+        <translation type="obsolete">Jah</translation>
     </message>
     <message>
         <source>OK</source>
@@ -11077,6 +11306,14 @@ n&amp;urgad:</translation>
         <source>Select a base directory for your selected rows</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -11091,6 +11328,18 @@ n&amp;urgad:</translation>
     <message>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Ekspordib valitud leheküljed bittrasterpiltidena.</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation type="unfinished">Salvestamine pildina</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation type="unfinished">Viga väljundfaili kirjutamisel.</translation>
+    </message>
+    <message>
+        <source>Export successful</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -11182,11 +11431,11 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Jah</translation>
+        <translation type="obsolete">Jah</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ei</translation>
+        <translation type="obsolete">Ei</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
@@ -12165,11 +12414,11 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Jah</translation>
+        <translation type="obsolete">&amp;Jah</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ei</translation>
+        <translation type="obsolete">&amp;Ei</translation>
     </message>
     <message>
         <source>New Folder 1</source>
@@ -12368,7 +12617,7 @@ Palun kontrolli asukohta ja nime.</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Brasiilia</translation>
+        <translation type="obsolete">Brasiilia</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -13002,39 +13251,39 @@ Palun kontrolli asukohta ja nime.</translation>
     </message>
     <message>
         <source>Export As Image</source>
-        <translation>Eksport pildina</translation>
+        <translation type="obsolete">Eksport pildina</translation>
     </message>
     <message>
         <source>Save as Image</source>
-        <translation>Salvestamine pildina</translation>
+        <translation type="obsolete">Salvestamine pildina</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
-        <translation>Viga väljundfaili kirjutamisel.</translation>
+        <translation type="obsolete">Viga väljundfaili kirjutamisel.</translation>
     </message>
     <message>
         <source>Export successful.</source>
-        <translation>Eksport õnnestus.</translation>
+        <translation type="obsolete">Eksport õnnestus.</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation>Fail on olemas. Kas kirjutada üle?</translation>
+        <translation type="obsolete">Fail on olemas. Kas kirjutada üle?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation>on juba olemas. Kas kirjutada üle?</translation>
+        <translation type="obsolete">on juba olemas. Kas kirjutada üle?</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Jah</translation>
+        <translation type="obsolete">Jah</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ei</translation>
+        <translation type="obsolete">Ei</translation>
     </message>
     <message>
         <source>Yes all</source>
-        <translation>Jah kõigile</translation>
+        <translation type="obsolete">Jah kõigile</translation>
     </message>
     <message>
         <source>PS/EPS Importer</source>
@@ -13789,16 +14038,12 @@ Välised lingid
         <translation>-kontuur </translation>
     </message>
     <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>-tracking </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>+baseline %1</source>
-        <translation>+alusjoon %1</translation>
+        <translation type="obsolete">+alusjoon %1</translation>
     </message>
     <message>
         <source>+stretch </source>
@@ -13810,7 +14055,7 @@ Välised lingid
     </message>
     <message>
         <source>unnamed</source>
-        <translation>nimetu</translation>
+        <translation type="obsolete">nimetu</translation>
     </message>
     <message>
         <source>Dzongkha</source>
@@ -13978,6 +14223,25 @@ Välised lingid
     </message>
     <message>
         <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Font(s):
+%1 are not available.
+They have been replaced by &quot;Courier&quot;
+Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14846,6 +15110,13 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
 </context>
 <context>
+    <name>SVGPlug</name>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>SWDialog</name>
     <message>
         <source>Short Words</source>
@@ -15177,7 +15448,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>Do you really want to clear all your text?</source>
@@ -15220,6 +15491,10 @@ Nihe püstsuunas: %3</translation>
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation type="unfinished">Värvide kohandamine</translation>
     </message>
 </context>
 <context>
@@ -15500,7 +15775,7 @@ Vertical gap: %3</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normaalne</translation>
+        <translation type="obsolete">Normaalne</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -15663,18 +15938,6 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Normal Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
@@ -15802,7 +16065,7 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Layer</source>
-        <translation>Kiht</translation>
+        <translation type="obsolete">Kiht</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -15958,6 +16221,39 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables the Preview Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can select the visual appearance of the display
+You can choose between normal and several color blindness forms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Switches Color Management on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17018,6 +17314,10 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     <message>
         <source>Remove Profile</source>
         <translation>Eemalda profiil</translation>
+    </message>
+    <message>
+        <source>Ignore non-printable Layers</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -19057,6 +19357,46 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc. Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X-Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotation Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Constrain to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal displacement of objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical displacement of objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Constrain value for the rotation tool when the CTRL-Key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

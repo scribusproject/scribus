@@ -2169,11 +2169,11 @@ Manjkajoče knjižnice so prikazane s *</translation>
     <name>AboutPlugins</name>
     <message>
         <source>Yes</source>
-        <translation>Da</translation>
+        <translation type="obsolete">Da</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ne</translation>
+        <translation type="obsolete">Ne</translation>
     </message>
     <message>
         <source>Filename:</source>
@@ -4278,7 +4278,7 @@ POD tudi zmanjša možnost prekomerne nasičenosti CMY črnil.</translation>
     <name>ApplyMasterPageDialog</name>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation type="obsolete">Običajno</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
@@ -5347,10 +5347,6 @@ please choose another one.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>imulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Sample color scheme.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5394,6 +5390,10 @@ please choose another one.</source>
         <source>Leave colors untouched</source>
         <translation type="unfinished">Barve pusti nedotaknjene</translation>
     </message>
+    <message>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation type="unfinished">Simuliranje pogostih okvar vida. Izberite vrsto okvare.</translation>
+    </message>
 </context>
 <context>
     <name>ChTable</name>
@@ -5411,7 +5411,7 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     </message>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation>Če pritisnete in držite desni miškin gumb, lahko vidite pomanjšano sličico. Tipka &apos;Insert&apos; doda znak v spodnjo izbiro, tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
+        <translation type="obsolete">Če pritisnete in držite desni miškin gumb, lahko vidite pomanjšano sličico. Tipka &apos;Insert&apos; doda znak v spodnjo izbiro, tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     </message>
 </context>
 <context>
@@ -5575,6 +5575,10 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     <message>
         <source>Type in a four digit unicode value directly here</source>
         <translation>Vpiši unicode vrednost dolgo štiri znake sem</translation>
+    </message>
+    <message>
+        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
+        <translation type="unfinished">Če pritisnete in držite desni miškin gumb, lahko vidite pomanjšano sličico. Tipka &apos;Insert&apos; doda znak v spodnjo izbiro, tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
     </message>
 </context>
 <context>
@@ -6309,6 +6313,38 @@ tipka &apos;Delete&apos; pa odstrani zadnjega</translation>
         <source>December</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Yes</source>
+        <translation type="unfinished">Da</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation type="unfinished">Ne</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation type="unfinished">&amp;Da</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation type="unfinished">&amp;Ne</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -6540,6 +6576,121 @@ z desnim pa konec vektorja preliva</translation>
     </message>
 </context>
 <context>
+    <name>CreateRangeBase</name>
+    <message>
+        <source>Create Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Number of Pages in Document:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Doc Page Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Basic Range Selection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add a Range of Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Consecutive Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>From:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation type="unfinished">Za:</translation>
+    </message>
+    <message>
+        <source>Comma Separated List</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Even Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Odd Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Add To Range</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation type="unfinished">Alt+A</translation>
+    </message>
+    <message>
+        <source>Range of Pages</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Move &amp;Up</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation type="unfinished">Alt+U</translation>
+    </message>
+    <message>
+        <source>Move &amp;Down</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation type="unfinished">Alt+D</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation type="unfinished">&amp;Izbriši</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation type="unfinished">Alt+L</translation>
+    </message>
+    <message>
+        <source>Advanced Reordering</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Group Size:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sample Page Order:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page Order</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation type="unfinished">Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation type="unfinished">Prekli&amp;či</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation type="unfinished">Alt+C</translation>
+    </message>
+</context>
+<context>
     <name>CsvDialog</name>
     <message>
         <source>CSV Importer Options</source>
@@ -6583,11 +6734,11 @@ z desnim pa konec vektorja preliva</translation>
     <name>CupsOptions</name>
     <message>
         <source>No</source>
-        <translation>Ne</translation>
+        <translation type="obsolete">Ne</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Da</translation>
+        <translation type="obsolete">Da</translation>
     </message>
     <message>
         <source>Even Pages only</source>
@@ -8153,6 +8304,21 @@ for blue quartz</source>
     </message>
 </context>
 <context>
+    <name>ExportBitmap</name>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation type="unfinished">Datoteka že obstaja. Jo prepišem?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation type="unfinished">že obstaja. Jo prepišem?</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation type="unfinished">Vse</translation>
+    </message>
+</context>
+<context>
     <name>ExportForm</name>
     <message>
         <source>&amp;All pages</source>
@@ -9184,10 +9350,6 @@ Izberite primerne nadomestke zanje.</translation>
         <translation type="unfinished">Nastavi vodila</translation>
     </message>
     <message>
-        <source>&amp;Standard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Horizontals</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9245,10 +9407,6 @@ Izberite primerne nadomestke zanje.</translation>
     </message>
     <message>
         <source>Alt+Y</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>A&amp;utomatic</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -9313,6 +9471,14 @@ Izberite primerne nadomestke zanje.</translation>
     </message>
     <message>
         <source>Delete all guides from the current document</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Single</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Column/Row</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9525,11 +9691,11 @@ A value of 0 means unlimited hyphenations.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Da</translation>
+        <translation type="obsolete">Da</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ne</translation>
+        <translation type="obsolete">Ne</translation>
     </message>
     <message>
         <source>Profile Name:</source>
@@ -9612,7 +9778,7 @@ converting their vector data into Scribus objects.</source>
     <name>InsPage</name>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation type="obsolete">Običajno</translation>
     </message>
     <message>
         <source>at End</source>
@@ -9717,18 +9883,6 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Move Objects with their Page</source>
         <translation>Premikaj predmete skupaj s stranjo</translation>
-    </message>
-    <message>
-        <source>Normal Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9984,11 +10138,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ne</translation>
+        <translation type="obsolete">&amp;Ne</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Da</translation>
+        <translation type="obsolete">&amp;Da</translation>
     </message>
     <message>
         <source>Do you really want to delete this Script?</source>
@@ -10365,11 +10519,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ne</translation>
+        <translation type="obsolete">&amp;Ne</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Da</translation>
+        <translation type="obsolete">&amp;Da</translation>
     </message>
     <message>
         <source>Do you really want to delete this Style?</source>
@@ -10612,10 +10766,6 @@ converting their vector data into Scribus objects.</source>
         <source>Master Page:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Normal</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>MarginWidget</name>
@@ -10740,11 +10890,11 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ne</translation>
+        <translation type="obsolete">&amp;Ne</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Da</translation>
+        <translation type="obsolete">&amp;Da</translation>
     </message>
     <message>
         <source>&amp;Name:</source>
@@ -10772,7 +10922,7 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation type="obsolete">Običajno</translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
@@ -10808,18 +10958,6 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11985,6 +12123,14 @@ robovi:</translation>
     <message>
         <source>Color</source>
         <translation type="unfinished">Barva</translation>
+    </message>
+    <message>
+        <source>Group the selected objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Destroys the selected group</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13956,6 +14102,50 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Display Settings</source>
+        <translation type="unfinished">Nastavitve prikazovanja</translation>
+    </message>
+    <message>
+        <source>Print Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation type="unfinished">Vodoravno prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation type="unfinished">Navpično prezrcali stran(i)</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation type="unfinished">Poreži do robov strani</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation type="unfinished">Tiskaj sivinsko</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation type="unfinished">Uveljavi ICC profile</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation type="unfinished">Vključi čiste barve, da se pretvorijo v kompozitne. Če ne nameravate tiskati čistih barv pri tiskarni potem je verjetno najbolje, da to pustite vključeno.</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation type="unfinished">Omogoča vključevanje ICC profilov v dialog tiskanja, če je upravljalnik barv vključen</translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -14527,7 +14717,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation type="obsolete">Običajno</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
@@ -14675,23 +14865,50 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <name>PicSearch</name>
     <message>
         <source>Cancel</source>
-        <translation>Prekliči</translation>
+        <translation type="obsolete">Prekliči</translation>
     </message>
     <message>
         <source>Result</source>
-        <translation>Rezultat</translation>
+        <translation type="obsolete">Rezultat</translation>
     </message>
     <message>
         <source>Select</source>
-        <translation>Izberi</translation>
+        <translation type="obsolete">Izberi</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation>Najdi rezultate za: </translation>
+        <translation type="obsolete">Najdi rezultate za: </translation>
     </message>
     <message>
         <source>Preview</source>
-        <translation>Predogled</translation>
+        <translation type="obsolete">Predogled</translation>
+    </message>
+</context>
+<context>
+    <name>PicSearchBase</name>
+    <message>
+        <source>Result</source>
+        <translation type="unfinished">Rezultat</translation>
+    </message>
+    <message>
+        <source>Search Results for: </source>
+        <translation type="unfinished">Najdi rezultate za: </translation>
+    </message>
+    <message>
+        <source>&amp;Preview</source>
+        <translation type="unfinished">&amp;Predogled</translation>
+    </message>
+    <message>
+        <source>Alt+P</source>
+        <translation type="unfinished">Alt+P</translation>
+    </message>
+    <message>
+        <source>&amp;Select</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation type="unfinished">Alt+S</translation>
     </message>
 </context>
 <context>
@@ -14702,7 +14919,7 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Yes</source>
-        <translation>Da</translation>
+        <translation type="obsolete">Da</translation>
     </message>
     <message>
         <source>Goto</source>
@@ -14784,6 +15001,14 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
         <source>Select a base directory for your selected rows</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -14798,6 +15023,18 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     <message>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Izbrane strani izvozi kot rastrske slike.</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation type="unfinished">Shrani kot sliko</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation type="unfinished">Napaka pri zapisovanju izhodnih datotek.</translation>
+    </message>
+    <message>
+        <source>Export successful</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -14915,11 +15152,11 @@ Poskusite uporabiti &quot;Pregled pred poletom&quot;, da jih odpravite</translat
     </message>
     <message>
         <source>Yes</source>
-        <translation>Da</translation>
+        <translation type="obsolete">Da</translation>
     </message>
     <message>
         <source>No</source>
-        <translation>Ne</translation>
+        <translation type="obsolete">Ne</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
@@ -16652,7 +16889,7 @@ Ali jih želite uporabiti v novi različici?</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation>&amp;Ne</translation>
+        <translation type="obsolete">&amp;Ne</translation>
     </message>
     <message>
         <source>Dir</source>
@@ -16896,7 +17133,7 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation>&amp;Da</translation>
+        <translation type="obsolete">&amp;Da</translation>
     </message>
 </context>
 <context>
@@ -17011,11 +17248,11 @@ Preverite ime in pot do nje.</translation>
     <name>QObject</name>
     <message>
         <source>No</source>
-        <translation>Ne</translation>
+        <translation type="obsolete">Ne</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation>Da</translation>
+        <translation type="obsolete">Da</translation>
     </message>
     <message>
         <source>Open</source>
@@ -17085,7 +17322,7 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Save as Image</source>
-        <translation>Shrani kot sliko</translation>
+        <translation type="obsolete">Shrani kot sliko</translation>
     </message>
     <message>
         <source>Error writting the output file(s).</source>
@@ -17093,23 +17330,23 @@ Preverite ime in pot do nje.</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
-        <translation>Napaka pri zapisovanju izhodnih datotek.</translation>
+        <translation type="obsolete">Napaka pri zapisovanju izhodnih datotek.</translation>
     </message>
     <message>
         <source>Export successful.</source>
-        <translation>Izvoz je bil uspešen.</translation>
+        <translation type="obsolete">Izvoz je bil uspešen.</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation>Datoteka že obstaja. Jo prepišem?</translation>
+        <translation type="obsolete">Datoteka že obstaja. Jo prepišem?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation>že obstaja. Jo prepišem?</translation>
+        <translation type="obsolete">že obstaja. Jo prepišem?</translation>
     </message>
     <message>
         <source>Yes all</source>
-        <translation>Da, vedno</translation>
+        <translation type="obsolete">Da, vedno</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
@@ -17353,7 +17590,7 @@ Povezave navzven
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Brazilščina</translation>
+        <translation type="obsolete">Brazilščina</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -18536,7 +18773,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Export As Image</source>
-        <translation>Izvozi kot sliko</translation>
+        <translation type="obsolete">Izvozi kot sliko</translation>
     </message>
     <message>
         <source>PS/EPS Importer</source>
@@ -18758,15 +18995,7 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>+tracking %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>-tracking </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>+baseline %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18775,10 +19004,6 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>parent= %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>unnamed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -18935,6 +19160,25 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>+baseline %1 </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Font(s):
+%1 are not available.
+They have been replaced by &quot;Courier&quot;
+Therefore the image may be not correct</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19974,6 +20218,13 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>SVG file contains some unsupported features</source>
         <translation>SVG datoteka vsebuje nepodprte možnosti</translation>
+    </message>
+</context>
+<context>
+    <name>SVGPlug</name>
+    <message>
+        <source>Group%1</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -21962,7 +22213,7 @@ Uporabite Končno preverjanje da jih odpravite</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajen</translation>
+        <translation type="obsolete">Običajen</translation>
     </message>
     <message>
         <source>Document</source>
@@ -22013,6 +22264,10 @@ Navpični zamik: %3</translation>
 Horizontal gap: %2
 Vertical gap: %3</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation type="unfinished">Prilagajam barve</translation>
     </message>
 </context>
 <context>
@@ -22321,7 +22576,7 @@ Vertical gap: %3</source>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Običajno</translation>
+        <translation type="obsolete">Običajno</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -22504,18 +22759,6 @@ Navpični zamik: %3</translation>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Normal Left</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Updating Pictures</source>
         <translation type="unfinished"></translation>
     </message>
@@ -22663,7 +22906,7 @@ Navpični zamik: %3</translation>
     </message>
     <message>
         <source>Layer</source>
-        <translation>Sloj</translation>
+        <translation type="obsolete">Sloj</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -22959,6 +23202,39 @@ Navpični zamik: %3</translation>
     </message>
     <message>
         <source>Group%1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enables the Preview Mode</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here you can select the visual appearance of the display
+You can choose between normal and several color blindness forms</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Vision</source>
+        <translation type="unfinished">Običajen pogled</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation type="unfinished">Protanopia (rdeča)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation type="unfinished">Deuteranopia (zelena)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation type="unfinished">Tritanopia (modra)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation type="unfinished">Polna barvna slepota</translation>
+    </message>
+    <message>
+        <source>Switches Color Management on or off</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -24372,6 +24648,10 @@ Uporabite le, če veste da vam po uvozu ne bo treba več urejati besedila.</tran
     </message>
     <message>
         <source>Check for GIF images</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignore non-printable Layers</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -26670,6 +26950,46 @@ Privzeta je PDF 1.3, ki ponuja najširšo združljivost. Izberite PDF 1.4, če v
     </message>
     <message>
         <source>Zoom</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Misc. Settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Object Duplicate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>X-Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Y-Displacement</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rotation Tool</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Constrain to:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Other Properties</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Horizontal displacement of objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vertical displacement of objects</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Constrain value for the rotation tool when the CTRL-Key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

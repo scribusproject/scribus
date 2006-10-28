@@ -204,146 +204,146 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	LanguageManager langmgr;
 	langmgr.init(false);
 	textView2->setText(QString::fromUtf8( "<table><tr><td><b><i>" + tr("Official Translations and Translators:").utf8() + "</i></b></td><td></td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("af").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("af").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Kobus Wolvaardt</td><td>kobuswolf@diewereld.co.za</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Iñaki Larrañaga Murgoitio</td><td>dooteo@euskalgnu.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("br").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("br").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Alan Monfort</td><td>alan.monfort@free.fr</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("ca").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("ca").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xavier Sala Pujolar</td><td>utrescu@xaviersala.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("cs").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("cs").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("da").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("da").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Morten Langlo</td><td>mlanglo@mail.dk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("eo").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("eo").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("et").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("et").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Marek Laane</td><td>bald@starman.ee</td></tr>" +
 											"<tr><td>Hasso Tepper</td><td>hasso@estpak.ee</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("fi").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("fi").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Riku Leino</td><td>riku@scribus.info</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("fr").utf8()  + "</b></td><td> </td>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("fr").local8Bit()  + "</b></td><td> </td>" +
 											"<tr><td>Nicolas Boos</td><td>nicolas.boos@wanadoo.fr</td></tr>" +
 											"<tr><td>Louis Desjardins</td><td>louis_desjardins@mardigrafe.com</td></tr>" +
 											"<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("de").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("de").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("ga").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("ga").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
 											"<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("el").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("el").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Toussis Manolis</td><td>manolis@koppermind.homelinux.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Csaba Zakarias</td><td>csaba.zakarias@gmail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("it").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("it").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Pier Luigi Cinquantini</td><td>plcinquantini@katamail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("ja").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("ja").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Shushi Kurose</td><td>md81@bird.email.ne.jp</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("ko").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("ko").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Kitae Kim</td><td>neeum@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Klaus Ade Johnstad</td><td>klaus@inout.no</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("pl").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("pl").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Maciej Hański</td><td>m.hanski@gmx.at</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt_BR").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt_BR").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Ludi Maciel</td><td>iludi@uol.com.br</td></tr>" +
 											"<tr><td>Frederico Gon&#231;alves</td><td></td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("ru").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("ru").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Alexandre Prokoudine</td><td>alexandre.prokoudine@gmail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("sr").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("sr").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Bojan Božovi&#263;</td><td>bole89@infosky.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("sk").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("sk").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Zdenko Podobn&yacute;</td><td>zdpo@mailbox.sk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("sl").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("sl").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Boštjan Špetič</td><td>igzebedze@kiberpipa.org</td></tr>" +
 											"<tr><td>Peter Čuhalev</td><td>skatey@slocartoon.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("es_ES").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("es_ES").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Josep Febrer</td><td>josep@linuxmail.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("sv").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("sv").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Göran Bondeson</td><td>goran@bondeson.net</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("th_TH").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("th_TH").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Sira Nokyoungthong</td><td>Sira Nokyoungthong</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Barış Atasoy</td><td>batasoy@pozitifpc.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Oleksandr Moskalenko</td><td>malex@tagancha.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("cy").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("cy").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Kevin Donnelly</td><td>kevin@dotmon.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"</table>" +
-											"<table><tr><td><b><i>" + tr("Previous Translation Contributors:").utf8() + "</i></b></td><td></td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").utf8() + "</b></td><td></td></tr>" +
+											"<table><tr><td><b><i>" + tr("Previous Translation Contributors:").local8Bit() + "</i></b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("eu").local8Bit() + "</b></td><td></td></tr>" +
 											"<tr><td>Pablo Saratxaga</td><td>pablo@mandrakesoft.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt_BR").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("pt_BR").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Celio Santos</td><td>celio@electronic.srv.br</td></tr>" +
 											"<tr><td>Cezar de Souza Marson Nido</td><td>cesar@electronic.srv.br</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("bg").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("bg").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Vasko Tomanov</td><td>vasko@web.bg</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("fr").utf8()  + "</b></td><td> </td>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("fr").local8Bit()  + "</b></td><td> </td>" +
 											"<tr><td>Michel Briand</td><td>michelbriand@free.fr</td></tr>" +
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
 											"<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
 											"<tr><td>Zoltán Böszörményi</td><td>zboszor@freemail.hu</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("lt").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("lt").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Aivaras Kirejevas</td><td>kiras@mail.lt</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").utf8()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Axel Bojer</td><td>axelb@skolelinux.no</td></tr>" +
 											"<tr><td>Johannes Wilm</td><td>j@indymedia.no</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("tr").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Erkan Kaplan</td><td>Selamsana@uni.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").utf8()  + "</b></td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("uk").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Sergiy Kudryk</td><td>kudryk@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"</table>"));

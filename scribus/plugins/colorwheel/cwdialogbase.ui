@@ -515,7 +515,7 @@
                                                                 <cstring>defectCombo</cstring>
                                                             </property>
                                                             <property name="toolTip" stdset="0">
-                                                                <string>imulate common vision defects here. Select type of the defect.</string>
+                                                                <string>Simulate common vision defects here. Select type of the defect.</string>
                                                             </property>
                                                         </widget>
                                                     </hbox>

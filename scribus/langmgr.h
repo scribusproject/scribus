@@ -30,6 +30,8 @@ for which a new license (GPL+exception) is in place.
 
 typedef std::pair<QString, QString> langPair;
 
+
+
 class SCRIBUS_API LanguageManager
 {
 public:
@@ -40,6 +42,7 @@ public:
 	const QString getAbbrevFromLang(QString, bool getTranslated=true);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
+	QString numericSequence(QString seq);
 
 private:
 	QMap<QString, langPair > langList;

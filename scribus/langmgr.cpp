@@ -58,6 +58,7 @@ void LanguageManager::generateLangList()
 	langList.insert("nl",       langPair("Dutch",               QObject::tr( "Dutch" )) );
 	langList.insert("en",       langPair("English",             QObject::tr( "English" )) );
 	langList.insert("en_GB",    langPair("English (British)",   QObject::tr( "English (British)" )) );
+	langList.insert("en_US",    langPair("English (American)",  QObject::tr( "English (American)" )) );
 	langList.insert("eo",       langPair("Esperanto",           QObject::tr( "Esperanto" )) );
 	langList.insert("et",       langPair("Estonian",            QObject::tr( "Estonian" )) );
 	langList.insert("de",       langPair("German",              QObject::tr( "German" )) );
@@ -181,3 +182,50 @@ void LanguageManager::printInstalledList()
 	for (it=installedLangList.begin();it!=installedLangList.end();++it)
 		std::cout << it.key().leftJustify(6) << ": " << it.data() << std::endl;
 }
+
+QString LanguageManager::numericSequence(QString seq)
+{
+	QString retSeq;
+	const int nsBengali=0,nsDevanagari=1,nsGujarati=2,nsGurumukhi=3,nsKannada=4,nsMalayalam=5,nsOriya=6,nsTamil=7,nsTelugu=8,nsTibetan=9,nsLepcha=10;
+	switch (1)
+	{
+		case nsBengali:
+			retSeq+="";
+			break;
+		case nsDevanagari:
+			retSeq+="०१२३४५६७८९";
+			break;
+		case nsGujarati:
+			retSeq+="૦૧૨૩૪૫૬૭૮૯";
+			break;
+		case nsGurumukhi:
+			retSeq+="੦੧੨੩੪੫੬੭੮੯";
+			break;
+		case nsKannada:
+			retSeq+="";
+			break;
+		case nsMalayalam:
+			retSeq+="";
+			break;
+		case nsOriya:
+			retSeq+="";
+			break;
+		case nsTamil:
+			retSeq+="";
+			break;
+		case nsTelugu:
+			retSeq+="";
+			break;
+		case nsTibetan:
+			retSeq+="";
+			break;
+		case nsLepcha:
+			retSeq+="";
+			break;
+		default:
+			retSeq="0123456789";
+			break;
+	}
+	return retSeq;
+}
+

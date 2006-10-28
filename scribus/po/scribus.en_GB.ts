@@ -3063,14 +3063,6 @@ If &quot;name&quot; is not given the currently selected item is used.
 <context>
     <name>AboutPlugins</name>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
         <source>Filename:</source>
         <translation>Filename:</translation>
     </message>
@@ -4080,31 +4072,31 @@ If &quot;name&quot; is not given the currently selected item is used.
     <name>AlignDistributeBase</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished">Align and Distribute</translation>
+        <translation>Align and Distribute</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Align</translation>
+        <translation>Align</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished">&amp;Selected Guide:</translation>
+        <translation>&amp;Selected Guide:</translation>
     </message>
     <message>
         <source>&amp;Relative To:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Relative To:</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished">Distribute</translation>
+        <translation>Distribute</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished">&amp;Distance:</translation>
+        <translation>&amp;Distance:</translation>
     </message>
 </context>
 <context>
@@ -4112,10 +4104,6 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>Align and Distribute</source>
         <translation>Align and Distribute</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="obsolete">Align</translation>
     </message>
     <message>
         <source>&amp;Relative to:</source>
@@ -4180,10 +4168,6 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
         <source>Align tops</source>
         <translation>Align tops</translation>
-    </message>
-    <message>
-        <source>Distribute</source>
-        <translation type="obsolete">Distribute</translation>
     </message>
     <message>
         <source>Distribute left sides equidistantly</source>
@@ -4255,19 +4239,19 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Make horizontal gaps between objects and sides of page equal</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Make vertical gaps between objects and the top and bottom of page margins equal</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Make horizontal gaps between objects and sides of page margins equal</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Make vertical gaps between objects and the top and bottom of page equal</translation>
     </message>
 </context>
 <context>
@@ -4900,10 +4884,6 @@ If &quot;name&quot; is not given the currently selected item is used.
 <context>
     <name>ApplyMasterPageDialog</name>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
-    </message>
-    <message>
         <source>Apply Master Page</source>
         <translation>Apply Master Page</translation>
     </message>
@@ -5056,15 +5036,9 @@ If &quot;name&quot; is not given the currently selected item is used.
         <source>For ISBN-10 the data should contain 9 or 10 digits separated appropriately by dash characters.
 For ISBN-13 the data should contain 12 or 13 digits separated appropriately by dash characters.
 If the last digit is not given then the ISBN checkdigit is calculated automatically.</source>
-        <translation type="obsolete">For ISBN-10 the data should contain 9 or 10 digits separated appropriately by dash characters.
+        <translation>For ISBN-10 the data should contain 9 or 10 digits separated appropriately by dash characters.
 For ISBN-13 the data should contain 12 or 13 digits separated appropriately by dash characters.
 If the last digit is not given then the ISBN checkdigit is calculated automatically.</translation>
-    </message>
-    <message>
-        <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
-For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
-If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5661,189 +5635,182 @@ please choose another one.</translation>
     <name>CWDialog</name>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished">Normal Vision</translation>
+        <translation>Normal Vision</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation type="unfinished">Protanopia (Red)</translation>
+        <translation>Protanopia (Red)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation type="unfinished">Deuteranopia (Green)</translation>
+        <translation>Deuteranopia (Green)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation type="unfinished">Tritanopia (Blue)</translation>
+        <translation>Tritanopia (Blue)</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation type="unfinished">Full Colour Blindness</translation>
+        <translation>Full Colour Blindness</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation type="unfinished">Merging colours</translation>
+        <translation>Merging colours</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation type="unfinished">Error: </translation>
+        <translation>Error: </translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation type="unfinished">Colour %1 exists already!</translation>
+        <translation>Colour %1 exists already!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation type="unfinished">Colour %1 appended.</translation>
+        <translation>Colour %1 appended.</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation type="unfinished">Now opening the colour manager.</translation>
+        <translation>Now opening the colour manager.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation type="unfinished">Colour Merging</translation>
+        <translation>Colour Merging</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished">Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
+        <translation>Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
     </message>
 </context>
 <context>
     <name>CWDialogBase</name>
     <message>
         <source>Color Wheel</source>
-        <translation type="unfinished">Colour Wheel</translation>
+        <translation>Colou Wheel</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Click the wheel to get the base colour. Its colour model depends on the chosen tab.</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <source>RGB:</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB:</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <source>CMYK:</source>
-        <translation type="unfinished"></translation>
+        <translation>CMYK:</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Document</translation>
+        <translation>Document</translation>
     </message>
     <message>
         <source>Color Scheme Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Colour Scheme Method:</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished">Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
+        <translation>Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished">Angle:</translation>
+        <translation>Angle:</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished">Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
+        <translation>Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
     </message>
     <message>
         <source>Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview:</translation>
     </message>
     <message>
         <source>Vision Defect Type:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>imulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vision Defect Type:</translation>
     </message>
     <message>
         <source>Sample color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sample colour scheme.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Colours of your chosen colour scheme.</translation>
     </message>
     <message>
         <source>&amp;Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Merge</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation type="unfinished">Merge created colours into the document colours</translation>
+        <translation>Merge created colors into the document colors</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Replace</translation>
+        <translation>&amp;Replace</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation type="unfinished">Replace created colours in the document colours</translation>
+        <translation>Replace created colours in the document colours</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Cancel</translation>
+        <translation>&amp;Cancel</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished">Alt+C</translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation type="unfinished">Leave colours untouched</translation>
+        <translation>Leave colours untouched</translation>
     </message>
-</context>
-<context>
-    <name>ChTable</name>
     <message>
-        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</translation>
+        <source>Simulate common vision defects here. Select type of the defect.</source>
+        <translation>Simulate common vision defects here. Select type of the defect.</translation>
     </message>
 </context>
 <context>
@@ -6003,6 +5970,10 @@ please choose another one.</translation>
     <message>
         <source>Type in a four digit unicode value directly here</source>
         <translation>Type in a four digit unicode value directly here</translation>
+    </message>
+    <message>
+        <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
+        <translation>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</translation>
     </message>
 </context>
 <context>
@@ -6337,173 +6308,6 @@ please choose another one.</translation>
     </message>
 </context>
 <context>
-    <name>ColorWheelDialog</name>
-    <message>
-        <source>Color Wheel</source>
-        <translation type="obsolete">Colour Wheel</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Colour</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Name</translation>
-    </message>
-    <message>
-        <source>C</source>
-        <translation type="obsolete">C</translation>
-    </message>
-    <message>
-        <source>M</source>
-        <translation type="obsolete">M</translation>
-    </message>
-    <message>
-        <source>Y</source>
-        <translation type="obsolete">Y</translation>
-    </message>
-    <message>
-        <source>K</source>
-        <translation type="obsolete">K</translation>
-    </message>
-    <message>
-        <source>Select Method:</source>
-        <translation type="obsolete">Select Method:</translation>
-    </message>
-    <message>
-        <source>Angle (0 - 90 degrees):</source>
-        <translation type="obsolete">Angle (0 - 90 degrees):</translation>
-    </message>
-    <message>
-        <source>&amp;Merge Colors</source>
-        <translation type="obsolete">&amp;Merge Colours</translation>
-    </message>
-    <message>
-        <source>&amp;Replace Colors</source>
-        <translation type="obsolete">&amp;Replace Colours</translation>
-    </message>
-    <message>
-        <source>Merge created colors into the document colors</source>
-        <translation type="obsolete">Merge created colours into the document colours</translation>
-    </message>
-    <message>
-        <source>Replace created colors in the document colors</source>
-        <translation type="obsolete">Replace created colours in the document colours</translation>
-    </message>
-    <message>
-        <source>Leave colors untouched</source>
-        <translation type="obsolete">Leave colours untouched</translation>
-    </message>
-    <message>
-        <source>Merging colors</source>
-        <translation type="obsolete">Merging colours</translation>
-    </message>
-    <message>
-        <source>Error: </source>
-        <translation type="obsolete">Error: </translation>
-    </message>
-    <message>
-        <source>Now opening the color manager.</source>
-        <translation type="obsolete">Now opening the colour manager.</translation>
-    </message>
-    <message>
-        <source>Color Merging</source>
-        <translation type="obsolete">Colour Merging</translation>
-    </message>
-    <message>
-        <source>Normal Vision</source>
-        <translation type="obsolete">Normal Vision</translation>
-    </message>
-    <message>
-        <source>Full Color Blindness</source>
-        <translation type="obsolete">Full Colour Blindness</translation>
-    </message>
-    <message>
-        <source>Vision Defect:</source>
-        <translation type="obsolete">Vision Defect:</translation>
-    </message>
-    <message>
-        <source>Cr&amp;eate color...</source>
-        <translation type="obsolete">Cr&amp;eate colour...</translation>
-    </message>
-    <message>
-        <source>&amp;Import existing color...</source>
-        <translation type="obsolete">&amp;Import existing colour...</translation>
-    </message>
-    <message>
-        <source>&amp;Merge colors</source>
-        <translation type="obsolete">&amp;Merge colours</translation>
-    </message>
-    <message>
-        <source>&amp;Replace colors</source>
-        <translation type="obsolete">&amp;Replace colours</translation>
-    </message>
-    <message>
-        <source>E&amp;xit</source>
-        <translation type="obsolete">E&amp;xit</translation>
-    </message>
-    <message>
-        <source>C&amp;olor</source>
-        <translation type="obsolete">C&amp;olour</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation type="obsolete">New Colour</translation>
-    </message>
-    <message>
-        <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="obsolete">Difference between the selected value and the counted ones. Refer to documentation for more information.</translation>
-    </message>
-    <message>
-        <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation type="obsolete">Click the wheel to get the base colour. It is hue in HSV mode.</translation>
-    </message>
-    <message>
-        <source>Sample color scheme</source>
-        <translation type="obsolete">Sample colour scheme</translation>
-    </message>
-    <message>
-        <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="obsolete">Select one of the methods to create a colour scheme. Refer to documentation for more information.</translation>
-    </message>
-    <message>
-        <source>Colors of your chosen color scheme</source>
-        <translation type="obsolete">Colors of your chosen colour scheme</translation>
-    </message>
-    <message>
-        <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="obsolete">Simulate common vision defects here. Select type of the defect.</translation>
-    </message>
-    <message>
-        <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="obsolete">Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
-    </message>
-    <message>
-        <source>Color %1 exists already!</source>
-        <translation type="obsolete">Colour %1 exists already!</translation>
-    </message>
-    <message>
-        <source>Color %1 appended.</source>
-        <translation type="obsolete">Colour %1 appended.</translation>
-    </message>
-    <message>
-        <source>C&amp;olor Components...</source>
-        <translation type="obsolete">C&amp;olour Components...</translation>
-    </message>
-    <message>
-        <source>Protanopia (Red)</source>
-        <translation type="obsolete">Protanopia (Red)</translation>
-    </message>
-    <message>
-        <source>Deuteranopia (Green)</source>
-        <translation type="obsolete">Deuteranopia (Green)</translation>
-    </message>
-    <message>
-        <source>Tritanopia (Blue)</source>
-        <translation type="obsolete">Tritanopia (Blue)</translation>
-    </message>
-</context>
-<context>
     <name>ColorWheelPlugin</name>
     <message>
         <source>&amp;Color Wheel...</source>
@@ -6661,6 +6465,38 @@ please choose another one.</translation>
     <message>
         <source>December</source>
         <translation>December</translation>
+    </message>
+    <message>
+        <source>Yes</source>
+        <translation>Yes</translation>
+    </message>
+    <message>
+        <source>No</source>
+        <translation>No</translation>
+    </message>
+    <message>
+        <source>&amp;Yes</source>
+        <translation>&amp;Yes</translation>
+    </message>
+    <message>
+        <source>&amp;No</source>
+        <translation>&amp;No</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normal</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation>Normal Left</translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation>Normal Middle</translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation>Normal Right</translation>
     </message>
 </context>
 <context>
@@ -6855,11 +6691,126 @@ please choose another one.</translation>
     </message>
     <message>
         <source>X-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Scale:</translation>
     </message>
     <message>
         <source>Y-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Scale:</translation>
+    </message>
+</context>
+<context>
+    <name>CreateRangeBase</name>
+    <message>
+        <source>Create Range</source>
+        <translation>Create Range</translation>
+    </message>
+    <message>
+        <source>Number of Pages in Document:</source>
+        <translation>Number of Pages in Document:</translation>
+    </message>
+    <message>
+        <source>Doc Page Range</source>
+        <translation>Doc Page Range</translation>
+    </message>
+    <message>
+        <source>Basic Range Selection</source>
+        <translation>Basic Range Selection</translation>
+    </message>
+    <message>
+        <source>Add a Range of Pages</source>
+        <translation>Add a Range of Pages</translation>
+    </message>
+    <message>
+        <source>Consecutive Pages</source>
+        <translation>Consecutive Pages</translation>
+    </message>
+    <message>
+        <source>From:</source>
+        <translation>From:</translation>
+    </message>
+    <message>
+        <source>To:</source>
+        <translation>To:</translation>
+    </message>
+    <message>
+        <source>Comma Separated List</source>
+        <translation>Comma Separated List</translation>
+    </message>
+    <message>
+        <source>Even Pages</source>
+        <translation>Even Pages</translation>
+    </message>
+    <message>
+        <source>Odd Pages</source>
+        <translation>Odd Pages</translation>
+    </message>
+    <message>
+        <source>&amp;Add To Range</source>
+        <translation>&amp;Add To Range</translation>
+    </message>
+    <message>
+        <source>Alt+A</source>
+        <translation>Alt+A</translation>
+    </message>
+    <message>
+        <source>Range of Pages</source>
+        <translation>Range of Pages</translation>
+    </message>
+    <message>
+        <source>Move &amp;Up</source>
+        <translation>Move &amp;Up</translation>
+    </message>
+    <message>
+        <source>Alt+U</source>
+        <translation>Alt+U</translation>
+    </message>
+    <message>
+        <source>Move &amp;Down</source>
+        <translation>Move &amp;Down</translation>
+    </message>
+    <message>
+        <source>Alt+D</source>
+        <translation>Alt+D</translation>
+    </message>
+    <message>
+        <source>De&amp;lete</source>
+        <translation>De&amp;lete</translation>
+    </message>
+    <message>
+        <source>Alt+L</source>
+        <translation>Alt+L</translation>
+    </message>
+    <message>
+        <source>Advanced Reordering</source>
+        <translation>Advanced Reordering</translation>
+    </message>
+    <message>
+        <source>Page Group Size:</source>
+        <translation>Page Group Size:</translation>
+    </message>
+    <message>
+        <source>Sample Page Order:</source>
+        <translation>Sample Page Order:</translation>
+    </message>
+    <message>
+        <source>Page Order</source>
+        <translation>Page Order</translation>
+    </message>
+    <message>
+        <source>&amp;OK</source>
+        <translation>&amp;OK</translation>
+    </message>
+    <message>
+        <source>Alt+O</source>
+        <translation>Alt+O</translation>
+    </message>
+    <message>
+        <source>&amp;Cancel</source>
+        <translation>&amp;Cancel</translation>
+    </message>
+    <message>
+        <source>Alt+C</source>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -6931,14 +6882,6 @@ please choose another one.</translation>
     <message>
         <source>Mirror</source>
         <translation>Mirror</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
     </message>
     <message>
         <source>Orientation</source>
@@ -7033,77 +6976,6 @@ This can be set in the Preferences.</translation>
     <message>
         <source>&amp;Include ICC Profiles</source>
         <translation>&amp;Include ICC Profiles</translation>
-    </message>
-</context>
-<context>
-    <name>CwSetColor</name>
-    <message>
-        <source>Set Color Components</source>
-        <translation type="obsolete">Set Colour Components</translation>
-    </message>
-    <message>
-        <source>CMYK</source>
-        <translation type="obsolete">CMYK</translation>
-    </message>
-    <message>
-        <source>RGB</source>
-        <translation type="obsolete">RGB</translation>
-    </message>
-    <message>
-        <source>HSV</source>
-        <translation type="obsolete">HSV</translation>
-    </message>
-    <message>
-        <source>H:</source>
-        <translation type="obsolete">H:</translation>
-    </message>
-    <message>
-        <source>S:</source>
-        <translation type="obsolete">S:</translation>
-    </message>
-    <message>
-        <source>V:</source>
-        <translation type="obsolete">V:</translation>
-    </message>
-    <message>
-        <source>R:</source>
-        <translation type="obsolete">R:</translation>
-    </message>
-    <message>
-        <source>G:</source>
-        <translation type="obsolete">G:</translation>
-    </message>
-    <message>
-        <source>B:</source>
-        <translation type="obsolete">B:</translation>
-    </message>
-    <message>
-        <source>C:</source>
-        <translation type="obsolete">C:</translation>
-    </message>
-    <message>
-        <source>M:</source>
-        <translation type="obsolete">M:</translation>
-    </message>
-    <message>
-        <source>Y:</source>
-        <translation type="obsolete">Y:</translation>
-    </message>
-    <message>
-        <source>K:</source>
-        <translation type="obsolete">K:</translation>
-    </message>
-    <message>
-        <source>Set &amp;RGB</source>
-        <translation type="obsolete">Set &amp;RGB</translation>
-    </message>
-    <message>
-        <source>Set C&amp;MYK</source>
-        <translation type="obsolete">Set C&amp;MYK</translation>
-    </message>
-    <message>
-        <source>Set &amp;HSV</source>
-        <translation type="obsolete">Set &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -7770,7 +7642,7 @@ failed!</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Group%1</translation>
     </message>
 </context>
 <context>
@@ -8092,6 +7964,21 @@ failed!</translation>
     <message>
         <source>Curves</source>
         <translation>Curves</translation>
+    </message>
+</context>
+<context>
+    <name>ExportBitmap</name>
+    <message>
+        <source>File exists. Overwrite?</source>
+        <translation>File exists. Overwrite?</translation>
+    </message>
+    <message>
+        <source>exists already. Overwrite?</source>
+        <translation>exists already. Overwrite?</translation>
+    </message>
+    <message>
+        <source>All</source>
+        <translation>All</translation>
     </message>
 </context>
 <context>
@@ -8680,10 +8567,6 @@ Use 72 dpi for Images intended for the Screen</translation>
         <translation>Manage Guides</translation>
     </message>
     <message>
-        <source>&amp;Standard</source>
-        <translation>&amp;Standard</translation>
-    </message>
-    <message>
         <source>Horizontals</source>
         <translation>Horizontals</translation>
     </message>
@@ -8738,10 +8621,6 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Alt+Y</source>
         <translation>Alt+Y</translation>
-    </message>
-    <message>
-        <source>A&amp;utomatic</source>
-        <translation>A&amp;utomatic</translation>
     </message>
     <message>
         <source>&amp;Number:</source>
@@ -8806,6 +8685,14 @@ Use 72 dpi for Images intended for the Screen</translation>
     <message>
         <source>Delete all guides from the current document</source>
         <translation>Delete all guides from the current document</translation>
+    </message>
+    <message>
+        <source>&amp;Single</source>
+        <translation>&amp;Single</translation>
+    </message>
+    <message>
+        <source>&amp;Column/Row</source>
+        <translation>&amp;Column/Row</translation>
     </message>
 </context>
 <context>
@@ -9000,14 +8887,6 @@ A value of 0 means unlimited hyphenations.</translation>
         <translation>Has Embedded Profile:</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
         <source>Profile Name:</source>
         <translation>Profile Name:</translation>
     </message>
@@ -9104,10 +8983,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>at End</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
-    </message>
-    <message>
         <source>Page(s)</source>
         <translation>Page(s)</translation>
     </message>
@@ -9159,18 +9034,6 @@ converting their vector data into Scribus objects.</translation>
         <source>Master Pages</source>
         <translation>Master Pages</translation>
     </message>
-    <message>
-        <source>Normal Left</source>
-        <translation>Normal Left</translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation>Normal Middle</translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation>Normal Right</translation>
-    </message>
 </context>
 <context>
     <name>InsertAFrame</name>
@@ -9180,11 +9043,11 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</translation>
     </message>
 </context>
 <context>
@@ -9404,14 +9267,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>&amp;New Script:</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
-    </message>
-    <message>
         <source>Do you really want to delete this script?</source>
         <translation>Do you really want to delete this script?</translation>
     </message>
@@ -9610,14 +9465,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>&amp;Save</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
-    </message>
-    <message>
         <source>&amp;Import</source>
         <translation>&amp;Import</translation>
     </message>
@@ -9772,10 +9619,6 @@ converting their vector data into Scribus objects.</translation>
         <source>Master Page:</source>
         <translation>Master Page:</translation>
     </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
-    </message>
 </context>
 <context>
     <name>MarginWidget</name>
@@ -9863,14 +9706,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>Do you really want to delete this master page?</translation>
     </message>
     <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
-    </message>
-    <message>
         <source>&amp;Name:</source>
         <translation>&amp;Name:</translation>
     </message>
@@ -9889,10 +9724,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>Copy #%1 of </source>
         <translation>Copy #%1 of </translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
@@ -9929,18 +9760,6 @@ converting their vector data into Scribus objects.</translation>
     <message>
         <source>New Name:</source>
         <translation>New Name:</translation>
-    </message>
-    <message>
-        <source>Normal Left</source>
-        <translation>Normal Left</translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation>Normal Middle</translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation>Normal Right</translation>
     </message>
 </context>
 <context>
@@ -10787,75 +10606,83 @@ Corners:</translation>
     </message>
     <message>
         <source>Transparency Settings</source>
-        <translation type="unfinished">Transparency Settings</translation>
+        <translation>Transparency Settings</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished">&amp;Group</translation>
+        <translation>&amp;Group</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished">Opacity:</translation>
+        <translation>Opacity:</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Blend Mode:</translation>
+        <translation>Blend Mode:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished">Darken</translation>
+        <translation>Darken</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished">Lighten</translation>
+        <translation>Lighten</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished">Multiply</translation>
+        <translation>Multiply</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished">Screen</translation>
+        <translation>Screen</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished">Overlay</translation>
+        <translation>Overlay</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished">Hard Light</translation>
+        <translation>Hard Light</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished">Soft Light</translation>
+        <translation>Soft Light</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished">Difference</translation>
+        <translation>Difference</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Exclusion</translation>
+        <translation>Exclusion</translation>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished">Colour Dodge</translation>
+        <translation>Colour Dodge</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished">Colour Burn</translation>
+        <translation>Colour Burn</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished">Hue</translation>
+        <translation>Hue</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished">Colour</translation>
+        <translation>Colour</translation>
+    </message>
+    <message>
+        <source>Group the selected objects</source>
+        <translation>Group the selected objects</translation>
+    </message>
+    <message>
+        <source>Destroys the selected group</source>
+        <translation>Destroys the selected group</translation>
     </message>
 </context>
 <context>
@@ -11643,6 +11470,50 @@ Corners:</translation>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
         <translation>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</translation>
     </message>
+    <message>
+        <source>Display Settings</source>
+        <translation>Display Settings</translation>
+    </message>
+    <message>
+        <source>Print Settings</source>
+        <translation>Print Settings</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Horizontal</source>
+        <translation>Mirror Page(s) Horizontal</translation>
+    </message>
+    <message>
+        <source>Mirror Page(s) Vertical</source>
+        <translation>Mirror Page(s) Vertical</translation>
+    </message>
+    <message>
+        <source>Clip to Page Margins</source>
+        <translation>Clip to Page Margins</translation>
+    </message>
+    <message>
+        <source>Print in Grayscale</source>
+        <translation>Print in Greyscale</translation>
+    </message>
+    <message>
+        <source>Convert Spot Colors</source>
+        <translation>Convert Spot Colours</translation>
+    </message>
+    <message>
+        <source>Apply ICC Profiles</source>
+        <translation>Apply ICC Profiles</translation>
+    </message>
+    <message>
+        <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+        <translation>Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
+    </message>
+    <message>
+        <source>Enables global Overprint Mode for this document, overrides object settings</source>
+        <translation>Enables global Overprint Mode for this document, overrides object settings</translation>
+    </message>
+    <message>
+        <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+        <translation>Allows you to embed ICC profiles in the print stream when colour management is enabled</translation>
+    </message>
 </context>
 <context>
     <name>PSLib</name>
@@ -11842,10 +11713,6 @@ Corners:</translation>
         <translation>Here are all your master pages. To create a new page, drag a master page to the page view below</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
-    </message>
-    <message>
         <source>Arrange Pages</source>
         <translation>Arrange Pages</translation>
     </message>
@@ -11889,7 +11756,7 @@ Corners:</translation>
     </message>
 </context>
 <context>
-    <name>PicSearch</name>
+    <name>PicSearchBase</name>
     <message>
         <source>Result</source>
         <translation>Result</translation>
@@ -11899,16 +11766,20 @@ Corners:</translation>
         <translation>Search Results for: </translation>
     </message>
     <message>
-        <source>Preview</source>
-        <translation>Preview</translation>
+        <source>&amp;Preview</source>
+        <translation>&amp;Preview</translation>
     </message>
     <message>
-        <source>Select</source>
-        <translation>Select</translation>
+        <source>Alt+P</source>
+        <translation>Alt+P</translation>
     </message>
     <message>
-        <source>Cancel</source>
-        <translation>Cancel</translation>
+        <source>&amp;Select</source>
+        <translation>&amp;Select</translation>
+    </message>
+    <message>
+        <source>Alt+S</source>
+        <translation>Alt+S</translation>
     </message>
 </context>
 <context>
@@ -11916,10 +11787,6 @@ Corners:</translation>
     <message>
         <source>Goto</source>
         <translation>Goto</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
     </message>
     <message>
         <source>OK</source>
@@ -11993,6 +11860,14 @@ Corners:</translation>
         <source>Select a base directory for your selected rows</source>
         <translation>Select a base directory for your selected rows</translation>
     </message>
+    <message>
+        <source>Case insensitive search</source>
+        <translation>Case insensitive search</translation>
+    </message>
+    <message>
+        <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
+        <translation>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</translation>
+    </message>
 </context>
 <context>
     <name>PixmapExportPlugin</name>
@@ -12007,6 +11882,18 @@ Corners:</translation>
     <message>
         <source>Exports selected pages as bitmap images.</source>
         <translation>Exports selected pages as bitmap images.</translation>
+    </message>
+    <message>
+        <source>Save as Image</source>
+        <translation>Save as Image</translation>
+    </message>
+    <message>
+        <source>Error writing the output file(s).</source>
+        <translation>Error writing the output file(s).</translation>
+    </message>
+    <message>
+        <source>Export successful</source>
+        <translation>Export successful</translation>
     </message>
 </context>
 <context>
@@ -12095,14 +11982,6 @@ Corners:</translation>
     <message>
         <source>File</source>
         <translation>File</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
     </message>
     <message>
         <source>You need to restart the application to apply the changes.</source>
@@ -12447,7 +12326,7 @@ Do you want to migrate them to the new Scribus version?</translation>
     </message>
     <message>
         <source>Line: %1 Column: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Line: %1 Column: %2</translation>
     </message>
 </context>
 <context>
@@ -12708,14 +12587,6 @@ Do you want to migrate them to the new Scribus version?</translation>
         <translation>&lt;qt&gt;Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt&gt;</translation>
     </message>
     <message>
-        <source>&amp;Yes</source>
-        <translation>&amp;Yes</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation>&amp;No</translation>
-    </message>
-    <message>
         <source>New Folder 1</source>
         <translation>New Folder 1</translation>
     </message>
@@ -12905,38 +12776,6 @@ Check path and filename.</translation>
         <translation>SVG-Images (*.svg);;All Files (*)</translation>
     </message>
     <message>
-        <source>Yes</source>
-        <translation>Yes</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation>No</translation>
-    </message>
-    <message>
-        <source>Save as Image</source>
-        <translation>Save as Image</translation>
-    </message>
-    <message>
-        <source>Error writing the output file(s).</source>
-        <translation>Error writing the output file(s).</translation>
-    </message>
-    <message>
-        <source>Export successful.</source>
-        <translation>Export successful.</translation>
-    </message>
-    <message>
-        <source>File exists. Overwrite?</source>
-        <translation>File exists. Overwrite?</translation>
-    </message>
-    <message>
-        <source>exists already. Overwrite?</source>
-        <translation>exists already. Overwrite?</translation>
-    </message>
-    <message>
-        <source>Yes all</source>
-        <translation>Yes all</translation>
-    </message>
-    <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
         <translation>All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
@@ -13094,10 +12933,6 @@ External Links</translation>
     <message>
         <source>Bulgarian</source>
         <translation>Bulgarian</translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation>Brazilian</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -14131,10 +13966,6 @@ is not exhaustive due to exceptions from called functions.
         <translation>New From Template</translation>
     </message>
     <message>
-        <source>Export As Image</source>
-        <translation>Export As Image</translation>
-    </message>
-    <message>
         <source>PS/EPS Importer</source>
         <translation>PS/EPS Importer</translation>
     </message>
@@ -14345,16 +14176,8 @@ is not exhaustive due to exceptions from called functions.
         <translation>-outline </translation>
     </message>
     <message>
-        <source>+tracking %1</source>
-        <translation>+tracking %1</translation>
-    </message>
-    <message>
         <source>-tracking </source>
         <translation>-tracking </translation>
-    </message>
-    <message>
-        <source>+baseline %1</source>
-        <translation>+baseline %1</translation>
     </message>
     <message>
         <source>+stretch </source>
@@ -14363,10 +14186,6 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>parent= %1</source>
         <translation>parent= %1</translation>
-    </message>
-    <message>
-        <source>unnamed</source>
-        <translation>unnamed</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
@@ -14522,11 +14341,33 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>+tracking %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+tracking %1 </translation>
     </message>
     <message>
         <source>+baseline %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+baseline %1 </translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation>Breton</translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation>English (American)</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation>%1 may be corrupted : missing or wrong resolution tags</translation>
+    </message>
+    <message>
+        <source>The Font(s):
+%1 are not available.
+They have been replaced by &quot;Courier&quot;
+Therefore the image may be not correct</source>
+        <translation>The Font(s):
+%1 are not available.
+They have been replaced by &quot;Courier&quot;
+Therefore the image may be not correct</translation>
     </message>
 </context>
 <context>
@@ -15206,6 +15047,13 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
+    <name>SVGPlug</name>
+    <message>
+        <source>Group%1</source>
+        <translation>Group%1</translation>
+    </message>
+</context>
+<context>
     <name>SWDialog</name>
     <message>
         <source>Short Words</source>
@@ -15460,13 +15308,6 @@ converting their vector data into Scribus objects.</translation>
     </message>
 </context>
 <context>
-    <name>ScribusColorList</name>
-    <message>
-        <source>Document Colors</source>
-        <translation type="obsolete">Document Colours</translation>
-    </message>
-</context>
-<context>
     <name>ScribusCore</name>
     <message>
         <source>Initializing Plugins</source>
@@ -15512,10 +15353,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>New Layer</translation>
     </message>
     <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
-    </message>
-    <message>
         <source>Document</source>
         <translation>Document</translation>
     </message>
@@ -15536,10 +15373,6 @@ converting their vector data into Scribus objects.</translation>
         <translation>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</translation>
     </message>
     <message>
-        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
-        <translation type="obsolete">An error occurred while opening icc profiles, colour management is not enabled.</translation>
-    </message>
-    <message>
         <source>Some objects are locked.</source>
         <translation>Some objects are locked.</translation>
     </message>
@@ -15553,19 +15386,27 @@ converting their vector data into Scribus objects.</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>An error occurred while opening ICC profiles, colour management is not enabled.</translation>
     </message>
     <message>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Number of copies: %1
+Horizontal shift: %2
+Vertical shift: %3</translation>
     </message>
     <message>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Number of copies: %1
+Horizontal gap: %2
+Vertical gap: %3</translation>
+    </message>
+    <message>
+        <source>Adjusting Colors</source>
+        <translation>Adjusting Colours</translation>
     </message>
 </context>
 <context>
@@ -15765,14 +15606,6 @@ Vertical gap: %3</source>
 %1</translation>
     </message>
     <message>
-        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation type="obsolete">Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="obsolete">Documents (*.sla *.scd);;All Files (*)</translation>
-    </message>
-    <message>
         <source>Save As</source>
         <translation>Save As</translation>
     </message>
@@ -15827,10 +15660,6 @@ Vertical gap: %3</source>
     <message>
         <source>Text Files (*.txt);;All Files(*)</source>
         <translation>Text Files (*.txt);;All Files(*)</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation>Normal</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -15993,32 +15822,20 @@ Consider using the Preflight Verifier to correct them</translation>
         <translation>Paste Recent</translation>
     </message>
     <message>
-        <source>Normal Left</source>
-        <translation>Normal Left</translation>
-    </message>
-    <message>
-        <source>Normal Right</source>
-        <translation>Normal Right</translation>
-    </message>
-    <message>
-        <source>Normal Middle</source>
-        <translation>Normal Middle</translation>
-    </message>
-    <message>
         <source>Updating Pictures</source>
         <translation>Updating Pictures</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Documents (*.sla *.sla.gz);;All Files (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Documents (*.sla);;All Files (*)</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Group%1</translation>
     </message>
 </context>
 <context>
@@ -16129,10 +15946,6 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source> %</source>
         <translation> %</translation>
-    </message>
-    <message>
-        <source>Layer</source>
-        <translation>Layer</translation>
     </message>
     <message>
         <source>Copy Here</source>
@@ -16288,7 +16101,41 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Group%1</translation>
+    </message>
+    <message>
+        <source>Enables the Preview Mode</source>
+        <translation>Enables the Preview Mode</translation>
+    </message>
+    <message>
+        <source>Here you can select the visual appearance of the display
+You can choose between normal and several color blindness forms</source>
+        <translation>Here you can select the visual appearance of the display
+You can choose between normal and several colour blindness forms</translation>
+    </message>
+    <message>
+        <source>Normal Vision</source>
+        <translation>Normal Vision</translation>
+    </message>
+    <message>
+        <source>Protanopia (Red)</source>
+        <translation>Protanopia (Red)</translation>
+    </message>
+    <message>
+        <source>Deuteranopia (Green)</source>
+        <translation>Deuteranopia (Green)</translation>
+    </message>
+    <message>
+        <source>Tritanopia (Blue)</source>
+        <translation>Tritanopia (Blue)</translation>
+    </message>
+    <message>
+        <source>Full Color Blindness</source>
+        <translation>Full Colour Blindness</translation>
+    </message>
+    <message>
+        <source>Switches Color Management on or off</source>
+        <translation>Switches Colour Management on or off</translation>
     </message>
 </context>
 <context>
@@ -16614,7 +16461,7 @@ Consider using the Preflight Verifier to correct them</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </translation>
     </message>
 </context>
 <context>
@@ -17199,10 +17046,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>Paragraph Style:</source>
         <translation>Paragraph Style:</translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="obsolete">Inde&amp;x</translation>
-    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
@@ -17270,10 +17113,6 @@ Consider using the Preflight Verifier to correct them</translation>
         <source>Destination Frame:</source>
         <translation>Destination Frame:</translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="obsolete">Inde&amp;x</translation>
-    </message>
 </context>
 <context>
     <name>TabCheckDoc</name>
@@ -17340,6 +17179,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
         <source>Check for GIF images</source>
         <translation>Check for GIF images</translation>
+    </message>
+    <message>
+        <source>Ignore non-printable Layers</source>
+        <translation>Ignore non-printable Layers</translation>
     </message>
 </context>
 <context>
@@ -19357,6 +19200,46 @@ when PDF document is opened:</translation>
         <source>Zoom</source>
         <translation>Zoom</translation>
     </message>
+    <message>
+        <source>Misc. Settings</source>
+        <translation>Misc. Settings</translation>
+    </message>
+    <message>
+        <source>Object Duplicate</source>
+        <translation>Object Duplicate</translation>
+    </message>
+    <message>
+        <source>X-Displacement</source>
+        <translation>X-Displacement</translation>
+    </message>
+    <message>
+        <source>Y-Displacement</source>
+        <translation>Y-Displacement</translation>
+    </message>
+    <message>
+        <source>Rotation Tool</source>
+        <translation>Rotation Tool</translation>
+    </message>
+    <message>
+        <source>Constrain to:</source>
+        <translation>Constrain to:</translation>
+    </message>
+    <message>
+        <source>Other Properties</source>
+        <translation>Other Properties</translation>
+    </message>
+    <message>
+        <source>Horizontal displacement of objects</source>
+        <translation>Horizontal displacement of objects</translation>
+    </message>
+    <message>
+        <source>Vertical displacement of objects</source>
+        <translation>Vertical displacement of objects</translation>
+    </message>
+    <message>
+        <source>Constrain value for the rotation tool when the CTRL-Key is pressed</source>
+        <translation>Constrain value for the rotation tool when the CTRL-Key is pressed</translation>
+    </message>
 </context>
 <context>
     <name>TabTypograpy</name>
@@ -20291,7 +20174,7 @@ Error:%2 at line: %3, row: %4</translation>
     </message>
     <message>
         <source></source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Remember association</source>
