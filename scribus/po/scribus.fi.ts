@@ -12056,7 +12056,7 @@ External Links
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>brasilia</translation>
+        <translation type="obsolete">brasilia</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -13291,6 +13291,22 @@ is not exhaustive due to exceptions from called functions.
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation>Tiedostoa ei tunnistettu PDB-asiakirjaksi. Jos tiedät sen olevan sellainen, kirjoita virheraportti.</translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15106,6 +15122,10 @@ pystysuora siirtyminen: %3</translation>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
         <translation>Short &amp;Words...</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

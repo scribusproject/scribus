@@ -22926,7 +22926,7 @@ Kontrolloni shteg dhe emër kartele.</translation>
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Braziliane</translation>
+        <translation type="obsolete">Braziliane</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -24512,6 +24512,22 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -27902,6 +27918,10 @@ tërhiqni një Stampë te parja e Faqes më poshtë.</translation>
     <message>
         <source>Short Words</source>
         <translation type="unfinished">Fjalë të Shkurtra</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

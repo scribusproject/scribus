@@ -17161,7 +17161,7 @@ Enllaços Externs
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Brasil·ler</translation>
+        <translation type="obsolete">Brasil·ler</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -18843,6 +18843,22 @@ detallades exhaustivament per les funcions cridades.</translation>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22643,6 +22659,10 @@ Pàgina arrossega una Plantilla cap a sota.</translation>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Connector especial per afegir espais no separables abans o després de abreviacions.</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

@@ -13816,7 +13816,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Brazylijski</translation>
+        <translation type="obsolete">Brazylijski</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -15155,6 +15155,22 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -17947,6 +17963,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Specjalna wtyczka wstawiająca twarde spacje przed albo po tzw. short words, np. przed &quot;zawieszonymi spójnikami&quot;.</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
