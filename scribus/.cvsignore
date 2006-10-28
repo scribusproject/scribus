@@ -19,6 +19,7 @@ pageitemattributes.cpp
 pageitemattributes.h
 aboutpluginsbase.h
 aligndistributebase.h
+createrangebase.h
 docitemattrprefsbase.h
 docsectionsbase.h
 insertaframebase.h
@@ -28,6 +29,7 @@ multipleduplicatebase.h
 multiprogressdialogbase.h
 pageitemattributesbase.h
 patterndialogbase.h
+picsearchbase.h
 smcstylewbase.h
 smlinestylewbase.h
 smpstylewbase.h
@@ -43,6 +45,7 @@ tocindexprefsbase.h
 useprintermarginsdialogbase.h
 aboutpluginsbase.cpp
 aligndistributebase.cpp
+createrangebase.cpp
 docitemattrprefsbase.cpp
 docsectionsbase.cpp
 guidemanagerbase.cpp
@@ -50,6 +53,7 @@ multipleduplicatebase.cpp
 multiprogressdialogbase.cpp
 pageitemattributesbase.cpp
 patterndialogbase.cpp
+picsearchbase.cpp
 smcstylewbase.cpp
 smlinestylewbase.cpp
 smpstylewbase.cpp
