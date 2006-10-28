@@ -617,7 +617,13 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
-
+	QByteArray byteOrder(2);
+	QFile fo(fn);
+	if (fo.open(IO_ReadOnly))
+	{
+		fo.readBlock(byteOrder.data(), 1);
+		fo.close();
+	}
 	srand(314159265);
 	for (int i = 0; i < 4096; i++)
 		random_table[i] = rand();
@@ -756,10 +762,15 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			if (PhotoshopLen2 != 0)
 			{
 				m_imageInfoRecord.layerInfo.clear();
-				QByteArray arrayPhot(PhotoshopLen2);
-				arrayPhot.duplicate((const char*)PhotoshopBuffer2,PhotoshopLen2);
+//				QByteArray arrayPhot(PhotoshopLen2);
+//				arrayPhot.duplicate((const char*)PhotoshopBuffer2,PhotoshopLen2);
+				QByteArray arrayPhot;
+				arrayPhot.setRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 				QDataStream s(arrayPhot,IO_ReadOnly);
-				s.setByteOrder( QDataStream::LittleEndian );
+				if (byteOrder[0] == QChar('M'))
+					s.setByteOrder( QDataStream::BigEndian );
+				else
+					s.setByteOrder( QDataStream::LittleEndian );
 				uint addRes, layerinfo, channelLen, signature, extradata, layermasksize, layerRange, dummy;
 				int top, left, bottom, right;
 				short numLayers, numChannels;
@@ -810,7 +821,10 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						for( int i = 0; i < 4; i++ )
 						{
 							s >> blendKey[i];
-							blend.prepend(QChar(blendKey[i]));
+							if (byteOrder[0] == QChar('M'))
+								blend.append(QChar(blendKey[i]));
+							else
+								blend.prepend(QChar(blendKey[i]));
 						}
 						lay.blend = blend;
 						s >> opacity;
@@ -907,11 +921,15 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					{
 						loadLayerChannels( s, fakeHeader, m_imageInfoRecord.layerInfo, layer, &firstLayer );
 					}
+					arrayPhot.resetRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 					TIFFClose(tif);
 					foundPS = true;
 				}
 				else
+				{
+					arrayPhot.resetRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 					getLayers(fn);
+				}
 			}
 		}
 		if( xres <= 1.0 || yres <= 1.0 )
