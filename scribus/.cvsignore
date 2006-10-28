@@ -15,8 +15,8 @@ docitemattrprefsbase.cpp
 docitemattrprefsbase.h
 pageitemattributesbase.cpp
 pageitemattributesbase.h
-smlinestylewbasew.cpp
-smlinestylewbasew.h
+smlinestylewbase.cpp
+smlinestylewbase.h
 stylemanagerbase.cpp
 stylemanagerbase.h
 tocindexprefsbase.cpp
