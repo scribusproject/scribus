@@ -75,6 +75,7 @@ prepress.html
 print1.html
 print2.html
 print3.html
+psd.html
 readme.html
 readme-win32.html
 resources.html
