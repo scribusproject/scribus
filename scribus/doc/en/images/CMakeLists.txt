@@ -55,6 +55,7 @@ hyphen1.png
 hyphen2.png
 hyphen3.png
 inkscape.png
+imageeffects.png
 kfontinstaller.png
 ksnapshot.png
 layers1.png
