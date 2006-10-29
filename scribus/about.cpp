@@ -208,10 +208,6 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Kobus Wolvaardt</td><td>kobuswolf@diewereld.co.za</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" +
-											langmgr.getLangFromAbbrev("en_AU").local8Bit()  + "</b></td><td></td></tr>" +
-											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
-											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" +
 											langmgr.getLangFromAbbrev("eu").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Iñaki Larrañaga Murgoitio</td><td>dooteo@euskalgnu.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
@@ -230,7 +226,12 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_GB").local8Bit()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" +
+											langmgr.getLangFromAbbrev("en_AU").local8Bit()  + "</b></td><td></td></tr>" +
+											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" +
+											langmgr.getLangFromAbbrev("en_GB").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("eo").local8Bit()  + "</b></td><td> </td></tr>" +
@@ -272,7 +273,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ko").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Kitae Kim</td><td>neeum@yahoo.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").local8Bit()  + "</b></td><td></td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("nb").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Klaus Ade Johnstad</td><td>klaus@inout.no</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("pl").local8Bit()  + "</b></td><td> </td></tr>" +
