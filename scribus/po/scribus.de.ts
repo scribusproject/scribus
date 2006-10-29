@@ -4032,7 +4032,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Patterns...</source>
-        <translation type="unfinished"></translation>
+        <translation>Muster...</translation>
     </message>
     <message>
         <source>Send to Patterns</source>
@@ -4212,31 +4212,31 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <name>AlignDistributeBase</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished">Ausrichten und verteilen</translation>
+        <translation>Ausrichten und verteilen</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Ausrichten</translation>
+        <translation>Ausrichten</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished">&amp;Ausgewählte Hilfslinie:</translation>
+        <translation>&amp;Ausgewählte Hilfslinie:</translation>
     </message>
     <message>
         <source>&amp;Relative To:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Relativ zu:</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished">Verteilen</translation>
+        <translation>Verteilen</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished">Ab&amp;stand:</translation>
+        <translation>Ab&amp;stand:</translation>
     </message>
 </context>
 <context>
@@ -4403,19 +4403,19 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Gleiche waagrechte Abstände zwischen Objekten und Seitenrändern</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Gleiche senkrechte Abstände zwischen Objekten und Seitenrändern</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Gleiche waagrechte Abstände zwischen Objekten und Rändern</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Gleiche senkrechte Abstände zwischen Objekten und Rändern</translation>
     </message>
 </context>
 <context>
@@ -4995,11 +4995,11 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     </message>
     <message>
         <source>Tooltip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tooltip:</translation>
     </message>
     <message>
         <source>Do Not Export Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Wert nicht exportieren</translation>
     </message>
 </context>
 <context>
@@ -5537,7 +5537,7 @@ Bitte wählen Sie eine andere.</translation>
     </message>
     <message>
         <source>Copied Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopierte Objekte</translation>
     </message>
 </context>
 <context>
@@ -6362,7 +6362,7 @@ und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished">Wenn Sie die rechte Maustaste drücken und gedrückt halten, sehen Sie ein Vorschaubild. Die Taste Einfügen fügt ein Zeichen in die Markierung unten ein, und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
+        <translation>Wenn Sie die rechte Maustaste drücken und gedrückt halten, sehen Sie ein Vorschaubild. Die Taste Einfügen fügt ein Zeichen in die Markierung unten ein, und die Taste Löschen entfernt das letzte Zeichen wieder</translation>
     </message>
 </context>
 <context>
@@ -7126,35 +7126,35 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Ja</translation>
+        <translation>Ja</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Nein</translation>
+        <translation>Nein</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Ja</translation>
+        <translation>&amp;Ja</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">N&amp;ein</translation>
+        <translation>N&amp;ein</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished">Normal links</translation>
+        <translation>Normal Links</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished">Normal Mitte</translation>
+        <translation>Normal Mitte</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal Rechts</translation>
     </message>
 </context>
 <context>
@@ -7329,19 +7329,19 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>Offsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Abstände</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation type="unfinished">X:</translation>
+        <translation>X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Skalierung</translation>
     </message>
     <message>
         <source>X-Scale:</source>
@@ -7353,19 +7353,19 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Rotation</translation>
     </message>
     <message>
         <source>Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Winkel</translation>
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Muster</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Ausschluss</translation>
+        <translation>Ausschluss</translation>
     </message>
 </context>
 <context>
@@ -8591,7 +8591,7 @@ failed!</source>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -8943,15 +8943,15 @@ failed!</source>
     <name>ExportBitmap</name>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished">Die Datei existiert bereits. Soll sie überschrieben werden?</translation>
+        <translation>Die Datei existiert bereits. Soll sie überschrieben werden?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation type="unfinished">existiert bereits. Soll die Datei überschrieben werden?</translation>
+        <translation>existiert bereits. Soll die Datei überschrieben werden?</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Alle</translation>
+        <translation>Alle</translation>
     </message>
 </context>
 <context>
@@ -10982,7 +10982,7 @@ und wandelt die Vektordaten in Scribus-Objekte um.</translation>
     </message>
     <message>
         <source>Duplicates the current layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Dupliziert die akuelle Ebene</translation>
     </message>
 </context>
 <context>
@@ -13976,19 +13976,19 @@ werden ignoriert</translation>
     <name>PatternDialog</name>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Wählen Sie ein Verzeichnis</translation>
+        <translation>Wählen Sie ein Verzeichnis</translation>
     </message>
     <message>
         <source>Loading Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Muster laden</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">Alle Dateien (*)</translation>
+        <translation>Alle Dateien (*)</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Öffnen</translation>
+        <translation>Öffnen</translation>
     </message>
 </context>
 <context>
@@ -14018,15 +14018,15 @@ werden ignoriert</translation>
     <name>PicSearchBase</name>
     <message>
         <source>Result</source>
-        <translation type="unfinished">Ergebnis</translation>
+        <translation>Ergebnis</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation type="unfinished">Suchergebnis für: </translation>
+        <translation>Suchergebnis für: </translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished">Vor&amp;schau</translation>
+        <translation>Vor&amp;schau</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -15361,7 +15361,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>Line: %1 Column: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeile: %1 Spalte: %2</translation>
     </message>
 </context>
 <context>
@@ -18621,7 +18621,7 @@ und wandelt deren Vektordaten in Scribus-Objekte um.
     <name>SVGPlug</name>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -20229,7 +20229,7 @@ Vertikaler Versatz: %3</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe%1</translation>
     </message>
 </context>
 <context>
@@ -20532,11 +20532,11 @@ umgewandelt werden</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Gruppe%1</translation>
     </message>
     <message>
         <source>Enables the Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaltet den Vorschau Modus ein</translation>
     </message>
     <message>
         <source>Here you can select the visual appearance of the display
@@ -20545,27 +20545,27 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished">Normales Sehvermögen</translation>
+        <translation>Normales Sehvermögen</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation type="unfinished">Rotgrünblindheit</translation>
+        <translation>Rotgrünblindheit</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation type="unfinished">Grünblindheit</translation>
+        <translation>Grünblindheit</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation type="unfinished">Blaublindheit</translation>
+        <translation>Blaublindheit</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation type="unfinished">Komplett Farbenblind</translation>
+        <translation>Komplett Farbenblind</translation>
     </message>
     <message>
         <source>Switches Color Management on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaltet das Farbmanagement an oder aus</translation>
     </message>
 </context>
 <context>
@@ -21819,7 +21819,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Ignore non-printable Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignoriere nicht druckbare Ebenen</translation>
     </message>
 </context>
 <context>
@@ -22128,15 +22128,15 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Anwenden auf:</translation>
     </message>
     <message>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Dokument Seiten</translation>
     </message>
     <message>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Alle Musterseiten</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing master pages in the document</source>
@@ -22328,7 +22328,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Time before a Move or Resize starts:</source>
-        <translation>Verzögerung beim Verschieben oder bei Größenänderungen:</translation>
+        <translation>Verzögerung bei Objektänderungen:</translation>
     </message>
     <message>
         <source> ms</source>
@@ -22412,11 +22412,11 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">Start-Dialog zu Beginn anzeigen</translation>
+        <translation>Start-Dialog zu Beginn anzeigen</translation>
     </message>
     <message>
         <source>Show Splashscreen on Startup</source>
-        <translation type="unfinished">Splashscreen beim Programmstart zeigen</translation>
+        <translation>Splashscreen beim Programmstart zeigen</translation>
     </message>
 </context>
 <context>
@@ -24079,51 +24079,51 @@ werden ignoriert</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Text</translation>
+        <translation>Text</translation>
     </message>
     <message>
         <source>Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekte</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished">Linien</translation>
+        <translation>Linien</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Bilder</translation>
     </message>
     <message>
         <source>Regular Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Reguläre Polygone</translation>
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom</translation>
     </message>
     <message>
         <source>Misc. Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Versch. Einstellungen</translation>
     </message>
     <message>
         <source>Object Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Duplizieren</translation>
     </message>
     <message>
         <source>X-Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Versatz</translation>
     </message>
     <message>
         <source>Y-Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Versatz</translation>
     </message>
     <message>
         <source>Rotation Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Drehen Werkzeug</translation>
     </message>
     <message>
         <source>Constrain to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Beschränken auf:</translation>
     </message>
     <message>
         <source>Other Properties</source>
@@ -25390,11 +25390,11 @@ eigenen Einstellungen ersetzen.</translation>
     <name>patternDialogBase</name>
     <message>
         <source>Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Muster</translation>
     </message>
     <message>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden</translation>
     </message>
     <message>
         <source>Load Set</source>
@@ -25402,15 +25402,15 @@ eigenen Einstellungen ersetzen.</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Entfernen</translation>
+        <translation>Entfernen</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished">Abbrechen</translation>
+        <translation>Abbrechen</translation>
     </message>
 </context>
 <context>
