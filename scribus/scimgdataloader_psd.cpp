@@ -132,6 +132,8 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 	m_imageInfoRecord.isRequest = valid;
 	m_imageInfoRecord.type = 2;
 	m_imageInfoRecord.exifDataValid = false;
+	m_imageInfoRecord.layerInfo.clear();
+	m_imageInfoRecord.PDSpathData.clear();
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
 	{
@@ -171,7 +173,7 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 			m_imageInfoRecord.colorspace = 2;
 		else if (header.color_mode == CM_DUOTONE)
 			m_imageInfoRecord.colorspace = 3;
-		m_imageInfoRecord.valid = true;
+//		m_imageInfoRecord.valid = true;
 		m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 		m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
 		xres = m_imageInfoRecord.xres;
@@ -222,6 +224,7 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	if( !m_image.create( header.width, header.height, 32 ))
 		return false;
 	m_image.setAlphaBuffer( true );
+	m_imageInfoRecord.valid = false;
 	uint tmp;
 	uint cdataStart;
 	uint ressourceDataLen;
@@ -434,7 +437,10 @@ bool ScImgDataLoader_PSD::LoadPSD( QDataStream & s, const PSDHeader & header)
 	{
 		bool re = parseLayer(s, header);
 		if (re)
+		{
+			m_imageInfoRecord.valid = true;
 			return re;
+		}
 		else
 		{
 			// Try to decode simple psd file, no layers

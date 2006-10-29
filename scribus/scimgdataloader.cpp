@@ -203,6 +203,7 @@ void ScImgDataLoader::parseRessourceData( QDataStream & s, const PSDHeader & hea
 			clip2.addPoint(firstPoint);
 			clip2.addPoint(firstControl);
 			m_imageInfoRecord.PDSpathData.insert(resName, clip2.copy());
+			m_imageInfoRecord.valid = true;
 		}
 		else
 		{

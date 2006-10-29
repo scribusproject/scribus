@@ -762,8 +762,6 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			if (PhotoshopLen2 != 0)
 			{
 				m_imageInfoRecord.layerInfo.clear();
-//				QByteArray arrayPhot(PhotoshopLen2);
-//				arrayPhot.duplicate((const char*)PhotoshopBuffer2,PhotoshopLen2);
 				QByteArray arrayPhot;
 				arrayPhot.setRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 				QDataStream s(arrayPhot,IO_ReadOnly);
@@ -924,6 +922,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					arrayPhot.resetRawData((const char*)PhotoshopBuffer2, PhotoshopLen2);
 					TIFFClose(tif);
 					foundPS = true;
+					if (m_imageInfoRecord.layerInfo.count() == 1)
+						m_imageInfoRecord.layerInfo.clear();
 				}
 				else
 				{
@@ -1006,6 +1006,8 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			while (test == 1);
 			swapRGBA();
 			TIFFClose(tif);
+			if (m_imageInfoRecord.layerInfo.count() == 1)
+				m_imageInfoRecord.layerInfo.clear();
 		}
 		if (resolutionunit == RESUNIT_INCH)
 		{
@@ -1029,6 +1031,10 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 			m_imageInfoRecord.colorspace = 0;
 		m_imageInfoRecord.BBoxX = 0;
 		m_imageInfoRecord.BBoxH = m_image.height();
+		if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))
+			m_imageInfoRecord.valid = false;
+		else
+			m_imageInfoRecord.valid = true;
 		return true;
 	}
 	return false;

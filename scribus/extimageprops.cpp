@@ -207,11 +207,12 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 		imt = sy < sx ?  item->pixm.smoothScale(qRound(item->pixm.width() / sx), qRound(item->pixm.height() / sx)) :
 								item->pixm.smoothScale(qRound(item->pixm.width() / sy), qRound(item->pixm.height() / sy));
 		pm.convertFromImage(imt);
-		layerTable->setPixmap(0, 1, pm);
+//		layerTable->setPixmap(0, 1, pm);
 		layerTable->setText(0, 2, tr("Background"));
 		QCheckBox *cp = new QCheckBox(this, "");
 		cp->setChecked(true);
 		cp->setEnabled(false);
+		cp->setPixmap(pm);
 		layerTable->setCellWidget(0, 0, cp);
 		layerTable->setRowHeight(0, 40);
 		FlagsSicht.append(cp);
