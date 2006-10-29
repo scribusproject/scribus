@@ -29,6 +29,17 @@
 <h4>Importing Hints:</h4>
 <p>One of my preferred ways to import EPS files in to Scribus is to close all open documents. Then directly import the EPS file. This creates a new document in which the page size is automatically calculated from the EPS bounding box. Save this temporarily under a file name. Then, re-open the target document for import. Create a new layer and then use the page import function to import your newly created document into the new layer in your existing document. This prevents any of the imported elements from disturbing existing objects and allows you to place with precision where you want the file.</p>
 
+<h4>Specialized EPS Formats from Photoshop &#174; and others.</h4>
+<p>Scribus can detect and will import using native code some special types of EPS files which can be created from Photoshop and Quark X-press &#174;, among other  </p>
+<ul>
+   <li>Scribus can import <strong>DCS 1.x and 2.0</strong> files complete with ICC profile support and support for clipping paths.  </li>
+   <li>Exporting EPS from Photoshop 6.0+ is <strong>not</strong> recommended in most cases as you will gain the best results with a native PSD file. See: <a href="psd.html">Importing Photoshop &#174; Files.</a></li>
+   <li>DCS 2.0 files from Quark are generally not recommend as they do not have conformant DSC (Document Structuring Comments) which makes parsing the EPS difficult. </li>
+   <li><a href="http://www.npes.org/standards/Tools/DCS20Spec.pdf">PDF of DCS 2.0 Specifications</a>  </li>
+ </ul>
+
+
+
 <h4>Troubleshooting EPS Import </h4>
 <p>As mentioned above, EPS export quality from other applications can vary widely. Some applications like to add their own ingredients to the sauce - unfortunately. The first step for testing a failed import is open the file in <a href="toolbox6.html">GSview</a>, then press <strong>M</strong> to watch the messages from Ghostscript as it attempts to open the file. When you have a failure in GSview, the messages can be sometime cryptic, but they are a helpful pointer to see what is the problem.</p>
 <p></p>
