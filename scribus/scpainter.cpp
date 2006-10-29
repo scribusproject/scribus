@@ -1166,21 +1166,12 @@ void ScPainter::drawVPath( int mode )
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
 				QColor qStopColor = colorStops[ offset ]->color;
-				int h, s, v, sneu;
+				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
-				qStopColor.rgb(&h, &s, &v);
-				if ((h == s) && (s == v))
-				{
-					qStopColor.hsv(&h, &s, &v);
-					sneu = 255 - ((255 - v) * shad / 100);
-					qStopColor.setHsv(h, s, sneu);
-				}
-				else
-				{
-					qStopColor.hsv(&h, &s, &v);
-					sneu = s * shad / 100;
-					qStopColor.setHsv(h, sneu, v);
-				}
+				qStopColor.hsv(&h, &s, &v);
+				sneu = s * shad / 100;
+				vneu = 255 - ((255 - v) * shad / 100);
+				qStopColor.setHsv(h, sneu, vneu);
 				double r = qRed( qStopColor.rgb() ) / 255.0;
 				double g = qGreen( qStopColor.rgb() ) / 255.0;
 				double b = qBlue( qStopColor.rgb() ) / 255.0;
@@ -1896,21 +1887,12 @@ ArtGradientStop * ScPainter::buildStopArray( VGradient &gradient, int &offsets )
 		double ramp = colorStops[ offset ]->rampPoint;
 		stopArray[ offset * 2 ].offset = ramp;
 		QColor qStopColor = colorStops[ offset ]->color;
-		int h, s, v, sneu;
+		int h, s, v, sneu, vneu;
 		int shad = colorStops[offset]->shade;
-		qStopColor.rgb(&h, &s, &v);
-		if ((h == s) && (s == v))
-		{
-			qStopColor.hsv(&h, &s, &v);
-			sneu = 255 - ((255 - v) * shad / 100);
-			qStopColor.setHsv(h, s, sneu);
-		}
-		else
-		{
-			qStopColor.hsv(&h, &s, &v);
-			sneu = s * shad / 100;
-			qStopColor.setHsv(h, sneu, v);
-		}
+		qStopColor.hsv(&h, &s, &v);
+		sneu = s * shad / 100;
+		vneu = 255 - ((255 - v) * shad / 100);
+		qStopColor.setHsv(h, sneu, vneu);
 		int r = qRed( qStopColor.rgb() );
 		int g = qGreen( qStopColor.rgb() );
 		int b = qBlue( qStopColor.rgb() );

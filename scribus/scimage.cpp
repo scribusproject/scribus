@@ -853,10 +853,7 @@ void ScImage::colorize(ScColor color, int shade, bool cmyk)
 				int cc2, cm2, cy2;
 				tmpR.setRgb(cc, cm, cy);
 				tmpR.hsv(&hu, &sa, &v);
-				if (cc == cm && cm == cy)
-					tmpR.setHsv(hu, sa, 255 - ((255 - v) * k / 255));
-				else
-					tmpR.setHsv(hu, sa * k / 255, v);
+				tmpR.setHsv(hu, sa * k / 255, 255 - ((255 - v) * k / 255));
 				tmpR.getRgb(&cc2, &cm2, &cy2);
 				int a = qAlpha(r);
 				*s = qRgba(cc2, cm2, cy2, a);

@@ -983,6 +983,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 							double ramp = it.attribute("RAMP", "0.0").toDouble();
 							int shade = it.attribute("SHADE", "100").toInt();
 							double opa = it.attribute("TRANS", "1").toDouble();
+							handleOldColorShade(m_Doc, name, shade);
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")
@@ -1792,15 +1793,20 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	
 	if (it->hasAttribute("CCOLOR"))
 		newStyle.setFillColor(it->attribute("CCOLOR"));
+
+	if (it->hasAttribute("CSHADE"))
+		newStyle.setFillShade(it->attribute("CSHADE").toInt());
+
+	QString fColor = newStyle.fillColor();
+	int fShade = newStyle.fillShade();
+	handleOldColorShade(doc, fColor, fShade);
+	newStyle.setFillColor(fColor);
+	newStyle.setFillShade(fShade);
 	
 	if (it->hasAttribute("CEXTRA"))
 		newStyle.setTracking(qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0));
 	else if (it->hasAttribute("CKERN"))
 		newStyle.setTracking(it->attribute("CKERN").toInt());
-	
-	
-	if (it->hasAttribute("CSHADE"))
-		newStyle.setFillShade(it->attribute("CSHADE").toInt());
 	
 	if (it->hasAttribute("CSTYLE"))
 		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("CSTYLE").toInt()));
@@ -1823,6 +1829,12 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	
 	if (it->hasAttribute("CSHADE2"))
 		newStyle.setStrokeShade(it->attribute("CSHADE2", "100").toInt());
+
+	QString sColor = newStyle.strokeColor();
+	int sShade = newStyle.strokeShade();
+	handleOldColorShade(doc, sColor, sShade);
+	newStyle.setStrokeColor(sColor);
+	newStyle.setStrokeShade(sShade);
 	
 	if (it->hasAttribute("CSCALE"))
 		newStyle.setScaleH(QMIN(QMAX(qRound(it->attribute("CSCALE", "100").toDouble() * 10), 100), 4000));
@@ -1954,10 +1966,16 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 		vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 		vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
 		vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
-		vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
-		vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-		vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
-		vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
+		QString fColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
+		int fShade = pg.attribute("FSHADE", "100").toInt();
+		handleOldColorShade(doc, fColor, fShade);
+		QString sColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
+		int sShade = pg.attribute("SSHADE", "100").toInt();
+		handleOldColorShade(doc, sColor, sShade);
+		vg.charStyle().setFillColor(fColor);
+		vg.charStyle().setFillShade(fShade);
+		vg.charStyle().setStrokeColor(sColor);
+		vg.charStyle().setStrokeShade(sShade);
 		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
 		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
 		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
@@ -2030,6 +2048,10 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	double scy = obj->attribute("LOCALSCY").toDouble();
 	QString Pcolor = obj->attribute("PCOLOR");
 	QString Pcolor2 = obj->attribute("PCOLOR2");
+	int Pshade = obj->attribute("SHADE").toInt();
+	int Pshade2= obj->attribute("SHADE2").toInt();
+	handleOldColorShade(doc, Pcolor, Pshade);
+	handleOldColorShade(doc, Pcolor2, Pshade2);
 	QColor tmpc;
 	PageItem *currItem=NULL;
 	QString tmp;
@@ -2197,8 +2219,8 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 	currItem->ClipEdited = obj->attribute("CLIPEDIT", "0").toInt();
 	currItem->setFillColor(Pcolor);
 	currItem->setLineColor(Pcolor2);
-	currItem->setFillShade(obj->attribute("SHADE").toInt());
-	currItem->setLineShade(obj->attribute("SHADE2").toInt());
+	currItem->setFillShade(Pshade);
+	currItem->setLineShade(Pshade2);
 	ParagraphStyle pstyle;
 	// for some reason IFONT is set later, check at the place where PasteItem() is called.
 	pstyle.setLineSpacing(obj->attribute("LINESP").toDouble());
@@ -2472,18 +2494,22 @@ PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
 		{
 			if (currItem->GrType == 5)
 			{
+				handleOldColorShade(doc, GrColor, GrShade);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor, GrShade);
+				handleOldColorShade(doc, GrColor2, GrShade2);
 				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor2, GrShade2);
 			}
 			else
 			{
+				handleOldColorShade(doc, GrColor2, GrShade2);
 				if ((GrColor2 != CommonStrings::None) && (!GrColor2.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor2, GrShade2);
 				currItem->fill_gradient.addStop(tmpc, 0.0, 0.5, 1.0, GrColor2, GrShade2);
+				handleOldColorShade(doc, GrColor, GrShade);
 				if ((GrColor != CommonStrings::None) && (!GrColor.isEmpty()))
 					currItem->SetFarbe(&tmpc, GrColor, GrShade);
 				currItem->fill_gradient.addStop(tmpc, 1.0, 0.5, 1.0, GrColor, GrShade);
@@ -2793,6 +2819,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							double ramp = it.attribute("RAMP", "0.0").toDouble();
 							int shade = it.attribute("SHADE", "100").toInt();
 							double opa = it.attribute("TRANS", "1").toDouble();
+							handleOldColorShade(m_Doc, name, shade);
 							Neu->fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 						}
 						if (it.tagName()=="ITEXT")

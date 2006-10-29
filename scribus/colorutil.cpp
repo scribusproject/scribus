@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 // #include "scmessagebox.h"
 #include "scribusdoc.h"
 #include "scpixmapcache.h"
+#include "commonstrings.h"
 // #include "scpaths.h"
 // #include "text/nlsconfig.h"
 #include "util.h"
@@ -77,10 +78,66 @@ extern "C"
 }
 
 #include CMS_INC
-
-
 using namespace std;
 
+void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
+{
+	int r, g, b;
+	bool found = false;
+	ScColor& scCol1 = doc->PageColors[colName];
+	if( colName.isEmpty() || colName == CommonStrings::None )
+		return;
+	if( (shade == 100) || (scCol1.getColorModel() != colorModelRGB) )
+		return;
+	scCol1.getRGB(&r, &g, &b);
+	QColor col1 = getOldColorShade(r, g, b, shade), col2;
+	ColorList::Iterator it, itEnd = doc->PageColors.end();
+	for( it = doc->PageColors.begin(); it != itEnd; it++)
+	{
+		it.data().getRGB(&r, &g, &b);
+		col2.setRgb(r, g, b);
+		if( col1 == col2 && it.data().getColorModel() == colorModelRGB )
+		{
+			found = true;
+			break;
+		}
+	}
+	if(!found)
+	{
+		ScColor tmp;
+		tmp.fromQColor(col1);
+		colName = QString("%1 %2%").arg(colName).arg(shade);
+		doc->PageColors.insert(colName, tmp);
+	}
+	else
+		colName = it.key();
+	shade = 100;
+}
+
+QColor getOldColorShade(const QColor& color, int shade)
+{
+	int r, g, b;
+	color.getRgb(&r, &g, &b);
+	return getOldColorShade(r, g, b, shade);
+}
+
+QColor SCRIBUS_API getOldColorShade(uchar red, uchar green, uchar blue, int shade)
+{
+	int h, s, v, snew;
+	QColor color(red, green, blue);
+	color.hsv(&h, &s, &v);
+	if (red == green && green == blue)
+	{
+		snew = 255 - ((255 - v) * shade / 100);
+		color.setHsv(h, s, snew);
+	}
+	else
+	{
+		snew = s * shade / 100;
+		color.setHsv(h, snew, v);
+	}
+	return color;
+}
 
 QImage ProofImage(QImage *Image, ScribusDoc* doc)
 {

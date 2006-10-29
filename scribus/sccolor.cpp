@@ -211,8 +211,6 @@ void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const
 
 void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level) const
 {
-	int h, s, v, snew;
-	
 	if (Model == colorModelCMYK)
 	{
 		int c, m, y, k;
@@ -222,21 +220,17 @@ void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level) const
 	}
 	else
 	{
+		int h, s, v, snew, vnew;
 		QColor tmpR(R, G, B);
 		tmpR.hsv(&h, &s, &v);
-		
-		if (R == G && G == B)
-		{
-			snew = 255 - ((255 - v) * level / 100);
-			tmpR.setHsv(h, s, snew);
-		}
-		else
-		{
-			snew = s * level / 100;
-			tmpR.setHsv(h, snew, v);
-		}
-
+		snew = s * level / 100;
+		vnew = 255 - ((255 - v) * level / 100);
+		tmpR.setHsv(h, snew, vnew);
 		tmpR.getRgb(r, g, b);
+		//We could also compute rgb shade using rgb directly
+		/*r = 255 - ((255 - R) * level / 100);
+		*g = 255 - ((255 - G) * level / 100);
+		*b = 255 - ((255 - B) * level / 100);*/
 	}
 }
 

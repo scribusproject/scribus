@@ -469,10 +469,16 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
 				vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
 				vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
-				vg.charStyle().setFillColor(pg.attribute("FCOLOR", m_Doc->toolSettings.dBrush));
-				vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
-				vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", m_Doc->toolSettings.dPen));
-				vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
+				QString fColor = pg.attribute("FCOLOR", m_Doc->toolSettings.dBrush);
+				int fShade = pg.attribute("FSHADE", "100").toInt();
+				handleOldColorShade(m_Doc, fColor, fShade);
+				QString sColor = pg.attribute("SCOLOR", m_Doc->toolSettings.dPen);
+				int sShade = pg.attribute("SSHADE", "100").toInt();
+				handleOldColorShade(m_Doc, sColor, sShade);
+				vg.charStyle().setFillColor(fColor);
+				vg.charStyle().setFillShade(fShade);
+				vg.charStyle().setStrokeColor(sColor);
+				vg.charStyle().setStrokeShade(sShade);
 				vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
 				vg.charStyle().setShadowXOffset(50);
 				vg.charStyle().setShadowYOffset(-50);
@@ -689,6 +695,7 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 							double ramp = it.attribute("RAMP", "0.0").toDouble();
 							int shade = it.attribute("SHADE", "100").toInt();
 							double opa = it.attribute("TRANS", "1").toDouble();
+							handleOldColorShade(m_Doc, name, shade);
 							OB.fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 							OB.GrColor = "";
 							OB.GrColor2 = "";
@@ -989,16 +996,18 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 	}
 	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
 	QString fcolor = it->attribute("CCOLOR");
+	int shade = it->attribute("CSHADE").toInt();
+	handleOldColorShade(doc, fcolor, shade);
 	int extra;
 	if (it->hasAttribute("CEXTRA"))
 		extra = qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0);
 	else
 		extra = it->attribute("CKERN").toInt();
-	int shade = it->attribute("CSHADE").toInt();
 	int cstyle = it->attribute("CSTYLE").toInt() & 255;
 	int ab = it->attribute("CAB", "0").toInt();
 	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
+	handleOldColorShade(doc, stroke, shade2);
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
 	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
 	int base = qRound(it->attribute("CBASE", "0").toDouble() * 10);
@@ -1378,6 +1387,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 							double ramp = it.attribute("RAMP", "0.0").toDouble();
 							int shade = it.attribute("SHADE", "100").toInt();
 							double opa = it.attribute("TRANS", "1").toDouble();
+							handleOldColorShade(m_Doc, name, shade);
 							OB.fill_gradient.addStop(SetColor(m_Doc, name, shade), ramp, 0.5, opa, name, shade);
 							OB.GrColor = "";
 							OB.GrColor2 = "";
@@ -1499,6 +1509,8 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
+	int fShade, sShade;
+	QString fColor, sColor;
 	QString tmpf, tmf, tmV;
 	double xf, xf2;
 	fou = false;
@@ -1525,10 +1537,16 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
 	vg->setDropCapOffset(pg->attribute("DROPDIST", "0").toDouble());
 	vg->charStyle().setEffects(static_cast<StyleFlag>((pg->attribute("EFFECT", "0").toInt())));
-	vg->charStyle().setFillColor(pg->attribute("FCOLOR", doc->toolSettings.dBrush));
-	vg->charStyle().setFillShade(pg->attribute("FSHADE", "100").toInt());
-	vg->charStyle().setStrokeColor(pg->attribute("SCOLOR", doc->toolSettings.dPen));
-	vg->charStyle().setStrokeShade(pg->attribute("SSHADE", "100").toInt());
+	fColor = pg->attribute("FCOLOR", doc->toolSettings.dBrush);
+	fShade = pg->attribute("FSHADE", "100").toInt();
+	handleOldColorShade(doc, fColor, fShade);
+	sColor = pg->attribute("SCOLOR", doc->toolSettings.dPen);
+	sShade = pg->attribute("SSHADE", "100").toInt();
+	handleOldColorShade(doc, sColor, sShade);
+	vg->charStyle().setFillColor(fColor);
+	vg->charStyle().setFillShade(fShade);
+	vg->charStyle().setStrokeColor(sColor);
+	vg->charStyle().setStrokeShade(sShade);
 	vg->setUseBaselineGrid(static_cast<bool>(pg->attribute("BASE", "0").toInt()));
 	vg->charStyle().setShadowXOffset(qRound(pg->attribute("TXTSHX", "5").toDouble() * 10));
 	vg->charStyle().setShadowYOffset(qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10));

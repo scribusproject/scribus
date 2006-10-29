@@ -39,6 +39,25 @@ in alpha mask too.
 void SCRIBUS_API paintAlert(QPixmap &toPaint, QPixmap &target, int x = 0, int y = 0, bool useMask = true);
 QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
 
+/*! \brief Associate a color shade to a document color according to pre-1.3.4cvs rgb shade calculation method, 
+     creating new document color if necessary
+ * \param doc the scribus document
+ * \param colName the color name (modified in place)
+ * \param shade the color level (modified in place)
+ */
+void SCRIBUS_API handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade);
+/*! \brief Compute color shade of a rgb color using pre-1.3.4 method
+ * \param color the base color
+ * \param shade shade value.
+ */
+QColor SCRIBUS_API getOldColorShade(const QColor& color, int shade);
+/*! \brief Compute color shade of a rgb color using pre-1.3.4 method
+ * \param red the red component.
+ * \param green the green component.
+ * \param blue the blue component.
+ * \param shade shade value.
+ */
+QColor SCRIBUS_API getOldColorShade(uchar red, uchar green, uchar blue, int shade);
 /*! \brief Convert a color in RGB space to HSV space (Hue, Saturation, Value).
  * \param red the red component (modified in place).
  * \param green the green component (modified in place).
