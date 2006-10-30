@@ -332,7 +332,46 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
+numbers if you&apos;re creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
+</translation>
     </message>
 </context>
 <context>
@@ -2919,7 +2958,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Deselect All</source>
-        <translation type="unfinished">Alles auswählen r&amp;ückgängig machen</translation>
+        <translation>Alles auswählen r&amp;ückgängig machen</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
@@ -2935,7 +2974,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation type="unfinished">A&amp;bsatzstile...</translation>
+        <translation>A&amp;bsatzstile...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
@@ -2951,7 +2990,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation type="unfinished">Allgemeine E&amp;instellungen...</translation>
+        <translation>Allgemeine E&amp;instellungen...</translation>
     </message>
     <message>
         <source>%1 pt</source>
@@ -3051,7 +3090,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation type="unfinished">Gruppe aufl&amp;ösen</translation>
+        <translation>Gruppe aufl&amp;ösen</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
@@ -3083,7 +3122,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation type="unfinished">A&amp;ttribute...</translation>
+        <translation>A&amp;ttribute...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
@@ -3151,11 +3190,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation type="unfinished">&amp;Bézierkurve</translation>
+        <translation>&amp;Bézierkurve</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished">B&amp;ildrahmen</translation>
+        <translation>B&amp;ildrahmen</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -3267,7 +3306,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation type="unfinished">A&amp;n Hilfslinien ausrichten</translation>
+        <translation>A&amp;n Hilfslinien ausrichten</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -3299,7 +3338,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation type="unfinished">A&amp;usrichten und Verteilen</translation>
+        <translation>A&amp;usrichten und Verteilen</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -3315,7 +3354,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished">T&amp;abelle</translation>
+        <translation>T&amp;abelle</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -3327,7 +3366,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation type="unfinished">&amp;Freihandlinie</translation>
+        <translation>&amp;Freihandlinie</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -3615,7 +3654,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation type="unfinished">Über &amp;Plug-Ins</translation>
+        <translation>Über &amp;Plug-Ins</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -12680,9 +12719,7 @@ weil Sie Bilder in bereits laufenden Instanzen von GIMP bearbeiten können.</tra
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation>Inhaltsverzeichnisse
-und 
-Indizes</translation>
+        <translation>Inhaltsverzeichnisse und Indizes</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
