@@ -191,11 +191,9 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 	}
 	if (e->button() == LeftButton)
 	{
-		int row = rowAt(e->pos().y());
-		int col = columnAt(e->pos().x());
-		selectCells(row, col, row, col);
-		m_mousePosition = e->pos();
-//		watchTimer->start(3000, true);
+		selectCells(r, c, r, c);
+		cCol = c;
+		cRow = r;
 	}
 	QTable::contentsMousePressEvent(e);
 }
@@ -285,9 +283,9 @@ QDragObject * CharTable::dragObject()
 {
 	qDebug("QDragObject * CharTable::dragObject()");
 	QString s("%1");
-	s.arg(m_characters[rowAt(m_mousePosition.y()) * numCols() +  columnAt(m_mousePosition.x())]);
-	qDebug("dragObject: "+s);
-	return new QTextDrag(s, this);
+	uint val = cRow * numCols() + cCol;
+	qDebug("dragObject: "+s.arg(m_characters[val]));
+	return new QTextDrag(s.arg(m_characters[val]), this);
 }
 
 void CharTable::slotDropped(QDropEvent *evt)
@@ -302,7 +300,7 @@ void CharTable::slotDropped(QDropEvent *evt)
 	bool ok;
 	if ( QTextDrag::decode(evt, label))
 	{
-		int val = label.toInt(&ok, 16);
+		int val = label.toInt(&ok, 10);
 		if (ok)
 		{
 			qDebug("CharTable D'n'D accepted: " + label);

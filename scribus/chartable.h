@@ -77,6 +77,8 @@ private:
 	PageItem *m_Item;
 	//! \brief True when its in dragging mode
 	bool dragging;
+	uint cCol;
+	uint cRow;
 
 private slots:
 	void slotDropped(QDropEvent *evt);
