@@ -189,12 +189,14 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 		zoom->setModal(false);
 		zoom->show();
 	}
-/*	if (e->button() == LeftButton)
+	if (e->button() == LeftButton)
 	{
-		rowA = rowAt(e->pos().y());
-		colA = columnAt(e->pos().x());
-		watchTimer->start(3000, true);
-	} */
+		int row = rowAt(e->pos().y());
+		int col = columnAt(e->pos().x());
+		selectCells(row, col, row, col);
+		m_mousePosition = e->pos();
+//		watchTimer->start(3000, true);
+	}
 	QTable::contentsMousePressEvent(e);
 }
 
