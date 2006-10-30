@@ -52,7 +52,7 @@ public:
 
 	QString displayName() const;
 
-	void update(StyleBase*);
+	void update(const StyleBase*);
 	
 	bool equiv(const Style& other) const;
 	
@@ -96,7 +96,7 @@ public:
 	/** isDefined: returns true if the attribute is defined in this style or any parent */
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	bool isDef##attr_NAME() const { \
-		if (inh_##attr_NAME) return true; \
+		if ( !inh_##attr_NAME ) return true; \
 		const ParagraphStyle * par = dynamic_cast<const ParagraphStyle*>(parentStyle()); \
 		return par && par->isDef##attr_NAME(); \
 	}

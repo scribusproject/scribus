@@ -1570,7 +1570,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			}
 			if (calign >= 0)
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
-			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
+//			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
 			obj->itemText.applyStyle(pos, pstyle);
 		}
 	}

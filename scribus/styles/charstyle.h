@@ -82,7 +82,7 @@ public:
 	
 	QString displayName() const;
 
-	void update(StyleBase * b);
+	void update(const StyleBase * b);
 	
 	bool equiv(const Style& other) const;	
 	
@@ -123,7 +123,7 @@ public:
 	/** isDefined: returns true if the attribute is defined in this style or any parent */
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	bool isDef##attr_NAME() const { \
-		if (inh_##attr_NAME) return true; \
+		if ( !inh_##attr_NAME ) return true; \
 		const CharStyle * par = dynamic_cast<const CharStyle*>(parentStyle()); \
 		return par && par->isDef##attr_NAME(); \
 	}
@@ -145,6 +145,7 @@ private:
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
 {
+	other.validate();
 	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
@@ -156,6 +157,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 
 inline CharStyle::CharStyle(const CharStyle & other) : Style(other) 
 {
+	other.validate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;

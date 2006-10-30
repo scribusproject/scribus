@@ -20,6 +20,7 @@
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle()
 {
+	setParent("");
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(defaultStyle()->base())));
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
@@ -32,6 +33,7 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NUL
 
 ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
+	other.validate();
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 
@@ -95,6 +97,7 @@ bool sametabs(const QValueList<ParagraphStyle::TabRecord>& tabs, const QValueLis
 
 bool ParagraphStyle::equiv(const Style& other) const
 {
+	other.validate();
 	const ParagraphStyle* oth = dynamic_cast<const ParagraphStyle*> ( & other );
 	return  oth &&
 		parent() == oth->parent() 
@@ -110,6 +113,7 @@ bool ParagraphStyle::equiv(const Style& other) const
 
 ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other) 
 {
+	other.validate();
 	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 	cstyle = other.charStyle();
 	cstyleBase = other.cstyleBase;
@@ -126,16 +130,18 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 
 
 
-void ParagraphStyle::update(StyleBase* base)
+void ParagraphStyle::update(const StyleBase* base)
 {
 	Style::update(base);
 	const ParagraphStyle * oth = dynamic_cast<const ParagraphStyle*> ( parentStyle() );
+//	qDebug(QString("ParagraphStyle::update(%1) parent=%2").arg((unsigned long int)base).arg((unsigned long int)oth));
 	if (oth) {
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 		if (inh_##attr_NAME) \
 			m_##attr_NAME = oth->attr_GETTER();
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
+		cstyleBase.invalidate();
 	}
 }
 
@@ -143,8 +149,10 @@ void ParagraphStyle::update(StyleBase* base)
 
 void ParagraphStyle::applyStyle(const ParagraphStyle& other) 
 {
+	other.validate();
 	Style::applyStyle(other);
 	cstyle.applyCharStyle(other.charStyle());
+	cstyleBase.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (! other.inh_##attr_NAME) \
 		set##attr_NAME(other.m_##attr_NAME);
@@ -155,8 +163,10 @@ void ParagraphStyle::applyStyle(const ParagraphStyle& other)
 
 void ParagraphStyle::eraseStyle(const ParagraphStyle& other) 
 {
+	other.validate();
 	Style::eraseStyle(other);
 	cstyle.eraseCharStyle(other.charStyle());
+	cstyleBase.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME && m_##attr_NAME == other.attr_GETTER()) \
 		reset##attr_NAME();

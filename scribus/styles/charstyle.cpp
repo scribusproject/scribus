@@ -52,6 +52,7 @@ StyleFlag operator~ (StyleFlag arg)
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {
+	other.validate();
 	Style::applyStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (! other.inh_##attr_NAME) \
@@ -63,6 +64,7 @@ void CharStyle::applyCharStyle(const CharStyle & other)
 
 void CharStyle::eraseCharStyle(const CharStyle & other)
 {
+	other.validate();
 	Style::eraseStyle(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	if (!inh_##attr_NAME && m_##attr_NAME == other.attr_GETTER()) \
@@ -73,6 +75,7 @@ void CharStyle::eraseCharStyle(const CharStyle & other)
 
 bool CharStyle::equiv(const Style & other) const
 {
+	other.validate();
 	const CharStyle * oth = dynamic_cast<const CharStyle*> ( & other );
 	return  oth &&
 		parent() == oth->parent() 
@@ -128,7 +131,7 @@ QString CharStyle::asString() const
 }
 
 
-void CharStyle::update(StyleBase* base)
+void CharStyle::update(const StyleBase* base)
 {
 	Style::update(base);
 	const CharStyle * oth = dynamic_cast<const CharStyle*> ( parentStyle() );
