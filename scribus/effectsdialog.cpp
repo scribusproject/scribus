@@ -841,7 +841,7 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 			QString col;
 			int shading;
 			QTextStream fp(&tmpstr, IO_ReadOnly);
-			col = fp.readLine();
+			fp >> col;
 			fp >> shading;
 			colData->setCurrentText(col);
 			shade->setValue(shading);

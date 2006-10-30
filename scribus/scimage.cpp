@@ -128,7 +128,7 @@ void ScImage::applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScCo
 				QString col = CommonStrings::None;
 				int shading = 100;
 				QTextStream fp(&tmpstr, IO_ReadOnly);
-				col = fp.readLine();
+				fp >> col;
 				fp >> shading;
 				colorize(colors[col], shading, cmyk);
 			}
