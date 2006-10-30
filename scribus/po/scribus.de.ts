@@ -2543,14 +2543,16 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.</translation>
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+Legt die Dokumentinformationen fest. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; sind Strings.</translation>
     </message>
     <message>
         <source>duplicateObject([&quot;name&quot;]) -&gt; string
 
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>duplicateObject([&quot;name&quot;]) -&gt; string
+Erstellt eine Kopie des ausgewählten Objekts oder der Gruppe.</translation>
     </message>
 </context>
 <context>
@@ -2917,7 +2919,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Deselect All</source>
-        <translation>Alles auswählen &amp;rückgängig machen</translation>
+        <translation type="unfinished">Alles auswählen r&amp;ückgängig machen</translation>
     </message>
     <message>
         <source>&amp;Search/Replace...</source>
@@ -2933,7 +2935,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Paragraph Styles...</source>
-        <translation>&amp;Absatzstile...</translation>
+        <translation type="unfinished">A&amp;bsatzstile...</translation>
     </message>
     <message>
         <source>&amp;Line Styles...</source>
@@ -2949,7 +2951,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>P&amp;references...</source>
-        <translation>Allgemeine &amp;Einstellungen...</translation>
+        <translation type="unfinished">Allgemeine E&amp;instellungen...</translation>
     </message>
     <message>
         <source>%1 pt</source>
@@ -3049,7 +3051,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Ungroup</source>
-        <translation>Gruppe auf&amp;lösen</translation>
+        <translation type="unfinished">Gruppe aufl&amp;ösen</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
@@ -3081,7 +3083,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Attributes...</source>
-        <translation>&amp;Attribute...</translation>
+        <translation type="unfinished">A&amp;ttribute...</translation>
     </message>
     <message>
         <source>I&amp;mage Visible</source>
@@ -3149,11 +3151,11 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Bezier Curve</source>
-        <translation>Bézier&amp;kurve</translation>
+        <translation type="unfinished">&amp;Bézierkurve</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation>&amp;Bildrahmen</translation>
+        <translation type="unfinished">B&amp;ildrahmen</translation>
     </message>
     <message>
         <source>&amp;Outlines</source>
@@ -3265,7 +3267,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>Sna&amp;p to Guides</source>
-        <translation>An &amp;Hilfslinien ausrichten</translation>
+        <translation type="unfinished">A&amp;n Hilfslinien ausrichten</translation>
     </message>
     <message>
         <source>&amp;Properties</source>
@@ -3297,7 +3299,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
-        <translation>&amp;Ausrichten und Verteilen</translation>
+        <translation type="unfinished">A&amp;usrichten und Verteilen</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -3313,7 +3315,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation>Ta&amp;belle</translation>
+        <translation type="unfinished">T&amp;abelle</translation>
     </message>
     <message>
         <source>&amp;Shape</source>
@@ -3325,7 +3327,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;Freehand Line</source>
-        <translation>Frei&amp;handlinie</translation>
+        <translation type="unfinished">&amp;Freihandlinie</translation>
     </message>
     <message>
         <source>Rotate Item</source>
@@ -3613,7 +3615,7 @@ C= littleCMS C=CUPS, T=TIFF-Unterstützung, F=Fontconfig-Unterstützung. Der zus
     </message>
     <message>
         <source>&amp;About Plug-ins</source>
-        <translation>&amp;Über Plug-Ins</translation>
+        <translation type="unfinished">Über &amp;Plug-Ins</translation>
     </message>
     <message>
         <source>More Info...</source>
@@ -4832,7 +4834,7 @@ bekommen. Außerdem reduziert UFR die Gefahr einer Übersättigung mit CMY.
     <name>Barcode</name>
     <message>
         <source>&amp;Barcode Generator...</source>
-        <translation>&amp;Strichcodegenerator...</translation>
+        <translation>Strichcode&amp;generator...</translation>
     </message>
     <message>
         <source>Scribus frontend for Pure Postscript Barcode Writer</source>
@@ -10681,7 +10683,7 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="unfinished">Der Text in tieferliegenden Rahmen umfließt das Objekt. Die Optionen weiter unten legen fest, wie dies aktiviert wird.</translation>
+        <translation>Der Text in tieferliegenden Rahmen umfließt das Objekt. Die Optionen weiter unten legen fest, wie dies aktiviert wird.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
@@ -13117,7 +13119,7 @@ Der ausschlaggebende Wert ist der Bundsteg.</translation>
     </message>
     <message>
         <source>Nine Parts</source>
-        <translation>Neun Bereiche</translation>
+        <translation>Neunerteilung</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Guttenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
@@ -15303,19 +15305,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
+        <translation>Bretonisch</translation>
     </message>
     <message>
         <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation>Englisch (USA)</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Englisch (Australien)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 könnte beschädigt sein: fehlende oder falsche Daten zur Auflösung</translation>
     </message>
 </context>
 <context>
