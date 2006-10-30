@@ -307,6 +307,13 @@ void ScribusView::togglePreview()
 	{
 		storedFramesShown = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
+		// warning popping up in case colour management and out-of-gamut-display are active
+		// as from #4346: Add a preview for daltonian - PV
+		if (Doc->HasCMS || Doc->Gamut)
+			QMessageBox::information(m_ScMW,
+									 tr("Preview Mode"),
+									 "<qt>" + tr("CMS is active. Therefore the colour display may not match the perception by visually impaired") + "</qt>",
+									 QMessageBox::Ok);
 	}
 	else
 		Doc->guidesSettings.framesShown = storedFramesShown;
@@ -7672,8 +7679,9 @@ bool ScribusView::slotSetCurs(int x, int y)
 	{
 		if (!((currItemGeneric->asTextFrame()) || (currItemGeneric->asImageFrame())))
 			return false;
-		int xP = qRound(x/Scale + Doc->minCanvasCoordinate.x());
-		int yP = qRound(y/Scale + Doc->minCanvasCoordinate.y());
+		// unsed by gcc warning - PV
+		//int xP = qRound(x/Scale + Doc->minCanvasCoordinate.x());
+		//int yP = qRound(y/Scale + Doc->minCanvasCoordinate.y());
  		QPainter p;
 		p.begin(this);
 		Transform(currItemGeneric, &p);
@@ -8242,7 +8250,7 @@ void ScribusView::HandleCurs(QPainter *p, PageItem *currItem, QRect mpo)
 		qApp->setOverrideCursor(QCursor(crossCursor), true);
 }
 
-void ScribusView::SelectItemNr(int nr, bool draw, bool single)
+void ScribusView::SelectItemNr(uint nr, bool draw, bool single)
 {
 	if (nr < Doc->Items->count())
 		SelectItem(Doc->Items->at(nr), draw, single);

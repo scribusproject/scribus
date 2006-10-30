@@ -219,7 +219,7 @@ public:
 	void HandleSizer(QPainter *p, PageItem *currItem, QRect mpo, QMouseEvent *m);
 	bool GetItem(PageItem **b, int nr = -1);
 	void Deselect(bool prop = true);
-	void SelectItemNr(int nr, bool draw = true, bool single = false);
+	void SelectItemNr(uint nr, bool draw = true, bool single = false);
 	void SelectItem(PageItem *pi, bool draw = true, bool single = false);
 	void selectPage(QMouseEvent *m);
 	bool SeleItem(QMouseEvent *m);
