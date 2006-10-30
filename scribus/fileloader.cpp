@@ -276,7 +276,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -290,7 +290,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -304,7 +304,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2704,7 +2704,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2718,7 +2718,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2732,7 +2732,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
