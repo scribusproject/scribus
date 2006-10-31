@@ -645,6 +645,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 //		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->defaultStyle.applyStyle(style);
 	}
+	invalidate(pos, QMIN(i, length()));
 }
 
 void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
@@ -674,6 +675,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->defaultStyle.eraseStyle(style);
 	}
+	invalidate(pos, QMIN(i, length()));
 }
 
 
@@ -866,7 +868,6 @@ void StoryText::invalidateLayout()
 
 void StoryText::invalidateAll()
 {
-	d->replaceCharStyleBaseInParagraph(0, NULL);
 }
 
 void StoryText::invalidate(int firstitem, int lastitem)

@@ -188,6 +188,7 @@ public:
 	void applyStyle(const Style& other) { 
 		if (other.hasParent())
 			setParent(other.parent());
+		m_baseversion = -1;
 	}
 	/** 
 		if other has the same parent, remove this parent 
@@ -195,6 +196,7 @@ public:
 	void eraseStyle(const Style& other) {
 		if (other.parent() == parent())
 			setParent("");
+		m_baseversion = -1;
 	}
 };
 
