@@ -376,16 +376,22 @@ void CustomFDialog::handleCompress()
 	QFileInfo tmp;
 	tmp.setFile(selectedFile());
 	QString e(tmp.extension());
-
+	QStringList ex = QStringList::split(".", e);
+	QString baseExt = "";
+	for (uint a = 0; a < ex.count(); a++)
+	{
+		if ((ex[a] != "sla") && (ex[a] != "SLA") && (ex[a] != "gz") && (ex[a] != "GZ"))
+			baseExt += "."+ex[a];
+	}
 	if (SaveZip->isChecked())
 	{
 		if (e != extZip)
-			tmp.setFile(tmp.baseName() + "." + extZip);
+			tmp.setFile(tmp.baseName() + baseExt + "." + extZip);
 	}
 	else
 	{
 		if (e != ext)
-			tmp.setFile(tmp.baseName() + "." + ext);
+			tmp.setFile(tmp.baseName() + baseExt + "." + ext);
 	}
 	setSelection(tmp.fileName());
 }
