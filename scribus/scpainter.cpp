@@ -828,6 +828,16 @@ void ScPainter::setWorldMatrix( const QWMatrix &mat )
 #endif
 }
 
+#ifdef HAVE_CAIRO
+void ScPainter::setAntialiasing(bool enable)
+{
+	if (enable)
+		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_DEFAULT);
+	else
+		cairo_set_antialias(m_cr, CAIRO_ANTIALIAS_NONE);
+}
+#endif
+
 void ScPainter::setZoomFactor( double zoomFactor )
 {
 	m_zoomFactor = zoomFactor;

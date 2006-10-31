@@ -84,6 +84,7 @@ public:
 #ifdef HAVE_CAIRO
 	virtual void beginLayer(double transparency, int blendmode);
 	virtual void endLayer(FPointArray *clipArray = 0);
+	virtual void setAntialiasing(bool enable);
 #endif
 	virtual void begin();
 	virtual void end();

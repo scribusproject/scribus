@@ -415,7 +415,13 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					else
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					painter->setBrush(Doc->papColor);
+#ifdef HAVE_CAIRO
+					painter->setAntialiasing(false);
+#endif
 					painter->drawRect(x, y, w, h);
+#ifdef HAVE_CAIRO
+					painter->setAntialiasing(true);
+#endif
 					if ((Doc->guidesSettings.before) && (!viewAsPreview))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
@@ -519,7 +525,13 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				painter->setBrush(QColor(128,128,128));
 				painter->drawRect(x+5, y+5, w, h);
 				painter->setBrush(Doc->papColor);
+#ifdef HAVE_CAIRO
+				painter->setAntialiasing(false);
+#endif
 				painter->drawRect(x, y, w, h);
+#ifdef HAVE_CAIRO
+				painter->setAntialiasing(true);
+#endif
 				if (Doc->guidesSettings.before)
 					DrawPageMarks(painter, Doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
 #ifdef HAVE_CAIRO
@@ -1059,7 +1071,12 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	p->save();
 	p->setZoomFactor(Scale);
 	p->translate(page->xOffset() * Scale, page->yOffset() * Scale);
+#ifdef HAVE_CAIRO
+	p->setAntialiasing(false);
+	double lineWidth = 1.0 / Scale;
+#else
 	double lineWidth = 0.5 / Scale;
+#endif
 	p->setLineWidth(lineWidth);
 	double pageHeight=page->height();
 	double pageWidth=page->width();
@@ -1131,6 +1148,10 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	//Draw the guides
 	if (Doc->guidesSettings.guidesShown)
 		page->guides.drawPage(p, Doc, lineWidth);
+
+#ifdef HAVE_CAIRO
+	p->setAntialiasing(true);
+#endif
 
 	p->restore();
 	p->setZoomFactor(z);
