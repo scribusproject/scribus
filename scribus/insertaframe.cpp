@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "insertaframe.h"
 #include "insertaframe.moc"
 
+#include "createrange.h"
 #include "customfdialog.h"
 #include "mspinbox.h"
 #include "prefsfile.h"
@@ -38,6 +39,8 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	radioButtonTable->setShown(false);
 	radioButtonShape->setShown(false);
 	radioButtonPolygon->setShown(false);
+	
+	placementPagesRangeButton->setPixmap(loadIcon("ellipsis.png"));
 	
 	//set tab order
 	QWidget::setTabOrder(radioButtonCustomPosition, xPosMSpinBox);
@@ -72,6 +75,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 	sourceDocLineEdit->setText("");
  	connect(typeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectType(int)));
  	connect(pagePlacementButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPagePlacement(int)));
+	connect(placementPagesRangeButton, SIGNAL(clicked()), this, SLOT(slotCreatePageNumberRange()));
  	connect(framePositionButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectPosition(int)));
  	connect(sizeButtonGroup, SIGNAL(clicked(int)), this, SLOT(slotSelectSize(int)));
  	connect(selectImageFileButton, SIGNAL(clicked()), this, SLOT(locateImageFile()));
@@ -117,6 +121,7 @@ void InsertAFrame::slotSelectType( int id )
 void InsertAFrame::slotSelectPagePlacement( int id )
 {
 	placementPagesLineEdit->setEnabled(id==1);
+	placementPagesRangeButton->setEnabled(id==1);
 	checkBoxLinkCreatedTextFrames->setEnabled(id==1);
 }
 
@@ -197,4 +202,20 @@ void InsertAFrame::locateDocFile()
 	if (m_ImportSetup.runDialog)
 		sourceDocLineEdit->setText(m_ImportSetup.filename);
 	delete gt;
+}
+
+void InsertAFrame::slotCreatePageNumberRange( )
+{
+	if (m_Doc!=0)
+	{
+		CreateRange cr(placementPagesLineEdit->text(), m_Doc->DocPages.count(), this);
+		if (cr.exec())
+		{
+			CreateRangeData crData;
+			cr.getCreateRangeData(crData);
+			placementPagesLineEdit->setText(crData.pageRange);
+			return;
+		}
+	}
+	placementPagesLineEdit->setText(QString::null);
 }

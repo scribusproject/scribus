@@ -3161,15 +3161,15 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 		//We need this for the itemAdd, FIXME later
 		setCurrentPage(targetPage);
 		
-		if (iafData.positionType==0) // Frame starts at top left of page
-		{
-			x1=targetPage->xOffset();
-			y1=targetPage->yOffset();
-		} 
-		else if (iafData.positionType==1) // Frame starts at top left of page margins
+		if (iafData.positionType==0) // Frame starts at top left of page margins
 		{
 			x1=targetPage->xOffset()+targetPage->Margins.Left;
 			y1=targetPage->yOffset()+targetPage->Margins.Top;
+		}
+		else if (iafData.positionType==1) // Frame starts at top left of page
+		{
+			x1=targetPage->xOffset();
+			y1=targetPage->yOffset();
 		}
 		else if (iafData.positionType==2) // Frame starts at custom position
 		{
@@ -3177,15 +3177,16 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			y1=targetPage->yOffset()+iafData.y/docUnitRatio;
 		}
 		
-		if (iafData.sizeType==0) // Frame is size of page
-		{
-			w1=targetPage->width();
-			h1=targetPage->height();
-		}
-		else if (iafData.sizeType==1) // Frame is size of page margins
+
+		if (iafData.sizeType==0) // Frame is size of page margins
 		{
 			w1=targetPage->width()-targetPage->Margins.Right-targetPage->Margins.Left;
 			h1=targetPage->height()-targetPage->Margins.Bottom-targetPage->Margins.Top;
+		}
+		else if (iafData.sizeType==1) // Frame is size of page
+		{
+			w1=targetPage->width();
+			h1=targetPage->height();
 		}
 		else if (iafData.sizeType==2) // Frame is custom size
 		{
