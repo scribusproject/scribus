@@ -272,6 +272,7 @@ scribus_SOURCES = \
 	undoobject.cpp	\
 	undostack.cpp \
 	undostate.cpp	\
+	unicodesearch.cpp \
 	units.cpp	\
 	unzip.c	\
 	upgradechecker.cpp	\
@@ -498,6 +499,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/undomanager.h                 $(prefix)/include/scribus/undomanager.h
 	$(INSTALL_DATA) $(srcdir)/undoobject.h                  $(prefix)/include/scribus/undoobject.h
 	$(INSTALL_DATA) $(srcdir)/undostate.h                   $(prefix)/include/scribus/undostate.h
+	$(INSTALL_DATA) $(srcdir)/unicodesearch.h               $(prefix)/include/scribus/unicodesearch.h
 	$(INSTALL_DATA) $(srcdir)/units.h                       $(prefix)/include/scribus/units.h
 	$(INSTALL_DATA) $(srcdir)/unzip.h                       $(prefix)/include/scribus/unzip.h
 	$(INSTALL_DATA) $(srcdir)/vgradient.h                   $(prefix)/include/scribus/vgradient.h
@@ -699,6 +701,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/undomanager.h
 	-rm -f $(prefix)/include/scribus/undoobject.h
 	-rm -f $(prefix)/include/scribus/undostate.h
+	-rm -f $(prefix)/include/scribus/unicodesearch.h
 	-rm -f $(prefix)/include/scribus/units.h
 	-rm -f $(prefix)/include/scribus/unzip.h
 	-rm -f $(prefix)/include/scribus/vgradient.h

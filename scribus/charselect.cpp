@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "charselect.moc"
 #include "sccombobox.h"
 #include "scpainter.h"
+#include "unicodesearch.h"
 
 #include "fonts/scfontmetrics.h"
 #include "util.h"
@@ -78,13 +79,20 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	charTable = new CharTable(this, 16, m_Item, m_fontInUse);
 	charTable->enableDrops(false);
 	scanFont();
+
+	unicodeButton = new UnicodeChooseButton(this, "unicodeButton");
+	unicodeLayout = new QVBoxLayout();
+	unicodeLayout->addWidget(unicodeButton);
+
 	userTable = new CharTable(this, 2, m_Item, m_fontInUse);
 	userTable->setMaximumWidth(100);
 	userTable->setMinimumWidth(100);
 	userTable->enableDrops(true);
+	unicodeLayout->addWidget(userTable);
+
 	charPalettesLayout = new QHBoxLayout();
 	charPalettesLayout->addWidget(charTable);
-	charPalettesLayout->addWidget(userTable);
+	charPalettesLayout->addLayout(unicodeLayout);
 	zAuswahlLayout->addLayout(charPalettesLayout);
 	
 	layout3 = new QHBoxLayout;
@@ -506,8 +514,7 @@ void CharSelect::newChar()
 	}
 }
 
-//void CharSelect::newChar(uint r, uint c) // , int b, const QPoint &pp)
-void CharSelect::newChar(uint i) // , int b, const QPoint &pp)
+void CharSelect::newChar(uint i)
 {
 	chToIns += QChar(i);
 	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));

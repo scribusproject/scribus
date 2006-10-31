@@ -54,8 +54,6 @@ public slots:
 	void showAlternate();
 
 signals:
-	//! \brief A signal emitted when user selects exact cell
-	//void selectChar(uint, uint);
 	void selectChar(uint);
 	//! \brief When user press the DELETE/BACKSPACE key
 	void delChar();
@@ -77,7 +75,9 @@ private:
 	PageItem *m_Item;
 	//! \brief True when its in dragging mode
 	bool dragging;
+	//! \brief current column
 	uint cCol;
+	//! \brief current row
 	uint cRow;
 
 private slots:

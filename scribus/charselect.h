@@ -21,6 +21,7 @@ class QLineEdit;
 
 class FontCombo;
 class PageItem;
+class UnicodeChooseButton;
 
 
 class SCRIBUS_API CharSelect : public QDialog
@@ -59,6 +60,7 @@ private:
 	CharTable* charTable;
 	//! \brief User's defined char palette
 	CharTable* userTable;
+	UnicodeChooseButton* unicodeButton;
 
 	QValueList<CharClassDef> allClasses;
 	CharClassDef characters;
@@ -119,6 +121,7 @@ protected:
 	QVBoxLayout* zAuswahlLayout;
 	QHBoxLayout* selectionsLayout;
 	QHBoxLayout* charPalettesLayout;
+	QVBoxLayout* unicodeLayout;
 	QHBoxLayout* layout1;
 	QVBoxLayout* layout2;
 	QHBoxLayout* layout3;

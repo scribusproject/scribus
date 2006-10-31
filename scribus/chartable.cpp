@@ -273,7 +273,6 @@ void CharTable::setFontInUse(QString font)
 }
 
 // D'n'D
-
 void CharTable::enableDrops(bool e)
 {
 	viewport()->setAcceptDrops(e);
@@ -281,21 +280,16 @@ void CharTable::enableDrops(bool e)
 
 QDragObject * CharTable::dragObject()
 {
-	qDebug("QDragObject * CharTable::dragObject()");
 	QString s("%1");
 	uint val = cRow * numCols() + cCol;
-	qDebug("dragObject: "+s.arg(m_characters[val]));
 	return new QTextDrag(s.arg(m_characters[val]), this);
 }
 
 void CharTable::slotDropped(QDropEvent *evt)
 {
-	qDebug("void CharTable::slotDropped(QDropEvent *evt)");
 	if (evt->source() == this)
-	{
-		qDebug("CharTable D'n'D: the same widget!");
 		return;
-	}
+
 	QString label;
 	bool ok;
 	if ( QTextDrag::decode(evt, label))
@@ -303,11 +297,8 @@ void CharTable::slotDropped(QDropEvent *evt)
 		int val = label.toInt(&ok, 10);
 		if (ok)
 		{
-			qDebug("CharTable D'n'D accepted: " + label);
 			m_characters.append(val);
 			recalcCellSizes();
 		}
-		else
-			qDebug("CharTable D'n'D error. Label: " + label);
 	}
 }

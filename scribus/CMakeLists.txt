@@ -48,6 +48,7 @@ tabdisplaybase.ui
 tabgeneralbase.ui
 tabmiscellaneousbase.ui
 tabscrapbookbase.ui
+unicodesearchbase.ui
 )
 
 SET(SCRIBUS_MOC_CLASSES
@@ -218,6 +219,7 @@ tocindexprefs.h
 tree.h
 undogui.h
 undomanager.h
+unicodesearch.h
 upgradechecker.h
 useprintermarginsdialog.h
 vruler.h
@@ -458,6 +460,7 @@ undomanager.cpp
 undoobject.cpp
 undostack.cpp
 undostate.cpp
+unicodesearch.cpp
 units.cpp
 unzip.c
 upgradechecker.cpp
