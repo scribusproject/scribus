@@ -15913,7 +15913,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>&amp;Fonts</source>
-      <translation>K&amp;irjaintyypit</translation>
+      <translation>&amp;Fontit</translation>
     </message>
     <message>
       <source>Enable &amp;Presentation Effects</source>
