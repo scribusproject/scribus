@@ -5689,6 +5689,8 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 						currItem->itemText.setStyle(pos, newStyle);
 					}
 				}
+				currItem->invalid = true;
+
 				if (currItem->asPathText())
 				{
 					currItem->updatePolyClip();
@@ -5730,6 +5732,8 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 						currItem->itemText.applyStyle(pos, newStyle);
 					}
 				}
+				currItem->invalid = true;
+
 				if (currItem->asPathText())
 				{
 					currItem->updatePolyClip();
@@ -5766,6 +5770,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 					length = currItem->itemText.endOfSelection() - start;
 				}
 				currItem->itemText.applyCharStyle(start, length, newstyle);
+				currItem->invalid = true;
 				
 				if (currItem->asPathText())
 				{
@@ -5805,6 +5810,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
 					length = currItem->itemText.endOfSelection() - start;
 				}
 				currItem->itemText.setCharStyle(start, length, newstyle);
+				currItem->invalid = true;
 				
 				if (currItem->asPathText())
 				{
