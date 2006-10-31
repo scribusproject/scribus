@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scimgdataloader_ps.h"
 #include "prefsmanager.h"
+#include "util.h"
 
 extern "C"
 {
@@ -367,6 +368,8 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	if (!fi.exists())
 		return false;
 	QString ext = fi.extension(false).lower();
+	if (ext.isEmpty())
+		ext = getImageType(fn);
 	QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	float xres = gsRes;

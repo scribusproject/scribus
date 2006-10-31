@@ -130,6 +130,8 @@ void FDialogPreview::GenPreview(QString name)
 	formats.clear();
 	allFormats = allFormats.lower();
 	formats = QStringList::split( " ", allFormats );
+	if (ext.isEmpty())
+		ext = getImageType(name);
 	if (formats.contains(ext))
 	{
 		ScImage im;

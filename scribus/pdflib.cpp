@@ -5205,6 +5205,8 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 {
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	if (ext.isEmpty())
+		ext = getImageType(fn);
 	ScImage img;
 	QByteArray im;
 	QString tmp, tmpy, dummy, cmd1, cmd2, BBox;

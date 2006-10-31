@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "exif.h"
 #include "commonstrings.h"
 #include "colorutil.h"
+#include "util.h"
 
 using namespace std;
 
@@ -1781,6 +1782,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
 	bool found = false;
+
+	if (ext.isEmpty())
+		ext = getImageType(fn);
 
 	if (ext == "pdf")
 		pDataLoader.reset( new ScImgDataLoader_PDF() );

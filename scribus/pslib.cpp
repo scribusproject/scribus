@@ -1043,6 +1043,8 @@ void PSLib::PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bo
 	QCString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	if (ext.isEmpty())
+		ext = getImageType(fn);
 	if ((ext == "eps") && (c->pixm.imgInfo.type != 7))
 	{
 		if (loadRawText(fn, tmp))
@@ -1110,6 +1112,8 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
 	QCString tmp;
 	QFileInfo fi = QFileInfo(fn);
 	QString ext = fi.extension(false).lower();
+	if (ext.isEmpty())
+		ext = getImageType(fn);
 	if ((ext == "eps") && (c->pixm.imgInfo.type != 7))
 	{
 		if (loadRawText(fn, tmp))

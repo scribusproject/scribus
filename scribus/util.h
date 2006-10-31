@@ -156,5 +156,6 @@ Useful for duration holes finding.
 void tDebug(QString message);
 
 QString SCRIBUS_API setupImageFormats();
+QString SCRIBUS_API getImageType(QString filename);
 
 #endif
