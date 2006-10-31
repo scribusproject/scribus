@@ -272,6 +272,7 @@ scribus_SOURCES = \
 	undoobject.cpp	\
 	undostack.cpp \
 	undostate.cpp	\
+	unicodesearchbase.ui \
 	unicodesearch.cpp \
 	units.cpp	\
 	unzip.c	\
