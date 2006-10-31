@@ -5689,6 +5689,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 						currItem->itemText.setStyle(pos, newStyle);
 					}
 				}
+				currItem->itemText.setStyle(stop, newStyle);
 				currItem->invalid = true;
 
 				if (currItem->asPathText())
@@ -5732,6 +5733,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 						currItem->itemText.applyStyle(pos, newStyle);
 					}
 				}
+				currItem->itemText.applyStyle(stop, newStyle);
 				currItem->invalid = true;
 
 				if (currItem->asPathText())
