@@ -184,21 +184,12 @@ QString SMParagraphStyle::fromSelection() const
 
 void SMParagraphStyle::toSelection(const QString &styleName) const
 {
-	if (!doc_ || doc_->m_Selection->isEmpty())
+	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	int index = findParagraphStyle(doc_, styleName);
-	Q_ASSERT(index > -1);
-	if (index < 0)
-		return;
-
-	doc_->currentStyle = doc_->docParagraphStyles[index];
-	doc_->itemSelection_SetParagraphStyle(doc_->docParagraphStyles[index]);
-
-	PageItem *currItem = doc_->m_Selection->itemAt(0);
-
-	doc_->scMW()->setTBvals(currItem);
-	doc_->scMW()->slotDocCh();
+	ParagraphStyle newStyle;
+	newStyle.setParent(styleName);
+	doc_->itemSelection_ApplyParagraphStyle(newStyle);
 }
 
 QString SMParagraphStyle::newStyle()
@@ -1393,7 +1384,12 @@ QString SMCharacterStyle::fromSelection() const
 
 void SMCharacterStyle::toSelection(const QString &styleName) const
 {
-	
+	if (!doc_)
+		return; // nowhere to apply or no doc
+
+	CharStyle newStyle;
+	newStyle.setParent(styleName);
+	doc_->itemSelection_ApplyCharStyle(newStyle);
 }
 
 QString SMCharacterStyle::newStyle()
