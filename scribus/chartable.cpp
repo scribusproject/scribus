@@ -295,7 +295,7 @@ void CharTable::slotDropped(QDropEvent *evt)
 	if ( QTextDrag::decode(evt, label))
 	{
 		int val = label.toInt(&ok, 10);
-		if (ok)
+		if (ok && !m_characters.contains(val))
 		{
 			m_characters.append(val);
 			recalcCellSizes();
