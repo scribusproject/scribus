@@ -151,15 +151,6 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 			iafData.frameType=PageItem::ImageFrame;
 			iafData.source=sourceImageLineEdit->text();
 			break;
-		case 2:
-// 			iafData.frameType=PageItem::
-			break;
-		case 3:
-			iafData.frameType=PageItem::Polygon;
-			break;
-		case 4:
-			iafData.frameType=PageItem::Polygon;
-			break;
 	}
 	iafData.locationType=pagePlacementButtonGroup->selectedId();
 	iafData.pageList=placementPagesLineEdit->text();

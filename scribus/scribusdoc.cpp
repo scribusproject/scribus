@@ -3157,9 +3157,9 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	PageItem *prevItem=0; //Previous item for text frame linking
 
 	undoManager->beginTransaction(
-       iafData.frameType==PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
-       iafData.frameType==PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
-       Um::InsertFrame, "", Um::ICreate);
+			iafData.frameType==PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
+			iafData.frameType==PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
+			Um::InsertFrame, "", Um::ICreate);
 
 	for (uint i=0;i<pageNs.size();++i)
 	{
