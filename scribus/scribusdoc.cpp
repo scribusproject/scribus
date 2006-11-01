@@ -3155,6 +3155,12 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	Page* oldCurrentPage = currentPage();
 	int z=-2;
 	PageItem *prevItem=0; //Previous item for text frame linking
+
+	undoManager->beginTransaction(
+       iafData.frameType==PageItem::TextFrame ? Um::TextFrame : Um::ImageFrame,
+       iafData.frameType==PageItem::TextFrame ? Um::ITextFrame : Um::IImageFrame,
+       Um::InsertFrame, "", Um::ICreate);
+
 	for (uint i=0;i<pageNs.size();++i)
 	{
 		Page* targetPage=Pages->at(pageNs[i]-1);
@@ -3237,6 +3243,8 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			}
 		}
 	}
+
+	undoManager->commit();
 	setCurrentPage(oldCurrentPage);
 	changed();
 	emit updateContents();
