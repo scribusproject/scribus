@@ -592,7 +592,8 @@ void PagePalette::MPage(int r, int c)
 	currView->reformPages();
 	RebuildPage();
 	currView->DrawNew();
-	currView->Doc->setModified(true);
+//CB done by doc::reformpages
+// 	currView->Doc->setModified(true);
 }
 
 void PagePalette::GotoPage(int r, int c, int b)
@@ -625,7 +626,8 @@ void PagePalette::handlePageLayout(int layout)
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
 	RebuildPage();
-	currView->Doc->setModified(true);
+//CB done by doc::reformpages
+//	currView->Doc->setModified(true);
 }
 
 void PagePalette::handleFirstPage(int fp)
@@ -635,7 +637,8 @@ void PagePalette::handleFirstPage(int fp)
 	currView->DrawNew();
 	currView->GotoPage(currView->Doc->currentPageNumber());
 	RebuildPage();
-	currView->Doc->setModified(true);
+//CB done by doc::reformpages
+// 	currView->Doc->setModified(true);
 }
 
 void PagePalette::RebuildTemp()

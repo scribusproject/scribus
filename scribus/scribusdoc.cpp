@@ -3667,6 +3667,7 @@ void ScribusDoc::reformPages(bool moveObjects)
 		canvasMinMax(minPoint, maxPoint);
 		FPoint maxSize(QMAX(maxXPos, maxPoint.x()+ScratchRight), QMAX(maxYPos, maxPoint.y()+ScratchBottom));
 		adjustCanvas(FPoint(QMIN(0, minPoint.x()-ScratchLeft),QMIN(0, minPoint.y()-ScratchTop)), maxSize, true);
+		changed();
 	}
 	else
 	{

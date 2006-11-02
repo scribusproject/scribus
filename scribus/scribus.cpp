@@ -2235,12 +2235,12 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	scrActions["viewRulerMode"]->setOn(doc->guidesSettings.rulerMode);
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	view->cmsToolbarButton->setOn(doc->HasCMS);
+	//doc emits changed() via this
 	view->reformPages();
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
 	propertiesPalette->ShowCMS();
 	pagePalette->RebuildPage();
-	slotDocCh();
 }
 
 bool ScribusMainWindow::slotDocSetup()
@@ -6062,7 +6062,8 @@ void ScribusMainWindow::DeletePage2(int pg)
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
-	slotDocCh();
+	//CB done by doc::reformpages
+	//slotDocCh();
 	pagePalette->RebuildPage();
 	if (UndoManager::undoEnabled())
 		undoManager->commit();
@@ -7880,7 +7881,8 @@ void ScribusMainWindow::ApplyMasterPage()
 	}
 	view->reformPages();
 	view->DrawNew();
-	slotDocCh();
+	//CB done by doc::reformpages
+	//slotDocCh();
 	pagePalette->Rebuild();
 	delete dia;
 }
