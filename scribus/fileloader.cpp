@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "fileloader.moc"
 #include "fontreplacedialog.h"
+#include "hyphenator.h"
 #include "missing.h"
 #include "page.h"
 #include "pluginmanager.h"
@@ -2651,6 +2652,14 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 
 bool FileLoader::postLoad()
 {
+	if (ScMW->doc->docHyphenator!=0)
+	{
+			ScMW->doc->docHyphenator->Automatic=ScMW->doc->Automatic;
+			ScMW->doc->docHyphenator->AutoCheck=ScMW->doc->AutoCheck;
+			ScMW->doc->docHyphenator->Language=ScMW->doc->Language;
+			ScMW->doc->docHyphenator->MinWordLen=ScMW->doc->MinWordLen;
+			ScMW->doc->docHyphenator->HyCount=ScMW->doc->HyCount;
+	}
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{
 		PageItem *it = ScMW->doc->MasterItems.at(d);
