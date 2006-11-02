@@ -294,7 +294,7 @@ scribus_SOURCES = \
 INTERFACES =
 TRANSLATIONS =
 
-SUBDIRS = $(renderer_subdirs) styles dicts doc icons keysets manpages po profiles qm swatches templates dtd loremipsum text fonts . plugins
+SUBDIRS = $(renderer_subdirs) styles dicts doc icons keysets manpages po profiles qm swatches templates dtd loremipsum text fonts . plugins unicodemap
 
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using

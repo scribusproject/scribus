@@ -17,24 +17,7 @@ for which a new license (GPL+exception) is in place.
 /*! \brief Special "search for unicode character" dialog.
 The search string entered by user is searched in character
 description and in the hex representation (as string) too.
-
-I've cerated the file with unicode entities with this script:
-f = open('NamesList.txt', 'r')
-out = {}
-for i in f:
-    if i[:1] == '@' or i[:1] == '\t':
-        continue
-    str = i.split('\t')
-    out[str[0]] = ' '.join(str[1:]).strip()
-f.close()
-f = open('unicodenameslist.txt', 'w')
-for i in out:
-    f.write("%s:%s\n" % (i, out[i]))
-f.close()
-
-from:
-http://www.unicode.org/Public/5.0.0/ucd/NamesList.txt
-
+See directory ./unicodemap/ for more info
 \author Petr Vanek <petr@scribus.info>
 */
 class UnicodeSearch : public UnicodeSearchBase
