@@ -7028,12 +7028,11 @@ void ScribusMainWindow::updtGradFill()
 void ScribusMainWindow::GetBrushPen()
 {
 	//What? we come back here from mpalette and then go to the view.. someones kidding
-	//why this.. ugh. setActiveWindow();
-	//
 	if (!HaveDoc)
 		return;
 	view->QueryFarben();
-	slotDocCh();
+	//CB We dont need to set the doc changed just to find the colour values...
+	//slotDocCh();
 }
 
 //CB-->??

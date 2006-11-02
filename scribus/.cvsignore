@@ -43,6 +43,7 @@ tabmiscellaneousbase.h
 tabscrapbookbase.h
 tocindexprefsbase.h
 useprintermarginsdialogbase.h
+unicodesearchbase.h
 aboutpluginsbase.cpp
 aligndistributebase.cpp
 createrangebase.cpp
@@ -67,3 +68,4 @@ tabmiscellaneousbase.cpp
 tabscrapbookbase.cpp
 tocindexprefsbase.cpp
 useprintermarginsdialogbase.cpp
+unicodesearchbase.cpp
