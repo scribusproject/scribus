@@ -283,7 +283,47 @@ PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -&gt; bool
+
+Створює новий документ та повертає булеве значення True, якщо операція була виконана успішно.
+Параметри мають такі значення:
+
+size (розмір) = Тупль (ширина, висота), який описує розмір документа. Ви можете
+використовувати попередньо визначені константи з назвами PAPER_&lt;тип паперу&gt;,
+наприклад PAPER_A4 і т.д.
+
+margins (поля) = Тупль (ліве, праве, верхнє, нижнє), який описує поля документа.
+
+orientation (орієнтація) = Орієнтація сторінки - константи PORTRAIT (портретна), 
+LANDSCAPE (ландшафтна)
+
+firstPageNumer = Номер першої стоінки документа, яка використовується для нумерації.
+У більшості випадків виберіть 1, але вищі номери можуть також бути корисними, якщо
+документ складається з кількох частин.
+
+unit = Це значення установлює одиниці виміру, які використовуються в документі.
+Використовуйте попередньо визначені константи для цього значення: UNIT_INCHES, 
+UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.
+
+pagesType = Тип сторінок. Використовуйте одну з попередньо визначених констант PAGE_n.
+PAGE_1 - одна сторінка, PAGE_2 - для двосторонніх документів (типу книг чи брошюр),
+PAGE_3 - для 3-х сторінкових розкладок,
+PAGE_4 - для 4-х сторінкових розкладок.
+
+firstPageOrder = Позиція першої сторінки документа. Індексується з 0 (0 = перша).
+
+numPage = Скільки сторінок створювати.
+
+Значення ширини, висоти та полів виражаються в одиницях виміру документа. Константи
+PAPER_* constants виражаються в точках. Якщо одиницями виміру Вашого документа не
+являються точки, то прийміть до уваги відношення одиниць.
+
+Наприклад: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS, PAGE_4, 3, 1)
+
+Може повернути помилку ScribusError, якщо значення firstPageOrder є більшим ніж дозволено
+для цього pagesType.
+</translation>
     </message>
 </context>
 <context>
@@ -2675,14 +2715,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setInfo(&quot;автор&quot;, &quot;інформація&quot;, &quot;опис&quot;) -&gt; bool (булеве значення)
+
+Встановлює опис документа. &quot;Автор&quot;, &quot;Інформація&quot;, &quot;Опис&quot; являються строковими
+значеннями.
+</translation>
     </message>
     <message>
         <source>duplicateObject([&quot;name&quot;]) -&gt; string
 
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>duplicateObject([&quot;назва&quot;]) -&gt; строкове значення
+
+Створює дублікат вибраного об&quot;єкта або вибірки об&quot;єктів.
+</translation>
     </message>
 </context>
 <context>
@@ -2799,7 +2846,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Іконки з проекту Танго:</translation>
     </message>
 </context>
 <context>
@@ -3763,7 +3810,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати колонки текстової рамки</translation>
     </message>
 </context>
 <context>
@@ -4901,19 +4948,19 @@ Please choose another.</source>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Чорновик (*.scs)</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Виберіть чорновик для імпортування</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Імпортувати файл чорновика...</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Основний</translation>
     </message>
 </context>
 <context>
@@ -5254,11 +5301,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір цієї установки призведе до друку всіх пластин. Кольори реєстрації буде використано для відміток друку таких як мітки для обрізування, мітки реєстрації і т.д. Вони в більшості випадків не використовуються в самому макеті.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Вибір цієї установки призведе до визначення цього кольору, як точкового, результатом чого буде додаткова точка при створенні пластин для сепарації. Використовується в основному тоді, коли необхідно щоб логотип чи інший колір був точно переданим або не може бути переданим CMYK чорнилами. Металічні та флюоресцентні чорниля являються гарним прикладом кольорів, які не можуть бути передані CMYK чорнилами.</translation>
     </message>
 </context>
 <context>
@@ -5650,7 +5697,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Якщо менеджмент кольорів ввімкнено, трикутний індикатор попереджень означає, що колір можливо знаходиться ззовні гамуту кольорів активного профілю прінтера. Це значить, що колір скоріше всього не буде точно передано при друці. Точкові кольори позначаються червоними кругами. Кольори реєстрації матимуть мітку реєстрації поруч з кольором. Додаткова інформація по попередженнях гамуту знаходиться в документації в розділі про менеджмент кольорів.</translation>
     </message>
 </context>
 <context>
@@ -9629,23 +9676,23 @@ Corners:</source>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір текстового контуру чи тіні в залежності від того, що було вибрано. Якщо вибрані обоє, то вони розділятимуть один колір.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Колір вибраного тексту. Якщо  була вибрана декорація тексту &quot;контур&quot;, цей колір буде кольором заливки. Якщо ввімкнена тінь тексту, то цей колір буде самим верхнім.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Змусити текст в нижчих рамках огинати об&quot;єкт. Установки внизу визначають те, як це буде здійснено.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати рамку, яка завжди прямокутна, замість справжньої форми рамки для визначення огинання тексту в рамках під об&quot;єктом.</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Використовувати другу лінію, яка початково базується на формі рамки для визначення огинання об&quot;єкту текстом нижніх рамок.</translation>
     </message>
 </context>
 <context>
@@ -10338,11 +10385,11 @@ UCR найбільше впливає на ті частини зображен�
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Ввімкнути &amp;Антиаліасинг</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Надає шрифтам Type 1, TrueType, OpenType, EPS, PDF та  векторнії графіці у вікні попереднього перегляду більш приємного вигляду за рахунок деякого сповільнення попереднього перегляду</translation>
     </message>
 </context>
 <context>
@@ -11356,7 +11403,7 @@ Scribus виконає пошук в системних директоріях �
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Додати шлях до інтерпретатора Ghostscript. У Віндоуз Вам потрібно використовувати програму gswin32c.exe а НЕ gswin32.exe. В протилежному випадку Скрибус може зависнути під час запуску.</translation>
     </message>
 </context>
 <context>
@@ -13425,45 +13472,45 @@ Scribus 1.2.3 чи нижче. Процес запису зробить цей �
     </message>
     <message>
         <source>Arabic</source>
-        <translation type="unfinished">Арабська</translation>
+        <translation>Арабська</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Естонська</translation>
     </message>
     <message>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Це ім&quot;я майстер сторінки не відповідає жодній існуючій сторінці.</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Ісландська</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 може буди зіпсованим : відсутні ярлики розрішення</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цей файл не може бути розпізнаним, як документ PDB. Будь-ласка надішліть звіт про помилку в нашій програмі, якщо це так.</translation>
     </message>
     <message>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
+        <translation>Бретонська</translation>
     </message>
     <message>
         <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation>Англійська (Американська)</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Англійська (Австралійська)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 може буди зіпсованим : відсутні або неправильні ярлики розрішення</translation>
     </message>
 </context>
 <context>
@@ -14242,7 +14289,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Помилка при відкритті кольорових профілів - менеджмент кольорів не ввімкнено.</translation>
     </message>
 </context>
 <context>
@@ -14707,7 +14754,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>Ліга&amp;тура</translation>
     </message>
 </context>
 <context>
@@ -14802,7 +14849,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
+        <translation>Показати вікно консолі</translation>
     </message>
 </context>
 <context>
@@ -15280,7 +15327,7 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Спеціальний модуль для вставки нерозділяючих проміжків перед або після так званих коротких слів. Доступний для слідуючих мов: </translation>
     </message>
 </context>
 <context>
@@ -15594,23 +15641,23 @@ Ctrl-V для вставки його в систему обробітку пр�
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслити текст. Коротко натисніть на кнопку для установки товщини лінії та установок відступу.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Підкреслити лише слова. Коротко натисніть на кнопку для установки товщини лінії та установок відступу.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Перекреслити текст. Коротко натисніть на кнопку для установки товщини лінії та установок відступу.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation type="unfinished"></translation>
+        <translation>Обкреслення контура. Коротко натисніть на кнопку для установки товщини лінії контура.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Відтінення тексту. Коротко натисніть на кнопку для установки відступу.</translation>
     </message>
 </context>
 <context>
@@ -17764,15 +17811,15 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернути контрольну точку до початкового стану</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>Повернути контрольні точки до початкового стану</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Змінити ефекти зображення</translation>
     </message>
 </context>
 <context>
