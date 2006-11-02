@@ -34,7 +34,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribusXml.h"
 #include "units.h"
 #include "loadsaveplugin.h"
-#include "hyphenator.h"
 #include "guidemanager.h"
 #include "text/nlsconfig.h"
 
