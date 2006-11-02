@@ -742,7 +742,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	shadingLineShape->setValue(prefsData->dShade2);
 
 	comboFillShape->clear();
-	comboFillShape->insertItem( tr("None"), "fill shape");
+	comboFillShape->insertItem( tr("None"));
 	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
 	if (docu != 0)
