@@ -195,6 +195,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeTOC(docu);
 	writePageSets(docu);
 	writeSections(docu);
+	writePatterns(docu);
 	writeContent(docu);
 	/**
 		* changed to enable saving
