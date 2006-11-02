@@ -447,6 +447,17 @@ void FileLoader::readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, S
 
 bool FileLoader::postLoad(ScribusDoc* currDoc)
 {
+	//CB #3749 We have to set these up in post load as each format will load into the doc itself
+	//settings. As the hyphenator was created in the doc constructor, it needs to be updated.
+	//FIXME: Remove these duplicate settings altogether
+	if (currDoc->docHyphenator!=0)
+	{
+			currDoc->docHyphenator->Automatic=currDoc->Automatic;
+			currDoc->docHyphenator->AutoCheck=currDoc->AutoCheck;
+			currDoc->docHyphenator->Language=currDoc->Language;
+			currDoc->docHyphenator->MinWordLen=currDoc->MinWordLen;
+			currDoc->docHyphenator->HyCount=currDoc->HyCount;
+	}
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{
 		PageItem *it = ScMW->doc->MasterItems.at(d);

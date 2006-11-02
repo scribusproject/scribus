@@ -85,13 +85,12 @@ extern ScribusCore* ScCore;
 
 bool ScribusQApp::useGUI=false;
 
-ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv)
+ScribusQApp::ScribusQApp( int & argc, char ** argv ) : QApplication(argc, argv),
+	lang(""),
+	GUILang("")
 {
 	ScQApp=this;
 	ScCore=NULL;
-// 	ScMW=NULL;
-	lang="";
-	GUILang="";
 }
 
 ScribusQApp::~ScribusQApp()
@@ -110,7 +109,7 @@ void ScribusQApp::initLang()
 void ScribusQApp::parseCommandLine()
 {
 	showSplash=!neverSplashExists();
-	QString arg = "";
+	QString arg("");
 	bool usage=false;
 	bool header=false;
 	bool availlangs=false;
