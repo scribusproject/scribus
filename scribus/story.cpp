@@ -1966,11 +1966,11 @@ void StoryEditor::initActions()
 	//File Menu
 	seActions.insert("fileNew", new ScrAction(QIconSet(loadIcon("editdelete.png"), loadIcon("editdelete.png")), "", CTRL+Key_N, this, "fileNew"));
 	seActions.insert("fileRevert", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", QKeySequence(), this, "fileRevert"));
-	seActions.insert("fileSaveToFile", new ScrAction(QIconSet(loadIcon("DateiSave16.png"), loadIcon("DateiSave2.png")), "", QKeySequence(), this, "fileSaveToFile"));
-	seActions.insert("fileLoadFromFile", new ScrAction(QIconSet(loadIcon("DateiOpen16.png"), loadIcon("DateiOpen.xpm")), "", QKeySequence(), this, "fileLoadFromFile"));
-	seActions.insert("fileSaveDocument", new ScrAction(QIconSet(loadIcon("reload16.png"), loadIcon("reload.png")), "", CTRL+Key_S, this, "fileSaveDocument"));
-	seActions.insert("fileUpdateAndExit", new ScrAction(QIconSet(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W, this, "fileUpdateAndExit"));
-	seActions.insert("fileExit", new ScrAction(QIconSet(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(), this, "fileExit"));
+	seActions.insert("fileSaveToFile", new ScrAction(QIconSet(loadIcon("16/document-save.png"), loadIcon("22/document-save.png")), "", QKeySequence(), this, "fileSaveToFile"));
+	seActions.insert("fileLoadFromFile", new ScrAction(QIconSet(loadIcon("16/document-open.png"),  loadIcon("22/document-open.png")), "", QKeySequence(), this, "fileLoadFromFile"));
+	seActions.insert("fileSaveDocument", new ScrAction("", CTRL+Key_S, this, "fileSaveDocument"));
+	seActions.insert("fileUpdateAndExit", new ScrAction(QIconSet(loadIcon("ok.png"), loadIcon("ok22.png")), "", CTRL+Key_W,  this, "fileUpdateAndExit"));
+	seActions.insert("fileExit", new ScrAction(QIconSet(loadIcon("exit.png"), loadIcon("exit22.png")), "", QKeySequence(),  this, "fileExit"));
 
 	connect( seActions["fileNew"], SIGNAL(activated()), this, SLOT(Do_new()) );
 	connect( seActions["fileRevert"], SIGNAL(activated()), this, SLOT(slotFileRevert()) );
@@ -3018,13 +3018,12 @@ void StoryEditor::Do_leave()
 	//qApp->exit_loop();
 }
 
-/*! Saves the document with editation continued. Signal called from menu.
-  05/28/04 petr vanek
-  */
 void StoryEditor::Do_saveDocument()
 {
-	updateTextFrame();
-	ScCore->primaryMainWindow()->slotFileSave();
+	blockUpdate = true;
+	if (ScCore->primaryMainWindow()->slotFileSave())
+		updateTextFrame();
+	blockUpdate = false;
 }
 
 bool StoryEditor::Do_new()

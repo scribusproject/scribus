@@ -8284,7 +8284,9 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
                                 int optionFlags, bool *docom, bool *doFont, bool *doProfiles)
 {
 	QString retval = "";
-	CustomFDialog *dia = new CustomFDialog(this, wDir, caption, filter, optionFlags);
+	// changed from "this" to qApp->activeWindow() to be sure it will be opened
+	// with the current active window as parent. E.g. it won't hide StoryEditor etc. -- PV
+	CustomFDialog *dia = new CustomFDialog(qApp->activeWindow(), wDir, caption, filter, optionFlags);
 	if (!defNa.isEmpty())
 	{
 		QFileInfo f(defNa);

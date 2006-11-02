@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlistview.h>
 #include <qlineedit.h>
 #include <qlayout.h>
+#include <qcursor.h>
 
 #include "unicodesearch.h"
 #include "unicodesearch.moc"
@@ -45,8 +46,8 @@ void UnicodeChooseButton::self_toggled(bool state)
 {
 	if (state)
 	{
-		m_searchDialog->show();
 		m_searchDialog->move(mapToGlobal(rect().bottomLeft()));
+		m_searchDialog->show();
 		m_searchDialog->checkForUpdate();
 	}
 	else
@@ -72,8 +73,10 @@ void UnicodeSearch::checkForUpdate()
 {
 	if (m_unicodeMap.count()==0)
 	{
+		qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
 		readUnicodeMap();
 		query();
+		qApp->restoreOverrideCursor();
 	}
 }
 

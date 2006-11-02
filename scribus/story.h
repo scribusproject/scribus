@@ -364,6 +364,7 @@ public slots:
 	void updateStatus();
 	void Do_leave();
 	void Do_leave2();
+	//! \brief Saves the document with editation continued. Signal called from menu.
 	void Do_saveDocument();
 	bool Do_new();
 	void slotFileRevert();
