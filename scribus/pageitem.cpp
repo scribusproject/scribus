@@ -130,6 +130,7 @@ PageItem::PageItem(const PageItem & other)
 	Tinput(other.Tinput),
 	isAutoText(other.isAutoText),
 #ifndef NLS_PROTO
+	firstChar(other.firstChar),
 	MaxChars(other.MaxChars),
 #endif
 	inPdfArticle(other.inPdfArticle),
