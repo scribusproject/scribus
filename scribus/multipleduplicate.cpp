@@ -31,10 +31,10 @@ MultipleDuplicate::MultipleDuplicate( int unitIndex, QWidget* parent, const char
 	//set up mspinboxes
 	int decimals = unitGetDecimalsFromIndex(unitIndex);
 	QString unitSuffix(unitGetSuffixFromIndex(unitIndex));
-	horizShiftMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	vertShiftMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	horizRCGapMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
-	vertRCGapMSpinBox->setValues(0.0, 1000.0, decimals, 0.0);
+	horizShiftMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
+	vertShiftMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
+	horizRCGapMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
+	vertRCGapMSpinBox->setValues(-1000.0, 1000.0, decimals, 0.0);
 	horizShiftMSpinBox->setSuffix(unitSuffix);
 	vertShiftMSpinBox->setSuffix(unitSuffix);
 	horizRCGapMSpinBox->setSuffix(unitSuffix);
