@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "colorutil.h"
 #include "util.h"
+#include "rawimage.h"
 
 using namespace std;
 
@@ -1664,7 +1665,16 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	if	(pDataLoader)
 	{
 		pDataLoader->preloadAlphaChannel(fn, gsRes);
-		QImage& rImage = pDataLoader->image();
+		QImage rImage;
+		if (ext == "psd")
+		{
+			if (pDataLoader->r_image.channels() == 5)
+				rImage = pDataLoader->r_image.convertToQImage(true);
+			else
+				rImage = pDataLoader->r_image.convertToQImage(false);
+		}
+		else
+			rImage = pDataLoader->image();
 		if (rImage.isNull())
 		{
 			delete pDataLoader;
@@ -1842,8 +1852,11 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		return false;
 	}
 
-	if (isNull())
-		return  ret;
+	if (ext != "psd")
+	{
+		if (isNull())
+			return  ret;
+	}
 
 	QByteArray embeddedProfile = pDataLoader->embeddedProfile();
 	if (cmSettings.useColorManagement() && useProf)
@@ -1987,6 +2000,11 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case CMYKData:
 			if (!isCMYK)
 			{
+				if (ext == "psd")
+				{
+					*this = pDataLoader->r_image.convertToQImage(false);
+					imgInfo = pDataLoader->imageInfoRecord();
+				}
 				for (int i = 0; i < height(); i++)
 				{
 					QRgb *ptr = (QRgb *) scanLine(i);
@@ -2001,37 +2019,64 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					}
 				}
 			}
+			else
+			{
+				if (ext == "psd")
+				{
+					*this = pDataLoader->r_image.convertToQImage(true, true);
+					imgInfo = pDataLoader->imageInfoRecord();
+				}
+			}
 			break;
 		case RGBData:
 		case RGBProof:
 		case Thumbnail:
 			if (isCMYK)
 			{
-				for (int i = 0; i < height(); i++)
+				if (ext == "psd")
 				{
-					QRgb *ptr = (QRgb *) scanLine(i);
-					unsigned char cr, cg, cb, ck;
-					for (int j = 0; j < width(); j++)
+					*this = pDataLoader->r_image.convertToQImage(true);
+					imgInfo = pDataLoader->imageInfoRecord();
+				}
+				else
+				{
+					for (int i = 0; i < height(); i++)
 					{
-						ck = qAlpha(*ptr);
-						cr = 255 - QMIN(255, qRed(*ptr) + ck);
-						cg = 255 - QMIN(255, qGreen(*ptr) + ck);
-						cb = 255 - QMIN(255, qBlue(*ptr) + ck);
-						*ptr++ = qRgba(cr,cg,cb,255);
+						QRgb *ptr = (QRgb *) scanLine(i);
+						unsigned char cr, cg, cb, ck;
+						for (int j = 0; j < width(); j++)
+						{
+							ck = qAlpha(*ptr);
+							cr = 255 - QMIN(255, qRed(*ptr) + ck);
+							cg = 255 - QMIN(255, qGreen(*ptr) + ck);
+							cb = 255 - QMIN(255, qBlue(*ptr) + ck);
+							*ptr++ = qRgba(cr,cg,cb,255);
+						}
 					}
+				}
+			}
+			else
+			{
+				if (ext == "psd")
+				{
+					*this = pDataLoader->r_image.convertToQImage(false);
+					imgInfo = pDataLoader->imageInfoRecord();
 				}
 			}
 			break;
 		case RawData:
+				if (ext == "psd")
+				{
+					*this = pDataLoader->r_image.convertToQImage(true, true);
+					imgInfo = pDataLoader->imageInfoRecord();
+				}
 			break;
 		}
 	}
 	if ((reqType == CMYKData || isCMYK) && !bilevel)
 		setAlphaBuffer(false);
-/*	setDotsPerMeterX (QMAX(2834, (int) (xres / 0.0254)));
-	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
-	imgInfo.xres = QMAX(72, qRound(xres));
-	imgInfo.yres = QMAX(72, qRound(yres)); */
+	setDotsPerMeterX (QMAX(2834, (int) (imgInfo.xres / 0.0254)));
+	setDotsPerMeterY (QMAX(2834, (int) (imgInfo.yres / 0.0254)));
 	if	(ScCore->usingGUI() && pDataLoader->issuedWarningMsg() && showMsg)
 	{
 		QMessageBox::warning(ScCore->primaryMainWindow(), CommonStrings::trWarning, pDataLoader->getMessage(), 1, 0, 0);

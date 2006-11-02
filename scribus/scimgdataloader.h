@@ -13,6 +13,7 @@ for which a new license (GPL+exception) is in place.
 #include <qstringlist.h>
 
 #include "scimagestructs.h"
+#include "rawimage.h"
 
 class ScImgDataLoader
 {
@@ -47,6 +48,7 @@ public:
 	bool  supportFormat(const QString& fmt);
 
 	QImage& image(void) { return m_image; }
+	RawImage r_image;
 	QByteArray& embeddedProfile(void) { return m_embeddedProfile; }
 	ImageInfoRecord& imageInfoRecord(void) { return m_imageInfoRecord; }
 	void setRequest(bool valid, QMap<int, ImageLoadRequest> req);

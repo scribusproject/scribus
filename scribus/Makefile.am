@@ -184,6 +184,7 @@ scribus_SOURCES = \
 	printerutil.cpp	\
 	pslib.cpp	\
 	query.cpp	\
+	rawimage.cpp	\
 	rc4.c	\
 	reformdoc.cpp	\
 	rulermover.cpp	\
