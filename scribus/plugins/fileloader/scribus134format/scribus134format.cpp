@@ -1108,6 +1108,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 			}
 			if(pg.tagName()=="Pattern")
 			{
+				QMap<PageItem*, int> groupID2;
 				ScPattern pat;
 				QDomNode pa = PAGE.firstChild();
 				uint ac = m_Doc->Items->count();
@@ -1210,8 +1211,16 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					}
 					Neu->isGroupControl = static_cast<bool>(pite.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
-						groupID.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+						groupID2.insert(Neu, pite.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
 					pa = pa.nextSibling();
+				}
+				if (groupID2.count() != 0)
+				{
+					QMap<PageItem*, int>::Iterator it;
+					for (it = groupID2.begin(); it != groupID2.end(); ++it)
+					{
+						it.key()->groupsLastItem = m_Doc->Items->at(it.data());
+					}
 				}
 				m_Doc->useRaster = savedAlignGrid;
 				m_Doc->SnapGuides = savedAlignGuides;
