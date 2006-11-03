@@ -213,8 +213,11 @@ void CharTable::contentsMouseReleaseEvent(QMouseEvent* e)
 	}
 	//if ((e->button() == LeftButton) && (!alternate))
 	if (e->button() == LeftButton)
-		//emit selectChar(rowAt(e->pos().y()), columnAt(e->pos().x()));
-		emit selectChar(m_characters[rowAt(e->pos().y()) * numCols() + columnAt(e->pos().x())]);
+	{
+		int index = rowAt(e->pos().y()) * numCols() + columnAt(e->pos().x());
+		if (index >= 0)
+			emit selectChar(m_characters[index]);
+	}
 	mPressed = false;
 // 	alternate = false;
 	QTable::contentsMouseReleaseEvent(e);
