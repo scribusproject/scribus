@@ -27,10 +27,10 @@ protected:
 	};
 	void initSupportedFormatList();
 	int getLayers(const QString& fn);
-	bool getImageData(TIFF* tif, QImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
-	void blendOntoTarget(QImage *tmp, int layOpa, QString layBlend, bool cmyk);
+	bool getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK);
+	void blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk);
 	QString getLayerString(QDataStream & s);
-	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg);
+	bool loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg);
 	bool loadLayerChannels( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, bool* firstLayer);
 	int random_table[4096];
 

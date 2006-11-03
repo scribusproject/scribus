@@ -146,13 +146,13 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 	return layerNum;
 }
 
-bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, QImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
+bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
 {
-	image->setAlphaBuffer(true);
+//	image->setAlphaBuffer(true);
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
-		if (samplesperpixel > 4)  // we can't handle CMYKA yet
+		if (samplesperpixel > 5)  // we can't handle CMYKA yet
 		{
 			bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
 			if(bits)
@@ -160,7 +160,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, QImage *image, uint widtht, u
 				if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 				{
 					for(unsigned int y = 0; y < heightt; y++)
-						memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * 4);
+						memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
 				}
 				_TIFFfree(bits);
 				if (bitspersample == 1)
@@ -196,7 +196,8 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, QImage *image, uint widtht, u
 					{
 						TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
 						for (yi = 0; yi < tileH; yi++)
-							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*image->channels());
+//							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
 					}
 				}
 				_TIFFfree(tile_buf);
@@ -211,7 +212,8 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, QImage *image, uint widtht, u
 					{
 						if (TIFFReadScanline(tif, bits, y, 0))
 						{
-							memcpy(image->scanLine(y), bits, widtht * 4);
+							memcpy(image->scanLine(y), bits, image->channels() * widtht);
+//							memcpy(image->scanLine(y), bits, widtht * 4);
 						}
 					}
 					_TIFFfree(bits);
@@ -228,7 +230,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, QImage *image, uint widtht, u
 			if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 			{
 				for(unsigned int y = 0; y < heightt; y++)
-					memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * 4);
+					memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
 			}
 			_TIFFfree(bits);
 			if (bitspersample == 1)
@@ -238,9 +240,9 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, QImage *image, uint widtht, u
 	return true;
 }
 
-void ScImgDataLoader_TIFF::blendOntoTarget(QImage *tmp, int layOpa, QString layBlend, bool cmyk)
+void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk)
 {
-	if ((layBlend == "diss") && (!cmyk))
+	if (layBlend == "diss")
 	{
 		for (int l = 0; l < tmp->height(); l++)
 		{
@@ -248,241 +250,132 @@ void ScImgDataLoader_TIFF::blendOntoTarget(QImage *tmp, int layOpa, QString layB
 			for (int k = 0; k < tmp->width(); k++)
 			{
 				int rand_val = rand() & 0xff;
-				QRgb pixel = tmp->pixel(k, l);
 				if (rand_val > layOpa)
-					tmp->setPixel(k, l, qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), 0));
+					tmp->setAlpha(k, l, 0);
 			}
 		}
 	}
-	int w = m_image.width();
-	int h = m_image.height();
+	int w = r_image.width();
+	int h = r_image.height();
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb *src = (QRgb*)(tmp->scanLine( yi ));
-		QRgb *dst = (QRgb*)(m_image.scanLine( yi ));
-		unsigned char r, g, b, a, src_r, src_g, src_b, src_a;
+		unsigned char *s = tmp->scanLine( yi );
+		unsigned char *d = r_image.scanLine( yi );
+		unsigned char r, g, b, a, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
 		for(int xi=0; xi < w; ++xi )
 		{
-			unsigned char *d = (unsigned char *) dst;
-			unsigned char *s = (unsigned char *) src;
 			src_r = s[0];
 			src_g = s[1];
 			src_b = s[2];
 			src_a = s[3];
-			if (layBlend == "mul ")
+			if (r_image.channels() == 5)
 			{
-				if (cmyk)
+				dst_alpha = d[4];
+				src_alpha = s[4];
+			}
+			else if (cmyk)
+			{
+				dst_alpha = 255;
+				src_alpha = 255;
+			}
+			else
+			{
+				dst_alpha = d[3];
+				src_alpha = s[3];
+			}
+			if ((dst_alpha > 0) && (src_alpha > 0))
+			{
+				if (layBlend == "mul ")
 				{
 					src_r = INT_MULT(src_r, d[0]);
 					src_g = INT_MULT(src_g, d[1]);
 					src_b = INT_MULT(src_b, d[2]);
-					src_a = INT_MULT(src_a, d[3]);
+					if (cmyk)
+						src_a = INT_MULT(src_a, d[3]);
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = INT_MULT(src_r, d[0]);
-						src_g = INT_MULT(src_g, d[1]);
-						src_b = INT_MULT(src_b, d[2]);
-					}
-				}
-			}
-			else if (layBlend == "scrn")
-			{
-				if (cmyk)
+				else if (layBlend == "scrn")
 				{
 					src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
 					src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
 					src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
-					src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
+					if (cmyk)
+						src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
-						src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
-						src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
-					}
-				}
-			}
-			else if (layBlend == "over")
-			{
-				if (cmyk)
+				else if (layBlend == "over")
 				{
 					src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
 					src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
 					src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-					src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+					if (cmyk)
+						src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-						src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-						src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-					}
-				}
-			}
-			else if (layBlend == "diff")
-			{
-				if (cmyk)
+				else if (layBlend == "diff")
 				{
 					src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
 					src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
 					src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
-					src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
+					if (cmyk)
+						src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
-						src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
-						src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
-					}
-				}
-			}
-			else if (layBlend == "dark")
-			{
-				if (cmyk)
+				else if (layBlend == "dark")
 				{
 					src_r = d[0]  < src_r ? d[0]  : src_r;
 					src_g = d[1] < src_g ? d[1] : src_g;
 					src_b = d[2] < src_b ? d[2] : src_b;
-					src_a = d[3] < src_a ? d[3] : src_a;
+					if (cmyk)
+						src_a = d[3] < src_a ? d[3] : src_a;
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = d[0]  < src_r ? d[0]  : src_r;
-						src_g = d[1] < src_g ? d[1] : src_g;
-						src_b = d[2] < src_b ? d[2] : src_b;
-					}
-				}
-			}
-			else if (layBlend == "hLit")
-			{
-				if (cmyk)
+				else if (layBlend == "hLit")
 				{
 					src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
 					src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
 					src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-					src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+					if (cmyk)
+						src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-						src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-						src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-					}
-				}
-			}
-			else if (layBlend == "sLit")
-			{
-				if (cmyk)
+				else if (layBlend == "sLit")
 				{
 					src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
 					src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
 					src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
-					src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
+					if (cmyk)
+						src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
-						src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
-						src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
-					}
-				}
-			}
-			else if (layBlend == "lite")
-			{
-				if (cmyk)
+				else if (layBlend == "lite")
 				{
 					src_r = d[0] < src_r ? src_r : d[0];
 					src_g = d[1] < src_g ? src_g : d[1];
 					src_b = d[2] < src_b ? src_b : d[2];
-					src_a = d[3] < src_a ? src_a : d[3];
+					if (cmyk)
+						src_a = d[3] < src_a ? src_a : d[3];
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = d[0] < src_r ? src_r : d[0];
-						src_g = d[1] < src_g ? src_g : d[1];
-						src_b = d[2] < src_b ? src_b : d[2];
-					}
-				}
-			}
-			else if (layBlend == "smud")
-			{
-				if (cmyk)
+				else if (layBlend == "smud")
 				{
 					src_r = d[0] + src_r - src_r * d[0] / 128;
 					src_g = d[1] + src_g - src_g * d[1] / 128;
 					src_b = d[2] + src_b - src_b * d[2] / 128;
-					src_a = d[3] + src_a - src_a * d[3] / 128;
+					if (cmyk)
+						src_a = d[3] + src_a - src_a * d[3] / 128;
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = d[0] + src_r - src_r * d[0] / 128;
-						src_g = d[1] + src_g - src_g * d[1] / 128;
-						src_b = d[2] + src_b - src_b * d[2] / 128;
-					}
-				}
-			}
-			else if (layBlend == "div ")
-			{
-				if (cmyk)
+				else if (layBlend == "div ")
 				{
 					src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
 					src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
 					src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
-					src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
+					if (cmyk)
+						src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
 				}
-				else
-				{
-					if (d[3] > 0)
-					{
-						src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
-						src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
-						src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
-					}
-				}
-			}
-			else if (layBlend == "idiv")
-			{
-				if (cmyk)
+				else if (layBlend == "idiv")
 				{
 					src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
 					src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
 					src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
-					src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
+					if (cmyk)
+						src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
 				}
-				else
+				else if (layBlend == "hue ")
 				{
-					if (d[3] > 0)
-					{
-						src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
-						src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
-						src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
-					}
-				}
-			}
-			else if (layBlend == "hue ")
-			{
-				if (!cmyk)
-				{
-					if (d[3] > 0)
+					if (!cmyk)
 					{
 						uchar new_r = d[0];
 						uchar new_g = d[1];
@@ -496,12 +389,9 @@ void ScImgDataLoader_TIFF::blendOntoTarget(QImage *tmp, int layOpa, QString layB
 						src_b = new_b;
 					}
 				}
-			}
-			else if (layBlend == "sat ")
-			{
-				if (!cmyk)
+				else if (layBlend == "sat ")
 				{
-					if (d[3] > 0)
+					if (!cmyk)
 					{
 						uchar new_r = d[0];
 						uchar new_g = d[1];
@@ -515,12 +405,9 @@ void ScImgDataLoader_TIFF::blendOntoTarget(QImage *tmp, int layOpa, QString layB
 						src_b = new_b;
 					}
 				}
-			}
-			else if (layBlend == "lum ")
-			{
-				if (!cmyk)
+				else if (layBlend == "lum ")
 				{
-					if (d[3] > 0)
+					if (!cmyk)
 					{
 						uchar new_r = d[0];
 						uchar new_g = d[1];
@@ -534,12 +421,9 @@ void ScImgDataLoader_TIFF::blendOntoTarget(QImage *tmp, int layOpa, QString layB
 						src_b = new_b;
 					}
 				}
-			}
-			else if (layBlend == "colr")
-			{
-				if (!cmyk)
+				else if (layBlend == "colr")
 				{
-					if (d[3] > 0)
+					if (!cmyk)
 					{
 						uchar new_r = d[0];
 						uchar new_g = d[1];
@@ -555,55 +439,41 @@ void ScImgDataLoader_TIFF::blendOntoTarget(QImage *tmp, int layOpa, QString layB
 					}
 				}
 			}
-			int layOpa2 = layOpa;
-			if (layBlend != "diss")
-			{
-				if (!cmyk)
-					src_a = INT_MULT(src_a, layOpa);
-			}
-			else
-				layOpa2 = 255;
-			if (d[3] > 0)
-			{
-				r = (d[0] * (255 - layOpa) + src_r * layOpa2) / 255;
-				g = (d[1] * (255 - layOpa) + src_g * layOpa2) / 255;
-				b = (d[2] * (255 - layOpa) + src_b * layOpa2) / 255;
-				if (cmyk)
-					a = (d[3] * (255 - layOpa) + src_a * layOpa2) / 255;
-				else
-				{
-					a = d[3] + INT_MULT(255 - d[3], src_a);
-					r = (d[0] * (255 - src_a) + src_r * src_a) / 255;
-					g = (d[1] * (255 - src_a) + src_g * src_a) / 255;
-					b = (d[2] * (255 - src_a) + src_b * src_a) / 255;
-				}
-			}
-			else
+			if (dst_alpha == 0)
 			{
 				r = src_r;
 				g = src_g;
 				b = src_b;
 				a = src_a;
 			}
-			if (cmyk)
+			else
+			{
+				if (src_alpha > 0)
+				{
+					r = (d[0] * (255 - src_alpha) + src_r * src_alpha) / 255;
+					g = (d[1] * (255 - src_alpha) + src_g * src_alpha) / 255;
+					b = (d[2] * (255 - src_alpha) + src_b * src_alpha) / 255;
+					if (cmyk)
+						a = (d[3] * (255 - src_alpha) + src_a * src_alpha) / 255;
+					if (layBlend != "diss")
+						src_alpha = dst_alpha + INT_MULT(255 - dst_alpha, src_alpha);
+				}
+			}
+			if (src_alpha > 0)
 			{
 				d[0] = r;
 				d[1] = g;
 				d[2] = b;
-				d[3] = a;
-			}
-			else
-			{
-				if (src_a > 0)
+				if (cmyk)
 				{
-					d[0] = r;
-					d[1] = g;
-					d[2] = b;
 					d[3] = a;
+					d[4] = src_alpha;
 				}
+				else
+					d[3] = src_alpha;
 			}
-			dst++;
-			src++;
+			d += r_image.channels();
+			s += tmp->channels();
 		}
 	}
 }
@@ -651,7 +521,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		bool isCMYK = false;
 		unsigned int widtht, heightt, size;
 		char *description=0, *copyright=0, *datetime=0, *artist=0, *scannerMake=0, *scannerModel=0;
-		uint16 photometric, bitspersample, samplesperpixel, fillorder;
+		uint16 photometric, bitspersample, samplesperpixel, fillorder, planar;
 
 		TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &widtht);
 		TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &heightt);
@@ -660,6 +530,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
 		size = widtht * heightt;
 		TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
+		TIFFGetField(tif, TIFFTAG_PLANARCONFIG, &planar);
 		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
 		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
 		TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
@@ -728,11 +599,14 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						bilevel = true;
 					if (!m_imageInfoRecord.exifInfo.thumbnail.isNull())
 					{
-						m_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 32);
+						if (isCMYK)
+							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
+						else
+							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
 						for( int yit=0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit )
 						{
 							QRgb *s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
-							QRgb *d = (QRgb*)(m_image.scanLine( yit ));
+							uchar *d = r_image.scanLine( yit );
 							for(int xit=0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit )
 							{
 								if (isCMYK)
@@ -741,12 +615,21 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 									unsigned char cm = 255 - qGreen(*s);
 									unsigned char cy = 255 - qBlue(*s);
 									unsigned char ck = QMIN(QMIN(cc, cm), cy);
-									*d = qRgba(cc-ck,cm-ck,cy-ck,ck);
+									d[0] = cc-ck;
+									d[1] = cm-ck;
+									d[2] = cy-ck;
+									d[3] = ck;
+									d[4] = 255;
 								}
 								else
-									(*d) = (*s);
+								{
+									d[0] = qRed(*s);
+									d[1] = qGreen(*s);
+									d[2] = qBlue(*s);
+									d[3] = 255;
+								}
 								s++;
-								d++;
+								d += r_image.channels();
 							}
 						}
 						TIFFClose(tif);
@@ -759,7 +642,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		unsigned char* PhotoshopBuffer2;
 		if (TIFFGetField(tif, 37724, &PhotoshopLen2, &PhotoshopBuffer2) )
 		{
-			if (PhotoshopLen2 != 0)
+			if (PhotoshopLen2 > 40)
 			{
 				m_imageInfoRecord.layerInfo.clear();
 				QByteArray arrayPhot;
@@ -799,7 +682,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						s >> right;
 						lay.width = right - left;
 						s >> numChannels;
-						if (numChannels > 5)	// we don't support images with more than 5 channels yet
+						if (numChannels > 6)	// we don't support images with more than 5 channels yet
 						{
 							m_imageInfoRecord.layerInfo.clear();
 							failedPS = true;
@@ -895,6 +778,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				}
 				if (!failedPS)
 				{
+					int chans = 4;
 					bilevel = false;
 					PSDHeader fakeHeader;
 					fakeHeader.width = widtht;
@@ -905,15 +789,16 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					{
 						isCMYK = true;
 						fakeHeader.color_mode = CM_CMYK;
+						chans = 5;
 					}
 					else
 					{
 						fakeHeader.color_mode = CM_RGB;
 						isCMYK = false;
+						chans = 5;
 					}
-					if( !m_image.create( widtht, heightt, 32 ))
+					if( !r_image.create( widtht, heightt, chans ))
 						return false;
-					m_image.setAlphaBuffer( true );
 					bool firstLayer = true;
 					for (int layer = 0; layer < numLayers; layer++)
 					{
@@ -941,15 +826,25 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		}
 		if ((!foundPS) || (failedPS))
 		{
-			if (!m_image.create(widtht,heightt,32))
+			int chans = 4;
+			if (photometric == PHOTOMETRIC_SEPARATED)
+			{
+				if (samplesperpixel > 5) 
+					chans = 4;
+				else
+					chans = samplesperpixel;
+			}
+			else
+				chans = 4;
+			if (!r_image.create(widtht, heightt, chans))
 			{
 				TIFFClose(tif);
 				return false;
 			}
 			do
 			{
-				QImage tmpImg = QImage();
-				if( !tmpImg.create(widtht,heightt,32))
+				RawImage tmpImg;
+				if( !tmpImg.create(widtht, heightt, chans))
 				{
 					TIFFClose(tif);
 					return false;
@@ -973,29 +868,12 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					if (visible)
 						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK);
 					QImage imt = tmpImg.copy();
-					swapRGBA(&imt);
+					if (chans > 4)
+						imt = tmpImg.convertToQImage(true);
+					else
+						imt = tmpImg.convertToQImage(false);
 					double sx = tmpImg.width() / 40.0;
 					double sy = tmpImg.height() / 40.0;
-					if (isCMYK)
-					{
-						for (int i = 0; i < imt.height(); i++)
-						{
-							unsigned int *ptr2 = (unsigned int *) imt.scanLine(i);
-							unsigned char r, g, b;
-							for (int j = 0; j < imt.width(); j++)
-							{
-								unsigned char *p2 = (unsigned char *) ptr2;
-								r = 255 - QMIN(255, p2[0] + p2[3]);
-								g = 255 - QMIN(255, p2[1] + p2[3]);
-								b = 255 - QMIN(255, p2[2] + p2[3]);
-								p2[0] = r;
-								p2[1] = g;
-								p2[2] = b;
-								p2[3] = 255;
-								ptr2++;
-							}
-						}
-					}
 					imt = sy < sx ?	imt.smoothScale(qRound(imt.width() / sx), qRound(imt.height() / sx)) :
 												imt.smoothScale(qRound(imt.width() / sy), qRound(imt.height() / sy));
 					m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
@@ -1004,7 +882,6 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				test = TIFFReadDirectory(tif);
 			}
 			while (test == 1);
-			swapRGBA();
 			TIFFClose(tif);
 			if (m_imageInfoRecord.layerInfo.count() == 1)
 				m_imageInfoRecord.layerInfo.clear();
@@ -1030,7 +907,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 		else
 			m_imageInfoRecord.colorspace = 0;
 		m_imageInfoRecord.BBoxX = 0;
-		m_imageInfoRecord.BBoxH = m_image.height();
+		m_imageInfoRecord.BBoxH = r_image.height();
 		if ((m_imageInfoRecord.layerInfo.isEmpty()) && (m_imageInfoRecord.PDSpathData.isEmpty()))
 			m_imageInfoRecord.valid = false;
 		else
@@ -1065,7 +942,7 @@ QString ScImgDataLoader_TIFF::getLayerString(QDataStream & s)
 	return ret;
 }
 
-bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, QImage &tmpImg)
+bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & header, QValueList<PSDLayer> &layerInfo, uint layer, int channel, int component, RawImage &tmpImg)
 {
 	uint base = s.device()->at();
 	uchar cbyte;
@@ -1083,13 +960,12 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 			{
 				s >> cbyte;
 				count--;
-				if (header.color_mode == CM_CMYK)
+				if ((header.color_mode == CM_CMYK) && (component < 4))
 					cbyte = 255 - cbyte;
-				if (channel < 4)
-					ptr[component] = cbyte;
+				ptr[component] = cbyte;
 				if (count == 0)
 					break;
-				ptr += 4;
+				ptr += tmpImg.channels();
 			}
 			if (count == 0)
 				break;
@@ -1103,7 +979,7 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 		{
 			uint count = 0;
 			uchar *ptr = tmpImg.scanLine(hh);
-			uchar *ptr2 = ptr+tmpImg.width() * 4;
+			uchar *ptr2 = ptr+tmpImg.width() * tmpImg.channels();
 			ptr += component;
 			while( count < pixel_count )
 			{
@@ -1122,11 +998,11 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 						s >> cbyte;
 						if (ptr < ptr2)
 						{
-							if (header.color_mode == CM_CMYK)
+							if ((header.color_mode == CM_CMYK) && (component < 4))
 								cbyte = 255 - cbyte;
 							*ptr = cbyte;
 						}
-						ptr += 4;
+						ptr += tmpImg.channels();
 						len--;
 					}
 				}
@@ -1139,15 +1015,13 @@ bool ScImgDataLoader_TIFF::loadChannel( QDataStream & s, const PSDHeader & heade
 					count += len;
 					uchar val;
 					s >> val;
-					if (header.color_mode == CM_CMYK)
+					if ((header.color_mode == CM_CMYK) && (component < 4))
 						val = 255 - val;
 					while( len != 0 )
 					{
 						if (ptr < ptr2)
-						{
 							*ptr = val;
-						}
-						ptr += 4;
+						ptr += tmpImg.channels();
 						len--;
 					}
 				}
@@ -1171,9 +1045,22 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 	uint base = s.device()->at();
 	uint base2 = base;
 	uint channel_num = layerInfo[layer].channelLen.count();
-	QImage tmpImg = QImage();
-	QImage mask = QImage();
-	if( !tmpImg.create( layerInfo[layer].width, layerInfo[layer].height, 32 ))
+	bool hasMask = false;
+	bool hasAlpha = false;
+	RawImage r2_image;
+	RawImage mask;
+	bool createOk = false;
+	if (header.color_mode == CM_CMYK)
+	{
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, QMAX(channel_num, 5));
+		r2_image.fill(0);
+	}
+	else
+	{
+		createOk = r2_image.create(layerInfo[layer].width, layerInfo[layer].height, QMAX(channel_num, 4));
+		r2_image.fill(0);
+	}
+	if( !createOk )
 	{
 		for(uint channel = 0; channel < channel_num; channel++)
 		{
@@ -1182,8 +1069,6 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		s.device()->at( base2 );
 		return false;
 	}
-	tmpImg.fill(qRgba(255, 255, 255, 0));
-	tmpImg.setAlphaBuffer( true );
 	channel_num = QMIN(channel_num, 39);
 	uint components[40];
 	for(uint channel = 0; channel < channel_num; channel++)
@@ -1191,99 +1076,80 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		switch(layerInfo[layer].channelType[channel])
 		{
 		case 0:
-			components[channel] = 2;
+			components[channel] = 0;
 			break;
 		case 1:
 			components[channel] = 1;
 			break;
 		case 2:
-			components[channel] = 0;
+			components[channel] = 2;
 			break;
 		case 3:
 			components[channel] = 3;
 			break;
 		case -1:
+			if (header.color_mode == CM_CMYK)
+			{
+				if (channel_num == 6)
+					components[channel] = channel_num-2;
+				else
+					components[channel] = channel_num-1;
+			}
+			else
+			{
+				if (channel_num == 5)
+					components[channel] = channel_num-2;
+				else
+					components[channel] = channel_num-1;
+			}
+			hasAlpha = true;
+			break;
 		case -2:
-			components[channel] = 3;
+			components[channel] = channel_num-1;
 			break;
 		}
 	}
-	if (channel_num < 4)
-	{
-		for (int i = 0; i < tmpImg.height(); i++)
-		{
-			QRgb * s = (QRgb*)(tmpImg.scanLine( i ));
-			for (int j = 0; j < tmpImg.width(); j++)
-			{
-				*s++ = qRgba(255, 255, 255, 255);
-			}
-		}
-	}
+	if (!hasAlpha)
+		r2_image.fill(255);
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
-		if ((layerInfo[layer].channelType[channel] < 0) && (header.color_mode == CM_CMYK))
-		{
-			s.device()->at( base+layerInfo[layer].channelLen[channel] );
-			base = base+layerInfo[layer].channelLen[channel];
-			continue;
-		}
 		if (layerInfo[layer].channelType[channel] == -2)
 		{
-			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 32 ))
+			if (!mask.create( layerInfo[layer].maskWidth, layerInfo[layer].maskHeight, 1 ))
 				break;
-			mask.fill(qRgba(255, 255, 255, 0));
-			mask.setAlphaBuffer( true );
-			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], mask))
+			mask.fill(0);
+			if (!loadChannel(s, header, layerInfo, layer, channel, 0, mask))
 				break;
+			hasMask = true;
 		}
-		else
-		{
-			if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], tmpImg))
-				break;
-		}
+		if (!loadChannel(s, header, layerInfo, layer, channel, components[channel], r2_image))
+			break;
 	}
 	for(uint channel = 0; channel < channel_num; channel++)
 	{
 		base2 += layerInfo[layer].channelLen[channel];
 	}
 	s.device()->at( base2 );
-	QImage tmpImg2 = tmpImg.copy();
+	QImage tmpImg2;
 	if (header.color_mode == CM_CMYK)
-	{
-		for (int i = 0; i < tmpImg.height(); i++)
-		{
-			unsigned int *ptr = (unsigned int *) tmpImg.scanLine(i);
-			unsigned int *ptr2 = (unsigned int *) tmpImg2.scanLine(i);
-			unsigned char r, g, b;
-			for (int j = 0; j < tmpImg.width(); j++)
-			{
-				unsigned char *p = (unsigned char *) ptr;
-				unsigned char *p2 = (unsigned char *) ptr2;
-				r = 255 - QMIN(255, p[0] + p[3]);
-				g = 255 - QMIN(255, p[1] + p[3]);
-				b = 255 - QMIN(255, p[2] + p[3]);
-				p2[0] = r;
-				p2[1] = g;
-				p2[2] = b;
-				p2[3] = 255;
-				ptr++;
-				ptr2++;
-			}
-		}
-	}
+		tmpImg2 = r2_image.convertToQImage(true);
+	else
+		tmpImg2 = r2_image.convertToQImage(false);
 	QImage imt;
-	double sx = tmpImg.width() / 40.0;
-	double sy = tmpImg.height() / 40.0;
-	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
-	      tmpImg2.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
+	double sx = tmpImg2.width() / 40.0;
+	double sy = tmpImg2.height() / 40.0;
+	imt = sy < sx ?  tmpImg2.smoothScale(qRound(tmpImg2.width() / sx), qRound(tmpImg2.height() / sx)) :
+	      tmpImg2.smoothScale(qRound(tmpImg2.width() / sy), qRound(tmpImg2.height() / sy));
 	layerInfo[layer].thumb = imt.copy();
-	QImage imt2;
-	if (!mask.isNull())
+	if (hasMask)
 	{
-		double sx = mask.width() / 40.0;
-		double sy = mask.height() / 40.0;
-		imt2 = sy < sx ?  mask.smoothScale(qRound(mask.width() / sx), qRound(mask.height() / sx)) :
-	      mask.smoothScale(qRound(mask.width() / sy), qRound(mask.height() / sy));
+		QImage imt2;
+		QImage tmpImg;
+		tmpImg = mask.convertToQImage(true);
+		double sx = tmpImg.width() / 40.0;
+		double sy = tmpImg.height() / 40.0;
+		imt2 = sy < sx ?  tmpImg.smoothScale(qRound(tmpImg.width() / sx), qRound(tmpImg.height() / sx)) :
+	      tmpImg.smoothScale(qRound(tmpImg.width() / sy), qRound(tmpImg.height() / sy));
 		imt2.invertPixels();
 		layerInfo[layer].thumb_mask = imt2.copy();
 	}
@@ -1343,36 +1209,53 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		QString layBlend2 = layerInfo[layer].blend;
 		if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 			layBlend2 = m_imageInfoRecord.RequestProps[layer].blend;
-		if ((layBlend2 == "diss") && (header.color_mode != CM_CMYK))
+		if (layBlend2 == "diss")
 		{
+			hasAlpha = true;
 			int layOpa = layerInfo[layer].opacity;
 			if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 				layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
-			for (int l = 0; l < tmpImg.height(); l++)
+			for (int l = 0; l < r2_image.height(); l++)
 			{
 				srand(random_table[ l  % 4096]);
-				for (int k = 0; k < tmpImg.width(); k++)
+				for (int k = 0; k < r2_image.width(); k++)
 				{
 					int rand_val = rand() & 0xff;
-					QRgb pixel = tmpImg.pixel(k, l);
 					if (rand_val > layOpa)
-						tmpImg.setPixel(k, l, qRgba(qRed(pixel), qGreen(pixel), qBlue(pixel), 0));
+						r2_image.setAlpha(k, l, 0);
 				}
 			}
 		}
 		if (*firstLayer)
 		{
-			for( int yi=static_cast<int>(startSrcY); yi < QMIN(tmpImg.height(),  m_image.height()); ++yi )
+			for( int yi=static_cast<int>(startSrcY); yi < QMIN(r2_image.height(),  r_image.height()); ++yi )
 			{
-				QRgb *s = (QRgb*)(tmpImg.scanLine( yi ));
-				QRgb *d = (QRgb*)( m_image.scanLine( QMIN(static_cast<int>(startDstY),  m_image.height()-1) ));
-				d += QMIN(static_cast<int>(startDstX), m_image.width()-1);
-				s += QMIN(static_cast<int>(startSrcX), tmpImg.width()-1);
-				for(int xi=static_cast<int>(startSrcX); xi < QMIN(tmpImg.width(),  m_image.width()); ++xi )
+				unsigned char *s = r2_image.scanLine( yi );
+				unsigned char *d = r_image.scanLine( QMIN(static_cast<int>(startDstY),  r_image.height()-1) );
+				d += QMIN(static_cast<int>(startDstX), r_image.width()-1) * r_image.channels();
+				s += QMIN(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
+				for(int xi=static_cast<int>(startSrcX); xi < QMIN(r2_image.width(),  r_image.width()); ++xi )
 				{
-					(*d) = (*s);
-					s++;
-					d++;
+					d[0] = s[0];
+					d[1] = s[1];
+					d[2] = s[2];
+					if (header.color_mode == CM_RGB)
+					{
+						if (hasAlpha)
+							d[3] = s[3];
+						else
+							d[3] = 255;
+					}
+					else
+					{
+						d[3] = s[3];
+						if (hasAlpha)
+							d[4] = s[4];
+						else
+							d[4] = 255;
+					}
+					s += r2_image.channels();
+					d += r_image.channels();
 				}
 				startDstY++;
 			}
@@ -1381,247 +1264,139 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 		{
 			for (int i = static_cast<int>(startSrcY); i < layerInfo[layer].height; i++)
 			{
-				unsigned int *dst = (unsigned int *)m_image.scanLine(QMIN(static_cast<int>(startDstY),  m_image.height()-1));
-				unsigned int *src = (unsigned int *)tmpImg.scanLine(QMIN(i, tmpImg.height()-1));
-				dst += QMIN(static_cast<int>(startDstX),  m_image.width()-1);
-				src += QMIN(static_cast<int>(startSrcX), tmpImg.width()-1);
-				unsigned int *srcm = 0;
-				if (!mask.isNull())
+				unsigned char *d = r_image.scanLine(QMIN(static_cast<int>(startDstY),  r_image.height()-1));
+				unsigned char *s = r2_image.scanLine(QMIN(i, r2_image.height()-1));
+				d += QMIN(static_cast<int>(startDstX),  r_image.width()-1) * r_image.channels();
+				s += QMIN(static_cast<int>(startSrcX), r2_image.width()-1) * r2_image.channels();
+				unsigned char *sm = 0;
+				if (hasMask)
 				{
-					srcm = (unsigned int *)mask.scanLine(QMIN(i, mask.height()-1));
-					srcm += QMIN(static_cast<int>(startSrcXm), mask.width()-1);
+					sm = mask.scanLine(QMIN(i, mask.height()-1));
+					sm += QMIN(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
 				}
 				startDstY++;
-				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a;
-				unsigned int maxDestX = m_image.width() - startDstX + startSrcX - 1;
+				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a, src_alpha, dst_alpha;
+				unsigned int maxDestX = r_image.width() - startDstX + startSrcX - 1;
 				for (unsigned int j = startSrcX; j < QMIN(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
 				{
-					unsigned char *d = (unsigned char *) dst;
-					unsigned char *s = (unsigned char *) src;
-					unsigned char *sm = (unsigned char *) srcm;
 					src_r = s[0];
 					src_g = s[1];
 					src_b = s[2];
 					src_a = s[3];
-					if (!mask.isNull())
-						mask_a = sm[3];
+					if (hasAlpha)
+					{
+						if ((hasMask) && (m_imageInfoRecord.RequestProps[layer].useMask))
+							src_alpha = sm[0];
+						else
+							src_alpha = s[channel_num - 1];
+					}
+					if ((hasMask) && (m_imageInfoRecord.RequestProps[layer].useMask))
+						src_alpha = sm[0];
+					int layOpa = layerInfo[layer].opacity;
+					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
+						layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
 					QString layBlend = layerInfo[layer].blend;
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
 						layBlend = m_imageInfoRecord.RequestProps[layer].blend;
-					if (layBlend == "mul ")
+					if (layBlend != "diss")
+						src_alpha = INT_MULT(src_alpha, layOpa);
+					if (header.color_mode == CM_CMYK)
+						dst_alpha = d[4];
+					else
+						dst_alpha = d[3];
+					if ((dst_alpha > 0) && (src_alpha > 0))
 					{
-						if (header.color_mode == CM_CMYK)
+						if (layBlend == "mul ")
 						{
 							src_r = INT_MULT(src_r, d[0]);
 							src_g = INT_MULT(src_g, d[1]);
 							src_b = INT_MULT(src_b, d[2]);
-							src_a = INT_MULT(src_a, d[3]);
+							if (header.color_mode == CM_CMYK)
+								src_a = INT_MULT(src_a, d[3]);
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = INT_MULT(src_r, d[0]);
-								src_g = INT_MULT(src_g, d[1]);
-								src_b = INT_MULT(src_b, d[2]);
-							}
-						}
-					}
-					else if (layBlend == "scrn")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "scrn")
 						{
 							src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
 							src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
 							src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
-							src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
+							if (header.color_mode == CM_CMYK)
+								src_a = 255 - ((255-src_a) * (255-d[3]) / 128);
 						}
-						else
+						else if (layBlend == "over")
 						{
-							if (d[3] > 0)
-							{
-								src_r = 255 - ((255-src_r) * (255-d[0]) / 128);
-								src_g = 255 - ((255-src_g) * (255-d[1]) / 128);
-								src_b = 255 - ((255-src_b) * (255-d[2]) / 128);
-							}
-						}
-					}
-					else if (layBlend == "over")
-					{
-						if (header.color_mode == CM_CMYK)
-						{
-							src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
 							src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
 							src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
 							src_a = d[3] < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
-						}
-						else
-						{
-							if (d[3] > 0)
-							{
+							if (header.color_mode == CM_CMYK)
 								src_r = d[0] < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-								src_g = d[1] < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-								src_b = d[2] < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-							}
 						}
-					}
-					else if (layBlend == "diff")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "diff")
 						{
 							src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
 							src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
 							src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
-							src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
+							if (header.color_mode == CM_CMYK)
+								src_a = d[3] > src_a ? d[3] - src_a : src_a - d[3];
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = d[0] > src_r ? d[0] - src_r : src_r - d[0];
-								src_g = d[1] > src_g ? d[1] - src_g : src_g - d[1];
-								src_b = d[2] > src_b ? d[2] - src_b : src_b - d[2];
-							}
-						}
-					}
-					else if (layBlend == "dark")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "dark")
 						{
 							src_r = d[0]  < src_r ? d[0]  : src_r;
 							src_g = d[1] < src_g ? d[1] : src_g;
 							src_b = d[2] < src_b ? d[2] : src_b;
-							src_a = d[3] < src_a ? d[3] : src_a;
+							if (header.color_mode == CM_CMYK)
+								src_a = d[3] < src_a ? d[3] : src_a;
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = d[0]  < src_r ? d[0]  : src_r;
-								src_g = d[1] < src_g ? d[1] : src_g;
-								src_b = d[2] < src_b ? d[2] : src_b;
-							}
-						}
-					}
-					else if (layBlend == "hLit")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "hLit")
 						{
 							src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
 							src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
 							src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-							src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
+							if (header.color_mode == CM_CMYK)
+								src_a = src_a < 128 ? src_a * d[3] / 128 : 255 - ((255-src_a) * (255-d[3]) / 128);
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = src_r < 128 ? src_r * d[0] / 128 : 255 - ((255-src_r) * (255-d[0]) / 128);
-								src_g = src_g < 128 ? src_g * d[1] / 128 : 255 - ((255-src_g) * (255-d[1]) / 128);
-								src_b = src_b < 128 ? src_b * d[2] / 128 : 255 - ((255-src_b) * (255-d[2]) / 128);
-							}
-						}
-					}
-					else if (layBlend == "sLit")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "sLit")
 						{
 							src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
 							src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
 							src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
-							src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
+							if (header.color_mode == CM_CMYK)
+								src_a = src_a * d[3] / 256 + src_a * (255 - ((255-src_a)*(255-d[3]) / 256) - src_a * d[3] / 256) / 256;
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = src_r * d[0] / 256 + src_r * (255 - ((255-src_r)*(255-d[0]) / 256) - src_r * d[0] / 256) / 256;
-								src_g = src_g * d[1] / 256 + src_g * (255 - ((255-src_g)*(255-d[1]) / 256) - src_g * d[1] / 256) / 256;
-								src_b = src_b * d[2] / 256 + src_b * (255 - ((255-src_b)*(255-d[2]) / 256) - src_b * d[2] / 256) / 256;
-							}
-						}
-					}
-					else if (layBlend == "lite")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "lite")
 						{
 							src_r = d[0] < src_r ? src_r : d[0];
 							src_g = d[1] < src_g ? src_g : d[1];
 							src_b = d[2] < src_b ? src_b : d[2];
-							src_a = d[3] < src_a ? src_a : d[3];
+							if (header.color_mode == CM_CMYK)
+								src_a = d[3] < src_a ? src_a : d[3];
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = d[0] < src_r ? src_r : d[0];
-								src_g = d[1] < src_g ? src_g : d[1];
-								src_b = d[2] < src_b ? src_b : d[2];
-							}
-						}
-					}
-					else if (layBlend == "smud")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "smud")
 						{
 							src_r = d[0] + src_r - src_r * d[0] / 128;
 							src_g = d[1] + src_g - src_g * d[1] / 128;
 							src_b = d[2] + src_b - src_b * d[2] / 128;
-							src_a = d[3] + src_a - src_a * d[3] / 128;
+							if (header.color_mode == CM_CMYK)
+								src_a = d[3] + src_a - src_a * d[3] / 128;
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = d[0] + src_r - src_r * d[0] / 128;
-								src_g = d[1] + src_g - src_g * d[1] / 128;
-								src_b = d[2] + src_b - src_b * d[2] / 128;
-							}
-						}
-					}
-					else if (layBlend == "div ")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "div ")
 						{
 							src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
 							src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
 							src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
-							src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
+							if (header.color_mode == CM_CMYK)
+								src_a = src_a == 255 ? 255 : ((d[3] * 256) / (255-src_a)) > 255 ? 255 : (d[3] * 256) / (255-src_a);
 						}
-						else
-						{
-							if (d[3] > 0)
-							{
-								src_r = src_r == 255 ? 255 : ((d[0] * 256) / (255-src_r)) > 255 ? 255 : (d[0] * 256) / (255-src_r);
-								src_g = src_g == 255 ? 255 : ((d[1] * 256) / (255-src_g)) > 255 ? 255 : (d[1] * 256) / (255-src_g);
-								src_b = src_b == 255 ? 255 : ((d[2] * 256) / (255-src_b)) > 255 ? 255 : (d[2] * 256) / (255-src_b);
-							}
-						}
-					}
-					else if (layBlend == "idiv")
-					{
-						if (header.color_mode == CM_CMYK)
+						else if (layBlend == "idiv")
 						{
 							src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
 							src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
 							src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
-							src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
+							if (header.color_mode == CM_CMYK)
+								src_a = src_a == 0 ? 0 : (255 - (((255-d[3]) * 256) / src_a)) < 0 ? 0 : 255 - (((255-d[3]) * 256) / src_a);
 						}
-						else
+						else if (layBlend == "hue ")
 						{
-							if (d[3] > 0)
-							{
-								src_r = src_r == 0 ? 0 : (255 - (((255-d[0]) * 256) / src_r)) < 0 ? 0 : 255 - (((255-d[0]) * 256) / src_r);
-								src_g = src_g == 0 ? 0 : (255 - (((255-d[1]) * 256) / src_g)) < 0 ? 0 : 255 - (((255-d[1]) * 256) / src_g);
-								src_b = src_b == 0 ? 0 : (255 - (((255-d[2]) * 256) / src_b)) < 0 ? 0 : 255 - (((255-d[2]) * 256) / src_b);
-							}
-						}
-					}
-					else if (layBlend == "hue ")
-					{
-						if (header.color_mode != CM_CMYK)
-						{
-							if (d[3] > 0)
+							if (header.color_mode != CM_CMYK)
 							{
 								uchar new_r = d[0];
 								uchar new_g = d[1];
@@ -1635,12 +1410,9 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 								src_b = new_b;
 							}
 						}
-					}
-					else if (layBlend == "sat ")
-					{
-						if (header.color_mode != CM_CMYK)
+						else if (layBlend == "sat ")
 						{
-							if (d[3] > 0)
+							if (header.color_mode != CM_CMYK)
 							{
 								uchar new_r = d[0];
 								uchar new_g = d[1];
@@ -1654,12 +1426,9 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 								src_b = new_b;
 							}
 						}
-					}
-					else if (layBlend == "lum ")
-					{
-						if (header.color_mode != CM_CMYK)
+						else if (layBlend == "lum ")
 						{
-							if (d[3] > 0)
+							if (header.color_mode != CM_CMYK)
 							{
 								uchar new_r = d[0];
 								uchar new_g = d[1];
@@ -1673,12 +1442,9 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 								src_b = new_b;
 							}
 						}
-					}
-					else if (layBlend == "colr")
-					{
-						if (header.color_mode != CM_CMYK)
+						else if (layBlend == "colr")
 						{
-							if (d[3] > 0)
+							if (header.color_mode != CM_CMYK)
 							{
 								uchar new_r = d[0];
 								uchar new_g = d[1];
@@ -1694,62 +1460,43 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 							}
 						}
 					}
-					
-					int layOpa = layerInfo[layer].opacity;
-					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layer)))
-						layOpa = m_imageInfoRecord.RequestProps[layer].opacity;
-					if ((!mask.isNull()) && (m_imageInfoRecord.RequestProps[layer].useMask))
-						layOpa = INT_MULT(mask_a, layOpa);
-					if (layBlend != "diss")
-					{
-						if (header.color_mode != CM_CMYK)
-							src_a = INT_MULT(src_a, layOpa);
-					}
-					else
-						layOpa = 255;
-					if (d[3] > 0)
-					{
-						r = (d[0] * (255 - layOpa) + src_r * layOpa) / 255;
-						g = (d[1] * (255 - layOpa) + src_g * layOpa) / 255;
-						b = (d[2] * (255 - layOpa) + src_b * layOpa) / 255;
-						if (header.color_mode == CM_CMYK)
-							a = (d[3] * (255 - layOpa) + src_a * layOpa) / 255;
-						else
-						{
-							a = d[3] + INT_MULT(255 - d[3], src_a);
-							r = (d[0] * (255 - src_a) + src_r * src_a) / 255;
-							g = (d[1] * (255 - src_a) + src_g * src_a) / 255;
-							b = (d[2] * (255 - src_a) + src_b * src_a) / 255;
-						}
-					}
-					else
+					if (dst_alpha == 0)
 					{
 						r = src_r;
 						g = src_g;
 						b = src_b;
 						a = src_a;
 					}
-					if (header.color_mode == CM_CMYK)
+					else
+					{
+						if (src_alpha > 0)
+						{
+							r = (d[0] * (255 - src_alpha) + src_r * src_alpha) / 255;
+							g = (d[1] * (255 - src_alpha) + src_g * src_alpha) / 255;
+							b = (d[2] * (255 - src_alpha) + src_b * src_alpha) / 255;
+							if (header.color_mode == CM_CMYK)
+								a = (d[3] * (255 - src_alpha) + src_a * src_alpha) / 255;
+							if (layBlend != "diss")
+								src_alpha = dst_alpha + INT_MULT(255 - dst_alpha, src_alpha);
+						}
+					}
+					if (src_alpha > 0)
 					{
 						d[0] = r;
 						d[1] = g;
 						d[2] = b;
-						d[3] = a;
-					}
-					else
-					{
-						if (src_a > 0)
+						if (header.color_mode == CM_CMYK)
 						{
-							d[0] = r;
-							d[1] = g;
-							d[2] = b;
 							d[3] = a;
+							d[4] = src_alpha;
 						}
+						else
+							d[3] = src_alpha;
 					}
-					dst++;
-					src++;
-					if (!mask.isNull())
-						srcm++;
+					s += r2_image.channels();
+					d += r_image.channels();
+					if (hasMask)
+						sm += mask.channels();
 				}
 			}
 		}
