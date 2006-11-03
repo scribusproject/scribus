@@ -1896,6 +1896,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
 		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = TYPE_RGBA_8;
+		else if (( inputProfColorSpace == icSigCmykData ) && (ext == "psd"))
+			inputProfFormat = TYPE_CMYKA_8;
 		else if ( inputProfColorSpace == icSigCmykData )
 			inputProfFormat = TYPE_CMYK_8;
 		else if ( inputProfColorSpace == icSigGrayData )
@@ -1925,13 +1927,24 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		case RGBData: // RGB
 			if (isCMYK)
 				xform = scCmsCreateTransform(inputProf, inputProfFormat, cmSettings.monitorProfile(), TYPE_RGBA_8, cmSettings.intent(), 0);
+			else
+			{
+				if (ext == "psd")
+				{
+					*this = pDataLoader->r_image.convertToQImage(false);
+					imgInfo = pDataLoader->imageInfoRecord();
+				}
+			}
 			break;
 		case RGBProof: // RGB Proof
 			{
-				if (inputProfFormat == TYPE_CMYK_8)
-					inputProfFormat = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-				else if(inputProfFormat == TYPE_RGBA_8)
-					inputProfFormat = TYPE_BGRA_8;
+				if (ext != "psd")
+				{
+					if (inputProfFormat == TYPE_CMYK_8)
+						inputProfFormat = (COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
+					else if(inputProfFormat == TYPE_RGBA_8)
+						inputProfFormat = TYPE_BGRA_8;
+				}
 				if (cmSettings.doSoftProofing())
 				{
 					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
@@ -1945,13 +1958,27 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		case RawData: // no Conversion just raw Data
 			xform = 0;
+			if (ext == "psd")
+			{
+				*this = pDataLoader->r_image.convertToQImage(true, true);
+				imgInfo = pDataLoader->imageInfoRecord();
+			}
 			break;
 		}
 		if (xform)
 		{
+			if (ext == "psd")
+			{
+				create(pDataLoader->r_image.width(), pDataLoader->r_image.height(), 32);
+				setAlphaBuffer( true );
+				imgInfo = pDataLoader->imageInfoRecord();
+			}
+			LPBYTE ptr2;
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
+				if (ext == "psd")
+					ptr2 = pDataLoader->r_image.scanLine(i);
 				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != CMYKData) )
 				{
 					unsigned char* ucs = ptr + 1;
@@ -1977,15 +2004,47 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					}
 				}
 				else
-					cmsDoTransform(xform, ptr, ptr, width());
+				{
+					if (ext == "psd")
+						cmsDoTransform(xform, ptr2, ptr,width());
+					else
+						cmsDoTransform(xform, ptr, ptr, width());
+				}
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
-				if (isCMYK && reqType != CMYKData && !bilevel)
+				if (ext != "psd")
 				{
-					QRgb *p = (QRgb *) ptr;
-					QRgb alphaFF = qRgba(0,0,0,255);
-					for (int j = 0; j < width(); j++, p++)
-						*p |= alphaFF;
+					if (isCMYK && reqType != CMYKData && !bilevel)
+					{
+						QRgb *p = (QRgb *) ptr;
+						QRgb alphaFF = qRgba(0,0,0,255);
+						for (int j = 0; j < width(); j++, p++)
+							*p |= alphaFF;
+					}
+				}
+				else
+				{
+					if (reqType != CMYKData && !bilevel)
+					{
+						if (isCMYK)
+						{
+							QRgb *p = (QRgb *) ptr;
+							for (int j = 0; j < width(); j++, p++)
+							{
+								*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), ptr2[4]);
+								ptr2 += 5;
+							}
+						}
+						else
+						{
+							QRgb *p = (QRgb *) ptr;
+							for (int j = 0; j < width(); j++, p++)
+							{
+								*p = qRgba(qRed(*p), qGreen(*p), qBlue(*p), ptr2[3]);
+								ptr2 += 4;
+							}
+						}
+					}
 				}
 			}
 			cmsDeleteTransform (xform);

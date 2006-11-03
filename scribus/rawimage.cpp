@@ -63,7 +63,7 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 			uchar cr, cg, cb, ck, ca;
 			for (int j = 0; j < width(); j++)
 			{
-				*ptr++ = qRgba(src[2],src[1],src[0],src[3]);
+				*ptr++ = qRgba(src[0],src[1],src[2],src[3]);
 				src += chans;
 			}
 		}
@@ -83,9 +83,9 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 					if (cmyk)
 					{
 						ck = src[3];
-						cr = 255 - QMIN(255, src[2] + ck);
+						cr = 255 - QMIN(255, src[0] + ck);
 						cg = 255 - QMIN(255, src[1] + ck);
-						cb = 255 - QMIN(255, src[0] + ck);
+						cb = 255 - QMIN(255, src[2] + ck);
 						if (chans > 4)
 						{
 							ca = src[4];
@@ -97,9 +97,9 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 					else
 					{
 						if (chans > 3)
-							*ptr++ = qRgba(src[2],src[1],src[0],src[3]);
+							*ptr++ = qRgba(src[0],src[1],src[2],src[3]);
 						else
-							*ptr++ = qRgba(src[2],src[1],src[0],255);
+							*ptr++ = qRgba(src[0],src[1],src[2],255);
 					}
 				}
 				else

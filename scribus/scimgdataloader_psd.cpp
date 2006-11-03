@@ -194,17 +194,17 @@ bool ScImgDataLoader_PSD::loadPicture(const QString& fn, int res, bool thumbnail
 							unsigned char cm = 255 - qGreen(*s);
 							unsigned char cy = 255 - qBlue(*s);
 							unsigned char ck = QMIN(QMIN(cc, cm), cy);
-							d[2] = cc-ck;
+							d[0] = cc-ck;
 							d[1] = cm-ck;
-							d[0] = cy-ck;
+							d[2] = cy-ck;
 							d[3] = ck;
 							d[4] = 255;
 						}
 						else
 						{
-							d[2] = qRed(*s);
+							d[0] = qRed(*s);
 							d[1] = qGreen(*s);
-							d[0] = qBlue(*s);
+							d[2] = qBlue(*s);
 							d[3] = 255;
 						}
 						s++;
@@ -637,9 +637,9 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 				else if ((header.color_mode == CM_INDEXED) && (component != 3))
 				{
 					int ccol = colorTable[cbyte];
-					ptr[2] = qRed(ccol);
+					ptr[0] = qRed(ccol);
 					ptr[1] = qGreen(ccol);
-					ptr[0] = qBlue(ccol);
+					ptr[2] = qBlue(ccol);
 				}
 				else
 					ptr[component] = cbyte;
@@ -698,9 +698,9 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 							{
 								ptr -= component;
 								int ccol = colorTable[cbyte];
-								ptr[2] = qRed(ccol);
+								ptr[0] = qRed(ccol);
 								ptr[1] = qGreen(ccol);
-								ptr[0] = qBlue(ccol);
+								ptr[2] = qBlue(ccol);
 								ptr += component;
 							}
 							else
@@ -745,9 +745,9 @@ bool ScImgDataLoader_PSD::loadChannel( QDataStream & s, const PSDHeader & header
 							{
 								ptr -= component;
 								int ccol = colorTable[val];
-								ptr[2] = qRed(ccol);
+								ptr[0] = qRed(ccol);
 								ptr[1] = qGreen(ccol);
-								ptr[0] = qBlue(ccol);
+								ptr[2] = qBlue(ccol);
 								ptr += component;
 							}
 							else
@@ -808,13 +808,13 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 		switch(layerInfo[layer].channelType[channel])
 		{
 		case 0:
-			components[channel] = 2;
+			components[channel] = 0;
 			break;
 		case 1:
 			components[channel] = 1;
 			break;
 		case 2:
-			components[channel] = 0;
+			components[channel] = 2;
 			break;
 		case 3:
 			components[channel] = 3;
@@ -1254,7 +1254,7 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 	uint channel_num = header.channel_count;
 	r_image.fill(255);
 	const uint pixel_count = header.height * header.width;
-	static const uint components[5] = {2, 1, 0, 3, 4};
+	static const uint components[5] = {0, 1, 2, 3, 4};
 	if( compression )
 	{
 		// Skip row lengths.
@@ -1305,9 +1305,9 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 						{
 							ptr -= components[channel];
 							int ccol = colorTable[cbyte];
-							ptr[2] = qRed(ccol);
+							ptr[0] = qRed(ccol);
 							ptr[1] = qGreen(ccol);
-							ptr[0] = qBlue(ccol);
+							ptr[2] = qBlue(ccol);
 							ptr += components[channel];
 						}
 						else
@@ -1349,9 +1349,9 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 						{
 							ptr -= components[channel];
 							int ccol = colorTable[val];
-							ptr[2] = qRed(ccol);
+							ptr[0] = qRed(ccol);
 							ptr[1] = qGreen(ccol);
-							ptr[0] = qBlue(ccol);
+							ptr[2] = qBlue(ccol);
 							ptr += components[channel];
 						}
 						else
@@ -1400,9 +1400,9 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 				{
 					ptr -= components[channel];
 					int ccol = colorTable[cbyte];
-					ptr[2] = qRed(ccol);
+					ptr[0] = qRed(ccol);
 					ptr[1] = qGreen(ccol);
-					ptr[0] = qBlue(ccol);
+					ptr[2] = qBlue(ccol);
 					ptr += components[channel];
 				}
 				else
@@ -1469,9 +1469,9 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 	if (colorTableSc.count() == 1)
 	{
 		colorTableSc[0].getRawRGBColor(&c, &m, &y);
-		ptr[2] = QMIN((c * curveTable1[(int)cbyte]) >> 8, 255);
+		ptr[0] = QMIN((c * curveTable1[(int)cbyte]) >> 8, 255);
 		ptr[1] = QMIN((m * curveTable1[(int)cbyte]) >> 8, 255);
-		ptr[0] = QMIN((y * curveTable1[(int)cbyte]) >> 8, 255);
+		ptr[2] = QMIN((y * curveTable1[(int)cbyte]) >> 8, 255);
 	}
 	else if (colorTableSc.count() == 2)
 	{
@@ -1487,9 +1487,9 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 		k1 = QMIN((k1 * curveTable2[(int)cb]) >> 8, 255);
 		ScColor col = ScColor(QMIN(c+c1, 255), QMIN(m+m1, 255), QMIN(y+y1, 255), QMIN(k+k1, 255));
 		col.getRawRGBColor(&c, &m, &y);
-		ptr[2] = c;
+		ptr[0] = c;
 		ptr[1] = m;
-		ptr[0] = y;
+		ptr[2] = y;
 	}
 	else if (colorTableSc.count() == 3)
 	{
@@ -1510,9 +1510,9 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 		k2 = QMIN((k2 * curveTable3[(int)cb]) >> 8, 255);
 		ScColor col = ScColor(QMIN(c+c1+c2, 255), QMIN(m+m1+m2, 255), QMIN(y+y1+y2, 255), QMIN(k+k1+k2, 255));
 		col.getRawRGBColor(&c, &m, &y);
-		ptr[2] = c;
+		ptr[0] = c;
 		ptr[1] = m;
-		ptr[0] = y;
+		ptr[2] = y;
 	}
 	else if (colorTableSc.count() == 4)
 	{
@@ -1538,8 +1538,8 @@ void ScImgDataLoader_PSD::putDuotone(uchar *ptr, uchar cbyte)
 		k3 = QMIN((k3 * curveTable4[(int)cb]) >> 8, 255);
 		ScColor col = ScColor(QMIN(c+c1+c2+c3, 255), QMIN(m+m1+m2+m3, 255), QMIN(y+y1+y2+y3, 255), QMIN(k+k1+k2+k3, 255));
 		col.getRawRGBColor(&c, &m, &y);
-		ptr[2] = c;
+		ptr[0] = c;
 		ptr[1] = m;
-		ptr[0] = y;
+		ptr[2] = y;
 	}
 }
