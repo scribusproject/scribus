@@ -3520,7 +3520,7 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation>Wyświetlaj szpalty ramki tekstowej</translation>
+        <translation>Wyświetlaj łamy ramki tekstowej</translation>
     </message>
 </context>
 <context>
@@ -4964,7 +4964,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Główna</translation>
     </message>
 </context>
 <context>
@@ -5337,11 +5337,11 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wydrukowanie tej opcji spowoduje druk na wszystkich płytach. Kolory rejestracyjne używane są w znakach drukarskich takich jak znaczniki cięcia, pasery i inne. Nie są one zwykle używane w samym layoucie.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wybranie tej opcji spowoduje zamianę tego koloru na kolor dodatkowy, tym samym tworząc nowy kolor dodatkowy w trakcie tworzenia płyt lub rozbarwień. Używane najczęściej w przypadku, kiedy kolor logo lub inny kolor wymaga dokładnej reprezentacji, której nie można utworzyć w przestrzeni barw CMYK. Farby metaliczne lub fluoryzujące są typowymi przykładami kolorów, których nie da się odtworzyć za pomocą farb CMYK. </translation>
     </message>
 </context>
 <context>
@@ -6799,7 +6799,7 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Podana wartość jest poza zakresem numerów stron w aktualnym dokumencie (%1-%2).</translation>
     </message>
 </context>
 <context>
@@ -7538,7 +7538,7 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Kliknij, aby wybrać tryb interlinii</translation>
+        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
     </message>
 </context>
 <context>
@@ -8544,7 +8544,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation>Łam&amp;y:</translation>
+        <translation>Szpalty&amp;y:</translation>
     </message>
     <message>
         <source>Refer to:</source>
@@ -8572,7 +8572,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation>Odstęp pomiędzy ł&amp;amami</translation>
+        <translation>Odstęp pomiędzy szp&amp;altami</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -10512,7 +10512,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor obrysu i/lub cienia, zależnie od tego, co zostało wybrane. Jeśli wybrane są oba, będą miały one ten sam kolor.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -10520,11 +10520,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Kliknij, aby wybrać tryb interlinii</translation>
+        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Włącza opływanie obiektu przez tekst zawarty w położonych niżej ramkach. Poniższe opcje definiują, w jaki sposób włączyć opływanie.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
@@ -11241,7 +11241,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Opcja ta włącza drukowanie pojednyńczych plików PDF dla każdej strony dokumentu. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna dla impozycji w profesjonalnym druku.</translation>
+        <translation>Opcja ta włącza drukowanie pojedyńczych plików PDF dla każdej strony dokumentu. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna dla impozycji w profesjonalnym druku.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
@@ -12865,7 +12865,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dodaj ścieżkę do interpretera Ghostscriptu. W systemie Windows zwróć uwagę,  aby użyć programu gswin32c.exe, a NIE gswin32.exe. W innym przypadku może to spowodować zawieszenie się Scribusa przy starcie.</translation>
     </message>
 </context>
 <context>
@@ -15077,7 +15077,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Próbujesz zaimportować więcej stron, niż jest dostępnych w aktualnym dokumencie, licząc od aktywnej strony.&lt;/p&gt;Wybierz jedną z nastęjących możliwości:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Utwórz&lt;/b&gt; brakujące strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importuj&lt;/b&gt; strony do ostatniej strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Anuluj&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>C&amp;reate</source>
@@ -15151,7 +15151,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ten plik nie został rozpoznany jako dokument PDB. Zgłoś to jako błąd, jeśli jesteś pewien, że jest to błąd.</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
@@ -15159,15 +15159,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
+        <translation>Bretoński</translation>
     </message>
     <message>
         <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angielski (Amerykański)</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Angielski (Australijski)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
@@ -16771,7 +16771,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podczas otwierania profili ICC wystąpił błąd, zarządzanie kolorami nie zostanie włączone.</translation>
     </message>
 </context>
 <context>
@@ -17966,7 +17966,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Specjalna wtyczka wstawiająca spacje niełamliwe przed albo po tzw. &quot;short words&quot;, np. aby usunąć zawieszone spójniki. Dostępna w następujących językach:</translation>
     </message>
 </context>
 <context>
@@ -18368,23 +18368,23 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podkreślenie tekstu. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podkreślaj tylko słowa. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekreślenie. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation type="unfinished"></translation>
+        <translation>Obrys. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cieniowanie tekstu. Przytrzymaj klawisz myszy, aby móc zmienić przesunięcie.</translation>
     </message>
 </context>
 <context>
@@ -19510,7 +19510,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Poziom kompresji dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom kompresji nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. </translation>
+        <translation type="obsolete">Poziom kompresji dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom kompresji nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. </translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -19702,7 +19702,7 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa zgodność ze standardami PDF. Domyślny standard to PDF 1.3, który zapewnia największą kompatybilność. PDF 1.4 udostępnia takie możliwości jak przezroczystość czy szyfrowanie 128 bitowe. Standard 1.5 jest konieczny, jeśli będziesz chciał zachować obiekty na oddzielnych warstwach wewnątrz pliku PDF. Standard PDF/X-3 używany jest do eksporrtu do PDF, jeśli wymagany jest zarządzany kolorami RGB przeznaczony do komercyjnego druku. PDF/X-3 dostępny jest, jeśli włączone zostało zarządzanie kolorami w Scribusie. Używaj tej możliwości tylko wtedy, kiedy poradzi ci tak twoja drukarnia oraz w przypadku druku na czterokolorowej drukarce laserowej. </translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
@@ -19710,16 +19710,16 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Metoda kompresji obrazków. Automatyczna pozwala Scribusowi na wybór najlepszej metody. ZIP jest bezstratny i dobry dla obrazków o jednolitych kolorach.
+        <translation type="obsolete">Metoda kompresji obrazków. Automatyczna pozwala Scribusowi na wybór najlepszej metody. ZIP jest bezstratny i dobry dla obrazków o jednolitych kolorach.
 JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka). Wybierz kompresję automatyczną, chyba, że potrzebujesz specjalnych opcji przy kompresji. Dotyczy to jedynie obrazków JPEG</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienia rozdzielczość obrazków bitmapowych na wybraną DPI. Jeśli nie zakreślisz tej opcji, obrazki zachowają swoją oryginalną rozdzielczość. Zakreślenie może zwiększyć zużycie pamięci i spowolnić eksport.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Model kolorów dla wynikowego pliku PDF. Wybierz &quot;Monitor/Internet&quot; dla pliku PDF, który przeznaczony będzie do oglądania na ekranie lub wydruku na typowych drukarkach atramentowych. Wybierz &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce wspierającej druk w czterech kolorach CMYK. Wybierz &quot;Odcienie szarości&quot;, jeśli chcesz uzyskać PDF zawierający odcienie szarości.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
@@ -19731,7 +19731,16 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="unfinished"></translation>
+        <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation>Metoda kompresji obrazków. &quot;Automatyczna&quot; pozwala Scribusowi na wybór najlepszej metody. &quot;ZIP&quot; jest bezstratny i dobry dla obrazków o jednolitych kolorach.
+&quot;JPEG&quot; nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka). Wybierz kompresję automatyczną, chyba, że potrzebujesz specjalnych opcji przy kompresji.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+        <translation>Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
     </message>
 </context>
 <context>
@@ -20741,15 +20750,15 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyzeruj punkt kontrolny</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyzeruj punkty kontrolne</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Edytuj efekty obrazka</translation>
     </message>
 </context>
 <context>
