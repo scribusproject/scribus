@@ -121,7 +121,7 @@ void ScripterCore::rebuildRecentScriptsMenu()
 
 void ScripterCore::buildRecentScriptsMenu()
 {
-	RecentScripts.clear();
+	RecentScripts = SavedRecentScripts;
 	scrRecentScriptActions.clear();
 	if (SavedRecentScripts.count() != 0)
 	{
