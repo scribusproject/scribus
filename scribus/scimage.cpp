@@ -2140,7 +2140,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			break;
 		}
 	}
-	if ((reqType == CMYKData || isCMYK) && !bilevel)
+	if (((reqType == CMYKData) || ((reqType == RawData) && isCMYK)) && !bilevel)
 		setAlphaBuffer(false);
 	setDotsPerMeterX (QMAX(2834, (int) (imgInfo.xres / 0.0254)));
 	setDotsPerMeterY (QMAX(2834, (int) (imgInfo.yres / 0.0254)));
