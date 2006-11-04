@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <cmath>
 
+#include "commonstrings.h"
 #include "pagesize.h"
 
 PageSize::PageSize(const QString sizeName)
@@ -66,8 +67,8 @@ PageSize::PageSize(const QString sizeName)
 		//qDebug("Non-existant page size selected");
 		m_width=m_height=0.0;
 		m_pageUnitIndex=-1;
-		m_pageSizeName="Custom";
-		m_trPageSizeName=QObject::tr("Custom");	
+		m_pageSizeName=CommonStrings::customPageSize;
+		m_trPageSizeName=CommonStrings::trCustomPageSize;	
 	}
 }
 
@@ -75,8 +76,8 @@ PageSize::PageSize(const double w, const double h)
 {
 	m_width=w;
 	m_height=h;
-	m_pageSizeName="Custom";
-	m_trPageSizeName=QObject::tr("Custom");	
+	m_pageSizeName=CommonStrings::customPageSize;
+	m_trPageSizeName=CommonStrings::trCustomPageSize;	
 }
 
 QStringList PageSize::sizeList(void) const

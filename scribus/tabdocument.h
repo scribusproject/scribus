@@ -60,8 +60,6 @@ class SCRIBUS_API TabDocument : public QWidget
 
 	private:
 		double unitRatio;
-		//Replace with commonstrings when translators have that one done.
-		QString customText, customTextTR;
 
 	private slots:
 		/*!

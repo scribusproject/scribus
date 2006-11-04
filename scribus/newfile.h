@@ -120,7 +120,6 @@ protected:
 	QGridLayout* Layout2;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* recentDocLayout;
-	QString customText, customTextTR;
 	PrefsManager* prefsManager;
 	QStringList recentDocList;
 };

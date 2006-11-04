@@ -14,6 +14,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "tabdocument.h"
 #include "tabdocument.moc"
+
+#include "commonstrings.h"
 #include "prefsmanager.h"
 #include "units.h"
 #include "marginWidget.h"
@@ -32,8 +34,6 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
 	int decimals = unitGetPrecisionFromIndex(prefsData->docUnitIndex);
-	customText="Custom";
-	customTextTR=tr( "Custom" );
 
 	tabLayout_7 = new QHBoxLayout( this, 0, 5, "tabLayout_7");
 	Layout21 = new QVBoxLayout( 0, 0, 6, "Layout21");
@@ -60,7 +60,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 
 	PageSize *ps=new PageSize(prefsData->pageSize);
 	pageSizeComboBox->insertStringList(ps->sizeTRList());
-	pageSizeComboBox->insertItem( customTextTR );
+	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize );
 	pageSizeComboBox->setEditable(false);
 
 	QStringList pageSizes=ps->sizeList();
@@ -291,7 +291,7 @@ void TabDocument::setPageWidth(int)
 	pageW = pageWidth->value() / unitRatio;
 	marginGroup->setPageWidth(pageW);
 	QString psText=pageSizeComboBox->currentText();
-	if (psText!=customTextTR && psText!=customText)
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
@@ -300,7 +300,7 @@ void TabDocument::setPageHeight(int)
 	pageH = pageHeight->value() / unitRatio;
 	marginGroup->setPageHeight(pageH);
 	QString psText=pageSizeComboBox->currentText();
-	if (psText!=customTextTR && psText!=customText)
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
@@ -311,7 +311,7 @@ void TabDocument::setSize(const QString & gr)
 	PageSize *ps2=new PageSize(gr);
 
 	prefsPageSizeName=ps2->name();
-	if (gr != customTextTR)
+	if (gr != CommonStrings::trCustomPageSize)
 	{
 		pageW = ps2->width();
 		pageH = ps2->height();
@@ -336,8 +336,7 @@ void TabDocument::setOrien(int ori)
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	if (ori == 0)
 	{
-		//if (pageSizeComboBox->currentItem() == 30)
-		if (pageSizeComboBox->currentText() == customTextTR)
+		if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
 		{
 			br = pageWidth->value();
 			pageWidth->setValue(pageHeight->value());

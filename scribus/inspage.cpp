@@ -146,7 +146,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	sizeQComboBox->setEditable(false);
 	QStringList pageSizes=ps->sizeList();
 	sizeQComboBox->insertStringList(ps->sizeTRList());
-	sizeQComboBox->insertItem( tr( "Custom" ) );
+	sizeQComboBox->insertItem(CommonStrings::trCustomPageSize);
 	prefsPageSizeName=ps->name();
 	int sizeIndex = pageSizes.findIndex(ps->nameTR());
 	if (sizeIndex != -1)
@@ -182,7 +182,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 	moveObjects->setChecked( true );
 	dsGroupBox7Layout->addMultiCellWidget( moveObjects, 3, 3, 0, 3 );
 	dialogLayout->addWidget( dsGroupBox7 );
-	if (sizeQComboBox->currentText() == tr("Custom"))
+	if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
 	{
 		heightMSpinBox->setEnabled( true );
 		widthMSpinBox->setEnabled( true );
@@ -224,7 +224,7 @@ void InsPage::setSize(const QString & gr)
 	heightMSpinBox->setEnabled(false);
 	PageSize *ps2 = new PageSize(gr);
 	prefsPageSizeName = ps2->name();
-	if (gr == tr("Custom"))
+	if (gr == CommonStrings::trCustomPageSize)
 	{
 		widthMSpinBox->setEnabled(true);
 		heightMSpinBox->setEnabled(true);
@@ -243,7 +243,7 @@ void InsPage::setOrien(int ori)
 	setSize(sizeQComboBox->currentText());
 	if (ori == 0)
 	{
-		if (sizeQComboBox->currentText() == tr("Custom"))
+		if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
 		{
 			br = widthMSpinBox->value();
 			widthMSpinBox->setValue(heightMSpinBox->value());

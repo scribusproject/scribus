@@ -35,8 +35,6 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	prefsManager=PrefsManager::instance();
 	tabSelected = 0;
 	onStartup = startUp;
-	customText="Custom";
-	customTextTR=tr( "Custom" );
 	unitIndex = prefsManager->appPrefs.docUnitIndex;
 	unitSuffix = unitGetSuffixFromIndex(unitIndex);
 	unitRatio = unitGetRatioFromIndex(unitIndex);
@@ -130,7 +128,7 @@ void NewDoc::createNewDocPage()
 	PageSize ps(prefsManager->appPrefs.pageSize);
 	pageSizeComboBox = new QComboBox( true, pageSizeGroupBox, "pageSizeComboBox" );
 	pageSizeComboBox->insertStringList(ps.sizeTRList());
-	pageSizeComboBox->insertItem( customTextTR );
+	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize );
 	pageSizeComboBox->setEditable(false);
 	TextLabel1->setBuddy(pageSizeComboBox);
 	pageSizeGroupBoxLayout->addWidget(pageSizeComboBox, 0, 1 );
@@ -302,7 +300,7 @@ void NewDoc::setWidth(int)
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	marginGroup->setPageWidth(pageWidth);
 	QString psText=pageSizeComboBox->currentText();
-	if (psText!=customTextTR && psText!=customText)
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
@@ -311,7 +309,7 @@ void NewDoc::setHeight(int)
 	pageHeight = heightMSpinBox->value() / unitRatio;
 	marginGroup->setPageHeight(pageHeight);
 	QString psText=pageSizeComboBox->currentText();
-	if (psText!=customTextTR && psText!=customText)
+	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
 }
 
@@ -385,7 +383,7 @@ void NewDoc::setOrien(int ori)
 	}
 	// #869 pv - defined constants added + code repeat (check w/h)
 	(ori == portraitPage) ? Orient = portraitPage : Orient = landscapePage;
-	if (pageSizeComboBox->currentText() == customTextTR)
+	if (pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
 	{
 		if (widthMSpinBox->value() > heightMSpinBox->value())
 			pageOrientationComboBox->setCurrentItem(landscapePage);
@@ -402,7 +400,7 @@ void NewDoc::setOrien(int ori)
 void NewDoc::setPGsize(const QString &size)
 {
 	//if (pageSizeComboBox->currentItem() == USERFORMAT)
-	if (size == customTextTR)
+	if (size == CommonStrings::trCustomPageSize)
 		setSize(size);
 	else
 	{
@@ -425,7 +423,7 @@ void NewDoc::setSize(QString gr)
 	*/
 
 	//if (gr == USERFORMAT)
-	if (gr==customTextTR || gr==customText)
+	if (gr==CommonStrings::trCustomPageSize || gr==CommonStrings::customPageSize)
 	{
 		//widthMSpinBox->setEnabled(true);
 		//heightMSpinBox->setEnabled(true);

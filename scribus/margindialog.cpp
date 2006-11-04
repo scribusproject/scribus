@@ -48,7 +48,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	sizeQComboBox->setEditable(false);
 	QStringList pageSizes=ps->sizeList();
 	sizeQComboBox->insertStringList(ps->sizeTRList());
-	sizeQComboBox->insertItem( tr( "Custom" ) );
+	sizeQComboBox->insertItem( CommonStrings::trCustomPageSize );
 	prefsPageSizeName=ps->name();
 	int sizeIndex = pageSizes.findIndex(ps->nameTR());
 	if (sizeIndex != -1)
@@ -157,7 +157,7 @@ MarginDialog::MarginDialog( QWidget* parent, ScribusDoc* doc ) : QDialog( parent
 	setMaximumSize(sizeHint());
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
-	if (sizeQComboBox->currentText() == tr("Custom"))
+	if (sizeQComboBox->currentText() == CommonStrings::trCustomPageSize)
 	{
 		heightMSpinBox->setEnabled( true );
 		widthMSpinBox->setEnabled( true );
@@ -207,7 +207,7 @@ void MarginDialog::setSize(const QString & gr)
 	heightMSpinBox->setEnabled(false);
 	PageSize *ps2 = new PageSize(gr);
 	prefsPageSizeName = ps2->name();
-	if (gr == tr("Custom"))
+	if (gr == CommonStrings::trCustomPageSize)
 	{
 		widthMSpinBox->setEnabled(true);
 		heightMSpinBox->setEnabled(true);
@@ -235,7 +235,7 @@ void MarginDialog::setOrien(int ori)
 	setSize(sizeQComboBox->currentText());
 	disconnect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	if ((sizeQComboBox->currentText() == tr("Custom")) && (ori != oldOri))
+	if ((sizeQComboBox->currentText() == CommonStrings::trCustomPageSize) && (ori != oldOri))
 	{
 		br = widthMSpinBox->value();
 		widthMSpinBox->setValue(heightMSpinBox->value());
