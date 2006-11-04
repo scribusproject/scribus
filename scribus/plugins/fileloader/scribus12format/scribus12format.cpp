@@ -127,7 +127,7 @@ bool Scribus12Format::fileSupported(QIODevice* /* file */, const QString & fileN
 		if(gzDoc == NULL)
 		{
 			// FIXME: Needs better error return
-			return "";
+			return false;
 		}
 		// Allocate a buffer of a multiple of the compressed size of the file
 		// as a starting point for loading. We'll expand this buffer by powers
