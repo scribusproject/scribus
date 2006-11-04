@@ -1453,7 +1453,8 @@ void ScPainter::setClipPath2(FPointArray *points, bool closed)
 void ScPainter::drawImage( QImage *image )
 {
 #ifdef HAVE_CAIRO
-/* Code with Layers, crashes on cairo_push_group
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 2, 6)
+/* Code with Layers, crashes on cairo_push_group */
 	cairo_scale(m_cr, m_zoomFactor, m_zoomFactor);
 	cairo_push_group(m_cr);
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
@@ -1465,7 +1466,7 @@ void ScPainter::drawImage( QImage *image )
 	cairo_surface_destroy (image3);
 	cairo_pop_group_to_source (m_cr);
 	cairo_paint_with_alpha (m_cr, fill_trans);
-*/
+#else
 /* Working code, sadly we need to create an additional mask image with the same size as the image to be painted */
 	cairo_surface_t *image3;
 	QImage mask;
@@ -1497,7 +1498,7 @@ void ScPainter::drawImage( QImage *image )
 	cairo_mask_surface (m_cr, image3, 0, 0);
 	cairo_surface_destroy (image2);
 	cairo_surface_destroy (image3);
-
+#endif
 /* Original Code	
 	cairo_set_fill_rule(m_cr, cairo_get_fill_rule(m_cr));
 	cairo_surface_t *image2  = cairo_image_surface_create_for_data ((uchar*)image->bits(), CAIRO_FORMAT_ARGB32, image->width(), image->height(), image->width()*4);
