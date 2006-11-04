@@ -89,8 +89,6 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 
 void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
 {
-	float xres, yres;
-	short resolutionunit = 0;
 	initialize();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
@@ -99,8 +97,6 @@ void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
 	{
-		xres = 72.0;
-		yres = 72.0;
 		QDataStream s( &f );
 		s.setByteOrder( QDataStream::BigEndian );
 		PSDHeader header;
@@ -1007,7 +1003,7 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 					sm += QMIN(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
 				}
 				startDstY++;
-				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a, src_alpha, dst_alpha;
+				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
 				unsigned int maxDestX = r_image.width() - startDstX + startSrcX - 1;
 				for (unsigned int j = startSrcX; j < QMIN(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
 				{
@@ -1017,11 +1013,18 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 					src_a = s[3];
 					if (hasAlpha)
 					{
-						if ((hasMask) && (m_imageInfoRecord.RequestProps[layer].useMask))
-							src_alpha = sm[0];
+						if (hasMask)
+						{
+							if (m_imageInfoRecord.RequestProps[layer].useMask)
+								src_alpha = sm[0];
+							else
+								src_alpha = s[channel_num - 2];
+						}
 						else
 							src_alpha = s[channel_num - 1];
 					}
+					else
+						src_alpha = 255;
 					if ((hasMask) && (m_imageInfoRecord.RequestProps[layer].useMask))
 						src_alpha = sm[0];
 					int layOpa = layerInfo[layer].opacity;

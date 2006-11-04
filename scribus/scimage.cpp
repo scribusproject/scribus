@@ -1635,7 +1635,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 {
 	QByteArray retArray;
 	ScImgDataLoader* pDataLoader = NULL;
-	short resolutionunit = 0;
+//	short resolutionunit = 0;
 	imgInfo.valid = false;
 	imgInfo.clipPath = "";
 	imgInfo.PDSpathData.clear();
@@ -1647,9 +1647,9 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	QString ext = fi.extension(false).lower();
 	if ((ext == "jpg") || (ext == "jpeg"))
 		return retArray;
-	bool found = false;
-	int retg = -1;
-	QChar tc;
+//	bool found = false;
+//	int retg = -1;
+//	QChar tc;
 
 	if (ext == "pdf")
 		pDataLoader = new ScImgDataLoader_PDF();
@@ -1666,9 +1666,9 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	{
 		pDataLoader->preloadAlphaChannel(fn, gsRes);
 		QImage rImage;
-		if (ext == "psd")
+		if ((ext == "psd") || (ext == "tif") || (ext == "tiff"))
 		{
-			if (pDataLoader->r_image.channels() == 5)
+			if ((pDataLoader->r_image.channels() == 5) || (pDataLoader->imageInfoRecord().colorspace == 1))
 				rImage = pDataLoader->r_image.convertToQImage(true);
 			else
 				rImage = pDataLoader->r_image.convertToQImage(false);
@@ -1779,7 +1779,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	if (realCMYK != 0)
 		*realCMYK = false;
 	bool bilevel = false;
-	short resolutionunit = 0;
+//	short resolutionunit = 0;
 	RequestType reqType = requestType;
 	cmsHTRANSFORM xform = 0;
 	cmsHPROFILE inputProf = 0;
@@ -1791,7 +1791,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	QString ext = fi.extension(false).lower();
 	QString tmp, dummy, cmd1, cmd2, BBox, tmp2;
 	QChar tc;
-	bool found = false;
+//	bool found = false;
 
 	if (ext.isEmpty())
 		ext = getImageType(fn);

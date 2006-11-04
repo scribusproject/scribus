@@ -64,54 +64,12 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 
 void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
 {
-	float xres, yres;
-	short resolutionunit = 0;
 	initialize();
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
-	QString tmp, BBox, tmp2;
-	TIFFSetTagExtender(TagExtender);
-	TIFF* tif = TIFFOpen(fn.local8Bit(), "r");
-	if(tif)
-	{
-		unsigned width, height, size;
-		TIFFGetField(tif, TIFFTAG_IMAGEWIDTH, &width);
-		TIFFGetField(tif, TIFFTAG_IMAGELENGTH, &height);
-		TIFFGetField(tif, TIFFTAG_XRESOLUTION, &xres);
-		TIFFGetField(tif, TIFFTAG_YRESOLUTION, &yres);
-		TIFFGetField(tif, TIFFTAG_RESOLUTIONUNIT , &resolutionunit);
-		size = width * height;
-		uint16 photometric, bitspersample, samplesperpixel, fillorder;
-		TIFFGetField(tif, TIFFTAG_PHOTOMETRIC, &photometric);
-		TIFFGetField(tif, TIFFTAG_BITSPERSAMPLE, &bitspersample);
-		TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &samplesperpixel);
-		TIFFGetField(tif, TIFFTAG_FILLORDER, &fillorder);
-		uint32 *bits = 0;
-		if (photometric == PHOTOMETRIC_SEPARATED)
-		{
-			TIFFClose(tif);
-			return;
-		}
-		else
-		{
-			m_image.create(width,height,32);
-			m_image.setAlphaBuffer(true);
-			bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
-			if(bits)
-			{
-				if (TIFFReadRGBAImage(tif, width, height, bits, 0))
-				{
-					for(unsigned int y = 0; y < height; y++)
-						memcpy(m_image.scanLine(height - 1 - y), bits + y * width, width * 4);
-				}
-				_TIFFfree(bits);
-			}
-			else
-				m_image.reset();
-			TIFFClose(tif);
-		}
-	}
+	if( !loadPicture(fn, res, false))
+		r_image.resize(0);
 }
 
 int ScImgDataLoader_TIFF::getLayers(const QString& fn)
@@ -148,7 +106,6 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 
 bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
 {
-//	image->setAlphaBuffer(true);
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
@@ -192,12 +149,23 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						tileH = image->height()-yt;
 					tileW = columns;
 					register uint32 yi;
+					int chans = image->channels();
 					for (xt = 0; xt < (uint) image->width(); xt += columns)
 					{
 						TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
 						for (yi = 0; yi < tileH; yi++)
-							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*image->channels());
-//							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+						{
+							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*chans);
+							if (chans == 5)
+							{
+								uchar *ptr = image->scanLine(yt+(tileH-1-yi))+xt;
+								for (uint j = 0; j < tileW; j++)
+								{
+									ptr[4] = 255 - ptr[4];
+									ptr += chans;
+								}
+							}
+						}
 					}
 				}
 				_TIFFfree(tile_buf);
@@ -206,14 +174,23 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			{
 				tsize_t bytesperrow = TIFFScanlineSize(tif);
 				bits = (uint32 *) _TIFFmalloc(bytesperrow);
+				int chans = image->channels();
 				if (bits)
 				{
 					for (unsigned int y = 0; y < heightt; y++)
 					{
 						if (TIFFReadScanline(tif, bits, y, 0))
 						{
-							memcpy(image->scanLine(y), bits, image->channels() * widtht);
-//							memcpy(image->scanLine(y), bits, widtht * 4);
+							memcpy(image->scanLine(y), bits, chans * widtht);
+							if (chans == 5)
+							{
+								uchar *ptr = image->scanLine(y);
+								for (uint j = 0; j < widtht; j++)
+								{
+									ptr[4] = 255 - ptr[4];
+									ptr += chans;
+								}
+							}
 						}
 					}
 					_TIFFfree(bits);
@@ -273,15 +250,18 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 				dst_alpha = d[4];
 				src_alpha = s[4];
 			}
-			else if (cmyk)
-			{
-				dst_alpha = 255;
-				src_alpha = 255;
-			}
 			else
 			{
-				dst_alpha = d[3];
-				src_alpha = s[3];
+				if (cmyk)
+				{
+					dst_alpha = 255;
+					src_alpha = 255;
+				}
+				else
+				{
+					dst_alpha = d[3];
+					src_alpha = s[3];
+				}
 			}
 			if ((dst_alpha > 0) && (src_alpha > 0))
 			{
@@ -464,13 +444,18 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 				d[0] = r;
 				d[1] = g;
 				d[2] = b;
-				if (cmyk)
+				if (r_image.channels() == 5)
 				{
 					d[3] = a;
 					d[4] = src_alpha;
 				}
 				else
-					d[3] = src_alpha;
+				{
+					if (cmyk)
+						d[3] = a;
+					else
+						d[3] = src_alpha;
+				}
 			}
 			d += r_image.channels();
 			s += tmp->channels();
@@ -1275,7 +1260,7 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 					sm += QMIN(static_cast<int>(startSrcXm), mask.width()-1) * mask.channels();
 				}
 				startDstY++;
-				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, mask_a, src_alpha, dst_alpha;
+				unsigned char r, g, b, a, src_r, src_g, src_b, src_a, src_alpha, dst_alpha;
 				unsigned int maxDestX = r_image.width() - startDstX + startSrcX - 1;
 				for (unsigned int j = startSrcX; j < QMIN(maxDestX, static_cast<unsigned int>(layerInfo[layer].width)); j++)
 				{
@@ -1285,11 +1270,18 @@ bool ScImgDataLoader_TIFF::loadLayerChannels( QDataStream & s, const PSDHeader &
 					src_a = s[3];
 					if (hasAlpha)
 					{
-						if ((hasMask) && (m_imageInfoRecord.RequestProps[layer].useMask))
-							src_alpha = sm[0];
+						if (hasMask)
+						{
+							if (m_imageInfoRecord.RequestProps[layer].useMask)
+								src_alpha = sm[0];
+							else
+								src_alpha = s[channel_num - 2];
+						}
 						else
 							src_alpha = s[channel_num - 1];
 					}
+					else
+						src_alpha = 255;
 					if ((hasMask) && (m_imageInfoRecord.RequestProps[layer].useMask))
 						src_alpha = sm[0];
 					int layOpa = layerInfo[layer].opacity;
