@@ -60,7 +60,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	tabLayout1->addWidget( pixmapLabel1 );
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
-	QString BUILD_DAY = "2";
+	QString BUILD_DAY = "4";
 	QString BUILD_MONTH = CommonStrings::november;
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
@@ -259,7 +259,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("el").local8Bit()  + "</b></td><td> </td></tr>" +
-											"<tr><td>Toussis Manolis</td><td>manolis@koppermind.homelinux.org</td></tr>" +
+											"<tr><td>Τούσης Μανώλης </br> Toussis Manolis</td><td>manolis@koppermind.homelinux.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Csaba Zakarias</td><td>csaba.zakarias@gmail.com</td></tr>" +
@@ -284,7 +284,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Frederico Gon&#231;alves</td><td></td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ru").local8Bit()  + "</b></td><td></td></tr>" +
-											"<tr><td>Alexandre Prokoudine</td><td>alexandre.prokoudine@gmail.com</td></tr>" +
+											"<tr><td>Александр Прокудин </td><td>alexandre.prokoudine@gmail.com</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("sr").local8Bit()  + "</b></td><td></td></tr>" +
 											"<tr><td>Bojan Božovi&#263;</td><td>bole89@infosky.net</td></tr>" +
