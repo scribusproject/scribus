@@ -64,7 +64,11 @@ void ScImgDataLoader_TIFF::loadEmbeddedProfile(const QString& fn)
 
 void ScImgDataLoader_TIFF::preloadAlphaChannel(const QString& fn, int res)
 {
+	bool valid = m_imageInfoRecord.isRequest;
+	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
+	m_imageInfoRecord.RequestProps = req;
+	m_imageInfoRecord.isRequest = valid;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;
@@ -156,15 +160,6 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						for (yi = 0; yi < tileH; yi++)
 						{
 							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*chans);
-/*							if (chans == 5)
-							{
-								uchar *ptr = image->scanLine(yt+(tileH-1-yi))+xt;
-								for (uint j = 0; j < tileW; j++)
-								{
-									ptr[4] = 255 - ptr[4];
-									ptr += chans;
-								}
-							} */
 						}
 					}
 				}
@@ -182,15 +177,6 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						if (TIFFReadScanline(tif, bits, y, 0))
 						{
 							memcpy(image->scanLine(y), bits, chans * widtht);
-/*							if (chans == 5)
-							{
-								uchar *ptr = image->scanLine(y);
-								for (uint j = 0; j < widtht; j++)
-								{
-									ptr[4] = 255 - ptr[4];
-									ptr += chans;
-								}
-							} */
 						}
 					}
 					_TIFFfree(bits);
@@ -217,7 +203,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 	return true;
 }
 
-void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk)
+void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString layBlend, bool cmyk, bool useMask)
 {
 	if (layBlend == "diss")
 	{
@@ -248,7 +234,10 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 			if (r_image.channels() == 5)
 			{
 				dst_alpha = d[4];
-				src_alpha = s[4];
+				if (useMask)
+					src_alpha = s[4];
+				else
+					src_alpha = 255;
 			}
 			else
 			{
@@ -263,6 +252,8 @@ void ScImgDataLoader_TIFF::blendOntoTarget(RawImage *tmp, int layOpa, QString la
 					src_alpha = s[3];
 				}
 			}
+			if (layBlend != "diss")
+				src_alpha = INT_MULT(src_alpha, layOpa);
 			if ((dst_alpha > 0) && (src_alpha > 0))
 			{
 				if (layBlend == "mul ")
@@ -667,7 +658,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						s >> right;
 						lay.width = right - left;
 						s >> numChannels;
-						if (numChannels > 6)	// we don't support images with more than 5 channels yet
+						if (numChannels > 6)	// we don't support images with more than 6 channels yet
 						{
 							m_imageInfoRecord.layerInfo.clear();
 							failedPS = true;
@@ -842,16 +833,19 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 						return false;
 					}
 					bool visible = true;
+					bool useMask = true;
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
 						visible = m_imageInfoRecord.RequestProps[layerNum].visible;
 					QString layBlend = "norm";
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
 						layBlend = m_imageInfoRecord.RequestProps[layerNum].blend;
+					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
+						useMask = m_imageInfoRecord.RequestProps[layerNum].useMask;
 					int layOpa = 255;
 					if ((m_imageInfoRecord.isRequest) && (m_imageInfoRecord.RequestProps.contains(layerNum)))
 						layOpa = m_imageInfoRecord.RequestProps[layerNum].opacity;
 					if (visible)
-						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK);
+						blendOntoTarget(&tmpImg, layOpa, layBlend, isCMYK, useMask);
 					QImage imt = tmpImg.copy();
 					if (chans > 4)
 						imt = tmpImg.convertToQImage(true);
@@ -862,14 +856,22 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 					imt = sy < sx ?	imt.smoothScale(qRound(imt.width() / sx), qRound(imt.height() / sx)) :
 												imt.smoothScale(qRound(imt.width() / sy), qRound(imt.height() / sy));
 					m_imageInfoRecord.layerInfo[layerNum].thumb = imt.copy();
+					if (chans > 4)
+					{
+						QImage imt2 = imt.createAlphaMask();
+						imt2.invertPixels();
+						m_imageInfoRecord.layerInfo[layerNum].thumb_mask = imt2.copy();
+					}
+					else
+						m_imageInfoRecord.layerInfo[layerNum].thumb_mask = QImage();
 					layerNum++;
 				}
+				if ((m_imageInfoRecord.layerInfo.count() == 1) && (chans < 5))
+					m_imageInfoRecord.layerInfo.clear();
 				test = TIFFReadDirectory(tif);
 			}
 			while (test == 1);
 			TIFFClose(tif);
-			if (m_imageInfoRecord.layerInfo.count() == 1)
-				m_imageInfoRecord.layerInfo.clear();
 		}
 		if (resolutionunit == RESUNIT_INCH)
 		{

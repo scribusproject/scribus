@@ -1171,6 +1171,11 @@ void PSLib::PS_image(PageItem *c, double x, double y, QString fn, double scalex,
  		PutSeite(((!DoSep) && (!GraySc)) ? "/DeviceCMYK setcolorspace\n" : "/DeviceGray setcolorspace\n");
 		QByteArray maskArray;
 		ScImage img2;
+		img2.imgInfo.clipPath = "";
+		img2.imgInfo.PDSpathData.clear();
+		img2.imgInfo.layerInfo.clear();
+		img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		if (c->pixm.imgInfo.type != 7)
 			maskArray = img2.getAlpha(fn, false, false, 300);
  		if ((maskArray.size() > 0) && (c->pixm.imgInfo.type != 7))

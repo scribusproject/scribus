@@ -89,7 +89,11 @@ void ScImgDataLoader_PSD::loadEmbeddedProfile(const QString& fn)
 
 void ScImgDataLoader_PSD::preloadAlphaChannel(const QString& fn, int res)
 {
+	bool valid = m_imageInfoRecord.isRequest;
+	QMap<int, ImageLoadRequest> req = m_imageInfoRecord.RequestProps;
 	initialize();
+	m_imageInfoRecord.RequestProps = req;
+	m_imageInfoRecord.isRequest = valid;
 	QFileInfo fi = QFileInfo(fn);
 	if (!fi.exists())
 		return;

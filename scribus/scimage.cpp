@@ -1635,7 +1635,6 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 {
 	QByteArray retArray;
 	ScImgDataLoader* pDataLoader = NULL;
-//	short resolutionunit = 0;
 	imgInfo.valid = false;
 	imgInfo.clipPath = "";
 	imgInfo.PDSpathData.clear();
@@ -1647,18 +1646,22 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 	QString ext = fi.extension(false).lower();
 	if ((ext == "jpg") || (ext == "jpeg"))
 		return retArray;
-//	bool found = false;
-//	int retg = -1;
-//	QChar tc;
-
 	if (ext == "pdf")
 		pDataLoader = new ScImgDataLoader_PDF();
 	else if ((ext == "eps") || (ext == "ps"))
 		pDataLoader = new ScImgDataLoader_PS();
 	else if ((ext == "tif") || (ext == "tiff"))
+	{
 		pDataLoader = new ScImgDataLoader_TIFF();
+		if	(pDataLoader)
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 	else if (ext == "psd")
+	{
 		pDataLoader = new ScImgDataLoader_PSD();
+		if	(pDataLoader)
+			pDataLoader->setRequest(imgInfo.isRequest, imgInfo.RequestProps);
+	}
 	else
 		pDataLoader = new ScImgDataLoader_QT();
 

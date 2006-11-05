@@ -5451,6 +5451,11 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		}
 		QByteArray im2;
 		ScImage img2;
+		img2.imgInfo.clipPath = "";
+		img2.imgInfo.PDSpathData.clear();
+		img2.imgInfo.layerInfo.clear();
+		img2.imgInfo.RequestProps = c->pixm.imgInfo.RequestProps;
+		img2.imgInfo.isRequest = c->pixm.imgInfo.isRequest;
 		if (c->pixm.imgInfo.type == 7)
 			alphaM = false;
 		else
