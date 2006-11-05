@@ -11,14 +11,15 @@ template<class STYLE>
 class StyleSet : public StyleBase {
 public:
 	STYLE& operator[] (uint index) { assert(index < styles.count()); return * styles[index]; }
+	STYLE& operator[] (QString name) { return * resolve(name); }
 	const STYLE& operator[] (uint index) const { assert(index < styles.count()); return * styles[index]; }
 	inline int find(QString name);
 	inline const Style* resolve(QString name) const;
 	uint count() const { return (uint) styles.count(); }
-	void append(STYLE* style) { styles.append(style); }
+	void append(STYLE* style) { styles.append(style); style->setBase(this); }
 	inline void remove(uint index, const STYLE* with = NULL);
 	inline void redefine(QValueList<STYLE> defs, bool removeUnused=false);
-	void create(const STYLE& proto) { styles.append(new STYLE(proto)); }
+	void create(const STYLE& proto) { append(new STYLE(proto)); }
 	StyleSet() : styles(), m_base(NULL), m_baseversion(-1) {}
 	~StyleSet() { while(styles.count()>0) { delete styles.front(); styles.pop_front(); } }
 
@@ -70,6 +71,7 @@ inline void StyleSet<STYLE>::redefine(QValueList<STYLE> defs, bool removeUnused)
 			if (styles[i]->name() == defs[j].name()) {
 				found = true;
 				(*styles[i]) = defs[j];
+				(*styles[i]).setBase(this);
 				break;
 			}
 		}
@@ -82,6 +84,7 @@ inline void StyleSet<STYLE>::redefine(QValueList<STYLE> defs, bool removeUnused)
 			create(defs[j]);
 		}
 	}
+	invalidate();
 // FIXME: replace temp parents with ones from this
 }
 
