@@ -60,6 +60,9 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->doc();
+	if (Absatz < 0 || Absatz > doku->docParagraphStyles.count())
+		Absatz = 0;
+	
 	if (!Append)
 	{
 #if 0
