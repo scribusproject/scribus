@@ -197,16 +197,18 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
-        <translation type="obsolete">newDocument(størrelse, margener, retning, førsteSideNummer,
+        <translation>newDocument(størrelse, margener, retning, førsteSideNummer,
                         måle-enhed, sideType, førsteSideOrden) -&gt; bool
 
 Laver et Nyt dokument og returnerer &quot;true&quot; hvis det lykkedes. Parametrene har 
@@ -243,49 +245,6 @@ PAGE_4, 3)
 
 Kan rejse ScribusError hvis førsteSideOrden er større end tilladt af sideType.
 </translation>
-    </message>
-    <message>
-        <source>newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder) -&gt; bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type&gt; e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you&apos;ll usually want 1, it&apos;s useful to have higher
-numbers if you&apos;re creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-numPage = Number of pages to be created.
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3, 1)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
-</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -523,18 +482,6 @@ Gemmer det aktive dokument med det nye navn &quot;navn&quot; (som kan være en
 fuld eller relativ sti).
 
 Kan rejse ScribusError hvis gemningen fejler.
-</translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
-</source>
-        <translation type="obsolete">saveDocAs(&quot;forfatter&quot;, &quot;info&quot;, &quot;beskrivelse&quot;) -&gt; bool
-
-Sætter dokumentets information. &quot;forfatter&quot;, &quot;Info&quot;, &quot;Beskrivelse&quot; 
-er strenge.
 </translation>
     </message>
     <message>
@@ -2647,14 +2594,21 @@ Sletter den navngivne masterside.
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>setInfo(&quot;forfatter&quot;, &quot;info&quot;, &quot;beskrivelse&quot;) -&gt; bool
+
+Sætter dokument information. &quot;Forfatter&quot;, &quot;Info&quot;, &quot;Beskrivelse&quot; er
+strenge.
+</translation>
     </message>
     <message>
         <source>duplicateObject([&quot;name&quot;]) -&gt; string
 
 creates a Duplicate of the selected Object (or Selection Group).
 </source>
-        <translation type="unfinished"></translation>
+        <translation>duplicateObject([&quot;navn&quot;]) -&gt; streng
+
+Laver en dublet af det valgte objekt (eller valgte gruppe).
+</translation>
     </message>
 </context>
 <context>
@@ -2764,12 +2718,8 @@ creates a Duplicate of the selected Object (or Selection Group).
         <translation>Windows&amp;#174; Port:</translation>
     </message>
     <message>
-        <source>March</source>
-        <translation type="obsolete">Marts</translation>
-    </message>
-    <message>
         <source>Tango Project Icons:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tango Projekt Ikoner:</translation>
     </message>
 </context>
 <context>
@@ -3002,7 +2952,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>&amp;Strike Through</source>
-        <translation>&amp;Gennemstreg</translation>
+        <translation>O&amp;verstreg</translation>
     </message>
     <message>
         <source>&amp;All Caps</source>
@@ -3733,7 +3683,7 @@ creates a Duplicate of the selected Object (or Selection Group).
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Vis kolonner i tekstramme</translation>
     </message>
 </context>
 <context>
@@ -4875,19 +4825,19 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Scrapbook (*.scs)</source>
-        <translation type="unfinished"></translation>
+        <translation>Scrapbog  (*.scs)</translation>
     </message>
     <message>
         <source>Choose a scrapbook file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Vælg en scrapbog-fil der skal importeres</translation>
     </message>
     <message>
         <source>&amp;Import Scrapbook File...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Importér scrapbog-fil...</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Hovedbog</translation>
     </message>
 </context>
 <context>
@@ -4936,7 +4886,7 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Scale How:</source>
-        <translation>Skalér:</translation>
+        <translation>Skalér hvordan:</translation>
     </message>
     <message>
         <source>Layout:</source>
@@ -5234,11 +5184,11 @@ Navnet er reserveret for gennemsigtig farve</translation>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ved at vælge dette vil aktivere udskrivning af dette på alle plader. Pasmærke-farver bruges f.eks til beskæringsmærker, pasmærker og lignende. Disse er ikke typisk brugt i selve sidens layout.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ved at vælge dette vil gøre denne farve til en spot-farve, og således lave endnu en spot, når der laves plader eller separationer. Det er ofte brugt, når et logo eller anden farve behøver at være helt præcis eller ikke kan laves med CMYK trykfarver. Metalliske og fluorescerende farver er gode eksempler på farver, som ikke særlig let kan laves med CMYK trykfarver.</translation>
     </message>
 </context>
 <context>
@@ -5629,7 +5579,7 @@ Navnet er reserveret for gennemsigtig farve</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hvis farvestyring er aktiveret, vil en trekantet advarsels-indikator betyde, at farven måske er uden for farveskalaen (gamut) i den valgte printer-profil. Hvad dette betyder er, at farven måske ikke kan trykkes præcist, som det er vist på skærmen. Spot-farver er vist med en rød cirkel. Pasmærke-farver vil have et pasmærke ved siden af farven. Flere råd om gamut advarsler findes i Scribus manualen under &quot;Color Management&quot;.</translation>
     </message>
 </context>
 <context>
@@ -5843,8 +5793,7 @@ Navnet er reserveret for gennemsigtig farve</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation>
-Farverne på din valgte farvesammensætning</translation>
+        <translation>Farverne på din valgte farvesammensætning</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
@@ -6764,7 +6713,7 @@ en række sider eller et enkelt sidenummer.</translation>
     </message>
     <message>
         <source>Print &amp;Range</source>
-        <translation>Udskriv d&amp;ette område</translation>
+        <translation>Udskriv d&amp;isse sider</translation>
     </message>
     <message>
         <source>N&amp;umber of Copies:</source>
@@ -6858,8 +6807,7 @@ Niveau 1 eller 2 kan give meget store filer</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation>En måde at ændre nogle af gråtonerne, som er sammensat af cyan, gul og magenta, så der i stedet for disse farver bruges sort. RUF påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle 
-billeder og nogen eksperimenteren og testning er nødvendigt fra billede til billede. RUF formindsker muligheden for overmætning med CMY farverne.</translation>
+        <translation>En måde at ændre nogle af gråtonerne, som er sammensat af cyan, gul og magenta, så der i stedet for disse farver bruges sort. UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle billeder og nogen eksperimenteren og testning er nødvendigt fra billede til billede. UCR formindsker muligheden for overmætning med CMY farverne.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -7361,7 +7309,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation>Gang</translation>
+        <translation>Mangfoldiggøre</translation>
     </message>
     <message>
         <source>Screen</source>
@@ -8520,10 +8468,6 @@ og konverterer deres vektordata til Scribus objekter.</translation>
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <source>LineStyleWBase</source>
-        <translation type="obsolete">LinieStilWBase</translation>
-    </message>
-    <message>
         <source>%</source>
         <translation>%</translation>
     </message>
@@ -8818,11 +8762,11 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>&amp;Horizontal Shift:</source>
-        <translation>&amp;Horisontalt skift:</translation>
+        <translation>&amp;Horisontal forskydning:</translation>
     </message>
     <message>
         <source>&amp;Vertical Shift:</source>
-        <translation>&amp;Vertikalt skift:</translation>
+        <translation>&amp;Vertikal forskydning:</translation>
     </message>
 </context>
 <context>
@@ -9360,10 +9304,6 @@ og konverterer deres vektordata til Scribus objekter.</translation>
         <translation>Viser det niveau hvor objektet er placeret, 0 betyder objektet er nederst</translation>
     </message>
     <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation type="obsolete">Får tekst i bagvedliggende objekter til at flyde rundt om dette objekts form</translation>
-    </message>
-    <message>
         <source>Switches between Gap or Column width</source>
         <translation>Skifter mellem afstand og kolonne-bredde</translation>
     </message>
@@ -9534,14 +9474,6 @@ hjørner:</translation>
         <translation>Sprog for Ordeling i rammen</translation>
     </message>
     <message>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Brug den omkringliggende firkant i stedet for rammens form til at holde tekst fri af rammen</translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Brug en anden linie, der baseret på rammens form, til at holde tekst fri af rammen</translation>
-    </message>
-    <message>
         <source>Right to Left Writing</source>
         <translation>Skrivning fra højre til venstre</translation>
     </message>
@@ -9586,14 +9518,6 @@ hjørner:</translation>
         <translation>Skrifttegnenes skalerings-højde</translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Tekstens stregfarve. Kun tilgængelig for &quot;omrids&quot; tekst-udsmykning.</translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="obsolete">Tekstens fyldfarve. Kun tilgængelig for &quot;omrids&quot; tekst-udsmykning.</translation>
-    </message>
-    <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
         <translation>Navnet &quot;%1&quot; er ikke entydigt.&lt;br/&gt;Vælg venligst et andet.</translation>
     </message>
@@ -9615,23 +9539,23 @@ hjørner:</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farve på tekstens streg og/eller skygge, afhængig af det valgte. hvis begge er valgt, deler de den samme farve.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Farve på markeret tekst. Hvis &quot;omrids&quot; tekst-udsmykning er aktiveret, vil denne farve være fyldfarven. Hvis tekst-skygge er aktiveret, så vil dette være den øverste farve.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Brug indbindingsboksen, som altid er rektangulær, i stedet for rammens form for tekst-flydning af tekstrammer bagved objektet. </translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Brug en anden linie, oprindeligt baseret på rammens form, for tekst-flydning af tekstrammer bagved objektet. </translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation>Får tekst i bagvedliggende rammer til at flyde rundt om objektet. Tilvalgene herunder definerer hvordan det er aktiveret.</translation>
     </message>
 </context>
 <context>
@@ -10129,7 +10053,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation>Liniebredde</translation>
+        <translation>Stregbredde</translation>
     </message>
 </context>
 <context>
@@ -10232,14 +10156,6 @@ hjørner:</translation>
         <translation>Vælger/Fravælger farven K (Sort)</translation>
     </message>
     <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation type="obsolete">Anti-alias &amp;Tekst</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation type="obsolete">Anti-alias &amp;Grafik</translation>
-    </message>
-    <message>
         <source>Display Trans&amp;parency</source>
         <translation>Vis trans&amp;parens</translation>
     </message>
@@ -10296,14 +10212,6 @@ hjørner:</translation>
         <translation>Udskriv...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="obsolete">Giver en mere behagelig forhåndsvisning af tekst-objekter, men der går lidt længere tid med at vise siden. Det gælder kun type 1 fonte</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Giver en mere behagelig forhåndsvisning af TrueType fonte, OpenType fonte, EPS, PDF og vektorgrafik, på bekostning af lidt længere tid med at vise siden</translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation>En måde at fjerne nogle af gråtonerne, som er sammensat af cyan, gul og magenta, så der i stedet for disse farver bruges sort. UCR påvirker mest de dele af billedet, som er neutrale og/eller mørke i farven, det, som er tættets på gråt. Brug af denne metode kan forbedre udskrivningen af nogle billeder og nogen eksperimenteren og testning er nødvendigt fra tilfælde til tilfælde. UCR formindsker muligheden for overmætning af CMY farverne.</translation>
     </message>
@@ -10321,11 +10229,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktivér &amp;udjævning</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Giver en mere behagelig forhåndsvisning af Type 1 Fonte, TrueType Fonte, OpenType Fonte, EPS, PDF og vektorgrafik, men det tager lidt længere tid at vise siden</translation>
     </message>
 </context>
 <context>
@@ -10697,6 +10605,10 @@ hjørner:</translation>
     <message>
         <source>Select a base directory for search</source>
         <translation>Vælg en rodmappe for søgning</translation>
+    </message>
+    <message>
+        <source></source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -11290,7 +11202,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation>Slår visningen  af lænkede rammer til eller fra.</translation>
+        <translation>Slår visningen af lænkede rammer til eller fra.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
@@ -11334,12 +11246,8 @@ denne, da det tillader dig at redigere billedet i en allerede kørende gimp.</tr
         <translation>Standard ICC-profilmappe. Denne kan ikke ændres, når der er åbnede dokumenter. Som standard vil Scribus se i system-mapperne under Mac OSX og Windows. På Linux og Unix, søger Scribus i $HOME/.color/icc, /usr/share/color/icc og /usr/local/share/color/icc </translation>
     </message>
     <message>
-        <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation type="obsolete">Placering af Ghostscript fortolkeren i filsystemet.</translation>
-    </message>
-    <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tilføj stien til Ghostscript fortolkeren. Vær venligst opmærksom på, at du på Windows skal bruge navnet gswin32c.exe - IKKE gswin32.exe. Ellers kan det måske forårsage at Windows hænger, når Scribus startes.</translation>
     </message>
 </context>
 <context>
@@ -11872,7 +11780,7 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>Stri&amp;keout</source>
-        <translation>&amp;Gennemstreg</translation>
+        <translation>O&amp;verstreg</translation>
     </message>
     <message>
         <source>&amp;Underline</source>
@@ -12006,7 +11914,7 @@ Kontrollér sti og filnavn.</translation>
     </message>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation>Filen eksisterer. Overskriv?</translation>
+        <translation>Fil eksisterer. Overskriv?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
@@ -12188,10 +12096,6 @@ Ekstern Lænker</translation>
         <translation>Bulgarsk</translation>
     </message>
     <message>
-        <source>Brazilian</source>
-        <translation type="obsolete">Brasiliansk</translation>
-    </message>
-    <message>
         <source>Catalan</source>
         <translation>Catalansk</translation>
     </message>
@@ -12265,7 +12169,7 @@ Ekstern Lænker</translation>
     </message>
     <message>
         <source>Norwegian (Bokmaal)</source>
-        <translation>Norsk (Bokmaal)</translation>
+        <translation>Norsk (Bokmål)</translation>
     </message>
     <message>
         <source>Norwegian (Nnyorsk)</source>
@@ -12824,10 +12728,6 @@ Ekstern Lænker</translation>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
         <translation>Indlæser font %1 (fundet ved brug af fontconfig)</translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="obsolete">Font %1 (fundet ved brug af fontconfig) indeholder fejl, kan ikke bruges</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
@@ -13399,55 +13299,50 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
         <translation>kunne ikke åbne fil %1</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation type="obsolete">Denne fil er ikke genkendt som et PDB dokument. Reportér venligst dette som en fejl, hvis du er sikker på det er det.</translation>
-    </message>
-    <message>
         <source>Japanese</source>
         <translation>Japansk</translation>
     </message>
     <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Den givne master side stemmer ikke overens med nogen eksisterende.</translation>
+    </message>
+    <message>
         <source>Arabic</source>
-        <translation type="unfinished">Arabisk</translation>
+        <translation>Arabisk</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Given master page name does not match any existing.</source>
-        <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Estisk</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>%1 may be corrupted : missing resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandsk</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Denne fil er ikke genkendt som et PDB dokument. Reportér venligst dette som en fejl, hvis du er sikker på det er det.</translation>
     </message>
     <message>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation>Bretonsk</translation>
     </message>
     <message>
         <source>English (Australian)</source>
-        <translation type="unfinished"></translation>
+        <translation>Engelsk (Australsk)</translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation>Engelsk (Amerikansk)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 er måske beskadiget: manglende eller forkerte opløsnings-mærker</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation>%1 er måske beskadiget: manglende opløsnings-mærker</translation>
     </message>
 </context>
 <context>
@@ -14232,7 +14127,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der opstod en fejl under indlæsning af ICC-profiler, farvestyring er ikke aktiveret.</translation>
     </message>
 </context>
 <context>
@@ -14247,7 +14142,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Læser præferencer</translation>
+        <translation>Læse præferencer</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -14697,7 +14592,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
-        <translation type="unfinished"></translation>
+        <translation>Liga&amp;tur</translation>
     </message>
 </context>
 <context>
@@ -14792,7 +14687,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
+        <translation>Åbn et konsol windue</translation>
     </message>
 </context>
 <context>
@@ -15269,7 +15164,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Speciel plug-in for tilføjelse af  &quot;ikke brydbar&quot; mellemrum før eller efter såkaldte korte ord. Tilgængelig for følgende sprog: </translation>
     </message>
 </context>
 <context>
@@ -15532,7 +15427,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation>Liniebredde</translation>
+        <translation>Stregbredde</translation>
     </message>
 </context>
 <context>
@@ -15557,49 +15452,28 @@ Vertikal forskydning: %3</translation>
         <translation>Hævet skrift</translation>
     </message>
     <message>
-        <source>Underline</source>
-        <translation type="obsolete">Understreg</translation>
-    </message>
-    <message>
-        <source>Strike Out</source>
-        <translation type="obsolete">Erstat standardværdier med bruger config</translation>
-    </message>
-    <message>
-        <source>Underline Words Only</source>
-        <translation type="obsolete">Understreg kun ord</translation>
-    </message>
-    <message>
         <source>All Caps</source>
         <translation>Alt som store bogstaver</translation>
     </message>
     <message>
-        <source>Shadow</source>
-        <translation type="obsolete">Skygge</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <comment>Text Style Selector</comment>
-        <translation type="obsolete">Omrids</translation>
-    </message>
-    <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Understreg tekst. Tryk på knappen et øjeblik for at indstille stregbredde og forskydning.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Understreg kun ord. Tryk på knappen et øjeblik for at indstille stregbredde og forskydning.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation type="unfinished"></translation>
+        <translation>Overstreg. Tryk på knappen et øjeblik for at indstille stregbredde og forskydning.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Skyggetekst. Tryk på knappen et øjeblik for at indstille forskydning.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Omrids. Tryk på knappen et øjeblik for at indstille omrids stregbredde.</translation>
     </message>
 </context>
 <context>
@@ -15731,10 +15605,6 @@ Vertikal forskydning: %3</translation>
         <source>Destination Frame:</source>
         <translation>Bestemmelses-ramme:</translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="obsolete">Inde&amp;ks</translation>
-    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
@@ -15801,10 +15671,6 @@ Vertikal forskydning: %3</translation>
     <message>
         <source>Destination Frame:</source>
         <translation>Bestemmelses-ramme:</translation>
-    </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="obsolete">Inde&amp;ks</translation>
     </message>
 </context>
 <context>
@@ -16540,10 +16406,6 @@ Vertikal forskydning: %3</translation>
         <translation>Konvertér spot-farver til proces-farver</translation>
     </message>
     <message>
-        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau.</translation>
-    </message>
-    <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
         <translation>Aktiverer konvertering af spot-farver til sammensatte farver. Medmindre du planlægger at trykke med spot-farver hos et kommercielt trykkeri, er det sansynligvis bedst at have aktiveret.</translation>
     </message>
@@ -16726,10 +16588,6 @@ når PDF dokument åbnes:</translation>
         <translation>Lag i dokumentet bliver eksporteret til PDF-filen. Kun tilgængelig hvis du har valgt PDF 1.5.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Komprimerings-metode for billeder. Tillader Scribus automatisk at vælge den bedste metode. ZIP er tabsløs og god til billeder med massive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (muligvis med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger. Dette påvirker kun JPEG billeder</translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Ændrer bitmap-billederne til valgte DPI. Hvis dette ikke vælges, så bruges billedernes oprindelige opløsning. Aktivering af dette vil øget brug af hukommelse og forlænge eksport-tiden.</translation>
     </message>
@@ -16744,6 +16602,14 @@ når PDF dokument åbnes:</translation>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Den tid siden er vist, før præsentationen starter på den valgte side. Værdien 0 deaktiverer automatisk sideskift.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation>Komprimerings-metode for billeder. Tillader Scribus automatisk at vælge den bedste metode. ZIP er tabsløs og god til billeder med massive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (muligvis med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+        <translation>Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
     </message>
 </context>
 <context>
@@ -17101,11 +16967,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Line Width:</source>
-        <translation>Liniebredde:</translation>
+        <translation>Stregbredde:</translation>
     </message>
     <message>
         <source>Strikethru</source>
-        <translation>Gennemstreg</translation>
+        <translation>Overstreg</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -17153,7 +17019,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation>Liniebredde udtrykt som en procentdel af fontens størrelse</translation>
+        <translation>Stregbredde udtrykt som en procentdel af fontens størrelse</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
@@ -17274,7 +17140,7 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Linewidth</source>
-        <translation>Liniebredde</translation>
+        <translation>Stregbredde</translation>
     </message>
 </context>
 <context>
@@ -17745,15 +17611,15 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>Nulstil kontrolpunkt</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>Nulstil kontrolpunkter</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Ændr billed effekter</translation>
     </message>
 </context>
 <context>
