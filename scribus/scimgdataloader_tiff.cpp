@@ -109,7 +109,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
-		if (samplesperpixel > 5)  // we can't handle CMYKA yet
+		if (samplesperpixel > 5)
 		{
 			bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
 			if(bits)
@@ -156,7 +156,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						for (yi = 0; yi < tileH; yi++)
 						{
 							_TIFFmemcpy(image->scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*chans);
-							if (chans == 5)
+/*							if (chans == 5)
 							{
 								uchar *ptr = image->scanLine(yt+(tileH-1-yi))+xt;
 								for (uint j = 0; j < tileW; j++)
@@ -164,7 +164,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 									ptr[4] = 255 - ptr[4];
 									ptr += chans;
 								}
-							}
+							} */
 						}
 					}
 				}
@@ -182,7 +182,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 						if (TIFFReadScanline(tif, bits, y, 0))
 						{
 							memcpy(image->scanLine(y), bits, chans * widtht);
-							if (chans == 5)
+/*							if (chans == 5)
 							{
 								uchar *ptr = image->scanLine(y);
 								for (uint j = 0; j < widtht; j++)
@@ -190,7 +190,7 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 									ptr[4] = 255 - ptr[4];
 									ptr += chans;
 								}
-							}
+							} */
 						}
 					}
 					_TIFFfree(bits);
