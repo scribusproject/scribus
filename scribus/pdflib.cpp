@@ -3017,6 +3017,8 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						hl3.cshade2 = hl2.cshade2;
 						hl3.yp = hl2.yp - (hl2.csize * hl2.cshadowy / 10000.0);
 						hl3.xp = hl2.xp + (hl2.csize * hl2.cshadowx / 10000.0);
+						hl3.PtransX = hl2.PtransX;
+						hl3.PtransY = hl2.PtransY;
 						hl3.csize = hl2.csize;
 						hl3.cstyle = hl2.cstyle;
 						hl3.cfont = hl2.cfont;
@@ -3054,6 +3056,9 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 			hl2.cshade2 = hl->cshade2;
 			hl2.yp = hl->yp - (hl->csize * hl->cshadowy / 10000.0);
 			hl2.xp = hl->xp + (hl->csize * hl->cshadowx / 10000.0);
+			hl2.PtransX = hl->PtransX;
+			hl2.PtransY = hl->PtransY;
+			hl2.PRot = hl->PRot;
 			hl2.csize = hl->csize;
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;

@@ -1873,6 +1873,19 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PS_translate(0, -c->BaseOffs);
 							if (hl->cscale != 1000)
 								PS_scale(hl->cscale / 1000.0, 1);
+							if ((hl->cstyle & 256) && ((hl->cstroke != CommonStrings::None)))
+							{
+								PS_save();
+								PS_translate(tsz * hl->cshadowx / 10000.0, tsz * -hl->cshadowy / 10000.0);
+								SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								if ((colorsToUse[hl->cstroke].isSpotColor()) && (!DoSep))
+									PutSeite(ToStr(hl->cshade2 / 100.0)+" "+spotMap[hl->cstroke]);
+								else
+									PutSeite(StrokeColor + " cmyk");
+								PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+								PS_restore();
+							}
 							if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
 								PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
 							else
@@ -1904,6 +1917,26 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
+					if ((hl->cstyle & 256) && ((hl->cstroke != CommonStrings::None)))
+					{
+						PS_save();
+						PS_translate(tsz * hl->cshadowx / 10000.0, tsz * -hl->cshadowy / 10000.0);
+						SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						if ((colorsToUse[hl->cstroke].isSpotColor()) && (!DoSep))
+						{
+							PutSeite(ToStr(hl->cshade2 / 100.0)+" "+spotMap[hl->cstroke]);
+							PS_show_xyG(hl->cfont->scName(), chx, 0, 0, true);
+						}
+						else
+							PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
+						PS_restore();
+					}
+					if (hl->ccolor != CommonStrings::None)
+					{
+						SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					}
 					if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
 					{
 						PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
@@ -2268,6 +2301,9 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 			hl2.cshade2 = hl->cshade2;
 			hl2.yp = hl->yp - (hl->csize * hl->cshadowy / 10000.0);
 			hl2.xp = hl->xp + (hl->csize * hl->cshadowx / 10000.0);
+			hl2.PtransX = hl->PtransX;
+			hl2.PtransY = hl->PtransY;
+			hl2.PRot = hl->PRot;
 			hl2.csize = hl->csize;
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;
