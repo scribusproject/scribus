@@ -827,6 +827,7 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				}
 				else
 				{
+					tmpImg.fill(0);
 					if (!getImageData(tif, &tmpImg, widtht, heightt, size, photometric, bitspersample, samplesperpixel, bilevel, isCMYK))
 					{
 						TIFFClose(tif);

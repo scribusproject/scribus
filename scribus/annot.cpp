@@ -1639,8 +1639,10 @@ void Annot::SetFoScript(int it)
 	{
 		EditFormat->setEnabled( true );
 		EditKeystr->setEnabled( true );
-		KeyScript->setText( item->annotation().K_act() );
-		FormatScript->setText( item->annotation().F_act() );
+		KeyScript->setText("");
+		FormatScript->setText("");
+//		KeyScript->setText( item->annotation().K_act() );
+//		FormatScript->setText( item->annotation().F_act() );
 	}
 	item->annotation().setFormat(it);
 }
