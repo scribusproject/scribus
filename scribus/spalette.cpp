@@ -45,12 +45,9 @@ void Spalette::setFormats(ScribusDoc *newCurrentDoc)
 	updateFormatList();
 }
 
-void Spalette::setFormat(int e)
+void Spalette::setFormat(QString name)
 {
-//	if (e < 5)
-//		setCurrentItem(0);
-//	else
-		setCurrentText(currentDoc->docParagraphStyles[e].name());
+	setCurrentText(name.isEmpty() ? tr("No Style") : name);
 }
 
 void Spalette::updateFormatList()
@@ -63,7 +60,8 @@ void Spalette::updateFormatList()
 		st.clear();
 		insertItem( tr("No Style"));
 		for (uint x = 0; x < currentDoc->docParagraphStyles.count(); ++x)
-			st.append(currentDoc->docParagraphStyles[x].name());
+			if ( !currentDoc->docParagraphStyles[x].name().isEmpty() )
+				st.append(currentDoc->docParagraphStyles[x].name());
 		st.sort();
 		insertStringList(st);
 	}

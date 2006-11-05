@@ -156,7 +156,7 @@ public slots:
 	void setLIvalue(Qt::PenStyle p, Qt::PenCapStyle pc, Qt::PenJoinStyle pj);
 	void setStil(int s);
 	void setAli(int e);
-	void setParStyle(int e);
+	void setParStyle(QString name);
 	void setShadowOffs(int x, int y);
 	void setUnderline(int p, int w);
 	void newUnderline();

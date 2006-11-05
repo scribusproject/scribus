@@ -993,10 +993,9 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 	if (currItem->itemText.length() != 0)
 	{
 //		int ChPos = QMIN(currItem->CPos, static_cast<int>(currItem->itemText.length()-1));
-		const ParagraphStyle currPStyle(currItem->currentStyle());
-		int currentParaStyle = currPStyle.parentStyle()? findParagraphStyle(doc, *dynamic_cast<const ParagraphStyle*>(currPStyle.parentStyle())) : 0;
+		const ParagraphStyle& currPStyle(currItem->currentStyle());
 		setAbsValue(currPStyle.alignment());
-		propertiesPalette->setParStyle(currentParaStyle);
+		propertiesPalette->setParStyle(currPStyle.parent());
 		doc->currentStyle.charStyle() = currItem->currentCharStyle();
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());

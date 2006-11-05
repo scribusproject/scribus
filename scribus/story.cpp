@@ -82,12 +82,12 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	if ((CurrentPar < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
 	{
 		if (editor->StyledText.at(CurrentPar)->count() > 0)
-			Spal->setFormat(editor->StyledText.at(CurrentPar)->at(0)->cab);
+			Spal->setFormat(editor->StyledText.at(CurrentPar)->at(0)->style);
 		else
-			Spal->setFormat(0);
+			Spal->setFormat("");
 	}
 	else
-		Spal->setFormat(0);
+		Spal->setFormat("");
 	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(setPStyle(int)));
 	pmen->insertItem(Spal);
 	pmen->insertItem( tr("Edit Styles..."), this, SLOT(editStyles()));
@@ -1782,7 +1782,7 @@ void SToolBAlign::newStyleHandler(int s)
 
 void SToolBAlign::SetAlign(int s)
 {
-	disconnect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
+	//disconnect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 	disconnect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
 	if (s < 5)
 	{
@@ -1791,9 +1791,9 @@ void SToolBAlign::SetAlign(int s)
 	}
 	else
 		GroupAlign->setEnabled(false);
-	Spal->setFormat(s);
+	//Spal->setFormat(s);
 	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
-	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
+	//connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
 }
 
 /* Toolbar for Font related Settings */

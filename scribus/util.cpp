@@ -1379,7 +1379,7 @@ int findParagraphStyle(ScribusDoc* doc, const ParagraphStyle& parStyle)
 		return -1;
 	}
 	else {
-		return parStyle.alignment();
+		return -1;
 	}
 }
 

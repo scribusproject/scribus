@@ -45,7 +45,7 @@ public:
 	
 public slots:
 	void setFormats(ScribusDoc *newCurrentDoc);
-	void setFormat(int e);
+	void setFormat(QString name);
 	void updateFormatList();
 	void selFormat(int e);
 	

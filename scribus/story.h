@@ -64,6 +64,7 @@ class CharSelect;
 struct PtiSmall {
 	CharStyle charStyle;
 	short cab;
+	QString style;
 	QString ch;
 	PageItem* cembedded;
 };
