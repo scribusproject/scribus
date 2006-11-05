@@ -16,6 +16,8 @@ for which a new license (GPL+exception) is in place.
 #include <qtoolbutton.h>
 #include <qradiobutton.h>
 #include <qobjectlist.h>
+#include <qvalidator.h>
+#include <qregexp.h>
 
 #include "arrowchooser.h"
 #include "autoform.h"
@@ -97,7 +99,11 @@ void LabelButton::mouseReleaseEvent(QMouseEvent*)
 }
 */
 NameWidget::NameWidget(QWidget* parent) : QLineEdit(parent)
-{}
+{
+	QRegExp rx( "\\w+" );
+	QValidator* validator = new QRegExpValidator( rx, this );
+	setValidator( validator );
+}
 
 void NameWidget::focusOutEvent(QFocusEvent *e)
 {
