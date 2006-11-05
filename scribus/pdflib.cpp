@@ -536,7 +536,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	QString IDg(Datum);
 	IDg += Options.Datei;
 	IDg += "Scribus "+QString(VERSION);
-	IDg += "Libpdf for Scribus "+QString(VERSION);
+	IDg += "Scribus PDF Library "+QString(VERSION);
 	IDg += doc.documentInfo.getTitle();
 	IDg += doc.documentInfo.getAuthor();
 	IDg += "/False";
