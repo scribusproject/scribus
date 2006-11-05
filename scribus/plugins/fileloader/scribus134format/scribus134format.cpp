@@ -1001,6 +1001,29 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 						}
 						if (it.tagName()=="ITEXT")
 							GetItemText(&it, m_Doc, Neu, last);
+						else if (it.tagName()=="para") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PARSEP);
+							ParagraphStyle newStyle;
+							PrefsManager* prefsManager=PrefsManager::instance();
+							readParagraphStyle(newStyle, pg, prefsManager->appPrefs.AvailFonts, m_Doc);
+							Neu->itemText.applyStyle(Neu->itemText.length(), newStyle);
+						}
+						else if (it.tagName()=="tab") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::TAB);
+						}
+						else if (it.tagName()=="breakline") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::LINEBREAK);
+						}
+						else if (it.tagName()=="breakcol") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::COLBREAK);
+						}
+						else if (it.tagName()=="breakframe") {
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::FRAMEBREAK);
+						}
+						else if (it.tagName()=="var" && it.attribute("name")=="pgno") 
+						{
+							Neu->itemText.insertChars(Neu->itemText.length(), SpecialChars::PAGENUMBER);
+						}
 
 						//CB PageItemAttributes
 						if(it.tagName()=="PageItemAttributes")
@@ -1415,14 +1438,116 @@ namespace {
 }// namespace
 
 
+void Scribus134Format::GetCStyle(QDomElement *it, ScribusDoc *doc, CharStyle & newStyle)
+{
+	if (it->hasAttribute("CNAME"))
+		newStyle.setName(it->attribute("CNAME"));
+	if (it->hasAttribute("CPARENT"))
+		newStyle.setParent(it->attribute("CPARENT"));
+	
+	QString tmpf = it->attribute("FONT", doc->toolSettings.defFont);
+	PrefsManager* prefsManager=PrefsManager::instance();
+	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
+	{
+		/*		bool isThere = false;
+		for (uint dl = 0; dl < dummyScFaces.count(); ++dl)
+	{
+			if ((*dummyScFaces.at(dl)).scName() == tmpf)
+			{
+				isThere = true;
+				dummy = *dummyScFaces.at(dl);
+				break;
+			}
+	}
+		if (!isThere)
+	{
+			//			dummy = ScFace(tmpf, "", tmpf, "", "", 1, false);
+			dummyScFaces.append(dummy);
+	}
+		*/
+		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
+		{
+			newReplacement = true;
+			ScFace dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
+			prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
+		}
+		else
+			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.GFontSub[tmpf]);
+	}
+	else
+	{
+		if (!doc->UsedFonts.contains(tmpf))
+		{
+			doc->AddFont(tmpf, qRound(doc->toolSettings.defSize / 10.0));
+		}
+	}
+	if (! tmpf.isEmpty() )
+		newStyle.setFont((*doc->AllFonts)[tmpf]);
+	
+	if (it->hasAttribute("FONTSIZE"))
+		newStyle.setFontSize(qRound(it->attribute("FONTSIZE").toDouble() * 10));
+	
+	if (it->hasAttribute("FCOLOR"))
+		newStyle.setFillColor(it->attribute("FCOLOR"));
+	
+	if (it->hasAttribute("KERN"))
+		newStyle.setTracking(it->attribute("KERN").toInt());
+	
+	if (it->hasAttribute("FSHADE"))
+		newStyle.setFillShade(it->attribute("FSHADE").toInt());
+	
+	if (it->hasAttribute("EFFECTS"))
+		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("EFFECTS").toInt()));
+	
+	
+	if (it->hasAttribute("SCOLOR"))
+		newStyle.setStrokeColor(it->attribute("SCOLOR", CommonStrings::None));
+	
+	if (it->hasAttribute("SSHADE"))
+		newStyle.setStrokeShade(it->attribute("SSHADE", "100").toInt());
+	
+	if (it->hasAttribute("SCALEH"))
+		newStyle.setScaleH(QMIN(QMAX(qRound(it->attribute("SCALEH", "100").toDouble() * 10), 100), 4000));
+	
+	if (it->hasAttribute("SCALEV"))
+		newStyle.setScaleV(QMIN(QMAX(qRound(it->attribute("SCALEV", "100").toDouble() * 10), 100), 4000));
+	
+	if (it->hasAttribute("BASEO"))
+		newStyle.setBaselineOffset(qRound(it->attribute("BASEO", "0").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTSHX"))
+		newStyle.setShadowXOffset(qRound(it->attribute("TXTSHX", "5").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTSHY"))
+		newStyle.setShadowYOffset(qRound(it->attribute("TXTSHY", "-5").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTOUT"))
+		newStyle.setOutlineWidth(qRound(it->attribute("TXTOUT", "1").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTULP"))
+		newStyle.setUnderlineOffset(qRound(it->attribute("TXTULP", "-0.1").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTULW"))
+		newStyle.setUnderlineWidth(qRound(it->attribute("TXTULW", "-0.1").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTSTP"))
+		newStyle.setStrikethruOffset(qRound(it->attribute("TXTSTP", "-0.1").toDouble() * 10));
+	
+	if (it->hasAttribute("TXTSTW"))
+		newStyle.setStrikethruWidth(qRound(it->attribute("TXTSTW", "-0.1").toDouble() * 10));
+
+}	
 
 void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo, bool VorLFound)
 {
-	ScFace dummy = ScFace::none();
-	bool unknown = false;
 	QString tmp2, tmpf;
 	CharStyle newStyle;
+	GetCStyle(it, doc, newStyle);
+	
 	tmp2 = it->attribute("CH");
+	
+	// legacy stuff:
 	tmp2.replace(QRegExp("\r"), QChar(13));
 	tmp2.replace(QRegExp("\n"), QChar(13));
 	tmp2.replace(QRegExp("\t"), QChar(9));
@@ -1446,11 +1571,10 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 			dummyScFaces.append(dummy);
 		}
 */
-		unknown = true;
 		if ((!prefsManager->appPrefs.GFontSub.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[prefsManager->appPrefs.GFontSub[tmpf]].usable()))
 		{
 			newReplacement = true;
-			dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
+			ScFace dummy = prefsManager->appPrefs.AvailFonts[ReplacedFonts[tmpf]].mkReplacementFor(tmpf, doc->DocName);
 			prefsManager->appPrefs.AvailFonts.insert(tmpf, dummy);
 			ReplacedFonts.insert(tmpf, prefsManager->appPrefs.toolSettings.defFont);
 		}
@@ -1543,6 +1667,7 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	{
 		last->ParaStyle = doc->docParagraphStyles.find(pstylename);
 	}
+	// end of legacy stuff
 	
 	int iobj = it->attribute("COBJ", "-1").toInt();
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
@@ -1587,11 +1712,12 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	ParagraphStyle pstyle;
 	if (last->ParaStyle >= 0) {
 		pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
+		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
 	}
-	if (calign >= 0)
+	if (calign >= 0) {
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
-	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
-	return;
+		obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
+	}
 }
 
 
