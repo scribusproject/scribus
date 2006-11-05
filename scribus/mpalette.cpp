@@ -2296,13 +2296,13 @@ void Mpalette::setAli(int e)
 }
 
 
-void Mpalette::setParStyle(int e)
+void Mpalette::setParStyle(QString name)
 {
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	bool tmp = HaveItem;
 	HaveItem = false;
-	Spal->setFormat(e);
+	Spal->setFormat(name);
 	HaveItem = tmp;
 }
 
