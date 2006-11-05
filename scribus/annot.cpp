@@ -1635,8 +1635,10 @@ void Annot::SetFoScript(int it)
 	{
 		EditFormat->setEnabled( true );
 		EditKeystr->setEnabled( true );
-		KeyScript->setText( item->annotation().K_act() );
-		FormatScript->setText( item->annotation().F_act() );
+		KeyScript->setText("");
+		FormatScript->setText("");
+//		KeyScript->setText( item->annotation().K_act() );
+//		FormatScript->setText( item->annotation().F_act() );
 	}
 	item->annotation().setFormat(it);
 }
@@ -1686,7 +1688,7 @@ void Annot::SetCross()
 
 void Annot::SetVals()
 {
-	QString tmp;
+	QString tmp, tmp2;
 	QString Nfo("");
 	bool AAct = false;
 	item->annotation().setType(ComboBox1->currentItem()+2);
@@ -1797,7 +1799,7 @@ void Annot::SetVals()
 				item->annotation().setK_act("");
 				break;
 			case 1:
-				Nfo = tmp.setNum(Decim->value())+", "+tmp.setNum(FormNum)+", 0, 0, \"";
+				Nfo = tmp.setNum(Decim->value())+", "+tmp2.setNum(FormNum)+", 0, 0, \"";
 				if (UseCurr->isChecked())
 					{
 					if (!PreCurr->isChecked())
@@ -1879,7 +1881,7 @@ void Annot::SetVals()
 				item->annotation().setActionType(2);
 			}
 			item->annotation().setZiel(SpinBox11->value()-1);
-			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp.setNum(Hoehe-SpinBox31->value())+" 0");
+			item->annotation().setAction(tmp.setNum(SpinBox21->value())+" "+tmp2.setNum(Hoehe-SpinBox31->value())+" 0");
 			break;
 		case 3:
 			item->annotation().setActionType(3);
