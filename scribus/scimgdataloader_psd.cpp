@@ -861,6 +861,21 @@ bool ScImgDataLoader_PSD::loadLayerChannels( QDataStream & s, const PSDHeader & 
 	{
 		base2 += layerInfo[layer].channelLen[channel];
 	}
+	if (header.color_mode == CM_LABCOLOR)
+	{
+		cmsHPROFILE hsRGB = cmsCreate_sRGBProfile();
+		cmsHPROFILE hLab  = cmsCreateLabProfile(NULL);
+		DWORD inputProfFormat = (COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1));
+		cmsHTRANSFORM xform = cmsCreateTransform(hLab, inputProfFormat, hsRGB, TYPE_RGBA_8, INTENT_PERCEPTUAL, 0);
+		for (int i = 0; i < r2_image.height(); i++)
+		{
+			LPBYTE ptr = r2_image.scanLine(i);
+			cmsDoTransform(xform, ptr, ptr, r2_image.width());
+		}
+		cmsDeleteTransform (xform);
+		cmsCloseProfile(hsRGB);
+		cmsCloseProfile(hLab);
+	}
 	s.device()->at( base2 );
 	QImage tmpImg2;
 	if (header.color_mode == CM_CMYK)
@@ -1419,6 +1434,21 @@ bool ScImgDataLoader_PSD::loadLayer( QDataStream & s, const PSDHeader & header )
 			}
 		}
 	}
+	if (header.color_mode == CM_LABCOLOR)
+	{
+		cmsHPROFILE hsRGB = cmsCreate_sRGBProfile();
+		cmsHPROFILE hLab  = cmsCreateLabProfile(NULL);
+		DWORD inputProfFormat = (COLORSPACE_SH(PT_Lab)|CHANNELS_SH(3)|BYTES_SH(1)|EXTRA_SH(1));
+		cmsHTRANSFORM xform = cmsCreateTransform(hLab, inputProfFormat, hsRGB, TYPE_RGBA_8, INTENT_PERCEPTUAL, 0);
+		for (int i = 0; i < r_image.height(); i++)
+		{
+			LPBYTE ptr = r_image.scanLine(i);
+			cmsDoTransform(xform, ptr, ptr, r_image.width());
+		}
+		cmsDeleteTransform (xform);
+		cmsCloseProfile(hsRGB);
+		cmsCloseProfile(hLab);
+	}
 	return true;
 }
 
@@ -1463,7 +1493,7 @@ bool ScImgDataLoader_PSD::IsSupported( const PSDHeader & header )
 		return false;
 	if ( header.depth != 8 )
 		return false;
-	if ((header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK)
+	if ((header.color_mode == CM_RGB) || (header.color_mode == CM_CMYK) || (header.color_mode == CM_LABCOLOR)
 	 || (header.color_mode == CM_GRAYSCALE) || (header.color_mode == CM_INDEXED) || (header.color_mode == CM_DUOTONE))
 		return true;
 	return false;
