@@ -81,7 +81,8 @@ struct LineSpec
  	virtual ~StoryText();
  	void clear();
 	StoryText copy() const;
-	void append(const StoryText& other);
+	void insert(int pos, const StoryText& other, bool onlySelection = false);
+	void append(const StoryText& other) { insert(length(), other, false); }
  	void removeChars(int pos, uint len);
  	void insertChars(int pos, QString txt);
  	void insertObject(int pos, PageItem* obj);

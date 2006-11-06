@@ -260,34 +260,43 @@ void StoryText::clear()
 }
 
 
-void StoryText::append(const StoryText& other)
+void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 {
 	CharStyle cstyle(charStyle(length()));
 	ParagraphStyle pstyle(paragraphStyle(length()));
-	int cstyleStart = length();
-	for (int i=0; i < other.length(); ++i) {
-		if (other.charStyle(i) == cstyle)
+	int otherStart  = onlySelection? other.startOfSelection() : 0;
+	int otherEnd    = onlySelection? other.endOfSelection() : other.length();
+	int cstyleStart = otherStart;
+	for (int i=otherStart; i < otherEnd; ++i) {
+		if (other.charStyle(i) == cstyle 
+			&& other.text(i) != SpecialChars::OBJECT
+			&& other.text(i) != SpecialChars::PARSEP)
 			continue;
-		int pos = length();
 		int len = i - cstyleStart;
 		if (len > 0) {
-			insertChars(length(), other.text(cstyleStart, len));
+			insertChars(pos, other.text(cstyleStart, len));
 			applyCharStyle(pos, len, cstyle);
+			pos += len;
 		}
 		if (other.text(i) == SpecialChars::PARSEP) {
-			insertChars(pos+len, SpecialChars::PARSEP);
-			applyStyle(pos+len, other.paragraphStyle(i));
+			insertChars(pos, SpecialChars::PARSEP);
+			applyStyle(pos, other.paragraphStyle(i));
 			cstyleStart = i+1;
+			pos += 1;
+		}
+		else if (other.text(i) == SpecialChars::OBJECT) {
+			insertObject(pos+len, other.object(i));
+			cstyleStart = i+1;
+			pos += 1;
 		}
 		else {
 			cstyle = other.charStyle(i);
 			cstyleStart = i;
 		}
 	}
-	int pos = length();
-	int len = other.length() - cstyleStart;
+	int len = otherEnd - cstyleStart;
 	if (len > 0) {
-		insertChars(length(), other.text(cstyleStart, len));
+		insertChars(pos, other.text(cstyleStart, len));
 		applyCharStyle(pos, len, cstyle);
 	}
 	setDefaultStyle(other.defaultStyle());
@@ -699,12 +708,14 @@ uint StoryText::nrOfParagraphs() const
 	uint result = 0;
 	StoryText* that = const_cast<StoryText *>(this);
 	that->d->at(0);
+	bool lastWasPARSEP;
 	for (int i=0; i < length(); ++i) {
-		if (that->d->current()->ch[0] == SpecialChars::PARSEP)
+		lastWasPARSEP = that->d->current()->ch[0] == SpecialChars::PARSEP;
+		if (lastWasPARSEP)
 			++result;
 		that->d->next();
 	}
-	return result;
+	return lastWasPARSEP? result : result + 1;
 }
 
 int StoryText::startOfParagraph(uint index) const
@@ -719,7 +730,7 @@ int StoryText::startOfParagraph(uint index) const
 			return i + 1;
 		that->d->next();
 	}
-	return -1;
+	return length();
 }
 
 int StoryText::endOfParagraph(uint index) const
