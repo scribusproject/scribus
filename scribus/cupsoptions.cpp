@@ -209,7 +209,7 @@ CupsOptions::CupsOptions(QWidget* parent, QString Geraet) : QDialog( parent, "pr
 	Layout2->addWidget( PushButton2 );
 	CupsOptionsLayout->addLayout( Layout2 );
 	setMinimumSize( sizeHint() );
-	resize(minimumSizeHint());
+	resize(minimumSizeHint().expandedTo(QSize(300, 100)));
 
 //tooltips
 	QToolTip::add( Table, "<qt>" + tr( "This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help > About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *" ) + "</qt>" );
