@@ -4398,7 +4398,9 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 					cmd += " "+filename;
 					system(cmd);
 				}
-				unlink(filename);
+// Disabled that for now, as kprinter won't work otherwise
+// leaving that file around doesn't harm, as it will be overwritten the next time.
+//				unlink(filename);
 			}
 			retw = true;
 		}
