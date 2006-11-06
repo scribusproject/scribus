@@ -2006,8 +2006,16 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 	}
 	Ap->initialMargins.Top = Mp->Margins.Top;
 	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-	Ap->initialMargins.Left = Mp->Margins.Left;
-	Ap->initialMargins.Right = Mp->Margins.Right;
+	if (Mp->LeftPg == 1)
+	{
+		Ap->initialMargins.Right = Mp->Margins.Left;
+		Ap->initialMargins.Left = Mp->Margins.Right;
+	}
+	else
+	{
+		Ap->initialMargins.Left = Mp->Margins.Left;
+		Ap->initialMargins.Right = Mp->Margins.Right;
+	}
 	//TODO make a return false if not possible to apply the master page
 	return true;
 }
