@@ -297,10 +297,10 @@ void StilFormate::neuesFormat()
 	sty.setHasDropCap(false);
 	sty.setDropCapLines(2);
 	sty.setDropCapOffset(0);
-	sty.charStyle().setFillColor(Docu->toolSettings.dBrush);
-	sty.charStyle().setFillShade(Docu->toolSettings.dShade);
-	sty.charStyle().setStrokeColor(Docu->toolSettings.dPen);
-	sty.charStyle().setStrokeShade(Docu->toolSettings.dShade2);
+	sty.charStyle().setFillColor(Docu->toolSettings.dPenText);
+	sty.charStyle().setFillShade(Docu->toolSettings.dTextPenShade);
+	sty.charStyle().setStrokeColor(Docu->toolSettings.dStrokeText);
+	sty.charStyle().setStrokeShade(Docu->toolSettings.dTextStrokeShade);
 	sty.setUseBaselineGrid(false);
 	sty.charStyle().setShadowXOffset(50);
 	sty.charStyle().setShadowYOffset(-50);
