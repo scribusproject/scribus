@@ -638,103 +638,96 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 				struct PSDLayer lay;
 				do
 				{
+					if(s.atEnd())
+					{
+						m_imageInfoRecord.layerInfo.clear();
+						failedPS = true;
+						break;
+					}
 					s >> signature;
 				}
 				while (signature != 0x4c617972);
-				s >> layerinfo;
-				s >> numLayers;
-				if (numLayers < 0)
-					numLayers = -numLayers;
-				if (numLayers != 0)
+				if (!failedPS)
 				{
-					for (int layer = 0; layer < numLayers; layer++)
+					s >> layerinfo;
+					s >> numLayers;
+					if (numLayers < 0)
+						numLayers = -numLayers;
+					if (numLayers != 0)
 					{
-						s >> top;
-						lay.ypos = top;
-						s >> left;
-						lay.xpos = left;
-						s >> bottom;
-						lay.height = bottom - top;
-						s >> right;
-						lay.width = right - left;
-						s >> numChannels;
-						if (numChannels > 6)	// we don't support images with more than 6 channels yet
+						for (int layer = 0; layer < numLayers; layer++)
 						{
-							m_imageInfoRecord.layerInfo.clear();
-							failedPS = true;
-							break;
-						}
-						lay.channelType.clear();
-						lay.channelLen.clear();
-						for (int channels = 0; channels < numChannels; channels++)
-						{
-							s >> channelType;
-							s >> channelLen;
-							lay.channelType.append(channelType);
-							lay.channelLen.append(channelLen);
-						}
-						s >> signature;
-						blend = "";
-						for( int i = 0; i < 4; i++ )
-						{
-							s >> blendKey[i];
-							if (byteOrder[0] == QChar('M'))
-								blend.append(QChar(blendKey[i]));
-							else
-								blend.prepend(QChar(blendKey[i]));
-						}
-						lay.blend = blend;
-						s >> opacity;
-						lay.opacity = opacity;
-						s >> clipping;
-						lay.clipping = clipping;
-						s >> flags;
-						if (flags & 8)
-						{
-							if (flags & 16)	// Unknown combination of layer flags, probably an adjustment or effects layer
+							s >> top;
+							lay.ypos = top;
+							s >> left;
+							lay.xpos = left;
+							s >> bottom;
+							lay.height = bottom - top;
+							s >> right;
+							lay.width = right - left;
+							s >> numChannels;
+							if (numChannels > 6)	// we don't support images with more than 6 channels yet
 							{
 								m_imageInfoRecord.layerInfo.clear();
 								failedPS = true;
 								break;
 							}
-						}
-						lay.flags = flags;
-						s >> filler;
-						s >> extradata;
-						s >> layermasksize;
-						lay.maskYpos = 0;
-						lay.maskXpos = 0;
-						lay.maskHeight = 0;
-						lay.maskWidth = 0;
-						if (layermasksize != 0)
-						{
-							s >> lay.maskYpos;
-							s >> lay.maskXpos;
-							s >> dummy;
-							lay.maskHeight = dummy - lay.maskYpos;
-							s >> dummy;
-							lay.maskWidth = dummy - lay.maskXpos;
-							s >> dummy;
-						}
-						s >> layerRange;
-						s.device()->at( s.device()->at() + layerRange );
-						lay.layerName = getLayerString(s);
-						m_imageInfoRecord.layerInfo.append(lay);
-						s >> signature;
-						if( signature == 0x3842494D )
-						{
-							while (signature == 0x3842494D )
+							lay.channelType.clear();
+							lay.channelLen.clear();
+							for (int channels = 0; channels < numChannels; channels++)
 							{
-								s >> signature;
-								s >> addRes;
-								s.device()->at( s.device()->at() + addRes );
-								s >> signature;
+								s >> channelType;
+								s >> channelLen;
+								lay.channelType.append(channelType);
+								lay.channelLen.append(channelLen);
 							}
-							s.device()->at( s.device()->at() - 4 );
-						}
-						else
-						{
-							s.device()->at( s.device()->at() - 2 );
+							s >> signature;
+							blend = "";
+							for( int i = 0; i < 4; i++ )
+							{
+								s >> blendKey[i];
+								if (byteOrder[0] == QChar('M'))
+									blend.append(QChar(blendKey[i]));
+								else
+									blend.prepend(QChar(blendKey[i]));
+							}
+							lay.blend = blend;
+							s >> opacity;
+							lay.opacity = opacity;
+							s >> clipping;
+							lay.clipping = clipping;
+							s >> flags;
+							if (flags & 8)
+							{
+								if (flags & 16)	// Unknown combination of layer flags, probably an adjustment or effects layer
+								{
+									m_imageInfoRecord.layerInfo.clear();
+									failedPS = true;
+									break;
+								}
+							}
+							lay.flags = flags;
+							s >> filler;
+							s >> extradata;
+							s >> layermasksize;
+							lay.maskYpos = 0;
+							lay.maskXpos = 0;
+							lay.maskHeight = 0;
+							lay.maskWidth = 0;
+							if (layermasksize != 0)
+							{
+								s >> lay.maskYpos;
+								s >> lay.maskXpos;
+								s >> dummy;
+								lay.maskHeight = dummy - lay.maskYpos;
+								s >> dummy;
+								lay.maskWidth = dummy - lay.maskXpos;
+								s >> dummy;
+							}
+							s >> layerRange;
+							s.device()->at( s.device()->at() + layerRange );
+							lay.layerName = getLayerString(s);
+							m_imageInfoRecord.layerInfo.append(lay);
 							s >> signature;
 							if( signature == 0x3842494D )
 							{
@@ -748,7 +741,23 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 								s.device()->at( s.device()->at() - 4 );
 							}
 							else
-								s.device()->at( s.device()->at() - 6 );
+							{
+								s.device()->at( s.device()->at() - 2 );
+								s >> signature;
+								if( signature == 0x3842494D )
+								{
+									while (signature == 0x3842494D )
+									{
+										s >> signature;
+										s >> addRes;
+										s.device()->at( s.device()->at() + addRes );
+										s >> signature;
+									}
+									s.device()->at( s.device()->at() - 4 );
+								}
+								else
+									s.device()->at( s.device()->at() - 6 );
+							}
 						}
 					}
 				}
