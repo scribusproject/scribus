@@ -76,7 +76,7 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
 	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
-	int p,i;
+	int p=0, i=0;
 	editor->getCursorPosition(&p, &i);
 	int pos = editor->StyledText.startOfParagraph(p) + i;
 	pmen = new QPopupMenu();
@@ -197,7 +197,7 @@ void SEditor::imEndEvent(QIMEvent *e)
 void SEditor::keyPressEvent(QKeyEvent *k)
 {
 	emit SideBarUp(false);
-	int p, i;
+	int p=0, i=0;
 	getCursorPosition(&p, &i);
 	int pos = StyledText.startOfParagraph(p) + i;
 	int keyMod=0;
@@ -385,7 +385,7 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 
 void SEditor::insChars(QString t)
 {
-	int p, i;
+	int p=0, i=0;
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
@@ -397,7 +397,7 @@ void SEditor::insStyledText()
 {
 	if (cBuffer.length() == 0)
 		return;
-	int p, i;
+	int p=0, i=0;
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
@@ -506,7 +506,7 @@ void SEditor::updateAll()
 	if (StyledText.length() == 0)
 		return;
 	setUpdatesEnabled(false);
-	int p, i;
+	int p=0, i=0;
 	getCursorPosition(&p, &i);
 	QString Text = "";
 	QString chars;
@@ -611,7 +611,7 @@ void SEditor::updateFromChars(int pa)
 	setUpdatesEnabled(false);
 	int SelStart = 0;
 	int SelEnd = 0;
-	int p, i;
+	int p=0, i=0;
 	getCursorPosition(&p, &i);
 	removeSelection();
 	int Csty = StyledText.charStyle(start).effects();
@@ -1653,7 +1653,7 @@ whitespaces on the tail) - select only one word - return
 controlling back to story editor - have rest */
 void StoryEditor::doubleClick(int para, int position)
 {
-	int paraFrom, indexFrom, paraTo, indexTo;
+	int paraFrom=0, indexFrom=0, paraTo=0, indexTo=0;
 	QString selText = Editor->selectedText();
 	if (selText.length() == 0 || !smartSelection)
 	{
@@ -2059,9 +2059,9 @@ void StoryEditor::updateProps(int p, int ch)
 		{
 			int PStart, PEnd, SelStart, SelEnd;
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-			start = Editor->StyledText.startOfParagraph(PStart) + SelStart; 
-			if (SelStart >= 0 && start < Editor->StyledText.endOfParagraph(PStart))
-				start += SelStart;
+			start = Editor->StyledText.startOfParagraph(PStart); 
+			if (SelStart >= 0 && start + SelStart < Editor->StyledText.endOfParagraph(PStart))
+				start = QMIN(start + SelStart, Editor->StyledText.endOfParagraph(p)-1);
 			else
 				start = QMIN(start + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
 		}
@@ -2143,7 +2143,7 @@ void StoryEditor::updateProps(int p, int ch)
 void StoryEditor::updateStatus()
 {
 	QString tmp;
-	int p, i;
+	int p=0, i=0;
 	Editor->getCursorPosition(&p, &i);
 	int start = Editor->StyledText.startOfParagraph(p);
 	int end = Editor->StyledText.endOfParagraph(p);
@@ -2503,7 +2503,7 @@ void StoryEditor::slotEditStyles()
 {
 	blockUpdate = true;
 	EditorBar->setRepaint(false);
-	int p, i;
+	int p=0, i=0;
 	Editor->getCursorPosition(&p, &i);
 	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 	disconnect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
@@ -2610,7 +2610,7 @@ void StoryEditor::changeStyleSB(int pa, int st)
 
 void StoryEditor::changeStyle(int )
 {
-	int p, i;
+	int p=0, i=0;
 	bool sel = false;
 	ParagraphStyle newStyle;
 	newStyle.setParent(Editor->currentParaStyle);
@@ -2687,7 +2687,7 @@ void StoryEditor::changeStyle(int )
 
 void StoryEditor::changeAlign(int )
 {
-	int p, i;
+	int p=0, i=0;
 	bool sel = false;
 	ParagraphStyle newStyle;
 	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(Editor->CurrAlign));
