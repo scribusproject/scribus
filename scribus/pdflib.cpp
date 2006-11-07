@@ -1757,8 +1757,10 @@ void PDFlib::PDF_End_Page()
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
 	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
-	PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+
-		" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
+	if (Options.Version == 12)
+		PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
+	else
+		PutDoc("/TrimBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
 	if (Options.Version >= 14) // && (Transpar.count() != 0))
