@@ -61,13 +61,6 @@ class StoryEditor;
 class ColorCombo;
 class CharSelect;
 
-struct PtiSmall {
-	CharStyle charStyle;
-	short cab;
-	QString style;
-	QString ch;
-	PageItem* cembedded;
-};
 
 class SCRIBUS_API SEditor : public QTextEdit
 {
@@ -83,7 +76,8 @@ public:
 	void loadText(QString tx, PageItem *currItem);
 	void updateAll();
 	void updateFromChars(int p);
-	void updateSel(int code, struct PtiSmall *hg);
+	void updateSel(const CharStyle& style);
+	void updateSel(const ParagraphStyle& style);
 	void deleteSel();
 	void setStyle(int Csty);
 	void setFarbe(bool marker);
@@ -91,17 +85,16 @@ public:
 	void insStyledText();
 	void copyStyledText();
 
-	typedef QPtrList<PtiSmall> ChList;
-	QPtrList<ChList> StyledText;
+	StoryText StyledText;
 	QPtrList<PageItem> FrameItems;
-	QValueList<int> ParagStyles;
 	ScribusDoc* doc;
 	bool unicodeTextEditMode;
 	bool wasMod;
 	bool ready;
 	int unicodeInputCount;
 	StyleFlag CurrentStyle;
-	int currentParaStyle;
+	QString currentParaStyle;
+	int CurrAlign;
 	int CurrFontSize;
 	int CurrTextFillSh;
 	int CurrTextStrokeSh;
@@ -122,7 +115,7 @@ public:
 	QString CurrFont;
 	QString unicodeInputString;
 	QString tBuffer;
-	ChList cBuffer;
+	StoryText cBuffer;
 	int ClipData;
 	bool StoredSel;
 	int SelParaStart;
@@ -272,13 +265,13 @@ public:
 	Spalette *Spal;
 
 public slots:
-	void newStyleHandler(int s);
 	void SetAlign(int s);
+	void SetParaStyle(int s);
 	void languageChange();
 
 signals:
-	void NewAlign(int);
-	void newStyle(int);
+	void newAlign(int);
+	void newParaStyle(int);
 };
 
 class SCRIBUS_API SToolBFont : public QToolBar
@@ -361,7 +354,9 @@ public slots:
 	void newTxtStrike(int p, int w);
 	void updateProps(int p, int ch);
 	void newAlign(int st);
-	void changeAlignSB(int pa, int align);
+	void newStyle(int st);
+	void changeStyleSB(int pa, int st);
+	void changeStyle(int st);
 	void updateStatus();
 	void Do_leave();
 	void Do_leave2();

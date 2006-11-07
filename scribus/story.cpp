@@ -76,13 +76,17 @@ SideBar::SideBar(QWidget *pa) : QLabel(pa)
 void SideBar::mouseReleaseEvent(QMouseEvent *m)
 {
 	CurrentPar = editor->paragraphAt(QPoint(2, m->y()+offs));
+	int p,i;
+	editor->getCursorPosition(&p, &i);
+	int pos = editor->StyledText.startOfParagraph(p) + i;
 	pmen = new QPopupMenu();
 	Spalette* Spal = new Spalette(this);
 	Spal->setFormats(editor->doc);
-	if ((CurrentPar < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
+	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
-		if (editor->StyledText.at(CurrentPar)->count() > 0)
-			Spal->setFormat(editor->StyledText.at(CurrentPar)->at(0)->style);
+		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar); 
+		if (len > 0)
+			Spal->setFormat(editor->StyledText.paragraphStyle(pos).displayName());
 		else
 			Spal->setFormat("");
 	}
@@ -114,8 +118,7 @@ void SideBar::paintEvent(QPaintEvent *e)
 	p.begin(this);
 	if ((editor != 0) && (noUpdt))
 	{
-		int st = editor->currentParaStyle;
-		for (int pa = 0; pa < editor->paragraphs(); ++pa)
+		for (uint pa = 0; pa < editor->StyledText.nrOfParagraphs(); ++pa)
 		{
 			QRect re = editor->paragraphRect(pa);
 			if (!re.isValid())
@@ -127,25 +130,10 @@ void SideBar::paintEvent(QPaintEvent *e)
 			if ((re.y()-offs < height()) && (re.y()-offs > 0))
 			{
 				re.setY(re.y()-offs);
-				if ((pa < static_cast<int>(editor->StyledText.count())) && (editor->StyledText.count() != 0))
-				{
-					if (editor->StyledText.at(pa)->count() > 0)
-						st = editor->StyledText.at(pa)->at(0)->cab;
-					else
-						st = editor->ParagStyles[pa];
-//					if (st < 5)
-//						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
-//					else
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].name());
-				}
-				else
-				{
-					st = editor->currentParaStyle;
-//					if (st < 5)
-//						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, tr("No Style"));
-//					else
-						p.drawText(re, Qt::AlignLeft | Qt::AlignTop, editor->doc->docParagraphStyles[st].name());
-				}
+				QString parname = editor->StyledText.paragraphStyle(editor->StyledText.startOfParagraph(pa)).parent();
+				if (parname.isEmpty())
+					parname = tr("No Style");
+				p.drawText(re, Qt::AlignLeft | Qt::AlignTop, parname);
 			}
 		}
 	}
@@ -178,9 +166,6 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	wasMod = false;
 	StoredSel = false;
 	StyledText.clear();
-	StyledText.setAutoDelete(true);
-	ParagStyles.clear();
-	cBuffer.setAutoDelete(true);
 	cBuffer.clear();
 	setUndoRedoEnabled(true);
 	setUndoDepth(0);
@@ -214,6 +199,7 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 	emit SideBarUp(false);
 	int p, i;
 	getCursorPosition(&p, &i);
+	int pos = StyledText.startOfParagraph(p) + i;
 	int keyMod=0;
 	if (k->state() & ShiftButton)
 		keyMod |= SHIFT;
@@ -331,34 +317,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_Delete:
 					if (!hasSelectedText())
 					{
-						ChList *chars = StyledText.at(p);
-						if (i < static_cast<int>(chars->count()))
-							chars->remove(i);
-						else
-						{
-							if (p < static_cast<int>(StyledText.count()-1))
-							{
-								struct PtiSmall *hg;
-								ChList *chars2 = StyledText.at(p+1);
-								int a = static_cast<int>(chars2->count());
-								if (a > 0)
-								{
-									int ca;
-									if (chars->count() > 0)
-										ca = chars->at(0)->cab;
-									else
-										ca = currentParaStyle;
-									for (int s = 0; s < a; ++s)
-									{
-										hg = chars2->take(0);
-										hg->cab = ca;
-										chars->append(hg);
-									}
-								}
-								StyledText.remove(p+1);
-								ParagStyles.remove(ParagStyles.at(p+1));
-							}
-						}
+						if (pos < StyledText.length())
+							StyledText.removeChars(pos, 1);
 					}
 					else
 						deleteSel();
@@ -366,36 +326,8 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_Backspace:
 					if (!hasSelectedText())
 					{
-						if (p >= static_cast<int>(StyledText.count()))
-							break;
-						ChList *chars = StyledText.at(p);
-						if (i > 0)
-							chars->remove(i-1);
-						else
-						{
-							if (p > 0)
-							{
-								struct PtiSmall *hg;
-								ChList *chars2 = StyledText.at(p-1);
-								int a = static_cast<int>(chars->count());
-								if (a > 0)
-								{
-									int ca;
-									if (chars2->count() > 0)
-										ca = chars2->at(0)->cab;
-									else
-										ca = chars->at(0)->cab;
-									for (int s = 0; s < a; ++s)
-									{
-										hg = chars->take(0);
-										hg->cab = ca;
-										chars2->append(hg);
-									}
-								}
-								StyledText.remove(p);
-								ParagStyles.remove(ParagStyles.at(p));
-							}
-						}
+						if (pos > 0)
+							StyledText.removeChars(pos-1, 1);
 					}
 					else
 						deleteSel();
@@ -403,36 +335,11 @@ void SEditor::keyPressEvent(QKeyEvent *k)
 				case Key_Return:
 				case Key_Enter:
 					{
-						if (hasSelectedText())
+						if (hasSelectedText()) {
+							pos = StyledText.startOfSelection();
 							deleteSel();
-						ChList *chars;
-						chars = new ChList;
-						chars->setAutoDelete(true);
-						chars->clear();
-						if (StyledText.count() != 0)
-						{
-							if (p >= static_cast<int>(StyledText.count()))
-							{
-								StyledText.append(chars);
-								ParagStyles.append(currentParaStyle);
-							}
-							else
-							{
-							ChList *chars2 = StyledText.at(p);
-							int a = static_cast<int>(chars2->count());
-							for (int s = i; s < a; ++s)
-							{
-								chars->append(chars2->take(i));
-							}
-							StyledText.insert(p+1, chars);
-							ParagStyles.insert(ParagStyles.at(p+1), currentParaStyle);
-							}
 						}
-						else
-						{
-							StyledText.append(chars);
-							ParagStyles.append(currentParaStyle);
-						}
+						StyledText.insertChars(pos, SpecialChars::PARSEP);
 					}
 					break;
 				case Key_Left:
@@ -478,273 +385,44 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 
 void SEditor::insChars(QString t)
 {
-	int p, i, p2, ccab;
+	int p, i;
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
-	ChList *chars;
-	p2 = p;
-	if ((p >= static_cast<int>(StyledText.count())) || (StyledText.count() == 0))
-	{
-		chars = new ChList;
-		chars->setAutoDelete(true);
-		chars->clear();
-		p2 = static_cast<int>(StyledText.count());
-		StyledText.append(chars);
-		ParagStyles.append(currentParaStyle);
-	}
-	else
-		chars = StyledText.at(p);
-	if (chars->count() != 0)
-		ccab = chars->at(0)->cab;
-	else
-		ccab = currentParaStyle;
-	for (uint a = 0; a < t.length(); ++a)
-	{
-		if (t[a] == QChar(13))
-		{
-			ChList *chars2;
-			chars2 = new ChList;
-			chars2->setAutoDelete(true);
-			chars2->clear();
-			if (p2 >= static_cast<int>(StyledText.count()))
-			{
-				StyledText.append(chars2);
-				ParagStyles.append(ccab);
-			}
-			else
-			{
-				int a = static_cast<int>(chars->count());
-				for (int s = i; s < a; ++s)
-				{
-					chars2->append(chars->take(i));
-				}
-				StyledText.insert(p2+1, chars2);
-				ParagStyles.insert(ParagStyles.at(p2+1), ccab);
-			}
-			p2++;
-			chars = StyledText.at(p2);
-			i = 0;
-		}
-		else
-		{
-			struct PtiSmall *hg;
-			hg = new PtiSmall;
-			hg->ch = t[a];
-			hg->charStyle.setFillColor(CurrTextFill);
-			hg->charStyle.setFillShade(CurrTextFillSh);
-			hg->charStyle.setStrokeColor(CurrTextStroke);
-			hg->charStyle.setStrokeShade(CurrTextStrokeSh);
-			hg->charStyle.setFont((*doc->AllFonts)[CurrFont]);
-			hg->charStyle.setFontSize(CurrFontSize);
-			hg->charStyle.setEffects(CurrentStyle);
-			hg->cab = ccab;
-			hg->charStyle.setTracking(CurrTextKern);
-			hg->charStyle.setScaleH(CurrTextScale);
-			hg->charStyle.setScaleV(CurrTextScaleV);
-			hg->charStyle.setBaselineOffset(CurrTextBase);
-			hg->charStyle.setShadowXOffset(CurrTextShadowX);
-			hg->charStyle.setShadowYOffset(CurrTextShadowY);
-			hg->charStyle.setOutlineWidth(CurrTextOutline);
-			hg->charStyle.setUnderlineOffset(CurrTextUnderPos);
-			hg->charStyle.setUnderlineWidth(CurrTextUnderWidth);
-			hg->charStyle.setStrikethruOffset(CurrTextStrikePos);
-			hg->charStyle.setStrikethruWidth(CurrTextStrikeWidth);
-			hg->cembedded = 0;
-			chars->insert(i, hg);
-			i++;
-		}
-	}
+	int pos = StyledText.startOfParagraph(p) + i;
+	StyledText.insertChars(pos, t);
 }
 
 void SEditor::insStyledText()
 {
-	if (cBuffer.count() == 0)
+	if (cBuffer.length() == 0)
 		return;
-	int p, i, p2, ccab;
+	int p, i;
 	if (hasSelectedText())
 		deleteSel();
 	getCursorPosition(&p, &i);
-	ChList *chars;
-	p2 = p;
-	if ((p >= static_cast<int>(StyledText.count())) || (StyledText.count() == 0))
-	{
-		chars = new ChList;
-		chars->setAutoDelete(true);
-		chars->clear();
-		p2 = static_cast<int>(StyledText.count());
-		StyledText.append(chars);
-		ParagStyles.append(currentParaStyle);
-	}
-	else
-		chars = StyledText.at(p);
-	if (chars->count() != 0)
-		ccab = chars->at(0)->cab;
-	else
-		ccab = currentParaStyle;
-	for (uint a = 0; a < cBuffer.count()-1; ++a)
-	{
-		struct PtiSmall *hg;
-		if (cBuffer.at(a)->ch == QChar(25))
-			continue;
-		if (cBuffer.at(a)->ch == QChar(13))
-		{
-			ChList *chars2;
-			chars2 = new ChList;
-			chars2->setAutoDelete(true);
-			chars2->clear();
-			if (p2 >= static_cast<int>(StyledText.count()))
-			{
-				StyledText.append(chars2);
-				ParagStyles.append(ccab);
-			}
-			else
-			{
-				int a = static_cast<int>(chars->count());
-				for (int s = i; s < a; ++s)
-				{
-					chars2->append(chars->take(i));
-				}
-				StyledText.insert(p2+1, chars2);
-				ParagStyles.insert(ParagStyles.at(p2+1), ccab);
-			}
-			p2++;
-			chars = StyledText.at(p2);
-			i = 0;
-		}
-		else
-		{
-			hg = new PtiSmall;
-			hg->ch = cBuffer.at(a)->ch;
-			hg->charStyle = cBuffer.at(a)->charStyle;
-			hg->cab = ccab;
-			hg->cembedded = 0;
-			chars->insert(i, hg);
-			i++;
-		}
-	}
+	int pos = StyledText.startOfParagraph(p) + i;
+	StyledText.insert(pos, cBuffer);
 }
 
 void SEditor::copyStyledText()
 {
 	int PStart, PEnd, SelStart, SelEnd, start, end;
-	ChList *chars;
-	struct PtiSmall *hg;
-	cBuffer.clear();
-	tBuffer = "";
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	for (int pa = PStart; pa < PEnd+1; ++pa)
-	{
-		chars = StyledText.at(pa);
-		if (pa == PStart)
-			start = SelStart;
-		else
-			start = 0;
-		if (pa == PEnd)
-			end = SelEnd;
-		else
-			end = chars->count();
-		for (int ca = start; ca < end; ++ca)
-		{
-			hg = new PtiSmall;
-			hg->ch = chars->at(ca)->ch;
-			tBuffer += chars->at(ca)->ch;
-			hg->charStyle = chars->at(ca)->charStyle;
-			hg->cab = chars->at(ca)->cab;
-			hg->cembedded = 0;
-			cBuffer.append(hg);
-		}
-		hg = new PtiSmall;
-		hg->ch = QChar(13);
-		tBuffer += QChar(13);
-		hg->charStyle.setFont((*doc->AllFonts)[""]); //FIXME
-		hg->charStyle.setFontSize(1);
-		hg->charStyle.setFillColor("");
-		hg->charStyle.setFillShade(1);
-		hg->charStyle.setStrokeColor("");
-		hg->charStyle.setStrokeShade(1);
-		hg->charStyle.setScaleH(10);
-		hg->charStyle.setScaleV(10);
-		hg->charStyle.setEffects(ScStyle_Default);
-		hg->cab = 0;
-		hg->charStyle.setTracking(0);
-		hg->charStyle.setBaselineOffset(0);
-		hg->charStyle.setShadowXOffset(50);
-		hg->charStyle.setShadowYOffset(-50);
-		hg->charStyle.setOutlineWidth(10);
-		hg->charStyle.setUnderlineOffset(-1);
-		hg->charStyle.setUnderlineWidth(-1);
-		hg->charStyle.setStrikethruOffset(-1);
-		hg->charStyle.setStrikethruWidth(-1);
-		hg->cembedded = 0;
-		cBuffer.append(hg);
-	}
+	start = StyledText.startOfParagraph(PStart) + SelStart;
+	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	StyledText.select(start, end-start);
+	cBuffer.clear();
+	cBuffer.insert(0, StyledText, true);
 }
 
 void SEditor::saveItemText(PageItem *currItem)
 {
-	ChList *chars;
 	currItem->CPos = 0;
 	currItem->itemText.clear();
-	uint c = 0;
-	CharStyle curStyle;
-	int startOfCurStyle = 0;
-	
-	for (uint p = 0; p < StyledText.count(); ++p)
-	{
-		if (p != 0)
-		{
-			c = StyledText.at(p-1)->count()-1;
-			CharStyle newStyle;
-			QChar ch = QChar(13);
-			chars = StyledText.at(p-1);
-			if (chars->count() != 0)
-			{
-				newStyle = chars->at(c)->charStyle;
-			}
-			else
-			{
-				newStyle.setFillColor(CurrTextFill);
-				newStyle.setFillShade(CurrTextFillSh);
-				newStyle.setStrokeColor(CurrTextStroke);
-				newStyle.setStrokeShade(CurrTextStrokeSh);
-				newStyle.setFont((*doc->AllFonts)[CurrFont]);
-				newStyle.setFontSize(CurrFontSize);
-				newStyle.setEffects(static_cast<StyleFlag>(CurrentStyle));
-				newStyle.setTracking(CurrTextKern);
-				newStyle.setScaleH(CurrTextScale);
-				newStyle.setScaleV(CurrTextScaleV);
-				newStyle.setBaselineOffset(CurrTextBase);
-				newStyle.setShadowXOffset(CurrTextShadowX);
-				newStyle.setShadowYOffset(CurrTextShadowY);
-				newStyle.setOutlineWidth(CurrTextOutline);
-				newStyle.setUnderlineOffset(CurrTextUnderPos);
-				newStyle.setUnderlineWidth(CurrTextUnderWidth);
-				newStyle.setStrikethruOffset(CurrTextStrikePos);
-				newStyle.setStrikethruWidth(CurrTextStrikeWidth);
-				if (!doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font().isNone())
-				{
-					newStyle.setFont(doc->docParagraphStyles[ParagStyles[p-1]].charStyle().font());
-					newStyle.setFontSize(doc->docParagraphStyles[ParagStyles[p-1]].charStyle().fontSize());
-				}
-			}
-			int pos = currItem->itemText.length();
-			if (newStyle != curStyle) {
-				currItem->itemText.applyCharStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
-				curStyle = newStyle;
-				startOfCurStyle = pos;       
-			}
-			currItem->itemText.insertChars(pos, ch);
-			currItem->itemText.applyStyle(pos, (doc->docParagraphStyles[ParagStyles[p-1]]));
-		}
-		chars = StyledText.at(p);
-		for (uint c = 0; c < chars->count(); ++c)
-		{
-			CharStyle newStyle;
-			QChar ch = chars->at(c)->ch[0];
-			newStyle = chars->at(c)->charStyle;
-			int pos = currItem->itemText.length();
-			if (ch == SpecialChars::OBJECT)
+	currItem->itemText.append(StyledText);
+/* uh... FIXME
+		if (ch == SpecialChars::OBJECT)
 			{
 				PageItem* embedded = chars->at(c)->cembedded;
 				currItem->doc()->FrameItems.append(embedded);
@@ -767,29 +445,14 @@ void SEditor::saveItemText(PageItem *currItem)
 				}
 				currItem->itemText.insertObject(pos, embedded);
 			}
-			else {
-				currItem->itemText.insertChars(pos, ch);
-			}
-			if (newStyle != curStyle) {
-				currItem->itemText.applyCharStyle(startOfCurStyle, pos - startOfCurStyle, curStyle);
-				curStyle = newStyle;                                
-				startOfCurStyle = pos;
-			}
-			if (ch == SpecialChars::PARSEP) {
-				currItem->itemText.applyStyle(pos, (doc->docParagraphStyles[ParagStyles[p-1]]));
-			}
-		}
-	}
-	currItem->itemText.applyCharStyle(startOfCurStyle, currItem->itemText.length() - startOfCurStyle, curStyle);
-	if (StyledText.count() > 1)
-		currItem->itemText.applyStyle(currItem->itemText.length() - 1, (doc->docParagraphStyles[ParagStyles[StyledText.count()-2]])); // -1 -1 == -2
+*/
 }
 
 void SEditor::setAlign(int style)
 {
 	int align = 0;
 	if (style > 4)
-		align = doc->docParagraphStyles[style].alignment();
+		align = doc->docParagraphStyles[style-5].alignment();
 	else
 		align = style;
 	switch (align)
@@ -815,376 +478,120 @@ void SEditor::setAlign(int style)
 
 void SEditor::loadItemText(PageItem *currItem)
 {
-	setUpdatesEnabled(false);
-	struct PtiSmall *hg;
-	QString Text = "";
-	int Csty = 0;
-	int Ali = 0;
-	clear();
-	PageItem *nextItem = currItem;
 	StyledText.clear();
-	ParagStyles.clear();
 	FrameItems.clear();
-	ChList *chars;
-	chars = new ChList;
-	chars->setAutoDelete(true);
-	chars->clear();
-#if 0
-	while (nextItem != 0)
-	{
-		if (nextItem->BackBox != 0)
-			nextItem = nextItem->BackBox;
-		else
-			break;
-	}
-#endif
-	if (nextItem != 0)
-	{
-		if (nextItem->itemText.length() != 0)
-		{
-			Csty = nextItem->itemText.charStyle(0).effects();
-			Ali = findParagraphStyle(doc, nextItem->itemText.paragraphStyle(0));
-		}
-		else
-		{
-			Csty = nextItem->itemText.defaultStyle().charStyle().effects();
-			Ali = nextItem->itemText.defaultStyle().alignment();
-		}
-		setAlign(Ali);
-		setStyle(Csty);
-//	}
-//	while (nextItem != 0)
-//	{
-		for (int a = 0; a < nextItem->itemText.length(); ++a)
-		{
-			if (nextItem->itemText.text(a) == SpecialChars::PARSEP)
-			{
-				StyledText.append(chars);
-				Ali =  findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a));
-				ParagStyles.append(Ali);
-				chars = new ChList;
-				chars->setAutoDelete(true);
-				chars->clear();
-				Text += "\n";
-			}
-			else
-			{
-				const CharStyle& style(nextItem->itemText.charStyle(a));
-
-				hg = new PtiSmall;
-				hg->ch = nextItem->itemText.text(a);
-				hg->charStyle = style;
-				hg->cab = QMAX(0, findParagraphStyle(doc, nextItem->itemText.paragraphStyle(a)));
-#ifndef NLS_PROTO
-				if (hg->ch == SpecialChars::OBJECT)
-				{
-					hg->cembedded = nextItem->itemText.item(a)->cembedded;
-					FrameItems.append(hg->cembedded);
-					if (hg->cembedded->Groups.count() != 0)
-					{
-						for (uint ga=0; ga < doc->FrameItems.count(); ++ga)
-						{
-							if (doc->FrameItems.at(ga)->Groups.count() != 0)
-							{
-								if (doc->FrameItems.at(ga)->Groups.top() == hg->cembedded->Groups.top())
-								{
-									if (doc->FrameItems.at(ga)->ItemNr != hg->cembedded->ItemNr)
-									{
-										if (FrameItems.find(doc->FrameItems.at(ga)) == -1)
-											FrameItems.append(doc->FrameItems.at(ga));
-									}
-								}
-							}
-						}
-					}
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("@");
-					setFarbe(false);
-					Text = "";
-					chars->append(hg);
-					continue;
-				}
-#endif
-				if ((Ali == hg->cab) && (Csty == hg->charStyle.effects()))
-				{
-					if (hg->ch == QChar(parentStoryEditor->seActions["unicodePageNumber"]->actionInt()))
-					{
-						setAlign(Ali);
-						setStyle(Csty);
-						insert(Text);
-						setFarbe(true);
-						insert("#");
-						setFarbe(false);
-						Text = "";
-						chars->append(hg);
-						continue;
-					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingSpace"]->actionInt()))
-					{
-						setAlign(Ali);
-						setStyle(Csty);
-						insert(Text);
-						setFarbe(true);
-						insert("_");
-						setFarbe(false);
-						Text = "";
-						chars->append(hg);
-						continue;
-					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeFrameBreak"]->actionInt()))
-					{
-						setAlign(Ali);
-						setStyle(Csty);
-						insert(Text);
-						setFarbe(true);
-						insert("|");
-						setFarbe(false);
-						Text = "";
-						chars->append(hg);
-						continue;
-					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeColumnBreak"]->actionInt()))
-					{
-						setAlign(Ali);
-						setStyle(Csty);
-						insert(Text);
-						setFarbe(true);
-						insert("^");
-						setFarbe(false);
-						Text = "";
-						chars->append(hg);
-						continue;
-					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingHyphen"]->actionInt()))
-					{
-						setAlign(Ali);
-						setStyle(Csty);
-						insert(Text);
-						setFarbe(true);
-						insert("=");
-						setFarbe(false);
-						Text = "";
-						chars->append(hg);
-						continue;
-					}
-					else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNewLine"]->actionInt()))
-					{
-						setAlign(Ali);
-						setStyle(Csty);
-						insert(Text);
-						setFarbe(true);
-						insert("*");
-						setFarbe(false);
-						Text = "";
-						chars->append(hg);
-						continue;
-					}
-					else
-						Text += hg->ch;
-				}
-				else
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					Text = hg->ch;
-					Csty = hg->charStyle.effects();
-					Ali = hg->cab;
-				}
-				chars->append(hg);
-			}
-		}
-		nextItem = nextItem->NextBox;
-	}
-	setAlign(Ali);
-	setStyle(Csty);
-	insert(Text);
-	StyledText.append(chars);
-	ParagStyles.append(Ali);
-	if (StyledText.count() != 0)
+	StyledText.append(currItem->itemText);
+	updateAll();
+	if (StyledText.length() != 0)
 		emit setProps(0, 0);
-	setUpdatesEnabled(true);
 	setCursorPosition(0, 0);
 }
 
 void SEditor::loadText(QString tx, PageItem *currItem)
 {
 	setUpdatesEnabled(false);
-	struct PtiSmall *hg;
 	QString Text = "";
 	StyledText.clear();
-	ParagStyles.clear();
-	ChList *chars;
-	chars = new ChList;
-	chars->setAutoDelete(true);
-	chars->clear();
-	setAlign(currItem->itemText.defaultStyle().alignment());
-	setStyle(currItem->itemText.defaultStyle().charStyle().effects());
-	for (uint a = 0; a < tx.length(); ++a)
-	{
-		if (tx[a] == QChar(13))
-		{
-			StyledText.append(chars);
-			ParagStyles.append(findParagraphStyle(currItem->doc(), currItem->currentStyle()));
-			chars = new ChList;
-			chars->setAutoDelete(true);
-			chars->clear();
-			Text += "\n";
-		}
-		else
-		{
-			hg = new PtiSmall;
-			hg->ch = tx[a];
-			hg->charStyle = currItem->itemText.defaultStyle().charStyle();
-			hg->cab = currItem->itemText.defaultStyle().alignment();
-			hg->cembedded = 0;
-			Text += hg->ch;
-			chars->append(hg);
-		}
-	}
-	insert(Text);
-	StyledText.append(chars);
-	ParagStyles.append(findParagraphStyle(currItem->doc(), currItem->currentStyle()));
-	if (StyledText.count() != 0)
+	StyledText.setDefaultStyle(currItem->itemText.defaultStyle());
+	StyledText.insertChars(0, tx);	
+	updateAll();
+	if (StyledText.length() != 0)
 		emit setProps(0, 0);
-	setUpdatesEnabled(true);
 	setCursorPosition(0, 0);
 }
 
 void SEditor::updateAll()
 {
-	if (StyledText.count() == 0)
+	clear();
+	if (StyledText.length() == 0)
 		return;
 	setUpdatesEnabled(false);
 	int p, i;
 	getCursorPosition(&p, &i);
-	clear();
-	struct PtiSmall *hg;
 	QString Text = "";
-	int Csty;
-	int Ali = 0;
-	ChList *chars = StyledText.at(0);
-	if (chars->count() != 0)
-	{
-		Csty = chars->at(0)->charStyle.effects();
-		Ali = chars->at(0)->cab;
-	}
-	else
-	{
-		Csty = CurrentStyle;
-		Ali = currentParaStyle;
-	}
+	QString chars;
+	int Csty = StyledText.charStyle(0).effects();
+	int Ali = StyledText.paragraphStyle(0).alignment();
 	setAlign(Ali);
 	setStyle(Csty);
-	for (uint pa = 0; pa < StyledText.count(); ++pa)
+	for (uint pa = 0; pa < StyledText.nrOfParagraphs(); ++pa)
 	{
-		chars = StyledText.at(pa);
-		if ((chars->count() == 0) && (pa < StyledText.count()-1))
+		int start = StyledText.startOfParagraph(pa);
+		int end = StyledText.endOfParagraph(pa);
+		const ParagraphStyle& pstyle(StyledText.paragraphStyle(start));
+		Ali = pstyle.alignment();
+		setAlign(Ali);
+		if (start >= end && pa < StyledText.nrOfParagraphs()-1)
 		{
 			Text += "\n";
 			continue;
 		}
-		for (uint a = 0; a < chars->count(); ++a)
+		for (int a = start; a < end; ++a)
 		{
-			hg = chars->at(a);
-			if (hg->ch == QChar(25))
+			const CharStyle& cstyle(StyledText.charStyle(a));
+			const QChar ch = StyledText.text(a);
+			if (Csty != cstyle.effects() ||
+				ch == SpecialChars::OBJECT ||
+				ch == SpecialChars::PAGENUMBER ||
+				ch == SpecialChars::NBSPACE ||
+				ch == SpecialChars::FRAMEBREAK ||
+				ch == SpecialChars::COLBREAK ||
+				ch == SpecialChars::NBHYPHEN ||
+				ch == SpecialChars::LINEBREAK)
 			{
 				setAlign(Ali);
 				setStyle(Csty);
 				insert(Text);
+				Text = "";
+				Csty = cstyle.effects();
+			}
+
+			if (ch == SpecialChars::OBJECT)
+			{
 				setFarbe(true);
 				insert("@");
 				setFarbe(false);
-				Text = "";
-				continue;
 			}
-			if ((Ali == hg->cab) && (Csty == hg->charStyle.effects()))
+			else if (ch == SpecialChars::PAGENUMBER)
 			{
-				if (hg->ch == QChar(parentStoryEditor->seActions["unicodePageNumber"]->actionInt()))
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("#");
-					setFarbe(false);
-					Text = "";
-					continue;
-				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingSpace"]->actionInt()))
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("_");
-					setFarbe(false);
-					Text = "";
-					continue;
-				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeFrameBreak"]->actionInt()))
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("|");
-					setFarbe(false);
-					Text = "";
-					continue;
-				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeColumnBreak"]->actionInt()))
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("^");
-					setFarbe(false);
-					Text = "";
-					chars->append(hg);
-					continue;
-				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNonBreakingHyphen"]->actionInt()))
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("=");
-					setFarbe(false);
-					Text = "";
-					chars->append(hg);
-					continue;
-				}
-				else if (hg->ch == QChar(parentStoryEditor->seActions["unicodeNewLine"]->actionInt()))
-				{
-					setAlign(Ali);
-					setStyle(Csty);
-					insert(Text);
-					setFarbe(true);
-					insert("*");
-					setFarbe(false);
-					Text = "";
-					continue;
-				}
-				else
-					Text += hg->ch;
+				setFarbe(true);
+				insert("#");
+				setFarbe(false);
+			}
+			else if (ch == SpecialChars::NBSPACE)
+			{
+				setFarbe(true);
+				insert("_");
+				setFarbe(false);
+			}
+			else if (ch == SpecialChars::FRAMEBREAK)
+			{
+				setFarbe(true);
+				insert("|");
+				setFarbe(false);
+			}
+			else if (ch == SpecialChars::COLBREAK)
+			{
+				setFarbe(true);
+				insert("^");
+				setFarbe(false);
+			}
+			else if (ch == SpecialChars::NBHYPHEN)
+			{
+				setFarbe(true);
+				insert("=");
+				setFarbe(false);
+			}
+			else if (ch == SpecialChars::LINEBREAK)
+			{
+				setFarbe(true);
+				insert("*");
+				setFarbe(false);
 			}
 			else
-			{
-				setAlign(Ali);
-				setStyle(Csty);
-				insert(Text);
-				Text = hg->ch;
-				Csty = hg->charStyle.effects();
-				Ali = hg->cab;
-			}
+				Text += ch;
 		}
-		if (pa < StyledText.count()-1)
+		if (pa < StyledText.nrOfParagraphs()-1)
 			Text += "\n";
 	}
 	setAlign(Ali);
@@ -1194,10 +601,12 @@ void SEditor::updateAll()
 	//CB Removed to fix 2083 setCursorPosition(p, i);
 }
 
+
 void SEditor::updateFromChars(int pa)
 {
-	ChList *chars = StyledText.at(pa);
-	if (chars->count() == 0)
+	int start = StyledText.startOfParagraph(pa);
+	int end = StyledText.endOfParagraph(pa);
+	if (start >= end)
 		return;
 	setUpdatesEnabled(false);
 	int SelStart = 0;
@@ -1205,17 +614,17 @@ void SEditor::updateFromChars(int pa)
 	int p, i;
 	getCursorPosition(&p, &i);
 	removeSelection();
-	int Csty = chars->at(0)->charStyle.effects();
-	for (uint a = 0; a < chars->count(); ++a)
+	int Csty = StyledText.charStyle(start).effects();
+	for (int a = start; a < end; ++a)
 	{
-		if (Csty == chars->at(a)->charStyle.effects())
+		if (Csty == StyledText.charStyle(a).effects())
 			SelEnd++;
 		else
 		{
 			setSelection(pa, SelStart, pa, SelEnd);
 			setStyle(Csty);
 			removeSelection();
-			Csty = chars->at(a)->charStyle.effects();
+			Csty = StyledText.charStyle(a).effects();
 			SelStart = SelEnd;
 			SelEnd++;
 		}
@@ -1223,181 +632,50 @@ void SEditor::updateFromChars(int pa)
 	setSelection(pa, SelStart, pa, SelEnd);
 	setStyle(Csty);
 	removeSelection();
-	setAlign(chars->at(0)->cab);
+	setAlign(StyledText.paragraphStyle(start).alignment());
 	setUpdatesEnabled(true);
 	setCursorPosition(p, i);
 }
 
-/* updates the internal PtiSmall structure, to be useable for all members of the PtiSmall struct
-   there is a code as first parameter to indicate which member should be updated.
-	0 = Fill Colour and Fill Shade
-	1 = Stroke Colour and Stroke Shade
-	2 = Font
-	3 = Font Size
-	4 = Character Style
-	5 = Character Scaling
-	6 = Kerning
-	7 = Character Scaling Vertical
-	8 = Character Shadow
-	9 = Character Outline
-	10 = Character Underline
-	11 = Character Strikethru
- */
-void SEditor::updateSel(int code, struct PtiSmall *hg)
+/* updates the internal StyledText structure, applies 'newStyle' to the selection */
+void SEditor::updateSel(const ParagraphStyle& newStyle)
 {
-	int PStart, PEnd, SelStart, SelEnd, start, end;
-	ChList *chars;
+	int PStart, PEnd, SelStart, SelEnd, start;
 	if (StoredSel)
 	{
 		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
 		StoredSel = false;
 	}
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	for (int pa = PStart; pa < PEnd+1; ++pa)
+	for (int pa=PStart; pa <= PEnd; ++pa)
 	{
-		chars = StyledText.at(pa);
-		if (pa == PStart)
-			start = SelStart;
-		else
-			start = 0;
-		if (pa == PEnd)
-			end = SelEnd;
-		else
-			end = chars->count();
-		for (int ca = start; ca < end; ++ca)
-		{
-			switch (code)
-			{
-				case 0:
-					chars->at(ca)->charStyle.setFillColor(hg->charStyle.fillColor());
-					chars->at(ca)->charStyle.setFillShade(hg->charStyle.fillShade());
-					break;
-				case 1:
-					chars->at(ca)->charStyle.setStrokeColor(hg->charStyle.strokeColor());
-					chars->at(ca)->charStyle.setStrokeShade(hg->charStyle.strokeShade());
-					break;
-				case 2:
-					chars->at(ca)->charStyle.setFont(hg->charStyle.font());
-					break;
-				case 3:
-					chars->at(ca)->charStyle.setFontSize(hg->charStyle.fontSize());
-					break;
-				case 4:
-				{
-					StyleFlag fl = chars->at(ca)->charStyle.effects();
-					fl &= static_cast<StyleFlag>(~1919);
-					fl |= hg->charStyle.effects();
-					chars->at(ca)->charStyle.setEffects(fl);
-				}	break;
-				case 5:
-					chars->at(ca)->charStyle.setScaleH(hg->charStyle.scaleH());
-					break;
-				case 6:
-					chars->at(ca)->charStyle.setTracking(hg->charStyle.tracking());
-					break;
-				case 7:
-					chars->at(ca)->charStyle.setScaleV(hg->charStyle.scaleV());
-					break;
-				case 8:
-					chars->at(ca)->charStyle.setShadowXOffset(hg->charStyle.shadowXOffset());
-					chars->at(ca)->charStyle.setShadowYOffset(hg->charStyle.shadowYOffset());
-					break;
-				case 9:
-					chars->at(ca)->charStyle.setOutlineWidth(hg->charStyle.outlineWidth());
-					break;
-				case 10:
-					chars->at(ca)->charStyle.setUnderlineOffset(hg->charStyle.underlineOffset());
-					chars->at(ca)->charStyle.setUnderlineWidth(hg->charStyle.underlineWidth());
-					break;
-				case 11:
-					chars->at(ca)->charStyle.setStrikethruOffset(hg->charStyle.strikethruOffset());
-					chars->at(ca)->charStyle.setStrikethruWidth(hg->charStyle.strikethruWidth());
-					break;
-				default:
-					break;
-			}
-		}
+		start = StyledText.startOfParagraph(PStart) + SelStart;
+		StyledText.applyStyle(start, newStyle);
 	}
 }
+
+void SEditor::updateSel(const CharStyle& newStyle)
+{
+	int PStart, PEnd, SelStart, SelEnd, start, end;
+	if (StoredSel)
+	{
+		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+		StoredSel = false;
+	}
+	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+	start = StyledText.startOfParagraph(PStart) + SelStart;
+	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	StyledText.applyCharStyle(start, end-start, newStyle);
+}
+
 
 void SEditor::deleteSel()
 {
 	int PStart, PEnd, SelStart, SelEnd, start, end;
-	ChList *chars = NULL;
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-	if (PStart == PEnd)
-	{
-		chars = StyledText.at(PStart);
-		for (int a = 0; a < SelEnd-SelStart; ++a)
-		{
-			chars->remove(SelStart);
-		}
-	}
-	else
-	{
-		for (int pa = PStart; pa < PEnd+1; ++pa)
-		{
-			bool noChar = false;
-			if (pa >= static_cast<int>(StyledText.count()))
-				noChar = true;
-			else
-				chars = StyledText.at(pa);
-			if (pa == PStart)
-				start = SelStart;
-			else
-				start = 0;
-			if (pa == PEnd)
-				end = SelEnd;
-			else
-			{
-				if (noChar)
-					end = 0;
-				else
-					end = chars->count();
-			}
-			if (!noChar)
-			{
-				for (int ca = 0; ca < end-start; ++ca)
-				{
-					chars->remove(start);
-				}
-			}
-		}
-		if (PEnd-PStart > 1)
-		{
-			for (int pa2 = 0; pa2 < PEnd - PStart - 1; ++pa2)
-			{
-				if (PStart+1 < static_cast<int>(StyledText.count()))
-				{
-					StyledText.remove(PStart+1);
-					ParagStyles.remove(ParagStyles.at(PStart+1));
-				}
-			}
-		}
-		if (PStart+1 < static_cast<int>(StyledText.count()))
-		{
-			struct PtiSmall *hg;
-			ChList *chars2 = StyledText.at(PStart+1);
-			chars = StyledText.at(PStart);
-			int a = static_cast<int>(chars2->count());
-			if (a > 0)
-			{
-				int ca;
-				if (chars->count() > 0)
-					ca = chars->at(0)->cab;
-				else
-					ca = currentParaStyle;
-				for (int s = 0; s < a; ++s)
-				{
-					hg = chars2->take(0);
-					hg->cab = ca;
-					chars->append(hg);
-				}
-			}
-			StyledText.remove(PStart+1);
-			ParagStyles.remove(ParagStyles.at(PStart+1));
-		}
-	}
+	start = StyledText.startOfParagraph(PStart) + SelStart;
+	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	StyledText.removeChars(start, end-start);
 	setCursorPosition(PStart, SelStart);
 }
 
@@ -1481,7 +759,7 @@ void SEditor::paste()
 			data.replace(QRegExp("\r"), "");
 			newParaCount=data.contains("\n");
 			lengthLastPara=data.length()-data.findRev("\n");
-			data.replace(QRegExp("\n"), QChar(13));
+			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
 			inserted=true;
 			insChars(data);
 			ClipData = 2;
@@ -1759,8 +1037,8 @@ SToolBAlign::SToolBAlign(QMainWindow* parent) : QToolBar( tr("Style Settings"), 
 {
 	GroupAlign = new AlignSelect(this);
 	Spal = new Spalette(this);
-	connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
-	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
+	connect(Spal, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 
 	languageChange();
 }
@@ -1771,30 +1049,21 @@ void SToolBAlign::languageChange()
 	QToolTip::add(Spal, tr("Style of current paragraph"));
 }
 
-void SToolBAlign::newStyleHandler(int s)
-{
-	if (s != 0)
-		GroupAlign->setEnabled(false);
-	else
-		GroupAlign->setEnabled(true);
-	emit newStyle(s);
-}
 
 void SToolBAlign::SetAlign(int s)
 {
-	//disconnect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
-	disconnect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
-	if (s < 5)
-	{
-		GroupAlign->setEnabled(true);
-		GroupAlign->setStyle(s);
-	}
-	else
-		GroupAlign->setEnabled(false);
-	//Spal->setFormat(s);
-	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(NewAlign(int )));
-	//connect(Spal, SIGNAL(newStyle(int)), this, SLOT(newStyleHandler(int )));
+	disconnect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
+	GroupAlign->setStyle(s);
+	connect(GroupAlign, SIGNAL(State(int)), this, SIGNAL(newAlign(int )));
 }
+
+void SToolBAlign::SetParaStyle(int s)
+{
+	disconnect(Spal, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+	Spal->selFormat(s);
+	connect(Spal, SIGNAL(newStyle(int)), this, SIGNAL(newParaStyle(int )));
+}
+
 
 /* Toolbar for Font related Settings */
 SToolBFont::SToolBFont(QMainWindow* parent) : QToolBar( tr("Font Settings"), parent)
@@ -2329,10 +1598,10 @@ void StoryEditor::connectSignals()
 	connect(Editor, SIGNAL(SideBarUpdate( )), EditorBar, SLOT(doRepaint()));
 	// 10/12/2004 - pv - #1203: wrong selection on double click
 	connect(Editor, SIGNAL(doubleClicked(int, int)), this, SLOT(doubleClick(int, int)));
-	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeAlignSB(int, int )));
+	connect(EditorBar, SIGNAL(ChangeStyle(int, int )), this, SLOT(changeStyleSB(int, int )));
 	connect(EditorBar, SIGNAL(sigEditStyles()), this, SLOT(slotEditStyles()));
-	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
-	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
+	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
+	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	connect(FillTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxFill(int, int)));
 	connect(StrokeTools, SIGNAL(NewColor(int, int)), this, SLOT(newTxStroke(int, int)));
 	connect(FontTools, SIGNAL(NewSize(double )), this, SLOT(newTxSize(double)));
@@ -2373,7 +1642,6 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 	else
 	{
 		Editor->StyledText.clear();
-		Editor->ParagStyles.clear();
 		Editor->clear();
 		setCaption( tr( "Story Editor" ));
 	}
@@ -2476,9 +1744,10 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				Editor->loadItemText(currItem);
 				updateStatus();
 				textChanged = false;
-				if (static_cast<int>(Editor->StyledText.count()) > CurrPara)
+				if (static_cast<int>(Editor->StyledText.nrOfParagraphs()) > CurrPara)
 				{
-					if (static_cast<int>(Editor->StyledText.at(CurrPara)->count()) > CurrChar)
+					int len = Editor->StyledText.endOfParagraph(CurrPara) - Editor->StyledText.startOfParagraph(CurrPara);
+					if (len > CurrChar)
 					{
 						Editor->setCursorPosition(CurrPara, CurrChar);
 						updateProps(CurrPara, CurrChar);
@@ -2524,10 +1793,10 @@ void StoryEditor::newTxFill(int c, int s)
 		Editor->CurrTextFill = FillTools->TxFill->text(c);
 	if (s != -1)
 		Editor->CurrTextFillSh = s;
-	struct PtiSmall hg;
-	hg.charStyle.setFillColor(Editor->CurrTextFill);
-	hg.charStyle.setFillShade(Editor->CurrTextFillSh);
-	Editor->updateSel(0, &hg);
+	CharStyle charStyle;
+	charStyle.setFillColor(Editor->CurrTextFill);
+	charStyle.setFillShade(Editor->CurrTextFillSh);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2538,10 +1807,10 @@ void StoryEditor::newTxStroke(int c, int s)
 		Editor->CurrTextStroke = StrokeTools->TxStroke->text(c);
 	if (s != -1)
 		Editor->CurrTextStrokeSh = s;
-	struct PtiSmall hg;
-	hg.charStyle.setStrokeColor(Editor->CurrTextStroke);
-	hg.charStyle.setStrokeShade(Editor->CurrTextStrokeSh);
-	Editor->updateSel(1, &hg);
+	CharStyle charStyle;
+	charStyle.setStrokeColor(Editor->CurrTextStroke);
+	charStyle.setStrokeShade(Editor->CurrTextStrokeSh);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2558,9 +1827,9 @@ void StoryEditor::newTxFont(const QString &f)
 	Editor->prevFont = Editor->CurrFont;
 	Editor->CurrFont = f;
 	updateUnicodeActions();
-	struct PtiSmall hg;
-	hg.charStyle.setFont((*currDoc->AllFonts)[Editor->CurrFont]);
-	Editor->updateSel(2, &hg);
+	CharStyle charStyle;
+	charStyle.setFont((*currDoc->AllFonts)[Editor->CurrFont]);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2568,9 +1837,9 @@ void StoryEditor::newTxFont(const QString &f)
 void StoryEditor::newTxSize(double s)
 {
 	Editor->CurrFontSize = qRound(s * 10.0);
-	struct PtiSmall hg;
-	hg.charStyle.setFontSize(Editor->CurrFontSize);
-	Editor->updateSel(3, &hg);
+	CharStyle charStyle;
+	charStyle.setFontSize(Editor->CurrFontSize);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2578,9 +1847,9 @@ void StoryEditor::newTxSize(double s)
 void StoryEditor::newTxStyle(int s)
 {
 	Editor->CurrentStyle = static_cast<StyleFlag>(s);
-	struct PtiSmall hg;
-	hg.charStyle.setEffects(Editor->CurrentStyle);
-	Editor->updateSel(4, &hg);
+	CharStyle charStyle;
+	charStyle.setEffects(Editor->CurrentStyle);
+	Editor->updateSel(charStyle);
 	Editor->setStyle(s);
 	if (s & 4)
 	{
@@ -2600,9 +1869,9 @@ void StoryEditor::newTxScale(int )
 {
 	int ss = qRound(FontTools->ChScale->value() * 10);
 	Editor->CurrTextScale = ss;
-	struct PtiSmall hg;
-	hg.charStyle.setScaleH(Editor->CurrTextScale);
-	Editor->updateSel(5, &hg);
+	CharStyle charStyle;
+	charStyle.setScaleH(Editor->CurrTextScale);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2611,9 +1880,9 @@ void StoryEditor::newTxScaleV(int )
 {
 	int ss = qRound(FontTools->ChScaleV->value() * 10);
 	Editor->CurrTextScaleV = ss;
-	struct PtiSmall hg;
-	hg.charStyle.setScaleV(Editor->CurrTextScaleV);
-	Editor->updateSel(7, &hg);
+	CharStyle charStyle;
+	charStyle.setScaleV(Editor->CurrTextScaleV);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2621,21 +1890,21 @@ void StoryEditor::newTxScaleV(int )
 void StoryEditor::newTxKern(int s)
 {
 	Editor->CurrTextKern = s;
-	struct PtiSmall hg;
-	hg.charStyle.setTracking(Editor->CurrTextKern);
-	Editor->updateSel(6, &hg);
+	CharStyle charStyle;
+	charStyle.setTracking(Editor->CurrTextKern);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
 
 void StoryEditor::newShadowOffs(int x, int y)
 {
-	struct PtiSmall hg;
-	hg.charStyle.setShadowXOffset(x);
-	hg.charStyle.setShadowYOffset(y);
+	CharStyle charStyle;
+	charStyle.setShadowXOffset(x);
+	charStyle.setShadowYOffset(y);
 	Editor->CurrTextShadowX = x;
 	Editor->CurrTextShadowY = y;
-	Editor->updateSel(8, &hg);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2643,33 +1912,33 @@ void StoryEditor::newShadowOffs(int x, int y)
 void StoryEditor::newTxtOutline(int o)
 {
 	Editor->CurrTextOutline = o;
-	struct PtiSmall hg;
-	hg.charStyle.setOutlineWidth(Editor->CurrTextOutline);
-	Editor->updateSel(9, &hg);
+	CharStyle charStyle;
+	charStyle.setOutlineWidth(Editor->CurrTextOutline);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
 
 void StoryEditor::newTxtUnderline(int p, int w)
 {
-	struct PtiSmall hg;
-	hg.charStyle.setUnderlineOffset(p);
-	hg.charStyle.setUnderlineWidth(w);
+	CharStyle charStyle;
+	charStyle.setUnderlineOffset(p);
+	charStyle.setUnderlineWidth(w);
 	Editor->CurrTextUnderPos = p;
 	Editor->CurrTextUnderWidth = w;
-	Editor->updateSel(10, &hg);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
 
 void StoryEditor::newTxtStrike(int p, int w)
 {
-	struct PtiSmall hg;
-	hg.charStyle.setStrikethruOffset(p);
-	hg.charStyle.setStrikethruWidth(w);
+	CharStyle charStyle;
+	charStyle.setStrikethruOffset(p);
+	charStyle.setStrikethruWidth(w);
 	Editor->CurrTextStrikePos = p;
 	Editor->CurrTextStrikeWidth = w;
-	Editor->updateSel(11, &hg);
+	Editor->updateSel(charStyle);
 	modifiedText();
 	Editor->setFocus();
 }
@@ -2678,11 +1947,9 @@ void StoryEditor::updateProps(int p, int ch)
 {
 	ColorList::Iterator it;
 	int c = 0;
-	struct PtiSmall *hg;
-	SEditor::ChList *chars;
 	if (Editor->wasMod)
 		return;
-	if ((p >= static_cast<int>(Editor->StyledText.count())) || (Editor->StyledText.count() == 0) || (!firstSet))
+	if ((p >= static_cast<int>(Editor->StyledText.nrOfParagraphs())) || (Editor->StyledText.length() == 0) || (!firstSet))
 	{
 		if (!firstSet)
 		{
@@ -2695,7 +1962,7 @@ void StoryEditor::updateProps(int p, int ch)
 			Editor->CurrFont = curstyle.font().scName();
 			Editor->CurrFontSize = curstyle.fontSize();
 			Editor->CurrentStyle = curstyle.effects();
-			Editor->currentParaStyle = findParagraphStyle(currItem->doc(), currItem->itemText.defaultStyle());
+			Editor->currentParaStyle = curstyle.parent();
 			Editor->CurrTextKern = curstyle.tracking();
 			Editor->CurrTextScale = curstyle.scaleH();
 			Editor->CurrTextScaleV = curstyle.scaleV();
@@ -2735,7 +2002,7 @@ void StoryEditor::updateProps(int p, int ch)
 				}
 			}
 			StrokeTools->SetColor(c);
-			AlignTools->SetAlign(Editor->currentParaStyle);
+			AlignTools->SetAlign(Editor->CurrAlign);
 			StyleTools->SetKern(Editor->CurrTextKern);
 			StyleTools->SetStyle(Editor->CurrentStyle);
 			StyleTools->SetShadow(Editor->CurrTextShadowX, Editor->CurrTextShadowY);
@@ -2762,63 +2029,64 @@ void StoryEditor::updateProps(int p, int ch)
 		updateUnicodeActions();
 		return;
 	}
-	chars = Editor->StyledText.at(p);
-	Editor->currentParaStyle = Editor->ParagStyles[p];
-	if (chars->count() == 0)
+	int parStart = Editor->StyledText.startOfParagraph(p);
+	const ParagraphStyle& parStyle(Editor->StyledText.paragraphStyle(parStart));
+	Editor->currentParaStyle = parStyle.displayName();
+	if (Editor->StyledText.endOfParagraph(p) <= parStart)
 	{
-//		if (Editor->currentParaStyle > 4)
-		{
-			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
-			Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
-			Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
-			Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
-			Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
-			Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
-			Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
-			Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
-			Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
-			Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
-			Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
-			Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
-			Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
-			Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
-		}
-		Editor->setAlign(Editor->currentParaStyle);
+		Editor->prevFont = Editor->CurrFont;
+		Editor->CurrFont = parStyle.charStyle().font().scName();
+		Editor->CurrFontSize = parStyle.charStyle().fontSize();
+		Editor->CurrentStyle = parStyle.charStyle().effects();
+		Editor->CurrTextFill = parStyle.charStyle().fillColor();
+		Editor->CurrTextFillSh = parStyle.charStyle().fillShade();
+		Editor->CurrTextStroke = parStyle.charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = parStyle.charStyle().strokeShade();
+		Editor->CurrTextShadowX = parStyle.charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = parStyle.charStyle().shadowYOffset();
+		Editor->CurrTextOutline = parStyle.charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = parStyle.charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = parStyle.charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = parStyle.charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = parStyle.charStyle().strikethruWidth();
+		Editor->setAlign(Editor->CurrAlign);
 		Editor->setStyle(Editor->CurrentStyle);
 	}
 	else
 	{
+		int start;
 		if (Editor->hasSelectedText())
 		{
 			int PStart, PEnd, SelStart, SelEnd;
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-			if ((SelStart > -1) && (SelStart < static_cast<int>(chars->count())))
-				hg = chars->at(SelStart);
+			start = Editor->StyledText.startOfParagraph(PStart) + SelStart; 
+			if (SelStart >= 0 && start < Editor->StyledText.endOfParagraph(PStart))
+				start += SelStart;
 			else
-				hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
+				start = QMIN(start + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
 		}
 		else
-			hg = chars->at(QMIN(QMAX(ch-1, 0), static_cast<int>(chars->count())-1));
-		Editor->CurrTextFill = hg->charStyle.fillColor();
-		Editor->CurrTextFillSh = hg->charStyle.fillShade();
-		Editor->CurrTextStroke = hg->charStyle.strokeColor();
-		Editor->CurrTextStrokeSh = hg->charStyle.strokeShade();
+			start = QMIN(start + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
+		const CharStyle& charStyle(Editor->StyledText.charStyle(start));
+		Editor->CurrTextFill = charStyle.fillColor();
+		Editor->CurrTextFillSh = charStyle.fillShade();
+		Editor->CurrTextStroke = charStyle.strokeColor();
+		Editor->CurrTextStrokeSh = charStyle.strokeShade();
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = hg->charStyle.font().scName();
-		Editor->CurrFontSize = hg->charStyle.fontSize();
-		Editor->CurrentStyle = hg->charStyle.effects() & static_cast<StyleFlag>(1919);
-		Editor->CurrTextKern = hg->charStyle.tracking();
-		Editor->CurrTextScale = hg->charStyle.scaleH();
-		Editor->CurrTextScaleV = hg->charStyle.scaleV();
-		Editor->CurrTextBase = hg->charStyle.baselineOffset();
-		Editor->CurrTextShadowX = hg->charStyle.shadowXOffset();
-		Editor->CurrTextShadowY = hg->charStyle.shadowYOffset();
-		Editor->CurrTextOutline = hg->charStyle.outlineWidth();
-		Editor->CurrTextUnderPos = hg->charStyle.underlineOffset();
-		Editor->CurrTextUnderWidth = hg->charStyle.underlineWidth();
-		Editor->CurrTextStrikePos = hg->charStyle.strikethruOffset();
-		Editor->CurrTextStrikeWidth = hg->charStyle.strikethruWidth();
+		Editor->CurrFont = charStyle.font().scName();
+		Editor->CurrFontSize = charStyle.fontSize();
+		Editor->CurrentStyle = charStyle.effects() & static_cast<StyleFlag>(1919);
+		Editor->CurrTextKern = charStyle.tracking();
+		Editor->CurrTextScale = charStyle.scaleH();
+		Editor->CurrTextScaleV = charStyle.scaleV();
+		Editor->CurrTextBase = charStyle.baselineOffset();
+		Editor->CurrTextShadowX = charStyle.shadowXOffset();
+		Editor->CurrTextShadowY = charStyle.shadowYOffset();
+		Editor->CurrTextOutline = charStyle.outlineWidth();
+		Editor->CurrTextUnderPos = charStyle.underlineOffset();
+		Editor->CurrTextUnderWidth = charStyle.underlineWidth();
+		Editor->CurrTextStrikePos = charStyle.strikethruOffset();
+		Editor->CurrTextStrikeWidth = charStyle.strikethruWidth();
 	}
 	StrokeTools->SetShade(Editor->CurrTextStrokeSh);
 	FillTools->SetShade(Editor->CurrTextFillSh);
@@ -2867,7 +2135,7 @@ void StoryEditor::updateProps(int p, int ch)
 	FontTools->SetFont(Editor->CurrFont);
 	FontTools->SetScale(Editor->CurrTextScale);
 	FontTools->SetScaleV(Editor->CurrTextScaleV);
-	AlignTools->SetAlign(Editor->currentParaStyle);
+	AlignTools->SetAlign(Editor->CurrAlign);
 	updateUnicodeActions();
 	updateStatus();
 }
@@ -2877,39 +2145,33 @@ void StoryEditor::updateStatus()
 	QString tmp;
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
-	ParC->setText(tmp.setNum(Editor->StyledText.count()));
+	int start = Editor->StyledText.startOfParagraph(p);
+	int end = Editor->StyledText.endOfParagraph(p);
+	
+	ParC->setText(tmp.setNum(Editor->StyledText.nrOfParagraphs()));
+	CharC->setText(tmp.setNum(end - start));
+	CharC2->setText(tmp.setNum(Editor->StyledText.length()));
+
 	QRegExp rx( "(\\w+)\\b" );
+	const QString& txt(Editor->StyledText.text(0, Editor->StyledText.length()));
 	int pos = 0;
-	int counter = 0;
-	int counter1 = 0;
-	int counter2 = 0;
+	int counter = end > start? 1 : 0;
+	int counter2 = Editor->StyledText.length() > 0? 1 : 0;
 	while ( pos >= 0 )
 	{
-		pos = rx.search( Editor->text(p), pos );
+		pos = rx.search( txt, pos );
 		if ( pos > -1 )
 		{
-			counter++;
+			if (pos > start && pos < end)
+				counter++;
+			
+			counter2++;
 			pos += rx.matchedLength();
 		}
 	}
+					   
 	WordC->setText(tmp.setNum(counter));
-	CharC->setText(tmp.setNum(Editor->text(p).length()-1));
-	for (uint a = 0; a < Editor->StyledText.count(); ++a)
-	{
-		int pos = 0;
-		while ( pos >= 0 )
-		{
-			pos = rx.search( Editor->text(a), pos );
-			if ( pos > -1 )
-			{
-				counter2++;
-				pos += rx.matchedLength();
-			}
-		}
-		counter1 += Editor->text(a).length();
-	}
 	WordC2->setText(tmp.setNum(counter2));
-	CharC2->setText(tmp.setNum(Editor->length()));
 }
 
 void StoryEditor::Do_insSp()
@@ -3042,7 +2304,6 @@ bool StoryEditor::Do_new()
 		}
 	}
 	Editor->StyledText.clear();
-	Editor->ParagStyles.clear();
 	Editor->clear();
 	Editor->setUndoRedoEnabled(false);
 	Editor->setUndoRedoEnabled(true);
@@ -3075,12 +2336,20 @@ void StoryEditor::slotFileRevert()
 
 void StoryEditor::Do_selectAll()
 {
-	if (Editor->StyledText.count() == 0)
+	if (Editor->StyledText.length() == 0)
 		return;
-	if (Editor->StyledText.count() > 1)
-		Editor->setSelection(0, 0, Editor->StyledText.count()-1, Editor->StyledText.at(Editor->StyledText.count()-1)->count());
+
+	int lastPar = Editor->StyledText.nrOfParagraphs()-1;
+	if (lastPar > 0) 
+	{
+		int lastParStart = Editor->StyledText.startOfParagraph(lastPar);
+		int lastParEnd = Editor->StyledText.endOfParagraph(lastPar);
+		Editor->setSelection(0, 0, lastPar, lastParEnd - lastParStart);
+	}
 	else
-		Editor->setSelection(0, 0, 0, Editor->StyledText.at(0)->count());
+	{
+		Editor->setSelection(0, 0, 0, Editor->StyledText.length());
+	}
 }
 
 void StoryEditor::Do_copy()
@@ -3100,7 +2369,7 @@ void StoryEditor::Do_cut()
 
 void StoryEditor::Do_del()
 {
-	if (Editor->StyledText.count() == 0)
+	if (Editor->StyledText.length() == 0)
 		return;
 	EditorBar->setRepaint(false);
 	if (Editor->hasSelectedText())
@@ -3237,8 +2506,8 @@ void StoryEditor::slotEditStyles()
 	int p, i;
 	Editor->getCursorPosition(&p, &i);
 	disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-	disconnect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
-	disconnect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
+	disconnect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
+	disconnect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	//emit EditSt();
 
 	StilFormate *dia = new StilFormate(this, currDoc);
@@ -3249,9 +2518,10 @@ void StoryEditor::slotEditStyles()
 	delete dia;
 
 	AlignTools->Spal->setFormats(currDoc);
-	AlignTools->SetAlign(Editor->currentParaStyle);
-	connect(AlignTools, SIGNAL(newStyle(int)), this, SLOT(newAlign(int)));
-	connect(AlignTools, SIGNAL(NewAlign(int)), this, SLOT(newAlign(int)));
+	AlignTools->SetAlign(Editor->CurrAlign);
+	AlignTools->SetParaStyle(currItem->doc()->docParagraphStyles.find(Editor->currentParaStyle));
+	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
+	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	Editor->setCursorPosition(p, i);
 	updateProps(p, i);
 	connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
@@ -3265,39 +2535,35 @@ void StoryEditor::slotEditStyles()
 
 void StoryEditor::newAlign(int st)
 {
-	Editor->currentParaStyle = st;
+	Editor->CurrAlign = st;
 	changeAlign(st);
 }
 
-void StoryEditor::changeAlignSB(int pa, int align)
+
+void StoryEditor::newStyle(int st)
 {
-	Editor->currentParaStyle = align;
-	(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
-	if (Editor->StyledText.count() != 0)
+	Editor->currentParaStyle = currDoc->docParagraphStyles[st].name();
+	changeStyle(st);
+}
+
+
+void StoryEditor::changeStyleSB(int pa, int st)
+{
+	Editor->currentParaStyle = currDoc->docParagraphStyles[st].name();
+	ParagraphStyle newStyle;
+	newStyle.setParent(Editor->currentParaStyle);
+
+	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-		SEditor::ChList *chars;
-		(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
-		if (Editor->StyledText.at(pa)->count() > 0)
-		{
-			chars = Editor->StyledText.at(pa);
-			for (uint s = 0; s < chars->count(); ++s)
-			{
-//				if (Editor->currentParaStyle > 4)
-				{
-					if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
-					{
-						chars->at(s)->charStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle();
-					}
-				}
-//				if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
-//				{
-//					chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
-//				}
-				chars->at(s)->cab = Editor->currentParaStyle;
-			}
-			Editor->updateFromChars(pa);
-		}
+		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
+			   .arg(pa)
+			   .arg(Editor->StyledText.startOfParagraph(pa))
+			   .arg(newStyle.parent())
+			   .arg(newStyle.hasParent()));
+		Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
+
+		Editor->updateFromChars(pa);
 		Editor->setCursorPosition(pa, 0);
 		updateProps(pa, 0);
 		Editor->ensureCursorVisible();
@@ -3305,50 +2571,22 @@ void StoryEditor::changeAlignSB(int pa, int align)
 	}
 	else
 	{
-//		if (Editor->currentParaStyle > 4)
-		{
-			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
-			{
-				Editor->prevFont = Editor->CurrFont;
-				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
-				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
-				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
-				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
-				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
-				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
-				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
-				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
-				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
-				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
-				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
-				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
-				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
-				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
-			}
-		}
-/*		else
-		{
-			Editor->CurrTextFill = currItem->itemText.defaultStyle().charStyle().fillColor();
-			Editor->CurrTextFillSh = currItem->itemText.defaultStyle().charStyle().fillShade();
-			Editor->CurrTextStroke = currItem->itemText.defaultStyle().charStyle().strokeColor();
-			Editor->CurrTextStrokeSh = currItem->itemText.defaultStyle().charStyle().strokeShade();
-			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currItem->itemText.defaultStyle().charStyle().font().scName();
-			Editor->CurrFontSize = currItem->itemText.defaultStyle().charStyle().fontSize();
-			Editor->CurrentStyle = currItem->itemText.defaultStyle().charStyle().effects();
-			Editor->CurrTextKern = currItem->itemText.defaultStyle().charStyle().tracking();
-			Editor->CurrTextScale = currItem->itemText.defaultStyle().charStyle().scaleH();
-			Editor->CurrTextScaleV = currItem->itemText.defaultStyle().charStyle().scaleV();
-			Editor->CurrTextBase = currItem->itemText.defaultStyle().charStyle().baselineOffset();
-			Editor->CurrTextShadowX = currItem->itemText.defaultStyle().charStyle().shadowXOffset();
-			Editor->CurrTextShadowY = currItem->itemText.defaultStyle().charStyle().shadowYOffset();
-			Editor->CurrTextOutline = currItem->itemText.defaultStyle().charStyle().outlineWidth();
-			Editor->CurrTextUnderPos = currItem->itemText.defaultStyle().charStyle().underlineOffset();
-			Editor->CurrTextUnderWidth = currItem->itemText.defaultStyle().charStyle().underlineWidth();
-			Editor->CurrTextStrikePos = currItem->itemText.defaultStyle().charStyle().strikethruOffset();
-			Editor->CurrTextStrikeWidth = currItem->itemText.defaultStyle().charStyle().strikethruWidth();
-		}
-		*/
+		Editor->prevFont = Editor->CurrFont;
+		Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
+		Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
+		Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+		Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
+		Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
+		Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
+		Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
+		Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
+
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
 		{
@@ -3363,22 +2601,25 @@ void StoryEditor::changeAlignSB(int pa, int align)
 		Editor->setCursorPosition(0, 0);
 		updateProps(0, 0);
 	}
+
 	Editor->sync();
 	Editor-> repaintContents();
 	modifiedText();
 	Editor->setFocus();
 }
 
-void StoryEditor::changeAlign(int )
+void StoryEditor::changeStyle(int )
 {
 	int p, i;
 	bool sel = false;
+	ParagraphStyle newStyle;
+	newStyle.setParent(Editor->currentParaStyle);
+
 	Editor->getCursorPosition(&p, &i);
-	if (Editor->StyledText.count() != 0)
+	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
 		int PStart, PEnd, SelStart, SelEnd, PStart2, PEnd2, SelStart2, SelEnd2;
-		SEditor::ChList *chars;
 		if (Editor->hasSelectedText())
 		{
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
@@ -3393,29 +2634,10 @@ void StoryEditor::changeAlign(int )
 			PStart = p;
 			PEnd = p;
 		}
-		for (int pa = PStart; pa < QMIN(PEnd+1, static_cast<int>(Editor->StyledText.count())); ++pa)
+		for (int pa = PStart; pa <= PEnd; ++pa)
 		{
-			(*Editor->ParagStyles.at(pa)) = Editor->currentParaStyle;
-			if (Editor->StyledText.at(pa)->count() > 0)
-			{
-				chars = Editor->StyledText.at(pa);
-				for (uint s = 0; s < chars->count(); ++s)
-				{
-//					if (Editor->currentParaStyle > 4)
-					{
-						if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
-						{
-							chars->at(s)->charStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle();
-						}
-					}
-//					if ((Editor->currentParaStyle < 5) && (chars->at(s)->cab > 4))
-//					{
-//						chars->at(s)->charStyle = currItem->itemText.defaultStyle().charStyle();
-//					}
-					chars->at(s)->cab = Editor->currentParaStyle;
-				}
+			Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 			Editor->updateFromChars(pa);
-			}
 		}
 		if (sel)
 			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
@@ -3426,51 +2648,22 @@ void StoryEditor::changeAlign(int )
 	}
 	else
 	{
-//		if (Editor->currentParaStyle > 4)
-		{
-			if (!currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().isNone())
-			{
-				Editor->prevFont = Editor->CurrFont;
-				Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
-				Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
-				Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
-				Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
-				Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
-				Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
-				Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
-				Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
-				Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
-				Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
-				Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
-				Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
-				Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
-				Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
-			}
-		}
-/*		else
-		{
-			const CharStyle& currStyle = currItem->itemText.defaultStyle().charStyle();
-			Editor->CurrTextFill = currStyle.fillColor();
-			Editor->CurrTextFillSh = currStyle.fillShade();
-			Editor->CurrTextStroke = currStyle.strokeColor();
-			Editor->CurrTextStrokeSh = currStyle.strokeShade();
-			Editor->prevFont = Editor->CurrFont;
-			Editor->CurrFont = currStyle.font().scName();
-			Editor->CurrFontSize = currStyle.fontSize();
-			Editor->CurrentStyle = currStyle.effects();
-			Editor->CurrTextKern = currStyle.tracking();
-			Editor->CurrTextScale = currStyle.scaleH();
-			Editor->CurrTextScaleV = currStyle.scaleV();
-			Editor->CurrTextBase = currStyle.baselineOffset();
-			Editor->CurrTextShadowX = currStyle.shadowXOffset();
-			Editor->CurrTextShadowY = currStyle.shadowYOffset();
-			Editor->CurrTextOutline = currStyle.outlineWidth();
-			Editor->CurrTextUnderPos = currStyle.underlineOffset();
-			Editor->CurrTextUnderWidth = currStyle.underlineWidth();
-			Editor->CurrTextStrikePos = currStyle.strikethruOffset();
-			Editor->CurrTextStrikeWidth = currStyle.strikethruWidth();
-		}
-		*/
+		Editor->prevFont = Editor->CurrFont;
+		Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
+		Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
+		Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
+		Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
+		Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
+		Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
+		Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
+		Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
+
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & 4)
 		{
@@ -3490,6 +2683,52 @@ void StoryEditor::changeAlign(int )
 	Editor-> repaintContents();
 	Editor->setFocus();
 }
+
+
+void StoryEditor::changeAlign(int )
+{
+	int p, i;
+	bool sel = false;
+	ParagraphStyle newStyle;
+	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(Editor->CurrAlign));
+	
+	Editor->getCursorPosition(&p, &i);
+	if (Editor->StyledText.length() != 0)
+	{
+		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+		int PStart, PEnd, SelStart, SelEnd, PStart2, PEnd2, SelStart2, SelEnd2;
+		if (Editor->hasSelectedText())
+		{
+			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
+			PStart2 = PStart;
+			PEnd2 = PEnd;
+			SelStart2 = SelStart;
+			SelEnd2 = SelEnd;
+			sel = true;
+		}
+		else
+		{
+			PStart = p;
+			PEnd = p;
+		}
+		for (int pa = PStart; pa <= PEnd; ++pa)
+		{
+			Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
+			Editor->updateFromChars(pa);
+		}
+		if (sel)
+			Editor->setSelection(PStart2, SelStart2, PEnd2, SelEnd2);
+		Editor->setCursorPosition(p, i);
+		Editor->ensureCursorVisible();
+		updateProps(p, i);
+		connect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
+	}
+	modifiedText();
+	Editor->sync();
+	Editor->repaintContents();
+	Editor->setFocus();
+}
+
 
 void StoryEditor::modifiedText()
 {

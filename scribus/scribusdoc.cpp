@@ -4574,23 +4574,6 @@ void ScribusDoc::itemSelection_SetLineSpacing(double w)
 	ParagraphStyle newStyle;
 	newStyle.setLineSpacing(w);
 	itemSelection_ApplyParagraphStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup,
-										  Um::IGroup, Um::SetLineSpacing, QString("%1").arg(w), Um::IFont);
-/*FIXME:av		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			m_Selection->itemAt(a)->setLineSpacing(w);
-			emit refreshItem(m_Selection->itemAt(a));
-		}
-		docParagraphStyles[0].setLineSpacing(w);
-*/		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetFont(QString fon)
@@ -4598,61 +4581,6 @@ void ScribusDoc::itemSelection_SetFont(QString fon)
 	CharStyle newStyle;
 	newStyle.setFont((*AllFonts)[fon]);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFont, fon, Um::IFont);
-		for (uint aa = 0; aa < selectedItemCount; ++aa)
-		{
-			PageItem *currItem = m_Selection->itemAt(aa);
-			if (appMode == modeNormal)
-			{
-//				currItem->setFont(fon);
-				if (currItem->itemText.length() != 0)
-				{
-#ifndef NLS_PROTO
-					for (int a = 0; a < currItem->itemText.length(); ++a)
-						currItem->itemText.item(a)->setFont((*AllFonts)[fon]);
-#else
-					CharStyle newstyle;
-					newstyle.setFont((*AllFonts)[fon]);
-					currItem->itemText.applyCharStyle(0, currItem->itemText.length(), newstyle);
-#endif
-					if (currItem->asPathText())
-					{
-						currItem->updatePolyClip();
-						view()->AdjustItemSize(currItem);
-					}
-/*					if (!Doc->loading)
-						emit UpdtObj(Doc->currentPage->pageNr(), currItem->ItemNr); */
-					emit refreshItem(currItem);
-				}
-			}
-			if ((currItem->HasSel) && (appMode == modeEdit))
-			{
-				if (currItem->itemText.length() != 0)
-				{
-#ifndef NLS_PROTO
-					for (int a = 0; a < currItem->itemText.length(); ++a)
-						if (currItem->itemText.selected(a))
-							currItem->itemText.item(a)->setFont((*AllFonts)[fon]);
-#else
-					CharStyle newstyle;
-					newstyle.setFont((*AllFonts)[fon]);
-					currItem->itemText.applyStyle(currItem->itemText.startOfSelection(),
-												  currItem->itemText.lengthOfSelection(), 
-												  newstyle);
-#endif
-					emit refreshItem(currItem);
-				}
-			}
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::ItemPen(QString farbe)
@@ -4686,42 +4614,6 @@ void ScribusDoc::itemSelection_SetFillColor(QString farbe)
 	CharStyle newStyle;
 	newStyle.setFillColor(farbe);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (farbe == CommonStrings::NoneColor)
-			farbe = CommonStrings::None;
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFill,
-										  farbe, Um::IFont);
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->setFontFillColor(farbe);
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setFillColor(farbe);
-					}
-					else
-						currItem->itemText.item(i)->setFillColor(farbe);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetFillShade(int sha)
@@ -4729,40 +4621,6 @@ void ScribusDoc::itemSelection_SetFillShade(int sha)
 	CharStyle newStyle;
 	newStyle.setFillShade(sha);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		if (m_Selection->count() > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontFillShade,
-									  QString("%1").arg(sha), Um::IFont);
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if (currItem->asTextFrame())
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->setFontFillShade(sha);
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setFillShade(sha);
-					}
-					else
-						currItem->itemText.item(i)->setFillShade(sha);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetStrokeColor(QString farbe)
@@ -4773,41 +4631,6 @@ void ScribusDoc::itemSelection_SetStrokeColor(QString farbe)
 	CharStyle newStyle;
 	newStyle.setStrokeColor(farbe);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontStroke,
-										  farbe, Um::IFont);
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->setFontStrokeColor(farbe);
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setStrokeColor(farbe);
-					}
-					else
-						currItem->itemText.item(i)->setStrokeColor(farbe);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetStrokeShade(int sha)
@@ -4815,40 +4638,6 @@ void ScribusDoc::itemSelection_SetStrokeShade(int sha)
 	CharStyle newStyle;
 	newStyle.setStrokeShade(sha);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontStrokeShade,
-									  QString("%1").arg(sha), Um::IFont);
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if (currItem->asTextFrame())
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->setFontStrokeShade(sha);
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setStrokeShade(sha);
-					}
-					else
-						currItem->itemText.item(i)->setStrokeShade(sha);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetScaleV(int scale)
@@ -4856,39 +4645,6 @@ void ScribusDoc::itemSelection_SetScaleV(int scale)
 	CharStyle newStyle;
 	newStyle.setScaleV(scale);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontHeight, QString("%1").arg(scale), Um::IFont);
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->setFontHeight(scale);
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setScaleV(scale);
-					}
-					else
-						currItem->itemText.item(i)->setScaleV(scale);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetScaleH(int scale)
@@ -4896,40 +4652,6 @@ void ScribusDoc::itemSelection_SetScaleH(int scale)
 	CharStyle newStyle;
 	newStyle.setScaleH(scale);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (selectedItemCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetFontWidth,
-										  QString("%1").arg(scale), Um::IFont);
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->setFontWidth(scale);
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setScaleH(scale);
-					}
-					else
-						currItem->itemText.item(i)->setScaleH(scale);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-		if (selectedItemCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy)
@@ -4938,45 +4660,6 @@ void ScribusDoc::itemSelection_SetShadowOffsets(int shx, int shy)
 	newStyle.setShadowXOffset(shx);
 	newStyle.setShadowYOffset(shy);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-/*				if (appMode != modeEdit)
-				{
-					currItem->TxtShadowX = shx;
-					currItem->TxtShadowY = shy;
-				}
-*/
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-						{
-							currItem->itemText.item(i)->setShadowXOffset(shx);
-							currItem->itemText.item(i)->setShadowYOffset(shy);
-						}
-					}
-					else
-					{
-						currItem->itemText.item(i)->setShadowXOffset(shx);
-						currItem->itemText.item(i)->setShadowYOffset(shy);
-					}
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-	}
 }
 
 void ScribusDoc::itemSelection_SetUnderline(int pos, int wid)
@@ -4985,45 +4668,6 @@ void ScribusDoc::itemSelection_SetUnderline(int pos, int wid)
 	newStyle.setUnderlineOffset(pos);
 	newStyle.setUnderlineWidth(wid);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-/*				if (appMode != modeEdit)
-				{
-					currItem->TxtUnderPos = pos;
-					currItem->TxtUnderWidth = wid;
-				}
-*/
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-						{
-							currItem->itemText.item(i)->setUnderlineOffset(pos);
-							currItem->itemText.item(i)->setUnderlineWidth(wid);
-						}
-					}
-					else
-					{
-						currItem->itemText.item(i)->setUnderlineOffset(pos);
-						currItem->itemText.item(i)->setUnderlineWidth(wid);
-					}
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-	}
 }
 
 void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid)
@@ -5032,45 +4676,6 @@ void ScribusDoc::itemSelection_SetStrikethru(int pos, int wid)
 	newStyle.setStrikethruOffset(pos);
 	newStyle.setStrikethruWidth(wid);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-/*				if (appMode != modeEdit)
-				{
-					currItem->TxtStrikePos = pos;
-					currItem->TxtStrikeWidth = wid;
-				}
-*/
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-						{
-							currItem->itemText.item(i)->setStrikethruOffset(pos);
-							currItem->itemText.item(i)->setStrikethruWidth(wid);
-						}
-					}
-					else
-					{
-						currItem->itemText.item(i)->setStrikethruOffset(pos);
-						currItem->itemText.item(i)->setStrikethruWidth(wid);
-					}
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-	}
 }
 
 void ScribusDoc::itemSelection_SetBaselineOffset(int sha)
@@ -5078,35 +4683,6 @@ void ScribusDoc::itemSelection_SetBaselineOffset(int sha)
 	CharStyle newStyle;
 	newStyle.setBaselineOffset(sha);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->TxtBase = sha;
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setBaselineOffset(sha);
-					}
-					else
-						currItem->itemText.item(i)->setBaselineOffset(sha);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-	}
 }
 
 void ScribusDoc::itemSelection_SetOutlineWidth(int wid)
@@ -5114,35 +4690,6 @@ void ScribusDoc::itemSelection_SetOutlineWidth(int wid)
 	CharStyle newStyle;
 	newStyle.setOutlineWidth(wid);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		PageItem *currItem;
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			currItem = m_Selection->itemAt(a);
-			if ((currItem->asTextFrame()) || (currItem->asPathText()))
-			{
-#ifndef NLS_PROTO
-//				if (appMode != modeEdit)
-//					currItem->TxtOutline = wid;
-				for (int i=0; i<currItem->itemText.length(); ++i)
-				{
-					if (appMode == modeEdit)
-					{
-						if (currItem->itemText.selected(i))
-							currItem->itemText.item(i)->setOutlineWidth(wid);
-					}
-					else
-						currItem->itemText.item(i)->setOutlineWidth(wid);
-				}
-#endif
-			}
-			emit refreshItem(currItem);
-		}
-	}
 }
 
 void ScribusDoc::ItemBrush(QString farbe)
@@ -5609,50 +5156,6 @@ void ScribusDoc::itemSelection_SetTracking(int kern)
 	CharStyle newStyle;
 	newStyle.setTracking(kern);
 	itemSelection_ApplyCharStyle(newStyle);
-	return;
-	
-	uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount != 0)
-	{
-		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::SetKerning,
-										  QString("%1").arg(kern), Um::IFont);
-		for (uint aa = 0; aa < docSelectionCount; ++aa)
-		{
-			PageItem *currItem = m_Selection->itemAt(aa);
-			if ((currItem->HasSel) && (appMode == modeEdit))
-			{
-#ifndef NLS_PROTO
-				if (currItem->itemText.length() != 0)
-				{
-					for (int a = 0; a < currItem->itemText.length(); ++a)
-					{
-						if (currItem->itemText.selected(a))
-							currItem->itemText.item(a)->setTracking(kern);
-					}
-					emit refreshItem(currItem);
-				}
-#endif
-			}
-			else
-			{
-//				if (appMode != modeEdit)
-//					currItem->setKerning(kern);
-#ifndef NLS_PROTO
-				if (currItem->itemText.length() != 0)
-				{
-					for (int a = 0; a < currItem->itemText.length(); ++a)
-					{
-						currItem->itemText.item(a)->setTracking(kern);
-					}
-					emit refreshItem(currItem);
-				}
-#endif
-			}
-		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
-	}
 }
 
 void ScribusDoc::itemSelection_SetLineSpacingMode(int m)
@@ -5660,37 +5163,6 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m)
 	ParagraphStyle newStyle;
 	newStyle.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m));
 	itemSelection_ApplyParagraphStyle(newStyle);
-	return;
-	
-	if (appMode != modeEdit)
-	{
-		if (m_Selection->count() != 0)
-		{
-			for (uint a = 0; a < m_Selection->count(); ++a)
-			{
-				PageItem* currItem = m_Selection->itemAt(a);
-/*				currItem->setLineSpacingMode(w);
-				if (w == 0)
-				{
-					currItem->setLineSpacing(((currItem->fontSize() / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (currItem->fontSize() / 10.0));
-					docParagraphStyles[0].setUseBaselineGrid(false);
-				}
-				else if (w == 1)
-				{
-					docParagraphStyles[0].setUseBaselineGrid(false);
-					currItem->setLineSpacing(RealFHeight(this, (*AllFonts)[currItem->font()], currItem->fontSize()));
-				}
-				else
-				{
-					docParagraphStyles[0].setUseBaselineGrid(true);
-					currItem->setLineSpacing(typographicSettings.valueBaseGrid-1);
-				}
-				docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
-				emit refreshItem(currItem);
-*/			}
-//			docParagraphStyles[0].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(w));
-		}
-	}
 }
 
 void ScribusDoc::itemSelection_SetFontSize(int size)
@@ -7055,35 +6527,6 @@ void ScribusDoc::itemSelection_SetAlignment(int s)
 	ParagraphStyle newStyle;
 	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(s));
 	itemSelection_ApplyParagraphStyle(newStyle);
-	return;
-	
-	uint selectedItemCount=m_Selection->count();
-	if (selectedItemCount != 0)
-	{
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			undoManager->beginTransaction();
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint a = 0; a < selectedItemCount; ++a)
-		{
-			PageItem *currItem = m_Selection->itemAt(a);
-			if (currItem!=NULL)
-			{
-//				chAbStyle(currItem, s);
-				tooltip += "\t" + currItem->getUName() + "\n";
-			}
-		}
-		ParagraphStyle pstyle;
-		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(s));
-		itemSelection_ApplyParagraphStyle(pstyle);
-		if (UndoManager::undoEnabled() && selectedItemCount > 1)
-			undoManager->commit(Um::Selection,
-								Um::IGroup,
-								Um::AlignText,
-								tooltip,
-								Um::IFont);
-		view()->DrawNew(); //CB draw new until NLS for redraw through text chains
-		changed();
-	}
 }
 
 

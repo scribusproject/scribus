@@ -516,9 +516,11 @@ void SearchReplace::slotDoSearch()
 			uint fpa = p;
 			int fch = i;
 			found = false;
-			if (Doc->scMW()->CurrStED->Editor->StyledText.count() != 0)
+			if (Doc->scMW()->CurrStED->Editor->StyledText.length() != 0)
 			{
-				for (uint pa = p; pa < Doc->scMW()->CurrStED->Editor->StyledText.count(); ++pa)
+#if 0
+				// FIXME
+				for (uint pa = p; pa < Doc->scMW()->CurrStED->Editor->StyledText.nrOfParagraphs(); ++pa)
 				{
 					SEditor::ChList *chars;
 					chars = Doc->scMW()->CurrStED->Editor->StyledText.at(pa);
@@ -636,6 +638,7 @@ void SearchReplace::slotDoSearch()
 					Doc->scMW()->CurrStED->Editor->removeSelection();
 					Doc->scMW()->CurrStED->Editor->setCursorPosition(0, 0);
 				}
+#endif
 			}
 		}
 	}
@@ -801,10 +804,10 @@ void SearchReplace::slotDoReplace()
 				se->Editor->insChars(RTextVal->text());
 				se->Editor->setSelection(PStart, SelStart, PEnd, SelEnd);
 				se->Editor->removeSelectedText();
-				se->Editor->setStyle(se->Editor->CurrentStyle);
+//FIXME				se->Editor->setStyle(se->Editor->CurrentStyle);
 				se->Editor->insert(RTextVal->text());
 				connect(se->Editor, SIGNAL(cursorPositionChanged(int, int)), se, SLOT(updateProps(int, int)));
-				se->newAlign(se->Editor->currentParaStyle);
+//				se->newAlign(se->Editor->currentParaStyle);
 			}
 		}
 	}

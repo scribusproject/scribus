@@ -6669,14 +6669,14 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
  */
 	if (CurrStED != NULL)
 	{
-		if (CurrStED->Editor->StyledText.count() != 0)
+/*		if (CurrStED->Editor->StyledText.count() != 0)
 		{
 			for (uint pa = 0; pa < CurrStED->Editor->StyledText.count(); ++pa)
 			{
 				SEditor::ChList *chars;
 				chars = CurrStED->Editor->StyledText.at(pa);
 				(*CurrStED->Editor->ParagStyles.at(pa)) = ers[CurrStED->Editor->ParagStyles[pa]];
-				/*
+				
 				int cabneu = 0;
 				for (uint e = 0; e < chars->count(); ++e)
 				{
@@ -6737,15 +6737,16 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						chars->at(e)->cab = cabneu;
 					}
 				}
-				 */
+				
 			}
 			CurrStED->Editor->currentParaStyle = ers[CurrStED->Editor->currentParaStyle];
 		}
+	*/
 	}
 	doc->docParagraphStyles.redefine(dia->TempVorl);
 	if (CurrStED != NULL)
 	{
-		if (CurrStED->Editor->StyledText.count() != 0)
+		if (CurrStED->Editor->StyledText.length() != 0)
 			CurrStED->Editor->updateAll();
 	}
 	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)

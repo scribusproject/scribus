@@ -11,7 +11,7 @@ template<class STYLE>
 class StyleSet : public StyleBase {
 public:
 	STYLE& operator[] (uint index) { assert(index < styles.count()); return * styles[index]; }
-	STYLE& operator[] (QString name) { return * resolve(name); }
+	const STYLE& operator[] (const QString& name) const { return * dynamic_cast<const STYLE*>(resolve(name)); }
 	const STYLE& operator[] (uint index) const { assert(index < styles.count()); return * styles[index]; }
 	inline int find(QString name);
 	inline const Style* resolve(QString name) const;
