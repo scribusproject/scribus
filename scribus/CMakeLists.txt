@@ -76,7 +76,7 @@ collect4output.h
 colorblind.h
 colorchart.h
 colorm.h
-colorsetmanager.h
+# colorsetmanager.h
 colorcombo.h
 commonstrings.h
 cpalette.h
@@ -90,7 +90,7 @@ delpages.h
 docinfo.h
 docitemattrprefs.h
 docsections.h
-documentinformation.h
+# documentinformation.h
 druck.h
 edit1format.h
 editformats.h
