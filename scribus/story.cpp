@@ -675,7 +675,8 @@ void SEditor::deleteSel()
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 	start = StyledText.startOfParagraph(PStart) + SelStart;
 	end = StyledText.startOfParagraph(PEnd) + SelEnd;
-	StyledText.removeChars(start, end-start);
+	if (end > start)
+		StyledText.removeChars(start, end-start);
 	setCursorPosition(PStart, SelStart);
 }
 
@@ -2057,16 +2058,20 @@ void StoryEditor::updateProps(int p, int ch)
 		int start;
 		if (Editor->hasSelectedText())
 		{
-			int PStart, PEnd, SelStart, SelEnd;
+			int PStart=0, PEnd=0, SelStart=0, SelEnd=0;
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 			start = Editor->StyledText.startOfParagraph(PStart); 
 			if (SelStart >= 0 && start + SelStart < Editor->StyledText.endOfParagraph(PStart))
-				start = QMIN(start + SelStart, Editor->StyledText.endOfParagraph(p)-1);
+				start = QMIN(start + SelStart, Editor->StyledText.endOfParagraph(PStart)-1);
 			else
 				start = QMIN(start + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
 		}
 		else
-			start = QMIN(start + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
+			start = QMIN(Editor->StyledText.startOfParagraph(p) + QMAX(ch-1, 0), Editor->StyledText.endOfParagraph(p)-1);
+		if (start >= Editor->StyledText.length())
+			start = Editor->StyledText.length() - 1;
+		if (start < 0)
+			start = 0;
 		const CharStyle& charStyle(Editor->StyledText.charStyle(start));
 		Editor->CurrTextFill = charStyle.fillColor();
 		Editor->CurrTextFillSh = charStyle.fillShade();
@@ -2556,11 +2561,12 @@ void StoryEditor::changeStyleSB(int pa, int st)
 	if (Editor->StyledText.length() != 0)
 	{
 		disconnect(Editor, SIGNAL(cursorPositionChanged(int, int)), this, SLOT(updateProps(int, int)));
-		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
+/*		qDebug(QString("changeStyleSB: pa=%2, start=%2, new=%3 %4")
 			   .arg(pa)
 			   .arg(Editor->StyledText.startOfParagraph(pa))
 			   .arg(newStyle.parent())
 			   .arg(newStyle.hasParent()));
+*/
 		Editor->StyledText.applyStyle(Editor->StyledText.startOfParagraph(pa), newStyle);
 
 		Editor->updateFromChars(pa);
