@@ -1902,7 +1902,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		else if (( inputProfColorSpace == icSigCmykData ) && ((ext == "psd") || (ext == "tif") || (ext == "tiff")))
 		{
 			if (pDataLoader->r_image.channels() == 5)
-				inputProfFormat = TYPE_CMYKA_8;
+				inputProfFormat = (COLORSPACE_SH(PT_CMYK)|EXTRA_SH(1)|CHANNELS_SH(4)|BYTES_SH(1));
 			else
 				inputProfFormat = TYPE_CMYK_8;
 		}
