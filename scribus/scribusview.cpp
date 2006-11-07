@@ -10617,12 +10617,19 @@ void ScribusView::TextToPath()
 					const CharStyle& charStyle(currItem->itemText.charStyle(a));
 					chstr = currItem->itemText.text(a,1);
 					if ((chstr == QChar(13)) || (chstr == QChar(32)) || (chstr == QChar(29)))
+					{
+						if ((chstr == QChar(32)) || (chstr == QChar(29)))
+							CurX += hl->glyph.wide();
 						continue;
+					}
 					if (chstr == QChar(30))
 					{
 						chstr = currItem->ExpandToken(a);
 						if (chstr == QChar(32))
+						{
+							CurX += hl->glyph.wide();
 							continue;
+						}
 					}
 //					int chs = hl->fontSize();
 					int chs = charStyle.fontSize();
