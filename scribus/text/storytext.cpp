@@ -330,6 +330,8 @@ static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 		delete it->parstyle;
 		it->parstyle = 0;
 	}
+	// demote this parsep so the assert code doesnt choke:
+	it->ch = " ";
 	d->replaceCharStyleBaseInParagraph(pos, that->paragraphStyle(pos+1).charStyleBase());	
 }
 
