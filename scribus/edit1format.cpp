@@ -425,9 +425,20 @@ void EditStyle::toggleLsp(int id)
 	}
 	lineSpacingPop->setItemChecked(id, true);
 	if (lineSpacingPop->indexOf(id) > 0)
+	{
+		LineSpVal->setSpecialValueText( tr( "Auto" ) );
+		LineSpVal->setMinValue(0);
+		LineSpVal->setValue(0);
 		LineSpVal->setEnabled(false);
+	}
 	else
+	{
 		LineSpVal->setEnabled(true);
+		LineSpVal->setSpecialValueText("");
+		LineSpVal->setMinValue(1);
+		double val = SizeC->value();
+		LineSpVal->setValue((val  * AutoVal / 100) + val);
+	}
 	updatePreview();
 }
 
@@ -468,7 +479,8 @@ void EditStyle::ColorChange()
 void EditStyle::FontChange()
 {
 	double val = SizeC->value();
-	LineSpVal->setValue((val  * AutoVal / 100) + val);
+	if (LineSpVal->isEnabled())
+		LineSpVal->setValue((val  * AutoVal / 100) + val);
 	updatePreview();
 }
 

@@ -2078,9 +2078,19 @@ void Mpalette::setLsp(double r)
 	if (tmp)
 	{
 		if (CurItem->currentStyle().lineSpacingMode() > 0)
+		{
+			LineSp->setSpecialValueText( tr( "Auto" ) );
+			LineSp->setMinValue(0);
+			LineSp->setValue(0);
 			LineSp->setEnabled(false);
+		}
 		else
+		{
 			LineSp->setEnabled(true);
+			LineSp->setSpecialValueText("");
+			LineSp->setMinValue(1);
+			LineSp->setValue(r);
+		}
 		for (uint al = 0; al < lineSpacingPop->count(); ++al)
 		{
 			lineSpacingPop->setItemChecked(lineSpacingPop->idAt(al), false);
