@@ -163,11 +163,8 @@ QString SMParagraphStyle::fromSelection() const
 	{
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
-		ParagraphStyle pstyle(item->currentStyle());
-		int index = pstyle.hasParent() ? 
-			findParagraphStyle(doc_, *dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle())) : 0;
 
-		QString tmpName = doc_->docParagraphStyles[index].name();
+		QString tmpName = item->itemText.defaultStyle().name();
 
 		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
 		{
@@ -187,9 +184,7 @@ void SMParagraphStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	ParagraphStyle newStyle;
-	newStyle.setParent(styleName);
-	doc_->itemSelection_ApplyParagraphStyle(newStyle);
+	doc_->itemSelection_ApplyParagraphStyle(doc_->docParagraphStyles[styleName]);
 }
 
 QString SMParagraphStyle::newStyle()
@@ -198,8 +193,8 @@ QString SMParagraphStyle::newStyle()
 		return QString::null;
 
 	QString s = getUniqueName( tr("New Style"));
-	// i suppose this is the default style to get the default attributes in
-	tmpStyles_.append(doc_->docParagraphStyles[0]);
+
+	tmpStyles_.append(doc_->docParagraphStyles[""]);
 	tmpStyles_.last().setName(s);
 	return s;
 }
@@ -1199,7 +1194,7 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 		else
 		{
 			QString name = selection_[i]->name();
-			*selection_[i] = doc_->docParagraphStyles[0]; // FIXME set to default style
+			*selection_[i] = doc_->docParagraphStyles[""];
 			selection_[i]->setName(name);
 		}
 
@@ -1249,7 +1244,7 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 			selection_[i]->charStyle().setParent(parent);
 		}
 		else
-			selection_[i]->charStyle() = doc_->docParagraphStyles[0].charStyle();
+			selection_[i]->charStyle() = doc_->docParagraphStyles[""].charStyle();
 		
 		sel << selection_[i]->name();
 	}
@@ -1379,7 +1374,28 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 QString SMCharacterStyle::fromSelection() const
 {
-	return QString::null;
+	QString lsName = QString::null;
+	if (!doc_)
+		return lsName; // no doc available
+
+	for (uint i = 0; i < doc_->m_Selection->count(); ++i)
+	{
+		// wth is going on here
+		PageItem *item = doc_->m_Selection->itemAt(i);
+
+		QString tmpName = item->itemText.defaultStyle().charStyle().name();
+
+		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
+		{
+			lsName = tmpName;
+		}
+		else if (lsName != QString::null && !tmpName.isEmpty() && tmpName != "" && lsName != tmpName)
+		{
+			lsName = QString::null;
+			break;
+		}
+	}
+	return lsName;
 }
 
 void SMCharacterStyle::toSelection(const QString &styleName) const
@@ -1387,9 +1403,7 @@ void SMCharacterStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	CharStyle newStyle;
-	newStyle.setParent(styleName);
-	doc_->itemSelection_ApplyCharStyle(newStyle);
+	doc_->itemSelection_ApplyCharStyle(doc_->docCharStyles[styleName]);
 }
 
 QString SMCharacterStyle::newStyle()
@@ -1398,7 +1412,7 @@ QString SMCharacterStyle::newStyle()
 
 	QString s = getUniqueName( tr("New Style"));
 	// fetching default values now from here
-	tmpStyles_.append(CharStyle(doc_->docParagraphStyles[0].charStyle()));
+	tmpStyles_.append(CharStyle(doc_->docParagraphStyles[""].charStyle()));
 	tmpStyles_.last().setName(s);
 	return s;
 }
@@ -1982,7 +1996,7 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 		else
 		{
 			QString name = selection_[i]->name();
-			*selection_[i] = doc_->docParagraphStyles[0].charStyle(); // FIXME set to default style
+			*selection_[i] = doc_->docParagraphStyles[""].charStyle();
 			selection_[i]->setName(name);
 		}
 		sel << selection_[i]->name();
