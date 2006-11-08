@@ -682,6 +682,9 @@ public:
 	void itemSelection_ApplyCharStyle(const CharStyle & newstyle);
 	void itemSelection_SetCharStyle(const CharStyle & newstyle);
 
+	void itemSelection_SetNamedParagraphStyle(const QString & name);
+	void itemSelection_SetNamedCharStyle(const QString & name);
+
 	void ChLineWidth(double w);
 	void ChLineArt(Qt::PenStyle w);
 	void ChLineJoin(Qt::PenJoinStyle w);

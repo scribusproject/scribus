@@ -4583,6 +4583,20 @@ void ScribusDoc::itemSelection_SetFont(QString fon)
 	itemSelection_ApplyCharStyle(newStyle);
 }
 
+void ScribusDoc::itemSelection_SetNamedCharStyle(const QString& name)
+{
+	CharStyle newStyle;
+	newStyle.setParent(name);
+	itemSelection_ApplyCharStyle(newStyle);
+}
+
+void ScribusDoc::itemSelection_SetNamedParagraphStyle(const QString& name)
+{
+	ParagraphStyle newStyle;
+	newStyle.setParent(name);
+	itemSelection_ApplyParagraphStyle(newStyle);
+}
+
 void ScribusDoc::ItemPen(QString farbe)
 {
 	uint selectedItemCount=m_Selection->count();
@@ -4860,296 +4874,7 @@ void ScribusDoc::itemSelection_SetEffects(int s)
 		changed();
 	}
 }
-#if 0
-void ScribusDoc::chAbStyle(PageItem *currItem, int s)
-{
-#if 0
-	int a, ax;
-	PageItem *nextItem;
-	bool cr = true;
-	if (appMode == modeEdit)
-	{
-		nextItem = currItem;
-		// make a a valid pos
-		a = currItem->CPos;
-		if (a == nextItem->itemText.length())
-			a -= 1;
-		// search back for PARSEP
-		while ((cr) && (nextItem != 0)) // FIXME NLS
-		{
-			if (nextItem->itemText.length() == 0)
-			{
-				nextItem = nextItem->BackBox;
-				if (nextItem == 0)
-				{
-					cr = false;
-					break;
-				}
-				a = static_cast<int>(nextItem->itemText.length()-1);
-			}
-			ax = a;
-			for (int xx=0; xx<ax+1; ++xx)
-			{
-				if (nextItem->itemText.text(a) == SpecialChars::PARSEP)
-				{
-					cr = false;
-					break;
-				}
-				// to user defined style
-				if (s > 4)
-				{
-					if ( !docParagraphStyles[s].charStyle().font().isNone()
-						&& (!nextItem->HasSel || nextItem->itemText.selected(a)))
-					{
-						// set default charstyle
-						nextItem->itemText.item(a)->setFont(docParagraphStyles[s].charStyle().font());
-						nextItem->itemText.item(a)->setFontSize(docParagraphStyles[s].charStyle().fontSize());
-						if (docParagraphStyles[s].charStyle().effects() != ScStyle_None) {
-							StyleFlag fl = nextItem->itemText.item(a)->effects(); 
-							fl &= static_cast<StyleFlag>(~1919);
-							fl |= static_cast<StyleFlag>(docParagraphStyles[s].charStyle().effects() & 1919);
-							nextItem->itemText.item(a)->setEffects(fl);
-						}
-						nextItem->itemText.item(a)->setFillColor(docParagraphStyles[s].charStyle().fillColor());
-						nextItem->itemText.item(a)->setFillShade(docParagraphStyles[s].charStyle().fillShade());
-						nextItem->itemText.item(a)->setStrokeColor(docParagraphStyles[s].charStyle().strokeColor());
-						nextItem->itemText.item(a)->setStrokeShade(docParagraphStyles[s].charStyle().strokeShade());
-						nextItem->itemText.item(a)->setShadowXOffset(docParagraphStyles[s].charStyle().shadowXOffset());
-						nextItem->itemText.item(a)->setShadowYOffset(docParagraphStyles[s].charStyle().shadowYOffset());
-						nextItem->itemText.item(a)->setOutlineWidth(docParagraphStyles[s].charStyle().outlineWidth());
-						nextItem->itemText.item(a)->setUnderlineOffset(docParagraphStyles[s].charStyle().underlineOffset());
-						nextItem->itemText.item(a)->setUnderlineWidth(docParagraphStyles[s].charStyle().underlineWidth());
-						nextItem->itemText.item(a)->setStrikethruOffset(docParagraphStyles[s].charStyle().strikethruOffset());
-						nextItem->itemText.item(a)->setStrikethruWidth(docParagraphStyles[s].charStyle().strikethruWidth());
-						nextItem->itemText.item(a)->setScaleH(docParagraphStyles[s].charStyle().scaleH());
-						nextItem->itemText.item(a)->setScaleV(docParagraphStyles[s].charStyle().scaleV());
-						nextItem->itemText.item(a)->setBaselineOffset(docParagraphStyles[s].charStyle().baselineOffset());
-						nextItem->itemText.item(a)->setTracking(docParagraphStyles[s].charStyle().tracking());
-					}
-				}
-				// from userdefined style to predefined
-				if ((s < 5) && (nextItem->itemText.item(a)->cab > 4))
-				{
-					reinterpret_cast<CharStyle&>(*nextItem->itemText.item(a)) = nextItem->itemText.defaultStyle().charStyle();
-/*???					if (nextItem->TxTStyle != ScStyle_None) {
-						nextItem->itemText.item(a)->cstyle &= static_cast<StyleFlag>(~1919);
-						nextItem->itemText.item(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle & 1919);
-					}
-*/				}
-				nextItem->itemText.item(a)->cab = s;
-				a--;
-			}
-			if (cr)
-			{
-				nextItem = nextItem->BackBox;
-				if (nextItem != 0)
-					a = nextItem->lastInFrame();
-			}
-		}
-		a = currItem->CPos;
-		cr = true;
-		nextItem = currItem;
-		if (a > nextItem->lastInFrame())
-			cr = false;
-		while ((cr) && (nextItem != 0))
-		{
-			while (a <= nextItem->lastInFrame())
-			{
-				if (s > 4)
-				{
-					if ( !docParagraphStyles[s].charStyle().font().isNone()
-						&& (!nextItem->HasSel || nextItem->itemText.selected(a)))
-					{
-						nextItem->itemText.item(a)->setFont(docParagraphStyles[s].charStyle().font());
-						nextItem->itemText.item(a)->setFontSize(docParagraphStyles[s].charStyle().fontSize());
-						if (docParagraphStyles[s].charStyle().effects() != ScStyle_None) {
-							StyleFlag fl = nextItem->itemText.item(a)->effects(); 
-							fl &= static_cast<StyleFlag>(~1919);
-							fl |= static_cast<StyleFlag>(docParagraphStyles[s].charStyle().effects() & 1919);
-							nextItem->itemText.item(a)->setEffects(fl);
-						}
-						nextItem->itemText.item(a)->setFillColor(docParagraphStyles[s].charStyle().fillColor());
-						nextItem->itemText.item(a)->setFillShade(docParagraphStyles[s].charStyle().fillShade());
-						nextItem->itemText.item(a)->setStrokeColor(docParagraphStyles[s].charStyle().strokeColor());
-						nextItem->itemText.item(a)->setStrokeShade(docParagraphStyles[s].charStyle().strokeShade());
-						nextItem->itemText.item(a)->setShadowXOffset(docParagraphStyles[s].charStyle().shadowXOffset());
-						nextItem->itemText.item(a)->setShadowYOffset(docParagraphStyles[s].charStyle().shadowYOffset());
-						nextItem->itemText.item(a)->setOutlineWidth(docParagraphStyles[s].charStyle().outlineWidth());
-						nextItem->itemText.item(a)->setUnderlineOffset(docParagraphStyles[s].charStyle().underlineOffset());
-						nextItem->itemText.item(a)->setUnderlineWidth(docParagraphStyles[s].charStyle().underlineWidth());
-						nextItem->itemText.item(a)->setStrikethruOffset(docParagraphStyles[s].charStyle().strikethruOffset());
-						nextItem->itemText.item(a)->setStrikethruWidth(docParagraphStyles[s].charStyle().strikethruWidth());
-						nextItem->itemText.item(a)->setScaleH(docParagraphStyles[s].charStyle().scaleH());
-						nextItem->itemText.item(a)->setScaleV(docParagraphStyles[s].charStyle().scaleV());
-						nextItem->itemText.item(a)->setBaselineOffset(docParagraphStyles[s].charStyle().baselineOffset());
-						nextItem->itemText.item(a)->setTracking(docParagraphStyles[s].charStyle().tracking());
-					}
-				}
-				if ((s < 5) && (nextItem->itemText.item(a)->cab > 4))
-				{
-/*FIXME:av					nextItem->itemText.item(a)->ccolor = nextItem->TxtFill;
-					nextItem->itemText.item(a)->cshade = nextItem->ShTxtFill;
-					nextItem->itemText.item(a)->cstroke = nextItem->TxtStroke;
-					nextItem->itemText.item(a)->cshade2 = nextItem->ShTxtStroke;
-					nextItem->itemText.item(a)->csize = nextItem->fontSize();
-					nextItem->itemText.item(a)->cfont = (*AllFonts)[nextItem->font()];
-					if (nextItem->TxTStyle != ScStyle_None) {
-						nextItem->itemText.item(a)->cstyle &= static_cast<StyleFlag>(~1919);
-						nextItem->itemText.item(a)->cstyle |= static_cast<StyleFlag>(nextItem->TxTStyle & 1919);
-					}
-					nextItem->itemText.item(a)->cshadowx = nextItem->TxtShadowX;
-					nextItem->itemText.item(a)->cshadowy = nextItem->TxtShadowY;
-					nextItem->itemText.item(a)->coutline = nextItem->TxtOutline;
-					nextItem->itemText.item(a)->cunderpos = nextItem->TxtUnderPos;
-					nextItem->itemText.item(a)->cunderwidth = nextItem->TxtUnderWidth;
-					nextItem->itemText.item(a)->cstrikepos = nextItem->TxtStrikePos;
-					nextItem->itemText.item(a)->cstrikewidth = nextItem->TxtStrikeWidth;
-					nextItem->itemText.item(a)->cscale = nextItem->TxtScale;
-					nextItem->itemText.item(a)->cscalev = nextItem->TxtScaleV;
-					nextItem->itemText.item(a)->cbase = nextItem->TxtBase;
-					nextItem->itemText.item(a)->cextra = nextItem->ExtraV;
-*/				}
-				nextItem->itemText.item(a)->cab = s;
-				if ((nextItem->itemText.text(a) == SpecialChars::PARSEP) && (!nextItem->itemText.selected(a)))
-				{
-					cr = false;
-					break;
-				}
-				++a;
-			}
-			if (cr)
-			{
-				nextItem = nextItem->NextBox;
-				a = 0;
-			}
-		}
-	}
-	else
-	{
-		// whole frame selected
-		if (UndoManager::undoEnabled())
-		{
-			SimpleState *ss = new SimpleState(s > 4 ? Um::SetStyle : Um::AlignText, "", Um::IFont);
-			ss->set("PSTYLE", "pstyle");
-			int oldPStyle = findParagraphStyle(currItem->doc(), currItem->currentStyle());
-			ss->set("OLD_STYLE", oldPStyle);
-			ss->set("NEW_STYLE", s);
-			undoManager->action(currItem, ss);
-		}
-		currItem->changeCurrentStyle().setAlignment(s);
-		if (currItem->itemText.length() != 0)
-		{
-			for (a = 0; a < currItem->itemText.length(); ++a)
-			{
-				if (s > 4)
-				{
-					if ( !docParagraphStyles[s].charStyle().font().isNone())
-					{
-						currItem->itemText.item(a)->setFont(docParagraphStyles[s].charStyle().font());
-						currItem->itemText.item(a)->setFontSize(docParagraphStyles[s].charStyle().fontSize());
-						if (docParagraphStyles[s].charStyle().effects() != ScStyle_None) {
-							StyleFlag fl = currItem->itemText.item(a)->effects(); 
-							fl &= static_cast<StyleFlag>(~1919);
-							fl |= static_cast<StyleFlag>(docParagraphStyles[s].charStyle().effects() & 1919);
-							currItem->itemText.item(a)->setEffects(fl);
-						}
-						currItem->itemText.item(a)->setFillColor(docParagraphStyles[s].charStyle().fillColor());
-						currItem->itemText.item(a)->setFillShade(docParagraphStyles[s].charStyle().fillShade());
-						currItem->itemText.item(a)->setStrokeColor(docParagraphStyles[s].charStyle().strokeColor());
-						currItem->itemText.item(a)->setStrokeShade(docParagraphStyles[s].charStyle().strokeShade());
-						currItem->itemText.item(a)->setShadowXOffset(docParagraphStyles[s].charStyle().shadowXOffset());
-						currItem->itemText.item(a)->setShadowYOffset(docParagraphStyles[s].charStyle().shadowYOffset());
-						currItem->itemText.item(a)->setOutlineWidth(docParagraphStyles[s].charStyle().outlineWidth());
-						currItem->itemText.item(a)->setUnderlineOffset(docParagraphStyles[s].charStyle().underlineOffset());
-						currItem->itemText.item(a)->setUnderlineWidth(docParagraphStyles[s].charStyle().underlineWidth());
-						currItem->itemText.item(a)->setStrikethruOffset(docParagraphStyles[s].charStyle().strikethruOffset());
-						currItem->itemText.item(a)->setStrikethruWidth(docParagraphStyles[s].charStyle().strikethruWidth());
-						currItem->itemText.item(a)->setScaleH(docParagraphStyles[s].charStyle().scaleH());
-						currItem->itemText.item(a)->setScaleV(docParagraphStyles[s].charStyle().scaleV());
-						currItem->itemText.item(a)->setBaselineOffset(docParagraphStyles[s].charStyle().baselineOffset());
-						currItem->itemText.item(a)->setTracking(docParagraphStyles[s].charStyle().tracking());
-					}
-				}
-				if ((s < 5) && (currItem->itemText.item(a)->cab > 4))
-				{
-/*					currItem->itemText.item(a)->ccolor = currItem->TxtFill;
-					currItem->itemText.item(a)->cshade = currItem->ShTxtFill;
-					currItem->itemText.item(a)->cstroke = currItem->TxtStroke;
-					currItem->itemText.item(a)->cshade2 = currItem->ShTxtStroke;
-					currItem->itemText.item(a)->cfont = (*AllFonts)[currItem->font()];
-					currItem->itemText.item(a)->csize = currItem->fontSize();
-					currItem->itemText.item(a)->cstyle &= static_cast<StyleFlag>(~1919);
-					currItem->itemText.item(a)->cstyle |= static_cast<StyleFlag>(currItem->TxTStyle);
-					currItem->itemText.item(a)->cshadowx = currItem->TxtShadowX;
-					currItem->itemText.item(a)->cshadowy = currItem->TxtShadowY;
-					currItem->itemText.item(a)->coutline = currItem->TxtOutline;
-					currItem->itemText.item(a)->cunderpos = currItem->TxtUnderPos;
-					currItem->itemText.item(a)->cunderwidth = currItem->TxtUnderWidth;
-					currItem->itemText.item(a)->cstrikepos = currItem->TxtStrikePos;
-					currItem->itemText.item(a)->cstrikewidth = currItem->TxtStrikeWidth;
-					currItem->itemText.item(a)->cscale = currItem->TxtScale;
-					currItem->itemText.item(a)->cscalev = currItem->TxtScaleV;
-					currItem->itemText.item(a)->cbase = currItem->TxtBase;
-					currItem->itemText.item(a)->cextra = currItem->ExtraV;
-*/				}
-				currItem->itemText.item(a)->cab = s;
-			}
-		}
-	}
-#else
-	ParagraphStyle newPStyle;
-	if (s > 4) {
-		newPStyle.setParent( & currItem->doc()->docParagraphStyles[s] );
-	}
-	else {
-		newPStyle.setAlignment(s);
-	}
-	
-	if (appMode == modeEdit)
-	{
-		if (s > 4)
-			currItem->itemText.eraseStyle(currItem->CPos, currItem->itemText.paragraphStyle(currItem->CPos)); 
-		currItem->itemText.applyStyle(currItem->CPos, newPStyle);
-	}
-	else {
-		if (s > 4) {
-			currItem->itemText.setDefaultStyle(newPStyle);
-		}
-		else {
-			ParagraphStyle newDefStyle(currItem->itemText.defaultStyle());
-			newDefStyle.applyStyle(newPStyle);
-			currItem->itemText.setDefaultStyle(newDefStyle);
-		}			
-	}
-#endif
-	// update view
-	if (!currItem->Tinput)
-		emit refreshItem(currItem);
-	if (appMode == modeEdit)
-	{
-		const ParagraphStyle& pstyle(currItem->currentStyle());
-		view()->horizRuler->setItem(currItem);
-		if (currItem->lineColor() != CommonStrings::None)
-			m_View->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
-		else
-			m_View->horizRuler->lineCorr = 0;
-		m_View->horizRuler->ColGap = currItem->ColGap;
-		m_View->horizRuler->Cols = currItem->Cols;
-		m_View->horizRuler->Extra = currItem->textToFrameDistLeft();
-		m_View->horizRuler->RExtra = currItem->textToFrameDistRight();
-		m_View->horizRuler->First = pstyle.firstIndent();
-		m_View->horizRuler->Indent = pstyle.leftMargin();
-		double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1)) 
-							  - currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft() 
-							  - 2*m_View->horizRuler->lineCorr) / currItem->columns();
-		m_View->horizRuler->RMargin = columnWidth - pstyle.rightMargin();
-		m_View->horizRuler->Revers = (currItem->imageFlippedH() || (currItem->reversed()));
-		m_View->horizRuler->ItemPosValid = true;
-		m_View->horizRuler->TabValues = pstyle.tabValues();
-		m_View->horizRuler->repaint();
-	}
-}
-#endif
+
 
 void ScribusDoc::itemSelection_SetTracking(int kern)
 {
@@ -5255,6 +4980,8 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				{
 					start = currItem->itemText.startOfSelection();
 					stop = currItem->itemText.endOfSelection();
+					if (start >= stop)
+						start = stop = QMIN(0, QMAX(currItem->itemText.length(), currItem->CPos));
 				}
 				for (int pos=start; pos < stop; ++pos) {
 					if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
@@ -5299,6 +5026,8 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				{
 					start = currItem->itemText.startOfSelection();
 					stop = currItem->itemText.endOfSelection();
+					if (start >= stop)
+						start = stop = QMIN(0, QMAX(currItem->itemText.length(), currItem->CPos));
 				}
 				for (int pos=start; pos < stop; ++pos) {
 					if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
@@ -5342,6 +5071,8 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
+					if (length <= 0)
+						length = 1;
 				}
 				currItem->itemText.applyCharStyle(start, QMAX(0, length), newstyle);
 				currItem->invalid = true;
@@ -5382,6 +5113,8 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
 				{
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
+					if (length <= 0)
+						length = 1;
 				}
 				currItem->itemText.setCharStyle(start, length, newstyle);
 				currItem->invalid = true;
