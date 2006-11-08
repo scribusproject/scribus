@@ -127,7 +127,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 	{
 		for (uint i = 0; i < tmpStyles_.count(); ++i)
 		{
-			if (tmpStyles_[i].displayName() == styleNames[0])
+			if (tmpStyles_[i].name() == styleNames[0])
 			{
 				pwidget_->show(tmpStyles_[i], pstyles, cstyles, doc_->unitIndex());
 				selection_.append(&tmpStyles_[i]);
@@ -317,32 +317,17 @@ void SMParagraphStyle::apply()
 	{
 		int index = doc_->docParagraphStyles.find(deleted_[i].first);
 		if (index > -1)
-			doc_->docParagraphStyles.remove(index);
+		{
+			const ParagraphStyle *with =
+                dynamic_cast<const ParagraphStyle*>(doc_->docParagraphStyles.resolve(deleted_[i].second));
+			if (with)
+				doc_->docParagraphStyles.remove(index, with);
+		}
 	}
 
 	doc_->docParagraphStyles.redefine(tmpStyles_);
 
 	deleted_.clear(); // deletion done at this point
-
-// 	if (doc_->scMW()->CurrStED != NULL)
-// 	{
-// 		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
-// 		{
-// 			for (uint pa = 0; pa < doc_->scMW()->CurrStED->Editor->StyledText.count(); ++pa)
-// 			{
-// 				SEditor::ChList *chars;
-// 				chars = doc_->scMW()->CurrStED->Editor->StyledText.at(pa);
-// 				(*doc_->scMW()->CurrStED->Editor->ParagStyles.at(pa)) = ers[doc_->scMW()->CurrStED->Editor->ParagStyles[pa]];
-// 			}
-// 			doc_->scMW()->CurrStED->Editor->currentParaStyle = ers[doc_->scMW()->CurrStED->Editor->currentParaStyle];
-// 		}
-// 	}
-// 
-// 	if (doc_->scMW()->CurrStED != NULL)
-// 	{
-// 		if (doc_->scMW()->CurrStED->Editor->StyledText.count() != 0)
-// 			doc_->scMW()->CurrStED->Editor->updateAll();
-// 	}
 
 	doc_->scMW()->propertiesPalette->Spal->updateFormatList();
 	doc_->scMW()->propertiesPalette->updateColorList();
@@ -1168,37 +1153,21 @@ void SMParagraphStyle::slotFont(QString s)
 
 void SMParagraphStyle::slotParentChanged(const QString &parent)
 {
-	//FIXME:av
-	QStringList sel;
-	ParagraphStyle *p = 0;
-	bool setParent = false;
+	Q_ASSERT(parent != QString::null);
 
-	if (parent != "" && !parent.isEmpty() && parent != QString::null)
-	{
-		int index = doc_->docParagraphStyles.find(parent);
-		if (index > -1)
-		{
-			p = &(doc_->docParagraphStyles[index]);
-			setParent = true;
-		}
-	}
+	QStringList sel;
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		if (setParent)
+		const ParagraphStyle *style =
+		    dynamic_cast<const ParagraphStyle*>(doc_->docParagraphStyles.resolve(parent));
+		if (style)
 		{
 			selection_[i]->erase(); // reset everything to NOVALUE
 			selection_[i]->setParent(parent);
 			selection_[i]->charStyle().setParent("");
+			sel << selection_[i]->name();
 		}
-		else
-		{
-			QString name = selection_[i]->name();
-			*selection_[i] = doc_->docParagraphStyles[""];
-			selection_[i]->setName(name);
-		}
-
-		sel << selection_[i]->name();
 	}
 
 	selected(sel);
@@ -1212,40 +1181,17 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 
 void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 { // TODO Multiple selection
+//   FIXME crashing crashing crashing
+	Q_ASSERT(parent != QString::null);
+
 	QStringList sel;
-	const CharStyle *c = 0;
-	bool setParent = true;
-
-	int cItem = pwidget_->cpage->parentCombo->currentItem();
-
-	if (selection_[0]->hasParent() && cItem == 1) // from parent
-	{
-		const Style *s = selection_[0]->parentStyle();
-		const ParagraphStyle *tmp = dynamic_cast<const ParagraphStyle*>(s);
-		c = &(tmp->charStyle());
-	}
-	else if (parent != "" && !parent.isEmpty() && parent != QString::null)
-	{
-		int index = doc_->docCharStyles.find(parent);
-		if (index > -1)
-			c = &(doc_->docCharStyles[index]);
-		else
-			setParent = false;
-	}
-	else
-		setParent = false;
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		if (setParent)
-		{
-			// reset everything to NOVALUE
-			selection_[i]->charStyle().erase(); 
-			selection_[i]->charStyle().setParent(parent);
-		}
-		else
-			selection_[i]->charStyle() = doc_->docParagraphStyles[""].charStyle();
-		
+		// reset everything to NOVALUE
+		selection_[i]->charStyle().erase();
+		selection_[i]->charStyle().setParent(parent);
+
 		sel << selection_[i]->name();
 	}
 
@@ -1470,10 +1416,15 @@ void SMCharacterStyle::apply()
 		return;
 
 	for (uint i = 0; i < deleted_.count(); ++i)
-	{ // TODO apply also user defined replacement!!!
+	{
 		int index = doc_->docCharStyles.find(deleted_[i].first);
 		if (index > -1)
-			doc_->docCharStyles.remove(static_cast<uint>(index));
+		{
+			const CharStyle *with =
+		        dynamic_cast<const CharStyle*>(doc_->docCharStyles.resolve(deleted_[i].second));
+			if (with)
+				doc_->docCharStyles.remove(static_cast<uint>(index), with);
+		}
 	}
 	deleted_.clear();
 	doc_->docCharStyles.redefine(tmpStyles_);
@@ -1970,35 +1921,14 @@ void SMCharacterStyle::slotFont(QString s)
 
 void SMCharacterStyle::slotParentChanged(const QString &parent)
 {
-	QStringList sel;
-	CharStyle *c = 0;
-	bool setParent = true;
+	Q_ASSERT(parent != QString::null);
 
-	if (parent != "" && !parent.isEmpty() && parent != QString::null)
-	{
-		int index = doc_->docCharStyles.find(parent);
-		if (index > -1)
-			c = &(doc_->docCharStyles[index]);
-		else
-			setParent = false;
-	}
-	else
-		setParent = false;
+	QStringList sel;
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		if (setParent)
-		{
-			// reset everything to NOVALUE
-			selection_[i]->erase(); 
-			selection_[i]->setParent(parent);
-		}
-		else
-		{
-			QString name = selection_[i]->name();
-			*selection_[i] = doc_->docParagraphStyles[""].charStyle();
-			selection_[i]->setName(name);
-		}
+		selection_[i]->erase(); 
+		selection_[i]->setParent(parent);
 		sel << selection_[i]->name();
 	}
 

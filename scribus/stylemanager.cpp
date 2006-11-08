@@ -182,6 +182,9 @@ void StyleManager::slotApply()
 
 void StyleManager::slotDelete()
 {
+	if (!isEditMode_)
+		slotOk(); // switch to edit mode before deleting
+
 	QStringList selected;
 
 	if (rcStyle_ != QString::null)
@@ -315,6 +318,9 @@ void StyleManager::slotNewPopup(int i)
 	QString typeName = rcType_;
 	if (typeName == QString::null)
 		typeName = newPopup_->text(i);
+
+	rcType_ = QString::null;
+	rcStyle_ = QString::null;
 
 	createNewStyle(typeName);
 }

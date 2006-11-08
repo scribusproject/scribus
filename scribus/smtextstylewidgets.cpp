@@ -241,7 +241,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 //  ASK Avox!
 // 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
 
-	cpage->parentLabel->setText( tr("Based on"));
+	cpage->parentLabel->setText(tr("Based on"));
 	cpage->show(pstyle.charStyle(), cstyles);
 
 	if (hasParent_)
@@ -289,9 +289,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	parentCombo->clear();
 	parentCombo->insertItem("");
 
-	for (uint i = 5; i < pstyles.count(); ++i)
+	for (uint i = 0; i < pstyles.count(); ++i)
 	{
-		if (pstyles[i].displayName() != pstyle.displayName())
+		if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle.displayName())
 			parentCombo->insertItem(pstyles[i].displayName());
 	}
 
@@ -543,7 +543,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parentStyle());
 
-	bool hasParent = cstyle.hasParent() && parent->hasName();
+	bool hasParent = parent != 0 && parent->hasName();
 
 	if (hasParent)
 	{
