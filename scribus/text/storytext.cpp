@@ -50,6 +50,7 @@ public:
 		pstyleBase(other.pstyleBase),
 		refs(1), len(0) 
 	{
+		pstyleBase.setDefaultStyle( & defaultStyle );
 		setAutoDelete(true); 
 		QPtrListIterator<ScText> it( other );
 		ScText* elem;
@@ -381,14 +382,14 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 		return;
 	
 	const CharStyle style = pos == 0 ? defaultStyle().charStyle() : charStyle(pos - 1);
-//	assert( !style.font().isNone() );
-	
-//	const int paraStyle = pos == 0 ? 0 : at(pos - 1)->cab;
+	const StyleBase* cStyleBase = paragraphStyle(pos).charStyleBase();
+	//	assert( !style.font().isNone() );
 	
 	for (uint i = 0; i < txt.length(); ++i) {
 		ScText * item = new ScText();
 		item->ch= txt.mid(i, 1);
 		*static_cast<CharStyle *>(item) = style;
+		item->setBase(cStyleBase);
 		d->insert(pos + i, item);
 		d->len++;
 		if (item->ch[0] == SpecialChars::PARSEP) {
@@ -541,7 +542,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		++pos;
 		that->d->next();
 	}
-	if (pos == length()) {
+	if (pos >= length()) {
 //		qDebug(QString("using default parstyle at end (%1)").arg(pos));
 		return that->d->defaultStyle;
 	}
