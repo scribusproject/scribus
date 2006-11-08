@@ -126,7 +126,7 @@ public:
 			{
 				lastBase = elem->base();
 			}
-			else
+			else if ( !elem->ch.isEmpty() ) // see code in removeParSep
 			{
 				assert( lastBase == elem->base() );
 			}
@@ -330,8 +330,9 @@ static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 		delete it->parstyle;
 		it->parstyle = 0;
 	}
-	// demote this parsep so the assert code doesnt choke:
-	it->ch = " ";
+	// demote this parsep so the assert code in replaceCharStyleBaseInParagraph()
+	// doesnt choke:
+	it->ch = "";
 	d->replaceCharStyleBaseInParagraph(pos, that->paragraphStyle(pos+1).charStyleBase());	
 }
 

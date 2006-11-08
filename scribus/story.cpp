@@ -448,13 +448,8 @@ void SEditor::saveItemText(PageItem *currItem)
 */
 }
 
-void SEditor::setAlign(int style)
+void SEditor::setAlign(int align)
 {
-	int align = 0;
-	if (style > 4)
-		align = doc->docParagraphStyles[style-5].alignment();
-	else
-		align = style;
 	switch (align)
 	{
 	case 0:
