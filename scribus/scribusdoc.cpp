@@ -5343,7 +5343,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 					start = currItem->itemText.startOfSelection();
 					length = currItem->itemText.endOfSelection() - start;
 				}
-				currItem->itemText.applyCharStyle(start, length, newstyle);
+				currItem->itemText.applyCharStyle(start, QMAX(0, length), newstyle);
 				currItem->invalid = true;
 				
 				if (currItem->asPathText())
