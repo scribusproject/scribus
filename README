@@ -1,4 +1,4 @@
-This is Scribus Version 1.3.3.5cvs, the ninth release of the 1.3.x development
+This is Scribus Version 1.3.3.5, the ninth release of the 1.3.x development
 series.
 
 CHANGES 1.2.x to 1.3.x
@@ -78,8 +78,8 @@ PSD/CMYK TIFF Support
 1.3.3+ now has support for CMYK PSD and 8-bit CMYK TIFF support. RGB PSD and
 16-bit TIFF support is being developed. PSD and TIFF support includes layers, ICC 
 profiles and embedding clipping paths. CMYKA is not yet supported as there is a 
-limitation in the Qimage class. RGBA is supported. Expect this to be enhanced in
-a future version.
+limitation in the Qimage class. RGBA is supported. Current Scribus 1.3.4cvs does 
+handle a much larger variety of CMYKA files along with advanced PSD features.
 
 Issue with gradients:
 
