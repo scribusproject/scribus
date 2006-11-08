@@ -2735,7 +2735,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			view->RefreshItem(this);
 			break;
 		}
-		if (((uc[0] > QChar(31)) || (as == 13) || (as == 30)) && (m_Doc->currentStyle.charStyle().font().canRender(uc[0])))
+		if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
 		{
 			// should go when hyphenator respects charstyle settings
 			QString Language = CPos < itemText.length()? 
