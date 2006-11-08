@@ -145,23 +145,23 @@ private:
 
 inline CharStyle & CharStyle::operator=(const CharStyle & other)
 {
-	other.validate();
 	static_cast<Style&>(*this) = static_cast<const Style&>(other);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	m_baseversion = -1;
 	return *this;
 }
 
 inline CharStyle::CharStyle(const CharStyle & other) : Style(other) 
 {
-	other.validate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	m_baseversion = -1;
 }
 
