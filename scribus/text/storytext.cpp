@@ -115,7 +115,11 @@ public:
 		QPtrListIterator<ScText> test( *this );
 		const StyleBase* lastBase = NULL;
 		while ( (elem = it.current()) != NULL ) {
-			if (elem->ch[0] == SpecialChars::PARSEP)
+			if ( elem->ch.isEmpty() ) 
+			{
+				// nothing, see code in removeParSep
+			}
+			else if (elem->ch[0] == SpecialChars::PARSEP)
 			{
 				assert( elem->parstyle );
 				if ( lastBase )
@@ -126,7 +130,7 @@ public:
 			{
 				lastBase = elem->base();
 			}
-			else if ( !elem->ch.isEmpty() ) // see code in removeParSep
+			else 
 			{
 				assert( lastBase == elem->base() );
 			}
