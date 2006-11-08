@@ -321,7 +321,7 @@ void SMParagraphStyle::apply()
 			const ParagraphStyle *with =
                 dynamic_cast<const ParagraphStyle*>(doc_->docParagraphStyles.resolve(deleted_[i].second));
 			if (with)
-				doc_->docParagraphStyles.remove(index, with);
+				doc_->docParagraphStyles.remove(index/*, with*/);
 		}
 	}
 
@@ -1423,7 +1423,7 @@ void SMCharacterStyle::apply()
 			const CharStyle *with =
 		        dynamic_cast<const CharStyle*>(doc_->docCharStyles.resolve(deleted_[i].second));
 			if (with)
-				doc_->docCharStyles.remove(static_cast<uint>(index), with);
+				doc_->docCharStyles.remove(static_cast<uint>(index)/*, with*/);
 		}
 	}
 	deleted_.clear();
