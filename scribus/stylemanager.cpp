@@ -41,6 +41,11 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	splitter->setResizeMode(rightFrame, QSplitter::Stretch);
 	uniqueLabel->hide();
 	rightFrame->hide();
+	svLayout = new QHBoxLayout(styleViewFrame);
+	styleView = new StyleView(styleViewFrame);
+	svLayout->addWidget(styleView);
+	styleView->addColumn(tr("Name"));
+	styleView->addColumn(tr("Shortcut"));
 	styleView->header()->hide();
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
@@ -104,6 +109,8 @@ void StyleManager::languageChange()
 	{
 		popupStrings << items_.at(i)->typeNameSingular();
 		items_.at(i)->languageChange();
+		styleClassesPS_[items_.at(i)->typeNamePlural()] = items_.at(i)->typeNameSingular();
+		styleClassesSP_[items_.at(i)->typeNameSingular()] = items_.at(i)->typeNamePlural();
 	}
 	popupStrings.sort();
 	for (uint i = 0; i < popupStrings.count(); ++i)
@@ -114,9 +121,10 @@ void StyleManager::languageChange()
 		addNewType(items_.at(i));
 
 	rightClickPopup_->clear();
-	rightClickPopup_->insertItem( tr("New"), newPopup_);
+	rcpNewId_ = rightClickPopup_->insertItem( tr("New"), newPopup_);
 	rightClickPopup_->insertItem( tr("Import"), this, SLOT(slotImport()));
 	rightClickPopup_->insertSeparator();
+	rcpEditId_ = rightClickPopup_->insertItem(tr("Edit"), this, SLOT(slotEdit()));
 	rcpCloneId_ = rightClickPopup_->insertItem( tr("Clone"), this, SLOT(slotClone()));
 	rcpToScrapId_ = rightClickPopup_->insertItem( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
 	rightClickPopup_->insertSeparator();
@@ -174,14 +182,17 @@ void StyleManager::slotApply()
 
 void StyleManager::slotDelete()
 {
-	if (!isEditMode_)
-		slotOk(); // switch to edit mode for deletion
-
 	QStringList selected;
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
-	while (it.current()) {
-		selected << it.current()->text(0);
-		++it;
+
+	if (rcStyle_ != QString::null)
+		selected << rcStyle_;
+	else
+	{
+		QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+		while (it.current()) {
+			selected << it.current()->text(0);
+			++it;
+		}
 	}
 	if (selected.isEmpty())
 		return; // nothing to delete
@@ -208,11 +219,63 @@ void StyleManager::slotImport()
 	
 }
 
+void StyleManager::slotEdit()
+{
+	if (!isEditMode_)
+		slotOk(); // switch to edit mode for cloning
+
+	if (rcStyle_ != QString::null)
+	{
+		QListViewItemIterator it(styleView);
+		while (it.current())
+		{
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+			if (item && !item->isRoot())
+			{
+				if (item->rootName() == styleClassesSP_[rcType_] &&
+				    item->text(0) == rcStyle_)
+				{
+					styleView->setCurrentItem(item);
+					item->setSelected(true);
+					item->repaint();
+					break;
+				}
+			}
+			++it;
+		}
+		rcStyle_ = QString::null;
+		rcType_ = QString::null;
+	}
+}
+
 
 void StyleManager::slotClone()
 {
 	if (!isEditMode_)
 		slotOk(); // switch to edit mode for cloning
+
+	if (rcStyle_ != QString::null)
+	{
+		QListViewItemIterator it(styleView);
+		while (it.current())
+		{
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+			if (item && !item->isRoot())
+			{
+				if (item->rootName() == styleClassesSP_[rcType_] &&
+				    item->text(0) == rcStyle_)
+				{
+					styleView->setCurrentItem(item);
+					item->setSelected(true);
+					item->repaint();
+					break;
+				}
+			}
+			++it;
+		}
+		rcStyle_ = QString::null;
+		rcType_ = QString::null;
+	}
 
 	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
 	QValueList<QPair<QString, QString> > names;
@@ -249,26 +312,58 @@ void StyleManager::slotNewPopup(int i)
 	if (!isEditMode_)
 		slotOk(); // switch to edit mode for a new style
 
-	QString typeName = newPopup_->text(i);
-	
+	QString typeName = rcType_;
+	if (typeName == QString::null)
+		typeName = newPopup_->text(i);
+
 	createNewStyle(typeName);
 }
 
 void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int col)
 {
-	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
-	if (sitem && !sitem->isRoot())
-	{
+	rcStyle_ = QString::null;
+	rcType_ = QString::null;
+
+	if (isEditMode_ && item) // make item the only selection if in edit mode
+	{                        // default behaviour for right clicking is not to select the item
 		styleView->clearSelection();
 		styleView->setCurrentItem(item);
 		item->setSelected(true);
+		item->repaint();
+	}
+
+	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(item);
+	if (sitem && !sitem->isRoot())
+	{
+		rightClickPopup_->removeItem(rcpNewId_);
+		rcpNewId_ = rightClickPopup_->insertItem(tr("New %1").arg(styleClassesPS_[sitem->rootName()]),
+		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, true);
+		rightClickPopup_->setItemEnabled(rcpEditId_, true);
 		rightClickPopup_->setItemEnabled(rcpCloneId_, true);
 		rightClickPopup_->setItemEnabled(rcpToScrapId_, true);
+		rcStyle_ = sitem->text(0);
+		rcType_ = styleClassesPS_[sitem->rootName()];
+		loadType(styleClassesPS_[sitem->rootName()]);
+	}
+	else if (sitem && sitem->isRoot())
+	{
+		rightClickPopup_->removeItem(rcpNewId_);
+		rcpNewId_ = rightClickPopup_->insertItem(tr("New %1").arg(styleClassesPS_[sitem->text(0)]),
+		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
+		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
+		rightClickPopup_->setItemEnabled(rcpEditId_, false);
+		rightClickPopup_->setItemEnabled(rcpCloneId_, false);
+		rightClickPopup_->setItemEnabled(rcpToScrapId_, false);
+		rcType_ = styleClassesPS_[sitem->text(0)];
+		loadType(rcType_);
 	}
 	else
 	{
+		rightClickPopup_->removeItem(rcpNewId_);
+		rcpNewId_ = rightClickPopup_->insertItem(tr("New"), newPopup_, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
+		rightClickPopup_->setItemEnabled(rcpEditId_, false);
 		rightClickPopup_->setItemEnabled(rcpCloneId_, false);
 		rightClickPopup_->setItemEnabled(rcpToScrapId_, false);
 	}
@@ -278,14 +373,7 @@ void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int 
 
 void StyleManager::createNewStyle(const QString &typeName, const QString &fromParent)
 {
-	for (uint i = 0; i < items_.count(); ++i)
-	{
-		if (items_.at(i)->typeNameSingular() == typeName)
-		{
-			item_ = items_.at(i);
-			break;
-		}
-	}
+	loadType(typeName); // get the right style class
 	Q_ASSERT(item_);
 
 	QString newName = fromParent == QString::null ?
@@ -690,27 +778,36 @@ QPair<QString, QStringList> StyleManager::namesFromSelection()
 {
 	QString typeName = QString::null;
 	QStringList styleNames;
-	QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
-	while (it.current())
+
+	if (rcStyle_ == QString::null)
 	{
-		StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
-		if (!item)
+		QListViewItemIterator it(styleView, QListViewItemIterator::Selected);
+		while (it.current())
 		{
+			StyleViewItem *item = dynamic_cast<StyleViewItem*>(it.current());
+			if (!item)
+			{
+				++it;
+				continue;
+			}
+			else if (typeName == QString::null)
+				typeName = item->rootName();
+			else if (typeName != QString::null && typeName != item->rootName())
+			{
+				typeName = QString::null;
+				break; // two different types selected returning null
+			}
+	
+			if (!item->isRoot())
+				styleNames << item->text(NAME_COL);
+	
 			++it;
-			continue;
 		}
-		else if (typeName == QString::null)
-			typeName = item->rootName();
-		else if (typeName != QString::null && typeName != item->rootName())
-		{
-			typeName = QString::null;
-			break; // two different types selected returning null
-		}
-
-		if (!item->isRoot())
-			styleNames << item->text(NAME_COL);
-
-		++it;
+	}
+	else // right click selection which doesn't show in the gui
+	{
+		typeName = rcType_;
+		styleNames << rcStyle_;
 	}
 	return QPair<QString, QStringList>(typeName, styleNames);
 }
@@ -722,13 +819,12 @@ void StyleManager::loadType(const QString &name)
 	item_ = 0;
 	for (uint i = 0; i < items_.count(); ++i)
 	{
-		if (items_.at(i)->typeName() == name)
+		if (items_.at(i)->typeNameSingular() == name || items_.at(i)->typeName() == name)
 		{
 			item_ = items_.at(i);
 			break;
 		}
 	}
-
 	if (!item_)
 		return;
 
@@ -767,6 +863,26 @@ void StyleManager::hideEvent(QHideEvent *e)
 StyleManager::~StyleManager()
 {
 	
+}
+
+/*** StyleViewItem *******************************************************************/
+
+StyleView::StyleView(QWidget *parent) : QListView(parent, "StyleView")
+{
+
+}
+
+StyleView::~StyleView()
+{
+
+}
+
+void StyleView::contentsMousePressEvent(QMouseEvent *e)
+{
+	if (e->button() == Qt::RightButton)
+		emit rightButtonClicked(itemAt(e->pos()), e->globalPos(), 0);
+	else
+		QListView::contentsMousePressEvent(e);
 }
 
 /*** StyleViewItem *******************************************************************/

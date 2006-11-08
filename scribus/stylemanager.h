@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "stylemanagerbase.h"
 #include <qlistview.h>
+#include <qmap.h>
 
 class StyleItem;
 class ScribusDoc;
@@ -26,6 +27,7 @@ class QSize;
 class ShortcutWidget;
 class QPopupMenu;
 class PrefsContext;
+class StyleView;
 
 class StyleManager : public SMBase {
 	Q_OBJECT
@@ -54,8 +56,12 @@ private:
 	QString             currentType_;
 	QPopupMenu         *newPopup_;
 	QPopupMenu         *rightClickPopup_;
+	StyleView          *styleView;
+	QHBoxLayout        *svLayout;
 
+	int                 rcpNewId_;
 	int                 rcpDeleteId_;
+	int                 rcpEditId_;
 	int                 rcpCloneId_;
 	int                 rcpToScrapId_;
 
@@ -64,6 +70,8 @@ private:
 	QValueList<int>     splitterSizes_;
 	int                 height_;
 	QPoint              editPosition_;
+	QString             rcStyle_;
+	QString             rcType_;
 
 	PrefsContext       *prefs_;
 
@@ -73,6 +81,10 @@ private:
 	void insertShortcutPage(QTabWidget *twidget);
 
 	bool nameIsUnique(const QString &name);
+
+	// will be used to map plural style name to it's singular
+	QMap<QString, QString> styleClassesPS_;
+	QMap<QString, QString> styleClassesSP_;
 
 	// QPair.first will be the type name (null if nothing is selected or
 	// if there are styles from more than one type in the selection)
@@ -88,6 +100,7 @@ private slots:
 	void slotApply();
 	void slotDelete();
 	void slotImport();
+	void slotEdit();
 	void slotClone();
 	void slotNew();
 	void slotNewPopup(int);
@@ -103,6 +116,16 @@ private slots:
 
 	void slotDirty();
 	void slotClean();
+};
+
+class StyleView : public QListView
+{
+	Q_OBJECT
+public:
+	StyleView(QWidget *parent);
+	~StyleView();
+protected:
+	void contentsMousePressEvent (QMouseEvent *e);
 };
 
 class StyleViewItem : public QListViewItem

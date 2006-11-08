@@ -153,16 +153,14 @@ void SMPStyleWidget::setupCharStyle()
 void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
 {
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle());
-	bool hasParent = parent != NULL;
+	hasParent_ = parent != NULL && parent->hasName();
 
 	lineSpacingMode_->clear();
 	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
 	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
 
-	hasParent_ = hasParent;
-
-	if (hasParent)
+	if (hasParent_)
 	{
 		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode(), pstyle.isInhLineSpacingMode());
 		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
@@ -246,7 +244,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	cpage->parentLabel->setText( tr("Based on"));
 	cpage->show(pstyle.charStyle(), cstyles);
 
-	if (hasParent)
+	if (hasParent_)
 	{
 		cpage->parentCombo->insertItem( tr("Parent's Character Style"), 1);
 		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parentStyle()->hasName())
@@ -297,7 +295,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 			parentCombo->insertItem(pstyles[i].displayName());
 	}
 
-	if (hasParent)
+	if (hasParent_)
 	{
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
@@ -543,8 +541,9 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
-	bool hasParent = cstyle.hasParent();
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parentStyle());
+
+	bool hasParent = cstyle.hasParent() && parent->hasName();
 
 	if (hasParent)
 	{
@@ -615,7 +614,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 			parentCombo->insertItem(cstyles[i].displayName());
 	}
 
-	if (cstyle.hasParent())
+	if (hasParent)
 	{
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
