@@ -63,7 +63,16 @@ public:
 	QLabel* pageCountLabel;
 	QLabel* TextLabel2_2;
 	QLabel* unitOfMeasureLabel;
+	QLabel* BleedTxt1;
+	QLabel* BleedTxt2;
+	QLabel* BleedTxt3;
+	QLabel* BleedTxt4;
+	QGroupBox* BleedGroup;
 	QComboBox* pageSizeComboBox;
+	MSpinBox* BleedBottom;
+	MSpinBox* BleedLeft;
+	MSpinBox* BleedRight;
+	MSpinBox* BleedTop;
 	QComboBox* pageOrientationComboBox;
 	QComboBox* unitOfMeasureComboBox;
 	QCheckBox* startUpDialog;
@@ -120,6 +129,7 @@ protected:
 	QGridLayout* Layout2;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* recentDocLayout;
+	QGridLayout* BleedGroupLayout;
 	PrefsManager* prefsManager;
 	QStringList recentDocList;
 };

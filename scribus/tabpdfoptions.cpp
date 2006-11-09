@@ -1078,23 +1078,6 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		PagePrev->setChecked(false);
 		PageTime->setValue(EffVal[0].pageViewDuration);
 		EffectTime->setValue(EffVal[0].pageEffectDuration);
-		// XXX Optionen or Opts Changed here
-/*		if (doc->currentPageLayout == doublePage)
-		{
-			if (doc->pageSets[doc->currentPageLayout].FirstPage == 0)
-				Opts.PageLayout = PDFOptions::TwoColumnLeft;
-			else
-				Opts.PageLayout = PDFOptions::TwoColumnRight;
-		}
-		else
-			Opts.PageLayout = PDFOptions::SinglePage;
-		if (Opts.PresentMode)
-			Opts.displayFullscreen = true;
-		else
-		{
-			if ((Opts.Version == 15) && (Opts.useLayers))
-				Opts.displayLayers = true;
-		} */
 		bool df = true;
 		if ((Opts.displayBookmarks) || (Opts.displayFullscreen) || (Opts.displayLayers) || (Opts.displayThumbs))
 			df = false;
@@ -1253,13 +1236,10 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	docInfoMarks->setChecked(Opts.docInfoMarks);
 	if (!cmsUse)
 		X3Group->setEnabled(false);
-//		setTabEnabled(tabPDFX, false);
 	if (cmsUse && (Opts.Version == 12) && (!PDFXProfiles.isEmpty()))
 		EnablePDFX(3);
 	else
 		X3Group->setEnabled(false);
-//		setTabEnabled(tabPDFX, false);
-//	BleedChanged();
 	if (mdoc != 0  && exporting)
 	{
 		PgSel = 0;
@@ -1302,30 +1282,7 @@ void TabPDFOptions::ToggleEncr()
 	GroupSecSet->setEnabled(setter);
 	GroupPass->setEnabled(setter);
 }
-/*
-void TabPDFOptions::BleedChanged()
-{
-	BleedTop->setMaxValue(pageH*unitRatio-BleedBottom->value());
-	BleedBottom->setMaxValue(pageH*unitRatio-BleedTop->value());
-	BleedRight->setMaxValue(pageB*unitRatio-BleedLeft->value());
-	BleedLeft->setMaxValue(pageB*unitRatio-BleedRight->value());
-	QPixmap pm(70,80);
-	pm.fill(white);
-	QPainter p;
-	p.begin(&pm);
-	p.setBrush(NoBrush);
-	p.setPen(black);
-	p.drawRect(0, 0, pm.width(), pm.height());
-	p.setPen(QPen(black, 1, DotLine, FlatCap, MiterJoin));
-	int x = qRound((BleedLeft->value() / unitRatio) * (70.0 / pageB));
-	int y = qRound((BleedTop->value() / unitRatio) * (80.0 / pageH));
-	int w =qRound((pageB-((BleedLeft->value()+BleedRight->value())/unitRatio))*(70.0/pageB));
-	int h = qRound((pageH-((BleedTop->value()+BleedBottom->value())/unitRatio))*(80.0/pageH));
-	p.drawRect(x, y, w, h);
-	BleedIcon->setPixmap(pm);
-	p.end();
-}
-*/
+
 void TabPDFOptions::enableCMS(bool enable)
 {
 	disconnect(PDFVersionCombo, SIGNAL(activated(int)), this, SLOT(EnablePDFX(int)));
@@ -1352,7 +1309,6 @@ void TabPDFOptions::EnablePDFX(int a)
 	if (a != 3)
 	{
 		X3Group->setEnabled(false);
-//		setTabEnabled(tabPDFX, false);
 		setTabEnabled(tabSecurity, true);
 		OutCombo->setEnabled(true);
 		EmbedProfs2->setEnabled(true);
@@ -1389,7 +1345,6 @@ void TabPDFOptions::EnablePDFX(int a)
 	}
 	EnablePGI();
 	X3Group->setEnabled(true);
-//	setTabEnabled(tabPDFX, true);
 	setTabEnabled(tabSecurity, false);
 	connect(OutCombo, SIGNAL(activated(int)), this, SLOT(EnablePr(int)));
 }
@@ -1493,9 +1448,6 @@ void TabPDFOptions::EnableLPI(int a)
 		{
 			GroupBox9->show();
 			ProfsGroup->show();
-//			UseLPI->hide();
-//			useSpot->hide();
-//			overprintMode->hide();
 		}
 		else
 		{
@@ -1579,7 +1531,6 @@ void TabPDFOptions::DoEffects()
 	Pages->setEnabled(setter);
 	Effects->setEnabled(setter);
 	PagePrev->setEnabled(setter);
-//	useFullScreen->setChecked(setter);
 }
 
 void TabPDFOptions::ValidDI(int nr)

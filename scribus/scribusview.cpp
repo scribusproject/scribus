@@ -391,7 +391,33 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
 				int w = qRound(Doc->Pages->at(a)->width() * Scale);
 				int h = qRound(Doc->Pages->at(a)->height() * Scale);
-				QRect drawRect = QRect(x, y, w+5, h+5);
+
+				double bleedRight;
+				double bleedLeft;
+				bool drawBleed = false;
+				if ((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0))
+					drawBleed = true;
+				if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == LeftPage)
+				{
+					bleedRight = Doc->BleedRight;
+					bleedLeft = Doc->BleedLeft;
+				}
+				else if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == RightPage)
+				{
+					bleedRight = Doc->BleedLeft;
+					bleedLeft = Doc->BleedRight;
+				}
+				else
+				{
+					bleedRight = Doc->BleedLeft;
+					bleedLeft = Doc->BleedLeft;
+				}
+				int blx = qRound((Doc->Pages->at(a)->xOffset() - bleedLeft) * Scale);
+				int bly = qRound((Doc->Pages->at(a)->yOffset() - Doc->BleedTop) * Scale);
+				int blw = qRound((Doc->Pages->at(a)->width() + bleedLeft + bleedRight) * Scale);
+				int blh = qRound((Doc->Pages->at(a)->height() + Doc->BleedBottom + Doc->BleedTop) * Scale);
+
+				QRect drawRect = QRect(blx, bly, blw+5, blh+5);
 				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
@@ -408,7 +434,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					if (!viewAsPreview)
 					{
 						painter->setBrush(QColor(128,128,128));
-						painter->drawRect(x+5, y+5, w, h);
+						painter->drawRect(blx+5, bly+5, blw, blh);
 					}
 					if (a == Doc->currentPageNumber())
 						painter->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
@@ -418,7 +444,17 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 #ifdef HAVE_CAIRO
 					painter->setAntialiasing(false);
 #endif
-					painter->drawRect(x, y, w, h);
+					if (!viewAsPreview)
+					{
+						painter->drawRect(blx, bly, blw, blh);
+						if (drawBleed)
+						{
+							painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+							painter->drawRect(x, y, w, h);
+						}
+					}
+					else
+						painter->drawRect(x, y, w, h);
 #ifdef HAVE_CAIRO
 					painter->setAntialiasing(true);
 #endif

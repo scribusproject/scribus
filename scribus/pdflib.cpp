@@ -1891,15 +1891,25 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	ll.LNr = 0;
 	if (Options.UseLPI)
 		PutPage("/"+HTName+" gs\n");
+	double bleedRight = 0.0;
+	double bleedLeft = 0.0;
 	if (!pag->MPageNam.isEmpty())
 	{
-		double bleedLeft;
 		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+		{
+			bleedRight = Options.BleedRight;
 			bleedLeft = Options.BleedLeft;
+		}
 		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+		{
+			bleedRight = Options.BleedLeft;
 			bleedLeft = Options.BleedRight;
+		}
 		else
+		{
+			bleedRight = Options.BleedLeft;
 			bleedLeft = Options.BleedLeft;
+		}
 		PutPage("1 0 0 1 "+FToStr(bleedLeft)+" "+FToStr(Options.BleedBottom)+" cm\n");
 	}
 	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
@@ -1914,8 +1924,11 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		PutPage(FToStr(pag->Margins.Left) + " " + FToStr(ActPageP->height() - pag->Margins.Top) + " l h W n\n");
 	}
 	else
-		PutPage("0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+" re W n\n");
-
+	{
+		double maxBoxX = ActPageP->width()+bleedLeft+bleedRight;
+		double maxBoxY = ActPageP->height()+Options.BleedBottom+Options.BleedTop;
+		PutPage("0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+" re W n\n");
+	}
 	if (!pag->MPageNam.isEmpty())
 	{
 		Page* mPage = doc.MasterPages.at(doc.MasterNames[doc.Pages->at(PNr)->MPageNam]);

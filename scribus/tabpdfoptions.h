@@ -118,7 +118,6 @@ signals:
 
 public slots:
 	void ToggleEncr();
-//	void BleedChanged();
 	void EnablePDFX(int a);
 	void DoDownsample();
 	void RemoveEmbed();
@@ -203,7 +202,6 @@ private:
 	QCheckBox* colorMarks;
 	QCheckBox* docInfoMarks;
 	MSpinBox* markOffset;
-//	QLabel* BleedIcon;
 	QGroupBox* CBox;
 	QGridLayout* CBoxLayout;
 	QGroupBox* ColorGroup;

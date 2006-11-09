@@ -1797,6 +1797,10 @@ void ScribusMainWindow::startUpDialog()
 			QString pagesize = ps2.name();
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
+			doc->BleedBottom = dia->BleedBottom->value();
+			doc->BleedTop = dia->BleedTop->value();
+			doc->BleedLeft = dia->BleedLeft->value();
+			doc->BleedRight = dia->BleedRight->value();
 			HaveNewDoc();
 		}
 		else
@@ -1848,6 +1852,10 @@ bool ScribusMainWindow::slotFileNew()
 		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
 		{
 			doc->pageSets[facingPages].FirstPage = firstPage;
+			doc->BleedBottom = dia->BleedBottom->value();
+			doc->BleedTop = dia->BleedTop->value();
+			doc->BleedLeft = dia->BleedLeft->value();
+			doc->BleedRight = dia->BleedRight->value();
 			mainWindowStatusLabel->setText( tr("Ready"));
 			HaveNewDoc();
 			retVal = true;
