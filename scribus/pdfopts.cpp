@@ -243,6 +243,16 @@ void PDFExportDialog::updateDocOptions()
 	Opts.hideMenuBar = Options->hideMenuBar->isChecked();
 	Opts.hideToolBar = Options->hideToolBar->isChecked();
 	Opts.fitWindow = Options->fitWindow->isChecked();
+	Opts.BleedTop = Options->BleedTop->value()/docUnitRatio;
+	Opts.BleedLeft = Options->BleedLeft->value()/docUnitRatio;
+	Opts.BleedRight = Options->BleedRight->value()/docUnitRatio;
+	Opts.BleedBottom = Options->BleedBottom->value()/docUnitRatio;
+	Opts.markOffset = Options->markOffset->value()/docUnitRatio;
+	Opts.cropMarks = Options->cropMarks->isChecked();
+	Opts.bleedMarks = Options->bleedMarks->isChecked();
+	Opts.registrationMarks = Options->registrationMarks->isChecked();
+	Opts.colorMarks = Options->colorMarks->isChecked();
+	Opts.docInfoMarks = Options->docInfoMarks->isChecked();
 	int pgl = PDFOptions::SinglePage;
 	if (Options->singlePage->isChecked())
 		pgl = PDFOptions::SinglePage;
@@ -327,10 +337,6 @@ void PDFExportDialog::updateDocOptions()
 						components = 3;
 					cmsCloseProfile(hIn);
 					Opts.Info = Options->InfoString->text();
-					Opts.BleedTop = Options->BleedTop->value()/docUnitRatio;
-					Opts.BleedLeft = Options->BleedLeft->value()/docUnitRatio;
-					Opts.BleedRight = Options->BleedRight->value()/docUnitRatio;
-					Opts.BleedBottom = Options->BleedBottom->value()/docUnitRatio;
 					Opts.Encrypt = false;
 					Opts.MirrorH = false;
 					Opts.MirrorV = false;

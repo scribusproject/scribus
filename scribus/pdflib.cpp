@@ -1756,11 +1756,34 @@ void PDFlib::PDF_End_Page()
 	}
 	StartObj(ObjCounter);
 	PutDoc("<<\n/Type /Page\n/Parent 4 0 R\n");
-	PutDoc("/MediaBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
-	if (Options.Version == 12)
-		PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
+	double bleedRight;
+	double bleedLeft;
+	if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+	{
+		bleedRight = Options.BleedRight;
+		bleedLeft = Options.BleedLeft;
+	}
+	else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+	{
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedRight;
+	}
 	else
-		PutDoc("/TrimBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
+	{
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedLeft;
+	}
+	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight;
+	double maxBoxY = ActPageP->height()+Options.BleedBottom+Options.BleedTop;
+	PutDoc("/MediaBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
+	PutDoc("/BleedBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
+	PutDoc("/CropBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
+	PutDoc("/TrimBox ["+FToStr(bleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(maxBoxX-bleedRight)+" "+FToStr(maxBoxY-Options.BleedTop)+"]\n");
+	PutDoc("/ArtBox ["+FToStr(bleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(maxBoxX-bleedRight)+" "+FToStr(maxBoxY-Options.BleedTop)+"]\n");
+//	if (Options.Version == 12)
+//		PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
+//	else
+//		PutDoc("/TrimBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
 	if (Options.Version >= 14) // && (Transpar.count() != 0))
@@ -1868,6 +1891,17 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	ll.LNr = 0;
 	if (Options.UseLPI)
 		PutPage("/"+HTName+" gs\n");
+	if (!pag->MPageNam.isEmpty())
+	{
+		double bleedLeft;
+		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+			bleedLeft = Options.BleedLeft;
+		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+			bleedLeft = Options.BleedRight;
+		else
+			bleedLeft = Options.BleedLeft;
+		PutPage("1 0 0 1 "+FToStr(bleedLeft)+" "+FToStr(Options.BleedBottom)+" cm\n");
+	}
 	if ( (Options.MirrorH) && (!pag->MPageNam.isEmpty()) )
 		PutPage("-1 0 0 1 "+FToStr(ActPageP->width())+" 0 cm\n");
 	if ( (Options.MirrorV) && (!pag->MPageNam.isEmpty()) )

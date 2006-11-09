@@ -118,7 +118,7 @@ signals:
 
 public slots:
 	void ToggleEncr();
-	void BleedChanged();
+//	void BleedChanged();
 	void EnablePDFX(int a);
 	void DoDownsample();
 	void RemoveEmbed();
@@ -195,7 +195,15 @@ private:
 	QListBox* AvailFlist;
 	QGroupBox* BleedGroup;
 	QGridLayout* BleedGroupLayout;
-	QLabel* BleedIcon;
+	QGroupBox* MarkGroup;
+	QGridLayout* MarkGroupLayout;
+	QCheckBox* cropMarks;
+	QCheckBox* bleedMarks;
+	QCheckBox* registrationMarks;
+	QCheckBox* colorMarks;
+	QCheckBox* docInfoMarks;
+	MSpinBox* markOffset;
+//	QLabel* BleedIcon;
 	QGroupBox* CBox;
 	QGridLayout* CBoxLayout;
 	QGroupBox* ColorGroup;
@@ -252,6 +260,11 @@ private:
 	QLabel* ProfsTxt2;
 	QLabel* ProfsTxt3;
 	QLabel* ProfsTxt4;
+	QLabel* BleedTxt1;
+	QLabel* BleedTxt2;
+	QLabel* BleedTxt3;
+	QLabel* BleedTxt4;
+	QLabel* MarkTxt1;
 	QButtonGroup* RangeGroup;
 	QVBoxLayout* RangeGroupLayout;
 	QCheckBox* SubsetFonts;

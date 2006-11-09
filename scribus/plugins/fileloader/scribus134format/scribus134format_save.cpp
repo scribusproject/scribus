@@ -42,6 +42,10 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	dc.setAttribute("BORDERRIGHT",m_Doc->pageMargins.Right);
 	dc.setAttribute("BORDERTOP",m_Doc->pageMargins.Top);
 	dc.setAttribute("BORDERBOTTOM",m_Doc->pageMargins.Bottom);
+	dc.setAttribute("BleedTop", m_Doc->BleedTop);
+	dc.setAttribute("BleedLeft", m_Doc->BleedLeft);
+	dc.setAttribute("BleedRight", m_Doc->BleedRight);
+	dc.setAttribute("BleedBottom", m_Doc->BleedBottom);
 	dc.setAttribute("ORIENTATION",m_Doc->PageOri);
 	dc.setAttribute("PAGESIZE",m_Doc->m_pageSize);
 	dc.setAttribute("FIRSTNUM",m_Doc->FirstPnum);
@@ -544,6 +548,12 @@ void Scribus134Format::writePdfOptions(QDomDocument & docu)
 	pdf.setAttribute("BLeft", m_Doc->PDF_Options.BleedLeft);
 	pdf.setAttribute("BRight", m_Doc->PDF_Options.BleedRight);
 	pdf.setAttribute("BBottom", m_Doc->PDF_Options.BleedBottom);
+	pdf.setAttribute("cropMarks", static_cast<int>(m_Doc->PDF_Options.cropMarks));
+	pdf.setAttribute("bleedMarks", static_cast<int>(m_Doc->PDF_Options.bleedMarks));
+	pdf.setAttribute("registrationMarks", static_cast<int>(m_Doc->PDF_Options.registrationMarks));
+	pdf.setAttribute("colorMarks", static_cast<int>(m_Doc->PDF_Options.colorMarks));
+	pdf.setAttribute("docInfoMarks", static_cast<int>(m_Doc->PDF_Options.docInfoMarks));
+	pdf.setAttribute("markOffset", m_Doc->PDF_Options.markOffset);
 	pdf.setAttribute("ImagePr", static_cast<int>(m_Doc->PDF_Options.EmbeddedI));
 	pdf.setAttribute("PassOwner", m_Doc->PDF_Options.PassOwner);
 	pdf.setAttribute("PassUser", m_Doc->PDF_Options.PassUser);

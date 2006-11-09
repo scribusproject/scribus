@@ -165,6 +165,14 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	_itemCreationTransactionStarted(false)
 {
 	init();
+	BleedTop = prefsData.BleedTop;
+	BleedLeft = prefsData.BleedLeft;
+	BleedRight = prefsData.BleedRight;
+	BleedBottom = prefsData.BleedBottom;
+	PDF_Options.BleedTop = BleedTop;
+	PDF_Options.BleedLeft = BleedLeft;
+	PDF_Options.BleedRight = BleedRight;
+	PDF_Options.BleedBottom = BleedBottom;
 }
 
 ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
@@ -265,10 +273,14 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 {
 	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
-	PDF_Options.BleedTop = pageMargins.Top;
-	PDF_Options.BleedLeft = pageMargins.Left;
-	PDF_Options.BleedRight = pageMargins.Right;
-	PDF_Options.BleedBottom = pageMargins.Bottom;
+	BleedTop = prefsData.BleedTop;
+	BleedLeft = prefsData.BleedLeft;
+	BleedRight = prefsData.BleedRight;
+	BleedBottom = prefsData.BleedBottom;
+	PDF_Options.BleedTop = BleedTop;
+	PDF_Options.BleedLeft = BleedLeft;
+	PDF_Options.BleedRight = BleedRight;
+	PDF_Options.BleedBottom = BleedBottom;
 }
 
 void ScribusDoc::init()
@@ -927,10 +939,10 @@ void ScribusDoc::setPage(double b, double h, double t, double l, double r, doubl
 	automaticTextFrames = atf;
 
 	//CB Moved from scribus.cpp. Overrides the defaults...
-	PDF_Options.BleedTop = pageMargins.Top;
-	PDF_Options.BleedLeft = pageMargins.Left;
-	PDF_Options.BleedRight = pageMargins.Right;
-	PDF_Options.BleedBottom = pageMargins.Bottom;
+//	PDF_Options.BleedTop = pageMargins.Top;
+//	PDF_Options.BleedLeft = pageMargins.Left;
+//	PDF_Options.BleedRight = pageMargins.Right;
+//	PDF_Options.BleedBottom = pageMargins.Bottom;
 }
 
 void ScribusDoc::resetPage(double t, double l, double r, double bo, int fp)

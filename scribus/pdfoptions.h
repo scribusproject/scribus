@@ -136,6 +136,12 @@ public:
 	bool hideToolBar;
 	bool hideMenuBar;
 	bool fitWindow;
+	bool cropMarks;
+	bool bleedMarks;
+	bool registrationMarks;
+	bool colorMarks;
+	bool docInfoMarks;
+	double markOffset;
 	QString openAction;
 };
 

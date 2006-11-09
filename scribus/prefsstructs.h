@@ -175,6 +175,11 @@ struct ApplicationPrefs
 	int docUnitIndex;
 	windowPrefs mainWinSettings;
 
+	double BleedTop;
+	double BleedLeft;
+	double BleedRight;
+	double BleedBottom;
+
 	PDFOptions PDF_Options;
 	ObjAttrVector defaultItemAttributes;
 	ToCSetupVector defaultToCSetups;

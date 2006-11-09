@@ -383,6 +383,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->pageMargins.Right=QMAX(0.0, dc.attribute("BORDERRIGHT").toDouble());
 		m_Doc->pageMargins.Top=QMAX(0.0, dc.attribute("BORDERTOP").toDouble());
 		m_Doc->pageMargins.Bottom=QMAX(0.0, dc.attribute("BORDERBOTTOM").toDouble());
+		m_Doc->BleedTop = dc.attribute("BleedTop", "0").toDouble();
+		m_Doc->BleedLeft = dc.attribute("BleedLeft", "0").toDouble();
+		m_Doc->BleedRight = dc.attribute("BleedRight", "0").toDouble();
+		m_Doc->BleedBottom = dc.attribute("BleedBottom", "0").toDouble();
 		m_Doc->Automatic = static_cast<bool>(dc.attribute("AUTOMATIC", "1").toInt());
 		m_Doc->AutoCheck = static_cast<bool>(dc.attribute("AUTOCHECK", "0").toInt());
 		m_Doc->GuideLock = static_cast<bool>(dc.attribute("GUIDELOCK", "0").toInt());
@@ -714,6 +718,12 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->PDF_Options.BleedLeft = pg.attribute("BLeft", "0").toDouble();
 				m_Doc->PDF_Options.BleedRight = pg.attribute("BRight", "0").toDouble();
 				m_Doc->PDF_Options.BleedBottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.cropMarks = static_cast<bool>(pg.attribute("cropMarks", "0").toInt());
+				m_Doc->PDF_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks", "0").toInt());
+				m_Doc->PDF_Options.registrationMarks = static_cast<bool>(pg.attribute("registrationMarks", "0").toInt());
+				m_Doc->PDF_Options.colorMarks = static_cast<bool>(pg.attribute("colorMarks", "0").toInt());
+				m_Doc->PDF_Options.docInfoMarks = static_cast<bool>(pg.attribute("docInfoMarks", "0").toInt());
+				m_Doc->PDF_Options.markOffset = pg.attribute("markOffset", "0").toDouble();
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");

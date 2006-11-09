@@ -294,6 +294,10 @@ void PrefsManager::initDefaults()
 	appPrefs.RandUnten = 40;
 	appPrefs.RandLinks = 40;
 	appPrefs.RandRechts = 40;
+	appPrefs.BleedTop = 0;
+	appPrefs.BleedLeft = 0;
+	appPrefs.BleedRight = 0;
+	appPrefs.BleedBottom = 0;
 	appPrefs.toolSettings.scaleType = true;
 	appPrefs.toolSettings.aspectRatio = true;
 	appPrefs.toolSettings.lowResType = 1;
@@ -422,6 +426,12 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.BleedLeft = 0;
 	appPrefs.PDF_Options.BleedRight = 0;
 	appPrefs.PDF_Options.BleedBottom = 0;
+	appPrefs.PDF_Options.cropMarks = false;
+	appPrefs.PDF_Options.bleedMarks = false;
+	appPrefs.PDF_Options.registrationMarks = false;
+	appPrefs.PDF_Options.colorMarks = false;
+	appPrefs.PDF_Options.docInfoMarks = false;
+	appPrefs.PDF_Options.markOffset = 0;
 	appPrefs.PDF_Options.EmbeddedI = false;
 	appPrefs.PDF_Options.Encrypt = false;
 	appPrefs.PDF_Options.PassOwner = "";
@@ -1073,6 +1083,10 @@ bool PrefsManager::WritePref(QString ho)
 	dc76.setAttribute("DOPPEL", appPrefs.FacingPages);
 	dc76.setAttribute("AutoSave", static_cast<int>(appPrefs.AutoSave));
 	dc76.setAttribute("AutoSaveTime", appPrefs.AutoSaveTime);
+	dc76.setAttribute("BleedTop", appPrefs.BleedTop);
+	dc76.setAttribute("BleedLeft", appPrefs.BleedLeft);
+	dc76.setAttribute("BleedRight", appPrefs.BleedRight);
+	dc76.setAttribute("BleedBottom", appPrefs.BleedBottom);
 	elem.appendChild(dc76);
 	QDomElement pageSetAttr = docu.createElement("PageSets");
 	QValueList<PageSet>::Iterator itpgset;
@@ -1257,6 +1271,12 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("BLeft", appPrefs.PDF_Options.BleedLeft);
 	pdf.setAttribute("BRight", appPrefs.PDF_Options.BleedRight);
 	pdf.setAttribute("BBottom", appPrefs.PDF_Options.BleedBottom);
+	pdf.setAttribute("cropMarks", static_cast<int>(appPrefs.PDF_Options.cropMarks));
+	pdf.setAttribute("bleedMarks", static_cast<int>(appPrefs.PDF_Options.bleedMarks));
+	pdf.setAttribute("registrationMarks", static_cast<int>(appPrefs.PDF_Options.registrationMarks));
+	pdf.setAttribute("colorMarks", static_cast<int>(appPrefs.PDF_Options.colorMarks));
+	pdf.setAttribute("docInfoMarks", static_cast<int>(appPrefs.PDF_Options.docInfoMarks));
+	pdf.setAttribute("markOffset", appPrefs.PDF_Options.markOffset);
 	pdf.setAttribute("ImagePr", static_cast<int>(appPrefs.PDF_Options.EmbeddedI));
 	pdf.setAttribute("PassOwner", appPrefs.PDF_Options.PassOwner);
 	pdf.setAttribute("PassUser", appPrefs.PDF_Options.PassUser);
@@ -1597,6 +1617,10 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.FacingPages = dc.attribute("DOPPEL", "0").toInt();
 			appPrefs.AutoSave = static_cast<bool>(dc.attribute("AutoSave", "0").toInt());
 			appPrefs.AutoSaveTime = dc.attribute("AutoSaveTime", "600000").toInt();
+			appPrefs.BleedTop = dc.attribute("BleedTop", "0").toDouble();
+			appPrefs.BleedLeft = dc.attribute("BleedLeft", "0").toDouble();
+			appPrefs.BleedRight = dc.attribute("BleedRight", "0").toDouble();
+			appPrefs.BleedBottom = dc.attribute("BleedBottom", "0").toDouble();
 		}
 		if (dc.tagName()=="PageSets")
 		{
@@ -1817,6 +1841,12 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.BleedLeft = dc.attribute("BLeft", "0").toDouble();
 			appPrefs.PDF_Options.BleedRight = dc.attribute("BRight", "0").toDouble();
 			appPrefs.PDF_Options.BleedBottom = dc.attribute("BBottom", "0").toDouble();
+			appPrefs.PDF_Options.cropMarks = static_cast<bool>(dc.attribute("cropMarks", "0").toInt());
+			appPrefs.PDF_Options.bleedMarks = static_cast<bool>(dc.attribute("bleedMarks", "0").toInt());
+			appPrefs.PDF_Options.registrationMarks = static_cast<bool>(dc.attribute("registrationMarks", "0").toInt());
+			appPrefs.PDF_Options.colorMarks = static_cast<bool>(dc.attribute("colorMarks", "0").toInt());
+			appPrefs.PDF_Options.docInfoMarks = static_cast<bool>(dc.attribute("docInfoMarks", "0").toInt());
+			appPrefs.PDF_Options.markOffset = dc.attribute("markOffset", "0").toDouble();
 			appPrefs.PDF_Options.EmbeddedI = static_cast<bool>(dc.attribute("ImagePr", "0").toInt());
 			appPrefs.PDF_Options.PassOwner = dc.attribute("PassOwner", "");
 			appPrefs.PDF_Options.PassUser = dc.attribute("PassUser", "");
