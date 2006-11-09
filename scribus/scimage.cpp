@@ -6,14 +6,17 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scimage.h"
 #include "scribus.h"
+#include "scribusapp.h"
 #include <qtextstream.h>
 #include <cassert>
 #ifdef HAVE_CMS
 	#include CMS_INC
+	#include "cmsutil.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
 extern bool BlackPoint;
@@ -81,6 +84,7 @@ void ScImage::initialize()
 	imgInfo.valid = false;
 	imgInfo.isRequest = false;
 	imgInfo.progressive = false;
+	imgInfo.isEmbedded = false;
 	imgInfo.exifDataValid = false;
 	imgInfo.lowResType = 1;
 	imgInfo.lowResScale = 1.0;
@@ -725,19 +729,37 @@ void ScImage::swapRGBA()
 {
 	for (int i = 0; i < height(); ++i)
 	{
-		unsigned int *ptr = (unsigned int *) scanLine(i);
-		unsigned char r, b;
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		unsigned char r, g, b, a;
 		for (int j = 0; j < width(); ++j)
 		{
-			unsigned char *p = (unsigned char *) ptr;
-			r = p[0];
-			b = p[2];
-			p[2] = r;
-			p[0] = b;
-			ptr++;
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			*ptr++ = qRgba(b,g,r,a);
 		}
 	}
 }
+
+
+void ScImage::swapByteOrder()
+{
+	for (int i = 0; i < height(); ++i)
+	{
+		unsigned int *ptr = (QRgb *) scanLine(i);
+		unsigned char r, g, b, a;
+		for (int j = 0; j < width(); ++j)
+		{			
+			r = qRed(*ptr);
+			g = qGreen(*ptr);
+			b = qBlue(*ptr);
+			a = qAlpha(*ptr);
+			*ptr++ = qRgba(g,r,a,b);
+		}
+	}
+}
+
 
 void ScImage::createLowRes(double scale)
 {
@@ -2053,6 +2075,9 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 		return false;
 	}
 	uint channel_num = header.channel_count;
+	bool systemBigEndian;
+	int systemWordsize;
+	qSysInfo( &systemWordsize, &systemBigEndian );
 	if (channel_num < 4)
 	{
 		for (int i = 0; i < height(); i++)
@@ -2066,7 +2091,22 @@ bool ScImage::loadLayer( QDataStream & s, const PSDHeader & header )
 	}
 //	channel_num = 4;
 	const uint pixel_count = header.height * header.width;
-	static const uint components[4] = {2, 1, 0, 3};
+	uint components[4] = {2, 1, 0, 3};
+	if (header.color_mode == CM_RGB) {
+/*	dunno if this is needed -- av
+		components[0] = 0;
+		components[1] = 1;
+		components[2] = 2;
+		components[3] = 3;
+*/
+	}
+	else if (systemBigEndian ) {
+/*		components[0] = 1;
+		components[1] = 2;
+		components[2] = 3;
+		components[3] = 0;
+*/
+	}
 	if( compression )
 	{
 		// Skip row lengths.
@@ -2869,10 +2909,12 @@ QString ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		xres = gsRes;
 		yres = gsRes;
 		args.append("-r"+QString::number(gsRes));
-		args.append("-sOutputFile=\""+tmpFile + "\"");
+//		args.append("-sOutputFile=\""+tmpFile + "\"");
+		args.append("-sOutputFile="+tmpFile);
 		args.append("-dFirstPage=1");
 		args.append("-dLastPage=1");
-		args.append("\""+picFile+"\"");
+//		args.append("\""+picFile+"\"");
+		args.append(picFile);
 		retg = callGS(args);
 		if (retg == 0)
 		{
@@ -3346,7 +3388,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 		jpeg_stdio_src(&cinfo, infile);
 		jpeg_save_markers(&cinfo, ICC_MARKER, 0xFFFF);
 		jpeg_read_header(&cinfo, true);
-		jpeg_start_decompress(&cinfo);
+		//jpeg_start_decompress(&cinfo);
 		unsigned int EmbedLen = 0;
 		unsigned char* EmbedBuffer;
 		if (read_jpeg_marker(ICC_MARKER,&cinfo, &EmbedBuffer, &EmbedLen))
@@ -3364,7 +3406,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 			cmsCloseProfile(tiffProf);
 			free(EmbedBuffer);
 		}
-		(void) jpeg_finish_decompress(&cinfo);
+		//(void) jpeg_finish_decompress(&cinfo);
 		fclose (infile);
 		jpeg_destroy_decompress (&cinfo);
 	}
@@ -3375,7 +3417,8 @@ void ScImage::getEmbeddedProfile(const QString & fn, QString *profile, int *comp
 
 bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 						  int rend, bool useEmbedded, bool useProf,
-						  int requestType, int gsRes, bool *realCMYK)
+						  int requestType, int gsRes, bool *realCMYK, 
+						  bool showMsg)
 {
 	// requestType - 0: CMYK, 1: RGB, 2: RGB Proof 3 : RawData, 4: Thumbnail
 	// gsRes - is the resolution that ghostscript will render at
@@ -3386,6 +3429,9 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	bool bilevel = false;
 	float xres, yres;
 	short resolutionunit = 0;
+	bool systemBigEndian;
+	int systemWordsize;
+	qSysInfo( &systemWordsize, &systemBigEndian);
 	int reqType = requestType;
 #ifdef HAVE_CMS
 	cmsHTRANSFORM xform = 0;
@@ -3402,6 +3448,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	double x, y, b, h;
 	bool found = false;
 	int retg = -1;
+	QString message;
 	QString tmpFile = QDir::convertSeparators(QDir::homeDirPath()+"/.scribus/sc.png");
 	QString picFile = QDir::convertSeparators(fn);
 	if (ext == "pdf")
@@ -3588,6 +3635,13 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			imgInfo.exifInfo.thumbnail = QImage();
 			imgInfo.exifDataValid = true;
 
+			if( xres <= 1.0 || yres <= 1.0 )
+			{
+				xres = yres = 72.0;
+				QFileInfo qfi(fn);
+				message = QObject::tr("%1 may be corrupted : missing resolution tags").arg(qfi.fileName());
+			}
+
 			if (!create(widtht,heightt,32))
 			{
 				TIFFClose(tif);
@@ -3597,56 +3651,81 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			uint32 *bits = 0;
 			if (photometric == PHOTOMETRIC_SEPARATED)
 			{
-				if (TIFFIsTiled(tif))
+				if (samplesperpixel > 4)  // we can't handle CMYKA yet
 				{
-					uint32 columns, rows;
-					uint32 *tile_buf;
-					uint32 xt, yt;
-					TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
-					TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
-					tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
-					if (tile_buf == NULL)
+					bits = (uint32 *) _TIFFmalloc(size * sizeof(uint32));
+					if(bits)
 					{
-						TIFFClose(tif);
-						return ret;
-					}
-					uint32 tileW = columns, tileH = rows;
-					for (yt = 0; yt < (uint32)height(); yt += rows)
-					{
-						if (yt > (uint)height())
-							break;
-						if (height()-yt < rows)
-							tileH = height()-yt;
-						tileW = columns;
-						register uint32 yi;
-						for (xt = 0; xt < (uint)width(); xt += columns)
+						if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 						{
-							TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
-							for (yi = 0; yi < tileH; yi++)
-								_TIFFmemcpy(scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
+							for(unsigned int y = 0; y < heightt; y++)
+								memcpy(scanLine(heightt - 1 - y), bits + y * widtht, widtht * 4);
 						}
+						_TIFFfree(bits);
+						if (bitspersample == 1)
+							bilevel = true;
+						isCMYK = false;
 					}
-					_TIFFfree(tile_buf);
+					swapRGBA();
 				}
 				else
 				{
-					tsize_t bytesperrow = TIFFScanlineSize(tif);
-					bits = (uint32 *) _TIFFmalloc(bytesperrow);
-					if (bits)
+					if (TIFFIsTiled(tif))
 					{
-						for (unsigned int y = 0; y < heightt; y++)
+						uint32 columns, rows;
+						uint32 *tile_buf;
+						uint32 xt, yt;
+						TIFFGetField(tif, TIFFTAG_TILEWIDTH,  &columns);
+						TIFFGetField(tif, TIFFTAG_TILELENGTH, &rows);
+						tile_buf = (uint32*) _TIFFmalloc(columns*rows*sizeof(uint32));
+						if (tile_buf == NULL)
 						{
-							if (TIFFReadScanline(tif, bits, y, 0))
+							TIFFClose(tif);
+							return ret;
+						}
+						uint32 tileW = columns, tileH = rows;
+						for (yt = 0; yt < (uint32)height(); yt += rows)
+						{
+							if (yt > (uint)height())
+								break;
+							if (height()-yt < rows)
+								tileH = height()-yt;
+							tileW = columns;
+							register uint32 yi;
+							for (xt = 0; xt < (uint)width(); xt += columns)
 							{
-								memcpy(scanLine(y), bits, widtht * 4);
+								TIFFReadTile(tif, tile_buf, xt, yt, 0, 0);
+								for (yi = 0; yi < tileH; yi++)
+									_TIFFmemcpy(scanLine(yt+(tileH-1-yi))+xt, tile_buf+tileW*yi, tileW*4);
 							}
 						}
-						_TIFFfree(bits);
+						_TIFFfree(tile_buf);
+					}
+					else
+					{
+						tsize_t bytesperrow = TIFFScanlineSize(tif);
+						bits = (uint32 *) _TIFFmalloc(bytesperrow);
+						if (bits)
+						{
+							for (unsigned int y = 0; y < heightt; y++)
+							{
+								if (TIFFReadScanline(tif, bits, y, 0))
+								{
+									memcpy(scanLine(y), bits, widtht * 4);
+								}
+							}
+							_TIFFfree(bits);
+						}
+					}
+					if (realCMYK != 0)
+						*realCMYK = true;
+					if (systemBigEndian) {
+						swapByteOrder();
+					}
+					else {
+						swapRGBA();
 					}
 				}
-				isCMYK = true;
-				if (realCMYK != 0)
-					*realCMYK = true;
 			}
 			else
 			{
@@ -3662,8 +3741,8 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 					if (bitspersample == 1)
 						bilevel = true;
 				}
+				swapRGBA();
 			}
-			swapRGBA();
 #ifdef HAVE_CMS
 			DWORD EmbedLen = 0;
 			LPBYTE EmbedBuffer;
@@ -3878,6 +3957,12 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				xres = cinfo.X_density * 2.54;
 				yres = cinfo.Y_density * 2.54;
 			}
+			if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+			{
+				xres = yres = 72.0;
+				QFileInfo qfi(fn);
+				message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
+			}
 			imgInfo.xres = qRound(xres);
 			imgInfo.yres = qRound(yres);
 			if (cinfo.output_components == 4)
@@ -3944,6 +4029,14 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			setDotsPerMeterX( int(100. * cinfo.X_density) );
 			setDotsPerMeterY( int(100. * cinfo.Y_density) );
 		}
+		if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+		{
+			xres = yres = 72.0;
+			setDotsPerMeterX(2834);
+			setDotsPerMeterY(2834);
+			QFileInfo qfi(fn);
+			message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
+		}
 		imgInfo.xres = qRound(xres);
 		imgInfo.yres = qRound(yres);
 		if (cinfo.output_components == 4)
@@ -3982,6 +4075,16 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				yres = imgInfo.yres;
 				setDotsPerMeterX( int(100. * imgInfo.xres / 2.54) );
 				setDotsPerMeterY( int(100. * imgInfo.yres / 2.54) );
+				if( xres <= 1.0 || yres <= 1.0 || xres > 3000.0 || yres > 3000.0 )
+				{
+					xres = yres = 72.0;
+					imgInfo.xres = xres;
+					imgInfo.yres = yres;
+					setDotsPerMeterX(2834);
+					setDotsPerMeterY(2834);
+					QFileInfo qfi(fn);
+					message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
+				}
 				imgInfo.valid = (imgInfo.PDSpathData.size())>0?true:false; // The only interest is vectormask
 				arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 				free( PhotoshopBuffer );
@@ -4131,15 +4234,19 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	if (CMSuse && useProf && inputProf)
 	{
 		DWORD inputProfFormat = TYPE_RGBA_8;
-		switch (static_cast<int>(cmsGetColorSpace(inputProf)))
-		{
-		case icSigRgbData:
+		DWORD prnProfFormat = TYPE_CMYK_8;
+		int inputProfColorSpace = static_cast<int>(cmsGetColorSpace(inputProf));
+		if ( inputProfColorSpace == icSigRgbData )
 			inputProfFormat = TYPE_RGBA_8;
-			break;
-		case icSigCmykData:
+		else if ( inputProfColorSpace == icSigCmykData )
 			inputProfFormat = TYPE_CMYK_8;
-			break;
-		}
+		else if ( inputProfColorSpace == icSigGrayData )
+			inputProfFormat = TYPE_GRAY_8;
+		int prnProfColorSpace = static_cast<int>(cmsGetColorSpace(CMSprinterProf));
+		if ( prnProfColorSpace == icSigRgbData )
+			prnProfFormat = TYPE_RGBA_8;
+		else if ( prnProfColorSpace == icSigCmykData )
+			prnProfFormat = TYPE_CMYK_8;
 		if (SoftProofing)
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
@@ -4152,24 +4259,26 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 		{
 		case 0: // CMYK
 			if (!isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, TYPE_CMYK_8, IntentPrinter, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSprinterProf, prnProfFormat, IntentPrinter, 0);
 			break;
 		case 1: // RGB
 			if (isCMYK)
-				xform = cmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
+				xform = scCmsCreateTransform(inputProf, inputProfFormat, CMSoutputProf, TYPE_RGBA_8, rend, 0);
 			break;
 		case 2: // RGB Proof
 			{
 				if (inputProfFormat==TYPE_CMYK_8)
 					inputProfFormat=(COLORSPACE_SH(PT_CMYK)|CHANNELS_SH(4)|BYTES_SH(1)|DOSWAP_SH(1)|SWAPFIRST_SH(1));//TYPE_YMCK_8;
-				else
+				else if(inputProfFormat == TYPE_RGBA_8)
 					inputProfFormat=TYPE_BGRA_8;
 				if (SoftProofing)
-					xform = cmsCreateProofingTransform(inputProf, inputProfFormat,
-					                                   CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
-					                                   IntentPrinter, rend, cmsFlags);
+				{
+					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
+					                       CMSoutputProf, TYPE_BGRA_8, CMSprinterProf,
+					                       IntentPrinter, rend, cmsFlags);
+				}
 				else
-					xform = cmsCreateTransform(inputProf, inputProfFormat,
+					xform = scCmsCreateTransform(inputProf, inputProfFormat,
 					                           CMSoutputProf, TYPE_BGRA_8, rend, cmsFlags);
 			}
 			break;
@@ -4182,7 +4291,32 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			for (int i = 0; i < height(); i++)
 			{
 				LPBYTE ptr = scanLine(i);
-				cmsDoTransform(xform, ptr, ptr, width());
+				if ( inputProfFormat == TYPE_GRAY_8 && (reqType != 0) )
+				{
+					unsigned char* ucs = ptr + 1;
+					unsigned char* uc = new unsigned char[width()];
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						uc[uci] = *ucs;
+						ucs += 4;
+					}
+					cmsDoTransform(xform, uc, ptr, width());
+					delete[] uc;
+				}
+				else if ( inputProfFormat == TYPE_GRAY_8 && (reqType == 0) )
+				{
+					unsigned char  value;
+					unsigned char* ucs = ptr;
+					for( int uci = 0; uci < width(); uci++ )
+					{
+						value = 255 - *(ucs + 1);
+						ucs[0] = ucs[1] = ucs[2] = 0;
+						ucs[3] = value;
+						ucs += 4;
+					}
+				}
+				else
+					cmsDoTransform(xform, ptr, ptr, width());
 				// if transforming from CMYK to RGB, flatten the alpha channel
 				// which will still contain the black channel
 				if (isCMYK && reqType != 0 && !bilevel)
@@ -4201,7 +4335,6 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	else
 #endif // HAVE_CMS
-
 	{
 		switch (reqType)
 		{
@@ -4252,5 +4385,11 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	setDotsPerMeterY (QMAX(2834, (int) (yres / 0.0254)));
 	imgInfo.xres = QMAX(72, qRound(xres));
 	imgInfo.yres = QMAX(72, qRound(yres)); */
+	if	(ScQApp->usingGUI() && !message.isEmpty() && showMsg)
+	{
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, message, 1, 0, 0);
+	}
+	else if (!message.isEmpty())
+		qWarning( message.local8Bit().data() );
 	return true;
 }

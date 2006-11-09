@@ -59,6 +59,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		*/
 		void installTranslators(const QStringList & langs);
 		void changeGUILanguage(const QString & lang);
+		const QString& currGUILanguage() {return GUILang;};
 		bool usingGUI() const;
 		/**
 		 * @brief Are we trying to adhere to Apple Mac HIG ?
@@ -97,6 +98,7 @@ class SCRIBUS_API ScribusQApp : public QApplication
 		void showAvailLangs();
 
 		QString lang;
+		QString GUILang;
 		bool showSplash;
 		bool showFontInfo;
 		bool swapDialogButtonOrder;

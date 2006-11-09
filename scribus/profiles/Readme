@@ -1,6 +1,6 @@
 This folder is used to store ICC-compatible color profiles
-for use with Scribus and LittleCMS. This location will change in the
-future when openicc specifications are formalized.
+for use with Scribus and LittleCMS. By default, Scribus will search in
+~/.color/icc and /usr/share/color and subdirectories for profiles. 
 
 The two profiles included are generic RGB and CMYK profiles installed to ensure
 color management functions immediately on install. These are not meant to be used
@@ -14,7 +14,8 @@ the downloads section on www.scribus.net.
 
 Another source for Profiles is a modern Windows installation,
 in C:\Windows\System\Color on Win9x/NT4 or C:\Winnt\system32\spool\color
- on Win2k and XP are ICC-Profiles. 
+ on Win2k and XP are ICC-Profiles. Scribus will automatically detect available 
+system profiles on Win32.
 
 A hint for MacOS users on fink. You can add your ColorSync-Profiles directory
 and the system profiles will be recognized by Scribus if they have .icc or icm extensions.

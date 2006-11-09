@@ -44,7 +44,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribus.h"
 #include "scribusstructs.h"
 #include "scribusdoc.h"
-
+#include "commonstrings.h"
 #include "undomanager.h"
 #include "undostate.h"
 #include "scconfig.h"
@@ -74,12 +74,15 @@ void PageItem_Line::DrawObj_Item(ScPainter *p)
 			QColor tmp;
 			for (int it = ml.size()-1; it > -1; it--)
 			{
-				SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-				p->setPen(tmp, ml[it].Width,
+				if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+				{
+					SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
+					p->setPen(tmp, ml[it].Width,
 							static_cast<PenStyle>(ml[it].Dash),
 							static_cast<PenCapStyle>(ml[it].LineEnd),
 							static_cast<PenJoinStyle>(ml[it].LineJoin));
-				p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+					p->drawLine(FPoint(0, 0), FPoint(Width, 0));
+				}
 			}
 		}
 		if (m_startArrowIndex != 0)

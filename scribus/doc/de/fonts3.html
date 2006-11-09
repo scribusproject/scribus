@@ -1,0 +1,28 @@
+<qt>
+<title>CJK, indische Schrift und andere nicht-lateinische Schriftarten</title>
+<h2>CJK, indische Schrift und andere nicht-lateinische Schriftarten</h2>
+<p>Die Verwendung von CJK (Chinesisch, Japanisch, Koreanisch) in Scribus ist m&ouml;glich. Abgesehen von Codierungen f&uuml;r KOIR-8, die hinzugekommen sind, hat sich tats&auml;chlich nicht viel getan, um CJK-Schriftarten zu unterst&uuml;tzen - noch nicht! Allerdings berichten einige Anwender von Fortschritten, insbesondere bei der Nutzung exportierter PDF-Dateien f&uuml;r kommerzielle Druckauftr&auml;ge. Da Unicode von Qt ohnehin bestens unterst&uuml;tzt wird, ist die Arbeit schon teilweise getan. Ein weiteres St&uuml;ck davon sollte in der n&auml;chsten Scribus-Generation bew&auml;ltigt sein, so da&szlig; wesentlich mehr nicht-lateinische Schriften unterst&uuml;tzt werden. Bleiben Sie also auf dem Laufenden!</p>
+<h4>Was aber kann Scribus heute?</h4>
+<ul>
+	<li>Fast jede gute Unicode-Schriftart ist mit ihren eigenen Zeichenelementen in Scribus darstellbar. Tests mit gro&szlig;en Unicode-Schriftarten wie Bitstream Cyberbit f&uuml;hren weder bei der Darstellung noch beim Druck zu Problemen - bis auf die Ladegeschwindigkeit. </li>
+	<li>Arabisch kann geschrieben und importiert werden, jedoch sind die Sonderfunktionen f&uuml;r kombinierte Zeichen am Zeilenende noch nicht verf&uuml;gbar.</li>
+	<li>Hebr&auml;isch wird gut unterst&uuml;tzt, und die Schreibrichtung von rechts nach links funktioniert bereits in Scribus. Es gibt noch ein paar Schwierigkeiten mit manchen Akzenten.</li>
+	<li>Indische Schriften stellen eine viel kompliziertere Aufgabe dar, jedoch haben wir gro&szlig;es Interesse daran, sie zu unterst&uuml;tzen. Ein Entwickler arbeitet zusammen mit Scribus-Entwicklern daran, den Bildschirm-Canvas (die virtuelle Leinwand) abzu&auml;ndern, damit die Sonderfunktionen voll unterst&uuml;tzt werden, die n&ouml;tig sind, um die Schriften ordentlich darzustellen und zu drucken.</li>
+	<li>Die Kombination von Zeichenelementen in diesen Sprachen wird (noch) nicht unterst&uuml;tzt.</li>
+	<li>Scribus unterst&uuml;tzt sowohl Unicode-TrueType- als auch OpenType-Schriftarten, auch wenn Sie nach PDF 1.3 exportieren.</li>
+	<li>Eine exportierte EPS- oder Postscript-Datei funktioniert mit den meisten CJK- oder Unicode-Schriftarten einwandfrei.</li>
+	<li>Kyrillisch funktioniert tadellos, und f&uuml;r Scribus sind &Uuml;bersetzer f&uuml;r Russisch und Ukrainisch im Einsatz.</li>
+</ul>
+<h4>Tipps: </h4>
+<ul>
+	<li>So k&ouml;nnen Sie die Gr&ouml;&szlig;e Ihrer exportierten PDF- und PostScript-Dateien verringern:
+		<ol>
+			<li>Konvertieren Sie alle Schriftarten in Textrahmen zu PostScript-Umrissen. </li>
+			<li>Erm&ouml;glichen Sie (unter Einstellungen &gt; Schriftarten) allen Unicode- oder CJK-TrueType-Schriftarten das Bilden von Untergruppen.</li>
+		</ol>
+	</li>
+	<li>Wenn Sie Dokumente mit dem Acrobat Reader betrachten, w&auml;hlen Sie dort die Einstellung f&uuml;r weiche Grafikdarstellung. N&auml;heres hierzu unter <a href="toolbox1.html">Acrobat Reader</a>.</li>
+	<li>Wenn Sie einen Export nach SVG durchf&uuml;hren, ist es fast immer von Vorteil, den Text in PostScript-Umrisse umzuwandeln.</li>
+	<li>Einige Unicode-Schriftarten sind recht gro&szlig; und bremsen Scribus beim Programmstart betr&auml;chtlich. Rechnen Sie au&szlig;erdem mit einer h&ouml;heren Speicherauslastung. W&auml;hrend jedes Ladevorgangs unterzieht Scribus die Schriftarten einer unerl&auml;ssichen und gr&uuml;ndlichen Fehlerpr&uuml;fung.</li>
+</ul>
+</qt>

@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include "fileloader.h"
 #include "fileloader.moc"
 #include "fontreplacedialog.h"
+#include "hyphenator.h"
 #include "missing.h"
 #include "page.h"
 #include "pluginmanager.h"
@@ -63,6 +64,7 @@ FileLoader::FileLoader(const QString & fileName) :
 	formatODG(LoadSavePlugin::getFormatById(FORMATID_ODGIMPORT)),
 	prefsManager(PrefsManager::instance())
 {
+	dummyFois.setAutoDelete(true);
 }
 
 // FIXME: This static method is here as a temporary transitional
@@ -242,6 +244,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
@@ -274,7 +277,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -288,7 +291,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -302,7 +305,7 @@ bool FileLoader::LoadPage(int PageToLoad, bool Mpage, QString renamedPageName)
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -350,6 +353,7 @@ bool FileLoader::LoadFile()
 	ScMW->doc->guidesSettings.framesShown = prefsManager->appPrefs.guidesSettings.framesShown;
 	ScMW->doc->guidesSettings.gridShown = prefsManager->appPrefs.guidesSettings.gridShown;
 	ScMW->doc->guidesSettings.guidesShown = prefsManager->appPrefs.guidesSettings.guidesShown;
+	ScMW->doc->guidesSettings.colBordersShown = prefsManager->appPrefs.guidesSettings.colBordersShown;
 	ScMW->doc->guidesSettings.baseShown = prefsManager->appPrefs.guidesSettings.baseShown;
 	ScMW->doc->guidesSettings.linkShown = prefsManager->appPrefs.guidesSettings.linkShown;
 	ScMW->doc->toolSettings.polyC = prefsManager->appPrefs.toolSettings.polyC;
@@ -377,22 +381,23 @@ bool FileLoader::LoadFile()
 				ReplacedFonts = ss.ReplacedFonts;
 				newReplacement = ss.newReplacement;
 				dummyFois = ss.dummyFois;
+				ss.dummyFois.setAutoDelete(false);
 			}
 			break;
 		case 1:
 			ret = ReadDoc(FileName, prefsManager->appPrefs.AvailFonts, ScMW->doc, ScMW->mainWindowProgressBar);
 			break;
 		case 2:
-			ret = formatPS->loadFile(FileName);
+			ret = formatPS->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 3:
-			ret = formatSVG->loadFile(FileName);
+			ret = formatSVG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 5:
-			ret = formatSXD->loadFile(FileName);
+			ret = formatSXD->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		case 6:
-			ret = formatODG->loadFile(FileName);
+			ret = formatODG->loadFile(FileName, LoadSavePlugin::lfCreateDoc);
 			break;
 		default:
 			ret = false;
@@ -746,17 +751,21 @@ bool FileLoader::ReadPage(const QString & fileName, SCFonts &avail, ScribusDoc *
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					doc->BookMarks.append(bok);
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -962,6 +971,7 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 		doc->guidesSettings.majorGrid = dc.attribute("MAJGRID", tmp.setNum(prefsManager->appPrefs.guidesSettings.majorGrid)).toDouble();
 		doc->guidesSettings.gridShown = static_cast<bool>(dc.attribute("SHOWGRID", "0").toInt());
 		doc->guidesSettings.guidesShown = static_cast<bool>(dc.attribute("SHOWGUIDES", "1").toInt());
+		doc->guidesSettings.colBordersShown = static_cast<bool>(dc.attribute("showcolborders", "0").toInt());
 		doc->guidesSettings.framesShown = static_cast<bool>(dc.attribute("SHOWFRAME", "1").toInt());
 		doc->guidesSettings.marginsShown = static_cast<bool>(dc.attribute("SHOWMARGIN", "1").toInt());
 		doc->guidesSettings.baseShown = static_cast<bool>(dc.attribute("SHOWBASE", "0").toInt());
@@ -1710,17 +1720,21 @@ bool FileLoader::ReadDoc(const QString & fileName, SCFonts &avail, ScribusDoc *d
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="Bookmark")
 			{
-				bok.Title = pg.attribute("Title");
-				bok.Text = pg.attribute("Text");
-				bok.Aktion = pg.attribute("Aktion");
-				bok.ItemNr = pg.attribute("ItemNr").toInt();
-				bok.PageObject = doc->Items->at(pg.attribute("Element").toInt());
-				bok.First = pg.attribute("First").toInt();
-				bok.Last = pg.attribute("Last").toInt();
-				bok.Prev = pg.attribute("Prev").toInt();
-				bok.Next = pg.attribute("Next").toInt();
-				bok.Parent = pg.attribute("Parent").toInt();
-				doc->BookMarks.append(bok);
+				uint elem = pg.attribute("Element").toInt();
+				if (elem < doc->Items->count())
+				{
+					bok.Title = pg.attribute("Title");
+					bok.Text = pg.attribute("Text");
+					bok.Aktion = pg.attribute("Aktion");
+					bok.ItemNr = pg.attribute("ItemNr").toInt();
+					bok.PageObject = doc->Items->at(elem);
+					bok.First = pg.attribute("First").toInt();
+					bok.Last = pg.attribute("Last").toInt();
+					bok.Prev = pg.attribute("Prev").toInt();
+					bok.Next = pg.attribute("Next").toInt();
+					bok.Parent = pg.attribute("Parent").toInt();
+					doc->BookMarks.append(bok);
+				}
 			}
 			PAGE=PAGE.nextSibling();
 		}
@@ -1836,6 +1850,9 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	}
 	int size = qRound(it->attribute("CSIZE").toDouble() * 10);
 	QString fcolor = it->attribute("CCOLOR");
+	fcolor.squeeze(); // less ugly version for my problme, for some reason if the capacity of
+	                  // a string was more than the actual lenth of the string that caused huge
+	                  // slowdowns here. squeeze() will remove any unused capacity from the QString
 	int extra;
 	if (it->hasAttribute("CEXTRA"))
 		extra = qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0);
@@ -1844,7 +1861,9 @@ void FileLoader::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, bo
 	int shade = it->attribute("CSHADE").toInt();
 	int style = it->attribute("CSTYLE").toInt();
 	int ab = it->attribute("CAB", "0").toInt();
+	// FIXME dirty hack to get over my problem. I wish i didn't break all other systems
 	QString stroke = it->attribute("CSTROKE", CommonStrings::None);
+	stroke.squeeze(); // see fcolor.squeeze() comment
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
 	int scalev = qRound(it->attribute("CSCALEV", "100").toDouble() * 10);
@@ -2633,6 +2652,14 @@ void FileLoader::GetStyle(QDomElement *pg, struct ParagraphStyle *vg, QValueList
 
 bool FileLoader::postLoad()
 {
+	if (ScMW->doc->docHyphenator!=0)
+	{
+			ScMW->doc->docHyphenator->Automatic=ScMW->doc->Automatic;
+			ScMW->doc->docHyphenator->AutoCheck=ScMW->doc->AutoCheck;
+			ScMW->doc->docHyphenator->Language=ScMW->doc->Language;
+			ScMW->doc->docHyphenator->MinWordLen=ScMW->doc->MinWordLen;
+			ScMW->doc->docHyphenator->HyCount=ScMW->doc->HyCount;
+	}
 /*	for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 	{
 		PageItem *it = ScMW->doc->MasterItems.at(d);
@@ -2686,7 +2713,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->MasterItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->MasterItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2700,7 +2727,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->DocItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->DocItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{
@@ -2714,7 +2741,7 @@ bool FileLoader::postLoad()
 		for (uint d = 0; d < ScMW->doc->FrameItems.count(); ++d)
 		{
 			PageItem *it = ScMW->doc->FrameItems.at(d);
-			if ((!ScMW->doc->UsedFonts.contains(it->font())) && (!it->font().isEmpty()))
+			if (!ScMW->doc->UsedFonts.contains(it->font()))
 				it->setFont(ReplacedFonts[it->font()]);
 			if ((it->asTextFrame()) || (it->asPathText()))
 			{

@@ -77,6 +77,8 @@ AM_CPPFLAGS = \
 #
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share
+	$(mkinstalldirs) $(prefix)/share/mime
+	$(mkinstalldirs) $(prefix)/share/mime/packages
 	$(mkinstalldirs) $(prefix)/share/scribus
 	$(mkinstalldirs) $(prefix)/share/doc/scribus-$(VERSION)
 	$(INSTALL_DATA) $(top_srcdir)/AUTHORS $(prefix)/share/doc/scribus-$(VERSION)/AUTHORS
@@ -90,3 +92,4 @@ install-data-local:
 	$(INSTALL_DATA) $(top_srcdir)/README.MacOSX $(prefix)/share/doc/scribus-$(VERSION)/README.MacOSX
 	$(INSTALL_DATA) $(top_srcdir)/README $(prefix)/share/doc/scribus-$(VERSION)/README
 	$(INSTALL_DATA) $(top_srcdir)/TODO $(prefix)/share/doc/scribus-$(VERSION)/TODO
+	$(INSTALL_DATA) $(top_srcdir)/scribus.xml $(prefix)/share/mime/packages/scribus.xml

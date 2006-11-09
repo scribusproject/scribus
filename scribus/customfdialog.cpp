@@ -223,7 +223,14 @@ void FDialogPreview::GenPreview(QString name)
 void FDialogPreview::previewUrl( const QUrl &url )
 {
 	if (url.isLocalFile())
-		GenPreview(url.path());
+	{
+		QFileInfo finfo(url.path());
+		if (filePath != finfo.filePath())
+		{
+			filePath = finfo.filePath();
+			GenPreview(url.path());
+		}
+	}
 }
 
 CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,

@@ -8,7 +8,9 @@
 Returns a list containing the names of all defined colors in the document.
 If no document is open, returns a list of the default document colors.
 </source>
-      <translation type="unfinished" />
+      <translation>getColorNames() -> list
+
+Crée la liste des noms de toutes les couleurs définie dans le document. S'il n'y a aucun document ouvert, la liste est composée des couleurs présentes par défaut.</translation>
     </message>
     <message>
       <source>newDocDialog() -> bool
@@ -16,47 +18,6 @@ If no document is open, returns a list of the default document colors.
 Displays the &quot;New Document&quot; dialog box. Creates a new document if the user
 accepts the settings. Does not create a document if the user presses cancel.
 Returns true if a new document was created.
-</source>
-      <translation type="unfinished" />
-    </message>
-    <message>
-      <source>newDocument(size, margins, orientation, firstPageNumber,
-                        unit, pagesType, firstPageOrder) -> bool
-
-Creates a new document and returns true if successful. The parameters have the
-following meaning:
-
-size = A tuple (width, height) describing the size of the document. You can
-use predefined constants named PAPER_&lt;paper_type> e.g. PAPER_A4 etc.
-
-margins = A tuple (left, right, top, bottom) describing the document
-margins
-
-orientation = the page orientation - constants PORTRAIT, LANDSCAPE
-
-firstPageNumer = is the number of the first page in the document used for
-pagenumbering. While you'll usually want 1, it's useful to have higher
-numbers if you're creating a document in several parts.
-
-unit: this value sets the measurement units used by the document. Use a
-predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
-UNIT_PICAS, UNIT_POINTS.
-
-pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
-PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
-PAGE_4 is 4-fold.
-
-firstPageOrder = What is position of first page in the document.
-Indexed from 0 (0 = first).
-
-The values for width, height and the margins are expressed in the given unit
-for the document. PAPER_* constants are expressed in points. If your document
-is not in points, make sure to account for this.
-
-example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
-
-May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
       <translation type="unfinished" />
     </message>
@@ -145,6 +106,49 @@ must be UTF8 encoded or 'unicode' string(recommended).
 
 The &quot;string&quot; must be a valid filename for a SVG image. The text
 must be UTF8 encoded or 'unicode' string(recommended).
+</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>newDocument(size, margins, orientation, firstPageNumber,
+                        unit, pagesType, firstPageOrder) -> bool
+
+Creates a new document and returns true if successful. The parameters have the
+following meaning:
+
+size = A tuple (width, height) describing the size of the document. You can
+use predefined constants named PAPER_&lt;paper_type> e.g. PAPER_A4 etc.
+
+margins = A tuple (left, right, top, bottom) describing the document
+margins
+
+orientation = the page orientation - constants PORTRAIT, LANDSCAPE
+
+firstPageNumer = is the number of the first page in the document used for
+pagenumbering. While you'll usually want 1, it's useful to have higher
+numbers if you're creating a document in several parts.
+
+unit: this value sets the measurement units used by the document. Use a
+predefined constant for this, one of: UNIT_INCHES, UNIT_MILLIMETERS,
+UNIT_PICAS, UNIT_POINTS.
+
+pagesType = One of the predefined constants PAGE_n. PAGE_1 is single page,
+PAGE_2 is for double sided documents, PAGE_3 is for 3 pages fold and
+PAGE_4 is 4-fold.
+
+firstPageOrder = What is position of first page in the document.
+Indexed from 0 (0 = first).
+
+numPage = Number of pages to be created.
+
+The values for width, height and the margins are expressed in the given unit
+for the document. PAPER_* constants are expressed in points. If your document
+is not in points, make sure to account for this.
+
+example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
+PAGE_4, 3, 1)
+
+May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
       <translation type="unfinished" />
     </message>
@@ -381,14 +385,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</source>
-      <translation type="unfinished" />
-    </message>
-    <message>
-      <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -> bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </source>
       <translation type="unfinished" />
     </message>
@@ -1623,16 +1619,27 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
       <translation type="unfinished" />
     </message>
+    <message>
+      <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -> bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>duplicateObject([&quot;name&quot;]) -> string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+      <translation type="unfinished" />
+    </message>
   </context>
   <context>
     <name>About</name>
     <message>
       <source>About Scribus %1</source>
       <translation>À propos de Scribus %1</translation>
-    </message>
-    <message>
-      <source>March</source>
-      <translation>Mars</translation>
     </message>
     <message>
       <source>%1 %2 %3</source>
@@ -1733,6 +1740,10 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     <message>
       <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected.</source>
       <translation>Ce panneau montre la version, la date de compilation et les bibliothèques compilées dans Scribus. Le symbole C-C-T-F indique le support de C=littlecms C=CUPS T=TIFF F=Fontconfig. La dernière indique le moteurde rendu, C=cairo ou A=libart. Les composantes manquantes sont indiquées par une astérisque (*). La version de Ghostscript détectée par Scribus est également mentionnée.</translation>
+    </message>
+    <message>
+      <source>Tango Project Icons:</source>
+      <translation>Icônes du projet Tango :</translation>
     </message>
   </context>
   <context>
@@ -2688,13 +2699,15 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
     </message>
     <message>
       <source>Paste (&amp;Absolute)</source>
-      <comment>Fred</comment>
       <translation>Coller (&amp;absolu)</translation>
     </message>
     <message>
       <source>C&amp;lear</source>
-      <comment>Fred</comment>
       <translation>&amp;Effacer</translation>
+    </message>
+    <message>
+      <source>Show Text Frame Columns</source>
+      <translation>Afficher les colonnes des cadres de texte</translation>
     </message>
   </context>
   <context>
@@ -3830,6 +3843,22 @@ Choisissez-en un autre.</translation>
       <source>&amp;Close</source>
       <translation>&amp;Fermer</translation>
     </message>
+    <message>
+      <source>Scrapbook (*.scs)</source>
+      <translation>Album (*.scs)</translation>
+    </message>
+    <message>
+      <source>Choose a scrapbook file to import</source>
+      <translation>Choisissez un fichier d'album à importer</translation>
+    </message>
+    <message>
+      <source>&amp;Import Scrapbook File...</source>
+      <translation>&amp;Importer un fichier d'album...</translation>
+    </message>
+    <message>
+      <source>Main</source>
+      <translation>Principal</translation>
+    </message>
   </context>
   <context>
     <name>BookMView</name>
@@ -4163,6 +4192,14 @@ Ce nom est réservé aux couleurs transparentes</translation>
     <message>
       <source>Name of the color is not unique</source>
       <translation>Ce nom de couleur existe déjà</translation>
+    </message>
+    <message>
+      <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+      <translation>La couleur de repérage s'imprime sur chaque plaque. On utilise cette couleur pour les croix de repérage et les traits de coupe. Ces éléments ne font pas partie de la mise en page.</translation>
+    </message>
+    <message>
+      <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+      <translation>Cette option permet de créer des couleurs d'accompagnement. Ceci a pour effet de créer une plaque additionnelle lors de la séparation des couleurs. Les couleurs d'accompagnement sont utilisées lorsque la reproduction fidèle d'une couleur est exigée, que ce soit pour un logo d'entreprise ou pour l'impression d'une couleur qui ne peut être reproduite avec fidélité en quadrichromie. Les couleurs métallisées et fluorescentes sont de bons exemples de couleur très difficiles voire impossibles à reproduire avec le procédé quadrichromique (CMJN).</translation>
     </message>
   </context>
   <context>
@@ -4549,6 +4586,10 @@ pour la sortie du fichier %1</translation>
     <message>
       <source>New Color</source>
       <translation>Nouvelle couleur</translation>
+    </message>
+    <message>
+      <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+      <translation>Lorsque la Gestion des couleurs est active, il est possible qu'un triangle d'avertissement apparaisse. Cet avertissement prévient l'utilisateur qu'une couleur se trouve hors de la gamme de reproduction de l'imprimante sélectionnée. Ceci signifie que la couleur en question ne sera fort probablement pas imprimée telle qu'elle apparaît à l'écran. Les couleurs d'accompagnement sont marquées d'un cercle rouge. La couleur de Repérage est marquée d'une croix de repérage. Vous trouverez d'autres renseignements utiles concernant ce type d'avertissement dans la section Gestion des couleurs de l'aide en ligne .</translation>
     </message>
   </context>
   <context>
@@ -5819,22 +5860,18 @@ failed!</source>
     </message>
     <message>
       <source>Importing PostScript</source>
-      <comment>Fred</comment>
       <translation>Import PostScript</translation>
     </message>
     <message>
       <source>Analyzing PostScript:</source>
-      <comment>Fred</comment>
       <translation>Analyse du fichier PostScript :</translation>
     </message>
     <message>
       <source>Generating Items</source>
-      <comment>Fred</comment>
       <translation>Création des objets</translation>
     </message>
     <message>
       <source>Converting of %1 images failed!</source>
-      <comment>Fred</comment>
       <translation>Echec de la conversion de %1 images !</translation>
     </message>
   </context>
@@ -5867,11 +5904,6 @@ failed!</source>
     <message>
       <source>Fixed Linespacing</source>
       <translation>Espacement fixe entre les lignes</translation>
-    </message>
-    <message>
-      <source>Automatic Linespacing</source>
-      <comment>Fred</comment>
-      <translation>Interlignage automatique</translation>
     </message>
     <message>
       <source>Align to Baseline Grid</source>
@@ -5954,18 +5986,20 @@ failed!</source>
       <translation>Ce nom de style existe déjà</translation>
     </message>
     <message>
+      <source>Click to select the line spacing mode</source>
+      <translation>Cliquer pour choisir le mode d'interlignage</translation>
+    </message>
+    <message>
+      <source>Automatic Linespacing</source>
+      <translation>Interlignage automatique</translation>
+    </message>
+    <message>
       <source>Manual Tracking</source>
-      <comment>Fred</comment>
       <translation>Réglage de l'approche</translation>
     </message>
     <message>
       <source>Offset to baseline of characters</source>
-      <comment>Fred</comment>
       <translation>Décalage des caractères par rapport à la ligne de base</translation>
-    </message>
-    <message>
-      <source>Click to select the line spacing mode</source>
-      <translation>Cliquer pour choisir le mode d'interlignage</translation>
     </message>
   </context>
   <context>
@@ -6694,7 +6728,6 @@ du fichier exporté est de la forme « nomdudocument-numérodepage.type »</tran
     </message>
     <message>
       <source>Add, change or remove color stops here</source>
-      <comment>Fred</comment>
       <translation>Ajoutez, modifiez ou supprimez les points de contrôle de couleur ici</translation>
     </message>
   </context>
@@ -7434,10 +7467,6 @@ convertissant les données vectorielles en objets Scribus.</translation>
   </context>
   <context>
     <name>LineStyleWBase</name>
-    <message>
-      <source>LineStyleWBase</source>
-      <translation>LineStyleWBase</translation>
-    </message>
     <message>
       <source>%</source>
       <translation> %</translation>
@@ -8345,18 +8374,6 @@ arr&amp;ondis :</translation>
       <translation>Autoriser ou non l'impression de l'objet</translation>
     </message>
     <message>
-      <source>Make text in lower frames flow around the object shape</source>
-      <translation>La justification du texte situé au-dessous est soumise aux contours de l'objet</translation>
-    </message>
-    <message>
-      <source>Use a surrounding box instead of the frame's shape for text flow</source>
-      <translation>Utiliser les limites du cadre pour la justification du texte</translation>
-    </message>
-    <message>
-      <source>Use a second line originally based on the frame's shape for text flow</source>
-      <translation>Utiliser une ligne basée sur les contours de l'objet pour la justification du texte</translation>
-    </message>
-    <message>
       <source>Font of selected text or object</source>
       <translation>Police du texte ou de l'objet sélectionné</translation>
     </message>
@@ -8375,14 +8392,6 @@ arr&amp;ondis :</translation>
     <message>
       <source>Scaling height of characters</source>
       <translation>Mise à l'échelle de la hauteur des caractères</translation>
-    </message>
-    <message>
-      <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-      <translation>Couleur de contour du texte. Disponible seulement si l'option Contour est appliquée.</translation>
-    </message>
-    <message>
-      <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-      <translation>Couleur du texte.</translation>
     </message>
     <message>
       <source>Saturation of color of text stroke</source>
@@ -8521,9 +8530,28 @@ arr&amp;ondis :</translation>
       <translation>Méthode de rendu pour l'image</translation>
     </message>
     <message>
+      <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+      <translation>Couleur de l'ombre et/ou du contour, en fonction des options sélectionnées . Si les deux options sont activées, elles partageront la même couleur.</translation>
+    </message>
+    <message>
+      <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+      <translation>Couleur du texte sélectionné. Si le contour de texte est activé, cette couleur sera celle de remplissage. Si l'ombre du texte est activée, la couleur sera celle du texte le plus au-dessus.</translation>
+    </message>
+    <message>
       <source>Click to select the line spacing mode</source>
-      <comment>Fred</comment>
       <translation>Cliquer pour choisir le mode d'interlignage</translation>
+    </message>
+    <message>
+      <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+      <translation>Force le texte des cadres inférieurs à contourner cet objet. Les options ci-dessous permettent de définir le comportement.</translation>
+    </message>
+    <message>
+      <source>Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. </source>
+      <translation>Utilise la boîte de circonscription, qui est toujours rectangulaire, comme référence de contournement du texte, et non pas la forme du cadre. </translation>
+    </message>
+    <message>
+      <source>Use a second line originally based on the frame's shape for text flow of text frames below the object. </source>
+      <translation>Utilise une seconde ligne, basée à l'origine sur la forme du cadre pour définir le contournement du texte des cadres inférieurs. </translation>
     </message>
   </context>
   <context>
@@ -9085,14 +9113,6 @@ arr&amp;ondis :</translation>
       <translation>Aperçu avant impression</translation>
     </message>
     <message>
-      <source>Anti-alias &amp;Text</source>
-      <translation>Lisser les &amp;textes</translation>
-    </message>
-    <message>
-      <source>Anti-alias &amp;Graphics</source>
-      <translation>Lisser les objets &amp;graphiques</translation>
-    </message>
-    <message>
       <source>Display Trans&amp;parency</source>
       <translation>Afficher les trans&amp;parences</translation>
     </message>
@@ -9153,14 +9173,6 @@ arr&amp;ondis :</translation>
       <translation>Imprimer...</translation>
     </message>
     <message>
-      <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-      <translation>Donne un affichage plus agréable des textes, avec pour effet un léger ralentissement lors d'une prévisualisation. Fonctionne uniquement avec les polices Type 1</translation>
-    </message>
-    <message>
-      <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-      <translation>Donne un affichage plus agréable des polices TrueType, OpenType, des fichiers EPS, PDF ainsi que des graphiques vectoriels lors d'une prévisualisation, ceci occasionnant alors un léger ralentissement</translation>
-    </message>
-    <message>
       <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
       <translation>Affiche la transparence et les objets transparents dans votre document. Nécessite au minimum Ghostscript 7.07</translation>
     </message>
@@ -9199,6 +9211,14 @@ arr&amp;ondis :</translation>
     <message>
       <source>File</source>
       <translation>Fichier</translation>
+    </message>
+    <message>
+      <source>Enable &amp;Antialiasing</source>
+      <translation>Liss&amp;age des polices</translation>
+    </message>
+    <message>
+      <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+      <translation>Fournit un affichage plus agréable des polices Type 1, TrueType et OpenType, ainsi que des EPS,PDF et graphiques vectoriels, au prix d'un léger ralentissement de l'apercu</translation>
     </message>
   </context>
   <context>
@@ -9395,11 +9415,11 @@ arr&amp;ondis :</translation>
     <name>PageSize</name>
     <message>
       <source>Quarto</source>
-      <translation type="unfinished" />
+      <translation>Quarto</translation>
     </message>
     <message>
       <source>Foolscap</source>
-      <translation type="unfinished" />
+      <translation>Format écolier</translation>
     </message>
     <message>
       <source>Letter</source>
@@ -9407,7 +9427,7 @@ arr&amp;ondis :</translation>
     </message>
     <message>
       <source>Government Letter</source>
-      <translation type="unfinished" />
+      <translation>Government Letter</translation>
     </message>
     <message>
       <source>Legal</source>
@@ -9415,51 +9435,51 @@ arr&amp;ondis :</translation>
     </message>
     <message>
       <source>Ledger</source>
-      <translation type="unfinished" />
+      <translation>Registre, comptabilité (ledger)</translation>
     </message>
     <message>
       <source>Executive</source>
-      <translation type="unfinished" />
+      <translation>Fiches</translation>
     </message>
     <message>
       <source>Post</source>
-      <translation type="unfinished" />
+      <translation>Post</translation>
     </message>
     <message>
       <source>Crown</source>
-      <translation type="unfinished" />
+      <translation>Crown</translation>
     </message>
     <message>
       <source>Large Post</source>
-      <translation type="unfinished" />
+      <translation>Large Post</translation>
     </message>
     <message>
       <source>Demy</source>
-      <translation type="unfinished" />
+      <translation>Demy</translation>
     </message>
     <message>
       <source>Medium</source>
-      <translation>Moyenne</translation>
+      <translation>Medium</translation>
     </message>
     <message>
       <source>Royal</source>
-      <translation type="unfinished" />
+      <translation>Royal</translation>
     </message>
     <message>
       <source>Elephant</source>
-      <translation type="unfinished" />
+      <translation>Grand Jésus</translation>
     </message>
     <message>
       <source>Double Demy</source>
-      <translation type="unfinished" />
+      <translation>Double Demy</translation>
     </message>
     <message>
       <source>Quad Demy</source>
-      <translation type="unfinished" />
+      <translation>Quadruple Demy</translation>
     </message>
     <message>
       <source>STMT</source>
-      <translation type="unfinished" />
+      <translation>STMT</translation>
     </message>
     <message>
       <source>A</source>
@@ -10202,9 +10222,8 @@ arr&amp;ondis :</translation>
       <translation>Localisez votre éditeur d'image</translation>
     </message>
     <message>
-      <source>Filesystem location for the Ghostscript interpreter.</source>
-      <comment>Fred</comment>
-      <translation>Emplacement de l'interpréteur GhostScript.</translation>
+      <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+      <translation>Indiquer le chemin de l'exécutable de l'interpréteur GhostScript. Sous Windows, il est impératif d'utiliser le programme nommé gswin32c.exe et non pas gswin32.exe, sinon cela risque de provoquer un blocage lors du démarrage de Scribus</translation>
     </message>
   </context>
   <context>
@@ -10862,10 +10881,6 @@ Vérifiez le chemin et le nom du fichier.</translation>
     <message>
       <source>Bulgarian</source>
       <translation>Bulgare</translation>
-    </message>
-    <message>
-      <source>Brazilian</source>
-      <translation>Brésilien</translation>
     </message>
     <message>
       <source>Catalan</source>
@@ -12249,11 +12264,6 @@ Liens externes
       <translation>Impossible d'ouvrir le fichier %1</translation>
     </message>
     <message>
-      <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-      <comment>PDB Importer</comment>
-      <translation>Ce fichier n'est probablement reconnu comme étant un document PDB. Veuillez s.v.p. rapporter ceci comme un bogue si vous êtes sûr que c'en est un.</translation>
-    </message>
-    <message>
       <source>OpenOffice.org Writer Documents</source>
       <translation>Documents OpenOffice.org</translation>
     </message>
@@ -12266,9 +12276,50 @@ Liens externes
       <translation>Fichiers texte</translation>
     </message>
     <message>
+      <source>Arabic</source>
+      <translation>Arabe</translation>
+    </message>
+    <message>
+      <source>Estonian</source>
+      <translation>Estonien</translation>
+    </message>
+    <message>
       <source>Japanese</source>
-      <comment>Fred</comment>
       <translation>Japonais</translation>
+    </message>
+    <message>
+      <source>Given master page name does not match any existing.</source>
+      <comment>python error</comment>
+      <translation>Le nom de gabarit indiqué ne correspond à aucun gabarit existant</translation>
+    </message>
+    <message>
+      <source>Icelandic</source>
+      <translation>Islandais</translation>
+    </message>
+    <message>
+      <source>%1 may be corrupted : missing resolution tags</source>
+      <translation>%1 semble corrompu : les balises de résolution sont absentes</translation>
+    </message>
+    <message>
+      <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+      <comment>PDB Importer</comment>
+      <translation>Ce fichier n'est pas reconnu comme étant un document PDB. Merci de faire un rapport de bogue si vous êtes sûr que c'en est un.</translation>
+    </message>
+    <message>
+      <source>Breton</source>
+      <translation>Breton</translation>
+    </message>
+    <message>
+      <source>English (American)</source>
+      <translation>Anglais (Américain)</translation>
+    </message>
+    <message>
+      <source>English (Australian)</source>
+      <translation>Anglais (Australien)</translation>
+    </message>
+    <message>
+      <source>%1 may be corrupted : missing or wrong resolution tags</source>
+      <translation>%1 semble corrompu : les balises de résolution sont absentes ou incorrectes</translation>
     </message>
   </context>
   <context>
@@ -13044,6 +13095,10 @@ convertissant les données vectorielles en objets Scribus.</translation>
       <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
       <translation>L'objet %1 est en cours d'édition dans l'éditeur. L'opération de suppression est annulée</translation>
     </message>
+    <message>
+      <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+      <translation>Une erreur s'est produite lors de l'ouverture des profils ICC, la gestion de couleurs est désactivée.</translation>
+    </message>
   </context>
   <context>
     <name>ScribusMainWindow</name>
@@ -13503,8 +13558,11 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
       <source>Contents</source>
-      <comment>Fred</comment>
       <translation>Contenu</translation>
+    </message>
+    <message>
+      <source>Liga&amp;ture</source>
+      <translation>Liga&amp;ture</translation>
     </message>
   </context>
   <context>
@@ -13596,6 +13654,10 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
       <source>Issues</source>
       <translation>Problèmes</translation>
+    </message>
+    <message>
+      <source>Display a console window</source>
+      <translation>Affiche une console</translation>
     </message>
   </context>
   <context>
@@ -13746,7 +13808,6 @@ Utilisez le vérificateur afin de les corriger</translation>
     </message>
     <message>
       <source>Contents</source>
-      <comment>Fred</comment>
       <translation>Contenu</translation>
     </message>
   </context>
@@ -14071,6 +14132,10 @@ Utilisez le vérificateur afin de les corriger</translation>
       <source>Short Words</source>
       <translation>Espaces insécables</translation>
     </message>
+    <message>
+      <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+      <translation>Extension permettant de gérer les espaces insécables d'après une liste d'occurrences prédéfinie et modifiable au besoin. Disponible dans les langues suivantes :</translation>
+    </message>
   </context>
   <context>
     <name>SideBar</name>
@@ -14345,14 +14410,6 @@ Utilisez le vérificateur afin de les corriger</translation>
   <context>
     <name>StyleSelect</name>
     <message>
-      <source>Underline</source>
-      <translation>Souligné</translation>
-    </message>
-    <message>
-      <source>Underline Words Only</source>
-      <translation>Mots Soulignés</translation>
-    </message>
-    <message>
       <source>All Caps</source>
       <translation>Majuscules</translation>
     </message>
@@ -14369,17 +14426,24 @@ Utilisez le vérificateur afin de les corriger</translation>
       <translation>Exposant</translation>
     </message>
     <message>
-      <source>Strike Out</source>
-      <translation>Barré</translation>
+      <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+      <translation>Texte souligné. Garder le bouton appuyé quelques secondes pour définir le positionnement du trait et son épaisseur.</translation>
     </message>
     <message>
-      <source>Outline</source>
-      <comment>Text Style Selector</comment>
-      <translation>Contour</translation>
+      <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+      <translation>Mots soulignés. Garder le bouton appuyé quelques secondes pour définir le positionnement du trait et son épaisseur.</translation>
     </message>
     <message>
-      <source>Shadow</source>
-      <translation>Ombré</translation>
+      <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+      <translation>Texte barré. Garder le bouton appuyé quelques secondes pour définir le positionnement du trait et son épaisseur.</translation>
+    </message>
+    <message>
+      <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+      <translation>Contour. Garder le bouton appuyé quelques secondes pour définir l'épaisseur du contour.</translation>
+    </message>
+    <message>
+      <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+      <translation>Ombre du texte. Garder le bouton appuyé quelques secondes pour définir les décalages horizontal et vertical.</translation>
     </message>
   </context>
   <context>
@@ -14511,10 +14575,6 @@ Utilisez le vérificateur afin de les corriger</translation>
       <source>Destination Frame:</source>
       <translation>Cadre de destination :</translation>
     </message>
-    <message>
-      <source>Inde&amp;x</source>
-      <translation>Inde&amp;x</translation>
-    </message>
   </context>
   <context>
     <name>TOCIndexPrefsBase</name>
@@ -14581,10 +14641,6 @@ Utilisez le vérificateur afin de les corriger</translation>
     <message>
       <source>Destination Frame:</source>
       <translation>Cadre de destination :</translation>
-    </message>
-    <message>
-      <source>Inde&amp;x</source>
-      <translation>Inde&amp;x</translation>
     </message>
   </context>
   <context>
@@ -15522,7 +15578,6 @@ when PDF document is opened:</source>
     </message>
     <message>
       <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-      <comment>Fred</comment>
       <translation>Durée pendant laquelle la page est affichée avant le début de la présentation sur la page sélectionnée. Une valeur de 0 désactive la transition automatique entre les pages.</translation>
     </message>
   </context>
@@ -16525,6 +16580,18 @@ to %2</source>
     <message>
       <source>Multiple duplicate</source>
       <translation>Dupliquer-Déplacer multiples</translation>
+    </message>
+    <message>
+      <source>Reset control point</source>
+      <translation>Réinitialiser le point de contrôle</translation>
+    </message>
+    <message>
+      <source>Reset control points</source>
+      <translation>Réinitialiser les points de contrôle</translation>
+    </message>
+    <message>
+      <source>Modify image effects</source>
+      <translation>Modifier les effets d'image</translation>
     </message>
   </context>
   <context>

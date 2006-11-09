@@ -333,7 +333,7 @@ void RulerT::leaveEvent(QEvent*)
 {
 	if ((mousePressed) && (rulerCode == 3))
 	{
-		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 4, 3), true);
+		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png"), 1, 1), true);
 		return;
 	}
 	else

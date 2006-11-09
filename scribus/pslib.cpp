@@ -288,8 +288,10 @@ void PSLib::PS_begin_doc(int, double x, double y, double breite, double hoehe, i
 		PutDoc(BBox);
 		PutDoc(BBoxH);
 	}
-	PutDoc(FNamen);
-	PutDoc(Farben);
+	if (!FNamen.isEmpty())
+		PutDoc("%%DocumentCustomColors: "+FNamen);
+	if (!Farben.isEmpty())
+		PutDoc("%%CMYKCustomColor: "+Farben);
 	PutDoc("%%LanguageLevel: 3\n");
 	PutDoc("%%EndComments\n");
 	PutDoc(Prolog);
@@ -1192,7 +1194,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 							else if (ite->asImageFrame())
 							{
 								PS_save();
-								PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
+								// JG : replace what seems mostly duplicate code by corresponding function call (#3936)
+								ProcessItem(Doc, Doc->Pages->at(a), ite, a, sep, farb, Ic, gcr, false, false, true);
+								/*PS_translate(ite->xPos() - mPage->xOffset(), mPage->height() -(ite->yPos()) - mPage->yOffset());
 								if (ite->rotation() != 0)
 									PS_rotate(-ite->rotation());
 								if (ite->fillColor() != CommonStrings::None)
@@ -1226,9 +1230,9 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 								{
 									PS_translate(0, -ite->BBoxH*ite->imageYScale());
 									if ((!sep) && (farb))
-										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
+										PS_image(ite, ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic, ite->itemName());
 									else
-										PS_image(ite, /*-ite->BBoxX+*/ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
+										PS_image(ite, ite->imageXOffset(), -ite->imageYOffset(), ite->Pfile, ite->imageXScale(), ite->imageYScale(), ite->IProfile, ite->UseEmbedded, Ic);
 								}
 								PS_restore();
 								if (((ite->lineColor() != CommonStrings::None) || (!ite->NamedLStyle.isEmpty())) && (!ite->isTableItem))
@@ -1259,7 +1263,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 											putColor(ml[it].Color, ml[it].Shade, false);
 										}
 									}
-								}
+								}*/
 								PS_restore();
 							}
 							else if (ite->asTextFrame())
@@ -1311,14 +1315,17 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 										multiLine ml = Doc->MLineStyles[ite->NamedLStyle];
 										for (int it = ml.size()-1; it > -1; it--)
 										{
-											SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-											PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-											PS_setlinewidth(ml[it].Width);
-											PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-											PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-											SetClipPath(&ite->PoLine);
-											PS_closepath();
-											putColor(ml[it].Color, ml[it].Shade, false);
+											if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+											{
+												SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+												PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+												PS_setlinewidth(ml[it].Width);
+												PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+												PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+												SetClipPath(&ite->PoLine);
+												PS_closepath();
+												putColor(ml[it].Color, ml[it].Shade, false);
+											}
 										}
 									}
 								}
@@ -1330,6 +1337,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 					{
 						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
+							continue;
+						if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
 							continue;
 						if (ite->printEnabled())
 						{
@@ -1406,7 +1415,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString
 		return 2; //CB Lets leave 1 for general error condition
 }
 
-void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded)
+void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded, bool useTemplate)
 {
 	int h, s, v, k, tsz;
 	uint d;
@@ -1475,7 +1484,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 			if ((c->PicAvail) && (!c->Pfile.isEmpty()))
 			{
 				PS_translate(0, -c->BBoxH*c->imageYScale());
-				if ((!a->PageNam.isEmpty()) && (!sep) && (farb))
+				if (((!a->PageNam.isEmpty()) && (!sep) && (farb)) || useTemplate)
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic, c->itemName());
 				else
 					PS_image(c, /*-c->BBoxX+*/c->imageXOffset(), -c->imageYOffset(), c->Pfile, c->imageXScale(), c->imageYScale(), c->IProfile, c->UseEmbedded, ic);
@@ -1499,14 +1508,17 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						PS_setlinewidth(ml[it].Width);
-						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-						SetClipPath(&c->PoLine);
-						PS_closepath();
-						putColor(ml[it].Color, ml[it].Shade, false);
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setlinewidth(ml[it].Width);
+							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+							SetClipPath(&c->PoLine);
+							PS_closepath();
+							putColor(ml[it].Color, ml[it].Shade, false);
+						}
 					}
 				}
 			}
@@ -1575,14 +1587,17 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						PS_setlinewidth(ml[it].Width);
-						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-						SetClipPath(&c->PoLine);
-						PS_closepath();
-						putColor(ml[it].Color, ml[it].Shade, false);
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setlinewidth(ml[it].Width);
+							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+							SetClipPath(&c->PoLine);
+							PS_closepath();
+							putColor(ml[it].Color, ml[it].Shade, false);
+						}
 					}
 				}
 			}
@@ -1599,14 +1614,17 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-					PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-					PS_setlinewidth(ml[it].Width);
-					PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-					PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-					PS_moveto(0, 0);
-					PS_lineto(c->width(), 0);
-					putColor(ml[it].Color, ml[it].Shade, false);
+					if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+					{
+						SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						PS_setlinewidth(ml[it].Width);
+						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+						PS_moveto(0, 0);
+						PS_lineto(c->width(), 0);
+						putColor(ml[it].Color, ml[it].Shade, false);
+					}
 				}
 			}
 			if (c->startArrowIndex() != 0)
@@ -1669,14 +1687,17 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						PS_setlinewidth(ml[it].Width);
-						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-						SetClipPath(&c->PoLine);
-						PS_closepath();
-						putColor(ml[it].Color, ml[it].Shade, false);
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setlinewidth(ml[it].Width);
+							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+							SetClipPath(&c->PoLine);
+							PS_closepath();
+							putColor(ml[it].Color, ml[it].Shade, false);
+						}
 					}
 				}
 			}
@@ -1704,13 +1725,16 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-						PS_setlinewidth(ml[it].Width);
-						PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-						PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-						SetClipPath(&c->PoLine, false);
-						putColor(ml[it].Color, ml[it].Shade, false);
+						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						{
+							SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+							PS_setlinewidth(ml[it].Width);
+							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+							SetClipPath(&c->PoLine, false);
+							putColor(ml[it].Color, ml[it].Shade, false);
+						}
 					}
 				}
 			}
@@ -1781,13 +1805,16 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 						multiLine ml = Doc->MLineStyles[c->NamedLStyle];
 						for (int it = ml.size()-1; it > -1; it--)
 						{
-							SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
-							PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
-							PS_setlinewidth(ml[it].Width);
-							PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-							PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
-							SetClipPath(&c->PoLine, false);
-							putColor(ml[it].Color, ml[it].Shade, false);
+							if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+							{
+								SetFarbe(ml[it].Color, ml[it].Shade, &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								PS_setlinewidth(ml[it].Width);
+								PS_setcapjoin(static_cast<Qt::PenCapStyle>(ml[it].LineEnd), static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
+								PS_setdash(static_cast<Qt::PenStyle>(ml[it].Dash), 0, dum);
+								SetClipPath(&c->PoLine, false);
+								putColor(ml[it].Color, ml[it].Shade, false);
+							}
 						}
 					}
 					PS_restore();
@@ -1846,12 +1873,25 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 								PS_translate(0, -c->BaseOffs);
 							if (hl->cscale != 1000)
 								PS_scale(hl->cscale / 1000.0, 1);
+							if ((hl->cstyle & 256) && ((hl->cstroke != CommonStrings::None)))
+							{
+								PS_save();
+								PS_translate(tsz * hl->cshadowx / 10000.0, tsz * -hl->cshadowy / 10000.0);
+								SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+								PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+								if ((colorsToUse[hl->cstroke].isSpotColor()) && (!DoSep))
+									PutSeite(ToStr(hl->cshade2 / 100.0)+" "+spotMap[hl->cstroke]);
+								else
+									PutSeite(StrokeColor + " cmyk");
+								PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
+								PS_restore();
+							}
 							if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
 								PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
 							else
 								PutSeite(FillColor + " cmyk");
 							PS_showSub(chr, hl->cfont->RealName().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "_" ), tsz / 10.0, false);
-							if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
+							if ((hl->cstyle & 4) && ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0)))
 							{
 								PS_save();
 								PS_setlinewidth(tsz * hl->coutline / 10000.0);
@@ -1877,6 +1917,26 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					PutSeite("["+ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(0) + "] concatmatrix\nconcat\n");
 					if (c->BaseOffs != 0)
 						PS_translate(0, -c->BaseOffs);
+					if ((hl->cstyle & 256) && ((hl->cstroke != CommonStrings::None)))
+					{
+						PS_save();
+						PS_translate(tsz * hl->cshadowx / 10000.0, tsz * -hl->cshadowy / 10000.0);
+						SetFarbe(hl->cstroke, hl->cshade2, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+						if ((colorsToUse[hl->cstroke].isSpotColor()) && (!DoSep))
+						{
+							PutSeite(ToStr(hl->cshade2 / 100.0)+" "+spotMap[hl->cstroke]);
+							PS_show_xyG(hl->cfont->scName(), chx, 0, 0, true);
+						}
+						else
+							PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
+						PS_restore();
+					}
+					if (hl->ccolor != CommonStrings::None)
+					{
+						SetFarbe(hl->ccolor, hl->cshade, &h, &s, &v, &k, gcr);
+						PS_setcmykcolor_stroke(h / 255.0, s / 255.0, v / 255.0, k / 255.0);
+					}
 					if ((colorsToUse[hl->ccolor].isSpotColor()) && (!DoSep))
 					{
 						PutSeite(ToStr(hl->cshade / 100.0)+" "+spotMap[hl->ccolor]);
@@ -1884,7 +1944,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					}
 					else
 						PS_show_xyG(hl->cfont->scName(), chx, 0, 0, false);
-					if ((hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
+					if ((hl->cstyle & 4) && (hl->cstroke != CommonStrings::None) && ((tsz * hl->coutline / 10000.0) != 0))
 					{
 						uint chr = chx[0].unicode();
 						FPointArray gly = hl->cfont->GlyphArray[chr].Outlines.copy();
@@ -1985,6 +2045,8 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if (!c->isTableItem)
 				continue;
+			if ((c->lineColor() == CommonStrings::None) || (c->lineWidth() == 0.0))
+				continue;
 			if ((!a->PageNam.isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;
 			if (c->printEnabled())
@@ -2082,10 +2144,10 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 			break;
 		case 6:
 		case 7:
-			StartX = QMIN(QMAX(c->GrStartX, 0), c->width());
-			StartY = QMIN(QMAX(c->GrStartY, 0), c->height());
-			EndX = QMIN(QMAX(c->GrEndX, 0), c->width());
-			EndY = QMIN(QMAX(c->GrEndY, 0), c->height());
+			StartX = c->GrStartX;
+			StartY = c->GrStartY;
+			EndX = c->GrEndX;
+			EndY = c->GrEndY;
 			break;
 	}
 	QValueList<double> StopVec;
@@ -2108,12 +2170,8 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 		StopVec.clear();
 		for (uint cst = 0; cst < c->fill_gradient.Stops(); ++cst)
 		{
-			QWMatrix ma;
-			ma.translate(StartX, StartY);
-			ma.rotate(atan2(EndY - StartY, EndX - StartX)*(180.0/M_PI));
-			double w2 = sqrt(pow(EndX - StartX, 2) + pow(EndY - StartY,2))*cstops.at(cst)->rampPoint;
-			double x = fabs(ma.m11() * w2 + ma.dx());
-			double y = fabs(ma.m12() * w2 + ma.dy());
+			double x = (1 - cstops.at(cst)->rampPoint) * StartX + cstops.at(cst)->rampPoint * EndX;
+			double y = (1 - cstops.at(cst)->rampPoint) * StartY + cstops.at(cst)->rampPoint * EndY;
 			StopVec.append(x);
 			StopVec.append(-y);
 			SetFarbe(cstops.at(cst)->name, cstops.at(cst)->shade, &ch, &cs, &cv, &ck, gcr);
@@ -2243,6 +2301,9 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint a, Page* pg
 			hl2.cshade2 = hl->cshade2;
 			hl2.yp = hl->yp - (hl->csize * hl->cshadowy / 10000.0);
 			hl2.xp = hl->xp + (hl->csize * hl->cshadowx / 10000.0);
+			hl2.PtransX = hl->PtransX;
+			hl2.PtransY = hl->PtransY;
+			hl2.PRot = hl->PRot;
 			hl2.csize = hl->csize;
 			hl2.cstyle = hl->cstyle;
 			hl2.cfont = hl->cfont;
