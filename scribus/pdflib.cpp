@@ -1858,11 +1858,57 @@ void PDFlib::PDF_End_Page()
 			PutPage(regCross);
 			PutPage("Q\n");
 		}
+		if (Options.colorMarks)
+		{
+			double startX = markOffs+bleedLeft;
+			double startY = maxBoxY - 18.0;
+			PutPage("0 0 0 1 K\n");
+			double col = 1.0;
+			for (int bl = 0; bl < 11; bl++)
+			{
+				PutPage("0 0 0 "+FToStr(col)+" k\n");
+				PutPage(FToStr(startX+bl*14.0)+" "+FToStr(startY)+" 14 14 re B\n");
+				col -= 0.1;
+			}
+			startX = maxBoxX-bleedRight-markOffs-14.0;
+			PutPage("0 0 0 0.5 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0 0 0.5 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0 0.5 0 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0.5 0 0 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("1 1 0 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("1 0 1 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0 1 1 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0 0 0 1 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0 0 1 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("0 1 0 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+			startX -= 14.0;
+			PutPage("1 0 0 0 k\n");
+			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+		}
 	}
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
 	int Gobj;
-	if (Options.Version >= 14) //  && (Transpar.count() != 0))
+	if (Options.Version >= 14)
 	{
 		StartObj(ObjCounter);
 		Gobj = ObjCounter;
