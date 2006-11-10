@@ -424,6 +424,10 @@ void NewDoc::ExitOK()
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
+	bleedBottom = BleedBottom->value() / unitRatio;
+	bleedTop = BleedTop->value() / unitRatio;
+	bleedLeft = BleedLeft->value() / unitRatio;
+	bleedRight = BleedRight->value() / unitRatio;
 	if (onStartup)
 		tabSelected = tabWidget->currentPageIndex();
 	else

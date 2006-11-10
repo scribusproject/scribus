@@ -99,6 +99,10 @@ public:
 	int unitIndex;
 	int tabSelected;
 	bool onStartup;
+	double bleedBottom;
+	double bleedLeft;
+	double bleedRight;
+	double bleedTop;
 
 public slots:
 	void setHeight(int v);
