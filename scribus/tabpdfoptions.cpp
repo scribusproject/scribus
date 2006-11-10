@@ -791,7 +791,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	markOffset->setMaxValue(3000 * unitRatio);
 	tabPDFXLayout->addWidget( MarkGroup );
 // Disable the Printer Marks for now until they are supported by the PDF Exporter
-	bleedMarks->setEnabled(false);
 	registrationMarks->setEnabled(false);
 	docInfoMarks->setEnabled(false);
 	colorMarks->setEnabled(false);

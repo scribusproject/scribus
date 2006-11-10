@@ -1805,6 +1805,37 @@ void PDFlib::PDF_End_Page()
 			PutPage(FToStr(maxBoxX-bleedRight-markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
 			PutPage("S\n");
 		}
+		if (Options.bleedMarks)
+		{
+		// Bottom Left
+			PutPage("0 "+FToStr(markOffs)+" m\n");
+			PutPage(FToStr(20.0)+" "+FToStr(markOffs)+" l\n");
+			PutPage("S\n");
+			PutPage(FToStr(markOffs)+" 0 m\n");
+			PutPage(FToStr(markOffs)+" 20 l\n");
+			PutPage("S\n");
+		// Top Left
+			PutPage("0 "+FToStr(maxBoxY-markOffs)+" m\n");
+			PutPage(FToStr(20.0)+" "+FToStr(maxBoxY-markOffs)+" l\n");
+			PutPage("S\n");
+			PutPage(FToStr(markOffs)+" "+FToStr(maxBoxY)+" m\n");
+			PutPage(FToStr(markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
+			PutPage("S\n");
+		// Bottom Right
+			PutPage(FToStr(maxBoxX)+" "+FToStr(markOffs)+" m\n");
+			PutPage(FToStr(maxBoxX-20.0)+" "+FToStr(markOffs)+" l\n");
+			PutPage("S\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(0.0)+" m\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(20.0)+" l\n");
+			PutPage("S\n");
+		// Top Right
+			PutPage(FToStr(maxBoxX)+" "+FToStr(maxBoxY-markOffs)+" m\n");
+			PutPage(FToStr(maxBoxX-20.0)+" "+FToStr(maxBoxY-markOffs)+" l\n");
+			PutPage("S\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY)+" m\n");
+			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
+			PutPage("S\n");
+		}
 	}
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
@@ -1838,10 +1869,6 @@ void PDFlib::PDF_End_Page()
 	PutDoc("/CropBox [0 0 "+FToStr(maxBoxX)+" "+FToStr(maxBoxY)+"]\n");
 	PutDoc("/TrimBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.BleedBottom+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+FToStr(maxBoxY-Options.BleedTop-markOffs*2.0)+"]\n");
 	PutDoc("/ArtBox ["+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.BleedBottom+markOffs)+" "+FToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+FToStr(maxBoxY-Options.BleedTop-markOffs*2.0)+"]\n");
-//	if (Options.Version == 12)
-//		PutDoc("/TrimBox ["+FToStr(Options.BleedLeft)+" "+FToStr(Options.BleedBottom)+" "+FToStr(ActPageP->width()-Options.BleedRight)+" "+FToStr(ActPageP->height()-Options.BleedTop)+"]\n");
-//	else
-//		PutDoc("/TrimBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
 	if (Options.Version >= 14) // && (Transpar.count() != 0))
