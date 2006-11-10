@@ -1836,6 +1836,28 @@ void PDFlib::PDF_End_Page()
 			PutPage(FToStr(maxBoxX-markOffs)+" "+FToStr(maxBoxY-20.0)+" l\n");
 			PutPage("S\n");
 		}
+		if (Options.registrationMarks)
+		{
+			QString regCross = "0 7 m\n14 7 l\nh\n7 0 m\n7 14 l\nh\n13 7 m\n13 10.31383 10.31383 13 7 13 c\n3.68629 13 1 10.31383 1 7 c\n1 3.68629 3.68629 1 7 1 c\n";
+			regCross += "10.31383 1 13 3.68629 13 7 c\nh\n10.5 7 m\n10.5 8.93307 8.93307 10.5 7 10.5 c\n5.067 10.5 3.5 8.93307 3.5 7 c\n";
+			regCross += "3.5 5.067 5.067 3.5 7 3.5 c\n8.93307 3.5 10.5 5.067 10.5 7 c\nh\nS\n";
+			PutPage("q\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 - 7.0)+" 3 cm\n");
+			PutPage(regCross);
+			PutPage("Q\n");
+			PutPage("q\n");
+			PutPage("1 0 0 1 3 "+FToStr(maxBoxY / 2.0 + 7.0)+" cm\n");
+			PutPage(regCross);
+			PutPage("Q\n");
+			PutPage("q\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 - 7.0)+" "+FToStr(maxBoxY - 17.0)+" cm\n");
+			PutPage(regCross);
+			PutPage("Q\n");
+			PutPage("q\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX - 17.0)+" "+FToStr(maxBoxY / 2.0 + 7.0)+" cm\n");
+			PutPage(regCross);
+			PutPage("Q\n");
+		}
 	}
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);

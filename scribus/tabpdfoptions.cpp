@@ -791,7 +791,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	markOffset->setMaxValue(3000 * unitRatio);
 	tabPDFXLayout->addWidget( MarkGroup );
 // Disable the Printer Marks for now until they are supported by the PDF Exporter
-	registrationMarks->setEnabled(false);
 	docInfoMarks->setEnabled(false);
 	colorMarks->setEnabled(false);
 
@@ -845,7 +844,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QSpacerItem* spacerPX2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	tabPDFXLayout->addItem( spacerPX2 );
 
-	insertTab( tabPDFX, tr( "Pre Press" ) );
+	insertTab( tabPDFX, tr( "Pre-Press" ) );
 	BleedTop->setSuffix( unit );
 	BleedTop->setMinValue(0);
 	BleedTop->setMaxValue(3000*unitRatio);
