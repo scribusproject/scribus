@@ -40,10 +40,30 @@ public:
 	\author Franz Schmid
 	*/
 	~Hyphenator();
+	
+private:
+
 	/*! Embeded reference to the \see ScribusDoc filled by \a dok */
 	ScribusDoc *doc;
+	/*! Reference to the hyphen dictionary structure. */
+	HyphenDict *hdict;
+	/*! Flag - if is the dictionary without errors etc. If is it 'false'
+		hyphen aborted. */
+	bool useAble;
+	/*! Qt text codec which handles local characters. */
+	QTextCodec *codec;
+
+	/*!
+		\brief Loads dictionary and fills parameters like \a useAble, \a codec, \a hdict.
+	 \date
+	 \author Franz Schmid
+	 \param name is the name of specified language - filename.
+	 */
+	void NewDict(const QString& name);
+	
+public:
 	/*! There are languages having rule not to hyphen word shorter than
-	MinWordLen */
+		MinWordLen */
 	int MinWordLen;
 	/*! Maximum number of hyphenations allowed following each other */
 	int HyCount;
@@ -53,22 +73,8 @@ public:
 	bool Automatic;
 	/*! Flag - obsolete? */
 	bool AutoCheck;
-	/*! Reference to the hyphen dictionary structure. */
-	HyphenDict *hdict;
-	/*! Flag - if is the dictionary without errors etc. If is it 'false'
-		hyphen aborted. */
-	bool useAble;
-	/*! Qt text codec which handles local characters. */
-	QTextCodec *codec;
-
+	
 public slots:
-	/*!
-	\brief Loads dictionary and fills parameters like \a useAble, \a codec, \a hdict.
-	\date
-	\author Franz Schmid
-	\param name is the name of specified language - filename.
-	*/
-	void slotNewDict(QString name);
 	/*!
 	\brief Writes actual hyphen configuration into \a doc object.
 	\date
@@ -87,7 +93,7 @@ public slots:
 	\param text is a word to hyphenate.
 	\param firstC is the first character of the word in \a it item.
 	*/
-	void slotHyphenateWord(PageItem* it, QString text, int firstC);
+	void slotHyphenateWord(PageItem* it, const QString& text, int firstC);
 	/*!
 	\brief Make hyphenation as described in \see slotHyphenateWord for the whole text frame.
 	\date
