@@ -230,6 +230,7 @@ private:
 	bool BookMinUse;
 	ColorList colorsToUse;
 	QMap<QString, SpotC> spotMap;
+	QMap<QString, SpotC> spotMapReg;
 	QString spotNam;
 	int spotCount;
 	int inPattern;
