@@ -218,11 +218,13 @@ void Hyphenator::slotHyphenate(PageItem* it)
 
   			te = codec->fromUnicode( found );
 			word = te.data();
+			/*
 			qDebug(QString("hyphenate %1: len %2 and %3 in codec %4")
 				   .arg(Language)
 				   .arg(found2.length())
 				   .arg(strlen(word))
 				   .arg(codec->name()));
+			 */
 			buffer = static_cast<char*>(malloc(strlen(word)+BORDER+3));
 			if (buffer == NULL)
 				break;
@@ -251,11 +253,13 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						dump2 += "-";
 					}
 				}
+				/*
 				qDebug(QString("hy %3+%4: %1 / %2")
 					   .arg(dump)
 					   .arg(dump2)
 					   .arg(startC)
 					   .arg(firstC));
+				 */
 				if ( ! hasHyphen ) {
 					it->itemText.hyphenateWord(startC + firstC, found.length(), NULL);
 				}
