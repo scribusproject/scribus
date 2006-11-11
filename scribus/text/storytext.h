@@ -25,6 +25,8 @@ public:
 	static QChar COLBREAK;
 	static QChar FRAMEBREAK;
 	static QChar SHYPHEN;
+	static QChar OLD_NBHYPHEN;
+	static QChar OLD_NBSPACE;
 	static QChar NBHYPHEN;
 	static QChar NBSPACE;
 	static QChar ZWNBSPACE;
