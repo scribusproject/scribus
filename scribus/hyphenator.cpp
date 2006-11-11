@@ -241,6 +241,7 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						break;
 					}
 				}
+				/*
 				QString dump(""), dump2("");
 				for (i=0; i < strlen(word); ++i) 
 				{
@@ -253,7 +254,6 @@ void Hyphenator::slotHyphenate(PageItem* it)
 						dump2 += "-";
 					}
 				}
-				/*
 				qDebug(QString("hy %3+%4: %1 / %2")
 					   .arg(dump)
 					   .arg(dump2)

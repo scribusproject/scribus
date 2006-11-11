@@ -44,7 +44,7 @@ DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styl
 
 	// sort the names in language specific order (PV)
 	QStringList existingStyles;
-	for (uint x = 5; x < sty.count(); ++x)
+	for (uint x = 0; x < sty.count(); ++x)
 	{
 		if (sty[x].name() != styleName)
 			existingStyles.append(sty[x].name());
@@ -95,9 +95,9 @@ ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleLi
 	StyleView->header()->setClickEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->header()->setResizeEnabled( false, StyleView->header()->count() - 1 );
 	StyleView->setSorting(-1);
-	int counter = 5;
+	int counter = 0;
 // 	bool tabEQ = false;
-	for (uint x = 5; x < styleList->count(); ++x)
+	for (uint x = 0; x < styleList->count(); ++x)
 	{
 		ParagraphStyle vg;
 		ParagraphStyle vg2;
@@ -218,7 +218,7 @@ void StilFormate::saveIt()
 
 void StilFormate::selFormat(QListBoxItem *c)
 {
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (uint x = 0; x < TempVorl.count(); ++x)
 	{
 		if (TempVorl[x].name() == c->text())
 		{
@@ -233,7 +233,7 @@ void StilFormate::selFormat(QListBoxItem *c)
 
 void StilFormate::selEditFormat(QListBoxItem *c)
 {
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (uint x = 0; x < TempVorl.count(); ++x)
 	{
 		if (TempVorl[x].name() == c->text())
 		{
@@ -389,10 +389,6 @@ void StilFormate::loadStyles()
 		QString selectedFile = dia.selectedFile();
 		dirs->set("editformats", selectedFile.left(selectedFile.findRev("/")));
 		QValueList<ParagraphStyle> TempVorl2;
-		for (uint x = 0; x < 5; ++x)
-		{
-			TempVorl2.append(TempVorl[x]);
-		}
 		Docu->loadStylesFromFile(selectedFile, &TempVorl2);
 		ChooseStyles* dia2 = new ChooseStyles(this, &TempVorl2, &TempVorl);
 		if (dia2->exec())
@@ -441,9 +437,9 @@ void StilFormate::loadStyles()
 void StilFormate::UpdateFList()
 {
 	ListBox1->clear();
-	if (TempVorl.count() < 6)
+	if (TempVorl.count() == 0)
 		return;
-	for (uint x = 5; x < TempVorl.count(); ++x)
+	for (uint x = 0; x < TempVorl.count(); ++x)
 		ListBox1->insertItem(TempVorl[x].name());
 	if (ListBox1->currentItem() == -1)
 	{

@@ -433,19 +433,19 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 	assert(pos >= 0);
 	assert(pos + signed(len) <= length());
 	
-	QString dump("");
+//	QString dump("");
 	for (int i=pos; i < pos+signed(len); ++i)
 	{
-		dump += d->at(i)->ch;
+//		dump += d->at(i)->ch;
 		if(hyphens && hyphens[i-pos] & 1) {
 			d->at(i)->setEffects(d->at(i)->effects() | ScStyle_HyphenationPossible);
-			dump += "-";
+//			dump += "-";
 		}
 		else {
 			d->at(i)->setEffects(d->at(i)->effects() & ~ScStyle_HyphenationPossible);
 		}
 	}
-	qDebug(QString("st: %1").arg(dump));
+//	qDebug(QString("st: %1").arg(dump));
 	invalidate(pos, pos + len);
 }
 

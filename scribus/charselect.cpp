@@ -64,7 +64,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(m_fontInUse);
 	selectionsLayout->addWidget( fontSelector );
-	if ( /* FIXME:av (ap->doc->currentStyle > 4) || */ needReturn)
+	if (needReturn)
 		fontSelector->setEnabled(false);
 	rangeLabel = new QLabel( this, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );

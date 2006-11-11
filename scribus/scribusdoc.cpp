@@ -6211,9 +6211,6 @@ void ScribusDoc::itemSelection_DoHyphenate()
 		for (uint i = 0; i < selectedItemCount; ++i)
 		{
 			PageItem *currItem = m_Selection->itemAt(i);
-			//Hm, that should be superfluous if slotHyphenate respects language from charstyle 
-			if (docHyphenator->Language != currItem->itemText.charStyle(0).language())
-				docHyphenator->slotNewDict(currItem->itemText.charStyle(0).language());
 			docHyphenator->slotHyphenate(currItem);
 		}
 		m_View->DrawNew(); //CB draw new until NLS for redraw through text chains
