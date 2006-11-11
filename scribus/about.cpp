@@ -55,7 +55,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	buildID = new QLabel( tab, "BB" );
 	buildID->setAlignment(Qt::AlignCenter);
 	QString BUILD_DAY = "11";
-	QString BUILD_MONTH = "Nov";
+	QString BUILD_MONTH = CommonStrings::november;
 	QString BUILD_YEAR = "2006";
 	QString BUILD_TIME = "";
 	QString BUILD_TZ = "";

@@ -1001,6 +1001,36 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	return addedPage;
 }
 
+bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& newPageName)
+{
+	Q_ASSERT(oldPageName!=CommonStrings::masterPageNormal && oldPageName!=CommonStrings::trMasterPageNormal);
+	if (MasterNames.contains(oldPageName) && !MasterNames.contains(newPageName))
+	{
+		//Rename our master page lists
+		int number=MasterNames[oldPageName];
+		MasterNames.insert(newPageName, number);
+		MasterNames.remove(oldPageName);
+		Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
+		MasterPages.at(number)->setPageName(newPageName);
+		//Update any pages that were linking to our old name
+		for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
+		{
+			if (docPage->MPageNam == oldPageName)
+				docPage->MPageNam = newPageName;
+		}
+		//Update any items that were linking to our old name
+		uint masterItemsCount=MasterItems.count();
+		for (uint i = 0; i < masterItemsCount; ++i)
+		{
+			if (MasterItems.at(i)->OnMasterPage == oldPageName)
+				MasterItems.at(i)->OnMasterPage = newPageName;
+		}
+		changed();
+		return true;
+	}
+	return false;
+}
+
 void ScribusDoc::deleteMasterPage(const int pageNumber)
 {
 	Q_ASSERT( Pages->count() > 1 && Pages->count() > static_cast<uint>(pageNumber) );
