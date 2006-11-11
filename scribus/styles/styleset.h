@@ -16,7 +16,7 @@ public:
 	inline int find(QString name);
 	inline const Style* resolve(QString name) const;
 	uint count() const { return (uint) styles.count(); }
-	void append(STYLE* style) { styles.append(style); style->setBase(this); }
+	void append(STYLE* style) { styles.append(style); style->setBase(this); invalidate(); }
 	inline void remove(uint index);
 	inline void redefine(QValueList<STYLE> defs, bool removeUnused=false);
 	void create(const STYLE& proto) { append(new STYLE(proto)); }
@@ -41,6 +41,7 @@ inline void StyleSet<STYLE>::remove(uint index)
 	typename QValueList<STYLE*>::Iterator it = styles.at(index);
 	delete (*it);
 	styles.erase(it);
+	invalidate();
 }
 
 template<class STYLE>

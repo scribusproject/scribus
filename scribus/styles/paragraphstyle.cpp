@@ -163,12 +163,13 @@ void ParagraphStyle::applyStyle(const ParagraphStyle& other)
 
 void ParagraphStyle::eraseStyle(const ParagraphStyle& other) 
 {
+	validate();
 	other.validate();
 	Style::eraseStyle(other);
 	cstyle.eraseCharStyle(other.charStyle());
 	cstyleBase.invalidate();
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
-	if (!inh_##attr_NAME && m_##attr_NAME == other.attr_GETTER()) \
+	if (!inh_##attr_NAME && m_##attr_NAME == other.m_##attr_NAME) \
 		reset##attr_NAME();
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
