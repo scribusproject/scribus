@@ -23418,19 +23418,19 @@ das Dokument nicht PDF/X-3-konform ist. Benutzen Sie z.B. den Titel des Dokument
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
-        <translation>Abzug für Anschnitt oben</translation>
+        <translation>Zugabe für Anschnitt oben</translation>
     </message>
     <message>
         <source>Distance for bleed from the bottom of the physical page</source>
-        <translation>Abzug für Anschnitt unten</translation>
+        <translation>Zugabe für Anschnitt unten</translation>
     </message>
     <message>
         <source>Distance for bleed from the left of the physical page</source>
-        <translation>Abzug für Anschnitt links</translation>
+        <translation>Zugabe für Anschnitt links</translation>
     </message>
     <message>
         <source>Distance for bleed from the right of the physical page</source>
-        <translation>Abzug für Anschnitt rechts</translation>
+        <translation>Zugabe für Anschnitt rechts</translation>
     </message>
     <message>
         <source>Mirror Page(s) horizontally</source>
