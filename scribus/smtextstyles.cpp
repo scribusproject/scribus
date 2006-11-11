@@ -92,7 +92,7 @@ QValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 			QString styleName = tmpStyles_[i].name();
 			QString parentName = QString::null;
 
-			if (tmpStyles_[i].hasParent() && tmpStyles_[i].parentStyle()->hasName())
+			if (tmpStyles_[i].parentStyle() != 0 && tmpStyles_[i].parentStyle()->hasName())
 				parentName = tmpStyles_[i].parentStyle()->displayName();
 
 			tmpList << StyleName(styleName, parentName);
@@ -193,27 +193,24 @@ QString SMParagraphStyle::newStyle()
 		return QString::null;
 
 	QString s = getUniqueName( tr("New Style"));
-
-	tmpStyles_.append(doc_->docParagraphStyles[""]);
-	tmpStyles_.last().setName(s);
+	ParagraphStyle p(doc_->docParagraphStyles[""]);
+	p.setName(s);
+	tmpStyles_.create(p);
 	return s;
 }
 
 QString SMParagraphStyle::newStyle(const QString &fromStyle)
 {
-	QString s = QString::null;
+	Q_ASSERT(tmpStyles_.resolve(fromStyle));
+	if (!tmpStyles_.resolve(fromStyle))
+		return QString::null;
 
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
-	{
-		if (tmpStyles_[i].name() == fromStyle)
-		{
-			s = getUniqueName( tr("Clone of %1").arg(fromStyle));
-			tmpStyles_.append(ParagraphStyle(tmpStyles_[i]));
-			tmpStyles_.last().setName(s);
-			tmpStyles_.last().setShortcut(QString::null); // do not clone sc
-			break;
-		}
-	}
+	QString s = getUniqueName( tr("Clone of %1").arg(fromStyle));
+	ParagraphStyle p(tmpStyles_[fromStyle]);
+	p.setName(s);
+	p.setShortcut(QString::null); // do not clone the sc
+	tmpStyles_.create(p);
+
 
 	return s;
 }
@@ -387,14 +384,11 @@ void SMParagraphStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 				break;
 			}
 		}
-		for (uint j = 0; j < tmpStyles_.count(); ++j)
-		{
-			if (tmpStyles_[j].name() == removeList[i].first)
-			{
-				tmpStyles_.erase(tmpStyles_.at(j));
-				break;
-			}
-		}
+
+		int index = tmpStyles_.find(removeList[i].first);
+		if (index > -1)
+			tmpStyles_.remove(index);
+
 		deleted_.append(removeList[i]);
 	}
 }
@@ -405,15 +399,17 @@ void SMParagraphStyle::nameChanged(const QString &newName)
 		return;
 
 	QString oldName = selection_[0]->name();
-	tmpStyles_.append(ParagraphStyle(*(selection_[0])));
-	tmpStyles_.last().setName(newName);
+	ParagraphStyle p(*selection_[0]);
+	p.setName(newName);
+	tmpStyles_.create(p);
 	selection_.clear();
-	selection_.append(&tmpStyles_.last());
+	selection_.append(&tmpStyles_[tmpStyles_.find(newName)]);
 	for (uint j = 0; j < tmpStyles_.count(); ++j)
 	{
-		if (tmpStyles_[j].name() == oldName)
+		int index = tmpStyles_.find(oldName);
+		if (index > -1)
 		{
-			tmpStyles_.erase(tmpStyles_.at(j));
+			tmpStyles_.remove(index);
 			break;
 		}
 	}
@@ -454,9 +450,7 @@ void SMParagraphStyle::reloadTmpStyles()
 
 	selection_.clear();
 	tmpStyles_.clear();
-	StyleSet<ParagraphStyle> &tmp = doc_->docParagraphStyles;
-	for (uint i = 0; i < tmp.count(); ++i)
-		tmpStyles_.append(tmp[i]);
+	tmpStyles_.redefine(doc_->docParagraphStyles, true);
 }
 
 void SMParagraphStyle::setupConnections()
@@ -1388,28 +1382,23 @@ QString SMCharacterStyle::newStyle()
 	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
 
 	QString s = getUniqueName( tr("New Style"));
-	// fetching default values now from here
-	tmpStyles_.append(CharStyle(doc_->docParagraphStyles[""].charStyle()));
-	tmpStyles_.last().setName(s);
+	CharStyle c(doc_->docCharStyles[""]);
+	c.setName(s);
+	tmpStyles_.create(c);
 	return s;
 }
 
 QString SMCharacterStyle::newStyle(const QString &fromStyle)
 {
-	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+	Q_ASSERT(tmpStyles_.resolve(fromStyle));
+	if (!tmpStyles_.resolve(fromStyle))
+		return QString::null;
 
-	QString s = QString::null;
-
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
-	{
-		if (tmpStyles_[i].name() == fromStyle)
-		{
-			s = getUniqueName( tr("Clone of %1").arg(fromStyle));
-			tmpStyles_.append(CharStyle(tmpStyles_[i]));
-			tmpStyles_.last().setName(s);
-			break;
-		}
-	}
+	QString s = getUniqueName( tr("Clone of %1").arg(fromStyle));
+	CharStyle c(tmpStyles_[fromStyle]);
+	c.setName(s);
+	c.setShortcut(QString::null);
+	tmpStyles_.create(c);
 
 	return s;
 }
@@ -1508,14 +1497,10 @@ void SMCharacterStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 				break;
 			}
 		}
-		for (uint j = 0; j < tmpStyles_.count(); ++j)
-		{
-			if (tmpStyles_[j].name() == removeList[i].first)
-			{
-				tmpStyles_.erase(tmpStyles_.at(j));
-				break;
-			}
-		}
+
+		int index = tmpStyles_.find(removeList[i].first);
+		if (index > -1)
+			tmpStyles_.remove(index);
 		deleted_ << removeList[i];
 	}
 }
@@ -1548,9 +1533,7 @@ void SMCharacterStyle::reloadTmpStyles()
 
 	selection_.clear();
 	tmpStyles_.clear();
-	StyleSet<CharStyle> &tmp = doc_->docCharStyles;
-	for (uint i = 0; i < tmp.count(); ++i)
-		tmpStyles_.append(tmp[i]);
+	tmpStyles_.redefine(doc_->docCharStyles, true);
 }
 
 void SMCharacterStyle::setupConnections()

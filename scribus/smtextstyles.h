@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #define SMTEXTSTYLES_H
 
 #include "styleitem.h"
+#include "styles/styleset.h"
 
 class CharStyle;
 class ParagraphStyle;
@@ -49,7 +50,7 @@ private:
 	SMPStyleWidget *pwidget_;
 	ScribusDoc *doc_;
 	bool selectionIsDirty_;
-	QValueList<ParagraphStyle> tmpStyles_;
+	StyleSet<ParagraphStyle> tmpStyles_;
 	QValueList<ParagraphStyle*> selection_;
 	QValueList<RemoveItem> deleted_;
 
@@ -126,7 +127,7 @@ private:
 	QTabWidget   *widget_;
 	SMCStylePage *page_;
 	ScribusDoc   *doc_;
-	QValueList<CharStyle> tmpStyles_;
+	StyleSet<CharStyle> tmpStyles_;
 	QValueList<CharStyle*> selection_;
 	QValueList<RemoveItem> deleted_;
 	bool selectionIsDirty_;
