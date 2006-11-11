@@ -401,6 +401,17 @@ void SMLineStyle::apply()
 	selectionIsDirty_ = false;
 }
 
+QString SMLineStyle::shortcut(const QString &stylename) const
+{
+	// will probably need to convert linestyles to new avox's styles
+	return QString::null;
+}
+
+void SMLineStyle::setShortcut(const QString &shortcut)
+{
+	// TODO set the shortcut to selection
+}
+
 void SMLineStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
 {
 	for (uint i = 0; i < removeList.count(); ++i)

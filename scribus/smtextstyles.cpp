@@ -210,6 +210,7 @@ QString SMParagraphStyle::newStyle(const QString &fromStyle)
 			s = getUniqueName( tr("Clone of %1").arg(fromStyle));
 			tmpStyles_.append(ParagraphStyle(tmpStyles_[i]));
 			tmpStyles_.last().setName(s);
+			tmpStyles_.last().setShortcut(QString::null); // do not clone sc
 			break;
 		}
 	}
@@ -342,6 +343,30 @@ void SMParagraphStyle::editMode(bool isOn)
 {
 	if (isOn)
 		reloadTmpStyles();
+}
+
+QString SMParagraphStyle::shortcut(const QString &stylename) const
+{
+	QString s = QString::null;
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	{
+		if (tmpStyles_[i].name() == stylename)
+		{
+			s = tmpStyles_[i].shortcut();
+			break;
+		}
+	}
+
+	return s;
+}
+
+void SMParagraphStyle::setShortcut(const QString &shortcut)
+{
+	Q_ASSERT(selection_.count() == 1);
+	if (selection_.count() != 1)
+		return;
+
+	selection_[0]->setShortcut(shortcut);
 }
 
 void SMParagraphStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
@@ -1434,6 +1459,29 @@ void SMCharacterStyle::editMode(bool isOn)
 {
 	if (isOn)
 		reloadTmpStyles();
+}
+
+QString SMCharacterStyle::shortcut(const QString &stylename) const
+{
+	QString s = QString::null;
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	{
+		if (tmpStyles_[i].name() == stylename)
+		{
+			s = tmpStyles_[i].shortcut();
+			break;
+		}
+	}
+	return s;
+}
+
+void SMCharacterStyle::setShortcut(const QString &shortcut)
+{
+	Q_ASSERT(selection_.count() == 1);
+	if (selection_.count() != 1)
+		return;
+
+	selection_[0]->setShortcut(shortcut);
 }
 
 void SMCharacterStyle::deleteStyles(const QValueList<RemoveItem> &removeList)

@@ -36,6 +36,8 @@ public:
 	QString newStyle(const QString &fromStyle);
 	void apply();
 	void editMode(bool isOn);
+	QString shortcut(const QString &stylename) const;
+	void setShortcut(const QString &shortcut);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	void languageChange();
@@ -111,6 +113,8 @@ public:
 	QString newStyle(const QString &fromStyle);
 	void apply();
 	void editMode(bool isOn);
+	QString shortcut(const QString &stylename) const;
+	void setShortcut(const QString &shortcut);
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	void languageChange();

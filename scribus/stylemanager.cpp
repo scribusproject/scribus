@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "prefsfile.h"
 #include "prefscontext.h"
+#include "commonstrings.h"
 #include <qheader.h>
 #include <qlabel.h>
 #include <qlistview.h>
@@ -33,6 +34,9 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qtooltip.h>
 #include <qpair.h>
+#include <qmessagebox.h>
+
+const QString StyleManager::SEPARATOR = "$$$$";
 
 StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true)
 {
@@ -46,6 +50,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	svLayout->addWidget(styleView);
 	styleView->addColumn(tr("Name"));
 	styleView->addColumn(tr("Shortcut"));
+	styleView->setColumnWidthMode(NAME_COL, QListView::Maximum);
+	styleView->setColumnWidthMode(SHORTCUT_COL, QListView::Maximum);
 	styleView->header()->hide();
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);
@@ -135,6 +141,7 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 {
 	if (doc)
 	{
+		doc_ = doc;
 		newButton->setEnabled(true);
 		cloneButton->setEnabled(true);
 		importButton->setEnabled(true);
@@ -145,6 +152,7 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 	}
 	else
 	{
+		doc_ = 0;
 		newButton->setEnabled(false);
 		cloneButton->setEnabled(false);
 		importButton->setEnabled(false);
@@ -155,6 +163,7 @@ void StyleManager::currentDoc(ScribusDoc *doc)
 
 	// clear the style list and reload from new doc
 	styleView->clear();
+	styleActions_.clear();
 	for (uint i = 0; i < items_.count(); ++i)
 	{
 		items_.at(i)->currentDoc(doc);
@@ -503,11 +512,12 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 
 		for (uint i = 0; i < styles.count(); ++i) // set the list of styles of this type
 		{
+			StyleViewItem *sitem;
 			if (styles[i].second == QString::null)
 			{
-				sitems[styles[i].first] = 
-						new StyleViewItem(rootItem, styles[i].first, item_->typeName());
-				
+				sitem = new StyleViewItem(rootItem, styles[i].first, item_->typeName());
+				sitems[styles[i].first] = sitem;
+				sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
 			}
 			else
 			{
@@ -516,9 +526,10 @@ void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
 					parent = sitems[styles[i].second];
 				else
 					parent = rootItem;
-				
-				sitems[styles[i].first] =
-						new StyleViewItem(parent, styles[i].first, item_->typeName());
+
+				sitem = new StyleViewItem(parent, styles[i].first, item_->typeName());
+				sitems[styles[i].first] = sitem;
+				sitem->setText(SHORTCUT_COL, item_->shortcut(sitem->text(NAME_COL)));
 				parent->setOpen(true);
 			}
 		}
@@ -643,19 +654,108 @@ void StyleManager::slotNameChanged(const QString& name)
 		applyButton->setEnabled(true);
 	}
 
-	styleView->currentItem()->setText(NAME_COL, name);
-	if (item_)
-		item_->nameChanged(name);
 
+	if (item_)
+	{
+		item_->nameChanged(name);
+		updateActionName(styleView->currentItem()->text(NAME_COL), name);
+	}
+
+	styleView->currentItem()->setText(NAME_COL, name);
 	applyButton->setEnabled(true);
 	resetButton->setEnabled(true);
 }
 
+void StyleManager::updateActionName(const QString &oldName, const QString &newName)
+{
+	if (!item_)
+		return;
+	QString oldKey = item_->typeName() + SEPARATOR + oldName;
+	QString newKey = item_->typeName() + SEPARATOR + newName;
+
+	if (styleActions_.contains(oldKey))
+	{
+		ScrAction *a = styleActions_[oldKey];
+		disconnect(a, SIGNAL(activatedData(QString)), this, SLOT(slotApplyStyle(QString)));
+		ScrAction *b = new ScrAction(ScrAction::DataQString, QIconSet(), "",
+			               a->accel(), doc_->view(), newKey, 0, 0.0, newKey);
+		styleActions_.remove(oldKey);
+		delete a;
+		styleActions_[newKey] = b;
+		connect(b, SIGNAL(activatedData(QString)), this, SLOT(slotApplyStyle(QString)));
+	}
+}
+
 void StyleManager::slotShortcutChanged(const QString& shortcut)
 {
-	styleView->currentItem()->setText(SHORTCUT_COL, shortcut == QString::null ? "" : shortcut);
-// 	if (item_)
-// 		item_->shortcutChanged(shortcut);
+	if (!doc_)
+		return;
+
+	StyleViewItem *sitem = dynamic_cast<StyleViewItem*>(styleView->currentItem());
+	if (!sitem)
+		return;
+
+	if (shortcutExists(shortcut))
+	{
+		QMessageBox::information(this, CommonStrings::trWarning,
+		                         tr("This key sequence is already in use"),
+		                         CommonStrings::tr_OK);
+		shortcutWidget_->setShortcut(item_->shortcut(sitem->text(NAME_COL)));
+		return;
+	}
+
+	sitem->setText(SHORTCUT_COL, shortcut == QString::null ? "" : shortcut);
+	QString key = sitem->rootName() + SEPARATOR + sitem->text(NAME_COL);
+	if (styleActions_.contains(key))
+		styleActions_[key]->setAccel(shortcut);
+	else
+	{
+		styleActions_[key] =
+			new ScrAction(ScrAction::DataQString, QIconSet(), "",
+			              shortcut, doc_->view(), key, 0, 0.0, key);
+		connect(styleActions_[key], SIGNAL(activatedData(QString)),
+		        this, SLOT(slotApplyStyle(QString)));
+	}
+
+	if (item_)
+		item_->setShortcut(shortcut);
+}
+
+bool StyleManager::shortcutExists(const QString &keys)
+{
+	QKeySequence key(keys);
+
+	QMap<QString, QGuardedPtr<ScrAction> >::iterator it;
+	for (it = styleActions_.begin(); it != styleActions_.end(); ++it)
+	{
+		if ((*it)->accel() == key)
+			return true;
+	}
+
+	ApplicationPrefs *prefsData=&(PrefsManager::instance()->appPrefs);
+	for (QMap<QString,Keys>::Iterator it=prefsData->KeyActions.begin();
+	     it!=prefsData->KeyActions.end(); ++it)
+	{
+		if (key.matches(it.data().keySequence) != Qt::NoMatch)
+			return true;
+	}
+
+	return false;
+}
+
+void StyleManager::slotApplyStyle(QString keyString)
+{
+	if (isEditMode_)
+		return;
+
+	qDebug("slotApplyStyle(%s)", keyString.ascii());
+
+	QStringList slist = QStringList::split(SEPARATOR, keyString);
+	Q_ASSERT(slist.count() == 2);
+
+	loadType(slist[0]);
+	item_->toSelection(slist[1]);
+	slotDocSelectionChanged();
 }
 
 bool StyleManager::nameIsUnique(const QString &name)
@@ -686,19 +786,21 @@ void StyleManager::slotSetupWidget()
 	           this, SLOT(slotNameChanged(const QString&)));
 	if (typeName != QString::null)
 	{
+		item_->selected(selection.second);
 		if (selection.second.count() > 1)
 		{
 			nameEdit->setText("More than one style selected");
 			nameEdit->setEnabled(false);
 			shortcutWidget_->setEnabled(false);
+			shortcutWidget_->setShortcut(QString::null);
 		}
 		else
 		{
 			nameEdit->setText(selection.second[0]);
 			nameEdit->setEnabled(true);
 			shortcutWidget_->setEnabled(true);
+			shortcutWidget_->setShortcut(item_->shortcut(selection.second[0]));
 		}
-		item_->selected(selection.second);
 	}
 	else
 	{
@@ -1148,6 +1250,27 @@ void ShortcutWidget::setKeyText()
 	}
 	else
 		releaseKeyboard();
+}
+
+void ShortcutWidget::setShortcut(const QString &shortcut)
+{
+	disconnect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
+	disconnect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
+
+	setKeyButton->setOn(false);
+	if (shortcut.length() > 0)
+	{
+		userDef->setChecked(true);
+		keyDisplay->setText(shortcut);
+	}
+	else
+	{
+		noKey->setChecked(true);
+		keyDisplay->setText("");
+	}
+
+	connect(noKey, SIGNAL(clicked()), this, SLOT(setNoKey()));
+	connect(setKeyButton, SIGNAL(clicked()), this, SLOT(setKeyText()));
 }
 
 void ShortcutWidget::setNoKey()

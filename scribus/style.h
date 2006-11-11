@@ -93,24 +93,26 @@ protected:
 	const StyleBase* m_base;
 	int m_baseversion;
 	QString m_parent;
+	QString m_shortcut;
 public:
 //	static const short NOVALUE = -16000;
 
-	Style(): m_name(""), m_base(NULL), m_baseversion(-1), m_parent()  {}
+	Style(): m_name(""), m_base(NULL), m_baseversion(-1), m_parent(), m_shortcut() {}
 
-    Style(StyleBase* b, QString n): m_name(n), m_base(b), m_baseversion(-1), m_parent()  {}
+    Style(StyleBase* b, QString n): m_name(n), m_base(b), m_baseversion(-1), m_parent(), m_shortcut() {}
 	
 	Style& operator=(const Style& o) 
 	{ //assert(typeinfo() == o.typeinfo()); 
 		m_name = o.m_name; 
 		m_base = o.m_base; 
 		m_baseversion = o.m_baseversion; 
-		m_parent = o.m_parent; 
+		m_parent = o.m_parent;
+		m_shortcut = o.m_shortcut;
 		return *this;
 	}
 	
 	Style(const Style& o) : m_name(o.m_name), 
-		m_base(o.m_base), m_baseversion(o.m_baseversion), m_parent(o.m_parent) {} 
+		m_base(o.m_base), m_baseversion(o.m_baseversion), m_parent(o.m_parent), m_shortcut(o.m_shortcut) {} 
 	
 	virtual ~Style()                 {}
 
@@ -162,7 +164,9 @@ public:
 			const_cast<Style*>(this)->update(m_base); 
 	}
 
-	
+	QString shortcut() const { return m_shortcut; }
+	void setShortcut(const QString &shortcut) { m_shortcut = shortcut; }
+
 	/**
 		returns true if both Styles are of the same type, inherit the same attributes,
 	    have the same parent, and agree on all attributes which are not inherited.

@@ -8,9 +8,12 @@ for which a new license (GPL+exception) is in place.
 #ifndef STYLEMANAGER_H
 #define STYLEMANAGER_H
 
+#include "scraction.h"
 #include "stylemanagerbase.h"
+#include "scribusstructs.h"
 #include <qlistview.h>
 #include <qmap.h>
+#include <qguardedptr.h>
 
 class StyleItem;
 class ScribusDoc;
@@ -36,6 +39,8 @@ public:
 	~StyleManager();
 
 	void addStyle(StyleItem *item);
+
+	QMap<QString,Keys> keyMap();
 
 public slots:
 	void currentDoc(ScribusDoc *doc);
@@ -73,10 +78,14 @@ private:
 	QString             rcStyle_;
 	QString             rcType_;
 
+	ScribusDoc         *doc_;
 	PrefsContext       *prefs_;
 
-	static const int    NAME_COL     = 0;
-	static const int    SHORTCUT_COL = 1;
+	QMap<QString, QGuardedPtr<ScrAction> > styleActions_;
+
+	static const int     NAME_COL     = 0;
+	static const int     SHORTCUT_COL = 1;
+	static const QString SEPARATOR;
 
 	void insertShortcutPage(QTabWidget *twidget);
 
@@ -94,6 +103,8 @@ private:
 	void addNewType(StyleItem *item, bool loadFromDoc = true);
 	void createNewStyle(const QString &typeName, const QString &fromParent = QString::null);
 	void reloadStyleView(bool loadFromDoc = true); // are the styles loaded from doc or from tmp cache
+	bool shortcutExists(const QString &keys);
+	void updateActionName(const QString &oldName, const QString &newName);
 
 private slots:
 	void slotOk();
@@ -116,6 +127,8 @@ private slots:
 
 	void slotDirty();
 	void slotClean();
+
+	void slotApplyStyle(QString keyString); // keyString == styleClass::styleName
 };
 
 class StyleView : public QListView
@@ -160,6 +173,9 @@ public:
 	bool event( QEvent* ev );
 	void keyPressEvent(QKeyEvent *k);
 	void keyReleaseEvent(QKeyEvent *k);
+	void setKeyMap(const QMap<QString,Keys> &keymap);
+
+	void setShortcut(const QString &shortcut);
 
 	static QString getKeyText(int KeyC);
 

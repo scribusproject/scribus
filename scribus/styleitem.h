@@ -137,6 +137,12 @@ public:
 	 */
 	virtual void editMode(bool isOn) {};
 
+	/** @brief returns the key combination for the style's shortcut */
+	virtual QString shortcut(const QString &stylename) const = 0;
+
+	/** @brief set the key combination for the style's shortcut */
+	virtual void setShortcut(const QString &shortcut) = 0;
+
 	/**
 	 * @brief User has requested to delete all the selected styles
 	 */
