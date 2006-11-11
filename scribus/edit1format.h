@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorcombo.h"
 #include "alignselect.h"
 #include "shadebutton.h"
+#include "styles/styleset.h"
 
 class ScribusDoc;
 class StyleSelect;
@@ -40,7 +41,7 @@ class SCRIBUS_API EditStyle : public QDialog
 	Q_OBJECT
 
 public:
-	EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu,
+	EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<ParagraphStyle>& v, bool neu,
 	           double au, int dEin, ScribusDoc *doc);
 	~EditStyle();
 
@@ -87,7 +88,7 @@ public:
 	QPushButton* Cancel;
 	QPushButton* OkButton;
 	ParagraphStyle *werte;
-	QValueList<ParagraphStyle> allV;
+	const StyleSet<ParagraphStyle>& allV;
 	QString OldName;
 	bool IsNew;
 	double AutoVal;

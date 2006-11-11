@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 #include "sampleitem.h"
 
 
-EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<ParagraphStyle> v, bool neu, double au, int dEin, ScribusDoc *doc)
-		: QDialog( parent, "EditST", true, 0)
+EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<ParagraphStyle>& v, bool neu, double au, int dEin, ScribusDoc *doc)
+		: QDialog( parent, "EditST", true, 0), allV(v)
 {
 	qApp->setOverrideCursor(QCursor(waitCursor));
 	parentDoc = doc;
@@ -335,7 +335,6 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, QValueList<Paragraph
 	EditStyleLayout->addLayout(Layout17);
 
 	werte = vor;
-	allV = v;
 	// tooltips
 	QToolTip::add(previewBgColor, "<qt>" + tr("Select for easier reading of light coloured text styles") + "</qt>");
 	QToolTip::add( Name, "<qt>" + tr( "Name of your paragraph style" ) + "</qt>" );

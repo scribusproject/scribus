@@ -23,7 +23,7 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap loadIcon(QString nam);
 
 
-DelStyle::DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName)
+DelStyle::DelStyle(QWidget* parent, StyleSet<ParagraphStyle>& sty, QString styleName)
 		: QDialog( parent, "DelStyle", true, 0 )
 {
 	setName( "DelStyle" );
@@ -83,7 +83,7 @@ const QString DelStyle::getReplacementStyle()
 	return replacementStyle;
 }
 
-ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld)
+ChooseStyles::ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld)
 		: QDialog( parent, "ChooseStyles", true, 0 )
 {
 	setCaption( tr( "Choose Styles" ) );
@@ -206,8 +206,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selEditFormat(QListBoxItem*)));
 	TempVorl.clear();
-	for (uint i = 0; i < doc->docParagraphStyles.count(); ++i)
-		TempVorl.append(doc->docParagraphStyles[i]); // copy
+	TempVorl.redefine(doc->docParagraphStyles);
 	UpdateFList();
 }
 
@@ -265,12 +264,12 @@ void StilFormate::dupFormat()
 	sty.setUseBaselineGrid(TempVorl[sFnumber].useBaselineGrid());
 	sty.setTabValues(TempVorl[sFnumber].tabValues());
 	sty.charStyle() = TempVorl[sFnumber].charStyle();
-	TempVorl.append(sty);
+	TempVorl.create(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,
 	                                static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
-		TempVorl.remove(TempVorl.fromLast());
+		TempVorl.remove(sFnumber);
 	delete dia2;
 	UpdateFList();
 }
@@ -313,11 +312,11 @@ void StilFormate::neuesFormat()
 	sty.charStyle().setScaleV(1000);
 	sty.charStyle().setBaselineOffset(0);
 	sty.charStyle().setTracking(0);
-	TempVorl.append(sty);
+	TempVorl.create(sty);
 	sFnumber = TempVorl.count()-1;
 	EditStyle* dia2 = new EditStyle(this, &TempVorl[sFnumber], TempVorl, true,  static_cast<double>(Docu->typographicSettings.autoLineSpacing), Docu->unitIndex(), Docu);
 	if (!dia2->exec())
-		TempVorl.remove(TempVorl.fromLast());
+		TempVorl.remove(sFnumber);
 	delete dia2;
 	UpdateFList();
 	ListBox1->setSelected(selectedIndex, true);
@@ -364,7 +363,7 @@ void StilFormate::deleteFormat()
 		}
 		ReplaceList.insert(TempVorl[sFnumber].name(), dia->getReplacementStyle());
 		ListBox1->removeItem(sFnumber);
-		TempVorl.remove(TempVorl.at(sFnumber));
+		TempVorl.remove(sFnumber);
 		UpdateFList();
 	}
 	delete dia;
@@ -402,7 +401,7 @@ void StilFormate::loadStyles()
 				if (it.key()->isOn())
 				{
 					sty = TempVorl2[it.data()];
-					TempVorl.append(sty);
+					TempVorl.create(sty);
 					if ((!Docu->PageColors.contains(sty.charStyle().strokeColor())) && (!neededColors.contains(sty.charStyle().strokeColor())))
 						neededColors.append(sty.charStyle().strokeColor());
 					if ((!Docu->PageColors.contains(sty.charStyle().fillColor())) && (!neededColors.contains(sty.charStyle().fillColor())))

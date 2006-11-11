@@ -17,6 +17,8 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include "scribusapi.h"
 #include "scribusstructs.h"
+#include "styles/styleset.h"
+
 class ScribusDoc;
 class ScComboBox;
 
@@ -26,7 +28,7 @@ class SCRIBUS_API DelStyle : public QDialog
 	Q_OBJECT
 
 public:
-	DelStyle(QWidget* parent, QValueList<ParagraphStyle> sty, QString styleName);
+	DelStyle(QWidget* parent, StyleSet<ParagraphStyle>& sty, QString styleName);
 	~DelStyle() {};
 	const QString getReplacementStyle();
 
@@ -53,7 +55,7 @@ class SCRIBUS_API ChooseStyles : public QDialog
 	Q_OBJECT
 
 public:
-	ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, QValueList<ParagraphStyle> *styleOld );
+	ChooseStyles( QWidget* parent, QValueList<ParagraphStyle> *styleList, StyleSet<ParagraphStyle> *styleOld );
 	~ChooseStyles() {};
 
 	QListView* StyleView;
@@ -86,7 +88,7 @@ public:
 	QPushButton* ExitB;
 	QPushButton* CancelB;
 	int sFnumber;
-	QValueList<ParagraphStyle> TempVorl;
+	StyleSet<ParagraphStyle> TempVorl;
 	QMap<QString, QString> ReplaceList;
 	ScribusDoc *Docu;
 	void UpdateFList();
