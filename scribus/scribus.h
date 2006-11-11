@@ -322,7 +322,7 @@ public slots:
 	\param options PrintOptions struct to control all settings
 	\sa ScribusMainWindow::slotFilePrint()
 	\retval bool True for success */
-	bool doPrint(PrintOptions *options);
+	bool doPrint(PrintOptions &options);
 	/** \brief exits the application */
 	void slotFileQuit();
 	/** \brief put the marked text/object into the clipboard and remove

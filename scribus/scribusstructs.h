@@ -281,15 +281,9 @@ struct Keys
 
 struct PrintOptions
 {
-	QString printer;
-	QString filename;
 	bool toFile;
 	bool useAltPrintCommand;
-	QString printerCommand;
-	int PSLevel;
 	bool outputSeparations;
-	QString separationName;
-	QStringList allSeparations;
 	bool useSpotColors;
 	bool useColor;
 	bool mirrorH;
@@ -299,9 +293,24 @@ struct PrintOptions
 	bool doClip;
 	bool setDevParam;
 	bool doOverprint;
+	bool cropMarks;
+	bool bleedMarks;
+	bool registrationMarks;
+	bool colorMarks;
 	int copies;
+	int PSLevel;
+	double markOffset;
+	double BleedTop;
+	double BleedLeft;
+	double BleedRight;
+	double BleedBottom;
 	std::vector<int> pageNumbers;
 	QString printerOptions;
+	QString printer;
+	QString filename;
+	QString separationName;
+	QStringList allSeparations;
+	QString printerCommand;
 };
 
 typedef QMap<QString,QString> ProfilesL;

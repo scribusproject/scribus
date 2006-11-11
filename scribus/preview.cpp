@@ -459,17 +459,36 @@ int PPreview::RenderPreview(int Seite, int Res)
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
-		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
+		bool useIC = UseICC->isChecked();
+		if (!doc->HasCMS)
+			useIC = false;
+		PrintOptions options;
+		options.pageNumbers.push_back(Seite+1);
+		options.outputSeparations = false;
+		options.separationName = tr("All");
+		options.allSeparations = QStringList();
+		options.useColor = !useGray->isChecked();
+		options.mirrorH = MirrorHor->isChecked();
+		options.mirrorV = MirrorVert->isChecked();
+		options.useICC = useIC;
+		options.doGCR = EnableGCR->isChecked();
+		options.setDevParam = false;
+		options.doClip = ClipMarg->isChecked();
+		options.doOverprint = EnableOverprint->isChecked();
+		options.cropMarks = false;
+		options.bleedMarks = false;
+		options.registrationMarks = false;
+		options.colorMarks = false;
+		options.markOffset = 0.0;
+		options.BleedTop = 0.0;
+		options.BleedLeft = 0.0;
+		options.BleedRight = 0.0;
+		options.BleedBottom = 0.0;
+		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
 			dd->PS_set_file( ScPaths::getTempFileDir() + "/tmp.ps");
-			std::vector<int> pageNs;
-			pageNs.push_back(Seite+1);
-			QStringList spots;
-			bool useIC = UseICC->isChecked();
-			if (!doc->HasCMS)
-				useIC = false;
-			dd->CreatePS(doc, pageNs, false, tr("All"), spots, !useGray->isChecked(), MirrorHor->isChecked(), MirrorVert->isChecked(), useIC, EnableGCR->isChecked(), false, ClipMarg->isChecked(), EnableOverprint->isChecked());
+			dd->CreatePS(doc, options);
 			delete dd;
 		}
 		else
@@ -544,17 +563,36 @@ int PPreview::RenderPreviewSep(int Seite, int Res)
 	{
 		ReallyUsed.clear();
 		doc->getUsedFonts(ReallyUsed);
-		PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
+		bool useIC = UseICC->isChecked();
+		if (!doc->HasCMS)
+			useIC = false;
+		PrintOptions options;
+		options.pageNumbers.push_back(Seite+1);
+		options.outputSeparations = false;
+		options.separationName = tr("All");
+		options.allSeparations = QStringList();
+		options.useColor = !useGray->isChecked();
+		options.mirrorH = MirrorHor->isChecked();
+		options.mirrorV = MirrorVert->isChecked();
+		options.useICC = useIC;
+		options.doGCR = EnableGCR->isChecked();
+		options.setDevParam = false;
+		options.doClip = ClipMarg->isChecked();
+		options.doOverprint = EnableOverprint->isChecked();
+		options.cropMarks = false;
+		options.bleedMarks = false;
+		options.registrationMarks = false;
+		options.colorMarks = false;
+		options.markOffset = 0.0;
+		options.BleedTop = 0.0;
+		options.BleedLeft = 0.0;
+		options.BleedRight = 0.0;
+		options.BleedBottom = 0.0;
+		PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, doc->PageColors, false, !spotColors->isChecked());
 		if (dd != NULL)
 		{
 			dd->PS_set_file(ScPaths::getTempFileDir()+"/tmp.ps");
-			std::vector<int> pageNs;
-			pageNs.push_back(Seite+1);
-			QStringList spots;
-			bool useIC = UseICC->isChecked();
-			if (!doc->HasCMS)
-				useIC = false;
-			dd->CreatePS(doc, pageNs, false, tr("All"), spots, !useGray->isChecked(), MirrorHor->isChecked(), MirrorVert->isChecked(), useIC, EnableGCR->isChecked(), false, ClipMarg->isChecked(), EnableOverprint->isChecked());
+			dd->CreatePS(doc, options);
 			delete dd;
 		}
 		else

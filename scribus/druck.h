@@ -24,6 +24,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qtabwidget.h>
 #include <qwidget.h>
+#include "mspinbox.h"
 
 class PrefsContext;
 class ScribusDoc;
@@ -44,6 +45,15 @@ public:
 	QRadioButton* RadioButton1;
 	QRadioButton* CurrentPage;
 	QLineEdit* pageNr;
+	QCheckBox* cropMarks;
+	QCheckBox* bleedMarks;
+	QCheckBox* registrationMarks;
+	QCheckBox* colorMarks;
+	MSpinBox* markOffset;
+	MSpinBox* BleedBottom;
+	MSpinBox* BleedLeft;
+	MSpinBox* BleedRight;
+	MSpinBox* BleedTop;
 	bool outputToFile();
 	int numCopies();
 	bool outputSeparations();
@@ -69,6 +79,7 @@ signals:
 	void doPreview();
 
 protected slots:
+	void doDocBleeds();
 	void createPageNumberRange();
 	void SetOptions();
 	void SelPrinter(const QString& prn);
@@ -118,6 +129,20 @@ protected:
 	QCheckBox* spotColors;
 	QCheckBox* overprintMode;
 	QCheckBox* UseICC;
+	QWidget* tab_3;
+	QGridLayout* tabLayout_3;
+	QGroupBox* MarkGroup;
+	QGridLayout* MarkGroupLayout;
+	QLabel* MarkTxt1;
+	QWidget* tab_4;
+	QGridLayout* tabLayout_4;
+	QGroupBox* BleedGroup;
+	QGridLayout* BleedGroupLayout;
+	QLabel* BleedTxt1;
+	QLabel* BleedTxt2;
+	QLabel* BleedTxt3;
+	QLabel* BleedTxt4;
+	QCheckBox *docBleeds;
 	QPushButton* OKButton_2;
 	QPushButton* OKButton;
 	QPushButton* previewButton;
@@ -135,6 +160,9 @@ protected:
 	bool initDeviceSettings( QString printerName );
 	*/
 	CupsOptions *cdia;
+	QString unit;
+	int precision;
+	double unitRatio;
 	void getOptions();
 	void storeValues();
 };

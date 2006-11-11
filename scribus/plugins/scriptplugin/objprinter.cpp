@@ -422,7 +422,7 @@ static PyObject *Printer_print(Printer *self)
 	QString fna, prn, cmd, scmd, cc, data, SepName;
 	QString printcomm;
 	int Nr, PSLevel;
-	bool fil, sep, color, PSfile, mirrorH, mirrorV, useICC, DoGCR;
+	bool fil, PSfile;
 	PSfile = false;
 
 //    ReOrderText(ScCore->primaryMainWindow()->doc, ScCore->primaryMainWindow()->view);
@@ -430,19 +430,28 @@ static PyObject *Printer_print(Printer *self)
 	fna = QString(PyString_AsString(self->file));
 	fil = (QString(PyString_AsString(self->printer)) == QString("File")) ? true : false;
 	std::vector<int> pageNs;
+	PrintOptions options;
 	for (int i = 0; i < PyList_Size(self->pages); ++i) {
-		pageNs.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
+		options.pageNumbers.push_back((int)PyInt_AsLong(PyList_GetItem(self->pages, i)));
 	}
 	Nr = (self->copies < 1) ? 1 : self->copies;
 	SepName = QString(PyString_AsString(self->separation));
-	sep =(SepName == QString("No")) ?  false : true;
-//	 if (SepName == QString("All"))
-//		 SepName = tr(SepName);
-	color = self->color;
-	mirrorH = self->mph;
-	mirrorV = self->mpv;
-	useICC = self->useICC;
-	DoGCR = self->ucr;
+	options.separationName = SepName;
+	options.outputSeparations =(SepName == QString("No")) ?  false : true;
+	options.useColor = self->color;
+	options.mirrorH = self->mph;
+	options.mirrorV = self->mpv;
+	options.useICC = self->useICC;
+	options.doGCR = self->ucr;
+	options.cropMarks = false;
+	options.bleedMarks = false;
+	options.registrationMarks = false;
+	options.colorMarks = false;
+	options.markOffset = 0.0;
+	options.BleedTop = 0.0;
+	options.BleedLeft = 0.0;
+	options.BleedRight = 0.0;
+	options.BleedBottom = 0.0;
 	int psl = self->pslevel;
 	if (psl < 1)
 		psl = 1;
@@ -454,7 +463,7 @@ static PyObject *Printer_print(Printer *self)
 	ReallyUsed.clear();
 	ScCore->primaryMainWindow()->doc->getUsedFonts(ReallyUsed);
 	PrefsManager *prefsManager=PrefsManager::instance();
-	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
+	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, ScCore->primaryMainWindow()->doc->PageColors, false, true);
 	if (dd != NULL)
 	{
 		if (!fil)
@@ -463,8 +472,10 @@ static PyObject *Printer_print(Printer *self)
 		fna = QDir::convertSeparators(fna);
 		if (PSfile)
 		{
-			QStringList spots;
-			dd->CreatePS(ScCore->primaryMainWindow()->doc, /*ScCore->primaryMainWindow()->view, */pageNs, sep, SepName, spots, color, mirrorH, mirrorV, useICC, DoGCR, false, false);
+			options.setDevParam = false;
+			options.doClip = false;
+			options.doOverprint = false;
+			dd->CreatePS(ScCore->primaryMainWindow()->doc, options);
 			if (PSLevel != 3)
 			{
 				QString tmp;

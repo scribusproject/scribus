@@ -4284,6 +4284,15 @@ void ScribusMainWindow::slotReallyPrint()
 		options.PSLevel = printer->PSLevel();
 		options.setDevParam = printer->doDev();
 		options.doOverprint = printer->doOverprint();
+		options.BleedTop = printer->BleedTop->value() / doc->unitRatio();
+		options.BleedLeft = printer->BleedLeft->value()/doc->unitRatio();
+		options.BleedRight = printer->BleedRight->value()/doc->unitRatio();
+		options.BleedBottom = printer->BleedBottom->value()/doc->unitRatio();
+		options.markOffset = printer->markOffset->value()/doc->unitRatio();
+		options.cropMarks = printer->cropMarks->isChecked();
+		options.bleedMarks = printer->bleedMarks->isChecked();
+		options.registrationMarks = printer->registrationMarks->isChecked();
+		options.colorMarks = printer->colorMarks->isChecked();
 		PDef.Pname = options.printer;
 		PDef.Dname = options.filename;
 		PDef.DevMode = printer->DevMode;
@@ -4313,9 +4322,9 @@ void ScribusMainWindow::slotReallyPrint()
 			done = winPrint.print( doc, options, printer->DevMode, forceGDI );
 		}
 		else
-			done = doPrint(&options);
+			done = doPrint(options);
 #else
-		done = doPrint(&options);
+		done = doPrint(options);
 #endif
 		if (!done)
 		{
@@ -4330,21 +4339,21 @@ void ScribusMainWindow::slotReallyPrint()
 	mainWindowStatusLabel->setText( tr("Ready"));
 }
 
-bool ScribusMainWindow::doPrint(PrintOptions *options)
+bool ScribusMainWindow::doPrint(PrintOptions &options)
 {
 	bool retw = false;
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
-	QString filename(options->filename);
+	QString filename(options.filename);
 	ReallyUsed.clear();
 	doc->getUsedFonts(ReallyUsed);
 	ColorList usedColors;
 	doc->getUsedColors(usedColors);
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	PSLib *dd = new PSLib(true, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, options->useSpotColors);
+	PSLib *dd = new PSLib(options, true, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, options.useSpotColors);
 	if (dd != NULL)
 	{
-		if (!options->toFile)
+		if (!options.toFile)
 			filename = prefsManager->preferencesLocation()+"/tmp.ps";
 		else
 		{
@@ -4362,9 +4371,8 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 		if (PSfile)
 		{
 			// Write the PS to a file
-			ScColor::UseProf = options->useICC;
-			int psCreationRetVal=dd->CreatePS(doc, options->pageNumbers, options->outputSeparations, options->separationName, options->allSeparations,
-			               options->useColor, options->mirrorH, options->mirrorV, options->useICC, options->doGCR, options->setDevParam, options->doClip, options->doOverprint);
+			ScColor::UseProf = options.useICC;
+			int psCreationRetVal=dd->CreatePS(doc, options);
 			if (psCreationRetVal!=0)
 			{
 				unlink(filename);
@@ -4374,32 +4382,32 @@ bool ScribusMainWindow::doPrint(PrintOptions *options)
 					return false;
 			}
 			ScColor::UseProf = true;
-			if (options->PSLevel != 3)
+			if (options.PSLevel != 3)
 			{
 				// use gs to convert our PS to a lower version
 				QString tmp;
 				QStringList opts;
 				opts.append( QString("-dDEVICEWIDTHPOINTS=%1").arg(tmp.setNum(doc->pageWidth)) );
 				opts.append( QString("-dDEVICEHEIGHTPOINTS=%1").arg(tmp.setNum(doc->pageHeight)) );
-				convertPS2PS(filename, filename + ".tmp", opts, options->PSLevel);
+				convertPS2PS(filename, filename + ".tmp", opts, options.PSLevel);
 				moveFile( filename + ".tmp", filename );
 			}
-			if (!options->toFile)
+			if (!options.toFile)
 			{
 				// print and delete the PS file
 				QString cmd;
-				if (options->useAltPrintCommand)
+				if (options.useAltPrintCommand)
 				{
-					cmd = options->printerCommand + " "+filename;
+					cmd = options.printerCommand + " "+filename;
 					system(cmd);
 				}
 				else
 				{
 					QString cc;
-					cmd = "lpr -P" + options->printer;
-					if (options->copies > 1)
-						cmd += " -#" + cc.setNum(options->copies);
-					cmd += options->printerOptions;
+					cmd = "lpr -P" + options.printer;
+					if (options.copies > 1)
+						cmd += " -#" + cc.setNum(options.copies);
+					cmd += options.printerOptions;
 					cmd += " "+filename;
 					system(cmd);
 				}
@@ -7361,8 +7369,6 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 {
 	QStringList spots;
 	bool return_value = true;
-	std::vector<int> pageNs;
-	pageNs.push_back(doc->currentPage()->pageNr()+1);
 	ReOrderText(doc, view);
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QMap<QString, QMap<uint, FPointArray> > ReallyUsed;
@@ -7372,11 +7378,35 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	doc->getUsedColors(usedColors);
 	ScCore->fileWatcher->forceScan();
 	ScCore->fileWatcher->stop();
-	PSLib *dd = new PSLib(false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
+	PrintOptions options;
+	options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
+	options.outputSeparations = false;
+	options.separationName = tr("All");
+	options.allSeparations = spots;
+	options.useColor = true;
+	options.mirrorH = false;
+	options.mirrorV = false;
+	options.useICC = true;
+	options.doGCR = prefsManager->appPrefs.GCRMode;
+	options.setDevParam = false;
+	options.doClip = true;
+	options.doOverprint = false;
+	options.cropMarks = false;
+	options.bleedMarks = false;
+	options.registrationMarks = false;
+	options.colorMarks = false;
+	options.markOffset = 0.0;
+	options.BleedTop = 0.0;
+	options.BleedLeft = 0.0;
+	options.BleedRight = 0.0;
+	options.BleedBottom = 0.0;
+	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{
 		if (dd->PS_set_file(fn))
-			dd->CreatePS(doc, pageNs, false, tr("All"), spots, true, false, false, true, prefsManager->appPrefs.GCRMode, false, true);
+		{
+			dd->CreatePS(doc, options);
+		}
 		else
 			return_value = false;
 		delete dd;

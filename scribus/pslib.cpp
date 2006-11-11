@@ -51,8 +51,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "text/nlsconfig.h"
 
-PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
+PSLib::PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf, bool spot)
 {
+	Options = options;
 	usingGUI=ScCore->usingGUI();
 	abortExport=false;
 	QString tmp, tmp2, tmp3, tmp4, CHset;
@@ -235,6 +236,8 @@ PSLib::PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray
 	Prolog += "    countdictstack dict_count sub {end} repeat\n";
 	Prolog += "    b4_Inc_state restore } bind def\n";
 	Prolog += "    end\n";
+	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
+		Prolog += "/rb { [ /Separation (All)\n/DeviceCMYK { dup 0 mul exch dup 0 mul exch dup 0 mul exch 1 mul }\n] setcolorspace setcolor} bind def\n";
 	Prolog += "%%EndProlog\n";
 }
 
@@ -390,11 +393,6 @@ void PSLib::PS_begin_doc(ScribusDoc *doc, double x, double y, double breite, dou
 	PutDoc(Fonts);
 	if (GraySc)
 		PutDoc(GrayCalc);
-	if ((Art) && (doDev))
-  	{
-		PutSeite("<< /PageSize [ "+ToStr(breite)+" "+ToStr(hoehe)+" ]\n");
-		PutSeite(">> setpagedevice\n");
-	}
 	if (over)
 	{
 		PutDoc("true setoverprint\n");
@@ -490,13 +488,28 @@ void PSLib::PS_TemplateEnd()
 
 void PSLib::PS_begin_page(Page* pg, struct MarginStruct* Ma, bool Clipping)
 {
-	if (Clipping)
+	double bleedRight = 0.0;
+	double bleedLeft = 0.0;
+	double markOffs = 0.0;
+	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
+		markOffs = 20.0 + Options.markOffset;
+	if (m_Doc->locationOfPage(pg->pageNr()) == LeftPage)
 	{
-		PDev = ToStr(Ma->Left) + " " + ToStr(Ma->Bottom) + " m\n";
-		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
-		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(pg->height() - Ma->Top) + " li\n";
-		PDev += ToStr(Ma->Left) + " " + ToStr(pg->height() - Ma->Top) + " li cl clip newpath\n";
+		bleedRight = Options.BleedRight;
+		bleedLeft = Options.BleedLeft;
 	}
+	else if (m_Doc->locationOfPage(pg->pageNr()) == RightPage)
+	{
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedRight;
+	}
+	else
+	{
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedLeft;
+	}
+	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
+	double maxBoxY = pg->height()+Options.BleedBottom+Options.BleedTop+markOffs*2.0;
 	Seiten++;
 	PutSeite("%%Page: " + IToStr(Seiten) + " " + IToStr(Seiten) + "\n");
 	PutSeite("%%PageOrientation: ");
@@ -515,15 +528,217 @@ void PSLib::PS_begin_page(Page* pg, struct MarginStruct* Ma, bool Clipping)
 		else
 			PutSeite("Landscape\n");
 	}
+	PutSeite("%%PageCropBox: "+ToStr(bleedLeft+markOffs)+" "+ToStr(Options.BleedBottom+markOffs)+" "+ToStr(maxBoxX-bleedRight-markOffs*2.0)+" "+ToStr(maxBoxY-Options.BleedTop-markOffs*2.0)+"\n");
 	PutSeite("save\n");
 	if (Clipping)
 		PutSeite(PDev);
   	PutSeite("/DeviceCMYK setcolorspace\n");
+	if ((Art) && (Options.setDevParam))
+  	{
+		PutSeite("<< /PageSize [ "+ToStr(maxBoxX)+" "+ToStr(maxBoxY)+" ]\n");
+		PutSeite(">> setpagedevice\n");
+	}
+	PutSeite(ToStr(bleedLeft+markOffs)+" "+ToStr(Options.BleedBottom+markOffs)+" tr\n");
+	ActPage = pg;
+	if (Clipping)
+	{
+		PDev = ToStr(Ma->Left) + " " + ToStr(Ma->Bottom) + " m\n";
+		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(Ma->Bottom) + " li\n";
+		PDev += ToStr(pg->width() - Ma->Right) + " " + ToStr(pg->height() - Ma->Top) + " li\n";
+		PDev += ToStr(Ma->Left) + " " + ToStr(pg->height() - Ma->Top) + " li cl clip newpath\n";
+	}
 }
 
 void PSLib::PS_end_page()
 {
-	PutSeite("%%PageTrailer\nrestore\nsp\n");
+	PutSeite("%%PageTrailer\nrestore\n");
+	double markOffs = 0.0;
+	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
+		markOffs = 20.0 + Options.markOffset;
+	double bleedRight;
+	double bleedLeft;
+	if (m_Doc->locationOfPage(ActPage->pageNr()) == LeftPage)
+	{
+		bleedRight = Options.BleedRight;
+		bleedLeft = Options.BleedLeft;
+	}
+	else if (m_Doc->locationOfPage(ActPage->pageNr()) == RightPage)
+	{
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedRight;
+	}
+	else
+	{
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedLeft;
+	}
+	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
+	double maxBoxY = ActPage->height()+Options.BleedBottom+Options.BleedTop+markOffs*2.0;
+	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
+	{
+		PutSeite("gs\n");
+		PS_setlinewidth(0.5);
+		PutSeite("[] 0 setdash\n");
+		PutSeite("0 setlinecap\n");
+		PutSeite("0 setlinejoin\n");
+		PutSeite("1 rb\n");
+		if (Options.cropMarks)
+		{
+		// Bottom Left
+			PutSeite("0 "+ToStr(markOffs+Options.BleedBottom)+" m\n");
+			PutSeite(ToStr(20.0)+" "+ToStr(markOffs+Options.BleedBottom)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(markOffs+bleedLeft)+" 0 m\n");
+			PutSeite(ToStr(markOffs+bleedLeft)+" 20 li\n");
+			PutSeite("st\n");
+		// Top Left
+			PutSeite("0 "+ToStr(maxBoxY-Options.BleedTop-markOffs)+" m\n");
+			PutSeite(ToStr(20.0)+" "+ToStr(maxBoxY-Options.BleedTop-markOffs)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY)+" m\n");
+			PutSeite(ToStr(markOffs+bleedLeft)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutSeite("st\n");
+		// Bottom Right
+			PutSeite(ToStr(maxBoxX)+" "+ToStr(markOffs+Options.BleedBottom)+" m\n");
+			PutSeite(ToStr(maxBoxX-20.0)+" "+ToStr(markOffs+Options.BleedBottom)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(0.0)+" m\n");
+			PutSeite(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(20.0)+" li\n");
+			PutSeite("st\n");
+		// Top Right
+			PutSeite(ToStr(maxBoxX)+" "+ToStr(maxBoxY-Options.BleedTop-markOffs)+" m\n");
+			PutSeite(ToStr(maxBoxX-20.0)+" "+ToStr(maxBoxY-Options.BleedTop-markOffs)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(maxBoxY)+" m\n");
+			PutSeite(ToStr(maxBoxX-bleedRight-markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutSeite("st\n");
+		}
+		if (Options.bleedMarks)
+		{
+		// Bottom Left
+			PutSeite("0 "+ToStr(markOffs)+" m\n");
+			PutSeite(ToStr(20.0)+" "+ToStr(markOffs)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(markOffs)+" 0 m\n");
+			PutSeite(ToStr(markOffs)+" 20 l\n");
+			PutSeite("st\n");
+		// Top Left
+			PutSeite("0 "+ToStr(maxBoxY-markOffs)+" m\n");
+			PutSeite(ToStr(20.0)+" "+ToStr(maxBoxY-markOffs)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(markOffs)+" "+ToStr(maxBoxY)+" m\n");
+			PutSeite(ToStr(markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutSeite("st\n");
+		// Bottom Right
+			PutSeite(ToStr(maxBoxX)+" "+ToStr(markOffs)+" m\n");
+			PutSeite(ToStr(maxBoxX-20.0)+" "+ToStr(markOffs)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(maxBoxX-markOffs)+" "+ToStr(0.0)+" m\n");
+			PutSeite(ToStr(maxBoxX-markOffs)+" "+ToStr(20.0)+" li\n");
+			PutSeite("st\n");
+		// Top Right
+			PutSeite(ToStr(maxBoxX)+" "+ToStr(maxBoxY-markOffs)+" m\n");
+			PutSeite(ToStr(maxBoxX-20.0)+" "+ToStr(maxBoxY-markOffs)+" li\n");
+			PutSeite("st\n");
+			PutSeite(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY)+" m\n");
+			PutSeite(ToStr(maxBoxX-markOffs)+" "+ToStr(maxBoxY-20.0)+" li\n");
+			PutSeite("st\n");
+		}
+		if (Options.registrationMarks)
+		{
+			QString regCross = "0 7 m\n14 7 li\n7 0 m\n7 14 li\n13 7 m\n13 10.31383 10.31383 13 7 13 cu\n3.68629 13 1 10.31383 1 7 cu\n1 3.68629 3.68629 1 7 1 cu\n";
+			regCross += "10.31383 1 13 3.68629 13 7 cu\ncl\n10.5 7 m\n10.5 8.93307 8.93307 10.5 7 10.5 cu\n5.067 10.5 3.5 8.93307 3.5 7 cu\n";
+			regCross += "3.5 5.067 5.067 3.5 7 3.5 cu\n8.93307 3.5 10.5 5.067 10.5 7 cu\ncl\nst\n";
+			PutSeite("gs\n");
+			PutSeite(ToStr(maxBoxX / 2.0 - 7.0)+" 3 tr\n");
+			PutSeite(regCross);
+			PutSeite("gr\n");
+			PutSeite("gs\n");
+			PutSeite("3 "+ToStr(maxBoxY / 2.0 + 7.0)+" tr\n");
+			PutSeite(regCross);
+			PutSeite("gr\n");
+			PutSeite("gs\n");
+			PutSeite(ToStr(maxBoxX / 2.0 - 7.0)+" "+ToStr(maxBoxY - 17.0)+" tr\n");
+			PutSeite(regCross);
+			PutSeite("gr\n");
+			PutSeite("gs\n");
+			PutSeite(ToStr(maxBoxX - 17.0)+" "+ToStr(maxBoxY / 2.0 + 7.0)+" tr\n");
+			PutSeite(regCross);
+			PutSeite("gr\n");
+		}
+		if (Options.colorMarks)
+		{
+			double startX = markOffs+bleedLeft+6.0;
+			double startY = maxBoxY - 18.0;
+			PutSeite("0 0 0 1 cmyk\n");
+			double col = 1.0;
+			for (int bl = 0; bl < 11; bl++)
+			{
+				PutSeite("0 0 0 "+ToStr(col)+" cmyk\n");
+				PutSeite(ToStr(startX+bl*14.0)+" "+ToStr(startY)+" 14 14 rectfill\n");
+				PutSeite("0 0 0 1 cmyk\n");
+				PutSeite(ToStr(startX+bl*14.0)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+				col -= 0.1;
+			}
+			startX = maxBoxX-bleedRight-markOffs-20.0;
+			PutSeite("0 0 0 0.5 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0 0 0.5 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0 0.5 0 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0.5 0 0 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("1 1 0 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("1 0 1 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0 1 1 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0 0 1 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("0 1 0 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+			startX -= 14.0;
+			PutSeite("1 0 0 0 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectfill\n");
+			PutSeite("0 0 0 1 cmyk\n");
+			PutSeite(ToStr(startX)+" "+ToStr(startY)+" 14 14 rectstroke\n");
+		}
+		PutSeite("gr\n");
+	}
+	PutSeite("sp\n");
 }
 
 void PSLib::PS_curve(double x1, double y1, double x2, double y2, double x3, double y3)
@@ -636,6 +851,7 @@ void PSLib::PS_setdash(Qt::PenStyle st, double offset, QValueList<double> dash)
 		}
 	}
 }
+
 void PSLib::PS_setcapjoin(Qt::PenCapStyle ca, Qt::PenJoinStyle jo)
 {
 	switch (ca)
@@ -1357,8 +1573,21 @@ void PSLib::PS_insert(QString i)
 	PutDoc(i);
 }
 
-int PSLib::CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip, bool over)
+int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 {
+	Options = options;
+	std::vector<int> &pageNs = options.pageNumbers;
+	bool sep = options.outputSeparations;
+	QString SepNam = options.separationName;
+	QStringList spots = options.allSeparations;
+	bool farb = options.useColor;
+	bool Hm = options.mirrorH;
+	bool Vm = options.mirrorV;
+	bool Ic = options.useICC;
+	bool gcr = options.doGCR;
+	bool doDev = options.setDevParam;
+	bool doClip = options.doClip;
+	bool over = options.doOverprint;
 	QPtrStack<PageItem> groupStack;
 	int sepac;
 	int pagemult;

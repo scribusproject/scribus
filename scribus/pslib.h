@@ -35,6 +35,7 @@ class ScribusDoc;
 #include "scribusapi.h"
 #include "page.h"
 #include "pageitem.h"
+#include "scribusstructs.h"
 #include CMS_INC
 
 #ifdef NLS_PROTO
@@ -52,7 +53,7 @@ class SCRIBUS_API PSLib : public QObject
 {
 	Q_OBJECT
 	public:
-		PSLib(bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
+		PSLib(PrintOptions &options, bool psart, SCFonts &AllFonts, QMap<QString, QMap<uint, FPointArray> > DocFonts, ColorList DocColors, bool pdf = false, bool spot = true);
 		virtual ~PSLib() {};
 		virtual bool PS_set_file(QString fn);
 		virtual void PS_set_Info(QString art, QString was);
@@ -98,7 +99,7 @@ class SCRIBUS_API PSLib : public QObject
 		virtual void PS_TemplateEnd();
 		virtual void PS_UseTemplate(QString Name);
 		virtual void PS_ImageData(PageItem *c, QString fn, QString Name, QString Prof, bool UseEmbedded, bool UseProf);
-		virtual int CreatePS(ScribusDoc* Doc, std::vector<int> &pageNs, bool sep, QString SepNam, QStringList spots, bool farb, bool Hm, bool Vm, bool Ic, bool gcr, bool doDev, bool doClip, bool over = false);
+		virtual int CreatePS(ScribusDoc* Doc, PrintOptions &options);
 		virtual void ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool sep, bool farb, bool ic, bool gcr, bool master, bool embedded = false, bool useTemplate = false);
 		virtual void ProcessPage(ScribusDoc* Doc, /*ScribusView* view,*/Page* a, uint PNr, bool sep = false, bool farb = true, bool ic = false, bool gcr = true);
 		virtual void putColor(QString color, int shade, bool fill);
@@ -160,6 +161,8 @@ class SCRIBUS_API PSLib : public QObject
 		MultiProgressDialog* progressDialog;
 		bool usingGUI;
 		bool abortExport;
+		PrintOptions Options;
+		Page* ActPage;
 
 	protected slots:
 		void cancelRequested();

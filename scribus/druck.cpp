@@ -30,6 +30,7 @@ for which a new license (GPL+exception) is in place.
 #endif
 #include "printerutil.h"
 #include "util.h"
+#include "units.h"
 #include "usertaskstructs.h"
 
 extern bool previewDinUse;
@@ -39,6 +40,9 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 {
 	cdia = 0;
 	m_doc = doc;
+	unit = unitGetSuffixFromIndex(doc->unitIndex());
+	precision = unitGetPrecisionFromIndex(doc->unitIndex());
+	unitRatio = unitGetRatioFromIndex(doc->unitIndex());
 	prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
 	DevMode = PSettings;
 	ToSeparation = false;
@@ -245,6 +249,82 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	}
 	tabLayout_2->addWidget( colorOpts );
 	printOptions->insertTab( tab_2, tr( "Advanced Options" ) );
+
+	tab_3 = new QWidget( printOptions, "tab_3" );
+	tabLayout_3 = new QGridLayout( tab_3, 1, 1, 10, 5, "tabLayout_3");
+	MarkGroup = new QGroupBox( tab_3, "MarkGroup" );
+	MarkGroup->setTitle( tr( "Printer Marks" ) );
+	MarkGroup->setColumnLayout(0, Qt::Vertical );
+	MarkGroup->layout()->setSpacing( 5 );
+	MarkGroup->layout()->setMargin( 10 );
+	MarkGroupLayout = new QGridLayout( MarkGroup->layout() );
+	MarkGroupLayout->setAlignment( Qt::AlignTop );
+	cropMarks = new QCheckBox( tr( "Crop Marks" ), MarkGroup, "cropMarks" );
+	MarkGroupLayout->addWidget( cropMarks, 0, 0 );
+	bleedMarks = new QCheckBox( tr( "Bleed Marks" ), MarkGroup, "bleedMarks" );
+	MarkGroupLayout->addWidget( bleedMarks, 1, 0 );
+	registrationMarks = new QCheckBox( tr( "Registration Marks" ), MarkGroup, "registrationMarks" );
+	MarkGroupLayout->addWidget( registrationMarks, 2, 0 );
+	colorMarks = new QCheckBox( tr( "Color Bars" ), MarkGroup, "colorMarks" );
+	MarkGroupLayout->addMultiCellWidget( colorMarks, 0, 0, 1, 2 );
+	MarkTxt1 = new QLabel( MarkGroup, "MarkTxt1" );
+	MarkTxt1->setText( tr( "Offset:" ) );
+	MarkGroupLayout->addWidget( MarkTxt1, 1, 1 );
+	markOffset = new MSpinBox( MarkGroup, precision );
+	MarkGroupLayout->addWidget( markOffset, 1, 2 );
+	markOffset->setSuffix( unit );
+	markOffset->setMinValue(0);
+	markOffset->setMaxValue(3000 * unitRatio);
+	tabLayout_3->addWidget( MarkGroup, 0, 0 );
+	printOptions->insertTab( tab_3, tr( "Marks" ) );
+
+	tab_4 = new QWidget( printOptions, "tab_4" );
+	tabLayout_4 = new QGridLayout( tab_4, 1, 1, 10, 5, "tabLayout_4");
+	BleedGroup = new QGroupBox( tab_4, "BleedGroup" );
+	BleedGroup->setTitle( tr( "Bleed Settings" ) );
+	BleedGroup->setColumnLayout(0, Qt::Vertical );
+	BleedGroup->layout()->setSpacing( 5 );
+	BleedGroup->layout()->setMargin( 10 );
+	BleedGroupLayout = new QGridLayout( BleedGroup->layout() );
+	BleedGroupLayout->setAlignment( Qt::AlignTop );
+	BleedTxt1 = new QLabel( BleedGroup, "BleedTxt1" );
+	BleedTxt1->setText( tr( "Top:" ) );
+	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
+	BleedTop = new MSpinBox( BleedGroup, precision );
+	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
+	BleedTxt2 = new QLabel( BleedGroup, "BleedTxt2" );
+	BleedTxt2->setText( tr( "Bottom:" ) );
+	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
+	BleedBottom = new MSpinBox( BleedGroup, precision );
+	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
+	BleedTxt3 = new QLabel( BleedGroup, "BleedTxt3" );
+	BleedTxt3->setText( tr( "Left:" ) );
+	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
+	BleedRight = new MSpinBox( BleedGroup, precision );
+	BleedGroupLayout->addWidget( BleedRight, 0, 3 );
+	BleedTxt4 = new QLabel( BleedGroup, "BleedTxt4" );
+	BleedTxt4->setText( tr( "Right:" ) );
+	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
+	BleedLeft = new MSpinBox( BleedGroup, precision );
+	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
+	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup, "docBleeds" );
+	docBleeds->setChecked(false);
+	BleedGroupLayout->addMultiCellWidget( docBleeds, 2, 2, 0, 3 );
+	tabLayout_4->addWidget( BleedGroup, 0, 0 );
+	printOptions->insertTab( tab_4, tr( "Bleeds" ) );
+	BleedTop->setSuffix( unit );
+	BleedTop->setMinValue(0);
+	BleedTop->setMaxValue(3000*unitRatio);
+	BleedBottom->setSuffix( unit );
+	BleedBottom->setMinValue(0);
+	BleedBottom->setMaxValue(3000*unitRatio);
+	BleedRight->setSuffix( unit );
+	BleedRight->setMinValue(0);
+	BleedRight->setMaxValue(3000*unitRatio);
+	BleedLeft->setSuffix( unit );
+	BleedLeft->setMinValue(0);
+	BleedLeft->setMaxValue(3000*unitRatio);
+
 	DruckLayout->addWidget( printOptions );
 
 	Layout2 = new QHBoxLayout;
@@ -278,6 +358,10 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 
 	setMaximumSize(sizeHint());
 	PrintDest->setFocus();
+	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins on the printed page" ) + "</qt>" );
 	QToolTip::add( pageNr, tr( "Insert a comma separated list of tokens where\n"
 		                           "a token can be * for all the pages, 1-5 for\n"
@@ -301,6 +385,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	connect( ToolButton1, SIGNAL(clicked()), this, SLOT(SelFile()));
 	connect( OtherCom, SIGNAL(clicked()), this, SLOT(SelComm()));
 	connect( previewButton, SIGNAL(clicked()), this, SLOT(previewButtonClicked()));
+	connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	connect( OptButton, SIGNAL( clicked() ), this, SLOT( SetOptions() ) );
 #endif
@@ -553,6 +638,15 @@ void Druck::storeValues()
 	prefs->set("doOverprint", overprintMode->isChecked());
 	if (m_doc->HasCMS)
 		prefs->set("ICCinUse", UseICC->isChecked());
+	prefs->set("BleedTop", BleedTop->value() / unitRatio);
+	prefs->set("BleedBottom", BleedBottom->value() / unitRatio);
+	prefs->set("BleedRight", BleedRight->value() / unitRatio);
+	prefs->set("BleedLeft", BleedLeft->value() / unitRatio);
+	prefs->set("markOffset", markOffset->value() / unitRatio);
+	prefs->set("cropMarks", cropMarks->isChecked());
+	prefs->set("bleedMarks", bleedMarks->isChecked());
+	prefs->set("registrationMarks", registrationMarks->isChecked());
+	prefs->set("colorMarks", colorMarks->isChecked());
 }
 
 void Druck::okButtonClicked()
@@ -613,6 +707,15 @@ void Druck::setStoredValues(bool gcr)
 		UseICC->setChecked( psPrinter ? iccInUse : false );
 		UseICC->setEnabled( psPrinter );
 	}
+	BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
+	BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
+	BleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
+	BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0)*unitRatio);
+	markOffset->setValue(prefs->getDouble("markOffset",0.0)*unitRatio);
+	cropMarks->setChecked(prefs->getBool("cropMarks", false));
+	bleedMarks->setChecked(prefs->getBool("bleedMarks", false));
+	registrationMarks->setChecked(prefs->getBool("registrationMarks", false));
+	colorMarks->setChecked(prefs->getBool("colorMarks", false));
 }
 
 QString Druck::printerName()
@@ -711,6 +814,35 @@ bool Druck::ICCinUse()
 		return false;
 }
 
+void Druck::doDocBleeds()
+{
+	if (docBleeds->isChecked())
+	{
+		prefs->set("BleedTop", BleedTop->value() / unitRatio);
+		prefs->set("BleedBottom", BleedBottom->value() / unitRatio);
+		prefs->set("BleedRight", BleedRight->value() / unitRatio);
+		prefs->set("BleedLeft", BleedLeft->value() / unitRatio);
+		BleedTop->setValue(m_doc->BleedTop*unitRatio);
+		BleedBottom->setValue(m_doc->BleedBottom*unitRatio);
+		BleedRight->setValue(m_doc->BleedRight*unitRatio);
+		BleedLeft->setValue(m_doc->BleedLeft*unitRatio);
+		BleedTop->setEnabled(false);
+		BleedBottom->setEnabled(false);
+		BleedRight->setEnabled(false);
+		BleedLeft->setEnabled(false);
+	}
+	else
+	{
+		BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
+		BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
+		BleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
+		BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0)*unitRatio);
+		BleedTop->setEnabled(true);
+		BleedBottom->setEnabled(true);
+		BleedRight->setEnabled(true);
+		BleedLeft->setEnabled(true);
+	}
+}
 
 void Druck::createPageNumberRange( )
 {
