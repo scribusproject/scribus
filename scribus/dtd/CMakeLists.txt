@@ -1,0 +1,8 @@
+INCLUDE_DIRECTORIES(
+"${CMAKE_SOURCE_DIR}/scribus"
+)
+
+INSTALL(FILES
+scribuspdfoptions.dtd
+  DESTINATION ${SHAREDIR}dtd
+)

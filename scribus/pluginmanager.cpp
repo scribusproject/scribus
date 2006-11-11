@@ -196,8 +196,7 @@ void PluginManager::enablePlugin(PluginData & pda)
 	else if (pda.plugin->inherits("ScPersistentPlugin"))
 	{
 		ScPersistentPlugin* plugin = dynamic_cast<ScPersistentPlugin*>(pda.plugin);
-		Q_ASSERT(plugin);
-		pda.enabled = plugin->initPlugin();
+		pda.enabled = plugin && plugin->initPlugin();
 		if (!pda.enabled)
 			failReason = tr("init failed", "plugin load error");
 	}
