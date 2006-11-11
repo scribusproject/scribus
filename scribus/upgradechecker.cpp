@@ -102,12 +102,12 @@ bool UpgradeChecker::fetch()
 	bool errorOccurred=false;
 	if (waitCount>=10)
 	{
-		outputText("<b>"+tr("Timed out when attempting to get update file.")+"</b>");
+		outputText("<b>"+ tr("Timed out when attempting to get update file.")+"</b>");
 		errorOccurred=true;
 	}
 	if (retrieveError || getter->error()!=QHttp::NoError)
 	{
-		outputText("<b>"+tr("Error when attempting to get update file: %1").arg(getter->errorString())+"</b>");
+		outputText("<b>"+ tr("Error when attempting to get update file: %1").arg(getter->errorString())+"</b>");
 		errorOccurred=true;
 	}
 	if (errorOccurred)
@@ -137,9 +137,9 @@ bool UpgradeChecker::process( QFile& dataFile )
 	if ( !doc.setContent( data, &errorMsg, &eline, &ecol )) 
 	{
 		if (data.lower().contains("404 not found"))
-			outputText("<b>"+tr("File not found on server")+"</b>");
+			outputText("<b>"+ tr("File not found on server")+"</b>");
 		else
-			outputText("<b>"+tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
+			outputText("<b>"+ tr("Could not open version file: %1\nError:%2 at line: %3, row: %4").arg(dataFile.name()).arg(errorMsg).arg(eline).arg(ecol)+"</b>");
 		return false;
 	}
 	
@@ -166,10 +166,11 @@ bool UpgradeChecker::process( QFile& dataFile )
 						if (!(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2))
 						{
 							if (
-								(verMajor>major) ||
+								((verMajor>major) ||
 								(verMajor==major && verMinor>minor) ||
 								(verMajor==major && verMinor==minor && verRevsion1>revision1) ||
-								(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2>revision2)
+								(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2>revision2))
+								&& !updates.contains(verA)
 								)
 								updates.append(verA);
 						}
@@ -196,17 +197,18 @@ void UpgradeChecker::show(bool error)
 {
 	if (error)
 	{
-		outputText("<b>"+tr("An error occurred while looking for updates for Scribus, please check your internet connection.")+"</b>");
+		outputText("<b>"+ tr("An error occurred while looking for updates for Scribus, please check your internet connection.")+"</b>");
 		return;
 	}
 	if (updates.isEmpty())
-		outputText("<b>"+tr("No updates are available for your version of Scribus %1").arg(version)+"</b>");
+		outputText("<b>"+ tr("No updates are available for your version of Scribus %1").arg(version)+"</b>");
 	else
 	{
-		outputText("<b>"+tr("One or more updates for your version of Scribus (%1) are available:").arg(version)+"</b>");
+		outputText("<b>"+ tr("One or more updates for your version of Scribus (%1) are available:").arg(version)+"</b>");
+		outputText( tr("This list may contain development versions."));
 		for ( QStringList::Iterator it = updates.begin(); it != updates.end(); ++it )
 			outputText(*it);
-		outputText("<b>"+tr("Please visit www.scribus.net for details.")+"</b>");
+		outputText("<b>"+ tr("Please visit www.scribus.net for details.")+"</b>");
 	}
 	outputText(message);
 }
