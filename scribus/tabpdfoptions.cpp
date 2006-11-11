@@ -790,8 +790,6 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	markOffset->setMinValue(0);
 	markOffset->setMaxValue(3000 * unitRatio);
 	tabPDFXLayout->addWidget( MarkGroup );
-// Disable the Printer Marks for now until they are supported by the PDF Exporter
-	docInfoMarks->setEnabled(false);
 
 	BleedGroup = new QGroupBox( tabPDFX, "BleedGroup" );
 	BleedGroup->setTitle( tr( "Bleed Settings" ) );

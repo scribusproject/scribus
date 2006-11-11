@@ -660,6 +660,10 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			}
 		}
 	}
+	if (Options.docInfoMarks)
+	{
+		StdFonts.insert("/Helvetica", "");
+	}
 	QStringList patterns = doc.getUsedPatterns();
 	for (uint c = 0; c < patterns.count(); ++c)
 	{
@@ -1860,7 +1864,7 @@ void PDFlib::PDF_End_Page()
 		}
 		if (Options.colorMarks)
 		{
-			double startX = markOffs+bleedLeft;
+			double startX = markOffs+bleedLeft+6.0;
 			double startY = maxBoxY - 18.0;
 			PutPage("0 0 0 1 K\n");
 			double col = 1.0;
@@ -1870,7 +1874,7 @@ void PDFlib::PDF_End_Page()
 				PutPage(FToStr(startX+bl*14.0)+" "+FToStr(startY)+" 14 14 re B\n");
 				col -= 0.1;
 			}
-			startX = maxBoxX-bleedRight-markOffs-14.0;
+			startX = maxBoxX-bleedRight-markOffs-20.0;
 			PutPage("0 0 0 0.5 k\n");
 			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
 			startX -= 14.0;
@@ -1903,6 +1907,32 @@ void PDFlib::PDF_End_Page()
 			startX -= 14.0;
 			PutPage("1 0 0 0 k\n");
 			PutPage(FToStr(startX)+" "+FToStr(startY)+" 14 14 re B\n");
+		}
+		if (Options.docInfoMarks)
+		{
+			QString tmp = "";
+			double startX = markOffs+bleedLeft+10.0;
+			QString docTitle = doc.documentInfo.getTitle();
+			if (docTitle.isEmpty())
+			{
+				QFileInfo fi(doc.DocName);
+				docTitle = fi.fileName();
+			}
+			docTitle += "  "+ tr("Page:")+" "+tmp.setNum(PgNr+1);
+			PutPage("/"+spotMapReg["Register"].ResName+" cs 1 scn\n");
+			PutPage("q\n");
+			PutPage("1 0 0 1 "+FToStr(startX)+" 6 cm\n");
+			PutPage("BT\n");
+			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
+			PutPage(EncString("("+docTitle+")",ObjCounter)+" Tj\nET\n");
+			PutPage("Q\n");
+			PutPage("q\n");
+			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 + 20.0)+" 6 cm\n");
+			PutPage("BT\n");
+			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
+			QDate d = QDate::currentDate();
+			PutPage(EncString("("+ tr("Date:")+" "+d.toString(Qt::TextDate)+")",ObjCounter)+" Tj\nET\n");
+			PutPage("Q\n");
 		}
 	}
 	Seite.ObjNum = ObjCounter;
