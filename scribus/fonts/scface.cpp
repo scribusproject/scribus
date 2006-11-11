@@ -35,7 +35,9 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, double sz) const
 
 double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
 {
-	if (! m_glyphWidth.contains(gl)) {
+	if (gl >= 2000000000)
+		return 0.0;
+	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}		
 	return m_glyphWidth[gl] * size;
@@ -44,7 +46,9 @@ double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
 
 FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const 
 { 
-	if (! m_glyphWidth.contains(gl)) {
+	if (gl >= 2000000000)
+		return FPointArray();
+	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}			
 	FPointArray res = m_glyphOutline[gl].Outlines.copy();
@@ -56,7 +60,9 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const
 
 FPoint ScFace::ScFaceData::glyphOrigin(uint gl, double sz) const 
 {
-	if (! m_glyphWidth.contains(gl)) {
+	if (gl >= 2000000000)
+		return FPoint(0,0);
+	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}			
 	const struct GlyphData & res(m_glyphOutline[gl]);
@@ -198,7 +204,8 @@ static uint emulateGlyph(QChar ch)
 {
 	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP 
 		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK 
-		|| ch == SpecialChars::TAB)
+		|| ch == SpecialChars::TAB || ch == SpecialChars::SHYPHEN
+		 || ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE)
 		return 2000000000 + ch.unicode();
 	else if (ch == SpecialChars::NBSPACE)
 		return 32;
