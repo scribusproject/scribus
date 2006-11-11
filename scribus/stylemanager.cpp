@@ -695,7 +695,7 @@ void StyleManager::slotShortcutChanged(const QString& shortcut)
 	if (!sitem)
 		return;
 
-	if (shortcutExists(shortcut))
+	if (shortcut != QString::null && shortcutExists(shortcut))
 	{
 		QMessageBox::information(this, CommonStrings::trWarning,
 		                         tr("This key sequence is already in use"),
@@ -747,8 +747,6 @@ void StyleManager::slotApplyStyle(QString keyString)
 {
 	if (isEditMode_)
 		return;
-
-	qDebug("slotApplyStyle(%s)", keyString.ascii());
 
 	QStringList slist = QStringList::split(SEPARATOR, keyString);
 	Q_ASSERT(slist.count() == 2);
