@@ -18,10 +18,11 @@ public:
 	uint count() const { return (uint) styles.count(); }
 	void append(STYLE* style) { styles.append(style); style->setBase(this); invalidate(); }
 	inline void remove(uint index);
-	inline void redefine(QValueList<STYLE> defs, bool removeUnused=false);
+	inline void redefine(StyleSet<STYLE> defs, bool removeUnused=false);
 	void create(const STYLE& proto) { append(new STYLE(proto)); }
 	StyleSet() : styles(), m_base(NULL), m_baseversion(-1) {}
-	~StyleSet() { while(styles.count()>0) { delete styles.front(); styles.pop_front(); } }
+	~StyleSet() { clear(); }
+	void clear() { while(styles.count()>0) { delete styles.front(); styles.pop_front(); } }
 
 	void setBase(const StyleBase* base)   { m_base = base; m_baseversion = -1; }
 	const StyleBase* base()               { return m_base; }
@@ -63,7 +64,7 @@ inline const Style* StyleSet<STYLE>::resolve(QString name) const
 }
 
 template<class STYLE>
-inline void StyleSet<STYLE>::redefine(QValueList<STYLE> defs, bool removeUnused)
+inline void StyleSet<STYLE>::redefine(StyleSet<STYLE> defs, bool removeUnused)
 {
 	for (int i=signed(styles.count())-1; i >=0; --i) {
 		bool found = false;
