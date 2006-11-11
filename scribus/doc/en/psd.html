@@ -1,7 +1,7 @@
 <qt>
 <title>Working with Photoshop&#174; </title>
 <h2>Working with Photoshop&#174; </h2>
-<h4><em>This doc is a work in progress as PSD and EPS handling are being improved almost daily in Scribus. Some of these features will only work on recent 1.3.4cvs and require using the cairo rending engine, in place of the default libart rendering engine.</em></h4>
+<h4><em>This doc is a work in progress as PSD and EPS handling are being improved almost daily in Scribus. Some of these features will only work on recent 1.3.4cvs and require using the Cairo rending engine, in place of the default libart rendering engine.</em></h4>
 
 <h3>Overview</h3>
 <p>Adobe Photoshop is one of the world's best known applications and widely used in professional graphics both in print and for web work. While I really enjoy and encourage the continued development of open source applications like Cinepaint, GIMP and Krita. Sometimes Photoshop is the only application which can be used in certain cases - especially in the pre-press world.<br />
@@ -9,26 +9,25 @@
 One of the sources of its power is the native PSD file format. A PSD file can not only hold image data, but is more of a large container which can include metadata, camera info, text, vector artwork and more. Most other programs only handle a small subset of its capabilities. </p>
 <ul>
 <li>Scribus does have its own native capabilities to import PSD files from version 6 and earlier - the latest version which is publically documented. This support is quite extensive including the ability to manipulate and adjust layer settings, optionally enable and use masking and paths embedded in the file. In almost all cases ICC color profiles which are embedded are detected and used when color management is enabled. Some of the more advanced features requires that Scribus 1.3.4cvs be built with the Cairo backend. </li>
-<li>Scribus generally will import 8-bit Greyscale, RGB and CMYK PSD files without issue. Alpha transparency is not yet supported with CMYK.</li>
+<li>Scribus generally will import 8-bit Greyscale, RGB and CMYK PSD files without issue. Alpha transparency is now supported with CMYK and RGB.</li>
 <li>Scribus will import PSD files with normal layers and will display the individual layers in the Extended Image Properties layer. 
-<li> Paths and blending modes which are in the image file can be used to affect the way the image diplays and prints. This is in 1.3.4cvs+ and requires a Cairo 1.2.x+ enabled build.</li>
+<li>Clipping paths and blending modes which are in the image file can be used to affect the way the image diplays and prints. This is in 1.3.4cvs+ and requires a Cairo 1.2.x+ enabled build.</li>
 <li>Adjustment layers and effect layers are not yet supported. In this case, Scribus will fall back to using a 'flattened' version of the file.</li>
 
-<li>Where you need to include CMYK plus Alpha transparency, the current workaround is to export a Photoshop PDF, then import into an image frame. The trade off is importing the PDF will require more memory and is slower to export as it must be filtered through Ghostscript. <!--The trade-off is ICC color profiles --> </li>
-<li>Layered Tiffs saved from Photoshop are often not handled well by other tiff readers and importing applications. This is because Photoshop actually embeds PSD type layers in a private tag. Scribus will attempt to read the PDF layers info and make this also accessible to the Extended Image Properties palette. Text and vector layers within this private tag are not yet supported. </li>
-<li>Scribus in almost all cases will automatically detect the encoding wether it is ASCII, Binary or Binary with JPEG.</li>
+<li>Scribus in almost all cases will automatically detect the encoding whether it is ASCII, Binary or Binary with JPEG.</li>
 <li>Scribus will handle both PSD and Tiff files no matter what byte ending is used - Mac/SPARC or PC. If Scribus is run from the command line, you may see harmless error messages about tags in wrong order. Ignore them. </li>
 </ul>
-<h3>Other Special Types of EPS and PSD from Photoshop</h3>
+<h3>Other Special Types of EPS,PSD and Tiff from Photoshop</h3>
 <ul>
-<li>DCS (Desktop Color Separations) 1.x/2.0 EPS files are a special flavor of EPS saved in Photoshop are imported natively, much like a PSD file, complete with ICC profile support. Image quality should be close to or equivalent to the native PSD file. Vector masks are also detected and can be used to control the display within Extended Image Properties. DCS EPS files can also be save from Quark X-Press&#174, but for now are imported using Ghostscript as a filter. </li>
+<li>DCS (Desktop Color Separations) 1.x/2.0 EPS files are a special flavor of EPS saved in Photoshop are imported natively, much like a PSD file, complete with ICC profile support. Image quality should be close to or equivalent to the native PSD file. Vector masks are also detected and can be used to control the display within Extended Image Properties. DCS EPS files can also be saved from Quark X-Press&#174, but for now are imported using Ghostscript as a filter. </li>
+<li>There is experimental support for CIELAB more commonly known as <a href="http://en.wikipedia.org/wiki/Lab_color_space" title="Cie LAB defintion"><strong>L&#042;a&#042;b&#042;</strong></a>color space. Scribus makes a best effort conversion using littlecms internal Lab space into RGB on import. Internally, Scribus does not yet operate in Lab, but may with future color enhancements. </li>
 <li>Scribus can import Duotones, Tritones and Quadtones in a PSD file, as well as within a Photoshop EPS file. However, the difference is you must import the spot colors from the EPS separately via <strong>Edit &#062; Import Colors</strong>, then select EPS/AI in the file type drop down. When importing via PSD, you can directly manipulate each of the spot colors within them, via the Image Effects dialog, with <strong>Right Click &#062; Image Effects.</strong> In most cases, Scribus will detect the image as Duo, Tri or Quad tone and automagically import the colors from the PSD. </li></ul>
 <table width="100%"><tr><td align="center"><img src="images/imageeffects.png" title="Spot Colors imported into a Tritone" alt="Spot Colors imported into a Tritone" /></td></tr></table>
 <h3>Recommendations:</h3>
-<p>First, if you do have the native PSD file, by all means use it and enabled embedding the correct ICC profile within Photoshop. This is done via <strong>Image &#062; Mode &#062 Convert to Profile </strong> within Photoshop. </p>
+<p>First, if you do have the native PSD file, by all means use it and enable embedding the correct ICC profile within Photoshop. This is done via <strong>Image &#062; Mode &#062 Convert to Profile </strong> within Photoshop. Having the correct profile embedded will improve maintaining color fidelity throughout.</p>
 <ul>
-   <li>Avoid using text layers. Scribus has very powerful text effect tools on its own and will export them as vectors, not bitmap resulting in higher print quality. This advice is good for any bitmap editing application. </li>
-<li>Similarly, avoid vector artwork in bitmap files. Scribus has fairly complete vector drawing tools and will give you more reliable results in printing.</li>
+   <li>Avoid using text layers. Scribus has very powerful text effect tools on its own and they are exported as vectors, not a bitmap, thus resulting in higher print quality. This advice is good for <em>any</em> bitmap editing application. </li>
+<li>Similarly, avoid vector artwork in bitmap files. Scribus has fairly complete vector drawing tools and will give you more reliable results in printing. The other option is to create vector in a vector application like Inkscape or Corel Draw.</li>
    <li>Scribus <em>can</em> handle CMYK jpeg from Photoshop, complete with icc profiles support, but in general, it is preferable to use PSD or Tiff, as few other applications understand CMYK jpeg.</li>
 <li>If you are using adjustment layers or effects layers, save a copy of your PSD and flatten the layers before using with Scribus. This will not only shrink the file, but ensure there are no issues when displayed or printed in Scribus. </li>
  </ul>
