@@ -2684,7 +2684,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["editSelectAll"]->setEnabled(true);
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem->asTextFrame())
-				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font().scName());
+				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
 			if (currItem->lineColor() != CommonStrings::None)
 				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
@@ -2705,10 +2705,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			else
 				view->horizRuler->Revers = false;
 			view->horizRuler->ItemPosValid = true;
-//			if (findParagraphStyle(doc, doc->currentStyle) < 5)
-//				view->horizRuler->TabValues = currItem->TabValues;
-//			else
-				view->horizRuler->TabValues = doc->currentStyle.tabValues();
+			view->horizRuler->TabValues = currItem->currentStyle().tabValues();
 			view->horizRuler->repaint();
 		}
 		else
@@ -4863,12 +4860,8 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				Serializer *ss = new Serializer("");
 				ss->Objekt = Buffer2;
-//FIXME: that st business doesn't look right
-				int st = findParagraphStyle(doc, doc->currentStyle);
-//				if (st > 5)
-					ss->GetText(currItem, st, doc->docParagraphStyles[st].charStyle().font().scName(), doc->docParagraphStyles[st].charStyle().fontSize(), true);
-//				else
-//					ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
+				int st = 0; //FIXME
+				ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
 				delete ss;
 			}
 			view->RefreshItem(currItem);
@@ -5783,7 +5776,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["editPaste"]->setEnabled(false);
 			scrActions["insertGlyph"]->setEnabled(true);
 			if (currItem!=NULL && currItem->asTextFrame())
-				actionManager->enableUnicodeActions(&scrActions, true, doc->currentStyle.charStyle().font().scName());
+				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentCharStyle().font().scName());
 			if (!Buffer2.isNull())
 			{
 //				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -6790,7 +6783,7 @@ void ScribusMainWindow::setNewAlignment(int a)
 {
 	if (HaveDoc)
 	{
-//		doc->currentStyle = doc->docParagraphStyles[a];
+		doc->currentStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(a));
 		doc->itemSelection_SetAlignment(a);
 		propertiesPalette->setAli(a);
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -6803,7 +6796,7 @@ void ScribusMainWindow::setNewParStyle(int a)
 	if (HaveDoc)
 	{
 //		doc->currentStyle = doc->docParagraphStyles[a];
-		doc->itemSelection_ApplyParagraphStyle(doc->docParagraphStyles[a]);
+		doc->itemSelection_SetNamedParagraphStyle(doc->docParagraphStyles[a].name());
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}
