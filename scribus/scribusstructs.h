@@ -305,8 +305,11 @@ struct PrintOptions
 };
 
 typedef QMap<QString,QString> ProfilesL;
-typedef QValueVector<SingleLine> multiLine;
+// typedef QValueVector<SingleLine> multiLine;
 
+struct multiLine : public QValueVector<SingleLine> {
+	QString shortcut;
+};
 
 typedef enum {
 	MissingGlyph=1,

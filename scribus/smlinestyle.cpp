@@ -403,13 +403,25 @@ void SMLineStyle::apply()
 
 QString SMLineStyle::shortcut(const QString &stylename) const
 {
-	// will probably need to convert linestyles to new avox's styles
-	return QString::null;
+	Q_ASSERT(tmpLines.contains(stylename));
+	return tmpLines[stylename].shortcut;
 }
 
 void SMLineStyle::setShortcut(const QString &shortcut)
 {
-	// TODO set the shortcut to selection
+	Q_ASSERT(selection_.count() == 1);
+	if (selection_.count() != 1)
+		return;
+
+	QMap<QString, multiLine*>::iterator it;
+	for (it = selection_.begin(); it != selection_.end(); ++it)
+		(*it)->shortcut = shortcut;
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 void SMLineStyle::deleteStyles(const QValueList<RemoveItem> &removeList)

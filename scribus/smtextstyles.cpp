@@ -367,6 +367,12 @@ void SMParagraphStyle::setShortcut(const QString &shortcut)
 		return;
 
 	selection_[0]->setShortcut(shortcut);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 void SMParagraphStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
@@ -1482,6 +1488,12 @@ void SMCharacterStyle::setShortcut(const QString &shortcut)
 		return;
 
 	selection_[0]->setShortcut(shortcut);
+
+	if (!selectionIsDirty_)
+	{
+		selectionIsDirty_ = true;
+		emit selectionDirty();
+	}
 }
 
 void SMCharacterStyle::deleteStyles(const QValueList<RemoveItem> &removeList)
