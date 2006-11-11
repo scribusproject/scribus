@@ -451,3 +451,12 @@ INSTALL(FILES
 22/zoom-out.png
   DESTINATION ${ICONDIR}22
 )
+
+INSTALL(FILES
+32/page-3fold.png
+32/page-4fold.png
+32/page-doublesided.png
+32/page-simple.png
+  DESTINATION ${ICONDIR}32
+)
+

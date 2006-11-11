@@ -194,15 +194,15 @@ void PageLayouts::languageChange()
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
-				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagesingle.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
 			else if (pg == 1)
-				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagedouble.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
 			else if (pg == 2)
-				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagetriple.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
 			else if (pg == 3)
-				(void) new QIconViewItem( layoutsView, psname, loadIcon("pagequadro.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
 			else
-				(void) new QIconViewItem( layoutsView, psname, loadIcon("page.png") );
+				(void) new QIconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
 		}
 		int maxWidth = 0;
 		QIconViewItem* ic = layoutsView->firstItem();

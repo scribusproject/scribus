@@ -99,7 +99,12 @@ ellipsis.png \
 22/lock.png \
 16/lock-unlocked.png \
 22/lock-unlocked.png \
+32/page-3fold.png \
+32/page-4fold.png \
+32/page-doublesided.png \
+32/page-simple.png \
 22/pdf-annotations.png \
+22/pointer.png \
 16/preflight-verifier.png \
 22/preflight-verifier.png \
 16/story-editor.png \
@@ -108,7 +113,6 @@ ellipsis.png \
 22/text-frame-unlink.png \
 16/measure.png \
 22/measure.png \
-22/pointer.png \
 16/show-object.png \
 16/stroke-cap-butt.png \
 16/stroke-cap-round.png \
@@ -134,6 +138,7 @@ install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/16/
 	$(mkinstalldirs) $(prefix)/share/scribus/icons/22/
+	$(mkinstalldirs) $(prefix)/share/scribus/icons/32/
 	$(mkinstalldirs) $(prefix)/share/pixmaps/
 	$(INSTALL_DATA) $(srcdir)/cmsOn.png $(prefix)/share/scribus/icons/cmsOn.png
 	$(INSTALL_DATA) $(srcdir)/cmsOff.png $(prefix)/share/scribus/icons/cmsOff.png
@@ -200,6 +205,10 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/blend.png $(prefix)/share/scribus/icons/blend.png
 	$(INSTALL_DATA) $(srcdir)/bottom.png $(prefix)/share/scribus/icons/bottom.png
 	$(INSTALL_DATA) $(srcdir)/ButtCap.png $(prefix)/share/scribus/icons/ButtCap.png
+	$(INSTALL_DATA) $(srcdir)/32/page-3fold.png $(prefix)/share/scribus/icons/32/page-3fold.png
+	$(INSTALL_DATA) $(srcdir)/32/page-4fold.png $(prefix)/share/scribus/icons/32/page-4fold.png
+	$(INSTALL_DATA) $(srcdir)/32/page-doublesided.png $(prefix)/share/scribus/icons/32/page-doublesided.png
+	$(INSTALL_DATA) $(srcdir)/32/page-simple.png $(prefix)/share/scribus/icons/32/page-simple.png
 	$(INSTALL_DATA) $(srcdir)/22/pdf-annotations.png $(prefix)/share/scribus/icons/22/pdf-annotations.png
 	$(INSTALL_DATA) $(srcdir)/22/checkbox.png $(prefix)/share/scribus/icons/22/checkbox.png
 	$(INSTALL_DATA) $(srcdir)/checkdoc.png $(prefix)/share/scribus/icons/checkdoc.png

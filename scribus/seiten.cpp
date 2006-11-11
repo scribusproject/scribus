@@ -521,7 +521,7 @@ PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false,
 	Trash->setMinimumSize(QSize(22,22));
 	Layout1->addWidget( Trash );
 	PagePaletteLayout->addLayout( Layout1 );
-	pix = loadIcon("document2.png");
+	pix = loadIcon("32/page-simple.png");
 	currView = 0;
 	Rebuild();
 	languageChange();
