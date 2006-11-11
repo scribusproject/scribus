@@ -505,13 +505,7 @@ void PageItem_TextFrame::layout()
 			// Smallcaps and such
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
-			// some special cases TODO: move to ScFace
-//			if (chstr == SpecialChars::NBSPACE)
-//				chstr2 = " ";
-//			else if (chstr == SpecialChars::NBHYPHEN)
-//				chstr2 = "-";
-//			else
-				chstr2 = chstr;
+			chstr2 = chstr;
 			// find out width of char
 			if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
 				wide = hl->cembedded->gWidth + hl->cembedded->lineWidth();
@@ -519,11 +513,6 @@ void PageItem_TextFrame::layout()
 			{
 /*				if (a+1 < itemText.length())
 				{
-//					if (itemText.text(a+1) == SpecialChars::NBSPACE)
-//						chstr3 = " ";
-//					else if (itemText.text(a+1) == SpecialChars::NBHYPHEN)
-//						chstr3 = "-";
-//					else
 						chstr3 = itemText.text(a+1);
 					// apply kerning
 					wide = charStyle.font().charWidth(chstr2[0], chs / 10.0, chstr3[0]);
@@ -914,9 +903,9 @@ void PageItem_TextFrame::layout()
 				CurX = QMAX(CurX, ColBound.x());
 			}
 			// hyphenation
-			if (((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))
+			if ((((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  || hl->ch[0] == SpecialChars::SHYPHEN)
 			{
-				if (hl->effects() & ScStyle_HyphenationPossible)
+				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
 				{
 					pt1 = QPoint(qRound(ceil(CurX+RExtra+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(CurY+desc));
 					pt2 = QPoint(qRound(ceil(CurX+RExtra+ charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0))), qRound(ceil(CurY-asce)));
@@ -952,7 +941,7 @@ void PageItem_TextFrame::layout()
 					LastSP = BuPos;
 				}
 			}
-			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-")) && (!outs))
+			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs))
 			{
 				if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0))
 				{
@@ -1138,7 +1127,7 @@ void PageItem_TextFrame::layout()
 						for (int j=curLine.firstItem; j <= a; ++j)
 							LastXp += itemText.item(j)->glyph.wide();
 						
-						if (hl->effects() & ScStyle_HyphenationPossible)
+						if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
 						{
 							// insert hyphen
 							HyphenCount++;
@@ -2737,9 +2726,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		}
 		if ((uc[0] > QChar(31) && m_Doc->currentStyle.charStyle().font().canRender(uc[0])) || (as == 13) || (as == 30))
 		{
-			// should go when hyphenator respects charstyle settings
-			QString Language = CPos < itemText.length()? 
-				itemText.charStyle(CPos).language() : m_Doc->currentStyle.charStyle().language();
 			itemText.insertChars(CPos, uc);
 			CPos += 1;
 			if ((m_Doc->docHyphenator->AutoCheck) && (CPos > 1))
@@ -2758,9 +2744,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 				if (!Twort.isEmpty())
 				{
-					// should go when hyphenator respects charstyle settings
-					if (m_Doc->docHyphenator->Language != Language)
-						m_Doc->docHyphenator->slotNewDict(Language);
 					m_Doc->docHyphenator->slotHyphenateWord(this, Twort, Tcoun);
 				}
 			}

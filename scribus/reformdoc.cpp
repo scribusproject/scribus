@@ -469,7 +469,9 @@ void ReformDoc::updateDocumentSettings()
 		currDoc->autoSaveTimer->stop();
 		currDoc->autoSaveTimer->start(currDoc->AutoSaveTime);
 	}
-	currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
+/*	FIXME: scribus determines dict by charstyle now, so this setting should go into the doc's default charstyle
+		currDoc->docHyphenator->slotNewDict(ScMW->GetLang(tabHyphenator->language->currentText()));
+*/
 	currDoc->docHyphenator->slotNewSettings(tabHyphenator->wordLen->value(),
 																!tabHyphenator->verbose->isChecked(),
 																tabHyphenator->input->isChecked(),
