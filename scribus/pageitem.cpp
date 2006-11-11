@@ -1490,8 +1490,11 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	double retval = 0.0;
 	double asce = style.font().ascent(style.fontSize() / 10.0);
 	int chst = style.effects() & 1919;
-	if (chars[0] == SpecialChars::NBSPACE ||
+	if (chars[0] == SpecialChars::ZWSPACE ||
+		chars[0] == SpecialChars::ZWNBSPACE ||
+		chars[0] == SpecialChars::NBSPACE ||
 		chars[0] == SpecialChars::NBHYPHEN ||
+		chars[0] == SpecialChars::SHYPHEN ||
 		chars[0] == SpecialChars::PARSEP ||
 		chars[0] == SpecialChars::COLBREAK ||
 		chars[0] == SpecialChars::LINEBREAK ||
@@ -1620,9 +1623,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		p->setBrush(oldBrush);
 		return;
 	}
-	else if (glyph == (ScFace::CONTROL_GLYPHS + 29)) // NBSPACE
+	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) 
 		glyph = style.font().char2CMap(QChar(' '));
-	else if (glyph == (ScFace::CONTROL_GLYPHS + 24)) // NBHYPHEN
+	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
 		glyph = style.font().char2CMap(QChar('-'));
 	
 	if (glyph >= ScFace::CONTROL_GLYPHS)
