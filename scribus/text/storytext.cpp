@@ -15,11 +15,13 @@ QChar SpecialChars::PARSEP     = QChar(13);
 QChar SpecialChars::LINEBREAK  = QChar(28);
 QChar SpecialChars::COLBREAK   = QChar(26);
 QChar SpecialChars::FRAMEBREAK = QChar(27);
-QChar SpecialChars::SHYPHEN;
-QChar SpecialChars::NBHYPHEN   = QChar(24);
-QChar SpecialChars::NBSPACE    = QChar(29);
-QChar SpecialChars::ZWNBSPACE;
-QChar SpecialChars::ZWSPACE;
+QChar SpecialChars::SHYPHEN    = QChar(0xAD);
+QChar SpecialChars::NBHYPHEN   = QChar(0x2011);
+QChar SpecialChars::NBSPACE    = QChar(0xA0);
+QChar SpecialChars::OLD_NBHYPHEN   = QChar(24);
+QChar SpecialChars::OLD_NBSPACE    = QChar(29);
+QChar SpecialChars::ZWNBSPACE  = QChar(0x2060);
+QChar SpecialChars::ZWSPACE    = QChar(0x200B);
 QChar SpecialChars::PAGENUMBER      = QChar(30);
 //QChar SpecialChars::SPACE      = QChar(32);
 
@@ -86,6 +88,7 @@ public:
 		}
 		len = count();
 		defaultStyle = other.defaultStyle;
+		pstyleBase.invalidate();
 		replaceCharStyleBaseInParagraph(len,  defaultStyle.charStyleBase());
 		refs = 1;
 //		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
@@ -430,12 +433,19 @@ void StoryText::hyphenateWord(int pos, uint len, char* hyphens)
 	assert(pos >= 0);
 	assert(pos + signed(len) <= length());
 	
+	QString dump("");
 	for (int i=pos; i < pos+signed(len); ++i)
-		if(hyphens && hyphens[i] & 1)
+	{
+		dump += d->at(i)->ch;
+		if(hyphens && hyphens[i-pos] & 1) {
 			d->at(i)->setEffects(d->at(i)->effects() | ScStyle_HyphenationPossible);
-		else
+			dump += "-";
+		}
+		else {
 			d->at(i)->setEffects(d->at(i)->effects() & ~ScStyle_HyphenationPossible);
-
+		}
+	}
+	qDebug(QString("st: %1").arg(dump));
 	invalidate(pos, pos + len);
 }
 
@@ -573,6 +583,7 @@ void StoryText::setDefaultStyle(const ParagraphStyle& style)
 	d->defaultStyle = style;
 	d->defaultStyle.setBase( oldPBase );
 	d->defaultStyle.charStyle().setBase( oldCBase );
+	d->pstyleBase.invalidate();
 }
 
 
@@ -661,6 +672,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 		// not happy about this but inserting a new PARSEP makes more trouble
 //		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->defaultStyle.applyStyle(style);
+		d->pstyleBase.invalidate();
 	}
 	invalidate(pos, QMIN(i, length()));
 }
@@ -691,6 +703,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 		// not happy about this but inserting a new PARSEP makes more trouble
 		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
 		d->defaultStyle.eraseStyle(style);
+		d->pstyleBase.invalidate();
 	}
 	invalidate(pos, QMIN(i, length()));
 }
