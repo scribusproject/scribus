@@ -818,6 +818,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
 	BleedLeft = new MSpinBox( BleedGroup, precision );
 	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
+	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup, "docBleeds" );
+	BleedGroupLayout->addMultiCellWidget( docBleeds, 2, 2, 0, 3 );
 	tabPDFXLayout->addWidget( BleedGroup );
 
 	X3Group = new QGroupBox( tabPDFX, "X3Group" );
@@ -877,6 +879,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		connect(InfoString, SIGNAL(textChanged(const QString &)), this, SLOT(checkInfo()));
 		connect(InfoString, SIGNAL(returnPressed()), this, SLOT(checkInfo()));
 		connect(InfoString, SIGNAL(lostFocus()), this, SLOT(checkInfo()));
+		connect(docBleeds, SIGNAL(clicked()), this, SLOT(doDocBleeds()));
 		QToolTip::add( EmbedFonts, "<qt>" + tr( "Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document." ) + "</qt>");
 		QToolTip::add( CheckBox10, "<qt>" + tr( "Enables presentation effects when using Adobe&#174; Reader&#174; and other PDF viewers which support this in full screen mode." ) + "</qt>");
 		QToolTip::add( PagePrev, "<qt>" + tr( "Show page previews of each page listed above." ) + "</qt>");
@@ -888,6 +891,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		QToolTip::add( EDirection_2_2, "<qt>" + tr( "Direction of the glitter or wipe effects." ) + "</qt>" );
 		QToolTip::add( EonAllPg, "<qt>" + tr( "Apply the selected effect to all pages." ) + "</qt>" );
 	}
+	else
+		docBleeds->hide();
 	connect(AllPages, SIGNAL(toggled(bool)), this, SLOT(SelRange(bool)));
 	connect(pageNrButton, SIGNAL(clicked()), this, SLOT(createPageNumberRange()));
 	connect(DSColor, SIGNAL(clicked()), this, SLOT(DoDownsample()));
@@ -1226,6 +1231,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	BleedBottom->setValue(Opts.BleedBottom*unitRatio);
 	BleedRight->setValue(Opts.BleedRight*unitRatio);
 	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
+	docBleeds->setChecked(false);
 	markOffset->setValue(Opts.markOffset*unitRatio);
 	cropMarks->setChecked(Opts.cropMarks);
 	bleedMarks->setChecked(Opts.bleedMarks);
@@ -1263,6 +1269,36 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			BleedTxt4->setText( tr( "Outside:" ) );
 		}
 		
+	}
+}
+
+void TabPDFOptions::doDocBleeds()
+{
+	if (docBleeds->isChecked())
+	{
+		Opts.BleedTop = BleedTop->value() / unitRatio;
+		Opts.BleedBottom = BleedBottom->value() / unitRatio;
+		Opts.BleedRight = BleedRight->value() / unitRatio;
+		Opts.BleedLeft = BleedLeft->value() / unitRatio;
+		BleedTop->setValue(doc->BleedTop*unitRatio);
+		BleedBottom->setValue(doc->BleedBottom*unitRatio);
+		BleedRight->setValue(doc->BleedRight*unitRatio);
+		BleedLeft->setValue(doc->BleedLeft*unitRatio);
+		BleedTop->setEnabled(false);
+		BleedBottom->setEnabled(false);
+		BleedRight->setEnabled(false);
+		BleedLeft->setEnabled(false);
+	}
+	else
+	{
+		BleedTop->setValue(Opts.BleedTop*unitRatio);
+		BleedBottom->setValue(Opts.BleedBottom*unitRatio);
+		BleedRight->setValue(Opts.BleedRight*unitRatio);
+		BleedLeft->setValue(Opts.BleedLeft*unitRatio);
+		BleedTop->setEnabled(true);
+		BleedBottom->setEnabled(true);
+		BleedRight->setEnabled(true);
+		BleedLeft->setEnabled(true);
 	}
 }
 

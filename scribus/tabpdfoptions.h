@@ -117,6 +117,7 @@ signals:
 	void hasInfo();
 
 public slots:
+	void doDocBleeds();
 	void ToggleEncr();
 	void EnablePDFX(int a);
 	void DoDownsample();
@@ -263,6 +264,7 @@ private:
 	QLabel* BleedTxt3;
 	QLabel* BleedTxt4;
 	QLabel* MarkTxt1;
+	QCheckBox *docBleeds;
 	QButtonGroup* RangeGroup;
 	QVBoxLayout* RangeGroupLayout;
 	QCheckBox* SubsetFonts;

@@ -7535,10 +7535,13 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	doc->PDF_Options.BleedTop = doc->BleedTop;
-	doc->PDF_Options.BleedLeft = doc->BleedLeft;
-	doc->PDF_Options.BleedRight = doc->BleedRight;
-	doc->PDF_Options.BleedBottom = doc->BleedBottom;
+	if (doc->PDF_Options.firstUse)
+	{
+		doc->PDF_Options.BleedTop = doc->BleedTop;
+		doc->PDF_Options.BleedLeft = doc->BleedLeft;
+		doc->PDF_Options.BleedRight = doc->BleedRight;
+		doc->PDF_Options.BleedBottom = doc->BleedBottom;
+	}
 	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
