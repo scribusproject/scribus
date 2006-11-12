@@ -498,18 +498,20 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 	bool succeed = false;
 	ColorList usedColors;
 	std::vector<int> pageNumber;
+	PrintOptions options2 = options;
 	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	QString tempFilePath;
 	int ret = 0;
 
 	doc->getUsedFonts(usedFonts);
 	doc->getUsedColors(usedColors);
-	options.pageNumbers.push_back(page->pageNr() + 1 );
+	options2.pageNumbers.clear();
+	options2.pageNumbers.push_back(page->pageNr() + 1 );
 
 	tempFilePath = PrefsManager::instance()->preferencesLocation() + "/tmp.ps";
-	PSLib *dd = new PSLib(options, false, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options.useSpotColors );
+	PSLib *dd = new PSLib(options2, false, PrefsManager::instance()->appPrefs.AvailFonts, usedFonts, usedColors, false, options2.useSpotColors );
 	dd->PS_set_file( tempFilePath );
-	dd->CreatePS( doc, options);
+	dd->CreatePS( doc, options2);
 	delete dd;
 
 	if ( options.PSLevel == 1 || options.PSLevel == 2 )
