@@ -6156,6 +6156,98 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
         <source>Right Page</source>
         <translation>Prawa strona</translation>
     </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished">Styczeń</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished">Marzec</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished">Grudzień</translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -7538,7 +7630,15 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
+        <translation type="obsolete">Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatyczne</translation>
     </message>
 </context>
 <context>
@@ -9639,6 +9739,22 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <source>New Master Page %1</source>
         <translation>Nowa strona wzorcowa  %1</translation>
     </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -10520,7 +10636,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
+        <translation type="obsolete">Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
@@ -10532,6 +10648,14 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatyczne</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20790,6 +20914,54 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

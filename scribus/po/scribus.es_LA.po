@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-29 00:44+0200\n"
+"POT-Creation-Date: 2006-11-12 22:38+0100\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -2267,6 +2267,84 @@ msgstr "Centro"
 msgid "Right Page"
 msgstr "Página Derecha"
 
+#, fuzzy
+msgid "Normal Left"
+msgstr "Normal"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Normal"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Alinear Derecha"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "Línea"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Saturación"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "Buscar"
+
+#, fuzzy
+msgid "April"
+msgstr "Aplicar"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Autor:"
+
+#, fuzzy
+msgid "September"
+msgstr "Número"
+
+#, fuzzy
+msgid "October"
+msgstr "Otro"
+
+#, fuzzy
+msgid "November"
+msgstr "Número"
+
+#, fuzzy
+msgid "December"
+msgstr "Número"
+
 msgid "Shade:"
 msgstr "Intensidad:"
 
@@ -2960,12 +3038,16 @@ msgid "Line Spacing"
 msgstr "Espacio entre Líneas"
 
 #, fuzzy
-msgid "Click to select the line spacing mode"
+msgid "Click and hold down to select the line spacing mode."
 msgstr "Alinear Texto Centro"
 
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "Estilos..."
+
+#, fuzzy
+msgid "Auto"
+msgstr "Autor:"
 
 #, fuzzy
 msgid "Name of the style is not unique"
@@ -4789,6 +4871,21 @@ msgstr "después de la Página"
 msgid "New Master Page %1"
 msgstr "después de la Página"
 
+#, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "Importar datos"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "después de la Página"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "&Nombre Fichero:"
+
 msgid "New Document"
 msgstr "Nuevo Documento"
 
@@ -6598,10 +6695,6 @@ msgid "More than one item selected"
 msgstr ""
 
 #, fuzzy
-msgid "Auto"
-msgstr "Autor:"
-
-#, fuzzy
 msgid "Displacement"
 msgstr "Desplazamiento"
 
@@ -7313,14 +7406,15 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 
 msgid ""
-"Compression quality levels for lossy compression methods: Minimum (25%), Low "
-"(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
-"does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"Quality levels for lossy compression methods: Minimum (25%), Low (50%), "
+"Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
+"directly determine the size of the resulting image - both size and quality "
+"loss vary from image to image at any given quality level. Even with Maximum "
+"selected, there is always some quality loss with jepg."
 msgstr ""
 
 msgid ""
@@ -8599,6 +8693,47 @@ msgid "Centimeters (cm)"
 msgstr "Milímetros (mm)"
 
 msgid "Cicero (c)"
+msgstr ""
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+#, fuzzy
+msgid "Error when attempting to get update file: %1"
+msgstr ""
+"¿Desea realmente sobrescribir el Archivo:\n"
+"%1 ?"
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "Cierra el Documento Actual"
+
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr ""
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
 msgstr ""
 
 msgid "Minimum Margins for Page Size %1"
@@ -10603,10 +10738,6 @@ msgstr ""
 #~ msgstr "Intensidad"
 
 #, fuzzy
-#~ msgid "March"
-#~ msgstr "Buscar"
-
-#, fuzzy
 #~ msgid "Image Settings"
 #~ msgstr "Configuración de los Dispositivos"
 
@@ -10631,10 +10762,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Printing"
 #~ msgstr "Imprimiendo..."
-
-#, fuzzy
-#~ msgid "File Name:"
-#~ msgstr "&Nombre Fichero:"
 
 #, fuzzy
 #~ msgid "F&irst Page Number:"
@@ -10679,10 +10806,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Desconocido"
-
-#, fuzzy
-#~ msgid "December"
-#~ msgstr "Número"
 
 #, fuzzy
 #~ msgid "Active"

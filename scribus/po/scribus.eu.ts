@@ -6151,6 +6151,98 @@ zuria hautatzea. Ezin da kolore hau prozesatu.</translation>
         <source>Right Page</source>
         <translation>Eskuin-orrialdean</translation>
     </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normala</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished">Izan daiteke</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Cpalette</name>
@@ -7246,7 +7338,15 @@ huts egin du</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Egin klik lerro arteko tartearen modua hautatzeko</translation>
+        <translation type="obsolete">Egin klik lerro arteko tartearen modua hautatzeko</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatikoa</translation>
     </message>
 </context>
 <context>
@@ -9024,6 +9124,22 @@ egokiak lortzeko.</translation>
         <source>New Master Page %1</source>
         <translation>%1 orri maisu berri</translation>
     </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -9830,7 +9946,7 @@ Biak aukeratzen badira, kolore berdina partekatuko dute.</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Egin klik lerro arteko tartearen modua hautatzeko</translation>
+        <translation type="obsolete">Egin klik lerro arteko tartearen modua hautatzeko</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
@@ -9842,6 +9958,14 @@ Biak aukeratzen badira, kolore berdina partekatuko dute.</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatikoa</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16791,7 +16915,7 @@ bertsioko dokumentua inportatzean.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Kompresioaren kalitatearen mailak galera duten konpresio-metodoentzat: minimoa (%25), 
+        <translation type="obsolete">Kompresioaren kalitatearen mailak galera duten konpresio-metodoentzat: minimoa (%25), 
 baxua (%5), tartekoa (%75), gehienezkoa (%95). Ohartu kalitatearen mailak ez duela 
 emaitzako irudiaren tamainarekin zuzeneko zerikusia. Bai tamaina bai galeradun kalitatea 
 irudiaren arabera daude.</translation>
@@ -16983,7 +17107,7 @@ PDF/X-3 modua egoera honetan erabili: PDFak esportatzean inprimagailu komertzial
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Irudiak konprimitzeko erabiliko den metodoa. Automatikoak metodo egokiena 
+        <translation type="obsolete">Irudiak konprimitzeko erabiliko den metodoa. Automatikoak metodo egokiena 
 hautatzea baimentzen dio Scribus-i. ZIP galerarik gabekoa da, eta kolore lisoak 
 dituzten irudientzako egokia da. JPEG hobeagoa da argazkiak dituzten PDF fitxategi 
 txikiagoak sortzeko (irudiaren kalitate-galera pittin batekin). Utzi aukera &apos;Automatikoa&apos; 
@@ -17007,6 +17131,14 @@ gero, jatorrizko bereizmenarekin errendatuko dira. Hau gaitzen bada, memoriaren 
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Denbora orrialdea erakusteko aurkezpena hautatutako orrialdean hasi aurretik. 
 0 balioarekin ezartzen bada, orrialdeen transizio automatikoa desgaituko da.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -18048,6 +18180,54 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

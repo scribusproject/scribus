@@ -5041,79 +5041,95 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="obsolete">Esmaspäev</translation>
+        <translation type="unfinished">Esmaspäev</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="obsolete">Teisipäev</translation>
+        <translation type="unfinished">Teisipäev</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="obsolete">Kolmapäev</translation>
+        <translation type="unfinished">Kolmapäev</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="obsolete">Neljapäev</translation>
+        <translation type="unfinished">Neljapäev</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="obsolete">Reede</translation>
+        <translation type="unfinished">Reede</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="obsolete">Laupäev</translation>
+        <translation type="unfinished">Laupäev</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="obsolete">Pühapäev</translation>
+        <translation type="unfinished">Pühapäev</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="obsolete">Jaanuar</translation>
+        <translation type="unfinished">Jaanuar</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="obsolete">Veebruar</translation>
+        <translation type="unfinished">Veebruar</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="obsolete">Märts</translation>
+        <translation type="unfinished">Märts</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="obsolete">Aprill</translation>
+        <translation type="unfinished">Aprill</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="obsolete">Mai</translation>
+        <translation type="unfinished">Mai</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="obsolete">Juuni</translation>
+        <translation type="unfinished">Juuni</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="obsolete">Juuli</translation>
+        <translation type="unfinished">Juuli</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="obsolete">August</translation>
+        <translation type="unfinished">August</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="obsolete">September</translation>
+        <translation type="unfinished">September</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="obsolete">Oktoober</translation>
+        <translation type="unfinished">Oktoober</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="obsolete">November</translation>
+        <translation type="unfinished">November</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="obsolete">Detsember</translation>
+        <translation type="unfinished">Detsember</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Normaalne</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6189,7 +6205,7 @@ import ebaõnnestus!</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Klõpsa reavahe režiimi valimiseks</translation>
+        <translation type="obsolete">Klõpsa reavahe režiimi valimiseks</translation>
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
@@ -6198,6 +6214,14 @@ import ebaõnnestus!</translation>
     <message>
         <source>Name of the style is not unique</source>
         <translation>Stiili nimi pole unikaalne</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automaatne</translation>
     </message>
 </context>
 <context>
@@ -8150,6 +8174,22 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
         <source>Normal</source>
         <translation>Normaalne</translation>
     </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
@@ -8859,7 +8899,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation>Klõpsa reavahe režiimi valimiseks</translation>
+        <translation type="obsolete">Klõpsa reavahe režiimi valimiseks</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
@@ -8987,6 +9027,14 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automaatne</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -16402,11 +16450,11 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Piltide tihendamise viis. Automaatne laseb Scribusel endal valida parima viisi. ZIP on kadudeta ning sobib hästi ühtlaste värvidega piltidele. JPEG on parem väikeste, aga paljude fotodega PDF-failide loomisel (pildikvaliteedis on küll võimalikud kerged kaod). Mõttekas oleks jätta kehtima automaatne valik, kui sul pole just erinõudmisi. See puudutab ainult JPEG-pilte.</translation>
+        <translation type="obsolete">Piltide tihendamise viis. Automaatne laseb Scribusel endal valida parima viisi. ZIP on kadudeta ning sobib hästi ühtlaste värvidega piltidele. JPEG on parem väikeste, aga paljude fotodega PDF-failide loomisel (pildikvaliteedis on küll võimalikud kerged kaod). Mõttekas oleks jätta kehtima automaatne valik, kui sul pole just erinõudmisi. See puudutab ainult JPEG-pilte.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Tihenduse kvaliteet kadudega tihendusviisi korral: minimaalne (25%), väike (50%), keskmine (75%), suur (85%), maksimaalne (95%). Pane tähele, et kvaliteet ei mõjuta otseselt pildi lõplikku suurust: nii suurus kui kaotus kvaliteedis sõltuvad iga taseme korral ikka pildist endast.</translation>
+        <translation type="obsolete">Tihenduse kvaliteet kadudega tihendusviisi korral: minimaalne (25%), väike (50%), keskmine (75%), suur (85%), maksimaalne (95%). Pane tähele, et kvaliteet ei mõjuta otseselt pildi lõplikku suurust: nii suurus kui kaotus kvaliteedis sõltuvad iga taseme korral ikka pildist endast.</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -16523,6 +16571,14 @@ käivitatav JavaScript:</translation>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
         <translation>Trükitava lehekülje veeristest väljapoole jäävaid objekte ei näidata</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -17611,6 +17667,54 @@ to %2</source>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

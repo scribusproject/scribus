@@ -4400,9 +4400,6 @@ It is a reserved name for transparent color</source>
     </message>
 </context>
 <context>
-    <name>CStylePBase</name>
-</context>
-<context>
     <name>CWDialog</name>
     <message>
         <source>Normal Vision</source>
@@ -5235,75 +5232,95 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="obsolete">月曜日</translation>
+        <translation type="unfinished">月曜日</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="obsolete">火曜日</translation>
+        <translation type="unfinished">火曜日</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="obsolete">水曜日</translation>
+        <translation type="unfinished">水曜日</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="obsolete">木曜日</translation>
+        <translation type="unfinished">木曜日</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="obsolete">金曜日</translation>
+        <translation type="unfinished">金曜日</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="obsolete">土曜日</translation>
+        <translation type="unfinished">土曜日</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="obsolete">日曜日</translation>
+        <translation type="unfinished">日曜日</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="obsolete">1月</translation>
+        <translation type="unfinished">1月</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="obsolete">2月</translation>
+        <translation type="unfinished">2月</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="obsolete">3月</translation>
+        <translation type="unfinished">3月</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="obsolete">4月</translation>
+        <translation type="unfinished">4月</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="obsolete">5月</translation>
+        <translation type="unfinished">5月</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="obsolete">6月</translation>
+        <translation type="unfinished">6月</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="obsolete">8月</translation>
+        <translation type="unfinished">8月</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="obsolete">9月</translation>
+        <translation type="unfinished">9月</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="obsolete">10月</translation>
+        <translation type="unfinished">10月</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="obsolete">11月</translation>
+        <translation type="unfinished">11月</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="obsolete">12月</translation>
+        <translation type="unfinished">12月</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">標準</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6513,8 +6530,12 @@ failed!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">自動</translation>
     </message>
 </context>
 <context>
@@ -8647,15 +8668,23 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="obsolete">マスターページの名前を変更できません</translation>
+        <translation type="unfinished">マスターページの名前を変更できません</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="obsolete">マスターページの名前を変更</translation>
+        <translation type="unfinished">マスターページの名前を変更</translation>
     </message>
     <message>
         <source>Copy of %1</source>
         <translation type="unfinished">%1のコピー</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -9451,10 +9480,6 @@ Corners:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Gap:</source>
         <translation type="obsolete">ギャップ:</translation>
     </message>
@@ -9584,6 +9609,14 @@ Corners:</source>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">自動</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -13965,9 +13998,6 @@ External Links
     </message>
 </context>
 <context>
-    <name>SMAlignSelect</name>
-</context>
-<context>
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
@@ -14079,12 +14109,6 @@ External Links
         <source>New Style</source>
         <translation type="obsolete">新規スタイル</translation>
     </message>
-</context>
-<context>
-    <name>SMColorCombo</name>
-</context>
-<context>
-    <name>SMFontComboH</name>
 </context>
 <context>
     <name>SMLineStyle</name>
@@ -14203,18 +14227,6 @@ External Links
         <source>No Style</source>
         <translation type="obsolete">スタイルなし</translation>
     </message>
-</context>
-<context>
-    <name>SMScComboBox</name>
-</context>
-<context>
-    <name>SMShadeButton</name>
-</context>
-<context>
-    <name>SMStyleSelect</name>
-</context>
-<context>
-    <name>SMTabruler</name>
 </context>
 <context>
     <name>SToolBAlign</name>
@@ -17831,7 +17843,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>ロスありの圧縮方法を使ったときの、圧縮の品質レベル: 最低 (25%), 低 (50%), 中間 (75%), 高 (85%), 最高 (95%) です。品質レベルは、処理後の画像のサイズを直接決定するものではなく、指定したどの品質レベルでも、サイズと品質低下は画像によってまちまちであることに注意してください。</translation>
+        <translation type="obsolete">ロスありの圧縮方法を使ったときの、圧縮の品質レベル: 最低 (25%), 低 (50%), 中間 (75%), 高 (85%), 最高 (95%) です。品質レベルは、処理後の画像のサイズを直接決定するものではなく、指定したどの品質レベルでも、サイズと品質低下は画像によってまちまちであることに注意してください。</translation>
     </message>
     <message>
         <source>DPI (Dots Per Inch) for image export.</source>
@@ -17976,7 +17988,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>画像に対する圧縮方法。自動にするとScribusが最適な方法を選びます。ZIPはロスレスで単色の画像に適しています。JPEGは多くの画像を含んだ、小さなPDFファイルを作成するのに最適です(軽い画像品質の低下はありえますが)。特に圧縮オプションが必要でないのであれば、自動のままにしておいてください。これは、JPEG画像にのみ有効です。</translation>
+        <translation type="obsolete">画像に対する圧縮方法。自動にするとScribusが最適な方法を選びます。ZIPはロスレスで単色の画像に適しています。JPEGは多くの画像を含んだ、小さなPDFファイルを作成するのに最適です(軽い画像品質の低下はありえますが)。特に圧縮オプションが必要でないのであれば、自動のままにしておいてください。これは、JPEG画像にのみ有効です。</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
@@ -17992,6 +18004,14 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19137,45 +19157,49 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="obsolete">Scribusのバージョンアップファイルを取得しています</translation>
+        <translation type="unfinished">Scribusのバージョンアップファイルを取得しています</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="obsolete">(あなたのコンピュータ上のデータを外部に送信することはありません)</translation>
+        <translation type="unfinished">(あなたのコンピュータ上のデータを外部に送信することはありません)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="obsolete">アップデートファイルを取得中にタイムアウトしました</translation>
+        <translation type="unfinished">アップデートファイルを取得中にタイムアウトしました</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="obsolete">アップデートファイルを取得中にエラーが起きました: %1</translation>
+        <translation type="unfinished">アップデートファイルを取得中にエラーが起きました: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="obsolete">ファイルがサーバに見つかりません</translation>
+        <translation type="unfinished">ファイルがサーバに見つかりません</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="obsolete">バージョンファイルを開けません: %1
+        <translation type="unfinished">バージョンファイルを開けません: %1
 エラー:%2 ライン: %3, 行: %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="obsolete">Scribusのアップデートを検索中にエラーが起きました。インターネット接続を確認してください。</translation>
+        <translation type="unfinished">Scribusのアップデートを検索中にエラーが起きました。インターネット接続を確認してください。</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="obsolete">現在のバージョンのScribus %1 に関するアップデートはありません</translation>
+        <translation type="unfinished">現在のバージョンのScribus %1 に関するアップデートはありません</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="obsolete">現在のバージョンのScribus (%1) に関するアップデートが利用可能です:</translation>
+        <translation type="unfinished">現在のバージョンのScribus (%1) に関するアップデートが利用可能です:</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="obsolete">詳細は www.scribus.net を参照してください</translation>
+        <translation type="unfinished">詳細は www.scribus.net を参照してください</translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

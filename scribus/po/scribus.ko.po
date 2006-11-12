@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.2.cvs\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-29 00:44+0200\n"
+"POT-Creation-Date: 2006-11-12 22:38+0100\n"
 "PO-Revision-Date: 2004-09-29 23:27+0800\n"
 "Last-Translator: Kitae Kim <neeum@yahoo.com>\n"
 "Language-Team: Korean\n"
@@ -2049,6 +2049,81 @@ msgstr "중앙"
 msgid "Right Page"
 msgstr ""
 
+#, fuzzy
+msgid "Normal Left"
+msgstr "보통"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "보통"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "보통"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+msgid "Friday"
+msgstr ""
+
+#, fuzzy
+msgid "Saturday"
+msgstr "목적 대상"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+msgid "March"
+msgstr ""
+
+msgid "April"
+msgstr ""
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "동작"
+
+#, fuzzy
+msgid "September"
+msgstr "숫자"
+
+#, fuzzy
+msgid "October"
+msgstr "다른것"
+
+#, fuzzy
+msgid "November"
+msgstr "숫자"
+
+#, fuzzy
+msgid "December"
+msgstr "숫자"
+
 msgid "Shade:"
 msgstr ""
 
@@ -2676,12 +2751,16 @@ msgstr ""
 msgid "Line Spacing"
 msgstr ""
 
-msgid "Click to select the line spacing mode"
+msgid "Click and hold down to select the line spacing mode."
 msgstr ""
 
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "문단 스타일(&P)..."
+
+#, fuzzy
+msgid "Auto"
+msgstr "동작"
 
 msgid "Name of the style is not unique"
 msgstr ""
@@ -4292,6 +4371,21 @@ msgstr ""
 #, fuzzy
 msgid "New Master Page %1"
 msgstr "평균"
+
+#, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "데이타 불러들이기"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "페이지 삽입(&S)"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "이름:"
 
 msgid "New Document"
 msgstr ""
@@ -5929,10 +6023,6 @@ msgid "More than one item selected"
 msgstr ""
 
 #, fuzzy
-msgid "Auto"
-msgstr "동작"
-
-#, fuzzy
 msgid "Displacement"
 msgstr "치환(&)"
 
@@ -6565,14 +6655,15 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 
 msgid ""
-"Compression quality levels for lossy compression methods: Minimum (25%), Low "
-"(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
-"does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"Quality levels for lossy compression methods: Minimum (25%), Low (50%), "
+"Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
+"directly determine the size of the resulting image - both size and quality "
+"loss vary from image to image at any given quality level. Even with Maximum "
+"selected, there is always some quality loss with jepg."
 msgstr ""
 
 msgid ""
@@ -7708,6 +7799,44 @@ msgid "Centimeters (cm)"
 msgstr ""
 
 msgid "Cicero (c)"
+msgstr ""
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+msgid "Error when attempting to get update file: %1"
+msgstr ""
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "현재 문서 닫기"
+
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr ""
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
 msgstr ""
 
 msgid "Minimum Margins for Page Size %1"
@@ -9504,10 +9633,6 @@ msgstr ""
 #~ msgstr "밑줄"
 
 #, fuzzy
-#~ msgid "December"
-#~ msgstr "숫자"
-
-#, fuzzy
 #~ msgid "Active"
 #~ msgstr "동작"
 
@@ -9538,10 +9663,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Short Words Manual"
 #~ msgstr "사용자 설정 스크립트"
-
-#, fuzzy
-#~ msgid "Saturation:"
-#~ msgstr "목적 대상"
 
 #, fuzzy
 #~ msgid "Standard"

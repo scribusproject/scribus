@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-29 00:44+0200\n"
+"POT-Creation-Date: 2006-11-12 22:38+0100\n"
 "PO-Revision-Date: 2006-10-16 00:25+0100\n"
 "Last-Translator: Alan MONFORT <alan.monfort@free.fr>\n"
 "Language-Team: Alan Monfort <alan.monfort@free.fr>\n"
@@ -2033,6 +2033,83 @@ msgstr "Kreiz dehou"
 msgid "Right Page"
 msgstr "Pajenn dehou"
 
+#, fuzzy
+msgid "Normal Left"
+msgstr "Skoueriek"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Skoueriekaat"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Daouskilf prennañ"
+
+#, fuzzy
+msgid "Monday"
+msgstr "Mae"
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "Kavout"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Peurvec'hiañ"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr "Janvier"
+
+msgid "February"
+msgstr "Février"
+
+msgid "March"
+msgstr "Mars"
+
+#, fuzzy
+msgid "April"
+msgstr "Arloañ"
+
+msgid "May"
+msgstr "Mae"
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Emgefreek"
+
+#, fuzzy
+msgid "September"
+msgstr "Décembre"
+
+#, fuzzy
+msgid "October"
+msgstr "All"
+
+#, fuzzy
+msgid "November"
+msgstr "Nombre"
+
+msgid "December"
+msgstr "Décembre"
+
 msgid "Shade:"
 msgstr "Arliv :"
 
@@ -2708,11 +2785,15 @@ msgstr "Linkadur an arouezennoù e-keñver al linenn diazez"
 msgid "Line Spacing"
 msgstr "Etrelinennañ"
 
-msgid "Click to select the line spacing mode"
+#, fuzzy
+msgid "Click and hold down to select the line spacing mode."
 msgstr "Klikañ da ziuzañ mod etremeziañ al linenn"
 
 msgid "Toggles sample text of this paragraph style"
 msgstr "Diskouez ur skouer eus ar stil rannbennad-mañ"
+
+msgid "Auto"
+msgstr "Emgefreek"
 
 msgid "Name of the style is not unique"
 msgstr "An anv stil-mañ zo anezhañ endeo"
@@ -4329,6 +4410,21 @@ msgstr "Patrom nevez"
 
 msgid "New Master Page %1"
 msgstr "Patrom nevez %1"
+
+#, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "Amdreiñ ar bajennad da batrom"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "Patrom nevez"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "Nom du fichier :"
 
 msgid "New Document"
 msgstr "Teul nevez"
@@ -6039,9 +6135,6 @@ msgstr "Fellout a ra deoc'h dilezel ho taskemmadurioù holl ?"
 msgid "More than one item selected"
 msgstr "Meur a ergorenn bet diuzet"
 
-msgid "Auto"
-msgstr "Emgefreek"
-
 msgid "Displacement"
 msgstr "Delec'hiadur"
 
@@ -6703,12 +6796,13 @@ msgstr ""
 "Koazhadur hep koll eus an testennoù hag an ergorennoù kevregat. Hep abeg "
 "dibar, da leuskel gweredekaet. Reiñ a ra tu da vihanaat ment ar restr PDF."
 
+#, fuzzy
 msgid ""
 "Method of compression to use for images. Automatic allows Scribus to choose "
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 "Rizh koazhañ evit ar skeudennoù. Emgefreek a laosk Scribus da zibab an doare "
 "gwellañ. ZIP evit ur c'hoazhadur hep koll. JPEG a ro tu da vihanaat ment ar "
@@ -6717,11 +6811,13 @@ msgstr ""
 "dibar evit ar c'hoazhañ. Tizhout a ra an dibarzh-mañ ar skeudennoù o "
 "mentrezh PDF hepken."
 
+#, fuzzy
 msgid ""
-"Compression quality levels for lossy compression methods: Minimum (25%), Low "
-"(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
-"does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"Quality levels for lossy compression methods: Minimum (25%), Low (50%), "
+"Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
+"directly determine the size of the resulting image - both size and quality "
+"loss vary from image to image at any given quality level. Even with Maximum "
+"selected, there is always some quality loss with jepg."
 msgstr ""
 "Live perzhded ar c'hoazhañ evit an hentennoù koazhañ gant kolloù : izek "
 "(25%), krenn (75 %), uhel (85%), uc'hek (95%). Meizit n'eo ket liammet dre "
@@ -7887,6 +7983,46 @@ msgstr "Sentimetroù (cm)"
 
 msgid "Cicero (c)"
 msgstr "Kicero (c)"
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+#, fuzzy
+msgid "Error when attempting to get update file: %1"
+msgstr "Erreur d'écriture du(des) fichier(s) de sortie."
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "N'haller ket kavout al liv - Fazi Python"
+
+#, fuzzy
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr "N'haller ket digeriñ ar restr gwellvezioù \"%1\" war skriv : %2"
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
+msgstr ""
 
 msgid "Minimum Margins for Page Size %1"
 msgstr "Marzioù izek evit mentrezh ar bajenn %1"
@@ -9745,9 +9881,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 #~ "Kinnig a ra ur gwel plijusoc'h eus an testennoù dre an alberz, gant un "
 #~ "tamm gorrekaat e-pad ar gwelout. Tizhet e vo an nodrezhioù o rizh 1 hepken"
 
-#~ msgid "May"
-#~ msgstr "Mae"
-
 #~ msgid "LineStyleWBase"
 #~ msgstr "LineStyleWBase"
 
@@ -9779,9 +9912,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 #~ msgid "Shadow"
 #~ msgstr "Ombré"
 
-#~ msgid "March"
-#~ msgstr "Mars"
-
 #~ msgid ""
 #~ "Color of text stroke. Only available with \"outline\" text decoration."
 #~ msgstr ""
@@ -9796,9 +9926,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 
 #~ msgid "Image Settings"
 #~ msgstr "Paramètres pour les images"
-
-#~ msgid "February"
-#~ msgstr "Février"
 
 #~ msgid ""
 #~ "Typing the text here provides quick searching in the font names. E.g. "
@@ -9835,9 +9962,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 #~ msgid "Save the scrapbook contents everytime after a change"
 #~ msgstr "Enregistrer le contenu de l'album à chaque modification"
 
-#~ msgid "File Name:"
-#~ msgstr "Nom du fichier :"
-
 #~ msgid "JPEG"
 #~ msgstr "JPEG"
 
@@ -9849,9 +9973,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 
 #~ msgid "F&irst Page Number:"
 #~ msgstr "Prem&ier numéro de page :"
-
-#~ msgid "January"
-#~ msgstr "Janvier"
 
 #~ msgid "Scrapbooks (*.scs);;All Files (*)"
 #~ msgstr "Albums (*.scs);;Tous les fichiers (*)"
@@ -9882,9 +10003,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 
 #~ msgid "unknown"
 #~ msgstr "inconnu"
-
-#~ msgid "December"
-#~ msgstr "Décembre"
 
 #~ msgid "---------------------------------------"
 #~ msgstr "---------------------------------------"
@@ -10766,9 +10884,6 @@ msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 
 #~ msgid "&Insert Special"
 #~ msgstr "&Insérer un caractère spécial"
-
-#~ msgid "Error writting the output file(s)."
-#~ msgstr "Erreur d'écriture du(des) fichier(s) de sortie."
 
 #~ msgid "Cannot get a colour with an empty name."
 #~ msgstr "Impossible d'obtenir une couleur sans son nom."

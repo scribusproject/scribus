@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-29 00:44+0200\n"
+"POT-Creation-Date: 2006-11-12 22:38+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -2268,6 +2268,84 @@ msgstr "Vidurinis"
 msgid "Right Page"
 msgstr "Deðinysis puslapis"
 
+#, fuzzy
+msgid "Normal Left"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Paprastas"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Lygiuoti deðinëje"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "Linija"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Sodrumas"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "Ieðkoti"
+
+#, fuzzy
+msgid "April"
+msgstr "Pritaikyti"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Autorius:"
+
+#, fuzzy
+msgid "September"
+msgstr "Skaièius"
+
+#, fuzzy
+msgid "October"
+msgstr "Kita"
+
+#, fuzzy
+msgid "November"
+msgstr "Skaièius"
+
+#, fuzzy
+msgid "December"
+msgstr "Skaièius"
+
 msgid "Shade:"
 msgstr "Ðeðëlis:"
 
@@ -2961,12 +3039,16 @@ msgid "Line Spacing"
 msgstr "Tarpai tarp eiluèiø"
 
 #, fuzzy
-msgid "Click to select the line spacing mode"
+msgid "Click and hold down to select the line spacing mode."
 msgstr "Tekstas per vidurá"
 
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "Stiliai..."
+
+#, fuzzy
+msgid "Auto"
+msgstr "Autorius:"
 
 #, fuzzy
 msgid "Name of the style is not unique"
@@ -4791,6 +4873,21 @@ msgstr "po puslapio"
 msgid "New Master Page %1"
 msgstr "po puslapio"
 
+#, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "Ákelti duomenis"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "po puslapio"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "Failo &vardas:"
+
 msgid "New Document"
 msgstr "Naujas dokumentas"
 
@@ -6601,10 +6698,6 @@ msgid "More than one item selected"
 msgstr ""
 
 #, fuzzy
-msgid "Auto"
-msgstr "Autorius:"
-
-#, fuzzy
 msgid "Displacement"
 msgstr "Slinktis"
 
@@ -7316,14 +7409,15 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 
 msgid ""
-"Compression quality levels for lossy compression methods: Minimum (25%), Low "
-"(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
-"does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"Quality levels for lossy compression methods: Minimum (25%), Low (50%), "
+"Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
+"directly determine the size of the resulting image - both size and quality "
+"loss vary from image to image at any given quality level. Even with Maximum "
+"selected, there is always some quality loss with jepg."
 msgstr ""
 
 msgid ""
@@ -8602,6 +8696,48 @@ msgid "Centimeters (cm)"
 msgstr "Millimetrai (mm)"
 
 msgid "Cicero (c)"
+msgstr ""
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+#, fuzzy
+msgid "Error when attempting to get update file: %1"
+msgstr ""
+"Ar tikrai nori pakeisti esamo failo:\n"
+"%1\n"
+" turiná?"
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "Nutraukti darbà su ðiuo dokumentu"
+
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr ""
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
 msgstr ""
 
 msgid "Minimum Margins for Page Size %1"
@@ -10611,10 +10747,6 @@ msgstr ""
 #~ msgstr "Ðeðëlis"
 
 #, fuzzy
-#~ msgid "March"
-#~ msgstr "Ieðkoti"
-
-#, fuzzy
 #~ msgid "Image Settings"
 #~ msgstr "Simboliø parinktys"
 
@@ -10639,10 +10771,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Printing"
 #~ msgstr "Spausdinu..."
-
-#, fuzzy
-#~ msgid "File Name:"
-#~ msgstr "Failo &vardas:"
 
 #, fuzzy
 #~ msgid "F&irst Page Number:"
@@ -10687,10 +10815,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Neþinomas"
-
-#, fuzzy
-#~ msgid "December"
-#~ msgstr "Skaièius"
 
 #, fuzzy
 #~ msgid "Active"

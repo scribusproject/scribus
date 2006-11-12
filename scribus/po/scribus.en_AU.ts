@@ -5919,6 +5919,98 @@ It is a reserved name for transparent colour</translation>
       <source>Right Page</source>
       <translation>Right Page</translation>
     </message>
+    <message>
+      <source>Normal</source>
+      <translation>Normal</translation>
+    </message>
+    <message>
+      <source>Normal Left</source>
+      <translation>Normal Left</translation>
+    </message>
+    <message>
+      <source>Normal Middle</source>
+      <translation>Normal Middle</translation>
+    </message>
+    <message>
+      <source>Normal Right</source>
+      <translation>Normal Right</translation>
+    </message>
+    <message>
+      <source>Monday</source>
+      <translation>Monday</translation>
+    </message>
+    <message>
+      <source>Tuesday</source>
+      <translation>Tuesday</translation>
+    </message>
+    <message>
+      <source>Wednesday</source>
+      <translation>Wednesday</translation>
+    </message>
+    <message>
+      <source>Thursday</source>
+      <translation>Thursday</translation>
+    </message>
+    <message>
+      <source>Friday</source>
+      <translation>Friday</translation>
+    </message>
+    <message>
+      <source>Saturday</source>
+      <translation>Saturday</translation>
+    </message>
+    <message>
+      <source>Sunday</source>
+      <translation>Sunday</translation>
+    </message>
+    <message>
+      <source>January</source>
+      <translation>January</translation>
+    </message>
+    <message>
+      <source>February</source>
+      <translation>February</translation>
+    </message>
+    <message>
+      <source>March</source>
+      <translation>March</translation>
+    </message>
+    <message>
+      <source>April</source>
+      <translation>April</translation>
+    </message>
+    <message>
+      <source>May</source>
+      <translation>May</translation>
+    </message>
+    <message>
+      <source>June</source>
+      <translation>June</translation>
+    </message>
+    <message>
+      <source>July</source>
+      <translation>July</translation>
+    </message>
+    <message>
+      <source>August</source>
+      <translation>August</translation>
+    </message>
+    <message>
+      <source>September</source>
+      <translation>September</translation>
+    </message>
+    <message>
+      <source>October</source>
+      <translation>October</translation>
+    </message>
+    <message>
+      <source>November</source>
+      <translation>November</translation>
+    </message>
+    <message>
+      <source>December</source>
+      <translation>December</translation>
+    </message>
   </context>
   <context>
     <name>Cpalette</name>
@@ -6992,8 +7084,12 @@ failed!</translation>
       <translation>Offset to baseline of characters</translation>
     </message>
     <message>
-      <source>Click to select the line spacing mode</source>
-      <translation>Click to select the line spacing mode</translation>
+      <source>Click and hold down to select the line spacing mode.</source>
+      <translation>Click and hold down to select the line spacing mode.</translation>
+    </message>
+    <message>
+      <source>Auto</source>
+      <translation>Auto</translation>
     </message>
   </context>
   <context>
@@ -8741,6 +8837,22 @@ converting their vector data into Scribus objects.</translation>
       <source>New Master Page %1</source>
       <translation>New Master Page %1</translation>
     </message>
+    <message>
+      <source>Unable to Rename Master Page</source>
+      <translation>Unable to Rename Master Page</translation>
+    </message>
+    <message>
+      <source>The Normal page is not allowed to be renamed.</source>
+      <translation>The Normal page is not allowed to be renamed.</translation>
+    </message>
+    <message>
+      <source>Rename Master Page</source>
+      <translation>Rename Master Page</translation>
+    </message>
+    <message>
+      <source>New Name:</source>
+      <translation>New Name:</translation>
+    </message>
   </context>
   <context>
     <name>Mdup</name>
@@ -9522,10 +9634,6 @@ Corners:</translation>
       <translation>Non Zero</translation>
     </message>
     <message>
-      <source>Click to select the line spacing mode</source>
-      <translation>Click to select the line spacing mode</translation>
-    </message>
-    <message>
       <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
       <translation>Colour of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same colour.</translation>
     </message>
@@ -9544,6 +9652,14 @@ Corners:</translation>
     <message>
       <source>Use a second line originally based on the frame's shape for text flow of text frames below the object. </source>
       <translation>Use a second line originally based on the frame's shape for text flow of text frames below the object. </translation>
+    </message>
+    <message>
+      <source>Auto</source>
+      <translation>Auto</translation>
+    </message>
+    <message>
+      <source>Click and hold down to select the line spacing mode.</source>
+      <translation>Click and hold down to select the line spacing mode.</translation>
     </message>
   </context>
   <context>
@@ -16371,10 +16487,6 @@ Vertical shift: %3</translation>
       <translation>Compression &amp;Quality:</translation>
     </message>
     <message>
-      <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-      <translation>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</translation>
-    </message>
-    <message>
       <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
       <translation>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</translation>
     </message>
@@ -16553,10 +16665,6 @@ when PDF document is opened:</translation>
       <translation>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</translation>
     </message>
     <message>
-      <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-      <translation>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colours. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</translation>
-    </message>
-    <message>
       <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
       <translation>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</translation>
     </message>
@@ -16571,6 +16679,14 @@ when PDF document is opened:</translation>
     <message>
       <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
       <translation>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</translation>
+    </message>
+    <message>
+      <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+      <translation>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</translation>
+    </message>
+    <message>
+      <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+      <translation>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</translation>
     </message>
   </context>
   <context>
@@ -17612,6 +17728,55 @@ X: %4, Y: %5</translation>
       <source>%1: %2</source>
       <comment>undo target: action (f.e. Text frame: Resize)</comment>
       <translation>%1: %2</translation>
+    </message>
+  </context>
+  <context>
+    <name>UpgradeChecker</name>
+    <message>
+      <source>Attempting to get the Scribus version update file</source>
+      <translation>Attempting to get the Scribus version update file</translation>
+    </message>
+    <message>
+      <source>(No data on your computer will be sent to an external location)</source>
+      <translation>(No data on your computer will be sent to an external location)</translation>
+    </message>
+    <message>
+      <source>Timed out when attempting to get update file.</source>
+      <translation>Timed out when attempting to get update file.</translation>
+    </message>
+    <message>
+      <source>Error when attempting to get update file: %1</source>
+      <translation>Error when attempting to get update file: %1</translation>
+    </message>
+    <message>
+      <source>File not found on server</source>
+      <translation>File not found on server</translation>
+    </message>
+    <message>
+      <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+      <translation>Could not open version file: %1
+Error:%2 at line: %3, row: %4</translation>
+    </message>
+    <message>
+      <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+      <translation>An error occurred while looking for updates for Scribus, please check your internet connection.</translation>
+    </message>
+    <message>
+      <source>No updates are available for your version of Scribus %1</source>
+      <translation>No updates are available for your version of Scribus %1</translation>
+    </message>
+    <message>
+      <source>One or more updates for your version of Scribus (%1) are available:</source>
+      <translation>One or more updates for your version of Scribus (%1) are available:</translation>
+    </message>
+    <message>
+      <source>This list may contain development versions.</source>
+      <translation>This list may contain development versions.</translation>
+    </message>
+    <message>
+      <source>Please visit www.scribus.net for details.</source>
+      <translation>Please visit www.scribus.net for details.</translation>
     </message>
   </context>
   <context>

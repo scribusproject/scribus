@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-29 00:44+0200\n"
+"POT-Creation-Date: 2006-11-12 22:38+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -2182,6 +2182,84 @@ msgstr "Centroj"
 msgid "Right Page"
 msgstr "Dekstra paĝo"
 
+#, fuzzy
+msgid "Normal Left"
+msgstr "Normala"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "Normaligu"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "Dekstremigu"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "in"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "Saturiteco"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "Serĉu"
+
+#, fuzzy
+msgid "April"
+msgstr "Apliku"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "Aŭtoro"
+
+#, fuzzy
+msgid "September"
+msgstr "Numero"
+
+#, fuzzy
+msgid "October"
+msgstr "Aliaj"
+
+#, fuzzy
+msgid "November"
+msgstr "Numero"
+
+#, fuzzy
+msgid "December"
+msgstr "Numero"
+
 msgid "Shade:"
 msgstr "Intenso:"
 
@@ -2894,12 +2972,16 @@ msgid "Line Spacing"
 msgstr "Lini-distanco"
 
 #, fuzzy
-msgid "Click to select the line spacing mode"
+msgid "Click and hold down to select the line spacing mode."
 msgstr "Koloro de la gvidlinioj de vi enmetitaj"
 
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "Nomo de la aline-stilo"
+
+#, fuzzy
+msgid "Auto"
+msgstr "Aŭtoro"
 
 #, fuzzy
 msgid "Name of the style is not unique"
@@ -4624,6 +4706,21 @@ msgstr "post paĝo"
 #, fuzzy
 msgid "New Master Page %1"
 msgstr "post paĝo"
+
+#, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "Importu datumojn"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "post paĝo"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "Dosier&nomo:"
 
 msgid "New Document"
 msgstr "Nova dokumento"
@@ -6400,10 +6497,6 @@ msgid "More than one item selected"
 msgstr ""
 
 #, fuzzy
-msgid "Auto"
-msgstr "Aŭtoro"
-
-#, fuzzy
 msgid "Displacement"
 msgstr "Ŝ&ovo"
 
@@ -7113,7 +7206,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 "Tipo de densigo por la bildoj.\n"
 "Aŭtomata permesas al Scribus elekti la plej bonan metodon.\n"
@@ -7123,10 +7216,11 @@ msgstr ""
 "Lasu ĝin ĉe aŭtomata se vi ne bezonas specialajn densigopciojn."
 
 msgid ""
-"Compression quality levels for lossy compression methods: Minimum (25%), Low "
-"(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
-"does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"Quality levels for lossy compression methods: Minimum (25%), Low (50%), "
+"Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
+"directly determine the size of the resulting image - both size and quality "
+"loss vary from image to image at any given quality level. Even with Maximum "
+"selected, there is always some quality loss with jepg."
 msgstr ""
 
 #, fuzzy
@@ -8392,6 +8486,45 @@ msgid "Centimeters (cm)"
 msgstr "Milimetroj (mm)"
 
 msgid "Cicero (c)"
+msgstr ""
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+#, fuzzy
+msgid "Error when attempting to get update file: %1"
+msgstr "Eraro dum skribado de la eligodosiero(j)."
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "Koloro ne trovita en la aprioraj koloroj"
+
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr ""
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
 msgstr ""
 
 msgid "Minimum Margins for Page Size %1"
@@ -10461,10 +10594,6 @@ msgstr ""
 #~ msgid "Shadow"
 #~ msgstr "Intenso"
 
-#, fuzzy
-#~ msgid "March"
-#~ msgstr "Serĉu"
-
 #~ msgid "Image Settings"
 #~ msgstr "Bildagordaro"
 
@@ -10495,10 +10624,6 @@ msgstr ""
 
 #~ msgid "Save the scrapbook contents everytime after a change"
 #~ msgstr "Konservu ĉiam la album-entenon post modifoj"
-
-#, fuzzy
-#~ msgid "File Name:"
-#~ msgstr "Dosier&nomo:"
 
 #~ msgid "JPEG"
 #~ msgstr "JPEG"
@@ -10542,10 +10667,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "unknown"
 #~ msgstr "Nekonata"
-
-#, fuzzy
-#~ msgid "December"
-#~ msgstr "Numero"
 
 #~ msgid ""
 #~ "A way of switching off some of the gray shades which are composed\n"
@@ -11117,9 +11238,6 @@ msgstr ""
 #~ "La importilo devus ĉiam utiligi la aktualan ar-valoron\n"
 #~ "dum importado de dokumentoj de OpenOffice.org kaj\n"
 #~ "neniam plu peti konfirmon"
-
-#~ msgid "Error writting the output file(s)."
-#~ msgstr "Eraro dum skribado de la eligodosiero(j)."
 
 #~ msgid "Global Font Settings"
 #~ msgstr "Ĝeneralaj tipar-agordoj"

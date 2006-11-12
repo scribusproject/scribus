@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-29 00:44+0200\n"
+"POT-Creation-Date: 2006-11-12 22:38+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -2165,6 +2165,82 @@ msgstr "བར་མ།"
 msgid "Right Page"
 msgstr "ཤོག་ལེབ་གཡས།"
 
+#, fuzzy
+msgid "Normal Left"
+msgstr "སྤྱིར་བཏང་།"
+
+#, fuzzy
+msgid "Normal Middle"
+msgstr "སྤྱིར་བཏང་གི།"
+
+#, fuzzy
+msgid "Normal Right"
+msgstr "གཡས་ཕྲང་།"
+
+msgid "Monday"
+msgstr ""
+
+msgid "Tuesday"
+msgstr ""
+
+msgid "Wednesday"
+msgstr ""
+
+msgid "Thursday"
+msgstr ""
+
+#, fuzzy
+msgid "Friday"
+msgstr "འཚོལ།"
+
+#, fuzzy
+msgid "Saturday"
+msgstr "མཐའ་ཚད།"
+
+msgid "Sunday"
+msgstr ""
+
+msgid "January"
+msgstr ""
+
+msgid "February"
+msgstr ""
+
+#, fuzzy
+msgid "March"
+msgstr "འཚོལ་ཞིབ་འབད།"
+
+#, fuzzy
+msgid "April"
+msgstr "འཇུག་སྤྱོད་འབད།"
+
+msgid "May"
+msgstr ""
+
+msgid "June"
+msgstr ""
+
+msgid "July"
+msgstr ""
+
+#, fuzzy
+msgid "August"
+msgstr "རྩོམ་པ་པོ།"
+
+msgid "September"
+msgstr ""
+
+#, fuzzy
+msgid "October"
+msgstr "གཞན།"
+
+#, fuzzy
+msgid "November"
+msgstr "ཨང་གྲངས།"
+
+msgid "December"
+msgstr ""
+
 msgid "Shade:"
 msgstr "ནག་གྲིབ:"
 
@@ -2888,12 +2964,16 @@ msgstr "ཡིག་འབྲུའི་རྒྱ་ཚད་ཀྱི་ཚད
 msgid "Line Spacing"
 msgstr "གྲལ་ཐིག་བར་སྟོང་བཞག་ཐང་།"
 
-msgid "Click to select the line spacing mode"
+msgid "Click and hold down to select the line spacing mode."
 msgstr ""
 
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "ཁྱོད་རའི་དོན་མཚམས་ཀྱི་མིང་།"
+
+#, fuzzy
+msgid "Auto"
+msgstr "རྩོམ་པ་པོ།"
 
 #, fuzzy
 msgid "Name of the style is not unique"
@@ -4606,6 +4686,21 @@ msgstr "ཤོག་ལེབ་ཀྱི་ཤུལ་མ།"
 #, fuzzy
 msgid "New Master Page %1"
 msgstr "ཤོག་ལེབ་ཀྱི་ཤུལ་མ།"
+
+#, fuzzy
+msgid "Unable to Rename Master Page"
+msgstr "ཊེམ་པེལེཊིསི་འཐོབ་ཚིགསཔ:"
+
+msgid "The Normal page is not allowed to be renamed."
+msgstr ""
+
+#, fuzzy
+msgid "Rename Master Page"
+msgstr "ཤོག་ལེབ་ཀྱི་ཤུལ་མ།"
+
+#, fuzzy
+msgid "New Name:"
+msgstr "མིང་:"
 
 msgid "New Document"
 msgstr "ཡིག་ཆ་གསརཔ།"
@@ -6384,10 +6479,6 @@ msgid "More than one item selected"
 msgstr ""
 
 #, fuzzy
-msgid "Auto"
-msgstr "རྩོམ་པ་པོ།"
-
-#, fuzzy
 msgid "Displacement"
 msgstr "གནས་སྤང་།(&p)"
 
@@ -7094,7 +7185,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 "གཟུགས་བརྙན་ཚུ་ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ཨེབ་བཙུགས་ཀྱི་ཐབས་ལམ། རང་བཞིན་གྱི་འདི་གིས་སི་ཀིརི་བསི་ལུ་ ཐབས་"
 "ལམ་དརག་ཤོས་གདམ་ཁ་འབད་བཅུགཔ་ཨིན། གནས་ཡུལ་འདི་ལོསི་ལེསི་ཨིནམ་ལས་ ཚོས་གཞི་རགས་པ་དང་བཅས་ཡོད་"
@@ -7104,10 +7195,11 @@ msgstr ""
 "རང་བཞིན་གྱི་ལུ་གཞི་སྒྲིག་འབད།"
 
 msgid ""
-"Compression quality levels for lossy compression methods: Minimum (25%), Low "
-"(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
-"does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"Quality levels for lossy compression methods: Minimum (25%), Low (50%), "
+"Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
+"directly determine the size of the resulting image - both size and quality "
+"loss vary from image to image at any given quality level. Even with Maximum "
+"selected, there is always some quality loss with jepg."
 msgstr ""
 
 #, fuzzy
@@ -8370,6 +8462,45 @@ msgid "Centimeters (cm)"
 msgstr "མི་ལི་མི་ཊརསི།(ཨེམ་ཨེམ)"
 
 msgid "Cicero (c)"
+msgstr ""
+
+msgid "Attempting to get the Scribus version update file"
+msgstr ""
+
+msgid "(No data on your computer will be sent to an external location)"
+msgstr ""
+
+msgid "Timed out when attempting to get update file."
+msgstr ""
+
+#, fuzzy
+msgid "Error when attempting to get update file: %1"
+msgstr "ཨའུཊི་པུཊི་ཡིག་སྣོད་ཚི་འབྲིཝ་ད་འཛོལ་བ།"
+
+#, fuzzy
+msgid "File not found on server"
+msgstr "ཚོས་གཞི་འཐོབ་མ་ཚུགསཔ་-པ་ཡི་ཐཱོན་འཛོལ་བ།"
+
+msgid ""
+"Could not open version file: %1\n"
+"Error:%2 at line: %3, row: %4"
+msgstr ""
+
+msgid ""
+"An error occurred while looking for updates for Scribus, please check your "
+"internet connection."
+msgstr ""
+
+msgid "No updates are available for your version of Scribus %1"
+msgstr ""
+
+msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
+msgstr ""
+
+msgid "Please visit www.scribus.net for details."
 msgstr ""
 
 msgid "Minimum Margins for Page Size %1"
@@ -11682,6 +11813,3 @@ msgstr ""
 #~ "བཤུལ་རྒྱབ་གངམ་རྗེས་སུ་འབྲང་ནི་ཚུ་:\n"
 #~ "\n"
 #~ "%3\n"
-
-#~ msgid "Error writting the output file(s)."
-#~ msgstr "ཨའུཊི་པུཊི་ཡིག་སྣོད་ཚི་འབྲིཝ་ད་འཛོལ་བ།"
