@@ -89,6 +89,7 @@ imageinfodialog.h
 insertTable.h
 inspage.h
 javadocs.h
+keymanager.h
 layers.h
 lineformats.h
 loadsaveplugin.h
@@ -266,6 +267,7 @@ insertTable.cpp
 inspage.cpp
 ioapi.c
 javadocs.cpp
+keymanager.cpp
 langmgr.cpp
 layers.cpp
 linecombo.cpp
@@ -333,6 +335,8 @@ sccolor.cpp
 sccolorshade.cpp
 sccombobox.cpp
 scfonts.cpp
+scfonts_ttf.cpp
+scfontmetrics.cpp
 scimage.cpp
 scpainter.cpp
 scpaths.cpp
@@ -356,6 +360,7 @@ selection.cpp
 selfield.cpp
 serializer.cpp
 shadebutton.cpp
+smlinestyle.cpp
 spalette.cpp
 splash.cpp
 stencilreader.cpp
@@ -379,6 +384,7 @@ undoobject.cpp
 undostate.cpp
 units.cpp
 unzip.c
+upgradechecker.cpp
 useprintermarginsdialog.cpp
 util.cpp
 vgradient.cpp
