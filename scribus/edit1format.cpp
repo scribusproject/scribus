@@ -352,7 +352,7 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	QToolTip::add( fontKern, tr("Manual Tracking"));
 	QToolTip::add( fontBase, tr("Offset to baseline of characters"));
 	QToolTip::add( LineSpVal, "<qt>" + tr( "Line Spacing" ) + "</qt>" );
-	QToolTip::add( linespacingButton, tr("Click to select the line spacing mode"));
+	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
 	QToolTip::add( previewText, "<qt>" + tr( "Toggles sample text of this paragraph style" ) + "</qt>");
 
 	// signals and slots connections
