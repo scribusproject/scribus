@@ -270,8 +270,8 @@ void StoryText::clear()
 
 void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 {
-	CharStyle cstyle(charStyle(length()));
-	ParagraphStyle pstyle(paragraphStyle(length()));
+	CharStyle cstyle(charStyle(pos));
+	ParagraphStyle pstyle(paragraphStyle(pos));
 	int otherStart  = onlySelection? other.startOfSelection() : 0;
 	int otherEnd    = onlySelection? other.endOfSelection() : other.length();
 	int cstyleStart = otherStart;
