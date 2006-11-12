@@ -1,6 +1,6 @@
 <qt>
-<title>Compiling and Installing Using CMake and Scribus 1.3.4+</title>
-<h2>Compiling and Installing using CMake and Scribus 1.3.4 or higher</h2>
+<title>Compiling and Installing Using CMake and Scribus 1.3.3.6+ and 1.3.4+</title>
+<h2>Compiling and Installing using CMake and Scribus 1.3.3.6 and 1.3.4 or higher</h2>
 <p>After many years of using the autotools build system, the developers of Scribus have selected CMake as a replacement system. It provides a much more flexible setup with a lot less complexity. It also provides compatibility with build tools on Linux and variants of Unix, Windows and Mac OSX.</p>
 <p>To build with the CMake build system you will of course need CMake itself. Most Linux and some Unix distributions provide it as a standard package. If not, please <a href="http://www.cmake.org">download it</a>, make sure you get a recent version, like 2.4.3 or higher. MacOSX users can also find installers there as well. Scribus does not yet use CMake for Windows, although this may be added in the future. </p>
 <p>One of the advantages of CMake is that we can build "out of source". This means that when the program is being built the temporary files and resulting application files are not stored in the same location as the Scribus source files. This helps keeping directory structures clean and will also reduce time for updating your source tree a little. This is the preferred method, however both are described below. </p>
