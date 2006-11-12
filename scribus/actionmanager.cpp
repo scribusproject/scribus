@@ -1162,7 +1162,6 @@ void ActionManager::languageChange()
 	(*scrActions)["fileRevert"]->setTexts( tr("Re&vert to Saved"));
 	(*scrActions)["fileCollect"]->setTexts( tr("Collect for O&utput..."));
 	(*scrActions)["fileImportText"]->setTexts( tr("Get Text..."));
-	(*scrActions)["fileImportText2"]->setTexts( tr("Get Text 2..."));
 	(*scrActions)["fileImportAppendText"]->setTexts( tr("Append &Text..."));
 	(*scrActions)["fileImportImage"]->setTexts( tr("Get Image..."));
 	(*scrActions)["fileExportText"]->setTexts( tr("Save &Text..."));
