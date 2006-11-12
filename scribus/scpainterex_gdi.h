@@ -68,6 +68,8 @@ public:
 	ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray );
 	virtual ~ScPainterEx_GDI();
 
+	virtual Capabilities capabilities() { return transparencies; }
+
 	virtual int supportedColorModes() { return (int) rgbMode; }
 	virtual ColorMode preferredColorMode() { return rgbMode; }
 	virtual ImageMode imageMode() { return rgbImages; }
@@ -80,8 +82,6 @@ public:
 	// matrix manipulation
 	virtual void setWorldMatrix( const QWMatrix & );
 	virtual const QWMatrix worldMatrix();
-	virtual void setZoomFactor( double );
-	virtual double zoomFactor() { return m_zoomFactor; }
 	virtual void translate( double, double );
 	virtual void rotate( double );
 	virtual void scale( double, double );
@@ -98,7 +98,9 @@ public:
 	virtual void setFillRule( bool fillRule );
 	virtual bool fillRule() { return m_fillRule; }
 	virtual void setFillMode( int fill );
+	virtual int  fillMode() { return m_fillMode; }
 	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0));
+	virtual void setPattern ( ScPattern* pattern, QWMatrix& patternTransform );
 	virtual void setClipPath();
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode );
@@ -129,9 +131,6 @@ public:
 
 	virtual void setRasterOp( int op );
 
-	virtual QPaintDevice *device() { return m_target; }
-	unsigned char *buffer() { return m_buffer; }
-
 private:
 
 	void drawVPath( int mode );
@@ -146,64 +145,51 @@ private:
 	void transformPoints( const FPoint* in, FPoint* out, uint length );
 	void loadMsImg32( void );
 
-	unsigned int m_index;
-	unsigned int m_alloccount;
-	unsigned char *m_buffer;
-	QPaintDevice *m_target;
 	unsigned int m_width;
 	unsigned int m_height;
-	unsigned int m_x;
-	unsigned int m_y;
-	QWMatrix m_pageTrans;
 	QWMatrix m_matrix;
 	QFont m_font;
-	bool mf_underline;
-	bool mf_strikeout;
-	bool mf_shadow;
-	bool mf_outlined;
 /* Filling */
-	ScColorShade m_fill;
-	double fill_trans;
-	bool m_fillRule;
-	int fillMode;				// 0 = none, 1 = solid, 2 = gradient
-	int gradientMode;		// 1 = linear, 2 = radial
+	ScColorShade m_fillColor;
+	double m_fillTrans;
+	bool   m_fillRule;
+	int    m_fillMode;			// 0 = none, 1 = solid, 2 = gradient
+	int    m_gradientMode;		// 1 = linear, 2 = radial
 /* Stroking */
-	ScColorShade m_stroke;
-	double stroke_trans;
-	double LineWidth;
+	ScColorShade m_strokeColor;
+	double m_strokeTrans;
+	double m_lineWidth;
 /* Grayscale conversion option */
-	bool toGray;
+	bool   m_convertToGray;
 
 /* Line End Style */
-	Qt::PenCapStyle PLineEnd;
+	Qt::PenCapStyle m_lineEnd;
 /* Line Join Style */
-	Qt::PenJoinStyle PLineJoin;
+	Qt::PenJoinStyle m_lineJoin;
 /* The Dash Array */
 	QValueList<double> m_array;
 	double m_offset;
 /* Transformation Stack */
-	QValueStack<QWMatrix> MStack;
-/* Zoom Factor of the Painter */
-	double m_zoomFactor;
+	QValueStack<QWMatrix> m_stack;
 
 /* Some data to describe state of drawing */	
-	bool pathClosed;
-	bool drawingClosedCurve;
+	bool m_pathIsClosed;
+	bool m_drawingClosedPath;
 /* Drawing surface dimensions */
-	double deviceDimX;
-	double deviceDimY;
+	double m_deviceDimX;
+	double m_deviceDimY;
 /* Device resolutions */
-	double deviceResX;
-	double deviceResY;
+	double m_deviceResX;
+	double m_deviceResY;
 
 /* Device context */
-	HDC dc;
+	HDC m_dc;
 /* Handle to a bitmap */
-	HBITMAP hBmp;
+	HBITMAP m_hBmp;
 /* Handle to the msimg32.dll (contains the GradientFill function) */
-	HMODULE hMsImg32;
+	HMODULE m_hMsImg32;
 /* Address of the GradientFill function */
-	gradientFillFunc gradientFill;
+	gradientFillFunc m_gradientFill;
 
 /* Color conversion function */
 	QColor transformColor( ScColorShade& colorShade, double trans );
@@ -211,11 +197,11 @@ private:
 
 #ifdef SC_USE_GDIPLUS
 /* GDI+ needed data */
-	QValueStack<int> gStates;
-	Gdiplus::Graphics *graphics;
-	Gdiplus::GraphicsPath *graphicsPath;
-	double positionX;
-	double positionY;
+	QValueStack<int> m_gStates;
+	Gdiplus::Graphics* m_graphics;
+	Gdiplus::GraphicsPath* m_graphicsPath;
+	double m_positionX;
+	double m_positionY;
 #endif
 };
 

@@ -56,59 +56,48 @@ typedef struct {
     RGBQUAD bmiColors[256]; 
 } BITMAPINFO256;
 
-ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray )
+ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray ) : ScPainterExBase()
 {
-	m_target = NULL;
 	m_width = rect.width();
 	m_height= rect.height();
-	m_x = rect.left();
-	m_y = rect.top();
-	m_buffer = 0L;
-	m_index = 0;
-	m_stroke = ScColorShade( QColor(0,0,0), 100 );
-	m_fill = ScColorShade( QColor(0,0,0), 100 );
-	fill_trans = 1.0;
-	stroke_trans = 1.0;
+	m_strokeColor = ScColorShade( QColor(0,0,0), 100 );
+	m_fillColor = ScColorShade( QColor(0,0,0), 100 );
+	m_fillTrans = 1.0;
+	m_strokeTrans = 1.0;
 	m_fillRule = true;
-	fillMode = 1;
-	LineWidth = 1.0;
+	m_fillMode = 1;
+	m_lineWidth = 1.0;
 	m_offset = 0;
 	m_array.clear();
-	mf_underline = false;
-	mf_strikeout = false;
-	mf_shadow = false;
-	mf_outlined = false;
-	PLineEnd = Qt::SquareCap;
-	PLineJoin = Qt::RoundJoin;
-	fill_gradient = VGradientEx(VGradientEx::linear);
-	stroke_gradient = VGradientEx(VGradientEx::linear);
-	m_zoomFactor = 1;
+	m_lineEnd = Qt::SquareCap;
+	m_lineJoin = Qt::RoundJoin;
+	m_fillGradient = VGradientEx(VGradientEx::linear);
+	m_strokeGradient = VGradientEx(VGradientEx::linear);
 	m_matrix = QWMatrix();
-	m_pageTrans = QWMatrix();
-	// Grayscale conversion
-	toGray = gray;
+	// Grayscale conversion parameter
+	m_convertToGray = gray;
 	// Initialization of Windows GDI data
-	dc = hDC;
-	hBmp = NULL;
-	hMsImg32 = NULL;
-	gradientFill = NULL;
-	pathClosed = true;
-	drawingClosedCurve = false;
-	deviceDimX = GetDeviceCaps(dc, PHYSICALWIDTH);
-	deviceDimY = GetDeviceCaps(dc, PHYSICALHEIGHT);
-	deviceResX = GetDeviceCaps(dc, LOGPIXELSX);
-	deviceResY = GetDeviceCaps(dc, LOGPIXELSY);
+	m_dc = hDC;
+	m_hBmp = NULL;
+	m_hMsImg32 = NULL;
+	m_gradientFill = NULL;
+	m_pathIsClosed = true;
+	m_drawingClosedPath = false;
+	m_deviceDimX = GetDeviceCaps(m_dc, PHYSICALWIDTH);
+	m_deviceDimY = GetDeviceCaps(m_dc, PHYSICALHEIGHT);
+	m_deviceResX = GetDeviceCaps(m_dc, LOGPIXELSX);
+	m_deviceResY = GetDeviceCaps(m_dc, LOGPIXELSY);
 #ifdef SC_USE_GDIPLUS
-	positionX = positionY = 0;
-	graphics = new Gdiplus::Graphics( dc );
-	graphics->SetCompositingMode( CompositingModeSourceOver );
-	graphics->SetCompositingQuality( CompositingQualityHighQuality );
-	graphics->SetSmoothingMode( SmoothingModeHighQuality );
-	graphics->SetPageUnit( UnitPoint );
-	graphicsPath = NULL;
+	m_positionX = m_positionY = 0;
+	m_graphics = new Gdiplus::Graphics( m_dc );
+	m_graphics->SetCompositingMode( CompositingModeSourceOver );
+	m_graphics->SetCompositingQuality( CompositingQualityHighQuality );
+	m_graphics->SetSmoothingMode( SmoothingModeHighQuality );
+	m_graphics->SetPageUnit( UnitPoint );
+	m_graphicsPath = NULL;
 #else
-	SetGraphicsMode( dc, GM_ADVANCED );
-	SetPolyFillMode(dc, ALTERNATE);
+	SetGraphicsMode( m_dc, GM_ADVANCED );
+	SetPolyFillMode(m_dc, ALTERNATE);
 	loadMsImg32();
 #endif
 	clear();
@@ -116,21 +105,21 @@ ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray )
 
 ScPainterEx_GDI::~ScPainterEx_GDI()
 {
-	if ( hMsImg32 )
-		FreeLibrary( hMsImg32 );
+	if ( m_hMsImg32 )
+		FreeLibrary( m_hMsImg32 );
 #ifdef SC_USE_GDIPLUS
-	if ( graphicsPath )
-		delete graphicsPath;
-	if ( graphics )
-		delete graphics;
+	if ( m_graphicsPath )
+		delete m_graphicsPath;
+	if ( m_graphics )
+		delete m_graphics;
 #endif
 }
 
 void ScPainterEx_GDI::loadMsImg32( void )
 {
-	hMsImg32 = LoadLibrary( "msimg32.dll" );
-	if( hMsImg32 )
-		gradientFill = (gradientFillFunc) GetProcAddress( hMsImg32, "GradientFill" );
+	m_hMsImg32 = LoadLibrary( "msimg32.dll" );
+	if( m_hMsImg32 )
+		m_gradientFill = (gradientFillFunc) GetProcAddress( m_hMsImg32, "GradientFill" );
 }
 
 QColor ScPainterEx_GDI::transformColor( ScColorShade& colorShade, double trans )
@@ -138,7 +127,7 @@ QColor ScPainterEx_GDI::transformColor( ScColorShade& colorShade, double trans )
 	QColor c, color;
 	c = colorShade.color.getShadeColor( colorShade.shade );
 	color = qRgba( qRed(c.rgb()), qGreen(c.rgb()), qBlue(c.rgb()), qAlpha(trans * 255));
-	if ( toGray )
+	if ( m_convertToGray )
 	{
 		int grayLevel;
 		QColor grayColor;
@@ -180,9 +169,9 @@ void ScPainterEx_GDI::begin()
 void ScPainterEx_GDI::end()
 {
 #ifdef SC_USE_GDIPLUS
-	graphics->ResetTransform();
+	m_graphics->ResetTransform();
 #else
-	ModifyWorldTransform(dc, NULL, MWT_IDENTITY);
+	ModifyWorldTransform(m_dc, NULL, MWT_IDENTITY);
 #endif
 }
 
@@ -190,7 +179,7 @@ void ScPainterEx_GDI::clear()
 {
 #ifdef SC_USE_GDIPLUS
 	SolidBrush brush( Color(255,255,255) );
-	graphics->FillRectangle(&brush, 0, 0, m_width, m_height);
+	m_graphics->FillRectangle(&brush, 0, 0, m_width, m_height);
 #else
 	RECT rect;
 	HBRUSH brush = CreateSolidBrush( RGB(255, 255, 255) );
@@ -198,7 +187,7 @@ void ScPainterEx_GDI::clear()
 	rect.left = 0;
 	rect.right = m_width;
 	rect.top = m_height;
-	FillRect(dc, &rect, brush);
+	FillRect(m_dc, &rect, brush);
 	DeleteObject( brush );
 #endif
 }
@@ -209,7 +198,7 @@ void ScPainterEx_GDI::clear( ScColorShade &c )
 #ifdef SC_USE_GDIPLUS
 	QRgb cs = color.rgb();
 	SolidBrush brush( Color(qAlpha(cs), qRed(cs), qGreen(cs),qBlue(cs)) );
-	graphics->FillRectangle(&brush, 0, 0, m_width, m_height);
+	m_graphics->FillRectangle(&brush, 0, 0, m_width, m_height);
 #else
 	RECT rect;
 	HBRUSH brush = CreateSolidBrush( RGB( qRed(color.rgb()), qGreen(color.rgb()), qBlue(color.rgb()) ) );
@@ -217,7 +206,7 @@ void ScPainterEx_GDI::clear( ScColorShade &c )
 	rect.left = 0;
 	rect.right = m_width;
 	rect.top = m_height;
-	FillRect(dc, &rect, brush);
+	FillRect(m_dc, &rect, brush);
 	DeleteObject( brush );
 #endif
 }
@@ -249,11 +238,6 @@ void ScPainterEx_GDI::transformPoints( const FPoint* ArrayIn, FPoint* ArrayOut, 
 	}
 }
 
-void ScPainterEx_GDI::setZoomFactor( double zoomFactor )
-{
-	m_zoomFactor = zoomFactor;
-}
-
 void ScPainterEx_GDI::translate( double x, double y )
 {
 	m_matrix.translate(x, y);
@@ -271,35 +255,35 @@ void ScPainterEx_GDI::scale( double x, double y )
 
 void ScPainterEx_GDI::moveTo( const double &x, const double &y )
 {
-	FPoint pp( x * m_zoomFactor, y * m_zoomFactor );
+	FPoint pp( x, y );
 	transformPoint( pp, pp );
 #ifdef SC_USE_GDIPLUS
-	positionX = pp.x();
-	positionY = pp.y();
+	m_positionX = pp.x();
+	m_positionY = pp.y();
 #else
-	MoveToEx(dc, (int) pp.x(), (int) pp.y(), NULL);
+	MoveToEx(m_dc, (int) pp.x(), (int) pp.y(), NULL);
 #endif
 }
 
 void ScPainterEx_GDI::lineTo( const double &x, const double &y )
 {
-	FPoint pp( x * m_zoomFactor, y * m_zoomFactor );
+	FPoint pp( x, y );
 	transformPoint( pp, pp );
 #ifdef SC_USE_GDIPLUS
-	graphicsPath->AddLine( (REAL) positionX, (REAL) positionY, pp.x(), pp.y() );
-	positionX = pp.x();
-	positionY = pp.y();
+	m_graphicsPath->AddLine( (REAL) m_positionX, (REAL) m_positionY, pp.x(), pp.y() );
+	m_positionX = pp.x();
+	m_positionY = pp.y();
 #else
-	LineTo(dc, (int) pp.x(), (int) pp.y());
+	LineTo(m_dc, (int) pp.x(), (int) pp.y());
 #endif
 }
 
 void ScPainterEx_GDI::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 {
 	FPoint fpoints[3];
-	fpoints[0].setXY( p1.x() * m_zoomFactor, p1.y() * m_zoomFactor );
-	fpoints[1].setXY( p2.x() * m_zoomFactor, p2.y() * m_zoomFactor );
-	fpoints[2].setXY( p3.x() * m_zoomFactor, p3.y() * m_zoomFactor );
+	fpoints[0].setXY( p1.x(), p1.y() );
+	fpoints[1].setXY( p2.x(), p2.y() );
+	fpoints[2].setXY( p3.x(), p3.y() );
 	transformPoints( fpoints, fpoints, 3 );
 #ifdef SC_USE_GDIPLUS
 	double p1x = fpoints[0].x();
@@ -308,9 +292,9 @@ void ScPainterEx_GDI::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 	double p2y = fpoints[1].y();
 	double p3x = fpoints[2].x();
 	double p3y = fpoints[2].y();
-	graphicsPath->AddBezier( (REAL) positionX, (REAL) positionY, p1x, p1y, p2x, p2y, p3x, p3y );
-	positionX = p3x;
-	positionY = p3y;
+	m_graphicsPath->AddBezier( (REAL) m_positionX, (REAL) m_positionY, p1x, p1y, p2x, p2y, p3x, p3y );
+	m_positionX = p3x;
+	m_positionY = p3y;
 #else
 	POINT points[3];
 	points[0].x = fpoints[0].x();
@@ -319,24 +303,24 @@ void ScPainterEx_GDI::curveTo( FPoint p1, FPoint p2, FPoint p3 )
 	points[1].y = fpoints[1].y();
 	points[2].x = fpoints[2].x();
 	points[2].y = fpoints[2].y();
-	PolyBezierTo(dc, points, 3);
+	PolyBezierTo(m_dc, points, 3);
 #endif
 }
 
 void ScPainterEx_GDI::newPath()
 {
 #ifdef SC_USE_GDIPLUS
-	if( graphicsPath )
-		delete graphicsPath;
-	graphicsPath = new Gdiplus::GraphicsPath(); 
-	pathClosed = false;
-	drawingClosedCurve = false;
+	if( m_graphicsPath )
+		delete m_graphicsPath;
+	m_graphicsPath = new Gdiplus::GraphicsPath(); 
+	m_pathIsClosed = false;
+	m_drawingClosedPath = false;
 #else
-	bool done = BeginPath( dc );
+	bool done = BeginPath( m_dc );
 	if(!done)
 		cout << "BeginPath fuction has failed." << endl;
-	pathClosed = false;
-	drawingClosedCurve = false;
+	m_pathIsClosed = false;
+	m_drawingClosedPath = false;
 #endif
 }
 
@@ -347,15 +331,21 @@ void ScPainterEx_GDI::setFillRule( bool fillRule )
 
 void ScPainterEx_GDI::setFillMode( int fill )
 {
-	fillMode = fill;
+	m_fillMode = fill;
 }
 
 void ScPainterEx_GDI::setGradient(VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc)
 {
-	fill_gradient.setType(mode);
-	fill_gradient.setOrigin(orig);
-	fill_gradient.setVector(vec);
-	fill_gradient.setFocalPoint(foc);
+	m_fillGradient.setType(mode);
+	m_fillGradient.setOrigin(orig);
+	m_fillGradient.setVector(vec);
+	m_fillGradient.setFocalPoint(foc);
+}
+
+void ScPainterEx_GDI::setPattern( ScPattern* pattern, QWMatrix& patternTransform )
+{
+	m_pattern = pattern;
+	m_patternTransform = patternTransform;
 }
 
 void ScPainterEx_GDI::fillTextPath()
@@ -365,7 +355,7 @@ void ScPainterEx_GDI::fillTextPath()
 
 void ScPainterEx_GDI::strokeTextPath()
 {
-	if( LineWidth == 0 )
+	if( m_lineWidth == 0 )
 		return;
 	drawVPath( 1 );
 }
@@ -373,55 +363,47 @@ void ScPainterEx_GDI::strokeTextPath()
 void ScPainterEx_GDI::fillPath()
 {
 #ifndef SC_USE_GDIPLUS
-	if( !pathClosed )
-		EndPath( dc );
+	if( !m_pathIsClosed )
+		EndPath( m_dc );
 #endif
-	pathClosed = true;
-	if( fillMode != 0)
+	m_pathIsClosed = true;
+	if( m_fillMode != 0)
 		drawVPath( 0 );
 }
 
 void ScPainterEx_GDI::strokePath()
 {
-	if( LineWidth == 0 )
+	if( m_lineWidth == 0 )
 		return;
-	save();
-// Hackery so that gdi+ rendering matches the libart one :
-// if the current clip path is stroked, the pen width won't be entirely visible
-// contrary to libart where it will
-#ifdef SC_USE_GDIPLUS
-	graphics->ResetClip();
-#else
-	SelectClipRgn( dc, NULL );
-	if( !pathClosed )
-		EndPath( dc );
+#ifndef SC_USE_GDIPLUS
+	if( !m_pathIsClosed )
+		EndPath( m_dc );
 #endif
-	pathClosed = true;
+	m_pathIsClosed = true;
 	drawVPath( 1 );
-	restore();
 }
 
 ScColorShade ScPainterEx_GDI::pen()
 {
-	return m_stroke;
+	return m_strokeColor;
 }
 
 ScColorShade ScPainterEx_GDI::brush()
 {
-	return m_fill;
+	return m_fillColor;
 }
 
 void ScPainterEx_GDI::setPen( const ScColorShade &c )
 {
-	m_stroke = c;
+	m_strokeColor = c;
 }
 
 void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, Qt::PenCapStyle ca, Qt::PenJoinStyle jo )
 {
-	m_stroke = c;
-	LineWidth = w;
-	PLineEnd = ca;
-	PLineJoin = jo;
+	m_strokeColor = c;
+	m_lineWidth = w;
+	m_lineEnd = ca;
+	m_lineJoin = jo;
 	double Dt = QMAX(2*w, 1);
 	double Da = QMAX(6*w, 1);
 	QValueList<double> tmp;
@@ -462,12 +444,12 @@ void ScPainterEx_GDI::setPen( const ScColorShade &c, double w, Qt::PenStyle st, 
 
 void ScPainterEx_GDI::setLineWidth( double w )
 {
-	LineWidth = w;
+	m_lineWidth = w;
 }
 
 void ScPainterEx_GDI::setPenOpacity( double op )
 {
-	stroke_trans = op;
+	m_strokeTrans = op;
 }
 
 
@@ -479,18 +461,18 @@ void ScPainterEx_GDI::setDash(const QValueList<double>& array, double ofs)
 
 void ScPainterEx_GDI::setBrush( const ScColorShade &c )
 {
-	m_fill = c;
+	m_fillColor = c;
 }
 
 void ScPainterEx_GDI::setBrushOpacity( double op )
 {
-	fill_trans = op;
+	m_fillTrans = op;
 }
 
 void ScPainterEx_GDI::setOpacity( double op )
 {
-	fill_trans = op;
-	stroke_trans = op;
+	m_fillTrans = op;
+	m_strokeTrans = op;
 }
 
 void ScPainterEx_GDI::setFont( const QFont &f)
@@ -505,21 +487,21 @@ QFont ScPainterEx_GDI::font()
 
 void ScPainterEx_GDI::save()
 {
-	MStack.push( m_matrix );
+	m_stack.push( m_matrix );
 #ifdef SC_USE_GDIPLUS
-	gStates.push( graphics->Save() );
+	m_gStates.push( m_graphics->Save() );
 #else
-	SaveDC( dc );
+	SaveDC( m_dc );
 #endif
 }
 
 void ScPainterEx_GDI::restore()
 {
-	m_matrix = MStack.pop();
+	m_matrix = m_stack.pop();
 #ifdef SC_USE_GDIPLUS
-	graphics->Restore( gStates.pop() );
+	m_graphics->Restore( m_gStates.pop() );
 #else
-	RestoreDC( dc, -1 );
+	RestoreDC( m_dc, -1 );
 #endif
 }
 
@@ -534,18 +516,18 @@ void ScPainterEx_GDI::drawVPath( int mode )
 	if (mode == 0)
 	{
 		if( m_fillRule )
-			graphicsPath->SetFillMode( FillModeAlternate);
+			m_graphicsPath->SetFillMode( FillModeAlternate);
 		else
-			graphicsPath->SetFillMode( FillModeWinding);
-		if (fillMode == 2)
+			m_graphicsPath->SetFillMode( FillModeWinding);
+		if (m_fillMode == ScPainterExBase::Gradient)
 		{
-			drawGradient( fill_gradient );
+			drawGradient( m_fillGradient );
 		}
 		else
 		{
-			QColor fillColor = transformColor(m_fill, 1.0);
-			SolidBrush fill_brush( Color(fill_trans * 255, fillColor.red(), fillColor.green(), fillColor.blue()) );
-			graphics->FillPath( &fill_brush, graphicsPath );
+			QColor fillColor = transformColor(m_fillColor, 1.0);
+			SolidBrush fill_brush( Color(m_fillTrans * 255, fillColor.red(), fillColor.green(), fillColor.blue()) );
+			m_graphics->FillPath( &fill_brush, m_graphicsPath );
 		}
 	}
 	else
@@ -555,10 +537,10 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		double m21 = m_matrix.m21();
 		double m22 = m_matrix.m22();
 		double norm2 = m11 * m11 + m12 * m12 + m21 * m21 + m22 * m22;
-		double penScale = sqrt(norm2 / 2.0) * m_zoomFactor;
-		double penWidth =  LineWidth * penScale;
-		QColor strokeColor = transformColor( m_stroke, 1.0 );
-		SolidBrush stroke_brush( Color(stroke_trans * 255, strokeColor.red(), strokeColor.green(), strokeColor.blue()) );
+		double penScale = sqrt(norm2 / 2.0);
+		double penWidth =  m_lineWidth * penScale;
+		QColor strokeColor = transformColor( m_strokeColor, 1.0 );
+		SolidBrush stroke_brush( Color(m_strokeTrans * 255, strokeColor.red(), strokeColor.green(), strokeColor.blue()) );
 		Pen stroke_pen( &stroke_brush, penWidth );
 		REAL *dashes = NULL;
 		
@@ -567,9 +549,9 @@ void ScPainterEx_GDI::drawVPath( int mode )
 			dashes = new REAL[ m_array.count() ];
 			for( uint i = 0; i < m_array.count();++ i )
 			{
-				dashes[i] = (REAL) ( m_array[i] / (double) LineWidth );
+				dashes[i] = (REAL) ( m_array[i] / (double) m_lineWidth );
 				// The following lines are needed so that gdi+ rendering matches the libart one
-				if( PLineEnd == Qt::RoundCap || PLineEnd == Qt::SquareCap )
+				if( m_lineEnd == Qt::RoundCap || m_lineEnd == Qt::SquareCap )
 				{
 					if( (i % 2) == 0 ) 
 						dashes[i] = dashes[i] + 1.0;
@@ -578,50 +560,50 @@ void ScPainterEx_GDI::drawVPath( int mode )
 				}
 			}
 			// The following two lines are needed so that gdi+ rendering matches the libart one
-			if( PLineEnd == Qt::SquareCap && m_array.count() >= 2)
+			if( m_lineEnd == Qt::SquareCap && m_array.count() >= 2)
 				stroke_pen.SetDashOffset( dashes[1]/2 );
 			stroke_pen.SetDashPattern( dashes, m_array.count() );
 		}
-		if( PLineEnd == Qt::RoundCap )
+		if( m_lineEnd == Qt::RoundCap )
 			stroke_pen.SetLineCap( LineCapRound, LineCapRound, DashCapRound );
-		else if( PLineEnd == Qt::SquareCap )
+		else if( m_lineEnd == Qt::SquareCap )
 			stroke_pen.SetLineCap( LineCapSquare, LineCapSquare, DashCapFlat );
-		else if( PLineEnd == Qt::FlatCap && m_array.count() == 0 && drawingClosedCurve )
+		else if( m_lineEnd == Qt::FlatCap && m_array.count() == 0 && m_drawingClosedPath )
 			stroke_pen.SetLineCap( LineCapSquare, LineCapSquare, DashCapFlat );
-		else if( PLineEnd == Qt::FlatCap )
+		else if( m_lineEnd == Qt::FlatCap )
 			stroke_pen.SetLineCap( LineCapFlat, LineCapFlat, DashCapFlat );
-		if( PLineJoin == Qt::RoundJoin )
+		if( m_lineJoin == Qt::RoundJoin )
 			stroke_pen.SetLineJoin( LineJoinRound );
-		else if( PLineJoin == Qt::BevelJoin )
+		else if( m_lineJoin == Qt::BevelJoin )
 			stroke_pen.SetLineJoin( LineJoinBevel );
-		else if( PLineJoin == Qt::MiterJoin )
+		else if( m_lineJoin == Qt::MiterJoin )
 			stroke_pen.SetLineJoin( LineJoinMiter );
 
-		graphics->DrawPath( &stroke_pen, graphicsPath );
+		m_graphics->DrawPath( &stroke_pen, m_graphicsPath );
 		if( dashes )
 			delete [] dashes;
 	}
 	restore();
 #else
 	int dcState;
-	dcState = SaveDC( dc );
+	dcState = SaveDC( m_dc );
 	if (mode == 0)
 	{
 		if( m_fillRule )
-			SetPolyFillMode(dc, ALTERNATE);
+			SetPolyFillMode(m_dc, ALTERNATE);
 		else
-			SetPolyFillMode(dc, WINDING);
-		if (fillMode == 2)
+			SetPolyFillMode(m_dc, WINDING);
+		if (m_fillMode == ScPainterExBase::Gradient)
 		{
-			drawGradient( fill_gradient );
+			drawGradient( m_fillGradient );
 		}
 		else
 		{
-			QColor fillColor = transformColor( m_fill, 1.0 );
+			QColor fillColor = transformColor( m_fillColor, 1.0 );
 			HBRUSH brush = CreateSolidBrush( RGB( qRed(fillColor.rgb()), qGreen(fillColor.rgb()), qBlue(fillColor.rgb()) ) );
-			HGDIOBJ obj = SelectObject(dc, brush);
-			FillPath(dc);
-			SelectObject(dc, obj);
+			HGDIOBJ obj = SelectObject(m_dc, brush);
+			FillPath(m_dc);
+			SelectObject(m_dc, obj);
 			DeleteObject(brush);
 		}
 	}
@@ -632,7 +614,7 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		LOGBRUSH logBrush;
 		DWORD *dashes = NULL;
 
-		QColor strokeColor = transformColor( m_stroke, 1.0 );
+		QColor strokeColor = transformColor( m_strokeColor, 1.0 );
 		logBrush.lbStyle = BS_SOLID;
 		logBrush.lbColor = RGB( qRed(strokeColor.rgb()), qGreen(strokeColor.rgb()), qBlue(strokeColor.rgb()) );
 		logBrush.lbHatch = 0;
@@ -642,8 +624,8 @@ void ScPainterEx_GDI::drawVPath( int mode )
 		double m21 = m_matrix.m21();
 		double m22 = m_matrix.m22();
 		double norm2 = m11 * m11 + m12 * m12 + m21 * m21 + m22 * m22;
-		double penScale = sqrt(norm2 /2.0) * m_zoomFactor;
-		penWidth = (int) (LineWidth * penScale);
+		double penScale = sqrt(norm2 /2.0);
+		penWidth = (int) (m_lineWidth * penScale);
 		
 		if( m_array.count() > 0 )
 		{
@@ -658,35 +640,35 @@ void ScPainterEx_GDI::drawVPath( int mode )
 			penStyle = penStyle | PS_ENDCAP_ROUND;
 		else if( PLineEnd == Qt::SquareCap )
 			penStyle = penStyle | PS_ENDCAP_SQUARE;
-		else if( PLineEnd == Qt::FlatCap && m_array.count() == 0 && drawingClosedCurve )
+		else if( PLineEnd == Qt::FlatCap && m_array.count() == 0 && m_drawingClosedPath )
 			penStyle = penStyle | PS_ENDCAP_SQUARE;
 		else if( PLineEnd == Qt::FlatCap )
 			penStyle = penStyle | PS_ENDCAP_FLAT;
-		if( PLineJoin == Qt::RoundJoin )
+		if( m_lineJoin == Qt::RoundJoin )
 			penStyle = penStyle | PS_JOIN_ROUND;
-		else if( PLineJoin == Qt::BevelJoin )
+		else if( m_lineJoin == Qt::BevelJoin )
 			penStyle = penStyle | PS_JOIN_BEVEL;
-		else if( PLineJoin == Qt::MiterJoin )
+		else if( m_lineJoin == Qt::MiterJoin )
 			penStyle = penStyle | PS_JOIN_MITER;
 
 		HPEN pen = ExtCreatePen(penStyle, penWidth, &logBrush, m_array.count(), dashes);
-		HGDIOBJ obj = SelectObject( dc, pen);
-		StrokePath( dc );
-		SelectObject( dc, obj);
+		HGDIOBJ obj = SelectObject( m_dc, pen);
+		StrokePath( m_dc );
+		SelectObject( m_dc, obj);
 		DeleteObject( pen);
 		if( dashes )
 			delete [] dashes;
 	}
-	RestoreDC( dc, dcState );
+	RestoreDC( m_dc, dcState );
 #endif
 }
 
 void ScPainterEx_GDI::setClipPath()
 {
 #ifdef SC_USE_GDIPLUS
-	graphics->SetClip( graphicsPath, CombineModeIntersect );
+	m_graphics->SetClip( m_graphicsPath, CombineModeIntersect );
 #else
-	SelectClipPath( dc, RGN_AND );
+	SelectClipPath( m_dc, RGN_AND );
 #endif
 }
 
@@ -694,8 +676,8 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 {
 #ifdef SC_USE_GDIPLUS
 	FPoint ulp( 0, 0 );
-	FPoint urp( image->width() * m_zoomFactor, 0 );
-	FPoint blp( 0, image->height() * m_zoomFactor );
+	FPoint urp( image->width(), 0 );
+	FPoint blp( 0, image->height() );
 	transformPoint( ulp, ulp );
 	transformPoint( blp, blp );
 	transformPoint( urp, urp );
@@ -703,9 +685,9 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 	ColorMatrix colorMatrix = {1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 							   0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
                                0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-                               0.0f, 0.0f, 0.0f, fill_trans, 0.0f,
+                               0.0f, 0.0f, 0.0f, m_fillTrans, 0.0f,
                                0.0f, 0.0f, 0.0f, 0.0f, 1.0f};
-	if ( toGray )
+	if ( m_convertToGray )
 	{
 		colorMatrix.m[0][0] = colorMatrix.m[0][1] = colorMatrix.m[0][2] = (REAL) 0.3;
 		colorMatrix.m[1][0] = colorMatrix.m[1][1] = colorMatrix.m[1][2] = (REAL) 0.59;
@@ -714,14 +696,14 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 	ImageAttributes imageAtt;
 	imageAtt.SetColorMatrix(&colorMatrix, ColorMatrixFlagsDefault, ColorAdjustTypeBitmap);
 	Bitmap bitmap( image->width(), image->height(), 4 * image->width(), PixelFormat32bppARGB, image->qImage().bits() );
-	graphics->DrawImage( &bitmap, destinationPoint, 3, 0, 0, image->width(), image->height(), UnitPixel, &imageAtt );
+	m_graphics->DrawImage( &bitmap, destinationPoint, 3, 0, 0, image->width(), image->height(), UnitPixel, &imageAtt );
 #else
 	save();
 	int usage = 0;
 	unsigned char* data = NULL;
 	unsigned char* imageData = image->qImage().bits();
 	XFORM xform = { m_matrix.m11(), m_matrix.m12(), m_matrix.m21(), m_matrix.m22(), m_matrix.dx(), m_matrix.dy() } ;
-	ModifyWorldTransform(dc, &xform, MWT_LEFTMULTIPLY);
+	ModifyWorldTransform(m_dc, &xform, MWT_LEFTMULTIPLY);
 	BITMAPINFO256 bmpInfo;
 	ZeroMemory( &bmpInfo, sizeof(bmpInfo));
 	bmpInfo.bmiHeader.biSize = sizeof( bmpInfo.bmiHeader );
@@ -731,7 +713,7 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 	bmpInfo.bmiHeader.biBitCount = 32;
 	bmpInfo.bmiHeader.biCompression = BI_RGB;
 	bmpInfo.bmiHeader.biSizeImage = 0;
-	if ( toGray )
+	if ( m_convertToGray )
 	{
 		int scanline = (image->width() + image->width() % 4);
 		bmpInfo.bmiHeader.biBitCount = 8;
@@ -748,8 +730,8 @@ void ScPainterEx_GDI::drawImage( ScImage *image, ScPainterExBase::ImageMode mode
 		imageData = data;
 		usage = DIB_RGB_COLORS;
 	}
-	StretchDIBits( dc, 0, 0 , image->width() * m_zoomFactor, image->height() * m_zoomFactor, 
-		0, 0, image->width(), image->height(), imageData, (BITMAPINFO*) &bmpInfo, usage, SRCCOPY );
+	StretchDIBits( m_dc, 0, 0 , image->width(), image->height(), 0, 0, image->width(), image->height(), 
+		imageData, (BITMAPINFO*) &bmpInfo, usage, SRCCOPY );
 	if( data )
 		delete[] data;
 	restore();
@@ -774,7 +756,7 @@ void ScPainterEx_GDI::setupPolygon(FPointArray *points, bool closed)
 			{
 				np = points->point(poi);
 #ifdef SC_USE_GDIPLUS
-				graphicsPath->StartFigure();
+				m_graphicsPath->StartFigure();
 #endif
 				moveTo( np.x(), np.y() );
 				nPath = false;
@@ -791,10 +773,10 @@ void ScPainterEx_GDI::setupPolygon(FPointArray *points, bool closed)
 		if (closed)
 		{
 #ifndef SC_USE_GDIPLUS
-			EndPath( dc );
+			EndPath( m_dc );
 #endif
-			pathClosed = true;
-			drawingClosedCurve = true;
+			m_pathIsClosed = true;
+			m_drawingClosedPath = true;
 		}
 	}
 }
@@ -817,27 +799,27 @@ void ScPainterEx_GDI::setupTextPolygon(FPointArray *points)
 			{
 				np = points->point(poi);
 #ifdef SC_USE_GDIPLUS
-				graphicsPath->CloseFigure();
-				graphicsPath->StartFigure();
+				m_graphicsPath->CloseFigure();
+				m_graphicsPath->StartFigure();
 #endif
-				moveTo( np.x() / m_zoomFactor, np.y() / m_zoomFactor );
+				moveTo( np.x(), np.y() );
 				nPath = false;
 			}
-			np.setXY( points->point(poi).x() / m_zoomFactor, points->point(poi).y() / m_zoomFactor );
-			np1.setXY( points->point(poi+1).x() / m_zoomFactor, points->point(poi+1).y() / m_zoomFactor );
-			np2.setXY( points->point(poi+3).x() / m_zoomFactor, points->point(poi+3).y() / m_zoomFactor );
-			np3.setXY( points->point(poi+2).x() / m_zoomFactor, points->point(poi+2).y() / m_zoomFactor );
+			np.setXY( points->point(poi).x(), points->point(poi).y() );
+			np1.setXY( points->point(poi+1).x(), points->point(poi+1).y() );
+			np2.setXY( points->point(poi+3).x(), points->point(poi+3).y() );
+			np3.setXY( points->point(poi+2).x(), points->point(poi+2).y() );
 			if ((np == np1) && (np2 == np3))
 				lineTo( np3.x(), np3.y() );
 			else
 				curveTo( np1, np2, np3 );
 		}
 #ifdef SC_USE_GDIPLUS
-		graphicsPath->CloseFigure();
+		m_graphicsPath->CloseFigure();
 #else
-    	EndPath( dc );
+    	EndPath( m_dc );
 #endif
-		pathClosed = true;
+		m_pathIsClosed = true;
 	}
 }
 
@@ -868,10 +850,10 @@ void ScPainterEx_GDI::drawRect(double x, double y, double w, double h)
 	lineTo( x, y+h );
 	lineTo( x, y );
 #ifndef SC_USE_GDIPLUS
-	EndPath(dc);
+	EndPath(m_dc);
 #endif
-	pathClosed = true;
-	drawingClosedCurve = true;
+	m_pathIsClosed = true;
+	m_drawingClosedPath = true;
 	fillPath();
 	strokePath();
 }
@@ -889,17 +871,17 @@ void ScPainterEx_GDI::drawGradient( VGradientEx& gradient )
 		drawCircularGradient( gradient, clipPathRect );
 	restore();
 #else
-	SaveDC( dc );
-	SelectClipPath( dc, RGN_COPY );
+	SaveDC( m_dc );
+	SelectClipPath( m_dc, RGN_COPY );
 	getClipPathDimensions( clipPathRect );
-	bool haveMsImg32 = ( hMsImg32 != NULL && gradientFill != NULL );
+	bool haveMsImg32 = ( m_hMsImg32 != NULL && m_gradientFill != NULL );
 	if ( gradient.type() == VGradientEx::linear && haveMsImg32 )
 		drawLinearGradient_GradientFill( gradient, clipPathRect );
 	else if ( gradient.type() == VGradientEx::linear )
 		drawLinearGradient( gradient, clipPathRect );
 	else if (gradient.type() == VGradientEx::radial)
 		drawCircularGradient( gradient, clipPathRect );
-	RestoreDC( dc, -1 );
+	RestoreDC( m_dc, -1 );
 #endif
 }
 
@@ -928,10 +910,10 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	if ( maxDim <= 0 ) 
 		return;
 
-	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11() * m_zoomFactor;
-	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22() * m_zoomFactor;
-	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11() * m_zoomFactor;
-	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22() * m_zoomFactor;
+	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
+	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22();
+	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11();
+	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22();
 	p1.setXY( x1, y1 );
 	p2.setXY( x2, y2 );
 
@@ -977,7 +959,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 									   PointF( p2a.x(), p2a.y() ),
 									   colors[0], colors[numElements - 1] );
 	gradientBrush.SetInterpolationColors(colors, positions, numElements);
-	graphics->FillPath( &gradientBrush, graphicsPath );
+	m_graphics->FillPath( &gradientBrush, m_graphicsPath );
 
 	delete[] colors;
 	delete[] positions;
@@ -1015,10 +997,10 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	increment = (int) max( scale1, scale2 );
 	increment = (increment < 2) ? 2 : increment;
 
-	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11() * m_zoomFactor;
-	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22() * m_zoomFactor;
-	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11() * m_zoomFactor;
-	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22() * m_zoomFactor;
+	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
+	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22();
+	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11();
+	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22();
 	p1.setXY( x1, y1 );
 	p2.setXY( x2, y2 );
 
@@ -1046,7 +1028,7 @@ void ScPainterEx_GDI::drawLinearGradient( VGradientEx& gradient, const QRect& re
 	xform.eM22 = cosa;
 	xform.eDx = x1;
 	xform.eDy = y1;
-	ModifyWorldTransform(dc, &xform, MWT_LEFTMULTIPLY);
+	ModifyWorldTransform(m_dc, &xform, MWT_LEFTMULTIPLY);
 
 	for( uint index = 1; index < gradient.Stops(); index++)
 	{
@@ -1109,10 +1091,10 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	maxDim = sqrt( clipBoxWidth * clipBoxWidth + clipBoxHeight * clipBoxHeight ) * 2;
 	if ( maxDim <= 0 ) return;
 
-	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11() * m_zoomFactor;
-	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22() * m_zoomFactor;
-	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11() * m_zoomFactor;
-	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22() * m_zoomFactor;
+	x1 = m_matrix.dx() + gradient.origin().x() * m_matrix.m11();
+	y1 = m_matrix.dy() + gradient.origin().y() * m_matrix.m22();
+	x2 = m_matrix.dx() + gradient.vector().x() * m_matrix.m11();
+	y2 = m_matrix.dy() + gradient.vector().y() * m_matrix.m22();
 	p1.setXY( x1, y1 );
 	p2.setXY( x2, y2 );
 
@@ -1132,7 +1114,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	xform.eM22 = cosa;
 	xform.eDx = x1;
 	xform.eDy = y1;
-	ModifyWorldTransform(dc, &xform, MWT_LEFTMULTIPLY);
+	ModifyWorldTransform(m_dc, &xform, MWT_LEFTMULTIPLY);
 
 	x1 = -maxDim;
 	stop1 = *colorStops[0];
@@ -1190,7 +1172,7 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 	meshes[numMeshes - 1].LowerRight = numVertices - 1;
 
 	// Finally call the gradient fill function
-	(*gradientFill)( dc, vertices, numVertices, meshes, numMeshes, GRADIENT_FILL_RECT_H );
+	(*m_gradientFill)( m_dc, vertices, numVertices, meshes, numMeshes, GRADIENT_FILL_RECT_H );
 
 	// Delete used arrays
 	delete[] vertices;
@@ -1200,17 +1182,17 @@ void ScPainterEx_GDI::drawLinearGradient_GradientFill( VGradientEx& gradient, co
 void ScPainterEx_GDI::drawRectangleStrip( int x, int y, int w, int h, int r, int g, int b, int a )
 {
 #ifndef SC_USE_GDIPLUS
-	SaveDC( dc );
+	SaveDC( m_dc );
 	HPEN hPen = CreatePen( PS_NULL, 0, RGB(255,255,255));
 	HBRUSH hBrush = CreateSolidBrush( RGB(r, g, b));
-	HGDIOBJ obj1 = SelectObject( dc, hPen );
-	HGDIOBJ obj2 = SelectObject( dc, hBrush );
-	Rectangle( dc, x, y, x + w, y + h );
-	SelectObject( dc, obj2 );
-	SelectObject( dc, obj1 );
+	HGDIOBJ obj1 = SelectObject( m_dc, hPen );
+	HGDIOBJ obj2 = SelectObject( m_dc, hBrush );
+	Rectangle( m_dc, x, y, x + w, y + h );
+	SelectObject( m_dc, obj2 );
+	SelectObject( m_dc, obj1 );
 	DeleteObject( hBrush );
 	DeleteObject( hPen );
-	RestoreDC( dc, -1 );
+	RestoreDC( m_dc, -1 );
 #endif
 }
 
@@ -1231,9 +1213,9 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	if ( maxDim <= 0 ) return;
 
 	FPoint pc( gradient.origin().x(), gradient.origin().y() );
-	FPoint pcz( gradient.origin().x() * m_zoomFactor, gradient.origin().y() * m_zoomFactor );
+	FPoint pcz( gradient.origin().x(), gradient.origin().y() );
 	FPoint pf( gradient.focalPoint().x(), gradient.focalPoint().y() );
-	FPoint pfz( gradient.focalPoint().x() * m_zoomFactor, gradient.focalPoint().y() * m_zoomFactor );
+	FPoint pfz( gradient.focalPoint().x(), gradient.focalPoint().y() );
 	FPoint pv( gradient.vector().x(), gradient.vector().y() );
 	transformPoint( pc, pc );
 	transformPoint( pf, pf );
@@ -1245,7 +1227,6 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	double fx = pfz.x();
 	double fy = pfz.y();
 	double rad = sqrt( pow(pv.x() - pc.x(), 2) + pow(pv.y() - pc.y(), 2) );
-	rad *= m_zoomFactor;
 
 	numElements = gradient.Stops() + 2;
 	Color *colors = new Color[numElements];
@@ -1279,7 +1260,7 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	gradientBrush.SetCenterPoint( PointF(cx, cy) );
 	gradientBrush.SetCenterColor( colors[numElements - 1] );
 	gradientBrush.SetInterpolationColors( colors, positions, numElements );
-	graphics->FillPath( &gradientBrush, graphicsPath );
+	m_graphics->FillPath( &gradientBrush, m_graphicsPath );
 
 	delete[] colors;
 	delete[] positions;
@@ -1309,9 +1290,9 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	increment = (increment < 2) ? 2 : increment;
 
 	FPoint pc( gradient.origin().x(), gradient.origin().y() );
-	FPoint pcz( gradient.origin().x() * m_zoomFactor, gradient.origin().y() * m_zoomFactor );
+	FPoint pcz( gradient.origin().x(), gradient.origin().y() );
 	FPoint pf( gradient.focalPoint().x(), gradient.focalPoint().y() );
-	FPoint pfz( gradient.focalPoint().x() * m_zoomFactor, gradient.focalPoint().y() * m_zoomFactor );
+	FPoint pfz( gradient.focalPoint().x(), gradient.focalPoint().y() );
 	FPoint pv( gradient.vector().x(), gradient.vector().y() );
 	transformPoint( pc, pc );
 	transformPoint( pf, pf );
@@ -1323,7 +1304,6 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 	double fx = pfz.x();
 	double fy = pfz.y();
 	double rad = sqrt( pow(pv.x() -pc.x(), 2) + pow(pv.y() - pc.y(), 2) );
-	rad *= m_zoomFactor;
 
 	ramp2 = stop2.rampPoint;
 	color =  transformColor( ScColorShade(stop2.color, stop2.shade), 1.0 );
@@ -1374,17 +1354,17 @@ void ScPainterEx_GDI::drawCircularGradient( VGradientEx& gradient, const QRect& 
 void ScPainterEx_GDI::drawCircleStrip( int x, int y, int w, int h, int r, int g, int b, int a )
 {
 #ifndef SC_USE_GDIPLUS
-	SaveDC( dc );
+	SaveDC( m_dc );
 	HPEN hPen = CreatePen( PS_NULL, 0, RGB(255,255,255));
 	HBRUSH hBrush = CreateSolidBrush( RGB(r, g, b));
-	HGDIOBJ obj1 = SelectObject( dc, hPen );
-	HGDIOBJ obj2 = SelectObject( dc, hBrush );
-	Ellipse( dc, x, y, x + w, y + h );
-	SelectObject( dc, obj2 );
-	SelectObject( dc, obj1 );
+	HGDIOBJ obj1 = SelectObject( m_dc, hPen );
+	HGDIOBJ obj2 = SelectObject( m_dc, hBrush );
+	Ellipse( m_dc, x, y, x + w, y + h );
+	SelectObject( m_dc, obj2 );
+	SelectObject( m_dc, obj1 );
 	DeleteObject( hBrush );
 	DeleteObject( hPen );
-	RestoreDC( dc, -1 );
+	RestoreDC( m_dc, -1 );
 #endif
 }
 
@@ -1392,7 +1372,7 @@ void ScPainterEx_GDI::getClipPathDimensions( QRect& r )
 {
 #ifdef SC_USE_GDIPLUS
 	Rect rect(0, 0, 0, 0);
-	Status result = graphics->GetClipBounds( &rect );
+	Status result = m_graphics->GetClipBounds( &rect );
 	if( result == Ok )
 	{
 		r.setLeft( rect.GetLeft() );
@@ -1402,7 +1382,7 @@ void ScPainterEx_GDI::getClipPathDimensions( QRect& r )
 	}
 #else
 	RECT rect = { 0, 0, 0, 0 };
-	int result = GetClipBox( dc, &rect );
+	int result = GetClipBox( m_dc, &rect );
 	if( result != NULLREGION && result != ERROR )
 	{
 		r.setLeft( rect.left );

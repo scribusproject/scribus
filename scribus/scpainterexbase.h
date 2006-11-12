@@ -46,13 +46,18 @@ for which a new license (GPL+exception) is in place.
 class SCRIBUS_API ScPainterExBase
 {
 protected:
-	ScPainterExBase() {};
+	int m_capabilities;
+	ScPainterExBase(void);
 public:
 
 	virtual ~ScPainterExBase() {};
-	enum FillMode { None, Solid, Gradient };
+	enum FillMode { None, Solid, Gradient, Pattern };
 	enum ColorMode { rgbMode = 1, cmykMode = 2 };
 	enum ImageMode { cmykImages, rgbImages, rgbProofImages, rawImages };
+	enum Capabilities{ basic = 0, transparencies = 1, patterns = 2 };
+
+	virtual Capabilities capabilities() { return basic; }
+	virtual bool hasCapability(Capabilities cap) { return ((m_capabilities & (int) cap) != 0); }
 
 	virtual int supportedColorModes() = 0;
 	virtual ColorMode preferredColorMode() = 0;
@@ -66,8 +71,6 @@ public:
 	// matrix manipulation
 	virtual void setWorldMatrix( const QWMatrix & ) = 0;
 	virtual const QWMatrix worldMatrix() = 0;
-	virtual void setZoomFactor( double ) = 0;
-	virtual double zoomFactor()  = 0;
 	virtual void translate( double, double ) = 0;
 	virtual void rotate( double ) = 0;
 	virtual void scale( double, double ) = 0;
@@ -84,7 +87,9 @@ public:
 	virtual void setFillRule( bool fillRule ) = 0;
 	virtual bool fillRule()  = 0;
 	virtual void setFillMode( int fill ) = 0;
-	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0)) = 0;
+	virtual int  fillMode() = 0;
+	virtual void setGradient( VGradientEx::Type mode, FPoint orig, FPoint vec, FPoint foc = FPoint(0,0) ) = 0;
+	virtual void setPattern ( ScPattern* pattern, QWMatrix& patternTransform ) = 0;
 	virtual void setClipPath() = 0;
 
 	virtual void drawImage( ScImage *image, ScPainterExBase::ImageMode mode ) = 0;
@@ -115,10 +120,10 @@ public:
 
 	virtual void setRasterOp( int op ) = 0;
 
-	virtual QPaintDevice *device() = 0;
-	virtual unsigned char *buffer() = 0;
-	VGradientEx fill_gradient;
-	VGradientEx stroke_gradient;
+	VGradientEx m_fillGradient;
+	VGradientEx m_strokeGradient;
+	ScPattern*  m_pattern;
+	QWMatrix    m_patternTransform;
 };
 
 #endif

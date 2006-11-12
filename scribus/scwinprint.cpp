@@ -246,7 +246,6 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	 
 	// Create the GDI painters
 	pageOutput = new ScPageOutput(doc, false);
-	pageOutput->setScale( 1.0 );
 	QRect drawRect( 0, 0, imagew, imageh );
 	painter = new ScPainterEx_GDI( dc, drawRect, !options.useColor );
 	
@@ -473,7 +472,6 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	 
 	// Create the GDI painter
 	pageOutput = new ScPageOutput(doc, true, 300, options.useICC);
-	pageOutput->setScale( 1.0 );
 	
 	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
 	painter = new ScPainterEx_GDI( printerDC, drawRect, !options.useColor );
