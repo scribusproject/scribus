@@ -495,6 +495,9 @@ bool SCFonts::AddScalableFont(QString filename, FT_Library &library, QString Doc
 			t.m->hasNames = HasNames;
 			t.embedPs(true);
 			t.usable(true);
+			t.m->status = ScFace::UNKNOWN;
+			if (face->num_glyphs > 2048)
+				t.subset(true);
 			t.m->forDocument = DocName;
 			//setBestEncoding(face); //AV
 /*			switch (face->charmap? face->charmap->encoding : -1)
