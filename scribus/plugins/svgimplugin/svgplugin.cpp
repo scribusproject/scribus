@@ -2034,7 +2034,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	}
 	double xpos = ite->xPos();
 	double ypos = ite->yPos();
-		ite->setWidthHeight(QMAX(ite->width(), maxWidth), QMAX(ite->height(), maxHeight));
+	ite->setWidthHeight(QMAX(ite->width(), maxWidth), QMAX(ite->height(), maxHeight));
 	double xoffset = 0.0, yoffset = 0.0;
 	if( gc->textAnchor == "middle" )
 	{
