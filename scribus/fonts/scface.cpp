@@ -35,7 +35,7 @@ GlyphMetrics ScFace::ScFaceData::glyphBBox(uint gl, double sz) const
 
 double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
 {
-	if (gl >= 2000000000)
+	if (gl >= CONTROL_GLYPHS)
 		return 0.0;
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
@@ -46,7 +46,7 @@ double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
 
 FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const 
 { 
-	if (gl >= 2000000000)
+	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
@@ -60,7 +60,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const
 
 FPoint ScFace::ScFaceData::glyphOrigin(uint gl, double sz) const 
 {
-	if (gl >= 2000000000)
+	if (gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
@@ -200,17 +200,17 @@ void ScFace::unload() const
 }
 
 
-static uint emulateGlyph(QChar ch)
+uint ScFace::emulateGlyph(QChar ch) const
 {
 	if (ch == SpecialChars::LINEBREAK || ch == SpecialChars::PARSEP 
 		|| ch == SpecialChars::FRAMEBREAK || ch == SpecialChars::COLBREAK 
 		|| ch == SpecialChars::TAB || ch == SpecialChars::SHYPHEN
 		 || ch == SpecialChars::ZWSPACE || ch == SpecialChars::ZWNBSPACE)
-		return 2000000000 + ch.unicode();
+		return CONTROL_GLYPHS + ch.unicode();
 	else if (ch == SpecialChars::NBSPACE)
-		return 32;
+		return  m->char2CMap(QChar(' '));
 	else if(ch == SpecialChars::NBHYPHEN)
-		return QChar('-').unicode();
+		return  m->char2CMap(QChar('-'));
 	else
 		return 0;
 }
@@ -234,8 +234,10 @@ bool ScFace::canRender(QChar ch) const
 	if (!usable())
 		return false;
 	else {
-		uint gl = char2CMap(ch); //  calls load()
-		if (gl != 0 && gl < 2000000000) {
+		uint gl = char2CMap(ch);    //  calls load()
+		if (gl >= CONTROL_GLYPHS)   //  those are always zero width and empty
+			return true;
+		else if (gl != 0) {
 			m->loadGlyph(gl);
 			return ! m->m_glyphOutline[gl].broken; 
 		}

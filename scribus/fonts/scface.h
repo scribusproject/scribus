@@ -365,6 +365,7 @@ private:
 	
 	void initFaceData();
 	void checkAllGlyphs();
+	uint emulateGlyph(QChar c) const;
 };
 
 #endif
