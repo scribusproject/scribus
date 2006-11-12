@@ -1744,13 +1744,12 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 	QPoint pt1, pt2;
 	FPoint ColBound;
 	QRegion cm;
-	int CurrCol;
-	double wide, lineCorr, ColWidth;
+	double wide, lineCorr;
 	QString chstr;
 	ScText *hl;
 
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
-	double desc, asce, maxDY, tabDist;
+	double desc, asce, tabDist;
 	tTabValues.clear();
 	p->save();
 	pf2.begin(view->viewport());
@@ -1908,50 +1907,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}
-/* see drawGlyphs()
-                if (((chstr[0] == QChar(13)) || (chstr[0] == QChar(28))) && (m_Doc->guidesSettings.showControls))
-				{
-					if (e2.intersects(pf2.xForm(QRect(qRound(hl->glyph.xoffset + hl->glyph.xadvance),qRound(hl->glyph.yoffset - asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
-					{
-						FPointArray points;
-						double ytrans, xtrans;
-						if (chstr[0] == QChar(13))
-						{
-							points = m_Doc->symReturn.copy();
-							if (a > 0)
-								ytrans = itemText.item(a-1)->glyph.yoffset-((charStyle.fontSize() / 10.0) * 0.8);
-							else
-								ytrans = Zli3.yco - style.lineSpacing()-((charStyle.fontSize() / 10.0) * 0.8);
-						}
-						else
-						{
-							points = m_Doc->symNewLine.copy();
-							if (a > 0)
-								ytrans = itemText.item(a-1)->glyph.yoffset-((charStyle.fontSize() / 10.0) * 0.4);
-							else
-								ytrans = hl->glyph.yoffset - style.lineSpacing()-((charStyle.fontSize() / 10.0) * 0.4);
-						}
-						if (charStyle.effects() & ScStyle_StartOfLine)
-							xtrans = hl->glyph.xoffset;
-						else
-						{
-							if (a > 0)
-								xtrans = itemText.item(a-1)->glyph.xoffset+ itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
-							else
-								xtrans = hl->glyph.xoffset;
-						}
-						QWMatrix chma, chma2, chma4, chma5;
-						chma4.translate(xtrans, ytrans);
-						chma.scale(Zli3.Siz / 100.0, Zli3.Siz / 100.0);
-						chma2.scale(Zli3.scale / 1000.0, Zli3.scalev / 1000.0);
-						chma5.scale(p->zoomFactor(), p->zoomFactor());
-						points.map(chma * chma2 * chma4 * chma5);
-						p->setupTextPolygon(&points);
-						p->setFillMode(1);
-						p->fillPath();
-					}
-				}
-*/
 					// paint glyphs
 					if (e2.intersects(pf2.xForm(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
 					{
@@ -1966,28 +1921,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							CurX += hl->glyph.wide();
 						}
 						p->restore();
-					}
-/*
- see layout()   if (charStyle.effects() & ScStyle_SmartHyphenVisible)
-				{
-					Zli3.Zeich = "-";
-					Zli3.xco = Zli3.xco + Zli3.wide;
-					if (e2.intersects(pf2.xForm(QRect(qRound(Zli3.xco),qRound(Zli3.yco-asce), qRound(Zli3.wide+1), qRound(asce+desc)))))
-						DrawZeichenS(p, &Zli3);
-				}
- */			
+					}		
 				}
 				tabDist = CurX;
 			}
 		}
-		/*
-		if (itemText.count() > MaxChars)
-		{//CB && added here for jghali prior to commit access
-		//Draw the overflow icon
-			if (!m_Doc->RePos && !ScMW->view->previewMode)
-				drawOverflowMarker(p);
-		}
-		*/
 	}
 	else {
 //		qDebug("skipping textframe: len=%d", itemText.count());
