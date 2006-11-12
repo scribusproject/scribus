@@ -324,6 +324,11 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	BleedLeft->setSuffix( unit );
 	BleedLeft->setMinValue(0);
 	BleedLeft->setMaxValue(3000*unitRatio);
+	if (m_doc->currentPageLayout != 0)
+	{
+		BleedTxt3->setText( tr( "Inside:" ) );
+		BleedTxt4->setText( tr( "Outside:" ) );
+	}
 
 	DruckLayout->addWidget( printOptions );
 

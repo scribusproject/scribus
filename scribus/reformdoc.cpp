@@ -141,38 +141,20 @@ ReformDoc::ReformDoc( QWidget* parent, ScribusDoc* doc ) : PrefsDialogBase( pare
 void ReformDoc::restoreDefaults()
 {
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
-	//QWidget* current = prefsWidgets->visibleWidget();
-	//if (current == tabPage)
-	//{
 	tabPage->restoreDefaults(currDoc);
-	//}
-	//else if (current == tabView)
-	//{
 	tabView->restoreDefaults(prefsData, &currDoc->guidesSettings);
-	//}
-	//else if (current == tabHyphenator)
-	//{
 	tabHyphenator->restoreDefaults(currDoc);
-	//}
-	//else if (current == tabGuides)
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
-	//else if (current == tabTypo)
 	tabTypo->restoreDefaults(&currDoc->typographicSettings);
-	//else if (current == tabTools)
 	tabTools->restoreDefaults(&currDoc->toolSettings, docUnitIndex);
-	//else if (current == tabFonts)
 	tabFonts->restoreDefaults();
-	//else if (current == tabDocChecker)
 	tabDocChecker->restoreDefaults(&currDoc->checkerProfiles, currDoc->curCheckProfile);
-	//else if (current == tabPDF)
 	tabPDF->restoreDefaults(currDoc->PDF_Options, PrefsManager::instance()->appPrefs.AvailFonts,
 							ScCore->PDFXProfiles, currDoc->UsedFonts, currDoc->PDF_Options.PresentVals,
 							docUnitIndex, currDoc->pageHeight, currDoc->pageWidth, currDoc, false);
-	//else if (current == tabColorManagement)
 	tabColorManagement->restoreDefaults(&currDoc->CMSSettings, &ScCore->InputProfiles,
 										 &ScCore->InputProfilesCMYK,
 										 &ScCore->PrinterProfiles, &ScCore->MonitorProfiles);
-	//else if (current == docInfos)
 	docInfos->restoreDefaults();
 
 	unitChange();
@@ -181,13 +163,11 @@ void ReformDoc::restoreDefaults()
 void ReformDoc::unitChange()
 {
 	double oldUnitRatio = unitRatio;
-	//double oldMin, oldMax, oldB, oldBM, oldH, oldHM, val;
 	docUnitIndex = tabPage->unitCombo->currentItem();
 	unitRatio = unitGetRatioFromIndex(docUnitIndex);
 	int decimals = unitGetDecimalsFromIndex(docUnitIndex);
 	QString suffix = unitGetSuffixFromIndex(docUnitIndex);
 	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
-	
 	tabPage->unitChange();
 	tabGuides->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 	tabView->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
@@ -200,6 +180,7 @@ void ReformDoc::setDS(int layout)
 	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
 	tabPage->choosenLayout = layout;
 	tabPage->docLayout->firstPage->setCurrentItem(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
+	tabPage->adjustBleed(!(layout == singlePage));
 	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
 	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
 }
@@ -256,6 +237,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->ScratchLeft = tabView->leftScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchRight = tabView->rightScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchTop = tabView->topScratch->value() / currDoc->unitRatio();
+	currDoc->BleedBottom = tabPage->BleedBottom->value() / currDoc->unitRatio();
+	currDoc->BleedTop = tabPage->BleedTop->value() / currDoc->unitRatio();
+	currDoc->BleedLeft = tabPage->BleedLeft->value() / currDoc->unitRatio();
+	currDoc->BleedRight = tabPage->BleedRight->value() / currDoc->unitRatio();
 	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
