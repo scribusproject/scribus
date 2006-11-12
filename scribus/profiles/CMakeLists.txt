@@ -3,7 +3,7 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
-Fogra27L.icm
+#Fogra27L.icm
 Readme
 sRGB.icm
 srgb.license

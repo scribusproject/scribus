@@ -29,7 +29,7 @@ INSTALL(TARGETS ${SCRIBUS_IMPORTPS_PLUGIN}
 
 INSTALL(FILES 
 import.prolog
-import_la.prolog
+#import_la.prolog
   DESTINATION ${LIBDIR}
 )
 

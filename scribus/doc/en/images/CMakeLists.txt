@@ -11,7 +11,7 @@ acropass.png
 acroreader5.1.png
 acrosec.png
 after_short_words.png
-automargins.png
+#automargins.png
 batik1.png
 before_short_words.png
 CMakeLists.txt
@@ -25,7 +25,7 @@ docheader1.png
 docheader2.png
 docinfo2.png
 docinfo.png
-external.png
+#external.png
 fontpref1.png
 fontpref2.png
 fontpref3.png
@@ -57,7 +57,7 @@ hyphen3.png
 inkscape.png
 kfontinstaller.png
 ksnapshot.png
-layers1.png
+#layers1.png
 monprof1.png
 monprof2.png
 monprof3.png
@@ -66,7 +66,7 @@ oochart.png
 ooeps1.png
 oogettext1.png
 pagetemplate1.png
-pagenumbering.png
+#pagenumbering.png
 pdfeffect1.png
 pdfeffect2.png
 pdfx3-1.png
@@ -84,7 +84,7 @@ prefs6.png
 prefs8.png
 prefsblgrid1.png
 prefsdisplay.png
-prefsgeneral.png
+#prefsgeneral.png
 prefs-mac-1.png
 prefs.png
 printer1.png

@@ -1,4 +1,4 @@
-EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_is.dic hyph_it.dic  hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_pt_BR.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic README_ca_ES.txt  README_en_EN.txt  README_is_IS.txt README_lt_LT.txt  README_ru_RU_0.txt README_cs_CZ.txt  README_en_GB.txt  README_no_NO.txt  README_sk_SK.txt README_cy_GB.txt  README_es_ES.txt  README_pl_PL.txt  README_sl_SI.txt README_da_DK.txt  README_fi_FI.txt  README_pt_BR.txt  README_sv_SE.txt README_de_DE.txt  README_hu_HU.txt  README_pt_PT.txt  README_uk_UA.txt 
+EXTRA_DIST = hyph_af.dic hyph_sl.dic hyph_sv.dic hyph_lt.dic hyph_ga.dic hyph_fi.dic hyph_el.dic hyph_cs.dic hyph_de.dic hyph_en.dic hyph_es.dic hyph_fr.dic hyph_id.dic hyph_is.dic hyph_it.dic  hyph_ru.dic hyph_da.dic hyph_sk.dic hyph_hu.dic hyph_pt.dic hyph_pt_BR.dic hyph_nl.dic hyph_uk.dic hyph_ca.dic README_ca_ES.txt  README_en_EN.txt  README_id_ID.txt README_is_IS.txt README_lt_LT.txt  README_ru_RU_0.txt README_cs_CZ.txt  README_en_GB.txt  README_no_NO.txt  README_sk_SK.txt README_cy_GB.txt  README_es_ES.txt  README_pl_PL.txt  README_sl_SI.txt README_da_DK.txt  README_fi_FI.txt  README_pt_BR.txt  README_sv_SE.txt README_de_DE.txt  README_hu_HU.txt  README_pt_PT.txt  README_uk_UA.txt 
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/dicts/
@@ -15,6 +15,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/hyph_ga.dic $(libdir)/scribus/dicts/hyph_ga.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_hr.dic $(libdir)/scribus/dicts/hyph_hr.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_hu.dic $(libdir)/scribus/dicts/hyph_hu.dic
+	$(INSTALL_DATA) $(srcdir)/hyph_id.dic $(libdir)/scribus/dicts/hyph_id.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_is.dic $(libdir)/scribus/dicts/hyph_is.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_it.dic $(libdir)/scribus/dicts/hyph_it.dic
 	$(INSTALL_DATA) $(srcdir)/hyph_lt.dic $(libdir)/scribus/dicts/hyph_lt.dic
@@ -66,6 +67,8 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/hyph_ga.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_hr.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_hu.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_id.dic
+	-rm -f $(libdir)/scribus/dicts/hyph_id_ID.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_is_IS.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_it.dic
 	-rm -f $(libdir)/scribus/dicts/hyph_lt.dic
@@ -89,6 +92,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/dicts/README_es_ES.txt
 	-rm -f $(libdir)/scribus/dicts/README_fi_FI.txt
 	-rm -f $(libdir)/scribus/dicts/README_hu_HU.txt
+	-rm -f $(libdir)/scribus/dicts/README_id_ID.txt
 	-rm -f $(libdir)/scribus/dicts/README_is_IS.txt
 	-rm -f $(libdir)/scribus/dicts/README_lt_LT.txt
 	-rm -f $(libdir)/scribus/dicts/README_no_NO.txt

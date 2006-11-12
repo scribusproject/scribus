@@ -52,7 +52,7 @@ intro.html
 irc.html
 javascriptpdf.html
 keys.html
-layers.html
+#layers.html
 lipsum.html
 machints1.html
 machints2.html
@@ -61,7 +61,7 @@ moncal.html
 mouse.html
 otherinfo.html
 pagetemplate1.html
-pagenumber.html
+#pagenumber.html
 parallel-install.html
 pdfexport1.html
 pdfexport2.html

@@ -24,7 +24,7 @@ hyph_it.dic
 hyph_lt.dic
 hyph_nl.dic
 hyph_nn_NO.dic
-hyph_nb_NO.dic
+#hyph_nb_NO.dic
 hyph_pl.dic
 hyph_pt_BR.dic
 hyph_pt.dic
