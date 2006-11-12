@@ -2661,6 +2661,14 @@ strings.
       <source>Tango Project Icons:</source>
       <translation>Tango-projektin kuvakkeet:</translation>
     </message>
+    <message>
+      <source>&amp;Updates</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Check for &amp;Updates</source>
+      <translation type="unfinished" />
+    </message>
   </context>
   <context>
     <name>AboutPlugins</name>
@@ -5842,6 +5850,98 @@ Sitä ei voi käyttää.</translation>
       <comment>color name</comment>
       <translation>Ei mitään</translation>
     </message>
+    <message>
+      <source>Normal</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Normal Left</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Normal Middle</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Normal Right</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Monday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Tuesday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Wednesday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Thursday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Friday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Saturday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Sunday</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>January</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>February</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>March</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>April</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>May</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>June</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>July</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>August</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>September</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>October</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>November</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>December</source>
+      <translation type="unfinished" />
+    </message>
   </context>
   <context>
     <name>Cpalette</name>
@@ -6925,6 +7025,10 @@ failed!</source>
     <message>
       <source>Click to select the line spacing mode</source>
       <translation>Paina valitaksesi rivivälin tyypin</translation>
+    </message>
+    <message>
+      <source>Auto</source>
+      <translation type="unfinished" >Auto</translation>
     </message>
   </context>
   <context>
@@ -8674,6 +8778,22 @@ vektoridatan Scribus-objekteiksi.</translation>
       <source>New Master Page %1</source>
       <translation>Uusi mallisivu %1</translation>
     </message>
+    <message>
+      <source>Unable to Rename Master Page</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>The Normal page is not allowed to be renamed.</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Rename Master Page</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>New Name:</source>
+      <translation type="unfinished" />
+    </message>
   </context>
   <context>
     <name>Mdup</name>
@@ -9335,7 +9455,7 @@ Corners:</source>
     </message>
     <message>
       <source>&amp;Free Scaling</source>
-      <translation>&amp;Ei skaalausta</translation>
+      <translation>&amp;Ei sovitusta</translation>
     </message>
     <message>
       <source>X-Sc&amp;ale:</source>
@@ -9347,7 +9467,7 @@ Corners:</source>
     </message>
     <message>
       <source>Scale &amp;To Frame Size</source>
-      <translation>Skaalaa &amp;kehyksen kokoon</translation>
+      <translation>Sovita &amp;kehyksen kokoon</translation>
     </message>
     <message>
       <source>P&amp;roportional</source>
@@ -9454,10 +9574,6 @@ Corners:</source>
       <translation>nollasta poikkeavat</translation>
     </message>
     <message>
-      <source>Click to select the line spacing mode</source>
-      <translation>Paina valitaksesi rivivälin tyypin</translation>
-    </message>
-    <message>
       <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
       <translation>Tekstin ääriviivojen tai varjon väri. Jos molemmat ovat valittuna, ne jakavat saman värin.</translation>
     </message>
@@ -9476,6 +9592,14 @@ Corners:</source>
     <message>
       <source>Use a second line originally based on the frame's shape for text flow of text frames below the object. </source>
       <translation>Käytä vapaasti muokattavaa reunusta tekstin kierron rajana. Oletusarvona reunuksella on kehyksen muoto.</translation>
+    </message>
+    <message>
+      <source>Auto</source>
+      <translation type="unfinished" >Auto</translation>
+    </message>
+    <message>
+      <source>Click and hold down to select the line spacing mode.</source>
+      <translation type="unfinished" />
     </message>
   </context>
   <context>
@@ -10888,7 +11012,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>&amp;Interval:</source>
-      <translation>&amp;Väli:</translation>
+      <translation>&amp;Tallennusväli:</translation>
     </message>
     <message>
       <source>Display &amp;Unprintable Area in Margin Color</source>
@@ -13550,7 +13674,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Minimum Scratch Space</source>
-      <translation>Pienin mahdollinen työalue</translation>
+      <translation>Sivujen ulkopuolinen alue</translation>
     </message>
     <message>
       <source>Gaps between Pages</source>
@@ -13578,7 +13702,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Apply size settings to all pages</source>
-      <translation>Käytä kokoasetusta kaikkiin sivuihin</translation>
+      <translation>Käytä koon asetuksia kaikkiin sivuihin</translation>
     </message>
     <message>
       <source>Apply the page size changes to all existing pages in the document</source>
@@ -16838,7 +16962,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
       <source>&amp;Scaling:</source>
-      <translation>&amp;Skaalaus:</translation>
+      <translation>&amp;Koon muutos:</translation>
     </message>
     <message>
       <source>Superscript</source>
@@ -16850,7 +16974,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
       <source>S&amp;caling:</source>
-      <translation>S&amp;kaalaus:</translation>
+      <translation>K&amp;oon muutos:</translation>
     </message>
     <message>
       <source>Underline</source>
@@ -16878,7 +17002,7 @@ yhteydessä suoritettava JavaScript:</translation>
     </message>
     <message>
       <source>Sc&amp;aling:</source>
-      <translation>Skaa&amp;laus:</translation>
+      <translation>Koo&amp;n muutos:</translation>
     </message>
     <message>
       <source>Automatic &amp;Line Spacing</source>
@@ -17552,6 +17676,54 @@ X: %4, Y: %5</translation>
       <source>%1: %2</source>
       <comment>undo target: action (f.e. Text frame: Resize)</comment>
       <translation>%1: %2</translation>
+    </message>
+  </context>
+  <context>
+    <name>UpgradeChecker</name>
+    <message>
+      <source>Attempting to get the Scribus version update file</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>(No data on your computer will be sent to an external location)</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Timed out when attempting to get update file.</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Error when attempting to get update file: %1</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>File not found on server</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>No updates are available for your version of Scribus %1</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>One or more updates for your version of Scribus (%1) are available:</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>This list may contain development versions.</source>
+      <translation type="unfinished" />
+    </message>
+    <message>
+      <source>Please visit www.scribus.net for details.</source>
+      <translation type="unfinished" />
     </message>
   </context>
   <context>
