@@ -4297,7 +4297,7 @@ void Mpalette::languageChange()
 	QToolTip::add(Revert, tr("Right to Left Writing"));
 	QToolTip::add(Extra, tr("Manual Tracking"));
 	QToolTip::add(LineSp, tr("Line Spacing"));
-	QToolTip::add(linespacingButton, tr("Click to select the line spacing mode"));
+	QToolTip::add(linespacingButton, "<qt>" + tr("Click and hold down to select the line spacing mode.") + "</qt>" );
 	QToolTip::add(Spal, tr("Style of current paragraph"));
 //	QToolTip::add(langCombo, tr("Hyphenation language of frame"));
 
