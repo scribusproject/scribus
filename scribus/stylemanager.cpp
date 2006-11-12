@@ -36,7 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpair.h>
 #include <qmessagebox.h>
 
-const QString StyleManager::SEPARATOR = "$$$$";
+const QString StyleManager::SEPARATOR = "$$$$"; // dumb but it works
 
 StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, name), item_(0), widget_(0), shortcutWidget_(0), currentType_(QString::null), isEditMode_(true)
 {
@@ -52,6 +52,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	styleView->addColumn(tr("Shortcut"));
 	styleView->setColumnWidthMode(NAME_COL, QListView::Maximum);
 	styleView->setColumnWidthMode(SHORTCUT_COL, QListView::Maximum);
+	styleView->setColumnWidth(NAME_COL, 0);
+	styleView->setColumnWidth(SHORTCUT_COL, 0);
 	styleView->header()->hide();
 	applyButton->setEnabled(false);
 	resetButton->setEnabled(false);

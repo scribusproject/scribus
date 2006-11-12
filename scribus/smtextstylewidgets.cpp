@@ -246,8 +246,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 	if (hasParent_)
 	{
-		cpage->parentCombo->insertItem( tr("Parent's Character Style"), 1);
-		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parentStyle()->hasName())
+		if (pstyle.charStyle().parentStyle() && pstyle.charStyle().parentStyle()->hasName())
 		{
 			QString pname = pstyle.charStyle().parentStyle()->name();
 			for (int i = 2; i < cpage->parentCombo->count(); ++i)
@@ -259,14 +258,12 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 				}
 			}
 		}
-		else if (pstyle.charStyle().hasParent())
-			cpage->parentCombo->setCurrentItem(1); // from parent
 		else
-			cpage->parentCombo->setCurrentItem(0); // custom
+			cpage->parentCombo->setCurrentItem(0);
 	}
 	else
 	{
-		if (pstyle.charStyle().hasParent() && pstyle.charStyle().parentStyle()->hasName())
+		if (pstyle.charStyle().parentStyle() && pstyle.charStyle().parentStyle()->hasName())
 		{
 			QString pname = pstyle.charStyle().parentStyle()->name();
 			for (int i = 1; i < cpage->parentCombo->count(); ++i)
@@ -279,9 +276,7 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 			}
 		}
 		else
-		{
-			cpage->parentCombo->setCurrentItem(0); // custom
-		}
+			cpage->parentCombo->setCurrentItem(0);
 	}
 
 	

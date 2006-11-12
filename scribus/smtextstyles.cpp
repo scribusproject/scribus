@@ -1205,17 +1205,18 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 }
 
 void SMParagraphStyle::slotCharParentChanged(const QString &parent)
-{ // TODO Multiple selection
-//   FIXME crashing crashing crashing
+{
 	Q_ASSERT(parent != QString::null);
 
 	QStringList sel;
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		// reset everything to NOVALUE
 		selection_[i]->charStyle().erase();
-		selection_[i]->charStyle().setParent(parent);
+		if (parent == QString::null)
+			selection_[i]->charStyle().setParent("");
+		else
+			selection_[i]->charStyle().setParent(parent);
 
 		sel << selection_[i]->name();
 	}
