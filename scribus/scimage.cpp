@@ -3717,6 +3717,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 							_TIFFfree(bits);
 						}
 					}
+					isCMYK = true;
 					if (realCMYK != 0)
 						*realCMYK = true;
 					if (systemBigEndian) {
