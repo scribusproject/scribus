@@ -43,7 +43,7 @@ void UpgradeChecker::init()
 	getter=0;
 	updates.clear();
 	version=(VERSION);
-	stability="unstablecvs";
+	stability="stable";
 	QString versionStripped=version.lower();
 	isCVS=versionStripped.contains("cvs");
 	if (isCVS)
@@ -162,6 +162,11 @@ bool UpgradeChecker::process( QFile& dataFile )
 						uint verMinor=verAStripped.section('.',1,1).toInt();
 						uint verRevsion1=verAStripped.section('.',2,2).toInt();
 						uint verRevsion2=verAStripped.section('.',3,3).toInt();
+						//If we found a release whe a user is running an old CVS version
+						if (verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2 && isCVS && !verIsCVS && !updates.contains(verA))
+							updates.append(verA);
+						else
+						//If we found a version that is not the same as what we are running
 						if (!(verMajor==major && verMinor==minor && verRevsion1==revision1 && verRevsion2==revision2))
 						{
 							if (
