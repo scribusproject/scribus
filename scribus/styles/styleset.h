@@ -4,7 +4,6 @@
 #define STYLESET_H
 
 #include <assert.h>
-#include <qvaluelist.h>
 #include "style.h"
 
 template<class STYLE>
@@ -13,8 +12,8 @@ public:
 	STYLE& operator[] (uint index) { assert(index < styles.count()); return * styles[index]; }
 	const STYLE& operator[] (const QString& name) const { return * dynamic_cast<const STYLE*>(resolve(name)); }
 	const STYLE& operator[] (uint index) const { assert(index < styles.count()); return * styles[index]; }
-	inline int find(QString name);
-	inline const Style* resolve(QString name) const;
+	inline int find(const QString& name) const;
+	inline const Style* resolve(const QString& name) const;
 	uint count() const { return (uint) styles.count(); }
 	void append(STYLE* style) { styles.append(style); style->setBase(this); invalidate(); }
 	inline void remove(uint index);
@@ -46,7 +45,7 @@ inline void StyleSet<STYLE>::remove(uint index)
 }
 
 template<class STYLE>
-inline int StyleSet<STYLE>::find(QString name)
+inline int StyleSet<STYLE>::find(const QString& name) const
 {
 	for (uint i=0; i < styles.count(); ++i)
 		if (styles[i]->name() == name)
@@ -55,7 +54,7 @@ inline int StyleSet<STYLE>::find(QString name)
 }
 
 template<class STYLE>
-inline const Style* StyleSet<STYLE>::resolve(QString name) const
+inline const Style* StyleSet<STYLE>::resolve(const QString& name) const
 {
 	for (uint i=0; i < styles.count(); ++i)
 		if (styles[i]->name() == name)

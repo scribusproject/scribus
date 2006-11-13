@@ -64,7 +64,7 @@ public:
 	virtual int version() const  { return m_version; }
 	void invalidate()    { m_version += m_level; }
 	
-	virtual const Style* resolve(QString name) const = 0;
+	virtual const Style* resolve(const QString& name) const = 0;
 	virtual ~StyleBase() 
 	{
 //		qDebug(QString("destr. %1").arg(reinterpret_cast<uint>(this),16));
@@ -117,7 +117,7 @@ public:
 	virtual ~Style()                 {}
 
 	QString name() const             { return m_name; }
-	void setName(QString n)          { m_name = n; }
+	void setName(const QString& n)   { m_name = n; }
 	bool hasName() const             { return ! m_name.isEmpty(); }
 
 	virtual QString displayName() const { 	
@@ -130,13 +130,19 @@ public:
 	}
 	
 	QString parent() const           { return m_parent; }
-	void setParent(QString p)        { m_parent = p; }
+	void setParent(const QString& p) { if (m_parent != p) m_baseversion = -1; m_parent = p; }
 	bool hasParent() const           { return ! m_parent.isEmpty(); }
 	const Style* parentStyle() const { //qDebug(QString("follow %1").arg(reinterpret_cast<uint>(m_base),16));
-		return m_base ? m_base->resolve(m_parent) : NULL; }
+		const Style * par = m_base ? m_base->resolve(m_parent) : NULL;
+		if (par == this) return NULL; else return par;
+	}
 	
 	
-	void setBase(const StyleBase* base)  { m_base = base; m_baseversion = -1;
+	void setBase(const StyleBase* base)  { 
+		if (m_base != base) {
+			m_base = base; 
+			m_baseversion = -1;
+		}
 	  //qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
 	}
 	const StyleBase* base() const        { return m_base; }
@@ -212,7 +218,7 @@ public:
 class StyleBaseProxy: public StyleBase 
 {
 public:
-	const Style* resolve(QString name) const {
+	const Style* resolve(const QString& name) const {
 		if (name.isEmpty() || ! m_default->base())
 			return m_default;
 		else
@@ -243,6 +249,7 @@ public:
 	const Style* defaultStyle() const { return m_default; }
 	
 	void setDefaultStyle(const Style* def) { 
+		assert (this != def->base());
 		m_default = def; 
 	}
 	
