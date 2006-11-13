@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "util.h"
+#include "text/storytext.h"
 
 QMap<QString, QKeySequence> ActionManager::defKeys;
 QValueVector< QPair<QString, QStringList> > ActionManager::defMenus;
@@ -798,13 +799,13 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	QString name;
 	//typography
 	name="unicodeSmartHyphen";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeSmartHyphen",-1));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeSmartHyphen",SpecialChars::SHYPHEN.unicode()));
 	name="unicodeNonBreakingHyphen";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeNonBreakingHyphen",24));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeNonBreakingHyphen", SpecialChars::NBHYPHEN.unicode()));
 	name="unicodeNonBreakingSpace";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeNonBreakingSpace",29));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeNonBreakingSpace",SpecialChars::NBSPACE.unicode()));
 	name="unicodePageNumber";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodePageNumber",30));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodePageNumber",SpecialChars::PAGENUMBER.unicode()));
 	//Spaces
 	name="unicodeSpaceEN";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeSpaceEN",0x2002));
@@ -820,11 +821,11 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeSpaceHair",0x200A));
 	//Breaks
 	name="unicodeNewLine";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeNewLine",28));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeNewLine",SpecialChars::LINEBREAK.unicode()));
 	name="unicodeFrameBreak";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeFrameBreak",27));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeFrameBreak",SpecialChars::FRAMEBREAK.unicode()));
 	name="unicodeColumnBreak";
-	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeColumnBreak",26));
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeColumnBreak",SpecialChars::COLBREAK.unicode()));
 	//Special
 	name="unicodeCopyRight";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeCopyRight",0x0A9));
