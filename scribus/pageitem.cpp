@@ -303,7 +303,6 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	BExtra = 0;
 	RExtra = 0;
 	ExtraV = 0;
-	itemText.clear();
 #ifndef NLS_PROTO
 	firstChar = 0;
 	MaxChars = 0;
@@ -661,17 +660,10 @@ const ParagraphStyle& PageItem::currentStyle() const
 /// returns the style at the current charpos for changing
 ParagraphStyle& PageItem::changeCurrentStyle()
 {
-#if 0
-	if (frameDisplays(CPos) && itemText.item(CPos)->cab > 4)
-		return m_Doc->docParagraphStyles[itemText.item(CPos)->cab];
-	else
-		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
-#else
 	if (frameDisplays(CPos))
 		return const_cast<ParagraphStyle&>(itemText.paragraphStyle(CPos));
 	else
 		return const_cast<ParagraphStyle&>(itemText.defaultStyle());
-#endif
 }
 
 /// returns the style at the current charpos
@@ -1546,9 +1538,26 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	else {
 		layout.scaleH = style.scaleH() / 1000.0;
 		layout.scaleV = style.scaleV() / 1000.0;
+	}	
+	
+	if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) {
+		uint replGlyph = style.font().char2CMap(QChar(' '));
+		layout.xadvance = style.font().glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
+		layout.yadvance = style.font().glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
-	layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
-	layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
+	else if (layout.glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode())) {
+		uint replGlyph = style.font().char2CMap(QChar('-'));
+		layout.xadvance = style.font().glyphWidth(replGlyph, style.fontSize() / 10) * layout.scaleH;
+		layout.yadvance = style.font().glyphBBox(replGlyph, style.fontSize() / 10).ascent * layout.scaleV;
+	}
+	else if (layout.glyph >= ScFace::CONTROL_GLYPHS) {
+		layout.xadvance = 0;
+		layout.yadvance = 0;
+	}
+	else {
+		layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
+		layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
+	}
 	if (chars.length() > 1) {
 		layout.grow();
 		layoutGlyphs(style, chars.mid(1), *layout.more);
@@ -1565,41 +1574,67 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& glyphs)
 {
 	uint glyph = glyphs.glyph;
-	if ((m_Doc->guidesSettings.showControls) && (glyph >=  ScFace::CONTROL_GLYPHS))
+	if ((m_Doc->guidesSettings.showControls) && 
+		(glyph == style.font().char2CMap(QChar(' ')) || glyph >=  ScFace::CONTROL_GLYPHS))
 	{
-		glyph -= ScFace::CONTROL_GLYPHS;
+		bool stroke = false;
+		if (glyph >=  ScFace::CONTROL_GLYPHS)
+			glyph -= ScFace::CONTROL_GLYPHS;
+		else
+			glyph = 32;
 		qDebug(QString("drawControlGlyph: %1").arg(glyph));
 		QWMatrix chma, chma4, chma5;
 		FPointArray points;
-		if (glyph == (9))
+		if (glyph == SpecialChars::TAB.unicode())
 		{
 			points = m_Doc->symTab.copy();
 			chma4.translate(glyphs.xoffset - ((style.fontSize() / 10.0) * glyphs.scaleH * 0.7), glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV * 0.5));
 		}
-		else if (glyph == (26))
+		else if (glyph == SpecialChars::COLBREAK.unicode())
 		{
 			points = m_Doc->symNewCol.copy();
 			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV * 0.6));
 		}
-		else if (glyph == (27))
+		else if (glyph == SpecialChars::FRAMEBREAK.unicode())
 		{
 			points = m_Doc->symNewFrame.copy();
 			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV * 0.6));
 		}
-		else if (glyph == (13))
+		else if (glyph == SpecialChars::PARSEP.unicode())
 		{
 			points = m_Doc->symReturn.copy();
 			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV * 0.8));
 		}
-		else if (glyph == 28)
+		else if (glyph == SpecialChars::LINEBREAK.unicode())
 		{
 			points = m_Doc->symNewLine.copy();
 			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV * 0.4));
 		}
-		else
+		else if (glyph == SpecialChars::NBSPACE.unicode() ||
+				 glyph == 32)
 		{
+			stroke = (glyph == 32);
 			points = m_Doc->symNonBreak.copy();
 			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV * 0.4));
+		}
+		else if (glyph == SpecialChars::NBHYPHEN.unicode())
+		{
+			points = style.font().glyphOutline(style.font().char2CMap(QChar('-')), style.fontSize());
+			qDebug(QString("points: %1 (%2,%3)...").arg(points.size()).arg(points.point(0).x()).arg(points.point(0).y()));
+		}
+		else if (glyph == SpecialChars::SHYPHEN.unicode())
+		{
+			points.resize(0);
+			points.addQuadPoint(0, -10, 0, -10, 0, -6, 0, -6);
+			stroke = true;
+		}
+		else // ???
+		{
+			points.resize(0);
+			points.addQuadPoint(0, -10, 0, -10, 0, -9, 0, -9);			
+			points.addQuadPoint(0, -9, 0, -9, 1, -9, 1, -9);			
+			points.addQuadPoint(1, -9, 1, -9, 1, -10, 1, -10);			
+			points.addQuadPoint(1, -10, 1, -10, 0, -10, 0, -10);			
 		}
 		chma.scale(glyphs.scaleH * style.fontSize() / 100.0, glyphs.scaleV * style.fontSize() / 100.0);
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
@@ -1607,7 +1642,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		p->setupTextPolygon(&points);
 		QColor oldBrush = p->brush();
 		p->setBrush(PrefsManager::instance()->appPrefs.DControlCharColor);
-		if (glyph == (32))
+		if (stroke)
 		{
 			QColor tmp = p->pen();
 			p->setPen(p->brush(), 1, SolidLine, FlatCap, MiterJoin);
@@ -1621,16 +1656,26 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			p->fillPath();
 		}
 		p->setBrush(oldBrush);
+		if (glyphs.more) {
+			p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+			drawGlyphs(p, style, *glyphs.more);
+		}			
 		return;
 	}
-	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode())) 
-		glyph = style.font().char2CMap(QChar(' '));
+//	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBSPACE.unicode()) ||
+//			 glyph == (ScFace::CONTROL_GLYPHS + 32)) 
+//		glyph = style.font().char2CMap(QChar(' '));
 	else if (glyph == (ScFace::CONTROL_GLYPHS + SpecialChars::NBHYPHEN.unicode()))
 		glyph = style.font().char2CMap(QChar('-'));
 	
-	if (glyph >= ScFace::CONTROL_GLYPHS)
+	if (glyph >= ScFace::CONTROL_GLYPHS) {
+		// all those are empty
+		if (glyphs.more) {
+			p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+			drawGlyphs(p, style, *glyphs.more);
+		}			
 		return;
-	
+	}
 //	if (style.font().canRender(QChar(glyph)))
 	{
 		QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
@@ -1692,6 +1737,10 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				p->strokePath();
 				p->restore();
 				p->setFillRule(fr);
+				if (glyphs.more) {
+					p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+					drawGlyphs(p, style, *glyphs.more);
+				}
 				return;
 			}
 			if ((style.font().isStroked()) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
@@ -1767,7 +1816,6 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	if (glyphs.more) {
 		p->translate(glyphs.xadvance * p->zoomFactor(), 0);
 		drawGlyphs(p, style, *glyphs.more);
-		
 	}
 }
 
