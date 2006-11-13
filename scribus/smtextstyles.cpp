@@ -59,7 +59,7 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 	{
 		if (pwidget_)
 		{
-			pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
+			pwidget_->cpage->fillLangCombo(doc_->scMW()->LangTransl);
 			pwidget_->cpage->fillColorCombo(doc_->PageColors);
 			pwidget_->cpage->fontFace_->RebuildList(doc_);
 		}
@@ -132,7 +132,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex());
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), doc_->Language);
 
 	setupConnections();
 }
@@ -1262,7 +1262,7 @@ void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 	{
 		if (page_)
 		{
-			page_->fillLangCombo(doc_->scMW()->LangTransl, doc_->Language);
+			page_->fillLangCombo(doc_->scMW()->LangTransl);
 			page_->fillColorCombo(doc_->PageColors);
 			page_->fontFace_->RebuildList(doc_);
 		}
@@ -1323,7 +1323,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 		if (index > -1)
 			selection_.append(&tmpStyles_[index]);
 	}
-	page_->show(selection_, cstyles);
+	page_->show(selection_, cstyles, doc_->Language);
 
 	setupConnections();
 }
@@ -1815,9 +1815,9 @@ void SMCharacterStyle::slotLanguage()
 				language = it.key();
 				break;
 			}
-			for (uint i = 0; i < selection_.count(); ++i)
-				selection_[i]->setLanguage(language);
 		}
+		for (uint i = 0; i < selection_.count(); ++i)
+			selection_[i]->setLanguage(language);
 	}
 
 

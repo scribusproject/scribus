@@ -28,6 +28,8 @@ static bool isEqual(double a, double b)
 {
 	if (a == 0 && b == 0)
 		return true;
+	else if (a == 0)
+		return false;
 	else
 		return fabs(a - b) <= 0.001 * fabs(a);
 }
@@ -159,7 +161,7 @@ void SMPStyleWidget::setupCharStyle()
 	characterBox->setEnabled(true);
 }
 
-void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	hasParent_ = parent != NULL && parent->hasName();
@@ -250,42 +252,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 	parentDropCapButton->setFont(f);
 
 	cpage->parentLabel->setText(tr("Based on"));
-	cpage->show(&pstyle->charStyle(), cstyles);
-
-	if (hasParent_)
-	{
-		if (pstyle->charStyle().parentStyle() && pstyle->charStyle().parentStyle()->hasName())
-		{
-			QString pname = pstyle->charStyle().parentStyle()->name();
-			for (int i = 2; i < cpage->parentCombo->count(); ++i)
-			{
-				if (cpage->parentCombo->text(i) == pname)
-				{
-					cpage->parentCombo->setCurrentItem(i);
-					break;
-				}
-			}
-		}
-		else
-			cpage->parentCombo->setCurrentItem(0);
-	}
-	else
-	{
-		if (pstyle->charStyle().parentStyle() && pstyle->charStyle().parentStyle()->hasName())
-		{
-			QString pname = pstyle->charStyle().parentStyle()->name();
-			for (int i = 1; i < cpage->parentCombo->count(); ++i)
-			{
-				if (cpage->parentCombo->text(i) == pname)
-				{
-					cpage->parentCombo->setCurrentItem(i);
-					break;
-				}
-			}
-		}
-		else
-			cpage->parentCombo->setCurrentItem(0);
-	}
+	cpage->show(&pstyle->charStyle(), cstyles, defLang);
 
 	parentCombo->clear();
 	parentCombo->insertItem("");
@@ -313,10 +280,10 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 		parentCombo->setCurrentItem(0);
 }
 
-void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
 	if (pstyles.count() == 1)
-		show(pstyles[0], pstylesAll, cstyles, unitIndex);
+		show(pstyles[0], pstylesAll, cstyles, unitIndex, defLang);
 	else if (pstyles.count() > 1)
 	{
 		showLineSpacing(pstyles);
@@ -324,7 +291,7 @@ void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<Parag
 		showDropCap(pstyles);
 		showAlignment(pstyles);
 		showTabs(pstyles, unitIndex);
-		showCStyle(pstyles);
+		showCStyle(pstyles, cstyles, defLang);
 		showParent(pstyles);
 	}
 }
@@ -552,25 +519,15 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 	tabList_->setTabs(t, unitIndex);
 }
 
-void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles)
+void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang)
 {
-// 		cpage->parentLabel->setText(tr("Based on"));
-// 		cpage->show(&pstyle->charStyle(), cstyles);
-// 
-// 		if (pstyle->charStyle().parentStyle() && pstyle->charStyle().parentStyle()->hasName())
-// 		{
-// 			QString pname = pstyle->charStyle().parentStyle()->name();
-// 			for (int i = 1; i < cpage->parentCombo->count(); ++i)
-// 			{
-// 				if (cpage->parentCombo->text(i) == pname)
-// 				{
-// 					cpage->parentCombo->setCurrentItem(i);
-// 					break;
-// 				}
-// 			}
-// 		}
-// 		else
-// 			cpage->parentCombo->setCurrentItem(0);
+	cpage->parentLabel->setText(tr("Based on"));
+
+	QValueList<CharStyle*> cstyle;
+	for (uint i = 0; i < pstyles.count(); ++i)
+		cstyle << &pstyles[i]->charStyle();
+
+	cpage->show(cstyle, cstyles, defLang);
 }
 
 void SMPStyleWidget::showParent(QValueList<ParagraphStyle*> &pstyles)
@@ -783,13 +740,12 @@ void SMCStylePage::languageChange()
 	fontSize_->setSuffix( tr(" pt"));
 }
 
-void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang)
+void SMCStylePage::fillLangCombo(QMap<QString,QString> langMap)
 {
 	QStringList sortList;
 	QMap<QString,QString>::Iterator it;
 
 	langMap_ = langMap;
-	defaultLang_ = defaultLang;
 
 	language_->clear();
 
@@ -817,7 +773,7 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
 }
 
-void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles)
+void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
@@ -909,13 +865,15 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles)
 	else
 		parentCombo->setCurrentItem(0);
 
-	fillLangCombo(langMap_, defaultLang_);
-	QString clang = cstyle->language() == QString::null ? defaultLang_ : cstyle->language();
+	fillLangCombo(langMap_);
+	QString clang = cstyle->language() == QString::null || cstyle->language().isEmpty() ?
+	                                      defLang : cstyle->language();
 	QString plang = QString::null;
 	if (hasParent)
-		plang = parent->language() == QString::null ? defaultLang_ : parent->language();
+		plang = parent->language() == QString::null || parent->language().isEmpty() ?
+		                              defLang : parent->language();
 
-	int ci, pi;
+	int ci = -1, pi = -1, di = -1;
 	for (int i = 0; i < language_->count(); ++i)
 	{
 		if (language_->text(i) == langMap_[clang])
@@ -923,27 +881,314 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles)
 		
 		if (hasParent && language_->text(i) == langMap_[plang])
 			pi = i;
+
+		if (language_->text(i) == defLang || language_->text(i) == langMap_[defLang])
+			di = i;
 	}
+
+	Q_ASSERT(di != -1);
 
 	if (hasParent)
 	{
-		language_->setCurrentItem(ci, cstyle->isInhLanguage());
+		if (ci == -1)
+			language_->setCurrentItem(di, cstyle->isInhLanguage());
+		else
+			language_->setCurrentItem(ci, cstyle->isInhLanguage());
+
 		language_->setParentItem(pi);
 	}
 	else
-		language_->setCurrentItem(ci);
+	{
+		if (ci == -1)
+			language_->setCurrentItem(di);
+		else
+			language_->setCurrentItem(ci);
+	}
 
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
-void SMCStylePage::show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll)
+void SMCStylePage::show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll, const QString &defLang)
 {
 	if (cstyles.count() == 1)
-		show(cstyles[0], cstylesAll);
+		show(cstyles[0], cstylesAll, defLang);
 	else if (cstyles.count() > 1)
 	{
-		
+		showSizeAndPosition(cstyles);
+		showEffects(cstyles);
+		showColors(cstyles);
+		showLanguage(cstyles, defLang);
+		showParent(cstyles);
+
+// 		parentCombo->clear();
+// 		parentCombo->insertItem("");
+// 		for (uint i = 0; i < cstyles.count(); ++i)
+// 		{
+// 			if (cstyles[i].displayName() != cstyle->displayName())
+// 				parentCombo->insertItem(cstyles[i].displayName());
+// 		}
+// 	
+// 		if (hasParent)
+// 		{
+// 			int index = 0;
+// 			for (int i = 0; i < parentCombo->count(); ++i)
+// 			{
+// 				if (parentCombo->text(i) == cstyle->parentStyle()->displayName())
+// 				{
+// 					index = i;
+// 					break;
+// 				}
+// 			}
+// 			parentCombo->setCurrentItem(index);
+// 		}
+// 		else
+// 			parentCombo->setCurrentItem(0);
+// 	
+// 		fillLangCombo(langMap_, defaultLang_);
+// 		QString clang = cstyle->language() == QString::null ? defaultLang_ : cstyle->language();
+// 		QString plang = QString::null;
+// 		if (hasParent)
+// 			plang = parent->language() == QString::null ? defaultLang_ : parent->language();
+// 	
+// 		int ci, pi;
+// 		for (int i = 0; i < language_->count(); ++i)
+// 		{
+// 			if (language_->text(i) == langMap_[clang])
+// 				ci = i;
+// 			
+// 			if (hasParent && language_->text(i) == langMap_[plang])
+// 				pi = i;
+// 		}
+// 	
+// 		if (hasParent)
+// 		{
+// 			language_->setCurrentItem(ci, cstyle->isInhLanguage());
+// 			language_->setParentItem(pi);
+// 		}
+// 		else
+// 			language_->setCurrentItem(ci);
 	}
+}
+
+void SMCStylePage::showSizeAndPosition(const QValueList<CharStyle*> &cstyles)
+{
+	int d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->fontSize() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->fontSize();
+	}
+	if (d == -30000)
+		fontSize_->clear();
+	else
+		fontSize_->setValue(d / 10.0);
+
+	d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->scaleH() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->scaleH();
+	}
+	if (d == -30000)
+		fontHScale_->clear();
+	else
+		fontHScale_->setValue(d / 10.0);
+
+	d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->scaleV() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->scaleV();
+	}
+	if (d == -30000)
+		fontVScale_->clear();
+	else
+		fontVScale_->setValue(d / 10.0);
+
+	d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->baselineOffset() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->baselineOffset();
+	}
+	if (d == -30000)
+		baselineOffset_->clear();
+	else
+		baselineOffset_->setValue(d / 10.0);
+
+	d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->tracking() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->tracking();
+	}
+	if (d == -30000)
+		tracking_->clear();
+	else
+		tracking_->setValue(d / 10.0);
+}
+
+void SMCStylePage::showEffects(const QValueList<CharStyle*> &cstyles)
+{
+	int d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && static_cast<int>(cstyles[i]->effects()) != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = static_cast<int>(cstyles[i]->effects());
+	}
+	if (d == -30000)
+		effects_->setStyle(0);
+	else
+		effects_->setStyle(d);
+
+// 	TODO these things still missing:
+// 		effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
+// 		effects_->ShadowVal->Yoffset->setValue(cstyle->shadowYOffset() / 10.0);
+// 		effects_->OutlineVal->LWidth->setValue(cstyle->outlineWidth() / 10.0);
+// 		effects_->StrikeVal->LPos->setValue(cstyle->strikethruOffset() / 10.0);
+// 		effects_->StrikeVal->LWidth->setValue(cstyle->strikethruWidth() / 10.0);
+// 		effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
+// 		effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
+}
+
+void SMCStylePage::showColors(const QValueList<CharStyle*> &cstyles)
+{
+	strokeShade_->setEnabled(true);
+	strokeColor_->setEnabled(true);
+
+	int d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->fillShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->fillShade();
+	}
+	if (d == -30000)
+		fillShade_->setText(tr("Shade"));
+	else
+		fillShade_->setValue(d);
+
+	d = -30000;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (d != -30000 && cstyles[i]->strokeShade() != d)
+		{
+			d = -30000;
+			break;
+		}
+		else
+			d = cstyles[i]->strokeShade();
+	}
+	if (d == -30000)
+	{
+		strokeShade_->setValue(21);
+		strokeShade_->setText(tr("Shade"));
+	}
+	else
+		strokeShade_->setValue(d);
+
+	QString s = QString::null;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (s != QString::null && s != cstyles[i]->fillColor())
+		{
+			s = QString::null;
+			break;
+		}
+		else
+			s = cstyles[i]->fillColor();
+	}
+	if (s == QString::null)
+	{
+		if (fillColor_->text(fillColor_->count() - 1) != "")
+			fillColor_->insertItem("");
+		fillColor_->setCurrentItem(fillColor_->count() - 1);
+	}
+	else
+		fillColor_->setCurrentText(s);
+
+	s = QString::null;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (s != QString::null && s != cstyles[i]->strokeColor())
+		{
+			s = QString::null;
+			break;
+		}
+		else
+			s = cstyles[i]->strokeColor();
+	}
+	if (s == QString::null)
+	{
+		if (strokeColor_->text(strokeColor_->count() - 1) != "")
+			strokeColor_->insertItem("");
+		strokeColor_->setCurrentItem(fillColor_->count() - 1);
+	}
+	else
+		strokeColor_->setCurrentText(s);
+}
+
+void SMCStylePage::showLanguage(const QValueList<CharStyle*> &cstyles, const QString &defLang)
+{
+	QString s = QString::null;
+	for (uint i = 0; i < cstyles.count(); ++i)
+	{
+		if (s != QString::null && s != cstyles[i]->language())
+		{
+			s = QString::null;
+			break;
+		}
+		else
+			s = cstyles[i]->language();
+	}
+
+	if (s == QString::null)
+	{
+		if (language_->text(language_->count() - 1) != "")
+			language_->insertItem("");
+		language_->setCurrentItem(language_->count() - 1);
+	}
+	else
+		language_->setCurrentText(langMap_[s]);
+}
+
+void SMCStylePage::showParent(const QValueList<CharStyle*> &cstyles)
+{
+
 }
 
 void SMCStylePage::clearAll()

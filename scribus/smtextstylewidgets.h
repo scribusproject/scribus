@@ -43,8 +43,8 @@ public:
 	SMPStyleWidget();
 	~SMPStyleWidget();
 
-	void show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex);
-	void show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex);
+	void show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
+	void show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang);
 
 	void clearAll();
 
@@ -88,7 +88,7 @@ private:
 	void showDropCap(QValueList<ParagraphStyle*> &pstyles);
 	void showAlignment(QValueList<ParagraphStyle*> &pstyles);
 	void showTabs(QValueList<ParagraphStyle*> &pstyles, int unitIndex);
-	void showCStyle(QValueList<ParagraphStyle*> &pstyles);
+	void showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang);
 	void showParent(QValueList<ParagraphStyle*> &pstyles);
 
 	friend class SMParagraphStyle;
@@ -109,9 +109,9 @@ public:
 	SMCStylePage(QWidget *parent = 0);
 	~SMCStylePage();
 
-	void show(CharStyle *cstyle, QValueList<CharStyle> &cstyles);
-	void show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll);
-	void fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang);
+	void show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang);
+	void show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll, const QString &defLang);
+	void fillLangCombo(QMap<QString,QString> langMap);
 	void fillColorCombo(ColorList &colors);
 	void languageChange();
 	void clearAll();
@@ -152,8 +152,13 @@ private:
 	QSpacerItem *spacer2;
 	QSpacerItem *spacer4;
 
-	QString                defaultLang_;
 	QMap<QString, QString> langMap_;
+
+	void showSizeAndPosition(const QValueList<CharStyle*> &cstyles);
+	void showEffects(const QValueList<CharStyle*> &cstyles);
+	void showColors(const QValueList<CharStyle*> &cstyles);
+	void showLanguage(const QValueList<CharStyle*> &cstyles, const QString &defLang);
+	void showParent(const QValueList<CharStyle*> &cstyles);
 
 	friend class SMParagraphStyle;
 	friend class SMCharacterStyle;
