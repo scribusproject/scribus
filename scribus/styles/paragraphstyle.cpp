@@ -20,6 +20,7 @@
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle()
 {
+	cstyle.setBase(NULL);
 	setParent("");
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle() %1 pbase %2 cbase %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(base())).arg(reinterpret_cast<uint>(defaultStyle()->base())));
