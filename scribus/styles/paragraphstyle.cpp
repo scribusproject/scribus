@@ -33,6 +33,7 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NUL
 
 ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
+	cstyle.setBase(other.charStyle().base());
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 	other.validate();
