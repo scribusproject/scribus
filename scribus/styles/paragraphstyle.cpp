@@ -33,9 +33,9 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NUL
 
 ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
-	other.validate();
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
+	other.validate();
 
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
