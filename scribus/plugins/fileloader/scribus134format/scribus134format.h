@@ -49,7 +49,7 @@ class PLUGIN_API Scribus134Format : public LoadSavePlugin
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* obj, LastStyles* last, bool impo=false, bool VorLFound=false);
-		void GetCStyle(QDomElement *it, ScribusDoc *doc, CharStyle & newStyle);
+		void GetCStyle(const QDomElement *it, ScribusDoc *doc, CharStyle & newStyle);
 		void readParagraphStyle(ParagraphStyle& vg, const QDomElement& pg, SCFonts &avail, ScribusDoc *doc);
 		PageItem* PasteItem(QDomElement *obj, ScribusDoc *doc);
 		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
