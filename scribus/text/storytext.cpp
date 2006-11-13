@@ -154,7 +154,14 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 	else {
 		d = new ScText_Shared(NULL, NULL);
 	}
-	clear();
+	selFirst = 0;
+	selLast = -1;
+	
+	firstFrameItem = 0;
+	lastFrameItem = -1;
+	
+	d->len = 0;
+	invalidateAll();
 }
 
 StoryText::StoryText() : doc(NULL)
