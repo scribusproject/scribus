@@ -53,7 +53,7 @@ SCRIBUS_API StyleFlag operator~ (StyleFlag arg);
 
 
 
-class SCRIBUS_API CharStyle : public virtual Style {
+class SCRIBUS_API CharStyle : public Style {
 public:
 
 	

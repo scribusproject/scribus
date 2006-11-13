@@ -16,7 +16,7 @@
 
 // DONT INCLUDE this file directly, include "style.h" instead!
 
-class SCRIBUS_API ParagraphStyle : public virtual Style
+class SCRIBUS_API ParagraphStyle : public Style
 {
 public:
 	enum LineSpacingMode { 

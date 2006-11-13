@@ -106,7 +106,7 @@ public:
 		parstyle(NULL), glyph(), 
 		PtransX(0.0f), PtransY(0.0f), PRot(0.0f), cembedded(NULL), ch() {}
 	ScText(const ScText& other) : 
-		Style(other), CharStyle(other),
+		CharStyle(other),
 		parstyle(NULL), glyph(other.glyph), 
 		PtransX(other.PtransX), PtransY(other.PtransY), PRot(other.PRot), 
 		cembedded(other.cembedded), ch(other.ch)
