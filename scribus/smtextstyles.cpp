@@ -69,6 +69,7 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 		removeConnections();
 		selection_.clear();
 		tmpStyles_.clear();
+		deleted_.clear();
 	}
 }
 
@@ -119,25 +120,20 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 	QValueList<ParagraphStyle> pstyles; // get saved styles
 	QValueList<CharStyle> cstyles;
 	for (uint i = 0; i < doc_->docParagraphStyles.count(); ++i)
-		pstyles << doc_->docParagraphStyles[i];
+		pstyles << doc_->docParagraphStyles[i]; // TODO fetch from tmp styles not from doc
 	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
-		cstyles << doc_->docCharStyles[i];
+		cstyles << doc_->docCharStyles[i]; // TODO fetch from tmp styles not from doc
 
-	if (styleNames.count() == 1)
+	int index;
+	for (uint i = 0; i < styleNames.count(); ++i)
 	{
-		for (uint i = 0; i < tmpStyles_.count(); ++i)
-		{
-			if (tmpStyles_[i].name() == styleNames[0])
-			{
-				pwidget_->show(tmpStyles_[i], pstyles, cstyles, doc_->unitIndex());
-				selection_.append(&tmpStyles_[i]);
-			}
-		}
+		index = tmpStyles_.find(styleNames[i]);
+		if (index > -1)
+			selection_.append(&tmpStyles_[index]);
 	}
-	else // TODO more than one item selected do the magic tricks here
-	{
-		
-	}
+
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex());
+
 	setupConnections();
 }
 
@@ -192,7 +188,7 @@ QString SMParagraphStyle::newStyle()
 	if (!doc_)
 		return QString::null;
 
-	QString s = getUniqueName( tr("New Style"));
+	QString s = getUniqueName(tr("New Style"));
 	ParagraphStyle p(doc_->docParagraphStyles[""]);
 	p.setName(s);
 	tmpStyles_.create(p);
@@ -345,14 +341,10 @@ void SMParagraphStyle::editMode(bool isOn)
 QString SMParagraphStyle::shortcut(const QString &stylename) const
 {
 	QString s = QString::null;
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
-	{
-		if (tmpStyles_[i].name() == stylename)
-		{
-			s = tmpStyles_[i].shortcut();
-			break;
-		}
-	}
+
+	int index = tmpStyles_.find(stylename);
+	if (index > -1)
+		s = tmpStyles_[index].shortcut();
 
 	return s;
 }
@@ -450,6 +442,7 @@ void SMParagraphStyle::reloadTmpStyles()
 
 	selection_.clear();
 	tmpStyles_.clear();
+	deleted_.clear();
 	tmpStyles_.redefine(doc_->docParagraphStyles, true);
 }
 
@@ -1322,25 +1315,16 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	removeConnections();
 	QValueList<CharStyle> cstyles;
 	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
-		cstyles << doc_->docCharStyles[i];
+		cstyles << doc_->docCharStyles[i]; // TODO use tmp styles instead of doc styles
 
-	if (styleNames.count() == 1)
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
 	{
-		for (uint i = 0; i < tmpStyles_.count(); ++i)
-		{
-			if (tmpStyles_[i].displayName() == styleNames[0])
-			{
-				page_->show(tmpStyles_[i], cstyles);
-				selection_.append(&tmpStyles_[i]);
-				break;
-			}
-		}
-			
+		int index = tmpStyles_.find(styleNames[i]);
+		if (index > -1)
+			selection_.append(&tmpStyles_[index]);
 	}
-	else // more than one item selected do the magic tricks here
-	{
-		
-	}
+	page_->show(selection_, cstyles);
+
 	setupConnections();
 }
 
@@ -1460,14 +1444,10 @@ void SMCharacterStyle::editMode(bool isOn)
 QString SMCharacterStyle::shortcut(const QString &stylename) const
 {
 	QString s = QString::null;
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
-	{
-		if (tmpStyles_[i].name() == stylename)
-		{
-			s = tmpStyles_[i].shortcut();
-			break;
-		}
-	}
+	int index = tmpStyles_.find(stylename);
+	if (index > -1)
+		s = tmpStyles_[index].shortcut();
+
 	return s;
 }
 

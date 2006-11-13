@@ -43,8 +43,8 @@ public:
 	SMPStyleWidget();
 	~SMPStyleWidget();
 
-	void show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex);
-	void show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex);
+	void show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex);
+	void show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex);
 
 	void clearAll();
 
@@ -83,6 +83,14 @@ private:
 	void setupTabs();
 	void setupCharStyle();
 
+	void showLineSpacing(QValueList<ParagraphStyle*> &pstyles);
+	void showSpaceAB(QValueList<ParagraphStyle*> &pstyles);
+	void showDropCap(QValueList<ParagraphStyle*> &pstyles);
+	void showAlignment(QValueList<ParagraphStyle*> &pstyles);
+	void showTabs(QValueList<ParagraphStyle*> &pstyles, int unitIndex);
+	void showCStyle(QValueList<ParagraphStyle*> &pstyles);
+	void showParent(QValueList<ParagraphStyle*> &pstyles);
+
 	friend class SMParagraphStyle;
 
 private slots:
@@ -101,8 +109,8 @@ public:
 	SMCStylePage(QWidget *parent = 0);
 	~SMCStylePage();
 
-	void show(CharStyle &cstyle, QValueList<CharStyle> &cstyles);
-	void show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll);
+	void show(CharStyle *cstyle, QValueList<CharStyle> &cstyles);
+	void show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll);
 	void fillLangCombo(QMap<QString,QString> langMap, const QString &defaultLang);
 	void fillColorCombo(ColorList &colors);
 	void languageChange();

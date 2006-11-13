@@ -22,6 +22,15 @@ for which a new license (GPL+exception) is in place.
 #include <qpixmap.h>
 #include <qtabwidget.h>
 #include <qmap.h>
+#include <cmath>
+
+static bool isEqual(double a, double b)
+{
+	if (a == 0 && b == 0)
+		return true;
+	else
+		return fabs(a - b) <= 0.001 * fabs(a);
+}
 
 SMPStyleWidget::SMPStyleWidget()
 {
@@ -150,9 +159,9 @@ void SMPStyleWidget::setupCharStyle()
 	characterBox->setEnabled(true);
 }
 
-void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex)
 {
-	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle.parentStyle());
+	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	hasParent_ = parent != NULL && parent->hasName();
 
 	lineSpacingMode_->clear();
@@ -162,21 +171,21 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 
 	if (hasParent_)
 	{
-		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode(), pstyle.isInhLineSpacingMode());
+		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode(), pstyle->isInhLineSpacingMode());
 		lineSpacingMode_->setParentItem(parent->lineSpacingMode());
 
-		lineSpacing_->setValue(pstyle.lineSpacing(), pstyle.isInhLineSpacing());
+		lineSpacing_->setValue(pstyle->lineSpacing(), pstyle->isInhLineSpacing());
 		lineSpacing_->setParentValue(parent->lineSpacing());
 
-		spaceAbove_->setValue(pstyle.gapBefore(), pstyle.isInhGapBefore());
+		spaceAbove_->setValue(pstyle->gapBefore(), pstyle->isInhGapBefore());
 		spaceAbove_->setParentValue(parent->gapBefore());
 
-		spaceBelow_->setValue(pstyle.gapAfter(), pstyle.isInhGapAfter());
+		spaceBelow_->setValue(pstyle->gapAfter(), pstyle->isInhGapAfter());
 		spaceBelow_->setParentValue(parent->gapAfter());
 
-		dropCapsBox->setChecked(pstyle.hasDropCap());;
+		dropCapsBox->setChecked(pstyle->hasDropCap());;
 		parentDropCap_ = parent->hasDropCap();
-		if (pstyle.isInhHasDropCap())
+		if (pstyle->isInhHasDropCap())
 			parentDropCapButton->hide();
 		else
 			parentDropCapButton->show();
@@ -184,71 +193,70 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		connect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
 		connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 
-		dropCapLines_->setValue(pstyle.dropCapLines(), pstyle.isInhDropCapLines());
+		dropCapLines_->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
 		dropCapLines_->setParentValue(parent->dropCapLines());
 
-		dropCapOffset_->setValue(pstyle.dropCapOffset(), pstyle.isInhDropCapOffset());
+		dropCapOffset_->setValue(pstyle->dropCapOffset(), pstyle->isInhDropCapOffset());
 		dropCapOffset_->setParentValue(parent->dropCapOffset());
 
-		alignement_->setStyle(pstyle.alignment(), pstyle.isInhAlignment());
+		alignement_->setStyle(pstyle->alignment(), pstyle->isInhAlignment());
 		alignement_->setParentItem(parent->alignment());
 
-		bool hasParentTabs = pstyle.isInhTabValues();
+		bool hasParentTabs = pstyle->isInhTabValues();
 		QValueList<ParagraphStyle::TabRecord> tabs;
 		if (hasParentTabs)
 			tabs = QValueList<ParagraphStyle::TabRecord>(parent->tabValues());
 		else
-			tabs = pstyle.tabValues();
+			tabs = pstyle->tabValues();
 
 		tabList_->setTabs(tabs, unitIndex, hasParentTabs);
 		tabList_->setParentTabs(parent->tabValues());
 
-		tabList_->setLeftIndentValue(pstyle.leftMargin(),pstyle.isInhLeftMargin());
+		tabList_->setLeftIndentValue(pstyle->leftMargin(),pstyle->isInhLeftMargin());
 		tabList_->setParentLeftIndent(parent->leftMargin());
 
-		tabList_->setFirstLineValue(pstyle.firstIndent(), pstyle.isInhFirstIndent());
+		tabList_->setFirstLineValue(pstyle->firstIndent(), pstyle->isInhFirstIndent());
 		tabList_->setParentFirstLine(parent->firstIndent());
 
-		tabList_->setRightIndentValue(pstyle.rightMargin(), pstyle.isInhRightMargin());
+		tabList_->setRightIndentValue(pstyle->rightMargin(), pstyle->isInhRightMargin());
 		tabList_->setParentRightIndent(parent->rightMargin());
 	}
 	else
 	{
-		lineSpacingMode_->setCurrentItem(pstyle.lineSpacingMode());
-		lineSpacing_->setValue(pstyle.lineSpacing());
-		spaceAbove_->setValue(pstyle.gapBefore());
-		spaceBelow_->setValue(pstyle.gapAfter());
-		dropCapsBox->setChecked(pstyle.hasDropCap());
+		lineSpacingMode_->setCurrentItem(pstyle->lineSpacingMode());
+		lineSpacing_->setValue(pstyle->lineSpacing());
+		spaceAbove_->setValue(pstyle->gapBefore());
+		spaceBelow_->setValue(pstyle->gapAfter());
+		dropCapsBox->setChecked(pstyle->hasDropCap());
 		parentDropCapButton->hide();
 		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
 		disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
-		dropCapLines_->setValue(pstyle.dropCapLines());
-		dropCapOffset_->setValue(pstyle.dropCapOffset());
+		dropCapLines_->setValue(pstyle->dropCapLines());
+		dropCapOffset_->setValue(pstyle->dropCapOffset());
 		parentDropCapButton->hide();
-		alignement_->setStyle(pstyle.alignment());
-		tabList_->setTabs(pstyle.tabValues(), unitIndex);
-		tabList_->setLeftIndentValue(pstyle.leftMargin());
-		tabList_->setFirstLineValue(pstyle.firstIndent());
-		tabList_->setRightIndentValue(pstyle.rightMargin());
+		alignement_->setStyle(pstyle->alignment());
+		tabList_->setTabs(pstyle->tabValues(), unitIndex);
+		tabList_->setLeftIndentValue(pstyle->leftMargin());
+		tabList_->setFirstLineValue(pstyle->firstIndent());
+		tabList_->setRightIndentValue(pstyle->rightMargin());
 	}
 
-	lineSpacing_->setEnabled(pstyle.lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
+	lineSpacing_->setEnabled(pstyle->lineSpacingMode() == ParagraphStyle::FixedLineSpacing);
+	dropCapLines_->setEnabled(pstyle->hasDropCap());
+	dropCapOffset_->setEnabled(pstyle->hasDropCap());
 
 	QFont f(font());
 	f.setBold(true);
 	parentDropCapButton->setFont(f);
 
-//  ASK Avox!
-// 	bool useBaselineGrid() const { return BaseAdj==NOVALUE && parent()? inh().useBaselineGrid() : BaseAdj > 0; }
-
 	cpage->parentLabel->setText(tr("Based on"));
-	cpage->show(pstyle.charStyle(), cstyles);
+	cpage->show(&pstyle->charStyle(), cstyles);
 
 	if (hasParent_)
 	{
-		if (pstyle.charStyle().parentStyle() && pstyle.charStyle().parentStyle()->hasName())
+		if (pstyle->charStyle().parentStyle() && pstyle->charStyle().parentStyle()->hasName())
 		{
-			QString pname = pstyle.charStyle().parentStyle()->name();
+			QString pname = pstyle->charStyle().parentStyle()->name();
 			for (int i = 2; i < cpage->parentCombo->count(); ++i)
 			{
 				if (cpage->parentCombo->text(i) == pname)
@@ -263,9 +271,9 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 	}
 	else
 	{
-		if (pstyle.charStyle().parentStyle() && pstyle.charStyle().parentStyle()->hasName())
+		if (pstyle->charStyle().parentStyle() && pstyle->charStyle().parentStyle()->hasName())
 		{
-			QString pname = pstyle.charStyle().parentStyle()->name();
+			QString pname = pstyle->charStyle().parentStyle()->name();
 			for (int i = 1; i < cpage->parentCombo->count(); ++i)
 			{
 				if (cpage->parentCombo->text(i) == pname)
@@ -279,14 +287,12 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 			cpage->parentCombo->setCurrentItem(0);
 	}
 
-	
-
 	parentCombo->clear();
 	parentCombo->insertItem("");
 
 	for (uint i = 0; i < pstyles.count(); ++i)
 	{
-		if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle.displayName())
+		if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle->displayName())
 			parentCombo->insertItem(pstyles[i].displayName());
 	}
 
@@ -307,14 +313,292 @@ void SMPStyleWidget::show(ParagraphStyle &pstyle, QValueList<ParagraphStyle> &ps
 		parentCombo->setCurrentItem(0);
 }
 
-void SMPStyleWidget::show(QValueList<ParagraphStyle> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex)
+void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex)
 {
 	if (pstyles.count() == 1)
 		show(pstyles[0], pstylesAll, cstyles, unitIndex);
 	else if (pstyles.count() > 1)
 	{
-		
+		showLineSpacing(pstyles);
+		showSpaceAB(pstyles);
+		showDropCap(pstyles);
+		showAlignment(pstyles);
+		showTabs(pstyles, unitIndex);
+		showCStyle(pstyles);
+		showParent(pstyles);
 	}
+}
+
+void SMPStyleWidget::showLineSpacing(QValueList<ParagraphStyle*> &pstyles)
+{
+	lineSpacingMode_->clear();
+	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
+
+	int tmpLP = -1;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (tmpLP != -1 && pstyles[i]->lineSpacingMode() != tmpLP)
+		{
+			tmpLP = -1;
+			break;
+		}
+		else
+			tmpLP = pstyles[i]->lineSpacingMode();
+	}
+
+	if (tmpLP == -1)
+	{
+		lineSpacingMode_->insertItem("");
+		lineSpacingMode_->setCurrentItem(lineSpacingMode_->count() - 1);
+	}
+	else
+		lineSpacingMode_->setCurrentItem(tmpLP);
+
+	double tmpLS = -1.0;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (tmpLS > 0 && !isEqual(pstyles[i]->lineSpacing(), tmpLS))
+		{
+			tmpLS = -1.0;
+			break;
+		}
+		else
+			tmpLS = pstyles[i]->lineSpacing();
+	}
+	lineSpacing_->setEnabled(true);
+	if (tmpLS < 0)
+		lineSpacing_->clear();
+	else
+		lineSpacing_->setValue(tmpLS);
+}
+
+void SMPStyleWidget::showSpaceAB(QValueList<ParagraphStyle*> &pstyles)
+{
+	double tmpA = -1.2;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (tmpA > -1.0 && !isEqual(pstyles[i]->gapBefore(), tmpA))
+		{
+			tmpA = -1.2;
+			break;
+		}
+		else
+			tmpA = pstyles[i]->gapBefore();
+	}
+
+	if (tmpA < 0)
+		spaceAbove_->clear();
+	else
+		spaceAbove_->setValue(tmpA);
+
+	tmpA = -1.2;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (tmpA > -1.0 && !isEqual(pstyles[i]->gapAfter(), tmpA))
+		{
+			tmpA = -1.2;
+			break;
+		}
+	}
+
+	if (tmpA < 0)
+		spaceBelow_->clear();
+	else
+		spaceBelow_->setValue(tmpA);
+}
+
+void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles)
+{
+	parentDropCapButton->hide();
+	disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
+	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
+	dropCapLines_->setEnabled(true);
+	dropCapOffset_->setEnabled(true);
+
+	bool dc = pstyles[0]->hasDropCap();
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (dc != pstyles[i]->hasDropCap())
+		{
+			dc = false;
+			break;
+		}
+	}
+	dropCapsBox->setChecked(dc);
+
+	int lines = -1;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (lines > -1 && pstyles[i]->dropCapLines() != lines)
+		{
+			lines = -1;
+			break;
+		}
+		else
+			lines = pstyles[i]->dropCapLines();
+	}
+	if (lines < 0)
+		dropCapLines_->clear();
+	else
+		dropCapLines_->setValue(lines);
+
+	double dco = -4000.0;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (dco > -3980.0 && !isEqual(pstyles[i]->dropCapOffset(), dco))
+		{
+			dco = -4000.0;
+			break;
+		}
+		else
+			dco = pstyles[i]->dropCapOffset();
+	}
+
+	if (dco < -3800.0)
+		dropCapOffset_->clear();
+	else
+		dropCapOffset_->setValue(dco);
+}
+
+void SMPStyleWidget::showAlignment(QValueList<ParagraphStyle*> &pstyles)
+{
+	ParagraphStyle::AlignmentType a = pstyles[0]->alignment();
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (a != pstyles[i]->alignment())
+		{
+			if (alignement_->selectedId() > -1)
+			{
+				alignement_->setExclusive(false);
+				alignement_->selected()->toggle();
+				alignement_->setExclusive(true);
+			}
+			return;
+		}
+	}
+	alignement_->setStyle(a);
+}
+
+void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitIndex)
+{
+	double l = -4000.0;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (l > -3800.0 && !isEqual(pstyles[i]->leftMargin(), l))
+		{
+			l = -4000.0;
+			break;
+		}
+		else
+			l = pstyles[i]->leftMargin();
+	}
+	if (l < -3800.0)
+	{
+		tabList_->setLeftIndentValue(0.0);
+		tabList_->left_->clear();	
+	}
+	else
+		tabList_->setLeftIndentValue(l);
+
+	l = -4000.0;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (l > -3800.0 && !isEqual(pstyles[i]->firstIndent(), l))
+		{
+			l = -4000.0;
+			break;
+		}
+		else
+			l = pstyles[i]->firstIndent();
+	}
+	if (l > -3800.0)
+	{
+		tabList_->setFirstLineValue(0.0);
+		tabList_->first_->clear();
+	}
+	else
+		tabList_->setFirstLineValue(l);
+
+	l = -4000.0;
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (l > -3800.0 && !isEqual(pstyles[i]->rightMargin(), l))
+		{
+			l = -4000.0;
+			break;
+		}
+		else
+			l = pstyles[i]->rightMargin();
+	}
+	if (l < -3800.0)
+	{
+		tabList_->setRightIndentData(0.0);
+		tabList_->right_->clear();
+	}
+	else
+		tabList_->setRightIndentValue(l);
+
+	QValueList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (t != pstyles[i]->tabValues())
+		{
+			tabList_->setTabs(QValueList<ParagraphStyle::TabRecord>(), unitIndex);
+			return;
+		}
+	}
+	tabList_->setTabs(t, unitIndex);
+}
+
+void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles)
+{
+// 		cpage->parentLabel->setText(tr("Based on"));
+// 		cpage->show(&pstyle->charStyle(), cstyles);
+// 
+// 		if (pstyle->charStyle().parentStyle() && pstyle->charStyle().parentStyle()->hasName())
+// 		{
+// 			QString pname = pstyle->charStyle().parentStyle()->name();
+// 			for (int i = 1; i < cpage->parentCombo->count(); ++i)
+// 			{
+// 				if (cpage->parentCombo->text(i) == pname)
+// 				{
+// 					cpage->parentCombo->setCurrentItem(i);
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		else
+// 			cpage->parentCombo->setCurrentItem(0);
+}
+
+void SMPStyleWidget::showParent(QValueList<ParagraphStyle*> &pstyles)
+{
+// 		parentCombo->clear();
+// 		parentCombo->insertItem("");
+// 	
+// 		for (uint i = 0; i < pstyles.count(); ++i)
+// 		{
+// 			if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle->displayName())
+// 				parentCombo->insertItem(pstyles[i].displayName());
+// 		}
+	
+// 		if (hasParent_)
+// 		{
+// 			int index = 0;
+// 			for (int i = 0; i < parentCombo->count(); ++i)
+// 			{
+// 				if (parentCombo->text(i) == parent->displayName())
+// 				{
+// 					index = i;
+// 					break;
+// 				}
+// 			}
+// 			parentCombo->setCurrentItem(index);
+// 		}
+// 		else
+// 			parentCombo->setCurrentItem(0);
 }
 
 void SMPStyleWidget::clearAll()
@@ -533,70 +817,70 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
 }
 
-void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
+void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
-	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle.parentStyle());
+	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
 
 	bool hasParent = parent != 0 && parent->hasName();
 
 	if (hasParent)
 	{
-		fontSize_->setValue(cstyle.fontSize() / 10.0, cstyle.isInhFontSize());
+		fontSize_->setValue(cstyle->fontSize() / 10.0, cstyle->isInhFontSize());
 		fontSize_->setParentValue(parent->fontSize() / 10.0);
 
-		fontHScale_->setValue(cstyle.scaleH() / 10.0, cstyle.isInhScaleH());
+		fontHScale_->setValue(cstyle->scaleH() / 10.0, cstyle->isInhScaleH());
 		fontHScale_->setParentValue(parent->scaleH() / 10.0);
 
-		fontVScale_->setValue(cstyle.scaleV() / 10.0, cstyle.isInhScaleV());
+		fontVScale_->setValue(cstyle->scaleV() / 10.0, cstyle->isInhScaleV());
 		fontVScale_->setParentValue(parent->scaleV() / 10.0);
 
-		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0, cstyle.isInhBaselineOffset());
+		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0, cstyle->isInhBaselineOffset());
 		baselineOffset_->setParentValue(parent->baselineOffset() / 10.0);
 
-		tracking_->setValue(cstyle.tracking() / 10.0, cstyle.isInhTracking());
+		tracking_->setValue(cstyle->tracking() / 10.0, cstyle->isInhTracking());
 		tracking_->setParentValue(parent->tracking() / 10.0);
 
-		effects_->setStyle(static_cast<int>(cstyle.effects()), cstyle.isInhEffects());
+		effects_->setStyle(static_cast<int>(cstyle->effects()), cstyle->isInhEffects());
 		effects_->setParentItem(static_cast<int>(parent->effects()));
 
-		fillShade_->setValue(cstyle.fillShade(), cstyle.isInhFillShade());
+		fillShade_->setValue(cstyle->fillShade(), cstyle->isInhFillShade());
 		fillShade_->setParentValue(parent->fillShade());
 
-		strokeShade_->setValue(cstyle.strokeShade(), cstyle.isInhStrokeShade());
+		strokeShade_->setValue(cstyle->strokeShade(), cstyle->isInhStrokeShade());
 		strokeShade_->setParentValue(parent->strokeShade());
 
-		fillColor_->setCurrentText(cstyle.fillColor(), cstyle.isInhFillColor());
+		fillColor_->setCurrentText(cstyle->fillColor(), cstyle->isInhFillColor());
 		fillColor_->setParentText(parent->fillColor());
 
-		strokeColor_->setCurrentText(cstyle.strokeColor(), cstyle.isInhStrokeColor());
+		strokeColor_->setCurrentText(cstyle->strokeColor(), cstyle->isInhStrokeColor());
 		strokeColor_->setParentText(parent->strokeColor());
 
-		fontFace_->setCurrentFont(cstyle.font().scName(), cstyle.isInhFont());
+		fontFace_->setCurrentFont(cstyle->font().scName(), cstyle->isInhFont());
 		fontFace_->setParentFont(parent->font().scName());
 	}
 	else
 	{
-		fontSize_->setValue(cstyle.fontSize() / 10.0);
-		fontHScale_->setValue(cstyle.scaleH() / 10.0);
-		fontVScale_->setValue(cstyle.scaleV() / 10.0);
-		baselineOffset_->setValue(cstyle.baselineOffset() / 10.0);
-		tracking_->setValue(cstyle.tracking() / 10.0);
-		effects_->setStyle(static_cast<int>(cstyle.effects()));
-		fillShade_->setValue(cstyle.fillShade());
-		strokeShade_->setValue(cstyle.strokeShade());
-		fillColor_->setCurrentText(cstyle.fillColor());
-		strokeColor_->setCurrentText(cstyle.strokeColor());
-		fontFace_->setCurrentFont(cstyle.font().scName());
+		fontSize_->setValue(cstyle->fontSize() / 10.0);
+		fontHScale_->setValue(cstyle->scaleH() / 10.0);
+		fontVScale_->setValue(cstyle->scaleV() / 10.0);
+		baselineOffset_->setValue(cstyle->baselineOffset() / 10.0);
+		tracking_->setValue(cstyle->tracking() / 10.0);
+		effects_->setStyle(static_cast<int>(cstyle->effects()));
+		fillShade_->setValue(cstyle->fillShade());
+		strokeShade_->setValue(cstyle->strokeShade());
+		fillColor_->setCurrentText(cstyle->fillColor());
+		strokeColor_->setCurrentText(cstyle->strokeColor());
+		fontFace_->setCurrentFont(cstyle->font().scName());
 	}
 
-	effects_->ShadowVal->Xoffset->setValue(cstyle.shadowXOffset() / 10.0);
-	effects_->ShadowVal->Yoffset->setValue(cstyle.shadowYOffset() / 10.0);
-	effects_->OutlineVal->LWidth->setValue(cstyle.outlineWidth() / 10.0);
-	effects_->StrikeVal->LPos->setValue(cstyle.strikethruOffset() / 10.0);
-	effects_->StrikeVal->LWidth->setValue(cstyle.strikethruWidth() / 10.0);
-	effects_->UnderlineVal->LPos->setValue(cstyle.underlineOffset() / 10.0);
-	effects_->UnderlineVal->LWidth->setValue(cstyle.underlineWidth() / 10.0);
+	effects_->ShadowVal->Xoffset->setValue(cstyle->shadowXOffset() / 10.0);
+	effects_->ShadowVal->Yoffset->setValue(cstyle->shadowYOffset() / 10.0);
+	effects_->OutlineVal->LWidth->setValue(cstyle->outlineWidth() / 10.0);
+	effects_->StrikeVal->LPos->setValue(cstyle->strikethruOffset() / 10.0);
+	effects_->StrikeVal->LWidth->setValue(cstyle->strikethruWidth() / 10.0);
+	effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
+	effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
 	slotColorChange();
 
 	
@@ -605,7 +889,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	parentCombo->insertItem("");
 	for (uint i = 0; i < cstyles.count(); ++i)
 	{
-		if (cstyles[i].displayName() != cstyle.displayName())
+		if (cstyles[i].displayName() != cstyle->displayName())
 			parentCombo->insertItem(cstyles[i].displayName());
 	}
 
@@ -614,7 +898,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == cstyle.parentStyle()->displayName())
+			if (parentCombo->text(i) == cstyle->parentStyle()->displayName())
 			{
 				index = i;
 				break;
@@ -626,7 +910,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 		parentCombo->setCurrentItem(0);
 
 	fillLangCombo(langMap_, defaultLang_);
-	QString clang = cstyle.language() == QString::null ? defaultLang_ : cstyle.language();
+	QString clang = cstyle->language() == QString::null ? defaultLang_ : cstyle->language();
 	QString plang = QString::null;
 	if (hasParent)
 		plang = parent->language() == QString::null ? defaultLang_ : parent->language();
@@ -643,7 +927,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 
 	if (hasParent)
 	{
-		language_->setCurrentItem(ci, cstyle.isInhLanguage());
+		language_->setCurrentItem(ci, cstyle->isInhLanguage());
 		language_->setParentItem(pi);
 	}
 	else
@@ -652,7 +936,7 @@ void SMCStylePage::show(CharStyle &cstyle, QValueList<CharStyle> &cstyles)
 	connect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 }
 
-void SMCStylePage::show(QValueList<CharStyle> &cstyles, QValueList<CharStyle> &cstylesAll)
+void SMCStylePage::show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &cstylesAll)
 {
 	if (cstyles.count() == 1)
 		show(cstyles[0], cstylesAll);

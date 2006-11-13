@@ -27,6 +27,8 @@ public:
 	void setValue(int val);
 	void setValue(int val, bool isParentVal);
 
+	void clear();
+
 	void setParentValue(int val);
 
 	bool useParentValue();
@@ -55,6 +57,8 @@ public:
 
 	void setValue(double val);
 	void setValue(double val, bool isParentVal);
+
+	void clear();
 
 	void setParentValue(double val);
 

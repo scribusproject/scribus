@@ -789,7 +789,7 @@ void StyleManager::slotSetupWidget()
 		item_->selected(selection.second);
 		if (selection.second.count() > 1)
 		{
-			nameEdit->setText("More than one style selected");
+			nameEdit->setText(tr("More than one style selected"));
 			nameEdit->setEnabled(false);
 			shortcutWidget_->setEnabled(false);
 			shortcutWidget_->setShortcut(QString::null);

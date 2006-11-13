@@ -8,6 +8,7 @@ for which a new license (GPL+exception) is in place.
 #include "smwidgets.h"
 #include "smwidgets.moc"
 #include <qtooltip.h>
+#include <qlineedit.h>
 #include "units.h"
 
 /***********************************************************************/
@@ -40,6 +41,13 @@ void SMSpinBox::setValue(int val, bool isParentVal)
 	setFont(!isParentVal);
 
 	QSpinBox::setValue(val);
+	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+}
+
+void SMSpinBox::clear()
+{
+	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	editor()->clear();
 	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 }
 
@@ -127,6 +135,13 @@ void SMMSpinBox::setValue(double val, bool isParentVal)
 	setFont(!isParentVal);
 
 	MSpinBox::setValue(val);
+	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+}
+
+void SMMSpinBox::clear()
+{
+	disconnect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
+	editor()->clear();
 	connect(this, SIGNAL(valueChanged(int)), this, SLOT(slotValueChanged()));
 }
 
