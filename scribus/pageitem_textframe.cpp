@@ -933,9 +933,9 @@ void PageItem_TextFrame::layout()
 				goNextColumn = true;
 
 			// remember possible break
-			if (((hl->ch == " ") || (hl->ch == SpecialChars::TAB)) && (!outs))
+			if ((hl->ch[0] == ' ' || hl->ch[0] == SpecialChars::ZWSPACE || (hl->ch == SpecialChars::TAB)) && (!outs))
 			{
-				if ( a == firstInFrame() || itemText.text(a-1) !=  ' ')
+				if ( a == firstInFrame() || ! (itemText.text(a-1) ==  ' ' || itemText.text(a-1) == SpecialChars::ZWSPACE) )
 				{
 					LastXp = CurX;
 					LastSP = BuPos;
@@ -1127,7 +1127,7 @@ void PageItem_TextFrame::layout()
 						for (int j=curLine.firstItem; j <= a; ++j)
 							LastXp += itemText.item(j)->glyph.wide();
 						
-						if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
+						if ((hl->effects() & ScStyle_HyphenationPossible) || hl->ch[0] == SpecialChars::SHYPHEN)
 						{
 							// insert hyphen
 							HyphenCount++;
