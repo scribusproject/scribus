@@ -34,7 +34,12 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NUL
 
 ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
-	cstyle.setBase(other.charStyle().base());
+	// we want to inherit parent's charstyle:
+	const ParagraphStyle* par = dynamic_cast<const ParagraphStyle*>(parentStyle());
+	if (par)
+		cstyle.setBase(par->charStyleBase());
+	else
+		cstyle.setBase(NULL);
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 	other.validate();
@@ -126,6 +131,8 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 	const ParagraphStyle* par = dynamic_cast<const ParagraphStyle*>(parentStyle());
 	if (par)
 		cstyle.setBase(par->charStyleBase());
+	else
+		cstyle.setBase(NULL);
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
