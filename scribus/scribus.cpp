@@ -1063,9 +1063,11 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 					}
 					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
+						// this code is currently dead since unicodeSmartHyphen 
+						// doesnt have unicodevalue == -1 any more
 						if (currItem->CPos-1>0)
 						{
-#ifndef NLS_PROTO
+#if 1
 							StyleFlag fl = currItem->itemText.item(QMAX(currItem->CPos-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
 							currItem->itemText.item(QMAX(currItem->CPos-1,0))->setEffects(fl);
