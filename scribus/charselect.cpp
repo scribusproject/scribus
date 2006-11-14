@@ -44,7 +44,6 @@ const QString & CharSelect::getCharacters()
 	return m_characters;
 }
 
-
 void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 {
 	setCaption( tr( "Select Character:" )+" "+m_fontInUse );
@@ -81,6 +80,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	scanFont();
 
 	unicodeButton = new UnicodeChooseButton(this, "unicodeButton");
+// 	unicodeButton->setFont((*m_Item->doc()->AllFonts)[m_fontInUse]);
 	unicodeLayout = new QVBoxLayout();
 	unicodeLayout->addWidget(unicodeButton);
 
@@ -152,6 +152,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	//connect(userTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
 	connect(userTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
 	connect(userTable, SIGNAL(delChar()), this, SLOT(delChar()));
+	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), userTable, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
@@ -480,6 +481,7 @@ void CharSelect::newFont(int font)
 	QString oldFont(m_fontInUse);
 	m_fontInUse = fontSelector->text(font);
 	charTable->setFontInUse(m_fontInUse);
+// 	unicodeButton->setFont((*m_Item->doc()->AllFonts)[m_fontInUse]);
 	(*m_Item->doc()->AllFonts)[m_fontInUse].increaseUsage();
 	(*m_Item->doc()->AllFonts)[oldFont].decreaseUsage();
 	delEdit();

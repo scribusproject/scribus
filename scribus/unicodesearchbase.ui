@@ -57,17 +57,6 @@
                 <widget class="QListView">
                     <column>
                         <property name="text">
-                            <string>Icon</string>
-                        </property>
-                        <property name="clickable">
-                            <bool>true</bool>
-                        </property>
-                        <property name="resizable">
-                            <bool>true</bool>
-                        </property>
-                    </column>
-                    <column>
-                        <property name="text">
                             <string>Hex</string>
                         </property>
                         <property name="clickable">

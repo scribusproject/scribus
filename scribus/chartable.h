@@ -12,26 +12,11 @@ for which a new license (GPL+exception) is in place.
 
 class QTable;
 class PageItem;
+class CharZoom;
 
 
 //! \brief A special type for character classes
 typedef QValueList<uint> CharClassDef;
-
-
-/*! \brief "A magnifying glass" dialog for CharTable cell.
-*/
-class SCRIBUS_API CharZoom : public QDialog
-{
-	Q_OBJECT
-
-	public:
-		CharZoom( QWidget* parent, QPixmap pix, uint val);
-		~CharZoom() {};
-	private:
-		void paintEvent(QPaintEvent *);
-		QPixmap pixm;
-		QString valu;
-};
 
 
 /*! \brief A table widget containing given characters from font */
@@ -52,6 +37,12 @@ public:
 public slots:
 	//! \brief No usage now.
 	void showAlternate();
+	/*! \brief appends an unicode char into m_characters list.
+	\param s a QString with numerical representation of the character.
+	\param base an optional parameter containing base of the numerical converion. See QString::toInt() documentation.
+	The base parameter is used mainly in normal code - not in slot calls.
+	*/
+	void appendUnicode(QString s, uint base = 16);
 
 signals:
 	void selectChar(uint);

@@ -40,6 +40,7 @@ scribus_SOURCES = \
 	buttonicon.cpp	\
 	charselect.cpp	\
 	chartable.cpp \
+	charzoom.cpp \
 	checkDocument.cpp	\
 	cmserrorhandling.cpp \
 	cmsprefs.cpp	\
@@ -332,6 +333,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/buttonicon.h                  $(prefix)/include/scribus/buttonicon.h
 	$(INSTALL_DATA) $(srcdir)/charselect.h                  $(prefix)/include/scribus/charselect.h
 	$(INSTALL_DATA) $(srcdir)/chartable.h                   $(prefix)/include/scribus/chartable.h
+	$(INSTALL_DATA) $(srcdir)/charzoom.h                    $(prefix)/include/scribus/charzoom.h
 	$(INSTALL_DATA) $(srcdir)/checkDocument.h               $(prefix)/include/scribus/checkDocument.h
 	$(INSTALL_DATA) $(srcdir)/cmsprefs.h                    $(prefix)/include/scribus/cmsprefs.h
 	$(INSTALL_DATA) $(srcdir)/cmsutil.h                     $(prefix)/include/scribus/cmsutil.h
@@ -532,6 +534,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/buttonicon.h
 	-rm -f $(prefix)/include/scribus/charselect.h
 	-rm -f $(prefix)/include/scribus/chartable.h
+	-rm -f $(prefix)/include/scribus/charzoom.h
 	-rm -f $(prefix)/include/scribus/checkDocument.h
 	-rm -f $(prefix)/include/scribus/cmsprefs.h
 	-rm -f $(prefix)/include/scribus/cmsutil.h

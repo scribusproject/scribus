@@ -12,6 +12,8 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 
 #include "unicodesearchbase.h"
+#include "scribusapi.h"
+// #include "fonts/scface.h"
 
 
 /*! \brief Special "search for unicode character" dialog.
@@ -20,7 +22,7 @@ description and in the hex representation (as string) too.
 See directory ./unicodemap/ for more info
 \author Petr Vanek <petr@scribus.info>
 */
-class UnicodeSearch : public UnicodeSearchBase
+class SCRIBUS_API UnicodeSearch : public UnicodeSearchBase
 {
 	Q_OBJECT
 
@@ -35,6 +37,7 @@ public:
 	It's in separate method to keep the constructor lightweight. This method is
 	called first time user requests the dialog. */
 	void checkForUpdate();
+// 	void setFont(ScFace f);
 
 signals:
 	//! \brief Emitted when the dialog gets hidden.
@@ -45,6 +48,8 @@ private:
 	It's filled in constructor only once. All searching re-fills
 	of the unicodeList are performed on this map */
 	QMap<QString,QString> m_unicodeMap;
+
+// 	ScFace m_font;
 
 	//! \brief All items from m_unicodeMap into unicodeList.
 	void query();
@@ -65,10 +70,10 @@ private slots:
 
 /*! \brief A special widget to cooperate with UnicodeSearch.
 Construct a toggle push button. When it's toggled, the search dialog
-is shown. There is a "apply" button too.
+is shown. It is an "apply" button too.
 \author Petr Vanek <petr@scribus.info>
 */
-class UnicodeChooseButton : public QWidget
+class SCRIBUS_API UnicodeChooseButton : public QPushButton
 {
 	Q_OBJECT
 
@@ -80,24 +85,23 @@ public:
 	UnicodeChooseButton(QWidget * parent, const char * name = 0);
 	~UnicodeChooseButton(){};
 
+// 	void setFont(ScFace f) { m_searchDialog->setFont(f); };
+
 signals:
-	void clicked();
+	//! \brief Signal transfering the chosen character as QString
+	void chosenUnicode(QString);
 
 private:
 	/*! \brief UnicodeSearch reference.
 	The dialog is created in "this" constructor. Showing and hiding
 	is handled by toggled() signal catched in self_toggled() */
 	UnicodeSearch* m_searchDialog;
-	//! \brief A button to open/close m_searchDialog.
-	QPushButton* searchButton;
-	//! \brief A button for selected character operations.
-	QPushButton* selectButton;
 
 private slots:
 	//! \brief Handle toggle state (show/hide) search dialog.
 	void self_toggled(bool);
-	//! \brief emit the local clicked() signal.
-	void selectButton_clicked();
+	//! \brief Handle various signals - user inputs (clicked, return pressed etc.)
+	void unicodeList_chosen(QListViewItem *);
 
 };
 

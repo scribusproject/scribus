@@ -16,36 +16,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "chartable.h"
 #include "chartable.moc"
+#include "charzoom.h"
 
-
-#ifdef QT_MAC
-CharZoom::CharZoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder | WType_Popup)
-#else
-CharZoom::CharZoom(QWidget* parent, QPixmap pix, uint val) : QDialog( parent, "Edit", false, WStyle_Customize | WStyle_NoBorder)
-#endif
-{
-	int newwidth=pix.width()+2;
-	int newheight=pix.height()+20;
-	resize(newwidth,newheight);
-	setMinimumSize(QSize(newwidth,newheight));
-	setMaximumSize(QSize(newwidth,newheight));
-	pixm = pix;
-	QString tmp;
-	tmp.sprintf("%04X", val);
-	valu = "0x"+tmp;
-}
-
-void CharZoom::paintEvent(QPaintEvent *)
-{
-	QPainter p;
-	p.begin(this);
-	p.setPen(black);
-	p.setBrush(NoBrush);
-	p.drawRect(0, 0, width(), height());
-	p.drawPixmap(1, 1, pixm);
-	p.drawText(5, height()-3, valu);
-	p.end();
-}
 
 CharTable::CharTable(QWidget* parent, int cols, PageItem* pi, QString font)
 	: QTable(parent),
@@ -275,7 +247,6 @@ void CharTable::setFontInUse(QString font)
 	recalcCellSizes();
 }
 
-// D'n'D
 void CharTable::enableDrops(bool e)
 {
 	viewport()->setAcceptDrops(e);
@@ -294,14 +265,17 @@ void CharTable::slotDropped(QDropEvent *evt)
 		return;
 
 	QString label;
-	bool ok;
 	if ( QTextDrag::decode(evt, label))
+		appendUnicode(label, 10);
+}
+
+void CharTable::appendUnicode(QString s, uint base)
+{
+	bool ok;
+	int val = s.toInt(&ok, base);
+	if (ok && !m_characters.contains(val))
 	{
-		int val = label.toInt(&ok, 10);
-		if (ok && !m_characters.contains(val))
-		{
-			m_characters.append(val);
-			recalcCellSizes();
-		}
+		m_characters.append(val);
+		recalcCellSizes();
 	}
 }

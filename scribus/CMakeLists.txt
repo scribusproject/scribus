@@ -69,6 +69,7 @@ bookpalette.h
 buttonicon.h
 charselect.h
 chartable.h
+charzoom.h
 checkDocument.h
 cmsprefs.h
 cmykfw.h
@@ -246,6 +247,7 @@ bookpalette.cpp
 buttonicon.cpp
 charselect.cpp
 chartable.cpp
+charzoom.cpp
 checkDocument.cpp
 cmserrorhandling.cpp
 cmykfw.cpp

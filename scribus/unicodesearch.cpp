@@ -13,33 +13,35 @@ for which a new license (GPL+exception) is in place.
 #include "unicodesearch.h"
 #include "unicodesearch.moc"
 #include "scpaths.h"
+// #include "fonts/scfontmetrics.h"
+
 
 extern QPixmap loadIcon(QString nam);
 
 
 UnicodeChooseButton::UnicodeChooseButton(QWidget * parent, const char * name)
-	: QWidget(parent, name),
+	: QPushButton(parent, name),
 	m_searchDialog(0)
 {
-	selectButton = new QPushButton(this, "selectButton");
-	selectButton->setText(tr("Search first"));
-	selectButton->setEnabled(false);
-	searchButton = new QPushButton(this, "searchButton");
-	searchButton->setPixmap(loadIcon("viewmag1.png"));
-	searchButton->setToggleButton(true);
-	searchButton->setMinimumHeight(selectButton->height());
-	searchButton->setMinimumWidth(selectButton->height());
+	setText("&Search");
+	setToggleButton(true);
 
-	QBoxLayout* l = new QHBoxLayout(this);
-	l->addWidget(selectButton);
-	l->addWidget(searchButton);
-	
 	m_searchDialog = new UnicodeSearch(this, "m_searchDialog", false);
 	Q_CHECK_PTR(m_searchDialog);
 
-	connect(searchButton, SIGNAL(toggled(bool)), this, SLOT(self_toggled(bool)));
-	connect(selectButton, SIGNAL(clicked()), this, SLOT(selectButton_clicked()));
-	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), searchButton, SLOT(setOn(bool)));
+	connect(this, SIGNAL(toggled(bool)), this, SLOT(self_toggled(bool)));
+	connect(m_searchDialog, SIGNAL(setVisibleState(bool)), this, SLOT(setOn(bool)));
+	//
+	// listview user inputs
+	connect(m_searchDialog->unicodeList, SIGNAL(doubleClicked(QListViewItem *, const QPoint &, int)), this, SLOT(unicodeList_chosen(QListViewItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(returnPressed(QListViewItem *)), this, SLOT(unicodeList_chosen(QListViewItem *)));
+	connect(m_searchDialog->unicodeList, SIGNAL(spacePressed(QListViewItem *)), this, SLOT(unicodeList_chosen(QListViewItem *)));
+}
+
+void UnicodeChooseButton::unicodeList_chosen(QListViewItem *item)
+{
+	emit chosenUnicode(item->text(0));
+	emit toggled(false);
 }
 
 void UnicodeChooseButton::self_toggled(bool state)
@@ -53,12 +55,6 @@ void UnicodeChooseButton::self_toggled(bool state)
 	else
 		m_searchDialog->hide();
 }
-
-void UnicodeChooseButton::selectButton_clicked()
-{
-	emit clicked();
-}
-
 
 UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
 	: UnicodeSearchBase( parent, name, modal, WStyle_Customize | WStyle_NoBorder)
@@ -94,7 +90,7 @@ void UnicodeSearch::readUnicodeMap()
 		for ( QStringList::Iterator it = list.begin(); it != list.end(); ++it )
 		{
 			line = QStringList::split(':', *it);
-			m_unicodeMap[line[0]] = line[1];
+			m_unicodeMap[line[0]] = line[1].lower();
 		}
 	}
 	else
@@ -107,7 +103,7 @@ void UnicodeSearch::query()
 	QMap<QString,QString>::Iterator it;
 	for (it = m_unicodeMap.begin(); it != m_unicodeMap.end(); ++it)
 	{
-		QListViewItem *item = new QListViewItem(unicodeList, "", it.key(), it.data());
+		QListViewItem *item = new QListViewItem(unicodeList, it.key(), it.data());
 		unicodeList->insertItem(item);
 	}
 }
@@ -124,7 +120,7 @@ void UnicodeSearch::query(QString filter)
 	{
 		if (!it.key().contains(filter, false) && !it.data().contains(filter, false))
 			continue;
-		QListViewItem *item = new QListViewItem(unicodeList, "", it.key(), it.data());
+		QListViewItem *item = new QListViewItem(unicodeList, it.key(), it.data());
 		unicodeList->insertItem(item);
 	}
 }
@@ -141,3 +137,9 @@ void UnicodeSearch::hideEvent(QHideEvent * e)
 	QDialog::hideEvent(e);
 	emit setVisibleState(false);
 }
+
+// void UnicodeSearch::setFont(ScFace f)
+// {
+// 	m_font = f;
+// 	searchEdit_returnPressed();
+// }
