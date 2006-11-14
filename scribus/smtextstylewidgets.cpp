@@ -317,7 +317,8 @@ void SMPStyleWidget::showLineSpacing(QValueList<ParagraphStyle*> &pstyles)
 
 	if (tmpLP == -1)
 	{
-		lineSpacingMode_->insertItem("");
+		if (lineSpacingMode_->text(lineSpacingMode_->count() - 1) != "")
+			lineSpacingMode_->insertItem("");
 		lineSpacingMode_->setCurrentItem(lineSpacingMode_->count() - 1);
 	}
 	else
@@ -450,6 +451,17 @@ void SMPStyleWidget::showAlignment(QValueList<ParagraphStyle*> &pstyles)
 
 void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitIndex)
 {
+	QValueList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
+	for (uint i = 0; i < pstyles.count(); ++i)
+	{
+		if (t != pstyles[i]->tabValues())
+		{
+			t = QValueList<ParagraphStyle::TabRecord>();
+			break;
+		}
+	}
+	tabList_->setTabs(t, unitIndex);
+
 	double l = -4000.0;
 	for (uint i = 0; i < pstyles.count(); ++i)
 	{
@@ -480,7 +492,7 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 		else
 			l = pstyles[i]->firstIndent();
 	}
-	if (l > -3800.0)
+	if (l < -3800.0)
 	{
 		tabList_->setFirstLineValue(0.0);
 		tabList_->first_->clear();
@@ -507,16 +519,6 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 	else
 		tabList_->setRightIndentValue(l);
 
-	QValueList<ParagraphStyle::TabRecord> t = pstyles[0]->tabValues();
-	for (uint i = 0; i < pstyles.count(); ++i)
-	{
-		if (t != pstyles[i]->tabValues())
-		{
-			tabList_->setTabs(QValueList<ParagraphStyle::TabRecord>(), unitIndex);
-			return;
-		}
-	}
-	tabList_->setTabs(t, unitIndex);
 }
 
 void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang)
@@ -865,7 +867,6 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 	else
 		parentCombo->setCurrentItem(0);
 
-	fillLangCombo(langMap_);
 	QString clang = cstyle->language() == QString::null || cstyle->language().isEmpty() ?
 	                                      defLang : cstyle->language();
 	QString plang = QString::null;
@@ -919,54 +920,6 @@ void SMCStylePage::show(QValueList<CharStyle*> &cstyles, QValueList<CharStyle> &
 		showColors(cstyles);
 		showLanguage(cstyles, defLang);
 		showParent(cstyles);
-
-// 		parentCombo->clear();
-// 		parentCombo->insertItem("");
-// 		for (uint i = 0; i < cstyles.count(); ++i)
-// 		{
-// 			if (cstyles[i].displayName() != cstyle->displayName())
-// 				parentCombo->insertItem(cstyles[i].displayName());
-// 		}
-// 	
-// 		if (hasParent)
-// 		{
-// 			int index = 0;
-// 			for (int i = 0; i < parentCombo->count(); ++i)
-// 			{
-// 				if (parentCombo->text(i) == cstyle->parentStyle()->displayName())
-// 				{
-// 					index = i;
-// 					break;
-// 				}
-// 			}
-// 			parentCombo->setCurrentItem(index);
-// 		}
-// 		else
-// 			parentCombo->setCurrentItem(0);
-// 	
-// 		fillLangCombo(langMap_, defaultLang_);
-// 		QString clang = cstyle->language() == QString::null ? defaultLang_ : cstyle->language();
-// 		QString plang = QString::null;
-// 		if (hasParent)
-// 			plang = parent->language() == QString::null ? defaultLang_ : parent->language();
-// 	
-// 		int ci, pi;
-// 		for (int i = 0; i < language_->count(); ++i)
-// 		{
-// 			if (language_->text(i) == langMap_[clang])
-// 				ci = i;
-// 			
-// 			if (hasParent && language_->text(i) == langMap_[plang])
-// 				pi = i;
-// 		}
-// 	
-// 		if (hasParent)
-// 		{
-// 			language_->setCurrentItem(ci, cstyle->isInhLanguage());
-// 			language_->setParentItem(pi);
-// 		}
-// 		else
-// 			language_->setCurrentItem(ci);
 	}
 }
 
@@ -1164,10 +1117,10 @@ void SMCStylePage::showColors(const QValueList<CharStyle*> &cstyles)
 
 void SMCStylePage::showLanguage(const QValueList<CharStyle*> &cstyles, const QString &defLang)
 {
-	QString s = QString::null;
+	QString s = cstyles[0]->language();
 	for (uint i = 0; i < cstyles.count(); ++i)
 	{
-		if (s != QString::null && s != cstyles[i]->language())
+		if (s != cstyles[i]->language())
 		{
 			s = QString::null;
 			break;
@@ -1183,7 +1136,10 @@ void SMCStylePage::showLanguage(const QValueList<CharStyle*> &cstyles, const QSt
 		language_->setCurrentItem(language_->count() - 1);
 	}
 	else
+	{
+		Q_ASSERT(langMap_.contains(s));
 		language_->setCurrentText(langMap_[s]);
+	}
 }
 
 void SMCStylePage::showParent(const QValueList<CharStyle*> &cstyles)
