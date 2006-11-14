@@ -32,6 +32,7 @@ public:
 	void setCharacters(CharClassDef ch);
 	//! \brief "Repaint" and refill the table with new font characters
 	void recalcCellSizes();
+	//! \brief Set the widget to accept/reject drop events.
 	void enableDrops(bool e);
 
 public slots:

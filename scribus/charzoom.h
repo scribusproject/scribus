@@ -4,7 +4,7 @@
 #include <qdialog.h>
 
 #include "scribusapi.h"
-
+#include "fonts/scface.h"
 class QPixmap;
 
 
@@ -15,11 +15,13 @@ class SCRIBUS_API CharZoom : public QDialog
 	Q_OBJECT
 
 	public:
-		CharZoom( QWidget* parent, QPixmap pix, uint val);
+		CharZoom(QWidget* parent, uint currentChar, ScFace face);
 		~CharZoom() {};
 	private:
 		void paintEvent(QPaintEvent *);
+		//! \brief Pixmap generated in constructor
 		QPixmap pixm;
+		//! \brief A hex value as string
 		QString valu;
 };
 

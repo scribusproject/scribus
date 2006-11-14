@@ -12,7 +12,6 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
-//#include "charselect.h"
 
 #include "chartable.h"
 #include "chartable.moc"
@@ -134,31 +133,8 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 	if (e->button() == RightButton && currentChar > -1)
 	{
 		//watchTimer->stop();
-		int bh = 48 + qRound(-(*m_Item->doc()->AllFonts)[m_fontInUse].descent() * 48) + 3;
-		QPixmap pixm(bh,bh);
-		ScPainter *p = new ScPainter(&pixm, bh, bh);
-		p->clear();
-		pixm.fill(white);
-		QWMatrix chma;
-		chma.scale(4.8, 4.8);
-		ScFace face = (*m_Item->doc()->AllFonts)[m_fontInUse];
-		uint gl = face.char2CMap(currentChar);
-		FPointArray gly = face.glyphOutline(gl);
-		double ww = bh - face.glyphWidth(gl, 48);
-		if (gly.size() > 4)
-		{
-			gly.map(chma);
-			p->translate(ww / 2, 1);
-			p->setBrush(black);
-			p->setFillMode(1);
-			p->setupPolygon(&gly);
-			p->fillPath();
-			p->end();
-		}
-		delete p;
-		zoom = new CharZoom(this, pixm, currentChar);
+		zoom = new CharZoom(this, currentChar, (*m_Item->doc()->AllFonts)[m_fontInUse]);
 		zoom->move(m_mousePosition.x()-2, m_mousePosition.y()-2);
-		zoom->setModal(false);
 		zoom->show();
 	}
 	if (e->button() == LeftButton)

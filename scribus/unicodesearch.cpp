@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 #include "unicodesearch.moc"
 #include "scpaths.h"
 // #include "fonts/scfontmetrics.h"
+#include "charzoom.h"
 
 
 extern QPixmap loadIcon(QString nam);
@@ -57,12 +58,14 @@ void UnicodeChooseButton::self_toggled(bool state)
 }
 
 UnicodeSearch::UnicodeSearch( QWidget* parent, const char* name, bool modal)
-	: UnicodeSearchBase( parent, name, modal, WStyle_Customize | WStyle_NoBorder)
+	: UnicodeSearchBase( parent, name, modal, WStyle_Customize | WStyle_NoBorder),
+	m_zoom(0)
 {
 	if (!name)
 		setName("UnicodeSearch");
 
 	connect(searchEdit, SIGNAL(returnPressed()), this, SLOT(searchEdit_returnPressed()));
+	connect(unicodeList, SIGNAL(mouseButtonPressed(int, QListViewItem*, const QPoint&, int)), this, SLOT(unicodeList_mouseButtonPressed(int, QListViewItem*, const QPoint&, int)));
 }
 
 void UnicodeSearch::checkForUpdate()
@@ -138,8 +141,24 @@ void UnicodeSearch::hideEvent(QHideEvent * e)
 	emit setVisibleState(false);
 }
 
-// void UnicodeSearch::setFont(ScFace f)
-// {
-// 	m_font = f;
-// 	searchEdit_returnPressed();
-// }
+void UnicodeSearch::unicodeList_mouseButtonPressed(int button, QListViewItem* item, const QPoint& point, int)
+{
+	if (!item)
+		return;
+	// It must go 1st to delete the existing dialog on click
+	if (m_zoom)
+	{
+		delete m_zoom;
+		m_zoom = 0;
+	}
+	if (button == RightButton && !m_zoom)
+	{
+		bool ok;
+		int val = item->text(0).toInt(&ok, 16);
+		if (!ok)
+			return;
+		m_zoom = new CharZoom(this, val, m_font);
+		m_zoom->move(point.x()-2, point.y()-2);
+		m_zoom->show();
+	}
+}

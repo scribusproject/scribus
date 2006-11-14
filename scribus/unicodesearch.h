@@ -13,8 +13,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "unicodesearchbase.h"
 #include "scribusapi.h"
-// #include "fonts/scface.h"
+#include "fonts/scface.h"
 
+class CharZoom;
 
 /*! \brief Special "search for unicode character" dialog.
 The search string entered by user is searched in character
@@ -37,7 +38,8 @@ public:
 	It's in separate method to keep the constructor lightweight. This method is
 	called first time user requests the dialog. */
 	void checkForUpdate();
-// 	void setFont(ScFace f);
+	//! \brief Set currently used font
+	void setFont(ScFace f) { m_font = f; };
 
 signals:
 	//! \brief Emitted when the dialog gets hidden.
@@ -49,7 +51,10 @@ private:
 	of the unicodeList are performed on this map */
 	QMap<QString,QString> m_unicodeMap;
 
-// 	ScFace m_font;
+	//! \brief A reference to the CharZoom dialog shown/closed in unicodeList_mouseButtonPressed() slot.
+	CharZoom * m_zoom;
+	//! \brief Currently used font
+	ScFace m_font;
 
 	//! \brief All items from m_unicodeMap into unicodeList.
 	void query();
@@ -65,6 +70,8 @@ private:
 private slots:
 	//! \brief Start search with user input.
 	void searchEdit_returnPressed();
+	//! \brief Handle the m_zoom dialog
+	void unicodeList_mouseButtonPressed(int button, QListViewItem* item, const QPoint& point, int);
 };
 
 
@@ -84,8 +91,8 @@ public:
 	*/
 	UnicodeChooseButton(QWidget * parent, const char * name = 0);
 	~UnicodeChooseButton(){};
-
-// 	void setFont(ScFace f) { m_searchDialog->setFont(f); };
+	//! \brief Set currently used font. Passed in the m_searchDialog here only.
+	void setFont(ScFace f) { m_searchDialog->setFont(f); };
 
 signals:
 	//! \brief Signal transfering the chosen character as QString
@@ -104,6 +111,5 @@ private slots:
 	void unicodeList_chosen(QListViewItem *);
 
 };
-
 
 #endif
