@@ -807,8 +807,10 @@ void StyleManager::slotSetupWidget()
 		nameEdit->setText("");
 		nameEdit->setEnabled(false);
 	}
+
 	connect(nameEdit, SIGNAL(textChanged(const QString&)),
 	        this, SLOT(slotNameChanged(const QString&)));
+
 }
 
 void StyleManager::slotApplyStyle(QListViewItem *item)

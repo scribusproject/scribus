@@ -1314,17 +1314,19 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	selectionIsDirty_ = false;
 	removeConnections();
 	QValueList<CharStyle> cstyles;
+
 	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
 		cstyles << doc_->docCharStyles[i]; // TODO use tmp styles instead of doc styles
 
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
+	for (uint i = 0; i < styleNames.count(); ++i)
 	{
 		int index = tmpStyles_.find(styleNames[i]);
 		if (index > -1)
 			selection_.append(&tmpStyles_[index]);
-	}
-	page_->show(selection_, cstyles, doc_->docParagraphStyles[""].charStyle().language());
 
+	}
+
+	page_->show(selection_, cstyles, doc_->docParagraphStyles[""].charStyle().language());
 	setupConnections();
 }
 

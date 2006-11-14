@@ -789,9 +789,7 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
-
 	bool hasParent = parent != 0 && parent->hasName();
-
 	if (hasParent)
 	{
 		fontSize_->setValue(cstyle->fontSize() / 10.0, cstyle->isInhFontSize());
@@ -850,8 +848,6 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 	effects_->UnderlineVal->LPos->setValue(cstyle->underlineOffset() / 10.0);
 	effects_->UnderlineVal->LWidth->setValue(cstyle->underlineWidth() / 10.0);
 	slotColorChange();
-
-	
 
 	parentCombo->clear();
 	parentCombo->insertItem("");
