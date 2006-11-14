@@ -53,7 +53,6 @@ public:
 	QGroupBox* pageSizeGroupBox;
 	MarginWidget* marginGroup;
 	QGroupBox* optionsGroupBox;
-	QGroupBox* autoTextFrameGroupBox;
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	QLabel* TextLabel3;
@@ -67,9 +66,10 @@ public:
 	QComboBox* pageOrientationComboBox;
 	QComboBox* unitOfMeasureComboBox;
 	QCheckBox* startUpDialog;
+	QCheckBox* autoTextFrame;
+	QCheckBox* startDocSetup;
 	MSpinBox* Distance;
 	QSpinBox* numberOfCols;
-	//QSpinBox* PgNr;
 	QSpinBox* pageCountSpinBox;
 	MSpinBox* widthMSpinBox;
 	MSpinBox* heightMSpinBox;
@@ -98,6 +98,7 @@ public:
 public slots:
 	void setHeight(int v);
 	void setWidth(int v);
+	void handleAutoFrame();
 	void setDist(int v);
 	void setUnit(int u);
 	void ExitOK();
@@ -120,8 +121,6 @@ protected:
 	QHBoxLayout* Layout5;
 	QHBoxLayout* Layout10;
 	QGridLayout* optionsGroupBoxLayout;
-	QHBoxLayout* autoTextFrameGroupBoxLayout;
-	QGridLayout* Layout2;
 	QHBoxLayout* Layout1;
 	QVBoxLayout* recentDocLayout;
 	PrefsManager* prefsManager;

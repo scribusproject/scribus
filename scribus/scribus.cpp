@@ -1792,7 +1792,7 @@ void ScribusMainWindow::startUpDialog()
 			double pageWidth = dia->pageWidth;
 			double pageHeight = dia->pageHeight;
 			double numberCols = dia->numberOfCols->value();
-			bool autoframes = dia->autoTextFrameGroupBox->isChecked();
+			bool autoframes = dia->autoTextFrame->isChecked();
 			int orientation = dia->Orient;
 			int pageCount=dia->pageCountSpinBox->value();
 			PageSize ps2(dia->pageSizeComboBox->currentText());
@@ -1847,7 +1847,7 @@ bool ScribusMainWindow::slotFileNew()
 		double pageWidth = dia->pageWidth;
 		double pageHeight = dia->pageHeight;
 		double numberCols = dia->numberOfCols->value();
-		bool autoframes = dia->autoTextFrameGroupBox->isChecked();
+		bool autoframes = dia->autoTextFrame->isChecked();
 		int orientation = dia->Orient;
 		int pageCount=dia->pageCountSpinBox->value();
 		PageSize ps2(dia->pageSizeComboBox->currentText());

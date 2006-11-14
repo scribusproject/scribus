@@ -82,12 +82,9 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	QToolTip::add( pageOrientationComboBox, tr( "Orientation of the document's pages" ) );
 	QToolTip::add( widthMSpinBox, tr( "Width of the document's pages, editable if you have chosen a custom page size" ) );
 	QToolTip::add( heightMSpinBox, tr( "Height of the document's pages, editable if you have chosen a custom page size" ) );
-//	QToolTip::add( Doppelseiten, tr( "Enable single or spread based layout" ) );
-//	QToolTip::add( ErsteSeite, tr( "Make the first page the left page of the document" ) );
-	//QToolTip::add( PgNr, tr( "First page number of the document" ) );
 	QToolTip::add( pageCountSpinBox, tr( "Initial number of pages of the document" ) );
 	QToolTip::add( unitOfMeasureComboBox, tr( "Default unit of measurement for document editing" ) );
-	QToolTip::add( autoTextFrameGroupBox, tr( "Create text frames automatically when new pages are added" ) );
+	QToolTip::add( autoTextFrame, tr( "Create text frames automatically when new pages are added" ) );
 	QToolTip::add( numberOfCols, tr( "Number of columns to create in automatically created text frames" ) );
 	QToolTip::add( Distance, tr( "Distance between automatically created columns" ) );
 
@@ -99,8 +96,8 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
+	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
 	if (startUp)
-		//connect(recentDocListBox, SIGNAL(doubleClicked(QListBoxItem*)), this, SLOT(recentDocListBox_doubleClicked(QListBoxItem*)));
 		connect(recentDocListBox, SIGNAL(selected(int)), this, SLOT(recentDocListBox_doubleClicked(int)));
 
 	setMinimumSize(minimumSizeHint());
@@ -155,31 +152,6 @@ void NewDoc::createNewDocPage()
 	TextLabel2_2->setBuddy(heightMSpinBox);
 	pageSizeGroupBoxLayout->addWidget(heightMSpinBox, 3, 1 );
 
-	
-	optionsGroupBox = new QGroupBox( newDocFrame, "optionsGroupBox" );
-	optionsGroupBox->setTitle( tr( "Options" ) );
-	optionsGroupBox->setColumnLayout(0, Qt::Vertical );
-	optionsGroupBox->layout()->setSpacing( 5 );
-	optionsGroupBox->layout()->setMargin( 10 );
-	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox->layout() );
-	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
-	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
-	
-	pageCountSpinBox = new QSpinBox( optionsGroupBox, "pageCountSpinBox" );
-	pageCountSpinBox->setMaxValue( 10000 );
-	pageCountSpinBox->setMinValue( 1 );
-	pageCountLabel->setBuddy(pageCountSpinBox);
-	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox, "unitOfMeasureLabel" );
-	unitOfMeasureComboBox = new QComboBox( true, optionsGroupBox, "unitOfMeasureComboBox" );
-	unitOfMeasureComboBox->insertStringList(unitGetTextUnitList());
-	unitOfMeasureComboBox->setCurrentItem(unitIndex);
-	unitOfMeasureComboBox->setEditable(false);
-	unitOfMeasureLabel->setBuddy(unitOfMeasureComboBox);
-	optionsGroupBoxLayout->addWidget( pageCountLabel, 0, 0 );
-	optionsGroupBoxLayout->addWidget( pageCountSpinBox, 0, 1 );
-	optionsGroupBoxLayout->addWidget( unitOfMeasureLabel, 1, 0 );
-	optionsGroupBoxLayout->addWidget( unitOfMeasureComboBox, 1, 1 );
-
 	struct MarginStruct marg;
 	marg.Top = prefsManager->appPrefs.RandOben;
 	marg.Bottom = prefsManager->appPrefs.RandUnten;
@@ -204,44 +176,63 @@ void NewDoc::createNewDocPage()
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
 	marginGroup->setNewBleeds(prefsManager->appPrefs.BleedTop, prefsManager->appPrefs.BleedBottom, prefsManager->appPrefs.BleedLeft, prefsManager->appPrefs.BleedRight);
 
-	autoTextFrameGroupBox = new QGroupBox( newDocFrame, "GroupBox4" );
-	autoTextFrameGroupBox->setTitle( tr( "&Automatic Text Frames" ) );
-	autoTextFrameGroupBox->setColumnLayout(0, Qt::Vertical );
-	autoTextFrameGroupBox->layout()->setSpacing( 0 );
-	autoTextFrameGroupBox->layout()->setMargin( 0 );
-	autoTextFrameGroupBox->setCheckable( true );
-	autoTextFrameGroupBox->setChecked(false);
-	autoTextFrameGroupBoxLayout = new QHBoxLayout( autoTextFrameGroupBox->layout() );
-	autoTextFrameGroupBoxLayout->setAlignment( Qt::AlignTop );
-	autoTextFrameGroupBoxLayout->setSpacing( 5 );
-	autoTextFrameGroupBoxLayout->setMargin( 10 );
-	Layout2 = new QGridLayout;
-	Layout2->setSpacing( 6 );
-	Layout2->setMargin( 5 );
-	TextLabel4 = new QLabel( tr( "&Gap:" ), autoTextFrameGroupBox, "TextLabel4" );
-	Layout2->addWidget( TextLabel4, 1, 0 );
-	TextLabel3 = new QLabel( tr( "Colu&mns:" ), autoTextFrameGroupBox, "TextLabel3" );
-	Layout2->addWidget( TextLabel3, 0, 0 );
-	Distance = new MSpinBox( 0, 1000, autoTextFrameGroupBox, precision );
+	optionsGroupBox = new QGroupBox( newDocFrame, "optionsGroupBox" );
+	optionsGroupBox->setTitle( tr( "Options" ) );
+	optionsGroupBox->setColumnLayout(0, Qt::Vertical );
+	optionsGroupBox->layout()->setSpacing( 5 );
+	optionsGroupBox->layout()->setMargin( 10 );
+	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox->layout() );
+	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
+	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
+	
+	pageCountSpinBox = new QSpinBox( optionsGroupBox, "pageCountSpinBox" );
+	pageCountSpinBox->setMaxValue( 10000 );
+	pageCountSpinBox->setMinValue( 1 );
+	pageCountLabel->setBuddy(pageCountSpinBox);
+	unitOfMeasureLabel = new QLabel( tr( "&Default Unit:" ), optionsGroupBox, "unitOfMeasureLabel" );
+	unitOfMeasureComboBox = new QComboBox( true, optionsGroupBox, "unitOfMeasureComboBox" );
+	unitOfMeasureComboBox->insertStringList(unitGetTextUnitList());
+	unitOfMeasureComboBox->setCurrentItem(unitIndex);
+	unitOfMeasureComboBox->setEditable(false);
+	unitOfMeasureLabel->setBuddy(unitOfMeasureComboBox);
+	optionsGroupBoxLayout->addWidget( pageCountLabel, 0, 0 );
+	optionsGroupBoxLayout->addWidget( pageCountSpinBox, 0, 1 );
+	optionsGroupBoxLayout->addWidget( unitOfMeasureLabel, 1, 0 );
+	optionsGroupBoxLayout->addWidget( unitOfMeasureComboBox, 1, 1 );
+
+	autoTextFrame = new QCheckBox( optionsGroupBox, "autoTextFrame" );
+	autoTextFrame->setText( tr( "&Automatic Text Frames" ) );
+	optionsGroupBoxLayout->addMultiCellWidget( autoTextFrame, 2, 2, 0, 1 );
+	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox, "TextLabel3" );
+	optionsGroupBoxLayout->addWidget( TextLabel3, 3, 0 );
+	Distance = new MSpinBox( 0, 1000, optionsGroupBox, precision );
 	Distance->setSuffix( unitSuffix );
 	Distance->setValue(11 * unitRatio);
 	Dist = 11;
+	optionsGroupBoxLayout->addWidget( Distance, 3, 1);
+	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox, "TextLabel4" );
+	optionsGroupBoxLayout->addWidget( TextLabel4, 4, 0 );
 	TextLabel4->setBuddy(Distance);
-	Layout2->addWidget( Distance, 1, 1); //, Qt::AlignLeft );
-	numberOfCols = new QSpinBox( autoTextFrameGroupBox, "numberOfCols" );
+	numberOfCols = new QSpinBox( optionsGroupBox, "numberOfCols" );
 	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
 	numberOfCols->setMinValue( 1 );
 	numberOfCols->setValue( 1 );
 	TextLabel3->setBuddy(numberOfCols);
-	Layout2->addWidget( numberOfCols, 0, 1); //, Qt::AlignLeft );
-	autoTextFrameGroupBoxLayout->addLayout( Layout2 );
-	
+	optionsGroupBoxLayout->addWidget( numberOfCols, 4, 1);
+	TextLabel3->setEnabled(false);
+	TextLabel4->setEnabled(false);
+	Distance->setEnabled(false);
+	numberOfCols->setEnabled(false);
+	startDocSetup = new QCheckBox( optionsGroupBox, "startDocSetup" );
+	startDocSetup->setText( tr( "Open Document Setup after creation" ) );
+	startDocSetup->setChecked(false);
+	optionsGroupBoxLayout->addMultiCellWidget( startDocSetup, 5, 5, 0, 1 );
+
 	NewDocLayout = new QGridLayout( newDocFrame, 3, 3, 10, 5, "NewDocLayout");
 	NewDocLayout->addMultiCellWidget( docLayout, 0, 1, 0, 0 );
 	NewDocLayout->addWidget( pageSizeGroupBox, 0, 1);
 	NewDocLayout->addWidget( marginGroup, 1, 1 );
-	NewDocLayout->addWidget( optionsGroupBox, 0, 2 );
-	NewDocLayout->addWidget( autoTextFrameGroupBox, 1, 2 );
+	NewDocLayout->addMultiCellWidget( optionsGroupBox, 0, 1, 2, 2 );
 }
 
 void NewDoc::createOpenDocPage()
@@ -306,6 +297,24 @@ void NewDoc::setHeight(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+}
+
+void NewDoc::handleAutoFrame()
+{
+	if (autoTextFrame->isChecked())
+	{
+		TextLabel3->setEnabled(true);
+		TextLabel4->setEnabled(true);
+		Distance->setEnabled(true);
+		numberOfCols->setEnabled(true);
+	}
+	else
+	{
+		TextLabel3->setEnabled(false);
+		TextLabel4->setEnabled(false);
+		Distance->setEnabled(false);
+		numberOfCols->setEnabled(false);
+	}
 }
 
 void NewDoc::setDist(int)
