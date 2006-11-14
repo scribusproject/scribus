@@ -35,7 +35,6 @@ public:
 	void restoreDefaults(struct ApplicationPrefs *prefsData);
 	void restoreDefaults(ScribusDoc *prefsData);
 	void unitChange();
-	void adjustBleed(bool facingPages);
 	//! \brief Hide non-needed GUI for ReformDoc
 	void hideReform();
 	MSpinBox* pageWidth;
@@ -54,15 +53,6 @@ public:
 	QSpinBox* ASTime;
 	QGroupBox* urGroup;
 	QSpinBox* urSpinBox;
-	MSpinBox* BleedBottom;
-	MSpinBox* BleedLeft;
-	MSpinBox* BleedRight;
-	MSpinBox* BleedTop;
-	QGroupBox* BleedGroup;
-	QLabel* BleedTxt1;
-	QLabel* BleedTxt2;
-	QLabel* BleedTxt3;
-	QLabel* BleedTxt4;
 	// reform widgets
 	QCheckBox* sizeAllPages;
 	QCheckBox* sizeAllMasterPages;
@@ -114,7 +104,6 @@ protected:
 	QGridLayout* Layout6;
 	QHBoxLayout* Layout5_2;
 	QHBoxLayout* GroupASLayout;
-	QGridLayout* BleedGroupLayout;
 };
 
 #endif

@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlabel.h>
 #include <qlayout.h>
 #include <qpushbutton.h>
-
+#include <qtabwidget.h>
 class QCheckBox;
 
 class MSpinBox;
@@ -65,7 +65,7 @@ private:
 /*! \brief Widget for Margins setting.
 Used e.g. in "New Doc Dialog" or "Preferences".
 */
-class SCRIBUS_API MarginWidget : public QGroupBox
+class SCRIBUS_API MarginWidget : public QTabWidget
 {
 	Q_OBJECT
 
@@ -115,17 +115,45 @@ public:
 	*/
 	void setNewMargins(double t, double b, double l, double r);
 	
+	/*! \brief Top Bleed
+	\retval double bleed size */
+	double topBleed();
+	/*! \brief Bottom Bleed
+	\retval double bleed size */
+	double bottomBleed();
+	/*! \brief Left Bleed
+	\retval double bleed size */
+	double leftBleed();
+	/*! \brief Right Bleed
+	\retval double bleed size */
+	double rightBleed();
+
+	/*! \brief set new bleed values for the dialog
+	\param t new top value
+	\param b new bottom value
+	\param l new left value
+	\param r new right value
+	*/
+	void setNewBleeds(double t, double b, double l, double r);
+	
 	/*! \brief Return marginsForAllPages property
 	\retval bool true to apply for all pages */
 	bool getMarginsForAllPages();
 	bool getMarginsForAllMasterPages();
 
 private:
+	/*! Tabs */
+	QWidget *marginPage;
+	QWidget* bleedPage;
 	/*! Spinboxes */
 	MSpinBox* topR;
 	MSpinBox* bottomR;
 	MSpinBox* rightR;
 	MSpinBox* leftR;
+	MSpinBox* BleedBottom;
+	MSpinBox* BleedLeft;
+	MSpinBox* BleedRight;
+	MSpinBox* BleedTop;
 	PresetLayout* presetCombo;
 	/*! Labels */
 	QLabel* lText;
@@ -134,6 +162,10 @@ private:
 	QLabel* bText;
 	QLabel* presetLabel;
 	QLabel* marginsForPages;
+	QLabel* BleedTxt1;
+	QLabel* BleedTxt2;
+	QLabel* BleedTxt3;
+	QLabel* BleedTxt4;
 	QCheckBox* marginsForAllPages;
 	QCheckBox* marginsForAllMasterPages;
 	QPushButton* usePrinterMarginsButton;
@@ -165,6 +197,7 @@ protected slots:
 protected:
 	QGridLayout* GroupLayout;
 	QHBoxLayout* marginsForPagesLayout;
+	QGridLayout* BleedGroupLayout;
 	QString m_pageSize;
 	QString m_suffix;
 	double m_unitRatio;

@@ -180,58 +180,6 @@ void NewDoc::createNewDocPage()
 	optionsGroupBoxLayout->addWidget( unitOfMeasureLabel, 1, 0 );
 	optionsGroupBoxLayout->addWidget( unitOfMeasureComboBox, 1, 1 );
 
-	BleedGroup = new QGroupBox( newDocFrame, "BleedGroup" );
-	BleedGroup->setTitle( tr( "Bleed Settings" ) );
-	BleedGroup->setColumnLayout(0, Qt::Vertical );
-	BleedGroup->layout()->setSpacing( 5 );
-	BleedGroup->layout()->setMargin( 10 );
-	BleedGroupLayout = new QGridLayout( BleedGroup->layout() );
-	BleedGroupLayout->setAlignment( Qt::AlignTop );
-	BleedTxt1 = new QLabel( BleedGroup, "BleedTxt1" );
-	BleedTxt1->setText( tr( "Top:" ) );
-	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
-	BleedTop = new MSpinBox( BleedGroup, precision );
-	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
-	BleedTxt2 = new QLabel( BleedGroup, "BleedTxt2" );
-	BleedTxt2->setText( tr( "Bottom:" ) );
-	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
-	BleedBottom = new MSpinBox( BleedGroup, precision );
-	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
-	BleedTxt3 = new QLabel( BleedGroup, "BleedTxt3" );
-	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
-	BleedRight = new MSpinBox( BleedGroup, precision );
-	BleedGroupLayout->addWidget( BleedRight, 0, 3 );
-	BleedTxt4 = new QLabel( BleedGroup, "BleedTxt4" );
-	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
-	BleedLeft = new MSpinBox( BleedGroup, precision );
-	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
-	BleedTop->setSuffix( unitSuffix );
-	BleedTop->setMinValue(0);
-	BleedTop->setMaxValue(3000*unitRatio);
-	BleedTop->setValue(prefsManager->appPrefs.BleedTop);
-	BleedBottom->setSuffix( unitSuffix );
-	BleedBottom->setMinValue(0);
-	BleedBottom->setMaxValue(3000*unitRatio);
-	BleedBottom->setValue(prefsManager->appPrefs.BleedBottom);
-	BleedRight->setSuffix( unitSuffix );
-	BleedRight->setMinValue(0);
-	BleedRight->setMaxValue(3000*unitRatio);
-	BleedRight->setValue(prefsManager->appPrefs.BleedRight);
-	BleedLeft->setSuffix( unitSuffix );
-	BleedLeft->setMinValue(0);
-	BleedLeft->setMaxValue(3000*unitRatio);
-	BleedLeft->setValue(prefsManager->appPrefs.BleedLeft);
-	if (prefsManager->appPrefs.FacingPages == singlePage)
-	{
-		BleedTxt3->setText( tr( "Left:" ) );
-		BleedTxt4->setText( tr( "Right:" ) );
-	}
-	else
-	{
-		BleedTxt3->setText( tr( "Inside:" ) );
-		BleedTxt4->setText( tr( "Outside:" ) );
-	}
-
 	struct MarginStruct marg;
 	marg.Top = prefsManager->appPrefs.RandOben;
 	marg.Bottom = prefsManager->appPrefs.RandUnten;
@@ -254,7 +202,7 @@ void NewDoc::createNewDocPage()
 	setOrien(prefsManager->appPrefs.pageOrientation);
 	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
-
+	marginGroup->setNewBleeds(prefsManager->appPrefs.BleedTop, prefsManager->appPrefs.BleedBottom, prefsManager->appPrefs.BleedLeft, prefsManager->appPrefs.BleedRight);
 
 	autoTextFrameGroupBox = new QGroupBox( newDocFrame, "GroupBox4" );
 	autoTextFrameGroupBox->setTitle( tr( "&Automatic Text Frames" ) );
@@ -289,12 +237,11 @@ void NewDoc::createNewDocPage()
 	autoTextFrameGroupBoxLayout->addLayout( Layout2 );
 	
 	NewDocLayout = new QGridLayout( newDocFrame, 3, 3, 10, 5, "NewDocLayout");
-	NewDocLayout->addMultiCellWidget( docLayout, 0, 5, 0, 0 );
-	NewDocLayout->addMultiCellWidget( pageSizeGroupBox, 0, 2, 1, 1);
-	NewDocLayout->addMultiCellWidget( marginGroup, 3, 5, 1, 1 );
-	NewDocLayout->addMultiCellWidget( optionsGroupBox, 0, 1, 2, 2 );
-	NewDocLayout->addMultiCellWidget( BleedGroup, 2, 3, 2, 2 );
-	NewDocLayout->addMultiCellWidget( autoTextFrameGroupBox, 4, 5, 2, 2 );
+	NewDocLayout->addMultiCellWidget( docLayout, 0, 1, 0, 0 );
+	NewDocLayout->addWidget( pageSizeGroupBox, 0, 1);
+	NewDocLayout->addWidget( marginGroup, 1, 1 );
+	NewDocLayout->addWidget( optionsGroupBox, 0, 2 );
+	NewDocLayout->addWidget( autoTextFrameGroupBox, 1, 2 );
 }
 
 void NewDoc::createOpenDocPage()
@@ -373,7 +320,7 @@ void NewDoc::setUnit(int newUnitIndex)
 
 	double oldUnitRatio = unitRatio;
 	double val, oldB, oldBM, oldH, oldHM;
-	int decimals, decimalsOld;
+	int decimals;
 	widthMSpinBox->getValues(&oldB, &oldBM, &decimals, &val);
 	oldB /= oldUnitRatio;
 	oldBM /= oldUnitRatio;
@@ -402,19 +349,6 @@ void NewDoc::setUnit(int newUnitIndex)
 	marginGroup->unitChange(unitRatio, decimals, unitSuffix);
 	marginGroup->setPageHeight(pageHeight);
 	marginGroup->setPageWidth(pageWidth);
-	BleedBottom->setSuffix(unitSuffix);
-	BleedTop->setSuffix(unitSuffix);
-	BleedRight->setSuffix(unitSuffix);
-	BleedLeft->setSuffix(unitSuffix);
-	double invUnitConversion = 1.0 / oldUnitRatio * unitRatio;
-	BleedBottom->getValues(&oldH, &oldB, &decimalsOld, &val);
-	BleedBottom->setValues(oldH, oldB * invUnitConversion, decimals, val * invUnitConversion);
-	BleedTop->getValues(&oldH, &oldB, &decimalsOld, &val);
-	BleedTop->setValues(oldH, oldB * invUnitConversion, decimals, val * invUnitConversion);
-	BleedRight->getValues(&oldH, &oldB, &decimalsOld, &val);
-	BleedRight->setValues(oldH, oldB * invUnitConversion, decimals, val * invUnitConversion);
-	BleedLeft->getValues(&oldH, &oldB, &decimalsOld, &val);
-	BleedLeft->setValues(oldH, oldB * invUnitConversion, decimals, val * invUnitConversion);
 	connect(widthMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setWidth(int)));
 	connect(heightMSpinBox, SIGNAL(valueChanged(int)), this, SLOT(setHeight(int)));
 
@@ -424,10 +358,10 @@ void NewDoc::ExitOK()
 {
 	pageWidth = widthMSpinBox->value() / unitRatio;
 	pageHeight = heightMSpinBox->value() / unitRatio;
-	bleedBottom = BleedBottom->value() / unitRatio;
-	bleedTop = BleedTop->value() / unitRatio;
-	bleedLeft = BleedLeft->value() / unitRatio;
-	bleedRight = BleedRight->value() / unitRatio;
+	bleedBottom = marginGroup->bottomBleed();
+	bleedTop = marginGroup->topBleed();
+	bleedLeft = marginGroup->leftBleed();
+	bleedRight = marginGroup->rightBleed();
 	if (onStartup)
 		tabSelected = tabWidget->currentPageIndex();
 	else
@@ -510,16 +444,6 @@ void NewDoc::setSize(QString gr)
 void NewDoc::setDS(int layout)
 {
 	marginGroup->setFacingPages(!(layout == singlePage));
-	if (layout == singlePage)
-	{
-		BleedTxt3->setText( tr( "Left:" ) );
-		BleedTxt4->setText( tr( "Right:" ) );
-	}
-	else
-	{
-		BleedTxt3->setText( tr( "Inside:" ) );
-		BleedTxt4->setText( tr( "Outside:" ) );
-	}
 	choosenLayout = layout;
 	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }

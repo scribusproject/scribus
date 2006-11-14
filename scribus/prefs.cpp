@@ -275,7 +275,6 @@ void Preferences::setDS(int layout)
 	tabDocument->marginGroup->setFacingPages(!(layout == singlePage));
 	tabDocument->choosenLayout = layout;
 	tabDocument->docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage);
-	tabDocument->adjustBleed(!(layout == singlePage));
 	tabView->gapHorizontal->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapHorizontal * unitRatio);
 	tabView->gapVertical->setValue(prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].GapVertical * unitRatio);
 }
@@ -377,10 +376,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandLinks = tabDocument->marginGroup->left();
 	prefsManager->appPrefs.RandRechts = tabDocument->marginGroup->right();
 	prefsManager->appPrefs.FacingPages  = tabDocument->choosenLayout;
-	prefsManager->appPrefs.BleedBottom = tabDocument->BleedBottom->value() / prefsUnitRatio;
-	prefsManager->appPrefs.BleedTop = tabDocument->BleedTop->value() / prefsUnitRatio;
-	prefsManager->appPrefs.BleedLeft = tabDocument->BleedLeft->value() / prefsUnitRatio;
-	prefsManager->appPrefs.BleedRight = tabDocument->BleedRight->value() / prefsUnitRatio;
+	prefsManager->appPrefs.BleedBottom = tabDocument->marginGroup->bottomBleed() / prefsUnitRatio;
+	prefsManager->appPrefs.BleedTop = tabDocument->marginGroup->topBleed() / prefsUnitRatio;
+	prefsManager->appPrefs.BleedLeft = tabDocument->marginGroup->leftBleed() / prefsUnitRatio;
+	prefsManager->appPrefs.BleedRight = tabDocument->marginGroup->rightBleed() / prefsUnitRatio;
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentItem();
 
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());

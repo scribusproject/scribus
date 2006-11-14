@@ -121,46 +121,15 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	
 	dsLayout4pv->addWidget( GroupSize );
 
-	QHBoxLayout *mbLayout = new QHBoxLayout( 0, 0, 5, "mbLayout");
 	struct MarginStruct marg;
 	marg.Top = prefsData->RandOben;
 	marg.Bottom = prefsData->RandUnten;
 	marg.Left = prefsData->RandLinks;
 	marg.Right = prefsData->RandRechts;
 	marginGroup = new MarginWidget(this,  tr( "Margin Guides" ), &marg, prefsData->docUnitIndex, reform);
-	mbLayout->addWidget( marginGroup );
-	
-	BleedGroup = new QGroupBox( this, "BleedGroup" );
-	BleedGroup->setTitle( tr( "Bleed Settings" ) );
-	BleedGroup->setColumnLayout(0, Qt::Vertical );
-	BleedGroup->layout()->setSpacing( 5 );
-	BleedGroup->layout()->setMargin( 10 );
-	BleedGroupLayout = new QGridLayout( BleedGroup->layout() );
-	BleedGroupLayout->setAlignment( Qt::AlignTop );
-	BleedTxt1 = new QLabel( BleedGroup, "BleedTxt1" );
-	BleedTxt1->setText( tr( "Top:" ) );
-	BleedGroupLayout->addWidget( BleedTxt1, 0, 0 );
-	BleedTop = new MSpinBox( 0, 30000, BleedGroup, decimals );
-	BleedGroupLayout->addWidget( BleedTop, 0, 1 );
-	BleedTxt2 = new QLabel( BleedGroup, "BleedTxt2" );
-	BleedTxt2->setText( tr( "Bottom:" ) );
-	BleedGroupLayout->addWidget( BleedTxt2, 1, 0 );
-	BleedBottom = new MSpinBox( 0, 30000, BleedGroup, decimals );
-	BleedGroupLayout->addWidget( BleedBottom, 1, 1 );
-	BleedTxt3 = new QLabel( BleedGroup, "BleedTxt3" );
-	BleedTxt3->setText( tr( "Left:" ) );
-	BleedGroupLayout->addWidget( BleedTxt3, 2, 0 );
-	BleedRight = new MSpinBox( 0, 30000, BleedGroup, decimals );
-	BleedGroupLayout->addWidget( BleedRight, 2, 1 );
-	BleedTxt4 = new QLabel( BleedGroup, "BleedTxt4" );
-	BleedTxt4->setText( tr( "Right:" ) );
-	BleedGroupLayout->addWidget( BleedTxt4, 3, 0 );
-	BleedLeft = new MSpinBox( 0, 30000, BleedGroup, decimals );
-	BleedGroupLayout->addWidget( BleedLeft, 3, 1 );
-	mbLayout->addWidget( BleedGroup );
-	
-	
-	dsLayout4pv->addLayout( mbLayout );
+
+	dsLayout4pv->addWidget( marginGroup );
+
 	dsLayout4p->addLayout( dsLayout4pv );
 	Layout21->addLayout( dsLayout4p );
 	QHBoxLayout *asurLayout = new QHBoxLayout( 0, 0, 5, "asurLayout");
@@ -215,10 +184,6 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	QToolTip::add( urSpinBox, "<qt>" + tr("Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.") + "</qt>");
 	QToolTip::add( sizeAllPages, "<qt>" + tr( "Apply the page size changes to all existing pages in the document" ) + "</qt>" );
 	QToolTip::add( sizeAllMasterPages, "<qt>" + tr( "Apply the page size changes to all existing master pages in the document" ) + "</qt>" );
-	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
-	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
-	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
-	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
@@ -245,12 +210,9 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitCombo->setCurrentItem(prefsData->docUnitIndex);
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
-	BleedBottom->setValue(prefsData->BleedBottom * unitRatio);
-	BleedTop->setValue(prefsData->BleedTop * unitRatio);
-	BleedLeft->setValue(prefsData->BleedLeft * unitRatio);
-	BleedRight->setValue(prefsData->BleedRight * unitRatio);
 	marginGroup->setNewMargins(prefsData->RandOben, prefsData->RandUnten, prefsData->RandLinks, prefsData->RandRechts);
 	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
+	marginGroup->setNewBleeds(prefsData->BleedTop,prefsData->BleedBottom, prefsData->BleedLeft, prefsData->BleedRight);
 	GroupAS->setChecked( prefsData->AutoSave );
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
@@ -280,10 +242,7 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(prefsData->pageWidth * unitRatio);
 	pageHeight->setValue(prefsData->pageHeight * unitRatio);
-	BleedBottom->setValue(prefsData->BleedBottom * unitRatio);
-	BleedTop->setValue(prefsData->BleedTop * unitRatio);
-	BleedLeft->setValue(prefsData->BleedLeft * unitRatio);
-	BleedRight->setValue(prefsData->BleedRight * unitRatio);
+	marginGroup->setNewBleeds(prefsData->BleedTop,prefsData->BleedBottom, prefsData->BleedLeft, prefsData->BleedRight);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	marginGroup->setNewMargins(prefsData->pageMargins.Top, prefsData->pageMargins.Bottom,
@@ -318,25 +277,12 @@ void TabDocument::unitChange()
 
 	pageWidth->setSuffix(suffix);
 	pageHeight->setSuffix(suffix);
-	BleedBottom->setSuffix(suffix);
-	BleedTop->setSuffix(suffix);
-	BleedLeft->setSuffix(suffix);
-	BleedRight->setSuffix(suffix);
 
 	pageWidth->setValues(oldB * unitRatio, oldBM * unitRatio, decimals, pageW * unitRatio);
 	pageHeight->setValues(oldH * unitRatio, oldHM * unitRatio, decimals, pageH * unitRatio);
 	marginGroup->unitChange(unitRatio, decimals, suffix);
 	marginGroup->setPageHeight(pageH);
 	marginGroup->setPageWidth(pageW);
-	
-	BleedBottom->getValues(&oldB, &oldBM, &decimals, &val);
-	BleedBottom->setValues(oldB / oldUnitRatio * unitRatio, oldBM / oldUnitRatio * unitRatio, decimals, val / oldUnitRatio * unitRatio);
-	BleedTop->getValues(&oldB, &oldBM, &decimals, &val);
-	BleedTop->setValues(oldB / oldUnitRatio * unitRatio, oldBM / oldUnitRatio * unitRatio, decimals, val / oldUnitRatio * unitRatio);
-	BleedLeft->getValues(&oldB, &oldBM, &decimals, &val);
-	BleedLeft->setValues(oldB / oldUnitRatio * unitRatio, oldBM / oldUnitRatio * unitRatio, decimals, val / oldUnitRatio * unitRatio);
-	BleedRight->getValues(&oldB, &oldBM, &decimals, &val);
-	BleedRight->setValues(oldB / oldUnitRatio * unitRatio, oldBM / oldUnitRatio * unitRatio, decimals, val / oldUnitRatio * unitRatio);
 
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
@@ -422,20 +368,6 @@ void TabDocument::hideReform()
 	sizePages->show();
 	sizeAllPages->show();
 	sizeAllMasterPages->show();
-}
-
-void TabDocument::adjustBleed(bool facingPages)
-{
-	if (facingPages)
-	{
-		BleedTxt3->setText( tr( "Inside:" ) );
-		BleedTxt4->setText( tr( "Outside:" ) );
-	}
-	else
-	{
-		BleedTxt3->setText( tr( "Left:" ) );
-		BleedTxt4->setText( tr( "Right:" ) );
-	}
 }
 
 void TabDocument::slotUndo(bool isEnabled)

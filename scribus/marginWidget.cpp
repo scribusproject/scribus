@@ -15,11 +15,10 @@ for which a new license (GPL+exception) is in place.
 #include "useprintermarginsdialog.h"
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll) : QGroupBox( title, parent, "marginWidget")
+MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll) : QTabWidget(parent, "marginWidget")
 {
-	setColumnLayout(0, Qt::Vertical );
-	layout()->setSpacing( 5 );
-	layout()->setMargin( 10 );
+//	layout()->setSpacing( 5 );
+//	layout()->setMargin( 10 );
 	RandT = margs->Top;
 	RandB = margs->Bottom;
 	RandR = margs->Right;
@@ -31,33 +30,37 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	m_suffix = unitGetSuffixFromIndex(unitIndex);
 	int decimals = unitGetDecimalsFromIndex(unitIndex);
 
-	presetCombo = new PresetLayout(this, "presetCombo");
-	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), this, "presetLabel");
+	marginPage = new QWidget(this);
 
-	leftR = new MSpinBox( 0, 1000, this, decimals );
+	presetCombo = new PresetLayout(marginPage, "presetCombo");
+	presetLabel = new QLabel(presetCombo, tr("Preset Layouts:"), marginPage, "presetLabel");
+
+	leftR = new MSpinBox( 0, 1000, marginPage, decimals );
 	leftR->setSuffix( m_suffix );
 	leftR->setValue(RandL * m_unitRatio);
 
-	rightR = new MSpinBox( 0, 1000, this, decimals );
+	rightR = new MSpinBox( 0, 1000, marginPage, decimals );
 	rightR->setSuffix( m_suffix );
 	rightR->setValue(RandR * m_unitRatio);
 
-	topR = new MSpinBox( 0, 1000, this, decimals );
+	topR = new MSpinBox( 0, 1000, marginPage, decimals );
 	topR->setSuffix( m_suffix );
 	topR->setValue(RandT * m_unitRatio);
 
-	bottomR = new MSpinBox( 0, 1000, this, decimals );
+	bottomR = new MSpinBox( 0, 1000, marginPage, decimals );
 	bottomR->setSuffix( m_suffix );
 	bottomR->setValue(RandB * m_unitRatio);
 
-	bText = new QLabel( bottomR, tr( "&Bottom:" ), this, "bText" );
-	tText = new QLabel( topR, tr( "&Top:" ), this, "tText" );
-	rText = new QLabel( rightR, tr( "&Right:" ), this, "rText" );
-	lText = new QLabel( leftR, tr( "&Left:" ), this, "lText" );
+	bText = new QLabel( bottomR, tr( "&Bottom:" ), marginPage, "bText" );
+	tText = new QLabel( topR, tr( "&Top:" ), marginPage, "tText" );
+	rText = new QLabel( rightR, tr( "&Right:" ), marginPage, "rText" );
+	lText = new QLabel( leftR, tr( "&Left:" ), marginPage, "lText" );
 
 	// layout
-	GroupLayout = new QGridLayout( this->layout() );
+	GroupLayout = new QGridLayout( marginPage );
 	GroupLayout->setAlignment( Qt::AlignTop );
+	GroupLayout->setSpacing( 5 );
+	GroupLayout->setMargin( 10 );
 	GroupLayout->addWidget(presetLabel, 0, 0);
 	GroupLayout->addWidget(presetCombo, 0, 1);
 	GroupLayout->addWidget( leftR, 1, 1 );
@@ -71,13 +74,13 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	if (showChangeAll)
 	{
 		marginsForPagesLayout = new QHBoxLayout( 0, 5, 5, "marginsForPagesLayout");
-		marginsForPages = new QLabel( tr( "Apply settings to:" ), this, "marginsForPages" );
+		marginsForPages = new QLabel( tr( "Apply settings to:" ), marginPage, "marginsForPages" );
 		marginsForPagesLayout->addWidget(marginsForPages);
-		marginsForAllPages = new QCheckBox( this, "marginsForAllPages" );
+		marginsForAllPages = new QCheckBox( marginPage, "marginsForAllPages" );
 		marginsForAllPages->setText( tr( "All Document Pages" ) );
 		marginsForAllPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllPages);
-		marginsForAllMasterPages = new QCheckBox( this, "marginsForAllMasterPages" );
+		marginsForAllMasterPages = new QCheckBox( marginPage, "marginsForAllMasterPages" );
 		marginsForAllMasterPages->setText( tr( "All Master Pages" ) );
 		marginsForAllMasterPages->setChecked( false );
 		marginsForPagesLayout->addWidget(marginsForAllMasterPages);
@@ -94,8 +97,48 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 
 	usePrinterMarginsButton=NULL;
 #if defined(HAVE_CUPS) || defined(_WIN32)
-	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),this, "usePrinterMarginsButton" );
+	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),marginPage, "usePrinterMarginsButton" );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
+
+	addTab(marginPage, tr("Margin Guides"));
+
+	bleedPage = new QWidget(this);
+	BleedGroupLayout = new QGridLayout( bleedPage );
+	BleedGroupLayout->setSpacing( 5 );
+	BleedGroupLayout->setMargin( 10 );
+	BleedGroupLayout->setAlignment( Qt::AlignTop );
+	BleedTxt3 = new QLabel( bleedPage, "BleedTxt3" );
+	BleedGroupLayout->addWidget( BleedTxt3, 0, 0 );
+	BleedLeft = new MSpinBox( bleedPage, decimals );
+	BleedGroupLayout->addWidget( BleedLeft, 0, 1 );
+	BleedTxt4 = new QLabel( bleedPage, "BleedTxt4" );
+	BleedGroupLayout->addWidget( BleedTxt4, 1, 0 );
+	BleedRight = new MSpinBox( bleedPage, decimals );
+	BleedGroupLayout->addWidget( BleedRight, 1, 1 );
+	BleedTxt1 = new QLabel( bleedPage, "BleedTxt1" );
+	BleedTxt1->setText( tr( "Top:" ) );
+	BleedGroupLayout->addWidget( BleedTxt1, 2, 0 );
+	BleedTop = new MSpinBox( bleedPage, decimals );
+	BleedGroupLayout->addWidget( BleedTop, 2, 1 );
+	BleedTxt2 = new QLabel( bleedPage, "BleedTxt2" );
+	BleedTxt2->setText( tr( "Bottom:" ) );
+	BleedGroupLayout->addWidget( BleedTxt2, 3, 0 );
+	BleedBottom = new MSpinBox( bleedPage, decimals );
+	BleedGroupLayout->addWidget( BleedBottom, 3, 1 );
+	BleedTop->setSuffix( m_suffix );
+	BleedTop->setMinValue(0);
+	BleedTop->setMaxValue(3000*m_unitRatio);
+	BleedBottom->setSuffix( m_suffix );
+	BleedBottom->setMinValue(0);
+	BleedBottom->setMaxValue(3000*m_unitRatio);
+	BleedRight->setSuffix( m_suffix );
+	BleedRight->setMinValue(0);
+	BleedRight->setMaxValue(3000*m_unitRatio);
+	BleedLeft->setSuffix( m_suffix );
+	BleedLeft->setMinValue(0);
+	BleedLeft->setMaxValue(3000*m_unitRatio);
+	addTab(bleedPage, tr("Bleeds"));
+
 	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
 	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
 #endif
@@ -106,6 +149,10 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 	QToolTip::add( rightR, "<qt>" +tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 
+	QToolTip::add( BleedTop, "<qt>" + tr( "Distance for bleed from the top of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedBottom, "<qt>" + tr( "Distance for bleed from the bottom of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
+	QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
@@ -120,6 +167,16 @@ void MarginWidget::setFacingPages(bool facing, int pagetype)
 	pageType = pagetype;
 	lText->setText(facing == true ? tr( "&Inside:" ) : tr( "&Left:" ));
 	rText->setText(facing == true ? tr( "O&utside:" ) : tr( "&Right:" ));
+	if (facing)
+	{
+		BleedTxt3->setText( tr( "Inside:" ) );
+		BleedTxt4->setText( tr( "Outside:" ) );
+	}
+	else
+	{
+		BleedTxt3->setText( tr( "Left:" ) );
+		BleedTxt4->setText( tr( "Right:" ) );
+	}
 	setPreset();
 }
 
@@ -200,6 +257,20 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 	leftR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
 	rightR->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	rightR->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
+	
+	BleedBottom->setSuffix(newSuffix);
+	BleedTop->setSuffix(newSuffix);
+	BleedRight->setSuffix(newSuffix);
+	BleedLeft->setSuffix(newSuffix);
+	BleedBottom->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	BleedBottom->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
+	BleedTop->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	BleedTop->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
+	BleedRight->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	BleedRight->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
+	BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
+	BleedLeft->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
+	
 	m_unitRatio = newUnit;
 	m_suffix=newSuffix;
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
@@ -323,6 +394,34 @@ bool MarginWidget::getMarginsForAllPages()
 bool MarginWidget::getMarginsForAllMasterPages()
 {
 	return marginsForAllMasterPages->isChecked();
+}
+
+void MarginWidget::setNewBleeds(double t, double b, double l, double r)
+{
+	BleedTop->setValue(t * m_unitRatio);
+	BleedBottom->setValue(b * m_unitRatio);
+	BleedLeft->setValue(l * m_unitRatio);
+	BleedRight->setValue(r * m_unitRatio);
+}
+
+double MarginWidget::topBleed()
+{
+	return BleedTop->value() / m_unitRatio;
+}
+
+double MarginWidget::bottomBleed()
+{
+	return BleedBottom->value() / m_unitRatio;
+}
+
+double MarginWidget::leftBleed()
+{
+	return BleedLeft->value() / m_unitRatio;
+}
+
+double MarginWidget::rightBleed()
+{
+	return BleedRight->value() / m_unitRatio;
 }
 
 

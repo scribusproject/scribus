@@ -180,7 +180,6 @@ void ReformDoc::setDS(int layout)
 	tabPage->marginGroup->setFacingPages(!(layout == singlePage));
 	tabPage->choosenLayout = layout;
 	tabPage->docLayout->firstPage->setCurrentItem(currDoc->pageSets[tabPage->choosenLayout].FirstPage);
-	tabPage->adjustBleed(!(layout == singlePage));
 	tabView->gapHorizontal->setValue(currDoc->pageSets[tabPage->choosenLayout].GapHorizontal * unitRatio);
 	tabView->gapVertical->setValue(currDoc->pageSets[tabPage->choosenLayout].GapBelow * unitRatio);
 }
@@ -237,10 +236,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->ScratchLeft = tabView->leftScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchRight = tabView->rightScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchTop = tabView->topScratch->value() / currDoc->unitRatio();
-	currDoc->BleedBottom = tabPage->BleedBottom->value() / currDoc->unitRatio();
-	currDoc->BleedTop = tabPage->BleedTop->value() / currDoc->unitRatio();
-	currDoc->BleedLeft = tabPage->BleedLeft->value() / currDoc->unitRatio();
-	currDoc->BleedRight = tabPage->BleedRight->value() / currDoc->unitRatio();
+	currDoc->BleedBottom = tabPage->marginGroup->bottomBleed() / currDoc->unitRatio();
+	currDoc->BleedTop = tabPage->marginGroup->topBleed() / currDoc->unitRatio();
+	currDoc->BleedLeft = tabPage->marginGroup->leftBleed() / currDoc->unitRatio();
+	currDoc->BleedRight = tabPage->marginGroup->rightBleed() / currDoc->unitRatio();
 	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
