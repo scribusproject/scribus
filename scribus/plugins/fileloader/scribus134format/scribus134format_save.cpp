@@ -455,7 +455,7 @@ void Scribus134Format::putCStyle(QDomDocument & docu, QDomElement & fo, const Ch
 	if ( ! style.isInhFontSize())
 		fo.setAttribute("FONTSIZE", style.fontSize() / 10.0);
 	if ( ! style.isInhEffects())
-		fo.setAttribute("EFFECT", style.effects());
+		fo.setAttribute("EFFECT", style.effects() & ScStyle_UserStyles);
 	if ( ! style.isInhFillColor())
 		fo.setAttribute("FCOLOR", style.fillColor());
 	if ( ! style.isInhFillShade())

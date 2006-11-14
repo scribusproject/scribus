@@ -49,6 +49,16 @@ StyleFlag operator~ (StyleFlag arg)
 	return static_cast<StyleFlag>(result);
 }
 
+bool operator== (StyleFlag left, StyleFlag right)
+{        
+	int result = static_cast<int>( (left ^ right) & ScStyle_UserStyles);
+	return result == 0;
+}
+
+bool operator!= (StyleFlag left, StyleFlag right)
+{
+	return !(left==right);
+}
 
 void CharStyle::applyCharStyle(const CharStyle & other)
 {

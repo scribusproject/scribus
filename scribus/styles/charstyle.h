@@ -34,7 +34,7 @@ enum StyleFlag {
     ScStyle_SuppressSpace = 4096,//internal use in PageItem (Suppresses spaces when in Block alignment)
     ScStyle_SmartHyphenVisible=8192, //Smart Hyphen visible at line end
     ScStyle_StartOfLine   = 16384,
-	ScStyle_UserStyles    = 2047, // 1919, // == 1024 + 512 + 256 + 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1
+	ScStyle_UserStyles    = 2047, // 1919, // == 1024 + 512 + 256 + 64 + 32 + 16 + 8 + 4 + 2 + 1
 	ScStyle_None          = 65535
 };
 
@@ -50,7 +50,9 @@ SCRIBUS_API StyleFlag operator^ (StyleFlag left, StyleFlag right);
 
 SCRIBUS_API StyleFlag operator~ (StyleFlag arg);
 
+SCRIBUS_API bool operator== (StyleFlag left, StyleFlag right);
 
+SCRIBUS_API bool operator!= (StyleFlag left, StyleFlag right);
 
 
 class SCRIBUS_API CharStyle : public Style {
