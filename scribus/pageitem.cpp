@@ -1060,22 +1060,7 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 		for (uint em = 0; em < emG.count(); ++em)
 		{
 			PageItem* embedded = emG.at(em);
-/*
- ParagraphStyle vg;
-			QValueList<ParagraphStyle> savedParagraphStyles;
-			for (int xxx=0; xxx<5; ++xxx)
-			{
-				vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(m_Doc->docParagraphStyles[xxx].lineSpacingMode()));
-				vg.setUseBaselineGrid(m_Doc->docParagraphStyles[xxx].useBaselineGrid());
-				vg.setLineSpacing(m_Doc->docParagraphStyles[xxx].lineSpacing());
-				vg.charStyle().setFontSize(m_Doc->docParagraphStyles[xxx].charStyle().fontSize());
-				vg.setLeftMargin(m_Doc->docParagraphStyles[xxx].leftMargin());
-				vg.setFirstIndent(m_Doc->docParagraphStyles[xxx].firstIndent());
-				vg.setGapBefore(m_Doc->docParagraphStyles[xxx].gapBefore());
-				vg.setGapAfter(m_Doc->docParagraphStyles[xxx].gapAfter());
-				savedParagraphStyles.append(vg);
-			}
- */
+
 			p->save();
 			double pws=0;
 /*	FIXME
@@ -1114,20 +1099,6 @@ void PageItem::DrawObj_Embedded(ScPainter *p, QRect e, const CharStyle& style, P
 */
 			p->restore();
 			embedded->m_lineWidth = pws;
-/*
- for (int xxx=0; xxx<5; ++xxx)
-			{
-				m_Doc->docParagraphStyles[xxx].setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(savedParagraphStyles[xxx].lineSpacingMode()));
-				m_Doc->docParagraphStyles[xxx].setUseBaselineGrid(savedParagraphStyles[xxx].useBaselineGrid());
-				m_Doc->docParagraphStyles[xxx].setLineSpacing(savedParagraphStyles[xxx].lineSpacing());
-				m_Doc->docParagraphStyles[xxx].charStyle().setFontSize(savedParagraphStyles[xxx].charStyle().fontSize());
-				m_Doc->docParagraphStyles[xxx].setLeftMargin(savedParagraphStyles[xxx].leftMargin());
-				m_Doc->docParagraphStyles[xxx].setFirstIndent(savedParagraphStyles[xxx].firstIndent());
-				m_Doc->docParagraphStyles[xxx].setGapBefore(savedParagraphStyles[xxx].gapBefore());
-				m_Doc->docParagraphStyles[xxx].setGapAfter(savedParagraphStyles[xxx].gapAfter());
-			}
-			savedParagraphStyles.clear();
-*/
 		}
 	}
 }
@@ -1619,8 +1590,8 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		}
 		else if (glyph == SpecialChars::NBHYPHEN.unicode())
 		{
-			points = style.font().glyphOutline(style.font().char2CMap(QChar('-')), style.fontSize());
-			qDebug(QString("points: %1 (%2,%3)...").arg(points.size()).arg(points.point(0).x()).arg(points.point(0).y()));
+			points = style.font().glyphOutline(style.font().char2CMap(QChar('-')), style.fontSize() / 100);
+			chma4.translate(glyphs.xoffset, glyphs.yoffset-((style.fontSize() / 10.0) * glyphs.scaleV));
 		}
 		else if (glyph == SpecialChars::SHYPHEN.unicode())
 		{
