@@ -567,6 +567,10 @@ void SMLineStyle::slotSetEnd(int i)
 
 void SMLineStyle::slotSetJoin(int i)
 {
+	Q_ASSERT(currentLine_ >= 0);
+	if (currentLine_ < 0)
+		return;
+
 	PenJoinStyle c = MiterJoin;
 	switch (i)
 	{
@@ -585,7 +589,7 @@ void SMLineStyle::slotSetJoin(int i)
 	for (it = selection_.begin(); it != selection_.end(); ++it)
 	{
 		multiLine *tmp = it.data();
-		(*tmp)[currentLine_].LineEnd = static_cast<int>(c);
+		(*tmp)[currentLine_].LineJoin = static_cast<int>(c);
 	}
 
 	updateSList();

@@ -132,7 +132,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), doc_->Language);
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), doc_->docParagraphStyles[""].charStyle().language());
 
 	setupConnections();
 }
@@ -1030,7 +1030,7 @@ void SMParagraphStyle::slotStrokeShade()
 void SMParagraphStyle::slotLanguage()
 {
 	QMap<QString,QString>::Iterator it;
-	QString language = doc_->Language;
+	QString language = doc_->docParagraphStyles[""].charStyle().language();
 
 	if (pwidget_->cpage->language_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1323,7 +1323,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 		if (index > -1)
 			selection_.append(&tmpStyles_[index]);
 	}
-	page_->show(selection_, cstyles, doc_->Language);
+	page_->show(selection_, cstyles, doc_->docParagraphStyles[""].charStyle().language());
 
 	setupConnections();
 }
@@ -1801,7 +1801,7 @@ void SMCharacterStyle::slotStrokeShade()
 void SMCharacterStyle::slotLanguage()
 {
 	QMap<QString,QString>::Iterator it;
-	QString language = doc_->Language;
+	QString language = doc_->docParagraphStyles[""].charStyle().language();
 
 	if (page_->language_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1951,7 +1951,7 @@ void SMCharacterStyle::slotParentChanged(const QString &parent)
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		selection_[i]->erase(); 
+		selection_[i]->erase();
 		selection_[i]->setParent(parent);
 		sel << selection_[i]->name();
 	}
