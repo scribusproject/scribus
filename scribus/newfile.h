@@ -33,6 +33,9 @@ class MarginWidget;
 class PageLayouts;
 class MSpinBox;
 class CustomFDialog;
+class ScComboBox;
+class QIconView;
+class QIconViewItem;
 
 
 class SCRIBUS_API NewDoc : public QDialog
@@ -49,7 +52,9 @@ public:
 
 	QTabWidget* tabWidget;
 	QFrame* newDocFrame;
-	PageLayouts* docLayout;
+	QIconView* layoutsView;
+	QLabel* layoutLabel1;
+	ScComboBox* firstPage;
 	QGroupBox* pageSizeGroupBox;
 	MarginWidget* marginGroup;
 	QGroupBox* optionsGroupBox;
@@ -98,6 +103,8 @@ public:
 public slots:
 	void setHeight(int v);
 	void setWidth(int v);
+	void selectItem(uint nr);
+	void itemSelected(QIconViewItem* ic);
 	void handleAutoFrame();
 	void setDist(int v);
 	void setUnit(int u);

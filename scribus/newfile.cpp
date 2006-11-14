@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qobjectlist.h>
 #include <qpoint.h>
+#include <qiconview.h>
 
 #include "fileloader.h"
 #include "prefsfile.h"
@@ -91,12 +92,12 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 	// signals and slots connections
 	connect( OKButton, SIGNAL( clicked() ), this, SLOT( ExitOK() ) );
 	connect( CancelB, SIGNAL( clicked() ), this, SLOT( reject() ) );
-	connect( docLayout, SIGNAL( selectedLayout(int) ), this, SLOT( setDS(int ) ) );
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPGsize(const QString &)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(unitOfMeasureComboBox, SIGNAL(activated(int)), this, SLOT(setUnit(int)));
 	connect(Distance, SIGNAL(valueChanged(int)), this, SLOT(setDist(int)));
 	connect(autoTextFrame, SIGNAL(clicked()), this, SLOT(handleAutoFrame()));
+	connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
 	if (startUp)
 		connect(recentDocListBox, SIGNAL(selected(int)), this, SLOT(recentDocListBox_doubleClicked(int)));
 
@@ -109,48 +110,96 @@ NewDoc::NewDoc( QWidget* parent, const QStringList& recentDocs, bool startUp ) :
 void NewDoc::createNewDocPage()
 {
 	newDocFrame = new QFrame(this, "newDocFrame");
-	docLayout = new PageLayouts(newDocFrame, prefsManager->appPrefs.pageSets);
-	docLayout->selectItem(prefsManager->appPrefs.FacingPages);
-	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
+
 	pageSizeGroupBox = new QGroupBox(newDocFrame, "pageSizeGroupBox" );
-	pageSizeGroupBox->setTitle( tr( "Page Size" ) );
+	pageSizeGroupBox->setTitle( tr( "Page Layout" ) );
 	pageSizeGroupBox->setColumnLayout(0, Qt::Vertical );
 	pageSizeGroupBox->layout()->setSpacing( 5 );
 	pageSizeGroupBox->layout()->setMargin( 10 );
 	pageSizeGroupBoxLayout = new QGridLayout( pageSizeGroupBox->layout() );
 	pageSizeGroupBoxLayout->setAlignment( Qt::AlignTop );
+
+	layoutsView = new QIconView( pageSizeGroupBox, "layoutsView" );
+	layoutsView->setHScrollBarMode( QIconView::Auto );
+	layoutsView->setVScrollBarMode( QIconView::Auto );
+	layoutsView->setArrangement(QIconView::LeftToRight);
+	layoutsView->setItemsMovable(false);
+	layoutsView->setSorting( false );
+	layoutsView->setFocusPolicy(QWidget::NoFocus);
+	layoutsView->setSelectionMode(QIconView::Single);
+	layoutsView->clear();
+	for (uint pg = 0; pg < prefsManager->appPrefs.pageSets.count(); ++pg)
+	{
+		QIconViewItem *ic;
+		QString psname=CommonStrings::translatePageSetString(prefsManager->appPrefs.pageSets[pg].Name);
+		if (pg == 0)
+		{
+			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			ic->setDragEnabled(false);
+		}
+		else if (pg == 1)
+		{
+			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-doublesided.png") );
+			ic->setDragEnabled(false);
+		}
+		else if (pg == 2)
+		{
+			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-3fold.png") );
+			ic->setDragEnabled(false);
+		}
+		else if (pg == 3)
+		{
+			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-4fold.png") );
+			ic->setDragEnabled(false);
+		}
+		else
+		{
+			ic = new QIconViewItem( layoutsView, psname, loadIcon("32/page-simple.png") );
+			ic->setDragEnabled(false);
+		}
+	}
+	pageSizeGroupBoxLayout->addMultiCellWidget( layoutsView, 0, 4, 0, 0 );
+	
 	
 	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox, "TextLabel1" );
-	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 0 );
+	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
 	PageSize ps(prefsManager->appPrefs.pageSize);
 	pageSizeComboBox = new QComboBox( true, pageSizeGroupBox, "pageSizeComboBox" );
 	pageSizeComboBox->insertStringList(ps.sizeTRList());
 	pageSizeComboBox->insertItem( CommonStrings::trCustomPageSize );
 	pageSizeComboBox->setEditable(false);
 	TextLabel1->setBuddy(pageSizeComboBox);
-	pageSizeGroupBoxLayout->addWidget(pageSizeComboBox, 0, 1 );
+	pageSizeGroupBoxLayout->addWidget(pageSizeComboBox, 0, 2 );
 	TextLabel2 = new QLabel( tr( "Orie&ntation:" ), pageSizeGroupBox, "TextLabel2" );
-	pageSizeGroupBoxLayout->addWidget( TextLabel2, 1, 0 );
+	pageSizeGroupBoxLayout->addWidget( TextLabel2, 1, 1 );
 	pageOrientationComboBox = new QComboBox( true, pageSizeGroupBox, "pageOrientationComboBox" );
 	pageOrientationComboBox->insertItem( tr( "Portrait" ) );
 	pageOrientationComboBox->insertItem( tr( "Landscape" ) );
 	pageOrientationComboBox->setEditable(false);
 	pageOrientationComboBox->setCurrentItem(prefsManager->appPrefs.pageOrientation);
 	TextLabel2->setBuddy(pageOrientationComboBox);
-	pageSizeGroupBoxLayout->addWidget( pageOrientationComboBox, 1, 1 );
+	pageSizeGroupBoxLayout->addWidget( pageOrientationComboBox, 1, 2 );
 
 	TextLabel1_2 = new QLabel( tr( "&Width:" ), pageSizeGroupBox, "TextLabel1_2" );
-	pageSizeGroupBoxLayout->addWidget(TextLabel1_2, 2, 0 );
+	pageSizeGroupBoxLayout->addWidget(TextLabel1_2, 2, 1 );
 	widthMSpinBox = new MSpinBox( 1, 10000, pageSizeGroupBox, precision );
 	widthMSpinBox->setSuffix(unitSuffix);
 	TextLabel1_2->setBuddy(widthMSpinBox);
-	pageSizeGroupBoxLayout->addWidget(widthMSpinBox, 2, 1 );
+	pageSizeGroupBoxLayout->addWidget(widthMSpinBox, 2, 2 );
 	TextLabel2_2 = new QLabel( tr( "&Height:" ), pageSizeGroupBox, "TextLabel2_2" );
-	pageSizeGroupBoxLayout->addWidget(TextLabel2_2, 3, 0 );
+	pageSizeGroupBoxLayout->addWidget(TextLabel2_2, 3, 1 );
 	heightMSpinBox = new MSpinBox( 1, 10000, pageSizeGroupBox, precision );
 	heightMSpinBox->setSuffix(unitSuffix);
 	TextLabel2_2->setBuddy(heightMSpinBox);
-	pageSizeGroupBoxLayout->addWidget(heightMSpinBox, 3, 1 );
+	pageSizeGroupBoxLayout->addWidget(heightMSpinBox, 3, 2 );
+	layoutLabel1 = new QLabel( pageSizeGroupBox, "layoutLabel1" );
+	layoutLabel1->setText( tr( "First Page is:" ) );
+	pageSizeGroupBoxLayout->addWidget( layoutLabel1, 4, 1 );
+	firstPage = new ScComboBox( false, pageSizeGroupBox, "firstPage" );
+	firstPage->clear();
+	pageSizeGroupBoxLayout->addWidget( firstPage, 4, 2 );
+	selectItem(prefsManager->appPrefs.FacingPages);
+	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 
 	struct MarginStruct marg;
 	marg.Top = prefsManager->appPrefs.RandOben;
@@ -228,11 +277,10 @@ void NewDoc::createNewDocPage()
 	startDocSetup->setChecked(false);
 	optionsGroupBoxLayout->addMultiCellWidget( startDocSetup, 5, 5, 0, 1 );
 
-	NewDocLayout = new QGridLayout( newDocFrame, 3, 3, 10, 5, "NewDocLayout");
-	NewDocLayout->addMultiCellWidget( docLayout, 0, 1, 0, 0 );
-	NewDocLayout->addWidget( pageSizeGroupBox, 0, 1);
-	NewDocLayout->addWidget( marginGroup, 1, 1 );
-	NewDocLayout->addMultiCellWidget( optionsGroupBox, 0, 1, 2, 2 );
+	NewDocLayout = new QGridLayout( newDocFrame, 2, 2, 10, 5, "NewDocLayout");
+	NewDocLayout->addWidget( marginGroup, 1, 0 );
+	NewDocLayout->addWidget( optionsGroupBox, 1, 1 );
+	NewDocLayout->addMultiCellWidget( pageSizeGroupBox, 0, 0, 0, 1);
 }
 
 void NewDoc::createOpenDocPage()
@@ -297,6 +345,49 @@ void NewDoc::setHeight(int)
 	QString psText=pageSizeComboBox->currentText();
 	if (psText!=CommonStrings::trCustomPageSize && psText!=CommonStrings::customPageSize)
 		pageSizeComboBox->setCurrentItem(pageSizeComboBox->count()-1);
+}
+
+void NewDoc::selectItem(uint nr)
+{
+	QIconViewItem* ic=0;
+	uint cce;
+	disconnect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+	ic = layoutsView->firstItem();
+	cce = layoutsView->count();
+	for (uint cc = 0; cc < cce; ++cc)
+	{
+		if (cc == nr)
+		{
+			if (cc > 0)
+			{
+				firstPage->setEnabled(true);
+				firstPage->clear();
+				QStringList::Iterator pNames;
+				for(pNames = prefsManager->appPrefs.pageSets[cc].pageNames.begin(); pNames != prefsManager->appPrefs.pageSets[cc].pageNames.end(); ++pNames )
+				{
+					firstPage->insertItem(CommonStrings::translatePageSetLocString((*pNames)));
+				}
+			}
+			else
+			{
+				firstPage->clear();
+				firstPage->insertItem(" ");
+				firstPage->setEnabled(false);
+			}
+			layoutsView->setSelected(ic, true);
+			break;
+		}
+		ic = ic->nextItem();
+	}
+	connect(layoutsView, SIGNAL(clicked(QIconViewItem *)), this, SLOT(itemSelected(QIconViewItem* )));
+}
+
+void NewDoc::itemSelected(QIconViewItem* ic)
+{
+	if (ic == 0)
+		return;
+	selectItem(layoutsView->index(ic));
+	setDS(layoutsView->index(ic));
 }
 
 void NewDoc::handleAutoFrame()
@@ -454,7 +545,7 @@ void NewDoc::setDS(int layout)
 {
 	marginGroup->setFacingPages(!(layout == singlePage));
 	choosenLayout = layout;
-	docLayout->firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
+	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[choosenLayout].FirstPage);
 }
 
 void NewDoc::recentDocListBox_doubleClicked(int /*item*/)

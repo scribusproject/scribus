@@ -1776,6 +1776,7 @@ bool ScribusMainWindow::arrowKeyDown()
 
 void ScribusMainWindow::startUpDialog()
 {
+	bool docSet = false;
 	PrefsContext* docContext = prefsManager->prefsFile->getContext("docdirs", false);
 	NewDoc* dia = new NewDoc(this, RecentDocs, true);
 	if (dia->exec())
@@ -1783,7 +1784,8 @@ void ScribusMainWindow::startUpDialog()
 		if (dia->tabSelected == 0)
 		{
 			int facingPages = dia->choosenLayout;
-			int firstPage = dia->docLayout->firstPage->currentItem();
+			int firstPage = dia->firstPage->currentItem();
+			docSet = dia->startDocSetup->isChecked();
 			double topMargin = dia->marginGroup->top();
 			double bottomMargin = dia->marginGroup->bottom();
 			double leftMargin = dia->marginGroup->left();
@@ -1827,6 +1829,8 @@ void ScribusMainWindow::startUpDialog()
 	prefsManager->setShowStartupDialog(!dia->startUpDialog->isChecked());
 	delete dia;
 	mainWindowStatusLabel->setText( tr("Ready"));
+	if (docSet)
+		slotDocSetup();
 }
 
 bool ScribusMainWindow::slotFileNew()
@@ -1834,11 +1838,13 @@ bool ScribusMainWindow::slotFileNew()
 	if (HaveDoc && doc->EditClip)
 		ToggleFrameEdit();
 	bool retVal = false;
+	bool docSet = false;
 	NewDoc* dia = new NewDoc(this, RecentDocs);
 	if (dia->exec())
 	{
 		int facingPages = dia->choosenLayout;
-		int firstPage = dia->docLayout->firstPage->currentItem();
+		int firstPage = dia->firstPage->currentItem();
+		docSet = dia->startDocSetup->isChecked();
 		double topMargin = dia->marginGroup->top();
 		double bottomMargin = dia->marginGroup->bottom();
 		double leftMargin = dia->marginGroup->left();
@@ -1864,6 +1870,8 @@ bool ScribusMainWindow::slotFileNew()
 		}
 	}
 	delete dia;
+	if (docSet)
+		slotDocSetup();
 	return retVal;
 }
 
