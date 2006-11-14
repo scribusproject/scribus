@@ -386,9 +386,11 @@ void ScribusDoc::init()
 	cstyle.setScaleH(1000);
 	cstyle.setScaleV(1000);
 	cstyle.setTracking(0);
+	cstyle.setLanguage(PrefsManager::instance()->appPrefs.Language);
 	
 	docParagraphStyles.create(vg);
-	docCharStyles.setBase( docParagraphStyles[0].charStyleBase() );
+	docParagraphStyles.makeDefault( &(docParagraphStyles[0]) );
+	docCharStyles.makeDefault( &(docParagraphStyles[0].charStyle()) );
 	
 	currentStyle = vg;
 #if 0
@@ -4904,10 +4906,12 @@ void ScribusDoc::itemSelection_SetLineSpacingMode(int m)
 
 void ScribusDoc::itemSelection_SetFontSize(int size)
 {
-	CharStyle newStyle;
-	newStyle.setFontSize(size);
-	itemSelection_ApplyCharStyle(newStyle);
-	return;
+	if (appMode == modeEdit) {
+		CharStyle newStyle;
+		newStyle.setFontSize(size);
+		itemSelection_ApplyCharStyle(newStyle);
+		return;
+	}
 	
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
@@ -4918,54 +4922,21 @@ void ScribusDoc::itemSelection_SetFontSize(int size)
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
-			if (appMode != modeEdit)
+			ParagraphStyle storyStyle(currItem->itemText.defaultStyle());
+			storyStyle.charStyle().setFontSize(size);
+			if (storyStyle.lineSpacingMode() == 0)
 			{
-/*FIXME:av				if (currItem->lineSpacingMode() == 0)
-				{
-					currItem->setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
-					docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
-				}
-				else if (currItem->lineSpacingMode() == 1)
-				{
-					currItem->setLineSpacing(RealFHeight(this, (*AllFonts)[currItem->font()], currItem->fontSize()));
-					docParagraphStyles[0].setLineSpacing(currItem->lineSpacing());
-				}
-				else
-				{
-					currItem->setLineSpacing(typographicSettings.valueBaseGrid-1);
-				}
-				currItem->setFontSize(size);
-*/				//CB move from view to doc.. why are we emitting column data here?
-				//emit ItemTextCols(currItem->Cols, currItem->ColGap);
+				storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
 			}
-#ifndef NLS_PROTO
-			uint currItemTextCount=currItem->itemText.length();
-			if (currItemTextCount != 0)
+			else if (storyStyle.lineSpacingMode() == 1)
 			{
-				if (appMode == modeEdit)
-				{
-					for (uint a = 0; a < currItemTextCount; ++a)
-					{
-						if (currItem->itemText.selected(a))
-							currItem->itemText.item(a)->setFontSize(size);
-					}
-				}
-				else
-				{
-					for (uint a = 0; a < currItemTextCount; ++a)
-					{
-//						if (currItem->itemText.item(a)->cab < 5) // FIXME NLS
-							currItem->itemText.item(a)->setFontSize(size);
-					}
-				}
-				if (currItem->asPathText())
-				{
-					currItem->updatePolyClip();
-					view()->AdjustItemSize(currItem);
-				}
-				emit refreshItem(currItem);
+				storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
 			}
-#endif
+			else
+			{
+				storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
+			}
+			currItem->itemText.setDefaultStyle(storyStyle);
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();

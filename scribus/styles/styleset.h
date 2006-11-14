@@ -15,11 +15,12 @@ public:
 	inline int find(const QString& name) const;
 	inline const Style* resolve(const QString& name) const;
 	uint count() const { return (uint) styles.count(); }
-	void append(STYLE* style) { styles.append(style); style->setBase(this); invalidate(); }
+	STYLE* append(STYLE* style) { styles.append(style); style->setBase(this); invalidate(); return style; }
 	inline void remove(uint index);
 	inline void redefine(const StyleSet<STYLE>& defs, bool removeUnused=false);
-	void create(const STYLE& proto) { append(new STYLE(proto)); }
-	StyleSet() : styles(), m_base(NULL), m_baseversion(-1) {}
+	STYLE* create(const STYLE& proto) { return append(new STYLE(proto)); }
+	void makeDefault(STYLE* def) { m_default = def; if(def) def->setBase(this); }
+	StyleSet() : styles(), m_base(NULL), m_baseversion(-1), m_default(NULL) {}
 	~StyleSet() { clear(); }
 	void clear() { while(styles.count()>0) { delete styles.front(); styles.pop_front(); } }
 
@@ -32,6 +33,7 @@ private:
 	QValueList<STYLE*> styles;
 	const StyleBase* m_base;
 	int m_baseversion;
+	STYLE* m_default;
 };
 
 template<class STYLE>
@@ -56,6 +58,8 @@ inline int StyleSet<STYLE>::find(const QString& name) const
 template<class STYLE>
 inline const Style* StyleSet<STYLE>::resolve(const QString& name) const
 {
+	if (name.isEmpty())
+		return m_default;
 	for (uint i=0; i < styles.count(); ++i)
 		if (styles[i]->name() == name)
 			return styles[i];
@@ -72,6 +76,8 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 				found = true;
 				(*styles[i]) = defs[j];
 				(*styles[i]).setBase(this);
+				if (defs.m_default == defs.styles[j])
+					makeDefault(styles[i]);
 				break;
 			}
 		}
@@ -81,7 +87,9 @@ inline void StyleSet<STYLE>::redefine(const StyleSet<STYLE>& defs, bool removeUn
 	}
 	for (uint j=0; j < defs.count(); ++j) {
 		if (find(defs[j].name()) < 0) {
-			create(defs[j]);
+			STYLE* newStyle = create(defs[j]);
+			if (defs.m_default == defs.styles[j])
+				makeDefault(newStyle);
 		}
 	}
 	invalidate();
