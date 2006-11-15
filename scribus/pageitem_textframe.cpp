@@ -943,7 +943,7 @@ void PageItem_TextFrame::layout()
 			}
 			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs))
 			{
-				if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0))
+				if ((HyphenCount < m_Doc->HyCount) || (m_Doc->HyCount == 0) || hl->ch[0] == SpecialChars::SHYPHEN)
 				{
 					if (hl->ch == "-")
 						LastXp = CurX;
@@ -1052,7 +1052,10 @@ void PageItem_TextFrame::layout()
 							OFs = (EndX - CurX) / 2;
 						if (style.alignment() == 3)
 							OFs = 0;
-						if (style.alignment() == 4)
+						if (style.alignment() == 4
+							|| (style.alignment() == 3 
+								&&  hl->ch != SpecialChars::PARSEP
+								&&  !itemText.text(curLine.firstItem + itemsInLine-1).isSpace()))
 						{
 							// count the available spaces
 							aSpa = 0;
@@ -1585,7 +1588,10 @@ void PageItem_TextFrame::layout()
 				OFs = (EndX - CurX) / 2;
 			if (style.alignment() == 3)
 				OFs = 0;
-			if (style.alignment() == 4)
+			if (style.alignment() == 4
+				|| (style.alignment() == 3 
+					&&  hl->ch != SpecialChars::PARSEP
+					&&  !itemText.text(curLine.firstItem + itemsInLine-1).isSpace()))
 			{
 				aSpa = 0;
 				for (int sof = 0; sof < itemsInLine; ++sof)
@@ -1711,7 +1717,7 @@ NoRoom:
 	{
 		next->invalid = true;
 		next->firstChar = nrc;
-		if (uint(CPos) > nrc)
+		if (CPos > signed(nrc))
 		{
 			int nCP = CPos;
 //			CPos = nrc;
