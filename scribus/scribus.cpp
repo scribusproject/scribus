@@ -784,6 +784,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["unicodeNewLine"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeFrameBreak"], "InsertSpace");
 	scrMenuMgr->addMenuItem(scrActions["unicodeColumnBreak"], "InsertSpace");
+	scrMenuMgr->addMenuItem(scrActions["unicodeZerowidthSpace"], "InsertSpace");
 
 	scrMenuMgr->createMenu("InsertLigature", QPixmap(noIcon), tr("Liga&ture"), "Insert");
 	scrMenuMgr->addMenuItem(scrActions["unicodeLigature_ff"], "InsertLigature");

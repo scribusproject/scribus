@@ -826,6 +826,10 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeFrameBreak",SpecialChars::FRAMEBREAK.unicode()));
 	name="unicodeColumnBreak";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeColumnBreak",SpecialChars::COLBREAK.unicode()));
+	name="unicodeZerowidthSpace";
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeZerowidthSpace",SpecialChars::ZWSPACE.unicode()));
+	name="unicodeZerowidthNonBreakingSpace";
+	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeZerowidthNonBreakingSpace",SpecialChars::ZWNBSPACE.unicode()));
 	//Special
 	name="unicodeCopyRight";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, "unicodeCopyRight",0x0A9));
@@ -906,7 +910,7 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
-	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak";
+	*actionNamesList << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeZerowidthSpace";
 	//Copyrights and TMs
 	*actionNamesList << "unicodeCopyRight" << "unicodeRegdTM" << "unicodeTM";
 	//Slashes
@@ -1404,6 +1408,8 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 	(*actionMap)["unicodeNewLine"]->setMenuText( tr("New Line"));
 	(*actionMap)["unicodeFrameBreak"]->setMenuText( tr("Frame Break"));
 	(*actionMap)["unicodeColumnBreak"]->setMenuText( tr("Column Break"));
+	(*actionMap)["unicodeZerowidthSpace"]->setMenuText( tr("&Zero Width Space"));
+	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setMenuText( tr("Zero Width NB Space"));
 	(*actionMap)["unicodeCopyRight"]->setTexts( tr("Copyright"));
 	(*actionMap)["unicodeRegdTM"]->setTexts( tr("Registered Trademark"));
 	(*actionMap)["unicodeTM"]->setTexts( tr("Trademark"));
@@ -1448,6 +1454,8 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 	(*actionMap)["unicodeNewLine"]->setText( tr("New Line"));
 	(*actionMap)["unicodeFrameBreak"]->setText( tr("Frame Break"));
 	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
+	(*actionMap)["unicodeZerowidthSpace"]->setText( tr("&Zero Width Space"));
+	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setText( tr("Zero Width NB Space"));
 	
 	(*actionMap)["unicodeLigature_ff"]->setTexts( tr("ff"));
 	(*actionMap)["unicodeLigature_fi"]->setTexts( tr("fi"));
@@ -1691,6 +1699,8 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeNewLine", QKeySequence());
 	defKeys.insert("unicodeFrameBreak", Qt::CTRL+Qt::Key_Return);
 	defKeys.insert("unicodeColumnBreak", Qt::CTRL+Qt::SHIFT+Qt::Key_Return);
+	defKeys.insert("unicodeZerowidthSpace", QKeySequence());
+	defKeys.insert("unicodeZerowidthNonBreakingSpace", QKeySequence());
 	defKeys.insert("unicodeCopyRight", QKeySequence());
 	defKeys.insert("unicodeRegdTM", QKeySequence());
 	defKeys.insert("unicodeTM", QKeySequence());
@@ -1788,16 +1798,84 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
-	itmenu->second << "insertFrame" << "toolsInsertTextFrame" << "toolsInsertImageFrame" << "toolsInsertTableFrame" << "toolsInsertShape" << "toolsInsertPolygon" << "toolsInsertLine" << "toolsInsertBezier" << "toolsInsertFreehandLine" << "insertGlyph" << "insertSampleText";
+	itmenu->second 
+		<< "insertFrame" 
+		<< "toolsInsertTextFrame" 
+		<< "toolsInsertImageFrame" 
+		<< "toolsInsertTableFrame" 
+		<< "toolsInsertShape" 
+		<< "toolsInsertPolygon" 
+		<< "toolsInsertLine" 
+		<< "toolsInsertBezier" 
+		<< "toolsInsertFreehandLine" 
+		<< "insertGlyph" 
+		<< "insertSampleText";
 	
-	itmenu->second << "unicodeSmartHyphen"  << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak" << "unicodeCopyRight" << "unicodeRegdTM" << "unicodeTM" << "unicodeSolidus" << "unicodeBullet" << "unicodeMidpoint" << "unicodeDashEm" << "unicodeDashEn" << "unicodeDashFigure" << "unicodeDashQuotation";
+	itmenu->second 
+		<< "unicodeSmartHyphen"  
+		<< "unicodeNonBreakingHyphen" 
+		<< "unicodeNonBreakingSpace" 
+		<< "unicodePageNumber" 
+		<< "unicodeNewLine" 
+		<< "unicodeFrameBreak" 
+		<< "unicodeColumnBreak" 
+		<< "unicodeZerowidthSpace" 
+		<< "unicodeCopyRight" 
+		<< "unicodeRegdTM" 
+		<< "unicodeTM" 
+		<< "unicodeSolidus" 
+		<< "unicodeBullet" 
+		<< "unicodeMidpoint" 
+		<< "unicodeDashEm" 
+		<< "unicodeDashEn" 
+		<< "unicodeDashFigure" 
+		<< "unicodeDashQuotation";
 
-	 itmenu->second << "unicodeQuoteApostrophe" << "unicodeQuoteStraight" << "unicodeQuoteSingleLeft" << "unicodeQuoteSingleRight" << "unicodeQuoteDoubleLeft" << "unicodeQuoteDoubleRight" << "unicodeQuoteSingleReversed" << "unicodeQuoteDoubleReversed" << "unicodeQuoteSingleLeftGuillemet" << "unicodeQuoteSingleRightGuillemet" << "unicodeQuoteDoubleLeftGuillemet" << "unicodeQuoteDoubleRightGuillemet" << "unicodeQuoteLowSingleComma" << "unicodeQuoteLowDoubleComma" << "unicodeQuoteCJKSingleLeft" << "unicodeQuoteCJKSingleRight" << "unicodeQuoteCJKDoubleLeft" << "unicodeQuoteCJKDoubleRight";
+	 itmenu->second 
+		 << "unicodeQuoteApostrophe" 
+		 << "unicodeQuoteStraight" 
+		 << "unicodeQuoteSingleLeft" 
+		 << "unicodeQuoteSingleRight" 
+		 << "unicodeQuoteDoubleLeft" 
+		 << "unicodeQuoteDoubleRight" 
+		 << "unicodeQuoteSingleReversed" 
+		 << "unicodeQuoteDoubleReversed" 
+		 << "unicodeQuoteSingleLeftGuillemet" 
+		 << "unicodeQuoteSingleRightGuillemet" 
+		 << "unicodeQuoteDoubleLeftGuillemet" 
+		 << "unicodeQuoteDoubleRightGuillemet" 
+		 << "unicodeQuoteLowSingleComma" 
+		 << "unicodeQuoteLowDoubleComma" 
+		 << "unicodeQuoteCJKSingleLeft" 
+		 << "unicodeQuoteCJKSingleRight" 
+		 << "unicodeQuoteCJKDoubleLeft" 
+		 << "unicodeQuoteCJKDoubleRight";
 
-	 itmenu->second << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
+	 itmenu->second 
+		 << "unicodeSpaceEN" 
+		 << "unicodeSpaceEM" 
+		 << "unicodeSpaceThin" 
+		 << "unicodeSpaceThick" 
+		 << "unicodeSpaceMid" 
+		 << "unicodeSpaceHair";
 
-	 itmenu->second << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber" << "unicodeNewLine" << "unicodeFrameBreak" << "unicodeColumnBreak";
-	 itmenu->second << "unicodeLigature_ff" << "unicodeLigature_fi" << "unicodeLigature_fl" << "unicodeLigature_ffi" << "unicodeLigature_ffl" << "unicodeLigature_ft" << "unicodeLigature_st";
+	 itmenu->second 
+		 << "unicodeSmartHyphen" 
+		 << "unicodeNonBreakingHyphen" 
+		 << "unicodeNonBreakingSpace" 
+		 << "unicodePageNumber" 
+		 << "unicodeNewLine" 
+		 << "unicodeFrameBreak" 
+		 << "unicodeColumnBreak";
+	 
+	 itmenu->second 
+		 << "unicodeLigature_ff" 
+		 << "unicodeLigature_fi" 
+		 << "unicodeLigature_fl" 
+		 << "unicodeLigature_ffi" 
+		 << "unicodeLigature_ffl" 
+		 << "unicodeLigature_ft" 
+		 << "unicodeLigature_st";
 	
 	
 	//Page
@@ -1864,6 +1942,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeNewLine";
 	itnmenua->second << "unicodeFrameBreak";
 	itnmenua->second << "unicodeColumnBreak";
+	itnmenua->second << "unicodeZerowidthSpace";
 	itnmenua->second << "unicodeCopyRight";
 	itnmenua->second << "unicodeRegdTM";
 	itnmenua->second << "unicodeTM";
