@@ -8194,9 +8194,9 @@ void ScribusView::slotDoCurs(bool draw)
 //				qDebug(QString("cursor at (%1,%2) + %3").arg(bbox.x).arg(bbox.y).arg(bbox.height));
 			}
 #else
-			if (textframe->CPos >= textframe->itemText.length())
+			if (textframe->CPos > textframe->itemText.length())
 			{
-				textframe->CPos = textframe->itemText.length() - 1;
+				textframe->CPos = textframe->itemText.length();
 			}
 			if (textframe->CPos > textframe->itemText.endOfItem(textframe->lastInFrame()))
 			{
