@@ -376,10 +376,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.RandLinks = tabDocument->marginGroup->left();
 	prefsManager->appPrefs.RandRechts = tabDocument->marginGroup->right();
 	prefsManager->appPrefs.FacingPages  = tabDocument->choosenLayout;
-	prefsManager->appPrefs.BleedBottom = tabDocument->marginGroup->bottomBleed() / prefsUnitRatio;
-	prefsManager->appPrefs.BleedTop = tabDocument->marginGroup->topBleed() / prefsUnitRatio;
-	prefsManager->appPrefs.BleedLeft = tabDocument->marginGroup->leftBleed() / prefsUnitRatio;
-	prefsManager->appPrefs.BleedRight = tabDocument->marginGroup->rightBleed() / prefsUnitRatio;
+	prefsManager->appPrefs.BleedBottom = tabDocument->marginGroup->bottomBleed();
+	prefsManager->appPrefs.BleedTop = tabDocument->marginGroup->topBleed();
+	prefsManager->appPrefs.BleedLeft = tabDocument->marginGroup->leftBleed();
+	prefsManager->appPrefs.BleedRight = tabDocument->marginGroup->rightBleed();
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentItem();
 
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());

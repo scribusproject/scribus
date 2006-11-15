@@ -236,10 +236,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->ScratchLeft = tabView->leftScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchRight = tabView->rightScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchTop = tabView->topScratch->value() / currDoc->unitRatio();
-	currDoc->BleedBottom = tabPage->marginGroup->bottomBleed() / currDoc->unitRatio();
-	currDoc->BleedTop = tabPage->marginGroup->topBleed() / currDoc->unitRatio();
-	currDoc->BleedLeft = tabPage->marginGroup->leftBleed() / currDoc->unitRatio();
-	currDoc->BleedRight = tabPage->marginGroup->rightBleed() / currDoc->unitRatio();
+	currDoc->BleedBottom = tabPage->marginGroup->bottomBleed();
+	currDoc->BleedTop = tabPage->marginGroup->topBleed();
+	currDoc->BleedLeft = tabPage->marginGroup->leftBleed();
+	currDoc->BleedRight = tabPage->marginGroup->rightBleed();
 	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
