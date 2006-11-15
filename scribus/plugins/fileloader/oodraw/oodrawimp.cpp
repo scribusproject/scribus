@@ -654,11 +654,12 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else if( STag == "draw:path" )
 		{
-			z = Doku->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
+			FPointArray pArray;
+			PageItem::ItemType itype = parseSVG(b.attribute("svg:d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon;
+			z = Doku->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, lwidth, FillColor, StrokeColor, true);
 			PageItem* ite = Doku->Items->at(z);
 			ite->PoLine.resize(0);
-			if (parseSVG( b.attribute( "svg:d" ), &ite->PoLine ))
-				ite->convertTo(PageItem::PolyLine);
+			ite->PoLine = pArray;
 			if (ite->PoLine.size() < 4)
 			{
 				Doku->m_Selection->addItem(ite);
