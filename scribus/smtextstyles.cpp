@@ -160,7 +160,7 @@ QString SMParagraphStyle::fromSelection() const
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
 
-		QString tmpName = item->itemText.defaultStyle().name();
+		QString tmpName = item->itemText.defaultStyle().parent();
 
 		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
 		{
@@ -180,7 +180,7 @@ void SMParagraphStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	doc_->itemSelection_ApplyParagraphStyle(doc_->docParagraphStyles[styleName]);
+	doc_->itemSelection_SetNamedParagraphStyle(styleName);
 }
 
 QString SMParagraphStyle::newStyle()
@@ -189,7 +189,7 @@ QString SMParagraphStyle::newStyle()
 		return QString::null;
 
 	QString s = getUniqueName(tr("New Style"));
-	ParagraphStyle p(doc_->docParagraphStyles[""]);
+	ParagraphStyle p;
 	p.setName(s);
 	tmpStyles_.create(p);
 	return s;
@@ -1341,7 +1341,7 @@ QString SMCharacterStyle::fromSelection() const
 		// wth is going on here
 		PageItem *item = doc_->m_Selection->itemAt(i);
 
-		QString tmpName = item->itemText.defaultStyle().charStyle().name();
+		QString tmpName = item->itemText.defaultStyle().charStyle().parent();
 
 		if (lsName == QString::null && !tmpName.isEmpty() && tmpName != "")
 		{
@@ -1361,7 +1361,7 @@ void SMCharacterStyle::toSelection(const QString &styleName) const
 	if (!doc_)
 		return; // nowhere to apply or no doc
 
-	doc_->itemSelection_ApplyCharStyle(doc_->docCharStyles[styleName]);
+	doc_->itemSelection_SetNamedCharStyle(styleName);
 }
 
 QString SMCharacterStyle::newStyle()
@@ -1369,7 +1369,7 @@ QString SMCharacterStyle::newStyle()
 	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
 
 	QString s = getUniqueName( tr("New Style"));
-	CharStyle c(doc_->docCharStyles[""]);
+	CharStyle c;
 	c.setName(s);
 	tmpStyles_.create(c);
 	return s;
