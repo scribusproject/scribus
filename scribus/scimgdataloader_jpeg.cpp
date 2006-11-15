@@ -156,8 +156,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 						unsigned char cy = 255 - qBlue(*s);
 						unsigned char ck = QMIN(QMIN(cc, cm), cy);
 						*s = qRgba(cc-ck,cm-ck,cy-ck,ck);
+						s++;
 					}
-					s++;
 				}
 			}
 		}
@@ -304,9 +304,40 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 				m_message = QObject::tr("%1 may be corrupted : missing or wrong resolution tags").arg(qfi.fileName());
 				m_msgType = warningMsg;
 			}
+			if (m_imageInfoRecord.exifDataValid && thumbnail)
+			{
+				m_image.create(m_imageInfoRecord.exifInfo.width, m_imageInfoRecord.exifInfo.height, 32 );
+				m_image.setAlphaBuffer(false);
+				m_imageInfoRecord.exifInfo.width = cinfo.output_width;
+				m_imageInfoRecord.exifInfo.height = cinfo.output_height;
+				if (cinfo.output_components == 4)
+				{
+					for( int yit=0; yit < m_image.height(); ++yit )
+					{
+						QRgb *d = (QRgb*)(m_image.scanLine( yit ));
+						QRgb *s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
+						for(int xit=0; xit < m_image.width(); ++xit )
+						{
+							unsigned char cc = 255 - qRed(*s);
+							unsigned char cm = 255 - qGreen(*s);
+							unsigned char cy = 255 - qBlue(*s);
+							unsigned char ck = QMIN(QMIN(cc, cm), cy);
+							*d = qRgba(cc-ck,cm-ck,cy-ck,ck);
+							s++;
+							d++;
+						}
+					}
+				}
+			}
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 			free( PhotoshopBuffer );
+			if (m_imageInfoRecord.exifDataValid && thumbnail)
+			{
+				jpeg_destroy_decompress(&cinfo);
+				fclose(infile);
+				return true;
+			}
 			m_imageInfoRecord.exifInfo.thumbnail = QImage();
 			m_imageInfoRecord.exifDataValid = savEx;
 		}
