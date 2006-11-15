@@ -117,6 +117,7 @@ public:
 	void clearAll();
 
 private:
+	QGridLayout *mainLayout_;
 	QVBoxLayout *characterBoxLayout;
 	QHBoxLayout *layout7;
 	QHBoxLayout *layout8;

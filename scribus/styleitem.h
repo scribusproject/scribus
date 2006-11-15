@@ -44,6 +44,9 @@ public:
 	 *
 	 * This is the widget where the attributes of style are edited. It
 	 * will be placed on the main tab widget's Properties page.
+	 * Whenever a selected style is edited StyleItem should emit the
+	 * signal selectionDirty() if it is the first time style is edited
+	 * after applying previous changes.
 	 */
 	virtual QTabWidget* widget() = 0;
 
@@ -59,13 +62,15 @@ public:
 	 */
 	virtual void currentDoc(ScribusDoc *doc) = 0;
 
-	/** 
+	/**
 	 * @brief existing styles in this category
 	 *
 	 * return the names of cached styles (even if those are changed)
 	 * @param reloadFromDoc should the styles be loaded from the document or
 	 * should function return currently cached and possibly changed styles
 	 * @return Name of the styles and their parent as a QValueList.
+	 * StyleName::first is the style name and StyleName::second it's parent's name.
+	 * If the StyleItem has no parent StyleName::second should be set to QString::null.
 	 */
 	virtual QValueList<StyleName> styles(bool reloadFromDoc = true) = 0;
 
@@ -73,6 +78,8 @@ public:
 	 * @brief Reload styles and remove all cached (and possibly changed ones).
 	 *
 	 * This function will be called whenever a user clicks on the reset button.
+	 * Resetting styles means loading them from the doc replacing all cached styles
+	 * and without applying changes to the previously cached styles.
 	 **/
 	virtual void reload() = 0;
 
@@ -84,16 +91,18 @@ public:
 	 * this slot is called from the StyleItem. StyleItem must then update
 	 * the main widget with the data related to the selected item and then
 	 * just wait for apply() to apply the changes user made (with the
-	 * main widget).
+	 * main widget). When implementing this method one should note that
+	 * there may be more than a single style selected.
 	 * @param styleNames styles selected for editing
 	 */
 	virtual void selected(const QStringList &styleNames) = 0;
 
 	/**
 	 * @brief Return the name of the style in this category applied to the
-	 * @brief selected object(s).
+	 * @brief selected object(s) in the current document or QString::null
+	 * @brief if there is no selection in the document.
 	 *
-	 * If there are multiple objects selected only return a style name if the style
+	 * If there are multiple objects selected only return a style name if the same style
 	 * is applied on all selected objects. If they doesn't share the same style then
 	 * return QString::null.
 	 */
@@ -113,8 +122,8 @@ public:
 	virtual QString newStyle() = 0;
 
 	/**
-	 * @brief Create a new temp. style which is a clone to style fromStyle.
-	 * @param fromStyle style name of the style which clone the new style is wanted to be
+	 * @brief Create a new temp. style which is a clone of the style called fromStyle.
+	 * @param fromStyle name of the style to clone
 	 * @return name of the created style
 	 */
 	virtual QString newStyle(const QString &fromStyle) = 0;
@@ -140,17 +149,22 @@ public:
 	/** @brief returns the key combination for the style's shortcut */
 	virtual QString shortcut(const QString &stylename) const = 0;
 
-	/** @brief set the key combination for the style's shortcut */
+	/** @brief set the key combination for the selected style's shortcut */
 	virtual void setShortcut(const QString &shortcut) = 0;
 
 	/**
 	 * @brief User has requested to delete all the selected styles
+	 * @param removeList list of styles to be deleted. RemoveItem::first is
+	 * the style to be deleted and RemoveItem::second is the style to replace
+	 * the deleted style with. If no replacement was requested RemoveItem::second
+	 * has been set to QString::null.
 	 */
 	virtual void deleteStyles(const QValueList<RemoveItem> &removeList) = 0;
 
 	/** @brief Called when the currently selected style's name has changed */
 	virtual void nameChanged(const QString &newName) = 0;
 
+	/** @brief reload all the gui strings whenever this method is called */
 	virtual void languageChange() = 0;
 
 	// do not implement this in derived classes

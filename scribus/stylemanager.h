@@ -128,7 +128,7 @@ private slots:
 	void slotDirty();
 	void slotClean();
 
-	void slotApplyStyle(QString keyString); // keyString == styleClass::styleName
+	void slotApplyStyle(QString keyString); // keyString == styleClass$$$$styleName
 };
 
 class StyleView : public QListView
@@ -138,7 +138,7 @@ public:
 	StyleView(QWidget *parent);
 	~StyleView();
 protected:
-	void contentsMousePressEvent (QMouseEvent *e);
+	void contentsMousePressEvent(QMouseEvent *e);
 };
 
 class StyleViewItem : public QListViewItem

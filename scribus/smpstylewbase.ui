@@ -8,18 +8,18 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>393</width>
-            <height>303</height>
+            <width>394</width>
+            <height>373</height>
         </rect>
     </property>
     <property name="caption">
         <string>Form1</string>
     </property>
-    <vbox>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <widget class="QTabWidget">
+        <widget class="QTabWidget" row="0" column="0">
             <property name="name">
                 <cstring>tabWidget</cstring>
             </property>
@@ -30,28 +30,36 @@
                 <attribute name="title">
                     <string>Properties</string>
                 </attribute>
-                <vbox>
+                <grid>
                     <property name="name">
                         <cstring>unnamed</cstring>
                     </property>
-                    <spacer>
+                    <property name="margin">
+                        <number>5</number>
+                    </property>
+                    <property name="spacing">
+                        <number>5</number>
+                    </property>
+                    <widget class="QGroupBox" row="4" column="0">
                         <property name="name">
-                            <cstring>spacer10_2</cstring>
+                            <cstring>tabsBox</cstring>
                         </property>
-                        <property name="orientation">
-                            <enum>Vertical</enum>
+                        <property name="sizePolicy">
+                            <sizepolicy>
+                                <hsizetype>5</hsizetype>
+                                <vsizetype>1</vsizetype>
+                                <horstretch>0</horstretch>
+                                <verstretch>0</verstretch>
+                            </sizepolicy>
                         </property>
-                        <property name="sizeType">
-                            <enum>Fixed</enum>
+                        <property name="frameShape">
+                            <enum>NoFrame</enum>
                         </property>
-                        <property name="sizeHint">
-                            <size>
-                                <width>21</width>
-                                <height>16</height>
-                            </size>
+                        <property name="title">
+                            <string>Tabulators and Indentation</string>
                         </property>
-                    </spacer>
-                    <widget class="QLayoutWidget">
+                    </widget>
+                    <widget class="QLayoutWidget" row="1" column="0">
                         <property name="name">
                             <cstring>layout19</cstring>
                         </property>
@@ -82,24 +90,7 @@
                             </widget>
                         </hbox>
                     </widget>
-                    <spacer>
-                        <property name="name">
-                            <cstring>spacer10</cstring>
-                        </property>
-                        <property name="orientation">
-                            <enum>Vertical</enum>
-                        </property>
-                        <property name="sizeType">
-                            <enum>Fixed</enum>
-                        </property>
-                        <property name="sizeHint">
-                            <size>
-                                <width>21</width>
-                                <height>16</height>
-                            </size>
-                        </property>
-                    </spacer>
-                    <widget class="QLayoutWidget">
+                    <widget class="QLayoutWidget" row="3" column="0">
                         <property name="name">
                             <cstring>layout4</cstring>
                         </property>
@@ -180,9 +171,9 @@
                             </widget>
                         </hbox>
                     </widget>
-                    <spacer>
+                    <spacer row="0" column="0">
                         <property name="name">
-                            <cstring>spacer30</cstring>
+                            <cstring>spacer6</cstring>
                         </property>
                         <property name="orientation">
                             <enum>Vertical</enum>
@@ -192,31 +183,29 @@
                         </property>
                         <property name="sizeHint">
                             <size>
-                                <width>20</width>
-                                <height>16</height>
+                                <width>360</width>
+                                <height>5</height>
                             </size>
                         </property>
                     </spacer>
-                    <widget class="QGroupBox">
+                    <spacer row="2" column="0">
                         <property name="name">
-                            <cstring>tabsBox</cstring>
+                            <cstring>spacer6_2</cstring>
                         </property>
-                        <property name="sizePolicy">
-                            <sizepolicy>
-                                <hsizetype>5</hsizetype>
-                                <vsizetype>1</vsizetype>
-                                <horstretch>0</horstretch>
-                                <verstretch>0</verstretch>
-                            </sizepolicy>
+                        <property name="orientation">
+                            <enum>Vertical</enum>
                         </property>
-                        <property name="frameShape">
-                            <enum>NoFrame</enum>
+                        <property name="sizeType">
+                            <enum>Fixed</enum>
                         </property>
-                        <property name="title">
-                            <string>Tabulators and Indentation</string>
+                        <property name="sizeHint">
+                            <size>
+                                <width>360</width>
+                                <height>5</height>
+                            </size>
                         </property>
-                    </widget>
-                </vbox>
+                    </spacer>
+                </grid>
             </widget>
             <widget class="QWidget">
                 <property name="name">
@@ -249,7 +238,7 @@
                 </vbox>
             </widget>
         </widget>
-    </vbox>
+    </grid>
 </widget>
 <layoutdefaults spacing="5" margin="5"/>
 </UI>

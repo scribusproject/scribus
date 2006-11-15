@@ -544,30 +544,31 @@ void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList
 
 void SMPStyleWidget::showParent(QValueList<ParagraphStyle*> &pstyles)
 {
-// 		parentCombo->clear();
-// 		parentCombo->insertItem("");
-// 	
-// 		for (uint i = 0; i < pstyles.count(); ++i)
+	parentCombo->setEnabled(false);
+
+// 	parentCombo->clear();
+// 	parentCombo->insertItem("");
+// 	for (uint i = 0; i < pstyles.count(); ++i)
+// 	{
+// 		if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle->name())
+// 			parentCombo->insertItem(pstyles[i].displayName());
+// 	}
+// 
+// 	if (hasParent_)
+// 	{
+// 		int index = 0;
+// 		for (int i = 0; i < parentCombo->count(); ++i)
 // 		{
-// 			if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle->displayName())
-// 				parentCombo->insertItem(pstyles[i].displayName());
-// 		}
-	
-// 		if (hasParent_)
-// 		{
-// 			int index = 0;
-// 			for (int i = 0; i < parentCombo->count(); ++i)
+// 			if (parentCombo->text(i) == parent->name())
 // 			{
-// 				if (parentCombo->text(i) == parent->displayName())
-// 				{
-// 					index = i;
-// 					break;
-// 				}
+// 				index = i;
+// 				break;
 // 			}
-// 			parentCombo->setCurrentItem(index);
 // 		}
-// 		else
-// 			parentCombo->setCurrentItem(0);
+// 		parentCombo->setCurrentItem(index);
+// 	}
+// 	else
+// 		parentCombo->setCurrentItem(0);
 }
 
 void SMPStyleWidget::clearAll()
@@ -601,10 +602,13 @@ SMPStyleWidget::~SMPStyleWidget()
 
 SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 {
+// 	mainLayout_ = new QGridLayout(this, 8, 10, 0, -1, "mainLayout_");
+
+
 	characterBoxLayout = new QVBoxLayout(characterBox);
 	characterBoxLayout->setAlignment( Qt::AlignLeft );
 	characterBoxLayout->setSpacing( 5 );
-	characterBoxLayout->setMargin( 10 );
+	characterBoxLayout->setMargin( 0 );
 
 	fontFace_ = new SMFontComboH(characterBox);
 	characterBoxLayout->addWidget( fontFace_ );
@@ -1150,7 +1154,7 @@ void SMCStylePage::showLanguage(const QValueList<CharStyle*> &cstyles, const QSt
 
 void SMCStylePage::showParent(const QValueList<CharStyle*> &cstyles)
 {
-
+	parentCombo->setEnabled(false);
 }
 
 void SMCStylePage::clearAll()

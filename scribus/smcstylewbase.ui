@@ -8,35 +8,24 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>285</width>
-            <height>194</height>
+            <width>312</width>
+            <height>210</height>
         </rect>
     </property>
     <property name="caption">
         <string>Form1</string>
     </property>
-    <vbox>
+    <grid>
         <property name="name">
             <cstring>unnamed</cstring>
         </property>
-        <spacer>
-            <property name="name">
-                <cstring>spacer10_2</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Fixed</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>21</width>
-                    <height>10</height>
-                </size>
-            </property>
-        </spacer>
-        <widget class="QLayoutWidget">
+        <property name="margin">
+            <number>5</number>
+        </property>
+        <property name="spacing">
+            <number>5</number>
+        </property>
+        <widget class="QLayoutWidget" row="1" column="0">
             <property name="name">
                 <cstring>layout18</cstring>
             </property>
@@ -67,24 +56,7 @@
                 </widget>
             </hbox>
         </widget>
-        <spacer>
-            <property name="name">
-                <cstring>spacer10</cstring>
-            </property>
-            <property name="orientation">
-                <enum>Vertical</enum>
-            </property>
-            <property name="sizeType">
-                <enum>Fixed</enum>
-            </property>
-            <property name="sizeHint">
-                <size>
-                    <width>21</width>
-                    <height>10</height>
-                </size>
-            </property>
-        </spacer>
-        <widget class="QFrame">
+        <widget class="QFrame" row="3" column="0">
             <property name="name">
                 <cstring>characterBox</cstring>
             </property>
@@ -98,7 +70,41 @@
                 <number>0</number>
             </property>
         </widget>
-    </vbox>
+        <spacer row="0" column="0">
+            <property name="name">
+                <cstring>spacer8</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Fixed</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>290</width>
+                    <height>5</height>
+                </size>
+            </property>
+        </spacer>
+        <spacer row="2" column="0">
+            <property name="name">
+                <cstring>spacer8_2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Fixed</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>290</width>
+                    <height>5</height>
+                </size>
+            </property>
+        </spacer>
+    </grid>
 </widget>
 <layoutdefaults spacing="6" margin="11"/>
 </UI>
