@@ -117,13 +117,12 @@ public:
 	void clearAll();
 
 private:
-	QGridLayout *mainLayout_;
 	QVBoxLayout *characterBoxLayout;
-	QHBoxLayout *layout7;
 	QHBoxLayout *layout8;
 	QHBoxLayout *layout9a;
 	QHBoxLayout *layout5;
 	QHBoxLayout *layout6;
+	QGridLayout *spinBoxLayout_;
 
 	SMFontComboH  *fontFace_;
 	SMStyleSelect *effects_;
@@ -139,15 +138,15 @@ private:
 	SMMSpinBox  *tracking_;
 	SMMSpinBox  *baselineOffset_;
 
-	QLabel      *TextF2;
-	QLabel      *pixmapLabel3;
-	QLabel      *pixmapLabel3_2;
+	QLabel      *fontSizeLabel_;
+	QLabel      *hscaleLabel_;
+	QLabel      *vscaleLabel_;
 	QLabel      *FillIcon;
 	QLabel      *pixmapLabel3_20;
 	QLabel      *StrokeIcon;
 	QLabel      *pixmapLabel3_19;
-	QLabel      *pixmapLabel3_3;
-	QLabel      *pixmapLabel2;
+	QLabel      *trackingLabel_;
+	QLabel      *baselineOffsetLabel_;
 
 	QSpacerItem *spacer1;
 	QSpacerItem *spacer2;

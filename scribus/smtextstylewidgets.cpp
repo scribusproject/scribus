@@ -109,6 +109,29 @@ void SMPStyleWidget::slotLineSpacingModeChanged(int i)
 
 void SMPStyleWidget::languageChange()
 {
+/***********************************/
+/*      Begin Tooltips             */
+/***********************************/
+// These are for the paragraph style
+
+	QToolTip::add(parentCombo,      tr("Parent style"));
+	QToolTip::add(lineSpacingMode_, tr("Line spacing mode"));
+	QToolTip::add(lineSpacing_,     tr("Line spacing"));
+	QToolTip::add(spaceAbove_,      tr("Space above"));
+	QToolTip::add(spaceBelow_,      tr("Space below"));
+	QToolTip::add(dropCapsBox,      tr("Enable or disable drop cap"));
+	QToolTip::add(dropCapLines_,    tr("Drop cap lines"));
+	QToolTip::add(dropCapOffset_,   tr("Drop cap offset"));
+	QToolTip::add(alignement_,      tr("Alignment"));
+	QToolTip::add(tabList_->first_, tr("First line indent"));
+	QToolTip::add(tabList_->left_,  tr("Left indent"));
+	QToolTip::add(tabList_->right_, tr("Right indent"));
+	QToolTip::add(tabList_,         tr("Tabulators"));
+
+/***********************************/
+/*      End Tooltips               */
+/***********************************/
+
 	lineSpacingMode_->clear();
 	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
 	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
@@ -173,6 +196,7 @@ void SMPStyleWidget::setupCharStyle()
 
 void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &pstyles, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
 {
+	parentCombo->setEnabled(true);
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
 	hasParent_ = parent != NULL && parent->hasName();
 
@@ -602,9 +626,6 @@ SMPStyleWidget::~SMPStyleWidget()
 
 SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 {
-// 	mainLayout_ = new QGridLayout(this, 8, 10, 0, -1, "mainLayout_");
-
-
 	characterBoxLayout = new QVBoxLayout(characterBox);
 	characterBoxLayout->setAlignment( Qt::AlignLeft );
 	characterBoxLayout->setSpacing( 5 );
@@ -614,64 +635,67 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 	characterBoxLayout->addWidget( fontFace_ );
 
 	characterBoxLayout->addSpacing( 10 );
+	spinBoxLayout_ = new QGridLayout(2, 9);
 
-	layout7 = new QHBoxLayout( 0, 0, 5, "layout7");
 	fontSize_ = new SMMSpinBox( 1, 2048, characterBox, 1 );
 	fontSize_->setMinimumSize( QSize( 70, 22 ) );
 	fontSize_->setSuffix( tr( " pt" ) );
 
-	TextF2 = new QLabel( "" ,characterBox, "TextF2" );
-	TextF2->setPixmap(loadIcon("Zeichen.xpm"));
-	TextF2->setMinimumSize( QSize( 22, 22 ) );
-	TextF2->setMaximumSize( QSize( 22, 22 ) );
-	layout7->addWidget( TextF2 );
-	layout7->addWidget( fontSize_ );
+	fontSizeLabel_ = new QLabel( "" ,characterBox, "TextF2" );
+	fontSizeLabel_->setPixmap(loadIcon("Zeichen.xpm"));
+	fontSizeLabel_->setMinimumSize( QSize( 22, 22 ) );
+	fontSizeLabel_->setMaximumSize( QSize( 22, 22 ) );
 
-	pixmapLabel3_3 = new QLabel( characterBox, "pixmapLabel3_3" );
-	pixmapLabel3_3->setMinimumSize( QSize( 22, 22 ) );
-	pixmapLabel3_3->setMaximumSize( QSize( 22, 22 ) );
-	pixmapLabel3_3->setPixmap( loadIcon("textkern.png") );
-	layout7->addWidget(pixmapLabel3_3);
+	spinBoxLayout_->addWidget(fontSizeLabel_, 0, 0);
+	spinBoxLayout_->addMultiCellWidget(fontSize_, 0, 0, 1, 2);
+
+	trackingLabel_ = new QLabel( characterBox, "pixmapLabel3_3" );
+	trackingLabel_->setMinimumSize( QSize( 22, 22 ) );
+	trackingLabel_->setMaximumSize( QSize( 22, 22 ) );
+	trackingLabel_->setPixmap( loadIcon("textkern.png") );
 
 	tracking_ = new SMMSpinBox( -300, 300, characterBox, 1 );
 	tracking_->setSuffix( tr( " %" ) );
-	layout7->addWidget(tracking_);
-	
 
-	pixmapLabel2 = new QLabel( characterBox, "pixmapLabel2" );
-	pixmapLabel2->setMinimumSize( QSize( 22, 22 ) );
-	pixmapLabel2->setMaximumSize( QSize( 22, 22 ) );
-	pixmapLabel2->setPixmap( loadIcon("textbase.png") );
-	layout7->addWidget( pixmapLabel2 );
+	spinBoxLayout_->addWidget(trackingLabel_, 0, 3);
+	spinBoxLayout_->addMultiCellWidget(tracking_, 0, 0, 4, 5);
+
+	baselineOffsetLabel_ = new QLabel( characterBox, "pixmapLabel2" );
+	baselineOffsetLabel_->setMinimumSize( QSize( 22, 22 ) );
+	baselineOffsetLabel_->setMaximumSize( QSize( 22, 22 ) );
+	baselineOffsetLabel_->setPixmap( loadIcon("textbase.png") );
+
 	baselineOffset_ = new SMMSpinBox( -100, 100, characterBox, 1 );
 	baselineOffset_->setSuffix( tr( " %" ) );
-	layout7->addWidget( baselineOffset_ );
-	layout7->addStretch(10);
-	characterBoxLayout->addLayout( layout7 );
 
-	layout8 = new QHBoxLayout(0, 0, 5, "layout8");
+	spinBoxLayout_->addWidget(baselineOffsetLabel_, 0, 6);
+	spinBoxLayout_->addMultiCellWidget(baselineOffset_, 0, 0, 7, 8);
 
-	pixmapLabel3 = new QLabel( "", characterBox, "pixmapLabel3" );
-	pixmapLabel3->setMinimumSize( QSize( 22, 22 ) );
-	pixmapLabel3->setMaximumSize( QSize( 22, 22 ) );
-	pixmapLabel3->setPixmap( loadIcon("textscaleh.png") );
-	layout8->addWidget( pixmapLabel3 );
+	hscaleLabel_ = new QLabel( "", characterBox, "pixmapLabel3" );
+	hscaleLabel_->setMinimumSize( QSize( 22, 22 ) );
+	hscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
+	hscaleLabel_->setPixmap( loadIcon("textscaleh.png") );
 
 	fontHScale_ = new SMMSpinBox( 10, 400, characterBox, 1 );
 	fontHScale_->setSuffix( tr( " %" ) );
-	layout8->addWidget( fontHScale_ );
 
-	pixmapLabel3_2 = new QLabel( "", characterBox, "pixmapLabel3_2" );
-	pixmapLabel3_2->setMinimumSize( QSize( 22, 22 ) );
-	pixmapLabel3_2->setMaximumSize( QSize( 22, 22 ) );
-	pixmapLabel3_2->setPixmap( loadIcon("textscalev.png") );
-	layout8->addWidget( pixmapLabel3_2 );
+	spinBoxLayout_->addWidget(hscaleLabel_, 1, 0);
+	spinBoxLayout_->addMultiCellWidget(fontHScale_, 1, 1, 1, 2);
+
+	vscaleLabel_ = new QLabel( "", characterBox, "pixmapLabel3_2" );
+	vscaleLabel_->setMinimumSize( QSize( 22, 22 ) );
+	vscaleLabel_->setMaximumSize( QSize( 22, 22 ) );
+	vscaleLabel_->setPixmap( loadIcon("textscalev.png") );
 
 	fontVScale_ = new SMMSpinBox( 10, 400, characterBox, 1 );
 	fontVScale_->setSuffix( tr( " %" ) );
-	layout8->addWidget( fontVScale_ );
-	layout8->addStretch(10);
-	characterBoxLayout->addLayout( layout8 );
+
+	spinBoxLayout_->addWidget(vscaleLabel_, 1, 3);
+	spinBoxLayout_->addMultiCellWidget(fontVScale_, 1, 1, 4, 5);
+
+	spinBoxLayout_->setColStretch(9, 10);
+
+	characterBoxLayout->addLayout( spinBoxLayout_ );
 
 	characterBoxLayout->addSpacing( 10 );
 
@@ -748,6 +772,29 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 void SMCStylePage::languageChange()
 {
+/***********************************/
+/*      Begin Tooltips             */
+/***********************************/
+// These are for the character style page
+// as in character styles and in paragraph style's character style
+
+	QToolTip::add(parentCombo,     tr("Parent style"));
+	QToolTip::add(fontFace_,       tr("Font face"));
+	QToolTip::add(fontSize_,       tr("Font size"));
+	QToolTip::add(tracking_,       tr("Tracking"));
+	QToolTip::add(baselineOffset_, tr("Baseline offset"));
+	QToolTip::add(fontHScale_,     tr("Horizontal scaling"));
+	QToolTip::add(fontVScale_,     tr("Vertical scaling"));
+	QToolTip::add(language_,       tr("Language"));
+	QToolTip::add(fillColor_,      tr("Fill color"));
+	QToolTip::add(fillShade_,      tr("Fill shade"));
+	QToolTip::add(strokeColor_,    tr("Stroke color"));
+	QToolTip::add(strokeShade_,    tr("Stroke shade"));
+
+/***********************************/
+/*        End Tooltips             */
+/***********************************/
+
 	parentLabel->setText( tr("Parent"));
 	fontVScale_->setSuffix( tr(" %"));
 	fontHScale_->setSuffix( tr(" %"));
@@ -792,6 +839,7 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const QString &defLang)
 {
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
+	parentCombo->setEnabled(true);
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
 	bool hasParent = parent != 0 && parent->hasName();
 	if (hasParent)

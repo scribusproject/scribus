@@ -50,6 +50,31 @@ LineStyleWidget::LineStyleWidget() : LineStyleWBase()
 	joinCombo->insertItem(loadIcon("MiterJoin.png"), tr( "Miter Join" ) );
 	joinCombo->insertItem(loadIcon("BevelJoin.png"), tr( "Bevel Join" ) );
 	joinCombo->insertItem(loadIcon("RoundJoin.png"), tr( "Round Join" ) );
+
+	languageChange();
+}
+
+void LineStyleWidget::languageChange()
+{
+/***********************************/
+/*      Begin Tooltips             */
+/***********************************/
+// These are for the line style page
+
+	QToolTip::add(addButton,    tr("Add a new line"));
+	QToolTip::add(removeButton, tr("Remove a line"));
+	QToolTip::add(dashCombo,    tr("Line style"));
+	QToolTip::add(lineWidth,    tr("Line width"));
+	QToolTip::add(endCombo,     tr("End style"));
+	QToolTip::add(joinCombo,    tr("Join style"));
+	QToolTip::add(colorCombo,   tr("Line color"));
+	QToolTip::add(shadeBox,     tr("Line shade"));
+
+/***********************************/
+/*      End Tooltips               */
+/***********************************/
+
+
 }
 
 void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine)

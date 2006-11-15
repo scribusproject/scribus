@@ -89,8 +89,29 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 
 void StyleManager::languageChange()
 {
-	nameLabel->setText( tr("Name:"));
+/***********************************/
+/*      Begin Tooltips             */
+/***********************************/
+// These are for general Style Manager widgets (not for c/pstyles except the name field
 
+	// for the "<< Done" button when in edit mode
+	exitEditModeOk_ = tr("Apply all changes and exit edit mode");
+	// for the "Edit >>" button when not in edit mode
+	enterEditModeOk_= tr("Edit styles");
+
+	QToolTip::add(nameEdit,     tr("Name of the selected style"));
+	QToolTip::add(resetButton,  tr("Reset all changes"));
+	QToolTip::add(applyButton,  tr("Apply all changes"));
+	QToolTip::add(newButton,    tr("Create a new style"));
+	QToolTip::add(importButton, tr("Import styles from another document"));
+	QToolTip::add(cloneButton,  tr("Clone selected style"));
+	QToolTip::add(deleteButton, tr("Delete selected styles"));
+
+/***********************************/
+/*      End Tooltips               */
+/***********************************/
+
+	nameLabel->setText( tr("Name:"));
 	resetButton->setText( tr("&Reset"));
 	applyButton->setText( tr("&Apply"));
 	okButton->setText(isEditMode_ ? tr("<< &Done") : tr("&Edit >>"));
@@ -98,15 +119,10 @@ void StyleManager::languageChange()
 	importButton->setText( tr("&Import"));
 	cloneButton->setText( tr("&Clone"));
 	deleteButton->setText( tr("&Delete"));
-
-	QToolTip::add(resetButton, tr("Reset all changes"));
-	QToolTip::add(applyButton, tr("Apply all changes"));
 	if (isEditMode_)
-		QToolTip::add(okButton, tr("Apply all changes and exit edit mode"));
-	QToolTip::add(newButton, tr("Create a new style"));
-	QToolTip::add(importButton, tr("Import styles from another document"));
-	QToolTip::add(cloneButton, tr("Clone selected style"));
-	QToolTip::add(deleteButton, tr("Delete selected styles"));
+		QToolTip::add(okButton, exitEditModeOk_);
+	else
+		QToolTip::add(okButton, enterEditModeOk_);
 
 	if (shortcutWidget_)
 		shortcutWidget_->languageChange();
@@ -452,7 +468,7 @@ void StyleManager::slotOk()
 			items_.at(i)->apply();
 			items_.at(i)->editMode(false);
 		}
-		QToolTip::remove(okButton);
+		QToolTip::add(okButton, enterEditModeOk_);
 		slotClean();
 		slotDocSelectionChanged();
 		splitterSizes_ = splitter->sizes();
@@ -490,7 +506,7 @@ void StyleManager::slotOk()
 		resize(splitter->width(), height_);
 		for (uint i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
-		QToolTip::add(okButton, tr("Apply all changes and exit edit mode"));
+		QToolTip::add(okButton, exitEditModeOk_);
 		slotClean();
 		splitterSizes_ = splitter->sizes();
 		prefs_->set("Splitter1W", splitterSizes_[0]);
@@ -1090,6 +1106,8 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 	setKeyButton = new QPushButton( tr( "Set &Key" ), keyGroup, "setKeyButton" );
 	setKeyButton->setToggleButton(true);
 
+	languageChange();
+
 	keyGroupLayout->addMultiCellWidget( setKeyButton, 0, 2, 1, 1, Qt::AlignCenter );
 	keyManagerLayout->addWidget( keyGroup );
 
@@ -1099,10 +1117,21 @@ ShortcutWidget::ShortcutWidget(QWidget *parent, const char *name) : QWidget(pare
 
 void ShortcutWidget::languageChange()
 {
+/***********************************/
+/*      Begin Tooltips             */
+/***********************************/
+
+	QToolTip::add(noKey,        tr("No shortcut for the style")); // set no shortcut for this style
+	QToolTip::add(userDef,      tr("Style has user defined shortcut")); // not sure what this thing does
+	QToolTip::add(setKeyButton, tr("Assign a shortcut for the style")); // activate shorcut assigning
+
+/***********************************/
+/*      End Tooltips               */
+/***********************************/
+
 	noKey->setText( tr("&No Key"));
 	userDef->setText( tr("&User Defined Key"));
 	setKeyButton->setText( tr("Set &Key"));
-	
 }
 
 bool ShortcutWidget::event( QEvent* ev )

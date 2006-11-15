@@ -77,6 +77,8 @@ private:
 	QPoint              editPosition_;
 	QString             rcStyle_;
 	QString             rcType_;
+	QString             exitEditModeOk_;
+	QString             enterEditModeOk_;
 
 	ScribusDoc         *doc_;
 	PrefsContext       *prefs_;

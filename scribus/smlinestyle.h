@@ -27,6 +27,8 @@ public:
 	~LineStyleWidget();
 	void showStyle(const multiLine &lineStyle, ColorList &colorList, int subLine = 0);
 
+	void languageChange();
+
 private:
 	LineCombo *dashCombo;
 	MSpinBox  *lineWidth;
