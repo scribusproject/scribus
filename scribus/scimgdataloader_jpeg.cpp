@@ -102,6 +102,7 @@ void ScImgDataLoader_JPEG::preloadAlphaChannel(const QString& fn, int res)
 bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnail)
 {
 	bool isCMYK = false;
+	bool fromPS = false;
 	float xres = 72.0, yres = 72.0;
 	if (!QFile::exists(fn))
 		return false;
@@ -307,11 +308,11 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			if (m_imageInfoRecord.exifDataValid && thumbnail)
 			{
 				m_image.create(m_imageInfoRecord.exifInfo.width, m_imageInfoRecord.exifInfo.height, 32 );
-				m_image.setAlphaBuffer(false);
 				m_imageInfoRecord.exifInfo.width = cinfo.output_width;
 				m_imageInfoRecord.exifInfo.height = cinfo.output_height;
 				if (cinfo.output_components == 4)
 				{
+					m_image.setAlphaBuffer(false);
 					for( int yit=0; yit < m_image.height(); ++yit )
 					{
 						QRgb *d = (QRgb*)(m_image.scanLine( yit ));
@@ -328,6 +329,8 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 						}
 					}
 				}
+				else
+					m_image = m_imageInfoRecord.exifInfo.thumbnail.copy();
 			}
 			m_imageInfoRecord.valid = (m_imageInfoRecord.PDSpathData.size())>0?true:false; // The only interest is vectormask
 			arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
@@ -340,6 +343,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			}
 			m_imageInfoRecord.exifInfo.thumbnail = QImage();
 			m_imageInfoRecord.exifDataValid = savEx;
+			fromPS = true;
 		}
 	}
 	if ( cinfo.output_components == 3 || cinfo.output_components == 4)
@@ -370,11 +374,21 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		}
 		if ( cinfo.output_components == 4 )
 		{
+			int method = 0;
+			if (cinfo.jpeg_color_space == JCS_YCCK)
+				method = 1;
+			else if (fromPS)
+			{
+				if ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 0))
+					method = 2;
+			}
+			else if ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker))
+				method = 1;
 			for (int i = 0; i < m_image.height(); i++)
 			{
 				QRgb *ptr = (QRgb*)  m_image.scanLine(i);
 				unsigned char c, m, y ,k;
-				if ((cinfo.jpeg_color_space == JCS_YCCK) || ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker)))
+				if (method == 1)
 				{
 					for (int j = 0; j <  m_image.width(); j++)
 					{
@@ -384,6 +398,19 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 						y =  p[2];
 						k =  p[3];
 						*ptr = qRgba(255 - c, 255 - m, 255 - y, 255 - k);
+						ptr++;
+					}
+				}
+				else if (method == 2)
+				{
+					for (int j = 0; j <  m_image.width(); j++)
+					{
+						unsigned char *p = (unsigned char *) ptr;
+						c = p[0];
+						m = p[1];
+						y =  p[2];
+						k =  p[3];
+						*ptr = qRgba(255 - c, 255 - m, 255 - y, k);
 						ptr++;
 					}
 				}
