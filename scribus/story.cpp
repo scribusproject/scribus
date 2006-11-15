@@ -477,9 +477,12 @@ void SEditor::loadItemText(PageItem *currItem)
 	FrameItems.clear();
 	StyledText.append(currItem->itemText);
 	updateAll();
-	if (StyledText.length() != 0)
-		emit setProps(0, 0);
-	setCursorPosition(0, 0);
+	int currPar = 0;
+	while (currItem->CPos >= currItem->itemText.endOfParagraph(currPar))
+		++currPar;
+	int currChar = currItem->CPos - currItem->itemText.startOfParagraph(currPar);
+	setCursorPosition(currPar, currChar);
+	emit setProps(currPar, currChar);
 }
 
 void SEditor::loadText(QString tx, PageItem *currItem)
@@ -1144,11 +1147,10 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	firstSet = false;
 	activFromApp = true;
 	Editor->loadItemText(ite);
+	Editor->getCursorPosition(&CurrPara, &CurrChar);
 	EditorBar->setRepaint(true);
 	EditorBar->doRepaint();
-	CurrPara = 0;
-	CurrChar = 0;
-	updateProps(0,0);
+	updateProps(CurrPara, CurrChar);
 	updateStatus();
 	textChanged = false;
 	disconnectSignals();
@@ -1627,6 +1629,7 @@ void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
 		setCaption( tr("Story Editor - %1").arg(currItem->itemName()));
 		firstSet = false;
 		Editor->loadItemText(currItem);
+		Editor->getCursorPosition(&CurrPara, &CurrChar);
 		Editor->sync();
 		Editor->repaintContents();
 		EditorBar->setRepaint(true);
@@ -1731,24 +1734,16 @@ bool StoryEditor::eventFilter( QObject* ob, QEvent* ev )
 				disconnectSignals();
 				Editor->setUndoRedoEnabled(false);
 				Editor->setUndoRedoEnabled(true);
-				Editor->setCursorPosition(0, 0);
+//				Editor->setCursorPosition(0, 0);
 				seActions["fileRevert"]->setEnabled(false);
 				seActions["editCopy"]->setEnabled(false);
 				seActions["editCut"]->setEnabled(false);
 				seActions["editClear"]->setEnabled(false);
 				textChanged = false;
 				Editor->loadItemText(currItem);
+				Editor->getCursorPosition(&CurrPara, &CurrChar);
 				updateStatus();
 				textChanged = false;
-				if (static_cast<int>(Editor->StyledText.nrOfParagraphs()) > CurrPara)
-				{
-					int len = Editor->StyledText.endOfParagraph(CurrPara) - Editor->StyledText.startOfParagraph(CurrPara);
-					if (len > CurrChar)
-					{
-						Editor->setCursorPosition(CurrPara, CurrChar);
-						updateProps(CurrPara, CurrChar);
-					}
-				}
 				Editor->sync();
 				Editor->repaintContents();
 				EditorBar->doMove(0, Editor->contentsY());
@@ -2326,6 +2321,7 @@ void StoryEditor::slotFileRevert()
 	if (Do_new())
 	{
 		Editor->loadItemText(currItem);
+		Editor->getCursorPosition(&CurrPara, &CurrChar);
 		updateStatus();
 		EditorBar->setRepaint(true);
 		EditorBar->doRepaint();
