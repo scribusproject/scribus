@@ -197,16 +197,28 @@ void Hyphenator::slotHyphenate(PageItem* it)
 	QString found2 = "";
 	//uint maxC = it->itemText.length() - 1;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
+	QRegExp wordBoundary("\\w");
+	QRegExp whiteSpace("\\s|\\W|\\d|\\n|\\r|\\t");
 	while ((firstC+Ccount < signed(text.length())) && (firstC != -1) && 
 			(lastC < signed(text.length())))
 	{
-		firstC = text.find(QRegExp("\\w"), firstC+Ccount);
+		firstC = text.find(wordBoundary, firstC+Ccount);
 		if (firstC < 0)
 			break;
-		lastC = text.find(QRegExp("\\s|\\W|\\d|\\n|\\r|\\t"), firstC);
+		if (firstC > 0 && text.at(firstC-1) == SpecialChars::SHYPHEN)
+		{
+			Ccount = 1;
+			continue;
+		}
+		lastC = text.find(whiteSpace, firstC);
 		if (lastC < 0)
-			lastC = static_cast<int>(text.length());
+			lastC = signed(text.length());
 		Ccount = lastC - firstC;
+		if (lastC < signed(text.length()) && text.at(lastC) == SpecialChars::SHYPHEN)
+		{
+			++Ccount;
+			continue;
+		}
 		if (Ccount > MinWordLen-1)
 		{
 			found = text.mid(firstC, Ccount).lower();
