@@ -1529,6 +1529,9 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		layout.xadvance = style.font().glyphWidth(layout.glyph, style.fontSize() / 10) * layout.scaleH;
 		layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
+	if (layout.xadvance > 0)
+		layout.xadvance += style.fontSize() * style.tracking() / 1000;
+
 	if (chars.length() > 1) {
 		layout.grow();
 		layoutGlyphs(style, chars.mid(1), *layout.more);
