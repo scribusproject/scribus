@@ -1747,6 +1747,8 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	tmp2.replace(QRegExp("\r"), QChar(13));
 	tmp2.replace(QRegExp("\n"), QChar(13));
 	tmp2.replace(QRegExp("\t"), QChar(9));
+	tmp2.replace(SpecialChars::OLD_NBHYPHEN, SpecialChars::NBHYPHEN);
+	tmp2.replace(SpecialChars::OLD_NBSPACE, SpecialChars::NBSPACE);
 	tmpf = it->attribute("CFONT", "");
 	PrefsManager* prefsManager=PrefsManager::instance();
 	if (!tmpf.isEmpty() && (!prefsManager->appPrefs.AvailFonts.contains(tmpf) || !prefsManager->appPrefs.AvailFonts[tmpf].usable()))
