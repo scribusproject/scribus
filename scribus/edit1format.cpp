@@ -586,6 +586,7 @@ void EditStyle::setPreviewBackground()
 	if (bg.isValid())
 	{
 		previewText->setPaletteBackgroundColor(bg);
+		sampleItem->setBgColorMngt(false);
 		sampleItem->setBgColor(bg);
 		updatePreview();
 	}

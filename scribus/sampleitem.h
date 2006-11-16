@@ -48,6 +48,9 @@ class SCRIBUS_API SampleItem : QObject
 		\param c a QColor */
 		void setBgColor(QColor c);
 		void setBgShade(int c);
+		/*! \brief Set color management for backgroud color of the pixmap.
+		\param enable if color management should be enabled */
+		void setBgColorMngt(bool enable);
 		/*! \brief Set Text color of the pixmap.
 		\param c a QColor */
 		void setTxColor(QColor c);

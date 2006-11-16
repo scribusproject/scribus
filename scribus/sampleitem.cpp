@@ -133,6 +133,11 @@ void SampleItem::setBgShade(int c)
 	bgShade = c;
 }
 
+void SampleItem::setBgColorMngt(bool enable)
+{
+	m_Doc->PageColors["__whiteforpreviewbg__"].setSpotColor(!enable);
+}
+
 void SampleItem::setTxColor(QColor c)
 {
 	m_Doc->PageColors["__blackforpreview__"].fromQColor(c);

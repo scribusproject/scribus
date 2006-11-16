@@ -297,6 +297,7 @@ QColor ScColor::getShadeColorProof(int level)
 	if (m_doc)
 		doGC = m_doc->Gamut;
 	
+	tmp2.Spot = Spot;
 	if (Model == colorModelRGB)
 	{
 		getShadeColorRGB(&r, &g, &b, level);
