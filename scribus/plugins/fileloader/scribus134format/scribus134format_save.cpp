@@ -201,12 +201,14 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writeSections(docu);
 	writePatterns(docu);
 	writeContent(docu);
+	
 	/**
 		* changed to enable saving
 	 * of *.gz documents
 	 * 2.7.2002 C.Toepp
 	 * <c.toepp@gmx.de>
 	 */
+	static const char* xmlpi = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 	QCString cs = docu.toCString(); // UTF-8 QCString
 #ifdef HAVE_LIBZ
 	if(fileName.right(2) == "gz")
@@ -216,6 +218,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		gzFile gzDoc = gzopen(fileName.latin1(),"wb");
 		if(gzDoc == NULL)
 			return false;
+		gzputs(gzDoc, xmlpi);
 		gzputs(gzDoc, cs.data());
 		gzclose(gzDoc);
 	}
@@ -226,6 +229,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 		if(!f.open(IO_WriteOnly))
 			return false;
 		QTextStream s(&f);
+		s.writeRawBytes(xmlpi, strlen(xmlpi));
 		s.writeRawBytes(cs, cs.length());
 		f.close();
 	}
@@ -822,6 +826,7 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 {
 	CharStyle lastStyle;
 	int lastPos = 0;
+	QString tmpnum;
 	
 	for(int k = 0; k < item->itemText.length(); ++k)
 	{
@@ -835,6 +840,9 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			ch == SpecialChars::COLBREAK ||
 			ch == SpecialChars::FRAMEBREAK ||
 			ch == SpecialChars::PAGENUMBER ||
+			ch.unicode() < 32 || 
+			(0xd800 <= ch.unicode() && ch.unicode() < 0xe000) ||
+			ch.unicode() == 0xfffe || ch.unicode() == 0xffff ||
 			style1 != lastStyle)
 		{
 			// something new, write pending chars
@@ -887,7 +895,19 @@ void Scribus134Format::writeITEXTs(ScribusDoc *doc, QDomDocument *docu, QDomElem
 			it.setAttribute("name", "pgno");
 			ob.appendChild(it);
 		}
-		else {
+		else if (ch.unicode() < 32 || 
+				 (0xd800 <= ch.unicode() && ch.unicode() < 0xe000) ||
+				 ch.unicode() == 0xfffe || ch.unicode() == 0xffff)
+		{
+			QDomElement cod = docu->createElement("ITEXT");
+			putCStyle(*docu, cod, lastStyle);
+			tmpnum.setNum(ch.unicode());
+			cod.setAttribute("Unicode", tmpnum);
+			ob.appendChild(cod);			
+			
+		}
+		else
+		{
 			continue;
 		}
 		// otherwise we just wrote something special and are done with position 'k'

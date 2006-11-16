@@ -145,9 +145,10 @@ bool Scribus134Format::fileSupported(QIODevice* /* file */, const QString & file
 		// Not gzip encoded, just load it
 		loadRawText(fileName, docBytes);
 	}
-	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
-		return true;
-	return false;
+//	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
+//		return true;
+	int startElemPos = docBytes.left(512).find("<SCRIBUSUTF8NEW ");
+	return startElemPos >= 0 && docBytes.mid(startElemPos, 64).find("Version=\"1.3.4") >= 0;
 }
 
 QString Scribus134Format::readSLA(const QString & fileName)
@@ -206,7 +207,8 @@ QString Scribus134Format::readSLA(const QString & fileName)
 		loadRawText(fileName, docBytes);
 	}
 	QString docText("");
-	if (docBytes.left(16) == "<SCRIBUSUTF8NEW " && docBytes.left(35).contains("Version=\"1.3.4"))
+	int startElemPos = docBytes.left(512).find("<SCRIBUSUTF8NEW ");
+	if (startElemPos >= 0 && docBytes.mid(startElemPos, 64).find("Version=\"1.3.4") >= 0)
 		docText = QString::fromUtf8(docBytes);
 	else
 		return QString::null;
@@ -1561,12 +1563,20 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 	CharStyle newStyle;
 	GetCStyle(it, doc, newStyle);
 	
-	tmp2 = it->attribute("CH");
+	if (it->hasAttribute("Unicode"))
+	{
+		tmp2 = QChar(it->attribute("Unicode").toUInt());
+	}
+	else
+	{
+		tmp2 = it->attribute("CH");
+		
+		// legacy stuff:
+		tmp2.replace(QRegExp("\r"), QChar(13));
+		tmp2.replace(QRegExp("\n"), QChar(13));
+		tmp2.replace(QRegExp("\t"), QChar(9));
+	}
 	
-	// legacy stuff:
-	tmp2.replace(QRegExp("\r"), QChar(13));
-	tmp2.replace(QRegExp("\n"), QChar(13));
-	tmp2.replace(QRegExp("\t"), QChar(9));
 	tmpf = it->attribute("CFONT", doc->toolSettings.defFont);
 	PrefsManager* prefsManager=PrefsManager::instance();
 	if ((!prefsManager->appPrefs.AvailFonts.contains(tmpf)) || (!prefsManager->appPrefs.AvailFonts[tmpf].usable()))
