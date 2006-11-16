@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2001-12-14 01:18+0200\n"
 "Last-Translator: Vasko Tomanov <vasko@web.bg>\n"
 "Content-Type: text/plain; charset=cp1251\n"
@@ -6448,112 +6448,6 @@ msgstr "Други..."
 msgid "Lines"
 msgstr "Линия"
 
-#, fuzzy
-msgid "Edit Styles..."
-msgstr "Редактиране на стилове"
-
-#, fuzzy
-msgid "Fill Color Settings"
-msgstr "Цвят на запълване:"
-
-#, fuzzy
-msgid "Stroke Color Settings"
-msgstr "Покажи цветовете"
-
-#, fuzzy
-msgid "Character Settings"
-msgstr "Параметри на печатащото устройство"
-
-#, fuzzy
-msgid "Style Settings"
-msgstr "Опции на мишката"
-
-#, fuzzy
-msgid "Font Settings"
-msgstr "Опции на мишката"
-
-msgid "Font of selected text"
-msgstr ""
-
-#, fuzzy
-msgid "&Settings"
-msgstr "Опции на мишката"
-
-msgid "Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Clear All Text"
-msgstr "Прост текст"
-
-#, fuzzy
-msgid "&Reload Text from Frame"
-msgstr "Скрий рамките"
-
-#, fuzzy
-msgid "&Save to File..."
-msgstr "Запиши като PDF..."
-
-#, fuzzy
-msgid "&Load from File..."
-msgstr "Запиши като PDF..."
-
-#, fuzzy
-msgid "Save &Document"
-msgstr "Нов документ"
-
-#, fuzzy
-msgid "&Update Text Frame and Exit"
-msgstr "Промяна на текстова рамка"
-
-#, fuzzy
-msgid "&Exit Without Updating Text Frame"
-msgstr "Промяна на текстова рамка"
-
-#, fuzzy
-msgid "&Edit Styles..."
-msgstr "Редактиране на стилове"
-
-#, fuzzy
-msgid "&Fonts Preview..."
-msgstr "Преглед"
-
-#, fuzzy
-msgid "&Update Text Frame"
-msgstr "Промяна на текстова рамка"
-
-#, fuzzy
-msgid "&Insert Glyph..."
-msgstr "Вмъкване..."
-
-#, fuzzy
-msgid "&Background..."
-msgstr "Фон:"
-
-#, fuzzy
-msgid "&Display Font..."
-msgstr "Шрифтове..."
-
-msgid "&Smart text selection"
-msgstr ""
-
-msgid "Current Paragraph:"
-msgstr ""
-
-#, fuzzy
-msgid "Totals:"
-msgstr "Инструменти"
-
-msgid "Story Editor - %1"
-msgstr ""
-
-msgid "Do you want to save your changes?"
-msgstr ""
-
-#, fuzzy
-msgid "Do you really want to lose all your changes?"
-msgstr "Наистина ли искате да изтриете този стил?"
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -7255,7 +7149,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 
 msgid ""
@@ -8579,6 +8473,112 @@ msgstr "Вмукване на линии"
 #, fuzzy
 msgid "Insert PDF Annotations"
 msgstr "PDF анотация"
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "Редактиране на стилове"
+
+#, fuzzy
+msgid "Fill Color Settings"
+msgstr "Цвят на запълване:"
+
+#, fuzzy
+msgid "Stroke Color Settings"
+msgstr "Покажи цветовете"
+
+#, fuzzy
+msgid "Character Settings"
+msgstr "Параметри на печатащото устройство"
+
+#, fuzzy
+msgid "Style Settings"
+msgstr "Опции на мишката"
+
+#, fuzzy
+msgid "Font Settings"
+msgstr "Опции на мишката"
+
+msgid "Font of selected text"
+msgstr ""
+
+#, fuzzy
+msgid "&Settings"
+msgstr "Опции на мишката"
+
+msgid "Story Editor"
+msgstr ""
+
+#, fuzzy
+msgid "Clear All Text"
+msgstr "Прост текст"
+
+#, fuzzy
+msgid "&Reload Text from Frame"
+msgstr "Скрий рамките"
+
+#, fuzzy
+msgid "&Save to File..."
+msgstr "Запиши като PDF..."
+
+#, fuzzy
+msgid "&Load from File..."
+msgstr "Запиши като PDF..."
+
+#, fuzzy
+msgid "Save &Document"
+msgstr "Нов документ"
+
+#, fuzzy
+msgid "&Update Text Frame and Exit"
+msgstr "Промяна на текстова рамка"
+
+#, fuzzy
+msgid "&Exit Without Updating Text Frame"
+msgstr "Промяна на текстова рамка"
+
+#, fuzzy
+msgid "&Edit Styles..."
+msgstr "Редактиране на стилове"
+
+#, fuzzy
+msgid "&Fonts Preview..."
+msgstr "Преглед"
+
+#, fuzzy
+msgid "&Update Text Frame"
+msgstr "Промяна на текстова рамка"
+
+#, fuzzy
+msgid "&Insert Glyph..."
+msgstr "Вмъкване..."
+
+#, fuzzy
+msgid "&Background..."
+msgstr "Фон:"
+
+#, fuzzy
+msgid "&Display Font..."
+msgstr "Шрифтове..."
+
+msgid "&Smart text selection"
+msgstr ""
+
+msgid "Current Paragraph:"
+msgstr ""
+
+#, fuzzy
+msgid "Totals:"
+msgstr "Инструменти"
+
+msgid "Story Editor - %1"
+msgstr ""
+
+msgid "Do you want to save your changes?"
+msgstr ""
+
+#, fuzzy
+msgid "Do you really want to lose all your changes?"
+msgstr "Наистина ли искате да изтриете този стил?"
 
 #, fuzzy
 msgid "Scribus: About Plug-ins"

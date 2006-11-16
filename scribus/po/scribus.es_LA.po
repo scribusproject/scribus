@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.es_LA\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "Last-Translator: Gonzalo Huerta C.\n"
 "Language-Team:  <gonzalo@huerta.cl>\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -6584,113 +6584,6 @@ msgstr "Otro..."
 msgid "Lines"
 msgstr "Línea"
 
-#, fuzzy
-msgid "Edit Styles..."
-msgstr "Editar Estilos"
-
-#, fuzzy
-msgid "Fill Color Settings"
-msgstr "Color de Relleno:"
-
-#, fuzzy
-msgid "Stroke Color Settings"
-msgstr "Mostrar Colores"
-
-#, fuzzy
-msgid "Character Settings"
-msgstr "Caracteres"
-
-#, fuzzy
-msgid "Style Settings"
-msgstr "Configuración del Ratón"
-
-#, fuzzy
-msgid "Font Settings"
-msgstr "Configuración del Ratón"
-
-#, fuzzy
-msgid "Font of selected text"
-msgstr "Deshacer Borrar objeto"
-
-#, fuzzy
-msgid "&Settings"
-msgstr "Configuración del Ratón"
-
-msgid "Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Clear All Text"
-msgstr "Texto de Muestra"
-
-#, fuzzy
-msgid "&Reload Text from Frame"
-msgstr "Adjuntar Texto al Trazado"
-
-#, fuzzy
-msgid "&Save to File..."
-msgstr "Guardar como PDF..."
-
-#, fuzzy
-msgid "&Load from File..."
-msgstr "Guardar como PDF..."
-
-#, fuzzy
-msgid "Save &Document"
-msgstr "Nuevo Documento"
-
-#, fuzzy
-msgid "&Update Text Frame and Exit"
-msgstr "Marco Texto"
-
-#, fuzzy
-msgid "&Exit Without Updating Text Frame"
-msgstr "Salir sin Guardar"
-
-#, fuzzy
-msgid "&Edit Styles..."
-msgstr "Editar Estilos"
-
-#, fuzzy
-msgid "&Fonts Preview..."
-msgstr "Previsualizar"
-
-#, fuzzy
-msgid "&Update Text Frame"
-msgstr "Marco Texto"
-
-#, fuzzy
-msgid "&Insert Glyph..."
-msgstr "Insertar..."
-
-#, fuzzy
-msgid "&Background..."
-msgstr "Fondo:"
-
-#, fuzzy
-msgid "&Display Font..."
-msgstr "Duración Proyección:"
-
-msgid "&Smart text selection"
-msgstr ""
-
-msgid "Current Paragraph:"
-msgstr ""
-
-#, fuzzy
-msgid "Totals:"
-msgstr "Herramientas"
-
-msgid "Story Editor - %1"
-msgstr ""
-
-msgid "Do you want to save your changes?"
-msgstr ""
-
-#, fuzzy
-msgid "Do you really want to lose all your changes?"
-msgstr "¿Realmente quiere borrar este Estilo?"
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -7414,7 +7307,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 
 msgid ""
@@ -8766,6 +8659,113 @@ msgstr "Insertar campos PDF"
 #, fuzzy
 msgid "Insert PDF Annotations"
 msgstr "Insertar anotaciones PDF"
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "Editar Estilos"
+
+#, fuzzy
+msgid "Fill Color Settings"
+msgstr "Color de Relleno:"
+
+#, fuzzy
+msgid "Stroke Color Settings"
+msgstr "Mostrar Colores"
+
+#, fuzzy
+msgid "Character Settings"
+msgstr "Caracteres"
+
+#, fuzzy
+msgid "Style Settings"
+msgstr "Configuración del Ratón"
+
+#, fuzzy
+msgid "Font Settings"
+msgstr "Configuración del Ratón"
+
+#, fuzzy
+msgid "Font of selected text"
+msgstr "Deshacer Borrar objeto"
+
+#, fuzzy
+msgid "&Settings"
+msgstr "Configuración del Ratón"
+
+msgid "Story Editor"
+msgstr ""
+
+#, fuzzy
+msgid "Clear All Text"
+msgstr "Texto de Muestra"
+
+#, fuzzy
+msgid "&Reload Text from Frame"
+msgstr "Adjuntar Texto al Trazado"
+
+#, fuzzy
+msgid "&Save to File..."
+msgstr "Guardar como PDF..."
+
+#, fuzzy
+msgid "&Load from File..."
+msgstr "Guardar como PDF..."
+
+#, fuzzy
+msgid "Save &Document"
+msgstr "Nuevo Documento"
+
+#, fuzzy
+msgid "&Update Text Frame and Exit"
+msgstr "Marco Texto"
+
+#, fuzzy
+msgid "&Exit Without Updating Text Frame"
+msgstr "Salir sin Guardar"
+
+#, fuzzy
+msgid "&Edit Styles..."
+msgstr "Editar Estilos"
+
+#, fuzzy
+msgid "&Fonts Preview..."
+msgstr "Previsualizar"
+
+#, fuzzy
+msgid "&Update Text Frame"
+msgstr "Marco Texto"
+
+#, fuzzy
+msgid "&Insert Glyph..."
+msgstr "Insertar..."
+
+#, fuzzy
+msgid "&Background..."
+msgstr "Fondo:"
+
+#, fuzzy
+msgid "&Display Font..."
+msgstr "Duración Proyección:"
+
+msgid "&Smart text selection"
+msgstr ""
+
+msgid "Current Paragraph:"
+msgstr ""
+
+#, fuzzy
+msgid "Totals:"
+msgstr "Herramientas"
+
+msgid "Story Editor - %1"
+msgstr ""
+
+msgid "Do you want to save your changes?"
+msgstr ""
+
+#, fuzzy
+msgid "Do you really want to lose all your changes?"
+msgstr "¿Realmente quiere borrar este Estilo?"
 
 #, fuzzy
 msgid "Scribus: About Plug-ins"

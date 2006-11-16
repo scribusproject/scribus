@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.1.3.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2006-03-14 00:29+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team:  <it@li.org>\n"
@@ -6059,90 +6059,6 @@ msgstr "Altro..."
 msgid "Lines"
 msgstr "&Linee"
 
-msgid "Edit Styles..."
-msgstr "Modifica stili..."
-
-msgid "Fill Color Settings"
-msgstr "Impostazioni colore di fondo"
-
-msgid "Stroke Color Settings"
-msgstr "Impostazioni colore contorno"
-
-msgid "Character Settings"
-msgstr "Impostazioni caratteri"
-
-msgid "Style Settings"
-msgstr "Impostazioni stile"
-
-msgid "Font Settings"
-msgstr "Impostazioni font"
-
-msgid "Font of selected text"
-msgstr "Carattere del testo selezionato"
-
-msgid "&Settings"
-msgstr "Impo&stazioni"
-
-msgid "Story Editor"
-msgstr "Editor Interno"
-
-msgid "Clear All Text"
-msgstr "Cancella tutto il testo"
-
-msgid "&Reload Text from Frame"
-msgstr "&Ricarica testo da cornice"
-
-msgid "&Save to File..."
-msgstr "&Salva con nome..."
-
-msgid "&Load from File..."
-msgstr "&Carica da file..."
-
-msgid "Save &Document"
-msgstr "Salva &documento"
-
-msgid "&Update Text Frame and Exit"
-msgstr "&Aggiorna cornice testo ed esci"
-
-msgid "&Exit Without Updating Text Frame"
-msgstr "&Esci senza aggiornare cornice testo"
-
-msgid "&Edit Styles..."
-msgstr "&Modifica stili..."
-
-msgid "&Fonts Preview..."
-msgstr "Anteprima &font..."
-
-msgid "&Update Text Frame"
-msgstr "&Aggiorna cornice testo"
-
-msgid "&Insert Glyph..."
-msgstr "&Inserisci un carattere..."
-
-msgid "&Background..."
-msgstr "&Sfondo..."
-
-msgid "&Display Font..."
-msgstr "&Font visualizzato..."
-
-msgid "&Smart text selection"
-msgstr "&Selezione rapida"
-
-msgid "Current Paragraph:"
-msgstr "Paragrafo corrente:"
-
-msgid "Totals:"
-msgstr "Totali:"
-
-msgid "Story Editor - %1"
-msgstr "Editor Interno - %1"
-
-msgid "Do you want to save your changes?"
-msgstr "Vuoi salvare i cambiamenti?"
-
-msgid "Do you really want to lose all your changes?"
-msgstr "Vuoi veramente perdere tutte le modifiche?"
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -6828,7 +6744,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 "Livelli di qualità di compressione per metodi di compressione con perdita: "
 "Minimo (25%), Basso (50%), Medio (75%), Alto (85%), Massimo (95%). Notareche "
@@ -8077,6 +7993,90 @@ msgstr "Inserisci campi PDF"
 
 msgid "Insert PDF Annotations"
 msgstr "Inserisci annotazioni PDF"
+
+msgid "Edit Styles..."
+msgstr "Modifica stili..."
+
+msgid "Fill Color Settings"
+msgstr "Impostazioni colore di fondo"
+
+msgid "Stroke Color Settings"
+msgstr "Impostazioni colore contorno"
+
+msgid "Character Settings"
+msgstr "Impostazioni caratteri"
+
+msgid "Style Settings"
+msgstr "Impostazioni stile"
+
+msgid "Font Settings"
+msgstr "Impostazioni font"
+
+msgid "Font of selected text"
+msgstr "Carattere del testo selezionato"
+
+msgid "&Settings"
+msgstr "Impo&stazioni"
+
+msgid "Story Editor"
+msgstr "Editor Interno"
+
+msgid "Clear All Text"
+msgstr "Cancella tutto il testo"
+
+msgid "&Reload Text from Frame"
+msgstr "&Ricarica testo da cornice"
+
+msgid "&Save to File..."
+msgstr "&Salva con nome..."
+
+msgid "&Load from File..."
+msgstr "&Carica da file..."
+
+msgid "Save &Document"
+msgstr "Salva &documento"
+
+msgid "&Update Text Frame and Exit"
+msgstr "&Aggiorna cornice testo ed esci"
+
+msgid "&Exit Without Updating Text Frame"
+msgstr "&Esci senza aggiornare cornice testo"
+
+msgid "&Edit Styles..."
+msgstr "&Modifica stili..."
+
+msgid "&Fonts Preview..."
+msgstr "Anteprima &font..."
+
+msgid "&Update Text Frame"
+msgstr "&Aggiorna cornice testo"
+
+msgid "&Insert Glyph..."
+msgstr "&Inserisci un carattere..."
+
+msgid "&Background..."
+msgstr "&Sfondo..."
+
+msgid "&Display Font..."
+msgstr "&Font visualizzato..."
+
+msgid "&Smart text selection"
+msgstr "&Selezione rapida"
+
+msgid "Current Paragraph:"
+msgstr "Paragrafo corrente:"
+
+msgid "Totals:"
+msgstr "Totali:"
+
+msgid "Story Editor - %1"
+msgstr "Editor Interno - %1"
+
+msgid "Do you want to save your changes?"
+msgstr "Vuoi salvare i cambiamenti?"
+
+msgid "Do you really want to lose all your changes?"
+msgstr "Vuoi veramente perdere tutte le modifiche?"
 
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus: Informazione sulle estensioni"

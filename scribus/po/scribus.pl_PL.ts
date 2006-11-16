@@ -19864,7 +19864,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
-        <translation>Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
+        <translation type="obsolete">Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

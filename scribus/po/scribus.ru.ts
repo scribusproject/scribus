@@ -15735,7 +15735,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
-        <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
+        <translation type="obsolete">Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

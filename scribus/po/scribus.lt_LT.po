@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus 0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2002-04-20 22:57GMT\n"
 "Last-Translator: Aivaras Kirejevas <kiras@mail.lt>\n"
 "Language-Team: Lithuanian\n"
@@ -6587,113 +6587,6 @@ msgstr "Kita..."
 msgid "Lines"
 msgstr "Linija"
 
-#, fuzzy
-msgid "Edit Styles..."
-msgstr "Keisti stilius"
-
-#, fuzzy
-msgid "Fill Color Settings"
-msgstr "Uþpildo spalva:"
-
-#, fuzzy
-msgid "Stroke Color Settings"
-msgstr "Rodyti spalvø áranká"
-
-#, fuzzy
-msgid "Character Settings"
-msgstr "Simboliai"
-
-#, fuzzy
-msgid "Style Settings"
-msgstr "Pelës nuostatos"
-
-#, fuzzy
-msgid "Font Settings"
-msgstr "Pelës nuostatos"
-
-#, fuzzy
-msgid "Font of selected text"
-msgstr "Atðaukti objekto paðalinimà"
-
-#, fuzzy
-msgid "&Settings"
-msgstr "Pelës nuostatos"
-
-msgid "Story Editor"
-msgstr ""
-
-#, fuzzy
-msgid "Clear All Text"
-msgstr "Pavyzdinis tekstas"
-
-#, fuzzy
-msgid "&Reload Text from Frame"
-msgstr "Priskirti tekstui marðtutà"
-
-#, fuzzy
-msgid "&Save to File..."
-msgstr "Iðsaugoti kaip PDF..."
-
-#, fuzzy
-msgid "&Load from File..."
-msgstr "Iðsaugoti kaip PDF..."
-
-#, fuzzy
-msgid "Save &Document"
-msgstr "Naujas dokumentas"
-
-#, fuzzy
-msgid "&Update Text Frame and Exit"
-msgstr "Teksto rëmelis"
-
-#, fuzzy
-msgid "&Exit Without Updating Text Frame"
-msgstr "Uþdaryti neiðsaugant"
-
-#, fuzzy
-msgid "&Edit Styles..."
-msgstr "Keisti stilius"
-
-#, fuzzy
-msgid "&Fonts Preview..."
-msgstr "Pasiþiûrëti kaip atrodys"
-
-#, fuzzy
-msgid "&Update Text Frame"
-msgstr "Teksto rëmelis"
-
-#, fuzzy
-msgid "&Insert Glyph..."
-msgstr "Áterpti..."
-
-#, fuzzy
-msgid "&Background..."
-msgstr "Pagrindas"
-
-#, fuzzy
-msgid "&Display Font..."
-msgstr "Rodymo trukmë:"
-
-msgid "&Smart text selection"
-msgstr ""
-
-msgid "Current Paragraph:"
-msgstr ""
-
-#, fuzzy
-msgid "Totals:"
-msgstr "Árankiai"
-
-msgid "Story Editor - %1"
-msgstr ""
-
-msgid "Do you want to save your changes?"
-msgstr ""
-
-#, fuzzy
-msgid "Do you really want to lose all your changes?"
-msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -7417,7 +7310,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 
 msgid ""
@@ -8770,6 +8663,113 @@ msgstr "Áterpti PDF-laukelá"
 #, fuzzy
 msgid "Insert PDF Annotations"
 msgstr "Áterpti PDF-anotacijas"
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "Keisti stilius"
+
+#, fuzzy
+msgid "Fill Color Settings"
+msgstr "Uþpildo spalva:"
+
+#, fuzzy
+msgid "Stroke Color Settings"
+msgstr "Rodyti spalvø áranká"
+
+#, fuzzy
+msgid "Character Settings"
+msgstr "Simboliai"
+
+#, fuzzy
+msgid "Style Settings"
+msgstr "Pelës nuostatos"
+
+#, fuzzy
+msgid "Font Settings"
+msgstr "Pelës nuostatos"
+
+#, fuzzy
+msgid "Font of selected text"
+msgstr "Atðaukti objekto paðalinimà"
+
+#, fuzzy
+msgid "&Settings"
+msgstr "Pelës nuostatos"
+
+msgid "Story Editor"
+msgstr ""
+
+#, fuzzy
+msgid "Clear All Text"
+msgstr "Pavyzdinis tekstas"
+
+#, fuzzy
+msgid "&Reload Text from Frame"
+msgstr "Priskirti tekstui marðtutà"
+
+#, fuzzy
+msgid "&Save to File..."
+msgstr "Iðsaugoti kaip PDF..."
+
+#, fuzzy
+msgid "&Load from File..."
+msgstr "Iðsaugoti kaip PDF..."
+
+#, fuzzy
+msgid "Save &Document"
+msgstr "Naujas dokumentas"
+
+#, fuzzy
+msgid "&Update Text Frame and Exit"
+msgstr "Teksto rëmelis"
+
+#, fuzzy
+msgid "&Exit Without Updating Text Frame"
+msgstr "Uþdaryti neiðsaugant"
+
+#, fuzzy
+msgid "&Edit Styles..."
+msgstr "Keisti stilius"
+
+#, fuzzy
+msgid "&Fonts Preview..."
+msgstr "Pasiþiûrëti kaip atrodys"
+
+#, fuzzy
+msgid "&Update Text Frame"
+msgstr "Teksto rëmelis"
+
+#, fuzzy
+msgid "&Insert Glyph..."
+msgstr "Áterpti..."
+
+#, fuzzy
+msgid "&Background..."
+msgstr "Pagrindas"
+
+#, fuzzy
+msgid "&Display Font..."
+msgstr "Rodymo trukmë:"
+
+msgid "&Smart text selection"
+msgstr ""
+
+msgid "Current Paragraph:"
+msgstr ""
+
+#, fuzzy
+msgid "Totals:"
+msgstr "Árankiai"
+
+msgid "Story Editor - %1"
+msgstr ""
+
+msgid "Do you want to save your changes?"
+msgstr ""
+
+#, fuzzy
+msgid "Do you really want to lose all your changes?"
+msgstr "Ar tu tikrai labai nori paðalinti stiliø?"
 
 #, fuzzy
 msgid "Scribus: About Plug-ins"

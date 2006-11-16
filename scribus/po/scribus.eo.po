@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -6404,95 +6404,6 @@ msgstr "Aliaj..."
 msgid "Lines"
 msgstr "&Linioj:"
 
-#, fuzzy
-msgid "Edit Styles..."
-msgstr "&Redaktu stilojn..."
-
-msgid "Fill Color Settings"
-msgstr "Plenigkolora agordaro"
-
-msgid "Stroke Color Settings"
-msgstr "Konturkolora agordaro"
-
-msgid "Character Settings"
-msgstr "Signoagordaro"
-
-msgid "Style Settings"
-msgstr "Stil-agordaro"
-
-msgid "Font Settings"
-msgstr "Tiparagordaro"
-
-msgid "Font of selected text"
-msgstr "Tiparo de la elektita teksto"
-
-msgid "&Settings"
-msgstr "&Agordaro"
-
-msgid "Story Editor"
-msgstr "Tekstoredaktilo"
-
-#, fuzzy
-msgid "Clear All Text"
-msgstr "Forviŝu tutan tekston"
-
-msgid "&Reload Text from Frame"
-msgstr " &Reŝargu tekston el la kadro"
-
-msgid "&Save to File..."
-msgstr "Kon&servu kiel..."
-
-msgid "&Load from File..."
-msgstr "Ŝargu e&l la dosiero..."
-
-msgid "Save &Document"
-msgstr "Konservu &dokumenton"
-
-msgid "&Update Text Frame and Exit"
-msgstr "Akt&ualigu tekstokadron kaj finu"
-
-msgid "&Exit Without Updating Text Frame"
-msgstr "&Finu ne aktualigante tekstokadron"
-
-msgid "&Edit Styles..."
-msgstr "&Redaktu stilojn..."
-
-msgid "&Fonts Preview..."
-msgstr "Tipar-a&ntaŭrigardo..."
-
-msgid "&Update Text Frame"
-msgstr "Akt&ualigu tekstokadron"
-
-#, fuzzy
-msgid "&Insert Glyph..."
-msgstr "&Enmetu..."
-
-msgid "&Background..."
-msgstr "&Fono..."
-
-msgid "&Display Font..."
-msgstr "&Montru tiparon..."
-
-msgid "&Smart text selection"
-msgstr "&Inteligenta teksto-elektado"
-
-msgid "Current Paragraph:"
-msgstr "Aktuala alineo:"
-
-msgid "Totals:"
-msgstr "Totaloj:"
-
-#, fuzzy
-msgid "Story Editor - %1"
-msgstr "Tekstoredaktilo"
-
-msgid "Do you want to save your changes?"
-msgstr "Ĉu vi volas konservi viajn ŝanĝojn?"
-
-#, fuzzy
-msgid "Do you really want to lose all your changes?"
-msgstr "Ĉu vi vere intencas perdi ĉiujn viajn ŝanĝojn?"
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -7220,7 +7131,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 
 #, fuzzy
@@ -8554,6 +8465,95 @@ msgstr "Enmetu PDF-kampojn"
 
 msgid "Insert PDF Annotations"
 msgstr "Enmetu PDF-notojn"
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "&Redaktu stilojn..."
+
+msgid "Fill Color Settings"
+msgstr "Plenigkolora agordaro"
+
+msgid "Stroke Color Settings"
+msgstr "Konturkolora agordaro"
+
+msgid "Character Settings"
+msgstr "Signoagordaro"
+
+msgid "Style Settings"
+msgstr "Stil-agordaro"
+
+msgid "Font Settings"
+msgstr "Tiparagordaro"
+
+msgid "Font of selected text"
+msgstr "Tiparo de la elektita teksto"
+
+msgid "&Settings"
+msgstr "&Agordaro"
+
+msgid "Story Editor"
+msgstr "Tekstoredaktilo"
+
+#, fuzzy
+msgid "Clear All Text"
+msgstr "Forviŝu tutan tekston"
+
+msgid "&Reload Text from Frame"
+msgstr " &Reŝargu tekston el la kadro"
+
+msgid "&Save to File..."
+msgstr "Kon&servu kiel..."
+
+msgid "&Load from File..."
+msgstr "Ŝargu e&l la dosiero..."
+
+msgid "Save &Document"
+msgstr "Konservu &dokumenton"
+
+msgid "&Update Text Frame and Exit"
+msgstr "Akt&ualigu tekstokadron kaj finu"
+
+msgid "&Exit Without Updating Text Frame"
+msgstr "&Finu ne aktualigante tekstokadron"
+
+msgid "&Edit Styles..."
+msgstr "&Redaktu stilojn..."
+
+msgid "&Fonts Preview..."
+msgstr "Tipar-a&ntaŭrigardo..."
+
+msgid "&Update Text Frame"
+msgstr "Akt&ualigu tekstokadron"
+
+#, fuzzy
+msgid "&Insert Glyph..."
+msgstr "&Enmetu..."
+
+msgid "&Background..."
+msgstr "&Fono..."
+
+msgid "&Display Font..."
+msgstr "&Montru tiparon..."
+
+msgid "&Smart text selection"
+msgstr "&Inteligenta teksto-elektado"
+
+msgid "Current Paragraph:"
+msgstr "Aktuala alineo:"
+
+msgid "Totals:"
+msgstr "Totaloj:"
+
+#, fuzzy
+msgid "Story Editor - %1"
+msgstr "Tekstoredaktilo"
+
+msgid "Do you want to save your changes?"
+msgstr "Ĉu vi volas konservi viajn ŝanĝojn?"
+
+#, fuzzy
+msgid "Do you really want to lose all your changes?"
+msgstr "Ĉu vi vere intencas perdi ĉiujn viajn ŝanĝojn?"
 
 #, fuzzy
 msgid "Scribus: About Plug-ins"

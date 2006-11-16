@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus.pt_BR2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2006-11-02 19:10-0200\n"
 "Last-Translator: Ludi Maciel <iludi@uol.com.br>\n"
 "Language-Team: Português brasileiro <pt@li.org>\n"
@@ -6046,90 +6046,6 @@ msgstr "Outro..."
 msgid "Lines"
 msgstr "Linhas"
 
-msgid "Edit Styles..."
-msgstr "Editar estilos..."
-
-msgid "Fill Color Settings"
-msgstr "Configurações da cor de preenchimento"
-
-msgid "Stroke Color Settings"
-msgstr "Configurações da cor da borda"
-
-msgid "Character Settings"
-msgstr "Configurações do caractere"
-
-msgid "Style Settings"
-msgstr "Configurações do estilo"
-
-msgid "Font Settings"
-msgstr "Configurações da fonte"
-
-msgid "Font of selected text"
-msgstr "Fonte de texto selecionado"
-
-msgid "&Settings"
-msgstr "&Configurações"
-
-msgid "Story Editor"
-msgstr "Editor de História"
-
-msgid "Clear All Text"
-msgstr "Exclui todo o texto"
-
-msgid "&Reload Text from Frame"
-msgstr "&Recarregar o texto a partir do quadro"
-
-msgid "&Save to File..."
-msgstr "&Salvar para arquivo..."
-
-msgid "&Load from File..."
-msgstr "&Ler a partir do arquivo..."
-
-msgid "Save &Document"
-msgstr "Salvar o &documento"
-
-msgid "&Update Text Frame and Exit"
-msgstr "At&ualizar o quadro de texto e sair"
-
-msgid "&Exit Without Updating Text Frame"
-msgstr "&Sair sem atualizar o quadro de texto"
-
-msgid "&Edit Styles..."
-msgstr "&Editar estilos..."
-
-msgid "&Fonts Preview..."
-msgstr "Visualizar &fontes..."
-
-msgid "&Update Text Frame"
-msgstr "At&ualizar o quadro de texto"
-
-msgid "&Insert Glyph..."
-msgstr "&Inserir caractere..."
-
-msgid "&Background..."
-msgstr "&Fundo..."
-
-msgid "&Display Font..."
-msgstr "&Exibir fonte..."
-
-msgid "&Smart text selection"
-msgstr "&Seleção inteligente de texto"
-
-msgid "Current Paragraph:"
-msgstr "Parágrafo atual:"
-
-msgid "Totals:"
-msgstr "Totais:"
-
-msgid "Story Editor - %1"
-msgstr "Editor de História - %1"
-
-msgid "Do you want to save your changes?"
-msgstr "Deseja salvar suas alterações?"
-
-msgid "Do you really want to lose all your changes?"
-msgstr "Você realmente deseja perder todas as suas alterações?"
-
 msgid "More than one item selected"
 msgstr "Há mais de um item selecionado"
 
@@ -6822,7 +6738,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 "Níveis de qualidade de compressão para métodos de compressão com perdas: "
 "Mínima (25%), Baixa (50%), Média (75%), Alta (85%), Máxima (95%). Note que o "
@@ -8049,6 +7965,90 @@ msgstr "Insere campos de PDF"
 
 msgid "Insert PDF Annotations"
 msgstr "Insere anotações de PDF"
+
+msgid "Edit Styles..."
+msgstr "Editar estilos..."
+
+msgid "Fill Color Settings"
+msgstr "Configurações da cor de preenchimento"
+
+msgid "Stroke Color Settings"
+msgstr "Configurações da cor da borda"
+
+msgid "Character Settings"
+msgstr "Configurações do caractere"
+
+msgid "Style Settings"
+msgstr "Configurações do estilo"
+
+msgid "Font Settings"
+msgstr "Configurações da fonte"
+
+msgid "Font of selected text"
+msgstr "Fonte de texto selecionado"
+
+msgid "&Settings"
+msgstr "&Configurações"
+
+msgid "Story Editor"
+msgstr "Editor de História"
+
+msgid "Clear All Text"
+msgstr "Exclui todo o texto"
+
+msgid "&Reload Text from Frame"
+msgstr "&Recarregar o texto a partir do quadro"
+
+msgid "&Save to File..."
+msgstr "&Salvar para arquivo..."
+
+msgid "&Load from File..."
+msgstr "&Ler a partir do arquivo..."
+
+msgid "Save &Document"
+msgstr "Salvar o &documento"
+
+msgid "&Update Text Frame and Exit"
+msgstr "At&ualizar o quadro de texto e sair"
+
+msgid "&Exit Without Updating Text Frame"
+msgstr "&Sair sem atualizar o quadro de texto"
+
+msgid "&Edit Styles..."
+msgstr "&Editar estilos..."
+
+msgid "&Fonts Preview..."
+msgstr "Visualizar &fontes..."
+
+msgid "&Update Text Frame"
+msgstr "At&ualizar o quadro de texto"
+
+msgid "&Insert Glyph..."
+msgstr "&Inserir caractere..."
+
+msgid "&Background..."
+msgstr "&Fundo..."
+
+msgid "&Display Font..."
+msgstr "&Exibir fonte..."
+
+msgid "&Smart text selection"
+msgstr "&Seleção inteligente de texto"
+
+msgid "Current Paragraph:"
+msgstr "Parágrafo atual:"
+
+msgid "Totals:"
+msgstr "Totais:"
+
+msgid "Story Editor - %1"
+msgstr "Editor de História - %1"
+
+msgid "Do you want to save your changes?"
+msgstr "Deseja salvar suas alterações?"
+
+msgid "Do you really want to lose all your changes?"
+msgstr "Você realmente deseja perder todas as suas alterações?"
 
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus - Sobre os Plug-ins"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -5708,90 +5708,6 @@ msgstr ""
 msgid "Lines"
 msgstr ""
 
-msgid "Edit Styles..."
-msgstr ""
-
-msgid "Fill Color Settings"
-msgstr ""
-
-msgid "Stroke Color Settings"
-msgstr ""
-
-msgid "Character Settings"
-msgstr ""
-
-msgid "Style Settings"
-msgstr ""
-
-msgid "Font Settings"
-msgstr ""
-
-msgid "Font of selected text"
-msgstr ""
-
-msgid "&Settings"
-msgstr ""
-
-msgid "Story Editor"
-msgstr ""
-
-msgid "Clear All Text"
-msgstr ""
-
-msgid "&Reload Text from Frame"
-msgstr ""
-
-msgid "&Save to File..."
-msgstr ""
-
-msgid "&Load from File..."
-msgstr ""
-
-msgid "Save &Document"
-msgstr ""
-
-msgid "&Update Text Frame and Exit"
-msgstr ""
-
-msgid "&Exit Without Updating Text Frame"
-msgstr ""
-
-msgid "&Edit Styles..."
-msgstr ""
-
-msgid "&Fonts Preview..."
-msgstr ""
-
-msgid "&Update Text Frame"
-msgstr ""
-
-msgid "&Insert Glyph..."
-msgstr ""
-
-msgid "&Background..."
-msgstr ""
-
-msgid "&Display Font..."
-msgstr ""
-
-msgid "&Smart text selection"
-msgstr ""
-
-msgid "Current Paragraph:"
-msgstr ""
-
-msgid "Totals:"
-msgstr ""
-
-msgid "Story Editor - %1"
-msgstr ""
-
-msgid "Do you want to save your changes?"
-msgstr ""
-
-msgid "Do you really want to lose all your changes?"
-msgstr ""
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -6425,7 +6341,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 
 msgid ""
@@ -7582,6 +7498,90 @@ msgid "Insert PDF Fields"
 msgstr ""
 
 msgid "Insert PDF Annotations"
+msgstr ""
+
+msgid "Edit Styles..."
+msgstr ""
+
+msgid "Fill Color Settings"
+msgstr ""
+
+msgid "Stroke Color Settings"
+msgstr ""
+
+msgid "Character Settings"
+msgstr ""
+
+msgid "Style Settings"
+msgstr ""
+
+msgid "Font Settings"
+msgstr ""
+
+msgid "Font of selected text"
+msgstr ""
+
+msgid "&Settings"
+msgstr ""
+
+msgid "Story Editor"
+msgstr ""
+
+msgid "Clear All Text"
+msgstr ""
+
+msgid "&Reload Text from Frame"
+msgstr ""
+
+msgid "&Save to File..."
+msgstr ""
+
+msgid "&Load from File..."
+msgstr ""
+
+msgid "Save &Document"
+msgstr ""
+
+msgid "&Update Text Frame and Exit"
+msgstr ""
+
+msgid "&Exit Without Updating Text Frame"
+msgstr ""
+
+msgid "&Edit Styles..."
+msgstr ""
+
+msgid "&Fonts Preview..."
+msgstr ""
+
+msgid "&Update Text Frame"
+msgstr ""
+
+msgid "&Insert Glyph..."
+msgstr ""
+
+msgid "&Background..."
+msgstr ""
+
+msgid "&Display Font..."
+msgstr ""
+
+msgid "&Smart text selection"
+msgstr ""
+
+msgid "Current Paragraph:"
+msgstr ""
+
+msgid "Totals:"
+msgstr ""
+
+msgid "Story Editor - %1"
+msgstr ""
+
+msgid "Do you want to save your changes?"
+msgstr ""
+
+msgid "Do you really want to lose all your changes?"
 msgstr ""
 
 msgid "Scribus: About Plug-ins"

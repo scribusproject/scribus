@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -6386,95 +6386,6 @@ msgstr "གཞན..."
 msgid "Lines"
 msgstr "གྲལ་ཐིག"
 
-#, fuzzy
-msgid "Edit Styles..."
-msgstr "བཟོ་རྣམ་ཞུན་དག་འབད...(&E)"
-
-msgid "Fill Color Settings"
-msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་སྒྲིག་འབད་མི་ཚུ།"
-
-msgid "Stroke Color Settings"
-msgstr "ཚོས་གཞི་སིཊོཀ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
-
-msgid "Character Settings"
-msgstr "ཡིག་འབྲུ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
-
-msgid "Style Settings"
-msgstr "བཟོ་རྣམ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
-
-msgid "Font Settings"
-msgstr "ཡིག་གཟུགས་གཞི་སྒྲིག་འབད་མི་ཚུ།"
-
-msgid "Font of selected text"
-msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་གི་ཡིག་གཟུགས།"
-
-msgid "&Settings"
-msgstr "གཞི་སྒྲིག་ཚུ།(&S)"
-
-msgid "Story Editor"
-msgstr "སྲུང་ཞུན་དག་འབད་མི།"
-
-#, fuzzy
-msgid "Clear All Text"
-msgstr "ཚིག་ཡིག་ཚུ་ཆ་མཉམ་བསལ་གཏང་།"
-
-msgid "&Reload Text from Frame"
-msgstr "གཞི་ཁྲམ་ལས་ཚིག་ཡིག་ཡང་བསྐྱར་མངོན་གསལ་འབད།(&R)"
-
-msgid "&Save to File..."
-msgstr "ཡིག་སྣོད་ལུ་སྲུང་བཞག...(&S)"
-
-msgid "&Load from File..."
-msgstr "ཡིག་སྣོད་ལས་སྔོན་གསལ་འབད...(&L)"
-
-msgid "Save &Document"
-msgstr "ཡིག་ཆ་སྲུང་བཞག(&D)"
-
-msgid "&Update Text Frame and Exit"
-msgstr "ཚིག་ཡིག་གི་གཞི་ཁྲམ་འདི་དུས་མཐུན་བཟོ་ནི་དང་ཕྱིར་ཐོན།(&U)"
-
-msgid "&Exit Without Updating Text Frame"
-msgstr "ཚིག་ཡིག་གཞི་ཁྲམ་འདི་དུས་མཐུན་མ་བཟོ་བར་ཕྱིར་ཐོན།(&E)"
-
-msgid "&Edit Styles..."
-msgstr "བཟོ་རྣམ་ཞུན་དག་འབད...(&E)"
-
-msgid "&Fonts Preview..."
-msgstr "ཡིག་གཟུགས་ཚུ་སྔོན་ལྟ...(&F)"
-
-msgid "&Update Text Frame"
-msgstr "ཚིག་ཡིག་གི་གཞི་ཁྲམ་དུས་མཐུན་བཟོ།(&U)"
-
-#, fuzzy
-msgid "&Insert Glyph..."
-msgstr "བཙུགས...(&I)"
-
-msgid "&Background..."
-msgstr "རྒྱབ་གཞི...(&B)"
-
-msgid "&Display Font..."
-msgstr "ཡིག་གཟུགས་བཀྲམ་སྟོན་འབད...(&D)"
-
-msgid "&Smart text selection"
-msgstr "སྤུར་བསྒྱིར་དྲགས་ཀྱི་ཚིག་ཡིག་སེལ་འཐུ།(&S)"
-
-msgid "Current Paragraph:"
-msgstr "ད་ལྟོའི་དོན་མཚམས:"
-
-msgid "Totals:"
-msgstr "བསྡོམས:"
-
-#, fuzzy
-msgid "Story Editor - %1"
-msgstr "སྲུང་ཞུན་དག་འབད་མི།"
-
-msgid "Do you want to save your changes?"
-msgstr "ཁྱོད་ཀྱིས་བསྒྱུར་བཅོས་ཚུ་སྲུང་ནི་ཨིན་ན?"
-
-#, fuzzy
-msgid "Do you really want to lose all your changes?"
-msgstr "ཁྱོད་ཐེད་རི་འབའ་རི་རང་ཁྱོད་རང་གི་བསྒྱུར་བཅོས་ཆ་མཉམ་ཕམ་ནི་ཨིན་ན?"
-
 msgid "More than one item selected"
 msgstr ""
 
@@ -7199,7 +7110,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 
 #, fuzzy
@@ -8532,6 +8443,95 @@ msgstr "པི་ཌི་ཨེཕ་གི་ས་སྒོ་ཚུ་བཙ
 
 msgid "Insert PDF Annotations"
 msgstr "པི་ཌི་ཨེཕ་མཆན་འགྲེལ་ཚུ་བཙུགས།"
+
+#, fuzzy
+msgid "Edit Styles..."
+msgstr "བཟོ་རྣམ་ཞུན་དག་འབད...(&E)"
+
+msgid "Fill Color Settings"
+msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+msgid "Stroke Color Settings"
+msgstr "ཚོས་གཞི་སིཊོཀ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+msgid "Character Settings"
+msgstr "ཡིག་འབྲུ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+msgid "Style Settings"
+msgstr "བཟོ་རྣམ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+msgid "Font Settings"
+msgstr "ཡིག་གཟུགས་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+msgid "Font of selected text"
+msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་གི་ཡིག་གཟུགས།"
+
+msgid "&Settings"
+msgstr "གཞི་སྒྲིག་ཚུ།(&S)"
+
+msgid "Story Editor"
+msgstr "སྲུང་ཞུན་དག་འབད་མི།"
+
+#, fuzzy
+msgid "Clear All Text"
+msgstr "ཚིག་ཡིག་ཚུ་ཆ་མཉམ་བསལ་གཏང་།"
+
+msgid "&Reload Text from Frame"
+msgstr "གཞི་ཁྲམ་ལས་ཚིག་ཡིག་ཡང་བསྐྱར་མངོན་གསལ་འབད།(&R)"
+
+msgid "&Save to File..."
+msgstr "ཡིག་སྣོད་ལུ་སྲུང་བཞག...(&S)"
+
+msgid "&Load from File..."
+msgstr "ཡིག་སྣོད་ལས་སྔོན་གསལ་འབད...(&L)"
+
+msgid "Save &Document"
+msgstr "ཡིག་ཆ་སྲུང་བཞག(&D)"
+
+msgid "&Update Text Frame and Exit"
+msgstr "ཚིག་ཡིག་གི་གཞི་ཁྲམ་འདི་དུས་མཐུན་བཟོ་ནི་དང་ཕྱིར་ཐོན།(&U)"
+
+msgid "&Exit Without Updating Text Frame"
+msgstr "ཚིག་ཡིག་གཞི་ཁྲམ་འདི་དུས་མཐུན་མ་བཟོ་བར་ཕྱིར་ཐོན།(&E)"
+
+msgid "&Edit Styles..."
+msgstr "བཟོ་རྣམ་ཞུན་དག་འབད...(&E)"
+
+msgid "&Fonts Preview..."
+msgstr "ཡིག་གཟུགས་ཚུ་སྔོན་ལྟ...(&F)"
+
+msgid "&Update Text Frame"
+msgstr "ཚིག་ཡིག་གི་གཞི་ཁྲམ་དུས་མཐུན་བཟོ།(&U)"
+
+#, fuzzy
+msgid "&Insert Glyph..."
+msgstr "བཙུགས...(&I)"
+
+msgid "&Background..."
+msgstr "རྒྱབ་གཞི...(&B)"
+
+msgid "&Display Font..."
+msgstr "ཡིག་གཟུགས་བཀྲམ་སྟོན་འབད...(&D)"
+
+msgid "&Smart text selection"
+msgstr "སྤུར་བསྒྱིར་དྲགས་ཀྱི་ཚིག་ཡིག་སེལ་འཐུ།(&S)"
+
+msgid "Current Paragraph:"
+msgstr "ད་ལྟོའི་དོན་མཚམས:"
+
+msgid "Totals:"
+msgstr "བསྡོམས:"
+
+#, fuzzy
+msgid "Story Editor - %1"
+msgstr "སྲུང་ཞུན་དག་འབད་མི།"
+
+msgid "Do you want to save your changes?"
+msgstr "ཁྱོད་ཀྱིས་བསྒྱུར་བཅོས་ཚུ་སྲུང་ནི་ཨིན་ན?"
+
+#, fuzzy
+msgid "Do you really want to lose all your changes?"
+msgstr "ཁྱོད་ཐེད་རི་འབའ་རི་རང་ཁྱོད་རང་གི་བསྒྱུར་བཅོས་ཆ་མཉམ་ཕམ་ནི་ཨིན་ན?"
 
 #, fuzzy
 msgid "Scribus: About Plug-ins"

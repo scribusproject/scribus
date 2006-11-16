@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-12 22:38+0100\n"
+"POT-Creation-Date: 2006-11-16 00:42+0100\n"
 "PO-Revision-Date: 2006-11-02 22:04+0200\n"
 "Last-Translator: Toussis Manolis <manolis@koppermind.homelinux.org>\n"
 "Language-Team: Greek <i18ngr@lists.hellug.gr>\n"
@@ -6089,90 +6089,6 @@ msgstr "Άλλο..."
 msgid "Lines"
 msgstr "Γραμμές"
 
-msgid "Edit Styles..."
-msgstr "Επεξεργασία στυλ..."
-
-msgid "Fill Color Settings"
-msgstr "Ρυθμίσεις χρώματος γεμίσματος"
-
-msgid "Stroke Color Settings"
-msgstr "Ρυθμίσεις χρώματος γραφής"
-
-msgid "Character Settings"
-msgstr "Ρυθμίσεις χαρακτήρων"
-
-msgid "Style Settings"
-msgstr "Ρυθμίσεις στυλ"
-
-msgid "Font Settings"
-msgstr "Ρυθμίσεις γραμματοσειράς"
-
-msgid "Font of selected text"
-msgstr "Γραμματοσειρά του επιλεγμένου κειμένου"
-
-msgid "&Settings"
-msgstr "Ρ&υθμίσεις"
-
-msgid "Story Editor"
-msgstr "Επεξεργαστής δομής"
-
-msgid "Clear All Text"
-msgstr "Καθαρισμός όλου του κειμένου"
-
-msgid "&Reload Text from Frame"
-msgstr "&Επαναφόρτωση κειμένου από πλαίσιο"
-
-msgid "&Save to File..."
-msgstr "&Αποθήκευση σε αρχείο..."
-
-msgid "&Load from File..."
-msgstr "&Φόρτωση από αρχείο..."
-
-msgid "Save &Document"
-msgstr "Αποθήκευση ε&γγράφου"
-
-msgid "&Update Text Frame and Exit"
-msgstr "&Ενημέρωση πλαισίου κειμένου και έξοδος"
-
-msgid "&Exit Without Updating Text Frame"
-msgstr "Έ&ξοδος χωρίς ενημέρωση πλαισίου κειμένου"
-
-msgid "&Edit Styles..."
-msgstr "&Επεξεργασία στυλ..."
-
-msgid "&Fonts Preview..."
-msgstr "Προεπισκόπηση &γραμματοσειρών..."
-
-msgid "&Update Text Frame"
-msgstr "&Ενημέρωση πλαισίου κειμένου"
-
-msgid "&Insert Glyph..."
-msgstr "&Εισαγωγή γλυφής..."
-
-msgid "&Background..."
-msgstr "&Φόντο..."
-
-msgid "&Display Font..."
-msgstr "&Εμφάνιση γραμματοσειράς"
-
-msgid "&Smart text selection"
-msgstr "Έ&ξυπνη επιλογή κειμένου"
-
-msgid "Current Paragraph:"
-msgstr "Τρέχουσα παράγραφος:"
-
-msgid "Totals:"
-msgstr "Σύνολα:"
-
-msgid "Story Editor - %1"
-msgstr "Επεξεργαστής δομής - %1"
-
-msgid "Do you want to save your changes?"
-msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεών σας;"
-
-msgid "Do you really want to lose all your changes?"
-msgstr "Επιθυμείτε πραγματικά την απόρριψη όλων των τροποποιήσεών σας;"
-
 msgid "More than one item selected"
 msgstr "Περισσότερα από ένα αντικείμενα επιλεγμένα"
 
@@ -6869,7 +6785,7 @@ msgid ""
 "Medium (75%), High (85%), Maximum (95%). Note that a quality level does not "
 "directly determine the size of the resulting image - both size and quality "
 "loss vary from image to image at any given quality level. Even with Maximum "
-"selected, there is always some quality loss with jepg."
+"selected, there is always some quality loss with jpeg."
 msgstr ""
 "Επίπεδα ποιότητας συμπίεσης για τις απωλεστικές μεθόδους συμπίεσης: Ελάχιστη "
 "(25%), Χαμηλή (50%), Μέση (75%), Υψηλή (85%), Μέγιστη (95%). Σημειώστε ότι "
@@ -8104,6 +8020,90 @@ msgstr "Εισαγωγή πεδίων PDF"
 
 msgid "Insert PDF Annotations"
 msgstr "Εισαγωγή επισημάνσεων PDF"
+
+msgid "Edit Styles..."
+msgstr "Επεξεργασία στυλ..."
+
+msgid "Fill Color Settings"
+msgstr "Ρυθμίσεις χρώματος γεμίσματος"
+
+msgid "Stroke Color Settings"
+msgstr "Ρυθμίσεις χρώματος γραφής"
+
+msgid "Character Settings"
+msgstr "Ρυθμίσεις χαρακτήρων"
+
+msgid "Style Settings"
+msgstr "Ρυθμίσεις στυλ"
+
+msgid "Font Settings"
+msgstr "Ρυθμίσεις γραμματοσειράς"
+
+msgid "Font of selected text"
+msgstr "Γραμματοσειρά του επιλεγμένου κειμένου"
+
+msgid "&Settings"
+msgstr "Ρ&υθμίσεις"
+
+msgid "Story Editor"
+msgstr "Επεξεργαστής δομής"
+
+msgid "Clear All Text"
+msgstr "Καθαρισμός όλου του κειμένου"
+
+msgid "&Reload Text from Frame"
+msgstr "&Επαναφόρτωση κειμένου από πλαίσιο"
+
+msgid "&Save to File..."
+msgstr "&Αποθήκευση σε αρχείο..."
+
+msgid "&Load from File..."
+msgstr "&Φόρτωση από αρχείο..."
+
+msgid "Save &Document"
+msgstr "Αποθήκευση ε&γγράφου"
+
+msgid "&Update Text Frame and Exit"
+msgstr "&Ενημέρωση πλαισίου κειμένου και έξοδος"
+
+msgid "&Exit Without Updating Text Frame"
+msgstr "Έ&ξοδος χωρίς ενημέρωση πλαισίου κειμένου"
+
+msgid "&Edit Styles..."
+msgstr "&Επεξεργασία στυλ..."
+
+msgid "&Fonts Preview..."
+msgstr "Προεπισκόπηση &γραμματοσειρών..."
+
+msgid "&Update Text Frame"
+msgstr "&Ενημέρωση πλαισίου κειμένου"
+
+msgid "&Insert Glyph..."
+msgstr "&Εισαγωγή γλυφής..."
+
+msgid "&Background..."
+msgstr "&Φόντο..."
+
+msgid "&Display Font..."
+msgstr "&Εμφάνιση γραμματοσειράς"
+
+msgid "&Smart text selection"
+msgstr "Έ&ξυπνη επιλογή κειμένου"
+
+msgid "Current Paragraph:"
+msgstr "Τρέχουσα παράγραφος:"
+
+msgid "Totals:"
+msgstr "Σύνολα:"
+
+msgid "Story Editor - %1"
+msgstr "Επεξεργαστής δομής - %1"
+
+msgid "Do you want to save your changes?"
+msgstr "Επιθυμείτε την αποθήκευση των τροποποιήσεών σας;"
+
+msgid "Do you really want to lose all your changes?"
+msgstr "Επιθυμείτε πραγματικά την απόρριψη όλων των τροποποιήσεών σας;"
 
 msgid "Scribus: About Plug-ins"
 msgstr "Scribus: Σχετικά με τα πρόσθετα"

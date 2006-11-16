@@ -16733,7 +16733,11 @@ når PDF dokument åbnes:</translation>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
-        <translation>Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
+        <translation type="obsolete">Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
