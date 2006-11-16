@@ -58,7 +58,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	mainLayout->setMargin(11);
 
 	// big table related
-	bigPalette = new QGroupBox(0, Qt::Vertical, tr("Enthanced Palette"), this, "bigPalette");
+	bigPalette = new QGroupBox(0, Qt::Vertical, tr("Enhanced Palette"), this, "bigPalette");
 	bigPalette->layout()->setSpacing( 5 );
 	bigPalette->layout()->setMargin( 10 );
 	QGridLayout* bigLayout = new QGridLayout(bigPalette->layout());
@@ -127,7 +127,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	quickPalette->layout()->setMargin( 10 );
 	QGridLayout* quickLayout = new QGridLayout(quickPalette->layout());
 
-	hideCheck = new QCheckBox(tr("Hide Enthanced"), quickPalette, "hideCheck");
+	hideCheck = new QCheckBox(tr("Hide Enhanced"), quickPalette, "hideCheck");
 	quickLayout->addWidget(hideCheck, 0, 0);
 
 	unicodeButton = new UnicodeChooseButton(quickPalette, "unicodeButton");
