@@ -346,7 +346,7 @@ ScPainter::~ScPainter()
 }
 
 #ifdef HAVE_CAIRO
-void ScPainter::beginLayer(double transparency, int blendmode)
+void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clipArray)
 {
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	layerProp la;
@@ -355,38 +355,31 @@ void ScPainter::beginLayer(double transparency, int blendmode)
 	#endif
 	la.blendmode = m_blendMode;
 	la.tranparency = m_layerTransparency;
-	Layers.push(la);
 	m_layerTransparency = transparency;
 	m_blendMode = blendmode;
-	cairo_push_group(m_cr);
-/*	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
-	cairo_surface_t *tmp2 = cairo_get_group_target(m_cr);
-	if (tmp2 != NULL)
+	la.pushed = false;
+	la.groupClip.resize(0);
+	if (clipArray != NULL)
 	{
-		if (cairo_surface_get_type(tmp2) == CAIRO_SURFACE_TYPE_IMAGE)
-		{
-			int stride = cairo_image_surface_get_stride(tmp2);
-			unsigned char *s = cairo_image_surface_get_data(tmp2);
-			if (s != NULL)
-			{
-				int h = cairo_image_surface_get_height(tmp2);
-				for( int yi=0; yi < h; ++yi )
-				{
-					memset( s, 0, stride );
-					s += stride;
-				}
-			}
-		}
-		cairo_surface_mark_dirty(tmp2);
+		la.groupClip = *clipArray;
 	}
-	#endif */
+	if ((transparency != 1.0) || (blendmode != 0) || (clipArray != NULL))
+	{
+		cairo_push_group(m_cr);
+		la.pushed = true;
+	}
+	Layers.push(la);
 #else
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 #endif
 }
 
-void ScPainter::endLayer(FPointArray *clipArray)
+void ScPainter::endLayer()
 {
+	layerProp la;
+	la = Layers.top();
+	if (la.pushed)
+	{
 #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
 	if ((m_blendMode != 0) && (Layers.count() != 1))
@@ -592,27 +585,30 @@ void ScPainter::endLayer(FPointArray *clipArray)
 		}
 	}
 	#endif
-	layerProp la;
+	}
 	la = Layers.pop();
-	cairo_pop_group_to_source (m_cr);
-	if (clipArray != NULL)
+	if (la.pushed)
 	{
-		setupPolygon(clipArray);
-		setClipPath();
-	}
-	if (m_blendMode == 0)
-	{
+		cairo_pop_group_to_source (m_cr);
+		if (la.groupClip.size() != 0)
+		{
+			setupPolygon(&la.groupClip);
+			setClipPath();
+		}
+		if (m_blendMode == 0)
+		{
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		}
+		else
+		{
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+			cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
+			cairo_paint_with_alpha (m_cr, m_layerTransparency);
+		}
 		cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
-		cairo_paint_with_alpha (m_cr, m_layerTransparency);
 	}
-	else
-	{
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_DEST_OUT);
-		cairo_paint_with_alpha (m_cr, m_layerTransparency);
-		cairo_set_operator(m_cr, CAIRO_OPERATOR_ADD);
-		cairo_paint_with_alpha (m_cr, m_layerTransparency);
-	}
-	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
 #else

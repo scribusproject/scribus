@@ -1359,7 +1359,12 @@ QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
 		if (embedded->isGroupControl)
 		{
 #ifdef HAVE_CAIRO
-			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode());
+			FPointArray cl = embedded->PoLine.copy();
+			QWMatrix mm;
+			mm.translate(embedded->gXpos, embedded->gYpos);
+			mm.rotate(embedded->rotation());
+			cl.map( mm );
+			painter->beginLayer(1.0 - embedded->fillTransparency(), embedded->fillBlendmode(), &cl);
 #endif
 			groupClips.push(embedded);
 			groupStack.push(embedded->groupsLastItem);
@@ -1383,13 +1388,13 @@ QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
 			while (embedded == groupStack.top())
 			{
 				PageItem *tmpItem = groupClips.pop();
-				FPointArray cl = tmpItem->PoLine.copy();
-				QWMatrix mm;
-				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
-				mm.rotate(tmpItem->rotation());
-				cl.map( mm );
+//				FPointArray cl = tmpItem->PoLine.copy();
+//				QWMatrix mm;
+//				mm.translate(tmpItem->gXpos, tmpItem->gYpos);
+//				mm.rotate(tmpItem->rotation());
+//				cl.map( mm );
 #ifdef HAVE_CAIRO
-				painter->endLayer(&cl);
+				painter->endLayer();
 #endif
 				painter->restore();
 				groupStack.pop();

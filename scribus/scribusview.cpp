@@ -379,7 +379,6 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
 		painter->setFillMode(ScPainter::Solid);
-//		painter->translate(0.5, 0.5);
 		painter->setZoomFactor(1.0);
 /* Draw Page Outlines */
 		if (!Doc->masterPageMode())
@@ -475,15 +474,6 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 				painter->beginLayer(1.0, 0);
 #else
-			painter->beginLayer(1.0, 0);
-#endif
-#endif
-			for (uint a = 0; a < docPagesCount; ++a)
-			{
-				DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-			}
-			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
 			if (viewAsPreview)
 			{
 				FPointArray PoLine;
@@ -506,21 +496,23 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						PoLine.addPoint(x + w * rect[a+2], y + h * rect[a+3]);
 					}
 				}
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
-				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-					painter->endLayer(&PoLine);
-#else
-				painter->endLayer(&PoLine);
-#endif
+				painter->beginLayer(1.0, 0, &PoLine);
 			}
 			else
-#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
+				painter->beginLayer(1.0, 0);
+#endif
+#endif
+			for (uint a = 0; a < docPagesCount; ++a)
 			{
-				if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
-					painter->endLayer();
+				DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
 			}
-#else
+			DrawPageItems(painter, QRect(clipx, clipy, clipw, cliph));
+#ifdef HAVE_CAIRO
+#if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
+			if ((Doc->layerCount() > 1) || (la.transparency != 1.0))
 				painter->endLayer();
+#else
+			painter->endLayer();
 #endif
 #endif
 			if ((!Doc->guidesSettings.before) && (!viewAsPreview))
@@ -775,14 +767,12 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	QPtrStack<PageItem> groupStack;
-	QPtrStack<PageItem> groupClips;
 	double z = painter->zoomFactor();
 	if (!page->MPageNam.isEmpty())
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
 		if (page->FromMaster.count() != 0)
 		{
-			//QPainter p;
 			int Lnr;
 			struct Layer ll;
 			PageItem *currItem;
@@ -816,14 +806,17 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						{
 							painter->save();
 #ifdef HAVE_CAIRO
-							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode());
+							FPointArray cl = currItem->PoLine.copy();
+							QWMatrix mm;
+							mm.translate(currItem->xPos(), currItem->yPos());
+							mm.rotate(currItem->rotation());
+							cl.map( mm );
+							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
 #endif
-							groupClips.push(currItem);
 							groupStack.push(currItem->groupsLastItem);
 							continue;
 						}
 						currItem->savedOwnPage = currItem->OwnPage;
-//						int savedOwnPage = currItem->OwnPage;
 						double OldX = currItem->xPos();
 						double OldY = currItem->yPos();
 						double OldBX = currItem->BoundingX;
@@ -842,7 +835,6 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
 						currItem->OwnPage = currItem->savedOwnPage;
-//						currItem->OwnPage = savedOwnPage;
 						if (!currItem->ChangedMasterItem)
 						{
 							//Hack to not check for undo changes, indicate drawing only
@@ -854,14 +846,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						{
 							while (currItem == groupStack.top())
 							{
-								PageItem *tmpItem = groupClips.pop();
-								FPointArray cl = tmpItem->PoLine.copy();
-								QWMatrix mm;
-								mm.translate(tmpItem->xPos(), tmpItem->yPos());
-								mm.rotate(tmpItem->rotation());
-								cl.map( mm );
 #ifdef HAVE_CAIRO
-								painter->endLayer(&cl);
+								painter->endLayer();
 #endif
 								painter->restore();
 								groupStack.pop();
@@ -939,7 +925,6 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 	linkedFramesToShow.clear();
 	double z = painter->zoomFactor();
 	QPtrStack<PageItem> groupStack;
-	QPtrStack<PageItem> groupClips;
 	if (Doc->Items->count() != 0)
 	{
 		int Lnr=0;
@@ -980,9 +965,13 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					{
 						painter->save();
 #ifdef HAVE_CAIRO
-						painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode());
+						FPointArray cl = currItem->PoLine.copy();
+						QWMatrix mm;
+						mm.translate(currItem->xPos(), currItem->yPos());
+						mm.rotate(currItem->rotation());
+						cl.map( mm );
+						painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
 #endif
-						groupClips.push(currItem);
 						groupStack.push(currItem->groupsLastItem);
 						continue;
 					}
@@ -1041,14 +1030,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					{
 						while (currItem == groupStack.top())
 						{
-							PageItem *tmpItem = groupClips.pop();
-							FPointArray cl = tmpItem->PoLine.copy();
-							QWMatrix mm;
-							mm.translate(tmpItem->xPos(), tmpItem->yPos());
-							mm.rotate(tmpItem->rotation());
-							cl.map( mm );
 #ifdef HAVE_CAIRO
-							painter->endLayer(&cl);
+							painter->endLayer();
 #endif
 							painter->restore();
 							groupStack.pop();

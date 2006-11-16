@@ -82,8 +82,8 @@ public:
 	virtual ~ScPainter();
 	enum FillMode { None, Solid, Gradient, Pattern };
 #ifdef HAVE_CAIRO
-	virtual void beginLayer(double transparency, int blendmode);
-	virtual void endLayer(FPointArray *clipArray = 0);
+	virtual void beginLayer(double transparency, int blendmode, FPointArray *clipArray = 0);
+	virtual void endLayer();
 	virtual void setAntialiasing(bool enable);
 #endif
 	virtual void begin();
@@ -229,6 +229,8 @@ private:
 		cairo_surface_t *data;
 		int blendmode;
 		double tranparency;
+		FPointArray groupClip;
+		bool pushed;
 	};
 	QValueStack<layerProp> Layers;
 #elif defined(Q_WS_X11) && defined(SC_USE_PIXBUF)
