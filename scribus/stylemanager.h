@@ -51,6 +51,8 @@ signals:
 
 protected:
 	void hideEvent(QHideEvent *e);
+	void closeEvent(QCloseEvent *e);
+	void showEvent(QShowEvent *e);
 
 private:
 	QPtrList<StyleItem> items_;
@@ -71,10 +73,12 @@ private:
 	int                 rcpToScrapId_;
 
 	bool                isEditMode_;
-	int                 styleWidth_;
-	QValueList<int>     splitterSizes_;
-	int                 height_;
 	QPoint              editPosition_;
+	int                 height_;
+	int                 width_;
+	int                 widthEm_;
+	int                 widthLeft_;
+	int                 widthRight_;
 	QString             rcStyle_;
 	QString             rcType_;
 	QString             exitEditModeOk_;

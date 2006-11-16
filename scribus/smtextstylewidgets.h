@@ -95,7 +95,7 @@ private:
 
 private slots:
 	void slotLineSpacingModeChanged(int);
-	void slotDropCap();
+	void slotDropCap(bool isOn);
 	void slotParentDropCap();
 
 signals:

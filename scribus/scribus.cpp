@@ -7276,6 +7276,7 @@ void ScribusMainWindow::ShowSubs()
 	alignDistributePalette->startup();
 	undoPalette->startup();
 	guidePalette->startup();
+	styleManager->startup();
 
 	// init the toolbars
 	fileToolBar->initVisibility();

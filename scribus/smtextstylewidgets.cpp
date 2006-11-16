@@ -227,7 +227,6 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 			parentDropCapButton->show();
 
 		connect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
-		connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 
 		dropCapLines_->setValue(pstyle->dropCapLines(), pstyle->isInhDropCapLines());
 		dropCapLines_->setParentValue(parent->dropCapLines());
@@ -266,7 +265,6 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 		dropCapsBox->setChecked(pstyle->hasDropCap());
 		parentDropCapButton->hide();
 		disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
-		disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
 		dropCapLines_->setValue(pstyle->dropCapLines());
 		dropCapOffset_->setValue(pstyle->dropCapOffset());
 		parentDropCapButton->hide();
@@ -312,6 +310,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 	}
 	else
 		parentCombo->setCurrentItem(0);
+
+	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }
 
 void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<ParagraphStyle> &pstylesAll, QValueList<CharStyle> &cstyles, int unitIndex, const QString &defLang)
@@ -415,9 +415,6 @@ void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles)
 {
 	parentDropCapButton->hide();
 	disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
-	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
-	dropCapLines_->setEnabled(true);
-	dropCapOffset_->setEnabled(true);
 
 	bool dc = pstyles[0]->hasDropCap();
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -441,7 +438,7 @@ void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles)
 		else
 			lines = pstyles[i]->dropCapLines();
 	}
-	if (lines < 0)
+	if (lines == -1)
 		dropCapLines_->clear();
 	else
 		dropCapLines_->setValue(lines);
@@ -462,6 +459,11 @@ void SMPStyleWidget::showDropCap(QValueList<ParagraphStyle*> &pstyles)
 		dropCapOffset_->clear();
 	else
 		dropCapOffset_->setValue(dco);
+
+	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
+	dropCapsBox->setEnabled(true);
+	dropCapLines_->setEnabled(true);
+	dropCapOffset_->setEnabled(true);
 }
 
 void SMPStyleWidget::showAlignment(QValueList<ParagraphStyle*> &pstyles)
@@ -600,20 +602,33 @@ void SMPStyleWidget::clearAll()
 
 }
 
-void SMPStyleWidget::slotDropCap()
+void SMPStyleWidget::slotDropCap(bool isOn)
 {
-	parentDropCapButton->show();
+	if (isOn)
+	{
+		dropCapsBox->setEnabled(true);
+		dropCapLines_->setEnabled(true);
+		dropCapOffset_->setEnabled(true);
+	}
+	else
+	{
+		dropCapsBox->setEnabled(true);
+		dropCapLines_->setEnabled(false);
+		dropCapOffset_->setEnabled(false);
+	}
+	if (hasParent_)
+		parentDropCapButton->show();
 }
 
 void SMPStyleWidget::slotParentDropCap()
 {
 	disconnect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
-	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
+	disconnect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 	parentDropCapButton->hide();
 	dropCapsBox->setChecked(parentDropCap_);
 	emit useParentDropCap();
 	connect(parentDropCapButton, SIGNAL(clicked()), this, SLOT(slotParentDropCap()));
-	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap()));
+	connect(dropCapsBox, SIGNAL(toggled(bool)), this, SLOT(slotDropCap(bool)));
 }
 
 SMPStyleWidget::~SMPStyleWidget()

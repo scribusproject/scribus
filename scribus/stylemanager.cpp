@@ -66,12 +66,14 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 		pname = "styleManager";
 	prefs_ = PrefsManager::instance()->prefsFile->getContext(pname);
 	isEditMode_ = !prefs_->getBool("isEditMode", false);
-	splitterSizes_ << prefs_->getInt("Splitter1W", 170);
-	splitterSizes_ << prefs_->getInt("Splitter2W", 472);
-	height_ = prefs_->getInt("SplitterH", 480);
 	editPosition_.setX(prefs_->getInt("eX", x()));
 	editPosition_.setY(prefs_->getInt("eY", y()));
-	adjustSize();
+
+	width_ = prefs_->getInt("Width", 212);
+	widthEm_ = prefs_->getInt("WidthEM", 500);
+	height_ = prefs_->getInt("Height", 450);
+	widthLeft_ = prefs_->getInt("WidthLeft", 192);
+	widthRight_ = prefs_->getInt("WidthRight", 474);
 
 	connect(newPopup_, SIGNAL(activated(int)), this, SLOT(slotNewPopup(int)));
 	connect(okButton, SIGNAL(clicked()), this, SLOT(slotOk()));
@@ -445,11 +447,21 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 	resetButton->setEnabled(true);
 }
 
+// open or close edit mode
 void StyleManager::slotOk()
 {
 	if (isEditMode_)
 	{
 		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
+		widthEm_ = width();
+		prefs_->set("WidthEM", widthEm_);
+		height_ = height();
+		prefs_->set("Height", height_);
+		QValueList<int> l = splitter->sizes();
+		widthLeft_ = l[0];
+		widthRight_ = l[1];
+		prefs_->set("WidthLeft", widthLeft_);
+		prefs_->set("WidthRight", widthRight_);
 		slotApply();
 		styleView->setSelectionMode(QListView::Multi);
 		okButton->setText(QString("%1 >>").arg( tr("&Edit")));
@@ -459,10 +471,6 @@ void StyleManager::slotOk()
 		editButtonsFrame->hide();
 		rightFrame->hide();
 		isEditMode_ = false;
-		adjustSize();
-		splitter->setSizes(splitterSizes_);
-		resize(splitter->width(), height_);
-		move(editPosition_);
 		for (uint i = 0; i < items_.count(); ++i)
 		{
 			items_.at(i)->apply();
@@ -471,11 +479,9 @@ void StyleManager::slotOk()
 		QToolTip::add(okButton, enterEditModeOk_);
 		slotClean();
 		slotDocSelectionChanged();
-		splitterSizes_ = splitter->sizes();
-		prefs_->set("Splitter1W", splitterSizes_[0]);
-		prefs_->set("Splitter2W", splitterSizes_[1]);
-		height_ = height();
-		prefs_->set("SplitterH", height_);
+		adjustSize();
+		resize(width_, height_);
+		move(editPosition_);
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged(QListViewItem*)),
 		        this, SLOT(slotApplyStyle(QListViewItem*)));
@@ -488,6 +494,10 @@ void StyleManager::slotOk()
 		           this, SLOT(slotApplyStyle(QListViewItem*)));
 		disconnect(styleView, SIGNAL(clicked(QListViewItem*)),
 				this, SLOT(slotApplyStyle(QListViewItem*)));
+		width_ = width();
+		prefs_->set("Width", width_);
+		height_ = height();
+		prefs_->set("Height", height_);
 		slotSetupWidget();
 		styleView->setSelectionMode(QListView::Extended);
 		editPosition_.setX(x());
@@ -501,18 +511,15 @@ void StyleManager::slotOk()
 		editButtonsFrame->show();
 		rightFrame->show();
 		isEditMode_ = true;
-		adjustSize();
-		splitter->setSizes(splitterSizes_);
-		resize(splitter->width(), height_);
 		for (uint i = 0; i < items_.count(); ++i)
 			items_.at(i)->editMode(true);
 		QToolTip::add(okButton, exitEditModeOk_);
 		slotClean();
-		splitterSizes_ = splitter->sizes();
-		prefs_->set("Splitter1W", splitterSizes_[0]);
-		prefs_->set("Splitter2W", splitterSizes_[1]);
-		height_ = height();
-		prefs_->set("SplitterH", height_);
+		adjustSize();
+		QValueList<int> l;
+		l << widthLeft_ << widthRight_;
+		splitter->setSizes(l);
+		resize(widthEm_, height_);
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 	}
@@ -971,25 +978,96 @@ void StyleManager::loadType(const QString &name)
 
 void StyleManager::hideEvent(QHideEvent *e)
 {
-	splitterSizes_ = splitter->sizes();
-	prefs_->set("Splitter1W", splitterSizes_[0]);
-	prefs_->set("Splitter2W", splitterSizes_[1]);
-	height_ = height();
-	prefs_->set("SplitterH", height_);
-	prefs_->set("isEditMode", isEditMode_);
 	if (isEditMode_)
 	{
-		prefs_->set("eX", x());
-		prefs_->set("eY", y());
+		QValueList<int> l = splitter->sizes();
+		widthLeft_ = l[0];
+		widthRight_ = l[1];
+		widthEm_ = width();
 	}
+	else
+		width_ = width();
+
+	height_ = height();
+	prefs_->set("eX", x());
+	prefs_->set("eY", y());
+	prefs_->set("isEditMode", isEditMode_);
+	prefs_->set("Width", width_);
+	prefs_->set("WidthEM", widthEm_);
+	prefs_->set("WidthLeft", widthLeft_);
+	prefs_->set("WidthRight", widthRight_);
+	prefs_->set("Height", height_);
+	prefs_->set("InitX", x());
+	prefs_->set("InitY", y());
 	SMBase::hideEvent(e);
 	emit closed();
 }
 
+void StyleManager::closeEvent(QCloseEvent *e)
+{
+	if (isEditMode_)
+	{
+		QValueList<int> l = splitter->sizes();
+		widthLeft_ = l[0];
+		widthRight_ = l[1];
+		widthEm_ = width();
+	}
+	else
+		width_ = width();
+
+	height_ = height();
+	prefs_->set("eX", x());
+	prefs_->set("eY", y());
+	prefs_->set("isEditMode", isEditMode_);
+	prefs_->set("Width", width_);
+	prefs_->set("WidthEM", widthEm_);
+	prefs_->set("WidthLeft", widthLeft_);
+	prefs_->set("WidthRight", widthRight_);
+	prefs_->set("Height", height_);
+	prefs_->set("InitX", x());
+	prefs_->set("InitY", y());
+	SMBase::closeEvent(e);
+	emit closed();
+}
+
+void StyleManager::showEvent(QShowEvent *e)
+{
+	static bool isFirst = true;
+	SMBase::showEvent(e);
+	if (isFirst)
+	{
+		QPoint p(prefs_->getInt("InitX", x()), prefs_->getInt("InitY", y()));
+		move(p);
+		isFirst = false;
+	}
+}
+
 StyleManager::~StyleManager()
 {
-	
+	if (isEditMode_)
+	{
+		QValueList<int> l = splitter->sizes();
+		widthLeft_ = l[0];
+		widthRight_ = l[1];
+		widthEm_ = width();
+	}
+	else
+		width_ = width();
+
+	height_ = height();
+	prefs_->set("eX", x());
+	prefs_->set("eY", y());
+	prefs_->set("isEditMode", isEditMode_);
+	prefs_->set("Width", width_);
+	prefs_->set("WidthEM", widthEm_);
+	prefs_->set("WidthLeft", widthLeft_);
+	prefs_->set("WidthRight", widthRight_);
+	prefs_->set("InitX", x());
+	prefs_->set("InitY", y());
+	prefs_->set("Height", height_);
 }
+
+
 
 /*** StyleViewItem *******************************************************************/
 

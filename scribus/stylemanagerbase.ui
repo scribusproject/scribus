@@ -11,7 +11,7 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>702</width>
+            <width>682</width>
             <height>461</height>
         </rect>
     </property>
@@ -162,6 +162,12 @@
                 <widget class="QSplitter" row="0" column="0">
                     <property name="name">
                         <cstring>splitter</cstring>
+                    </property>
+                    <property name="minimumSize">
+                        <size>
+                            <width>668</width>
+                            <height>67</height>
+                        </size>
                     </property>
                     <property name="frameShape">
                         <enum>NoFrame</enum>
