@@ -16,6 +16,9 @@ for which a new license (GPL+exception) is in place.
 
 #include "colorcombo.h"
 #include "commonstrings.h"
+#include "prefsmanager.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
 #include "scribusdoc.h"
 #include "styleselect.h"
 #include "scribusdoc.h"
@@ -41,6 +44,15 @@ EditStyle::EditStyle( QWidget* parent, struct ParagraphStyle *vor, QValueList<Pa
 	sampleItem = new SampleItem();
 	sampleItem->setLoremIpsum(2);
 	sampleItem->cleanupTemporary();
+
+	prefs = PrefsManager::instance()->prefsFile->getContext("edit_style");
+	QString prevBg = prefs->get("PreviewBg", "");
+	if( !prevBg.isEmpty() )
+	{
+		QColor bg(prevBg);
+		sampleItem->setBgColorMngt(false);
+		sampleItem->setBgColor(bg);
+	}
 
 	EditStyleLayout = new QVBoxLayout( this, 10, 5, "EditStyleLayout");
 
@@ -616,10 +628,10 @@ void EditStyle::updatePreview()
 
 void EditStyle::setPreviewBackground()
 {
-	QColor bg;
-	bg = QColorDialog::getColor(previewText->paletteBackgroundColor(), this);
+	QColor bg = QColorDialog::getColor(previewText->paletteBackgroundColor(), this);
 	if (bg.isValid())
 	{
+		prefs->set("PreviewBg", bg.name());
 		previewText->setPaletteBackgroundColor(bg);
 		sampleItem->setBgColorMngt(false);
 		sampleItem->setBgColor(bg);

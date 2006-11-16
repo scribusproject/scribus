@@ -31,6 +31,7 @@ class ScribusDoc;
 class StyleSelect;
 class Tabruler;
 class SampleItem;
+class PrefsContext;
 
 
 /*! \brief GUI dialog for Paragraph Style setting.
@@ -92,6 +93,7 @@ public:
 	bool IsNew;
 	double AutoVal;
 	int DocsEin;
+	PrefsContext* prefs;
 	//! \brief Label for holding "style preview" bitmap 12/30/2004 petr vanek
 	QLabel *previewText;
 	QCheckBox *previewCaption;
