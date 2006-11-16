@@ -109,6 +109,11 @@ void SampleItem::setBgColor(QColor c)
 	ScMW->doc->PageColors["__whiteforpreviewbg__"].fromQColor(c);
 }
 
+void SampleItem::setBgColorMngt(bool enable)
+{
+	ScMW->doc->PageColors["__whiteforpreviewbg__"].setSpotColor(!enable);
+}
+
 void SampleItem::setBgShade(int c)
 {
 	bgShade = c;
