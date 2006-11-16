@@ -477,10 +477,15 @@ void SEditor::loadItemText(PageItem *currItem)
 	FrameItems.clear();
 	StyledText.append(currItem->itemText);
 	updateAll();
+	int npars = currItem->itemText.nrOfParagraphs();
 	int currPar = 0;
-	while (currItem->CPos >= currItem->itemText.endOfParagraph(currPar))
+	int currChar;
+	while (currItem->CPos >= (currChar = currItem->itemText.endOfParagraph(currPar)) 
+		   && currPar < npars)
 		++currPar;
-	int currChar = currItem->CPos - currItem->itemText.startOfParagraph(currPar);
+	if (currItem->CPos < currChar)
+		currChar = currItem->CPos;
+	currChar -= currItem->itemText.startOfParagraph(currPar);
 	setCursorPosition(currPar, currChar);
 	emit setProps(currPar, currChar);
 }
