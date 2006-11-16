@@ -5,6 +5,9 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include <qtable.h>
+#include <qgroupbox.h>
+#include <qlayout.h>
+#include <qcheckbox.h>
 
 #include "scconfig.h"
 #include "scribuscore.h"
@@ -49,101 +52,109 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	setCaption( tr( "Select Character:" )+" "+m_fontInUse );
 	m_Item = item;
 	setIcon(loadIcon("AppIcon.png"));
-	zAuswahlLayout = new QVBoxLayout( this );
-	zAuswahlLayout->setSpacing( 6 );
-	zAuswahlLayout->setMargin( 11 );
 
-	selectionsLayout = new QHBoxLayout();
-	selectionsLayout->setSpacing( 6 );
-	selectionsLayout->setMargin( 0 );
-	fontLabel = new QLabel( this, "fontLabel" );
+	QHBoxLayout* mainLayout = new QHBoxLayout(this);
+	mainLayout->setSpacing(6);
+	mainLayout->setMargin(11);
+
+	// big table related
+	bigPalette = new QGroupBox(0, Qt::Vertical, tr("Enthanced Palette"), this, "bigPalette");
+	bigPalette->layout()->setSpacing( 5 );
+	bigPalette->layout()->setMargin( 10 );
+	QGridLayout* bigLayout = new QGridLayout(bigPalette->layout());
+
+	// combos
+	QHBoxLayout* combosLayout = new QHBoxLayout();
+	fontLabel = new QLabel( bigPalette, "fontLabel" );
 	fontLabel->setText( tr( "Font:" ) );
-	selectionsLayout->addWidget( fontLabel );
-	fontSelector = new FontCombo(this);
+
+	fontSelector = new FontCombo(bigPalette);
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(m_fontInUse);
-	selectionsLayout->addWidget( fontSelector );
+
 	if (needReturn)
 		fontSelector->setEnabled(false);
-	rangeLabel = new QLabel( this, "fontLabel" );
-	rangeLabel->setText( tr( "Character Class:" ) );
-	selectionsLayout->addWidget( rangeLabel );
-	rangeSelector = new ScComboBox( false, this, "rangeSelector" );
-	m_characterClass = 0;
-	selectionsLayout->addWidget( rangeSelector );
-	QSpacerItem* spacer2 = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	selectionsLayout->addItem( spacer2 );
-	zAuswahlLayout->addLayout(selectionsLayout);
 
-	charTable = new CharTable(this, 16, m_Item, m_fontInUse);
+	rangeLabel = new QLabel( bigPalette, "fontLabel" );
+	rangeLabel->setText( tr( "Character Class:" ) );
+
+	rangeSelector = new ScComboBox( false, bigPalette, "rangeSelector" );
+	m_characterClass = 0;
+
+	combosLayout->addWidget(fontLabel);
+	combosLayout->addWidget(fontSelector);
+	combosLayout->addWidget(rangeLabel);
+	combosLayout->addWidget(rangeSelector);
+
+	bigLayout->addLayout(combosLayout, 0, 0);
+
+	charTable = new CharTable(bigPalette, 16, m_Item, m_fontInUse);
 	charTable->enableDrops(false);
 	scanFont();
 
-	unicodeButton = new UnicodeChooseButton(this, "unicodeButton");
-	unicodeButton->setFont((*m_Item->doc()->AllFonts)[m_fontInUse]);
-	unicodeLayout = new QVBoxLayout();
-	unicodeLayout->addWidget(unicodeButton);
+	bigLayout->addWidget(charTable, 1, 0);
 
-	userTable = new CharTable(this, 2, m_Item, m_fontInUse);
-	userTable->setMaximumWidth(100);
-	userTable->setMinimumWidth(100);
-	userTable->enableDrops(true);
-	unicodeLayout->addWidget(userTable);
+// 	insCode = new QLineEdit( this, "insText" );
+// 	insCode->setMaxLength(4);
+// 	insCode->setInputMask(">NNNN");
+// 	insCode->clear();
+// 	insText = new QLabel( insCode, tr("&Insert Code:"), this, "insText" );
+// 	insCode->setFixedWidth(insText->width());
 
-	charPalettesLayout = new QHBoxLayout();
-	charPalettesLayout->addWidget(charTable);
-	charPalettesLayout->addLayout(unicodeLayout);
-	zAuswahlLayout->addLayout(charPalettesLayout);
-	
-	layout3 = new QHBoxLayout;
-	layout3->setSpacing( 6 );
-	layout3->setMargin( 0 );
-	
-	layout2 = new QVBoxLayout;
-	layout2->setSpacing( 6 );
-	layout2->setMargin( 0 );
-
-	insCode = new QLineEdit( this, "insText" );
-	insCode->setMaxLength(4);
-	insCode->setInputMask(">NNNN");
-	insCode->clear();
-	insText = new QLabel( insCode, tr("&Insert Code:"), this, "insText" );
-	insCode->setFixedWidth(insText->width());
-	layout2->addWidget( insText );
-	layout2->addWidget( insCode );
-
-	layout3->addLayout(layout2, Qt::AlignLeft);
-
-	sample = new QLabel( this, "sample" );
+	sample = new QLabel( bigPalette, "sample" );
 	sample->setFrameShape(QFrame::Box);
 	sample->setPaletteBackgroundColor(paletteBackgroundColor());
-	sample->setMinimumHeight(52);
+	sample->setMinimumHeight(48);
 	sample->setMinimumWidth(460);
-	layout3->addWidget( sample );
-	zAuswahlLayout->addLayout( layout3 );
 
-	layout1 = new QHBoxLayout;
-	layout1->setSpacing( 6 );
-	layout1->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	layout1->addItem( spacer );
+	bigLayout->addWidget(sample, 2, 0);
 
-	insertButton = new QPushButton( tr( "&Insert" ), this, "insertButton" );
-	layout1->addWidget( insertButton );
-	deleteButton = new QPushButton( tr("C&lear"), this, "deleteButton" );
-	layout1->addWidget( deleteButton );
-	closeButton = new QPushButton( tr("&Close"), this, "closeButton" );
-	layout1->addWidget( closeButton );
-	zAuswahlLayout->addLayout( layout1 );
+	insertButton = new QPushButton( tr( "&Insert" ), bigPalette, "insertButton" );
+	deleteButton = new QPushButton( tr("C&lear"), bigPalette, "deleteButton" );
+// 	closeButton = new QPushButton( tr("&Close"), this, "closeButton" );
+
+	QHBoxLayout* buttonLayout = new QHBoxLayout();
+	QSpacerItem* buttonSpacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+	buttonLayout->addItem(buttonSpacer);
+	buttonLayout->addWidget(insertButton);
+	buttonLayout->addWidget(deleteButton);
+
+	bigLayout->addLayout(buttonLayout, 3, 0);
+
+	// quick table
+	quickPalette = new QGroupBox(0, Qt::Vertical, tr("Quick Palette"), this, "quickPalette");
+	quickPalette->layout()->setSpacing( 5 );
+	quickPalette->layout()->setMargin( 10 );
+	QGridLayout* quickLayout = new QGridLayout(quickPalette->layout());
+
+	hideCheck = new QCheckBox(tr("Hide Enthanced"), quickPalette, "hideCheck");
+	quickLayout->addWidget(hideCheck, 0, 0);
+
+	unicodeButton = new UnicodeChooseButton(quickPalette, "unicodeButton");
+	unicodeButton->setFont((*m_Item->doc()->AllFonts)[m_fontInUse]);
+
+	quickLayout->addWidget(unicodeButton, 1, 0);
+
+	userTable = new CharTable(quickPalette, 2, m_Item, m_fontInUse);
+	userTable->setMaximumWidth(120);
+	userTable->setMinimumWidth(120);
+	userTable->enableDrops(true);
+
+	quickLayout->addWidget(userTable, 2, 0);
+
+	// main layout
+	mainLayout->addWidget(bigPalette);
+	mainLayout->addWidget(quickPalette);
+
 	delEdit();
 //tooltips
 	QToolTip::add( insertButton, "<qt>" + tr( "Insert the characters at the cursor in the text") + "</qt>");
 	QToolTip::add( deleteButton, "<qt>" + tr( "Delete the current selection(s).") + "</qt>");
-	QToolTip::add( closeButton, "<qt>" + tr( "Close this dialog and return to text editing") + "</qt>");
-	QToolTip::add( insCode, "<qt>" + tr( "Type in a four digit unicode value directly here") + "</qt>");
+// 	QToolTip::add( closeButton, "<qt>" + tr( "Close this dialog and return to text editing") + "</qt>");
+// 	QToolTip::add( insCode, "<qt>" + tr( "Type in a four digit unicode value directly here") + "</qt>");
 	QToolTip::add( charTable, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
 	// signals and slots connections
-	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
+// 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
 	//connect(charTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
@@ -155,8 +166,9 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), userTable, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
-	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
-	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
+// 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
+// 	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
+	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
 	setupRangeCombo();
 	newCharClass(0);
 }
@@ -505,26 +517,31 @@ void CharSelect::newFont(int font)
 
 void CharSelect::newChar()
 {
-	QString tx = insCode->text();
-	tx.prepend("0x");
-	bool ok = false;
-	uint code = tx.toUInt(&ok, 16);
-	if ((ok) && (code > 31))
-	{
-		chToIns += QChar(code);
-		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
-		insertButton->setEnabled(true);
-	}
+// 	QString tx = insCode->text();
+// 	tx.prepend("0x");
+// 	bool ok = false;
+// 	uint code = tx.toUInt(&ok, 16);
+// 	if ((ok) && (code > 31))
+// 	{
+// 		chToIns += QChar(code);
+// 		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+// 		insertButton->setEnabled(true);
+// 	}
 }
 
 void CharSelect::newChar(uint i)
 {
 	chToIns += QChar(i);
+	if (sender() == userTable)
+	{
+		insChar();
+		return;
+	}
 	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 	QString tmp;
 	tmp.sprintf("%04X", i);
-	insCode->setText(tmp);
+// 	insCode->setText(tmp);
 }
 
 void CharSelect::delChar()
@@ -586,4 +603,10 @@ bool CharSelect::eventFilter( QObject */*obj*/, QEvent *ev )
 		return true;
 	}
 	return false;
+}
+
+void CharSelect::hideCheck_clicked()
+{
+	bigPalette->setShown(!hideCheck->isChecked());
+	adjustSize();
 }

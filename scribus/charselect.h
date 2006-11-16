@@ -13,11 +13,12 @@ for which a new license (GPL+exception) is in place.
 
 class QLabel;
 class QPushbutton;
-class QLayout;
 class QToolTip;
 class QStringList;
 class QComboBox;
 class QLineEdit;
+class QGroupBox;
+class QCheckBox;
 
 class FontCombo;
 class PageItem;
@@ -118,23 +119,23 @@ protected:
 	PageItem *m_Item;
 
 	// GUI
-	QVBoxLayout* zAuswahlLayout;
-	QHBoxLayout* selectionsLayout;
-	QHBoxLayout* charPalettesLayout;
-	QVBoxLayout* unicodeLayout;
-	QHBoxLayout* layout1;
-	QVBoxLayout* layout2;
-	QHBoxLayout* layout3;
+	QGroupBox* bigPalette;
+	QGroupBox* quickPalette;
+
 	QLabel* insText;
 	QLabel* sample;
 	QLabel* fontLabel;
 	QLabel* rangeLabel;
-	QLineEdit* insCode;
+// 	QLineEdit* insCode;
 	FontCombo* fontSelector;
 	QComboBox* rangeSelector;
 	QPushButton* insertButton;
 	QPushButton* deleteButton;
-	QPushButton* closeButton;
+// 	QPushButton* closeButton;
+	QCheckBox* hideCheck;
+
+	protected slots:
+		void hideCheck_clicked();
 };
 
 #endif
