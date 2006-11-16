@@ -103,6 +103,7 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	checkFrame->setChecked(guidesSettings->framesShown);
 	checkLayerM->setChecked(guidesSettings->layerMarkersShown);
 	checkRuler->setChecked(guidesSettings->rulerMode);
+	checkBleed->setChecked(guidesSettings->showBleed);
 	topScratch->setDecimals( decimals );
 	topScratch->setMaxValue(1000);
 	topScratch->setValue(prefsData->ScratchTop * unitRatio);

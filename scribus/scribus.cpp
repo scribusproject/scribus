@@ -827,6 +827,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["viewFit20"], "View");
 	scrMenuMgr->addMenuSeparator("View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowMargins"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewShowBleeds"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowFrames"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowLayerMarkers"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewShowImages"], "View");
@@ -2177,6 +2178,7 @@ void ScribusMainWindow::newActWin(QWidget *w)
 	w->setFocus();
 	wsp->setScrollBarsEnabled(!(w->isMaximized()));
 	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+	scrActions["viewShowBleeds"]->setOn(doc->guidesSettings.showBleed);
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowLayerMarkers"]->setOn(doc->guidesSettings.layerMarkersShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -2240,6 +2242,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	FontSub->RebuildList(doc);
 	propertiesPalette->Fonts->RebuildList(doc);
 	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+	scrActions["viewShowBleeds"]->setOn(doc->guidesSettings.showBleed);
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowLayerMarkers"]->setOn(doc->guidesSettings.layerMarkersShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -5427,6 +5430,8 @@ void ScribusMainWindow::ToggleAllGuides()
 		doc->guidesSettings.rulerMode = guidesStatus[8];
 		doc->guidesSettings.rulersShown = guidesStatus[9];
 		doc->guidesSettings.colBordersShown = guidesStatus[10];
+		doc->guidesSettings.layerMarkersShown = guidesStatus[11] ;
+		doc->guidesSettings.showBleed = guidesStatus[12] ;
 		ToggleMarks();
 		ToggleFrames();
 		ToggleLayerMarkers();
@@ -5438,6 +5443,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		ToggleTextControls();
 		ToggleRulerMode();
 		ToggleRulers();
+		ToggleBleeds();
 	}
 	else
 	{
@@ -5453,6 +5459,7 @@ void ScribusMainWindow::ToggleAllGuides()
 		guidesStatus[9] = !doc->guidesSettings.rulersShown;
 		guidesStatus[10] = !doc->guidesSettings.colBordersShown;
 		guidesStatus[11] = !doc->guidesSettings.layerMarkersShown;
+		guidesStatus[12] = !doc->guidesSettings.showBleed;
 		doc->guidesSettings.marginsShown = false;
 		doc->guidesSettings.framesShown = false;
 		doc->guidesSettings.gridShown = false;
@@ -5464,9 +5471,11 @@ void ScribusMainWindow::ToggleAllGuides()
 		doc->guidesSettings.rulersShown = false;
 		doc->guidesSettings.colBordersShown = false;
 		doc->guidesSettings.layerMarkersShown = false;
+		doc->guidesSettings.showBleed = false;
 		view->setRulersShown(doc->guidesSettings.rulersShown);
 	}
 	scrActions["viewShowMargins"]->setOn(doc->guidesSettings.marginsShown);
+	scrActions["viewShowBleeds"]->setOn(doc->guidesSettings.showBleed);
 	scrActions["viewShowFrames"]->setOn(doc->guidesSettings.framesShown);
 	scrActions["viewShowLayerMarkers"]->setOn(doc->guidesSettings.layerMarkersShown);
 	scrActions["viewShowGrid"]->setOn(doc->guidesSettings.gridShown);
@@ -5484,6 +5493,13 @@ void ScribusMainWindow::ToggleMarks()
 {
 	guidesStatus[0] = false;
 	doc->guidesSettings.marginsShown = !doc->guidesSettings.marginsShown;
+	view->DrawNew();
+}
+
+void ScribusMainWindow::ToggleBleeds()
+{
+	guidesStatus[0] = false;
+	doc->guidesSettings.showBleed = !doc->guidesSettings.showBleed;
 	view->DrawNew();
 }
 

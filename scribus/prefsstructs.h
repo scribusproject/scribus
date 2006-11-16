@@ -81,6 +81,7 @@ struct guidesPrefs
 	bool linkShown;
 	bool showPic;
 	bool showControls;
+	bool showBleed;
 	bool rulerMode;
 	bool rulersShown;
 	bool layerMarkersShown;

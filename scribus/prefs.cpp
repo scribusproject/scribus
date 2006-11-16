@@ -353,6 +353,7 @@ void Preferences::updatePreferences()
 	// Guides
 
 	prefsManager->appPrefs.guidesSettings.framesShown = tabView->checkFrame->isChecked();
+	prefsManager->appPrefs.guidesSettings.showBleed = tabView->checkBleed->isChecked();
 	prefsManager->appPrefs.guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
 	prefsManager->appPrefs.guidesSettings.rulerMode = tabView->checkRuler->isChecked();
 	prefsManager->appPrefs.guidesSettings.showPic = tabView->checkPictures->isChecked();

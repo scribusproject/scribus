@@ -406,6 +406,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		m_Doc->guidesSettings.showControls = static_cast<bool>(dc.attribute("SHOWControl", "0").toInt());
 		m_Doc->guidesSettings.rulerMode = static_cast<bool>(dc.attribute("rulerMode", "1").toInt());
 		m_Doc->guidesSettings.rulersShown = static_cast<bool>(dc.attribute("showrulers", "1").toInt());
+		m_Doc->guidesSettings.showBleed = static_cast<bool>(dc.attribute("showBleed", "1").toInt());
 		m_Doc->rulerXoffset = dc.attribute("rulerXoffset", "0").toDouble();
 		m_Doc->rulerYoffset =dc.attribute("rulerYoffset", "0").toDouble();
 		m_Doc->SnapGuides = static_cast<bool>(dc.attribute("SnapToGuides", "0").toInt());

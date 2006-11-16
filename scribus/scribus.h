@@ -375,6 +375,7 @@ public slots:
 	void slotZoom(double zoomFactor); // 20, 50, 100, or -100 for Fit
 	/** \brief Schaltet Raender ein/aus */
 	void ToggleMarks();
+	void ToggleBleeds();
 	void ToggleFrames();
 	void ToggleLayerMarkers();
 	void ToggleTextLinks();
@@ -599,7 +600,7 @@ private:
 	int viewUndoPalette;
 
 	bool palettesStatus[10];
-	bool guidesStatus[12];
+	bool guidesStatus[13];
 
 	bool keyrep;
 	/** @brief Tells if an arrow key is pressed down */

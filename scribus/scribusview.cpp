@@ -391,30 +391,36 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				int w = qRound(Doc->Pages->at(a)->width() * Scale);
 				int h = qRound(Doc->Pages->at(a)->height() * Scale);
 
-				double bleedRight;
-				double bleedLeft;
+				double bleedRight = 0.0;
+				double bleedLeft = 0.0;
+				double bleedBottom = 0.0;
+				double bleedTop = 0.0;
 				bool drawBleed = false;
-				if ((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0))
+				if (((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0)) && (Doc->guidesSettings.showBleed))
+				{
 					drawBleed = true;
-				if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == LeftPage)
-				{
-					bleedRight = Doc->BleedRight;
-					bleedLeft = Doc->BleedLeft;
-				}
-				else if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == RightPage)
-				{
-					bleedRight = Doc->BleedLeft;
-					bleedLeft = Doc->BleedRight;
-				}
-				else
-				{
-					bleedRight = Doc->BleedLeft;
-					bleedLeft = Doc->BleedLeft;
+					bleedBottom = Doc->BleedBottom;
+					bleedTop = Doc->BleedTop;
+					if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == LeftPage)
+					{
+						bleedRight = Doc->BleedRight;
+						bleedLeft = Doc->BleedLeft;
+					}
+					else if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == RightPage)
+					{
+						bleedRight = Doc->BleedLeft;
+						bleedLeft = Doc->BleedRight;
+					}
+					else
+					{
+						bleedRight = Doc->BleedLeft;
+						bleedLeft = Doc->BleedLeft;
+					}
 				}
 				int blx = qRound((Doc->Pages->at(a)->xOffset() - bleedLeft) * Scale);
-				int bly = qRound((Doc->Pages->at(a)->yOffset() - Doc->BleedTop) * Scale);
+				int bly = qRound((Doc->Pages->at(a)->yOffset() - bleedTop) * Scale);
 				int blw = qRound((Doc->Pages->at(a)->width() + bleedLeft + bleedRight) * Scale);
-				int blh = qRound((Doc->Pages->at(a)->height() + Doc->BleedBottom + Doc->BleedTop) * Scale);
+				int blh = qRound((Doc->Pages->at(a)->height() + bleedBottom + bleedTop) * Scale);
 
 				QRect drawRect = QRect(blx, bly, blw+5, blh+5);
 				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));

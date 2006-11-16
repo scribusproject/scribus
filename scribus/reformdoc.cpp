@@ -293,6 +293,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->marginColored = tabView->checkUnprintable->isChecked();
 	currDoc->papColor = tabView->colorPaper;
 	currDoc->guidesSettings.marginsShown = tabGuides->marginBox->isChecked();
+	currDoc->guidesSettings.showBleed = tabView->checkBleed->isChecked();
 	currDoc->guidesSettings.framesShown = tabView->checkFrame->isChecked();
 	currDoc->guidesSettings.layerMarkersShown = tabView->checkLayerM->isChecked();
 	currDoc->guidesSettings.gridShown = tabGuides->checkGrid->isChecked();

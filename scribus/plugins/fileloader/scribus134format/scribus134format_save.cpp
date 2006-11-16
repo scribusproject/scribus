@@ -126,6 +126,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	dc.setAttribute("SHOWLINK", static_cast<int>(m_Doc->guidesSettings.linkShown));
 	dc.setAttribute("rulerMode", static_cast<int>(m_Doc->guidesSettings.rulerMode));
 	dc.setAttribute("showrulers", static_cast<int>(m_Doc->guidesSettings.rulersShown));
+	dc.setAttribute("showBleed", static_cast<int>(m_Doc->guidesSettings.showBleed));
 	dc.setAttribute("rulerXoffset", m_Doc->rulerXoffset);
 	dc.setAttribute("rulerYoffset", m_Doc->rulerYoffset);
 	dc.setAttribute("GuideRad", m_Doc->guidesSettings.guideRad);
