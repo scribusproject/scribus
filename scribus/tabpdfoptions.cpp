@@ -1041,6 +1041,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 					FontsToSubset.append(Opts.SubsetList[fe]);
 				}
 			}
+			if (DocFonts.count() == FontsToEmbed.count() + FontsToSubset.count())
+				EmbedFonts->setChecked(true);
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
 		QString tmp;
@@ -1807,7 +1809,7 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 {
 	if ((c != NULL) && (!EmbedFonts->isChecked()))
 	{
-		if (!isTabEnabled(tabPDFX))
+		if (PDFVersionCombo->currentItem() != 3)
 			FromEmbed->setEnabled(true);
 		ToEmbed->setEnabled(false);
 		ToSubset->setEnabled(true);
