@@ -1716,7 +1716,8 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		else {
 			obj->itemText.insertChars(pos, QString(ch));
 		}
-		if (newStyle != last->Style) {
+		if (newStyle != last->Style || (newStyle.effects() ^ last->Style.effects()) == ScStyle_HyphenationPossible) 
+		{  // FIXME StyleFlag operator== ignores hyphen flag
 #ifdef NLS_PROTO
 			qDebug(QString("new style at %1: %2 -> %3").arg(pos).arg(last->Style.asString()).arg(newStyle.asString()));
 #endif
