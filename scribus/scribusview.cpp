@@ -403,13 +403,13 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					bleedTop = Doc->BleedTop;
 					if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == LeftPage)
 					{
-						bleedRight = Doc->BleedRight;
-						bleedLeft = Doc->BleedLeft;
+						bleedRight = Doc->BleedLeft;
+						bleedLeft = Doc->BleedRight;
 					}
 					else if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == RightPage)
 					{
-						bleedRight = Doc->BleedLeft;
-						bleedLeft = Doc->BleedRight;
+						bleedRight = Doc->BleedRight;
+						bleedLeft = Doc->BleedLeft;
 					}
 					else
 					{

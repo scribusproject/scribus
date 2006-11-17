@@ -811,13 +811,13 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	BleedTxt3 = new QLabel( BleedGroup, "BleedTxt3" );
 	BleedTxt3->setText( tr( "Left:" ) );
 	BleedGroupLayout->addWidget( BleedTxt3, 0, 2 );
-	BleedRight = new MSpinBox( BleedGroup, precision );
-	BleedGroupLayout->addWidget( BleedRight, 0, 3 );
+	BleedLeft = new MSpinBox( BleedGroup, precision );
+	BleedGroupLayout->addWidget( BleedLeft, 0, 3 );
 	BleedTxt4 = new QLabel( BleedGroup, "BleedTxt4" );
 	BleedTxt4->setText( tr( "Right:" ) );
 	BleedGroupLayout->addWidget( BleedTxt4, 1, 2 );
-	BleedLeft = new MSpinBox( BleedGroup, precision );
-	BleedGroupLayout->addWidget( BleedLeft, 1, 3 );
+	BleedRight = new MSpinBox( BleedGroup, precision );
+	BleedGroupLayout->addWidget( BleedRight, 1, 3 );
 	docBleeds = new QCheckBox( tr( "Use Document Bleeds" ), BleedGroup, "docBleeds" );
 	BleedGroupLayout->addMultiCellWidget( docBleeds, 2, 2, 0, 3 );
 	tabPDFXLayout->addWidget( BleedGroup );

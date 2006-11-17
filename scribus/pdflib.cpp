@@ -1758,13 +1758,13 @@ void PDFlib::PDF_End_Page()
 	double bleedLeft;
 	if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
 	{
-		bleedRight = Options.BleedRight;
-		bleedLeft = Options.BleedLeft;
+		bleedRight = Options.BleedLeft;
+		bleedLeft = Options.BleedRight;
 	}
 	else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
 	{
-		bleedRight = Options.BleedLeft;
-		bleedLeft = Options.BleedRight;
+		bleedRight = Options.BleedRight;
+		bleedLeft = Options.BleedLeft;
 	}
 	else
 	{
@@ -2083,13 +2083,13 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 	{
 		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
 		{
-			bleedRight = Options.BleedRight;
-			bleedLeft = Options.BleedLeft;
+			bleedRight = Options.BleedLeft;
+			bleedLeft = Options.BleedRight;
 		}
 		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
 		{
-			bleedRight = Options.BleedLeft;
-			bleedLeft = Options.BleedRight;
+			bleedRight = Options.BleedRight;
+			bleedLeft = Options.BleedLeft;
 		}
 		else
 		{

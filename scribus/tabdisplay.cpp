@@ -127,7 +127,7 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	gapVertical->setSuffix( unitSuffix );
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapVertical * unitRatio);
+	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapBelow * unitRatio);
 	drawRuler();
 	CaliSlider->setValue(qRound(100 * DisScale)-100);
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
