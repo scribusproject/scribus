@@ -188,20 +188,20 @@ void CommonStrings::languageChange()
 	CommonStrings::pageLocMiddleLeft    = "Middle Left";
 	CommonStrings::pageLocMiddleRight   = "Middle Right";
 	CommonStrings::pageLocRight         = "Right Page";
-	CommonStrings::trPageLocLeft        = tr( "Left Page" );
-	CommonStrings::trPageLocMiddle      = tr( "Middle" );
-	CommonStrings::trPageLocMiddleLeft  = tr( "Middle Left" );
-	CommonStrings::trPageLocMiddleRight = tr( "Middle Right" );
-	CommonStrings::trPageLocRight       = tr( "Right Page" );
+	CommonStrings::trPageLocLeft        = tr( "Left Page", "Left page location" );
+	CommonStrings::trPageLocMiddle      = tr( "Middle", "Middle page location" );
+	CommonStrings::trPageLocMiddleLeft  = tr( "Middle Left", "Middle Left page location" );
+	CommonStrings::trPageLocMiddleRight = tr( "Middle Right", "Middle Right page location" );
+	CommonStrings::trPageLocRight       = tr( "Right Page", "Right page location" );
 	
-	CommonStrings:: masterPageNormal         = "Normal";
-	CommonStrings:: trMasterPageNormal       = tr( "Normal" );
-	CommonStrings:: masterPageNormalLeft     = "Normal Left";
-	CommonStrings:: trMasterPageNormalLeft   = tr( "Normal Left" );
-	CommonStrings:: masterPageNormalMiddle   = "Normal Middle";
-	CommonStrings:: trMasterPageNormalMiddle = tr( "Normal Middle" );
-	CommonStrings:: masterPageNormalRight    = "Normal Right";
-	CommonStrings:: trMasterPageNormalRight  = tr( "Normal Right" );
+	CommonStrings::masterPageNormal         = "Normal";
+	CommonStrings::trMasterPageNormal       = tr( "Normal", "Default single master page" );
+	CommonStrings::masterPageNormalLeft     = "Normal Left";
+	CommonStrings::trMasterPageNormalLeft   = tr( "Normal Left", "Default left master page" );
+	CommonStrings::masterPageNormalMiddle   = "Normal Middle";
+	CommonStrings::trMasterPageNormalMiddle = tr( "Normal Middle", "Default middle master page" );
+	CommonStrings::masterPageNormalRight    = "Normal Right";
+	CommonStrings::trMasterPageNormalRight  = tr( "Normal Right", "Default right master page" );
 	
 	CommonStrings::trPenStyle_SolidLine      = "Solid Line";
 	CommonStrings::trPenStyle_DashedLine     = "Dashed Line";
