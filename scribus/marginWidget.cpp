@@ -99,6 +99,9 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 #if defined(HAVE_CUPS) || defined(_WIN32)
 	usePrinterMarginsButton=new QPushButton( tr("Printer Margins..."),marginPage, "usePrinterMarginsButton" );
 	GroupLayout->addWidget( usePrinterMarginsButton, 5, 1 );
+	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
+	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
+#endif
 
 	addTab(marginPage, tr("Margin Guides"));
 
@@ -125,6 +128,11 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	BleedGroupLayout->addWidget( BleedTxt2, 3, 0 );
 	BleedBottom = new MSpinBox( bleedPage, decimals );
 	BleedGroupLayout->addWidget( BleedBottom, 3, 1 );
+	linkBleeds = new LinkButton( bleedPage );
+	linkBleeds->setToggleButton( true );
+	linkBleeds->setAutoRaise( true );
+	linkBleeds->setMaximumSize( QSize( 15, 32767 ) );
+	BleedGroupLayout->addMultiCellWidget( linkBleeds, 0, 3, 2, 2 );
 	BleedTop->setSuffix( m_suffix );
 	BleedTop->setMinValue(0);
 	BleedTop->setMaxValue(3000*m_unitRatio);
@@ -138,10 +146,6 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	BleedLeft->setMinValue(0);
 	BleedLeft->setMaxValue(3000*m_unitRatio);
 	addTab(bleedPage, tr("Bleeds"));
-
-	QToolTip::add( usePrinterMarginsButton, "<qt>" +tr( "Import the margins for the selected page size from the available printers." ) + "</qt>");
-	connect(usePrinterMarginsButton, SIGNAL(clicked()), this, SLOT(setMarginsToPrinterMargins()));
-#endif
 
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
@@ -159,6 +163,46 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, MarginStruct* margs,
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	connect(presetCombo, SIGNAL(activated(int)), this, SLOT(setPreset()));
+	connect(linkBleeds, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+}
+
+void MarginWidget::ToggleKette()
+{
+	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	if (linkBleeds->isOn())
+	{
+		BleedTop->setValue(BleedLeft->value());
+		BleedBottom->setValue(BleedLeft->value());
+		BleedRight->setValue(BleedLeft->value());
+	}
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+}
+
+void MarginWidget::BChange()
+{
+	if (linkBleeds->isOn())
+	{
+		double val = 0.0;
+		if (BleedTop == sender())
+			val = BleedTop->value();
+		else if (BleedBottom == sender())
+			val = BleedBottom->value();
+		else if (BleedLeft == sender())
+			val = BleedLeft->value();
+		else if (BleedRight == sender())
+			val = BleedRight->value();
+		setNewBleeds(val, val, val, val);
+	}
 }
 
 void MarginWidget::setFacingPages(bool facing, int pagetype)
@@ -241,6 +285,10 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
+	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	int decimalsOld;
 	double oldUnitRatio = m_unitRatio;
 	double oldMin, oldMax, val;
@@ -277,6 +325,10 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 }
 
 void MarginWidget::setPreset()
@@ -398,10 +450,18 @@ bool MarginWidget::getMarginsForAllMasterPages()
 
 void MarginWidget::setNewBleeds(double t, double b, double l, double r)
 {
+	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	BleedTop->setValue(t * m_unitRatio);
 	BleedBottom->setValue(b * m_unitRatio);
 	BleedLeft->setValue(l * m_unitRatio);
 	BleedRight->setValue(r * m_unitRatio);
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 }
 
 double MarginWidget::topBleed()

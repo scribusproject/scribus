@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qlayout.h>
 #include <qpushbutton.h>
 #include <qtabwidget.h>
+#include "linkbutton.h"
 class QCheckBox;
 
 class MSpinBox;
@@ -169,6 +170,7 @@ private:
 	QCheckBox* marginsForAllPages;
 	QCheckBox* marginsForAllMasterPages;
 	QPushButton* usePrinterMarginsButton;
+	LinkButton* linkBleeds;
 	/*! \brief Top margin value converted by unitRatio */
 	double RandT;
 	/*! \brief Bottom margin value converted by unitRatio */
@@ -190,6 +192,8 @@ public slots:
 	void setRight();
 	/*! \brief Recompute margins in PresetLayout combobox and disable/enable widgets. */
 	void setPreset();
+	void ToggleKette();
+	void BChange();
 	
 protected slots:	
 	virtual void setMarginsToPrinterMargins();
