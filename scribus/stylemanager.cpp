@@ -450,6 +450,7 @@ void StyleManager::createNewStyle(const QString &typeName, const QString &fromPa
 // open or close edit mode
 void StyleManager::slotOk()
 {
+	static bool isFirst = true;
 	if (isEditMode_)
 	{
 		disconnect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
@@ -481,7 +482,8 @@ void StyleManager::slotOk()
 		slotDocSelectionChanged();
 		adjustSize();
 		resize(width_, height_);
-		move(editPosition_);
+		if (!isFirst)
+			move(editPosition_);
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged(QListViewItem*)),
 		        this, SLOT(slotApplyStyle(QListViewItem*)));
@@ -494,8 +496,11 @@ void StyleManager::slotOk()
 		           this, SLOT(slotApplyStyle(QListViewItem*)));
 		disconnect(styleView, SIGNAL(clicked(QListViewItem*)),
 				this, SLOT(slotApplyStyle(QListViewItem*)));
-		width_ = width();
-		prefs_->set("Width", width_);
+		if (!isFirst)
+		{
+			width_ = width();
+			prefs_->set("Width", width_);
+		}
 		height_ = height();
 		prefs_->set("Height", height_);
 		slotSetupWidget();
@@ -523,6 +528,7 @@ void StyleManager::slotOk()
 		prefs_->set("isEditMode", isEditMode_);
 		connect(styleView, SIGNAL(selectionChanged()), this, SLOT(slotSetupWidget()));
 	}
+	isFirst = false;
 }
 
 void StyleManager::addNewType(StyleItem *item, bool loadFromDoc)
@@ -999,6 +1005,8 @@ void StyleManager::hideEvent(QHideEvent *e)
 	prefs_->set("Height", height_);
 	prefs_->set("InitX", x());
 	prefs_->set("InitY", y());
+	storeVisibility(false);
+	storePosition();
 	SMBase::hideEvent(e);
 	emit closed();
 }
@@ -1026,6 +1034,8 @@ void StyleManager::closeEvent(QCloseEvent *e)
 	prefs_->set("Height", height_);
 	prefs_->set("InitX", x());
 	prefs_->set("InitY", y());
+	storeVisibility(false);
+	storePosition();
 	SMBase::closeEvent(e);
 	emit closed();
 }
@@ -1065,6 +1075,8 @@ StyleManager::~StyleManager()
 	prefs_->set("InitX", x());
 	prefs_->set("InitY", y());
 	prefs_->set("Height", height_);
+	storeVisibility(this->isVisible());
+	storePosition();
 }
 
 

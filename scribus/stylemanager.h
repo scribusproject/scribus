@@ -35,7 +35,7 @@ class StyleView;
 class StyleManager : public SMBase {
 	Q_OBJECT
 public:
-	StyleManager(QWidget *parent = 0, const char *name = 0);
+	StyleManager(QWidget *parent = 0, const char *name = "StyleManager");
 	~StyleManager();
 
 	void addStyle(StyleItem *item);
