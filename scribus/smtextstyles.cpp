@@ -93,8 +93,8 @@ QValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 			QString styleName = tmpStyles_[i].name();
 			QString parentName = QString::null;
 
-			if (tmpStyles_[i].parentStyle() != 0 && tmpStyles_[i].parentStyle()->hasName())
-				parentName = tmpStyles_[i].parentStyle()->displayName();
+			if (tmpStyles_[i].hasParent() )
+				parentName = tmpStyles_[i].parent();
 
 			tmpList << StyleName(styleName, parentName);
 		}
@@ -1225,8 +1225,8 @@ QValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 			QString styleName = tmpStyles_[i].name();
 			QString parentName = QString::null;
 
-			if (tmpStyles_[i].hasParent() && tmpStyles_[i].parentStyle()->hasName())
-				parentName = tmpStyles_[i].parentStyle()->displayName();
+			if (tmpStyles_[i].hasParent())
+				parentName = tmpStyles_[i].parent();
 
 			tmpList << StyleName(styleName, parentName);
 		}
