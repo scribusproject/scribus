@@ -124,8 +124,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 	selectionIsDirty_ = false;
 	removeConnections(); // we don't want to record changes during style setup
 
-	tmpStyles_.redefine(tmpStyles_);
-	tmpStyles_[0].charStyle().setBase(cstyles_);
+	tmpStyles_.invalidate();
 
 	QValueList<ParagraphStyle> pstyles; // get saved styles
 	QValueList<CharStyle> cstyles;
@@ -1261,7 +1260,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	removeConnections();
 	QValueList<CharStyle> cstyles;
 
-	tmpStyles_.redefine(tmpStyles_);
+	tmpStyles_.invalidate();
 
 	for (uint i = 0; i < tmpStyles_.count(); ++i)
 		cstyles << tmpStyles_[i];
