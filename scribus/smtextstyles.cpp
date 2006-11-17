@@ -245,82 +245,14 @@ void SMParagraphStyle::apply()
 	if (!doc_)
 		return;
 
-	QValueList<uint> ers;
-	QString nn;
-	bool ff;
-	uint nr;
-	ers.clear();
-
 	QMap<QString, QString> replacement;
 	for (uint i = 0; i < deleted_.count(); ++i)
 		replacement[deleted_[i].first] = deleted_[i].second;
 
-	// append new styles to the docParagraphStyles
-	for (uint i = 0; i < tmpStyles_.count(); ++i)
-	{
-		if (doc_->docParagraphStyles.find(tmpStyles_[i].name()) == -1)
-			doc_->docParagraphStyles.create(tmpStyles_[i]);
-	}
+	doc_->docParagraphStyles.redefine(tmpStyles_, true);
 
-	for (uint a=0; a<doc_->docParagraphStyles.count(); ++a)
-	{
-		ff = false;
-		nn = doc_->docParagraphStyles[a].name();
-		for (uint b=0; b<tmpStyles_.count(); ++b)
-		{
-			if (nn == tmpStyles_[b].name())
-			{
-				nr = b;
-				ff = true;
-				break;
-			}
-		}
-		if (ff)
-			ers.append(nr);
-		else
-		{
-			if (replacement.count() != 0)
-			{
-				QString ne = replacement[nn];
-				if (ne == QString::null)
-					ers.append(0);
-				else
-				{
-					for (uint b=0; b<tmpStyles_.count(); ++b)
-					{
-						if (ne == tmpStyles_[b].name())
-						{
-							nr = b;
-							ff = true;
-							break;
-						}
-					}
-					if (ff)
-						ers.append(nr);
-					else
-						ers.append(0);
-				}
-			}
-			else
-				ers.append(0);
-		}
-	}
-
-	// finally remove the deleted styles from doc_->docPargraphStyles'
-	for (uint i = 0; i < deleted_.count(); ++i)
-	{
-		int index = doc_->docParagraphStyles.find(deleted_[i].first);
-		if (index > -1)
-		{
-			const ParagraphStyle *with =
-                dynamic_cast<const ParagraphStyle*>(doc_->docParagraphStyles.resolve(deleted_[i].second));
-			if (with)
-				doc_->docParagraphStyles.remove(index/*, with*/);
-		}
-	}
-
-	doc_->docParagraphStyles.redefine(tmpStyles_);
-
+	//FIXME replace deleted styles in doc
+	
 	deleted_.clear(); // deletion done at this point
 
 	doc_->scMW()->propertiesPalette->Spal->updateFormatList();
@@ -1422,19 +1354,8 @@ void SMCharacterStyle::apply()
 	if (!doc_)
 		return;
 
-	for (uint i = 0; i < deleted_.count(); ++i)
-	{
-		int index = doc_->docCharStyles.find(deleted_[i].first);
-		if (index > -1)
-		{
-			const CharStyle *with =
-		        dynamic_cast<const CharStyle*>(doc_->docCharStyles.resolve(deleted_[i].second));
-			if (with)
-				doc_->docCharStyles.remove(static_cast<uint>(index)/*, with*/);
-		}
-	}
 	deleted_.clear();
-	doc_->docCharStyles.redefine(tmpStyles_);
+	doc_->docCharStyles.redefine(tmpStyles_, true);
 }
 
 void SMCharacterStyle::editMode(bool isOn)
