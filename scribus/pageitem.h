@@ -319,6 +319,8 @@ public:
 	int FrameType;
   /** Interne Item-Nummer */
 	uint ItemNr;
+  /** Internal unique Item-Number, used for the undo system */
+	uint uniqueNr;
   /** Hat Element Rahmen? */
 	bool Frame;
   /** Seite zu der das Element gehoert */

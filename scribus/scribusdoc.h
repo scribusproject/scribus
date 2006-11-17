@@ -521,7 +521,8 @@ public:
 	 * Only to be called from itemAdd()
 	 */
 	void itemAddDetails(const PageItem::ItemType itemType, const PageItem::ItemFrameType frameType, const int itemNumber);
-	
+
+	uint getItemNrfromUniqueID(uint unique);
 	//itemDelete
 	//itemBlah...
 	

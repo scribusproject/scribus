@@ -3346,6 +3346,20 @@ bool ScribusDoc::itemAddCommit(const int /*itemNumber*/)
 	return false;
 }
 
+uint ScribusDoc::getItemNrfromUniqueID(uint unique)
+{
+	uint ret = 0;
+	for (uint a = 0; a < Items->count(); ++a)
+	{
+		if (Items->at(a)->uniqueNr == unique)
+		{
+			ret = Items->at(a)->ItemNr;
+			break;
+		}
+	}
+	return ret;
+}
+
 void ScribusDoc::updateFrameItems()
 {
 	uint frameItemsCount=FrameItems.count();

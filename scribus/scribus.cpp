@@ -8065,7 +8065,6 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		int z = doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, gx, gy, gw, gh, 0, doc->toolSettings.dBrush, doc->toolSettings.dPen, true);
 		PageItem *neu = doc->Items->take(z);
 		doc->Items->insert(lowestItem, neu);
-//		neu->Groups.push(doc->GroupCounter);
 		neu->setItemName( tr("Group%1").arg(doc->GroupCounter));
 		neu->AutoName = false;
 		neu->isGroupControl = true;
@@ -8094,14 +8093,13 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		selectedItemCount=doc->m_Selection->count();
 		SimpleState *ss = new SimpleState(Um::Group, tooltip);
 		ss->set("GROUP", "group");
-		ss->set("itemcount", selectedItemCount-1);
+		ss->set("itemcount", selectedItemCount);
 
 		for (uint a=0; a<selectedItemCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
 			currItem->Groups.push(doc->GroupCounter);
-			if (a != 0)
-				ss->set(QString("item%1").arg(a), currItem->ItemNr);
+			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 		}
 		doc->GroupCounter++;
 		view->updateContents(QRect(static_cast<int>(x-5), static_cast<int>(y-5), static_cast<int>(w+10), static_cast<int>(h+10)));
@@ -8126,10 +8124,6 @@ void ScribusMainWindow::UnGroupObj()
 		{
 			currItem = doc->m_Selection->itemAt(a);
 			currItem->Groups.pop();
-/*			currItem->LeftLink = 0;
-			currItem->RightLink = 0;
-			currItem->TopLink = 0;
-			currItem->BottomLink = 0; */
 			lowestItem = QMIN(lowestItem, currItem->ItemNr);
 		}
 		if (doc->Items->at(lowestItem)->isGroupControl)
@@ -8149,7 +8143,7 @@ void ScribusMainWindow::UnGroupObj()
 		for (uint a=0; a<docSelectionCount; ++a)
 		{
 			currItem = doc->m_Selection->itemAt(a);
-			ss->set(QString("item%1").arg(a), currItem->ItemNr);
+			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
 			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
 			tooltip += "\t" + currItem->getUName() + "\n";
 			currItem->isTableItem = false;
@@ -8279,8 +8273,9 @@ void ScribusMainWindow::restoreGrouping(SimpleState *state, bool isUndo)
 	view->Deselect();
 	for (int i = 0; i < itemCount; ++i)
 	{
-		int itemNr = state->getInt(QString("item%1").arg(i));
-		view->SelectItemNr(itemNr);
+		int itemNr = doc->getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
+		if (doc->Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
+			view->SelectItemNr(itemNr);
 	}
 	if (isUndo)
 	{
@@ -8311,10 +8306,13 @@ void ScribusMainWindow::restoreUngrouping(SimpleState *state, bool isUndo)
 	view->Deselect();
 	for (int i = 0; i < itemCount; ++i)
 	{
-		int itemNr = state->getInt(QString("item%1").arg(i));
-		if (isUndo)
-			doc->Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
-		view->SelectItemNr(itemNr);
+		int itemNr = doc->getItemNrfromUniqueID(state->getUInt(QString("item%1").arg(i)));
+		if (doc->Items->at(itemNr)->uniqueNr == state->getUInt(QString("item%1").arg(i)))
+		{
+			if (isUndo)
+				doc->Items->at(itemNr)->isTableItem = static_cast<bool>(state->getInt(QString("tableitem%1").arg(i)));
+			view->SelectItemNr(itemNr);
+		}
 	}
 	if (isUndo)
 		GroupObj(false);

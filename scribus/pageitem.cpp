@@ -237,6 +237,10 @@ PageItem::PageItem(const PageItem & other)
 	m_lineWidth(other.m_lineWidth),
 	Oldm_lineWidth(other.Oldm_lineWidth)
 {
+	QString tmp;
+	m_Doc->TotalItems++;
+	AnName += tmp.setNum(m_Doc->TotalItems);
+	uniqueNr = m_Doc->TotalItems;
 }
 
 
@@ -382,6 +386,7 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	}
 	m_Doc->TotalItems++;
 	AnName += tmp.setNum(m_Doc->TotalItems); // +" "+QDateTime::currentDateTime().toString();
+	uniqueNr = m_Doc->TotalItems;
 	AutoName = true;
 	setUName(AnName);
 	m_annotation.setBorderColor(outline);
