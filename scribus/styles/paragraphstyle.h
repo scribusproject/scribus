@@ -31,6 +31,19 @@ public:
 		Justified    = 3,
 		Extended     = 4
 	};
+	enum OpticalMarginType {
+		OM_None  = 0,
+		OM_LeftProtruding    = 1,
+		OM_RightProtruding   = 2,
+		OM_LeftHangingPunct  = 4,
+		OM_RightHangingPunct = 8,
+		OM_Default           = OM_RightProtruding + OM_LeftHangingPunct + OM_RightHangingPunct
+	};
+	enum HyphenationMode {
+		NoHyphenation        = 0,
+		ManualHyphenation    = 1,
+		AutomaticHyphenation = 2
+	};
 	struct TabRecord
 	{
 		double tabPosition;

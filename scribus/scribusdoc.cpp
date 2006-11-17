@@ -349,25 +349,24 @@ void ScribusDoc::init()
 		PageColors.insert(prefsData.toolSettings.dTextLineColor, prefsData.DColors[prefsData.toolSettings.dTextLineColor]);
 
 	
-	ParagraphStyle vg;
-//	vg.setName("Normal Internal");
-	vg.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
-	vg.setLineSpacing(15);
-	vg.setAlignment(ParagraphStyle::Leftaligned);
-	vg.setLeftMargin(0);
-	vg.setFirstIndent(0);
-	vg.setRightMargin(0);
-	vg.setGapBefore(0);
-	vg.setGapAfter(0);
-//	vg.tabValues().clear();
-	vg.setHasDropCap(false);
-	vg.setDropCapLines(2);
-	vg.setDropCapOffset(0);
-	vg.setUseBaselineGrid(false);
-	vg.charStyle().setBase( & docCharStyles );
-
+	ParagraphStyle pstyle;
+	pstyle.setName(tr("Default Paragraphstyle"));
+	pstyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
+	pstyle.setLineSpacing(15);
+	pstyle.setAlignment(ParagraphStyle::Leftaligned);
+	pstyle.setLeftMargin(0);
+	pstyle.setFirstIndent(0);
+	pstyle.setRightMargin(0);
+	pstyle.setGapBefore(0);
+	pstyle.setGapAfter(0);
+	pstyle.setHasDropCap(false);
+	pstyle.setDropCapLines(2);
+	pstyle.setDropCapOffset(0);
+	pstyle.setUseBaselineGrid(false);
+	pstyle.charStyle().setParent(tr("Default Charstyle"));
 	
-	CharStyle& cstyle(vg.charStyle());
+	CharStyle cstyle;
+	cstyle.setName(tr("Default Charstyle"));
 	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
 	cstyle.setFontSize(toolSettings.defSize);
 	cstyle.setEffects(ScStyle_Default);
@@ -388,25 +387,14 @@ void ScribusDoc::init()
 	cstyle.setTracking(0);
 	cstyle.setLanguage(PrefsManager::instance()->appPrefs.Language);
 	
-	docParagraphStyles.create(vg);
+	docParagraphStyles.create(pstyle);
 	docParagraphStyles.makeDefault( &(docParagraphStyles[0]) );
-	docCharStyles.makeDefault( &(docParagraphStyles[0].charStyle()) );
-	
-	currentStyle = vg;
-#if 0
-	vg.setName("Center Internal");
-	vg.setAlignment(1);
-	docParagraphStyles.create(vg);
-	vg.setName("Rechts Internal");
-	vg.setAlignment(2);
-	docParagraphStyles.create(vg);
-	vg.setName("Block Internal");
-	vg.setAlignment(3);
-	docParagraphStyles.create(vg);
-	vg.setName("EBlock Internal");
-	vg.setAlignment(4);
-	docParagraphStyles.create(vg);
-#endif
+
+	docCharStyles.create(cstyle);
+	docCharStyles.makeDefault( &(docCharStyles[0]) );
+	docParagraphStyles[0].charStyle().setBase( & docCharStyles );
+
+	currentStyle = pstyle;
 	
 	struct Layer ll;
 	ll.LNr = 0;

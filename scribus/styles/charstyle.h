@@ -153,6 +153,7 @@ inline CharStyle & CharStyle::operator=(const CharStyle & other)
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	m_base = NULL;
 	m_baseversion = -1;
 	return *this;
 }
@@ -164,6 +165,7 @@ inline CharStyle::CharStyle(const CharStyle & other) : Style(other)
 	inh_##attr_NAME = other.inh_##attr_NAME;
 #include "charstyle.attrdefs.cxx"
 #undef ATTRDEF
+	m_base = NULL;
 	m_baseversion = -1;
 }
 

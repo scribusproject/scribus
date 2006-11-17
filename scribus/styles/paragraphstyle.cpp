@@ -20,6 +20,7 @@
 
 ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle()
 {
+	setBase(NULL);
 	cstyle.setBase(NULL);
 	setParent("");
 	cstyleBase.setDefaultStyle( &cstyle );
@@ -34,12 +35,8 @@ ParagraphStyle::ParagraphStyle() : Style(), cstyleBase(StyleBase::PAR_LEVEL, NUL
 
 ParagraphStyle::ParagraphStyle(const ParagraphStyle& other) : Style(other), cstyleBase(StyleBase::PAR_LEVEL, NULL), cstyle(other.charStyle())
 {
-	// we want to inherit parent's charstyle:
-	const ParagraphStyle* par = dynamic_cast<const ParagraphStyle*>(parentStyle());
-	if (par)
-		cstyle.setBase(par->charStyleBase());
-	else
-		cstyle.setBase(NULL);
+	setBase(NULL);
+	cstyle.setBase(NULL);
 	cstyleBase.setDefaultStyle( &cstyle );
 //	qDebug(QString("ParagraphStyle(%2) %1").arg(reinterpret_cast<uint>(&other)).arg(reinterpret_cast<uint>(this)));
 	other.validate();
@@ -122,17 +119,16 @@ ParagraphStyle& ParagraphStyle::operator=(const ParagraphStyle& other)
 {
 	other.validate();
 	static_cast<Style&>(*this) = static_cast<const Style&>(other);
+
 	cstyle = other.charStyle();
 	cstyleBase = other.cstyleBase;
+
+	setBase(NULL);
 	// we dont want cstyleBase to point to other's charstyle...
+	cstyle.setBase(NULL);
 	cstyleBase.setDefaultStyle( &cstyle );
 	cstyleBase.invalidate();
-	// we want to inherit parent's charstyle:
-	const ParagraphStyle* par = dynamic_cast<const ParagraphStyle*>(parentStyle());
-	if (par)
-		cstyle.setBase(par->charStyleBase());
-	else
-		cstyle.setBase(NULL);
+
 #define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
 	m_##attr_NAME = other.m_##attr_NAME; \
 	inh_##attr_NAME = other.inh_##attr_NAME;
@@ -158,9 +154,6 @@ void ParagraphStyle::update(const StyleBase* base)
 			m_##attr_NAME = oth->attr_GETTER();
 #include "paragraphstyle.attrdefs.cxx"
 #undef ATTRDEF
-	}
-	else {
-		cstyle.setBase(NULL);
 	}
 	cstyleBase.invalidate();
 }
