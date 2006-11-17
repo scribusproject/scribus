@@ -198,7 +198,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 {
 	parentCombo->setEnabled(true);
 	const ParagraphStyle *parent = dynamic_cast<const ParagraphStyle*>(pstyle->parentStyle());
-	hasParent_ = parent != NULL && parent->hasName();
+	hasParent_ = pstyle->hasParent() && parent != NULL && parent->hasName() && pstyle->parent() != "";
 
 	lineSpacingMode_->clear();
 	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
@@ -291,8 +291,8 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 
 	for (uint i = 0; i < pstyles.count(); ++i)
 	{
-		if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle->displayName())
-			parentCombo->insertItem(pstyles[i].displayName());
+		if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
+			parentCombo->insertItem(pstyles[i].name());
 	}
 
 	if (hasParent_)
@@ -300,7 +300,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == parent->displayName())
+			if (parentCombo->text(i) == parent->name())
 			{
 				index = i;
 				break;
@@ -576,8 +576,8 @@ void SMPStyleWidget::showParent(QValueList<ParagraphStyle*> &pstyles)
 // 	parentCombo->insertItem("");
 // 	for (uint i = 0; i < pstyles.count(); ++i)
 // 	{
-// 		if (pstyles[i].hasName() && pstyles[i].displayName() != pstyle->name())
-// 			parentCombo->insertItem(pstyles[i].displayName());
+// 		if (pstyles[i].hasName() && pstyles[i].name() != pstyle->name())
+// 			parentCombo->insertItem(pstyles[i].name());
 // 	}
 // 
 // 	if (hasParent_)
@@ -856,7 +856,7 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 	disconnect(effects_, SIGNAL(State(int)), this, SLOT(slotColorChange()));
 	parentCombo->setEnabled(true);
 	const CharStyle *parent = dynamic_cast<const CharStyle*>(cstyle->parentStyle());
-	bool hasParent = parent != 0 && parent->hasName();
+	bool hasParent =  cstyle->hasParent() && parent != 0 && parent->hasName() && cstyle->parent() != "";
 	if (hasParent)
 	{
 		fontSize_->setValue(cstyle->fontSize() / 10.0, cstyle->isInhFontSize());
@@ -920,8 +920,8 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 	parentCombo->insertItem("");
 	for (uint i = 0; i < cstyles.count(); ++i)
 	{
-		if (cstyles[i].displayName() != cstyle->displayName())
-			parentCombo->insertItem(cstyles[i].displayName());
+		if (cstyles[i].name() != cstyle->name())
+			parentCombo->insertItem(cstyles[i].name());
 	}
 
 	if (hasParent)
@@ -929,7 +929,7 @@ void SMCStylePage::show(CharStyle *cstyle, QValueList<CharStyle> &cstyles, const
 		int index = 0;
 		for (int i = 0; i < parentCombo->count(); ++i)
 		{
-			if (parentCombo->text(i) == cstyle->parentStyle()->displayName())
+			if (parentCombo->text(i) == cstyle->parentStyle()->name())
 			{
 				index = i;
 				break;

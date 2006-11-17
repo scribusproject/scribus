@@ -21,7 +21,7 @@ class SMParagraphStyle : public StyleItem
 {
 	Q_OBJECT
 public:
-	SMParagraphStyle();
+	SMParagraphStyle(StyleSet<CharStyle> *cstyles);
 	~SMParagraphStyle();
 
 	QTabWidget* widget();
@@ -42,6 +42,7 @@ public:
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	void languageChange();
+	StyleSet<ParagraphStyle>* tmpStyles(); // butt ugly
 
 signals:
 	void selectionDirty();
@@ -51,6 +52,7 @@ private:
 	ScribusDoc *doc_;
 	bool selectionIsDirty_;
 	StyleSet<ParagraphStyle> tmpStyles_;
+	StyleSet<CharStyle> *cstyles_;
 	QValueList<ParagraphStyle*> selection_;
 	QValueList<RemoveItem> deleted_;
 
@@ -119,6 +121,7 @@ public:
 	void deleteStyles(const QValueList<RemoveItem> &removeList);
 	void nameChanged(const QString &newName);
 	void languageChange();
+	StyleSet<CharStyle>* tmpStyles();
 
 signals:
 	void selectionDirty();

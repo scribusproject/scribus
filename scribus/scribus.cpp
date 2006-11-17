@@ -447,8 +447,9 @@ void ScribusMainWindow::initPalettes()
 	// initializing style manager here too even it's not strictly a palette
 	styleManager = new StyleManager(this, "styleManager");
 	styleManager->addStyle(new SMLineStyle());
-	styleManager->addStyle(new SMParagraphStyle());
-	styleManager->addStyle(new SMCharacterStyle());
+	SMCharacterStyle *tmpCS = new SMCharacterStyle();
+	styleManager->addStyle(new SMParagraphStyle(tmpCS->tmpStyles()));
+	styleManager->addStyle(tmpCS);
 	connect(styleManager, SIGNAL(closed()), scrActions["editStyles"], SLOT(toggle()));
 
 	connect(docCheckerPalette, SIGNAL(selectElement(int, int)), this, SLOT(selectItemsFromOutlines(int, int)));

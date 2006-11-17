@@ -31,8 +31,10 @@ for which a new license (GPL+exception) is in place.
 
 #include <qtabwidget.h>
 
-SMParagraphStyle::SMParagraphStyle() : StyleItem(), pwidget_(0), doc_(0), selectionIsDirty_(false)
+SMParagraphStyle::SMParagraphStyle(StyleSet<CharStyle> *cstyles) : StyleItem(),
+pwidget_(0), doc_(0), selectionIsDirty_(false), cstyles_(cstyles)
 {
+	Q_ASSERT(cstyles_);
 	pwidget_ = new SMPStyleWidget();
 	Q_CHECK_PTR(pwidget_);
 }
@@ -73,6 +75,11 @@ void SMParagraphStyle::currentDoc(ScribusDoc *doc)
 	}
 }
 
+StyleSet<ParagraphStyle>* SMParagraphStyle::tmpStyles()
+{
+	return &tmpStyles_;
+}
+
 QValueList<StyleName> SMParagraphStyle::styles(bool reloadFromDoc)
 {
 	QValueList<StyleName> tmpList;
@@ -109,7 +116,7 @@ void SMParagraphStyle::reload()
 }
 
 void SMParagraphStyle::selected(const QStringList &styleNames)
-{ // TODO allow non saved styles to be used as a parent too
+{
 	if (!doc_)
 		return;
 
@@ -119,10 +126,10 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 
 	QValueList<ParagraphStyle> pstyles; // get saved styles
 	QValueList<CharStyle> cstyles;
-	for (uint i = 0; i < doc_->docParagraphStyles.count(); ++i)
-		pstyles << doc_->docParagraphStyles[i]; // TODO fetch from tmp styles not from doc
-	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
-		cstyles << doc_->docCharStyles[i]; // TODO fetch from tmp styles not from doc
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+		pstyles << tmpStyles_[i];
+	for (uint i = 0; i < cstyles_->count(); ++i)
+		cstyles << (*cstyles_)[i];
 
 	int index;
 	for (uint i = 0; i < styleNames.count(); ++i)
@@ -132,7 +139,7 @@ void SMParagraphStyle::selected(const QStringList &styleNames)
 			selection_.append(&tmpStyles_[index]);
 	}
 
-	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), doc_->docParagraphStyles[""].charStyle().language());
+	pwidget_->show(selection_, pstyles, cstyles, doc_->unitIndex(), (*cstyles_)[""].language());
 
 	setupConnections();
 }
@@ -239,7 +246,6 @@ start:
 	return s;
 }
 
-// copied over from ScMW::saveStyles() and removed all the commented bits
 void SMParagraphStyle::apply()
 {
 	if (!doc_)
@@ -252,7 +258,7 @@ void SMParagraphStyle::apply()
 	doc_->docParagraphStyles.redefine(tmpStyles_, true);
 
 	//FIXME replace deleted styles in doc
-	
+
 	deleted_.clear(); // deletion done at this point
 
 	doc_->scMW()->propertiesPalette->Spal->updateFormatList();
@@ -376,6 +382,8 @@ void SMParagraphStyle::reloadTmpStyles()
 	tmpStyles_.clear();
 	deleted_.clear();
 	tmpStyles_.redefine(doc_->docParagraphStyles, true);
+	Q_ASSERT(tmpStyles_.count() > 0);
+	tmpStyles_[0].charStyle().setBase(cstyles_);
 }
 
 void SMParagraphStyle::setupConnections()
@@ -1138,9 +1146,7 @@ void SMParagraphStyle::slotCharParentChanged(const QString &parent)
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
 		selection_[i]->charStyle().erase();
-		if (parent == QString::null)
-			selection_[i]->charStyle().setParent("");
-		else
+		if (parent != QString::null)
 			selection_[i]->charStyle().setParent(parent);
 
 		sel << selection_[i]->name();
@@ -1208,6 +1214,11 @@ void SMCharacterStyle::currentDoc(ScribusDoc *doc)
 
 }
 
+StyleSet<CharStyle>* SMCharacterStyle::tmpStyles()
+{
+	return &tmpStyles_;
+}
+
 QValueList<StyleName> SMCharacterStyle::styles(bool reloadFromDoc)
 {
 	QValueList<StyleName> tmpList;
@@ -1247,8 +1258,8 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 	removeConnections();
 	QValueList<CharStyle> cstyles;
 
-	for (uint i = 0; i < doc_->docCharStyles.count(); ++i)
-		cstyles << doc_->docCharStyles[i]; // TODO use tmp styles instead of doc styles
+	for (uint i = 0; i < tmpStyles_.count(); ++i)
+		cstyles << tmpStyles_[i];
 
 	for (uint i = 0; i < styleNames.count(); ++i)
 	{
