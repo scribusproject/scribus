@@ -373,11 +373,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		tabFonts = new QWidget( this, "tabFonts" );
 		tabLayout_3 = new QVBoxLayout( tabFonts );
 		tabLayout_3->setSpacing( 5 );
-		tabLayout_3->setMargin( 11 );
-		EmbedFonts = new QCheckBox( tr( "&Embed all Fonts" ), tabFonts, "EmbedFonts" );
-		tabLayout_3->addWidget( EmbedFonts );
-		SubsetFonts = new QCheckBox( tr( "&Subset all Fonts" ), tabFonts, "SubsetFonts" );
-		tabLayout_3->addWidget( SubsetFonts );
+		tabLayout_3->setMargin( 10 );
 		GroupFont = new QGroupBox( tr( "Embedding" ), tabFonts, "GroupFont" );
 		GroupFont->setColumnLayout(0, Qt::Vertical );
 		GroupFont->layout()->setSpacing( 0 );
@@ -419,6 +415,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		Layout5_2a = new QHBoxLayout;
 		Layout5_2a->setSpacing( 5 );
 		Layout5_2a->setMargin( 0 );
+		EmbedFonts = new QPushButton( tr( "&Embed all" ), GroupFont, "EmbedFonts" );
+		Layout5_2a->addWidget( EmbedFonts );
 		QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS1 );
 		ToSubset = new QPushButton( "", GroupFont, "ToSubset" );
@@ -435,6 +433,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		SubsetList = new QListBox( GroupFont, "SubsetList" );
 		SubsetList->setMinimumSize(QSize(150, 40));
 		Layout6->addWidget( SubsetList );
+		SubsetFonts = new QPushButton( tr( "&Subset all" ), GroupFont, "SubsetFonts" );
+		Layout6->addWidget( SubsetFonts );
 		GroupFontLayout->addLayout( Layout6 );
 		tabLayout_3->addWidget( GroupFont );
 		insertTab( tabFonts, tr( "&Fonts" ) );
@@ -1019,7 +1019,7 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		FromSubset->setEnabled(false);
 		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
 		{
-			EmbedFonts->setChecked(true);
+//			EmbedFonts->setChecked(true);
 			EmbedAll();
 		}
 		else
@@ -1041,8 +1041,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 					FontsToSubset.append(Opts.SubsetList[fe]);
 				}
 			}
-			if (DocFonts.count() == FontsToEmbed.count() + FontsToSubset.count())
-				EmbedFonts->setChecked(true);
+//			if (DocFonts.count() == FontsToEmbed.count() + FontsToSubset.count())
+//				EmbedFonts->setChecked(true);
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
 		QString tmp;
@@ -1367,11 +1367,11 @@ void TabPDFOptions::EnablePDFX(int a)
 	EmbedProfs2->setEnabled(false);
 	if (doc != 0 && pdfExport)
 	{
-		EmbedFonts->setChecked(true);
+//		EmbedFonts->setChecked(true);
 		EmbedAll();
 		CheckBox10->setChecked(false);
 		CheckBox10->setEnabled(false);
-		EmbedFonts->setEnabled(false);
+//		EmbedFonts->setEnabled(false);
 		FromEmbed->setEnabled(false);
 		ToEmbed->setEnabled(false);
 		if (InfoString->text().isEmpty())
@@ -1793,7 +1793,7 @@ void TabPDFOptions::PutToSubset()
 
 void TabPDFOptions::SelAFont(QListBoxItem *c)
 {
-	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	if (c != NULL) // && (!EmbedFonts->isChecked()))
 	{
 		FromEmbed->setEnabled(false);
 		if (c->isSelectable())
@@ -1807,7 +1807,7 @@ void TabPDFOptions::SelAFont(QListBoxItem *c)
 
 void TabPDFOptions::SelEFont(QListBoxItem *c)
 {
-	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	if (c != NULL) // && (!EmbedFonts->isChecked()))
 	{
 		if (PDFVersionCombo->currentItem() != 3)
 			FromEmbed->setEnabled(true);
@@ -1821,7 +1821,7 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 
 void TabPDFOptions::SelSFont(QListBoxItem *c)
 {
-	if ((c != NULL) && (!EmbedFonts->isChecked()))
+	if (c != NULL) // && (!EmbedFonts->isChecked()))
 	{
 		FromSubset->setEnabled(true);
 		ToSubset->setEnabled(false);
@@ -1834,9 +1834,9 @@ void TabPDFOptions::SelSFont(QListBoxItem *c)
 
 void TabPDFOptions::EmbedAll()
 {
-	if (EmbedFonts->isChecked())
-	{
-		SubsetFonts->setChecked(false);
+//	if (EmbedFonts->isChecked())
+//	{
+//		SubsetFonts->setChecked(false);
 		EmbedList->clear();
 		FontsToEmbed.clear();
 		SubsetList->clear();
@@ -1861,14 +1861,14 @@ void TabPDFOptions::EmbedAll()
 				}
 			}
 		}
-	}
+//	}
 }
 
 void TabPDFOptions::SubsetAll()
 {
-	if (SubsetFonts->isChecked())
-	{
-		EmbedFonts->setChecked(false);
+//	if (SubsetFonts->isChecked())
+//	{
+//		EmbedFonts->setChecked(false);
 		EmbedList->clear();
 		FontsToEmbed.clear();
 		SubsetList->clear();
@@ -1885,7 +1885,7 @@ void TabPDFOptions::SubsetAll()
 				SubsetList->insertItem(AvailFlist->item(a)->text());
 			}
 		}
-	}
+//	}
 }
 
 void TabPDFOptions::unitChange(QString unit, int docUnitIndex, int decimals, double invUnitConversion)
