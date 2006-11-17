@@ -63,7 +63,9 @@ public:
 	
 	virtual int version() const  { return m_version; }
 	void invalidate()    { m_version += m_level; }
-	
+
+	virtual bool baseContained(const StyleBase* base) const { return base == this; }
+	virtual bool checkConsistency() const { return true; }
 	virtual const Style* resolve(const QString& name) const = 0;
 	virtual ~StyleBase() 
 	{
@@ -138,10 +140,11 @@ public:
 	}
 	
 	
-	void setBase(const StyleBase* base)  { 
+	virtual void setBase(const StyleBase* base)  { 
 		if (m_base != base) {
-			m_base = base; 
+			m_base = base;
 			m_baseversion = -1;
+			assert( !m_base || m_base->checkConsistency() );
 		}
 	  //qDebug(QString("setBase of %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
 	}
@@ -153,7 +156,6 @@ public:
 	 */
 	virtual void update(const StyleBase* b = NULL) 
 	{
-//		qDebug(QString("update %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
 		if (b)
 			m_base = b;
 		if (m_base)
@@ -165,9 +167,10 @@ public:
 	 */
 	void validate() const
 	{ 
-//		qDebug(QString("validate %2 base %1").arg(reinterpret_cast<uint>(m_base),16).arg(reinterpret_cast<uint>(this),16));
-		if (m_base && m_baseversion != m_base->version()) 
+		if (m_base && m_baseversion != m_base->version()) {
 			const_cast<Style*>(this)->update(m_base); 
+			assert( m_base->checkConsistency() );
+		}
 	}
 
 	QString shortcut() const { return m_shortcut; }
@@ -219,18 +222,21 @@ class StyleBaseProxy: public StyleBase
 {
 public:
 	const Style* resolve(const QString& name) const {
-		if (name.isEmpty() || ! m_default->base())
+		const StyleBase* base = m_default->base();
+		if (name.isEmpty() || ! base)
 			return m_default;
+		else if (this == base)
+			return NULL;
 		else
-			return m_default->base()->resolve(name);
+			return base->resolve(name);
 	}
 	
 	StyleBaseProxy(int level, const Style* style) 
-	: StyleBase(level), m_default(style) {
+	: StyleBase(level), m_default(style), m_debugcnt(0) {
 	}
 	
 	StyleBaseProxy(const StyleBaseProxy& other)
-	: StyleBase(other), m_default(other.m_default) {
+	: StyleBase(other), m_default(other.m_default), m_debugcnt(0) {
 	}
 	
 	StyleBaseProxy& operator= (const StyleBaseProxy& other)
@@ -241,20 +247,37 @@ public:
 	}
 	
 	int version() const  { 
-		assert (this != m_default->base());
-//		qDebug(QString("version? %1 default %2 base %3").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<int>(m_default)).arg(reinterpret_cast<int>(m_default->base())));
-		return m_default->base() ? m_version ^ m_default->base()->version() : m_version; 
+		++m_debugcnt;
+		const StyleBase* base = m_default->base();
+		assert (m_debugcnt < 50);
+		int result = (base && base != this) ? m_version ^ base->version() : m_version; 
+		--m_debugcnt;
+		return result;
 	}
 		
 	const Style* defaultStyle() const { return m_default; }
 	
 	void setDefaultStyle(const Style* def) { 
-		assert (this != def->base());
+		assert(def);
 		m_default = def; 
+	}
+	
+	bool checkConsistency() const 
+	{ 
+		const StyleBase* base = m_default->base();
+		return !base || base == this || !base->baseContained(this);
+	}
+	
+	bool baseContained(const StyleBase* base) const 
+	{
+		const StyleBase* mybase = m_default->base();
+		return base == this || 
+			(mybase && mybase->baseContained(base));
 	}
 	
 private:
 	const Style* m_default;
+	mutable int m_debugcnt;
 };
 
 
