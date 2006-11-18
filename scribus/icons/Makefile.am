@@ -99,9 +99,13 @@ ellipsis.png \
 22/lock.png \
 16/lock-unlocked.png \
 22/lock-unlocked.png \
+16/page-3fold.png \
 32/page-3fold.png \
+16/page-4fold.png \
 32/page-4fold.png \
+16/page-doublesided.png \
 32/page-doublesided.png \
+16/page-simple.png \
 32/page-simple.png \
 22/pdf-annotations.png \
 22/pointer.png \
@@ -205,9 +209,13 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/blend.png $(prefix)/share/scribus/icons/blend.png
 	$(INSTALL_DATA) $(srcdir)/bottom.png $(prefix)/share/scribus/icons/bottom.png
 	$(INSTALL_DATA) $(srcdir)/ButtCap.png $(prefix)/share/scribus/icons/ButtCap.png
+	$(INSTALL_DATA) $(srcdir)/16/page-3fold.png $(prefix)/share/scribus/icons/16/page-3fold.png
 	$(INSTALL_DATA) $(srcdir)/32/page-3fold.png $(prefix)/share/scribus/icons/32/page-3fold.png
+	$(INSTALL_DATA) $(srcdir)/16/page-4fold.png $(prefix)/share/scribus/icons/16/page-4fold.png
 	$(INSTALL_DATA) $(srcdir)/32/page-4fold.png $(prefix)/share/scribus/icons/32/page-4fold.png
+	$(INSTALL_DATA) $(srcdir)/16/page-doublesided.png $(prefix)/share/scribus/icons/16/page-doublesided.png
 	$(INSTALL_DATA) $(srcdir)/32/page-doublesided.png $(prefix)/share/scribus/icons/32/page-doublesided.png
+	$(INSTALL_DATA) $(srcdir)/16/page-simple.png $(prefix)/share/scribus/icons/16/page-simple.png	
 	$(INSTALL_DATA) $(srcdir)/32/page-simple.png $(prefix)/share/scribus/icons/32/page-simple.png
 	$(INSTALL_DATA) $(srcdir)/22/pdf-annotations.png $(prefix)/share/scribus/icons/22/pdf-annotations.png
 	$(INSTALL_DATA) $(srcdir)/22/checkbox.png $(prefix)/share/scribus/icons/22/checkbox.png
@@ -841,6 +849,14 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/ooo_writer.png
 	-rm -f $(prefix)/share/scribus/icons/outlined.png
 	-rm -f $(prefix)/share/scribus/icons/page.png
+	-rm -f $(prefix)/share/scribus/icons/16/page-3fold.png
+	-rm -f $(prefix)/share/scribus/icons/32/page-3fold.png
+	-rm -f $(prefix)/share/scribus/icons/16/page-4fold.png
+	-rm -f $(prefix)/share/scribus/icons/32/page-4fold.png
+	-rm -f $(prefix)/share/scribus/icons/16/page-doublesided.png
+	-rm -f $(prefix)/share/scribus/icons/32/page-doublesided.png
+	-rm -f $(prefix)/share/scribus/icons/16/page-simple.png
+	-rm -f $(prefix)/share/scribus/icons/32/page-simple.png
 	-rm -f $(prefix)/share/scribus/icons/pdf.png
 	-rm -f $(prefix)/share/scribus/icons/penciladd.png
 	-rm -f $(prefix)/share/scribus/icons/pencilsub.png

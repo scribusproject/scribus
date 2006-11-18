@@ -73,15 +73,15 @@ void PageLayouts::updateLayoutSelector(QValueList<PageSet> pSets)
 	{
 		QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 		if (pg == 0)
-			layoutsCombo->insertItem(loadIcon("pagesingle16.png"), psname);
+			layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
 		else if (pg == 1)
-			layoutsCombo->insertItem(loadIcon("pagedouble16.png"), psname);
+			layoutsCombo->insertItem(loadIcon("16/page-doublesided.png"), psname);
 		else if (pg == 2)
-			layoutsCombo->insertItem(loadIcon("pagetriple16.png"), psname);
+			layoutsCombo->insertItem(loadIcon("16/page-3fold.png"), psname);
 		else if (pg == 3)
-			layoutsCombo->insertItem(loadIcon("pagequadro16.png"), psname);
+			layoutsCombo->insertItem(loadIcon("16/page-4fold.png"), psname);
 		else
-			layoutsCombo->insertItem(loadIcon("page16.png"), psname);
+			layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
 	}
 	connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));
 }
@@ -234,15 +234,15 @@ void PageLayouts::languageChange()
 		{
 			QString psname=CommonStrings::translatePageSetString(pageSets[pg].Name);
 			if (pg == 0)
-				layoutsCombo->insertItem(loadIcon("pagesingle16.png"), psname);
+				layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
 			else if (pg == 1)
-				layoutsCombo->insertItem(loadIcon("pagedouble16.png"), psname);
+				layoutsCombo->insertItem(loadIcon("16/page-doublesided.png"), psname);
 			else if (pg == 2)
-				layoutsCombo->insertItem(loadIcon("pagetriple16.png"), psname);
+				layoutsCombo->insertItem(loadIcon("16/page-3fold.png"), psname);
 			else if (pg == 3)
-				layoutsCombo->insertItem(loadIcon("pagequadro16.png"), psname);
+				layoutsCombo->insertItem(loadIcon("16/page-4fold.png"), psname);
 			else
-				layoutsCombo->insertItem(loadIcon("page16.png"), psname);
+				layoutsCombo->insertItem(loadIcon("16/page-simple.png"), psname);
 		}
 		layoutsCombo->setCurrentItem(currIndex);
 		connect(layoutsCombo, SIGNAL(activated(int)), this, SLOT(itemSelected(int)));

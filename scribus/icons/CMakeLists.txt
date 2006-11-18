@@ -369,6 +369,10 @@ INSTALL(FILES
 16/lock.png
 16/lock-unlocked.png
 16/measure.png
+16/page-3fold.png
+16/page-4fold.png
+16/page-doublesided.png
+16/page-simple.png
 16/preflight-verifier.png
 16/show-object.png
 16/story-editor.png
