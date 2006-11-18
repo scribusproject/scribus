@@ -810,7 +810,7 @@ void SEditor::ClipChange()
 SToolBColorF::SToolBColorF(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Fill Color Settings"), parent)
 {
 	FillIcon = new QLabel( "", this, "FillIcon" );
-	FillIcon->setPixmap(loadIcon("fill.png"));
+	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	FillIcon->setScaledContents( false );
 	TxFill = new ColorCombo( false, this, "TxFill" );
 	PM2 = new ShadeButton(this);
@@ -870,7 +870,7 @@ void SToolBColorF::newShadeHandler()
 SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
 {
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
+	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	StrokeIcon->setScaledContents( false );
 	TxStroke = new ColorCombo( false, this, "TxStroke" );
 	PM1 = new ShadeButton(this);

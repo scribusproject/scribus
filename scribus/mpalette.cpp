@@ -611,7 +611,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
 	layout23->setAlignment( Qt::AlignLeft );
 	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
+	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
 	TxStroke = new ColorCombo( false, page_3, "TxStroke" );
@@ -625,7 +625,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout24 = new QHBoxLayout( 0, 0, 5, "layout24");
 	layout24->setAlignment( Qt::AlignLeft );
 	FillIcon = new QLabel( "", page_3, "FillIcon" );
-	FillIcon->setPixmap(loadIcon("fill.png"));
+	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	layout24->addWidget( FillIcon );
 	TxFill = new ColorCombo( false, page_3, "TxFill" );
 	layout24->addWidget( TxFill );

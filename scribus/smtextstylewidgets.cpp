@@ -731,7 +731,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 	layout5 = new QHBoxLayout( 0, 0, 5, "layout5");
 	FillIcon = new QLabel( "", characterBox, "FillIcon" );
-	FillIcon->setPixmap(loadIcon("fill.png"));
+	FillIcon->setPixmap(loadIcon("16/color-fill.png"));
 	layout5->addWidget( FillIcon );
 
 	fillColor_ = new SMColorCombo(characterBox, "TxFill");
@@ -751,7 +751,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 	layout6 = new QHBoxLayout( 0, 0, 5, "layout6");
 	StrokeIcon = new QLabel( "", characterBox, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
+	StrokeIcon->setPixmap(loadIcon("16/color-stroke.png"));
 	layout6->addWidget( StrokeIcon );
 
 	strokeColor_ = new SMColorCombo(characterBox, "TxStroke");

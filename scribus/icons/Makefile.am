@@ -7,6 +7,8 @@ ellipsis.png \
 22/checkbox.png \
 16/close.png \
 22/close.png \
+16/color-fill.png \
+16/color-stroke.png \
 22/combobox.png \
 22/color-picker.png \
 16/document-new.png \
@@ -121,7 +123,6 @@ ellipsis.png \
 16/stroke-cap-butt.png \
 16/stroke-cap-round.png \
 16/stroke-cap-square.png \
-16/stroke-color.png \
 16/stroke-join-bevel.png \
 16/stroke-join-miter.png \
 16/stroke-join-round.png \
@@ -225,6 +226,8 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/22/close.png $(prefix)/share/scribus/icons/22/close.png
 	$(INSTALL_DATA) $(srcdir)/colorpicker.png $(prefix)/share/scribus/icons/colorpicker.png
 	$(INSTALL_DATA) $(srcdir)/22/color-picker.png $(prefix)/share/scribus/icons/22/color-picker.png
+	$(INSTALL_DATA) $(srcdir)/16/color-fill.png $(prefix)/share/scribus/icons/16/color-fill.png
+	$(INSTALL_DATA) $(srcdir)/16/color-stroke.png $(prefix)/share/scribus/icons/16/color-stroke.png
 	$(INSTALL_DATA) $(srcdir)/22/combobox.png $(prefix)/share/scribus/icons/22/combobox.png
 	$(INSTALL_DATA) $(srcdir)/compfile.png $(prefix)/share/scribus/icons/compfile.png
 	$(INSTALL_DATA) $(srcdir)/compfile16.png $(prefix)/share/scribus/icons/compfile16.png
@@ -504,7 +507,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-butt.png $(prefix)/share/scribus/icons/16/stroke-cap-butt.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-round.png $(prefix)/share/scribus/icons/16/stroke-cap-round.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-square.png $(prefix)/share/scribus/icons/16/stroke-cap-square.png
-	$(INSTALL_DATA) $(srcdir)/16/stroke-color.png $(prefix)/share/scribus/icons/16/stroke-color.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-join-bevel.png $(prefix)/share/scribus/icons/16/stroke-join-bevel.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-join-miter.png $(prefix)/share/scribus/icons/16/stroke-join-miter.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-join-round.png $(prefix)/share/scribus/icons/16/stroke-join-round.png
@@ -637,6 +639,8 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/22/close.png
 	-rm -f $(prefix)/share/scribus/icons/colorpicker.png
 	-rm -f $(prefix)/share/scribus/icons/color-picker.png
+	-rm -f $(prefix)/share/scribus/icons/16/color-fill.png
+	-rm -f $(prefix)/share/scribus/icons/16/color-stroke.png	
 	-rm -f $(prefix)/share/scribus/icons/22/combobox.png
 	-rm -f $(prefix)/share/scribus/icons/compfile.png
 	-rm -f $(prefix)/share/scribus/icons/compfile16.png
@@ -917,7 +921,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-butt.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-round.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-square.png
-	-rm -f $(prefix)/share/scribus/icons/16/stroke-color.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-bevel.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-miter.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-round.png
