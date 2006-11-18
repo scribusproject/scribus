@@ -72,6 +72,7 @@ class CheckDocument;
 
 class FontCombo;
 class GuideManager;
+class CharSelect;
 class ColorCombo;
 class LayerPalette;
 class LineFormate;
@@ -200,6 +201,7 @@ public:
 	QLabel* mainWindowYPosLabel;
 	QLabel* mainWindowYPosDataLabel;
 	GuideManager *guidePalette;
+	CharSelect *charPalette;
 	Mpalette *propertiesPalette;
 	NodePalette *nodePalette;
 	Tree *outlinePalette;
@@ -225,9 +227,9 @@ public:
 
 	QMap<QString, QStringList> InstLang;
 	QMap<QString,QString> LangTransl;
-	
+
 	QProcess *ExternalApp;
-	
+
 	QMap<QString, QGuardedPtr<ScrAction> > scrActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrRecentFileActions;
 	QMap<QString, QGuardedPtr<ScrAction> > scrWindowsActions;
@@ -528,7 +530,7 @@ public slots:
 	void slotInsertFrame();
 	//! \brief manages the documents patterns
 	void managePatterns();
-	
+
 signals:
 	void TextISize(int);
 	void TextIFont(QString);
@@ -564,7 +566,7 @@ private:
 	void initKeyboardShortcuts();
 	void initPalettes();
 	void initScrapbook();
-	
+
 	void updateColorMenu(QProgressBar* progressBar=NULL);
 
 	QLabel* mainWindowStatusLabel;
@@ -610,7 +612,7 @@ private:
 
 	void addNewPages(int wo, int where, int numPages, double height, double width, int orient, QString siz, bool mov, QStringList* basedOn = 0);
 	QMap<int,QString> FontID;
-	
+
 	void *PSDriver;
 	int DocNr;
 	bool PrinterUsed;
@@ -627,7 +629,7 @@ private:
 	double storedViewScale;
 	StyleManager *styleManager;
 	UndoManager *undoManager;
-	PrefsManager *prefsManager;	
+	PrefsManager *prefsManager;
 };
 
 #endif

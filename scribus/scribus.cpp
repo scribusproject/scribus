@@ -234,19 +234,19 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	scrMenuMgr = new MenuManager(menuBar());
 	prefsManager = PrefsManager::instance();
 	objectSpecificUndo = false;
-	
+
 	undoManager = UndoManager::instance();
 	tocGenerator = new TOCGenerator();
-	
+
 
 	initDefaultValues();
-	
+
 	initStatusBar();
-	
+
 	qApp->processEvents();
 
 	BuFromApp = false;
-	
+
 	actionManager = new ActionManager(this, "actionManager");
 	actionManager->init(this);
 	initMenuBar();
@@ -269,7 +269,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect( scrActions["windowsCascade"], SIGNAL(activated()) , wsp, SLOT(cascade()) );
 	connect( scrActions["windowsTile"], SIGNAL(activated()) , wsp, SLOT(tile()) );
 	initPalettes();
-	
+
 	prefsManager->setupMainWindow(this);
 
 	if (primaryMainWindow)
@@ -294,7 +294,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	propertiesPalette->setFontSize();
 	if (scrActions["SaveAsDocumentTemplate"])
 		scrActions["SaveAsDocumentTemplate"]->setEnabled(false);
-	
+
 	connect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), this, SLOT(removeRecent(QString)));
 	connect(this, SIGNAL(TextIFont(QString)), this, SLOT(AdjustFontMenu(QString)));
 	connect(this, SIGNAL(TextIFont(QString)), propertiesPalette, SLOT(setFontFace(QString)));
@@ -339,7 +339,7 @@ void ScribusMainWindow::initToolBars()
 
 	mainToolBar = new ModeToolBar(this);
 	pdfToolBar = new PDFToolBar(this);
-	
+
 	connect(mainToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarTools"], SLOT(setOn(bool)));
 	connect(scrActions["toolsToolbarPDF"], SIGNAL(toggled(bool)), pdfToolBar, SLOT(setShown(bool)));
 	connect(pdfToolBar, SIGNAL(visibilityChanged(bool)), scrActions["toolsToolbarPDF"], SLOT(setOn(bool)));
@@ -401,6 +401,7 @@ void ScribusMainWindow::initPalettes()
 	nodePalette->installEventFilter(this);
 	layerPalette = new LayerPalette(this);
 	guidePalette = new GuideManager(this);
+	charPalette = new CharSelect(this);
 	connect( scrActions["toolsLayers"], SIGNAL(toggled(bool)) , layerPalette, SLOT(setPaletteShown(bool)) );
 	connect( layerPalette, SIGNAL(paletteShown(bool)), scrActions["toolsLayers"], SLOT(setOn(bool)));
 	layerPalette->installEventFilter(this);
@@ -437,7 +438,7 @@ void ScribusMainWindow::initPalettes()
 	connect( alignDistributePalette, SIGNAL(paletteShown(bool)), scrActions["toolsAlignDistribute"], SLOT(setOn(bool)));
 	connect( alignDistributePalette, SIGNAL(documentChanged()), this, SLOT(slotDocCh()));
 	alignDistributePalette->installEventFilter(this);
-	
+
 	undoPalette = new UndoPalette(this, "undoPalette");
 	undoPalette->installEventFilter(this);
 	undoManager->registerGui(undoPalette);
@@ -470,6 +471,9 @@ void ScribusMainWindow::initPalettes()
 	// guides
 	connect(scrActions["pageManageGuides"], SIGNAL(toggled(bool)), guidePalette, SLOT(setPaletteShown(bool)));
 	connect(guidePalette, SIGNAL(paletteShown(bool)), scrActions["pageManageGuides"], SLOT(setOn(bool)));
+	// char palette
+	connect(scrActions["insertGlyph"], SIGNAL(toggled(bool)), charPalette, SLOT(setPaletteShown(bool)));
+	connect(charPalette, SIGNAL(paletteShown(bool)), scrActions["insertGlyph"], SLOT(setOn(bool)));
 }
 
 void ScribusMainWindow::initScrapbook()
@@ -799,7 +803,9 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertFrame"]->setEnabled(false);
-	scrActions["insertGlyph"]->setEnabled(false);
+	// PV - char palette
+	//scrActions["insertGlyph"]->setEnabled(false);
+// 	charPalette->setEnabled(false);
 
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
@@ -1003,9 +1009,9 @@ void ScribusMainWindow::setTBvals(PageItem *currItem)
 		emit TextUnderline(doc->currentStyle.charStyle().underlineOffset(), doc->currentStyle.charStyle().underlineWidth());
 		emit TextStrike(doc->currentStyle.charStyle().strikethruOffset(), doc->currentStyle.charStyle().strikethruWidth());
 		emit TextShadow(doc->currentStyle.charStyle().shadowXOffset(), doc->currentStyle.charStyle().shadowYOffset());
-		emit TextFarben(doc->currentStyle.charStyle().strokeColor(), 
-						doc->currentStyle.charStyle().fillColor(), 
-						doc->currentStyle.charStyle().strokeShade(), 
+		emit TextFarben(doc->currentStyle.charStyle().strokeColor(),
+						doc->currentStyle.charStyle().fillColor(),
+						doc->currentStyle.charStyle().strokeShade(),
 						doc->currentStyle.charStyle().fillShade());
 		emit TextIFont(doc->currentStyle.charStyle().font().scName());
 		emit TextISize(doc->currentStyle.charStyle().fontSize());
@@ -1066,7 +1072,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 					}
 					else if (actionName=="unicodeSmartHyphen") //ignore the char as we use an attribute if the text item, for now.
 					{
-						// this code is currently dead since unicodeSmartHyphen 
+						// this code is currently dead since unicodeSmartHyphen
 						// doesnt have unicodevalue == -1 any more
 						if (currItem->CPos-1>0)
 						{
@@ -1379,7 +1385,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					moveBy=10.0;
 				else if ((buttonState & ShiftButton) && (buttonState & ControlButton) && !(buttonState & AltButton))
 					moveBy=0.01;
-			
+
 				moveBy/=doc->unitRatio();//Lets allow movement by the current doc ratio, not only points
 			}
 			else
@@ -1753,6 +1759,7 @@ void ScribusMainWindow::closeEvent(QCloseEvent *ce)
 	undoPalette->hide();
 	alignDistributePalette->hide();
 	guidePalette->hide();
+	charPalette->hide();
 
 	// Clean up plugins, THEN save prefs to disk
 	ScCore->pluginManager->cleanupPlugins();
@@ -1921,7 +1928,7 @@ ScribusDoc *ScribusMainWindow::newDoc(double width, double height, double topMar
 	doc->setGUI(this, view);
 	doc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
-	
+
 	view->setScale(prefsManager->displayScale());
 	actionManager->connectNewViewActions(view);
 	alignDistributePalette->setDoc(doc);
@@ -2015,7 +2022,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 	tempDoc->setGUI(requiresGUI, this, tempView);
 	tempDoc->setLoading(false);
 	//run after setGUI to set up guidepalette ok
-	
+
 	tempView->setScale(prefsManager->displayScale());
 	if (requiresGUI)
 	{
@@ -2304,6 +2311,7 @@ void ScribusMainWindow::SwitchWin()
 	propertiesPalette->Fonts->RebuildList(doc);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
+	charPalette->setDoc(doc);
 	rebuildLayersList();
 	view->updateLayerMenu();
 	view->setLayerMenuText(doc->activeLayerName());
@@ -2449,6 +2457,7 @@ void ScribusMainWindow::HaveNewDoc()
 	propertiesPalette->endArrow->rebuildList(&doc->arrowStyles);
 	layerPalette->setDoc(doc);
 	guidePalette->setDoc(doc);
+	charPalette->setDoc(doc);
 	outlinePalette->setDoc(doc);
 	outlinePalette->BuildTree();
 	rebuildLayersList();
@@ -2557,7 +2566,10 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	actionManager->disconnectNewSelectionActions();
 	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
-	scrActions["insertGlyph"]->setEnabled(false);
+	// PV - char palette
+// 	scrActions["insertGlyph"]->setEnabled(false);
+	charPalette->setEnabled(false);
+	charPalette->setItem(0);
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemUpdateImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["itemAdjustFrameToImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
@@ -2703,7 +2715,10 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		{
 			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
-			scrActions["insertGlyph"]->setEnabled(true);
+			// PV - char palette
+// 			scrActions["insertGlyph"]->setEnabled(true);
+			charPalette->setEnabled(true);
+			charPalette->setItem(currItem);
 			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
@@ -2717,8 +2732,8 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			view->horizRuler->RExtra = currItem->textToFrameDistRight();
 			view->horizRuler->First = currItem->currentStyle().firstIndent();
 			view->horizRuler->Indent = currItem->currentStyle().leftMargin();
-			double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1)) 
-				- currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft() 
+			double columnWidth = (currItem->width() - (currItem->columnGap() * (currItem->columns() - 1))
+				- currItem->textToFrameDistLeft() - currItem->textToFrameDistLeft()
 				- 2*view->horizRuler->lineCorr) / currItem->columns();
 			view->horizRuler->RMargin = columnWidth - currItem->currentStyle().rightMargin();
 			if (currItem->imageFlippedH() || (currItem->reversed()))
@@ -3011,7 +3026,7 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 		scrActions["fileClose"]->setEnabled(true);
 		if (doc->hasName)
 			scrActions["fileRevert"]->setEnabled(true);
-	
+
 		bool setter = doc->Pages->count() > 1 ? true : false;
 		scrActions["pageDelete"]->setEnabled(setter);
 		scrActions["pageMove"]->setEnabled(setter);
@@ -3021,7 +3036,7 @@ void ScribusMainWindow::slotDocCh(bool /*reb*/)
 	ActWin->setMenuStatus(1, scrActions["fileClose"]->isEnabled());
 	ActWin->setMenuStatus(2, scrActions["fileSave"]->isEnabled());
 	ActWin->setMenuStatus(3, scrActions["fileSaveAs"]->isEnabled());
-	
+
 	outlinePalette->BuildTree();
 }
 
@@ -4144,7 +4159,7 @@ bool ScribusMainWindow::DoFileClose()
 		scrMenuMgr->setMenuEnabled("Extras", false);
 		scrMenuMgr->setMenuEnabled("Style", false);
 		scrMenuMgr->setMenuEnabled("Item", false);
-		
+
 		scrActions["toolsSelect"]->setEnabled(false);
 		scrActions["toolsRotate"]->setEnabled(false);
 		scrActions["toolsEditContents"]->setEnabled(false);
@@ -4182,6 +4197,7 @@ bool ScribusMainWindow::DoFileClose()
 	delete view;
 	doc->setLoading(true);
 	guidePalette->setDoc(0);
+	charPalette->setDoc(0);
 	layerPalette->ClearInhalt();
 	docCheckerPalette->buildErrorList(0);
 	ScCore->fileWatcher->removeFile(fName);
@@ -4818,7 +4834,7 @@ void ScribusMainWindow::slotEditPaste()
 					if (ch == SpecialChars::PARSEP) {
 						currItem->itemText.applyStyle(currItem->CPos, doc->docParagraphStyles[cab]);
 					}
-					else {						
+					else {
 						currItem->itemText.applyCharStyle(currItem->CPos, 1, nstyle);
 					}
 					currItem->CPos += 1;
@@ -5790,7 +5806,10 @@ void ScribusMainWindow::setAppMode(int mode)
 			view->zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
 			view->pageSelector->focusPolicy(QWidget::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
-			scrActions["insertGlyph"]->setEnabled(false);
+			// PV - char palette
+// 			scrActions["insertGlyph"]->setEnabled(false);
+			charPalette->setEnabled(false);
+			charPalette->setItem(0);
 			view->slotDoCurs(false);
 			if (currItem != 0)
 			{
@@ -5817,7 +5836,10 @@ void ScribusMainWindow::setAppMode(int mode)
 				currItem->CPos = 0;
 			}
 			scrActions["editPaste"]->setEnabled(false);
-			scrActions["insertGlyph"]->setEnabled(true);
+			// PV - char palette
+// 			scrActions["insertGlyph"]->setEnabled(true);
+			charPalette->setEnabled(true);
+			charPalette->setItem(currItem);
 			if (currItem!=NULL && currItem->asTextFrame())
 				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentCharStyle().font().scName());
 			if (!Buffer2.isNull())
@@ -6406,7 +6428,7 @@ void ScribusMainWindow::setItemShade(int id)
 						doc->itemSelection_SetFillShade(c);
 					else
 						doc->ItemBrushShade(c);
-				}	
+				}
 			}
 			delete dia;
 		}
@@ -6720,7 +6742,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 				SEditor::ChList *chars;
 				chars = CurrStED->Editor->StyledText.at(pa);
 				(*CurrStED->Editor->ParagStyles.at(pa)) = ers[CurrStED->Editor->ParagStyles[pa]];
-				
+
 				int cabneu = 0;
 				for (uint e = 0; e < chars->count(); ++e)
 				{
@@ -6781,7 +6803,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 						chars->at(e)->cab = cabneu;
 					}
 				}
-				
+
 			}
 			CurrStED->Editor->currentParaStyle = ers[CurrStED->Editor->currentParaStyle];
 		}
@@ -7173,7 +7195,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 			double viewScale=view->scale();
 			if ((qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale) > view->contentsWidth()) ||
 				(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale) > view->contentsHeight()))
-				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale), 
+				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale),
 									view->contentsWidth()),
 									QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
 			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
@@ -7300,6 +7322,7 @@ void ScribusMainWindow::ShowSubs()
 	alignDistributePalette->startup();
 	undoPalette->startup();
 	guidePalette->startup();
+	charPalette->startup();
 	styleManager->startup();
 
 	// init the toolbars
@@ -8853,6 +8876,9 @@ void ScribusMainWindow::callImageEditor()
 
 void ScribusMainWindow::slotCharSelect()
 {
+	charPalette->show();
+	// PV - charselect is palette
+	/*
 	if ((HaveDoc) && (doc->m_Selection->count() != 0))
 	{
 		PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -8862,7 +8888,7 @@ void ScribusMainWindow::slotCharSelect()
 			dia->exec();
 			delete dia;
 		}
-	}
+	} */
 }
 
 void ScribusMainWindow::setUndoMode(bool isObjectSpecific)

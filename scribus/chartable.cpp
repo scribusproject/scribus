@@ -18,11 +18,11 @@ for which a new license (GPL+exception) is in place.
 #include "charzoom.h"
 
 
-CharTable::CharTable(QWidget* parent, int cols, PageItem* pi, QString font)
+CharTable::CharTable(QWidget* parent, int cols, ScribusDoc* doc, QString font)
 	: QTable(parent),
 	mPressed(false),
 	zoom(0),
-	m_Item(pi),
+// 	m_Item(pi),
 	m_fontInUse(font)
 {
 	m_characters.clear();
@@ -30,6 +30,7 @@ CharTable::CharTable(QWidget* parent, int cols, PageItem* pi, QString font)
 //	connect(watchTimer, SIGNAL(timeout()), this, SLOT(showAlternate()));
 // 	alternate = false;
 	// gui
+	m_doc = doc;
 	setNumCols(cols);
 	setLeftMargin(0);
 	verticalHeader()->hide();
@@ -46,16 +47,27 @@ CharTable::CharTable(QWidget* parent, int cols, PageItem* pi, QString font)
 	connect(this, SIGNAL(dropped(QDropEvent *)), this, SLOT(slotDropped(QDropEvent *)));
 }
 
+void CharTable::setDoc(ScribusDoc *doc)
+{
+	m_doc = doc;
+	recalcCellSizes();
+}
 
 QRect CharTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
-	int widthHeight = QMAX(18 + qRound(-(*m_Item->doc()->AllFonts)[m_fontInUse].descent() * 18) + 5, 18);
+	if (!m_doc)
+		return QRect(0, 0, 1, 1);
+
+	int widthHeight = QMAX(18 + qRound(-(*m_doc->AllFonts)[m_fontInUse].descent() * 18) + 5, 18);
 	return QRect(0, 0, widthHeight, widthHeight+20);
 }
 
 
 void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bool /*selected*/, const QColorGroup & /*cg*/ )
 {
+	if (!m_doc)
+		return;
+
 	static QPixmap pixm;
 
 	uint cc = row * numCols() + col;
@@ -75,7 +87,7 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 	fo.setPixelSize(9);
 	qp->setFont(fo);
 	static FPointArray gly;
-	ScFace face = (*m_Item->doc()->AllFonts)[m_fontInUse];
+	ScFace face = (*m_doc->AllFonts)[m_fontInUse];
 	uint gl = face.char2CMap(m_characters[cc]);
 	gly = face.glyphOutline(gl);
 	if (gly.size() > 4)
@@ -133,7 +145,7 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 	if (e->button() == RightButton && currentChar > -1)
 	{
 		//watchTimer->stop();
-		zoom = new CharZoom(this, currentChar, (*m_Item->doc()->AllFonts)[m_fontInUse]);
+		zoom = new CharZoom(this, currentChar, (*m_doc->AllFonts)[m_fontInUse]);
 		zoom->move(m_mousePosition.x()-2, m_mousePosition.y()-2);
 		zoom->show();
 	}

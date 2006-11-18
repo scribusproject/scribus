@@ -19,38 +19,46 @@ for which a new license (GPL+exception) is in place.
 #include "sccombobox.h"
 #include "scpainter.h"
 #include "unicodesearch.h"
+#include "selection.h"
 
 #include "fonts/scfontmetrics.h"
 #include "util.h"
 
 
-CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
+// CharSelect::CharSelect( QWidget* parent, PageItem *item) : QDialog( parent, "CharSelect", true, 0 )
+// {
+// 	m_fontInUse = item->doc()->currentStyle.charStyle().font().scName();
+// 	needReturn = false;
+// 	installEventFilter(this);
+// 	run(parent, item);
+// }
+//
+// CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font, bool modal)
+// 	: QDialog( parent, "CharSelect", modal, 0 )
+// {
+// 	m_fontInUse = font;
+// 	needReturn = true;
+// 	installEventFilter(this);
+// 	run(parent, item);
+// }
+
+CharSelect::CharSelect(QWidget* parent)
+	: ScrPaletteBase(parent, "CharSelect"),
+	m_doc(0),
+	m_Item(0)
 {
-	m_fontInUse = item->doc()->currentStyle.charStyle().font().scName();
-	needReturn = false;
+// 	m_fontInUse = item->doc()->currentStyle.charStyle().font().scName();
+// 	m_doc = 0; //dynamic_cast<ScribusMainWindow*>(parent)->doc;
+// 	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
+// 	needReturn = false;
 	installEventFilter(this);
-	run(parent, item);
-}
-
-CharSelect::CharSelect( QWidget* parent, PageItem *item, QString font, bool modal)
-	: QDialog( parent, "CharSelect", modal, 0 )
-{
-	m_fontInUse = font;
-	needReturn = true;
-	installEventFilter(this);
-	run(parent, item);
-}
-
-
-const QString & CharSelect::getCharacters()
-{
-	return m_characters;
-}
-
-void CharSelect::run( QWidget* /*parent*/, PageItem *item)
-{
+// 	run(parent, m_doc->m_Selection->itemAt(0));
+// }
+//
+// void CharSelect::run( QWidget* /*parent*/, PageItem *item)
+// {
 	setCaption( tr( "Select Character:" )+" "+m_fontInUse );
-	m_Item = item;
+// 	m_Item = item;
 	setIcon(loadIcon("AppIcon.png"));
 
 	QHBoxLayout* mainLayout = new QHBoxLayout(this);
@@ -72,8 +80,8 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	fontSelector->setMaximumSize(190, 30);
 	fontSelector->setCurrentText(m_fontInUse);
 
-	if (needReturn)
-		fontSelector->setEnabled(false);
+// 	if (needReturn)
+// 		fontSelector->setEnabled(false);
 
 	rangeLabel = new QLabel( bigPalette, "fontLabel" );
 	rangeLabel->setText( tr( "Character Class:" ) );
@@ -88,9 +96,9 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 
 	bigLayout->addLayout(combosLayout, 0, 0);
 
-	charTable = new CharTable(bigPalette, 16, m_Item, m_fontInUse);
+	charTable = new CharTable(bigPalette, 16, m_doc, m_fontInUse);
 	charTable->enableDrops(false);
-	scanFont();
+// 	scanFont();
 
 	bigLayout->addWidget(charTable, 1, 0);
 
@@ -131,11 +139,11 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	quickLayout->addWidget(hideCheck, 0, 0);
 
 	unicodeButton = new UnicodeChooseButton(quickPalette, "unicodeButton");
-	unicodeButton->setFont((*m_Item->doc()->AllFonts)[m_fontInUse]);
+// 	unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
 
 	quickLayout->addWidget(unicodeButton, 1, 0);
 
-	userTable = new CharTable(quickPalette, 2, m_Item, m_fontInUse);
+	userTable = new CharTable(quickPalette, 2, m_doc, m_fontInUse);
 	userTable->setMaximumWidth(120);
 	userTable->setMinimumWidth(120);
 	userTable->enableDrops(true);
@@ -146,7 +154,7 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 	mainLayout->addWidget(bigPalette);
 	mainLayout->addWidget(quickPalette);
 
-	delEdit();
+// 	delEdit();
 //tooltips
 	QToolTip::add( insertButton, "<qt>" + tr( "Insert the characters at the cursor in the text") + "</qt>");
 	QToolTip::add( deleteButton, "<qt>" + tr( "Delete the current selection(s).") + "</qt>");
@@ -169,8 +177,30 @@ void CharSelect::run( QWidget* /*parent*/, PageItem *item)
 // 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
 // 	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
 	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
+	connect(this, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+/*	setupRangeCombo();
+	newCharClass(0);*/
+}
+
+void CharSelect::setDoc(ScribusDoc* doc)
+{
+	m_doc = doc;
+	if (!m_doc)
+		return;
+
+	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
+	unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
+	charTable->setDoc(m_doc);
+	userTable->setDoc(m_doc);
+	scanFont();
+	delEdit();
 	setupRangeCombo();
 	newCharClass(0);
+}
+
+const QString & CharSelect::getCharacters()
+{
+	return m_characters;
 }
 
 void CharSelect::scanFont()
@@ -208,7 +238,7 @@ void CharSelect::scanFont()
 	charactersArabicPresentationFormsB.clear();
 	charactersHebrew.clear();
 	QMap<uint, std::pair<QChar, QString> > glyphs;
-	(*m_Item->doc()->AllFonts)[m_fontInUse].glyphNames(glyphs);
+	(*m_doc->AllFonts)[m_fontInUse].glyphNames(glyphs);
 	for (QMap<uint, std::pair<QChar, QString> >::iterator it=glyphs.begin();
 		 it != glyphs.end(); ++it)
 	{
@@ -494,17 +524,17 @@ void CharSelect::newFont(int font)
 	m_fontInUse = fontSelector->text(font);
 	charTable->setFontInUse(m_fontInUse);
 	userTable->setFontInUse(m_fontInUse);
-	unicodeButton->setFont((*m_Item->doc()->AllFonts)[m_fontInUse]);
-	(*m_Item->doc()->AllFonts)[m_fontInUse].increaseUsage();
-	(*m_Item->doc()->AllFonts)[oldFont].decreaseUsage();
+	unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
+	(*m_doc->AllFonts)[m_fontInUse].increaseUsage();
+	(*m_doc->AllFonts)[oldFont].decreaseUsage();
 	delEdit();
 	setCaption( tr( "Select Character:" )+" "+m_fontInUse );
 	ScCore->primaryMainWindow()->SetNewFont(m_fontInUse);
-	if (m_Item->doc()->currentStyle.charStyle().font().scName() != m_fontInUse)
+	if (m_doc->currentStyle.charStyle().font().scName() != m_fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
-		fontSelector->RebuildList(m_Item->doc());
-		m_fontInUse = m_Item->doc()->currentStyle.charStyle().font().scName();
+		fontSelector->RebuildList(m_doc);
+		m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
 		setCaption( tr( "Select Character:" )+" "+m_fontInUse );
 		fontSelector->setCurrentText(m_fontInUse);
 		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
@@ -537,7 +567,7 @@ void CharSelect::newChar(uint i)
 		insChar();
 		return;
 	}
-	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 	QString tmp;
 	tmp.sprintf("%04X", i);
@@ -554,7 +584,7 @@ void CharSelect::delChar()
 		return;
 	}
 	chToIns.truncate(chToIns.length() - 1);
-	sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
+	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 }
 
@@ -569,13 +599,37 @@ void CharSelect::delEdit()
 
 void CharSelect::insChar()
 {
-	if (needReturn)
+	emit insertSpecialChar();
+/*	if (needReturn)
 	{
 		m_characters = chToIns;
 		delEdit();
 		emit insertSpecialChar();
 		return;
-	}
+	}*/
+// 	if (m_Item->HasSel)
+// 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
+// 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
+// 	for (uint a=0; a<chToIns.length(); ++a)
+// 	{
+// 		QChar ch = chToIns.at(a);
+// 		if (ch == QChar(10))
+// 			ch = QChar(13);
+// 		if (ch == QChar(9))
+// 			ch = QChar(32);
+// 		m_Item->itemText.insertChars(m_Item->CPos, ch);
+// 		m_Item->CPos += 1;
+// 	}
+// 	m_doc->view()->DrawNew();
+// 	m_doc->changed();
+// 	delEdit();
+}
+
+void CharSelect::slot_insertSpecialChar()
+{
+	if (!m_Item)
+		return;
+
 	if (m_Item->HasSel)
 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
@@ -589,8 +643,8 @@ void CharSelect::insChar()
 		m_Item->itemText.insertChars(m_Item->CPos, ch);
 		m_Item->CPos += 1;
 	}
-	m_Item->doc()->view()->DrawNew();
-	m_Item->doc()->changed();
+	m_doc->view()->DrawNew();
+	m_doc->changed();
 	delEdit();
 }
 

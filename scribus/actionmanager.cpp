@@ -34,7 +34,7 @@ QMap<QString, QKeySequence> ActionManager::defKeys;
 QValueVector< QPair<QString, QStringList> > ActionManager::defMenus;
 QValueVector< QPair<QString, QStringList> > ActionManager::defNonMenuActions;
 
-ActionManager::ActionManager ( QObject * parent, const char * name ) : 
+ActionManager::ActionManager ( QObject * parent, const char * name ) :
 	QObject ( parent, name ),
 	mainWindow(0)
 {
@@ -53,7 +53,7 @@ void ActionManager::init(ScribusMainWindow *mw)
 #ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
 #endif
-	
+
 	createActions();
 	languageChange();
 }
@@ -161,7 +161,7 @@ void ActionManager::initEditMenuActions()
 	name="editActionMode";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	(*scrActions)["editActionMode"]->setToggleAction(true);
-	
+
 	name="editCut";
 	scrActions->insert(name, new ScrAction(QIconSet(loadIcon("16/edit-cut.png"), loadIcon("22/edit-cut.png")), "", defKeys[name], mainWindow, name));
 	name="editCopy";
@@ -455,6 +455,7 @@ void ActionManager::initInsertMenuActions()
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 	name="insertGlyph";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
+	(*scrActions)["insertGlyph"]->setToggleAction(true);
 	name="insertSampleText";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
 
@@ -671,7 +672,7 @@ void ActionManager::initToolsMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/color-picker.png"), loadIcon("22/color-picker.png")), "", defKeys[name], mainWindow, name, modeEyeDropper));
 	name="toolsCopyProperties";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("wizard.png"), loadIcon("wizard.png")), "", defKeys[name], mainWindow, name, modeCopyProperties));
-	
+
 	//PDF toolbar
 	name="toolsPDFPushButton";
 	scrActions->insert(name, new ScrAction(ScrAction::DataInt,QIconSet(loadIcon("22/insert-button.png")), "", defKeys[name], mainWindow, name, modeInsertPDFButton));
@@ -718,7 +719,7 @@ void ActionManager::initToolsMenuActions()
 	(*scrActions)["toolsUnlinkTextFrame"]->setToggleAction(true);
 	(*scrActions)["toolsEyeDropper"]->setToggleAction(true);
 	(*scrActions)["toolsCopyProperties"]->setToggleAction(true);
-	
+
 	(*scrActions)["toolsPDFPushButton"]->setToggleAction(true);
 	(*scrActions)["toolsPDFTextField"]->setToggleAction(true);
 	(*scrActions)["toolsPDFCheckBox"]->setToggleAction(true);
@@ -909,9 +910,9 @@ void ActionManager::initUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *a
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, name, 0xFB05));
 	name="unicodeLigature_st";
 	actionMap->insert(name, new ScrAction(ScrAction::UnicodeChar, QIconSet(), "", defKeys[name], actionParent, name, 0xFB06));
-	
+
 	//Spaces and special characters
-	
+
 	*actionNamesList << "unicodeSmartHyphen" << "unicodeNonBreakingHyphen" << "unicodeNonBreakingSpace" << "unicodePageNumber";
 	*actionNamesList << "unicodeSpaceEN" << "unicodeSpaceEM" << "unicodeSpaceThin" << "unicodeSpaceThick" << "unicodeSpaceMid" << "unicodeSpaceHair";
 	//Breaks
@@ -1104,7 +1105,7 @@ void ActionManager::enableActionStringList(QMap<QString, QGuardedPtr<ScrAction> 
 					charCode==28 ||
 					charCode==29 ||
 					charCode==30 ||
-					((*mainWindow->doc->AllFonts)[fontName].usable() && 
+					((*mainWindow->doc->AllFonts)[fontName].usable() &&
 					(*mainWindow->doc->AllFonts)[fontName].canRender(charCode)) )
 						(*actionMap)[*it]->setEnabled(true);
 				else
@@ -1178,7 +1179,7 @@ void ActionManager::languageChange()
 	(*scrActions)["fileExportAsEPS"]->setTexts( tr("Save as &EPS..."));
 	(*scrActions)["fileExportAsPDF"]->setTexts( tr("Save as P&DF..."));
 	(*scrActions)["fileDocSetup"]->setTexts( tr("Document &Setup..."));
-	(*scrActions)["filePreferences"]->setTexts( tr("P&references..."));	
+	(*scrActions)["filePreferences"]->setTexts( tr("P&references..."));
 	(*scrActions)["filePrint"]->setTexts( tr("&Print..."));
 	(*scrActions)["PrintPreview"]->setTexts( tr("Print Previe&w"));
 	(*scrActions)["fileQuit"]->setTexts( tr("&Quit"));
@@ -1370,7 +1371,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsInsertLine"]->setText( tr("Insert Line"));
 	(*scrActions)["toolsInsertBezier"]->setText( tr("Insert Bezier Curve"));
 	(*scrActions)["toolsInsertFreehandLine"]->setText( tr("Insert Freehand Line"));
-	
+
 	(*scrActions)["toolsPDFPushButton"]->setTexts( tr("Insert PDF Push Button"));
 	(*scrActions)["toolsPDFTextField"]->setTexts( tr("Insert PDF Text Field"));
 	(*scrActions)["toolsPDFCheckBox"]->setTexts( tr("Insert PDF Check Box"));
@@ -1378,7 +1379,7 @@ void ActionManager::languageChange()
 	(*scrActions)["toolsPDFListBox"]->setTexts( tr("Insert PDF List Box"));
 	(*scrActions)["toolsPDFAnnotText"]->setTexts( tr("Insert Text Annotation"));
 	(*scrActions)["toolsPDFAnnotLink"]->setTexts( tr("Insert Link Annotation"));
-	
+
 
 	//Extras Menu
 	(*scrActions)["extrasManagePictures"]->setTexts( tr("&Manage Pictures"));
@@ -1400,7 +1401,7 @@ void ActionManager::languageChange()
 	//GUI
 	(*scrActions)["specialToggleAllPalettes"]->setTexts( tr("Toggle Palettes"));
 	(*scrActions)["specialToggleAllGuides"]->setTexts( tr("Toggle Guides"));
-	
+
 	languageChangeUnicodeActions(scrActions);
 }
 
@@ -1462,7 +1463,7 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 	(*actionMap)["unicodeColumnBreak"]->setText( tr("Column Break"));
 	(*actionMap)["unicodeZerowidthSpace"]->setText( tr("&Zero Width Space"));
 	(*actionMap)["unicodeZerowidthNonBreakingSpace"]->setText( tr("Zero Width NB Space"));
-	
+
 	(*actionMap)["unicodeLigature_ff"]->setTexts( tr("ff"));
 	(*actionMap)["unicodeLigature_fi"]->setTexts( tr("fi"));
 	(*actionMap)["unicodeLigature_fl"]->setTexts( tr("fl"));
@@ -1475,7 +1476,7 @@ void ActionManager::languageChangeUnicodeActions(QMap<QString, QGuardedPtr<ScrAc
 void ActionManager::createDefaultShortcuts()
 {
 	defKeys.clear();
-	
+
 	defKeys.insert("fileNew", Qt::CTRL+Qt::Key_N);
 	defKeys.insert("fileOpen", Qt::CTRL+Qt::Key_O);
 	defKeys.insert("fileClose", Qt::CTRL+Qt::Key_W);
@@ -1490,7 +1491,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("fileExportAsEPS", QKeySequence());
 	defKeys.insert("fileExportAsPDF", QKeySequence());
 	defKeys.insert("fileDocSetup", QKeySequence());
-	defKeys.insert("filePreferences", QKeySequence());	
+	defKeys.insert("filePreferences", QKeySequence());
 	defKeys.insert("filePrint", Qt::CTRL+Qt::Key_P);
 	defKeys.insert("PrintPreview", Qt::CTRL+Qt::ALT+Qt::Key_P);
 	defKeys.insert("fileQuit", Qt::CTRL+Qt::Key_Q);
@@ -1667,7 +1668,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("toolsUnlinkTextFrame", Qt::Key_U);
 	defKeys.insert("toolsEyeDropper", Qt::Key_Y);
 	defKeys.insert("toolsCopyProperties", QKeySequence());
-	
+
 	//PDF items
 	defKeys.insert("toolsPDFPushButton", QKeySequence());
 	defKeys.insert("toolsPDFTextField", QKeySequence());
@@ -1697,7 +1698,7 @@ void ActionManager::createDefaultShortcuts()
 	//GUI
 	defKeys.insert("specialToggleAllPalettes", Qt::Key_F10);
 	defKeys.insert("specialToggleAllGuides", Qt::Key_F11);
-	
+
 	//typography
 	defKeys.insert("unicodeSmartHyphen", QKeySequence());
 	defKeys.insert("unicodeNonBreakingHyphen", QKeySequence());
@@ -1750,7 +1751,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeNonBreakingSpace", Qt::CTRL+Qt::Key_Space);
 	defKeys.insert("unicodePageNumber", Qt::CTRL+Qt::SHIFT+Qt::ALT+Qt::Key_P);
 	defKeys.insert("unicodeNewLine", Qt::SHIFT+Qt::Key_Return);
-	
+
 	defKeys.insert("unicodeLigature_ff", QKeySequence());
 	defKeys.insert("unicodeLigature_fi", QKeySequence());
 	defKeys.insert("unicodeLigature_fl", QKeySequence());
@@ -1758,7 +1759,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("unicodeLigature_ffl", QKeySequence());
 	defKeys.insert("unicodeLigature_ft", QKeySequence());
 	defKeys.insert("unicodeLigature_st", QKeySequence());
-	
+
 	//Plugins
 	defKeys.insert("ExportAsImage", Qt::CTRL+Qt::SHIFT+Qt::Key_E);
 	defKeys.insert("NewFromDocumentTemplate", Qt::CTRL+Qt::ALT+Qt::Key_N);
@@ -1779,7 +1780,7 @@ void ActionManager::createDefaultMenus()
 	defMenus.append(QPair<QString, QStringList>("Window", QStringList()));
 	defMenus.append(QPair<QString, QStringList>("Help", QStringList()));
 // 	defMenus.append(QPair<QString, QStringList>("Other", QStringList()));
-	
+
 	QValueVector< QPair<QString, QStringList> >::Iterator itmenu = defMenus.begin();
 	//File
 	itmenu->second << "fileNew" << "fileOpen" << "fileClose" << "fileSave" << "fileSaveAs" << "fileRevert" << "fileCollect";
@@ -1805,86 +1806,86 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "itemDuplicate" << "itemMulDuplicate" << "itemDelete" << "itemGroup" << "itemUngroup" << "itemLock" << "itemLockSize" << "itemImageIsVisible" << "itemUpdateImage" << "itemAdjustFrameToImage" << "itemExtendedImageProperties" << "itemPreviewLow" << "itemPreviewNormal" << "itemPreviewFull" << "itemRaise" << "itemLower" << "itemRaiseToTop" << "itemLowerToBottom" << "itemSendToScrapbook" << "itemSendToPattern" << "itemAttributes" << "itemPDFIsAnnotation" << "itemPDFIsBookmark" << "itemPDFAnnotationProps" << "itemPDFFieldProps" << "itemShapeEdit" << "itemConvertToBezierCurve" << "itemConvertToImageFrame" << "itemConvertToOutlines" << "itemConvertToPolygon" << "itemConvertToTextFrame" << "itemAttachTextToPath" << "itemDetachTextFromPath" << "itemCombinePolygons" << "itemSplitPolygons";
 	//Insert
 	++itmenu;
-	itmenu->second 
-		<< "insertFrame" 
-		<< "toolsInsertTextFrame" 
-		<< "toolsInsertImageFrame" 
-		<< "toolsInsertTableFrame" 
-		<< "toolsInsertShape" 
-		<< "toolsInsertPolygon" 
-		<< "toolsInsertLine" 
-		<< "toolsInsertBezier" 
-		<< "toolsInsertFreehandLine" 
-		<< "insertGlyph" 
+	itmenu->second
+		<< "insertFrame"
+		<< "toolsInsertTextFrame"
+		<< "toolsInsertImageFrame"
+		<< "toolsInsertTableFrame"
+		<< "toolsInsertShape"
+		<< "toolsInsertPolygon"
+		<< "toolsInsertLine"
+		<< "toolsInsertBezier"
+		<< "toolsInsertFreehandLine"
+		<< "insertGlyph"
 		<< "insertSampleText";
-	
-	itmenu->second 
-		<< "unicodeSmartHyphen"  
-		<< "unicodeNonBreakingHyphen" 
-		<< "unicodeNonBreakingSpace" 
-		<< "unicodePageNumber" 
-		<< "unicodeNewLine" 
-		<< "unicodeFrameBreak" 
-		<< "unicodeColumnBreak" 
-		<< "unicodeZerowidthSpace" 
-		<< "unicodeCopyRight" 
-		<< "unicodeRegdTM" 
-		<< "unicodeTM" 
-		<< "unicodeSolidus" 
-		<< "unicodeBullet" 
-		<< "unicodeMidpoint" 
-		<< "unicodeDashEm" 
-		<< "unicodeDashEn" 
-		<< "unicodeDashFigure" 
+
+	itmenu->second
+		<< "unicodeSmartHyphen"
+		<< "unicodeNonBreakingHyphen"
+		<< "unicodeNonBreakingSpace"
+		<< "unicodePageNumber"
+		<< "unicodeNewLine"
+		<< "unicodeFrameBreak"
+		<< "unicodeColumnBreak"
+		<< "unicodeZerowidthSpace"
+		<< "unicodeCopyRight"
+		<< "unicodeRegdTM"
+		<< "unicodeTM"
+		<< "unicodeSolidus"
+		<< "unicodeBullet"
+		<< "unicodeMidpoint"
+		<< "unicodeDashEm"
+		<< "unicodeDashEn"
+		<< "unicodeDashFigure"
 		<< "unicodeDashQuotation";
 
-	 itmenu->second 
-		 << "unicodeQuoteApostrophe" 
-		 << "unicodeQuoteStraight" 
-		 << "unicodeQuoteSingleLeft" 
-		 << "unicodeQuoteSingleRight" 
-		 << "unicodeQuoteDoubleLeft" 
-		 << "unicodeQuoteDoubleRight" 
-		 << "unicodeQuoteSingleReversed" 
-		 << "unicodeQuoteDoubleReversed" 
-		 << "unicodeQuoteSingleLeftGuillemet" 
-		 << "unicodeQuoteSingleRightGuillemet" 
-		 << "unicodeQuoteDoubleLeftGuillemet" 
-		 << "unicodeQuoteDoubleRightGuillemet" 
-		 << "unicodeQuoteLowSingleComma" 
-		 << "unicodeQuoteLowDoubleComma" 
-		 << "unicodeQuoteCJKSingleLeft" 
-		 << "unicodeQuoteCJKSingleRight" 
-		 << "unicodeQuoteCJKDoubleLeft" 
+	 itmenu->second
+		 << "unicodeQuoteApostrophe"
+		 << "unicodeQuoteStraight"
+		 << "unicodeQuoteSingleLeft"
+		 << "unicodeQuoteSingleRight"
+		 << "unicodeQuoteDoubleLeft"
+		 << "unicodeQuoteDoubleRight"
+		 << "unicodeQuoteSingleReversed"
+		 << "unicodeQuoteDoubleReversed"
+		 << "unicodeQuoteSingleLeftGuillemet"
+		 << "unicodeQuoteSingleRightGuillemet"
+		 << "unicodeQuoteDoubleLeftGuillemet"
+		 << "unicodeQuoteDoubleRightGuillemet"
+		 << "unicodeQuoteLowSingleComma"
+		 << "unicodeQuoteLowDoubleComma"
+		 << "unicodeQuoteCJKSingleLeft"
+		 << "unicodeQuoteCJKSingleRight"
+		 << "unicodeQuoteCJKDoubleLeft"
 		 << "unicodeQuoteCJKDoubleRight";
 
-	 itmenu->second 
-		 << "unicodeSpaceEN" 
-		 << "unicodeSpaceEM" 
-		 << "unicodeSpaceThin" 
-		 << "unicodeSpaceThick" 
-		 << "unicodeSpaceMid" 
+	 itmenu->second
+		 << "unicodeSpaceEN"
+		 << "unicodeSpaceEM"
+		 << "unicodeSpaceThin"
+		 << "unicodeSpaceThick"
+		 << "unicodeSpaceMid"
 		 << "unicodeSpaceHair";
 
-	 itmenu->second 
-		 << "unicodeSmartHyphen" 
-		 << "unicodeNonBreakingHyphen" 
-		 << "unicodeNonBreakingSpace" 
-		 << "unicodePageNumber" 
-		 << "unicodeNewLine" 
-		 << "unicodeFrameBreak" 
+	 itmenu->second
+		 << "unicodeSmartHyphen"
+		 << "unicodeNonBreakingHyphen"
+		 << "unicodeNonBreakingSpace"
+		 << "unicodePageNumber"
+		 << "unicodeNewLine"
+		 << "unicodeFrameBreak"
 		 << "unicodeColumnBreak";
-	 
-	 itmenu->second 
-		 << "unicodeLigature_ff" 
-		 << "unicodeLigature_fi" 
-		 << "unicodeLigature_fl" 
-		 << "unicodeLigature_ffi" 
-		 << "unicodeLigature_ffl" 
-		 << "unicodeLigature_ft" 
+
+	 itmenu->second
+		 << "unicodeLigature_ff"
+		 << "unicodeLigature_fi"
+		 << "unicodeLigature_fl"
+		 << "unicodeLigature_ffi"
+		 << "unicodeLigature_ffl"
+		 << "unicodeLigature_ft"
 		 << "unicodeLigature_st";
-	
-	
+
+
 	//Page
 	++itmenu;
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
@@ -1911,14 +1912,14 @@ void ActionManager::createDefaultNonMenuActions()
 	defNonMenuActions.append(QPair<QString, QStringList>("Plugin Menu Items", QStringList()));
 	defNonMenuActions.append(QPair<QString, QStringList>("Others", QStringList()));
 	defNonMenuActions.append(QPair<QString, QStringList>("Unicode Characters", QStringList()));
-	
-	
+
+
 	QValueVector< QPair<QString, QStringList> >::Iterator itnmenua = defNonMenuActions.begin();
 	//Plugins
 	itnmenua->second << "ExportAsImage";
 	itnmenua->second << "NewFromDocumentTemplate";
-	itnmenua->second << "SaveAsDocumentTemplate";	
-	
+	itnmenua->second << "SaveAsDocumentTemplate";
+
 	//Toolbars etc
 	++itnmenua;
 	itnmenua->second << "toolsSelect";
@@ -1939,7 +1940,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "toolsPDFAnnotLink";
 	itnmenua->second << "specialToggleAllPalettes";
 	itnmenua->second << "specialToggleAllGuides";
-	
+
 	//Unicode
 	++itnmenua;
 	itnmenua->second << "unicodeSmartHyphen";
@@ -1992,7 +1993,7 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeNonBreakingSpace";
 	itnmenua->second << "unicodePageNumber";
 	itnmenua->second << "unicodeNewLine";
-	
+
 	itnmenua->second << "unicodeLigature_ff";
 	itnmenua->second << "unicodeLigature_fi";
 	itnmenua->second << "unicodeLigature_fl";

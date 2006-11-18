@@ -59,7 +59,7 @@ class PrefsManager;
 class PrefsContext;
 class StoryEditor;
 class ColorCombo;
-class CharSelect;
+// class CharSelect;
 
 
 class SCRIBUS_API SEditor : public QTextEdit
@@ -329,7 +329,7 @@ public:
 
 	ScribusDoc* currDoc;
 	PageItem* currItem;
-	SEditor* Editor;	
+	SEditor* Editor;
 	bool textChanged;
 	bool firstSet;
 	bool activFromApp;
@@ -417,7 +417,7 @@ protected:
 	slot.
 	\author Petr Vanek <petr@scribus.info>
 	*/
-	CharSelect *charSelect;
+// 	CharSelect *charSelect;
 
     QHBoxLayout* StoryEd2Layout;
 	QGridLayout* ButtonGroup1Layout;
@@ -425,12 +425,12 @@ protected:
 
 	PrefsManager* prefsManager;
 	PrefsContext* prefs;
-	
+
 	QMap<QString, QGuardedPtr<ScrAction> > seActions;
 	QStringList unicodeCharActionNames;
 	MenuManager* seMenuMgr;
 	QPixmap noIcon;
-	
+
 	QToolBar* FileTools;
 	SToolBFont* FontTools;
 	SToolBAlign* AlignTools;

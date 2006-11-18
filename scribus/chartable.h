@@ -25,7 +25,7 @@ class SCRIBUS_API CharTable : public QTable
     Q_OBJECT
 
 public:
-	CharTable(QWidget* parent, int cols, PageItem *pi, QString font);
+	CharTable(QWidget* parent, int cols, ScribusDoc *doc, QString font);
 	~CharTable() {};
 
 	void setFontInUse(QString font);
@@ -34,6 +34,7 @@ public:
 	void recalcCellSizes();
 	//! \brief Set the widget to accept/reject drop events.
 	void enableDrops(bool e);
+	void setDoc(ScribusDoc *doc);
 
 public slots:
 	//! \brief No usage now.
@@ -64,7 +65,8 @@ private:
 // 	bool alternate;
 	//! \brief Magnify dialog reference
 	CharZoom* zoom;
-	PageItem *m_Item;
+// 	PageItem *m_Item;
+	ScribusDoc *m_doc;
 	//! \brief True when its in dragging mode
 	bool dragging;
 	//! \brief current column

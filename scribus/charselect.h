@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include "scribusapi.h"
 #include "chartable.h"
+#include "scrpalettebase.h"
 
 class QLabel;
 class QPushbutton;
@@ -25,16 +26,20 @@ class PageItem;
 class UnicodeChooseButton;
 
 
-class SCRIBUS_API CharSelect : public QDialog
+// class SCRIBUS_API CharSelect : public QDialog
+class SCRIBUS_API CharSelect : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
+	CharSelect(QWidget* parent);
 	/*! \brief Construct a modal dialog */
-	CharSelect(QWidget* parent, PageItem *item);
+// 	CharSelect(QWidget* parent, PageItem *item);
 	/*! \brief Construct an optional state dialog */
-	CharSelect(QWidget* parent, PageItem *item, QString font, bool modal=true);
+// 	CharSelect(QWidget* parent, PageItem *item, QString font, bool modal=true);
 	~CharSelect() {};
+
+	void setDoc(ScribusDoc* doc);
 
 	const QString & fontInUse() const { return m_fontInUse; };
 	void setFontInUse(const QString f) { m_fontInUse = f; };
@@ -49,8 +54,9 @@ public:
 	void generatePreview(int charClass);
 
 private:
+	ScribusDoc* m_doc;
 	//! \brief A flag with true if the dialog is flat palette
-	bool needReturn;
+// 	bool needReturn;
 	//! \brief Current font name
 	QString m_fontInUse;
 	//! \brief Currently selected character set
@@ -113,7 +119,7 @@ signals:
 
 protected:
 	//! \brief Common parts of the constructors
-	void run(QWidget* parent, PageItem* item);
+// 	void run(QWidget* parent, PageItem* item);
 	bool eventFilter( QObject *obj, QEvent *ev );
 
 	PageItem *m_Item;
@@ -136,6 +142,7 @@ protected:
 
 	protected slots:
 		void hideCheck_clicked();
+		void slot_insertSpecialChar();
 };
 
 #endif

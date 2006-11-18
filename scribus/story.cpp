@@ -84,7 +84,7 @@ void SideBar::mouseReleaseEvent(QMouseEvent *m)
 	Spal->setFormats(editor->doc);
 	if ((CurrentPar < static_cast<int>(editor->StyledText.nrOfParagraphs())) && (editor->StyledText.length() != 0))
 	{
-		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar); 
+		int len = editor->StyledText.endOfParagraph(CurrentPar) - editor->StyledText.startOfParagraph(CurrentPar);
 		if (len > 0)
 			Spal->setFormat(editor->StyledText.paragraphStyle(pos).displayName());
 		else
@@ -480,7 +480,7 @@ void SEditor::loadItemText(PageItem *currItem)
 	int npars = currItem->itemText.nrOfParagraphs();
 	int currPar = 0;
 	int currChar;
-	while (currItem->CPos >= (currChar = currItem->itemText.endOfParagraph(currPar)) 
+	while (currItem->CPos >= (currChar = currItem->itemText.endOfParagraph(currPar))
 		   && currPar < npars)
 		++currPar;
 	if (currItem->CPos < currChar)
@@ -496,7 +496,7 @@ void SEditor::loadText(QString tx, PageItem *currItem)
 	QString Text = "";
 	StyledText.clear();
 	StyledText.setDefaultStyle(currItem->itemText.defaultStyle());
-	StyledText.insertChars(0, tx);	
+	StyledText.insertChars(0, tx);
 	updateAll();
 	if (StyledText.length() != 0)
 		emit setProps(0, 0);
@@ -1148,7 +1148,7 @@ StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
 	seMenuMgr=NULL;
 	buildGUI();
 	currItem = ite;
-	charSelect = NULL;
+// 	charSelect = NULL;
 	firstSet = false;
 	activFromApp = true;
 	Editor->loadItemText(ite);
@@ -1172,7 +1172,7 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 	prefsManager=PrefsManager::instance();
 	currDoc = NULL;
 	currItem = NULL;
-	charSelect = NULL;
+// 	charSelect = NULL;
 	#ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
 	#endif
@@ -1196,6 +1196,8 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 StoryEditor::~StoryEditor()
 {
 	savePrefs();
+	// PV - char palette
+	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertSpecialChar()));
 }
 
 void StoryEditor::savePrefs()
@@ -1617,6 +1619,9 @@ void StoryEditor::connectSignals()
 	connect(StyleTools, SIGNAL(newOutline(int )), this, SLOT(newTxtOutline(int )));
 	connect(StyleTools, SIGNAL(newUnderline(int, int)), this, SLOT(newTxtUnderline(int, int)));
 	connect(StyleTools, SIGNAL(newStrike(int, int )), this, SLOT(newTxtStrike(int, int)));
+	// PV - char palette
+	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	disconnect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertSpecialChar()));
 }
 
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
@@ -1703,8 +1708,8 @@ void StoryEditor::closeEvent(QCloseEvent *)
 		result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
 	savePrefs();
-	if (charSelect != NULL)
-		charSelect->close();
+// 	if (charSelect != NULL)
+// 		charSelect->close();
 	hide();
 	blockUpdate = false;
 }
@@ -2055,7 +2060,7 @@ void StoryEditor::updateProps(int p, int ch)
 		{
 			int PStart=0, PEnd=0, SelStart=0, SelEnd=0;
 			Editor->getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
-			start = Editor->StyledText.startOfParagraph(PStart); 
+			start = Editor->StyledText.startOfParagraph(PStart);
 			if (SelStart >= 0 && start + SelStart < Editor->StyledText.endOfParagraph(PStart))
 				start = QMIN(start + SelStart, Editor->StyledText.endOfParagraph(PStart)-1);
 			else
@@ -2147,7 +2152,7 @@ void StoryEditor::updateStatus()
 	Editor->getCursorPosition(&p, &i);
 	int start = Editor->StyledText.startOfParagraph(p);
 	int end = Editor->StyledText.endOfParagraph(p);
-	
+
 	ParC->setText(tmp.setNum(Editor->StyledText.nrOfParagraphs()));
 	CharC->setText(tmp.setNum(end - start));
 	CharC2->setText(tmp.setNum(Editor->StyledText.length()));
@@ -2164,46 +2169,48 @@ void StoryEditor::updateStatus()
 		{
 			if (pos > start && pos < end)
 				counter++;
-			
+
 			counter2++;
 			pos += rx.matchedLength();
 		}
 	}
-					   
+
 	WordC->setText(tmp.setNum(counter));
 	WordC2->setText(tmp.setNum(counter2));
 }
 
 void StoryEditor::Do_insSp()
 {
+	ScCore->primaryMainWindow()->charPalette->show();
 	// perform "rescan" only if needed - font or item changed
-	bool rescan = false;
-	if (charSelect == NULL)
-	{
-		// header file commect for charSelect
-		charSelect = new CharSelect(this, currItem, Editor->CurrFont, false);
-		connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-	}
-	if (charSelect->item() != currItem)
-	{
-		charSelect->setItem(currItem);
-		rescan = true;
-	}
-	if (charSelect->fontInUse() != Editor->CurrFont)
-	{
-		charSelect->setFontInUse(Editor->CurrFont);
-		rescan = true;
-	}
-	if (rescan)
-	{
-		charSelect->scanFont();
-		charSelect->generatePreview(0);
-		charSelect->setCharacterClass(0);
-		charSelect->setupRangeCombo();
-	}
-	if (!charSelect->isShown())
-		charSelect->show();
-	charSelect->raise();
+	// PV - char palette
+// 	bool rescan = false;
+// 	if (charSelect == NULL)
+// 	{
+// 		// header file commect for charSelect
+// 		charSelect = new CharSelect(this, currItem, Editor->CurrFont, false);
+// 		connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+// 	}
+// 	if (charSelect->item() != currItem)
+// 	{
+// 		charSelect->setItem(currItem);
+// 		rescan = true;
+// 	}
+// 	if (charSelect->fontInUse() != Editor->CurrFont)
+// 	{
+// 		charSelect->setFontInUse(Editor->CurrFont);
+// 		rescan = true;
+// 	}
+// 	if (rescan)
+// 	{
+// 		charSelect->scanFont();
+// 		charSelect->generatePreview(0);
+// 		charSelect->setCharacterClass(0);
+// 		charSelect->setupRangeCombo();
+// 	}
+// 	if (!charSelect->isShown())
+// 		charSelect->show();
+// 	charSelect->raise();
 	/* #569: Insert Special window is modal, complicating multiple insertions
 	of special characters - PV
 	blockUpdate = true;
@@ -2221,10 +2228,10 @@ void StoryEditor::Do_insSp()
 void StoryEditor::slot_insertSpecialChar()
 {
 	blockUpdate = true;
-	if (!charSelect->getCharacters().isEmpty())
+	if (!ScCore->primaryMainWindow()->charPalette->getCharacters().isEmpty())
 	{
-		Editor->insChars(charSelect->getCharacters());
-		Editor->insert(charSelect->getCharacters());
+		Editor->insChars(ScCore->primaryMainWindow()->charPalette->getCharacters());
+		Editor->insert(ScCore->primaryMainWindow()->charPalette->getCharacters());
 	}
 	blockUpdate = false;
 }
@@ -2250,8 +2257,8 @@ void StoryEditor::Do_leave2()
 	updateTextFrame();
 	result = QDialog::Accepted;
 	setCurrentDocumentAndItem(currDoc, NULL);
-	if (charSelect != NULL)
-		charSelect->close();
+// 	if (charSelect != NULL)
+// 		charSelect->close();
 	hide();
 	blockUpdate = false;
 }
@@ -2273,8 +2280,8 @@ void StoryEditor::Do_leave()
 	}
 	result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
-	if (charSelect != NULL)
-		charSelect->close();
+// 	if (charSelect != NULL)
+// 		charSelect->close();
 	hide();
 	blockUpdate = false;
 	//qApp->exit_loop();
@@ -2341,7 +2348,7 @@ void StoryEditor::Do_selectAll()
 		return;
 
 	int lastPar = Editor->StyledText.nrOfParagraphs()-1;
-	if (lastPar > 0) 
+	if (lastPar > 0)
 	{
 		int lastParStart = Editor->StyledText.startOfParagraph(lastPar);
 		int lastParEnd = Editor->StyledText.endOfParagraph(lastPar);
@@ -2693,7 +2700,7 @@ void StoryEditor::changeAlign(int )
 	bool sel = false;
 	ParagraphStyle newStyle;
 	newStyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(Editor->CurrAlign));
-	
+
 	Editor->getCursorPosition(&p, &i);
 	if (Editor->StyledText.length() != 0)
 	{
@@ -2870,5 +2877,5 @@ void StoryEditor::specialActionKeyEvent(QString actionName, int unicodevalue)
 void StoryEditor::updateUnicodeActions()
 {
 	if (Editor->prevFont!=Editor->CurrFont)
-		ScCore->primaryMainWindow()->actionManager->enableUnicodeActions(&seActions, true, Editor->CurrFont);	
+		ScCore->primaryMainWindow()->actionManager->enableUnicodeActions(&seActions, true, Editor->CurrFont);
 }
