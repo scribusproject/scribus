@@ -553,6 +553,7 @@ void Scribus134Format::writePdfOptions(QDomDocument & docu)
 	pdf.setAttribute("BLeft", m_Doc->PDF_Options.BleedLeft);
 	pdf.setAttribute("BRight", m_Doc->PDF_Options.BleedRight);
 	pdf.setAttribute("BBottom", m_Doc->PDF_Options.BleedBottom);
+	pdf.setAttribute("useDocBleeds", static_cast<int>(m_Doc->PDF_Options.useDocBleeds));
 	pdf.setAttribute("cropMarks", static_cast<int>(m_Doc->PDF_Options.cropMarks));
 	pdf.setAttribute("bleedMarks", static_cast<int>(m_Doc->PDF_Options.bleedMarks));
 	pdf.setAttribute("registrationMarks", static_cast<int>(m_Doc->PDF_Options.registrationMarks));

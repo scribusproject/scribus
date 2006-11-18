@@ -7594,13 +7594,10 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	if (doc->PDF_Options.firstUse)
-	{
-		doc->PDF_Options.BleedTop = doc->BleedTop;
-		doc->PDF_Options.BleedLeft = doc->BleedLeft;
-		doc->PDF_Options.BleedRight = doc->BleedRight;
-		doc->PDF_Options.BleedBottom = doc->BleedBottom;
-	}
+	double optBleedTop = doc->PDF_Options.BleedTop;
+	double optBleedBottom = doc->PDF_Options.BleedLeft;
+	double optBleedLeft = doc->PDF_Options.BleedRight;
+	double optBleedRight = doc->PDF_Options.BleedBottom;
 	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
@@ -7616,6 +7613,13 @@ void ScribusMainWindow::doSaveAsPDF()
 		QString nam(dia.cmsDescriptor());
 		QString fileName = doc->PDF_Options.Datei;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
+		if (doc->PDF_Options.useDocBleeds)
+		{
+			doc->PDF_Options.BleedTop = doc->BleedTop;
+			doc->PDF_Options.BleedLeft = doc->BleedLeft;
+			doc->PDF_Options.BleedRight = doc->BleedRight;
+			doc->PDF_Options.BleedBottom = doc->BleedBottom;
+		}
 		if (doc->PDF_Options.doMultiFile)
 		{
 			QFileInfo fi(fileName);
@@ -7659,6 +7663,13 @@ void ScribusMainWindow::doSaveAsPDF()
 				qApp->setOverrideCursor(QCursor(arrowCursor), true);
 				QMessageBox::warning(this, CommonStrings::trWarning, tr("Cannot write the file: \n%1").arg(doc->PDF_Options.Datei), CommonStrings::tr_OK);
 			}
+		}
+		if (doc->PDF_Options.useDocBleeds)
+		{
+			doc->PDF_Options.BleedTop = optBleedTop;
+			doc->PDF_Options.BleedLeft = optBleedLeft;
+			doc->PDF_Options.BleedRight = optBleedRight;
+			doc->PDF_Options.BleedBottom = optBleedBottom;
 		}
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}

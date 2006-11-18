@@ -427,6 +427,7 @@ void PrefsManager::initDefaults()
 	appPrefs.PDF_Options.BleedLeft = 0;
 	appPrefs.PDF_Options.BleedRight = 0;
 	appPrefs.PDF_Options.BleedBottom = 0;
+	appPrefs.PDF_Options.useDocBleeds = false;
 	appPrefs.PDF_Options.cropMarks = false;
 	appPrefs.PDF_Options.bleedMarks = false;
 	appPrefs.PDF_Options.registrationMarks = false;
@@ -1273,6 +1274,7 @@ bool PrefsManager::WritePref(QString ho)
 	pdf.setAttribute("BLeft", appPrefs.PDF_Options.BleedLeft);
 	pdf.setAttribute("BRight", appPrefs.PDF_Options.BleedRight);
 	pdf.setAttribute("BBottom", appPrefs.PDF_Options.BleedBottom);
+	pdf.setAttribute("useDocBleeds", static_cast<int>(appPrefs.PDF_Options.useDocBleeds));
 	pdf.setAttribute("cropMarks", static_cast<int>(appPrefs.PDF_Options.cropMarks));
 	pdf.setAttribute("bleedMarks", static_cast<int>(appPrefs.PDF_Options.bleedMarks));
 	pdf.setAttribute("registrationMarks", static_cast<int>(appPrefs.PDF_Options.registrationMarks));
@@ -1844,6 +1846,7 @@ bool PrefsManager::ReadPref(QString ho)
 			appPrefs.PDF_Options.BleedLeft = dc.attribute("BLeft", "0").toDouble();
 			appPrefs.PDF_Options.BleedRight = dc.attribute("BRight", "0").toDouble();
 			appPrefs.PDF_Options.BleedBottom = dc.attribute("BBottom", "0").toDouble();
+			appPrefs.PDF_Options.useDocBleeds = static_cast<bool>(dc.attribute("useDocBleeds", "0").toInt());
 			appPrefs.PDF_Options.cropMarks = static_cast<bool>(dc.attribute("cropMarks", "0").toInt());
 			appPrefs.PDF_Options.bleedMarks = static_cast<bool>(dc.attribute("bleedMarks", "0").toInt());
 			appPrefs.PDF_Options.registrationMarks = static_cast<bool>(dc.attribute("registrationMarks", "0").toInt());

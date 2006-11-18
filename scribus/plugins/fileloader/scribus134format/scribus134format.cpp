@@ -726,6 +726,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				m_Doc->PDF_Options.BleedLeft = pg.attribute("BLeft", "0").toDouble();
 				m_Doc->PDF_Options.BleedRight = pg.attribute("BRight", "0").toDouble();
 				m_Doc->PDF_Options.BleedBottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.useDocBleeds = static_cast<bool>(pg.attribute("useDocBleeds", "0").toInt());
 				m_Doc->PDF_Options.cropMarks = static_cast<bool>(pg.attribute("cropMarks", "0").toInt());
 				m_Doc->PDF_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks", "0").toInt());
 				m_Doc->PDF_Options.registrationMarks = static_cast<bool>(pg.attribute("registrationMarks", "0").toInt());

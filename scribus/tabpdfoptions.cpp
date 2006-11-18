@@ -1233,7 +1233,11 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 	BleedBottom->setValue(Opts.BleedBottom*unitRatio);
 	BleedRight->setValue(Opts.BleedRight*unitRatio);
 	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
-	docBleeds->setChecked(false);
+	if (mdoc != 0 && exporting)
+	{
+		docBleeds->setChecked(Opts.useDocBleeds);
+		doDocBleeds();
+	}
 	markOffset->setValue(Opts.markOffset*unitRatio);
 	cropMarks->setChecked(Opts.cropMarks);
 	bleedMarks->setChecked(Opts.bleedMarks);
