@@ -282,7 +282,12 @@ QColor ScColor::getColorProof(bool gamutCheck) const
 	QColor tmp;
 	bool gamutChkEnabled = m_doc ? m_doc->Gamut : false;
 	if (Model == colorModelRGB)
+	{
+		// Match 133x behavior (RGB greys map to cmyk greys) until we are able to make rgb profiled output
+		if ( R == G && G == B )
+			gamutChkEnabled = false;
 		tmp = getColorProof(R, G, B, gamutCheck & gamutChkEnabled);
+	}
 	else
 		tmp = getColorProof(C, M, Y, K, gamutCheck & gamutChkEnabled);
 	return tmp;
@@ -301,6 +306,10 @@ QColor ScColor::getShadeColorProof(int level)
 	if (Model == colorModelRGB)
 	{
 		getShadeColorRGB(&r, &g, &b, level);
+		// Match 133x behavior for rgb grey until we are able to make rgb profiled output
+		// (RGB greys map to cmyk greys)
+		if ( r == g && g == b )
+			doGC = false;
 		tmp = getColorProof(r, g, b, doGC);
 	}
 	else
