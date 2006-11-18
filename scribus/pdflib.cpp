@@ -700,7 +700,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
 		ScFace::FontFormat fformat = AllFonts[it.key()].format();
-		if ((AllFonts[it.key()].isOTF()) || (!AllFonts[it.key()].hasNames()) || (AllFonts[it.key()].subset()) || (Options.SubsetList.contains(it.key())))
+		if ((!AllFonts[it.key()].hasNames()) || (Options.SubsetList.contains(it.key())))
 		{
 			QString fon("");
 			QMap<uint,FPointArray>& RealGlyphs(it.data());
@@ -3776,7 +3776,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
 		tmp2 += "S\n";
 	}
-	if ((hl->font().isOTF()) || (!hl->font().hasNames()) || (hl->font().subset()) || (Options.SubsetList.contains(hl->font().scName())))
+	if ((!hl->font().hasNames()) || (Options.SubsetList.contains(hl->font().scName())))
 	{
 //		uint chr = chstr[0].unicode();
 		if (glyph != hl->font().char2CMap(QChar(' ')))

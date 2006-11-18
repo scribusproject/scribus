@@ -173,7 +173,7 @@ void FontPrefs::slotClick(QListViewItem* ite, const QPoint &, int col)
 		else
 			ite->setPixmap(2, checkOff);
 	}
-	if ((col == 3) && (!fontFlags[tmp].FlagOTF) && (!fontFlags[tmp].FlagNames))
+	if ((col == 3) && (!fontFlags[tmp].FlagOTF) && (fontFlags[tmp].FlagNames))
 	{
 		fontFlags[tmp].FlagSub = !fontFlags[tmp].FlagSub;
 		if (fontFlags[tmp].FlagSub)
