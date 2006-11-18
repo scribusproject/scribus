@@ -1831,7 +1831,7 @@ void TabPDFOptions::SelSFont(QListBoxItem *c)
 	{
 		if (PDFVersionCombo->currentItem() == 3)
 		{
-			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset))
+			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset()))
 				FromSubset->setEnabled(false);
 			else
 				FromSubset->setEnabled(true);
