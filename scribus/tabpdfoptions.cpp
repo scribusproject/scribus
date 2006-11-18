@@ -1815,6 +1815,8 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 	{
 		if (PDFVersionCombo->currentItem() != 3)
 			FromEmbed->setEnabled(true);
+		else
+			FromEmbed->setEnabled(false);
 		ToEmbed->setEnabled(false);
 		ToSubset->setEnabled(true);
 		FromSubset->setEnabled(false);
@@ -1827,7 +1829,15 @@ void TabPDFOptions::SelSFont(QListBoxItem *c)
 {
 	if (c != NULL)
 	{
-		FromSubset->setEnabled(true);
+		if (PDFVersionCombo->currentItem() == 3)
+		{
+			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset))
+				FromSubset->setEnabled(false);
+			else
+				FromSubset->setEnabled(true);
+		}
+		else
+			FromSubset->setEnabled(true);
 		ToSubset->setEnabled(false);
 		ToEmbed->setEnabled(false);
 		FromEmbed->setEnabled(false);
