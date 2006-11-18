@@ -378,214 +378,214 @@ void ScPainter::endLayer()
 {
 	layerProp la;
 	la = Layers.top();
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	if (la.pushed)
 	{
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
-	if ((m_blendMode != 0) && (Layers.count() != 1))
-	{
-		cairo_surface_t *tmp = cairo_get_group_target(m_cr);
-		cairo_surface_t *tmpB = Layers.top().data;
-		if ((tmp != NULL) && (tmpB != NULL))
+		if ((m_blendMode != 0) && (Layers.count() != 1))
 		{
-			if ((cairo_surface_get_type(tmp) == CAIRO_SURFACE_TYPE_IMAGE) && (cairo_surface_get_type(tmpB) == CAIRO_SURFACE_TYPE_IMAGE))
+			cairo_surface_t *tmp = cairo_get_group_target(m_cr);
+			cairo_surface_t *tmpB = Layers.top().data;
+			if ((tmp != NULL) && (tmpB != NULL))
 			{
-				cairo_surface_flush(tmp);
-				int stride = cairo_image_surface_get_stride(tmp);
-				unsigned char *s = cairo_image_surface_get_data(tmp);
-				unsigned char *d = cairo_image_surface_get_data(tmpB);
-				int h = cairo_image_surface_get_height(tmp);
-				int w = cairo_image_surface_get_width(tmp);
-				uint oldDst = 1;
-				uint oldSrc = 2;
-				uint newResult = 0;
-				bool first = true;
-				for( int yi=0; yi < h; ++yi )
+				if ((cairo_surface_get_type(tmp) == CAIRO_SURFACE_TYPE_IMAGE) && (cairo_surface_get_type(tmpB) == CAIRO_SURFACE_TYPE_IMAGE))
 				{
-					QRgb *dst = (QRgb*)d;
-					QRgb *src = (QRgb*)s;
-					for( int xi=0; xi < w; ++xi )
+					cairo_surface_flush(tmp);
+					int stride = cairo_image_surface_get_stride(tmp);
+					unsigned char *s = cairo_image_surface_get_data(tmp);
+					unsigned char *d = cairo_image_surface_get_data(tmpB);
+					int h = cairo_image_surface_get_height(tmp);
+					int w = cairo_image_surface_get_width(tmp);
+					uint oldDst = 1;
+					uint oldSrc = 2;
+					uint newResult = 0;
+					bool first = true;
+					for( int yi=0; yi < h; ++yi )
 					{
-						uchar src_r = qRed(*src);
-						uchar src_g = qGreen(*src);
-						uchar src_b = qBlue(*src);
-						uchar src_a = qAlpha(*src);
-						uchar dst_r = qRed(*dst);
-						uchar dst_g = qGreen(*dst);
-						uchar dst_b = qBlue(*dst);
-						uchar dst_a = qAlpha(*dst);
-						if ((src_a > 0) && (dst_a > 0))
+						QRgb *dst = (QRgb*)d;
+						QRgb *src = (QRgb*)s;
+						for( int xi=0; xi < w; ++xi )
 						{
-							if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
+							uchar src_r = qRed(*src);
+							uchar src_g = qGreen(*src);
+							uchar src_b = qBlue(*src);
+							uchar src_a = qAlpha(*src);
+							uchar dst_r = qRed(*dst);
+							uchar dst_g = qGreen(*dst);
+							uchar dst_b = qBlue(*dst);
+							uchar dst_a = qAlpha(*dst);
+							if ((src_a > 0) && (dst_a > 0))
 							{
-								if (m_blendMode == 1)
+								if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
 								{
-									src_r = dst_r  < src_r ? dst_r  : src_r;
-									src_g = dst_g < src_g ? dst_g : src_g;
-									src_b = dst_b < src_b ? dst_b : src_b;
+									if (m_blendMode == 1)
+									{
+										src_r = dst_r  < src_r ? dst_r  : src_r;
+										src_g = dst_g < src_g ? dst_g : src_g;
+										src_b = dst_b < src_b ? dst_b : src_b;
+									}
+									else if (m_blendMode == 2)
+									{
+										src_r = dst_r  < src_r ? src_r : dst_r;
+										src_g = dst_g < src_g ? src_g : dst_g;
+										src_b = dst_b < src_b ? src_b : dst_b;
+									}
+									else if (m_blendMode == 3)
+									{
+										src_r = INT_MULT(src_r, dst_r);
+										src_g = INT_MULT(src_g, dst_g);
+										src_b = INT_MULT(src_b, dst_b);
+									}
+									else if (m_blendMode == 4)
+									{
+										src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
+										src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
+										src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
+									}
+									else if (m_blendMode == 5)
+									{
+										src_r = dst_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+										src_g = dst_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+										src_b = dst_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+									}
+									else if (m_blendMode == 6)
+									{
+										src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
+										src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
+										src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
+									}
+									else if (m_blendMode == 7)
+									{
+										float s_r = (255 - src_r) / 255.0;
+										float s_g = (255 - src_g) / 255.0;
+										float s_b = (255 - src_b) / 255.0;
+										float d_r = (255 - dst_r) / 255.0;
+										float d_g = (255 - dst_g) / 255.0;
+										float d_b = (255 - dst_b) / 255.0;
+										float dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
+										float dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
+										float dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
+										s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
+										s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
+										s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
+										src_r = 255 - qRound(s_r * 255);
+										src_g = 255 - qRound(s_g * 255);
+										src_b = 255 - qRound(s_b * 255);
+									}
+									else if (m_blendMode == 8)
+									{
+										src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
+										src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
+										src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
+									}
+									else if (m_blendMode == 9)
+									{
+										src_r = dst_r + src_r - src_r * dst_r / 128;
+										src_g = dst_g + src_g - src_g * dst_g / 128;
+										src_b = dst_b + src_b - src_b * dst_b / 128;
+									}
+									else if (m_blendMode == 10)
+									{
+										src_r = src_r == 255 ? QMIN(255, dst_r * 256) : QMIN(255, ((dst_r * 256) / (255-src_r)));
+										src_g = src_g == 255 ? QMIN(255, dst_g * 256) : QMIN(255, ((dst_g * 256) / (255-src_g)));
+										src_b = src_b == 255 ? QMIN(255, dst_b * 256) : QMIN(255, ((dst_b * 256) / (255-src_b)));
+									}
+									else if (m_blendMode == 11)
+									{
+										src_r = QMAX(1, src_r);
+										src_g = QMAX(1, src_g);
+										src_b = QMAX(1, src_b);
+										src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
+										src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
+										src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
+									}
+	//							else if (m_blendMode == 12)
+	//							{
+			/*						This code is a blendmode that simulates the effect of overprinting
+									Works by converting source and destination colour to CMYK and adding them together
+									Finally the result is converted back to RGB */
+	/*								int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
+									int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
+									int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
+									int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
+									int Y = QMIN(QMIN(255 - src_b - K1, 255) + QMIN(255 - dst_b - K2, 255), 255) ;
+									int K = QMIN(K1 + K2, 255);
+									src_r = 255 - QMIN(255, C + K);
+									src_g = 255 - QMIN(255, M + K);
+									src_b = 255 - QMIN(255, Y+ K);
+								} */
+									else if (m_blendMode == 12)
+									{
+										uchar new_r = dst_r;
+										uchar new_g = dst_g;
+										uchar new_b = dst_b;
+										RGBTOHSV(src_r, src_g, src_b);
+										RGBTOHSV(new_r, new_g, new_b);
+										new_r = src_r;
+										HSVTORGB(new_r, new_g, new_b);
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									else if (m_blendMode == 13)
+									{
+										uchar new_r = dst_r;
+										uchar new_g = dst_g;
+										uchar new_b = dst_b;
+										RGBTOHSV(src_r, src_g, src_b);
+										RGBTOHSV(new_r, new_g, new_b);
+										new_g = src_g;
+										HSVTORGB(new_r, new_g, new_b);
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									else if (m_blendMode == 14)
+									{
+										uchar new_r = dst_r;
+										uchar new_g = dst_g;
+										uchar new_b = dst_b;
+										RGBTOHLS(src_r, src_g, src_b);
+										RGBTOHLS(new_r, new_g, new_b);
+										new_r = src_r;
+										new_b = src_b;
+										HLSTORGB(new_r, new_g, new_b);
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									else if (m_blendMode == 15)
+									{
+										uchar new_r = dst_r;
+										uchar new_g = dst_g;
+										uchar new_b = dst_b;
+										RGBTOHSV(src_r, src_g, src_b);
+										RGBTOHSV(new_r, new_g, new_b);
+										new_b = src_b;
+										HSVTORGB(new_r, new_g, new_b);
+										src_r = new_r;
+										src_g = new_g;
+										src_b = new_b;
+									}
+									newResult = qRgba(src_r, src_g, src_b, src_a);
+									oldDst = (*dst);
+									oldSrc = (*src);
+									first = false;
 								}
-								else if (m_blendMode == 2)
-								{
-									src_r = dst_r  < src_r ? src_r : dst_r;
-									src_g = dst_g < src_g ? src_g : dst_g;
-									src_b = dst_b < src_b ? src_b : dst_b;
-								}
-								else if (m_blendMode == 3)
-								{
-									src_r = INT_MULT(src_r, dst_r);
-									src_g = INT_MULT(src_g, dst_g);
-									src_b = INT_MULT(src_b, dst_b);
-								}
-								else if (m_blendMode == 4)
-								{
-									src_r = 255 - ((255-src_r) * (255-dst_r) / 128);
-									src_g = 255 - ((255-src_g) * (255-dst_g) / 128);
-									src_b = 255 - ((255-src_b) * (255-dst_b) / 128);
-								}
-								else if (m_blendMode == 5)
-								{
-									src_r = dst_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
-									src_g = dst_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
-									src_b = dst_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
-								}
-								else if (m_blendMode == 6)
-								{
-									src_r = src_r < 128 ? src_r * dst_r / 128 : 255 - ((255-src_r) * (255-dst_r) / 128);
-									src_g = src_g < 128 ? src_g * dst_g / 128 : 255 - ((255-src_g) * (255-dst_g) / 128);
-									src_b = src_b < 128 ? src_b * dst_b / 128 : 255 - ((255-src_b) * (255-dst_b) / 128);
-								}
-								else if (m_blendMode == 7)
-								{
-									float s_r = (255 - src_r) / 255.0;
-									float s_g = (255 - src_g) / 255.0;
-									float s_b = (255 - src_b) / 255.0;
-									float d_r = (255 - dst_r) / 255.0;
-									float d_g = (255 - dst_g) / 255.0;
-									float d_b = (255 - dst_b) / 255.0;
-									float dzr = d_r > 0.25 ? sqrt(d_r) : ((16 * d_r - 12) * d_r + 4) * d_r;
-									float dzg = d_g > 0.25 ? sqrt(d_g) : ((16 * d_g - 12) * d_g + 4) * d_g;
-									float dzb = d_b > 0.25 ? sqrt(d_b) : ((16 * d_b - 12) * d_b + 4) * d_b;
-									s_r = s_r <= 0.5 ? d_r - (1 - 2 * s_r) * d_r * (1 - d_r) : d_r + (2 * s_r - 1) * (dzr  - d_r);
-									s_g = s_g <= 0.5 ? d_g - (1 - 2 * s_g) * d_g * (1 - d_g) : d_g + (2 * s_g - 1) * (dzg  - d_g);
-									s_b = s_b <= 0.5 ? d_b - (1 - 2 * s_b) * d_b * (1 - d_b) : d_b + (2 * s_b - 1) * (dzb  - d_b);
-									src_r = 255 - qRound(s_r * 255);
-									src_g = 255 - qRound(s_g * 255);
-									src_b = 255 - qRound(s_b * 255);
-								}
-								else if (m_blendMode == 8)
-								{
-									src_r = dst_r > src_r ? dst_r - src_r : src_r - dst_r;
-									src_g = dst_g > src_g ? dst_g - src_g : src_g - dst_g;
-									src_b = dst_b > src_b ? dst_b - src_b : src_b - dst_b;
-								}
-								else if (m_blendMode == 9)
-								{
-									src_r = dst_r + src_r - src_r * dst_r / 128;
-									src_g = dst_g + src_g - src_g * dst_g / 128;
-									src_b = dst_b + src_b - src_b * dst_b / 128;
-								}
-								else if (m_blendMode == 10)
-								{
-									src_r = src_r == 255 ? QMIN(255, dst_r * 256) : QMIN(255, ((dst_r * 256) / (255-src_r)));
-									src_g = src_g == 255 ? QMIN(255, dst_g * 256) : QMIN(255, ((dst_g * 256) / (255-src_g)));
-									src_b = src_b == 255 ? QMIN(255, dst_b * 256) : QMIN(255, ((dst_b * 256) / (255-src_b)));
-								}
-								else if (m_blendMode == 11)
-								{
-									src_r = QMAX(1, src_r);
-									src_g = QMAX(1, src_g);
-									src_b = QMAX(1, src_b);
-									src_r = static_cast<int>(255 - (((255-dst_r) * 256) / src_r)) < 0 ? 0 : 255 - (((255-dst_r) * 256) / src_r);
-									src_g = static_cast<int>(255 - (((255-dst_g) * 256) / src_g)) < 0 ? 0 : 255 - (((255-dst_g) * 256) / src_g);
-									src_b = static_cast<int>(255 - (((255-dst_b) * 256) / src_b)) < 0 ? 0 : 255 - (((255-dst_b) * 256) / src_b);
-								}
-//							else if (m_blendMode == 12)
-//							{
-		/*						This code is a blendmode that simulates the effect of overprinting
-								Works by converting source and destination colour to CMYK and adding them together
-								Finally the result is converted back to RGB */
-/*								int K1 = QMIN(QMIN(255 - src_r, 255 - src_g), 255 - src_b);
-								int K2 = QMIN(QMIN(255 - dst_r, 255 - dst_g), 255 - dst_b);
-								int C = QMIN(QMIN(255 - src_r - K1, 255) + QMIN(255 - dst_r - K2, 255), 255);
-								int M = QMIN(QMIN(255 - src_g - K1, 255) + QMIN(255 - dst_g - K2, 255), 255) ;
-								int Y = QMIN(QMIN(255 - src_b - K1, 255) + QMIN(255 - dst_b - K2, 255), 255) ;
-								int K = QMIN(K1 + K2, 255);
-								src_r = 255 - QMIN(255, C + K);
-								src_g = 255 - QMIN(255, M + K);
-								src_b = 255 - QMIN(255, Y+ K);
-							} */
-								else if (m_blendMode == 12)
-								{
-									uchar new_r = dst_r;
-									uchar new_g = dst_g;
-									uchar new_b = dst_b;
-									RGBTOHSV(src_r, src_g, src_b);
-									RGBTOHSV(new_r, new_g, new_b);
-									new_r = src_r;
-									HSVTORGB(new_r, new_g, new_b);
-									src_r = new_r;
-									src_g = new_g;
-									src_b = new_b;
-								}
-								else if (m_blendMode == 13)
-								{
-									uchar new_r = dst_r;
-									uchar new_g = dst_g;
-									uchar new_b = dst_b;
-									RGBTOHSV(src_r, src_g, src_b);
-									RGBTOHSV(new_r, new_g, new_b);
-									new_g = src_g;
-									HSVTORGB(new_r, new_g, new_b);
-									src_r = new_r;
-									src_g = new_g;
-									src_b = new_b;
-								}
-								else if (m_blendMode == 14)
-								{
-									uchar new_r = dst_r;
-									uchar new_g = dst_g;
-									uchar new_b = dst_b;
-									RGBTOHLS(src_r, src_g, src_b);
-									RGBTOHLS(new_r, new_g, new_b);
-									new_r = src_r;
-									new_b = src_b;
-									HLSTORGB(new_r, new_g, new_b);
-									src_r = new_r;
-									src_g = new_g;
-									src_b = new_b;
-								}
-								else if (m_blendMode == 15)
-								{
-									uchar new_r = dst_r;
-									uchar new_g = dst_g;
-									uchar new_b = dst_b;
-									RGBTOHSV(src_r, src_g, src_b);
-									RGBTOHSV(new_r, new_g, new_b);
-									new_b = src_b;
-									HSVTORGB(new_r, new_g, new_b);
-									src_r = new_r;
-									src_g = new_g;
-									src_b = new_b;
-								}
-								newResult = qRgba(src_r, src_g, src_b, src_a);
-								oldDst = (*dst);
-								oldSrc = (*src);
-								first = false;
+								(*src) = newResult;
 							}
-							(*src) = newResult;
+							src++;
+							dst++;
 						}
-						src++;
-						dst++;
+						s += stride;
+						d += stride;
 					}
-					s += stride;
-					d += stride;
+					cairo_surface_mark_dirty(tmp);
 				}
-				cairo_surface_mark_dirty(tmp);
 			}
 		}
 	}
 	#endif
-	}
 	la = Layers.pop();
 	if (la.pushed)
 	{
