@@ -121,6 +121,7 @@ ellipsis.png \
 16/stroke-cap-butt.png \
 16/stroke-cap-round.png \
 16/stroke-cap-square.png \
+16/stroke-color.png \
 16/stroke-join-bevel.png \
 16/stroke-join-miter.png \
 16/stroke-join-round.png \
@@ -503,6 +504,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-butt.png $(prefix)/share/scribus/icons/16/stroke-cap-butt.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-round.png $(prefix)/share/scribus/icons/16/stroke-cap-round.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-cap-square.png $(prefix)/share/scribus/icons/16/stroke-cap-square.png
+	$(INSTALL_DATA) $(srcdir)/16/stroke-color.png $(prefix)/share/scribus/icons/16/stroke-color.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-join-bevel.png $(prefix)/share/scribus/icons/16/stroke-join-bevel.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-join-miter.png $(prefix)/share/scribus/icons/16/stroke-join-miter.png
 	$(INSTALL_DATA) $(srcdir)/16/stroke-join-round.png $(prefix)/share/scribus/icons/16/stroke-join-round.png
@@ -915,6 +917,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-butt.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-round.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-cap-square.png
+	-rm -f $(prefix)/share/scribus/icons/16/stroke-color.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-bevel.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-miter.png
 	-rm -f $(prefix)/share/scribus/icons/16/stroke-join-round.png

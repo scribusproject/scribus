@@ -152,7 +152,7 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 
 	layout6 = new QHBoxLayout( 0, 0, 5, "layout6");
 	StrokeIcon = new QLabel( "", GroupFont, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
+	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
 	layout6->addWidget( StrokeIcon );
 	TxStroke = new ColorCombo( false, GroupFont, "TxStroke" );
 	layout6->addWidget( TxStroke );

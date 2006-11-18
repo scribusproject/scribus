@@ -611,7 +611,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	layout23 = new QHBoxLayout( 0, 0, 5, "layout23");
 	layout23->setAlignment( Qt::AlignLeft );
 	StrokeIcon = new QLabel( "", page_3, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
+	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
 	StrokeIcon->setScaledContents( false );
 	layout23->addWidget( StrokeIcon );
 	TxStroke = new ColorCombo( false, page_3, "TxStroke" );

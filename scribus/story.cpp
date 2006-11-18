@@ -870,7 +870,7 @@ void SToolBColorF::newShadeHandler()
 SToolBColorS::SToolBColorS(QMainWindow* parent, ScribusDoc *doc) : QToolBar( tr("Stroke Color Settings"), parent)
 {
 	StrokeIcon = new QLabel( "", this, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
+	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
 	StrokeIcon->setScaledContents( false );
 	TxStroke = new ColorCombo( false, this, "TxStroke" );
 	PM1 = new ShadeButton(this);

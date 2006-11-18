@@ -751,7 +751,7 @@ SMCStylePage::SMCStylePage(QWidget *parent) : CStylePBase(parent)
 
 	layout6 = new QHBoxLayout( 0, 0, 5, "layout6");
 	StrokeIcon = new QLabel( "", characterBox, "StrokeIcon" );
-	StrokeIcon->setPixmap(loadIcon("Stiftalt.xpm"));
+	StrokeIcon->setPixmap(loadIcon("16/stroke-color.png"));
 	layout6->addWidget( StrokeIcon );
 
 	strokeColor_ = new SMColorCombo(characterBox, "TxStroke");

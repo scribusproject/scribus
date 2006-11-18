@@ -65,7 +65,7 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	Layout1->setSpacing( 4 );
 	Layout1->setMargin( 1 );
 	Inhalt = new QToolButton(this, "t1");
-	Inhalt->setPixmap(loadIcon("Stiftalt.xpm"));
+	Inhalt->setPixmap(loadIcon("16/stroke-color.png"));
 	Inhalt->setToggleButton(true);
 	Inhalt->setAutoRaise(true);
 	Inhalt->setBackgroundMode(PaletteBackground);

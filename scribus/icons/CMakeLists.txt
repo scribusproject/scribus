@@ -379,6 +379,7 @@ INSTALL(FILES
 16/stroke-cap-butt.png
 16/stroke-cap-round.png
 16/stroke-cap-square.png
+16/stroke-color.png
 16/stroke-join-bevel.png
 16/stroke-join-miter.png
 16/stroke-join-round.png
