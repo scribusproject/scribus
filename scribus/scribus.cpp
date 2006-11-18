@@ -2258,6 +2258,12 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	scrActions["extrasGenerateTableOfContents"]->setEnabled(doc->hasTOCSetup());
 	view->cmsToolbarButton->setOn(doc->HasCMS);
 	//doc emits changed() via this
+	doc->setMasterPageMode(true);
+	view->reformPages();
+	doc->setMasterPageMode(false);
+	uint pageCount=doc->DocPages.count();
+	for (uint c=0; c<pageCount; ++c)
+		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
 	view->reformPages();
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
@@ -5269,6 +5275,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 		int currentPageNumber=doc->currentPage()->pageNr();
 		bool ok=doc->copyPageToMasterPage(currentPageNumber, diaLinksCurrItem, diaLinksCount, masterPageName);
 		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
+		pagePalette->Rebuild();
 	}
 	delete dia;
 }
