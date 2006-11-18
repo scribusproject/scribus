@@ -3905,6 +3905,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 	}
 	else if ((ext == "jpg") || (ext == "jpeg"))
 	{
+		bool fromPS = false;
 		imgInfo.typ = 0;
 		ExifData ExifInf;
 		imgInfo.exifInfo.thumbnail = QImage();
@@ -4090,6 +4091,7 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 				arrayPhot.resetRawData((const char*)PhotoshopBuffer,PhotoshopLen);
 				free( PhotoshopBuffer );
 				imgInfo.exifDataValid = savEx;
+				fromPS = true;
 			}
 		}
 		if ( cinfo.output_components == 3 || cinfo.output_components == 4)
@@ -4120,13 +4122,23 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 			}
 			if ( cinfo.output_components == 4 )
 			{
+				int method = 0;
+				if (cinfo.jpeg_color_space == JCS_YCCK)
+					method = 1;
+				else if (fromPS)
+				{
+					if ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker) && (cinfo.Adobe_transform == 0))
+						method = 2;
+				}
+				else if ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker))
+					method = 1;
 				for (int i = 0; i < height(); i++)
 				{
-					QRgb *ptr = (QRgb*) scanLine(i);
+					QRgb *ptr = (QRgb*)  scanLine(i);
 					unsigned char c, m, y ,k;
-					if ((cinfo.jpeg_color_space == JCS_YCCK) || ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker)))
+					if (method == 1)
 					{
-						for (int j = 0; j < width(); j++)
+						for (int j = 0; j <  width(); j++)
 						{
 							unsigned char *p = (unsigned char *) ptr;
 							c = p[0];
@@ -4137,9 +4149,22 @@ bool ScImage::LoadPicture(const QString & fn, const QString & Prof,
 							ptr++;
 						}
 					}
+					else if (method == 2)
+					{
+						for (int j = 0; j <  width(); j++)
+						{
+							unsigned char *p = (unsigned char *) ptr;
+							c = p[0];
+							m = p[1];
+							y =  p[2];
+							k =  p[3];
+							*ptr = qRgba(255 - c, 255 - m, 255 - y, k);
+							ptr++;
+						}
+					}
 					else
 					{
-						for (int j = 0; j < width(); j++)
+						for (int j = 0; j <  width(); j++)
 						{
 							unsigned char *p = (unsigned char *) ptr;
 							c = p[0];
