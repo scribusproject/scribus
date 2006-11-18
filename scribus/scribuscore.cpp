@@ -432,11 +432,13 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
 					break;
 				case icSigOutputClass:
-					PrinterProfiles.insert(nam, pfad + d[dc], false);
+					// Disable rgb printer profile detection until effective support
+					// PrinterProfiles.insert(nam, pfad + d[dc], false);
 					if (static_cast<int>(cmsGetColorSpace(hIn)) == icSigCmykData)
 					{
 						PDFXProfiles.insert(nam, pfad + d[dc], false);
 						InputProfilesCMYK.insert(nam, pfad + d[dc], false);
+						PrinterProfiles.insert(nam, pfad + d[dc], false);
 					}
 					break;
 				}
