@@ -5046,6 +5046,7 @@ void ScribusMainWindow::duplicateToMasterPage()
 		int currentPageNumber=doc->currentPage->pageNr();
 		bool ok=doc->copyPageToMasterPage(currentPageNumber, diaLinksCurrItem, diaLinksCount, masterPageName);
 		Q_ASSERT(ok); //TODO get a return value in case the copy was not possible
+		pagePalette->Rebuild();
 	}
 	delete dia;
 }
