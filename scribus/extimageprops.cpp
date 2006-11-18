@@ -74,153 +74,131 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	blendModesRev.insert( tr("Color Burn"), "idiv");
 	propsTab = new QTabWidget( this, "propsTab" );
 
-	tab = new QWidget( propsTab, "tab" );
-	tabLayout = new QVBoxLayout( tab, 4, 4, "tabLayout");
-	layout1 = new QHBoxLayout( 0, 0, 4, "layout1");
-	textLabel1 = new QLabel( tab, "textLabel1" );
-	textLabel1->setText( tr( "Blend Mode:" ) );
-	layout1->addWidget( textLabel1 );
-	blendMode = new ScComboBox( false, tab, "blendMode" );
-	blendMode->clear();
-	blendMode->insertItem( tr("Normal"));
-	blendMode->insertItem( tr("Darken"));
-	blendMode->insertItem( tr("Lighten"));
-	blendMode->insertItem( tr("Hue"));
-	blendMode->insertItem( tr("Saturation"));
-	blendMode->insertItem( tr("Color"));
-	blendMode->insertItem( tr("Luminosity"));
-	blendMode->insertItem( tr("Multiply"));
-	blendMode->insertItem( tr("Screen"));
-	blendMode->insertItem( tr("Dissolve"));
-	blendMode->insertItem( tr("Overlay"));
-	blendMode->insertItem( tr("Hard Light"));
-	blendMode->insertItem( tr("Soft Light"));
-	blendMode->insertItem( tr("Difference"));
-	blendMode->insertItem( tr("Exclusion"));
-	blendMode->insertItem( tr("Color Dodge"));
-	blendMode->insertItem( tr("Color Burn"));
-	layout1->addWidget( blendMode );
-	textLabel2 = new QLabel( tab, "textLabel2" );
-	textLabel2->setText( tr( "Opacity:" ) );
-	layout1->addWidget( textLabel2 );
-	opacitySpinBox = new QSpinBox( tab, "opacitySpinBox" );
-	opacitySpinBox->setMinValue(0);
-	opacitySpinBox->setMaxValue(100);
-	opacitySpinBox->setLineStep(10);
-	opacitySpinBox->setSuffix( tr(" %"));
-	layout1->addWidget( opacitySpinBox );
-	tabLayout->addLayout( layout1 );
-	layerTable = new QTable( tab, "layerTable" );
-	layerTable->setNumRows( 0 );
-	layerTable->setNumCols( 3 );
-	QHeader *header = layerTable->horizontalHeader();
-	header->setLabel(0, loadIcon("16/show-object.png"), "");
-	header->setLabel(1, "");
-	header->setLabel(2, tr("Name"));
-	layerTable->setColumnReadOnly(0, true);
-	layerTable->setColumnReadOnly(1, true);
-	layerTable->setColumnReadOnly(2, true);
-	if (info->layerInfo.count() == 1)
-	{
-		layerTable->setColumnWidth(1, 40);
-		layerTable->setColumnWidth(0, 24);
-	}
-	layerTable->setColumnStretchable(2, true);
-	layerTable->setRowMovingEnabled(false);
-	layerTable->setSorting(false);
-	layerTable->setSelectionMode( QTable::SingleRow );
-	layerTable->setFocusStyle( QTable::FollowStyle );
-	QHeader *Header = layerTable->verticalHeader();
-	Header->setMovingEnabled(false);
-	Header->setResizeEnabled(false);
-	layerTable->setLeftMargin(0);
-	Header->hide();
-	FlagsSicht.clear();
 	if (info->layerInfo.count() != 0)
 	{
-		if ((info->isRequest) && (info->RequestProps.contains(0)))
+		tab = new QWidget( propsTab, "tab" );
+		tabLayout = new QVBoxLayout( tab, 4, 4, "tabLayout");
+		layout1 = new QHBoxLayout( 0, 0, 4, "layout1");
+		textLabel1 = new QLabel( tab, "textLabel1" );
+		textLabel1->setText( tr( "Blend Mode:" ) );
+		layout1->addWidget( textLabel1 );
+		blendMode = new ScComboBox( false, tab, "blendMode" );
+		blendMode->clear();
+		blendMode->insertItem( tr("Normal"));
+		blendMode->insertItem( tr("Darken"));
+		blendMode->insertItem( tr("Lighten"));
+		blendMode->insertItem( tr("Hue"));
+		blendMode->insertItem( tr("Saturation"));
+		blendMode->insertItem( tr("Color"));
+		blendMode->insertItem( tr("Luminosity"));
+		blendMode->insertItem( tr("Multiply"));
+		blendMode->insertItem( tr("Screen"));
+		blendMode->insertItem( tr("Dissolve"));
+		blendMode->insertItem( tr("Overlay"));
+		blendMode->insertItem( tr("Hard Light"));
+		blendMode->insertItem( tr("Soft Light"));
+		blendMode->insertItem( tr("Difference"));
+		blendMode->insertItem( tr("Exclusion"));
+		blendMode->insertItem( tr("Color Dodge"));
+		blendMode->insertItem( tr("Color Burn"));
+		layout1->addWidget( blendMode );
+		textLabel2 = new QLabel( tab, "textLabel2" );
+		textLabel2->setText( tr( "Opacity:" ) );
+		layout1->addWidget( textLabel2 );
+		opacitySpinBox = new QSpinBox( tab, "opacitySpinBox" );
+		opacitySpinBox->setMinValue(0);
+		opacitySpinBox->setMaxValue(100);
+		opacitySpinBox->setLineStep(10);
+		opacitySpinBox->setSuffix( tr(" %"));
+		layout1->addWidget( opacitySpinBox );
+		tabLayout->addLayout( layout1 );
+		layerTable = new QTable( tab, "layerTable" );
+		layerTable->setNumRows( 0 );
+		layerTable->setNumCols( 3 );
+		QHeader *header = layerTable->horizontalHeader();
+		header->setLabel(0, loadIcon("16/show-object.png"), "");
+		header->setLabel(1, "");
+		header->setLabel(2, tr("Name"));
+		layerTable->setColumnReadOnly(0, true);
+		layerTable->setColumnReadOnly(1, true);
+		layerTable->setColumnReadOnly(2, true);
+		if (info->layerInfo.count() == 1)
 		{
-			opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
-			blendMode->setCurrentText(blendModes[info->RequestProps[0].blend]);
+			layerTable->setColumnWidth(1, 40);
+			layerTable->setColumnWidth(0, 24);
 		}
-		else
+		layerTable->setColumnStretchable(2, true);
+		layerTable->setRowMovingEnabled(false);
+		layerTable->setSorting(false);
+		layerTable->setSelectionMode( QTable::SingleRow );
+		layerTable->setFocusStyle( QTable::FollowStyle );
+		QHeader *Header = layerTable->verticalHeader();
+		Header->setMovingEnabled(false);
+		Header->setResizeEnabled(false);
+		layerTable->setLeftMargin(0);
+		Header->hide();
+		FlagsSicht.clear();
+		if (info->layerInfo.count() != 0)
 		{
-			opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
-			blendMode->setCurrentText(blendModes[info->layerInfo[0].blend]);
-		}
-		opacitySpinBox->setEnabled(true);
-		blendMode->setEnabled(true);
-		QString tmp;
-		QValueList<PSDLayer>::iterator it2;
-		layerTable->setNumRows(info->layerInfo.count());
-		uint counter = 0;
-		for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
-		{
-			QCheckBox *cp = new QCheckBox(this, (*it2).layerName);
-			cp->setPaletteBackgroundColor(white);
-			if ((info->isRequest) && (info->RequestProps.contains(counter)))
-				cp->setChecked(info->RequestProps[counter].visible);
-			else
-				cp->setChecked(!((*it2).flags & 2));
-			QPixmap pm;
-			pm.convertFromImage((*it2).thumb);
-			cp->setPixmap(pm);
-			FlagsSicht.append(cp);
-			connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
-			layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
-			if (!(*it2).thumb_mask.isNull())
+			if ((info->isRequest) && (info->RequestProps.contains(0)))
 			{
-				QCheckBox *cp2 = new QCheckBox(this, (*it2).layerName);
-				cp2->setPaletteBackgroundColor(white);
-				if ((info->isRequest) && (info->RequestProps.contains(counter)))
-					cp2->setChecked(info->RequestProps[counter].useMask);
-				else
-					cp2->setChecked(true);
-				QPixmap pm2;
-				pm2.convertFromImage((*it2).thumb_mask);
-				cp2->setPixmap(pm2);
-				connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
-				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
-				FlagsMask.append(cp2);
+				opacitySpinBox->setValue(qRound(info->RequestProps[0].opacity / 255.0 * 100));
+				blendMode->setCurrentText(blendModes[info->RequestProps[0].blend]);
 			}
 			else
-				FlagsMask.append(0);
-			layerTable->setText(info->layerInfo.count()-counter-1, 2, (*it2).layerName);
-			Header->setLabel(info->layerInfo.count()-counter-1, tmp.setNum(counter+1));
-			layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
-			counter++;
+			{
+				opacitySpinBox->setValue(qRound(info->layerInfo[0].opacity / 255.0 * 100));
+				blendMode->setCurrentText(blendModes[info->layerInfo[0].blend]);
+			}
+			opacitySpinBox->setEnabled(true);
+			blendMode->setEnabled(true);
+			QString tmp;
+			QValueList<PSDLayer>::iterator it2;
+			layerTable->setNumRows(info->layerInfo.count());
+			uint counter = 0;
+			for (it2 = info->layerInfo.begin(); it2 != info->layerInfo.end(); ++it2)
+			{
+				QCheckBox *cp = new QCheckBox(this, (*it2).layerName);
+				cp->setPaletteBackgroundColor(white);
+				if ((info->isRequest) && (info->RequestProps.contains(counter)))
+					cp->setChecked(info->RequestProps[counter].visible);
+				else
+					cp->setChecked(!((*it2).flags & 2));
+				QPixmap pm;
+				pm.convertFromImage((*it2).thumb);
+				cp->setPixmap(pm);
+				FlagsSicht.append(cp);
+				connect(cp, SIGNAL(clicked()), this, SLOT(changedLayer()));
+				layerTable->setCellWidget(info->layerInfo.count()-counter-1, 0, cp);
+				if (!(*it2).thumb_mask.isNull())
+				{
+					QCheckBox *cp2 = new QCheckBox(this, (*it2).layerName);
+					cp2->setPaletteBackgroundColor(white);
+					if ((info->isRequest) && (info->RequestProps.contains(counter)))
+						cp2->setChecked(info->RequestProps[counter].useMask);
+					else
+						cp2->setChecked(true);
+					QPixmap pm2;
+					pm2.convertFromImage((*it2).thumb_mask);
+					cp2->setPixmap(pm2);
+					connect(cp2, SIGNAL(clicked()), this, SLOT(changedLayer()));
+					layerTable->setCellWidget(info->layerInfo.count()-counter-1, 1, cp2);
+					FlagsMask.append(cp2);
+				}
+				else
+					FlagsMask.append(0);
+				layerTable->setText(info->layerInfo.count()-counter-1, 2, (*it2).layerName);
+				Header->setLabel(info->layerInfo.count()-counter-1, tmp.setNum(counter+1));
+				layerTable->setRowHeight(info->layerInfo.count()-counter-1, 40);
+				counter++;
+			}
+			layerTable->adjustColumn(0);
+			layerTable->adjustColumn(1);
 		}
-		layerTable->adjustColumn(0);
-		layerTable->adjustColumn(1);
+		tabLayout->addWidget( layerTable );
+		blendMode->setCurrentItem(0);
+		propsTab->insertTab( tab,  tr( "Layers" ) );
 	}
-	else
-	{
-		opacitySpinBox->setValue(100);
-		opacitySpinBox->setEnabled(false);
-		blendMode->setCurrentText( tr("Normal"));
-		blendMode->setEnabled(false);
-		layerTable->setNumRows(1);
-		QPixmap pm;
-		QImage imt;
-		double sx = item->pixm.width() / 40.0;
-		double sy = item->pixm.height() / 40.0;
-		imt = sy < sx ?  item->pixm.smoothScale(qRound(item->pixm.width() / sx), qRound(item->pixm.height() / sx)) :
-								item->pixm.smoothScale(qRound(item->pixm.width() / sy), qRound(item->pixm.height() / sy));
-		pm.convertFromImage(imt);
-//		layerTable->setPixmap(0, 1, pm);
-		layerTable->setText(0, 2, tr("Background"));
-		QCheckBox *cp = new QCheckBox(this, "");
-		cp->setChecked(true);
-		cp->setEnabled(false);
-		cp->setPixmap(pm);
-		layerTable->setCellWidget(0, 0, cp);
-		layerTable->setRowHeight(0, 40);
-		FlagsSicht.append(cp);
-	}
-	tabLayout->addWidget( layerTable );
-	blendMode->setCurrentItem(0);
-	propsTab->insertTab( tab,  tr( "Layers" ) );
-
 	tab_2 = new QWidget( propsTab, "tab_2" );
 	tabLayout_2 = new QVBoxLayout( tab_2, 4, 4, "tabLayout_2");
 	pathList = new QListBox( tab_2, "pathList" );
@@ -271,11 +249,13 @@ ExtImageProps::ExtImageProps( QWidget* parent, ImageInfoRecord *info, PageItem *
 	resize(330, 320);
 	clearWState( WState_Polished );
 	connect(pathList, SIGNAL( highlighted(QListBoxItem*) ), this, SLOT( selPath(QListBoxItem*) ) );
-	connect(layerTable, SIGNAL(currentChanged(int, int)), this, SLOT(selLayer(int)));
-	connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
-	connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
 	connect(resetPath, SIGNAL(clicked()), this, SLOT(noPath()));
-	
+	if (info->layerInfo.count() != 0)
+	{
+		connect(layerTable, SIGNAL(currentChanged(int, int)), this, SLOT(selLayer(int)));
+		connect(opacitySpinBox, SIGNAL(valueChanged(int)), this, SLOT(changedLayer()));
+		connect(blendMode, SIGNAL(activated(int)), this, SLOT(changedLayer()));
+	}
 }
 
 void ExtImageProps::changedLayer()
