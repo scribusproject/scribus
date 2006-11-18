@@ -643,7 +643,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 	for (it = ReallyUsed.begin(); it != ReallyUsed.end(); ++it)
 	{
 		Foi::FontFormat fformat = AllFonts[it.key()]->formatCode;
-		if ((AllFonts[it.key()]->isOTF) || (!AllFonts[it.key()]->HasNames) || (AllFonts[it.key()]->Subset) || (Options.SubsetList.contains(it.key())))
+		if ((!AllFonts[it.key()]->HasNames) || (Options.SubsetList.contains(it.key())))
 		{
 			QString fon("");
 			QMap<uint,FPointArray>::Iterator ig;
@@ -3213,7 +3213,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, uint d, QString &tmp, QString &t
 		FillColor = "";
 		FillColor += putColor(hl->ccolor, hl->cshade, true);
 	}
-	if ((hl->cfont->isOTF) || (!hl->cfont->HasNames) || (hl->cfont->Subset) || (Options.SubsetList.contains(hl->cfont->scName())))
+	if ((!hl->cfont->HasNames) || (Options.SubsetList.contains(hl->cfont->scName())))
 	{
 		uint chr = chx[0].unicode();
 		if ((hl->cfont->CharWidth.contains(chr)) && (chr != 32))
