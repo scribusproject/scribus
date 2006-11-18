@@ -43,6 +43,7 @@ class QButtonGroup;
 class QGroupBox;
 class QComboBox;
 class QLabel;
+class QSpacerItem;
 class QSpinBox;
 class DynamicTip;
 class ColorListBox;
@@ -117,7 +118,7 @@ signals:
 
 protected:
 	QVBoxLayout* Form1Layout;
-	QGridLayout* Layout1;
+	QHBoxLayout* Layout1;
 	QGridLayout* Layout1t;
 	QVBoxLayout* GradLayout;
 	QGridLayout* freeGradientLayout;
@@ -183,6 +184,7 @@ protected:
 	int Shade3;
 	bool GradientMode;
 	int currentGradient;
+	QSpacerItem *selectorQSpacer;
 };
 
 #endif
