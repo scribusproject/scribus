@@ -1982,6 +1982,7 @@ ScribusDoc *ScribusMainWindow::doFileNew(double width, double height, double top
 		doc=tempDoc;
 	//tempDoc = new ScribusDoc(newDocName, unitindex, pagesize, margins, pagesSetup);
 	tempDoc->setLoading(true);
+	outlinePalette->setDoc(tempDoc);
 	tempDoc->setup(unitIndex, pageArrangement, firstPageLocation, orientation, firstPageNumber, defaultPageSize, newDocName);
 	if (requiresGUI)
 	{
