@@ -49,8 +49,11 @@ CharTable::CharTable(QWidget* parent, int cols, ScribusDoc* doc, QString font)
 
 void CharTable::setDoc(ScribusDoc *doc)
 {
+	bool repaint = (doc == m_doc) ? false : true;
+
 	m_doc = doc;
-	recalcCellSizes();
+	if (repaint)
+		recalcCellSizes();
 }
 
 QRect CharTable::cellGeometry ( int /*row*/, int /*col*/ ) const
@@ -231,8 +234,12 @@ void CharTable::setCharacters(CharClassDef ch)
 
 void CharTable::setFontInUse(QString font)
 {
-	m_fontInUse = font;
-	recalcCellSizes();
+	bool repaint = (font == m_fontInUse) ? false : true;
+	if (repaint)
+	{
+		m_fontInUse = font;
+		recalcCellSizes();
+	}
 }
 
 void CharTable::enableDrops(bool e)

@@ -39,7 +39,9 @@ public:
 // 	CharSelect(QWidget* parent, PageItem *item, QString font, bool modal=true);
 	~CharSelect() {};
 
+	void show();
 	void setDoc(ScribusDoc* doc);
+	void setEnabled(bool state, PageItem* item=0);
 
 	const QString & fontInUse() const { return m_fontInUse; };
 	void setFontInUse(const QString f) { m_fontInUse = f; };
@@ -120,7 +122,7 @@ signals:
 protected:
 	//! \brief Common parts of the constructors
 // 	void run(QWidget* parent, PageItem* item);
-	bool eventFilter( QObject *obj, QEvent *ev );
+	bool eventFilter(QObject *obj, QEvent *ev);
 
 	PageItem *m_Item;
 

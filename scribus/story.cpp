@@ -1140,31 +1140,33 @@ void SToolBFont::newSizeHandler()
 }
 
 /* Main Story Editor Class */
-StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
-	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal |
-{
-	prefsManager=PrefsManager::instance();
-	currDoc = docc;
-	seMenuMgr=NULL;
-	buildGUI();
-	currItem = ite;
-// 	charSelect = NULL;
-	firstSet = false;
-	activFromApp = true;
-	Editor->loadItemText(ite);
-	Editor->getCursorPosition(&CurrPara, &CurrChar);
-	EditorBar->setRepaint(true);
-	EditorBar->doRepaint();
-	updateProps(CurrPara, CurrChar);
-	updateStatus();
-	textChanged = false;
-	disconnectSignals();
-	connectSignals();
-	Editor->setFocus();
-	Editor->setFarbe(false);
-	blockUpdate = false;
-	loadPrefs();
-}
+// StoryEditor::StoryEditor(QWidget* parent, ScribusDoc *docc, PageItem *ite)
+// 	: QMainWindow(parent, "StoryEditor", WType_TopLevel) //  WType_Dialog) //WShowModal |
+// {
+// 	prefsManager=PrefsManager::instance();
+// 	currDoc = docc;
+// 	seMenuMgr=NULL;
+// 	buildGUI();
+// 	currItem = ite;
+// // 	charSelect = NULL;
+// 	firstSet = false;
+// 	activFromApp = true;
+// 	Editor->loadItemText(ite);
+// 	Editor->getCursorPosition(&CurrPara, &CurrChar);
+// 	EditorBar->setRepaint(true);
+// 	EditorBar->doRepaint();
+// 	updateProps(CurrPara, CurrChar);
+// 	updateStatus();
+// 	textChanged = false;
+// 	disconnectSignals();
+// 	connectSignals();
+// 	Editor->setFocus();
+// 	Editor->setFarbe(false);
+// 	blockUpdate = false;
+// 	loadPrefs();
+// 	// hack to keep charPalette visible. See destructor too - PV
+// 	ScCore->primaryMainWindow()->charPalette->reparent(this, QPoint(0, 0));
+// }
 
 /* Main Story Editor Class, no current document */
 StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", WType_TopLevel) // WType_Dialog) //WShowModal |

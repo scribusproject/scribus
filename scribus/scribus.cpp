@@ -2569,8 +2569,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	// PV - char palette
 // 	scrActions["insertGlyph"]->setEnabled(false);
-	charPalette->setEnabled(false);
-	charPalette->setItem(0);
+	charPalette->setEnabled(false, 0);
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemUpdateImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["itemAdjustFrameToImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
@@ -2718,8 +2717,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 			scrActions["editSelectAll"]->setEnabled(true);
 			// PV - char palette
 // 			scrActions["insertGlyph"]->setEnabled(true);
-			charPalette->setEnabled(true);
-			charPalette->setItem(currItem);
+			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
 				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
@@ -3990,7 +3988,7 @@ bool ScribusMainWindow::slotFileSaveAs()
 	}
 #ifdef HAVE_LIBZ
 	QString fileSpec=tr("Documents (*.sla *.sla.gz);;All Files (*)");
-	bool setter=true;
+// 	bool setter=true;
 	int optionFlags = fdCompressFile;
 #else
 	QString fileSpec=tr("Documents (*.sla);;All Files (*)");
@@ -5809,8 +5807,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["editClearContents"]->setEnabled(false);
 			// PV - char palette
 // 			scrActions["insertGlyph"]->setEnabled(false);
-			charPalette->setEnabled(false);
-			charPalette->setItem(0);
+			charPalette->setEnabled(false, 0);
 			view->slotDoCurs(false);
 			if (currItem != 0)
 			{
@@ -5839,8 +5836,7 @@ void ScribusMainWindow::setAppMode(int mode)
 			scrActions["editPaste"]->setEnabled(false);
 			// PV - char palette
 // 			scrActions["insertGlyph"]->setEnabled(true);
-			charPalette->setEnabled(true);
-			charPalette->setItem(currItem);
+			charPalette->setEnabled(true, currItem);
 			if (currItem!=NULL && currItem->asTextFrame())
 				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentCharStyle().font().scName());
 			if (!Buffer2.isNull())
@@ -6545,7 +6541,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 {
 	QValueList<uint> ers;
 	QString nn;
-	PageItem* ite = 0;
+// 	PageItem* ite = 0;
 	bool ff;
 	uint nr;
 	ers.clear();
@@ -6614,7 +6610,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 			}
 		}
 	}
-	uint counter = 0;
+// 	uint counter = 0;
 /*
 	for (uint lc = 0; lc < 3; ++lc)
 	{

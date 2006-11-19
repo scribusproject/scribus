@@ -30,6 +30,7 @@ public:
 
 	void setFontInUse(QString font);
 	void setCharacters(CharClassDef ch);
+	CharClassDef characters() { return m_characters; };
 	//! \brief "Repaint" and refill the table with new font characters
 	void recalcCellSizes();
 	//! \brief Set the widget to accept/reject drop events.

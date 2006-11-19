@@ -310,7 +310,7 @@ class SCRIBUS_API StoryEditor : public QMainWindow
 
 public:
 	StoryEditor( QWidget* parent );
-	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
+// 	StoryEditor( QWidget* parent, ScribusDoc *docc, PageItem* ite );
 	~StoryEditor();
 	void closeEvent(QCloseEvent *);
 	void keyPressEvent (QKeyEvent * e);
