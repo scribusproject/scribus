@@ -273,7 +273,7 @@ void NewDoc::createNewDocPage()
 	Distance->setEnabled(false);
 	numberOfCols->setEnabled(false);
 	startDocSetup = new QCheckBox( optionsGroupBox, "startDocSetup" );
-	startDocSetup->setText( tr( "Start Document Setup After Creation" ) );
+	startDocSetup->setText( tr( "Open Document Settings After Creation" ) );
 	startDocSetup->setChecked(false);
 	optionsGroupBoxLayout->addMultiCellWidget( startDocSetup, 5, 5, 0, 1 );
 
