@@ -584,8 +584,8 @@ void ScPainter::endLayer()
 				}
 			}
 		}
+		#endif
 	}
-	#endif
 	la = Layers.pop();
 	if (la.pushed)
 	{
