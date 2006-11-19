@@ -201,6 +201,7 @@ void MarginWidget::BChange()
 			val = BleedLeft->value();
 		else if (BleedRight == sender())
 			val = BleedRight->value();
+		val = val / m_unitRatio;
 		setNewBleeds(val, val, val, val);
 	}
 }

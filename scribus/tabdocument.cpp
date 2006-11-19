@@ -238,6 +238,7 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->currentPageLayout].FirstPage);
 	pageOrientationComboBox->setCurrentItem(prefsData->PageOri);
 	unitCombo->setCurrentItem(prefsData->unitIndex());
+	unitChange();
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(prefsData->pageWidth * unitRatio);
