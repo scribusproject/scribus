@@ -551,6 +551,7 @@ public:
 	static QString ResetControlPoints;
 	static QString ImageEffects;
 	static QString InsertFrame;
+	static QString AdjustFrameToImage;
 	/*@}*/
 
 	/**

@@ -10069,6 +10069,11 @@ void ScribusView::adjustFrametoImageSize()
 			{
 				if (currItem->asImageFrame() && currItem->PicAvail && !currItem->isTableItem)
 				{
+					undoManager->beginTransaction(Doc->m_Selection->count() == 1 ?
+					                              currItem->getUName() : Um::SelectionGroup,
+					                              Doc->m_Selection->count() == 1 ?
+					                              currItem->getUPixmap() : Um::IGroup,
+					                              Um::AdjustFrameToImage,"",Um::IResize);
 					double w, h, x, y;
 					w = currItem->OrigW * currItem->imageXScale();
 					h = currItem->OrigH * currItem->imageYScale();
@@ -10085,6 +10090,7 @@ void ScribusView::adjustFrametoImageSize()
 		{
 			updateContents();
 			emit DocChanged();
+			undoManager->commit();
 		}
 	}
 }
