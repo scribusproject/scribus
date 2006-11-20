@@ -195,6 +195,7 @@ bool Scribus134Format::saveFile(const QString & fileName, const FileFormat & /* 
 	writePStyles(docu);
 	writeCStyles(docu);
 	writeLayers(docu);
+	writePrintOptions(docu);
 	writePdfOptions(docu);
 	writeDocItemAttributes(docu);
 	writeTOC(docu);
@@ -516,6 +517,46 @@ void Scribus134Format::writeLayers(QDomDocument & docu)
 	}
 }
 
+void Scribus134Format::writePrintOptions(QDomDocument & docu) 
+{
+	QDomElement dc=docu.documentElement().firstChild().toElement();
+
+	QDomElement pri = docu.createElement("Printer");
+	pri.setAttribute("firstUse", static_cast<int>(m_Doc->Print_Options.firstUse));
+	pri.setAttribute("toFile", static_cast<int>(m_Doc->Print_Options.toFile));
+	pri.setAttribute("useAltPrintCommand", static_cast<int>(m_Doc->Print_Options.useAltPrintCommand));
+	pri.setAttribute("outputSeparations", static_cast<int>(m_Doc->Print_Options.outputSeparations));
+	pri.setAttribute("useSpotColors", static_cast<int>(m_Doc->Print_Options.useSpotColors));
+	pri.setAttribute("useColor", static_cast<int>(m_Doc->Print_Options.useColor));
+	pri.setAttribute("mirrorH", static_cast<int>(m_Doc->Print_Options.mirrorH));
+	pri.setAttribute("mirrorV", static_cast<int>(m_Doc->Print_Options.mirrorV));
+	pri.setAttribute("useICC", static_cast<int>(m_Doc->Print_Options.useICC));
+	pri.setAttribute("doGCR", static_cast<int>(m_Doc->Print_Options.doGCR));
+	pri.setAttribute("doClip", static_cast<int>(m_Doc->Print_Options.doClip));
+	pri.setAttribute("setDevParam", static_cast<int>(m_Doc->Print_Options.setDevParam));
+	pri.setAttribute("doOverprint", static_cast<int>(m_Doc->Print_Options.doOverprint));
+	pri.setAttribute("cropMarks", static_cast<int>(m_Doc->Print_Options.cropMarks));
+	pri.setAttribute("bleedMarks", static_cast<int>(m_Doc->Print_Options.bleedMarks));
+	pri.setAttribute("registrationMarks", static_cast<int>(m_Doc->Print_Options.registrationMarks));
+	pri.setAttribute("colorMarks", static_cast<int>(m_Doc->Print_Options.colorMarks));
+	pri.setAttribute("PSLevel", m_Doc->Print_Options.PSLevel);
+	pri.setAttribute("markOffset", m_Doc->Print_Options.markOffset);
+	pri.setAttribute("BleedTop", m_Doc->Print_Options.BleedTop);
+	pri.setAttribute("BleedLeft", m_Doc->Print_Options.BleedLeft);
+	pri.setAttribute("BleedRight", m_Doc->Print_Options.BleedRight);
+	pri.setAttribute("BleedBottom", m_Doc->Print_Options.BleedBottom);
+	pri.setAttribute("printer", m_Doc->Print_Options.printer);
+	pri.setAttribute("filename", m_Doc->Print_Options.filename);
+	pri.setAttribute("separationName", m_Doc->Print_Options.separationName);
+	pri.setAttribute("printerCommand", m_Doc->Print_Options.printerCommand);
+	for (uint p = 0; p < m_Doc->Print_Options.allSeparations.count(); ++p)
+	{
+		QDomElement pri2 = docu.createElement("Separation");
+		pri2.setAttribute("Name", m_Doc->Print_Options.allSeparations[p]);
+		pri.appendChild(pri2);
+	}
+	dc.appendChild(pri);
+}
 
 void Scribus134Format::writePdfOptions(QDomDocument & docu) 
 {

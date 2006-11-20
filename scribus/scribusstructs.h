@@ -281,6 +281,7 @@ struct Keys
 
 struct PrintOptions
 {
+	bool firstUse;
 	bool toFile;
 	bool useAltPrintCommand;
 	bool outputSeparations;

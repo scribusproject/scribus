@@ -173,6 +173,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	PDF_Options.BleedLeft = BleedLeft;
 	PDF_Options.BleedRight = BleedRight;
 	PDF_Options.BleedBottom = BleedBottom;
+	Print_Options.firstUse = true;
 }
 
 ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pagesize, const MarginStruct& margins, const DocPagesSetup& pagesSetup) : UndoObject( tr("Document")),
@@ -281,6 +282,7 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 	PDF_Options.BleedLeft = BleedLeft;
 	PDF_Options.BleedRight = BleedRight;
 	PDF_Options.BleedBottom = BleedBottom;
+	Print_Options.firstUse = true;
 }
 
 void ScribusDoc::init()

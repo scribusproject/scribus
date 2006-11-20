@@ -676,6 +676,45 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 				}
 				m_Doc->arrowStyles.append(arrow);
 			}
+			if(pg.tagName()=="Printer")
+			{
+				m_Doc->Print_Options.firstUse = static_cast<bool>(pg.attribute("firstUse").toInt());
+				m_Doc->Print_Options.toFile = static_cast<bool>(pg.attribute("toFile").toInt());
+				m_Doc->Print_Options.useAltPrintCommand = static_cast<bool>(pg.attribute("useAltPrintCommand").toInt());
+				m_Doc->Print_Options.outputSeparations = static_cast<bool>(pg.attribute("outputSeparations").toInt());
+				m_Doc->Print_Options.useSpotColors = static_cast<bool>(pg.attribute("useSpotColors").toInt());
+				m_Doc->Print_Options.useColor = static_cast<bool>(pg.attribute("useColor").toInt());
+				m_Doc->Print_Options.mirrorH = static_cast<bool>(pg.attribute("mirrorH").toInt());
+				m_Doc->Print_Options.mirrorV = static_cast<bool>(pg.attribute("mirrorV").toInt());
+				m_Doc->Print_Options.useICC = static_cast<bool>(pg.attribute("useICC").toInt());
+				m_Doc->Print_Options.doGCR = static_cast<bool>(pg.attribute("doGCR").toInt());
+				m_Doc->Print_Options.doClip = static_cast<bool>(pg.attribute("doClip").toInt());
+				m_Doc->Print_Options.setDevParam = static_cast<bool>(pg.attribute("setDevParam").toInt());
+				m_Doc->Print_Options.doOverprint = static_cast<bool>(pg.attribute("doOverprint").toInt());
+				m_Doc->Print_Options.cropMarks = static_cast<bool>(pg.attribute("cropMarks").toInt());
+				m_Doc->Print_Options.bleedMarks = static_cast<bool>(pg.attribute("bleedMarks").toInt());
+				m_Doc->Print_Options.registrationMarks = static_cast<bool>(pg.attribute("registrationMarks").toInt());
+				m_Doc->Print_Options.colorMarks = static_cast<bool>(pg.attribute("colorMarks").toInt());
+				m_Doc->Print_Options.PSLevel = pg.attribute("PSLevel").toInt();
+				m_Doc->Print_Options.markOffset = pg.attribute("markOffset").toDouble();
+				m_Doc->Print_Options.BleedTop = pg.attribute("BleedTop").toDouble();
+				m_Doc->Print_Options.BleedLeft = pg.attribute("BleedLeft").toDouble();
+				m_Doc->Print_Options.BleedRight = pg.attribute("BleedRight").toDouble();
+				m_Doc->Print_Options.BleedBottom = pg.attribute("BleedBottom").toDouble();
+				m_Doc->Print_Options.printer = pg.attribute("printer");
+				m_Doc->Print_Options.filename = pg.attribute("filename");
+				m_Doc->Print_Options.separationName = pg.attribute("separationName");
+				m_Doc->Print_Options.printerCommand = pg.attribute("printerCommand");
+				m_Doc->Print_Options.copies = 1;
+				QDomNode PFO = PAGE.firstChild();
+				while(!PFO.isNull())
+				{
+					QDomElement pdfF = PFO.toElement();
+					if(pdfF.tagName() == "Separation")
+						m_Doc->Print_Options.allSeparations.append(pdfF.attribute("Name"));
+					PFO = PFO.nextSibling();
+				}
+			}
 			if(pg.tagName()=="PDF")
 			{
 				m_Doc->PDF_Options.Articles = static_cast<bool>(pg.attribute("Articles").toInt());

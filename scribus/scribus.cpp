@@ -4262,28 +4262,28 @@ void ScribusMainWindow::slotReallyPrint()
 	mainWindowStatusLabel->setText( tr("Printing..."));
 	if (PrinterUsed)
 	{
-		options.printer = PDef.Pname;
-		options.filename = PDef.Dname;
+		doc->Print_Options.printer = PDef.Pname;
+		doc->Print_Options.filename = PDef.Dname;
 	}
 	else
 	{
-		options.printer = "";
+		doc->Print_Options.printer = "";
 		if (!doc->DocName.startsWith( tr("Document")))
 		{
 			QFileInfo fi(doc->DocName);
-			options.filename = fi.dirPath()+"/"+fi.baseName()+".ps";
+			doc->Print_Options.filename = fi.dirPath()+"/"+fi.baseName()+".ps";
 		}
 		else
 		{
 			QDir di = QDir();
-			options.filename = di.currentDirPath()+"/"+doc->DocName+".ps";
+			doc->Print_Options.filename = di.currentDirPath()+"/"+doc->DocName+".ps";
 		}
 	}
-	options.copies = 1;
+	doc->Print_Options.copies = 1;
 	ColorList usedSpots;
 	doc->getUsedColors(usedSpots, true);
 	QStringList spots = usedSpots.keys();
-	Druck *printer = new Druck(this, doc, options.filename, options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
+	Druck *printer = new Druck(this, doc, doc->Print_Options.filename, doc->Print_Options.printer, PDef.Command, PDef.DevMode, prefsManager->appPrefs.GCRMode, spots);
 	printer->setMinMax(1, doc->Pages->count(), doc->currentPage()->pageNr()+1);
 	printDinUse = true;
 	connect(printer, SIGNAL(doPreview()), this, SLOT(doPrintPreview()));
@@ -4291,82 +4291,36 @@ void ScribusMainWindow::slotReallyPrint()
 	{
 		ReOrderText(doc, view);
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		options.printer = printer->printerName();
-		options.filename = printer->outputFileName();
-		options.toFile = printer->outputToFile();
 		if (printer->CurrentPage->isChecked())
-			options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
+			doc->Print_Options.pageNumbers.push_back(doc->currentPage()->pageNr()+1);
 		else
 		{
 			if (printer->RadioButton1->isChecked())
-				parsePagesString("*", &options.pageNumbers, doc->DocPages.count());
+				parsePagesString("*", &doc->Print_Options.pageNumbers, doc->DocPages.count());
 			else
-				parsePagesString(printer->pageNr->text(), &options.pageNumbers, doc->DocPages.count());
+				parsePagesString(printer->pageNr->text(), &doc->Print_Options.pageNumbers, doc->DocPages.count());
 		}
-		options.copies = printer->numCopies();
-		options.outputSeparations = printer->outputSeparations();
-		options.separationName = printer->separationName();
-		options.allSeparations = printer->allSeparations();
-		if (options.outputSeparations)
-			options.useSpotColors = true;
-		else
-			options.useSpotColors = printer->doSpot();
-		options.useColor = printer->color();
-		options.mirrorH = printer->mirrorHorizontal();
-		options.mirrorV = printer->mirrorVertical();
-		options.useICC = printer->ICCinUse();
-		options.doClip = printer->doClip();
-		options.doGCR = printer->doGCR();
-		options.PSLevel = printer->PSLevel();
-		options.setDevParam = printer->doDev();
-		options.doOverprint = printer->doOverprint();
-		options.BleedTop = printer->BleedTop->value() / doc->unitRatio();
-		options.BleedLeft = printer->BleedLeft->value()/doc->unitRatio();
-		options.BleedRight = printer->BleedRight->value()/doc->unitRatio();
-		options.BleedBottom = printer->BleedBottom->value()/doc->unitRatio();
-		options.markOffset = printer->markOffset->value()/doc->unitRatio();
-		options.cropMarks = printer->cropMarks->isChecked();
-		options.bleedMarks = printer->bleedMarks->isChecked();
-		options.registrationMarks = printer->registrationMarks->isChecked();
-		options.colorMarks = printer->colorMarks->isChecked();
-		PDef.Pname = options.printer;
-		PDef.Dname = options.filename;
-		PDef.DevMode = printer->DevMode;
-		if (printer->OtherCom->isChecked())
-		{
-			PDef.Command = printer->Command->text();
-			options.printerCommand = printer->Command->text();
-			options.useAltPrintCommand = true;
-		}
-		else
-		{
-			options.useAltPrintCommand = false;
-		}
-#ifdef HAVE_CUPS
-		options.printerOptions = printer->PrinterOpts;
-#endif
-#ifndef HAVE_CUPS
-		options.printerOptions = QString("");
-#endif
 		PrinterUsed = true;
 #ifdef _WIN32
 		SHORT shiftState = GetKeyState( VK_SHIFT );
 		bool forceGDI = ( shiftState & 0x8000 ) ? true : false;
-		if (options.toFile == false)
+		if (Print_Options.toFile == false)
 		{
 			ScWinPrint winPrint;
-			done = winPrint.print( doc, options, printer->DevMode, forceGDI );
+			done = winPrint.print( doc, doc->Print_Options, printer->DevMode, forceGDI );
 		}
 		else
-			done = doPrint(options);
+			done = doPrint(doc->Print_Options);
 #else
-		done = doPrint(options);
+		done = doPrint(doc->Print_Options);
 #endif
 		if (!done)
 		{
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			QMessageBox::warning(this, CommonStrings::trWarning, tr("Printing failed!"), CommonStrings::tr_OK);
 		}
+		else
+			doc->Print_Options.firstUse = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	printDinUse = false;

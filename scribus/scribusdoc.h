@@ -884,6 +884,7 @@ public: // Public attributes
 	bool AutoCheck;
 	
 	PDFOptions PDF_Options;
+	PrintOptions Print_Options;
 	bool RePos;
 	struct BookMa {
 					QString Title;

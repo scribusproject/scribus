@@ -335,23 +335,43 @@ PPreview::PPreview( QWidget* parent, ScribusView *vin, ScribusDoc *docu, int png
 
 void PPreview::setValues()
 {
-	PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
-	EnableGCR->setChecked( postscriptPreview ? prefs->getBool("DoGCR", false) : false);
-	EnableGCR->setEnabled( postscriptPreview );
-	EnableOverprint->setChecked( postscriptPreview ? prefs->getBool("doOverprint", false) : false);
-	EnableOverprint->setEnabled( postscriptPreview );
-	MirrorHor->setChecked(prefs->getBool("MirrorH", false));
-	MirrorVert->setChecked(prefs->getBool("MirrorV", false));
-	ClipMarg->setChecked(prefs->getBool("Clip", false));
-	spotColors->setChecked(!prefs->getBool("doSpot", true));
-	if (prefs->getInt("PrintColor", 0) == 1)
-		useGray->setChecked(true);
-	else
-		useGray->setChecked(false);
-	if (doc->HasCMS)
+	if ((printDinUse) || (!doc->Print_Options.firstUse))
 	{
-		UseICC->setChecked( postscriptPreview ? prefs->getBool("ICCinUse", false) : false);
-		UseICC->setEnabled( postscriptPreview );
+		EnableGCR->setChecked( postscriptPreview ? doc->Print_Options.doGCR : false);
+		EnableGCR->setEnabled( postscriptPreview );
+		EnableOverprint->setChecked( postscriptPreview ? doc->Print_Options.doOverprint : false);
+		EnableOverprint->setEnabled( postscriptPreview );
+		MirrorHor->setChecked(doc->Print_Options.mirrorH);
+		MirrorVert->setChecked(doc->Print_Options.mirrorV);
+		ClipMarg->setChecked(doc->Print_Options.doClip);
+		spotColors->setChecked(!doc->Print_Options.useSpotColors);
+		useGray->setChecked(!doc->Print_Options.useColor);
+		if (doc->HasCMS)
+		{
+			UseICC->setChecked( postscriptPreview ? doc->Print_Options.useICC : false);
+			UseICC->setEnabled( postscriptPreview );
+		}
+	}
+	else
+	{
+		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getContext("print_options");
+		EnableGCR->setChecked( postscriptPreview ? prefs->getBool("DoGCR", false) : false);
+		EnableGCR->setEnabled( postscriptPreview );
+		EnableOverprint->setChecked( postscriptPreview ? prefs->getBool("doOverprint", false) : false);
+		EnableOverprint->setEnabled( postscriptPreview );
+		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
+		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
+		ClipMarg->setChecked(prefs->getBool("Clip", false));
+		spotColors->setChecked(!prefs->getBool("doSpot", true));
+		if (prefs->getInt("PrintColor", 0) == 1)
+			useGray->setChecked(true);
+		else
+			useGray->setChecked(false);
+		if (doc->HasCMS)
+		{
+			UseICC->setChecked( postscriptPreview ? prefs->getBool("ICCinUse", false) : false);
+			UseICC->setEnabled( postscriptPreview );
+		}
 	}
 }
 

@@ -621,7 +621,49 @@ void Druck::setMinMax(int min, int max, int cur)
 void Druck::storeValues()
 {
 	getOptions(); // options were not set get last options with this hack
-		
+
+	m_doc->Print_Options.printer = PrintDest->currentText();
+	m_doc->Print_Options.filename = LineEdit1->text();
+	m_doc->Print_Options.toFile = ToFile;
+	m_doc->Print_Options.copies = numCopies();
+	m_doc->Print_Options.outputSeparations = outputSeparations();
+	m_doc->Print_Options.separationName = separationName();
+	m_doc->Print_Options.allSeparations = allSeparations();
+	if (m_doc->Print_Options.outputSeparations)
+		m_doc->Print_Options.useSpotColors = true;
+	else
+		m_doc->Print_Options.useSpotColors = doSpot();
+	m_doc->Print_Options.useColor = color();
+	m_doc->Print_Options.mirrorH = mirrorHorizontal();
+	m_doc->Print_Options.mirrorV = mirrorVertical();
+	m_doc->Print_Options.useICC = ICCinUse();
+	m_doc->Print_Options.doClip = doClip();
+	m_doc->Print_Options.doGCR = doGCR();
+	m_doc->Print_Options.PSLevel = PSLevel();
+	m_doc->Print_Options.setDevParam = doDev();
+	m_doc->Print_Options.doOverprint = doOverprint();
+	m_doc->Print_Options.BleedTop = BleedTop->value() / m_doc->unitRatio();
+	m_doc->Print_Options.BleedLeft = BleedLeft->value() / m_doc->unitRatio();
+	m_doc->Print_Options.BleedRight = BleedRight->value() / m_doc->unitRatio();
+	m_doc->Print_Options.BleedBottom = BleedBottom->value() / m_doc->unitRatio();
+	m_doc->Print_Options.markOffset = markOffset->value() / m_doc->unitRatio();
+	m_doc->Print_Options.cropMarks = cropMarks->isChecked();
+	m_doc->Print_Options.bleedMarks = bleedMarks->isChecked();
+	m_doc->Print_Options.registrationMarks = registrationMarks->isChecked();
+	m_doc->Print_Options.colorMarks = colorMarks->isChecked();
+	if (OtherCom->isChecked())
+	{
+		m_doc->Print_Options.printerCommand = Command->text();
+		m_doc->Print_Options.useAltPrintCommand = true;
+	}
+	else
+		m_doc->Print_Options.useAltPrintCommand = false;
+#ifdef HAVE_CUPS
+		m_doc->Print_Options.printerOptions = PrinterOpts;
+#else
+		m_doc->Print_Options.printerOptions = QString("");
+#endif
+/*
 	prefs->set("PrintDest", PrintDest->currentItem());
 	prefs->set("CurrentPrn", PrintDest->currentText());
 	prefs->set("OtherCom", OtherCom->isChecked());
@@ -651,7 +693,7 @@ void Druck::storeValues()
 	prefs->set("cropMarks", cropMarks->isChecked());
 	prefs->set("bleedMarks", bleedMarks->isChecked());
 	prefs->set("registrationMarks", registrationMarks->isChecked());
-	prefs->set("colorMarks", colorMarks->isChecked());
+	prefs->set("colorMarks", colorMarks->isChecked()); */
 }
 
 void Druck::okButtonClicked()
@@ -668,59 +710,129 @@ void Druck::previewButtonClicked()
 
 void Druck::setStoredValues(bool gcr)
 {
-	int selectedDest = prefs->getInt("PrintDest", 0);
-	if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
+	if (m_doc->Print_Options.firstUse)
 	{
-		PrintDest->setCurrentItem(selectedDest);
-		prefs->set("CurrentPrn", PrintDest->currentText());
-		if (PrintDest->currentText() == tr("File"))
-			SelPrinter( tr("File"));
-		Geraet = PrintDest->currentText();
+		int selectedDest = prefs->getInt("PrintDest", 0);
+		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
+		{
+			PrintDest->setCurrentItem(selectedDest);
+			prefs->set("CurrentPrn", PrintDest->currentText());
+			if (PrintDest->currentText() == tr("File"))
+				SelPrinter( tr("File"));
+			Geraet = PrintDest->currentText();
+		}
+		OtherCom->setChecked(prefs->getBool("OtherCom", false));
+		if (OtherCom->isChecked())
+			SelComm();
+		RadioButton1->setChecked(prefs->getBool("PrintAll", true));
+		CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
+		bool printRangeChecked=prefs->getBool("PrintRange", false);
+		RadioButton2->setChecked(printRangeChecked);
+		pageNr->setEnabled(printRangeChecked);
+		pageNr->setText(prefs->get("PageNr", "1-1"));
+		Copies->setValue(prefs->getInt("Copies", 1));
+		PrintSep->setCurrentItem(prefs->getInt("Separations", 0));
+		colorType->setCurrentItem(prefs->getInt("PrintColor", 0));
+		int selectedSep = prefs->getInt("SepArt", 0);
+		if ((selectedSep > -1) && (selectedSep < 5))
+			SepArt->setCurrentItem(selectedSep);
+		if (PrintSep->currentItem() == 1)
+		{
+			SepArt->setEnabled(true);
+			ToSeparation = true;
+		}
+		psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
+		MirrorHor->setChecked(prefs->getBool("MirrorH", false));
+		MirrorVert->setChecked(prefs->getBool("MirrorV", false));
+		devPar->setChecked(prefs->getBool("doDev", false));
+		GcR->setChecked(prefs->getBool("DoGCR", gcr));
+		ClipMarg->setChecked(prefs->getBool("Clip", false));
+		spotColors->setChecked(!prefs->getBool("doSpot", true));
+		overprintMode->setChecked(prefs->getBool("doOverprint", false));
+		if (m_doc->HasCMS)
+		{
+			bool iccInUse = prefs->getBool("ICCinUse", false);
+			bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
+			UseICC->setChecked( psPrinter ? iccInUse : false );
+			UseICC->setEnabled( psPrinter );
+		}
+		BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
+		BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
+		BleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
+		BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0)*unitRatio);
+		markOffset->setValue(prefs->getDouble("markOffset",0.0)*unitRatio);
+		cropMarks->setChecked(prefs->getBool("cropMarks", false));
+		bleedMarks->setChecked(prefs->getBool("bleedMarks", false));
+		registrationMarks->setChecked(prefs->getBool("registrationMarks", false));
+		colorMarks->setChecked(prefs->getBool("colorMarks", false));
 	}
-	OtherCom->setChecked(prefs->getBool("OtherCom", false));
-	if (OtherCom->isChecked())
-		SelComm();
-	RadioButton1->setChecked(prefs->getBool("PrintAll", true));
-	CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
-	bool printRangeChecked=prefs->getBool("PrintRange", false);
-	RadioButton2->setChecked(printRangeChecked);
-	pageNr->setEnabled(printRangeChecked);
-	pageNr->setText(prefs->get("PageNr", "1-1"));
-	Copies->setValue(prefs->getInt("Copies", 1));
-	PrintSep->setCurrentItem(prefs->getInt("Separations", 0));
-	colorType->setCurrentItem(prefs->getInt("PrintColor", 0));
-	int selectedSep = prefs->getInt("SepArt", 0);
-	if ((selectedSep > -1) && (selectedSep < 5))
-		SepArt->setCurrentItem(selectedSep);
-	if (PrintSep->currentItem() == 1)
+	else
 	{
-		SepArt->setEnabled(true);
-		ToSeparation = true;
+		int selectedDest = prefs->getInt("PrintDest", 0);
+		if ((selectedDest > -1) && (selectedDest < PrintDest->count()))
+		{
+			PrintDest->setCurrentItem(selectedDest);
+			prefs->set("CurrentPrn", PrintDest->currentText());
+			if (PrintDest->currentText() == tr("File"))
+				SelPrinter( tr("File"));
+			Geraet = PrintDest->currentText();
+		}
+		OtherCom->setChecked(m_doc->Print_Options.useAltPrintCommand);
+		if (OtherCom->isChecked())
+		{
+			SelComm();
+			Command->setText(m_doc->Print_Options.printerCommand);
+		}
+		RadioButton1->setChecked(prefs->getBool("PrintAll", true));
+		CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
+		bool printRangeChecked=prefs->getBool("PrintRange", false);
+		RadioButton2->setChecked(printRangeChecked);
+		pageNr->setEnabled(printRangeChecked);
+		pageNr->setText(prefs->get("PageNr", "1-1"));
+		Copies->setValue(1);
+		PrintSep->setCurrentItem(m_doc->Print_Options.outputSeparations);
+		colorType->setCurrentItem(m_doc->Print_Options.useColor);
+		ColorList usedSpots;
+		m_doc->getUsedColors(usedSpots, true);
+		QStringList spots = usedSpots.keys();
+		spots.prepend( tr("Black"));
+		spots.prepend( tr("Yellow"));
+		spots.prepend( tr("Magenta"));
+		spots.prepend( tr("Cyan"));
+		spots.prepend( tr("All"));
+		int selectedSep = spots.findIndex(m_doc->Print_Options.separationName);
+		if ((selectedSep > -1) && (selectedSep < SepArt->count()))
+			SepArt->setCurrentItem(selectedSep);
+		if (PrintSep->currentItem() == 1)
+		{
+			SepArt->setEnabled(true);
+			ToSeparation = true;
+		}
+		psLevel->setCurrentItem(m_doc->Print_Options.PSLevel-1);
+		MirrorHor->setChecked(m_doc->Print_Options.mirrorH);
+		MirrorVert->setChecked(m_doc->Print_Options.mirrorV);
+		devPar->setChecked(m_doc->Print_Options.setDevParam);
+		GcR->setChecked(m_doc->Print_Options.doGCR);
+		ClipMarg->setChecked(m_doc->Print_Options.doClip);
+		spotColors->setChecked(!m_doc->Print_Options.useSpotColors);
+		overprintMode->setChecked(m_doc->Print_Options.doOverprint);
+		if (m_doc->HasCMS)
+		{
+			bool iccInUse = m_doc->Print_Options.useICC;
+			bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
+			UseICC->setChecked( psPrinter ? iccInUse : false );
+			UseICC->setEnabled( psPrinter );
+		}
+		BleedTop->setValue(m_doc->Print_Options.BleedTop*unitRatio);
+		BleedBottom->setValue(m_doc->Print_Options.BleedBottom*unitRatio);
+		BleedRight->setValue(m_doc->Print_Options.BleedRight*unitRatio);
+		BleedLeft->setValue(m_doc->Print_Options.BleedLeft*unitRatio);
+		markOffset->setValue(m_doc->Print_Options.markOffset*unitRatio);
+		cropMarks->setChecked(m_doc->Print_Options.cropMarks);
+		bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);
+		registrationMarks->setChecked(m_doc->Print_Options.registrationMarks);
+		colorMarks->setChecked(m_doc->Print_Options.colorMarks);
 	}
-	psLevel->setCurrentItem(prefs->getInt("PSLevel", 3)-1);
-	MirrorHor->setChecked(prefs->getBool("MirrorH", false));
-	MirrorVert->setChecked(prefs->getBool("MirrorV", false));
-	devPar->setChecked(prefs->getBool("doDev", false));
-	GcR->setChecked(prefs->getBool("DoGCR", gcr));
-	ClipMarg->setChecked(prefs->getBool("Clip", false));
-	spotColors->setChecked(!prefs->getBool("doSpot", true));
-	overprintMode->setChecked(prefs->getBool("doOverprint", false));
-	if (m_doc->HasCMS)
-	{
-		bool iccInUse = prefs->getBool("ICCinUse", false);
-		bool psPrinter = PrinterUtil::isPostscriptPrinter(PrintDest->currentText()) || ToFile;
-		UseICC->setChecked( psPrinter ? iccInUse : false );
-		UseICC->setEnabled( psPrinter );
-	}
-	BleedTop->setValue(prefs->getDouble("BleedTop",0.0)*unitRatio);
-	BleedBottom->setValue(prefs->getDouble("BleedBottom",0.0)*unitRatio);
-	BleedRight->setValue(prefs->getDouble("BleedRight",0.0)*unitRatio);
-	BleedLeft->setValue(prefs->getDouble("BleedLeft",0.0)*unitRatio);
-	markOffset->setValue(prefs->getDouble("markOffset",0.0)*unitRatio);
-	cropMarks->setChecked(prefs->getBool("cropMarks", false));
-	bleedMarks->setChecked(prefs->getBool("bleedMarks", false));
-	registrationMarks->setChecked(prefs->getBool("registrationMarks", false));
-	colorMarks->setChecked(prefs->getBool("colorMarks", false));
 }
 
 QString Druck::printerName()
