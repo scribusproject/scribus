@@ -219,7 +219,7 @@ void PDFExportDialog::updateDocOptions()
 	Opts.Quality = Options->CQuality->currentItem();
 	Opts.Resolution = Options->Resolution->value();
 	Opts.EmbedList = Options->FontsToEmbed;
-	Opts.SubsetList = Options->FontsToSubset;
+	Opts.SubsetList = Options->FontsToOutline;
 	Opts.RecalcPic = Options->DSColor->isChecked();
 	Opts.PicRes = Options->ValC->value();
 	Opts.Bookmarks = Options->CheckBM->isChecked();

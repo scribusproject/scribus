@@ -123,13 +123,13 @@ public slots:
 	void DoDownsample();
 	void RemoveEmbed();
 	void PutToEmbed();
-	void RemoveSubset();
-	void PutToSubset();
+	void RemoveOutline();
+	void PutToOutline();
 	void SelAFont(QListBoxItem*);
 	void SelEFont(QListBoxItem*);
 	void SelSFont(QListBoxItem*);
 	void EmbedAll();
-	void SubsetAll();
+	void OutlineAll();
 	void PagePr();
 	void SetPgEff(int nr);
 	void SetEffOpts(int nr);
@@ -163,7 +163,7 @@ protected:
 	QValueList<PDFPresentationData> EffVal;
 	QString SelLPIcolor;
 	QValueList<QString> FontsToEmbed;
-	QValueList<QString> FontsToSubset;
+	QValueList<QString> FontsToOutline;
 
 	// PDFExportDialog needs access to these GUI members
 	// but they don't need to be exposed to the rest of Scribus.
@@ -214,7 +214,7 @@ private:
 	QListBox* EmbedList;
 	QPushButton* EonAllPg;
 	QPushButton* FromEmbed;
-	QPushButton* FromSubset;
+	QPushButton* FromOutline;
 	QGroupBox* GroupBox1;
 	QGridLayout* GroupBox1Layout;
 	QGridLayout* GroupBox2Layout;
@@ -267,8 +267,8 @@ private:
 	QCheckBox *docBleeds;
 	QButtonGroup* RangeGroup;
 	QVBoxLayout* RangeGroupLayout;
-	QPushButton* SubsetFonts;
-	QListBox* SubsetList;
+	QPushButton* OutlineFonts;
+	QListBox* OutlineList;
 	QWidget* tabColor;
 	QVBoxLayout* tabColorLayout;
 	QWidget* tabFonts;
@@ -306,7 +306,7 @@ private:
 	QLabel* TextSec2;
 	QPushButton* pageNrButton;
 	QPushButton* ToEmbed;
-	QPushButton* ToSubset;
+	QPushButton* ToOutline;
 	QRadioButton* useViewDefault;
 	QGroupBox* X3Group;
 	QGridLayout* X3GroupLayout;

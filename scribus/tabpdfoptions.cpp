@@ -129,7 +129,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	EmbedList(0),
 	EonAllPg(0),
 	FromEmbed(0),
-	FromSubset(0),
+	FromOutline(0),
 	GroupBox1(0),
 	GroupBox1Layout(0),
 	GroupBox2Layout(0),
@@ -176,8 +176,8 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	ProfsTxt4(0),
 	RangeGroup(0),
 	RangeGroupLayout(0),
-	SubsetFonts(0),
-	SubsetList(0),
+	OutlineFonts(0),
+	OutlineList(0),
 	tabColor(0),
 	tabColorLayout(0),
 	tabFonts(0),
@@ -215,7 +215,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	TextSec2(0),
 	pageNrButton(0),
 	ToEmbed(0),
-	ToSubset(0),
+	ToOutline(0),
 	useViewDefault(0),
 	X3Group(0),
 	X3GroupLayout(0),
@@ -419,22 +419,22 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		Layout5_2a->addWidget( EmbedFonts );
 		QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS1 );
-		ToSubset = new QPushButton( "", GroupFont, "ToSubset" );
-		ToSubset->setPixmap(loadIcon("down.png"));
-		Layout5_2a->addWidget( ToSubset );
-		FromSubset = new QPushButton( "", GroupFont, "FromSubset" );
-		FromSubset->setPixmap(loadIcon("up.png"));
-		Layout5_2a->addWidget( FromSubset );
+		ToOutline = new QPushButton( "", GroupFont, "ToOutline" );
+		ToOutline->setPixmap(loadIcon("down.png"));
+		Layout5_2a->addWidget( ToOutline );
+		FromOutline = new QPushButton( "", GroupFont, "FromOutline" );
+		FromOutline->setPixmap(loadIcon("up.png"));
+		Layout5_2a->addWidget( FromOutline );
 		QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS2 );
 		Layout6->addLayout( Layout5_2a );
-		TextFont1_2a = new QLabel( tr( "Fonts to subset:" ), GroupFont, "TextFont1_2a" );
+		TextFont1_2a = new QLabel( tr( "Fonts to outline:" ), GroupFont, "TextFont1_2a" );
 		Layout6->addWidget( TextFont1_2a );
-		SubsetList = new QListBox( GroupFont, "SubsetList" );
-		SubsetList->setMinimumSize(QSize(150, 40));
-		Layout6->addWidget( SubsetList );
-		SubsetFonts = new QPushButton( tr( "&Subset all" ), GroupFont, "SubsetFonts" );
-		Layout6->addWidget( SubsetFonts );
+		OutlineList = new QListBox( GroupFont, "OutlineList" );
+		OutlineList->setMinimumSize(QSize(150, 40));
+		Layout6->addWidget( OutlineList );
+		OutlineFonts = new QPushButton( tr( "&Outline all" ), GroupFont, "OutlineFonts" );
+		Layout6->addWidget( OutlineFonts );
 		GroupFontLayout->addLayout( Layout6 );
 		tabLayout_3->addWidget( GroupFont );
 		insertTab( tabFonts, tr( "&Fonts" ) );
@@ -866,10 +866,10 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		connect(EmbedList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelEFont(QListBoxItem*)));
 		connect(ToEmbed, SIGNAL(clicked()), this, SLOT(PutToEmbed()));
 		connect(FromEmbed, SIGNAL(clicked()), this, SLOT(RemoveEmbed()));
-		connect(SubsetFonts, SIGNAL(clicked()), this, SLOT(SubsetAll()));
-		connect(SubsetList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelSFont(QListBoxItem*)));
-		connect(ToSubset, SIGNAL(clicked()), this, SLOT(PutToSubset()));
-		connect(FromSubset, SIGNAL(clicked()), this, SLOT(RemoveSubset()));
+		connect(OutlineFonts, SIGNAL(clicked()), this, SLOT(OutlineAll()));
+		connect(OutlineList, SIGNAL(clicked(QListBoxItem*)), this, SLOT(SelSFont(QListBoxItem*)));
+		connect(ToOutline, SIGNAL(clicked()), this, SLOT(PutToOutline()));
+		connect(FromOutline, SIGNAL(clicked()), this, SLOT(RemoveOutline()));
 		connect(PagePrev, SIGNAL(clicked()), this, SLOT(PagePr()));
 		connect(Pages, SIGNAL(highlighted(int)), this, SLOT(SetPgEff(int)));
 		connect(EffectType, SIGNAL(activated(int)), this, SLOT(SetEffOpts(int)));
@@ -953,6 +953,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 	QToolTip::add(overprintMode, "<qt>"+ tr("Enables global Overprint Mode for this document, overrides object settings") + "<qt>");
 	QToolTip::add( useSpot,"<qt>" + tr( "Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled." ) + "</qt>");
 	QToolTip::add( ClipMarg, "<qt>" + tr( "Do not show objects outside the margins in the exported file" ) + "</qt>" );
+	QToolTip::add(OutlineFonts, "<qt>" + tr("Convert all glyphs in the document to outlines.") + "</qt>");
 }
 
 void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
@@ -1015,8 +1016,8 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 		}
 		ToEmbed->setEnabled(false);
 		FromEmbed->setEnabled(false);
-		ToSubset->setEnabled(false);
-		FromSubset->setEnabled(false);
+		ToOutline->setEnabled(false);
+		FromOutline->setEnabled(false);
 		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0) && (Opts.firstUse))
 		{
 //			EmbedFonts->setChecked(true);
@@ -1033,15 +1034,15 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			}
 			if (Opts.SubsetList.count() != 0)
 			{
-				SubsetList->clear();
-				FontsToSubset.clear();
+				OutlineList->clear();
+				FontsToOutline.clear();
 				for (uint fe = 0; fe < Opts.SubsetList.count(); ++fe)
 				{
-					SubsetList->insertItem(Opts.SubsetList[fe]);
-					FontsToSubset.append(Opts.SubsetList[fe]);
+					OutlineList->insertItem(Opts.SubsetList[fe]);
+					FontsToOutline.append(Opts.SubsetList[fe]);
 				}
 			}
-//			if (DocFonts.count() == FontsToEmbed.count() + FontsToSubset.count())
+//			if (DocFonts.count() == FontsToEmbed.count() + FontsToOutline.count())
 //				EmbedFonts->setChecked(true);
 		}
 		CheckBox10->setChecked(Opts.PresentMode);
@@ -1697,7 +1698,7 @@ void TabPDFOptions::RemoveEmbed()
 	if (EmbedList->count() == 0)
 	{
 		FromEmbed->setEnabled(false);
-		ToSubset->setEnabled(false);
+		ToOutline->setEnabled(false);
 	}
 }
 
@@ -1715,18 +1716,18 @@ void TabPDFOptions::PutToEmbed()
 		}
 		else
 		{
-			if (SubsetList->count() != 0)
+			if (OutlineList->count() != 0)
 			{
-				if (SubsetList->findItem(AvailFlist->currentText()) == NULL)
+				if (OutlineList->findItem(AvailFlist->currentText()) == NULL)
 				{
-					FontsToSubset.append(AvailFlist->currentText());
-					SubsetList->insertItem(AvailFlist->currentText());
+					FontsToOutline.append(AvailFlist->currentText());
+					OutlineList->insertItem(AvailFlist->currentText());
 				}
 			}
 			else
 			{
-				FontsToSubset.append(AvailFlist->currentText());
-				SubsetList->insertItem(AvailFlist->currentText());
+				FontsToOutline.append(AvailFlist->currentText());
+				OutlineList->insertItem(AvailFlist->currentText());
 			}
 		}
 	}
@@ -1739,51 +1740,51 @@ void TabPDFOptions::PutToEmbed()
 		}
 		else
 		{
-			if (SubsetList->count() != 0)
+			if (OutlineList->count() != 0)
 			{
-				if (SubsetList->findItem(AvailFlist->currentText()) == NULL)
+				if (OutlineList->findItem(AvailFlist->currentText()) == NULL)
 				{
-					FontsToSubset.append(AvailFlist->currentText());
-					SubsetList->insertItem(AvailFlist->currentText());
+					FontsToOutline.append(AvailFlist->currentText());
+					OutlineList->insertItem(AvailFlist->currentText());
 				}
 			}
 			else
 			{
-				FontsToSubset.append(AvailFlist->currentText());
-				SubsetList->insertItem(AvailFlist->currentText());
+				FontsToOutline.append(AvailFlist->currentText());
+				OutlineList->insertItem(AvailFlist->currentText());
 			}
 		}
 	}
 }
 
-void TabPDFOptions::RemoveSubset()
+void TabPDFOptions::RemoveOutline()
 {
-	FontsToSubset.remove(SubsetList->currentText());
-	if ((AllFonts[SubsetList->currentText()].type() != ScFace::OTF) && (!AllFonts[SubsetList->currentText()].subset()))
+	FontsToOutline.remove(OutlineList->currentText());
+	if ((AllFonts[OutlineList->currentText()].type() != ScFace::OTF) && (!AllFonts[OutlineList->currentText()].subset()))
 	{
-		FontsToEmbed.append(SubsetList->currentText());
-		EmbedList->insertItem(SubsetList->currentText());
+		FontsToEmbed.append(OutlineList->currentText());
+		EmbedList->insertItem(OutlineList->currentText());
 	}
-	SubsetList->removeItem(SubsetList->currentItem());
-	SubsetList->clearSelection();
-	if (SubsetList->count() == 0)
-		FromSubset->setEnabled(false);
+	OutlineList->removeItem(OutlineList->currentItem());
+	OutlineList->clearSelection();
+	if (OutlineList->count() == 0)
+		FromOutline->setEnabled(false);
 }
 
-void TabPDFOptions::PutToSubset()
+void TabPDFOptions::PutToOutline()
 {
-	if (SubsetList->count() != 0)
+	if (OutlineList->count() != 0)
 	{
-		if (SubsetList->findItem(EmbedList->currentText()) == NULL)
+		if (OutlineList->findItem(EmbedList->currentText()) == NULL)
 		{
-			FontsToSubset.append(EmbedList->currentText());
-			SubsetList->insertItem(EmbedList->currentText());
+			FontsToOutline.append(EmbedList->currentText());
+			OutlineList->insertItem(EmbedList->currentText());
 		}
 	}
 	else
 	{
-		FontsToSubset.append(EmbedList->currentText());
-		SubsetList->insertItem(EmbedList->currentText());
+		FontsToOutline.append(EmbedList->currentText());
+		OutlineList->insertItem(EmbedList->currentText());
 	}
 	FontsToEmbed.remove(EmbedList->currentText());
 	EmbedList->removeItem(EmbedList->currentItem());
@@ -1791,7 +1792,7 @@ void TabPDFOptions::PutToSubset()
 	if (EmbedList->count() == 0)
 	{
 		FromEmbed->setEnabled(false);
-		ToSubset->setEnabled(false);
+		ToOutline->setEnabled(false);
 	}
 }
 
@@ -1802,10 +1803,10 @@ void TabPDFOptions::SelAFont(QListBoxItem *c)
 		FromEmbed->setEnabled(false);
 		if (c->isSelectable())
 			ToEmbed->setEnabled(true);
-		ToSubset->setEnabled(false);
-		FromSubset->setEnabled(false);
+		ToOutline->setEnabled(false);
+		FromOutline->setEnabled(false);
 		EmbedList->clearSelection();
-		SubsetList->clearSelection();
+		OutlineList->clearSelection();
 	}
 }
 
@@ -1818,10 +1819,10 @@ void TabPDFOptions::SelEFont(QListBoxItem *c)
 		else
 			FromEmbed->setEnabled(false);
 		ToEmbed->setEnabled(false);
-		ToSubset->setEnabled(true);
-		FromSubset->setEnabled(false);
+		ToOutline->setEnabled(true);
+		FromOutline->setEnabled(false);
 		AvailFlist->clearSelection();
-		SubsetList->clearSelection();
+		OutlineList->clearSelection();
 	}
 }
 
@@ -1832,13 +1833,13 @@ void TabPDFOptions::SelSFont(QListBoxItem *c)
 		if (PDFVersionCombo->currentItem() == 3)
 		{
 			if ((AllFonts[c->text()].type() == ScFace::OTF) || (AllFonts[c->text()].subset()))
-				FromSubset->setEnabled(false);
+				FromOutline->setEnabled(false);
 			else
-				FromSubset->setEnabled(true);
+				FromOutline->setEnabled(true);
 		}
 		else
-			FromSubset->setEnabled(true);
-		ToSubset->setEnabled(false);
+			FromOutline->setEnabled(true);
+		ToOutline->setEnabled(false);
 		ToEmbed->setEnabled(false);
 		FromEmbed->setEnabled(false);
 		EmbedList->clearSelection();
@@ -1850,12 +1851,12 @@ void TabPDFOptions::EmbedAll()
 {
 	EmbedList->clear();
 	FontsToEmbed.clear();
-	SubsetList->clear();
-	FontsToSubset.clear();
+	OutlineList->clear();
+	FontsToOutline.clear();
 	FromEmbed->setEnabled(false);
 	ToEmbed->setEnabled(false);
-	ToSubset->setEnabled(false);
-	FromSubset->setEnabled(false);
+	ToOutline->setEnabled(false);
+	FromOutline->setEnabled(false);
 	for (uint a=0; a < AvailFlist->count(); ++a)
 	{
 		if (AvailFlist->item(a)->isSelectable())
@@ -1867,29 +1868,29 @@ void TabPDFOptions::EmbedAll()
 			}
 			else
 			{
-				FontsToSubset.append(AvailFlist->item(a)->text());
-				SubsetList->insertItem(AvailFlist->item(a)->text());
+				FontsToOutline.append(AvailFlist->item(a)->text());
+				OutlineList->insertItem(AvailFlist->item(a)->text());
 			}
 		}
 	}
 }
 
-void TabPDFOptions::SubsetAll()
+void TabPDFOptions::OutlineAll()
 {
 	EmbedList->clear();
 	FontsToEmbed.clear();
-	SubsetList->clear();
-	FontsToSubset.clear();
+	OutlineList->clear();
+	FontsToOutline.clear();
 	FromEmbed->setEnabled(false);
 	ToEmbed->setEnabled(false);
-	ToSubset->setEnabled(false);
-	FromSubset->setEnabled(false);
+	ToOutline->setEnabled(false);
+	FromOutline->setEnabled(false);
 	for (uint a=0; a < AvailFlist->count(); ++a)
 	{
 		if (AvailFlist->item(a)->isSelectable())
 		{
-			FontsToSubset.append(AvailFlist->item(a)->text());
-			SubsetList->insertItem(AvailFlist->item(a)->text());
+			FontsToOutline.append(AvailFlist->item(a)->text());
+			OutlineList->insertItem(AvailFlist->item(a)->text());
 		}
 	}
 }
