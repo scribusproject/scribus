@@ -4305,7 +4305,7 @@ void ScribusMainWindow::slotReallyPrint()
 #ifdef _WIN32
 		SHORT shiftState = GetKeyState( VK_SHIFT );
 		bool forceGDI = ( shiftState & 0x8000 ) ? true : false;
-		if (Print_Options.toFile == false)
+		if (doc->Print_Options.toFile == false)
 		{
 			ScWinPrint winPrint;
 			done = winPrint.print( doc, doc->Print_Options, printer->DevMode, forceGDI );
