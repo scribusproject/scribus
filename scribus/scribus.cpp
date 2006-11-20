@@ -3510,6 +3510,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 				newActWin(ActWinOld);
 			return false;
 		}
+		outlinePalette->setDoc(doc);
 		fileLoader->informReplacementFonts();
 		view->unitSwitcher->setCurrentText(unitGetStrFromIndex(doc->unitIndex()));
 		view->unitChange();
