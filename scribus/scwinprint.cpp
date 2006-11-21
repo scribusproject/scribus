@@ -471,7 +471,9 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 #endif
 	 
 	// Create the GDI painter
+	MarksOptions marksOptions(options);
 	pageOutput = new ScPageOutput(doc, true, 300, options.useICC);
+	pageOutput->setMarksOptions(marksOptions);
 	
 	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
 	painter = new ScPainterEx_GDI( printerDC, drawRect, !options.useColor );
@@ -497,7 +499,6 @@ bool ScWinPrint::printPage_PS ( ScribusDoc* doc, Page* page, PrintOptions& optio
 {
 	bool succeed = false;
 	ColorList usedColors;
-	std::vector<int> pageNumber;
 	PrintOptions options2 = options;
 	QMap<QString, QMap<uint, FPointArray> > usedFonts;
 	QString tempFilePath;

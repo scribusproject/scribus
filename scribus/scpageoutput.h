@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "sccolor.h"
 #include "scpainterexbase.h"
+#include "scribusstructs.h"
 
 class PageItem;
 class PageItem_ImageFrame;
@@ -21,6 +22,23 @@ class PageItem_Polygon;
 class PageItem_PolyLine;
 class PageItem_TextFrame;
 
+class SCRIBUS_API MarksOptions
+{
+public:
+	MarksOptions(void);
+	MarksOptions(struct PrintOptions& opt);
+	double markOffset;
+	double BleedTop;
+	double BleedLeft;
+	double BleedRight;
+	double BleedBottom;
+	bool   cropMarks;
+	bool   bleedMarks;
+	bool   registrationMarks;
+	bool   colorMarks;
+	bool   docInfoMarks;
+};
+
 class SCRIBUS_API ScPageOutput
 {
 protected:
@@ -28,8 +46,9 @@ protected:
 	ScribusDoc* m_doc;
 
 	bool m_reloadImages;
-	int m_imageRes;
+	int  m_imageRes;
 	bool m_useProfiles;
+	MarksOptions m_marksOptions;
 
 	virtual void FillPath( PageItem* item, ScPainterExBase* painter, QRect& clip );
 	virtual void StrokePath( PageItem* item, ScPainterExBase* painter, QRect& clip );
@@ -52,6 +71,10 @@ protected:
 	virtual void DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* painte, QRect& clip );
 	virtual void DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase* painter, QRect& clip );
 
+	virtual void DrawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options );
+	virtual void DrawBoxMarks( ScPainterExBase* painter, FPoint& topLeft, FPoint& bottomRight, double offset );
+	virtual void DrawRegistrationCross( ScPainterExBase* painter );
+
 	ScImage::RequestType translateImageModeToRequest( ScPainterExBase::ImageMode mode);
 
 public:
@@ -62,6 +85,8 @@ public:
 	virtual void DrawPage( Page* page ) {};
 	virtual void DrawPage( Page* page, ScPainterExBase* painter);
 	virtual void end(void) {};
+
+	void setMarksOptions(const MarksOptions& opt) { m_marksOptions = opt; }
 };
 
 #endif

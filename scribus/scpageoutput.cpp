@@ -22,7 +22,36 @@ for which a new license (GPL+exception) is in place.
 #include "scimage.h"
 #include "util.h"
 
-ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, int resolution, bool useProfiles)
+MarksOptions::MarksOptions(void)
+{
+	markOffset = 0.0;
+	BleedTop = 0.0;
+	BleedLeft = 0.0;
+	BleedRight = 0.0;
+	BleedBottom = 0.0;
+	cropMarks = false;
+	bleedMarks = false;
+	registrationMarks = false;
+	colorMarks = false;
+	docInfoMarks = false;
+}
+
+MarksOptions::MarksOptions(struct PrintOptions& opt)
+{
+	markOffset = opt.markOffset;
+	BleedTop = opt.BleedTop;
+	BleedLeft = opt.BleedLeft;
+	BleedRight = opt.BleedRight;
+	BleedBottom = opt.BleedBottom;
+	cropMarks = opt.cropMarks;
+	bleedMarks = opt.bleedMarks;
+	registrationMarks = opt.registrationMarks;
+	colorMarks = opt.colorMarks;
+	docInfoMarks = true;
+}
+
+ScPageOutput::ScPageOutput(ScribusDoc* doc, bool reloadImages, int resolution, bool useProfiles) 
+			: m_marksOptions()
 {
 	m_doc = doc;
 	m_reloadImages = reloadImages;
@@ -52,6 +81,7 @@ void ScPageOutput::DrawPage( Page* page, ScPainterExBase* painter)
 	int cliph = qRound(page->height());
 	DrawMasterItems(painter, page, QRect(clipx, clipy, clipw, cliph));
 	DrawPageItems(painter, page, QRect(clipx, clipy, clipw, cliph));
+	DrawMarks(page, painter, m_marksOptions);
 }
 
 void ScPageOutput::DrawMasterItems(ScPainterExBase *painter, Page *page, QRect& clip)
@@ -352,10 +382,10 @@ void ScPageOutput::DrawItem_Pre( PageItem* item, ScPainterExBase* painter)
 			if (item->fillColor() != CommonStrings::None)
 			{
 				painter->setBrush(ScColorShade(m_doc->PageColors[item->fillColor()], item->fillShade()));
-				painter->setFillMode(ScPainter::Solid);
+				painter->setFillMode(ScPainterExBase::Solid);
 			}
 			else
-				painter->setFillMode(ScPainter::None);
+				painter->setFillMode(ScPainterExBase::None);
 		}
 		else
 		{
@@ -1354,6 +1384,198 @@ void ScPageOutput::DrawItem_TextFrame( PageItem_TextFrame* item, ScPainterExBase
 			}
 		}
 	}
+	painter->restore();
+}
+
+void ScPageOutput::DrawMarks( Page* page, ScPainterExBase* painter, const MarksOptions& options )
+{
+	double markOffs  = options.markOffset;
+	double bleedLeft = 0.0, bleedRight = 0.0;
+	double bleedBottom = options.BleedBottom;
+	double bleedTop = options.BleedTop;
+	if (!options.cropMarks && !options.bleedMarks && !options.registrationMarks && !options.colorMarks)
+		return;
+	if (m_doc->locationOfPage(page->pageNr()) == LeftPage)
+	{
+		bleedRight = options.BleedRight;
+		bleedLeft  = options.BleedLeft;
+	}
+	else if (m_doc->locationOfPage(page->pageNr()) == RightPage)
+	{
+		bleedRight = options.BleedLeft;
+		bleedLeft  = options.BleedRight;
+	}
+	else
+	{
+		bleedRight = options.BleedLeft;
+		bleedLeft  = options.BleedLeft;
+	}
+	double width = page->width();
+	double height = page->height();
+	double offsetX = page->xOffset();
+	double offsetY = page->yOffset();
+	painter->save();
+	painter->setLineWidth(0.5);
+	painter->setPen(ScColorShade(Qt::black, 100), 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
+	if (options.cropMarks)
+	{
+		FPoint start, end;
+		double left = offsetX, right = offsetX + width;
+		double bottom = offsetY + height, top = offsetY;
+		DrawBoxMarks( painter, FPoint(left, top), FPoint(right, bottom), markOffs );
+	}
+	if (options.bleedMarks)
+	{
+		FPoint start, end;
+		double left = offsetX - bleedLeft, right = offsetX + width + bleedRight;
+		double bottom = offsetY + height + bleedBottom, top = offsetY - bleedTop;;
+		DrawBoxMarks( painter, FPoint(left, top), FPoint(right, bottom), markOffs );
+	}
+	if (options.registrationMarks)
+	{
+		double posX = (2* offsetX + width) / 2.0 - 7.0;
+		double posY = (offsetY + height + bleedBottom + markOffs + 3.0);
+		painter->save();
+		painter->translate(posX, posY);
+		DrawRegistrationCross( painter );
+		painter->restore();
+		posX = (2 * offsetX + width) / 2.0 - 7.0;
+		posY = (offsetY - bleedTop - markOffs - 17);
+		painter->save();
+		painter->translate(posX, posY);
+		DrawRegistrationCross( painter );
+		painter->restore();
+
+		posX = (offsetX - bleedLeft - markOffs - 17);
+		posY = (2 * offsetY + height) / 2.0 - 7.0;
+		painter->save();
+		painter->translate(posX, posY);
+		DrawRegistrationCross( painter );
+		painter->restore();
+		posX = (offsetX + width + bleedRight + markOffs + 3.0);
+		posY = (2 * offsetY + height) / 2.0 - 7.0;
+		painter->save();
+		painter->translate(posX, posY);
+		DrawRegistrationCross( painter );
+		painter->restore();
+	}
+	if (options.colorMarks)
+	{
+		int shade = 100;
+		double startX = offsetX + 6.0;
+		double startY = offsetY - bleedTop - markOffs - 16.0;
+		ScColorShade strokecolor( ScColor(0, 0, 0, 255), 100 );
+		painter->setPen( strokecolor, 0.5, Qt::SolidLine, Qt::FlatCap, Qt::MiterJoin );
+		painter->setFillMode( ScPainterExBase::Solid );
+		for (int i = 0; i < 11; i++ )
+		{
+			ScColorShade fillcolor( ScColor(0, 0, 0, 255), shade );
+			painter->setBrush( fillcolor );
+			painter->drawRect( startX + i * 14, startY, 14, 14 );
+			shade -= 10;
+		}
+		startX = offsetX + width - 20.0;
+		painter->setBrush( ScColorShade(ScColor(0, 0, 0, 255), 50) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(0, 0, 255, 0), 50) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(0, 255, 0, 0), 50) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(255, 0, 0, 0), 50) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(255, 255, 0, 0), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(255, 0, 255, 0), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(0, 255, 255, 0), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(0, 0, 0, 255), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(0, 0, 255, 0), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(0, 255, 0, 0), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+		startX -= 14;
+		painter->setBrush( ScColorShade(ScColor(255, 0, 0, 0), 100) );
+		painter->drawRect( startX, startY, 14, 14 );
+	}
+	painter->restore();
+}
+
+void ScPageOutput::DrawBoxMarks( ScPainterExBase* painter, FPoint& topLeft, FPoint& bottomRight, double offset )
+{
+	FPoint start, end;
+	double left = topLeft.x(), right = bottomRight.x();
+	double bottom = bottomRight.y(), top = topLeft.y();
+	// Top Left
+	start.setXY( left - offset, top );
+	end.setXY  ( left - offset - 20, top );
+	painter->drawLine(start, end);
+	start.setXY( left, top - offset );
+	end.setXY  ( left, top - offset - 20);
+	painter->drawLine(start, end);
+	// Top Right
+	start.setXY( right + offset, top );
+	end.setXY  ( right + offset + 20, top );
+	painter->drawLine(start, end);
+	start.setXY( right, top - offset );
+	end.setXY  ( right, top - offset - 20);
+	painter->drawLine(start, end);
+	// Bottom Left
+	start.setXY( left - offset, bottom );
+	end.setXY  ( left - offset - 20, bottom  );
+	painter->drawLine(start, end);
+	start.setXY( left, bottom + offset );
+	end.setXY  ( left, bottom + offset + 20);
+	painter->drawLine(start, end);
+	// Bottom Right
+	start.setXY( right + offset, bottom );
+	end.setXY  ( right + offset + 20, bottom  );
+	painter->drawLine(start, end);
+	start.setXY( right, bottom + offset );
+	end.setXY  ( right, bottom + offset + 20);
+	painter->drawLine(start, end);
+}
+
+void ScPageOutput::DrawRegistrationCross( ScPainterExBase* painter )
+{
+	painter->save();
+
+	painter->newPath();
+	painter->moveTo(0.0, 7.0);
+	painter->lineTo(14.0, 7.0);
+	painter->strokePath();
+
+	painter->newPath();
+	painter->moveTo(7.0, 0.0);
+	painter->lineTo(7.0, 14.0);
+	painter->strokePath();
+
+	painter->newPath();
+	painter->moveTo(13.0, 7.0);
+	painter->curveTo( FPoint(13.0, 10.31383), FPoint(10.31383, 13.0), FPoint(7.0, 13.0) );
+	painter->curveTo( FPoint(3.68629, 13.0) , FPoint(1.0, 10.31383) , FPoint(1.0, 7.0) );
+	painter->curveTo( FPoint(1.0, 3.68629)  , FPoint(3.68629, 1.0) , FPoint(7.0, 1.0) );
+	painter->curveTo( FPoint(10.31383, 1.0) , FPoint(13.0, 3.68629) , FPoint(13.0, 7.0) );
+	painter->strokePath();
+
+	painter->newPath();
+	painter->moveTo(10.5, 7.0);
+	painter->curveTo( FPoint(10.5, 8.93307), FPoint(8.93307, 10.5), FPoint(7.0, 10.5) );
+	painter->curveTo( FPoint(5.067, 10.5)  , FPoint(3.5, 8.93307) , FPoint(3.5, 7.0) );
+	painter->curveTo( FPoint(3.5, 5.067)   , FPoint(5.067, 3.5)   , FPoint(7.0, 3.5) );
+	painter->curveTo( FPoint(8.93307, 3.5) , FPoint(10.5, 5.067)  , FPoint(10.5, 7.0) );
+	painter->strokePath();
+
 	painter->restore();
 }
 
