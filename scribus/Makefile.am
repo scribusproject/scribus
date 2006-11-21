@@ -260,6 +260,7 @@ scribus_SOURCES = \
 	tabmiscellaneousbase.ui \
 	tabmiscellaneous.cpp \
 	tabpdfoptions.cpp	\
+	tabprinterbase.ui	\
 	tabprinter.cpp	\
 	tabruler.cpp	\
 	tabscrapbookbase.ui \
