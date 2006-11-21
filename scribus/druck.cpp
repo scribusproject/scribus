@@ -723,7 +723,10 @@ void Druck::setStoredValues(bool gcr)
 		}
 		OtherCom->setChecked(prefs->getBool("OtherCom", false));
 		if (OtherCom->isChecked())
+		{
 			SelComm();
+			Command->setText(prefs->get("Command", ""));
+		}
 		RadioButton1->setChecked(prefs->getBool("PrintAll", true));
 		CurrentPage->setChecked(prefs->getBool("CurrentPage", false));
 		bool printRangeChecked=prefs->getBool("PrintRange", false);

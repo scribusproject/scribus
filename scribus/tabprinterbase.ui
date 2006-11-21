@@ -1,0 +1,556 @@
+<!DOCTYPE UI><UI version="3.3" stdsetdef="1">
+<class>TabPrinterBase</class>
+<widget class="QWidget">
+    <property name="name">
+        <cstring>TabPrinterBase</cstring>
+    </property>
+    <property name="geometry">
+        <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>522</width>
+            <height>465</height>
+        </rect>
+    </property>
+    <property name="caption">
+        <string>Form1</string>
+    </property>
+    <vbox>
+        <property name="name">
+            <cstring>unnamed</cstring>
+        </property>
+        <property name="margin">
+            <number>10</number>
+        </property>
+        <property name="spacing">
+            <number>5</number>
+        </property>
+        <widget class="QGroupBox">
+            <property name="name">
+                <cstring>destinationGroup</cstring>
+            </property>
+            <property name="title">
+                <string>Print Destination</string>
+            </property>
+            <vbox>
+                <property name="name">
+                    <cstring>unnamed</cstring>
+                </property>
+                <property name="margin">
+                    <number>10</number>
+                </property>
+                <property name="spacing">
+                    <number>5</number>
+                </property>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout2</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>5</number>
+                        </property>
+                        <widget class="QComboBox">
+                            <property name="name">
+                                <cstring>defaultPrinter</cstring>
+                            </property>
+                        </widget>
+                        <spacer>
+                            <property name="name">
+                                <cstring>spacer1</cstring>
+                            </property>
+                            <property name="orientation">
+                                <enum>Horizontal</enum>
+                            </property>
+                            <property name="sizeType">
+                                <enum>Expanding</enum>
+                            </property>
+                            <property name="sizeHint">
+                                <size>
+                                    <width>191</width>
+                                    <height>20</height>
+                                </size>
+                            </property>
+                        </spacer>
+                    </hbox>
+                </widget>
+                <widget class="QCheckBox">
+                    <property name="name">
+                        <cstring>useAltPrintCommand</cstring>
+                    </property>
+                    <property name="text">
+                        <string>Alternative Printer Command</string>
+                    </property>
+                    <property name="accel">
+                        <string></string>
+                    </property>
+                </widget>
+                <widget class="QLayoutWidget">
+                    <property name="name">
+                        <cstring>layout1</cstring>
+                    </property>
+                    <hbox>
+                        <property name="name">
+                            <cstring>unnamed</cstring>
+                        </property>
+                        <property name="margin">
+                            <number>0</number>
+                        </property>
+                        <property name="spacing">
+                            <number>5</number>
+                        </property>
+                        <widget class="QLabel">
+                            <property name="name">
+                                <cstring>textLabel1</cstring>
+                            </property>
+                            <property name="text">
+                                <string>Command:</string>
+                            </property>
+                        </widget>
+                        <widget class="QLineEdit">
+                            <property name="name">
+                                <cstring>printerCommand</cstring>
+                            </property>
+                        </widget>
+                    </hbox>
+                </widget>
+            </vbox>
+        </widget>
+        <widget class="QTabWidget">
+            <property name="name">
+                <cstring>tabOptions</cstring>
+            </property>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>tab</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Options</string>
+                </attribute>
+                <grid>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>10</number>
+                    </property>
+                    <property name="spacing">
+                        <number>5</number>
+                    </property>
+                    <widget class="QButtonGroup" row="0" column="1">
+                        <property name="name">
+                            <cstring>groupPostscript</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Postscript Options</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>10</number>
+                            </property>
+                            <property name="spacing">
+                                <number>5</number>
+                            </property>
+                            <widget class="QComboBox">
+                                <item>
+                                    <property name="text">
+                                        <string>Level 1</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Level 2</string>
+                                    </property>
+                                </item>
+                                <item>
+                                    <property name="text">
+                                        <string>Level 3</string>
+                                    </property>
+                                </item>
+                                <property name="name">
+                                    <cstring>psLevel</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>printColor</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Print in Color if Available</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>printGray</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Print in Grayscale</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QGroupBox" row="1" column="0">
+                        <property name="name">
+                            <cstring>groupPage</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Page</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>10</number>
+                            </property>
+                            <property name="spacing">
+                                <number>5</number>
+                            </property>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>mirrorH</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Mirror Page(s) Horizontal</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>mirrorV</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Mirror Page(s) Vertical</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>setMedia</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Set Media Size</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>setClip</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Clip to Page Margins</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QGroupBox" row="1" column="1">
+                        <property name="name">
+                            <cstring>groupColor</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Color</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>10</number>
+                            </property>
+                            <property name="spacing">
+                                <number>5</number>
+                            </property>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>doGCR</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Apply Under Color Removal</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>convertSpots</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Convert Spot Colors to Process Colors</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>doOverprint</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Force Overprint Mode</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox">
+                                <property name="name">
+                                    <cstring>useICC</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Apply ICC Profiles</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                    <widget class="QButtonGroup" row="0" column="0">
+                        <property name="name">
+                            <cstring>groupSeparations</cstring>
+                        </property>
+                        <property name="title">
+                            <string>General</string>
+                        </property>
+                        <vbox>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>10</number>
+                            </property>
+                            <property name="spacing">
+                                <number>5</number>
+                            </property>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>buttonNormal</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Print Normal</string>
+                                </property>
+                                <property name="checked">
+                                    <bool>true</bool>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
+                                    <cstring>buttonSeparations</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Print Separations</string>
+                                </property>
+                            </widget>
+                        </vbox>
+                    </widget>
+                </grid>
+            </widget>
+            <widget class="QWidget">
+                <property name="name">
+                    <cstring>TabPage</cstring>
+                </property>
+                <attribute name="title">
+                    <string>Marks &amp;&amp; Bleeds</string>
+                </attribute>
+                <vbox>
+                    <property name="name">
+                        <cstring>unnamed</cstring>
+                    </property>
+                    <property name="margin">
+                        <number>10</number>
+                    </property>
+                    <property name="spacing">
+                        <number>5</number>
+                    </property>
+                    <widget class="QGroupBox">
+                        <property name="name">
+                            <cstring>groupMarks</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Printer Marks</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>10</number>
+                            </property>
+                            <property name="spacing">
+                                <number>5</number>
+                            </property>
+                            <widget class="QCheckBox" row="0" column="0">
+                                <property name="name">
+                                    <cstring>cropMarks</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Crop Marks</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="1" column="0">
+                                <property name="name">
+                                    <cstring>bleedMarks</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Bleed Marks</string>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="2" column="0">
+                                <property name="name">
+                                    <cstring>registrationMarks</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Registration Marks</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="1">
+                                <property name="name">
+                                    <cstring>textLabel2</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Offset:</string>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="1" column="2">
+                                <property name="name">
+                                    <cstring>offsetValue</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QCheckBox" row="0" column="1" rowspan="1" colspan="2">
+                                <property name="name">
+                                    <cstring>colorMarks</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Color Bars</string>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                    <widget class="QButtonGroup">
+                        <property name="name">
+                            <cstring>groupBleed</cstring>
+                        </property>
+                        <property name="title">
+                            <string>Bleed Settings</string>
+                        </property>
+                        <grid>
+                            <property name="name">
+                                <cstring>unnamed</cstring>
+                            </property>
+                            <property name="margin">
+                                <number>10</number>
+                            </property>
+                            <property name="spacing">
+                                <number>5</number>
+                            </property>
+                            <widget class="QLabel" row="0" column="0">
+                                <property name="name">
+                                    <cstring>textLabel3</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Top:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="0">
+                                <property name="name">
+                                    <cstring>textLabel4</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Bottom:</string>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="0" column="1">
+                                <property name="name">
+                                    <cstring>bleedTop</cstring>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="1" column="1">
+                                <property name="name">
+                                    <cstring>bleedBottom</cstring>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="0" column="2">
+                                <property name="name">
+                                    <cstring>textLabel5</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Left:</string>
+                                </property>
+                            </widget>
+                            <widget class="QLabel" row="1" column="2">
+                                <property name="name">
+                                    <cstring>textLabel6</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Right:</string>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="0" column="3">
+                                <property name="name">
+                                    <cstring>bleedLeft</cstring>
+                                </property>
+                            </widget>
+                            <widget class="MSpinBox" row="1" column="3">
+                                <property name="name">
+                                    <cstring>bleedRight</cstring>
+                                </property>
+                            </widget>
+                        </grid>
+                    </widget>
+                </vbox>
+            </widget>
+        </widget>
+        <spacer>
+            <property name="name">
+                <cstring>spacer2</cstring>
+            </property>
+            <property name="orientation">
+                <enum>Vertical</enum>
+            </property>
+            <property name="sizeType">
+                <enum>Expanding</enum>
+            </property>
+            <property name="sizeHint">
+                <size>
+                    <width>2</width>
+                    <height>2</height>
+                </size>
+            </property>
+        </spacer>
+    </vbox>
+</widget>
+<customwidgets>
+    <customwidget>
+        <class>MSpinBox</class>
+        <header location="local">mspinbox.h</header>
+        <sizehint>
+            <width>-1</width>
+            <height>-1</height>
+        </sizehint>
+        <container>0</container>
+        <sizepolicy>
+            <hordata>0</hordata>
+            <verdata>0</verdata>
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+        </sizepolicy>
+        <pixmap>image0</pixmap>
+        <property type="3">3</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
+    </customwidget>
+</customwidgets>
+<images>
+    <image name="image0">
+        <data format="PNG" length="872">89504e470d0a1a0a0000000d4948445200000016000000160806000000c4b46c3b0000032f49444154789cb5953148254718c77f1e5b7c030ab3e0c12e5ce00927f88a14af7d87c5590ac29d6013b0497b844008a9120e1248938354a6b1482131cde5a510b4f03081f07c8d4421c2063cd85708bbe0831938613ec8c0a5588dd1dc33452e5f33bb33c36f7ffbed7fd889fe7e9fcb7ad07df09ab750fdfdfec4c425787b6bfb757bae8df79e6a54e1bcc36008845b47e71dc549c1e06000f10a9e5c9a3effee39690ef92cb4a25e2c3b4804709844807035cfd57d7122f0ad65f0c25f0703d4a39af41d28473fa0af4a42548c81f007f85aa86a4510cc34cccc8288420405640ad2bbcadfeb2fb01b39021e7d5513a2c74c59ca43d8db510e0f6a24018d8a2496ecbeb0b892d29d0f08cdbc9d149ac7dc0057bea2831262853196fd5d6573dd43046b85fcbe2002d55019be54bef9a2a45ecd585e059106fe46639318403153427908bd0be8e2a38c874b90e70692806acade4ea0b7eee96d0cc9b2360b8f0d92e835e33b97172106400801b6b73c1a95c54719cbef439a2b9a54f833c3f68f8ec59594f73eb090089b1b153afa67e4ae1b270e5fa7144725d636a6228d853fcf59fbca511e7bdc193cf92467b0eb297f578a2220721d7ccdd82442553b48206f417a1714c5fb94b5cf2b8a638f58a13b9fc2a4a3ddb16854aa53d03806dcf4180481a8d8c98b8f7296b3f6a5a33c6ee2652785fc1ea4d2bcaf248246901bca377a0c661a482cc5505135ecbd088de9a490ddb30c8735cf9e5614872955a96854665a066e4f85a33d0bad96500f95bd9dc0f26a8a3b53ba0f53f20c9e3d85e1cb9a4f3facd0734f9659da1da8ea5b7a0c02a22cae081a95deba676fc7f1e4a39cce7ca0d5097cfc594e9659fca88608dd25cbccdcbfe6384014baf3509f66f436866c7e0d835d4ffb5d0b0954a5c38fb4e92d4af18b521c19ac8c39796ee42ecebe22c0f2aa90656d7adf5714c74a71346c7647b0d39685c7965f7f52aa738fc6947a34c6b83829284a41d2c6441258580a74e7738a22509d36d0bc65687760660e8a25033187c451fec69bc1838301ac0b69de444ad53779c32317bb2481f2d437b9dd6adae13d14874a558f3126c2e0e7cbc59be3b81abf7e67ecca7fac3bd0fca3fe17f0db86f7f7fb137f0208c29bb28f971c5b0000000049454e44ae426082</data>
+    </image>
+</images>
+<layoutdefaults spacing="6" margin="11"/>
+<includehints>
+    <includehint>mspinbox.h</includehint>
+    <includehint>mspinbox.h</includehint>
+    <includehint>mspinbox.h</includehint>
+    <includehint>mspinbox.h</includehint>
+    <includehint>mspinbox.h</includehint>
+</includehints>
+</UI>

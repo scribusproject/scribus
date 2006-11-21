@@ -33,6 +33,7 @@ class TabDisplay;
 class TabDocument;
 class TabMiscellaneous;
 class TabScrapbook;
+class TabPrinter;
 
 
 /*! \brief A Preferences dialog.
@@ -87,6 +88,7 @@ protected:
 	TabTools* tabTools;
 	HySettings* tabHyphenator;
 	FontPrefs* tabFonts;
+	TabPrinter* tabPrinter;
 	TabCheckDoc* tabDocChecker;
 	CMSPrefs* tabColorManagement;
 	TabPDFOptions* tabPDF;

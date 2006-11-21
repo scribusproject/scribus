@@ -47,6 +47,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabdocument.h"
 #include "tabmiscellaneous.h"
 #include "tabscrapbook.h"
+#include "tabprinter.h"
 
 using namespace std;
 
@@ -83,6 +84,9 @@ Preferences::Preferences( QWidget* parent) : PrefsDialogBase( parent )
 
 	tabFonts = new FontPrefs(prefsWidgets, false, prefsManager->preferencesLocation(), ap->doc);
 	addItem( tr("Fonts"), loadIcon("font.png"), tabFonts);
+	
+	tabPrinter = new TabPrinter(prefsWidgets, "tabPrinter");
+	addItem( tr("Printer"), loadIcon("printer.png"), tabPrinter);
 
 	tabDocChecker = new TabCheckDoc(  prefsWidgets, prefsData->checkerProfiles, prefsData->curCheckProfile);
 	addItem( tr("Preflight Verifier"), loadIcon("checkdoc.png"), tabDocChecker);
@@ -189,6 +193,7 @@ void Preferences::setupGui()
 
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
+	tabPrinter->restoreDefaults(prefsData);
 	tabView->restoreDefaults(prefsData, &prefsData->guidesSettings);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
@@ -293,6 +298,7 @@ void Preferences::unitChange()
 	tabView->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 	tabTools->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 	tabPDF->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
+	tabPrinter->unitChange(suffix, docUnitIndex, decimals, invUnitConversion);
 }
 
 
@@ -649,6 +655,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.defaultToCSetups = *(tabDefaultTOCIndexPrefs->getNewToCs());
 // 	prefsManager->appPrefs.KeyActions = tabKeys->getNewKeyMap();
 	prefsManager->appPrefs.KeyActions = tabKeyboardShortcuts->getNewKeyMap();
+	tabPrinter->storeValues();
 }
 
 void Preferences::applyChangesButton_clicked()

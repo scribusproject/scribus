@@ -260,6 +260,7 @@ scribus_SOURCES = \
 	tabmiscellaneousbase.ui \
 	tabmiscellaneous.cpp \
 	tabpdfoptions.cpp	\
+	tabprinter.cpp	\
 	tabruler.cpp	\
 	tabscrapbookbase.ui \
 	tabscrapbook.cpp \
@@ -492,6 +493,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/tabmanager.h                  $(prefix)/include/scribus/tabmanager.h
 	$(INSTALL_DATA) $(srcdir)/tabmiscellaneous.h            $(prefix)/include/scribus/tabmiscellaneous.h
 	$(INSTALL_DATA) $(srcdir)/tabpdfoptions.h               $(prefix)/include/scribus/tabpdfoptions.h
+	$(INSTALL_DATA) $(srcdir)/tabprinter.h               $(prefix)/include/scribus/tabprinter.h
 	$(INSTALL_DATA) $(srcdir)/tabruler.h                    $(prefix)/include/scribus/tabruler.h
 	$(INSTALL_DATA) $(srcdir)/tabscrapbook.h                $(prefix)/include/scribus/tabscrapbook.h
 	$(INSTALL_DATA) $(srcdir)/tabtools.h                    $(prefix)/include/scribus/tabtools.h
@@ -695,6 +697,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/tabmanager.h
 	-rm -f $(prefix)/include/scribus/tabmiscellaneous.h
 	-rm -f $(prefix)/include/scribus/tabpdfoptions.h
+	-rm -f $(prefix)/include/scribus/tabprinter.h
 	-rm -f $(prefix)/include/scribus/tabruler.h
 	-rm -f $(prefix)/include/scribus/tabtools.h
 	-rm -f $(prefix)/include/scribus/tabscrapbook.h

@@ -48,6 +48,7 @@ useprintermarginsdialogbase.ui
 tabdisplaybase.ui
 tabgeneralbase.ui
 tabmiscellaneousbase.ui
+tabprinterbase.ui
 tabscrapbookbase.ui
 unicodesearchbase.ui
 )
@@ -212,6 +213,7 @@ tabguides.h
 tabmanager.h
 tabmiscellaneous.h
 tabpdfoptions.h
+tabprinter.h
 tabruler.h
 tabscrapbook.h
 tabtools.h
@@ -452,6 +454,7 @@ tabguides.cpp
 tabmanager.cpp
 tabmiscellaneous.cpp
 tabpdfoptions.cpp
+tabprinter.cpp
 tabruler.cpp
 tabscrapbook.cpp
 tabtools.cpp
