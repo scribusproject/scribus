@@ -577,8 +577,8 @@ Guides GuideManagerCore::getAutoVerticals()
 
 	if (m_verticalAutoRefer == 1)
 	{
-		newPageWidth = locPageWidth - locLeft - locRight;
-		offset = locLeft;
+		newPageWidth = locPageWidth - m_page->Margins.Left - m_page->Margins.Right;
+		offset = m_page->Margins.Left;
 	}
 	else if (m_verticalAutoRefer == 2)
 	{
@@ -621,8 +621,8 @@ Guides GuideManagerCore::getAutoHorizontals()
 
 	if (m_horizontalAutoRefer == 1)
 	{
-		newPageHeight = locPageHeight - locTop - locBottom;
-		offset = locTop;
+		newPageHeight = locPageHeight - m_page->Margins.Top - m_page->Margins.Bottom;
+		offset = m_page->Margins.Top;
 	}
 	else if (m_horizontalAutoRefer == 2)
 	{
@@ -682,28 +682,5 @@ void GuideManagerCore::resetMarginsForPage()
 		gx = selectionTopLeft.x();
 		gw = selectionBottomRight.x();
 		gh = selectionBottomRight.y();
-	}
-
-	locTop = m_page->doc()->pageMargins.Top;
-	locBottom = m_page->doc()->pageMargins.Bottom;
-
-	PageLocation pageLocation = m_page->doc()->locationOfPage(m_page->pageNr());
-	switch (pageLocation)
-	{
-		case MiddlePage :
-			locLeft = m_page->doc()->pageMargins.Left;
-			locRight = m_page->doc()->pageMargins.Left;
-			break;
-		case LeftPage:
-			locLeft = m_page->doc()->pageMargins.Right;
-			locRight = m_page->doc()->pageMargins.Left;
-			break;
-		case RightPage:
-			locRight = m_page->doc()->pageMargins.Right;
-			locLeft = m_page->doc()->pageMargins.Left;
-			break;
-		default:
-			locRight = 0;
-			locLeft = 0;
 	}
 }

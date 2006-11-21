@@ -26,7 +26,6 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "undomanager.h"
 #include "undostate.h"
-#include "guidemanagercore.h"
 #include "frameedit.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -38,8 +37,6 @@ Page::Page(const double x, const double y, const double b, const double h) :
 	initialMargins(40,40,40,40),
 	LeftPg(0),
 	MPageNam(""),
-	//XGuides(),
-	//YGuides(),
 	FromMaster(),
 	undoManager(UndoManager::instance()),
 	m_xOffset(x),
@@ -81,128 +78,6 @@ void Page::setPageNr(int pageNr)
 	else
 		setUName(m_PageName);
 }
-
-/* PV
-void Page::addXGuide(double position)
-{
-	XGuides.append(position);
-	qHeapSort(XGuides);
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
-		ss->set("ADD_V", position);
-		undoManager->action(this, ss);
-	}
-}
-
-void Page::addYGuide(double position)
-{
-	YGuides.append(position);
-	qHeapSort(YGuides);
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState* ss = new SimpleState(Um::AddHGuide, 0, Um::IGuides);
-		ss->set("ADD_H", position);
-		undoManager->action(this, ss);
-	}
-}
-
-void Page::addXGuides(QValueList<double>& guides)
-{
-	QValueList<double> toBeRemoved;
-	for (uint i = 0; i < XGuides.size(); ++i)
-		if (guides.find(XGuides[i]) == guides.end())
-			toBeRemoved.push_back(XGuides[i]);
-
-	for (uint i = 0; i < toBeRemoved.size(); ++i)
-		removeXGuide(toBeRemoved[i]);
-
-	for (uint i = 0; i < guides.size(); ++i)
-		if (XGuides.find(guides[i]) == XGuides.end())
-			addXGuide(guides[i]);
-}
-
-void Page::addYGuides(QValueList<double>& guides)
-{
-	QValueList<double> toBeRemoved;
-	for (uint i = 0; i < YGuides.size(); ++i)
-		if (guides.find(YGuides[i]) == guides.end())
-			toBeRemoved.push_back(YGuides[i]);
-
-	for (uint i = 0; i < toBeRemoved.size(); ++i)
-		removeYGuide(toBeRemoved[i]);
-
-	for (uint i = 0; i < guides.size(); ++i)
-		if (YGuides.find(guides[i]) == YGuides.end())
-			addYGuide(guides[i]);
-}
-
-void Page::removeXGuide(double position)
-{
-	XGuides.remove(XGuides.find(position));
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState* ss = new SimpleState(Um::DelVGuide, 0, Um::IGuides);
-		ss->set("REMOVE_V", position);
-		undoManager->action(this, ss);
-	}
-}
-
-void Page::removeXGuide(int index)
-{
-	double position = XGuides[index];
-	removeXGuide(position);
-}
-
-void Page::removeYGuide(double position)
-{
-	YGuides.remove(YGuides.find(position));
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState* ss = new SimpleState(Um::DelHGuide, 0, Um::IGuides);
-		ss->set("REMOVE_H", position);
-		undoManager->action(this, ss);
-	}
-}
-
-void Page::removeYGuide(int index)
-{
-	double position = YGuides[index];
-	removeYGuide(position);
-}
-
-void Page::moveXGuide(int fromIndex, double to)
-{
-	double from = XGuides[fromIndex];
-	undoManager->setUndoEnabled(false);
-	removeXGuide(from);
-	addXGuide(to);
-	undoManager->setUndoEnabled(true);
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState* ss = new SimpleState(Um::MoveVGuide, 0, Um::IGuides);
-		ss->set("MOVE_V_FROM", from);
-		ss->set("MOVE_V_TO", to);
-		undoManager->action(this, ss);
-	}
-}
-
-void Page::moveYGuide(int fromIndex, double to)
-{
-	double from = YGuides[fromIndex];
-	undoManager->setUndoEnabled(false); // only want to store move action not remove/add actions related to it
-	removeYGuide(from);
-	addYGuide(to);
-	undoManager->setUndoEnabled(true);
-	if (UndoManager::undoEnabled())
-	{
-		SimpleState* ss = new SimpleState(Um::MoveHGuide, 0, Um::IGuides);
-		ss->set("MOVE_H_FROM", from);
-		ss->set("MOVE_H_TO", to);
-		undoManager->action(this, ss);
-	}
-}
-*/
 
 void Page::setPageName(const QString& newName)
 {

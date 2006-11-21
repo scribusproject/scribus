@@ -71,26 +71,12 @@ public:
 
 	QString m_pageSize;
 	int PageOri;
-	// PV - guides refactoring
-	//QValueList<double> XGuides;
-	//QValueList<double> YGuides;
 	ScribusDoc* doc() const { return m_Doc; }
 	void setDocument(ScribusDoc* doc);
 	uint pageNr() const { return m_pageNr; }
 	void setPageNr(int pageNr);
 	const QString& pageSectionNumber() const { return m_pageSectionNumber; }
 	void setPageSectionNumber(const QString&);
-	/* PV - guides refactoring
-	void addXGuide(double position);
-	void addYGuide(double position);
-	void addXGuides(QValueList<double>& guides);
-	void addYGuides(QValueList<double>& guides);
-	void removeXGuide(double position);
-	void removeXGuide(int index);
-	void removeYGuide(double position);
-	void removeYGuide(int index);
-	void moveXGuide(int fromIndex, double to);
-	void moveYGuide(int fromIndex, double to);*/
 	//! Return the page's name
 	const QString& pageName() const {return m_PageName;};
 	void setPageName(const QString& newName);

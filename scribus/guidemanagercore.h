@@ -147,14 +147,6 @@ private:
 	double locPageHeight;
 	//! \brief position of the group of selected objects
 	double gx, gy, gw, gh;
-	//! \brief top margin of the current page
-	double locTop;
-	//! \brief bottom margin of the current page
-	double locBottom;
-	//! \brief right margin of the current page
-	double locRight;
-	//! \brief left margin of the current page
-	double locLeft;
 
 	/*! \brief Create automatic horizontal guides.
 	Calculates positions of the guides. */
