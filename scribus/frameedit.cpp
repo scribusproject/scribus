@@ -632,6 +632,10 @@ void NodePalette::MoveN()
 		return;
 	doc->EditClipMode = 0;
 	view->EdPoints = true;
+	view->ClRe = -1;
+	view->ClRe2 = -1;
+	view->SegP1 = -1;
+	view->SegP2 = -1;
 	//PageItem *currItem = view->SelItem.at(0);
 	PageItem *currItem = doc->m_Selection->itemAt(0);
 	if (view->EditContour)
