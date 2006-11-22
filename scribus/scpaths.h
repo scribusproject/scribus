@@ -29,6 +29,8 @@ public:
 	/*** The separator used between path list entries in environment variables */
 	static const char envPathSeparator;
 
+	static QString separatorsToSlashes(const QString& path);
+
 	/** @brief Return path to documentation directory */
 	const QString& docDir() const;
 	/** @brief Return path to icons directory*/

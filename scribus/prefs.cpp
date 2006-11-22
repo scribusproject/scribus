@@ -332,10 +332,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.Wheelval = tabGeneral->wheelJumpSpin->value();
 	prefsManager->appPrefs.moveTimeout = tabGeneral->spinTimeout->value();
 	prefsManager->appPrefs.RecentDCount = tabGeneral->recentDocs->value();
-	prefsManager->appPrefs.DocDir = tabGeneral->Docs->text();
-	prefsManager->appPrefs.ProfileDir = tabGeneral->ProPfad->text();
-	prefsManager->appPrefs.ScriptDir = tabGeneral->ScriptPfad->text();
-	prefsManager->appPrefs.documentTemplatesDir = tabGeneral->DocumentTemplateDir->text();
+	prefsManager->appPrefs.DocDir = ScPaths::separatorsToSlashes( tabGeneral->Docs->text() );
+	prefsManager->appPrefs.ProfileDir = ScPaths::separatorsToSlashes( tabGeneral->ProPfad->text() );
+	prefsManager->appPrefs.ScriptDir = ScPaths::separatorsToSlashes( tabGeneral->ScriptPfad->text() );
+	prefsManager->appPrefs.documentTemplatesDir = ScPaths::separatorsToSlashes( tabGeneral->DocumentTemplateDir->text() );
 	prefsManager->appPrefs.guiLanguage=tabGeneral->selectedGUILang;
 	prefsManager->appPrefs.GUI = tabGeneral->GUICombo->currentText();
 

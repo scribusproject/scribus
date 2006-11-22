@@ -130,6 +130,13 @@ ScPaths::ScPaths() :
 
 ScPaths::~ScPaths() {};
 
+QString ScPaths::separatorsToSlashes(const QString& path)
+{
+	QString qtPath(path);
+	qtPath.replace( QDir::separator(), '/' );
+	return qtPath;
+}
+
 const QString&  ScPaths::docDir() const
 {
 	return m_docDir;

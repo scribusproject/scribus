@@ -34,6 +34,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpushbutton.h>
 #include <qspinbox.h>
 
+#include "scpaths.h"
 #include "tabexternaltoolswidgetbase.h"
 #include "prefsstructs.h"
 #include "scribusapi.h"
@@ -47,12 +48,12 @@ class SCRIBUS_API TabExternalToolsWidget : public TabExternalToolsWidgetBase
 		~TabExternalToolsWidget();
 		void restoreDefaults(struct ApplicationPrefs *prefsData);
 		
-		const QString newPSTool() const { return psToolLineEdit->text();};
-		const QString newImageTool() const { return imageToolLineEdit->text();};
-		const QString newExtBrowserTool() const { return extBrowserToolLineEdit->text();};
-		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();};
-		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();};
-		int newPSToolResolution() const { return psResolutionSpinBox->value();};
+		const QString newPSTool() const;
+		const QString newImageTool() const;
+		const QString newExtBrowserTool() const;
+		bool newAntialiasText() const { return psAntialiasTextCheckBox->isChecked();}
+		bool newAntialiasGraphics() const { return psAntialiasGraphicsCheckBox->isChecked();}
+		int newPSToolResolution() const { return psResolutionSpinBox->value();}
 		
 	public slots:
 		void changePostScriptTool();

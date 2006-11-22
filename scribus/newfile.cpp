@@ -7,6 +7,7 @@ for which a new license (GPL+exception) is in place.
 #include "newfile.h"
 #include "newfile.moc"
 
+#include <qdir.h>
 #include <qtooltip.h>
 #include <qobjectlist.h>
 #include <qpoint.h>
@@ -326,7 +327,7 @@ void NewDoc::createRecentDocPage()
 	recentDocLayout->addWidget(recentDocListBox);
 	uint max = QMIN(prefsManager->appPrefs.RecentDCount, recentDocList.count());
 	for (uint m = 0; m < max; ++m)
-		recentDocListBox->insertItem(recentDocList[m]);
+		recentDocListBox->insertItem( QDir::convertSeparators(recentDocList[m]) );
 }
 
 void NewDoc::setWidth(int)

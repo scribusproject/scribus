@@ -1832,7 +1832,7 @@ void ScribusMainWindow::startUpDialog()
 			{
 				QString fileName(dia->recentDocListBox->currentText());
 				if (!fileName.isEmpty())
-					loadRecent(fileName);
+					loadRecent(ScPaths::separatorsToSlashes(fileName));
 			}
 		}
 	}

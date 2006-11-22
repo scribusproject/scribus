@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "tabexternaltoolswidget.h"
 #include "tabexternaltoolswidget.moc"
 #include "gsutil.h"
+#include "scpaths.h"
 
 TabExternalToolsWidget::TabExternalToolsWidget(struct ApplicationPrefs *prefsData, QWidget* parent, const char*name)
 : TabExternalToolsWidgetBase(parent, name)
@@ -44,6 +45,21 @@ TabExternalToolsWidget::~TabExternalToolsWidget()
 {
 }
 
+const QString TabExternalToolsWidget::newPSTool() const 
+{ 
+	return ScPaths::separatorsToSlashes(psToolLineEdit->text()); 
+}
+
+const QString TabExternalToolsWidget::newImageTool() const 
+{ 
+	return ScPaths::separatorsToSlashes(imageToolLineEdit->text());
+}
+
+const QString TabExternalToolsWidget::newExtBrowserTool() const 
+{ 
+	return ScPaths::separatorsToSlashes(extBrowserToolLineEdit->text()); 
+}
+
 void TabExternalToolsWidget::restoreDefaults(struct ApplicationPrefs *prefsData)
 {
 	psToolLineEdit->setText(QDir::convertSeparators(prefsData->gs_exe));
@@ -59,7 +75,7 @@ void TabExternalToolsWidget::changePostScriptTool()
 	QFileInfo fi(psToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeGhostscript", tr("Locate Ghostscript"));
 	if (!s.isEmpty())
-		psToolLineEdit->setText(s);
+		psToolLineEdit->setText( QDir::convertSeparators(s) );
 }
 
 void TabExternalToolsWidget::changeImageTool()
@@ -67,7 +83,7 @@ void TabExternalToolsWidget::changeImageTool()
 	QFileInfo fi(imageToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeImageEditor", tr("Locate your image editor"));
 	if (!s.isEmpty())
-		imageToolLineEdit->setText(s);
+		imageToolLineEdit->setText( QDir::convertSeparators(s) );
 }
 
 void TabExternalToolsWidget::changeExtBrowserTool()
@@ -75,14 +91,17 @@ void TabExternalToolsWidget::changeExtBrowserTool()
 	QFileInfo fi(extBrowserToolLineEdit->text());
 	QString s = QFileDialog::getOpenFileName(fi.dirPath(), QString::null, this, "changeextBrowser", tr("Locate your web browser"));
 	if (!s.isEmpty())
-		extBrowserToolLineEdit->setText(s);
+		extBrowserToolLineEdit->setText( QDir::convertSeparators(s) );
 }
 
 void TabExternalToolsWidget::rescanForTools()
 {
 	QFileInfo fi(psToolLineEdit->text());
 	if (!fi.exists())
-		psToolLineEdit->setText(getGSDefaultExeName());
+	{
+		QString gsDef = getGSDefaultExeName();
+		psToolLineEdit->setText( QDir::convertSeparators(gsDef) );
+	}
 	QFileInfo fi2(imageToolLineEdit->text());
 	if (!fi2.exists())
 		imageToolLineEdit->setText("gimp");

@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "scconfig.h"
 
+#include "scpaths.h"
 #include "scribusdoc.h"
 #include "createrange.h"
 #include "commonstrings.h"
@@ -107,7 +108,7 @@ Druck::Druck( QWidget* parent, ScribusDoc* doc, QString PDatei, QString PDev, QS
 	Layout1 = new QHBoxLayout;
 	Layout1->setSpacing( 5 );
 	Layout1->setMargin( 0 );
-	LineEdit1 = new QLineEdit( PDatei, Drucker, "LineEdit1" );
+	LineEdit1 = new QLineEdit( QDir::convertSeparators(PDatei), Drucker, "LineEdit1" );
 	LineEdit1->setMinimumSize( QSize( 240, 22 ) );
 	LineEdit1->setEnabled(false);
 	DateiT = new QLabel( LineEdit1, tr( "&File:" ), Drucker, "DateiT" );
@@ -607,7 +608,7 @@ void Druck::SelFile()
 	{
 		QString selectedFile = dia.selectedFile();
 		dirs->set("druck", selectedFile.left(selectedFile.findRev("/")));
-		LineEdit1->setText(selectedFile);
+		LineEdit1->setText( QDir::convertSeparators(selectedFile) );
 	}
 }
 
@@ -623,7 +624,7 @@ void Druck::storeValues()
 	getOptions(); // options were not set get last options with this hack
 
 	m_doc->Print_Options.printer = PrintDest->currentText();
-	m_doc->Print_Options.filename = LineEdit1->text();
+	m_doc->Print_Options.filename = ScPaths::separatorsToSlashes(LineEdit1->text());
 	m_doc->Print_Options.toFile = ToFile;
 	m_doc->Print_Options.copies = numCopies();
 	m_doc->Print_Options.outputSeparations = outputSeparations();
@@ -845,7 +846,7 @@ QString Druck::printerName()
 
 QString Druck::outputFileName()
 {
-	return LineEdit1->text();
+	return ScPaths::separatorsToSlashes(LineEdit1->text());
 }
 
 bool Druck::outputToFile()

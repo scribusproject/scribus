@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qmessagebox.h>
 
+#include "scconfig.h"
 #include "customfdialog.h"
 #include "prefsmanager.h"
 #include "prefsfile.h"
@@ -24,7 +25,8 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "util.h"
 #include "commonstrings.h"
-#include "scconfig.h"
+#include "scpaths.h"
+
 
 PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 								  const QMap<QString, int > & DocFonts,
@@ -56,19 +58,23 @@ PDFExportDialog::PDFExportDialog( QWidget* parent, const QString & docFileName,
 	fileNameLineEdit = new QLineEdit( Name, "fileNameLineEdit" );
 	fileNameLineEdit->setMinimumSize( QSize( 268, 22 ) );
 	if (!Opts.Datei.isEmpty())
-		fileNameLineEdit->setText(Opts.Datei);
+		fileNameLineEdit->setText( QDir::convertSeparators(Opts.Datei) );
 	else
 	{
 		QFileInfo fi(docFileName);
 		if (fi.exists())
-			fileNameLineEdit->setText(fi.dirPath()+"/"+fi.baseName()+".pdf");
+		{
+			QString fileName(fi.dirPath()+"/"+fi.baseName()+".pdf");
+			fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
+		}
 		else
 		{
 			PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 			QString pdfdir = dirs->get("pdf", fi.dirPath());
 			if (pdfdir.right(1) != "/")
 				pdfdir += "/";
-			fileNameLineEdit->setText(pdfdir+fi.baseName()+".pdf");
+			QString fileName(pdfdir+fi.baseName()+".pdf");
+			fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
 		}
 	}
 	NameLayout->addWidget( fileNameLineEdit, 0, 0 );
@@ -125,7 +131,7 @@ void PDFExportDialog::disableSave()
 
 void PDFExportDialog::DoExport()
 {
-	QString fn = fileNameLineEdit->text();
+	QString fn = ScPaths::separatorsToSlashes(fileNameLineEdit->text());
 	// Checking if the path exists
 	QFileInfo fi(fn);
 	QString dirPath = QDir::convertSeparators(fi.dirPath(true));
@@ -201,17 +207,18 @@ void PDFExportDialog::ChangeFile()
 	}
 	else
 		return;
-	fileNameLineEdit->setText(fn);
+	fileNameLineEdit->setText( QDir::convertSeparators(fn) );
 }
 
 void PDFExportDialog::fileNameChanged()
 {
-	fileNameLineEdit->setText(checkFileExtension(fileNameLineEdit->text(),"pdf"));
+	QString fileName = checkFileExtension(fileNameLineEdit->text(),"pdf");
+	fileNameLineEdit->setText( QDir::convertSeparators(fileName) );
 }
 
 void PDFExportDialog::updateDocOptions()
 {
-	Opts.Datei = fileNameLineEdit->text();
+	Opts.Datei = ScPaths::separatorsToSlashes(fileNameLineEdit->text());
 	Opts.doMultiFile = multiFile->isChecked();
 	Opts.Thumbnails = Options->CheckBox1->isChecked();
 	Opts.Compress = Options->Compression->isChecked();
