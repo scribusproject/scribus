@@ -99,6 +99,9 @@ class CWDialog : public CWDialogBase
 		*/
 		void processColors(int index, bool updateSpins=true);
 
+		//! \brief Get a #hhssvv string for given ScColor
+		QString getHexHsv(ScColor c);
+
 	private slots:
 		void colorspaceTab_currentChanged( QWidget * );
 		void angleSpin_valueChanged(int);
@@ -109,6 +112,7 @@ class CWDialog : public CWDialogBase
 		void addButton_clicked();
 		void replaceButton_clicked();
 		void cancelButton_clicked();
+		void colorList_currentChanged(QListBoxItem *);
 
 		void cSpin_valueChanged( int );
 		void mSpin_valueChanged( int );

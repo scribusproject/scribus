@@ -23,6 +23,7 @@ for which a new license (GPL+exception) is in place.
 #include <qgroupbox.h>
 #include <qslider.h>
 #include <qtabwidget.h>
+#include <qtable.h>
 
 #include "prefsmanager.h"
 #include "commonstrings.h"
@@ -70,12 +71,17 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	documentColorList->updateBox(m_Doc->PageColors, ColorListBox::fancyPixmap);
 	// setup
 	colorspaceTab_currentChanged(colorspaceTab->currentPage());
+	currentColorTable->horizontalHeader()->hide();
+	currentColorTable->setTopMargin(0);
+	currentColorTable->setNumCols(5);
 
 	// signals and slots that cannot be in ui file
 	connect(colorWheel, SIGNAL(clicked(int, const QPoint&)),
 			this, SLOT(colorWheel_clicked(int, const QPoint&)));
 	connect(documentColorList, SIGNAL(currentChanged(QListBoxItem *)),
 			this, SLOT(documentColorList_currentChanged(QListBoxItem *)));
+	connect(colorList, SIGNAL(currentChanged(QListBoxItem *)),
+			this, SLOT(colorList_currentChanged(QListBoxItem *)));
 	connectSlots(true);
 }
 
@@ -128,7 +134,7 @@ void CWDialog::documentColorList_currentChanged(QListBoxItem *item)
 {
 	if (!item)
 		return;
-	ScColor c = m_Doc->PageColors[documentColorList->currentText()];
+	ScColor c(m_Doc->PageColors[documentColorList->currentText()]);
 	colorWheel->currentColorSpace = c.getColorModel();
 	setupColorComponents();
 }
@@ -187,6 +193,8 @@ void CWDialog::processColors(int index, bool updateSpins)
 		setupFromColor(colorWheel->actualColor);
 	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
 	rgbLabel->setText(colorWheel->actualColor.nameRGB());
+	hsvLabel->setText(getHexHsv(colorWheel->actualColor));
+	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
 }
 
 void CWDialog::colorWheel_clicked(int, const QPoint&)
@@ -247,6 +255,7 @@ QColor CWDialog::computeDefect(QColor c)
 void CWDialog::fillColorList()
 {
 	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
+	colorList->setCurrentItem(0);
 }
 
 void CWDialog::defectCombo_activated(int)
@@ -400,4 +409,48 @@ void CWDialog::setupColorComponents()
 	}
 	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
 	rgbLabel->setText(colorWheel->actualColor.nameRGB());
+	hsvLabel->setText(getHexHsv(colorWheel->actualColor));
+	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
+}
+
+void CWDialog::colorList_currentChanged(QListBoxItem * item)
+{
+	if (!item)
+		return;
+	ScColor col(colorWheel->colorList[item->text()]);
+	currentColorTable->setText(0, 4, col.nameCMYK());
+	currentColorTable->setText(1, 4, col.nameRGB());
+	currentColorTable->setText(2, 4, getHexHsv(col));
+	// components
+	int c, m, y, k;
+	QString num;
+	col.getCMYK(&c, &m, &y, &k);
+	currentColorTable->setText(0, 0, num.setNum(c));
+	currentColorTable->setText(0, 1, num.setNum(m));
+	currentColorTable->setText(0, 2, num.setNum(y));
+	currentColorTable->setText(0, 3, num.setNum(k));
+	int r, g, b;
+	col.getRGB(&r, &g, &b);
+	currentColorTable->setText(1, 0, num.setNum(r));
+	currentColorTable->setText(1, 1, num.setNum(g));
+	currentColorTable->setText(1, 2, num.setNum(b));
+	int h, s, v;
+	QColor hsvCol(col.getRGBColor());
+	hsvCol.getHsv(&h, &s, &v);
+	currentColorTable->setText(2, 0, num.setNum(h));
+	currentColorTable->setText(2, 1, num.setNum(s));
+	currentColorTable->setText(2, 2, num.setNum(v));
+	currentColorTable->adjustColumn(0);
+	currentColorTable->adjustColumn(1);
+	currentColorTable->adjustColumn(2);
+	currentColorTable->adjustColumn(3);
+	currentColorTable->adjustColumn(4);
+}
+
+QString CWDialog::getHexHsv(ScColor c)
+{
+	int h, s, v;
+	QColor hsvCol(c.getRGBColor());
+	hsvCol.getHsv(&h, &s, &v);
+	return QString("#%1%2%3").arg(h, 0, 16).arg(s, 0, 16).arg(v, 0, 16);
 }

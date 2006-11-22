@@ -10,8 +10,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>575</width>
-            <height>622</height>
+            <width>603</width>
+            <height>671</height>
         </rect>
     </property>
     <property name="caption">
@@ -23,7 +23,7 @@
         </property>
         <widget class="QLayoutWidget" row="0" column="0">
             <property name="name">
-                <cstring>layout51</cstring>
+                <cstring>layout49</cstring>
             </property>
             <vbox>
                 <property name="name">
@@ -31,385 +31,7 @@
                 </property>
                 <widget class="QLayoutWidget">
                     <property name="name">
-                        <cstring>layout50</cstring>
-                    </property>
-                    <hbox>
-                        <property name="name">
-                            <cstring>unnamed</cstring>
-                        </property>
-                        <widget class="ColorWheel">
-                            <property name="name">
-                                <cstring>colorWheel</cstring>
-                            </property>
-                            <property name="sizePolicy">
-                                <sizepolicy>
-                                    <hsizetype>0</hsizetype>
-                                    <vsizetype>0</vsizetype>
-                                    <horstretch>0</horstretch>
-                                    <verstretch>0</verstretch>
-                                </sizepolicy>
-                            </property>
-                            <property name="minimumSize">
-                                <size>
-                                    <width>300</width>
-                                    <height>300</height>
-                                </size>
-                            </property>
-                            <property name="toolTip" stdset="0">
-                                <string>Click the wheel to get the base color. Its color model depends on the chosen tab.</string>
-                            </property>
-                        </widget>
-                        <widget class="QTabWidget">
-                            <property name="name">
-                                <cstring>colorspaceTab</cstring>
-                            </property>
-                            <widget class="QWidget">
-                                <property name="name">
-                                    <cstring>tabCMYK</cstring>
-                                </property>
-                                <attribute name="title">
-                                    <string>CMYK</string>
-                                </attribute>
-                                <grid>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QLayoutWidget" row="0" column="0">
-                                        <property name="name">
-                                            <cstring>layout21</cstring>
-                                        </property>
-                                        <vbox>
-                                            <property name="name">
-                                                <cstring>unnamed</cstring>
-                                            </property>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout9</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel4</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>C:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>cSpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout8</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel5</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>M:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>mSpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout7</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel6</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>Y:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>ySpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout6</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel7</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>K:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>kSpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout20</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel1_2</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>RGB:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>rgbLabel</cstring>
-                                                        </property>
-                                                        <property name="frameShape">
-                                                            <enum>Box</enum>
-                                                        </property>
-                                                        <property name="frameShadow">
-                                                            <enum>Plain</enum>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string></string>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <spacer>
-                                                <property name="name">
-                                                    <cstring>spacer3</cstring>
-                                                </property>
-                                                <property name="orientation">
-                                                    <enum>Vertical</enum>
-                                                </property>
-                                                <property name="sizeType">
-                                                    <enum>Expanding</enum>
-                                                </property>
-                                                <property name="sizeHint">
-                                                    <size>
-                                                        <width>20</width>
-                                                        <height>40</height>
-                                                    </size>
-                                                </property>
-                                            </spacer>
-                                        </vbox>
-                                    </widget>
-                                </grid>
-                            </widget>
-                            <widget class="QWidget">
-                                <property name="name">
-                                    <cstring>tabRGB</cstring>
-                                </property>
-                                <attribute name="title">
-                                    <string>RGB</string>
-                                </attribute>
-                                <grid>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="QLayoutWidget" row="0" column="0">
-                                        <property name="name">
-                                            <cstring>layout23</cstring>
-                                        </property>
-                                        <vbox>
-                                            <property name="name">
-                                                <cstring>unnamed</cstring>
-                                            </property>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout11</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel8</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>R:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>rSpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout12</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel9</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>G:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>gSpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout16</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel10</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>B:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QSpinBox">
-                                                        <property name="name">
-                                                            <cstring>bSpin</cstring>
-                                                        </property>
-                                                        <property name="maxValue">
-                                                            <number>255</number>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <widget class="QLayoutWidget">
-                                                <property name="name">
-                                                    <cstring>layout22</cstring>
-                                                </property>
-                                                <hbox>
-                                                    <property name="name">
-                                                        <cstring>unnamed</cstring>
-                                                    </property>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>textLabel3</cstring>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string>CMYK:</string>
-                                                        </property>
-                                                    </widget>
-                                                    <widget class="QLabel">
-                                                        <property name="name">
-                                                            <cstring>cmykLabel</cstring>
-                                                        </property>
-                                                        <property name="frameShape">
-                                                            <enum>Box</enum>
-                                                        </property>
-                                                        <property name="text">
-                                                            <string></string>
-                                                        </property>
-                                                    </widget>
-                                                </hbox>
-                                            </widget>
-                                            <spacer>
-                                                <property name="name">
-                                                    <cstring>spacer2</cstring>
-                                                </property>
-                                                <property name="orientation">
-                                                    <enum>Vertical</enum>
-                                                </property>
-                                                <property name="sizeType">
-                                                    <enum>Expanding</enum>
-                                                </property>
-                                                <property name="sizeHint">
-                                                    <size>
-                                                        <width>20</width>
-                                                        <height>80</height>
-                                                    </size>
-                                                </property>
-                                            </spacer>
-                                        </vbox>
-                                    </widget>
-                                </grid>
-                            </widget>
-                            <widget class="QWidget">
-                                <property name="name">
-                                    <cstring>tabDocument</cstring>
-                                </property>
-                                <attribute name="title">
-                                    <string>Document</string>
-                                </attribute>
-                                <grid>
-                                    <property name="name">
-                                        <cstring>unnamed</cstring>
-                                    </property>
-                                    <widget class="ColorListBox" row="0" column="0">
-                                        <property name="name">
-                                            <cstring>documentColorList</cstring>
-                                        </property>
-                                    </widget>
-                                </grid>
-                            </widget>
-                        </widget>
-                    </hbox>
-                </widget>
-                <widget class="QLayoutWidget">
-                    <property name="name">
-                        <cstring>layout23</cstring>
+                        <cstring>layout48</cstring>
                     </property>
                     <hbox>
                         <property name="name">
@@ -417,70 +39,602 @@
                         </property>
                         <widget class="QLayoutWidget">
                             <property name="name">
-                                <cstring>layout20</cstring>
+                                <cstring>layout39</cstring>
                             </property>
                             <vbox>
                                 <property name="name">
                                     <cstring>unnamed</cstring>
                                 </property>
-                                <widget class="QLayoutWidget">
+                                <widget class="ColorWheel">
                                     <property name="name">
-                                        <cstring>layout2</cstring>
+                                        <cstring>colorWheel</cstring>
                                     </property>
-                                    <hbox>
-                                        <property name="name">
-                                            <cstring>unnamed</cstring>
-                                        </property>
-                                        <widget class="QLabel">
-                                            <property name="name">
-                                                <cstring>textLabel2</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>Color Scheme Method:</string>
-                                            </property>
-                                        </widget>
-                                        <widget class="QComboBox">
-                                            <property name="name">
-                                                <cstring>typeCombo</cstring>
-                                            </property>
-                                            <property name="toolTip" stdset="0">
-                                                <string>Select one of the methods to create a color scheme. Refer to documentation for more information.</string>
-                                            </property>
-                                        </widget>
-                                    </hbox>
+                                    <property name="sizePolicy">
+                                        <sizepolicy>
+                                            <hsizetype>0</hsizetype>
+                                            <vsizetype>0</vsizetype>
+                                            <horstretch>0</horstretch>
+                                            <verstretch>0</verstretch>
+                                        </sizepolicy>
+                                    </property>
+                                    <property name="minimumSize">
+                                        <size>
+                                            <width>300</width>
+                                            <height>300</height>
+                                        </size>
+                                    </property>
+                                    <property name="toolTip" stdset="0">
+                                        <string>Click the wheel to get the base color. Its color model depends on the chosen tab.</string>
+                                    </property>
                                 </widget>
                                 <widget class="QLayoutWidget">
                                     <property name="name">
-                                        <cstring>layout19</cstring>
+                                        <cstring>layout20</cstring>
                                     </property>
-                                    <hbox>
+                                    <vbox>
                                         <property name="name">
                                             <cstring>unnamed</cstring>
                                         </property>
-                                        <widget class="QLabel">
+                                        <widget class="QLayoutWidget">
                                             <property name="name">
-                                                <cstring>angleLabel</cstring>
+                                                <cstring>layout2</cstring>
                                             </property>
-                                            <property name="text">
-                                                <string>Angle:</string>
-                                            </property>
+                                            <hbox>
+                                                <property name="name">
+                                                    <cstring>unnamed</cstring>
+                                                </property>
+                                                <widget class="QLabel">
+                                                    <property name="name">
+                                                        <cstring>textLabel2</cstring>
+                                                    </property>
+                                                    <property name="text">
+                                                        <string>Color Scheme Method:</string>
+                                                    </property>
+                                                </widget>
+                                                <widget class="QComboBox">
+                                                    <property name="name">
+                                                        <cstring>typeCombo</cstring>
+                                                    </property>
+                                                    <property name="toolTip" stdset="0">
+                                                        <string>Select one of the methods to create a color scheme. Refer to documentation for more information.</string>
+                                                    </property>
+                                                </widget>
+                                            </hbox>
                                         </widget>
-                                        <widget class="QSpinBox">
+                                        <widget class="QLayoutWidget">
                                             <property name="name">
-                                                <cstring>angleSpin</cstring>
+                                                <cstring>layout19</cstring>
                                             </property>
-                                            <property name="toolTip" stdset="0">
-                                                <string>Difference between the selected value and the counted ones. Refer to documentation for more information.</string>
-                                            </property>
+                                            <hbox>
+                                                <property name="name">
+                                                    <cstring>unnamed</cstring>
+                                                </property>
+                                                <widget class="QLabel">
+                                                    <property name="name">
+                                                        <cstring>angleLabel</cstring>
+                                                    </property>
+                                                    <property name="text">
+                                                        <string>Angle:</string>
+                                                    </property>
+                                                </widget>
+                                                <widget class="QSpinBox">
+                                                    <property name="name">
+                                                        <cstring>angleSpin</cstring>
+                                                    </property>
+                                                    <property name="toolTip" stdset="0">
+                                                        <string>Difference between the selected value and the counted ones. Refer to documentation for more information.</string>
+                                                    </property>
+                                                </widget>
+                                            </hbox>
                                         </widget>
-                                    </hbox>
+                                        <widget class="QGroupBox">
+                                            <property name="name">
+                                                <cstring>groupBox2</cstring>
+                                            </property>
+                                            <property name="title">
+                                                <string>Preview:</string>
+                                            </property>
+                                            <grid>
+                                                <property name="name">
+                                                    <cstring>unnamed</cstring>
+                                                </property>
+                                                <widget class="QLayoutWidget" row="0" column="0">
+                                                    <property name="name">
+                                                        <cstring>layout22</cstring>
+                                                    </property>
+                                                    <vbox>
+                                                        <property name="name">
+                                                            <cstring>unnamed</cstring>
+                                                        </property>
+                                                        <widget class="QLayoutWidget">
+                                                            <property name="name">
+                                                                <cstring>layout1</cstring>
+                                                            </property>
+                                                            <hbox>
+                                                                <property name="name">
+                                                                    <cstring>unnamed</cstring>
+                                                                </property>
+                                                                <widget class="QLabel">
+                                                                    <property name="name">
+                                                                        <cstring>textLabel1</cstring>
+                                                                    </property>
+                                                                    <property name="text">
+                                                                        <string>Vision Defect Type:</string>
+                                                                    </property>
+                                                                </widget>
+                                                                <widget class="QComboBox">
+                                                                    <property name="name">
+                                                                        <cstring>defectCombo</cstring>
+                                                                    </property>
+                                                                    <property name="toolTip" stdset="0">
+                                                                        <string>Simulate common vision defects here. Select type of the defect.</string>
+                                                                    </property>
+                                                                </widget>
+                                                            </hbox>
+                                                        </widget>
+                                                        <widget class="QLabel">
+                                                            <property name="name">
+                                                                <cstring>previewLabel</cstring>
+                                                            </property>
+                                                            <property name="minimumSize">
+                                                                <size>
+                                                                    <width>100</width>
+                                                                    <height>100</height>
+                                                                </size>
+                                                            </property>
+                                                            <property name="maximumSize">
+                                                                <size>
+                                                                    <width>32767</width>
+                                                                    <height>100</height>
+                                                                </size>
+                                                            </property>
+                                                            <property name="frameShape">
+                                                                <enum>Box</enum>
+                                                            </property>
+                                                            <property name="toolTip" stdset="0">
+                                                                <string>Sample color scheme.</string>
+                                                            </property>
+                                                        </widget>
+                                                    </vbox>
+                                                </widget>
+                                            </grid>
+                                        </widget>
+                                    </vbox>
+                                </widget>
+                            </vbox>
+                        </widget>
+                        <widget class="QLayoutWidget">
+                            <property name="name">
+                                <cstring>layout47</cstring>
+                            </property>
+                            <vbox>
+                                <property name="name">
+                                    <cstring>unnamed</cstring>
+                                </property>
+                                <widget class="QTabWidget">
+                                    <property name="name">
+                                        <cstring>colorspaceTab</cstring>
+                                    </property>
+                                    <widget class="QWidget">
+                                        <property name="name">
+                                            <cstring>tabCMYK</cstring>
+                                        </property>
+                                        <attribute name="title">
+                                            <string>CMYK</string>
+                                        </attribute>
+                                        <grid>
+                                            <property name="name">
+                                                <cstring>unnamed</cstring>
+                                            </property>
+                                            <widget class="QLayoutWidget" row="0" column="0">
+                                                <property name="name">
+                                                    <cstring>layout38</cstring>
+                                                </property>
+                                                <vbox>
+                                                    <property name="name">
+                                                        <cstring>unnamed</cstring>
+                                                    </property>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout9</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel4</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>C:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>cSpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout8</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel5</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>M:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>mSpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout7</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel6</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>Y:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>ySpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout6</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel7</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>K:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>kSpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout20</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel1_2</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>RGB:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>rgbLabel</cstring>
+                                                                </property>
+                                                                <property name="frameShape">
+                                                                    <enum>Box</enum>
+                                                                </property>
+                                                                <property name="frameShadow">
+                                                                    <enum>Plain</enum>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string></string>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout37</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel1_2_2</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>HSV:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>hsvLabel</cstring>
+                                                                </property>
+                                                                <property name="frameShape">
+                                                                    <enum>Box</enum>
+                                                                </property>
+                                                                <property name="frameShadow">
+                                                                    <enum>Plain</enum>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string></string>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <spacer>
+                                                        <property name="name">
+                                                            <cstring>spacer3</cstring>
+                                                        </property>
+                                                        <property name="orientation">
+                                                            <enum>Vertical</enum>
+                                                        </property>
+                                                        <property name="sizeType">
+                                                            <enum>Expanding</enum>
+                                                        </property>
+                                                        <property name="sizeHint">
+                                                            <size>
+                                                                <width>20</width>
+                                                                <height>40</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </vbox>
+                                            </widget>
+                                        </grid>
+                                    </widget>
+                                    <widget class="QWidget">
+                                        <property name="name">
+                                            <cstring>tabRGB</cstring>
+                                        </property>
+                                        <attribute name="title">
+                                            <string>RGB</string>
+                                        </attribute>
+                                        <grid>
+                                            <property name="name">
+                                                <cstring>unnamed</cstring>
+                                            </property>
+                                            <widget class="QLayoutWidget" row="0" column="0">
+                                                <property name="name">
+                                                    <cstring>layout41</cstring>
+                                                </property>
+                                                <vbox>
+                                                    <property name="name">
+                                                        <cstring>unnamed</cstring>
+                                                    </property>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout11</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel8</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>R:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>rSpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout12</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel9</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>G:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>gSpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout16</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel10</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>B:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QSpinBox">
+                                                                <property name="name">
+                                                                    <cstring>bSpin</cstring>
+                                                                </property>
+                                                                <property name="maxValue">
+                                                                    <number>255</number>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout22</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel3</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>CMYK:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>cmykLabel</cstring>
+                                                                </property>
+                                                                <property name="frameShape">
+                                                                    <enum>Box</enum>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string></string>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <widget class="QLayoutWidget">
+                                                        <property name="name">
+                                                            <cstring>layout37_2</cstring>
+                                                        </property>
+                                                        <hbox>
+                                                            <property name="name">
+                                                                <cstring>unnamed</cstring>
+                                                            </property>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>textLabel1_2_2_2</cstring>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string>HSV:</string>
+                                                                </property>
+                                                            </widget>
+                                                            <widget class="QLabel">
+                                                                <property name="name">
+                                                                    <cstring>hsvLabel2</cstring>
+                                                                </property>
+                                                                <property name="frameShape">
+                                                                    <enum>Box</enum>
+                                                                </property>
+                                                                <property name="frameShadow">
+                                                                    <enum>Plain</enum>
+                                                                </property>
+                                                                <property name="text">
+                                                                    <string></string>
+                                                                </property>
+                                                            </widget>
+                                                        </hbox>
+                                                    </widget>
+                                                    <spacer>
+                                                        <property name="name">
+                                                            <cstring>spacer2</cstring>
+                                                        </property>
+                                                        <property name="orientation">
+                                                            <enum>Vertical</enum>
+                                                        </property>
+                                                        <property name="sizeType">
+                                                            <enum>Expanding</enum>
+                                                        </property>
+                                                        <property name="sizeHint">
+                                                            <size>
+                                                                <width>20</width>
+                                                                <height>60</height>
+                                                            </size>
+                                                        </property>
+                                                    </spacer>
+                                                </vbox>
+                                            </widget>
+                                        </grid>
+                                    </widget>
+                                    <widget class="QWidget">
+                                        <property name="name">
+                                            <cstring>tabHSV</cstring>
+                                        </property>
+                                        <attribute name="title">
+                                            <string>HSV</string>
+                                        </attribute>
+                                    </widget>
+                                    <widget class="QWidget">
+                                        <property name="name">
+                                            <cstring>tabDocument</cstring>
+                                        </property>
+                                        <attribute name="title">
+                                            <string>Document</string>
+                                        </attribute>
+                                        <grid>
+                                            <property name="name">
+                                                <cstring>unnamed</cstring>
+                                            </property>
+                                            <widget class="ColorListBox" row="0" column="0">
+                                                <property name="name">
+                                                    <cstring>documentColorList</cstring>
+                                                </property>
+                                            </widget>
+                                        </grid>
+                                    </widget>
                                 </widget>
                                 <widget class="QGroupBox">
                                     <property name="name">
-                                        <cstring>groupBox2</cstring>
+                                        <cstring>groupBox3</cstring>
                                     </property>
                                     <property name="title">
-                                        <string>Preview:</string>
+                                        <string>Result Colors</string>
                                     </property>
                                     <grid>
                                         <property name="name">
@@ -488,74 +642,94 @@
                                         </property>
                                         <widget class="QLayoutWidget" row="0" column="0">
                                             <property name="name">
-                                                <cstring>layout22</cstring>
+                                                <cstring>layout46</cstring>
                                             </property>
                                             <vbox>
                                                 <property name="name">
                                                     <cstring>unnamed</cstring>
                                                 </property>
-                                                <widget class="QLayoutWidget">
+                                                <widget class="ColorListBox">
                                                     <property name="name">
-                                                        <cstring>layout1</cstring>
-                                                    </property>
-                                                    <hbox>
-                                                        <property name="name">
-                                                            <cstring>unnamed</cstring>
-                                                        </property>
-                                                        <widget class="QLabel">
-                                                            <property name="name">
-                                                                <cstring>textLabel1</cstring>
-                                                            </property>
-                                                            <property name="text">
-                                                                <string>Vision Defect Type:</string>
-                                                            </property>
-                                                        </widget>
-                                                        <widget class="QComboBox">
-                                                            <property name="name">
-                                                                <cstring>defectCombo</cstring>
-                                                            </property>
-                                                            <property name="toolTip" stdset="0">
-                                                                <string>Simulate common vision defects here. Select type of the defect.</string>
-                                                            </property>
-                                                        </widget>
-                                                    </hbox>
-                                                </widget>
-                                                <widget class="QLabel">
-                                                    <property name="name">
-                                                        <cstring>previewLabel</cstring>
+                                                        <cstring>colorList</cstring>
                                                     </property>
                                                     <property name="minimumSize">
                                                         <size>
-                                                            <width>100</width>
-                                                            <height>100</height>
+                                                            <width>240</width>
+                                                            <height>160</height>
                                                         </size>
-                                                    </property>
-                                                    <property name="maximumSize">
-                                                        <size>
-                                                            <width>32767</width>
-                                                            <height>100</height>
-                                                        </size>
-                                                    </property>
-                                                    <property name="frameShape">
-                                                        <enum>Box</enum>
                                                     </property>
                                                     <property name="toolTip" stdset="0">
-                                                        <string>Sample color scheme.</string>
+                                                        <string>Colors of your chosen color scheme.</string>
                                                     </property>
                                                 </widget>
+                                                <widget class="QTable">
+                                                    <row>
+                                                        <property name="text">
+                                                            <string>CMYK</string>
+                                                        </property>
+                                                        <property name="pixmap">
+                                                            <pixmap></pixmap>
+                                                        </property>
+                                                    </row>
+                                                    <row>
+                                                        <property name="text">
+                                                            <string>RGB</string>
+                                                        </property>
+                                                        <property name="pixmap">
+                                                            <pixmap></pixmap>
+                                                        </property>
+                                                    </row>
+                                                    <row>
+                                                        <property name="text">
+                                                            <string>HSV</string>
+                                                        </property>
+                                                        <property name="pixmap">
+                                                            <pixmap></pixmap>
+                                                        </property>
+                                                    </row>
+                                                    <property name="name">
+                                                        <cstring>currentColorTable</cstring>
+                                                    </property>
+                                                    <property name="sizePolicy">
+                                                        <sizepolicy>
+                                                            <hsizetype>5</hsizetype>
+                                                            <vsizetype>5</vsizetype>
+                                                            <horstretch>0</horstretch>
+                                                            <verstretch>0</verstretch>
+                                                        </sizepolicy>
+                                                    </property>
+                                                    <property name="numRows">
+                                                        <number>3</number>
+                                                    </property>
+                                                    <property name="numCols">
+                                                        <number>0</number>
+                                                    </property>
+                                                    <property name="readOnly">
+                                                        <bool>true</bool>
+                                                    </property>
+                                                </widget>
+                                                <spacer>
+                                                    <property name="name">
+                                                        <cstring>spacer7</cstring>
+                                                    </property>
+                                                    <property name="orientation">
+                                                        <enum>Vertical</enum>
+                                                    </property>
+                                                    <property name="sizeType">
+                                                        <enum>Expanding</enum>
+                                                    </property>
+                                                    <property name="sizeHint">
+                                                        <size>
+                                                            <width>20</width>
+                                                            <height>16</height>
+                                                        </size>
+                                                    </property>
+                                                </spacer>
                                             </vbox>
                                         </widget>
                                     </grid>
                                 </widget>
                             </vbox>
-                        </widget>
-                        <widget class="ColorListBox">
-                            <property name="name">
-                                <cstring>colorList</cstring>
-                            </property>
-                            <property name="toolTip" stdset="0">
-                                <string>Colors of your chosen color scheme.</string>
-                            </property>
                         </widget>
                     </hbox>
                 </widget>
