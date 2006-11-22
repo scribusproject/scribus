@@ -110,6 +110,9 @@ int ScImgDataLoader_TIFF::getLayers(const QString& fn)
 
 bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht, uint heightt, uint size, uint16 photometric, uint16 bitspersample, uint16 samplesperpixel, bool &bilevel, bool &isCMYK)
 {
+	bool endian;
+	int wordsize;
+	qSysInfo(&wordsize, &endian);
 	uint32 *bits = 0;
 	if (photometric == PHOTOMETRIC_SEPARATED)
 	{
@@ -121,7 +124,26 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 				if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 				{
 					for(unsigned int y = 0; y < heightt; y++)
+					{
 						memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
+						if (endian)
+						{
+							unsigned char *s = image->scanLine( heightt - 1 - y );
+							unsigned char r, g, b, a;
+							for(int xi=0; xi < widtht; ++xi )
+							{
+								r = s[0];
+								g = s[1];
+								b = s[2];
+								a = s[3];
+								s[0] = a;
+								s[1] = b;
+								s[2] = g;
+								s[3] = r;
+								s += image->channels();
+							}
+						}
+					}
 				}
 				_TIFFfree(bits);
 				if (bitspersample == 1)
@@ -193,7 +215,26 @@ bool ScImgDataLoader_TIFF::getImageData(TIFF* tif, RawImage *image, uint widtht,
 			if (TIFFReadRGBAImage(tif, widtht, heightt, bits, 0))
 			{
 				for(unsigned int y = 0; y < heightt; y++)
+				{
 					memcpy(image->scanLine(heightt - 1 - y), bits + y * widtht, widtht * image->channels());
+					if (endian)
+					{
+						unsigned char *s = image->scanLine( heightt - 1 - y );
+						unsigned char r, g, b, a;
+						for(int xi=0; xi < widtht; ++xi )
+						{
+							r = s[0];
+							g = s[1];
+							b = s[2];
+							a = s[3];
+							s[0] = a;
+							s[1] = b;
+							s[2] = g;
+							s[3] = r;
+							s += image->channels();
+						}
+					}
+				}
 			}
 			_TIFFfree(bits);
 			if (bitspersample == 1)
