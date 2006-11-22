@@ -49,7 +49,7 @@ ExportForm::ExportForm(QWidget* parent, int size, int quality, QString type, dou
 	TextLabel1 = new QLabel( this, "TextLabel1" );
 	layout1->addWidget( TextLabel1 );
 	OutputDirectory = new QLineEdit( this, "OutputDirectory" );
-	OutputDirectory->setText(prefs->get("wdir", QDir::currentDirPath()));
+	OutputDirectory->setText( QDir::convertSeparators(prefs->get("wdir", QDir::currentDirPath())) );
 	layout1->addWidget( OutputDirectory );
 	OutputDirectoryButton = new QPushButton( this, "OutputDirectoryButton" );
 	OutputDirectoryButton->setDefault( true );

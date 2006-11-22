@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "menumanager.h"
 #include "util.h"
 #include "commonstrings.h"
+#include "scpaths.h"
 
 int scribusexportpixmap_getPluginAPIVersion()
 {
@@ -107,7 +108,7 @@ bool PixmapExportPlugin::run(ScribusDoc* doc, QString target)
 		ex->pageDPI = dia->DPIBox->value();
 		ex->enlargement = dia->EnlargementBox->value();
 		ex->quality = dia->QualityBox->value();
-		ex->exportDir = dia->OutputDirectory->text();
+		ex->exportDir = ScPaths::separatorsToSlashes(dia->OutputDirectory->text());
 		ex->bitmapType = dia->bitmapType;
 		doc->scMW()->mainWindowProgressBar->reset();
 		bool res;
