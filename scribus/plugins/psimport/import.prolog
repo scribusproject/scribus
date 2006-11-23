@@ -437,7 +437,11 @@ currentpagedevice /HWResolution get aload pop
 	currentdash 1 index length i_str cvs print ( ) print i_str cvs print ( ) print
 	0 1 2 index length 1 sub
 	{
-		1 index exch get i_str cvs print ( ) print
+		1 index exch get
+		storeMatrix
+		dup dup dup m_b abs mul exch m_d abs mul add  exch m_a abs mul add  exch m_c abs mul add  2 div  abs
+		i_hscale div
+		i_str cvs print ( ) print
 	} for
 	pop
 	(\n) print
