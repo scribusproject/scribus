@@ -58,6 +58,7 @@ for which a new license (GPL+exception) is in place.
 #include "spalette.h"
 #include "styleselect.h"
 #include "util.h"
+#include "scplugin.h"
 #include "text/nlsconfig.h"
 
 extern QPixmap loadIcon(QString nam);
@@ -2242,13 +2243,22 @@ void StoryEditor::Do_fontPrev()
 {
 	blockUpdate = true;
 	QString retval;
+	ScActionPlugin* plugin;
+	bool result = false;
+
 	if (PluginManager::instance().DLLexists("fontpreview"))
 	{
-		bool result = PluginManager::instance().callSpecialActionPlugin("fontpreview", Editor->CurrFont, retval, currDoc);
-		if (result && !retval.isEmpty())
+		plugin = dynamic_cast<ScActionPlugin*>(PluginManager::instance().getPlugin("fontpreview", false));
+		if (plugin)
+			result = plugin->run(currDoc, Editor->CurrFont);
+		if (result)
 		{
-			newTxFont(retval);
-			FontTools->SetFont(retval);
+			retval = plugin->runResult();
+			if (!retval.isEmpty())
+			{
+				newTxFont(retval);
+				FontTools->SetFont(retval);
+			}
 		}
 	}
 	blockUpdate = false;

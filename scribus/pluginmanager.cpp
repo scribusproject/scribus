@@ -291,7 +291,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconSet, ai.text, ai.keySequence, mw, ai.name);
 			Q_CHECK_PTR(action);
 			mw->scrActions.insert(ai.name, action);
-		
+
 			// then enable and connect up the action
 			mw->scrActions[ai.name]->setEnabled(ai.enabledOnStartup);
 			// Connect action's activated signal with the plugin's run method
@@ -319,7 +319,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		{
 			it.data().plugin->addToMainWindowMenu(mw);
 		}
-		
+
 	}
 	return true;
 }
@@ -496,22 +496,23 @@ ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisa
 }
 
 // Compatability kludge
-bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval, ScribusDoc* doc)
-{
-	bool result = false;
-	if (DLLexists(pluginName))
-	{
-		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
-		if (plugin)
-			result = plugin->run(doc, arg);
-	}
-	if (result)
-	{
-		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
-		result = true;
-	}
-	return result;
-}
+// PV - no need it now
+// bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval, ScribusDoc* doc)
+// {
+// 	bool result = false;
+// 	if (DLLexists(pluginName))
+// 	{
+// 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
+// 		if (plugin)
+// 			result = plugin->run(doc, arg);
+// 	}
+// 	if (result)
+// 	{
+// 		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
+// 		result = true;
+// 	}
+// 	return result;
+// }
 
 PluginManager & PluginManager::instance()
 {
