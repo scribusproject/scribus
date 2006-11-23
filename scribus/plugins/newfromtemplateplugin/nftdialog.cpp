@@ -217,21 +217,21 @@ void nftdialog::setTNails()
 void nftdialog::setInfo(QIconViewItem* item) 
 {
 	getCurrentDocumentTemplate(item);
-	QString infoText = "<b>"+tr("Name")+"</b><br>";
+	QString infoText = "<b>"+ tr("Name")+"</b><br>";
 	infoText += currentDocumentTemplate->name + "<br>";
-	infoText += "<b>"+tr("Page Size")+"</b><br>";
+	infoText += "<b>"+ tr("Page Size")+"</b><br>";
 	infoText += currentDocumentTemplate->psize + "<br>";
-	infoText += "<b>"+tr("Colors")+"</b><br>";
+	infoText += "<b>"+ tr("Colors")+"</b><br>";
 	infoText += currentDocumentTemplate->color + "<br>";
-	infoText += "<b>"+tr("Description")+"</b><br>";
+	infoText += "<b>"+ tr("Description")+"</b><br>";
 	infoText += currentDocumentTemplate->descr + "<br>";
-	infoText += "<b>"+tr("Usage")+"</b><br>";
+	infoText += "<b>"+ tr("Usage")+"</b><br>";
 	infoText += currentDocumentTemplate->usage + "<br>";
-	infoText += "<b>"+tr("Created with")+"</b><br>";
+	infoText += "<b>"+ tr("Created with")+"</b><br>";
 	infoText += "Scribus " + currentDocumentTemplate->scribusVersion + "<br>";
-	infoText += "<b>"+tr("Date")+"</b><br>";
+	infoText += "<b>"+ tr("Date")+"</b><br>";
 	infoText += currentDocumentTemplate->date + "<br>";
-	infoText += "<b>"+tr("Author")+"</b><br>";
+	infoText += "<b>"+ tr("Author")+"</b><br>";
 	infoText += currentDocumentTemplate->author + "<br>";
 	infoText += currentDocumentTemplate->email + "<br>";
 	infoLabel->setText(infoText);

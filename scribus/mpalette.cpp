@@ -3897,7 +3897,7 @@ void Mpalette::NewName()
 	}
 	if (found)
 	{
-		QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
+		QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", CommonStrings::tr_OK);
 		NameEdit->setText(NameOld);
 		NameEdit->setFocus();
 	}

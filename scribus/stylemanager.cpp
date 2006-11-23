@@ -48,8 +48,8 @@ StyleManager::StyleManager(QWidget *parent, const char *name) : SMBase(parent, n
 	svLayout = new QHBoxLayout(styleViewFrame);
 	styleView = new StyleView(styleViewFrame);
 	svLayout->addWidget(styleView);
-	styleView->addColumn(tr("Name"));
-	styleView->addColumn(tr("Shortcut"));
+	styleView->addColumn( tr("Name"));
+	styleView->addColumn( tr("Shortcut"));
 	styleView->setColumnWidthMode(NAME_COL, QListView::Maximum);
 	styleView->setColumnWidthMode(SHORTCUT_COL, QListView::Maximum);
 	styleView->setColumnWidth(NAME_COL, 0);
@@ -150,7 +150,7 @@ void StyleManager::languageChange()
 	rcpNewId_ = rightClickPopup_->insertItem( tr("New"), newPopup_);
 	rightClickPopup_->insertItem( tr("Import"), this, SLOT(slotImport()));
 	rightClickPopup_->insertSeparator();
-	rcpEditId_ = rightClickPopup_->insertItem(tr("Edit"), this, SLOT(slotEdit()));
+	rcpEditId_ = rightClickPopup_->insertItem( tr("Edit"), this, SLOT(slotEdit()));
 	rcpCloneId_ = rightClickPopup_->insertItem( tr("Clone"), this, SLOT(slotClone()));
 	rcpToScrapId_ = rightClickPopup_->insertItem( tr("Send to Scrapbook"), this, SLOT(slotScrap()));
 	rightClickPopup_->insertSeparator();
@@ -371,7 +371,7 @@ void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int 
 	if (sitem && !sitem->isRoot())
 	{
 		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem(tr("New %1").arg(styleClassesPS_[sitem->rootName()]),
+		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[sitem->rootName()]),
 		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, true);
 		rightClickPopup_->setItemEnabled(rcpEditId_, true);
@@ -384,7 +384,7 @@ void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int 
 	else if (sitem && sitem->isRoot())
 	{
 		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem(tr("New %1").arg(styleClassesPS_[sitem->text(0)]),
+		rcpNewId_ = rightClickPopup_->insertItem( tr("New %1").arg(styleClassesPS_[sitem->text(0)]),
 		                                         this, SLOT(slotNewPopup(int)), 0, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
 		rightClickPopup_->setItemEnabled(rcpEditId_, false);
@@ -396,7 +396,7 @@ void StyleManager::slotRightClick(QListViewItem *item, const QPoint &point, int 
 	else
 	{
 		rightClickPopup_->removeItem(rcpNewId_);
-		rcpNewId_ = rightClickPopup_->insertItem(tr("New"), newPopup_, -1, 0);
+		rcpNewId_ = rightClickPopup_->insertItem( tr("New"), newPopup_, -1, 0);
 		rightClickPopup_->setItemEnabled(rcpDeleteId_, false);
 		rightClickPopup_->setItemEnabled(rcpEditId_, false);
 		rightClickPopup_->setItemEnabled(rcpCloneId_, false);
@@ -818,7 +818,7 @@ void StyleManager::slotSetupWidget()
 		item_->selected(selection.second);
 		if (selection.second.count() > 1)
 		{
-			nameEdit->setText(tr("More than one style selected"));
+			nameEdit->setText( tr("More than one style selected"));
 			nameEdit->setEnabled(false);
 			shortcutWidget_->setEnabled(false);
 			shortcutWidget_->setShortcut(QString::null);

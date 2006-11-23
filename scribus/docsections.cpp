@@ -173,7 +173,7 @@ void DocSections::tableItemChanged( int row, int col )
 	if (outOfRange)
 	{
 		updateTable();
-		QMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxpageindex+1)+"</qt>",QMessageBox::Ok,QMessageBox::NoButton,QMessageBox::NoButton);
+		QMessageBox::warning(parentWidget(), tr("Page Number Out Of Bounds"),"<qt>"+ tr("The value you have entered is outside the range of page numbers in the current document (%1-%2).").arg(1).arg(m_maxpageindex+1)+"</qt>",QMessageBox::Ok,QMessageBox::NoButton,QMessageBox::NoButton);
 	}
 }
 

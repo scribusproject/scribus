@@ -69,7 +69,7 @@ TabGeneral::TabGeneral(QWidget* parent, const char* name)
 	QToolTip::add( Docs, "<qt>" + tr( "Default documents directory" ) + "</qt>" );
 	QToolTip::add( ProPfad, "<qt>" + tr( "Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc " ) + "</qt>" );
 	QToolTip::add( ScriptPfad, "<qt>" + tr( "Default Scripter scripts directory" ) + "</qt>" );
-	QToolTip::add( DocumentTemplateDir, "<qt>"+tr("Additional directory for document templates")+"</qt>" );
+	QToolTip::add( DocumentTemplateDir, "<qt>"+ tr("Additional directory for document templates")+"</qt>" );
 
 	connect(guiLangCombo, SIGNAL(activated(const QString &)), this, SLOT(setSelectedGUILang(const QString &)));
 	connect(FileC, SIGNAL(clicked()), this, SLOT(changeDocs()));

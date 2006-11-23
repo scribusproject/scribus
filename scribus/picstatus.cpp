@@ -205,7 +205,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	Layout2->setSpacing( 3 );
 	Layout2->setMargin( 0 );
 
-	caseInsensitiveCheck = new QCheckBox(tr("Case insensitive search"), this, "caseInsensitiveCheck");
+	caseInsensitiveCheck = new QCheckBox( tr("Case insensitive search"), this, "caseInsensitiveCheck");
 	caseInsensitiveCheck->setChecked(false);
 	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
 	Layout2->addWidget(caseInsensitiveCheck);

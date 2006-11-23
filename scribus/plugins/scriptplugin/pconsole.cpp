@@ -137,7 +137,7 @@ void PythonConsole::closeEvent(QCloseEvent *)
 
 void PythonConsole::commandEdit_cursorPositionChanged(int para, int pos)
 {
-	statusBar->message(tr("Line: %1 Column: %2").arg(para+1).arg(pos+1));
+	statusBar->message( tr("Line: %1 Column: %2").arg(para+1).arg(pos+1));
 }
 
 void PythonConsole::languageChange()

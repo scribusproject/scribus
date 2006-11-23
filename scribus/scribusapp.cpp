@@ -403,7 +403,7 @@ void ScribusQApp::showUsage()
 		tr("Output version information and exit") );
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
 		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
-	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+tr("filename"),
+	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+ tr("filename"),
 		tr("Use filename as path for user given preferences") );
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE,

@@ -197,7 +197,7 @@ QString SMParagraphStyle::newStyle()
 	if (!doc_)
 		return QString::null;
 
-	QString s = getUniqueName(tr("New Style"));
+	QString s = getUniqueName( tr("New Style"));
 	ParagraphStyle p;
 	p.setName(s);
 	tmpStyles_.create(p);

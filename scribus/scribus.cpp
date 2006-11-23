@@ -3448,7 +3448,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			delete fileLoader;
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
-			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
+			QMessageBox::critical(this, tr("Fatal Error"), "<qt>"+ tr("File %1 is not in an acceptable format").arg(FName)+"</qt>", CommonStrings::tr_OK);
 			return false;
 		}
 		bool is12doc=false;
@@ -3642,7 +3642,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		propertiesPalette->Cpal->ChooseGrad(0);
 		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
-			doc->setName(FName+tr("(converted)"));
+			doc->setName(FName+ tr("(converted)"));
 			QFileInfo fi(doc->DocName);
 			doc->setName(fi.fileName());
 		}
@@ -4228,7 +4228,7 @@ void ScribusMainWindow::slotFilePrint()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
 				if (t == 1)
 					return;
@@ -7356,7 +7356,7 @@ void ScribusMainWindow::printPreview()
 			if (doc->checkerProfiles[doc->curCheckProfile].ignoreErrors)
 			{
 				int t = ScMessageBox::warning(this, CommonStrings::trWarning,
-											"<qt>"+tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
+											"<qt>"+ tr("Scribus has detected some errors. Consider using the Preflight Verifier to correct them")+"</qt>",
 											tr("&Ignore"), tr("&Abort"), 0, 0, 0);
 				if (t == 1)
 					return;
@@ -8943,14 +8943,14 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 			{
 				bool ok;
 				bool nameFound=false;
-				QString questionString="<qt>"+tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
+				QString questionString="<qt>"+ tr("The selected color does not exist in the document's color set. Please enter a name for this new color.")+"</qt>";
 				do
 				{
 					colorName = QInputDialog::getText( tr("Color Not Found"), questionString, QLineEdit::Normal, QString::null, &ok, this);
 					if (ok)
 					{
 						if (doc->PageColors.contains(colorName))
-							questionString="<qt>"+tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
+							questionString="<qt>"+ tr("The name you have selected already exists. Please enter a different name for this new color.")+"</qt>";
 						else
 							nameFound=true;
 					}

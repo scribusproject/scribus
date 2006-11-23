@@ -357,7 +357,7 @@ void ScripterCore::slotRunScriptFile(QString fileName, bool inMainInterpreter)
 				QMessageBox::warning(ScCore->primaryMainWindow(),
 									tr("Script error"),
 									"<qt><p>"
-									+tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
+									+ tr("If you are running an official script report it at <a href=\"http://bugs.scribus.net\">bugs.scribus.net</a> please.")
 									+ "</p><pre>" +errorMsg + "</pre><p>"
 									+ tr("This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.")
 									+ "</p></qt>");

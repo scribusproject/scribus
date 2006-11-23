@@ -288,12 +288,12 @@ void satdialog::setupPageSize(int w, int h)
 	QString hString = QString("%1").arg(h);
 	if (w > h)
 	{
-		orient = ", "+tr("landscape");
+		orient = ", "+ tr("landscape");
 		search = hString+"x"+wString;
 	}
 	else if (w < h)
 	{
-		orient = ", "+tr("portrait");
+		orient = ", "+ tr("portrait");
 		search = wString+"x"+hString;
 	}
 	int index = -1;

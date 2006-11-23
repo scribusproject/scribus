@@ -283,7 +283,7 @@ void SMPStyleWidget::show(ParagraphStyle *pstyle, QValueList<ParagraphStyle> &ps
 	f.setBold(true);
 	parentDropCapButton->setFont(f);
 
-	cpage->parentLabel->setText(tr("Based on"));
+	cpage->parentLabel->setText( tr("Based on"));
 	cpage->show(&pstyle->charStyle(), cstyles, defLang);
 
 	parentCombo->clear();
@@ -333,9 +333,9 @@ void SMPStyleWidget::show(QValueList<ParagraphStyle*> &pstyles, QValueList<Parag
 void SMPStyleWidget::showLineSpacing(QValueList<ParagraphStyle*> &pstyles)
 {
 	lineSpacingMode_->clear();
-	lineSpacingMode_->insertItem(tr("Fixed Linespacing"));
-	lineSpacingMode_->insertItem(tr("Automatic Linespacing"));
-	lineSpacingMode_->insertItem(tr("Align to Baseline Grid"));
+	lineSpacingMode_->insertItem( tr("Fixed Linespacing"));
+	lineSpacingMode_->insertItem( tr("Automatic Linespacing"));
+	lineSpacingMode_->insertItem( tr("Align to Baseline Grid"));
 
 	int tmpLP = -1;
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -559,7 +559,7 @@ void SMPStyleWidget::showTabs(QValueList<ParagraphStyle*> &pstyles, int unitInde
 
 void SMPStyleWidget::showCStyle(QValueList<ParagraphStyle*> &pstyles, QValueList<CharStyle> &cstyles, const QString &defLang)
 {
-	cpage->parentLabel->setText(tr("Based on"));
+	cpage->parentLabel->setText( tr("Based on"));
 
 	QValueList<CharStyle*> cstyle;
 	for (uint i = 0; i < pstyles.count(); ++i)
@@ -1124,7 +1124,7 @@ void SMCStylePage::showColors(const QValueList<CharStyle*> &cstyles)
 			d = cstyles[i]->fillShade();
 	}
 	if (d == -30000)
-		fillShade_->setText(tr("Shade"));
+		fillShade_->setText( tr("Shade"));
 	else
 		fillShade_->setValue(d);
 
@@ -1142,7 +1142,7 @@ void SMCStylePage::showColors(const QValueList<CharStyle*> &cstyles)
 	if (d == -30000)
 	{
 		strokeShade_->setValue(21);
-		strokeShade_->setText(tr("Shade"));
+		strokeShade_->setText( tr("Shade"));
 	}
 	else
 		strokeShade_->setValue(d);

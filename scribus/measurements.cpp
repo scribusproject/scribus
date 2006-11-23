@@ -111,7 +111,7 @@ void Measurements::setValues(double x1, double y1, double x2, double y2, double 
 	y2Data->setText(tmp.setNum(qRound(y2*uXm) / divisor, 'f', precision)+unitSuffix);
 	dXData->setText(tmp.setNum(qRound((x2-x1)*uXm) / divisor, 'f', precision)+unitSuffix);
 	dYData->setText(tmp.setNum(qRound((y2-y1)*uXm) / divisor, 'f', precision)+unitSuffix);
-	angleData->setText(tmp.setNum(fabs(rr), 'f', precision)+tr(QString::fromUtf8(" °")));
+	angleData->setText(tmp.setNum(fabs(rr), 'f', precision)+ tr(QString::fromUtf8(" °")));
 	lengthData->setText(tmp.setNum(qRound(len*uXm) / divisor, 'f', precision)+unitSuffix);
 }
 

@@ -352,7 +352,7 @@ void ScribusDoc::init()
 
 	
 	ParagraphStyle pstyle;
-	pstyle.setName(tr("Default Paragraph Style"));
+	pstyle.setName( tr("Default Paragraph Style"));
 	pstyle.setLineSpacingMode(ParagraphStyle::FixedLineSpacing);
 	pstyle.setLineSpacing(15);
 	pstyle.setAlignment(ParagraphStyle::Leftaligned);
@@ -368,7 +368,7 @@ void ScribusDoc::init()
 	pstyle.charStyle().setParent("");
 	
 	CharStyle cstyle;
-	cstyle.setName(tr("Default Character Style"));
+	cstyle.setName( tr("Default Character Style"));
 	cstyle.setFont(prefsData.AvailFonts[toolSettings.defFont]);
 	cstyle.setFontSize(toolSettings.defSize);
 	cstyle.setEffects(ScStyle_Default);
