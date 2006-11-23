@@ -65,7 +65,7 @@ QString CollectForOutput::collect()
 	ScMW->fileWatcher->forceScan();
 	ScMW->fileWatcher->stop();
 	dirs->set("collect", outputDirectory.left(outputDirectory.findRev("/",-2)));
-	ScMW->mainWindowStatusLabel->setText(tr("Collecting..."));
+	ScMW->mainWindowStatusLabel->setText( tr("Collecting..."));
 
 	if (!collectItems())
 	{

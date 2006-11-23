@@ -670,7 +670,7 @@ void CheckDocument::languageChange()
 	reportDisplay->header()->setLabel( 1, tr( "Problems" ) );
 
 	textLabel1->setText( tr("Current Profile:"));
-	ignoreErrors->setText(tr("&Ignore Errors"));
+	ignoreErrors->setText( tr("&Ignore Errors"));
 }
 
 void CheckDocument::setIgnoreEnabled(bool state)

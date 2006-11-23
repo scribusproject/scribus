@@ -49,7 +49,7 @@ ImportPSPlugin::ImportPSPlugin() : LoadSavePlugin(),
 
 void ImportPSPlugin::languageChange()
 {
-	importAction->setMenuText(tr("Import &EPS/PS..."));
+	importAction->setMenuText( tr("Import &EPS/PS..."));
 	// (Re)register file format support
 	unregisterAll();
 	registerFormats();

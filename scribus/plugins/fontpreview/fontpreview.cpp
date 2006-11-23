@@ -123,7 +123,7 @@ void FontPreview::keyReleaseEvent(QKeyEvent *k)
 {
 	if (k->isAutoRepeat())
 	{
-		fontPreview->setText(tr("Sample will be shown after key release"));
+		fontPreview->setText( tr("Sample will be shown after key release"));
 		return;
 	}
 	if (allowSample())

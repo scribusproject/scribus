@@ -177,7 +177,7 @@ void tfFilter::fourthChanged(int index)
 	switch (currentAction)
 	{
 		case APPLY:
-			thirdLabel->setText(tr("to"));
+			thirdLabel->setText( tr("to"));
 			thirdLabel->show();
 // 			thirdRegexpCheck->hide();
 			switch (index)
@@ -195,12 +195,12 @@ void tfFilter::fourthChanged(int index)
 					fifthCombo->setEditable(true);
 					fifthCombo->show();
 					fifthRegexpCheck->show();
-					fifthLabel->setText(tr("and"));
+					fifthLabel->setText( tr("and"));
 					fifthLabel->show();
 					sixthCombo->clear();
 					sixthCombo->setEditable(false);
-					sixthCombo->insertItem(tr("remove match"));
-					sixthCombo->insertItem(tr("do not remove match"));
+					sixthCombo->insertItem( tr("remove match"));
+					sixthCombo->insertItem( tr("do not remove match"));
 					sixthCombo->show();
 					break;
 				case LESS_THAN:
@@ -210,7 +210,7 @@ void tfFilter::fourthChanged(int index)
 					fifthCombo->setEditable(true);
 					fifthCombo->show();
 					fifthRegexpCheck->hide();
-					fifthLabel->setText(tr("words"));
+					fifthLabel->setText( tr("words"));
 					fifthLabel->show();
 					sixthCombo->hide();
 					break;
@@ -249,9 +249,9 @@ void tfFilter::getFirstCombo()
 	}
 	firstCombo->clear();
 	firstCombo->setMinimumSize(QSize(120, 0));
-	firstCombo->insertItem(tr("Remove"));
-	firstCombo->insertItem(tr("Replace"));
-	firstCombo->insertItem(tr("Apply"));
+	firstCombo->insertItem( tr("Remove"));
+	firstCombo->insertItem( tr("Replace"));
+	firstCombo->insertItem( tr("Apply"));
 	firstCombo->show();
 	getSecondCombo();
 }
@@ -284,7 +284,7 @@ void tfFilter::getSecondCombo()
 	{
 		case REPLACE:
 			firstLabel->hide();
-			secondLabel->setText(tr("with"));
+			secondLabel->setText( tr("with"));
 			secondLabel->show();
 			secondCombo->setEditable(true);
 			secondCombo->clear();
@@ -296,11 +296,11 @@ void tfFilter::getSecondCombo()
 			secondLabel->hide();
 			secondCombo->setEditable(false);
 			secondCombo->clear();
-			secondCombo->insertItem(tr("paragraph style"));
+			secondCombo->insertItem( tr("paragraph style"));
 			secondRegexpCheck->hide();
 			break;
 		case REMOVE:
-			firstLabel->setText(tr("all instances of"));
+			firstLabel->setText( tr("all instances of"));
 			firstLabel->show();
 			secondCombo->clear();
 			secondCombo->setEditable(true);
@@ -379,13 +379,13 @@ void tfFilter::getFourthCombo()
 	switch (currentAction)
 	{
 		case APPLY:
-			thirdLabel->setText(tr("to"));
+			thirdLabel->setText( tr("to"));
 			thirdLabel->show();
 			fourthCombo->clear();
-			fourthCombo->insertItem(tr("all paragraphs"));
-			fourthCombo->insertItem(tr("paragraphs starting with"));
-			fourthCombo->insertItem(tr("paragraphs with less than"));
-			fourthCombo->insertItem(tr("paragraphs with more than"));
+			fourthCombo->insertItem( tr("all paragraphs"));
+			fourthCombo->insertItem( tr("paragraphs starting with"));
+			fourthCombo->insertItem( tr("paragraphs with less than"));
+			fourthCombo->insertItem( tr("paragraphs with more than"));
 			fourthCombo->setEditable(false);
 			fourthCombo->show();
 			fourthLabel->hide();

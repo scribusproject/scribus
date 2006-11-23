@@ -401,7 +401,7 @@ void ScribusQApp::showUsage()
 		tr("Output version information and exit") );
 	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
 		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
-	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+tr("filename"),
+	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" " + tr("filename"),
 		tr("Use filename as path for user given preferences") );
 #if defined(_WIN32) && !defined(_CONSOLE)
 	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE,
@@ -451,10 +451,10 @@ void ScribusQApp::showHeader()
 	const int descwidth = -(heading.length() - urlwidth - 1);
 	ts << heading; endl(ts);
 	ts << separator; endl(ts);
-	ts << QString("%1 %2").arg(tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
-	ts << QString("%1 %2").arg(tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
-	ts << QString("%1 %2").arg(tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
-	ts << QString("%1 %2").arg(tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Homepage")+":",      descwidth).arg("http://www.scribus.net" ); endl(ts);
+	ts << QString("%1 %2").arg( tr("Documentation")+":", descwidth).arg("http://docs.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Wiki")+":",          descwidth).arg("http://wiki.scribus.net"); endl(ts);
+	ts << QString("%1 %2").arg( tr("Issues")+":",        descwidth).arg("http://bugs.scribus.net"); endl(ts);
 	endl(ts);
 }
 

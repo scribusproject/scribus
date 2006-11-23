@@ -51,7 +51,7 @@ EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
 		showProgress = false;
 	}
 	if ( showProgress ) {
-		progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+		progressDialog = new MultiProgressDialog( tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");

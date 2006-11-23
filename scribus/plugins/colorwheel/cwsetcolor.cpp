@@ -181,23 +181,23 @@ CwSetColor::CwSetColor(QColor beginColor, QWidget* parent, const char* name, boo
 
 void CwSetColor::languageChange()
 {
-	setCaption(tr("Set Color Components"));
-	cmykBox->setTitle(tr("CMYK"));
-	rgbBox->setTitle(tr("RGB"));
-	hsvBox->setTitle(tr("HSV"));
-	hLabel->setText(tr("H:"));
-	sLabel->setText(tr("S:"));
-	vLabel->setText(tr("V:"));
-	rLabel->setText(tr("R:"));
-	gLabel->setText(tr("G:"));
-	bLabel->setText(tr("B:"));
-	cLabel->setText(tr("C:"));
-	mLabel->setText(tr("M:"));
-	yLabel->setText(tr("Y:"));
-	kLabel->setText(tr("K:"));
-	rgbButton->setText(tr("Set &RGB"));
-	cmykButton->setText(tr("Set C&MYK"));
-	hsvButton->setText(tr("Set &HSV"));
+	setCaption( tr("Set Color Components"));
+	cmykBox->setTitle( tr("CMYK"));
+	rgbBox->setTitle( tr("RGB"));
+	hsvBox->setTitle( tr("HSV"));
+	hLabel->setText( tr("H:"));
+	sLabel->setText( tr("S:"));
+	vLabel->setText( tr("V:"));
+	rLabel->setText( tr("R:"));
+	gLabel->setText( tr("G:"));
+	bLabel->setText( tr("B:"));
+	cLabel->setText( tr("C:"));
+	mLabel->setText( tr("M:"));
+	yLabel->setText( tr("Y:"));
+	kLabel->setText( tr("K:"));
+	rgbButton->setText( tr("Set &RGB"));
+	cmykButton->setText( tr("Set C&MYK"));
+	hsvButton->setText( tr("Set &HSV"));
 }
 
 void CwSetColor::hsvButton_clicked()
