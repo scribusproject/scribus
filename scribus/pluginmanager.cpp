@@ -416,23 +416,24 @@ ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisa
 }
 
 // Compatability kludge
-bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval)
-{
-	bool result = false;
-	if (DLLexists(pluginName))
-	{
-		ScActionPlugin* plugin =
-			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
-		if (plugin)
-			result = plugin->run(arg);
-	}
-	if (result)
-	{
-		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
-		result = true;
-	}
-	return result;
-}
+// PV - no need it now
+// bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval)
+// {
+// 	bool result = false;
+// 	if (DLLexists(pluginName))
+// 	{
+// 		ScActionPlugin* plugin =
+// 			dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
+// 		if (plugin)
+// 			result = plugin->run(arg);
+// 	}
+// 	if (result)
+// 	{
+// 		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
+// 		result = true;
+// 	}
+// 	return result;
+// }
 
 PluginManager & PluginManager::instance()
 {
