@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "cwsetcolor.h"
+#include "cwsetcolor.moc"
 #include "commonstrings.h"
 #include "cmykfw.h"
 #include "util.h"
@@ -265,5 +266,3 @@ void CwSetColor::fillBeginComponents(QColor col)
 	ySpin->setValue(y);
 	kSpin->setValue(k);
 }
-
-#include "cwsetcolor.moc"

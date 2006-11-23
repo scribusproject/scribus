@@ -1,22 +1,20 @@
 INCLUDE_DIRECTORIES(
-${CMAKE_SOURCE_DIR}
-${CMAKE_SOURCE_DIR}/scribus
+  ${CMAKE_SOURCE_DIR}
+  ${CMAKE_SOURCE_DIR}/scribus
 )
 
-#CMakeLists.txt  Makefile.am     colorblind.h    colorwheel.h          colorwheelwidget.h  cwdialog.h      cwsetcolor.h
-#CVS             colorblind.cpp  colorwheel.cpp  colorwheelwidget.cpp  cwdialog.cpp        cwsetcolor.cpp
-
-
 SET(COLORWHEEL_PLUGIN_MOC_CLASSES
-colorwheel.h
-colorwheelwidget.h
-cwdialog.h
+  colorwheel.h
+  colorwheelwidget.h
+  cwdialog.h
+  cwsetcolor.h
 )
 
 SET(COLORWHEEL_PLUGIN_SOURCES
-colorwheel.cpp
-colorwheelwidget.cpp
-cwdialog.cpp
+  colorwheel.cpp
+  colorwheelwidget.cpp
+  cwdialog.cpp
+  cwsetcolor.cpp
 )
 
 SET(SCRIBUS_COLORWHEEL_PLUGIN "colorwheel")
