@@ -1041,7 +1041,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (ext == "JPG")
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF")||(ext=="TIF")||(ext=="PSD"));
+		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF")||(ext=="TIFF")||(ext=="PSD"));
 		bool selectedItemByDrag=false;
 		int pscx=qRound(e->pos().x()/Scale), pscy=qRound(e->pos().y()/Scale);
 		//Loop through all items and see which one(s) were under the drop point on the current layer
