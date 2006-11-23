@@ -1342,7 +1342,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if (ext == "JPG")
 			ext = "JPEG";
 		//CB Need to handle this ugly file extension list elsewhere... some capabilities class perhaps
-		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF")||(ext=="PSD"));
+		img = ((imfo.contains(ext))||(ext=="PS")||(ext=="EPS")||(ext=="PDF")||(ext=="TIF")||(ext=="TIFF")||(ext=="PSD"));
 		bool selectedItemByDrag=false;
 		int pscx=qRound(e->pos().x()/Scale), pscy=qRound(e->pos().y()/Scale);
 		//Loop through all items and see which one(s) were under the drop point on the current layer
@@ -1365,7 +1365,7 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		if ((fi.exists()) && (img) && !selectedItemByDrag)// && (!SeleItemPos(e->pos())))
 		{
 			//int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
-			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, pscx, pscy, 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, ex, ey, 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			Doc->LoadPict(ur.path(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->pixm.width()));
