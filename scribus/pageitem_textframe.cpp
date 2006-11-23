@@ -851,7 +851,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 								else
 								{
-									CurY += m_Doc->docParagraphStyles[hl->cab].LineSpa;
+									if (m_Doc->docParagraphStyles[hl->cab].BaseAdj)
+										CurY += m_Doc->docParagraphStyles[hl->cab].FontSize / 10.0;
+									else
+										CurY += m_Doc->docParagraphStyles[hl->cab].LineSpa;
 									CurX = ColBound.x();
 								}
 								if (m_Doc->docParagraphStyles[hl->cab].BaseAdj)

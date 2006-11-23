@@ -1383,6 +1383,8 @@ bool ScriXmlDoc::ReadDoc(QString fileName, SCFonts &avail, ScribusDoc *doc, Scri
 				}
 				vg.Font = tmpf;
 				vg.FontSize = qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0);
+				if (vg.LineSpaMode == 2)
+					vg.LineSpa = vg.FontSize / 10.0;
 				vg.Drop = static_cast<bool>(pg.attribute("DROP", "0").toInt());
 				vg.DropLin = pg.attribute("DROPLIN", "2").toInt();
 				vg.DropDist = pg.attribute("DROPDIST", "0").toDouble();
