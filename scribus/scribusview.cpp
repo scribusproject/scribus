@@ -749,6 +749,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 				bool pr = true;
 				if ((previewMode) && (!ll.isPrintable))
 					pr = false;
+				if ((viewAsPreview) && (!ll.isPrintable))
+					pr = false;
 				if ((ll.isViewable) && (pr))
 				{
 #ifdef HAVE_CAIRO
@@ -764,6 +766,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
 							continue;
 						if ((previewMode) && (!currItem->printEnabled()))
+							continue;
+						if ((viewAsPreview) && (!currItem->printEnabled()))
 							continue;
 						if (currItem->isGroupControl)
 						{
@@ -823,6 +827,10 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if (currItem->LayerNr != ll.LNr)
 							continue;
 						if (!currItem->isTableItem)
+							continue;
+						if ((previewMode) && (!currItem->printEnabled()))
+							continue;
+						if ((viewAsPreview) && (!currItem->printEnabled()))
 							continue;
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
 							continue;
@@ -903,6 +911,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			bool pr = true;
 			if ((previewMode) && (!ll.isPrintable))
 				pr = false;
+			if ((viewAsPreview) && (!ll.isPrintable))
+				pr = false;
 			if ((ll.isViewable) && (pr))
 			{
 #ifdef HAVE_CAIRO
@@ -916,6 +926,8 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if ((previewMode) && (!currItem->printEnabled()))
+						continue;
+					if ((viewAsPreview) && (!currItem->printEnabled()))
 						continue;
 					if ((Doc->masterPageMode()) && ((currItem->OwnPage != -1) && (currItem->OwnPage != docCurrPageNo)))
 						continue;
@@ -1008,6 +1020,10 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					if (currItem->LayerNr != ll.LNr)
 						continue;
 					if (!currItem->isTableItem)
+						continue;
+					if ((previewMode) && (!currItem->printEnabled()))
+						continue;
+					if ((viewAsPreview) && (!currItem->printEnabled()))
 						continue;
 					QRect oldR(currItem->getRedrawBounding(Scale));
 					if (clip.intersects(oldR))
