@@ -9426,10 +9426,14 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 	if (!operItemMoving)
 	{
 		updateOn = false;
+		disconnect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
+//		setUpdatesEnabled(false);
 		resizeContents(qRound((width) * Scale), qRound((height) * Scale));
 		scrollBy(qRound((dX) * Scale), qRound((dY) * Scale));
 		setRulerPos(contentsX(), contentsY());
 		updateOn = true;
+		connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
+//		setUpdatesEnabled(true);
 	}
 	evSpon = false;
 }

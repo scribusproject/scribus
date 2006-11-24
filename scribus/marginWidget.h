@@ -78,7 +78,7 @@ public:
 	\param unitIndex and index of the unit combobox
 	\param showChangeAll show "apply to all pages" related items
 	*/
-	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll=false);
+	MarginWidget( QWidget* parent, QString title, MarginStruct* margs, int unitIndex, bool showChangeAll=false, bool showBleeds=true);
 	~MarginWidget() {};
 	/*! \brief Setup the labels by facing pages option */
 	void setFacingPages(bool facing, int pagetype = 0);
@@ -208,6 +208,7 @@ protected:
 	int m_docUnitIndex;
 	//! \brief if the outer facing palette points to the facing pages item
 	bool facingPages;
+	bool useBleeds;
 	int pageType;
 };
 
