@@ -1616,7 +1616,7 @@ void PDFlib::PDF_End_Page()
 	Seite.ObjNum = ObjCounter;
 	WritePDFStream(Inhalt);
 	int Gobj;
-	if ((Options.Version >= 14) && (Transpar.count() != 0))
+	if (Options.Version >= 14)
 	{
 		StartObj(ObjCounter);
 		Gobj = ObjCounter;
@@ -1651,7 +1651,7 @@ void PDFlib::PDF_End_Page()
 		PutDoc("/TrimBox [0 0 "+FToStr(ActPageP->width())+" "+FToStr(ActPageP->height())+"]\n");
 	PutDoc("/Rotate "+QString::number(Options.RotateDeg)+"\n");
 	PutDoc("/Contents "+QString::number(Seite.ObjNum)+" 0 R\n");
-	if ((Options.Version >= 14) && (Transpar.count() != 0))
+	if (Options.Version >= 14)
 		PutDoc("/Group "+QString::number(Gobj)+" 0 R\n");
 	if (Options.Thumbnails)
 		PutDoc("/Thumb "+QString::number(Seite.Thumb)+" 0 R\n");
