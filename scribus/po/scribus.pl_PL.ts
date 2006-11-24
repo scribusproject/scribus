@@ -5768,26 +5768,26 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Jeśli zostało włączone zarządzanie kolorami, trójkąt ostrzegawczy jest wskazówką, że kolor może znajdować się poza przestrzenią barw aktualnie wybranego profilu drukarki. Oznacza to, że kolor w druku może nie odpowiadać kolorowi wyświetlanemu na monitorze. Kolory dodatkowe oznaczone są czerwonym kółkiem. Kolory paserów symolizowane są przez paser obok koloru. Więcej wskazówek na temat ostrzeżeń dotyczących przestrzeni kolorów znajdziesz w pomocy online w dziale dotyczącym zarządzania kolorami.</translation>
     </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation>Monochromatyczny</translation>
+        <translation>Monochromatyczna</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation>Analogiczny</translation>
+        <translation>Analogiczna</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation>Uzupełniający</translation>
+        <translation>Uzupełniająca</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation>Uzupełniający bliski</translation>
+        <translation>Uzupełniająca bliska</translation>
     </message>
     <message>
         <source>Triadic</source>
@@ -6158,95 +6158,95 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalna lewa</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalna środkowa</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normalna prawa</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Poniedziałek</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Wtorek</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Środa</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Czwartek</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>Piątek</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Sobota</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Niedziela</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished">Styczeń</translation>
+        <translation>Styczeń</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>Luty</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished">Marzec</translation>
+        <translation>Marzec</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation>Kwiecień</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Maj</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Czerwiec</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Lipiec</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>Sierpień</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>Wrzesień</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>Październik</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>Listopad</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished">Grudzień</translation>
+        <translation>Grudzień</translation>
     </message>
 </context>
 <context>
@@ -7634,11 +7634,11 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Automatyczne</translation>
+        <translation>Auto</translation>
     </message>
 </context>
 <context>
@@ -8437,7 +8437,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutaj możesz wpisać tekst w celu przeszukania nazw fontów. Przeszukiwanie nie rozróżnia dużych i małych liter. Możesz również użyć wieloznaczników  (*, ?, [...]) w poszukiwanym pojęciu. Przykłady:  t* spowoduje wyświetlenie wszystkich fontów o nazwach zaczynających się na t lub T, *bold* spowoduje wyświetlenie wszystkich fontów zawierających w nazwie słowo &quot;bold&quot;, &quot;bolder&quot; etc.</translation>
     </message>
 </context>
 <context>
@@ -9741,19 +9741,19 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie można zmienić nazwy strony wzorcowej</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmiana nazwy strony &quot;Normalna&quot; jest niedozwolona.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmień nazwę strony wzorcowej</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nowa nazwa:</translation>
     </message>
 </context>
 <context>
@@ -10632,7 +10632,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolor zaznaczonego tekstu. Jeśli włączone jest obramowanie tekstu, ten kolor będzie kolorem wypełnienia. Jeśli włączyłeś opcję opuszczonego cienia, będzie to górny kolor. </translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
@@ -10644,19 +10644,19 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosuj prostokątną ramkę ograniczającą zamiast konturu ramki dla opływania tekstu znajdującego się w ramkach tekstowych poniżej obiektu. </translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Użyj drugiej linii opartej na kształcie ramki dla opływu tekstu dla ramek tekstowych położonych poniżej obiektu. </translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Automatyczne</translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii.</translation>
     </message>
 </context>
 <context>
@@ -11609,7 +11609,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Umożliwia ładniejszy widok fontów Type 1, TrueType, OpenType, plików EPS i PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
 </context>
 <context>
@@ -13241,7 +13241,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niniejsza konsola pochodzi od standardowej konsoli Pythona i dlatego zawiera pewne ograniczenia, szczególnie jeśli chodzi o wolną przestrzeń. Zajrzyj do dokumentacji Scribusa, aby dowiedzieć się więcej.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
@@ -19077,7 +19077,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Zag&amp;nieźdź podzbiory wszystkich fontów</translation>
+        <translation>Zamień wszystkie fo&amp;nty na krzywe</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -19101,7 +19101,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Podzbiory fontów do zagnieżdżenia:</translation>
+        <translation>Fonty do zamiany na krzywe:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -19817,7 +19817,7 @@ podczas otwierania dokumentu:</translation>
     <message>
         <source>Javascript to be executed
 when PDF document is opened:</source>
-        <translation>Skrypt JavaScript który będzię uruchomiony
+        <translation>Skrypt JavaScript, który będzię uruchomiony
 w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
@@ -19868,7 +19868,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
     </message>
 </context>
 <context>
@@ -20924,48 +20924,49 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Pobieranie pliku z informacji o  aktualizacjach Scribusa </translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Z twojego komputera nie zostaną wysłane żadne dane na zewnątrz)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Przekroczenie limitu czasu podczas pobierania pliku aktualizacji.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas pobierania pliku aktualizacji: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Na serwerze nie znaleziono pliku</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Nie udało się otworzyć pliku wersji: %1
+Błąd: %2 w szpalcie: %3, wiersz: %4 </translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Podczas pobierania informacji o aktualizacjach Scribusa wystąpił błąd, proszę sprawdzić połączenie z internetem.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak aktualizacji dla twojej wersji Scribusa %1</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Dla twojej wersji Scribusa (%1) jest dostępna jedna lub więcej aktualizacji:</translation>
     </message>
     <message>
         <source>This list may contain development versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ta lista może zawierać wersje deweloperskie.</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dalsze informacje na stronie www.scribus.net. </translation>
     </message>
 </context>
 <context>
@@ -21260,6 +21261,10 @@ czy też zastąpić domyślne ustawienia własnymi, zakreślając ją.</translat
     <message>
         <source>Import Text Only</source>
         <translation>Importuj tylko tekst</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
     </message>
 </context>
 <context>
