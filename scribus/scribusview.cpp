@@ -5315,6 +5315,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			break;
 		case modeDrawTable:
 			Deselect(false);
+			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
+			SeRx = Mxp;
+			SeRy = Myp;
 			break;
 		case modePanning:
 			break;
