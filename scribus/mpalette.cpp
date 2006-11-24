@@ -312,7 +312,7 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	NoPrint->setToggleButton( true );
 	QIconSet a2 = QIconSet();
 	a2.setPixmap(loadIcon("NoPrint.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::On);
-	a2.setPixmap(loadIcon("DateiPrint16.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
+	a2.setPixmap(loadIcon("16/document-print.png"), QIconSet::Automatic, QIconSet::Normal, QIconSet::Off);
 	NoPrint->setIconSet(a2);
 	Layout44->addWidget( NoPrint, 1, 2 );
 	NoResize = new QToolButton( page, "NoResize" );
