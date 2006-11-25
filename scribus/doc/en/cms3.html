@@ -16,6 +16,14 @@
 
 <p><strong><em>Relative Colorimetric: </em></strong>When a color is not printable within the gamut of the output device, this rendering intent prints the closest match along with an adjustment that maps white to the paper of the output. This mapping of "white point" prevents the problems of "Absolute Colorimetric" when images except spot colors are concerned. When producing color proofs on RGB ink jet printers, while simulating CMYK printing presses you can use this intent, if you know the intended precise profile. Users of Adobe Press Ready will understand this concept quite well. This approach works well when you have accurate embedded profiles (typically scanner or more rarely digital cameras.) in images being converted to CMYK space with printer profiles very precisely profiled with color measurement devices. This is most likely when someone has spent a lot of time and effort to finely calibrate and profile their equipment. It takes sophisticated ($$$) color calibration equipment to measure the printer under fairly well controlled conditions.</p>
 
+<h4>Other CMS Options</h4>
+
+
+
+<p><strong><em>Mark Colors Out Gamut</em></strong> is a setting which will show colors in your document which may be outside the gamut, or printable color range of your printer. Note, this is only a warning, as the current ICC specs do not define this uniformly. This is a function available frol littlecms.</p>
+
+<p><strong><em></em></strong></p>
+
 <h4>Final Printing with Scribus</h4>
 
 <p>For Scribus users, there are a couple of options for printing with a color managed intent.</p>
