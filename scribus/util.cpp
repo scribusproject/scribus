@@ -737,7 +737,9 @@ void ReOrderText(ScribusDoc *currentDoc, ScribusView *view)
 	for (uint azz=0; azz<currentDoc->Items->count(); ++azz)
 	{
 		PageItem *currItem = currentDoc->Items->at(azz);
-		if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
+		if (currItem->itemType() == PageItem::TextFrame)
+			currItem->asTextFrame()->layout();
+		else if (currItem->itemType() == PageItem::PathText)
 			currItem->DrawObj(painter, rd);
 	}
 	currentDoc->RePos = false;
