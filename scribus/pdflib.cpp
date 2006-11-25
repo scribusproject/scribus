@@ -1067,18 +1067,20 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
-		QString dataP;
+		QByteArray dataP;
 		struct ICCD dataD;
-		loadText(ScCore->InputProfiles[Options.SolidProf], &dataP);
+		loadRawBytes(ScCore->InputProfiles[Options.SolidProf], dataP);
 		PutDoc("<<\n");
 		if ((Options.Compress) && (CompAvail))
 		{
 			PutDoc("/Filter /FlateDecode\n");
-			dataP = CompressStr(&dataP);
+			dataP = CompressArray(&dataP);
 		}
-		PutDoc("/Length "+QString::number(dataP.length()+1)+"\n");
+		PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
 		PutDoc("/N "+QString::number(Options.SComp)+"\n");
-		PutDoc(">>\nstream\n"+EncStream(dataP, ObjCounter-1)+"\nendstream\nendobj\n");
+		PutDoc(">>\nstream\n");
+		PutDoc(EncStreamArray(dataP, ObjCounter-1));
+		PutDoc("\nendstream\nendobj\n");
 		StartObj(ObjCounter);
 		dataD.ResName = ResNam+QString::number(ResCount);
 		dataD.ICCArray = "[ /ICCBased "+QString::number(ObjCounter-1)+" 0 R ]";
@@ -6281,17 +6283,19 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 	{
 		StartObj(ObjCounter);
 		ObjCounter++;
-		QString dataP;
-		loadText(PrintPr, &dataP);
+		QByteArray dataP;
+		loadRawBytes(PrintPr, dataP);
 		PutDoc("<<\n");
 		if ((Options.Compress) && (CompAvail))
 		{
 			PutDoc("/Filter /FlateDecode\n");
-			dataP = CompressStr(&dataP);
+			dataP = CompressArray(&dataP);
 		}
-		PutDoc("/Length "+QString::number(dataP.length()+1)+"\n");
+		PutDoc("/Length "+QString::number(dataP.size()+1)+"\n");
 		PutDoc("/N "+QString::number(Components)+"\n");
-		PutDoc(">>\nstream\n"+dataP+"\nendstream\nendobj\n");
+		PutDoc(">>\nstream\n");
+		PutDoc(dataP);
+		PutDoc("\nendstream\nendobj\n");
 		XRef[8] = bytesWritten();
 		PutDoc("9 0 obj\n");
 		PutDoc("<<\n/Type /OutputIntent\n/S /GTS_PDFX\n");
