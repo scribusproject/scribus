@@ -1917,12 +1917,22 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					if (e2.intersects(pf2.xForm(QRect(qRound(CurX + hl->glyph.xoffset),qRound(ls.y + hl->glyph.yoffset-asce), qRound(hl->glyph.xadvance+1), qRound(asce+desc)))))
 					{
 						p->save();
+#ifdef HAVE_CAIRO
+						p->translate(CurX, ls.y);
+#else
 						p->translate(CurX * p->zoomFactor(), ls.y * p->zoomFactor());
-						if (hl->ch[0] == SpecialChars::OBJECT) {
+#endif
+						if (hl->ch[0] == SpecialChars::OBJECT) 
+						{
 							DrawObj_Embedded(p, e, charStyle, hl->cembedded);
+#ifdef HAVE_CAIRO
+							CurX += (hl->cembedded->gWidth + hl->cembedded->lineWidth());
+#else
 							CurX += (hl->cembedded->gWidth + hl->cembedded->lineWidth()) *  p->zoomFactor();
+#endif
 						}
-						else {
+						else
+						{
 							drawGlyphs(p, charStyle, hl->glyph);
 							CurX += hl->glyph.wide();
 						}

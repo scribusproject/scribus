@@ -309,7 +309,7 @@ void ScribusView::togglePreview()
 		Doc->guidesSettings.framesShown = false;
 		// warning popping up in case colour management and out-of-gamut-display are active
 		// as from #4346: Add a preview for daltonian - PV
-		if (Doc->HasCMS || Doc->Gamut)
+		if (Doc->HasCMS && Doc->Gamut)
 			QMessageBox::information(m_ScMW,
 									 tr("Preview Mode"),
 									 "<qt>" + tr("CMS is active. Therefore the colour display may not match the perception by visually impaired") + "</qt>",
@@ -364,26 +364,38 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		Level2Layer(Doc, &la, Lnr);
 		QImage img = QImage(clipw, cliph, 32);
 		painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
+		painter->clear(paletteBackgroundColor());
+		painter->translate(-clipx, -clipy);
+		painter->setZoomFactor(Scale);
+		painter->translate(-Doc->minCanvasCoordinate.x(), -Doc->minCanvasCoordinate.y());
+		painter->setLineWidth(1);
+		painter->setFillMode(ScPainter::Solid);
 #else
 		painter = new ScPainter(viewport(), clipw, cliph, vr.x(), vr.y());
-#endif
 		painter->clear(paletteBackgroundColor());
 		painter->translate(-Doc->minCanvasCoordinate.x()*Scale, -Doc->minCanvasCoordinate.y()*Scale);
 		painter->translate(-clipx, -clipy);
 		painter->setLineWidth(1);
 		painter->setFillMode(ScPainter::Solid);
 		painter->setZoomFactor(1.0);
+#endif
 /* Draw Page Outlines */
 		if (!Doc->masterPageMode())
 		{
 			uint docPagesCount=Doc->Pages->count();
 			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
 			{
+#ifdef HAVE_CAIRO
+				int x = qRound(Doc->Pages->at(a)->xOffset());
+				int y = qRound(Doc->Pages->at(a)->yOffset());
+				int w = qRound(Doc->Pages->at(a)->width());
+				int h = qRound(Doc->Pages->at(a)->height());
+#else
 				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
 				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
 				int w = qRound(Doc->Pages->at(a)->width() * Scale);
 				int h = qRound(Doc->Pages->at(a)->height() * Scale);
-
+#endif
 				double bleedRight = 0.0;
 				double bleedLeft = 0.0;
 				double bleedBottom = 0.0;
@@ -419,30 +431,55 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
+					painter->setFillMode(ScPainter::Solid);
+					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 #ifdef HAVE_CAIRO
 					painter->beginLayer(1.0, 0);
 #endif
-					painter->setFillMode(ScPainter::Solid);
-					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 					if (!viewAsPreview)
 					{
 						painter->setBrush(QColor(128,128,128));
+#ifdef HAVE_CAIRO
+						int blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
+						int bly2 = qRound(Doc->Pages->at(a)->yOffset() - bleedTop);
+						int blw2 = qRound(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
+						int blh2 = qRound(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+						painter->drawRect(blx2+5 / Scale, bly2+5 / Scale, blw2, blh2);
+#else
 						painter->drawRect(blx+5, bly+5, blw, blh);
+#endif
 					}
+#ifdef HAVE_CAIRO
+					painter->setAntialiasing(false);
+					if (a == Doc->currentPageNumber())
+						painter->setPen(Prefs->DPageBorderColor, 2 / Scale, SolidLine, FlatCap, MiterJoin);
+					else
+						painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
+#else
 					if (a == Doc->currentPageNumber())
 						painter->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
 					else
 						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-					painter->setBrush(Doc->papColor);
-#ifdef HAVE_CAIRO
-					painter->setAntialiasing(false);
 #endif
+					painter->setBrush(Doc->papColor);
 					if (!viewAsPreview)
 					{
+#ifdef HAVE_CAIRO
+						int blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
+						int bly2 = qRound(Doc->Pages->at(a)->yOffset() - bleedTop);
+						int blw2 = qRound(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
+						int blh2 = qRound(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+						painter->drawRect(blx2, bly2, blw2, blh2);
+#else
 						painter->drawRect(blx, bly, blw, blh);
+#endif
 						if (drawBleed)
 						{
+#ifdef HAVE_CAIRO
+							painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
+#else
 							painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+#endif
 							painter->drawRect(x, y, w, h);
 						}
 					}
@@ -471,10 +508,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					if (!first)
 						PoLine.setMarker();
 					first = false;
-					double x = Doc->Pages->at(a)->xOffset() * Scale;
-					double y = Doc->Pages->at(a)->yOffset() * Scale;
-					double w = Doc->Pages->at(a)->width() * Scale;
-					double h = Doc->Pages->at(a)->height() * Scale;
+					double x = Doc->Pages->at(a)->xOffset();
+					double y = Doc->Pages->at(a)->yOffset();
+					double w = Doc->Pages->at(a)->width();
+					double h = Doc->Pages->at(a)->height();
 					static double rect[] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0,
 													1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 0.0, 1.0,
 													0.0, 1.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0};
@@ -523,20 +560,21 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 			if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 			{
+				painter->setFillMode(ScPainter::Solid);
+				painter->setBrush(QColor(128,128,128));
 #ifdef HAVE_CAIRO
 				painter->beginLayer(1.0, 0);
-#endif
-				painter->setFillMode(ScPainter::Solid);
+				painter->setAntialiasing(false);
+				painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
+				painter->drawRect(Doc->ScratchLeft+5 / Scale, Doc->ScratchTop+5 / Scale, Doc->currentPage()->width(), Doc->currentPage()->height());
+				painter->setBrush(Doc->papColor);
+				painter->drawRect(Doc->ScratchLeft, Doc->ScratchTop, Doc->currentPage()->width(), Doc->currentPage()->height());
+				painter->setAntialiasing(true);
+#else
 				painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-				painter->setBrush(QColor(128,128,128));
 				painter->drawRect(x+5, y+5, w, h);
 				painter->setBrush(Doc->papColor);
-#ifdef HAVE_CAIRO
-				painter->setAntialiasing(false);
-#endif
 				painter->drawRect(x, y, w, h);
-#ifdef HAVE_CAIRO
-				painter->setAntialiasing(true);
 #endif
 				if (Doc->guidesSettings.before)
 					DrawPageMarks(painter, Doc->currentPage(), QRect(clipx, clipy, clipw, cliph));
@@ -556,8 +594,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		}
 		if (((Doc->m_Selection->count() != 0) || (linkedFramesToShow.count() != 0))  && (!viewAsPreview))
 		{
+#ifndef HAVE_CAIRO
 			double z = painter->zoomFactor();
 			painter->setZoomFactor(Scale);
+#endif
 			painter->save();
 			PageItem *currItem;
 			if ((Doc->guidesSettings.linkShown) && (linkedFramesToShow.count() != 0))
@@ -679,7 +719,9 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			painter->setLineWidth(1);
 			painter->setPenOpacity(1.0);
 			painter->restore();
+#ifndef HAVE_CAIRO
 			painter->setZoomFactor(z);
+#endif
 		}
 		painter->end();
 #ifdef HAVE_CAIRO
@@ -730,7 +772,9 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	QPtrStack<PageItem> groupStack;
+#ifndef HAVE_CAIRO
 	double z = painter->zoomFactor();
+#endif
 	if (!page->MPageNam.isEmpty())
 	{
 		Page* Mp = Doc->MasterPages.at(Doc->MasterNames[page->MPageNam]);
@@ -848,9 +892,14 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						QRect oldR(currItem->getRedrawBounding(Scale));
 						if (clip.intersects(oldR))
 						{
+#ifdef HAVE_CAIRO
+							painter->save();
+							painter->translate(currItem->xPos(), currItem->yPos());
+#else
 							painter->setZoomFactor(Scale);
 							painter->save();
 							painter->translate(currItem->xPos()*Scale, currItem->yPos()*Scale);
+#endif
 							painter->rotate(currItem->rotation());
 							if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 							{
@@ -888,13 +937,17 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 			}
 		}
 	}
+#ifndef HAVE_CAIRO
 	painter->setZoomFactor(z);
+#endif
 }
 
 void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 {
 	linkedFramesToShow.clear();
+#ifndef HAVE_CAIRO
 	double z = painter->zoomFactor();
+#endif
 	QPtrStack<PageItem> groupStack;
 	if (Doc->Items->count() != 0)
 	{
@@ -1028,9 +1081,14 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 					QRect oldR(currItem->getRedrawBounding(Scale));
 					if (clip.intersects(oldR))
 					{
+#ifdef HAVE_CAIRO
+						painter->save();
+						painter->translate(currItem->xPos(), currItem->yPos());
+#else
 						painter->setZoomFactor(Scale);
 						painter->save();
 						painter->translate(currItem->xPos()*Scale, currItem->yPos()*Scale);
+#endif
 						painter->rotate(currItem->rotation());
 						if ((currItem->lineColor() != CommonStrings::None) && (currItem->lineWidth() != 0.0))
 						{
@@ -1060,19 +1118,22 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 			Lnr++;
 		}
 	}
+#ifndef HAVE_CAIRO
 	painter->setZoomFactor(z);
+#endif
 }
 
 void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 {
-	double z = p->zoomFactor();
 	p->save();
-	p->setZoomFactor(Scale);
-	p->translate(page->xOffset() * Scale, page->yOffset() * Scale);
 #ifdef HAVE_CAIRO
 	p->setAntialiasing(false);
+	p->translate(page->xOffset(), page->yOffset());
 	double lineWidth = 1.0 / Scale;
 #else
+	double z = p->zoomFactor();
+	p->setZoomFactor(Scale);
+	p->translate(page->xOffset() * Scale, page->yOffset() * Scale);
 	double lineWidth = 0.5 / Scale;
 #endif
 	p->setLineWidth(lineWidth);
@@ -1152,7 +1213,9 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 #endif
 
 	p->restore();
+#ifndef HAVE_CAIRO
 	p->setZoomFactor(z);
+#endif
 }
 
 void ScribusView::enterEvent(QEvent *)

@@ -253,7 +253,9 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		delete Zli;
 */		p->setWorldMatrix(savWM);
 		p->restore();
+#ifndef HAVE_CAIRO
 		p->setZoomFactor(sc);
+#endif
 		MaxChars = a+1;
 		oCurX = CurX;
 		CurX -= dx;

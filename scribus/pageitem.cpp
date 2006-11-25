@@ -769,11 +769,14 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	p->save();
 	if (!isEmbedded)
 	{
+#ifdef HAVE_CAIRO
+		p->translate(Xpos, Ypos);
+#else
 		p->setZoomFactor(sc);
 		p->translate(Xpos*sc, Ypos*sc);
-//		p->rotate(Rot);
+#endif
 	}
-		p->rotate(Rot);
+	p->rotate(Rot);
 	if (m_Doc->layerOutline(LayerNr))
 	{
 		p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
@@ -1621,8 +1624,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			points.addQuadPoint(1, -10, 1, -10, 0, -10, 0, -10);			
 		}
 		chma.scale(glyphs.scaleH * style.fontSize() / 100.0, glyphs.scaleV * style.fontSize() / 100.0);
+#ifdef HAVE_CAIRO
+		points.map(chma * chma4);
+#else
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
 		points.map(chma * chma4 * chma5);
+#endif
 		p->setupTextPolygon(&points);
 		QColor oldBrush = p->brush();
 		p->setBrush(PrefsManager::instance()->appPrefs.DControlCharColor);
@@ -1640,8 +1647,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			p->fillPath();
 		}
 		p->setBrush(oldBrush);
-		if (glyphs.more) {
+		if (glyphs.more)
+		{
+#ifdef HAVE_CAIRO
+			p->translate(glyphs.xadvance, 0);
+#else
 			p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+#endif
 			drawGlyphs(p, style, *glyphs.more);
 		}			
 		return;
@@ -1654,8 +1666,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	
 	if (glyph >= ScFace::CONTROL_GLYPHS) {
 		// all those are empty
-		if (glyphs.more) {
+		if (glyphs.more)
+		{
+#ifdef HAVE_CAIRO
+			p->translate(glyphs.xadvance, 0);
+#else
 			p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+#endif
 			drawGlyphs(p, style, *glyphs.more);
 		}			
 		return;
@@ -1665,7 +1682,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
 		chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
 //		qDebug(QString("glyphscale: %1 %2").arg(glyphs.scaleH).arg(glyphs.scaleV));
+#ifndef HAVE_CAIRO
 		chma5.scale(p->zoomFactor(), p->zoomFactor());
+#endif
 		FPointArray gly = style.font().glyphOutline(glyph);
 		// Do underlining first so you can get typographically correct
 		// underlines when drawing a white outline
@@ -1704,8 +1723,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				chma3.translate(-glyphs.xadvance, 0);
 			}
 			chma4.translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
+#ifdef HAVE_CAIRO
+			if (style.baselineOffset() != 0)
+				chma6.translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0));
+#else
 			if (style.baselineOffset() != 0)
 				chma6.translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0) * p->zoomFactor());
+#endif
 			gly.map(chma * chma3 * chma4 * chma5 * chma6);
 			p->setFillMode(1);
 			bool fr = p->fillRule();
@@ -1721,8 +1745,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				p->strokePath();
 				p->restore();
 				p->setFillRule(fr);
-				if (glyphs.more) {
+				if (glyphs.more)
+				{
+#ifdef HAVE_CAIRO
+					p->translate(glyphs.xadvance, 0);
+#else
 					p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+#endif
 					drawGlyphs(p, style, *glyphs.more);
 				}
 				return;
@@ -1739,7 +1768,11 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				if ((style.effects() & ScStyle_Shadowed) && (style.strokeColor() != CommonStrings::None))
 				{
 					p->save();
+#ifdef HAVE_CAIRO
+					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0), -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0));
+#else
 					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) * p->zoomFactor(), -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) * p->zoomFactor());
+#endif
 					QColor tmp = p->brush();
 					p->setBrush(p->pen());
 #ifdef HAVE_CAIRO
@@ -1797,8 +1830,13 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		p->drawRect(glyphs.xoffset, glyphs.yoffset - (style.fontSize() / 10.0) * glyphs.scaleV , (style.fontSize() / 10.0) * glyphs.scaleH, (style.fontSize() / 10.0) * glyphs.scaleV);
 	}
 	*/	
-	if (glyphs.more) {
+	if (glyphs.more)
+	{
+#ifdef HAVE_CAIRO
+		p->translate(glyphs.xadvance, 0);
+#else
 		p->translate(glyphs.xadvance * p->zoomFactor(), 0);
+#endif
 		drawGlyphs(p, style, *glyphs.more);
 	}
 }
