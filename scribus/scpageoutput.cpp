@@ -378,12 +378,15 @@ void ScPageOutput::DrawItem_Post( PageItem* item, ScPainterExBase* painter )
 				multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
 				for (int it = ml.size()-1; it > -1; it--)
 				{
-					ScColorShade tmp( m_doc->PageColors[ml[it].Color], ml[it].Shade );
-					painter->setPen(tmp, ml[it].Width,
-							static_cast<Qt::PenStyle>(ml[it].Dash),
-							static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-							static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-					painter->strokePath();
+					const SingleLine& sl = ml[it];
+					if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+					{
+						ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+						painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+								static_cast<Qt::PenCapStyle>(sl.LineEnd),
+								static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+						painter->strokePath();
+					}
 				}
 			}
 		}
@@ -737,12 +740,15 @@ void ScPageOutput::DrawItem_Line( PageItem_Line* item, ScPainterExBase* painter 
 		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
 		for (int it = ml.size()-1; it > -1; it--)
 		{
-			ScColorShade colorShade(m_doc->PageColors[ml[it].Color], ml[it].Shade);
-			painter->setPen(colorShade, ml[it].Width,
-						static_cast<Qt::PenStyle>(ml[it].Dash),
-						static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-						static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-			painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+			const SingleLine& sl = ml[it];
+			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			{
+				ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+				painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+						static_cast<Qt::PenCapStyle>(sl.LineEnd),
+						static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+				painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+			}
 		}
 	}
 	if (startArrowIndex != 0)
@@ -804,6 +810,24 @@ void ScPageOutput::DrawItem_PathText( PageItem_PathText* item, ScPainterExBase* 
 	{
 		painter->setupPolygon(&item->PoLine, false);
 		painter->strokePath();
+	}
+	else if (item->NamedLStyle.isEmpty())
+		painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+	else
+	{
+		multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
+		for (int it = ml.size() - 1; it > -1; it--)
+		{
+			const SingleLine& sl = ml[it];
+			if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+			{
+				ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+				painter->setPen(tmp, sl.Width,  static_cast<Qt::PenStyle>(sl.Dash), 
+						 static_cast<Qt::PenCapStyle>(sl.LineEnd), 
+						 static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+				painter->drawLine(FPoint(0, 0), FPoint(item->width(), 0));
+			}
+		}
 	}
 	if (item->itemText.count() != 0)
 		CurX += item->itemText.at(0)->csize * item->itemText.at(0)->cextra / 10000.0;
@@ -1013,12 +1037,15 @@ void ScPageOutput::DrawItem_PolyLine( PageItem_PolyLine* item, ScPainterExBase* 
 			multiLine ml = m_doc->MLineStyles[item->NamedLStyle];
 			for (int it = ml.size()-1; it > -1; it--)
 			{
-				ScColorShade tmp(m_doc->PageColors[ml[it].Color], ml[it].Shade);
-				painter->setPen(tmp, ml[it].Width,
-							static_cast<Qt::PenStyle>(ml[it].Dash),
-							static_cast<Qt::PenCapStyle>(ml[it].LineEnd),
-							static_cast<Qt::PenJoinStyle>(ml[it].LineJoin));
-				painter->strokePath();
+				const SingleLine& sl = ml[it];
+				if ((sl.Color != CommonStrings::None) && (sl.Width != 0))
+				{
+					ScColorShade tmp(m_doc->PageColors[sl.Color], sl.Shade);
+					painter->setPen(tmp, sl.Width, static_cast<Qt::PenStyle>(sl.Dash),
+							static_cast<Qt::PenCapStyle>(sl.LineEnd),
+							static_cast<Qt::PenJoinStyle>(sl.LineJoin));
+					painter->strokePath();
+				}
 			}
 		}
 		if (startArrowIndex != 0)
