@@ -83,10 +83,21 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 		for (uint mp = 0; mp < currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count(); ++mp)
 		{
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
-			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
-				pageData->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
+//			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+//				pageData->insertItem(it.key() == CommonStrings::masterPageNormal ? CommonStrings::trMasterPageNormal : it.key());
 			if (mp == 0)
 			{
+				bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft);
+				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+				{
+					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+						pageData->insertItem(CommonStrings::trMasterPageNormal);
+					else
+					{
+						if (currentDoc->MasterPages.at(it.data())->LeftPg == 1)
+							pageData->insertItem(it.key());
+					}
+				}
 				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalLeft))
 					pageData->setCurrentText( CommonStrings::trMasterPageNormalLeft);
 			}
@@ -94,11 +105,33 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			{
 				if (currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count() > 2)
 				{
+					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
+					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					{
+						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+							pageData->insertItem(CommonStrings::trMasterPageNormal);
+						else
+						{
+							if ((currentDoc->MasterPages.at(it.data())->LeftPg != 0) && (currentDoc->MasterPages.at(it.data())->LeftPg != 1))
+								pageData->insertItem(it.key());
+						}
+					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
 						pageData->setCurrentText( CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
+					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
+					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					{
+						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+							pageData->insertItem(CommonStrings::trMasterPageNormal);
+						else
+						{
+							if (currentDoc->MasterPages.at(it.data())->LeftPg == 0)
+								pageData->insertItem(it.key());
+						}
+					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 						pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 				}
@@ -107,17 +140,50 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			{
 				if (currentDoc->pageSets[currentDoc->currentPageLayout].pageNames.count() > 3)
 				{
+					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle);
+					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					{
+						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+							pageData->insertItem(CommonStrings::trMasterPageNormal);
+						else
+						{
+							if ((currentDoc->MasterPages.at(it.data())->LeftPg != 0) && (currentDoc->MasterPages.at(it.data())->LeftPg != 1))
+								pageData->insertItem(it.key());
+						}
+					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalMiddle))
 						pageData->setCurrentText( CommonStrings::trMasterPageNormalMiddle);
 				}
 				else
 				{
+					bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
+					for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+					{
+						if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+							pageData->insertItem(CommonStrings::trMasterPageNormal);
+						else
+						{
+							if (currentDoc->MasterPages.at(it.data())->LeftPg == 0)
+								pageData->insertItem(it.key());
+						}
+					}
 					if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 						pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 				}
 			}
 			else if (mp == 3)
 			{
+				bool conNam = currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight);
+				for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
+				{
+					if ((it.key() == CommonStrings::masterPageNormal) && (!conNam))
+						pageData->insertItem(CommonStrings::trMasterPageNormal);
+					else
+					{
+						if (currentDoc->MasterPages.at(it.data())->LeftPg == 0)
+							pageData->insertItem(it.key());
+					}
+				}
 				if (currentDoc->MasterNames.contains( CommonStrings::trMasterPageNormalRight))
 					pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 			}
