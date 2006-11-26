@@ -74,6 +74,10 @@ bool ScActionPlugin::run(ScribusDoc* /*doc*/, QIODevice* /* target */)
 	return false;
 }
 
+bool ScActionPlugin::run(QWidget *, ScribusDoc* /*doc*/, QString /* target */)
+{
+	return false;
+}
 
 // Stub for plugins that don't implement this method to inherit
 DeferredTask* ScActionPlugin::runAsync(QString /* target */)
