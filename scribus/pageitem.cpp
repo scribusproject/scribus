@@ -1679,12 +1679,6 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 	}
 //	if (style.font().canRender(QChar(glyph)))
 	{
-		QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
-		chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
-//		qDebug(QString("glyphscale: %1 %2").arg(glyphs.scaleH).arg(glyphs.scaleV));
-#ifndef HAVE_CAIRO
-		chma5.scale(p->zoomFactor(), p->zoomFactor());
-#endif
 		FPointArray gly = style.font().glyphOutline(glyph);
 		// Do underlining first so you can get typographically correct
 		// underlines when drawing a white outline
@@ -1717,20 +1711,33 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 		}
 		if (gly.size() > 3)
 		{
+#ifdef HAVE_CAIRO
+			p->save();
+			p->translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
+			if (Reverse)
+			{
+				p->scale(-1, 1);
+				p->translate(-glyphs.xadvance, 0);
+			}
+			if (style.baselineOffset() != 0)
+				p->translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0));
+			double glxSc = glyphs.scaleH * style.fontSize() / 100.00;
+			double glySc = glyphs.scaleV * style.fontSize() / 100.0;
+			p->scale(glxSc, glySc);
+#else
+			QWMatrix chma, chma2, chma3, chma4, chma5, chma6;
+			chma.scale(glyphs.scaleH * style.fontSize() / 100.00, glyphs.scaleV * style.fontSize() / 100.0);
+			chma5.scale(p->zoomFactor(), p->zoomFactor());
 			if (Reverse)
 			{
 				chma3.scale(-1, 1);
 				chma3.translate(-glyphs.xadvance, 0);
 			}
 			chma4.translate(glyphs.xoffset, glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV));
-#ifdef HAVE_CAIRO
-			if (style.baselineOffset() != 0)
-				chma6.translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0));
-#else
 			if (style.baselineOffset() != 0)
 				chma6.translate(0, -(style.fontSize() / 10.0) * (style.baselineOffset() / 1000.0) * p->zoomFactor());
-#endif
 			gly.map(chma * chma3 * chma4 * chma5 * chma6);
+#endif
 			p->setFillMode(1);
 			bool fr = p->fillRule();
 			p->setFillRule(false);
@@ -1745,6 +1752,9 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				p->strokePath();
 				p->restore();
 				p->setFillRule(fr);
+#ifdef HAVE_CAIRO
+				p->restore();
+#endif
 				if (glyphs.more)
 				{
 #ifdef HAVE_CAIRO
@@ -1769,7 +1779,7 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 				{
 					p->save();
 #ifdef HAVE_CAIRO
-					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0), -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0));
+					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) / glxSc, -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) / glySc);
 #else
 					p->translate((style.fontSize() * glyphs.scaleH * style.shadowXOffset() / 10000.0) * p->zoomFactor(), -(style.fontSize() * glyphs.scaleV * style.shadowYOffset() / 10000.0) * p->zoomFactor());
 #endif
@@ -1789,11 +1799,18 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 					p->fillPath();
 				if ((style.effects() & ScStyle_Outline) && (style.strokeColor() != CommonStrings::None) && ((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) != 0))
 				{
+#ifdef HAVE_CAIRO
+					p->setLineWidth((style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0) / glySc);
+#else
 					p->setLineWidth(style.fontSize() * glyphs.scaleV * style.outlineWidth() / 10000.0);
+#endif
 					p->strokePath();
 				}
 			}
 			p->setFillRule(fr);
+#ifdef HAVE_CAIRO
+			p->restore();
+#endif
 		}
 		if (style.effects() & ScStyle_Strikethrough)
 		{
