@@ -212,8 +212,8 @@ class SCRIBUS_API ScPlugin : public QObject
 
 		//! \brief Returns human readable plugin type from plug-in's pluginType
 		const QString pluginTypeName() const;
-		
-		//! \brief Allow plugins to add to a main menu 
+
+		//! \brief Allow plugins to add to a main menu
 		virtual void addToMainWindowMenu(ScribusMainWindow *) = 0;
 	protected:
 		//! \brief Human readable, translated version of last error to occur.
@@ -289,6 +289,15 @@ class SCRIBUS_API ScActionPlugin : public ScPlugin
 		 *
 		 */
 		virtual bool run(ScribusDoc* doc, QString target = QString::null) = 0;
+
+		/**
+		 * @brief Run the plug-in's main action.
+		 *
+		 * This method behaves as the previous one. Except there is
+		 * a parent widget reference. It's useful e.g. when you need to
+		 * open a dialog on a specific parent one.
+		 */
+		virtual bool run(QWidget* parent, ScribusDoc* doc, QString target = QString::null);
 
 		/**
 		 * @brief Run the plugin on a QIODevice

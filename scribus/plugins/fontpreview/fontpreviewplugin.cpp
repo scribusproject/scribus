@@ -83,10 +83,15 @@ Create dialog and insert font into Style menu when user accepts.
 */
 bool FontPreviewPlugin::run(ScribusDoc* doc, QString target)
 {
+	ScribusMainWindow* scmw=(doc==0)?ScCore->primaryMainWindow():doc->scMW();
+	return run(scmw, doc, target);
+}
+
+bool FontPreviewPlugin::run(QWidget* parent, ScribusDoc* doc, QString target)
+{
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	ScribusMainWindow* scmw=(doc==0)?ScCore->primaryMainWindow():doc->scMW();
-	FontPreview *dlg = new FontPreview(target, scmw, doc);
+	FontPreview *dlg = new FontPreview(target, parent, doc);
 	qApp->restoreOverrideCursor();
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)

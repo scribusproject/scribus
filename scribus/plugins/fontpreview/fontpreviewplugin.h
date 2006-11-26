@@ -21,6 +21,7 @@ class PLUGIN_API FontPreviewPlugin : public ScActionPlugin
 		FontPreviewPlugin();
 		virtual ~FontPreviewPlugin();
 		virtual bool run(ScribusDoc* doc, QString target = QString::null);
+		virtual bool run(QWidget *parent, ScribusDoc* doc, QString target = QString::null);
 		virtual const QString fullTrName() const;
 		virtual const AboutData* getAboutData() const;
 		virtual void deleteAboutData(const AboutData* about) const;
