@@ -177,9 +177,10 @@ bool ExportBitmap::exportPage(ScribusDoc* doc, uint pageNr, bool single = true)
 	im.setDotsPerMeterX(dpm);
 	if (QFile::exists(fileName) && !overwrite)
 	{
+		QString fn = QDir::convertSeparators(fileName);
 		QApplication::restoreOverrideCursor();
 		over = ScMessageBox::question(doc->scMW(), tr("File exists. Overwrite?"),
-				fileName +"\n"+ tr("exists already. Overwrite?"),
+				fn +"\n"+ tr("exists already. Overwrite?"),
 				CommonStrings::trYes, CommonStrings::trNo,
 				// hack for multiple overwritting (petr) 
 				(single==true) ? QString::null : tr("All"), 0, 0);

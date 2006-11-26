@@ -8778,7 +8778,8 @@ void ScribusMainWindow::callImageEditor()
 		QString imageEditorExecutable=prefsManager->imageEditorExecutable();
 		if (ExternalApp != 0)
 		{
-			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(imageEditorExecutable) + "</qt>", 1, 0, 0);
+			QString ieExe = QDir::convertSeparators(imageEditorExecutable);
+			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The program %1 is already running!").arg(ieExe) + "</qt>", 1, 0, 0);
 			return;
 		}
 		PageItem *currItem = doc->m_Selection->itemAt(0);

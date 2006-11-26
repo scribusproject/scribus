@@ -228,13 +228,16 @@ void PythonConsole::slot_saveAs()
 		return;
 	QFile f(filename);
 	if (f.exists())
+	{
+		QString fn = QDir::convertSeparators(filename);
 		if (ScMessageBox::warning(this, CommonStrings::trWarning,
-			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(filename)) + "</qt>",
+			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn)) + "</qt>",
 			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 		{
 			filename = oldFname;
 			return;
 		}
+	}
 	slot_save();
 }
 
@@ -250,8 +253,9 @@ void PythonConsole::slot_saveOutput()
 	QFile f(fname);
 	if (!f.exists())
 	{
+		QString fn = QDir::convertSeparators(filename);
 		if (QMessageBox::warning(this, CommonStrings::trWarning,
-			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(filename)) + "</qt>",
+			"<qt>" + tr(QString("File %1 already exists. Do you want to replace it?").arg(fn)) + "</qt>",
 			QMessageBox::Yes, QMessageBox::No) == QMessageBox::No)
 			return;
 	}
