@@ -28,8 +28,8 @@ for which a new license (GPL+exception) is in place.
 extern QPixmap SCRIBUS_API loadIcon(QString nam);
 
 
-FontPreview::FontPreview(QString fontName)
-	: FontPreviewBase(ScMW, "FontPreview", true, 0)
+FontPreview::FontPreview(QWidget * parent, QString fontName)
+	: FontPreviewBase(parent, "FontPreview", true, 0)
 {
 	setIcon(loadIcon("AppIcon.png"));
 

@@ -3027,7 +3027,7 @@ void StoryEditor::Do_fontPrev()
 	{
 		plugin = dynamic_cast<ScActionPlugin*>(PluginManager::instance().getPlugin("fontpreview", false));
 		if (plugin)
-			result = plugin->run(Editor->CurrFont);
+			result = plugin->run(this, Editor->CurrFont);
 		if (result)
 		{
 			retval = plugin->runResult();

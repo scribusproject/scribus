@@ -82,9 +82,14 @@ Create dialog and insert font into Style menu when user accepts.
 */
 bool FontPreviewPlugin::run(QString target)
 {
+	return run(ScMW, target);
+}
+
+bool FontPreviewPlugin::run(QWidget * parent, QString target)
+{
 	// I don't know how many fonts user has...
 	qApp->setOverrideCursor(QCursor(Qt::WaitCursor));
-	FontPreview *dlg = new FontPreview(target);
+	FontPreview *dlg = new FontPreview(parent, target);
 	qApp->restoreOverrideCursor();
 	// run it and wait for user's reaction
 	if (dlg->exec() == QDialog::Accepted)
