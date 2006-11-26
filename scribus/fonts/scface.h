@@ -85,7 +85,8 @@ public:
 	
 	
 	/// see accessors for ScFace for docs
-	struct ScFaceData {
+	class ScFaceData {
+	public:
 		/// controls destruction
 		mutable int refs;
 		/// controls load()
@@ -113,9 +114,10 @@ public:
 		bool isFixedPitch;
 		bool hasNames;
 		uint maxGlyph;
-		
+
+		ScFaceData();
 		virtual ~ScFaceData() { };
-protected:
+	protected:
 			
 		friend class ScFace;
 		Status cachedStatus;

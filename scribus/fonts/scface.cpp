@@ -4,6 +4,30 @@
 #include "fonts/scface.h"
 #include "text/storytext.h"
 
+ScFace::ScFaceData::ScFaceData() : 
+	refs(1), 
+	usage(0), 
+	scName(""),
+	fontFile("(None)"),
+	faceIndex(-1),
+	psName(""),
+	family(""),
+	style(""),
+	variant(""),
+	forDocument(""),
+	status(ScFace::NULLFACE),
+	typeCode(ScFace::UNKNOWN_TYPE),
+	formatCode(ScFace::UNKNOWN_FORMAT),
+	usable(false),
+	embedPs(false),
+	subset(false),
+	isStroked(false),
+	isFixedPitch(false),
+	hasNames(false),
+	maxGlyph(0),
+	cachedStatus(ScFace::UNKNOWN)
+{
+}
 
 double ScFace::ScFaceData::glyphKerning(uint gl1, uint gl2, double sz) const 
 { 
@@ -93,24 +117,6 @@ ScFace::ScFace() :  replacedName(), replacedInDoc()
 	m = new ScFaceData();
 	m->refs = 1;
 	m->usage = 0;
-
-	m->status = ScFace::NULLFACE;
-	m->typeCode = ScFace::UNKNOWN_TYPE;
-	m->formatCode = ScFace::UNKNOWN_FORMAT;
-
-	m->scName = "";
-	m->family = "";
-	m->style = "";
-	m->variant = "";
-	m->psName = "";
-	m->fontFile = "(None)";
-	m->faceIndex = -1;
-	m->forDocument = "";
-	m->usable = false;
-	m->embedPs = false;
-	m->subset = false;
-	m->maxGlyph = 0;
-	m->cachedStatus = ScFace::UNKNOWN;
 }
 
 
