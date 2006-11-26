@@ -3626,7 +3626,8 @@ void ScribusDoc::reformPages(bool moveObjects)
 					currentYPos += QMAX(lastYPos, Seite->height())+pageSets[currentPageLayout].GapVertical;
 				else
 					currentYPos += Seite->height()+pageSets[currentPageLayout].GapVertical;
-				lastYPos = QMAX(lastYPos, Seite->height());
+//				lastYPos = QMAX(lastYPos, Seite->height());
+				lastYPos = 0;
 				Seite->Margins.Right = Seite->initialMargins.Right;
 				Seite->Margins.Left = Seite->initialMargins.Left;
 			}
