@@ -404,23 +404,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				if (((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0)) && (Doc->guidesSettings.showBleed))
 				{
 					drawBleed = true;
-					bleedBottom = Doc->BleedBottom;
-					bleedTop = Doc->BleedTop;
-					if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == LeftPage)
-					{
-						bleedRight = Doc->BleedLeft;
-						bleedLeft = Doc->BleedRight;
-					}
-					else if (Doc->locationOfPage(Doc->Pages->at(a)->pageNr()) == RightPage)
-					{
-						bleedRight = Doc->BleedRight;
-						bleedLeft = Doc->BleedLeft;
-					}
-					else
-					{
-						bleedRight = Doc->BleedLeft;
-						bleedLeft = Doc->BleedLeft;
-					}
+					Doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
 				}
 				int blx = qRound((Doc->Pages->at(a)->xOffset() - bleedLeft) * Scale);
 				int bly = qRound((Doc->Pages->at(a)->yOffset() - bleedTop) * Scale);
@@ -432,12 +416,13 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 				{
 					painter->setFillMode(ScPainter::Solid);
-					painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
+					painter->setPen(black, 0, SolidLine, FlatCap, MiterJoin);
 #ifdef HAVE_CAIRO
 					painter->beginLayer(1.0, 0);
 #endif
 					if (!viewAsPreview)
 					{
+						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
 						painter->setBrush(QColor(128,128,128));
 #ifdef HAVE_CAIRO
 						int blx2 = qRound(Doc->Pages->at(a)->xOffset() - bleedLeft);
@@ -449,18 +434,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						painter->drawRect(blx+5, bly+5, blw, blh);
 #endif
 					}
-#ifdef HAVE_CAIRO
-					painter->setAntialiasing(false);
-					if (a == Doc->currentPageNumber())
-						painter->setPen(Prefs->DPageBorderColor, 2 / Scale, SolidLine, FlatCap, MiterJoin);
-					else
-						painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
-#else
-					if (a == Doc->currentPageNumber())
-						painter->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
-					else
-						painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-#endif
+					painter->setLineWidth(0.0);
 					painter->setBrush(Doc->papColor);
 					if (!viewAsPreview)
 					{
@@ -474,23 +448,12 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						painter->drawRect(blx, bly, blw, blh);
 #endif
 						if (drawBleed)
-						{
-#ifdef HAVE_CAIRO
-							painter->setPen(black, 1 / Scale, SolidLine, FlatCap, MiterJoin);
-#else
-							painter->setPen(black, 1, SolidLine, FlatCap, MiterJoin);
-#endif
 							painter->drawRect(x, y, w, h);
-						}
 					}
 					else
 						painter->drawRect(x, y, w, h);
 #ifdef HAVE_CAIRO
 					painter->setAntialiasing(true);
-#endif
-					if ((Doc->guidesSettings.before) && (!viewAsPreview))
-						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
-#ifdef HAVE_CAIRO
 					painter->endLayer();
 #endif
 				}
@@ -527,6 +490,20 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				painter->beginLayer(1.0, 0);
 #endif
 #endif
+			if ((Doc->guidesSettings.before) && (!viewAsPreview))
+			{
+				for (uint a = 0; a < docPagesCount; ++a)
+				{
+					int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
+					int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
+					int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
+					int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
+					QRect drawRect = QRect(x, y, w+5, h+5);
+					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+				}
+			}
 			for (uint a = 0; a < docPagesCount; ++a)
 			{
 				DrawMasterItems(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
@@ -547,6 +524,34 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 					drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
 					if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
 						DrawPageMarks(painter, Doc->Pages->at(a), QRect(clipx, clipy, clipw, cliph));
+				}
+			}
+			for (int a = 0; a < static_cast<int>(docPagesCount); ++a)
+			{
+				int x = qRound(Doc->Pages->at(a)->xOffset() * Scale);
+				int y = qRound(Doc->Pages->at(a)->yOffset() * Scale);
+				int w = qRound(Doc->Pages->at(a)->width() * Scale);
+				int h = qRound(Doc->Pages->at(a)->height() * Scale);
+				QRect drawRect = QRect(x, y, w+5, h+5);
+				drawRect.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
+				if (drawRect.intersects(QRect(clipx, clipy, clipw, cliph)))
+				{
+					if (a == Doc->currentPageNumber())
+					{
+						painter->setPen(Prefs->DPageBorderColor, 2 / Scale, SolidLine, FlatCap, MiterJoin);
+						painter->setFillMode(ScPainter::None);
+#ifdef HAVE_CAIRO
+						int x2 = qRound(Doc->Pages->at(a)->xOffset());
+						int y2 = qRound(Doc->Pages->at(a)->yOffset());
+						int w2 = qRound(Doc->Pages->at(a)->width());
+						int h2= qRound(Doc->Pages->at(a)->height());
+						painter->setAntialiasing(false);
+						painter->drawRect(x2, y2, w2, h2);
+						painter->setAntialiasing(true);
+#else
+						painter->drawRect(x, y, w, h);
+#endif
+					}
 				}
 			}
 		}
@@ -1130,15 +1135,27 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	p->setAntialiasing(false);
 	p->translate(page->xOffset(), page->yOffset());
 	double lineWidth = 1.0 / Scale;
+	p->setPen(black, lineWidth, SolidLine, FlatCap, MiterJoin);
 #else
 	double z = p->zoomFactor();
 	p->setZoomFactor(Scale);
 	p->translate(page->xOffset() * Scale, page->yOffset() * Scale);
 	double lineWidth = 0.5 / Scale;
 #endif
-	p->setLineWidth(lineWidth);
 	double pageHeight=page->height();
 	double pageWidth=page->width();
+	p->setFillMode(ScPainter::None);
+	p->setLineWidth(lineWidth);
+	if (((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0)) && (Doc->guidesSettings.showBleed))
+	{
+		double bleedRight = 0.0;
+		double bleedLeft = 0.0;
+		double bleedBottom = 0.0;
+		double bleedTop = 0.0;
+		Doc->getBleeds(page, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+		p->drawRect(-bleedLeft, -bleedTop, pageWidth + bleedLeft + bleedRight, pageHeight + bleedBottom + bleedTop);
+	}
+	p->drawRect(0, 0, pageWidth, pageHeight);
 	//Draw the margins
 	if (Doc->guidesSettings.marginsShown)
 	{

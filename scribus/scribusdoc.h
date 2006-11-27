@@ -575,6 +575,8 @@ public:
 	 */
 	const double getXOffsetForPage(const int);
 	const double getYOffsetForPage(const int);
+	void getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight);
+	void getBleeds(Page* page, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight);
 	
 	/**
 	 * @brief Item type conversion functions

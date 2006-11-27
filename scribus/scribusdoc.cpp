@@ -3712,6 +3712,48 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 	return -1.0;
 }
 
+void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
+{
+	*bleedBottom = BleedBottom;
+	*bleedTop = BleedTop;
+	if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
+	{
+		*bleedRight = BleedLeft;
+		*bleedLeft = BleedRight;
+	}
+	else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
+	{
+		*bleedRight = BleedRight;
+		*bleedLeft = BleedLeft;
+	}
+	else
+	{
+		*bleedRight = BleedLeft;
+		*bleedLeft = BleedLeft;
+	}
+}
+
+void ScribusDoc::getBleeds(Page* page, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
+{
+	*bleedBottom = BleedBottom;
+	*bleedTop = BleedTop;
+	if (locationOfPage(page->pageNr()) == LeftPage)
+	{
+		*bleedRight = BleedLeft;
+		*bleedLeft = BleedRight;
+	}
+	else if (locationOfPage(page->pageNr()) == RightPage)
+	{
+		*bleedRight = BleedRight;
+		*bleedLeft = BleedLeft;
+	}
+	else
+	{
+		*bleedRight = BleedLeft;
+		*bleedLeft = BleedLeft;
+	}
+}
+
 PageItem* ScribusDoc::convertItemTo(PageItem *currItem, PageItem::ItemType newType, PageItem* secondaryItem)
 {
 	//Item to convert is null, return
