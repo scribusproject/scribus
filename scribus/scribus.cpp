@@ -827,6 +827,7 @@ void ScribusMainWindow::initMenuBar()
 	//View menu
 	scrMenuMgr->createMenu("View", tr("&View"));
 	scrMenuMgr->addMenuItem(scrActions["viewFitInWindow"], "View");
+	scrMenuMgr->addMenuItem(scrActions["viewFitWidth"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewFit50"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewFit75"], "View");
 	scrMenuMgr->addMenuItem(scrActions["viewFit100"], "View");
@@ -5260,6 +5261,12 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 		double dy = (view->height()-70) / (doc->currentPage()->height()+30);
 		finalZoomFactor = (dx > dy) ? dy : dx;
 	}
+	else if (zoomFactor==-200.0)
+	{
+		double dx = (view->width()-50) / (doc->currentPage()->width()+30);
+		double dy = (view->height()-70) / (doc->currentPage()->height()+30);
+		finalZoomFactor = (dx < dy) ? dy : dx;
+	}
 	//Zoom to %
 	else
 		finalZoomFactor = zoomFactor*prefsManager->displayScale()/100.0;
@@ -5269,7 +5276,10 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	int y = qRound(QMAX(view->contentsY() / view->scale(), 0));
 	int w = qRound(QMIN(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
 	int h = qRound(QMIN(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
-	view->rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	if (zoomFactor==-200.0)
+		view->rememberPreviousSettings(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0, doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0);
+	else
+		view->rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
 }

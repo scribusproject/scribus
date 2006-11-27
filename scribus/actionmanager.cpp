@@ -503,6 +503,8 @@ void ActionManager::initViewMenuActions()
 	QString name;
 	name="viewFitInWindow";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, -100.0));
+	name="viewFitWidth";
+	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, -200.0));
 	name="viewFit50";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, 50.0));
 	name="viewFit75";
@@ -578,6 +580,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewRulerMode"]->setOn(true);
 
 	connect( (*scrActions)["viewFitInWindow"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFitWidth"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit50"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit75"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
@@ -1299,7 +1302,8 @@ void ActionManager::languageChange()
 	(*scrActions)["pageManageMargins"]->setTexts( tr("Manage Page Properties..."));
 
 	//View Menu
-	(*scrActions)["viewFitInWindow"]->setTexts( tr("&Fit in window"));
+	(*scrActions)["viewFitInWindow"]->setTexts( tr("&Fit to Height"));
+	(*scrActions)["viewFitWidth"]->setTexts( tr("Fit to Width"));
 	(*scrActions)["viewFit50"]->setTexts( tr("&50%"));
 	(*scrActions)["viewFit75"]->setTexts( tr("&75%"));
 	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
@@ -1612,6 +1616,7 @@ void ActionManager::createDefaultShortcuts()
 
 	//View Menu
 	defKeys.insert("viewFitInWindow", Qt::CTRL+Qt::Key_0);
+	defKeys.insert("viewFitWidth", QKeySequence());
 	defKeys.insert("viewFit50", QKeySequence());
 	defKeys.insert("viewFit75", QKeySequence());
 	defKeys.insert("viewFit100", Qt::CTRL+Qt::Key_1);
@@ -1891,7 +1896,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
 	//Extras
 	++itmenu;
 	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";
