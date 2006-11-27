@@ -7,8 +7,10 @@ for which a new license (GPL+exception) is in place.
 #ifndef TABDISPLAY_H
 #define TABDISPLAY_H
 
+#include <qvaluelist.h>
 #include "tabdisplaybase.h"
 #include "scribusapi.h"
+#include "scribusstructs.h"
 
 /*! \brief Display panel for preferences dialog.
 This class is inherited from UI base class.
@@ -21,7 +23,7 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 	public:
 		TabDisplay(QWidget* parent = 0, const char* name = 0);
 		~TabDisplay(){};
-		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings);
+		void restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings, QValueList<PageSet> &pageSets, int pageLayout);
 		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void setDocSetupMode();

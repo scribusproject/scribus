@@ -194,7 +194,7 @@ void Preferences::setupGui()
 	tabGeneral->restoreDefaults(prefsData);
 	tabDocument->restoreDefaults(prefsData);
 	tabPrinter->restoreDefaults(prefsData);
-	tabView->restoreDefaults(prefsData, &prefsData->guidesSettings);
+	tabView->restoreDefaults(prefsData, &prefsData->guidesSettings, prefsData->pageSets, prefsData->FacingPages);
 	tabScrapbook->restoreDefaults(prefsData);
 	tabHyphenator->restoreDefaults(prefsData);
 	tabGuides->restoreDefaults(&prefsData->guidesSettings, &prefsData->typographicSettings, docUnitIndex);

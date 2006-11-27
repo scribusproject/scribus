@@ -50,7 +50,7 @@ TabDisplay::TabDisplay(QWidget* parent, const char* name)
 	connect(CaliSlider, SIGNAL(valueChanged(int)), this, SLOT(setDisScale()));
 }
 
-void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings)
+void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guidesPrefs *guidesSettings, QValueList<PageSet> &pageSets, int pageLayout)
 {
 	docUnitIndex = prefsData->docUnitIndex;
 	double unitRatio = unitGetRatioFromIndex(docUnitIndex);
@@ -123,11 +123,11 @@ void TabDisplay::restoreDefaults(struct ApplicationPrefs *prefsData, struct guid
 	gapHorizontal->setSuffix( unitSuffix );
 	gapHorizontal->setDecimals( decimals );
 	gapHorizontal->setMaxValue(1000);
-	gapHorizontal->setValue(prefsData->pageSets[prefsData->FacingPages].GapHorizontal * unitRatio);
+	gapHorizontal->setValue(pageSets[pageLayout].GapHorizontal * unitRatio);
 	gapVertical->setSuffix( unitSuffix );
 	gapVertical->setDecimals( decimals );
 	gapVertical->setMaxValue(1000);
-	gapVertical->setValue(prefsData->pageSets[prefsData->FacingPages].GapBelow * unitRatio);
+	gapVertical->setValue(pageSets[pageLayout].GapBelow * unitRatio);
 	drawRuler();
 	CaliSlider->setValue(qRound(100 * DisScale)-100);
 	CaliAnz->setText(QString::number(DisScale*100, 'f', 2)+" %");
