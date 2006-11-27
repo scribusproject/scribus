@@ -117,6 +117,9 @@ void CWDialog::connectSlots(bool conn)
 		connect( rSpin, SIGNAL( valueChanged(int) ), this, SLOT( rSpin_valueChanged(int) ) );
 		connect( gSpin, SIGNAL( valueChanged(int) ), this, SLOT( gSpin_valueChanged(int) ) );
 		connect( bSpin, SIGNAL( valueChanged(int) ), this, SLOT( bSpin_valueChanged(int) ) );
+		connect( hSpin, SIGNAL( valueChanged(int) ), this, SLOT( hSpin_valueChanged(int) ) );
+		connect( sSpin, SIGNAL( valueChanged(int) ), this, SLOT( sSpin_valueChanged(int) ) );
+		connect( vSpin, SIGNAL( valueChanged(int) ), this, SLOT( vSpin_valueChanged(int) ) );
 	}
 	else
 	{
@@ -127,6 +130,9 @@ void CWDialog::connectSlots(bool conn)
 		disconnect( rSpin, SIGNAL( valueChanged(int) ), this, SLOT( rSpin_valueChanged(int) ) );
 		disconnect( gSpin, SIGNAL( valueChanged(int) ), this, SLOT( gSpin_valueChanged(int) ) );
 		disconnect( bSpin, SIGNAL( valueChanged(int) ), this, SLOT( bSpin_valueChanged(int) ) );
+		disconnect( hSpin, SIGNAL( valueChanged(int) ), this, SLOT( hSpin_valueChanged(int) ) );
+		disconnect( sSpin, SIGNAL( valueChanged(int) ), this, SLOT( sSpin_valueChanged(int) ) );
+		disconnect( vSpin, SIGNAL( valueChanged(int) ), this, SLOT( vSpin_valueChanged(int) ) );
 	}
 }
 
@@ -190,11 +196,13 @@ void CWDialog::processColors(int index, bool updateSpins)
 	fillColorList();
 	setPreview();
 	if (updateSpins)
-		setupFromColor(colorWheel->actualColor);
-	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
-	rgbLabel->setText(colorWheel->actualColor.nameRGB());
-	hsvLabel->setText(getHexHsv(colorWheel->actualColor));
-	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
+	{
+// 		setupFromColor(colorWheel->actualColor);
+		setupRGBComponent(colorWheel->actualColor);
+		setupCMYKComponent(colorWheel->actualColor);
+		setupHSVComponent(colorWheel->actualColor);
+	}
+	updateNamedLabels();
 }
 
 void CWDialog::colorWheel_clicked(int, const QPoint&)
@@ -343,23 +351,38 @@ void CWDialog::bSpin_valueChanged( int )
 	setupColorComponents();
 }
 
-ScColor CWDialog::setupRGBComponent()
+void CWDialog::hSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::sSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::vSpin_valueChanged( int )
+{
+	setupColorComponents();
+}
+
+void CWDialog::setupRGBComponent(ScColor col)
 {
 	int r, g, b;
-	ScColor col(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
+// 	ScColor col(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
 	col.getRGB(&r, &g, &b);
 	connectSlots(false);
 	rSpin->setValue(r);
 	gSpin->setValue(g);
 	bSpin->setValue(b);
 	connectSlots(true);
-	return col;
+// 	return col;
 }
 
-ScColor CWDialog::setupCMYKComponent()
+void CWDialog::setupCMYKComponent(ScColor col)
 {
 	int c, m, y, k;
-	ScColor col(rSpin->value(), gSpin->value(), bSpin->value());
+// 	ScColor col(rSpin->value(), gSpin->value(), bSpin->value());
 	col.getCMYK(&c, &m, &y, &k);
 	connectSlots(false);
 	cSpin->setValue(c);
@@ -367,35 +390,75 @@ ScColor CWDialog::setupCMYKComponent()
 	ySpin->setValue(y);
 	kSpin->setValue(k);
 	connectSlots(true);
-	return col;
+// 	return col;
 }
 
-ScColor CWDialog::setupFromColor(ScColor col)
+void CWDialog::setupHSVComponent(ScColor col)
 {
-	int r, g, b, c, m, y, k;
-	col.getRGB(&r, &g, &b);
-	col.getCMYK(&c, &m, &y, &k);
+	int h, s, v;
+	QColor qc(col.getRGBColor());
+	qc.getHsv(&h, &s, &v);
 	connectSlots(false);
-	rSpin->setValue(r);
-	gSpin->setValue(g);
-	bSpin->setValue(b);
-	cSpin->setValue(c);
-	mSpin->setValue(m);
-	ySpin->setValue(y);
-	kSpin->setValue(k);
+	hSpin->setValue(h);
+	sSpin->setValue(s);
+	vSpin->setValue(v);
 	connectSlots(true);
-	return col;
+// 	return col;
 }
+
+// void CWDialog::setupFromColor(ScColor col)
+// {
+// 	setupRGBComponent(col);
+// 	setupCMYKComponent(col);
+// 	setupHSVComponent(col);
+// 	int r, g, b, c, m, y, k;
+// 	col.getRGB(&r, &g, &b);
+// 	col.getCMYK(&c, &m, &y, &k);
+// 	connectSlots(false);
+// 	rSpin->setValue(r);
+// 	gSpin->setValue(g);
+// 	bSpin->setValue(b);
+// 	cSpin->setValue(c);
+// 	mSpin->setValue(m);
+// 	ySpin->setValue(y);
+// 	kSpin->setValue(k);
+// 	connectSlots(true);
+// 	return col;
+// }
 
 void CWDialog::setupColorComponents()
 {
 	ScColor c;
 	if (colorspaceTab->currentPage() == tabCMYK)
-		c = setupRGBComponent();
+	{
+		c = ScColor(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
+		c.setColorModel(colorModelCMYK);
+		setupRGBComponent(c);
+		setupHSVComponent(c);
+	}
 	if (colorspaceTab->currentPage() == tabRGB)
-		c = setupCMYKComponent();
+	{
+		c = ScColor(rSpin->value(), gSpin->value(), bSpin->value());
+		c.setColorModel(colorModelRGB);
+		setupCMYKComponent(c);
+		setupHSVComponent(c);
+	}
+	if (colorspaceTab->currentPage() == tabHSV)
+	{
+		QColor qc;
+		qc.setHsv(hSpin->value(), sSpin->value(), vSpin->value());
+		c.fromQColor(qc);
+		c.setColorModel(colorModelRGB);
+		setupCMYKComponent(c);
+		setupRGBComponent(c);
+	}
 	if (colorspaceTab->currentPage() == tabDocument)
-		c = setupFromColor(m_Doc->PageColors[documentColorList->currentText()]);
+	{
+		c = m_Doc->PageColors[documentColorList->currentText()];
+		setupRGBComponent(c);
+		setupCMYKComponent(c);
+		setupHSVComponent(c);
+	}
 
 	if (colorWheel->recomputeColor(c))
 		processColors(typeCombo->currentItem(), false);
@@ -407,8 +470,15 @@ void CWDialog::setupColorComponents()
 										 "You have probably selected black, gray or white. "
 										 "There is no way to process this color.") + "</qt>");
 	}
+	updateNamedLabels();
+}
+
+void CWDialog::updateNamedLabels()
+{
 	cmykLabel->setText(colorWheel->actualColor.nameCMYK());
+	cmykLabel2->setText(colorWheel->actualColor.nameCMYK());
 	rgbLabel->setText(colorWheel->actualColor.nameRGB());
+	rgbLabel2->setText(colorWheel->actualColor.nameRGB());
 	hsvLabel->setText(getHexHsv(colorWheel->actualColor));
 	hsvLabel2->setText(getHexHsv(colorWheel->actualColor));
 }

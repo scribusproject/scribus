@@ -70,19 +70,25 @@ class CWDialog : public CWDialogBase
 		all CMYK channels are recomputed calling setupCMYKComponent(). */
 		void setupColorComponents();
 
-		/*! \brief A GUI setter for RGB components when is one of CMYK changed.
-		\retval ScColor a color made from RGB channels. */
-		ScColor setupRGBComponent();
+		/*! \brief A GUI setter for all components when is one of CMYK changed.
+		*/
+		void setupRGBComponent(ScColor col);
 
-		/*! \brief A GUI setter for CMYK components when is one of RGB changed.
-		\retval ScColor a color made from CMYK channels. */
-		ScColor setupCMYKComponent();
+		/*! \brief A GUI setter for all components when is one of RGB changed.
+		*/
+		void setupCMYKComponent(ScColor col);
+
+		/*! \brief A GUI setter for all components when is one of HSV changed.
+		It uses a dummy QColor->ScColor conversion
+		*/
+		void setupHSVComponent(ScColor col);
+		void updateNamedLabels();
 
 		/*! \brief A GUI setter for CMYK and RGB components when there is a ScColor given.
 		It's used e.g. when user select one of the document's colors.
 		\param col A color which is used for RGB,CMYK GUI settings.
-		\retval ScColor a color made from CMYK channels. */
-		ScColor setupFromColor(ScColor col);
+		*/
+// 		void setupFromColor(ScColor col);
 
 		/*! \brief Connect or disconnect rgbcmyk spinboxes signals.
 		\param conn if true perform connect. Disconnect in the case of false
@@ -121,6 +127,9 @@ class CWDialog : public CWDialogBase
 		void rSpin_valueChanged( int );
 		void gSpin_valueChanged( int );
 		void bSpin_valueChanged( int );
+		void hSpin_valueChanged( int );
+		void sSpin_valueChanged( int );
+		void vSpin_valueChanged( int );
 };
 
 #endif // CWDIALOG_H
