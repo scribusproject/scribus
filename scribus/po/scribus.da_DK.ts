@@ -1953,7 +1953,7 @@ Convert the text frame &quot;name&quot; to outlines. If &quot;name&quot; is not 
 currently selected item is used.</source>
         <translation>traceText([&quot;navn&quot;])
 
-Konverterer tekst-rammen &quot;navn&quot; til omrids. Hvis &quot;navn&quot; ikke angives, 
+Konverterer fonte i tekst-rammen &quot;navn&quot; til kurver. Hvis &quot;navn&quot; ikke angives, 
 så bruges det markerede element.
 </translation>
     </message>
@@ -2777,7 +2777,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation>Alt+L</translation>
     </message>
 </context>
 <context>
@@ -3635,7 +3635,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     <message>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>&amp;Figurer</translation>
+        <translation>&amp;Kurver</translation>
     </message>
     <message>
         <source>Show Rulers</source>
@@ -4496,7 +4496,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&amp;Even pages</source>
@@ -4504,7 +4504,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+E</source>
-        <translation>Alt+E</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>O&amp;dd pages</source>
@@ -4512,7 +4512,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>&amp;All pages</source>
@@ -4520,7 +4520,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;Within range</source>
@@ -4528,7 +4528,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+W</source>
-        <translation>Alt+W</translation>
+        <translation>Alt+F</translation>
     </message>
     <message>
         <source>to</source>
@@ -4676,7 +4676,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+G</source>
-        <translation>Alt+G</translation>
+        <translation>Alt+Y</translation>
     </message>
     <message>
         <source>Draw arrows to be sure of space next the code</source>
@@ -4716,7 +4716,7 @@ Laver en dublet af det valgte objekt (eller valgte gruppe).
     </message>
     <message>
         <source>Alt+T</source>
-        <translation>Alt+T</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>Color of the text and numbers</source>
@@ -4961,7 +4961,7 @@ Vælg venligst et andet.</translation>
     <name>CMSPrefs</name>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolut kolorimetrisk</translation>
+        <translation>Absolut kolorimetri</translation>
     </message>
     <message>
         <source>System Profiles</source>
@@ -4969,15 +4969,15 @@ Vælg venligst et andet.</translation>
     </message>
     <message>
         <source>Rendering Intents</source>
-        <translation>Hensigt med gengivelse</translation>
+        <translation>Farvetilpasningsmetoder</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Opfattelsesmæssigt</translation>
+        <translation>Opfattelsesmæssig</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ kolorimetrisk</translation>
+        <translation>Relativ kolorimetri</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -5009,13 +5009,13 @@ Det anbefales at bruge dette, hvis der er fotografier i dokumentet.</translation
         <source>Default rendering intent for your monitor. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation>Standard gengivelse beregnet for din skærm. Hvis du ikke ved hvorfor man ændrer det,
-vælg da relativ kolorimetrisk eller opfattelsesmæssigt.</translation>
+vælg da relativ kolorimetri eller opfattelsesmæssig.</translation>
     </message>
     <message>
         <source>Default rendering intent for your printer. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
         <translation>Standard gengivelse beregnet for din printer. Hvis du ikke ved hvorfor man ændrer det,
-vælg da relativ kolorimetrisk eller opfattelsesmæssigt.</translation>
+vælg da relativ kolorimetri eller opfattelsesmæssig.</translation>
     </message>
     <message>
         <source>Enable &apos;soft proofing&apos; of how your document colors will print,
@@ -5917,95 +5917,95 @@ Navnet er reserveret for gennemsigtig farve</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal venstre</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal midterst</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal højre</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Mandag</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Tirsdag</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Onsdag</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Torsdag</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>Fredag</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Lørdag</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Søndag</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished"></translation>
+        <translation>Januar</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished"></translation>
+        <translation>Februar</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished"></translation>
+        <translation>Marts</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished"></translation>
+        <translation>April</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished"></translation>
+        <translation>Maj</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Juni</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Juli</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>August</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>September</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>Oktober</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished"></translation>
+        <translation>November</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished"></translation>
+        <translation>December</translation>
     </message>
 </context>
 <context>
@@ -6581,7 +6581,7 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -6589,7 +6589,7 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>Shown</source>
@@ -6690,7 +6690,7 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -6698,7 +6698,7 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -6706,7 +6706,7 @@ Dette kan indstilles i Præferencer.</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -7084,16 +7084,12 @@ fejlede!</translation>
         <translation>Forskydning til tegnenes basislinie</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation type="obsolete">Tryk for at vælge linieafstandens type</translation>
-    </message>
-    <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryk og hold nede for at vælge linieafstandens type.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Auto</translation>
+        <translation>Auto</translation>
     </message>
 </context>
 <context>
@@ -7734,7 +7730,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation>Alt+T</translation>
+        <translation>Alt+V</translation>
     </message>
     <message>
         <source>Reset the text</source>
@@ -7746,7 +7742,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -7754,7 +7750,7 @@ Brug 72 dpi for billeder, der er beregnet til skærmen</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation>Alt+L</translation>
     </message>
 </context>
 <context>
@@ -8851,19 +8847,19 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Ude af stand til at omdøbe masterside</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Det er ikke tilladt at omdøbe normalsiden.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Omdøb masterside</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nyt navn:</translation>
     </message>
 </context>
 <context>
@@ -9085,7 +9081,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Rendering Intent:</source>
-        <translation>Hensigt med gengivelse:</translation>
+        <translation>Farvetilpasningsmetode:</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -9117,7 +9113,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Opfattelsesmæssigt</translation>
+        <translation>Opfattelsesmæssig</translation>
     </message>
     <message>
         <source>Bevel Join</source>
@@ -9173,11 +9169,11 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ kolorimetrisk</translation>
+        <translation>Relativ kolorimetri</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolut kolorimetrisk</translation>
+        <translation>Absolut kolorimetri</translation>
     </message>
     <message>
         <source>Name of selected object</source>
@@ -9409,7 +9405,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Rendering intent for the image</source>
-        <translation>Hensigt med gengivelsen af billedet</translation>
+        <translation>Farvetilpasningsmetode for billedet</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
@@ -9650,10 +9646,6 @@ hjørner:</translation>
         <translation>Ikke Nul</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation type="obsolete">Tryk for at vælge linieafstandens type</translation>
-    </message>
-    <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
         <translation>Farve på tekstens streg og/eller skygge, afhængig af det valgte. hvis begge er valgt, deler de den samme farve.</translation>
     </message>
@@ -9675,11 +9667,11 @@ hjørner:</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Auto</translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tryk og hold nede for at vælge linieafstandens tilstand.</translation>
     </message>
 </context>
 <context>
@@ -10458,7 +10450,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Copy</source>
@@ -10466,7 +10458,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -10474,7 +10466,7 @@ hjørner:</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -12668,7 +12660,7 @@ Ekstern Lænker</translation>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation>Kan ikke konvertere til omrids i andet end tekst-ramme.</translation>
+        <translation>Kan ikke konvertere fonte til kurver i andet end tekst-ramme.</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
@@ -13682,11 +13674,11 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation>Vis område, der ikke kan &amp;udskrives i margenfarve</translation>
+        <translation>Vis område, der &amp;ikke kan udskrives i margenfarve</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation>Alt+U</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Show Pictures</source>
@@ -13833,7 +13825,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>C&amp;lone</source>
@@ -13849,7 +13841,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -13869,7 +13861,7 @@ er denne liste ikke udtømmende, på grund af indsiglser fra kaldte funktioner.
     </message>
     <message>
         <source>Alt+P</source>
-        <translation>Alt+P</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>Ca&amp;ncel</source>
@@ -14128,7 +14120,7 @@ og konverterer deres vektordata til Scribus objekter.</translation>
     </message>
     <message>
         <source>Save a document as a template. Good way to ease the initial work for documents with a constant look</source>
-        <translation>Gem et dokument som en skabelon. God måde at gøre det indledende arbejde lettere for dokumenter med konstant udseende</translation>
+        <translation>Vis side-gitter</translation>
     </message>
 </context>
 <context>
@@ -14938,7 +14930,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation>Elementet %1 er under redigering i den indbyggede tekstbehandler. Konvertering til omrids springer over for dette element</translation>
+        <translation>Elementet %1 er under redigering i den indbyggede tekstbehandler. Konvertering af fonte til kurver springes over for dette element</translation>
     </message>
     <message>
         <source>Colorspace: </source>
@@ -15679,7 +15671,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -15687,7 +15679,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
@@ -15746,7 +15738,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation>Alt+A</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -15754,7 +15746,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation>Alt+D</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
@@ -16202,7 +16194,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Glitter</source>
-        <translation>Glitren</translation>
+        <translation>Glitter</translation>
     </message>
     <message>
         <source>Split</source>
@@ -16370,11 +16362,11 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Perceptual</source>
-        <translation>Opfattelsesmæssigt</translation>
+        <translation>Opfattelsesmæssig</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation>Relativ kolorimetrisk</translation>
+        <translation>Relativ kolorimetri</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -16382,7 +16374,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Absolute Colorimetric</source>
-        <translation>Absolut kolorimetrisk</translation>
+        <translation>Absolut kolorimetri</translation>
     </message>
     <message>
         <source>Images:</source>
@@ -16434,7 +16426,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Direction of the glitter or wipe effects.</source>
-        <translation>Retning på gitter eller udvisk effekter.
+        <translation>Retning på glitter eller udvisk effekter.
 </translation>
     </message>
     <message>
@@ -16479,7 +16471,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Rendering intent for solid colors</source>
-        <translation>Gengivelse-hensigt for massive farver</translation>
+        <translation>Farvetilpasningsmetode for massive farver</translation>
     </message>
     <message>
         <source>Embed a color profile for images</source>
@@ -16495,7 +16487,7 @@ Vertikal forskydning: %3</translation>
     </message>
     <message>
         <source>Rendering intent for images</source>
-        <translation>Gengivelses-hensigt for billeder</translation>
+        <translation>Farvetilpasningsmetode for billeder</translation>
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
@@ -16732,12 +16724,8 @@ når PDF dokument åbnes:</translation>
         <translation>Komprimerings-metode for billeder. Tillader Scribus automatisk at vælge den bedste metode. ZIP er tabsløs og god til billeder med massive farver. JPEG er bedre til at lave PDF-filerne mindre, når der er mange fotografier (muligvis med et lille tab af billedkvalitet). Lad indstillingen blive ved automatisk, medmindre du har brug for specielle komprimerings-indstillinger.</translation>
     </message>
     <message>
-        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
-        <translation type="obsolete">Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
-    </message>
-    <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Komprimering kvalitets-niveauer for komprimeringsmetoder med tab: Minimum (25%), Lav (50%), Medium (75%), Høj (85%), Maksimum (95%). Bemærk at kvalitetsniveauet bestemmer ikke direkte størrelsen på det resulterende billede - både størrelse og kvalitetstab varierer fra billede til billede ved et givet kvalitetsniveau. Selvom du vælger Maksimum, er der altid nogen kvalitetstab ved jpeg.</translation>
     </message>
 </context>
 <context>
@@ -17785,48 +17773,49 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Forsøger at hente Scribus versions opdateringsfil</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Ingen data på din computer vil blive sendt nogen steder hen)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tidsudløb i forsøget på at hente opdateringsfil.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fejl i forsøget på at hente opdateringsfil: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Fil ikke fundet på server</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Kunne ikke åbne versionsfil: &quot;%1&quot;
+Fejl: %2 på linie: %3, række: %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Der opstod en fejl under søgning efter opdateringer til Scribus, tjek venligst din internet-forbindelse.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Der er ingen opdateringer tilgængelig for din Scribus version %1</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Der er en eller flere opdateringer tilgængelig for din version af Scribus (%1):</translation>
     </message>
     <message>
         <source>This list may contain development versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Denne liste kan indeholde udviklings versioner.</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Besøg venligst www.scribus.net for detaljer.</translation>
     </message>
 </context>
 <context>
@@ -17880,7 +17869,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation>Alt+C</translation>
+        <translation>Alt+A</translation>
     </message>
 </context>
 <context>
@@ -17985,6 +17974,10 @@ Error:%2 at line: %3, row: %4</source>
     <message>
         <source>Import Text Only</source>
         <translation>Importér kun tekst</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Åbn</translation>
     </message>
 </context>
 <context>
