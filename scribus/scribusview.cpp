@@ -538,9 +538,9 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				{
 					if (a == Doc->currentPageNumber())
 					{
-						painter->setPen(Prefs->DPageBorderColor, 2 / Scale, SolidLine, FlatCap, MiterJoin);
 						painter->setFillMode(ScPainter::None);
 #ifdef HAVE_CAIRO
+						painter->setPen(Prefs->DPageBorderColor, 2 / Scale, SolidLine, FlatCap, MiterJoin);
 						int x2 = qRound(Doc->Pages->at(a)->xOffset());
 						int y2 = qRound(Doc->Pages->at(a)->yOffset());
 						int w2 = qRound(Doc->Pages->at(a)->width());
@@ -549,6 +549,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						painter->drawRect(x2, y2, w2, h2);
 						painter->setAntialiasing(true);
 #else
+						painter->setPen(Prefs->DPageBorderColor, 2, SolidLine, FlatCap, MiterJoin);
 						painter->drawRect(x, y, w, h);
 #endif
 					}
