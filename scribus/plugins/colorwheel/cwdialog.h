@@ -82,13 +82,9 @@ class CWDialog : public CWDialogBase
 		It uses a dummy QColor->ScColor conversion
 		*/
 		void setupHSVComponent(ScColor col);
-		void updateNamedLabels();
 
-		/*! \brief A GUI setter for CMYK and RGB components when there is a ScColor given.
-		It's used e.g. when user select one of the document's colors.
-		\param col A color which is used for RGB,CMYK GUI settings.
-		*/
-// 		void setupFromColor(ScColor col);
+		//! \brief Set named colors for labels
+		void updateNamedLabels();
 
 		/*! \brief Connect or disconnect rgbcmyk spinboxes signals.
 		\param conn if true perform connect. Disconnect in the case of false

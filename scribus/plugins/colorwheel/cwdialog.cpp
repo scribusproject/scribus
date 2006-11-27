@@ -369,20 +369,17 @@ void CWDialog::vSpin_valueChanged( int )
 void CWDialog::setupRGBComponent(ScColor col)
 {
 	int r, g, b;
-// 	ScColor col(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
 	col.getRGB(&r, &g, &b);
 	connectSlots(false);
 	rSpin->setValue(r);
 	gSpin->setValue(g);
 	bSpin->setValue(b);
 	connectSlots(true);
-// 	return col;
 }
 
 void CWDialog::setupCMYKComponent(ScColor col)
 {
 	int c, m, y, k;
-// 	ScColor col(rSpin->value(), gSpin->value(), bSpin->value());
 	col.getCMYK(&c, &m, &y, &k);
 	connectSlots(false);
 	cSpin->setValue(c);
@@ -390,7 +387,6 @@ void CWDialog::setupCMYKComponent(ScColor col)
 	ySpin->setValue(y);
 	kSpin->setValue(k);
 	connectSlots(true);
-// 	return col;
 }
 
 void CWDialog::setupHSVComponent(ScColor col)
@@ -403,28 +399,7 @@ void CWDialog::setupHSVComponent(ScColor col)
 	sSpin->setValue(s);
 	vSpin->setValue(v);
 	connectSlots(true);
-// 	return col;
 }
-
-// void CWDialog::setupFromColor(ScColor col)
-// {
-// 	setupRGBComponent(col);
-// 	setupCMYKComponent(col);
-// 	setupHSVComponent(col);
-// 	int r, g, b, c, m, y, k;
-// 	col.getRGB(&r, &g, &b);
-// 	col.getCMYK(&c, &m, &y, &k);
-// 	connectSlots(false);
-// 	rSpin->setValue(r);
-// 	gSpin->setValue(g);
-// 	bSpin->setValue(b);
-// 	cSpin->setValue(c);
-// 	mSpin->setValue(m);
-// 	ySpin->setValue(y);
-// 	kSpin->setValue(k);
-// 	connectSlots(true);
-// 	return col;
-// }
 
 void CWDialog::setupColorComponents()
 {
