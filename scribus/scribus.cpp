@@ -3419,10 +3419,11 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		ActWinOld = ActWin;
 	bool found = false;
 	uint id = 0;
+	QString platfName = QDir::convertSeparators(fileName);
 	uint windowCount=windows.count();
 	for ( uint i = 0; i < windowCount; ++i )
 	{
-		if (windows.at(i)->caption() == fileName)
+		if (windows.at(i)->caption() == platfName)
 		{
 			found = true;
 			id = i;
