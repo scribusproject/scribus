@@ -142,9 +142,16 @@ protected:
 // 	QPushButton* closeButton;
 	QCheckBox* hideCheck;
 
+	QPushButton *uniLoadButton;
+	QPushButton *uniSaveButton;
+	QPushButton *uniClearButton;
+
 	protected slots:
 		void hideCheck_clicked();
 		void slot_insertSpecialChar();
+		void uniLoadButton_clicked();
+		void uniSaveButton_clicked();
+		void uniClearButton_clicked();
 };
 
 #endif

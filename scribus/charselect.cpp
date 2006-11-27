@@ -143,12 +143,25 @@ CharSelect::CharSelect(QWidget* parent)
 
 	quickLayout->addWidget(unicodeButton, 1, 0);
 
+	uniLoadButton = new QPushButton(quickPalette, "uniLoadButton");
+	uniLoadButton->setPixmap(loadIcon("22/document-open.png"));
+	uniSaveButton = new QPushButton(quickPalette, "uniSaveButton");
+	uniSaveButton->setPixmap(loadIcon("22/document-save.png"));
+	uniClearButton = new QPushButton(quickPalette, "uniClearButton");
+	uniClearButton->setPixmap(loadIcon("22/document-new.png"));
+	QHBoxLayout *fileLayout = new QHBoxLayout();
+	fileLayout->addWidget(uniLoadButton);
+	fileLayout->addWidget(uniSaveButton);
+	fileLayout->addWidget(uniClearButton);
+
+	quickLayout->addLayout(fileLayout, 2, 0);
+
 	userTable = new CharTable(quickPalette, 2, m_doc, m_fontInUse);
 	userTable->setMaximumWidth(120);
 	userTable->setMinimumWidth(120);
 	userTable->enableDrops(true);
 
-	quickLayout->addWidget(userTable, 2, 0);
+	quickLayout->addWidget(userTable, 3, 0);
 
 	// main layout
 	mainLayout->addWidget(bigPalette);
@@ -178,6 +191,9 @@ CharSelect::CharSelect(QWidget* parent)
 // 	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
 	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
 	connect(this, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
+	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
+	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
 /*	setupRangeCombo();
 	newCharClass(0);*/
 }
@@ -699,4 +715,63 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 	{
 		setDoc(m_doc);
 	}
+}
+
+void CharSelect::uniLoadButton_clicked()
+{
+	QString f = QFileDialog::getOpenFileName(
+                    "/home",
+                    "Scribus Char Palette (*.scp);;All Files (*)",
+                    this,
+                    "open file dialog",
+                    "Choose a filename to open" );
+	if (f.isNull())
+		return;
+	CharClassDef newChars;
+	QFile file(f);
+	if (file.open(IO_ReadOnly))
+	{
+		QTextStream stream(&file);
+		QString line;
+		while (!stream.atEnd())
+		{
+			bool ok = false;
+			line = stream.readLine();
+			int val = line.toInt(&ok, 10);
+			if (ok)
+				newChars.append(val);
+			else
+				qDebug("file is corrupted");
+		}
+		file.close();
+		userTable->setCharacters(newChars);
+	}
+}
+
+void CharSelect::uniSaveButton_clicked()
+{
+	QString f = QFileDialog::getSaveFileName(
+                    "/home",
+                    "Scribus Char Palette (*.scp);;All Files (*)",
+                    this,
+                    "save file dialog",
+                    "Choose a filename to save under" );
+	if (f.isNull())
+		return;
+	QFile file(f);
+	if (file.open(IO_WriteOnly))
+	{
+		QTextStream stream(&file);
+		CharClassDef chars = userTable->characters();
+		for (CharClassDef::Iterator it = chars.begin(); it != chars.end(); ++it)
+			stream << (*it) << "\n";
+		file.close();
+	}
+	else
+		qDebug("cannot open filr for writting");
+}
+
+void CharSelect::uniClearButton_clicked()
+{
+	userTable->setCharacters(CharClassDef());
 }
