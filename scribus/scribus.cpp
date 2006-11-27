@@ -7957,7 +7957,7 @@ void ScribusMainWindow::Apply_MasterPage(QString pageName, int pageNumber, bool 
 	if (reb)
 	{
 		view->DrawNew();
-		pagePalette->Rebuild();
+//		pagePalette->Rebuild();
 	}
 }
 

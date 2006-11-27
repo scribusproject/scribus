@@ -214,7 +214,14 @@ void SeView::contentsDropEvent(QDropEvent * e)
 				if ((a % 2) == 0)
 					emit NewPage(p, tmp);
 				else
+				{
 					emit UseTemp(tmp, p);
+					QTableItem* ite = item(a, b);
+					if (ite == 0)
+						return;
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
+				}
 				return;
 			}
 			else
@@ -227,7 +234,14 @@ void SeView::contentsDropEvent(QDropEvent * e)
 						emit NewPage(p, tmp);
 				}
 				else
+				{
 					emit UseTemp(tmp, p);
+					QTableItem* ite = item(a, b);
+					if (ite == 0)
+						return;
+					SeItem* it = (SeItem*)ite;
+					it->pageName = tmp;
+				}
 				return;
 			}
 		}
