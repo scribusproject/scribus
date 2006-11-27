@@ -105,7 +105,7 @@ bool PixmapExportPlugin::run(QString target)
 		QApplication::setOverrideCursor(QCursor(Qt::WaitCursor));
 		std::vector<int> pageNs;
 		ex->pageDPI = dia->DPIBox->value();
-		ex->enlargement = dia->EnlargementBox->value();
+		ex->enlargement = static_cast<int>(dia->EnlargementBox->value());
 		ex->quality = dia->QualityBox->value();
 		ex->exportDir = dia->OutputDirectory->text();
 		ex->bitmapType = dia->bitmapType;
