@@ -85,6 +85,14 @@ QString CommonStrings::april="", CommonStrings::may="", CommonStrings::june="";
 QString CommonStrings::july="", CommonStrings::august="", CommonStrings::september="";
 QString CommonStrings::october="", CommonStrings::november="", CommonStrings::december="";
 
+
+QString CommonStrings::trVisionNormal         = "";
+QString CommonStrings::trVisionProtanopia     = "";
+QString CommonStrings::trVisionDeuteranopia   = "";
+QString CommonStrings::trVisionTritanopia     = "";
+QString CommonStrings::trVisionFullColorBlind = "";
+
+
 CommonStrings::CommonStrings()
 {
 	languageChange();
@@ -228,7 +236,13 @@ void CommonStrings::languageChange()
 	CommonStrings::october   = tr("October");
 	CommonStrings::november  = tr("November");
 	CommonStrings::december  = tr("December");
-}
+	
+	CommonStrings::trVisionNormal = tr("Normal Vision", "Color Blindness - Normal Vision");
+	CommonStrings::trVisionProtanopia = tr("Protanopia (Red)", "Color Blindness - Red Color Blind");
+	CommonStrings::trVisionDeuteranopia = tr("Deuteranopia (Green)", "Color Blindness - Greed Color Blind");
+	CommonStrings::trVisionTritanopia = tr("Tritanopia (Blue)", "Color Blindness - Blue Color Blind");
+	CommonStrings::trVisionFullColorBlind = tr("Full Color Blindness", "Color Blindness - Full Color Blindness");
+	}
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
 {

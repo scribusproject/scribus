@@ -48,11 +48,11 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Triadic), colorWheel->Triadic);
 	typeCombo->insertItem(colorWheel->getTypeDescription(colorWheel->Tetradic), colorWheel->Tetradic);
 	// defects
-	defectCombo->insertItem( tr("Normal Vision"));
-	defectCombo->insertItem( tr("Protanopia (Red)"));
-	defectCombo->insertItem( tr("Deuteranopia (Green)"));
-	defectCombo->insertItem( tr("Tritanopia (Blue)"));
-	defectCombo->insertItem( tr("Full Color Blindness"));
+	defectCombo->insertItem(CommonStrings::trVisionNormal);
+	defectCombo->insertItem(CommonStrings::trVisionProtanopia);
+	defectCombo->insertItem(CommonStrings::trVisionDeuteranopia);
+	defectCombo->insertItem(CommonStrings::trVisionTritanopia);
+	defectCombo->insertItem(CommonStrings::trVisionFullColorBlind);
 	// preferences
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));

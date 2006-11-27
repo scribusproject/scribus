@@ -162,6 +162,14 @@ public:
 	static QString october;
 	static QString november;
 	static QString december;
+	
+	//Color Blindness
+	static QString trVisionNormal;
+	static QString trVisionProtanopia;
+	static QString trVisionDeuteranopia;
+	static QString trVisionTritanopia;
+	static QString trVisionFullColorBlind;
+	
 };
 
 #endif

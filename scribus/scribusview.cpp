@@ -277,11 +277,11 @@ void ScribusView::languageChange()
 	QToolTip::add(visualMenu, tr("Here you can select the visual appearance of the display\nYou can choose between normal and several color blindness forms"));
 	disconnect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 	visualMenu->clear();
-	visualMenu->insertItem( tr("Normal Vision"));
-	visualMenu->insertItem( tr("Protanopia (Red)"));
-	visualMenu->insertItem( tr("Deuteranopia (Green)"));
-	visualMenu->insertItem( tr("Tritanopia (Blue)"));
-	visualMenu->insertItem( tr("Full Color Blindness"));
+	visualMenu->insertItem(CommonStrings::trVisionNormal);
+	visualMenu->insertItem(CommonStrings::trVisionProtanopia);
+	visualMenu->insertItem(CommonStrings::trVisionDeuteranopia);
+	visualMenu->insertItem(CommonStrings::trVisionTritanopia);
+	visualMenu->insertItem(CommonStrings::trVisionFullColorBlind);
 	visualMenu->setCurrentItem(previewVisual);
 	connect(visualMenu, SIGNAL(activated(int)), this, SLOT(switchPreviewVisual(int)));
 }
