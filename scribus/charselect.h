@@ -14,10 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 class QLabel;
 class QPushbutton;
-class QToolTip;
-class QStringList;
 class QComboBox;
-class QLineEdit;
 class QGroupBox;
 class QCheckBox;
 
@@ -26,17 +23,13 @@ class PageItem;
 class UnicodeChooseButton;
 
 
-// class SCRIBUS_API CharSelect : public QDialog
+/*! \brief Character Palette for direct chars inserting. */
 class SCRIBUS_API CharSelect : public ScrPaletteBase
 {
 	Q_OBJECT
 
 public:
 	CharSelect(QWidget* parent);
-	/*! \brief Construct a modal dialog */
-// 	CharSelect(QWidget* parent, PageItem *item);
-	/*! \brief Construct an optional state dialog */
-// 	CharSelect(QWidget* parent, PageItem *item, QString font, bool modal=true);
 	~CharSelect() {};
 
 	void show();
@@ -57,8 +50,6 @@ public:
 
 private:
 	ScribusDoc* m_doc;
-	//! \brief A flag with true if the dialog is flat palette
-// 	bool needReturn;
 	//! \brief Current font name
 	QString m_fontInUse;
 	//! \brief Currently selected character set
@@ -105,8 +96,6 @@ private:
 	QString chToIns;
 
 public slots:
-	void newChar();
-	//void newChar(uint r, uint c);
 	void newChar(uint i);
 	void delChar();
 	void newFont(int font);
@@ -120,9 +109,9 @@ signals:
 	void insertSpecialChar();
 
 protected:
-	//! \brief Common parts of the constructors
-// 	void run(QWidget* parent, PageItem* item);
 	bool eventFilter(QObject *obj, QEvent *ev);
+
+	QString paletteFileMask;
 
 	PageItem *m_Item;
 
@@ -134,12 +123,11 @@ protected:
 	QLabel* sample;
 	QLabel* fontLabel;
 	QLabel* rangeLabel;
-// 	QLineEdit* insCode;
+
 	FontCombo* fontSelector;
 	QComboBox* rangeSelector;
 	QPushButton* insertButton;
 	QPushButton* deleteButton;
-// 	QPushButton* closeButton;
 	QCheckBox* hideCheck;
 
 	QPushButton *uniLoadButton;

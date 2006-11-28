@@ -14,51 +14,28 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scribusview.h"
 #include "fontcombo.h"
-#include "charselect.h"
-#include "charselect.moc"
 #include "sccombobox.h"
 #include "scpainter.h"
 #include "unicodesearch.h"
 #include "selection.h"
-
+#include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
 #include "util.h"
 
+#include "charselect.h"
+#include "charselect.moc"
 
-// CharSelect::CharSelect(QWidget* parent, PageItem *item) : QDialog(parent, "CharSelect", true, 0)
-// {
-// 	m_fontInUse = item->doc()->currentStyle.charStyle().font().scName();
-// 	needReturn = false;
-// 	installEventFilter(this);
-// 	run(parent, item);
-// }
-//
-// CharSelect::CharSelect(QWidget* parent, PageItem *item, QString font, bool modal)
-// 	: QDialog(parent, "CharSelect", modal, 0)
-// {
-// 	m_fontInUse = font;
-// 	needReturn = true;
-// 	installEventFilter(this);
-// 	run(parent, item);
-// }
 
 CharSelect::CharSelect(QWidget* parent)
 	: ScrPaletteBase(parent, "CharSelect"),
 	m_doc(0),
 	m_Item(0)
 {
-// 	m_fontInUse = item->doc()->currentStyle.charStyle().font().scName();
-// 	m_doc = 0; //dynamic_cast<ScribusMainWindow*>(parent)->doc;
-// 	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
-// 	needReturn = false;
 	installEventFilter(this);
-// 	run(parent, m_doc->m_Selection->itemAt(0));
-// }
-//
-// void CharSelect::run(QWidget* /*parent*/, PageItem *item)
-// {
+
 	setCaption( tr("Select Character:")+" "+m_fontInUse);
-// 	m_Item = item;
+	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
+
 	setIcon(loadIcon("AppIcon.png"));
 
 	QHBoxLayout* mainLayout = new QHBoxLayout(this);
@@ -78,11 +55,7 @@ CharSelect::CharSelect(QWidget* parent)
 
 	fontSelector = new FontCombo(bigPalette);
 	fontSelector->setMaximumSize(190, 30);
-// 	fontSelector->setCurrentText(m_fontInUse);
 
-// 	if (needReturn)
-// 		fontSelector->setEnabled(false);
-//
 	rangeLabel = new QLabel(bigPalette, "fontLabel");
 	rangeLabel->setText( tr("Character Class:"));
 
@@ -98,16 +71,8 @@ CharSelect::CharSelect(QWidget* parent)
 
 	charTable = new CharTable(bigPalette, 16, m_doc, m_fontInUse);
 	charTable->enableDrops(false);
-// 	scanFont();
 
 	bigLayout->addWidget(charTable, 1, 0);
-
-// 	insCode = new QLineEdit(this, "insText");
-// 	insCode->setMaxLength(4);
-// 	insCode->setInputMask(">NNNN");
-// 	insCode->clear();
-// 	insText = new QLabel(insCode, tr("&Insert Code:"), this, "insText");
-// 	insCode->setFixedWidth(insText->width());
 
 	sample = new QLabel(bigPalette, "sample");
 	sample->setFrameShape(QFrame::Box);
@@ -119,7 +84,6 @@ CharSelect::CharSelect(QWidget* parent)
 
 	insertButton = new QPushButton( tr("&Insert"), bigPalette, "insertButton");
 	deleteButton = new QPushButton( tr("C&lear"), bigPalette, "deleteButton");
-// 	closeButton = new QPushButton(tr("&Close"), this, "closeButton");
 
 	QHBoxLayout* buttonLayout = new QHBoxLayout();
 	QSpacerItem* buttonSpacer = new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
@@ -139,7 +103,6 @@ CharSelect::CharSelect(QWidget* parent)
 	quickLayout->addWidget(hideCheck, 0, 0);
 
 	unicodeButton = new UnicodeChooseButton(quickPalette, "unicodeButton");
-// 	unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
 
 	quickLayout->addWidget(unicodeButton, 1, 0);
 
@@ -167,35 +130,25 @@ CharSelect::CharSelect(QWidget* parent)
 	mainLayout->addWidget(bigPalette);
 	mainLayout->addWidget(quickPalette);
 
-// 	delEdit();
-//tooltips
+	//tooltips
 	QToolTip::add(insertButton, "<qt>" + tr("Insert the characters at the cursor in the text") + "</qt>");
 	QToolTip::add(deleteButton, "<qt>" + tr("Delete the current selection(s).") + "</qt>");
-// 	QToolTip::add(closeButton, "<qt>" + tr("Close this dialog and return to text editing") + "</qt>");
-// 	QToolTip::add(insCode, "<qt>" + tr("Type in a four digit unicode value directly here") + "</qt>");
 	QToolTip::add(charTable, "<qt>" + tr("You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one") + "</qt>");
 	// signals and slots connections
-// 	connect(closeButton, SIGNAL(clicked()), this, SLOT(accept()));
 	connect(deleteButton, SIGNAL(clicked()), this, SLOT(delEdit()));
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
-	//connect(charTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
 	connect(charTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
 	connect(charTable, SIGNAL(delChar()), this, SLOT(delChar()));
-	//connect(userTable, SIGNAL(selectChar(uint, uint)), this, SLOT(newChar(uint, uint)));
 	connect(userTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
 	connect(userTable, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), userTable, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
-// 	connect(insCode, SIGNAL(returnPressed()), this, SLOT(newChar()));
-// 	connect(insCode, SIGNAL(lostFocus()), this, SLOT(newChar()));
 	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
 	connect(this, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
 	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
-/*	setupRangeCombo();
-	newCharClass(0);*/
 }
 
 void CharSelect::setDoc(ScribusDoc* doc)
@@ -205,7 +158,6 @@ void CharSelect::setDoc(ScribusDoc* doc)
 		m_doc = doc;
 		charTable->setDoc(m_doc);
 		userTable->setDoc(m_doc);
-		//scanFont();
 		delEdit();
 		setupRangeCombo();
 		newCharClass(0);
@@ -222,12 +174,6 @@ void CharSelect::setDoc(ScribusDoc* doc)
 		newFont(fontSelector->currentItem());
 		unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
 	}
-// 	charTable->setDoc(m_doc);
-// 	userTable->setDoc(m_doc);
-// 	//scanFont();
-// 	delEdit();
-// 	setupRangeCombo();
-// 	newCharClass(0);
 }
 
 const QString & CharSelect::getCharacters()
@@ -577,20 +523,6 @@ void CharSelect::newFont(int font)
 	setupRangeCombo();
 }
 
-void CharSelect::newChar()
-{
-// 	QString tx = insCode->text();
-// 	tx.prepend("0x");
-// 	bool ok = false;
-// 	uint code = tx.toUInt(&ok, 16);
-// 	if ((ok) && (code > 31))
-// 	{
-// 		chToIns += QChar(code);
-// 		sample->setPixmap(FontSample((*m_Item->doc()->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
-// 		insertButton->setEnabled(true);
-// 	}
-}
-
 void CharSelect::newChar(uint i)
 {
 	chToIns += QChar(i);
@@ -603,7 +535,6 @@ void CharSelect::newChar(uint i)
 	insertButton->setEnabled(true);
 	QString tmp;
 	tmp.sprintf("%04X", i);
-// 	insCode->setText(tmp);
 }
 
 void CharSelect::delChar()
@@ -632,29 +563,6 @@ void CharSelect::delEdit()
 void CharSelect::insChar()
 {
 	emit insertSpecialChar();
-/*	if (needReturn)
-	{
-		m_characters = chToIns;
-		delEdit();
-		emit insertSpecialChar();
-		return;
-	}*/
-// 	if (m_Item->HasSel)
-// 		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
-// 	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
-// 	for (uint a=0; a<chToIns.length(); ++a)
-// 	{
-// 		QChar ch = chToIns.at(a);
-// 		if (ch == QChar(10))
-// 			ch = QChar(13);
-// 		if (ch == QChar(9))
-// 			ch = QChar(32);
-// 		m_Item->itemText.insertChars(m_Item->CPos, ch);
-// 		m_Item->CPos += 1;
-// 	}
-// 	m_doc->view()->DrawNew();
-// 	m_doc->changed();
-// 	delEdit();
 }
 
 void CharSelect::slot_insertSpecialChar()
@@ -712,21 +620,20 @@ void CharSelect::setEnabled(bool state, PageItem* item)
 	ScrPaletteBase::setEnabled(state);
 	m_Item = item;
 	if (state)
-	{
 		setDoc(m_doc);
-	}
 }
 
 void CharSelect::uniLoadButton_clicked()
 {
 	QString f = QFileDialog::getOpenFileName(
-                    "/home",
-                    "Scribus Char Palette (*.scp);;All Files (*)",
+                    QDir::currentDirPath(),
+                    paletteFileMask,
                     this,
-                    "open file dialog",
-                    "Choose a filename to open" );
+                    "loadDialog",
+                    tr("Choose a filename to open"));
 	if (f.isNull())
 		return;
+
 	CharClassDef newChars;
 	QFile file(f);
 	if (file.open(IO_ReadOnly))
@@ -737,11 +644,18 @@ void CharSelect::uniLoadButton_clicked()
 		{
 			bool ok = false;
 			line = stream.readLine();
+			if (line.left(1) == "#")
+				continue; // don't mess with a comment
 			int val = line.toInt(&ok, 10);
 			if (ok)
 				newChars.append(val);
 			else
-				qDebug("file is corrupted");
+			{
+				QMessageBox::warning(this, tr("Error"),
+									 "<qt>" + tr("Error reading file %1 - file is corrupted propably.").arg(f) + "</qt>",
+									 QMessageBox::Ok, QMessageBox::NoButton);
+				break;
+			}
 		}
 		file.close();
 		userTable->setCharacters(newChars);
@@ -750,28 +664,42 @@ void CharSelect::uniLoadButton_clicked()
 
 void CharSelect::uniSaveButton_clicked()
 {
+	if (userTable->characters().count() == 0)
+		return;
 	QString f = QFileDialog::getSaveFileName(
-                    "/home",
-                    "Scribus Char Palette (*.scp);;All Files (*)",
+                    QDir::currentDirPath(),
+                    paletteFileMask,
                     this,
-                    "save file dialog",
-                    "Choose a filename to save under" );
-	if (f.isNull())
+                    "saveDialog",
+                    tr("Choose a filename to save under"));
+	if (f.isNull() || !overwrite(this, f))
 		return;
 	QFile file(f);
 	if (file.open(IO_WriteOnly))
 	{
 		QTextStream stream(&file);
 		CharClassDef chars = userTable->characters();
+		stream << "# This is a character palette file for Scribus\n";
 		for (CharClassDef::Iterator it = chars.begin(); it != chars.end(); ++it)
 			stream << (*it) << "\n";
 		file.close();
 	}
 	else
-		qDebug("cannot open filr for writting");
+		QMessageBox::warning(this, tr("Error"),
+					 "<qt>" + tr("Cannot write file %1").arg(f) + "</qt>",
+					 QMessageBox::Ok, QMessageBox::NoButton);
 }
 
 void CharSelect::uniClearButton_clicked()
 {
-	userTable->setCharacters(CharClassDef());
+	if (userTable->characters().count() > 0
+		&&
+		!QMessageBox::question(this, tr("Clean the Palette?"),
+					 "<qt>" + tr("You will clean all characters from this palette. Are you sure?") + "</qt>",
+					 CommonStrings::trYesKey, CommonStrings::trNoKey,
+					 QString::null, 0, 1 )
+	   )
+	{
+		userTable->setCharacters(CharClassDef());
+	}
 }
