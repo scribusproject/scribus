@@ -4868,8 +4868,12 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 	ScImage img2;
 	ScImage img3;
 	QMap<int, QString> ind2PDFabr;
-	static const QString bifonts[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
-			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
+//	static const QString bifonts[] = {"/Cour", "/CoBo", "/CoOb", "/CoBO", "/Helv", "/HeBo", "/HeOb", "/HeBO",
+//			"/TiRo", "/TiBo", "/TiIt", "/TiBI", "/ZaDb", "/Symb"};
+	static const QString bifonts[] = {"/Courier", "/Courier-Bold", "/Courier-Oblique", "/Courier-BoldOblique",
+												"/Helvetica", "/Helvetica-Bold", "/Helvetica-Oblique", "/Helvetica-BoldOblique",
+												"/Times-Roman", "/Times-Bold", "/Times-Italic", "/Times-BoldItalic",
+												"/ZapfDingbats", "/Symbol"};
 	static const size_t ar = sizeof(bifonts) / sizeof(*bifonts);
 	for (uint a = 0; a < ar; ++a)
 		ind2PDFabr[a] = bifonts[a];
