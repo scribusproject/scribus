@@ -57,6 +57,7 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	connect(buttonLoad, SIGNAL(clicked()), this, SLOT(loadPattern()));
 	connect(buttonLoadDir, SIGNAL(clicked()), this, SLOT(loadPatternDir()));
 	connect(buttonRemove, SIGNAL(clicked()), this, SLOT(removePattern()));
+	connect(buttonRemoveAll, SIGNAL(clicked()), this, SLOT(removeAllPatterns()));
 	connect(patternView, SIGNAL(clicked(QIconViewItem*)), this, SLOT(patternSelected(QIconViewItem*)));
 }
 
@@ -280,6 +281,12 @@ void PatternDialog::patternSelected(QIconViewItem* it)
 		buttonRemove->setEnabled(false);
 		patternView->clearSelection();
 	}
+}
+
+void PatternDialog::removeAllPatterns()
+{
+	dialogPatterns.clear();
+	updatePatternList();
 }
 
 void PatternDialog::removePattern()

@@ -56,6 +56,7 @@ class SCRIBUS_API PatternDialog : public patternDialogBase
 		void loadPatternDir();
 		void loadPattern();
 		void patternSelected(QIconViewItem* it);
+		void removeAllPatterns();
 		void removePattern();
 };
 
