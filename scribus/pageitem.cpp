@@ -1482,7 +1482,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 	else {
 		layout.glyph = style.font().char2CMap(chars[0].unicode());
 	}
-	layout.xoffset = 0;
+	layout.xoffset = style.fontSize() * style.tracking() / 10000;
 	layout.yoffset = 0;
 	if (chst != ScStyle_Default)
 	{
@@ -1543,7 +1543,7 @@ double PageItem::layoutGlyphs(const CharStyle& style, const QString chars, Glyph
 		layout.yadvance = style.font().glyphBBox(layout.glyph, style.fontSize() / 10).ascent * layout.scaleV;
 	}
 	if (layout.xadvance > 0)
-		layout.xadvance += style.fontSize() * style.tracking() / 1000;
+		layout.xadvance += style.fontSize() * style.tracking() / 10000;
 
 	if (chars.length() > 1) {
 		layout.grow();
