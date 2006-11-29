@@ -425,7 +425,7 @@ void PageItem_TextFrame::layout()
 			}
 			// No space at begin of line
 			if ( //((m_Doc->docParagraphStyles[absa].alignment() == 3) || (m_Doc->docParagraphStyles[absa].alignment() == 4)) && 
-				 (itemsInLine == 0) && (hl->ch == " "))
+				 (itemsInLine == 0) && (hl->ch[0] == ' '))
 			{
 				hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
 				hl->glyph.xadvance = 0;
@@ -884,7 +884,7 @@ void PageItem_TextFrame::layout()
 			}
 			else
 			{
-				kernVal = chs * charStyle.tracking() / 10000.0;
+				kernVal = 0; // chs * charStyle.tracking() / 10000.0;
 				itemText.item(a)->setEffects(itemText.item(a)->effects() & ~ScStyle_StartOfLine);
 			}
 			// remember x pos
@@ -1254,11 +1254,9 @@ void PageItem_TextFrame::layout()
 							curLine.width = LastXp - curLine.x;
 						}
 					}
-					else if (a > 0) // no break position
+					else if (a-1 > curLine.firstItem) // no break position
 					{
 						a--;
-						assert( a >= 0 );
-						assert( a < itemText.length() );
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
 						if (style.rightMargin() < 0) {
@@ -1266,11 +1264,16 @@ void PageItem_TextFrame::layout()
 							dumpIt(style);
 						}
 //						qDebug(QString("style nb @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
-//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
+//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //							   .arg(a));
 						curLine.naturalWidth = CurX - curLine.x;
 						curLine.width = CurX - curLine.x;
 						BuPos--;
+					}
+					else {
+//						qDebug(QString("style nb0 @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
+//							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
+//							   .arg(a));
 					}
 				}
 				uint BuPos3 = BuPos;
@@ -2692,7 +2695,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				for (int hych = CPos-1; hych > -1; hych--)
 				{
 					Tcha = itemText.text(hych,1);
-					if (Tcha == " ")
+					if (Tcha[0] == ' ')
 					{
 						Tcoun = hych+1;
 						break;
