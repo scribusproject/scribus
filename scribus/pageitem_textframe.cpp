@@ -102,15 +102,15 @@ static QRegion itemShape(PageItem* docItem, ScribusView* view, double xOffset, d
 
 QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 {
-	QRegion result = clip;
-	int LayerLev = m_Doc->layerLevelFromNumber(LayerNr);
-	uint docItemsCount=m_Doc->Items->count();
-	Page* Mp;
-	Page* Dp;
-	PageItem* docItem;
-	int LayerLevItem;
+	QRegion result(clip);
 	if (!isEmbedded)
 	{
+		int LayerLev = m_Doc->layerLevelFromNumber(LayerNr);
+		uint docItemsCount=m_Doc->Items->count();
+		Page* Mp=0;
+		Page* Dp=0;
+		PageItem* docItem=0;
+		int LayerLevItem;
 		if (!OnMasterPage.isEmpty())
 		{
 			if ((savedOwnPage == -1) || (savedOwnPage >= signed(m_Doc->Pages->count())))
