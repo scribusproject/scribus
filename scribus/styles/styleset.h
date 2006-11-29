@@ -89,6 +89,8 @@ inline void StyleSet<STYLE>::remove(uint index)
 {
 	assert(index < styles.count()); 
 	typename QValueList<STYLE*>::Iterator it = styles.at(index);
+	if (*it == m_default)
+		return;
 	delete (*it);
 	styles.erase(it);
 	invalidate();
