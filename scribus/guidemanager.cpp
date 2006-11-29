@@ -188,10 +188,11 @@ bool GuideManager::deleteValueFormList(QListView *list)
 	runs before item goes deleted */
 	QListViewItem *itemToDelete;
 	QListViewItemIterator it(list, QListViewItemIterator::Selected);
+	QString value;
 	while (it.current())
 	{
 		itemToDelete = it.current();
-		QString value = itemToDelete->text(0);
+		value = itemToDelete->text(0);
 		if (list == horizontalList)
 			currentPage->guides.deleteHorizontal(m_horMap[value], GuideManagerCore::Standard);
 		else

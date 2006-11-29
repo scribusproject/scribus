@@ -236,20 +236,23 @@ void Preferences::addPlugins()
 	// Scan for plugins that provide a prefs widget, and add it to the
 	// prefs dialog.
 	// For each plugin, enabled or not:
+	ScPlugin* plugin = 0;
+	PrefsPanel* panel = 0;
+	QString panelCaption;
+	QPixmap panelIcon;
+
 	PluginManager& pluginManager = PluginManager::instance();
 	QValueList<QCString> pluginNames(pluginManager.pluginNames(true));
 	QValueList<QCString>::Iterator itEnd(pluginNames.end());
+
 	for (QValueList<QCString>::Iterator it(pluginNames.begin()); it != itEnd ; ++it )
 	{
 		// Ask the plugin manager for a plugin (skipping disabled plugins).
-		ScPlugin* plugin = pluginManager.getPlugin(*it, false);
+		plugin = pluginManager.getPlugin(*it, false);
 		// If we got a plugin (which we know is enabled):
 		if (plugin)
 		{
 			// Ask the plugin for a prefs widget
-			PrefsPanel* panel;
-			QString panelCaption;
-			QPixmap panelIcon;
 			bool wantPanel = plugin->newPrefsPanelWidget(
 					prefsWidgets, panel, panelCaption, panelIcon);
 			// If it gave us one...

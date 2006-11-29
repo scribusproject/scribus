@@ -303,10 +303,10 @@ void MenuManager::generateKeyManList(QStringList *actionNames)
 	{
 		if (scribusMenuBar)
 		{
+			QMap<QString, ScrPopupMenu *>::Iterator menuListIt;
 			for (uint menuBarCount=0; menuBarCount<scribusMenuBar->count(); ++menuBarCount)
 			{
 				int menuBarMenuID=scribusMenuBar->idAt(menuBarCount);
-				QMap<QString, ScrPopupMenu *>::Iterator menuListIt;
 				bool menuBarItemFound=false;
 				for ( menuListIt = menuList.begin(); menuListIt!=menuList.end(); ++menuListIt)
 				{

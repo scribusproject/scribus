@@ -194,10 +194,10 @@ void PluginManager::initPlugs()
 	}
 	/* Re-try the failed plugins again and again until it promote
 	any progress (changes variable is changing ;)) */
+	QMap<QString,int>::Iterator it;
 	while (loaded < allPlugs.count() && changes!=0)
 	{
 		changes = 0;
-		QMap<QString,int>::Iterator it;
 		for (it = allPlugs.begin(); it != allPlugs.end(); ++it)
 		{
 			if (it.data() != 0)
@@ -278,6 +278,8 @@ void PluginManager::enablePlugin(PluginData & pda)
 bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 {
 	Q_CHECK_PTR(mw);
+	ScActionPlugin* plugin = 0;
+
 	mw->scrMenuMgr->addMenuSeparator("Extras");
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
@@ -285,7 +287,7 @@ bool PluginManager::setupPluginActions(ScribusMainWindow *mw)
 		{
 			//Add in ScrAction based plugin linkage
 			//Insert DLL Action into Dictionary with values from plugin interface
-			ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
+			plugin = dynamic_cast<ScActionPlugin*>(it.data().plugin);
 			Q_ASSERT(plugin);
 			ScActionPlugin::ActionInfo ai(plugin->actionInfo());
 			ScrAction* action = new ScrAction(ScrAction::ActionDLL, ai.iconSet, ai.text, ai.keySequence, mw, ai.name);
@@ -470,17 +472,20 @@ QCString PluginManager::platformDllExtension()
 
 void PluginManager::languageChange()
 {
+	ScPlugin* plugin = 0;
+	ScActionPlugin* ixplug = 0;
+	ScrAction* pluginAction = 0;
 	for (PluginMap::Iterator it = pluginMap.begin(); it != pluginMap.end(); ++it)
 	{
-		ScPlugin* plugin = it.data().plugin;
+		plugin = it.data().plugin;
 		if (plugin)
 		{
 			plugin->languageChange();
-			ScActionPlugin* ixplug = dynamic_cast<ScActionPlugin*>(plugin);
+			ixplug = dynamic_cast<ScActionPlugin*>(plugin);
 			if (ixplug)
 			{
 				ScActionPlugin::ActionInfo ai(ixplug->actionInfo());
-				ScrAction* pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
+				pluginAction = ScCore->primaryMainWindow()->scrActions[ai.name];
 				if (pluginAction != 0)
 					pluginAction->setMenuText( ai.text );
 			}
