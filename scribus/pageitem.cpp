@@ -3794,12 +3794,14 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			int h = pixm.qImagePtr()->height();
 			int w = pixm.qImagePtr()->width();
 			int r, g, b, a;
+			QRgb *s;
+			QRgb rgb;
 			for( int yi=0; yi < h; ++yi )
 			{
-				QRgb * s = (QRgb*)(pixm.qImagePtr()->scanLine( yi ));
+				s = (QRgb*)(pixm.qImagePtr()->scanLine( yi ));
 				for( int xi = 0; xi < w; ++xi )
 				{
-					QRgb rgb = *s;
+					rgb = *s;
 					tmpC.setRgb(rgb);
 					tmpC = defect->convertDefect(tmpC, m_Doc->view()->previewVisual);
 					a = qAlpha(rgb);

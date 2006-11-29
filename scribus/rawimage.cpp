@@ -42,9 +42,10 @@ uchar *RawImage::scanLine(int row)
 
 void RawImage::setAlpha(int x, int y, int alpha)
 {
+	uchar *d;
 	if ((y < m_height) && (x < m_width))
 	{
-		uchar *d = (uchar*)(data() + (y * m_channels * m_width) + (x * m_channels));
+		d = (uchar*)(data() + (y * m_channels * m_width) + (x * m_channels));
 		d[m_channels-1] = alpha;
 	}
 }
@@ -53,14 +54,16 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 {
 	int chans = channels();
 	QImage img;
+	QRgb *ptr;
+	uchar *src;
+	uchar cr, cg, cb, ck, ca;
 	img.create(width(), height(), 32);
 	if (raw)
 	{
 		for (int i = 0; i < height(); i++)
 		{
-			QRgb *ptr = (QRgb *)img.scanLine(i);
-			uchar *src = scanLine(i);
-			uchar cr, cg, cb, ck, ca;
+			ptr = (QRgb *)img.scanLine(i);
+			src = scanLine(i);
 			for (int j = 0; j < width(); j++)
 			{
 				*ptr++ = qRgba(src[0],src[1],src[2],src[3]);
@@ -73,9 +76,8 @@ QImage RawImage::convertToQImage(bool cmyk, bool raw)
 		img.setAlphaBuffer( true );
 		for (int i = 0; i < height(); i++)
 		{
-			QRgb *ptr = (QRgb *)img.scanLine(i);
-			uchar *src = scanLine(i);
-			uchar cr, cg, cb, ck, ca;
+			ptr = (QRgb *)img.scanLine(i);
+			src = scanLine(i);
 			for (int j = 0; j < width(); j++)
 			{
 				if (chans > 1)

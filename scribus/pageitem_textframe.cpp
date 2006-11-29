@@ -105,18 +105,22 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 	QRegion result = clip;
 	int LayerLev = m_Doc->layerLevelFromNumber(LayerNr);
 	uint docItemsCount=m_Doc->Items->count();
+	Page* Mp;
+	Page* Dp;
+	PageItem* docItem;
+	int LayerLevItem;
 	if (!isEmbedded)
 	{
 		if (!OnMasterPage.isEmpty())
 		{
 			if ((savedOwnPage == -1) || (savedOwnPage >= signed(m_Doc->Pages->count())))
 				return result;
-			Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
-			Page* Dp = m_Doc->Pages->at(savedOwnPage);
+			Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+			Dp = m_Doc->Pages->at(savedOwnPage);
 			for (uint a = 0; a < m_Doc->MasterItems.count(); ++a)
 			{
-				PageItem* docItem = m_Doc->MasterItems.at(a);
-				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
+				docItem = m_Doc->MasterItems.at(a);
+				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
 				{
 					if (docItem->textFlowAroundObject())
@@ -129,9 +133,9 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 			{
 				for (uint a = 0; a < docItemsCount; ++a)
 				{
-					PageItem* docItem = m_Doc->Items->at(a);
-					Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
-					Page* Dp = m_Doc->Pages->at(OwnPage);
+					docItem = m_Doc->Items->at(a);
+					Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+					Dp = m_Doc->Pages->at(OwnPage);
 					if ((docItem->textFlowAroundObject()) && (docItem->OwnPage == OwnPage))
 					{
 						result = result.subtract(itemShape(docItem, m_Doc->view(), Mp->xOffset() - Dp->xOffset(), Mp->yOffset() - Dp->yOffset()));
@@ -143,8 +147,8 @@ QRegion PageItem_TextFrame::availableRegion(QRegion clip)
 		{
 			for (uint a = 0; a < docItemsCount; ++a)
 			{
-				PageItem* docItem = m_Doc->Items->at(a);
-				int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
+				docItem = m_Doc->Items->at(a);
+				LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
 				if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev) && (m_Doc->layerFlow(docItem->LayerNr)))
 				{
 					 if (docItem->textFlowAroundObject())
@@ -1809,8 +1813,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 		uint tabCc = 0;
 		assert( firstInFrame() >= 0 );
 		assert( lastInFrame() < itemText.length() );
+		LineSpec ls;
 		for (uint ll=0; ll < itemText.lines(); ++ll) {
-			LineSpec ls = itemText.line(ll);
+			ls = itemText.line(ll);
 			tabDist = ls.x;
 			double CurX = ls.x;
 //			p->setLineWidth(0);
@@ -1819,6 +1824,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 //			p->setBrush(Qt::red);
 //			p->drawRect(ls.x, ls.y, ls.width, ls.descent);
 			
+			QColor tmp;
 			for (int a = ls.firstItem; a <= ls.lastItem; ++a)
 			{
 				hl = itemText.item(a);
@@ -1834,13 +1840,11 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					continue;
 				if (charStyle.fillColor() != CommonStrings::None)
 				{
-					QColor tmp;
 					SetFarbe(&tmp, charStyle.fillColor(), charStyle.fillShade());
 					p->setBrush(tmp);
 				}
 				if (charStyle.strokeColor() != CommonStrings::None)
 				{
-					QColor tmp;
 					SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
 					p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 				}
@@ -1909,7 +1913,6 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					}
 					if (charStyle.strokeColor() != CommonStrings::None)
 					{
-						QColor tmp;
 						SetFarbe(&tmp, charStyle.strokeColor(), charStyle.strokeShade());
 						p->setPen(tmp, 1, SolidLine, FlatCap, MiterJoin);
 					}

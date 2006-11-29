@@ -791,19 +791,23 @@ void ScImage::applyCurve(bool cmyk)
 {
 	int h = height();
 	int w = width();
+	QRgb *s;
+	QRgb r;
+	int c, m, y, k;
+	unsigned char *p;
+	unsigned char rc, gc, bc;
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
-			QRgb r=*s;
-			int c, m, y, k;
+			r = *s;
 			if (cmyk)
 			{
-				unsigned char *p = (unsigned char *) s;
-				unsigned char rc = 255 - QMIN(255, p[0] + p[3]);
-				unsigned char gc = 255 - QMIN(255, p[1] + p[3]);
-				unsigned char bc = 255 - QMIN(255, p[2] + p[3]);
+				p = (unsigned char *) s;
+				rc = 255 - QMIN(255, p[0] + p[3]);
+				gc = 255 - QMIN(255, p[1] + p[3]);
+				bc = 255 - QMIN(255, p[2] + p[3]);
 				c = 255 - curveTable[(int)rc];
 				m = 255 - curveTable[(int)gc];
 				y = 255 - curveTable[(int)bc];
@@ -831,6 +835,10 @@ void ScImage::colorize(ScColor color, int shade, bool cmyk)
 	int hu, sa, v;
 	ScColor tmp2;
 	QColor tmpR;
+	QRgb *s;
+	QRgb r;
+	double k;
+	int cc2, cm2, cy2, k2;
 	if (cmyk)
 		color.getShadeColorCMYK(&cc, &cm, &cy, &ck, shade);
 	else
@@ -840,25 +848,23 @@ void ScImage::colorize(ScColor color, int shade, bool cmyk)
 	}
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
-			QRgb r=*s;
+			r = *s;
 			if (cmyk)
 			{
-				double k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255) / 255.0;
+				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255) / 255.0;
 				*s = qRgba(QMIN(qRound(cc*k), 255), QMIN(qRound(cm*k), 255), QMIN(qRound(cy*k), 255), QMIN(qRound(ck*k), 255));
 			}
 			else
 			{
-				int k = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-				int cc2, cm2, cy2;
+				k2 = 255 - QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
 				tmpR.setRgb(cc, cm, cy);
 				tmpR.hsv(&hu, &sa, &v);
-				tmpR.setHsv(hu, sa * k / 255, 255 - ((255 - v) * k / 255));
+				tmpR.setHsv(hu, sa * k2 / 255, 255 - ((255 - v) * k2 / 255));
 				tmpR.getRgb(&cc2, &cm2, &cy2);
-				int a = qAlpha(r);
-				*s = qRgba(cc2, cm2, cy2, a);
+				*s = qRgba(cc2, cm2, cy2, qAlpha(r));
 			}
 			s++;
 		}
@@ -1061,15 +1067,17 @@ void ScImage::invert(bool cmyk)
 {
 	int h = height();
 	int w = width();
+	unsigned char *p;
+	QRgb * s;
+	unsigned char c, m, y, k;
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
 			if (cmyk)
 			{
-				unsigned char *p = (unsigned char *) s;
-				unsigned char c, m, y, k;
+				p = (unsigned char *) s;
 				c = 255 - QMIN(255, p[0] + p[3]);
 				m = 255 - QMIN(255, p[1] + p[3]);
 				y = 255 - QMIN(255, p[2] + p[3]);
@@ -1090,13 +1098,15 @@ void ScImage::toGrayscale(bool cmyk)
 {
 	int h = height();
 	int w = width();
+	int k;
+	QRgb * s;
+	QRgb r;
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
-			QRgb r=*s;
-			int k;
+			r = *s;
 			if (cmyk)
 			{
 				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r) + qAlpha(r)), 255);
@@ -1105,8 +1115,7 @@ void ScImage::toGrayscale(bool cmyk)
 			else
 			{
 				k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-				int a = qAlpha(r);
-				*s = qRgba(k, k, k, a);
+				*s = qRgba(k, k, k, qAlpha(r));
 			}
 			s++;
 		}
@@ -1115,13 +1124,15 @@ void ScImage::toGrayscale(bool cmyk)
 
 void ScImage::swapRGBA()
 {
+	unsigned int *ptr;
+	unsigned char *p;
+	unsigned char r, b;
 	for (int i = 0; i < height(); ++i)
 	{
-		unsigned int *ptr = (unsigned int *) scanLine(i);
-		unsigned char r, b;
+		ptr = (unsigned int *) scanLine(i);
 		for (int j = 0; j < width(); ++j)
 		{
-			unsigned char *p = (unsigned char *) ptr;
+			p = (unsigned char *) ptr;
 			r = p[0];
 			b = p[2];
 			p[2] = r;
@@ -1139,10 +1150,12 @@ void ScImage::createLowRes(double scale)
 	create(w, h, 32);
 	setAlphaBuffer(true);
 	tmp = tmp.convertDepth(32);
+	QRgb *s;
+	QRgb *d;
 	for( int yi=0; yi < tmp.height(); ++yi )
 	{
-		QRgb *s = (QRgb*)(tmp.scanLine( yi ));
-		QRgb *d = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(tmp.scanLine( yi ));
+		d = (QRgb*)(scanLine( yi ));
 		for(int xi=0; xi < tmp.width(); ++xi )
 		{
 			(*d) = (*s);
@@ -1251,13 +1264,15 @@ QByteArray ScImage::ImageToArray()
 	int h = height();
 	int w = width();
 	unsigned char u;
+	QRgb *s;
+	QRgb r;
 	QByteArray imgArray(3 * h * w);
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
-			QRgb r=*s++;
+			r = *s++;
 			u=qRed(r);
 			imgArray[i++] = u;
 			u=qGreen(r);
@@ -1274,15 +1289,18 @@ QByteArray ScImage::ImageToGray()
 	int i = 0;
 	int h = height();
 	int w = width();
+	QRgb *s;
+	QRgb r;
 	QByteArray imgArray(h * w);
+	int k;
 	for( int yi=0; yi < h; ++yi )
 	{
-		QRgb * s = (QRgb*)(scanLine( yi ));
+		s = (QRgb*)(scanLine( yi ));
 		for( int xi=0; xi < w; ++xi )
 		{
-			QRgb r=*s;
-			int k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
-			*s = qRgba(k, 0, 0, 0);
+			r = *s;
+			k = qRgba(QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255), 0, 0, 0);
+			*s = k;
 			imgArray[i++] = k;
 			s++;
 		}
@@ -1295,23 +1313,22 @@ QByteArray ScImage::ImageToCMYK_PDF(bool pre)
 	int i = 0;
 	int h = height();
 	int w = width();
+	QRgb *s;
+	QRgb r;
+	int c, m, y, k;
 	QByteArray imgArray( 4 * h * w );
 	if (pre)
 	{
 		for( int yi=0; yi < h; ++yi )
 		{
-			QRgb * s = (QRgb*)(scanLine( yi ));
+			s = (QRgb*)(scanLine( yi ));
 			for( int xi=0; xi < w; ++xi )
 			{
-				QRgb r=*s;
-				int c = qRed(r);
-				int m = qGreen(r);
-				int y = qBlue(r);
-				int k = qAlpha(r);
-				imgArray[i++] = static_cast<unsigned char> (c);
-				imgArray[i++] = static_cast<unsigned char> (m);
-				imgArray[i++] = static_cast<unsigned char> (y);
-				imgArray[i++] = static_cast<unsigned char> (k);
+				r = *s;
+				imgArray[i++] = static_cast<unsigned char> (qRed(r));
+				imgArray[i++] = static_cast<unsigned char> (qGreen(r));
+				imgArray[i++] = static_cast<unsigned char> (qBlue(r));
+				imgArray[i++] = static_cast<unsigned char> (qAlpha(r));
 				s++;
 			}
 		}
@@ -1320,14 +1337,14 @@ QByteArray ScImage::ImageToCMYK_PDF(bool pre)
 	{
 		for( int yi=0; yi < h; ++yi )
 		{
-			QRgb * s = (QRgb*)(scanLine( yi ));
+			s = (QRgb*)(scanLine( yi ));
 			for( int xi=0; xi < w; ++xi )
 			{
-				QRgb r=*s;
-				int c = 255 - qRed(r);
-				int m = 255 - qGreen(r);
-				int y = 255 - qBlue(r);
-				int k = QMIN(QMIN(c, m), y);
+				r = *s;
+				c = 255 - qRed(r);
+				m = 255 - qGreen(r);
+				y = 255 - qBlue(r);
+				k = QMIN(QMIN(c, m), y);
 				imgArray[i++] = static_cast<unsigned char> (c - k);
 				imgArray[i++] = static_cast<unsigned char> (m - k);
 				imgArray[i++] = static_cast<unsigned char> (y - k);
@@ -1345,6 +1362,9 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 	int h = height();
 	int w = width();
 	QByteArray imgArray;
+	QRgb *s;
+	QRgb r;
+	int c, m, y, k;
 	if(pl == -1)
 		imgArray.resize(4 * h * w);
 	else
@@ -1353,14 +1373,14 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 	{
 		for( int yi=0; yi < h; ++yi )
 		{
-			QRgb * s = (QRgb*)(scanLine( yi ));
+			s = (QRgb*)(scanLine( yi ));
 			for( int xi=0; xi < w; ++xi )
 			{
-				QRgb r=*s++;
-				int c = qRed(r);
-				int m = qGreen(r);
-				int y = qBlue(r);
-				int k = qAlpha(r);
+				r = *s++;
+				c = qRed(r);
+				m = qGreen(r);
+				y = qBlue(r);
+				k = qAlpha(r);
 				if (pl == -1)
 				{
 					imgArray[i++] = static_cast<unsigned char> (c);
@@ -1388,14 +1408,14 @@ QByteArray ScImage::ImageToCMYK_PS(int pl, bool pre)
 	{
 		for( int yi=0; yi < h; ++yi )
 		{
-			QRgb * s = (QRgb*)(scanLine( yi ));
+			s = (QRgb*)(scanLine( yi ));
 			for( int xi=0; xi < w; ++xi )
 			{
-				QRgb r=*s++;
-				int c = 255 - qRed(r);
-				int m = 255 - qGreen(r);
-				int y = 255 - qBlue(r);
-				int k = QMIN(QMIN(c, m), y);
+				r = *s++;
+				c = 255 - qRed(r);
+				m = 255 - qGreen(r);
+				y = 255 - qBlue(r);
+				k = QMIN(QMIN(c, m), y);
 				if (pl == -1)
 				{
 					imgArray[i++] = static_cast<unsigned char> (c - k);
@@ -1688,15 +1708,17 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		int hm = rImage.height();
 		int wm = rImage.width();
 		int w2;
+		QRgb *s;
+		QRgb r;
 		if (pdf14)
 		{
 			retArray.resize(hm * wm);
 			for( int yi=0; yi < hm; ++yi )
 			{
-				QRgb * s = (QRgb*)(rImage.scanLine( yi ));
+				s = (QRgb*)(rImage.scanLine( yi ));
 				for( int xi=0; xi < wm; ++xi )
 				{
-					QRgb r=*s++;
+					r = *s++;
 					u=qAlpha(r);
 					retArray[i++] = u;
 				}
@@ -1711,9 +1733,10 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 			if ((wm % 8) != 0)
 				w2++;
 			retArray.resize(hm * w2);
+			uchar * s;
 			for( int yi=0; yi < hm; ++yi )
 			{
-				uchar * s = iMask.scanLine( yi );
+				s = iMask.scanLine( yi );
 				for( int xi=0; xi < w2; ++xi )
 				{
 					u = *(s+xi);
@@ -2022,10 +2045,11 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				// which will still contain the black channel
 				if (!((ext == "psd") || (ext == "tif") || (ext == "tiff")))
 				{
+					QRgb alphaFF = qRgba(0,0,0,255);
+					QRgb *p;
 					if (isCMYK && reqType != CMYKData && !bilevel)
 					{
-						QRgb *p = (QRgb *) ptr;
-						QRgb alphaFF = qRgba(0,0,0,255);
+						p = (QRgb *) ptr;
 						for (int j = 0; j < width(); j++, p++)
 							*p |= alphaFF;
 					}
@@ -2075,10 +2099,11 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					*this = pDataLoader->r_image.convertToQImage(false);
 					imgInfo = pDataLoader->imageInfoRecord();
 				}
+				unsigned char cc, cm, cy ,ck;
+				QRgb *ptr;
 				for (int i = 0; i < height(); i++)
 				{
-					QRgb *ptr = (QRgb *) scanLine(i);
-					unsigned char cc, cm, cy ,ck;
+					ptr = (QRgb *) scanLine(i);
 					for (int j = 0; j < width(); j++)
 					{
 						cc = 255 - qRed(*ptr);
@@ -2110,10 +2135,11 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				}
 				else
 				{
+					unsigned char cr, cg, cb, ck;
+					QRgb *ptr;
 					for (int i = 0; i < height(); i++)
 					{
-						QRgb *ptr = (QRgb *) scanLine(i);
-						unsigned char cr, cg, cb, ck;
+						ptr = (QRgb *) scanLine(i);
 						for (int j = 0; j < width(); j++)
 						{
 							ck = qAlpha(*ptr);

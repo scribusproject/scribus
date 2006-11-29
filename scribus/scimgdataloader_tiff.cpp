@@ -620,18 +620,21 @@ bool ScImgDataLoader_TIFF::loadPicture(const QString& fn, int res, bool thumbnai
 							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 5);
 						else
 							r_image.create(m_imageInfoRecord.exifInfo.thumbnail.width(), m_imageInfoRecord.exifInfo.thumbnail.height(), 4);
+						QRgb *s;
+						uchar *d;
+						unsigned char cc, cm, cy, ck;
 						for( int yit=0; yit < m_imageInfoRecord.exifInfo.thumbnail.height(); ++yit )
 						{
-							QRgb *s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
-							uchar *d = r_image.scanLine( yit );
+							s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
+							d = r_image.scanLine( yit );
 							for(int xit=0; xit < m_imageInfoRecord.exifInfo.thumbnail.width(); ++xit )
 							{
 								if (isCMYK)
 								{
-									unsigned char cc = 255 - qRed(*s);
-									unsigned char cm = 255 - qGreen(*s);
-									unsigned char cy = 255 - qBlue(*s);
-									unsigned char ck = QMIN(QMIN(cc, cm), cy);
+									cc = 255 - qRed(*s);
+									cm = 255 - qGreen(*s);
+									cy = 255 - qBlue(*s);
+									ck = QMIN(QMIN(cc, cm), cy);
 									d[0] = cc-ck;
 									d[1] = cm-ck;
 									d[2] = cy-ck;

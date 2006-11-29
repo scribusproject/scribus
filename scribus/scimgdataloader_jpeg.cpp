@@ -147,15 +147,17 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			m_imageInfoRecord.exifInfo.thumbnail = ExifInf.getThumbnail();
 			if (cinfo.output_components == 4)
 			{
+				QRgb *s;
+				unsigned char cc, cm, cy, ck;
 				for( int yit=0; yit < m_image.height(); ++yit )
 				{
-					QRgb *s = (QRgb*)(m_image.scanLine( yit ));
+					s = (QRgb*)(m_image.scanLine( yit ));
 					for(int xit=0; xit < m_image.width(); ++xit )
 					{
-						unsigned char cc = 255 - qRed(*s);
-						unsigned char cm = 255 - qGreen(*s);
-						unsigned char cy = 255 - qBlue(*s);
-						unsigned char ck = QMIN(QMIN(cc, cm), cy);
+						cc = 255 - qRed(*s);
+						cm = 255 - qGreen(*s);
+						cy = 255 - qBlue(*s);
+						ck = QMIN(QMIN(cc, cm), cy);
 						*s = qRgba(cc-ck,cm-ck,cy-ck,ck);
 						s++;
 					}
@@ -313,16 +315,19 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 				if (cinfo.output_components == 4)
 				{
 					m_image.setAlphaBuffer(false);
+					QRgb *d;
+					QRgb *s;
+					unsigned char cc, cm, cy, ck;
 					for( int yit=0; yit < m_image.height(); ++yit )
 					{
-						QRgb *d = (QRgb*)(m_image.scanLine( yit ));
-						QRgb *s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
+						d = (QRgb*)(m_image.scanLine( yit ));
+						s = (QRgb*)(m_imageInfoRecord.exifInfo.thumbnail.scanLine( yit ));
 						for(int xit=0; xit < m_image.width(); ++xit )
 						{
-							unsigned char cc = 255 - qRed(*s);
-							unsigned char cm = 255 - qGreen(*s);
-							unsigned char cy = 255 - qBlue(*s);
-							unsigned char ck = QMIN(QMIN(cc, cm), cy);
+							cc = 255 - qRed(*s);
+							cm = 255 - qGreen(*s);
+							cy = 255 - qBlue(*s);
+							ck = QMIN(QMIN(cc, cm), cy);
 							*d = qRgba(cc-ck,cm-ck,cy-ck,ck);
 							s++;
 							d++;
@@ -361,10 +366,12 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			(void) jpeg_read_scanlines(&cinfo, lines + cinfo.output_scanline, cinfo.output_height);
 		if ( cinfo.output_components == 3 )
 		{
+			uchar *in;
+			QRgb *out;
 			for (uint j=0; j<cinfo.output_height; j++)
 			{
-				uchar *in = m_image.scanLine(j) + cinfo.output_width * 3;
-				QRgb *out = (QRgb*) m_image.scanLine(j);
+				in = m_image.scanLine(j) + cinfo.output_width * 3;
+				out = (QRgb*) m_image.scanLine(j);
 				for (uint i=cinfo.output_width; i--; )
 				{
 					in -= 3;
@@ -384,15 +391,17 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 			}
 			else if ((cinfo.jpeg_color_space == JCS_CMYK) && (cinfo.saw_Adobe_marker))
 				method = 1;
+			QRgb *ptr;
+			unsigned char c, m, y ,k;
+			unsigned char *p;
 			for (int i = 0; i < m_image.height(); i++)
 			{
-				QRgb *ptr = (QRgb*)  m_image.scanLine(i);
-				unsigned char c, m, y ,k;
+				ptr = (QRgb*)  m_image.scanLine(i);
 				if (method == 1)
 				{
 					for (int j = 0; j <  m_image.width(); j++)
 					{
-						unsigned char *p = (unsigned char *) ptr;
+						p = (unsigned char *) ptr;
 						c = p[0];
 						m = p[1];
 						y =  p[2];
@@ -405,7 +414,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 				{
 					for (int j = 0; j <  m_image.width(); j++)
 					{
-						unsigned char *p = (unsigned char *) ptr;
+						p = (unsigned char *) ptr;
 						c = p[0];
 						m = p[1];
 						y =  p[2];
@@ -418,7 +427,7 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 				{
 					for (int j = 0; j <  m_image.width(); j++)
 					{
-						unsigned char *p = (unsigned char *) ptr;
+						p = (unsigned char *) ptr;
 						c = p[0];
 						m = p[1];
 						y =  p[2];
@@ -435,11 +444,13 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		if ( cinfo.output_components == 1 )
 		{
 			QImage tmpImg = m_image.convertDepth(32);
-			 m_image.create( cinfo.output_width, cinfo.output_height, 32 );
+			m_image.create( cinfo.output_width, cinfo.output_height, 32 );
+			QRgb *s;
+			QRgb *d;
 			for( int yi=0; yi < tmpImg.height(); ++yi )
 			{
-				QRgb *s = (QRgb*)(tmpImg.scanLine( yi ));
-				QRgb *d = (QRgb*)(m_image.scanLine( yi ));
+				s = (QRgb*)(tmpImg.scanLine( yi ));
+				d = (QRgb*)(m_image.scanLine( yi ));
 				for(int xi=0; xi < tmpImg.width(); ++xi )
 				{
 					(*d) = (*s);

@@ -400,20 +400,23 @@ void ScPainter::endLayer()
 					uint oldSrc = 2;
 					uint newResult = 0;
 					bool first = true;
+					QRgb *src;
+					QRgb *dst;
+					uchar src_a, src_r, src_g, src_b, dst_a, dst_r, dst_g, dst_b, new_r, new_g, new_b;
 					for( int yi=0; yi < h; ++yi )
 					{
-						QRgb *dst = (QRgb*)d;
-						QRgb *src = (QRgb*)s;
+						dst = (QRgb*)d;
+						src = (QRgb*)s;
 						for( int xi=0; xi < w; ++xi )
 						{
-							uchar src_r = qRed(*src);
-							uchar src_g = qGreen(*src);
-							uchar src_b = qBlue(*src);
-							uchar src_a = qAlpha(*src);
-							uchar dst_r = qRed(*dst);
-							uchar dst_g = qGreen(*dst);
-							uchar dst_b = qBlue(*dst);
-							uchar dst_a = qAlpha(*dst);
+							src_r = qRed(*src);
+							src_g = qGreen(*src);
+							src_b = qBlue(*src);
+							src_a = qAlpha(*src);
+							dst_r = qRed(*dst);
+							dst_g = qGreen(*dst);
+							dst_b = qBlue(*dst);
+							dst_a = qAlpha(*dst);
 							if ((src_a > 0) && (dst_a > 0))
 							{
 								if (((*dst) != oldDst) || ((*src) != oldSrc) || (first))
@@ -516,9 +519,9 @@ void ScPainter::endLayer()
 								} */
 									else if (m_blendMode == 12)
 									{
-										uchar new_r = dst_r;
-										uchar new_g = dst_g;
-										uchar new_b = dst_b;
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
 										RGBTOHSV(src_r, src_g, src_b);
 										RGBTOHSV(new_r, new_g, new_b);
 										new_r = src_r;
@@ -529,9 +532,9 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 13)
 									{
-										uchar new_r = dst_r;
-										uchar new_g = dst_g;
-										uchar new_b = dst_b;
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
 										RGBTOHSV(src_r, src_g, src_b);
 										RGBTOHSV(new_r, new_g, new_b);
 										new_g = src_g;
@@ -542,9 +545,9 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 14)
 									{
-										uchar new_r = dst_r;
-										uchar new_g = dst_g;
-										uchar new_b = dst_b;
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
 										RGBTOHLS(src_r, src_g, src_b);
 										RGBTOHLS(new_r, new_g, new_b);
 										new_r = src_r;
@@ -556,9 +559,9 @@ void ScPainter::endLayer()
 									}
 									else if (m_blendMode == 15)
 									{
-										uchar new_r = dst_r;
-										uchar new_g = dst_g;
-										uchar new_b = dst_b;
+										new_r = dst_r;
+										new_g = dst_g;
+										new_b = dst_b;
 										RGBTOHSV(src_r, src_g, src_b);
 										RGBTOHSV(new_r, new_g, new_b);
 										new_b = src_b;
@@ -616,21 +619,24 @@ void ScPainter::endLayer()
 	int words = m_image->numBytes() / 4;
 	QRgb *s = (QRgb*)(tmp_image.bits());
 	QRgb *d = (QRgb*)(m_image->bits());
+	QRgb src, dst;
+	uchar src_a, src_r, src_g, src_b, dst_a, dst_r, dst_g, dst_b;
+	int layOpa;
 	for(int x = 0; x < words; ++x )
 	{
-		QRgb src = (*s);
-		QRgb dst = (*d);
-		uchar src_a = qAlpha(src);
+		src = (*s);
+		dst = (*d);
+		src_a = qAlpha(src);
 		if (src_a > 0)
 		{
-			uchar src_r = qRed(src);
-			uchar src_g = qGreen(src);
-			uchar src_b = qBlue(src);
-			uchar dst_a = qAlpha(dst);
-			uchar dst_r = qRed(dst);
-			uchar dst_g = qGreen(dst);
-			uchar dst_b = qBlue(dst);
-			int layOpa = qRound(255 * m_layerTransparency);
+			src_r = qRed(src);
+			src_g = qGreen(src);
+			src_b = qBlue(src);
+			dst_a = qAlpha(dst);
+			dst_r = qRed(dst);
+			dst_g = qGreen(dst);
+			dst_b = qBlue(dst);
+			layOpa = qRound(255 * m_layerTransparency);
 			src_a = INT_MULT(src_a, layOpa);
 			if ((dst_a > 0) && (src_a > 0))
 				(*d) = qRgba((dst_r * (255 - layOpa) + src_r * layOpa) / 255, (dst_g * (255 - layOpa) + src_g * layOpa) / 255, (dst_b * (255 - layOpa) + src_b * layOpa) / 255, dst_a + INT_MULT(255 - dst_a, src_a));
@@ -1166,9 +1172,10 @@ void ScPainter::drawVPath( int mode )
 			else
 				pat = cairo_pattern_create_radial (x1, y1, 0.1, x1, y1, sqrt(pow(x2 - x1, 2) + pow(y2 - y1,2)));
 			QPtrVector<VColorStop> colorStops = fill_gradient.colorStops();
+			QColor qStopColor;
 			for( uint offset = 0 ; offset < colorStops.count() ; offset++ )
 			{
-				QColor qStopColor = colorStops[ offset ]->color;
+				qStopColor = colorStops[ offset ]->color;
 				int h, s, v, sneu, vneu;
 				int shad = colorStops[offset]->shade;
 				qStopColor.hsv(&h, &s, &v);
@@ -1196,10 +1203,12 @@ void ScPainter::drawVPath( int mode )
 			if (fill_trans != 1.0)
 			{
 				mask.create(m_pattern->getPattern()->width(), m_pattern->getPattern()->height(), 8);
+				QRgb * s;
+				unsigned char *d;
 				for( int yi = 0; yi < m_pattern->getPattern()->height(); ++yi )
 				{
-					QRgb * s = (QRgb*)(m_pattern->getPattern()->scanLine( yi ));
-					unsigned char *d = (unsigned char *)(mask.scanLine( yi ));
+					s = (QRgb*)(m_pattern->getPattern()->scanLine( yi ));
+					d = (unsigned char *)(mask.scanLine( yi ));
 					for( int xi=0; xi < m_pattern->getPattern()->width(); ++xi )
 					{
 						*d++ = static_cast<unsigned char>(qAlpha(*s++) * fill_trans);
