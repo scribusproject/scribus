@@ -229,9 +229,11 @@ void CWDialog::setPreview()
 	pm.fill(Qt::white);
 	p->setPen(Qt::white);
 	p->drawRect(0, 0, x, y);
+	QColor c;
 	for (uint i = 0; i < cols.count(); ++i)
 	{
-		QColor c = computeDefect(cols[i].getRGBColor());
+		//c = computeDefect(cols[i].getRGBColor());
+		c = computeDefect(cols[i].getDisplayColor());
 		p->setPen(c);
 		p->setBrush(c);
 		p->drawRect(i * xstep, 0, xstep, y);
@@ -241,7 +243,7 @@ void CWDialog::setPreview()
 	p->drawText(15, 5 + fm.height(), "Lorem ipsum dolor sit amet");
 	p->setPen(Qt::white);
 	p->setBrush(Qt::white);
-	p->drawText(125, y - 5 - fm.height(), "Lorem ipsum dolor sit amet");
+	p->drawText(90, y - 5 - fm.height(), "Lorem ipsum dolor sit amet");
 	p->end();
 	delete(p);
 	previewLabel->clear();
@@ -262,7 +264,7 @@ QColor CWDialog::computeDefect(QColor c)
 
 void CWDialog::fillColorList()
 {
-	int ix = colorList->currentItem();
+	uint ix = colorList->currentItem();
 	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
 	QListBoxItem *item = colorList->findItem(colorWheel->trBaseColor);
 	if (item->prev())
@@ -469,29 +471,51 @@ void CWDialog::colorList_currentChanged(QListBoxItem * item)
 {
 	if (!item)
 		return;
-	ScColor col(colorWheel->colorList[item->text()]);
-	currentColorTable->setText(0, 4, col.nameCMYK());
-	currentColorTable->setText(1, 4, col.nameRGB());
-	currentColorTable->setText(2, 4, getHexHsv(col));
-	// components
-	int c, m, y, k;
-	QString num;
-	col.getCMYK(&c, &m, &y, &k);
-	currentColorTable->setText(0, 0, num.setNum(c));
-	currentColorTable->setText(0, 1, num.setNum(m));
-	currentColorTable->setText(0, 2, num.setNum(y));
-	currentColorTable->setText(0, 3, num.setNum(k));
-	int r, g, b;
-	col.getRGB(&r, &g, &b);
-	currentColorTable->setText(1, 0, num.setNum(r));
-	currentColorTable->setText(1, 1, num.setNum(g));
-	currentColorTable->setText(1, 2, num.setNum(b));
-	int h, s, v;
-	QColor hsvCol(col.getRGBColor());
-	hsvCol.getHsv(&h, &s, &v);
-	currentColorTable->setText(2, 0, num.setNum(h));
-	currentColorTable->setText(2, 1, num.setNum(s));
-	currentColorTable->setText(2, 2, num.setNum(v));
+
+	// if it's base color we do not need to recompute it again
+	if (item->text() == colorWheel->trBaseColor)
+	{
+		currentColorTable->setText(0, 4, cmykLabel->text());
+		currentColorTable->setText(1, 4, rgbLabel->text());
+		currentColorTable->setText(2, 4, hsvLabel->text());
+		currentColorTable->setText(0, 0, cSpin->text());
+		currentColorTable->setText(0, 1, mSpin->text());
+		currentColorTable->setText(0, 2, ySpin->text());
+		currentColorTable->setText(0, 3, kSpin->text());
+		currentColorTable->setText(1, 0, rSpin->text());
+		currentColorTable->setText(1, 1, gSpin->text());
+		currentColorTable->setText(1, 2, bSpin->text());
+		currentColorTable->setText(2, 0, hSpin->text());
+		currentColorTable->setText(2, 1, sSpin->text());
+		currentColorTable->setText(2, 2, vSpin->text());
+
+	}
+	else
+	{
+		ScColor col(colorWheel->colorList[item->text()]);
+		currentColorTable->setText(0, 4, col.nameCMYK());
+		currentColorTable->setText(1, 4, col.nameRGB());
+		currentColorTable->setText(2, 4, getHexHsv(col));
+		// components
+		int c, m, y, k;
+		QString num;
+		col.getCMYK(&c, &m, &y, &k);
+		currentColorTable->setText(0, 0, num.setNum(c));
+		currentColorTable->setText(0, 1, num.setNum(m));
+		currentColorTable->setText(0, 2, num.setNum(y));
+		currentColorTable->setText(0, 3, num.setNum(k));
+		int r, g, b;
+		col.getRGB(&r, &g, &b);
+		currentColorTable->setText(1, 0, num.setNum(r));
+		currentColorTable->setText(1, 1, num.setNum(g));
+		currentColorTable->setText(1, 2, num.setNum(b));
+		int h, s, v;
+		QColor hsvCol(col.getRGBColor());
+		hsvCol.getHsv(&h, &s, &v);
+		currentColorTable->setText(2, 0, num.setNum(h));
+		currentColorTable->setText(2, 1, num.setNum(s));
+		currentColorTable->setText(2, 2, num.setNum(v));
+	}
 	currentColorTable->adjustColumn(0);
 	currentColorTable->adjustColumn(1);
 	currentColorTable->adjustColumn(2);

@@ -84,7 +84,7 @@ void ColorWheel::paintCenterSample()
 	QPainter p;
 	p.begin(this);
 	p.setPen(QPen(Qt::black, 2));
-	p.setBrush(actualColor.getRGBColor());
+	p.setBrush(actualColor.getDisplayColor());
 	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
 	p.end();
 }
@@ -92,7 +92,7 @@ void ColorWheel::paintCenterSample()
 void ColorWheel::paintWheel()
 {
 	int h, s, v;
-	QColor col(actualColor.getRGBColor());
+	QColor col(actualColor.getDisplayColor());
 	col.hsv(&h, &s, &v);
 	int width = this->width();
 	int height = this->height();
@@ -148,7 +148,7 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 	QColor newcol;
 	ScColor ret;
 	int h, s, v;
-	
+
 	col.getRGBColor().getHsv(&h, &s, &v);
 	newcol.setHsv(h, s, v);
 	ret.fromQColor(newcol);
