@@ -557,6 +557,7 @@ void Cpalette::ChooseGrad(int number)
 	{
 		if (number == 8)
 		{
+			PM1->setEnabled(false);
 			freeGradientQFrame->hide();
 			gradEdit->hide();
 			freeGradientQFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
@@ -568,6 +569,7 @@ void Cpalette::ChooseGrad(int number)
 		}
 		else
 		{
+			PM1->setEnabled(true);
 			patternFrame->hide();
 			patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 			colorListQLBox->show();
@@ -588,6 +590,7 @@ void Cpalette::ChooseGrad(int number)
 	}
 	else
 	{
+		PM1->setEnabled(true);
 		patternFrame->hide();
 		patternFrame->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored));
 		freeGradientQFrame->hide();
