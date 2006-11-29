@@ -127,12 +127,18 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	isPhotoshop = false;
 	hasPhotoshopImageData = false;
 	int plateCount = 0;
+	uint startPos = 0;
 	FontListe.clear();
 	QFile f(fn);
 	if (f.open(IO_ReadOnly))
 	{
+		QCString tempBuf(9);
+		f.readBlock(tempBuf.data(), 8);
+		if (getDouble(QString(tempBuf.mid(0, 4)), true) == 0xC5D0D3C6)
+			startPos = getDouble(tempBuf.mid(4, 4), false);
 		bool psFound = false;
 		QTextStream ts(&f);
+		ts.device()->at(startPos);
 		while (!ts.atEnd())
 		{
 			tmp = ts.readLine();
