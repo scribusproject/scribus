@@ -246,6 +246,13 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	PageItem *Neu;
 	Page* Apage;
 	LFrames.clear();
+	DoVorl.clear();
+	DoVorl[0] = "";
+	DoVorl[1] = "";
+	DoVorl[2] = "";
+	DoVorl[3] = "";
+	DoVorl[4] = "";
+	VorlC = 5;
 	QDomDocument docu("scridoc");
 	QString f(readSLA(fileName));
 	if (f.isEmpty())
@@ -562,6 +569,8 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			{
 				readParagraphStyle(vg, pg, *m_AvailableFonts, m_Doc);
 				m_Doc->docParagraphStyles.create(vg);
+				DoVorl[VorlC] = vg.name();
+				++VorlC;
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -1818,7 +1827,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	
 	int ab = it->attribute("CAB", "-1").toInt();
 	if (ab >= 5) {
-		pstylename = doc->docParagraphStyles[ab-5].name();
+		pstylename = DoVorl[ab];
 		calign = -1;
 	}
 	else if (ab >= 0) {
@@ -1881,9 +1890,9 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		}
 		
 		if (impo && ab >= 0 && VorLFound)
-			last->ParaStyle = DoVorl[ab].toInt();
+			last->ParaStyle = DoVorl[ab];
 		else
-			last->ParaStyle = doc->docParagraphStyles.find(pstylename);
+			last->ParaStyle = pstylename;
 
 		int pos = obj->itemText.length();
 		if (ch == SpecialChars::OBJECT) {
@@ -1904,9 +1913,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 		}
 		if (ch == SpecialChars::PARSEP) {
 			ParagraphStyle pstyle;
-			if (last->ParaStyle >= 0) {
-				pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
-			}
+			pstyle.setParent( last->ParaStyle );
 			if (calign >= 0)
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 			qDebug(QString("par style at %1: %2/%3 (%4) calign %5").arg(pos).arg(pstyle.name()).arg(pstyle.parent()).arg(last->ParaStyle).arg(calign));
@@ -1915,9 +1922,7 @@ void Scribus13Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* ob
 	}
 	obj->itemText.applyCharStyle(last->StyleStart, obj->itemText.length()-last->StyleStart, last->Style);
 	ParagraphStyle pstyle;
-	if (last->ParaStyle >= 0) {
-		pstyle.setParent( doc->docParagraphStyles[last->ParaStyle].name());
-	}
+	pstyle.setParent( last->ParaStyle );
 	if (calign >= 0)
 		pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(calign));
 	obj->itemText.applyStyle(obj->itemText.length()-1, pstyle);
@@ -2557,11 +2562,11 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 		maxLevel = QMAX(m_Doc->Layers[la2].Level, maxLevel);
 	}
 	DoVorl.clear();
-	DoVorl[0] = "0";
-	DoVorl[1] = "1";
-	DoVorl[2] = "2";
-	DoVorl[3] = "3";
-	DoVorl[4] = "4";
+	DoVorl[0] = "";
+	DoVorl[1] = "";
+	DoVorl[2] = "";
+	DoVorl[3] = "";
+	DoVorl[4] = "";
 	VorlC = 5;
 	QDomDocument docu("scridoc");
  	QString f(readSLA(fileName));
@@ -2985,8 +2990,8 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 			{
 				if (fl)
 				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
+					DoVorl[VorlC] = vg->name();
+					++VorlC;
 				}
 				fou = true;
 			}
@@ -3008,8 +3013,8 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 				fou = true;
 				if (fl)
 				{
-					DoVorl[VorlC] = tmV.setNum(xx);
-					VorlC++;
+					DoVorl[VorlC] = vg->name();
+					++VorlC;
 				}
 				break;
 			}
@@ -3020,8 +3025,8 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 		docParagraphStyles.create(*vg);
 		if (fl)
 		{
-			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
-			VorlC++;
+			DoVorl[VorlC] = vg->name();
+			++VorlC;
 		}
 	}
 }
