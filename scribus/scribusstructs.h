@@ -404,10 +404,10 @@ class LastStyles {
 public:
 	CharStyle Style;
 	int StyleStart;
-	int ParaStyle;
+	QString ParaStyle;
 	LastStyles() {
 		StyleStart = 0;
-		ParaStyle = -1;
+		ParaStyle = "";
 	}
 };
 
