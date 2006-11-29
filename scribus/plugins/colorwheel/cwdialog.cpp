@@ -168,7 +168,7 @@ void CWDialog::typeCombo_activated(int index)
 void CWDialog::processColors(int index, bool updateSpins)
 {
 	bool angEnable = false;
-	colorList->clear();
+	//colorList->clear();
 	if (index == colorWheel->Monochromatic)
 		colorWheel->currentType = colorWheel->Monochromatic;
 	if (index == colorWheel->Analogous)
@@ -262,8 +262,15 @@ QColor CWDialog::computeDefect(QColor c)
 
 void CWDialog::fillColorList()
 {
+	int ix = colorList->currentItem();
 	colorList->updateBox(colorWheel->colorList, ColorListBox::fancyPixmap);
-	colorList->setCurrentItem(0);
+	QListBoxItem *item = colorList->findItem(colorWheel->trBaseColor);
+	if (item->prev())
+	{
+		colorList->takeItem(item);
+		colorList->insertItem(item, 0);
+	}
+	colorList->setCurrentItem(ix > colorList->count() ? 0 : ix);
 }
 
 void CWDialog::defectCombo_activated(int)

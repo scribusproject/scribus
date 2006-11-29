@@ -35,6 +35,7 @@ ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, nam
 		if (mapIndex > 359)
 			mapIndex = 0;
 	}
+	trBaseColor = tr("Base Color");
 }
 
 void ColorWheel::mousePressEvent(QMouseEvent *e)
@@ -161,7 +162,7 @@ void ColorWheel::baseColor()
 	drawBorderPoint(baseAngle, true);
 	paintCenterSample();
 	colorList.clear();
-	colorList[tr("Base Color")] = colorSpaceColor(actualColor);
+	colorList[trBaseColor] = colorSpaceColor(actualColor);
 }
 
 void ColorWheel::makeMonochromatic()

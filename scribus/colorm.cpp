@@ -131,11 +131,12 @@ void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type, boo
 void ColorListBox::insertSmallPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
+	ScColor col;
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-		ScColor col = list[it.key()];
+		col = list[it.key()];
 		insertItem( new ColorSmallPixmapItem(col, it.key()) );
 	}
 }
@@ -143,11 +144,12 @@ void ColorListBox::insertSmallPixmapItems(ColorList& list)
 void ColorListBox::insertWidePixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
+	ScColor col;
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-		ScColor col = list[it.key()];
+		col = list[it.key()];
 		insertItem( new ColorWidePixmapItem(col, it.key()) );
 	}
 }
@@ -155,11 +157,12 @@ void ColorListBox::insertWidePixmapItems(ColorList& list)
 void ColorListBox::insertFancyPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
+	ScColor col;
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-		ScColor col = list[it.key()];
+		col = list[it.key()];
 		insertItem( new ColorFancyPixmapItem(col, it.key()) );
 	}
 }

@@ -43,6 +43,9 @@ class ColorWheel : public QLabel
 			Tetradic
 		};
 
+		//! \brief name of the "base color" to handle in extern color lists
+		QString trBaseColor;
+
 		//! \brief Which color model is in use.
 		colorModel currentColorSpace;
 
