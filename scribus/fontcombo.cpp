@@ -201,8 +201,12 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 			ilist.clear();
 			for (QStringList::ConstIterator it3 = slist.begin(); it3 != slist.end(); ++it3)
 			{
-				if ( prefsManager->appPrefs.AvailFonts.contains(*it2 + " " + *it3) && prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].usable() && (currentDoc->DocName == prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].localForDocument() || prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3].localForDocument().isEmpty()))
-					ilist.append(*it3);
+				if ( prefsManager->appPrefs.AvailFonts.contains(*it2 + " " + *it3))
+				{
+					const ScFace& fon(prefsManager->appPrefs.AvailFonts[*it2 + " " + *it3]);
+					if (fon.usable() && !fon.isReplacement() && (currentDoc->DocName == fon.localForDocument() || fon.localForDocument().isEmpty()))
+						ilist.append(*it3);
+				}
 			}
 			if (!ilist.isEmpty())
 				flist.insert((*it2).lower(), *it2);
@@ -213,7 +217,7 @@ void FontComboH::RebuildList(ScribusDoc *currentDoc)
 	for (QMap<QString,QString>::Iterator it2a = flist.begin(); it2a != flist.end(); ++it2a)
 	{
 		ScFace fon = prefsManager->appPrefs.AvailFonts[it2a.data()+" "+prefsManager->appPrefs.AvailFonts.fontMap[it2a.data()][0]];
-		if (! fon.usable() )
+		if ( !fon.usable() || fon.isReplacement() )
 			continue;
 		ScFace::FontType type = fon.type();
 		if (type == ScFace::OTF)
