@@ -2924,11 +2924,11 @@ strings.
     </message>
     <message>
       <source>D&amp;uplicate</source>
-      <translation>&amp;Luo kopio</translation>
+      <translation>&amp;Tee kopio</translation>
     </message>
     <message>
       <source>&amp;Multiple Duplicate</source>
-      <translation>&amp;Luo useita kopioita</translation>
+      <translation>&amp;Useita kopioita</translation>
     </message>
     <message>
       <source>&amp;Delete</source>
@@ -5333,7 +5333,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Free Objects</source>
-      <translation>Vapaat kohteet</translation>
+      <translation>Sivujen ulkopuoliset kohteet</translation>
     </message>
     <message>
       <source>Problems found</source>
@@ -5454,7 +5454,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Import colors to the current set from an existing document</source>
-      <translation>Tuo värejä nykyiseen kokoelmaan asiakirjasta</translation>
+      <translation>Tuo värejä nykyiseen värisarjaan toisesta asiakirjasta</translation>
     </message>
     <message>
       <source>Create a new color within the current set</source>
@@ -5672,7 +5672,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>C&amp;olor Components...</source>
-      <translation>&amp;Värien komponentit...</translation>
+      <translation>&amp;Värin komponentit...</translation>
     </message>
     <message>
       <source>&amp;Import existing color...</source>
@@ -5767,7 +5767,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Color setting helper</source>
-      <translation>Väriasetusavustaja</translation>
+      <translation>Avustaa värien valinnassa</translation>
     </message>
     <message>
       <source>Color selector with color theory included.</source>
@@ -5840,7 +5840,7 @@ Sitä ei voi käyttää.</translation>
     <message>
       <source>None</source>
       <comment>color name</comment>
-      <translation>Ei mitään</translation>
+      <translation>Ei väriä</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -6094,7 +6094,7 @@ Sitä ei voi käyttää.</translation>
     </message>
     <message>
       <source>Mirror</source>
-      <translation>Peili</translation>
+      <translation>Peilaus</translation>
     </message>
     <message>
       <source>Option</source>
@@ -6569,7 +6569,7 @@ Voit määrittää sen asetuksissa.</translation>
     <message>
       <source>None</source>
       <comment>relationship</comment>
-      <translation>Ei mitään</translation>
+      <translation>Ei suhdetta</translation>
     </message>
     <message>
       <source>None</source>
