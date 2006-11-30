@@ -53,6 +53,10 @@ public:
 			def->setBase(this); 
 	}
 	
+	bool isDefault(const STYLE& style) {
+		return &style == m_default;
+	}
+	
 	StyleSet() : styles(), m_base(NULL), m_baseversion(-1), m_default(NULL) {}
 	
 	~StyleSet() { clear(); }
