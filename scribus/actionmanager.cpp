@@ -1121,6 +1121,7 @@ void ActionManager::enableActionStringList(QMap<QString, QGuardedPtr<ScrAction> 
 void ActionManager::enableUnicodeActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName)
 {
 	enableActionStringList(actionMap, unicodeCharActionNames, enabled, enabled, fontName);
+	(*actionMap)["insertGlyph"]->setEnabled(enabled);
 }
 
 void ActionManager::setPDFActions(ScribusView *currView)
