@@ -53,7 +53,7 @@ public:
 			def->setBase(this); 
 	}
 	
-	bool isDefault(const STYLE& style) {
+	bool isDefault(const STYLE& style) const {
 		return &style == m_default;
 	}
 	
