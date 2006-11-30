@@ -530,6 +530,8 @@ public slots:
 	void slotInsertFrame();
 	//! \brief manages the documents patterns
 	void managePatterns();
+	//! \brief enable or disable the unicode actions and their menus
+	void enableTextActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName=QString::null);
 
 signals:
 	void TextISize(int);

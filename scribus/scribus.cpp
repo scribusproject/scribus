@@ -2591,7 +2591,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["itemPreviewFull"]->setOn(false);
 	}
 	if ((Nr==-1) || (Nr!=-1 && !currItem->asTextFrame()))
-		actionManager->enableUnicodeActions(&scrActions, false);
+		enableTextActions(&scrActions, false);
 	scrActions["insertSampleText"]->setEnabled(false);
 
 	view->horizRuler->ItemPosValid = false;
@@ -2720,7 +2720,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 // 			scrActions["insertGlyph"]->setEnabled(true);
 			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
-				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
+				enableTextActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
 			view->horizRuler->setItem(currItem);
 			if (currItem->lineColor() != CommonStrings::None)
 				view->horizRuler->lineCorr = currItem->lineWidth() / 2.0;
@@ -5804,7 +5804,7 @@ void ScribusMainWindow::setAppMode(int mode)
 // 			scrActions["insertGlyph"]->setEnabled(true);
 			charPalette->setEnabled(true, currItem);
 			if (currItem!=NULL && currItem->asTextFrame())
-				actionManager->enableUnicodeActions(&scrActions, true, currItem->currentCharStyle().font().scName());
+				enableTextActions(&scrActions, true, currItem->currentCharStyle().font().scName());
 			if (!Buffer2.isNull())
 			{
 //				if (!Buffer2.startsWith("<SCRIBUSELEM"))
@@ -9316,4 +9316,13 @@ void ScribusMainWindow::managePatterns()
 		delete dia;
 		undoManager->setUndoEnabled(undoState);
 	}
+}
+
+void ScribusMainWindow::enableTextActions(QMap<QString, QGuardedPtr<ScrAction> > *actionMap, bool enabled, const QString& fontName)
+{
+	actionManager->enableUnicodeActions(actionMap, enabled, fontName);
+	scrMenuMgr->setMenuEnabled("InsertChar", enabled);
+	scrMenuMgr->setMenuEnabled("InsertQuote", enabled);
+	scrMenuMgr->setMenuEnabled("InsertSpace", enabled);
+	scrMenuMgr->setMenuEnabled("InsertLigature", enabled);
 }
