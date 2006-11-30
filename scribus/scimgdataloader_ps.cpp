@@ -13,6 +13,8 @@ for which a new license (GPL+exception) is in place.
 #include "scimgdataloader_ps.h"
 #include "prefsmanager.h"
 #include "util.h"
+#include "cmsettings.h"
+#include "scimage.h"
 
 extern "C"
 {
@@ -126,6 +128,7 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 	isDCS2multi = false;
 	isPhotoshop = false;
 	hasPhotoshopImageData = false;
+	hasThumbnail = false;
 	int plateCount = 0;
 	uint startPos = 0;
 	FontListe.clear();
@@ -135,7 +138,47 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 		QCString tempBuf(9);
 		f.readBlock(tempBuf.data(), 8);
 		if (getDouble(QString(tempBuf.mid(0, 4)), true) == 0xC5D0D3C6)
+		{
 			startPos = getDouble(tempBuf.mid(4, 4), false);
+			if (doThumbnail)
+			{
+				f.at(0);
+				QByteArray tmp2buf(29);
+				f.readBlock(tmp2buf.data(), 28);
+				uint thumbStart = 0;
+				thumbStart = tmp2buf[20] & 0xff;
+				thumbStart |= (tmp2buf[21] << 8) & 0xff00;
+				thumbStart |= (tmp2buf[22] << 16) & 0xff0000;
+				thumbStart |= (tmp2buf[23] << 24) & 0xff000000;
+				uint thumbLen = 0;
+				thumbLen = tmp2buf[24] & 0xff;
+				thumbLen |= (tmp2buf[25] << 8) & 0xff00;
+				thumbLen |= (tmp2buf[26] << 16) & 0xff0000;
+				thumbLen |= (tmp2buf[27] << 24) & 0xff000000;
+				if (thumbLen != 0)
+				{
+					QByteArray imgc(thumbLen);
+					f.at(thumbStart);
+					uint readB = f.readBlock(imgc.data(), thumbLen);
+					QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "preview.tiff");
+					QFile f2(tmpFile);
+					if (f2.open(IO_WriteOnly))
+						f2.writeBlock(imgc.data(), thumbLen);
+					f2.close();
+					imgc.resize(0);
+					ScImage thum;
+					CMSettings cms(0, "", 0);
+					bool mode = true;
+					if (thum.LoadPicture(tmpFile, cms, false, false, ScImage::RGBData, 72, &mode))
+					{
+						m_imageInfoRecord.exifDataValid = true;
+						m_imageInfoRecord.exifInfo.thumbnail = thum.qImage().copy();
+					}
+					unlink(tmpFile);
+					hasThumbnail = true;
+				}
+			}
+		}
 		bool psFound = false;
 		QTextStream ts(&f);
 		ts.device()->at(startPos);
@@ -318,6 +361,8 @@ bool ScImgDataLoader_PS::parseData(QString fn)
 								psdata[psdata.size()-1] = data;
 							}
 						}
+						if ((doThumbnail) && ((hasThumbnail) || (!m_imageInfoRecord.exifInfo.thumbnail.isNull())))
+							return true;
 					}
 					if (tmp.startsWith("%%BeginICCProfile:"))
 					{
@@ -384,6 +429,7 @@ bool ScImgDataLoader_PS::loadPicture(const QString& fn, int gsRes, bool thumbnai
 	initialize();
 	m_imageInfoRecord.type = 3;
 	m_imageInfoRecord.exifDataValid = false;
+	doThumbnail = thumbnail;
 	colorPlates2.clear();
 	colorPlates.clear();
 	CustColors.clear();

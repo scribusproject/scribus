@@ -40,6 +40,8 @@ protected:
 	bool isDCS2multi;
 	bool isPhotoshop;
 	bool hasPhotoshopImageData;
+	bool doThumbnail;
+	bool hasThumbnail;
 	int psXSize;
 	int psYSize;
 	int psDepth;
