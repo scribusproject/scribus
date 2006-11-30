@@ -537,11 +537,13 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 #ifndef HAVE_CAIRO
 	blendMode->hide();
 	TransTxt2->hide();
+/*
 #else
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 	blendMode->hide();
 	TransTxt2->hide();
 #endif
+*/
 #endif
 	QSpacerItem* spacerTr2 = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
 	page_group_layout->addItem( spacerTr2 );

@@ -459,9 +459,11 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				}
 			}
 #ifdef HAVE_CAIRO
+/*
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 			painter->beginLayer(1.0, 0);
 #else
+*/
 			if (viewAsPreview)
 			{
 				FPointArray PoLine;
@@ -488,7 +490,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 			}
 			else
 				painter->beginLayer(1.0, 0);
-#endif
+// #endif
 #endif
 			if ((Doc->guidesSettings.before) && (!viewAsPreview))
 			{

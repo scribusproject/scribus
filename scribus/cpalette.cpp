@@ -245,11 +245,13 @@ Cpalette::Cpalette(QWidget* parent) : QWidget(parent, "Cdouble")
 	groupOffset->hide();
 	blendMode->hide();
 	TransTxt2->hide();
+/*
 #else
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 8)
 	blendMode->hide();
 	TransTxt2->hide();
 #endif
+*/
 #endif
 
 	Inhalt->setOn(true);

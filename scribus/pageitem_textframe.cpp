@@ -1973,18 +1973,18 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 	else
 	{
 #ifdef HAVE_CAIRO
-#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 		if (fillBlendmode() != 0)
 			p->endLayer();
-#endif
+//#endif
 #endif
 		if (!m_Doc->RePos)
 		{
 #ifdef HAVE_CAIRO
-#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 			if (lineBlendmode() != 0)
 				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-#endif
+//#endif
 #endif
 			if (lineColor() != CommonStrings::None)
 			{
@@ -2015,10 +2015,10 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 				}
 			}
 #ifdef HAVE_CAIRO
-#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
+//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 			if (lineBlendmode() != 0)
 				p->endLayer();
-#endif
+//#endif
 #endif
 		}
 	}

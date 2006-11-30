@@ -42,9 +42,9 @@ for which a new license (GPL+exception) is in place.
 	#elif defined(Q_WS_MAC)
 //	#include <cairo-quartz.h>
 	#endif
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+// #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	#include <cairo-svg.h>
-#endif
+// #endif
 #else
 // not HAVE_CAIRO
 #include <libart_lgpl/art_vpath.h>
@@ -251,6 +251,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	svgMode = false;
 	m_image = target;
 	m_matrix = QWMatrix();
+/*
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
 	tmp_image = QImage(w, h, 32, QImage::BigEndian);
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
@@ -258,17 +259,18 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	m_cr = cairo_create(img);
 	clear();
 #else
+*/
 	m_image->fill( qRgba(255, 255, 255, 0) );
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
-#endif
+// #endif
 	cairo_save( m_cr );
 	cairo_set_fill_rule (m_cr, CAIRO_FILL_RULE_EVEN_ODD);
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_tolerance( m_cr, 0.5 );
 }
 
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+// #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 /// SVG file painter
 ScPainter::ScPainter( QString target, unsigned int w, unsigned int h, 
 					  double transparency, int blendmode )
@@ -309,7 +311,7 @@ ScPainter::ScPainter( QString target, unsigned int w, unsigned int h,
 	cairo_set_operator(m_cr, CAIRO_OPERATOR_OVER);
 	cairo_set_tolerance( m_cr, 0.5 );
 }
-#endif
+// #endif
 // HAVE_CAIRO
 #endif
 
@@ -348,11 +350,11 @@ ScPainter::~ScPainter()
 #ifdef HAVE_CAIRO
 void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clipArray)
 {
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+// #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	layerProp la;
-	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
+//	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
 	la.data = cairo_get_group_target(m_cr);
-	#endif
+//	#endif
 	la.blendmode = m_blendMode;
 	la.tranparency = m_layerTransparency;
 	m_layerTransparency = transparency;
@@ -369,19 +371,21 @@ void ScPainter::beginLayer(double transparency, int blendmode, FPointArray *clip
 		la.pushed = true;
 	}
 	Layers.push(la);
+/*
 #else
 	tmp_image.fill( qRgba(255, 255, 255, 0) );
 #endif
+*/
 }
 
 void ScPainter::endLayer()
 {
 	layerProp la;
 	la = Layers.top();
-#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
+// #if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 6)
 	if (la.pushed)
 	{
-	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
+//	#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 1, 8)
 		if ((m_blendMode != 0) && (Layers.count() != 1))
 		{
 			cairo_surface_t *tmp = cairo_get_group_target(m_cr);
@@ -587,7 +591,7 @@ void ScPainter::endLayer()
 				}
 			}
 		}
-		#endif
+//		#endif
 	}
 	la = Layers.pop();
 	if (la.pushed)
@@ -614,6 +618,7 @@ void ScPainter::endLayer()
 	}
 	m_layerTransparency = la.tranparency;
 	m_blendMode = la.blendmode;
+/*
 #else
 	cairo_surface_flush(cairo_get_target(m_cr));
 	int words = m_image->numBytes() / 4;
@@ -647,6 +652,7 @@ void ScPainter::endLayer()
 		d++;
 	}
 #endif
+*/
 }
 //HAVE_CAIRO
 #endif
@@ -662,9 +668,11 @@ void ScPainter::end()
 		cairo_show_page (m_cr);
 	if (layeredMode)
 	{
+/*
 #if CAIRO_VERSION < CAIRO_VERSION_ENCODE(1, 1, 6)
 		endLayer();
 #endif
+*/
 		cairo_surface_flush(cairo_get_target(m_cr));
 		cairo_restore( m_cr );
 		return;
