@@ -66,7 +66,7 @@ public:
 protected:
 	PrefsManager* prefsManager;
 	
-	void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+	void GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
 	QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 };
 

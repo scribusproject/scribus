@@ -468,21 +468,21 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 }
 
 //CB: Private only now
-void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
 	double xf, xf2;
 	fou = false;
-	vg->setName(pg->attribute("NAME"));
-	vg->setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg->attribute("LINESPMode", "0").toInt()));
-	vg->setLineSpacing(pg->attribute("LINESP").toDouble());
-	vg->setLeftMargin(pg->attribute("INDENT", "0").toDouble());
-	vg->setFirstIndent(pg->attribute("FIRST", "0").toDouble());
-	vg->setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg->attribute("ALIGN").toInt()));
-	vg->setGapBefore(pg->attribute("VOR", "0").toDouble());
-	vg->setGapAfter(pg->attribute("NACH", "0").toDouble());
-	tmpf = pg->attribute("FONT", doc->toolSettings.defFont);
+	vg.setName(pg.attribute("NAME"));
+	vg.setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg.attribute("LINESPMode", "0").toInt()));
+	vg.setLineSpacing(pg.attribute("LINESP").toDouble());
+	vg.setLeftMargin(pg.attribute("INDENT", "0").toDouble());
+	vg.setFirstIndent(pg.attribute("FIRST", "0").toDouble());
+	vg.setAlignment(static_cast<ParagraphStyle::AlignmentType>(pg.attribute("ALIGN").toInt()));
+	vg.setGapBefore(pg.attribute("VOR", "0").toDouble());
+	vg.setGapAfter(pg.attribute("NACH", "0").toDouble());
+	tmpf = pg.attribute("FONT", doc->toolSettings.defFont);
 	if (tmpf.isEmpty())
 		tmpf = doc->toolSettings.defFont;
 	tmf = tmpf;
@@ -490,37 +490,37 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 		tmpf = AskForFont(prefsManager->appPrefs.AvailFonts, tmpf, doc);
 	else
 		tmpf = DoFonts[tmf];
-	vg->charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
-	vg->charStyle().setFontSize(qRound(pg->attribute("FONTSIZE", "12").toDouble() * 10.0));
-	vg->setHasDropCap(static_cast<bool>(pg->attribute("DROP", "0").toInt()));
-	vg->setDropCapLines(pg->attribute("DROPLIN", "2").toInt());
-	vg->setDropCapOffset(pg->attribute("DROPDIST", "0").toDouble());
-	vg->charStyle().setEffects(static_cast<StyleFlag>(pg->attribute("EFFECT", "0").toInt()));
-	vg->charStyle().setFillColor(pg->attribute("FCOLOR", doc->toolSettings.dBrush));
-	vg->charStyle().setFillShade(pg->attribute("FSHADE", "100").toInt());
-	vg->charStyle().setStrokeColor(pg->attribute("SCOLOR", doc->toolSettings.dPen));
-	vg->charStyle().setStrokeShade(pg->attribute("SSHADE", "100").toInt());
-	vg->setUseBaselineGrid(static_cast<bool>(pg->attribute("BASE", "0").toInt()));
-	vg->charStyle().setShadowXOffset(qRound(pg->attribute("TXTSHX", "5").toDouble() * 10));
-	vg->charStyle().setShadowYOffset(qRound(pg->attribute("TXTSHY", "-5").toDouble() * 10));
-	vg->charStyle().setOutlineWidth(qRound(pg->attribute("TXTOUT", "1").toDouble() * 10));
-	vg->charStyle().setUnderlineOffset(qRound(pg->attribute("TXTULP", "-0.1").toDouble() * 10));
-	vg->charStyle().setUnderlineWidth(qRound(pg->attribute("TXTULW", "-0.1").toDouble() * 10));
-	vg->charStyle().setStrikethruOffset(qRound(pg->attribute("TXTSTP", "-0.1").toDouble() * 10));
-	vg->charStyle().setStrikethruWidth(qRound(pg->attribute("TXTSTW", "-0.1").toDouble() * 10));
-	vg->charStyle().setScaleH(qRound(pg->attribute("SCALEH", "100").toDouble() * 10));
-	vg->charStyle().setScaleV(qRound(pg->attribute("SCALEV", "100").toDouble() * 10));
-	vg->charStyle().setBaselineOffset(qRound(pg->attribute("BASEO", "0").toDouble() * 10));
-	vg->charStyle().setTracking(qRound(pg->attribute("KERN", "0").toDouble() * 10));
-//	vg->tabValues().clear();
-	if ((pg->hasAttribute("NUMTAB")) && (pg->attribute("NUMTAB", "0").toInt() != 0))
+	vg.charStyle().setFont(prefsManager->appPrefs.AvailFonts[tmpf]);
+	vg.charStyle().setFontSize(qRound(pg.attribute("FONTSIZE", "12").toDouble() * 10.0));
+	vg.setHasDropCap(static_cast<bool>(pg.attribute("DROP", "0").toInt()));
+	vg.setDropCapLines(pg.attribute("DROPLIN", "2").toInt());
+	vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
+	vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
+	vg.charStyle().setFillColor(pg.attribute("FCOLOR", doc->toolSettings.dBrush));
+	vg.charStyle().setFillShade(pg.attribute("FSHADE", "100").toInt());
+	vg.charStyle().setStrokeColor(pg.attribute("SCOLOR", doc->toolSettings.dPen));
+	vg.charStyle().setStrokeShade(pg.attribute("SSHADE", "100").toInt());
+	vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+	vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
+	vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
+	vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
+	vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
+	vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
+	vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
+	vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
+	vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
+	vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
+	vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
+	vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
+//	vg.tabValues().clear();
+	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
 	{
 		QValueList<ParagraphStyle::TabRecord> tbs;
 		ParagraphStyle::TabRecord tb;
-		QString tmp = pg->attribute("TABS");
+		QString tmp = pg.attribute("TABS");
 		QTextStream tgv(&tmp, IO_ReadOnly);
 		tbs.clear();
-		for (int cxv = 0; cxv < pg->attribute("NUMTAB", "0").toInt(); cxv += 2)
+		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
 			tgv >> xf;
 			tgv >> xf2;
@@ -529,13 +529,13 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 			tb.tabFillChar = QChar();
 			tbs.append(tb);
 		}
-		vg->setTabValues(tbs);
+		vg.setTabValues(tbs);
 		tmp = "";
 	}
 	else
 	{
 		QValueList<ParagraphStyle::TabRecord> tbs;
-		QDomNode IT = pg->firstChild();
+		QDomNode IT = pg.firstChild();
 		while(!IT.isNull())
 		{
 			QDomElement it = IT.toElement();
@@ -554,14 +554,14 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 			}
 			IT=IT.nextSibling();
 		}
-		vg->setTabValues(tbs);
+		vg.setTabValues(tbs);
 	}
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
-		if (vg->name() == docParagraphStyles[xx].name())
+		if (vg.name() == docParagraphStyles[xx].name())
 		{
 			//Compare the attributes of the pasted styles vs existing ones
-			if (vg->equiv(docParagraphStyles[xx]))
+			if (vg.equiv(docParagraphStyles[xx]))
 			{
 				if (fl)
 				{
@@ -572,7 +572,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 			}
 			else
 			{
-				vg->setName("Copy of "+docParagraphStyles[xx].name());
+				vg.setName("Copy of "+docParagraphStyles[xx].name());
 				fou = false;
 			}
 			break;
@@ -582,9 +582,9 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 	{
 		for (uint xx=0; xx< docParagraphStyles.count(); ++xx)
 		{
-			if (vg->equiv(docParagraphStyles[xx]))
+			if (vg.equiv(docParagraphStyles[xx]))
 			{
-				vg->setName(docParagraphStyles[xx].name());
+				vg.setName(docParagraphStyles[xx].name());
 				fou = true;
 				if (fl)
 				{
@@ -597,7 +597,7 @@ void ScriXmlDoc::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Paragrap
 	}
 	if (!fou)
 	{
-		docParagraphStyles.create(*vg);
+		docParagraphStyles.create(vg);
 		if (fl)
 		{
 			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
@@ -795,7 +795,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		}
 		if(pg.tagName()=="STYLE")
 		{
-			GetStyle(&pg, &vg, doc->docParagraphStyles, doc, true);
+			GetStyle(pg, vg, doc->docParagraphStyles, doc, true);
 			VorLFound = true;
 		}
 		if(pg.tagName()=="Pattern")
