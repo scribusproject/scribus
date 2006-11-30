@@ -20,7 +20,9 @@ protected:
 	void loadPhotoshop(QString fn, int gsRes);
 	void decodeA85(QByteArray &psdata, QString tmp);
 	bool loadPSjpeg(QString fn);
+	bool loadPSjpeg(QString fn, QImage &tmpImg);
 	void loadPhotoshopBinary(QString fn);
+	void loadPhotoshopBinary(QString fn, QImage &tmpImg);
 	void loadDCS1(QString fn, int gsRes);
 	void loadDCS2(QString fn, int gsRes);
 	void blendImages(QImage &source, ScColor col);
