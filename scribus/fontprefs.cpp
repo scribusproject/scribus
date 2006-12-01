@@ -132,9 +132,9 @@ FontPrefs::FontPrefs( QWidget* parent, bool Hdoc, QString PPath, ScribusDoc* doc
 		// Rather than just making the tab vanish when editing doc-specific settings
 		// (we don't support per-doc font paths), show a useful explanation.
 		QLabel *whyBlankLabel = new QLabel("<qt>" +
-				tr("Font search paths can only be set in Preferences, and only when "
+				tr("Font search paths can only be set in File > Preferences, and only when "
 				   "there is no document currently open. Close any open documents, then "
-				   "use Edit->Settings to change the font search path.") + "</qt>",
+				   "use File > Preferences > Fonts to change the font search path.") + "</qt>",
 				tab3, "whyBlankLabel");
 		tab3Layout->addWidget( whyBlankLabel );
 	}
