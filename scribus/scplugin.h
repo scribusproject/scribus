@@ -461,7 +461,7 @@ class SCRIBUS_API ScPersistentPlugin : public ScPlugin
 //
 // The API version is currently simply incremented with each incompatible
 // change. Future versions may introduce a minor/major scheme if necessary.
-#define PLUGIN_API_VERSION 0x00000004
+#define PLUGIN_API_VERSION 0x00000005
 
 
 #endif
