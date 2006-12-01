@@ -630,7 +630,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 			}
 		}
 	}
@@ -643,7 +643,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 			}
 		}
 	}
@@ -656,7 +656,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 			for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 			{
-				ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
+				ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 			}
 		}
 	}
@@ -677,7 +677,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 					StdFonts.insert(ind2PDFabr[pgit->annotation().Font()], "");
 				for (uint e = 0; e < static_cast<uint>(pgit->itemText.length()); ++e)
 				{
-					ReallyUsed.insert(pgit->itemText.charStyle(e).font().scName(), DocFonts[pgit->itemText.charStyle(e).font().scName()]);
+					ReallyUsed.insert(pgit->itemText.charStyle(e).font().replacementName(), DocFonts[pgit->itemText.charStyle(e).font().replacementName()]);
 				}
 			}
 		}
@@ -3778,7 +3778,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		tmp2 += FToStr(x+hl->glyph.xoffset+Ulen)+" "+FToStr(-y-hl->glyph.yoffset+Upos)+" l\n";
 		tmp2 += "S\n";
 	}
-	if ((!hl->font().hasNames()) || (Options.SubsetList.contains(hl->font().scName())))
+	if ((!hl->font().hasNames()) || (Options.SubsetList.contains(hl->font().replacementName())))
 	{
 //		uint chr = chstr[0].unicode();
 		if (glyph != hl->font().char2CMap(QChar(' ')))
@@ -3865,7 +3865,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		uint idx = hl->glyph.glyph;
 		
 		uint idx1 = idx / 224;
-		tmp += UsedFontsP[hl->font().scName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
+		tmp += UsedFontsP[hl->font().replacementName()]+"S"+QString::number(idx1)+" "+FToStr(tsz / 10.0)+" Tf\n";
 		if (hl->strokeColor() != CommonStrings::None)
 		{
 			tmp += StrokeColor;
@@ -4952,7 +4952,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if (Options.Version < 14)
 				cnx += ind2PDFabr[ite->annotation().Font()];
 			else
-				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().scName()]+"S0";
+				cnx += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"S0";
 			cnx += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf";
 			if (ite->itemText.defaultStyle().charStyle().fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->itemText.defaultStyle().charStyle().fillColor(), ite->itemText.defaultStyle().charStyle().fillShade(), true);
@@ -5236,7 +5236,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().scName()]+"S0";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"S0";
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		if (bmst.count() > 1)
 		{
@@ -5279,7 +5279,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		if (Options.Version < 14)
 			cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 		else
-			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().scName()]+"S0";
+			cc += UsedFontsP[ite->itemText.defaultStyle().charStyle().font().replacementName()]+"S0";
 //		cc += "/"+StdFonts[ind2PDFabr2[ite->annotation().Font()]];
 //		cc += ind2PDFabr[ite->AnFont];
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
