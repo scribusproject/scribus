@@ -1067,20 +1067,20 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 				{
 					QRgb *p;
 					uchar cc, cm, cy, ck;
-					for (int y=0; y < m_image.height(); ++y )
+					for (int yh = 0; yh < m_image.height(); ++yh )
 					{
 						if (psMode == 4)
 							psdata.resize(psXSize * (4 + psChannel));
 						else
 							psdata.resize(psXSize * (3 + psChannel));
 						f.readBlock(psdata.data(), psdata.size());
-						p = (QRgb *)m_image.scanLine( y );
-						for (int x=0; x < m_image.width(); ++x )
+						p = (QRgb *)m_image.scanLine( yh );
+						for (int xh = 0; xh < m_image.width(); ++xh )
 						{
-							cc = psdata[x];
-							cm = psdata[psXSize+x];
-							cy = psdata[psXSize*2+x];
-							ck = psdata[psXSize*3+x];
+							cc = psdata[xh];
+							cm = psdata[psXSize+xh];
+							cy = psdata[psXSize*2+xh];
+							ck = psdata[psXSize*3+xh];
 							if (psMode == 4)
 								*p = qRgba(cc, cm, cy, ck);
 							else
@@ -1123,17 +1123,19 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 					{
 						QRgb *p;
 						uchar cc, cm, cy, ck;
-						for (int y=0; y < m_image.height(); ++y )
+						for (int yh = 0; yh < m_image.height(); ++yh )
 						{
-							p = (QRgb *)m_image.scanLine( y );
-							for (int x=0; x < m_image.width(); ++x )
+							p = (QRgb *)m_image.scanLine( yh );
+							for (int xh = 0; xh < m_image.width(); ++xh )
 							{
-								cc = psdata[yCount+x];
-								cm = psdata[yCount+psXSize+x];
-								cy = psdata[yCount+psXSize*2+x];
-								ck = psdata[yCount+psXSize*3+x];
+								cc = psdata[yCount+xh];
+								cm = psdata[yCount+psXSize+xh];
+								cy = psdata[yCount+psXSize*2+xh];
 								if (psMode == 4)
+								{
+									ck = psdata[yCount+psXSize*3+xh];
 									*p = qRgba(cc, cm, cy, ck);
+								}
 								else
 									*p = qRgba(cc, cm, cy, 255);
 								p++;
@@ -1154,6 +1156,8 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn)
 				m_imageInfoRecord.BBoxH = m_image.height();
 				m_image.setDotsPerMeterX ((int) (m_imageInfoRecord.xres / 0.0254));
 				m_image.setDotsPerMeterY ((int) (m_imageInfoRecord.yres / 0.0254));
+				f.close();
+				return;
 			}
 		}
 		f.close();
@@ -1191,22 +1195,24 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 				{
 					QRgb *p;
 					uchar cc, cm, cy, ck;
-					for (int y=0; y < tmpImg.height(); ++y )
+					for (int yh = 0; yh < tmpImg.height(); ++yh )
 					{
 						if (psMode == 4)
 							psdata.resize(psXSize * (4 + psChannel));
 						else
 							psdata.resize(psXSize * (3 + psChannel));
 						f.readBlock(psdata.data(), psdata.size());
-						p = (QRgb *)tmpImg.scanLine( y );
-						for (int x=0; x < tmpImg.width(); ++x )
+						p = (QRgb *)tmpImg.scanLine( yh );
+						for (int xh = 0; xh < tmpImg.width(); ++xh )
 						{
-							cc = psdata[x];
-							cm = psdata[psXSize+x];
-							cy = psdata[psXSize*2+x];
-							ck = psdata[psXSize*3+x];
+							cc = psdata[xh];
+							cm = psdata[psXSize+xh];
+							cy = psdata[psXSize*2+xh];
 							if (psMode == 4)
+							{
+								ck = psdata[psXSize*3+xh];
 								*p = qRgba(cc, cm, cy, ck);
+							}
 							else
 								*p = qRgba(cc, cm, cy, 255);
 							p++;
@@ -1247,17 +1253,19 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 					{
 						QRgb *p;
 						uchar cc, cm, cy, ck;
-						for (int y=0; y < tmpImg.height(); ++y )
+						for (int yh = 0; yh < tmpImg.height(); ++yh )
 						{
-							p = (QRgb *)tmpImg.scanLine( y );
-							for (int x=0; x < tmpImg.width(); ++x )
+							p = (QRgb *)tmpImg.scanLine( yh );
+							for (int xh = 0; xh < tmpImg.width(); ++xh )
 							{
-								cc = psdata[yCount+x];
-								cm = psdata[yCount+psXSize+x];
-								cy = psdata[yCount+psXSize*2+x];
-								ck = psdata[yCount+psXSize*3+x];
+								cc = psdata[yCount+xh];
+								cm = psdata[yCount+psXSize+xh];
+								cy = psdata[yCount+psXSize*2+xh];
 								if (psMode == 4)
+								{
+									ck = psdata[yCount+psXSize*3+xh];
 									*p = qRgba(cc, cm, cy, ck);
+								}
 								else
 									*p = qRgba(cc, cm, cy, 255);
 								p++;
@@ -1269,6 +1277,8 @@ void ScImgDataLoader_PS::loadPhotoshopBinary(QString fn, QImage &tmpImg)
 						}
 					}
 				}
+				f.close();
+				return;
 			}
 		}
 		f.close();
