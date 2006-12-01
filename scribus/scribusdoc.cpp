@@ -2432,8 +2432,8 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 	{
 			for (int e = 0; e < it->itemText.length(); ++e)
 			{
-				if (! Really.contains(it->itemText.charStyle(e).font().scName()) ) {
-					Really.insert(it->itemText.charStyle(e).font().scName(), QMap<uint, FPointArray>());
+				if (! Really.contains(it->itemText.charStyle(e).font().replacementName()) ) {
+					Really.insert(it->itemText.charStyle(e).font().replacementName(), QMap<uint, FPointArray>());
 			}
 			uint chr = it->itemText.text(e).unicode();
 			if ((chr == 13) || (chr == 32) || (chr == 29))
@@ -2453,7 +2453,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					chr = chstr[0].unicode();
 					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
 					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-					Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+					Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 				}
 				for (uint t1 = 0; t1 < it->TabValues.count(); t1++)
 				{
@@ -2468,7 +2468,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					chr = chstr[0].unicode();
 					uint gl = it->itemText.charStyle(e).font().char2CMap(chstr[0]);
 					gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-					Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+					Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 				}
 				continue;
 			}
@@ -2515,7 +2515,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 					{
 						uint gl = it->itemText.charStyle(e).font().char2CMap(pageNumberText[pnti]);
 						FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
-						Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+						Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 					}
 				}
 				continue;
@@ -2524,7 +2524,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 			{
 				uint gl = it->itemText.charStyle(e).font().char2CMap(QChar('-'));
 				FPointArray gly(it->itemText.charStyle(e).font().glyphOutline(gl));
-				Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+				Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 			}
 			if ((it->itemText.charStyle(e).effects() & ScStyle_SmallCaps) || (it->itemText.charStyle(e).effects() & ScStyle_AllCaps))
 			{
@@ -2537,7 +2537,7 @@ void ScribusDoc::checkItemForFonts(PageItem *it, QMap<QString, QMap<uint, FPoint
 			{
 				uint gl = it->itemText.charStyle(e).font().char2CMap(chr);
 				gly = it->itemText.charStyle(e).font().glyphOutline(gl);
-				Really[it->itemText.charStyle(e).font().scName()].insert(gl, gly);
+				Really[it->itemText.charStyle(e).font().replacementName()].insert(gl, gly);
 			}
 		}
 	}
@@ -2630,14 +2630,14 @@ void ScribusDoc::reorganiseFonts()
 					it = FrameItems.at(d);
 					break;
 			}
-			QString fontName(it->itemText.defaultStyle().charStyle().font().scName());
+			QString fontName(it->itemText.defaultStyle().charStyle().font().replacementName());
 			Really.insert(fontName, UsedFonts[fontName]);
 			if ((it->itemType() == PageItem::TextFrame) || (it->itemType() == PageItem::PathText))
 			{
 				uint itemTextCount=it->itemText.length();
 				for (uint e = 0; e < itemTextCount; ++e)
 				{
-					Really.insert(it->itemText.charStyle(e).font().scName(), UsedFonts[it->itemText.charStyle(e).font().scName()]);
+					Really.insert(it->itemText.charStyle(e).font().replacementName(), UsedFonts[it->itemText.charStyle(e).font().replacementName()]);
 				}
 			}
 		}
