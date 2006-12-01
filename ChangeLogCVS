@@ -2,6 +2,14 @@ Changes since 1.2 (all Changes from 1.2 to 1.2.4cvs at the time of 1.3.3.2 relea
 
 Scribus - 1.3.4cvs
 ==================
+- 0004657: [Plug-ins] Sig 6 when cancelling out of ColorWheel plugin (subik)
+- 0004629: [Usability] Grey out all glyph/character related items in the "Insert" menu if no no text frame is selected (cbradney)
+- 0004668: [Internal] Bump cairo minimum to 1.2.0 for 1.3.4 only (fschmid)
+- 0004639: [User Interface] Disable "Shade" spinbox for patterns (fschmid)
+- 0004633: [User Interface] Add a button to remove all patterns at once (fschmid)
+- 0003163: [User Interface] page palette: after every applied masterpage the the last position is lost (fschmid)
+- 0004331: [User Interface] Add "Fit to Width" and "Fit to height" to the "View" menu (fschmid)
+- 0004554: [General] Warning for the new preview mode displayed too easily (fschmid)
 - 0003818: [General] Wrong display of shades (jghali)
 - 0004503: [Story Editor / Text Frames] Cursor in the text frame should locate text in Sory Editor when Opened (avox)
 - 0003255: [Story Editor / Text Frames] Changed style doesn't persist when typing
