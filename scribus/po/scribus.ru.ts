@@ -1,4 +1,4 @@
-<!DOCTYPE TS><TS>
+﻿<!DOCTYPE TS><TS>
 <context>
     <name></name>
     <message>
@@ -2189,7 +2189,7 @@ strings.
     </message>
     <message>
         <source>Manage &amp;Guides...</source>
-        <translation>&amp;Настроить направляющие...</translation>
+        <translation>&amp;Управление направляющими...</translation>
     </message>
     <message>
         <source>&amp;Fit in window</source>
@@ -4278,27 +4278,27 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Basic Latin</source>
-        <translation>Базовая латиница</translation>
+        <translation>Основные латинские</translation>
     </message>
     <message>
         <source>Latin-1 Supplement</source>
-        <translation>Дополнение к Latin-1</translation>
+        <translation>Дополнительные латинские</translation>
     </message>
     <message>
         <source>Latin Extended-A</source>
-        <translation>Латиница расширенная A</translation>
+        <translation>Латинские расширенные-A</translation>
     </message>
     <message>
         <source>Latin Extended-B</source>
-        <translation>Латиница расширенная B</translation>
+        <translation>Латинские расширенные-B</translation>
     </message>
     <message>
         <source>General Punctuation</source>
-        <translation>Основные знаки пунктуации</translation>
+        <translation>Общая пунктуация</translation>
     </message>
     <message>
         <source>Super- and Subscripts</source>
-        <translation>Верхний и нижний индексы</translation>
+        <translation>Степени и индексы</translation>
     </message>
     <message>
         <source>Currency Symbols</source>
@@ -4326,7 +4326,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Block Elements</source>
-        <translation>Блочные элементы</translation>
+        <translation>Элементы блоков</translation>
     </message>
     <message>
         <source>Geometric Shapes</source>
@@ -4338,7 +4338,7 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Dingbats</source>
-        <translation>Звёздочки</translation>
+        <translation>Пиктограммы</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
@@ -4358,31 +4358,31 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Greek Extended</source>
-        <translation>Греческий расширенный</translation>
+        <translation>Греческие расширенные</translation>
     </message>
     <message>
         <source>Cyrillic</source>
-        <translation>Кириллица</translation>
+        <translation>Кириллические</translation>
     </message>
     <message>
         <source>Cyrillic Supplement</source>
-        <translation>Дополнение к кириллице</translation>
+        <translation>Кириллические дополнительные</translation>
     </message>
     <message>
         <source>Arabic</source>
-        <translation>Арабский</translation>
+        <translation>Арабские</translation>
     </message>
     <message>
         <source>Arabic Extended A</source>
-        <translation>Арабский расширенный А</translation>
+        <translation>Арабские расширенные А</translation>
     </message>
     <message>
         <source>Arabic Extended B</source>
-        <translation>Арабский расширенный B</translation>
+        <translation>Арабские расширенные B</translation>
     </message>
     <message>
         <source>Hebrew</source>
-        <translation>Иврит</translation>
+        <translation>Еврейские</translation>
     </message>
     <message>
         <source>&amp;Insert Code:</source>
@@ -4919,11 +4919,11 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>3-Fold</source>
-        <translation>3-частная «гармошка»</translation>
+        <translation>Две вальцовки</translation>
     </message>
     <message>
         <source>4-Fold</source>
-        <translation>4-частная «гармошка»</translation>
+        <translation>Три вальцовки</translation>
     </message>
     <message>
         <source>Left Page</source>
@@ -5259,8 +5259,8 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Moves to your Document Directory.
 This can be set in the Preferences.</source>
-        <translation>Перемещается в каталог с документами.
-Это можно изменить через диалог общих настроек.</translation>
+        <translation type="unfinished">Перемещается в каталог с документами.
+Это можно изменить через диалог общих параметров.</translation>
     </message>
     <message>
         <source>&amp;Compress File</source>
@@ -5487,7 +5487,7 @@ This can be set in the Preferences.</source>
     </message>
     <message>
         <source>A person or organisation responsible for making contributions to the content of the document</source>
-        <translation>Человек или организация, внесшие вклад в содержимое этого документа</translation>
+        <translation>Человек или организация, внёсшие вклад в содержимое этого документа</translation>
     </message>
     <message>
         <source>A date associated with an event in the life cycle of the document, in YYYY-MM-DD format, as per ISO 8601</source>
@@ -5761,7 +5761,7 @@ This can be set in the Preferences.</source>
     <name>Druck</name>
     <message>
         <source>Setup Printer</source>
-        <translation>Настройка принтера</translation>
+        <translation>Параметры принтера</translation>
     </message>
     <message>
         <source>File</source>
@@ -5953,7 +5953,7 @@ a range of pages or a single page number.</source>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
-        <translation>Не удалось получить настройки принтера</translation>
+        <translation>Не удалось получить параметры принтера</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
@@ -6668,7 +6668,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Расположение шрифтов может быть установлено только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающимся через меню Правка -&gt; Настроить..., укажите расположение шрифтов.</translation>
+        <translation>Расположение шрифтов может быть установлено только через диалог настройки программы и только при отсутствии открытых документов. Закройте все документы, и в диалоге, открывающемся через меню «Файл -&gt; Настроить Scribus...», укажите расположение шрифтов.</translation>
     </message>
 </context>
 <context>
@@ -6837,7 +6837,7 @@ Use 72 dpi for Images intended for the Screen</source>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation>Постоянно производить такую замену шрифтов в будущем. При желании это можно отключить в настройке шрифтов диалога настройки Scribus.</translation>
+        <translation>Постоянно производить такую замену шрифтов в будущем. При желании это можно отключить в параметрах шрифтов диалога параметров Scribus.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -6863,7 +6863,7 @@ Use 72 dpi for Images intended for the Screen</source>
     <name>GuideManager</name>
     <message>
         <source>Manage Guides</source>
-        <translation>Настройка направляющих</translation>
+        <translation>Управление направляющими</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
@@ -6949,7 +6949,7 @@ Use 72 dpi for Images intended for the Screen</source>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
         <translation>Установить направляющие в документе. 
-Диалог их настройки по-прежнему открыт, 
+Диалог управления ими по-прежнему открыт, 
 но изменения применяются сразу</translation>
     </message>
     <message>
@@ -6984,7 +6984,7 @@ and www.scribus.net for downloads.</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation>Содержание</translation>
+        <translation>Содержимое</translation>
     </message>
     <message>
         <source>Link</source>
@@ -7485,7 +7485,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation>Файлы с настройками клавиатуры (*.ksxml)</translation>
+        <translation>Файлы с параметрыми клавиатуры (*.ksxml)</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
@@ -7797,7 +7797,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Apply the margin changes to all existing pages in the document</source>
-        <translation>Использовать новые настройки полей во всех страницах документа</translation>
+        <translation>Использовать новые параметры полей во всех страницах документа</translation>
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
@@ -7813,7 +7813,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Import the margins for the selected page size from the available printers.</source>
-        <translation>Импортировать настройки полей из настроенных принтеров.</translation>
+        <translation>Импортировать параметры полей из настроенных принтеров.</translation>
     </message>
 </context>
 <context>
@@ -8334,7 +8334,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Change settings for left or end points</source>
-        <translation>Изменить настройки левой или конечной точек</translation>
+        <translation>Изменить параметры левой или конечной точек</translation>
     </message>
     <message>
         <source>Pattern of line</source>
@@ -8855,7 +8855,7 @@ Corners:</source>
     <message>
         <source>Width of the document&apos;s pages, editable if you have chosen a custom page size</source>
         <translation>Ширина страниц документа, настраиваемая в том случае, если 
-выбраны пользовательские настройки размера страницы</translation>
+выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
         <source>Height of the document&apos;s pages, editable if you have chosen a custom page size</source>
@@ -9180,7 +9180,7 @@ Corners:</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation>Сделать эти настройки исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
+        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте OASIS OpenDocument.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -9743,11 +9743,11 @@ Corners:</source>
     </message>
     <message>
         <source>Manage Pictures</source>
-        <translation>Настройка изображений</translation>
+        <translation>Управление изображениями</translation>
     </message>
     <message>
         <source>Scribus - Image Search</source>
-        <translation>Scribus - Поиск изображений</translation>
+        <translation>Scribus — Поиск изображений</translation>
     </message>
     <message>
         <source>The search failed: %1</source>
@@ -9918,7 +9918,7 @@ Corners:</source>
     <name>Preferences</name>
     <message>
         <source>Preferences</source>
-        <translation>Настройки</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <source>General</source>
@@ -10031,12 +10031,12 @@ Corners:</source>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
         <translation>Ширина страниц документа, настраиваемая в том случае, если 
-выбраны пользовательские настройки размера страницы</translation>
+выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
         <translation>Высота страниц документа, настраиваемая в том случае, если 
-выбраны пользовательские настройки размера страницы</translation>
+выбраны пользовательские параметры размера страницы</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
@@ -10360,7 +10360,7 @@ Corners:</source>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation>Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы настройки брались из системного языкового окружения. Системные настройки можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
+        <translation>Здесь определяется язык, используемый Scribus по умолчанию. Оставьте поле пустым, чтобы параметры брались из системного языкового окружения. Системные параметры можно также «обойти» специальным аргументом командной строки (см. вывод команды scribus --help)</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
@@ -10380,7 +10380,7 @@ Corners:</source>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation>Стандартный каталог для поиска ICC-профилей. Пока открыт хотя бы документ, изменить эту настройку невозможно. По умолчанию Scribus ищет профили в соответствующих системных каталогах Mac OS X и Windows. В Linux и Unix такими каталогами являются $home/.color/icc,/usr/share/color/icc и /usr/local/share/color/icc </translation>
+        <translation>Стандартный каталог для поиска ICC-профилей. Пока открыт хотя бы документ, изменить этот параметр невозможно. По умолчанию Scribus ищет профили в соответствующих системных каталогах Mac OS X и Windows. В Linux и Unix такими каталогами являются $home/.color/icc,/usr/share/color/icc и /usr/local/share/color/icc </translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
@@ -10411,7 +10411,7 @@ Corners:</source>
     </message>
     <message>
         <source>Save Preferences</source>
-        <translation>Сохранить настройки</translation>
+        <translation>Сохранить параметры</translation>
     </message>
 </context>
 <context>
@@ -10422,13 +10422,13 @@ Corners:</source>
     </message>
     <message>
         <source>Migrate Old Scribus Settings?</source>
-        <translation>Перенести прежние настройки Scribus?</translation>
+        <translation>Перенести прежние параметры Scribus?</translation>
     </message>
     <message>
         <source>Scribus has detected existing Scribus 1.2 preferences files.
 Do you want to migrate them to the new Scribus version?</source>
-        <translation>Вы хотите использовать настройки 
-от предыдущей версии Scribus?</translation>
+        <translation>Вы хотите использовать параметры 
+предыдущей версии Scribus?</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -10436,19 +10436,19 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Could not open preferences file &quot;%1&quot; for writing: %2</source>
-        <translation>Не удалось открыть файл настроек &quot;%1&quot; для записи: %2</translation>
+        <translation>Не удалось открыть файл параметров &quot;%1&quot; для записи: %2</translation>
     </message>
     <message>
         <source>Writing to preferences file &quot;%1&quot; failed: QIODevice status code %2</source>
-        <translation>Запись в файл настроек &quot;%1&quot; не удалась: QIODevice status code %2</translation>
+        <translation>Запись в файл параметров &quot;%1&quot; не удалась: QIODevice status code %2</translation>
     </message>
     <message>
         <source>Failed to open prefs file &quot;%1&quot;: %2</source>
-        <translation>Не удалось открыть файл с настройками &quot;%1&quot;: %2</translation>
+        <translation>Не удалось открыть файл с параметрами &quot;%1&quot;: %2</translation>
     </message>
     <message>
         <source>Failed to read prefs XML from &quot;%1&quot;: %2 at line %3, col %4</source>
-        <translation>Не удалось прочитать XML-файл с настройками от &quot;%1&quot;: %2 в строке %3, столбце %4</translation>
+        <translation>Не удалось прочитать XML-файл с параметрами &quot;%1&quot;: %2 в строке %3, столбце %4</translation>
     </message>
     <message>
         <source>PDF 1.3</source>
@@ -10464,20 +10464,20 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>Error Writing Preferences</source>
-        <translation>Произошла ошибка при записи настроек</translation>
+        <translation>Произошла ошибка при записи параметров</translation>
     </message>
     <message>
         <source>Scribus was not able to save its preferences:&lt;br&gt;%1&lt;br&gt;Please check file and directory permissions and available disk space.</source>
         <comment>scribus app error</comment>
-        <translation>Не удалось записать настройки Scribus:&lt;br&gt;%1&lt;br&gt;Проверьте права на запись каталога и файла настроек и, а также доступное свободное место на диске.</translation>
+        <translation>Не удалось записать параметры Scribus:&lt;br&gt;%1&lt;br&gt;Проверьте права на запись каталога и файла параметров и, а также доступное свободное место на диске.</translation>
     </message>
     <message>
         <source>Error Loading Preferences</source>
-        <translation>Произошла ошибка при загрузке настроек</translation>
+        <translation>Произошла ошибка при загрузке параметров</translation>
     </message>
     <message>
         <source>Scribus was not able to load its preferences:&lt;br&gt;%1&lt;br&gt;Default settings will be loaded.</source>
-        <translation>Не удалось загрузить настройки Scribus:&lt;br&gt;%1&lt;br&gt;Будут использованы настройки по умолчанию.</translation>
+        <translation>Не удалось загрузить параметры Scribus:&lt;br&gt;%1&lt;br&gt;Будут использованы исходные параметры.</translation>
     </message>
 </context>
 <context>
@@ -10504,7 +10504,7 @@ Do you want to migrate them to the new Scribus version?</source>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation>Здесь можно выбрать готовые настройки макета. «Ничего» - оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Слева/Изнутри.</translation>
+        <translation>Здесь можно выбрать готовые параметры макета. «Ничего» — оставить поля как есть. «Гутенберг» устанавливает обычные книжные поля. «Журнал» устанавливает одинаковое значение для всех полей. Ведущим является значение Левое/Внутреннее.</translation>
     </message>
     <message>
         <source>None</source>
@@ -11487,17 +11487,17 @@ External Links
     <message>
         <source>Color not found - python error</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Цвет не найден - ошибка python</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Свои настройки:</translation>
+        <translation>Другие параметры:</translation>
     </message>
     <message>
         <source>Standard configuration: </source>
         <comment>short words plugin</comment>
-        <translation>Обычные настройки:</translation>
+        <translation>Обычные параметры: </translation>
     </message>
     <message>
         <source>Short Words processing. Wait please...</source>
@@ -11980,7 +11980,7 @@ External Links
     </message>
     <message>
         <source>Verification of settings failed: %1</source>
-        <translation>Проверка настроек не удалась: %1</translation>
+        <translation>Проверка параметров не удалась: %1</translation>
     </message>
     <message>
         <source>Could not open input file %1</source>
@@ -11988,7 +11988,7 @@ External Links
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation>Не удалось прочитать XML-файл с настройками:</translation>
+        <translation>Не удалось прочитать XML-файл с параметрами:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
@@ -11997,7 +11997,7 @@ External Links
     </message>
     <message>
         <source>Unable to read settings XML: %1</source>
-        <translation>Не удалось прочитать XML-файл с настройками: %1</translation>
+        <translation>Не удалось прочитать XML-файл с параметрами: %1</translation>
     </message>
     <message>
         <source>null root node</source>
@@ -12792,7 +12792,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation>Использовать эти настройки во всех страницах</translation>
+        <translation>Использовать эти параметры во всех страницах</translation>
     </message>
     <message>
         <source>Sections</source>
@@ -12800,7 +12800,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation>Использовать новые настройки во всех страницах текущего документа</translation>
+        <translation>Использовать новые параметры для всех страницах текущего документа</translation>
     </message>
 </context>
 <context>
@@ -12893,7 +12893,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBAlign</name>
     <message>
         <source>Style Settings</source>
-        <translation>Настройки стиля</translation>
+        <translation>Параметры стиля</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
@@ -12904,7 +12904,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorF</name>
     <message>
         <source>Fill Color Settings</source>
-        <translation>Настройки заливки цветом</translation>
+        <translation>Параметры заливки цветом</translation>
     </message>
     <message>
         <source>Color of text fill</source>
@@ -12919,7 +12919,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBColorS</name>
     <message>
         <source>Stroke Color Settings</source>
-        <translation>Настройки цвета контура</translation>
+        <translation>Параметры цвета контура</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -12934,7 +12934,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBFont</name>
     <message>
         <source>Font Settings</source>
-        <translation>Настройки шрифта</translation>
+        <translation>Параметры шрифта</translation>
     </message>
     <message>
         <source> pt</source>
@@ -12965,7 +12965,7 @@ is not exhaustive due to exceptions from called functions.
     <name>SToolBStyle</name>
     <message>
         <source>Character Settings</source>
-        <translation>Настройки символа</translation>
+        <translation>Параметры символа</translation>
     </message>
     <message>
         <source> %</source>
@@ -13063,11 +13063,11 @@ converting their vector data into Scribus objects.</source>
     <name>SWPrefsGui</name>
     <message>
         <source>User settings</source>
-        <translation>Пользовательские настройки</translation>
+        <translation>Пользовательские параметры</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation>Общесистемные настройки</translation>
+        <translation>Общесистемные параметры</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -13079,15 +13079,15 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Save user configuration</source>
-        <translation>Сохранить пользовательские настройки</translation>
+        <translation>Сохранить пользовательские параметры</translation>
     </message>
     <message>
         <source>Reload system wide configuration and remove user defined one</source>
-        <translation>Снова загрузить общесистемные настройки и удалить пользовательские</translation>
+        <translation>Снова загрузить общесистемные параметры и удалить пользовательские</translation>
     </message>
     <message>
         <source>Edit custom configuration. If you save it, it will be used over system wide configuration</source>
-        <translation>Изменить пользовательские настройки. Если их сохранить, они будут использоваться вместо общесистемных</translation>
+        <translation>Изменить пользовательские параметры. Если их сохранить, они будут использоваться вместо общесистемных</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -13095,7 +13095,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation>Пользовательские настройки уже существуют. Вы точно хотите их перезаписать?</translation>
+        <translation>Пользовательские параметры уже существуют. Вы точно хотите их перезаписать?</translation>
     </message>
     <message>
         <source>Cannot write file %1.</source>
@@ -13103,11 +13103,11 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>User settings saved</source>
-        <translation>Пользовательские настройки сохранены</translation>
+        <translation>Пользовательские параметры сохранены</translation>
     </message>
     <message>
         <source>System wide configuration reloaded</source>
-        <translation>Общесистемные настройки перезагружены</translation>
+        <translation>Общесистемные параметры перезагружены</translation>
     </message>
     <message>
         <source>Cannot open file %1</source>
@@ -13257,7 +13257,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation>Читаются настройки</translation>
+        <translation>Читаются параметры программы</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
@@ -13357,7 +13357,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Настройки предпросмотра</translation>
+        <translation>Параметры предпросмотра</translation>
     </message>
     <message>
         <source>Level</source>
@@ -13655,7 +13655,7 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Previe&amp;w Settings</source>
-        <translation>Настройки предпрос&amp;мотра</translation>
+        <translation>Параметры предпрос&amp;мотра</translation>
     </message>
     <message>
         <source>&amp;Tools</source>
@@ -13703,7 +13703,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation>Содержание</translation>
+        <translation>Содержимое</translation>
     </message>
     <message>
         <source>Liga&amp;ture</source>
@@ -13762,15 +13762,15 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
-        <translation>Использовать имя файла как путь к указанным пользователем настройкам</translation>
+        <translation>Использовать имя файла как путь к указанным пользователем параметрам</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation>Установлены следующие переводы интерфейсы Scribus:</translation>
+        <translation>Установлены переводы интерфейса Scribus на следующие языки:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation>Для «преодоления» системных настроек языкового окружения выберите:</translation>
+        <translation>Для аннуляции системных параметров языкового окружения выберите:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
@@ -13909,7 +13909,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation>Настройки предпросмотра</translation>
+        <translation>Параметры предпросмотра</translation>
     </message>
     <message>
         <source>Linking Text Frames</source>
@@ -13953,7 +13953,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Contents</source>
-        <translation>Содержание</translation>
+        <translation>Содержимое</translation>
     </message>
 </context>
 <context>
@@ -14031,7 +14031,7 @@ Vertical shift: %3</source>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation>Настройки сценариста</translation>
+        <translation>Параметры сценариста</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
@@ -14477,7 +14477,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Settings</source>
-        <translation>&amp;Настройки</translation>
+        <translation type="unfinished">&amp;Параметры</translation>
     </message>
     <message>
         <source>&amp;Smart text selection</source>
@@ -14633,7 +14633,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation>Сделать эти настройки исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
+        <translation>Сделать эти параметры исходными или больше не задавать вопросов при импорте документа OpenOffice.org 1.x.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -14853,7 +14853,7 @@ Vertical shift: %3</source>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation>Основные настройки</translation>
+        <translation>Основные параметры</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
@@ -14973,7 +14973,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation>Настройки базовых линий</translation>
+        <translation>Параметры базовых линий</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
@@ -15000,7 +15000,7 @@ Vertical shift: %3</source>
     <name>TabManager</name>
     <message>
         <source>Manage Tabulators</source>
-        <translation>Настройка табуляторов</translation>
+        <translation>Параметры табуляторов</translation>
     </message>
 </context>
 <context>
@@ -15265,7 +15265,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Settings</source>
-        <translation>Настройки</translation>
+        <translation>Параметры</translation>
     </message>
     <message>
         <source>Allow &amp;Printing the Document</source>
@@ -15309,11 +15309,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>&amp;Use Custom Rendering Settings</source>
-        <translation>&amp;Свои настройки цветопередачи</translation>
+        <translation>&amp;Свои параметры цветопередачи</translation>
     </message>
     <message>
         <source>Rendering Settings</source>
-        <translation>Настройки цветопередачи</translation>
+        <translation>Параметры цветопередачи</translation>
     </message>
     <message>
         <source>Fre&amp;quency:</source>
@@ -15602,7 +15602,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation>Это отключенные по умолчанию расширенные настройки. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
+        <translation>Это отключенные по умолчанию расширенные параметры. Включить их нужно лишь в том случае, если этого требует принтер или если они точно обеспечивают желаемый уровень детализации. В противном случае полученный файл PDF может некорректно напечататься и не будет полностью переносимым между системами.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
@@ -15610,7 +15610,7 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation>Настройки отображения документа</translation>
+        <translation>Параметры отображения документа</translation>
     </message>
     <message>
         <source>Page Layout</source>
@@ -15634,11 +15634,11 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Visual Appearance</source>
-        <translation>Прочие настройки</translation>
+        <translation>Прочие параметры</translation>
     </message>
     <message>
         <source>Use Viewers Defaults</source>
-        <translation>Использовать настройки просмотрщика</translation>
+        <translation>Использовать параметры просмотрщика</translation>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
@@ -15739,7 +15739,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Качество после сжатия: «Наихудшее» (25%), «Низкое» (50%), «Среднее» (75%), «Высокое» (85%), «Максимальное» (95%). Помните, что степень сжатия не напрямую определяет размер конечного файла — размер и качество всегда в первую очередь зависят от характеристик исходных изображений. Даже если выбрано «Максимальное», потери всё равно будут.</translation>
     </message>
 </context>
 <context>
@@ -16992,6 +16992,10 @@ Error:%2 at line: %3, row: %4</source>
         <source>Import Text Only</source>
         <translation>Импортировать только текст</translation>
     </message>
+    <message>
+        <source>Open</source>
+        <translation>Открыть</translation>
+    </message>
 </context>
 <context>
     <name>gtImporterDialog</name>
@@ -17283,7 +17287,7 @@ Error:%2 at line: %3, row: %4</source>
     </message>
     <message>
         <source>paragraphs with more than</source>
-        <translation>абзацы больше</translation>
+        <translation>Общесистемные параметры перезагружены</translation>
     </message>
 </context>
 </TS>
