@@ -2567,7 +2567,7 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 				else
 				{
 					uint glyph = hl->glyph.glyph;
-					PS_selectfont(hl->font().scName(), tsz / 10.0);
+					PS_selectfont(hl->font().replacementName(), tsz / 10.0);
 					PS_save();
 					PutSeite("["+ToStr(1) + " " + ToStr(0) + " " + ToStr(0) + " " + ToStr(-1) + " " + ToStr(-hl->PRot) + " " + ToStr(0) + "]\n");
 					PutSeite("["+ToStr(hl->PtransX) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransY) + " " + ToStr(-hl->PtransX) + " " + ToStr(hl->glyph.xoffset) + " " + ToStr(-hl->glyph.yoffset) + "]\n");
@@ -2577,10 +2577,10 @@ void PSLib::ProcessItem(ScribusDoc* Doc, Page* a, PageItem* c, uint PNr, bool se
 					if ((colorsToUse[hl->fillColor()].isSpotColor()) && (!DoSep))
 					{
 						PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
-						PS_show_xyG(hl->font().scName(), glyph, 0, 0, true);
+						PS_show_xyG(hl->font().replacementName(), glyph, 0, 0, true);
 					}
 					else
-						PS_show_xyG(hl->font().scName(), glyph, 0, 0, false);
+						PS_show_xyG(hl->font().replacementName(), glyph, 0, 0, false);
 					if ((hl->strokeColor() != CommonStrings::None) && ((tsz * hl->outlineWidth() / 10000.0) != 0))
 					{
 						uint gl = hl->font().char2CMap(chstr[0]);
@@ -3189,7 +3189,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	else
 	{
-		PS_selectfont(hl->font().scName(), tsz / 10.0);
+		PS_selectfont(hl->font().replacementName(), tsz / 10.0);
 		PS_save();
 		PS_translate(x+hl->glyph.xoffset, -y-hl->glyph.yoffset);
 		if (ite->reversed())
@@ -3228,10 +3228,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			if ((colorsToUse[hl->fillColor()].isSpotColor()) && (!DoSep))
 			{
 				PutSeite(ToStr(hl->fillShade() / 100.0)+" "+spotMap[hl->fillColor()]);
-				PS_show_xyG(hl->font().scName(), chstr, 0, 0, true);
+				PS_show_xyG(hl->font().replacementName(), chstr, 0, 0, true);
 			}
 			else
-				PS_show_xyG(hl->font().scName(), chstr, 0, 0, false);
+				PS_show_xyG(hl->font().replacementName(), chstr, 0, 0, false);
 		}
 		PS_restore();
 	}
@@ -3542,7 +3542,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 	}
 	else
 	{
-		PS_selectfont(cstyle.font().scName(), tsz / 10.0);
+		PS_selectfont(cstyle.font().replacementName(), tsz / 10.0);
 		PS_save();
 		PS_translate(x + glyphs.xoffset, -y - glyphs.yoffset);
 		if (ite->reversed())
@@ -3561,10 +3561,10 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 			if ((colorsToUse[cstyle.fillColor()].isSpotColor()) && (!DoSep))
 			{
 				PutSeite(ToStr(cstyle.fillShade() / 100.0)+" "+spotMap[cstyle.fillColor()]);
-				PS_show_xyG(cstyle.font().scName(), glyph, 0, 0, true);
+				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, true);
 			}
 			else
-				PS_show_xyG(cstyle.font().scName(), glyph, 0, 0, false);
+				PS_show_xyG(cstyle.font().replacementName(), glyph, 0, 0, false);
 		}
 		PS_restore();
 	}
