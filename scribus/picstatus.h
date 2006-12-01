@@ -8,18 +8,16 @@ for which a new license (GPL+exception) is in place.
 #define PICSTATUS_H
 
 #include <qdialog.h>
-#include <qpushbutton.h>
-#include <qtable.h>
-#include <qlayout.h>
-#include <qtooltip.h>
-#include <qcheckbox.h>
-#include <qheader.h>
-#include <qptrlist.h>
-#include <qvaluelist.h>
 
 #include "scribusapi.h"
+
 class ScribusDoc;
 class FileSearch;
+class PageItem;
+class QCheckBox;
+class QTable;
+class QPushButton;
+class QHeader;
 
 
 /*! \brief Constructs a Dialog, which list all Images in the current Document.
@@ -63,9 +61,20 @@ private slots:
 	*/
 	void PrintPic();
 
+	/*! \brief A slot called when there is a request to re-fill the table
+	of images. It clears the table at first. Then it iterates through
+	all items in MasterItems and Items too. */
+	void fillTable();
+
 protected:
-	QVBoxLayout* PicStatusLayout;
-	QHBoxLayout* Layout2;
+	/*! \brief Insert one row into the table.
+	It's called from fillTable() for given PageItem.
+	\param item PageItem from MasterItems or PageItem lists
+	\param row a table row to insert
+	\param isMaster a boolean flag to signalize if it's taken from Master (true) list or
+	from the Items (false) list.
+	*/
+	void insertLine(PageItem* item, uint row, bool isMaster);
 
 	/*! \brief Return the row index for the row containing the specified
 		filename. Behavour is undefined if the filename is not in the
@@ -109,16 +118,17 @@ signals:
 	void selectMasterPage(QString);
 
 private:
+	ScribusDoc *m_Doc;
+	QPtrList<QCheckBox> FlagsPic;
+	QValueList<uint> ItemNrs;
+
 	QTable* PicTable;
 	QHeader *Header;
 	QPushButton* cancelButton;
 	QPushButton* okButton;
 	QPushButton* searchAllButton;
 	QCheckBox* caseInsensitiveCheck;
-	ScribusDoc *m_Doc;
-	int Zeilen;
-	QPtrList<QCheckBox> FlagsPic;
-	QValueList<uint> ItemNrs;
+	QCheckBox* showThumbs;
 };
 
 #endif // PICSTATUS_H

@@ -20,9 +20,7 @@ for which a new license (GPL+exception) is in place.
  *   (at your option) any later version.                                   *
  *                                                                         *
  ***************************************************************************/
-
-#include "picstatus.h"
-#include "picstatus.moc"
+#include <qtable.h>
 #include <qfileinfo.h>
 #include <qfiledialog.h>
 #include <qmessagebox.h>
@@ -32,6 +30,9 @@ for which a new license (GPL+exception) is in place.
 #include <qtooltip.h>
 #include <qcursor.h>
 #include <cstdio>
+
+#include "picstatus.h"
+#include "picstatus.moc"
 #include "picsearch.h"
 #include "scribusdoc.h"
 #include "pageitem.h"
@@ -59,17 +60,15 @@ QString PicStatus::trGoto = "";
 
 
 PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
-	QDialog( parent, "pic", true, 0 )
+	QDialog( parent, "PicStatus", true, 0 )
 {
 	languageChange();
-	uint p, i;
-	QString tmp;
 	setCaption( tr( "Manage Pictures" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	m_Doc = docu;
 	ItemNrs.clear();
 	FlagsPic.clear();
-	PicStatusLayout = new QVBoxLayout( this );
+	QVBoxLayout* PicStatusLayout = new QVBoxLayout( this );
 	PicStatusLayout->setSpacing( 6 );
 	PicStatusLayout->setMargin( 11 );
 
@@ -82,113 +81,7 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	size_t ar = sizeof(tmpc) / sizeof(*tmpc);
 	for (uint a = 0; a < ar; ++a)
 		Header->setLabel(a, tmpc[a]);
-	Zeilen = 0;
-	for (i=0; i < m_Doc->MasterItems.count(); ++i)
-	{
-		if (m_Doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
-		{
-			Zeilen++;
-			ItemNrs.append(i);
-		}
-	}
-	for (i=0; i<m_Doc->Items->count(); ++i)
-	{
-		if (m_Doc->Items->at(i)->itemType() == PageItem::ImageFrame)
-		{
-			Zeilen++;
-			ItemNrs.append(i);
-		}
-	}
-	PicTable->setNumRows(Zeilen);
-	int Zeilen2 = 0;
-	for (i=0; i < m_Doc->MasterItems.count(); ++i)
-	{
-		if (m_Doc->MasterItems.at(i)->itemType() == PageItem::ImageFrame)
-		{
-			QFileInfo fi = QFileInfo(m_Doc->MasterItems.at(i)->Pfile);
-			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
-			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
-			PicTable->setText(Zeilen2, COL_PAGE, m_Doc->MasterItems.at(i)->OnMasterPage);
-			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb2->setText( trGoto);
-			tb2->setEraseColor(white);
-			PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
-			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
-			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
-			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-			cp2->setText(CommonStrings::trYes);
-			cp2->setChecked(m_Doc->MasterItems.at(i)->printEnabled());
-			cp2->setEraseColor(white);
-			FlagsPic.append(cp2);
-			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
-			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-			if (m_Doc->MasterItems.at(i)->PicAvail)
-			{
-				QPixmap pm;
-				pm.convertFromImage(m_Doc->MasterItems.at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
-				PicTable->setPixmap(Zeilen2, COL_PREVIEW, pm);
-				PicTable->setText(Zeilen2, COL_STATUS, trOK);
-			}
-			else
-				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
-			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb->setText( trSearch);
-			PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
-			tb->setEraseColor(white);
-			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
-			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
-			PicTable->adjustRow(Zeilen2);
-			Zeilen2++;
-		}
-	}
-	for (i=0; i< m_Doc->Items->count(); ++i)
-	{
-		if (m_Doc->Items->at(i)->itemType() == PageItem::ImageFrame)
-		{
-			QFileInfo fi = QFileInfo(m_Doc->Items->at(i)->Pfile);
-			PicTable->setText(Zeilen2, COL_FILENAME, fi.fileName());
-			PicTable->setText(Zeilen2, COL_PATH, fi.dirPath());
-			p = m_Doc->Items->at(i)->OwnPage;
-			PicTable->setText(Zeilen2, COL_PAGE, tmp.setNum(p+1));
-			QToolButton *tb2 = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb2->setText( trGoto);
-			tb2->setEraseColor(white);
-			PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
-			PicTable->setCellWidget(Zeilen2, COL_GOTO, tb2);
-			connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
-			QCheckBox *cp2 = new QCheckBox(this, tmp.setNum(Zeilen2));
-			cp2->setText(CommonStrings::trYes);
-			cp2->setChecked(m_Doc->Items->at(i)->printEnabled());
-			cp2->setEraseColor(white);
-			FlagsPic.append(cp2);
-			PicTable->setCellWidget(Zeilen2, COL_PRINT, cp2);
-			connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
-			if (m_Doc->Items->at(i)->PicAvail)
-			{
-				QPixmap pm;
-				pm.convertFromImage(m_Doc->Items->at(i)->pixm.smoothScale(64, 64, QImage::ScaleMin));
-				PicTable->setPixmap(Zeilen2, COL_PREVIEW, pm);
-				PicTable->setText(Zeilen2, COL_STATUS, trOK);
-			}
-			else
-				PicTable->setText(Zeilen2, COL_STATUS, trMissing);
-			QToolButton *tb = new QToolButton(this, tmp.setNum(Zeilen2));
-			tb->setText( trSearch);
-			PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
-			tb->setEraseColor(white);
-			PicTable->setCellWidget(Zeilen2, COL_SEARCH, tb);
-			connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
-			PicTable->adjustRow(Zeilen2);
-			Zeilen2++;
-		}
-	}
 
-	PicTable->adjustColumn(COL_PREVIEW);
-	PicTable->adjustColumn(COL_FILENAME);
-	PicTable->adjustColumn(COL_PATH);
-	PicTable->adjustColumn(COL_PAGE);
-	PicTable->adjustColumn(COL_PRINT);
-	PicTable->adjustColumn(COL_STATUS);
 	PicTable->setSorting(false);
 	PicTable->setSelectionMode(QTable::MultiRow);
 	PicTable->setColumnMovingEnabled(false);
@@ -201,31 +94,40 @@ PicStatus::PicStatus(QWidget* parent, ScribusDoc *docu) :
 	PicTable->setColumnReadOnly(COL_STATUS, true);
 	PicStatusLayout->addWidget( PicTable );
 
-	Layout2 = new QHBoxLayout;
+	QHBoxLayout* Layout2 = new QHBoxLayout;
 	Layout2->setSpacing( 3 );
 	Layout2->setMargin( 0 );
 
 	caseInsensitiveCheck = new QCheckBox( tr("Case insensitive search"), this, "caseInsensitiveCheck");
 	caseInsensitiveCheck->setChecked(false);
-	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
 	Layout2->addWidget(caseInsensitiveCheck);
+
+	showThumbs = new QCheckBox( tr("Show thumbnails"), this, "showThumbs");
+	showThumbs->setChecked(true);
+	Layout2->addWidget(showThumbs);
+
 #ifdef _WIN32
 	caseInsensitiveCheck->setChecked(true);
 	caseInsensitiveCheck->hide();
 #endif
 	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	Layout2->addItem( spacer );
+	Layout2->addItem(spacer);
 	searchAllButton = new QPushButton( tr( "Search Directory" ), this, "searchAllButton" );
-	Layout2->addWidget( searchAllButton );
-	okButton = new QPushButton( tr( "Close" ), this, "okButton" );
-	Layout2->addWidget( okButton );
-	PicStatusLayout->addLayout( Layout2 );
+	Layout2->addWidget(searchAllButton);
+	okButton = new QPushButton( tr( "Close" ), this, "okButton");
+	Layout2->addWidget(okButton);
+	PicStatusLayout->addLayout(Layout2);
 
+	// setup
+	fillTable();
 	// signals and slots connections
-	connect( searchAllButton, SIGNAL( clicked() ), this, SLOT( searchAllPics() ) );
-	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
-	
+	connect(searchAllButton, SIGNAL(clicked()), this, SLOT(searchAllPics()));
+	connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+	connect(showThumbs, SIGNAL(stateChanged(int)), this, SLOT(fillTable()));
+
 	QToolTip::add( searchAllButton, "<qt>" + tr( "Set a new location for the selected items. Useful when you may have moved the document but not the images." ) + "</qt>");
+	QToolTip::add(showThumbs, "<qt>" + tr("Show/hide image thumbnails") + "</qt>");
+	QToolTip::add(caseInsensitiveCheck, "<qt>" + tr("The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows") + "</qt>");
 }
 
 void PicStatus::languageChange()
@@ -426,4 +328,92 @@ void PicStatus::searchAllPics( )
 	}
 	if (updated>0)
 		PicTable->adjustColumn(COL_PREVIEW);
+}
+
+void PicStatus::fillTable()
+{
+	PageItem *item;
+	uint i = 0;
+
+	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
+	{
+		if (item->itemType() == PageItem::ImageFrame)
+			ItemNrs.append(i);
+		++i;
+	}
+	i = 0;
+	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
+	{
+		if (item->itemType() == PageItem::ImageFrame)
+			ItemNrs.append(i);
+		++i;
+	}
+
+	i = 0;
+	PicTable->setNumRows(0); // clear the table
+	PicTable->setNumRows(ItemNrs.count());
+	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
+	{
+		if (item->itemType() == PageItem::ImageFrame)
+			insertLine(item, i, true);
+		++i;
+	}
+	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
+	{
+		if (item->itemType() == PageItem::ImageFrame)
+			insertLine(item, i, false);
+		++i;
+	}
+	PicTable->adjustColumn(COL_PREVIEW);
+	PicTable->adjustColumn(COL_FILENAME);
+	PicTable->adjustColumn(COL_PATH);
+	PicTable->adjustColumn(COL_PAGE);
+	PicTable->adjustColumn(COL_PRINT);
+	PicTable->adjustColumn(COL_STATUS);
+	PicTable->adjustColumn(COL_SEARCH);
+}
+
+void PicStatus::insertLine(PageItem* item, uint row, bool isMaster)
+{
+	QString tmp;
+	QFileInfo fi = QFileInfo(item->Pfile);
+
+	PicTable->setText(row, COL_FILENAME, fi.fileName());
+	PicTable->setText(row, COL_PATH, fi.dirPath());
+	if (isMaster)
+		PicTable->setText(row, COL_PAGE, item->OnMasterPage);
+	else
+	{
+		tmp.setNum(item->OwnPage + 1);
+		PicTable->setText(row, COL_PAGE, tmp);
+	}
+	QToolButton *tb2 = new QToolButton(this, tmp.setNum(row));
+	tb2->setText( trGoto);
+	tb2->setEraseColor(white);
+	PicTable->setColumnWidth(COL_GOTO, tb2->fontMetrics().width( trGoto)+10);
+	PicTable->setCellWidget(row, COL_GOTO, tb2);
+	connect(tb2, SIGNAL(clicked()), this, SLOT(GotoPic()));
+	QCheckBox *cp2 = new QCheckBox(this, tmp);
+	cp2->setText(CommonStrings::trYes);
+	cp2->setChecked(item->printEnabled());
+	cp2->setEraseColor(white);
+	FlagsPic.append(cp2);
+	PicTable->setCellWidget(row, COL_PRINT, cp2);
+	connect(cp2, SIGNAL(clicked()), this, SLOT(PrintPic()));
+	if (item->PicAvail && showThumbs->isChecked())
+	{
+		QPixmap pm;
+		pm.convertFromImage(item->pixm.smoothScale(64, 64, QImage::ScaleMin));
+		PicTable->setPixmap(row, COL_PREVIEW, pm);
+		PicTable->setText(row, COL_STATUS, trOK);
+	}
+	else
+		PicTable->setText(row, COL_STATUS, trMissing);
+	QToolButton *tb = new QToolButton(this, tmp);
+	tb->setText( trSearch);
+	PicTable->setColumnWidth(COL_SEARCH, tb->fontMetrics().width( trCancelSearch)+10);
+	tb->setEraseColor(white);
+	PicTable->setCellWidget(row, COL_SEARCH, tb);
+	connect(tb, SIGNAL(clicked()), this, SLOT(SearchPic()));
+	PicTable->adjustRow(row);
 }
