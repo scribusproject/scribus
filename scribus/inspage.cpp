@@ -85,7 +85,14 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 			QComboBox* pageData = new QComboBox(false, masterPageGroup, "pageData");
 			for (QMap<QString,int>::Iterator it = currentDoc->MasterNames.begin(); it != currentDoc->MasterNames.end(); ++it)
 				pageData->insertItem(it.key() == "Normal" ? tr("Normal") : it.key());
-			QLabel* pageLabel = new QLabel(pageData,  currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp], masterPageGroup, "text");
+			QString transLabel = currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp];
+			if (transLabel == CommonStrings:: pageLocLeft)
+				transLabel = CommonStrings:: trPageLocLeft;
+			else if (transLabel == CommonStrings:: pageLocMiddle)
+				transLabel = CommonStrings:: trPageLocMiddle;
+			else if (transLabel == CommonStrings:: pageLocRight)
+				transLabel = CommonStrings:: trPageLocRight;
+			QLabel* pageLabel = new QLabel(pageData,  transLabel, masterPageGroup, "text");
 			masterPageLayout->addWidget(pageLabel, row, 0 );
 			masterPageLayout->addWidget(pageData, row, 1);
 			row++;
