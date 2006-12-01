@@ -1173,7 +1173,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 		}
 //		p->setPen(Doc->guidesSettings.margColor);
 		p->setFillMode(ScPainter::None);
-		p->drawRect(page->Margins.Top, page->Margins.Left, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
+		p->drawRect(page->Margins.Left, page->Margins.Top, pageWidth - page->Margins.Left - page->Margins.Right, pageHeight - page->Margins.Top - page->Margins.Bottom);
 //		p->drawLine(FPoint(0, page->Margins.Top), FPoint(pageWidth, page->Margins.Top));
 //		p->drawLine(FPoint(0, pageHeight - page->Margins.Bottom), FPoint(pageWidth, pageHeight - page->Margins.Bottom));
 //		p->drawLine(FPoint(page->Margins.Left, 0), FPoint(page->Margins.Left, pageHeight));
