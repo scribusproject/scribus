@@ -866,6 +866,7 @@ void PageItem_TextFrame::layout()
 						else
 							CurX = ColBound.x() + tCurX;
 					}
+					hl->glyph.xadvance = CurX - RTabX;
 					CurX -= 1;
 					StartRT = a;
 				}
@@ -888,24 +889,24 @@ void PageItem_TextFrame::layout()
 				itemText.item(a)->setEffects(itemText.item(a)->effects() & ~ScStyle_StartOfLine);
 			}
 			// remember x pos
-			if (!RTab)
+			if (!RTab) // normal case
 			{
 //				hl->glyph.xoffset = QMAX(CurX+kernVal, ColBound.x());
 				//hl->glyph.xoffset = CurX+kernVal; // needed for left optical margin
 				CurX += wide+kernVal;
 //				CurX = QMAX(CurX, ColBound.x());
 			}
-			else
-			{
-				CurX = QMAX(CurX, ColBound.x());
-				//hl->glyph.xoffset = CurX;
-			}
-			// more right tab stuff
-			if ((TabCode == 4) && (RTab))
+			else if ((TabCode == 4) && (RTab)) 	// center tab
 			{
 				CurX += (wide+kernVal) / 2;
 				CurX = QMAX(CurX, ColBound.x());
 			}
+			else // other RTab			
+			{
+				CurX = QMAX(CurX, ColBound.x());
+				//hl->glyph.xoffset = CurX;
+			}
+			
 			// hyphenation
 			if ((((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  || hl->ch[0] == SpecialChars::SHYPHEN)
 			{
@@ -963,7 +964,18 @@ void PageItem_TextFrame::layout()
 				double cen = 1;
 				if (TabCode == 4)
 					cen = 2;
-				for (uint rtx = StartRT; rtx < StartRT + itemsInLine; ++rtx)
+				
+				double newTabAdvance = itemText.item(StartRT)->glyph.xadvance - (wide+kernVal) / cen;
+				
+				if (newTabAdvance >= 0) {
+					itemText.item(StartRT)->glyph.xadvance = newTabAdvance;
+				}
+				else {
+					RTab = false;
+					TabCode = 0;
+				}
+				/* old
+				for (uint rtx = StartRT; rtx < curLine.firstItem + itemsInLine; ++rtx)
 				{
 					itemText.item(rtx)->glyph.xoffset = QMAX(itemText.item(rtx)->glyph.xoffset-(wide+kernVal) / cen, 0.0);
 					if (itemText.item(rtx)->glyph.xoffset < RTabX)
@@ -971,7 +983,7 @@ void PageItem_TextFrame::layout()
 						RTab = false;
 						TabCode = 0;
 					}
-				}
+				}*/
 			}
 			BuPos++;
 			if (DropCmode)
@@ -1254,7 +1266,7 @@ void PageItem_TextFrame::layout()
 							curLine.width = LastXp - curLine.x;
 						}
 					}
-					else if (a-1 > curLine.firstItem) // no break position
+					else if (a > curLine.firstItem) // no break position
 					{
 						a--;
 						hl = itemText.item(a);
