@@ -160,8 +160,8 @@ void NewDoc::createNewDocPage()
 		}
 	}
 	pageSizeGroupBoxLayout->addMultiCellWidget( layoutsView, 0, 4, 0, 0 );
-	
-	
+
+
 	TextLabel1 = new QLabel( tr( "&Size:" ), pageSizeGroupBox, "TextLabel1" );
 	pageSizeGroupBoxLayout->addWidget( TextLabel1, 0, 1 );
 	PageSize ps(prefsManager->appPrefs.pageSize);
@@ -230,7 +230,7 @@ void NewDoc::createNewDocPage()
 	optionsGroupBoxLayout = new QGridLayout( optionsGroupBox->layout() );
 	optionsGroupBoxLayout->setAlignment( Qt::AlignTop );
 	pageCountLabel = new QLabel( tr( "N&umber of Pages:" ), optionsGroupBox, "pageCountLabel" );
-	
+
 	pageCountSpinBox = new QSpinBox( optionsGroupBox, "pageCountSpinBox" );
 	pageCountSpinBox->setMaxValue( 10000 );
 	pageCountSpinBox->setMinValue( 1 );
@@ -251,20 +251,22 @@ void NewDoc::createNewDocPage()
 	optionsGroupBoxLayout->addMultiCellWidget( autoTextFrame, 2, 2, 0, 1 );
 	TextLabel3 = new QLabel( tr( "Colu&mns:" ), optionsGroupBox, "TextLabel3" );
 	optionsGroupBoxLayout->addWidget( TextLabel3, 3, 0 );
-	Distance = new MSpinBox( 0, 1000, optionsGroupBox, precision );
-	Distance->setSuffix( unitSuffix );
-	Distance->setValue(11 * unitRatio);
-	Dist = 11;
-	optionsGroupBoxLayout->addWidget( Distance, 3, 1);
-	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox, "TextLabel4" );
-	optionsGroupBoxLayout->addWidget( TextLabel4, 4, 0 );
-	TextLabel4->setBuddy(Distance);
 	numberOfCols = new QSpinBox( optionsGroupBox, "numberOfCols" );
 	numberOfCols->setButtonSymbols( QSpinBox::UpDownArrows );
 	numberOfCols->setMinValue( 1 );
 	numberOfCols->setValue( 1 );
 	TextLabel3->setBuddy(numberOfCols);
-	optionsGroupBoxLayout->addWidget( numberOfCols, 4, 1);
+	optionsGroupBoxLayout->addWidget( numberOfCols, 3, 1);
+
+	TextLabel4 = new QLabel( tr( "&Gap:" ), optionsGroupBox, "TextLabel4" );
+	optionsGroupBoxLayout->addWidget( TextLabel4, 4, 0 );
+	Distance = new MSpinBox( 0, 1000, optionsGroupBox, precision );
+	Distance->setSuffix( unitSuffix );
+	Distance->setValue(11 * unitRatio);
+	Dist = 11;
+	optionsGroupBoxLayout->addWidget( Distance, 4, 1);
+	TextLabel4->setBuddy(Distance);
+
 	TextLabel3->setEnabled(false);
 	TextLabel4->setEnabled(false);
 	Distance->setEnabled(false);
