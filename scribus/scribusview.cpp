@@ -4949,7 +4949,8 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 			p.scale(Scale, Scale);
 			p.setRasterOp(XorROP);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
+			if (!((SeRx - Mxp == 0) && (SeRy - Myp == 0)))
+				p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
 			p.drawRect(Mxp, Myp, newX-Mxp, newY-Myp);
 			p.end();
 			SeRx = newX;
