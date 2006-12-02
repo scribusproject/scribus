@@ -202,11 +202,7 @@ void NewDoc::createNewDocPage()
 	selectItem(prefsManager->appPrefs.FacingPages);
 	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 
-	struct MarginStruct marg;
-	marg.Top = prefsManager->appPrefs.margins.Top;
-	marg.Bottom = prefsManager->appPrefs.margins.Bottom;
-	marg.Left = prefsManager->appPrefs.margins.Left;
-	marg.Right = prefsManager->appPrefs.margins.Right;
+	MarginStruct marg(prefsManager->appPrefs.margins);
 	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
 	marginGroup->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
 	marginGroup->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));

@@ -162,15 +162,17 @@ struct CopyContentsBuffer
 };
 
 /** \brief Pagemargins and bleeds*/
-struct MarginStruct
+class MarginStruct
 {
-	MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
-	MarginStruct(double top, double left, double bottom, double right) :
-		Top(top), Left(left), Bottom(bottom), Right(right) {}
-	double Top;
-	double Left;
-	double Bottom;
-	double Right;
+	public:
+		MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
+		MarginStruct(double top, double left, double bottom, double right) :
+			Top(top), Left(left), Bottom(bottom), Right(right) {}
+		MarginStruct(const MarginStruct& rhs) {Top=rhs.Top;Bottom=rhs.Bottom;Left=rhs.Left;Right=rhs.Right;}
+		double Top;
+		double Left;
+		double Bottom;
+		double Right;
 };
 
 struct DocPagesSetup
