@@ -3260,7 +3260,7 @@ strings.
     </message>
     <message>
       <source>Edit the text with the Story Editor</source>
-      <translation>Muokkaa tekstiä editorilla</translation>
+      <translation>Avaa tekstimuokkaimessa</translation>
     </message>
     <message>
       <source>Insert Text Frame</source>
@@ -6992,7 +6992,7 @@ failed!</source>
     </message>
     <message>
       <source>Toggles sample text of this paragraph style</source>
-      <translation>Näytä/piilota kappaletyylin esimerkki</translation>
+      <translation>Näytä tai piilota kappaletyylin esimerkki</translation>
     </message>
     <message>
       <source>Name of the style is not unique</source>
@@ -7027,7 +7027,7 @@ failed!</source>
     <name>Editor</name>
     <message>
       <source>Editor</source>
-      <translation>Editori</translation>
+      <translation>Muokkain</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -7696,7 +7696,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
       <source>Sorting, searching and browsing available fonts.</source>
-      <translation>Järjestä, etsi ja selaa saatavilla olevia fontteja</translation>
+      <translation>Järjestä, etsi ja selaa käytettävissä olevia fontteja</translation>
     </message>
   </context>
   <context>
@@ -7723,7 +7723,7 @@ joita on tarkoitus katsella näytöltä</translation>
     </message>
     <message>
       <source>Cancels these font substitutions and stops loading the document.</source>
-      <translation>Peruuta fonttien korvaus ja keskeytä asikirjan lataaminen.</translation>
+      <translation>Peruuta fonttien korvaus ja keskeytä asiakirjan lataaminen.</translation>
     </message>
     <message>
       <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit > Preferences > Fonts.</source>
@@ -8048,7 +8048,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     </message>
     <message>
       <source>Date / Time:</source>
-      <translation>Päivämäärä/aika:</translation>
+      <translation>Päivämäärä ja aika:</translation>
     </message>
     <message>
       <source>Has Embedded Profile:</source>
@@ -8119,7 +8119,7 @@ ilmestyy, kun käytät Työkalut, Tavuta teksti.</translation>
     <name>ImportPSPlugin</name>
     <message>
       <source>Import &amp;EPS/PS...</source>
-      <translation>Tuo E&amp;PS/PS...</translation>
+      <translation>Tuo E&amp;PS- tai PS-tiedosto...</translation>
     </message>
     <message>
       <source>Imports EPS Files</source>
@@ -8708,7 +8708,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     <name>MasterPagesPalette</name>
     <message>
       <source>Edit Master Pages</source>
-      <translation>Muokka mallisivuja</translation>
+      <translation>Muokkaa mallisivuja</translation>
     </message>
     <message>
       <source>Do you really want to delete this master page?</source>
@@ -9178,7 +9178,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Enable or disable printing of the object</source>
-      <translation>Tulosta/Älä tulosta kohdetta</translation>
+      <translation>Tulosta tai jätä kohde tulostamatta</translation>
     </message>
     <message>
       <source>Font of selected text or object</source>
@@ -9186,7 +9186,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Scaling width of characters</source>
-      <translation>Merkkien leveyssuuntainen skaalaus</translation>
+      <translation>Merkkien leveyssuuntainen koon muutos</translation>
     </message>
     <message>
       <source>Saturation of color of text stroke</source>
@@ -9330,7 +9330,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Switches between Gap or Column width</source>
-      <translation>Vaihda palstan tai palstojen välin leveys</translation>
+      <translation>Vaihda leveydeksi palstan tai palstojen välin leveys</translation>
     </message>
     <message>
       <source>Column width</source>
@@ -9427,11 +9427,11 @@ Corners:</source>
     </message>
     <message>
       <source>&amp;Left:</source>
-      <translation>&amp;Vasen:</translation>
+      <translation>&amp;Vasemmalla:</translation>
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation>&amp;Oikea:</translation>
+      <translation>&amp;Oikealla:</translation>
     </message>
     <message>
       <source>T&amp;abulators...</source>
@@ -9451,11 +9451,11 @@ Corners:</source>
     </message>
     <message>
       <source>X-Sc&amp;ale:</source>
-      <translation>Skaalaa &amp;vaakatasossa:</translation>
+      <translation>Skaalaa &amp;vaakasuunnassa:</translation>
     </message>
     <message>
       <source>Y-Scal&amp;e:</source>
-      <translation>Skaalaa &amp;pystytasossa:</translation>
+      <translation>Skaalaa &amp;pystysuunnassa:</translation>
     </message>
     <message>
       <source>Scale &amp;To Frame Size</source>
@@ -9551,7 +9551,7 @@ Corners:</source>
     </message>
     <message>
       <source>Name &quot;%1&quot; isn't unique.&lt;br/>Please choose another.</source>
-      <translation>Nimi %1 on jo käytössä.&lt;br/>Ole hyvä ja valitse toinen.</translation>
+      <translation>Nimi %1 on jo käytössä. &lt;br/>Ole hyvä ja valitse toinen.</translation>
     </message>
     <message>
       <source>Fill Rule</source>
@@ -9567,7 +9567,7 @@ Corners:</source>
     </message>
     <message>
       <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-      <translation>Tekstin ääriviivojen tai varjon väri. Jos molemmat ovat valittuna, ne jakavat saman värin.</translation>
+      <translation>Tekstin ääriviivojen tai varjon väri. Jos molemmat ovat valittuna, ne käyttävät samaa väriä.</translation>
     </message>
     <message>
       <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
@@ -9666,7 +9666,7 @@ Corners:</source>
     </message>
     <message>
       <source>Name &quot;%1&quot; isn't unique.&lt;br/>Please choose another.</source>
-      <translation>Nimi %1 on jo käytössä.&lt;br/>Ole hyvä ja valitse toinen.</translation>
+      <translation>Nimi %1 on jo käytössä. &lt;br/>Ole hyvä ja valitse toinen.</translation>
     </message>
   </context>
   <context>
@@ -10055,7 +10055,7 @@ Corners:</source>
     </message>
     <message>
       <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-      <translation>Aseta tämänhetkiset valinnat oletusarvoiksi äläkä kysy asetuksia uudestaan tuotaessa OASIS OpenDocument-tiedostosta.</translation>
+      <translation>Aseta tämänhetkiset valinnat oletusarvoiksi äläkä kysy asetuksia uudestaan tuotaessa OASIS OpenDocument -tiedostosta.</translation>
     </message>
     <message>
       <source>Overwrite Paragraph Styles</source>
@@ -10104,7 +10104,7 @@ Corners:</source>
     </message>
     <message>
       <source>Output one file for eac&amp;h page</source>
-      <translation>&amp;Vie yksi sivu per tiedosto</translation>
+      <translation>&amp;Tee jokaisesta sivusta oma tiedosto</translation>
     </message>
     <message>
       <source>&amp;Save</source>
@@ -10166,19 +10166,19 @@ Corners:</source>
     </message>
     <message>
       <source>Enable/disable the C (Cyan) ink plate</source>
-      <translation>Näytä/Älä näytä C (syaani) muste</translation>
+      <translation>Näytä tai piilota C (syaani) muste</translation>
     </message>
     <message>
       <source>Enable/disable the M (Magenta) ink plate</source>
-      <translation>Näytä/Älä näytä M (magenta) muste</translation>
+      <translation>Näytä tai piilota M (magenta) muste</translation>
     </message>
     <message>
       <source>Enable/disable the Y (Yellow) ink plate</source>
-      <translation>Näytä/Älä näytä Y (keltainen) muste</translation>
+      <translation>Näytä tai piilota Y (keltainen) muste</translation>
     </message>
     <message>
       <source>Enable/disable the K (Black) ink plate</source>
-      <translation>Näytä/Älä näytä K (musta) muste</translation>
+      <translation>Näytä tai piilota K (musta) muste</translation>
     </message>
     <message>
       <source>Display Trans&amp;parency</source>
@@ -10206,7 +10206,7 @@ Corners:</source>
     </message>
     <message>
       <source>&amp;Under Color Removal</source>
-      <translation>&amp;Alivärin poisto (UCR)</translation>
+      <translation>&amp;Alivärin poisto</translation>
     </message>
     <message>
       <source>Separation Name</source>
@@ -10297,7 +10297,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Polyline</source>
-      <translation>Kulmikas viiva</translation>
+      <translation>Viivaketju</translation>
     </message>
     <message>
       <source>PathText</source>
@@ -10325,7 +10325,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     <message>
       <source>None</source>
       <comment>relationship</comment>
-      <translation>Ei mitään</translation>
+      <translation>Ei suhdetta</translation>
     </message>
   </context>
   <context>
@@ -10777,7 +10777,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-      <translation>Käytä koveruus-/kuperuuskerrointa muuttaaksesi kohteen muotoa.</translation>
+      <translation>Käytä koveruus- tai kuperuuskerrointa muuttaaksesi kohteen muotoa.</translation>
     </message>
     <message>
       <source>Sample Polygon</source>
@@ -10785,7 +10785,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
-      <translation>Negatiivinen arvo tekee monikulmiosta koveran (tai tähden muotoisen), positiivinen arvo tekee siitä kuperan.</translation>
+      <translation>Negatiivinen arvo tekee monikulmiosta koveran (tähden muotoisen), positiivinen arvo tekee siitä kuperan.</translation>
     </message>
   </context>
   <context>
@@ -11048,7 +11048,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Undo/Redo</source>
-      <translation>Kumoa/Tee uudelleen</translation>
+      <translation>Kumoa ja tee uudelleen</translation>
     </message>
     <message>
       <source>Action history length</source>
@@ -11112,7 +11112,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Scratch Space</source>
-      <translation>Työalue</translation>
+      <translation>Sivujen ulkopuolinen alue</translation>
     </message>
     <message>
       <source>To adjust the display drag the ruler below with the slider.</source>
@@ -14135,7 +14135,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-      <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Poisto-operaatio peruutetaan.</translation>
+      <translation>Kohde %1 on parhaillaan avoinna tekstimuokkaimessa. Poisto-operaatio peruutetaan.</translation>
     </message>
     <message>
       <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
@@ -14158,7 +14158,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Initializing Story Editor</source>
-      <translation>Alustetaan tekstieditoria</translation>
+      <translation>Alustetaan tekstimuokkainta</translation>
     </message>
     <message>
       <source>Reading ICC Profiles</source>
@@ -14424,7 +14424,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-      <translation>Kohde %1 on avoinna tekstieditorissa. Leikkaus peruutetaan.</translation>
+      <translation>Kohde %1 on avoinna tekstimuokkaimessa. Leikkaus peruutetaan.</translation>
     </message>
     <message>
       <source>About Qt</source>
@@ -14847,7 +14847,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-      <translation>Kohde %1 on parhaillaan avoinna tekstieditorissa. Muutosoperaatio peruutetaan.</translation>
+      <translation>Kohde %1 on parhaillaan avoinna tekstimuokkaimessa. Muutosoperaatio peruutetaan.</translation>
     </message>
     <message>
       <source>Contents</source>
@@ -15249,7 +15249,7 @@ pystysuora siirtyminen: %3</translation>
     <name>StoryEditor</name>
     <message>
       <source>Story Editor</source>
-      <translation>Tekstieditori</translation>
+      <translation>Tekstimuokkain</translation>
     </message>
     <message>
       <source>Current Paragraph:</source>
@@ -15389,7 +15389,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Story Editor - %1</source>
-      <translation>Tekstieditori - %1</translation>
+      <translation>Tekstimuokkain - %1</translation>
     </message>
     <message>
       <source>Do you really want to lose all your changes?</source>
@@ -17451,7 +17451,7 @@ to %2</source>
     </message>
     <message>
       <source>Polyline</source>
-      <translation>Kulmikas viiva</translation>
+      <translation>Viivaketju</translation>
     </message>
     <message>
       <source>Convert to</source>
@@ -17471,7 +17471,7 @@ to %2</source>
     </message>
     <message>
       <source>Scratch space</source>
-      <translation>Työalue</translation>
+      <translation>Sivujen ulkopuolinen alue</translation>
     </message>
     <message>
       <source>Text flows around the frame</source>
@@ -17878,7 +17878,7 @@ Virhe: %2 rivillä %3, rivi: %4</translation>
     </message>
     <message>
       <source>Open</source>
-      <translation type="unfinished" >Avaa</translation>
+      <translation>Avaa</translation>
     </message>
   </context>
   <context>
