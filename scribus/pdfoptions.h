@@ -120,10 +120,7 @@ public:
 	QString PrintProf;
 	QString Info;
 	int Intent;
-	double BleedTop;
-	double BleedLeft;
-	double BleedRight;
-	double BleedBottom;
+	MarginStruct bleeds;
 	bool Encrypt;
 	QString PassOwner;
 	QString PassUser;

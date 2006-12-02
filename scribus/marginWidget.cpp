@@ -190,7 +190,7 @@ void MarginWidget::ToggleKette()
 	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 }
 
-void MarginWidget::BChange()
+void MarginWidget::changeBleeds()
 {
 	if (linkBleeds->isOn())
 	{
@@ -204,7 +204,8 @@ void MarginWidget::BChange()
 		else if (BleedRight == sender())
 			val = BleedRight->value();
 		val = val / m_unitRatio;
-		setNewBleeds(val, val, val, val);
+		MarginStruct v(val,val,val,val);
+		setNewBleeds(v);
 	}
 }
 
@@ -434,15 +435,15 @@ double MarginWidget::right()
 	return RandR;
 }
 
-void MarginWidget::setNewMargins(double t, double b, double l, double r)
+void MarginWidget::setNewMargins(MarginStruct &m)
 {
-	topR->setValue(t * m_unitRatio);
+	topR->setValue(m.Top * m_unitRatio);
 	//RandT = val; // it's called by signal emitted by setValue()
-	bottomR->setValue(b * m_unitRatio);
+	bottomR->setValue(m.Bottom * m_unitRatio);
 	//RandB = val;
-	leftR->setValue(l * m_unitRatio);
+	leftR->setValue(m.Left * m_unitRatio);
 	//RandL = val;
-	rightR->setValue(r * m_unitRatio);
+	rightR->setValue(m.Right * m_unitRatio);
 	//RandR = val;
 }
 
@@ -456,16 +457,16 @@ bool MarginWidget::getMarginsForAllMasterPages()
 	return marginsForAllMasterPages->isChecked();
 }
 
-void MarginWidget::setNewBleeds(double t, double b, double l, double r)
+void MarginWidget::setNewBleeds(MarginStruct& b)
 {
 	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	BleedTop->setValue(t * m_unitRatio);
-	BleedBottom->setValue(b * m_unitRatio);
-	BleedLeft->setValue(l * m_unitRatio);
-	BleedRight->setValue(r * m_unitRatio);
+	BleedTop->setValue(b.Top * m_unitRatio);
+	BleedBottom->setValue(b.Bottom * m_unitRatio);
+	BleedLeft->setValue(b.Left * m_unitRatio);
+	BleedRight->setValue(b.Right * m_unitRatio);
 	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
 	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));

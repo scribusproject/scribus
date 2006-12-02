@@ -253,10 +253,10 @@ void PDFExportDialog::updateDocOptions()
 	Opts.useDocBleeds = Options->docBleeds->isChecked();
 	if (!Options->docBleeds->isChecked())
 	{
-		Opts.BleedTop = Options->BleedTop->value()/docUnitRatio;
-		Opts.BleedLeft = Options->BleedLeft->value()/docUnitRatio;
-		Opts.BleedRight = Options->BleedRight->value()/docUnitRatio;
-		Opts.BleedBottom = Options->BleedBottom->value()/docUnitRatio;
+		Opts.bleeds.Top = Options->BleedTop->value()/docUnitRatio;
+		Opts.bleeds.Left = Options->BleedLeft->value()/docUnitRatio;
+		Opts.bleeds.Right = Options->BleedRight->value()/docUnitRatio;
+		Opts.bleeds.Bottom = Options->BleedBottom->value()/docUnitRatio;
 	}
 	Opts.markOffset = Options->markOffset->value()/docUnitRatio;
 	Opts.cropMarks = Options->cropMarks->isChecked();

@@ -1812,10 +1812,10 @@ void ScribusMainWindow::startUpDialog()
 			QString pagesize = ps2.name();
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
-			doc->BleedBottom = dia->bleedBottom;
-			doc->BleedTop = dia->bleedTop;
-			doc->BleedLeft = dia->bleedLeft;
-			doc->BleedRight = dia->bleedRight;
+			doc->bleeds.Bottom = dia->bleedBottom;
+			doc->bleeds.Top = dia->bleedTop;
+			doc->bleeds.Left = dia->bleedLeft;
+			doc->bleeds.Right = dia->bleedRight;
 			HaveNewDoc();
 		}
 		else
@@ -1871,10 +1871,10 @@ bool ScribusMainWindow::slotFileNew()
 		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
 		{
 			doc->pageSets[facingPages].FirstPage = firstPage;
-			doc->BleedBottom = dia->bleedBottom;
-			doc->BleedTop = dia->bleedTop;
-			doc->BleedLeft = dia->bleedLeft;
-			doc->BleedRight = dia->bleedRight;
+			doc->bleeds.Bottom = dia->bleedBottom;
+			doc->bleeds.Top = dia->bleedTop;
+			doc->bleeds.Left = dia->bleedLeft;
+			doc->bleeds.Right = dia->bleedRight;
 			mainWindowStatusLabel->setText( tr("Ready"));
 			HaveNewDoc();
 			retVal = true;
@@ -7418,10 +7418,10 @@ bool ScribusMainWindow::DoSaveAsEps(QString fn)
 	options.registrationMarks = false;
 	options.colorMarks = false;
 	options.markOffset = 0.0;
-	options.BleedTop = 0.0;
-	options.BleedLeft = 0.0;
-	options.BleedRight = 0.0;
-	options.BleedBottom = 0.0;
+	options.bleeds.Top = 0.0;
+	options.bleeds.Left = 0.0;
+	options.bleeds.Right = 0.0;
+	options.bleeds.Bottom = 0.0;
 	PSLib *dd = new PSLib(options, false, prefsManager->appPrefs.AvailFonts, ReallyUsed, usedColors, false, true);
 	if (dd != NULL)
 	{
@@ -7587,10 +7587,7 @@ void ScribusMainWindow::doSaveAsPDF()
 		}
 		doc->PDF_Options.SubsetList = tmpEm;
 	}
-	double optBleedTop = doc->PDF_Options.BleedTop;
-	double optBleedBottom = doc->PDF_Options.BleedLeft;
-	double optBleedLeft = doc->PDF_Options.BleedRight;
-	double optBleedRight = doc->PDF_Options.BleedBottom;
+	MarginStruct optBleeds = doc->PDF_Options.bleeds;
 	PDFExportDialog dia(this, doc->DocName, ReallyUsed, view, doc->PDF_Options, doc->PDF_Options.PresentVals, ScCore->PDFXProfiles, prefsManager->appPrefs.AvailFonts, doc->unitRatio(), ScCore->PrinterProfiles);
 	if (dia.exec())
 	{
@@ -7607,12 +7604,8 @@ void ScribusMainWindow::doSaveAsPDF()
 		QString fileName = doc->PDF_Options.Datei;
 		parsePagesString(pageString, &pageNs, doc->DocPages.count());
 		if (doc->PDF_Options.useDocBleeds)
-		{
-			doc->PDF_Options.BleedTop = doc->BleedTop;
-			doc->PDF_Options.BleedLeft = doc->BleedLeft;
-			doc->PDF_Options.BleedRight = doc->BleedRight;
-			doc->PDF_Options.BleedBottom = doc->BleedBottom;
-		}
+			doc->PDF_Options.bleeds = doc->bleeds;
+		
 		if (doc->PDF_Options.doMultiFile)
 		{
 			QFileInfo fi(fileName);
@@ -7658,12 +7651,7 @@ void ScribusMainWindow::doSaveAsPDF()
 			}
 		}
 		if (doc->PDF_Options.useDocBleeds)
-		{
-			doc->PDF_Options.BleedTop = optBleedTop;
-			doc->PDF_Options.BleedLeft = optBleedLeft;
-			doc->PDF_Options.BleedRight = optBleedRight;
-			doc->PDF_Options.BleedBottom = optBleedBottom;
-		}
+			doc->PDF_Options.bleeds = optBleeds;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 }

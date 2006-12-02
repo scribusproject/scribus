@@ -121,12 +121,7 @@ TabDocument::TabDocument(QWidget* parent, const char* name, const bool reform)
 	
 	dsLayout4pv->addWidget( GroupSize );
 
-	struct MarginStruct marg;
-	marg.Top = prefsData->RandOben;
-	marg.Bottom = prefsData->RandUnten;
-	marg.Left = prefsData->RandLinks;
-	marg.Right = prefsData->RandRechts;
-	marginGroup = new MarginWidget(this,  tr( "Margin Guides" ), &marg, prefsData->docUnitIndex, reform);
+	marginGroup = new MarginWidget(this,  tr( "Margin Guides" ), &(prefsData->margins), prefsData->docUnitIndex, reform);
 
 	dsLayout4pv->addWidget( marginGroup );
 
@@ -210,9 +205,9 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitCombo->setCurrentItem(prefsData->docUnitIndex);
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
-	marginGroup->setNewMargins(prefsData->RandOben, prefsData->RandUnten, prefsData->RandLinks, prefsData->RandRechts);
+	marginGroup->setNewMargins(prefsData->margins);
 	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
-	marginGroup->setNewBleeds(prefsData->BleedTop,prefsData->BleedBottom, prefsData->BleedLeft, prefsData->BleedRight);
+	marginGroup->setNewBleeds(prefsData->bleeds);
 	GroupAS->setChecked( prefsData->AutoSave );
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
@@ -243,11 +238,10 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(prefsData->pageWidth * unitRatio);
 	pageHeight->setValue(prefsData->pageHeight * unitRatio);
-	marginGroup->setNewBleeds(prefsData->BleedTop,prefsData->BleedBottom, prefsData->BleedLeft, prefsData->BleedRight);
+	marginGroup->setNewBleeds(prefsData->bleeds);
 	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
-	marginGroup->setNewMargins(prefsData->pageMargins.Top, prefsData->pageMargins.Bottom,
-							   prefsData->pageMargins.Left, prefsData->pageMargins.Right);
+	marginGroup->setNewMargins(prefsData->pageMargins);
 	marginGroup->setPageWidthHeight(prefsData->pageWidth, prefsData->pageHeight);
 	GroupAS->setChecked( prefsData->AutoSave );
 	ASTime->setValue(prefsData->AutoSaveTime / 1000 / 60);

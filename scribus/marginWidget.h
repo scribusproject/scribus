@@ -109,12 +109,9 @@ public:
 	/*! \brief set new margin values for the dialog
 	It calls overridden setTop(), setBottom() etc. slots itself
 	via signals emitted from spinboxes.
-	\param t new top value
-	\param b new bottom value
-	\param l new left value
-	\param r new right value
+	\param m MarginStruct 
 	*/
-	void setNewMargins(double t, double b, double l, double r);
+	void setNewMargins(MarginStruct& m);
 	
 	/*! \brief Top Bleed
 	\retval double bleed size */
@@ -130,12 +127,9 @@ public:
 	double rightBleed();
 
 	/*! \brief set new bleed values for the dialog
-	\param t new top value
-	\param b new bottom value
-	\param l new left value
-	\param r new right value
+	\param b MarginStruct
 	*/
-	void setNewBleeds(double t, double b, double l, double r);
+	void setNewBleeds(MarginStruct& b);
 	
 	/*! \brief Return marginsForAllPages property
 	\retval bool true to apply for all pages */
@@ -193,7 +187,7 @@ public slots:
 	/*! \brief Recompute margins in PresetLayout combobox and disable/enable widgets. */
 	void setPreset();
 	void ToggleKette();
-	void BChange();
+	void changeBleeds();
 	
 protected slots:	
 	virtual void setMarginsToPrinterMargins();

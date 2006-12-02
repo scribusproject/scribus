@@ -143,10 +143,10 @@ void PDFOptionsIO::buildSettings()
 	addElem(m_root, "printProf", m_opts->PrintProf);
 	addElem(m_root, "info", m_opts->Info);
 	addElem(m_root, "intent", m_opts->Intent);
-	addElem(m_root, "bleedTop", m_opts->BleedTop);
-	addElem(m_root, "bleedLeft", m_opts->BleedLeft);
-	addElem(m_root, "bleedRight", m_opts->BleedRight);
-	addElem(m_root, "bleedBottom", m_opts->BleedBottom);
+	addElem(m_root, "bleedTop", m_opts->bleeds.Top);
+	addElem(m_root, "bleedLeft", m_opts->bleeds.Left);
+	addElem(m_root, "bleedRight", m_opts->bleeds.Right);
+	addElem(m_root, "bleedBottom", m_opts->bleeds.Bottom);
 	addElem(m_root, "encrypt", m_opts->Encrypt);
 	addElem(m_root, "passOwner", m_includePasswords ? m_opts->PassOwner : "");
 	addElem(m_root, "passUser", m_includePasswords ? m_opts->PassUser : "");
@@ -388,13 +388,13 @@ bool PDFOptionsIO::readSettings()
 		return false;
 	if (!readElem(m_root, "intent", &m_opts->Intent))
 		return false;
-	if (!readElem(m_root, "bleedTop", &m_opts->BleedTop))
+	if (!readElem(m_root, "bleedTop", &m_opts->bleeds.Top))
 		return false;
-	if (!readElem(m_root, "bleedLeft", &m_opts->BleedLeft))
+	if (!readElem(m_root, "bleedLeft", &m_opts->bleeds.Left))
 		return false;
-	if (!readElem(m_root, "bleedRight", &m_opts->BleedRight))
+	if (!readElem(m_root, "bleedRight", &m_opts->bleeds.Right))
 		return false;
-	if (!readElem(m_root, "bleedBottom", &m_opts->BleedBottom))
+	if (!readElem(m_root, "bleedBottom", &m_opts->bleeds.Bottom))
 		return false;
 	if (!readElem(m_root, "encrypt", &m_opts->Encrypt))
 		return false;

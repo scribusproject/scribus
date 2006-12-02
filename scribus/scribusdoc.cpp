@@ -165,14 +165,8 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	_itemCreationTransactionStarted(false)
 {
 	init();
-	BleedTop = prefsData.BleedTop;
-	BleedLeft = prefsData.BleedLeft;
-	BleedRight = prefsData.BleedRight;
-	BleedBottom = prefsData.BleedBottom;
-	PDF_Options.BleedTop = BleedTop;
-	PDF_Options.BleedLeft = BleedLeft;
-	PDF_Options.BleedRight = BleedRight;
-	PDF_Options.BleedBottom = BleedBottom;
+	bleeds = prefsData.bleeds;
+	PDF_Options.bleeds = bleeds;
 	Print_Options.firstUse = true;
 }
 
@@ -274,14 +268,8 @@ ScribusDoc::ScribusDoc(const QString& docName, int unitindex, const PageSize& pa
 {
 	pageSets[pagesSetup.pageArrangement].FirstPage = pagesSetup.firstPageLocation;
 	init();
-	BleedTop = prefsData.BleedTop;
-	BleedLeft = prefsData.BleedLeft;
-	BleedRight = prefsData.BleedRight;
-	BleedBottom = prefsData.BleedBottom;
-	PDF_Options.BleedTop = BleedTop;
-	PDF_Options.BleedLeft = BleedLeft;
-	PDF_Options.BleedRight = BleedRight;
-	PDF_Options.BleedBottom = BleedBottom;
+	bleeds = prefsData.bleeds;
+	PDF_Options.bleeds = bleeds;
 	Print_Options.firstUse = true;
 }
 
@@ -3714,43 +3702,43 @@ const double ScribusDoc::getYOffsetForPage(const int pageNumber)
 
 void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
 {
-	*bleedBottom = BleedBottom;
-	*bleedTop = BleedTop;
+	*bleedBottom = bleeds.Bottom;
+	*bleedTop = bleeds.Top;
 	if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
 	{
-		*bleedRight = BleedLeft;
-		*bleedLeft = BleedRight;
+		*bleedRight = bleeds.Left;
+		*bleedLeft = bleeds.Right;
 	}
 	else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
 	{
-		*bleedRight = BleedRight;
-		*bleedLeft = BleedLeft;
+		*bleedRight = bleeds.Right;
+		*bleedLeft = bleeds.Left;
 	}
 	else
 	{
-		*bleedRight = BleedLeft;
-		*bleedLeft = BleedLeft;
+		*bleedRight = bleeds.Left;
+		*bleedLeft = bleeds.Left;
 	}
 }
 
 void ScribusDoc::getBleeds(Page* page, double *bleedTop, double *bleedBottom, double *bleedLeft, double *bleedRight)
 {
-	*bleedBottom = BleedBottom;
-	*bleedTop = BleedTop;
+	*bleedBottom = bleeds.Bottom;
+	*bleedTop = bleeds.Top;
 	if (locationOfPage(page->pageNr()) == LeftPage)
 	{
-		*bleedRight = BleedLeft;
-		*bleedLeft = BleedRight;
+		*bleedRight = bleeds.Left;
+		*bleedLeft = bleeds.Right;
 	}
 	else if (locationOfPage(page->pageNr()) == RightPage)
 	{
-		*bleedRight = BleedRight;
-		*bleedLeft = BleedLeft;
+		*bleedRight = bleeds.Right;
+		*bleedLeft = bleeds.Left;
 	}
 	else
 	{
-		*bleedRight = BleedLeft;
-		*bleedLeft = BleedLeft;
+		*bleedRight = bleeds.Left;
+		*bleedLeft = bleeds.Left;
 	}
 }
 

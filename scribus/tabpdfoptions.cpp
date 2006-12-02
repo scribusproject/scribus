@@ -1230,10 +1230,10 @@ void TabPDFOptions::restoreDefaults(PDFOptions & Optionen,
 			PrintProfC->setCurrentItem(PrintProfC->count()-1);
 	}
 	InfoString->setText(Opts.Info);
-	BleedTop->setValue(Opts.BleedTop*unitRatio);
-	BleedBottom->setValue(Opts.BleedBottom*unitRatio);
-	BleedRight->setValue(Opts.BleedRight*unitRatio);
-	BleedLeft->setValue(Opts.BleedLeft*unitRatio);
+	BleedTop->setValue(Opts.bleeds.Top*unitRatio);
+	BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
+	BleedRight->setValue(Opts.bleeds.Right*unitRatio);
+	BleedLeft->setValue(Opts.bleeds.Left*unitRatio);
 	if (mdoc != 0 && exporting)
 	{
 		docBleeds->setChecked(Opts.useDocBleeds);
@@ -1283,14 +1283,14 @@ void TabPDFOptions::doDocBleeds()
 {
 	if (docBleeds->isChecked())
 	{
-		Opts.BleedTop = BleedTop->value() / unitRatio;
-		Opts.BleedBottom = BleedBottom->value() / unitRatio;
-		Opts.BleedRight = BleedRight->value() / unitRatio;
-		Opts.BleedLeft = BleedLeft->value() / unitRatio;
-		BleedTop->setValue(doc->BleedTop*unitRatio);
-		BleedBottom->setValue(doc->BleedBottom*unitRatio);
-		BleedRight->setValue(doc->BleedRight*unitRatio);
-		BleedLeft->setValue(doc->BleedLeft*unitRatio);
+		Opts.bleeds.Top = BleedTop->value() / unitRatio;
+		Opts.bleeds.Bottom = BleedBottom->value() / unitRatio;
+		Opts.bleeds.Right = BleedRight->value() / unitRatio;
+		Opts.bleeds.Left = BleedLeft->value() / unitRatio;
+		BleedTop->setValue(doc->bleeds.Top*unitRatio);
+		BleedBottom->setValue(doc->bleeds.Bottom*unitRatio);
+		BleedRight->setValue(doc->bleeds.Right*unitRatio);
+		BleedLeft->setValue(doc->bleeds.Left*unitRatio);
 		BleedTop->setEnabled(false);
 		BleedBottom->setEnabled(false);
 		BleedRight->setEnabled(false);
@@ -1298,10 +1298,10 @@ void TabPDFOptions::doDocBleeds()
 	}
 	else
 	{
-		BleedTop->setValue(Opts.BleedTop*unitRatio);
-		BleedBottom->setValue(Opts.BleedBottom*unitRatio);
-		BleedRight->setValue(Opts.BleedRight*unitRatio);
-		BleedLeft->setValue(Opts.BleedLeft*unitRatio);
+		BleedTop->setValue(Opts.bleeds.Top*unitRatio);
+		BleedBottom->setValue(Opts.bleeds.Bottom*unitRatio);
+		BleedRight->setValue(Opts.bleeds.Right*unitRatio);
+		BleedLeft->setValue(Opts.bleeds.Left*unitRatio);
 		BleedTop->setEnabled(true);
 		BleedBottom->setEnabled(true);
 		BleedRight->setEnabled(true);

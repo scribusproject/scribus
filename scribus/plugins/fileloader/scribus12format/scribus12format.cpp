@@ -820,10 +820,10 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				m_Doc->PDF_Options.ImageProf = pg.attribute("ImageP", "");
 				m_Doc->PDF_Options.PrintProf = pg.attribute("PrintP", "");
 				m_Doc->PDF_Options.Info = pg.attribute("InfoString", "");
-				m_Doc->PDF_Options.BleedTop = pg.attribute("BTop", "0").toDouble();
-				m_Doc->PDF_Options.BleedLeft = pg.attribute("BLeft", "0").toDouble();
-				m_Doc->PDF_Options.BleedRight = pg.attribute("BRight", "0").toDouble();
-				m_Doc->PDF_Options.BleedBottom = pg.attribute("BBottom", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Top = pg.attribute("BTop", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Left = pg.attribute("BLeft", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Right = pg.attribute("BRight", "0").toDouble();
+				m_Doc->PDF_Options.bleeds.Bottom = pg.attribute("BBottom", "0").toDouble();
 				m_Doc->PDF_Options.EmbeddedI = static_cast<bool>(pg.attribute("ImagePr", "0").toInt());
 				m_Doc->PDF_Options.PassOwner = pg.attribute("PassOwner", "");
 				m_Doc->PDF_Options.PassUser = pg.attribute("PassUser", "");

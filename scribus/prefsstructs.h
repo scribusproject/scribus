@@ -175,11 +175,8 @@ struct ApplicationPrefs
 	QString curCheckProfile;
 	int docUnitIndex;
 	windowPrefs mainWinSettings;
-
-	double BleedTop;
-	double BleedLeft;
-	double BleedRight;
-	double BleedBottom;
+	
+	MarginStruct bleeds;
 
 	PDFOptions PDF_Options;
 	ObjAttrVector defaultItemAttributes;
@@ -203,10 +200,7 @@ struct ApplicationPrefs
 	int pageOrientation;
 	double PageWidth;
 	double PageHeight;
-	double RandOben;
-	double RandUnten;
-	double RandLinks;
-	double RandRechts;
+	MarginStruct margins;
 	int FacingPages;
 	int MinWordLen;
 	int HyCount;

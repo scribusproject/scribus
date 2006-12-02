@@ -500,10 +500,10 @@ static int PDFfile_init(PDFfile *self, PyObject */*args*/, PyObject */*kwds*/)
 		PyErr_SetString(PyExc_SystemError, "Can not initialize 'info' attribute");
 		return -1;
 	}
-	self->bleedt = ScCore->primaryMainWindow()->doc->PDF_Options.BleedTop*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
-	self->bleedl = ScCore->primaryMainWindow()->doc->PDF_Options.BleedLeft*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
-	self->bleedr = ScCore->primaryMainWindow()->doc->PDF_Options.BleedRight*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
-	self->bleedb = ScCore->primaryMainWindow()->doc->PDF_Options.BleedBottom*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedt = ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Top*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedl = ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Left*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedr = ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Right*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
+	self->bleedb = ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Bottom*ScCore->primaryMainWindow()->doc->unitRatio(); // double -
 
 	return 0;
 }
@@ -1118,13 +1118,13 @@ static PyObject *PDFfile_save(PDFfile *self)
 				cmsCloseProfile(hIn);
 				ScCore->primaryMainWindow()->doc->PDF_Options.Info = PyString_AsString(self->info);
 				self->bleedt = minmaxd(self->bleedt, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
-				ScCore->primaryMainWindow()->doc->PDF_Options.BleedTop = self->bleedt/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Top = self->bleedt/ScCore->primaryMainWindow()->view->Doc->unitRatio();
 				self->bleedl = minmaxd(self->bleedl, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth*ScCore->primaryMainWindow()->view->Doc->unitRatio());
-				ScCore->primaryMainWindow()->doc->PDF_Options.BleedLeft = self->bleedl/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Left = self->bleedl/ScCore->primaryMainWindow()->view->Doc->unitRatio();
 				self->bleedr = minmaxd(self->bleedr, 0, ScCore->primaryMainWindow()->view->Doc->pageWidth*ScCore->primaryMainWindow()->view->Doc->unitRatio());
-				ScCore->primaryMainWindow()->doc->PDF_Options.BleedRight = self->bleedr/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Right = self->bleedr/ScCore->primaryMainWindow()->view->Doc->unitRatio();
 				self->bleedb = minmaxd(self->bleedb, 0, ScCore->primaryMainWindow()->view->Doc->pageHeight*ScCore->primaryMainWindow()->view->Doc->unitRatio());
-				ScCore->primaryMainWindow()->doc->PDF_Options.BleedBottom = self->bleedb/ScCore->primaryMainWindow()->view->Doc->unitRatio();
+				ScCore->primaryMainWindow()->doc->PDF_Options.bleeds.Bottom = self->bleedb/ScCore->primaryMainWindow()->view->Doc->unitRatio();
 				ScCore->primaryMainWindow()->doc->PDF_Options.Encrypt = false;
 				ScCore->primaryMainWindow()->doc->PDF_Options.PresentMode = false;
 			}

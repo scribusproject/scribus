@@ -203,10 +203,10 @@ void NewDoc::createNewDocPage()
 	firstPage->setCurrentItem(prefsManager->appPrefs.pageSets[prefsManager->appPrefs.FacingPages].FirstPage);
 
 	struct MarginStruct marg;
-	marg.Top = prefsManager->appPrefs.RandOben;
-	marg.Bottom = prefsManager->appPrefs.RandUnten;
-	marg.Left = prefsManager->appPrefs.RandLinks;
-	marg.Right = prefsManager->appPrefs.RandRechts;
+	marg.Top = prefsManager->appPrefs.margins.Top;
+	marg.Bottom = prefsManager->appPrefs.margins.Bottom;
+	marg.Left = prefsManager->appPrefs.margins.Left;
+	marg.Right = prefsManager->appPrefs.margins.Right;
 	marginGroup = new MarginWidget(newDocFrame,  tr( "Margin Guides" ), &marg, unitIndex );
 	marginGroup->setPageWidthHeight(prefsManager->appPrefs.PageWidth, prefsManager->appPrefs.PageHeight);
 	marginGroup->setFacingPages(!(prefsManager->appPrefs.FacingPages == singlePage));
@@ -224,7 +224,7 @@ void NewDoc::createNewDocPage()
 	setOrien(prefsManager->appPrefs.pageOrientation);
 	widthMSpinBox->setValue(prefsManager->appPrefs.PageWidth * unitRatio);
 	heightMSpinBox->setValue(prefsManager->appPrefs.PageHeight * unitRatio);
-	marginGroup->setNewBleeds(prefsManager->appPrefs.BleedTop, prefsManager->appPrefs.BleedBottom, prefsManager->appPrefs.BleedLeft, prefsManager->appPrefs.BleedRight);
+	marginGroup->setNewBleeds(prefsManager->appPrefs.bleeds);
 
 	optionsGroupBox = new QGroupBox( newDocFrame, "optionsGroupBox" );
 	optionsGroupBox->setTitle( tr( "Options" ) );

@@ -448,10 +448,10 @@ static PyObject *Printer_print(Printer *self)
 	options.registrationMarks = false;
 	options.colorMarks = false;
 	options.markOffset = 0.0;
-	options.BleedTop = 0.0;
-	options.BleedLeft = 0.0;
-	options.BleedRight = 0.0;
-	options.BleedBottom = 0.0;
+	options.bleeds.Top = 0.0;
+	options.bleeds.Left = 0.0;
+	options.bleeds.Right = 0.0;
+	options.bleeds.Bottom = 0.0;
 	int psl = self->pslevel;
 	if (psl < 1)
 		psl = 1;

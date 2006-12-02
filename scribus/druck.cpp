@@ -643,10 +643,10 @@ void Druck::storeValues()
 	m_doc->Print_Options.PSLevel = PSLevel();
 	m_doc->Print_Options.setDevParam = doDev();
 	m_doc->Print_Options.doOverprint = doOverprint();
-	m_doc->Print_Options.BleedTop = BleedTop->value() / m_doc->unitRatio();
-	m_doc->Print_Options.BleedLeft = BleedLeft->value() / m_doc->unitRatio();
-	m_doc->Print_Options.BleedRight = BleedRight->value() / m_doc->unitRatio();
-	m_doc->Print_Options.BleedBottom = BleedBottom->value() / m_doc->unitRatio();
+	m_doc->Print_Options.bleeds.Top = BleedTop->value() / m_doc->unitRatio();
+	m_doc->Print_Options.bleeds.Left = BleedLeft->value() / m_doc->unitRatio();
+	m_doc->Print_Options.bleeds.Right = BleedRight->value() / m_doc->unitRatio();
+	m_doc->Print_Options.bleeds.Bottom = BleedBottom->value() / m_doc->unitRatio();
 	m_doc->Print_Options.markOffset = markOffset->value() / m_doc->unitRatio();
 	m_doc->Print_Options.cropMarks = cropMarks->isChecked();
 	m_doc->Print_Options.bleedMarks = bleedMarks->isChecked();
@@ -827,10 +827,10 @@ void Druck::setStoredValues(bool gcr)
 			UseICC->setChecked( psPrinter ? iccInUse : false );
 			UseICC->setEnabled( psPrinter );
 		}
-		BleedTop->setValue(m_doc->Print_Options.BleedTop*unitRatio);
-		BleedBottom->setValue(m_doc->Print_Options.BleedBottom*unitRatio);
-		BleedRight->setValue(m_doc->Print_Options.BleedRight*unitRatio);
-		BleedLeft->setValue(m_doc->Print_Options.BleedLeft*unitRatio);
+		BleedTop->setValue(m_doc->Print_Options.bleeds.Top*unitRatio);
+		BleedBottom->setValue(m_doc->Print_Options.bleeds.Bottom*unitRatio);
+		BleedRight->setValue(m_doc->Print_Options.bleeds.Right*unitRatio);
+		BleedLeft->setValue(m_doc->Print_Options.bleeds.Left*unitRatio);
 		markOffset->setValue(m_doc->Print_Options.markOffset*unitRatio);
 		cropMarks->setChecked(m_doc->Print_Options.cropMarks);
 		bleedMarks->setChecked(m_doc->Print_Options.bleedMarks);
@@ -943,10 +943,10 @@ void Druck::doDocBleeds()
 		prefs->set("BleedBottom", BleedBottom->value() / unitRatio);
 		prefs->set("BleedRight", BleedRight->value() / unitRatio);
 		prefs->set("BleedLeft", BleedLeft->value() / unitRatio);
-		BleedTop->setValue(m_doc->BleedTop*unitRatio);
-		BleedBottom->setValue(m_doc->BleedBottom*unitRatio);
-		BleedRight->setValue(m_doc->BleedRight*unitRatio);
-		BleedLeft->setValue(m_doc->BleedLeft*unitRatio);
+		BleedTop->setValue(m_doc->bleeds.Top*unitRatio);
+		BleedBottom->setValue(m_doc->bleeds.Bottom*unitRatio);
+		BleedRight->setValue(m_doc->bleeds.Right*unitRatio);
+		BleedLeft->setValue(m_doc->bleeds.Left*unitRatio);
 		BleedTop->setEnabled(false);
 		BleedBottom->setEnabled(false);
 		BleedRight->setEnabled(false);

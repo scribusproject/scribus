@@ -161,7 +161,7 @@ struct CopyContentsBuffer
 	int renderingIntent;
 };
 
-/** \brief Pagemargins */
+/** \brief Pagemargins and bleeds*/
 struct MarginStruct
 {
 	MarginStruct() : Top(0), Left(0), Bottom(0), Right(0) {}
@@ -301,10 +301,7 @@ struct PrintOptions
 	int copies;
 	int PSLevel;
 	double markOffset;
-	double BleedTop;
-	double BleedLeft;
-	double BleedRight;
-	double BleedBottom;
+	MarginStruct bleeds;
 	std::vector<int> pageNumbers;
 	QString printerOptions;
 	QString printer;

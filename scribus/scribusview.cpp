@@ -434,7 +434,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 						blh2 = qRound(blh2 * Scale);
 						painter->drawRect(blx2 + 5, bly2 + 5, blw2, blh2);
 #endif
-						if (((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0)) && (Doc->guidesSettings.showBleed))
+						if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
 						{
 							painter->setFillMode(ScPainter::None);
 #ifdef HAVE_CAIRO
@@ -471,7 +471,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 				double bleedBottom = 0.0;
 				double bleedTop = 0.0;
 				bool drawBleed = false;
-				if (((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0)) && (Doc->guidesSettings.showBleed))
+				if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
 				{
 					drawBleed = true;
 					Doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
@@ -1219,7 +1219,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	double pageWidth=page->width();
 	p->setFillMode(ScPainter::None);
 	p->setLineWidth(lineWidth);
-/*	if (((Doc->BleedBottom != 0.0) || (Doc->BleedTop != 0.0) || (Doc->BleedLeft != 0.0) || (Doc->BleedRight != 0.0)) && (Doc->guidesSettings.showBleed))
+/*	if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
 	{
 		double bleedRight = 0.0;
 		double bleedLeft = 0.0;

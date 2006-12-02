@@ -381,15 +381,15 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.PageWidth = tabDocument->pageW;
 	prefsManager->appPrefs.PageHeight = tabDocument->pageH;
 
-	prefsManager->appPrefs.RandOben = tabDocument->marginGroup->top();
-	prefsManager->appPrefs.RandUnten = tabDocument->marginGroup->bottom();
-	prefsManager->appPrefs.RandLinks = tabDocument->marginGroup->left();
-	prefsManager->appPrefs.RandRechts = tabDocument->marginGroup->right();
+	prefsManager->appPrefs.margins.Top = tabDocument->marginGroup->top();
+	prefsManager->appPrefs.margins.Bottom = tabDocument->marginGroup->bottom();
+	prefsManager->appPrefs.margins.Left = tabDocument->marginGroup->left();
+	prefsManager->appPrefs.margins.Right = tabDocument->marginGroup->right();
 	prefsManager->appPrefs.FacingPages  = tabDocument->choosenLayout;
-	prefsManager->appPrefs.BleedBottom = tabDocument->marginGroup->bottomBleed();
-	prefsManager->appPrefs.BleedTop = tabDocument->marginGroup->topBleed();
-	prefsManager->appPrefs.BleedLeft = tabDocument->marginGroup->leftBleed();
-	prefsManager->appPrefs.BleedRight = tabDocument->marginGroup->rightBleed();
+	prefsManager->appPrefs.bleeds.Bottom = tabDocument->marginGroup->bottomBleed();
+	prefsManager->appPrefs.bleeds.Top = tabDocument->marginGroup->topBleed();
+	prefsManager->appPrefs.bleeds.Left = tabDocument->marginGroup->leftBleed();
+	prefsManager->appPrefs.bleeds.Right = tabDocument->marginGroup->rightBleed();
 	prefsManager->appPrefs.pageSets[tabDocument->choosenLayout].FirstPage = tabDocument->docLayout->firstPage->currentItem();
 
 	prefsManager->setImageEditorExecutable(tabExtTools->newImageTool());
@@ -591,10 +591,10 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.PDF_Options.UseSpotColors = tabPDF->overprintMode->isChecked();
 	prefsManager->appPrefs.PDF_Options.doOverprint = !tabPDF->useSpot->isChecked();
 	prefsManager->appPrefs.PDF_Options.doMultiFile = false;
-	prefsManager->appPrefs.PDF_Options.BleedBottom = tabPDF->BleedBottom->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.BleedTop = tabPDF->BleedTop->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / prefsUnitRatio;
-	prefsManager->appPrefs.PDF_Options.BleedRight = tabPDF->BleedRight->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.bleeds.Bottom = tabPDF->BleedBottom->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.bleeds.Top = tabPDF->BleedTop->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.bleeds.Left = tabPDF->BleedLeft->value() / prefsUnitRatio;
+	prefsManager->appPrefs.PDF_Options.bleeds.Right = tabPDF->BleedRight->value() / prefsUnitRatio;
 	prefsManager->appPrefs.PDF_Options.doClip = tabPDF->ClipMarg->isChecked();
 	if (tabPDF->Encry->isChecked())
 	{

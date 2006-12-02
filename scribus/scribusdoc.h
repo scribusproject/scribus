@@ -803,10 +803,11 @@ public: // Public attributes
 	/** \brief Margins */
 	MarginStruct pageMargins;
 	QValueList<PageSet> pageSets;
-	double BleedTop;
-	double BleedLeft;
-	double BleedRight;
-	double BleedBottom;
+	MarginStruct bleeds;
+// 	double BleedTop;
+// 	double BleedLeft;
+// 	double BleedRight;
+// 	double BleedBottom;
 	/** \brief Number of Columns */
 	double PageSp;
 	/** \brief Distance of Columns */

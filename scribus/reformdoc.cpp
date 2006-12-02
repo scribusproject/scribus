@@ -236,10 +236,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->ScratchLeft = tabView->leftScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchRight = tabView->rightScratch->value() / currDoc->unitRatio();
 	currDoc->ScratchTop = tabView->topScratch->value() / currDoc->unitRatio();
-	currDoc->BleedBottom = tabPage->marginGroup->bottomBleed();
-	currDoc->BleedTop = tabPage->marginGroup->topBleed();
-	currDoc->BleedLeft = tabPage->marginGroup->leftBleed();
-	currDoc->BleedRight = tabPage->marginGroup->rightBleed();
+	currDoc->bleeds.Bottom = tabPage->marginGroup->bottomBleed();
+	currDoc->bleeds.Top = tabPage->marginGroup->topBleed();
+	currDoc->bleeds.Left = tabPage->marginGroup->leftBleed();
+	currDoc->bleeds.Right = tabPage->marginGroup->rightBleed();
 	for (uint p = 0; p < currDoc->Pages->count(); ++p)
 	{
 		Page *pp = currDoc->Pages->at(p);
@@ -552,10 +552,10 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->PDF_Options.UseSpotColors = !tabPDF->useSpot->isChecked();
 	currDoc->PDF_Options.doOverprint = tabPDF->overprintMode->isChecked();
 	currDoc->PDF_Options.doMultiFile = false;
-	currDoc->PDF_Options.BleedBottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.BleedTop = tabPDF->BleedTop->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.BleedLeft = tabPDF->BleedLeft->value() / currDoc->unitRatio();
-	currDoc->PDF_Options.BleedRight = tabPDF->BleedRight->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.bleeds.Bottom = tabPDF->BleedBottom->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.bleeds.Top = tabPDF->BleedTop->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.bleeds.Left = tabPDF->BleedLeft->value() / currDoc->unitRatio();
+	currDoc->PDF_Options.bleeds.Right = tabPDF->BleedRight->value() / currDoc->unitRatio();
 	currDoc->PDF_Options.doClip = tabPDF->ClipMarg->isChecked();
 	/* DISABLED CR 2006-12-07 Work around #2964
 	currDoc->PDF_Options.displayBookmarks = tabPDF->useBookmarks->isChecked();
