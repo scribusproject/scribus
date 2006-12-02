@@ -151,10 +151,10 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, const MarginStruct* 
 		QToolTip::add( BleedLeft, "<qt>" + tr( "Distance for bleed from the left of the physical page" ) + "</qt>" );
 		QToolTip::add( BleedRight, "<qt>" + tr( "Distance for bleed from the right of the physical page" )  + "</qt>");
 		connect(linkBleeds, SIGNAL(clicked()), this, SLOT(ToggleKette()));
-		connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+		connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		addTab(bleedPage, tr("Bleeds"));
 	}
 
@@ -174,20 +174,20 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, const MarginStruct* 
 
 void MarginWidget::ToggleKette()
 {
-	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 	if (linkBleeds->isOn())
 	{
 		BleedTop->setValue(BleedLeft->value());
 		BleedBottom->setValue(BleedLeft->value());
 		BleedRight->setValue(BleedLeft->value());
 	}
-	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 }
 
 void MarginWidget::changeBleeds()
@@ -311,10 +311,10 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 
 	if (useBleeds)
 	{
-		disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+		disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 		BleedBottom->setSuffix(newSuffix);
 		BleedTop->setSuffix(newSuffix);
 		BleedRight->setSuffix(newSuffix);
@@ -327,10 +327,10 @@ void MarginWidget::unitChange(double newUnit, int newDecimals, QString newSuffix
 		BleedRight->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
 		BleedLeft->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 		BleedLeft->setValues(0, oldMax * invUnitConversion, newDecimals, val * invUnitConversion);
-		connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-		connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+		connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+		connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 	}
 	m_unitRatio = newUnit;
 	m_suffix=newSuffix;
@@ -459,18 +459,18 @@ bool MarginWidget::getMarginsForAllMasterPages()
 
 void MarginWidget::setNewBleeds(MarginStruct& b)
 {
-	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	disconnect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	disconnect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	disconnect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	disconnect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 	BleedTop->setValue(b.Top * m_unitRatio);
 	BleedBottom->setValue(b.Bottom * m_unitRatio);
 	BleedLeft->setValue(b.Left * m_unitRatio);
 	BleedRight->setValue(b.Right * m_unitRatio);
-	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
-	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(BChange()));
+	connect(BleedLeft, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	connect(BleedRight, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	connect(BleedTop, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
+	connect(BleedBottom, SIGNAL(valueChanged(int)), this, SLOT(changeBleeds()));
 }
 
 double MarginWidget::topBleed()
