@@ -5090,10 +5090,14 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 				int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
 				if (appMode == modeEdit)
 				{
-					start = currItem->itemText.startOfSelection();
-					length = currItem->itemText.endOfSelection() - start;
-					if (length <= 0)
+					if (currItem->itemText.lengthOfSelection() > 0) {
+						start = currItem->itemText.startOfSelection();
+						length = currItem->itemText.endOfSelection() - start;
+					}
+					else {
+						start = QMAX(currItem->firstInFrame(), currItem->CPos);
 						length = 1;
+					}
 				}
 				currItem->itemText.applyCharStyle(start, QMAX(0, length), newstyle);
 				currItem->invalid = true;
