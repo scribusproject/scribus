@@ -2892,6 +2892,8 @@ void ScribusDoc::recalculateColors()
 				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
 				cstops.at(cst)->color = tmpc;
 			}
+			if (ite->asImageFrame())
+				loadPict(ite->Pfile, ite, true, false);
 		}
 		PageItem *ite = pa.items.at(0);
 		docPatterns[patterns[c]].pattern = ite->DrawObj_toImage(pa.items);
