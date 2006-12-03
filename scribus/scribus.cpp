@@ -6735,6 +6735,8 @@ void ScribusMainWindow::slotEditColors()
 				}
 			}
 			doc->updateAllItemQColors();
+			if (doc->m_Selection->count() != 0)
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
 		}
 		else
