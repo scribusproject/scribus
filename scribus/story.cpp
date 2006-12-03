@@ -2027,6 +2027,9 @@ void StoryEditor::savePrefs()
 	prefs->set("top", geo.top());
 	prefs->set("width", width());
 	prefs->set("height", height());
+	QValueList<int> splitted = EdSplit->sizes();
+	prefs->set("side", splitted[0]);
+	prefs->set("main", splitted[1]);
 }
 
 void StoryEditor::loadPrefs()
@@ -2052,6 +2055,15 @@ void StoryEditor::loadPrefs()
 	if ( vheight >= scr.height() )
 		vheight = QMAX( gStrut.height(), scr.height() - vtop );
 	setGeometry(vleft, vtop, vwidth, vheight);
+	int side = prefs->getInt("side", -1);
+	int txtarea = prefs->getInt("main", -1);
+	if ((side != -1) && (txtarea != -1))
+	{
+		QValueList<int> splitted;
+		splitted.append(side);
+		splitted.append(txtarea);
+		EdSplit->setSizes(splitted);
+	}
 }
 
 void StoryEditor::initActions()
