@@ -8270,7 +8270,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Do you really want to delete this script?</source>
-      <translation>Haluatko poistaa tämän skriptin?</translation>
+      <translation>Poistetaanko skripti?</translation>
     </message>
     <message>
       <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
@@ -8400,7 +8400,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Do you want to delete all objects on this layer too?</source>
-      <translation>Haluatko myös poistaa kaikki kohteet tältä tasolta?</translation>
+      <translation>Poistetaanko myös kaikki kohteet tältä tasolta?</translation>
     </message>
     <message>
       <source>Name</source>
@@ -8483,7 +8483,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Do you really want to delete this style?</source>
-      <translation>Haluatko poistaa tämän tyylin?</translation>
+      <translation>Poistetaanko tyyli?</translation>
     </message>
   </context>
   <context>
@@ -8712,7 +8712,7 @@ vektoridatan Scribus-objekteiksi.</translation>
     </message>
     <message>
       <source>Do you really want to delete this master page?</source>
-      <translation>Haluatko poistaa tämän mallisivun?</translation>
+      <translation>Poistetaanko mallisivu?</translation>
     </message>
     <message>
       <source>&amp;No</source>
@@ -10166,19 +10166,19 @@ Corners:</source>
     </message>
     <message>
       <source>Enable/disable the C (Cyan) ink plate</source>
-      <translation>Näytä tai piilota C (syaani) muste</translation>
+      <translation>Näytä tai piilota C (syaani) painolevy</translation>
     </message>
     <message>
       <source>Enable/disable the M (Magenta) ink plate</source>
-      <translation>Näytä tai piilota M (magenta) muste</translation>
+      <translation>Näytä tai piilota M (magenta) painolevy</translation>
     </message>
     <message>
       <source>Enable/disable the Y (Yellow) ink plate</source>
-      <translation>Näytä tai piilota Y (keltainen) muste</translation>
+      <translation>Näytä tai piilota Y (keltainen) painolevy</translation>
     </message>
     <message>
       <source>Enable/disable the K (Black) ink plate</source>
-      <translation>Näytä tai piilota K (musta) muste</translation>
+      <translation>Näytä tai piilota K (musta) painolevy</translation>
     </message>
     <message>
       <source>Display Trans&amp;parency</source>
@@ -10426,7 +10426,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Here are all your master pages. To create a new page, drag a master page to the page view below</source>
-      <translation>Tässä ovat kaikki mallisivusi. Luodaksesi uuden sivun raahaa mallisivu paikkaan johon haluat uuden sivun</translation>
+      <translation>Tässä ovat kaikki mallisivusi. Luodaksesi uuden sivun raahaa mallisivu paikkaan, johon haluat uuden sivun.</translation>
     </message>
     <message>
       <source>Normal</source>
@@ -11116,7 +11116,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>To adjust the display drag the ruler below with the slider.</source>
-      <translation>Säädä näyttösi viivaimella.</translation>
+      <translation>Säädä näyttösi viivaimen avulla.</translation>
     </message>
     <message>
       <source>Always ask before fonts are replaced when loading a document</source>
@@ -11156,19 +11156,19 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-      <translation>Määrittelee tyhjän tilan määrän asiakirjan vasemmalla puolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+      <translation>Määrittelee tyhjän tilan määrän asiakirjan vasemmalla puolella. Tilaa voi käyttää kohteitten säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
       <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-      <translation>Määrittelee tyhjän tilan määrän asiakirjan oikealla puolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+      <translation>Määrittelee tyhjän tilan määrän asiakirjan oikealla puolella. Tilaa voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
       <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-      <translation>Määrittelee tyhjän tilan määrän asiakirjan yläpuolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+      <translation>Määrittelee tyhjän tilan määrän asiakirjan yläpuolella. Tilaa voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
       <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-      <translation>Määrittelee tyhjän tilan määrän asiakirjan alapuolella, jota voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
+      <translation>Määrittelee tyhjän tilan määrän asiakirjan alapuolella. Tilaa voi käyttää objektien säilytykseen ja työskentelyalueena sivua tehtäessä.</translation>
     </message>
     <message>
       <source>Preflight Verifier</source>
@@ -11236,7 +11236,7 @@ vähentää ylikylläisyyden vaaraa CMY-musteilla.</translation>
     </message>
     <message>
       <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-      <translation>Scribus tallentaa kopion asiakirjastasi bak-päätteellä aina kuna aika edellisestä tallennuksesta täyttyy.</translation>
+      <translation>Scribus tallentaa kopion asiakirjastasi bak-päätteellä aina, kun aika edellisestä tallennuksesta täyttyy.</translation>
     </message>
     <message>
       <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
@@ -11495,7 +11495,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>A&amp;lpha channel:</source>
-      <translation>&amp;Alpha kanava:</translation>
+      <translation>&amp;Alpha-kanava:</translation>
     </message>
     <message>
       <source>&amp;Basic colors</source>
@@ -11638,7 +11638,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>Symlink to Special</source>
-      <translation>Symbolinen linkki to Special</translation>
+      <translation>Symbolinen linkki erikoistiedostoon</translation>
     </message>
     <message>
       <source>File</source>
@@ -11650,7 +11650,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>Special</source>
-      <translation>Special</translation>
+      <translation>Erikoistiedosto</translation>
     </message>
     <message>
       <source>Open</source>
@@ -11722,7 +11722,7 @@ Haluatko tuoda ne uuteen Scribuksen versioon?</translation>
     </message>
     <message>
       <source>&lt;qt>Are you sure you wish to delete %1 &quot;%2&quot;?&lt;/qt></source>
-      <translation>&lt;qt>Haluatko varmasti poistaa %1 &quot;%2&quot;?&lt;/qt></translation>
+      <translation>&lt;qt>Poistetaanko %1 &quot;%2&quot;?&lt;/qt></translation>
     </message>
     <message>
       <source>&amp;Yes</source>
@@ -11906,7 +11906,7 @@ Tarkasta polku ja tiedostonimi.</translation>
     <message>
       <source>Do you really want to overwrite the File:
 %1 ?</source>
-      <translation>Haluatko korvata tiedoston %1?</translation>
+      <translation>Korvataanko tiedosto %1?</translation>
     </message>
     <message>
       <source>Save as</source>
@@ -12188,11 +12188,11 @@ External Links
     </message>
     <message>
       <source>Norwegian (Bokmaal)</source>
-      <translation>norja (Bokmaal)</translation>
+      <translation>kirjanorja</translation>
     </message>
     <message>
       <source>Norwegian (Nnyorsk)</source>
-      <translation>norja (nnyorsk)</translation>
+      <translation>nykynorja</translation>
     </message>
     <message>
       <source>Norwegian</source>
@@ -12327,7 +12327,7 @@ External Links
     </message>
     <message>
       <source>OpenOffice.org Writer Documents</source>
-      <translation>OpenOffice.org Writer asiakirjat</translation>
+      <translation>OpenOffice.org Writer -asiakirjat</translation>
     </message>
     <message>
       <source>Afrikaans</source>
@@ -12577,7 +12577,7 @@ External Links
     </message>
     <message>
       <source>OpenDocument Text Documents</source>
-      <translation>OpenDocument tekstiasiakirjat</translation>
+      <translation>OpenDocument-tekstiasiakirjat</translation>
     </message>
     <message>
       <source>Croatian</source>
@@ -13182,11 +13182,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-      <translation>Muutoksia asiakirjaan ei ole tallennettu ja olet pyytänyt palauttamaan viimeksi tallennetun. Haluatko kumota muutokset ja palauttaa tallennetun asiakirjan?</translation>
+      <translation>Muutoksia asiakirjaan ei ole tallennettu ja olet pyytänyt palauttamaan viimeksi tallennetun. Kumotaanko muutokset ja palautetaan tallennettu asiakirja?</translation>
     </message>
     <message>
       <source>A file named '%1' already exists.&lt;br/>Do you want to replace it with the file you are saving?</source>
-      <translation>Tiedosto &quot;%1&quot; on jo olemassa &lt;br/>Haluatko korvata sen?</translation>
+      <translation>Tiedosto &quot;%1&quot; on jo olemassa &lt;br/>Korvataanko se?</translation>
     </message>
     <message>
       <source>page</source>
@@ -13215,7 +13215,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>PS/EPS Importer</source>
-      <translation>PS/EPS-tuoja</translation>
+      <translation>PS- ja EPS-tuoja</translation>
     </message>
     <message>
       <source>Save As Template</source>
@@ -13244,7 +13244,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Old .sla format support</source>
-      <translation>Vanhan .sla tiedostomuodon tuki</translation>
+      <translation>Vanhan sla-tiedostomuodon tuki</translation>
     </message>
     <message>
       <source>OpenOffice.org Draw Importer</source>
@@ -13316,11 +13316,11 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Luxembourgish</source>
-      <translation>Luxemburg</translation>
+      <translation>luxemburg</translation>
     </message>
     <message>
       <source>Japanese</source>
-      <translation>Japani</translation>
+      <translation>japani</translation>
     </message>
     <message>
       <source>Given master page name does not match any existing.</source>
@@ -13486,7 +13486,7 @@ is not exhaustive due to exceptions from called functions.
     <name>ReformDoc</name>
     <message>
       <source>Document Setup</source>
-      <translation>Asiakirjan asettelu</translation>
+      <translation>Asiakirjan ominaisuudet</translation>
     </message>
     <message>
       <source>Margin Guides</source>
@@ -13498,7 +13498,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>&amp;Left:</source>
-      <translation>&amp;Vasen:</translation>
+      <translation>&amp;Vasemmalla:</translation>
     </message>
     <message>
       <source>&amp;Bottom:</source>
@@ -13506,7 +13506,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>&amp;Right:</source>
-      <translation>O&amp;ikea:</translation>
+      <translation>O&amp;ikealla:</translation>
     </message>
     <message>
       <source>Page Size</source>
@@ -13654,7 +13654,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
       <source>Mask the area outside the margins in the margin color</source>
-      <translation>Merkkaa marginaalien ulkopuolinen alue marginaalin värillä</translation>
+      <translation>Merkkaa reunuksien ulkopuolinen alue reunuksen värillä</translation>
     </message>
     <message>
       <source>Preflight Verifier</source>
@@ -13992,7 +13992,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>User configuration exists elready. Do you really want to overwrite it?</source>
-      <translation>Käyttäjän asetukset ovat jo olemassa. Haluatko korvata ne?</translation>
+      <translation>Käyttäjän asetukset ovat jo olemassa. Korvataanko ne?</translation>
     </message>
     <message>
       <source>Cannot write file %1.</source>
@@ -14127,7 +14127,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
       <source>Do you really want to clear all your text?</source>
-      <translation>Haluatko poistaa kaiken tekstin?</translation>
+      <translation>Poistetaanko kaikki teksti?</translation>
     </message>
     <message>
       <source>Cannot Delete In-Use Item</source>
@@ -14597,7 +14597,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Do you really want to replace your existing image?</source>
-      <translation>Haluatko korvata nykyisen kuvan?</translation>
+      <translation>Korvataanko nykyinen kuva?</translation>
     </message>
     <message>
       <source>Contents</source>
@@ -15285,7 +15285,7 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Do you want to save your changes?</source>
-      <translation>Haluatko tallentaa muutokset?</translation>
+      <translation>Tallennetaanko muutokset?</translation>
     </message>
     <message>
       <source>&amp;New</source>
@@ -15393,11 +15393,11 @@ pystysuora siirtyminen: %3</translation>
     </message>
     <message>
       <source>Do you really want to lose all your changes?</source>
-      <translation>Haluatko menettää kaikki tekemäsi muutokset?</translation>
+      <translation>Kaikki muutokset menetetään. Jatketaanko?</translation>
     </message>
     <message>
       <source>Do you really want to clear all your text?</source>
-      <translation>Haluatko poistaa kaiken tekstin?</translation>
+      <translation>Poistetaanko kaikki teksti?</translation>
     </message>
     <message>
       <source>&amp;Insert</source>
