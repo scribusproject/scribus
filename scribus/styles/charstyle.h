@@ -90,6 +90,7 @@ public:
 	
 	void applyCharStyle(const CharStyle & other);
 	void eraseCharStyle(const CharStyle & other);
+	void setStyle(const CharStyle & other);
 	void erase() { eraseCharStyle(*this); }
 	
 	QString asString() const;

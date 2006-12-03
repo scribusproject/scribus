@@ -188,3 +188,16 @@ void ParagraphStyle::eraseStyle(const ParagraphStyle& other)
 #undef ATTRDEF
 }
 
+void ParagraphStyle::setStyle(const ParagraphStyle & other) 
+{
+	other.validate();
+	setParent("");
+	cstyle.setStyle(other.charStyle());
+	cstyleBase.invalidate();
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	inh_##attr_NAME = false; \
+	m_##attr_NAME = other.m_##attr_NAME;
+#include "paragraphstyle.attrdefs.cxx"
+#undef ATTRDEF
+}
+

@@ -284,6 +284,11 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 {
 	CharStyle cstyle(charStyle(pos));
 	ParagraphStyle pstyle(paragraphStyle(pos));
+	
+	// this style represents all differences between this and other's defaultstyles
+	ParagraphStyle otherDefault(other.defaultStyle());
+	otherDefault.eraseStyle(defaultStyle());
+	
 	int otherStart  = onlySelection? other.startOfSelection() : 0;
 	int otherEnd    = onlySelection? other.endOfSelection() : other.length();
 	int cstyleStart = otherStart;
@@ -295,11 +300,13 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 		int len = i - cstyleStart;
 		if (len > 0) {
 			insertChars(pos, other.text(cstyleStart, len));
+			applyCharStyle(pos, len, otherDefault.charStyle());
 			applyCharStyle(pos, len, cstyle);
 			pos += len;
 		}
 		if (other.text(i) == SpecialChars::PARSEP) {
 			insertChars(pos, SpecialChars::PARSEP);
+			applyStyle(pos, otherDefault);
 			applyStyle(pos, other.paragraphStyle(i));
 			cstyleStart = i+1;
 			pos += 1;
@@ -317,10 +324,12 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	int len = otherEnd - cstyleStart;
 	if (len > 0) {
 		insertChars(pos, other.text(cstyleStart, len));
+		applyCharStyle(pos, len, otherDefault.charStyle());
 		applyCharStyle(pos, len, cstyle);
 		pos += len;
 	}
 	if (other.text(otherEnd-1) != SpecialChars::PARSEP) {
+		applyStyle(pos, otherDefault);
 		applyStyle(pos, other.paragraphStyle(otherEnd-1));
 	}
 }

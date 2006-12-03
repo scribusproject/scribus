@@ -155,6 +155,17 @@ void CharStyle::update(const StyleBase* base)
 }
 
 
+void CharStyle::setStyle(const CharStyle& other) 
+{
+	other.validate();
+	setParent("");
+#define ATTRDEF(attr_TYPE, attr_GETTER, attr_NAME, attr_DEFAULT) \
+	inh_##attr_NAME = false; \
+	m_##attr_NAME = other.m_##attr_NAME;
+#include "charstyle.attrdefs.cxx"
+#undef ATTRDEF
+}
+
 
 
 /*
@@ -176,6 +187,7 @@ bool CharStyle::definesAll() const
 	
 }
 
+// equiv. to "*this == CharStyle()"
 bool CharStyle::inheritsAll() const
 {
 	return inheritsLineSpacing() && 
