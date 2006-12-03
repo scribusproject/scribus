@@ -496,6 +496,14 @@ void CharSelect::newCharClass(int c)
 	generatePreview(m_characterClass);
 }
 
+/*
+void ChrSelect::setNewFont(int font)
+{
+	newFont(font);
+	ScCore->primaryMainWindow()->SetNewFont(m_fontInUse);
+}
+*/
+
 void CharSelect::newFont(int font)
 {
 	QString oldFont(m_fontInUse);
@@ -507,7 +515,6 @@ void CharSelect::newFont(int font)
 	(*m_doc->AllFonts)[oldFont].decreaseUsage();
 	delEdit();
 	setCaption( tr("Select Character:")+" "+m_fontInUse);
-	ScCore->primaryMainWindow()->SetNewFont(m_fontInUse);
 	if (m_doc->currentStyle.charStyle().font().scName() != m_fontInUse)
 	{
 		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
@@ -594,7 +601,7 @@ bool CharSelect::eventFilter(QObject */*obj*/, QEvent *ev)
 	{
 		charTable->recalcCellSizes();
 		userTable->recalcCellSizes();
-		return true;
+//		return true;
 	}
 	return false;
 }
