@@ -8,8 +8,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>389</width>
-            <height>278</height>
+            <width>433</width>
+            <height>310</height>
         </rect>
     </property>
     <property name="caption">
@@ -359,13 +359,27 @@
                                     </widget>
                                     <widget class="QRadioButton">
                                         <property name="name">
+                                            <cstring>radioButtonTopLeftOfBleed</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>Top Left of Bleed</string>
+                                        </property>
+                                        <property name="buttonGroupId">
+                                            <number>2</number>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QRadioButton">
+                                        <property name="name">
                                             <cstring>radioButtonCustomPosition</cstring>
                                         </property>
                                         <property name="text">
                                             <string>Custom Position:</string>
                                         </property>
                                         <property name="buttonGroupId">
-                                            <number>2</number>
+                                            <number>99</number>
                                         </property>
                                         <property name="toolTip" stdset="0">
                                             <string>Set the dimensions wished below in the X: Y: dialog below.</string>
@@ -494,7 +508,7 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>20</width>
-                                        <height>30</height>
+                                        <height>20</height>
                                     </size>
                                 </property>
                             </spacer>
@@ -557,10 +571,24 @@
                             </widget>
                             <widget class="QRadioButton">
                                 <property name="name">
+                                    <cstring>radioButtonBleedSize</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Same as the Bleed</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>2</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
                                     <cstring>radioButtonCustomSize</cstring>
                                 </property>
                                 <property name="text">
                                     <string>Custom Size:</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>99</number>
                                 </property>
                             </widget>
                         </vbox>
@@ -686,7 +714,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>20</width>
-                                <height>40</height>
+                                <height>60</height>
                             </size>
                         </property>
                     </spacer>
@@ -1037,6 +1065,10 @@
         </sizepolicy>
         <pixmap>image0</pixmap>
         <property type="3">3</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
         <property type=""></property>
     </customwidget>
 </customwidgets>

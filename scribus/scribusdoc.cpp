@@ -3171,7 +3171,13 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			x1=targetPage->xOffset();
 			y1=targetPage->yOffset();
 		}
-		else if (iafData.positionType==2) // Frame starts at custom position
+		else
+		if (iafData.positionType==2) // Frame starts at top left of page - bleeds
+		{
+			x1=targetPage->xOffset()-bleeds.Left;
+			y1=targetPage->yOffset()-bleeds.Top;
+		}
+		else if (iafData.positionType==99) // Frame starts at custom position
 		{
 			x1=targetPage->xOffset()+iafData.x/docUnitRatio;
 			y1=targetPage->yOffset()+iafData.y/docUnitRatio;
@@ -3188,7 +3194,13 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=targetPage->width();
 			h1=targetPage->height();
 		}
-		else if (iafData.sizeType==2) // Frame is custom size
+		else
+		if (iafData.sizeType==2) // Frame is size of page + bleed 
+		{
+			w1=targetPage->width()+bleeds.Right+bleeds.Left;
+			h1=targetPage->height()+bleeds.Bottom+bleeds.Top;
+		}
+		else if (iafData.sizeType==99) // Frame is custom size
 		{
 			w1=iafData.width/docUnitRatio;
 			h1=iafData.height/docUnitRatio;
