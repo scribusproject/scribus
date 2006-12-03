@@ -34,14 +34,16 @@ public:
 	StyleBaseProxy pstyleBase;
 	uint refs;
 	uint len;
+	ParagraphStyle trailingStyle;
 	ScText_Shared(StyleBase* pstyles, StyleBase* cstyles) : QPtrList<ScText>(), 
 		defaultStyle(), 
 		pstyleBase(StyleBase::STORY_LEVEL, NULL),
-		refs(1), len(0)
+		refs(1), len(0), trailingStyle()
 	{
 		pstyleBase.setDefaultStyle( & defaultStyle );
 		setAutoDelete(true);
 		defaultStyle.setBase( pstyles );
+		trailingStyle.setBase( &pstyleBase );
 //		defaultStyle.charStyle().setBase( cstyles );
 //		qDebug(QString("ScText_Shared() %1 %2 %3 %4").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&defaultStyle)).arg(reinterpret_cast<uint>(pstyles)).arg(reinterpret_cast<uint>(cstyles)));
 	}
@@ -50,9 +52,10 @@ public:
 	ScText_Shared(const ScText_Shared& other) : QPtrList<ScText>(), 
 		defaultStyle(other.defaultStyle), 
 		pstyleBase(other.pstyleBase),
-		refs(1), len(0) 
+		refs(1), len(0), trailingStyle(other.trailingStyle)
 	{
 		pstyleBase.setDefaultStyle( & defaultStyle );
+		trailingStyle.setBase( &pstyleBase );
 		setAutoDelete(true); 
 		QPtrListIterator<ScText> it( other );
 		ScText* elem;
@@ -67,7 +70,7 @@ public:
 			}
 		}
 		len = count();
-		replaceCharStyleBaseInParagraph(len,  defaultStyle.charStyleBase() );
+		replaceCharStyleBaseInParagraph(len,  trailingStyle.charStyleBase() );
 //		qDebug(QString("ScText_Shared(%2) %1").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 	}
 
@@ -81,15 +84,17 @@ public:
 			ScText* elem2 = new ScText(*elem);
 			append(elem2);
 			if (elem2->parstyle) {
-				elem2->parstyle->setBase( & pstyleBase);
+				elem2->parstyle->setBase( & pstyleBase );
 //				elem2->parstyle->charStyle().setBase( defaultStyle.charStyleBase() );
 				replaceCharStyleBaseInParagraph(count()-1, elem2->parstyle->charStyleBase());
 			}
 		}
 		len = count();
 		defaultStyle = other.defaultStyle;
+		trailingStyle = other.trailingStyle;
+		trailingStyle.setBase( &pstyleBase );
 		pstyleBase.invalidate();
-		replaceCharStyleBaseInParagraph(len,  defaultStyle.charStyleBase());
+		replaceCharStyleBaseInParagraph(len,  trailingStyle.charStyleBase());
 		refs = 1;
 //		qDebug(QString("ScText_Shared: %1 = %2").arg(reinterpret_cast<uint>(this)).arg(reinterpret_cast<uint>(&other)));
 		return *this;
@@ -141,7 +146,7 @@ public:
 			++it;
 		}
 		if ( lastBase )
-			assert( lastBase == defaultStyle.charStyleBase() );
+			assert( lastBase == trailingStyle.charStyleBase() );
 	}
 };
 
@@ -254,6 +259,7 @@ void StoryText::clear()
 	lastFrameItem = -1;
 	
 	d->defaultStyle.erase();
+	d->trailingStyle.erase();
 	
 	for (ScText *it = d->first(); it != 0; it = d->next())
 	{
@@ -312,8 +318,11 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 	if (len > 0) {
 		insertChars(pos, other.text(cstyleStart, len));
 		applyCharStyle(pos, len, cstyle);
+		pos += len;
 	}
-	setDefaultStyle(other.defaultStyle());
+	if (other.text(otherEnd-1) != SpecialChars::PARSEP) {
+		applyStyle(pos, other.paragraphStyle(otherEnd-1));
+	}
 }
 
 
@@ -390,7 +399,7 @@ void StoryText::insertChars(int pos, QString txt) //, const CharStyle&
 	if (txt.length() == 0)
 		return;
 	
-	const CharStyle style = pos == 0 ? defaultStyle().charStyle() : charStyle(pos - 1);
+	const CharStyle style = pos == 0 ? charStyle(0) : charStyle(pos - 1);
 	const StyleBase* cStyleBase = paragraphStyle(pos).charStyleBase();
 	//	assert( !style.font().isNone() );
 	
@@ -559,8 +568,7 @@ const ParagraphStyle & StoryText::paragraphStyle(int pos) const
 		that->d->next();
 	}
 	if (pos >= length()) {
-//		qDebug(QString("using default parstyle at end (%1)").arg(pos));
-		return that->d->defaultStyle;
+		return that->d->trailingStyle;
 	}
 	else if ( !that->d->current()->parstyle ) {
 		qDebug(QString("inserting default parstyle at %1").arg(pos));
@@ -677,8 +685,7 @@ void StoryText::applyStyle(int pos, const ParagraphStyle& style)
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
 //		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
-		d->defaultStyle.applyStyle(style);
-		d->pstyleBase.invalidate();
+		d->trailingStyle.applyStyle(style);
 	}
 	invalidate(pos, QMIN(i, length()));
 }
@@ -708,8 +715,7 @@ void StoryText::eraseStyle(int pos, const ParagraphStyle& style)
 	else {
 		// not happy about this but inserting a new PARSEP makes more trouble
 		//		qDebug(QString("applying parstyle %1 as defaultstyle for %2").arg(paragraphStyle(pos).name()).arg(pos));
-		d->defaultStyle.eraseStyle(style);
-		d->pstyleBase.invalidate();
+		d->trailingStyle.eraseStyle(style);
 	}
 	invalidate(pos, QMIN(i, length()));
 }
