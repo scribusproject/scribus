@@ -378,6 +378,8 @@ bool OODPlug::convert(int flags)
 		m_styleStack.clear();
 		fillStyleStack( dpg );
 		parseGroup( dpg );
+		if ((interactive) && (PageCounter == 1))
+			break;
 	}
 	m_Doc->m_Selection->clear();
 	if ((Elements.count() > 1) && (interactive))
