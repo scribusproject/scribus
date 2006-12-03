@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scribusdoc.h"
 #include "page.h"
-#include "sccombobox.h"
+#include "colorcombo.h"
 
 #include "dcolor.h"
 #include "dcolor.moc"
@@ -42,17 +42,14 @@ DelColor::DelColor( QWidget* parent, ColorList colorList, QString colorName, boo
 	{
     	replaceLabel = new QLabel( tr( "Replace With:" ), this, "replaceLabel" );
     	delColorLayout->addWidget( replaceLabel, 1, 0 );
-    	replacementColData = new ScComboBox(false, this);
+    	replacementColData = new ColorCombo(false, this);
 		ColorList::Iterator it;
 		QPixmap pm = QPixmap(15, 15);
 		colorList.remove(colorName);
 		// 10/26/2004 pv - user can replace deleted color with "None"
 		replacementColData->insertItem(CommonStrings::NoneColor);
 		for (it = colorList.begin(); it != colorList.end(); ++it)
-		{
-			pm.fill(colorList[it.key()].getRawRGBColor());
-			replacementColData->insertItem(pm, it.key());
-		}
+			replacementColData->insertSmallItem(colorList[it.key()], it.key());
     	delColorLayout->addWidget( replacementColData, 1, 1 );
     	replacementColor = replacementColData->text(0);
 	}

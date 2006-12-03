@@ -1,0 +1,44 @@
+<qt>
+<title>Scribus sous Windows</title>
+<h2>Scribus sous Windows - Lisez moi</h2>
+<h4>Qu'est-ce qui distingue Scribus?</h4>
+
+<p>Premi&egrave;rement, comme Scribus a &eacute;t&eacute; d&eacute;velopp&eacute; principalement sur des machines Linux et Unix, la "mani&egrave;re Windows" n'est pas toujours favoris&eacute;e, et le fonctionnement est plus ind&eacute;pendant du syst&egrave;me d'exploitation. Scribus est
+aussi port&eacute; en mode natif sur Mac OSX et les changements r&eacute;sident principalement dans le fonctionnement des menus. Deuxi&egrave;mement, beaucoup de temps et d'efforts ont &eacute;t&eacute; consacr&eacute;s pour g&eacute;n&eacute;rer des PDF de qualit&eacute; commerciale. Si vous suivez le parcours recommand&eacute; dans la documentation, vous n'aurez aucun mal &agrave; r&eacute;aliser vos impressions commerciales.</p>
+
+<h3>&Eacute;l&eacute;ments mat&eacute;riels/logiciels requis :</h3>
+<p><strong>Pour Windows 2000 seulement</strong> - La librairie GDI+ de <a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=6a63ab9c-df12-4d41-933c-be590feaa05a&DisplayLang=en">http://www.microsoft.com</a>. Malheureusement, comme Scribus est une application Open Source sous GNU GPL, nous ne pouvons pas inclure ce fichier avec l'installateur. Windows XP contient d&eacute;j&agrave; cette librairie. </p>
+<p>Windows 2000 SP4 ou Windows XP - Windows 98 et ME n'ont pas &eacute;t&eacute; test&eacute;s et <strong>ne sont pas support&eacute;s</strong>. Tous les bogues signal&eacute;s en rapport avec Windows 9X seront r&eacute;solus rapidement. </p>
+<p>256 Mo ou plus de m&eacute;moire syst&egrave;me - vous avez avantage &agrave; installer le maximum de m&eacute;moire</p>
+<p>Pentium III ou mieux - 750 MHz ou mieux</p>
+<h3>Recommand&eacute; :</h3>
+<p>Th&egrave;mes XP d&eacute;sactiv&eacute;s - il est fortement recommand&eacute; d'utiliser le th&egrave;me "Windows Classic" sur des syst&egrave;mes moins puissants.</p>
+
+<h3>Avant le t&eacute;l&eacute;chargement</h3>
+<ul>
+   <li>Il est recommand&eacute; d'installer Ghostscript pour Windows - <a href="http://ghostscript.com/doc/AFPL/index.htm">Ghostscript 8.53</a> ou plus r&eacute;cent. Cette pr&eacute;caution vise l'importation et l'impression EPS,PS. Note : le nom correct pour l'ex&eacute;cutable de Ghostscript est gswin32c.exe, <strong>et non</strong> gswin32.exe.</li>
+   <li>Scribus n'admet aucune police mal construite ou marginale. Une fois le progiciel install&eacute;, veuillez lire attentivement la section sur l'installation des polices dans la documentation d'aide.</li>
+   <li>Il s'agit d'un logiciel beta dont le code subit plusieurs changements par jour. M&ecirc;me s'il est relativement stable et utilisable, la vigilance est de mise. Scribus n'est pas encore recommand&eacute; pour un contexte de production. Le format de fichier sous-jacent subit des changements fr&eacute;quents et ne sera pas d&eacute;finitif avant le lancement de la version 1.3.4 ou d'un niveau sup&eacute;rieur.</li>
+ </ul>
+ <h3>Apr&egrave;s l'installation</h3>
+ <ul>
+<li>Le premier d&eacute;marrage de Scribus ou son lancement par un nouvel utilisateur sera plus long que d'habitude. Cela est d&ucirc; au fait que Scribus cr&eacute;e un fichier cache pour vos polices. Les d&eacute;marrages ult&eacute;rieurs seront beaucoup plus rapides.</li>
+<li>Encore une fois, Scribus est tr&egrave;s pointilleux &agrave; l'&eacute;gard de la qualit&eacute; des polices. <strong>L'usage de polices gratuites ou en partagiciel n'est pas recommand&eacute;</strong>. Il y a une s&eacute;rie exhaustive de notes dans l'aide en ligne &agrave; propos des polices et de l'impression de niveau commercial. Scribus parcourt
+les polices au d&eacute;marrage et d&eacute;sactive celles qui sont manifestement corrompues ou non valides. Ces notes sont fond&eacute;es
+sur l'exp&eacute;rience des utilisateurs Scribus en contexte d'impression commerciale. Vous pouvez d&eacute;tecter quelles polices ne sont pas charg&eacute;es et pourquoi, en ouvrant une invite de commande et en lan&ccedil;ant Scribus comme suit : <pre>c:\Program Files\Scribus\Scribus.exe -fi  or -font-info</pre></li>
+<li>La liste compl&egrave;te des options de d&eacute;marrage par ligne de commande est <pre>c:\Program Files\Scribus\Scribus.exe --help</pre></li>
+ </ul>
+
+<p>L'&eacute;quipe de Scribus est heureuse de rendre disponible la seule application de mise en page Open Source qui tourne en mode natif sur les 3 principaux syst&egrave;mes d'exploitations : Linux, Mac OSX et Windows. Un soutien technique est offert pour Scribus, tant en ligne que directement. Une communaut&eacute; tr&egrave;s conviviale s'est d&eacute;velopp&eacute;e autour de Scribus avec la participation active des d&eacute;veloppeurs. Profitez-en! </p>
+
+<p><a href="http://docs.scribus.net">Site de la documentation de Scribus (EN,FR,DE,PL) - http://docs.scribus.net</a></p>
+<p><a href="http://scribus.net/">Page d'accueil de Scribus - http://scribus.net</a></p>
+  <p><a href="http://bugs.scribus.net">Traceur de bogues de Scribus - http://bugs.scribus.net</a></p>
+  <p><a href="http://wiki.scribus.net">Wiki de Scribus (les utilisateurs pour les utilisateurs) - http://wiki.scribus.net</a></p>
+  <p><a href="http://nashi.altmuehlnet.de/mailman/listinfo/scribus">Liste de diffusion (souscription, archives, etc.) -http://nashi.altmuehlnet.de/mailman/listinfo/scribus </a></p>
+
+<!--  <p><a href="http://sourceforge.net/project/showfiles.php?group_id=125235">Scribus
+SourceForge Downloads</a></p>
+  <p><a href="devel-docs">Developers Documentation (API)</a></p>
+-->
+</qt> 

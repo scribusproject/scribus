@@ -490,7 +490,7 @@ StyleReader::StyleReader(QString documentName, gtWriter *w,
  
  void StyleReader::parse(QString fileName)
  {
- 	xmlSAXParseFile(sSAXHandler, fileName.ascii(), 1);
+ 	xmlSAXParseFile(sSAXHandler, fileName.local8Bit(), 1);
  }
  
  gtStyle* StyleReader::getStyle(const QString& name)

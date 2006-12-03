@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuswin.h"
 #include "scribusXml.h"
 
+#include <assert.h>
 #include <utility>
 #include <qfile.h>
 #include <qprogressbar.h>
@@ -63,17 +64,20 @@ for which a new license (GPL+exception) is in place.
 extern ScribusQApp* ScQApp;
 
 #ifdef HAVE_CMS
+#include "cmsutil.h"
+#include "cmserrorhandling.h"
 extern cmsHPROFILE CMSoutputProf;
 extern cmsHPROFILE CMSprinterProf;
-extern cmsHTRANSFORM stdTransG;
-extern cmsHTRANSFORM stdProofG;
+extern cmsHTRANSFORM stdTransRGBDoc2CMYKG;
+extern cmsHTRANSFORM stdTransCMYK2RGBDocG;
+extern cmsHTRANSFORM stdTransRGBDoc2MonG;
+extern cmsHTRANSFORM stdTransCMYK2MonG;
+extern cmsHTRANSFORM stdProofRGBG;
+extern cmsHTRANSFORM stdProofRGBGCG;
+extern cmsHTRANSFORM stdProofCMYKG;
+extern cmsHTRANSFORM stdProofCMYKGCG;
 extern cmsHTRANSFORM stdTransImgG;
 extern cmsHTRANSFORM stdProofImgG;
-extern cmsHTRANSFORM stdTransCMYKG;
-extern cmsHTRANSFORM stdProofCMYKG;
-extern cmsHTRANSFORM stdTransRGBG;
-extern cmsHTRANSFORM stdProofGCG;
-extern cmsHTRANSFORM stdProofCMYKGCG;
 extern bool BlackPoint;
 extern bool SoftProofing;
 extern bool Gamut;
@@ -126,7 +130,7 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	SubMode(-1),
 	ShapeValues(0),
 	ValCount(0),
-	DocName(tr("Document")+"-"),
+	DocName( tr("Document")+"-"),
 	UsedFonts(),
 	AllFonts(&prefsData.AvailFonts),
 	AObjects(),
@@ -280,6 +284,22 @@ ScribusDoc::ScribusDoc() : UndoObject( tr("Document")),
 	m_masterPageMode=true; // quick hack to force the change of pointers in setMasterPageMode();
 	setMasterPageMode(false);
 	addSymbols();
+
+#ifdef HAVE_CMS
+	DocInputProf = NULL;
+	DocOutputProf = NULL;
+	DocPrinterProf = NULL;
+	stdTransRGBDoc2CMYK = NULL;
+	stdTransCMYK2RGBDoc = NULL;
+	stdTransRGBDoc2Mon = NULL;
+	stdTransCMYK2Mon = NULL;
+	stdProofRGB = NULL;
+	stdProofRGBGC = NULL;
+	stdProofCMYK = NULL;
+	stdProofCMYKGC = NULL;
+	stdTransImg = NULL;
+	stdProofImg = NULL;
+#endif
 }
 
 ScribusDoc::~ScribusDoc()
@@ -350,31 +370,36 @@ void ScribusDoc::setup(const int unitIndex, const int fp, const int firstLeft, c
 	if ((CMSavail) && (CMSSettings.CMSinUse))
 	{
 #ifdef HAVE_CMS
-		OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles);
-		stdProofG = stdProof;
-		stdTransG = stdTrans;
-		stdProofImgG = stdProofImg;
-		stdTransImgG = stdTransImg;
-		stdProofCMYKG = stdProofCMYK;
-		stdTransCMYKG = stdTransCMYK;
-		stdTransRGBG = stdTransRGB;
-		stdProofGCG = stdProofGC;
-		stdProofCMYKGCG = stdProofCMYKGC;
-		CMSoutputProf = DocOutputProf;
-		CMSprinterProf = DocPrinterProf;
-		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
-			CMSSettings.ComponentsInput2 = 3;
-		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmykData)
-			CMSSettings.ComponentsInput2 = 4;
-		if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmyData)
-			CMSSettings.ComponentsInput2 = 3;
-		if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigRgbData)
-			CMSSettings.ComponentsPrinter = 3;
-		if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
-			CMSSettings.ComponentsPrinter = 4;
-		if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmyData)
-			CMSSettings.ComponentsPrinter = 3;
-		PDF_Options.SComp = CMSSettings.ComponentsInput2;
+		if (OpenCMSProfiles(ScMW->InputProfiles, ScMW->MonitorProfiles, ScMW->PrinterProfiles))
+		{
+			stdTransRGBDoc2CMYKG = stdTransRGBDoc2CMYK;
+			stdTransCMYK2RGBDocG = stdTransCMYK2RGBDoc;
+			stdTransRGBDoc2MonG = stdTransRGBDoc2Mon;
+			stdTransCMYK2MonG = stdTransCMYK2Mon;
+			stdProofRGBG = stdProofRGB;
+			stdProofRGBGCG = stdProofRGBGC;
+			stdProofCMYKG = stdProofCMYK;
+			stdProofCMYKGCG = stdProofCMYKGC;
+			stdProofImgG = stdProofImg;
+			stdTransImgG = stdTransImg;
+			CMSoutputProf = DocOutputProf;
+			CMSprinterProf = DocPrinterProf;
+			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigRgbData)
+				CMSSettings.ComponentsInput2 = 3;
+			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmykData)
+				CMSSettings.ComponentsInput2 = 4;
+			if (static_cast<int>(cmsGetColorSpace(DocInputProf)) == icSigCmyData)
+				CMSSettings.ComponentsInput2 = 3;
+			if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigRgbData)
+				CMSSettings.ComponentsPrinter = 3;
+			if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
+				CMSSettings.ComponentsPrinter = 4;
+			if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmyData)
+				CMSSettings.ComponentsPrinter = 3;
+			PDF_Options.SComp = CMSSettings.ComponentsInput2;
+		}
+		else
+			CMSSettings.CMSinUse = false;
 #endif
 	}
 }
@@ -397,27 +422,72 @@ ScribusView* ScribusDoc::view() const
 void ScribusDoc::CloseCMSProfiles()
 {
 #ifdef HAVE_CMS
-	if ((CMSavail) && (CMSSettings.CMSinUse))
+	if ((CMSavail) /*&& (CMSSettings.CMSinUse)*/)
 	{
-		cmsCloseProfile(DocInputProf);
-		cmsCloseProfile(DocOutputProf);
-		cmsCloseProfile(DocPrinterProf);
-		cmsDeleteTransform(stdTrans);
-		cmsDeleteTransform(stdProof);
-		cmsDeleteTransform(stdTransImg);
-		cmsDeleteTransform(stdProofImg);
-		cmsDeleteTransform(stdTransCMYK);
-		cmsDeleteTransform(stdProofCMYK);
-		cmsDeleteTransform(stdTransRGB);
-		cmsDeleteTransform(stdProofCMYKGC);
-		cmsDeleteTransform(stdProofGC);
+		if (DocInputProf)
+			cmsCloseProfile(DocInputProf);	
+		if (DocOutputProf)
+			cmsCloseProfile(DocOutputProf);
+		if (DocPrinterProf)
+			cmsCloseProfile(DocPrinterProf);
+		if (stdTransRGBDoc2CMYK)
+			cmsDeleteTransform(stdTransRGBDoc2CMYK);
+		if (stdTransCMYK2RGBDoc)
+			cmsDeleteTransform(stdTransCMYK2RGBDoc);
+		if (stdTransRGBDoc2Mon)
+			cmsDeleteTransform(stdTransRGBDoc2Mon);
+		if (stdTransCMYK2Mon)
+			cmsDeleteTransform(stdTransCMYK2Mon);
+		if (stdProofRGB)
+			cmsDeleteTransform(stdProofRGB);
+		if (stdProofRGBGC)
+			cmsDeleteTransform(stdProofRGBGC);
+		if (stdProofCMYK)
+			cmsDeleteTransform(stdProofCMYK);
+		if (stdProofCMYKGC)
+			cmsDeleteTransform(stdProofCMYKGC);
+		if (stdTransImg)
+			cmsDeleteTransform(stdTransImg);
+		if (stdProofImg)
+			cmsDeleteTransform(stdProofImg);
+		DocInputProf = NULL;
+		DocOutputProf = NULL;
+		DocPrinterProf = NULL;
+		stdTransRGBDoc2CMYK = NULL;
+		stdTransCMYK2RGBDoc = NULL;
+		stdTransRGBDoc2Mon = NULL;
+		stdTransCMYK2Mon = NULL;
+		stdProofRGB = NULL;
+		stdProofRGBGC = NULL;
+		stdProofCMYK = NULL;
+		stdProofCMYKGC = NULL;
+		stdTransImg = NULL;
+		stdProofImg = NULL;
 	}
 #endif
 }
 
-void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
+bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 {
 #ifdef HAVE_CMS
+	cmsErrorAction(LCMS_ERROR_ABORT);
+	if (setjmp(cmsJumpBuffer))
+	{
+		// Reset to the default handler otherwise may enter a loop
+		// if an error occur afterwards
+		cmsSetErrorHandler(NULL);
+		cmsErrorAction(LCMS_ERROR_IGNORE);
+		CloseCMSProfiles();
+		cmsErrorAction(LCMS_ERROR_ABORT);
+		CMSSettings.CMSinUse = CMSuse = false;
+		QString message = tr("An error occurred while opening ICC profiles, color management is not enabled." );
+		if (ScQApp->usingGUI())
+			QMessageBox::warning(ScMW, CommonStrings::trWarning, message, QMessageBox::Ok, 0, 0);
+		else
+			qWarning( "%s", message.local8Bit().data() );
+		return false;
+	}
+	cmsSetErrorHandler(&cmsErrorHandler);
 	const QCString inputProfilePath(InPo[CMSSettings.DefaultSolidColorProfile].local8Bit());
 	DocInputProf = cmsOpenProfileFromFile(inputProfilePath.data(), "r");
 	const QCString monitorProfilePath(MoPo[CMSSettings.DefaultMonitorProfile].local8Bit());
@@ -427,88 +497,73 @@ void ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL MoPo, ProfilesL PrPo)
 	if ((DocInputProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL))
 	{
 		CMSSettings.CMSinUse = false;
-		return;
+		cmsSetErrorHandler(NULL);
+		return false;
 	}
 	int dcmsFlags = 0;
-	int dcmsFlags2 = 0;
+	int dcmsFlagsImg = 0;
 	dcmsFlags |= cmsFLAGS_LOWRESPRECALC;
-	dcmsFlags2 |= cmsFLAGS_LOWRESPRECALC;
-//	int dcmsFlags2 = cmsFLAGS_NOTPRECALC;
+	dcmsFlagsImg |= cmsFLAGS_LOWRESPRECALC;
 	if (CMSSettings.GamutCheck)
-		dcmsFlags |= cmsFLAGS_GAMUTCHECK;
+		dcmsFlagsImg |= cmsFLAGS_GAMUTCHECK;
 	if (CMSSettings.BlackPoint)
 	{
-		dcmsFlags2 |= cmsFLAGS_BLACKPOINTCOMPENSATION;
-		dcmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlags  |= cmsFLAGS_BLACKPOINTCOMPENSATION;
+		dcmsFlagsImg |= cmsFLAGS_BLACKPOINTCOMPENSATION;
 	}
 	// set Gamut alarm color to #00ff00
 	cmsSetAlarmCodes(0, 255, 0);
-	cmsErrorAction(LCMS_ERROR_SHOW);
-	stdProof = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
-	                                      DocOutputProf, TYPE_RGB_16,
-	                                      DocPrinterProf,
-	                                      IntentPrinter,
-	                                      IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-	stdProofGC = cmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
-	                                      DocOutputProf, TYPE_RGB_16,
-	                                      DocPrinterProf,
-	                                      IntentPrinter,
-	                                      IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-	stdTrans = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
+	// Document RGB colorspace to monitor colorspace transform
+	stdTransRGBDoc2Mon = scCmsCreateTransform(DocInputProf, TYPE_RGB_16,
 	                              DocOutputProf, TYPE_RGB_16,
-	                              IntentMonitor,
-	                              dcmsFlags2);
-	stdProofImg = cmsCreateProofingTransform(DocInputProf, TYPE_RGBA_8,
-	              DocOutputProf, TYPE_RGBA_8,
-	              DocPrinterProf,
-	              IntentPrinter,
-	              IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-	stdTransImg = cmsCreateTransform(DocInputProf, TYPE_RGBA_8,
+	                              IntentMonitor, dcmsFlags);
+	// Proof document RGB colorspace to monitor
+	stdProofRGB = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
+	                              DocOutputProf, TYPE_RGB_16,
+	                              DocPrinterProf, IntentPrinter,
+	                              INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING);
+	// Proof document RGB colorspace to monitor + gamut ckeck
+	stdProofRGBGC = scCmsCreateProofingTransform(DocInputProf, TYPE_RGB_16,
+	                              DocOutputProf, TYPE_RGB_16,
+	                              DocPrinterProf, IntentPrinter,
+	                              INTENT_RELATIVE_COLORIMETRIC, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
+	// Document RGB to monitor colorspace image transform
+	stdTransImg = scCmsCreateTransform(DocInputProf, TYPE_RGBA_8,
 	                                DocOutputProf, TYPE_RGBA_8,
-	                                 IntentMonitor,
-	                                 dcmsFlags2);
+	                                IntentMonitor, dcmsFlagsImg);
+	// Proof RGB images to monitor colorspace image proofing transform
+	stdProofImg = scCmsCreateProofingTransform(DocInputProf, TYPE_RGBA_8,
+									DocOutputProf, TYPE_RGBA_8,
+									DocPrinterProf, IntentPrinter,
+									INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsImg | cmsFLAGS_SOFTPROOFING);
+	
 	if (static_cast<int>(cmsGetColorSpace(DocPrinterProf)) == icSigCmykData)
 	{
-		stdProofCMYK = cmsCreateProofingTransform(DocPrinterProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentPrinter,
-							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-		stdProofCMYKGC = cmsCreateProofingTransform(DocPrinterProf, TYPE_CMYK_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentPrinter,
-							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-		stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
-						DocPrinterProf, TYPE_CMYK_16,
-						IntentPrinter,
-						dcmsFlags2);
-		stdTransRGB = cmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+		// Document (and printer) CMYK colorspace to monitor colorspace transform
+		stdTransCMYK2Mon = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						IntentMonitor, dcmsFlags);
+		// Document (and printer) CMYK colorspace to document RGB colorspace transform
+		stdTransCMYK2RGBDoc = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
 						DocInputProf, TYPE_RGB_16,
-						IntentMonitor,
-						dcmsFlags2);
+						IntentMonitor, dcmsFlags);
+		// Document RGB colorspace to document (and printer) CMYK colorspace transform
+		stdTransRGBDoc2CMYK = scCmsCreateTransform(DocInputProf, TYPE_RGB_16,
+						DocPrinterProf, TYPE_CMYK_16,
+						IntentMonitor, dcmsFlags);
+		// Proof document (and printer) CMYK colorspace on monitor
+		stdProofCMYK = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						IntentPrinter, dcmsFlags);
+		// Proof document (and printer) CMYK colorspace on monitor
+		stdProofCMYKGC = scCmsCreateTransform(DocPrinterProf, TYPE_CMYK_16,
+						DocOutputProf, TYPE_RGB_16,
+						IntentPrinter, dcmsFlags);
 	}
 	else
-	{
-		stdProofCMYK = cmsCreateProofingTransform(DocPrinterProf, TYPE_RGB_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentPrinter,
-							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING);
-		stdProofCMYKGC = cmsCreateProofingTransform(DocPrinterProf, TYPE_RGB_16,
-							DocOutputProf, TYPE_RGB_16,
-							DocPrinterProf,
-							IntentPrinter,
-							IntentMonitor, dcmsFlags | cmsFLAGS_SOFTPROOFING | cmsFLAGS_GAMUTCHECK);
-		stdTransCMYK = cmsCreateTransform(DocInputProf, TYPE_RGB_16,
-						DocPrinterProf, TYPE_RGB_16,
-						IntentPrinter,
-						dcmsFlags2);
-		stdTransRGB = cmsCreateTransform(DocPrinterProf, TYPE_RGB_16,
-						DocInputProf, TYPE_RGB_16,
-						IntentMonitor,
-						dcmsFlags2);
-	}
+		assert(false);
+	cmsSetErrorHandler(NULL);
+	return true;
 #endif
 }
 
@@ -944,6 +999,36 @@ Page* ScribusDoc::addMasterPage(const int pageNumber, const QString& pageName)
 	bool insertsuccess=MasterPages.insert(pageNumber, addedPage);
 	Q_ASSERT(insertsuccess==true && MasterPages.at(pageNumber)!=NULL);
 	return addedPage;
+}
+
+bool ScribusDoc::renameMasterPage(const QString& oldPageName, const QString& newPageName)
+{
+	Q_ASSERT(oldPageName!=CommonStrings::masterPageNormal && oldPageName!=CommonStrings::trMasterPageNormal);
+	if (MasterNames.contains(oldPageName) && !MasterNames.contains(newPageName))
+	{
+		//Rename our master page lists
+		int number=MasterNames[oldPageName];
+		MasterNames.insert(newPageName, number);
+		MasterNames.remove(oldPageName);
+		Q_ASSERT(MasterPages.at(number)->pageName()==oldPageName);
+		MasterPages.at(number)->setPageName(newPageName);
+		//Update any pages that were linking to our old name
+		for (Page* docPage = DocPages.first(); docPage; docPage = DocPages.next() )
+		{
+			if (docPage->MPageNam == oldPageName)
+				docPage->MPageNam = newPageName;
+		}
+		//Update any items that were linking to our old name
+		uint masterItemsCount=MasterItems.count();
+		for (uint i = 0; i < masterItemsCount; ++i)
+		{
+			if (MasterItems.at(i)->OnMasterPage == oldPageName)
+				MasterItems.at(i)->OnMasterPage = newPageName;
+		}
+		changed();
+		return true;
+	}
+	return false;
 }
 
 void ScribusDoc::deleteMasterPage(const int pageNumber)
@@ -1951,8 +2036,16 @@ bool ScribusDoc::applyMasterPage(const QString& in, const int pageNumber)
 	}
 	Ap->initialMargins.Top = Mp->Margins.Top;
 	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-	Ap->initialMargins.Left = Mp->Margins.Left;
-	Ap->initialMargins.Right = Mp->Margins.Right;
+	if (Mp->LeftPg == 1)
+	{
+		Ap->initialMargins.Right = Mp->Margins.Left;
+		Ap->initialMargins.Left = Mp->Margins.Right;
+	}
+	else
+	{
+		Ap->initialMargins.Left = Mp->Margins.Left;
+		Ap->initialMargins.Right = Mp->Margins.Right;
+	}
 	//TODO make a return false if not possible to apply the master page
 	return true;
 }
@@ -2217,6 +2310,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//Reset the current page..
 	setMasterPageMode(false);
 	currentPage=oldCurrentPage;
+	ScMW->outlinePalette->BuildTree();
 	return true;
 }
 
@@ -2402,19 +2496,19 @@ void ScribusDoc::setUsesAutomaticTextFrames(const bool atf)
 	automaticTextFrames=atf;
 }
 
-bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload)
+bool ScribusDoc::LoadPict(QString fn, int ItNr, bool reload, bool showMsg)
 {
-	return loadPict(fn, Items->at(ItNr), reload);
+	return loadPict(fn, Items->at(ItNr), reload, showMsg);
 }
 
-bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload)
+bool ScribusDoc::loadPict(QString fn, PageItem *pageItem, bool reload, bool showMsg)
 {
 	if (!reload)
 	{
 		if ((ScMW->fileWatcher->files().contains(pageItem->Pfile) != 0) && (pageItem->PicAvail))
 			ScMW->fileWatcher->removeFile(pageItem->Pfile);
 	}
-	if(!pageItem->loadImage(fn, reload))
+	if(!pageItem->loadImage(fn, reload, -1, showMsg))
 		return false;
 	if (!reload)
 		ScMW->fileWatcher->addFile(pageItem->Pfile);
@@ -4888,6 +4982,7 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
+			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -4901,6 +4996,7 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
+			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -4914,6 +5010,7 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
+			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -5126,6 +5223,68 @@ void ScribusDoc::itemSelection_FlipH()
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
+		{
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipH, 0, Um::IFlipH);
+			double gx, gy, gh, gw, ix, iy, iw, ih;
+			view()->getGroupRect(&gx, &gy, &gw, &gh);
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+				double dx =  ((gw / 2.0) -  ((ix - gx) + (iw - ix) / 2.0)) * 2.0;
+				if (currItem->rotation() != 0.0)
+				{
+					double ix2, iy2, iw2, ih2;
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
+				}
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageH();
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyH(currItem);
+				currItem->moveBy(dx, 0, true);
+				currItem->setRedrawBounding();
+				double grx = currItem->GrStartX;
+				currItem->GrStartX = currItem->GrEndX;
+				currItem->GrEndX = grx;
+				undoManager->commit();
+			}
+		}
+		else
+		{
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageH();
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyH(currItem);
+				else
+				{
+					double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
+					currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
+				}
+				double grx = currItem->GrStartX;
+				currItem->GrStartX = currItem->GrEndX;
+				currItem->GrEndX = grx;
+			}
+		}
+		emit updateContents();
+		changed();
+		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+	}
+/*	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 										  Um::FlipH, 0, Um::IFlipH);
 		for (uint a = 0; a < docSelectionCount; ++a)
@@ -5142,12 +5301,75 @@ void ScribusDoc::itemSelection_FlipH()
 			undoManager->commit();
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
-	}
+	} */
 }
 
 void ScribusDoc::itemSelection_FlipV()
 {
 	uint docSelectionCount=m_Selection->count();
+	if (docSelectionCount != 0)
+	{
+		if (docSelectionCount > 1)
+		{
+			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipV, 0, Um::IFlipV);
+			double gx, gy, gh, gw, ix, iy, iw, ih;
+			view()->getGroupRect(&gx, &gy, &gw, &gh);
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+				double dx =  ((gh / 2.0) -  ((iy - gy) + (ih - iy) / 2.0)) * 2.0;
+				if (currItem->rotation() != 0.0)
+				{
+					double ix2, iy2, iw2, ih2;
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
+				}
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageV();
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyV(currItem);
+				currItem->moveBy(0, dx, true);
+				currItem->setRedrawBounding();
+				double gry = currItem->GrStartY;
+				currItem->GrStartY = currItem->GrEndY;
+				currItem->GrEndY = gry;
+			}
+			emit updateContents();
+			undoManager->commit();
+		}
+		else
+		{
+			for (uint a = 0; a < docSelectionCount; ++a)
+			{
+				PageItem* currItem=m_Selection->itemAt(a);
+				if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
+					currItem->flipImageV();
+				if (currItem->itemType() != PageItem::Line)
+					MirrorPolyV(currItem);
+				else
+				{
+					double ix2, iy2, iw2, ih2, ix, iy, iw, ih;
+					currItem->getBoundingRect(&ix, &iy, &iw, &ih);
+					currItem->rotateBy(currItem->rotation() * -2.0);
+					currItem->setRedrawBounding();
+					currItem->getBoundingRect(&ix2, &iy2, &iw2, &ih2);
+					currItem->moveBy(ix-ix2, iy-iy2, true);
+					currItem->setRedrawBounding();
+				}
+				double gry = currItem->GrStartY;
+				currItem->GrStartY = currItem->GrEndY;
+				currItem->GrEndY = gry;
+			}
+			emit updateContents();
+		}
+		changed();
+		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
+	}
+/*	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
@@ -5167,7 +5389,7 @@ void ScribusDoc::itemSelection_FlipV()
 			undoManager->commit();
 		changed();
 		emit firstSelectedItemType(m_Selection->itemAt(0)->itemType());
-	}
+	} */
 }
 
 void ScribusDoc::itemSelection_ChangePreviewResolution(int id)
@@ -5239,7 +5461,7 @@ void ScribusDoc::itemSelection_ClearItem(Selection* customSelection)
 	}
 }
 
-void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
+void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection, bool forceDeletion)
 {
 	if (EditClip)
 		return;
@@ -5264,8 +5486,13 @@ void ScribusDoc::itemSelection_DeleteItem(Selection* customSelection)
 		//CB FIXME remove this and include of story.h too
 		if ((currItem->asTextFrame() || currItem->asPathText()) && currItem==ScMW->storyEditor->currentItem() && this==ScMW->storyEditor->currentDocument())
 		{
-			QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
-			return;
+			if (forceDeletion)
+				ScMW->storyEditor->setCurrentDocumentAndItem(this, NULL);
+			else
+			{
+				QMessageBox::critical(ScMW, tr("Cannot Delete In-Use Item"), tr("The item %1 is currently being edited by Story Editor. The delete operation will be cancelled").arg(currItem->itemName()), QMessageBox::Ok, QMessageBox::NoButton, QMessageBox::NoButton);
+				return;
+			}
 		}
 		tooltip += "\t" + currItem->getUName() + "\n";
 		delItems.append(itemSelection->takeItem(offs));

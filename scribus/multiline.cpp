@@ -169,21 +169,7 @@ void MultiLine::updatePreview()
 
 QColor MultiLine::calcFarbe(QString name, int shade)
 {
-	QColor tmpf;
-	int h, s, v, sneu;
-	Docu->PageColors[name].getRGBColor().rgb(&h, &s, &v);
-	if ((h == s) && (s == v))
-	{
-		Docu->PageColors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = 255 - ((255 - v) * shade / 100);
-		tmpf.setHsv(h, s, sneu);
-	}
-	else
-	{
-		Docu->PageColors[name].getRGBColor().hsv(&h, &s, &v);
-		sneu = s * shade / 100;
-		tmpf.setHsv(h, sneu, v);
-	}
+	QColor tmpf = Docu->PageColors[name].getDisplayColor(shade);
 	return tmpf;
 }
 
@@ -306,7 +292,7 @@ void MultiLine::NewName()
 	{
 		if (TempStyles->contains(NameNew))
 		{
-			QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", tr("OK"));
+			QMessageBox::warning(this, CommonStrings::trWarning, "<qt>"+ tr("Name \"%1\" isn't unique.<br/>Please choose another.").arg(NameNew)+"</qt>", tr("OK"));
 			SName->setText(GivenName);
 			SName->setFocus();
 		}
@@ -461,59 +447,62 @@ void MultiLine::slotEditStyle(int i)
 	disconnect(Shade, SIGNAL(valueChanged(int)), this, SLOT(NewLShade()));
 	Styles->setSelected(i, true);
 	CurLin = i;
-	LWidth->setValue(TempVorl[i].Width);
-	Color->setCurrentText(TempVorl[i].Color);
-	Shade->setValue(TempVorl[i].Shade);
-	switch (static_cast<PenStyle>(TempVorl[i].Dash))
+	if(i >=0 && i < TempVorl.size())
 	{
-	case SolidLine:
-		Dashes->setCurrentItem(0);
-		break;
-	case DashLine:
-		Dashes->setCurrentItem(1);
-		break;
-	case DotLine:
-		Dashes->setCurrentItem(2);
-		break;
-	case DashDotLine:
-		Dashes->setCurrentItem(3);
-		break;
-	case DashDotDotLine:
-		Dashes->setCurrentItem(4);
-		break;
-	default:
-		Dashes->setCurrentItem(0);
-		break;
-	}
-	switch (static_cast<PenCapStyle>(TempVorl[i].LineEnd))
-	{
-	case FlatCap:
-		LineEnds->setCurrentItem(0);
-		break;
-	case SquareCap:
-		LineEnds->setCurrentItem(1);
-		break;
-	case RoundCap:
-		LineEnds->setCurrentItem(2);
-		break;
-	default:
-		LineEnds->setCurrentItem(0);
-		break;
-	}
-	switch (static_cast<PenJoinStyle>(TempVorl[i].LineJoin))
-	{
-	case MiterJoin:
-		LineJoin->setCurrentItem(0);
-		break;
-	case BevelJoin:
-		LineJoin->setCurrentItem(1);
-		break;
-	case RoundJoin:
-		LineJoin->setCurrentItem(2);
-		break;
-	default:
-		LineJoin->setCurrentItem(0);
-		break;
+		LWidth->setValue(TempVorl[i].Width);
+		Color->setCurrentText(TempVorl[i].Color);
+		Shade->setValue(TempVorl[i].Shade);
+		switch (static_cast<PenStyle>(TempVorl[i].Dash))
+		{
+		case SolidLine:
+			Dashes->setCurrentItem(0);
+			break;
+		case DashLine:
+			Dashes->setCurrentItem(1);
+			break;
+		case DotLine:
+			Dashes->setCurrentItem(2);
+			break;
+		case DashDotLine:
+			Dashes->setCurrentItem(3);
+			break;
+		case DashDotDotLine:
+			Dashes->setCurrentItem(4);
+			break;
+		default:
+			Dashes->setCurrentItem(0);
+			break;
+		}
+		switch (static_cast<PenCapStyle>(TempVorl[i].LineEnd))
+		{
+		case FlatCap:
+			LineEnds->setCurrentItem(0);
+			break;
+		case SquareCap:
+			LineEnds->setCurrentItem(1);
+			break;
+		case RoundCap:
+			LineEnds->setCurrentItem(2);
+			break;
+		default:
+			LineEnds->setCurrentItem(0);
+			break;
+		}
+		switch (static_cast<PenJoinStyle>(TempVorl[i].LineJoin))
+		{
+		case MiterJoin:
+			LineJoin->setCurrentItem(0);
+			break;
+		case BevelJoin:
+			LineJoin->setCurrentItem(1);
+			break;
+		case RoundJoin:
+			LineJoin->setCurrentItem(2);
+			break;
+		default:
+			LineJoin->setCurrentItem(0);
+			break;
+		}
 	}
 	connect(Styles, SIGNAL(highlighted(int)), this, SLOT(slotEditStyle(int)));
 	connect(Dashes, SIGNAL(activated(int)), this, SLOT(NewLSty()));

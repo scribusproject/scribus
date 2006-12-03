@@ -63,6 +63,8 @@ public:
 class SCRIBUS_API FDialogPreview : public QLabel, public QFilePreview
 {
     Q_OBJECT
+protected:
+	QString filePath;
 public:
 	FDialogPreview(QWidget *pa);
 	~FDialogPreview() {};

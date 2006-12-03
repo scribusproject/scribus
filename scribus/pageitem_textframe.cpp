@@ -409,41 +409,45 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				{
 					if (!OnMasterPage.isEmpty())
 					{
-						Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
-						Page* Dp = m_Doc->Pages->at(savedOwnPage);
-						for (a = 0; a < m_Doc->MasterItems.count(); ++a)
+						if ( savedOwnPage >= 0 && savedOwnPage < signed(m_Doc->Pages->count()))
 						{
-							PageItem* docItem = m_Doc->MasterItems.at(a);
-							int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
-							if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
+							
+							Page* Mp = m_Doc->MasterPages.at(m_Doc->MasterNames[OnMasterPage]);
+							Page* Dp = m_Doc->Pages->at(savedOwnPage);
+							for (a = 0; a < m_Doc->MasterItems.count(); ++a)
 							{
-								if (docItem->textFlowsAroundFrame())
+								PageItem* docItem = m_Doc->MasterItems.at(a);
+								int LayerLevItem = m_Doc->layerLevelFromNumber(docItem->LayerNr);
+								if (((docItem->ItemNr > ItemNr) && (docItem->LayerNr == LayerNr)) || (LayerLevItem > LayerLev))
 								{
-									pp.begin(view->viewport());
-									pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
-									pp.rotate(docItem->rotation());
-									if (docItem->textFlowUsesBoundingBox())
+									if (docItem->textFlowsAroundFrame())
 									{
-										QPointArray tcli(4);
-										tcli.setPoint(0, QPoint(0,0));
-										tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
-										tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
-										tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
-										cm = QRegion(pp.xForm(tcli));
-									}
-									else
-									{
-										if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+										pp.begin(view->viewport());
+										pp.translate(docItem->xPos() - Mp->xOffset() + Dp->xOffset(), docItem->yPos() - Mp->yOffset() + Dp->yOffset());
+										pp.rotate(docItem->rotation());
+										if (docItem->textFlowUsesBoundingBox())
 										{
-											QValueList<uint> Segs;
-											QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
-											cm = QRegion(pp.xForm(Clip2));
+											QPointArray tcli(4);
+											tcli.setPoint(0, QPoint(0,0));
+											tcli.setPoint(1, QPoint(qRound(docItem->width()), 0));
+											tcli.setPoint(2, QPoint(qRound(docItem->width()), qRound(docItem->height())));
+											tcli.setPoint(3, QPoint(0, qRound(docItem->height())));
+											cm = QRegion(pp.xForm(tcli));
 										}
 										else
-											cm = QRegion(pp.xForm(docItem->Clip));
+										{
+											if ((docItem->textFlowUsesContourLine()) && (docItem->ContourLine.size() != 0))
+											{
+												QValueList<uint> Segs;
+												QPointArray Clip2 = FlattenPath(docItem->ContourLine, Segs);
+												cm = QRegion(pp.xForm(Clip2));
+											}
+											else
+												cm = QRegion(pp.xForm(docItem->Clip));
+										}
+										pp.end();
+										cl = cl.subtract(cm);
 									}
-									pp.end();
-									cl = cl.subtract(cm);
 								}
 							}
 						}
@@ -806,7 +810,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						double TopOffset = asce;
 						double BotOffset = desc2;
 						goNoRoom = false;
-						bool specialCase = false;
+//#3932						bool specialCase = false;
 						if (StartOfCol)
 						{
 							CurY = asce+TExtra+lineCorr+1;
@@ -824,13 +828,13 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						}
 						if (CurY-TopOffset < 0.0)
 							CurY = TopOffset+1;
-						pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
-						pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
-						if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
-						{
-							specialCase = true;
-							CurX -= Extra;
-						}
+//#3932						pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
+//						pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
+//						if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
+//						{
+//							specialCase = true;
+//							CurX -= Extra;
+//						}
 						pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						while ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
@@ -847,7 +851,10 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								}
 								else
 								{
-									CurY += m_Doc->docParagraphStyles[hl->cab].LineSpa;
+									if (m_Doc->docParagraphStyles[hl->cab].BaseAdj)
+										CurY += m_Doc->docParagraphStyles[hl->cab].FontSize / 10.0;
+									else
+										CurY += m_Doc->docParagraphStyles[hl->cab].LineSpa;
 									CurX = ColBound.x();
 								}
 								if (m_Doc->docParagraphStyles[hl->cab].BaseAdj)
@@ -907,7 +914,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 							pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 							pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 						}
-						if (((fBorder) || (specialCase)) && (!AbsHasDrop))
+//#3932					if (((fBorder) || (specialCase)) && (!AbsHasDrop))
+						if ((fBorder) && (!AbsHasDrop))
 							CurX += Extra;
 						if (a > 0)
 						{
@@ -1179,7 +1187,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						{
 							if (m_Doc->docParagraphStyles[absa].textAlignment != 0)
 							{
-								EndX = CurX;
+								EndX = floor(hl->xp);
 								do
 								{
 									pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
@@ -1270,7 +1278,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 								BuPos = LastSP+1;
 								if (m_Doc->docParagraphStyles[absa].textAlignment != 0)
 								{
-									EndX = LastXp;
+									EndX = floor(hl->xp);
 									do
 									{
 										pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
@@ -1676,7 +1684,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 				}
 				if (m_Doc->docParagraphStyles[absa].textAlignment != 0)
 				{
-					EndX = CurX;
+					EndX = floor(CurX);
 					do
 					{
 						pt1 = QPoint(qRound(EndX+RExtra), static_cast<int>(CurY+desc));
@@ -1934,7 +1942,9 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 			pf2.end();
 			p->restore();
 			break;
-			NoRoom: pf2.end();
+			
+NoRoom: 
+			pf2.end();
 			if (NextBox != 0)
 			{
 				nrc2 = itemText.count();
@@ -2071,6 +2081,8 @@ void PageItem_TextFrame::DrawObj_Post(ScPainter *p)
 			if (!view->previewMode)
 				drawOverflowMarker(p);
 		}
+		if (m_Doc->guidesSettings.colBordersShown && !view->previewMode)
+			drawColumnBorders(p);
 		//if (m_Doc->selection->findItem(this)!=-1)
 		//	drawLockedMarker(p);
 	}
@@ -2102,6 +2114,8 @@ void PageItem_TextFrame::clearContents()
 		}
 		nextItem->itemText.clear();
 		nextItem->CPos = 0;
+		nextItem->Dirty = true;
+		nextItem->Redrawn = false;
 		nextItem = nextItem->NextBox;
 	}
 }
@@ -3032,4 +3046,41 @@ void PageItem_TextFrame::drawOverflowMarker(ScPainter *p)
 	p->drawLine(FPoint(lx1, ly2), FPoint(lx2, ly1));
 }
 
+void PageItem_TextFrame::drawColumnBorders(ScPainter *p)
+{
+	ScribusView* view = m_Doc->view();
+	p->setPen(black, 0.5/ view->scale(), SolidLine, FlatCap, MiterJoin);
+	p->setPenOpacity(1.0);
+	p->setBrush(Qt::white);
+	p->setBrushOpacity(1.0);
+	p->setFillMode(ScPainter::Solid);
+#ifdef HAVE_CAIRO
+	p->setupPolygon(&PoLine);
+	p->setClipPath();
+#endif
+	double startpos=Xpos;
+	double cols=0;
+	double colWidth = columnWidth();
+	double colLeft=0;
+	int currCol=0;
+	double lineCorr=0;
+	if (lineColor() != CommonStrings::None)
+		lineCorr = m_lineWidth / 2.0;
+	if (TExtra + lineCorr!=0.0)
+		p->drawLine(FPoint(0, TExtra + lineCorr), FPoint(Width, TExtra + lineCorr));
+	if (BExtra + lineCorr!=0.0)
+		p->drawLine(FPoint(0, Height - BExtra - lineCorr), FPoint(Width, Height - BExtra - lineCorr));
+	double oldColRightX=Extra+lineCorr;
+	while(currCol<Cols)
+	{
+		colLeft=(colWidth + ColGap) * currCol + Extra + lineCorr;
+		if (colLeft!=0.0)
+			p->drawLine(FPoint(colLeft, 0), FPoint(colLeft, 0+Height));
+		if (colLeft+colWidth!=Width)
+		p->drawLine(FPoint(colLeft+colWidth, 0), FPoint(colLeft+colWidth, 0+Height));
+		oldColRightX=colLeft+colWidth;
+		++currCol;
+	}
+	
+}
 

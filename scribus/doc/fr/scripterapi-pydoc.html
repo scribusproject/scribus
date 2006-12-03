@@ -1,0 +1,874 @@
+<qt>
+<title>Python : module scribus</title>
+<h2>Python : module scribus</h2>
+
+<h1>Module d'interface Python de Scribus</h1>
+<p>Ce module est l'interface Python de Scribus. Il int&egrave;gre des fonctions pour contr&ocirc;ler Scribus et manipuler les objets sur le canevas. Chaque fonction est d&eacute;crite s&eacute;par&eacute;ment ci-dessous. Il existe quelques &eacute;l&eacute;ments qu'on retrouve dans la plupart des zones de l'interface. La majorit&eacute; des fonctions op&egrave;rent sur des cadres. Ces cadres sont identifi&eacute;s par leur nom (une cha&icirc;ne) - ils ne sont pas de vrais objets Python. Beaucoup de fonctions acceptent un param&egrave;tre optionnel (autre qu'un mot cl&eacute;), c'est-&agrave;-dire un nom de cadre. La plupart des fonctions pr&eacute;voient aussi de nombreuses exceptions.
+Celles-ci ne sont pas document&eacute;es, pour le moment, dans le docstring de chacune des fonctions. </p>
+<ul>
+	<li> Beaucoup de fonctions g&eacute;n&egrave;rent une erreur NoDocOpenError si vous essayez de les utiliser sans un document &agrave; traiter.</li>
+	<li> Si vous ne passez pas un nom de cadre &agrave; une fonction qui en r&eacute;clame un, cette fonction utilisera le cadre s&eacute;lectionn&eacute;, s'il y en a un, ou g&eacute;n&eacute;rera une erreur NoValidObjectError si elle ne trouve aucun &eacute;l&eacute;ment &agrave; traiter.</li>
+	<li> Beaucoup de fonctions g&eacute;n&eacute;reront une erreur WrongFrameTypeError si vous essayez de les utiliser dans un type de cadre qu'elles ne peuvent interpr&eacute;ter. Par
+exemple, l'application d'une couleur de texte dans un cadre de graphiques produira cette exception.</li>
+	<li> Les erreurs r&eacute;sultant d'appels aux librairies sous-jacentes de l'API de Python seront pass&eacute;es sans subir de modifications. Ainsi, la
+liste des exceptions g&eacute;n&eacute;r&eacute;es par les fonctions qui est fournie ici et dans leur docstring est incompl&egrave;te.</li>
+</ul>
+<p>La documentation des fonctions d&eacute;taille chaque exception pouvant &ecirc;tre g&eacute;n&eacute;r&eacute;e en cours d'utilisation.</p>
+
+<hr />
+<h3>Modules</h3>
+
+<h4>Classes</h4>
+
+<ul>
+	<li>exceptions.Exception
+	<ul>
+		<li>ScribusException</li>
+		<li>NameExistsError</li>
+		<li>NoDocOpenError</li>
+		<li>NoValidObjectError</li>
+		<li>NotFoundError</li>
+		<li>WrongFrameTypeError</li>
+	</ul>
+	</li>
+</ul>
+<hr />
+<table>
+	<tr>
+		<td>
+   <a name="NameExistsError">class <strong>NameExistsError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+ 	</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+				<dd><a href="scribus.html#NameExistsError">NameExistsError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+   M&eacute;thodes h&eacute;rit&eacute;es de <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+			<dl>
+				<dt><a name="NameExistsError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NameExistsError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NameExistsError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+<hr />
+
+<table>
+	<tr>
+		<td>
+   <a name="NoDocOpenError">class <strong>NoDocOpenError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+ 	</td>
+	</tr>
+	<tr>
+		<td width="100%">
+			<dl>
+				<dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+				<dd><a href="scribus.html#NoDocOpenError">NoDocOpenError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+   M&eacute;thodes h&eacute;rit&eacute;es de <a href="exceptions.html#Exception">exceptions.Exception</a> :<br>
+			<dl>
+				<dt><a name="NoDocOpenError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NoDocOpenError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NoDocOpenError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+<hr />
+
+<table>
+	<tr>
+		<td>
+   <a name="NoValidObjectError">class <strong>NoValidObjectError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+ 	</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+				<dd><a href="scribus.html#NoValidObjectError">NoValidObjectError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+   M&eacute;thodes h&eacute;rit&eacute;es de <a href="exceptions.html#Exception">exceptions.Exception</a> :<br>
+			<dl>
+				<dt><a name="NoValidObjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NoValidObjectError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NoValidObjectError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+<hr />
+
+<table>
+	<tr>
+		<td>
+   <a name="NotFoundError">class <strong>NotFoundError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+ 	</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+				<dd><a href="scribus.html#NotFoundError">NotFoundError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+   M&eacute;thodes h&eacute;rit&eacute;es de <a href="exceptions.html#Exception">exceptions.Exception</a> :<br>
+			<dl>
+				<dt><a name="NotFoundError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="NotFoundError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="NotFoundError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+
+<hr />
+
+<table>
+	<tr>
+		<td>
+   <a name="ScribusException">class <strong>ScribusException</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)
+ 	</td>
+	</tr>
+	<tr>
+		<td>
+   M&eacute;thodes h&eacute;rit&eacute;es de <a href="exceptions.html#Exception">exceptions.Exception</a> :<br>
+			<dl>
+				<dt><a name="ScribusException-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="ScribusException-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="ScribusException-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+
+<hr />
+
+<table>
+	<tr>
+		<td>
+   <a name="WrongFrameTypeError">class <strong>WrongFrameTypeError</strong></a>(<a href="scribus.html#ScribusException">ScribusException</a>)
+</td>
+	</tr>
+	<tr>
+		<td>
+			<dl>
+				<dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+				<dd><a href="scribus.html#WrongFrameTypeError">WrongFrameTypeError</a></dd>
+				<dd><a href="scribus.html#ScribusException">ScribusException</a></dd>
+				<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+			</dl>
+		</td>
+	</tr>
+	<tr>
+		<td>
+   M&eacute;thodes h&eacute;rit&eacute;es de <a href="exceptions.html#Exception">exceptions.Exception</a> :<br>
+			<dl>
+				<dt><a name="WrongFrameTypeError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+				<dt><a name="WrongFrameTypeError-__init__"><strong>__init__</strong></a>(...)</dt>
+				<dt><a name="WrongFrameTypeError-__str__"><strong>__str__</strong></a>(...)</dt>
+			</dl>
+		</td>
+	</tr>
+</table>
+
+<hr />
+<h3>Fonctions</h3>
+
+<dl>
+	<dt><a name="-changeColor"><strong>changeColor</strong></a>(...)</dt>
+	<dd><code><a href="#-changeColor">changeColor</a>("nom", c, m, j, n)<br><br>Change la couleur "nom" pour la valeur CMJN sp&eacute;cifi&eacute;e. La valeur de la couleur est d&eacute;finie par quatre composants c = Cyan, m = Magenta, j = Jaune et n = Noir. Ces composants de couleur doivent se situer entre 0 et 255.<br /><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e n'est pas trouv&eacute;e.<br>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</code></dd>
+
+	<dt><a name="-closeDoc"><strong>closeDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-closeDoc">closeDoc</a>()<br><br>Ferme le document courant sans invite de sauvegarde.<br><br>Peut g&eacute;n&eacute;rer <a href="#NoDocOpenError">NoDocOpenError</a> s'il n'y a pas de document &agrave; fermer</code></dd>
+
+	<dt><a name="-createBezierLine"><strong>createBezierLine</strong></a>(...)</dt>
+	<dd><code><a href="#-createBezierLine">createBezierLine</a>(liste, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e une nouvelle courbe de B&eacute;zier et retourne son nom. Les points de la courbe de B&eacute;zier sont conserv&eacute;s dans la liste ("list") dans l'ordre suivant :<br>[x1, y1, kx1, ky1, x2, y2, kx2, ky2...xn. yn, kxn. kyn]<br>Dans la liste de points, x et y sont les coordonn&eacute;es x et y du point et kx et ky repr&eacute;sentent le point de contr&ocirc;le de la courbe. Les coordonn&eacute;es s'affichent dans les unit&eacute;s de mesure du document (voir les constantes UNIT). Le nom ("name") doit &ecirc;tre un identifiant unique pour l'objet, car vous en aurez besoin acc&eacute;der plus tard &agrave; cet objet. Si le nom "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br /><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.<br>Peut g&eacute;n&eacute;rer ValueError si le nombre de points pr&eacute;cis&eacute; est insuffisant ou si le nombre de valeurs pass&eacute;es ne forme pas un groupe de points entier, sans reste.</code></dd>
+
+
+	<dt><a name="-createEllipse"><strong>createEllipse</strong></a>(...)</dt>
+	<dd><<code><a href="#-createEllipse">createEllipse</a>(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e une nouvelle ellipse dans la page courante et retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). Le "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour des r&eacute;f&eacute;rences futures &agrave; l'objet d&eacute;sign&eacute;. Si le "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</code></dd>
+
+	<dt><a name="-createImage"><strong>createImage</strong></a>(...)</dt>
+	<dd><code><a href="#-createImage">createImage</a>(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e un nouveau cadre d'image dans la page courante et retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document. La valeur de "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si le "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</code></dd>
+
+	<dt><a name="-createLayer"><strong>createLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-createLayer">createLayer</a>("nom")<br><br>Cr&eacute;e un nouveau calque portant le nom pr&eacute;cis&eacute;.<br><br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas admis.</code></dd>
+
+	<dt><a name="-createLine"><strong>createLine</strong></a>(...)</dt>
+	<dd><code><a href="#-createLine">createLine</a>(x1, y1, x2, y2, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e une nouvelle ligne &agrave; partir du point(x1, y1) et du point(x2, y2) et retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si le "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</code></dd>
+
+	<dt><a name="-createPathText"><strong>createPathText</strong></a>(...)</dt>
+	<dd><code><a href="#-createPathText">createPathText</a>(x, y, "boiteTexte", "courbeBezier", ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e un nouveau pathText en combinant les deux objets "bo&icirc;te de texte" et "courbe de B&eacute;zier", puis retourne son nom. Les coordonn&eacute;es sont affich&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si le "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.<br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si l'un des objets de base (ou les deux) n'existent pas.</code></dd>
+
+	<dt><a name="-createPolyLine"><strong>createPolyLine</strong></a>(...)</dt>
+	<dd><code><a href="#-createPolyLine">createPolyLine</a>(liste, ["nom"]) -&gt; cha&icirc;ne<br> <br>Cr&eacute;e un nouveau polyline et retourne son nom. Les points de l'&eacute;l&eacute;ment polyline sont conserv&eacute;s dans la "liste", dans l'ordre suivant : [x1, y1, x2, y2...xn. yn]. Les coordonn&eacute;es s'affichent dans les unit&eacute;s de mesure du document (voir les constantes UNIT). Le nom ("name") doit &ecirc;tre un identifiant unique pour l'objet, car vous en aurez besoin acc&eacute;der plus tard &agrave; cet objet. Si le nom "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.<br>Peut g&eacute;n&eacute;rer ValueError si le nombre de points pr&eacute;cis&eacute; est insuffisant ou si le nombre de valeurs pass&eacute;es ne forme pas un groupe de points entier, sans reste.</code></dd>
+
+	<dt><a name="-createPolygon"><strong>createPolygon</strong></a>(...)</dt>
+	<dd><code><a href="#-createPolygon">createPolygon</a>(liste, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e un nouveau polygone et retourne son nom. Les points du polygone sont conserv&eacute;s dans la "liste", dans l'ordre suivant: [x1, y1, x2, y2...xn. yn]. Au moins trois points sont requis. Il n'est pas n&eacute;cessaire de r&eacute;p&eacute;ter le premier point pour fermer le polygone. Le polygone se ferme automatiquement avec la connexion du premier et du dernier point. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si le "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br /><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.<br>Peut g&eacute;n&eacute;rer ValueError si le nombre de points est insuffisant ou si<br>le nombre de valeurs pass&eacute;es ne forme pas un groupe de points sans reste.</code></dd>
+
+	<dt><a name="-createRect"><strong>createRect</strong></a>(...)</dt>
+	<dd><code><a href="#-createRect">createRect</a>(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e un nouveau rectangle dans la page courante et retourne son nom. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). Le "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour des r&eacute;f&eacute;rences futures &agrave; l'objet d&eacute;sign&eacute;. Si le nom "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</code></dd>
+
+	<dt><a name="-createText"><strong>createText</strong></a>(...)</dt><dd><code><a href="#-createText">createText</a>(x, y, largeur, hauteur, ["nom"]) -&gt; cha&icirc;ne<br><br>Cr&eacute;e un nouveau cadre de texte dans la page courante et retourne son nom. Les coordonn&eacute;es sont donn&eacute;es dans les unit&eacute;s de mesure du document (voir les constantes UNIT). La valeur de "name" doit &ecirc;tre un identifiant unique parce que vous en aurez besoin pour acc&eacute;der plus tard &agrave; l'objet d&eacute;sign&eacute;. Si le "name" n'est pas fourni, Scribus en cr&eacute;era un pour vous.<br><br>Peut g&eacute;n&eacute;rer <a href="#NameExistsError">NameExistsError</a> si vous passez explicitement un nom d&eacute;j&agrave; utilis&eacute;.</code></dd>
+
+	<dt><a name="-currentPage"><strong>currentPage</strong></a>(...)</dt>
+	<dd><code><a href="#-currentPage">currentPage</a>() -&gt; nombre entier<br><br>Retourne le num&eacute;ro de la page de travail courante. Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1, peu importe quel est le premier num&eacute;ro de page affich&eacute; dans votre document.</code></dd>
+
+	<dt><a name="-defineColor"><strong>defineColor</strong></a>(...)</dt>
+	<dd><code><a href="#-defineColor">defineColor</a>("nom", c, m, j, n)<br><br>D&eacute;finit une nouvelle couleur "nom". La valeur de la couleur est d&eacute;finie par quatre composants :<br>c = Cyan, m = Magenta, j = Jaune et n = Noir. Les composants de la couleur doivent se situer entre 0 et 255.<br><br>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</code></dd>
+
+	<dt><a name="-deleteColor"><strong>deleteColor</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteColor">deleteColor</a>("nom", "remplacement")<br><br>Supprime la couleur "nom". Chaque occurrence de cette couleur est remplac&eacute;e par la couleur dite de "remplacement". Si elle n'est pas sp&eacute;cifi&eacute;e, "remplacement" prendra par d&eacute;faut la valeur "none" - transparente.<br><br>deleteColor s'applique au document par d&eacute;faut s'il n'y a pas de document ouvert. Dans ce cas, le "remplacement", si sp&eacute;cifi&eacute;, n'a pas d'effet.<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e n'est pas trouv&eacute;e.<br>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</code></dd>
+
+	<dt><a name="-deleteLayer"><strong>deleteLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteLayer">deleteLayer</a>("calque")<br><br>Supprime le calque portant le nom "calque". Sans effet si le calque n'existe pas ou s'il n'y a qu'un seul calque dans le document.<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas admis.</code></dd>
+
+	<dt><a name="-deleteObject"><strong>deleteObject</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteObject">deleteObject</a>(["nom"])<br><br>Supprime l'&eacute;l&eacute;ment portant le nom "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment courant est supprim&eacute;.</code></dd>
+
+	<dt><a name="-deletePage"><strong>deletePage</strong></a>(...)</dt>
+	<dd><code><a href="#-deletePage">deletePage</a>(nr)<br><br>Supprime la page donn&eacute;e. Sans effet si le document contient seulement une page. Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1, peu importe le premier num&eacute;ro de page affich&eacute; dans votre document.<br><br>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites</code></dd>
+
+	<dt><a name="-deleteText"><strong>deleteText</strong></a>(...)</dt>
+	<dd><code><a href="#-deleteText">deleteText</a>(["nom"])<br><br>Supprime le texte dans le cadre de texte "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte sera supprim&eacute;. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.</code></dd>
+
+	<dt><a name="-deselectAll"><strong>deselectAll</strong></a>(...)</dt>
+	<dd><code><a href="#-deselectAll">deselectAll</a>()<br><br>D&eacute;s&eacute;lectionne tous les objets du document au complet.</code></dd>
+
+	<dt><a name="-docChanged"><strong>docChanged</strong></a>(...)</dt>
+	<dd><code><a href="#-docChanged">docChanged</a>(bool)<br><br>Active/d&eacute;sactive l'ic&ocirc;ne enregistrer dans la barre d'ic&ocirc;nes de Scribus et dans l'&eacute;l&eacute;ment de menu Enregistrer. Il est utile d'appeler cette proc&eacute;dure lorsque vous changez de document, parce que Scribus ne remarquera pas automatiquement un changement de document en utilisant un script.</code></dd>
+
+	<dt><a name="-fileDialog"><strong>fileDialog</strong></a>(...)</dt><dd><code><a href="#-fileDialog">fileDialog</a>("titre", ["filtre", "nomDefaut" ,possedeApercu, estEnregistrer]) -&gt; cha&icirc;ne associ&eacute;e au nom du fichier<br><br>Affiche une bo&icirc;te de dialogue Ouvrir un fichier portant le titre "titre". Les fichiers sont filtr&eacute;s par la cha&icirc;ne "filtre". Vous pouvez aussi donner un nom de fichier ou un chemin par d&eacute;faut, mais laissez cette cha&icirc;ne vide lorsque vous ne voulez pas l'utiliser. Une valeur True pour possedeApercu d&eacute;clenche l'affichage d'une vue r&eacute;duire dans la bo&icirc;te FileSelect. Quand le param&egrave;tre estEnregistrer est mis &agrave; True, le dialogue se comporte comme un dialogue "Enregistrer sous", sinon il se comporte comme un dialogue "Ouvrir". La valeur par d&eacute;faut de ces deux param&egrave;tres optionnels est False.<br><br>Le filtre, si sp&eacute;cifi&eacute;, prend la forme 'commentaire (*.type *.type2 ...)'.<br>Par exemple 'Images (*.png *.xpm *.jpg)'.<br><br>Reportez-vous &agrave; la documentation de QFileDialog dans Qt pour plus de d&eacute;tails sur les filtres.<br><br>Exemple : <a href="#-fileDialog">fileDialog</a>('Ouvrir', 'CSV files (*.csv)')<br>Exemple : <a href="#-fileDialog">fileDialog</a>('Enregistrer le rapport', nomdefaut='report.txt', estenregistrer=True)</code></dd>
+
+	<dt><a name="-getActiveLayer"><strong>getActiveLayer</strong></a>(...)</dt>
+	<dd>c<code><a href="#-getActiveLayer">getActiveLayer</a>() -&gt; cha&icirc;ne<br><br>Retourne le nom du calque actif courant.</code></dd>
+
+	<dt><a name="-getAllObjects"><strong>getAllObjects</strong></a>(...)</dt>
+	<dd><code><a href="#-getAllObjects">getAllObjects</a>() -&gt; liste<br><br>Retourne une liste contenant les noms de tous les objets de la page courante.</code></dd>
+
+	<dt><a name="-getAllStyles"><strong>getAllStyles</strong></a>(...)</dt>
+	<dd><code><a href="#-getAllStyles">getAllStyles</a>() -&gt; liste<br><br>Retourne une liste des noms de tous les styles de paragraphe du document courant.</code></dd>
+
+	<dt><a name="-getAllText"><strong>getAllText</strong></a>(...)</dt>
+	<dd><code><a href="#-getAllText">getAllText</a>(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le texte d'un cadre de texte "nom" et de tous les cadres de texte qui sont y li&eacute;s. Si du texte est s&eacute;lectionn&eacute; dans ce cadre, il est retourn&eacute;. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getColor"><strong>getColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getColor">getColor</a>("nom") -&gt; vecteur<br><br>Retourne un vecteur (C, M, J, N) contenant les quatre composants de la couleur "nom" du document courant. Si aucun document n'est ouvert, retourne la valeur de la couleur nomm&eacute;e &agrave; partir des couleur du document par d&eacute;faut.<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si la couleur nomm&eacute;e est introuvable.<br>Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</code></dd>
+
+	<dt><a name="-getColorAsRGB"><strong>getColorAsRGB</strong></a>(...)</dt>
+	<dd><code><a href="#-getColorAsRGB">getColorAsRGB</a>("nom") -&gt; vecteur</code>
+	<p>Retourne un vecteur (R,V,B) contenant les trois composantes de la couleur "nom" du document courant, converties &agrave; l'espace de couleur RVB. Si aucun document n'est ouvert, retourne la valeur de la couleur nomm&eacute;e &agrave; partir des couleur du document par d&eacute;faut.</p>
+	<p>Peut g&eacute;n&eacute;rer NotFoundError si la couleur nomm&eacute;e est introuvable. Peut g&eacute;n&eacute;rer ValueError si le nom de couleur sp&eacute;cifi&eacute; n'est pas valide.</p></dd>
+
+	<dt><a name="-getColorNames"><strong>getColorNames</strong></a>(...)</dt>
+	<dd><code><a href="#-getColorNames">getColorNames</a>() -&gt; liste<br><br>Retourne une liste contenant les noms de toutes les couleurs d&eacute;finies dans le document. Si aucun document n'est ouvert, retourne une liste des couleurs du document par d&eacute;faut.</code></dd>
+
+	<dt><a name="-getColumnGap"><strong>getColumnGap</strong></a>(...)</dt>
+	<dd><code><a href="#-getColumnGap">getColumnGap</a>(["nom"]) -&gt; r&eacute;el<br><br>Retourne la taille de la goutti&egrave;re de colonne dans le cadre de texte "nom", exprim&eacute; en points. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getColumns"><strong>getColumns</strong></a>(...)</dt>
+	<dd><code><a href="#-getColumns">getColumns</a>(["nom"]) -&gt; nombre entier<br><br>Donne le nombre de colonnes du cadre de texte "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getCornerRadius"><strong>getCornerRadius</strong></a>(...)</dt>
+	<dd><code><a href="#-getCornerRadius">getCornerRadius</a>(["nom"]) -&gt; nombre entier<br><br>Retourne le rayon du coin de l'objet "nom". Le rayon est exprim&eacute; en points. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getFillColor"><strong>getFillColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getFillColor">getFillColor</a>(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le nom de la couleur d'accompagnement de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getFillShade"><strong>getFillShade</strong></a>(...)</dt>
+	<dd><code><a href="#-getFillShade">getFillShade</a>(["nom"]) -&gt; entier<br><br>Retourne la valeur de la teinte de la couleur d'accompagnement de l'objet "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getFont"><strong>getFont</strong></a>(...)</dt>
+	<dd><code><a href="#-getFont">getFont</a>(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le nom la police pour le cadre de texte "nom". Si le cadre contient du texte s&eacute;lectionn&eacute;, la valeur assign&eacute;e au premier caract&egrave;re de la s&eacute;lection est retourn&eacute;. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getFontNames"><strong>getFontNames</strong></a>(...)</dt>
+	<dd><code><a href="#-getFontNames">getFontNames</a>() -&gt; liste<br /><br>Retourne une liste contenant les noms de toutes les polices disponibles.</code></dd>
+
+	<dt><a name="-getFontSize"><strong>getFontSize</strong></a>(...)</dt>
+	<dd><code><a href="#-getFontSize">getFontSize</a>(["nom"]) -&gt; r&eacute;el<br><br>Retourne la taille, en points, de la police du cadre de texte "nom". Si ce cadre contient du texte s&eacute;lectionn&eacute;, la valeur assign&eacute;e au premier caract&egrave;re de la s&eacute;lection est retourn&eacute;e. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getGuiLanguage"><strong>getGuiLanguage</strong></a>(...)</dt>
+	<dd><code><a href="#-getGuiLanguage">getGuiLanguage</a>() -&gt; cha&icirc;ne<br><br>Retourne une contenant la valeur de -lang.</code></dd>
+
+	<dt><a name="-getHGuides"><strong>getHGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-getHGuides">getHGuides</a>() -&gt; liste<br><br>Retourne une liste contenant les positions des guides horizontaux. Les valeurs sont affich&eacute;es dans les unit&eacute;s courantes du document - voir les constantes UNIT_&lt;type&gt;.</code></dd>
+
+	<dt><a name="-getImageFile"><strong>getImageFile</strong></a>(...)</dt>
+	<dd><code>getImageName(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le nom de fichier de l'image du cadre d'image. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getImageScale"><strong>getImageScale</strong></a>(...)</dt>
+	<dd><code><a href="#-getImageScale">getImageScale</a>(["nom"]) -&gt; (x,y)<br><br>Retourne un vecteur (x, y) contenant les valeurs de redimensionnement du cadre d'image "nom".  Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getLayers"><strong>getLayers</strong></a>(...)</dt>
+	<dd><code><a href="#-getLayers">getLayers</a>() -&gt; liste<br><br>Retourne une liste contenant les noms de tous les calques d&eacute;finis.</code></dd>
+
+	<dt><a name="-getLineCap"><strong>getLineCap</strong></a>(...)</dt>
+	<dd><code>getLineEnd(["nom"]) -&gt; nombre entier (voir les constantes)<br><br>Retourne le style de bout de ligne de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Les styles de bout de ligne sont :<br>CAP_FLAT, CAP_ROUND, CAP_SQUARE</code></dd>
+
+	<dt><a name="-getLineColor"><strong>getLineColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineColor">getLineColor</a>(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le nom de la couleur de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getLineJoin"><strong>getLineJoin</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineJoin">getLineJoin</a>(["nom"]) -&gt; nombre entier (voir les constantes)<br><br>Retourne le style de jointure de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Les types de jointure sont :<br>JOIN_BEVEL, JOIN_MITTER, JOIN_ROUND</code></dd>
+
+	<dt><a name="-getLineShade"><strong>getLineShade</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineShade">getLineShade</a>(["nom"]) -&gt; entier<br><br>Retourne la valeur de la teinte de la couleur de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getLineSpacing"><strong>getLineSpacing</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineSpacing">getLineSpacing</a>(["nom"]) -&gt; r&eacute;el<br><br>Retourne l'espacement de ligne ("leading") du cadre de texte "nom", exprim&eacute; en points. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getLineStyle"><strong>getLineStyle</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineStyle">getLineStyle</a>(["nom"]) -&gt; nombre entier (voir les constantes)<br><br>Retourne le style de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Les constantes de style de filet sont :<br />LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</code></dd>
+
+	<dt><a name="-getLineWidth"><strong>getLineWidth</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineWidth">getLineWidth</a>(["nom"]) -&gt; nombre entier<br><br>Retourne la largeur de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getPageItems"><strong>getPageItems</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageItems">getPageItems</a>() -&gt; liste<br><br>Retourne une liste de vecteurs contenant les &eacute;l&eacute;ments de la page courante. Le vecteur est :<br>(nom, typeObjet, ordre), par exemple [('Texte1', 4, 0), ('Image1', 2, 1)]<br>signifie que l'objet nomm&eacute; 'Texte1' est un cadre de texte (type 4) et est le premier dans<br>la page...</code></dd>
+
+	<dt><a name="-getPageMargins"><strong>getPageMargins</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageMargins">getPageMargins</a>()<br><br>Retourne les marges de la page sous la forme d'un vecteur (gauche, droite, haut, bas) dans les unit&eacute;s courantes. Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageSize">getPageSize</a>().</code></dd>
+
+	<dt><a name="-getPageSize"><strong>getPageSize</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; vecteur<br><br>Retourne un vecteur contenant les dimensions de la page exprim&eacute;es dans les unit&eacute;s courantes du document.<br>Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</code></dd>
+
+	<dt><a name="-getPosition"><strong>getPosition</strong></a>(...)</dt>
+	<dd><code><a href="#-getPosition">getPosition</a>(["nom"]) -&gt; (x,y)<br><br>Retourne un vecteur (x, y) indiquant la position de l'objet "nom". Si le "nom" n'est pas fourni,
+l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. La position est exprim&eacute;e dans les unit&eacute;s de mesure courantes du document - voir UNIT_&lt;type&gt; pour r&eacute;f&eacute;rence.</code></dd>
+
+	<dt><a name="-getRotation"><strong>getRotation</strong></a>(...)</dt>
+	<dd><code><a href="#-getRotation">getRotation</a>(["nom"]) -&gt; nombre entier<br><br>Retourne la rotation de l'objet "nom". La valeur est exprim&eacute;e en degr&eacute;s, et le sens des aiguilles d'une montre correspond au sens positif. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getSelectedObject"><strong>getSelectedObject</strong></a>(...)</dt>
+	<dd><code><a href="#-getSelectedObject">getSelectedObject</a>([nr]) -&gt; cha&icirc;ne<br><br>Retourne le nom de l'objet s&eacute;lectionn&eacute;. "nr", s'il est fourni, indique le num&eacute;ro de l'objet s&eacute;lectionn&eacute;, par exemple 0 signifie le premier objet s&eacute;lectionn&eacute;, 1, le second objet s&eacute;lectionn&eacute; et ainsi de suite.</code></br></dd>
+
+	<dt><a name="-getSize"><strong>getSize</strong></a>(...)</dt>
+	<dd><code><a href="#-getSize">getSize</a>(["nom"]) -&gt; (largeur,hauteur)<br><br>Retourne un vecteur (largeur, hauteur) d&eacute;crivant la taille de l'objet "nom". Si le "nom" n'est pas fourni,
+l'&eacute;l&eacute;ment s&eacute;lectionn&eacute;est utilis&eacute;. La taille est exprim&eacute;e dans les unit&eacute;s de mesure courantes du document - voir UNIT_&lt;type&gt; pour r&eacute;f&eacute;rence.</code></dd>
+
+	<dt><a name="-getText"><strong>getText</strong></a>(...)</dt>
+	<dd><code><a href="#-getText">getText</a>(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le texte du cadre de texte "nom". Si ce cadre de texte contient du texte s&eacute;lectionn&eacute;, celui-ci est retourn&eacute;. Tout le texte pr&eacute;sent dans le cadre, et non seulement le texte visible, est retourn&eacute;. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getTextColor"><strong>getTextColor</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineColor">getLineColor</a>(["nom"]) -&gt; cha&icirc;ne<br><br>Retourne le nom de la couleur de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getTextLength"><strong>getTextLength</strong></a>(...)</dt>
+	<dd><code><a href="#-getTextLength">getTextLength</a>(["nom"]) -&gt; nombre entier<br><br>Retourne la longueur du texte dans le cadre de texte "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getTextShade"><strong>getTextShade</strong></a>(...)</dt>
+	<dd><code><a href="#-getLineShade">getLineShade</a>(["nom"]) -&gt; nombre entier<br><br>Retourne la valeur de la teinte de la couleur de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-getUnit"><strong>getUnit</strong></a>(...)</dt>
+	<dd><code><a href="#-getUnit">getUnit</a>() -&gt; nombre entier (constante d'unit&eacute; de Scribus)<br><br>Retourne les unit&eacute;s de mesure du document. La valeur retourn&eacute;e sera une des constantes UNIT_* constants :<br>UNIT_INCHES, UNIT_MILLIMETERS, UNIT_PICAS, UNIT_POINTS.</code></dd>
+
+	<dt><a name="-getVGuides"><strong>getVGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-getVGuides">getVGuides</a>()<br><br>Voir getHGuides.</code></dd>
+
+	<dt><a name="-getXFontNames"><strong>getXFontNames</strong></a>(...)</dt>
+	<dd><code><a href="#-getXFontNames">getXFontNames</a>() -&gt; liste de vecteurs<br><br>Retourne une information d&eacute;taill&eacute;e sur la police. Il s'agit d'une liste de vecteurs :<br>[ (nom Scribus, Famille, Nom r&eacute;el, sous-ensemble (1|0), PS inclus PS (1|0), fichier de police), (...), ... ]</code></dd>
+
+	<dt><a name="-getval"><strong>getval</strong></a>(...)</dt>
+	<dd><code>Interne &agrave; Scribus.</code></dd>
+
+	<dt><a name="-gotoPage"><strong>gotoPage</strong></a>(...)</dt>
+	<dd><code><a href="#-gotoPage">gotoPage</a>(nr)<br><br>D&eacute;place &agrave; la page "nr" (la page courante devient "nr"). Notez que gotoPage ne modifie pas (actuellement) la page affich&eacute;e dans la vue de l'utilisateur; ce param&egrave;tre &eacute;tablit simplement la page sur laquelle les commandes du script op&eacute;reront.<br><br>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites.</code></dd>
+
+	<dt><a name="-groupObjects"><strong>groupObjects</strong></a>(...)</dt>
+	<dd><code><a href="#-groupObjects">groupObjects</a>(liste)<br><br>Groupe les objets &eacute;num&eacute;r&eacute;s dans "liste". La "liste" doit contenir les noms des objets &agrave; grouper. Si la "liste" n'est pas fournie, les &eacute;l&eacute;ments s&eacute;lectionn&eacute;s sont utilis&eacute;s.</code></dd>
+
+	<dt><a name="-haveDoc"><strong>haveDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-haveDoc">haveDoc</a>() -&gt; bool&eacute;en<br><br>Retourne la valeur "true" s'il y a un document ouvert.</code></dd>
+
+	<dt><a name="-insertText"><strong>insertText</strong></a>(...)</dt>
+	<dd><code><a href="#-insertText">insertText</a>("texte", pos, ["nom"])<br><br>Ins&egrave;re le "texte" &agrave; la position "pos" dans le cadre de texte. Le texte doit &ecirc;tre encod&eacute; en UTF (voir <a href="#-setText">setText</a>() comme r&eacute;f&eacute;rence). Le premier caract&egrave;re a un index de 0. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.<br><br>Peut g&eacute;n&eacute;rer IndexError dans le cas d'une insertion hors limites.</code></dd>
+
+	<dt><a name="-isLayerPrintable"><strong>isLayerPrintable</strong></a>(...)</dt>
+	<dd><code><a href="#-isLayerPrintable">isLayerPrintable</a>("calque") -&gt; bool&eacute;en<br><br>Indique si le "calque" est imprimable ou non; une valeur True signifie que le "calque" peut &ecirc;tre imprim&eacute; et une valeur False, que l'impression est d&eacute;sactiv&eacute;e.<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</code></dd>
+
+	<dt><a name="-isLayerVisible"><strong>isLayerVisible</strong></a>(...)</dt>
+	<dd><code><a href="#-isLayerPrintable">isLayerPrintable</a>("calque") -&gt; bool&eacute;en<br><br>Indique si le "calque" est visible ou non; une valeur True signifie que le "calque" est visible, une valeur False signifie que le "calque" est invisible.<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</code></dd>
+
+	<dt><a name="-isLocked"><strong>isLocked</strong></a>(...)</dt>
+	<dd><code><a href="#-isLocked">isLocked</a>(["nom"]) -&gt; bool&eacute;en<br><br>Retourne la valeur True si l'objet "nom" est v&eacute;rouill&eacute;.  Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-isPDFBookmark"><strong>isPDFBookmark</strong></a>(...)</dt>
+	<dd><code><a href="#-isPDFBookmark">isPDFBookmark</a>(["nom"]) -&gt; bool&eacute;en</code>
+	<p>Retourne la valeur True si le cadre de texte "nom" est un signet PDF. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+	<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError si le cadre cible n'est pas un cadre de texte.</p></dd>
+
+	<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+	<dd><code><a href="#-linkTextFrames">linkTextFrames</a>("nomDepart", "nomArrivee")<br><br>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nomm&eacute; "nomDepart" est li&eacute; au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.<br /><br>Peut
+g&eacute;n&eacute;rer <a href="#ScribusException">ScribusException</a> en cas d'infraction des r&egrave;gles de liens. </code></dd>
+
+	<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+	<dd><code><a href="#-loadImage">loadImage</a>("nomFichier" [, "nom"])<br><br>Charge l'image "nomFichier" dans le cadre d'image "nom". Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br /><br>Peut g&eacute;n&eacute;rer <a href="#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</br></dd>
+
+	<dt><a name="-loadStylesFromFile"><strong>loadStylesFromFile</strong></a>(...)</dt>
+	<dd><code><a href="#-loadStylesFromFile">loadStylesFromFile</a>("nomFichier")<br><br>Charge des styles de paragraphe &agrave; partir du document Scribus "nomFichier" dans le document courant.</code></dd>
+
+	<dt><a name="-lockObject"><strong>lockObject</strong></a>(...)</dt>
+	<dd><code><a href="#-lockObject">lockObject</a>(["nom"]) -&gt; bool&eacute;en<br><br>Verrouille l'objet "nom" s'il est d&eacute;verrouill&eacute;, ou le d&eacute;verrouille s'il y a lieu. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Retourne la valeur True si verrouill&eacute;.</code></dd>
+
+	<dt><a name="-messageBox"><strong>messageBox</strong></a>(...)</dt>
+	<dd><code><a href="#-messageBox">messageBox</a>("titre", "message", icone=ICON_NONE, bouton1=BUTTON_OK|BUTTONOPT_DEFAULT, bouton2=BUTTON_NONE, bouton3=BUTTON_NONE) -&gt; nombre entier<br><br>Affiche une bo&icirc;te de message contenant le "titre", le message "message", une ic&ocirc;ne "icone" et jusqu'&agrave; 3 boutons. Par d&eacute;faut, aucune ic&ocirc;ne n'est utilis&eacute;e et un seul bouton, OK, est affich&eacute;. Seuls les arguments titre et message sont requis, mais on recommande de d&eacute;finir une ic&ocirc;ne et un ou plusieurs boutons appropri&eacute;s. Le message texte peut contenir des marqueurs de type HTML simples.<br /> <br>Retourne le num&eacute;ro du bouton que l'utilisateur a enfonc&eacute;. Les num&eacute;ros de boutons commencent &agrave; 1.<br><br>Pour les param&egrave;tres d'ic&ocirc;ne et de bouton, certaines constantes pr&eacute;d&eacute;finies sont disponibles et portent les m&ecirc;mes noms que dans la documentation Qt. Ce sont les constantes BUTTON_* et ICON_* d&eacute;finies dans ce module. Il y a &eacute;galement deux constantes suppl&eacute;mentaires qui peuvent &ecirc;tre combin&eacute;es par un OU aux constantes de bouton :<br>
+    BUTTONOPT_DEFAULT   Appuyer sur Entr&eacute;e enfonce ce bouton.<br>
+    BUTTONOPT_ESCAPE    Appuyer sur Esc enrfonce ce bouton.<br>
+ <br>
+Exemples d'utilisation :<br>
+result = <a href="#-messageBox">messageBox</a>('Le script a &eacute;chou&eacute;',<br>
+                    'Ce script fonctionne seulement lorsqu'un cadre de texte est s&eacute;lectionn&eacute;.',<br>
+                    ICON_ERROR)<br>
+result = <a href="#-messageBox">messageBox</a>('Singes!'Qu'est-ce qui fait ook?&lt;i&gt;C'est le singe?&lt;/i&gt;',<br>
+                    ICON_WARNING, BUTTON_YES|BUTTONOPT_DEFAULT,<br>
+                    BUTTON_NO, BUTTON_IGNORE|BUTTONOPT_ESCAPE)<br>
+ <br>
+Constantes de bouton et d'ic&ocirc;ne d&eacute;finies :<br>
+BUTTON_NONE, BUTTON_ABORT, BUTTON_CANCEL, BUTTON_IGNORE, BUTTON_NO,<br>
+BUTTON_NOALL, BUTTON_OK, BUTTON_RETRY, BUTTON_YES, BUTTON_YESALL,<br>
+ICON_NONE, ICON_INFORMATION, ICON_WARNING, ICON_CRITICAL.</code></dd>
+
+	<dt><a name="-messagebarText"><strong>messagebarText</strong></a>(...)</dt><dd><code><a href="#-messagebarText">messagebarText</a>("cha&icirc;ne")<br>
+ <br>
+&Eacute;crit "cha&icirc;ne" dans la barre de message de Scribus (ligne d'&eacute;tat). Le texte<br>
+doit &ecirc;tre encod&eacute; en une cha&icirc;ne UTF8 ou en une cha&icirc;ne 'unicode' (recommand&eacute;).</code></dd></dl>
+<dt><a name="-moveObject"><strong>moveObject</strong></a>(...)</dt><dd><code><a href="#-moveObject">moveObject</a>(dx, dy [, "nom"])<br>
+ <br>
+D&eacute;place l'objet "nom" de dx et dy par rapport &agrave; sa position courante. Les<br>
+distances sont exprim&eacute;es dans les unit&eacute;s de mesure courantes du document (voir<br>
+les constantes UNIT). Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br>
+Si l'objet "nom" appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</code></dd></dl>
+<dt><a name="-moveObjectAbs"><strong>moveObjectAbs</strong></a>(...)</dt><dd><code><a href="#-moveObjectAbs">moveObjectAbs</a>(x, y [, "nom"])<br>
+ <br>
+D&eacute;place l'objet "nom" &agrave; une nouvelle position. Les coordonn&eacute;es sont exprim&eacute;es dans<br>
+les unit&eacute;s de mesure courantes du document (voir les constantes UNIT).  Si "nom"<br>
+n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.  Si l'objet "nom"<br>
+appartient &agrave; un groupe, tout le groupe est d&eacute;plac&eacute;.</code></dd></dl>
+<dt><a name="-newDoc"><strong>newDoc</strong></a>(...)</dt><dd><code><a href="#-newDoc">newDoc</a>(taille, marges, orientation, numeroPremierePage,<br>
+                   unite, pagesRegard, premierePageGauche) -&gt; bool&eacute;en<br>
+ <br>
+Cr&eacute;e un nouveau document et retourne la valeur True si l'op&eacute;ration r&eacute;ussit. Les param&egrave;tres ont la<br>
+signification suivante :<br>
+ <br>
+    taille = un vecteur (largeur, hauteur) d&eacute;crivant la taille du document. Vous pouvez<br>
+    utiliser des constantes pr&eacute;d&eacute;finies nomm&eacute;es PAPER_&lt;paper_type&gt; c'est-&agrave;-dire PAPER_A4 etc.<br>
+ <br>
+     marges = un vecteur (gauche, droite, haut, bas) d&eacute;crivant les marges du<br>
+    document<br>
+ <br>
+    orientation = l'orientation de la page - constantes PORTRAIT, LANDSCAPE<br>
+ <br>
+    numeroPremierePage = est le num&eacute;ro de la premi&egrave;re page dans le document utilis&eacute;<br>
+    pour pagenumbering. M&ecirc;me si habituellement vous choisirez la valeur 1, il est utile d'avoir<br>
+    de plus grands nombres si vous cr&eacute;ez un document en plusieurs parties.<br>
+ <br>
+    unit&eacute; = cette valeurs d&eacute;finit les unit&eacute;s de mesure utilis&eacute;es par le document. Utilisez une<br>
+    constante pr&eacute;d&eacute;finie pour cela, parmi les suivantes : UNIT_INCHES, UNIT_MILLIMETERS,<br>
+    UNIT_PICAS, UNIT_POINTS.<br>
+ <br>
+    pagesRegard = FACINGPAGES, NOFACINGPAGES<br>
+ <br>
+    premierPageGauche = FIRSTPAGELEFT, FIRSTPAGERIGHT<br>
+ <br>
+Les valeurs &eacute;tablies pour la largeur, la hauteur et les marges sont exprim&eacute;es dans les unit&eacute;s choisies<br>
+pour le document. Les constantes PAPER_* sont exprim&eacute;es en points. Si votre document<br>
+n'est pas d&eacute;fini en points, assurez-vous d'en tenir compte.<br>
+ <br>
+exemple : <a href="#-newDoc">newDoc</a>(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 1, UNIT_POINTS,<br>
+                FACINGPAGES, FIRSTPAGERIGHT)</code></dd></dl>
+<dt><a name="-newDocDialog"><strong>newDocDialog</strong></a>(...)</dt><dd><code><a href="#-newDocDialog">newDocDialog</a>() -&gt; bool&eacute;en<br>
+ <br>
+Affiche la bo&icirc;te dialogue "Nouveau document". Cr&eacute;e un nouveau document si l'utilisateur accepte les param&egrave;tres. Ne cr&eacute;e pas de document si l'utilisateur appuie sur Annuler. Retourne la valeur True si un nouveau document a &eacute;t&eacute; cr&eacute;&eacute;.</code></dd>
+
+	<dt><a name="-newPage"><strong>newPage</strong></a>(...)</dt>
+	<dd><code><a href="#-newPage">newPage</a>(lieu [,"mod&egrave;le"])<br><br>Cr&eacute;e une nouvelle page. Si "lieu" est &agrave; -1, la nouvelle page est ajout&eacute;e &agrave; la fin du document, sinon la nouvelle page est ins&eacute;r&eacute;e avant "lieu". Les num&eacute;ros de page sont incr&eacute;ment&eacute;s &agrave; partir de 1, peu importe le premier num&eacute;ro de page affich&eacute; dans votre document. Le
+param&egrave;tre optionnel "mod&egrave;le" sp&eacute;cifie le nom du gabarit pour la nouvelle page.<br><br>Peut g&eacute;n&eacute;rer IndexError si le num&eacute;ro de page est hors limites</code></dd>
+
+	<dt><a name="-objectExists"><strong>objectExists</strong></a>(...)</dt>
+	<dd><code><a href="#-objectExists">objectExists</a>(["nom"]) -&gt; bool&eacute;en<br><br>Teste si un objet avec le nom sp&eacute;cifi&eacute; existe r&eacute;ellement dans le document. Le param&egrave;tre optionnel est le nom de l'objet. Lorsqu'aucun nom d'objet n'est donn&eacute;, retourne la valeur True si un &eacute;l&eacute;ment est s&eacute;lectionn&eacute;.</code></dd>
+
+	<dt><a name="-openDoc"><strong>openDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-openDoc">openDoc</a>("nom")<br><br>Ouvre le document "nom".<br> <br>Peut g&eacute;n&eacute;rer ScribusError si le document ne peut pas &ecirc;tre ouvert.</code></dd>
+
+	<dt><a name="-pageCount"><strong>pageCount</strong></a>(...)</dt>
+	<dd><code><a href="#-pageCount">pageCount</a>() -&gt; entier<br><br>Retourne le nombre de pages dans le document.</code></dd>
+
+	<dt><a name="-pageDimension"><strong>pageDimension</strong></a>(...)</dt>
+	<dd><code><a href="#-getPageSize">getPageSize</a>() -&gt; vecteur<br><br>Retourne un vecteur pr&eacute;cisant les dimensions de la page mesur&eacute;es dans les unit&eacute;s courantes du document.<br>Voir les constantes UNIT_&lt;type&gt; et <a href="#-getPageMargins">getPageMargins</a>()</code></dd>
+
+	<dt><a name="-progressReset"><strong>progressReset</strong></a>(...)</dt>
+	<dd><code><a href="#-progressReset">progressReset</a>()<br><br>&Eacute;limine les r&eacute;glages pr&eacute;c&eacute;dents de la barre de progression de Scribus. La fonction est appel&eacute;e avant l'utilisation de la
+nouvelle barre de progression. Voir progressSet.</code></dd>
+
+	<dt><a name="-progressSet"><strong>progressSet</strong></a>(...)</dt>
+	<dd><code><a href="#-progressSet">progressSet</a>(nr)<br><br>&Eacute;tablit la position de la barre de progression &agrave; "nr", , c'est-&agrave;-dire une valeur relative &agrave; la valeur pr&eacute;c&eacute;dente de progressTotal. La
+barre de progression utilise le concept d'&eacute;tapes; il suffit d'indiquer le nombre total d'&eacute;tapes et le nombre d'&eacute;tapes d&eacute;j&agrave; effectu&eacute;es, puis la fonction affichera le pourcentage d'avancement. Vous pouvez sp&eacute;cifier le nombre total d'&eacute;tapes avec <a href="#-progressTotal">progressTotal</a>(). Le nombre courant d'&eacute;tapes est indiqu&eacute; avec <a href="#-progressSet">progressSet</a>(). La barre de progression peut &ecirc;tre remise &agrave; z&eacute;ro avec <a href="#-progressReset">progressReset</a>(). [compte tenu de l'information provenant de la documentation QT de Trolltech]</code></dd>
+
+	<dt><a name="-progressTotal"><strong>progressTotal</strong></a>(...)</dt>
+	<dd><code><a href="#-progressTotal">progressTotal</a>(max)<br><br>&Eacute;tablit le nombre maximal d'&eacute;tapes de la barre de progression au nombre sp&eacute;cifi&eacute;. Voir progressSet.</code></dd>
+
+	<dt><a name="-redrawAll"><strong>redrawAll</strong></a>(...)</dt>
+	<dd><code><a href="#-redrawAll">redrawAll</a>()<br><br>Redessine toutes les pages.</code></dd>
+
+	<dt><a name="-renderFont"><strong>renderFont</strong></a>(...)</dt>
+	<dd><code>renderFont("nom", "nomFichier", "example", taille, format="PPM") -&gt; bool&eacute;en</code>
+	<p>Cr&eacute;e un aper&ccedil;u image de la police "nom" avec le texte "exemple" et la taille "taille". L'image est enregistr&eacute;e dans "nomFichier". Retourne la valeur True si l'op&eacute;ration r&eacute;ussit. L'argument optionnel "format" sp&eacute;cifie le format de l'image &agrave; g&eacute;n&eacute;rer et supporte tout format admis par QPixmap.save(). Les
+formats courants sont PPM, JPEG, PNG et XPM.</p>
+	<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#NotFoundError">NotFoundError</a> si la police sp&eacute;cifi&eacute;e n'est pas trouv&eacute;e. Peut g&eacute;n&eacute;rer ValueError si un "example" ou un "nomFichier" vide est pass&eacute;.</p></dd></dl>
+
+	<dt><a name="-replaceColor"><strong>replaceColor</strong></a>(...)</dt>
+	<dd><code><a href="#-replaceColor">replaceColor</a>("nom", "remplacement")<br><br>Chaque occurrence de la couleur "nom" est remplac&eacute;e par la couleur "remplacement".<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si une couleur nomm&eacute;e n'est pas trouv&eacute;e.<br>Peut g&eacute;n&eacute;rer ValueError si un nom de couleur invalide est sp&eacute;cifi&eacute;.</code></dd>
+
+	<dt><a name="-retval"><strong>retval</strong></a>(...)</dt>
+	<dd><code>Interne &agrave; Scribus.</code></dd>
+
+	<dt><a name="-rotateObject"><strong>rotateObject</strong></a>(...)</dt>
+	<dd><code><a href="#-rotateObject">rotateObject</a>(rot [, "nom"])<br><br>Fait pivoter l'objet "nom" de la valeur "rot" en degr&eacute;s relatifs. La rotation est activ&eacute;e par le sommet
+s&eacute;lectionn&eacute; comme point de rotation - par d&eacute;faut, le sommet en haut &agrave; gauche est le point de z&eacute;ro rotation. Les valeurs positives signifient une rotation dans le sens des aiguilles d'une montre, lorsque le point de rotation par d&eacute;faut est utilis&eacute;. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-rotateObjectAbs"><strong>rotateObjectAbs</strong></a>(...)</dt>
+	<dd><code><a href="#-rotateObjectAbs">rotateObjectAbs</a>(rot [, "nom"])<br><br>&Eacute;tablit la rotation de l'objet "nom" &agrave; "rot". Des valeurs positives signifient
+une rotation dans le sens des aiguilles d'une montre. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-saveDoc"><strong>saveDoc</strong></a>(...)</dt>
+	<dd><code><a href="#-saveDoc">saveDoc</a>()<br><br>Enregistre le document ouvert sous son nom courant, et retourne la valeur True si l'op&eacute;ration r&eacute;ussit. Si le document
+n'a pas d&eacute;j&agrave; &eacute;t&eacute; enregistr&eacute;, le syst&egrave;me peut afficher le dialogue interactif Enregistrer sous.<br><br>Si l'enregistrement
+&eacute;choue, il n'y a actuellement aucun moyen de le savoir.</code></dd>
+
+	<dt><a name="-saveDocAs"><strong>saveDocAs</strong></a>(...)</dt><dd><code><a href="#-saveDocAs">saveDocAs</a>("nom")<br><br>Enregistre le document courant sous le nouveau "nom" (qui peut &ecirc;tre un chemin complet ou relatif).<br><br>Peut g&eacute;n&eacute;rer ScribusError si l'enregistrement &eacute;choue.</code></dd>
+
+	<dt><a name="-savePageAsEPS"><strong>savePageAsEPS</strong></a>(...)</dt>
+	<dd><code><a href="#-savePageAsEPS">savePageAsEPS</a>("nom")<br><br>Enregistre la page courante comme EPS dans le fichier "nom".<br><br>Peut g&eacute;n&eacute;rer ScribusError si l'enregistrement &eacute;choue.</code></dd>
+
+	<dt><a name="-scaleGroup"><strong>scaleGroup</strong></a>(...)</dt>
+	<dd><code><a href="#-scaleGroup">scaleGroup</a>(facteur [,"nom"])<br><br>Redimensionne le groupe auquel l'objet "nom" appartient. Les valeurs sup&eacute;rieures &agrave; 1 agrandissent le groupe, les valeurs inf&eacute;rieures &agrave; 1 rendent le groupe plus petit, par exemple une valeur de 0.5 redimensionne le groupe &agrave; 50 % de sa taille originale, tandis qu'une valeur de 1.5 redimensionne le groupe &agrave; 150 % de sa taille originale. La valeur de "facteur" doit &ecirc;tre sup&eacute;rieure &agrave; 0. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;.<br><br>Peut g&eacute;n&eacute;rer ValueError si le facteur de redimensionnement n'est pas valide.</code></dd>
+
+	<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+	<dd><code><a href="#-scaleImage">scaleImage</a>(x, y [, "nom"])<br><br>D&eacute;finit les facteurs de redimensionnement de l'image dans le cadre d'image "nom". Si le "nom" n'est
+pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Un nombre de 1 signifie 100 %.<br><br>Peut g&eacute;n&eacute;rer <a href="#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image.</code></dd>
+
+	<dt><a name="-selectObject"><strong>selectObject</strong></a>(...)</dt><dd><code><a href="#-selectObject">selectObject</a>("nom")<br><br>S&eacute;lectionne l'objet avec le nom "nom".</code></dd>
+
+	<dt><a name="-selectText"><strong>selectText</strong></a>(...)</dt>
+	<dd><code><a href="#-selectText">selectText</a>(depart, compte, ["nom"])<br><br>S&eacute;lectionne le nombre ("compte") de caract&egrave;res
+de texte dand le cadre de texte "nom" en partant du caract&egrave;re "d&eacute;part". Le comptage des caract&egrave;res commence &agrave; 0. Si "compte" est &agrave; z&eacute;ro, tout le texte sera effac&eacute;. Si le "nom"
+n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer IndexError si la s&eacute;lection d&eacute;passe les limites du texte.</code></dd>
+
+	<dt><a name="-selectionCount"><strong>selectionCount</strong></a>(...)</dt>
+	<dd><code><a href="#-selectionCount">selectionCount</a>() -&gt; entier<br><br>Retourne le nombre d'objets s&eacute;lectionn&eacute;s.</code></dd>
+
+	<dt><a name="-sentToLayer"><strong>sentToLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-sentToLayer">sentToLayer</a>("calque" [, "nom"])<br><br>Envoie l'objet "nom" au calque "calque". Le calque doit exister. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide. </code></dd>
+
+	<dt><a name="-setActiveLayer"><strong>setActiveLayer</strong></a>(...)</dt>
+	<dd><code><a href="#-setActiveLayer">setActiveLayer</a>("nom")<br><br>Rend actif le calque nomm&eacute; "nom".<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</code></dd>
+
+	<dt><a name="-setColumnGap"><strong>setColumnGap</strong></a>(...)</dt>
+	<dd><code><a href="#-setColumnGap">setColumnGap</a>(taille, ["nom"])<br><br>&Eacute;tablit la goutti&egrave;re de colonne du cadre de texte "nom" &agrave; la valeur "taille". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si la goutti&egrave;re de colonne est hors limites (elle doit &ecirc;tre positive).</code></dd>
+
+	<dt><a name="-setColumns"><strong>setColumns</strong></a>(...)</dt>
+	<dd><code><a href="#-setColumns">setColumns</a>(nr, ["nom"])<br><br>&Eacute;tablit le nombre de colonnes du cadre de texte "nom" &agrave; la valeur enti&egrave;re "nr". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si le nombre de colonnes n'est pas au moins &eacute;gal &agrave; un.</code></dd>
+
+	<dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+	<dd><code><a href="#-setCornerRadius">setCornerRadius</a>(rayon, ["nom"])<br><br>&Eacute;tablit le rayon de coin de l'objet "nom". Le rayon est exprim&eacute; en points. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si le rayon de coin est n&eacute;gatif.</code></dd>
+
+	<dt><a name="-setCursor"><strong>setCursor</strong></a>(...)</dt>
+	<dd><code><a href="#-setCursor">setCursor</a>()<br><br>[NON SUPPORT&Eacute; !] Cette fonction peut cr&eacute;er des dommages, donc &eacute;vitez de l'utiliser.</code></dd>
+
+	<dt><a name="-setDocType"><strong>setDocType</strong></a>(...)</dt><dd><code><a href="#-setDocType">setDocType</a>(pagesRegard, premierePageGauche)<br>
+ <br>Assigne le type de document. Pour obtenir des pages en regard, mettez le premier param&egrave;tre &agrave; FACINGPAGES; pour d&eacute;sactiver facingPages, utilisez NOFACINGPAGES &agrave; la place. Si vous voulez que la premi&egrave;re page soit &agrave; gauche, mettez le deuxi&egrave;me param&egrave;tre &agrave; FIRSTPAGELEFT; pour une premi&egrave;re page &agrave; droite, utilisez FIRSTPAGERIGHT.</code></dd>
+
+	<dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+	<dd><code><a href="#-setFillColor">setFillColor</a>("couleur", ["nom"])<br><br>&Eacute;tablit la couleur de fond de l'objet "nom" &agrave; la couleur "couleur". La "couleur" est le nom d'une des couleurs d&eacute;finies. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+	<dd><code><a href="#-setFillShade">setFillShade</a>(teinte, ["nom"])<br><br>&Eacute;tablit la teinte de la couleur de fond de l'objet "nom" &agrave; "teinte". La "teinte" doit &ecirc;tre
+une valeur enti&egrave;re entre 0 (le plus p&acirc;le) et 100 (toute l'intensit&eacute; couleur). Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Peut g&eacute;n&eacute;rer ValueError si la couleur de fond est hors limites.</code></dd>
+
+ 	<dt><a name="-setFont"><strong>setFont</strong></a>(...)</dt>
+	<dd><code><a href="#-setFont">setFont</a>("police", ["nom"])<br><br>Assigne la police du cadre de texte "nom" &agrave; la "police". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte sera modifi&eacute;. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si la police est introuvable. </code></dd>
+
+	<dt><a name="-setFontSize"><strong>setFontSize</strong></a>(...)</dt>
+	<dd><code><a href="#-setFontSize">setFontSize</a>(police, ["nom"])<br><br>&Eacute;tablit la taille de police du cadre de texte "nom" &agrave; la valeur "taille". La "taille" est trait&eacute;e comme une valeur en points. S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte sera modifi&eacute;. La "taille" doit &ecirc;tre r&eacute;gl&eacute;e entre 1 et 512. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError pour une taille de police qui est hors limites.</code></dd>
+	<dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt><dd><code><a href="#-setGradientFill">setGradientFill</a>(type, "couleur1", teinte1, "couleur2", teinte2, ["nom"])<br><br>&Eacute;tablit le d&eacute;grad&eacute; de fond de l'objet "nom" &agrave; "type". Les descriptions des couleurs sont identiques &agrave; celles de <a href="#-setFillColor">setFillColor</a>() et de<a href="#-setFillShade">setFillShade</a>(). Voir les constantes pour les types disponibles (FILL_&lt;type&gt;).</code></dd>
+
+	<dt><a name="-setHGuides"><strong>setHGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-setHGuides">setHGuides</a>(liste)<br><br>&Eacute;tablit les guides horizontaux. Le param&egrave;tre en entr&eacute;e doit &ecirc;tre une liste de positions de guide
+exprim&eacute;es dans les unit&eacute;s courantes du document - voir les constantes UNIT_&lt;type&gt;.<br><br>Exemple : <a href="#-setHGuides">setHGuides</a>(<a href="#-getHGuides">getHGuides</a>() + [200.0, 210.0] # ajoute de nouveaux guides sans en perdre aucun<br>
+         <a href="#-setHGuides">setHGuides</a>([90,250]) # remplace la totalit&eacute; des guides courants</code></dd>
+
+	<dt><a name="-setInfo"><strong>setInfo</strong></a>(...)</dt>
+	<dd><code><a href="#-saveDocAs">saveDocAs</a>("auteur", "info", "description") -&gt; bool&eacute;en<br><br>&Eacute;tablit l'information relative au document. "Auteur", "Info", "Description" sont des cha&icirc;nes.</code></dd>
+
+	<dt><a name="-setLayerPrintable"><strong>setLayerPrintable</strong></a>(...)</dt><dd><code><a href="#-setLayerPrintable">setLayerPrintable</a>("calque", imprimable)<br><br>Autorise ou non l'impression du "calque". Si la valeur "imprimable" est &agrave; False, le calque ne sera pas imprim&eacute;.<br><br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide.</code></dd>
+
+	<dt><a name="-setLayerVisible"><strong>setLayerVisible</strong></a>(...)</dt><dd><code><a href="#-setLayerVisible">setLayerVisible</a>("calque", visible)<br><br>Affiche ou masque le "calque". Si "visible" prend la valeur False, le calque est invisible.<br> <br>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le calque est introuvable. <br>Peut g&eacute;n&eacute;rer ValueError si le nom du calque n'est pas valide. </code></dd>
+
+	<dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+	<dd><code>setLineEnd(typeFin, ["nom"])<br><br>&Eacute;tablit la valeur de style "typeFin" pour le bout de ligne de l'objet "nom".<br>Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Il y a des constantes pr&eacute;d&eacute;finies pour "typeFin" - CAP_&lt;type&gt;.</code></dd>
+
+	<dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineColor">setLineColor</a>("couleur", ["nom"])<br><br>&Eacute;tablit la valeur "couleur" pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineJoin">setLineJoin</a>(jonction, ["nom"])<br><br>&Eacute;tablit la valeur du style "jonction# pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Il y a des constantes pr&eacute;d&eacute;finies pour "jonction" - JOIN_&lt;type&gt;.</code></dd>
+
+	<dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineShade">setLineShade</a>(teinte, ["nom"])<br><br>&Eacute;tablit la valeur "teinte" pour la couleur de filet de l'objet "nom". La valeur de "teinte" doit &ecirc;tre un nombre entier  entre 0 (p&acirc;le) et 100 (intensit&eacute; maximale). Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si la teinte du filet est hors limites.</code></dd>
+
+	<dt><a name="-setLineSpacing"><strong>setLineSpacing</strong></a>(...)</dt><dd><code><a href="#-setLineSpacing">setLineSpacing</a>(taille, ["nom"])<br><br>&Eacute;tablit la valeur "taille" pour l'interlignage ("leading") du cadre de texte "nom". La
+"taille" est une valeur en points. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si l'interlignage est hors limites.</code></dd>
+
+	<dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineStyle">setLineStyle</a>(style, ["nom"])<br><br>&Eacute;tablit la valeur "style" pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Il y a des constantes pr&eacute;d&eacute;finies pour "style" - LINE_&lt;style&gt;.</code></dd>
+
+	<dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+	<dd><code><a href="#-setLineWidth">setLineWidth</a>(&eacute;paisseur, ["nom"])<br><br>&Eacute;tablit la valeur "&eacute;paisseur" pour le filet de l'objet "nom". La valeur "&eacute;paisseur" doit &ecirc;tre entre 0.0 et 12.0 inclusivement, exprim&eacute;e en points. Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; courant est utilis&eacute;. <br><br>Peut g&eacute;n&eacute;rer ValueError si l'&eacute;paisseur de filet est hors limites.</code></dd>
+
+	<dt><a name="-setMargins"><strong>setMargins</strong></a>(...)</dt>
+	<dd><code><a href="#-setMargins">setMargins</a>(gr, dr, hr, br)<br><br>&Eacute;tablit les marges du document, les marges gauche(gr), droite(dr), haut(hr) et bas(br) sont indiqu&eacute;es dans les unit&eacute;s de mesure du document - voir les constantesUNIT_&lt;type&gt;.</code></dd>
+
+	<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+	<dd><code><a href="#-setMultiLine">setMultiLine</a>("styleNomme", ["nom"])<br><br>&Eacute;tablit la valeur "styleNomme" pour le style de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <br/><br/>Peut g&eacute;n&eacute;rer <a href="#NotFoundError">NotFoundError</a> si le style de filet n'existe pas.</code></dd>
+
+	<dt><a name="-setPDFBookmark"><strong>setPDFBookmark</strong></a>(...)</dt>
+	<dd><code><a href="#-setPDFBookmark">setPDFBookmark</a>("toggle", ["nom"])</code>
+	<p>D&eacute;finit si le cadre de texte "nom" est un signet (toggle = 1) ou non. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p> 
+	<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError si le cadre cible n'est pas un cadre de texte.</p></dd>
+
+	<dt><a name="-setRedraw"><strong>setRedraw</strong></a>(...)</dt>
+	<dd><code><a href="#-setRedraw">setRedraw</a>(bool)<br><br>D&eacute;sactive le rafra&icirc;chissement d'&eacute;cran quand bool = False, sinon le rafra&icirc;chissement est activ&eacute;. Comme ce changement garde son effet apr&egrave;s la fin du script, vous devez appeler <a href="#-setRedraw">setRedraw</a>(True) dans une clause finally: au d&eacute;but de votre script.</code></dd>
+
+	<dt><a name="-setScaleImageToFrame"><strong>setScaleImageToFrame</strong></a>(...)</dt>
+	<dd><code><a href="#-setScaleImageToFrame">setScaleImageToFrame</a>(redimAuCadre, proportionnel=None, nom=&lt;selection&gt;)</code>
+	<p>&Eacute;tablit le mode de redimensionnement par rapport au cadre d'image s&eacute;lectionn&eacute;, ou sp&eacute;cifi&eacute; dans 'redimAuCadre'. Si 'proportionnel' est sp&eacute;cifi&eacute;, &eacute;tablit le redimensionnement en maintenant des proportions fixes. 'redimAuCadre' et 'proportionnel' sont bool&eacute;ens.</p>
+	<p>Peut g&eacute;n&eacute;rer WrongFrameTypeError.</p></dd>
+
+	<dt><a name="-setStyle"><strong>setStyle</strong></a>(...)</dt>
+	<dd><code><a href="#-setStyle">setStyle</a>("style" [, "nom"])<br><br>&Eacute;tablit le "style" d&eacute;sign&eacute; &agrave; l'objet "nom". Si aucun objet n'est fourni, le style est appliqu&eacute; &agrave; l'objet s&eacute;lectionn&eacute;.</code></dd>
+
+	<dt><a name="-setText"><strong>setText</strong></a>(...)</dt>
+	<dd><code><a href="#-setText">setText</a>("texte", ["nom"])<br><br>&Eacute;tablit la cha&icirc;ne "texte" pour contenu du cadre de texte "nom". Le texte doit &ecirc;tre encod&eacute; en UTF8 - utilisez par exemple Unicode(texte, 'iso-8859-2'). Voir les FAQ pour plus de d&eacute;tails. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-setTextAlignment"><strong>setTextAlignment</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextAlignment">setTextAlignment</a>(alignement, ["nom"])<br><br>&Eacute;tablit la valeur sp&eacute;cifi&eacute;e pour l'alignement du contenu du cadre de texte "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. La valeur "alignement" doit &ecirc;tre une des constantes ALIGN_ d&eacute;finies dans ce module - voir dir(scribus).<br><br>Peut g&eacute;n&eacute;rer ValueError si la constante d'alignement n'est pas valide.</code></dd>
+
+	<dt><a name="-setTextColor"><strong>setTextColor</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextColor">setTextColor</a>("couleur", ["nom"])<br /><br>&Eacute;tablit la "couleur" du contenu du cadre de texte "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul ce texte  sera modifi&eacute;. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-setTextShade"><strong>setTextShade</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextShade">setTextShade</a>(teinte, ["nom"])<br><br>&Eacute;tablit la valeur "teinte" pour la couleur du texte de l'objet "nom". S'il y a du texte s&eacute;lectionn&eacute;, seul cetexte sera modifi&eacute;. La valeur "teinte" doit &ecirc;tre un nombre entier compris entre 0 (p&acirc;le) et 100 (intensit&eacute; maximale). Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-setTextStroke"><strong>setTextStroke</strong></a>(...)</dt>
+	<dd><code><a href="#-setTextStroke">setTextStroke</a>("couleur", ["nom"])<br><br>&Eacute;tablit la "couleur" au contour des caract&egrave;res. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-setUnit"><strong>setUnit</strong></a>(...)</dt>
+	<dd><code><a href="#-setUnit">setUnit</a>(unite)<br><br>Change l'unit&eacute; de mesure du document. Les valeurs possibles de l'"unit&eacute;" sont d&eacute;finies par les constantes UNIT_&lt;type&gt;.<br> <br>Peut g&eacute;n&eacute;rer ValueError si l'unit&eacute; pass&eacute;e n'est pas valide.</code></dd>
+
+	<dt><a name="-setVGuides"><strong>setVGuides</strong></a>(...)</dt>
+	<dd><code><a href="#-setVGuides">setVGuides</a>()<br><br>Voir setHGuides.</code></dd>
+
+	<dt><a name="-sizeObject"><strong>sizeObject</strong></a>(...)</dt>
+	<dd><code><a href="#-sizeObject">sizeObject</a>(largeur, hauteur [, "nom"])<br><br>Redimensionne l'objet "nom" &agrave; la largeur et &agrave; la hauteur donn&eacute;es. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-statusMessage"><strong>statusMessage</strong></a>(...)</dt>
+	<dd><code><a href="#-messagebarText">messagebarText</a>("cha&icirc;ne")<br><br>&Eacute;crit "cha&icirc;ne" dans la barre de message de Scribus (ligne d'&eacute;tat). Le texte doit &ecirc;tre encod&eacute; en UTF8 ou en une cha&icirc;ne 'unicode' (recommand&eacute;).</code></dd>
+
+	<dt><a name="-textFlowsAroundFrame"><strong>textFlowsAroundFrame</strong></a>(...)</dt>
+	<dd><code><a href="#-textFlowsAroundFrame">textFlowsAroundFrame</a>("nom" [, &eacute;tat])<br> <br>Active ou d&eacute;sactive l'"habillage" (le texte d&eacute;file autour de l'objet) pour l'objet "nom". Appel&eacute;
+avec les param&egrave;tres cha&icirc;ne "nom" et le bool&eacute;en optionnel "&eacute;tat". Si "&eacute;tat" n'est pas pass&eacute;, cette fonctionnalit&eacute; change de valeur (activ&eacute;e si inactive ou d&eacute;sactiv&eacute;e si active).</code></dd>
+
+	<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+	<dd><code><a href="#-traceText">traceText</a>(["nom"])<br><br>Convertit le cadre de texte "nom" en contours. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-unGroupObject"><strong>unGroupObject</strong></a>(...)</dt>
+	<dd><code>unGroupObjects("nom")<br><br>D&eacute;truit le groupe auquel appartient l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;.</code></dd>
+
+	<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt><dd>
+ <code><a href="#-unlinkTextFrames">unlinkTextFrames</a>("nom")<br><br>Retire l'objet d&eacute;sign&eacute; de la s&eacute;quence de liens du cadre de texte. Si le cadre se trouvait au milieu d'une cha&icirc;ne de liens, les cadres pr&eacute;c&eacute;dent et suivant seront connect&eacute;s, par exemple 'a-&gt;b-&gt;c' devient 'a-&gt;c' lorsque vous d&eacute;connectez <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'<br><br>Peut
+g&eacute;n&eacute;rer <a href="#ScribusException">ScribusException</a> en cas d'infraction des r&egrave;gles de liens. </code></dd>
+
+	<dt><a name="-valueDialog"><strong>valueDialog</strong></a>(...)</dt><dd><code><a href="#-valueDialog">valueDialog</a>(titre, message [,valeurDefaut]) -&gt; cha&icirc;ne<br> <br>Affiche la bo&icirc;te de dialogue "Demande d'une cha&icirc;ne" et retourne la valeur recherch&eacute;e sous la forme d'une  cha&icirc;ne<br>Param&egrave;tres : titre de la fen&ecirc;tre, texte dans la fen&ecirc;tre et une valeur par 'd&eacute;faut' optionnelle.<br> <br>Exemple : <a href="#-valueDialog">valueDialog</a>('titre', 'texte dans la fen&ecirc;tre', 'optionnel')</code></dd>
+</dl>
+
+<hr />
+<h3>Donn&eacute;es</h3>
+
+<strong>ALIGN_BLOCK</strong> = 4<br>
+<strong>ALIGN_CENTERED</strong> = 1<br>
+<strong>ALIGN_FORCED</strong> = 4<br>
+<strong>ALIGN_LEFT</strong> = 0<br>
+<strong>ALIGN_RIGHT</strong> = 2<br>
+<strong>Abort</strong> = 5<br>
+<strong>BUTTON_ABORT</strong> = 5<br>
+<strong>BUTTON_CANCEL</strong> = 2<br>
+<strong>BUTTON_IGNORE</strong> = 7<br>
+<strong>BUTTON_NO</strong> = 4<br>
+<strong>BUTTON_NONE</strong> = 0<br>
+<strong>BUTTON_OK</strong> = 1<br>
+<strong>BUTTON_RETRY</strong> = 6<br>
+<strong>BUTTON_YES</strong> = 3<br>
+<strong>BevelJoin</strong> = 64<br>
+<strong>CAP_FLAT</strong> = 0<br>
+<strong>CAP_ROUND</strong> = 32<br>
+<strong>CAP_SQUARE</strong> = 16<br>
+<strong>Cancel</strong> = 2<br>
+<strong>Centered</strong> = 1<br>
+<strong>Critical</strong> = 3<br>
+<strong>CrossDiagonalGradient</strong> = 4<br>
+<strong>DashDotDotLine</strong> = 5<br>
+<strong>DashDotLine</strong> = 4<br>
+<strong>DashLine</strong> = 2<br>
+<strong>DiagonalGradient</strong> = 3<br>
+<strong>DotLine</strong> = 3<br>
+<strong>FACINGPAGES</strong> = 1<br>
+<strong>FILL_CROSSDIAGONALG</strong> = 4<br>
+<strong>FILL_DIAGONALG</strong> = 3<br>
+<strong>FILL_HORIZONTALG</strong> = 1<br>
+<strong>FILL_NOG</strong> = 0<br>
+<strong>FILL_RADIALG</strong> = 5<br>
+<strong>FILL_VERTICALG</strong> = 2<br>
+<strong>FIRSTPAGELEFT</strong> = 1<br>
+<strong>FIRSTPAGERIGHT</strong> = 0<br>
+<strong>FacingPages</strong> = 1<br>
+<strong>FirstPageLeft</strong> = 1<br>
+<strong>FirstPageRight</strong> = 0<br>
+<strong>FlatCap</strong> = 0<br>
+<strong>Forced</strong> = 4<br>
+<strong>HorizontalGradient</strong> = 1<br>
+<strong>ICON_CRITICAL</strong> = 3<br>
+<strong>ICON_INFORMATION</strong> = 1<br>
+<strong>ICON_NONE</strong> = 0<br>
+<strong>ICON_WARNING</strong> = 2<br>
+<strong>Ignore</strong> = 7<br>
+<strong>Inches</strong> = 2<br>
+<strong>Information</strong> = 1<br>
+<strong>JOIN_BEVEL</strong> = 64<br>
+<strong>JOIN_MITTER</strong> = 0<br>
+<strong>JOIN_ROUND</strong> = 128<br>
+<strong>LANDSCAPE</strong> = 1<br>
+<strong>LINE_DASH</strong> = 2<br>
+<strong>LINE_DASHDOT</strong> = 4<br>
+<strong>LINE_DASHDOTDOT</strong> = 5<br>
+<strong>LINE_DOT</strong> = 3<br>
+<strong>LINE_SOLID</strong> = 1<br>
+<strong>Landscape</strong> = 1<br>
+<strong>LeftAlign</strong> = 0<br>
+<strong>Millimeters</strong> = 1<br>
+<strong>MiterJoin</strong> = 0<br>
+<strong>NOFACINGPAGES</strong> = 0<br>
+<strong>No</strong> = 4<br>
+<strong>NoButton</strong> = 0<br>
+<strong>NoFacingPages</strong> = 0<br>
+<strong>NoGradient</strong> = 0<br>
+<strong>NoIcon</strong> = 0<br>
+<strong>Ok</strong> = 1<br>
+<strong>PAPER_A0</strong> = (2380.0, 3368.0)<br>
+<strong>PAPER_A1</strong> = (1684.0, 2380.0)<br>
+<strong>PAPER_A2</strong> = (1190.0, 1684.0)<br>
+<strong>PAPER_A3</strong> = (842.0, 1190.0)<br>
+<strong>PAPER_A4</strong> = (595.0, 842.0)<br>
+<strong>PAPER_A5</strong> = (421.0, 595.0)<br>
+<strong>PAPER_A6</strong> = (297.0, 421.0)<br>
+<strong>PAPER_A7</strong> = (210.0, 297.0)<br>
+<strong>PAPER_A8</strong> = (148.0, 210.0)<br>
+<strong>PAPER_A9</strong> = (105.0, 148.0)<br>
+<strong>PAPER_B0</strong> = (2836.0, 4008.0)<br>
+<strong>PAPER_B1</strong> = (2004.0, 2836.0)<br>
+<strong>PAPER_B10</strong> = (89.0, 125.0)<br>
+<strong>PAPER_B2</strong> = (1418.0, 2004.0)<br>
+<strong>PAPER_B3</strong> = (1002.0, 1418.0)<br>
+<strong>PAPER_B4</strong> = (709.0, 1002.0)<br>
+<strong>PAPER_B5</strong> = (501.0, 709.0)<br>
+<strong>PAPER_B6</strong> = (355.0, 501.0)<br>
+<strong>PAPER_B7</strong> = (250.0, 355.0)<br>
+<strong>PAPER_B8</strong> = (178.0, 250.0)<br>
+<strong>PAPER_B9</strong> = (125.0, 178.0)<br>
+<strong>PAPER_C5E</strong> = (462.0, 649.0)<br>
+<strong>PAPER_COMM10E</strong> = (298.0, 683.0)<br>
+<strong>PAPER_DLE</strong> = (312.0, 624.0)<br>
+<strong>PAPER_EXECUTIVE</strong> = (542.0, 720.0)<br>
+<strong>PAPER_FOLIO</strong> = (595.0, 935.0)<br>
+<strong>PAPER_LEDGER</strong> = (1224.0, 792.0)<br>
+<strong>PAPER_LEGAL</strong> = (612.0, 1008.0)<br>
+<strong>PAPER_LETTER</strong> = (612.0, 792.0)<br>
+<strong>PAPER_TABLOID</strong> = (792.0, 1224.0)<br>
+<strong>PORTRAIT</strong> = 0<br>
+<strong>Paper_A0</strong> = (2380.0, 3368.0)<br>
+<strong>Paper_A1</strong> = (1684.0, 2380.0)<br>
+<strong>Paper_A2</strong> = (1190.0, 1684.0)<br>
+<strong>Paper_A3</strong> = (842.0, 1190.0)<br>
+<strong>Paper_A4</strong> = (595.0, 842.0)<br>
+<strong>Paper_A5</strong> = (421.0, 595.0)<br>
+<strong>Paper_A6</strong> = (297.0, 421.0)<br>
+<strong>Paper_A7</strong> = (210.0, 297.0)<br>
+<strong>Paper_A8</strong> = (148.0, 210.0)<br>
+<strong>Paper_A9</strong> = (105.0, 148.0)<br>
+<strong>Paper_B0</strong> = (2836.0, 4008.0)<br>
+<strong>Paper_B1</strong> = (2004.0, 2836.0)<br>
+<strong>Paper_B10</strong> = (89.0, 125.0)<br>
+<strong>Paper_B2</strong> = (1418.0, 2004.0)<br>
+<strong>Paper_B3</strong> = (1002.0, 1418.0)<br>
+<strong>Paper_B4</strong> = (709.0, 1002.0)<br>
+<strong>Paper_B5</strong> = (501.0, 709.0)<br>
+<strong>Paper_B6</strong> = (355.0, 501.0)<br>
+<strong>Paper_B7</strong> = (250.0, 355.0)<br>
+<strong>Paper_B8</strong> = (178.0, 250.0)<br>
+<strong>Paper_B9</strong> = (125.0, 178.0)<br>
+<strong>Paper_C5E</strong> = (462.0, 649.0)<br>
+<strong>Paper_Comm10E</strong> = (298.0, 683.0)<br>
+<strong>Paper_DLE</strong> = (312.0, 624.0)<br>
+<strong>Paper_Executive</strong> = (542.0, 720.0)<br>
+<strong>Paper_Folio</strong> = (595.0, 935.0)<br>
+<strong>Paper_Ledger</strong> = (1224.0, 792.0)<br>
+<strong>Paper_Legal</strong> = (612.0, 1008.0)<br>
+<strong>Paper_Letter</strong> = (612.0, 792.0)<br>
+<strong>Paper_Tabloid</strong> = (792.0, 1224.0)<br>
+<strong>Picas</strong> = 3<br>
+<strong>Points</strong> = 0<br>
+<strong>Portrait</strong> = 0<br>
+<strong>RadialGradient</strong> = 5<br>
+<strong>Retry</strong> = 6<br>
+<strong>RightAlign</strong> = 2<br>
+<strong>RoundCap</strong> = 32<br>
+<strong>RoundJoin</strong> = 128<br>
+<strong>SolidLine</strong> = 1<br>
+<strong>SquareCap</strong> = 16<br>
+<strong>UNIT_INCHES</strong> = 2<br>
+<strong>UNIT_MILLIMETERS</strong> = 1<br>
+<strong>UNIT_PICAS</strong> = 3<br>
+<strong>UNIT_POINTS</strong> = 0<br>
+<strong>VerticalGradient</strong> = 2<br>
+<strong>Warning</strong> = 2<br>
+<strong>Yes</strong> = 3<br>
+<br>
+<strong>scribus_version</strong> = '1.2.2'<br>
+<strong>scribus_version_info</strong> = (1, 2, 2, '', 0)<br>
+</qt>
+y

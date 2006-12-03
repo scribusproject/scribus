@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include <qwidgetstack.h>
 #include <qwidget.h>
 #include <qslider.h>
-#include "sccombobox.h"
+#include "colorcombo.h"
 #include "scribusdoc.h"
 #include "shadebutton.h"
 #include "mspinbox.h"
@@ -74,14 +74,10 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	textLabel3 = new QLabel( tr( "Color:" ), WStackPage_2, "textLabel3" );
 	layout17->addWidget( textLabel3 );
 
-	colData = new ScComboBox(false, WStackPage_2, "colData");
+	colData = new ColorCombo(false, WStackPage_2, "colData");
 	ColorList::Iterator it;
-	QPixmap pm = QPixmap(15, 15);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-	{
-		pm.fill(doc->PageColors[it.key()].getRawRGBColor());
-		colData->insertItem(pm, it.key());
-	}
+		colData->insertSmallItem(doc->PageColors[it.key()], it.key());
 	layout17->addWidget( colData );
 	WStackPageLayout->addLayout( layout17 );
 

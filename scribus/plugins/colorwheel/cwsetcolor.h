@@ -7,18 +7,18 @@ for which a new license (GPL+exception) is in place.
 #ifndef CWSETCOLOR_H
 #define CWSETCOLOR_H
 
-#include <qvariant.h>
+#include <qcolor.h>
 #include <qdialog.h>
+#include <qvariant.h>
+#include <qwidget.h>
 
-class QLabel;
-class QSpinBox;
-class QPushButton;
 class QGroupBox;
 class QGridLayout;
-class QVBoxLayout;
-class QColor;
+class QLabel;
 class QPixmap;
-
+class QPushButton;
+class QSpinBox;
+class QVBoxLayout;
 
 /*! \brief A dialog to set color by exact numeric values.
 It provides GUI where the user can set color via its components.

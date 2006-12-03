@@ -200,14 +200,6 @@
                     </widget>
                 </hbox>
             </widget>
-            <widget class="QWidget">
-                <property name="name">
-                    <cstring>tab</cstring>
-                </property>
-                <attribute name="title">
-                    <string>Inde&amp;x</string>
-                </attribute>
-            </widget>
         </widget>
     </vbox>
 </widget>

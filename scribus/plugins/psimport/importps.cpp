@@ -31,13 +31,14 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "prefsmanager.h"
 #include "undomanager.h"
+#include "loadsaveplugin.h"
 #include "util.h"
 
-extern ScribusQApp * ScQApp;
+extern SCRIBUS_API ScribusQApp * ScQApp;
 
-EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
+EPSPlug::EPSPlug(QString fName, int flags, bool showProgress)
 {
-	interactive = isInteractive;
+	interactive = (flags & LoadSavePlugin::lfInteractive);
 	cancel = false;
 	double x, y, b, h, c, m, k;
 	bool ret = false;
@@ -50,7 +51,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 		showProgress = false;
 	}
 	if ( showProgress ) {
-		progressDialog = new MultiProgressDialog(tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
+		progressDialog = new MultiProgressDialog( tr("Importing PostScript"), CommonStrings::tr_Cancel, ScMW, "psexportprogress");
 		QStringList barNames, barTexts;
 		barNames << "GI";
 		barTexts << tr("Analyzing PostScript:");
@@ -145,7 +146,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 			}
 		}
 	}
-	if (!interactive)
+	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		ScMW->doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		ScMW->doc->addPage(0);
@@ -153,7 +154,7 @@ EPSPlug::EPSPlug(QString fName, bool isInteractive, bool showProgress)
 	}
 	else
 	{
-		if (!ScMW->HaveDoc)
+		if (!ScMW->HaveDoc || (flags & LoadSavePlugin::lfCreateDoc))
 		{
 			ScMW->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom");
 			ScMW->HaveNewDoc();
@@ -346,6 +347,8 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		else {
 			qDebug("-- no output --");
 		}
+		if (progressDialog)
+			progressDialog->close();
 		QString mess = tr("Importing File:\n%1\nfailed!").arg(fn);
 		QMessageBox::critical(0, tr("Fatal Error"), mess, 1, 0, 0);
 		return false;

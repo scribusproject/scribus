@@ -29,7 +29,7 @@ public:
 	/*! \brief Create Font Preview window,
 	\param fontName Optional name of the font to init/select on start.
 	*/
-	FontPreview(QString fontName = QString::null);
+	FontPreview(QWidget* parent, QString fontName = QString::null);
 	~FontPreview();
 
 	/*! \brief Get the current selected font name.

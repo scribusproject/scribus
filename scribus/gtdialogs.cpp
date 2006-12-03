@@ -42,7 +42,7 @@ gtFileDialog::gtFileDialog(const QString& filters, const QStringList& importers,
                QFileDialog(QString::null, filters, 0, 0, true)
 {
 // 	setIcon(loadIcon("AppIcon.png"));
-	setCaption("Open");
+	setCaption( tr("Open"));
 	dir = QDir(wdir);
 	setDir(dir);
 	setMode(QFileDialog::ExistingFile);
@@ -249,10 +249,10 @@ bool gtDialogs::runImporterDialog(const QStringList& importers)
 		if (idia->exec())
 		{
 			res = idia->getImporter();
-			shouldRemember = idia->shouldRemember();
-			delete idia;
+			shouldRemember = idia->shouldRemember();	
 			ok = true;
 		}
+		delete idia;
 	}
 
 	if (ok)

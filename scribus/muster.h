@@ -8,12 +8,14 @@ for which a new license (GPL+exception) is in place.
 #define MUSTERPAGES_H
 
 #include <qdialog.h>
+#include <qinputdialog.h>
 class QListBox;
 class QListBoxItem;
 class QToolButton;
 class QHBoxLayout;
 class QVBoxLayout;
 
+#include "commonstrings.h"
 #include "scribusapi.h"
 class ScribusDoc;
 class ScribusView;
@@ -53,6 +55,7 @@ private slots:
 	void duplicateMasterPage();
 	void deleteMasterPage();
 	void newMasterPage();
+	void renameMasterPage(QListBoxItem * item);
 	void appendPage();
 	void selectMasterPage(QListBoxItem *item);
 

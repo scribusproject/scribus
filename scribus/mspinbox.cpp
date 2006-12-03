@@ -78,29 +78,54 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 	if ( ev->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if (k->key() == Key_Shift)
+		bool shiftB=k->state() & ShiftButton;
+		bool controlB=k->state() & ControlButton;
+		if (k->key() == Key_Shift && !controlB)
 		{
 			setLineStep(QMAX(Decimals / 10, 1));
 			retval = true;
-		    qApp->sendEvent( this, ev );
+			qApp->sendEvent( this, ev );
 			return retval;
 		}
-		else if (k->key() == Key_Control)
+		else if (k->key() == Key_Control && !shiftB)
 		{
 			setLineStep(QMAX(Decimals * 10, 1));
 			retval = true;
-		    qApp->sendEvent( this, ev );
+			qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else if ((k->key() == Key_Control && shiftB) || (k->key() == Key_Shift && controlB))
+		{
+			setLineStep(QMAX(Decimals / 100, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
 			return retval;
 		}
 	}
 	if (ev->type() == QEvent::KeyRelease )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
-		if ((k->key() == Key_Shift) || (k->key() == Key_Control))
+		bool shiftB=k->stateAfter() & ShiftButton;
+		bool controlB=k->stateAfter() & ControlButton;
+		if ((k->key() == Key_Shift && !controlB) || (k->key() == Key_Control && !shiftB))
 		{
 			setLineStep(Decimals);
 			retval = true;
 		    qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else if (k->key() == Key_Shift && controlB)
+		{
+			setLineStep(QMAX(Decimals * 10, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
+			return retval;
+		}
+		else if (k->key() == Key_Control && shiftB)
+		{
+			setLineStep(QMAX(Decimals / 10, 1));
+			retval = true;
+			qApp->sendEvent( this, ev );
 			return retval;
 		}
 	}
@@ -118,7 +143,7 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 			retval = true;
 			qApp->sendEvent( this, ev );
 			return retval;
-		} 
+		}
 		else if (!shiftB && controlB)
 		{
 			setLineStep(QMAX(Decimals * 10, 1));
@@ -147,7 +172,9 @@ bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 
 QString MSpinBox::mapValueToText(int value)
 {
-	return QString::number(static_cast<double>(value) / Decimals, 'f', Width);
+	QString s;
+	s.setNum(static_cast<double>(value) / Decimals, 'f', Width);
+	return s;
 }
 
 int MSpinBox::mapTextToValue(bool *)
@@ -162,7 +189,7 @@ int MSpinBox::mapTextToValue(bool *)
 	while (pos > 0)
 	{
 		pos = ts.findRev(".", pos);
-		if (pos >= 0) 
+		if (pos >= 0)
 		{
 			if (pos < static_cast<int>(ts.length()))
 			{
@@ -174,7 +201,7 @@ int MSpinBox::mapTextToValue(bool *)
 	}
 	if (ts.endsWith("."))
 		ts.append("0");
-	
+
 	//Get all our units strings
 	QString trStrPT=unitGetStrFromIndex(SC_PT);
 	QString trStrMM=unitGetStrFromIndex(SC_MM);
@@ -192,10 +219,10 @@ int MSpinBox::mapTextToValue(bool *)
 	//So, instead of just getting the translated strings and
 	//sticking them in as variables in the parser, if they are
 	//not the same as the untranslated version, then we replace them.
-	//We lose the ability for now to have some strings in languages 
+	//We lose the ability for now to have some strings in languages
 	//that might use them in variables.
 	//To return to previous functionality, remove the follow replacement ifs,
-	//S&R in the trStr* assignments trStrPT->strPT and remove the current str* ones. 
+	//S&R in the trStr* assignments trStrPT->strPT and remove the current str* ones.
 	//IE, send the translated strings through to the regexp.
 	if (trStrPT.localeAwareCompare(strPT)!=0)
 		ts.replace(trStrPT, strPT);
@@ -316,7 +343,7 @@ double MSpinBox::maxValue()
 
 void MSpinBox::setReadOnly( bool ro )
 {
-	if (readOnly!=ro) 
+	if (readOnly!=ro)
 	{
 		if (!readOnly && ro) {
 			oldLineStep=QSpinBox::lineStep();
@@ -345,7 +372,7 @@ void MSpinBox::setFPConstants(FunctionParser &fp)
 {
 	if (functionParserConstants.isEmpty())
 		return;
-		
+
 	fp.AddConstant("old", static_cast<double>(QSpinBox::value()) / Decimals);
 	QMap<QString, double>::Iterator itend=functionParserConstants.end();
 	QMap<QString, double>::Iterator it=functionParserConstants.begin();

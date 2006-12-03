@@ -68,8 +68,7 @@ public:
 	*/
 	QPixmap CreatePreview(int Seite, int Res);
 	PageSelector *PGSel;
-	QCheckBox* AliasText;
-	QCheckBox* AliasGr;
+	QCheckBox* AntiAlias;
 	QCheckBox* AliasTr;
 	QCheckBox* EnableCMYK;
 	QCheckBox* EnableCMYK_C;
@@ -91,9 +90,10 @@ public:
 	int APage;
 	int MPage;
 	int SMode;
+	int GsMajor;
+	int GsMinor;
 	bool CMode;
-	bool TxtAl;
-	bool GrAl;
+	bool GsAl;
 	bool Trans;
 	bool GMode;
 	bool postscriptPreview;
@@ -110,14 +110,9 @@ public slots:
 	void ToSeite(int num);
 	/*!
 	\author Franz Schmid
-	\brief Toggle Text anti-aliasing and create the new preview
+	\brief Toggle anti-aliasing and create the new preview
 	*/
-	void ToggleTextAA();
-	/*!
-	\author Franz Schmid
-	\brief Toggle Graphics anti-aliasing and create the new preview
-	*/
-	void ToggleGr();
+	void ToggleAA();
 	/*!
 	\author Franz Schmid
 	\brief Toggle transparency and create the new preview

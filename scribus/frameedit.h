@@ -66,12 +66,12 @@ public:
 	QPushButton* ResetCont;
 	QPushButton* editEditButton;
 	void setDoc(ScribusDoc *dc, ScribusView *vi);
+	ScribusDoc* currentDocument() const;
 	ScribusDoc *doc;
 	ScribusView *view;
 
 private slots:
 	void closeEvent(QCloseEvent *);
-	void EndEdit();
 	void MoveK();
 	void AddN();
 	void DelN();
@@ -106,8 +106,11 @@ public slots:
 	void PolyStatus(int typ, uint size);
 	void languageChange();
 	void unitChange();
+	void EndEdit(); // allow remote closing
 
 protected:
+	void connectSignals();
+	void disconnectSignals();
 	QVBoxLayout* NodePaletteLayout;
 	QGridLayout* ButtonGroup1Layout;
 	QGridLayout* Layout2;

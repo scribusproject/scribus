@@ -6,6 +6,7 @@ for which a new license (GPL+exception) is in place.
 */
 #include "scribus.h"
 #include "sampleitem.h"
+#include "sampleitem.moc"
 #include "loremipsum.h"
 #include "scribusdoc.h"
 #include "undomanager.h"
@@ -106,6 +107,11 @@ void SampleItem::setStyle(ParagraphStyle aStyle)
 void SampleItem::setBgColor(QColor c)
 {
 	ScMW->doc->PageColors["__whiteforpreviewbg__"].fromQColor(c);
+}
+
+void SampleItem::setBgColorMngt(bool enable)
+{
+	ScMW->doc->PageColors["__whiteforpreviewbg__"].setSpotColor(!enable);
 }
 
 void SampleItem::setBgShade(int c)

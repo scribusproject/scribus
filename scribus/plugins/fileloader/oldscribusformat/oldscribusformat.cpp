@@ -5,6 +5,7 @@ a copyright and/or license notice that predates the release of Scribus 1.3.2
 for which a new license (GPL+exception) is in place.
 */
 #include "oldscribusformat.h"
+#include "oldscribusformat.moc"
 #include "oldscribusformatimpl.h"
 
 #include "scconfig.h"
@@ -87,7 +88,7 @@ bool OldScribusFormat::fileSupported(QIODevice* /* file */) const
 	return true;
 }
 
-bool OldScribusFormat::loadFile(const QString & /* fileName */, const FileFormat & /* fmt */)
+bool OldScribusFormat::loadFile(const QString & /* fileName */, const FileFormat & /* fmt */, int /* flags */, int /* index */)
 {
 	return false;
 }

@@ -353,7 +353,7 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	textLabel8b = new QLabel( shadingLineShape, tr( "&Shading:" ), subTabShape, "textLabel8b" );
 	subTabShapeLayout->addWidget( textLabel8b, 1, 0 );
 	comboFillShape = new ColorCombo( false, subTabShape, "comboFillShape" );
-	comboFillShape->insertItem( tr("None"), "fill shape");
+	comboFillShape->insertItem( tr("None"));
 	if (prefsData->dBrush == CommonStrings::None)
 		comboFillShape->setCurrentItem(comboFillShape->count()-1);
 	if (doc != 0)
@@ -803,7 +803,7 @@ void TabTools::changeImageScalingRatio(int)
 void TabTools::setSample()
 {
 	SampleItem *si = new SampleItem();
-	si->setText(tr("Woven silk pyjamas exchanged for blue quartz"));
+	si->setText( tr("Woven silk pyjamas exchanged for blue quartz"));
 	if (colorComboTextBackground->currentText() != CommonStrings::NoneColor)
 	{
 		if (docu != 0)

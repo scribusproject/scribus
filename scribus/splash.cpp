@@ -20,7 +20,10 @@ SplashScreen::SplashScreen()
 	pix = loadIcon("Splash.png");
 	Q_ASSERT(!pix.isNull());
 	if (pix.isNull())
-		return;
+{
+	pix = QPixmap(360, 200);
+	pix.fill(Qt::darkGray);
+}
 	setErasePixmap( pix );
 	resize( pix.size() );
 	QRect scr = QApplication::desktop()->screenGeometry();
@@ -59,6 +62,7 @@ void SplashScreen::setStatus( const QString &message )
 	painter.setPen( white );
 	//painter.setRasterOp(NotROP);
 	painter.drawText( 10, textPix.height()-8, tmp );
+	painter.end();
 	setErasePixmap( textPix );
 	repaint();
 }

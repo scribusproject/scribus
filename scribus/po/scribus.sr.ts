@@ -136,12 +136,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -491,14 +493,6 @@ Saves the current document under the new name &quot;name&quot; (which may be a f
 relative path).
 
 May raise ScribusError if the save fails.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>saveDocAs(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
-
-Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
-strings.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -1622,6 +1616,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -1870,7 +1879,7 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>March</source>
+        <source>Tango Project Icons:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -2024,7 +2033,7 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
     </message>
     <message>
         <source>C&amp;lear Contents</source>
-        <translation type="unfinished">О&amp;чисти садржај</translation>
+        <translation type="obsolete">О&amp;чисти садржај</translation>
     </message>
     <message>
         <source>Select &amp;All</source>
@@ -2731,14 +2740,6 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Copy Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Paste Contents</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>&amp;Printing Enabled</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2836,10 +2837,6 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Paste Contents (Absolute)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>S&amp;tyles...</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2852,6 +2849,18 @@ C-C-T означава: C=CUPS C=littlecms T=TIFF подршку.
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
         <translation type="unfinished">&amp;Оквирне линије</translation>
+    </message>
+    <message>
+        <source>Paste (&amp;Absolute)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>C&amp;lear</source>
+        <translation type="unfinished">Оч&amp;исти</translation>
+    </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4138,10 +4147,6 @@ UCR смањује могућност презасићености CMY маст�
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4266,6 +4271,22 @@ Please choose another.</source>
     <message>
         <source>Choose a Directory</source>
         <translation type="unfinished">Изаберите директоријум</translation>
+    </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4649,6 +4670,14 @@ It is a reserved name for transparent color</source>
     </message>
     <message>
         <source>Name of the color is not unique</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5054,6 +5083,10 @@ It is a reserved name for transparent color</source>
         <source>New Color</source>
         <translation type="unfinished">Нова боја</translation>
     </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
@@ -5395,6 +5428,98 @@ It is a reserved name for transparent color</source>
     <message>
         <source>Right Page</source>
         <translation type="unfinished">Десна страница</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation type="unfinished">Нормално</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6560,14 +6685,24 @@ failed!</source>
         <translation>Фатална грешка</translation>
     </message>
     <message>
-        <source>Converting Image:
-%1
-failed!</source>
+        <source>Error</source>
+        <translation type="unfinished">Грешка</translation>
+    </message>
+    <message>
+        <source>Importing PostScript</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Error</source>
-        <translation type="unfinished">Грешка</translation>
+        <source>Analyzing PostScript:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Generating Items</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6789,6 +6924,22 @@ failed!</source>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -7771,7 +7922,11 @@ Name of the export file will be &apos;documentname-pagenumber.filetype&apos;</so
     </message>
     <message>
         <source>Here you can add, change or remove Color-Stops.</source>
-        <translation>Овде можете додавати, мењати или уклањати зауставне боје.</translation>
+        <translation type="obsolete">Овде можете додавати, мењати или уклањати зауставне боје.</translation>
+    </message>
+    <message>
+        <source>Add, change or remove color stops here</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -8659,10 +8814,6 @@ converting their vector data into Scribus objects.</source>
 <context>
     <name>LineStyleWBase</name>
     <message>
-        <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>%</source>
         <translation type="unfinished"></translation>
     </message>
@@ -9014,6 +9165,22 @@ If Facing Pages is selected, this margin space can be used to achieve the correc
     </message>
     <message>
         <source>New Master Page %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New Name:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -9732,15 +9899,15 @@ Corners:</source>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Натерај текст у нижим оквирима да плута око објекта</translation>
+        <translation type="obsolete">Натерај текст у нижим оквирима да плута око објекта</translation>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Користи окружујућу кутију уместо облика оквира за плутање текста</translation>
+        <translation type="obsolete">Користи окружујућу кутију уместо облика оквира за плутање текста</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Користи другу линију оригинално постављену на облик оквира за плутање текста</translation>
+        <translation type="obsolete">Користи другу линију оригинално постављену на облик оквира за плутање текста</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -9997,14 +10164,6 @@ Please choose another.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Fill Rule</source>
         <translation type="unfinished"></translation>
     </message>
@@ -10014,6 +10173,34 @@ Please choose another.</source>
     </message>
     <message>
         <source>Non Zero</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -11596,11 +11783,11 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Омекшај &amp;текст</translation>
+        <translation type="obsolete">Омекшај &amp;текст</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Омекшај &amp;графику</translation>
+        <translation type="obsolete">Омекшај &amp;графику</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -11718,14 +11905,6 @@ UCR смањује могућност презасићења CMY мастили�
         <translation type="unfinished">Штампај...</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -11740,6 +11919,14 @@ UCR смањује могућност презасићења CMY мастили�
     <message>
         <source>File</source>
         <translation type="unfinished">Фајл</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13558,7 +13745,7 @@ each time the time period elapses</source>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation>Локација фајл система за Ghostscript интепретатор</translation>
+        <translation type="obsolete">Локација фајл система за Ghostscript интепретатор</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -13872,6 +14059,10 @@ UCR смањује могућност презасићености CMY маст�
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -14866,10 +15057,6 @@ External Links
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Brazilian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Catalan</source>
         <translation type="unfinished">Каталански</translation>
     </message>
@@ -15312,10 +15499,6 @@ External Links
     <message>
         <source>Custom</source>
         <translation type="unfinished">Произвољно</translation>
-    </message>
-    <message>
-        <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -16040,12 +16223,53 @@ is not exhaustive due to exceptions from called functions.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
+        <source>Luxembourgish</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Japanese</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Luxembourgish</source>
+        <source>Breton</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -18236,6 +18460,10 @@ converting their vector data into Scribus objects.</source>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusMainWindow</name>
@@ -18692,6 +18920,14 @@ Vertical shift: %3</source>
         <source>Do you really want to replace your existing image?</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Contents</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -18781,6 +19017,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Issues</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19076,6 +19316,10 @@ Vertical shift: %3</source>
     </message>
     <message>
         <source>Grayscale</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Contents</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -19535,6 +19779,10 @@ drag a Template to the Pageview below.</source>
         <source>Short Words</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>SideBar</name>
@@ -19898,7 +20146,7 @@ drag a Template to the Pageview below.</source>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Подвучено</translation>
+        <translation type="obsolete">Подвучено</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -19914,7 +20162,7 @@ drag a Template to the Pageview below.</source>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Прецртано</translation>
+        <translation type="obsolete">Прецртано</translation>
     </message>
     <message>
         <source>Outline Text</source>
@@ -19925,21 +20173,33 @@ drag a Template to the Pageview below.</source>
         <translation type="obsolete">Контура</translation>
     </message>
     <message>
-        <source>Underline Words Only</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>All Caps</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Shadow</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished">Контура</translation>
+        <translation type="obsolete">Контура</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20099,10 +20359,6 @@ edited to match the one being imported, or left untouched</source>
         <source>Destination Frame:</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Inde&amp;x</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>TOCIndexPrefsBase</name>
@@ -20168,10 +20424,6 @@ edited to match the one being imported, or left untouched</source>
     </message>
     <message>
         <source>Destination Frame:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Inde&amp;x</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -20862,7 +21114,7 @@ will preserve the layout and appearance of your document.</source>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="unfinished">Временски интервал за који се приказује страница пре него што почне презентација на изабраној страници.</translation>
+        <translation type="obsolete">Временски интервал за који се приказује страница пре него што почне презентација на изабраној страници.</translation>
     </message>
     <message>
         <source>Length of time the effect runs.
@@ -21099,10 +21351,6 @@ PDF-а PDF/X-3-у. Препоручујемо да користите насло
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21280,10 +21528,6 @@ when PDF document is opened:</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -21293,6 +21537,18 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -22373,6 +22629,18 @@ X2: %4, Y2: %5</source>
 X: %4, Y: %5</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -22402,6 +22670,54 @@ X: %4, Y: %5</source>
     <message>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

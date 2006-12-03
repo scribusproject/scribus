@@ -173,12 +173,14 @@ PAGE_4 is 4-fold.
 firstPageOrder = What is position of first page in the document.
 Indexed from 0 (0 = first).
 
+numPage = Number of pages to be created.
+
 The values for width, height and the margins are expressed in the given unit
 for the document. PAPER_* constants are expressed in points. If your document
 is not in points, make sure to account for this.
 
 example: newDocument(PAPER_A4, (10, 10, 20, 20), LANDSCAPE, 7, UNIT_POINTS,
-PAGE_4, 3)
+PAGE_4, 3, 1)
 
 May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 </source>
@@ -261,7 +263,7 @@ Returns the column gap size of the text frame &quot;name&quot; expressed in poin
 </source>
         <translation>getColumnGap([&quot;nazwa&quot;]) -&gt; float
 
-Zwraca odstęp pomiędzy szpaltami w ramce tekstowej &quot;nazwa&quot; wyrażony w punktach. 
+Zwraca odstęp pomiędzy łamami w ramce tekstowej &quot;nazwa&quot; wyrażony w punktach. 
 Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
     </message>
     <message>
@@ -272,7 +274,7 @@ given the currently selected item is used.
 </source>
         <translation>getColumns([&quot;nazwa&quot;]) -&gt; integer
 
-Zwraca ilość szpalt w ramce tekstowej &quot;nazwa&quot;. 
+Zwraca ilość łamów w ramce tekstowej &quot;nazwa&quot;. 
 Jeśli &quot;nazwa&quot; nie zostanie podana, użyty zostanie aktualnie zaznaczony obiekt.</translation>
     </message>
     <message>
@@ -353,7 +355,7 @@ May throw ValueError if the column gap is out of bounds (must be positive).
 </source>
         <translation>setColumnGap(rozmiar, [&quot;nazwa&quot;])
 
-Przypisuje odstępowi między szpaltami w ramce &quot;nazwa&quot; wartość &quot;rozmiar&quot;. 
+Przypisuje odstępowi między łamami w ramce &quot;nazwa&quot; wartość &quot;rozmiar&quot;. 
 Jeśli &quot;nazwa&quot; nie zostanie podana, zostanie użyty aktualnie zaznaczony obiekt.
 
 Może zwrócić błąd ValueError, jeśli odstęp między szpaltami będzie poza dopuszczalnym zakresem.</translation>
@@ -756,7 +758,7 @@ Może zwrócić błąd ScribusError, jeśli zapis się nie powiedzie.</translati
 Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
 strings.
 </source>
-        <translation>saveDocAs(&quot;autor&quot;, &quot;info&quot;, &quot;opis&quot;) -&gt; bool
+        <translation type="obsolete">saveDocAs(&quot;autor&quot;, &quot;info&quot;, &quot;opis&quot;) -&gt; bool
 
 Przypisuje informacje o dokumencie.  &quot;Autor&quot;, &quot;Info&quot;, &quot;Opis&quot; 
 to łańcuchy znaków.</translation>
@@ -2288,6 +2290,21 @@ values like 20.0, 100.0, etc. Zoom to Fit uses -100 as a marker.
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>duplicateObject([&quot;name&quot;]) -&gt; string
+
+creates a Duplicate of the selected Object (or Selection Group).
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setInfo(&quot;author&quot;, &quot;info&quot;, &quot;description&quot;) -&gt; bool
+
+Sets the document information. &quot;Author&quot;, &quot;Info&quot;, &quot;Description&quot; are
+strings.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>About</name>
@@ -2455,7 +2472,11 @@ Brak wsparcia oznaczony jest symbolem *</translation>
     </message>
     <message>
         <source>March</source>
-        <translation>Marzec</translation>
+        <translation type="obsolete">Marzec</translation>
+    </message>
+    <message>
+        <source>Tango Project Icons:</source>
+        <translation>Ikony z projektu Tango:</translation>
     </message>
 </context>
 <context>
@@ -3497,6 +3518,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>C&amp;lear</source>
         <translation>W&amp;yczyść</translation>
     </message>
+    <message>
+        <source>Show Text Frame Columns</source>
+        <translation>Wyświetlaj łamy ramki tekstowej</translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4481,7 +4506,7 @@ LINE_DASH, LINE_DASHDOT, LINE_DASHDOTDOT, LINE_DOT, LINE_SOLID</translation>
     <name>ApplyMasterPageDialog</name>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
@@ -4925,6 +4950,22 @@ Proszę wybrać inną.</translation>
         <source>Choose a Directory</source>
         <translation>Wybierz katalog</translation>
     </message>
+    <message>
+        <source>Scrapbook (*.scs)</source>
+        <translation>Biblioteki  (*.scs)</translation>
+    </message>
+    <message>
+        <source>Choose a scrapbook file to import</source>
+        <translation>Wybierz plik biblioteki do zaimportowania</translation>
+    </message>
+    <message>
+        <source>&amp;Import Scrapbook File...</source>
+        <translation>&amp;Importuj plik biblioteki...</translation>
+    </message>
+    <message>
+        <source>Main</source>
+        <translation>Główna</translation>
+    </message>
 </context>
 <context>
     <name>BookMView</name>
@@ -5278,7 +5319,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation>Jest kolorem spotowym</translation>
+        <translation>Jest kolorem dodatkowym</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
@@ -5293,6 +5334,14 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>Name of the color is not unique</source>
         <translation>Nazwa koloru nie jest jednoznaczna</translation>
+    </message>
+    <message>
+        <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
+        <translation>Wydrukowanie tej opcji spowoduje druk na wszystkich płytach. Kolory rejestracyjne używane są w znakach drukarskich takich jak znaczniki cięcia, pasery i inne. Nie są one zwykle używane w samym layoucie.</translation>
+    </message>
+    <message>
+        <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
+        <translation>Wybranie tej opcji spowoduje zamianę tego koloru na kolor dodatkowy, tym samym tworząc nowy kolor dodatkowy w trakcie tworzenia płyt lub rozbarwień. Używane najczęściej w przypadku, kiedy kolor logo lub inny kolor wymaga dokładnej reprezentacji, której nie można utworzyć w przestrzeni barw CMYK. Farby metaliczne lub fluoryzujące są typowymi przykładami kolorów, których nie da się odtworzyć za pomocą farb CMYK. </translation>
     </message>
 </context>
 <context>
@@ -5717,24 +5766,28 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
         <source>New Color</source>
         <translation>Nowy kolor</translation>
     </message>
+    <message>
+        <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color many not be able to be printed exactly as displayed on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
+        <translation>Jeśli zostało włączone zarządzanie kolorami, trójkąt ostrzegawczy jest wskazówką, że kolor może znajdować się poza przestrzenią barw aktualnie wybranego profilu drukarki. Oznacza to, że kolor w druku może nie odpowiadać kolorowi wyświetlanemu na monitorze. Kolory dodatkowe oznaczone są czerwonym kółkiem. Kolory paserów symolizowane są przez paser obok koloru. Więcej wskazówek na temat ostrzeżeń dotyczących przestrzeni kolorów znajdziesz w pomocy online w dziale dotyczącym zarządzania kolorami.</translation>
+    </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation>Monochromatyczny</translation>
+        <translation>Monochromatyczna</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation>Analogiczny</translation>
+        <translation>Analogiczna</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation>Uzupełniający</translation>
+        <translation>Uzupełniająca</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation>Uzupełniający bliski</translation>
+        <translation>Uzupełniająca bliska</translation>
     </message>
     <message>
         <source>Triadic</source>
@@ -6102,6 +6155,98 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     <message>
         <source>Right Page</source>
         <translation>Prawa strona</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normalna</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation>Normalna lewa</translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation>Normalna środkowa</translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation>Normalna prawa</translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Poniedziałek</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Wtorek</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Środa</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Czwartek</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Piątek</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Sobota</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Niedziela</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>Styczeń</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation>Luty</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation>Marzec</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>Kwiecień</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>Maj</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation>Czerwiec</translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation>Lipiec</translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation>Sierpień</translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation>Wrzesień</translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation>Październik</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation>Listopad</translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation>Grudzień</translation>
     </message>
 </context>
 <context>
@@ -6746,7 +6891,7 @@ Przydatne informacje na temat typów MIME znajdują się w RFC2045 i RFC2046</tr
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>Podana wartość jest poza zakresem numerów stron w aktualnym dokumencie (%1-%2).</translation>
     </message>
 </context>
 <context>
@@ -7167,7 +7312,7 @@ lub gtklp, by uzyskać dostęp do dodatkowych opcji drukowania</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Zamień kolory spotowe na kolory rozbarwiane</translation>
+        <translation>Zamień kolory dodatkowe na kolory procesowe</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -7208,7 +7353,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Włącza konwersję kolorów spotowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów spotowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
+        <translation>Włącza konwersję kolorów dodatkowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów dodatkowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -7252,7 +7397,7 @@ failed!</source>
         <source>Converting Image:
 %1
 failed!</source>
-        <translation>Konwersja obrazka:
+        <translation type="obsolete">Konwersja obrazka:
 %1
 nie powiodła się!</translation>
     </message>
@@ -7271,6 +7416,10 @@ nie powiodła się!</translation>
     <message>
         <source>Generating Items</source>
         <translation>Generewanie obiektów</translation>
+    </message>
+    <message>
+        <source>Converting of %1 images failed!</source>
+        <translation>Konwersja %1 obrazków nie powiodła się!</translation>
     </message>
 </context>
 <context>
@@ -7470,6 +7619,26 @@ nie powiodła się!</translation>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
         <translation>Wybierz, aby umożliwić łatwiejsze czytanie stylów tekstowych w jasnych kolorach</translation>
+    </message>
+    <message>
+        <source>Manual Tracking</source>
+        <translation>Manualne podcinanie</translation>
+    </message>
+    <message>
+        <source>Offset to baseline of characters</source>
+        <translation>Przesunięcie znaków względem linii pisma</translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii.</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Auto</translation>
     </message>
 </context>
 <context>
@@ -8268,7 +8437,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutaj możesz wpisać tekst w celu przeszukania nazw fontów. Przeszukiwanie nie rozróżnia dużych i małych liter. Możesz również użyć wieloznaczników  (*, ?, [...]) w poszukiwanym pojęciu. Przykłady:  t* spowoduje wyświetlenie wszystkich fontów o nazwach zaczynających się na t lub T, *bold* spowoduje wyświetlenie wszystkich fontów zawierających w nazwie słowo &quot;bold&quot;, &quot;bolder&quot; etc.</translation>
     </message>
 </context>
 <context>
@@ -8475,7 +8644,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>C&amp;olumns:</source>
-        <translation>&amp;Szpalty:</translation>
+        <translation>Szpalty&amp;y:</translation>
     </message>
     <message>
         <source>Refer to:</source>
@@ -8503,7 +8672,7 @@ Użyj 72 dpi dla obrazków przeznaczonych do wyświetlania na ekranie</translati
     </message>
     <message>
         <source>Colum&amp;n Gap</source>
-        <translation>Odstęp pomiędzy &amp;szpaltami</translation>
+        <translation>Odstęp pomiędzy szp&amp;altami</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -8840,7 +9009,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Page(s)</source>
@@ -8864,7 +9033,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>&amp;Master Page:</source>
-        <translation>&amp;Strona Wzorcowa:</translation>
+        <translation>&amp;Strona wzorcowa:</translation>
     </message>
     <message>
         <source>Master Page (&amp;Right Page):</source>
@@ -9254,7 +9423,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     <name>LineStyleWBase</name>
     <message>
         <source>LineStyleWBase</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">LineStyleWBase</translation>
     </message>
     <message>
         <source>%</source>
@@ -9548,7 +9717,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Duplicate the selected master page</source>
@@ -9569,6 +9738,22 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>New Master Page %1</source>
         <translation>Nowa strona wzorcowa  %1</translation>
+    </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation>Nie można zmienić nazwy strony wzorcowej</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation>Zmiana nazwy strony &quot;Normalna&quot; jest niedozwolona.</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation>Zmień nazwę strony wzorcowej</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation>Nowa nazwa:</translation>
     </message>
 </context>
 <context>
@@ -9732,7 +9917,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>instead</source>
-        <translation>zamiast</translation>
+        <translation>zamiast niego</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -10080,11 +10265,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Number of columns in text frame</source>
-        <translation>Ilość szpalt w ramce tekstowej</translation>
+        <translation>Ilość łamów w ramce tekstowej</translation>
     </message>
     <message>
         <source>Distance between columns</source>
-        <translation>Ostęp pomiędzy szpaltami</translation>
+        <translation>Ostęp pomiędzy łamami</translation>
     </message>
     <message>
         <source>Distance of text from top of frame</source>
@@ -10172,11 +10357,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Switches between Gap or Column width</source>
-        <translation>Przełącza pomiędzy szerokością odstępu a szerokością szpalty</translation>
+        <translation>Przełącza pomiędzy szerokością odstępu a szerokością łamu</translation>
     </message>
     <message>
         <source>Column width</source>
-        <translation>Szerokość szpalty</translation>
+        <translation>Szerokość łamu</translation>
     </message>
     <message>
         <source>Path Text Properties</source>
@@ -10184,7 +10369,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object shape</source>
-        <translation>Tekst w ramkach znajdujących się pod spodem będzie opływał ten obiekt</translation>
+        <translation type="obsolete">Tekst w ramkach znajdujących się pod spodem będzie opływał ten obiekt</translation>
     </message>
     <message>
         <source>Indicates the level the object is on, 0 means the object is at the bottom</source>
@@ -10258,11 +10443,11 @@ Corners:</source>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Szp&amp;alty:</translation>
+        <translation>Ł&amp;amy:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>Odstęp &amp;między szpaltami:</translation>
+        <translation>Odstęp &amp;między łamami:</translation>
     </message>
     <message>
         <source>To&amp;p:</source>
@@ -10354,11 +10539,11 @@ Corners:</source>
     </message>
     <message>
         <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation>Zastosuj ramkę ograniczającą zamiast kształtu ramki dla opływu tekstu</translation>
+        <translation type="obsolete">Zastosuj ramkę ograniczającą zamiast kształtu ramki dla opływu tekstu</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation>Użyj drugiej linii opartej na kształcie ramki dla opływu tekstu</translation>
+        <translation type="obsolete">Użyj drugiej linii opartej na kształcie ramki dla opływu tekstu</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -10423,11 +10608,11 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Color of text stroke. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Kolor obrysu tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
+        <translation type="obsolete">Kolor obrysu tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
     </message>
     <message>
         <source>Color of text fill. Only available with &quot;outline&quot; text decoration.</source>
-        <translation>Kolor wypełnienia tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
+        <translation type="obsolete">Kolor wypełnienia tekstu. Dostępny tylko przy wybraniu &quot;obramowania&quot; jako dekoracji tekstu.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -10440,6 +10625,38 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Non Zero</source>
         <translation>Nie zero</translation>
+    </message>
+    <message>
+        <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
+        <translation>Kolor obrysu i/lub cienia, zależnie od tego, co zostało wybrane. Jeśli wybrane są oba, będą miały one ten sam kolor.</translation>
+    </message>
+    <message>
+        <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
+        <translation>Kolor zaznaczonego tekstu. Jeśli włączone jest obramowanie tekstu, ten kolor będzie kolorem wypełnienia. Jeśli włączyłeś opcję opuszczonego cienia, będzie to górny kolor. </translation>
+    </message>
+    <message>
+        <source>Click to select the line spacing mode</source>
+        <translation type="obsolete">Przytrzymaj klawisz myszy, aby wybrać tryb interlinii</translation>
+    </message>
+    <message>
+        <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
+        <translation>Włącza opływanie obiektu przez tekst zawarty w położonych niżej ramkach. Poniższe opcje definiują, w jaki sposób włączyć opływanie.</translation>
+    </message>
+    <message>
+        <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Zastosuj prostokątną ramkę ograniczającą zamiast konturu ramki dla opływania tekstu znajdującego się w ramkach tekstowych poniżej obiektu. </translation>
+    </message>
+    <message>
+        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
+        <translation>Użyj drugiej linii opartej na kształcie ramki dla opływu tekstu dla ramek tekstowych położonych poniżej obiektu. </translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation>Przytrzymaj klawisz myszy, aby wybrać tryb interlinii.</translation>
     </message>
 </context>
 <context>
@@ -10656,11 +10873,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Distance between automatically created columns</source>
-        <translation>Odstęp pomiędzy automatycznie tworzonymi szpaltami</translation>
+        <translation>Odstęp pomiędzy automatycznie tworzonymi łamami</translation>
     </message>
     <message>
         <source>Number of columns to create in automatically created text frames</source>
-        <translation>Ilość szpalt w  automatycznie tworzonych ramkach tekstowych</translation>
+        <translation>Ilość łamów w  automatycznie tworzonych ramkach tekstowych</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -10704,11 +10921,11 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>Odstęp &amp;między szpaltami:</translation>
+        <translation>Odstęp &amp;między łamami:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Szpa&amp;lty:</translation>
+        <translation>Łam&amp;y:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -11148,7 +11365,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation>Opcja ta włącza drukowanie pojednyńczych plików PDF dla każdej strony dokumentu. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna dla impozycji w profesjonalnym druku.</translation>
+        <translation>Opcja ta włącza drukowanie pojedyńczych plików PDF dla każdej strony dokumentu. Numery stron zostaną dodane automatycznie. Opcja ta jest przydatna dla impozycji w profesjonalnym druku.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
@@ -11255,11 +11472,11 @@ generowania podglądu. Dotyczy to tylko czcionek Type 1</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Text</source>
-        <translation>Wygładzanie &amp;tekstu</translation>
+        <translation type="obsolete">Wygładzanie &amp;tekstu</translation>
     </message>
     <message>
         <source>Anti-alias &amp;Graphics</source>
-        <translation>Wygładzanie &amp;grafiki</translation>
+        <translation type="obsolete">Wygładzanie &amp;grafiki</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -11358,11 +11575,11 @@ Możesz użyć weryfikatora materiału wejściowego, aby je poprawić</translati
     </message>
     <message>
         <source>Provides a more pleasant view of text items in the viewer, at the expense of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation>Umożliwia ładniejszy widok tekstu w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu. Dotyczy tylko fontów Type 1</translation>
+        <translation type="obsolete">Umożliwia ładniejszy widok tekstu w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu. Dotyczy tylko fontów Type 1</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation>Umożliwia ładniejszy widok fontów TrueType  i OpenType, plików EPS, PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
+        <translation type="obsolete">Umożliwia ładniejszy widok fontów TrueType  i OpenType, plików EPS, PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
@@ -11385,6 +11602,14 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>File</source>
         <translation>Plik</translation>
+    </message>
+    <message>
+        <source>Enable &amp;Antialiasing</source>
+        <translation>Włącz wy&amp;gładzanie</translation>
+    </message>
+    <message>
+        <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
+        <translation>Umożliwia ładniejszy widok fontów Type 1, TrueType, OpenType, plików EPS i PDF oraz grafik wektorowych w oknie podglądu kosztem nieznacznego spowolnienia generowania podglądu</translation>
     </message>
 </context>
 <context>
@@ -11627,7 +11852,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Arrange Pages</source>
@@ -12760,7 +12985,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Filesystem location for the Ghostscript interpreter.</source>
-        <translation>Położenie interpretera Ghostscriptu w systemie plików.</translation>
+        <translation type="obsolete">Położenie interpretera Ghostscriptu w systemie plików.</translation>
+    </message>
+    <message>
+        <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
+        <translation>Dodaj ścieżkę do interpretera Ghostscriptu. W systemie Windows zwróć uwagę,  aby użyć programu gswin32c.exe, a NIE gswin32.exe. W innym przypadku może to spowodować zawieszenie się Scribusa przy starcie.</translation>
     </message>
 </context>
 <context>
@@ -13012,7 +13241,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Niniejsza konsola pochodzi od standardowej konsoli Pythona i dlatego zawiera pewne ograniczenia, szczególnie jeśli chodzi o wolną przestrzeń. Zajrzyj do dokumentacji Scribusa, aby dowiedzieć się więcej.</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
@@ -13711,7 +13940,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Brazilian</source>
-        <translation>Brazylijski</translation>
+        <translation type="obsolete">Brazylijski</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -13847,7 +14076,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Cannot get column count of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustalić liczby szpalt w ramce nietekstowej.</translation>
+        <translation>Nie można ustalić liczby łamów w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>Cannot get line space of non-text frame.</source>
@@ -13857,7 +14086,7 @@ Zewnętrzne dowiązania
     <message>
         <source>Cannot get column gap of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustalić odstępu między szpaltami w ramce nietekstowej.</translation>
+        <translation>Nie można ustalić odstępu między łamami w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>Cannot get text of non-text frame.</source>
@@ -14100,22 +14329,22 @@ Zewnętrzne dowiązania
     <message>
         <source>Column gap out of bounds, must be positive.</source>
         <comment>python error</comment>
-        <translation>Odstęp między szpaltami poza dozwolonym zakresem, wartość powinna być dodatnia.</translation>
+        <translation>Odstęp między łamami poza dozwolonym zakresem, wartość powinna być dodatnia.</translation>
     </message>
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustawić odstępnu między szpaltami w ramce nietekstowej.</translation>
+        <translation>Nie można ustalić odstępu między łamami w ramce nietekstowej.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation>Ilość szpalt poza dozwolonym zakresem, powinna być  &gt; 1.</translation>
+        <translation>Ilość łamów poza dozwolonym zakresem, powinna być  &gt; 1.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation>Nie można ustawić ilości szpalt dla ramki nietekstowej.</translation>
+        <translation>Nie można ustawić ilości łamów dla ramki nietekstowej.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
@@ -14294,7 +14523,7 @@ Zewnętrzne dowiązania
     </message>
     <message>
         <source>Font %1 (found using fontconfig) is broken, discarding it</source>
-        <translation>Font %1 (wykryty za pomocą fontconfiga) zawiera błędy i zostaje wyłączony</translation>
+        <translation type="obsolete">Font %1 (wykryty za pomocą fontconfiga) zawiera błędy i zostaje wyłączony</translation>
     </message>
     <message>
         <source>Scribus Development Version</source>
@@ -14895,7 +15124,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>SVG Export</source>
@@ -14972,7 +15201,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;Próbujesz zaimportować więcej stron, niż jest dostępnych w aktualnym dokumencie, licząc od aktywnej strony.&lt;/p&gt;Wybierz jedną z nastęjących możliwości:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Utwórz&lt;/b&gt; brakujące strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importuj&lt;/b&gt; strony do ostatniej strony&lt;/li&gt;&lt;li&gt;&lt;b&gt;Anuluj&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>C&amp;reate</source>
@@ -15019,17 +15248,54 @@ is not exhaustive due to exceptions from called functions.
         <translation>Nie udało się otworzyć pliku %1</translation>
     </message>
     <message>
-        <source>This file is not recognized as a PDB document propably. Please, report this as a bug if you are sure it is one.</source>
-        <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Luxembourgish</source>
         <translation>Luksemburski</translation>
     </message>
     <message>
         <source>Japanese</source>
         <translation>Japoński</translation>
+    </message>
+    <message>
+        <source>Arabic</source>
+        <translation>Arabski</translation>
+    </message>
+    <message>
+        <source>Estonian</source>
+        <translation>Estoński</translation>
+    </message>
+    <message>
+        <source>Given master page name does not match any existing.</source>
+        <comment>python error</comment>
+        <translation>Podana nazwa strony wzorcowej nie pasuje do żadnej istniejącej strony.</translation>
+    </message>
+    <message>
+        <source>Icelandic</source>
+        <translation>Islandzki</translation>
+    </message>
+    <message>
+        <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
+        <comment>PDB Importer</comment>
+        <translation>Ten plik nie został rozpoznany jako dokument PDB. Zgłoś to jako błąd, jeśli jesteś pewien, że jest to błąd.</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing resolution tags</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Breton</source>
+        <translation>Bretoński</translation>
+    </message>
+    <message>
+        <source>English (American)</source>
+        <translation>Angielski (Amerykański)</translation>
+    </message>
+    <message>
+        <source>English (Australian)</source>
+        <translation>Angielski (Australijski)</translation>
+    </message>
+    <message>
+        <source>%1 may be corrupted : missing or wrong resolution tags</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -15692,7 +15958,7 @@ converting their vector data into Scribus objects.</source>
     <message>
         <source>Short Words</source>
         <comment>short words plugin</comment>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>Apply unbreakable space on:</source>
@@ -15762,7 +16028,7 @@ converting their vector data into Scribus objects.</source>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
@@ -16601,7 +16867,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Document</source>
@@ -16622,6 +16888,14 @@ materiału wejściowego, aby je poprawić</translation>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
         <translation>Obiekt %1 jest edytowany w Edytorze Artykułów. Operacja usunięcia zostaje anulowana</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening icc profiles, color management is not enabled.</source>
+        <translation type="obsolete">Podczas wczytywania profili ICC wystąpił błąd, zarzadzanie kolorami będzie wyłączone.</translation>
+    </message>
+    <message>
+        <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
+        <translation>Podczas otwierania profili ICC wystąpił błąd, zarządzanie kolorami nie zostanie włączone.</translation>
     </message>
 </context>
 <context>
@@ -16930,7 +17204,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation>Normalny</translation>
+        <translation>Normalna</translation>
     </message>
     <message>
         <source>Name:</source>
@@ -17092,6 +17366,10 @@ Przesunięcie w pionie: %3</translation>
         <source>Contents</source>
         <translation>Zawartość</translation>
     </message>
+    <message>
+        <source>Liga&amp;ture</source>
+        <translation>L&amp;igatury</translation>
+    </message>
 </context>
 <context>
     <name>ScribusQApp</name>
@@ -17182,6 +17460,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Issues</source>
         <translation>Błędy</translation>
+    </message>
+    <message>
+        <source>Display a console window</source>
+        <translation>Wyświetlaj okno konsoli</translation>
     </message>
 </context>
 <context>
@@ -17796,15 +18078,19 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Short &amp;Words...</source>
         <comment>short words plugin</comment>
-        <translation>Short &amp;Words...</translation>
+        <translation>Usuń zawieszone &amp;spójniki...</translation>
     </message>
     <message>
         <source>Short Words</source>
-        <translation>Short Words</translation>
+        <translation>Usuwanie zawieszonych spójników</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words.</source>
         <translation type="obsolete">Specjalna wtyczka wstawiająca twarde spacje przed albo po tzw. short words, np. przed &quot;zawieszonymi spójnikami&quot;.</translation>
+    </message>
+    <message>
+        <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
+        <translation>Specjalna wtyczka wstawiająca spacje niełamliwe przed albo po tzw. &quot;short words&quot;, np. aby usunąć zawieszone spójniki. Dostępna w następujących językach:</translation>
     </message>
 </context>
 <context>
@@ -18161,7 +18447,7 @@ Przesunięcie w pionie: %3</translation>
     <name>StyleSelect</name>
     <message>
         <source>Underline</source>
-        <translation>Podkreślenie</translation>
+        <translation type="obsolete">Podkreślenie</translation>
     </message>
     <message>
         <source>Small Caps</source>
@@ -18177,7 +18463,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Strike Out</source>
-        <translation>Przekreślenie</translation>
+        <translation type="obsolete">Przekreślenie</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -18193,16 +18479,36 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Shadow</source>
-        <translation>Cień</translation>
+        <translation type="obsolete">Cień</translation>
     </message>
     <message>
         <source>Underline Words Only</source>
-        <translation>Podkreśl tylko słowa</translation>
+        <translation type="obsolete">Podkreśl tylko słowa</translation>
     </message>
     <message>
         <source>Outline</source>
         <comment>Text Style Selector</comment>
-        <translation>Struktura</translation>
+        <translation type="obsolete">Struktura</translation>
+    </message>
+    <message>
+        <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Podkreślenie tekstu. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
+    </message>
+    <message>
+        <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Podkreślaj tylko słowa. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
+    </message>
+    <message>
+        <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
+        <translation>Przekreślenie. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
+    </message>
+    <message>
+        <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
+        <translation>Obrys. Przytrzymaj klawisz myszy, aby móc zmienić grubość linii i opcje dotyczące przesunięcia.</translation>
+    </message>
+    <message>
+        <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
+        <translation>Cieniowanie tekstu. Przytrzymaj klawisz myszy, aby móc zmienić przesunięcie.</translation>
     </message>
 </context>
 <context>
@@ -18348,7 +18654,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Indeks</translation>
+        <translation type="obsolete">&amp;Indeks</translation>
     </message>
 </context>
 <context>
@@ -18419,7 +18725,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Inde&amp;x</source>
-        <translation>&amp;Indeks</translation>
+        <translation type="obsolete">&amp;Indeks</translation>
     </message>
 </context>
 <context>
@@ -18771,7 +19077,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>Zag&amp;nieźdź podzbiory wszystkich fontów</translation>
+        <translation>Zamień wszystkie fo&amp;nty na krzywe</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -18795,7 +19101,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Podzbiory fontów do zagnieżdżenia:</translation>
+        <translation>Fonty do zamiany na krzywe:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -19071,7 +19377,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Trim Box</source>
-        <translation>Krawędzie spadu</translation>
+        <translation>Obszar przycięcia (TrimBox)</translation>
     </message>
     <message>
         <source>PDF/X-&amp;3</source>
@@ -19320,7 +19626,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation>Zamień kolory spotowe na kolory rozbarwiane</translation>
+        <translation>Zamień kolory dodatkowe na kolory procesowe</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
@@ -19328,7 +19634,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Poziom kompresji dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom kompresji nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. </translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
@@ -19340,7 +19646,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Włącza konwersję kolorów spotowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów spotowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
+        <translation>Włącza konwersję kolorów dodatkowych na kolory kompozytowe. Jeśli nie planujesz druku kolorów dodatkowych w drukarni, najlepiej zostawić tę opcję włączoną.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -19511,7 +19817,7 @@ podczas otwierania dokumentu:</translation>
     <message>
         <source>Javascript to be executed
 when PDF document is opened:</source>
-        <translation>Skrypt JavaScript który będzię uruchomiony
+        <translation>Skrypt JavaScript, który będzię uruchomiony
 w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
@@ -19520,7 +19826,7 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Określa zgodność ze standardami PDF. Domyślny standard to PDF 1.3, który zapewnia największą kompatybilność. PDF 1.4 udostępnia takie możliwości jak przezroczystość czy szyfrowanie 128 bitowe. Standard 1.5 jest konieczny, jeśli będziesz chciał zachować obiekty na oddzielnych warstwach wewnątrz pliku PDF. Standard PDF/X-3 używany jest do eksporrtu do PDF, jeśli wymagany jest zarządzany kolorami RGB przeznaczony do komercyjnego druku. PDF/X-3 dostępny jest, jeśli włączone zostało zarządzanie kolorami w Scribusie. Używaj tej możliwości tylko wtedy, kiedy poradzi ci tak twoja drukarnia oraz w przypadku druku na czterokolorowej drukarce laserowej. </translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
@@ -19528,16 +19834,16 @@ w trakcie otwierania dokumentu PDF:</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Metoda kompresji obrazków. Automatyczna pozwala Scribusowi na wybór najlepszej metody. ZIP jest bezstratny i dobry dla obrazków o jednolitych kolorach.
+        <translation type="obsolete">Metoda kompresji obrazków. Automatyczna pozwala Scribusowi na wybór najlepszej metody. ZIP jest bezstratny i dobry dla obrazków o jednolitych kolorach.
 JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka). Wybierz kompresję automatyczną, chyba, że potrzebujesz specjalnych opcji przy kompresji. Dotyczy to jedynie obrazków JPEG</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienia rozdzielczość obrazków bitmapowych na wybraną DPI. Jeśli nie zakreślisz tej opcji, obrazki zachowają swoją oryginalną rozdzielczość. Zakreślenie może zwiększyć zużycie pamięci i spowolnić eksport.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Model kolorów dla wynikowego pliku PDF. Wybierz &quot;Monitor/Internet&quot; dla pliku PDF, który przeznaczony będzie do oglądania na ekranie lub wydruku na typowych drukarkach atramentowych. Wybierz &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce wspierającej druk w czterech kolorach CMYK. Wybierz &quot;Odcienie szarości&quot;, jeśli chcesz uzyskać PDF zawierający odcienie szarości.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
@@ -19545,7 +19851,24 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page changing.</source>
+        <translation type="obsolete">Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
+    </message>
+    <message>
+        <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation>Metoda kompresji obrazków. &quot;Automatyczna&quot; pozwala Scribusowi na wybór najlepszej metody. &quot;ZIP&quot; jest bezstratny i dobry dla obrazków o jednolitych kolorach.
+&quot;JPEG&quot; nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka). Wybierz kompresję automatyczną, chyba, że potrzebujesz specjalnych opcji przy kompresji.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jepg.</source>
+        <translation type="obsolete">Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation>Poziomy jakości dla stratnych metod kompresji: Minimalna (25%), Niska (50%), Średnia (75%), Wysoka (85%), Maksymalna (95%). Poziom jakości nie określa bezprośrednio rozmiaru wynikowego obrazka - zarówno rozmiar jak i utrata jakości różnią się dla różnych obrazków na każdym poziomie kompresji. Nawet jeśli wybierzesz maksymalną jakość, zawsze będzie miała miejsce pewna utrata jakości dla obrazków jpeg.</translation>
     </message>
 </context>
 <context>
@@ -19576,11 +19899,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Colu&amp;mns:</source>
-        <translation>Szp&amp;alty:</translation>
+        <translation>Ł&amp;amy:</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>Odstęp &amp;między szpaltami:</translation>
+        <translation>Odstęp &amp;między łamami:</translation>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
@@ -19724,11 +20047,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Number of columns in a text frame</source>
-        <translation>Ilość szpalt w ramce tekstowej</translation>
+        <translation>Ilość łamami w ramce tekstowej</translation>
     </message>
     <message>
         <source>Gap between text frame columns</source>
-        <translation>Odstęp pomiędzy szpaltami w ramce tekstowej</translation>
+        <translation>Odstęp pomiędzy łamami w ramce tekstowej</translation>
     </message>
     <message>
         <source>Sample of your font</source>
@@ -20553,6 +20876,18 @@ X: %4, Y: %5</source>
         <translation>X: %1, Y: %2
 X: %4, Y: %5</translation>
     </message>
+    <message>
+        <source>Reset control point</source>
+        <translation>Wyzeruj punkt kontrolny</translation>
+    </message>
+    <message>
+        <source>Reset control points</source>
+        <translation>Wyzeruj punkty kontrolne</translation>
+    </message>
+    <message>
+        <source>Modify image effects</source>
+        <translation>Edytuj efekty obrazka</translation>
+    </message>
 </context>
 <context>
     <name>UndoPalette</name>
@@ -20583,6 +20918,55 @@ X: %4, Y: %5</translation>
         <source>%1: %2</source>
         <comment>undo target: action (f.e. Text frame: Resize)</comment>
         <translation>%1: %2</translation>
+    </message>
+</context>
+<context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation>Pobieranie pliku z informacji o  aktualizacjach Scribusa </translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation>(Z twojego komputera nie zostaną wysłane żadne dane na zewnątrz)</translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation>Przekroczenie limitu czasu podczas pobierania pliku aktualizacji.</translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation>Błąd podczas pobierania pliku aktualizacji: %1</translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation>Na serwerze nie znaleziono pliku</translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation>Nie udało się otworzyć pliku wersji: %1
+Błąd: %2 w szpalcie: %3, wiersz: %4 </translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation>Podczas pobierania informacji o aktualizacjach Scribusa wystąpił błąd, proszę sprawdzić połączenie z internetem.</translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation>Brak aktualizacji dla twojej wersji Scribusa %1</translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation>Dla twojej wersji Scribusa (%1) jest dostępna jedna lub więcej aktualizacji:</translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation>Ta lista może zawierać wersje deweloperskie.</translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation>Dalsze informacje na stronie www.scribus.net. </translation>
     </message>
 </context>
 <context>
@@ -20877,6 +21261,10 @@ czy też zastąpić domyślne ustawienia własnymi, zakreślając ją.</translat
     <message>
         <source>Import Text Only</source>
         <translation>Importuj tylko tekst</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Otwórz</translation>
     </message>
 </context>
 <context>

@@ -1,0 +1,95 @@
+<qt>
+<title>Guide d'initiation au calibrage d'&eacute;cran avec Lprof</title>
+<h2>Guide d'initiation au calibrage d'&eacute;cran avec Lprof</h2>
+
+<h4>Aper&ccedil;u</h4>
+<p><em>Selon l'auteur, les profileurs <strong>Lprof</strong> ont &eacute;t&eacute; cr&eacute;&eacute;s &agrave; l'origine par Marti Maria et ont &eacute;t&eacute; r&eacute;actualis&eacute;s par des b&eacute;n&eacute;voles. Lprof est
+maintenant un projet distinct de LittleCMS, m&ecirc;me s'il d&eacute;pend toujours de ce module.</em> Certaines distributions les proposent sous la forme d'un progiciel. Google est votre ami. Cependant, sous Linux, il n'existe aucune solution pouvant cr&eacute;er un profil aussi facilement que Lprof. Cela
+vaut la peine de rechercher cet outil sous la forme d'un rpm ou d'un autre progiciel. Une autre chose &agrave; noter pour les habitu&eacute;s des utilitaires Lprof ant&eacute;rieurs : la mise &agrave; jour de l'application Lprof tient maintenant dans un seul ex&eacute;cutable. </p>
+
+ <p>Ou encore, visitez <a href="http://lprof.sourceforge.net">http://lprof.sourceforge.net</a> pour obtenir les derni&egrave;res informations et les derniers progiciels. Les programmeurs raffinent constamment les profileurs pour les rendre comparables aux applications commerciales. Aucun progiciel n'existe pour Windows. Pour les utilisateurs de Windows qui ont install&eacute; des applications graphiques Adobe, on recommande Adobe Gamma pour cr&eacute;er un profil &eacute;cran de base. </p>
+
+<p>Cinq outils distincts sont inclus dans le progiciel :</p>
+
+<ul>
+	<li>Un cr&eacute;ateur de profil &eacute;cran</li>
+	<li>Un cr&eacute;ateur de profil scanner</li>
+	<li>Un outil de mesure</li>
+	<li>Un v&eacute;rificateur de profil</li>
+	<li>Des utilitaires sp&eacute;ciaux pour les cibles IT8 qui sont utilis&eacute;es pour cr&eacute;er les profils des scanners.</li>
+</ul>
+
+<p>Ici, nous allons nous concentrer sur la cr&eacute;ation d'un profil &eacute;cran avec l'outil Profil &eacute;cran. Sans un profil raisonnablement pr&eacute;cis, vous pourrez difficilement afficher des sorties coh&eacute;rentes &agrave; l'&eacute;cran lorsque la gestion des couleur est activ&eacute;e, et vous ne tirerez pas de bons r&eacute;sultats des autres outils non plus. Avant de commencer, rep&eacute;rez le manuel de votre &eacute;cran ou sa fiche technique sur le site web du fournisseur. De plus, procurez-vous le profil ICC &eacute;tabli en usine, s'il est disponible, car il sera utile pour des comparaisons ult&eacute;rieures.</p>
+
+<h4>Installation</h4>
+
+<p>Lprof utilise un nouveau module d'assemblage appel&eacute; <strong>scons</strong>, bas&eacute; sur le langage Python. Il suffit de d&eacute;comprimer ("untar") et de taper <code>python scons.py</code> dans le r&eacute;pertoire source. Cela construira lprof, et ensuite <code>python scons.py install</code> installera le progiciel au niveau utilisateur root. <strong>Je vous recommande fortement de lire le fichier readme d&eacute;taill&eacute; avant la compilation.</strong></p>
+<h4>Pr&eacute;paration</h4>
+
+<p>Premi&egrave;res &eacute;tapes :</p>
+
+<ul>
+	<li>Votre &eacute;cran doit &ecirc;tre sous tension depuis au moins une demi-heure pour que la temp&eacute;rature se stabilise.</li>
+	<li>De plus, pour des r&eacute;sultat optimaux, choisissez un fond gris neutre pour votre bureau, sans images matricielles ou autres types de graphismes. Il
+s'agit d'&eacute;viter tout &eacute;l&eacute;ment de fantaisie, qui est <em>carr&eacute;ment</em> inutile. Avec un fond de bureau gris, vos yeux ne risquent pas d'&ecirc;tre perturb&eacute;s par un manque de balance des couleurs. Mon bureau est habituellement d'un bleu fonc&eacute;, mais pour tout travail critique, je retourne au gris "terne".</li>
+
+	<li>Configurez, si possible, la temp&eacute;rature de couleur de votre &eacute;cran &agrave; 6500k &agrave; l'aide des r&eacute;glages &agrave; l'&eacute;cran. Le manuel de votre &eacute;cran devrait contenir toutes les instructions pour &eacute;tablir ce param&egrave;tre.</li>
+</ul>
+
+<p><b>Explication :</b> Cette &eacute;tape permettra &agrave; votre &eacute;cran d'approcher les standards utilis&eacute;s en colorim&eacute;trie. D'habitude, la plupart des &eacute;crans sont
+calibr&eacute;s en usine &agrave; 9300k pour para&icirc;tre plus lumineux, mais pour une gestion pr&eacute;cise des couleurs, le r&eacute;sultat est trop "froide" ou bleut&eacute;e pour repr&eacute;senter les couleurs d'une mani&egrave;re &eacute;quilibr&eacute;e. Apr&egrave;s avoir chang&eacute; la temp&eacute;rature de votre &eacute;cran pour 6500k, vous lui trouverez probablement une teinte jaun&acirc;tre, mais d&eacute;placez-vous quelques minutes et revenez &agrave; votre poste. Vos yeux s'ajusteront.</p>
+
+<p>Ensuite, r&eacute;glez le contraste de l'&eacute;cran &agrave; pr&egrave;s de 100 %. Puis, &agrave; l'aide des commandes de brillance, r&eacute;glez l'affichage en fonction de ce qui suit, de fa&ccedil;on que chaque ton de gris soit distinctement visible. Les d&eacute;veloppeurs de Lprof recommandent l'outil <a href="http://www.pcbypaul.com/software/monica.html">Monica</a> pour param&eacute;trer le gamma avec la meilleure pr&eacute;cision qui soit. Ci-dessous : l'&eacute;cran de param&eacute;trage du gamma avec Lprof. L'affichage est presque en plein &eacute;cran et vous devez le maximiser pour &eacute;viter les effets dus &agrave; la pr&eacute;sence de couleurs de proximit&eacute;.</p>
+
+
+
+<h4>Choisir les param&egrave;tres du profil</h4>
+<p>Le premier onglet affiche le panneau. Cochez: "Je veux construire un profil d'&eacute;cran brut." Puis s&eacute;lectionnez : <strong>Entrer les valeurs de l'&eacute;cran.</strong></p>
+<table width="100%"><tr><td align="center"><img src="images/monprof1.png" title="Le premier panneau de Lprof" alt="Le premier panneau de Lprof"/></td></tr></table>
+<p>Ensuite, s&eacute;lectionnez </p>
+
+
+<p>Ensuite, allez &agrave; ce panneau et s&eacute;lectionnez : <strong>Choisir le gamma et le point noir</strong></p>
+
+<table width="100%"><tr><td align="center"><img src="images/monprof2.png" title="Choisir le gamma et le point noir." alt="Choisir le gamma et le point noir."/></td></tr></table>
+
+<h4>Choisir le gamma </h4>
+<p>Le panneau ci-dessous masquera presque tous vos &eacute;crans. </p>
+<table width="100%"><tr><td align="center"><img src="images/gammagrayscale.png" title="Ajuster la brillance pour que tous les tons de gris soient visibles." alt="Choisir le gamma"  /></td></tr></table>
+
+
+
+<p>Maintenant que nous avons chang&eacute; la temp&eacute;rature de l'&eacute;cran &agrave; 6500k, faites de m&ecirc;me dans la liste d&eacute;roulante concernant le point blanc. Sauf en cas de n&eacute;cessit&eacute;, laissez la valeur par d&eacute;faut de sRGB telle quelle. Pour le moment, vous n'avez pas besoin de nommer le profil tel qu'il est indiqu&eacute;. Certaines
+personnes bien inform&eacute;es en Inde indiquent que le param&egrave;tre est souvent fix&eacute; &agrave; 7500k dans leur pays.</p>
+
+<p>Ensuite, d&eacute;placez le curseur pour r&eacute;gler le gamma : les deux tons de gris doivent se fondre l'un dans l'autre avec le meilleur appariement possible des couleurs.
+La plupart des PCs compatibles IBM ont un param&egrave;tre gamma entre 2.1 et 2.4. Les Macs sont g&eacute;n&eacute;ralement &agrave; 1.8. Voil&agrave; pourquoi on trouve souvent des images &eacute;dit&eacute;es sur un PC qui paraissent plus fonc&eacute;es sur un Mac. Si votre &eacute;cran est plus vieux, il peut &ecirc;tre l&eacute;g&egrave;rement teint&eacute;, et vous pouvez essayer de r&eacute;gler les param&egrave;tres des canaux de couleur individuels. Allez-y d&eacute;licatement. Il vaut mieux proc&eacute;der &agrave; de petites modifications subtiles.</p>
+
+<p>Nommez ensuite le profil. Sous Linux ou Unix, l'endroit recommand&eacute; est <code>$home/.color/icc </code> ou <code>/usr/share/color/icc</code> pour tous les utilisateurs. Les utilisateurs de Mac OSX ont acc&egrave;s &agrave; l'outil propri&eacute;taire ColorSync dans le panneau de configurations pour cr&eacute;er un profil semblable.</p>
+
+<p>Vous pouvez ajouter des informations descriptives suppl&eacute;mentaires dans le panneau "Profile Identification" ci-dessous :</p>
+
+<table width="100%"><tr><td align="center"><img src="images/monprof4.png" title="ajouter de l'information descriptive pour votre profil icm" alt="ajouter de l'information descriptive pour votre  profil icm"/></td></tr></table>
+
+<h4>Utiliser votre profil d'&eacute;cran dans Scribus</h4>
+
+<p>Retournez ensuite &agrave; la page principale et nommez votre profil. Vous pouvez le nommer comme suit : <code>$home/.color/icc/d650023.icm</code> Cela vous permet de voir en un coup d'oeil &agrave; quoi il correspond. Dans le cas pr&eacute;sent, d=lumi&egrave;re du jour (daylight) 6500=l'&eacute;cran est configur&eacute; &agrave; 6500k 23=param&egrave;tre gamma de 2.3. Si vous avez des murs de couleur ou de grandes fen&ecirc;tres, vous pourriez cr&eacute;er deux profils : un premier pour la lumi&egrave;re du jour et un second pour l'&eacute;clairage artificiel durant la nuit. La diff&eacute;rence est subtile, mais notable. Pour ce profil pr&eacute;liminaire, vous pouvez laisser tomber l'onglet <strong>Parameters and Tweaking</strong>. Les valeurs par d&eacute;faut pour les sp&eacute;cifications icc y sont incrites.</p>
+
+<p>La derni&egrave;re &eacute;tape est de cr&eacute;er le profil (<strong>Create Profile</strong>) : le fichier icm. Cela ne prend qu'une seconde ou deux. Vous pouvez fermer le profileur pour le moment.</p>
+
+<p>Copiez alors le profil dans le r&eacute;pertoire de profils de Scribus &agrave; partir d'un terminal vers $home/.color/icc : <code>$ cp ./d650023.icm $home/.color/icc</code> C'est un des r&eacute;pertoires par d&eacute;faut de Scribus, dans lequel il cherche ses profils.
+</p>
+
+<p>D&eacute;sormais, Scribus pourra g&eacute;rer plus pr&eacute;cis&eacute;ment les pr&eacute;visualisations &agrave; l'&eacute;cran. D&eacute;marrez ou red&eacute;marrez Scribus et allez dans <strong>Fichier &gt;  Pr&eacute;f&eacute;rences  &gt; Gestion des couleurs</strong>. Activez la gestion des couleurs et s&eacute;lectionnez le profil d'&eacute;cran comme suit :</p>
+
+<table width="100%"><tr><td align="center"><img src="images/scribuscms1.png" title="Param&egrave;tres CMS de Scribus pour le profil d'&eacute;cran" alt="Param&egrave;tres CMS de Scribus pour le profil d'&eacute;cran"/></td></tr></table>
+
+<p>En &eacute;tablissant le profil d'&eacute;cran comme valeur par d&eacute;faut, vous avez am&eacute;lior&eacute; la justesse de vos pr&eacute;visualisations &agrave; l'&eacute;cran. Vous pouvez
+aussi choisir d'activer l'identification des couleurs hors gamme, mais cette fonctionnalit&eacute; n'est pas encore au point dans Littlecms. Il ne
+s'agit pas d'une faiblesse de Littlcms ni de Scribus, mais plut&ocirc;t d'une limitation des sp&eacute;cifications actuelles d'icc. Si vous activez cette option, consid&eacute;rez la pr&eacute;visualisation comme une approximation. Le test v&eacute;ritable
+est ce qui est effectivement imprim&eacute;.</p>
+
+<p>Vous pouvez &eacute;galement utiliser le profil pour am&eacute;liorer les pr&eacute;visualisations dans dans Cinepaint, GIMP, Krita ou d'autres programmes d'imagerie qui supportent la gestion des couleurs. La couleur et la brillance des &eacute;crans varient avec le temps; il est pr&eacute;f&eacute;rable de refaire les profils au moins une fois tous les deux ou trois mois. Dans des contextes, il arrive que les &eacute;crans soient profil&eacute;s chaque semaine.</p>
+
+<!--<p><strong>Note:</strong> The latest beta profilers from littlecms adds new features, including support for profiling digital cameras and additional enhancements. However, it is a Windows only program. Fortunately, it includes the updated lcms 1.14 and it installs and runs fine under any recent version of Wine.</p>-->
+</qt> 
