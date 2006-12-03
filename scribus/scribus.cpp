@@ -7028,6 +7028,8 @@ void ScribusMainWindow::slotEditColors()
 			propertiesPalette->updateColorList();
 			propertiesPalette->updateCList();
 			updateColorMenu();
+			if (doc->m_Selection->count() != 0)
+				doc->m_Selection->itemAt(0)->emitAllToGUI();
 			view->DrawNew();
 		}
 		else
