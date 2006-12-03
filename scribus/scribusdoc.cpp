@@ -3718,20 +3718,28 @@ void ScribusDoc::getBleeds(int pageNumber, double *bleedTop, double *bleedBottom
 {
 	*bleedBottom = bleeds.Bottom;
 	*bleedTop = bleeds.Top;
-	if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
-	{
-		*bleedRight = bleeds.Left;
-		*bleedLeft = bleeds.Right;
-	}
-	else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
+	if (pageSets[currentPageLayout].Columns == 1)
 	{
 		*bleedRight = bleeds.Right;
 		*bleedLeft = bleeds.Left;
 	}
 	else
 	{
-		*bleedRight = bleeds.Left;
-		*bleedLeft = bleeds.Left;
+		if (locationOfPage(Pages->at(pageNumber)->pageNr()) == LeftPage)
+		{
+			*bleedRight = bleeds.Left;
+			*bleedLeft = bleeds.Right;
+		}
+		else if (locationOfPage(Pages->at(pageNumber)->pageNr()) == RightPage)
+		{
+			*bleedRight = bleeds.Right;
+			*bleedLeft = bleeds.Left;
+		}
+		else
+		{
+			*bleedRight = bleeds.Left;
+			*bleedLeft = bleeds.Left;
+		}
 	}
 }
 
@@ -3739,20 +3747,28 @@ void ScribusDoc::getBleeds(Page* page, double *bleedTop, double *bleedBottom, do
 {
 	*bleedBottom = bleeds.Bottom;
 	*bleedTop = bleeds.Top;
-	if (locationOfPage(page->pageNr()) == LeftPage)
-	{
-		*bleedRight = bleeds.Left;
-		*bleedLeft = bleeds.Right;
-	}
-	else if (locationOfPage(page->pageNr()) == RightPage)
+	if (pageSets[currentPageLayout].Columns == 1)
 	{
 		*bleedRight = bleeds.Right;
 		*bleedLeft = bleeds.Left;
 	}
 	else
 	{
-		*bleedRight = bleeds.Left;
-		*bleedLeft = bleeds.Left;
+		if (locationOfPage(page->pageNr()) == LeftPage)
+		{
+			*bleedRight = bleeds.Left;
+			*bleedLeft = bleeds.Right;
+		}
+		else if (locationOfPage(page->pageNr()) == RightPage)
+		{
+			*bleedRight = bleeds.Right;
+			*bleedLeft = bleeds.Left;
+		}
+		else
+		{
+			*bleedRight = bleeds.Left;
+			*bleedLeft = bleeds.Left;
+		}
 	}
 }
 

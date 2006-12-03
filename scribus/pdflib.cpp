@@ -1758,20 +1758,28 @@ void PDFlib::PDF_End_Page()
 		markOffs = 20.0 + Options.markOffset;
 	double bleedRight;
 	double bleedLeft;
-	if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-	{
-		bleedRight = Options.bleeds.Left;
-		bleedLeft = Options.bleeds.Right;
-	}
-	else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+	if (doc.pageSets[doc.currentPageLayout].Columns == 1)
 	{
 		bleedRight = Options.bleeds.Right;
 		bleedLeft = Options.bleeds.Left;
 	}
 	else
 	{
-		bleedRight = Options.bleeds.Left;
-		bleedLeft = Options.bleeds.Left;
+		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Right;
+		}
+		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+		{
+			bleedRight = Options.bleeds.Right;
+			bleedLeft = Options.bleeds.Left;
+		}
+		else
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Left;
+		}
 	}
 	double maxBoxX = ActPageP->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPageP->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
@@ -2083,20 +2091,28 @@ void PDFlib::PDF_ProcessPage(const Page* pag, uint PNr, bool clip)
 		markOffs = 20.0 + Options.markOffset;
 	if (!pag->MPageNam.isEmpty())
 	{
-		if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
-		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Right;
-		}
-		else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+		if (doc.pageSets[doc.currentPageLayout].Columns == 1)
 		{
 			bleedRight = Options.bleeds.Right;
 			bleedLeft = Options.bleeds.Left;
 		}
 		else
 		{
-			bleedRight = Options.bleeds.Left;
-			bleedLeft = Options.bleeds.Left;
+			if (doc.locationOfPage(ActPageP->pageNr()) == LeftPage)
+			{
+				bleedRight = Options.bleeds.Left;
+				bleedLeft = Options.bleeds.Right;
+			}
+			else if (doc.locationOfPage(ActPageP->pageNr()) == RightPage)
+			{
+				bleedRight = Options.bleeds.Right;
+				bleedLeft = Options.bleeds.Left;
+			}
+			else
+			{
+				bleedRight = Options.bleeds.Left;
+				bleedLeft = Options.bleeds.Left;
+			}
 		}
 		PutPage("q 1 0 0 1 "+FToStr(bleedLeft+markOffs)+" "+FToStr(Options.bleeds.Bottom+markOffs)+" cm\n");
 	}

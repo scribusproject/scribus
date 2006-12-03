@@ -493,20 +493,28 @@ void PSLib::PS_begin_page(Page* pg, struct MarginStruct* Ma, bool Clipping)
 	double markOffs = 0.0;
 	if ((Options.cropMarks) || (Options.bleedMarks) || (Options.registrationMarks) || (Options.colorMarks))
 		markOffs = 20.0 + Options.markOffset;
-	if (m_Doc->locationOfPage(pg->pageNr()) == LeftPage)
+	if (m_Doc->pageSets[m_Doc->currentPageLayout].Columns == 1)
 	{
 		bleedRight = Options.bleeds.Right;
 		bleedLeft = Options.bleeds.Left;
 	}
-	else if (m_Doc->locationOfPage(pg->pageNr()) == RightPage)
-	{
-		bleedRight = Options.bleeds.Left;
-		bleedLeft = Options.bleeds.Right;
-	}
 	else
 	{
-		bleedRight = Options.bleeds.Left;
-		bleedLeft = Options.bleeds.Left;
+		if (m_Doc->locationOfPage(pg->pageNr()) == LeftPage)
+		{
+			bleedRight = Options.bleeds.Right;
+			bleedLeft = Options.bleeds.Left;
+		}
+		else if (m_Doc->locationOfPage(pg->pageNr()) == RightPage)
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Right;
+		}
+		else
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Left;
+		}
 	}
 	double maxBoxX = pg->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = pg->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
@@ -557,20 +565,28 @@ void PSLib::PS_end_page()
 		markOffs = 20.0 + Options.markOffset;
 	double bleedRight;
 	double bleedLeft;
-	if (m_Doc->locationOfPage(ActPage->pageNr()) == LeftPage)
+	if (m_Doc->pageSets[m_Doc->currentPageLayout].Columns == 1)
 	{
 		bleedRight = Options.bleeds.Right;
 		bleedLeft = Options.bleeds.Left;
 	}
-	else if (m_Doc->locationOfPage(ActPage->pageNr()) == RightPage)
-	{
-		bleedRight = Options.bleeds.Left;
-		bleedLeft = Options.bleeds.Right;
-	}
 	else
 	{
-		bleedRight = Options.bleeds.Left;
-		bleedLeft = Options.bleeds.Left;
+		if (m_Doc->locationOfPage(ActPage->pageNr()) == LeftPage)
+		{
+			bleedRight = Options.bleeds.Right;
+			bleedLeft = Options.bleeds.Left;
+		}
+		else if (m_Doc->locationOfPage(ActPage->pageNr()) == RightPage)
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Right;
+		}
+		else
+		{
+			bleedRight = Options.bleeds.Left;
+			bleedLeft = Options.bleeds.Left;
+		}
 	}
 	double maxBoxX = ActPage->width()+bleedLeft+bleedRight+markOffs*2.0;
 	double maxBoxY = ActPage->height()+Options.bleeds.Bottom+Options.bleeds.Top+markOffs*2.0;
