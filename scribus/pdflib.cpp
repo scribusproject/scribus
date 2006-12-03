@@ -3630,16 +3630,16 @@ QString PDFlib::setTextSt(PageItem *ite, uint PNr, const Page* pag)
 						setTextCh(ite, PNr, CurX, ls.y, d, tmp, tmp2, &hl2, pstyle, pag);
 					}
 					tabCc++;
-					continue;
 				}
 				else
 				{
 					tabCc++;
-					continue;
 				}
 			}
-			if (ch[0] == SpecialChars::TAB)
+			if (ch[0] == SpecialChars::TAB) {
+				CurX += hl->glyph.wide();
 				continue;
+			}
 			if ((chstyle.effects() & ScStyle_Shadowed) && (chstyle.strokeColor() != CommonStrings::None))
 			{
 				ScText hl2;

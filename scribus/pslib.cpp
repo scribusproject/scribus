@@ -2987,16 +2987,16 @@ void PSLib::setTextSt(ScribusDoc* Doc, PageItem* ite, bool gcr, uint argh, Page*
 						setTextCh(Doc, ite, CurX, ls.y, gcr, argh, d, &hl2, pstyle, pg, sep, farb, ic, master);
 					}
 					tabCc++;
-					continue;
 				}
 				else
 				{
 					tabCc++;
-					continue;
 				}
 			}
-			if (hl->ch == SpecialChars::TAB)
+			if (hl->ch == SpecialChars::TAB) {
+				CurX += hl->glyph.wide();
 				continue;
+			}
 			if ((hl->effects() & ScStyle_Shadowed) && (hl->strokeColor() != CommonStrings::None))
 			{
 				ScText hl2;
