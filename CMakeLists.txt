@@ -2,7 +2,7 @@
 #Require 2.4.2 for Qt finding
 #Require 2.4.3 for moc change detection
 #Require 2.4.3 for rpath updates for custom cairo install
-CMAKE_MINIMUM_REQUIRED(VERSION 2.4.3)
+CMAKE_MINIMUM_REQUIRED(VERSION 2.4.3 FATAL_ERROR)
 
 SET(CMAKE_COLOR_MAKEFILE ON)
 SET(CMAKE_VERBOSE_MAKEFILE ON)
