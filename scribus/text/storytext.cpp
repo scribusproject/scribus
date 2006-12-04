@@ -327,10 +327,10 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
 		applyCharStyle(pos, len, otherDefault.charStyle());
 		applyCharStyle(pos, len, cstyle);
 		pos += len;
-	}
-	if (other.text(otherEnd-1) != SpecialChars::PARSEP) {
-		applyStyle(pos, otherDefault);
-		applyStyle(pos, other.paragraphStyle(otherEnd-1));
+		if (other.text(otherEnd-1) != SpecialChars::PARSEP) {
+			applyStyle(pos, otherDefault);
+			applyStyle(pos, other.paragraphStyle(otherEnd-1));
+		}
 	}
 }
 
