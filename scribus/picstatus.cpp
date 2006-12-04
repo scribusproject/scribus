@@ -335,7 +335,7 @@ void PicStatus::fillTable()
 {
 	PageItem *item;
 	uint i = 0;
-
+	ItemNrs.clear();
 	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
 	{
 		if (item->itemType() == PageItem::ImageFrame)
@@ -406,8 +406,9 @@ void PicStatus::insertLine(PageItem* item, uint row, bool isMaster)
 		QPixmap pm;
 		pm.convertFromImage(item->pixm.smoothScale(64, 64, QImage::ScaleMin));
 		PicTable->setPixmap(row, COL_PREVIEW, pm);
-		PicTable->setText(row, COL_STATUS, trOK);
 	}
+	if (item->PicAvail)
+		PicTable->setText(row, COL_STATUS, trOK);
 	else
 		PicTable->setText(row, COL_STATUS, trMissing);
 	QToolButton *tb = new QToolButton(this, tmp);
