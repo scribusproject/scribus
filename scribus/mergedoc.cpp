@@ -16,7 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include <qcheckbox.h>
 #include <qtooltip.h>
 
-
+#include "scconfig.h"
 #include "mergedoc.h"
 #include "mergedoc.moc"
 #include "commonstrings.h"
@@ -25,7 +25,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsfile.h"
 #include "prefsmanager.h"
 #include "sccombobox.h"
-#include "scconfig.h"
+#include "scpaths.h"
 
 #include <qcursor.h>
 
@@ -151,7 +151,7 @@ void MergeDoc::changeFile()
 			qApp->setOverrideCursor(QCursor(arrowCursor), true);
 			if ((ret) && (count != 0))
 			{
-				fromDocData->setText(fn);
+				fromDocData->setText( QDir::convertSeparators(fn) );
 				importButton->setEnabled(true);
 				if (masterPages)
 				{
@@ -210,7 +210,7 @@ void MergeDoc::enableCreateWidgets()
 
 const QString MergeDoc::getFromDoc()
 {
-	return fromDocData->text();
+	return ScPaths::separatorsToSlashes(fromDocData->text());
 }
 
 const int MergeDoc::getMasterPageNameItem()

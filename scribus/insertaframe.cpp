@@ -22,6 +22,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scribusdoc.h"
 #include "util.h"
+#include "scpaths.h"
 
 #include <qbuttongroup.h>
 #include <qlineedit.h>
@@ -145,11 +146,11 @@ void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
 	{
 		case 0:
 			iafData.frameType=PageItem::TextFrame;
-			iafData.source=sourceDocLineEdit->text();
+			iafData.source=ScPaths::separatorsToSlashes(sourceDocLineEdit->text());
 			break;
 		case 1:
 			iafData.frameType=PageItem::ImageFrame;
-			iafData.source=sourceImageLineEdit->text();
+			iafData.source=ScPaths::separatorsToSlashes(sourceImageLineEdit->text());
 			break;
 	}
 	iafData.locationType=pagePlacementButtonGroup->selectedId();
@@ -182,7 +183,7 @@ void InsertAFrame::locateImageFile()
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
 	
-	sourceImageLineEdit->setText(fileName);
+	sourceImageLineEdit->setText(QDir::convertSeparators(fileName));
 }
 
 void InsertAFrame::locateDocFile()
@@ -191,7 +192,7 @@ void InsertAFrame::locateDocFile()
 	gtGetText* gt = new gtGetText(m_Doc);
 	m_ImportSetup=gt->run();
 	if (m_ImportSetup.runDialog)
-		sourceDocLineEdit->setText(m_ImportSetup.filename);
+		sourceDocLineEdit->setText(QDir::convertSeparators(m_ImportSetup.filename));
 	delete gt;
 }
 
