@@ -232,6 +232,7 @@ void PicStatus::SearchPicFinished(const QStringList & matches, const QString & f
 
 bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 {
+	QFileInfo fi(newFilePath);
 	unsigned int itemNumber = ItemNrs[row];
 	// FIXME: error checking
 	// WTF?
@@ -243,7 +244,7 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 	// Set missing flag again. Since we do no error checking of the load,
 	// missing will generally mean "failed to load".
 	PicTable->setText(row, COL_STATUS, item->PicAvail ? trOK : trMissing);
-	PicTable->setText(row, COL_PATH, QFileInfo(newFilePath).dirPath(true));
+	PicTable->setText(row, COL_PATH, QDir::convertSeparators(fi.dirPath(true)));
 	if (item->PicAvail)
 	{
 		QPixmap pm;
@@ -252,7 +253,7 @@ bool PicStatus::loadPictByRow(const QString & newFilePath, unsigned int row)
 		PicTable->adjustRow(row);
 	}
 	// let's suppose we update all succesfully - file name is changed too - PV
-	PicTable->setText(row, COL_FILENAME, QFileInfo(newFilePath).fileName());
+	PicTable->setText(row, COL_FILENAME, fi.fileName());
 	return item->PicAvail;
 }
 
@@ -379,7 +380,7 @@ void PicStatus::insertLine(PageItem* item, uint row, bool isMaster)
 	QFileInfo fi = QFileInfo(item->Pfile);
 
 	PicTable->setText(row, COL_FILENAME, fi.fileName());
-	PicTable->setText(row, COL_PATH, fi.dirPath());
+	PicTable->setText(row, COL_PATH, QDir::convertSeparators(fi.dirPath()));
 	if (isMaster)
 		PicTable->setText(row, COL_PAGE, item->OnMasterPage);
 	else

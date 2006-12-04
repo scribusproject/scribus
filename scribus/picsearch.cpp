@@ -10,6 +10,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusstructs.h"
 #include "scimage.h"
 #include "commonstrings.h"
+#include "scpaths.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -22,7 +23,9 @@ PicSearch::PicSearch(QWidget* parent, const QString & fileName, const QStringLis
 	cancelButton->setText(CommonStrings::tr_Cancel);
 	previewLabel->hide();
 	fileNameLabel->setText(fileName);
-	foundFilesBox->insertStringList(avalableFiles);
+
+	for (int i = 0; i < avalableFiles.count(); ++i)
+		foundFilesBox->insertItem( QDir::convertSeparators(avalableFiles[i]) );
 
 	// signals and slots connections
 	connect(cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
@@ -47,7 +50,7 @@ void PicSearch::foundFilesBox_clicked(QListBoxItem *c)
 {
 	if (c == NULL)
 		return;
-	currentImage = c->text();
+	currentImage = ScPaths::separatorsToSlashes(c->text());
 	if (previewCheckBox->isChecked())
 		createPreview();
 	useButton->setEnabled(true);
