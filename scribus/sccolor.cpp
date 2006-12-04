@@ -51,20 +51,20 @@ ScColor::ScColor(int c, int m, int y, int k, ScribusDoc* doc, bool retainDoc)
 {
 	m_doc = doc;
 	m_retainDoc = retainDoc;
-	setColor(c, m, y, k);
 	Spot = false;
 	outOfGamutFlag = false;
 	Regist = false;
+	setColor(c, m, y, k);
 }
  
 ScColor::ScColor(int r, int g, int b, ScribusDoc* doc, bool retainDoc)
 {
 	m_doc = doc;
 	m_retainDoc = retainDoc;
-	setColorRGB(r, g, b);
 	Spot = false;
 	outOfGamutFlag = false;
 	Regist = false;
+	setColorRGB(r, g, b);
 }
 
 ScColor& ScColor::operator=(const ScColor& rhs)
@@ -195,9 +195,8 @@ void ScColor::getShadeColorCMYK(int *c, int *m, int *y, int *k, int level) const
 	if (Model == colorModelRGB)
 	{
 		int r, g, b;
-		ScColor tmpR;
 		getShadeColorRGB(&r, &g, &b, level);
-		tmpR.setColorRGB(r, g, b);
+		ScColor tmpR(r, g, b, m_doc);
 		tmpR.getCMYK(c, m, y, k);
 	}
 	else
@@ -215,7 +214,7 @@ void ScColor::getShadeColorRGB(int *r, int *g, int *b, int level) const
 	{
 		int c, m, y, k;
 		getShadeColorCMYK(&c, &m, &y, &k, level);
-		ScColor tmpC(c, m, y, k);
+		ScColor tmpC(c, m, y, k, m_doc);
 		tmpC.getRGB(r, g, b);
 	}
 	else
@@ -296,13 +295,11 @@ QColor ScColor::getColorProof(bool gamutCheck) const
 QColor ScColor::getShadeColorProof(int level)
 {
 	QColor tmp;
-	ScColor tmp2;
 	int r, g, b, c, m ,y, k;
 	bool doGC = false;
 	if (m_doc)
 		doGC = m_doc->Gamut;
 	
-	tmp2.Spot = Spot;
 	if (Model == colorModelRGB)
 	{
 		getShadeColorRGB(&r, &g, &b, level);
