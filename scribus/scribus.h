@@ -218,7 +218,6 @@ public:
 	QMap<QString,QString> Sprachen;
 	QWorkspace *wsp;
 	ScribusWin* ActWin;
-	//QString PrefsPfad;
 	QClipboard *ClipB;
 	QString LoadEnc;
 	bool ScriptRunning;
@@ -254,7 +253,6 @@ public slots:
 	void DelBookMark(PageItem *ite);
 	void BookMarkTxT(PageItem *ite);
 	void StoreBookmarks();
-	//void ManageGuides();
 	//void setItemFillTransparency(double t);
 	//void setItemLineTransparency(double t);
 	void setStatusBarMousePosition(double xp, double yp);

@@ -1199,7 +1199,6 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 StoryEditor::~StoryEditor()
 {
 	savePrefs();
-	// PV - char palette
 	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertSpecialChar()));
 }
 
@@ -2197,47 +2196,6 @@ void StoryEditor::updateStatus()
 void StoryEditor::Do_insSp()
 {
 	ScCore->primaryMainWindow()->charPalette->show();
-	// perform "rescan" only if needed - font or item changed
-	// PV - char palette
-// 	bool rescan = false;
-// 	if (charSelect == NULL)
-// 	{
-// 		// header file commect for charSelect
-// 		charSelect = new CharSelect(this, currItem, Editor->CurrFont, false);
-// 		connect(charSelect, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
-// 	}
-// 	if (charSelect->item() != currItem)
-// 	{
-// 		charSelect->setItem(currItem);
-// 		rescan = true;
-// 	}
-// 	if (charSelect->fontInUse() != Editor->CurrFont)
-// 	{
-// 		charSelect->setFontInUse(Editor->CurrFont);
-// 		rescan = true;
-// 	}
-// 	if (rescan)
-// 	{
-// 		charSelect->scanFont();
-// 		charSelect->generatePreview(0);
-// 		charSelect->setCharacterClass(0);
-// 		charSelect->setupRangeCombo();
-// 	}
-// 	if (!charSelect->isShown())
-// 		charSelect->show();
-// 	charSelect->raise();
-	/* #569: Insert Special window is modal, complicating multiple insertions
-	of special characters - PV
-	blockUpdate = true;
-	CharSelect *dia = new CharSelect(this, currItem, Editor->CurrFont, false);
-	dia->exec();
-	if (!dia->getCharacters().isEmpty())
-	{
-		Editor->insChars(dia->getCharacters());
-		Editor->insert(dia->getCharacters());
-	}
-	delete dia;
-	blockUpdate = false; */
 }
 
 void StoryEditor::slot_insertSpecialChar()
@@ -2281,8 +2239,6 @@ void StoryEditor::Do_leave2()
 	updateTextFrame();
 	result = QDialog::Accepted;
 	setCurrentDocumentAndItem(currDoc, NULL);
-// 	if (charSelect != NULL)
-// 		charSelect->close();
 	hide();
 	blockUpdate = false;
 }
@@ -2304,11 +2260,8 @@ void StoryEditor::Do_leave()
 	}
 	result = QDialog::Rejected;
 	setCurrentDocumentAndItem(currDoc, NULL);
-// 	if (charSelect != NULL)
-// 		charSelect->close();
 	hide();
 	blockUpdate = false;
-	//qApp->exit_loop();
 }
 
 void StoryEditor::Do_saveDocument()

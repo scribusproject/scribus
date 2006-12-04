@@ -500,25 +500,6 @@ ScPlugin* PluginManager::getPlugin(const QCString & pluginName, bool includeDisa
 	return 0;
 }
 
-// Compatability kludge
-// PV - no need it now
-// bool PluginManager::callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval, ScribusDoc* doc)
-// {
-// 	bool result = false;
-// 	if (DLLexists(pluginName))
-// 	{
-// 		ScActionPlugin* plugin = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin);
-// 		if (plugin)
-// 			result = plugin->run(doc, arg);
-// 	}
-// 	if (result)
-// 	{
-// 		retval = dynamic_cast<ScActionPlugin*>(pluginMap[pluginName].plugin)->runResult();
-// 		result = true;
-// 	}
-// 	return result;
-// }
-
 PluginManager & PluginManager::instance()
 {
 	return (*ScCore->pluginManager);

@@ -1944,32 +1944,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		bool foundGuide = false;
 		double nx = m->x()/Scale + Doc->minCanvasCoordinate.x();
 		double ny = m->y()/Scale + Doc->minCanvasCoordinate.y();
-		/* PV - guides rafactoring
-		if (Doc->currentPage->YGuides.count() != 0)
-		{
-			for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
-			{
-				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()< (ny+Doc->guidesSettings.grabRad)) &&
-					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()> (ny-Doc->guidesSettings.grabRad)))
-				{
-					foundGuide = true;
-					break;
-				}
-			}
-		}
-		if (Doc->currentPage->XGuides.count() != 0)
-		{
-			for (uint xg = 0; xg < Doc->currentPage->XGuides.count(); ++xg)
-			{
-				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()< (nx+Doc->guidesSettings.grabRad)) &&
-					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()> (nx-Doc->guidesSettings.grabRad)))
-				{
-					foundGuide = true;
-					break;
-				}
-			}
-		}
-		*/
 		if (Doc->currentPage()->guides.isMouseOnHorizontal(ny + Doc->guidesSettings.grabRad,
 														ny - Doc->guidesSettings.grabRad,
 														GuideManagerCore::Standard)
@@ -1982,7 +1956,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			MoveGY = false;
 			MoveGX = false;
-			//emit EditGuides(); // TODO: PV - guides refactoring
 			return;
 		}
 		if (MoveGY)
@@ -4960,26 +4933,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (Doc->OnPage(m->x()/sc, m->y()/sc) != -1) && (!GetItem(&currItem)))
 		{
-			/* PV - guides refactoring
-			if (Doc->currentPage->YGuides.count() != 0)
-			{
-				for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
-				{
-					if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()- Doc->minCanvasCoordinate.y() < (static_cast<int>(m->y()/sc)+Doc->guidesSettings.guideRad)) &&
-							(Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()- Doc->minCanvasCoordinate.y() > (static_cast<int>(m->y()/sc)-Doc->guidesSettings.guideRad)))
-					{
-						if ((m_MouseButtonPressed) && (GyM != -1))
-							MoveGY = true;
-						if (((m->x()/sc) < Doc->currentPage->xOffset()- Doc->minCanvasCoordinate.x()) || ((m->x()/sc) >= Doc->currentPage->width()-1+Doc->currentPage->xOffset()- Doc->minCanvasCoordinate.x()))
-							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-						else
-							qApp->setOverrideCursor(QCursor(SPLITHC), true);
-						return;
-					}
-				}
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			}
-			*/
 			Guides::iterator it;
 			Guides tmpGuides = Doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
@@ -4997,27 +4950,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				}
 			}
 			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-
-			/* PV - guides refactoring
-			if (Doc->currentPage->XGuides.count() != 0)
-			{
-				for (uint xg = 0; xg < Doc->currentPage->XGuides.count(); ++xg)
-				{
-					if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()- Doc->minCanvasCoordinate.x() < (static_cast<int>(m->x()/sc)+Doc->guidesSettings.guideRad)) &&
-							(Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()- Doc->minCanvasCoordinate.x() > (static_cast<int>(m->x()/sc)-Doc->guidesSettings.guideRad)))
-					{
-						if ((m_MouseButtonPressed) && (GxM != -1))
-							MoveGX = true;
-						if (((m->y()/sc) < Doc->currentPage->yOffset()- Doc->minCanvasCoordinate.x()) || ((m->y()/sc) >= Doc->currentPage->height()-1+Doc->currentPage->yOffset()- Doc->minCanvasCoordinate.y()))
-							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-						else
-							qApp->setOverrideCursor(QCursor(SPLITVC), true);
-						return;
-					}
-				}
-				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			}
-			*/
 			tmpGuides = Doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 			for (it = tmpGuides.begin(); it!= tmpGuides.end(); ++it)
 			{
@@ -6080,32 +6012,6 @@ bool ScribusView::ApplyGuides(double *x, double *y)
 	if ((Doc->SnapGuides) && (m_SnapCounter > 5))
 	{
 		m_SnapCounter = 3;
-		/* PV - guides refactoring
-		if (page->YGuides.count() != 0)
-		{
-			for (uint yg = 0; yg < page->YGuides.count(); ++yg)
-			{
-				if ((page->YGuides[yg]+page->yOffset() < (*y+Doc->guidesSettings.guideRad)) && (page->YGuides[yg]+page->yOffset() > (*y-Doc->guidesSettings.guideRad)))
-				{
-					*y= page->YGuides[yg]+page->yOffset();
-					ret = true;
-					break;
-				}
-			}
-		}
-		if (page->XGuides.count() != 0)
-		{
-			for (uint xg = 0; xg < page->XGuides.count(); ++xg)
-			{
-				if ((page->XGuides[xg]+page->xOffset() < (*x+Doc->guidesSettings.guideRad)) && (page->XGuides[xg]+page->xOffset() > (*x-Doc->guidesSettings.guideRad)))
-				{
-					*x = page->XGuides[xg]+page->xOffset();
-					ret = true;
-					break;
-				}
-			}
-		}
-		*/
 		Guides::iterator it;
 		Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
@@ -6161,72 +6067,6 @@ void ScribusView::SnapToGuides(PageItem *currItem)
 	if (pg == -1)
 		return;
 	Page* page = Doc->Pages->at(pg);
-	/* PV - guides refactoring
-	if (page->YGuides.count() != 0)
-	{
-		for (uint yg = 0; yg < page->YGuides.count(); ++yg)
-		{
-			if ((page->YGuides[yg]+page->yOffset() < (currItem->yPos()+Doc->guidesSettings.guideRad)) && (page->YGuides[yg]+page->yOffset() > (currItem->yPos()-Doc->guidesSettings.guideRad)))
-			{
-				currItem->setYPos(page->YGuides[yg]+page->yOffset());
-				break;
-			}
-			if (currItem->asLine())
-			{
-				QWMatrix ma;
-				ma.translate(currItem->xPos(), currItem->yPos());
-				ma.rotate(currItem->rotation());
-				double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
-				if ((page->YGuides[yg]+page->yOffset() < (my+Doc->guidesSettings.guideRad)) && (page->YGuides[yg]+page->yOffset() > (my-Doc->guidesSettings.guideRad)))
-				{
-					currItem->moveBy(0.0, page->YGuides[yg] - my + page->yOffset());
-					break;
-				}
-			}
-			else
-			{
-				if ((page->YGuides[yg]+page->yOffset() < (currItem->yPos()+currItem->height()+Doc->guidesSettings.guideRad)) &&
-				     (page->YGuides[yg]+page->yOffset() > ((currItem->yPos()+currItem->height())-Doc->guidesSettings.guideRad)))
-				{
-					currItem->setYPos(page->YGuides[yg]-currItem->height()+page->yOffset());
-					break;
-				}
-			}
-		}
-	}
-	if (page->XGuides.count() != 0)
-	{
-		for (uint xg = 0; xg < page->XGuides.count(); ++xg)
-		{
-			if ((page->XGuides[xg]+page->xOffset() < (currItem->xPos()+Doc->guidesSettings.guideRad)) && (page->XGuides[xg]+page->xOffset() > (currItem->xPos()-Doc->guidesSettings.guideRad)))
-			{
-				currItem->setXPos(page->XGuides[xg]+page->xOffset());
-				break;
-			}
-			if (currItem->asLine())
-			{
-				QWMatrix ma;
-				ma.translate(currItem->xPos(), currItem->yPos());
-				ma.rotate(currItem->rotation());
-				double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
-				if ((page->XGuides[xg]+page->xOffset() < (mx+Doc->guidesSettings.guideRad)) && (page->XGuides[xg]+page->xOffset() > (mx-Doc->guidesSettings.guideRad)))
-				{
-					currItem->moveBy(page->XGuides[xg] - mx + page->xOffset(), 0.0);
-					break;
-				}
-			}
-			else
-			{
-				if ((page->XGuides[xg]+page->xOffset() < (currItem->xPos()+currItem->width()+Doc->guidesSettings.guideRad)) &&
-				     (page->XGuides[xg]+page->xOffset() > ((currItem->xPos()+currItem->width())-Doc->guidesSettings.guideRad)))
-				{
-					currItem->setXPos(page->XGuides[xg]-currItem->width()+page->xOffset());
-					break;
-				}
-			}
-		}
-	}
-	*/
 	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
 	Guides::iterator it;
 	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
@@ -8878,36 +8718,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	{
 		GxM = -1;
 		GyM = -1;
-		/* PV - guides refactoring
-		if (Doc->currentPage->YGuides.count() != 0)
-		{
-			for (uint yg = 0; yg < Doc->currentPage->YGuides.count(); ++yg)
-			{
-				if ((Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()< (MypS+Doc->guidesSettings.grabRad)) &&
-					 (Doc->currentPage->YGuides[yg]+Doc->currentPage->yOffset()> (MypS-Doc->guidesSettings.grabRad)))
-				{
-					GyM = yg;
-					QPoint py = viewport()->mapFromGlobal(m->globalPos());
-					DrHY = py.y();
-					break;
-				}
-			}
-		}
-		if (Doc->currentPage->XGuides.count() != 0)
-		{
-			for (uint xg = 0; xg < Doc->currentPage->XGuides.count(); ++xg)
-			{
-				if ((Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()< (MxpS+Doc->guidesSettings.grabRad)) &&
-					 (Doc->currentPage->XGuides[xg]+Doc->currentPage->xOffset()> (MxpS-Doc->guidesSettings.grabRad)))
-				{
-					GxM = xg;
-					QPoint py = viewport()->mapFromGlobal(m->globalPos());
-					DrVX = py.x();
-					break;
-				}
-			}
-		}
-		*/
 		Guides tmpGuides = Doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 		Guides::iterator it;
 		uint yg = 0;

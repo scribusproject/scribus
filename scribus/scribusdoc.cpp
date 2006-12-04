@@ -2700,26 +2700,6 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 		if (currItem->OwnPage == MpNr)
 			Ap->FromMaster.append(currItem);
 	}
-	/* PV - guides refactoring
-	if (Mp->YGuides.count() != 0)
-	{
-		for (uint y = 0; y < Mp->YGuides.count(); ++y)
-		{
-			if (Ap->YGuides.contains(Mp->YGuides[y]) == 0)
-				Ap->YGuides.append(Mp->YGuides[y]);
-		}
-		qHeapSort(Ap->YGuides);
-	}
-	if (Mp->XGuides.count() != 0)
-	{
-		for (uint x = 0; x < Mp->XGuides.count(); ++x)
-		{
-			if (Ap->XGuides.contains(Mp->XGuides[x]) == 0)
-				Ap->XGuides.append(Mp->XGuides[x]);
-		}
-		qHeapSort(Ap->XGuides);
-	}
-	*/
 	Mp->guides.copy(&Ap->guides);
 	Ap->initialMargins.Top = Mp->Margins.Top;
 	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
@@ -2941,22 +2921,6 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	}
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
-	/* PV - guides refactoring
-	if (sourcePage->YGuides.count() != 0)
-	{
-		targetPage->YGuides.clear();
-		for (uint y = 0; y < sourcePage->YGuides.count(); ++y)
-			targetPage->YGuides.append(sourcePage->YGuides[y]);
-		qHeapSort(targetPage->YGuides);
-	}
-	if (sourcePage->XGuides.count() != 0)
-	{
-		targetPage->XGuides.clear();
-		for (uint x = 0; x < sourcePage->XGuides.count(); ++x)
-			targetPage->XGuides.append(sourcePage->XGuides[x]);
-		qHeapSort(targetPage->XGuides);
-	}
-	*/
 	sourcePage->guides.copy(&targetPage->guides);
 	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
@@ -4297,27 +4261,6 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 					ta->BottomLink = 0;
 			}
 		}
-		//ScMW->Apply_MasterPage(from->MPageNam, destination->pageNr(), false);
-		/* PV - guides refactoring
-		if (from->YGuides.count() != 0)
-		{
-			for (uint y = 0; y < from->YGuides.count(); ++y)
-			{
-				if (destination->YGuides.contains(from->YGuides[y]) == 0)
-					destination->YGuides.append(from->YGuides[y]);
-			}
-			qHeapSort(destination->YGuides);
-		}
-		if (from->XGuides.count() != 0)
-		{
-			for (uint x = 0; x < from->XGuides.count(); ++x)
-			{
-				if (destination->XGuides.contains(from->XGuides[x]) == 0)
-					destination->XGuides.append(from->XGuides[x]);
-			}
-			qHeapSort(destination->XGuides);
-		}
-		*/
 		from->guides.copy(&destination->guides);
 		GroupCounter = GrMax + 1;
 	}

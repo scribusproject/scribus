@@ -88,16 +88,7 @@ public:
 	/*! \brief Return file extension used for shared libs on this platform */
 	static QCString platformDllExtension();
 
-	/* \brief  Call the named plugin with "arg" and return true for success, storing the return string in retval
-	 *
-	 * This is a lot of a compatibility kludge for the font preview plugin.
-	 * Avoid using it in new code. You should probably prefer to dynamic_cast<>
-	 * to the plugin class and call a plugin specific method.
-	 */
-// 	bool callSpecialActionPlugin(const QCString pluginName, const QString & arg, QString & retval, ScribusDoc* doc);
-
 	/*! \brief Return a pointer to this instance.
-
 	 \Note: for now, returns a reference to (*ScMW->pluginManager); should
 	 probably be turned into a singleton later. */
 	static PluginManager & instance();

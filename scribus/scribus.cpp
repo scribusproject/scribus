@@ -803,9 +803,6 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertSampleText"], "Insert");
 	scrActions["insertFrame"]->setEnabled(false);
-	// PV - char palette
-	//scrActions["insertGlyph"]->setEnabled(false);
-// 	charPalette->setEnabled(false);
 
 	//Page menu
 	scrMenuMgr->createMenu("Page", tr("&Page"));
@@ -2568,8 +2565,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	actionManager->disconnectNewSelectionActions();
 	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
-	// PV - char palette
-// 	scrActions["insertGlyph"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
 	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemUpdateImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
@@ -2716,8 +2711,6 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		{
 			setTBvals(currItem);
 			scrActions["editSelectAll"]->setEnabled(true);
-			// PV - char palette
-// 			scrActions["insertGlyph"]->setEnabled(true);
 			charPalette->setEnabled(true, currItem);
 			if (currItem->asTextFrame())
 				enableTextActions(&scrActions, true, currItem->currentStyle().charStyle().font().scName());
@@ -5794,8 +5787,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			view->zoomSpinBox->setFocusPolicy(QWidget::ClickFocus);
 			view->pageSelector->focusPolicy(QWidget::ClickFocus);
 			scrActions["editClearContents"]->setEnabled(false);
-			// PV - char palette
-// 			scrActions["insertGlyph"]->setEnabled(false);
 			charPalette->setEnabled(false, 0);
 			view->slotDoCurs(false);
 			if (currItem != 0)
@@ -5823,8 +5814,6 @@ void ScribusMainWindow::setAppMode(int mode)
 				currItem->CPos = 0;
 			}
 			scrActions["editPaste"]->setEnabled(false);
-			// PV - char palette
-// 			scrActions["insertGlyph"]->setEnabled(true);
 			charPalette->setEnabled(true, currItem);
 			if (currItem!=NULL && currItem->asTextFrame())
 				enableTextActions(&scrActions, true, currItem->currentCharStyle().font().scName());
@@ -6077,12 +6066,6 @@ void ScribusMainWindow::DeletePage2(int pg)
 	if (doc->m_Selection->count() != 0)
 		doc->itemSelection_DeleteItem();
 	Page *page = doc->Pages->at(pg); // need to remove guides too to get their undo/redo actions working
-	/* PV - guides refactoring
-    for (uint i = 0; i < page->YGuides.count(); ++i)
-		page->removeYGuide(static_cast<int>(i));
-	for (uint i = 0; i < page->XGuides.count(); ++i)
-		page->removeXGuide(static_cast<int>(i));
-	*/
 	page->guides.clearHorizontals(GuideManagerCore::Standard);
 	page->guides.clearHorizontals(GuideManagerCore::Auto);
 	page->guides.clearVerticals(GuideManagerCore::Standard);
@@ -6156,12 +6139,6 @@ void ScribusMainWindow::DeletePage(int from, int to)
 			}
 		}
 		Page *page = doc->Pages->at(a); // need to remove guides too to get their undo/redo actions working
-        /* PV - guides refactoring
-		for (uint i = 0; i < page->YGuides.count(); ++i)
-			page->removeYGuide(static_cast<int>(i));
-		for (uint i = 0; i < page->XGuides.count(); ++i)
-			page->removeXGuide(static_cast<int>(i));
-		*/
 		page->guides.clearHorizontals(GuideManagerCore::Standard);
 		page->guides.clearHorizontals(GuideManagerCore::Auto);
 		page->guides.clearVerticals(GuideManagerCore::Standard);
@@ -8607,19 +8584,6 @@ QString ScribusMainWindow::GetLang(QString inLang)
 	return inLang;
 }
 
-/* PV - guides refactoring
-void ScribusMainWindow::ManageGuides()
-{
-	if (HaveDoc)
-	{
-		qApp->setOverrideCursor(QCursor(waitCursor), true);
-		GuideManager *dia = new GuideManager(this);
-		qApp->restoreOverrideCursor();
-		dia->exec();
-		delete dia;
-	}
-}*/
-
 void ScribusMainWindow::ImageEffects()
 {
 	if (HaveDoc)
@@ -8854,18 +8818,6 @@ void ScribusMainWindow::callImageEditor()
 void ScribusMainWindow::slotCharSelect()
 {
 	charPalette->show();
-	// PV - charselect is palette
-	/*
-	if ((HaveDoc) && (doc->m_Selection->count() != 0))
-	{
-		PageItem *currItem = doc->m_Selection->itemAt(0);
-		if ((currItem->asTextFrame()) && (doc->appMode == modeEdit))
-		{
-			CharSelect *dia = new CharSelect(this, currItem);
-			dia->exec();
-			delete dia;
-		}
-	} */
 }
 
 void ScribusMainWindow::setUndoMode(bool isObjectSpecific)
