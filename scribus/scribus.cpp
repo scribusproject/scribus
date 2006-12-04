@@ -4082,11 +4082,34 @@ bool ScribusMainWindow::DoFileClose()
 	disconnect(doc->WinHan, SIGNAL(AutoSaved()), this, SLOT(slotAutoSaved()));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileChanged(QString )), doc, SLOT(updatePict(QString)));
 	disconnect(ScCore->fileWatcher, SIGNAL(fileDeleted(QString )), doc, SLOT(removePict(QString)));
-	for (uint a = 0; a < doc->Items->count(); ++a)
+	for (uint a = 0; a < doc->DocItems.count(); ++a)
 	{
-		PageItem *currItem = doc->Items->at(a);
+		PageItem *currItem = doc->DocItems.at(a);
 		if (currItem->PicAvail)
 			ScCore->fileWatcher->removeFile(currItem->Pfile);
+	}
+	for (uint a = 0; a < doc->MasterItems.count(); ++a)
+	{
+		PageItem *currItem = doc->MasterItems.at(a);
+		if (currItem->PicAvail)
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
+	}
+	for (uint a = 0; a < doc->FrameItems.count(); ++a)
+	{
+		PageItem *currItem = doc->FrameItems.at(a);
+		if (currItem->PicAvail)
+			ScCore->fileWatcher->removeFile(currItem->Pfile);
+	}
+	QStringList patterns = doc->docPatterns.keys();
+	for (uint c = 0; c < patterns.count(); ++c)
+	{
+		ScPattern pa = doc->docPatterns[patterns[c]];
+		for (uint o = 0; o < pa.items.count(); o++)
+		{
+			PageItem *currItem = pa.items.at(o);
+			if (currItem->PicAvail)
+				ScCore->fileWatcher->removeFile(currItem->Pfile);
+		}
 	}
 	if (ScCore->haveCMS())
 		doc->CloseCMSProfiles();

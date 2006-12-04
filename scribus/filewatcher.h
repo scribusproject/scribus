@@ -51,6 +51,8 @@ private:
 	{
 		QFileInfo info;
 		QDateTime timeInfo;
+		int pendingCount;
+		bool pending;
 	};
 	QMap<QString, fileMod> watchedFiles;
 	QTimer* watchTimer;
@@ -65,6 +67,7 @@ signals:
 	void fileDeleted(QString);
 	void dirChanged(QString);
 	void dirDeleted(QString);
+	void statePending(QString);
 
 };
 

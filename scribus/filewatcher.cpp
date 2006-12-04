@@ -115,41 +115,64 @@ void FileWatcher::checkFiles()
 		it.data().info.refresh();
 		if (!it.data().info.exists())
 		{
-			if (it.data().info.isDir())
-				emit dirDeleted(it.key());
-			else
-				emit fileDeleted(it.key());
-			toRemove.append(it.key());
-			continue;
-		}
-		time = it.data().info.lastModified();
-		if (time != it.data().timeInfo)
-		{
-			if (it.data().info.isDir())
-				emit dirChanged(it.key());
+			if (!it.data().pending)
+			{
+				it.data().pendingCount = 5;
+				it.data().pending = true;
+				emit statePending(it.key());
+				continue;
+			}
 			else
 			{
-				uint sizeo = it.data().info.size();
-			#ifndef _WIN32
-				usleep(100);
-			#else
-				Sleep(1);
-			#endif
-				it.data().info.refresh();
-				uint sizen = it.data().info.size();
-				while (sizen != sizeo)
+				if (it.data().pendingCount != 0)
 				{
-					sizeo = sizen;
-				#ifndef _WIN32
-					usleep(100);
-				#else
-					Sleep(1);
-				#endif
-					it.data().info.refresh();
-					sizen = it.data().info.size();
+					it.data().pendingCount--;
+					continue;
 				}
-				it.data().timeInfo = time;
-				emit fileChanged(it.key());
+				else
+				{
+					it.data().pending = false;
+					if (it.data().info.isDir())
+						emit dirDeleted(it.key());
+					else
+						emit fileDeleted(it.key());
+					toRemove.append(it.key());
+					continue;
+				}
+			}
+		}
+		else
+		 {
+			it.data().pending = false;
+			time = it.data().info.lastModified();
+			if (time != it.data().timeInfo)
+			{
+				if (it.data().info.isDir())
+					emit dirChanged(it.key());
+				else
+				{
+					uint sizeo = it.data().info.size();
+			#ifndef _WIN32
+					usleep(100);
+			#else
+					Sleep(1);
+			#endif
+					it.data().info.refresh();
+					uint sizen = it.data().info.size();
+					while (sizen != sizeo)
+					{
+						sizeo = sizen;
+				#ifndef _WIN32
+						usleep(100);
+				#else
+						Sleep(1);
+				#endif
+						it.data().info.refresh();
+						sizen = it.data().info.size();
+					}
+					it.data().timeInfo = time;
+					emit fileChanged(it.key());
+				}
 			}
 		}
 	}
