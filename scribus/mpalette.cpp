@@ -1637,8 +1637,8 @@ void Mpalette::NewSel(int nr)
 		NameEdit->setEnabled(false);
 		TabStack->setItemEnabled(idLineItem, true);
 		TabStack->setItemEnabled(idColorsItem, true);
-		FlipH->setToggleButton( true );
-		FlipV->setToggleButton( true );
+		FlipH->setToggleButton( false );
+		FlipV->setToggleButton( false );
 		FlipH->setOn(false);
 		FlipV->setOn(false);
 	}
@@ -1807,11 +1807,13 @@ void Mpalette::setMultipleSelection(bool isMultiple)
 {
 	//CB Having added the selection and undo transaction to mirrorpolyh/v in doc,
 	//these can be enabled all the time
-	//FlipH->setEnabled(!isMultiple);
-	//FlipV->setEnabled(!isMultiple);
+	FlipH->setEnabled(true);
+	FlipV->setEnabled(true);
 	NameEdit->setEnabled(!isMultiple);
 	if (doc->m_Selection->count() > 1)
 	{
+		FlipH->setToggleButton( false );
+		FlipV->setToggleButton( false );
 		PageItem *i;
 		uint lowestItem = 999999;
 		for (uint a=0; a<doc->m_Selection->count(); ++a)
