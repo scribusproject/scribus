@@ -184,12 +184,15 @@ bool OODrawImportPlugin::import(QString fileName, int flags)
 		UndoManager::instance()->commit();
 	else
 		UndoManager::instance()->setUndoEnabled(true);
+	if (dia.unsupported)
+		QMessageBox::warning(ScMW, CommonStrings::trWarning, tr("This file contains some unsupported features"), 1, 0, 0);
 	return importDone;
 }
 
 OODPlug::OODPlug()
 {
 	interactive = false;
+	unsupported = false;
 	Doku = NULL;
 }
 
@@ -702,6 +705,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		else
 		{
+			unsupported = true;
 			qDebug("Not supported yet: %s", STag.local8Bit().data());
 			continue;
 		}
