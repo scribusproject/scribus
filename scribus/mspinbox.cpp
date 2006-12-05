@@ -87,6 +87,9 @@ void MSpinBox::setParameters( int s )
 bool MSpinBox::eventFilter( QObject* ob, QEvent* ev )
 {
 	bool retval = false;
+/* Adding this to be sure that the IM* events are processed correctly i.e not intercepted by our KeyPress/Release handlers */
+	if ((ev->type() == QEvent::IMStart) || (ev->type() == QEvent::IMCompose) || (ev->type() == QEvent::IMEnd))
+		return QSpinBox::eventFilter(ob, ev);
 	if ( ev->type() == QEvent::KeyPress )
 	{
 		QKeyEvent* k = (QKeyEvent*)ev;
