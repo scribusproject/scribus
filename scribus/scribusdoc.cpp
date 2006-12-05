@@ -3164,7 +3164,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=targetPage->width()+bleeds.Right+bleeds.Left;
 			h1=targetPage->height()+bleeds.Bottom+bleeds.Top;
 		}
-		else if (iafData.sizeType==3) //Frame is size of imported image
+		else if (iafData.sizeType==3) //Frame is size of imported image, we resize below when we load it
 		{
 			w1=h1=1;
 		}
@@ -3191,7 +3191,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 					LoadPict(iafData.source, currItem->ItemNr, false, true);
-					if (iafData.sizeType==3)
+					if (iafData.sizeType==3) //Frame is size of imported image
 					{
 						currItem->setWidth(static_cast<double>(currItem->OrigW * 72.0 / currItem->pixm.imgInfo.xres));
 						currItem->setHeight(static_cast<double>(currItem->OrigH * 72.0 / currItem->pixm.imgInfo.yres));
