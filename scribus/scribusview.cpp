@@ -1540,13 +1540,8 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, ex, ey, 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			Doc->LoadPict(ur.path(), b->ItemNr);
-			double scaling = 1.0;
-			if (b->pixm.imgInfo.lowResType != 0)
-			{
-				scaling = b->pixm.imgInfo.lowResScale;
-			}
-			b->setWidth(static_cast<double>(b->pixm.width()) / scaling);
-			b->setHeight(static_cast<double>(b->pixm.height()) / scaling);
+			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
+			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
 //			b->setWidth(static_cast<double>(b->pixm.width()));
 //			b->setHeight(static_cast<double>(b->pixm.height()));
 			b->OldB2 = b->width();
