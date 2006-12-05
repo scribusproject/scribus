@@ -449,6 +449,10 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 		{
 			usedEffects->insertItem( tr("Colorize"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			availableEffects->item(2)->setSelectable(false);
+			availableEffects->item(3)->setSelectable(false);
+			availableEffects->item(4)->setSelectable(false);
+			availableEffects->item(5)->setSelectable(false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_BRIGHTNESS)
 		{
@@ -479,16 +483,28 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 		{
 			usedEffects->insertItem( tr("Duotone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			availableEffects->item(2)->setSelectable(false);
+			availableEffects->item(3)->setSelectable(false);
+			availableEffects->item(4)->setSelectable(false);
+			availableEffects->item(5)->setSelectable(false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_TRITONE)
 		{
 			usedEffects->insertItem( tr("Tritone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			availableEffects->item(2)->setSelectable(false);
+			availableEffects->item(3)->setSelectable(false);
+			availableEffects->item(4)->setSelectable(false);
+			availableEffects->item(5)->setSelectable(false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_QUADTONE)
 		{
 			usedEffects->insertItem( tr("Quadtone"));
 			effectValMap.insert(usedEffects->item(usedEffects->count()-1), (*effectsList.at(a)).effectParameters);
+			availableEffects->item(2)->setSelectable(false);
+			availableEffects->item(3)->setSelectable(false);
+			availableEffects->item(4)->setSelectable(false);
+			availableEffects->item(5)->setSelectable(false);
 		}
 		if ((*effectsList.at(a)).effectCode == ScImage::EF_GRADUATE)
 		{
@@ -731,6 +747,10 @@ void EffectsDialog::moveToEffects()
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n100";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+		availableEffects->item(2)->setSelectable(false);
+		availableEffects->item(3)->setSelectable(false);
+		availableEffects->item(4)->setSelectable(false);
+		availableEffects->item(5)->setSelectable(false);
 	}
 	if (availableEffects->currentText() == tr("Duotone"))
 	{
@@ -738,6 +758,10 @@ void EffectsDialog::moveToEffects()
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n"+it.key()+"\n100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+		availableEffects->item(2)->setSelectable(false);
+		availableEffects->item(3)->setSelectable(false);
+		availableEffects->item(4)->setSelectable(false);
+		availableEffects->item(5)->setSelectable(false);
 	}
 	if (availableEffects->currentText() == tr("Tritone"))
 	{
@@ -745,6 +769,10 @@ void EffectsDialog::moveToEffects()
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+		availableEffects->item(2)->setSelectable(false);
+		availableEffects->item(3)->setSelectable(false);
+		availableEffects->item(4)->setSelectable(false);
+		availableEffects->item(5)->setSelectable(false);
 	}
 	if (availableEffects->currentText() == tr("Quadtone"))
 	{
@@ -752,6 +780,10 @@ void EffectsDialog::moveToEffects()
 		it = doc->PageColors.begin();
 		QString efval = it.key()+"\n"+it.key()+"\n"+it.key()+"\n"+it.key()+"\n100 100 100 100 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0 2 0.0 0.0 1.0 1.0 0";
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), efval);
+		availableEffects->item(2)->setSelectable(false);
+		availableEffects->item(3)->setSelectable(false);
+		availableEffects->item(4)->setSelectable(false);
+		availableEffects->item(5)->setSelectable(false);
 	}
 	if (availableEffects->currentText() == tr("Curves"))
 		effectValMap.insert(usedEffects->item(usedEffects->count()-1), "2 0.0 0.0 1.0 1.0 0");
@@ -765,6 +797,13 @@ void EffectsDialog::moveToEffects()
 void EffectsDialog::moveFromEffects()
 {
 	disconnect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
+	if ((usedEffects->currentText() == tr("Colorize")) || (usedEffects->currentText() == tr("Duotone")) || (usedEffects->currentText() == tr("Tritone")) || (usedEffects->currentText() == tr("Quadtone")))
+	{
+		availableEffects->item(2)->setSelectable(true);
+		availableEffects->item(3)->setSelectable(true);
+		availableEffects->item(4)->setSelectable(true);
+		availableEffects->item(5)->setSelectable(true);
+	}
 	effectValMap.remove(usedEffects->item(usedEffects->currentItem()));
 	usedEffects->removeItem(usedEffects->currentItem());
 	currentOptions = 0;
@@ -1190,7 +1229,12 @@ void EffectsDialog::selectEffect(QListBoxItem* c)
 void EffectsDialog::selectAvailEffect(QListBoxItem* c)
 {
 	if (c)
-		toEffects->setEnabled(true);
+	{
+		if (!c->isSelectable())
+			toEffects->setEnabled(false);
+		else
+			toEffects->setEnabled(true);
+	}
 	fromEffects->setEnabled(false);
 	effectUp->setEnabled(false);
 	effectDown->setEnabled(false);
