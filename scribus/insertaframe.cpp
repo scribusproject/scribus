@@ -86,6 +86,7 @@ InsertAFrame::InsertAFrame(QWidget* parent, ScribusDoc *doc) :
 void InsertAFrame::slotSelectType( int id )
 {
 	checkBoxLinkCreatedTextFrames->setEnabled(id==0);
+	radioButtonImageSize->setShown(id==1);
 	switch (id)
 	{
 		case 0:

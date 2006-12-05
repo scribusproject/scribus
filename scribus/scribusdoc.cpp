@@ -3164,6 +3164,10 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 			w1=targetPage->width()+bleeds.Right+bleeds.Left;
 			h1=targetPage->height()+bleeds.Bottom+bleeds.Top;
 		}
+		else if (iafData.sizeType==3) //Frame is size of imported image
+		{
+			w1=h1=1;
+		}
 		else if (iafData.sizeType==99) // Frame is custom size
 		{
 			w1=iafData.width/docUnitRatio;
@@ -3187,7 +3191,14 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 					LoadPict(iafData.source, currItem->ItemNr, false, true);
-					currItem->AdjustPictScale();
+					if (iafData.sizeType==3)
+					{
+						currItem->setWidth(static_cast<double>(currItem->OrigW * 72.0 / currItem->pixm.imgInfo.xres));
+						currItem->setHeight(static_cast<double>(currItem->OrigH * 72.0 / currItem->pixm.imgInfo.yres));
+						currItem->OldB2 = currItem->width();
+						currItem->OldH2 = currItem->height();
+						currItem->updateClip();
+					}
 					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 					qApp->restoreOverrideCursor();
 				}

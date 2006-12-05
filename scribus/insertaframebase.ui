@@ -582,6 +582,17 @@
                             </widget>
                             <widget class="QRadioButton">
                                 <property name="name">
+                                    <cstring>radioButtonImageSize</cstring>
+                                </property>
+                                <property name="text">
+                                    <string>Same as the Imported Image</string>
+                                </property>
+                                <property name="buttonGroupId">
+                                    <number>3</number>
+                                </property>
+                            </widget>
+                            <widget class="QRadioButton">
+                                <property name="name">
                                     <cstring>radioButtonCustomSize</cstring>
                                 </property>
                                 <property name="text">
@@ -714,7 +725,7 @@
                         <property name="sizeHint">
                             <size>
                                 <width>20</width>
-                                <height>60</height>
+                                <height>20</height>
                             </size>
                         </property>
                     </spacer>
@@ -1065,6 +1076,8 @@
         </sizepolicy>
         <pixmap>image0</pixmap>
         <property type="3">3</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
         <property type="0">0</property>
         <property type="0">0</property>
         <property type="0">0</property>
