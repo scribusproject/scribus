@@ -9793,8 +9793,8 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	int newY = py.y();
 	QPoint out = viewportToContents(py);
-	emit MousePos((py.x() + contentsX())/Scale, (py.y() + contentsY())/Scale);
-	horizRuler->Draw(out.x());
+	emit MousePos((py.x() + 2 + contentsX())/Scale, (py.y() + contentsY())/Scale);
+	horizRuler->Draw(out.x() + 2);
 	vertRuler->Draw(out.y());
 	QPainter p;
 	p.begin(viewport());
@@ -9815,8 +9815,8 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	QPoint py = viewport()->mapFromGlobal(m->globalPos());
 	int newY = py.x();
 	QPoint out = viewportToContents(py);
-	emit MousePos((py.x() + contentsX())/Scale, (py.y() + contentsY())/Scale);
-	horizRuler->Draw(out.x());
+	emit MousePos((py.x() + 2 + contentsX())/Scale, (py.y() + contentsY())/Scale);
+	horizRuler->Draw(out.x() + 2);
 	vertRuler->Draw(out.y());
 	QPainter p;
 	p.begin(viewport());
