@@ -92,6 +92,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "commonstrings.h"
 #include "guidemanager.h"
+#include "query.h"
 #include "text/nlsconfig.h"
 #include "scrap.h"
 #include "stencilreader.h"
@@ -1539,8 +1540,15 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, ex, ey, 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			Doc->LoadPict(ur.path(), b->ItemNr);
-			b->setWidth(static_cast<double>(b->pixm.width()));
-			b->setHeight(static_cast<double>(b->pixm.height()));
+			double scaling = 1.0;
+			if (b->pixm.imgInfo.lowResType != 0)
+			{
+				scaling = b->pixm.imgInfo.lowResScale;
+			}
+			b->setWidth(static_cast<double>(b->pixm.width()) / scaling);
+			b->setHeight(static_cast<double>(b->pixm.height()) / scaling);
+//			b->setWidth(static_cast<double>(b->pixm.width()));
+//			b->setHeight(static_cast<double>(b->pixm.height()));
 			b->OldB2 = b->width();
 			b->OldH2 = b->height();
 			b->updateClip();
@@ -2784,6 +2792,33 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			Doc->setRedrawBounding(currItem);
 			currItem->OwnPage = Doc->OnPage(currItem);
 			updateContents();
+		}
+		if ((((Doc->SubMode != -1) || (operItemMoving && operItemResizing)) && (GetItem(&currItem))) && ((!moveTimerElapsed()) || ((currItem->width() < 2.0) && (currItem->height() < 2.0))))
+		{
+			QuerySize *dia = new QuerySize(this, tr("Enter Object Size"), Doc->unitIndex());
+			if (dia->exec())
+			{
+				SizeItem(dia->spinWidth->value(), dia->spinHeight->value(), currItem->ItemNr);
+				currItem->updateClip();
+				Doc->setRedrawBounding(currItem);
+				currItem->OwnPage = Doc->OnPage(currItem);
+				updateContents();
+			}
+			else
+			{
+				Deselect(false);
+				Doc->Items->remove(currItem->ItemNr);
+			}
+			delete dia;
+			Doc->DragP = false;
+			Doc->leaveDrag = false;
+			operItemMoving = false;
+			operItemResizing = false;
+			MidButt = false;
+			shiftSelItems = false;
+			m_SnapCounter = 0;
+			Doc->SubMode = -1;
+			return;
 		}
 		if (moveTimerElapsed() && (GetItem(&currItem)))
 		{
