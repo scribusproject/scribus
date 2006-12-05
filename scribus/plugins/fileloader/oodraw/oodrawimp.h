@@ -65,6 +65,9 @@ public:
 	OODPlug(ScribusDoc* doc);
 	~OODPlug();
 
+	//! \brief Indicator if there is any unsupported feature in imported svg.
+	bool unsupported;
+
 	bool import( QString fName, int flags );
 	static double parseUnit(const QString &unit);
 
