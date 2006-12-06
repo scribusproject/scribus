@@ -536,7 +536,13 @@ void HTMLReader::unSetBoldFont()
 
 void HTMLReader::parse(QString filename)
 {
-	htmlSAXParseFile(filename.latin1(), NULL, mySAXHandler, NULL);
+#if defined(_WIN32)
+	QString fname = QDir::convertSeparators(filename);
+	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+#else
+	QCString fn(fileName.local8Bit());
+#endif
+	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
 }
 
 void HTMLReader::createListStyle()
