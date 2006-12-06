@@ -2456,7 +2456,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (CPos > firstInFrame())
 			{
-				if (CPos == lastInFrame())
+				if (CPos == lastInFrame() || CPos >= itemText.length())
 					--CPos;
 				alty = itemText.item(CPos)->glyph.yoffset;
 				altx = itemText.item(CPos)->glyph.xoffset;
