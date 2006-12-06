@@ -540,7 +540,7 @@ void HTMLReader::parse(QString filename)
 	QString fname = QDir::convertSeparators(filename);
 	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
 #else
-	QCString fn(fileName.local8Bit());
+	QCString fn(filename.local8Bit());
 #endif
 	htmlSAXParseFile(fn.data(), NULL, mySAXHandler, NULL);
 }
