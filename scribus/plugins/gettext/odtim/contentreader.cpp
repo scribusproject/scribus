@@ -24,8 +24,9 @@ for which a new license (GPL+exception) is in place.
  *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
  ***************************************************************************/
 
+#include <qglobal.h>
 #include "contentreader.h"
-#include <scribusstructs.h>
+#include "scribusstructs.h"
 
 #ifdef HAVE_XML
 
@@ -245,7 +246,13 @@ void ContentReader::write(const QString& text)
 void ContentReader::parse(QString fileName)
 {
 	sreader->parse(fileName);
-	xmlSAXParseFile(cSAXHandler, fileName.local8Bit(), 1);
+#if defined(_WIN32)
+	QString fname = QDir::convertSeparators(fileName);
+	QCString fn = (qWinVersion() & Qt::WV_NT_based) ? fname.utf8() : fname.local8Bit();
+#else
+	QCString fn(fileName.local8Bit());
+#endif
+	xmlSAXParseFile(cSAXHandler, fn.data(), 1);
 }
 
 xmlSAXHandler cSAXHandlerStruct = {
