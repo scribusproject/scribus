@@ -2705,7 +2705,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = Doc->OnPage(currItem);
 			updateContents();
 		}
-//		if ((inItemCreation) && (GetItem(&currItem)) && (!moveTimerElapsed()) || ((currItem->width() < 2.0) && (currItem->height() < 2.0)))
 		if ((inItemCreation) && (!moveTimerElapsed()))
 		{
 			currItem = Doc->m_Selection->itemAt(0);
@@ -5876,13 +5875,13 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->m_Selection->addItem(currItem);
 				currItem->paintObj();
 				inItemCreation = true;
-//				moveTimer = moveTimer.addSecs(1500);
 				if (m->state() == ShiftButton)
 				{
 					Doc->appMode = modeNormal;
 					emit DocChanged();
 					currItem->Sizing =  currItem->asLine() ? false : true;
-//					moveTimer = moveTimer.addSecs(1500);
+					inItemCreation = false;
+					updateContents();
 				}
 				else
 					operItemMoving = true;
@@ -8931,8 +8930,8 @@ void ScribusView::SetupDrawNoResize(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	inItemCreation = true;
-//	moveTimer = moveTimer.addSecs(1500);
+	inItemCreation = false;
+	moveTimer = moveTimer.addSecs(1500);
 }
 
 //CB-->Doc/Fix
