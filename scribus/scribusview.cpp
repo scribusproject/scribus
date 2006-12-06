@@ -1583,7 +1583,29 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			{
 				undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::Create,"",Um::ICreate);
 				if ((fi.exists()) && (!img))
-					emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
+				{
+					QString data;
+					if (fi.extension(true).lower() == "sml")
+					{
+						QString f = "";
+						loadText(ur.path(), &f);
+						StencilReader *pre = new StencilReader();
+						data = pre->createObjects(f);
+						delete pre;
+						emit LoadElem(data, ex, ey, false, false, Doc, this);
+					}
+					else if (fi.extension(true).lower() == "shape")
+					{
+						QString f = "";
+						loadText(ur.path(), &f);
+						StencilReader *pre = new StencilReader();
+						data = pre->createShape(f);
+						delete pre;
+						emit LoadElem(data, ex, ey, false, false, Doc, this);
+					}
+					else
+						emit LoadElem(ur.path(), ex, ey, true, false, Doc, this);
+				}
 				else
 					emit LoadElem(QString(text), ex, ey, false, false, Doc, this);
 				Doc->m_Selection->clear();
