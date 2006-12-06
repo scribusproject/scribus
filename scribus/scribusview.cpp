@@ -2367,6 +2367,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				QLabel *PrintC = new QLabel(InfoGroup, "nc"); // </a.l.e>
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
+					LinC->hide();
+					LinCT->hide();
 					QFileInfo fi = QFileInfo(currItem->Pfile);
 					InfoT->setText( tr("Picture"));
 					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
@@ -2384,7 +2386,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					               txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
 					InfoGroupLayout->addWidget( CharC, 3, 1 );
 					ColCT->setText( tr("Colorspace: "));
-//					ColCT->show();
 					InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 					QString cSpace;
 					QString ext = fi.extension(false).lower();
@@ -2409,9 +2410,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 					ColC->setText(cSpace);
-//					ColC->show();
 					InfoGroupLayout->addWidget( ColC, 4, 1 );
-					
 				}
 				if ((currItem->itemType() == PageItem::TextFrame) || (currItem->itemType() == PageItem::PathText))
 				{
