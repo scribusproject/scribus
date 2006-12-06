@@ -364,7 +364,7 @@ void PageItem_TextFrame::layout()
 				//dumpIt(itemText.paragraphStyle(a));
 			}
 //			qDebug(QString("style @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
-//				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
+//				   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent())
 //				   .arg(a));
 
 //			chstr = hl->ch;
@@ -992,6 +992,8 @@ void PageItem_TextFrame::layout()
 				AbsHasDrop = true;
 				maxDY = CurY;
 				CurX += style.dropCapOffset();
+				hl->glyph.xadvance += style.dropCapOffset();
+				qDebug(QString("dropcapoffset: %1 -> %2").arg(CurX-style.dropCapOffset()).arg(CurX));
 				CurX = QMAX(CurX, ColBound.x());
 				maxDX = CurX;
 				QPointArray tcli(4);
@@ -1070,7 +1072,9 @@ void PageItem_TextFrame::layout()
 							OFs = 0;
 						if (style.alignment() == 4
 							|| (style.alignment() == 3 
-								&&  hl->ch != SpecialChars::PARSEP
+								&&  (hl->ch == SpecialChars::LINEBREAK ||
+									 hl->ch == SpecialChars::FRAMEBREAK ||
+									 hl->ch == SpecialChars::COLBREAK)
 								&&  !itemText.text(curLine.firstItem + itemsInLine-1).isSpace()))
 						{
 							// count the available spaces
@@ -1609,7 +1613,9 @@ void PageItem_TextFrame::layout()
 				OFs = 0;
 			if (style.alignment() == 4
 				|| (style.alignment() == 3 
-					&&  hl->ch != SpecialChars::PARSEP
+					&&  (hl->ch == SpecialChars::LINEBREAK ||
+						 hl->ch == SpecialChars::FRAMEBREAK ||
+						 hl->ch == SpecialChars::COLBREAK)
 					&&  !itemText.text(curLine.firstItem + itemsInLine-1).isSpace()))
 			{
 				aSpa = 0;
