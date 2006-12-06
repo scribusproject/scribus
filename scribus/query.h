@@ -17,6 +17,7 @@ class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
 class MSpinBox;
+class LinkButton;
 
 #include "scribusapi.h"
 
@@ -50,10 +51,16 @@ class SCRIBUS_API QuerySize : public QDialog
 	Q_OBJECT
 
 public:
-	QuerySize( QWidget* parent, QString titel, int unitIndex );
+	QuerySize( QWidget* parent, QString titel, int unitIndex, double defW, double defH );
 	~QuerySize() {};
 	MSpinBox *spinWidth;
 	MSpinBox *spinHeight;
+	LinkButton* linkSize;
+
+public slots:
+	void ToggleKette();
+	void changeSizesH();
+	void changeSizesW();
 
 private:
 	QVBoxLayout* queryLayout;

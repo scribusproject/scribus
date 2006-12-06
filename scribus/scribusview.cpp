@@ -88,6 +88,8 @@ for which a new license (GPL+exception) is in place.
 #include "util.h"
 #include "story.h"
 #include "prefsmanager.h"
+#include "prefscontext.h"
+#include "prefsfile.h"
 #include "rulermover.h"
 #include "hyphenator.h"
 #include "commonstrings.h"
@@ -249,6 +251,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	viewAsPreview = false;
 	previewVisual = 0;
 	shiftSelItems = false;
+	inItemCreation = false;
 #ifdef HAVE_CAIRO
 	m_ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
 #endif
@@ -1536,14 +1539,11 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 		//SeleItemPos is from 1.2.x. Needs reenabling for dragging *TO* a frame
 		if ((fi.exists()) && (img) && !selectedItemByDrag)// && (!SeleItemPos(e->pos())))
 		{
-			//int z = PaintPict(qRound(e->pos().x()/doku->Scale), qRound(e->pos().y()/doku->Scale), 1, 1);
 			int z = Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, ex, ey, 1, 1, 1, Doc->toolSettings.dBrushPict, CommonStrings::None, true);
 			PageItem *b = Doc->Items->at(z);
 			Doc->LoadPict(ur.path(), b->ItemNr);
 			b->setWidth(static_cast<double>(b->OrigW * 72.0 / b->pixm.imgInfo.xres));
 			b->setHeight(static_cast<double>(b->OrigH * 72.0 / b->pixm.imgInfo.yres));
-//			b->setWidth(static_cast<double>(b->pixm.width()));
-//			b->setHeight(static_cast<double>(b->pixm.height()));
 			b->OldB2 = b->width();
 			b->OldH2 = b->height();
 			b->updateClip();
@@ -2418,7 +2418,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				{
 					QFileInfo fi = QFileInfo(currItem->Pfile);
 					InfoT->setText( tr("Picture"));
-					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignCenter );
+					InfoGroupLayout->addMultiCellWidget( InfoT, 0, 0, 0, 1, Qt::AlignHCenter );
 					ParCT->setText( tr("File: "));
 					InfoGroupLayout->addWidget( ParCT, 1, 0, Qt::AlignRight );
 					ParC->setText(fi.fileName());
@@ -2433,7 +2433,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					               txtC2.setNum(qRound(72.0 / currItem->imageYScale())));
 					InfoGroupLayout->addWidget( CharC, 3, 1 );
 					ColCT->setText( tr("Colorspace: "));
-					ColCT->show();
+//					ColCT->show();
 					InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 					QString cSpace;
 					QString ext = fi.extension(false).lower();
@@ -2458,7 +2458,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						}
 					}
 					ColC->setText(cSpace);
-					ColC->show();
+//					ColC->show();
 					InfoGroupLayout->addWidget( ColC, 4, 1 );
 					
 				}
@@ -2732,6 +2732,95 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				return;
 			}
 		}
+		if (Doc->appMode == modeDrawLine)
+		{
+			currItem = Doc->m_Selection->itemAt(0);
+			QPainter p;
+			p.begin(viewport());
+			Transform(currItem, &p);
+			QPoint np = p.xFormDev(m->pos());
+			p.end();
+			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
+			np = Doc->ApplyGrid(np);
+			double newRot=xy2Deg(np.x(), np.y());
+			//Constrain rotation angle, when the mouse is released from drawing a line
+			if (m->state() & ControlButton)
+				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
+			currItem->setRotation(newRot);
+			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
+			currItem->Sizing = false;
+			currItem->updateClip();
+			Doc->setRedrawBounding(currItem);
+			currItem->OwnPage = Doc->OnPage(currItem);
+			updateContents();
+		}
+//		if ((inItemCreation) && (GetItem(&currItem)) && (!moveTimerElapsed()) || ((currItem->width() < 2.0) && (currItem->height() < 2.0)))
+		if ((inItemCreation) && (!moveTimerElapsed()))
+		{
+			currItem = Doc->m_Selection->itemAt(0);
+			PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
+			QuerySize *dia = new QuerySize(this, tr("Enter Object Size"), Doc->unitIndex(), sizes->getDouble("defWidth", 100.0), sizes->getDouble("defHeight", 100.0));
+			if (dia->exec())
+			{
+				double itemX = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
+				double itemY = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
+				sizes->set("defWidth", itemX);
+				sizes->set("defHeight", itemY);
+				if (Doc->appMode == modeDrawRegularPolygon)
+				{
+					currItem->setWidthHeight(itemX, itemY);
+					FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
+					FPoint np(cli.point(0));
+					currItem->PoLine.resize(2);
+					currItem->PoLine.setPoint(0, np);
+					currItem->PoLine.setPoint(1, np);
+					for (uint ax = 1; ax < cli.size(); ++ax)
+					{
+						np = FPoint(cli.point(ax));
+						currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+					}
+					np = FPoint(cli.point(0));
+					currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
+					FPoint tp2(getMinClipF(&currItem->PoLine));
+					if ((tp2.x() > -1) || (tp2.y() > -1))
+						SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem->ItemNr, false, false, false);
+					FPoint tp(getMaxClipF(&currItem->PoLine));
+					SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
+					currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+					AdjustItemSize(currItem);
+				}
+				else
+				{
+					SizeItem(itemX, itemY, currItem->ItemNr);
+					currItem->updateClip();
+				}
+				currItem->ContourLine = currItem->PoLine.copy();
+				Doc->setRedrawBounding(currItem);
+				currItem->OwnPage = Doc->OnPage(currItem);
+				currItem->OldB2 = currItem->width();
+				currItem->OldH2 = currItem->height();
+				updateContents();
+			}
+			else
+			{
+				Deselect(false);
+				Doc->Items->remove(currItem->ItemNr);
+			}
+			delete dia;
+			Doc->appMode = modeNormal;
+			Doc->DragP = false;
+			Doc->leaveDrag = false;
+			operItemMoving = false;
+			operItemResizing = false;
+			MidButt = false;
+			shiftSelItems = false;
+			m_SnapCounter = 0;
+			Doc->SubMode = -1;
+			inItemCreation = false;
+			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			emit PaintingDone();
+			emit DocChanged();
+		}
 		if (Doc->appMode == modeDrawRegularPolygon)
 		{
 			currItem = Doc->m_Selection->itemAt(0);
@@ -2765,55 +2854,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OldB2 = currItem->width();
 			currItem->OldH2 = currItem->height();
 			updateContents();
-		}
-		if (Doc->appMode == modeDrawLine)
-		{
-			currItem = Doc->m_Selection->itemAt(0);
-			QPainter p;
-			p.begin(viewport());
-			Transform(currItem, &p);
-			QPoint np = p.xFormDev(m->pos());
-			p.end();
-			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
-			np = Doc->ApplyGrid(np);
-			double newRot=xy2Deg(np.x(), np.y());
-			//Constrain rotation angle, when the mouse is released from drawing a line
-			if (m->state() & ControlButton)
-				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
-			currItem->setRotation(newRot);
-			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
-			currItem->Sizing = false;
-			currItem->updateClip();
-			Doc->setRedrawBounding(currItem);
-			currItem->OwnPage = Doc->OnPage(currItem);
-			updateContents();
-		}
-		if ((((Doc->SubMode != -1) || (operItemMoving && operItemResizing)) && (GetItem(&currItem))) && ((!moveTimerElapsed()) || ((currItem->width() < 2.0) && (currItem->height() < 2.0))))
-		{
-			QuerySize *dia = new QuerySize(this, tr("Enter Object Size"), Doc->unitIndex());
-			if (dia->exec())
-			{
-				SizeItem(dia->spinWidth->value(), dia->spinHeight->value(), currItem->ItemNr);
-				currItem->updateClip();
-				Doc->setRedrawBounding(currItem);
-				currItem->OwnPage = Doc->OnPage(currItem);
-				updateContents();
-			}
-			else
-			{
-				Deselect(false);
-				Doc->Items->remove(currItem->ItemNr);
-			}
-			delete dia;
-			Doc->DragP = false;
-			Doc->leaveDrag = false;
-			operItemMoving = false;
-			operItemResizing = false;
-			MidButt = false;
-			shiftSelItems = false;
-			m_SnapCounter = 0;
-			Doc->SubMode = -1;
-			return;
 		}
 		if (moveTimerElapsed() && (GetItem(&currItem)))
 		{
@@ -3902,6 +3942,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	operItemResizing = false;
 	MidButt = false;
 	shiftSelItems = false;
+	inItemCreation = false;
 	m_SnapCounter = 0;
 	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
@@ -5024,6 +5065,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	HaveSelRect = false;
 	Doc->DragP = false;
 	Doc->leaveDrag = false;
+	inItemCreation = false;
 	oldClip = 0;
 	moveTimer.start();
 	Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
@@ -5882,12 +5924,14 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Doc->m_Selection->clear();
 				Doc->m_Selection->addItem(currItem);
 				currItem->paintObj();
+				inItemCreation = true;
+//				moveTimer = moveTimer.addSecs(1500);
 				if (m->state() == ShiftButton)
 				{
 					Doc->appMode = modeNormal;
 					emit DocChanged();
 					currItem->Sizing =  currItem->asLine() ? false : true;
-					moveTimer = moveTimer.addSecs(1500);
+//					moveTimer = moveTimer.addSecs(1500);
 				}
 				else
 					operItemMoving = true;
@@ -8921,7 +8965,8 @@ void ScribusView::SetupDraw(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	moveTimer = moveTimer.addSecs(1500);
+	inItemCreation = true;
+//	moveTimer = moveTimer.addSecs(1500);
 }
 
 void ScribusView::SetupDrawNoResize(int nr)
@@ -8935,7 +8980,8 @@ void ScribusView::SetupDrawNoResize(int nr)
 	Doc->appMode = modeNormal;
 	emit DocChanged();
 	currItem->Sizing =  currItem->asLine() ? false : true;
-	moveTimer = moveTimer.addSecs(1500);
+	inItemCreation = true;
+//	moveTimer = moveTimer.addSecs(1500);
 }
 
 //CB-->Doc/Fix

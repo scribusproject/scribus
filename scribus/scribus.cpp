@@ -1255,6 +1255,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 		doc->leaveDrag = false;
 		view->operItemMoving = false;
 		view->operItemResizing = false;
+		view->inItemCreation = false;
 		view->MidButt = false;
 		doc->SubMode = -1;
 		doc->ElemToLink = NULL;

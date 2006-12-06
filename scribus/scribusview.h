@@ -141,6 +141,7 @@ public:
 	bool DraggedGroup;
 	bool DraggedGroupFirst;
 	bool operItemResizeInEditMode;
+	bool inItemCreation;
 	bool MidButt;
 	bool updateOn;
 	bool FirstPoly;

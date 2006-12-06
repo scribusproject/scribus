@@ -15,6 +15,7 @@ extern QPixmap loadIcon(QString nam);
 #include <qlineedit.h>
 #include <qpushbutton.h>
 #include "mspinbox.h"
+#include "linkbutton.h"
 #include "units.h"
 #include "commonstrings.h"
 
@@ -80,7 +81,7 @@ void Query::setEditText(QString newText, bool setSelected)
 		answerEdit->selectAll();
 }
 
-QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex ) : QDialog( parent, "QuerySize", true, 0 )
+QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex, double defW, double defH ) : QDialog( parent, "QuerySize", true, 0 )
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
@@ -91,26 +92,31 @@ QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex ) : QDialog(
 	editLayout = new QGridLayout;
 	editLayout->setSpacing( 5 );
 	editLayout->setMargin( 0 );
-	questionLabel = new QLabel( tr("Width"), this, "questionLabel" );
+	questionLabel = new QLabel( tr("Width:"), this, "questionLabel" );
 	editLayout->addWidget( questionLabel, 0, 0 );
 	spinWidth = new MSpinBox( 0, 1000, this, decimals );
 	spinWidth->setSuffix( m_suffix );
-	spinWidth->setMinValue(1*m_unitRatio);
-	spinWidth->setMaxValue(30000*m_unitRatio);
+	spinWidth->setMinValue(0.1*m_unitRatio);
+	spinWidth->setMaxValue(30000.0*m_unitRatio);
+	spinWidth->setValue(defW * m_unitRatio);
 	editLayout->addWidget( spinWidth, 0, 1 );
-	questionLabel2 = new QLabel( tr("Height"), this, "questionLabel2" );
+	questionLabel2 = new QLabel( tr("Height:"), this, "questionLabel2" );
 	editLayout->addWidget( questionLabel2, 1, 0 );
 	spinHeight = new MSpinBox( 0, 1000, this, decimals );
 	spinHeight->setSuffix( m_suffix );
-	spinHeight->setMinValue(1*m_unitRatio);
-	spinHeight->setMaxValue(30000*m_unitRatio);
+	spinHeight->setMinValue(0.1*m_unitRatio);
+	spinHeight->setMaxValue(30000.0*m_unitRatio);
+	spinHeight->setValue(defH * m_unitRatio);
 	editLayout->addWidget( spinHeight, 1, 1 );
+	linkSize = new LinkButton( this );
+	linkSize->setToggleButton( true );
+	linkSize->setAutoRaise( true );
+	linkSize->setMaximumSize( QSize( 15, 32767 ) );
+	editLayout->addMultiCellWidget( linkSize, 0, 1, 2, 2 );
 	queryLayout->addLayout( editLayout );
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 5 );
 	okCancelLayout->setMargin( 0 );
-	QSpacerItem* spacer = new QSpacerItem( 20, 20, QSizePolicy::Expanding, QSizePolicy::Minimum );
-	okCancelLayout->addItem( spacer );
 	okButton = new QPushButton( CommonStrings::tr_OK, this, "okButton" );
 	okButton->setDefault( true );
 	okCancelLayout->addWidget( okButton );
@@ -122,4 +128,37 @@ QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex ) : QDialog(
 	// signals and slots connections
 	connect( okButton, SIGNAL( clicked() ), this, SLOT( accept() ) );
 	connect( cancelButton, SIGNAL( clicked() ), this, SLOT( reject() ) );
+	connect(linkSize, SIGNAL(clicked()), this, SLOT(ToggleKette()));
+	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+}
+
+void QuerySize::ToggleKette()
+{
+	disconnect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	disconnect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	if (linkSize->isOn())
+		spinHeight->setValue(spinWidth->value());
+	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+}
+
+void QuerySize::changeSizesH()
+{
+	disconnect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	disconnect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	if (linkSize->isOn())
+		spinWidth->setValue(spinHeight->value());
+	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+}
+
+void QuerySize::changeSizesW()
+{
+	disconnect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	disconnect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
+	if (linkSize->isOn())
+		spinHeight->setValue(spinWidth->value());
+	connect(spinWidth, SIGNAL(valueChanged(int)), this, SLOT(changeSizesW()));
+	connect(spinHeight, SIGNAL(valueChanged(int)), this, SLOT(changeSizesH()));
 }
