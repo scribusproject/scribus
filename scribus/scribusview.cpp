@@ -2302,7 +2302,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			Mxp = m->x();
 			Myp = m->y();
-			pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
+			if (m_ScMW->Buffer2.startsWith("<SCRIBUSELEM"))
+				pmen->insertItem( tr("&Paste") , this, SLOT(PasteToPage()));
 			if (m_ScMW->scrapbookPalette->tempBView->objectMap.count() > 0)
 			{
 				pmen3 = new QPopupMenu();
