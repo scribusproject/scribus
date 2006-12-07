@@ -710,6 +710,56 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			h = parseUnit(b.attribute("svg:height"));
 			z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
 		}
+		else if ( STag == "draw:frame" )
+		{
+			x = parseUnit(b.attribute("svg:x"));
+			y = parseUnit(b.attribute("svg:y")) ;
+			w = parseUnit(b.attribute("svg:width"));
+			h = parseUnit(b.attribute("svg:height"));
+			QDomNode n = b.firstChild();
+			QString STag2 = n.toElement().tagName();
+			if ( STag2 == "draw:text-box" )
+			{
+				z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, BaseX+x, BaseY+y, w, h+(h*0.1), lwidth, CommonStrings::None, StrokeColor, true);
+				PageItem* ite = m_Doc->Items->at(z);
+				ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
+				ite->setFillTransparency(FillTrans);
+				ite->setLineTransparency(StrokeTrans);
+				if (!drawID.isEmpty())
+					ite->setItemName(drawID);
+				GElements.append(ite);
+				Elements.append(ite);
+				bool firstPa = false;
+				for ( QDomNode n2 = n.firstChild(); !n2.isNull(); n2 = n2.nextSibling() )
+				{
+					if ( !n2.hasAttributes() && !n2.hasChildNodes() )
+						continue;
+					QDomElement e = n2.toElement();
+					if ( e.text().isEmpty() )
+						continue;
+					storeObjectStyles(n2.toElement());
+					int FontSize = m_Doc->toolSettings.defSize;
+					int AbsStyle = 0;
+/*					if( m_styleStack.hasAttribute("fo:text-align"))
+					{
+						if (m_styleStack.attribute("fo:text-align") == "left")
+							AbsStyle = 0;
+						if (m_styleStack.attribute("fo:text-align") == "center")
+							AbsStyle = 1;
+						if (m_styleStack.attribute("fo:text-align") == "right")
+							AbsStyle = 2;
+					} */
+					if( m_styleStack.hasAttribute("fo:font-size"))
+						FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
+					Serializer *ss = new Serializer("");
+					ss->Objekt = QString::fromUtf8(e.text())+QChar(10);
+					ss->GetText(ite, AbsStyle, m_Doc->toolSettings.defFont, FontSize*10, firstPa);
+					delete ss;
+					firstPa = true;
+				}
+			}
+			z = -1;
+		}
 		else
 		{
 			unsupported = true;
@@ -730,7 +780,7 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					continue;
 				int FontSize = m_Doc->toolSettings.defSize;
 				int AbsStyle = 0;
-				if( m_styleStack.hasAttribute("fo:text-align"))
+/*				if( m_styleStack.hasAttribute("fo:text-align"))
 				{
 					if (m_styleStack.attribute("fo:text-align") == "left")
 						AbsStyle = 0;
@@ -738,8 +788,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 						AbsStyle = 1;
 					if (m_styleStack.attribute("fo:text-align") == "right")
 						AbsStyle = 2;
-				}
-				if( m_styleStack.hasAttribute("fo:font-family"))
+				} */
+				if( m_styleStack.hasAttribute("fo:font-size"))
 				{
 					FontSize = m_styleStack.attribute("fo:font-size").remove( "pt" ).toInt();
 				}
