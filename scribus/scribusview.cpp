@@ -369,6 +369,15 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		QImage img = QImage(clipw, cliph, 32);
 		painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 		painter->clear(paletteBackgroundColor());
+#if CAIRO_VERSION >= CAIRO_VERSION_ENCODE(1, 2, 6)
+		painter->newPath();
+		painter->moveTo(0, 0);
+		painter->lineTo(clipw, 0);
+		painter->lineTo(clipw, cliph);
+		painter->lineTo(0, cliph);
+		painter->closePath();
+		painter->setClipPath();
+#endif
 		painter->translate(-clipx, -clipy);
 		painter->setZoomFactor(Scale);
 		painter->translate(-Doc->minCanvasCoordinate.x(), -Doc->minCanvasCoordinate.y());
