@@ -2740,16 +2740,24 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			currItem = Doc->m_Selection->itemAt(0);
 			PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
-			QuerySize *dia = new QuerySize(this, tr("Enter Object Size"), Doc->unitIndex(), sizes->getDouble("defWidth", 100.0), sizes->getDouble("defHeight", 100.0));
+			double xSize = sizes->getDouble("defWidth", 100.0);
+			double ySize = sizes->getDouble("defHeight", 100.0);
+			bool doRemember = sizes->getBool("Remember", true);
+			QuerySize *dia = new QuerySize(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember);
 			if (dia->exec())
 			{
-				double itemX = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
-				double itemY = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
-				sizes->set("defWidth", itemX);
-				sizes->set("defHeight", itemY);
+				xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
+				ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
+				doRemember = dia->checkRemember->isChecked();
+				if (doRemember)
+				{
+					sizes->set("defWidth", xSize);
+					sizes->set("defHeight", ySize);
+				}
+				sizes->set("Remember", doRemember);
 				if (Doc->appMode == modeDrawRegularPolygon)
 				{
-					currItem->setWidthHeight(itemX, itemY);
+					currItem->setWidthHeight(xSize, ySize);
 					FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 					FPoint np(cli.point(0));
 					currItem->PoLine.resize(2);
@@ -2772,7 +2780,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				else
 				{
-					SizeItem(itemX, itemY, currItem->ItemNr);
+					SizeItem(xSize, ySize, currItem->ItemNr);
 					currItem->updateClip();
 				}
 				currItem->ContourLine = currItem->PoLine.copy();

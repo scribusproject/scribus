@@ -16,6 +16,7 @@ class QString;
 class QVBoxLayout;
 class QHBoxLayout;
 class QGridLayout;
+class QCheckBox;
 class MSpinBox;
 class LinkButton;
 
@@ -51,11 +52,12 @@ class SCRIBUS_API QuerySize : public QDialog
 	Q_OBJECT
 
 public:
-	QuerySize( QWidget* parent, QString titel, int unitIndex, double defW, double defH );
+	QuerySize( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember );
 	~QuerySize() {};
 	MSpinBox *spinWidth;
 	MSpinBox *spinHeight;
 	LinkButton* linkSize;
+	QCheckBox* checkRemember;
 
 public slots:
 	void ToggleKette();

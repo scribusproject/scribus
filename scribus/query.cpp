@@ -14,6 +14,7 @@ extern QPixmap loadIcon(QString nam);
 #include <qlabel.h>
 #include <qlineedit.h>
 #include <qpushbutton.h>
+#include <qcheckbox.h>
 #include "mspinbox.h"
 #include "linkbutton.h"
 #include "units.h"
@@ -81,7 +82,7 @@ void Query::setEditText(QString newText, bool setSelected)
 		answerEdit->selectAll();
 }
 
-QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex, double defW, double defH ) : QDialog( parent, "QuerySize", true, 0 )
+QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember ) : QDialog( parent, "QuerySize", true, 0 )
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
@@ -113,6 +114,10 @@ QuerySize::QuerySize( QWidget* parent, QString titel, int unitIndex, double defW
 	linkSize->setAutoRaise( true );
 	linkSize->setMaximumSize( QSize( 15, 32767 ) );
 	editLayout->addMultiCellWidget( linkSize, 0, 1, 2, 2 );
+	checkRemember = new QCheckBox(this, "checkRemember");
+	checkRemember->setText( tr("Remember Values"));
+	checkRemember->setChecked(remember);
+	editLayout->addMultiCellWidget( checkRemember, 3, 3, 0, 2 );
 	queryLayout->addLayout( editLayout );
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 5 );
