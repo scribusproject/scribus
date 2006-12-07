@@ -188,13 +188,7 @@ InsPage::InsPage( QWidget* parent, ScribusDoc* currentDoc, int currentPage, int 
 					pageData->setCurrentText( CommonStrings::trMasterPageNormalRight);
 			}
 			QString transLabel = currentDoc->pageSets[currentDoc->currentPageLayout].pageNames[mp];
-			if (transLabel == CommonStrings:: pageLocLeft)
-				transLabel = CommonStrings:: trPageLocLeft;
-			else if (transLabel == CommonStrings:: pageLocMiddle)
-				transLabel = CommonStrings:: trPageLocMiddle;
-			else if (transLabel == CommonStrings:: pageLocRight)
-				transLabel = CommonStrings:: trPageLocRight;
-			QLabel* pageLabel = new QLabel(pageData,  transLabel, masterPageGroup, "text");
+			QLabel* pageLabel = new QLabel(pageData,  CommonStrings::translatePageSetLocString(transLabel), masterPageGroup, "text");
 			masterPageLayout->addWidget(pageLabel, row, 0 );
 			masterPageLayout->addWidget(pageData, row, 1);
 			row++;
