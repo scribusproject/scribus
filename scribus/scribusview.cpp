@@ -94,7 +94,7 @@ for which a new license (GPL+exception) is in place.
 #include "hyphenator.h"
 #include "commonstrings.h"
 #include "guidemanager.h"
-#include "query.h"
+#include "oneclick.h"
 #include "text/nlsconfig.h"
 #include "scrap.h"
 #include "stencilreader.h"
@@ -2736,79 +2736,96 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem->OwnPage = Doc->OnPage(currItem);
 			updateContents();
 		}
-		if ((inItemCreation) && (!moveTimerElapsed()))
+		if (inItemCreation)
 		{
 			currItem = Doc->m_Selection->itemAt(0);
-			PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
-			double xSize = sizes->getDouble("defWidth", 100.0);
-			double ySize = sizes->getDouble("defHeight", 100.0);
-			bool doRemember = sizes->getBool("Remember", true);
-			QuerySize *dia = new QuerySize(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember);
-			if (dia->exec())
+			double itemX = 0.0;
+			double itemY = 0.0;
+			if (Doc->appMode == modeDrawRegularPolygon)
 			{
-				xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
-				ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
-				doRemember = dia->checkRemember->isChecked();
-				if (doRemember)
-				{
-					sizes->set("defWidth", xSize);
-					sizes->set("defHeight", ySize);
-				}
-				sizes->set("Remember", doRemember);
-				if (Doc->appMode == modeDrawRegularPolygon)
-				{
-					currItem->setWidthHeight(xSize, ySize);
-					FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
-					FPoint np(cli.point(0));
-					currItem->PoLine.resize(2);
-					currItem->PoLine.setPoint(0, np);
-					currItem->PoLine.setPoint(1, np);
-					for (uint ax = 1; ax < cli.size(); ++ax)
-					{
-						np = FPoint(cli.point(ax));
-						currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
-					}
-					np = FPoint(cli.point(0));
-					currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
-					FPoint tp2(getMinClipF(&currItem->PoLine));
-					if ((tp2.x() > -1) || (tp2.y() > -1))
-						SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem->ItemNr, false, false, false);
-					FPoint tp(getMaxClipF(&currItem->PoLine));
-					SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
-					currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-					AdjustItemSize(currItem);
-				}
-				else
-				{
-					SizeItem(xSize, ySize, currItem->ItemNr);
-					currItem->updateClip();
-				}
-				currItem->ContourLine = currItem->PoLine.copy();
-				Doc->setRedrawBounding(currItem);
-				currItem->OwnPage = Doc->OnPage(currItem);
-				currItem->OldB2 = currItem->width();
-				currItem->OldH2 = currItem->height();
-				updateContents();
+				FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
+				np1 = Doc->ApplyGridF(np1);
+				itemX = np1.x();
+				itemY = np1.y();
 			}
 			else
 			{
-				Deselect(false);
-				Doc->Items->remove(currItem->ItemNr);
+				itemX = currItem->width();
+				itemY = currItem->height();
 			}
-			delete dia;
-			Doc->appMode = modeNormal;
-			Doc->DragP = false;
-			Doc->leaveDrag = false;
-			operItemMoving = false;
-			operItemResizing = false;
-			MidButt = false;
-			shiftSelItems = false;
-			m_SnapCounter = 0;
-			Doc->SubMode = -1;
-			inItemCreation = false;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			emit PaintingDone();
-			emit DocChanged();
+			if ((!moveTimerElapsed()) || ((itemX < 2.0) && (itemY < 2.0)))
+			{
+				PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
+				double xSize = sizes->getDouble("defWidth", 100.0);
+				double ySize = sizes->getDouble("defHeight", 100.0);
+				bool doRemember = sizes->getBool("Remember", true);
+				OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember);
+				if (dia->exec())
+				{
+					xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
+					ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
+					doRemember = dia->checkRemember->isChecked();
+					if (doRemember)
+					{
+						sizes->set("defWidth", xSize);
+						sizes->set("defHeight", ySize);
+					}
+					sizes->set("Remember", doRemember);
+					if (Doc->appMode == modeDrawRegularPolygon)
+					{
+						currItem->setWidthHeight(xSize, ySize);
+						FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
+						FPoint np(cli.point(0));
+						currItem->PoLine.resize(2);
+						currItem->PoLine.setPoint(0, np);
+						currItem->PoLine.setPoint(1, np);
+						for (uint ax = 1; ax < cli.size(); ++ax)
+						{
+							np = FPoint(cli.point(ax));
+							currItem->PoLine.putPoints(currItem->PoLine.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+						}
+						np = FPoint(cli.point(0));
+						currItem->PoLine.putPoints(currItem->PoLine.size(), 2, np.x(), np.y(), np.x(), np.y());
+						FPoint tp2(getMinClipF(&currItem->PoLine));
+						if ((tp2.x() > -1) || (tp2.y() > -1))
+							SizeItem(currItem->width() - tp2.x(), currItem->height() - tp2.y(), currItem->ItemNr, false, false, false);
+						FPoint tp(getMaxClipF(&currItem->PoLine));
+						SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
+						currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+						AdjustItemSize(currItem);
+					}
+					else
+					{
+						SizeItem(xSize, ySize, currItem->ItemNr);
+						currItem->updateClip();
+					}
+					currItem->ContourLine = currItem->PoLine.copy();
+					Doc->setRedrawBounding(currItem);
+					currItem->OwnPage = Doc->OnPage(currItem);
+					currItem->OldB2 = currItem->width();
+					currItem->OldH2 = currItem->height();
+					updateContents();
+				}
+				else
+				{
+					Deselect(false);
+					Doc->Items->remove(currItem->ItemNr);
+				}
+				delete dia;
+				Doc->appMode = modeNormal;
+				Doc->DragP = false;
+				Doc->leaveDrag = false;
+				operItemMoving = false;
+				operItemResizing = false;
+				MidButt = false;
+				shiftSelItems = false;
+				m_SnapCounter = 0;
+				Doc->SubMode = -1;
+				inItemCreation = false;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+				emit DocChanged();
+			}
 		}
 		if (Doc->appMode == modeDrawRegularPolygon)
 		{

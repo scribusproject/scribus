@@ -147,6 +147,7 @@ scribus_SOURCES = \
 	navigator.cpp	\
 	newfile.cpp	\
 	newtemp.cpp	\
+	oneclick.cpp	\
 	page.cpp	\
 	pageitemattributesbase.ui	\
 	pageitemattributes.cpp	\
@@ -425,6 +426,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/navigator.h                   $(prefix)/include/scribus/navigator.h
 	$(INSTALL_DATA) $(srcdir)/newfile.h                     $(prefix)/include/scribus/newfile.h
 	$(INSTALL_DATA) $(srcdir)/newtemp.h                     $(prefix)/include/scribus/newtemp.h
+	$(INSTALL_DATA) $(srcdir)/oneclick.h                     $(prefix)/include/scribus/oneclick.h
 	$(INSTALL_DATA) $(srcdir)/page.h                        $(prefix)/include/scribus/page.h
 	$(INSTALL_DATA) $(srcdir)/pageitem.h                    $(prefix)/include/scribus/pageitem.h
 	$(INSTALL_DATA) $(srcdir)/pageitemattributes.h          $(prefix)/include/scribus/pageitemattributes.h
@@ -629,6 +631,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/navigator.h
 	-rm -f $(prefix)/include/scribus/newfile.h
 	-rm -f $(prefix)/include/scribus/newtemp.h
+	-rm -f $(prefix)/include/scribus/oneclick.h
 	-rm -f $(prefix)/include/scribus/page.h
 	-rm -f $(prefix)/include/scribus/pageitem.h
 	-rm -f $(prefix)/include/scribus/pageitemattributes.h

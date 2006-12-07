@@ -140,6 +140,7 @@ muster.h
 navigator.h
 newfile.h
 newtemp.h
+oneclick.h
 pageitem.h
 pageitemattributes.h
 pageitem_imageframe.h
@@ -350,6 +351,7 @@ muster.cpp
 navigator.cpp
 newfile.cpp
 newtemp.cpp
+oneclick.cpp
 page.cpp
 pageitem.cpp
 pageitemattributes.cpp
