@@ -2759,18 +2759,34 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				double xSize = sizes->getDouble("defWidth", 100.0);
 				double ySize = sizes->getDouble("defHeight", 100.0);
 				bool doRemember = sizes->getBool("Remember", true);
-				OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember);
-				if (dia->exec())
+				bool doCreate = false;
+				if (m->state() & ControlButton)
+					doCreate = true;
+				else
 				{
-					xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
-					ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
-					doRemember = dia->checkRemember->isChecked();
-					if (doRemember)
+					OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember);
+					if (dia->exec())
 					{
-						sizes->set("defWidth", xSize);
-						sizes->set("defHeight", ySize);
+						xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
+						ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
+						doRemember = dia->checkRemember->isChecked();
+						if (doRemember)
+						{
+							sizes->set("defWidth", xSize);
+							sizes->set("defHeight", ySize);
+						}
+						sizes->set("Remember", doRemember);
+						doCreate = true;
 					}
-					sizes->set("Remember", doRemember);
+					else
+					{
+						Deselect(false);
+						Doc->Items->remove(currItem->ItemNr);
+					}
+					delete dia;
+				}
+				if (doCreate)
+				{
 					if (Doc->appMode == modeDrawRegularPolygon)
 					{
 						currItem->setWidthHeight(xSize, ySize);
@@ -2804,14 +2820,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					currItem->OwnPage = Doc->OnPage(currItem);
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
-					updateContents();
 				}
-				else
-				{
-					Deselect(false);
-					Doc->Items->remove(currItem->ItemNr);
-				}
-				delete dia;
+				updateContents();
 				Doc->appMode = modeNormal;
 				Doc->DragP = false;
 				Doc->leaveDrag = false;
