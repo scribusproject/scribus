@@ -7971,37 +7971,39 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
-		int t = -1; // show locked dialog only once
 		QString tooltip = Um::ItemsInvolved + "\n";
 		uint selectedItemCount=doc->m_Selection->count();
 		if (showLockDia)
 		{
+			uint lockedCount=0;
 			for (uint a=0; a<selectedItemCount; ++a)
 			{
-				if (t == -1 && doc->m_Selection->itemAt(a)->locked())
-					t = QMessageBox::warning(this, CommonStrings::trWarning,
-											 tr("Some objects are locked."),
-											 CommonStrings::tr_Cancel,
-											 tr("&Lock All"),
-											 tr("&Unlock All"), 0, 0);
-				if (t != -1)
-					break; // already have an answer free to leave the loop
+				if (doc->m_Selection->itemAt(a)->locked())
+					++lockedCount;
 			}
-			if (t == 0)
-				return; // user chose cancel -> do not group but return
-
-			for (uint a=0; a<selectedItemCount; ++a)
+			int t=-1;
+			if (lockedCount!=0 && lockedCount!=selectedItemCount)
 			{
-				currItem = doc->m_Selection->itemAt(a);
-				if (currItem->locked())
+				t = QMessageBox::warning(this, CommonStrings::trWarning,
+											tr("Some objects are locked."),
+											CommonStrings::tr_Cancel,
+											tr("&Lock All"),
+											tr("&Unlock All"), 0, 0);
+				if (t == 0)
+					return; // user chose cancel -> do not group but return
+				for (uint a=0; a<selectedItemCount; ++a)
 				{
-					for (uint c=0; c<selectedItemCount; ++c)
+					currItem = doc->m_Selection->itemAt(a);
+					if (currItem->locked())
 					{
-						bb = doc->m_Selection->itemAt(c);
-						bool t1=(t==1);
-						bb->setLocked(t1);
-						scrActions["itemLock"]->setOn(t1);
-						tooltip += "\t" + currItem->getUName() + "\n";
+						for (uint c=0; c<selectedItemCount; ++c)
+						{
+							bb = doc->m_Selection->itemAt(c);
+							bool t1=(t==1);
+							bb->setLocked(t1);
+							scrActions["itemLock"]->setOn(t1);
+							tooltip += "\t" + currItem->getUName() + "\n";
+						}
 					}
 				}
 			}

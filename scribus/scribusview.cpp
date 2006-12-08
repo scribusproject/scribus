@@ -2588,29 +2588,29 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					pmen->insertItem( tr("Send to La&yer"), pmen3);
 				}
 			}
-			if (!currItem->locked())
+			if (Doc->m_Selection->count() > 1)
 			{
-				if (Doc->m_Selection->count() > 1)
+				bool isGroup = true;
+				int firstElem = -1;
+				if (currItem->Groups.count() != 0)
+					firstElem = currItem->Groups.top();
+				for (uint bx = 0; bx < Doc->m_Selection->count(); ++bx)
 				{
-					bool isGroup = true;
-					int firstElem = -1;
-					if (currItem->Groups.count() != 0)
-						firstElem = currItem->Groups.top();
-					for (uint bx = 0; bx < Doc->m_Selection->count(); ++bx)
+					if (Doc->m_Selection->itemAt(bx)->Groups.count() != 0)
 					{
-						if (Doc->m_Selection->itemAt(bx)->Groups.count() != 0)
-						{
-							if (Doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
-								isGroup = false;
-						}
-						else
+						if (Doc->m_Selection->itemAt(bx)->Groups.top() != firstElem)
 							isGroup = false;
 					}
-					if (!isGroup)
-						m_ScMW->scrActions["itemGroup"]->addTo(pmen);
+					else
+						isGroup = false;
 				}
-				if (currItem->Groups.count() != 0)
-					m_ScMW->scrActions["itemUngroup"]->addTo(pmen);
+				if (!isGroup)
+					m_ScMW->scrActions["itemGroup"]->addTo(pmen);
+			}
+			if (currItem->Groups.count() != 0)
+				m_ScMW->scrActions["itemUngroup"]->addTo(pmen);
+			if (!currItem->locked())
+			{
 				if ((!currItem->isTableItem) && (!currItem->isSingleSel))
 				{
 					pmen->insertItem( tr("Le&vel"), pmenLevel);
