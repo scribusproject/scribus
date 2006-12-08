@@ -11,6 +11,10 @@ for which a new license (GPL+exception) is in place.
 class QLayout;
 class QLabel;
 class QPushButton;
+class QButtonGroup;
+class QGroupBox;
+class QRadioButton;
+class QFrame;
 class QString;
 class QVBoxLayout;
 class QHBoxLayout;
@@ -26,12 +30,13 @@ class SCRIBUS_API OneClick : public QDialog
 	Q_OBJECT
 
 public:
-	OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember );
+	OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember, int origin );
 	~OneClick() {};
 	MSpinBox *spinWidth;
 	MSpinBox *spinHeight;
 	LinkButton* linkSize;
 	QCheckBox* checkRemember;
+	QButtonGroup* RotationGroup;
 
 public slots:
 	void ToggleKette();
@@ -41,11 +46,24 @@ public slots:
 private:
 	QVBoxLayout* queryLayout;
 	QGridLayout* editLayout;
+	QGridLayout* Layout12a;
+	QGridLayout* Layout12;
+	QGridLayout* SizeGroupLayout;
 	QHBoxLayout* okCancelLayout;
 	QPushButton* okButton;
 	QPushButton* cancelButton;
 	QLabel* questionLabel;
 	QLabel* questionLabel2;
+	QRadioButton* TopLeft;
+	QRadioButton* TopRight;
+	QRadioButton* Center;
+	QRadioButton* BottomLeft;
+	QRadioButton* BottomRight;
+	QFrame* Line1;
+	QFrame* Line2;
+	QFrame* Line4;
+	QFrame* Line5;
+	QGroupBox* SizeGroup;
 };
 
 #endif

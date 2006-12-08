@@ -14,12 +14,16 @@ extern QPixmap loadIcon(QString nam);
 #include <qlabel.h>
 #include <qcheckbox.h>
 #include <qpushbutton.h>
+#include <qbuttongroup.h>
+#include <qgroupbox.h>
+#include <qradiobutton.h>
+#include <qframe.h>
 #include "mspinbox.h"
 #include "linkbutton.h"
 #include "units.h"
 #include "commonstrings.h"
 
-OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember ) : QDialog( parent, "OneClick", true, 0 )
+OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, double defH, bool remember, int origin ) : QDialog( parent, "OneClick", true, 0 )
 {
 	double m_unitRatio = unitGetRatioFromIndex(unitIndex);
 	QString m_suffix = unitGetSuffixFromIndex(unitIndex);
@@ -30,31 +34,109 @@ OneClick::OneClick( QWidget* parent, QString titel, int unitIndex, double defW, 
 	editLayout = new QGridLayout;
 	editLayout->setSpacing( 5 );
 	editLayout->setMargin( 0 );
-	questionLabel = new QLabel( tr("Width:"), this, "questionLabel" );
-	editLayout->addWidget( questionLabel, 0, 0 );
-	spinWidth = new MSpinBox( 0, 1000, this, decimals );
+	
+	RotationGroup = new QButtonGroup( tr("Origin"), this, "RotationGroup" );
+	RotationGroup->setColumnLayout(0, Qt::Vertical );
+	RotationGroup->layout()->setSpacing( 0 );
+	RotationGroup->layout()->setMargin( 10 );
+	Layout12a = new QGridLayout( RotationGroup->layout() );
+	Layout12a->setAlignment( Qt::AlignTop );
+	QSpacerItem* spacerT = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout12a->addItem( spacerT, 0, 1 );
+	QSpacerItem* spacerL = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout12a->addItem( spacerL, 1, 0 );
+	Layout12 = new QGridLayout;
+	Layout12->setSpacing( 0 );
+	Layout12->setMargin( 0 );
+	TopLeft = new QRadioButton( RotationGroup, "TopLeft" );
+	TopLeft->setText( "" );
+	TopLeft->setChecked( true );
+	Layout12->addWidget( TopLeft, 0, 0, Qt::AlignCenter );
+	Line1 = new QFrame( RotationGroup, "Line1" );
+	Line1->setMinimumSize( QSize( 20, 4 ) );
+	Line1->setMaximumSize( QSize( 20, 4 ) );
+	Line1->setFrameShape( QFrame::HLine );
+	Line1->setFrameShadow( QFrame::Plain );
+	Line1->setLineWidth( 3 );
+	Line1->setFrameShape( QFrame::HLine );
+	Layout12->addWidget( Line1, 0, 1, Qt::AlignCenter );
+	TopRight = new QRadioButton( RotationGroup, "TopRight" );
+	TopRight->setText( "" );
+	Layout12->addWidget( TopRight, 0, 2, Qt::AlignCenter );
+	Line2 = new QFrame( RotationGroup, "Line2" );
+	Line2->setMinimumSize( QSize( 4, 20 ) );
+	Line2->setMaximumSize( QSize( 4, 20 ) );
+	Line2->setFrameShape( QFrame::VLine );
+	Line2->setFrameShadow( QFrame::Plain );
+	Line2->setLineWidth( 3 );
+	Line2->setFrameShape( QFrame::VLine );
+	Layout12->addWidget( Line2, 1, 0, Qt::AlignCenter );
+	Center = new QRadioButton( RotationGroup, "Center" );
+	Center->setText( "" );
+	Layout12->addWidget( Center, 1, 1, Qt::AlignCenter );
+	Line4 = new QFrame( RotationGroup, "Line4" );
+	Line4->setMinimumSize( QSize( 4, 20 ) );
+	Line4->setMaximumSize( QSize( 4, 20 ) );
+	Line4->setFrameShadow( QFrame::Plain );
+	Line4->setLineWidth( 3 );
+	Line4->setFrameShape( QFrame::VLine );
+	Layout12->addWidget( Line4, 1, 2, Qt::AlignCenter );
+	BottomLeft = new QRadioButton( RotationGroup, "BottomLeft" );
+	BottomLeft->setText( "" );
+	Layout12->addWidget( BottomLeft, 2, 0, Qt::AlignCenter );
+	Line5 = new QFrame( RotationGroup, "Line5" );
+	Line5->setMinimumSize( QSize( 20, 4 ) );
+	Line5->setMaximumSize( QSize( 20, 4 ) );
+	Line5->setFrameShape( QFrame::HLine );
+	Line5->setFrameShadow( QFrame::Plain );
+	Line5->setLineWidth( 3 );
+	Line5->setFrameShape( QFrame::HLine );
+	Layout12->addWidget( Line5, 2, 1, Qt::AlignCenter );
+	BottomRight = new QRadioButton( RotationGroup, "BottomRight" );
+	BottomRight->setText( "" );
+	Layout12->addWidget( BottomRight, 2, 2, Qt::AlignCenter );
+	Layout12a->addLayout(Layout12, 1, 1);
+	QSpacerItem* spacerR = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
+	Layout12a->addItem( spacerR, 1, 2 );
+	QSpacerItem* spacerB = new QSpacerItem( 0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding );
+	Layout12a->addItem( spacerB, 2, 1 );
+	editLayout->addWidget( RotationGroup, 0, 0 );
+	RotationGroup->setButton(origin);
+
+	SizeGroup = new QGroupBox( tr("Size"), this, "SizeGroup" );
+	SizeGroup->setColumnLayout(0, Qt::Vertical );
+	SizeGroup->layout()->setSpacing( 5 );
+	SizeGroup->layout()->setMargin( 10 );
+	SizeGroupLayout = new QGridLayout( SizeGroup->layout() );
+	SizeGroupLayout->setAlignment( Qt::AlignTop );
+	questionLabel = new QLabel( tr("Width:"), SizeGroup, "questionLabel" );
+	SizeGroupLayout->addWidget( questionLabel, 0, 0 );
+	spinWidth = new MSpinBox( 0, 1000, SizeGroup, decimals );
 	spinWidth->setSuffix( m_suffix );
 	spinWidth->setMinValue(0.1*m_unitRatio);
 	spinWidth->setMaxValue(30000.0*m_unitRatio);
 	spinWidth->setValue(defW * m_unitRatio);
-	editLayout->addWidget( spinWidth, 0, 1 );
-	questionLabel2 = new QLabel( tr("Height:"), this, "questionLabel2" );
-	editLayout->addWidget( questionLabel2, 1, 0 );
-	spinHeight = new MSpinBox( 0, 1000, this, decimals );
+	SizeGroupLayout->addWidget( spinWidth, 0, 1 );
+	questionLabel2 = new QLabel( tr("Height:"), SizeGroup, "questionLabel2" );
+	SizeGroupLayout->addWidget( questionLabel2, 1, 0 );
+	spinHeight = new MSpinBox( 0, 1000, SizeGroup, decimals );
 	spinHeight->setSuffix( m_suffix );
 	spinHeight->setMinValue(0.1*m_unitRatio);
 	spinHeight->setMaxValue(30000.0*m_unitRatio);
 	spinHeight->setValue(defH * m_unitRatio);
-	editLayout->addWidget( spinHeight, 1, 1 );
-	linkSize = new LinkButton( this );
+	SizeGroupLayout->addWidget( spinHeight, 1, 1 );
+	linkSize = new LinkButton( SizeGroup );
 	linkSize->setToggleButton( true );
 	linkSize->setAutoRaise( true );
 	linkSize->setMaximumSize( QSize( 15, 32767 ) );
-	editLayout->addMultiCellWidget( linkSize, 0, 1, 2, 2 );
+	SizeGroupLayout->addMultiCellWidget( linkSize, 0, 1, 2, 2 );
+	editLayout->addWidget( SizeGroup, 0, 1 );
+
 	checkRemember = new QCheckBox(this, "checkRemember");
 	checkRemember->setText( tr("Remember Values"));
 	checkRemember->setChecked(remember);
-	editLayout->addMultiCellWidget( checkRemember, 3, 3, 0, 2 );
+	editLayout->addMultiCellWidget( checkRemember, 1, 1, 0, 1 );
+
 	queryLayout->addLayout( editLayout );
 	okCancelLayout = new QHBoxLayout;
 	okCancelLayout->setSpacing( 5 );

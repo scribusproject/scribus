@@ -2759,21 +2759,24 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				double xSize = sizes->getDouble("defWidth", 100.0);
 				double ySize = sizes->getDouble("defHeight", 100.0);
 				bool doRemember = sizes->getBool("Remember", true);
+				int originPoint = sizes->getInt("Origin", 0);
 				bool doCreate = false;
-				if (m->state() & ControlButton)
+				if (m->state() & (ShiftButton | ControlButton))
 					doCreate = true;
 				else
 				{
-					OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember);
+					OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember, originPoint);
 					if (dia->exec())
 					{
 						xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
 						ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
 						doRemember = dia->checkRemember->isChecked();
+						originPoint = dia->RotationGroup->selectedId();
 						if (doRemember)
 						{
 							sizes->set("defWidth", xSize);
 							sizes->set("defHeight", ySize);
+							sizes->set("Origin", originPoint);
 						}
 						sizes->set("Remember", doRemember);
 						doCreate = true;
@@ -2812,10 +2815,27 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					}
 					else
 					{
-						SizeItem(xSize, ySize, currItem->ItemNr);
+						SizeItem(xSize, ySize, currItem->ItemNr, false, false, false);
 						currItem->updateClip();
 					}
 					currItem->ContourLine = currItem->PoLine.copy();
+					switch (originPoint)
+					{
+						case 0:
+							break;
+						case 1:
+							MoveItem(-currItem->width(), 0.0, currItem, false);
+							break;
+						case 2:
+							MoveItem(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem, false);
+							break;
+						case 3:
+							MoveItem(0.0, -currItem->height(), currItem, false);
+							break;
+						case 4:
+							MoveItem(-currItem->width(), -currItem->height(), currItem, false);
+							break;
+					}
 					Doc->setRedrawBounding(currItem);
 					currItem->OwnPage = Doc->OnPage(currItem);
 					currItem->OldB2 = currItem->width();

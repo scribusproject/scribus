@@ -492,7 +492,6 @@ protected:
 	QFrame* Line2;
 	QFrame* Line4;
 	QFrame* Line5;
-	QFrame* Line5_2;
 	QFrame* Frame4;
 
 	QPopupMenu* lineSpacingPop;
