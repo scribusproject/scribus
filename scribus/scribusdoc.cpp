@@ -4293,6 +4293,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		GroupCounter = GrMax + 1;
 	}
 	setUsesAutomaticTextFrames(autoText);
+	addPageToSection(existingPage-1, whereToInsert, copyCount);
 	changed();
 }
 
