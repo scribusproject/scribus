@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qcursor.h>
 #include <qcolor.h>
+#include "commonstrings.h"
 #include "units.h"
 #include "scribusstructs.h"
 #include "mspinbox.h"
@@ -684,7 +685,7 @@ void Tabruler::setFillChar()
 			break;
 		case 4:
 			tabFillCombo->setEditable(true);
-			tabFillCombo->setEditText( tr("Custom:"));
+			tabFillCombo->setEditText(CommonStrings::trCustomTabFill);
 			break;
 	}
 	if (tabFillCombo->currentItem() != 4)
@@ -695,7 +696,7 @@ void Tabruler::setFillChar()
 
 void Tabruler::setCustomFillChar(const QString &txt)
 {
-	if (txt == tr("Custom:"))
+	if (txt == CommonStrings::trCustomTabFill)
 		return;
 	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar()));
@@ -731,7 +732,7 @@ void Tabruler::setTabFillChar(QChar t)
 	{
 		tabFillCombo->setCurrentItem(4);
 		tabFillCombo->setEditable(true);
-		tabFillCombo->setEditText( tr("Custom: ")+QString(t));
+		tabFillCombo->setEditText(CommonStrings::trCustomTabFill+QString(t));
 	}
 	emit tabrulerChanged();
 	emit tabsChanged();

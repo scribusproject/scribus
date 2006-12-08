@@ -170,6 +170,9 @@ public:
 	static QString trVisionTritanopia;
 	static QString trVisionFullColorBlind;
 	
+	//Tab Fill Custom
+	static QString trCustomTabFill;
+	
 };
 
 #endif

@@ -92,6 +92,8 @@ QString CommonStrings::trVisionDeuteranopia   = "";
 QString CommonStrings::trVisionTritanopia     = "";
 QString CommonStrings::trVisionFullColorBlind = "";
 
+QString CommonStrings::trCustomTabFill        = "";
+
 
 CommonStrings::CommonStrings()
 {
@@ -242,7 +244,9 @@ void CommonStrings::languageChange()
 	CommonStrings::trVisionDeuteranopia = tr("Deuteranopia (Green)", "Color Blindness - Greed Color Blind");
 	CommonStrings::trVisionTritanopia = tr("Tritanopia (Blue)", "Color Blindness - Blue Color Blind");
 	CommonStrings::trVisionFullColorBlind = tr("Full Color Blindness", "Color Blindness - Full Color Blindness");
-	}
+	
+	CommonStrings::trCustomTabFill = tr("Custom: ","Custom Tab Fill Option");
+}
 
 const QString & CommonStrings::translatePenStyleName( Qt::PenStyle ps )
 {

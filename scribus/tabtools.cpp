@@ -707,7 +707,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		tabFillCombo->setCurrentItem(4);
 		tabFillCombo->setEditable(true);
-		tabFillCombo->setEditText( tr("Custom: "+prefsData->tabFillChar));
+		tabFillCombo->setEditText( CommonStrings::trCustomTabFill + prefsData->tabFillChar);
 	}
 	gapTab->setSuffix( unit );
 	gapTab->setValue(prefsData->dTabWidth * unitRatio);
@@ -915,7 +915,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 
 void TabTools::setCustomFillChar(const QString &txt)
 {
-	if (txt == tr("Custom:"))
+	if (txt == CommonStrings::trCustomTabFill)
 		return;
 	disconnect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	disconnect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
@@ -923,8 +923,8 @@ void TabTools::setCustomFillChar(const QString &txt)
 	if (tabFillCombo->editable())
 	{
 		tabFillCombo->setCurrentItem(4);
-		tabFillCombo->setEditText( tr("Custom: ")+ret);
-		tabFillCombo->changeItem( tr("Custom: ")+ret, 4);
+		tabFillCombo->setEditText( CommonStrings::trCustomTabFill+ret);
+		tabFillCombo->changeItem( CommonStrings::trCustomTabFill+ret, 4);
 	}
 	connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 	connect(tabFillCombo, SIGNAL(activated(int)), this, SLOT(setFillChar(int)));
@@ -945,10 +945,10 @@ void TabTools::setFillChar(int act)
 			break;
 		case 4:
 			tabFillCombo->setEditable(true);
-			tabFillCombo->setEditText( tr("Custom: "));
-			tabFillCombo->changeItem( tr("Custom: "), 4);
+			tabFillCombo->setEditText(CommonStrings::trCustomTabFill);
+			tabFillCombo->changeItem(CommonStrings::trCustomTabFill, 4);
 			tabFillCombo->lineEdit()->setFocus();
-			tabFillCombo->lineEdit()->setCursorPosition( tr("Custom: ").length());
+			tabFillCombo->lineEdit()->setCursorPosition(CommonStrings::trCustomTabFill.length());
 			connect(tabFillCombo, SIGNAL(textChanged(const QString &)), this, SLOT(setCustomFillChar(const QString &)));
 			break;
 	}
