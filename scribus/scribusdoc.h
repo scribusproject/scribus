@@ -859,6 +859,8 @@ public: // Public attributes
 	bool marginColored;
 	int GroupCounter;
 	CMSData CMSSettings;
+	cmsHPROFILE DocInputImageRGBProf;
+	cmsHPROFILE DocInputImageCMYKProf;
 	cmsHPROFILE DocInputRGBProf;
 	cmsHPROFILE DocInputCMYKProf;
 	cmsHPROFILE DocOutputProf;
@@ -868,6 +870,7 @@ public: // Public attributes
 	cmsHTRANSFORM stdProof;
 	cmsHTRANSFORM stdTransImg;
 	cmsHTRANSFORM stdProofImg;
+	cmsHTRANSFORM stdProofImgCMYK;
 	cmsHTRANSFORM stdTransCMYK;
 	cmsHTRANSFORM stdProofCMYK;
 	cmsHTRANSFORM stdTransRGB;

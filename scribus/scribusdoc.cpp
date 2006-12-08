@@ -283,6 +283,8 @@ void ScribusDoc::init()
 
 	DocInputRGBProf = NULL;
 	DocInputCMYKProf = NULL;
+	DocInputImageRGBProf = NULL;
+	DocInputImageCMYKProf = NULL;
 	DocOutputProf = NULL;
 	DocPrinterProf = NULL;
 	stdTransRGBMon = NULL;
@@ -519,6 +521,10 @@ void ScribusDoc::CloseCMSProfiles()
 	HasCMS = false;
 	if (ScCore->haveCMS() /*&& CMSSettings.CMSinUse*/)
 	{
+		if (DocInputImageRGBProf)
+			cmsCloseProfile(DocInputImageRGBProf);
+		if (DocInputImageCMYKProf)
+			cmsCloseProfile(DocInputImageCMYKProf);
 		if (DocInputRGBProf)
 			cmsCloseProfile(DocInputRGBProf);
 		if (DocInputCMYKProf)
@@ -549,6 +555,8 @@ void ScribusDoc::CloseCMSProfiles()
 			cmsDeleteTransform(stdProofGC);
 		DocInputRGBProf = NULL;
 		DocInputCMYKProf = NULL;
+		DocInputImageRGBProf = NULL;
+		DocInputImageCMYKProf = NULL;
 		DocOutputProf = NULL;
 		DocPrinterProf = NULL;
 		stdTransRGBMon = NULL;
@@ -594,7 +602,11 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 	DocOutputProf = cmsOpenProfileFromFile(monitorProfilePath.data(), "r");
 	const QCString printerProfilePath(PrPo[CMSSettings.DefaultPrinterProfile].local8Bit());
 	DocPrinterProf = cmsOpenProfileFromFile(printerProfilePath, "r");
-	if ((DocInputRGBProf == NULL) || (DocInputCMYKProf == NULL) ||(DocOutputProf == NULL) || (DocPrinterProf == NULL))
+	const QCString rgbInputImgProfilePath(InPo[CMSSettings.DefaultImageRGBProfile].local8Bit());
+	DocInputImageRGBProf = cmsOpenProfileFromFile(rgbInputImgProfilePath.data(), "r");
+	const QCString cmykInputImgProfilePath(InPoCMYK[CMSSettings.DefaultImageCMYKProfile].local8Bit());
+	DocInputImageCMYKProf = cmsOpenProfileFromFile(cmykInputImgProfilePath.data(), "r");
+	if ((DocInputRGBProf == NULL) || (DocInputCMYKProf == NULL) || (DocOutputProf == NULL) || (DocPrinterProf == NULL) || (DocInputImageCMYKProf == NULL) || (DocInputImageRGBProf == NULL))
 	{
 		CMSSettings.CMSinUse = false;
 		cmsSetErrorHandler(NULL);
@@ -623,7 +635,12 @@ bool ScribusDoc::OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL M
 										IntentColors,
 										dcmsFlags);
 	// TODO : check input profiles used for images
-	stdProofImg = scCmsCreateProofingTransform(DocInputRGBProf, TYPE_RGBA_8,
+	stdProofImg = scCmsCreateProofingTransform(DocInputImageRGBProf, TYPE_RGBA_8,
+	              DocOutputProf, TYPE_RGBA_8,
+	              DocPrinterProf,
+	              IntentImages,
+	              INTENT_RELATIVE_COLORIMETRIC, dcmsFlagsGC | cmsFLAGS_SOFTPROOFING);
+	stdProofImgCMYK = scCmsCreateProofingTransform(DocInputImageCMYKProf, TYPE_CMYK_8,
 	              DocOutputProf, TYPE_RGBA_8,
 	              DocPrinterProf,
 	              IntentImages,

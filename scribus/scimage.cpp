@@ -1802,6 +1802,8 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 	// gsRes - is the resolution that ghostscript will render at
 	bool isCMYK = false;
 	bool ret = false;
+	bool inputProfisEmbedded = false;
+	bool stdProof = false;
 	if (realCMYK != 0)
 		*realCMYK = false;
 	bool bilevel = false;
@@ -1890,6 +1892,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		if (embeddedProfile.size() > 0 )
 		{
 			inputProf = cmsOpenProfileFromMem(embeddedProfile.data(), embeddedProfile.size());
+			inputProfisEmbedded = true;
 		}
 		else
 		{
@@ -1898,21 +1901,36 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 			Q_ASSERT(cmSettings.doc()!=0);
 			if (isCMYK)
 			{
-				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()))
+				if (ScCore->InputProfilesCMYK.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
+				{
 					imgInfo.profileName = cmSettings.profileName();
+					inputProfisEmbedded = true;
+					profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].local8Bit();
+					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
+				}
 				else
+				{
+					inputProf = cmSettings.doc()->DocInputImageCMYKProf;
 					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile;
-				profilePath = ScCore->InputProfilesCMYK[imgInfo.profileName].local8Bit();
+					inputProfisEmbedded = false;
+				}
 			}
 			else
 			{
-				if (ScCore->InputProfiles.contains(cmSettings.profileName()))
+				if (ScCore->InputProfiles.contains(cmSettings.profileName()) && (cmSettings.profileName() != cmSettings.doc()->CMSSettings.DefaultImageRGBProfile))
+				{
 					imgInfo.profileName = cmSettings.profileName();
+					profilePath = ScCore->InputProfiles[imgInfo.profileName].local8Bit();
+					inputProfisEmbedded = true;
+					inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
+				}
 				else
+				{
+					inputProf = cmSettings.doc()->DocInputImageRGBProf;
 					imgInfo.profileName = cmSettings.doc()->CMSSettings.DefaultImageRGBProfile;
-				profilePath = ScCore->InputProfiles[imgInfo.profileName].local8Bit();
+					inputProfisEmbedded = false;
+				}
 			}
-			inputProf = cmsOpenProfileFromFile(profilePath.data(), "r");
 		}
 	}
 	if (cmSettings.useColorManagement() && useProf && inputProf)
@@ -1942,7 +1960,9 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 		{
 			cmsFlags |= cmsFLAGS_SOFTPROOFING;
 			if (cmSettings.doGamutCheck())
+			{
 				cmsFlags |= cmsFLAGS_GAMUTCHECK;
+			}
 		}
 		if (cmSettings.useBlackPoint())
 			cmsFlags |= cmsFLAGS_BLACKPOINTCOMPENSATION;
@@ -1978,7 +1998,17 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 				}
 				if (cmSettings.doSoftProofing())
 				{
-					xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
+					if ((imgInfo.profileName == cmSettings.doc()->CMSSettings.DefaultImageRGBProfile) || (imgInfo.profileName == cmSettings.doc()->CMSSettings.DefaultImageCMYKProfile))
+					{
+						if (isCMYK)
+							xform = cmSettings.doc()->stdProofImgCMYK;
+						else
+							xform = cmSettings.doc()->stdProofImg;
+						cmsChangeBuffersFormat(xform, inputProfFormat, TYPE_BGRA_8);
+						stdProof = true;
+					}
+					else
+						xform = scCmsCreateProofingTransform(inputProf, inputProfFormat,
 					                     cmSettings.monitorProfile(), TYPE_BGRA_8, cmSettings.printerProfile(),
 					                     cmSettings.intent(), INTENT_RELATIVE_COLORIMETRIC, cmsFlags);
 				}
@@ -2082,10 +2112,15 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 					}
 				}
 			}
-			cmsDeleteTransform (xform);
+			if (!stdProof)
+				cmsDeleteTransform (xform);
 		}
-		if (inputProf)
+		if ((inputProf) && (inputProfisEmbedded))
 			cmsCloseProfile(inputProf);
+		if (isCMYK)
+			cmsChangeBuffersFormat(cmSettings.doc()->stdProofImgCMYK, TYPE_CMYK_8, TYPE_RGBA_8);
+		else
+			cmsChangeBuffersFormat(cmSettings.doc()->stdProofImg, TYPE_RGBA_8, TYPE_RGBA_8);
 	}
 	else
 	{
