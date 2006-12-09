@@ -1,4 +1,4 @@
-EXTRA_DIST = scribus13.ksxml
+EXTRA_DIST = scribus13.ksxml CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/keysets/

@@ -1,4 +1,6 @@
-EXTRA_DIST = br1/br1.png br1/br1tn.png br1/map.jpg br1/br1.sla.gz nl2/flowers.jpg nl2/nl2.sla.gz nl2/nl2tn.png nl2/nl2.png nl1/kites.jpg nl1/nl1.png nl1/nl1tn.png nl1/nl1.sla.gz template.xml textbased/an_image.jpg textbased/author.jpg textbased/textbased.png textbased/textbased.sla.gz textbased/textbasedtn.png sc_presentation/presentation.png sc_presentation/presentation.sla.gz sc_presentation/presentationtn.png
+EXTRA_DIST = br1/br1.png br1/br1tn.png br1/map.jpg br1/br1.sla.gz nl2/flowers.jpg nl2/nl2.sla.gz nl2/nl2tn.png nl2/nl2.png nl1/kites.jpg nl1/nl1.png \
+nl1/nl1tn.png nl1/nl1.sla.gz template.xml textbased/an_image.jpg textbased/author.jpg textbased/textbased.png textbased/textbased.sla.gz \
+textbased/textbasedtn.png sc_presentation/presentation.png sc_presentation/presentation.sla.gz sc_presentation/presentationtn.png CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/templates/

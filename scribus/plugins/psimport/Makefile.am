@@ -10,7 +10,7 @@ libimportps_la_LDFLAGS = -version-info 0:0:0
 libimportps_la_METASOURCES = AUTO
 libimportps_la_SOURCES = importps.cpp importpsplugin.cpp
 
-EXTRA_DIST = import.prolog import_la.prolog importps.h importpsplugin.h
+EXTRA_DIST = import.prolog import_la.prolog importps.h importpsplugin.h CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/

@@ -2,7 +2,7 @@ noinst_LTLIBRARIES=libstyles.la
 
 libstyles_la_SOURCES=charstyle.cpp paragraphstyle.cpp
 
-EXTRA_DIST = 
+EXTRA_DIST = CMakeLists.txt
 
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)

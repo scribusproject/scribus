@@ -2,7 +2,8 @@ EXTRA_DIST = Scribus_X11.txt \
              Scribus_Gnome.txt \
              Scribus_X11Grey.txt \
              Scribus_OpenOffice.txt \
-             Scribus_SVG.txt 
+             Scribus_SVG.txt \
+             CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/

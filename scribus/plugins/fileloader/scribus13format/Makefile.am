@@ -8,7 +8,7 @@ libscribus13format_la_LDFLAGS = -version-info 0:0:0
 libscribus13format_la_METASOURCES = AUTO
 libscribus13format_la_SOURCES = scribus13format.cpp scribus13formatimpl.cpp
 
-EXTRA_DIST = scribus13format.h scribus13formatimpl.h
+EXTRA_DIST = scribus13format.h scribus13formatimpl.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 

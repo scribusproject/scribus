@@ -1,7 +1,7 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = Readme srgb.license sRGB.icm GenericCMYK.icm GenericCMYK.txt
+EXTRA_DIST = Readme srgb.license sRGB.icm GenericCMYK.icm GenericCMYK.txt CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(DESTDIR)$(libdir)/scribus/profiles/

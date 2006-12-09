@@ -10,7 +10,7 @@ libcsvim_la_LDFLAGS = -version-info 0:0:0
 libcsvim_la_METASOURCES = AUTO
 libcsvim_la_SOURCES = csvdia.cpp csvim.cpp
 
-EXTRA_DIST = csvdia.cpp csvdia.h csvim.cpp csvim.h  
+EXTRA_DIST = csvdia.cpp csvdia.h csvim.cpp csvim.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS) 

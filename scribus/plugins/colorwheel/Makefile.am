@@ -8,7 +8,7 @@ libcolorwheel_la_LDFLAGS = -version-info 0:0:0
 libcolorwheel_la_METASOURCES = AUTO
 libcolorwheel_la_SOURCES = cwdialogbase.ui colorwheel.cpp colorwheelwidget.cpp cwdialog.cpp
 
-EXTRA_DIST = cwdialogbase.ui colorwheel.cpp colorwheel.h colorwheelwidget.cpp colorwheelwidget.h cwdialog.cpp cwdialog.h
+EXTRA_DIST = cwdialogbase.ui colorwheel.cpp colorwheel.h colorwheelwidget.cpp colorwheelwidget.h cwdialog.cpp cwdialog.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)

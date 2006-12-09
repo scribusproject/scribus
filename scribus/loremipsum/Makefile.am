@@ -1,4 +1,4 @@
-EXTRA_DIST = loremipsum.xml arabic.xml czech.xml finnish.xml german.xml greek.xml hebrew.xml russian.xml italian.xml
+EXTRA_DIST = loremipsum.xml arabic.xml czech.xml finnish.xml german.xml greek.xml hebrew.xml russian.xml italian.xml CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/loremipsum/

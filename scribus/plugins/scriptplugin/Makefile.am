@@ -58,7 +58,8 @@ EXTRA_DIST = \
 	scripterprefsgui.h \
 	scriptplugin.h \
 	svgimport.h \
-	valuedialog.h
+	valuedialog.h \
+        CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(PYTHONLIB) $(LIBPYTHON) $(MODULE_LINK_FLAGS) $(BOOST_PYTHON_LDFLAGS)

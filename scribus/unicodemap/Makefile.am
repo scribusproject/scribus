@@ -1,4 +1,4 @@
-EXTRA_DIST = unicodenameslist.txt
+EXTRA_DIST = unicodenameslist.txt CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(datadir)/scribus/

@@ -10,7 +10,7 @@ libsxwimplugin_la_LDFLAGS = -version-info 0:0:0
 libsxwimplugin_la_METASOURCES = AUTO
 libsxwimplugin_la_SOURCES = sxwim.cpp sxwdia.cpp stylereader.cpp contentreader.cpp
 
-EXTRA_DIST = sxwim.cpp sxwim.h sxwdia.cpp sxwdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h
+EXTRA_DIST = sxwim.cpp sxwim.h sxwdia.cpp sxwdia.h stylereader.cpp stylereader.h contentreader.cpp contentreader.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(XML_LIBS) $(MODULE_LINK_FLAGS)

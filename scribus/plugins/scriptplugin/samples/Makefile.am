@@ -1,7 +1,8 @@
 ####### kdevelop will overwrite this part!!! (begin)##########
 
 
-EXTRA_DIST = boilerplate.py Sample1.py Calender.py trait_de_coupe.py pochette_cd.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe sample_db_usage.py
+EXTRA_DIST = boilerplate.py Sample1.py Calender.py trait_de_coupe.py pochette_cd.py 3columnUSLTR.py 3columnA4.py legende.py moins_10_pourcent_group.py  \
+plus_10_pourcent_group.py wordcount.py quote.py golden-mean.py ReadMe sample_db_usage.py CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(prefix)/share/scribus/samples/

@@ -10,7 +10,8 @@ libnewfromtemplateplugin_la_LDFLAGS = -version-info 0:0:0
 libnewfromtemplateplugin_la_METASOURCES = AUTO
 libnewfromtemplateplugin_la_SOURCES = nftemplate.cpp nftdialog.cpp nftrcreader.cpp nftsettings.cpp nfttemplate.cpp
 
-EXTRA_DIST = nftemplate.cpp nftemplate.h nftdialog.cpp nftdialog.h nftrcreader.cpp nftrcreader.h nftsettings.cpp nftsettings.h nfttemplate.cpp nfttemplate.h
+EXTRA_DIST = nftemplate.cpp nftemplate.h nftdialog.cpp nftdialog.h nftrcreader.cpp nftrcreader.h nftsettings.cpp nftsettings.h nfttemplate.cpp  \
+nfttemplate.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 AM_LDFLAGS = $(LIBFREETYPE_LIBS) $(MODULE_LINK_FLAGS)

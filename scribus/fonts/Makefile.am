@@ -2,7 +2,7 @@ noinst_LTLIBRARIES=libfonts.la
 
 libfonts_la_SOURCES=scface.cpp ftface.cpp scface_ttf.cpp scface_ps.cpp scfontmetrics.cpp 
 
-EXTRA_DIST = scface.h ftface.h scface_ttf.h scface_ps.h scfontmetrics.h 
+EXTRA_DIST = scface.h ftface.h scface_ttf.h scface_ps.h scfontmetrics.h CMakeLists.txt
 
 
 INCLUDES = $(LIBFREETYPE_CFLAGS) $(all_includes)
