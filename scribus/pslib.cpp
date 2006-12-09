@@ -486,7 +486,7 @@ void PSLib::PS_TemplateEnd()
 	PutDoc("} bind def\n");
 }
 
-void PSLib::PS_begin_page(Page* pg, struct MarginStruct* Ma, bool Clipping)
+void PSLib::PS_begin_page(Page* pg, MarginStruct* Ma, bool Clipping)
 {
 	double bleedRight = 0.0;
 	double bleedLeft = 0.0;
@@ -1760,7 +1760,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 		//if ((!Art) && (view->SelItem.count() != 0))
 		if ((!Art) && (Doc->m_Selection->count() != 0))
 		{
-			struct MarginStruct Ma;
+			MarginStruct Ma;
 			Ma.Left = gx;
 			Ma.Top = gy;
 			Ma.Bottom = Doc->Pages->at(a)->height() - (gy + gh);
