@@ -2277,6 +2277,26 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			newItem->moveBy(-sourcePage->xOffset() + targetPage->xOffset(), -sourcePage->yOffset() + targetPage->yOffset());
 			newItem->BoundingX = OldBX - sourcePage->xOffset() + targetPage->xOffset();
 			newItem->BoundingY = OldBY - sourcePage->yOffset() + targetPage->yOffset();
+			bool upDtImg = false;
+			if (itemToCopy->pixm.imgInfo.valid)
+			{
+				newItem->pixm.imgInfo = itemToCopy->pixm.imgInfo;
+				upDtImg = true;
+			}
+			if (itemToCopy->effectsInUse.count() != 0)
+			{
+				newItem->effectsInUse = itemToCopy->effectsInUse;
+				upDtImg = true;
+			}
+			if (upDtImg)
+			{
+				int fho = newItem->imageFlippedH();
+				int fvo = newItem->imageFlippedV();
+				LoadPict(newItem->Pfile, newItem->ItemNr, true);
+				newItem->setImageFlippedH(fho);
+				newItem->setImageFlippedV(fvo);
+				newItem->AdjustPictScale();
+			}
 
 		}
 	}
@@ -3296,6 +3316,26 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 				{
 					TableItems.append(Neu);
 					TableID.insert(ite, Neu->ItemNr);
+				}
+				bool upDtImg = false;
+				if (itemToCopy->pixm.imgInfo.valid)
+				{
+					Neu->pixm.imgInfo = itemToCopy->pixm.imgInfo;
+					upDtImg = true;
+				}
+				if (itemToCopy->effectsInUse.count() != 0)
+				{
+					Neu->effectsInUse = itemToCopy->effectsInUse;
+					upDtImg = true;
+				}
+				if (upDtImg)
+				{
+					int fho = Neu->imageFlippedH();
+					int fvo = Neu->imageFlippedV();
+					LoadPict(Neu->Pfile, Neu->ItemNr, true);
+					Neu->setImageFlippedH(fho);
+					Neu->setImageFlippedV(fvo);
+					Neu->AdjustPictScale();
 				}
 				Neu->DrawObj(painter, rd);
 			}
