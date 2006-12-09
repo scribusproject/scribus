@@ -556,7 +556,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	connect( usedEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	connect( usedEffects, SIGNAL( doubleClicked(QListBoxItem*) ), this, SLOT( moveFromEffects() ) );
 	connect( availableEffects, SIGNAL( clicked(QListBoxItem*) ), this, SLOT( selectAvailEffect(QListBoxItem*) ) );
-	connect( availableEffects, SIGNAL( doubleClicked(QListBoxItem*) ), this, SLOT( moveToEffects() ) );
+	connect( availableEffects, SIGNAL( doubleClicked(QListBoxItem*) ), this, SLOT( selectAvailEffectDbl(QListBoxItem*) ) );
 	connect( toEffects, SIGNAL( clicked() ), this, SLOT( moveToEffects() ) );
 	connect( fromEffects, SIGNAL( clicked() ), this, SLOT( moveFromEffects() ) );
 	connect( effectUp, SIGNAL( clicked() ), this, SLOT( moveEffectUp() ) );
@@ -721,6 +721,17 @@ void EffectsDialog::saveValues(bool final)
 			ef.effectParameters = effectValMap[usedEffects->item(e)];
 		}
 		effectsList.append(ef);
+	}
+}
+
+void EffectsDialog::selectAvailEffectDbl(QListBoxItem* c)
+{
+	if (c)
+	{
+		if (!c->isSelectable())
+			return;
+		else
+			moveToEffects();
 	}
 }
 

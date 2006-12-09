@@ -168,6 +168,7 @@ public slots:
 	virtual void moveEffectDown();
 	virtual void selectEffect(QListBoxItem* c);
 	virtual void selectAvailEffect(QListBoxItem* c);
+	virtual void selectAvailEffectDbl(QListBoxItem* c);
 
 protected:
 	QHBoxLayout* EffectsDialogLayout;
