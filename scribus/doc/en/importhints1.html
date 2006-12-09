@@ -29,6 +29,14 @@
 <h4>Importing Hints:</h4>
 <p>One of my preferred ways to import EPS files in to Scribus is to close all open documents. Then directly import the EPS file. This creates a new document in which the page size is automatically calculated from the EPS bounding box. Save this temporarily under a file name. Then, re-open the target document for import. Create a new layer and then use the page import function to import your newly created document into the new layer in your existing document. This prevents any of the imported elements from disturbing existing objects and allows you to place with precision where you want the file.</p>
 
+<h4>Importing EPS files with Embedded Raster Graphics</h4>
+<p>Scribus can import EPS files which contain embedded raster graphics (bitmaps). However, this works far better with Ghostscript 8.50+ and there are some limitations:</p>
+<ul>
+<li>Imagemask doesn't work correctly</li>
+<li>Clipping paths are ignored</li>
+<li>Importing will create one file (A Tiff) for each bitmap and there can be many within an EPS.</li>
+</ul>
+
 <h4>Specialized EPS Formats from Photoshop &#174; and others.</h4>
 <p>Scribus can detect and will import using native code some special types of EPS files which can be created from Photoshop and Quark X-press &#174;, among others.  </p>
 <ul>
