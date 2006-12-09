@@ -110,5 +110,5 @@ toolbox9.html
 topten.html
 translation_howto.html
 tutorials.html
-DESTINATION ${DOCDIR}fr
+DESTINATION ${DOCDIR}de
 )
