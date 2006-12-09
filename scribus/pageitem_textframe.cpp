@@ -213,9 +213,43 @@ static void dumpIt(const ParagraphStyle& pstyle, QString indent = QString("->"))
 
 static const bool opticalMargins = false;
 
-static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) {
-	
+static void layoutDropCap(GlyphLayout layout, double curX, double curY, double offsetX, double offsetY, double dropCapDrop) 
+{	
 }
+
+enum TabCode {
+	TabLEFT    = 0,
+	TabCENTER  = 1,
+	TabRIGHT   = 2,
+	TabJUSTIFY = 3,
+	TabBLOCK   = 4
+};
+
+struct TabControl {
+	ParagraphStyle::TabRecord tab;
+	bool   active;
+	int    charIndex;
+	double xPos;
+	int    code;
+};
+
+struct LineControl {
+	LineSpec line;
+	int      itemsInLine;
+	int      hyphenCount;
+	double   colWidth;
+	double   colLeft;
+	double   colRight;
+	int      column;
+	bool     startOfCol;
+	double   ascend;
+	double   descend;
+	double   width;
+	double   xPos;
+	double   yPos;
+	int      breakIndex;
+	double   breakXPos;
+};
 
 
 void PageItem_TextFrame::layout() 
@@ -239,9 +273,9 @@ void PageItem_TextFrame::layout()
 	uint nrc, startLin;
 	int aSpa, CurrCol;
 	double chs, chsd;
-	uint BuPos, LastSP, MaxText;
+	uint LastSP;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal, RTabX;
-	QString chstr, chstr2, chstr3;
+	QString chstr;
 	ScText *hl;
 	ParagraphStyle style;
 	
@@ -340,15 +374,14 @@ void PageItem_TextFrame::layout()
 		curLine.firstItem = firstInFrame();
 		curLine.ascent = 10;
 		curLine.descent = 0;
-		BuPos = 0;
-		LastSP = 0;
+//		BuPos = 0;
+		LastSP = -1;
 		LastXp = 0;
 		outs = false;
 		OFs = 0;
 		OFs2 = 0;
 		aSpa = 0;
 		MaxChars = 0;
-		MaxText = itemText.length();
 		StartOfCol = true;
 		for (int a = firstInFrame(); a < itemText.length(); ++a)
 		{
@@ -388,7 +421,7 @@ void PageItem_TextFrame::layout()
 							if (nextItem->itemText.text(a-1) == SpecialChars::PARSEP)
 							{
 								CurY += style.gapBefore();
-								if (chstr != SpecialChars::PARSEP)
+								if (chstr[0] != SpecialChars::PARSEP)
 								{
 									DropCmode = style.hasDropCap();
 									if (DropCmode)
@@ -406,7 +439,7 @@ void PageItem_TextFrame::layout()
 				}
 				else
 				{
-					if (chstr != SpecialChars::PARSEP)
+					if (chstr[0] != SpecialChars::PARSEP)
 					{
 						DropCmode = style.hasDropCap();
 						if (DropCmode)
@@ -443,7 +476,7 @@ void PageItem_TextFrame::layout()
 				{
 					CurY += style.gapBefore();
 					DropCapDrop = 0;
-					if (chstr != SpecialChars::PARSEP)
+					if (chstr[0] != SpecialChars::PARSEP)
 						DropCmode = style.hasDropCap();
 					else
 						DropCmode = false;
@@ -509,7 +542,6 @@ void PageItem_TextFrame::layout()
 			// Smallcaps and such
 			hl->glyph.yadvance = 0;
 			oldCurY = layoutGlyphs(*hl, chstr, hl->glyph);
-			chstr2 = chstr;
 			// find out width of char
 			if ((hl->ch == SpecialChars::OBJECT) && (hl->cembedded != 0))
 				wide = hl->cembedded->gWidth + hl->cembedded->lineWidth();
@@ -552,11 +584,11 @@ void PageItem_TextFrame::layout()
 				}
 				else
 				{
-					wide = charStyle.font().realCharWidth(chstr2[0], chsd / 10.0);
-					asce = charStyle.font().realCharHeight(chstr2[0], chsd / 10.0);
+					wide = charStyle.font().realCharWidth(chstr[0], chsd / 10.0);
+					asce = charStyle.font().realCharHeight(chstr[0], chsd / 10.0);
 //					qDebug(QString("dropcaps pre: chsd=%1 realCharHeight = %2 chstr=%3").arg(chsd).arg(asce).arg(chstr2[0]));
 					hl->glyph.scaleH /= hl->glyph.scaleV;
-					hl->glyph.scaleV = (asce / charStyle.font().realCharAscent(chstr2[0], charStyle.fontSize() / 10.0));
+					hl->glyph.scaleV = (asce / charStyle.font().realCharAscent(chstr[0], charStyle.fontSize() / 10.0));
 					hl->glyph.scaleH *= hl->glyph.scaleV;
 				}
 				hl->glyph.xadvance = wide;
@@ -598,7 +630,7 @@ void PageItem_TextFrame::layout()
 					if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) 
 						|| ((a == firstInFrame()) && (BackBox == 0)))
 					{
-						if (chstr != SpecialChars::PARSEP)
+						if (chstr[0] != SpecialChars::PARSEP)
 							DropCmode = style.hasDropCap();
 						else
 							DropCmode = false;
@@ -713,7 +745,7 @@ void PageItem_TextFrame::layout()
 								CurY = asce+TExtra+lineCorr+1;
 								if (((a > firstInFrame()) && (itemText.text(a-1) == SpecialChars::PARSEP)) || ((a == firstInFrame()) && (BackBox == 0)))
 								{
-									if (chstr != SpecialChars::PARSEP)
+									if (chstr[0] != SpecialChars::PARSEP)
 										DropCmode = style.hasDropCap();
 									else
 										DropCmode = false;
@@ -876,7 +908,7 @@ void PageItem_TextFrame::layout()
 //			hl->glyph.yoffset = CurY + oldCurY;
 //			hl->glyph.yoffset = 0;
 			if (DropCmode)
-				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr2[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr2[0], chsd / 10.0);
+				hl->glyph.yoffset -= charStyle.font().realCharHeight(chstr[0], chsd / 10.0) - charStyle.font().realCharAscent(chstr[0], chsd / 10.0);
 			// find tracking
 			if (itemsInLine == 0)
 			{
@@ -943,7 +975,7 @@ void PageItem_TextFrame::layout()
 				if ( a == firstInFrame() || ! (itemText.text(a-1) ==  ' ' || itemText.text(a-1) == SpecialChars::ZWSPACE) )
 				{
 					LastXp = CurX;
-					LastSP = BuPos;
+					LastSP = a - curLine.firstItem;
 				}
 			}
 			if (((hl->effects() & ScStyle_HyphenationPossible) || (hl->ch == "-") || hl->ch[0] == SpecialChars::SHYPHEN) && (!outs) && !itemText.text(a-1).isSpace() )
@@ -954,7 +986,7 @@ void PageItem_TextFrame::layout()
 						LastXp = CurX;
 					else
 						LastXp = CurX + charStyle.font().charWidth('-', charStyle.fontSize() / 10.0) * (charStyle.scaleH() / 1000.0);
-					LastSP = BuPos + 1;
+					LastSP = a - curLine.firstItem;
 				}
 			}
 			++itemsInLine;
@@ -985,7 +1017,7 @@ void PageItem_TextFrame::layout()
 					}
 				}*/
 			}
-			BuPos++;
+//			BuPos++;
 			if (DropCmode)
 			{
 				DropCmode = false;
@@ -1128,11 +1160,11 @@ void PageItem_TextFrame::layout()
 				}
 				else // outs -- last char went outside the columns
 				{
-					if (LastSP != 0)            // Hier koenen auch andere Trennungen eingebaut werden
+					if (LastSP >= 0)            // Hier koenen auch andere Trennungen eingebaut werden
 					{
 						// go back to last break position
 //						qDebug(QString("new break pos a=%1 BuPos=%2 LastSP=%3").arg(a).arg(BuPos).arg(LastSP));
-						a -= BuPos - LastSP;
+						a = curLine.firstItem + LastSP;
 						assert( a >= 0 );
 						assert( a < itemText.length() );
 						hl = itemText.item(a);
@@ -1158,7 +1190,7 @@ void PageItem_TextFrame::layout()
 							hl->glyph.more = new GlyphLayout();
 							hl->glyph.more->glyph = charStyle.font().char2CMap(QChar('-'));
 							hl->glyph.more->xadvance = charStyle.font().charWidth('-', itemText.charStyle(a).fontSize() / 10.0) * (itemText.charStyle(a).scaleH() / 1000.0);
-							LastSP += 2;
+//							LastSP += 2;
 							LastXp += hl->glyph.more->xadvance;
 						}
 						else 
@@ -1169,8 +1201,9 @@ void PageItem_TextFrame::layout()
 								delete hl->glyph.more;
 								hl->glyph.more = 0;
 							}
+//							LastSP += 1;
 						}
-						BuPos = LastSP;
+//						BuPos = LastSP;
 						// Justification
 						if (style.alignment() != 0)
 						{
@@ -1284,7 +1317,7 @@ void PageItem_TextFrame::layout()
 //							   .arg(a));
 						curLine.naturalWidth = CurX - curLine.x;
 						curLine.width = CurX - curLine.x;
-						BuPos--;
+//						BuPos--;
 					}
 					else {
 //						qDebug(QString("style nb0 @%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
@@ -1292,7 +1325,6 @@ void PageItem_TextFrame::layout()
 //							   .arg(a));
 					}
 				}
-				uint BuPos3 = BuPos;
 				if ((outs) 
 					|| (hl->ch == SpecialChars::PARSEP) 
 					|| (hl->ch == SpecialChars::LINEBREAK) 
@@ -1347,8 +1379,6 @@ void PageItem_TextFrame::layout()
 								{
 									if (hl->ch == SpecialChars::PARSEP)
 										CurY += style.gapAfter();
-									if (BuPos3 > 0)
-										BuPos3 -= 1;
 									HyphenCount = 0;
 								}
 								break;
@@ -1407,8 +1437,6 @@ void PageItem_TextFrame::layout()
 						{
 							if (hl->ch == SpecialChars::PARSEP)
 								CurY += style.gapAfter();
-							if (BuPos3 > 0)
-								BuPos3 -= 1;
 							HyphenCount = 0;
 						}
 					}
@@ -1525,8 +1553,8 @@ void PageItem_TextFrame::layout()
 				itemText.appendLine(curLine);
 				itemsInLine = 0;
 				curLine.firstItem = a+1;
-				BuPos = 0;
-				LastSP = 0;
+//				BuPos = 0;
+				LastSP = -1;
 				LastXp = 0;
 				outs = false;
 				if (goNoRoom)
@@ -1719,8 +1747,8 @@ void PageItem_TextFrame::layout()
 		itemText.appendLine(curLine);
 		itemsInLine = 0;
 		curLine.firstItem = a + 1;
-		BuPos = 0;
-		LastSP = 0;
+//		BuPos = 0;
+		LastSP = -1;
 		outs = false;
 	}
 	MaxChars = itemText.length();
