@@ -55,7 +55,8 @@ EXTRA_DIST = AUTHORS \
 			 stamp-h1 subdirs configure.files \
 			 admin/acinclude.m4.in \
 			 admin/libtool.m4.in admin/Makefile.common \
-			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh
+			 admin/cvs.sh admin/am_edit admin/detect-autoconf.sh \
+                         CMakeLists.txt ConfigureChecks.cmake config.h.cmake cmake_uninstall.cmake.in
 
 dist-hook:
 	cd $(top_distdir) && perl admin/am_edit -padmin

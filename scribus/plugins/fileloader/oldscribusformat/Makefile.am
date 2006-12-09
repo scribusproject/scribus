@@ -8,7 +8,7 @@ liboldscribusformat_la_LDFLAGS = -version-info 0:0:0
 liboldscribusformat_la_METASOURCES = AUTO
 liboldscribusformat_la_SOURCES = oldscribusformat.cpp oldscribusformatimpl.cpp
 
-EXTRA_DIST = oldscribusformat.h oldscribusformatimpl.h
+EXTRA_DIST = oldscribusformat.h oldscribusformatimpl.h CMakeLists.txt
 
 KDE_OPTIONS = qtonly
 

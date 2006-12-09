@@ -247,7 +247,9 @@ SUBDIRS = $(renderer_subdirs) dicts doc icons keysets manpages po profiles qm sw
 #     NOTE: `EXTRA_DIST' is *NOT* required. The build system includes all
 #     loose files by default. You only need to use `EXTRA_DIST' when using
 #     `KDE_OPTIONS = noautodist'
-# EXTRA_DIST =
+#     CB: But we need it for cmake files 
+
+EXTRA_DIST = CMakeLists.txt
 
 
 install-data-local:
