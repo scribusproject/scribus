@@ -187,6 +187,10 @@ public:
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
+	QPtrList<PageItem> parseElement(const QDomElement &e);
+	QPtrList<PageItem> parseText(const QDomElement &e);
+	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
+	QPtrList<PageItem> parseSwitch(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
 	QWMatrix parseTransform(const QString &transform);
@@ -205,14 +209,11 @@ public:
 	void parseGradient( const QDomElement &e );
 	FPoint GetMaxClipO(FPointArray Clip);
 	FPoint GetMinClipO(FPointArray Clip);
-	QPtrList<PageItem> parseText(const QDomElement &e);
-	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 
 	ScribusDoc* currDoc;
 	QDomDocument inpdoc;
 	double CurrX, CurrY, StartX, StartY, Conversion;
 	int PathLen;
-	QPtrList<PageItem> Elements;
 	QPtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	bool FirstM, WasM, PathClosed;
