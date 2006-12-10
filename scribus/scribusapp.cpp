@@ -56,6 +56,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_NOGUI "--no-gui"
 #define ARG_DISPLAY "--display"
 #define ARG_FONTINFO "--font-info"
+#define ARG_PROFILEINFO "--profile-info"
 #define ARG_SWAPDIABUTTONS "--swap-buttons"
 #define ARG_PREFS "--prefs"
 #define ARG_UPGRADECHECK "--upgradecheck"
@@ -69,6 +70,7 @@ for which a new license (GPL+exception) is in place.
 #define ARG_NOGUI_SHORT "-g"
 #define ARG_DISPLAY_SHORT "-d"
 #define ARG_FONTINFO_SHORT "-fi"
+#define ARG_PROFILEINFO_SHORT "-pi"
 #define ARG_SWAPDIABUTTONS_SHORT "-sb"
 #define ARG_PREFS_SHORT "-pr"
 #define ARG_UPGRADECHECK_SHORT "-u"
@@ -116,6 +118,7 @@ void ScribusQApp::parseCommandLine()
 	bool version=false;
 	bool runUpgradeCheck=false;
 	showFontInfo=false;
+	showProfileInfo=false;
 	swapDialogButtonOrder=false;
 
 	//Parse for command line information options, and lang
@@ -180,6 +183,8 @@ void ScribusQApp::parseCommandLine()
 			useGUI=false;
 		} else if (arg == ARG_FONTINFO || arg == ARG_FONTINFO_SHORT) {
 			showFontInfo=true;
+		} else if (arg == ARG_PROFILEINFO || arg == ARG_PROFILEINFO_SHORT) {
+			showProfileInfo=true;
 		} else if (arg == ARG_SWAPDIABUTTONS || arg == ARG_SWAPDIABUTTONS_SHORT) {
 			swapDialogButtonOrder=true;
 		} else if ((arg == ARG_DISPLAY || arg==ARG_DISPLAY_SHORT || arg==ARG_DISPLAY_QT) && ++i < argc()) {
@@ -232,7 +237,7 @@ int ScribusQApp::init()
 	ScCore->init(useGUI, swapDialogButtonOrder, file);
 	int retVal=EXIT_SUCCESS;
 	if (useGUI)
-		retVal=ScCore->startGUI(showSplash, showFontInfo, lang, prefsUserFile);
+		retVal=ScCore->startGUI(showSplash, showFontInfo, showProfileInfo, lang, prefsUserFile);
 	return retVal;
 }
 

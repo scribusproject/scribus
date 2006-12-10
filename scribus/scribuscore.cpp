@@ -26,6 +26,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribuscore.h"
 #include "scribuscore.moc"
 
+#include "util.h"
 #include "commonstrings.h"
 #include "filewatcher.h"
 #include "gsutil.h"
@@ -79,7 +80,7 @@ int ScribusCore::init(bool useGUI, bool swapDialogButtonOrder, const QString fil
 	return 0;
 }
 
-int ScribusCore::startGUI(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
+int ScribusCore::startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile)
 {
 	m_PaletteParent=new QWidget(0);
 	Q_CHECK_PTR(m_PaletteParent);
@@ -90,7 +91,7 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, const QString newG
 	ScMWList.append(scribus);
 	m_currScMW=0;
 //	ScMW=scribus;
-	int retVal=initScribusCore(showSplash, showFontInfo, newGuiLanguage, prefsUserFile);
+	int retVal=initScribusCore(showSplash, showFontInfo, showProfileInfo,newGuiLanguage, prefsUserFile);
 	if (retVal == 1)
 		return(EXIT_FAILURE);
 	retVal = scribus->initScMW(true);
@@ -121,7 +122,8 @@ int ScribusCore::startGUI(bool showSplash, bool showFontInfo, const QString newG
 	return EXIT_SUCCESS;
 }
 
-int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile)
+int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, 
+								 const QString newGuiLanguage, const QString prefsUserFile)
 {
 	CommonStrings::languageChange();
 	int retVal=0;
@@ -171,7 +173,7 @@ int ScribusCore::initScribusCore(bool showSplash, bool showFontInfo, const QStri
 	
 	ScCore->setSplashStatus( tr("Reading ICC Profiles") );
 	m_HaveCMS = false;
-	getCMSProfiles();
+	getCMSProfiles(showProfileInfo);
 	initCMS();
 	/*
 
@@ -326,7 +328,7 @@ bool ScribusCore::initFonts(bool showFontInfo)
 }
 
 
-void ScribusCore::getCMSProfiles()
+void ScribusCore::getCMSProfiles(bool showInfo)
 {
 	QString profDir;
 	QStringList profDirs;
@@ -346,7 +348,7 @@ void ScribusCore::getCMSProfiles()
 		{
 			if(profDir.right(1) != "/")
 				profDir += "/";
-			getCMSProfilesDir(profDir, true);
+			getCMSProfilesDir(profDir, showInfo, true);
 		}
 	}
 	if ((!PrinterProfiles.isEmpty()) && (!InputProfiles.isEmpty()) && (!MonitorProfiles.isEmpty()))
@@ -355,7 +357,7 @@ void ScribusCore::getCMSProfiles()
 		m_HaveCMS = false;
 }
 
-void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
+void ScribusCore::getCMSProfilesDir(QString pfad, bool showInfo, bool recursive)
 {
 	QDir d(pfad, "*", QDir::Name, QDir::Files | QDir::Readable | QDir::Dirs | QDir::NoSymLinks);
 	if ((d.exists()) && (d.count() != 0))
@@ -371,7 +373,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 				continue;
 			else if (fi.isDir() && d[dc][0] != '.')
 			{
-				getCMSProfilesDir(fi.filePath()+"/", true);
+				getCMSProfilesDir(fi.filePath()+"/", showInfo, true);
 				continue;
 			}
 
@@ -384,7 +386,7 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 			QFile f(fi.filePath());
 			QByteArray bb(40);
 			if (!f.open(IO_ReadOnly)) {
-				qDebug("%s", QString("couldn't open %1 as ICC").arg(fi.filePath()).ascii());
+				sDebug(QString("couldn't open %1 as ICC").arg(fi.filePath()));
 				continue;
 			}
 			int len = f.readBlock(bb.data(), 40);
@@ -394,6 +396,9 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 				const QCString profilePath( QString(pfad + d[dc]).local8Bit() );
 				if (setjmp(cmsJumpBuffer))
 				{
+					// Profile is broken, show info if necessary
+					if (showInfo)
+						sDebug(QString("ICC profile %s is broken").arg(fi.filePath()));
 					// Reset to the default handler otherwise may enter a loop
 					// if an error occur in cmsCloseProfile()
 					cmsSetErrorHandler(NULL);
@@ -444,6 +449,8 @@ void ScribusCore::getCMSProfilesDir(QString pfad, bool recursive)
 				}
 				cmsCloseProfile(hIn);
 				hIn = NULL;
+				if (showInfo)
+					sDebug( QString("ICC profile %1 loaded from %2").arg(nam).arg(pfad + d[dc]) );
 			}
 		}
 		cmsSetErrorHandler(NULL);

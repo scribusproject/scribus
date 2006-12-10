@@ -61,7 +61,7 @@ public:
 	int runScript() {return 0;}
 	*/	
 	int init(bool useGUI, bool swapDialogButtonOrder, const QString fileToUse);
-	int initScribusCore(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
+	int initScribusCore(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	bool initialized() const {return m_ScribusInitialized;};
 	const QString getGuiLanguage() const {return m_GuiLanguage;};
 	void initSplash(bool showSplash);
@@ -71,7 +71,7 @@ public:
 	void closeSplash();
 	void setSplashStatus(const QString&);
 	bool usingGUI() const;
-	int startGUI(bool showSplash, bool showFontInfo, const QString newGuiLanguage, const QString prefsUserFile);
+	int startGUI(bool showSplash, bool showFontInfo, bool showProfileInfo, const QString newGuiLanguage, const QString prefsUserFile);
 	/**
 	* @brief Are we trying to adhere to Apple Mac HIG ?
 	* @retval bool true if we are on Qt/Mac
@@ -89,10 +89,10 @@ public:
 	bool reverseDialogButtons() const;
 	bool haveCMS() const { return m_HaveCMS; }
 	int haveGS() const {return m_HaveGS;};
-	int havePNGAlpha() const {return m_HavePngAlpha;};
-	int haveTIFFSep() const {return m_HaveTiffSep;};
-	void getCMSProfiles();
-	void getCMSProfilesDir(QString pfad, bool recursive);
+	int havePNGAlpha() const {return m_HavePngAlpha;}
+	int haveTIFFSep() const {return m_HaveTiffSep;}
+	void getCMSProfiles(bool showInfo);
+	void getCMSProfilesDir(QString pfad, bool showInfo, bool recursive);
 	bool fileWatcherActive() const;
 	void recheckGS();
 	

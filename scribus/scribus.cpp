@@ -3455,7 +3455,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			is12doc=true;
 		}
 
-		ScCore->getCMSProfilesDir(fi.dirPath(true)+"/", false);
+		ScCore->getCMSProfilesDir(fi.dirPath(true)+"/", false, false);
 		prefsManager->appPrefs.AvailFonts.AddScalableFonts(fi.dirPath(true)+"/", FName);
 		prefsManager->appPrefs.AvailFonts.updateFontMap();
 		doc=new ScribusDoc();
@@ -7246,7 +7246,7 @@ void ScribusMainWindow::prefsOrg(Preferences *dia)
 	}
 	FontSub->RebuildList(0);
 	propertiesPalette->Fonts->RebuildList(0);
-	ScCore->getCMSProfiles();
+	ScCore->getCMSProfiles(false);
 	ScCore->recheckGS();
 	SetShortCut();
 }
