@@ -68,9 +68,11 @@ private:
 	void PDF_End_Doc(const QString& PrintPr = "", const QString& Name = "", int Components = 0);
 	void closeAndCleanup();
 
+	QByteArray EncodeUTF16(const QString &in);
 	QString EncStream(const QString & in, int ObjNum);
 	QByteArray EncStreamArray(const QByteArray & in, int ObjNum);
 	QString EncString(const QString & in, int ObjNum);
+	QString EncStringUTF16(const QString & in, int ObjNum);
 	void CalcOwnerKey(const QString & Owner, const QString & User);
 	void CalcUserKey(const QString & User, int Permission);
 	QString FitKey(const QString & pass);

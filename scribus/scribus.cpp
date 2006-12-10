@@ -1314,7 +1314,7 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 						pg++;
 					else
 						pg += doc->pageSets[doc->currentPageLayout].Columns;
-					if (pg < doc->Pages->count())
+					if (pg < static_cast<int>(doc->Pages->count()))
 						view->GotoPage(pg);
 				}
 				keyrep = false;
@@ -5295,7 +5295,7 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	int w = qRound(QMIN(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
 	int h = qRound(QMIN(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
 	if (zoomFactor==-200.0)
-		view->rememberPreviousSettings(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0, doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0);
+		view->rememberPreviousSettings(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
 	else
 		view->rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	view->setScale(finalZoomFactor);

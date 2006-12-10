@@ -239,6 +239,21 @@ QString PDFlib::PDFEncode(const QString & in)
 	return tmp;
 }
 
+QByteArray PDFlib::EncodeUTF16(const QString &in)
+{
+	QString tmp("");
+	for (uint d = 0; d < in.length(); ++d)
+	{
+		QChar cc(in.at(d));
+		if ((cc == '(') || (cc == ')') || (cc == '\\'))
+			tmp += '\\';
+		tmp += cc;
+	}
+	QTextCodec *codec;
+	codec = QTextCodec::codecForName("ISO-10646-UCS-2");
+	return codec->fromUnicode( tmp );
+}
+
 QString PDFlib::EncStream(const QString & in, int ObjNum)
 {
 	if (in.length() < 1)
@@ -337,6 +352,49 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), tmp.length());
 	QString uk = "";
 	for (uint cl = 0; cl < tmp.length(); ++cl)
+		uk += QChar(ou[cl]);
+	tmp = "<"+String2Hex(&uk, false)+">";
+	return tmp;
+}
+
+QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
+{
+	if (!Options.Encrypt)
+	{
+		QString tmp = in.mid(1, in.length()-2);
+		QByteArray us = EncodeUTF16(tmp);
+		QString uk = "";
+		for (uint cl = 0; cl < us.size(); ++cl)
+			uk += QChar(us[cl]);
+		return "<"+String2Hex(&uk, false)+">";
+	}
+	rc4_context_t rc4;
+	QString tmp;
+	int dlen = 0;
+	if (in.length() < 3)
+		return "<>";
+	tmp = in.mid(1, in.length()-2);
+	QByteArray us = EncodeUTF16(tmp);
+	QByteArray ou(us.size());
+	QByteArray data(10);
+	if (KeyLen > 5)
+		data.resize(21);
+	for (int cd = 0; cd < KeyLen; ++cd)
+	{
+		data[cd] = EncryKey[cd];
+		dlen++;
+	}
+	data[dlen++] = ObjNum;
+	data[dlen++] = ObjNum >> 8;
+	data[dlen++] = ObjNum >> 16;
+	data[dlen++] = 0;
+	data[dlen++] = 0;
+	QByteArray step1(16);
+	step1 = ComputeMD5Sum(&data);
+	rc4_init(&rc4, reinterpret_cast<uchar*>(step1.data()), QMIN(KeyLen+5, 16));
+	rc4_encrypt(&rc4, reinterpret_cast<uchar*>(us.data()), reinterpret_cast<uchar*>(ou.data()), ou.size());
+	QString uk = "";
+	for (uint cl = 0; cl < ou.size(); ++cl)
 		uk += QChar(ou[cl]);
 	tmp = "<"+String2Hex(&uk, false)+">";
 	return tmp;
@@ -583,11 +641,11 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 	PutDoc("/Producer "+EncString("(Scribus PDF Library "+QString(VERSION)+")",2)+"\n");
 	QString docTitle = doc.documentInfo.getTitle();
 	if ((Options.Version == 12) && (docTitle.isEmpty()))
-		PutDoc("/Title "+EncString("("+doc.DocName+")",2)+"\n");
+		PutDoc("/Title "+EncStringUTF16("("+doc.DocName+")",2)+"\n");
 	else
-		PutDoc("/Title "+EncString("("+doc.documentInfo.getTitle()+")",2)+"\n");
-	PutDoc("/Author "+EncString("("+doc.documentInfo.getAuthor()+")",2)+"\n");
-	PutDoc("/Keywords "+EncString("("+doc.documentInfo.getKeywords()+")",2)+"\n");
+		PutDoc("/Title "+EncStringUTF16("("+doc.documentInfo.getTitle()+")",2)+"\n");
+	PutDoc("/Author "+EncStringUTF16("("+doc.documentInfo.getAuthor()+")",2)+"\n");
+	PutDoc("/Keywords "+EncStringUTF16("("+doc.documentInfo.getKeywords()+")",2)+"\n");
 	PutDoc("/CreationDate "+EncString("("+Datum+")",2)+"\n");
 	PutDoc("/ModDate "+EncString("("+Datum+")",2)+"\n");
 	if (Options.Version == 12)
@@ -944,7 +1002,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				int nglyphs = 0;
 				QMap<uint,std::pair<QChar,QString> >::Iterator gli;
 				for (gli = gl.begin(); gli != gl.end(); ++gli) {
-					if (gli.key() > nglyphs)
+					if (gli.key() > static_cast<uint>(nglyphs))
 						nglyphs = gli.key();
 				}
 				++nglyphs;
@@ -1167,7 +1225,9 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 			ObjCounter++;
 			PutDoc("<<\n");
 			PutDoc("/Type /OCG\n");
-			PutDoc("/Name ("+ll.Name+")\n");
+			PutDoc("/Name ");
+			PutDoc(EncStringUTF16("("+ll.Name+")", ObjCounter-1));
+			PutDoc("\n");
 			PutDoc(">>\nendobj\n");
 			Lnr++;
 		}
@@ -1934,7 +1994,7 @@ void PDFlib::PDF_End_Page()
 			PutPage("1 0 0 1 "+FToStr(startX)+" 6 cm\n");
 			PutPage("BT\n");
 			PutPage("/"+StdFonts["/Helvetica"]+" 7 Tf\n");
-			PutPage(EncString("("+docTitle+")",ObjCounter)+" Tj\nET\n");
+			PutPage(EncStringUTF16("("+docTitle+")",ObjCounter)+" Tj\nET\n");
 			PutPage("Q\n");
 			PutPage("q\n");
 			PutPage("1 0 0 1 "+FToStr(maxBoxX / 2.0 + 20.0)+" 6 cm\n");
@@ -3902,7 +3962,7 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 		{
 			if (ite->reversed())
 			{
-				int chs = hl->fontSize();
+//				int chs = hl->fontSize();
 				double wtr = hl->glyph.xadvance;
 				tmp +=  FToStr(-QMAX(hl->glyph.scaleH, 0.1))+" 0 0 "+FToStr(QMAX(hl->glyph.scaleV, 0.1)) +" "+FToStr(x+hl->glyph.xoffset+wtr)+" "+FToStr(-y-hl->glyph.yoffset+(hl->fontSize() / 10.0) * (hl->baselineOffset() / 1000.0))+" Tm\n";
 //				tmp += "-1 0 0 1 "+FToStr(wtr)+" "+FToStr(0)+" Tm\n";
@@ -4921,7 +4981,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 0:
 		case 10:
 			PutDoc("/Subtype /Text\n");
-			PutDoc("/Contents "+EncString("("+bm+")",ObjCounter-1)+"\n");
+			PutDoc("/Contents "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
 			break;
 		case 1:
 		case 11:
@@ -4951,9 +5011,9 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		case 6:
 			Seite.FormObjects.append(ObjCounter-1);
 			PutDoc("/Subtype /Widget\n");
-			PutDoc("/T "+EncString("("+anTitle+")",ObjCounter-1)+"\n");
+			PutDoc("/T "+EncStringUTF16("("+anTitle+")",ObjCounter-1)+"\n");
 			if (!ite->annotation().ToolTip().isEmpty())
-				PutDoc("/TU "+EncString("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
+				PutDoc("/TU "+EncStringUTF16("("+PDFEncode(ite->annotation().ToolTip())+")",ObjCounter-1)+"\n");
 			PutDoc("/F ");
 			QString mm[] = {"4", "2", "0", "32"};
 			PutDoc(mm[ite->annotation().Vis()]);
@@ -4975,7 +5035,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			if (ite->fillColor() != CommonStrings::None)
 				cnx += " "+ putColor(ite->fillColor(), ite->fillShade(), false);
 			cnx += ")";
-			PutDoc("/DA "+EncString(cnx,ObjCounter-1)+"\n");
+			PutDoc("/DA "+EncStringUTF16(cnx,ObjCounter-1)+"\n");
 			int flg = ite->annotation().Flag();
 			if (Options.Version == 13)
 				flg = flg & 522247;
@@ -4992,8 +5052,8 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					break;
 				case 3:
 					PutDoc("/FT /Tx\n");
-					PutDoc("/V "+EncString("("+bm+")",ObjCounter-1)+"\n");
-					PutDoc("/DV "+EncString("("+bm+")",ObjCounter-1)+"\n");
+					PutDoc("/V "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
+					PutDoc("/DV "+EncStringUTF16("("+bm+")",ObjCounter-1)+"\n");
 					PutDoc("/Q "+QString::number(QMIN(ite->itemText.defaultStyle().alignment(),2))+"\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					if (ite->annotation().MaxChar() != -1)
@@ -5015,10 +5075,10 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 					if (bmst.count() > 0)
 						cnx += bmst[0];
 					cnx += ")";
-					PutDoc(EncString(cnx,ObjCounter-1)+"\n");
+					PutDoc(EncStringUTF16(cnx,ObjCounter-1)+"\n");
 					PutDoc("/Opt [ ");
 					for (uint bmc = 0; bmc < bmst.count(); ++bmc)
-						PutDoc(EncString("("+bmst[bmc]+")",ObjCounter-1)+"\n");
+						PutDoc(EncStringUTF16("("+bmst[bmc]+")",ObjCounter-1)+"\n");
 					PutDoc("]\n");
 					PutDoc("/AP << /N "+QString::number(ObjCounter)+" 0 R >>\n");
 					break;
@@ -5041,11 +5101,11 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			switch (ite->annotation().Type())
 			{
 				case 2:
-					PutDoc("/CA "+EncString("("+bm+")",ObjCounter-1)+" ");
+					PutDoc("/CA "+EncStringUTF16("("+bm+")",ObjCounter-1)+" ");
 					if (!ite->annotation().RollOver().isEmpty())
-						PutDoc("/RC "+ EncString("("+PDFEncode(ite->annotation().RollOver())+")",ObjCounter-1)+" ");
+						PutDoc("/RC "+ EncStringUTF16("("+PDFEncode(ite->annotation().RollOver())+")",ObjCounter-1)+" ");
 					if (!ite->annotation().Down().isEmpty())
-						PutDoc("/AC "+ EncString("("+PDFEncode(ite->annotation().Down())+")",ObjCounter-1)+" ");
+						PutDoc("/AC "+ EncStringUTF16("("+PDFEncode(ite->annotation().Down())+")",ObjCounter-1)+" ");
 					if (ite->annotation().UseIcons())
 					{
 						if (!ite->Pfile.isEmpty())
@@ -5259,13 +5319,13 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 			for (uint mz = 0; mz < bmst.count(); ++mz)
 			{
-				cc += EncString("("+bmst[mz]+")",ObjCounter-1);
+				cc += EncStringUTF16("("+bmst[mz]+")",ObjCounter-1);
 				cc += " Tj\nT*\n";
 			}
 			cc += "ET\nEMC";
 		}
 		else
-			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncString("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
+			cc += "1 0 0 1 0 0 Tm\n0 0 Td\n"+EncStringUTF16("("+bm+")",ObjCounter-1)+" Tj\nET\nEMC";
 //		PDF_Form(cc);
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
@@ -5301,7 +5361,7 @@ void PDFlib::PDF_Annotation(PageItem *ite, uint)
 		cc += " "+FToStr(ite->itemText.defaultStyle().charStyle().fontSize() / 10.0)+" Tf\n";
 		cc += "1 0 0 1 0 0 Tm\n0 0 Td\n";
 		if (bmst.count() > 0)
-			cc += EncString("("+bmst[0]+")",ObjCounter-1);
+			cc += EncStringUTF16("("+bmst[0]+")",ObjCounter-1);
 		cc += " Tj\nET\nQ\nEMC";
 		PDF_xForm(ite->width(), ite->height(), cc);
 	}
@@ -6002,7 +6062,7 @@ void PDFlib::PDF_End_Doc(const QString& PrintPr, const QString& Name, int Compon
 				encText += QChar(ch.row());
 				encText += QChar(ch.cell());
 			}
-			Inhal += "<<\n/Title "+EncString("("+encText+")", ip->ItemNr+Basis)+"\n";
+			Inhal += "<<\n/Title "+EncStringUTF16("("+encText+")", ip->ItemNr+Basis)+"\n";
 			if (ip->Pare == 0)
 				Inhal += "/Parent 3 0 R\n";
 			else
