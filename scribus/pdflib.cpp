@@ -249,9 +249,16 @@ QByteArray PDFlib::EncodeUTF16(const QString &in)
 			tmp += '\\';
 		tmp += cc;
 	}
-	QTextCodec *codec;
-	codec = QTextCodec::codecForName("ISO-10646-UCS-2");
-	return codec->fromUnicode( tmp );
+	QTextCodec *codec = QTextCodec::codecForName("ISO-10646-UCS-2");
+	QCString cres = codec->fromUnicode( tmp );
+	uchar sw;
+	for(uint d = 0; d < cres.size()-1; d += 2)
+	{
+		sw = cres[d];
+		cres[d] = cres[d+1];
+		cres[d+1] = sw;
+	}
+	return cres;
 }
 
 QString PDFlib::EncStream(const QString & in, int ObjNum)
