@@ -4287,7 +4287,7 @@ void Mpalette::languageChange()
 	QToolTip::add(textFlowDisabled, tr("Disable text flow from lower frames around object"));
 	QToolTip::add(textFlowUsesFrameShape, tr("Use the frame shape for text flow of text frames below the object."));
 	QToolTip::add(textFlowUsesBoundingBox,  "<qt>" + tr("Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. ") + "</qt>" );
-	QToolTip::add(textFlowUsesContourLine,  "<qt>" + tr("Use a second line originally based on the frame's shape for text flow of text frames below the object. ") + "</qt>" );
+	QToolTip::add(textFlowUsesContourLine,  "<qt>" + tr("When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T") + "</qt>" );
 
 	QToolTip::add(Fonts, tr("Font of selected text or object"));
 	QToolTip::add(Size, tr("Font Size"));
