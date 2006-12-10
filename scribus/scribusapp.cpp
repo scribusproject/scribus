@@ -390,29 +390,21 @@ void ScribusQApp::showUsage()
 	QTextStream ts(&f);
 	ts << tr("Usage: scribus [option ... ] [file]") ; endl(ts);
 	ts << tr("Options:") ; endl(ts);
-	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP,
-		tr("Print help (this message) and exit") );
-	printArgLine(ts, ARG_LANG_SHORT, ARG_LANG,
-		tr("Uses xx as shortcut for a language, eg `en' or `de'") );
-	printArgLine(ts, ARG_AVAILLANG_SHORT, ARG_AVAILLANG,
-		tr("List the currently installed interface languages") );
-	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO,
-		tr("Show information on the console when fonts are being loaded") );
-	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH,
-		tr("Do not show the splashscreen on startup") );
-	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH,
-		tr("Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.") );
-	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK,
-		tr("Download a file from the Scribus website and show the latest available version.") );
-	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION,
-		tr("Output version information and exit") );
-	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS,
-		tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
-	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+ tr("filename"),
-		tr("Use filename as path for user given preferences") );
+	printArgLine(ts, ARG_FONTINFO_SHORT, ARG_FONTINFO, tr("Show information on the console when fonts are being loaded") );
+	printArgLine(ts, ARG_HELP_SHORT, ARG_HELP, tr("Print help (this message) and exit") );
+	printArgLine(ts, ARG_LANG_SHORT, ARG_LANG, tr("Uses xx as shortcut for a language, eg `en' or `de'") );
+	printArgLine(ts, ARG_AVAILLANG_SHORT, ARG_AVAILLANG, tr("List the currently installed interface languages") );
+	printArgLine(ts, ARG_NOSPLASH_SHORT, ARG_NOSPLASH, tr("Do not show the splashscreen on startup") );
+	printArgLine(ts, ARG_NEVERSPLASH_SHORT, ARG_NEVERSPLASH, tr("Stop the showing of the splashscreen on startup. Writes an empty file called .neversplash in ~/.scribus.") );
+	printArgLine(ts, ARG_PREFS_SHORT, QString(ARG_PREFS)+" "+ tr("filename"), tr("Use filename as path for user given preferences") );
+	printArgLine(ts, ARG_PROFILEINFO_SHORT, ARG_PROFILEINFO, tr("Show location ICC profile information on console while starting") );
+	printArgLine(ts, ARG_SWAPDIABUTTONS_SHORT, ARG_SWAPDIABUTTONS, tr("Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)") );
+	printArgLine(ts, ARG_UPGRADECHECK_SHORT, ARG_UPGRADECHECK, tr("Download a file from the Scribus website and show the latest available version.") );
+	printArgLine(ts, ARG_VERSION_SHORT, ARG_VERSION, tr("Output version information and exit") );
+	
+	
 #if defined(_WIN32) && !defined(_CONSOLE)
-	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE,
-		tr("Display a console window") );
+	printArgLine(ts, ARG_CONSOLE_SHORT, ARG_CONSOLE, tr("Display a console window") );
 #endif
 /* Delete me?
 	std::cout << "-file|-- name Open file 'name'" ; endl(ts);
