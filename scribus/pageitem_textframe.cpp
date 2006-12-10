@@ -273,7 +273,7 @@ void PageItem_TextFrame::layout()
 	uint nrc, startLin;
 	int aSpa, CurrCol;
 	double chs, chsd;
-	uint LastSP;
+	int LastSP;
 	double oldCurY, LastXp, EndX, OFs, OFs2, wide, ColWidth, kernVal, RTabX;
 	QString chstr;
 	ScText *hl;
@@ -284,7 +284,7 @@ void PageItem_TextFrame::layout()
 	bool RTab = false;
 	bool goNoRoom = false;
 	bool goNextColumn = false;
-	uint StartRT;
+	int StartRT;
 	int TabCode = 0;
 	int HyphenCount = 0;
 	QValueList<ParagraphStyle::TabRecord> tTabValues;
@@ -1264,7 +1264,7 @@ void PageItem_TextFrame::layout()
 							{
 								// count available spaces
 								aSpa = 0; 
-								for (uint sof = 0; sof<LastSP; ++sof)
+								for (int sof = 0; sof<LastSP; ++sof)
 								{
 									if ((itemText.item(curLine.firstItem + sof)->ch == QChar(32)
 										 || itemText.item(curLine.firstItem + sof)->ch == SpecialChars::NBSPACE)
