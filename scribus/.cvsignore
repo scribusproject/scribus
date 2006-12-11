@@ -40,6 +40,7 @@ tabexternaltoolswidgetbase.h
 tabgeneralbase.h
 tabkeyboardshortcutswidgetbase.h
 tabmiscellaneousbase.h
+tabprinterbase.h
 tabscrapbookbase.h
 tocindexprefsbase.h
 useprintermarginsdialogbase.h
@@ -65,6 +66,7 @@ tabexternaltoolswidgetbase.cpp
 tabgeneralbase.cpp
 tabkeyboardshortcutswidgetbase.cpp
 tabmiscellaneousbase.cpp
+tabprinterbase.cpp
 tabscrapbookbase.cpp
 tocindexprefsbase.cpp
 useprintermarginsdialogbase.cpp
