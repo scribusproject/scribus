@@ -270,7 +270,7 @@ void PageItem_TextFrame::layout()
 	QPoint pt1, pt2;
 	FPoint ColBound;
 	QRegion cm;
-	uint nrc, startLin;
+	uint nrc;
 	int aSpa, CurrCol;
 	double chs, chsd;
 	int LastSP;
@@ -666,12 +666,11 @@ void PageItem_TextFrame::layout()
 			{
 //				qDebug(QString("newline: '%1' %2 %3").arg(a).arg(CurY).arg(asce));
 				// start a new line
-				startLin = a;
 				double TopOffset = asce;
 				double BotOffset = desc2;
 				goNoRoom = false;
 				// ??? AV
-				bool specialCase = false;
+//				bool specialCase = false;
 				if (StartOfCol)
 				{
 //					qDebug(QString("StartOfCol: %1 + %2 + %3").arg(asce).arg(TExtra).arg(lineCorr));
@@ -695,11 +694,11 @@ void PageItem_TextFrame::layout()
 				pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
 				pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
 
-				if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
-				{
-					specialCase = true;
-					CurX -= Extra;
-				}
+//				if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
+//				{
+//					specialCase = true;
+//					CurX -= Extra;
+//				}
 				pt1 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(CurY+BotOffset));
 				pt2 = QPoint(static_cast<int>(ceil(CurX)), static_cast<int>(ceil(CurY-TopOffset)));
 				// increase pt1/pt2 until i-beam reaches end of line
@@ -707,7 +706,7 @@ void PageItem_TextFrame::layout()
 				{
 					fBorder = true;
 					CurX++;
-					if (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin())
+					if (CurX+RExtra+lineCorr+wide > ColBound.y() - style.rightMargin())
 					{
 //						qDebug(QString("eocol %5? %1 + %2 + %3 + %4").arg(CurY).arg(StartOfCol).arg(style.useBaselineGrid()).arg(style.lineSpacing()).arg(CurrCol));
 						// new line
@@ -940,6 +939,7 @@ void PageItem_TextFrame::layout()
 			}
 			
 			// hyphenation
+			//FIXME: asce / desc set correctly?
 			if ((((hl->effects() & ScStyle_HyphenationPossible) || hl->ch == "-") && (HyphenCount < m_Doc->HyCount || m_Doc->HyCount == 0))  || hl->ch[0] == SpecialChars::SHYPHEN)
 			{
 				if (hl->effects() & ScStyle_HyphenationPossible || hl->ch[0] == SpecialChars::SHYPHEN)
@@ -960,7 +960,7 @@ void PageItem_TextFrame::layout()
 			}
 
 			// test if end of line reached
-			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin()))
+			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr+wide > ColBound.y() - style.rightMargin()))
 				outs = true;
 			if (CurY > (Height - BExtra - lineCorr))
 				outs = true;
@@ -1331,7 +1331,7 @@ void PageItem_TextFrame::layout()
 					|| (hl->ch == SpecialChars::FRAMEBREAK) 
 					|| ((hl->ch == SpecialChars::COLBREAK) && (Cols > 1)))
 				{
-					if ((outs) && (CurX+RExtra+lineCorr < ColBound.y() - style.rightMargin()))
+					if ((outs) && (CurX+RExtra+lineCorr+wide < ColBound.y() - style.rightMargin()))
 					{
 						if (( hl->ch == SpecialChars::PARSEP || hl->ch == SpecialChars::LINEBREAK) 
 							&& AbsHasDrop)
@@ -1344,10 +1344,10 @@ void PageItem_TextFrame::layout()
 						double BotOffset = desc+BExtra+lineCorr;
 						pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-						while (CurX+RExtra+lineCorr < ColBound.y() - style.rightMargin())
+						while (CurX+RExtra+lineCorr+wide < ColBound.y() - style.rightMargin())
 						{
 							CurX++;
-							if (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin())
+							if (CurX+RExtra+lineCorr+wide > ColBound.y() - style.rightMargin())
 							{
 								fromOut = false;
 								if (style.useBaselineGrid())
