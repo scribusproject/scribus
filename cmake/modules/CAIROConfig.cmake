@@ -10,8 +10,6 @@
 # CAIRO_CFLAGS, cflags for include information
 
 
-INCLUDE(FindPkgConfig)
-
 IF(PREFIX_CAIRO)
   MESSAGE(STATUS "Searching custom cairo location: ${PREFIX_CAIRO}")
   SET(PREFIX_CAIRO_INCLUDE "${PREFIX_CAIRO}/include")
@@ -20,7 +18,15 @@ IF(PREFIX_CAIRO)
 ELSE(PREFIX_CAIRO)
   # use pkgconfig to get the directories and then use these values
   # in the FIND_PATH() and FIND_LIBRARY() calls
-  pkg_search_module(PKG_CAIRO REQUIRED libcairo>=1.2.0 cairo>=1.2.0)
+  IF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
+    INCLUDE(UsePkgConfig)
+    PKGCONFIG(cairo _libCairoIncDir _libCairoLinkDir _libCairoLinkFlags _libCairoCflags)
+    SET(PKG_CAIRO_INCLUDE_DIRS ${_libCairoIncDir})
+    SET(PKG_CAIRO_LIBRARIES ${_libCairoLinkDir})
+  ELSE (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
+    INCLUDE(FindPkgConfig)
+    pkg_search_module(PKG_CAIRO REQUIRED libcairo>=1.2.0 cairo>=1.2.0)
+  ENDIF (${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION} LESS 2.5)
 ENDIF(PREFIX_CAIRO)
 
 
