@@ -4878,8 +4878,7 @@ void ScribusMainWindow::slotEditPaste()
 			{
 				Serializer *ss = new Serializer("");
 				ss->Objekt = Buffer2;
-				int st = 0; //FIXME
-				ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
+				ss->GetText(currItem, -1, "", 0, true);
 				delete ss;
 			}
 			view->RefreshItem(currItem);

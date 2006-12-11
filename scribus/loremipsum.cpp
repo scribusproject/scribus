@@ -237,11 +237,7 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 		{
 			done = true;
 			ss->Objekt = lp->createLorem(paraCount);
-			int st = findParagraphStyle(m_Doc, m_Doc->currentStyle);
-			if (st > 5)
-				ss->GetText(currItem, st, m_Doc->docParagraphStyles[st].charStyle().font().scName(), m_Doc->docParagraphStyles[st].charStyle().fontSize(), true);
-			else
-				ss->GetText(currItem, st, currItem->currentCharStyle().font().scName(), currItem->currentCharStyle().fontSize(), true);
+			ss->GetText(currItem, -1, "", 0, false);
 			delete ss;
 		}
 		delete lp;

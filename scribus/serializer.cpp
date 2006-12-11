@@ -60,69 +60,44 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->doc();
-	if (Absatz < 0 || Absatz > doku->docParagraphStyles.count())
+	if (Absatz < 0 || Absatz > signed(doku->docParagraphStyles.count()))
 		Absatz = 0;
 	
 	if (!Append)
 	{
-#if 0
-		nextItem = Item;
-		while (nextItem != 0)
-		{
-			if (nextItem->BackBox != 0)
-				nextItem = nextItem->BackBox;
-			else
-				break;
-		}
-		it = nextItem;
-		while (nextItem != 0)
-		{
-			for (ScText *it = nextItem->itemText.first(); it != 0; it = nextItem->itemText.next())
-			{
-				if ((it->ch == QChar(25)) && (it->cembedded != 0))
-				{
-					doku->FrameItems.remove(it->cembedded);
-					delete it->cembedded;
-				}
-			}
-			nextItem->itemText.clear();
-			nextItem->CPos = 0;
-			nextItem = nextItem->NextBox;
-		}
-#else
 		it->itemText.clear();
 		it->CPos = 0;
-#endif
-		doku->updateFrameItems();
 	}
 	QString txt = Objekt.remove(QChar(0)).remove(QChar(13));
 	txt = txt.replace(QChar(10), QChar(13)).replace(QChar(5), QChar(13));
-	CharStyle newstyle;
-	if (!doku->docParagraphStyles[Absatz].charStyle().font().isNone())
-	{
-		newstyle = doku->docParagraphStyles[Absatz].charStyle();
-	}
-	else
-	{
-		newstyle = it->itemText.defaultStyle().charStyle();
-	}
 	uint insPos = Append? it->CPos : it->itemText.length();
 	it->itemText.insertChars(insPos, txt);
-	it->itemText.applyCharStyle(insPos, txt.length(), newstyle);
-#if 0
-	for (uint i=insPos; i < insPos + txt.length(); ++i) {
-		it->itemText.item(i)->cab = Absatz;
+	ParagraphStyle newStyle;
+	CharStyle newCharStyle;
+	if ( Absatz > 0 )
+		newStyle.setParent(doku->docParagraphStyles[Absatz].name());
+	if ( !font.isEmpty() )
+		newCharStyle.setFont((*doku->AllFonts)[font]);
+	if ( size > 0 )
+		newCharStyle.setFontSize(size);
+	
+	if (Append)
+	{
+		it->itemText.applyCharStyle(insPos, txt.length(), newCharStyle);
+		for (uint i=0; i < it->itemText.nrOfParagraphs(); ++i) {
+			uint pos = it->itemText.startOfParagraph(i);
+			if (pos >= insPos + txt.length())
+				break;
+			if (pos >= insPos)
+				it->itemText.applyStyle(insPos, newStyle);
+		}
+		it->CPos = insPos + txt.length();
 	}
-#else
-	for (uint i=0; i < it->itemText.nrOfParagraphs(); ++i) {
-		uint pos = it->itemText.startOfParagraph(i);
-		if (pos >= insPos + txt.length())
-			break;
-		if (pos >= insPos)
-			it->itemText.applyStyle(insPos, doku->docParagraphStyles[Absatz]);
+	else if ( Absatz >= 0 || !font.isEmpty() || size > 0)
+	{
+		newStyle.charStyle() = newCharStyle;
+		it->itemText.setDefaultStyle(newStyle);
 	}
-#endif	
-	it->CPos = insPos + txt.length();
 }
 
 bool Serializer::Write(QString Cod)

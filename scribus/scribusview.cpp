@@ -5723,11 +5723,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 						{
 							Serializer *ss = new Serializer("");
 							ss->Objekt = cc;
-							int st = findParagraphStyle(Doc, Doc->currentStyle);
-//							if (st > 5)
-								ss->GetText(currItem, st, Doc->docParagraphStyles[st].charStyle().font().scName(), Doc->docParagraphStyles[st].charStyle().fontSize(), true);
-//							else
-//								ss->GetText(currItem, st, currItem->itemText.defaultStyle().charStyle().font().scName(), currItem->itemText.defaultStyle().charStyle().fontSize(), true);
+							ss->GetText(currItem, -1, "", 0, true);
 							delete ss;
 							ss=NULL;
 							if (Doc->docHyphenator->AutoCheck)
