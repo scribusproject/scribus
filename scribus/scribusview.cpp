@@ -9703,6 +9703,10 @@ void ScribusView::TextToPath()
 						chx = chx.upper();
 					}
 				}
+				if (hl->cstyle & 1)
+					chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.scalingSuperScript / 100), 1);
+				if (hl->cstyle & 2)
+					chs = QMAX(static_cast<int>(hl->csize * Doc->typographicSettings.scalingSubScript / 100), 1);
 				double csi = static_cast<double>(chs) / 100.0;
 				uint chr = chx[0].unicode();
 				QWMatrix chma, chma2, chma3, chma4, chma6;
