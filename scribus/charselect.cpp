@@ -178,7 +178,8 @@ void CharSelect::setDoc(ScribusDoc* doc)
 
 const QString & CharSelect::getCharacters()
 {
-	return m_characters;
+// 	return m_characters;
+	return chToIns;
 }
 
 void CharSelect::scanFont()

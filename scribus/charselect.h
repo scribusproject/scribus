@@ -53,7 +53,7 @@ private:
 	//! \brief Current font name
 	QString m_fontInUse;
 	//! \brief Currently selected character set
-	QString m_characters;
+// 	QString m_characters;
 	//! \brief Currently selected character category. See usedCharClasses.
 	int m_characterClass;
 	//! \brief A all font's character table widget.

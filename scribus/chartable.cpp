@@ -148,9 +148,22 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 	if (e->button() == RightButton && currentChar > -1)
 	{
 		//watchTimer->stop();
-		zoom = new CharZoom(this, currentChar, (*m_doc->AllFonts)[m_fontInUse]);
-		zoom->move(m_mousePosition.x()-2, m_mousePosition.y()-2);
-		zoom->show();
+		// Only non-dropable tables show "magnifier glass"
+		if (!viewport()->acceptDrops())
+		{
+			zoom = new CharZoom(this, currentChar, (*m_doc->AllFonts)[m_fontInUse]);
+			zoom->move(m_mousePosition.x()-2, m_mousePosition.y()-2);
+			zoom->show();
+		}
+		else
+		{
+			// delete popup menu when it accepts drops
+			QPopupMenu *pmen = new QPopupMenu();
+			int pid = pmen->insertItem( tr("Delete"), this, SLOT(deleteOwnCharacter(int)));
+			pmen->setItemParameter(pid, index);
+			pmen->exec(QCursor::pos());
+			delete pmen;
+		}
 	}
 	if (e->button() == LeftButton)
 	{
@@ -159,6 +172,14 @@ void CharTable::contentsMousePressEvent(QMouseEvent* e)
 		cRow = r;
 	}
 	QTable::contentsMousePressEvent(e);
+}
+
+void CharTable::deleteOwnCharacter(int index)
+{
+	if (m_characters.remove(m_characters[index]) > 0)
+		recalcCellSizes();
+	else
+		qDebug("CharTable::deleteOwnCharacter: no char deleted - logical error propably");
 }
 
 void CharTable::contentsMouseReleaseEvent(QMouseEvent* e)

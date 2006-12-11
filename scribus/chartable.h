@@ -33,7 +33,10 @@ public:
 	CharClassDef characters() { return m_characters; };
 	//! \brief "Repaint" and refill the table with new font characters
 	void recalcCellSizes();
-	//! \brief Set the widget to accept/reject drop events.
+	/*! \brief Set the widget to accept/reject drop events.
+	It sets the right-button behaviour too. It enables delete popup
+	menu when e is true instead of larger preview dialog. The idea:
+	When user can drop items into it, he could want to delete it too. */
 	void enableDrops(bool e);
 	void setDoc(ScribusDoc *doc);
 
@@ -77,6 +80,10 @@ private:
 
 private slots:
 	void slotDropped(QDropEvent *evt);
+	/*! \brief Delete a character from this table on given position.
+	Delete an item from m_characters at given index. See enableDrops()
+	for more info. */
+	void deleteOwnCharacter(int index);
 
 protected:
 	QString m_fontInUse;
