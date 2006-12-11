@@ -250,7 +250,7 @@ May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
     </message>
     <message>
         <source>Font</source>
-        <translation type="obsolete">Lettertype</translation>
+        <translation type="obsolete">Font</translation>
     </message>
     <message>
         <source>Goto</source>
@@ -404,7 +404,7 @@ Kan bij voorkeuren worden ingesteld.</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation type="obsolete">&amp;Lettertype</translation>
+        <translation type="obsolete">&amp;Font</translation>
     </message>
     <message>
         <source>&amp;Move</source>
@@ -512,7 +512,7 @@ Kan bij voorkeuren worden ingesteld.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation type="obsolete">Lettertypes</translation>
+        <translation type="obsolete">Fonts</translation>
     </message>
     <message>
         <source>Frame</source>
@@ -804,7 +804,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Path to Fontfile</source>
-        <translation type="obsolete">Lettertype Lokatie</translation>
+        <translation type="obsolete">Font Lokatie</translation>
     </message>
     <message>
         <source>&amp;Define Custom Colors &gt;&gt;</source>
@@ -940,7 +940,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Missing Font</source>
-        <translation type="obsolete">Ontbrekend Lettertype</translation>
+        <translation type="obsolete">Ontbrekend Font</translation>
     </message>
     <message>
         <source>Downsample Images to:</source>
@@ -1032,7 +1032,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">Lettertype %1 is niet geinstalleerd</translation>
+        <translation type="obsolete">Font %1 is niet geinstalleerd</translation>
     </message>
     <message>
         <source>Calculate</source>
@@ -1116,7 +1116,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="obsolete">In te bedden Lettertypes:</translation>
+        <translation type="obsolete">In te bedden Fonts:</translation>
     </message>
     <message>
         <source>Create PDF-File</source>
@@ -1244,7 +1244,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="obsolete">Zoeken naar Lettertypen</translation>
+        <translation type="obsolete">Zoeken naar Fontn</translation>
     </message>
     <message>
         <source>Paper format</source>
@@ -1648,7 +1648,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="obsolete">Beschikbare Lettertypes:</translation>
+        <translation type="obsolete">Beschikbare Fonts:</translation>
     </message>
     <message>
         <source>Images</source>
@@ -1740,11 +1740,11 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Font Name</source>
-        <translation type="obsolete">Lettertype Naam</translation>
+        <translation type="obsolete">Font Naam</translation>
     </message>
     <message>
         <source>Font Size</source>
-        <translation type="obsolete">Afmeting Lettertype</translation>
+        <translation type="obsolete">Afmeting Font</translation>
     </message>
     <message>
         <source>Hide Layers</source>
@@ -1756,7 +1756,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Er zijn geen Postscript-lettertypes aanwezig</translation>
+        <translation type="obsolete">Er zijn geen Postscript-fonts aanwezig</translation>
     </message>
     <message>
         <source>Option</source>
@@ -1844,7 +1844,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation type="obsolete">Lettertype Vervangingen</translation>
+        <translation type="obsolete">Font Vervangingen</translation>
     </message>
     <message>
         <source>Square</source>
@@ -2090,7 +2090,7 @@ Kies aub. een andere.</translation>
     </message>
     <message>
         <source>Fonts...</source>
-        <translation type="obsolete">Lettertypes...</translation>
+        <translation type="obsolete">Fonts...</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);; All Files (*)</source>
@@ -2110,7 +2110,7 @@ Kies aub. een andere.</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="obsolete">Afmeting Lettertype:</translation>
+        <translation type="obsolete">Afmeting Font:</translation>
     </message>
     <message>
         <source>Open...</source>
@@ -2254,7 +2254,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
-        <translation type="obsolete">Alle Lettertypes inbedden</translation>
+        <translation type="obsolete">Alle Fonts inbedden</translation>
     </message>
     <message>
         <source>Mouse Enter</source>
@@ -2410,7 +2410,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Global Fontsettings</source>
-        <translation type="obsolete">Globale Lettertype Instellingen</translation>
+        <translation type="obsolete">Globale Font Instellingen</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -2422,7 +2422,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
-        <translation type="obsolete">Lettertype St&amp;yle</translation>
+        <translation type="obsolete">Font St&amp;yle</translation>
     </message>
     <message>
         <source>Vertical flipped</source>
@@ -2566,7 +2566,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Font for use with PDF-1.3:</source>
-        <translation type="obsolete">Te gebruiken Lettertype voor PDF-1.3:</translation>
+        <translation type="obsolete">Te gebruiken Font voor PDF-1.3:</translation>
     </message>
     <message>
         <source>Hyphenator...</source>
@@ -2706,7 +2706,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Use Font</source>
-        <translation type="obsolete">Gebruik Lettertype</translation>
+        <translation type="obsolete">Gebruik Font</translation>
     </message>
     <message>
         <source>Get Text/Picture...</source>
@@ -2870,7 +2870,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation type="obsolete">Selecteer Lettertype</translation>
+        <translation type="obsolete">Selecteer Font</translation>
     </message>
     <message>
         <source>Delete Page</source>
@@ -3426,7 +3426,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Default Font:</source>
-        <translation type="obsolete">Normale lettertype:</translation>
+        <translation type="obsolete">Normale font:</translation>
     </message>
     <message>
         <source>Minor Grid Spacing:</source>
@@ -3806,7 +3806,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Available Fonts</source>
-        <translation type="obsolete">Beschikbare Lettertypes</translation>
+        <translation type="obsolete">Beschikbare Fonts</translation>
     </message>
     <message>
         <source>Insert Textbox</source>
@@ -5811,7 +5811,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Item Action Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Item Actie Mode</translation>
     </message>
     <message>
         <source>Cu&amp;t</source>
@@ -6223,7 +6223,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Preflight &amp;Verifier</source>
-        <translation type="unfinished">Preflightcontrole</translation>
+        <translation>Preflight &amp;controle</translation>
     </message>
     <message>
         <source>&amp;Align and Distribute</source>
@@ -6291,7 +6291,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Eye Dropper</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Pipet</translation>
     </message>
     <message>
         <source>Copy Item Properties</source>
@@ -6371,11 +6371,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet afbrekende streep</translation>
     </message>
     <message>
         <source>Non Breaking &amp;Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet afbrekende &amp;spatie</translation>
     </message>
     <message>
         <source>Page &amp;Number</source>
@@ -6387,7 +6387,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Frame Break</source>
-        <translation type="unfinished">Frame-einde</translation>
+        <translation>Frame-einde</translation>
     </message>
     <message>
         <source>Column Break</source>
@@ -6419,11 +6419,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Figure Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Nummer streep</translation>
     </message>
     <message>
         <source>Quotation Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Quote streep</translation>
     </message>
     <message>
         <source>Apostrophe</source>
@@ -6499,11 +6499,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Toggle Palettes</source>
-        <translation type="unfinished"></translation>
+        <translation>Paletten wisselen</translation>
     </message>
     <message>
         <source>Toggle Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulplijnen wisselen</translation>
     </message>
     <message>
         <source>Print Previe&amp;w</source>
@@ -6556,11 +6556,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Solidus</source>
-        <translation type="unfinished"></translation>
+        <translation>Slash</translation>
     </message>
     <message>
         <source>Middle Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Interpunt</translation>
     </message>
     <message>
         <source>En Space</source>
@@ -6572,31 +6572,31 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Thin Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Halfspatie</translation>
     </message>
     <message>
         <source>Thick Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Brede spatie</translation>
     </message>
     <message>
         <source>Mid Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Midden spatie</translation>
     </message>
     <message>
         <source>Hair Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Haarspatie</translation>
     </message>
     <message>
         <source>Insert Smart Hyphen</source>
-        <translation type="unfinished">Pas slimme woordafbraak toe</translation>
+        <translation>Pas slimme woordafbreking toe</translation>
     </message>
     <message>
         <source>Insert Non Breaking Dash</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet afbrekende streep invoegen</translation>
     </message>
     <message>
         <source>Insert Non Breaking Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Niet afbrekende spatie invoegen</translation>
     </message>
     <message>
         <source>Insert Page Number</source>
@@ -6646,7 +6646,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Paste (&amp;Absolute)</source>
-        <translation type="unfinished"></translation>
+        <translation>Plakken (&amp;Absoluut)</translation>
     </message>
     <message>
         <source>C&amp;lear</source>
@@ -6654,7 +6654,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Show Text Frame Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon tekstframe kolomlijnen</translation>
     </message>
 </context>
 <context>
@@ -7067,7 +7067,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Font for use with PDF 1.3:</source>
-        <translation>Lettertype voor PDF 1.3:</translation>
+        <translation>Fonts voor gebruik met PDF 1.3:</translation>
     </message>
     <message>
         <source>Border</source>
@@ -8488,11 +8488,11 @@ Deze naam is reeds gereserveerd voor transparante kleuren</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
-        <translation type="unfinished">Is een spot-kleur</translation>
+        <translation>Is een steunkleur</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Is een registratie kleur</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -8506,11 +8506,11 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee worden alle platen afgedrukt. Registratiekleuren worden gebruikt voor afdrukmarkeringen zoals, snijtekens, paskruizen en dergelijke. Deze worden gebruikelijk buiten de de layout zelf geplaatst.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee wordt van deze kleur een steunkleur gemaakt. Voor elke steunkleur wordt een separatie gemaakt bij het maken van platen of films. Steunkleuren worden meestal gebruikt als een kleur exact moet worden weergegeven en niet kan worden samengesteld met cmyk kleuren. Metallic en fluoriserende inkten zijn specifieke voorbeelden welke niet met cmyk inkten kunnen worden aangemaakt.</translation>
     </message>
 </context>
 <context>
@@ -8528,7 +8528,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation>Lettertype:</translation>
+        <translation>Font:</translation>
     </message>
     <message>
         <source>Character Class:</source>
@@ -8592,11 +8592,11 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Letterlike Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Lettersymbolen</translation>
     </message>
     <message>
         <source>Number Forms</source>
-        <translation type="unfinished"></translation>
+        <translation>Getalvormen</translation>
     </message>
     <message>
         <source>Arrows</source>
@@ -8608,7 +8608,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Box Drawing</source>
-        <translation type="unfinished"></translation>
+        <translation>Blok tekensymbolen</translation>
     </message>
     <message>
         <source>Block Elements</source>
@@ -8620,7 +8620,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Miscellaneous Symbols</source>
-        <translation type="unfinished"></translation>
+        <translation>Diverse symbolen</translation>
     </message>
     <message>
         <source>Dingbats</source>
@@ -8628,7 +8628,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Small Form Variants</source>
-        <translation type="unfinished"></translation>
+        <translation>Small Form Variants</translation>
     </message>
     <message>
         <source>Ligatures</source>
@@ -8636,7 +8636,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Specials</source>
-        <translation type="unfinished"></translation>
+        <translation>Specials</translation>
     </message>
     <message>
         <source>Greek</source>
@@ -8703,7 +8703,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Text overflow</source>
-        <translation type="unfinished">Tekstoverflow</translation>
+        <translation>Tekstoverloop</translation>
     </message>
     <message>
         <source>Object is not on a Page</source>
@@ -8723,7 +8723,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Object is a placed PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Object is een geplaatste PDF</translation>
     </message>
     <message>
         <source>Document</source>
@@ -8747,11 +8747,11 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight controle</translation>
     </message>
     <message>
         <source>Object is a PDF Annotation or Field</source>
-        <translation>Object is een PDF annotaie of veld</translation>
+        <translation>Object is een PDF annotatie of veld</translation>
     </message>
     <message>
         <source>&amp;Ignore Errors</source>
@@ -9012,7 +9012,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Vision Defect:</source>
-        <translation type="unfinished">Zichtgebrek:</translation>
+        <translation>Zichtgebrek:</translation>
     </message>
     <message>
         <source>Color Wheel</source>
@@ -9084,7 +9084,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation type="unfinished">Kleurmengen</translation>
+        <translation>Kleursamenvoeging</translation>
     </message>
     <message>
         <source>Cr&amp;eate color...</source>
@@ -9112,39 +9112,39 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Verschil tussen de geselecteerde en de berekende waarden. Lees de documentatie voor meer informatie.</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. It is hue in HSV mode.</source>
-        <translation type="unfinished">Klik het wiel om de basiskleur te krijgen. </translation>
+        <translation>Klik het wiel om de basiskleur te krijgen. De tint is in HSV mode.</translation>
     </message>
     <message>
         <source>Sample color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorbeeld kleuren schema</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer een van de methoden om een kleurenschema aan te maken. Lees de documentatie voor meer informatie.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleuren van het gekozen kleurschema</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Simuleer voorkomende gezichtsbeperkingen. Selecteer het type beperking.</translation>
     </message>
     <message>
         <source>New Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuwe kleur</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan de gevraagde kleur niet vinden. Waarschijnlijk is zwart, grijs of wit geselecteerd. Deze kleur kan niet worden verwerkt.</translation>
     </message>
     <message>
         <source>C&amp;olor Components...</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur &amp;Componenten...</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
@@ -9179,7 +9179,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Color selector with color theory included.</source>
-        <translation type="unfinished">Kleur selecteren met kleurtheorie.</translation>
+        <translation>Kleur selecteren inclusief kleurtheorie.</translation>
     </message>
 </context>
 <context>
@@ -9498,7 +9498,7 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit scherm toont diverse CUPS- printopties. Exacte parameters zijn afhankelijk van de beschikbare printerdriver. CUPS support kan worden bevestigd door Help &gt; Over te selecteren. Kijk naar de lijst: C-C-T Dit is gelijk aan C=CUPS C=littlecms T=Tiff support. Ontbrekende bibliotheken worden aangegeven met een *</translation>
     </message>
 </context>
 <context>
@@ -9509,7 +9509,7 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation>Lettertypen &amp;inbedden</translation>
+        <translation>Fontn &amp;inbedden</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -9526,7 +9526,7 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     <name>CwSetColor</name>
     <message>
         <source>Set Color Components</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellen kleurcomponenten</translation>
     </message>
     <message>
         <source>CMYK</source>
@@ -9582,15 +9582,15 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     </message>
     <message>
         <source>Set &amp;RGB</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellen &amp;RGB</translation>
     </message>
     <message>
         <source>Set C&amp;MYK</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellen C&amp;MYK</translation>
     </message>
     <message>
         <source>Set &amp;HSV</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellen &amp;HSV</translation>
     </message>
 </context>
 <context>
@@ -9698,11 +9698,11 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     <name>DmF</name>
     <message>
         <source>Missing Font</source>
-        <translation type="obsolete">Ontbrekend lettertype</translation>
+        <translation type="obsolete">Ontbrekend font</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">Het lettertype %1 is niet geinstalleerd.</translation>
+        <translation type="obsolete">Het font %1 is niet geinstalleerd.</translation>
     </message>
     <message>
         <source>Use</source>
@@ -9890,38 +9890,38 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>The person or organisation primarily responsible for making the content of the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Persoon of organisatie verantwoordelijk voor de inhoud van het document. Dit veld kan worden ingesloten in het Scribus document ter referentie, alsmede in de PDF metadata</translation>
     </message>
     <message>
         <source>A name given to the document. This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam van een document. Dit veld kan worden ingebed in het Scribus document ter referentie, evenals in de PDF metadata</translation>
     </message>
     <message>
         <source>An account of the content of the document. This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="unfinished"></translation>
+        <translation>Omschrijving van de inhoud van het document. Dit veld is een korte omschrijving van het document. Wordt bij export naar PDF ingebed</translation>
     </message>
     <message>
         <source>The topic of the content of the document. This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="unfinished"></translation>
+        <translation>Trefwoorden over de inhoud van het document. Dit veld is voor trefwoorden die in een PDF moeten worden ingebd, om zoeken en indexeren van PDF bestanden eenvoudiger te maken</translation>
     </message>
     <message>
         <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting. RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="unfinished"></translation>
+        <translation>Fysieke of digitale staat van het document. Media type en afmetingen zijn goed om te vermelden evenals RFC2045,RFC2046 for MIME types</translation>
     </message>
     <message>
         <source>The language in which the content of the document is written, usually a ISO-639 language code optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="unfinished"></translation>
+        <translation>De taal waarin de inhoud van het document is geschreven, vaak wordt een ISO-639 taalcode geschreven met een afbreekstreepje en een ISO-3166 landcode, als en-GB, fr-CH</translation>
     </message>
 </context>
 <context>
     <name>DocSections</name>
     <message>
         <source>Add a page numbering section to the document. The new section will be added after the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg een sectie voor paginanummering toe aan het document. De nieuwe sectie wordt toegevoegd na de huidige geselecteerde sectie.</translation>
     </message>
     <message>
         <source>Delete the currently selected section.</source>
-        <translation type="unfinished"></translation>
+        <translation>Wis de geselecteerde sectie.</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
@@ -9945,22 +9945,22 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Naam:&lt;/b&gt;Optionele naam voor sectie bijv. Index&lt;br/&gt;&lt;b&gt;Getoond:&lt;/b&gt;Selecteer om paginanummers in deze sectie tonen als dit voor meerdere tekstframes geldt.&lt;br/&gt;Van:&lt;/b&gt;De start van de pagina index voor deze sectie.&lt;br/&gt;&lt;b&gt;Tot:&lt;/b&gt;Het eind van de pagina index voor deze sectie.&lt;br/&gt;&lt;b&gt;Stijl:&lt;/b&gt; Selecteer de te gebruiken stijl voor de paginanummering.&lt;br/&gt;&lt;b&gt;Start:,/b&gt; De index waarbinnen binnen de nummeringsstijl moet worden gestart. Bijv. Als Start=2 en Stijl=a,b,c,..., zal de nummering beginnen bij b. Voor de eerste sectie in het document zal dit het oudere Eerste Pagina Nummer in het nieuwe bestandsvenster vervangen.</translation>
     </message>
     <message>
         <source>Page Number Out Of Bounds</source>
-        <translation type="unfinished"></translation>
+        <translation>Paginanummer buiten bereik</translation>
     </message>
     <message>
         <source>The value you have entered is outside the range of page numbers in the current document (%1-%2).</source>
-        <translation type="unfinished"></translation>
+        <translation>De ingevoerde waarde ligt buiten de waarde van de paginanummering in dit document (%1-%2).</translation>
     </message>
 </context>
 <context>
     <name>DocSectionsBase</name>
     <message>
         <source>Document Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Document Secties</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10000,7 +10000,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Shown</source>
-        <translation type="unfinished"></translation>
+        <translation>Getoond</translation>
     </message>
 </context>
 <context>
@@ -10023,7 +10023,7 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Text Frames</source>
-        <translation>Tekstframe</translation>
+        <translation>Tekstframes</translation>
     </message>
     <message>
         <source>Image Frames</source>
@@ -10090,14 +10090,14 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     </message>
     <message>
         <source>Real Number</source>
-        <translation type="unfinished"></translation>
+        <translation>Getal</translation>
     </message>
 </context>
 <context>
     <name>DocumentItemAttributesBase</name>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Document Item attributen</translation>
     </message>
     <message>
         <source>Name</source>
@@ -10330,7 +10330,7 @@ Een * staat voor alle pagina&apos;s.</translation>
     </message>
     <message>
         <source>Set Media Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Papierformaat instellen</translation>
     </message>
     <message>
         <source>Color</source>
@@ -10338,11 +10338,11 @@ Een * staat voor alle pagina&apos;s.</translation>
     </message>
     <message>
         <source>Apply Under Color Removal</source>
-        <translation type="unfinished"></translation>
+        <translation>Onderliggende kleurvlakken verwijderen</translation>
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Steunkleuren naar Process kleuren omzetten</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
@@ -10359,7 +10359,8 @@ Een * staat voor alle pagina&apos;s.</translation>
     <message>
         <source>Sets the PostScript Level.
  Setting to Level 1 or 2 can create huge files</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt het PostScript Level in.
+Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed
@@ -10381,15 +10382,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik een alternatieve print manager, bijvoorbeeld kprinter of gtklp, voor additionele opties</translation>
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Een manier om uit cyaan, geel en magenta samengestelde tonen door zwarte tonen te vervangen. UCR heeft het meeste effect op delen van afbeeldingen met neutrale of grijsachtige tonen. Gebruik hiervan kan afdrukken van bepaalde afbeeldingen verbeteren. UCR reduceert de mogelijkheid van oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Uitsluitend te gebuiken bij het laten drukken van steunkleuren in een drukkerij.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -10397,11 +10398,11 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Geef hiermee het papierformaat in het PostScript bestand aan. Wordt niet aanbevolen tenzij de drukker hier uitdrukkelijk om vraagt.</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Afsnijden bij paginarand</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page or exported file</source>
@@ -10413,7 +10414,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins on the printed page</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg objecten buiten de marges van de pagina</translation>
     </message>
 </context>
 <context>
@@ -10478,7 +10479,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>&amp;Font:</source>
-        <translation type="obsolete">&amp;Lettertype:</translation>
+        <translation type="obsolete">&amp;Font:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -10554,7 +10555,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Lettertype van object of geselecteerde tekst</translation>
+        <translation>Font van object of geselecteerde tekst</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -10638,7 +10639,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation type="unfinished"></translation>
+        <translation>Beginkapitaal</translation>
     </message>
     <message>
         <source>Distance from Text:</source>
@@ -10646,15 +10647,15 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Preview of the Paragraph Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Preview Alineastijl</translation>
     </message>
     <message>
         <source>Determines the gap between the DropCaps and the Text</source>
-        <translation type="unfinished"></translation>
+        <translation>Bepaalt ruimte tussen beginkapitaal en tekst</translation>
     </message>
     <message>
         <source>Toggles sample text of this paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Verwissel voorbeeldtekst van deze alineastijl</translation>
     </message>
     <message>
         <source>Name of the style is not unique</source>
@@ -10666,15 +10667,15 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecteer voor makkelijker lezen van licht gekleurde tekststijlen</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Handmatige tracking</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset ten opzichte van basislijn tekens</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
@@ -10780,7 +10781,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Radius:</translation>
     </message>
     <message>
         <source>Value:</source>
@@ -10788,7 +10789,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Posterize:</source>
-        <translation type="unfinished"></translation>
+        <translation>Poster effect:</translation>
     </message>
     <message>
         <source>Available Effects</source>
@@ -10796,7 +10797,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Blur</source>
-        <translation type="unfinished"></translation>
+        <translation>Vervagen</translation>
     </message>
     <message>
         <source>Brightness</source>
@@ -10804,7 +10805,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Colorize</source>
-        <translation type="unfinished"></translation>
+        <translation>Colorizeren</translation>
     </message>
     <message>
         <source>Contrast</source>
@@ -10816,15 +10817,15 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Invert</source>
-        <translation type="unfinished"></translation>
+        <translation>Inverteren</translation>
     </message>
     <message>
         <source>Posterize</source>
-        <translation type="unfinished"></translation>
+        <translation>Poster effect</translation>
     </message>
     <message>
         <source>Sharpen</source>
-        <translation type="unfinished"></translation>
+        <translation>Verscherpen</translation>
     </message>
     <message>
         <source>&gt;&gt;</source>
@@ -10974,7 +10975,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <name>ExtImageProps</name>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitgebreide afbeeldingseigenschappen</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -10990,11 +10991,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished"></translation>
+        <translation>Tint</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Verzadiging</translation>
     </message>
     <message>
         <source>Color</source>
@@ -11002,11 +11003,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished"></translation>
+        <translation>Helderheid</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished"></translation>
+        <translation>Vermenigvuldig</translation>
     </message>
     <message>
         <source>Screen</source>
@@ -11018,7 +11019,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished"></translation>
+        <translation>Maskerlaag</translation>
     </message>
     <message>
         <source>Hard Light</source>
@@ -11034,27 +11035,27 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitsluiting</translation>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur tegenhouden</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur doordrukken</translation>
     </message>
     <message>
         <source>Exlusion</source>
-        <translation type="unfinished"></translation>
+        <translation>Uitsluiting</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vermeng Mode:</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished"></translation>
+        <translation>Doorschijnendheid:</translation>
     </message>
     <message>
         <source> %</source>
@@ -11259,7 +11260,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
-        <translation>Enkele in dit document gebruikte lettertypen zijn vervangen:</translation>
+        <translation>Enkele in dit document gebruikte fonts zijn vervangen:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -11270,15 +11271,15 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <name>FontPrefs</name>
     <message>
         <source>Global Font Settings</source>
-        <translation type="obsolete">Algemene lettertype-instellingen</translation>
+        <translation type="obsolete">Algemene font-instellingen</translation>
     </message>
     <message>
         <source>Available Fonts</source>
-        <translation>Beschikbare lettertypen</translation>
+        <translation>Beschikbare fonts</translation>
     </message>
     <message>
         <source>Font Substitutions</source>
-        <translation>Lettertype-vervangingen</translation>
+        <translation>Font-vervangingen</translation>
     </message>
     <message>
         <source>Additional Paths</source>
@@ -11294,11 +11295,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Lettertype Naam</translation>
+        <translation>Font Naam</translation>
     </message>
     <message>
         <source>Use Font</source>
-        <translation type="obsolete">Lettertype gebruiken</translation>
+        <translation type="obsolete">Font gebruiken</translation>
     </message>
     <message>
         <source>Embed in:</source>
@@ -11314,11 +11315,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Path to Font File</source>
-        <translation type="obsolete">Pad naar lettertypebestand</translation>
+        <translation type="obsolete">Pad naar fontbestand</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
-        <translation>Beschikbare &amp;lettertypen</translation>
+        <translation>Beschikbare &amp;fonts</translation>
     </message>
     <message>
         <source>Replacement</source>
@@ -11330,7 +11331,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font &amp;Substitutions</source>
-        <translation>Lettertype-&amp;vervangingen</translation>
+        <translation>Font-&amp;vervangingen</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
@@ -11363,12 +11364,12 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation>Lettertype Naam</translation>
+        <translation>Font Naam</translation>
     </message>
     <message>
         <source>Use Font</source>
         <comment>font preview</comment>
-        <translation>Lettertype gebruiken</translation>
+        <translation>Font gebruiken</translation>
     </message>
     <message>
         <source>Embed in:</source>
@@ -11383,7 +11384,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Path to Font File</source>
         <comment>font preview</comment>
-        <translation>Pad naar lettertypebestand</translation>
+        <translation>Pad naar fontbestand</translation>
     </message>
     <message>
         <source>PostScript</source>
@@ -11391,14 +11392,14 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation type="unfinished"></translation>
+        <translation>Het pad naar fonts kan alleen als er geen document geopend is worden ingesteld in Voorkeuren. Sluit alle open documenten, en gebruik Edit-&gt;Settings om het pad naar het font aan te passen.</translation>
     </message>
 </context>
 <context>
     <name>FontPreview</name>
     <message>
         <source>Fonts Preview</source>
-        <translation type="obsolete">Lettertypevoorbeeld</translation>
+        <translation type="obsolete">Fontvoorbeeld</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -11422,7 +11423,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
-        <translation type="obsolete">Het geselecteerde lettertype toevoegen aan het menu Stijl, Lettertype</translation>
+        <translation type="obsolete">Het geselecteerde font toevoegen aan het menu Stijl, Font</translation>
     </message>
     <message>
         <source>Leave preview</source>
@@ -11431,7 +11432,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Font Name</source>
         <comment>font preview</comment>
-        <translation type="obsolete">Lettertype Naam</translation>
+        <translation type="obsolete">Font Naam</translation>
     </message>
     <message>
         <source>Type</source>
@@ -11456,7 +11457,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Fonts Preview</source>
         <comment>font preview</comment>
-        <translation type="obsolete">Lettertypevoorbeeld</translation>
+        <translation type="obsolete">Fontvoorbeeld</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -11476,7 +11477,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Append selected font into Style, Font menu</source>
         <comment>font preview</comment>
-        <translation>Het geselecteerde lettertype toepassen in het menu Stijl, Lettertype</translation>
+        <translation>Het geselecteerde font toepassen in het menu Stijl, Font</translation>
     </message>
     <message>
         <source>Leave preview</source>
@@ -11486,11 +11487,11 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
-        <translation type="unfinished">Woven silk pyjamas exchanged for blue quartz</translation>
+        <translation>Sexy qua lijf, doch bang voor &apos;t zwempak</translation>
     </message>
     <message>
         <source>Font Size:</source>
-        <translation type="obsolete">Afmeting Lettertype:</translation>
+        <translation type="obsolete">Afmeting Font:</translation>
     </message>
     <message>
         <source>&amp;Search</source>
@@ -11502,22 +11503,22 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Size of the selected font</source>
-        <translation>Grootte van geselecteerde lettertype</translation>
+        <translation>Grootte van geselecteerde font</translation>
     </message>
     <message>
         <source>Sample will be shown after key release</source>
-        <translation type="unfinished">Voorbeeld wordt getoond nadat toets is ingedrukt</translation>
+        <translation>Voorbeeld wordt getoond nadat toets is losgelaten</translation>
     </message>
     <message>
         <source>Typing the text here provides quick searching in the font names. Searching is case insensitive. You can provide a common wild cards (*, ?, [...]) in your phrase. Examples: t* will list all fonts starting with t or T. *bold* will list all fonts with word bold, bolder etc. in the name.</source>
-        <translation>De tekst hier getyped zal snel gezocht worden in de lettertypenamen. Zoeken is hoofdletterongevoelig. U kunt gebruik maken van wildcards (*, ?, [...]) in de tekst. Voorbeeld: t* zal alle lettertypen beginnend met t of T opsommen. *bold* zal alle lettertypen met het woord bold, bolder enz. opsommen.</translation>
+        <translation>De tekst hier getyped zal snel gezocht worden in de fontnamen. Zoeken is hoofdletterongevoelig. U kunt gebruik maken van wildcards (*, ?, [...]) in de tekst. Voorbeeld: t* zal alle fonts beginnend met t of T opsommen. *bold* zal alle fonts met het woord bold, bolder enz. opsommen.</translation>
     </message>
 </context>
 <context>
     <name>FontPreviewBase</name>
     <message>
         <source>Fonts Preview</source>
-        <translation>Lettertypevoorbeeld</translation>
+        <translation>Fontvoorbeeld</translation>
     </message>
     <message>
         <source>&amp;Quick Search:</source>
@@ -11533,7 +11534,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Font Name</source>
-        <translation>Lettertypenaam</translation>
+        <translation>Fontnaam</translation>
     </message>
     <message>
         <source>Doc</source>
@@ -11596,30 +11597,30 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <name>FontPreviewPlugin</name>
     <message>
         <source>&amp;Font Preview...</source>
-        <translation>&amp;Lettertypeweergave...</translation>
+        <translation>&amp;Fontweergave...</translation>
     </message>
     <message>
         <source>Font Preview dialog</source>
-        <translation>Lettertypevoorbeeldvenster</translation>
+        <translation>Fontvoorbeeldvenster</translation>
     </message>
     <message>
         <source>Sorting, searching and browsing available fonts.</source>
-        <translation>Sorteer, zoek en blader door beschikbare lettertypen.</translation>
+        <translation>Sorteer, zoek en blader door beschikbare fonts.</translation>
     </message>
 </context>
 <context>
     <name>FontReplaceDialog</name>
     <message>
         <source>Font Substitution</source>
-        <translation>Lettertypevervanging</translation>
+        <translation>Fontvervanging</translation>
     </message>
     <message>
         <source>Original Font</source>
-        <translation>Orginele lettertype</translation>
+        <translation>Orginele font</translation>
     </message>
     <message>
         <source>Substitution Font</source>
-        <translation>Vervangend lettertype</translation>
+        <translation>Vervangend font</translation>
     </message>
     <message>
         <source>Make these substitutions permanent</source>
@@ -11627,15 +11628,15 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>This document contains some fonts that are not installed on your system, please choose a suitable replacement for them. Cancel will stop the document from loading.</source>
-        <translation>Dit document bevat enkele lettertypen die niet op uw systeem geïnstalleerd zijn, kies een vervangend lettertype voor ze. Annuleren stop het laden van dit document.</translation>
+        <translation>Dit document bevat enkele fonts die niet op uw systeem geïnstalleerd zijn, kies een vervangend font voor ze. Annuleren stop het laden van dit document.</translation>
     </message>
     <message>
         <source>Cancels these font substitutions and stops loading the document.</source>
-        <translation>Annuleert de lettertypevervanging en stopt het laden van het document.</translation>
+        <translation>Annuleert de fontvervanging en stopt het laden van het document.</translation>
     </message>
     <message>
         <source>Enabling this tells Scribus to use these replacements for missing fonts permanently in all future layouts. This can be reverted or changed in Edit &gt; Preferences &gt; Fonts.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bij inschakelen zal Scribus deze vervangingen voor ontbrekende fonts permanent gebruiken in toekomstige layouts. Dit kan ongedaan worden gemaakt of aangepast worden in Bestand&gt; Voorkeuren&gt; Fonts.</translation>
     </message>
     <message>
         <source>If you select OK, then save, these substitutions are made permanent in the document.</source>
@@ -11749,7 +11750,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Refer to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Refereer aan:</translation>
     </message>
     <message>
         <source>&amp;Page</source>
@@ -11774,7 +11775,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Set the guides in document. Guide manager is still opened but the changes are persistant</source>
         <comment>guide manager</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stel hulplijnen in document in. Hulplijnen manager is geopend, maar wijzigingen zijn doorgevoerd</translation>
     </message>
     <message>
         <source>&amp;Apply to All Pages</source>
@@ -11786,7 +11787,7 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
     <message>
         <source>Unit</source>
-        <translation type="unfinished"></translation>
+        <translation>Maateenheid</translation>
     </message>
     <message>
         <source>Preview</source>
@@ -12002,7 +12003,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
         <source>Has Embedded Profile:</source>
-        <translation type="unfinished">Heeft ingebed profiel:</translation>
+        <translation>Heeft ingebed profiel:</translation>
     </message>
     <message>
         <source>Yes</source>
@@ -12018,7 +12019,7 @@ De waarde 0 betekent onbeperkt.</translation>
     </message>
     <message>
         <source>Has Embedded Paths:</source>
-        <translation type="unfinished">Heeft ingebedde paden:</translation>
+        <translation>Heeft ingebedde paden:</translation>
     </message>
     <message>
         <source>Has Layers:</source>
@@ -12276,7 +12277,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Adds a new Script, predefines a function with the same name. If you want to use this script as an &quot;Open Action&quot; script be sure not to change the name of the function.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voegt een nieuw Script toe, benoemt een functie met dezelfde naam. Als u dit script als een &quot;Open Actie&quot; script wilt gebruiken, verander dan de naam van de functie.</translation>
     </message>
 </context>
 <context>
@@ -12355,7 +12356,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
-        <translation type="unfinished">Laadbare sneltoetssets</translation>
+        <translation>Laadbare sneltoetssets</translation>
     </message>
     <message>
         <source>&amp;Load</source>
@@ -12371,7 +12372,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished">He&amp;rstel</translation>
+        <translation>He&amp;rstel</translation>
     </message>
     <message>
         <source>Keyboard shortcut sets available to load</source>
@@ -12395,7 +12396,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Key Set XML Files (*.ksxml)</source>
-        <translation type="unfinished">Key Set XML bestanden (*.ksxml)</translation>
+        <translation>Key Set XML bestanden (*.ksxml)</translation>
     </message>
     <message>
         <source>This key sequence is already in use</source>
@@ -12571,47 +12572,47 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Flat Cap</source>
-        <translation type="unfinished"></translation>
+        <translation>Plat eind</translation>
     </message>
     <message>
         <source>Square Cap</source>
-        <translation type="unfinished"></translation>
+        <translation>Vierkant eind</translation>
     </message>
     <message>
         <source>Round Cap</source>
-        <translation type="unfinished"></translation>
+        <translation>Rond eind</translation>
     </message>
     <message>
         <source>Miter Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Verstekverbinding</translation>
     </message>
     <message>
         <source>Bevel Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Schuine verbinding</translation>
     </message>
     <message>
         <source>Round Join</source>
-        <translation type="unfinished"></translation>
+        <translation>Ronde verbinding</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijn</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Gestreepte lijn</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Stippellijn</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Streep-stip lijn</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished"></translation>
+        <translation>Streep-stip-stip lijn</translation>
     </message>
 </context>
 <context>
@@ -12633,7 +12634,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Get More:</source>
-        <translation type="unfinished"></translation>
+        <translation>Meer verkrijgen:</translation>
     </message>
     <message>
         <source>XML File:</source>
@@ -12726,7 +12727,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Paginaeigenschappen bewerken</translation>
     </message>
     <message>
         <source>Page Size</source>
@@ -12821,7 +12822,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Preset Layouts:</source>
-        <translation type="unfinished">Layout:</translation>
+        <translation>Vooringestelde Layouts:</translation>
     </message>
     <message>
         <source>Apply margin settings to all pages</source>
@@ -12833,11 +12834,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Afstand tussen de rand van de pagina en de linkermarge. Als Tegenoverliggende Pagina&apos;s is geselecteerd, kan deze marge worden gebruikt om de juiste bindmarge te verkrijgen</translation>
     </message>
     <message>
         <source>Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="unfinished"></translation>
+        <translation>Afstand tussen de rand van de pagina en de rechtermarge. Als Tegenoverliggende Pagina&apos;s is geselecteerd, kan deze marge worden gebruikt om de juiste bindmarge te verkrijgen</translation>
     </message>
     <message>
         <source>Printer Margins...</source>
@@ -13163,11 +13164,11 @@ Een * staat voor alle pagina&apos;s.</translation>
     <name>MissingFont</name>
     <message>
         <source>Missing Font</source>
-        <translation>Missend lettertype</translation>
+        <translation>Missend font</translation>
     </message>
     <message>
         <source>The Font %1 is not installed.</source>
-        <translation>Lettertype %1 is niet geïnstalleerd.</translation>
+        <translation>Font %1 is niet geïnstalleerd.</translation>
     </message>
     <message>
         <source>Use</source>
@@ -13175,7 +13176,7 @@ Een * staat voor alle pagina&apos;s.</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation type="unfinished">in de plaats</translation>
+        <translation>in plaats van</translation>
     </message>
     <message>
         <source>&amp;OK</source>
@@ -13643,7 +13644,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
-        <translation>Lettertype van geselecteerde tekst of object</translation>
+        <translation>Font van geselecteerde tekst of object</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -13885,15 +13886,15 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Offset to baseline of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Offset ten opzichte van basislijn tekens</translation>
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaalhoogte van tekens</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Handmatige tracking</translation>
     </message>
     <message>
         <source>Name &quot;%1&quot; isn&apos;t unique.&lt;br/&gt;Please choose another.</source>
@@ -13901,7 +13902,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Fill Rule</source>
-        <translation type="unfinished"></translation>
+        <translation>Vulmethode</translation>
     </message>
     <message>
         <source>Even-Odd</source>
@@ -13913,27 +13914,27 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Color of text stroke and/or drop shadow, depending which is chosen.If both are chosen, then they share the same color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur van tekstomlijning en/of valschaduw, afhankelijk van welke is gekozen. Als beiden zijn gekozen, gebruiken ze dezelfde kleur.</translation>
     </message>
     <message>
         <source>Color of selected text. If Outline text decoration is enabled, this color will be the fill color. If Drop Shadow Text is enabled, then this will be the top most color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur van de geselecteerde tekst. Als Outline tekt decoratie is ingeschakeld, zal deze kleur de vulkleur zijn. Als Valschaduw Tekst is ingeschakeld, is dit de bovenliggende kleur.</translation>
     </message>
     <message>
         <source>Click to select the line spacing mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Klik om regelspatiëringsmodus te selecteren</translation>
     </message>
     <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Laat tekst in onderliggende frames rond het object lopen. De opties hieronder beschrijven hoe dit is toegepast.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik de omliggende rechthoek, in plaats van de vorm van het frame voor de tekstomloop.</translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik een tweede lijn gebaseerd om de vorm van het frame voor tekstomloop onder het object.</translation>
     </message>
 </context>
 <context>
@@ -14447,7 +14448,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
-        <translation type="unfinished"></translation>
+        <translation>Begin een document vanuit een sjabloon gemaakt door anderen of uzelf.(zodat u meerdere documenten in dezelfde stijl kunt maken).</translation>
     </message>
 </context>
 <context>
@@ -14607,27 +14608,27 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>When checked use coordinates relative to the page, otherwise coordinates are relative to the Object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Als aangevinkt; gebruik coordinaten gerelateerd aan de pagina, anders relatief aan het object.</translation>
     </message>
     <message>
         <source>Shrink the Size of the Path by shown %</source>
-        <translation type="unfinished"></translation>
+        <translation>Verklein Pad met getoonde %</translation>
     </message>
     <message>
         <source>Reduce the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation>Verklein het formaat van het pad me de getoonde waarde</translation>
     </message>
     <message>
         <source>Enlarge the Size of the Path by the shown value</source>
-        <translation type="unfinished"></translation>
+        <translation>Vergroot het formaat van het pad met de getoonde waarde</translation>
     </message>
     <message>
         <source>% to Enlarge or Shrink By</source>
-        <translation type="unfinished"></translation>
+        <translation>% te vergroten of te verkleinen</translation>
     </message>
     <message>
         <source>Value to Enlarge or Shrink By</source>
-        <translation type="unfinished"></translation>
+        <translation>Waarde om te vergroten of te verkleinen</translation>
     </message>
 </context>
 <context>
@@ -14674,7 +14675,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee worden bestaande stijlen in het huidige Scribus document overschreven</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
@@ -14682,7 +14683,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg de alineastijl samen op basis van attributen. Dit resulteert in een minder aantal op elkaar lijkende alineastijlen, zelfs als de originele stijlen anders zijn genoemd.</translation>
     </message>
     <message>
         <source>Use document name as a prefix for paragraph styles</source>
@@ -14690,7 +14691,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg documtennaam toe aan de alineastijlnaam in Scribus.</translation>
     </message>
     <message>
         <source>Do not ask again</source>
@@ -14698,7 +14699,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OASIS OpenDocument.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak deze instellingen standaard, vraag niet opnieuw bij importeren van een OASIS OpenDocument.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -14770,11 +14771,11 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>This enables exporting one individually named PDF file for each page in the document. Page numbers are added automatically. This is most useful for imposing PDF for commercial printing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee wordt van elke pagina van het een afzonderlijk genummerd PDF bestand gemaakt. Dit is een bruikbare methode voor maken van plaatsbare PDF&apos;s voor commercieel drukwerk.</translation>
     </message>
     <message>
         <source>The save button will be disabled if you are trying to export PDF/X-3 and the info string is missing from the PDF/X-3 tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>De Opslaan button wordt uitgeschakeld bij export naar PDF/X3 als de info string ontbreekt in de PDF/X3 tab.</translation>
     </message>
 </context>
 <context>
@@ -14913,7 +14914,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation type="obsolete">Beschikbare lettertypen:</translation>
+        <translation type="obsolete">Beschikbare fonts:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -14925,11 +14926,11 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation type="obsolete">In te bedden lettertypen:</translation>
+        <translation type="obsolete">In te bedden fonts:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="obsolete">&amp;Lettertypen</translation>
+        <translation type="obsolete">&amp;Fontn</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
@@ -15314,7 +15315,7 @@ optie niet selecteert, worden afbeeldingen op hun eigen resolutie weergegeven.</
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Lettertypen inbedden in de PDF.  Hierdoor weet u zeker
+        <translation type="obsolete">Fontn inbedden in de PDF.  Hierdoor weet u zeker
 dat layout en uiterlijk bewaard zullen blijven.</translation>
     </message>
     <message>
@@ -15483,11 +15484,11 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation type="obsolete">&amp;Subset van alle lettertypen</translation>
+        <translation type="obsolete">&amp;Subset van alle fonts</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="obsolete">Lettertypen om subset van te nemen:</translation>
+        <translation type="obsolete">Fontn om subset van te nemen:</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
@@ -15571,12 +15572,12 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
         <source>Provides a more pleasant view of text items in the viewer, at the expense
 of a slight slowdown in previewing. This only affects Type 1 fonts</source>
         <translation type="obsolete">Tekst ziet er beter uit met deze optie, maar de weergave wordt iets
-trager. Dit heeft alleen effect op Type 1 lettertypen</translation>
+trager. Dit heeft alleen effect op Type 1 fonts</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Tekst in TrueType of OpenType lettertypen, EPS-, PDF- en vectorafbeeldingen zien er
+        <translation type="obsolete">Tekst in TrueType of OpenType fonts, EPS-, PDF- en vectorafbeeldingen zien er
 beter uit met deze optie, maar de weergave wordt iets trager</translation>
     </message>
     <message>
@@ -15638,7 +15639,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
 vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Geeft een fraaiere weergave van True- en OpenType lettertypen, EPS, PDF en
+        <translation type="obsolete">Geeft een fraaiere weergave van True- en OpenType fonts, EPS, PDF en
 vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldopbouw</translation>
     </message>
     <message>
@@ -15675,11 +15676,11 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis. UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Een manier om uit cyaan, geel en magenta samengestelde tonen door zwarte tonen te vervangen. UCR heeft het meeste effect op delen van afbeeldingen met neutrale of grijsachtige tonen. Gebruik hiervan kan afdrukken van bepaalde afbeeldingen verbeteren. UCR reduceert de mogelijkheid van oververzadiging met CMY inkten. </translation>
     </message>
     <message>
         <source>Resize the scale of the page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas afdrukformaat aan.</translation>
     </message>
     <message>
         <source>Close</source>
@@ -15691,11 +15692,11 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Antialiasing toepassen</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Geeft een verbeterd beeld van Type 1 Fonts, TrueType Fonts, OpenType Fonts, EPS, PDF en vectorafbeeldingen in een preview</translation>
     </message>
 </context>
 <context>
@@ -16095,7 +16096,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <name>PageItemAttributesBase</name>
     <message>
         <source>Page Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina item attributen</translation>
     </message>
     <message>
         <source>Name</source>
@@ -16231,11 +16232,11 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <name>PageSize</name>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished"></translation>
+        <translation>Quarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished"></translation>
+        <translation>Folio</translation>
     </message>
     <message>
         <source>Letter</source>
@@ -16243,7 +16244,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>Government Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Government Letter</translation>
     </message>
     <message>
         <source>Legal</source>
@@ -16251,7 +16252,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>Ledger</source>
-        <translation>Ledger</translation>
+        <translation>Tabloid</translation>
     </message>
     <message>
         <source>Executive</source>
@@ -16259,39 +16260,39 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Post</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished"></translation>
+        <translation>Crown</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation type="unfinished"></translation>
+        <translation>Large Post</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Demy</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation type="unfinished"></translation>
+        <translation>Royal</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation type="unfinished"></translation>
+        <translation>Elephant</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Double Demy</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation type="unfinished"></translation>
+        <translation>Quad Demy</translation>
     </message>
     <message>
         <source>STMT</source>
@@ -16461,7 +16462,7 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <message>
         <source>init failed</source>
         <comment>plugin load error</comment>
-        <translation type="unfinished"></translation>
+        <translation>init mislukt</translation>
     </message>
     <message>
         <source>unknown plugin type</source>
@@ -16948,7 +16949,7 @@ een positieve waarde maakt haar convex</translation>
     </message>
     <message>
         <source>Default &amp;Font:</source>
-        <translation type="obsolete">Stan&amp;daardlettertype:</translation>
+        <translation type="obsolete">Stan&amp;daardfont:</translation>
     </message>
     <message>
         <source>Default &amp;Size:</source>
@@ -17280,7 +17281,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation type="obsolete">Verplaatsing boven de basislijn van een lettertype op een regel</translation>
+        <translation type="obsolete">Verplaatsing boven de basislijn van een font op een regel</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -17288,7 +17289,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="obsolete">Verplaatsing onder de basislijn van een lettertype op een regel</translation>
+        <translation type="obsolete">Verplaatsing onder de basislijn van een font op een regel</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -17300,7 +17301,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="obsolete">Toename van regelhoogte in procent van de waarde die het lettertype aangeeft</translation>
+        <translation type="obsolete">Toename van regelhoogte in procent van de waarde die het font aangeeft</translation>
     </message>
     <message>
         <source>Text Frame Properties</source>
@@ -17328,7 +17329,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation type="obsolete">Lettertype voor nieuwe tekstframes</translation>
+        <translation type="obsolete">Font voor nieuwe tekstframes</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
@@ -17348,7 +17349,7 @@ van uw document opslaan met de .bak-extensie</translation>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation type="obsolete">Voorbeeld van uw lettertype</translation>
+        <translation type="obsolete">Voorbeeld van uw font</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
@@ -17600,11 +17601,11 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbreekfunctie</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Lettertypen</translation>
+        <translation>Fontn</translation>
     </message>
     <message>
         <source>Color Management</source>
@@ -17644,7 +17645,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Kladblok</translation>
     </message>
     <message>
         <source>Plugins</source>
@@ -17652,35 +17653,35 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet weergave van frames aan of uit</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet weergave van afbeeldingen aan of uit</translation>
     </message>
     <message>
         <source>Document T&amp;emplates:</source>
-        <translation type="unfinished"></translation>
+        <translation>Document &amp;Sjablonen:</translation>
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight controle</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Document Item attributen</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhoudsopgave en indices</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Opmaaktekens tonen</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineaal relatief naar pagina</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
@@ -17696,7 +17697,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="unfinished"></translation>
+        <translation>Om in te stellen sleep het lineaal hieronder met de schuifbalk.</translation>
     </message>
     <message>
         <source>dpi</source>
@@ -17708,15 +17709,15 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation>Vraag altijd voordat lettertypen vervangen worden bij het laden van een document</translation>
+        <translation>Vraag altijd voordat fonts vervangen worden bij het laden van een document</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorbeeld van de huidige alineastijl zichtbaar tijdens bijwerken stijlen</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Opstart dialoog tonen</translation>
     </message>
     <message>
         <source>Lorem Ipsum</source>
@@ -17732,7 +17733,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Miscellaneous</source>
-        <translation type="unfinished"></translation>
+        <translation>Diversen</translation>
     </message>
     <message>
         <source>Type</source>
@@ -17756,27 +17757,27 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
-        <translation type="unfinished"></translation>
+        <translation>Additionele locatie voor documentsjablonen</translation>
     </message>
     <message>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="unfinished"></translation>
+        <translation>Plaats een lineaal tegen het scherm en stel met de slider het zoom-niveau in, zodat Scribus de pagina&apos;s en objecten in het correcte formaat weergeeft</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt ruimte in links van het document beschikbaar als werkblad voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt ruimte in rechts van het document beschikbaar als werkblad voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt ruimte in boven het document beschikbaar als werkblad voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt ruimte in onder het document beschikbaar als werkblad voor aanmaken en bewerken van objecten en het slepen van objecten naar de actieve pagina</translation>
     </message>
     <message>
         <source>Locate Ghostscript</source>
@@ -17784,55 +17785,55 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Locate your image editor</source>
-        <translation>Lokaliseer uw afbeeldingbewerker</translation>
+        <translation>Lokaliseer uw afbeeldingsbewerker</translation>
     </message>
     <message>
         <source>PostScript Interpreter</source>
-        <translation type="unfinished"></translation>
+        <translation>PostScript Interpreter</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet de weergave van gekoppelde frames aan of uit.</translation>
     </message>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies de standaardtaal voor gebruik van Scribus. Bij geen keuze wordt de keuze gemaakt op basis van het gebruikte systeem. Dit kan naderhand worden aangepast door een command line optie toe te passen bij de start van Scribus</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation>&amp;ettertypegrootte (Menu&apos;s):</translation>
+        <translation>&amp;Fontgrootte (Menu&apos;s):</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation>Lettertypegrootte (&amp;Palettes):</translation>
+        <translation>Fontgrootte (&amp;Palettes):</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies de standaard stijl voor Scribus. Scribus maakt gebruik van elk beschikbaar KDE of QT thema, als QT is geconfigureerd om KDE plugins te zoeken.</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaardtekengrootte voor gereedschappen venster</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard locatie voor ICC profielen. Kan niet worden aangepast bij een geopend document. Standaard zal Scribus in de systeemmappen zoek bij Mac OSX en Windows. Bij Linux en Unix zal Scribus zoeken in $home/.color/icc,/usr/share/color/icc en /usr/local/share/color/icc</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished"></translation>
+        <translation>Bij inschakeling zal Scribus aan het eind van de ingestelde tijd een backup van het bestand maken met de extensie .bak</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel het aantal te bewaren stappen in van de actiegeschiedenis. Bij instelling 0 is het aantal opgeslagen acties oneindig.</translation>
     </message>
     <message>
         <source>File system location for graphics editor. If you use gimp and your distro includes it, we recommend &apos;gimp-remote&apos;, as it allows you to edit the image in an already running instance of gimp.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pad naar systeem tekensoftware. Bij gebruik van GIMP, wordt &apos;gimp-remote&apos; aangeraden, de afbeelding kan dan in een reeds gestartte gimp worden bewerkt.</translation>
     </message>
     <message>
         <source>Add the path for the Ghostscript interpreter. On Windows, please note it is important to note you need to use the program named gswin32c.exe - NOT gswin32.exe. Otherwise, this maybe cause a hang when starting Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg pad toe naar Ghostscript interpreter. Bij Windows is het belangrijk op te letten dat gswin32c.exe en NIET gswin32.exe wordt ingesteld, Scribus kan dan mogeljk niet starten.</translation>
     </message>
 </context>
 <context>
@@ -17936,11 +17937,11 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>Golden Mean</source>
-        <translation type="unfinished">Gulden snede</translation>
+        <translation>Gulden snede</translation>
     </message>
     <message>
         <source>Nine Parts</source>
-        <translation type="unfinished"></translation>
+        <translation>Negen Delen</translation>
     </message>
     <message>
         <source>Gutenberg</source>
@@ -17948,7 +17949,7 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>You can select predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>U kunt hier een vooringestelde paginalayout selecteren. &apos;None&apos;&apos; laat de marges ongewijzigd. Gutenberg stelt marges in op de klassieke wijze. &apos;Magazine&apos; stelt alle marges in op dezelfde waarde. Leidend is Links/Binnen waarde.</translation>
     </message>
     <message>
         <source>None</source>
@@ -17988,7 +17989,7 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>&amp;Save Output...</source>
-        <translation type="unfinished"></translation>
+        <translation>Op&amp;slaan Output...</translation>
     </message>
     <message>
         <source>&amp;Script</source>
@@ -18000,19 +18001,19 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>This is derived from standard Python console so it contains some limitations esp. in the case of whitespaces. Please consult Scribus manual for more informations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit is een afgeleide van de standaard Python console en bevat beperkingen, speciaal in het geval van witruimten. Lees de Scribus handleiding voor meer informatie.</translation>
     </message>
     <message>
         <source>Script Console</source>
-        <translation type="unfinished">Scriptconsole</translation>
+        <translation>Scriptconsole</translation>
     </message>
     <message>
         <source>Write your commands here. A selection is processed as script</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer commando&apos;s hier in. Een selectie wordt als script uitgevoerd</translation>
     </message>
     <message>
         <source>Output of your script</source>
-        <translation type="unfinished"></translation>
+        <translation>Output van het script</translation>
     </message>
     <message>
         <source>Python Scripts (*.py)</source>
@@ -18020,7 +18021,7 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>Save the Python Commands in File</source>
-        <translation type="unfinished"></translation>
+        <translation>Sla Python commando&apos;s op in bestand</translation>
     </message>
     <message>
         <source>Warning</source>
@@ -18032,11 +18033,11 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
     </message>
     <message>
         <source>Save Current Output</source>
-        <translation type="unfinished">Bewaar huidige output</translation>
+        <translation>Bewaar huidige output</translation>
     </message>
     <message>
         <source>Open Python Script File</source>
-        <translation type="unfinished"></translation>
+        <translation>Open Python Script bestand</translation>
     </message>
 </context>
 <context>
@@ -18357,7 +18358,7 @@ Controleer het pad en de bestandsnaam.</translation>
     <name>QFontDialog</name>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Lettertype</translation>
+        <translation>&amp;Font</translation>
     </message>
     <message>
         <source>Font st&amp;yle</source>
@@ -18409,7 +18410,7 @@ Controleer het pad en de bestandsnaam.</translation>
     </message>
     <message>
         <source>Select Font</source>
-        <translation>Lettertype selecteren</translation>
+        <translation>Font selecteren</translation>
     </message>
 </context>
 <context>
@@ -18502,7 +18503,7 @@ Controleer het pad en de bestandsnaam.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Lettertypeweergave</translation>
+        <translation type="obsolete">&amp;Fontweergave</translation>
     </message>
     <message>
         <source>&amp;Insert Special</source>
@@ -18790,7 +18791,7 @@ Externe koppelingen
     </message>
     <message>
         <source>Font %1 is broken, discarding it</source>
-        <translation>Het lettertype %1 is beschadigd en wordt weggelaten</translation>
+        <translation>Het font %1 is beschadigd en wordt weggelaten</translation>
     </message>
     <message>
         <source>OO.o Writer Documents</source>
@@ -18951,12 +18952,12 @@ Externe koppelingen
     <message>
         <source>Cannot get font size of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan lettertypegrootte niet verkrijgen van non-tekst frame.</translation>
+        <translation>Kan fontgrootte niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get font of non-text frame.</source>
         <comment>python error</comment>
-        <translation>Kan lettertype niet verkrijgen van non-tekst frame.</translation>
+        <translation>Kan font niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot get text size of non-text frame.</source>
@@ -18996,7 +18997,7 @@ Externe koppelingen
     <message>
         <source>Alignment out of range. Use one of the scribus.ALIGN* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Uitlijning buiten bereik. Gebruik een van de scribus.ALIGN* constanten.</translation>
     </message>
     <message>
         <source>Selection index out of bounds</source>
@@ -19006,7 +19007,7 @@ Externe koppelingen
     <message>
         <source>Unit out of range. Use one of the scribus.UNIT_* constants.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Eenheid buiten bereik. Gebruik een van de scribus.UNIT_* constanten.</translation>
     </message>
     <message>
         <source>Target is not an image frame.</source>
@@ -19073,12 +19074,12 @@ Externe koppelingen
     <message>
         <source>Short Words processing. Wait please...</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte woorden in bewerking. Wachten aub...</translation>
     </message>
     <message>
         <source>Short Words processing. Done.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Korte woorden in bewerking. Gereed.</translation>
     </message>
     <message>
         <source>Afrikaans</source>
@@ -19114,7 +19115,7 @@ Externe koppelingen
     <message>
         <source>&apos;allTypes&apos; attribute is READ-ONLY</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>&apos;allTypes&apos; attribuut is ALLEEN LEZEN</translation>
     </message>
     <message>
         <source>Failed to export image</source>
@@ -19129,22 +19130,22 @@ Externe koppelingen
     <message>
         <source>Specified item not an image frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Item is geen afbeeldingsframe.</translation>
     </message>
     <message>
         <source>Font not found.</source>
         <comment>python error</comment>
-        <translation>Lettertype niet gevonden.</translation>
+        <translation>Font niet gevonden.</translation>
     </message>
     <message>
         <source>Cannot render an empty sample.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen leeg voorbeeld renderen.</translation>
     </message>
     <message>
         <source>Cannot have an empty layer name.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Naam van de laag ontbreekt.</translation>
     </message>
     <message>
         <source>Layer not found.</source>
@@ -19164,37 +19165,37 @@ Externe koppelingen
     <message>
         <source>Insert index out of bounds.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>In te voegen index buiten bereik.</translation>
     </message>
     <message>
         <source>Cannot set text alignment on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan regeluitlijning niet verkrijgen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Font size out of bounds - must be 1 &lt;= size &lt;= 512.</source>
         <comment>python error</comment>
-        <translation>Lettertypegrootte buiten bereik - moet 1 &lt;= grootte &lt;= 512 zijn.</translation>
+        <translation>Fontgrootte buiten bereik - moet 1 &lt;= grootte &lt;= 512 zijn.</translation>
     </message>
     <message>
         <source>Cannot set font size on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan fontgrootte niet instellen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot set font on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan font niet instellen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Line space out of bounds, must be &gt;= 0.1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Spatiëring buiten bereik, moet zijn &gt;= 0.1.</translation>
     </message>
     <message>
         <source>Cannot set line spacing on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan regelspaciering niet instellen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Column gap out of bounds, must be positive.</source>
@@ -19204,77 +19205,77 @@ Externe koppelingen
     <message>
         <source>Cannot set column gap on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kolomruimte niet instellen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Column count out of bounds, must be &gt; 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kolomtelling buiten bereik, moet &gt; 1 zijn.</translation>
     </message>
     <message>
         <source>Cannot set number of columns on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan aantal kolommen niet instellen in non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot select text in a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekst niet selecteren in non-tekst frame</translation>
     </message>
     <message>
         <source>Cannot delete text from a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekst niet wissen in een non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot set text fill on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tekenvulkleur niet instellen in een non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot set text stroke on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan kleur tekenomlijning niet instellen in een non-tekst frame.</translation>
     </message>
     <message>
         <source>Cannot set text shade on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan tint tekst niet instellen in een non-tekst frame.</translation>
     </message>
     <message>
         <source>Can only link text frames.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan alleen tekstframes verbinden.</translation>
     </message>
     <message>
         <source>Target frame must be empty.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Doel frame moet leeg zijn.</translation>
     </message>
     <message>
         <source>Target frame links to another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Doel frame linkt naar ander frame.</translation>
     </message>
     <message>
         <source>Target frame is linked to by another frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Naar doelframe wordt gelinkt door ander frame.</translation>
     </message>
     <message>
         <source>Source and target are the same object.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bron en doel zijn het zelfde object.</translation>
     </message>
     <message>
         <source>Cannot unlink a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan een non-tekst frame niet loskoppelen.</translation>
     </message>
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan een non-tekst frame niet naar outlines omzetten.</translation>
     </message>
     <message>
         <source>Page</source>
@@ -19360,145 +19361,145 @@ Externe koppelingen
     </message>
     <message>
         <source>Argument must be page item name, or PyCObject instance</source>
-        <translation type="unfinished"></translation>
+        <translation>Argument moet een pagina item naam zijn, of PyCObject instance</translation>
     </message>
     <message>
         <source>Property not found</source>
-        <translation type="unfinished">Eigenschap niet gevonden</translation>
+        <translation>Eigenschap niet gevonden</translation>
     </message>
     <message>
         <source>Child not found</source>
-        <translation type="unfinished"></translation>
+        <translation>Child niet gevonden</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert result type &apos;%1&apos;.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan niet omzetten resultaat type &apos;%1&apos;.</translation>
     </message>
     <message>
         <source>Property type &apos;%1&apos; not supported</source>
-        <translation type="unfinished"></translation>
+        <translation>Eigenschap type &apos;%1&apos; niet ondersteunt</translation>
     </message>
     <message>
         <source>Couldn&apos;t convert &apos;%1&apos; to property type &apos;%2&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan &apos;%1&apos; eigenschap niet omzetten naar type &apos;%2&apos;</translation>
     </message>
     <message>
         <source>Types matched, but setting property failed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Types komen overeen, maar instellen eigenschappen lukt niet.</translation>
     </message>
     <message>
         <source>Unable to save pixmap</source>
         <comment>scripter error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan pixmap niet opslaan</translation>
     </message>
     <message>
         <source>An object with the requested name already exists.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Een object met deze naam bestaat reeds.</translation>
     </message>
     <message>
         <source>Point list must contain at least two points (four values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Puntenlijst moet tenminste twee punten bevatten (vier waarden).</translation>
     </message>
     <message>
         <source>Point list must contain an even number of values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Puntenlijst moet een even aantal waarden bevatten.</translation>
     </message>
     <message>
         <source>Point list must contain at least three points (six values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Puntenlijst moet tenminste drie punten bevatten (zes waarden).</translation>
     </message>
     <message>
         <source>Point list must contain at least four points (eight values).</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Puntenlijst moet tenminste vier punten bevatten (acht waarden).</translation>
     </message>
     <message>
         <source>Point list must have a multiple of six values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Puntenlijst moet een veelvoud van zes waarden bevatten.</translation>
     </message>
     <message>
         <source>Object not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Object niet gevonden.</translation>
     </message>
     <message>
         <source>Style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Stijl niet gevonden.</translation>
     </message>
     <message>
         <source>Cannot set style on a non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan stijl niet instellen van non-tekst frame.</translation>
     </message>
     <message>
         <source>Failed to save EPS.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Opslaan van EPS mislukt.</translation>
     </message>
     <message>
         <source>Page number out of range.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Paginanummer buiten bereik.</translation>
     </message>
     <message>
         <source>argument is not list: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argument is geen lijst: moet een lijst van zwevende waarden (float values) zijn.</translation>
     </message>
     <message>
         <source>argument contains non-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argument bevat niet-nummerieke waarden: moet een lijst van zwevende waarden (float values) zijn.</translation>
     </message>
     <message>
         <source>argument contains no-numeric values: must be list of float values.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>argument bevat niet-nummerieke waarden: moet een lijst van zwevende waarden (float values) zijn.</translation>
     </message>
     <message>
         <source>Line width out of bounds, must be 0 &lt;= line_width &lt;= 12.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijnbreedte buiten bereik, moet zijn 0 &lt;= line_width &lt;=12.</translation>
     </message>
     <message>
         <source>Line shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijn tint buiten bereik, moet zijn 0 &lt;= shade &lt;=100.</translation>
     </message>
     <message>
         <source>Fill shade out of bounds, must be 0 &lt;= shade &lt;= 100.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Vul tint buiten bereik, moet zijn 0 &lt;= shade &lt;=100.</translation>
     </message>
     <message>
         <source>Line style not found.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Lijn stijl niet gevonden.</translation>
     </message>
     <message>
         <source>Object is not a linked text frame, can&apos;t unlink.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Object is een niet gekoppeld tekst frame, kan niet ontkoppelen.</translation>
     </message>
     <message>
         <source>Object the last frame in a series, can&apos;t unlink. Unlink the previous frame instead.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Object is het laatste frame van een serie. Ontkoppel het eerdere frame.</translation>
     </message>
     <message>
         <source>Only text frames can be checked for overflowing</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alleeen tekst frames kunnen worden gecontroleerd op overloop</translation>
     </message>
     <message>
         <source>&amp;Script</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Script</translation>
     </message>
     <message>
         <source>Croatian</source>
@@ -19546,152 +19547,152 @@ Externe koppelingen
     </message>
     <message>
         <source>Could not open output file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan output bestand %1 niet openen</translation>
     </message>
     <message>
         <source>Output stream not writeable</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan output stream %1 niet schrijven</translation>
     </message>
     <message>
         <source>Verification of settings failed: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Verificatie van instellingen mislukt: %1</translation>
     </message>
     <message>
         <source>Could not open input file %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan input bestand %1 niet openen</translation>
     </message>
     <message>
         <source>Unable to read settings XML:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan XML instellingen niet lezen:</translation>
     </message>
     <message>
         <source>%1 (line %2 col %3)</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 [line %2 col %3)</translation>
     </message>
     <message>
         <source>Unable to read settings XML: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan XML instellingen niet lezen: %1</translation>
     </message>
     <message>
         <source>null root node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>null root node</translation>
     </message>
     <message>
         <source>&lt;pdfVersion&gt; invalid</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>&lt;pdfVersion&gt; niet correct</translation>
     </message>
     <message>
         <source>found %1 &lt;%2&gt; nodes, need 1.</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>gevonden %1 &lt;%2&gt; nodes, benodigd 1.</translation>
     </message>
     <message>
         <source>unexpected null &lt;%2&gt; node</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>onverwachte null &lt;%2&gt; node</translation>
     </message>
     <message>
         <source>node &lt;%1&gt; not an element</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>node &lt;%1&gt; is geen element</translation>
     </message>
     <message>
         <source>element &lt;%1&gt; lacks `value&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>in element &lt;%1&gt; ontbreekt &apos;value&apos; attribuut</translation>
     </message>
     <message>
         <source>element &lt;%1&gt; value must be `true&apos; or `false&apos;</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>element &lt;%1&gt; moet waarde &apos;true&apos; of &apos;false&apos; zijn</translation>
     </message>
     <message>
         <source>element &lt;lpiSettingsEntry&gt; lacks `name&apos; attribute</source>
         <comment>Load PDF settings</comment>
-        <translation type="unfinished"></translation>
+        <translation>in element &lt;lpiSettingsEntry&gt; ontbreekt &apos;name&apos; attribuut</translation>
     </message>
     <message>
         <source>Freetype2 library not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Freetype2 library niet beschikbaar</translation>
     </message>
     <message>
         <source>Font %1 is broken, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Het font %1 is beschadigd en wordt niet ingesloten</translation>
     </message>
     <message>
         <source>Font %1 is broken (read stream), no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Het font %1 is beschadigd (read stream), wordt niet ingesloten</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType2), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 is beschadigd (FreeType2), wordt genegeerd</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 is beschadigd (no Face), wordt genegeerd</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 heeft beschadigde glyph %2 (charcode %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 is beschadigd, wordt genegeerd</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 kan niet worden gelezen, wordt niet ingesloten</translation>
     </message>
     <message>
         <source>Failed to load font %1 - font type unknown</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 kan niet worden geladen, font type onbekend</translation>
     </message>
     <message>
         <source>Font %1 loaded from %2(%3)</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 geladen uit %2(%3)</translation>
     </message>
     <message>
         <source>Font %1(%2) is duplicate of %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1(%2) is een duplicaat van %3</translation>
     </message>
     <message>
         <source>Loading font %1 (found using fontconfig)</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden font %1 (gevonden met fontconfig)</translation>
     </message>
     <message>
         <source>Failed to load a font - freetype2 couldn&apos;t find the font file</source>
-        <translation type="unfinished"></translation>
+        <translation>Laden van een font niet gelukt - freetype2 kan font bestand niet vinden</translation>
     </message>
     <message>
         <source>Font %1 is broken (FreeType), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 is beschadigd (FreeType), wordt genegeerd</translation>
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 heeft beschadigde glyph %2 (charcode %3), wordt genegeerd</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
-        <translation type="unfinished"></translation>
+        <translation>extractie face %1 van font %2 (offset=%3, nTables=%4)</translation>
     </message>
     <message>
         <source>memcpy header: %1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>memcpy header: %1 %2 %3</translation>
     </message>
     <message>
         <source>table &apos;%1&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>tabel &apos;%1&apos;</translation>
     </message>
     <message>
         <source>memcpy table: %1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>memcpy tabel: %1 %2 %3</translation>
     </message>
     <message>
         <source>memcpy offset: %1 %2 %3</source>
-        <translation type="unfinished"></translation>
+        <translation>memcpy positie: %1 %2 %3</translation>
     </message>
     <message>
         <source> cm</source>
@@ -19728,11 +19729,11 @@ Externe koppelingen
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation type="obsolete">&amp;Lettertypeweergave...</translation>
+        <translation type="obsolete">&amp;Fontweergave...</translation>
     </message>
     <message>
         <source>Document Template: </source>
-        <translation type="unfinished"></translation>
+        <translation>Document Sjabloon:</translation>
     </message>
     <message>
         <source>Color not found.</source>
@@ -19752,32 +19753,32 @@ Externe koppelingen
     <message>
         <source>Cannot group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan minder dan twee items niet groeperen</translation>
     </message>
     <message>
         <source>Can&apos;t group less than two items</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan minder dan twee items niet groeperen</translation>
     </message>
     <message>
         <source>Need selection or argument list of items to group</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Benodig selectie of argumentenlijst van te groeperen items</translation>
     </message>
     <message>
         <source>Can&apos;t set bookmark on a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen bookmark instellen van non-tekst frame</translation>
     </message>
     <message>
         <source>Can&apos;t get info from a non-text frame</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan geen informatie krijgen van non-tekst frame</translation>
     </message>
     <message>
         <source>The filename should not be empty string.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>De bestandsnaam kan geen lege string zijn.</translation>
     </message>
     <message>
         <source>Scribus Python interface module
@@ -19811,11 +19812,39 @@ Details of what exceptions each function may throw are provided on the
 function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus Python interface module
+
+Deze module is de Python interface voor Scribus. Het bevat functies
+om Scribus te beheersen en voor manipulatie van objecten op het werkblad. 
+Elke functie is hieronder afzonderlijk gedocumenteerd.
+
+De meeste functies zijn bewerkingen van frames. Frames worden 
+geïdentificeerd bij hun naam - zij zijn geen echte Python objecten.
+Veel functies benodigen een optionele (non-keyword) parameter, een frame naam.
+Veel uitzonderingen komen regelmatig bij de meeste functies voor. Zij zijn
+niet gedocumenteerd in de docstring voor elke functie.
+- Vele functies roepen een NoDocOpenError op als zij worden gebruikt 
+zonder te bewerken document.
+- Als er geen frame naam wordt toegekend aan een functie waarbij dat nodig is,
+zal de functie het actieve frame gebruiken, als aanwezig, of een NoValidObjectError 
+oproepen als er niets is om te bewerken.
+- Meerdere functies zullen een WrongFrameTypeError oproepen als getracht wordt
+deze toe te passen op een frame waar dit niet mogeljk is. Bijvoorbeeld,
+instellen van de tekstkleur in een afbeeldingenframe is niet relevant, en zal een
+WrongFrameTypeError oproepen.
+- Fouten die resulteren uit aanroepen de van de onderliggende Python API
+worden ongewijzigd doorgegeven. Zodoende is de lijst met uitzonderingen die
+elke functie die hier wordt gebruikt incompleet.
+
+Details van welke uitzonderingen elke functie oproept worden meegegeven in de
+documentatie van de functie, maar zoals met het grootste deel van de Python code
+is deze documentatie niet uitputtend ten gevolge van uitzonderingen van
+aangeroepen functies.
+</translation>
     </message>
     <message>
         <source>OpenDocument Text Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenDocument Text Documenten</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
@@ -19843,7 +19872,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Font Preview</source>
-        <translation>Lettertypevoorbeeld</translation>
+        <translation>Fontvoorbeeld</translation>
     </message>
     <message>
         <source>My Plugin</source>
@@ -19859,7 +19888,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>PS/EPS Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>PS/EPS importfilter</translation>
     </message>
     <message>
         <source>Save As Template</source>
@@ -19867,7 +19896,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter</translation>
     </message>
     <message>
         <source>Short Words</source>
@@ -19883,56 +19912,56 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenOffice.org Draw Importer</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw Importfilter</translation>
     </message>
     <message>
         <source>Scribus crashes due to the following exception : %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus wordt gestopt ten gevolge van de volgende uitzondering : %1</translation>
     </message>
     <message>
         <source>Creating Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak Font Cache aan</translation>
     </message>
     <message>
         <source>New Font found, checking...</source>
-        <translation type="unfinished"></translation>
+        <translation>Nieuw Font gevonden, controleren...</translation>
     </message>
     <message>
         <source>Modified Font found, checking...</source>
-        <translation type="unfinished"></translation>
+        <translation>Bijgewerkt Font gevonden, controleren...</translation>
     </message>
     <message>
         <source>Reading Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Lees Font Cache</translation>
     </message>
     <message>
         <source>Writing updated Font Cache</source>
-        <translation type="unfinished"></translation>
+        <translation>Schrijf bijgewerkte Font Cache</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoekt naar fonts</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.3 or lower. The process of saving will make this file unusable again in Scribus 1.2.3 unless you use File-&gt;Save As. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>U werkt met een ontwikkelversie van Scribus 1.3.x. Het document waarin u werkt is oorspronkelijk opgezet in Scribus 1.2.3. of lager. Opslaan van dit bestand maakt het onbruikbaar voor Scribus 1.2.3. tenzij u Bestand-&gt; Opslaan als.. gebruikt. Weet u zeker dat u wilt doorgaan?</translation>
     </message>
     <message>
         <source>The changes to your document have not been saved and you have requested to revert them. Do you wish to continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>De veranderingen in het document zijn nog niet opgeslagen en u heeft gevraagd deze terug te zetten. Wilt u doorgaan?</translation>
     </message>
     <message>
         <source>A file named &apos;%1&apos; already exists.&lt;br/&gt;Do you want to replace it with the file you are saving?</source>
-        <translation type="unfinished"></translation>
+        <translation>Een bestand met de naam &apos;%1&apos; bestaat reeds.&lt;br/&gt;Wilt u dit bestand vervangen door de nieuwe versie?</translation>
     </message>
     <message>
         <source>firstPageOrder is bigger than allowed.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>firstPageOrder is groter dan toegestaan.</translation>
     </message>
     <message>
         <source>Old .sla format support</source>
-        <translation type="unfinished"></translation>
+        <translation>Ouder .sla formaat ondersteuning</translation>
     </message>
     <message>
         <source>German (Trad.)</source>
@@ -19940,19 +19969,19 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>Exporting PostScript File</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporteren PostScript bestand</translation>
     </message>
     <message>
         <source>Printing File</source>
-        <translation type="unfinished"></translation>
+        <translation>Afdrukken bestand</translation>
     </message>
     <message>
         <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;p&gt;U probeert meer pagina&apos;s te importeren dan er beschikbaar zijn in het huidige document geteld vanaf de actieve pagina.&lt;/p&gt;Maak een keuze:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Aanmaken&lt;/b&gt; ontbrekende pagina&apos;s&lt;/li&gt;&lt;li&gt;&lt;b&gt;Importeren&lt;/b&gt; Pagina&apos;s tot de laatste pagina&lt;/li&gt;&lt;li&gt;&lt;b&gt;Afbreken&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;</translation>
     </message>
     <message>
         <source>C&amp;reate</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aanmaken</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -19968,7 +19997,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>OpenOffice.org Draw (*.sxd *.odg);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>OpenOffice.org Draw (*.sxd *.odg);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Word Documents</source>
@@ -19977,26 +20006,26 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Palm PDB Documents</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Palm PDB documenten</translation>
     </message>
     <message>
         <source>PDB_data</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>PDB_data</translation>
     </message>
     <message>
         <source>PDB Import</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>PDB import</translation>
     </message>
     <message>
         <source>Could not open file %1</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Kan bestand %1 niet openen</translation>
     </message>
     <message>
         <source>Luxembourgish</source>
-        <translation type="unfinished"></translation>
+        <translation>Luxemburgs</translation>
     </message>
     <message>
         <source>Arabic</source>
@@ -20013,7 +20042,7 @@ is not exhaustive due to exceptions from called functions.
     <message>
         <source>Given master page name does not match any existing.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Deze master pagina naam komt niet overeen met een bestaande.</translation>
     </message>
     <message>
         <source>Icelandic</source>
@@ -20021,12 +20050,12 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kan beschadigd zijn: ontbrekende resolutie labels</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>Bestand wordt niet herkend als een PDF document. Meldt dit als een bug.</translation>
     </message>
     <message>
         <source>Breton</source>
@@ -20042,7 +20071,7 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kan beschadigd zijn: ontbrekende of verkeerde resolutie labels</translation>
     </message>
 </context>
 <context>
@@ -20397,11 +20426,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbreekfunctie</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Lettertypen</translation>
+        <translation>Fontn</translation>
     </message>
     <message>
         <source>PDF Export</source>
@@ -20413,11 +20442,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet weergave van frames aan of uit</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet weergave van afbeeldingen aan of uit</translation>
     </message>
     <message>
         <source>Color for paper</source>
@@ -20433,15 +20462,15 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Opmaaktekens tonen</translation>
     </message>
     <message>
         <source>Rulers relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Lineaal relatief naar pagina</translation>
     </message>
     <message>
         <source>Minimum Scratch Space</source>
-        <translation type="unfinished"></translation>
+        <translation>Minimale kladruimte</translation>
     </message>
     <message>
         <source>Gaps between Pages</source>
@@ -20457,19 +20486,19 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Preflight Verifier</source>
-        <translation type="unfinished"></translation>
+        <translation>Preflight controle</translation>
     </message>
     <message>
         <source>Document Item Attributes</source>
-        <translation type="unfinished"></translation>
+        <translation>Document Item attributen</translation>
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished"></translation>
+        <translation>Inhoudsopgave en indices</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon niet te printen karakters, zoals paragraaftekens in tekstframes</translation>
     </message>
     <message>
         <source>None</source>
@@ -20477,23 +20506,23 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Aanpassen kleuren</translation>
     </message>
     <message>
         <source>Enable or disable the display of linked text frames.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet de weergave van gekoppelde frames aan of uit.</translation>
     </message>
     <message>
         <source>Apply size settings to all pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas formaat-instellingen toe op alle pagina&apos;s</translation>
     </message>
     <message>
         <source>Sections</source>
-        <translation type="unfinished"></translation>
+        <translation>Secties</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de pagina-formaat-instellingen toe op alle bestaande pagina&apos;s in het document</translation>
     </message>
 </context>
 <context>
@@ -20512,11 +20541,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <name>SMBase</name>
     <message>
         <source>Style Manager</source>
-        <translation type="unfinished"></translation>
+        <translation>Stijl manager</translation>
     </message>
     <message>
         <source>Column 1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kolom 1</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -20528,11 +20557,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>C&amp;lone</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;loon</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
@@ -20552,11 +20581,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Alt+K</source>
-        <translation></translation>
+        <translation>Alt+K</translation>
     </message>
     <message>
         <source>A&amp;pply</source>
-        <translation>T&amp;oepassen</translation>
+        <translation>Toe&amp;passen</translation>
     </message>
     <message>
         <source>Alt+P</source>
@@ -20635,7 +20664,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <name>SToolBFont</name>
     <message>
         <source>Font Settings</source>
-        <translation>Lettertype-instellingen</translation>
+        <translation>Font-instellingen</translation>
     </message>
     <message>
         <source> pt</source>
@@ -20647,7 +20676,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Font of selected text</source>
-        <translation>Lettertype van geselecteerde tekst</translation>
+        <translation>Font van geselecteerde tekst</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -20659,7 +20688,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Scaling height of characters</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaalhoogte van tekens</translation>
     </message>
 </context>
 <context>
@@ -20686,7 +20715,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Manual Tracking</source>
-        <translation type="unfinished"></translation>
+        <translation>Handmatige tracking</translation>
     </message>
 </context>
 <context>
@@ -20739,7 +20768,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>Apply unbreakable space on:</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Niet afbreekbare spatie toepassen op:</translation>
     </message>
     <message>
         <source>&amp;Selected frames</source>
@@ -20764,7 +20793,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>Only actual page processed.</source>
         <comment>short words plugin</comment>
-        <translation type="unfinished"></translation>
+        <translation>Alleen huidige pagina verwerkt.</translation>
     </message>
     <message>
         <source>All items in document processed.</source>
@@ -20780,7 +20809,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>System wide configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Systeeminstellingen</translation>
     </message>
     <message>
         <source>&amp;Save</source>
@@ -20788,7 +20817,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished"></translation>
+        <translation>He&amp;rstel</translation>
     </message>
     <message>
         <source>Save user configuration</source>
@@ -20808,7 +20837,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>User configuration exists elready. Do you really want to overwrite it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerbruikersinstellingen bestaan reeds. Wilt u deze werkelijk overschrijven?</translation>
     </message>
     <message>
         <source>Cannot write file %1.</source>
@@ -20847,7 +20876,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>Persistent</source>
         <comment>plugin manager plugin type</comment>
-        <translation type="unfinished"></translation>
+        <translation>Persistente</translation>
     </message>
     <message>
         <source>Action</source>
@@ -20883,7 +20912,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Allow Docking To...</source>
-        <translation type="unfinished"></translation>
+        <translation>Toestaan vastzetten aan...</translation>
     </message>
     <message>
         <source>Horizontal</source>
@@ -20895,7 +20924,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Floating Orientation...</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrije oriëntatie...</translation>
     </message>
 </context>
 <context>
@@ -20956,11 +20985,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="obsolete">Zoeken naar lettertypen</translation>
+        <translation type="obsolete">Zoeken naar fonts</translation>
     </message>
     <message>
         <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Er zijn geen Postscript-lettertypen aanwezig op uw systeem</translation>
+        <translation type="obsolete">Er zijn geen Postscript-fonts aanwezig op uw systeem</translation>
     </message>
     <message>
         <source>Exiting now</source>
@@ -21244,7 +21273,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Select New Font</source>
-        <translation type="obsolete">Nieuw lettertype selecteren</translation>
+        <translation type="obsolete">Nieuw font selecteren</translation>
     </message>
     <message>
         <source>D&amp;uplicate</source>
@@ -21564,11 +21593,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
-        <translation type="obsolete">&amp;Lettertypen...</translation>
+        <translation type="obsolete">&amp;Fontn...</translation>
     </message>
     <message>
         <source>Fonts...</source>
-        <translation type="obsolete">Lettertypen...</translation>
+        <translation type="obsolete">Fontn...</translation>
     </message>
     <message>
         <source>&amp;Hyphenator...</source>
@@ -21752,7 +21781,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation type="obsolete">&amp;Lettertype</translation>
+        <translation type="obsolete">&amp;Font</translation>
     </message>
     <message>
         <source>&amp;Size</source>
@@ -21780,7 +21809,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation type="obsolete">Lettertype</translation>
+        <translation type="obsolete">Font</translation>
     </message>
     <message>
         <source>Size</source>
@@ -22102,7 +22131,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="obsolete">Lettertypen geïnitialiseerd</translation>
+        <translation type="obsolete">Fontn geïnitialiseerd</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -22220,15 +22249,15 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Cannot Delete In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan item in gebruik niet wissen</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The delete operation will be cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Wissen wordt geannuleerd</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fout opgetreden bij openen van ICC profielen, kleurmanagement is niet ingeschakeld.</translation>
     </message>
 </context>
 <context>
@@ -22239,35 +22268,35 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Initializing Plugins</source>
-        <translation type="unfinished"></translation>
+        <translation>Initialiseren Plugins</translation>
     </message>
     <message>
         <source>Initializing Keyboard Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Initializeren Sneltoetsen</translation>
     </message>
     <message>
         <source>Reading Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorkeuren inlezen</translation>
     </message>
     <message>
         <source>Initializing Story Editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Initializeren Story Editor</translation>
     </message>
     <message>
         <source>Reading ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>ICC Profielen inlezen</translation>
     </message>
     <message>
         <source>Initializing Hyphenator</source>
-        <translation type="unfinished"></translation>
+        <translation>Initializeren Afbreekfunctie</translation>
     </message>
     <message>
         <source>Reading Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Kladblok inlezen</translation>
     </message>
     <message>
         <source>Setting up Shortcuts</source>
-        <translation type="unfinished"></translation>
+        <translation>Instellen sneltoetsen</translation>
     </message>
     <message>
         <source>File</source>
@@ -22279,11 +22308,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation>Zoekt naar lettertypes</translation>
+        <translation>Zoekt naar fonts</translation>
     </message>
     <message>
         <source>There are no fonts found on your system.</source>
-        <translation>Er zijn geen lettertypes op uw systeem gevonden.</translation>
+        <translation>Er zijn geen fonts op uw systeem gevonden.</translation>
     </message>
     <message>
         <source>Exiting now.</source>
@@ -22295,7 +22324,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Lettertypen geïnitialiseerd</translation>
+        <translation>Fontn geïnitialiseerd</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -22335,7 +22364,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>&amp;Font</source>
-        <translation>&amp;Lettertype</translation>
+        <translation>&amp;Font</translation>
     </message>
     <message>
         <source>&amp;Effects</source>
@@ -22347,11 +22376,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Preview Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorbeeld instellingen</translation>
     </message>
     <message>
         <source>Level</source>
-        <translation type="unfinished"></translation>
+        <translation>Niveau</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
@@ -22379,7 +22408,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Aanhalingsteken</translation>
     </message>
     <message>
         <source>Space</source>
@@ -22435,7 +22464,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>File %1 is not in an acceptable format</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand %1 is een niet door Scribus geaccepteerd bestandsformaat.</translation>
     </message>
     <message>
         <source>Loading...</source>
@@ -22447,7 +22476,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Some ICC profiles used by this document are not installed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Enkele ICC profielen in dit document zijn niet geïnstalleerd:</translation>
     </message>
     <message>
         <source> was replaced by: </source>
@@ -22489,19 +22518,20 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Scribus has detected some errors. Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Fouten geconstateerd. Gebruik Preflight Controle om te herstellen</translation>
     </message>
     <message>
         <source>&amp;Ignore</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Afbreken</translation>
     </message>
     <message>
         <source>&amp;Abort</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Stop
+</translation>
     </message>
     <message>
         <source>Printing...</source>
-        <translation type="unfinished"></translation>
+        <translation>Afdrukken...</translation>
     </message>
     <message>
         <source>Document</source>
@@ -22513,11 +22543,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Cannot Cut In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan item in gebruik niet knippen</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The cut operation will be cancelled</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Knippen wordt geannuleerd</translation>
     </message>
     <message>
         <source>About Qt</source>
@@ -22545,7 +22575,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Convert Page to Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet Pagina om naar sjabloon</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
@@ -22569,11 +22599,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>The following programs are missing:</source>
-        <translation type="unfinished"></translation>
+        <translation>De volgende programma&apos;s ontbreken:</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: EPS afbeeldingen of Print Preview kan niet worden gebruikt</translation>
     </message>
     <message>
         <source>All</source>
@@ -22582,7 +22612,8 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>Scribus detected some errors.
 Consider using the Preflight Verifier  to correct them.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fouten geconstateerd.
+Gebruik Preflight Controle om te herstellen</translation>
     </message>
     <message>
         <source>EPS Files (*.eps);;All Files (*)</source>
@@ -22591,7 +22622,8 @@ Consider using the Preflight Verifier  to correct them.</source>
     <message>
         <source>Detected some errors.
 Consider using the Preflight Verifier to correct them</source>
-        <translation type="unfinished"></translation>
+        <translation>Fouten geconstateerd.
+Gebruik Preflight Controle om te herstellen</translation>
     </message>
     <message>
         <source>-Page%1</source>
@@ -22599,11 +22631,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>Some objects are locked.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sommige objecten zijn vergrendeld.</translation>
     </message>
     <message>
         <source>&amp;Lock All</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Alles vergrendelen</translation>
     </message>
     <message>
         <source>&amp;Unlock All</source>
@@ -22615,15 +22647,15 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The program %1 is already running!</source>
-        <translation type="unfinished"></translation>
+        <translation>Het programma %1 is al actief!</translation>
     </message>
     <message>
         <source>The program %1 is missing!</source>
-        <translation type="unfinished"></translation>
+        <translation>Het programma %1 ontbreekt!</translation>
     </message>
     <message>
         <source>The selected color does not exist in the document&apos;s color set. Please enter a name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>De geselecteerde kleur ontbreekt in de kleurenset van het document. Voer een naam in voor deze nieuwe kleur.</translation>
     </message>
     <message>
         <source>Color Not Found</source>
@@ -22631,11 +22663,11 @@ Consider using the Preflight Verifier to correct them</source>
     </message>
     <message>
         <source>The name you have selected already exists. Please enter a different name for this new color.</source>
-        <translation type="unfinished"></translation>
+        <translation>De naam van deze kleur bestaat al. Gebruik een andere naam voor deze kleur.</translation>
     </message>
     <message>
         <source>&amp;Level</source>
-        <translation type="unfinished">&amp;Niveau</translation>
+        <translation>&amp;Niveau</translation>
     </message>
     <message>
         <source>Send to Layer</source>
@@ -22679,15 +22711,15 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Ghostscript : You cannot use EPS images or PostScript Print Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript: EPS afbeeldingen of Print Preview kan niet worden gebruikt</translation>
     </message>
     <message>
         <source>Ghostscript is missing : Postscript Print Preview is not available</source>
-        <translation type="unfinished"></translation>
+        <translation>Ghostscript ontbreekt: EPS afbeeldingen of Print Preview kan niet worden gebruikt</translation>
     </message>
     <message>
         <source>Do you really want to replace your existing image?</source>
-        <translation type="unfinished"></translation>
+        <translation>Wilt u deze afbeelding werkelijk vervangen?</translation>
     </message>
     <message>
         <source>Contents</source>
@@ -22702,15 +22734,15 @@ Verticaal shift: %3</translation>
     <name>ScribusQApp</name>
     <message>
         <source>Invalid argument: </source>
-        <translation type="unfinished"></translation>
+        <translation>Fout argument:</translation>
     </message>
     <message>
         <source>File %1 does not exist, aborting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bestand %1 bestaat niet, afbreken.</translation>
     </message>
     <message>
         <source>Usage: scribus [option ... ] [file]</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik: scribus [optie...] [bestand]</translation>
     </message>
     <message>
         <source>Options:</source>
@@ -22718,31 +22750,31 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Print help (this message) and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Druk help af (deze mededeling) en sluit af</translation>
     </message>
     <message>
         <source>Uses xx as shortcut for a language, eg `en&apos; or `de&apos;</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik xx als afkorting voor een taal, bijv. &apos;en&apos; of &apos;nl&apos;</translation>
     </message>
     <message>
         <source>List the currently installed interface languages</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon de momenteel geïnstalleerde interface talen</translation>
     </message>
     <message>
         <source>Show information on the console when fonts are being loaded</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon informatie in de console als fonts worden geladen</translation>
     </message>
     <message>
         <source>Do not show the splashscreen on startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon opstartscherm niet tijdens opstarten</translation>
     </message>
     <message>
         <source>Output version information and exit</source>
-        <translation type="unfinished"></translation>
+        <translation>Versie informatie Output en sluit af</translation>
     </message>
     <message>
         <source>Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/No/Cancel)</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik van rechts naar links dialoogknop rangschikking (Afbreken/Nee/Ja inplaats van Ja/Nee/Afbreken)</translation>
     </message>
     <message>
         <source>filename</source>
@@ -22750,19 +22782,19 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Use filename as path for user given preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebuik bestandsnaam als pad voor door gebruiker ingevoerde voorkeuren</translation>
     </message>
     <message>
         <source>Installed interface languages for Scribus are as follows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Geïnstalleerde taal interfaces voor Scribus zijn:</translation>
     </message>
     <message>
         <source>To override the default language choice:</source>
-        <translation type="unfinished"></translation>
+        <translation>Standaard taalkeuze negeren:</translation>
     </message>
     <message>
         <source>scribus -l xx or scribus --lang xx, where xx is the language of choice.</source>
-        <translation type="unfinished"></translation>
+        <translation>scribus -l xx of scribus --lang xx, waarbij xx de keuzetaal is.</translation>
     </message>
     <message>
         <source>Scribus Version</source>
@@ -22786,11 +22818,11 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Issues</source>
-        <translation type="unfinished"></translation>
+        <translation>Kwesties</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon een console venster</translation>
     </message>
 </context>
 <context>
@@ -23053,15 +23085,15 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>You are trying to link to a filled frame, or a frame to itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Je probeert naar een reeds gevuld frame, of een frame naar zichzelf te verbinden.</translation>
     </message>
     <message>
         <source>Cannot Convert In-Use Item</source>
-        <translation type="unfinished"></translation>
+        <translation>Kan item in gebruik niet omzetten</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Omzetten naar outlines wordt voor dit item geannuleerd</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
@@ -23131,11 +23163,11 @@ Verticaal shift: %3</translation>
     <name>ScriptPlugin</name>
     <message>
         <source>Embedded Python scripting support.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ingebedde Python scripting ondersteuning.</translation>
     </message>
     <message>
         <source>Scripter</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter</translation>
     </message>
 </context>
 <context>
@@ -23170,15 +23202,15 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Script error</source>
-        <translation type="unfinished">Scriptfout</translation>
+        <translation>Scriptfout</translation>
     </message>
     <message>
         <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="unfinished">Als dit een officieel script is, geef deze fout dan a.u.b. door op &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
+        <translation>Als dit een officieel script is, geef deze fout dan a.u.b. door op &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
     </message>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="unfinished">Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
+        <translation>Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
     </message>
     <message>
         <source>Hide &amp;Console</source>
@@ -23190,15 +23222,15 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
+        <translation>Er is een interne fout opgetreden tijdens de uitvoering van de ingevoerde opdracht. Details zijn geprint naar stderr.</translation>
     </message>
     <message>
         <source>Examine Script</source>
-        <translation type="unfinished"></translation>
+        <translation>Onderzoek Script</translation>
     </message>
     <message>
         <source>Setting up the Python plugin failed. Error details were printed to stderr. </source>
-        <translation type="unfinished"></translation>
+        <translation>Instellen van Python plugin mislukt. Details zijn geprint naar stderr.</translation>
     </message>
     <message>
         <source>Python Scripts (*.py);;All Files (*)</source>
@@ -23236,11 +23268,11 @@ Verticaal shift: %3</translation>
     <name>ScripterPrefsGui</name>
     <message>
         <source>Scripter Preferences</source>
-        <translation type="unfinished"></translation>
+        <translation>Scripter voorkeuren</translation>
     </message>
     <message>
         <source>Enable Extension Scripts</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakel Extensiescripts in</translation>
     </message>
     <message>
         <source>Extensions</source>
@@ -23299,7 +23331,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Locate Startup Script</source>
-        <translation>Lokaliseer opstartscrpit</translation>
+        <translation>Lokaliseer opstartscript</translation>
     </message>
 </context>
 <context>
@@ -23336,7 +23368,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Font</source>
-        <translation>Lettertype</translation>
+        <translation>Font</translation>
     </message>
     <message>
         <source>Font Size</source>
@@ -23344,7 +23376,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Font Effects</source>
-        <translation>Lettertype-effecten</translation>
+        <translation>Font-effecten</translation>
     </message>
     <message>
         <source>Fill Color</source>
@@ -23432,7 +23464,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoeken gereed, %1 overeenkomsten gevonden</translation>
     </message>
 </context>
 <context>
@@ -23530,11 +23562,11 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>X-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>X-Offset</translation>
     </message>
     <message>
         <source>Y-Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-Offset</translation>
     </message>
 </context>
 <context>
@@ -23550,7 +23582,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Speciale plug-in om niet-afbrekende spaties voor en achter zgn. korte woorden te plaatsen. Beschikbaar in de volgende talen:</translation>
     </message>
 </context>
 <context>
@@ -23722,7 +23754,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview...</source>
-        <translation>&amp;Lettertypeweergave...</translation>
+        <translation>&amp;Fontweergave...</translation>
     </message>
     <message>
         <source>&amp;Update Text Frame</source>
@@ -23734,7 +23766,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Display Font...</source>
-        <translation>Weergave&amp;lettertype...</translation>
+        <translation>Weergave&amp;font...</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -23818,7 +23850,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Lettertypeweergave</translation>
+        <translation type="obsolete">&amp;Fontweergave</translation>
     </message>
     <message>
         <source>Do you really want to lose all your Changes?</source>
@@ -23874,7 +23906,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Quote</source>
-        <translation type="unfinished"></translation>
+        <translation>Aanhalingsteken</translation>
     </message>
     <message>
         <source>Spaces &amp;&amp; Breaks</source>
@@ -23886,7 +23918,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Space</source>
-        <translation>Spatie</translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -24044,23 +24076,24 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
-        <translation type="unfinished"></translation>
+        <translation>Hiermee worden bestaande stijlen in het huidige Scribus document overschreven
+</translation>
     </message>
     <message>
         <source>Merge Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Alinea stijlen samenvoegen</translation>
     </message>
     <message>
         <source>Merge paragraph styles by attributes. This will result in fewer similar paragraph styles, will retain style attributes, even if the original document&apos;s styles are named differently.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg de alieastijl samen op basis van attributen. Dit resulteert in een minder aantal op elkaar lijkende alineastijlen, zelf als de originele stijlen anders zijn genoemd.</translation>
     </message>
     <message>
         <source>Prepend the document name to the paragraph style name in Scribus.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voeg documtennaam toe aan de alineastijlnaam in Scribus.</translation>
     </message>
     <message>
         <source>Make these settings the default and do not prompt again when importing an OpenOffice.org 1.x document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak deze instellingen standaard, vraag niet opnieuw bij importeren van een OpenOffice.org 1.x document.</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -24111,35 +24144,35 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Het inhouds-tabel frame wordt geplaatst in</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Paginanummers geplaatst:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Naam item attributen:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Het Item Attribuut ingesteld voor de frames gebruikt als basis voor de creatie van toevoegingen</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Plaats paginanummers van de toevoegingen aan het begin of aan het eind van de regel, of helemaal niet</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een lijst vast niet af te drukken toevoegingen</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Inclusief frames die uitgeschakeld zijn voor afdrukken</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation>De alineastijl gebruikt voor de toevoegingen</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
@@ -24178,35 +24211,35 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>The frame the table of contents will be placed into</source>
-        <translation type="unfinished"></translation>
+        <translation>Het frame waarin de inhoudstabel wordt geplaatst</translation>
     </message>
     <message>
         <source>Page Numbers Placed:</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina nummer geplaatst:</translation>
     </message>
     <message>
         <source>Item Attribute Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Item attribuut naam:</translation>
     </message>
     <message>
         <source>The Item Attribute that will be set on frames used as a basis for creation of the entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Het Item Attribuut ingesteld voor de frames gebruikt als basis voor de creatie van toevoegingen</translation>
     </message>
     <message>
         <source>Place page numbers of the entries at the beginning or the end of the line, or not at all</source>
-        <translation type="unfinished"></translation>
+        <translation>Plaats paginanummers van de toevoegingen aan het begin of aan het eind van de regel, of helemaal niet</translation>
     </message>
     <message>
         <source>List Non-Printing Entries</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak een lijst vast niet af te drukken toevoegingen</translation>
     </message>
     <message>
         <source>Include frames that are set to not print as well</source>
-        <translation type="unfinished"></translation>
+        <translation>Inclusief frames die uitgeschakeld zijn voor afdrukken</translation>
     </message>
     <message>
         <source>The paragraph style used for the entry lines</source>
-        <translation type="unfinished"></translation>
+        <translation>De alineastijl gebruikt voor de toevoegingen</translation>
     </message>
     <message>
         <source>Paragraph Style:</source>
@@ -24225,7 +24258,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Automatic check before printing or exporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische controle voor printen of exporteren</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
@@ -24237,7 +24270,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer op overloop in tekst frames</translation>
     </message>
     <message>
         <source>Check for transparencies used</source>
@@ -24253,7 +24286,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Lowest allowed resolution</source>
-        <translation type="unfinished"></translation>
+        <translation>Laagst toegestane resolutie</translation>
     </message>
     <message>
         <source> dpi</source>
@@ -24261,7 +24294,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Check for PDF Annotations and Fields</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer op PDF annotaties en velden</translation>
     </message>
     <message>
         <source>Add Profile</source>
@@ -24273,18 +24306,18 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Check for placed PDF Files</source>
-        <translation type="unfinished"></translation>
+        <translation>Controleer op geplaatste PDF bestanden</translation>
     </message>
 </context>
 <context>
     <name>TabGuides</name>
     <message>
         <source>Common Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruikelijke instellingen</translation>
     </message>
     <message>
         <source>Placing in Documents</source>
-        <translation type="unfinished"></translation>
+        <translation>Plaatsing in documenten</translation>
     </message>
     <message>
         <source>In the Background</source>
@@ -24296,15 +24329,15 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Snapping</source>
-        <translation type="unfinished"></translation>
+        <translation>Vastplakken</translation>
     </message>
     <message>
         <source>Snap Distance:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vastplak afstand:</translation>
     </message>
     <message>
         <source>Grab Radius:</source>
-        <translation type="unfinished"></translation>
+        <translation>Grijp Radius:</translation>
     </message>
     <message>
         <source> px</source>
@@ -24320,11 +24353,11 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Show Page Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Toon Pagina raster</translation>
     </message>
     <message>
         <source>Major Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Hoofd raster</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -24332,11 +24365,11 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Spatiëring:</translation>
     </message>
     <message>
         <source>Minor Grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Klein raster</translation>
     </message>
     <message>
         <source>Baseline Grid</source>
@@ -24396,47 +24429,47 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Turns the basegrid on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet basislijnraster aan of uit</translation>
     </message>
     <message>
         <source>Turns the gridlines on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet basisrasterlijnen aan of uit</translation>
     </message>
     <message>
         <source>Turns the guides on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet de hulplijnen aan of uit</translation>
     </message>
     <message>
         <source>Turns the margins on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Zet de marges aan of uit</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="obsolete">Toename van regelhoogte in procent van de waarde die het lettertype aangeeft</translation>
+        <translation type="obsolete">Toename van regelhoogte in procent van de waarde die het font aangeeft</translation>
     </message>
     <message>
         <source>Baseline Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Basislijn instellingen</translation>
     </message>
     <message>
         <source>Guides are not visible through objects on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulplijnen zijn niet zichtbaar door objecten op de pagina</translation>
     </message>
     <message>
         <source>Guides are visible above all objects on the page</source>
-        <translation type="unfinished"></translation>
+        <translation>Hulplijnen zijn zichtbaar door alle objecten op de pagina</translation>
     </message>
     <message>
         <source>Color for the baseline grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur van het basislijn raster</translation>
     </message>
     <message>
         <source>Distance between the lines of the baseline grid</source>
-        <translation type="unfinished"></translation>
+        <translation>Afstanden tussen de lijnen van het basislijn raster</translation>
     </message>
     <message>
         <source>Distance from the top of the page for the first baseline</source>
-        <translation type="unfinished"></translation>
+        <translation>Afstand tot de bovenzijde van de pagina tot de eerste basislijn</translation>
     </message>
 </context>
 <context>
@@ -24578,7 +24611,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>&amp;Subset van alle lettertypen</translation>
+        <translation>&amp;Subset van alle fonts</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -24586,7 +24619,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
-        <translation>Beschikbare lettertypen:</translation>
+        <translation>Beschikbare fonts:</translation>
     </message>
     <message>
         <source>&amp;&gt;&gt;</source>
@@ -24598,15 +24631,15 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation>Lettertypen om te embedden:</translation>
+        <translation>Fontn om te embedden:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Lettertypen om subset van te nemen:</translation>
+        <translation>Fontn om subset van te nemen:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation>&amp;Lettertypen</translation>
+        <translation>&amp;Fontn</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
@@ -24658,7 +24691,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Blinds</source>
-        <translation type="unfinished"></translation>
+        <translation>Luiken</translation>
     </message>
     <message>
         <source>Box</source>
@@ -24834,7 +24867,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Rendering-Intent:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rendering intent:</translation>
     </message>
     <message>
         <source>Perceptual</source>
@@ -24842,7 +24875,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Relative Colorimetric</source>
-        <translation type="unfinished"></translation>
+        <translation>Relatief colorimetrisch</translation>
     </message>
     <message>
         <source>Saturation</source>
@@ -24866,7 +24899,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>PDF/X-3 Output Intent</source>
-        <translation type="unfinished"></translation>
+        <translation>PDF/X3 Output intentie</translation>
     </message>
     <message>
         <source>&amp;Info String:</source>
@@ -24887,7 +24920,7 @@ zonder u telkens om bevestiging te vragen</translation>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Lettertypen inbedden in de PDF.  Hierdoor weet u zeker
+        <translation type="obsolete">Fontn inbedden in de PDF.  Hierdoor weet u zeker
 dat layout en uiterlijk bewaard zullen blijven.</translation>
     </message>
     <message>
@@ -25128,7 +25161,7 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Convert Spot Colors to Process Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Steunkleuren naar Process kleuren omzetten</translation>
     </message>
     <message>
         <source>Compression &amp;Quality:</source>
@@ -25136,19 +25169,19 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation type="unfinished"></translation>
+        <translation>Compressie kwaliteitsniveau voor lossy compressie methoden: minimaal (25%), laag (50%), gemiddeld (75%), hoog (85%), maximaal (95%). Een kwaliteitsniveau bepaalt niet de grootte van de resulterende afbeelding - grootte en kwaliteitsverlies variëren van afbeelding tot afbeelding bij elk gebruikt kwaliteitsniveau.</translation>
     </message>
     <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sta kopieëren van tekst of afbeeldingen van de PDF toe. Indien niet aangevinkt, kunnen tekst en afbeeldingen niet worden gekopieërd.</translation>
     </message>
     <message>
         <source>Allow adding annotations and fields to the PDF. If unchecked, editing annotations and fields is prevented.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sta toevoegen van annotaties en velden aan de PDF toe. Indien niet aangevinkt, kunnen annotaties en velden niet worden bewerkt.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Uitsluitend te gebruiken bij het laten drukken van steunkleuren in een drukkerij.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -25160,55 +25193,55 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Resa&amp;mple Images to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingen o&amp;mzetten naar:</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fonts insluiten in de PDF. Insluiten van fonts zorgt dat de layout en aanzicht van het document behouden blijven.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengte in tijd van het effect. Een kortere tijd zal het effect versnellen, een langere tijd zal het effect vertragen.</translation>
     </message>
     <message>
         <source>Insert a comma separated list of tokens where a token can be * for all the pages, 1-5 for a range of pages or a single page number.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voer hier de paginanummer(s) in die u wilt afdrukken, bijvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 afdrukken). Een * staat voor alle pagina&apos;s.</translation>
     </message>
     <message>
         <source>Determines the binding of pages in the PDF. Unless you know you need to change it leave the default choice - Left.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bepaalt de binding van pagina&apos;s in de PDF. Laat standaard (Links) tenzij anders is gewenst.</translation>
     </message>
     <message>
         <source>Generates thumbnails of each page in the PDF. Some viewers can use the thumbnails for navigation.</source>
-        <translation type="unfinished"></translation>
+        <translation>Maakt thumbnails aan van elke pagina in de PDF. Thumbnails kunnen in pdf-viewers voor navigatie worden gebruikt.</translation>
     </message>
     <message>
         <source>Embed the bookmarks you created in your document. These are useful for navigating long PDF documents.</source>
-        <translation type="unfinished"></translation>
+        <translation>Sluit gecreëerde bookmarks in het document in. Bruikbaar bij navigeren in lange PDF documenten.</translation>
     </message>
     <message>
         <source>Export resolution of text and vector graphics. This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="unfinished"></translation>
+        <translation>Exporteer resolutie van tekst en afbeeldingen. Heeft geen invloed op de resolutie van pixel afbeeldingen, zoals foto&apos;s.</translation>
     </message>
     <message>
         <source>Enables lossless compression of text and graphics. Unless you have a reason, leave this checked. This reduces PDF file size.</source>
-        <translation type="unfinished"></translation>
+        <translation>Staat lossless compressie van tekst en afbeeldingen toe. Laat aangevinkt, tenzij er een reden voor is. Reduceert de grootte van het PDF bestand.</translation>
     </message>
     <message>
         <source>Enable the security features in your exported PDF. If you selected PDF 1.3, the PDF will be protected by 40 bit encryption. If you selected PDF 1.4, the PDF will be protected by 128 bit encryption. Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="unfinished"></translation>
+        <translation>Schakel veiligheidsmogelijk in de geëxporteerde PDF in. Bij selectie van PDF 1.3, wordt de PDF met 40 bit encryptie beveiligd. Bij PDF 1.4 met 128 bit encryptie. Disclaimer: PDF encryptie is niet zo betrouwbaar als GPG of PGP encryptie en heeft beperkingen.</translation>
     </message>
     <message>
         <source>Choose a master password which enables or disables all the security features in your exported PDF</source>
-        <translation type="unfinished"></translation>
+        <translation>Kies een Master wachtwoord welke alle veiligheids mogelijkheden in de geëxporteerde PDF in- of uitschakeld</translation>
     </message>
     <message>
         <source>This is an advanced setting which is not enabled by default. This should only be enabled when specifically requested by your printer and they have given you the exact details needed. Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dit is een geavanceerde instelling welke niet standaard is ingeschakeld. Schakel uitsluitend in op aanvraag van uw drukkerij, zij voorzien u daarbij mogelijk van de benodigde details. Mogelijk kan de PDF bij inschakeling niet goed afgedrukt worden en is niet overdraagbaar naar andere systemen.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="unfinished"></translation>
+        <translation>Voorgeschreven regel voor PDF/X-3 bij niet invullen voldoet de PDF/X-3 niet aan de eisen. Wij adviseren de titel van het document te gebruiken.</translation>
     </message>
     <message>
         <source>Display Settings</source>
@@ -25236,11 +25269,11 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Visual Appearance</source>
-        <translation type="unfinished"></translation>
+        <translation>Uiterlijk</translation>
     </message>
     <message>
         <source>Use Viewers Defaults</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik standaardinstelling Viewer</translation>
     </message>
     <message>
         <source>Use Full Screen Mode</source>
@@ -25260,19 +25293,19 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Hide Viewers Toolbar</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg Toolbar Viewer</translation>
     </message>
     <message>
         <source>Hide Viewers Menubar</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg Menubar Viewer</translation>
     </message>
     <message>
         <source>Zoom Pages to fit Viewer Window</source>
-        <translation type="unfinished"></translation>
+        <translation>Zoom pagina&apos;s tot formaat venster Viewer</translation>
     </message>
     <message>
         <source>Special Actions</source>
-        <translation type="unfinished"></translation>
+        <translation>Speciale Acties</translation>
     </message>
     <message>
         <source>No Script</source>
@@ -25280,19 +25313,19 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Viewer</source>
-        <translation type="unfinished"></translation>
+        <translation>Viewer</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Afsnijden bij paginarand</translation>
     </message>
     <message>
         <source>Lossy - JPEG</source>
-        <translation type="unfinished"></translation>
+        <translation>Lossy - JPEG</translation>
     </message>
     <message>
         <source>Lossless - Zip</source>
-        <translation type="unfinished"></translation>
+        <translation>Lossles - Zip</translation>
     </message>
     <message>
         <source>Image Compression Method</source>
@@ -25301,46 +25334,47 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     <message>
         <source>Javascript to be executed
 when PDF document is opened:</source>
-        <translation type="unfinished"></translation>
+        <translation>Javascript starten
+als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Enables presentation effects when using Adobe&amp;#174; Reader&amp;#174; and other PDF viewers which support this in full screen mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Staat presentatie-effecten toe bij gebruik van Adobe&amp;#174; Reader&amp;#174; en andere viewers welke full screen mode ondersteunen.</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility. The default is PDF 1.3 which gives the widest compatibility. Choose PDF 1.4 if your file uses features such as transparency or you require 128 bit encryption. PDF 1.5 is necessary when you wish to preserve objects in separate layers within the PDF.  PDF/X-3 is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Stelt PDF comptabiliteit vast. Standaard is PDF 1.3, welke het meest compatibel is. Kies PDF 1.4 als het bestand transparanten bevat of 128 bits encryptie benodigd is. PDF 1.5 is nodig als objecten in separate lagen in de PDF bewaard moeten blijven. PDF/X3 is voor PDF export als van color managed RGB gebruikt gemaakt moet worden woorden professioneel drukwerk en is selecteerbaar als kleurbeheer is ingeschakeld. Gebruik alleen op advies van uw drukker of in bepaalde gevallen bij afdrukken op een 4-kleuren digitale kleuren laserprinter.</translation>
     </message>
     <message>
         <source>Layers in your document are exported to the PDF Only available if PDF 1.5 is chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lagen in het document worden geexporteerd naar de PDF. Alleen beschikbaar bij selectie van PDF 1.5.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation type="unfinished"></translation>
+        <translation>Methode van compressie te gebruiken voor afbeeldingen. Automatisch staat Scribus toe de beste methode te kiezen. ZIP os lossless en goed voor afbeeldingen met kleurvlakken. JPEG is beter voor het maken van kleinere PDF bestanden welke veel foto&apos;s bevatten (met mogelijk een klein kwaliteitsverlies van afbeeldingen). Laat dit staan op Automatisch tenzij er behoefte is aan compressie optie. Heeft alleen effect op JPEG afbeeldingen</translation>
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pas de pixel-afbeeldingen aan naar het geselecteerde DPI. Indien niet aangevinkt worden de afbeeldingen gerenderd naar de oorspronkelijke resolutie. Dit kan resulteren in meer gebruik van geheugen.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleurmodel voor de output van de PDF. Kies Screen/Web voor PDF&apos;s die op alleen op een beeldscherm worden getoond en voor printen op bepaalde inkjets. Kies Printer als er naar een true color CMYK printer moet worden gedrukt. Kies Grayscale als een grijswaarden PDF nodig is.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
-        <translation type="unfinished"></translation>
+        <translation>Verberg objecten buiten de marges in het geëxporteerde bestand</translation>
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="unfinished"></translation>
+        <translation>Lengte in tijd waarin de pagina wordt getoont voor de presentatie start op de geselecteerde pagina. Instelling 0 zet automatische pagina-wisseling uit.</translation>
     </message>
 </context>
 <context>
     <name>TabTools</name>
     <message>
         <source>Font:</source>
-        <translation>Lettertype:</translation>
+        <translation>Font:</translation>
     </message>
     <message>
         <source> pt</source>
@@ -25372,7 +25406,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="unfinished"></translation>
+        <translation>Pa&apos;s wijze lynx bezag vroom het fikse aquaduct</translation>
     </message>
     <message>
         <source>&amp;Line Color:</source>
@@ -25480,7 +25514,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Font for new text frames</source>
-        <translation>Lettertype voor nieuwe tekstframes</translation>
+        <translation>Font voor nieuwe tekstframes</translation>
     </message>
     <message>
         <source>Size of font for new text frames</source>
@@ -25500,7 +25534,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Sample of your font</source>
-        <translation>Voorbeeld van uw lettertype</translation>
+        <translation>Voorbeeld van uw font</translation>
     </message>
     <message>
         <source>Picture frames allow pictures to scale to any size</source>
@@ -25584,7 +25618,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Tab Fill Character:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tab uitvulteken:</translation>
     </message>
     <message>
         <source>Tab Width:</source>
@@ -25592,11 +25626,11 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Use embedded Clipping Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik ingebed uitknip pad</translation>
     </message>
     <message>
         <source>On Screen Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>Afdrukvoorbeeld</translation>
     </message>
     <message>
         <source>Full Resolution Preview</source>
@@ -25628,19 +25662,19 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Text Stroke:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstlijn:</translation>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished">Stip</translation>
+        <translation>Punt</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbreekstreepje</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation>Underscore</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -25687,7 +25721,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement above the baseline of the font on a line</source>
-        <translation>Verplaatsing boven de basislijn van een lettertype op een regel</translation>
+        <translation>Verplaatsing boven de basislijn van een font op een regel</translation>
     </message>
     <message>
         <source>Relative size of the superscript compared to the normal font</source>
@@ -25695,7 +25729,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font on a line</source>
-        <translation>Verplaatsing onder de basislijn van een lettertype op een regel</translation>
+        <translation>Verplaatsing onder de basislijn van een font op een regel</translation>
     </message>
     <message>
         <source>Relative size of the subscript compared to the normal font</source>
@@ -25711,7 +25745,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Displacement:</source>
-        <translation type="unfinished"></translation>
+        <translation>Verplaatsing:</translation>
     </message>
     <message>
         <source>Auto</source>
@@ -25727,27 +25761,28 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Automatic &amp;Line Spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Automatische &amp;interlinie
+</translation>
     </message>
     <message>
         <source>Line Spacing:</source>
-        <translation type="unfinished"></translation>
+        <translation>Interlinie:</translation>
     </message>
     <message>
         <source>Percentage increase over the font size for the line spacing</source>
-        <translation>Toename van regelhoogte in procent van de waarde die het lettertype aangeeft</translation>
+        <translation>Toename van regelhoogte in procent van de waarde die het font aangeeft</translation>
     </message>
     <message>
         <source>Displacement below the baseline of the normal font expressed as a percentage of the fonts descender</source>
-        <translation type="unfinished"></translation>
+        <translation>Verplaatsing onder de basislijn van het normale font uitgedrukt in percentage van de font onderzijde</translation>
     </message>
     <message>
         <source>Line width expressed as a percentage of the font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Lijndikte uitgedrukt in percentage van het font formaat</translation>
     </message>
     <message>
         <source>Displacement above the baseline of the normal font expressed as a percentage of the fonts ascender</source>
-        <translation type="unfinished"></translation>
+        <translation>Verplaatsing boven de basislijn van het normale font in percentage van de font bovenzijde</translation>
     </message>
 </context>
 <context>
@@ -25822,19 +25857,19 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>None</source>
-        <translation type="unfinished">Geen</translation>
+        <translation>Geen</translation>
     </message>
     <message>
         <source>Dot</source>
-        <translation type="unfinished"></translation>
+        <translation>Punt</translation>
     </message>
     <message>
         <source>Hyphen</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbreekstreepje</translation>
     </message>
     <message>
         <source>Underscore</source>
-        <translation type="unfinished"></translation>
+        <translation>Underscore</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -25842,7 +25877,7 @@ when PDF document is opened:</source>
     </message>
     <message>
         <source>Fill Char:</source>
-        <translation type="unfinished"></translation>
+        <translation>Opvulteken:</translation>
     </message>
     <message>
         <source>Custom:</source>
@@ -25895,7 +25930,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Font:</source>
-        <translation type="obsolete">Lettertype:</translation>
+        <translation type="obsolete">Font:</translation>
     </message>
     <message>
         <source>Group </source>
@@ -25997,7 +26032,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>Resize</source>
-        <translation type="unfinished"></translation>
+        <translation>Grootte aanpassen</translation>
     </message>
     <message>
         <source>Rotate</source>
@@ -26043,7 +26078,7 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Items involved</source>
-        <translation type="unfinished">Items betrokken</translation>
+        <translation>Items betrokken</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -26133,11 +26168,11 @@ tot %2</translation>
     </message>
     <message>
         <source>Set the style of line end</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel stijl in van eindpunt lijn</translation>
     </message>
     <message>
         <source>Set the style of line join</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel stijl in van lijnverbinding</translation>
     </message>
     <message>
         <source>Set line width</source>
@@ -26149,87 +26184,87 @@ tot %2</translation>
     </message>
     <message>
         <source>Set custom line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Bepaal eigen lijnstijl</translation>
     </message>
     <message>
         <source>Do not use custom line style</source>
-        <translation type="unfinished"></translation>
+        <translation>Gebruik eigen lijnstijl niet</translation>
     </message>
     <message>
         <source>Set start arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel begin pijl in</translation>
     </message>
     <message>
         <source>Set end arrow</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel einde pijl in</translation>
     </message>
     <message>
         <source>Create table</source>
-        <translation type="unfinished"></translation>
+        <translation>Maak tabel</translation>
     </message>
     <message>
         <source>Rows: %1, Cols: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Rijen: %1, Kolommen: %2</translation>
     </message>
     <message>
         <source>Set font</source>
-        <translation type="unfinished"></translation>
+        <translation>Font instellen</translation>
     </message>
     <message>
         <source>Set font size</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekengrootte instellen</translation>
     </message>
     <message>
         <source>Set font width</source>
-        <translation type="unfinished"></translation>
+        <translation>Schaalbreedte van tekens instellen</translation>
     </message>
     <message>
         <source>Set font fill color</source>
-        <translation type="unfinished"></translation>
+        <translation>Font vulkleur instellen</translation>
     </message>
     <message>
         <source>Set font stroke color</source>
-        <translation type="unfinished"></translation>
+        <translation>Kleur font-omlijning instellen</translation>
     </message>
     <message>
         <source>Set font fill color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tint font vulkleur instellen</translation>
     </message>
     <message>
         <source>Set font stroke color shade</source>
-        <translation type="unfinished"></translation>
+        <translation>Tint font-omlijning kleur instellen</translation>
     </message>
     <message>
         <source>Set kerning</source>
-        <translation type="unfinished"></translation>
+        <translation>Kerning instellen</translation>
     </message>
     <message>
         <source>Set line spacing</source>
-        <translation type="unfinished"></translation>
+        <translation>Regelspatiëring instellen</translation>
     </message>
     <message>
         <source>Set paragraph style</source>
-        <translation type="unfinished"></translation>
+        <translation>Alineastijl instellen</translation>
     </message>
     <message>
         <source>Set language</source>
-        <translation type="unfinished"></translation>
+        <translation>Taal instellen</translation>
     </message>
     <message>
         <source>Align text</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst uitlijnen</translation>
     </message>
     <message>
         <source>Set font effect</source>
-        <translation type="unfinished"></translation>
+        <translation>Font-effecten instellen</translation>
     </message>
     <message>
         <source>Image frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingskader</translation>
     </message>
     <message>
         <source>Text frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstframe</translation>
     </message>
     <message>
         <source>Polygon</source>
@@ -26257,31 +26292,31 @@ tot %2</translation>
     </message>
     <message>
         <source>Scratch space</source>
-        <translation type="unfinished"></translation>
+        <translation>Kladblok</translation>
     </message>
     <message>
         <source>Text flows around the frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst loopt om frame</translation>
     </message>
     <message>
         <source>Text flows around bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstomloop rond omliggende rechthoek</translation>
     </message>
     <message>
         <source>Text flows around contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekstomloop rond contourlijn</translation>
     </message>
     <message>
         <source>No text flow</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen tekstomloop</translation>
     </message>
     <message>
         <source>No bounding box</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen omliggende rechthoek</translation>
     </message>
     <message>
         <source>No contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Geen contourlijn</translation>
     </message>
     <message>
         <source>Page %1</source>
@@ -26289,7 +26324,7 @@ tot %2</translation>
     </message>
     <message>
         <source>Set image scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Stel afbeeldingsschaal in</translation>
     </message>
     <message>
         <source>Frame size</source>
@@ -26297,19 +26332,19 @@ tot %2</translation>
     </message>
     <message>
         <source>Free scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Vrije schaal</translation>
     </message>
     <message>
         <source>Keep aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Beeldverhouding behouden</translation>
     </message>
     <message>
         <source>Break aspect ratio</source>
-        <translation type="unfinished"></translation>
+        <translation>Beeldverhouding niet behouden</translation>
     </message>
     <message>
         <source>Edit contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Contourlijn bewerken</translation>
     </message>
     <message>
         <source>Edit shape</source>
@@ -26317,7 +26352,7 @@ tot %2</translation>
     </message>
     <message>
         <source>Reset contour line</source>
-        <translation type="unfinished"></translation>
+        <translation>Contourlijn opnieuw instellen</translation>
     </message>
     <message>
         <source>Apply Master Page</source>
@@ -26329,23 +26364,23 @@ tot %2</translation>
     </message>
     <message>
         <source>Import OpenOffice.org Draw image</source>
-        <translation type="unfinished"></translation>
+        <translation>Importeer OpenOffice.org Draw afbeelding</translation>
     </message>
     <message>
         <source>Add page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina toevoegen</translation>
     </message>
     <message>
         <source>Add pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina&apos;s toevoegen</translation>
     </message>
     <message>
         <source>Delete page</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina verwijderen</translation>
     </message>
     <message>
         <source>Delete pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Pagina&apos;s verwijderen</translation>
     </message>
     <message>
         <source>Add layer</source>
@@ -26373,11 +26408,11 @@ tot %2</translation>
     </message>
     <message>
         <source>Enable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Printen van deze laag inschakelen</translation>
     </message>
     <message>
         <source>Disable printing of layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Printen van deze laag uitschakelen</translation>
     </message>
     <message>
         <source>Change name of the layer</source>
@@ -26393,19 +26428,19 @@ tot %2</translation>
     </message>
     <message>
         <source>Enable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Item printen inschakelen</translation>
     </message>
     <message>
         <source>Disable Item Printing</source>
-        <translation type="unfinished"></translation>
+        <translation>Item printen uitschakelen</translation>
     </message>
     <message>
         <source>Multiple duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Meervoudig dupliceren</translation>
     </message>
     <message>
         <source>Change Image Offset</source>
-        <translation type="unfinished"></translation>
+        <translation>Verander afbeeldingspositie</translation>
     </message>
     <message>
         <source>Change Image Scale</source>
@@ -26425,26 +26460,26 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlepunt opnieuw instellen</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>Controlepunten opnieuw instellen</translation>
     </message>
     <message>
         <source>Modify image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Afbeeldingseffecten aanpassen</translation>
     </message>
 </context>
 <context>
     <name>UndoPalette</name>
     <message>
         <source>Action History</source>
-        <translation type="unfinished"></translation>
+        <translation>Actiegeschiedenis</translation>
     </message>
     <message>
         <source>Show selected object only</source>
-        <translation type="unfinished"></translation>
+        <translation>Laat alleen geselecteerd object zien</translation>
     </message>
     <message>
         <source>&amp;Undo</source>
@@ -26456,7 +26491,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Initial State</source>
-        <translation type="unfinished"></translation>
+        <translation>Oorspronkelijke staat</translation>
     </message>
 </context>
 <context>
@@ -26747,10 +26782,6 @@ X: %4, Y: %5</translation>
         <translation>Selecteer de te gebruiken importer</translation>
     </message>
     <message>
-        <source></source>
-        <translation></translation>
-    </message>
-    <message>
         <source>Remember association</source>
         <translation>Deze associatie onhouden</translation>
     </message>
@@ -26768,7 +26799,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
-        <translation type="unfinished"></translation>
+        <translation>Onthoudt de bestandsnaamextensie-importer associatie. De volgende keer wordt bij het importeren van een bestand van dit type dezelfde importer gebruikt.</translation>
     </message>
 </context>
 <context>
@@ -26851,7 +26882,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>Make sure images and fonts you use can be used freely. If fonts cannot be shared do not collect them when saving as a template.</source>
-        <translation>Vergewis u ervan dat afbeeldingen en lettertypen vrij gebruikt kunnen worden. Als lettertypen niet kunnen worden gedeeld, verzamel deze dan niet als u een document opslaat als een sjabloon.</translation>
+        <translation>Vergewis u ervan dat afbeeldingen en fonts vrij gebruikt kunnen worden. Als fonts niet kunnen worden gedeeld, verzamel deze dan niet als u een document opslaat als een sjabloon.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
