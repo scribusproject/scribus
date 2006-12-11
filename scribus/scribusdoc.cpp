@@ -5004,7 +5004,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 					start = currItem->itemText.startOfSelection();
 					stop = currItem->itemText.endOfSelection();
 					if (start >= stop)
-						start = stop = QMIN(0, QMAX(currItem->itemText.length(), currItem->CPos));
+						start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
 				}
 				for (int pos=start; pos < stop; ++pos) {
 					if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
@@ -5050,7 +5050,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 					start = currItem->itemText.startOfSelection();
 					stop = currItem->itemText.endOfSelection();
 					if (start >= stop)
-						start = stop = QMIN(0, QMAX(currItem->itemText.length(), currItem->CPos));
+						start = stop = QMAX(0, QMIN(currItem->itemText.length(), currItem->CPos));
 				}
 				for (int pos=start; pos < stop; ++pos) {
 					if (currItem->itemText.text(pos) == SpecialChars::PARSEP) {
@@ -5138,10 +5138,14 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
 				int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
 				if (appMode == modeEdit)
 				{
-					start = currItem->itemText.startOfSelection();
-					length = currItem->itemText.endOfSelection() - start;
-					if (length <= 0)
+					if (currItem->itemText.lengthOfSelection() > 0) {
+						start = currItem->itemText.startOfSelection();
+						length = currItem->itemText.endOfSelection() - start;
+					}
+					else {
+						start = QMAX(currItem->firstInFrame(), currItem->CPos);
 						length = 1;
+					}
 				}
 				currItem->itemText.setCharStyle(start, length, newstyle);
 				currItem->invalid = true;
