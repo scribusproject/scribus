@@ -12,6 +12,7 @@ for which a new license (GPL+exception) is in place.
 #include <qdialog.h>
 #include <qvaluelist.h>
 #include <qmap.h>
+#include <qlistbox.h>
 
 #include "scribusapi.h"
 #include "pageitem.h"
@@ -20,8 +21,6 @@ class QHBoxLayout;
 class QGridLayout;
 class QSpacerItem;
 class QLabel;
-class QListBox;
-class QListBoxItem;
 class QPushButton;
 class QComboBox;
 class ColorCombo;
@@ -34,6 +33,17 @@ class QPopupMenu;
 class QToolButton;
 class MSpinBox;
 class CurveWidget;
+
+class SCRIBUS_API EffectListItem : public QListBoxText
+{
+public:
+    EffectListItem(QListBox* parent, QString f);
+    virtual ~EffectListItem() {};
+    virtual const int width(const QListBox *);
+    virtual const int height(const QListBox *);
+protected:
+    virtual void paint(QPainter *p);
+};
 
 class SCRIBUS_API EffectsDialog : public QDialog
 {

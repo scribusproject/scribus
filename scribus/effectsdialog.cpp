@@ -9,7 +9,6 @@ for which a new license (GPL+exception) is in place.
 #include <qvariant.h>
 #include <qpushbutton.h>
 #include <qlabel.h>
-#include <qlistbox.h>
 #include <qlayout.h>
 #include <qtooltip.h>
 #include <qwhatsthis.h>
@@ -32,6 +31,29 @@ for which a new license (GPL+exception) is in place.
 #include "curvewidget.h"
 
 extern QPixmap loadIcon(QString nam);
+
+EffectListItem::EffectListItem(QListBox* parent, QString f) : QListBoxText(parent, f)
+{
+}
+
+const int EffectListItem::width(const QListBox *listbox)
+{
+	return listbox->fontMetrics().width(text()) + 2;
+}
+
+const int EffectListItem::height(const QListBox *listbox)
+{
+	QFontMetrics fontMetrics(listbox->fontMetrics());
+	return fontMetrics.lineSpacing() + 2;
+}
+
+void EffectListItem::paint(QPainter *painter)
+{
+	QFontMetrics fontMetrics(painter->fontMetrics());
+	if (!isSelectable())
+		painter->setPen(QColor(128, 128, 128));
+	painter->drawText(3, fontMetrics.lineSpacing()-fontMetrics.descent(), text());
+}
 
 EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc ) : QDialog( parent, "EffectsDialog", true, 0 )
 {
@@ -394,6 +416,20 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	layout2->addWidget( textLabel1 );
 	availableEffects = new QListBox( this, "availableEffects" );
 	availableEffects->clear();
+	
+	new EffectListItem(availableEffects, tr("Blur"));
+	new EffectListItem(availableEffects, tr("Brightness"));
+	new EffectListItem(availableEffects, tr("Colorize"));
+	new EffectListItem(availableEffects, tr("Duotone"));
+	new EffectListItem(availableEffects, tr("Tritone"));
+	new EffectListItem(availableEffects, tr("Quadtone"));
+	new EffectListItem(availableEffects, tr("Contrast"));
+	new EffectListItem(availableEffects, tr("Grayscale"));
+	new EffectListItem(availableEffects, tr("Curves"));
+	new EffectListItem(availableEffects, tr("Invert"));
+	new EffectListItem(availableEffects, tr("Posterize"));
+	new EffectListItem(availableEffects, tr("Sharpen"));
+/*
 	availableEffects->insertItem( tr("Blur"));
 	availableEffects->insertItem( tr("Brightness"));
 	availableEffects->insertItem( tr("Colorize"));
@@ -406,6 +442,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	availableEffects->insertItem( tr("Invert"));
 	availableEffects->insertItem( tr("Posterize"));
 	availableEffects->insertItem( tr("Sharpen"));
+*/
 	availableEffects->setMinimumSize(fontMetrics().width( tr( "Available Effects" ))+40, 180);
 	layout2->addWidget( availableEffects );
 	layout10->addLayout( layout2, 0, 0 );
@@ -547,6 +584,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	EffectsDialogLayout->addLayout( layout18 );
 	optionStack->raiseWidget(0);
 	createPreview();
+	availableEffects->repaintContents();
 	resize( minimumSizeHint() );
 	clearWState( WState_Polished );
 
@@ -803,6 +841,7 @@ void EffectsDialog::moveToEffects()
 	selectEffect(usedEffects->item(usedEffects->count()-1));
 	connect( usedEffects, SIGNAL( selected(QListBoxItem*) ), this, SLOT( selectEffect(QListBoxItem*) ) );
 	createPreview();
+	availableEffects->repaintContents();
 }
 
 void EffectsDialog::moveFromEffects()
@@ -814,6 +853,7 @@ void EffectsDialog::moveFromEffects()
 		availableEffects->item(3)->setSelectable(true);
 		availableEffects->item(4)->setSelectable(true);
 		availableEffects->item(5)->setSelectable(true);
+		availableEffects->repaintContents();
 	}
 	effectValMap.remove(usedEffects->item(usedEffects->currentItem()));
 	usedEffects->removeItem(usedEffects->currentItem());

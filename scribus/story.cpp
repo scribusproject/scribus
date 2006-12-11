@@ -175,7 +175,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 	ClipData = 0;
 	unicodeTextEditMode = false;
 	connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
+//	connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 }
 
 void SEditor::setCurrentDocument(ScribusDoc *docc)
@@ -720,12 +720,12 @@ void SEditor::copy()
 	if ((hasSelectedText()) && (!selectedText().isEmpty()))
 	{
 		disconnect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
+//		disconnect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		copyStyledText();
 		QApplication::clipboard()->setText(tBuffer, QClipboard::Clipboard);
 		ClipData = 1;
 		connect(QApplication::clipboard(), SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-		connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
+//		connect(QApplication::clipboard(), SIGNAL(selectionChanged()), this, SLOT(SelClipChange()));
 		emit PasteAvail();
 	}
 	emit SideBarUp(true);
@@ -756,9 +756,9 @@ void SEditor::paste()
 		insStyledText();
 	else
 	{
-		QString data = QApplication::clipboard()->text(QClipboard::Selection);
-		if (data.isNull())
-			data = QApplication::clipboard()->text(QClipboard::Clipboard);
+//		QString data = QApplication::clipboard()->text(QClipboard::Selection);
+//		if (data.isNull())
+		data = QApplication::clipboard()->text(QClipboard::Clipboard);
 		if (!data.isNull())
 		{
 			data.replace(QRegExp("\r"), "");

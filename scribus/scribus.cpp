@@ -311,7 +311,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	connect(this, SIGNAL(TextStrike(int, int)), propertiesPalette, SLOT(setStrike(int, int)));
 	connect(this, SIGNAL(TextFarben(QString, QString, int, int)), propertiesPalette, SLOT(setActFarben(QString, QString, int, int)));
 	connect(ClipB, SIGNAL(dataChanged()), this, SLOT(ClipChange()));
-	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
+//	connect(ClipB, SIGNAL(selectionChanged()), this, SLOT(ClipChange()));
 	setAcceptDrops(true);
 	return retVal;
 }
@@ -4994,9 +4994,9 @@ void ScribusMainWindow::ClipChange()
 {
 	QString cc;
 #if QT_VERSION  >= 0x030100
-	cc = ClipB->text(QClipboard::Selection);
-	if (cc.isNull())
-		cc = ClipB->text(QClipboard::Clipboard);
+//	cc = ClipB->text(QClipboard::Selection);
+//	if (cc.isNull())
+	cc = ClipB->text(QClipboard::Clipboard);
 #else
 	cc = ClipB->text();
 #endif
