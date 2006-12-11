@@ -10,31 +10,31 @@
 # CAIRO_CFLAGS, cflags for include information
 
 
-INCLUDE(UsePkgConfig)
-
-# use pkg-config to get the directories and then use these values
-# in the FIND_PATH() and FIND_LIBRARY() calls
-PKGCONFIG(cairo _libCairoIncDir _libCairoLinkDir _libCairoLinkFlags _libCairoCflags)
-
-SET(CAIRO_LIBS ${_libCairoCflags})
+INCLUDE(FindPkgConfig)
 
 IF(PREFIX_CAIRO)
-	SET(PREFIX_CAIRO_INCLUDE "${PREFIX_CAIRO}/include")
-	SET(PREFIX_CAIRO_LIB "${PREFIX_CAIRO}/lib")
-	SET(PREFIX_CAIRO_BIN "${PREFIX_CAIRO}/bin")
+  MESSAGE(STATUS "Searching custom cairo location: ${PREFIX_CAIRO}")
+  SET(PREFIX_CAIRO_INCLUDE "${PREFIX_CAIRO}/include")
+  SET(PREFIX_CAIRO_LIB "${PREFIX_CAIRO}/lib")
+  SET(PREFIX_CAIRO_BIN "${PREFIX_CAIRO}/bin")
+ELSE(PREFIX_CAIRO)
+  # use pkgconfig to get the directories and then use these values
+  # in the FIND_PATH() and FIND_LIBRARY() calls
+  pkg_search_module(PKG_CAIRO REQUIRED libcairo>=1.2.0 cairo>=1.2.0)
 ENDIF(PREFIX_CAIRO)
 
+
 FIND_PATH(CAIRO_INCLUDE_DIR 
-NAMES cairo.h
-PATHS ${PREFIX_CAIRO_INCLUDE} ${_libCairoIncDir} /usr/local/include /usr/include
-PATH_SUFFIXES cairo
-NO_DEFAULT_PATH
+  NAMES cairo.h
+  PATHS ${PREFIX_CAIRO_INCLUDE} ${PKG_CAIRO_INCLUDE_DIRS} /usr/local/include /usr/include
+  PATH_SUFFIXES cairo
+  NO_DEFAULT_PATH
 )
 
 FIND_LIBRARY(CAIRO_LIBRARY
-NAMES cairo
-PATHS ${PREFIX_CAIRO_LIB} ${_libCairoLinkDir} /usr/local/lib /usr/lib
-NO_DEFAULT_PATH
+  NAMES libcairo cairo
+  PATHS ${PREFIX_CAIRO_LIB} ${PKG_CAIRO_LIBRARIES} /usr/local/lib /usr/lib
+  NO_DEFAULT_PATH
 )
 
 #If we had no cairo prefix specify it, set PREFIX_CAIRO_LIB most importantly, for the 
