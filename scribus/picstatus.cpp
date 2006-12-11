@@ -339,15 +339,19 @@ void PicStatus::fillTable()
 	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
 	{
 		if (item->itemType() == PageItem::ImageFrame)
+		{
 			ItemNrs.append(i);
-		++i;
+			++i;
+		}
 	}
 	i = 0;
 	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
 	{
 		if (item->itemType() == PageItem::ImageFrame)
+		{
 			ItemNrs.append(i);
-		++i;
+			++i;
+		}
 	}
 
 	i = 0;
@@ -356,14 +360,18 @@ void PicStatus::fillTable()
 	for (item = m_Doc->MasterItems.first(); item; item = m_Doc->MasterItems.next())
 	{
 		if (item->itemType() == PageItem::ImageFrame)
+		{
 			insertLine(item, i, true);
-		++i;
+			++i;
+		}
 	}
 	for (item = m_Doc->Items->first(); item; item = m_Doc->Items->next())
 	{
 		if (item->itemType() == PageItem::ImageFrame)
+		{
 			insertLine(item, i, false);
-		++i;
+			++i;
+		}
 	}
 	PicTable->adjustColumn(COL_PREVIEW);
 	PicTable->adjustColumn(COL_FILENAME);
