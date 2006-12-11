@@ -337,12 +337,7 @@ QPixmap SampleItem::getSample(int width, int height)
 	previewItem->Cols = 1;
 	text.replace(QChar(10),QChar(13)).replace(QChar(5),QChar(13));
 	previewItem->itemText.insertChars(0, text);
-	for (int pos=0; pos < text.length(); ++pos) {
-		if (previewItem->itemText.text(pos) == SpecialChars::PARSEP) {
-			previewItem->itemText.applyStyle(pos, tmpStyle);
-		}
-	}
-	previewItem->itemText.applyCharStyle(0, text.length(), tmpStyle.charStyle());
+	previewItem->itemText.setDefaultStyle(tmpStyle);
 	previewItem->setFillColor("__whiteforpreviewbg__");
 	previewItem->setFillShade(bgShade);
 	previewItem->SetRectFrame();
