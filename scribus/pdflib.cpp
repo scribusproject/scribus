@@ -366,6 +366,8 @@ QString PDFlib::EncString(const QString & in, int ObjNum)
 
 QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
 {
+	if (in.length() < 3)
+		return "<>";
 	if (!Options.Encrypt)
 	{
 		QString tmp = in.mid(1, in.length()-2);
@@ -378,8 +380,6 @@ QString PDFlib::EncStringUTF16(const QString & in, int ObjNum)
 	rc4_context_t rc4;
 	QString tmp;
 	int dlen = 0;
-	if (in.length() < 3)
-		return "<>";
 	tmp = in.mid(1, in.length()-2);
 	QByteArray us = EncodeUTF16(tmp);
 	QByteArray ou(us.size());

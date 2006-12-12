@@ -1299,8 +1299,8 @@ QByteArray ScImage::ImageToGray()
 		for( int xi=0; xi < w; ++xi )
 		{
 			r = *s;
-			k = qRgba(QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255), 0, 0, 0);
-			*s = k;
+			k = QMIN(qRound(0.3 * qRed(r) + 0.59 * qGreen(r) + 0.11 * qBlue(r)), 255);
+			*s = qRgba(k, 0, 0, 0);
 			imgArray[i++] = k;
 			s++;
 		}
