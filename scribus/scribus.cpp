@@ -202,6 +202,7 @@ ScribusMainWindow::ScribusMainWindow()
 	scrMenuMgr=0;
 	prefsManager=0;
 	mainWindowStatusLabel=0;
+	ExternalApp=0;
 #ifdef Q_WS_MAC
 	noIcon = loadIcon("noicon.xpm");
 #endif
