@@ -2098,8 +2098,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (UndoManager::undoEnabled())
 				undoManager->commit();
 		}
-		Doc->appMode = modeNormal;
-		emit PaintingDone();
+		if (!Prefs->stickyTools)
+		{
+			Doc->appMode = modeNormal;
+			emit PaintingDone();
+		}
+		else
+			emit Amode(Doc->appMode);
 		emit DocChanged();
 		updateContents();
 		return;
@@ -2139,10 +2144,15 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			*/
 			//emit HaveSel(PageItem::PolyLine);
 		}
-		Doc->appMode = modeNormal;
-		updateContents();
-		emit PaintingDone();
+		if (!Prefs->stickyTools)
+		{
+			Doc->appMode = modeNormal;
+			emit PaintingDone();
+		}
+		else
+			emit Amode(Doc->appMode);
 		emit DocChanged();
+		updateContents();
 		return;
 	}
 	if ((Doc->EditClip) && (ClRe == -1) && (HaveSelRect))
@@ -2842,7 +2852,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					currItem->OldH2 = currItem->height();
 				}
 				updateContents();
-				Doc->appMode = modeNormal;
 				Doc->DragP = false;
 				Doc->leaveDrag = false;
 				operItemMoving = false;
@@ -2850,10 +2859,28 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				MidButt = false;
 				shiftSelItems = false;
 				m_SnapCounter = 0;
-				Doc->SubMode = -1;
-				inItemCreation = false;
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-				emit PaintingDone();
+				if (!Prefs->stickyTools)
+				{
+					Doc->SubMode = -1;
+					Doc->appMode = modeNormal;
+					emit PaintingDone();
+				}
+				else
+				{
+					if ((inItemCreation) && (Doc->appMode == modeNormal))
+					{
+						currItem = Doc->m_Selection->itemAt(0);
+						if (currItem->asTextFrame())
+							Doc->appMode = modeDrawText;
+						else if (currItem->asImageFrame())
+							Doc->appMode = modeDrawPicture;
+						else if (Doc->SubMode != -1)
+							Doc->appMode = modeDrawShapes;
+					}
+					emit Amode(Doc->appMode);
+				}
+				inItemCreation = false;
 				emit DocChanged();
 			}
 		}
@@ -3799,9 +3826,26 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			if (Doc->appMode == modeRotation)
 				Doc->RotMode = RotMode;
-			Doc->appMode = modeNormal;
-			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-			emit PaintingDone();
+			if (!Prefs->stickyTools)
+			{
+				Doc->appMode = modeNormal;
+				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				emit PaintingDone();
+			}
+			else
+			{
+				if ((inItemCreation) && (Doc->appMode == modeNormal))
+				{
+					currItem = Doc->m_Selection->itemAt(0);
+					if (currItem->asTextFrame())
+						Doc->appMode = modeDrawText;
+					else if (currItem->asImageFrame())
+						Doc->appMode = modeDrawPicture;
+					else if (Doc->SubMode != -1)
+						Doc->appMode = modeDrawShapes;
+				}
+				emit Amode(Doc->appMode);
+			}
 		}
 		if (GetItem(&currItem))
 		{
@@ -3870,8 +3914,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				SetCPo(Mxp, Myp);
 				HaveSelRect = false;
-				Doc->appMode = modeNormal;
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				Doc->appMode = modeNormal;
 				emit PaintingDone();
 			}
 		}
@@ -3883,8 +3927,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			if (sc == Scale)
 			{
 				HaveSelRect = false;
-				Doc->appMode = modeNormal;
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+				Doc->appMode = modeNormal;
 				emit PaintingDone();
 			}
 			else
@@ -3965,9 +4009,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				currItem->ContourLine = currItem->PoLine.copy();
 			}
 		}
-		Doc->appMode = modeNormal;
-		qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-		emit PaintingDone();
+		if (!Prefs->stickyTools)
+		{
+			Doc->appMode = modeNormal;
+			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
+			emit PaintingDone();
+		}
+		else
+			emit Amode(Doc->appMode);
 		emit DocChanged();
 		FirstPoly = true;
 		updateContents();
@@ -3980,7 +4029,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	shiftSelItems = false;
 	inItemCreation = false;
 	m_SnapCounter = 0;
-	Doc->SubMode = -1;
+//	Doc->SubMode = -1;
 	if (_groupTransactionStarted)
 	{
 		for (uint i = 0; i < Doc->m_Selection->count(); ++i)

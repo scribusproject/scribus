@@ -458,10 +458,14 @@ void ActionManager::initInsertMenuActions()
 	(*scrActions)["insertGlyph"]->setToggleAction(true);
 	name="insertSampleText";
 	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
+	name="stickyTools";
+	scrActions->insert(name, new ScrAction(QIconSet(noIcon),"", defKeys[name], mainWindow, name));
+	(*scrActions)["stickyTools"]->setToggleAction(true);
 
 	connect( (*scrActions)["insertFrame"], SIGNAL(activated()), mainWindow, SLOT(slotInsertFrame()) );
 	connect( (*scrActions)["insertGlyph"], SIGNAL(activated()), mainWindow, SLOT(slotCharSelect()) );
 	connect( (*scrActions)["insertSampleText"], SIGNAL(activated()), mainWindow, SLOT(insertSampleText()) );
+	connect( (*scrActions)["stickyTools"], SIGNAL(activated()), mainWindow, SLOT(ToggleStickyTools()) );
 }
 
 void ActionManager::initPageMenuActions()
@@ -1290,6 +1294,7 @@ void ActionManager::languageChange()
 	(*scrActions)["insertFrame"]->setTexts( tr("&Frame..."));
 	(*scrActions)["insertGlyph"]->setTexts( tr("&Glyph..."));
 	(*scrActions)["insertSampleText"]->setTexts( tr("Sample Text"));
+	(*scrActions)["stickyTools"]->setTexts( tr("Sticky Tools"));
 
 	//Page menu
 	(*scrActions)["pageInsert"]->setTexts( tr("&Insert..."));
@@ -1603,6 +1608,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("insertFrame", QKeySequence());
 	defKeys.insert("insertGlyph", QKeySequence());
 	defKeys.insert("insertSampleText", QKeySequence());
+	defKeys.insert("stickyTools", QKeySequence());
 
 	//Page menu
 	defKeys.insert("pageInsert", QKeySequence());
@@ -1822,6 +1828,7 @@ void ActionManager::createDefaultMenus()
 		<< "toolsInsertLine"
 		<< "toolsInsertBezier"
 		<< "toolsInsertFreehandLine"
+		<< "stickyTools"
 		<< "insertGlyph"
 		<< "insertSampleText";
 

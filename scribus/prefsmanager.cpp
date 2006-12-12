@@ -222,6 +222,7 @@ void PrefsManager::initDefaults()
 	appPrefs.GUI = "Default";
 	appPrefs.showToolTips = true;
 	appPrefs.moveTimeout = 150;
+	appPrefs.stickyTools = false;
 	//FIXME
 	//Black here causes issues when a colour set is loaded without "Black" in it.
 	//"Black" is created with wrong values. Eg SVG colour set
@@ -950,6 +951,7 @@ bool PrefsManager::WritePref(QString ho)
 	dc.setAttribute("STYLEPREVIEW", static_cast<int>(appPrefs.haveStylePreview));
 	dc.setAttribute("StartUp", static_cast<int>(appPrefs.showStartupDialog));
 	dc.setAttribute("ToolTips", static_cast<int>(appPrefs.showToolTips));
+	dc.setAttribute("stickyTools", static_cast<int>(appPrefs.stickyTools));
 	elem.appendChild(dc);
 	QDomElement dc1=docu.createElement("GRID");
 	dc1.setAttribute("MINOR",appPrefs.guidesSettings.minorGrid);
@@ -1435,6 +1437,7 @@ bool PrefsManager::ReadPref(QString ho)
 			if (dc.hasAttribute("STEFONT"))
 				appPrefs.STEfont = dc.attribute("STEFONT");
 			appPrefs.showToolTips = static_cast<bool>(dc.attribute("ToolTips", "1").toInt());
+			appPrefs.stickyTools = static_cast<bool>(dc.attribute("stickyTools", "0").toInt());
 		}
 		if (dc.tagName()=="GRID")
 		{

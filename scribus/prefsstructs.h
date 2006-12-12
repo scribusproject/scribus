@@ -248,6 +248,7 @@ struct ApplicationPrefs
 	bool useStandardLI;
 	int paragraphsLI;
 	bool showStartupDialog;
+	bool stickyTools;
 };
 
 #endif

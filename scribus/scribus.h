@@ -243,6 +243,7 @@ public slots:
 	void languageChange();
 	void specialActionKeyEvent(QString actionName, int unicodevalue);
 	void newView();
+	void ToggleStickyTools();
 	void ToggleAllGuides();
 	void ToggleAllPalettes();
 	void slotStoryEditor();

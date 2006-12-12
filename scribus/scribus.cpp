@@ -290,6 +290,7 @@ int ScribusMainWindow::initScMW(bool primaryMainWindow)
 	initScrapbook();
 
 	scrActions["helpTooltips"]->setOn(prefsManager->appPrefs.showToolTips);
+	scrActions["stickyTools"]->setOn(prefsManager->appPrefs.stickyTools);
 	ToggleTips();
 	propertiesPalette->setFontSize();
 	if (scrActions["SaveAsDocumentTemplate"])
@@ -730,6 +731,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertLine"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertBezier"], "Insert");
 	scrMenuMgr->addMenuItem(scrActions["toolsInsertFreehandLine"], "Insert");
+	scrMenuMgr->addMenuItem(scrActions["stickyTools"], "Insert");
 	scrMenuMgr->addMenuSeparator("Insert");
 	scrMenuMgr->addMenuItem(scrActions["insertGlyph"], "Insert");
 
@@ -5299,6 +5301,12 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 		view->rememberPreviousSettings(w / 2 + x,h / 2 + y);
 	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
+}
+
+void ScribusMainWindow::ToggleStickyTools()
+{
+	prefsManager->appPrefs.stickyTools = !prefsManager->appPrefs.stickyTools;
+	scrActions["stickyTools"]->setOn(prefsManager->appPrefs.stickyTools);
 }
 
 void ScribusMainWindow::ToggleAllPalettes()
