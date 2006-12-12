@@ -21,6 +21,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "fonts/scfontmetrics.h"
 #include "util.h"
+#include "scpaths.h"
 
 #include "charselect.h"
 #include "charselect.moc"
@@ -149,6 +150,12 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
 	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
+	//
+	loadUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
+}
+
+CharSelect::~CharSelect()
+{
 }
 
 void CharSelect::setDoc(ScribusDoc* doc)
@@ -164,7 +171,10 @@ void CharSelect::setDoc(ScribusDoc* doc)
 	}
 
 	if (!m_doc)
+	{
+		saveUserContent(ScPaths::getApplicationDataDir() + "charpalette.ucp");
 		return;
+	}
 
 	QString oldFont(m_fontInUse);
 	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
@@ -639,11 +649,16 @@ void CharSelect::uniLoadButton_clicked()
                     this,
                     "loadDialog",
                     tr("Choose a filename to open"));
-	if (f.isNull())
-		return;
+	if (!f.isNull())
+		loadUserContent(f);
+}
 
+void CharSelect::loadUserContent(QString f)
+{
 	CharClassDef newChars;
 	QFile file(f);
+	if (!file.exists())
+		return;
 	if (file.open(IO_ReadOnly))
 	{
 		QTextStream stream(&file);
@@ -682,6 +697,11 @@ void CharSelect::uniSaveButton_clicked()
                     tr("Choose a filename to save under"));
 	if (f.isNull() || !overwrite(this, f))
 		return;
+	saveUserContent(f);
+}
+
+void CharSelect::saveUserContent(QString f)
+{
 	QFile file(f);
 	if (file.open(IO_WriteOnly))
 	{

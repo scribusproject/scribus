@@ -30,7 +30,7 @@ class SCRIBUS_API CharSelect : public ScrPaletteBase
 
 public:
 	CharSelect(QWidget* parent);
-	~CharSelect() {};
+	~CharSelect();
 
 	void show();
 	void setDoc(ScribusDoc* doc);
@@ -133,6 +133,9 @@ protected:
 	QPushButton *uniLoadButton;
 	QPushButton *uniSaveButton;
 	QPushButton *uniClearButton;
+
+	void saveUserContent(QString f);
+	void loadUserContent(QString f);
 
 	protected slots:
 		void hideCheck_clicked();
