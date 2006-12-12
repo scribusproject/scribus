@@ -430,8 +430,11 @@ bool OODPlug::convert(int flags)
 	}
 	else
 	{
+		bool loadF = m_Doc->isLoading();
+		m_Doc->setLoading(false);
 		m_Doc->changed();
 		m_Doc->reformPages();
+		m_Doc->setLoading(loadF);
 	}
 	return true;
 }
@@ -819,91 +822,101 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 				m_Doc->view()->AdjustItemSize(ite);
 			}
+			ite->OwnPage = m_Doc->OnPage(ite);
 			if (HaveGradient)
 			{
 				ite->GrType = 0;
-				ite->fill_gradient = gradient;
-				if (GradientType == 1)
+				if (gradient.Stops() > 1)
 				{
-					bool flipped = false;
-					if ((GradientAngle == 0) || (GradientAngle == 180) || (GradientAngle == 90) || (GradientAngle == 270))
+					ite->fill_gradient = gradient;
+					if (GradientType == 1)
 					{
-						if ((GradientAngle == 0) || (GradientAngle == 180))
+						bool flipped = false;
+						if ((GradientAngle == 0) || (GradientAngle == 180) || (GradientAngle == 90) || (GradientAngle == 270))
 						{
-							ite->GrType = 2;
-							//m_Doc->view()->updateGradientVectors(ite);
-							ite->updateGradientVectors();
-						}
-						else if ((GradientAngle == 90) || (GradientAngle == 270))
-						{
-							ite->GrType = 1;
-							//m_Doc->view()->updateGradientVectors(ite);
-							ite->updateGradientVectors();
-						}
-					}
-					else
-					{
-						if ((GradientAngle > 90) && (GradientAngle < 270))
-							GradientAngle -= 180;
-						else if ((GradientAngle > 270) && (GradientAngle < 360))
-						{
-							GradientAngle = 360 - GradientAngle;
-							flipped = true;
-						}
-						double xpos;
-						xpos = (ite->width() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width()) + (ite->width() / 2);
-						if ((xpos < 0) || (xpos > ite->width()))
-						{
-							xpos = (ite->height() / 2)- (ite->height() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width());
-							if (flipped)
+							if ((GradientAngle == 0) || (GradientAngle == 180))
 							{
-								ite->GrEndX = ite->width();
-								ite->GrEndY = ite->height() - xpos;
-								ite->GrStartX = 0;
-								ite->GrStartY = xpos;
+								ite->GrType = 2;
+								//m_Doc->view()->updateGradientVectors(ite);
+								ite->updateGradientVectors();
 							}
-							else
+							else if ((GradientAngle == 90) || (GradientAngle == 270))
 							{
-								ite->GrEndY = xpos;
-								ite->GrEndX = ite->width();
-								ite->GrStartX = 0;
-								ite->GrStartY = ite->height() - xpos;
+								ite->GrType = 1;
+								//m_Doc->view()->updateGradientVectors(ite);
+								ite->updateGradientVectors();
 							}
 						}
 						else
 						{
-							ite->GrEndX = xpos;
-							ite->GrEndY = ite->height();
-							ite->GrStartX = ite->width() - xpos;
-							ite->GrStartY = 0;
+							if ((GradientAngle > 90) && (GradientAngle < 270))
+								GradientAngle -= 180;
+							else if ((GradientAngle > 270) && (GradientAngle < 360))
+							{
+								GradientAngle = 360 - GradientAngle;
+								flipped = true;
+							}
+							double xpos;
+							xpos = (ite->width() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width()) + (ite->width() / 2);
+							if ((xpos < 0) || (xpos > ite->width()))
+							{
+								xpos = (ite->height() / 2)- (ite->height() / 2) * tan(GradientAngle* M_PI / 180.0) * (ite->height() / ite->width());
+								if (flipped)
+								{
+									ite->GrEndX = ite->width();
+									ite->GrEndY = ite->height() - xpos;
+									ite->GrStartX = 0;
+									ite->GrStartY = xpos;
+								}
+								else
+								{
+									ite->GrEndY = xpos;
+									ite->GrEndX = ite->width();
+									ite->GrStartX = 0;
+									ite->GrStartY = ite->height() - xpos;
+								}
+							}
+							else
+							{
+								ite->GrEndX = xpos;
+								ite->GrEndY = ite->height();
+								ite->GrStartX = ite->width() - xpos;
+								ite->GrStartY = 0;
+							}
+							if (flipped)
+							{
+								ite->GrEndX = ite->width() - xpos;
+								ite->GrEndY = ite->height();
+								ite->GrStartX = xpos;
+								ite->GrStartY = 0;
+							}
+							ite->GrType = 6;
 						}
-						if (flipped)
+					}
+					if (GradientType == 2)
+					{
+						ite->GrType = 7;
+						ite->GrStartX = ite->width() * xGoff;
+						ite->GrStartY = ite->height()* yGoff;
+						if (ite->width() >= ite->height())
 						{
-							ite->GrEndX = ite->width() - xpos;
-							ite->GrEndY = ite->height();
-							ite->GrStartX = xpos;
-							ite->GrStartY = 0;
+							ite->GrEndX = ite->width();
+							ite->GrEndY = ite->height() / 2.0;
 						}
-						ite->GrType = 6;
+						else
+						{
+							ite->GrEndX = ite->width() / 2.0;
+							ite->GrEndY = ite->height();
+						}
+						//m_Doc->view()->updateGradientVectors(ite);
+						ite->updateGradientVectors();
 					}
 				}
-				if (GradientType == 2)
+				else
 				{
-					ite->GrType = 7;
-					ite->GrStartX = ite->width() * xGoff;
-					ite->GrStartY = ite->height()* yGoff;
-					if (ite->width() >= ite->height())
-					{
-						ite->GrEndX = ite->width();
-						ite->GrEndY = ite->height() / 2.0;
-					}
-					else
-					{
-						ite->GrEndX = ite->width() / 2.0;
-						ite->GrEndY = ite->height();
-					}
-					//m_Doc->view()->updateGradientVectors(ite);
-					ite->updateGradientVectors();
+					QPtrVector<VColorStop> cstops = gradient.colorStops();
+					ite->setFillColor(cstops.at(0)->name);
+					ite->setFillShade(cstops.at(0)->shade);
 				}
 				HaveGradient = false;
 			}

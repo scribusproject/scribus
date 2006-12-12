@@ -391,8 +391,11 @@ void SVGPlug::convert(int flags)
 	}
 	else
 	{
+		bool loadF = m_Doc->isLoading();
+		m_Doc->setLoading(false);
 		m_Doc->changed();
 		m_Doc->reformPages();
+		m_Doc->setLoading(loadF);
 	}
 }
 
@@ -769,6 +772,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 				break;
 			}
 		}
+		ite->OwnPage = m_Doc->OnPage(ite);
 		if( !e.attribute("id").isEmpty() )
 			ite->setItemName(" "+e.attribute("id"));
 		ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
@@ -781,49 +785,59 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		ite->DashValues = gc->dashArray;
 		if (gc->Gradient != 0)
 		{
-			ite->fill_gradient = gc->GradCo;
-			if (!gc->CSpace)
+			if (gc->GradCo.Stops() > 1)
 			{
-				ite->GrStartX = gc->GX1 * ite->width();
-				ite->GrStartY = gc->GY1 * ite->height();
-				ite->GrEndX = gc->GX2 * ite->width();
-				ite->GrEndY = gc->GY2 * ite->height();
-				double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
-				double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
-				double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
-				double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
-				QWMatrix mm, mm2;
-				if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
+				ite->fill_gradient = gc->GradCo;
+				if (!gc->CSpace)
 				{
-					mm.rotate(-angle2);
-					mm2.rotate(angle1);
+					ite->GrStartX = gc->GX1 * ite->width();
+					ite->GrStartY = gc->GY1 * ite->height();
+					ite->GrEndX = gc->GX2 * ite->width();
+					ite->GrEndY = gc->GY2 * ite->height();
+					double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
+					double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
+					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
+					double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
+					QWMatrix mm, mm2;
+					if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
+					{
+						mm.rotate(-angle2);
+						mm2.rotate(angle1);
+					}
+					FPointArray gra;
+					gra.setPoints(2, ite->GrStartX-dx, ite->GrStartY-dy, ite->GrEndX-dx, ite->GrEndY-dy);
+					gra.map(mm*mm2);
+					gra.translate(dx, dy);
+					ite->GrStartX = gra.point(0).x();
+					ite->GrStartY = gra.point(0).y();
+					ite->GrEndX = gra.point(1).x();
+					ite->GrEndY = gra.point(1).y();
 				}
-				FPointArray gra;
-				gra.setPoints(2, ite->GrStartX-dx, ite->GrStartY-dy, ite->GrEndX-dx, ite->GrEndY-dy);
-				gra.map(mm*mm2);
-				gra.translate(dx, dy);
-				ite->GrStartX = gra.point(0).x();
-				ite->GrStartY = gra.point(0).y();
-				ite->GrEndX = gra.point(1).x();
-				ite->GrEndY = gra.point(1).y();
+				else
+				{
+					QWMatrix mm = gc->matrix;
+					mm = gc->matrixg * mm;
+					FPointArray gra;
+					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
+					gra.map(mm);
+					gc->GX1 = gra.point(0).x();
+					gc->GY1 = gra.point(0).y();
+					gc->GX2 = gra.point(1).x();
+					gc->GY2 = gra.point(1).y();
+					ite->GrStartX = gc->GX1 - ite->xPos() + BaseX;
+					ite->GrStartY = gc->GY1 - ite->yPos() + BaseY;
+					ite->GrEndX = gc->GX2 - ite->xPos() + BaseX;
+					ite->GrEndY = gc->GY2 - ite->yPos() + BaseY;
+				}
+				ite->GrType = gc->Gradient;
 			}
 			else
 			{
-				QWMatrix mm = gc->matrix;
-				mm = gc->matrixg * mm;
-				FPointArray gra;
-				gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
-				gra.map(mm);
-				gc->GX1 = gra.point(0).x();
-				gc->GY1 = gra.point(0).y();
-				gc->GX2 = gra.point(1).x();
-				gc->GY2 = gra.point(1).y();
-				ite->GrStartX = gc->GX1 - ite->xPos() + BaseX;
-				ite->GrStartY = gc->GY1 - ite->yPos() + BaseY;
-				ite->GrEndX = gc->GX2 - ite->xPos() + BaseX;
-				ite->GrEndY = gc->GY2 - ite->yPos() + BaseY;
+				ite->GrType = 0;
+				QPtrVector<VColorStop> cstops = gc->GradCo.colorStops();
+				ite->setFillColor(cstops.at(0)->name);
+				ite->setFillShade(cstops.at(0)->shade);
 			}
-			ite->GrType = gc->Gradient;
 		}
 		GElements.append(ite);
 	}
