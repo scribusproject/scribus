@@ -560,7 +560,10 @@ void PageItem_TextFrame::layout()
 				if (a+1 < itemText.length())
 				{
 					uint glyph2 = charStyle.font().char2CMap(itemText.text(a+1));
-					wide += charStyle.font().glyphKerning(hl->glyph.glyph, glyph2, chs / 10.0) * hl->glyph.scaleH;
+					double kern= charStyle.font().glyphKerning(hl->glyph.glyph, glyph2, chs / 10.0) * hl->glyph.scaleH;
+					wide += kern;
+					hl->glyph.xoffset += kern;
+					hl->glyph.xadvance += kern;
 				}
 			}
 			if (DropCmode)
@@ -860,7 +863,7 @@ void PageItem_TextFrame::layout()
 					RTab = false;
 				else
 				{
-					RTabX = CurX+wide;
+					RTabX = CurX;
 					tTabValues = style.tabValues();
 					if (tTabValues.isEmpty())
 					{
@@ -898,7 +901,7 @@ void PageItem_TextFrame::layout()
 							CurX = ColBound.x() + tCurX;
 					}
 					hl->glyph.xadvance = CurX - RTabX;
-					CurX -= 1;
+//					wide = CurX - RTabX;
 					StartRT = a;
 				}
 			}
@@ -1169,15 +1172,14 @@ void PageItem_TextFrame::layout()
 						assert( a < itemText.length() );
 						hl = itemText.item(a);
 						style = itemText.paragraphStyle(a);
-						if (style.rightMargin() < 0) {
-							qDebug(QString("style pos < %1:").arg(a));
-							dumpIt(style);
-						}
 //						qDebug(QString("style <@%6: %1 -- %2, %4/%5 char: %3").arg(style.leftMargin()).arg(style.rightMargin())
 //							   .arg(style.charStyle().asString()).arg(style.name()).arg(style.parent()?style.parent()->name():"")
 //							   .arg(a));
-//not needed any more:	a++;
-						// Fix incorrect right flush for full lines: ? -AV
+
+						if (hl->ch[0] == ' ') {
+							hl->setEffects(hl->effects() | ScStyle_SuppressSpace);
+							hl->glyph.xadvance = 0;
+						}
 						LastXp = curLine.x;
 						for (int j=curLine.firstItem; j <= a; ++j)
 							LastXp += itemText.item(j)->glyph.wide();
@@ -1203,7 +1205,6 @@ void PageItem_TextFrame::layout()
 							}
 //							LastSP += 1;
 						}
-//						BuPos = LastSP;
 						// Justification
 						if (style.alignment() != 0)
 						{
@@ -1952,8 +1953,8 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 						p->setLineWidth(0);
 						if ((a > 0) && (QChar(hl->glyph.glyph) == SpecialChars::TAB))
 						{
-							xcoZli = CurX + itemText.item(a-1)->glyph.xoffset + itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
-							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
+//							xcoZli = CurX + itemText.item(a-1)->glyph.xoffset + itemText.charStyle(a-1).font().charWidth(itemText.text(a-1), itemText.charStyle(a-1).fontSize() / 10.0);
+//							wide = CurX + hl->glyph.xoffset - xcoZli + hl->glyph.xadvance;
 						}
 						if (!m_Doc->RePos)
 							p->drawRect(xcoZli, qRound(ls.y + hl->glyph.yoffset - asce * hl->glyph.scaleV), wide+1, qRound((asce+desc) * (hl->glyph.scaleV)));

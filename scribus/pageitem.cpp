@@ -1569,13 +1569,12 @@ void PageItem::drawGlyphs(ScPainter *p, const CharStyle& style, GlyphLayout& gly
 			glyph -= ScFace::CONTROL_GLYPHS;
 		else
 			glyph = 32;
-		qDebug(QString("drawControlGlyph: %1").arg(glyph));
 		QWMatrix chma, chma4, chma5;
 		FPointArray points;
 		if (glyph == SpecialChars::TAB.unicode())
 		{
 			points = m_Doc->symTab.copy();
-			chma4.translate(glyphs.xoffset - ((style.fontSize() / 10.0) * glyphs.scaleH * 0.7), glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV * 0.5));
+			chma4.translate(glyphs.xoffset + glyphs.xadvance - ((style.fontSize() / 10.0) * glyphs.scaleH * 0.7), glyphs.yoffset - ((style.fontSize() / 10.0) * glyphs.scaleV * 0.5));
 		}
 		else if (glyph == SpecialChars::COLBREAK.unicode())
 		{
