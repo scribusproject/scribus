@@ -3431,9 +3431,19 @@ void Mpalette::MakeIrre(int f, int c, double *vals)
 		m_ScMW->view->RefreshItem(CurItem);
 		emit DocChanged();
 		if ((CurItem->itemType() == PageItem::ImageFrame) || (CurItem->itemType() == PageItem::TextFrame))
+		{
+			if (f != 0)
+				RoundRect->setEnabled(false);
+			else
+				RoundRect->setEnabled(true);
 			return;
+		}
 		CurItem->convertTo(PageItem::Polygon);
 		NewSel(6);
+		if (f != 0)
+			RoundRect->setEnabled(false);
+		else
+			RoundRect->setEnabled(true);
 // 		TabStack->setCurrentIndex(1);
 	}
 }
@@ -3453,6 +3463,7 @@ void Mpalette::EditSh()
 		}
 		*/
 		emit ShapeEdit();
+		RoundRect->setEnabled(false);
 //		emit DocChanged();
 	}
 }
@@ -4480,5 +4491,6 @@ void Mpalette::EditSh2()
 		CurItem->isSingleSel = true;
 		m_ScMW->view->RefreshItem(CurItem);
 		emit ShapeEdit();
+		RoundRect->setEnabled(false);
 	}
 }
