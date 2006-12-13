@@ -166,6 +166,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
+	m_Doc->view()->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
@@ -202,6 +203,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
+	m_Doc->view()->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=m_Doc->masterPageMode();
 	m_Doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
