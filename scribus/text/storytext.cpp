@@ -952,15 +952,18 @@ int StoryText::screenToPosition(FPoint coord) const
 			continue;
 		if (ls.y - ls.ascent <= coord.y()) {
 			double xpos = ls.x;
-			for (int j = ls.firstItem; j < ls.lastItem; ++j) {
+			for (int j = ls.firstItem; j <= ls.lastItem; ++j) {
 //				qDebug(QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide()));
-				xpos += item(j)->glyph.wide();
-				if (xpos > coord.x())
-					return j;
+				double width = item(j)->glyph.wide();
+				xpos += width;
+				if (xpos >= coord.x())
+					return xpos - width/2 > coord.x() ? j : j+1;
 			}
+			if (xpos + 1 > coord.x()) // allow 1pt after end of line
+				return ls.lastItem + 1;
 		}
 	}
-	return QMAX(lastFrameItem, firstFrameItem);
+	return QMAX(lastFrameItem+1, firstFrameItem);
 }
 
 
