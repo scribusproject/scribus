@@ -49,11 +49,17 @@ protected:
 	QLabel* Text3;
 	QLabel* Text4;
 	QLabel* Text5;
+	QLabel* Text6;
+	QLabel* Text7;
+	QLabel* Text8;
 	QLabel* Comment;
 	QLabel* UserComment;
 	QLabel* Artist;
 	QLabel* Model;
 	QLabel* Manufact;
+	QLabel* ExposureTime;
+	QLabel* ApertureFNumber;
+	QLabel* ISOequivalent;
 	QPushButton* okButton;
 };
 

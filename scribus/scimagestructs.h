@@ -70,6 +70,9 @@ public:
 
 	int width;
 	int height;
+	float ExposureTime;
+	float ApertureFNumber;
+	int   ISOequivalent;
 	QString cameraName;
 	QString cameraVendor;
 	QString comment;

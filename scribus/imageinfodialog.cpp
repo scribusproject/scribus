@@ -87,6 +87,30 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 	layout2->addWidget( Text3, a+1, 0 );
 	Manufact = new QLabel(info->exifInfo.cameraVendor, ExGroup, "Manufact" );
 	layout2->addWidget( Manufact, a+1, 1 );
+
+	Text6 = new QLabel( "", ExGroup, "Text6" );
+	layout2->addWidget( Text6, a+2, 0 );
+	QString tag = "";
+	if (info->exifInfo.ExposureTime != 0)
+	{
+		float exposureTime = info->exifInfo.ExposureTime;
+		tag = QString().sprintf("%6.3f", exposureTime);
+		if ((exposureTime > 0.0) && (exposureTime <= 0.5))
+			tag += QString().sprintf(" (1/%d)", (int)(0.5 + 1/exposureTime) );
+	}
+	if (info->type == 0)
+	{
+		ExposureTime = new QLabel(tag, ExGroup, "ExposureTime" );
+		layout2->addWidget( ExposureTime, a+2, 1 );
+		Text7 = new QLabel( "", ExGroup, "Text7" );
+		layout2->addWidget( Text7, a+3, 0 );
+		ApertureFNumber = new QLabel(QString().sprintf("f/%3.1f", info->exifInfo.ApertureFNumber), ExGroup, "ApertureFNumber" );
+		layout2->addWidget( ApertureFNumber, a+3, 1 );
+		Text8 = new QLabel( "", ExGroup, "Text8" );
+		layout2->addWidget( Text8, a+4, 0 );
+		ISOequivalent = new QLabel(QString().sprintf("%2d", info->exifInfo.ISOequivalent), ExGroup, "ISOequivalent" );
+		layout2->addWidget( ISOequivalent, a+4, 1 );
+	}
 	ImageInfoDialogLayout->addWidget(ExGroup);
 	switch (info->type)
 	{
@@ -95,6 +119,9 @@ ImageInfoDialog::ImageInfoDialog( QWidget* parent, ImageInfoRecord *info  ) : QD
 			Text4->setText( tr( "User Comment:" ));
 			Text2->setText( tr( "Camera Model:" ));
 			Text3->setText( tr( "Camera Manufacturer:" ));
+			Text6->setText( tr( "Exposure time" ));
+			Text7->setText( tr( "Aperture:" ));
+			Text8->setText( tr( "ISO equiv.:" ));
 			break;
 		case 1:
 			Text1->setText( tr( "Description:" ));

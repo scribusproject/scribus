@@ -173,6 +173,9 @@ bool ScImgDataLoader_JPEG::loadPicture(const QString& fn, int res, bool thumbnai
 		m_imageInfoRecord.exifInfo.height = ExifInf.getHeight();
 		m_imageInfoRecord.exifInfo.userComment = ExifInf.getUserComment();
 		m_imageInfoRecord.exifInfo.dateTime = ExifInf.getDateTime();
+		m_imageInfoRecord.exifInfo.ApertureFNumber = ExifInf.getApertureFNumber();
+		m_imageInfoRecord.exifInfo.ExposureTime = ExifInf.getExposureTime();
+		m_imageInfoRecord.exifInfo.ISOequivalent = ExifInf.getISOequivalent();
 		m_imageInfoRecord.exifDataValid = true;
 		if (cinfo.density_unit == 0)
 		{
