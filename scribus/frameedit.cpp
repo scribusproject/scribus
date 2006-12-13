@@ -206,7 +206,7 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 	NodePaletteLayout->addWidget( editEditButton );
 
 	languageChange();
-	connectSignals();	
+//	connectSignals();	
 }
 
 void NodePalette::connectSignals()
@@ -270,8 +270,8 @@ void NodePalette::disconnectSignals()
 	disconnect(Expand, SIGNAL(clicked()), this, SLOT(doExpand()));
 	disconnect(Reduce, SIGNAL(clicked()), this, SLOT(doReduce()));
 	disconnect(Enlarge, SIGNAL(clicked()), this, SLOT(doEnlarge()));	
-	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
-	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
+//	disconnect(AbsMode, SIGNAL(clicked()), this, SLOT(ToggleAbsMode()));
+//	disconnect(EditCont, SIGNAL(clicked()), this, SLOT(ToggleConMode()));
 	disconnect(ResetCont, SIGNAL(clicked()), this, SLOT(ResetContour()));
 }
 
