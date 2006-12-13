@@ -287,6 +287,7 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
+	ScMW->view->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=ScMW->doc->masterPageMode();
 	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
@@ -314,8 +315,8 @@ void Page::restorePageItemCreation(ItemState<PageItem*> *state, bool isUndo)
 	{
 		ScMW->doc->Items->append(ite);
 		ite->ItemNr = ScMW->doc->Items->count()-1;
-		ScMW->view->updateContents();
 	}
+	ScMW->view->updateContents();
 	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
@@ -323,6 +324,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 {
 	if (!state)
 		return;
+	ScMW->view->Deselect(true);
 	PageItem *ite = state->getItem();
 	bool oldMPMode=ScMW->doc->masterPageMode();
 	ScMW->doc->setMasterPageMode(!ite->OnMasterPage.isEmpty());
@@ -332,7 +334,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 	{
 		ScMW->doc->Items->append(ite);
 		ite->ItemNr = ScMW->doc->Items->count()-1;
-		ScMW->view->updateContents();
+//		ScMW->view->updateContents();
 	}
 	else
 	{
@@ -352,6 +354,7 @@ void Page::restorePageItemDeletion(ItemState<PageItem*> *state, bool isUndo)
 		ScMW->doc->m_Selection->clear();
 		*/
 	}
+	ScMW->view->updateContents();
 	ScMW->doc->setMasterPageMode(oldMPMode);
 }
 
