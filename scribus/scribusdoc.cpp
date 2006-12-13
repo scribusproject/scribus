@@ -5021,6 +5021,11 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 				}
 //				emit refreshItem(currItem);
 			}
+			else
+			{
+				currItem->itemText.setDefaultStyle(newStyle);
+			}
+			
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
@@ -5067,6 +5072,13 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 				}
 				//				emit refreshItem(currItem);
 			}
+			else
+			{
+				ParagraphStyle dstyle(currItem->itemText.defaultStyle());
+				dstyle.applyStyle(newStyle);
+				currItem->itemText.setDefaultStyle(dstyle);
+			}
+			
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
@@ -5074,14 +5086,14 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 	}
 }
 
-void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
+void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle)
 {
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										  newstyle.asString(), Um::IFont);
+										  newStyle.asString(), Um::IFont);
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
@@ -5101,7 +5113,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 						length = 1;
 					}
 				}
-				currItem->itemText.applyCharStyle(start, QMAX(0, length), newstyle);
+				currItem->itemText.applyCharStyle(start, QMAX(0, length), newStyle);
 				currItem->invalid = true;
 				
 				if (currItem->asPathText())
@@ -5111,6 +5123,12 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 				}
 				//				emit refreshItem(currItem);
 			}
+			else
+			{
+				ParagraphStyle dstyle(currItem->itemText.defaultStyle());
+				dstyle.charStyle().applyCharStyle(newStyle);
+				currItem->itemText.setDefaultStyle(dstyle);
+			}				
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
@@ -5120,14 +5138,14 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newstyle)
 
 
 
-void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
+void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle)
 {
 	uint docSelectionCount=m_Selection->count();
 	if (docSelectionCount != 0)
 	{
 		if (docSelectionCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										  newstyle.asString(), Um::IFont);
+										  newStyle.asString(), Um::IFont);
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
@@ -5147,7 +5165,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
 						length = 1;
 					}
 				}
-				currItem->itemText.setCharStyle(start, length, newstyle);
+				currItem->itemText.setCharStyle(start, length, newStyle);
 				currItem->invalid = true;
 				
 				if (currItem->asPathText())
@@ -5157,6 +5175,13 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newstyle)
 				}
 				//				emit refreshItem(currItem);
 			}
+			else
+			{
+				ParagraphStyle dstyle(currItem->itemText.defaultStyle());
+				dstyle.charStyle().setStyle(newStyle);
+				currItem->itemText.setDefaultStyle(dstyle);
+			}
+			
 		}
 		if (docSelectionCount > 1)
 			undoManager->commit();
@@ -5174,7 +5199,7 @@ void ScribusDoc::itemSelection_forall(Arg newVal)
 	{
 		if (docSelectionCount > 1)
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::ApplyTextStyle,
-										  newstyle.asString(), Um::IFont);
+										  newStyle.asString(), Um::IFont);
 		for (uint aa = 0; aa < docSelectionCount; ++aa)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
