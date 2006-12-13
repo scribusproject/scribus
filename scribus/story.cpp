@@ -181,6 +181,7 @@ SEditor::SEditor(QWidget* parent, ScribusDoc *docc, StoryEditor* parentSE) : QTe
 void SEditor::setCurrentDocument(ScribusDoc *docc)
 {
 	doc = docc;
+	StyledText = StoryText(docc);
 }
 
 void SEditor::imEndEvent(QIMEvent *e)
