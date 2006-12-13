@@ -1244,7 +1244,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Searching for Fonts</source>
-        <translation type="obsolete">Zoeken naar Fontn</translation>
+        <translation type="obsolete">Zoeken naar Fonts</translation>
     </message>
     <message>
         <source>Paper format</source>
@@ -2254,7 +2254,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Embed all Fonts</source>
-        <translation type="obsolete">Alle Fonts inbedden</translation>
+        <translation type="obsolete">Alle Fonts insluiten</translation>
     </message>
     <message>
         <source>Mouse Enter</source>
@@ -2582,7 +2582,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation type="obsolete">Inbedden</translation>
+        <translation type="obsolete">Insluiten</translation>
     </message>
     <message>
         <source>Visibility:</source>
@@ -9509,7 +9509,7 @@ Een * geeft aan welke bibliotheken ontbreken</translation>
     </message>
     <message>
         <source>&amp;Include Fonts</source>
-        <translation>Fontn &amp;inbedden</translation>
+        <translation>Fonts &amp;insluiten</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -14906,11 +14906,11 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation type="obsolete">Alle l&amp;ettertypen inbedden</translation>
+        <translation type="obsolete">All&amp;e fonts insluiten</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation type="obsolete">Inbedden</translation>
+        <translation type="obsolete">Insluiten</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
@@ -14930,7 +14930,7 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation type="obsolete">&amp;Fontn</translation>
+        <translation type="obsolete">&amp;Fonts</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
@@ -15315,7 +15315,7 @@ optie niet selecteert, worden afbeeldingen op hun eigen resolutie weergegeven.</
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Fontn inbedden in de PDF.  Hierdoor weet u zeker
+        <translation type="obsolete">Fonts insluiten in de PDF.  Hierdoor weet u zeker
 dat layout en uiterlijk bewaard zullen blijven.</translation>
     </message>
     <message>
@@ -15414,7 +15414,7 @@ Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar o
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation type="obsolete">Een kleurprofiel inbedden voor effen kleuren</translation>
+        <translation type="obsolete">Een kleurprofiel insluiten voor effen kleuren</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
@@ -15426,7 +15426,7 @@ Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar o
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation type="obsolete">Een kleurprofiel inbedden voor afbeeldingen</translation>
+        <translation type="obsolete">Een kleurprofiel insluiten voor afbeeldingen</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
@@ -15488,7 +15488,7 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation type="obsolete">Fontn om subset van te nemen:</translation>
+        <translation type="obsolete">Fonts om subset van te nemen:</translation>
     </message>
     <message>
         <source>En&amp;able Presentation Effects</source>
@@ -17605,7 +17605,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Fontn</translation>
+        <translation>Fonts</translation>
     </message>
     <message>
         <source>Color Management</source>
@@ -20430,7 +20430,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Fonts</source>
-        <translation>Fontn</translation>
+        <translation>Fonts</translation>
     </message>
     <message>
         <source>PDF Export</source>
@@ -21593,11 +21593,11 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>&amp;Fonts...</source>
-        <translation type="obsolete">&amp;Fontn...</translation>
+        <translation type="obsolete">&amp;Fonts...</translation>
     </message>
     <message>
         <source>Fonts...</source>
-        <translation type="obsolete">Fontn...</translation>
+        <translation type="obsolete">Fonts...</translation>
     </message>
     <message>
         <source>&amp;Hyphenator...</source>
@@ -22131,7 +22131,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation type="obsolete">Fontn geïnitialiseerd</translation>
+        <translation type="obsolete">Fonts geïnitialiseerd</translation>
     </message>
     <message>
         <source>Edit</source>
@@ -22324,7 +22324,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>Font System Initialized</source>
-        <translation>Fontn geïnitialiseerd</translation>
+        <translation>Fonts geïnitialiseerd</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -24607,7 +24607,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>Alle l&amp;ettertypen inbedden</translation>
+        <translation>&amp;Alle fonts insluiten</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
@@ -24615,7 +24615,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Embedding</source>
-        <translation>Inbedden</translation>
+        <translation>Insluiten</translation>
     </message>
     <message>
         <source>Available Fonts:</source>
@@ -24631,15 +24631,15 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Fonts to embed:</source>
-        <translation>Fontn om te embedden:</translation>
+        <translation>Fonts om in te sluiten:</translation>
     </message>
     <message>
         <source>Fonts to subset:</source>
-        <translation>Fontn om subset van te nemen:</translation>
+        <translation>Fonts om subset van te nemen:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
-        <translation>&amp;Fontn</translation>
+        <translation>&amp;Fonts</translation>
     </message>
     <message>
         <source>Enable &amp;Presentation Effects</source>
@@ -24920,7 +24920,7 @@ zonder u telkens om bevestiging te vragen</translation>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts
 will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Fontn inbedden in de PDF.  Hierdoor weet u zeker
+        <translation type="obsolete">Fonts insluiten in de PDF.  Hierdoor weet u zeker
 dat layout en uiterlijk bewaard zullen blijven.</translation>
     </message>
     <message>
@@ -25095,7 +25095,7 @@ Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar o
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
-        <translation>Een kleurprofiel inbedden voor effen kleuren</translation>
+        <translation>Een kleurprofiel insluiten voor effen kleuren</translation>
     </message>
     <message>
         <source>Color profile for solid colors</source>
@@ -25107,7 +25107,7 @@ Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar o
     </message>
     <message>
         <source>Embed a color profile for images</source>
-        <translation>Een kleurprofiel inbedden voor afbeeldingen</translation>
+        <translation>Een kleurprofiel insluiten voor afbeeldingen</translation>
     </message>
     <message>
         <source>Do not use color profiles that are embedded in source images</source>
@@ -25185,7 +25185,7 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Include La&amp;yers</source>
-        <translation>&amp;Lagen inbedden</translation>
+        <translation>&amp;Lagen insluiten</translation>
     </message>
     <message>
         <source>Compression Metho&amp;d:</source>

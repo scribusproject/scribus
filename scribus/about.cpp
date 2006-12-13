@@ -225,8 +225,9 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Morten Langlo</td><td>mlanglo@mail.dk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
+											"<tr><td>Foppe Benedictus</td><td>foppe.benedictus@gmail.coml</td></tr>" +
 											"<tr><td>Erik Collou</td><td>collou@gmx.net</td></tr>" +
+											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("en_AU").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
