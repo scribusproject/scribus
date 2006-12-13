@@ -35,8 +35,8 @@ extern QPixmap loadIcon(QString nam);
 
 /*!
  \fn About::About( QWidget* parent )
- \author Franz Schmid 
- \date  
+ \author Franz Schmid
+ \date
  \brief Constructor for About dialog box
  \param parent QWidget pointer to parent window
  \retval About dialog
@@ -116,7 +116,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 #  else
 	bu += "?";
 #  endif
-#else 
+#else
 	int wordSize;
 	bool bigEndian;
 	qSysInfo( & wordSize, & bigEndian );
@@ -141,7 +141,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	textView1 = new TextBrowser( tab_2, "TextView1" );
 	textView1->setText(QString::fromUtf8("<table><tr><td><b>" + tr("Development Team:").utf8() + "</b></td><td> </td></tr>" +
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
-											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
+											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" +
 											"<tr><td>Paul F. Johnson</td><td>paul@all-the-johnsons.co.uk</td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td>Petr Vaněk</td><td>petr@yarpen.cz</td></tr>" +
@@ -178,21 +178,21 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td> </td><td> </td></tr>" +
 
 											"<tr><td><b>" + tr("Official Documentation:").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" + 
+											"<tr><td>Peter Linnell</td><td>mrdocs@scribus.info</td></tr>" +
 											"<tr><td>Craig Bradney</td><td>cbradney@zip.com.au</td></tr>" +
 											"<tr><td>Frédéric Dubuy</td><td>effediwhy@gmail.com</td></tr>" +
-											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" 
-											+"<tr><td>Volker Ribbert</td><td>volkerius@h3c.de</td></tr>" + 
-											"<tr><td>Louis Desjardins</td><td>louisdesjardins@videotron.ca</td></tr>" + 
+											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>"
+											+"<tr><td>Volker Ribbert</td><td>volkerius@h3c.de</td></tr>" +
+											"<tr><td>Louis Desjardins</td><td>louisdesjardins@videotron.ca</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Other Documentation:").utf8()  + "</b></td><td></td></tr>" +
-											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" + 
+											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 											"<tr><td>Holger Reibold</td><td>http://www.bomots.de/scribus/</td></tr>" +
 											"<tr><td>Thomas Zastrow</td><td>webmaster@thomas-zastrow.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + tr("Tango Project Icons:").utf8()  + "</b></td><td></td></tr>" +
 											"<tr><td>Andreas Nilsson</td><td>nisses.mail@home.se</td></tr>" +
-											"<tr><td>Jakub Steiner</td><td>jimmac@ximian.com</td></tr>"  + 
+											"<tr><td>Jakub Steiner</td><td>jimmac@ximian.com</td></tr>"  +
 											"<tr><td> </td><td> </td></tr>" + "</table>"));
 	tabLayout->addWidget( textView1 );
 	tabWidget2->insertTab( tab_2, tr( "A&uthors" ) );
@@ -224,6 +224,8 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Morten Langlo</td><td>mlanglo@mail.dk</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("nl").local8Bit()  + "</b></td><td></td></tr>" +
+											"<tr><td>Foppe Benedictus</td><td>foppe.benedictus@gmail.coml</td></tr>" +
+											"<tr><td>Erik Collou</td><td>collou@gmx.net</td></tr>" +
 											"<tr><td>Wilbert Berendsen</td><td>wbsoft@xs4all.nl</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" +
@@ -334,7 +336,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Michel Briand</td><td>michelbriand@free.fr</td></tr>" +
 											"<tr><td>Yves Ceccone</td><td>yves@yeccoe.org</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
-											
+
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("hu").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Giovanni Biczó</td><td>gbiczo@freestart.hu</td></tr>" +
 											"<tr><td>Bence Nagy</td><td>scribus@tipogral.hu</td></tr>" +
@@ -388,7 +390,7 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 	updateLayout->addWidget( textView5 );
 
 	aboutLayout->addWidget( tabWidget2 );
-	
+
 	layout2 = new QHBoxLayout;
 	layout2->setSpacing( 6 );
 	layout2->setMargin( 0 );
