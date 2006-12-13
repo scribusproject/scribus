@@ -2739,6 +2739,8 @@ void StoryEditor::LoadTextFile()
 		if (dia.exec() != QDialog::Accepted)
 			return;
 		LoadEnc = dia.TxCodeM->currentText();
+		if (LoadEnc == "UTF-16")
+			LoadEnc = "ISO-10646-UCS-2";
 		fileName =  dia.selectedFile();
 		if (!fileName.isEmpty())
 		{
@@ -2779,6 +2781,8 @@ void StoryEditor::SaveTextFile()
 		return;
 	}
 	LoadEnc = dia.TxCodeM->currentText();
+	if (LoadEnc == "UTF-16")
+		LoadEnc = "ISO-10646-UCS-2";
 	fileName =  dia.selectedFile();
 	if (!fileName.isEmpty())
 	{

@@ -83,12 +83,14 @@ void gtFileDialog::createWidgets(const QStringList& importers)
 	encodingCombo->setEditable(false);
 	QString tmp_txc[] = {"ISO 8859-1", "ISO 8859-2", "ISO 8859-3", "ISO 8859-4", "ISO 8859-5", "ISO 8859-6",
 					   "ISO 8859-7", "ISO 8859-8", "ISO 8859-9", "ISO 8859-10", "ISO 8859-13", "ISO 8859-14",
-					   "ISO 8859-15", "utf8", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
+					   "ISO 8859-15", "UTF-8", "UTF-16", "KOI8-R", "KOI8-U", "CP1250", "CP1251", "CP1252", "CP1253",
 					   "CP1254", "CP1255", "CP1256", "CP1257", "Apple Roman"};
 	size_t array = sizeof(tmp_txc) / sizeof(*tmp_txc);
 	for (uint a = 0; a < array; ++a)
 		encodingCombo->insertItem(tmp_txc[a]);
 	QString localEn = QTextCodec::codecForLocale()->name();
+	if (localEn == "ISO-10646-UCS-2")
+		localEn = "UTF-16";
 	bool hasIt = false;
 	for (int cc = 0; cc < encodingCombo->count(); ++cc)
 	{
@@ -211,6 +213,8 @@ bool gtDialogs::runFileDialog(const QString& filters, const QStringList& importe
 		if (!fileName.isEmpty())
 			accepted = true;
 		encoding = fdia->encodingCombo->currentText();
+		if (encoding == "UTF-16")
+			encoding = "ISO-10646-UCS-2";
 		importer = fdia->importerCombo->currentItem() - 1;
 		dirs->set("get_text", fileName.left(fileName.findRev("/")));
 	}
