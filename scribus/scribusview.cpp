@@ -2850,7 +2850,36 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					currItem->OwnPage = Doc->OnPage(currItem);
 					currItem->OldB2 = currItem->width();
 					currItem->OldH2 = currItem->height();
+					if (!Prefs->stickyTools)
+					{
+						Doc->SubMode = -1;
+						Doc->appMode = modeNormal;
+						emit PaintingDone();
+					}
+					else
+					{
+						if ((inItemCreation) && (Doc->appMode == modeNormal))
+						{
+							currItem = Doc->m_Selection->itemAt(0);
+							if (currItem->asTextFrame())
+								Doc->appMode = modeDrawText;
+							else if (currItem->asImageFrame())
+								Doc->appMode = modeDrawPicture;
+							else if (Doc->SubMode != -1)
+								Doc->appMode = modeDrawShapes;
+						}
+						emit Amode(Doc->appMode);
+					}
+					emit DocChanged();
 				}
+				else
+				{
+					Doc->SubMode = -1;
+					Doc->appMode = modeNormal;
+					emit PaintingDone();
+					emit HaveSel(-1);
+				}
+				inItemCreation = false;
 				updateContents();
 				Doc->DragP = false;
 				Doc->leaveDrag = false;
@@ -2860,28 +2889,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				shiftSelItems = false;
 				m_SnapCounter = 0;
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
-				if (!Prefs->stickyTools)
-				{
-					Doc->SubMode = -1;
-					Doc->appMode = modeNormal;
-					emit PaintingDone();
-				}
-				else
-				{
-					if ((inItemCreation) && (Doc->appMode == modeNormal))
-					{
-						currItem = Doc->m_Selection->itemAt(0);
-						if (currItem->asTextFrame())
-							Doc->appMode = modeDrawText;
-						else if (currItem->asImageFrame())
-							Doc->appMode = modeDrawPicture;
-						else if (Doc->SubMode != -1)
-							Doc->appMode = modeDrawShapes;
-					}
-					emit Amode(Doc->appMode);
-				}
-				inItemCreation = false;
-				emit DocChanged();
 			}
 		}
 		if (Doc->appMode == modeDrawRegularPolygon)
