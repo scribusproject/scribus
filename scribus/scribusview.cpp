@@ -2720,34 +2720,24 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				return;
 			}
 		}
-		if (Doc->appMode == modeDrawLine)
-		{
-			currItem = Doc->m_Selection->itemAt(0);
-			QPainter p;
-			p.begin(viewport());
-			Transform(currItem, &p);
-			QPoint np = p.xFormDev(m->pos());
-			p.end();
-			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
-			np = Doc->ApplyGrid(np);
-			double newRot=xy2Deg(np.x(), np.y());
-			//Constrain rotation angle, when the mouse is released from drawing a line
-			if (m->state() & ControlButton)
-				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
-			currItem->setRotation(newRot);
-			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
-			currItem->Sizing = false;
-			currItem->updateClip();
-			Doc->setRedrawBounding(currItem);
-			currItem->OwnPage = Doc->OnPage(currItem);
-			updateContents();
-		}
 		if (inItemCreation)
 		{
 			currItem = Doc->m_Selection->itemAt(0);
 			double itemX = 0.0;
 			double itemY = 0.0;
-			if (Doc->appMode == modeDrawRegularPolygon)
+			if (Doc->appMode == modeDrawLine)
+			{
+				QPainter p;
+				p.begin(viewport());
+				Transform(currItem, &p);
+				QPoint np = p.xFormDev(m->pos());
+				p.end();
+				np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
+				np = Doc->ApplyGrid(np);
+				itemX = sqrt(pow(np.x(),2.0)+pow(np.y(),2.0));
+				itemY = 1.0;
+			}
+			else if (Doc->appMode == modeDrawRegularPolygon)
 			{
 				FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
 				np1 = Doc->ApplyGridF(np1);
@@ -2759,30 +2749,59 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				itemX = currItem->width();
 				itemY = currItem->height();
 			}
-			if ((!moveTimerElapsed()) || ((itemX < 2.0) && (itemY < 2.0)))
+			if ((!moveTimerElapsed()) || ((itemX < 2.0) && (itemY < 2.0)) || ((Doc->appMode == modeDrawLine) && (itemX < 2.0)))
 			{
+				int lmode = 0;
+				if (Doc->appMode == modeDrawLine)
+					lmode = 1;
 				PrefsContext* sizes = PrefsManager::instance()->prefsFile->getContext("ObjectSize");
-				double xSize = sizes->getDouble("defWidth", 100.0);
-				double ySize = sizes->getDouble("defHeight", 100.0);
+				double xSize, ySize;
+				int originPoint;
+				if (lmode == 0)
+				{
+					xSize = sizes->getDouble("defWidth", 100.0);
+					ySize = sizes->getDouble("defHeight", 100.0);
+					originPoint = sizes->getInt("Origin", 0);
+				}
+				else
+				{
+					xSize = sizes->getDouble("defLength", 100.0);
+					ySize = sizes->getDouble("defAngle", 0.0);
+					originPoint = sizes->getInt("OriginL", 0);
+				}
 				bool doRemember = sizes->getBool("Remember", true);
-				int originPoint = sizes->getInt("Origin", 0);
 				bool doCreate = false;
 				if (m->state() & (ShiftButton | ControlButton))
 					doCreate = true;
 				else
 				{
-					OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember, originPoint);
+					OneClick *dia = new OneClick(this, tr("Enter Object Size"), Doc->unitIndex(), xSize, ySize, doRemember, originPoint, lmode);
 					if (dia->exec())
 					{
-						xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
-						ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
 						doRemember = dia->checkRemember->isChecked();
-						originPoint = dia->RotationGroup->selectedId();
-						if (doRemember)
+						if (lmode == 0)
 						{
-							sizes->set("defWidth", xSize);
-							sizes->set("defHeight", ySize);
-							sizes->set("Origin", originPoint);
+							xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
+							ySize = dia->spinHeight->value() / unitGetRatioFromIndex(Doc->unitIndex());
+							originPoint = dia->RotationGroup->selectedId();
+							if (doRemember)
+							{
+								sizes->set("defWidth", xSize);
+								sizes->set("defHeight", ySize);
+								sizes->set("Origin", originPoint);
+							}
+						}
+						else
+						{
+							xSize = dia->spinWidth->value() / unitGetRatioFromIndex(Doc->unitIndex());
+							ySize = dia->spinHeight->value();
+							originPoint = dia->RotationGroup->selectedId();
+							if (doRemember)
+							{
+								sizes->set("defLength", xSize);
+								sizes->set("defAngle", ySize);
+								sizes->set("OriginL", originPoint);
+							}
 						}
 						sizes->set("Remember", doRemember);
 						doCreate = true;
@@ -2796,7 +2815,14 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				if (doCreate)
 				{
-					if (Doc->appMode == modeDrawRegularPolygon)
+					if (Doc->appMode == modeDrawLine)
+					{
+						currItem->setWidthHeight(xSize, 1);
+						currItem->setRotation(-ySize);
+						currItem->Sizing = false;
+						currItem->updateClip();
+					}
+					else if (Doc->appMode == modeDrawRegularPolygon)
 					{
 						currItem->setWidthHeight(xSize, ySize);
 						FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
@@ -2830,10 +2856,16 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						case 0:
 							break;
 						case 1:
-							MoveItem(-currItem->width(), 0.0, currItem, false);
+							if (lmode == 0)
+								MoveItem(-currItem->width(), 0.0, currItem, false);
+							else
+								MoveRotated(currItem, FPoint(-currItem->width() / 2.0, 0.0), false);
 							break;
 						case 2:
-							MoveItem(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem, false);
+							if (lmode == 0)
+								MoveItem(-currItem->width() / 2.0, -currItem->height() / 2.0, currItem, false);
+							else
+								MoveRotated(currItem, FPoint(-currItem->width(), 0.0), false);
 							break;
 						case 3:
 							MoveItem(0.0, -currItem->height(), currItem, false);
@@ -2887,7 +2919,29 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			}
 		}
-		if (Doc->appMode == modeDrawRegularPolygon)
+		if ((Doc->appMode == modeDrawLine) && (inItemCreation))
+		{
+			currItem = Doc->m_Selection->itemAt(0);
+			QPainter p;
+			p.begin(viewport());
+			Transform(currItem, &p);
+			QPoint np = p.xFormDev(m->pos());
+			p.end();
+			np += QPoint(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
+			np = Doc->ApplyGrid(np);
+			double newRot=xy2Deg(np.x(), np.y());
+			//Constrain rotation angle, when the mouse is released from drawing a line
+			if (m->state() & ControlButton)
+				newRot=constrainAngle(newRot, Doc->toolSettings.constrain);
+			currItem->setRotation(newRot);
+			currItem->setWidthHeight(sqrt(pow(np.x(),2.0)+pow(np.y(),2.0)), 1.0);
+			currItem->Sizing = false;
+			currItem->updateClip();
+			Doc->setRedrawBounding(currItem);
+			currItem->OwnPage = Doc->OnPage(currItem);
+			updateContents();
+		}
+		if ((Doc->appMode == modeDrawRegularPolygon) && (inItemCreation))
 		{
 			currItem = Doc->m_Selection->itemAt(0);
 			FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
@@ -5807,6 +5861,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 			Doc->m_Selection->addItem(currItem);
 			currItem->paintObj();
 			operItemMoving = true;
+			inItemCreation = true;
 			break;
 		case modeRotation:
 			if (GetItem(&currItem))
