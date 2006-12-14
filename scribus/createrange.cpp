@@ -168,7 +168,7 @@ void CreateRange::selectRangeType(QWidget *)
 void CreateRange::basicMoveUp()
 {
 	int index=basicRangeListBox->currentItem();
-	if (index==0)
+	if (index==-1 || index==0)
 		return;
 	basicRangeListBox->clearSelection();
 	QListBoxItem* clbi=basicRangeListBox->item(index);
@@ -180,7 +180,7 @@ void CreateRange::basicMoveUp()
 void CreateRange::basicMoveDown()
 {
 	int index=basicRangeListBox->currentItem();
-	if (index==static_cast<int>(basicRangeListBox->count())-1)
+	if (index==-1 || index==static_cast<int>(basicRangeListBox->count())-1)
 		return;
 	basicRangeListBox->clearSelection();
 	QListBoxItem* clbi=basicRangeListBox->item(index);
