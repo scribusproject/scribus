@@ -1295,6 +1295,13 @@ void ScribusView::enterEvent(QEvent *)
 			case modeDrawRegularPolygon:
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
 				break;
+			case modeDrawLine:
+			case modeDrawBezierLine:
+				qApp->setOverrideCursor(QCursor(crossCursor), true);
+				break;
+			case modeDrawFreehandLine:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+				break;
 			case modeMagnifier:
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 				break;
@@ -5011,6 +5018,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						case modeDrawRegularPolygon:
 							qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
 							break;
+						case modeDrawLine:
+						case modeDrawBezierLine:
+							qApp->setOverrideCursor(QCursor(crossCursor), true);
+							break;
+						case modeDrawFreehandLine:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+							break;
 						default:
 							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 						break;
@@ -5123,6 +5137,13 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							break;
 						case modeDrawRegularPolygon:
 							qApp->setOverrideCursor(QCursor(loadIcon("DrawPolylineFrame.xpm")), true);
+							break;
+						case modeDrawLine:
+						case modeDrawBezierLine:
+							qApp->setOverrideCursor(QCursor(crossCursor), true);
+							break;
+						case modeDrawFreehandLine:
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
 							break;
 						default:
 							qApp->setOverrideCursor(QCursor(ArrowCursor), true);

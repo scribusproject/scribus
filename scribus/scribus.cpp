@@ -5903,6 +5903,12 @@ void ScribusMainWindow::setAppMode(int mode)
 				qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 				break;
 			case modeDrawLine:
+			case modeDrawBezierLine:
+				qApp->setOverrideCursor(QCursor(crossCursor), true);
+				break;
+			case modeDrawFreehandLine:
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+				break;
 			case modeInsertPDFButton:
 			case modeInsertPDFTextfield:
 			case modeInsertPDFCheckbox:
@@ -5910,7 +5916,6 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeInsertPDFListbox:
 			case modeInsertPDFTextAnnotation:
 			case modeInsertPDFLinkAnnotation:
-			case modeDrawFreehandLine:
 				if (docSelectionCount!=0)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);

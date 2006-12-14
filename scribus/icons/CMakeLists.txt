@@ -87,6 +87,7 @@ documentinfo.png
 down.png
 DragPix.xpm
 DrawFrame.xpm
+DrawFreeLine.png
 DrawImageFrame.xpm
 DrawPolylineFrame.xpm
 DrawTable.xpm
