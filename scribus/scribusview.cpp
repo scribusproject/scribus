@@ -2741,13 +2741,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			{
 				FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
 				np1 = Doc->ApplyGridF(np1);
-				itemX = np1.x();
-				itemY = np1.y();
+				itemX = fabs(np1.x() - currItem->xPos());
+				itemY = fabs(np1.y() - currItem->yPos());
 			}
 			else
 			{
-				itemX = currItem->width();
-				itemY = currItem->height();
+				itemX = fabs(currItem->width());
+				itemY = fabs(currItem->height());
 			}
 			if ((!moveTimerElapsed()) || ((itemX < 2.0) && (itemY < 2.0)) || ((Doc->appMode == modeDrawLine) && (itemX < 2.0)))
 			{
@@ -2946,7 +2946,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			currItem = Doc->m_Selection->itemAt(0);
 			FPoint np1(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y());
 			np1 = Doc->ApplyGridF(np1);
-			currItem->setWidthHeight(np1.x() - currItem->xPos(), np1.y()- currItem->yPos());
+			double w = np1.x() - currItem->xPos();
+			double h = np1.y()- currItem->yPos();
+			currItem->setWidthHeight(fabs(w), fabs(h));
+			if (w < 0.0)
+				currItem->setXPos(currItem->xPos() - fabs(w), true);
+			if (h < 0.0)
+				currItem->setYPos(currItem->yPos() - fabs(h), true);
 			FPointArray cli = RegularPolygonF(currItem->width(), currItem->height(), Doc->toolSettings.polyC, Doc->toolSettings.polyS, Doc->toolSettings.polyF, Doc->toolSettings.polyR);
 			FPoint np(cli.point(0));
 			currItem->PoLine.resize(2);
@@ -7320,10 +7326,34 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		p.setRasterOp(XorROP);
 		p.setBrush(NoBrush);
 		p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+		p.save();
+		if (currItem->OldB2 < 0.0)
+		{
+			p.scale(-1, 1);
+			p.translate(qRound(-currItem->OldB2), 0);
+		}
+		if (currItem->OldH2 < 0.0)
+		{
+			p.scale(1, -1);
+			p.translate(0, qRound(-currItem->OldH2));
+		}
 		currItem->DrawPolyL(&p, currItem->Clip);
+		p.restore();
 		currItem->updateClip();
 		currItem->updateGradientVectors();
+		p.save();
+		if (currItem->width() < 0.0)
+		{
+			p.scale(-1, 1);
+			p.translate(qRound(-currItem->width()), 0);
+		}
+		if (currItem->height() < 0.0)
+		{
+			p.scale(1, -1);
+			p.translate(0, qRound(-currItem->height()));
+		}
 		currItem->DrawPolyL(&p, currItem->Clip);
+		p.restore();
 		p.end();
 		return true;
 	}
