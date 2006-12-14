@@ -2113,7 +2113,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 	{
 		if (RecordP.size() > 1)
 		{
-			uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 1, 1, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenLine, !m_MouseButtonPressed);
+			uint z = Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, Mxp, Myp, 1, 1, Doc->toolSettings.dWidth, CommonStrings::None, Doc->toolSettings.dPenLine, !m_MouseButtonPressed);
 			currItem = Doc->Items->at(z);
 			currItem->PoLine.resize(0);
 			currItem->PoLine.addPoint(RecordP.point(0));
@@ -2127,22 +2127,18 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
 			currItem->PoLine.addPoint(RecordP.point(RecordP.size()-1));
+			FPoint tp2(getMinClipF(&currItem->PoLine));
+			currItem->setXYPos(tp2.x(), tp2.y(), true);
+			currItem->PoLine.translate(-tp2.x(), -tp2.y());
+			FPoint tp(getMaxClipF(&currItem->PoLine));
+			SizeItem(tp.x(), tp.y(), currItem->ItemNr, false, false, false);
+			currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
 			AdjustItemSize(currItem);
 			Doc->m_Selection->clear();
 			Doc->m_Selection->addItem(currItem);
 			currItem->ClipEdited = true;
-			//currItem->Select = true;
 			currItem->FrameType = 3;
 			currItem->OwnPage = Doc->OnPage(currItem);
-			//qDebug("emit ItemPos(currItem->xPos(), currItem->yPos());");
-			/*CB Done with addItem
-			emit SetSizeValue(currItem->Pwidth);
-			emit SetLineArt(currItem->PLineArt, currItem->PLineEnd, currItem->PLineJoin);
-			emit ItemFarben(currItem->lineColor(), currItem->fillColor(), currItem->lineShade(), currItem->fillShade());
-			emit ItemGradient(currItem->GrType);
-			emit ItemTrans(currItem->fillTransparency(), currItem->lineTransparency());
-			*/
-			//emit HaveSel(PageItem::PolyLine);
 		}
 		if (!Prefs->stickyTools)
 		{
@@ -6105,6 +6101,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeDrawFreehandLine:
 			RecordP.resize(0);
 			Deselect(false);
+			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
+			SeRx = Mxp;
+			SeRy = Myp;
 			break;
 		case modeDrawTable:
 			Deselect(false);
