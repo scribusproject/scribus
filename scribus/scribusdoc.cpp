@@ -4193,10 +4193,36 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		destination->setInitialWidth(from->width());
 		destination->PageOri = from->PageOri;
 		destination->m_pageSize = from->m_pageSize;
-		destination->initialMargins.Top = from->Margins.Top;
-		destination->initialMargins.Bottom = from->Margins.Bottom;
-		destination->initialMargins.Left = from->Margins.Left;
-		destination->initialMargins.Right = from->Margins.Right;
+		destination->initialMargins.Top = from->initialMargins.Top;
+		destination->initialMargins.Bottom = from->initialMargins.Bottom;
+//		destination->initialMargins.Left = from->initialMargins.Left;
+//		destination->initialMargins.Right = from->initialMargins.Right;
+		if (pageSets[currentPageLayout].Columns == 1)
+		{
+			destination->initialMargins.Left = from->initialMargins.Left;
+			destination->initialMargins.Right = from->initialMargins.Right;
+		}
+		else
+		{
+			if (locationOfPage(destination->pageNr()) != locationOfPage(from->pageNr()))
+			{
+				if (locationOfPage(destination->pageNr()) == MiddlePage)
+				{
+					destination->initialMargins.Right = from->initialMargins.Left;
+					destination->initialMargins.Left = from->initialMargins.Left;
+				}
+				else
+				{
+					destination->initialMargins.Right = from->initialMargins.Left;
+					destination->initialMargins.Left = from->initialMargins.Right;
+				}
+			}
+			else
+			{
+				destination->initialMargins.Left = from->initialMargins.Left;
+				destination->initialMargins.Right = from->initialMargins.Right;
+			}
+		}
 		m_View->reformPages();
 		QMap<int,int> TableID;
 		QPtrList<PageItem> TableItems;
