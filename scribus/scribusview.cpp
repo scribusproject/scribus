@@ -2346,10 +2346,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 //		pmen->insertSeparator();
 		m_ScMW->scrActions["viewSnapToGrid"]->addTo(pmen);
 		m_ScMW->scrActions["viewSnapToGuides"]->addTo(pmen);
-		pmen->insertSeparator();
-		m_ScMW->scrActions["pageApplyMasterPage"]->addTo(pmen);
-		m_ScMW->scrActions["pageManageGuides"]->addTo(pmen);
-		m_ScMW->scrActions["pageManageMargins"]->addTo(pmen);
+		if (Doc->OnPage(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y()) != -1)
+		{
+			pmen->insertSeparator();
+			m_ScMW->scrActions["pageApplyMasterPage"]->addTo(pmen);
+			m_ScMW->scrActions["pageManageGuides"]->addTo(pmen);
+			m_ScMW->scrActions["pageManageMargins"]->addTo(pmen);
+		}
 		pmen->exec(QCursor::pos());
 		setGlobalUndoMode();
 		delete pmen;
