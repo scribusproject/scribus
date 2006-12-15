@@ -8383,7 +8383,14 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	{
 		LoadEnc = "";
 		if (!(optionFlags & fdDirectoriesOnly))
+		{
 			LoadEnc = (optionFlags & fdShowCodecs) ? dia->TxCodeM->currentText() : QString("");
+			if (optionFlags & fdCompressFile)
+			{
+				if (dia->SaveZip->isChecked())
+					dia->handleCompress();
+			}
+		}
 		else
 		{
 			*docom = dia->SaveZip->isChecked();
@@ -8391,8 +8398,8 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 			*doProfiles = dia->WithProfiles->isChecked();
 		}
 		this->repaint();
-		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 		retval = dia->selectedFile();
+		qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
 	}
 	delete dia;
 	return retval;
