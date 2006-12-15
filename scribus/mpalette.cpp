@@ -4412,11 +4412,16 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 
 void Mpalette::setLocked(bool isLocked)
 {
-	Xpos->setReadOnly(isLocked);
+/*	Xpos->setReadOnly(isLocked);
 	Ypos->setReadOnly(isLocked);
 	Width->setReadOnly(isLocked);
 	Height->setReadOnly(isLocked);
-	Rot->setReadOnly(isLocked);
+	Rot->setReadOnly(isLocked); */
+	Xpos->setEnabled(!isLocked);
+	Ypos->setEnabled(!isLocked);
+	Width->setEnabled(!isLocked);
+	Height->setEnabled(!isLocked);
+	Rot->setEnabled(!isLocked);
 	EditShape->setEnabled(!isLocked);
 	LayerGroup->setEnabled(!isLocked);
 	Locked->setOn(isLocked);
@@ -4435,8 +4440,10 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 	bool b=isSizeLocked;
 	if (HaveItem && CurItem->locked())
 		b=true;
-	Width->setReadOnly(b);
-	Height->setReadOnly(b);
+//	Width->setReadOnly(b);
+//	Height->setReadOnly(b);
+	Width->setEnabled(!b);
+	Height->setEnabled(!b);
 	NoResize->setOn(isSizeLocked);
 }
 
