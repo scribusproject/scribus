@@ -461,7 +461,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		Layout5_2a = new QHBoxLayout;
 		Layout5_2a->setSpacing( 5 );
 		Layout5_2a->setMargin( 0 );
-		EmbedFonts = new QPushButton( tr( "&Embed all Fonts" ), GroupFont, "EmbedFonts" );
+		EmbedFonts = new QPushButton( tr( "&Embed All" ), GroupFont, "EmbedFonts" );
 		Layout5_2a->addWidget( EmbedFonts );
 		QSpacerItem* spacerS1 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS1 );
@@ -476,12 +476,12 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		QSpacerItem* spacerS2 = new QSpacerItem( 0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum );
 		Layout5_2a->addItem( spacerS2 );
 		Layout6->addLayout( Layout5_2a );
-		TextFont1_2a = new QLabel( tr( "Fonts to subset:" ), GroupFont, "TextFont1_2a" );
+		TextFont1_2a = new QLabel( tr( "Fonts to outline:" ), GroupFont, "TextFont1_2a" );
 		Layout6->addWidget( TextFont1_2a );
 		SubsetList = new QListBox( GroupFont, "SubsetList" );
 		SubsetList->setMinimumSize(QSize(150, 40));
 		Layout6->addWidget( SubsetList );
-		SubsetFonts = new QPushButton( tr( "&Subset all Fonts" ), GroupFont, "SubsetFonts" );
+		SubsetFonts = new QPushButton( tr( "Outline &All" ), GroupFont, "SubsetFonts" );
 		Layout6->addWidget( SubsetFonts );
 		if ((Opts.EmbedList.count() == 0) && (Opts.SubsetList.count() == 0))
 		{
