@@ -388,9 +388,9 @@ IF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
   SET(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
   SET(CPACK_PACKAGE_INSTALL_DIRECTORY "Scribus ${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
   SET(CPACK_PACKAGE_EXECUTABLES "scribus${TAG_VERSION}")
-  SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus${TAG_VERSION}")
-  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt)
+  SET(CPACK_SOURCE_PACKAGE_FILE_NAME "scribus-${VERSION}")
   SET(CPACK_SOURCE_GENERATOR TBZ2)
-
+## I'll make this prettier later - ignore any tarballs in the root
+  SET(CPACK_SOURCE_IGNORE_FILES CMakeCache.txt scribus-1.3.3.7cvs.tar.bz2 scribus-1.3.3.7cvs.tar.Z scribus-1.3.3.7cvs.tar.gz)
   INCLUDE(CPack)
 ENDIF(EXISTS "${CMAKE_ROOT}/Modules/CPack.cmake")
