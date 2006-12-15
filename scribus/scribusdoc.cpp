@@ -5445,7 +5445,9 @@ void ScribusDoc::adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute)
 			double oldMinY=minCanvasCoordinate.y();
 			maxCanvasCoordinate = FPoint(newMaxX, newMaxY);
 			minCanvasCoordinate = FPoint(newMinX, newMinY);
-			emit canvasAdjusted(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
+			// Why using a signal here ? much slower than a direct call
+//			emit canvasAdjusted(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
+			m_View->adjustCanvas(newMaxX - newMinX, newMaxY - newMinY, oldMinX - newMinX, oldMinY - newMinY);
 		}
 	}
 }
@@ -5460,7 +5462,7 @@ void ScribusDoc::connectDocSignals()
 		connect(autoSaveTimer, SIGNAL(timeout()), WinHan, SLOT(slotAutoSave()));
 		connect(this, SIGNAL(refreshItem(PageItem*)), view(), SLOT(RefreshItem(PageItem*)));
 		connect(this, SIGNAL(updateContents()), view(), SLOT(slotUpdateContents()));
-		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), view(), SLOT(adjustCanvas(double, double, double, double)));
+//		connect(this, SIGNAL(canvasAdjusted(double, double, double, double)), view(), SLOT(adjustCanvas(double, double, double, double)));
 	}
 }
 

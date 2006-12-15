@@ -3735,6 +3735,8 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (operItemMoving)
 			{
+				bool updback = updateOn;
+				updateOn = false;
 				evSpon = false;
 				if (Doc->m_Selection->isMultipleSelection())
 				{
@@ -3807,6 +3809,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				//CB need this for? a moved item will send its new data with the new xpos/ypos emits
 				//CB TODO And what if we have dragged to a new page. Items X&Y are not updated anyway now
 				//currItem->emitAllToGUI();
+				updateOn = updback;
 				updateContents();
 				emit DocChanged();
 			}
@@ -9680,15 +9683,20 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 {
 	if (!operItemMoving)
 	{
+		bool updback = updateOn;
 		updateOn = false;
 		disconnect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
-//		setUpdatesEnabled(false);
-		resizeContents(qRound((width) * Scale), qRound((height) * Scale));
-		scrollBy(qRound((dX) * Scale), qRound((dY) * Scale));
+		int oldDX = contentsX();
+		int oldDY = contentsY();
+		int nw = QMAX(qRound(width * Scale), contentsWidth());
+		int nh = QMAX(qRound(height * Scale), contentsHeight());
+		resizeContents(QMAX(nw, visibleWidth() + qRound(dX * Scale)), QMAX(nh, visibleHeight() + qRound(dY * Scale)));
+		setContentsPos(oldDX + qRound(dX * Scale), oldDY + qRound(dY * Scale));
+//		resizeContents(qRound((width) * Scale), qRound((height) * Scale));
+//		scrollBy(qRound((dX) * Scale), qRound((dY) * Scale));
 		setRulerPos(contentsX(), contentsY());
-		updateOn = true;
+		updateOn = updback;
 		connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
-//		setUpdatesEnabled(true);
 	}
 	evSpon = false;
 }
