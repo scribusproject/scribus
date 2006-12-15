@@ -256,6 +256,7 @@ void PageItem_TextFrame::layout()
 {
 	if (BackBox != NULL && BackBox->invalid) {
 //		qDebug("textframe: len=%d, going back", itemText.length());
+		invalid = false;
 		dynamic_cast<PageItem_TextFrame*>(BackBox)->layout();
 		return;
 	}
