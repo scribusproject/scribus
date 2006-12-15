@@ -7975,7 +7975,14 @@ QString ScribusMainWindow::CFileDialog(QString wDir, QString caption, QString fi
 	{
 		LoadEnc = "";
 		if (!onlyDirs)
+		{
 			LoadEnc = cod ? dia->TxCodeM->currentText() : QString("");
+			if (comp)
+			{
+				if (dia->SaveZip->isChecked())
+					dia->handleCompress();
+			}
+		}
 		else
 		{
 			*docom = dia->SaveZip->isChecked();

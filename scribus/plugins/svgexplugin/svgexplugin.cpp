@@ -124,7 +124,13 @@ bool SVGExportPlugin::run(QString filename)
 		openDia->setExtension("svg");
 		openDia->setZipExtension("svgz");
 		if (openDia->exec())
+		{
+#ifdef HAVE_LIBZ
+			if (openDia->SaveZip->isChecked())
+				openDia->handleCompress();
+#endif
 			fileName = openDia->selectedFile();
+		}
 		delete openDia;
 
 		if (!fileName.isEmpty())
