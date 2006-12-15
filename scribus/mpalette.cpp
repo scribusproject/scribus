@@ -4412,16 +4412,28 @@ bool UserActionSniffer::eventFilter(QObject*, QEvent *e)
 
 void Mpalette::setLocked(bool isLocked)
 {
-/*	Xpos->setReadOnly(isLocked);
+	Xpos->setReadOnly(isLocked);
 	Ypos->setReadOnly(isLocked);
 	Width->setReadOnly(isLocked);
 	Height->setReadOnly(isLocked);
-	Rot->setReadOnly(isLocked); */
-	Xpos->setEnabled(!isLocked);
-	Ypos->setEnabled(!isLocked);
-	Width->setEnabled(!isLocked);
-	Height->setEnabled(!isLocked);
-	Rot->setEnabled(!isLocked);
+	Rot->setReadOnly(isLocked);
+	if (isLocked)
+	{
+		QPalette pal(qApp->palette().disabled(), qApp->palette().disabled(), qApp->palette().disabled());
+		Xpos->setPalette(pal);
+		Ypos->setPalette(pal);
+		Width->setPalette(pal);
+		Height->setPalette(pal);
+		Rot->setPalette(pal);
+	}
+	else
+	{
+		Xpos->setPalette(qApp->palette());
+		Ypos->setPalette(qApp->palette());
+		Width->setPalette(qApp->palette());
+		Height->setPalette(qApp->palette());
+		Rot->setPalette(qApp->palette());
+	}
 	EditShape->setEnabled(!isLocked);
 	LayerGroup->setEnabled(!isLocked);
 	Locked->setOn(isLocked);
@@ -4440,10 +4452,19 @@ void Mpalette::setSizeLocked(bool isSizeLocked)
 	bool b=isSizeLocked;
 	if (HaveItem && CurItem->locked())
 		b=true;
-//	Width->setReadOnly(b);
-//	Height->setReadOnly(b);
-	Width->setEnabled(!b);
-	Height->setEnabled(!b);
+	Width->setReadOnly(b);
+	Height->setReadOnly(b);
+	if (b)
+	{
+		QPalette pal(qApp->palette().disabled(), qApp->palette().disabled(), qApp->palette().disabled());
+		Width->setPalette(pal);
+		Height->setPalette(pal);
+	}
+	else
+	{
+		Width->setPalette(qApp->palette());
+		Height->setPalette(qApp->palette());
+	}
 	NoResize->setOn(isSizeLocked);
 }
 
