@@ -217,6 +217,20 @@
                                     </widget>
                                     <widget class="QRadioButton">
                                         <property name="name">
+                                            <cstring>radioButtonCurrentPage_2</cstring>
+                                        </property>
+                                        <property name="text">
+                                            <string>All Pages</string>
+                                        </property>
+                                        <property name="buttonGroupId">
+                                            <number>2</number>
+                                        </property>
+                                        <property name="toolTip" stdset="0">
+                                            <string>Selecting this will place the frame only on the current page.</string>
+                                        </property>
+                                    </widget>
+                                    <widget class="QRadioButton">
+                                        <property name="name">
                                             <cstring>radioButtonRangeOfPages</cstring>
                                         </property>
                                         <property name="text">
@@ -278,7 +292,7 @@
                                 <property name="sizeHint">
                                     <size>
                                         <width>20</width>
-                                        <height>40</height>
+                                        <height>50</height>
                                     </size>
                                 </property>
                             </spacer>
@@ -742,6 +756,9 @@
                     <property name="name">
                         <cstring>unnamed</cstring>
                     </property>
+                    <property name="margin">
+                        <number>0</number>
+                    </property>
                     <widget class="QWidgetStack">
                         <property name="name">
                             <cstring>optionsWidgetStack</cstring>
@@ -847,40 +864,6 @@
                                 </property>
                                 <widget class="QLayoutWidget">
                                     <property name="name">
-                                        <cstring>layout31_2</cstring>
-                                    </property>
-                                    <hbox>
-                                        <property name="name">
-                                            <cstring>unnamed</cstring>
-                                        </property>
-                                        <widget class="QLabel">
-                                            <property name="name">
-                                                <cstring>sourceDocLabel</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>Source Document:</string>
-                                            </property>
-                                        </widget>
-                                        <widget class="QLineEdit">
-                                            <property name="name">
-                                                <cstring>sourceDocLineEdit</cstring>
-                                            </property>
-                                        </widget>
-                                        <widget class="QPushButton">
-                                            <property name="name">
-                                                <cstring>selectDocFileButton</cstring>
-                                            </property>
-                                            <property name="text">
-                                                <string>&amp;Select File...</string>
-                                            </property>
-                                            <property name="accel">
-                                                <string>Alt+S</string>
-                                            </property>
-                                        </widget>
-                                    </hbox>
-                                </widget>
-                                <widget class="QLayoutWidget">
-                                    <property name="name">
                                         <cstring>layout62</cstring>
                                     </property>
                                     <hbox>
@@ -969,6 +952,40 @@
                                     <property name="text">
                                         <string>Link Created Frames</string>
                                     </property>
+                                </widget>
+                                <widget class="QLayoutWidget">
+                                    <property name="name">
+                                        <cstring>layout31_2</cstring>
+                                    </property>
+                                    <hbox>
+                                        <property name="name">
+                                            <cstring>unnamed</cstring>
+                                        </property>
+                                        <widget class="QLabel">
+                                            <property name="name">
+                                                <cstring>sourceDocLabel</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>Source Document:</string>
+                                            </property>
+                                        </widget>
+                                        <widget class="QLineEdit">
+                                            <property name="name">
+                                                <cstring>sourceDocLineEdit</cstring>
+                                            </property>
+                                        </widget>
+                                        <widget class="QPushButton">
+                                            <property name="name">
+                                                <cstring>selectDocFileButton</cstring>
+                                            </property>
+                                            <property name="text">
+                                                <string>&amp;Select File...</string>
+                                            </property>
+                                            <property name="accel">
+                                                <string>Alt+S</string>
+                                            </property>
+                                        </widget>
+                                    </hbox>
                                 </widget>
                                 <spacer>
                                     <property name="name">
@@ -1076,6 +1093,8 @@
         </sizepolicy>
         <pixmap>image0</pixmap>
         <property type="3">3</property>
+        <property type="0">0</property>
+        <property type="0">0</property>
         <property type="0">0</property>
         <property type="0">0</property>
         <property type="0">0</property>

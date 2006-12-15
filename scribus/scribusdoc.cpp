@@ -3125,6 +3125,10 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 	std::vector<int> pageNs;
 	if (iafData.locationType==0) // On the current page or ona range of pages
 		pageNs.push_back(currentPage()->pageNr()+1);
+	else if (iafData.locationType==2) // On all pages
+	{
+		parsePagesString(QString("1-%1").arg(DocPages.count()), &pageNs, DocPages.count());
+	}
 	else
 		parsePagesString(iafData.pageList, &pageNs, DocPages.count());
 	Page* oldCurrentPage = currentPage();
