@@ -127,6 +127,7 @@ protected:
 	void keyPressEvent(QKeyEvent *k);
 	void imEndEvent(QIMEvent *e);
 	void focusOutEvent(QFocusEvent *e);
+	void focusInEvent(QFocusEvent *e);
 	QPopupMenu* createPopupMenu(const QPoint & pos);
 	StoryEditor* parentStoryEditor;
 

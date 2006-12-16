@@ -385,6 +385,16 @@ void SEditor::focusOutEvent(QFocusEvent *e)
 	QTextEdit::focusOutEvent(e);
 }
 
+void SEditor::focusInEvent(QFocusEvent *e)
+{
+	if (StoredSel)
+	{
+		setSelection(SelParaStart, SelCharStart, SelParaEnd, SelCharEnd);
+		StoredSel = false;
+	}
+	QTextEdit::focusInEvent(e);
+}
+
 void SEditor::insChars(QString t)
 {
 	int p=0, i=0;
