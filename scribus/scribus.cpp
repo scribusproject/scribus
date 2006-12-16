@@ -6060,6 +6060,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	NoFrameEdit();
 	if (doc->Pages->count() == 1)
 		return;
+	uint oldPg = doc->currentPageNumber();
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument, Um::DeletePage, "", Um::IDelete);
 /*	if (!doc->masterPageMode)
@@ -6110,6 +6111,7 @@ void ScribusMainWindow::DeletePage2(int pg)
 	undoManager->setUndoEnabled(false); // ugly hack to prevent object moving when undoing page deletion
 	view->reformPages();
 	undoManager->setUndoEnabled(true); // ugly hack continues
+	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
 	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
@@ -6132,6 +6134,7 @@ void ScribusMainWindow::DeletePage()
 
 void ScribusMainWindow::DeletePage(int from, int to)
 {
+	uint oldPg = doc->currentPageNumber();
 	if (UndoManager::undoEnabled())
 		undoManager->beginTransaction(doc->DocName, Um::IDocument,
 									  (from - to == 0) ? Um::DeletePage : Um::DeletePages, "",
@@ -6190,6 +6193,7 @@ void ScribusMainWindow::DeletePage(int from, int to)
 	undoManager->setUndoEnabled(false); // ugly hack to disable object moving when undoing page deletion
 	view->reformPages();
 	undoManager->setUndoEnabled(true); // ugly hack continues
+	view->GotoPage(QMIN(doc->Pages->count()-1, oldPg));
 	view->DrawNew();
 //	doc->OpenNodes.clear();
 	outlinePalette->BuildTree();
