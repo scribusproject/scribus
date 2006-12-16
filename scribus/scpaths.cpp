@@ -126,6 +126,16 @@ ScPaths::ScPaths() :
 	m_pluginDir = QString("%1/plugins/").arg(appPath);
 	QApplication::setLibraryPaths(QString("%1/qtplugins/").arg(appPath));
 #endif
+	
+// 	if(!m_shareDir.endsWith("/"))        m_shareDir += "/";
+// 	if(!m_docDir.endsWith("/"))          m_docDir += "/";
+// 	if(!m_fontDir.endsWith("/"))         m_fontDir += "/";
+// 	if(!m_iconDir.endsWith("/"))         m_iconDir += "/";
+// 	if(!m_sampleScriptDir.endsWith("/")) m_sampleScriptDir += "/";
+// 	if(!m_scriptDir.endsWith("/"))       m_scriptDir += "/";
+// 	if(!m_templateDir.endsWith("/"))     m_templateDir += "/";
+// 	if(!m_libDir.endsWith("/"))          m_libDir += "/";
+// 	if(!m_pluginDir.endsWith("/"))       m_pluginDir += "/";
 }
 
 ScPaths::~ScPaths() {};

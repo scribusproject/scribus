@@ -229,7 +229,7 @@ QPixmap loadIcon(QString nam)
 	if (pxCache.contains(nam))
 		return *pxCache[nam];
 
-	QString iconFilePath = QString("%1/%2").arg(ScPaths::instance().iconDir()).arg(nam);
+	QString iconFilePath(QString("%1%2").arg(ScPaths::instance().iconDir()).arg(nam));
 	QPixmap *pm = new QPixmap();
 	
 	if (!QFile::exists(iconFilePath))
