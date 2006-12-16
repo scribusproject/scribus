@@ -380,7 +380,7 @@ void Tree::slotAddElement(PageItem *item)
 			if (freeObjects == 0)
 			{
 				page = new QListViewItem( rootObject, 0 );
-				page->setText(0, tr("Free Objects"));
+				page->setText(0, tr("Free items"));
 				freeObjects = page;
 			}
 			object = new QListViewItem( page, 0 );

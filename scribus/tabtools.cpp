@@ -408,12 +408,12 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	subTabGeneral = new QWidget( subStackTools, "subTabGeneral" );
 	subTabGeneralLayout = new QGridLayout( subTabGeneral, 1, 1, 11, 6, "subTabGeneralLayout");
 	subTabGeneralLayout->setAlignment( Qt::AlignTop );
-	generalHeadLine = new QLabel( tr( "Misc. Settings" ), subTabGeneral, "generalHeadLine" );
+	generalHeadLine = new QLabel( tr( "Miscellaneous Settings" ), subTabGeneral, "generalHeadLine" );
 	generalHeadLine->setFont(f);
 	subTabGeneralLayout->addMultiCellWidget( generalHeadLine, 0, 0, 0, 1, Qt::AlignHCenter | Qt::AlignTop );
 
 	genDispBox = new QGroupBox( subTabGeneral, "genDispBox" );
-	genDispBox->setTitle( tr( "Object Duplicate" ) );
+	genDispBox->setTitle( tr( "Item Duplicate" ) );
 	genDispBox->setColumnLayout(0, Qt::Vertical );
 	genDispBox->layout()->setSpacing( 5 );
 	genDispBox->layout()->setMargin( 10 );
@@ -422,13 +422,13 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	genDispX = new MSpinBox( -1000, 1000, genDispBox, 1 );
 	genDispX->setSuffix( tr( " pt" ) );
 	subTabGeneralLayout2->addWidget( genDispX, 0, 1, Qt::AlignLeft );
-	genText1 = new QLabel( genDispX, tr( "X-Displacement" ), genDispBox, "genText1" );
+	genText1 = new QLabel( genDispX, tr( "X Displacement" ), genDispBox, "genText1" );
 	subTabGeneralLayout2->addWidget( genText1, 0, 0);
 
 	genDispY = new MSpinBox( -1000, 1000, genDispBox, 1 );
 	genDispY->setSuffix( tr( " pt" ) );
 	subTabGeneralLayout2->addWidget( genDispY, 1, 1, Qt::AlignLeft );
-	genText2 = new QLabel( genDispY, tr( "Y-Displacement" ), genDispBox, "genText2" );
+	genText2 = new QLabel( genDispY, tr( "Y Displacement" ), genDispBox, "genText2" );
 	subTabGeneralLayout2->addWidget( genText2, 1, 0);
 	subTabGeneralLayout->addWidget( genDispBox, 1, 0);
 
@@ -489,9 +489,9 @@ TabTools::TabTools( QWidget* parent, struct toolPrefs *prefsData, int unitIndex,
 	QToolTip::add( shadingLine, tr( "Saturation of color" ) );
 	QToolTip::add( comboStyleLine, tr( "Style of lines" ) );
 	QToolTip::add( lineWidthLine, tr( "Width of lines" ) );
-	QToolTip::add( genDispX, tr( "Horizontal displacement of objects") );
-	QToolTip::add( genDispY, tr( "Vertical displacement of objects" ) );
-	QToolTip::add( genRot, tr( "Constrain value for the rotation tool when the CTRL-Key is pressed" ) );
+	QToolTip::add( genDispX, tr( "Horizontal displacement of page items") );
+	QToolTip::add( genDispY, tr( "Vertical displacement of page items" ) );
+	QToolTip::add( genRot, tr( "Constrain value for the rotation tool when the Control key is pressed" ) );
 	//enableSignals(true);
 }
 

@@ -92,15 +92,15 @@ void AlignDistributePalette::languageChange()
 	alignRelativeToCombo->setCurrentItem(alignComboValue);
 	alignToChanged(alignComboValue);
 	alignLeftOutToolButton->setText( QString::null );
-	QToolTip::add( alignLeftOutToolButton, tr( "Align right sides of objects to left side of anchor" ) );
+	QToolTip::add( alignLeftOutToolButton, tr( "Align right sides of items to left side of anchor" ) );
 	alignRightOutToolButton->setText( QString::null );
-	QToolTip::add( alignRightOutToolButton, tr( "Align left sides of objects to right side of anchor" ) );
+	QToolTip::add( alignRightOutToolButton, tr( "Align left sides of items to right side of anchor" ) );
 	alignBottomInToolButton->setText( QString::null );
 	QToolTip::add( alignBottomInToolButton, tr( "Align bottoms" ) );
 	alignRightInToolButton->setText( QString::null );
 	QToolTip::add( alignRightInToolButton, tr( "Align right sides" ) );
 	alignBottomOutToolButton->setText( QString::null );
-	QToolTip::add( alignBottomOutToolButton, tr( "Align tops of objects to bottom of anchor" ) );
+	QToolTip::add( alignBottomOutToolButton, tr( "Align tops of items to bottom of anchor" ) );
 	alignCenterHorToolButton->setText( QString::null );
 	QToolTip::add( alignCenterHorToolButton, tr( "Center on vertical axis" ) );
 	alignLeftInToolButton->setText( QString::null );
@@ -108,16 +108,16 @@ void AlignDistributePalette::languageChange()
 	alignCenterVerToolButton->setText( QString::null );
 	QToolTip::add( alignCenterVerToolButton, tr( "Center on horizontal axis" ) );
 	alignTopOutToolButton->setText( QString::null );
-	QToolTip::add( alignTopOutToolButton, tr( "Align bottoms of objects to top of anchor" ) );
+	QToolTip::add( alignTopOutToolButton, tr( "Align bottoms of items to top of anchor" ) );
 	alignTopInToolButton->setText( QString::null );
 	QToolTip::add( alignTopInToolButton, tr( "Align tops" ) );
 	
 	alignGuideLabel->setText( tr( "&Selected Guide:" ) );
 	
 	distributeDistHToolButton->setText( QString::null );
-	QToolTip::add( distributeDistHToolButton, tr( "Make horizontal gaps between objects equal" ) );
+	QToolTip::add( distributeDistHToolButton, tr( "Make horizontal gaps between items equal" ) );
 	distributeDistValueHToolButton->setText( QString::null );
-	QToolTip::add( distributeDistValueHToolButton, tr( "Make horizontal gaps between objects equal to the value specified" ) );
+	QToolTip::add( distributeDistValueHToolButton, tr( "Make horizontal gaps between items equal to the value specified" ) );
 	
 	distributeRightToolButton->setText( QString::null );
 	distributeRightToolButton->setTextLabel( tr( "Distribute right sides equidistantly" ) );
@@ -126,9 +126,9 @@ void AlignDistributePalette::languageChange()
 	distributeCenterHToolButton->setText( QString::null );
 	QToolTip::add( distributeCenterHToolButton, tr( "Distribute centers equidistantly horizontally" ) );
 	distributeDistVToolButton->setText( QString::null );
-	QToolTip::add( distributeDistVToolButton, tr( "Make vertical gaps between objects equal" ) );
+	QToolTip::add( distributeDistVToolButton, tr( "Make vertical gaps between items equal" ) );
 	distributeDistValueVToolButton->setText( QString::null );
-	QToolTip::add( distributeDistValueVToolButton, tr( "Make vertical gaps between objects equal to the value specified" ) );
+	QToolTip::add( distributeDistValueVToolButton, tr( "Make vertical gaps between items equal to the value specified" ) );
 	distributeLeftToolButton->setText( QString::null );
 	QToolTip::add( distributeLeftToolButton, tr( "Distribute left sides equidistantly" ) );
 	distributeCenterVToolButton->setText( QString::null );
@@ -136,13 +136,13 @@ void AlignDistributePalette::languageChange()
 	distributeTopToolButton->setText( QString::null );
 	QToolTip::add( distributeTopToolButton, tr( "Distribute tops equidistantly" ) );
 	distributeAcrossPageToolButton->setText( QString::null );
-	QToolTip::add( distributeAcrossPageToolButton, tr( "Make horizontal gaps between objects and sides of page equal" ) );
+	QToolTip::add( distributeAcrossPageToolButton, tr( "Make horizontal gaps between items and sides of page equal" ) );
 	distributeDownPageToolButton->setText( QString::null );
-	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between objects and the top and bottom of page margins equal" ) );
+	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
 	distributeAcrossMarginsToolButton->setText( QString::null );
-	QToolTip::add( distributeAcrossMarginsToolButton, tr( "Make horizontal gaps between objects and sides of page margins equal" ) );
+	QToolTip::add( distributeAcrossMarginsToolButton, tr( "Make horizontal gaps between items and sides of page margins equal" ) );
 	distributeDownMarginsToolButton->setText( QString::null );
-	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between objects and the top and bottom of page equal" ) );
+	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between items and the top and bottom of page equal" ) );
 	
 	distributeDistLabel->setText( tr( "&Distance:" ) );
 	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
