@@ -4181,6 +4181,7 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	bool autoText = usesAutomaticTextFrames();
 	setUsesAutomaticTextFrames(false);
 	Page* from = DocPages.at(pageNumberToCopy);
+	Page* lastDest = NULL;
 	int GrMax = GroupCounter;
 	for (int copyNumber=1; copyNumber<=copyCount; ++copyNumber)
 	{
@@ -4191,16 +4192,21 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
 		//ScMW->slotNewPage(destLocation);
-		setCurrentPage(addPage(destLocation, from->MPageNam));
-		Page* destination = currentPage(); //slotNewPage sets currentPage
+//		setCurrentPage(addPage(destLocation, from->MPageNam));
+//		Page* destination = currentPage(); //slotNewPage sets currentPage
+//		Page* destination = addPage(destLocation, from->MPageNam);
+
+		Page* destination = new Page(ScratchLeft, DocPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
+		lastDest = destination;
+		destination->setDocument(this);
+		DocPages.insert(destLocation, destination);
+		applyMasterPage(from->MPageNam, destLocation);
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
 		destination->PageOri = from->PageOri;
 		destination->m_pageSize = from->m_pageSize;
 		destination->initialMargins.Top = from->initialMargins.Top;
 		destination->initialMargins.Bottom = from->initialMargins.Bottom;
-//		destination->initialMargins.Left = from->initialMargins.Left;
-//		destination->initialMargins.Right = from->initialMargins.Right;
 		if (pageSets[currentPageLayout].Columns == 1)
 		{
 			destination->initialMargins.Left = from->initialMargins.Left;
@@ -4324,6 +4330,10 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 	}
 	setUsesAutomaticTextFrames(autoText);
 	addPageToSection(existingPage-1, whereToInsert, copyCount);
+	if (lastDest != NULL)
+		setCurrentPage(lastDest);
+	else
+		setCurrentPage(from);
 	changed();
 }
 
