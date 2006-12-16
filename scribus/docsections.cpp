@@ -128,10 +128,10 @@ void DocSections::tableItemChanged( int row, int col )
 		localSections[row].active=static_cast<QCheckTableItem*>(sectionsTable->item(row, col))->isChecked();
 		break;
 	case 2:
-		localSections[row].fromindex=sectionsTable->text(row, col).toUInt()-1;
+		localSections[row].fromindex=sectionsTable->text(row, col).toUInt();
 		if (localSections[row].fromindex<1)
 		{
-			localSections[row].fromindex=1;
+			localSections[row].fromindex=0;
 			outOfRange=true;
 		}
 		else
@@ -140,12 +140,14 @@ void DocSections::tableItemChanged( int row, int col )
 			localSections[row].fromindex=m_maxpageindex;
 			outOfRange=true;
 		}
+		else
+			--localSections[row].fromindex;
 		break;
 	case 3:
-		localSections[row].toindex=sectionsTable->text(row, col).toUInt()-1;
+		localSections[row].toindex=sectionsTable->text(row, col).toUInt();
 		if (localSections[row].toindex<1)
 		{
-			localSections[row].toindex=1;
+			localSections[row].toindex=0;
 			outOfRange=true;
 		}
 		else
@@ -154,6 +156,8 @@ void DocSections::tableItemChanged( int row, int col )
 			localSections[row].toindex=m_maxpageindex;
 			outOfRange=true;
 		}
+		else
+			--localSections[row].toindex;
 		break;
 	case 4:
 		{
@@ -201,8 +205,8 @@ void DocSections::addEntry()
 		uint count=localSections.count();
 		blank.number=count;
 		blank.name=QString::number(count);
-		blank.fromindex=m_maxpageindex+1;
-		blank.toindex=m_maxpageindex+1;
+		blank.fromindex=m_maxpageindex;
+		blank.toindex=m_maxpageindex;
 		blank.type=Type_1_2_3;
 		blank.sectionstartindex=1;
 		blank.reversed=false;
@@ -226,8 +230,8 @@ void DocSections::addEntry()
 				struct DocumentSection blank;
 				blank.number=++i;
 				blank.name=QString::number(i);
-				blank.fromindex=(*it).toindex+1+1;
-				blank.toindex=(*it).toindex+2+1;
+				blank.fromindex=(*it).toindex+1;
+				blank.toindex=(*it).toindex+2;
 				blank.type=Type_1_2_3;
 				blank.sectionstartindex=1;
 				blank.reversed=false;
