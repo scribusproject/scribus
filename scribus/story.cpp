@@ -423,6 +423,8 @@ void SEditor::copyStyledText()
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 	start = StyledText.startOfParagraph(PStart) + SelStart;
 	end = StyledText.startOfParagraph(PEnd) + SelEnd;
+	if (start < 0 || end <= start)
+		return;
 	StyledText.select(start, end-start);
 	cBuffer.clear();
 	cBuffer.insert(0, StyledText, true);
