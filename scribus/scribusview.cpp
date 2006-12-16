@@ -6311,16 +6311,17 @@ void ScribusView::getClosestGuides(double xin, double yin, double *xout, double 
 //CB-->Doc?
 bool ScribusView::ApplyGuides(double *x, double *y)
 {
-	m_SnapCounter++;
+//	m_SnapCounter++;
 	bool ret = false;
 	double xout, yout;
 	int pg = Doc->OnPage(*x, *y);
 	if (pg == -1)
 		return ret;
 	Page* page = Doc->Pages->at(pg);
-	if ((Doc->SnapGuides) && (m_SnapCounter > 5))
+//	if ((Doc->SnapGuides) && (m_SnapCounter > 1))
+	if (Doc->SnapGuides)
 	{
-		m_SnapCounter = 3;
+//		m_SnapCounter = 0;
 		getClosestGuides(*x, *y, &xout, &yout);
 		if (GxM != -1)
 		{
@@ -6353,8 +6354,8 @@ bool ScribusView::ApplyGuides(double *x, double *y)
 			ret = true;
 		}
 	}
-	if (m_SnapCounter > 10)
-		m_SnapCounter = 0;
+//	if (m_SnapCounter > 10)
+//		m_SnapCounter = 0;
 	return ret;
 }
 
