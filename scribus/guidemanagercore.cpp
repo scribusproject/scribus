@@ -160,6 +160,7 @@ Guides GuideManagerCore::horizontals(GuideType type)
 			return horizontalStdG;
 			break;
 		case Auto:
+			return getAutoHorizontals();
 			break;
 	}
 	// just to prevent the compiler warnings
@@ -174,6 +175,7 @@ Guides GuideManagerCore::verticals(GuideType type)
 			return verticalStdG;
 			break;
 		case Auto:
+			return getAutoVerticals();
 			break;
 	}
 	return verticalStdG;
