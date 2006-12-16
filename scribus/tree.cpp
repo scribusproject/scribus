@@ -712,6 +712,7 @@ void Tree::BuildTree()
 		}
 		page->setText(0, tr("Free Objects"));
 	}
+/*
 	for (uint b = 0; b < currDoc->DocItems.count(); ++b)
 	{
 		currDoc->DocItems.at(b)->invalid = true;
@@ -720,6 +721,7 @@ void Tree::BuildTree()
 	{
 		currDoc->MasterItems.at(b)->invalid = true;
 	}
+ */
 	connect(reportDisplay, SIGNAL(selectionChanged(QListViewItem*)), this, SLOT(slotSelect(QListViewItem*)));
 }
 
