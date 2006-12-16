@@ -6250,11 +6250,45 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 	}
 }
 
+void ScribusView::getClosestGuides(double xin, double yin, double *xout, double *yout)
+{
+	GxM = -1;
+	GyM = -1;
+	QMap<double, uint> tmpGuidesSel;
+	Guides tmpGuides = Doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
+	Guides::iterator it;
+	uint yg = 0;
+	uint xg = 0;
+	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
+	{
+		if (((*it)+Doc->currentPage()->yOffset()< (yin+Doc->guidesSettings.grabRad)) && ((*it)+Doc->currentPage()->yOffset()> (yin-Doc->guidesSettings.grabRad)))
+			tmpGuidesSel.insert(fabs(((*it)+Doc->currentPage()->yOffset()) - yin), yg);
+	}
+	if (tmpGuidesSel.count() != 0)
+	{
+		GyM = tmpGuidesSel.begin().data();
+		*yout = tmpGuides[GyM];
+	}
+	tmpGuidesSel.clear();
+	tmpGuides = Doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
+	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
+	{
+		if (((*it)+Doc->currentPage()->xOffset()< (xin+Doc->guidesSettings.grabRad)) && ((*it)+Doc->currentPage()->xOffset()> (xin-Doc->guidesSettings.grabRad)))
+			tmpGuidesSel.insert(fabs(((*it)+Doc->currentPage()->xOffset()) - xin), xg);
+	}
+	if (tmpGuidesSel.count() != 0)
+	{
+		GxM = tmpGuidesSel.begin().data();
+		*xout = tmpGuides[GxM];
+	}
+}
+
 //CB-->Doc?
 bool ScribusView::ApplyGuides(double *x, double *y)
 {
 	m_SnapCounter++;
 	bool ret = false;
+	double xout, yout;
 	int pg = Doc->OnPage(*x, *y);
 	if (pg == -1)
 		return ret;
@@ -6262,28 +6296,17 @@ bool ScribusView::ApplyGuides(double *x, double *y)
 	if ((Doc->SnapGuides) && (m_SnapCounter > 5))
 	{
 		m_SnapCounter = 3;
-		Guides::iterator it;
-		Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
-		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+		getClosestGuides(*x, *y, &xout, &yout);
+		if (GxM != -1)
 		{
-			if (((*it)+page->yOffset() < (*y+Doc->guidesSettings.guideRad)) && ((*it)+page->yOffset() > (*y-Doc->guidesSettings.guideRad)))
-			{
-				*y= (*it)+page->yOffset();
-				ret = true;
-				break;
-			}
+			*x = xout+page->xOffset();
+			ret = true;
 		}
-		tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
-		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+		if (GyM != -1)
 		{
-			if (((*it)+page->xOffset() < (*x+Doc->guidesSettings.guideRad)) && ((*it)+page->xOffset() > (*x-Doc->guidesSettings.guideRad)))
-			{
-				*x = (*it)+page->xOffset();
-				ret = true;
-				break;
-			}
+			*y = yout+page->yOffset();
+			ret = true;
 		}
-
 		if ((page->Margins.Left+page->xOffset() < (*x+Doc->guidesSettings.guideRad)) && (page->Margins.Left+page->xOffset() > (*x-Doc->guidesSettings.guideRad)))
 		{
 			*x = page->Margins.Left+page->xOffset();
@@ -6314,72 +6337,49 @@ bool ScribusView::ApplyGuides(double *x, double *y)
 void ScribusView::SnapToGuides(PageItem *currItem)
 {
 	int pg = Doc->OnPage(currItem);
+	double xout, yout;
 	if (pg == -1)
 		return;
 	Page* page = Doc->Pages->at(pg);
-	Guides tmpGuides = page->guides.horizontals(GuideManagerCore::Standard);
-	Guides::iterator it;
-	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
-	{
-		if (((*it)+page->yOffset() < (currItem->yPos()+Doc->guidesSettings.guideRad)) && ((*it)+page->yOffset() > (currItem->yPos()-Doc->guidesSettings.guideRad)))
-		{
-			currItem->setYPos((*it)+page->yOffset());
-			break;
-		}
-		if (currItem->asLine())
-		{
-			QWMatrix ma;
-			ma.translate(currItem->xPos(), currItem->yPos());
-			ma.rotate(currItem->rotation());
-			double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
-			if (((*it)+page->yOffset() < (my+Doc->guidesSettings.guideRad)) && ((*it)+page->yOffset() > (my-Doc->guidesSettings.guideRad)))
-			{
-				currItem->moveBy(0.0, (*it) - my + page->yOffset());
-				break;
-			}
-		}
-		else
-		{
-			if (((*it)+page->yOffset() < (currItem->yPos()+currItem->height()+Doc->guidesSettings.guideRad)) &&
-							((*it)+page->yOffset() > ((currItem->yPos()+currItem->height())-Doc->guidesSettings.guideRad)))
-			{
-				currItem->setYPos((*it)-currItem->height()+page->yOffset());
-				break;
-			}
-		}
-	}
 
-	tmpGuides = page->guides.verticals(GuideManagerCore::Standard);
-	for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it)
+	getClosestGuides(0,  currItem->yPos(), &xout, &yout);
+	if (GyM != -1)
+		currItem->setYPos(yout+page->yOffset());
+	if (currItem->asLine())
 	{
-		if (((*it)+page->xOffset() < (currItem->xPos()+Doc->guidesSettings.guideRad)) && ((*it)+page->xOffset() > (currItem->xPos()-Doc->guidesSettings.guideRad)))
-		{
-			currItem->setXPos((*it)+page->xOffset());
-			break;
-		}
-		if (currItem->asLine())
-		{
-			QWMatrix ma;
-			ma.translate(currItem->xPos(), currItem->yPos());
-			ma.rotate(currItem->rotation());
-			double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
-			if (((*it)+page->xOffset() < (mx+Doc->guidesSettings.guideRad)) && ((*it)+page->xOffset() > (mx-Doc->guidesSettings.guideRad)))
-			{
-				currItem->moveBy((*it) - mx + page->xOffset(), 0.0);
-				break;
-			}
-		}
-		else
-		{
-			if (((*it)+page->xOffset() < (currItem->xPos()+currItem->width()+Doc->guidesSettings.guideRad)) &&
-							((*it)+page->xOffset() > ((currItem->xPos()+currItem->width())-Doc->guidesSettings.guideRad)))
-			{
-				currItem->setXPos((*it)-currItem->width()+page->xOffset());
-				break;
-			}
-		}
+		QWMatrix ma;
+		ma.translate(currItem->xPos(), currItem->yPos());
+		ma.rotate(currItem->rotation());
+		double my = ma.m22() * currItem->height() + ma.m12() * currItem->width() + ma.dy();
+		getClosestGuides(0,  my, &xout, &yout);
+		if (GyM != -1)
+			currItem->moveBy(0.0, yout - my + page->yOffset());
 	}
-
+	else
+	{
+		getClosestGuides(0,  currItem->yPos()+currItem->height(), &xout, &yout);
+		if (GyM != -1)
+			currItem->setYPos(yout-currItem->height()+page->yOffset());
+	}
+	getClosestGuides(currItem->xPos(), 0, &xout, &yout);
+	if (GxM != -1)
+		currItem->setXPos(xout+page->xOffset());
+	if (currItem->asLine())
+	{
+		QWMatrix ma;
+		ma.translate(currItem->xPos(), currItem->yPos());
+		ma.rotate(currItem->rotation());
+		double mx = ma.m11() * currItem->width() + ma.m21() * currItem->height() + ma.dx();
+		getClosestGuides(mx,  0, &xout, &yout);
+		if (GxM != -1)
+			currItem->moveBy(xout - mx + page->xOffset(), 0.0);
+	}
+	else
+	{
+		getClosestGuides(currItem->xPos()+currItem->width(), 0, &xout, &yout);
+		if (GxM != -1)
+			currItem->setXPos(xout-currItem->width()+page->xOffset());
+	}
 }
 
 //CB-->Doc/selection
