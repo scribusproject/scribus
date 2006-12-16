@@ -8992,32 +8992,38 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	{
 		GxM = -1;
 		GyM = -1;
+		QMap<double, uint> tmpGuidesSel;
 		Guides tmpGuides = Doc->currentPage()->guides.horizontals(GuideManagerCore::Standard);
 		Guides::iterator it;
 		uint yg = 0;
 		uint xg = 0;
 		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 		{
-			if (((*it)+Doc->currentPage()->yOffset()< (MypS+Doc->guidesSettings.grabRad)) &&
-							((*it)+Doc->currentPage()->yOffset()> (MypS-Doc->guidesSettings.grabRad)))
+			if (((*it)+Doc->currentPage()->yOffset()< (MypS+Doc->guidesSettings.grabRad)) && ((*it)+Doc->currentPage()->yOffset()> (MypS-Doc->guidesSettings.grabRad)))
 			{
-					GyM = yg;
-					QPoint py = viewport()->mapFromGlobal(m->globalPos());
-					DrHY = py.y();
-					break;
+				tmpGuidesSel.insert(fabs(((*it)+Doc->currentPage()->yOffset()) - MypS), yg);
 			}
 		}
+		if (tmpGuidesSel.count() != 0)
+		{
+			GyM = tmpGuidesSel.begin().data();
+			QPoint py = viewport()->mapFromGlobal(m->globalPos());
+			DrHY = py.y();
+		}
+		tmpGuidesSel.clear();
 		tmpGuides = Doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 		{
-			if (((*it)+Doc->currentPage()->xOffset()< (MxpS+Doc->guidesSettings.grabRad)) &&
-							((*it)+Doc->currentPage()->xOffset()> (MxpS-Doc->guidesSettings.grabRad)))
+			if (((*it)+Doc->currentPage()->xOffset()< (MxpS+Doc->guidesSettings.grabRad)) && ((*it)+Doc->currentPage()->xOffset()> (MxpS-Doc->guidesSettings.grabRad)))
 			{
-				GxM = xg;
-				QPoint py = viewport()->mapFromGlobal(m->globalPos());
-				DrVX = py.x();
-				break;
+				tmpGuidesSel.insert(fabs(((*it)+Doc->currentPage()->xOffset()) - MypS), xg);
 			}
+		}
+		if (tmpGuidesSel.count() != 0)
+		{
+			GxM = tmpGuidesSel.begin().data();
+			QPoint py = viewport()->mapFromGlobal(m->globalPos());
+			DrVX = py.x();
 		}
 
 		if (GxM!=-1 || GyM!=-1)
