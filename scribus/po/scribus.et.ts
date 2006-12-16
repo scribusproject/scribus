@@ -1939,19 +1939,19 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>&amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Uuendused</translation>
     </message>
     <message>
         <source>Check for &amp;Updates</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrolli &amp;uuendusi</translation>
     </message>
     <message>
         <source>This panel shows the version, build date and compiled in library support in Scribus. The C-C-T-F equates to C=littlecms C=CUPS T=TIFF support F=Fontconfig support. Last Letter is the renderer C=cairo or A=libart Missing library support is indicated by a *. This also indicates the version of Ghostscript which Scribus has detected. The Windows version does not use fontconfig or CUPS libraries.</source>
-        <translation type="unfinished"></translation>
+        <translation>See dialoog näitab Scribuse versiooni, ehitamise aega ja kompileeritud teekide toetust. Lühendis C-C-T-F tähendab C littlecms&apos;i, teine C CUPS-i, T TIFF-i ja F Fontconfig&apos;i tuge. Viimane täht näitab renderdajat: C=cairo või A=libart. Teegi toe puudumist näitab *. Samuti näeb siin Ghostscripti versiooni, mille Scribus leidis. Windowsi versioon ei kasuta Fontconfig&apos;i ega CUPS-i teeke.</translation>
     </message>
     <message>
         <source>Check for updates to Scribus. No data from your machine will be transferred off it.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribuse uuenduste kontrollimine. Masinast ei saadeta selleks välja mingeid andmeid.</translation>
     </message>
 </context>
 <context>
@@ -2947,58 +2947,58 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Get Text 2...</source>
-        <translation type="unfinished"></translation>
+        <translation>Hangi tekst 2...</translation>
     </message>
     <message>
         <source>&amp;Frame...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Kast...</translation>
     </message>
     <message>
         <source>Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Eelvaatluse režiim</translation>
     </message>
     <message>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi indikaatorite näitamine</translation>
     </message>
     <message>
         <source>Patterns...</source>
-        <translation type="unfinished"></translation>
+        <translation>Mustrid...</translation>
     </message>
     <message>
         <source>Send to Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisatakse mustritesse</translation>
     </message>
 </context>
 <context>
     <name>AlignDistributeBase</name>
     <message>
         <source>Align and Distribute</source>
-        <translation type="unfinished">Joondus ja jaotus</translation>
+        <translation>Joondus ja jaotus</translation>
     </message>
     <message>
         <source>Align</source>
-        <translation type="unfinished">Joondus</translation>
+        <translation>Joondus</translation>
     </message>
     <message>
         <source>&amp;Selected Guide:</source>
-        <translation type="unfinished">&amp;Valitud juhtjoon:</translation>
+        <translation>&amp;Valitud juhtjoon:</translation>
     </message>
     <message>
         <source>&amp;Relative To:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Seotud:</translation>
     </message>
     <message>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Distribute</source>
-        <translation type="unfinished">Jaotus</translation>
+        <translation>Jaotus</translation>
     </message>
     <message>
         <source>&amp;Distance:</source>
-        <translation type="unfinished">Va&amp;hemaa:</translation>
+        <translation>Va&amp;hemaa:</translation>
     </message>
 </context>
 <context>
@@ -3149,19 +3149,19 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektide ja lehekülje külgede rõhtsate vahede võrdsustamine</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektide ja lehekülje üla- ja alaveerise püstiste vahede võrdsustamine</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page margins equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektide ja lehekülje külgveeriste rõhtsate vahede võrdsustamine</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page equal</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektide ja lehekülje üla- ja alaserva püstiste vahede võrdsustamine</translation>
     </message>
 </context>
 <context>
@@ -3733,11 +3733,11 @@ If &quot;name&quot; is not given the currently selected item is used.
     </message>
     <message>
         <source>Tooltip:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohtspikker:</translation>
     </message>
     <message>
         <source>Do Not Export Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Väärtust ei ekspordita</translation>
     </message>
 </context>
 <context>
@@ -3962,7 +3962,9 @@ If &quot;name&quot; is not given the currently selected item is used.
         <source>For ISBN-10 the data should contain 9 or 10 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
 For ISBN-13 the data should contain 12 or 13 <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>digits separated appropriately by dash characters.
 If the last digit is not given then the ISBN <byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/><byte value="x9"/>checkdigit is calculated automatically.</source>
-        <translation type="unfinished"></translation>
+        <translation>ISBN-10 korral peavad andmed sisaldama 9 või 10 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
+ISBN-13 korral peavad andmed sisaldama 12 või 13 (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)arvu, mida eraldavad kriipsud.(new line)
+Kui viimast arvu ei ole antud, arvutatakse (tab)(tab)(tab)(tab)(tab)(tab)(tab)(tab)ISBN kontrollarv automaatselt.</translation>
     </message>
 </context>
 <context>
@@ -4162,19 +4164,19 @@ Palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>Copy To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopeerimine:</translation>
     </message>
     <message>
         <source>Move To:</source>
-        <translation type="unfinished"></translation>
+        <translation>Liigutamine:</translation>
     </message>
     <message>
         <source>Main</source>
-        <translation type="unfinished"></translation>
+        <translation>Peamine</translation>
     </message>
     <message>
         <source>Copied Items</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopeeritud elemendid</translation>
     </message>
 </context>
 <context>
@@ -4531,213 +4533,213 @@ See nimi on reserveeritud läbipaistvale värvile.</translation>
     </message>
     <message>
         <source>Choosing this will enable printing this on all plates. Registration colors are used for printer marks such as crop marks, registration marks and the like. These are not typically used in the layout itself.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle valimine võimaldab trükkimise kõigil plaatidel. Kokkutrükivärve kasutatakse enamasti selliste printeritähiste jaoks, nagu kärpimisääred, registreerimismärgid ja nii edasi. Tavaliselt ei kasutata neid küljenduses endas.</translation>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected. What this means is the color may not print exactly as indicated on screen. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kui värvihaldus on lubatud, hoiatab kolmnurkne märk värvi ees, et see võib jääda parajasti valitud printeriprofiili värviulatusest välja. See tähendab, et trükkimisel ei pruugi värv olla täpselt selline, nagu seda näeb ekraanil. Lähemalt räägib värviulatuse hoiatustest käsiraamat värvihalduse osas.</translation>
     </message>
     <message>
         <source>The name of the color already exists,
 please choose another one.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle nimega värv on juba olemas, palun vali mõni muu nimi.</translation>
     </message>
     <message>
         <source>Choosing this will make this color a spot color, thus creating another spot when creating plates or separations. This is used most often when a logo or other color needs exact representation or cannot be replicated with CMYK inks. Metallic and fluorescent inks are good examples which cannot be easily replicated with CMYK inks.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle valimisel muudetakse värv spot-värviks, luues plaatide või separeerimise jaoks täiendava värvi. Enamasti on seda mõtet kasutada siis, kui logo või mõned muud värvid peavad olema äärmiselt täpsed või neid ei saa tekitada CMYK-i abil. Heaks näiteks on metallik- ja fluorestsensvärv, mida CMYK-iga on raske saavutada.</translation>
     </message>
 </context>
 <context>
     <name>CStylePBase</name>
     <message>
         <source>Form1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorm1</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellane</translation>
     </message>
 </context>
 <context>
     <name>CWDialog</name>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished"></translation>
+        <translation>Tavaline nägemine</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation type="unfinished"></translation>
+        <translation>Protanoopia (punane)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuteranoopia (roheline)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tritanoopia (sinine)</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation type="unfinished"></translation>
+        <translation>Täielik värvipimedus</translation>
     </message>
     <message>
         <source>Merging colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Värvide ühendamine</translation>
     </message>
     <message>
         <source>Error: </source>
-        <translation type="unfinished">Viga: </translation>
+        <translation>Viga: </translation>
     </message>
     <message>
         <source>Color %1 exists already!</source>
-        <translation type="unfinished">Värv %1 on juba olemas!</translation>
+        <translation>Värv %1 on juba olemas!</translation>
     </message>
     <message>
         <source>Color %1 appended.</source>
-        <translation type="unfinished">Värv %1 lisatud.</translation>
+        <translation>Värv %1 lisatud.</translation>
     </message>
     <message>
         <source>Now opening the color manager.</source>
-        <translation type="unfinished"></translation>
+        <translation>Avatakse värvihaldur.</translation>
     </message>
     <message>
         <source>Color Merging</source>
-        <translation type="unfinished"></translation>
+        <translation>Värvide ühendamine</translation>
     </message>
     <message>
         <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-        <translation type="unfinished"></translation>
+        <translation>Soovitud värvi ei leitud. Arvatavasti valisid musta, halli või valge. Seda värvi pole võimalik töödelda.</translation>
     </message>
 </context>
 <context>
     <name>CWDialogBase</name>
     <message>
         <source>Color Wheel</source>
-        <translation type="unfinished">Värviratas</translation>
+        <translation>Värviratas</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Klõpsa rattal baasvärvi valimiseks. Selle värvimudel sõltub valitud meetodist.</translation>
     </message>
     <message>
         <source>CMYK</source>
-        <translation type="unfinished">CMYK</translation>
+        <translation>CMYK</translation>
     </message>
     <message>
         <source>C:</source>
-        <translation type="unfinished">C:</translation>
+        <translation>C:</translation>
     </message>
     <message>
         <source>M:</source>
-        <translation type="unfinished">M:</translation>
+        <translation>M:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>K:</source>
-        <translation type="unfinished">K:</translation>
+        <translation>K:</translation>
     </message>
     <message>
         <source>RGB:</source>
-        <translation type="unfinished"></translation>
+        <translation>RGB:</translation>
     </message>
     <message>
         <source>RGB</source>
-        <translation type="unfinished">RGB</translation>
+        <translation>RGB</translation>
     </message>
     <message>
         <source>R:</source>
-        <translation type="unfinished">R:</translation>
+        <translation>R:</translation>
     </message>
     <message>
         <source>G:</source>
-        <translation type="unfinished">G:</translation>
+        <translation>G:</translation>
     </message>
     <message>
         <source>B:</source>
-        <translation type="unfinished">B:</translation>
+        <translation>B:</translation>
     </message>
     <message>
         <source>CMYK:</source>
-        <translation type="unfinished"></translation>
+        <translation>CMYK:</translation>
     </message>
     <message>
         <source>Document</source>
-        <translation type="unfinished">Dokument</translation>
+        <translation>Dokument</translation>
     </message>
     <message>
         <source>Color Scheme Method:</source>
-        <translation type="unfinished"></translation>
+        <translation>Värviskeemi meetod:</translation>
     </message>
     <message>
         <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Vali värviskeemi loomiseks mõni meetod. Lähemalt räägib neist dokumentatsioon.</translation>
     </message>
     <message>
         <source>Angle:</source>
-        <translation type="unfinished">Nurk:</translation>
+        <translation>Nurk:</translation>
     </message>
     <message>
         <source>Difference between the selected value and the counted ones. Refer to documentation for more information.</source>
-        <translation type="unfinished"></translation>
+        <translation>Erinevus valitud ja arvutatud väärtuse vahel. Lähemalt räägib sellest dokumentatsioon.</translation>
     </message>
     <message>
         <source>Preview:</source>
-        <translation type="unfinished"></translation>
+        <translation>Eelvaatlus:</translation>
     </message>
     <message>
         <source>Vision Defect Type:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nägemishäire tüüp:</translation>
     </message>
     <message>
         <source>Sample color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Näidisvärviskeem.</translation>
     </message>
     <message>
         <source>Colors of your chosen color scheme.</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitud värviskeemi värvid.</translation>
     </message>
     <message>
         <source>&amp;Merge</source>
-        <translation type="unfinished"></translation>
+        <translation>Ü&amp;henda</translation>
     </message>
     <message>
         <source>Alt+M</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+M</translation>
     </message>
     <message>
         <source>Merge created colors into the document colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Loodud värvide ühendamine dokumendi värvidega</translation>
     </message>
     <message>
         <source>&amp;Replace</source>
-        <translation type="unfinished">&amp;Asenda</translation>
+        <translation>&amp;Asenda</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
     <message>
         <source>Replace created colors in the document colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendi värvide asendamine loodud värvidega</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Loobu</translation>
+        <translation>&amp;Loobu</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>Leave colors untouched</source>
-        <translation type="unfinished"></translation>
+        <translation>Värvid jäetakse muutmata</translation>
     </message>
     <message>
         <source>Simulate common vision defects here. Select type of the defect.</source>
-        <translation type="unfinished"></translation>
+        <translation>Levinumate nägemishäirete simuleerimine. Vali vajalik puudetüüp.</translation>
     </message>
 </context>
 <context>
@@ -4907,7 +4909,7 @@ please choose another one.</source>
     </message>
     <message>
         <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
-        <translation type="unfinished">Hiire paremat klahvi all hoides näeb pisipilti. Klahviga Insert saab glüüfi allolevasse valikukasti lisada, klahviga Delete viimati lisatud glüüfi eemaldada.</translation>
+        <translation>Hiire paremat klahvi all hoides näeb pisipilti. Klahviga Insert saab glüüfi allolevasse valikukasti lisada, klahviga Delete viimati lisatud glüüfi eemaldada</translation>
     </message>
 </context>
 <context>
@@ -4998,19 +5000,19 @@ please choose another one.</source>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Transparency used</source>
-        <translation type="unfinished"></translation>
+        <translation>Läbipaistvuse kasutamine</translation>
     </message>
     <message>
         <source>Blendmode used</source>
-        <translation type="unfinished"></translation>
+        <translation>Ühtesulamise kasutamine</translation>
     </message>
     <message>
         <source>Layer &quot;%1&quot;</source>
-        <translation type="unfinished"></translation>
+        <translation>Kiht &quot;%1&quot;</translation>
     </message>
 </context>
 <context>
@@ -5159,98 +5161,98 @@ please choose another one.</source>
     </message>
     <message>
         <source>If color management is enabled, a triangle warning indicator is a warning the the color maybe outside of the color gamut of the current printer profile selected.What this means is the color may not print exactly as indicated on screen. Spot colors are indicated by a red circle. Registration colors will have a registration mark next to the color. More hints about gamut warnings are in the online help under Color Management.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kui värvihaldus on lubatud, hoiatab kolmnurkne märk värvi ees, et see võib jääda parajasti valitud printeriprofiili värviulatusest välja. See tähendab, et trükkimisel ei pruugi värv olla täpselt selline, nagu seda näeb ekraanil. Lähemalt räägib värviulatuse hoiatustest käsiraamat värvihalduse osas.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendid (*.sla *.sla.gz *.scd *.scd.gz);;Teised failid (*.eps *.ps *.ai);;Kõik failid (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendid (*.sla *.scd);;Teised failid (*.eps *.ps *.ai);;Kõik failid (*)</translation>
     </message>
 </context>
 <context>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation type="unfinished"></translation>
+        <translation>Monokromaatiline</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>Analoogvärvid</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Komplementaarvärvid</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Lõhestatud komplementaarvärvid</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Triaad</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nelikõla (topeltkomplementaarsus)</translation>
     </message>
     <message>
         <source>Base Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Baasvärv</translation>
     </message>
     <message>
         <source>Monochromatic Light</source>
-        <translation type="unfinished"></translation>
+        <translation>Mnonokromaatiline hele</translation>
     </message>
     <message>
         <source>Monochromatic Dark</source>
-        <translation type="unfinished"></translation>
+        <translation>Monokromaatiline tume</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>1. analoogvärv</translation>
     </message>
     <message>
         <source>2nd. Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>2. analoogvärv</translation>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>1. lõhestatud värv</translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>2. lõhestatud värv</translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>3. lõhestatud värv</translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>4. lõhestatud värv</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>1. triaad</translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>2. triaad</translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>1. tetraad (baasi vastand)</translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"></translation>
+        <translation>2. tetraad (nurk)</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>3. tetraad (nurga vastand)</translation>
     </message>
 </context>
 <context>
@@ -5469,35 +5471,35 @@ please choose another one.</source>
     </message>
     <message>
         <source>Yes</source>
-        <translation type="unfinished">Jah</translation>
+        <translation>Jah</translation>
     </message>
     <message>
         <source>No</source>
-        <translation type="unfinished">Ei</translation>
+        <translation>Ei</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
-        <translation type="unfinished">&amp;Jah</translation>
+        <translation>&amp;Jah</translation>
     </message>
     <message>
         <source>&amp;No</source>
-        <translation type="unfinished">&amp;Ei</translation>
+        <translation>&amp;Ei</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normaalne</translation>
+        <translation>Normaalne</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaalne vasakul</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaalne keskel</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaalne paremal</translation>
     </message>
 </context>
 <context>
@@ -5596,43 +5598,43 @@ please choose another one.</source>
     </message>
     <message>
         <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Läbipaistvuse seadistused</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Ühtesulamise režiim:</translation>
+        <translation>Ühtesulamise režiim:</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished">Tumendamine</translation>
+        <translation>Tumendamine</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished">Helendamine</translation>
+        <translation>Helendamine</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished">Korrutamine</translation>
+        <translation>Korrutamine</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished">Ekraan</translation>
+        <translation>Ekraan</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished">Ülekatmine</translation>
+        <translation>Ülekatmine</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished">Külm valgus</translation>
+        <translation>Külm valgus</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished">Soe valgus</translation>
+        <translation>Soe valgus</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished">Lahutamine</translation>
+        <translation>Lahutamine</translation>
     </message>
     <message>
         <source>Exlusion</source>
@@ -5640,182 +5642,182 @@ please choose another one.</source>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished">Värvi helestamine</translation>
+        <translation>Värvi helestamine</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished">Värvi tumestamine</translation>
+        <translation>Värvi tumestamine</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished">Toon</translation>
+        <translation>Toon</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Küllastus</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv</translation>
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished">Valgsus</translation>
+        <translation>Valgsus</translation>
     </message>
     <message>
         <source>Offsets</source>
-        <translation type="unfinished"></translation>
+        <translation>Nihe</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation type="unfinished"></translation>
+        <translation>X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>Scaling</source>
-        <translation type="unfinished"></translation>
+        <translation>Skaleerimine</translation>
     </message>
     <message>
         <source>Rotation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pööramine</translation>
     </message>
     <message>
         <source>Angle</source>
-        <translation type="unfinished"></translation>
+        <translation>Nurk</translation>
     </message>
     <message>
         <source>Pattern</source>
-        <translation type="unfinished"></translation>
+        <translation>Muster</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Väljajätmine</translation>
+        <translation>VäljajätmineVäljajätmine</translation>
     </message>
     <message>
         <source>X-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>X-skaala:</translation>
     </message>
     <message>
         <source>Y-Scale:</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-skaala:</translation>
     </message>
 </context>
 <context>
     <name>CreateRangeBase</name>
     <message>
         <source>Create Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahemiku loomine</translation>
     </message>
     <message>
         <source>Number of Pages in Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülgede arv dokumendis:</translation>
     </message>
     <message>
         <source>Doc Page Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendi lehekülgede vahemik</translation>
     </message>
     <message>
         <source>Basic Range Selection</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahemiku valimine</translation>
     </message>
     <message>
         <source>Add a Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisa lehekülgede vahemik</translation>
     </message>
     <message>
         <source>Consecutive Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Järjestikused lehed</translation>
     </message>
     <message>
         <source>From:</source>
-        <translation type="unfinished"></translation>
+        <translation>Alates:</translation>
     </message>
     <message>
         <source>To:</source>
-        <translation type="unfinished">leheküljele:</translation>
+        <translation>Kuni:</translation>
     </message>
     <message>
         <source>Comma Separated List</source>
-        <translation type="unfinished"></translation>
+        <translation>Komadega eraldatud loend</translation>
     </message>
     <message>
         <source>Even Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Paarisleheküljed</translation>
     </message>
     <message>
         <source>Odd Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Paaritud leheküljed</translation>
     </message>
     <message>
         <source>&amp;Add To Range</source>
-        <translation type="unfinished"></translation>
+        <translation>Lis&amp;a vahemikku</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Range of Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülgede vahemik</translation>
     </message>
     <message>
         <source>Move &amp;Up</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Liiguta üles</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Move &amp;Down</source>
-        <translation type="unfinished"></translation>
+        <translation>L&amp;iiguta alla</translation>
     </message>
     <message>
         <source>Alt+D</source>
-        <translation type="unfinished">Alt+D</translation>
+        <translation>Alt+D</translation>
     </message>
     <message>
         <source>De&amp;lete</source>
-        <translation type="unfinished">&amp;Kustuta</translation>
+        <translation>&amp;Kustuta</translation>
     </message>
     <message>
         <source>Alt+L</source>
-        <translation type="unfinished">Alt+L</translation>
+        <translation>Alt+L</translation>
     </message>
     <message>
         <source>Advanced Reordering</source>
-        <translation type="unfinished"></translation>
+        <translation>Täpsem ümberkorraldamine</translation>
     </message>
     <message>
         <source>Page Group Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljerühma suurus:</translation>
     </message>
     <message>
         <source>Sample Page Order:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülgede näidisjärjekord:</translation>
     </message>
     <message>
         <source>Page Order</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülgede järjekord</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>Alt+O</source>
-        <translation type="unfinished">Alt+O</translation>
+        <translation>Alt+O</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Loobu</translation>
+        <translation>&amp;Loobu</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
 </context>
 <context>
@@ -5929,41 +5931,41 @@ please choose another one.</source>
     <name>CurveWidget</name>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Avamine</translation>
+        <translation>Avamine</translation>
     </message>
     <message>
         <source>Curve Files (*.scu);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Trajektoorifailid (*.scu);;Kõik failid (*)</translation>
     </message>
     <message>
         <source>Save as</source>
-        <translation type="unfinished">Salvestamine</translation>
+        <translation>Salvestamine</translation>
     </message>
     <message>
         <source>Cannot write the file: 
 %1</source>
-        <translation type="unfinished">Ei õnnestunud kirjutada faili:
+        <translation>Ei õnnestunud kirjutada faili:
 %1</translation>
     </message>
     <message>
         <source>Inverts the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Inverteerib trajektoori</translation>
     </message>
     <message>
         <source>Resets the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtestab trajektoori</translation>
     </message>
     <message>
         <source>Switches between linear and cubic interpolation of the curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Lülitab trajektoori lineaarse ja kolmanda astme intepolatsiooni vahel</translation>
     </message>
     <message>
         <source>Loads a curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadib trajektoori</translation>
     </message>
     <message>
         <source>Saves this curve</source>
-        <translation type="unfinished"></translation>
+        <translation>Salvestab trajektoori</translation>
     </message>
 </context>
 <context>
@@ -5988,7 +5990,7 @@ Selle saab määrata seadistustes.</translation>
     </message>
     <message>
         <source>&amp;Include ICC Profiles</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;ICC profiilide kaasamine</translation>
     </message>
 </context>
 <context>
@@ -6262,7 +6264,7 @@ Selle saab määrata seadistustes.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Name:&lt;/b&gt; Optional name for section eg. Index&lt;br/&gt;&lt;b&gt;Shown:&lt;/b&gt; Select to show the page numbers in this section if there is one or more text frames setup to do so.&lt;br/&gt;&lt;b&gt;From:&lt;/b&gt; The page index for this section to start at.&lt;br/&gt;&lt;b&gt;To:&lt;/b&gt; The page index for this section to stop at.&lt;br/&gt;&lt;b&gt;Style:&lt;/b&gt; Select the page number style to be used.&lt;br/&gt;&lt;b&gt;Start:&lt;/b&gt; The index within the Style&apos;s range to star at. Eg. If Start=2 and Style=a,b,c, ..., the numbers will begin at b. For the first section in the document this replaces the older First Page Number in the new file window.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Nimi:&lt;/b&gt; sektsiooni nimi, nt Indeks; võib ka ära jääda&lt;br/&gt;&lt;b&gt;Näitamine:&lt;/b&gt; märkimise korral näidatakse sektsioonis leheküljenumbreid, kui seda vajab üks või enam tekstikasti.&lt;br/&gt;&lt;b&gt;Alates:&lt;/b&gt; lehekülg, millest antud sektsiooni indeks algab.&lt;br/&gt;&lt;b&gt;Kuni:&lt;/b&gt; lehekülg, milleni antud sektsiooni indeks ulatub.&lt;br/&gt;&lt;b&gt;Stiil:&lt;/b&gt; kasutatav leheküljenumbri stiil.&lt;br/&gt;&lt;b&gt;Algus:&lt;/b&gt; indeks stiili vahemikus, millest alustatakse. Kui nt. Algus=2 ja Stiil=a,b,c, ..., algavad numbrid b-ga. Dokumendi esimese sektsiooni korral asendab see senise esimese lehekülje numbri uues failiaknas.</translation>
     </message>
     <message>
         <source>1, 2, 3, ...</source>
@@ -6426,7 +6428,7 @@ Selle saab määrata seadistustes.</translation>
     </message>
     <message>
         <source>Auto Add To</source>
-        <translation type="unfinished"></translation>
+        <translation>Automaane lisamine elemendile</translation>
     </message>
     <message>
         <source>&amp;Add</source>
@@ -6710,7 +6712,7 @@ import ebaõnnestus!</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupp%1</translation>
     </message>
 </context>
 <context>
@@ -7003,50 +7005,50 @@ import ebaõnnestus!</translation>
     </message>
     <message>
         <source>Color 1:</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv 1:</translation>
     </message>
     <message>
         <source>Color 2:</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv 2:</translation>
     </message>
     <message>
         <source>Color 3:</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv 3:</translation>
     </message>
     <message>
         <source>Color 4:</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv 4:</translation>
     </message>
     <message>
         <source>Duotone</source>
-        <translation type="unfinished"></translation>
+        <translation>Duotone</translation>
     </message>
     <message>
         <source>Tritone</source>
-        <translation type="unfinished"></translation>
+        <translation>Tritone</translation>
     </message>
     <message>
         <source>Quadtone</source>
-        <translation type="unfinished"></translation>
+        <translation>Quadtone</translation>
     </message>
     <message>
         <source>Curves</source>
-        <translation type="unfinished"></translation>
+        <translation>Trajektoorid</translation>
     </message>
 </context>
 <context>
     <name>ExportBitmap</name>
     <message>
         <source>File exists. Overwrite?</source>
-        <translation type="unfinished">Fail on olemas. Kas kirjutada üle?</translation>
+        <translation>Fail on olemas. Kas kirjutada üle?</translation>
     </message>
     <message>
         <source>exists already. Overwrite?</source>
-        <translation type="unfinished">on juba olemas. Kas kirjutada üle?</translation>
+        <translation>on juba olemas. Kas kirjutada üle?</translation>
     </message>
     <message>
         <source>All</source>
-        <translation type="unfinished">Kõik</translation>
+        <translation>Kõik</translation>
     </message>
 </context>
 <context>
@@ -7331,7 +7333,7 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>Duotone</source>
-        <translation type="unfinished"></translation>
+        <translation>Duotone</translation>
     </message>
 </context>
 <context>
@@ -7761,31 +7763,31 @@ Eksportfaili nimeks saab &apos;dokumendinimi-leheküljenumber.failitüüp&apos;.
     </message>
     <message>
         <source>&amp;Misc</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Muud</translation>
     </message>
     <message>
         <source>Delete &amp;Page Guides</source>
-        <translation type="unfinished"></translation>
+        <translation>K&amp;ustuta lehekülje juhtjooned</translation>
     </message>
     <message>
         <source>Delete all guides from the current page</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõigi juhtjoonte kustutamine aktiivselt lehelt</translation>
     </message>
     <message>
         <source>Delete &amp;Document guides</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustuta &amp;dokumendi juhtjooned</translation>
     </message>
     <message>
         <source>Delete all guides from the current document</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõigi juhtjoonte kustutamine aktiivsest dokumendist</translation>
     </message>
     <message>
         <source>&amp;Single</source>
-        <translation type="unfinished"></translation>
+        <translation>Ü&amp;ksik</translation>
     </message>
     <message>
         <source>&amp;Column/Row</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Veerg/rida</translation>
     </message>
 </context>
 <context>
@@ -8145,186 +8147,186 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>InsertAFrame</name>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Avamine</translation>
+        <translation>Avamine</translation>
     </message>
     <message>
         <source>&lt;b&gt;Insert a text frame&lt;/b&gt;&lt;br/&gt;A text frame allows you to enter any text in a defined position with the formatting you choose. You may select a text file on the Options tab if you want to immediately import a document into the frame. Scribus supports a wide variety of importable format from plain text to OpenOffice.org.&lt;br/&gt;Your text may be edited and formatted on the page directly or in the simple Story Editor.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Tekstikasti lisamine&lt;/b&gt;&lt;br/&gt;Tekstikast võimaldab sisestada teksti vajalikku kohta vajaliku vormindusega. Kui soovid kohe kasti dokumendi importida, vali tekstifail valikute kaardilt. Scribus toetab paljude vormingute importimist alates klaartekstist ja lõpetades OpenOffice.org-i dokumentidega.&lt;br/&gt;Sisestatud teksti saab redigeerida ja vormindada kas otse leheküljel või lihtsas looredaktoris.</translation>
     </message>
     <message>
         <source>&lt;b&gt;Insert an image frame&lt;/b&gt;&lt;br/&gt;An image frame allows you to place an image onto your page. Various image effects may be applied or combined including transparencies, brightness, posterisation that allow retouching or the creation of interesting visual results. Image scaling and shaping is performed with the Properties Palette.</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Pildikasti lisamine&lt;/b&gt;&lt;br/&gt;Pildikast võimaldab sisestada leheküljele pildi. Piltidele saab ükshaaval või kombineeritult rakendada mitmesuguseid pildiefekte, sealhulgas läbipaistvus, toon ja muud sellised, mis võimaldavad pilti retušeerida või luua huvitavaid visuaalseid efekte. Piltide skaleerimine ja kuju muutmine käib omaduste paleti abil.</translation>
     </message>
 </context>
 <context>
     <name>InsertAFrameBase</name>
     <message>
         <source>Insert A Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasti lisamine</translation>
     </message>
     <message>
         <source>T&amp;ype</source>
-        <translation type="unfinished"></translation>
+        <translation>Tüü&amp;p</translation>
     </message>
     <message>
         <source>&amp;Text Frame</source>
-        <translation type="unfinished">&amp;Tekstikast</translation>
+        <translation>&amp;Tekstikast</translation>
     </message>
     <message>
         <source>Alt+T</source>
-        <translation type="unfinished">Alt+T</translation>
+        <translation>Alt+T</translation>
     </message>
     <message>
         <source>&amp;Image Frame</source>
-        <translation type="unfinished">P&amp;ildikast</translation>
+        <translation>P&amp;ildikast</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>T&amp;able</source>
-        <translation type="unfinished">T&amp;abel</translation>
+        <translation>T&amp;abel</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Kujund</translation>
     </message>
     <message>
         <source>Polygon</source>
-        <translation type="unfinished">Hulknurk</translation>
+        <translation>Hulknurk</translation>
     </message>
     <message>
         <source>&amp;Location</source>
-        <translation type="unfinished"></translation>
+        <translation>Asuko&amp;ht</translation>
     </message>
     <message>
         <source>Page Placement</source>
-        <translation type="unfinished"></translation>
+        <translation>Asetus lehekülgedel</translation>
     </message>
     <message>
         <source>Current Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Aktiivne lehekülg</translation>
     </message>
     <message>
         <source>Selecting this will place the frame only on the current page.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle valimisel asetatakse kast ainult aktiivsele leheküljele.</translation>
     </message>
     <message>
         <source>Range of Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülgede vahemik:</translation>
     </message>
     <message>
         <source>Selecting this will place frame on the selected range. </source>
-        <translation type="unfinished"></translation>
+        <translation>Selle valimisel asetatakse kast valitud lehekülgede vahemikku. </translation>
     </message>
     <message>
         <source>Position of Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasti asukoht</translation>
     </message>
     <message>
         <source>Top Left of Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülje ülemine vasak nurk</translation>
     </message>
     <message>
         <source>Selecting this puts the frame on the top left with postion 0,0</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle valimisel asetatakse kast üles vasakule asukohta 0,0</translation>
     </message>
     <message>
         <source>Top Left of Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Veeriste ülemine vasak nurk</translation>
     </message>
     <message>
         <source>Selecting this places the frame in the upper left of the page margins defined in your doc setup.</source>
-        <translation type="unfinished"></translation>
+        <translation>Selle valimisel asetatakse kast dokumendi seadistustes määratud veeriste ülemisse vasakusse nurka.</translation>
     </message>
     <message>
         <source>Custom Position:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohandatud asukoht:</translation>
     </message>
     <message>
         <source>Set the dimensions wished below in the X: Y: dialog below.</source>
-        <translation type="unfinished"></translation>
+        <translation>Määra allolevas dialoogis vajalikud X- ja Y-asukoht.</translation>
     </message>
     <message>
         <source>X:</source>
-        <translation type="unfinished"></translation>
+        <translation>X:</translation>
     </message>
     <message>
         <source>Y:</source>
-        <translation type="unfinished">Y:</translation>
+        <translation>Y:</translation>
     </message>
     <message>
         <source>&amp;Size</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Suurus</translation>
     </message>
     <message>
         <source>Same as the Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Sama leheküljega</translation>
     </message>
     <message>
         <source>Same as the Page Margins</source>
-        <translation type="unfinished"></translation>
+        <translation>Sama lehekülje veeristega</translation>
     </message>
     <message>
         <source>Custom Size:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kohandatud suurus:</translation>
     </message>
     <message>
         <source>Height:</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõrgus:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Laius:</translation>
+        <translation>Laius:</translation>
     </message>
     <message>
         <source>&amp;Options</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Valikud</translation>
     </message>
     <message>
         <source>Source Image:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtepilt:</translation>
     </message>
     <message>
         <source>&amp;Select File...</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vali fail...</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>There are no options for this type of frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Seda tüüpi kasti jaoks pole valikuid</translation>
     </message>
     <message>
         <source>Source Document:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtedokument:</translation>
     </message>
     <message>
         <source>Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Veerud:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahe:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Loobu</translation>
+        <translation>&amp;Loobu</translation>
     </message>
     <message>
         <source>Link Created Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Loodud kastid lingitakse</translation>
     </message>
 </context>
 <context>
@@ -8596,55 +8598,55 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Väljajätmine</translation>
+        <translation>Väljajätmine</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished">Toon</translation>
+        <translation>Toon</translation>
     </message>
     <message>
         <source>Saturation</source>
-        <translation type="unfinished"></translation>
+        <translation>Küllastus</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv</translation>
     </message>
     <message>
         <source>Luminosity</source>
-        <translation type="unfinished">Valgsus</translation>
+        <translation>Valgsus</translation>
     </message>
     <message>
         <source>Color of the Layer Indicator - Each layer has a color assigned to display on the canvas when layer indicators are enabled. You can double click to edit the color. </source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi indikaatori värv - igale kihile omistatakse värv, kui kihi indikaatorid on sisse lülitatud. Topeltklõpsuga saab värvi redigeerida. </translation>
     </message>
     <message>
         <source>Make Layer Visible - Uncheck to hide the layer from the display </source>
-        <translation type="unfinished"></translation>
+        <translation>Kiht on nähtaval - märke eemaldamisel ei ole kihti näha </translation>
     </message>
     <message>
         <source>Print Layer - Uncheck to disable printing. </source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi trükkimine - märke eemaldamisel kihti ei trükita. </translation>
     </message>
     <message>
         <source>Lock or Unlock Layer - Unchecked is unlocked </source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi lukustamine - märke eemaldamisel ei ole kiht lukustatud </translation>
     </message>
     <message>
         <source>Text flows around objects in lower Layers - Enabling this forces text frames to flow around other objects, even in layers below</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst kulgeb ümber alumiste kihtide objektide - märkimisel kulgeb tekstikastide tekst ümber teiste objektide, isegi kui need asuvad alumistel kihtidel</translation>
     </message>
     <message>
         <source>Outline Mode - Toggles the &apos;wireframe&apos; display of objects to speed the display of very complex objects.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontuurirežiim - lülitab punktiirjoone näitamist objektide ümber, mis kiirendab väga keeruliste objektide kuvamist.</translation>
     </message>
     <message>
         <source>Name of the Layer - Double clicking on the name of a layer enabled editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi nimi - topeltklõpsuga kihi nimel saab seda redigeerida</translation>
     </message>
     <message>
         <source>Duplicates the current layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Kloonib aktiivse kihi</translation>
     </message>
 </context>
 <context>
@@ -8870,11 +8872,11 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Other Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Muud seadistused</translation>
     </message>
     <message>
         <source>Master Page:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljetoorik:</translation>
     </message>
     <message>
         <source>Normal</source>
@@ -8945,19 +8947,19 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistuste rakendamine:</translation>
     </message>
     <message>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendi kõigile lehekülgedele</translation>
     </message>
     <message>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõigile leheküljetoorikutele</translation>
     </message>
     <message>
         <source>Apply the margin changes to all existing master pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Veeriste muudatused rakendatakse dokumendi kõigile leheküljetoorikutele</translation>
     </message>
 </context>
 <context>
@@ -9028,19 +9030,19 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljetooriku ümbernimetamine ebaõnnestus</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaalset lehekülge ei saa ümber nimetada.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljetooriku ümbernimetamine</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Uus nimi:</translation>
     </message>
 </context>
 <context>
@@ -9188,11 +9190,11 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>Use</source>
-        <translation type="unfinished"></translation>
+        <translation>Font</translation>
     </message>
     <message>
         <source>instead</source>
-        <translation type="unfinished"></translation>
+        <translation>asendab fondi</translation>
     </message>
 </context>
 <context>
@@ -9407,7 +9409,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Show Curve</source>
-        <translation>Kõvera näitamine</translation>
+        <translation>Trajektoori näitamine</translation>
     </message>
     <message>
         <source>Start Offset:</source>
@@ -9415,7 +9417,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Distance from Curve:</source>
-        <translation>Kaugus kõverast:</translation>
+        <translation>Kaugus trajektoorist:</translation>
     </message>
     <message>
         <source>Fill Rule</source>
@@ -9871,127 +9873,127 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahe:</translation>
     </message>
     <message>
         <source>Width:</source>
-        <translation type="unfinished">Laius:</translation>
+        <translation>Laius:</translation>
     </message>
     <message>
         <source>Text &amp;Flow Around Frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Teksti&amp;voog ümber kasti</translation>
     </message>
     <message>
         <source>Disabled</source>
-        <translation type="unfinished">Keelatud</translation>
+        <translation>Keelatud</translation>
     </message>
     <message>
         <source>Use Frame &amp;Shape</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasti ku&amp;jundi kasutamine</translation>
     </message>
     <message>
         <source>Image Effects</source>
-        <translation type="unfinished">Pildiefektid</translation>
+        <translation>Pildiefektid</translation>
     </message>
     <message>
         <source>Extended Image Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Pildi laiendatud omadused</translation>
     </message>
     <message>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished"></translation>
+        <translation>Alumiste kastide teksti kulgemine ümber objekti keelatakse</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasti kujundi kasutamine objekti all asuvate tekstikastide tekstivoo jaoks.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Kasti kujundi asemel kasutatakse alati nelinurkset ümbritsevat kasti objekti all asuvate tekstiraamide tekstivoo jaoks. </translation>
     </message>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
+        <translation>Algselt kasti kujundil põhineva teise joone kasutamine objekti all asuvate tekstikastide tekstivoo jaoks. </translation>
     </message>
     <message>
         <source>Transparency Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Läbipaistvuse seadistused</translation>
     </message>
     <message>
         <source>&amp;Group</source>
-        <translation type="unfinished">&amp;Rühmita</translation>
+        <translation>&amp;Rühmitamine</translation>
     </message>
     <message>
         <source>Opacity:</source>
-        <translation type="unfinished">Läbipaistmatus:</translation>
+        <translation>Läbipaistmatus:</translation>
     </message>
     <message>
         <source>Blend Mode:</source>
-        <translation type="unfinished">Ühtesulamise režiim:</translation>
+        <translation>Ühtesulamise režiim:</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normaalne</translation>
+        <translation>Normaalne</translation>
     </message>
     <message>
         <source>Darken</source>
-        <translation type="unfinished">Tumendamine</translation>
+        <translation>Tumendamine</translation>
     </message>
     <message>
         <source>Lighten</source>
-        <translation type="unfinished">Helendamine</translation>
+        <translation>Helendamine</translation>
     </message>
     <message>
         <source>Multiply</source>
-        <translation type="unfinished">Korrutamine</translation>
+        <translation>Korrutamine</translation>
     </message>
     <message>
         <source>Screen</source>
-        <translation type="unfinished">Ekraan</translation>
+        <translation>Ekraan</translation>
     </message>
     <message>
         <source>Overlay</source>
-        <translation type="unfinished">Ülekatmine</translation>
+        <translation>Ülekatmine</translation>
     </message>
     <message>
         <source>Hard Light</source>
-        <translation type="unfinished">Külm valgus</translation>
+        <translation>Külm valgus</translation>
     </message>
     <message>
         <source>Soft Light</source>
-        <translation type="unfinished">Soe valgus</translation>
+        <translation>Soe valgus</translation>
     </message>
     <message>
         <source>Difference</source>
-        <translation type="unfinished">Lahutamine</translation>
+        <translation>Lahutamine</translation>
     </message>
     <message>
         <source>Exclusion</source>
-        <translation type="unfinished">Väljajätmine</translation>
+        <translation>Väljajätmine</translation>
     </message>
     <message>
         <source>Color Dodge</source>
-        <translation type="unfinished">Värvi helestamine</translation>
+        <translation>Värvi helestamine</translation>
     </message>
     <message>
         <source>Color Burn</source>
-        <translation type="unfinished">Värvi tumestamine</translation>
+        <translation>Värvi tumestamine</translation>
     </message>
     <message>
         <source>Hue</source>
-        <translation type="unfinished">Toon</translation>
+        <translation>Toon</translation>
     </message>
     <message>
         <source>Color</source>
-        <translation type="unfinished"></translation>
+        <translation>Värv</translation>
     </message>
     <message>
         <source>Group the selected objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitud objektide rühmitamine</translation>
     </message>
     <message>
         <source>Destroys the selected group</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustutab valitud rühma</translation>
     </message>
 </context>
 <context>
@@ -10088,86 +10090,86 @@ n&amp;urgad:</translation>
     <name>MultipleDuplicate</name>
     <message>
         <source>&amp;Horizontal Shift:</source>
-        <translation type="unfinished">Ni&amp;he rõhtsuunas:</translation>
+        <translation>Ni&amp;he rõhtsuunas:</translation>
     </message>
     <message>
         <source>&amp;Vertical Shift:</source>
-        <translation type="unfinished">&amp;Nihe püstsuunas:</translation>
+        <translation>&amp;Nihe püstsuunas:</translation>
     </message>
     <message>
         <source>&amp;Horizontal Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>V&amp;ahe rõhtsuunas:</translation>
     </message>
     <message>
         <source>&amp;Vertical Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vahe püstsuunas:</translation>
     </message>
 </context>
 <context>
     <name>MultipleDuplicateBase</name>
     <message>
         <source>Multiple Duplicate</source>
-        <translation type="unfinished">Mitmekordne kloonimine</translation>
+        <translation>Mitmekordne kloonimine</translation>
     </message>
     <message>
         <source>&amp;By Number of Copies</source>
-        <translation type="unfinished"></translation>
+        <translation>Koo&amp;piate arvu järgi</translation>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
-        <translation type="unfinished">Koo&amp;piate arv:</translation>
+        <translation>Koo&amp;piate arv:</translation>
     </message>
     <message>
         <source>Create &amp;Gap Between Items Of</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vahe loomine elementide vahele</translation>
     </message>
     <message>
         <source>Alt+G</source>
-        <translation type="unfinished">Alt+G</translation>
+        <translation>Alt+G</translation>
     </message>
     <message>
         <source>&amp;Shift Created Items By</source>
-        <translation type="unfinished"></translation>
+        <translation>Loo&amp;dud elementide nihutamine</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
     <message>
         <source>&amp;Horizontal Shift:</source>
-        <translation type="unfinished">Ni&amp;he rõhtsuunas:</translation>
+        <translation>Ni&amp;he rõhtsuunas:</translation>
     </message>
     <message>
         <source>&amp;Vertical Shift:</source>
-        <translation type="unfinished">&amp;Nihe püstsuunas:</translation>
+        <translation>&amp;Nihe püstsuunas:</translation>
     </message>
     <message>
         <source>By &amp;Rows &amp;&amp; Columns</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Ridade ja veergude järgi</translation>
     </message>
     <message>
         <source>Vertical Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahe püstsuunas:</translation>
     </message>
     <message>
         <source>Horizontal Gap:</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahe rõhtsuunas:</translation>
     </message>
     <message>
         <source>Number of Rows:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ridade arv:</translation>
     </message>
     <message>
         <source>Number of Columns:</source>
-        <translation type="unfinished"></translation>
+        <translation>Veergude arv:</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Loobu</translation>
+        <translation>&amp;Loobu</translation>
     </message>
 </context>
 <context>
@@ -10614,12 +10616,13 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>%1 does not exists and will be created, continue?</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 puudub, mistõttu see luuakse. Kas jätkata?</translation>
     </message>
     <message>
         <source>Cannot create directory: 
 %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Kataloogi ei õnnestunud luua: (new line)
+%1</translation>
     </message>
 </context>
 <context>
@@ -10776,67 +10779,67 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Enable &amp;Antialiasing</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Antialiase lubamine</translation>
     </message>
     <message>
         <source>Fit to Width</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahutamine laiusele</translation>
     </message>
     <message>
         <source>Fit to Height</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahutamine kõrgusele</translation>
     </message>
     <message>
         <source>Fit to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Mahutamine leheküljele</translation>
     </message>
     <message>
         <source>Provides a more pleasant view of Type 1 fonts, TrueType Fonts, OpenType Fonts, EPS, PDF and vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="unfinished"></translation>
+        <translation>Võimaldab Type 1 fontide, TrueType fontide, OpenType fontide, EPS-i, PDF-i ja vektorgraafika ilusamat esitamist aknas, seda küll mõningase eelvaatluse aeglustumisega</translation>
     </message>
     <message>
         <source>Display Settings</source>
-        <translation type="unfinished">Vaateseadistused</translation>
+        <translation>Vaateseadistused</translation>
     </message>
     <message>
         <source>Print Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Trükkimisseadistused</translation>
     </message>
     <message>
         <source>Mirror Page(s) Horizontal</source>
-        <translation type="unfinished">Lehekülgede peegeldamine rõhtsalt</translation>
+        <translation>Lehekülgede peegeldamine rõhtsalt</translation>
     </message>
     <message>
         <source>Mirror Page(s) Vertical</source>
-        <translation type="unfinished">Lehekülgede peegeldamine püstiselt</translation>
+        <translation>Lehekülgede peegeldamine püstiselt</translation>
     </message>
     <message>
         <source>Clip to Page Margins</source>
-        <translation type="unfinished">Kärpimine lehekülje veeriste juures</translation>
+        <translation>Kärpimine lehekülje veeriste juures</translation>
     </message>
     <message>
         <source>Print in Grayscale</source>
-        <translation type="unfinished">Halltoonis trükk</translation>
+        <translation>Halltoonis trükk</translation>
     </message>
     <message>
         <source>Convert Spot Colors</source>
-        <translation type="unfinished"></translation>
+        <translation>Spot-värvidesse teisendamine</translation>
     </message>
     <message>
         <source>Apply ICC Profiles</source>
-        <translation type="unfinished">ICC profiilide rakendamine</translation>
+        <translation>ICC profiilide rakendamine</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation type="unfinished">Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
+        <translation>Sisselülitamisel teisendatakse spot-värvid komposiitvärvideks. Kui sa ei kavatse just saata trükikotta spot-värve, on mõttekas see sisse lülitada.</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
-        <translation type="unfinished">Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
+        <translation>Sisselülitamisel kehtestatakse dokumendile üldine ületrükirežiim, mis tühistab objektide määratlused</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
-        <translation type="unfinished">Võimaldab värvihalduse korral põimida trükkimisandmetesse ICC profiilid</translation>
+        <translation>Võimaldab värvihalduse korral põimida trükkimisandmetesse ICC profiilid</translation>
     </message>
 </context>
 <context>
@@ -10854,35 +10857,35 @@ n&amp;urgad:</translation>
     <name>PStyleWBase</name>
     <message>
         <source>Form1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorm1</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Omadused</translation>
+        <translation>OmadusedOmadused</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellane</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahed ja joondus</translation>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation type="unfinished">Süvisinitsiaalid</translation>
+        <translation>Süvisinitsiaalid</translation>
     </message>
     <message>
         <source>Parent&apos;s Drop Cap Status</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase süvisinitsiaali olek</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabeldusmärgid ja taandus</translation>
+        <translation>Tabeldusmärgid ja taandus</translation>
     </message>
     <message>
         <source>Ch&amp;aracter Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Mär&amp;gistiil</translation>
     </message>
 </context>
 <context>
@@ -11159,19 +11162,19 @@ n&amp;urgad:</translation>
     <name>PatternDialog</name>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Kataloogi valik</translation>
+        <translation>Kataloogi valik</translation>
     </message>
     <message>
         <source>Loading Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Mustrite laadimine</translation>
     </message>
     <message>
         <source>All Files (*)</source>
-        <translation type="unfinished">Kõik failid (*)</translation>
+        <translation>Kõik failid (*)</translation>
     </message>
     <message>
         <source>Open</source>
-        <translation type="unfinished">Avamine</translation>
+        <translation>Ava</translation>
     </message>
 </context>
 <context>
@@ -11201,27 +11204,27 @@ n&amp;urgad:</translation>
     <name>PicSearchBase</name>
     <message>
         <source>Result</source>
-        <translation type="unfinished">Tulemus</translation>
+        <translation>Tulemus</translation>
     </message>
     <message>
         <source>Search Results for: </source>
-        <translation type="unfinished">Otsingutulemused: </translation>
+        <translation>Otsingutulemused: </translation>
     </message>
     <message>
         <source>&amp;Preview</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Eelvaatlus</translation>
     </message>
     <message>
         <source>Alt+P</source>
-        <translation type="unfinished">Alt+P</translation>
+        <translation>Alt+P</translation>
     </message>
     <message>
         <source>&amp;Select</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Vali</translation>
     </message>
     <message>
         <source>Alt+S</source>
-        <translation type="unfinished">Alt+S</translation>
+        <translation>Alt+S</translation>
     </message>
 </context>
 <context>
@@ -11292,27 +11295,27 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Search Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Otsingukataloog</translation>
     </message>
     <message>
         <source>Close</source>
-        <translation type="unfinished">Sulge</translation>
+        <translation>Sulge</translation>
     </message>
     <message>
         <source>Set a new location for the selected items. Useful when you may have moved the document but not the images.</source>
-        <translation type="unfinished"></translation>
+        <translation>Määra valitud elementide uus asukoht. Kasulik, kui oled näiteks liigutanud dokumenti, aga mitte pilte.</translation>
     </message>
     <message>
         <source>Select a base directory for your selected rows</source>
-        <translation type="unfinished"></translation>
+        <translation>Vali valitud ridade baaskataloog</translation>
     </message>
     <message>
         <source>Case insensitive search</source>
-        <translation type="unfinished"></translation>
+        <translation>Tõstutundetu otsing</translation>
     </message>
     <message>
         <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
-        <translation type="unfinished"></translation>
+        <translation>Märkimisel otsitakse failisüsteemist failinimesid suur- ja väiketähtede erinevust arvestamata. Arvesta, et see on vaikevalik ainult vähestes operatsioonisüsteemides, nt. MS Windowsis</translation>
     </message>
 </context>
 <context>
@@ -11331,15 +11334,15 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Save as Image</source>
-        <translation type="unfinished">Salvestamine pildina</translation>
+        <translation>Salvestamine pildina</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
-        <translation type="unfinished">Viga väljundfaili kirjutamisel.</translation>
+        <translation>Viga väljundfaili kirjutamisel.</translation>
     </message>
     <message>
         <source>Export successful</source>
-        <translation type="unfinished"></translation>
+        <translation>Eksport õnnestus</translation>
     </message>
 </context>
 <context>
@@ -11396,7 +11399,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>There is a problem loading %1 of %2 plugins. %3 This is probably caused by some kind of dependency issue or old plugins existing in your install directory. If you clean out your install directory and reinstall and this still occurs, please report it on bugs.scribus.net.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekkis probleem %1 plugina laadimisel (%2 pluginast). Arvatavasti põhjustas seda mingi sõltuvusprobleem või vanade pluginate olemasolu paigaldamiskataloogis. Kui puhastad paigaldamiskataloogi ja taaspaigaldamisel tekib endiselt probleem, anna sellest palun teada veebisaidil bugs.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -11924,7 +11927,7 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Scrapbook</source>
-        <translation type="unfinished">Visandimapp</translation>
+        <translation>Visandimapp</translation>
     </message>
 </context>
 <context>
@@ -11943,23 +11946,23 @@ n&amp;urgad:</translation>
     </message>
     <message>
         <source>Export...</source>
-        <translation type="unfinished"></translation>
+        <translation>Ekspordi...</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Rakenda</translation>
+        <translation>&amp;Rakenda</translation>
     </message>
     <message>
         <source>All preferences can be reset here</source>
-        <translation type="unfinished"></translation>
+        <translation>Siin saab lähtestada kõik seadistused</translation>
     </message>
     <message>
         <source>Apply all changes without closing the dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõigi muudatuste rakendamine ilma dialoogi sulgemata</translation>
     </message>
     <message>
         <source>Export current preferences into file</source>
-        <translation type="unfinished"></translation>
+        <translation>Kehtivate seadistuste eksportimine faili</translation>
     </message>
 </context>
 <context>
@@ -12061,7 +12064,7 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Siin saab valida eelmääratud kujunduse. &apos;Puudub&apos; jätab veerised puutumata, Gutenberg kehtestab klassikalised veerised, &apos;Ajakiri&apos; määrab kõigile veeristele sama väärtuse. Aluseks võetakse vasaku/sisemise veerise väärtus.</translation>
     </message>
 </context>
 <context>
@@ -12148,11 +12151,11 @@ Kas soovid need migreerida Scribuse uude versiooni?</translation>
     </message>
     <message>
         <source>Python Scripts (*.py *.PY)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pythoni skriptid (*.py *.PY)</translation>
     </message>
     <message>
         <source>Line: %1 Column: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Rida: %1 Veerg : %2</translation>
     </message>
 </context>
 <context>
@@ -12938,7 +12941,7 @@ Palun kontrolli asukohta ja nime.</translation>
     </message>
     <message>
         <source>Font %1 cannot be read, no embedding</source>
-        <translation>Fondi %1 ugemine ebaõnnestus, ei põimita</translation>
+        <translation>Fondi %1 lugemine ebaõnnestus, ei põimita</translation>
     </message>
     <message>
         <source>Creating Font Cache</source>
@@ -13848,7 +13851,35 @@ Details of what exceptions each function may throw are provided on the
 function&apos;s documentation, though as with most Python code this list
 is not exhaustive due to exceptions from called functions.
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Scribuse Pythoni liidese moodul
+
+See on Scribuse Pythoni liidese moodul. Selle funktsioonid lubavad
+juhtida Scribust ja käsitseda objekte. Kõik funktsioonid on allpool
+dokumenteeritud.
+
+Mõned asjad iseloomustavad suuremat osa liidesest.
+
+Enamik funktsioone toimib kastides. Kaste tuvastatakse nende nime,
+stringi järgi - need ei ole reaalsed Pythoni objektid. Paljud funktsioonid
+kasutavad mittekohustusliku (mitte-võtmesõna) parameetrina kasti nime.
+Paljud erindid on samuti enamikule funktsioonidest ühised. Need ei ole
+praegu iga funktsiooni docstringis dokumenteeritud.
+- Paljud funktsioonid annavad tulemuseks NoDocOpenError, kui üritad
+neid kasutada ilma dokumenti ette andmata.
+- Kui jätta kasti nimi andmata funktsioonile, mis seda vajab, kasutab
+funktsioon parajasti aktiivset kasti, kui see on olemas, või annab tulemuseks
+NoValidObjectError, kui ei leia midagi, kus tegutsema asuda.
+- Paljud funktsioonid annavad tulemuseks WrongFrameTypeError, kui püüad
+neid kasutada sellist tüüpi kastis, kus nad pole ette nähtud. Näiteks ei ole mingit
+mõtet määrata pildikastis teksti värvi, mille puhul ongi tulemuseks mainitud erind.
+- Vead, mis tekivad väljakutsetest taustal töötavale Pythoni API-le,
+edastatakse muutmatult. Seepärast on funktsioonide teatatud erindite
+loend siin ja vastavas docstringis ebatäielik.
+
+Üksikasju, milliseid erindeid võib iga funktsioon teatada, leiab
+funktsiooni dokumentatsioonis, ehkki, nagu Pythoni koodi puhul
+üldiselt, ei ole see loend täielik väljakutsutud funktsioonide erindite tõttu.
+</translation>
     </message>
     <message>
         <source>Custom (optional) configuration: </source>
@@ -14039,7 +14070,7 @@ Välised lingid
     </message>
     <message>
         <source>-tracking </source>
-        <translation type="unfinished"></translation>
+        <translation>-koondamine </translation>
     </message>
     <message>
         <source>+baseline %1</source>
@@ -14047,7 +14078,7 @@ Välised lingid
     </message>
     <message>
         <source>+stretch </source>
-        <translation type="unfinished"></translation>
+        <translation>+laiendamine </translation>
     </message>
     <message>
         <source>parent= %1</source>
@@ -14059,190 +14090,193 @@ Välised lingid
     </message>
     <message>
         <source>Dzongkha</source>
-        <translation type="unfinished"></translation>
+        <translation>Dzongkha</translation>
     </message>
     <message>
         <source>Estonian</source>
-        <translation type="unfinished"></translation>
+        <translation>Eesti</translation>
     </message>
     <message>
         <source>Font %1 is broken (no Face), discarding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 on vigane (Face puudub), jäetakse kõrvale</translation>
     </message>
     <message>
         <source>Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Latin</translation>
     </message>
     <message>
         <source>Icelandic</source>
-        <translation type="unfinished"></translation>
+        <translation>Islandi</translation>
     </message>
     <message>
         <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
-        <translation type="unfinished"></translation>
+        <translation>Norra (BokmÃ¥l)</translation>
     </message>
     <message>
         <source>Romanian</source>
-        <translation type="unfinished"></translation>
+        <translation>Rumeenia</translation>
     </message>
     <message>
         <source>Quarto</source>
-        <translation type="unfinished">Quarto</translation>
+        <translation>Quarto</translation>
     </message>
     <message>
         <source>Foolscap</source>
-        <translation type="unfinished">Foolscap</translation>
+        <translation>Foolscap</translation>
     </message>
     <message>
         <source>Letter</source>
-        <translation type="unfinished">Letter</translation>
+        <translation>Letter</translation>
     </message>
     <message>
         <source>Govt. Letter</source>
-        <translation type="unfinished"></translation>
+        <translation>Govt. Letter</translation>
     </message>
     <message>
         <source>Legal</source>
-        <translation type="unfinished">Legal</translation>
+        <translation>Legal</translation>
     </message>
     <message>
         <source>Ledger</source>
-        <translation type="unfinished">Ledger</translation>
+        <translation>Ledger</translation>
     </message>
     <message>
         <source>Executive</source>
-        <translation type="unfinished">Executive</translation>
+        <translation>Executive</translation>
     </message>
     <message>
         <source>Post</source>
-        <translation type="unfinished">Post</translation>
+        <translation>Post</translation>
     </message>
     <message>
         <source>Crown</source>
-        <translation type="unfinished">Crown</translation>
+        <translation>Crown</translation>
     </message>
     <message>
         <source>Large Post</source>
-        <translation type="unfinished">Large Post</translation>
+        <translation>Large Post</translation>
     </message>
     <message>
         <source>Demy</source>
-        <translation type="unfinished">Demy</translation>
+        <translation>Demy</translation>
     </message>
     <message>
         <source>Medium</source>
-        <translation type="unfinished"></translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>Royal</source>
-        <translation type="unfinished">Royal</translation>
+        <translation>Royal</translation>
     </message>
     <message>
         <source>Elephant</source>
-        <translation type="unfinished">Elephant</translation>
+        <translation>Elephant</translation>
     </message>
     <message>
         <source>Double Demy</source>
-        <translation type="unfinished">Double Demy</translation>
+        <translation>Double Demy</translation>
     </message>
     <message>
         <source>Quad Demy</source>
-        <translation type="unfinished">Quad Demy</translation>
+        <translation>Quad Demy</translation>
     </message>
     <message>
         <source>STMT</source>
-        <translation type="unfinished">STMT</translation>
+        <translation>STMT</translation>
     </message>
     <message>
         <source>A</source>
-        <translation type="unfinished">A</translation>
+        <translation>A</translation>
     </message>
     <message>
         <source>B</source>
-        <translation type="unfinished">B</translation>
+        <translation>B</translation>
     </message>
     <message>
         <source>C</source>
-        <translation type="unfinished">C</translation>
+        <translation>C</translation>
     </message>
     <message>
         <source>D</source>
-        <translation type="unfinished">D</translation>
+        <translation>D</translation>
     </message>
     <message>
         <source>E</source>
-        <translation type="unfinished">E</translation>
+        <translation>E</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 võib olla vigane: lahutussildid puuduvad</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Fondis %1 on vigane glüüf %2</translation>
     </message>
     <message>
         <source>Transparency out of bounds, must be 0 &lt;= transparency &lt;= 1.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Läbipaistvus väljub piiridest, peab olema  0 &lt;= läbipaistvus &lt;= 1.</translation>
     </message>
     <message>
         <source>Blendmode out of bounds, must be 0 &lt;= blendmode &lt;= 15.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Ühtesulamine väljub piiridest, peab olema  0 &lt;= ühtesulamine &lt;= 15.</translation>
     </message>
     <message>
         <source>Scribus 1.2.x Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.2.x toetus</translation>
     </message>
     <message>
         <source>Scribus 1.3.4 Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.3.4 toetus</translation>
     </message>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.2 Support</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.3.0-&gt;1.3.3.2 toetus</translation>
     </message>
     <message>
         <source>This file is not recognized as a PDB document. Please, report this as a bug if you are sure it is one.</source>
         <comment>PDB Importer</comment>
-        <translation type="unfinished"></translation>
+        <translation>See fail ei paista olevat PDB-dokument. Kui oled selles siiski kindel, anna teada veast.</translation>
     </message>
     <message>
         <source>Cannot get number of lines of non-text frame.</source>
         <comment>python error</comment>
-        <translation type="unfinished"></translation>
+        <translation>Mittetekstikasti ridade arvu ei õnnestu hankida.</translation>
     </message>
     <message>
         <source>You are running a development version of Scribus 1.3.x. The document you are working with was created in Scribus 1.2.x.  Saving the current file under 1.3.x renders it unable to be edited in Scribus 1.2.x versions. To preserve the ability to edit in 1.2.x, save this file under a different name and further edit the newly named file and the original will be untouched. Are you sure you wish to proceed with this operation?</source>
-        <translation type="unfinished"></translation>
+        <translation>Sul töötab Scribus 1.3.x arendusversioon. Dokument, millega töötad, on loodud Scribus 1.2.x abil.  Faili salvestamine versioonis 1.3.x muudab võimatuks selle edasise redigeerimise Scribus 1.2.x versioonides. Kui soovid säilitada võimaluse redigeerida faili versioonis 1.2.x, salvesta fail teise nimega ning redigeeri edaspidi uue nimega faili, mis jätab originaali puutumata. Kas oled kindel, et soovid jätkata?</translation>
     </message>
     <message>
         <source>+tracking %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+koondamine %1 </translation>
     </message>
     <message>
         <source>+baseline %1 </source>
-        <translation type="unfinished"></translation>
+        <translation>+alusjoon %1 </translation>
     </message>
     <message>
         <source>Breton</source>
-        <translation type="unfinished"></translation>
+        <translation>Bretooni</translation>
     </message>
     <message>
         <source>English (American)</source>
-        <translation type="unfinished"></translation>
+        <translation>Inglise (Ameerika)</translation>
     </message>
     <message>
         <source>%1 may be corrupted : missing or wrong resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 võib olla vigane: lahutussildid puuduvad või on väärad</translation>
     </message>
     <message>
         <source>The Font(s):
 %1 are not available.
 They have been replaced by &quot;Courier&quot;
 Therefore the image may be not correct</source>
-        <translation type="unfinished"></translation>
+        <translation>Font/fondid:
+%1 ei ole saadaval.
+Need asendati fondiga &quot;Courier&quot;.
+Pilt ei pruugi seetõttu olla korrektne</translation>
     </message>
 </context>
 <context>
@@ -14594,7 +14628,7 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Python Scripts (*.py *.PY);; All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pythoni skriptid (*.py *.PY);; Kõik failid (*)</translation>
     </message>
 </context>
 <context>
@@ -14602,11 +14636,11 @@ Therefore the image may be not correct</source>
     <message>
         <source>P</source>
         <comment>P as in Parent</comment>
-        <translation type="unfinished"></translation>
+        <translation>E</translation>
     </message>
     <message>
         <source>Use parent style&apos;s alignment instead of overriding it</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase stiili kasutamine selle tühistamise asemel</translation>
     </message>
 </context>
 <context>
@@ -14669,104 +14703,104 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>name</source>
-        <translation type="unfinished"></translation>
+        <translation>nimi</translation>
     </message>
     <message>
         <source>shortcut</source>
-        <translation type="unfinished"></translation>
+        <translation>kiirklahv</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Uus</translation>
+        <translation>&amp;Uus</translation>
     </message>
     <message>
         <source>&amp;Clone</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Klooni</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Impordi</translation>
+        <translation>&amp;Impordi</translation>
     </message>
     <message>
         <source>Alt+I</source>
-        <translation type="unfinished">Alt+I</translation>
+        <translation>Alt+I</translation>
     </message>
     <message>
         <source>Please select a unique name for the style</source>
-        <translation type="unfinished"></translation>
+        <translation>Palun vali stiilile unikaalne nimi</translation>
     </message>
     <message>
         <source>&lt;&lt; &amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt; &amp;Tehtud</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished">Lä&amp;htesta</translation>
+        <translation>Lä&amp;htesta</translation>
     </message>
     <message>
         <source>Alt+R</source>
-        <translation type="unfinished">Alt+R</translation>
+        <translation>Alt+R</translation>
     </message>
 </context>
 <context>
     <name>SMCStylePage</name>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)pt</translation>
     </message>
     <message>
         <source> %</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)%</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellane</translation>
     </message>
 </context>
 <context>
     <name>SMCharacterStyle</name>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Omadused</translation>
+        <translation>Omadused</translation>
     </message>
     <message>
         <source>Character Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Märgistiilid</translation>
     </message>
     <message>
         <source>Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Märgistiil</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation type="unfinished">Uus stiil</translation>
+        <translation>Uus stiil</translation>
     </message>
     <message>
         <source>Clone of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kloon</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
 </context>
 <context>
     <name>SMColorCombo</name>
     <message>
         <source>Use Parent Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase väärtuse kasutamine</translation>
     </message>
 </context>
 <context>
     <name>SMFontComboH</name>
     <message>
         <source>Use Parent Font</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellasfondi kasutamine</translation>
     </message>
 </context>
 <context>
@@ -14781,146 +14815,146 @@ Therefore the image may be not correct</source>
     </message>
     <message>
         <source>Line Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Joone stiilid</translation>
     </message>
     <message>
         <source>Line Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Joone stiil</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation type="unfinished">Uus stiil</translation>
+        <translation>Uus stiil</translation>
     </message>
     <message>
         <source>Clone of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kloon</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)pt</translation>
     </message>
     <message>
         <source>Solid Line</source>
-        <translation type="unfinished">Ühtlane joon</translation>
+        <translation>Ühtlane joon</translation>
     </message>
     <message>
         <source>Dashed Line</source>
-        <translation type="unfinished">Punktiirjoon</translation>
+        <translation>Punktiirjoon</translation>
     </message>
     <message>
         <source>Dotted Line</source>
-        <translation type="unfinished">Punktjoon</translation>
+        <translation>Punktjoon</translation>
     </message>
     <message>
         <source>Dash Dot Line</source>
-        <translation type="unfinished">Kriipspunktjoon</translation>
+        <translation>Kriipspunktjoon</translation>
     </message>
     <message>
         <source>Dash Dot Dot Line</source>
-        <translation type="unfinished">Kriipspunktpunktjoon</translation>
+        <translation>Kriipspunktpunktjoon</translation>
     </message>
     <message>
         <source> pt </source>
-        <translation type="unfinished"> pt </translation>
+        <translation>(sp)pt(sp)</translation>
     </message>
 </context>
 <context>
     <name>SMPStyleWidget</name>
     <message>
         <source>Fixed Linespacing</source>
-        <translation type="unfinished">Fikseeritud reavahe</translation>
+        <translation>Fikseeritud reavahe</translation>
     </message>
     <message>
         <source>Automatic Linespacing</source>
-        <translation type="unfinished">Automaatne reavahe</translation>
+        <translation>Automaatne reavahe</translation>
     </message>
     <message>
         <source>Align to Baseline Grid</source>
-        <translation type="unfinished">Joondamine alusjoontele</translation>
+        <translation>Joondamine alusjoontele</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)pt</translation>
     </message>
     <message>
         <source>Parent</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellane</translation>
     </message>
     <message>
         <source>Distances and Alignment</source>
-        <translation type="unfinished"></translation>
+        <translation>Vahed ja joondus</translation>
     </message>
     <message>
         <source>Drop Caps</source>
-        <translation type="unfinished">Süvisinitsiaalid</translation>
+        <translation>Süvisinitsiaalid</translation>
     </message>
     <message>
         <source>Tabulators and Indentation</source>
-        <translation type="unfinished">Tabeldusmärgid ja taandus</translation>
+        <translation>Tabeldusmärgid ja taandus</translation>
     </message>
     <message>
         <source>Properties</source>
-        <translation type="unfinished">Omadused</translation>
+        <translation>Omadused</translation>
     </message>
     <message>
         <source>Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Märgistiil</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
-        <translation type="unfinished">&amp;Ridu:</translation>
+        <translation>&amp;Jooned:</translation>
     </message>
     <message>
         <source>Distance from Text:</source>
-        <translation type="unfinished">Kaugus tekstist:</translation>
+        <translation>Kaugus tekstist:</translation>
     </message>
     <message>
         <source>Based on</source>
-        <translation type="unfinished"></translation>
+        <translation>Alus</translation>
     </message>
     <message>
         <source>Parent&apos;s Character Style</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase märgistiil</translation>
     </message>
 </context>
 <context>
     <name>SMParagraphStyle</name>
     <message>
         <source>Paragraph Styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Lõigustiilid</translation>
     </message>
     <message>
         <source>Paragraph Style</source>
-        <translation type="unfinished">Lõigustiil</translation>
+        <translation>Lõigustiil</translation>
     </message>
     <message>
         <source>New Style</source>
-        <translation type="unfinished">Uus stiil</translation>
+        <translation>Uus stiil</translation>
     </message>
     <message>
         <source>Clone of %1</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 kloon</translation>
     </message>
     <message>
         <source>%1 (%2)</source>
         <comment>This for unique name when creating a new character style. %1 will be the name of the style and %2 will be a number forming a style name like: New Style (2)</comment>
-        <translation type="unfinished"></translation>
+        <translation>%1 (%2)</translation>
     </message>
 </context>
 <context>
     <name>SMReplaceDia</name>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Eemalda</translation>
+        <translation>Eemaldatakse</translation>
     </message>
     <message>
         <source>Replace with</source>
-        <translation type="unfinished"></translation>
+        <translation>Asendus</translation>
     </message>
 </context>
 <context>
@@ -14946,21 +14980,21 @@ Therefore the image may be not correct</source>
     <name>SMRowWidget</name>
     <message>
         <source>No Style</source>
-        <translation type="unfinished">Stiil puudub</translation>
+        <translation>Stiil puudub</translation>
     </message>
 </context>
 <context>
     <name>SMScComboBox</name>
     <message>
         <source>Use Parent Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase väärtuse kasutamine</translation>
     </message>
 </context>
 <context>
     <name>SMShadeButton</name>
     <message>
         <source>Use Parent Value</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase väärtuse kasutamine</translation>
     </message>
 </context>
 <context>
@@ -14968,18 +15002,18 @@ Therefore the image may be not correct</source>
     <message>
         <source>P</source>
         <comment>P as in Parent</comment>
-        <translation type="unfinished"></translation>
+        <translation>E</translation>
     </message>
     <message>
         <source>Use parent style&apos;s effects instead of overriding them</source>
-        <translation type="unfinished"></translation>
+        <translation>Eellase stiili efektide kasutamine nende tühistamise asemel</translation>
     </message>
 </context>
 <context>
     <name>SMTabruler</name>
     <message>
         <source> Parent Tabs </source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)Eellase tabelduskohad(sp)</translation>
     </message>
 </context>
 <context>
@@ -15113,7 +15147,7 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>SVGPlug</name>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupp%1</translation>
     </message>
 </context>
 <context>
@@ -15234,34 +15268,34 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>ScGTFileDialog</name>
     <message>
         <source>Select a file to import</source>
-        <translation type="unfinished"></translation>
+        <translation>Imporditava pildi valik</translation>
     </message>
     <message>
         <source>Append</source>
-        <translation type="unfinished"></translation>
+        <translation>Lisatakse</translation>
     </message>
     <message>
         <source>Show options</source>
-        <translation type="unfinished"></translation>
+        <translation>Valikute näitamine</translation>
     </message>
 </context>
 <context>
     <name>ScInputDialog</name>
     <message>
         <source>Input Dialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisestamisdialoog</translation>
     </message>
     <message>
         <source>InputDialog</source>
-        <translation type="unfinished"></translation>
+        <translation>Sisestamisdialoog</translation>
     </message>
     <message>
         <source>&amp;OK</source>
-        <translation type="unfinished">&amp;OK</translation>
+        <translation>&amp;OK</translation>
     </message>
     <message>
         <source>&amp;Cancel</source>
-        <translation type="unfinished">&amp;Loobu</translation>
+        <translation>&amp;Loobu</translation>
     </message>
 </context>
 <context>
@@ -15349,37 +15383,37 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     <name>Scribus12Format</name>
     <message>
         <source>Scribus 1.2.x Document</source>
-        <translation type="unfinished">Scribus 1.2.x dokument</translation>
+        <translation>Scribus 1.2.x dokument</translation>
     </message>
     <message>
         <source>Background</source>
-        <translation type="unfinished">Taust</translation>
+        <translation>Taust</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Koopia nr. %1  - </translation>
     </message>
 </context>
 <context>
     <name>Scribus134Format</name>
     <message>
         <source>Scribus 1.3.4 Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.3.4 dokument</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Koopia nr. %1  - </translation>
     </message>
 </context>
 <context>
     <name>Scribus13Format</name>
     <message>
         <source>Scribus 1.3.0-&gt;1.3.3.2 Document</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribus 1.3.0-&gt;1.3.3.2 dokument</translation>
     </message>
     <message>
         <source>Copy #%1 of </source>
-        <translation type="unfinished"></translation>
+        <translation>Koopia nr. %1  - </translation>
     </message>
 </context>
 <context>
@@ -15476,13 +15510,13 @@ muutes nende vektorandmed Scribuse objektideks.</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>ICC profiilide avamisel tekkis viga, värvihaldus on välja lülitatud.</translation>
     </message>
     <message>
         <source>Number of copies: %1
 Horizontal shift: %2
 Vertical shift: %3</source>
-        <translation type="unfinished">Koopiate arv: %1
+        <translation>Koopiate arv: %1
 Nihe rõhtsuunas: %2
 Nihe püstsuunas: %3</translation>
     </message>
@@ -15490,11 +15524,13 @@ Nihe püstsuunas: %3</translation>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Koopiate arv: %1
+Vahe rõhtsuunas: %2
+Vahe püstsuunas: %3</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
-        <translation type="unfinished">Värvide kohandamine</translation>
+        <translation>Värvide kohandamine</translation>
     </message>
 </context>
 <context>
@@ -15935,23 +15971,23 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Paste Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta viimati kasutatud</translation>
     </message>
     <message>
         <source>Updating Pictures</source>
-        <translation type="unfinished"></translation>
+        <translation>Piltide uuendamine</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendid (*.sla *.sla.gz);;Kõik failid (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendid (*.sla);;Kõik failid (*)</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupp%1</translation>
     </message>
 </context>
 <context>
@@ -16050,11 +16086,11 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Download a file from the Scribus website and show the latest available version.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fail laaditakse alla Scribuse veebisaidilt ja näidatakse uusimat saadaolevat versiooni.</translation>
     </message>
     <message>
         <source>Display a console window</source>
-        <translation type="unfinished"></translation>
+        <translation>Näidatakse konsooliaknas</translation>
     </message>
 </context>
 <context>
@@ -16209,52 +16245,53 @@ Nende parandamiseks võiks kasutada trükieelset kontrolli.</translation>
     </message>
     <message>
         <source>Paste Recent</source>
-        <translation type="unfinished"></translation>
+        <translation>Aseta viimati kasutatud</translation>
     </message>
     <message>
         <source>Duotone</source>
-        <translation type="unfinished"></translation>
+        <translation>Duotone</translation>
     </message>
     <message>
         <source>Lines: </source>
-        <translation type="unfinished"></translation>
+        <translation>Read: </translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupp%1</translation>
     </message>
     <message>
         <source>Enables the Preview Mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Lülitab sisse eelvaatluse režiimi</translation>
     </message>
     <message>
         <source>Here you can select the visual appearance of the display
 You can choose between normal and several color blindness forms</source>
-        <translation type="unfinished"></translation>
+        <translation>Siin saab kindlaks määrata vaate väljanägemise(new line)
+Valida on tavalise nägemise ja mitme värvipimeduse vormi vahel</translation>
     </message>
     <message>
         <source>Normal Vision</source>
-        <translation type="unfinished"></translation>
+        <translation>Tavaline nägemine</translation>
     </message>
     <message>
         <source>Protanopia (Red)</source>
-        <translation type="unfinished"></translation>
+        <translation>Protanoopia (punane)</translation>
     </message>
     <message>
         <source>Deuteranopia (Green)</source>
-        <translation type="unfinished"></translation>
+        <translation>Deuteranoopia (roheline)</translation>
     </message>
     <message>
         <source>Tritanopia (Blue)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tritanoopia (sinine)</translation>
     </message>
     <message>
         <source>Full Color Blindness</source>
-        <translation type="unfinished"></translation>
+        <translation>Täielik värvipimedus</translation>
     </message>
     <message>
         <source>Switches Color Management on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Lülitab värvihalduse sisse või välja</translation>
     </message>
 </context>
 <context>
@@ -16327,7 +16364,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Pythoni skriptid (*.py *.PY);; Kõik failid (*)</translation>
     </message>
 </context>
 <context>
@@ -16584,58 +16621,58 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Special plug-in for adding non-breaking spaces before or after so called short words. Available in the following languages: </source>
-        <translation type="unfinished"></translation>
+        <translation>Spetsiaalne plugin sisetühiku lisamiseks lühendite ette või järele. Saadaval järgmistele keeltele: </translation>
     </message>
 </context>
 <context>
     <name>ShortcutWidget</name>
     <message>
         <source>&amp;No Key</source>
-        <translation type="unfinished">&amp;Klahv puudub</translation>
+        <translation>&amp;Klahv puudub</translation>
     </message>
     <message>
         <source>&amp;User Defined Key</source>
-        <translation type="unfinished">Kas&amp;utaja määratud klahv</translation>
+        <translation>Kas&amp;utaja määratud klahv</translation>
     </message>
     <message>
         <source>ALT+SHIFT+T</source>
-        <translation type="unfinished">ALT+SHIFT+T</translation>
+        <translation>ALT+SHIFT+T</translation>
     </message>
     <message>
         <source>Set &amp;Key</source>
-        <translation type="unfinished">&amp;Määra klahv</translation>
+        <translation>&amp;Määra klahv</translation>
     </message>
     <message>
         <source>Alt</source>
-        <translation type="unfinished">Alt</translation>
+        <translation>Alt</translation>
     </message>
     <message>
         <source>Ctrl</source>
-        <translation type="unfinished">Ctrl</translation>
+        <translation>Ctrl</translation>
     </message>
     <message>
         <source>Shift</source>
-        <translation type="unfinished">Shift</translation>
+        <translation>Shift</translation>
     </message>
     <message>
         <source>Meta</source>
-        <translation type="unfinished">Meta</translation>
+        <translation>Meta</translation>
     </message>
     <message>
         <source>Meta+</source>
-        <translation type="unfinished">Meta+</translation>
+        <translation>Meta+</translation>
     </message>
     <message>
         <source>Shift+</source>
-        <translation type="unfinished">Shift+</translation>
+        <translation>Shift+</translation>
     </message>
     <message>
         <source>Alt+</source>
-        <translation type="unfinished">Alt+</translation>
+        <translation>Alt+</translation>
     </message>
     <message>
         <source>Ctrl+</source>
-        <translation type="unfinished">Ctrl+</translation>
+        <translation>Ctrl+</translation>
     </message>
 </context>
 <context>
@@ -16909,99 +16946,99 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Name:</source>
-        <translation type="unfinished">Nimi:</translation>
+        <translation>Nimi:</translation>
     </message>
     <message>
         <source>&amp;Reset</source>
-        <translation type="unfinished">Lä&amp;htesta</translation>
+        <translation>Lä&amp;htesta</translation>
     </message>
     <message>
         <source>&amp;Apply</source>
-        <translation type="unfinished">&amp;Rakenda</translation>
+        <translation>&amp;Rakenda</translation>
     </message>
     <message>
         <source>&lt;&lt; &amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;&lt; &amp;Tehtud</translation>
     </message>
     <message>
         <source>&amp;Edit &gt;&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Redigeeri &gt;&gt;</translation>
     </message>
     <message>
         <source>&amp;New</source>
-        <translation type="unfinished">&amp;Uus</translation>
+        <translation>&amp;Uus</translation>
     </message>
     <message>
         <source>&amp;Import</source>
-        <translation type="unfinished">&amp;Impordi</translation>
+        <translation>&amp;Impordi</translation>
     </message>
     <message>
         <source>&amp;Clone</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Klooni</translation>
     </message>
     <message>
         <source>&amp;Delete</source>
-        <translation type="unfinished">K&amp;ustuta</translation>
+        <translation>K&amp;ustuta</translation>
     </message>
     <message>
         <source>Reset all changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Lähtesta kõik muudatused</translation>
     </message>
     <message>
         <source>Apply all changes</source>
-        <translation type="unfinished"></translation>
+        <translation>Rakenda kõik muudatused</translation>
     </message>
     <message>
         <source>Apply all changes and exit edit mode</source>
-        <translation type="unfinished"></translation>
+        <translation>Rakenda kõik muudatused ja välju redigeerimisrežiimist</translation>
     </message>
     <message>
         <source>Create a new style</source>
-        <translation type="unfinished"></translation>
+        <translation>Loo uus stiil</translation>
     </message>
     <message>
         <source>Import styles from another document</source>
-        <translation type="unfinished"></translation>
+        <translation>Impordi stiilid teisest dokumendist</translation>
     </message>
     <message>
         <source>Clone selected style</source>
-        <translation type="unfinished"></translation>
+        <translation>Klooni valitud stiil</translation>
     </message>
     <message>
         <source>Delete selected styles</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustuta valitud stiilid</translation>
     </message>
     <message>
         <source>New</source>
-        <translation type="unfinished">Uus</translation>
+        <translation>Uus</translation>
     </message>
     <message>
         <source>Import</source>
-        <translation type="unfinished"></translation>
+        <translation>Impordi</translation>
     </message>
     <message>
         <source>Clone</source>
-        <translation type="unfinished"></translation>
+        <translation>Klooni</translation>
     </message>
     <message>
         <source>Send to Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Saada visandimappi</translation>
     </message>
     <message>
         <source>Delete</source>
-        <translation type="unfinished"></translation>
+        <translation>Kustuta</translation>
     </message>
     <message>
         <source>&amp;Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Redigeeri</translation>
     </message>
     <message>
         <source>&amp;Done</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Tehtud</translation>
     </message>
     <message>
         <source>Shortcut</source>
-        <translation type="unfinished">Kiirklahv</translation>
+        <translation>Kiirklahv</translation>
     </message>
 </context>
 <context>
@@ -17317,105 +17354,105 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Ignore non-printable Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Mittetrükitavaid kihte eiratakse</translation>
     </message>
 </context>
 <context>
     <name>TabDisplay</name>
     <message>
         <source>Color for paper</source>
-        <translation type="unfinished">Paberi värv</translation>
+        <translation>Paberi värv</translation>
     </message>
     <message>
         <source>Mask the area outside the margins in the margin color</source>
-        <translation type="unfinished">Veeristest väljapoole jäävale alale antakse veerise värv</translation>
+        <translation>Veeristest väljapoole jäävale alale antakse veerise värv</translation>
     </message>
     <message>
         <source>Enable or disable  the display of linked frames.</source>
-        <translation type="unfinished">Seotud kastide näitamise lubamine või keelamine.</translation>
+        <translation>Seotud kastide näitamise lubamine või keelamine.</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation type="unfinished">Mittetrükitavate märkide näitamine (nt. lõigutähised tekstikastis)</translation>
+        <translation>Mittetrükitavate märkide näitamine (nt. lõigutähised tekstikastis)</translation>
     </message>
     <message>
         <source>Turns the display of frames on or off</source>
-        <translation type="unfinished">Kastide näitamise lubamine või keelamine</translation>
+        <translation>Kastide näitamise lubamine või keelamine</translation>
     </message>
     <message>
         <source>Turns the display of layer indicators on or off</source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi indikaatorite näitamise lubamise või keelamine</translation>
     </message>
     <message>
         <source>Turns the display of pictures on or off</source>
-        <translation type="unfinished">Piltide näitamise lubamine või keelamine</translation>
+        <translation>Piltide näitamise lubamine või keelamine</translation>
     </message>
     <message>
         <source>Defines amount of space left of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Määrab ruumi suuruse vasakul pool dokumendiala, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
+        <translation>Määrab ruumi suuruse vasakul pool dokumendiala, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
     </message>
     <message>
         <source>Defines amount of space right of the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Määrab ruumi suuruse paremal pool dokumendiala, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
+        <translation>Määrab ruumi suuruse paremal pool dokumendiala, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
     </message>
     <message>
         <source>Defines amount of space above the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Määrab ruumi suuruse dokumendiala kohal, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
+        <translation>Määrab ruumi suuruse dokumendiala kohal, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
     </message>
     <message>
         <source>Defines amount of space below the document canvas available as a pasteboard for creating and modifying elements and dragging them onto the active page</source>
-        <translation type="unfinished">Määrab ruumi suuruse dokumendiala all, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
+        <translation>Määrab ruumi suuruse dokumendiala all, mida saab kasutada lõikelauana elementide loomiseks ja muutmiseks ja kust neid saab aktiivsele leheküljele lohistada</translation>
     </message>
     <message>
         <source>Set the default zoom level</source>
-        <translation type="unfinished">Vaikimisi suurendustaseme määramine</translation>
+        <translation>Vaikimisi suurendustaseme määramine</translation>
     </message>
     <message>
         <source>Place a ruler against your screen and drag the slider to set the zoom level so Scribus will display your pages and objects on them at the correct size</source>
-        <translation type="unfinished">Liugurit lohistades saab kindlaks määrata vajaliku suurendustaseme, millega Scribus näitab lehekülgi ja objekte</translation>
+        <translation>Liugurit lohistades saab kindlaks määrata vajaliku suurendustaseme, millega Scribus näitab lehekülgi ja objekte</translation>
     </message>
 </context>
 <context>
     <name>TabDisplayBase</name>
     <message>
         <source>Form2</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorm2</translation>
     </message>
     <message>
         <source>Page Display</source>
-        <translation type="unfinished">Lehekülje vaade</translation>
+        <translation>Lehekülje vaade</translation>
     </message>
     <message>
         <source>Show Layer Indicators</source>
-        <translation type="unfinished"></translation>
+        <translation>Kihi indikaatorite näitamine</translation>
     </message>
     <message>
         <source>Show Frames</source>
-        <translation type="unfinished">Kastide näitamine</translation>
+        <translation>Kastide näitamine</translation>
     </message>
     <message>
         <source>Show Text Chains</source>
-        <translation type="unfinished">Tekstiahela näitamine</translation>
+        <translation>Tekstiahela näitamine</translation>
     </message>
     <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
-        <translation type="unfinished">&amp;Mittetrükitavat ala näidatakse veerise värviga</translation>
+        <translation>&amp;Mittetrükitavat ala näidatakse veerise värviga</translation>
     </message>
     <message>
         <source>Alt+U</source>
-        <translation type="unfinished">Alt+U</translation>
+        <translation>Alt+U</translation>
     </message>
     <message>
         <source>Rulers Relative to Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Joonlauad on seotud leheküljega</translation>
     </message>
     <message>
         <source>Show Text Control Characters</source>
-        <translation type="unfinished">Mittetrükitavate märkide näitamine</translation>
+        <translation>Mittetrükitavate märkide näitamine</translation>
     </message>
     <message>
         <source>Show Pictures</source>
-        <translation type="unfinished">Piltide näitamine</translation>
+        <translation>Piltide näitamine</translation>
     </message>
     <message>
         <source>Color:</source>
@@ -17423,218 +17460,218 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Scratch Space</source>
-        <translation type="unfinished">Sodiala</translation>
+        <translation>Sodiala</translation>
     </message>
     <message>
         <source>&amp;Left:</source>
-        <translation type="unfinished">&amp;Vasakul:</translation>
+        <translation>&amp;Vasakul:</translation>
     </message>
     <message>
         <source>&amp;Right:</source>
-        <translation type="unfinished">&amp;Paremal:</translation>
+        <translation>&amp;Paremal:</translation>
     </message>
     <message>
         <source>&amp;Bottom:</source>
-        <translation type="unfinished">&amp;All:</translation>
+        <translation>&amp;All:</translation>
     </message>
     <message>
         <source>&amp;Top:</source>
-        <translation type="unfinished">Ü&amp;lal:</translation>
+        <translation>Ü&amp;lal:</translation>
     </message>
     <message>
         <source>Gaps Between Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehtede vahed</translation>
     </message>
     <message>
         <source>Horizontal:</source>
-        <translation type="unfinished">Rõhtsuunas:</translation>
+        <translation>Rõhtsuunas:</translation>
     </message>
     <message>
         <source>Vertical:</source>
-        <translation type="unfinished">Püstsuunas:</translation>
+        <translation>Püstsuunas:</translation>
     </message>
     <message>
         <source>Adjust Display Size</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaate suuruse kohandamine</translation>
     </message>
     <message>
         <source>To adjust the display drag the ruler below with the slider.</source>
-        <translation type="unfinished">Vaate kohandamiseks lohista allpool joonlaual liugurit.</translation>
+        <translation>Vaate kohandamiseks lohista allpool joonlaual liugurit.</translation>
     </message>
     <message>
         <source>textLabel16</source>
-        <translation type="unfinished"></translation>
+        <translation>textLabel16</translation>
     </message>
     <message>
         <source>General</source>
-        <translation type="unfinished">Üldine</translation>
+        <translation>Üldine</translation>
     </message>
     <message>
         <source>Colors</source>
-        <translation type="unfinished">Värvid</translation>
+        <translation>Värvid</translation>
     </message>
     <message>
         <source>Pages:</source>
-        <translation type="unfinished"></translation>
+        <translation>Leheküljed:</translation>
     </message>
     <message>
         <source>Fill Color:</source>
-        <translation type="unfinished">Täidise värv:</translation>
+        <translation>Täidise värv:</translation>
     </message>
     <message>
         <source>Selected Page Border:</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitud lehekülje ääris:</translation>
     </message>
     <message>
         <source>Frames</source>
-        <translation type="unfinished"></translation>
+        <translation>Kastid</translation>
     </message>
     <message>
         <source>Locked:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lukustatud:</translation>
     </message>
     <message>
         <source>Normal:</source>
-        <translation type="unfinished"></translation>
+        <translation>Normaalsed:</translation>
     </message>
     <message>
         <source>Selected:</source>
-        <translation type="unfinished"></translation>
+        <translation>Valitud:</translation>
     </message>
     <message>
         <source>Linked:</source>
-        <translation type="unfinished"></translation>
+        <translation>Lingitud:</translation>
     </message>
     <message>
         <source>Grouped:</source>
-        <translation type="unfinished"></translation>
+        <translation>Rühmitatud:</translation>
     </message>
     <message>
         <source>Annotation:</source>
-        <translation type="unfinished"></translation>
+        <translation>Annotatsioon:</translation>
     </message>
     <message>
         <source>Text:</source>
-        <translation type="unfinished"></translation>
+        <translation>Tekst:</translation>
     </message>
     <message>
         <source>Control Characters:</source>
-        <translation type="unfinished"></translation>
+        <translation>Mittetrükitavad märgid:</translation>
     </message>
 </context>
 <context>
     <name>TabDocument</name>
     <message>
         <source>Custom</source>
-        <translation type="unfinished">Kohandatud</translation>
+        <translation>Kohandatud</translation>
     </message>
     <message>
         <source>Page Size</source>
-        <translation type="unfinished">Lehekülje suurus</translation>
+        <translation>Lehekülje suurus</translation>
     </message>
     <message>
         <source>&amp;Size:</source>
-        <translation type="unfinished">&amp;Suurus:</translation>
+        <translation>&amp;Suurus:</translation>
     </message>
     <message>
         <source>Portrait</source>
-        <translation type="unfinished">Püstpaigutus</translation>
+        <translation>Püstpaigutus</translation>
     </message>
     <message>
         <source>Landscape</source>
-        <translation type="unfinished">Rõhtpaigutus</translation>
+        <translation>Rõhtpaigutus</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
-        <translation type="unfinished">Orie&amp;ntatsioon:</translation>
+        <translation>Orie&amp;ntatsioon:</translation>
     </message>
     <message>
         <source>Units:</source>
-        <translation type="unfinished">Ühikud:</translation>
+        <translation>Ühikud:</translation>
     </message>
     <message>
         <source>&amp;Width:</source>
-        <translation type="unfinished">&amp;Laius:</translation>
+        <translation>&amp;Laius:</translation>
     </message>
     <message>
         <source>&amp;Height:</source>
-        <translation type="unfinished">&amp;Kõrgus:</translation>
+        <translation>&amp;Kõrgus:</translation>
     </message>
     <message>
         <source>Margin Guides</source>
-        <translation type="unfinished">Veerisejooned</translation>
+        <translation>Veerisejooned</translation>
     </message>
     <message>
         <source>Autosave</source>
-        <translation type="unfinished">Automaatne salvestamine</translation>
+        <translation>Automaatne salvestamine</translation>
     </message>
     <message>
         <source>min</source>
-        <translation type="unfinished">min</translation>
+        <translation>min</translation>
     </message>
     <message>
         <source>&amp;Interval:</source>
-        <translation type="unfinished">&amp;Intervall:</translation>
+        <translation>&amp;Intervall:</translation>
     </message>
     <message>
         <source>Undo/Redo</source>
-        <translation type="unfinished">Tagasivõtmine/uuestitegemine</translation>
+        <translation>Tagasivõtmine/uuestitegemine</translation>
     </message>
     <message>
         <source>Action history length</source>
-        <translation type="unfinished">Toimingute ajaloo pikkus</translation>
+        <translation>Toimingute ajaloo pikkus</translation>
     </message>
     <message>
         <source>Width of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Dokumendi lehekülgede laius. Kui valisid kohandatud suuruse, saab seda muuta.</translation>
+        <translation>Dokumendi lehekülgede laius. Kui valisid kohandatud suuruse, saab seda muuta</translation>
     </message>
     <message>
         <source>Height of document pages, editable if you have chosen a custom page size</source>
-        <translation type="unfinished">Dokumendi lehekülgede kõrgus. Kui valisid kohandatud suuruse, saab seda muuta.</translation>
+        <translation>Dokumendi lehekülgede kõrgus. Kui valisid kohandatud suuruse, saab seda muuta</translation>
     </message>
     <message>
         <source>Default page size, either a standard size or a custom size</source>
-        <translation type="unfinished">Dokumendi lehekülje suurus: kas mõni standardne või kohandatud</translation>
+        <translation>Dokumendi lehekülje suurus: kas mõni standardne või kohandatud</translation>
     </message>
     <message>
         <source>Default orientation of document pages</source>
-        <translation type="unfinished">Dokumendi lehekülgede vaikimisi orientatsioon</translation>
+        <translation>Dokumendi lehekülgede vaikimisi orientatsioon</translation>
     </message>
     <message>
         <source>Default unit of measurement for document editing</source>
-        <translation type="unfinished"></translation>
+        <translation>Vaikimisi mõõteühik dokumentide redigeerimisel</translation>
     </message>
     <message>
         <source>When enabled, Scribus saves a backup copy of your file with the .bak extension each time the time period elapses</source>
-        <translation type="unfinished">Sisselülitamise korral salvestab Scribus määratud aja möödumisel alati varukoopia laiendiga .bak</translation>
+        <translation>Sisselülitamise korral salvestab Scribus määratud aja möödumisel alati varukoopia laiendiga .bak</translation>
     </message>
     <message>
         <source>Time period between saving automatically</source>
-        <translation type="unfinished">Automaatsete salvestamiste intervall</translation>
+        <translation>Automaatse salvestamise intervall</translation>
     </message>
     <message>
         <source>Set the length of the action history in steps. If set to 0 infinite amount of actions will be stored.</source>
-        <translation type="unfinished">Toimingute ajaloo pikkus sammudes. 0 tähendab, et salvestatakse piiramatu hulk toiminguid.</translation>
+        <translation>Toimingute ajaloo pikkus sammudes. 0 tähendab, et salvestatakse piiramatu hulk toiminguid.</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing pages in the document</source>
-        <translation type="unfinished">Lehekülje suuruse muudatused rakendatakse kõigile dokumendi olemasolevatele lehekülgedele</translation>
+        <translation>Lehekülje suuruse muudatused rakendatakse kõigile dokumendi olemasolevatele lehekülgedele</translation>
     </message>
     <message>
         <source>Apply settings to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Seadistuste rakendamine:</translation>
     </message>
     <message>
         <source>All Document Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Dokumendi kõigile lehekülgedele</translation>
     </message>
     <message>
         <source>All Master Pages</source>
-        <translation type="unfinished"></translation>
+        <translation>Kõigile leheküljetoorikutele</translation>
     </message>
     <message>
         <source>Apply the page size changes to all existing master pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Lehekülje suuruse muudatused rakendatakse dokumendi kõigile leheküljetoorikutele</translation>
     </message>
 </context>
 <context>
@@ -17763,54 +17800,54 @@ You can choose between normal and several color blindness forms</source>
     <name>TabGeneral</name>
     <message>
         <source>Select your default language for Scribus to run with. Leave this blank to choose based on environment variables. You can still override this by passing a command line option when starting Scribus</source>
-        <translation type="unfinished">Scribuse vaikimisi töökeele valimine. Tühjaksjätmisel kasutatakse keskkonnamuutujatega määratud väärtust. Seda saab siiski tühistada, kui Scribust käsurealt käivitades vastav võti lisada.</translation>
+        <translation>Scribuse vaikimisi töökeele valimine. Tühjaksjätmisel kasutatakse keskkonnamuutujatega määratud väärtust. Seda saab siiski tühistada, kui Scribust käsurealt käivitades vastav võti lisada</translation>
     </message>
     <message>
         <source>Number of recently edited documents to show in the File menu</source>
-        <translation type="unfinished">Menüüs Fail näidatavate viimati kasutatud dokumentide arv</translation>
+        <translation>Menüüs Fail näidatavate viimati kasutatud dokumentide arv</translation>
     </message>
     <message>
         <source>Number of lines Scribus will scroll for each move of the mouse wheel</source>
-        <translation type="unfinished">Ridade arv, mille võrra Scribus kerib hiireratta liigutamisel</translation>
+        <translation>Ridade arv, mille võrra Scribus kerib hiireratta liigutamisel</translation>
     </message>
     <message>
         <source>Choose the default window decoration and looks. Scribus inherits any available KDE or Qt themes, if Qt is configured to search KDE plugins.</source>
-        <translation type="unfinished">Akna dekoratsioonide ja välimuse vaikeväärtus. Scribus kasutab kõiki saadaolevaid KDE või Qt teemasid, kui Qt on seadistatud leidma KDE pluginaid.</translation>
+        <translation>Akna dekoratsioonide ja välimuse vaikeväärtus. Scribus kasutab kõiki saadaolevaid KDE või Qt teemasid, kui Qt on seadistatud leidma KDE pluginaid.</translation>
     </message>
     <message>
         <source>Default font size for the menus and windows</source>
-        <translation type="unfinished">Menüüde ja akende fondi vaikesuurus</translation>
+        <translation>Menüüde ja akende fondi vaikesuurus</translation>
     </message>
     <message>
         <source>Default font size for the tool windows</source>
-        <translation type="unfinished">Tööriistaakende fondi vaikesuurus</translation>
+        <translation>Tööriistaakende fondi vaikesuurus</translation>
     </message>
     <message>
         <source>Default documents directory</source>
-        <translation type="unfinished">Dokumentide vaikimisi kataloog</translation>
+        <translation>Dokumentide vaikimisi kataloog</translation>
     </message>
     <message>
         <source>Default ICC profiles directory. This cannot be changed with a document open. By default, Scribus will look in the System Directories under Mac OSX and Windows. On Linux and Unix, Scribus will search $home/.color/icc,/usr/share/color/icc and /usr/local/share/color/icc </source>
-        <translation type="unfinished">ICC profiilide vaikimisi kataloog. Seda ei saa muuta, kui mõni dokument on avatud. Vaikimisi otsib Scribus neid Mac OS X ja Windowsi korral süsteemsetest kataloogidest. Linuxi ja Unixi korral otsib Scribus neid kataloogidest $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc.(sp)</translation>
+        <translation>ICC profiilide vaikimisi kataloog. Seda ei saa muuta, kui mõni dokument on avatud. Vaikimisi otsib Scribus neid Mac OS X ja Windowsi korral süsteemsetest kataloogidest. Linuxi ja Unixi korral otsib Scribus neid kataloogidest $home/.color/icc,/usr/share/color/icc ja /usr/local/share/color/icc.(sp)</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
-        <translation type="unfinished">Skriptija vaikimisi skriptide kataloog</translation>
+        <translation>Skriptija vaikimisi skriptide kataloog</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
-        <translation type="unfinished">Täiendav dokumendimallide kataloog</translation>
+        <translation>Täiendav dokumendimallide kataloog</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
-        <translation type="unfinished">Kataloogi valik</translation>
+        <translation>Kataloogi valik</translation>
     </message>
 </context>
 <context>
     <name>TabGeneralBase</name>
     <message>
         <source>Form1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorm1</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -17818,103 +17855,103 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>&amp;Language:</source>
-        <translation type="unfinished">&amp;Keel:</translation>
+        <translation>&amp;Keel:</translation>
     </message>
     <message>
         <source>&amp;Theme:</source>
-        <translation type="unfinished">&amp;Teema:</translation>
+        <translation>&amp;Teema:</translation>
     </message>
     <message>
         <source>Time before a Move or Resize starts:</source>
-        <translation type="unfinished"></translation>
+        <translation>Ooteaeg enne liigutamise või suuruse muutmise alustamist:</translation>
     </message>
     <message>
         <source> ms</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)ms</translation>
     </message>
     <message>
         <source>&amp;Font Size (Menus):</source>
-        <translation type="unfinished">&amp;Fondi suurus (menüüs):</translation>
+        <translation>&amp;Fondi suurus (menüüs):</translation>
     </message>
     <message>
         <source> pt</source>
-        <translation type="unfinished"></translation>
+        <translation>(sp)pt</translation>
     </message>
     <message>
         <source>Font Size (&amp;Palettes):</source>
-        <translation type="unfinished">Fondi suurus (&amp;palettides):</translation>
+        <translation>Fondi suurus (&amp;palettides):</translation>
     </message>
     <message>
         <source>&amp;Wheel Jump:</source>
-        <translation type="unfinished">&amp;Hiireratas kerib:</translation>
+        <translation>&amp;Hiireratas kerib:</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
-        <translation type="unfinished">V&amp;iimati kasutatud dokumente:</translation>
+        <translation>V&amp;iimati kasutatud dokumente:</translation>
     </message>
     <message>
         <source>Paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Asukohad</translation>
     </message>
     <message>
         <source>&amp;Documents:</source>
-        <translation type="unfinished">&amp;Dokumendid:</translation>
+        <translation>&amp;Dokumendid:</translation>
     </message>
     <message>
         <source>&amp;Change...</source>
-        <translation type="unfinished">&amp;Muuda...</translation>
+        <translation>&amp;Muuda...</translation>
     </message>
     <message>
         <source>Alt+C</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+C</translation>
     </message>
     <message>
         <source>&amp;ICC Profiles:</source>
-        <translation type="unfinished">I&amp;CC profiilid:</translation>
+        <translation>I&amp;CC profiilid:</translation>
     </message>
     <message>
         <source>C&amp;hange...</source>
-        <translation type="unfinished"></translation>
+        <translation>M&amp;uuda...</translation>
     </message>
     <message>
         <source>Alt+H</source>
-        <translation type="unfinished"></translation>
+        <translation>Alt+H</translation>
     </message>
     <message>
         <source>&amp;Scripts:</source>
-        <translation type="unfinished">&amp;Skriptid:</translation>
+        <translation>&amp;Skriptid:</translation>
     </message>
     <message>
         <source>Ch&amp;ange...</source>
-        <translation type="unfinished">Muu&amp;da...</translation>
+        <translation>Muu&amp;da...</translation>
     </message>
     <message>
         <source>Alt+A</source>
-        <translation type="unfinished">Alt+A</translation>
+        <translation>Alt+A</translation>
     </message>
     <message>
         <source>Document &amp;Templates:</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Dokumendimallid: </translation>
     </message>
     <message>
         <source>Cha&amp;nge...</source>
-        <translation type="unfinished"></translation>
+        <translation>Muud&amp;a...</translation>
     </message>
     <message>
         <source>Alt+N</source>
-        <translation type="unfinished">Alt+N</translation>
+        <translation>Alt+N</translation>
     </message>
     <message>
         <source>User Interface</source>
-        <translation type="unfinished"></translation>
+        <translation>Kasutajaliides</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
-        <translation type="unfinished">Käivitusdialoogi näitamine</translation>
+        <translation>Käivitusdialoogi näitamine</translation>
     </message>
     <message>
         <source>Show Splashscreen on Startup</source>
-        <translation type="unfinished"></translation>
+        <translation>Käivitusekraani näitamine käivitamisel</translation>
     </message>
 </context>
 <context>
@@ -18225,15 +18262,15 @@ You can choose between normal and several color blindness forms</source>
     <name>TabMiscellaneousBase</name>
     <message>
         <source>Form1</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorm1</translation>
     </message>
     <message>
         <source>Always ask before fonts are replaced when loading a document</source>
-        <translation type="unfinished">Dokumendi avamisel küsitakse alati, kas fonte asendada</translation>
+        <translation>Dokumendi avamisel küsitakse alati, kas fonte asendada</translation>
     </message>
     <message>
         <source>Preview of current Paragraph Style visible when editing Styles</source>
-        <translation type="unfinished">Stiili redigeerimisel näidatakse aktiivse lõigustiili eelvaatlust</translation>
+        <translation>Stiili redigeerimisel näidatakse aktiivse lõigustiili eelvaatlust</translation>
     </message>
     <message>
         <source>Show Startup Dialog</source>
@@ -18241,15 +18278,15 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Lorem Ipsum</source>
-        <translation type="unfinished">Lorem Ipsum</translation>
+        <translation>Lorem Ipsum</translation>
     </message>
     <message>
         <source>Always use standard Lorem Ipsum</source>
-        <translation type="unfinished">Alati kasutatakse standardset Lorem Ipsumit</translation>
+        <translation>Alati kasutatakse standardset Lorem Ipsumit</translation>
     </message>
     <message>
         <source>Count of the Paragraphs:</source>
-        <translation type="unfinished">Lõikude arv:</translation>
+        <translation>Lõikude arv:</translation>
     </message>
 </context>
 <context>
@@ -18986,38 +19023,38 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Determines the PDF compatibility.&lt;br/&gt;The default is &lt;b&gt;PDF 1.3&lt;/b&gt; which gives the widest compatibility.&lt;br/&gt;Choose &lt;b&gt;PDF 1.4&lt;/b&gt; if your file uses features such as transparency or you require 128 bit encryption.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; is necessary when you wish to preserve objects in separate layers within the PDF.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; is for exporting the PDF when you want color managed RGB for commercial printing and is selectable when you have activated color management. Use only when advised by your printer or in some cases printing to a 4 color digital color laser printer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Määrab PDF-faili ühilduvuse.&lt;br/&gt;Vaikimisi on &lt;b&gt;PDF 1.3&lt;/b&gt;, mis tagab suurima ühilduvuse.&lt;br/&gt;&lt;b&gt;PDF 1.4&lt;/b&gt; võimaldab kasutada läbipaistvust, 128-bitist krüptimist ja muid toredaid omadusi.&lt;br/&gt;&lt;b&gt;PDF 1.5&lt;/b&gt; on vajalik siis, kui soovid säilitada PDF-failis objekte erinevatel kihtidel.&lt;br/&gt;&lt;b&gt;PDF/X-3&lt;/b&gt; on mõeldud PDF-faili eksportimiseks juhul, kui soovid RGB värvihaldust trükikodades trükkimiseks. Seda saab valida juhul, kui värvihaldus on sisse lülitatud. Seda tasub kasutada ainult siis, kui see sobib sinu printeriga või kui näiteks trükid välja digitaalsel neljavärvi-laserprinteril.</translation>
     </message>
 </context>
 <context>
     <name>TabScrapbookBase</name>
     <message>
         <source>Form2</source>
-        <translation type="unfinished"></translation>
+        <translation>Vorm2</translation>
     </message>
     <message>
         <source>Send Copied Items Automatically to Scrapbook</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopeeritud elemendid saadetakse automaatselt visandimappi</translation>
     </message>
     <message>
         <source>This enables the scrapbook to be used an extension to the copy/paste buffers. Simply copying an object or grouped object will send this to the Scrapbook automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>See lubab kasutada visandimappi lõikamis/asetamispuhvri laiendusena. Ka lihtsalt objekti või rühmitatud objekti kopeerimine saadab selle automaatselt visandimappi</translation>
     </message>
     <message>
         <source>Keep Copied Items Permanently Across Sessions</source>
-        <translation type="unfinished"></translation>
+        <translation>Kopeeritud elemendid säilitatakse ka seansside vahel</translation>
     </message>
     <message>
         <source>This enables copied items to be kept permanently in the scrapbook.</source>
-        <translation type="unfinished"></translation>
+        <translation>See lubab kopeeritud elemente püsivalt visandimapis alal hoida.</translation>
     </message>
     <message>
         <source>Number of Copied Items to Keep in Scrapbook:</source>
-        <translation type="unfinished"></translation>
+        <translation>Visandimapis hoitavate kopeeritud elementide arv:</translation>
     </message>
     <message>
         <source>The minimum number is 1; the maximum us 100.</source>
-        <translation type="unfinished"></translation>
+        <translation>Miinimum on 1, maksimum 100.</translation>
     </message>
 </context>
 <context>
@@ -19337,67 +19374,67 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Text</source>
-        <translation type="unfinished">Tekst</translation>
+        <translation>Tekst</translation>
     </message>
     <message>
         <source>Shapes</source>
-        <translation type="unfinished"></translation>
+        <translation>Kujundid</translation>
     </message>
     <message>
         <source>Lines</source>
-        <translation type="unfinished">Read</translation>
+        <translation>Jooned</translation>
     </message>
     <message>
         <source>Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Pildid</translation>
     </message>
     <message>
         <source>Regular Polygons</source>
-        <translation type="unfinished"></translation>
+        <translation>Korrapärased hulknurgad</translation>
     </message>
     <message>
         <source>Zoom</source>
-        <translation type="unfinished"></translation>
+        <translation>Suurendus</translation>
     </message>
     <message>
         <source>Misc. Settings</source>
-        <translation type="unfinished"></translation>
+        <translation>Muud seadistused</translation>
     </message>
     <message>
         <source>Object Duplicate</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekti kloonimine</translation>
     </message>
     <message>
         <source>X-Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>X-nihe</translation>
     </message>
     <message>
         <source>Y-Displacement</source>
-        <translation type="unfinished"></translation>
+        <translation>Y-nihe</translation>
     </message>
     <message>
         <source>Rotation Tool</source>
-        <translation type="unfinished"></translation>
+        <translation>Pööramistööriist</translation>
     </message>
     <message>
         <source>Constrain to:</source>
-        <translation type="unfinished"></translation>
+        <translation>Piirang:</translation>
     </message>
     <message>
         <source>Other Properties</source>
-        <translation type="unfinished"></translation>
+        <translation>Muud omadused</translation>
     </message>
     <message>
         <source>Horizontal displacement of objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektide rõhtnihe</translation>
     </message>
     <message>
         <source>Vertical displacement of objects</source>
-        <translation type="unfinished"></translation>
+        <translation>Objektide püstnihe</translation>
     </message>
     <message>
         <source>Constrain value for the rotation tool when the CTRL-Key is pressed</source>
-        <translation type="unfinished"></translation>
+        <translation>Pööramistööriista piirang Ctrl-klahvi vajutamisel</translation>
     </message>
 </context>
 <context>
@@ -19580,7 +19617,7 @@ käivitatav JavaScript:</translation>
     </message>
     <message>
         <source>Indentation from the right for the whole paragraph</source>
-        <translation type="unfinished"></translation>
+        <translation>Terve lõigu paremtaandus</translation>
     </message>
 </context>
 <context>
@@ -20130,19 +20167,19 @@ to %2</source>
     </message>
     <message>
         <source>No object frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Objekti kast puudub</translation>
     </message>
     <message>
         <source>Reset control point</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollpunkti lähtestamine</translation>
     </message>
     <message>
         <source>Reset control points</source>
-        <translation type="unfinished"></translation>
+        <translation>Kontrollpunktide lähtestamine</translation>
     </message>
     <message>
         <source>Apply image effects</source>
-        <translation type="unfinished"></translation>
+        <translation>Pildiefektide rakendamine</translation>
     </message>
 </context>
 <context>
@@ -20180,44 +20217,45 @@ to %2</source>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Üritatakse hankida Scribuse versiooni uuendusfail</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Sinu arvutist ei saadeta kuskile mujale mingeid andmeid)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Aegumine uuendusfaili hankimisel.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Viga uuendusfaili hankimisel: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverist ei leitud faili</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Ei õnnestunud avada versiooni faili: %1
+Viga: %2 real %3, veerus %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Scribuse uuenduse otsimisel tekkis viga, palun kontrolli oma Internetiühendust.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinu Scribuse versioonile %1 ei ole uuendusi</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Sinu Scribuse versioonile %1 on vähemalt üks uuendus:</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Palun külasta täpsema teabe saamiseks saiti www.scribus.net.</translation>
     </message>
 </context>
 <context>
@@ -20438,27 +20476,27 @@ Error:%2 at line: %3, row: %4</source>
     <name>patternDialogBase</name>
     <message>
         <source>Patterns</source>
-        <translation type="unfinished"></translation>
+        <translation>Mustrid</translation>
     </message>
     <message>
         <source>Load</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi</translation>
     </message>
     <message>
         <source>Load Set</source>
-        <translation type="unfinished"></translation>
+        <translation>Laadi kogu</translation>
     </message>
     <message>
         <source>Remove</source>
-        <translation type="unfinished">Eemalda</translation>
+        <translation>Eemalda</translation>
     </message>
     <message>
         <source>OK</source>
-        <translation type="unfinished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Loobu</translation>
     </message>
 </context>
 <context>
