@@ -751,10 +751,14 @@ void SEditor::paste()
 	int currentPara, currentCharPos;
 	QString data = "";
 	int newParaCount, lengthLastPara;
-	bool inserted=false;
+	int advanceLen = 0;
+//	bool inserted=false;
 	getCursorPosition(&currentPara, &currentCharPos);
 	if (ClipData == 1)
+	{
+		advanceLen = cBuffer.length();
 		insStyledText();
+	}
 	else
 	{
 //		QString data = QApplication::clipboard()->text(QClipboard::Selection);
@@ -766,7 +770,8 @@ void SEditor::paste()
 			newParaCount=data.contains("\n");
 			lengthLastPara=data.length()-data.findRev("\n");
 			data.replace(QRegExp("\n"), SpecialChars::PARSEP);
-			inserted=true;
+//			inserted=true;
+			advanceLen = data.length() - newParaCount;
 			insChars(data);
 			ClipData = 2;
 			emit PasteAvail();
@@ -778,8 +783,15 @@ void SEditor::paste()
 		}
 	}
 	updateAll();
-	if (inserted)
-		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
+	setUpdatesEnabled(false);
+	setCursorPosition(currentPara, currentCharPos);
+	for (int a = 0; a < advanceLen; ++a)
+	{
+		moveCursor(QTextEdit::MoveForward, false);
+	}
+	setUpdatesEnabled(true);
+//	if (inserted)
+//		setCursorPosition(currentPara+newParaCount,(newParaCount==0?currentCharPos:0)+lengthLastPara-1);
 	sync();
 	repaintContents();
 	emit SideBarUp(true);
