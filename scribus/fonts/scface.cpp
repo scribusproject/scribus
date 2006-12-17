@@ -147,8 +147,7 @@ ScFace& ScFace::operator=(const ScFace& other)
 {
 	if (m != other.m)
 	{
-		if(other.m)
-			++(other.m->refs);
+		++(other.m->refs);
 		if ( m && --(m->refs) == 0 ) {
 			m->unload();
 			delete m;
