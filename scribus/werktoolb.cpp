@@ -112,6 +112,7 @@ void ModeToolBar::SelShape(int s, int c, double *vals)
 	SubMode = s;
 	ValCount = c;
 	ShapeVals = vals;
+	m_ScMW->scrActions["toolsInsertShape"]->setOn(false);
 	m_ScMW->scrActions["toolsInsertShape"]->setOn(true);
 }
 
