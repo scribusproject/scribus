@@ -9717,18 +9717,22 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 	{
 		bool updback = updateOn;
 		updateOn = false;
+		setUpdatesEnabled(false);
+		viewport()->setUpdatesEnabled(false);
 		disconnect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 		int oldDX = contentsX();
 		int oldDY = contentsY();
-		int nw = QMAX(qRound(width * Scale), contentsWidth());
-		int nh = QMAX(qRound(height * Scale), contentsHeight());
-		resizeContents(QMAX(nw, visibleWidth() + qRound(dX * Scale)), QMAX(nh, visibleHeight() + qRound(dY * Scale)));
+		int nw = QMAX(qRound(width * Scale), contentsWidth() + qRound(dX * Scale) * 2);
+		int nh = QMAX(qRound(height * Scale), contentsHeight() + qRound(dY * Scale) * 2);
+		resizeContents(QMAX(nw, visibleWidth() + qRound(dX * Scale) * 2), QMAX(nh, visibleHeight() + qRound(dY * Scale) * 2));
 		setContentsPos(oldDX + qRound(dX * Scale), oldDY + qRound(dY * Scale));
 //		resizeContents(qRound((width) * Scale), qRound((height) * Scale));
 //		scrollBy(qRound((dX) * Scale), qRound((dY) * Scale));
 		setRulerPos(contentsX(), contentsY());
 		updateOn = updback;
 		connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
+		viewport()->setUpdatesEnabled(true);
+		setUpdatesEnabled(true);
 	}
 	evSpon = false;
 }
@@ -9754,7 +9758,11 @@ void ScribusView::slotDoZoom()
 		return;
 	}
 	updateOn = false;
-	resizeContents(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale));
+	setUpdatesEnabled(false);
+	viewport()->setUpdatesEnabled(false);
+	int nw = QMAX(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), visibleWidth());
+	int nh = QMAX(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale), visibleHeight());
+	resizeContents(nw, nh);
 	if (Doc->m_Selection->count() != 0)
 	{
 		PageItem *currItem = Doc->m_Selection->itemAt(0);
@@ -9763,6 +9771,8 @@ void ScribusView::slotDoZoom()
 	else
 		SetCCPo(oldX, oldY);
 	updateOn = true;
+	viewport()->setUpdatesEnabled(true);
+	setUpdatesEnabled(true);
 	DrawNew();
 	undoManager->setUndoEnabled(true);
 }
