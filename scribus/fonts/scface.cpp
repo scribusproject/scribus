@@ -145,15 +145,16 @@ ScFace::~ScFace()
 
 ScFace& ScFace::operator=(const ScFace& other)
 {
-	++(other.m->refs);
 	if (m != other.m)
 	{
+		if(other.m)
+			++(other.m->refs);
 		if ( m && --(m->refs) == 0 ) {
 			m->unload();
 			delete m;
 		}
+		m = other.m;
 	}
-	m = other.m;
 	replacedName = other.replacedName;
 	return *this;
 }
