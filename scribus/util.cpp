@@ -267,7 +267,7 @@ QString GetAttr(QDomElement *el, QString at, QString def)
 
 QPixmap loadIcon(QString nam)
 {
-	QString iconFilePath = QString("%1/%2").arg(ScPaths::instance().iconDir()).arg(nam);
+	QString iconFilePath(QString("%1%2").arg(ScPaths::instance().iconDir()).arg(nam));
 	QPixmap pm;
 	if (!QFile::exists(iconFilePath))
 		qWarning("Unable to load icon %s: File not found", iconFilePath.ascii());
