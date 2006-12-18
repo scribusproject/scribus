@@ -2357,7 +2357,6 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			m_ScMW->scrActions["pageManageGuides"]->addTo(pmen);
 			m_ScMW->scrActions["pageManageMargins"]->addTo(pmen);
 			pmen->insertSeparator();
-			m_ScMW->scrActions["pageCopyToMasterPage"]->addTo(pmen);
 			m_ScMW->scrActions["pageDelete"]->addTo(pmen);
 		}
 		pmen->exec(QCursor::pos());
