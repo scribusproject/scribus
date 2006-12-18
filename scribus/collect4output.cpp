@@ -201,11 +201,8 @@ void CollectForOutput::processItem(PageItem *ite)
 		{
 			QString oldFile = ofName;
 			ite->Pfile = collectFile(oldFile, itf.fileName());
-			if (ScCore->fileWatcherActive())
-			{
-				ScCore->fileWatcher->removeFile(oldFile);
-				ScCore->fileWatcher->addFile(ite->Pfile);
-			}
+			ScCore->fileWatcher->removeFile(oldFile);
+			ScCore->fileWatcher->addFile(ite->Pfile);
 		}
 	}
 	if (ite->asTextFrame())
@@ -220,11 +217,8 @@ void CollectForOutput::processItem(PageItem *ite)
 				{
 					QString oldFile = ite->Pfile;
 					ite->Pfile = collectFile(oldFile, itf.fileName());
-					if (ScCore->fileWatcherActive())
-					{
-						ScCore->fileWatcher->removeFile(oldFile);
-						ScCore->fileWatcher->addFile(ite->Pfile);
-					}
+					ScCore->fileWatcher->removeFile(oldFile);
+					ScCore->fileWatcher->addFile(ite->Pfile);
 				}
 			}
 			if (!ite->Pfile2.isEmpty())

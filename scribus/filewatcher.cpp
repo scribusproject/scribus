@@ -25,6 +25,7 @@ FileWatcher::FileWatcher( QObject* parent) : QObject(parent)
 	connect(watchTimer, SIGNAL(timeout()), this, SLOT(checkFiles()));
 	watchTimer->start(m_timeOut, true);
 	blockAddRemove = false;
+	stopped = false;
 }
 
 FileWatcher::~FileWatcher()
@@ -57,14 +58,17 @@ void FileWatcher::addFile(QString fileName)
 		fi.timeInfo = fi.info.lastModified();
 		watchedFiles.insert(fileName, fi);
 	}
-	watchTimer->start(m_timeOut, true);
+	if (!stopped)
+		watchTimer->start(m_timeOut, true);
 }
 
 void FileWatcher::removeFile(QString fileName)
 {
 	watchTimer->stop();
-	watchedFiles.remove(fileName);
-	watchTimer->start(m_timeOut, true);
+	if (watchedFiles.contains(fileName))
+		watchedFiles.remove(fileName);
+	if (!stopped)
+		watchTimer->start(m_timeOut, true);
 }
 
 void FileWatcher::addDir(QString fileName)
@@ -80,12 +84,14 @@ void FileWatcher::removeDir(QString fileName)
 void FileWatcher::start()
 {
 	watchTimer->stop();
+	stopped = false;
 	watchTimer->start(m_timeOut, true);
 }
 
 void FileWatcher::stop()
 {
 	watchTimer->stop();
+	stopped = true;
 }
 
 void FileWatcher::forceScan()
@@ -107,6 +113,7 @@ void FileWatcher::checkFiles()
 {
 	blockAddRemove = true;
 	watchTimer->stop();
+	stopped = true;
 	QDateTime time;
 	QStringList toRemove;
 	QMap<QString, fileMod>::Iterator it;
@@ -179,6 +186,7 @@ void FileWatcher::checkFiles()
 	for(unsigned int i=0; i<toRemove.count(); ++i)
 		watchedFiles.remove(toRemove[i]);
 	blockAddRemove = false;
+	stopped = false;
 	watchTimer->start(m_timeOut, true);
 }
 

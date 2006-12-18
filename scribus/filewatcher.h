@@ -57,6 +57,7 @@ private:
 	QMap<QString, fileMod> watchedFiles;
 	QTimer* watchTimer;
 	bool blockAddRemove;
+	bool stopped;
 	int m_timeOut; // milliseconds
 
 private slots:
