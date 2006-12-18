@@ -6413,95 +6413,95 @@ Es ist nicht möglich, diese Farben zu verarbeiten.</translation>
     </message>
     <message>
         <source>Normal</source>
-        <translation type="unfinished">Normal</translation>
+        <translation>Normal</translation>
     </message>
     <message>
         <source>Normal Left</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal links</translation>
     </message>
     <message>
         <source>Normal Middle</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal Mitte</translation>
     </message>
     <message>
         <source>Normal Right</source>
-        <translation type="unfinished"></translation>
+        <translation>Normal rechts</translation>
     </message>
     <message>
         <source>Monday</source>
-        <translation type="unfinished"></translation>
+        <translation>Montag</translation>
     </message>
     <message>
         <source>Tuesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Dienstag</translation>
     </message>
     <message>
         <source>Wednesday</source>
-        <translation type="unfinished"></translation>
+        <translation>Mittwoch</translation>
     </message>
     <message>
         <source>Thursday</source>
-        <translation type="unfinished"></translation>
+        <translation>Donnerstag</translation>
     </message>
     <message>
         <source>Friday</source>
-        <translation type="unfinished"></translation>
+        <translation>Freitag</translation>
     </message>
     <message>
         <source>Saturday</source>
-        <translation type="unfinished"></translation>
+        <translation>Samstag</translation>
     </message>
     <message>
         <source>Sunday</source>
-        <translation type="unfinished"></translation>
+        <translation>Sonntag</translation>
     </message>
     <message>
         <source>January</source>
-        <translation type="unfinished">Januar</translation>
+        <translation>Januar</translation>
     </message>
     <message>
         <source>February</source>
-        <translation type="unfinished">Februar</translation>
+        <translation>Februar</translation>
     </message>
     <message>
         <source>March</source>
-        <translation type="unfinished">März</translation>
+        <translation>März</translation>
     </message>
     <message>
         <source>April</source>
-        <translation type="unfinished">April</translation>
+        <translation>April</translation>
     </message>
     <message>
         <source>May</source>
-        <translation type="unfinished">Mai</translation>
+        <translation>Mai</translation>
     </message>
     <message>
         <source>June</source>
-        <translation type="unfinished"></translation>
+        <translation>Juni</translation>
     </message>
     <message>
         <source>July</source>
-        <translation type="unfinished"></translation>
+        <translation>Juli</translation>
     </message>
     <message>
         <source>August</source>
-        <translation type="unfinished"></translation>
+        <translation>August</translation>
     </message>
     <message>
         <source>September</source>
-        <translation type="unfinished"></translation>
+        <translation>September</translation>
     </message>
     <message>
         <source>October</source>
-        <translation type="unfinished"></translation>
+        <translation>Oktober</translation>
     </message>
     <message>
         <source>November</source>
-        <translation type="unfinished">November</translation>
+        <translation>November</translation>
     </message>
     <message>
         <source>December</source>
-        <translation type="unfinished">Dezember</translation>
+        <translation>Dezember</translation>
     </message>
 </context>
 <context>
@@ -7809,11 +7809,11 @@ failed!</source>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Halten Sie die Maustaste gedrückt, um die Art des Zeilenabstandes  auszuwählen.</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Auto</translation>
+        <translation>Auto</translation>
     </message>
 </context>
 <context>
@@ -8513,7 +8513,11 @@ setHGuides([90,250]) # ersetzt alle vorhandenen Hilfslinien</translation>
     </message>
     <message>
         <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Der Pfad, in dem nach Schriften gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schließen Sie alle Dokumente und ändern Sie den Pfad unter Datei &gt; Allgemeine Einstellungen.</translation>
+        <translation type="obsolete">Der Pfad, in dem nach Schriften gesucht wird, kann nur in den Grundeinstellungen geändert werden, wenn gerade kein Dokument geöffnet ist. Schließen Sie alle Dokumente und ändern Sie den Pfad unter Datei &gt; Allgemeine Einstellungen.</translation>
+    </message>
+    <message>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation>Suchpfade für Schriften können nur unter Datei &gt; Allgemeine Einstellungen hinzugefügt werden. Dazu darf kein Dokument geöffnet sein. Schließen Sie alle geöffneten Dokumente, und ändern Sie unter Datei &gt; Allgemeine Einstellungen &gt; Schriften den Suchpfad.</translation>
     </message>
 </context>
 <context>
@@ -9954,19 +9958,19 @@ Abstand eingestellt werden</translation>
     </message>
     <message>
         <source>Unable to Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Musterseite kann nicht umbenannt werden</translation>
     </message>
     <message>
         <source>The Normal page is not allowed to be renamed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Seite &quot;Normal&quot; kann nicht umbenannt werden.</translation>
     </message>
     <message>
         <source>Rename Master Page</source>
-        <translation type="unfinished"></translation>
+        <translation>Musterseite umbenennen</translation>
     </message>
     <message>
         <source>New Name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Neue Bezeichnung:</translation>
     </message>
 </context>
 <context>
@@ -10850,11 +10854,11 @@ ab&amp;runden:</translation>
     </message>
     <message>
         <source>Auto</source>
-        <translation type="unfinished">Auto</translation>
+        <translation>Auto</translation>
     </message>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
-        <translation type="unfinished"></translation>
+        <translation>Halten Sie die Maustaste gedrückt, um die Art des Zeilenabstandes  auszuwählen.</translation>
     </message>
 </context>
 <context>
@@ -11401,6 +11405,10 @@ Bitte wählen Sie einen anderen.</translation>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation>Diese Datei enthält einige nicht unterstützte Features</translation>
     </message>
 </context>
 <context>
@@ -12843,7 +12851,7 @@ weil Sie Bilder in bereits laufenden Instanzen von GIMP bearbeiten können.</tra
     </message>
     <message>
         <source>Table of Contents and Indexes</source>
-        <translation type="unfinished">Inhaltsverzeichnisse und Indizes</translation>
+        <translation>Inhaltsverzeichnisse und Indizes</translation>
     </message>
     <message>
         <source>Keyboard Shortcuts</source>
@@ -19757,7 +19765,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Schriften in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
+        <translation type="obsolete">Schriften in PDF einbetten. Dadurch bleiben das Layout und das Aussehen des Dokuments erhalten.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -19797,7 +19805,7 @@ Sie reduziert die Dateigröße.</translation>
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished">Methode für die Komprimierung von Bitmapdaten. Automatisch bedeutet, dass Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
+        <translation>Methode für die Komprimierung von Bitmapdateien. Automatisch bedeutet, daß Scribus die beste Methode wählt. ZIP ist verlustlos und gut für Bilder mit flächigen Farben. Mit JPEG erzeugen Sie kleinere PDFs, geeignet für viele Fotos. Hier können kleinere Qualitätsverluste auftreten. Empfehlung: Verändern Sie die Methode Automatisch nur, wenn Sie es wirklich benötigen.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
@@ -19991,7 +19999,15 @@ Wählen Sie Drucker, um die PDF-Datei auf einem CMYK-Drucker auszugeben Wählen 
     </message>
     <message>
         <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
-        <translation type="unfinished"></translation>
+        <translation>Qualitätsstufen für verlustbehaftete Komprimierung: minimum (25%), niedrig (50%), mittel (75%), hoch (85%), maximal (95%). Beachten Sie, daß eine Qualitätsstufe die Größe des Bildes nicht direkt beeinflußt - sowohl Größe als auch Qualitätsverlust variieren von Stufe zu Stufe. Selbst bei maximaler Bildqualität wird es immer zu Qualitätsverlusten bei JPEG-Dateien kommen.</translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation>Schriften in die PDF-Datei einbetten. Durch das Einbetten bleibt das Layout und das Erscheinungsbild Ihres Dokuments garantiert erhalten. Einige Schrifttypen wie OpenType werden nur als Kurven exportiert, da sie in PDF-Versionen vor 1.6 nicht eingebettet werden können.</translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation>Wenn Sie diese Option wählen, werden nur die Glyphe eingebettet, die auch tatsächlich im Dokument vorkommen, nicht die gesamte Schriftdatei. Einige Schrifttypen wie OpenType werden nur als Kurven exportiert, da sie in PDF-Versionen vor 1.6 nicht eingebettet werden können.</translation>
     </message>
 </context>
 <context>
@@ -21040,48 +21056,49 @@ X: %4, Y: %5</translation>
     <name>UpgradeChecker</name>
     <message>
         <source>Attempting to get the Scribus version update file</source>
-        <translation type="unfinished"></translation>
+        <translation>Versuche, die Aktualisierungsdatei zu finden</translation>
     </message>
     <message>
         <source>(No data on your computer will be sent to an external location)</source>
-        <translation type="unfinished"></translation>
+        <translation>(Es werden keine auf Ihrem Computer gespeicherten Daten übertragen)</translation>
     </message>
     <message>
         <source>Timed out when attempting to get update file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zeitüberschreitung beim Versuch, die Update-Datei zu laden.</translation>
     </message>
     <message>
         <source>Error when attempting to get update file: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler bei Versuch, die Aktualisierungsdatei zu laden: %1</translation>
     </message>
     <message>
         <source>File not found on server</source>
-        <translation type="unfinished"></translation>
+        <translation>Die Datei wurde auf dem Server nicht gefunden</translation>
     </message>
     <message>
         <source>Could not open version file: %1
 Error:%2 at line: %3, row: %4</source>
-        <translation type="unfinished"></translation>
+        <translation>Versionsdatei konnte nicht geöffnet werden: %1
+Fehler: %2 in Zeile: %3, Zeile: %4</translation>
     </message>
     <message>
         <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
-        <translation type="unfinished"></translation>
+        <translation>Fehler bei der Überprüfung auf Aktualisierungen für Scribus. Bitte überprüfen Sie Ihre Internetverbindung.</translation>
     </message>
     <message>
         <source>No updates are available for your version of Scribus %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Es sind keine Aktualisierungen für Ihre Scribus-Version verfügbar %1</translation>
     </message>
     <message>
         <source>One or more updates for your version of Scribus (%1) are available:</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist mindestens eine Aktualisierung für Ihre Scribus-Version (%1) verfügbar:</translation>
     </message>
     <message>
         <source>This list may contain development versions.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Liste könnte Entwicklerversionen enthalten.</translation>
     </message>
     <message>
         <source>Please visit www.scribus.net for details.</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte besuchen Sie www.scribus.net, um näheres zu erfahren.</translation>
     </message>
 </context>
 <context>
@@ -21378,6 +21395,10 @@ eigenen Einstellungen ersetzen.</translation>
     <message>
         <source>Import Text Only</source>
         <translation>Nur Text importieren</translation>
+    </message>
+    <message>
+        <source>Open</source>
+        <translation>Öffnen</translation>
     </message>
 </context>
 <context>
