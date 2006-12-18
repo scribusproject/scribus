@@ -1171,7 +1171,6 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	p->setAntialiasing(false);
 	p->translate(page->xOffset(), page->yOffset());
 	double lineWidth = 1.0 / Scale;
-	p->setPen(black, lineWidth, SolidLine, FlatCap, MiterJoin);
 #else
 	double z = p->zoomFactor();
 	p->setZoomFactor(Scale);
@@ -1181,7 +1180,7 @@ void ScribusView::DrawPageMarks(ScPainter *p, Page *page, QRect clip)
 	double pageHeight=page->height();
 	double pageWidth=page->width();
 	p->setFillMode(ScPainter::None);
-	p->setLineWidth(lineWidth);
+	p->setPen(black, lineWidth, SolidLine, FlatCap, MiterJoin);
 	p->drawRect(0, 0, pageWidth, pageHeight);
 	//Draw the margins
 	if (Doc->guidesSettings.marginsShown)
