@@ -3849,6 +3849,12 @@ void ScribusMainWindow::slotGetContent()
 			ImportSetup impsetup=gt->run();
 			if (impsetup.runDialog)
 			{
+				if (currItem->itemText.length() != 0)
+				{
+					int t = ScMessageBox::warning(this, CommonStrings::trWarning, tr("Do you really want to clear all your text?"), QMessageBox::Yes, QMessageBox::No | QMessageBox::Default);
+					if (t == QMessageBox::No)
+						return;
+				}
 				gt->launchImporter(impsetup.importer, impsetup.filename, impsetup.textOnly, impsetup.encoding, false);
 			}
 			delete gt;
@@ -3859,7 +3865,6 @@ void ScribusMainWindow::slotGetContent()
 				if (doc->Items->at(a)->isBookmark)
 					bookmarkPalette->BView->ChangeText(doc->Items->at(a));
 			}
-//			outlinePalette->BuildTree();
 			view->DrawNew();
 			slotDocCh();
 		}
