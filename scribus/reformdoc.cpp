@@ -304,7 +304,7 @@ void ReformDoc::updateDocumentSettings()
 	currDoc->guidesSettings.showControls = tabView->checkControl->isChecked();
 	currDoc->guidesSettings.rulerMode = tabView->checkRuler->isChecked();
 	currDoc->guidesSettings.grabRad = tabGuides->grabDistance->value();
-	currDoc->guidesSettings.guideRad = tabGuides->snapDistance->value() / currDoc->unitRatio();
+	currDoc->guidesSettings.guideRad = tabGuides->snapDistance->value();
 	currDoc->guidesSettings.minorGrid = tabGuides->minorSpace->value() / currDoc->unitRatio();
 	currDoc->guidesSettings.majorGrid = tabGuides->majorSpace->value() / currDoc->unitRatio();
 	currDoc->guidesSettings.minorColor = tabGuides->colorMinorGrid;

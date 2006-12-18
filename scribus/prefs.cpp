@@ -417,7 +417,7 @@ void Preferences::updatePreferences()
 	prefsManager->appPrefs.guidesSettings.guidesShown = tabGuides->guideBox->isChecked();
 	prefsManager->appPrefs.guidesSettings.baseShown = tabGuides->baselineBox->isChecked();
 	prefsManager->appPrefs.guidesSettings.grabRad = tabGuides->grabDistance->value();
-	prefsManager->appPrefs.guidesSettings.guideRad = tabGuides->snapDistance->value() / prefsUnitRatio;
+	prefsManager->appPrefs.guidesSettings.guideRad = tabGuides->snapDistance->value();
 	prefsManager->appPrefs.guidesSettings.minorGrid = tabGuides->minorSpace->value() / prefsUnitRatio;
 	prefsManager->appPrefs.guidesSettings.majorGrid = tabGuides->majorSpace->value() / prefsUnitRatio;
 	prefsManager->appPrefs.guidesSettings.minorColor = tabGuides->colorMinorGrid;

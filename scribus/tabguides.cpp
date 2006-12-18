@@ -63,7 +63,7 @@ TabGuides::TabGuides( QWidget* parent, struct guidesPrefs *prefsData, struct typ
 	textLabel8 = new QLabel( snapBox, "textLabel8" );
 	textLabel8->setText( tr( "Snap Distance:" ) );
 	snapBoxLayout->addWidget( textLabel8, 0, 0 );
-	snapDistance = new MSpinBox( unitRatio, 1000 * unitRatio, snapBox, precision );
+	snapDistance = new MSpinBox( unitRatio, 1000, snapBox, 0 );
 	snapBoxLayout->addWidget( snapDistance, 0, 1 );
 	textLabel82 = new QLabel( snapBox, "textLabel8" );
 	textLabel82->setText( tr( "Grab Radius:" ) );
@@ -267,8 +267,8 @@ void TabGuides::restoreDefaults(struct guidesPrefs *prefsData, struct typoPrefs 
 	minorSpace->setSuffix( unit );
 	majorSpace->setValue(prefsData->majorGrid * unitRatio);
 	majorSpace->setSuffix( unit );
-	snapDistance->setValue(prefsData->guideRad * unitRatio);
-	snapDistance->setSuffix( unit );
+	snapDistance->setValue(prefsData->guideRad);
+	snapDistance->setSuffix( tr( " px" ) );
 	grabDistance->setValue(prefsData->grabRad);
 	grabDistance->setSuffix( tr( " px" ) );
 	baseGrid->setValue(prefsData2->valueBaseGrid * unitRatio);
@@ -355,7 +355,6 @@ void TabGuides::unitChange(QString unit, int docUnitIndex, int decimals, double 
 
 	minorSpace->setSuffix(unit);
 	majorSpace->setSuffix(unit);
-	snapDistance->setSuffix(unit);
 	baseGrid->setSuffix(unit);
 	baseOffset->setSuffix(unit);
 	
@@ -363,8 +362,6 @@ void TabGuides::unitChange(QString unit, int docUnitIndex, int decimals, double 
 	minorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	majorSpace->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	majorSpace->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
-	snapDistance->getValues(&oldMin, &oldMax, &decimalsOld, &val);
-	snapDistance->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	baseGrid->getValues(&oldMin, &oldMax, &decimalsOld, &val);
 	baseGrid->setValues(oldMin * invUnitConversion, oldMax * invUnitConversion, decimals, val * invUnitConversion);
 	baseOffset->getValues(&oldMin, &oldMax, &decimalsOld, &val);
