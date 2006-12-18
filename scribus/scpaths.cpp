@@ -130,7 +130,7 @@ ScPaths::ScPaths() :
 // 	if(!m_shareDir.endsWith("/"))        m_shareDir += "/";
 // 	if(!m_docDir.endsWith("/"))          m_docDir += "/";
 // 	if(!m_fontDir.endsWith("/"))         m_fontDir += "/";
-// 	if(!m_iconDir.endsWith("/"))         m_iconDir += "/";
+	if(!m_iconDir.endsWith("/"))         m_iconDir += "/";
 // 	if(!m_sampleScriptDir.endsWith("/")) m_sampleScriptDir += "/";
 // 	if(!m_scriptDir.endsWith("/"))       m_scriptDir += "/";
 // 	if(!m_templateDir.endsWith("/"))     m_templateDir += "/";
