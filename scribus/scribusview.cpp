@@ -2437,7 +2437,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 					InfoGroupLayout->addWidget( ColCT, 4, 0, Qt::AlignRight );
 					QString cSpace;
 					QString ext = fi.extension(false).lower();
-					if (((ext == "pdf") || (ext == "eps") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
+					if (((ext == "pdf") || (ext == "eps") || (ext == "epsi") || (ext == "ps")) && (currItem->pixm.imgInfo.type != 7))
 						cSpace = tr("Unknown");
 					else
 					{

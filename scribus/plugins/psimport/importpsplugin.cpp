@@ -93,8 +93,8 @@ void ImportPSPlugin::registerFormats()
 	FileFormat fmt(this);
 	fmt.trName = psName; // Human readable name
 	fmt.formatId = FORMATID_PSIMPORT;
-	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS)"; // QFileDialog filter
-	fmt.nameMatch = QRegExp("\\.(ps|eps)$", false);
+	fmt.filter = psName + " (*.ps *.PS *.eps *.EPS *.epsi *.EPSI)"; // QFileDialog filter
+	fmt.nameMatch = QRegExp("\\.(ps|eps|epsi)$", false);
 	fmt.load = true;
 	fmt.save = false;
 	fmt.mimeTypes = QStringList("application/postscript"); // MIME types
@@ -137,8 +137,8 @@ bool ImportPSPlugin::import(QString fileName, int flags)
 		flags |= lfInteractive;
 		PrefsContext* prefs = PrefsManager::instance()->prefsFile->getPluginContext("importps");
 		QString wdir = prefs->get("wdir", ".");
-		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.ps *.PS);;");
-		formats += "EPS (*.eps *.EPS);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
+		QString formats = QObject::tr("All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;");
+		formats += "EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PS (*.ps *.PS);;" + QObject::tr("All Files (*)");
 		CustomFDialog diaf(ScCore->primaryMainWindow(), wdir, QObject::tr("Open"), formats);
 		if (diaf.exec())
 		{

@@ -877,7 +877,7 @@ void ScPageOutput::DrawItem_ImageFrame( PageItem_ImageFrame* item, ScPainterExBa
 				scImg.imgInfo.RequestProps = item->pixm.imgInfo.RequestProps;
 				scImg.imgInfo.isRequest = item->pixm.imgInfo.isRequest;
 				scImg.LoadPicture(item->Pfile, cmsSettings, item->UseEmbedded, m_useProfiles, translateImageModeToRequest(imageMode), m_imageRes, &dummy);
-				if( ext == "eps" || ext == "pdf" || ext == "ps" )
+				if( ext == "eps" || ext == "epsi" || ext == "pdf" || ext == "ps" )
 				{
 					imScaleX *= (72.0 / (double) m_imageRes);
 					imScaleY *= (72.0 / (double) m_imageRes);

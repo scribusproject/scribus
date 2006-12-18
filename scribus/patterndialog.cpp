@@ -84,6 +84,7 @@ void PatternDialog::loadPatternDir()
 	{
 		QStringList formats;
 		formats += "eps";
+		formats += "epsi";
 		formats += "pdf";
 		QString form1 = "";
 		for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )
@@ -144,7 +145,7 @@ void PatternDialog::loadPatternDir()
 void PatternDialog::loadPattern()
 {
 	QString fileName;
-	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;";
+	QString formats = "Scribus Objects (*.sce *.SCE);;Dia Shapes (*.shape *.SHAPE);;Kivio Stencils (*.sml *.SML);;EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;";
 	QString form1 = "";
 	QString form2 = "";
 	for ( uint i = 0; i < QImageIO::inputFormats().count(); ++i )

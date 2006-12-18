@@ -79,7 +79,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	y = 0.0;
 	b = PrefsManager::instance()->appPrefs.PageWidth;
 	h = PrefsManager::instance()->appPrefs.PageHeight;
-	if ((ext == "eps") || (ext == "ps"))
+	if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
 	{
 		QString tmp, BBox, tmp2, FarNam;
 		ScColor cc;
@@ -429,7 +429,7 @@ bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 		qApp->processEvents();
 	}
 	if (!cancel) {
-		parseOutput(tmpFile, ext == "eps");
+		parseOutput(tmpFile, ((ext == "eps") || (ext == "epsi")));
 	}
 	QFile::remove(tmpFile);
 	if (progressDialog)

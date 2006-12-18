@@ -5577,7 +5577,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		}
 		else
 		{ */
-		if (((ext == "eps") || (ext == "pdf")) && (c->pixm.imgInfo.type != 7))
+		if (((ext == "eps") || (ext == "epsi") || (ext == "pdf")) && (c->pixm.imgInfo.type != 7))
 		{
 			QString tmpFile = QDir::convertSeparators(ScPaths::getTempFileDir() + "sc.png");
 			if (Options.RecalcPic)
@@ -6012,7 +6012,7 @@ QString PDFlib::PDF_Image(PageItem* c, const QString& fn, double sx, double sy, 
 		sxn = SharedImages[fn].sxa * sx / SharedImages[fn].xa;
 		syn = SharedImages[fn].sya * sy / SharedImages[fn].ya;
 	}
-	if ((ext == "eps") || (ext == "pdf"))// compensate gsResolution setting
+	if ((ext == "eps") || (ext == "epsi") || (ext == "pdf"))// compensate gsResolution setting
 	{
 		sxn = PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * sxn;
 		syn = PrefsManager::instance()->appPrefs.gs_Resolution / 72.0 * syn;

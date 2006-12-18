@@ -1668,7 +1668,7 @@ QByteArray ScImage::getAlpha(QString fn, bool PDF, bool pdf14, int gsRes)
 		return retArray;
 	if (ext == "pdf")
 		pDataLoader = new ScImgDataLoader_PDF();
-	else if ((ext == "eps") || (ext == "ps"))
+	else if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
 		pDataLoader = new ScImgDataLoader_PS();
 	else if ((ext == "tif") || (ext == "tiff"))
 	{
@@ -1766,7 +1766,7 @@ void ScImage::getEmbeddedProfile(const QString & fn, QByteArray *profile, int *c
 
 	if (ext == "psd")
 		pDataLoader = new ScImgDataLoader_PSD();
-	else if (ext == "eps")
+	else if ((ext == "eps") || (ext == "epsi"))
 		pDataLoader = new ScImgDataLoader_PS();
 	else if ((ext == "tif") || (ext == "tiff"))
 		pDataLoader = new ScImgDataLoader_TIFF();
@@ -1826,7 +1826,7 @@ bool ScImage::LoadPicture(const QString & fn, const CMSettings& cmSettings,
 
 	if (ext == "pdf")
 		pDataLoader.reset( new ScImgDataLoader_PDF() );
-	else if ((ext == "eps") || (ext == "ps"))
+	else if ((ext == "eps") || (ext == "epsi") || (ext == "ps"))
 		pDataLoader.reset( new ScImgDataLoader_PS() );
 	else if ((ext == "tif") || (ext == "tiff"))
 	{

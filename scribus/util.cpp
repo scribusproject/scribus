@@ -1451,8 +1451,8 @@ QString setupImageFormats()
 	formatD += "*.tif *.tiff *.TIF *.TIFF";
 	formats += "PSD (*.psd *.PSD);;";
 	formatD += " *.psd *.PSD";
-	formats += "EPS (*.eps *.EPS);;PDF (*.pdf *.PDF);;" + QObject::tr("All Files (*)");
-	formatD += " *.eps *.EPS *.pdf *.PDF";
+	formats += "EPS (*.eps *.EPS);;EPSI (*.epsi *.EPSI);;PDF (*.pdf *.PDF);;" + QObject::tr("All Files (*)");
+	formatD += " *.epsi *.EPSI *.eps *.EPS *.pdf *.PDF";
 	formatD += ");;"+formats;
 	return formatD;
 }

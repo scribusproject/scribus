@@ -491,9 +491,9 @@ void ColorManager::loadFarben()
 	PrefsContext* dirs = PrefsManager::instance()->prefsFile->getContext("dirs");
 	QString wdir = dirs->get("colors", ".");
 #ifdef HAVE_LIBZ
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.epsi *.ps *.ai);;All Files (*)"));
 #else
-	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)"));
+	CustomFDialog dia(this, wdir, tr("Open"), tr("Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"));
 #endif
 	if (dia.exec() == QDialog::Accepted)
 		fileName = dia.selectedFile();
@@ -504,7 +504,7 @@ void ColorManager::loadFarben()
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.extension(false).lower();
-		if ((ext == "ps") || (ext == "eps") || (ext == "ai"))
+		if ((ext == "ps") || (ext == "eps") || (ext == "epsi") || (ext == "ai"))
 		{
 			QString tmp, tmp2, FarNam;
 			double c, m, y, k;
