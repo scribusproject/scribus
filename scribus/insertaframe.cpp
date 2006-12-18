@@ -129,14 +129,14 @@ void InsertAFrame::slotSelectPagePlacement( int id )
 
 void InsertAFrame::slotSelectPosition( int id )
 {
-	xPosMSpinBox->setEnabled(id==2);
-	yPosMSpinBox->setEnabled(id==2);
+	xPosMSpinBox->setEnabled(id==99);
+	yPosMSpinBox->setEnabled(id==99);
 }
 
 void InsertAFrame::slotSelectSize( int id )
 {
-	widthMSpinBox->setEnabled(id==2);
-	heightMSpinBox->setEnabled(id==2);
+	widthMSpinBox->setEnabled(id==99);
+	heightMSpinBox->setEnabled(id==99);
 }
 
 void InsertAFrame::getNewFrameProperties(InsertAFrameData &iafData)
