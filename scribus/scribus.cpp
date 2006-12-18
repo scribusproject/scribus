@@ -890,13 +890,14 @@ void ScribusMainWindow::initMenuBar()
 
 	//Help menu
 	scrMenuMgr->createMenu("Help", tr("&Help"));
+	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
+	scrMenuMgr->addMenuSeparator("Help");
+	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
+	scrMenuMgr->addMenuSeparator("Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutScribus"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutPlugins"], "Help");
 	scrMenuMgr->addMenuItem(scrActions["helpAboutQt"], "Help");
-	scrMenuMgr->addMenuSeparator("Help");
-	scrMenuMgr->addMenuItem(scrActions["helpTooltips"], "Help");
-	scrMenuMgr->addMenuItem(scrActions["helpManual"], "Help");
-
+	
 	scrMenuMgr->addMenuToMenuBar("File");
 	scrMenuMgr->addMenuToMenuBar("Edit");
 	scrMenuMgr->addMenuToMenuBar("Style");
