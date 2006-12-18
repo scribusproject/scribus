@@ -4191,15 +4191,12 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			--destLocation;
 		else if (whereToInsert==2)
 			destLocation=DocPages.count();
-		//ScMW->slotNewPage(destLocation);
-//		setCurrentPage(addPage(destLocation, from->MPageNam));
-//		Page* destination = currentPage(); //slotNewPage sets currentPage
-//		Page* destination = addPage(destLocation, from->MPageNam);
-
 		Page* destination = new Page(ScratchLeft, DocPages.count()*(pageHeight+ScratchBottom+ScratchTop)+ScratchTop, pageWidth, pageHeight);
-		lastDest = destination;
 		destination->setDocument(this);
+		destination->setPageNr(destLocation);
+		lastDest = destination;
 		DocPages.insert(destLocation, destination);
+		setLocationBasedPageLRMargins(destLocation);
 		applyMasterPage(from->MPageNam, destLocation);
 		destination->setInitialHeight(from->height());
 		destination->setInitialWidth(from->width());
