@@ -2921,7 +2921,6 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	//Backup currentpage, and dont use sourcepage here as we might convert a non current page
 	Page* oldCurrentPage = currentPage();
 	//Must set current page for pasteitem to work properly
-	setCurrentPage(targetPage);
 	setLoading(true);
 	targetPage->copySizingProperties(sourcePage, sourcePage->Margins);
 	//Grab the left page setting for the current document layout from the dialog, and increment, singlePage==1 remember.
@@ -2943,6 +2942,27 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 	uint end = DocItems.count();
 	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
 	setMasterPageMode(true);
+/*	uint end2 = MasterItems.count();
+	m_Selection->clear();
+	for (uint ite = 0; ite < end; ++ite)
+	{
+		PageItem *itemToCopy = DocItems.at(ite);
+		if (itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr()))
+			m_Selection->addItem(itemToCopy, true);
+	}
+	ScriXmlDoc *ss = new ScriXmlDoc();
+	QString dataS = ss->WriteElem(this, view(), m_Selection);
+	setMasterPageMode(true);
+	setCurrentPage(targetPage);
+	ss->ReadElem(dataS, prefsData.AvailFonts, this, targetPage->xOffset(), targetPage->yOffset(), false, true, prefsData.GFontSub, view());
+	m_Selection->clear();
+	uint end3 = MasterItems.count();
+	for (uint a = end2; a < end3; ++a)
+	{
+		PageItem *newItem = MasterItems.at(a);
+		newItem->OnMasterPage = masterPageName;
+		newItem->OwnPage = MasterNames[masterPageName];
+	} */
 	for (uint a = 0; a < end; ++a)
 	{
 		PageItem *itemToCopy = DocItems.at(a);
@@ -4231,97 +4251,17 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 			}
 		}
 		m_View->reformPages();
-		QMap<int,int> TableID;
-		QPtrList<PageItem> TableItems;
-		TableID.clear();
-		TableItems.clear();
 		uint oldItems = Items->count();
-		QPixmap pgPix(10, 10);
-		QRect rd = QRect(0,0,9,9);
-		ScPainter *painter = new ScPainter(&pgPix, pgPix.width(), pgPix.height());
-		RePos = true;
+		m_Selection->clear();
 		for (uint ite = 0; ite < oldItems; ++ite)
 		{
 			PageItem *itemToCopy = Items->at(ite);
 			if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
-			{
-				struct CopyPasteBuffer Buffer;
-				itemToCopy->copyToCopyPasteBuffer(&Buffer);
-				Buffer.Xpos = Buffer.Xpos - from->xOffset() + destination->xOffset();
-				Buffer.Ypos = Buffer.Ypos - from->yOffset() + destination->yOffset();
-				if (itemToCopy->Groups.count() != 0)
-				{
-					Buffer.Groups.clear();
-					QValueStack<int>::Iterator nx;
-					QValueStack<int> tmpGroup;
-					for (nx = itemToCopy->Groups.begin(); nx != itemToCopy->Groups.end(); ++nx)
-					{
-						tmpGroup.push((*nx)+GroupCounter);
-						GrMax = QMAX(GrMax, (*nx)+GroupCounter);
-					}
-					for (nx = tmpGroup.begin(); nx != tmpGroup.end(); ++nx)
-					{
-						Buffer.Groups.push((*nx));
-					}
-				}
-				m_View->PasteItem(&Buffer, true, true);
-				PageItem* Neu = Items->at(Items->count()-1);
-				Neu->OnMasterPage = "";
-				if (itemToCopy->isBookmark)
-					m_ScMW->AddBookMark(Neu);
-				if (Neu->isTableItem)
-				{
-					TableItems.append(Neu);
-					TableID.insert(ite, Neu->ItemNr);
-				}
-				bool upDtImg = false;
-				if (itemToCopy->pixm.imgInfo.valid)
-				{
-					Neu->pixm.imgInfo = itemToCopy->pixm.imgInfo;
-					upDtImg = true;
-				}
-				if (itemToCopy->effectsInUse.count() != 0)
-				{
-					Neu->effectsInUse = itemToCopy->effectsInUse;
-					upDtImg = true;
-				}
-				if (upDtImg)
-				{
-					int fho = Neu->imageFlippedH();
-					int fvo = Neu->imageFlippedV();
-					LoadPict(Neu->Pfile, Neu->ItemNr, true);
-					Neu->setImageFlippedH(fho);
-					Neu->setImageFlippedV(fvo);
-					Neu->AdjustPictScale();
-				}
-				Neu->DrawObj(painter, rd);
-			}
+				m_Selection->addItem(itemToCopy, true);
 		}
-		delete painter;
-		RePos = false;
-		if (TableItems.count() != 0)
-		{
-			for (uint ttc = 0; ttc < TableItems.count(); ++ttc)
-			{
-				PageItem* ta = TableItems.at(ttc);
-				if (ta->TopLinkID != -1)
-					ta->TopLink = Items->at(TableID[ta->TopLinkID]);
-				else
-					ta->TopLink = 0;
-				if (ta->LeftLinkID != -1)
-					ta->LeftLink = Items->at(TableID[ta->LeftLinkID]);
-				else
-					ta->LeftLink = 0;
-				if (ta->RightLinkID != -1)
-					ta->RightLink = Items->at(TableID[ta->RightLinkID]);
-				else
-					ta->RightLink = 0;
-				if (ta->BottomLinkID != -1)
-					ta->BottomLink = Items->at(TableID[ta->BottomLinkID]);
-				else
-					ta->BottomLink = 0;
-			}
-		}
+		ScriXmlDoc *ss = new ScriXmlDoc();
+		ss->ReadElem(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view());
+		m_Selection->clear();
 		from->guides.copy(&destination->guides);
 		GroupCounter = GrMax + 1;
 	}
