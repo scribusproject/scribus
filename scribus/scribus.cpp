@@ -1225,9 +1225,10 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 					else
 						view->Deselect(false);
 					break;
+				case modeEdit:
+					break;
 				case modeLinkFrames:
 				case modeUnlinkFrames:
-				case modeEdit:
 				case modeRotation:
 				case modeEditGradientVectors:
 					view->Deselect(false);
