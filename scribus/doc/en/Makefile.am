@@ -9,7 +9,7 @@ pdfexport1.html pdfexport2.html pdfexport3.html pdfexport4.html pdfx3.html pdf_f
 print3.html psd.html readme.html readme-win32.html resources.html scprinters.html scribuscopyright.html scribusfileformat.html scribus-svg.html \
 scripter1.html scripter-extensions.html scripterapi-color.html scripterapi-constants.html scripterapi-dialogs.html scripterapi-doc.html \
 scripterapi-font.html scripterapi-getobjprop.html scripterapi.html scripterapi-layer.html scripterapi-manobj.html scripterapi-object.html \
-scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html scripterapi-pydoc.html \
+scripterapi-page.html scripterapi-select.html scripterapi-setobjprop.html scripterapi-textframes.html scripter-faq.html \
 scripterapi-PDFfile.html scripterapi-Printer.html scripterapi-ImageExport.html settings1.html specs.html  short-words.html toolbox10.html toolbox11.html \
 toolbox12.html toolbox13.html toolbox1.html toolbox2.html toolbox3.html toolbox4.html toolbox5.html toolbox6.html toolbox7.html toolbox8.html \
 toolbox9.html toolbox.html topten.html translation_howto.html  otherinfo.html documentation.html tutorials.html CMakeLists.txt
@@ -107,7 +107,6 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scripterapi-PDFfile.html $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-PDFfile.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-Printer.html $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-Printer.html
 	$(INSTALL_DATA) $(srcdir)/scripterapi-ImageExport.html $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-ImageExport.html
-	$(INSTALL_DATA) $(srcdir)/scripterapi-pydoc.html $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-pydoc.html
 	$(INSTALL_DATA) $(srcdir)/settings1.html $(prefix)/share/doc/scribus-$(VERSION)/en/settings1.html
 	$(INSTALL_DATA) $(srcdir)/specs.html $(prefix)/share/doc/scribus-$(VERSION)/en/specs.html
 	$(INSTALL_DATA) $(srcdir)/short-words.html $(prefix)/share/doc/scribus-$(VERSION)/en/short-words.html
@@ -223,7 +222,6 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-PDFfile.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-Printer.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-ImageExport.html
-	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/scripterapi-pydoc.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/settings1.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/specs.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/short-words.html
