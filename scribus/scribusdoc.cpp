@@ -5223,7 +5223,6 @@ void ScribusDoc::itemSelection_ToggleImageShown()
 			if (imageItem==NULL)
 				continue;
 			imageItem->setImageShown(!imageItem->imageShown());
-			ScMW->scrActions["itemImageIsVisible"]->setOn(imageItem->imageShown());
 			emit refreshItem(imageItem);
 		}
 		changed();
