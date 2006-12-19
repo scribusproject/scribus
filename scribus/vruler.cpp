@@ -256,8 +256,21 @@ void Vruler::unitChange()
 				cor = 2;
 			if (sc > 4)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-	  		iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+			if (sc < 0.3)
+			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
+			}
+			else if (sc < 0.2)
+			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
+			}
+			else
+			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+	  		}
 			break;
 		case 1:
 			if (sc > 1)
@@ -302,8 +315,21 @@ void Vruler::unitChange()
 				cor = 1;
 			if (sc > 4)
 				cor = 10;
-			iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
-			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+			if (sc < 0.3)
+			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
+			}
+			else if (sc < 0.5)
+			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
+			}
+			else
+			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) / cor;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) / cor;
+	  		}
 			break;
 		case 5:
 			iter = unitRulerGetIter1FromIndex(docUnitIndex);
