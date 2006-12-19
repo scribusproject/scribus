@@ -128,7 +128,7 @@ QT_TR_NOOP("insertText(\"text\", pos, [\"name\"])\n\
 \n\
 Inserts the text \"text\" at the position \"pos\" into the text frame \"name\".\n\
 Text must be UTF encoded (see setText() as reference) The first character has an\n\
-index of 0. Inserting at position -1 appends text to the frame. If \"name\" is\n\
+index of 0. Inserting text at position -1 appends it to the frame. If \"name\" is\n\
 not given the currently selected Item is used.\n\
 \n\
 May throw IndexError for an insertion out of bounds.\n\

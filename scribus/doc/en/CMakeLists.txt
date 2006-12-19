@@ -98,10 +98,10 @@ scripterapi-object.html
 scripterapi-page.html
 scripterapi-PDFfile.html
 scripterapi-Printer.html
-scripterapi-pydoc.html
 scripterapi-select.html
 scripterapi-setobjprop.html
 scripterapi-textframes.html
+scripterapi-extensions.html
 scripter-extensions.html
 scripter-faq.html
 settings1.html

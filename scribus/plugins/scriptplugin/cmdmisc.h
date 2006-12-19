@@ -121,8 +121,8 @@ PyObject *scribus_layervisible(PyObject */*self*/, PyObject* args);
 PyDoc_STRVAR(scribus_layerprint__doc__,
 QT_TR_NOOP("setLayerPrintable(\"layer\", printable)\n\
 \n\
-Sets the layer \"layer\" to be printable or not. If printable is set to\n\
-false the layer won't be printed.\n\
+Sets the layer \"layer\" to be printable or not. If is the\n\
+printable set to false the layer won't be printed.\n\
 \n\
 May raise NotFoundError if the layer can't be found.\n\
 May raise ValueError if the layer name isn't acceptable.\n\
@@ -195,7 +195,7 @@ PyObject *scribus_layertrans(PyObject */*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_glayervisib__doc__,
-QT_TR_NOOP("isLayerPrintable(\"layer\") -> bool\n\
+QT_TR_NOOP("isLayerVisible(\"layer\") -> bool\n\
 \n\
 Returns whether the layer \"layer\" is visible or not, a value of True means\n\
 that the layer \"layer\" is visible, a value of False means that the layer\n\
