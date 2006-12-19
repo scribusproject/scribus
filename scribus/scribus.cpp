@@ -1175,14 +1175,17 @@ void ScribusMainWindow::keyPressEvent(QKeyEvent *k)
 {
 	QWidgetList windows;
 	QWidget* w = NULL;
-	//struct ScText *hg;
 	int kk = k->key();
-	//int as = k->ascii();
-	//double altx, alty;
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
-	//uint Tcoun;
-	//int len, pos, c;
+	if (HaveDoc)
+	{
+		if ((doc->appMode == modeMagnifier) && (kk == Key_Shift))
+		{
+			qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
+			return;
+		}
+	}
 	if (keyrep)
 		return;
 	keyrep = true;
@@ -1707,6 +1710,11 @@ void ScribusMainWindow::keyReleaseEvent(QKeyEvent *k)
 	{
 		if ((doc->appMode == modePanning) && (k->state() & Qt::RightButton))
 			setAppMode(modeNormal);
+	}
+	if (HaveDoc)
+	{
+		if (doc->appMode == modeMagnifier)
+			qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 	}
 	if (k->isAutoRepeat() || !_arrowKeyDown)
 		return;

@@ -4006,7 +4006,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				emit PaintingDone();
 			}
 			else
-				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+			{
+				if (m->state() & ShiftButton)
+					qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
+				else
+					qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+			}
 		}
 	}
 	if ((Doc->appMode == modeDrawBezierLine) && (m->button() == LeftButton))
@@ -4926,11 +4931,6 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		}
 		if ((!m_MouseButtonPressed) && (Doc->appMode != modeDrawBezierLine))
 		{
-			if (Doc->appMode == modeMagnifier)
-			{
-				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
-				return;
-			}
 			if (Doc->m_Selection->isMultipleSelection())
 			{
 				QRect mpo = QRect(qRound(m->x()/Scale)-Doc->guidesSettings.grabRad, qRound(m->y()/Scale)-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
@@ -5760,9 +5760,15 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 		case modeMagnifier:
 			m_MouseButtonPressed = true;
 			if ((m->state() == ShiftButton) || (m->button() == RightButton))
+			{
 				Magnify = false;
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
+			}
 			else
+			{
 				Magnify = true;
+				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+			}
 			break;
 		case modeEdit:
 			{

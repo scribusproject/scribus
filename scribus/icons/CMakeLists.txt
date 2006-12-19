@@ -161,6 +161,7 @@ lower.png
 lower-to-bottom.png
 Lupe.xpm
 LupeZ.xpm
+LupeZm.xpm
 misc.png
 MiterJoin.png
 MoveAsym.png
