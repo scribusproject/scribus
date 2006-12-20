@@ -393,6 +393,7 @@ reformdoc.cpp
 rulermover.cpp
 sampleitem.cpp
 sccolor.cpp
+sccolorengine.cpp
 sccolorshade.cpp
 sccombobox.cpp
 scinputdialog.cpp
