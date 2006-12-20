@@ -59,9 +59,9 @@ void Spalette::updateFormatList()
 		QStringList st;
 		st.clear();
 		insertItem( tr("No Style"));
-		for (uint x = 0; x < currentDoc->docParagraphStyles.count(); ++x)
-			if ( !currentDoc->docParagraphStyles[x].name().isEmpty() )
-				st.append(currentDoc->docParagraphStyles[x].name());
+		for (uint x = 0; x < currentDoc->paragraphStyles().count(); ++x)
+			if ( !currentDoc->paragraphStyles()[x].name().isEmpty() )
+				st.append(currentDoc->paragraphStyles()[x].name());
 		st.sort();
 		insertStringList(st);
 	}
@@ -76,9 +76,9 @@ void Spalette::selFormat(int e)
 		emit newStyle(0);
 		return;
 	}
-	for (uint x = 0; x < currentDoc->docParagraphStyles.count(); ++x)
+	for (uint x = 0; x < currentDoc->paragraphStyles().count(); ++x)
 	{
-		if (currentDoc->docParagraphStyles[x].name() == currentText())
+		if (currentDoc->paragraphStyles()[x].name() == currentText())
 		{
 			emit newStyle(x);
 			break;

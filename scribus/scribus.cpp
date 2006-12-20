@@ -1079,7 +1079,7 @@ void ScribusMainWindow::specialActionKeyEvent(QString actionName, int unicodeval
 						// doesnt have unicodevalue == -1 any more
 						if (currItem->CPos-1>0)
 						{
-#if 1
+#if 0
 							StyleFlag fl = currItem->itemText.item(QMAX(currItem->CPos-1,0))->effects();
 							fl |= ScStyle_HyphenationPossible;
 							currItem->itemText.item(QMAX(currItem->CPos-1,0))->setEffects(fl);
@@ -4824,7 +4824,7 @@ void ScribusMainWindow::slotEditPaste()
 					nstyle.setStrikethruWidth(it == NULL ? -1 : (*it).toInt());
 					currItem->itemText.insertChars(currItem->CPos, ch);
 					if (ch == SpecialChars::PARSEP) {
-						currItem->itemText.applyStyle(currItem->CPos, doc->docParagraphStyles[cab]);
+						currItem->itemText.applyStyle(currItem->CPos, doc->paragraphStyles()[cab]);
 					}
 					else {
 						currItem->itemText.applyCharStyle(currItem->CPos, 1, nstyle);
@@ -6553,10 +6553,10 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 	ers.append(4);
 	for (uint a=5; a<doc->docParagraphStyles.count(); ++a)
 */
-	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)
+	for (uint a=0; a<doc->paragraphStyles().count(); ++a)
 	{
 		ff = false;
-		nn = doc->docParagraphStyles[a].name();
+		nn = doc->paragraphStyles()[a].name();
 		for (uint b=0; b<dia->TempVorl.count(); ++b)
 		{
 			if (nn == dia->TempVorl[b].name())
@@ -6572,7 +6572,7 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 		{
 			for (uint b=0; b<dia->TempVorl.count(); ++b)
 			{
-				if (doc->docParagraphStyles[a].equiv(dia->TempVorl[b]))
+				if (doc->paragraphStyles()[a].equiv(dia->TempVorl[b]))
 				{
 					nr = b;
 					ff = true;
@@ -6806,17 +6806,17 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 		}
 	*/
 	}
-	doc->docParagraphStyles.redefine(dia->TempVorl);
+	doc->redefineStyles(dia->TempVorl);
 	if (CurrStED != NULL)
 	{
 		if (CurrStED->Editor->StyledText.length() != 0)
 			CurrStED->Editor->updateAll();
 	}
-	for (uint a=0; a<doc->docParagraphStyles.count(); ++a)
+	for (uint a=0; a<doc->paragraphStyles().count(); ++a)
 	{
-		if (!doc->docParagraphStyles[a].charStyle().font().isNone())
+		if (!doc->paragraphStyles()[a].charStyle().font().isNone())
 		{
-			QString nf = doc->docParagraphStyles[a].charStyle().font().scName();
+			QString nf = doc->paragraphStyles()[a].charStyle().font().scName();
 			if (!doc->UsedFonts.contains(nf))
 			{
 				if (doc->AddFont(nf)) //, prefsManager->appPrefs.AvailFonts[nf]->Font))
@@ -6824,8 +6824,8 @@ void ScribusMainWindow::saveStyles(StilFormate *dia)
 					int ff = FontMenu->insertItem(new FmItem(nf, prefsManager->appPrefs.AvailFonts[nf]));
 					FontID.insert(ff, prefsManager->appPrefs.AvailFonts[nf].scName());
 				}
-				else
-					doc->docParagraphStyles[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
+//				else
+//FIXME					doc->paragraphStyles()[a].charStyle().setFont((prefsManager->appPrefs.AvailFonts[doc->toolSettings.defFont]));
 			}
 		}
 	}
@@ -6858,7 +6858,7 @@ void ScribusMainWindow::setNewParStyle(int a)
 	if (HaveDoc)
 	{
 //		doc->currentStyle = doc->docParagraphStyles[a];
-		doc->itemSelection_SetNamedParagraphStyle(doc->docParagraphStyles[a].name());
+		doc->itemSelection_SetNamedParagraphStyle(doc->paragraphStyles()[a].name());
 		PageItem *currItem = doc->m_Selection->itemAt(0);
 		setTBvals(currItem);
 	}

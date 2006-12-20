@@ -60,7 +60,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	PageItem *nextItem;
 	PageItem *it = Item;
 	ScribusDoc* doku = it->doc();
-	if (Absatz < 0 || Absatz > signed(doku->docParagraphStyles.count()))
+	if (Absatz < 0 || Absatz > signed(doku->paragraphStyles().count()))
 		Absatz = 0;
 	
 	if (!Append)
@@ -75,7 +75,7 @@ void Serializer::GetText(PageItem *Item, int Absatz, QString font, int size, boo
 	ParagraphStyle newStyle;
 	CharStyle newCharStyle;
 	if ( Absatz > 0 )
-		newStyle.setParent(doku->docParagraphStyles[Absatz].name());
+		newStyle.setParent(doku->paragraphStyles()[Absatz].name());
 	if ( !font.isEmpty() )
 		newCharStyle.setFont((*doku->AllFonts)[font]);
 	if ( size > 0 )

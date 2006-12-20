@@ -116,7 +116,6 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		extra = it->attribute("CKERN").toInt();
 	int shade = it->attribute("CSHADE").toInt();
 	int cstyle = it->attribute("CSTYLE").toInt() & 2047;
-	int ab = it->attribute("CAB", "0").toInt();
 	QString stroke = it->attribute("CSTROKE",CommonStrings::None);
 	int shade2 = it->attribute("CSHADE2", "100").toInt();
 	int scale = qRound(it->attribute("CSCALE", "100").toDouble() * 10);
@@ -129,53 +128,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 	int ulw = qRound(it->attribute("CULW", "-0.1").toDouble() * 10);
 	int stp = qRound(it->attribute("CSTP", "-0.1").toDouble() * 10);
 	int stw = qRound(it->attribute("CSTW", "-0.1").toDouble() * 10);
-#if 0
-	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
-	{
-		hg = new ScText;
-		hg->ch = tmp2.at(cxx);
-		if (hg->ch == QChar(5))
-			hg->ch = QChar(13);
-		if (hg->ch == QChar(4))
-			hg->ch = QChar(9);
-		if (unknown)
-			hg->setFont(dummy);
-		else
-			hg->setFont((*doc->AllFonts)[tmpf]);
-		hg->setFontSize(size);
-		hg->setFillColor(fcolor);
-		hg->setTracking(extra);
-		hg->setFillShade(shade);
-		hg->setEffects(static_cast<StyleFlag>(cstyle));
-		if (impo)
-		{
-			if (VorLFound)
-				hg->cab = DoVorl[ab].toUInt();
-			else
-			{
-				if (ab < 5)
-					hg->cab = ab;
-				else
-					hg->cab = 0;
-			}
-		}
-		else
-			hg->cab = ab;
-		hg->setStrokeColor(stroke);
-		hg->setStrokeShade(shade2);
-		hg->setScaleH(QMIN(QMAX(scale, 100), 4000));
-		hg->setScaleV(QMIN(QMAX(scalev, 100), 4000));
-		hg->setBaselineOffset(base);
-		hg->setShadowXOffset(shX);
-		hg->setShadowYOffset(shY);
-		hg->setOutlineWidth(outL);
-		hg->setUnderlineOffset(ulp);
-		hg->setUnderlineWidth(ulw);
-		hg->setStrikethruOffset(stp);
-		hg->setStrikethruWidth(stw);
-		obj->itemText.append(hg);
-	}
-#else
+	QString pstyleName = it->attribute("PSTYLE", "");
 	for (uint cxx=0; cxx<tmp2.length(); ++cxx)
 	{
 		CharStyle style;
@@ -193,7 +146,8 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		style.setTracking(extra);
 		style.setFillShade(shade);
 		style.setEffects(static_cast<StyleFlag>(cstyle));
-		int pstyleNr;
+/*
+ int pstyleNr;
 		if (impo)
 		{
 				if (VorLFound)
@@ -208,7 +162,7 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		}
 		else
 			pstyleNr = ab;
-		
+*/		
 		style.setStrokeColor(stroke);
 		style.setStrokeShade(shade2);
 		style.setScaleH(QMIN(QMAX(scale, 100), 4000));
@@ -223,12 +177,15 @@ void ScriXmlDoc::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, b
 		style.setStrikethruWidth(stw);
 		int pos = obj->itemText.length();
 		obj->itemText.insertChars(pos, QString(ch));
-		if (ch == SpecialChars::PARSEP)			
-			obj->itemText.applyStyle(pos, doc->docParagraphStyles[pstyleNr]);
+		if (ch == SpecialChars::PARSEP)
+		{
+			ParagraphStyle pstyle;
+			pstyle.setParent(pstyleName);
+			obj->itemText.applyStyle(pos, pstyle);
+		}
 		else
 			obj->itemText.applyCharStyle(pos, 1, style);
 	}
-#endif	
 	return;
 }
 
@@ -468,7 +425,7 @@ void ScriXmlDoc::SetItemProps(QDomElement *ob, PageItem* item, bool newFormat)
 }
 
 //CB: Private only now
-void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void ScriXmlDoc::GetStyle(QDomElement &pg, ParagraphStyle &vg, StyleSet<ParagraphStyle> & docParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
@@ -793,12 +750,12 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			if (!doc->MLineStyles.contains(pg.attribute("Name")))
 				doc->MLineStyles.insert(pg.attribute("Name"), ml);
 		}
-		if(pg.tagName()=="STYLE")
+/*		if(pg.tagName()=="STYLE")
 		{
 			GetStyle(pg, vg, doc->docParagraphStyles, doc, true);
 			VorLFound = true;
 		}
-		if(pg.tagName()=="Pattern")
+*/		if(pg.tagName()=="Pattern")
 		{
 			ScPattern pat;
 			QDomNode pa = DOC.firstChild();
@@ -819,7 +776,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 				OB.NamedLStyle = pite.attribute("NAMEDLST", "");
 				if (!doc->MLineStyles.contains(OB.NamedLStyle))
 					OB.NamedLStyle = "";
-				OB.textAlignment = DoVorl[pite.attribute("ALIGN", "0").toInt()].toUInt();
+				OB.textAlignment = pite.attribute("ALIGN", "0").toInt();
 				tmf = pite.attribute("IFONT", doc->toolSettings.defFont);
 				if (tmf.isEmpty())
 					tmf = doc->toolSettings.defFont;
@@ -954,7 +911,7 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 			OB.NamedLStyle = pg.attribute("NAMEDLST", "");
 			if (!doc->MLineStyles.contains(OB.NamedLStyle))
 				OB.NamedLStyle = "";
-			OB.textAlignment = DoVorl[pg.attribute("ALIGN", "0").toInt()].toUInt();
+			OB.textAlignment = pg.attribute("ALIGN", "0").toInt();
 			tmf = pg.attribute("IFONT", doc->toolSettings.defFont);
 			if (tmf.isEmpty())
 				tmf = doc->toolSettings.defFont;
@@ -1173,6 +1130,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	int NewStylesNum = 5;
 	UsedStyles.clear();
 	UsedMapped2Saved.clear();
+/*
 	ParagraphStyle vg;
 //	if (doc->docParagraphStyles.count() > 5)
 	{
@@ -1259,6 +1217,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 			elem.appendChild(fo);
 		}
 	}
+ */
 	QMap<QString,multiLine>::Iterator itMU;
 	for (itMU = doc->MLineStyles.begin(); itMU != doc->MLineStyles.end(); ++itMU)
 	{
@@ -1355,15 +1314,13 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 
 void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &ob, QMap<int, int> &UsedMapped2Saved, PageItem *item)
 {
-	int te, te2, tsh, tsh2, tst, tst2, tsb, tsb2, tshs, tshs2;
+	int te, te2, tsh, tsh2, tst, tst2, tshs, tshs2;
 	QString text, tf, tf2, tc, tc2, tcs, tcs2, tmp, tmpy;
 	double ts, ts2, tsc, tsc2, tscv, tscv2, tb, tb2, tsx, tsx2, tsy, tsy2, tout, tout2, tulp, tulp2, tulw, tulw2, tstp, tstp2, tstw, tstw2;
 	QString CurDirP = QDir::currentDirPath();
-	int textAlignment = findParagraphStyle(doc, item->itemText.defaultStyle());
-	if (textAlignment > 4)
-		ob.setAttribute("ALIGN",UsedMapped2Saved[textAlignment]);
-	else
-		ob.setAttribute("ALIGN",textAlignment);
+
+	int textAlignment = item->itemText.defaultStyle().alignment();
+	ob.setAttribute("ALIGN",textAlignment);
 	SetItemProps(&ob, item, false);
 	ob.setAttribute("LOCK", 0);
 	ob.setAttribute("XPOS",item->xPos() - doc->currentPage()->xOffset());
@@ -1452,14 +1409,6 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		te = style4.tracking();
 		tsh = style4.fillShade();
 		tst = style4.effects() & 2047;
-#if 0 // FIXME NLS ndef NLS_PROTO
-			if (item->itemText.item(k)->cab > 4)
-				tsb = UsedMapped2Saved[item->itemText.item(k)->cab];
-			else
-				tsb = item->itemText.item(k)->cab;
-#else
-		tsb = 0;
-#endif
 		tcs = style4.strokeColor();
 		tshs = style4.strokeShade();
 		tsc = style4.scaleH() / 10.0;
@@ -1478,6 +1427,9 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 			text = QChar(4);
 		else
 			text = ch;
+		QString pstylename = "";
+		if (ch == SpecialChars::PARSEP)
+			pstylename = item->itemText.paragraphStyle(k).parent();
 		++k;
 		if (k == item->itemText.length())
 		{
@@ -1488,7 +1440,6 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 			it.setAttribute("CKERN",te);
 			it.setAttribute("CSHADE",tsh);
 			it.setAttribute("CSTYLE",tst);
-			it.setAttribute("CAB",tsb);
 			it.setAttribute("CSTROKE",tcs);
 			it.setAttribute("CSHADE2",tshs);
 			it.setAttribute("CSCALE",tsc);
@@ -1501,6 +1452,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 			it.setAttribute("CULW",tulw);
 			it.setAttribute("CSTP",tstp);
 			it.setAttribute("CSTW",tstw);
+			it.setAttribute("PSTYLE",pstylename);
 			ob.appendChild(it);
 			break;
 		}
@@ -1512,14 +1464,6 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		te2 = style5.tracking();
 		tsh2 = style5.fillShade();
 		tst2 = style5.effects() & 2047;
-#if 0 //FIXME NLS ndef NLS_PROTO
-			if (item->itemText.item(k)->cab > 4)
-				tsb2 = UsedMapped2Saved[item->itemText.item(k)->cab];
-			else
-				tsb2 = item->itemText.item(k)->cab;
-#else
-		tsb2 = 0;
-#endif
 		tcs2 = style5.strokeColor();
 		tshs2 = style5.strokeShade();
 		tsc2 = style5.scaleH() / 10.0;
@@ -1532,8 +1476,10 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		tulw2 = style5.underlineWidth() / 10.0;
 		tstp2 = style5.strikethruOffset() / 10.0;
 		tstw2 = style5.strikethruWidth() / 10.0;
+		QString pstylename2 = "";
+		if (ch == SpecialChars::PARSEP)
+			pstylename2 = item->itemText.paragraphStyle(k).parent();
 		while ((ts2 == ts)
-						&& (tsb2 == tsb)
 						&& (tf2 == tf)
 						&& (tc2 == tc)
 						&& (te2 == te)
@@ -1550,7 +1496,8 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 						&& (tulw2 == tulw)
 						&& (tstp2 == tstp)
 						&& (tstw2 == tstw)
-						&& (tst2 == tst))
+						&& (tst2 == tst)
+			   && (pstylename == pstylename2))
 		{
 			if (ch == QChar(13))
 				text += QChar(5);
@@ -1569,14 +1516,6 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 			te2 = style6.tracking();
 			tsh2 = style6.fillShade();
 			tst2 = style6.effects() & 2047;
-#if 0 //FIXME NLS ndef NLS_PROTO
-				if (item->itemText.item(k)->cab > 4)
-					tsb2 = UsedMapped2Saved[item->itemText.item(k)->cab];
-				else
-					tsb2 = item->itemText.item(k)->cab;
-#else
-			tsb2 = 0;
-#endif
 			tcs2 = style6.strokeColor();
 			tshs2 = style6.strokeShade();
 			tsc2 = style6.scaleH() / 10.0;
@@ -1589,6 +1528,9 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 			tulw2 = style6.underlineWidth() / 10.0;
 			tstp2 = style6.strikethruOffset() / 10.0;
 			tstw2 = style6.strikethruWidth() / 10.0;
+			pstylename2 = "";
+			if (ch == SpecialChars::PARSEP)
+				pstylename2 = item->itemText.paragraphStyle(k).parent();
 		}
 		it.setAttribute("CH",text);
 		it.setAttribute("CSIZE",ts);
@@ -1597,7 +1539,6 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		it.setAttribute("CKERN",te);
 		it.setAttribute("CSHADE",tsh);
 		it.setAttribute("CSTYLE",tst);
-		it.setAttribute("CAB",tsb);
 		it.setAttribute("CSTROKE",tcs);
 		it.setAttribute("CSHADE2",tshs);
 		it.setAttribute("CSCALE",tsc);
@@ -1610,6 +1551,7 @@ void ScriXmlDoc::WriteObject(ScribusDoc *doc, QDomDocument &docu, QDomElement &o
 		it.setAttribute("CULW",tulw);
 		it.setAttribute("CSTP",tstp);
 		it.setAttribute("CSTW",tstw);
+		it.setAttribute("PSTYLE",pstylename);
 		k--;
 		ob.appendChild(it);
 	}

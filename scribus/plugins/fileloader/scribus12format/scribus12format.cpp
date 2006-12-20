@@ -512,7 +512,9 @@ bool Scribus12Format::loadFile(const QString & fileName, const FileFormat & /* f
 				}
 //				else
 //					vg.tabValues().clear();
-				m_Doc->docParagraphStyles.create(vg);
+				StyleSet<ParagraphStyle> temp;
+				temp.create(vg);
+				m_Doc->redefineStyles(temp, false);
 			}
 			if(pg.tagName()=="JAVA")
 				m_Doc->JavaScripts[pg.attribute("NAME")] = pg.attribute("SCRIPT");
@@ -1121,7 +1123,7 @@ void Scribus12Format::GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFou
 				pstyle.setAlignment(static_cast<ParagraphStyle::AlignmentType>(ab));
 			}
 			else {
-				pstyle.setParent( doc->docParagraphStyles[ab-5].name());
+				pstyle.setParent( doc->paragraphStyles()[ab-5].name());
 			}
 			obj->itemText.applyStyle(pos, pstyle); 
 		}
@@ -1207,7 +1209,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				GetStyle(&pg, &vg, m_Doc->docParagraphStyles, m_Doc, true);
+				GetStyle(&pg, &vg, NULL, m_Doc, true);
 				VorLFound = true;
 			}
 			if(pg.tagName()=="JAVA")
@@ -1508,7 +1510,7 @@ bool Scribus12Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	return false;
 }
 
-void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> * tempParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	int fShade, sShade;
@@ -1516,6 +1518,7 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	QString tmpf, tmf, tmV;
 	double xf, xf2;
 	fou = false;
+	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
 	vg->setName(pg->attribute("NAME"));
 	vg->setLineSpacingMode(static_cast<ParagraphStyle::LineSpacingMode>(pg->attribute("LINESPMode", "0").toInt()));
 	vg->setLineSpacing(pg->attribute("LINESP").toDouble());
@@ -1645,7 +1648,13 @@ void Scribus12Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	if (!fou)
 	{
-		docParagraphStyles.create(*vg);
+		if (tempParagraphStyles)
+			tempParagraphStyles->create(*vg);
+		else {
+			StyleSet<ParagraphStyle> temp;
+			temp.create(*vg);
+			doc->redefineStyles(temp, false);
+		}
 		if (fl)
 		{
 			DoVorl[VorlC] = tmV.setNum(docParagraphStyles.count()-1);
@@ -1708,7 +1717,7 @@ bool Scribus12Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, docParagraphStyles, doc, false);
+				GetStyle(&pg, &vg, &docParagraphStyles, doc, false);
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();

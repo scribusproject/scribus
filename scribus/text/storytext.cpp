@@ -35,7 +35,7 @@ public:
 	uint refs;
 	uint len;
 	ParagraphStyle trailingStyle;
-	ScText_Shared(StyleBase* pstyles, StyleBase* cstyles) : QPtrList<ScText>(), 
+	ScText_Shared(const StyleBase* pstyles) : QPtrList<ScText>(), 
 		defaultStyle(), 
 		pstyleBase(StyleBase::STORY_LEVEL, NULL),
 		refs(1), len(0), trailingStyle()
@@ -154,10 +154,10 @@ public:
 StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 {
 	if (doc_) {
-		d = new ScText_Shared(&doc_->docParagraphStyles, &doc_->docCharStyles);
+		d = new ScText_Shared(&doc_->paragraphStyles());
 	}
 	else {
-		d = new ScText_Shared(NULL, NULL);
+		d = new ScText_Shared(NULL);
 	}
 	selFirst = 0;
 	selLast = -1;
@@ -171,7 +171,7 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 
 StoryText::StoryText() : doc(NULL)
 {
-	d = new ScText_Shared(NULL, NULL);
+	d = new ScText_Shared(NULL);
 }
 
 StoryText::StoryText(const StoryText & other) : doc(other.doc)
@@ -340,7 +340,7 @@ void StoryText::insert(int pos, const StoryText& other, bool onlySelection)
  */
 static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
 {
-	ScText* it = that->item(pos);
+	ScText* it = that->item_p(pos);
 	if(!it->parstyle) {
 		it->parstyle = new ParagraphStyle();
 		it->parstyle->setBase( & d->pstyleBase);
@@ -354,7 +354,7 @@ static void insertParSep(StoryText* that, ScText_Shared* d, int pos)
  */
 static void removeParSep(StoryText* that, ScText_Shared* d, int pos)
 {
-	ScText* it = that->item(pos);
+	ScText* it = that->item_p(pos);
 	if (it->parstyle) {
 //		const CharStyle* oldP = & it->parstyle->charStyle();
 //		const CharStyle* newP = & that->paragraphStyle(pos+1).charStyle();
@@ -745,6 +745,49 @@ void StoryText::setCharStyle(int pos, uint len, const CharStyle& style)
 }
 
 
+void StoryText::replaceStyles(QMap<QString,QString> newNameForOld)
+{
+	int len = length();
+	if (len == 0)
+		return;
+	
+	d->at(0);
+	for (uint i=0; i < len; ++i) {
+		if (d->current()->parstyle && newNameForOld.contains(d->current()->parstyle->parent()))
+			d->current()->parstyle->setParent(newNameForOld[d->current()->parstyle->parent()]);
+		d->next();
+	}
+	if (newNameForOld.contains(d->defaultStyle.parent()))
+		d->defaultStyle.setParent(newNameForOld[d->defaultStyle.parent()]);
+	if (newNameForOld.contains(d->trailingStyle.parent()))
+		d->trailingStyle.setParent(newNameForOld[d->trailingStyle.parent()]);
+	
+	invalidate(0, len);	
+}
+
+void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
+{
+	int len = length();
+	if (len == 0)
+		return;
+	
+	d->at(0);
+	for (uint i=0; i < len; ++i) {
+		if (newNameForOld.contains(d->current()->parent()))
+			d->current()->setParent(newNameForOld[d->current()->parent()]);
+		
+		if (d->current()->parstyle && newNameForOld.contains(d->current()->parstyle->charStyle().parent()))
+			d->current()->parstyle->charStyle().setParent(newNameForOld[d->current()->parstyle->charStyle().parent()]);
+		d->next();
+	}
+	if (newNameForOld.contains(d->defaultStyle.charStyle().parent()))
+		d->defaultStyle.charStyle().setParent(newNameForOld[d->defaultStyle.charStyle().parent()]);
+	if (newNameForOld.contains(d->trailingStyle.charStyle().parent()))
+		d->trailingStyle.charStyle().setParent(newNameForOld[d->trailingStyle.charStyle().parent()]);
+	
+	invalidate(0, len);	
+}
+
 uint StoryText::nrOfParagraphs() const
 {
 	uint result = 0;
@@ -1012,6 +1055,7 @@ const ScText*  StoryText::item(uint itm) const
 	assert( static_cast<int>(itm) < length() );
 	return const_cast<StoryText *>(this)->d->at(itm);
 }
+
 
 const QString StoryText::itemText(uint itm) const
 {

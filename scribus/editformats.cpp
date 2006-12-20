@@ -206,7 +206,7 @@ StilFormate::StilFormate( QWidget* parent, ScribusDoc *doc) : QDialog( parent, "
 	connect(ListBox1, SIGNAL(highlighted(QListBoxItem*)), this, SLOT(selFormat(QListBoxItem*)));
 	connect(ListBox1, SIGNAL(selected(QListBoxItem*)), this, SLOT(selEditFormat(QListBoxItem*)));
 	TempVorl.clear();
-	TempVorl.redefine(doc->docParagraphStyles);
+	TempVorl.redefine(doc->paragraphStyles());
 	UpdateFList();
 }
 

@@ -1991,7 +1991,7 @@ void StoryEditor::updateProps(int p, int ch)
 		return;
 	if ((p >= static_cast<int>(Editor->StyledText.nrOfParagraphs())) || (Editor->StyledText.length() == 0) || (!firstSet))
 	{
-		if (!firstSet)
+		if (false && !firstSet)
 		{
 			const CharStyle& curstyle(currItem->itemText.defaultStyle().charStyle());
 			Editor->CurrTextFill = curstyle.fillColor();
@@ -2529,7 +2529,7 @@ void StoryEditor::slotEditStyles()
 
 	AlignTools->Spal->setFormats(currDoc);
 	AlignTools->SetAlign(Editor->CurrAlign);
-	AlignTools->SetParaStyle(currItem->doc()->docParagraphStyles.find(Editor->currentParaStyle));
+	AlignTools->SetParaStyle(currItem->doc()->paragraphStyles().find(Editor->currentParaStyle));
 	connect(AlignTools, SIGNAL(newParaStyle(int)), this, SLOT(newStyle(int)));
 	connect(AlignTools, SIGNAL(newAlign(int)), this, SLOT(newAlign(int)));
 	Editor->setCursorPosition(p, i);
@@ -2552,14 +2552,14 @@ void StoryEditor::newAlign(int st)
 
 void StoryEditor::newStyle(int st)
 {
-	Editor->currentParaStyle = currDoc->docParagraphStyles[st].name();
+	Editor->currentParaStyle = currDoc->paragraphStyles()[st].name();
 	changeStyle(st);
 }
 
 
 void StoryEditor::changeStyleSB(int pa, int st)
 {
-	Editor->currentParaStyle = currDoc->docParagraphStyles[st].name();
+	Editor->currentParaStyle = currDoc->paragraphStyles()[st].name();
 	ParagraphStyle newStyle;
 	newStyle.setParent(Editor->currentParaStyle);
 
@@ -2583,20 +2583,20 @@ void StoryEditor::changeStyleSB(int pa, int st)
 	else
 	{
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
-		Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
-		Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
-		Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
-		Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
-		Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
-		Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
-		Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
-		Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
-		Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
-		Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
-		Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
-		Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
-		Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
+		Editor->CurrFont = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().font().scName();
+		Editor->CurrFontSize = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fontSize();
+		Editor->CurrentStyle = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().effects();
+		Editor->CurrTextFill = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillColor();
+		Editor->CurrTextFillSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillShade();
+		Editor->CurrTextStroke = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeShade();
+		Editor->CurrTextShadowX = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowYOffset();
+		Editor->CurrTextOutline = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruWidth();
 
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & ScStyle_Outline)
@@ -2660,20 +2660,20 @@ void StoryEditor::changeStyle(int )
 	else
 	{
 		Editor->prevFont = Editor->CurrFont;
-		Editor->CurrFont = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().font().scName();
-		Editor->CurrFontSize = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fontSize();
-		Editor->CurrentStyle = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().effects();
-		Editor->CurrTextFill = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillColor();
-		Editor->CurrTextFillSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().fillShade();
-		Editor->CurrTextStroke = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeColor();
-		Editor->CurrTextStrokeSh = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strokeShade();
-		Editor->CurrTextShadowX = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowXOffset();
-		Editor->CurrTextShadowY = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().shadowYOffset();
-		Editor->CurrTextOutline = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().outlineWidth();
-		Editor->CurrTextUnderPos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineOffset();
-		Editor->CurrTextUnderWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().underlineWidth();
-		Editor->CurrTextStrikePos = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruOffset();
-		Editor->CurrTextStrikeWidth = currDoc->docParagraphStyles[Editor->currentParaStyle].charStyle().strikethruWidth();
+		Editor->CurrFont = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().font().scName();
+		Editor->CurrFontSize = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fontSize();
+		Editor->CurrentStyle = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().effects();
+		Editor->CurrTextFill = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillColor();
+		Editor->CurrTextFillSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().fillShade();
+		Editor->CurrTextStroke = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeColor();
+		Editor->CurrTextStrokeSh = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strokeShade();
+		Editor->CurrTextShadowX = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowXOffset();
+		Editor->CurrTextShadowY = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().shadowYOffset();
+		Editor->CurrTextOutline = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().outlineWidth();
+		Editor->CurrTextUnderPos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineOffset();
+		Editor->CurrTextUnderWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().underlineWidth();
+		Editor->CurrTextStrikePos = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruOffset();
+		Editor->CurrTextStrikeWidth = currDoc->paragraphStyles()[Editor->currentParaStyle].charStyle().strikethruWidth();
 
 		Editor->setStyle(Editor->CurrentStyle);
 		if (Editor->CurrentStyle & ScStyle_Outline)

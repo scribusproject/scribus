@@ -560,7 +560,9 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			if(pg.tagName()=="STYLE")
 			{
 				readParagraphStyle(vg, pg, m_Doc);
-				m_Doc->docParagraphStyles.create(vg);
+				StyleSet<ParagraphStyle> temp;
+				temp.create(vg);
+				m_Doc->redefineStyles(temp, false);
 				DoVorl[VorlC] = vg.name();
 				++VorlC;
 			}
@@ -941,7 +943,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				if (pg.tagName()=="PAGEOBJECT")
 				{
 					itemRemap[itemCount++] = m_Doc->Items->count();
-					// first of linked chain?
+					// member of linked chain?
 					if ((pg.attribute("NEXTITEM").toInt() != -1) )
 					{
 						itemNext[m_Doc->Items->count()] = pg.attribute("NEXTITEM").toInt();
@@ -1410,54 +1412,54 @@ bool Scribus13Format::saveFile(const QString & fileName, const FileFormat & /* f
 	}
 //	if (m_Doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 0; ff < m_Doc->docParagraphStyles.count(); ++ff)
+		for (uint ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
-			fo.setAttribute("NAME",m_Doc->docParagraphStyles[ff].name());
-			fo.setAttribute("ALIGN",m_Doc->docParagraphStyles[ff].alignment());
-			fo.setAttribute("LINESPMode",m_Doc->docParagraphStyles[ff].lineSpacingMode());
-			fo.setAttribute("LINESP",m_Doc->docParagraphStyles[ff].lineSpacing());
-			fo.setAttribute("INDENT",m_Doc->docParagraphStyles[ff].leftMargin());
-			fo.setAttribute("RMARGIN",m_Doc->docParagraphStyles[ff].rightMargin());
-			fo.setAttribute("FIRST",m_Doc->docParagraphStyles[ff].firstIndent());
-			fo.setAttribute("VOR",m_Doc->docParagraphStyles[ff].gapBefore());
-			fo.setAttribute("NACH",m_Doc->docParagraphStyles[ff].gapAfter());
-			fo.setAttribute("FONT",m_Doc->docParagraphStyles[ff].charStyle().font().scName());
-			fo.setAttribute("FONTSIZE",m_Doc->docParagraphStyles[ff].charStyle().fontSize() / 10.0);
-			fo.setAttribute("DROP", static_cast<int>(m_Doc->docParagraphStyles[ff].hasDropCap()));
-			fo.setAttribute("DROPLIN", m_Doc->docParagraphStyles[ff].dropCapLines());
-			fo.setAttribute("DROPDIST", m_Doc->docParagraphStyles[ff].dropCapOffset());
-			fo.setAttribute("EFFECT", m_Doc->docParagraphStyles[ff].charStyle().effects());
-			if (m_Doc->docParagraphStyles[ff].tabValues().count() != 0)
+			fo.setAttribute("NAME",m_Doc->paragraphStyles()[ff].name());
+			fo.setAttribute("ALIGN",m_Doc->paragraphStyles()[ff].alignment());
+			fo.setAttribute("LINESPMode",m_Doc->paragraphStyles()[ff].lineSpacingMode());
+			fo.setAttribute("LINESP",m_Doc->paragraphStyles()[ff].lineSpacing());
+			fo.setAttribute("INDENT",m_Doc->paragraphStyles()[ff].leftMargin());
+			fo.setAttribute("RMARGIN",m_Doc->paragraphStyles()[ff].rightMargin());
+			fo.setAttribute("FIRST",m_Doc->paragraphStyles()[ff].firstIndent());
+			fo.setAttribute("VOR",m_Doc->paragraphStyles()[ff].gapBefore());
+			fo.setAttribute("NACH",m_Doc->paragraphStyles()[ff].gapAfter());
+			fo.setAttribute("FONT",m_Doc->paragraphStyles()[ff].charStyle().font().scName());
+			fo.setAttribute("FONTSIZE",m_Doc->paragraphStyles()[ff].charStyle().fontSize() / 10.0);
+			fo.setAttribute("DROP", static_cast<int>(m_Doc->paragraphStyles()[ff].hasDropCap()));
+			fo.setAttribute("DROPLIN", m_Doc->paragraphStyles()[ff].dropCapLines());
+			fo.setAttribute("DROPDIST", m_Doc->paragraphStyles()[ff].dropCapOffset());
+			fo.setAttribute("EFFECT", m_Doc->paragraphStyles()[ff].charStyle().effects());
+			if (m_Doc->paragraphStyles()[ff].tabValues().count() != 0)
 			{
-				for (uint a = 0; a < m_Doc->docParagraphStyles[ff].tabValues().count(); ++a)
+				for (uint a = 0; a < m_Doc->paragraphStyles()[ff].tabValues().count(); ++a)
 				{
 					QDomElement tabs = docu.createElement("Tabs");
-					tabs.setAttribute("Type", (*m_Doc->docParagraphStyles[ff].tabValues().at(a)).tabType);
-					tabs.setAttribute("Pos", (*m_Doc->docParagraphStyles[ff].tabValues().at(a)).tabPosition);
+					tabs.setAttribute("Type", (*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabType);
+					tabs.setAttribute("Pos", (*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabPosition);
 					QString tabCh = "";
-					if (!(*m_Doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar.isNull())
-						tabCh = QString((*m_Doc->docParagraphStyles[ff].tabValues().at(a)).tabFillChar);
+					if (!(*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabFillChar.isNull())
+						tabCh = QString((*m_Doc->paragraphStyles()[ff].tabValues().at(a)).tabFillChar);
 					tabs.setAttribute("Fill", tabCh);
 					fo.appendChild(tabs);
 				}
 			}
-			fo.setAttribute("FCOLOR",m_Doc->docParagraphStyles[ff].charStyle().fillColor());
-			fo.setAttribute("FSHADE",m_Doc->docParagraphStyles[ff].charStyle().fillShade());
-			fo.setAttribute("SCOLOR",m_Doc->docParagraphStyles[ff].charStyle().strokeColor());
-			fo.setAttribute("SSHADE",m_Doc->docParagraphStyles[ff].charStyle().strokeShade());
-			fo.setAttribute("BASE", static_cast<int>(m_Doc->docParagraphStyles[ff].useBaselineGrid()));
-			fo.setAttribute("TXTSHX",m_Doc->docParagraphStyles[ff].charStyle().shadowXOffset() / 10.0);
-			fo.setAttribute("TXTSHY",m_Doc->docParagraphStyles[ff].charStyle().shadowYOffset() / 10.0);
-			fo.setAttribute("TXTOUT",m_Doc->docParagraphStyles[ff].charStyle().outlineWidth() / 10.0);
-			fo.setAttribute("TXTULP",m_Doc->docParagraphStyles[ff].charStyle().underlineOffset() / 10.0);
-			fo.setAttribute("TXTULW",m_Doc->docParagraphStyles[ff].charStyle().underlineWidth() / 10.0);
-			fo.setAttribute("TXTSTP",m_Doc->docParagraphStyles[ff].charStyle().strikethruOffset() / 10.0);
-			fo.setAttribute("TXTSTW",m_Doc->docParagraphStyles[ff].charStyle().strikethruWidth() / 10.0);
-			fo.setAttribute("SCALEH",m_Doc->docParagraphStyles[ff].charStyle().scaleH() / 10.0);
-			fo.setAttribute("SCALEV",m_Doc->docParagraphStyles[ff].charStyle().scaleV() / 10.0);
-			fo.setAttribute("BASEO",m_Doc->docParagraphStyles[ff].charStyle().baselineOffset() / 10.0);
-			fo.setAttribute("KERN",m_Doc->docParagraphStyles[ff].charStyle().tracking() / 10.0);
+			fo.setAttribute("FCOLOR",m_Doc->paragraphStyles()[ff].charStyle().fillColor());
+			fo.setAttribute("FSHADE",m_Doc->paragraphStyles()[ff].charStyle().fillShade());
+			fo.setAttribute("SCOLOR",m_Doc->paragraphStyles()[ff].charStyle().strokeColor());
+			fo.setAttribute("SSHADE",m_Doc->paragraphStyles()[ff].charStyle().strokeShade());
+			fo.setAttribute("BASE", static_cast<int>(m_Doc->paragraphStyles()[ff].useBaselineGrid()));
+			fo.setAttribute("TXTSHX",m_Doc->paragraphStyles()[ff].charStyle().shadowXOffset() / 10.0);
+			fo.setAttribute("TXTSHY",m_Doc->paragraphStyles()[ff].charStyle().shadowYOffset() / 10.0);
+			fo.setAttribute("TXTOUT",m_Doc->paragraphStyles()[ff].charStyle().outlineWidth() / 10.0);
+			fo.setAttribute("TXTULP",m_Doc->paragraphStyles()[ff].charStyle().underlineOffset() / 10.0);
+			fo.setAttribute("TXTULW",m_Doc->paragraphStyles()[ff].charStyle().underlineWidth() / 10.0);
+			fo.setAttribute("TXTSTP",m_Doc->paragraphStyles()[ff].charStyle().strikethruOffset() / 10.0);
+			fo.setAttribute("TXTSTW",m_Doc->paragraphStyles()[ff].charStyle().strikethruWidth() / 10.0);
+			fo.setAttribute("SCALEH",m_Doc->paragraphStyles()[ff].charStyle().scaleH() / 10.0);
+			fo.setAttribute("SCALEV",m_Doc->paragraphStyles()[ff].charStyle().scaleV() / 10.0);
+			fo.setAttribute("BASEO",m_Doc->paragraphStyles()[ff].charStyle().baselineOffset() / 10.0);
+			fo.setAttribute("KERN",m_Doc->paragraphStyles()[ff].charStyle().tracking() / 10.0);
 			dc.appendChild(fo);
 		}
 	}
@@ -2568,7 +2570,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 			}
 			if(pg.tagName()=="STYLE")
 			{
-				GetStyle(&pg, &vg, m_Doc->docParagraphStyles, m_Doc, true);
+				GetStyle(&pg, &vg, NULL, m_Doc, true);
 				VorLFound = true;
 			}
 			if(pg.tagName()=="JAVA")
@@ -2825,7 +2827,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					Neu->gHeight = pg.attribute("gHeight",defaultVal).toDouble();
 /*					if (Neu->lineSpacingMode() == 3)
 					{
-						m_Doc->docParagraphStyles[0].setUseBaselineGrid(true);
+						m_Doc->paragraphStyles()[0].setUseBaselineGrid(true);
 						Neu->setLineSpacing(m_Doc->typographicSettings.valueBaseGrid-1);
 					}
 */
@@ -2929,12 +2931,13 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 	return true;
 }
 
-void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl)
+void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl)
 {
 	bool fou;
 	QString tmpf, tmf, tmV;
 	fou = false;
 	readParagraphStyle(*vg, *pg, doc);
+	const StyleSet<ParagraphStyle> & docParagraphStyles(tempParagraphStyles? *tempParagraphStyles : doc->paragraphStyles());
 	for (uint xx=0; xx<docParagraphStyles.count(); ++xx)
 	{
 		if (vg->name() == docParagraphStyles[xx].name())
@@ -2975,7 +2978,13 @@ void Scribus13Format::GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<Par
 	}
 	if (!fou)
 	{
-		docParagraphStyles.create(*vg);
+		if (tempParagraphStyles)
+			tempParagraphStyles->create(*vg);
+		else {
+			StyleSet<ParagraphStyle> temp;
+			temp.create(*vg);
+			doc->redefineStyles(temp, false);
+		}
 		if (fl)
 		{
 			DoVorl[VorlC] = vg->name();
@@ -3035,7 +3044,7 @@ bool Scribus13Format::readStyles(const QString& fileName, ScribusDoc* doc, Style
 		{
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="STYLE")
-				GetStyle(&pg, &vg, docParagraphStyles, doc, false);
+				GetStyle(&pg, &vg, &docParagraphStyles, doc, false);
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();

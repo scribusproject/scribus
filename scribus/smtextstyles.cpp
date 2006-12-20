@@ -152,7 +152,7 @@ QValueList<CharStyle> SMParagraphStyle::getCharStyles()
 	if (!doc_)
 		return charStyles; // no doc available
 
-	StyleSet<CharStyle> &tmp = doc_->docCharStyles;
+	const StyleSet<CharStyle> &tmp(doc_->charStyles());
 	for (uint i = 0; i < tmp.count(); ++i)
 		charStyles.append(tmp[i]);
 	return charStyles;
@@ -257,7 +257,7 @@ void SMParagraphStyle::apply()
 	for (uint i = 0; i < deleted_.count(); ++i)
 		replacement[deleted_[i].first] = deleted_[i].second;
 
-	doc_->docParagraphStyles.redefine(tmpStyles_, true);
+	doc_->redefineStyles(tmpStyles_, true);
 
 	//FIXME replace deleted styles in doc
 
@@ -383,7 +383,7 @@ void SMParagraphStyle::reloadTmpStyles()
 	selection_.clear();
 	tmpStyles_.clear();
 	deleted_.clear();
-	tmpStyles_.redefine(doc_->docParagraphStyles, true);
+	tmpStyles_.redefine(doc_->paragraphStyles(), true);
 	Q_ASSERT(tmpStyles_.count() > 0);
 	tmpStyles_[0].charStyle().setBase(cstyles_);
 }
@@ -972,7 +972,7 @@ void SMParagraphStyle::slotStrokeShade()
 void SMParagraphStyle::slotLanguage()
 {
 	QMap<QString,QString>::Iterator it;
-	QString language = doc_->docParagraphStyles[""].charStyle().language();
+	QString language = doc_->paragraphStyle("").charStyle().language();
 
 	if (pwidget_->cpage->language_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)
@@ -1119,8 +1119,7 @@ void SMParagraphStyle::slotParentChanged(const QString &parent)
 
 	for (uint i = 0; i < selection_.count(); ++i)
 	{
-		const ParagraphStyle *style =
-		    dynamic_cast<const ParagraphStyle*>(doc_->docParagraphStyles.resolve(parent));
+		const ParagraphStyle *style = & (doc_->paragraphStyle(parent));
 		if (style)
 		{
 			selection_[i]->erase(); // reset everything to NOVALUE
@@ -1273,7 +1272,7 @@ void SMCharacterStyle::selected(const QStringList &styleNames)
 
 	}
 
-	page_->show(selection_, cstyles, doc_->docParagraphStyles[""].charStyle().language());
+	page_->show(selection_, cstyles, doc_->paragraphStyle("").charStyle().language());
 	setupConnections();
 }
 
@@ -1313,7 +1312,7 @@ void SMCharacterStyle::toSelection(const QString &styleName) const
 
 QString SMCharacterStyle::newStyle()
 {
-	Q_ASSERT(doc_ && doc_->docParagraphStyles.count() > 0);
+	Q_ASSERT(doc_ && doc_->paragraphStyles().count() > 0);
 
 	QString s = getUniqueName( tr("New Style"));
 	CharStyle c;
@@ -1370,7 +1369,7 @@ void SMCharacterStyle::apply()
 		return;
 
 	deleted_.clear();
-	doc_->docCharStyles.redefine(tmpStyles_, true);
+	doc_->redefineCharStyles(tmpStyles_, true);
 }
 
 void SMCharacterStyle::editMode(bool isOn)
@@ -1452,7 +1451,7 @@ void SMCharacterStyle::reloadTmpStyles()
 
 	selection_.clear();
 	tmpStyles_.clear();
-	tmpStyles_.redefine(doc_->docCharStyles, true);
+	tmpStyles_.redefine(doc_->charStyles(), true);
 }
 
 void SMCharacterStyle::setupConnections()
@@ -1739,7 +1738,7 @@ void SMCharacterStyle::slotStrokeShade()
 void SMCharacterStyle::slotLanguage()
 {
 	QMap<QString,QString>::Iterator it;
-	QString language = doc_->docParagraphStyles[""].charStyle().language();
+	QString language = doc_->paragraphStyle("").charStyle().language();
 
 	if (page_->language_->useParentValue())
 		for (uint i = 0; i < selection_.count(); ++i)

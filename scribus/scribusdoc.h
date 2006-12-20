@@ -364,15 +364,45 @@ public:
 	//Items
 	bool deleteTaggedItems();
 
-	bool AddFont(QString name, int fsize = 10);
+	/*!
+		* @brief Builds a qmap of the icc profiles used within the document
+	 */
+	void getUsedProfiles(ProfilesL& usedProfiles);
 	bool OpenCMSProfiles(ProfilesL InPo, ProfilesL InPoCMYK, ProfilesL MoPo, ProfilesL PrPo);
 	void CloseCMSProfiles();
 	/**
-	 * @brief Switched Colormanagement on or of
+	 * @brief Switch Colormanagement on or of
 	 * @param enable bool, if true Colormanagement is switched on, else off
 	 */
 	void enableCMS(bool enable);
+	
+	const ParagraphStyle& paragraphStyle(QString name) { return docParagraphStyles[name]; }
+	const StyleSet<ParagraphStyle>& paragraphStyles()   { return docParagraphStyles; }
+	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false)
+	{
+		docParagraphStyles.redefine(newStyles, removeUnused);
+	}
+	/**
+	 * @brief Remove any reference to old styles and replace with new name. This needs to be
+	 *        called when a style was removed. New name may be "".
+	 * @param newNameForOld a map which maps the name of any style to remove to a new stylename
+	 */
+	void replaceStyles(QMap<QString,QString> newNameForOld);
 	void loadStylesFromFile(QString fileName, QValueList<ParagraphStyle> *tempStyles = NULL);
+
+	const CharStyle& charStyle(QString name) { return docCharStyles[name]; }
+	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }
+	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false)
+	{
+		docCharStyles.redefine(newStyles, removeUnused);
+	}
+	/**
+	 * @brief Remove any reference to old styles and replace with new name. This needs to be
+	 *        called when a style was removed. New name may be "".
+	 * @param newNameForOld a map which maps the name of any style to remove to a new stylename
+	 */
+	void replaceCharStyles(QMap<QString,QString> newNameForOld);
+
 	/**
 	 * @brief Should guides be locked or not
 	 * @param isLocked If true guides on pages cannot be moved if false they
@@ -398,6 +428,7 @@ public:
 	 */
 	QStringList getItemAttributeNames();
 
+	bool AddFont(QString name, int fsize = 10);
 	/*!
 	 * @brief Returns a qmap of the fonts and  their glyphs used within the document
 	 */
@@ -418,10 +449,6 @@ public:
 	QStringList getUsedPatterns();
 	QStringList getUsedPatternsSelection();
 	QStringList getUsedPatternsHelper(QString pattern, QStringList &results);
-	/*!
-	* @brief Builds a qmap of the icc profiles used within the document
-	*/
-	void getUsedProfiles(ProfilesL& usedProfiles);
 	/*!
 	 * @brief TODO: Reorganise the fonts.. how? Moved from scribus.cpp
 	 */
@@ -853,8 +880,10 @@ public: // Public attributes
 	PageItem *DraggedElem;
 	PageItem *ElemToLink;
 	QValueList<uint> DragElements;
+private:
 	StyleSet<ParagraphStyle> docParagraphStyles;
 	StyleSet<CharStyle> docCharStyles;
+public:
 	QValueList<Layer> Layers;
 	bool marginColored;
 	int GroupCounter;

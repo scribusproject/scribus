@@ -138,7 +138,7 @@ void gtAction::write(const QString& text, gtStyle *style)
 	gtFont* font = style->getFont();
 	QString fontName = validateFont(font).scName();
 	gtFont font2(*font);
-	font2.setName(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font().scName());
+	font2.setName(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font().scName());
 	QString fontName2 = validateFont(&font2).scName();
 	CharStyle lastStyle;
 	int lastStyleStart = 0;
@@ -152,16 +152,16 @@ void gtAction::write(const QString& text, gtStyle *style)
 			ch = QChar(13);
 		if ((inPara) && (!overridePStyleFont))
 		{
-			if (textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font().isNone())
+			if (textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font().isNone())
 				newStyle.setFont((*textFrame->doc()->AllFonts)[fontName2]);
 			else
-				newStyle.setFont(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().font());
-			newStyle.setFontSize(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().fontSize());
-			newStyle.setFillColor(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().fillColor());
-			newStyle.setFillShade(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().fillShade());
-			newStyle.setStrokeColor(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().strokeColor());
-			newStyle.setStrokeShade(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().strokeShade());
-			newStyle.setEffects(textFrame->doc()->docParagraphStyles[paragraphStyle].charStyle().effects());
+				newStyle.setFont(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().font());
+			newStyle.setFontSize(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fontSize());
+			newStyle.setFillColor(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fillColor());
+			newStyle.setFillShade(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().fillShade());
+			newStyle.setStrokeColor(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().strokeColor());
+			newStyle.setStrokeShade(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().strokeShade());
+			newStyle.setEffects(textFrame->doc()->paragraphStyles()[paragraphStyle].charStyle().effects());
 		}
 		else
 		{
@@ -192,11 +192,11 @@ void gtAction::write(const QString& text, gtStyle *style)
 			lastStyleStart = pos;
 		}
 		if (ch == SpecialChars::PARSEP) {
-			it->itemText.applyStyle(pos, textFrame->doc()->docParagraphStyles[paragraphStyle]);
+			it->itemText.applyStyle(pos, textFrame->doc()->paragraphStyles()[paragraphStyle]);
 		}
 	}
 	it->itemText.applyCharStyle(lastStyleStart, it->itemText.length()-lastStyleStart, lastStyle);
-	it->itemText.applyStyle(QMAX(0,it->itemText.length()-1), textFrame->doc()->docParagraphStyles[paragraphStyle]);
+	it->itemText.applyStyle(QMAX(0,it->itemText.length()-1), textFrame->doc()->paragraphStyles()[paragraphStyle]);
 	
 	lastCharWasLineChange = text.right(1) == "\n";
 	inPara = style->target() == "paragraph";
@@ -213,9 +213,9 @@ int gtAction::findParagraphStyle(gtParagraphStyle* pstyle)
 int gtAction::findParagraphStyle(const QString& name)
 {
 	int pstyleIndex = -1;
-	for (uint i = 0; i < textFrame->doc()->docParagraphStyles.count(); ++i)
+	for (uint i = 0; i < textFrame->doc()->paragraphStyles().count(); ++i)
 	{
-		if (textFrame->doc()->docParagraphStyles[i].name() == name)
+		if (textFrame->doc()->paragraphStyles()[i].name() == name)
 		{
 			pstyleIndex = i;
 			break;
@@ -230,7 +230,7 @@ int gtAction::applyParagraphStyle(gtParagraphStyle* pstyle)
 	if (pstyleIndex == -1)
 	{
 		createParagraphStyle(pstyle);
-		pstyleIndex = textFrame->doc()->docParagraphStyles.count() - 1;
+		pstyleIndex = textFrame->doc()->paragraphStyles().count() - 1;
 	}
 	else if (updateParagraphStyles)
 	{
@@ -325,9 +325,9 @@ void gtAction::getFrameStyle(gtFrameStyle *fstyle)
 void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 {
 	ScribusDoc* currDoc=textFrame->doc();
-	for (uint i = 0; i < currDoc->docParagraphStyles.count(); ++i)
+	for (uint i = 0; i < currDoc->paragraphStyles().count(); ++i)
 	{
-		if (currDoc->docParagraphStyles[i].name() == pstyle->getName())
+		if (currDoc->paragraphStyles()[i].name() == pstyle->getName())
 			return;
 	}
 	gtFont* font = pstyle->getFont();
@@ -368,7 +368,11 @@ void gtAction::createParagraphStyle(gtParagraphStyle* pstyle)
 	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
 	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
 	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
-	textFrame->doc()->docParagraphStyles.create(vg);
+
+	StyleSet<ParagraphStyle> tmp;
+	tmp.create(vg);
+	textFrame->doc()->redefineStyles(tmp, false);
+	
 	m_ScMW->propertiesPalette->Spal->updateFormatList();
 }
 
@@ -381,7 +385,9 @@ void gtAction::removeParagraphStyle(const QString& name)
 
 void gtAction::removeParagraphStyle(int index)
 {
-	textFrame->doc()->docParagraphStyles.remove(index);
+	QMap<QString, QString> map;
+	map[textFrame->doc()->paragraphStyles()[index].name()] = "";
+	textFrame->doc()->replaceStyles(map);
 }
 
 void gtAction::updateParagraphStyle(const QString&, gtParagraphStyle* pstyle)
@@ -431,7 +437,15 @@ void gtAction::updateParagraphStyle(int pstyleIndex, gtParagraphStyle* pstyle)
 	vg.charStyle().setUnderlineWidth(textFrame->doc()->typographicSettings.valueUnderlineWidth);
 	vg.charStyle().setStrikethruOffset(textFrame->doc()->typographicSettings.valueStrikeThruPos);
 	vg.charStyle().setStrikethruWidth(textFrame->doc()->typographicSettings.valueStrikeThruPos);
-	textFrame->doc()->docParagraphStyles[pstyleIndex] = vg;
+	StyleSet<ParagraphStyle> tmp;
+	tmp.create(vg);
+	textFrame->doc()->redefineStyles(tmp, false);
+	if (vg.name() != textFrame->doc()->paragraphStyles()[pstyleIndex].name())
+	{
+		QMap<QString, QString> map;
+		map[textFrame->doc()->paragraphStyles()[pstyleIndex].name()] = vg.name();
+		textFrame->doc()->replaceStyles(map);
+	}
 }
 
 ScFace gtAction::validateFont(gtFont* font)

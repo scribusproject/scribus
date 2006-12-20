@@ -546,10 +546,10 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		bool found = false;
 		uint styleid = 0;
 		// We start at zero here because it's OK to match an internal name
-		uint docParagraphStylesCount=ScCore->primaryMainWindow()->doc->docParagraphStyles.count();
+		uint docParagraphStylesCount=ScCore->primaryMainWindow()->doc->paragraphStyles().count();
 		for (uint i=0; i < docParagraphStylesCount; ++i)
 		{
-			if (ScCore->primaryMainWindow()->doc->docParagraphStyles[i].name() == QString::fromUtf8(style)) {
+			if (ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name() == QString::fromUtf8(style)) {
 				found = true;
 				styleid = i;
 				break;
@@ -577,7 +577,7 @@ PyObject *scribus_setstyle(PyObject* /* self */, PyObject* args)
 		{
 			int mode = ScCore->primaryMainWindow()->doc->appMode;
 			ScCore->primaryMainWindow()->doc->appMode = modeNormal;
-			ScCore->primaryMainWindow()->doc->itemSelection_ApplyParagraphStyle(ScCore->primaryMainWindow()->doc->docParagraphStyles[styleid]);
+			ScCore->primaryMainWindow()->doc->itemSelection_ApplyParagraphStyle(ScCore->primaryMainWindow()->doc->paragraphStyles()[styleid]);
 			ScCore->primaryMainWindow()->doc->appMode = mode;
 		}
 	}
@@ -600,14 +600,9 @@ PyObject *scribus_getstylenames(PyObject* /* self */)
 	if(!checkHaveDocument())
 		return NULL;
 	styleList = PyList_New(0);
-	/*
-	We start at 5 because the lower styles are internal names.
-	pv - changet to get all (with system) objects
-	FIXME: this should be a constant defined by the scribus core
-	*/
-	for (uint i=0; i < ScCore->primaryMainWindow()->doc->docParagraphStyles.count(); ++i)
+	for (uint i=0; i < ScCore->primaryMainWindow()->doc->paragraphStyles().count(); ++i)
 	{
-		if (PyList_Append(styleList, PyString_FromString(ScCore->primaryMainWindow()->doc->docParagraphStyles[i].name().utf8())))
+		if (PyList_Append(styleList, PyString_FromString(ScCore->primaryMainWindow()->doc->paragraphStyles()[i].name().utf8())))
 		{
 			// An exception will have already been set by PyList_Append apparently.
 			return NULL;

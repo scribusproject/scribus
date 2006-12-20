@@ -97,8 +97,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		SStyleVal->insertItem(tmp_sty[a]);
 //	if (doc->docParagraphStyles.count() >5)
 	{
-		for (uint x = 0; x < doc->docParagraphStyles.count(); ++x)
-			SStyleVal->insertItem(doc->docParagraphStyles[x].name());
+		for (uint x = 0; x < doc->paragraphStyles().count(); ++x)
+			SStyleVal->insertItem(doc->paragraphStyles()[x].name());
 	}
 	SStyleVal->listBox()->setMinimumWidth(SStyleVal->listBox()->maxItemWidth()+24);
 	SStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
@@ -185,8 +185,8 @@ SearchReplace::SearchReplace( QWidget* parent, ScribusDoc *doc, PageItem* ite, b
 		RStyleVal->insertItem(tmp_sty[a]);
 //	if (doc->docParagraphStyles.count() > 5)
 	{
-		for (uint x = 5; x < doc->docParagraphStyles.count(); ++x)
-			RStyleVal->insertItem(doc->docParagraphStyles[x].name());
+		for (uint x = 5; x < doc->paragraphStyles().count(); ++x)
+			RStyleVal->insertItem(doc->paragraphStyles()[x].name());
 	}
 	RStyleVal->listBox()->setMinimumWidth(RStyleVal->listBox()->maxItemWidth()+24);
 	RStyleVal->setCurrentItem(findParagraphStyle(doc, doc->currentStyle));
@@ -743,7 +743,7 @@ void SearchReplace::slotDoReplace()
 			}
 		}
 		if (RStyle->isChecked())
-			Doc->itemSelection_ApplyParagraphStyle(Doc->docParagraphStyles[RStyleVal->currentItem()]);
+			Doc->itemSelection_SetNamedParagraphStyle(Doc->paragraphStyles()[RStyleVal->currentItem()].name());
 		if (RFill->isChecked())
 			Doc->itemSelection_SetFillColor(RFillVal->currentText());
 		if (RFillS->isChecked())

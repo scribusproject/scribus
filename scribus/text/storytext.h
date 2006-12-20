@@ -116,7 +116,9 @@ struct LineSpec
  	void applyStyle(int pos, const ParagraphStyle& style);
  	void eraseCharStyle(int pos, uint len, const CharStyle& style);
  	void eraseStyle(int pos, const ParagraphStyle& style);
-
+	void replaceStyles(QMap<QString,QString> newNameForOld);
+	void replaceCharStyles(QMap<QString,QString> newNameForOld);
+	
  	uint nrOfParagraphs() const;
  	int startOfParagraph(uint index) const;
  	int endOfParagraph(uint index) const;
@@ -174,8 +176,11 @@ struct LineSpec
 	/// layouts the text -- FIXME: better interface for this
  	int layout(int startItem);
  	uint nrOfItems() const;
+//private:
  	ScText * item(uint index);
  	const ScText * item(uint index) const;
+public:
+	ScText * item_p(uint index) { return item(index); }
 //	void bidiReorder(uint firstItem, uint lastItem, uint indices[]) const;
   	/** returns the Unicode string which belongs to this ScScriptItem */
  	const QString itemText(uint index) const;

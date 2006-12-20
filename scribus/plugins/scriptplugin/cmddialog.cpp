@@ -114,19 +114,19 @@ PyObject *scribus_newstyledialog(PyObject*, PyObject* args)
 	series.
 	It simulates user mouse clicking in the style dialogs. Ugly.
 	Unpleasant. Etc. But working. */
-	uint styleCount = ScCore->primaryMainWindow()->doc->docParagraphStyles.count();
+	uint styleCount = ScCore->primaryMainWindow()->doc->paragraphStyles().count();
 	StilFormate *dia2 = new StilFormate(ScCore->primaryMainWindow(), ScCore->primaryMainWindow()->doc);
 	QApplication::setOverrideCursor(QCursor(Qt::ArrowCursor));
 	dia2->neuesFormat();
 	QApplication::restoreOverrideCursor();
 	ScCore->primaryMainWindow()->saveStyles(dia2);
 	delete dia2;
-	if (styleCount == ScCore->primaryMainWindow()->doc->docParagraphStyles.count())
+	if (styleCount == ScCore->primaryMainWindow()->doc->paragraphStyles().count())
 	{
 		Py_INCREF(Py_None);
 		return Py_None;
 	}
-	return PyString_FromString(ScCore->primaryMainWindow()->doc->docParagraphStyles[ScCore->primaryMainWindow()->doc->docParagraphStyles.count() - 1].name().utf8());
+	return PyString_FromString(ScCore->primaryMainWindow()->doc->paragraphStyles()[ScCore->primaryMainWindow()->doc->paragraphStyles().count() - 1].name().utf8());
 }
 
 /*! HACK: this removes "warning: 'blash' defined but not used" compiler warnings

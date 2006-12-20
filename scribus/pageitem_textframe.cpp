@@ -563,7 +563,6 @@ void PageItem_TextFrame::layout()
 					uint glyph2 = charStyle.font().char2CMap(itemText.text(a+1));
 					double kern= charStyle.font().glyphKerning(hl->glyph.glyph, glyph2, chs / 10.0) * hl->glyph.scaleH;
 					wide += kern;
-					hl->glyph.xoffset += kern;
 					hl->glyph.xadvance += kern;
 				}
 			}
@@ -2273,8 +2272,8 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		if ( (pos = CPos) == firstInFrame() )
 			break; // at begin of frame
 		len = lastInFrame();
-		if ( pos == len )
-			pos--;
+		if ( pos >= len )
+			pos = len-1;
 		if ( (buttonState & ControlButton) == 0 )
 		{
 			alty =  itemText.item(pos)->glyph.yoffset;
@@ -2393,39 +2392,15 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if (CPos != lastInFrame())
 			{
 				bool down1=false;
-				double newy;
-				newy = alty = itemText.item(CPos)->glyph.yoffset;
-				altx = itemText.item(CPos)->glyph.xoffset;
-				do
+				FRect oldBB = itemText.boundingBox(CPos);
+				double newY = oldBB.y() + oldBB.height();
+				double newX = oldBB.x();
+				if (newY > height() - TExtra && newX < width() - RExtra - columnWidth())
 				{
-					++CPos;
-					if (CPos == lastInFrame())
-						break;
-					//CB #3088 Catch some funny empty lines. still testing, currently causes to go to start/end of lines incorrectly
-					//if ((CPos < static_cast<int>(itemText.count())-1) && itemText.at(CPos+1)->ch[0].digitValue()==-1 && itemText.at(CPos)->ch[0].digitValue()==-1 && itemText.at(CPos)->glyph.xoffset == altx && itemText.at(CPos)->glyph.yoffset == alty)
-					//	break;
-					if (itemText.item(CPos)->glyph.yoffset > alty)
-					{
-						if (down1 && itemText.item(CPos)->glyph.yoffset > newy)
-						{
-							--CPos;
-							break;
-						}
-						if (itemText.item(CPos)->glyph.xoffset >= altx)
-							break;
-						down1=true;
-					}
-					//CB Make the cursor move forward a column
-					if (itemText.item(CPos)->glyph.yoffset < alty)
-					{
-						double newX=altx+columnWidth();
-						while (itemText.item(CPos)->glyph.xoffset<newX && CPos < lastInFrame()-1)
-							++CPos;
-						break;
-					}
-					newy=itemText.item(CPos)->glyph.yoffset;
+					newY = TExtra;
+					newX += columnWidth();
 				}
-				while (CPos < lastInFrame());
+				CPos = itemText.screenToPosition(FPoint(newX, newY));
 				if ( buttonState & ShiftButton )
 				{
 					if ( buttonState & AltButton )
@@ -2494,33 +2469,15 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			{
 				if (CPos == lastInFrame() || CPos >= itemText.length())
 					--CPos;
-				alty = itemText.item(CPos)->glyph.yoffset;
-				altx = itemText.item(CPos)->glyph.xoffset;
-				if (CPos > firstInFrame())
+				FRect oldBB = itemText.boundingBox(CPos);
+				double newY = oldBB.y() - oldBB.height();
+				double newX = oldBB.x();
+				if (newY < TExtra && newX > columnWidth() + Extra)
 				{
-					do
-					{
-						--CPos;
-						if (CPos == firstInFrame())
-							break;
-						if  ( itemText.text(CPos) == SpecialChars::PARSEP )
-							break;
-						if (itemText.item(CPos)->glyph.yoffset < alty)
-						{
-							if (itemText.item(CPos)->glyph.xoffset <= altx)
-								break;
-						}
-						//CB Make the cursor move back a column
-						if (itemText.item(CPos)->glyph.yoffset > alty)
-						{
-							double newX=altx-columnWidth();
-							while (itemText.item(CPos)->glyph.xoffset>newX && CPos > firstInFrame())
-								--CPos;
-							break;
-						}
-					}
-					while (CPos > firstInFrame());
+					newY = height() - BExtra;
+					newX -= columnWidth();
 				}
+				CPos = itemText.screenToPosition(FPoint(newX, newY));
 				if ( buttonState & ShiftButton )
 				{
 					if ( buttonState & AltButton )

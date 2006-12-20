@@ -378,10 +378,10 @@ void Scribus134Format::writePStyles(QDomDocument & docu)
 
 	//	if (m_Doc->docParagraphStyles.count() > 5)
 	{
-		for (uint ff = 0; ff < m_Doc->docParagraphStyles.count(); ++ff)
+		for (uint ff = 0; ff < m_Doc->paragraphStyles().count(); ++ff)
 		{
 			QDomElement fo=docu.createElement("STYLE");
-			putPStyle(docu, fo, m_Doc->docParagraphStyles[ff]);
+			putPStyle(docu, fo, m_Doc->paragraphStyles()[ff]);
 			dc.appendChild(fo);
 		}
 	}
@@ -442,10 +442,10 @@ void Scribus134Format::writeCStyles(QDomDocument & docu)
 {
 	QDomElement dc=docu.documentElement().firstChild().toElement();
 	
-	for (uint ff = 0; ff < m_Doc->docCharStyles.count(); ++ff)
+	for (uint ff = 0; ff < m_Doc->charStyles().count(); ++ff)
 	{
 		QDomElement fo=docu.createElement("CHARSTYLE");
-		putCStyle(docu, fo, m_Doc->docCharStyles[ff]);
+		putCStyle(docu, fo, m_Doc->charStyles()[ff]);
 		dc.appendChild(fo);
 	}
 }

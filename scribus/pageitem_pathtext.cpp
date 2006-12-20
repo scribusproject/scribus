@@ -124,6 +124,7 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		if ((chstr == QChar(30)) || (chstr == QChar(13)) || (chstr == QChar(9)) || (chstr == QChar(28)))
 			continue;
 		chs = hl->fontSize();
+		layoutGlyphs(itemText.charStyle(a), chstr, hl->glyph);
 //		SetZeichAttr(*hl, &chs, &chstr);		//FIXME: layoutGlyphs
 		if (chstr == QChar(29))
 			chstr2 = " ";
@@ -210,6 +211,8 @@ void PageItem_PathText::DrawObj_Item(ScPainter *p, QRect /*e*/, double sc)
 		p->save();
 		QWMatrix savWM = p->worldMatrix();
 		p->setWorldMatrix(trafo);
+		if (!m_Doc->RePos)
+			drawGlyphs(p, itemText.charStyle(a), hl->glyph);
 /*		Zli = new ZZ;
 		Zli->Zeich = chstr;
 		if (hl->fillColor() != CommonStrings::None)

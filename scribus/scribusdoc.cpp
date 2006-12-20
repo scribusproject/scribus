@@ -758,6 +758,49 @@ void ScribusDoc::enableCMS(bool enable)
 	m_ScMW->setStatusBarInfoText("");
 	m_ScMW->mainWindowProgressBar->reset();
 }
+
+
+void ScribusDoc::replaceStyles(QMap<QString,QString> newNameForOld)
+{
+	QPtrList<PageItem> * itemlist = & MasterItems;
+	while (itemlist != NULL)
+	{
+		for (int i=0; i < itemlist->count(); ++i)
+		{
+			PageItem_TextFrame * currItem = itemlist->at(i)->asTextFrame();
+			if (currItem)
+				currItem->itemText.replaceStyles(newNameForOld);
+		}
+		if (itemlist == &MasterItems)
+			itemlist = &DocItems;
+		else if (itemlist == &DocItems)
+			itemlist = &FrameItems;
+		else
+			itemlist = NULL;
+	}
+}
+
+
+void ScribusDoc::replaceCharStyles(QMap<QString,QString> newNameForOld)
+{
+	QPtrList<PageItem> * itemlist = & MasterItems;
+	while (itemlist != NULL)
+	{
+		for (int i=0; i < itemlist->count(); ++i)
+		{
+			PageItem_TextFrame * currItem = itemlist->at(i)->asTextFrame();
+			if (currItem)
+				currItem->itemText.replaceCharStyles(newNameForOld);
+		}
+		if (itemlist == &MasterItems)
+			itemlist = &DocItems;
+		else if (itemlist == &DocItems)
+			itemlist = &FrameItems;
+		else
+			itemlist = NULL;
+	}
+}
+
 /*
  * Split out from loadStyles in editFormats.cpp so it's callable from anywhere,
  * including plugins.

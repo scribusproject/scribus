@@ -178,6 +178,7 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 				(*it).plug->getReplacedFontData(newReplacement, ReplacedFonts, dummyScFaces);
 		}
 	}
+	//FIXME: this goes into scribusdoc and should work with substitutes
 	if (ReplacedFonts.count() != 0)
 	{
 		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
@@ -210,11 +211,11 @@ bool FileLoader::LoadPage(ScribusDoc* currDoc, int PageToLoad, bool Mpage, QStri
 		{
 			replaceFonts(currDoc, currDoc->FrameItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint a = 0; a < currDoc->docParagraphStyles.count(); ++a)
+		for (uint a = 0; a < currDoc->paragraphStyles().count(); ++a)
 		{
-			if ( !currDoc->docParagraphStyles[a].charStyle().font().isNone() && !currDoc->UsedFonts.contains(currDoc->docParagraphStyles[a].charStyle().font().scName()))
-				currDoc->docParagraphStyles[a].charStyle().setFont
-					((*currDoc->AllFonts)[ReplacedFonts[currDoc->docParagraphStyles[a].charStyle().font().scName()]]);
+//			if ( !currDoc->paragraphStyles()[a].charStyle().font().isNone() && !currDoc->UsedFonts.contains(currDoc->paragraphStyles()[a].charStyle().font().scName()))
+//				currDoc->paragraphStyles()[a].charStyle().setFont
+//					((*currDoc->AllFonts)[ReplacedFonts[currDoc->paragraphStyles()[a].charStyle().font().scName()]]);
 		}
 		QMap<QString,QString>::Iterator itfsu;
 		for (itfsu = ReplacedFonts.begin(); itfsu != ReplacedFonts.end(); ++itfsu)
@@ -489,6 +490,7 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 			}
 		}
 	} */
+	//FIXME: this goes into scribusdoc and should work with substitutes
 	if (ReplacedFonts.count() != 0)
 	{
 		if ((prefsManager->appPrefs.askBeforeSubstituite) || (newReplacement))
@@ -521,13 +523,13 @@ bool FileLoader::postLoad(ScribusDoc* currDoc)
 		{
 			replaceFonts(currDoc, currDoc->FrameItems.at(d), currDoc->UsedFonts, ReplacedFonts);
 		}
-		for (uint a = 0; a < currDoc->docParagraphStyles.count(); ++a)
+		for (uint a = 0; a < currDoc->paragraphStyles().count(); ++a)
 		{
-			if ( !currDoc->docParagraphStyles[a].charStyle().font().isNone() 
-				 && !currDoc->UsedFonts.contains(currDoc->docParagraphStyles[a].charStyle().font().scName()))
+			if ( !currDoc->paragraphStyles()[a].charStyle().font().isNone() 
+				 && !currDoc->UsedFonts.contains(currDoc->paragraphStyles()[a].charStyle().font().scName()))
 			{
-				currDoc->docParagraphStyles[a].charStyle().setFont
-					((*currDoc->AllFonts)[ReplacedFonts[currDoc->docParagraphStyles[a].charStyle().font().scName()]]);
+//				currDoc->paragraphStyles()[a].charStyle().setFont
+//					((*currDoc->AllFonts)[ReplacedFonts[currDoc->paragraphStyles()[a].charStyle().font().scName()]]);
 			}
 		}
 		QValueList<QString> tmpList;

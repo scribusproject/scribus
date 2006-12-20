@@ -50,7 +50,7 @@ class PLUGIN_API Scribus12Format : public LoadSavePlugin
 		void registerFormats();
 		//Scribus Doc vars, not plugin vars
 		void GetItemText(QDomElement *it, ScribusDoc *doc, bool VorLFound, bool impo, PageItem* obj = 0);
-		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> &docParagraphStyles, ScribusDoc* doc, bool fl);
+		void GetStyle(QDomElement *pg, ParagraphStyle *vg, StyleSet<ParagraphStyle> *tempParagraphStyles, ScribusDoc* doc, bool fl);
 		QString readSLA(const QString & fileName);
 		QString AskForFont(SCFonts &avail, QString fStr, ScribusDoc *doc);
 		QValueList<ScFace> dummyScFaces;
