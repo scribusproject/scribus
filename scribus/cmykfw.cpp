@@ -813,6 +813,7 @@ void CMYKChoose::SelModel(const QString& mod)
 		setValues();
 	}
 	imageN.fill(Farbe.getDisplayColor());
+	Farbe.checkGamut();
 	if (Farbe.isOutOfGamut())
 		paintAlert(alertIcon, imageN, 2, 2, false);
 	NewC->setPixmap( imageN );
