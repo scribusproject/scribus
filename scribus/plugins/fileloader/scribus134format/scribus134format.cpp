@@ -245,6 +245,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
 	QMap<PageItem*, int> groupID;
+	QMap<PageItem*, int> groupIDM;
 	int a;
 	PageItem *Neu;
 	Page* Apage;
@@ -1145,26 +1146,18 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					}
 					Neu->isGroupControl = static_cast<bool>(pg.attribute("isGroupControl", "0").toInt());
 					if (Neu->isGroupControl)
-						groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					{
+						if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
+							groupID.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+						else
+							groupIDM.insert(Neu, pg.attribute("groupsLastItem", "0").toInt()+Neu->ItemNr);
+					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
 						Neu->ItemNr = m_Doc->FrameItems.count()-1;
 					}
-					/*
-					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
-					{
-						//m_Doc->DocItems = m_Doc->Items;
-						//m_Doc->DocPages = m_Doc->Pages;
-					}
-					else
-					{
-						//m_Doc->MasterItems = m_Doc->Items;
-						//m_Doc->MasterPages = m_Doc->Pages;
-					}
-					*/
 					m_Doc->setMasterPageMode(false);
-					//m_Doc->Pages=&m_Doc->DocPages;
 					counter++;
 				}
 			PAGE=PAGE.nextSibling();
@@ -1357,7 +1350,15 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 		QMap<PageItem*, int>::Iterator it;
 		for (it = groupID.begin(); it != groupID.end(); ++it)
 		{
-			it.key()->groupsLastItem = m_Doc->Items->at(it.data());
+			it.key()->groupsLastItem = m_Doc->DocItems.at(it.data());
+		}
+	}
+	if (groupIDM.count() != 0)
+	{
+		QMap<PageItem*, int>::Iterator it;
+		for (it = groupIDM.begin(); it != groupIDM.end(); ++it)
+		{
+			it.key()->groupsLastItem = m_Doc->MasterItems.at(it.data());
 		}
 	}
 	m_Doc->setActiveLayer(layerToSetActive);

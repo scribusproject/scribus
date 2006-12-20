@@ -58,18 +58,11 @@ MasterPagesPalette::MasterPagesPalette( QWidget* parent, ScribusDoc *pCurrentDoc
 
 
 	if (masterPageName.isEmpty())
-	{
-//		sMuster = CommonStrings::masterPageNormal;
 		sMuster = currentDoc->MasterNames.begin().key();
-		updateMasterPageList(sMuster);
-		currentView->showMasterPage(0);
-	}
 	else
-	{
 		sMuster = masterPageName;
-		updateMasterPageList(sMuster);
-		currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
-	}
+	updateMasterPageList(sMuster);
+	currentView->showMasterPage(currentDoc->MasterNames[sMuster]);
 
 	setMinimumSize(sizeHint());
 

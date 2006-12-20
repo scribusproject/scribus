@@ -1737,6 +1737,8 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
 							continue;
+						if (it->isGroupControl)
+							continue;
 						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printEnabled()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);
 						PS_TemplateStart(Doc->MasterPages.at(ap)->pageName() + tmps.setNum(it->ItemNr));
@@ -1822,7 +1824,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 								PS_save();
 								FPointArray cl = ite->PoLine.copy();
 								QWMatrix mm;
-								mm.translate(ite->xPos() - Doc->Pages->at(a)->xOffset(), (ite->yPos() - Doc->Pages->at(a)->yOffset()) - Doc->Pages->at(a)->height());
+								mm.translate(ite->xPos() - mPage->xOffset(), (ite->yPos() - mPage->yOffset()) - Doc->Pages->at(a)->height());
 								mm.rotate(-ite->rotation());
 								cl.map( mm );
 								SetClipPath(&cl);

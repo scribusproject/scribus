@@ -854,6 +854,17 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							continue;
 						if ((viewAsPreview) && (!currItem->printEnabled()))
 							continue;
+						double OldX = currItem->xPos();
+						double OldY = currItem->yPos();
+						double OldBX = currItem->BoundingX;
+						double OldBY = currItem->BoundingY;
+						if (!currItem->ChangedMasterItem)
+						{
+							//Hack to not check for undo changes, indicate drawing only
+							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
+							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+						}
 						if (currItem->isGroupControl)
 						{
 							painter->save();
@@ -866,21 +877,17 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
 #endif
 							groupStack.push(currItem->groupsLastItem);
+							if (!currItem->ChangedMasterItem)
+							{
+								//Hack to not check for undo changes, indicate drawing only
+								currItem->setXYPos(OldX, OldY, true);
+								currItem->BoundingX = OldBX;
+								currItem->BoundingY = OldBY;
+							}
 							continue;
 						}
 						currItem->savedOwnPage = currItem->OwnPage;
-						double OldX = currItem->xPos();
-						double OldY = currItem->yPos();
-						double OldBX = currItem->BoundingX;
-						double OldBY = currItem->BoundingY;
 						currItem->OwnPage = page->pageNr();
-						if (!currItem->ChangedMasterItem)
-						{
-							//Hack to not check for undo changes, indicate drawing only
-							currItem->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
-							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
-							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
-						}
 						if (!evSpon || forceRedraw)
 							currItem->invalid = true;
 						QRect oldR(currItem->getRedrawBounding(Scale));
@@ -918,6 +925,8 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						if ((viewAsPreview) && (!currItem->printEnabled()))
 							continue;
 						if ((currItem->OwnPage != -1) && (currItem->OwnPage != static_cast<int>(Mp->pageNr())))
+							continue;
+						if (currItem->isGroupControl)
 							continue;
 						double OldX = currItem->xPos();
 						double OldY = currItem->yPos();
