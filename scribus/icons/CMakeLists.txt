@@ -40,6 +40,7 @@ checkdoc.png
 clear_right.png
 cmyk.png
 colorpicker.png
+colorpickercursor.png
 compfile16.png
 compfile.png
 configure.png

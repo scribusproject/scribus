@@ -5925,6 +5925,9 @@ void ScribusMainWindow::setAppMode(int mode)
 			case modeDrawFreehandLine:
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
 				break;
+			case modeEyeDropper:
+				qApp->setOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 20), true);
+				break;
 			case modeInsertPDFButton:
 			case modeInsertPDFTextfield:
 			case modeInsertPDFCheckbox:
@@ -8945,6 +8948,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 	{
 		if (doc->appMode == modeEyeDropper)
 		{
+			qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			releaseMouse();
 			sendToSuper=false;
 			QPixmap pm = QPixmap::grabWindow( QApplication::desktop()->winId(), m->globalPos().x(), m->globalPos().y(), 1, 1);
