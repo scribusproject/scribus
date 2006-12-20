@@ -559,7 +559,7 @@ void ScColor::checkGamut()
 		if (alert)
 		{
 			cmsDoTransform(xformProof, inC, outC, 1);
-			if ((alert) && ((outC[0] == 0) && (outC[1] == 65535) & (outC[2] == 0)))
+			if ((alert) && ((outC[0] == 0) && (outC[1] == 65535) && (outC[2] == 0)))
 				outOfGamutFlag = true;
 		}
 	}
