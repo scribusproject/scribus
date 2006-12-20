@@ -41,10 +41,10 @@ CharTable::CharTable(QWidget* parent, int cols, ScribusDoc* doc, QString font)
 	setColumnMovingEnabled(false);
 	setRowMovingEnabled(false);
 	setReadOnly(true);
-//	setDragEnabled(true);
-//	enableDrops(true);
+	setDragEnabled(true);
+	enableDrops(true);
 
-//	connect(this, SIGNAL(dropped(QDropEvent *)), this, SLOT(slotDropped(QDropEvent *)));
+	connect(this, SIGNAL(dropped(QDropEvent *)), this, SLOT(slotDropped(QDropEvent *)));
 }
 
 void CharTable::setDoc(ScribusDoc *doc)
@@ -81,28 +81,22 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 	pixm.resize(sz.width(), sz.height());
 
 	ScPainter *p = new ScPainter(&pixm, cr.width(), cr.height());
-//	qDebug(QString("paintCell: w=%1 h=%2").arg(cr.width()).arg(cr.height()));
 	p->clear();
 	pixm.fill(white);
-//	QWMatrix chma;
-//	chma.scale(1.6, 1.6);
+	QWMatrix chma;
+	chma.scale(1.6, 1.6);
 	qp->eraseRect(0, 0, cr.width(), cr.height());
-	qp->setPen(black);
+	QFont fo = qp->font();
+	fo.setPixelSize(9);
+	qp->setFont(fo);
 	static FPointArray gly;
 	ScFace face = (*m_doc->AllFonts)[m_fontInUse];
 	uint gl = face.char2CMap(m_characters[cc]);
-	gly = face.glyphOutline(gl, 1.6);
-/*	qDebug(QString("paintCell: face=%1 glyph=%2 size=%3 pt (%4, %5)")
-		   .arg(face.scName())
-		   .arg(gl)
-		   .arg(gly.size())
-		   .arg(gly.size()>0? gly.point(0).x() : -999)
-		   .arg(gly.size()>0? gly.point(0).y() : -999));
-*/
-	if (gly.size() >= 4)
+	gly = face.glyphOutline(gl);
+	if (gly.size() > 4)
 	{
-//		gly.map(chma);
-		double ww = sz.width() - face.glyphWidth(gl, 1.6) * numCols();
+		gly.map(chma);
+		double ww = sz.width() - face.glyphWidth(gl)*numCols();
 		p->translate(ww / 2, 1);
 		p->setBrush(black);
 		p->setFillMode(1);
@@ -111,13 +105,11 @@ void CharTable::paintCell( QPainter * qp, int row, int col, const QRect & cr, bo
 		p->end();
 		int x = QMAX(0, (cr.width() - sz.width()) / 2);
 		qp->drawPixmap(x, 1, pixm);
+		QString tmp;
+		tmp.sprintf("%04X", m_characters[row*numCols()+col]);
+		qp->setPen(black);
+		qp->drawText(QRect(2, cr.height()-10, cr.width()-4, 9),Qt::AlignCenter, tmp);
 	}
-	QString tmp;
-	tmp.sprintf("%04X", m_characters[row*numCols()+col]);
-	QFont fo = qp->font();
-	fo.setPixelSize(9);
-	qp->setFont(fo);
-	qp->drawText(QRect(2, cr.height()-10, cr.width()-4, 9),Qt::AlignCenter, tmp);
 	qp->setPen(gray);
 	qp->drawRect(0, 0, cr.width(), cr.height());
 	delete p;
@@ -273,7 +265,7 @@ void CharTable::setFontInUse(QString font)
 
 void CharTable::enableDrops(bool e)
 {
-//	viewport()->setAcceptDrops(e);
+	viewport()->setAcceptDrops(e);
 }
 
 QDragObject * CharTable::dragObject()
