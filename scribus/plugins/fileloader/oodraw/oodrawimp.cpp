@@ -387,11 +387,29 @@ bool OODPlug::convert(int flags)
 	m_Doc->m_Selection->clear();
 	if ((Elements.count() > 1) && (interactive))
 	{
-		for (uint a = 0; a < Elements.count(); ++a)
+		bool isGroup = true;
+		int firstElem = -1;
+		if (Elements.at(0)->Groups.count() != 0)
+			firstElem = Elements.at(0)->Groups.top();
+		for (uint bx = 0; bx < Elements.count(); ++bx)
 		{
-			Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+			PageItem* bxi = Elements.at(bx);
+			if (bxi->Groups.count() != 0)
+			{
+				if (bxi->Groups.top() != firstElem)
+					isGroup = false;
+			}
+			else
+				isGroup = false;
 		}
-		m_Doc->GroupCounter++;
+		if (!isGroup)
+		{
+			for (uint a = 0; a < Elements.count(); ++a)
+			{
+				Elements.at(a)->Groups.push(m_Doc->GroupCounter);
+			}
+			m_Doc->GroupCounter++;
+		}
 	}
 	m_Doc->DoDrawing = true;
 	m_Doc->view()->setUpdatesEnabled(true);
