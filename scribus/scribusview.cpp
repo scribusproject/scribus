@@ -1310,7 +1310,10 @@ void ScribusView::enterEvent(QEvent *)
 				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
 				break;
 			case modeMagnifier:
-				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				if (Magnify)
+					qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
+				else
+					qApp->setOverrideCursor(QCursor(loadIcon("LupeZm.xpm")), true);
 				break;
 			case modePanning:
 				qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
