@@ -43,7 +43,7 @@ for which a new license (GPL+exception) is in place.
 #include "customfdialog.h"
 #include "sctextstruct.h"
 #include "guidemanager.h"
-
+#include "sccolorengine.h"
 
 int svgexplugin_getPluginAPIVersion()
 {
@@ -787,7 +787,8 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 
 QString SVGExPlug::SetFarbe(QString farbe, int shad)
 {
-	return m_Doc->PageColors[farbe].getShadeColorProof(shad).name();
+	const ScColor& col = m_Doc->PageColors[farbe];
+	return ScColorEngine::getShadeColorProof(col, m_Doc).name();
 }
 
 QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
