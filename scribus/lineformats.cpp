@@ -18,7 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scmessagebox.h"
 #include "page.h"
-#include "sccolorEngine.h"
+#include "sccolorengine.h"
 
 extern QPixmap loadIcon(QString nam);
 
