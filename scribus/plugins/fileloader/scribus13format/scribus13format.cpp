@@ -241,6 +241,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	QFont fo;
 	QMap<int,int> TableID;
 	QPtrList<PageItem> TableItems;
+	QMap<int,int> TableIDM;
+	QPtrList<PageItem> TableItemsM;
+	QMap<int,int> TableIDF;
+	QPtrList<PageItem> TableItemsF;
 	int a;
 	PageItem *Neu;
 	Page* Apage;
@@ -280,6 +284,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 	int ObCount = 0;
 	TableItems.clear();
 	TableID.clear();
+	TableItemsM.clear();
+	TableIDM.clear();
+	TableItemsF.clear();
+	TableIDF.clear();
 	PrefsManager* prefsManager=PrefsManager::instance();
 	while(!DOC.isNull())
 	{
@@ -1026,15 +1034,28 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					}
 */					if (Neu->isAutoText)
 						m_Doc->LastAuto = Neu;
-					if (Neu->isTableItem)
-					{
-						TableItems.append(Neu);
-						TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
-					}
 					if (pg.tagName()=="FRAMEOBJECT")
 					{
 						m_Doc->FrameItems.append(m_Doc->Items->take(Neu->ItemNr));
 						Neu->ItemNr = m_Doc->FrameItems.count()-1;
+					}
+					if (Neu->isTableItem)
+					{
+						if (pg.tagName()=="PAGEOBJECT")
+						{
+							TableItems.append(Neu);
+							TableID.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						}
+						else if (pg.tagName()=="FRAMEOBJECT")
+						{
+							TableItemsF.append(Neu);
+							TableIDF.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						}
+						else
+						{
+							TableItemsM.append(Neu);
+							TableIDM.insert(pg.attribute("OwnLINK", "0").toInt(), Neu->ItemNr);
+						}
 					}
 					/*
 					if ((pg.tagName()=="PAGEOBJECT") || (pg.tagName()=="FRAMEOBJECT"))
@@ -1079,6 +1100,52 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 			PAGE=PAGE.nextSibling();
 		}
 		DOC=DOC.nextSibling();
+	}
+	if (TableItemsF.count() != 0)
+	{
+		for (uint ttc = 0; ttc < TableItemsF.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsF.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->FrameItems.at(TableIDF[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->FrameItems.at(TableIDF[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->FrameItems.at(TableIDF[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->FrameItems.at(TableIDF[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
+	}
+	if (TableItemsM.count() != 0)
+	{
+		for (uint ttc = 0; ttc < TableItemsM.count(); ++ttc)
+		{
+			PageItem* ta = TableItemsM.at(ttc);
+			if (ta->TopLinkID != -1)
+				ta->TopLink = m_Doc->MasterItems.at(TableIDM[ta->TopLinkID]);
+			else
+				ta->TopLink = 0;
+			if (ta->LeftLinkID != -1)
+				ta->LeftLink = m_Doc->MasterItems.at(TableIDM[ta->LeftLinkID]);
+			else
+				ta->LeftLink = 0;
+			if (ta->RightLinkID != -1)
+				ta->RightLink = m_Doc->MasterItems.at(TableIDM[ta->RightLinkID]);
+			else
+				ta->RightLink = 0;
+			if (ta->BottomLinkID != -1)
+				ta->BottomLink = m_Doc->MasterItems.at(TableIDM[ta->BottomLinkID]);
+			else
+				ta->BottomLink = 0;
+		}
 	}
 	if (TableItems.count() != 0)
 	{
