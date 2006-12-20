@@ -8001,6 +8001,8 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 {
 	if (HaveDoc)
 	{
+		if (doc->m_Selection->count() < 2)
+			return;
 		PageItem *currItem;
 		PageItem* bb;
 		double x, y, w, h;
@@ -8147,42 +8149,44 @@ void ScribusMainWindow::UnGroupObj()
 {
 	if (HaveDoc)
 	{
-		uint docSelectionCount=doc->m_Selection->count();
-		PageItem *currItem;
-		uint lowestItem = 999999;
-		for (uint a=0; a<docSelectionCount; ++a)
+		if (doc->m_Selection->count() != 0)
 		{
-			currItem = doc->m_Selection->itemAt(a);
-			currItem->Groups.pop();
-			lowestItem = QMIN(lowestItem, currItem->ItemNr);
-		}
-		if (doc->Items->at(lowestItem)->isGroupControl)
-		{
-			doc->m_Selection->removeItem(doc->Items->at(lowestItem));
-			doc->Items->remove(lowestItem);
-			for (uint a = 0; a < doc->Items->count(); ++a)
+			uint docSelectionCount=doc->m_Selection->count();
+			PageItem *currItem;
+			uint lowestItem = 999999;
+			for (uint a=0; a<docSelectionCount; ++a)
 			{
-				doc->Items->at(a)->ItemNr = a;
+				currItem = doc->m_Selection->itemAt(a);
+				currItem->Groups.pop();
+				lowestItem = QMIN(lowestItem, currItem->ItemNr);
 			}
+			if (doc->Items->at(lowestItem)->isGroupControl)
+			{
+				doc->m_Selection->removeItem(doc->Items->at(lowestItem));
+				doc->Items->remove(lowestItem);
+				for (uint a = 0; a < doc->Items->count(); ++a)
+				{
+					doc->Items->at(a)->ItemNr = a;
+				}
+			}
+			docSelectionCount = doc->m_Selection->count();
+			SimpleState *ss = new SimpleState(Um::Ungroup);
+			ss->set("UNGROUP", "ungroup");
+			ss->set("itemcount", docSelectionCount);
+			QString tooltip = Um::ItemsInvolved + "\n";
+			for (uint a=0; a<docSelectionCount; ++a)
+			{
+				currItem = doc->m_Selection->itemAt(a);
+				ss->set(QString("item%1").arg(a), currItem->uniqueNr);
+				ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
+				tooltip += "\t" + currItem->getUName() + "\n";
+				currItem->isTableItem = false;
+			}
+			view->Deselect(true);
+			outlinePalette->BuildTree();
+			slotDocCh();
+			undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 		}
-		docSelectionCount = doc->m_Selection->count();
-		SimpleState *ss = new SimpleState(Um::Ungroup);
-		ss->set("UNGROUP", "ungroup");
-		ss->set("itemcount", docSelectionCount);
-		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint a=0; a<docSelectionCount; ++a)
-		{
-			currItem = doc->m_Selection->itemAt(a);
-			ss->set(QString("item%1").arg(a), currItem->uniqueNr);
-			ss->set(QString("tableitem%1").arg(a), currItem->isTableItem);
-			tooltip += "\t" + currItem->getUName() + "\n";
-			currItem->isTableItem = false;
-		}
-		view->Deselect(true);
-		outlinePalette->BuildTree();
-		slotDocCh();
-
-		undoManager->action(this, ss, Um::SelectionGroup, Um::IGroup);
 	}
 }
 
