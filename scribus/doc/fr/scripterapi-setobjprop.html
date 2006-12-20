@@ -1,0 +1,94 @@
+<qt>
+<title>Choisir les propri&eacute;t&eacute;s de l'objet</title>
+<h2>Choisir les propri&eacute;t&eacute;s de l'objet</h2>
+
+<dl>
+
+<dt><a name="-linkTextFrames"><strong>linkTextFrames</strong></a>(...)</dt>
+<dd><code><a href="#-linkTextFrames">linkTextFrames</a>("nomDepart", "nomArrivee")</code>
+<p>&Eacute;tablit un lien entre deux cadres de texte. Le cadre nomm&eacute; "nomDepart" est li&eacute; au cadre "nomArrivee". Le cadre cible doit &ecirc;tre un cadre de texte vide et ne doit pas pointer vers d'autres cadres ni porter un lien provenant d'autres cadres.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="#ScribusException">ScribusException</a> en cas d'infraction des r&egrave;gles de liens.</p></dd>
+
+<dt><a name="-loadImage"><strong>loadImage</strong></a>(...)</dt>
+<dd><code><a href="#-loadImage">loadImage</a>("nomFichier" [, "nom"])</code>
+<p>Charge l'image "nomFichier" dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd></dt>
+	
+<dt><a name="-scaleImage"><strong>scaleImage</strong></a>(...)</dt>
+<dd><code><a href="#-scaleImage">scaleImage</a>(x, y [, "nom"])</code>
+<p>D&eacute;finit les facteurs de redimensionnement de l'image dans le cadre d'image "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Un nombre de 1 signifie 100 %.</p>
+<p>Peut g&eacute;n&eacute;rer <a href="scripterapi.html#WrongFrameTypeError">WrongFrameTypeError</a> si le cadre cible n'est pas un cadre d'image</p></dd>
+
+<dt><a name="-setCornerRadius"><strong>setCornerRadius</strong></a>(...)</dt>
+<dd><code><a href="#-setCornerRadius">setCornerRadius</a>(rayon, ["nom"])</code>
+<p>&Eacute;tablit le rayon de coin de l'objet "nom". Le rayon est exprim&eacute; en points. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p> 
+<p>Peut g&eacute;n&eacute;rer ValueError si le rayon de coin est n&eacute;gatif. </p></dd>
+	
+<dt><a name="-setFillColor"><strong>setFillColor</strong></a>(...)</dt>
+<dd><code><a href="#-setFillColor">setFillColor</a>("couleur", ["nom"])</code>
+<p>&Eacute;tablit la couleur de fond de l'objet "nom" &agrave; la couleur "couleur". La "couleur" est le nom d'une des couleurs d&eacute;finies. 
+Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+
+<dt><a name="-setFillShade"><strong>setFillShade</strong></a>(...)</dt>
+<dd><code><a href="#-setFillShade">setFillShade</a>(teinte, ["nom"])</code>
+<p>&Eacute;tablit la teinte de la couleur de fond de l'objet "nom" &agrave;  "teinte". La "teinte" doit &ecirc;tre une valeur enti&egrave;re entre 0 (le plus p&acirc;le) et 100 (toute l'intensit&eacute; couleur). 
+Si "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. <p>
+<p>Peut g&eacute;n&eacute;rer ValueError si la couleur de fond est hors limites.</p></dd>
+
+<dt><a name="-setGradientFill"><strong>setGradientFill</strong></a>(...)</dt>
+<dd><code><a href="#-setGradientFill">setGradientFill</a>(type, "couleur1", teinte1, "couleur2", teinte2, ["nom"])</code>
+<p>&Eacute;tablit le d&eacute;grad&eacute; de fond de l'objet "nom" &agrave; "type". Les descriptions des couleurs sont identiques &agrave; celles de <a href="#-setFillColor">setFillColor</a>() et de<a href="#-setFillShade">setFillShade</a>(). Voir
+les constantes pour les types disponibles (FILL_&lt;type&gt;).</p></dd>
+
+<dt><a name="-setLineCap"><strong>setLineCap</strong></a>(...)</dt>
+<dd><code>setLineEnd(typeFin, ["nom"])</code>
+<p>&Eacute;tablit la valeur de style "typeFin" pour le bout de ligne de l'objet "nom".
+Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Il
+y a des constantes pr&eacute;d&eacute;finies pour "typeFin" - CAP_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setLineColor"><strong>setLineColor</strong></a>(...)</dt>
+<dd><code><a href="#-setLineColor">setLineColor</a>("couleur", ["nom"])</code>
+<p>&Eacute;tablit la valeur "couleur" pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+	
+<dt><a name="-setMultiLine"><strong>setMultiLine</strong></a>(...)</dt>
+<dd><code><a href="#-setMultiLine">setMultiLine</a>("styleNomme", ["nom"])</code>
+<p>&Eacute;tablit la valeur "styleNomme" pour le style de filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>Peut g&eacute;n&eacute;rer
+<a href="scripterapi.html#NotFoundError">NotFoundError</a> si le
+style de filet n'existe pas.</p></dd>
+	
+<dt><a name="-setLineJoin"><strong>setLineJoin</strong></a>(...)</dt>
+<dd><code><a href="#-setLineJoin">setLineJoin</a>(jonction, ["nom"])</code>
+<p>&Eacute;tablit la valeur du style "jonction" pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Il
+y a des constantes pr&eacute;d&eacute;finies pour "jonction" - JOIN_&lt;type&gt;.</p></dd>
+
+<dt><a name="-setLineShade"><strong>setLineShade</strong></a>(...)</dt>
+<dd><code><a href="#-setLineShade">setLineShade</a>(teinte, ["nom"])</code>
+<p>&Eacute;tablit la valeur "teinte" pour la couleur de filet de l'objet "nom". La valeur "teinte" doit &ecirc;tre un nombre entier compris entre 0 (p&acirc;le) et 100 (intensit&eacute; maximale). 
+Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p>
+<p>Peut g&eacute;n&eacute;rer ValueError si la teinte du filet est hors limites.</p></dd>
+	
+<dt><a name="-setLineStyle"><strong>setLineStyle</strong></a>(...)</dt>
+<dd><code><a href="#-setLineStyle">setLineStyle</a>(style, ["nom"])</code>
+<p>&Eacute;tablit la valeur "style" pour le filet de l'objet "nom". Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. Il
+y a des constantes pr&eacute;d&eacute;finies pour "style" - LINE_&lt;style&gt;.</p></dd>
+
+<dt><a name="-setLineWidth"><strong>setLineWidth</strong></a>(...)</dt>
+<dd><code><a href="#-setLineWidth">setLineWidth</a>(epaisseur,
+["nom"])</code>
+<p>&Eacute;tablit la valeur "&eacute;paisseur" pour le filet de l'objet "nom". La valeur "&eacute;paisseur" doit &ecirc;tre entre 0.0 et 12.0 inclusivement,
+exprim&eacute;e en points. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p> 
+<p>Peut g&eacute;n&eacute;rer ValueError si l'&eacute;paisseur de filet est hors limites.</p></dd>
+
+<dt><a name="-traceText"><strong>traceText</strong></a>(...)</dt>
+<dd><code><a href="#-traceText">traceText</a>(["nom"])</code>
+<p>Convertit le cadre de texte "nom" en contours. Si le "nom" n'est pas fourni, l'&eacute;l&eacute;ment s&eacute;lectionn&eacute; est utilis&eacute;. </p></dd>
+	
+<dt><a name="-unlinkTextFrames"><strong>unlinkTextFrames</strong></a>(...)</dt>
+<dd><code><a href="#-unlinkTextFrames">unlinkTextFrames</a>("nom")</code>
+<p>Retire l'objet d&eacute;sign&eacute; de la s&eacute;quence de liens du cadre de texte. Si le cadre se trouvait au milieu d'une cha&icirc;ne de liens, les cadres pr&eacute;c&eacute;dent et suivant seront connect&eacute;s, par exemple 'a-&gt;b-&gt;c' devient 'a-&gt;c' lorsque vous d&eacute;connectez <a href="#-unlinkTextFrames">unlinkTextFrames</a>(b)'</p>
+<p>Peut g&eacute;n&eacute;rer <a href="#ScribusException">ScribusException</a> en cas d'infraction des r&egrave;gles de liens.</p></dd>
+
+</dl>
+</qt>
+ 

@@ -1,0 +1,137 @@
+<qt>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Espaces ins&eacute;cables pour Scribus</title>
+
+<h1>Espaces ins&eacute;cables pour Scribus</h1>
+
+<p>Copyright &copy; 2004 Petr Van&#283;k, Maciej Hanski</p>
+<p>Permission vous est donn&eacute;e de copier, de distribuer ou de modifier le pr&eacute;sent
+document selon les termes de la licence GNU Free Documentation
+License, Version 1.2 ou ult&eacute;rieure, publi&eacute;e par la Free Software
+Foundation; sans section invariante, sans premi&egrave;re page de
+couverture, sans derni&egrave;re page de couverture. Une copie de cette
+Licence est incluse dans la section appel&eacute;e "GNU Free Documentation
+License" du pr&eacute;sent document.</p>
+
+<h2>&Agrave; quoi servent les Espaces ins&eacute;cables</h2>
+<p>La fonction Espaces ins&eacute;cables de Scribus est une extension sp&eacute;ciale
+permettant d'ajouter des espaces ins&eacute;cables avant ou apr&egrave;s les mots courts.</p>
+<p>Ces mots courts sont propres &agrave; chaque typographie nationale;
+par exemple, suivant les standards typographiques tch&egrave;ques, polonais
+et slovaques, il n'est pas permis de laisser des conjonctions comprenant seulement une
+lettre en fin de ligne si celle-ci contient plus de 25
+caract&egrave;res. Un probl&egrave;me courant survient avec les unit&eacute;s de poids et
+mesures, o&ugrave;, pour des raisons &eacute;videntes, des espaces ins&eacute;cables
+doivent &ecirc;tre ins&eacute;r&eacute;s entre les unit&eacute;s et les nombres qui les pr&eacute;c&egrave;dent. Finalement,
+il existe un grand nombre de dipl&ocirc;mes universitaires, de grades militaires, etc. qui sont abr&eacute;g&eacute;s et ne
+doivent pas &ecirc;tre s&eacute;par&eacute;s du nom de leurs titulaires. </p>
+<p>M&ecirc;me si l'&eacute;quipe de Scribus ne peut se pencher
+sur chacun des standards nationaux, Petr Van&#283;k, un des d&eacute;veloppeurs du coeur de
+Scribus, a d&eacute;cid&eacute; de proposer aux utilisateurs
+une extension qui permettra de personnaliser la typographie
+en fonction de leurs besoins sp&eacute;cifiques.</p>
+
+<h2>Mode de fonctionnement </h2>
+<p>La copie d'&eacute;cran ci-dessous montre du texte
+contenant un mot court, avant l'insection d'espaces ins&eacute;cables.</p>
+<p><b>Exemple de texte avant d'ex&eacute;cuter Espaces ins&eacute;cables</b></p>
+<img src="before_short_words.png" alt="Exemple de texte avant d'ex&eacute;cuter Espaces ins&eacute;cables" />
+<p>Le m&ecirc;me texte apr&egrave;s l'application de la fonction. Le mot
+cercl&eacute; de rouge (Mr) est pass&eacute; &agrave; la ligne suivante, parce que l'espace
+normal entre Mr et Justice a &eacute;t&eacute; remplac&eacute; par un espace ins&eacute;cable.</p>
+<p><b>Exemple de texte apr&egrave;s l'ex&eacute;cution de la fonction Espaces ins&eacute;cables</b></p>
+<img src="after_short_words.png" alt="Exemple de texte apr&egrave;s l'ex&eacute;cution de la fonction Espaces ins&eacute;cables" />
+<h2>Comment ex&eacute;cuter Espaces ins&eacute;cables</h2>
+<p>Si vous avez install&eacute; cette extension avec succ&egrave;s, allez dans le
+menu <code>Extra</code> et choisissez l'option <code>Espaces
+ins&eacute;cables...</code>:</p>
+<p><b>Appeler Espaces ins&eacute;cables pour Scribus</b></p>
+<img src="menu.png" alt="Appeler Espaces ins&eacute;cables pour Scribus" />
+<p><b>Fen&ecirc;tre de dialogue Espaces ins&eacute;cables</b></p>
+<img src="dialog.png" alt="Fen&ecirc;tre de dialogue Espaces ins&eacute;cables" />
+<dl>
+<dt>Cadres s&eacute;lectionn&eacute;s</dt>
+	<dd><p>Applique les espaces ins&eacute;cables aux cadres de texte s&eacute;lectionn&eacute;s.</p></dd>
+<dt>Page courante</dt>
+	<dd><p>Applique les espaces ins&eacute;cables &agrave; tous les cadres de la page courante.</p></dd>
+<dt><p>Tous les objets</p></dt>
+	<dd><p>Applique les espaces ins&eacute;cables &agrave; <em>tout le document</em>.</p></dd>
+<dt>Remplace les valeurs par d&eacute;faut par la configuration utilisateur </dt>
+	<dd><p>Quand le fichier config utilisateur existe, vous pouvez
+choisir de l'ajouter aux configurations globales par un bouton
+d&eacute;coch&eacute;. Vous pouvez aussi remplacer les valeurs pr&eacute;d&eacute;finies par les v&ocirc;tres avec le bouton coch&eacute;.</p></dd>
+</dl>
+
+<h2>Installation</h2>
+<p>La mani&egrave;re la plus simple d'installer l'extension est de
+v&eacute;rifier sur le site de Scribus (http://www.scribus.net) s'il existe des modules d'installation disponibles pour votre distribution
+pr&eacute;f&eacute;r&eacute;e, par exemple Fedora, SuSE, Gentoo, Mandrake, ou PLD.</p>
+<p>Dans la n&eacute;gative, essayez de
+compiler l'extension &agrave; partir de la source, ce qui, dans la plupart
+des cas, revient &agrave; utiliser trois commandes :</p>
+<pre>
+#./configure
+# make
+# make install
+</pre>
+<p>Vous pouvez sp&eacute;cifier <code>./configure
+--prefix=/path/to/scribus/previously/installed</code>. Le pr&eacute;fixe
+par d&eacute;faut est <code>/usr/local</code>, c'est-&agrave;-dire le
+r&eacute;pertoire cible par d&eacute;faut au moment de l'installation de Scribus &agrave; partir de la source. Sur
+mon Gentoo, j'utilise <code>./configure --prefix=/usr</code> pour
+faire correspondre ma compilation.</p>
+<p>Si vous n'avez pas pu construire l'extension, v&eacute;rifiez d'abord
+si vous avez les librairies requises</a>.</p>
+
+<h2>Configuration</h2>
+<p>La fonction Espaces ins&eacute;cables pour Scribus fournit un fichier de
+configuration au niveau syst&egrave;me <code>scribus-short-words.rc</code>,
+qui est habituellement plac&eacute; dans le r&eacute;pertoire
+<code>/usr/local/lib/scribus/plugins</code> (le r&eacute;pertoire actuel
+d&eacute;pend de l'endroit o&ugrave; vous ou votre distribution a install&eacute; Scribus). Ce
+fichier de configuration est clair : essentiellement il
+contient une liste de mots courts pour une langue donn&eacute;e,
+pr&eacute;c&eacute;d&eacute;s ou suivis d'un espace et s&eacute;par&eacute;s par des virgules. La
+position de l'espace, plac&eacute; avant ou apr&egrave;s chaque mot court, indique &agrave;
+l'extension l'endroit d'insertion. Chaque ligne
+portant des param&egrave;tres de configuration doit commencer avec la langue &agrave; laquelle elle est destin&eacute;e, par exemple "en" pour anglais ou "cs"
+pour tch&egrave;que :
+</p>
+<pre>
+#  English stuff START here
+en=Dr. ,Dr ,Mr. ,Mr ,Mrs. ,Mrs ,Ms. ,Ms ,Prof. ,Prof ,Rev. ,Rev ,
+en= Kg, kg, g, mg, oz, lb, cwt, km, Km, m, cm, mm,
+
+#  Czech short words START here
+## hanging conjunctions
+cs=K ,k ,S ,s ,V ,v ,Z ,z ,O ,o ,U ,u ,I ,i ,A ,
+## physics and math
+cs= kg, g, m, cm, mm, l, hl, s, %,
+</pre>
+<p>Si vous voulez utiliser vos propres mots courts, par exemple
+pour une nouvelle langue, cr&eacute;ez votre propre fichier de
+configuration avec les mots &agrave; traiter, puis enregistrez le fichier sous
+ <code>scribus-short-words.rc</code> dans le r&eacute;pertoire <code>~/.scribus</code>. <em>L'extension peut &ecirc;tre ajout&eacute;e &agrave; votre configuration dans le syst&egrave;me ou servir de remplacement, pour &ecirc;tre utilis&eacute;e en autonome.</em></p>
+
+<h3 class="title">Important</h3>
+<p>L'auteur souhaite &eacute;tendre le fichier de configurations
+global pour r&eacute;pondre &agrave; vos besoins. Informez-le des mots courts et
+des standards propres &agrave; votre langage.</p>
+
+<h2 class="title">Copyright de la fonction Espaces ins&eacute;cables </h2>
+<p>Espaces ins&eacute;cables pour Scribus Copyright 2003, 2004
+Petr Van&#283;k,
+&lt;<a href="mailto:petr@yarpen.cz">petr@yarpen.cz</a>&gt;</p>
+<p>Ce programme est un logiciel libre ; vous pouvez le redistribuer
+et/ou le modifier au titre des clauses de la Licence Publique
+G&eacute;n&eacute;rale GNU, publi&eacute;e par la Free Software Foundation;
+soit la version 2 de la Licence, ou (&agrave; votre discr&eacute;tion) une version
+ult&eacute;rieure quelconque.</p><p>Ce programme est distribu&eacute; dans l'espoir
+qu'il sera utile, mais SANS AUCUNE GARANTIE; sans m&ecirc;me une garantie
+implicite de COMMERCIABILIT&Eacute; ou DE CONFORMIT&Eacute; A UNE UTILISATION PARTICULI&Egrave;RE. Voir la Licence Publique G&eacute;n&eacute;rale GNU pour plus de d&eacute;tails. </p><p>Vous
+devriez avoir re&ccedil;u un exemplaire de la Licence Publique G&eacute;n&eacute;rale GNU
+avec ce programme; si ce n'est pas le cas, &eacute;crivez &agrave; la Free
+Software Foundation Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.</p>
+
+</qt>
+ 
