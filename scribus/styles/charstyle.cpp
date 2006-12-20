@@ -13,51 +13,87 @@
 #include "style.h"
 
 
-StyleFlag& operator&= (StyleFlag& left, StyleFlag right){        
-	int result = static_cast<int>(left) & static_cast<int>(right);        
-	left = static_cast<StyleFlag>(result);
-	return left;
+StyleFlag& StyleFlag::operator&= (const StyleFlag& right){        
+	int result = static_cast<int>(value) & static_cast<int>(right.value);        
+	value = static_cast<StyleFlagValue>(result);
+	return *this;
 }
 
-StyleFlag& operator|= (StyleFlag& left, StyleFlag right)
+StyleFlag& StyleFlag::operator|= (const StyleFlag& right)
 {
-	int result = static_cast<int>(left) | static_cast<int>(right);
-	left = static_cast<StyleFlag>(result);
-	return left;
+	int result = static_cast<int>(value) | static_cast<int>(right.value);
+	value = static_cast<StyleFlagValue>(result);
+	return *this;
 }
 
-StyleFlag operator& (StyleFlag left, StyleFlag right)
+StyleFlag StyleFlag::operator& (const StyleFlag& right)
 {
-	int result = static_cast<int>(left) & static_cast<int>(right);        
-	return static_cast<StyleFlag>(result);
+	int val = static_cast<int>(value) & static_cast<int>(right.value);
+	StyleFlag result(static_cast<StyleFlagValue>(val)); 
+	return result;
 }
 
-StyleFlag operator| (StyleFlag left, StyleFlag right)
+StyleFlag StyleFlag::operator& (int right)
+{
+	int val = static_cast<int>(value) & right;
+	StyleFlag result(static_cast<StyleFlagValue>(val)); 
+	return result;
+}
+
+StyleFlag StyleFlag::operator| (const StyleFlag& right)
 {        
-	int result = static_cast<int>(left) | static_cast<int>(right);
-	return static_cast<StyleFlag>(result);
+	int val = static_cast<int>(value) | static_cast<int>(right.value);
+	StyleFlag result(static_cast<StyleFlagValue>(val)); 
+	return result;
 }
 
-StyleFlag operator^ (StyleFlag left, StyleFlag right){
-	int result = static_cast<int>(left) ^ static_cast<int>(right);
-	return static_cast<StyleFlag>(result);
-}
-
-StyleFlag operator~ (StyleFlag arg)
+StyleFlag StyleFlag::operator^ (const StyleFlag& right)
 {
-	int result = ~ static_cast<int>(arg);
-	return static_cast<StyleFlag>(result);
+	int val = static_cast<int>(value) ^ static_cast<int>(right.value);
+	StyleFlag result(static_cast<StyleFlagValue>(val)); 
+	return result;
 }
 
-bool operator== (StyleFlag left, StyleFlag right)
+StyleFlag StyleFlag::operator^  (int right)
+{
+	int val = static_cast<int>(value) ^ right;
+	StyleFlag result(static_cast<StyleFlagValue>(val)); 
+	return result;
+}
+
+StyleFlag StyleFlag::operator~ ()
+{
+	int val = ~ static_cast<int>(value);
+	StyleFlag result(static_cast<StyleFlagValue>(val)); 
+	return result;
+}
+
+bool StyleFlag::operator== (const StyleFlag& right) const
 {        
-	int result = static_cast<int>( (left ^ right) & ScStyle_UserStyles);
-	return result == 0;
+	int result = static_cast<int>( (value ^ right.value) & ScStyle_UserStyles);
+	return (result == 0);
 }
 
-bool operator!= (StyleFlag left, StyleFlag right)
+bool StyleFlag::operator== (const StyleFlagValue right) const
 {
-	return !(left==right);
+	int result = static_cast<int>( (value ^ right) & ScStyle_UserStyles);
+	return (result == 0);
+}
+
+bool StyleFlag::operator== (int right) const
+{
+	int result = static_cast<int>( (value ^ right) & ScStyle_UserStyles);
+	return (result == 0);
+}
+
+bool StyleFlag::operator!= (const StyleFlag& right) const
+{
+	return !(*this==right);
+}
+
+bool StyleFlag::operator!= (const StyleFlagValue right) const
+{
+	return !(*this==right);
 }
 
 void CharStyle::applyCharStyle(const CharStyle & other)

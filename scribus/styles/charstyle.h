@@ -17,7 +17,7 @@
 // DONT INCLUDE this file directly, include "style.h" instead!
 
 
-enum StyleFlag {
+enum StyleFlagValue {
 	ScStyle_Default       = 0,
     ScStyle_Superscript   = 1,
     ScStyle_Subscript     = 2,
@@ -38,22 +38,34 @@ enum StyleFlag {
 	ScStyle_None          = 65535
 };
 
-SCRIBUS_API StyleFlag& operator&= (StyleFlag& left, StyleFlag right);
+class SCRIBUS_API StyleFlag
+{
+public:
 
-SCRIBUS_API StyleFlag& operator|= (StyleFlag& left, StyleFlag right);
+	StyleFlagValue value;
 
-SCRIBUS_API StyleFlag operator& (StyleFlag left, StyleFlag right);
+	StyleFlag(void) { value = ScStyle_Default; }
+	StyleFlag(StyleFlagValue val) { value = val; }
+	StyleFlag(int val) { value = static_cast<StyleFlagValue>(val); }
 
-SCRIBUS_API StyleFlag operator| (StyleFlag left, StyleFlag right);
+	operator StyleFlagValue() const { return value; }
 
-SCRIBUS_API StyleFlag operator^ (StyleFlag left, StyleFlag right);
+	StyleFlag& operator=  (StyleFlagValue val) { value = val; return *this;}
+	StyleFlag& operator&= (const StyleFlag& right);
+	StyleFlag& operator|= (const StyleFlag& right);
+	StyleFlag  operator&  (const StyleFlag& right);
+	StyleFlag  operator&  (int right);
+	StyleFlag  operator|  (const StyleFlag& right);
+	StyleFlag  operator^  (const StyleFlag& right);
+	StyleFlag  operator^  (int right);
+	StyleFlag  operator~  ();
 
-SCRIBUS_API StyleFlag operator~ (StyleFlag arg);
-
-SCRIBUS_API bool operator== (StyleFlag left, StyleFlag right);
-
-SCRIBUS_API bool operator!= (StyleFlag left, StyleFlag right);
-
+	bool operator== (const StyleFlag& right) const;
+	bool operator== (const StyleFlagValue right) const;
+	bool operator== (int right) const;
+	bool operator!= (const StyleFlag& right) const;
+	bool operator!= (const StyleFlagValue right) const;
+};
 
 class SCRIBUS_API CharStyle : public Style {
 public:
