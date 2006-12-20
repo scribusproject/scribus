@@ -364,7 +364,7 @@ bool OODPlug::convert(int flags)
 	Elements.clear();
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->setUpdatesEnabled(false);
+	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(Qt::waitCursor), true);
 	if (!m_Doc->PageColors.contains("Black"))
@@ -412,7 +412,6 @@ bool OODPlug::convert(int flags)
 		}
 	}
 	m_Doc->DoDrawing = true;
-	m_Doc->view()->setUpdatesEnabled(true);
 	m_Doc->scMW()->ScriptRunning = false;
 	if (interactive)
 		m_Doc->setLoading(false);
@@ -438,6 +437,7 @@ bool OODPlug::convert(int flags)
 		m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
 		m_Doc->minCanvasCoordinate = minSize;
 		m_Doc->maxCanvasCoordinate = maxSize;
+		m_Doc->view()->updatesOn(true);
 		dr->setPixmap(loadIcon("DragPix.xpm"));
 		if (!dr->drag())
 			qDebug("oodraw import: couldn't start drag operation!");
@@ -452,6 +452,7 @@ bool OODPlug::convert(int flags)
 		m_Doc->setLoading(false);
 		m_Doc->changed();
 		m_Doc->reformPages();
+		m_Doc->view()->updatesOn(true);
 		m_Doc->setLoading(loadF);
 	}
 	return true;

@@ -2984,7 +2984,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 //	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
 	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
-	setMasterPageMode(true);
+//	setMasterPageMode(true);
 	uint end2 = MasterItems.count();
 	m_Selection->clear();
 	for (uint ite = 0; ite < end; ++ite)

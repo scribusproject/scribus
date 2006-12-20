@@ -7741,7 +7741,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	getGroupRect(&gx, &gy, &gw, &gh);
 	double origGW = gw;
 	double origGH = gh;
-	setUpdatesEnabled(false);
+	updatesOn(false);
 	uint selectedItemCount=Doc->m_Selection->count();
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
@@ -7859,7 +7859,7 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	}
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
-	setUpdatesEnabled(true);
+	updatesOn(true);
 	updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
 	setGroupRect();
 	getGroupRect(&gx, &gy, &gw, &gh);
@@ -9728,14 +9728,19 @@ void ScribusView::reformPages(bool moveObjects)
 	}
 }
 
+void ScribusView::updatesOn(bool on)
+{
+	updateOn = on;
+	setUpdatesEnabled(on);
+	viewport()->setUpdatesEnabled(on);
+}
+
 void ScribusView::adjustCanvas(double width, double height, double dX, double dY)
 {
 	if (!operItemMoving)
 	{
 		bool updback = updateOn;
-		updateOn = false;
-		setUpdatesEnabled(false);
-		viewport()->setUpdatesEnabled(false);
+		updatesOn(false);
 		disconnect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
 		int oldDX = contentsX();
 		int oldDY = contentsY();
@@ -9743,13 +9748,9 @@ void ScribusView::adjustCanvas(double width, double height, double dX, double dY
 		int nh = QMAX(qRound(height * Scale), contentsHeight() + qRound(dY * Scale) * 2);
 		resizeContents(QMAX(nw, visibleWidth() + qRound(dX * Scale) * 2), QMAX(nh, visibleHeight() + qRound(dY * Scale) * 2));
 		setContentsPos(oldDX + qRound(dX * Scale), oldDY + qRound(dY * Scale));
-//		resizeContents(qRound((width) * Scale), qRound((height) * Scale));
-//		scrollBy(qRound((dX) * Scale), qRound((dY) * Scale));
 		setRulerPos(contentsX(), contentsY());
-		updateOn = updback;
 		connect(this, SIGNAL(contentsMoving(int, int)), this, SLOT(setRulerPos(int, int)));
-		viewport()->setUpdatesEnabled(true);
-		setUpdatesEnabled(true);
+		updatesOn(updback);
 	}
 	evSpon = false;
 }
@@ -9774,9 +9775,7 @@ void ScribusView::slotDoZoom()
 		setScale(32*Prefs->DisScale);
 		return;
 	}
-	updateOn = false;
-	setUpdatesEnabled(false);
-	viewport()->setUpdatesEnabled(false);
+	updatesOn(false);
 	int nw = QMAX(qRound((Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()) * Scale), visibleWidth());
 	int nh = QMAX(qRound((Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()) * Scale), visibleHeight());
 	resizeContents(nw, nh);
@@ -9787,9 +9786,7 @@ void ScribusView::slotDoZoom()
 	}
 	else
 		SetCCPo(oldX, oldY);
-	updateOn = true;
-	viewport()->setUpdatesEnabled(true);
-	setUpdatesEnabled(true);
+	updatesOn(true);
 	DrawNew();
 	undoManager->setUndoEnabled(true);
 }

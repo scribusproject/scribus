@@ -191,7 +191,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	FPoint maxSize = m_Doc->maxCanvasCoordinate;
 	m_Doc->setLoading(true);
 	m_Doc->DoDrawing = false;
-	m_Doc->view()->setUpdatesEnabled(false);
+	m_Doc->view()->updatesOn(false);
 	m_Doc->scMW()->ScriptRunning = true;
 	qApp->setOverrideCursor(QCursor(waitCursor), true);
 	QString CurDirP = QDir::currentDirPath();
@@ -277,7 +277,6 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			}
 		}
 		m_Doc->DoDrawing = true;
-		m_Doc->view()->setUpdatesEnabled(true);
 		m_Doc->scMW()->ScriptRunning = false;
 		m_Doc->setLoading(false);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
@@ -304,6 +303,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
 			m_Doc->minCanvasCoordinate = minSize;
 			m_Doc->maxCanvasCoordinate = maxSize;
+			m_Doc->view()->updatesOn(true);
 			m_Doc->view()->updateContents();
 			dr->setPixmap(loadIcon("DragPix.xpm"));
 #if 0
@@ -326,13 +326,14 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 		{
 			m_Doc->changed();
 			m_Doc->reformPages();
+			m_Doc->view()->updatesOn(true);
 		}
 	}
 	else
 	{
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
-		m_Doc->view()->setUpdatesEnabled(true);
+		m_Doc->view()->updatesOn(true);
 		m_Doc->scMW()->ScriptRunning = false;
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}

@@ -3492,7 +3492,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->WinHan = w;
 		w->setCentralWidget(view);
 		w->setUpdatesEnabled(false);
-		view->setUpdatesEnabled(false);
+		view->updatesOn(false);
 		doc->SoftProofing = false;
 		doc->Gamut = false;
 		ScriptRunning = true;
@@ -3764,7 +3764,7 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 			slotFileSaveAs();
 		} */
 		delete fileLoader;
-		view->setUpdatesEnabled(true);
+		view->updatesOn(true);
 		w->setUpdatesEnabled(true);
 		disconnect(wsp, SIGNAL(windowActivated(QWidget *)), this, SLOT(newActWin(QWidget *)));
 		if ((wsp->windowList().isEmpty()) || (wsp->windowList().count() == 1))
