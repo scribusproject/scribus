@@ -17,6 +17,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpopupmenu.h>
 #include <qcolor.h>
 #include <qtooltip.h>
+#include <qguardedptr.h>
 
 #include "colorsetmanager.h"
 #include "scribusapi.h"
@@ -30,9 +31,10 @@ class ScribusDoc;
 class SCRIBUS_API ColorSmallPixmapItem : public ScListBoxPixmap<15,15>
 {
 	protected:
-		ScColor color;
+		ScColor m_color;
+		QGuardedPtr<ScribusDoc> m_doc;
 	public:
-		ColorSmallPixmapItem( const ScColor& col, const QString colName );
+		ColorSmallPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
 		~ColorSmallPixmapItem() {};
 
 		virtual void redraw(void);
@@ -42,9 +44,10 @@ class SCRIBUS_API ColorSmallPixmapItem : public ScListBoxPixmap<15,15>
 class SCRIBUS_API ColorWidePixmapItem : public ScListBoxPixmap<30,15>
 {
 	protected:
-		ScColor color;
+		ScColor m_color;
+		QGuardedPtr<ScribusDoc> m_doc;
 	public:
-		ColorWidePixmapItem( const ScColor& col, const QString colName );
+		ColorWidePixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
 		~ColorWidePixmapItem() {};
 
 		virtual void redraw(void);
@@ -54,9 +57,10 @@ class SCRIBUS_API ColorWidePixmapItem : public ScListBoxPixmap<30,15>
 class SCRIBUS_API ColorFancyPixmapItem : public ScListBoxPixmap<60,15>
 {
 	protected:
-		ScColor color;
+		ScColor m_color;
+		QGuardedPtr<ScribusDoc> m_doc;
 	public:
-		ColorFancyPixmapItem( const ScColor& col, const QString colName );
+		ColorFancyPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName );
 		~ColorFancyPixmapItem() {};
 
 		virtual void redraw(void);

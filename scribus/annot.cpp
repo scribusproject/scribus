@@ -37,6 +37,7 @@ extern QPixmap loadIcon(QString nam);
 Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList Farben, ScribusView* vie)
 		: QDialog( parent, "AN", true, 0 )
 {
+	ScribusDoc* doc = Farben.document();
 	setCaption( tr( "Field Properties" ) );
 	setIcon(loadIcon("AppIcon.png"));
 	item = it;
@@ -163,7 +164,7 @@ Annot::Annot(QWidget* parent, PageItem *it, int Seite, int b, int h, ColorList F
 		BorderC->setCurrentItem(BorderC->count()-1);
 	for (cit = Farben.begin(); cit != Farben.end(); ++cit)
 	{
-		BorderC->insertSmallItem(Farben[cit.key()], cit.key());
+		BorderC->insertSmallItem(Farben[cit.key()], doc, cit.key());
 		if (cit.key() == item->annotation().borderColor())
 			BorderC->setCurrentItem(BorderC->count()-1);
 	}

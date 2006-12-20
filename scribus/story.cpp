@@ -866,9 +866,7 @@ void SToolBColorF::setCurrentDocument(ScribusDoc *doc)
 	if (doc!=NULL)
 	{
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
-			TxFill->insertSmallItem( doc->PageColors[it.key()], it.key() );
-		}
+			TxFill->insertSmallItem( doc->PageColors[it.key()], doc, it.key() );
 	}
 	resize(minimumSizeHint());
 }
@@ -923,9 +921,7 @@ void SToolBColorS::setCurrentDocument(ScribusDoc *doc)
 	if (doc!=NULL)
 	{
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		{
-			TxStroke->insertSmallItem( doc->PageColors[it.key()], it.key() );
-		}
+			TxStroke->insertSmallItem( doc->PageColors[it.key()], doc, it.key() );
 	}
 	resize(minimumSizeHint());
 }

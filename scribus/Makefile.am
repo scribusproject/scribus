@@ -192,6 +192,7 @@ scribus_SOURCES = \
 	rulermover.cpp	\
 	sampleitem.cpp \
 	sccolor.cpp	\
+	sccolorengine.cpp \
 	sccombobox.cpp	\
 	scinputdialog.cpp \
 	scfonts.cpp	\
@@ -457,6 +458,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/reformdoc.h                   $(prefix)/include/scribus/reformdoc.h
 	$(INSTALL_DATA) $(srcdir)/sampleitem.h                  $(prefix)/include/scribus/sampleitem.h
 	$(INSTALL_DATA) $(srcdir)/sccolor.h                     $(prefix)/include/scribus/sccolor.h
+	$(INSTALL_DATA) $(srcdir)/sccolorengine.h               $(prefix)/include/scribus/sccolorengine.h
 	$(INSTALL_DATA) $(srcdir)/scinputdialog.h               $(prefix)/include/scribus/scinputdialog.h
 	$(INSTALL_DATA) $(srcdir)/scfonts.h                     $(prefix)/include/scribus/scfonts.h
 	$(INSTALL_DATA) $(srcdir)/scmenu.h                      $(prefix)/include/scribus/scmenu.h
@@ -662,6 +664,7 @@ uninstall-local:
 	-rm -f $(prefix)/include/scribus/reformdoc.h
 	-rm -f $(prefix)/include/scribus/sampleitem.h
 	-rm -f $(prefix)/include/scribus/sccolor.h
+	-rm -f $(prefix)/include/scribus/sccolorengine.h
 	-rm -f $(prefix)/include/scribus/scinputdialog.h
 	-rm -f $(prefix)/include/scribus/scfonts.h
 	-rm -f $(prefix)/include/scribus/scmenu.h

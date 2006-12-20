@@ -52,24 +52,24 @@ void ColorCombo::updateBox(ColorList& list, ColorCombo::PixmapType pixType , boo
 	}
 }
 
-void ColorCombo::insertSmallItem( const ScColor& col, const QString& colName )
+void ColorCombo::insertSmallItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
 	ColorListBox* clb = (ColorListBox*) listBox();
 	if ( clb )
-		clb->insertItem( new ColorSmallPixmapItem(col, colName) );
+		clb->insertItem( new ColorSmallPixmapItem(col, doc, colName) );
 }
 
-void ColorCombo::insertWideItem ( const ScColor& col, const QString& colName )
+void ColorCombo::insertWideItem ( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
 	ColorListBox* clb = (ColorListBox*) listBox();
 	if ( clb )
-		clb->insertItem( new ColorWidePixmapItem(col, colName) );
+		clb->insertItem( new ColorWidePixmapItem(col, doc, colName) );
 }
 
-void ColorCombo::insertFancyItem( const ScColor& col, const QString& colName )
+void ColorCombo::insertFancyItem( const ScColor& col, ScribusDoc* doc, const QString& colName )
 {
 	ColorListBox* clb = (ColorListBox*) listBox();
 	if ( clb )
-		clb->insertItem( new ColorFancyPixmapItem(col, colName) );
+		clb->insertItem( new ColorFancyPixmapItem(col, doc, colName) );
 }
 

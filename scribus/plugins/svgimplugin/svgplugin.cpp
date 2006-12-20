@@ -37,6 +37,7 @@ for which a new license (GPL+exception) is in place.
 #include "loadsaveplugin.h"
 #include "util.h"
 #include "fonts/scfontmetrics.h"
+#include "sccolorengine.h"
 
 using namespace std;
 
@@ -2056,7 +2057,8 @@ void SVGPlug::parseColorStops(GradientHelper *gradient, const QDomElement &e)
 				}
 			}
 		}
-		gradient->gradient.addStop( m_Doc->PageColors[Col].getRGBColor(), offset, 0.5, opa, Col, 100 );
+		const ScColor& gradC = m_Doc->PageColors[Col];
+		gradient->gradient.addStop( ScColorEngine::getRGBColor(gradC, m_Doc), offset, 0.5, opa, Col, 100 );
 		gradient->gradientValid = true;
 	}
 	if (gradient->gradientValid)

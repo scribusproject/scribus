@@ -22,7 +22,7 @@
 #include <qvaluelist.h>
 #include "scfonts.h"
 #include "scribusapi.h"
-
+#include "sccolor.h"
 
 
 class Style;

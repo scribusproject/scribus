@@ -26,6 +26,23 @@ for which a new license (GPL+exception) is in place.
 #include "annotation.h"
 #include "pageitem.h"
 
+typedef struct
+{
+	int r;
+	int g;
+	int b;
+	void getValues(int& vr, int& vg, int& vb) {vr = r; vg = g; vb = b;}
+} RGBColor;
+
+typedef struct
+{
+	int c;
+	int m;
+	int y;
+	int k;
+	void getValues(int& vc, int& vm, int& vy, int& vk) {vc = c; vm = m; vy = y; vk = k;}
+} CMYKColor;
+
 struct CopyPasteBuffer
 {
 	PageItem::ItemType PType;

@@ -36,6 +36,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "commonstrings.h"
 #include "util.h"
+#include "sccolorengine.h"
 
 // gtAction::gtAction(bool append)
 // {
@@ -620,7 +621,7 @@ QString gtAction::parseColor(const QString &s)
 		found = false;
 		for (it = textFrame->doc()->PageColors.begin(); it != textFrame->doc()->PageColors.end(); ++it)
 		{
-			if (c == textFrame->doc()->PageColors[it.key()].getRGBColor())
+			if (c == ScColorEngine::getRGBColor(it.data(), textFrame->doc()))
 			{
 				ret = it.key();
 				found = true;

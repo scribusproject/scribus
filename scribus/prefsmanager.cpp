@@ -1808,7 +1808,7 @@ bool PrefsManager::ReadPref(QString ho)
 				lf.setRegistrationColor(static_cast<bool>(dc.attribute("Register").toInt()));
 			else
 				lf.setRegistrationColor(false);
-		  appPrefs.DColors[dc.attribute("NAME")] = lf;
+			appPrefs.DColors[dc.attribute("NAME")] = lf;
 		}
 		if (dc.tagName()=="Substitute")
 		  appPrefs.GFontSub[dc.attribute("Name")] = dc.attribute("Replace");

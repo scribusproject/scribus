@@ -36,7 +36,7 @@ class SCRIBUS_API MultiLine : public QDialog
 public:
 	MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString nam, QMap<QString,multiLine> *Sty);
 	void updatePreview();
-	QColor calcFarbe(QString name, int shade);
+	QColor calcFarbe(const QString& name, int shade);
 	void updateSList();
 	void reSort();
 	void RebuildList();

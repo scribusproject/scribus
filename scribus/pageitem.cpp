@@ -55,6 +55,7 @@ for which a new license (GPL+exception) is in place.
 #include "commonstrings.h"
 #include "scconfig.h"
 #include "guidemanager.h"
+#include "sccolorengine.h"
 
 #include "util.h"
 #include "scpattern.h"
@@ -413,14 +414,26 @@ PageItem::PageItem(ScribusDoc *pa, ItemType newType, double x, double y, double 
 	doOverprint = false;
 	fill_gradient = VGradient(VGradient::linear);
 	fill_gradient.clearStops();
-	if (fillColor() == CommonStrings::None)
-		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+	if (fillColorVal != CommonStrings::None)
+	{
+		const ScColor& col = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+		fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+	}
 	else
-		fill_gradient.addStop(m_Doc->PageColors[fillColor()].getRGBColor(), 0.0, 0.5, 1.0, fillColor(), 100);
-	if (lineColor() == CommonStrings::None)
-		fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+	{
+		const ScColor& col = m_Doc->PageColors[fillColorVal];
+		fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 0.0, 0.5, 1.0, fillColorVal, 100);
+	}
+	if (lineColorVal != CommonStrings::None)
+	{
+		const ScColor& col = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+		fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+	}
 	else
-		fill_gradient.addStop(m_Doc->PageColors[lineColor()].getRGBColor(), 1.0, 0.5, 1.0, lineColor(), 100);
+	{
+		const ScColor& col = m_Doc->PageColors[lineColorVal];
+		fill_gradient.addStop(ScColorEngine::getRGBColor(col, m_Doc), 1.0, 0.5, 1.0, lineColorVal, 100);
+	}
 	Cols = m_Doc->toolSettings.dCols;
 	ColGap = m_Doc->toolSettings.dGap;
 	LeftLink = 0;
@@ -954,10 +967,11 @@ void PageItem::DrawObj_Post(ScPainter *p)
 					QColor tmp;
 					for (int it = ml.size()-1; it > -1; it--)
 					{
-						if ((ml[it].Color != CommonStrings::None) && (ml[it].Width != 0))
+						struct SingleLine& sl = ml[it];
+						if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
 						{
-							SetFarbe(&tmp, ml[it].Color, ml[it].Shade);
-							p->setPen(tmp, ml[it].Width, static_cast<PenStyle>(ml[it].Dash), static_cast<PenCapStyle>(ml[it].LineEnd), static_cast<PenJoinStyle>(ml[it].LineJoin));
+							SetFarbe(&tmp, sl.Color, sl.Shade);
+							p->setPen(tmp, sl.Width, static_cast<PenStyle>(sl.Dash), static_cast<PenCapStyle>(sl.LineEnd), static_cast<PenJoinStyle>(sl.LineJoin));
 							p->strokePath();
 						}
 					}
@@ -1439,7 +1453,8 @@ QString PageItem::ExpandToken(uint base)
 
 void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 {
-	*tmp = m_Doc->PageColors[farbe].getShadeColorProof(shad);
+	const ScColor& col = m_Doc->PageColors[farbe];
+	*tmp = ScColorEngine::getShadeColorProof(col, m_Doc, shad);
 	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
@@ -1447,9 +1462,6 @@ void PageItem::SetFarbe(QColor *tmp, QString farbe, int shad)
 		delete defect;
 	}
 }
-
-
-
 
 /**
     layout glyphs translates the chars into a number of glyphs, applying the Charstyle
@@ -2077,7 +2089,10 @@ void PageItem::setLineShade(int newShade)
 void PageItem::setLineQColor()
 {
 	if (lineColorVal != CommonStrings::None)
-		strokeQColor = m_Doc->PageColors[lineColorVal].getShadeColorProof(lineShadeVal);
+	{
+		const ScColor& col = m_Doc->PageColors[lineColorVal];
+		strokeQColor = ScColorEngine::getShadeColorProof(col, m_Doc, lineShadeVal);
+	}
 	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();
@@ -2089,7 +2104,10 @@ void PageItem::setLineQColor()
 void PageItem::setFillQColor()
 {
 	if (fillColorVal != CommonStrings::None)
-		fillQColor = m_Doc->PageColors[fillColorVal].getShadeColorProof(fillShadeVal);
+	{
+		const ScColor& col = m_Doc->PageColors[fillColorVal];
+		fillQColor = ScColorEngine::getShadeColorProof(col, m_Doc, fillShadeVal);
+	}
 	if ((m_Doc->view()) && (m_Doc->view()->viewAsPreview) && (m_Doc->view()->previewVisual != 0))
 	{
 		VisionDefectColor *defect = new VisionDefectColor();

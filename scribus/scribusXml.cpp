@@ -714,7 +714,6 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 		// 10/25/2004 pv - None is "reserved" color. cannot be defined in any file...
 		if(pg.tagName()=="COLOR" && pg.attribute("Name")!=CommonStrings::None)
 		{
-			lf.setDocument(doc);
 			if (pg.hasAttribute("CMYK"))
 				lf.setNamedColor(pg.attribute("CMYK"));
 			else

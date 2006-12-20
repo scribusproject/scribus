@@ -39,7 +39,9 @@ for which a new license (GPL+exception) is in place.
 using namespace Gdiplus;
 #endif
 
+#include "scribusdoc.h"
 #include "scpainterex_gdi.h"
+#include "sccolorengine.h"
 
 #include <qpaintdevice.h>
 #include <qpixmap.h>
@@ -56,8 +58,9 @@ typedef struct {
     RGBQUAD bmiColors[256]; 
 } BITMAPINFO256;
 
-ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray ) : ScPainterExBase()
+ScPainterEx_GDI::ScPainterEx_GDI( HDC hDC, QRect& rect,  ScribusDoc* doc, bool gray ) : ScPainterExBase()
 {
+	m_doc = doc;
 	m_width = rect.width();
 	m_height= rect.height();
 	m_strokeColor = ScColorShade( QColor(0,0,0), 100 );
@@ -125,7 +128,7 @@ void ScPainterEx_GDI::loadMsImg32( void )
 QColor ScPainterEx_GDI::transformColor( ScColorShade& colorShade, double trans )
 {
 	QColor c, color;
-	c = colorShade.color.getShadeColor( colorShade.shade );
+	c = ScColorEngine::getShadeColor(colorShade.color, m_doc, colorShade.shade);
 	color = qRgba( qRed(c.rgb()), qGreen(c.rgb()), qBlue(c.rgb()), qAlpha(trans * 255));
 	if ( m_convertToGray )
 	{

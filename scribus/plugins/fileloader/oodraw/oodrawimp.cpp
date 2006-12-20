@@ -42,6 +42,7 @@ for which a new license (GPL+exception) is in place.
 #include "stylestack.h"
 #include "scraction.h"
 #include "menumanager.h"
+#include "sccolorengine.h"
 
 using namespace std;
 
@@ -581,15 +582,19 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					QString c, c2;
 					c = parseColor( draw->attribute( "draw:start-color" ) );
 					c2 = parseColor( draw->attribute( "draw:end-color" ) );
+					const ScColor& col1 = m_Doc->PageColors[c];
+					const ScColor& col2 = m_Doc->PageColors[c2];
 					if (((GradientAngle > 90) && (GradientAngle < 271)) || (GradientType == 2))
 					{
-						gradient.addStop( m_Doc->PageColors[c2].getRGBColor(), 0.0, 0.5, 1, c2, shadeE );
-						gradient.addStop( m_Doc->PageColors[c].getRGBColor(), 1.0 - border, 0.5, 1, c, shadeS );
+						const ScColor& col1 = m_Doc->PageColors[c];
+						const ScColor& col2 = m_Doc->PageColors[c2];
+						gradient.addStop( ScColorEngine::getRGBColor(col2, m_Doc), 0.0, 0.5, 1, c2, shadeE );
+						gradient.addStop( ScColorEngine::getRGBColor(col1, m_Doc), 1.0 - border, 0.5, 1, c, shadeS );
 					}
 					else
 					{
-						gradient.addStop( m_Doc->PageColors[c].getRGBColor(), border, 0.5, 1, c, shadeS );
-						gradient.addStop( m_Doc->PageColors[c2].getRGBColor(), 1.0, 0.5, 1, c2, shadeE );
+						gradient.addStop( ScColorEngine::getRGBColor(col1, m_Doc), border, 0.5, 1, c, shadeS );
+						gradient.addStop( ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1, c2, shadeE );
 					}
 				}
 			}

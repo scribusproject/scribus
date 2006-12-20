@@ -60,6 +60,7 @@ for which a new license (GPL+exception) is in place.
 #include "pdfoptions.h"
 #include "sccolor.h"
 #include "scpattern.h"
+#include "sccolorengine.h"
 
 #include "text/nlsconfig.h"
 
@@ -4035,21 +4036,28 @@ void PDFlib::setTextCh(PageItem *ite, uint PNr, double x,  double y, uint d, QSt
 
 QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 {
+	const ScColor& col = doc.PageColors[farbe];
+	return SetFarbe(col, Shade);
+}
+
+QString PDFlib::SetFarbe(const ScColor& farbe, int Shade)
+{
 	QString tmp;
-	ScColor tmpC;
+	RGBColor rgb;
+	CMYKColor cmyk;
 	int h, s, v, k;
-	tmpC = doc.PageColors[farbe];
+	ScColor tmpC(farbe);
 	QColor tmpR;
 	if (Options.isGrayscale)
 	{
-		tmpR = tmpC.getShadeColor(Shade);
+		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
 		tmpR.rgb(&h, &s, &v);
 		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
 		return tmp;
 	}
 	if (Options.UseRGB)
 	{
-		tmpR = tmpC.getShadeColor(Shade);
+		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
 		tmpR.rgb(&h, &s, &v);
 		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
 	}
@@ -4059,26 +4067,30 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 		{
 			if (tmpC.getColorModel() == colorModelCMYK)
 			{
-				tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+				ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+				cmyk.getValues(h, s, v, k);
 				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 			}
 			else
 			{
 				if (Options.SComp == 3)
 				{
-					tmpC.getShadeColorRGB(&h, &s, &v, Shade);
+					ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+					rgb.getValues(h, s, v);
 					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
 				}
 				else
 				{
-					tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+					ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+					cmyk.getValues(h, s, v, k);
 					tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 				}
 			}
 		}
 		else
 		{
-			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+			ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+			cmyk.getValues(h, s, v, k);
 			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 		}
 	}
@@ -4088,20 +4100,21 @@ QString PDFlib::SetFarbe(const QString& farbe, int Shade)
 QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
 {
 	QString tmp;
-	ScColor tmpC;
+	RGBColor rgb;
+	CMYKColor cmyk;
 	int h, s, v, k;
-	tmpC = doc.PageColors[farbe];
+	ScColor tmpC(doc.PageColors[farbe]);
 	QColor tmpR;
 	if (Options.isGrayscale)
 	{
-		tmpR = tmpC.getShadeColor(Shade);
+		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
 		tmpR.rgb(&h, &s, &v);
 		tmp = FToStr((0.3 * h + 0.59 * s + 0.11 * v) / 255.0);
 		return tmp;
 	}
 	if (Options.UseRGB)
 	{
-		tmpR = tmpC.getShadeColor(Shade);
+		tmpR = ScColorEngine::getShadeColor(tmpC, &doc, Shade);
 		tmpR.rgb(&h, &s, &v);
 		tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
 	}
@@ -4111,18 +4124,21 @@ QString PDFlib::SetFarbeGrad(const QString& farbe, int Shade)
 		{
 			if (Options.SComp == 3)
 			{
-				tmpC.getShadeColorRGB(&h, &s, &v, Shade);
+				ScColorEngine::getShadeColorRGB(tmpC, &doc, rgb, Shade);
+				rgb.getValues(h, s, v);
 				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0);
 			}
 			else
 			{
-				tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+				ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+				cmyk.getValues(h, s, v, k);
 				tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 			}
 		}
 		else
 		{
-			tmpC.getShadeColorCMYK(&h, &s, &v, &k, Shade);
+			ScColorEngine::getShadeColorCMYK(tmpC, &doc, cmyk, Shade);
+			cmyk.getValues(h, s, v, k);
 			tmp = FToStr(h / 255.0)+" "+FToStr(s / 255.0)+" "+FToStr(v / 255.0)+" "+FToStr(k / 255.0);
 		}
 	}

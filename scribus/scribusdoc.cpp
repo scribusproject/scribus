@@ -61,6 +61,7 @@ for which a new license (GPL+exception) is in place.
 #include "units.h"
 #include "util.h"
 #include "commonstrings.h"
+#include "sccolorengine.h"
 
 #include "text/nlsconfig.h"
 
@@ -2875,11 +2876,6 @@ bool ScribusDoc::changePageMargins(const double initialTop, const double initial
 
 void ScribusDoc::recalculateColors()
 {
-	//Recalculate the RGB or CMYK calues to new CMS settings
-	ColorList::Iterator it;
-	ColorList::Iterator itend=PageColors.end();
-	for (it = PageColors.begin(); it != itend; ++it)
-		it.data().RecalcRGB();
 	//Adjust Items of the 3 types to the colors
 	uint itemsCount=Items->count();
 	updateAllItemQColors();
@@ -2889,7 +2885,7 @@ void ScribusDoc::recalculateColors()
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
-			QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
 			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops.at(cst)->color = tmpc;
 		}
@@ -2901,7 +2897,7 @@ void ScribusDoc::recalculateColors()
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
-			QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
 			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops.at(cst)->color = tmpc;
 		}
@@ -2913,7 +2909,7 @@ void ScribusDoc::recalculateColors()
 		QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 		for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 		{
-			QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+			QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
 			ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
 			cstops.at(cst)->color = tmpc;
 		}
@@ -2928,7 +2924,7 @@ void ScribusDoc::recalculateColors()
 			QPtrVector<VColorStop> cstops = ite->fill_gradient.colorStops();
 			for (uint cst = 0; cst < ite->fill_gradient.Stops(); ++cst)
 			{
-				QColor tmpc = PageColors[cstops.at(cst)->name].getRGBColor();
+				QColor tmpc = ScColorEngine::getRGBColor(PageColors[cstops.at(cst)->name], this);
 				ite->SetFarbe(&tmpc, cstops.at(cst)->name, cstops.at(cst)->shade);
 				cstops.at(cst)->color = tmpc;
 			}

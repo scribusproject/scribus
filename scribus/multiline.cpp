@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "page.h"
 #include "colorutil.h"
 #include "commonstrings.h"
+#include "sccolorengine.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -105,7 +106,7 @@ MultiLine::MultiLine( QWidget* parent, ScribusDoc* doc, multiLine ml, QString na
 	ColorList::Iterator it;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		Color->listBox()->insertItem( new ColorWidePixmapItem(doc->PageColors[it.key()], it.key()) );
+		Color->listBox()->insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
 	}
 	layout4->addWidget( Color );
 	Shade = new QSpinBox( Properties, "Shade" );
@@ -167,9 +168,10 @@ void MultiLine::updatePreview()
 	Preview->setPixmap(pm);
 }
 
-QColor MultiLine::calcFarbe(QString name, int shade)
+QColor MultiLine::calcFarbe(const QString& name, int shade)
 {
-	QColor tmpf = Docu->PageColors[name].getDisplayColor(shade);
+	const ScColor& color = Docu->PageColors[name];
+	QColor tmpf = ScColorEngine::getDisplayColor(color, Docu, shade);
 	return tmpf;
 }
 

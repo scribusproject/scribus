@@ -28,6 +28,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "scpainter.h"
 #include "commonstrings.h"
+#include "sccolorengine.h"
 
 
 using namespace std;
@@ -924,9 +925,9 @@ QPixmap ScPreview::createPreview(QString data)
 	return tmp;
 }
 
-void ScPreview::SetFarbe(QColor *tmp, QString farbe, int shad)
+void ScPreview::SetFarbe(QColor *tmp, const QString& farbe, int shad)
 {
-	*tmp = Farben[farbe].getShadeColorProof(shad);
+	*tmp = ScColorEngine::getShadeColorProof(Farben[farbe], NULL, shad);
 }
 
 void ScPreview::DrawZeichenS(ScPainter *p, double xco, double yco, QString ch, QString ZFo, bool Reverse, int Style, int mod, int Siz)

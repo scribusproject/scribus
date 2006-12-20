@@ -16,6 +16,7 @@ for which a new license (GPL+exception) is in place.
 #include "selection.h"
 #include "scribusview.h"
 #include "scribus.h"
+#include "sccolorengine.h"
 #include "mpalette.h"
 #include <qheader.h>
 #include <qlineedit.h>
@@ -83,8 +84,9 @@ void LineStyleWidget::showStyle(const multiLine &lineStyle, ColorList &colorList
 	currentStyle = lineStyle;
 	colorCombo->clear();
 	ColorList::Iterator it;
+	ScribusDoc* doc = colorList.document();
 	for (it = colorList.begin(); it != colorList.end(); ++it)
-		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], it.key()));
+		colorCombo->listBox()->insertItem(new ColorWidePixmapItem(colorList[it.key()], doc, it.key()));
 	colors = colorList;
 	updateLineList();
 	slotEditNewLine(subLine);
@@ -171,7 +173,8 @@ void LineStyleWidget::updateLineList()
 
 QColor LineStyleWidget::getColor(const QString &name, int shade)
 {
-	QColor tmpf = colors[name].getDisplayColor(shade);
+	const ScColor& color = colors[name];
+	QColor tmpf = ScColorEngine::getDisplayColor(color, colors.document(), shade);
 	return tmpf;
 }
 
@@ -865,7 +868,8 @@ QColor SMLineStyle::calcFarbe(const QString &name, int shade)
 	QColor tmpf;
 	if (!doc_)
 		return tmpf;
-	tmpf = doc_->PageColors[name].getDisplayColor(shade);
+	const ScColor& color = doc_->PageColors[name];
+	tmpf = ScColorEngine::getDisplayColor(color, doc_, shade);
 	return tmpf;
 }
 

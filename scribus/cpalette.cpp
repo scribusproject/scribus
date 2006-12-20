@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "dynamictip.h"
 #include "commonstrings.h"
 #include "linkbutton.h"
+#include "sccolorengine.h"
 #ifdef HAVE_CAIRO
 #include <cairo.h>
 #endif
@@ -437,13 +438,6 @@ void Cpalette::updateCList()
 	if ((!GradientMode) || (Mode == 1))
 		colorListQLBox->insertItem(CommonStrings::NoneColor);
 	colorListQLBox->updateBox(colorList, ColorListBox::fancyPixmap, false);
-	/*ColorList::Iterator itend=colorList.end();
-	for (ColorList::Iterator it = colorList.begin(); it != itend; ++it)
-	{
-		ScColor col = colorList[it.key()];
-		QPixmap * pm = getFancyPixmap(col);
-		colorListQLBox->insertItem(*pm, it.key());
-	}*/
 	colorListQLBox->setSelected(colorListQLBox->currentItem(), false);
 	connect(colorListQLBox, SIGNAL(clicked(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
 	connect(colorListQLBox, SIGNAL(selected(QListBoxItem*)), this, SLOT(selectColor(QListBoxItem*)));
@@ -476,7 +470,8 @@ void Cpalette::selectColor(QListBoxItem *c)
 
 QColor Cpalette::setColor(QString colorName, int shad)
 {
-	return colorList[colorName].getShadeColorProof(shad);
+	const ScColor& color = colorList[colorName];
+	return ScColorEngine::getShadeColorProof(color, currentDoc, shad);
 }
 
 void Cpalette::updateBoxS(QString colorName)

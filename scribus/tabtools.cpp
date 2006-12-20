@@ -583,7 +583,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			colorComboText->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			colorComboText->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
 		}
@@ -594,7 +594,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			colorComboText->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			colorComboText->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dPenText)
 				colorComboText->setCurrentItem(colorComboText->count()-1);
 		}
@@ -610,7 +610,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			colorComboStrokeText->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			colorComboStrokeText->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 		}
@@ -621,7 +621,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			colorComboStrokeText->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			colorComboStrokeText->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dStrokeText)
 				colorComboStrokeText->setCurrentItem(colorComboStrokeText->count()-1);
 		}
@@ -636,7 +636,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			colorComboTextBackground->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			colorComboTextBackground->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dTextBackGround)
 				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 		}
@@ -647,7 +647,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			colorComboTextBackground->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			colorComboTextBackground->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dTextBackGround)
 				colorComboTextBackground->setCurrentItem(colorComboTextBackground->count()-1);
 		}
@@ -662,7 +662,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			colorComboTextLine->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			colorComboTextLine->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dTextLineColor)
 				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 		}
@@ -673,7 +673,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			colorComboTextLine->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			colorComboTextLine->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dTextLineColor)
 				colorComboTextLine->setCurrentItem(colorComboTextLine->count()-1);
 		}
@@ -722,7 +722,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			colorComboLineShape->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			colorComboLineShape->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 		}
@@ -733,7 +733,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			colorComboLineShape->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			colorComboLineShape->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dPen)
 				colorComboLineShape->setCurrentItem(colorComboLineShape->count()-1);
 		}
@@ -748,7 +748,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			comboFillShape->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			comboFillShape->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
 		}
@@ -759,7 +759,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			comboFillShape->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			comboFillShape->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dBrush)
 				comboFillShape->setCurrentItem(comboFillShape->count()-1);
 		}
@@ -798,7 +798,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			colorComboLine->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			colorComboLine->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
 		}
@@ -809,7 +809,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			colorComboLine->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			colorComboLine->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dPenLine)
 				colorComboLine->setCurrentItem(colorComboLine->count()-1);
 		}
@@ -867,7 +867,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 	{
 		for (itc = docu->PageColors.begin(); itc != docu->PageColors.end(); ++itc)
 		{
-			comboFillImage->insertSmallItem( docu->PageColors[itc.key()], itc.key() );
+			comboFillImage->insertSmallItem( docu->PageColors[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);
 		}
@@ -878,7 +878,7 @@ void TabTools::restoreDefaults(struct toolPrefs *prefsData, int unitIndex)
 		ColorList::Iterator endOfColorList=colorList->end();
 		for (itc = colorList->begin(); itc != endOfColorList; ++itc)
 		{
-			comboFillImage->insertSmallItem( (*colorList)[itc.key()], itc.key() );
+			comboFillImage->insertSmallItem( (*colorList)[itc.key()], docu, itc.key() );
 			if (itc.key() == prefsData->dBrushPict)
 				comboFillImage->setCurrentItem(comboFillImage->count()-1);
 		}

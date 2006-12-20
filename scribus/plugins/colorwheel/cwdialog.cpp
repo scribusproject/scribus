@@ -33,7 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include "colorblind.h"
 #include "colorutil.h"
 #include "colorm.h"
-
+#include "sccolorengine.h"
 
 CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool modal, WFlags fl)
 	: CWDialogBase (parent, name, modal, fl),
@@ -57,6 +57,7 @@ CWDialog::CWDialog(QWidget* parent, ScribusDoc* doc, const char* name, bool moda
 	prefs = PrefsManager::instance()->prefsFile->getPluginContext("colorwheel");
 	typeCombo->setCurrentItem(prefs->getInt("cw_type", 0));
 	angleSpin->setValue(prefs->getInt("cw_angle", 15));
+	colorWheel->currentDoc = m_Doc;
 	colorWheel->angle = angleSpin->value();
 	colorWheel->baseAngle = prefs->getInt("cw_baseangle", 0);
 	colorspaceTab->setCurrentPage(prefs->getInt("cw_space", 0));
@@ -233,7 +234,7 @@ void CWDialog::setPreview()
 	for (uint i = 0; i < cols.count(); ++i)
 	{
 		//c = computeDefect(cols[i].getRGBColor());
-		c = computeDefect(cols[i].getDisplayColor());
+		c = computeDefect( ScColorEngine::getDisplayColor(cols[i], m_Doc) );
 		p->setPen(c);
 		p->setBrush(c);
 		p->drawRect(i * xstep, 0, xstep, y);
@@ -401,7 +402,7 @@ void CWDialog::setupCMYKComponent(ScColor col)
 void CWDialog::setupHSVComponent(ScColor col)
 {
 	int h, s, v;
-	QColor qc(col.getRGBColor());
+	QColor qc(ScColorEngine::getRGBColor(col, m_Doc));
 	qc.getHsv(&h, &s, &v);
 	connectSlots(false);
 	hSpin->setValue(h);
@@ -510,7 +511,7 @@ void CWDialog::colorList_currentChanged(QListBoxItem * item)
 		currentColorTable->setText(1, 1, num.setNum(g));
 		currentColorTable->setText(1, 2, num.setNum(b));
 		int h, s, v;
-		QColor hsvCol(col.getRGBColor());
+		QColor hsvCol(ScColorEngine::getRGBColor(col, m_Doc));
 		hsvCol.getHsv(&h, &s, &v);
 		currentColorTable->setText(2, 0, num.setNum(h));
 		currentColorTable->setText(2, 1, num.setNum(s));
@@ -526,7 +527,7 @@ void CWDialog::colorList_currentChanged(QListBoxItem * item)
 QString CWDialog::getHexHsv(ScColor c)
 {
 	int h, s, v;
-	QColor hsvCol(c.getRGBColor());
+	QColor hsvCol(ScColorEngine::getRGBColor(c, m_Doc));
 	hsvCol.getHsv(&h, &s, &v);
 	return QString("#%1%2%3").arg(h, 0, 16).arg(s, 0, 16).arg(v, 0, 16);
 }

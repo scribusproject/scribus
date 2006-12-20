@@ -18,6 +18,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusdoc.h"
 #include "scmessagebox.h"
 #include "page.h"
+#include "sccolorEngine.h"
 
 extern QPixmap loadIcon(QString nam);
 
@@ -261,7 +262,8 @@ void LineFormateItem::redraw(void)
 	p.begin(pmap.get());
 	for (int its = mLine.size()-1; its > -1; its--)
 	{
-		tmpf = doc->PageColors[mLine[its].Color].getDisplayColor(mLine[its].Shade);
+		const ScColor& col = doc->PageColors[mLine[its].Color];
+		tmpf = ScColorEngine::getDisplayColor(col, doc, mLine[its].Shade);
 		p.setPen(QPen(tmpf,
 						QMAX(static_cast<int>(mLine[its].Width), 1),
 						static_cast<Qt::PenStyle>(mLine[its].Dash),

@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "sccolorengine.h"
 
 #include "units.h"
 #include "util.h"
@@ -563,7 +564,7 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-			  m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1014,8 +1015,10 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
@@ -1991,71 +1994,71 @@ void Scribus13Format::readParagraphStyle(ParagraphStyle& vg, const QDomElement& 
 	vg.setDropCapOffset(pg.attribute("DROPDIST", "0").toDouble());
 	vg.charStyle().setEffects(static_cast<StyleFlag>(pg.attribute("EFFECT", "0").toInt()));
 	QString fColor = pg.attribute("FCOLOR", doc->toolSettings.dBrush);
-		int fShade = pg.attribute("FSHADE", "100").toInt();
-		handleOldColorShade(doc, fColor, fShade);
-		QString sColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
-		int sShade = pg.attribute("SSHADE", "100").toInt();
-		handleOldColorShade(doc, sColor, sShade);
-		vg.charStyle().setFillColor(fColor);
-		vg.charStyle().setFillShade(fShade);
-		vg.charStyle().setStrokeColor(sColor);
-		vg.charStyle().setStrokeShade(sShade);
-		vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
-		vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
-		vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
-		vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
-		vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
-		vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
-		vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
-		vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
-		vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
-		vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
-		vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
-		vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
+	int fShade = pg.attribute("FSHADE", "100").toInt();
+	handleOldColorShade(doc, fColor, fShade);
+	QString sColor = pg.attribute("SCOLOR", doc->toolSettings.dPen);
+	int sShade = pg.attribute("SSHADE", "100").toInt();
+	handleOldColorShade(doc, sColor, sShade);
+	vg.charStyle().setFillColor(fColor);
+	vg.charStyle().setFillShade(fShade);
+	vg.charStyle().setStrokeColor(sColor);
+	vg.charStyle().setStrokeShade(sShade);
+	vg.setUseBaselineGrid(static_cast<bool>(pg.attribute("BASE", "0").toInt()));
+	vg.charStyle().setShadowXOffset(qRound(pg.attribute("TXTSHX", "5").toDouble() * 10));
+	vg.charStyle().setShadowYOffset(qRound(pg.attribute("TXTSHY", "-5").toDouble() * 10));
+	vg.charStyle().setOutlineWidth(qRound(pg.attribute("TXTOUT", "1").toDouble() * 10));
+	vg.charStyle().setUnderlineOffset(qRound(pg.attribute("TXTULP", "-0.1").toDouble() * 10));
+	vg.charStyle().setUnderlineWidth(qRound(pg.attribute("TXTULW", "-0.1").toDouble() * 10));
+	vg.charStyle().setStrikethruOffset(qRound(pg.attribute("TXTSTP", "-0.1").toDouble() * 10));
+	vg.charStyle().setStrikethruWidth(qRound(pg.attribute("TXTSTW", "-0.1").toDouble() * 10));
+	vg.charStyle().setScaleH(qRound(pg.attribute("SCALEH", "100").toDouble() * 10));
+	vg.charStyle().setScaleV(qRound(pg.attribute("SCALEV", "100").toDouble() * 10));
+	vg.charStyle().setBaselineOffset(qRound(pg.attribute("BASEO", "0").toDouble() * 10));
+	vg.charStyle().setTracking(qRound(pg.attribute("KERN", "0").toDouble() * 10));
 //		vg.tabValues().clear();
-		if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+	if ((pg.hasAttribute("NUMTAB")) && (pg.attribute("NUMTAB", "0").toInt() != 0))
+	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
+		ParagraphStyle::TabRecord tb;
+		QString tmp = pg.attribute("TABS");
+		QTextStream tgv(&tmp, IO_ReadOnly);
+		double xf, xf2;
+		for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
 		{
-			QValueList<ParagraphStyle::TabRecord> tbs;
-			ParagraphStyle::TabRecord tb;
-			QString tmp = pg.attribute("TABS");
-			QTextStream tgv(&tmp, IO_ReadOnly);
-			double xf, xf2;
-			for (int cxv = 0; cxv < pg.attribute("NUMTAB", "0").toInt(); cxv += 2)
+			tgv >> xf;
+			tgv >> xf2;
+			tb.tabPosition = xf2;
+			tb.tabType = static_cast<int>(xf);
+			tb.tabFillChar =  QChar();
+			tbs.append(tb);
+		}
+		vg.setTabValues(tbs);
+		tmp = "";
+	}
+	else
+	{
+		QValueList<ParagraphStyle::TabRecord> tbs;
+		QDomNode IT = pg.firstChild();
+		while(!IT.isNull())
+		{
+			QDomElement it = IT.toElement();
+			if (it.tagName()=="Tabs")
 			{
-				tgv >> xf;
-				tgv >> xf2;
-				tb.tabPosition = xf2;
-				tb.tabType = static_cast<int>(xf);
-				tb.tabFillChar =  QChar();
+				ParagraphStyle::TabRecord tb;
+				tb.tabPosition = it.attribute("Pos").toDouble();
+				tb.tabType = it.attribute("Type").toInt();
+				QString tbCh = "";
+				tbCh = it.attribute("Fill","");
+				if (tbCh.isEmpty())
+					tb.tabFillChar = QChar();
+				else
+					tb.tabFillChar = tbCh[0];
 				tbs.append(tb);
 			}
 			vg.setTabValues(tbs);
-			tmp = "";
+			IT=IT.nextSibling();
 		}
-		else
-		{
-			QValueList<ParagraphStyle::TabRecord> tbs;
-			QDomNode IT = pg.firstChild();
-			while(!IT.isNull())
-			{
-				QDomElement it = IT.toElement();
-				if (it.tagName()=="Tabs")
-				{
-					ParagraphStyle::TabRecord tb;
-					tb.tabPosition = it.attribute("Pos").toDouble();
-					tb.tabType = it.attribute("Type").toInt();
-					QString tbCh = "";
-					tbCh = it.attribute("Fill","");
-					if (tbCh.isEmpty())
-						tb.tabFillChar = QChar();
-					else
-						tb.tabFillChar = tbCh[0];
-					tbs.append(tb);
-				}
-				vg.setTabValues(tbs);
-				IT=IT.nextSibling();
-			}
-		}
+	}
 }
 
 PageItem* Scribus13Format::PasteItem(QDomElement *obj, ScribusDoc *doc)
@@ -2633,7 +2636,7 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-			  m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -2878,8 +2881,10 @@ bool Scribus13Format::loadPage(const QString & fileName, int pageNumber, bool Mp
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 //					Neu->Language = m_Doc->Language;
@@ -3180,8 +3185,8 @@ bool Scribus13Format::readColors(const QString& fileName, ColorList & colors)
 	QDomDocument docu("scridoc");
 	if(!docu.setContent(f))
 		return false;
-	colors.clear();
 	ScColor lf = ScColor();
+	colors.clear();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;

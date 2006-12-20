@@ -38,7 +38,6 @@ public:
 	CMYKChoose( QWidget* parent, ScribusDoc* doc, ScColor orig, QString name, ColorList *Colors, QStringList Cust, bool newCol );
 	~CMYKChoose() {};
 	virtual void mouseReleaseEvent(QMouseEvent *m);
-	QColor CMYK2RGB(int c, int m, int y, int k);
 	QLabel* TextLabel1;
 	QLineEdit* Farbname;
 	QLabel* TextLabel3;

@@ -114,7 +114,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	colData = new ColorCombo(false, WStackPage_2, "colData");
 	ColorList::Iterator it;
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colData->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colData->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	layout17->addWidget( colData );
 	WStackPageLayout->addLayout( layout17 );
 
@@ -218,7 +218,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout->addWidget( textLabel1d, 0, 0 );
 	colData1 = new ColorCombo(false, WStackPage_8, "colData1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colData1->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colData1->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage8Layout->addMultiCellWidget( colData1, 0, 0, 1, 2);
 	shade1 = new ShadeButton(WStackPage_8);
 	shade1->setValue(100);
@@ -238,7 +238,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage8Layout->addWidget( textLabel2d, 2, 0 );
 	colData2 = new ColorCombo(false, WStackPage_8, "colData2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colData2->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colData2->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage8Layout->addMultiCellWidget( colData2, 2, 2, 1, 2);
 	shade2 = new ShadeButton(WStackPage_8);
 	shade2->setValue(100);
@@ -263,7 +263,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( textLabel1t, 0, 0 );
 	colDatat1 = new ColorCombo(false, WStackPage_9, "colDatat1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDatat1->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDatat1->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage9Layout->addMultiCellWidget( colDatat1, 0, 0, 1, 2 );
 	shadet1 = new ShadeButton(WStackPage_9);
 	shadet1->setValue(100);
@@ -282,7 +282,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( textLabel2t, 2, 0 );
 	colDatat2 = new ColorCombo(false, WStackPage_9, "colDatat2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDatat2->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDatat2->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage9Layout->addMultiCellWidget( colDatat2, 2, 2, 1, 2 );
 	shadet2 = new ShadeButton(WStackPage_9);
 	shadet2->setValue(100);
@@ -301,7 +301,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage9Layout->addWidget( textLabel3t, 4, 0 );
 	colDatat3 = new ColorCombo(false, WStackPage_9, "colDatat3");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDatat3->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDatat3->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage9Layout->addMultiCellWidget( colDatat3, 4, 4, 1, 2 );
 	shadet3 = new ShadeButton(WStackPage_9);
 	shadet3->setValue(100);
@@ -324,7 +324,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel1q, 0, 0 );
 	colDataq1 = new ColorCombo(false, WStackPage_10, "colDataq1");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDataq1->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDataq1->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage10Layout->addMultiCellWidget( colDataq1, 0, 0, 1, 2 );
 	shadeq1 = new ShadeButton(WStackPage_10);
 	shadeq1->setValue(100);
@@ -343,7 +343,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel2q, 2, 0 );
 	colDataq2 = new ColorCombo(false, WStackPage_10, "colDataq2");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDataq2->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDataq2->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage10Layout->addMultiCellWidget( colDataq2, 2, 2, 1, 2 );
 	shadeq2 = new ShadeButton(WStackPage_10);
 	shadeq2->setValue(100);
@@ -362,7 +362,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel3q, 4, 0 );
 	colDataq3 = new ColorCombo(false, WStackPage_10, "colDataq3");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDataq3->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDataq3->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage10Layout->addMultiCellWidget( colDataq3, 4, 4, 1, 2 );
 	shadeq3 = new ShadeButton(WStackPage_10);
 	shadeq3->setValue(100);
@@ -381,7 +381,7 @@ EffectsDialog::EffectsDialog( QWidget* parent, PageItem* item, ScribusDoc* docc 
 	WStackPage10Layout->addWidget( textLabel4q, 6, 0 );
 	colDataq4 = new ColorCombo(false, WStackPage_10, "colDataq4");
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
-		colDataq4->insertSmallItem(doc->PageColors[it.key()], it.key());
+		colDataq4->insertSmallItem(doc->PageColors[it.key()], doc, it.key());
 	WStackPage10Layout->addMultiCellWidget( colDataq4, 6, 6, 1, 2 );
 	shadeq4 = new ShadeButton(WStackPage_10);
 	shadeq4->setValue(100);

@@ -14,6 +14,7 @@ for which a new license (GPL+exception) is in place.
 
 #include "sccolor.h"
 
+class ScribusDoc;
 
 /*! \brief Mapping angle - color in the color wheel */
 typedef QMap<int,ScColor> ColorMap;
@@ -42,6 +43,8 @@ class ColorWheel : public QLabel
 			Triadic,
 			Tetradic
 		};
+
+		ScribusDoc* currentDoc;
 
 		//! \brief name of the "base color" to handle in extern color lists
 		QString trBaseColor;

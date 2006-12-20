@@ -28,7 +28,9 @@ for which a new license (GPL+exception) is in place.
 #include "scribusapi.h"
 #include "scribusstructs.h"
 #include "gradienteditor.h"
+#include <qguardedptr.h>
 
+class ScribusDoc;
 class QListBox;
 class QListBoxItem;
 class QIconView;
@@ -66,6 +68,7 @@ public:
 	Cpalette(QWidget* parent);
 	~Cpalette() {};
 
+	void setDocument(ScribusDoc* doc) { currentDoc = doc; }
 
 public slots:
 	void InhaltButton();
@@ -129,7 +132,6 @@ protected:
 	QPixmap regIcon;
 	DynamicTip* dynTip;
 
-
 	ColorListBox *colorListQLBox;
 	QFrame* patternFrame;
 	QIconView *patternBox;
@@ -172,6 +174,7 @@ protected:
 	QLabel* ShadeTxt;
 	QGroupBox* TransGroup;
 	QSpinBox* TransSpin;
+	QGuardedPtr<ScribusDoc> currentDoc;
 	ScComboBox* blendMode;
 	int Mode;
 	QString sFarbe;

@@ -247,7 +247,7 @@ bool ScWinPrint::gdiPrintPreview( ScribusDoc* doc, Page* page, QImage* image, Pr
 	// Create the GDI painters
 	pageOutput = new ScPageOutput(doc, false);
 	QRect drawRect( 0, 0, imagew, imageh );
-	painter = new ScPainterEx_GDI( dc, drawRect, !options.useColor );
+	painter = new ScPainterEx_GDI( dc, drawRect, doc, !options.useColor );
 	
 	// Set the world transformation matrix
 	QWMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );
@@ -476,7 +476,7 @@ bool ScWinPrint::printPage_GDI( ScribusDoc* doc, Page* page, PrintOptions& optio
 	pageOutput->setMarksOptions(marksOptions);
 	
 	QRect drawRect( 0, 0, physicalWidth, physicalHeight);
-	painter = new ScPainterEx_GDI( printerDC, drawRect, !options.useColor );
+	painter = new ScPainterEx_GDI( printerDC, drawRect, doc, !options.useColor );
 	painter->clear();
 	
 	QWMatrix matrix( scalex, 0.0, 0.0, scaley, dx, dy );

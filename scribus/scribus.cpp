@@ -179,6 +179,7 @@ for which a new license (GPL+exception) is in place.
 #include "smtextstyles.h"
 #include "insertaframe.h"
 #include "patterndialog.h"
+#include "sccolorengine.h"
 
 #if defined(_WIN32)
 #include "scwinprint.h"
@@ -4400,7 +4401,6 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 		if (PSfile)
 		{
 			// Write the PS to a file
-			ScColor::UseProf = options.useICC;
 			int psCreationRetVal=dd->CreatePS(doc, options);
 			if (psCreationRetVal!=0)
 			{
@@ -4410,7 +4410,6 @@ bool ScribusMainWindow::doPrint(PrintOptions &options)
 				else
 					return false;
 			}
-			ScColor::UseProf = true;
 			if (options.PSLevel != 3)
 			{
 				// use gs to convert our PS to a lower version
@@ -8958,7 +8957,7 @@ void ScribusMainWindow::mouseReleaseEvent(QMouseEvent *m)
 			ColorList::Iterator it;
 			for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 			{
-				if (selectedColor==doc->PageColors[it.key()].getRGBColor())
+				if (selectedColor== ScColorEngine::getRGBColor(it.data(), doc))
 				{
 					found=true;
 					break;
@@ -9120,7 +9119,7 @@ void ScribusMainWindow::updateColorMenu(QProgressBar* progressBar)
 		ColorList::Iterator itend=doc->PageColors.end();
 		for (ColorList::Iterator it = doc->PageColors.begin(); it != itend; ++it)
 		{
-			ColorMenC->insertSmallItem( doc->PageColors[it.key()], it.key() );
+			ColorMenC->insertSmallItem( it.data(), doc, it.key() );
 			if (it.key() == doc->toolSettings.dBrush)
 				ColorMenC->setCurrentItem(a);
 			++a;

@@ -62,6 +62,7 @@ for which a new license (GPL+exception) is in place.
 // #include "scpaths.h"
 // #include "text/nlsconfig.h"
 #include "util.h"
+#include "sccolorengine.h"
 
 extern "C"
 {
@@ -170,7 +171,8 @@ QImage ProofImage(QImage *Image, ScribusDoc* doc)
 
 QColor SetColor(ScribusDoc *currentDoc, QString color, int shad)
 {
-	return currentDoc->PageColors[color].getShadeColorProof(shad);
+	const ScColor& col = currentDoc->PageColors[color];
+	return ScColorEngine::getShadeColorProof(col, currentDoc, shad);
 }
 
 
@@ -213,15 +215,14 @@ QPixmap * getWidePixmap(QColor rgb)
 	return pm;
 }
 
-static Q_UINT64 code64(ScColor & col) {
+static Q_UINT64 code64(const ScColor & col) {
 	int C, M, Y, K, R, G, B;
 	Q_UINT64 result=0;
 	col.getRGB( &R, &G, &B );
 	col.getCMYK( &C, &M, &Y, &K );
 	result |= col.getColorModel() == colorModelRGB ? 1 : 0;
-	result |= col.isOutOfGamut() ? 64 : 0;
-	result |= col.isSpotColor() ? 32 : 0;
-	result |= col.isRegistrationColor() ? 16 : 0;
+	result |= col.isSpotColor() ? 64 : 0;
+	result |= col.isRegistrationColor() ? 32 : 0;
 	result <<= 8;
 	result |= C;
 	result <<= 8;
@@ -239,7 +240,7 @@ static Q_UINT64 code64(ScColor & col) {
 	return result;
 }
 
-QPixmap * getFancyPixmap(ScColor col) {
+QPixmap * getFancyPixmap(const ScColor& col, ScribusDoc* doc) {
 	static ScPixmapCache<Q_UINT64> pxCache;
 
 	static QPixmap alertIcon;
@@ -266,8 +267,7 @@ QPixmap * getFancyPixmap(ScColor col) {
 	QPixmap *pm=getSmallPixmap(col.getRawRGBColor());
 	pa->fill(Qt::white);
 	paintAlert(*pm, *pa, 0, 0);
-	col.checkGamut();
-	if (col.isOutOfGamut())
+	if (ScColorEngine::isOutOfGamut(col, doc))
 		paintAlert(alertIcon, *pa, 15, 0);
 	if ((col.getColorModel() == colorModelCMYK) || (col.isSpotColor()))
 		paintAlert(cmykIcon, *pa, 30, 0);

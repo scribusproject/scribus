@@ -49,6 +49,7 @@ for which a new license (GPL+exception) is in place.
 #include <windows.h>
 
 class QPainter;
+class ScribusDoc;
 
 #ifdef SC_USE_GDIPLUS
 namespace Gdiplus
@@ -65,7 +66,7 @@ class SCRIBUS_API ScPainterEx_GDI : public ScPainterExBase
 {
 public:
 
-	ScPainterEx_GDI( HDC hDC, QRect& rect, bool gray );
+	ScPainterEx_GDI(HDC hDC, QRect& rect, ScribusDoc* doc, bool gray );
 	virtual ~ScPainterEx_GDI();
 
 	virtual Capabilities capabilities() { return transparencies; }
@@ -144,6 +145,8 @@ private:
 	void transformPoint( const FPoint& in, FPoint& out );
 	void transformPoints( const FPoint* in, FPoint* out, uint length );
 	void loadMsImg32( void );
+
+	ScribusDoc* m_doc;
 
 	unsigned int m_width;
 	unsigned int m_height;

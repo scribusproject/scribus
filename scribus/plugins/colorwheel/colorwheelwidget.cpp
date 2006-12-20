@@ -13,10 +13,11 @@ for which a new license (GPL+exception) is in place.
 #include <math.h>
 
 #include "sccolor.h"
-
+#include "sccolorengine.h"
 
 ColorWheel::ColorWheel(QWidget * parent, const char * name) : QLabel(parent, name, WNoAutoErase)
 {
+	currentDoc = NULL;
 	currentColorSpace = colorModelRGB;
 	baseAngle = 0;
 	angleShift = 270;
@@ -84,7 +85,7 @@ void ColorWheel::paintCenterSample()
 	QPainter p;
 	p.begin(this);
 	p.setPen(QPen(Qt::black, 2));
-	p.setBrush(actualColor.getDisplayColor());
+	p.setBrush(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
 	p.drawEllipse(widthH - 20, heightH - 20, 40, 40);
 	p.end();
 }
@@ -92,7 +93,7 @@ void ColorWheel::paintCenterSample()
 void ColorWheel::paintWheel()
 {
 	int h, s, v;
-	QColor col(actualColor.getDisplayColor());
+	QColor col(ScColorEngine::getDisplayColor(actualColor, currentDoc ));
 	col.hsv(&h, &s, &v);
 	int width = this->width();
 	int height = this->height();
@@ -149,7 +150,7 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 	ScColor ret;
 	int h, s, v;
 
-	col.getRGBColor().getHsv(&h, &s, &v);
+	ScColorEngine::getRGBColor(col, currentDoc).getHsv(&h, &s, &v);
 	newcol.setHsv(h, s, v);
 	ret.fromQColor(newcol);
 	ret.setColorModel(currentColorSpace);
@@ -168,7 +169,7 @@ void ColorWheel::baseColor()
 void ColorWheel::makeMonochromatic()
 {
 	baseColor();
-	QColor col(actualColor.getRGBColor());
+	QColor col(ScColorEngine::getRGBColor(actualColor, currentDoc));
 	ScColor l;
 	l.fromQColor(col.light());
 	l.setColorModel(currentColorSpace);
@@ -280,14 +281,14 @@ bool ColorWheel::recomputeColor(ScColor col)
 {
 	int origh, origs, origv;
 	ColorMap::iterator it;
-	QColor c(col.getRGBColor());
-	QColor act(actualColor.getRGBColor());
+	QColor c(ScColorEngine::getRGBColor(col, currentDoc));
+	QColor act(ScColorEngine::getRGBColor(actualColor, currentDoc));
 
 	c.hsv(&origh, &origs, &origv);
 	for (it = colorMap.begin(); it != colorMap.end(); ++it)
 	{
 		int tmph, tmps, tmpv;
-		QColor col(it.data().getRGBColor());
+		QColor col(ScColorEngine::getRGBColor(it.data(), currentDoc));
 		col.hsv(&tmph, &tmps, &tmpv);
 		if (origh == tmph)
 		{

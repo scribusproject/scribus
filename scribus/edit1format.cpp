@@ -175,8 +175,8 @@ EditStyle::EditStyle( QWidget* parent, ParagraphStyle *vor, const StyleSet<Parag
 	TxStroke->insertItem(CommonStrings::NoneColor);
 	for (it = doc->PageColors.begin(); it != doc->PageColors.end(); ++it)
 	{
-		TxFill->insertSmallItem(doc->PageColors[it.key()], it.key());
-		TxStroke->insertSmallItem(doc->PageColors[it.key()], it.key());
+		TxFill->insertSmallItem(doc->PageColors[it.key()], parentDoc, it.key());
+		TxStroke->insertSmallItem(doc->PageColors[it.key()], parentDoc, it.key());
 	}
 	StrokeIcon->setEnabled(false);
 	PM1->setEnabled(false);

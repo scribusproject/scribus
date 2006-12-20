@@ -116,7 +116,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 					FarNam = FarNam.remove(FarNam.length()-1,1);
 //					QRegExp badchars("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]");
 //					FarNam = FarNam.simplifyWhiteSpace().replace( badchars, "_" );
-					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k), m_Doc);
+					cc = ScColor(static_cast<int>(255 * c), static_cast<int>(255 * m), static_cast<int>(255 * y), static_cast<int>(255 * k));
 					cc.setSpotColor(true);
 					CustColors.insert(FarNam, cc);
 					while (!ts.atEnd())

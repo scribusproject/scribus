@@ -45,6 +45,8 @@ extern "C"
 #endif
 }
 
+class ScribusDoc;
+
 class SCRIBUS_API ScImage : private QImage
 {
 public:
@@ -103,7 +105,7 @@ public:
 	void Convert2JPG(QString fn, int Quality, bool isCMYK, bool isGray);
 
 	// Image effects
-	void applyEffect(QValueList<imageEffect> effectsList, QMap<QString,ScColor> colors, bool cmyk);
+	void applyEffect(QValueList<imageEffect> effectsList, ColorList& colors, bool cmyk);
 
 	// Generate a low res image for user preview
 	void createLowRes(double scale);
@@ -130,10 +132,10 @@ private:
 	void contrast(int contrastValue, bool cmyk);
 	void brightness(int brightnessValue, bool cmyk);
 	void invert(bool cmyk);
-	void colorize(ScColor color, int shade, bool cmyk);
-	void duotone(ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, bool cmyk);
-	void tritone(ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, bool cmyk);
-	void quadtone(ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, ScColor color4, int shade4, FPointArray curve4, bool lin4, bool cmyk);
+	void colorize(ScribusDoc* doc, ScColor color, int shade, bool cmyk);
+	void duotone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, bool cmyk);
+	void tritone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, bool cmyk);
+	void quadtone(ScribusDoc* doc, ScColor color1, int shade1, FPointArray curve1, bool lin1, ScColor color2, int shade2, FPointArray curve2, bool lin2, ScColor color3, int shade3, FPointArray curve3, bool lin3, ScColor color4, int shade4, FPointArray curve4, bool lin4, bool cmyk);
 	void toGrayscale(bool cmyk);
 	void doGraduate(FPointArray curve, bool cmyk, bool linear);
 	void swapRGBA();

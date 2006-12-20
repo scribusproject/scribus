@@ -48,6 +48,7 @@ for which a new license (GPL+exception) is in place.
 #include "multiprogressdialog.h"
 #include "scribusapp.h"
 #include "scpattern.h"
+#include "sccolorengine.h"
 
 #include "text/nlsconfig.h"
 
@@ -2015,7 +2016,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						PageItem *ite = Doc->Pages->at(a)->FromMaster.at(am);
 						if (!ite->isTableItem)
 							continue;
-						if ((ite->lineColor() == CommonStrings::None) || (ite->lineWidth() == 0.0))
+						if ((ite->lineColor() != CommonStrings::None) || (ite->lineWidth() == 0.0))
 							continue;
 						if (ite->printEnabled())
 						{
@@ -2733,7 +2734,7 @@ void PSLib::ProcessPage(ScribusDoc* Doc, Page* a, uint PNr, bool sep, bool farb,
 				continue;
 			if (!c->isTableItem)
 				continue;
-			if ((c->lineColor() == CommonStrings::None) || (c->lineWidth() == 0.0))
+			if ((c->lineColor() != CommonStrings::None) || (c->lineWidth() == 0.0))
 				continue;
 			if ((!a->pageName().isEmpty()) && (c->OwnPage != static_cast<int>(a->pageNr())) && (c->OwnPage != -1))
 				continue;
@@ -2909,16 +2910,22 @@ void PSLib::HandleGradient(PageItem *c, double w, double h, bool gcr)
 	}
 }
 
-void PSLib::SetFarbe(QString farb, int shade, int *h, int *s, int *v, int *k, bool gcr)
+void PSLib::SetFarbe(const QString& farb, int shade, int *h, int *s, int *v, int *k, bool gcr)
+{
+	ScColor& col = m_Doc->PageColors[farb];
+	SetFarbe(col, shade, h, s, v, k, gcr);
+}
+
+void PSLib::SetFarbe(const ScColor& farb, int shade, int *h, int *s, int *v, int *k, bool gcr)
 {
 	int h1, s1, v1, k1;
 	h1 = *h;
 	s1 = *s;
 	v1 = *v;
 	k1 = *k;
-	ScColor tmp = colorsToUse[farb];
+	ScColor tmp(farb);
 	if ((gcr) && (!tmp.isRegistrationColor()))
-		tmp.applyGCR();
+		ScColorEngine::applyGCR(tmp, m_Doc);
 	tmp.getCMYK(&h1, &s1, &v1, &k1);
 	if ((m_Doc->HasCMS) && (ScCore->haveCMS()) && (applyICC))
 	{
@@ -3708,7 +3715,7 @@ void PSLib::setTextCh(ScribusDoc* Doc, PageItem* ite, double x, double y, bool g
 #endif
 }
 
-void PSLib::putColor(QString color, int shade, bool fill)
+void PSLib::putColor(const QString& color, int shade, bool fill)
 {
 	if (fill)
 	{

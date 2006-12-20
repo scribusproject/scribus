@@ -60,9 +60,9 @@ public:
 
 	void updateBox(ColorList& list, ColorCombo::PixmapType pixType, bool insertNone = true);
 
-	void insertSmallItem( const ScColor& col, const QString& colName );
-	void insertWideItem ( const ScColor& col, const QString& colName );
-	void insertFancyItem( const ScColor& col, const QString& colName );
+	void insertSmallItem( const ScColor& col, ScribusDoc* doc, const QString& colName );
+	void insertWideItem ( const ScColor& col, ScribusDoc* doc, const QString& colName );
+	void insertFancyItem( const ScColor& col, ScribusDoc* doc, const QString& colName );
 };
 
 #endif

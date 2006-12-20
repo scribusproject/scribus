@@ -9,7 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "scribuscore.h"
-
+#include "sccolorengine.h"
 
 PyObject *scribus_colornames(PyObject* /* self */)
 {
@@ -62,13 +62,14 @@ PyObject *scribus_getcolorasrgb(PyObject* /* self */, PyObject* args)
 		return NULL;
 	}
 	edc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc->PageColors : PrefsManager::instance()->colorSet();
+	ScribusDoc* currentDoc = ScCore->primaryMainWindow()->HaveDoc ? ScCore->primaryMainWindow()->doc : NULL;
 	QString col = QString::fromUtf8(Name);
 	if (!edc.contains(col))
 	{
 		PyErr_SetString(NotFoundError, QObject::tr("Color not found.","python error"));
 		return NULL;
 	}
-	QColor rgb = edc[col].getRGBColor();
+	QColor rgb = ScColorEngine::getRGBColor(edc[col], currentDoc);
 	return Py_BuildValue("(iii)", static_cast<long>(rgb.red()), static_cast<long>(rgb.green()), static_cast<long>(rgb.blue()));
 }
 

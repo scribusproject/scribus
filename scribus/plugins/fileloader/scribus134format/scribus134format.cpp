@@ -15,6 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "scconfig.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
+#include "sccolorengine.h"
 
 #include "units.h"
 #include "util.h"
@@ -577,7 +578,7 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-			  m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -1126,8 +1127,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 					Neu->isAutoText = static_cast<bool>(pg.attribute("AUTOTEXT").toInt());
@@ -1295,8 +1298,10 @@ bool Scribus134Format::loadFile(const QString & fileName, const FileFormat & /* 
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 					}
 					Neu->isAutoText = static_cast<bool>(pite.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pite.attribute("isInline", "0").toInt());
@@ -1667,7 +1672,6 @@ void Scribus134Format::GetCStyle(const QDomElement *it, ScribusDoc *doc, CharSty
 	if (it->hasAttribute("EFFECTS"))
 		newStyle.setEffects(static_cast<StyleFlag>(it->attribute("EFFECTS").toInt()));
 	
-	
 	if (it->hasAttribute("SCOLOR"))
 		newStyle.setStrokeColor(it->attribute("SCOLOR", CommonStrings::None));
 	
@@ -1776,7 +1780,6 @@ void Scribus134Format::GetItemText(QDomElement *it, ScribusDoc *doc, PageItem* o
 		newStyle.setTracking(qRound(it->attribute("CEXTRA").toDouble() / it->attribute("CSIZE").toDouble() * 1000.0));
 	else if (it->hasAttribute("CKERN"))
 		newStyle.setTracking(it->attribute("CKERN").toInt());
-	
 	
 	if (it->hasAttribute("CSHADE"))
 		newStyle.setFillShade(it->attribute("CSHADE").toInt());
@@ -2516,7 +2519,6 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 		return false;
 	if(!docu.setContent(f))
 		return false;
-	ScColor lf = ScColor();
 	QDomElement elem=docu.documentElement();
 	if (elem.tagName() != "SCRIBUSUTF8NEW")
 		return false;
@@ -2535,6 +2537,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 			QDomElement pg=PAGE.toElement();
 			if(pg.tagName()=="COLOR" && pg.attribute("NAME")!=CommonStrings::None)
 			{
+				ScColor lf;
 				if (pg.hasAttribute("CMYK"))
 					lf.setNamedColor(pg.attribute("CMYK"));
 				else
@@ -2547,7 +2550,7 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					lf.setRegistrationColor(static_cast<bool>(pg.attribute("Register").toInt()));
 				else
 					lf.setRegistrationColor(false);
-			  m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
+				m_Doc->PageColors.insert(pg.attribute("NAME"), lf);
 			}
 			if(pg.tagName()=="STYLE")
 			{
@@ -2806,8 +2809,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 					}
 //					Neu->Language = ScMW->GetLang(pg.attribute("LANGUAGE", m_Doc->Language));
 //					Neu->Language = m_Doc->Language;
@@ -2952,8 +2957,10 @@ bool Scribus134Format::loadPage(const QString & fileName, int pageNumber, bool M
 					delete last;
 					if (Neu->fill_gradient.Stops() == 0)
 					{
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dBrush].getRGBColor(), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
-						Neu->fill_gradient.addStop(m_Doc->PageColors[m_Doc->toolSettings.dPen].getRGBColor(), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
+						const ScColor& col1 = m_Doc->PageColors[m_Doc->toolSettings.dBrush];
+						const ScColor& col2 = m_Doc->PageColors[m_Doc->toolSettings.dPen];
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col1, m_Doc), 0.0, 0.5, 1.0, m_Doc->toolSettings.dBrush, 100);
+						Neu->fill_gradient.addStop(ScColorEngine::getRGBColor(col2, m_Doc), 1.0, 0.5, 1.0, m_Doc->toolSettings.dPen, 100);
 					}
 					Neu->isAutoText = static_cast<bool>(pite.attribute("AUTOTEXT").toInt());
 					Neu->isEmbedded = static_cast<bool>(pite.attribute("isInline", "0").toInt());

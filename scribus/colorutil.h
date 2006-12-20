@@ -19,13 +19,15 @@ for which a new license (GPL+exception) is in place.
 class ScribusDoc;
 
 QColor SCRIBUS_API SetColor(ScribusDoc *currentDoc, QString color, int shad);
+
 QPixmap SCRIBUS_API *getSmallPixmap(QColor rgb);
 QPixmap SCRIBUS_API *getWidePixmap(QColor rgb);
+
 /*! \brief Create a cool all-infos pixmaps for the specified color.
 \param col Scribus color
 \retval QPixmap image with various icons depending on the col properties.
 */
-QPixmap SCRIBUS_API *getFancyPixmap(ScColor col);
+QPixmap SCRIBUS_API *getFancyPixmap(const ScColor& col, ScribusDoc* doc);
 /*! \brief Put toPaint pixmap into target at the x, y place.
 There is handled the alpha channel/transparency too. In the beginning
 is the target pixmap filled with all_transparent mask. In the case of
@@ -46,6 +48,7 @@ QImage SCRIBUS_API ProofImage(QImage *Im, ScribusDoc* doc);
  * \param shade the color level (modified in place)
  */
 void SCRIBUS_API handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade);
+
 /*! \brief Compute color shade of a rgb color using pre-1.3.4 method
  * \param color the base color
  * \param shade shade value.

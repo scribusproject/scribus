@@ -27,17 +27,20 @@ for which a new license (GPL+exception) is in place.
 #include "colorutil.h"
 #include "util.h"
 #include "dynamictip.h"
+#include "sccolorengine.h"
 
-ColorSmallPixmapItem::ColorSmallPixmapItem( const ScColor& col, const QString colName ) : ScListBoxPixmap<15,15>()
+ColorSmallPixmapItem::ColorSmallPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName ) 
+					: ScListBoxPixmap<15,15>()
 {
-	color = col;
+	m_color = col;
+	m_doc = doc;
 	setText(colName);
 }
 
 void ColorSmallPixmapItem::redraw(void)
 {
 	QPixmap* pPixmap = ScListBoxPixmap<15,15>::pmap.get();
-	QColor rgb = color.getDisplayColor();
+	QColor rgb = ScColorEngine::getDisplayColor(m_color, m_doc);
 	pPixmap->fill(rgb);
 	QPainter painter(pPixmap);
 	painter.setBrush(Qt::NoBrush);
@@ -47,21 +50,25 @@ void ColorSmallPixmapItem::redraw(void)
 	painter.end();
 }
 
-ColorWidePixmapItem::ColorWidePixmapItem( const ScColor& col, const QString colName ) : ScListBoxPixmap<30,15>()
+ColorWidePixmapItem::ColorWidePixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName ) 
+					: ScListBoxPixmap<30,15>()
 {
-	color = col;
+	m_color = col;
+	m_doc = doc;
 	setText(colName);
 }
 
 void ColorWidePixmapItem::redraw(void)
 {
-	QColor rgb = color.getDisplayColor();
+	QColor rgb = ScColorEngine::getDisplayColor(m_color, m_doc);
 	ScListBoxPixmap<30,15>::pmap->fill(rgb);
 }
 
-ColorFancyPixmapItem::ColorFancyPixmapItem( const ScColor& col, const QString colName ) : ScListBoxPixmap<60,15>()
+ColorFancyPixmapItem::ColorFancyPixmapItem( const ScColor& col, ScribusDoc* doc, const QString colName ) 
+					: ScListBoxPixmap<60,15>()
 {
-	color = col;
+	m_color = col;
+	m_doc = doc;
 	setText(colName);
 }
 
@@ -84,7 +91,7 @@ void ColorFancyPixmapItem::redraw(void)
 		iconsInitialized = true;
 	}
 
-	QColor rgb = color.getDisplayColor();
+	QColor rgb = ScColorEngine::getDisplayColor(m_color, m_doc);
 	smallPix.fill(rgb);
 	QPainter painter(&smallPix);
 	painter.setBrush(Qt::NoBrush);
@@ -96,16 +103,15 @@ void ColorFancyPixmapItem::redraw(void)
 	QPixmap* pPixmap = ScListBoxPixmap<60,15>::pmap.get();
 	pPixmap->fill(Qt::white);
 	paintAlert(smallPix, *pPixmap, 0, 0);
-	color.checkGamut();
-	if (color.isOutOfGamut())
+	if (ScColorEngine::isOutOfGamut(m_color, m_doc))
 		paintAlert(alertIcon, *pPixmap, 15, 0);
-	if ((color.getColorModel() == colorModelCMYK) || (color.isSpotColor()))
+	if ((m_color.getColorModel() == colorModelCMYK) || (m_color.isSpotColor()))
 		paintAlert(cmykIcon, *pPixmap, 30, 0);
 	else
 		paintAlert(rgbIcon, *pPixmap, 30, 0);
-	if (color.isSpotColor())
+	if (m_color.isSpotColor())
 		paintAlert(spotIcon, *pPixmap, 46, 2);
-	if (color.isRegistrationColor())
+	if (m_color.isRegistrationColor())
 		paintAlert(regIcon, *pPixmap, 45, 0);
 }
 
@@ -131,39 +137,36 @@ void ColorListBox::updateBox(ColorList& list, ColorListBox::PixmapType type, boo
 void ColorListBox::insertSmallPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
-	ScColor col;
+	ScribusDoc* doc = list.document();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-		col = list[it.key()];
-		insertItem( new ColorSmallPixmapItem(col, it.key()) );
+		insertItem( new ColorSmallPixmapItem(it.data(), doc, it.key()) );
 	}
 }
 
 void ColorListBox::insertWidePixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
-	ScColor col;
+	ScribusDoc* doc = list.document();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-		col = list[it.key()];
-		insertItem( new ColorWidePixmapItem(col, it.key()) );
+		insertItem( new ColorWidePixmapItem(it.data(), doc, it.key()) );
 	}
 }
 
 void ColorListBox::insertFancyPixmapItems(ColorList& list)
 {
 	ColorList::Iterator it;
-	ScColor col;
+	ScribusDoc* doc = list.document();
 	for (it = list.begin(); it != list.end(); ++it)
 	{
 		if (it.key() == CommonStrings::None || it.key() == CommonStrings::NoneColor)
 			continue;
-		col = list[it.key()];
-		insertItem( new ColorFancyPixmapItem(col, it.key()) );
+		insertItem( new ColorFancyPixmapItem(it.data(), doc, it.key()) );
 	}
 }
 
@@ -328,6 +331,7 @@ void ColorManager::saveDefaults()
 		QFile fx(Fname);
 		if (fx.open(IO_WriteOnly))
 		{
+			CMYKColor cmyk;
 			QTextStream tsx(&fx);
 			QString tmp;
 			ColorList::Iterator itc;
@@ -335,7 +339,8 @@ void ColorManager::saveDefaults()
 			int cp, mp, yp, kp;
 			for (itc = EditColors.begin(); itc != EditColors.end(); ++itc)
 			{
-				EditColors[itc.key()].getCMYK(&cp, &mp, &yp, &kp);
+				ScColorEngine::getCMYKValues(itc.data(), m_Doc, cmyk);
+				cmyk.getValues(cp, mp, yp, kp);
 				tsx << tmp.setNum(cp) << "\t" ;
 				tsx << tmp.setNum(mp) << "\t" ;
 				tsx << tmp.setNum(yp) << "\t" ;
@@ -763,7 +768,6 @@ void ColorManager::neueFarbe()
 	int colCount=0;
 	if (dia->exec())
 	{
-		dia->Farbe.setDocument(m_Doc);
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		ColorList::Iterator itnew=EditColors.insert(dia->Farbname->text(), dia->Farbe);
 		bool regChecked=dia->Regist->isChecked();
@@ -771,7 +775,7 @@ void ColorManager::neueFarbe()
 		for (it = EditColors.begin(); it != EditColors.end(); ++it)
 		{
 			if (regChecked)
-				EditColors[it.key()].setRegistrationColor(false);
+				it.data().setRegistrationColor(false);
 			if (it==itnew)
 				newItemIndex=colCount;
 			++colCount;
@@ -792,16 +796,13 @@ void ColorManager::editFarbe()
 	CMYKChoose* dia = new CMYKChoose(this, m_Doc, tmpFarbe, sFarbe, &EditColors, customColSet, false);
 	if (dia->exec())
 	{
-		dia->Farbe.setDocument(m_Doc);
 		dia->Farbe.setSpotColor(dia->Separations->isChecked());
 		EditColors[dia->Farbname->text()] = dia->Farbe;
 		if (dia->Regist->isChecked())
 		{
 			ColorList::Iterator it;
 			for (it = EditColors.begin(); it != EditColors.end(); ++it)
-			{
-				EditColors[it.key()].setRegistrationColor(false);
-			}
+				it.data().setRegistrationColor(false);
 		}
 		EditColors[dia->Farbname->text()].setRegistrationColor(dia->Regist->isChecked());
 		if (sFarbe != dia->Farbname->text())
