@@ -1724,7 +1724,7 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						PageItem *it = Doc->MasterItems.at(api);
 						if ((it->LayerNr != ll.LNr) || (!it->printEnabled()))
 							continue;
-						int x = static_cast<int>(Doc->MasterPages.at(ap)->xOffset());
+/*						int x = static_cast<int>(Doc->MasterPages.at(ap)->xOffset());
 						int y = static_cast<int>(Doc->MasterPages.at(ap)->yOffset());
 						int w = static_cast<int>(Doc->MasterPages.at(ap)->width());
 						int h = static_cast<int>(Doc->MasterPages.at(ap)->height());
@@ -1734,10 +1734,19 @@ int PSLib::CreatePS(ScribusDoc* Doc, PrintOptions &options)
 						int w2 = static_cast<int>(it->BoundingW + ilw);
 						int h2 = static_cast<int>(it->BoundingH + ilw);
 						if (!QRect(x, y, w, h).intersects(QRect(x2, y2, w2, h2)))
+							continue; */
+						double x = Doc->MasterPages.at(ap)->xOffset();
+						double y = Doc->MasterPages.at(ap)->yOffset();
+						double w = Doc->MasterPages.at(ap)->width();
+						double h1 = Doc->MasterPages.at(ap)->height();
+						double ilw = it->lineWidth();
+						double x2 = it->BoundingX - ilw / 2.0;
+						double y2 = it->BoundingY - ilw / 2.0;
+						double w2 = it->BoundingW + ilw;
+						double h2 = it->BoundingH + ilw;
+						if (!( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 							continue;
 						if ((it->OwnPage != static_cast<int>(Doc->MasterPages.at(ap)->pageNr())) && (it->OwnPage != -1))
-							continue;
-						if (it->isGroupControl)
 							continue;
 						if ((it->asImageFrame()) && (it->PicAvail) && (!it->Pfile.isEmpty()) && (it->printEnabled()) && (!sep) && (farb))
 							PS_ImageData(it, it->Pfile, it->itemName(), it->IProfile, it->UseEmbedded, Ic);

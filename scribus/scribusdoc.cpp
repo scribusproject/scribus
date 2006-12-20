@@ -2978,14 +2978,14 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			++lp;
 		targetPage->LeftPg = lp;
 	}
-	QMap<int,int> TableID;
-	QPtrList<PageItem> TableItems;
+//	QMap<int,int> TableID;
+//	QPtrList<PageItem> TableItems;
 	sourcePage->guides.copy(&targetPage->guides);
-	struct CopyPasteBuffer BufferT;
+//	struct CopyPasteBuffer BufferT;
 	uint end = DocItems.count();
 	//CB Need to set this so the paste works correctly. Should not need it really, but its a quick op.
 	setMasterPageMode(true);
-/*	uint end2 = MasterItems.count();
+	uint end2 = MasterItems.count();
 	m_Selection->clear();
 	for (uint ite = 0; ite < end; ++ite)
 	{
@@ -3005,8 +3005,8 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 		PageItem *newItem = MasterItems.at(a);
 		newItem->OnMasterPage = masterPageName;
 		newItem->OwnPage = MasterNames[masterPageName];
-	} */
-	for (uint a = 0; a < end; ++a)
+	}
+/*	for (uint a = 0; a < end; ++a)
 	{
 		PageItem *itemToCopy = DocItems.at(a);
 		if (itemToCopy->OwnPage == static_cast<int>(sourcePage->pageNr()))
@@ -3088,7 +3088,7 @@ const bool ScribusDoc::copyPageToMasterPage(const int pageNumber, const int left
 			else
 				ta->BottomLink = 0;
 		}
-	}
+	} */
 	targetPage->MPageNam = "";
 	setLoading(false);
 	GroupCounter = GrMax + 1;
