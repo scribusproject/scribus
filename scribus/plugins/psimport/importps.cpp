@@ -333,14 +333,14 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	{
 		QDir::setCurrent(CurDirP);
 		m_Doc->DoDrawing = true;
-		m_Doc->view()->updatesOn(true);
 		m_Doc->scMW()->ScriptRunning = false;
+		m_Doc->view()->updatesOn(true);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 	}
 	if (interactive)
 		m_Doc->setLoading(false);
 	//CB If we have a gui we must refresh it if we have used the progressbar
-	if (showProgress)
+	if ((showProgress) && (!interactive))
 		m_Doc->view()->DrawNew();
 }
 
@@ -462,6 +462,8 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	int z, lcap, ljoin, dc, pagecount;
 	int failedImages = 0;
 	double dcp;
+	double baseX = m_Doc->currentPage()->xOffset();
+	double baseY = m_Doc->currentPage()->yOffset();
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
 	QPtrStack<PageItem> groupStack;
@@ -543,9 +545,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						else
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CurrColor, CommonStrings::None, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CurrColor, CommonStrings::None, true);
 						ite = m_Doc->Items->at(z);
 						ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -590,9 +592,9 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 					else
 					{
 						if (ClosedPath)
-							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+							z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						else
-							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, 0, 0, 10, 10, LineW, CommonStrings::None, CurrColor, true);
+							z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, baseX, baseY, 10, 10, LineW, CommonStrings::None, CurrColor, true);
 						ite = m_Doc->Items->at(z);
 						ite->PoLine = Coords.copy(); //FIXME: try to avoid copy when FPointArray is properly shared
 						ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -630,7 +632,7 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 				clipCoords = Coords;
 				if (Coords.size() != 0)
 				{
-					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, 0, 0, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
+					z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, baseX, baseY, 10, 10, 0, CommonStrings::None, CommonStrings::None, true);
 					ite = m_Doc->Items->at(z);
 					ite->PoLine = Coords.copy();  //FIXME: try to avoid copy if FPointArray when properly shared
 					ite->PoLine.translate(m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset());
@@ -842,7 +844,7 @@ bool EPSPlug::Image(QString vals)
 		}
 	}
 	QFile::remove(rawfile);
-	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, 0, 0, w, h, LineW, CommonStrings::None, CurrColor, true);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, m_Doc->currentPage()->xOffset(), m_Doc->currentPage()->yOffset(), w, h, LineW, CommonStrings::None, CurrColor, true);
 	PageItem * ite = m_Doc->Items->at(z);
 	ite->setXYPos(m_Doc->currentPage()->xOffset() + x, m_Doc->currentPage()->yOffset() + y);
 	ite->setWidthHeight(w, h);
