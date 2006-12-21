@@ -164,6 +164,8 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 	
 	firstFrameItem = 0;
 	lastFrameItem = -1;
+	m_magicX = 0.0;
+	m_lastMagicPos = -1;
 	
 	d->len = 0;
 	invalidateAll();
@@ -172,6 +174,14 @@ StoryText::StoryText(ScribusDoc * doc_) : doc(doc_)
 StoryText::StoryText() : doc(NULL)
 {
 	d = new ScText_Shared(NULL);
+
+	selFirst = 0;
+	selLast = -1;
+	
+	firstFrameItem = 0;
+	lastFrameItem = -1;
+	m_magicX = 0.0;
+	m_lastMagicPos = -1;
 }
 
 StoryText::StoryText(const StoryText & other) : doc(other.doc)
@@ -184,6 +194,8 @@ StoryText::StoryText(const StoryText & other) : doc(other.doc)
 	
 	firstFrameItem = 0;
 	lastFrameItem = -1;
+	m_magicX = 0.0;
+	m_lastMagicPos = -1;
 
 	invalidateLayout();
 }
@@ -752,7 +764,7 @@ void StoryText::replaceStyles(QMap<QString,QString> newNameForOld)
 		return;
 	
 	d->at(0);
-	for (uint i=0; i < len; ++i) {
+	for (int i=0; i < len; ++i) {
 		if (d->current()->parstyle && newNameForOld.contains(d->current()->parstyle->parent()))
 			d->current()->parstyle->setParent(newNameForOld[d->current()->parstyle->parent()]);
 		d->next();
@@ -772,7 +784,7 @@ void StoryText::replaceCharStyles(QMap<QString,QString> newNameForOld)
 		return;
 	
 	d->at(0);
-	for (uint i=0; i < len; ++i) {
+	for (int i=0; i < len; ++i) {
 		if (newNameForOld.contains(d->current()->parent()))
 			d->current()->setParent(newNameForOld[d->current()->parent()]);
 		
@@ -846,6 +858,164 @@ int StoryText::endOfRun(uint index) const
 	return index + 1;
 }
 
+// positioning. all positioning methods return char positions
+// FIXME: make that methods use correct semantic boundaries
+
+static QString wordBoundaries(" .,:;\"'!?\n");
+static QString sentenceBoundaries(".:!?\n");
+
+int StoryText::nextChar(int pos)
+{
+	if (pos < length())
+		return pos+1;
+	else
+		return length();
+}
+int StoryText::prevChar(int pos)
+{
+	if (pos > 0)
+		return pos - 1;
+	else 
+		return 0;
+}
+int StoryText::nextWord(int pos)
+{
+	int len = length();
+	pos = QMIN(len, pos+1);
+	while (pos < len  && wordBoundaries.find(text(pos)) < 0)
+		++pos;
+	return pos < len ? pos + 1 : pos;
+}
+int StoryText::prevWord(int pos)
+{
+	pos = QMAX(0, pos-1);
+	while (pos > 0 && wordBoundaries.find(text(pos)) < 0)
+		--pos;
+	return wordBoundaries.find(text(pos)) < 0 ? pos + 1 : pos;
+}
+int StoryText::nextSentence(int pos)
+{
+	int len = length();
+	pos = QMIN(len, pos+1);
+	while (pos < len && sentenceBoundaries.find(text(pos)) < 0)
+		++pos;
+	return pos < len ? pos + 1 : pos;
+}
+int StoryText::prevSentence(int pos)
+{
+	pos = QMAX(0, pos-1);
+	while (pos > 0 && sentenceBoundaries.find(text(pos)) < 0)
+		--pos;
+	return sentenceBoundaries.find(text(pos)) < 0 ? pos + 1 : pos;
+}
+int StoryText::nextParagraph(int pos)
+{
+	int len = length();
+	pos = QMIN(len, pos+1);
+	while (pos < len && text(pos) != SpecialChars::PARSEP)
+		++pos;
+	return pos < len ? pos + 1 : pos;
+}
+int StoryText::prevParagraph(int pos)
+{
+	pos = QMAX(0, pos-1);
+	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
+		--pos;
+	return text(pos) != SpecialChars::PARSEP ? pos + 1 : pos;
+}
+
+// these need valid layout:
+
+int StoryText::startOfLine(int pos)
+{
+	for (uint i=0; i < m_lines.count(); ++i) {
+		const LineSpec & ls(m_lines.at(i));
+		if (ls.firstItem <= pos && pos <= ls.lastItem)
+			return ls.firstItem;
+	}
+	return 0;
+}
+int StoryText::endOfLine(int pos)
+{
+	for (uint i=0; i < m_lines.count(); ++i) {
+		const LineSpec & ls(m_lines.at(i));
+		if (ls.firstItem <= pos && pos <= ls.lastItem)
+			return ls.lastItem;
+	}
+	return length();
+}
+int StoryText::prevLine(int pos)
+{
+	for (uint i=0; i < m_lines.count(); ++i) 
+	{
+		// find line for pos
+		const LineSpec & ls(m_lines.at(i));
+		if (ls.firstItem <= pos && pos <= ls.lastItem) 
+		{
+			// find current xpos
+			double xpos = 0.0;
+			for (int j = ls.firstItem; j < pos; ++j)
+				xpos += item(j)->glyph.wide();
+			if (pos != m_lastMagicPos || xpos > m_magicX)
+				m_magicX = xpos;
+			const LineSpec & ls2(m_lines.at(i-1));
+			// find new cpos
+			xpos = 0.0;
+			for (int j = ls2.firstItem; j <= ls2.lastItem; ++j) 
+			{
+				xpos += item(j)->glyph.wide();
+				if (xpos > m_magicX) {
+					m_lastMagicPos = j;
+					return j;
+				}
+			}
+			m_lastMagicPos = ls2.lastItem;
+			return ls2.lastItem;
+		}
+	}
+	return firstFrameItem;
+}
+
+int StoryText::nextLine(int pos)
+{
+	for (uint i=0; i < m_lines.count(); ++i) 
+	{
+		// find line for pos
+		const LineSpec & ls(m_lines.at(i));
+		if (ls.firstItem <= pos && pos <= ls.lastItem) 
+		{
+			// find current xpos
+			double xpos = 0.0;
+			for (int j = ls.firstItem; j < pos; ++j)
+				xpos += item(j)->glyph.wide();
+			if (pos != m_lastMagicPos || xpos > m_magicX)
+				m_magicX = xpos;
+			const LineSpec & ls2(m_lines.at(i+1));
+			// find new cpos
+			xpos = 0.0;
+			for (int j = ls2.firstItem; j <= ls2.lastItem; ++j) 
+			{
+				xpos += item(j)->glyph.wide();
+				if (xpos > m_magicX) {
+					m_lastMagicPos = j;
+					return j;
+				}
+			}
+			m_lastMagicPos = ls2.lastItem + 1;
+			return ls2.lastItem + 1;
+		}
+	}
+	return lastFrameItem;
+}
+
+int StoryText::startOfFrame(int pos) 
+{
+	return firstFrameItem;
+}
+int StoryText::endOfFrame(int pos)
+{
+	return lastFrameItem;
+}
 
 // selection
 
@@ -987,24 +1157,27 @@ void StoryText::validate()
 
 int StoryText::screenToPosition(FPoint coord) const
 {
+	double maxx = coord.x() - 1.0;
 	for (unsigned int i=0; i < lines(); ++i)
 	{
 		LineSpec ls = line(i);
 //		qDebug(QString("screenToPosition: (%1,%2) -> y %3 - %4 + %5").arg(coord.x()).arg(coord.y()).arg(ls.y).arg(ls.ascent).arg(ls.descent));
 		if (ls.y + ls.descent < coord.y())
 			continue;
-		if (ls.y - ls.ascent <= coord.y()) {
-			double xpos = ls.x;
-			for (int j = ls.firstItem; j <= ls.lastItem; ++j) {
+		double xpos = ls.x;
+		for (int j = ls.firstItem; j <= ls.lastItem; ++j) {
 //				qDebug(QString("screenToPosition: (%1,%2) -> x %3 + %4").arg(coord.x()).arg(coord.y()).arg(xpos).arg(item(j)->glyph.wide()));
-				double width = item(j)->glyph.wide();
-				xpos += width;
-				if (xpos >= coord.x())
-					return xpos - width/2 > coord.x() ? j : j+1;
-			}
-			if (xpos + 1 > coord.x()) // allow 1pt after end of line
-				return ls.lastItem + 1;
+			double width = item(j)->glyph.wide();
+			xpos += width;
+			if (xpos >= coord.x())
+				return xpos - width/2 > coord.x() ? j : j+1;
 		}
+		if (xpos > maxx)
+			maxx = xpos;
+		if (xpos + 1.0 > coord.x()) // allow 1pt after end of line
+			return ls.lastItem + 1;
+		else if (xpos < ls.x + 0.01 && maxx >= coord.x()) // check for empty line
+			return ls.firstItem;
 	}
 	return QMAX(lastFrameItem+1, firstFrameItem);
 }

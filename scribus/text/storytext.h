@@ -141,8 +141,8 @@ struct LineSpec
 
 	int startOfLine(int pos);
 	int endOfLine(int pos);
-	int lineUp(int pos, int oldX);
-	int lineDown(int pos, int oldX);
+	int prevLine(int pos);
+	int nextLine(int pos);
 	int startOfFrame(int pos);
 	int endOfFrame(int pos);
 
@@ -199,16 +199,40 @@ public:
  	FRect  boundingBox(int pos, uint len = 1) const;
 
 	uint lines() const { return m_lines.count(); }
-	LineSpec line(uint i) const { return m_lines[i]; }
-	void appendLine(const LineSpec& ls) { m_lines.append(ls); }
-	void clearLines() { m_lines.clear(); }
 	
- private:
+	LineSpec line(uint i) const { return m_lines[i]; }
+	
+	void appendLine(const LineSpec& ls) 
+	{ 
+		m_lines.append(ls);
+		if (lastFrameItem < firstFrameItem) {
+			firstFrameItem = ls.firstItem;
+			lastFrameItem = ls.lastItem;
+		}
+		else {
+			firstFrameItem = QMIN(firstFrameItem, ls.firstItem);
+			lastFrameItem = QMAX(lastFrameItem, ls.lastItem);
+		}
+	}
+	
+	void clearLines() 
+	{ 
+		m_lines.clear(); 
+		firstFrameItem = 0; 
+		lastFrameItem = -1; 
+	}
+	
+	int firstInFrame() { return firstFrameItem; }
+	int lastInFrame() { return lastFrameItem; }
+
+private:
 	ScribusDoc * doc; 
 	int selFirst, selLast;
 	int firstFrameItem, lastFrameItem;
 	QValueVector<LineSpec> m_lines;
 	bool m_validLayout;
+	double m_magicX;
+	int m_lastMagicPos;
 	
  	/// mark these runs as invalid, ie. need itemize and shaping
  	void invalidate(int firstRun, int lastRun);
