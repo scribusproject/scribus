@@ -1184,7 +1184,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString, Q
 				if (colorsToUse[itf.key()].isRegistrationColor())
 					PutDoc("All");
 				else
-					PutDoc(itf.key().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+					PutDoc(itf.key().simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				PutDoc(" /DeviceCMYK "+QString::number(ObjCounter-1)+" 0 R ]\nendobj\n");
 				spotD.ResName = spotNam+QString::number(spotCount);
 				spotD.ResNum = ObjCounter;
@@ -4695,8 +4695,8 @@ QString PDFlib::PDF_DoLinGradient(PageItem *currItem, QValueList<double> Stops, 
 		oneSpot2 = false;
 		twoSpot = false;
 		spotMode = false;
-		QString spot1 = colorNames[c].simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
-		QString spot2 = colorNames[c+1].simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
+		QString spot1 = colorNames[c].simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
+		QString spot2 = colorNames[c+1].simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" );
 		QString TRes("");
 		if ((Options.Version >= 14) && (((*Trans.at(c+1)) != 1) || ((*Trans.at(c)) != 1)))
 		{
