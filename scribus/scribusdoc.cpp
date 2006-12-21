@@ -5336,127 +5336,94 @@ void ScribusDoc::FlipImageV()
 //CB removed looping, called by itemSelection_FlipH
 void ScribusDoc::MirrorPolyH(PageItem* currItem)
 {
-	/*uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount != 0)
+	currItem->ClipEdited = true;
+	QWMatrix ma;
+	if (view()->EditContour)
 	{
-		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-										  Um::FlipH, 0, Um::IFlipH);
-		for (uint a = 0; a < docSelectionCount; ++a)
+		if (UndoManager::undoEnabled())
 		{
-			PageItem *currItem = m_Selection->itemAt(a);
-			*/
-			currItem->ClipEdited = true;
-			QWMatrix ma;
-			if (view()->EditContour)
-			{
-				if (UndoManager::undoEnabled())
-				{
-					SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
-					ss->set("MIRROR_PATH_H", "mirror_path_h");
-					ss->set("IS_CONTOUR", true);
-					undoManager->action(currItem, ss, Um::IBorder);
-				}
-				FPoint tp2(getMinClipF(&currItem->ContourLine));
-				FPoint tp(getMaxClipF(&currItem->ContourLine));
-				ma.translate(qRound(tp.x()), 0);
-				ma.scale(-1, 1);
-				currItem->ContourLine.map(ma);
-				emit updateContents();
-				currItem->FrameOnly = true;
-				currItem->Tinput = true;
-				currItem->paintObj();
-				currItem->FrameOnly = false;
-				m_View->MarkClip(currItem, currItem->ContourLine, true);
-				changed();
-				return;
-			}
-			ma.scale(-1, 1);
-			currItem->PoLine.map(ma);
-			currItem->PoLine.translate(currItem->width(), 0);
-			if (currItem->asPathText())
-				currItem->updatePolyClip();
-			else
-				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-			setRedrawBounding(currItem);
-			emit refreshItem(currItem);
-			if (UndoManager::undoEnabled())
-			{
-				SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
-				ss->set("MIRROR_PATH_H", "mirror_path_h");
-				ss->set("IS_CONTOUR", false);
-				undoManager->action(currItem, ss, Um::IBorder);
-			}
-	/*
+			SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
+			ss->set("MIRROR_PATH_H", "mirror_path_h");
+			ss->set("IS_CONTOUR", true);
+			undoManager->action(currItem, ss, Um::IBorder);
 		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
+		FPoint tp2(getMinClipF(&currItem->ContourLine));
+		FPoint tp(getMaxClipF(&currItem->ContourLine));
+		ma.translate(qRound(tp.x()), 0);
+		ma.scale(-1, 1);
+		currItem->ContourLine.map(ma);
+		emit updateContents();
+		currItem->FrameOnly = true;
+		currItem->Tinput = true;
+		currItem->paintObj();
+		currItem->FrameOnly = false;
+		m_View->MarkClip(currItem, currItem->ContourLine, true);
+		changed();
+		return;
 	}
-	*/
+	ma.scale(-1, 1);
+	currItem->PoLine.map(ma);
+	currItem->PoLine.translate(currItem->width(), 0);
+	if (currItem->asPathText())
+		currItem->updatePolyClip();
+	else
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+	setRedrawBounding(currItem);
+	emit refreshItem(currItem);
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipH, "", Um::IFlipH);
+		ss->set("MIRROR_PATH_H", "mirror_path_h");
+		ss->set("IS_CONTOUR", false);
+		undoManager->action(currItem, ss, Um::IBorder);
+	}
 	changed();
 }
 
 //CB removed looping, called by itemSelection_FlipV
 void ScribusDoc::MirrorPolyV(PageItem* currItem)
 {
-/*
-	uint docSelectionCount=m_Selection->count();
-	if (docSelectionCount != 0)
+	currItem->ClipEdited = true;
+	QWMatrix ma;
+	if (view()->EditContour)
 	{
-		if (docSelectionCount > 1)
-			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
-										  Um::FlipV, 0, Um::IFlipV);
-		for (uint a = 0; a < docSelectionCount; ++a)
+		if (UndoManager::undoEnabled())
 		{
-			PageItem *currItem = m_Selection->itemAt(a);
-			*/
-			currItem->ClipEdited = true;
-			QWMatrix ma;
-			if (view()->EditContour)
-			{
-				if (UndoManager::undoEnabled())
-				{
-					SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
-					ss->set("MIRROR_PATH_V", "mirror_path_v");
-					ss->set("IS_CONTOUR", true);
-					undoManager->action(currItem, ss, Um::IBorder);
-				}
-				FPoint tp2(getMinClipF(&currItem->ContourLine));
-				FPoint tp(getMaxClipF(&currItem->ContourLine));
-				ma.translate(0, qRound(tp.y()));
-				ma.scale(1, -1);
-				currItem->ContourLine.map(ma);
-				emit updateContents();
-				currItem->FrameOnly = true;
-				currItem->Tinput = true;
-				currItem->paintObj();
-				currItem->FrameOnly = false;
-				m_View->MarkClip(currItem, currItem->ContourLine, true);
-				changed();
-				return;
-			}
-			ma.scale(1, -1);
-			currItem->PoLine.map(ma);
-			currItem->PoLine.translate(0, currItem->height());
-			if (currItem->asPathText())
-				currItem->updatePolyClip();
-			else
-				currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
-			setRedrawBounding(currItem);
-			emit refreshItem(currItem);
-			if (UndoManager::undoEnabled())
-			{
-				SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
-				ss->set("MIRROR_PATH_V", "mirror_path_v");
-				ss->set("IS_CONTOUR", false);
-				undoManager->action(currItem, ss, Um::IBorder);
-			}
-	/*
+			SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
+			ss->set("MIRROR_PATH_V", "mirror_path_v");
+			ss->set("IS_CONTOUR", true);
+			undoManager->action(currItem, ss, Um::IBorder);
 		}
-		if (docSelectionCount > 1)
-			undoManager->commit();
+		FPoint tp2(getMinClipF(&currItem->ContourLine));
+		FPoint tp(getMaxClipF(&currItem->ContourLine));
+		ma.translate(0, qRound(tp.y()));
+		ma.scale(1, -1);
+		currItem->ContourLine.map(ma);
+		emit updateContents();
+		currItem->FrameOnly = true;
+		currItem->Tinput = true;
+		currItem->paintObj();
+		currItem->FrameOnly = false;
+		m_View->MarkClip(currItem, currItem->ContourLine, true);
+		changed();
+		return;
 	}
-	*/
+	ma.scale(1, -1);
+	currItem->PoLine.map(ma);
+	currItem->PoLine.translate(0, currItem->height());
+	if (currItem->asPathText())
+		currItem->updatePolyClip();
+	else
+		currItem->Clip = FlattenPath(currItem->PoLine, currItem->Segments);
+	setRedrawBounding(currItem);
+	emit refreshItem(currItem);
+	if (UndoManager::undoEnabled())
+	{
+		SimpleState *ss = new SimpleState(Um::FlipV, "", Um::IFlipV);
+		ss->set("MIRROR_PATH_V", "mirror_path_v");
+		ss->set("IS_CONTOUR", false);
+		undoManager->action(currItem, ss, Um::IBorder);
+	}
 	changed();
 }
 
@@ -5939,9 +5906,8 @@ void ScribusDoc::itemSelection_FlipH()
 					MirrorPolyH(currItem);
 				currItem->moveBy(dx, 0, true);
 				currItem->setRedrawBounding();
-				double grx = currItem->GrStartX;
-				currItem->GrStartX = currItem->GrEndX;
-				currItem->GrEndX = grx;
+				currItem->GrStartX = currItem->width() - currItem->GrStartX;
+				currItem->GrEndX = currItem->width() - currItem->GrEndX;
 				undoManager->commit();
 			}
 		}
@@ -5964,9 +5930,8 @@ void ScribusDoc::itemSelection_FlipH()
 					currItem->moveBy(ix-ix2, iy-iy2, true);
 					currItem->setRedrawBounding();
 				}
-				double grx = currItem->GrStartX;
-				currItem->GrStartX = currItem->GrEndX;
-				currItem->GrEndX = grx;
+				currItem->GrStartX = currItem->width() - currItem->GrStartX;
+				currItem->GrEndX = currItem->width() - currItem->GrEndX;
 			}
 		}
 		emit updateContents();
@@ -6005,9 +5970,8 @@ void ScribusDoc::itemSelection_FlipV()
 					MirrorPolyV(currItem);
 				currItem->moveBy(0, dx, true);
 				currItem->setRedrawBounding();
-				double gry = currItem->GrStartY;
-				currItem->GrStartY = currItem->GrEndY;
-				currItem->GrEndY = gry;
+				currItem->GrStartY = currItem->height() - currItem->GrStartY;
+				currItem->GrEndY = currItem->height() - currItem->GrEndY;
 			}
 			emit updateContents();
 			undoManager->commit();
@@ -6031,9 +5995,8 @@ void ScribusDoc::itemSelection_FlipV()
 					currItem->moveBy(ix-ix2, iy-iy2, true);
 					currItem->setRedrawBounding();
 				}
-				double gry = currItem->GrStartY;
-				currItem->GrStartY = currItem->GrEndY;
-				currItem->GrEndY = gry;
+				currItem->GrStartY = currItem->height() - currItem->GrStartY;
+				currItem->GrEndY = currItem->height() - currItem->GrEndY;
 			}
 			emit updateContents();
 		}

@@ -3745,8 +3745,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			}
 			if (operItemMoving)
 			{
-				bool updback = updateOn;
-				updateOn = false;
+				updatesOn(false);
 				evSpon = false;
 				if (Doc->m_Selection->isMultipleSelection())
 				{
@@ -3819,7 +3818,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				//CB need this for? a moved item will send its new data with the new xpos/ypos emits
 				//CB TODO And what if we have dragged to a new page. Items X&Y are not updated anyway now
 				//currItem->emitAllToGUI();
-				updateOn = updback;
+				updatesOn(true);
 				updateContents();
 				emit DocChanged();
 			}
