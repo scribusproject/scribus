@@ -694,9 +694,9 @@ void PageItem_TextFrame::layout()
 				if (CurY-TopOffset < 0.0)
 					CurY = TopOffset+1;
 				// find linelength:
-				pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
-				pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
-
+//				pt1 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(CurY+BotOffset));
+//				pt2 = QPoint(static_cast<int>(ceil(CurX-Extra)), static_cast<int>(ceil(CurY-TopOffset)));
+//
 //				if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))))
 //				{
 //					specialCase = true;
@@ -963,7 +963,7 @@ void PageItem_TextFrame::layout()
 			}
 
 			// test if end of line reached
-			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr+wide > ColBound.y() - style.rightMargin()))
+			if ((!cl.contains(pf2.xForm(pt1))) || (!cl.contains(pf2.xForm(pt2))) || (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin()))
 				outs = true;
 			if (CurY > (Height - BExtra - lineCorr))
 				outs = true;
@@ -1345,10 +1345,10 @@ void PageItem_TextFrame::layout()
 						double BotOffset = desc+BExtra+lineCorr;
 						pt1 = QPoint(qRound(CurX+RExtra), static_cast<int>(CurY+BotOffset));
 						pt2 = QPoint(qRound(CurX+RExtra), static_cast<int>(ceil(CurY-asce)));
-						while (CurX+RExtra+lineCorr+wide < ColBound.y() - style.rightMargin())
+						while (CurX+RExtra+lineCorr < ColBound.y() - style.rightMargin())
 						{
 							CurX++;
-							if (CurX+RExtra+lineCorr+wide > ColBound.y() - style.rightMargin())
+							if (CurX+RExtra+lineCorr > ColBound.y() - style.rightMargin())
 							{
 								fromOut = false;
 								if (style.useBaselineGrid())
@@ -2166,11 +2166,10 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 	int oldPos = CPos; // 15-mar-2004 jjsa for cursor movement with Shift + Arrow key
 	int kk = k->key();
 	int as = k->ascii();
-	double altx, alty;
 	QString uc = k->text();
 	QString cr, Tcha, Twort;
 	uint Tcoun;
-	int len, pos, c;
+	int len, pos;
 	int KeyMod;
 	ScribusView* view = m_Doc->view();
 	ButtonState buttonState = k->state();
@@ -2276,30 +2275,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			pos = len-1;
 		if ( (buttonState & ControlButton) == 0 )
 		{
-			alty =  itemText.item(pos)->glyph.yoffset;
-			c = itemText.text(pos);
-			if ( c == 13 ) // new line, position is wrong
-				if ( --pos > firstInFrame() )
-					alty =  itemText.item(pos)->glyph.yoffset;
-			// check for yp at actual position
-			if ( pos < len )
-			{
-				altx =  itemText.item(pos)->glyph.yoffset;
-				if ( altx > alty )
-				{
-					// we were at begin of line
-					break;
-				}
-			}
-			while (  pos > firstInFrame() && itemText.item(pos-1)->glyph.yoffset == alty )
-				--pos;
-			if ( itemText.text(pos) == SpecialChars::PARSEP )
-				++pos;
+			pos = itemText.startOfLine(pos);
 		}
 		else
 		{
 			//Control Home for start of frame text
-			pos=firstInFrame();
+			pos = itemText.startOfFrame(pos);
 		}
 		CPos = pos;
 		if ( buttonState & ShiftButton )
@@ -2315,47 +2296,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			break; // at end of frame
 		if ( (buttonState & ControlButton) == 0 )
 		{
-			if ((CPos < len) && ((itemText.text(CPos) == SpecialChars::PARSEP) 
-								 || (itemText.text(CPos) == SpecialChars::LINEBREAK)))
-			{
-				// at end of paragraph and therefore line
-				break;
-			}
-			QString nextCh = itemText.text(CPos,1);
-			int nextChs = itemText.charStyle(CPos).fontSize();
-			GlyphLayout dummy;
-			alty =  itemText.item(CPos)->glyph.yoffset - layoutGlyphs(itemText.charStyle(CPos), nextCh, dummy);
-			double nextY;
-			while (CPos < len-1)
-			{
-				nextCh = itemText.text(CPos+1, 1);
-				nextChs = itemText.charStyle(CPos+1).fontSize();
-				GlyphLayout dummy;
-				nextY = itemText.item(CPos+1)->glyph.yoffset - layoutGlyphs(itemText.charStyle(CPos+1), nextCh, dummy);
-				if (fabs(nextY - alty) > 1.0)
-					break;
-				CPos++;
-				if ( CPos == len-1)
-					break;
-			}
-			if ( CPos < len -1 )
-				c = itemText.text(CPos+1);
-			else if ( CPos == len - 1 )
-				c = 13;
-			else
-				c = 0;
-			//CB 2740: Apart from not knowing what 28 did in 1.2.1, this forces us to go to
-			//the next line, not the end of the current
-			//if (( c == 13 ) || (c = 28))
-			//CB 2995 13 allows end to be pressed and actually get to the last character
-			//28 must be end of line not at end of para
-			if ( c == 13 )
-				CPos++;
+			CPos = itemText.endOfLine(pos);
 		}
 		else
 		{
 			//Control End for end of frame text
-			pos=lastInFrame();
+			pos = itemText.endOfFrame(CPos);
 			CPos = pos;
 		}
 		if ( buttonState & ShiftButton )
@@ -2369,56 +2315,32 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			// go to end of paragraph
 			len = itemText.length();
-			if ( CPos >= lastInFrame() )
-				break; // at end of frame
-			if ( itemText.text(CPos) == SpecialChars::PARSEP )
-			{
-				break;
-			}
-			pos = CPos;
-			while ( pos < lastInFrame() )
-			{
-				if ( itemText.text(pos) == SpecialChars::PARSEP )
-					break;
-				else
-					++pos;
-			}
+			pos = itemText.nextParagraph(CPos);
 			CPos = pos;
 			if ( buttonState & ShiftButton )
 				ExpandSel(1, oldPos);
 		}
 		else
 		{
-			if (CPos != lastInFrame())
+			if (CPos <= lastInFrame())
 			{
-				bool down1=false;
-				FRect oldBB = itemText.boundingBox(CPos);
-				double newY = oldBB.y() + oldBB.height();
-				double newX = oldBB.x();
-				if (newY > height() - TExtra && newX < width() - RExtra - columnWidth())
-				{
-					newY = TExtra;
-					newX += columnWidth();
-				}
-				CPos = itemText.screenToPosition(FPoint(newX, newY));
+				CPos = itemText.nextLine(CPos);
 				if ( buttonState & ShiftButton )
 				{
 					if ( buttonState & AltButton )
-						CPos = lastInFrame();
+						CPos = lastInFrame()+1;
 					ExpandSel(1, oldPos);
 				}
-				else
-					if (CPos == lastInFrame())
-						if (NextBox != 0)
+				else 
+					if (CPos > lastInFrame() && NextBox != 0)
+					{
+						if (NextBox->frameDisplays(CPos))
 						{
-							if (NextBox->frameDisplays(CPos+1))
-							{
-								view->Deselect(true);
-								NextBox->CPos = CPos+1;
-								view->SelectItemNr(NextBox->ItemNr);
-								//currItem = currItem->NextBox;
-							}
+							view->Deselect(true);
+							NextBox->CPos = CPos;
+							view->SelectItemNr(NextBox->ItemNr);
 						}
+					}
 			}
 			else
 			{
@@ -2429,7 +2351,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 						view->Deselect(true);
 						NextBox->CPos = lastInFrame()+1;
 						view->SelectItemNr(NextBox->ItemNr);
-						//currItem = currItem->NextBox;
 					}
 				}
 			}
@@ -2444,21 +2365,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if ( (pos = CPos) == firstInFrame() )
 				break; // at begin of frame
 			len = itemText.length();
-			if ( pos == len )
-				pos--;
-			// paragraph begin
-			if ( pos < len &&
-				 itemText.text(pos) == SpecialChars::PARSEP )
-				--pos;
-			while (pos > firstInFrame()) {
-				if ( itemText.text(pos) == SpecialChars::PARSEP )
-				{
-					++pos;
-					break;
-				}
-				else
-					--pos;
-			}
+			pos = itemText.prevParagraph(CPos);
 			CPos = pos;
 			if ( buttonState & ShiftButton )
 				ExpandSel(-1, oldPos);
@@ -2467,17 +2374,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			if (CPos > firstInFrame())
 			{
-				if (CPos == lastInFrame() || CPos >= itemText.length())
-					--CPos;
-				FRect oldBB = itemText.boundingBox(CPos);
-				double newY = oldBB.y() - oldBB.height();
-				double newX = oldBB.x();
-				if (newY < TExtra && newX > columnWidth() + Extra)
-				{
-					newY = height() - BExtra;
-					newX -= columnWidth();
-				}
-				CPos = itemText.screenToPosition(FPoint(newX, newY));
+				if (CPos > lastInFrame() || CPos >= itemText.length())
+					CPos = lastInFrame();
+				CPos = itemText.prevLine(CPos);
 				if ( buttonState & ShiftButton )
 				{
 					if ( buttonState & AltButton )
@@ -2485,15 +2384,11 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					ExpandSel(-1, oldPos);
 				}
 				else
-					if (CPos == firstInFrame())
+					if (CPos == firstInFrame() && BackBox != 0)
 					{
-						if (BackBox != 0)
-						{
-							view->Deselect(true);
-							BackBox->CPos = BackBox->lastInFrame();
-							view->SelectItemNr(BackBox->ItemNr);
-							//currItem = currItem->BackBox;
-						}
+						view->Deselect(true);
+						BackBox->CPos = BackBox->lastInFrame();
+						view->SelectItemNr(BackBox->ItemNr);
 					}
 			}
 			else
@@ -2504,7 +2399,6 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 					view->Deselect(true);
 					BackBox->CPos = BackBox->lastInFrame();
 					view->SelectItemNr(BackBox->ItemNr);
-					//currItem = currItem->BackBox;
 				}
 			}
 		}
@@ -2513,13 +2407,13 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Prior:
-		CPos = firstInFrame();
+		CPos = itemText.startOfFrame(CPos);
 		if ( buttonState & ShiftButton )
 			ExpandSel(-1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
 		break;
 	case Key_Next:
-		CPos = lastInFrame();
+		CPos = itemText.endOfFrame(CPos);
 		if ( buttonState & ShiftButton )
 			ExpandSel(1, oldPos);
 		m_Doc->scMW()->setTBvals(this);
@@ -2554,8 +2448,9 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 				}
 			}
 		}
-		if ((CPos > 0) && (CPos == lastInFrame()))
+		if ((CPos > 0) && (CPos >= lastInFrame()))
 		{
+			CPos = lastInFrame();
 			if (itemText.charStyle(CPos-1).effects() & ScStyle_SuppressSpace)
 			{
 				--CPos;
