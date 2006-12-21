@@ -53,7 +53,7 @@ void ColorWheel::mouseReleaseEvent(QMouseEvent *e)
 {
 	baseAngle = valueFromPoint(e->pos());
 	actualColor = colorMap[baseAngle];
-	actualColor.setColorModel(currentColorSpace);
+	actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
 	emit clicked(e->button(), e->pos());
 }
 
@@ -153,7 +153,7 @@ ScColor ColorWheel::colorSpaceColor(ScColor col)
 	ScColorEngine::getRGBColor(col, currentDoc).getHsv(&h, &s, &v);
 	newcol.setHsv(h, s, v);
 	ret.fromQColor(newcol);
-	ret.setColorModel(currentColorSpace);
+	ret = ScColorEngine::convertToModel(ret, currentDoc, currentColorSpace);
 	return ret;
 }
 
@@ -172,10 +172,10 @@ void ColorWheel::makeMonochromatic()
 	QColor col(ScColorEngine::getRGBColor(actualColor, currentDoc));
 	ScColor l;
 	l.fromQColor(col.light());
-	l.setColorModel(currentColorSpace);
+	l = ScColorEngine::convertToModel(l, currentDoc, currentColorSpace);
 	colorList[tr("Monochromatic Light")] = l;
 	l.fromQColor(col.dark());
-	l.setColorModel(currentColorSpace);
+	l = ScColorEngine::convertToModel(l, currentDoc, currentColorSpace);
 	colorList[tr("Monochromatic Dark")] = l;
 	currentType = Monochromatic;
 }
@@ -294,7 +294,7 @@ bool ColorWheel::recomputeColor(ScColor col)
 		{
 			act.setHsv(tmph, origs, origv);
 			actualColor.fromQColor(act);
-			actualColor.setColorModel(currentColorSpace);
+			ret = ScColorEngine::convertToModel(ret, currentDoc, currentColorSpace);
 			baseAngle = it.key();
 			return true;
 		}

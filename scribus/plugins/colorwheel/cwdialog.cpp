@@ -417,14 +417,14 @@ void CWDialog::setupColorComponents()
 	if (colorspaceTab->currentPage() == tabCMYK)
 	{
 		c = ScColor(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
-		c.setColorModel(colorModelCMYK);
+		c = ScColorEngine::convertToModel(c, m_Doc, colorModelCMYK);
 		setupRGBComponent(c);
 		setupHSVComponent(c);
 	}
 	if (colorspaceTab->currentPage() == tabRGB)
 	{
 		c = ScColor(rSpin->value(), gSpin->value(), bSpin->value());
-		c.setColorModel(colorModelRGB);
+		c = ScColorEngine::convertToModel(c, m_Doc, colorModelRGB);
 		setupCMYKComponent(c);
 		setupHSVComponent(c);
 	}
@@ -433,7 +433,7 @@ void CWDialog::setupColorComponents()
 		QColor qc;
 		qc.setHsv(hSpin->value(), sSpin->value(), vSpin->value());
 		c.fromQColor(qc);
-		c.setColorModel(colorModelRGB);
+		c = ScColorEngine::convertToModel(c, m_Doc, colorModelRGB);
 		setupCMYKComponent(c);
 		setupRGBComponent(c);
 	}
