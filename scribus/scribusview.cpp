@@ -8705,14 +8705,15 @@ void ScribusView::selectPage(QMouseEvent *m)
 	Deselect(false);
 	if (!Doc->masterPageMode())
 	{
-		uint i = Doc->OnPage(Mxp + Doc->minCanvasCoordinate.x(), Myp + Doc->minCanvasCoordinate.y());
+		int i = Doc->OnPage(Mxp + Doc->minCanvasCoordinate.x(), Myp + Doc->minCanvasCoordinate.y());
 		if (i!=-1)
 		{
 			uint docCurrPageNo=Doc->currentPageNumber();
-			if (docCurrPageNo != i)
+			uint j=static_cast<uint>(i);
+			if (docCurrPageNo != j)
 			{
-				Doc->setCurrentPage(Doc->Pages->at(i));
-				setMenTxt(i);
+				Doc->setCurrentPage(Doc->Pages->at(j));
+				setMenTxt(j);
 				DrawNew();
 			}
 		}
