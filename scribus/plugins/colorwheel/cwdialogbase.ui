@@ -280,8 +280,11 @@
                                                                 <property name="name">
                                                                     <cstring>cSpin</cstring>
                                                                 </property>
+                                                                <property name="suffix">
+                                                                    <string> %</string>
+                                                                </property>
                                                                 <property name="maxValue">
-                                                                    <number>255</number>
+                                                                    <number>100</number>
                                                                 </property>
                                                             </widget>
                                                         </hbox>
@@ -306,8 +309,11 @@
                                                                 <property name="name">
                                                                     <cstring>mSpin</cstring>
                                                                 </property>
+                                                                <property name="suffix">
+                                                                    <string> %</string>
+                                                                </property>
                                                                 <property name="maxValue">
-                                                                    <number>255</number>
+                                                                    <number>100</number>
                                                                 </property>
                                                             </widget>
                                                         </hbox>
@@ -332,8 +338,11 @@
                                                                 <property name="name">
                                                                     <cstring>ySpin</cstring>
                                                                 </property>
+                                                                <property name="suffix">
+                                                                    <string> %</string>
+                                                                </property>
                                                                 <property name="maxValue">
-                                                                    <number>255</number>
+                                                                    <number>100</number>
                                                                 </property>
                                                             </widget>
                                                         </hbox>
@@ -358,8 +367,11 @@
                                                                 <property name="name">
                                                                     <cstring>kSpin</cstring>
                                                                 </property>
+                                                                <property name="suffix">
+                                                                    <string> %</string>
+                                                                </property>
                                                                 <property name="maxValue">
-                                                                    <number>255</number>
+                                                                    <number>100</number>
                                                                 </property>
                                                             </widget>
                                                         </hbox>
@@ -668,7 +680,7 @@
                                                                     <cstring>hSpin</cstring>
                                                                 </property>
                                                                 <property name="maxValue">
-                                                                    <number>255</number>
+                                                                    <number>365</number>
                                                                 </property>
                                                             </widget>
                                                         </hbox>
@@ -1140,9 +1152,6 @@
         <slot>vSpin_valueChanged(int)</slot>
     </connection>
 </connections>
-<includes>
-    <include location="local" impldecl="in implementation">cwdialogbase.ui.h</include>
-</includes>
 <slots>
     <slot>colorspaceTab_currentChanged( QWidget * )</slot>
     <slot>angleSpin_valueChanged( int )</slot>

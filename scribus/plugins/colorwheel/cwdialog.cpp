@@ -95,10 +95,10 @@ CWDialog::~CWDialog()
 	prefs->set("cw_r", rSpin->value());
 	prefs->set("cw_g", gSpin->value());
 	prefs->set("cw_b", bSpin->value());
-	prefs->set("cw_c", cSpin->value());
-	prefs->set("cw_m", mSpin->value());
-	prefs->set("cw_y", ySpin->value());
-	prefs->set("cw_k", kSpin->value());
+	prefs->set("cw_c", cSpin->value() * 2.55);
+	prefs->set("cw_m", mSpin->value() * 2.55);
+	prefs->set("cw_y", ySpin->value() * 2.55);
+	prefs->set("cw_k", kSpin->value() * 2.55);
 	prefs->set("cw_space", colorspaceTab->currentPageIndex());
 	// GUI settings
 	prefs->set("cw_width", width());
@@ -392,10 +392,10 @@ void CWDialog::setupCMYKComponent(ScColor col)
 	CMYKColor cmyk;
 	ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
 	connectSlots(false);
-	cSpin->setValue(cmyk.c);
-	mSpin->setValue(cmyk.m);
-	ySpin->setValue(cmyk.y);
-	kSpin->setValue(cmyk.k);
+	cSpin->setValue(qRound(cmyk.c / 2.55));
+	mSpin->setValue(qRound(cmyk.m / 2.55));
+	ySpin->setValue(qRound(cmyk.y / 2.55));
+	kSpin->setValue(qRound(cmyk.k / 2.55));
 	connectSlots(true);
 }
 
@@ -416,7 +416,8 @@ void CWDialog::setupColorComponents()
 	ScColor c;
 	if (colorspaceTab->currentPage() == tabCMYK)
 	{
-		c = ScColor(cSpin->value(), mSpin->value(), ySpin->value(), kSpin->value());
+		c = ScColor(qRound(cSpin->value() * 2.55), qRound(mSpin->value() * 2.55),
+					qRound(ySpin->value() * 2.55), qRound(kSpin->value() * 2.55));
 		c = ScColorEngine::convertToModel(c, m_Doc, colorModelCMYK);
 		setupRGBComponent(c);
 		setupHSVComponent(c);
