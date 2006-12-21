@@ -7468,6 +7468,8 @@ Page* ScribusDoc::currentPage()
 
 void ScribusDoc::setCurrentPage(Page *newPage)
 {
+	if (newPage==NULL)
+		return;
 	_currentPage = newPage;
 	if (m_ScMW)
 	{
