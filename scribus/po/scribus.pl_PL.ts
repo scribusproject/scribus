@@ -2028,33 +2028,6 @@ May raise ValueError if an invalid color name is specified.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type&gt; for reference.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>getPropertyCType(object, property, includesuper=True)
 
 Returns the name of the C type of `property&apos; of `object&apos;. See getProperty()
@@ -2117,39 +2090,6 @@ See QObject::children() in the Qt docs for more information.
 Return the first child of `object&apos; named `childname&apos;, possibly restricting
 the search to children of type name `ofclass&apos;. If `recursive&apos; is true,
 search recursively through children, grandchildren, etc.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>isLayerPrintable(&quot;layer&quot;) -&gt; bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -2336,17 +2276,6 @@ is not given the currently selected Item is used.
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If printable is set to
-false the layer won&apos;t be printed.
-
-May raise NotFoundError if the layer can&apos;t be found.
-May raise ValueError if the layer name isn&apos;t acceptable.
-</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>setLayerLocked(&quot;layer&quot;, locked)
 
 Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
@@ -2517,6 +2446,80 @@ Returns the type of the Page, 0 means left Page, 1 is a middle Page and 2 is a r
 
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getCornerRadius([&quot;name&quot;]) -&gt; integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>getPosition([&quot;name&quot;]) -&gt; (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type&gt; for reference.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the
+printable set to false the layer won&apos;t be printed.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>isLayerVisible(&quot;layer&quot;) -&gt; bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can&apos;t be found.
+May raise ValueError if the layer name isn&apos;t acceptable.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3829,6 +3832,10 @@ Brak wsparcia oznaczony jest symbolem *</translation>
         <source>Fit to Width</source>
         <translation>Dopasuj do szerokości</translation>
     </message>
+    <message>
+        <source>Sticky Tools</source>
+        <translation>Zachowaj wybór narzędzia </translation>
+    </message>
 </context>
 <context>
     <name>AdvOptions</name>
@@ -4066,11 +4073,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align right sides of objects to left side of anchor</source>
-        <translation>Wyrównaj prawe krawędzie obiektów do lewej krawędzi obiektu odniesienia</translation>
+        <translation type="obsolete">Wyrównaj prawe krawędzie obiektów do lewej krawędzi obiektu odniesienia</translation>
     </message>
     <message>
         <source>Align left sides of objects to right side of anchor</source>
-        <translation>Wyrównaj lewe krawędzie obiektów do prawej krawędzi obiektu odniesienia</translation>
+        <translation type="obsolete">Wyrównaj lewe krawędzie obiektów do prawej krawędzi obiektu odniesienia</translation>
     </message>
     <message>
         <source>Align bottoms</source>
@@ -4082,7 +4089,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align tops of objects to bottom of anchor</source>
-        <translation>Wyrównaj górne krawędzie obiektów do dolnej krawędzi obiektu odniesienia</translation>
+        <translation type="obsolete">Wyrównaj górne krawędzie obiektów do dolnej krawędzi obiektu odniesienia</translation>
     </message>
     <message>
         <source>Center on vertical axis</source>
@@ -4098,7 +4105,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Align bottoms of objects to top of anchor</source>
-        <translation>Wyrównaj dolne krawędzie obiektów do górnej krawędzi obiektu odniesienia</translation>
+        <translation type="obsolete">Wyrównaj dolne krawędzie obiektów do górnej krawędzi obiektu odniesienia</translation>
     </message>
     <message>
         <source>Align tops</source>
@@ -4110,11 +4117,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal</source>
-        <translation>Zrównaj ze sobą poziome odstępy między obiektami</translation>
+        <translation type="obsolete">Zrównaj ze sobą poziome odstępy między obiektami</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects equal to the value specified</source>
-        <translation>Zrównaj poziome odstępy między obiektami z podaną wartością</translation>
+        <translation type="obsolete">Zrównaj poziome odstępy między obiektami z podaną wartością</translation>
     </message>
     <message>
         <source>Distribute right sides equidistantly</source>
@@ -4130,11 +4137,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal</source>
-        <translation>Zrównaj ze sobą pionowe odstępy między obiektami</translation>
+        <translation type="obsolete">Zrównaj ze sobą pionowe odstępy między obiektami</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects equal to the value specified</source>
-        <translation>Zrównaj pionowe odstępy między obiektami z podaną wartością</translation>
+        <translation type="obsolete">Zrównaj pionowe odstępy między obiektami z podaną wartością</translation>
     </message>
     <message>
         <source>Distribute left sides equidistantly</source>
@@ -4194,18 +4201,66 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page equal</source>
-        <translation>Wyrównaj poziome odstępy między obiektami a brzegami strony</translation>
+        <translation type="obsolete">Wyrównaj poziome odstępy między obiektami a brzegami strony</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
-        <translation>Wyrównaj pionowe odstępy między obiektami a górnym i dolnym marginesem strony</translation>
+        <translation type="obsolete">Wyrównaj pionowe odstępy między obiektami a górnym i dolnym marginesem strony</translation>
     </message>
     <message>
         <source>Make horizontal gaps between objects and sides of page margins equal</source>
-        <translation>Wyrównaj poziome odstępy między obiektami a marginesami strony</translation>
+        <translation type="obsolete">Wyrównaj poziome odstępy między obiektami a marginesami strony</translation>
     </message>
     <message>
         <source>Make vertical gaps between objects and the top and bottom of page equal</source>
+        <translation type="obsolete">Wyrównaj pionowe odstępy między obiektami a górą i dołem strony</translation>
+    </message>
+    <message>
+        <source>Align right sides of items to left side of anchor</source>
+        <translation>Wyrównaj prawe krawędzie obiektów do lewej krawędzi obiektu odniesienia</translation>
+    </message>
+    <message>
+        <source>Align left sides of items to right side of anchor</source>
+        <translation>Wyrównaj lewe krawędzie obiektów do prawej krawędzi obiektu odniesienia</translation>
+    </message>
+    <message>
+        <source>Align tops of items to bottom of anchor</source>
+        <translation>Wyrównaj górne krawędzie obiektów do dolnej krawędzi obiektu odniesienia</translation>
+    </message>
+    <message>
+        <source>Align bottoms of items to top of anchor</source>
+        <translation>Wyrównaj dolne krawędzie obiektów do górnej krawędzi obiektu odniesienia</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items equal</source>
+        <translation>Zrównaj ze sobą poziome odstępy między obiektami</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items equal to the value specified</source>
+        <translation>Zrównaj poziome odstępy między obiektami z podaną wartością</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items equal</source>
+        <translation>Zrównaj ze sobą pionowe odstępy między obiektami</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items equal to the value specified</source>
+        <translation>Zrównaj pionowe odstępy między obiektami z podaną wartością</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items and sides of page equal</source>
+        <translation>Wyrównaj poziome odstępy między obiektami a brzegami strony</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
+        <translation>Wyrównaj pionowe odstępy między obiektami a górnym i dolnym marginesem strony</translation>
+    </message>
+    <message>
+        <source>Make horizontal gaps between items and sides of page margins equal</source>
+        <translation>Wyrównaj poziome odstępy między obiektami a marginesami strony</translation>
+    </message>
+    <message>
+        <source>Make vertical gaps between items and the top and bottom of page equal</source>
         <translation>Wyrównaj pionowe odstępy między obiektami a górą i dołem strony</translation>
     </message>
 </context>
@@ -4772,7 +4827,7 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     </message>
     <message>
         <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>None</source>
@@ -4791,6 +4846,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia z tuszami CMY.</translation>
     <message>
         <source>Do Not Export Value</source>
         <translation>Nie eksportuj wartości</translation>
+    </message>
+    <message>
+        <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
+        <translation>Obrazki (*.tif *.png *.jpg *.xpm);;Postscript (*.eps *.epsi);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -5635,12 +5694,14 @@ Wymaga ona bardzo dokładnie dopasowanych profili i służy jedynie jako ostrze�
     <message>
         <source>Default rendering intent for solid colors. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślna metoda konwersji przestrzeni kolorów dla pełnych kolorów. Wybierz  metodę 
+względnie kolorymetryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
     </message>
     <message>
         <source>Default rendering intent for images. Unless you know why to change it,
 Relative Colorimetric or Perceptual should be chosen.</source>
-        <translation type="unfinished"></translation>
+        <translation>Domyślna metoda konwersji przestrzeni kolorów dla obrazków. Wybierz  metodę 
+względnie kolorymetryczną lub spostrzeżeniową, chyba że wiesz, dlaczego chcesz to zmienić.</translation>
     </message>
     <message>
         <source>Simulate a full color managed environment :
@@ -5758,7 +5819,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Is Registration Color</source>
-        <translation>Jest kolorem znaczników pasowania</translation>
+        <translation>Jest kolorem znaczników</translation>
     </message>
     <message>
         <source>You cannot create a color named &quot;%1&quot;.
@@ -5874,7 +5935,7 @@ proszę wybrać inną nazwę.</translation>
     </message>
     <message>
         <source>Click the wheel to get the base color. Its color model depends on the chosen tab.</source>
-        <translation type="unfinished"></translation>
+        <translation>Kliknij na kole, aby uzyskać kolor podstawowy. Model kolorów zależy od tego, jak zakładka została wybrana po prawej stronie.</translation>
     </message>
     <message>
         <source>CMYK</source>
@@ -6240,6 +6301,13 @@ proszę wybrać inną nazwę.</translation>
     </message>
 </context>
 <context>
+    <name>CharTable</name>
+    <message>
+        <source>Delete</source>
+        <translation>Usuń</translation>
+    </message>
+</context>
+<context>
     <name>CheckDocument</name>
     <message>
         <source>Current Profile:</source>
@@ -6529,11 +6597,19 @@ proszę wybrać inną nazwę.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Inne pliki (*.eps *.ps *.ai);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Inne pliki (*.eps *.ps *.ai);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.ps *.ai);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.ps *.ai);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.epsi *.ps *.ai);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Inne pliki (*.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation>Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -7086,6 +7162,11 @@ proszę wybrać inną nazwę.</translation>
         <source>Full Color Blindness</source>
         <comment>Color Blindness - Full Color Blindness</comment>
         <translation>Całkowity daltonizm</translation>
+    </message>
+    <message>
+        <source>Custom: </source>
+        <comment>Custom Tab Fill Option</comment>
+        <translation>Definicja użytkownika:</translation>
     </message>
 </context>
 <context>
@@ -8602,7 +8683,7 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Importing PostScript</source>
-        <translation>Importowanie PostScriptu</translation>
+        <translation type="obsolete">Importowanie PostScriptu</translation>
     </message>
     <message>
         <source>Analyzing PostScript:</source>
@@ -8618,7 +8699,11 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupa%1</translation>
+    </message>
+    <message>
+        <source>Importing: %1</source>
+        <translation>Importowanie: %1</translation>
     </message>
 </context>
 <context>
@@ -8817,7 +8902,7 @@ nie powiodła się!</translation>
     </message>
     <message>
         <source>Select for easier reading of light coloured text styles</source>
-        <translation>Wybierz, aby umożliwić łatwiejsze czytanie stylów tekstowych w jasnych kolorach</translation>
+        <translation type="obsolete">Wybierz, aby umożliwić łatwiejsze czytanie stylów tekstowych w jasnych kolorach</translation>
     </message>
     <message>
         <source>Manual Tracking</source>
@@ -8834,6 +8919,10 @@ nie powiodła się!</translation>
     <message>
         <source>Auto</source>
         <translation>Auto</translation>
+    </message>
+    <message>
+        <source>Select for easier reading of light colored text styles</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -10385,6 +10474,18 @@ Wartość 0 oznacza brak ograniczeń.</translation>
         <source>Scanner Manufacturer:</source>
         <translation>Producent skanera:</translation>
     </message>
+    <message>
+        <source>Exposure time</source>
+        <translation>Czas naświetlania</translation>
+    </message>
+    <message>
+        <source>Aperture:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>ISO equiv.:</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ImportPSPlugin</name>
@@ -10661,7 +10762,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>There are no options for this type of frame</source>
-        <translation type="unfinished"></translation>
+        <translation>Brak opcji dla tego typu ramki</translation>
     </message>
     <message>
         <source>Source Document:</source>
@@ -10693,7 +10794,7 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     </message>
     <message>
         <source>Top Left of Bleed</source>
-        <translation>Górna lewy róg spadów</translation>
+        <translation>W górnym lewym rógu spadów</translation>
     </message>
     <message>
         <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
@@ -10702,6 +10803,14 @@ zamieniając dane wektorowe na obiekty Scribusa.</translation>
     <message>
         <source>Same as the Bleed</source>
         <translation>Taki sam jak spady</translation>
+    </message>
+    <message>
+        <source>All Pages</source>
+        <translation>Wszystkie strony</translation>
+    </message>
+    <message>
+        <source>Same as the Imported Image</source>
+        <translation>Taki sam jak importowany obrazek</translation>
     </message>
 </context>
 <context>
@@ -11446,7 +11555,7 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     </message>
     <message>
         <source>Apply the margin changes to all existing master pages in the document</source>
-        <translation type="unfinished"></translation>
+        <translation>Zastosuj ustawienia marginesu do wszystkich  stron wzorcowych dokumentu</translation>
     </message>
     <message>
         <source>Margin Guides</source>
@@ -12543,7 +12652,7 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Disable text flow from lower frames around object</source>
-        <translation type="unfinished"></translation>
+        <translation>Wyłącz opływanie obiektu tekstem z położonych niżej ramek tekstowych</translation>
     </message>
     <message>
         <source>Use the frame shape for text flow of text frames below the object.</source>
@@ -12551,10 +12660,6 @@ Proszę wybrać inną.</translation>
     </message>
     <message>
         <source>Use the bounding box, which is always rectangular, instead of the frame&apos;s shape for text flow of text frames below the object. </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -12644,6 +12749,10 @@ Proszę wybrać inną.</translation>
     <message>
         <source>Click and hold down to select the line spacing mode.</source>
         <translation>Kliknij iprzytrzymaj klawisz myszy, aby wybrać tryb interlinii.</translation>
+    </message>
+    <message>
+        <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame&apos;s shape for text flow of text frames below the object. T</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13333,6 +13442,10 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
     </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation>Ten plik zawiera nieobsługiwane elementy</translation>
+    </message>
 </context>
 <context>
     <name>OdtDialog</name>
@@ -13394,6 +13507,37 @@ Jeśli zostały wybrane strony widzące się, to margines ten może zostać uży
     <message>
         <source>Scribus 1.2.x Document</source>
         <translation>Dokument Scribusa 1.2.x</translation>
+    </message>
+</context>
+<context>
+    <name>OneClick</name>
+    <message>
+        <source>Origin</source>
+        <translation>Punkt odniesienia</translation>
+    </message>
+    <message>
+        <source>Size</source>
+        <translation>Rozmiar</translation>
+    </message>
+    <message>
+        <source>Width:</source>
+        <translation>Szerokość:</translation>
+    </message>
+    <message>
+        <source>Length:</source>
+        <translation>Długość:</translation>
+    </message>
+    <message>
+        <source>Height:</source>
+        <translation>Wysokość:</translation>
+    </message>
+    <message>
+        <source>Angle:</source>
+        <translation>Kąt:</translation>
+    </message>
+    <message>
+        <source>Remember Values</source>
+        <translation>Zapamiętaj wartości</translation>
     </message>
 </context>
 <context>
@@ -15547,7 +15691,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>You can select a predefined page layout here. &apos;None&apos; leave margins as is, Gutenberg sets margins classically. &apos;Magazine&apos; sets all margins for same value. Leading is Left/Inside value.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tutaj można wybrać zdefiniowany wstępnie układ graficzny. &apos;Brak&apos; oznacza zostawienie domyślnych marginesów, &apos;Gutenberg&apos; ustawia klasyczne marginesy, a &apos;Magazyn&apos; ustawia marginesy o takiej samej wielkości. Jako podstawę bierze się wielkość lewego/wewnętrznego marginesu.</translation>
     </message>
 </context>
 <context>
@@ -15646,7 +15790,7 @@ Czy chcesz przejąć te pliki do nowej wersji Scribusa?</translation>
     </message>
     <message>
         <source>Line: %1 Column: %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Wiersz: %1 Szpalta: %3</translation>
     </message>
 </context>
 <context>
@@ -16149,7 +16293,7 @@ Sprawdź katalog i nazwę pliku.</translation>
     </message>
     <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-        <translation>Wszystkie obsługiwane formaty (*.eps *.EPS *.ps *.PS);;</translation>
+        <translation type="obsolete">Wszystkie obsługiwane formaty (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>All Files (*)</source>
@@ -17870,15 +18014,15 @@ is not exhaustive due to exceptions from called functions.
     </message>
     <message>
         <source>%1 may be corrupted : missing resolution tags</source>
-        <translation type="unfinished"></translation>
+        <translation>% może być uszkodzony: brak znaczników rozdzielczości</translation>
     </message>
     <message>
         <source>Font %1 has broken glyph %2</source>
-        <translation type="unfinished"></translation>
+        <translation>Font %1 zawiera uszkodzony glif %2</translation>
     </message>
     <message>
         <source>Latin</source>
-        <translation type="unfinished"></translation>
+        <translation>Latin</translation>
     </message>
     <message>
         <source>Norwegian (Bokm&#xc3;&#xa5;l)</source>
@@ -17927,6 +18071,10 @@ Therefore the image may be not correct</source>
     <message>
         <source>English (Australian)</source>
         <translation>Angielski (Australia)</translation>
+    </message>
+    <message>
+        <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
+        <translation>Wszystkie wspierane formaty (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
     </message>
 </context>
 <context>
@@ -19058,7 +19206,7 @@ converting their vector data into Scribus objects.</source>
     <name>SVGPlug</name>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupa%1</translation>
     </message>
 </context>
 <context>
@@ -20136,7 +20284,7 @@ materiału wejściowego, aby je poprawić</translation>
     </message>
     <message>
         <source>An error occurred while opening ICC profiles, color management is not enabled.</source>
-        <translation type="unfinished"></translation>
+        <translation>Błąd podczas otwierania profili ICC, zarządzanie kolorami jest wyłączone.</translation>
     </message>
     <message>
         <source>Number of copies: %1
@@ -20150,7 +20298,9 @@ Przesunięcie w pionie: %3</translation>
         <source>Number of copies: %1
 Horizontal gap: %2
 Vertical gap: %3</source>
-        <translation type="unfinished"></translation>
+        <translation>Ilość kopii: %1
+Odstęp w poziomie: %2
+Odstęp w pionie: %3</translation>
     </message>
     <message>
         <source>Adjusting Colors</source>
@@ -20667,7 +20817,11 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupa%1</translation>
+    </message>
+    <message>
+        <source>Do you really want to clear all your text?</source>
+        <translation>Naprawdę usunąć cały tekst?</translation>
     </message>
 </context>
 <context>
@@ -20771,6 +20925,10 @@ Przesunięcie w pionie: %3</translation>
     <message>
         <source>Download a file from the Scribus website and show the latest available version.</source>
         <translation>Pobierz plik ze strony Scribusa i wyświetl najnowszą dostępną wersję.</translation>
+    </message>
+    <message>
+        <source>Show location ICC profile information on console while starting</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -20989,7 +21147,7 @@ Przesunięcie w pionie: %3</translation>
     </message>
     <message>
         <source>Group%1</source>
-        <translation type="unfinished"></translation>
+        <translation>Grupa%1</translation>
     </message>
     <message>
         <source>Enables the Preview Mode</source>
@@ -21029,8 +21187,12 @@ You can choose between normal and several color blindness forms</source>
         <translation>Tryb podglądu</translation>
     </message>
     <message>
-        <source>CMS is active. Therefore the colour display may not match the perception by visually impaired</source>
+        <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter Object Size</source>
+        <translation>Podaj rozmiar obiektu</translation>
     </message>
 </context>
 <context>
@@ -21127,7 +21289,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Python Scripts (*.py *.PY);;All Files (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>Skrypty w Pythonie (*.py *.PY);; Wszystkie pliki (*)</translation>
     </message>
 </context>
 <context>
@@ -21879,7 +22041,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>&amp;Done</source>
-        <translation type="unfinished">Za&amp;kończ</translation>
+        <translation>Za&amp;kończ</translation>
     </message>
     <message>
         <source>Shortcut</source>
@@ -22060,11 +22222,11 @@ You can choose between normal and several color blindness forms</source>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
         <comment>Text Style Selector</comment>
-        <translation type="unfinished"></translation>
+        <translation>Obrys. Przytrzymaj klawisz myszy, aby zmienić grubość linii obrysu.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation type="unfinished"></translation>
+        <translation>Cieniowanie. Przytrzymaj klawisz myszy, aby zmienić wielkość przesunięcia.</translation>
     </message>
 </context>
 <context>
@@ -22300,7 +22462,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Check for objects not on a page</source>
-        <translation>Sprawdzaj obiekty poza stroną</translation>
+        <translation type="obsolete">Sprawdzaj obiekty poza stroną</translation>
     </message>
     <message>
         <source>Check for overflow in text frames</source>
@@ -22308,7 +22470,7 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Check for transparencies used</source>
-        <translation>Sprawdzaj użycie przezroczystości</translation>
+        <translation type="obsolete">Sprawdzaj użycie przezroczystości</translation>
     </message>
     <message>
         <source>Check for missing images</source>
@@ -22352,7 +22514,15 @@ You can choose between normal and several color blindness forms</source>
     </message>
     <message>
         <source>Ignore non-printable Layers</source>
-        <translation type="unfinished"></translation>
+        <translation>Ignoruj niedrukowalne warstwy</translation>
+    </message>
+    <message>
+        <source>Check for items not on a page</source>
+        <translation>Sprawdzaj obiekty poza stroną</translation>
+    </message>
+    <message>
+        <source>Check for used transparencies</source>
+        <translation>Sprawdzaj użycie przezroczystości</translation>
     </message>
 </context>
 <context>
@@ -24186,11 +24356,11 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zmienia rozdzielczość obrazków bitmapowych na wybraną DPI. Jeśli nie zakreślisz tej opcji, obrazki zachowają swoją oryginalną rozdzielczość. Zakreślenie może zwiększyć zużycie pamięci i spowolnić eksport.</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation type="unfinished"></translation>
+        <translation>Model kolorów dla wynikowego pliku PDF. Wybierz &quot;Monitor/Internet&quot; dla pliku PDF, który przeznaczony będzie do oglądania na ekranie lub wydruku na typowych drukarkach atramentowych. Wybierz &quot;Drukarka&quot;, jeśli będziesz drukował na drukarce wspierającej druk w czterech kolorach CMYK. Wybierz &quot;Odcienie szarości&quot;, jeśli chcesz uzyskać PDF w odcieniach szarości.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
@@ -24206,7 +24376,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
-        <translation type="unfinished"></translation>
+        <translation>Czas, przez jaki strona będzie pokazywana, zanim włączy się efekt prezentacyjny dla wybranej strony. Wartość 0 wyłączy automatyczne przełączanie stron.</translation>
     </message>
     <message>
         <source>Enables global Overprint Mode for this document, overrides object settings</source>
@@ -24278,7 +24448,8 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
-        <translation type="unfinished"></translation>
+        <translation>Metoda kompresji obrazków. Automatyczna pozwala Scribusowi na wybór najlepszej metody. ZIP jest bezstratna i dobra dla obrazków o jednolitych kolorach.
+JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo zdjęć (przy najmniejszej z możliwych utracie informacji obrazka). Wybierz kompresję automatyczną, chyba, że potrzebujesz specjalnych opcji przy kompresji.</translation>
     </message>
     <message>
         <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
@@ -24302,7 +24473,7 @@ JPEG nadaje się lepiej do tworzenia mniejszych plików PDF zawierających dużo
     </message>
     <message>
         <source>Convert all glyphs in the document to outlines.</source>
-        <translation type="unfinished"></translation>
+        <translation>Zamień wszystkie glify w dokumencie na krzywe.</translation>
     </message>
 </context>
 <context>
@@ -24839,11 +25010,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>Definicja użytkownika:</translation>
+        <translation type="obsolete">Definicja użytkownika:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>Definicja użytkownika:</translation>
+        <translation type="obsolete">Definicja użytkownika:</translation>
     </message>
     <message>
         <source>Text Color:</source>
@@ -24904,19 +25075,19 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Misc. Settings</source>
-        <translation>Inne ustawienia</translation>
+        <translation type="obsolete">Inne ustawienia</translation>
     </message>
     <message>
         <source>Object Duplicate</source>
-        <translation>Klonowanie obiektu</translation>
+        <translation type="obsolete">Klonowanie obiektu</translation>
     </message>
     <message>
         <source>X-Displacement</source>
-        <translation>Przesunięcie X</translation>
+        <translation type="obsolete">Przesunięcie X</translation>
     </message>
     <message>
         <source>Y-Displacement</source>
-        <translation>Przesunięcie Y</translation>
+        <translation type="obsolete">Przesunięcie Y</translation>
     </message>
     <message>
         <source>Rotation Tool</source>
@@ -24931,15 +25102,31 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
         <translation>Inne właściwości</translation>
     </message>
     <message>
-        <source>Horizontal displacement of objects</source>
+        <source>Miscellaneous Settings</source>
+        <translation>Inne ustawienia</translation>
+    </message>
+    <message>
+        <source>Item Duplicate</source>
+        <translation>Klonowanie obiektu</translation>
+    </message>
+    <message>
+        <source>X Displacement</source>
+        <translation>Przesunięcie X</translation>
+    </message>
+    <message>
+        <source>Y Displacement</source>
+        <translation>Przesunięcie Y</translation>
+    </message>
+    <message>
+        <source>Horizontal displacement of page items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Vertical displacement of objects</source>
+        <source>Vertical displacement of page items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Constrain value for the rotation tool when the CTRL-Key is pressed</source>
+        <source>Constrain value for the rotation tool when the Control key is pressed</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -25106,11 +25293,11 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     </message>
     <message>
         <source>Custom:</source>
-        <translation>Definicja użytkownika:</translation>
+        <translation type="obsolete">Definicja użytkownika:</translation>
     </message>
     <message>
         <source>Custom: </source>
-        <translation>Definicja użytkownika:</translation>
+        <translation type="obsolete">Definicja użytkownika:</translation>
     </message>
     <message>
         <source>Dot</source>
@@ -25174,6 +25361,10 @@ UCR zmniejsza możliwość wystąpienia przesycenia  tuszami CMY.</translation>
     <message>
         <source>Page </source>
         <translation>Strona </translation>
+    </message>
+    <message>
+        <source>Free items</source>
+        <translation>Wolne obiekty</translation>
     </message>
 </context>
 <context>
