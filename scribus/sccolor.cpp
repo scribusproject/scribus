@@ -91,13 +91,6 @@ void ScColor::setColorRGB(int r, int g, int b)
 	Model = colorModelRGB;
 }
 
-void ScColor::setColorModel (colorModel cm)
-{
-	Model = cm;
-	qDebug("calling ScColor::setColorModel()" );
-	//RecalcRGB();
-}
-
 colorModel ScColor::getColorModel () const
 {
 	return Model;

@@ -72,9 +72,6 @@ public:
 	* or if color management is enabled, an approriate transform */
 	void setColorRGB(int r, int g, int b);
 
-	/** \brief set the color model */
-	void setColorModel (colorModel cm);
-
 	/** \brief get the color model */
 	colorModel getColorModel () const;
 
