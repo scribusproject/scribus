@@ -788,7 +788,7 @@ void SVGExPlug::SetTextProps(QDomElement *tp, ScText *hl)
 QString SVGExPlug::SetFarbe(QString farbe, int shad)
 {
 	const ScColor& col = m_Doc->PageColors[farbe];
-	return ScColorEngine::getShadeColorProof(col, m_Doc).name();
+	return ScColorEngine::getShadeColorProof(col, m_Doc, shad).name();
 }
 
 QString SVGExPlug::GetMultiStroke(struct SingleLine *sl, PageItem *Item)
