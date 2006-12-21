@@ -294,7 +294,7 @@ bool ColorWheel::recomputeColor(ScColor col)
 		{
 			act.setHsv(tmph, origs, origv);
 			actualColor.fromQColor(act);
-			ret = ScColorEngine::convertToModel(ret, currentDoc, currentColorSpace);
+			actualColor = ScColorEngine::convertToModel(actualColor, currentDoc, currentColorSpace);
 			baseAngle = it.key();
 			return true;
 		}
