@@ -8756,26 +8756,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		currItem = Doc->Items->last();
 	uint a;
 	if (!Doc->masterPageMode())
-	{
-		for (a = 0; a < Doc->Pages->count(); ++a)
-		{
-			int x = static_cast<int>(Doc->Pages->at(a)->xOffset() * Scale);
-			int y = static_cast<int>(Doc->Pages->at(a)->yOffset() * Scale);
-			int w = static_cast<int>(Doc->Pages->at(a)->width() * Scale);
-			int h = static_cast<int>(Doc->Pages->at(a)->height() * Scale);
-			if (QRect(x, y, w, h).intersects(mpo))
-			{
-				if (Doc->currentPage()->pageNr() != a)
-				{
-					Doc->setCurrentPage(Doc->Pages->at(a));
-					setMenTxt(a);
-					DrawNew();
-				}
-				break;
-			}
-		}
-		setRulerPos(contentsX(), contentsY());
-	}
+		selectPage(m);
 	if (m->state() == (ControlButton | AltButton))
 		Deselect(false);
 
