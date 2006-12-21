@@ -61,6 +61,8 @@ double ScFace::ScFaceData::glyphWidth(uint gl, double size) const
 {
 	if (gl >= CONTROL_GLYPHS)
 		return 0.0;
+	else if (gl == 0)
+		return size;
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}		
@@ -72,6 +74,14 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const
 { 
 	if (gl >= CONTROL_GLYPHS)
 		return FPointArray();
+	else if (gl == 0) {
+		FPointArray sq;
+		sq.addQuadPoint(0,0,0,0,sz,0,sz,0);
+		sq.addQuadPoint(sz,0,sz,0,sz,sz,sz,sz);
+		sq.addQuadPoint(sz,sz,sz,sz,0,sz,0,sz);
+		sq.addQuadPoint(0,sz,0,sz,0,0,0,0);
+		return sq;
+	}
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
 	}			
@@ -84,7 +94,7 @@ FPointArray ScFace::ScFaceData::glyphOutline(uint gl, double sz) const
 
 FPoint ScFace::ScFaceData::glyphOrigin(uint gl, double sz) const 
 {
-	if (gl >= CONTROL_GLYPHS)
+	if (gl == 0 || gl >= CONTROL_GLYPHS)
 		return FPoint(0,0);
 	else if (! m_glyphWidth.contains(gl)) {
 		loadGlyph(gl);
