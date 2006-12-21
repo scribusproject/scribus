@@ -10129,9 +10129,13 @@ void ScribusView::FromHRuler(QMouseEvent *m)
 	p.drawLine(0, newY, viewport()->width(), newY);
 	p.end();
 	DrHY = newY;
-	if (((out.y()/Scale) < Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y()) 
-	 || ((out.y()/Scale) > Doc->currentPage()->height()+Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y())
-	 || (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
+//	if (((out.y()/Scale) < Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y()) 
+//	 || ((out.y()/Scale) > Doc->currentPage()->height()+Doc->currentPage()->yOffset()- Doc->minCanvasCoordinate.y())
+//	 || (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
+	double newXp = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
+	double newYp = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
+	int pg = Doc->OnPage(newXp, newYp);
+	if ((pg == -1) || (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
 		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
 	else
 		qApp->setOverrideCursor(QCursor(SPLITHC), true);
@@ -10153,9 +10157,13 @@ void ScribusView::FromVRuler(QMouseEvent *m)
 	p.drawLine(newY, 0, newY, viewport()->height());
 	p.end();
 	DrVX = newY;
-	if (((out.x()/Scale) < Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()) 
-	|| ((out.x()/Scale) > Doc->currentPage()->width()+Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x())
-	|| (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
+	double newXp = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
+	double newYp = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
+	int pg = Doc->OnPage(newXp, newYp);
+	if ((pg == -1) || (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
+//	if (((out.x()/Scale) < Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x()) 
+//	|| ((out.x()/Scale) > Doc->currentPage()->width()+Doc->currentPage()->xOffset()- Doc->minCanvasCoordinate.x())
+//	|| (!QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
 		qApp->setOverrideCursor(QCursor(loadIcon("DelPoint.png")), true);
 	else
 		qApp->setOverrideCursor(QCursor(SPLITVC), true);
@@ -10168,6 +10176,41 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 	double newX = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
 	double newY = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
 	int pg = Doc->OnPage(newX, newY);
+	if ((pg != -1) && (QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
+	{
+		if (oldIndex < 0)
+		{
+			Doc->Pages->at(pg)->guides.addHorizontal(newY-Doc->Pages->at(pg)->yOffset(), GuideManagerCore::Standard);
+			emit signalGuideInformation(0, qRound((newY-Doc->Pages->at(pg)->yOffset()) * 10000.0) / 10000.0);
+		}
+		else
+		{
+			if (pg == Doc->currentPageNumber())
+			{
+				Doc->currentPage()->guides.moveHorizontal( Doc->currentPage()->guides.horizontal(oldIndex, GuideManagerCore::Standard),
+																							newY-Doc->currentPage()->yOffset(), GuideManagerCore::Standard);
+				emit signalGuideInformation(0, qRound((newY-Doc->Pages->at(pg)->yOffset()) * 10000.0) / 10000.0);
+			}
+			else
+			{
+				Doc->currentPage()->guides.deleteHorizontal( Doc->currentPage()->guides.horizontal(oldIndex, GuideManagerCore::Standard), GuideManagerCore::Standard);
+				emit signalGuideInformation(-1, 0.0);
+				Doc->Pages->at(pg)->guides.addHorizontal(newY-Doc->Pages->at(pg)->yOffset(), GuideManagerCore::Standard);
+			}
+		}
+		m_ScMW->guidePalette->clearRestoreHorizontalList();
+	}
+	else
+	{ 
+		if (oldIndex >= 0)
+		{
+			Doc->currentPage()->guides.deleteHorizontal( Doc->currentPage()->guides.horizontal(oldIndex, GuideManagerCore::Standard), GuideManagerCore::Standard);
+			emit signalGuideInformation(-1, 0.0);
+			m_ScMW->guidePalette->clearRestoreHorizontalList();
+		}
+	}
+	emit DocChanged();
+/*
 	if ((pg != -1) && (pg == Doc->currentPageNumber()) && (QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
 	{
 		if (oldIndex < 0)
@@ -10187,6 +10230,7 @@ void ScribusView::SetYGuide(QMouseEvent *m, int oldIndex)
 		m_ScMW->guidePalette->clearRestoreHorizontalList();
 	}
 	emit DocChanged();
+*/
 }
 
 void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
@@ -10195,6 +10239,41 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 	double newX = (py.x() + contentsX()) / Scale + Doc->minCanvasCoordinate.x();
 	double newY = (py.y() + contentsY()) / Scale + Doc->minCanvasCoordinate.y();
 	int pg = Doc->OnPage(newX, newY);
+	if ((pg != -1) && (QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
+	{
+		if (oldIndex < 0)
+		{
+			Doc->Pages->at(pg)->guides.addVertical(newX-Doc->Pages->at(pg)->xOffset(), GuideManagerCore::Standard);
+			emit signalGuideInformation(0, qRound((newX-Doc->Pages->at(pg)->xOffset()) * 10000.0) / 10000.0);
+		}
+		else
+		{
+			if (pg == Doc->currentPageNumber())
+			{
+				Doc->currentPage()->guides.moveVertical( Doc->currentPage()->guides.vertical(oldIndex, GuideManagerCore::Standard),
+																							newX-Doc->currentPage()->xOffset(), GuideManagerCore::Standard);
+				emit signalGuideInformation(0, qRound((newX-Doc->Pages->at(pg)->xOffset()) * 10000.0) / 10000.0);
+			}
+			else
+			{
+				Doc->currentPage()->guides.deleteVertical( Doc->currentPage()->guides.vertical(oldIndex, GuideManagerCore::Standard), GuideManagerCore::Standard);
+				emit signalGuideInformation(-1, 0.0);
+				Doc->Pages->at(pg)->guides.addVertical(newX-Doc->Pages->at(pg)->xOffset(), GuideManagerCore::Standard);
+			}
+		}
+		m_ScMW->guidePalette->clearRestoreVerticalList();
+	}
+	else
+	{ 
+		if (oldIndex >= 0)
+		{
+			Doc->currentPage()->guides.deleteVertical( Doc->currentPage()->guides.vertical(oldIndex, GuideManagerCore::Standard), GuideManagerCore::Standard);
+			emit signalGuideInformation(-1, 0.0);
+			m_ScMW->guidePalette->clearRestoreVerticalList();
+		}
+	}
+	emit DocChanged();
+/*
 	if ((pg != -1) && (pg == Doc->currentPageNumber()) && (QRect(0, 0, visibleWidth(), visibleHeight()).contains(py)))
 	{
 		if (oldIndex < 0)
@@ -10214,6 +10293,7 @@ void ScribusView::SetXGuide(QMouseEvent *m, int oldIndex)
 		m_ScMW->guidePalette->clearRestoreVerticalList();
 	}
 	emit DocChanged();
+*/
 }
 
 void ScribusView::Transform(PageItem *currItem, QPainter *p)
