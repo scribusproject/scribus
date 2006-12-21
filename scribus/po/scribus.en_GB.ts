@@ -316,24 +316,6 @@ May raise ValueError if an invalid colour name is specified.
 </translation>
     </message>
     <message>
-      <source>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new color &quot;name&quot;. The color Value is defined via four components:
-c = Cyan, m = Magenta, y = Yello and k = Black. Color components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid color name is specified.
-</source>
-      <translation>defineColor(&quot;name&quot;, c, m, y, k)
-
-Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
-c = Cyan, m = Magenta, y = Yello and k = Black. Colour components should be in
-the range from 0 to 255.
-
-May raise ValueError if an invalid colour name is specified.
-</translation>
-    </message>
-    <message>
       <source>deleteColor(&quot;name&quot;, &quot;replace&quot;)
 
 Deletes the color &quot;name&quot;. Every occurence of that color is replaced by the
@@ -734,16 +716,6 @@ If &quot;name&quot; is not given the currently selected item is used.
 </translation>
     </message>
     <message>
-      <source>getCornerRadius([&quot;name&quot;]) -> integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
-</source>
-      <translation>getCornerRadius([&quot;name&quot;]) -> integer
-
-Returns the corner radius of the object &quot;name&quot;. The radius isexpressed in points. If &quot;name&quot; is not given the currentlyselected item is used.
-</translation>
-    </message>
-    <message>
       <source>getImageScale([&quot;name&quot;]) -> (x,y)
 
 Returns a (x, y) tuple containing the scaling values of the image frame
@@ -765,20 +737,6 @@ given the currently selected item is used.
 
 Returns the filename for the image in the image frame. If &quot;name&quot; is not
 given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>getPosition([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type> for reference.
-</source>
-      <translation>getPosition([&quot;name&quot;]) -> (x,y)
-
-Returns a (x, y) tuple with the position of the object &quot;name&quot;.
-If &quot;name&quot; is not given the currently selected item is used.The position is expressed in the actual measurement unit of the document
-- see UNIT_&lt;type> for reference.
 </translation>
     </message>
     <message>
@@ -961,20 +919,6 @@ rotated by the vertex that is currently selected as the rotation point - by
 default, the top left vertext at zero rotation. Positive values mean counter
 clockwise rotation when the default rotation point is used. If &quot;name&quot; is not
 given the currently selected item is used.
-</translation>
-    </message>
-    <message>
-      <source>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
-</source>
-      <translation>rotateObjectAbs(rot [, &quot;name&quot;])
-
-Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positve values
-mean counter clockwise rotation. If &quot;name&quot; is not given the currently
-selected item is used.
 </translation>
     </message>
     <message>
@@ -1268,26 +1212,6 @@ May raise ValueError if the layer name isn't acceptable.
 
 Sets the layer &quot;layer&quot; to be visible or not. If is the visible set to false
 the layer is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
-      <source>isLayerPrintable(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>isLayerPrintable(&quot;layer&quot;) -> bool
-
-Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
-that the layer &quot;layer&quot; is visible, a value of False means that the layer
-&quot;layer&quot; is invisible.
 
 May raise NotFoundError if the layer can't be found.
 May raise ValueError if the layer name isn't acceptable.
@@ -2052,26 +1976,6 @@ used.
 </translation>
     </message>
     <message>
-      <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</source>
-      <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
-
-Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
-Text must be UTF encoded (see setText() as reference) The first character has an
-index of 0. Inserting at position -1 appends text to the frame. If &quot;name&quot; is
-not given the currently selected Item is used.
-
-May throw IndexError for an insertion out of bounds.
-</translation>
-    </message>
-    <message>
       <source>setFont(&quot;font&quot;, [&quot;name&quot;])
 
 Sets the font of the text frame &quot;name&quot; to &quot;font&quot;. If there is some text
@@ -2622,24 +2526,6 @@ is not given the currently selected Item is used.
 </translation>
     </message>
     <message>
-      <source>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If printable is set to
-false the layer won't be printed.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</source>
-      <translation>setLayerPrintable(&quot;layer&quot;, printable)
-
-Sets the layer &quot;layer&quot; to be printable or not. If printable is set to
-false the layer won't be printed.
-
-May raise NotFoundError if the layer can't be found.
-May raise ValueError if the layer name isn't acceptable.
-</translation>
-    </message>
-    <message>
       <source>setLayerLocked(&quot;layer&quot;, locked)
 
 Sets the layer &quot;layer&quot; to be locked or not. If locked is set to
@@ -2935,6 +2821,126 @@ If &quot;name&quot; is not given the currently selected item is used.
 
 Returns the number of lines of the text in the text frame &quot;name&quot;.
 If &quot;name&quot; is not given the currently selected item is used.
+</translation>
+    </message>
+    <message>
+      <source>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new color &quot;name&quot;. The color Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Color components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid color name is specified.
+</source>
+      <translation>defineColor(&quot;name&quot;, c, m, y, k)
+
+Defines a new colour &quot;name&quot;. The colour Value is defined via four components:
+c = Cyan, m = Magenta, y = Yellow and k = Black. Colour components should be in
+the range from 0 to 255.
+
+May raise ValueError if an invalid colour name is specified.
+</translation>
+    </message>
+    <message>
+      <source>getCornerRadius([&quot;name&quot;]) -> integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+      <translation>getCornerRadius([&quot;name&quot;]) -> integer
+
+Returns the corner radius of the object &quot;name&quot;. The radius is
+expressed in points. If &quot;name&quot; is not given the currently
+selected item is used.
+</translation>
+    </message>
+    <message>
+      <source>getPosition([&quot;name&quot;]) -> (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type> for reference.
+</source>
+      <translation>getPosition([&quot;name&quot;]) -> (x,y)
+
+Returns a (x, y) tuple with the position of the object &quot;name&quot;.
+If &quot;name&quot; is not given the currently selected item is used.
+The position is expressed in the actual measurement unit of the document
+- see UNIT_&lt;type> for reference.
+</translation>
+    </message>
+    <message>
+      <source>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</source>
+      <translation>rotateObjectAbs(rot [, &quot;name&quot;])
+
+Sets the rotation of the object &quot;name&quot; to &quot;rot&quot;. Positive values
+mean counter clockwise rotation. If &quot;name&quot; is not given the currently
+selected item is used.
+</translation>
+    </message>
+    <message>
+      <source>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the
+printable set to false the layer won't be printed.
+
+May raise NotFoundError if the layer can't be found.
+May raise ValueError if the layer name isn't acceptable.
+</source>
+      <translation>setLayerPrintable(&quot;layer&quot;, printable)
+
+Sets the layer &quot;layer&quot; to be printable or not. If is the
+printable set to false the layer won't be printed.
+
+May raise NotFoundError if the layer can't be found.
+May raise ValueError if the layer name isn't acceptable.
+</translation>
+    </message>
+    <message>
+      <source>isLayerVisible(&quot;layer&quot;) -> bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can't be found.
+May raise ValueError if the layer name isn't acceptable.
+</source>
+      <translation>isLayerVisible(&quot;layer&quot;) -> bool
+
+Returns whether the layer &quot;layer&quot; is visible or not, a value of True means
+that the layer &quot;layer&quot; is visible, a value of False means that the layer
+&quot;layer&quot; is invisible.
+
+May raise NotFoundError if the layer can't be found.
+May raise ValueError if the layer name isn't acceptable.
+</translation>
+    </message>
+    <message>
+      <source>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
+</source>
+      <translation>insertText(&quot;text&quot;, pos, [&quot;name&quot;])
+
+Inserts the text &quot;text&quot; at the position &quot;pos&quot; into the text frame &quot;name&quot;.
+Text must be UTF encoded (see setText() as reference) The first character has an
+index of 0. Inserting text at position -1 appends it to the frame. If &quot;name&quot; is
+not given the currently selected Item is used.
+
+May throw IndexError for an insertion out of bounds.
 </translation>
     </message>
   </context>
@@ -3444,10 +3450,6 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
       <source>Manage &amp;Guides...</source>
       <translation>Manage &amp;Guides...</translation>
-    </message>
-    <message>
-      <source>&amp;Fit in window</source>
-      <translation>&amp;Fit in window</translation>
     </message>
     <message>
       <source>&amp;50%</source>
@@ -4045,10 +4047,6 @@ If &quot;name&quot; is not given the currently selected item is used.
       <translation>Show Text Frame Columns</translation>
     </message>
     <message>
-      <source>Get Text 2...</source>
-      <translation>Get Text 2...</translation>
-    </message>
-    <message>
       <source>&amp;Frame...</source>
       <translation>&amp;Frame...</translation>
     </message>
@@ -4067,6 +4065,30 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
       <source>Send to Patterns</source>
       <translation>Send to Patterns</translation>
+    </message>
+    <message>
+      <source>Sticky Tools</source>
+      <translation>Sticky Tools</translation>
+    </message>
+    <message>
+      <source>&amp;Fit to Height</source>
+      <translation>&amp;Fit to Height</translation>
+    </message>
+    <message>
+      <source>Fit to Width</source>
+      <translation>Fit to Width</translation>
+    </message>
+    <message>
+      <source>Show Bleeds</source>
+      <translation>Show Bleeds</translation>
+    </message>
+    <message>
+      <source>&amp;Zero Width Space</source>
+      <translation>&amp;Zero Width Space</translation>
+    </message>
+    <message>
+      <source>Zero Width NB Space</source>
+      <translation>Zero Width NB Space</translation>
     </message>
   </context>
   <context>
@@ -4131,24 +4153,12 @@ If &quot;name&quot; is not given the currently selected item is used.
       <translation>Selection</translation>
     </message>
     <message>
-      <source>Align right sides of objects to left side of anchor</source>
-      <translation>Align right sides of objects to left side of anchor</translation>
-    </message>
-    <message>
-      <source>Align left sides of objects to right side of anchor</source>
-      <translation>Align left sides of objects to right side of anchor</translation>
-    </message>
-    <message>
       <source>Align bottoms</source>
       <translation>Align bottoms</translation>
     </message>
     <message>
       <source>Align right sides</source>
       <translation>Align right sides</translation>
-    </message>
-    <message>
-      <source>Align tops of objects to bottom of anchor</source>
-      <translation>Align tops of objects to bottom of anchor</translation>
     </message>
     <message>
       <source>Center on vertical axis</source>
@@ -4161,10 +4171,6 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
       <source>Center on horizontal axis</source>
       <translation>Centre on horizontal axis</translation>
-    </message>
-    <message>
-      <source>Align bottoms of objects to top of anchor</source>
-      <translation>Align bottoms of objects to top of anchor</translation>
     </message>
     <message>
       <source>Align tops</source>
@@ -4181,10 +4187,6 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
       <source>Distribute centers equidistantly horizontally</source>
       <translation>Distribute centres equidistantly horizontally</translation>
-    </message>
-    <message>
-      <source>Make vertical gaps between objects equal</source>
-      <translation>Make vertical gaps between objects equal</translation>
     </message>
     <message>
       <source>Distribute centers equidistantly vertically</source>
@@ -4207,18 +4209,6 @@ If &quot;name&quot; is not given the currently selected item is used.
       <translation>&amp;Selected Guide:</translation>
     </message>
     <message>
-      <source>Make horizontal gaps between objects equal</source>
-      <translation>Make horizontal gaps between objects equal</translation>
-    </message>
-    <message>
-      <source>Make horizontal gaps between objects equal to the value specified</source>
-      <translation>Make horizontal gaps between objects equal to the value specified</translation>
-    </message>
-    <message>
-      <source>Make vertical gaps between objects equal to the value specified</source>
-      <translation>Make vertical gaps between objects equal to the value specified</translation>
-    </message>
-    <message>
       <source>&amp;Distance:</source>
       <translation>&amp;Distance:</translation>
     </message>
@@ -4239,20 +4229,52 @@ If &quot;name&quot; is not given the currently selected item is used.
       <translation>X: %1%2</translation>
     </message>
     <message>
-      <source>Make horizontal gaps between objects and sides of page equal</source>
-      <translation>Make horizontal gaps between objects and sides of page equal</translation>
+      <source>Align right sides of items to left side of anchor</source>
+      <translation>Align right sides of items to left side of anchor</translation>
     </message>
     <message>
-      <source>Make vertical gaps between objects and the top and bottom of page margins equal</source>
-      <translation>Make vertical gaps between objects and the top and bottom of page margins equal</translation>
+      <source>Align left sides of items to right side of anchor</source>
+      <translation>Align left sides of items to right side of anchor</translation>
     </message>
     <message>
-      <source>Make horizontal gaps between objects and sides of page margins equal</source>
-      <translation>Make horizontal gaps between objects and sides of page margins equal</translation>
+      <source>Align tops of items to bottom of anchor</source>
+      <translation>Align tops of items to bottom of anchor</translation>
     </message>
     <message>
-      <source>Make vertical gaps between objects and the top and bottom of page equal</source>
-      <translation>Make vertical gaps between objects and the top and bottom of page equal</translation>
+      <source>Align bottoms of items to top of anchor</source>
+      <translation>Align bottoms of items to top of anchor</translation>
+    </message>
+    <message>
+      <source>Make horizontal gaps between items equal</source>
+      <translation>Make horizontal gaps between items equal</translation>
+    </message>
+    <message>
+      <source>Make horizontal gaps between items equal to the value specified</source>
+      <translation>Make horizontal gaps between items equal to the value specified</translation>
+    </message>
+    <message>
+      <source>Make vertical gaps between items equal</source>
+      <translation>Make vertical gaps between items equal</translation>
+    </message>
+    <message>
+      <source>Make vertical gaps between items equal to the value specified</source>
+      <translation>Make vertical gaps between items equal to the value specified</translation>
+    </message>
+    <message>
+      <source>Make horizontal gaps between items and sides of page equal</source>
+      <translation>Make horizontal gaps between items and sides of page equal</translation>
+    </message>
+    <message>
+      <source>Make vertical gaps between items and the top and bottom of page margins equal</source>
+      <translation>Make vertical gaps between items and the top and bottom of page margins equal</translation>
+    </message>
+    <message>
+      <source>Make horizontal gaps between items and sides of page margins equal</source>
+      <translation>Make horizontal gaps between items and sides of page margins equal</translation>
+    </message>
+    <message>
+      <source>Make vertical gaps between items and the top and bottom of page equal</source>
+      <translation>Make vertical gaps between items and the top and bottom of page equal</translation>
     </message>
   </context>
   <context>
@@ -4801,10 +4823,6 @@ If &quot;name&quot; is not given the currently selected item is used.
       <translation>JavaScript</translation>
     </message>
     <message>
-      <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</source>
-      <translation>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)</translation>
-    </message>
-    <message>
       <source>None</source>
       <comment>highlight</comment>
       <translation>None</translation>
@@ -4821,6 +4839,10 @@ If &quot;name&quot; is not given the currently selected item is used.
     <message>
       <source>Do Not Export Value</source>
       <translation>Do Not Export Value</translation>
+    </message>
+    <message>
+      <source>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</source>
+      <translation>Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)</translation>
     </message>
   </context>
   <context>
@@ -5635,26 +5657,6 @@ please choose another one.</translation>
   <context>
     <name>CWDialog</name>
     <message>
-      <source>Normal Vision</source>
-      <translation>Normal Vision</translation>
-    </message>
-    <message>
-      <source>Protanopia (Red)</source>
-      <translation>Protanopia (Red)</translation>
-    </message>
-    <message>
-      <source>Deuteranopia (Green)</source>
-      <translation>Deuteranopia (Green)</translation>
-    </message>
-    <message>
-      <source>Tritanopia (Blue)</source>
-      <translation>Tritanopia (Blue)</translation>
-    </message>
-    <message>
-      <source>Full Color Blindness</source>
-      <translation>Full Colour Blindness</translation>
-    </message>
-    <message>
       <source>Merging colors</source>
       <translation>Merging colours</translation>
     </message>
@@ -5680,7 +5682,7 @@ please choose another one.</translation>
     </message>
     <message>
       <source>Unable to find the requested color. You have probably selected black, gray or white. There is no way to process this color.</source>
-      <translation>Unable to find the requested colour. You have probably selected black, gray or white. There is no way to process this colour.</translation>
+      <translation>Unable to find the requested colour. You have probably selected black, grey or white. There is no way to process this colour.</translation>
     </message>
   </context>
   <context>
@@ -5740,10 +5742,6 @@ please choose another one.</translation>
     <message>
       <source>Document</source>
       <translation>Document</translation>
-    </message>
-    <message>
-      <source>Color Scheme Method:</source>
-      <translation>Colour Scheme Method:</translation>
     </message>
     <message>
       <source>Select one of the methods to create a color scheme. Refer to documentation for more information.</source>
@@ -5813,6 +5811,38 @@ please choose another one.</translation>
       <source>Simulate common vision defects here. Select type of the defect.</source>
       <translation>Simulate common vision defects here. Select type of the defect.</translation>
     </message>
+    <message>
+      <source>Color Scheme Method</source>
+      <translation>Colour Scheme Method</translation>
+    </message>
+    <message>
+      <source> %</source>
+      <translation> %</translation>
+    </message>
+    <message>
+      <source>HSV:</source>
+      <translation>HSV:</translation>
+    </message>
+    <message>
+      <source>HSV</source>
+      <translation>HSV</translation>
+    </message>
+    <message>
+      <source>H:</source>
+      <translation>H:</translation>
+    </message>
+    <message>
+      <source>S:</source>
+      <translation>S:</translation>
+    </message>
+    <message>
+      <source>V:</source>
+      <translation>V:</translation>
+    </message>
+    <message>
+      <source>Result Colors</source>
+      <translation>Result Colors</translation>
+    </message>
   </context>
   <context>
     <name>CharSelect</name>
@@ -5835,10 +5865,6 @@ please choose another one.</translation>
     <message>
       <source>C&amp;lear</source>
       <translation>C&amp;lear</translation>
-    </message>
-    <message>
-      <source>&amp;Close</source>
-      <translation>&amp;Close</translation>
     </message>
     <message>
       <source>Insert the characters at the cursor in the text</source>
@@ -5961,20 +5987,59 @@ please choose another one.</translation>
       <translation>Hebrew</translation>
     </message>
     <message>
-      <source>&amp;Insert Code:</source>
-      <translation>&amp;Insert Code:</translation>
-    </message>
-    <message>
-      <source>Close this dialog and return to text editing</source>
-      <translation>Close this dialog and return to text editing</translation>
-    </message>
-    <message>
-      <source>Type in a four digit unicode value directly here</source>
-      <translation>Type in a four digit unicode value directly here</translation>
-    </message>
-    <message>
       <source>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</source>
       <translation>You can see a thumbnail if you press and hold down the right mouse button. The Insert key inserts a Glyph into the Selection below and the Delete key removes the last inserted one</translation>
+    </message>
+    <message>
+      <source>Scribus Char Palette (*.ucp);;All Files (*)</source>
+      <translation>Scribus Char Palette (*.ucp);;All Files (*)</translation>
+    </message>
+    <message>
+      <source>Enhanced Palette</source>
+      <translation>Enhanced Palette</translation>
+    </message>
+    <message>
+      <source>Quick Palette</source>
+      <translation>Quick Palette</translation>
+    </message>
+    <message>
+      <source>Hide Enhanced</source>
+      <translation>Hide Enhanced</translation>
+    </message>
+    <message>
+      <source>Choose a filename to open</source>
+      <translation>Choose a filename to open</translation>
+    </message>
+    <message>
+      <source>Error</source>
+      <translation>Error</translation>
+    </message>
+    <message>
+      <source>Error reading file %1 - file is corrupted propably.</source>
+      <translation>Error reading file %1 - file is corrupted propably.</translation>
+    </message>
+    <message>
+      <source>Choose a filename to save under</source>
+      <translation>Choose a filename to save under</translation>
+    </message>
+    <message>
+      <source>Cannot write file %1</source>
+      <translation>Cannot write file %1</translation>
+    </message>
+    <message>
+      <source>Clean the Palette?</source>
+      <translation>Clean the Palette?</translation>
+    </message>
+    <message>
+      <source>You will clean all characters from this palette. Are you sure?</source>
+      <translation>You will clean all characters from this palette. Are you sure?</translation>
+    </message>
+  </context>
+  <context>
+    <name>CharTable</name>
+    <message>
+      <source>Delete</source>
+      <translation>Delete</translation>
     </message>
   </context>
   <context>
@@ -6217,12 +6282,12 @@ please choose another one.</translation>
       <translation>If colour management is enabled, a triangle warning indicator is a warning the the colour maybe outside of the colour gamut of the current printer profile selected.What this means is the colour may not print exactly as indicated on screen. Spot colours are indicated by a red circle. Registration colours will have a registration mark next to the colour. More hints about gamut warnings are in the online help under Colour Management.</translation>
     </message>
     <message>
-      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
-      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;All Files (*)</translation>
+      <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+      <translation>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</translation>
     </message>
     <message>
-      <source>Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)</source>
-      <translation>Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)</translation>
+      <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
+      <translation>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</translation>
     </message>
   </context>
   <context>
@@ -6372,26 +6437,6 @@ please choose another one.</translation>
       <translation>4-Fold</translation>
     </message>
     <message>
-      <source>Left Page</source>
-      <translation>Left Page</translation>
-    </message>
-    <message>
-      <source>Middle</source>
-      <translation>Middle</translation>
-    </message>
-    <message>
-      <source>Middle Left</source>
-      <translation>Middle Left</translation>
-    </message>
-    <message>
-      <source>Middle Right</source>
-      <translation>Middle Right</translation>
-    </message>
-    <message>
-      <source>Right Page</source>
-      <translation>Right Page</translation>
-    </message>
-    <message>
       <source>Monday</source>
       <translation>Monday</translation>
     </message>
@@ -6484,20 +6529,79 @@ please choose another one.</translation>
       <translation>&amp;No</translation>
     </message>
     <message>
+      <source>Left Page</source>
+      <comment>Left page location</comment>
+      <translation>Left Page</translation>
+    </message>
+    <message>
+      <source>Middle</source>
+      <comment>Middle page location</comment>
+      <translation>Middle</translation>
+    </message>
+    <message>
+      <source>Middle Left</source>
+      <comment>Middle Left page location</comment>
+      <translation>Middle Left</translation>
+    </message>
+    <message>
+      <source>Middle Right</source>
+      <comment>Middle Right page location</comment>
+      <translation>Middle Right</translation>
+    </message>
+    <message>
+      <source>Right Page</source>
+      <comment>Right page location</comment>
+      <translation>Right Page</translation>
+    </message>
+    <message>
       <source>Normal</source>
+      <comment>Default single master page</comment>
       <translation>Normal</translation>
     </message>
     <message>
       <source>Normal Left</source>
+      <comment>Default left master page</comment>
       <translation>Normal Left</translation>
     </message>
     <message>
       <source>Normal Middle</source>
+      <comment>Default middle master page</comment>
       <translation>Normal Middle</translation>
     </message>
     <message>
       <source>Normal Right</source>
+      <comment>Default right master page</comment>
       <translation>Normal Right</translation>
+    </message>
+    <message>
+      <source>Normal Vision</source>
+      <comment>Color Blindness - Normal Vision</comment>
+      <translation>Normal Vision</translation>
+    </message>
+    <message>
+      <source>Protanopia (Red)</source>
+      <comment>Color Blindness - Red Color Blind</comment>
+      <translation>Protanopia (Red)</translation>
+    </message>
+    <message>
+      <source>Deuteranopia (Green)</source>
+      <comment>Color Blindness - Greed Color Blind</comment>
+      <translation>Deuteranopia (Green)</translation>
+    </message>
+    <message>
+      <source>Tritanopia (Blue)</source>
+      <comment>Color Blindness - Blue Color Blind</comment>
+      <translation>Tritanopia (Blue)</translation>
+    </message>
+    <message>
+      <source>Full Color Blindness</source>
+      <comment>Color Blindness - Full Color Blindness</comment>
+      <translation>Full Colour Blindness</translation>
+    </message>
+    <message>
+      <source>Custom: </source>
+      <comment>Custom Tab Fill Option</comment>
+      <translation>Custom: </translation>
     </message>
   </context>
   <context>
@@ -7572,7 +7676,7 @@ a range of pages or a single page number.</translation>
     </message>
     <message>
       <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
-      <translation>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</translation>
+      <translation>A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</translation>
     </message>
     <message>
       <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
@@ -7678,6 +7782,14 @@ a range of pages or a single page number.</translation>
       <source>Distance for bleed from the right of the physical page</source>
       <translation>Distance for bleed from the right of the physical page</translation>
     </message>
+    <message>
+      <source>Inside:</source>
+      <translation>Inside:</translation>
+    </message>
+    <message>
+      <source>Outside:</source>
+      <translation>Outside:</translation>
+    </message>
   </context>
   <context>
     <name>EPSPlug</name>
@@ -7702,10 +7814,6 @@ failed!</translation>
       <translation>Generating Items</translation>
     </message>
     <message>
-      <source>Importing PostScript</source>
-      <translation>Importing PostScript</translation>
-    </message>
-    <message>
       <source>Analyzing PostScript:</source>
       <translation>Analysing PostScript:</translation>
     </message>
@@ -7716,6 +7824,10 @@ failed!</translation>
     <message>
       <source>Group%1</source>
       <translation>Group%1</translation>
+    </message>
+    <message>
+      <source>Importing: %1</source>
+      <translation>Importing: %1</translation>
     </message>
   </context>
   <context>
@@ -7829,10 +7941,6 @@ failed!</translation>
       <translation>Background</translation>
     </message>
     <message>
-      <source>Select for easier reading of light coloured text styles</source>
-      <translation>Select for easier reading of light coloured text styles</translation>
-    </message>
-    <message>
       <source>Manual Tracking</source>
       <translation>Manual Tracking</translation>
     </message>
@@ -7847,6 +7955,10 @@ failed!</translation>
     <message>
       <source>Auto</source>
       <translation>Auto</translation>
+    </message>
+    <message>
+      <source>Select for easier reading of light colored text styles</source>
+      <translation>Select for easier reading of light colored text styles</translation>
     </message>
   </context>
   <context>
@@ -8264,10 +8376,6 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>Name</translation>
     </message>
     <message>
-      <source>Background</source>
-      <translation>Background</translation>
-    </message>
-    <message>
       <source>Layers</source>
       <translation>Layers</translation>
     </message>
@@ -8425,13 +8533,13 @@ Use 72 dpi for Images intended for the Screen</translation>
       <translation>Path to Font File</translation>
     </message>
     <message>
-      <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit->Settings to change the font search path.</source>
-      <translation>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit->Settings to change the font search path.</translation>
-    </message>
-    <message>
       <source>Embed in PostScript</source>
       <comment>font preview</comment>
       <translation>Embed in PostScript</translation>
+    </message>
+    <message>
+      <source>Font search paths can only be set in File > Preferences, and only when there is no document currently open. Close any open documents, then use File > Preferences > Fonts to change the font search path.</source>
+      <translation>Font search paths can only be set in File > Preferences, and only when there is no document currently open. Close any open documents, then use File > Preferences > Fonts to change the font search path.</translation>
     </message>
   </context>
   <context>
@@ -9015,6 +9123,18 @@ A value of 0 means unlimited hyphenations.</translation>
       <source>Scanner Manufacturer:</source>
       <translation>Scanner Manufacturer:</translation>
     </message>
+    <message>
+      <source>Exposure time</source>
+      <translation>Exposure time</translation>
+    </message>
+    <message>
+      <source>Aperture:</source>
+      <translation>Aperture:</translation>
+    </message>
+    <message>
+      <source>ISO equiv.:</source>
+      <translation>ISO equiv.:</translation>
+    </message>
   </context>
   <context>
     <name>ImportPSPlugin</name>
@@ -9296,6 +9416,26 @@ converting their vector data into Scribus objects.</translation>
     <message>
       <source>...</source>
       <translation>...</translation>
+    </message>
+    <message>
+      <source>All Pages</source>
+      <translation>All Pages</translation>
+    </message>
+    <message>
+      <source>Top Left of Bleed</source>
+      <translation>Top Left of Bleed</translation>
+    </message>
+    <message>
+      <source>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</source>
+      <translation>Selecting this places the frame in the upper left of the page bleed defined in your doc setup.</translation>
+    </message>
+    <message>
+      <source>Same as the Bleed</source>
+      <translation>Same as the Bleed</translation>
+    </message>
+    <message>
+      <source>Same as the Imported Image</source>
+      <translation>Same as the Imported Image</translation>
     </message>
   </context>
   <context>
@@ -9595,6 +9735,38 @@ converting their vector data into Scribus objects.</translation>
       <source>Round Join</source>
       <translation>Round Join</translation>
     </message>
+    <message>
+      <source>Add a new line</source>
+      <translation>Add a new line</translation>
+    </message>
+    <message>
+      <source>Remove a line</source>
+      <translation>Remove a line</translation>
+    </message>
+    <message>
+      <source>Line style</source>
+      <translation>Line style</translation>
+    </message>
+    <message>
+      <source>Line width</source>
+      <translation>Line width</translation>
+    </message>
+    <message>
+      <source>End style</source>
+      <translation>End style</translation>
+    </message>
+    <message>
+      <source>Join style</source>
+      <translation>Join style</translation>
+    </message>
+    <message>
+      <source>Line color</source>
+      <translation>Line color</translation>
+    </message>
+    <message>
+      <source>Line shade</source>
+      <translation>Line shade</translation>
+    </message>
   </context>
   <context>
     <name>LoadSavePlugin</name>
@@ -9766,6 +9938,54 @@ converting their vector data into Scribus objects.</translation>
     <message>
       <source>Apply the margin changes to all existing master pages in the document</source>
       <translation>Apply the margin changes to all existing master pages in the document</translation>
+    </message>
+    <message>
+      <source>Margin Guides</source>
+      <translation>Margin Guides</translation>
+    </message>
+    <message>
+      <source>Top:</source>
+      <translation>Top:</translation>
+    </message>
+    <message>
+      <source>Bottom:</source>
+      <translation>Bottom:</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the top of the physical page</source>
+      <translation>Distance for bleed from the top of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the bottom of the physical page</source>
+      <translation>Distance for bleed from the bottom of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the left of the physical page</source>
+      <translation>Distance for bleed from the left of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the right of the physical page</source>
+      <translation>Distance for bleed from the right of the physical page</translation>
+    </message>
+    <message>
+      <source>Bleeds</source>
+      <translation>Bleeds</translation>
+    </message>
+    <message>
+      <source>Inside:</source>
+      <translation>Inside:</translation>
+    </message>
+    <message>
+      <source>Outside:</source>
+      <translation>Outside:</translation>
+    </message>
+    <message>
+      <source>Left:</source>
+      <translation>Left:</translation>
+    </message>
+    <message>
+      <source>Right:</source>
+      <translation>Right:</translation>
     </message>
   </context>
   <context>
@@ -10610,10 +10830,6 @@ Corners:</translation>
       <translation>Non Zero</translation>
     </message>
     <message>
-      <source>Click to select the line spacing mode</source>
-      <translation>Click to select the line spacing mode</translation>
-    </message>
-    <message>
       <source>Overprinting</source>
       <translation>Overprinting</translation>
     </message>
@@ -10672,10 +10888,6 @@ Corners:</translation>
     <message>
       <source>Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. </source>
       <translation>Use the bounding box, which is always rectangular, instead of the frame's shape for text flow of text frames below the object. </translation>
-    </message>
-    <message>
-      <source>Use a second line originally based on the frame's shape for text flow of text frames below the object. </source>
-      <translation>Use a second line originally based on the frame's shape for text flow of text frames below the object. </translation>
     </message>
     <message>
       <source>Transparency Settings</source>
@@ -10760,6 +10972,14 @@ Corners:</translation>
     <message>
       <source>Auto</source>
       <translation>Auto</translation>
+    </message>
+    <message>
+      <source>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T</source>
+      <translation>When chosen, the contour line can be edited with the Edit Shape Tool on the palette further above. When edited via the shape palette, this becomes a second separate line originally based on the frame's shape for text flow of text frames below the object. T</translation>
+    </message>
+    <message>
+      <source>Click and hold down to select the line spacing mode.</source>
+      <translation>Click and hold down to select the line spacing mode.</translation>
     </message>
   </context>
   <context>
@@ -10963,10 +11183,6 @@ Corners:</translation>
       <translation>New Document</translation>
     </message>
     <message>
-      <source>Page Size</source>
-      <translation>Page Size</translation>
-    </message>
-    <message>
       <source>Portrait</source>
       <translation>Portrait</translation>
     </message>
@@ -11075,32 +11291,16 @@ Corners:</translation>
       <translation>Open Recent &amp;Document</translation>
     </message>
     <message>
-      <source>Bleed Settings</source>
-      <translation>Bleed Settings</translation>
+      <source>Page Layout</source>
+      <translation>Page Layout</translation>
     </message>
     <message>
-      <source>Top:</source>
-      <translation>Top:</translation>
+      <source>First Page is:</source>
+      <translation>First Page is:</translation>
     </message>
     <message>
-      <source>Bottom:</source>
-      <translation>Bottom:</translation>
-    </message>
-    <message>
-      <source>Left:</source>
-      <translation>Left:</translation>
-    </message>
-    <message>
-      <source>Right:</source>
-      <translation>Right:</translation>
-    </message>
-    <message>
-      <source>Inside:</source>
-      <translation>Inside:</translation>
-    </message>
-    <message>
-      <source>Outside:</source>
-      <translation>Outside:</translation>
+      <source>Show Document Settings After Creation</source>
+      <translation>Show Document Settings After Creation</translation>
     </message>
   </context>
   <context>
@@ -11296,6 +11496,10 @@ Corners:</translation>
       <comment>Import/export format name</comment>
       <translation>OpenOffice.org 1.x Draw</translation>
     </message>
+    <message>
+      <source>This file contains some unsupported features</source>
+      <translation>This file contains some unsupported features</translation>
+    </message>
   </context>
   <context>
     <name>OdtDialog</name>
@@ -11353,6 +11557,37 @@ Corners:</translation>
     <message>
       <source>Scribus 1.2.x Document</source>
       <translation>Scribus 1.2.x Document</translation>
+    </message>
+  </context>
+  <context>
+    <name>OneClick</name>
+    <message>
+      <source>Origin</source>
+      <translation>Origin</translation>
+    </message>
+    <message>
+      <source>Size</source>
+      <translation>Size</translation>
+    </message>
+    <message>
+      <source>Width:</source>
+      <translation>Width:</translation>
+    </message>
+    <message>
+      <source>Length:</source>
+      <translation>Length:</translation>
+    </message>
+    <message>
+      <source>Height:</source>
+      <translation>Height:</translation>
+    </message>
+    <message>
+      <source>Angle:</source>
+      <translation>Angle:</translation>
+    </message>
+    <message>
+      <source>Remember Values</source>
+      <translation>Remember Values</translation>
     </message>
   </context>
   <context>
@@ -11977,6 +12212,14 @@ Corners:</translation>
       <source>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</source>
       <translation>The filesystem will be searched for case insensitive file names when you check this on. Remember it is not default on most operating systems except MS Windows</translation>
     </message>
+    <message>
+      <source>Show thumbnails</source>
+      <translation>Show thumbnails</translation>
+    </message>
+    <message>
+      <source>Show/hide image thumbnails</source>
+      <translation>Show/hide image thumbnails</translation>
+    </message>
   </context>
   <context>
     <name>PixmapExportPlugin</name>
@@ -12224,6 +12467,10 @@ Corners:</translation>
     <message>
       <source>Scrapbook</source>
       <translation>Scrapbook</translation>
+    </message>
+    <message>
+      <source>Printer</source>
+      <translation>Printer</translation>
     </message>
   </context>
   <context>
@@ -12883,10 +13130,6 @@ Check path and filename.</translation>
     <message>
       <source>SVG-Images (*.svg);;All Files (*)</source>
       <translation>SVG-Images (*.svg);;All Files (*)</translation>
-    </message>
-    <message>
-      <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
-      <translation>All Supported Formats (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
       <source>All Files (*)</source>
@@ -14478,6 +14721,10 @@ Therefore the image may be not correct</translation>
       <source>English (Australian)</source>
       <translation>English (Australian)</translation>
     </message>
+    <message>
+      <source>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</source>
+      <translation>All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;</translation>
+    </message>
   </context>
   <context>
     <name>QTextEdit</name>
@@ -14768,6 +15015,58 @@ Therefore the image may be not correct</translation>
       <source>Parent</source>
       <translation>Parent</translation>
     </message>
+    <message>
+      <source>Parent style</source>
+      <translation>Parent style</translation>
+    </message>
+    <message>
+      <source>Font face</source>
+      <translation>Font face</translation>
+    </message>
+    <message>
+      <source>Font size</source>
+      <translation>Font size</translation>
+    </message>
+    <message>
+      <source>Tracking</source>
+      <translation>Tracking</translation>
+    </message>
+    <message>
+      <source>Baseline offset</source>
+      <translation>Baseline offset</translation>
+    </message>
+    <message>
+      <source>Horizontal scaling</source>
+      <translation>Horizontal scaling</translation>
+    </message>
+    <message>
+      <source>Vertical scaling</source>
+      <translation>Vertical scaling</translation>
+    </message>
+    <message>
+      <source>Language</source>
+      <translation>Language</translation>
+    </message>
+    <message>
+      <source>Fill color</source>
+      <translation>Fill colour</translation>
+    </message>
+    <message>
+      <source>Fill shade</source>
+      <translation>Fill shade</translation>
+    </message>
+    <message>
+      <source>Stroke color</source>
+      <translation>Stroke colour</translation>
+    </message>
+    <message>
+      <source>Stroke shade</source>
+      <translation>Stroke shade</translation>
+    </message>
+    <message>
+      <source>Shade</source>
+      <translation>Shade</translation>
+    </message>
   </context>
   <context>
     <name>SMCharacterStyle</name>
@@ -14922,8 +15221,56 @@ Therefore the image may be not correct</translation>
       <translation>Based on</translation>
     </message>
     <message>
-      <source>Parent's Character Style</source>
-      <translation>Parent's Character Style</translation>
+      <source>Parent style</source>
+      <translation>Parent style</translation>
+    </message>
+    <message>
+      <source>Line spacing mode</source>
+      <translation>Line spacing mode</translation>
+    </message>
+    <message>
+      <source>Line spacing</source>
+      <translation>Line spacing</translation>
+    </message>
+    <message>
+      <source>Space above</source>
+      <translation>Space above</translation>
+    </message>
+    <message>
+      <source>Space below</source>
+      <translation>Space below</translation>
+    </message>
+    <message>
+      <source>Enable or disable drop cap</source>
+      <translation>Enable or disable drop cap</translation>
+    </message>
+    <message>
+      <source>Drop cap lines</source>
+      <translation>Drop cap lines</translation>
+    </message>
+    <message>
+      <source>Drop cap offset</source>
+      <translation>Drop cap offset</translation>
+    </message>
+    <message>
+      <source>Alignment</source>
+      <translation>Alignment</translation>
+    </message>
+    <message>
+      <source>First line indent</source>
+      <translation>First line indent</translation>
+    </message>
+    <message>
+      <source>Left indent</source>
+      <translation>Left indent</translation>
+    </message>
+    <message>
+      <source>Right indent</source>
+      <translation>Right indent</translation>
+    </message>
+    <message>
+      <source>Tabulators</source>
+      <translation>Tabulators</translation>
     </message>
   </context>
   <context>
@@ -15509,6 +15856,14 @@ Vertical gap: %3</translation>
       <source>Adjusting Colors</source>
       <translation>Adjusting Colours</translation>
     </message>
+    <message>
+      <source>Default Paragraph Style</source>
+      <translation>Default Paragraph Style</translation>
+    </message>
+    <message>
+      <source>Default Character Style</source>
+      <translation>Default Character Style</translation>
+    </message>
   </context>
   <context>
     <name>ScribusMainWindow</name>
@@ -15938,6 +16293,10 @@ Consider using the Preflight Verifier to correct them</translation>
       <source>Group%1</source>
       <translation>Group%1</translation>
     </message>
+    <message>
+      <source>Do you really want to clear all your text?</source>
+      <translation>Do you really want to clear all your text?</translation>
+    </message>
   </context>
   <context>
     <name>ScribusQApp</name>
@@ -16040,6 +16399,10 @@ Consider using the Preflight Verifier to correct them</translation>
     <message>
       <source>Display a console window</source>
       <translation>Display a console window</translation>
+    </message>
+    <message>
+      <source>Show location ICC profile information on console while starting</source>
+      <translation>Show location ICC profile information on console while starting</translation>
     </message>
   </context>
   <context>
@@ -16215,26 +16578,6 @@ You can choose between normal and several color blindness forms</source>
 You can choose between normal and several colour blindness forms</translation>
     </message>
     <message>
-      <source>Normal Vision</source>
-      <translation>Normal Vision</translation>
-    </message>
-    <message>
-      <source>Protanopia (Red)</source>
-      <translation>Protanopia (Red)</translation>
-    </message>
-    <message>
-      <source>Deuteranopia (Green)</source>
-      <translation>Deuteranopia (Green)</translation>
-    </message>
-    <message>
-      <source>Tritanopia (Blue)</source>
-      <translation>Tritanopia (Blue)</translation>
-    </message>
-    <message>
-      <source>Full Color Blindness</source>
-      <translation>Full Colour Blindness</translation>
-    </message>
-    <message>
       <source>Switches Color Management on or off</source>
       <translation>Switches Colour Management on or off</translation>
     </message>
@@ -16243,8 +16586,12 @@ You can choose between normal and several colour blindness forms</translation>
       <translation>Preview Mode</translation>
     </message>
     <message>
-      <source>CMS is active. Therefore the colour display may not match the perception by visually impaired</source>
-      <translation>CMS is active. Therefore the colour display may not match the perception by visually impaired</translation>
+      <source>CMS is active. Therefore the color display may not match the perception by visually impaired</source>
+      <translation>CMS is active. Therefore the color display may not match the perception by visually impaired</translation>
+    </message>
+    <message>
+      <source>Enter Object Size</source>
+      <translation>Enter Object Size</translation>
     </message>
   </context>
   <context>
@@ -16622,6 +16969,18 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Ctrl+</source>
       <translation>Ctrl+</translation>
+    </message>
+    <message>
+      <source>No shortcut for the style</source>
+      <translation>No shortcut for the style</translation>
+    </message>
+    <message>
+      <source>Style has user defined shortcut</source>
+      <translation>Style has user defined shortcut</translation>
+    </message>
+    <message>
+      <source>Assign a shortcut for the style</source>
+      <translation>Assign a shortcut for the style</translation>
     </message>
   </context>
   <context>
@@ -17001,6 +17360,18 @@ You can choose between normal and several colour blindness forms</translation>
       <source>This key sequence is already in use</source>
       <translation>This key sequence is already in use</translation>
     </message>
+    <message>
+      <source>Edit styles</source>
+      <translation>Edit styles</translation>
+    </message>
+    <message>
+      <source>Name of the selected style</source>
+      <translation>Name of the selected style</translation>
+    </message>
+    <message>
+      <source>More than one style selected</source>
+      <translation>More than one style selected</translation>
+    </message>
   </context>
   <context>
     <name>StyleSelect</name>
@@ -17254,16 +17625,8 @@ You can choose between normal and several colour blindness forms</translation>
       <translation>Check for missing glyphs</translation>
     </message>
     <message>
-      <source>Check for objects not on a page</source>
-      <translation>Check for objects not on a page</translation>
-    </message>
-    <message>
       <source>Check for overflow in text frames</source>
       <translation>Check for overflow in text frames</translation>
-    </message>
-    <message>
-      <source>Check for transparencies used</source>
-      <translation>Check for transparencies used</translation>
     </message>
     <message>
       <source>Check for missing images</source>
@@ -17308,6 +17671,14 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Ignore non-printable Layers</source>
       <translation>Ignore non-printable Layers</translation>
+    </message>
+    <message>
+      <source>Check for items not on a page</source>
+      <translation>Check for items not on a page</translation>
+    </message>
+    <message>
+      <source>Check for used transparencies</source>
+      <translation>Check for used transparencies</translation>
     </message>
   </context>
   <context>
@@ -17506,6 +17877,10 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Control Characters:</source>
       <translation>Control Characters:</translation>
+    </message>
+    <message>
+      <source>Show Bleed Area</source>
+      <translation>Show Bleed Area</translation>
     </message>
   </context>
   <context>
@@ -18313,14 +18688,6 @@ You can choose between normal and several colour blindness forms</translation>
       <translation>&amp;General</translation>
     </message>
     <message>
-      <source>&amp;Embed all Fonts</source>
-      <translation>&amp;Embed all Fonts</translation>
-    </message>
-    <message>
-      <source>&amp;Subset all Fonts</source>
-      <translation>&amp;Subset all Fonts</translation>
-    </message>
-    <message>
       <source>Embedding</source>
       <translation>Embedding</translation>
     </message>
@@ -18339,10 +18706,6 @@ You can choose between normal and several colour blindness forms</translation>
     <message>
       <source>Fonts to embed:</source>
       <translation>Fonts to embed:</translation>
-    </message>
-    <message>
-      <source>Fonts to subset:</source>
-      <translation>Fonts to subset:</translation>
     </message>
     <message>
       <source>&amp;Fonts</source>
@@ -18912,7 +19275,7 @@ when PDF document is opened:</translation>
     </message>
     <message>
       <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-      <translation>Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer. Choose Grayscale when you want a grey scale PDF.</translation>
+      <translation>Colour model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 colour CMYK printer. Choose Greyscale when you want a grey scale PDF.</translation>
     </message>
     <message>
       <source>Do not show objects outside the margins in the exported file</source>
@@ -19005,6 +19368,230 @@ when PDF document is opened:</translation>
     <message>
       <source>Outside:</source>
       <translation>Outside:</translation>
+    </message>
+    <message>
+      <source>&amp;Embed all</source>
+      <translation>&amp;Embed all</translation>
+    </message>
+    <message>
+      <source>Fonts to outline:</source>
+      <translation>Fonts to outline:</translation>
+    </message>
+    <message>
+      <source>&amp;Outline all</source>
+      <translation>&amp;Outline all</translation>
+    </message>
+    <message>
+      <source>Convert all glyphs in the document to outlines.</source>
+      <translation>Convert all glyphs in the document to outlines.</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabPrinter</name>
+    <message>
+      <source>Distance for bleed from the top of the physical page</source>
+      <translation>Distance for bleed from the top of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the bottom of the physical page</source>
+      <translation>Distance for bleed from the bottom of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the left of the physical page</source>
+      <translation>Distance for bleed from the left of the physical page</translation>
+    </message>
+    <message>
+      <source>Distance for bleed from the right of the physical page</source>
+      <translation>Distance for bleed from the right of the physical page</translation>
+    </message>
+    <message>
+      <source>Do not show objects outside the margins on the printed page</source>
+      <translation>Do not show objects outside the margins on the printed page</translation>
+    </message>
+    <message>
+      <source>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</source>
+      <translation>Use an alternative print manager, such as kprinter or gtklp, to utilize additional printing options</translation>
+    </message>
+    <message>
+      <source>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</source>
+      <translation>Sets the PostScript Level.
+ Setting to Level 1 or 2 can create huge files</translation>
+    </message>
+    <message>
+      <source>A way of switching off some of the gray shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the gray. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</source>
+      <translation>A way of switching off some of the grey shades which are composed of cyan, yellow and magenta and using black instead. UCR most affects parts of images which are neutral and/or dark tones which are close to the grey. Use of this may improve printing some images and some experimentation and testing is need on a case by case basis.UCR reduces the possibility of over saturation with CMY inks.</translation>
+    </message>
+    <message>
+      <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
+      <translation>Enables Spot Colours to be converted to composite colours. Unless you are planning to print spot colours at a commercial printer, this is probably best left enabled.</translation>
+    </message>
+    <message>
+      <source>Enables global Overprint Mode for this document, overrides object settings</source>
+      <translation>Enables global Overprint Mode for this document, overrides object settings</translation>
+    </message>
+    <message>
+      <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
+      <translation>Allows you to embed ICC profiles in the print stream when colour management is enabled</translation>
+    </message>
+    <message>
+      <source>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</source>
+      <translation>This enables you to explicitely set the media size of the PostScript file. Not recommended unless requested by your printer.</translation>
+    </message>
+    <message>
+      <source>File</source>
+      <translation>File</translation>
+    </message>
+    <message>
+      <source>All</source>
+      <translation>All</translation>
+    </message>
+  </context>
+  <context>
+    <name>TabPrinterBase</name>
+    <message>
+      <source>Form1</source>
+      <translation>Form1</translation>
+    </message>
+    <message>
+      <source>Print Destination</source>
+      <translation>Print Destination</translation>
+    </message>
+    <message>
+      <source>Alternative Printer Command</source>
+      <translation>Alternative Printer Command</translation>
+    </message>
+    <message>
+      <source>Command:</source>
+      <translation>Command:</translation>
+    </message>
+    <message>
+      <source>Options</source>
+      <translation>Options</translation>
+    </message>
+    <message>
+      <source>Postscript Options</source>
+      <translation>Postscript Options</translation>
+    </message>
+    <message>
+      <source>Level 1</source>
+      <translation>Level 1</translation>
+    </message>
+    <message>
+      <source>Level 2</source>
+      <translation>Level 2</translation>
+    </message>
+    <message>
+      <source>Level 3</source>
+      <translation>Level 3</translation>
+    </message>
+    <message>
+      <source>Print in Color if Available</source>
+      <translation>Print in Colour if Available</translation>
+    </message>
+    <message>
+      <source>Print in Grayscale</source>
+      <translation>Print in Greyscale</translation>
+    </message>
+    <message>
+      <source>Page</source>
+      <translation>Page</translation>
+    </message>
+    <message>
+      <source>Mirror Page(s) Horizontal</source>
+      <translation>Mirror Page(s) Horizontal</translation>
+    </message>
+    <message>
+      <source>Mirror Page(s) Vertical</source>
+      <translation>Mirror Page(s) Vertical</translation>
+    </message>
+    <message>
+      <source>Set Media Size</source>
+      <translation>Set Media Size</translation>
+    </message>
+    <message>
+      <source>Clip to Page Margins</source>
+      <translation>Clip to Page Margins</translation>
+    </message>
+    <message>
+      <source>Color</source>
+      <translation>Colour</translation>
+    </message>
+    <message>
+      <source>Apply Under Color Removal</source>
+      <translation>Apply Under Colour Removal</translation>
+    </message>
+    <message>
+      <source>Convert Spot Colors to Process Colors</source>
+      <translation>Convert Spot Colours to Process Colours</translation>
+    </message>
+    <message>
+      <source>Force Overprint Mode</source>
+      <translation>Force Overprint Mode</translation>
+    </message>
+    <message>
+      <source>Apply ICC Profiles</source>
+      <translation>Apply ICC Profiles</translation>
+    </message>
+    <message>
+      <source>General</source>
+      <translation>General</translation>
+    </message>
+    <message>
+      <source>Print Normal</source>
+      <translation>Print Normal</translation>
+    </message>
+    <message>
+      <source>Print Separations</source>
+      <translation>Print Separations</translation>
+    </message>
+    <message>
+      <source>Marks &amp;&amp; Bleeds</source>
+      <translation>Marks &amp;&amp; Bleeds</translation>
+    </message>
+    <message>
+      <source>Printer Marks</source>
+      <translation>Printer Marks</translation>
+    </message>
+    <message>
+      <source>Crop Marks</source>
+      <translation>Crop Marks</translation>
+    </message>
+    <message>
+      <source>Bleed Marks</source>
+      <translation>Bleed Marks</translation>
+    </message>
+    <message>
+      <source>Registration Marks</source>
+      <translation>Registration Marks</translation>
+    </message>
+    <message>
+      <source>Offset:</source>
+      <translation>Offset:</translation>
+    </message>
+    <message>
+      <source>Color Bars</source>
+      <translation>Colour Bars</translation>
+    </message>
+    <message>
+      <source>Bleed Settings</source>
+      <translation>Bleed Settings</translation>
+    </message>
+    <message>
+      <source>Top:</source>
+      <translation>Top:</translation>
+    </message>
+    <message>
+      <source>Bottom:</source>
+      <translation>Bottom:</translation>
+    </message>
+    <message>
+      <source>Left:</source>
+      <translation>Left:</translation>
+    </message>
+    <message>
+      <source>Right:</source>
+      <translation>Right:</translation>
     </message>
   </context>
   <context>
@@ -19313,14 +19900,6 @@ when PDF document is opened:</translation>
       <translation>Tab Width:</translation>
     </message>
     <message>
-      <source>Custom:</source>
-      <translation>Custom:</translation>
-    </message>
-    <message>
-      <source>Custom: </source>
-      <translation>Custom: </translation>
-    </message>
-    <message>
       <source>Text Color:</source>
       <translation>Text Colour:</translation>
     </message>
@@ -19378,22 +19957,6 @@ when PDF document is opened:</translation>
       <translation>Zoom</translation>
     </message>
     <message>
-      <source>Misc. Settings</source>
-      <translation>Misc. Settings</translation>
-    </message>
-    <message>
-      <source>Object Duplicate</source>
-      <translation>Object Duplicate</translation>
-    </message>
-    <message>
-      <source>X-Displacement</source>
-      <translation>X-Displacement</translation>
-    </message>
-    <message>
-      <source>Y-Displacement</source>
-      <translation>Y-Displacement</translation>
-    </message>
-    <message>
       <source>Rotation Tool</source>
       <translation>Rotation Tool</translation>
     </message>
@@ -19406,16 +19969,32 @@ when PDF document is opened:</translation>
       <translation>Other Properties</translation>
     </message>
     <message>
-      <source>Horizontal displacement of objects</source>
-      <translation>Horizontal displacement of objects</translation>
+      <source>Miscellaneous Settings</source>
+      <translation>Miscellaneous Settings</translation>
     </message>
     <message>
-      <source>Vertical displacement of objects</source>
-      <translation>Vertical displacement of objects</translation>
+      <source>Item Duplicate</source>
+      <translation>Item Duplicate</translation>
     </message>
     <message>
-      <source>Constrain value for the rotation tool when the CTRL-Key is pressed</source>
-      <translation>Constrain value for the rotation tool when the CTRL-Key is pressed</translation>
+      <source>X Displacement</source>
+      <translation>X Displacement</translation>
+    </message>
+    <message>
+      <source>Y Displacement</source>
+      <translation>Y Displacement</translation>
+    </message>
+    <message>
+      <source>Horizontal displacement of page items</source>
+      <translation>Horizontal displacement of page items</translation>
+    </message>
+    <message>
+      <source>Vertical displacement of page items</source>
+      <translation>Vertical displacement of page items</translation>
+    </message>
+    <message>
+      <source>Constrain value for the rotation tool when the Control key is pressed</source>
+      <translation>Constrain value for the rotation tool when the Control key is pressed</translation>
     </message>
   </context>
   <context>
@@ -19568,14 +20147,6 @@ when PDF document is opened:</translation>
       <translation>Fill Char:</translation>
     </message>
     <message>
-      <source>Custom:</source>
-      <translation>Custom:</translation>
-    </message>
-    <message>
-      <source>Custom: </source>
-      <translation>Custom: </translation>
-    </message>
-    <message>
       <source>Dot</source>
       <translation>Dot</translation>
     </message>
@@ -19637,6 +20208,10 @@ when PDF document is opened:</translation>
     <message>
       <source>Page </source>
       <translation>Page </translation>
+    </message>
+    <message>
+      <source>Free items</source>
+      <translation>Free items</translation>
     </message>
   </context>
   <context>
@@ -20166,6 +20741,10 @@ X: %4, Y: %5</translation>
       <source>Insert frame</source>
       <translation>Insert frame</translation>
     </message>
+    <message>
+      <source>Adjust frame to the image size</source>
+      <translation>Adjust frame to the image size</translation>
+    </message>
   </context>
   <context>
     <name>UndoPalette</name>
@@ -20199,13 +20778,6 @@ X: %4, Y: %5</translation>
     </message>
   </context>
   <context>
-    <name>UnicodeChooseButton</name>
-    <message>
-      <source>Search first</source>
-      <translation>Search first</translation>
-    </message>
-  </context>
-  <context>
     <name>UnicodeSearchBase</name>
     <message>
       <source>Unicode Search</source>
@@ -20214,10 +20786,6 @@ X: %4, Y: %5</translation>
     <message>
       <source>&amp;Search:</source>
       <translation>&amp;Search:</translation>
-    </message>
-    <message>
-      <source>Icon</source>
-      <translation>Icon</translation>
     </message>
     <message>
       <source>Hex</source>
@@ -20380,6 +20948,10 @@ Error:%2 at line: %3, row: %4</translation>
       <source>Import Text Only</source>
       <translation>Import Text Only</translation>
     </message>
+    <message>
+      <source>Open</source>
+      <translation>Open</translation>
+    </message>
   </context>
   <context>
     <name>gtImporterDialog</name>
@@ -20520,6 +21092,10 @@ Error:%2 at line: %3, row: %4</translation>
     <message>
       <source>Cancel</source>
       <translation>Cancel</translation>
+    </message>
+    <message>
+      <source>Remove All</source>
+      <translation>Remove All</translation>
     </message>
   </context>
   <context>

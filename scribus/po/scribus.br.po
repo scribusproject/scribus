@@ -39,7 +39,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus 1.3.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-28 14:08+0200\n"
+"POT-Creation-Date: 2006-12-21 23:33+0100\n"
 "PO-Revision-Date: 2006-10-16 00:25+0100\n"
 "Last-Translator: Alan MONFORT <alan.monfort@free.fr>\n"
 "Language-Team: Alan Monfort <alan.monfort@free.fr>\n"
@@ -199,10 +199,6 @@ msgid "Collect for O&utput..."
 msgstr "D&astum an ergorennoù evit an ec'hankañ..."
 
 msgid "Get Text..."
-msgstr "Enporzhiañ un destenn..."
-
-#, fuzzy
-msgid "Get Text 2..."
 msgstr "Enporzhiañ un destenn..."
 
 msgid "Append &Text..."
@@ -482,6 +478,9 @@ msgstr "&Arouezenn..."
 msgid "Sample Text"
 msgstr "Testenn diwir"
 
+msgid "Sticky Tools"
+msgstr ""
+
 msgid "&Insert..."
 msgstr "&Enlakaat..."
 
@@ -509,8 +508,13 @@ msgstr "Ardeiñ an &dealfoù..."
 msgid "Manage Page Properties..."
 msgstr "Ardeiñ perzhioù ar bajennad..."
 
-msgid "&Fit in window"
-msgstr "Ment ar &prenestr"
+#, fuzzy
+msgid "&Fit to Height"
+msgstr "Eus kleiz da zehou"
+
+#, fuzzy
+msgid "Fit to Width"
+msgstr "Taille de la fenêtre"
 
 msgid "&50%"
 msgstr "&50%"
@@ -533,6 +537,10 @@ msgstr "Skeudenni&g(où)"
 
 msgid "Show &Margins"
 msgstr "Diskouez ar &marzioù"
+
+#, fuzzy
+msgid "Show Bleeds"
+msgstr "Diskouez ar reolenn"
 
 msgid "Show &Frames"
 msgstr "Diskouez ar &sterniadoù"
@@ -768,6 +776,13 @@ msgstr "Lamm sterniad"
 msgid "Column Break"
 msgstr "Lamm bann"
 
+#, fuzzy
+msgid "&Zero Width Space"
+msgstr "Esaou krenn"
+
+msgid "Zero Width NB Space"
+msgstr ""
+
 msgid "Copyright"
 msgstr "Arouezenn Copyright"
 
@@ -927,10 +942,12 @@ msgstr "Dealf"
 msgid "Selection"
 msgstr "Diuzañ"
 
-msgid "Align right sides of objects to left side of anchor"
+#, fuzzy
+msgid "Align right sides of items to left side of anchor"
 msgstr "Desteudañ tu dehou an ergorennoù ouzh tu kleiz an eor"
 
-msgid "Align left sides of objects to right side of anchor"
+#, fuzzy
+msgid "Align left sides of items to right side of anchor"
 msgstr "Desteudañ tu kleiz an ergorennoù ouzh tu dehou an eor"
 
 msgid "Align bottoms"
@@ -939,7 +956,8 @@ msgstr "Desteudañ traoñioù an ergorennoù"
 msgid "Align right sides"
 msgstr "Desteudañ an tuioù dehou"
 
-msgid "Align tops of objects to bottom of anchor"
+#, fuzzy
+msgid "Align tops of items to bottom of anchor"
 msgstr "Desteudañ krec'h an ergorennoù ouzh traoñ an eor"
 
 msgid "Center on vertical axis"
@@ -951,7 +969,8 @@ msgstr "Desteudañ an tuioù kleiz"
 msgid "Center on horizontal axis"
 msgstr "Kreizañ ouzh an ahel a-zremm"
 
-msgid "Align bottoms of objects to top of anchor"
+#, fuzzy
+msgid "Align bottoms of items to top of anchor"
 msgstr "Desteudañ traoñ an ergorennoù ouzh krec'h an eor"
 
 msgid "Align tops"
@@ -960,10 +979,12 @@ msgstr "Desteudañ krec'hioù"
 msgid "&Selected Guide:"
 msgstr "&Dealf bet diuzet"
 
-msgid "Make horizontal gaps between objects equal"
+#, fuzzy
+msgid "Make horizontal gaps between items equal"
 msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
 
-msgid "Make horizontal gaps between objects equal to the value specified"
+#, fuzzy
+msgid "Make horizontal gaps between items equal to the value specified"
 msgstr ""
 "Kas da gevatal d'ar werzh erspizet an esaouenn a-zremm etre an ergorennoù"
 
@@ -976,10 +997,12 @@ msgstr "Esaouiñ an traoñioù ent keitpell"
 msgid "Distribute centers equidistantly horizontally"
 msgstr "Esaouiñ ar c'heizioù ent keitpell a-zremm"
 
-msgid "Make vertical gaps between objects equal"
+#, fuzzy
+msgid "Make vertical gaps between items equal"
 msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
 
-msgid "Make vertical gaps between objects equal to the value specified"
+#, fuzzy
+msgid "Make vertical gaps between items equal to the value specified"
 msgstr ""
 "Kas da gevatal d'ar werzh erspizet an esaouenn a-serzh etre an ergorennoù"
 
@@ -993,21 +1016,20 @@ msgid "Distribute tops equidistantly"
 msgstr "Esaouiñ ar c'hrec'hioù ent keitpell"
 
 #, fuzzy
-msgid "Make horizontal gaps between objects and sides of page equal"
+msgid "Make horizontal gaps between items and sides of page equal"
 msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
 
 #, fuzzy
 msgid ""
-"Make vertical gaps between objects and the top and bottom of page margins "
-"equal"
+"Make vertical gaps between items and the top and bottom of page margins equal"
 msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
 
 #, fuzzy
-msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgid "Make horizontal gaps between items and sides of page margins equal"
 msgstr "Lakaat da vezañ ingal an esaouenn a-zremm etre an ergorennoù"
 
 #, fuzzy
-msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgid "Make vertical gaps between items and the top and bottom of page equal"
 msgstr "Lakaat da gavatal an esaouenn a-serzh etre an ergorennoù"
 
 msgid "&Distance:"
@@ -1431,7 +1453,9 @@ msgstr ""
 msgid "Open"
 msgstr "Digeriñ"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
+#, fuzzy
+msgid ""
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
 msgstr ""
 "Skeudennoù (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;An holl restroù (*)"
 
@@ -1598,29 +1622,35 @@ msgstr "Adderaouekaat"
 msgid "Select Character:"
 msgstr "Diuzañ an arouezenn(où) :"
 
+#, fuzzy
+msgid "Scribus Char Palette (*.ucp);;All Files (*)"
+msgstr "Restroù PostScript (*.ps);;An holl restroù (*)"
+
+#, fuzzy
+msgid "Enhanced Palette"
+msgstr "Organisation des pa&ges"
+
 msgid "Font:"
 msgstr "Nodrezh :"
 
 msgid "Character Class:"
 msgstr "Rummad arouezennoù :"
 
-msgid "&Insert Code:"
-msgstr "Enlakaat ar r&ineg"
-
 msgid "&Insert"
 msgstr "&Enlakaat"
+
+#, fuzzy
+msgid "Quick Palette"
+msgstr "Organisation des pa&ges"
+
+msgid "Hide Enhanced"
+msgstr ""
 
 msgid "Insert the characters at the cursor in the text"
 msgstr "Enlakaat an arouezenn(où) d'al lec'h m'emañ ar reti en destenn"
 
 msgid "Delete the current selection(s)."
 msgstr "Diverkañ an diuzad(où) bremanel."
-
-msgid "Close this dialog and return to text editing"
-msgstr "Prennañ ar voestad-mañ ha distreiñ d'an embann testenn."
-
-msgid "Type in a four digit unicode value directly here"
-msgstr "Biziata ur rineg unicode 4 sifr amañ"
 
 msgid ""
 "You can see a thumbnail if you press and hold down the right mouse button. "
@@ -1714,6 +1744,34 @@ msgstr "Arabeg ledanaet B"
 
 msgid "Hebrew"
 msgstr "Hebraeg"
+
+#, fuzzy
+msgid "Choose a filename to open"
+msgstr "Dibabit un anv"
+
+msgid "Error"
+msgstr "Fazi"
+
+msgid "Error reading file %1 - file is corrupted propably."
+msgstr ""
+
+#, fuzzy
+msgid "Choose a filename to save under"
+msgstr "Dibab ur sil a zo anezhañ"
+
+#, fuzzy
+msgid "Cannot write file %1"
+msgstr "N'haller ket skrivañ ar restr %1."
+
+#, fuzzy
+msgid "Clean the Palette?"
+msgstr "Organisation des pa&ges"
+
+msgid "You will clean all characters from this palette. Are you sure?"
+msgstr ""
+
+msgid "Delete"
+msgstr "Diverkañ"
 
 msgid "Document"
 msgstr "Teul"
@@ -2111,12 +2169,13 @@ msgstr "Dibabit un anv"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;"
-"All Files (*)"
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"ai);;All Files (*)"
 msgstr "Teuliadoù (*.sla *.sla.gz *.scd *.scd.gz);;An holl deuliadoù (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)"
+msgid ""
+"Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr "Teuliadoù (*.sla *.sla.gz *.scd *.scd.gz);;An holl deuliadoù (*)"
 
 msgid "Copy of %1"
@@ -2252,6 +2311,24 @@ msgstr "Nombre"
 
 msgid "December"
 msgstr "Décembre"
+
+msgid "Normal Vision"
+msgstr "Gweled skoueriek"
+
+msgid "Protanopia (Red)"
+msgstr "Dallded gant ar ruz"
+
+msgid "Deuteranopia (Green)"
+msgstr "Dallded gant ar gwer"
+
+msgid "Tritanopia (Blue)"
+msgstr "Dallded gant ar glas"
+
+msgid "Full Color Blindness"
+msgstr "Daltonelezh"
+
+msgid "Custom: "
+msgstr "Personelaet :"
 
 #, fuzzy
 msgid "Transparency Settings"
@@ -2452,6 +2529,37 @@ msgstr ""
 "ziuañ Skoazell > A-zivout Scribus. An argell C-C-T a veneg skor C=CUPS "
 "C=littlecms T=TIFF, en hennader kempunañ. Gant ur * e vo meneget al "
 "levraouegoù a vank."
+
+#, fuzzy
+msgid "Curve Files (*.scu);;All Files (*)"
+msgstr "Restroù EPS (*.eps);;An holl restroù (*)"
+
+msgid "Save as"
+msgstr "Enrollañ dindan"
+
+msgid ""
+"Cannot write the file: \n"
+"%1"
+msgstr ""
+"N'haller ket skrivañ ar restr : \n"
+"%1"
+
+#, fuzzy
+msgid "Inverts the curve"
+msgstr "Enlakaat ur grommenn vBézier"
+
+#, fuzzy
+msgid "Resets the curve"
+msgstr "Adderaouekaat an destenn"
+
+msgid "Switches between linear and cubic interpolation of the curve"
+msgstr ""
+
+msgid "Loads a curve"
+msgstr ""
+
+msgid "Saves this curve"
+msgstr ""
 
 msgid "Size:"
 msgstr "Ment :"
@@ -2862,11 +2970,86 @@ msgstr "Arloañ un/meur a aelad ICC"
 msgid "Advanced Options"
 msgstr "Dibarzhioù kemplesoc'h"
 
+#, fuzzy
+msgid "Printer Marks"
+msgstr "Marzioù ar voullerez..."
+
+#, fuzzy
+msgid "Crop Marks"
+msgstr "Pennletrennoù"
+
+#, fuzzy
+msgid "Bleed Marks"
+msgstr "Kalenderioù"
+
+#, fuzzy
+msgid "Registration Marks"
+msgstr "Liv pevarlivek"
+
+#, fuzzy
+msgid "Color Bars"
+msgstr "Liesaat al livioù"
+
+#, fuzzy
+msgid "Offset:"
+msgstr "Linkañ a-zremm"
+
+#, fuzzy
+msgid "Marks"
+msgstr "Marzioù"
+
+#, fuzzy
+msgid "Bleed Settings"
+msgstr "Arventennoù ar stiloù"
+
+#, fuzzy
+msgid "Top:"
+msgstr "&Lein :"
+
+#, fuzzy
+msgid "Bottom:"
+msgstr "&Traoñ :"
+
+#, fuzzy
+msgid "Left:"
+msgstr "&Kleiz :"
+
+msgid "Right:"
+msgstr "Dehou :"
+
+#, fuzzy
+msgid "Use Document Bleeds"
+msgstr "Teulioù testenn"
+
+#, fuzzy
+msgid "Bleeds"
+msgstr "Maskloù"
+
+#, fuzzy
+msgid "Inside:"
+msgstr "&Diabarzh :"
+
+#, fuzzy
+msgid "Outside:"
+msgstr "Dia&vaez :"
+
 msgid "Preview..."
 msgstr "Alberz..."
 
 msgid "&Print"
 msgstr "Mou&llañ"
+
+msgid "Distance for bleed from the top of the physical page"
+msgstr "Regad da skarzhañ e lein ar bajenn"
+
+msgid "Distance for bleed from the bottom of the physical page"
+msgstr "Regad da skarzhañ e traoñ ar bajenn"
+
+msgid "Distance for bleed from the left of the physical page"
+msgstr "Regad da skarzhañ a-gleiz eus ar bajenn"
+
+msgid "Distance for bleed from the right of the physical page"
+msgstr "Regad da skarzhañ a-zehou eus ar bajenn"
 
 msgid "Do not show objects outside the margins on the printed page"
 msgstr "Na skrammañ ket an ergorennoù dreist ar marzioù e-kerzh ar moullañ"
@@ -2939,9 +3122,6 @@ msgstr ""
 msgid "Failed to retrieve printer settings"
 msgstr "C'hwitadenn war gaout arventennoù ho moullerez"
 
-msgid "Save as"
-msgstr "Enrollañ dindan"
-
 msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Restroù PostScript (*.ps);;An holl restroù (*)"
 
@@ -2981,7 +3161,8 @@ msgstr "Alberz ar stiloù rannbennad"
 msgid "Background"
 msgstr "Drekleur"
 
-msgid "Select for easier reading of light coloured text styles"
+#, fuzzy
+msgid "Select for easier reading of light colored text styles"
 msgstr "Aesaat a ra al lenn eus ar stiloù testenn livet skañv"
 
 msgid "Name of your paragraph style"
@@ -3025,6 +3206,9 @@ msgstr "Klikañ da ziuzañ mod etremeziañ al linenn"
 
 msgid "Toggles sample text of this paragraph style"
 msgstr "Diskouez ur skouer eus ar stil rannbennad-mañ"
+
+msgid "Auto"
+msgstr "Emgefreek"
 
 msgid "Name of the style is not unique"
 msgstr "An anv stil-mañ zo anezhañ endeo"
@@ -3214,10 +3398,11 @@ msgstr "Ouzh&pennañ..."
 msgid "&Remove"
 msgstr "Dive&rkañ"
 
+#, fuzzy
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set in File > Preferences, and only when there "
+"is no document currently open. Close any open documents, then use File > "
+"Preferences > Fonts to change the font search path."
 msgstr ""
 "Treugoù haeziñ an nodrezhioù a c'hall bezañ kefluniet er gwellvezioù hepken, "
 "gant teul digor ebet. Serrit an holl deulioù digor ha grit gant al lañser "
@@ -3583,6 +3768,16 @@ msgstr "Skouer ar benveg skeudenniñ :"
 msgid "Camera Manufacturer:"
 msgstr "Oberier ar benveg skeudenniñ :"
 
+#, fuzzy
+msgid "Exposure time"
+msgstr "E&xporter"
+
+msgid "Aperture:"
+msgstr ""
+
+msgid "ISO equiv.:"
+msgstr ""
+
 msgid "Scanner Model:"
 msgstr "Skouer ar c'hwilerver :"
 
@@ -3594,6 +3789,23 @@ msgstr "Niver a rankoù :"
 
 msgid "Number of columns:"
 msgstr "Niver a vannoù :"
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
+msgstr ""
 
 msgid "Insert Page"
 msgstr "Enlakaat pajenn(où)"
@@ -3698,6 +3910,10 @@ msgstr "Nederlandeg"
 msgid "English"
 msgstr "Saozneg"
 
+#, fuzzy
+msgid "English (Australian)"
+msgstr "Saozneg (Breizhveurek)"
+
 msgid "English (British)"
 msgstr "Saozneg (Breizhveurek)"
 
@@ -3753,10 +3969,6 @@ msgstr "Lituanieg"
 
 msgid "Luxembourgish"
 msgstr "Luksembourgeg"
-
-#, fuzzy
-msgid "Norwegian (Bokmål)"
-msgstr "Norvegieg bokmål"
 
 msgid "Norwegian (Nnyorsk)"
 msgstr "Norvegieg nynorsk"
@@ -3933,6 +4145,9 @@ msgid ""
 msgstr ""
 "Enporzhiañ ar marzioù evit ar pajennoù diuzet diouzh ar moullerezed hegerz."
 
+msgid "Margin Guides"
+msgstr "Dealfoù ar marzioù"
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "Esaouiñ etre ar marz uhel ha riblenn ar bajenn"
 
@@ -3990,9 +4205,6 @@ msgstr ""
 
 msgid "Manage Page Properties"
 msgstr "Ardeiñ perzhioù ar bajennad"
-
-msgid "Margin Guides"
-msgstr "Dealfoù ar marzioù"
 
 #, fuzzy
 msgid "Other Settings"
@@ -4404,13 +4616,12 @@ msgstr ""
 "Arverañ riblenn ur voest tro-dro dezhi e-lec'h trolinenn ar stern evit "
 "riklañ an destenn."
 
-#, fuzzy
 msgid ""
-"Use a second line originally based on the frame's shape for text flow of "
-"text frames below the object. "
+"When chosen, the contour line can be edited with the Edit Shape Tool on the "
+"palette further above. When edited via the shape palette, this becomes a "
+"second separate line originally based on the frame's shape for text flow of "
+"text frames below the object. T"
 msgstr ""
-"Arverañ un eil linenn diazezet war trolinennoù an ergorenn evit riklañ an "
-"destenn"
 
 msgid "Scaling width of characters"
 msgstr "Skeulaat led an arouezennoù"
@@ -4443,6 +4654,10 @@ msgstr "Peurvec'hiadur liv an destenn"
 
 msgid "Right to Left Writing"
 msgstr "Skritur a zehou da gleiz"
+
+#, fuzzy
+msgid "Click and hold down to select the line spacing mode."
+msgstr "Klikañ da ziuzañ mod etremeziañ al linenn"
 
 msgid "Style of current paragraph"
 msgstr "Stil ar rannbennad bremanel"
@@ -4550,6 +4765,14 @@ msgstr "Linenn kemmesket poent-gourzhell"
 msgid "Dash Dot Dot Line"
 msgstr "Linenn kemmesket gourzhell-poent-poent"
 
+#, fuzzy
+msgid "&Horizontal Gap:"
+msgstr "A-zremm : "
+
+#, fuzzy
+msgid "&Vertical Gap:"
+msgstr "A-serzh :"
+
 msgid "Edit Master Pages"
 msgstr "Embann ar patromoù"
 
@@ -4646,6 +4869,12 @@ msgstr ""
 msgid "Distance between automatically created columns"
 msgstr "Esaou etre ar bannoù bet krouet ent emgefreek"
 
+msgid "Page Layout"
+msgstr "Pajennaozañ"
+
+msgid "First Page is:"
+msgstr "Ar bajenn gentañ zo :"
+
 msgid "N&umber of Pages:"
 msgstr "Niver a ba&jennoù :"
 
@@ -4657,6 +4886,23 @@ msgstr "Sterniadoù testenn emgefreek"
 
 msgid "&Gap:"
 msgstr "&Esaouenn  :"
+
+msgid "Show Document Settings After Creation"
+msgstr ""
+
+#, fuzzy
+msgid "Origin"
+msgstr "Nodrezh a orin"
+
+msgid "Size"
+msgstr "Ment"
+
+msgid "Height:"
+msgstr "Hauteur :"
+
+#, fuzzy
+msgid "Remember Values"
+msgstr "Derc'hel soñj eus ar c'hevreadur"
 
 msgid "Master Page "
 msgstr "Patrom"
@@ -4678,12 +4924,6 @@ msgstr "Treugtestenn"
 
 msgid "Copy of"
 msgstr "Eilad eus"
-
-msgid "Page Layout"
-msgstr "Pajennaozañ"
-
-msgid "First Page is:"
-msgstr "Ar bajenn gentañ zo :"
 
 msgid "%1 of %1"
 msgstr "%1 diwar %1"
@@ -4779,6 +5019,10 @@ msgstr "Comm10E"
 msgid "DLE"
 msgstr "DLE"
 
+#, fuzzy
+msgid "Loading Patterns"
+msgstr "Pages en regard"
+
 msgid "Saving PDF"
 msgstr "Oc'h enrollañ e PDF"
 
@@ -4792,6 +5036,10 @@ msgstr "Oc'h ezporzhiañ pajennoù :"
 
 msgid "Exporting Items on Current Page:"
 msgstr "Oc'h ezporzhiañ ergorennoù war ar bajenn vremanel :"
+
+#, fuzzy
+msgid "Date:"
+msgstr "D&eiziad :"
 
 msgid "Could not open output file %1"
 msgstr "N'haller ket digeriñ ar restr ec'hankañ : %1"
@@ -4892,11 +5140,9 @@ msgstr "Stad"
 msgid "Case insensitive search"
 msgstr ""
 
-msgid ""
-"The filesystem will be searched for case insensitive file names when you "
-"check this on. Remember it is not default on most operating systems except "
-"MS Windows"
-msgstr ""
+#, fuzzy
+msgid "Show thumbnails"
+msgstr "Skeudenni&g(où)"
 
 #, fuzzy
 msgid "Search Directory"
@@ -4908,6 +5154,15 @@ msgstr "Serriñ"
 msgid ""
 "Set a new location for the selected items. Useful when you may have moved "
 "the document but not the images."
+msgstr ""
+
+msgid "Show/hide image thumbnails"
+msgstr ""
+
+msgid ""
+"The filesystem will be searched for case insensitive file names when you "
+"check this on. Remember it is not default on most operating systems except "
+"MS Windows"
 msgstr ""
 
 msgid "Missing"
@@ -5049,6 +5304,9 @@ msgstr "Hosk"
 
 msgid "Fonts"
 msgstr "Nodrezhioù"
+
+msgid "Printer"
+msgstr "Moullerez"
 
 msgid "Color Management"
 msgstr "Ardeiñ al livioù"
@@ -5196,10 +5454,6 @@ msgstr "Amdreiñ da"
 
 msgid "Scaling:"
 msgstr "O skeulaat :"
-
-#, fuzzy
-msgid "Fit to Width"
-msgstr "Taille de la fenêtre"
 
 #, fuzzy
 msgid "Fit to Height"
@@ -5381,9 +5635,6 @@ msgstr "Diuzit ur restr albom da enporzhiañ."
 
 msgid "Rename"
 msgstr "Adenvel"
-
-msgid "Delete"
-msgstr "Diverkañ"
 
 #, fuzzy
 msgid "Copy To:"
@@ -5586,19 +5837,15 @@ msgstr "N'eo ket staliet aeladoù ICC zo, arveret en teul-mañ :"
 msgid "(converted)"
 msgstr "(amdroet)"
 
+msgid "Do you really want to clear all your text?"
+msgstr "Fellout a ra deoc'h dilemel ho testenn a-bezh ?"
+
 msgid ""
 "The changes to your document have not been saved and you have requested to "
 "revert them. Do you wish to continue?"
 msgstr ""
 "N'eo ket bet enrollet ar c'hemmoù en ho teul ha goulennet hoc'h eus ma vint "
 "distroet. Fellout a ra deoc'h kenderc'hel ganti ?"
-
-msgid ""
-"Cannot write the file: \n"
-"%1"
-msgstr ""
-"N'haller ket skrivañ ar restr : \n"
-"%1"
 
 #, fuzzy
 msgid "Documents (*.sla *.sla.gz);;All Files (*)"
@@ -5654,9 +5901,6 @@ msgstr "Restroù testenn (*.txt);;An holl restroù (*)"
 
 msgid "Convert Page to Master Page"
 msgstr "Amdreiñ ar bajennad da batrom"
-
-msgid "Size"
-msgstr "Ment"
 
 msgid "&Shade:"
 msgstr "&Arliv :"
@@ -5764,6 +6008,9 @@ msgstr "Ar restr %1 n'o ket anezhi, o tilezel."
 msgid "Usage: scribus [option ... ] [file]"
 msgstr "Arver : scribus [dibarzh ...·]·[restr]"
 
+msgid "Show information on the console when fonts are being loaded"
+msgstr "Diskouez ar stlennoù war ar penel e-pad kargadur an nodrezhioù"
+
 msgid "Print help (this message) and exit"
 msgstr "Moullañ ar skoazell (an destenn-mañ) ha kuitaat"
 
@@ -5773,9 +6020,6 @@ msgstr "Arverañ a ra xx evel berradenn evit ur yezh, da sk. `en' pe `de'"
 msgid "List the currently installed interface languages"
 msgstr "Diskouez ar yezhoù hegerz evit ar c'hetal"
 
-msgid "Show information on the console when fonts are being loaded"
-msgstr "Diskouez ar stlennoù war ar penel e-pad kargadur an nodrezhioù"
-
 msgid "Do not show the splashscreen on startup"
 msgstr "Na ziskouez ket ar skrammad degemer e-pad al loc'hañ"
 
@@ -5784,13 +6028,15 @@ msgid ""
 "called .neversplash in ~/.scribus."
 msgstr ""
 
-msgid ""
-"Download a file from the Scribus website and show the latest available "
-"version."
-msgstr ""
+msgid "filename"
+msgstr "Anv ar restr"
 
-msgid "Output version information and exit"
-msgstr "Diskouez stlennoù a-fet an handelv ha kuitaat"
+msgid "Use filename as path for user given preferences"
+msgstr "Arverañ anv ar restr evel un treug evit gwellvezioù un arveriad roet"
+
+#, fuzzy
+msgid "Show location ICC profile information on console while starting"
+msgstr "Diskouez ar stlennoù war ar penel e-pad kargadur an nodrezhioù"
 
 msgid ""
 "Use right to left dialog button ordering (eg. Cancel/No/Yes instead of Yes/"
@@ -5799,11 +6045,13 @@ msgstr ""
 "Kempenn afelloù ar voestad a zehou da gleiz (da sk. Dilezel/Ket/Ya e-lec'h "
 "Ya/Ket/Dilezel)"
 
-msgid "filename"
-msgstr "Anv ar restr"
+msgid ""
+"Download a file from the Scribus website and show the latest available "
+"version."
+msgstr ""
 
-msgid "Use filename as path for user given preferences"
-msgstr "Arverañ anv ar restr evel un treug evit gwellvezioù un arveriad roet"
+msgid "Output version information and exit"
+msgstr "Diskouez stlennoù a-fet an handelv ha kuitaat"
 
 msgid "Display a console window"
 msgstr ""
@@ -5854,6 +6102,14 @@ msgid "Font System Initialized"
 msgstr "Ardeiñ an nodrezhioù gweredekaet"
 
 #, fuzzy
+msgid "Default Paragraph Style"
+msgstr "Stil ar rannbennad"
+
+#, fuzzy
+msgid "Default Character Style"
+msgstr "Arouezenn arbennik"
+
+#, fuzzy
 msgid ""
 "An error occurred while opening ICC profiles, color management is not "
 "enabled."
@@ -5863,9 +6119,6 @@ msgstr ""
 
 msgid "New Layer"
 msgstr "Treuzfollenn nevez"
-
-msgid "Do you really want to clear all your text?"
-msgstr "Fellout a ra deoc'h dilemel ho testenn a-bezh ?"
 
 msgid "Cannot Delete In-Use Item"
 msgstr "N'haller ket diverkañ un ergorenn war arver"
@@ -5912,20 +6165,10 @@ msgid ""
 "You can choose between normal and several color blindness forms"
 msgstr ""
 
-msgid "Normal Vision"
-msgstr "Gweled skoueriek"
-
-msgid "Protanopia (Red)"
-msgstr "Dallded gant ar ruz"
-
-msgid "Deuteranopia (Green)"
-msgstr "Dallded gant ar gwer"
-
-msgid "Tritanopia (Blue)"
-msgstr "Dallded gant ar glas"
-
-msgid "Full Color Blindness"
-msgstr "Daltonelezh"
+msgid ""
+"CMS is active. Therefore the color display may not match the perception by "
+"visually impaired"
+msgstr ""
 
 msgid "Copy Here"
 msgstr "Eilañ amañ"
@@ -5984,6 +6227,10 @@ msgstr "Live"
 
 msgid "Conve&rt to"
 msgstr "Amd&reiñ da"
+
+#, fuzzy
+msgid "Enter Object Size"
+msgstr "Déverro&uiller les dimensions de l'objet"
 
 msgid "Linking Text Frames"
 msgstr "Oc'h eren ar sterniadoù testenn"
@@ -6139,6 +6386,38 @@ msgid "Other..."
 msgstr "All..."
 
 #, fuzzy
+msgid "Add a new line"
+msgstr "Krouiñ un dreuzfollenn nevez"
+
+#, fuzzy
+msgid "Remove a line"
+msgstr "&Diverkañ al livioù diarver"
+
+#, fuzzy
+msgid "Line style"
+msgstr "Stil al linenn :"
+
+#, fuzzy
+msgid "Line width"
+msgstr "Tevder al linenn"
+
+#, fuzzy
+msgid "End style"
+msgstr "Embann ar stil"
+
+#, fuzzy
+msgid "Join style"
+msgstr "Stil ebet"
+
+#, fuzzy
+msgid "Line color"
+msgstr "Liv al linenn :"
+
+#, fuzzy
+msgid "Line shade"
+msgstr "Dibunañ"
+
+#, fuzzy
 msgid "Line Styles"
 msgstr "Stil al linenn :"
 
@@ -6171,6 +6450,58 @@ msgid "Character Style"
 msgstr "Arouezenn arbennik"
 
 #, fuzzy
+msgid "Parent style"
+msgstr "St&il nodrezh"
+
+#, fuzzy
+msgid "Line spacing mode"
+msgstr "Etrelinennañ"
+
+#, fuzzy
+msgid "Line spacing"
+msgstr "Etrelinennañ"
+
+#, fuzzy
+msgid "Space above"
+msgstr "Esaouioù"
+
+#, fuzzy
+msgid "Space below"
+msgstr "Esaouioù"
+
+#, fuzzy
+msgid "Enable or disable drop cap"
+msgstr "Gweredekaat moullañ an ergorenn pe get"
+
+#, fuzzy
+msgid "Drop cap lines"
+msgstr "Pennletrennoù"
+
+#, fuzzy
+msgid "Drop cap offset"
+msgstr "Pennletrennoù"
+
+#, fuzzy
+msgid "Alignment"
+msgstr "Des&teudadur"
+
+#, fuzzy
+msgid "First line indent"
+msgstr "Ilrezenn  linennek dieub"
+
+#, fuzzy
+msgid "Left indent"
+msgstr "R&etrait à gauche :"
+
+#, fuzzy
+msgid "Right indent"
+msgstr "Côtés droits"
+
+#, fuzzy
+msgid "Tabulators"
+msgstr "&Taolennata..."
+
+#, fuzzy
 msgid "Parent"
 msgstr "Moullañ"
 
@@ -6183,8 +6514,69 @@ msgid "Based on"
 msgstr "Poent dave :"
 
 #, fuzzy
-msgid "Parent's Character Style"
-msgstr "Spletad arouezennoù klok"
+msgid "Font face"
+msgstr "Anv an nodrezh"
+
+#, fuzzy
+msgid "Font size"
+msgstr "Ment an nodrezh"
+
+#, fuzzy
+msgid "Tracking"
+msgstr "&Interlettrage :"
+
+#, fuzzy
+msgid "Baseline offset"
+msgstr "&Linkadur ar gael lizherennerezh :"
+
+#, fuzzy
+msgid "Horizontal scaling"
+msgstr "Skeulaat a-&zremm :"
+
+#, fuzzy
+msgid "Vertical scaling"
+msgstr "Skeulaat a-&serzh :"
+
+#, fuzzy
+msgid "Language"
+msgstr "&Yezh :"
+
+#, fuzzy
+msgid "Fill color"
+msgstr "Liv leuniañ"
+
+#, fuzzy
+msgid "Fill shade"
+msgstr "Arliv leuniañ"
+
+#, fuzzy
+msgid "Stroke color"
+msgstr "Liv an drolinenn"
+
+#, fuzzy
+msgid "Stroke shade"
+msgstr "Arliv an drolinenn"
+
+#, fuzzy
+msgid "Use Parent Value"
+msgstr "Zo Kar Da "
+
+msgid "P"
+msgstr ""
+
+msgid "Use parent style's alignment instead of overriding it"
+msgstr ""
+
+msgid "Use parent style's effects instead of overriding them"
+msgstr ""
+
+#, fuzzy
+msgid "Use Parent Font"
+msgstr "Arverañ an nodrezh"
+
+#, fuzzy
+msgid " Parent Tabs "
+msgstr "Zo Kar Da "
 
 msgid "Edit Styles..."
 msgstr "Embann ar stiloù..."
@@ -6276,19 +6668,20 @@ msgstr "Enrollañ an daskemmadurioù ?"
 msgid "Do you really want to lose all your changes?"
 msgstr "Fellout a ra deoc'h dilezel ho taskemmadurioù holl ?"
 
-msgid "&Reset"
-msgstr "Adderaouekaat"
+#, fuzzy
+msgid "Shortcut"
+msgstr "Rummata"
 
-msgid "<< &Done"
+msgid "Apply all changes and exit edit mode"
 msgstr ""
 
 #, fuzzy
-msgid "&Edit >>"
-msgstr "&Embann"
+msgid "Edit styles"
+msgstr "Embann ar stiloù"
 
 #, fuzzy
-msgid "&Clone"
-msgstr "&Serriñ"
+msgid "Name of the selected style"
+msgstr "Dilemel ar patrom diuzet"
 
 #, fuzzy
 msgid "Reset all changes"
@@ -6297,9 +6690,6 @@ msgstr "Ezporzhiañ an holl bajennoù"
 #, fuzzy
 msgid "Apply all changes"
 msgstr "Seveniñ d'an holl bajennoù :"
-
-msgid "Apply all changes and exit edit mode"
-msgstr ""
 
 #, fuzzy
 msgid "Create a new style"
@@ -6317,6 +6707,20 @@ msgstr "Nodrezh an destenn diuzet"
 msgid "Delete selected styles"
 msgstr "Dilemel ar patrom diuzet"
 
+msgid "&Reset"
+msgstr "Adderaouekaat"
+
+msgid "<< &Done"
+msgstr ""
+
+#, fuzzy
+msgid "&Edit >>"
+msgstr "&Embann"
+
+#, fuzzy
+msgid "&Clone"
+msgstr "&Serriñ"
+
 #, fuzzy
 msgid "Import"
 msgstr "&Enporzhiañ"
@@ -6330,12 +6734,19 @@ msgid "Send to Scrapbook"
 msgstr "Kas d'an alb&om"
 
 #, fuzzy
+msgid "New %1"
+msgstr "Nevez"
+
+#, fuzzy
 msgid "&Done"
 msgstr "K&lonañ"
 
+msgid "This key sequence is already in use"
+msgstr "Arveret eo ar verradenn-mañ endeo"
+
 #, fuzzy
-msgid "Shortcut"
-msgstr "Rummata"
+msgid "More than one style selected"
+msgstr "Meur a ergorenn bet diuzet"
 
 msgid "&No Key"
 msgstr "&Berradenn ebet"
@@ -6348,6 +6759,16 @@ msgstr "Alt+Pennlz+T"
 
 msgid "Set &Key"
 msgstr "&Despizañ ar verradenn"
+
+#, fuzzy
+msgid "No shortcut for the style"
+msgstr "Na arverañ ket ar stil linenn personelaet"
+
+msgid "Style has user defined shortcut"
+msgstr ""
+
+msgid "Assign a shortcut for the style"
+msgstr ""
 
 msgid "Alt"
 msgstr "Alt"
@@ -6372,9 +6793,6 @@ msgstr "Alt+"
 
 msgid "Ctrl+"
 msgstr "Ctrl+"
-
-msgid "Auto"
-msgstr "Emgefreek"
 
 msgid "Displacement"
 msgstr "Delec'hiadur"
@@ -6442,13 +6860,15 @@ msgstr "Gwiriadur emgefreek kent moullañ pe ezporzhiañ"
 msgid "Check for missing glyphs"
 msgstr "Gwiriadur an arouezennoù a vank"
 
-msgid "Check for objects not on a page"
+#, fuzzy
+msgid "Check for items not on a page"
 msgstr "Gwiriadur an ergorennoù er-maez eus ar bajenn"
 
 msgid "Check for overflow in text frames"
 msgstr "Gwiriadur moned dreist an destenn er sterniadoù testenn"
 
-msgid "Check for transparencies used"
+#, fuzzy
+msgid "Check for used transparencies"
 msgstr "Gwiriadur an treuzwelusterioù arveret"
 
 msgid "Check for missing images"
@@ -6485,6 +6905,74 @@ msgstr "Ouzhpennañ un aelad"
 
 msgid "Remove Profile"
 msgstr "Dilemel un aelad"
+
+msgid "Color for paper"
+msgstr "Liv ar paper"
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr "Masklañ ar maez dreist ar marzioù gant o liv dezho"
+
+msgid "Enable or disable  the display of linked frames."
+msgstr "(Diw)Gweredekaat skrammadur ar sterniadoù testenn bet ereet."
+
+msgid ""
+"Display non-printing characters such as paragraph markers in text frames"
+msgstr ""
+"Skrammañ an arouezennoù anmoullus evel merkerioù ar rannennadoù er "
+"sterniadoù testenn"
+
+msgid "Turns the display of frames on or off"
+msgstr "(Diw)Gweredekaat skrammadur trolinennoù ar sternioù"
+
+#, fuzzy
+msgid "Turns the display of layer indicators on or off"
+msgstr "(Diw)Gweredekaat skrammadur  trolinennoù ar skeudennoù"
+
+msgid "Turns the display of pictures on or off"
+msgstr "(Diw)Gweredekaat skrammadur  trolinennoù ar skeudennoù"
+
+msgid ""
+"Defines amount of space left of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+"Despizañ a ra kementad a egor hegerz war an tu kleiz eus an teul evel maez "
+"labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad "
+"war arver"
+
+msgid ""
+"Defines amount of space right of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+"Despizañ a ra kementad a egor hegerz war an tu dehou eus an teul evel maez "
+"labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad "
+"war arver"
+
+msgid ""
+"Defines amount of space above the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+"Despizañ a ra kementad a egor hegerz war lein an teul evel maez labourat "
+"evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad war arver"
+
+msgid ""
+"Defines amount of space below the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+"Despizañ a ra kementad a egor hegerz war draoñ an teul evel maez labourat "
+"evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad war arver"
+
+msgid "Set the default zoom level"
+msgstr "Kefluniañ live ar zoum dre ziouer"
+
+msgid ""
+"Place a ruler against your screen and drag the slider to set the zoom level "
+"so Scribus will display your pages and objects on them at the correct size"
+msgstr ""
+"Lakait ur reolenn war ho skramm ha dilec'hiit ar reti a-benn tizhout al live "
+"zoum o reiñ tu da Scribus da skrammañ ar pajennadoù hag an ergorennoù a vo "
+"warno gant ar vent dereat"
 
 msgid "Units:"
 msgstr "Unanennoù :"
@@ -6709,9 +7197,6 @@ msgstr " pks"
 msgid "Key Set XML Files (*.ksxml)"
 msgstr "Restroù berradennoù XML (*.ksxml)"
 
-msgid "This key sequence is already in use"
-msgstr "Arveret eo ar verradenn-mañ endeo"
-
 msgid "Manage Tabulators"
 msgstr "Ardeiñ an taolennata"
 
@@ -6790,12 +7275,6 @@ msgstr "Adstandil&honañ ar skeudennoù dre :"
 msgid "&General"
 msgstr "&Hollek"
 
-msgid "&Embed all Fonts"
-msgstr "Enkorfañ an holl nodrezhioù"
-
-msgid "&Subset all Fonts"
-msgstr "Speladoù darnel eus an holl nodrezhioù"
-
 msgid "Embedding"
 msgstr "Oc'h enkorfañ"
 
@@ -6805,8 +7284,17 @@ msgstr "Nodrezhioù hegerz :"
 msgid "Fonts to embed:"
 msgstr "Nodrezhioù da enkorfañ :"
 
-msgid "Fonts to subset:"
+#, fuzzy
+msgid "&Embed all"
+msgstr "Enkorfañ an holl nodrezhioù"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "Nodrezhioù darnel :"
+
+#, fuzzy
+msgid "&Outline all"
+msgstr "St&euñv an teuliad"
 
 msgid "&Fonts"
 msgstr "&Nodrezhioù"
@@ -6971,9 +7459,6 @@ msgstr "&Ec'hank gortozet dre :"
 msgid "Screen / Web"
 msgstr "Skramm / Web"
 
-msgid "Printer"
-msgstr "Moullerez"
-
 msgid "&Use Custom Rendering Settings"
 msgstr "&Arverañ arventennoù deouez personelaet"
 
@@ -7019,6 +7504,10 @@ msgstr "Na arverañ an aeladoù ICC enkorfet"
 msgid "C&olor"
 msgstr "&Liv"
 
+#, fuzzy
+msgid "Page Information"
+msgstr "Stlennoù"
+
 msgid "PDF/X-3 Output Intent"
 msgstr "Ec'hank PDF/X-3"
 
@@ -7028,11 +7517,9 @@ msgstr "Arroudennad kel :"
 msgid "Output &Profile:"
 msgstr "Aelad e&c'hankañ :"
 
-msgid "Trim Box"
-msgstr "Boest didroc'hañ"
-
-msgid "PDF/X-&3"
-msgstr "PD&F/X-3"
+#, fuzzy
+msgid "Pre-Press"
+msgstr "Araokadur"
 
 msgid ""
 "Embed fonts into the PDF. Embedding the fonts will preserve the layout and "
@@ -7080,6 +7567,10 @@ msgstr "Tuadur evit an efedoù strinkellikat pe zilemel."
 
 msgid "Apply the selected effect to all pages."
 msgstr "Seveniñ an efed diuzet d'an holl bajennadoù."
+
+#, fuzzy
+msgid "Convert all glyphs in the document to outlines."
+msgstr "N'haller ket amdreiñ ur sterniad antestenn da drolinennoù."
 
 msgid "Export all pages to PDF"
 msgstr "Ezporzhiañ an holl bajennadoù da PDF"
@@ -7163,12 +7654,13 @@ msgstr ""
 "Koazhadur hep koll eus an testennoù hag an ergorennoù kevregat. Hep abeg "
 "dibar, da leuskel gweredekaet. Reiñ a ra tu da vihanaat ment ar restr PDF."
 
+#, fuzzy
 msgid ""
 "Method of compression to use for images. Automatic allows Scribus to choose "
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 "Rizh koazhañ evit ar skeudennoù. Emgefreek a laosk Scribus da zibab an doare "
 "gwellañ. ZIP evit ur c'hoazhadur hep koll. JPEG a ro tu da vihanaat ment ar "
@@ -7177,11 +7669,13 @@ msgstr ""
 "dibar evit ar c'hoazhañ. Tizhout a ra an dibarzh-mañ ar skeudennoù o "
 "mentrezh PDF hepken."
 
+#, fuzzy
 msgid ""
 "Compression quality levels for lossy compression methods: Minimum (25%), Low "
 "(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
 "does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"quality loss vary from image to image at any given quality level. Even with "
+"Maximum selected, there is always some quality loss with jpeg."
 msgstr ""
 "Live perzhded ar c'hoazhañ evit an hentennoù koazhañ gant kolloù : izek "
 "(25%), krenn (75 %), uhel (85%), uc'hek (95%). Meizit n'eo ket liammet dre "
@@ -7300,18 +7794,6 @@ msgstr ""
 "Hedad ret evit PDF/X-3 a-hend-all ne vo ket sur ar genfurmded PDF/X-3. Ober "
 "gant titl an teul zo erbedet."
 
-msgid "Distance for bleed from the top of the physical page"
-msgstr "Regad da skarzhañ e lein ar bajenn"
-
-msgid "Distance for bleed from the bottom of the physical page"
-msgstr "Regad da skarzhañ e traoñ ar bajenn"
-
-msgid "Distance for bleed from the left of the physical page"
-msgstr "Regad da skarzhañ a-gleiz eus ar bajenn"
-
-msgid "Distance for bleed from the right of the physical page"
-msgstr "Regad da skarzhañ a-zehou eus ar bajenn"
-
 msgid "Mirror Page(s) horizontally"
 msgstr "Melezour a-zremm ar bajenn(où)"
 
@@ -7358,12 +7840,6 @@ msgstr "Pukad kleiz evit ar rannbennad a-bezh"
 
 msgid "Delete all Tabulators"
 msgstr "Diverkañ an holl daolennatadurioù"
-
-msgid "Custom:"
-msgstr "Personelaat :"
-
-msgid "Custom: "
-msgstr "Personelaet :"
 
 msgid "Text Color:"
 msgstr "Liv an destenn : "
@@ -7479,19 +7955,19 @@ msgid "&Stepping:"
 msgstr "Araokadur :"
 
 #, fuzzy
-msgid "Misc. Settings"
-msgstr "Arventennoù skrammañ"
+msgid "Miscellaneous Settings"
+msgstr "Arouezennoù liesseurt"
 
 #, fuzzy
-msgid "Object Duplicate"
-msgstr "Dupliquer"
+msgid "Item Duplicate"
+msgstr "Arre&daoliñ"
 
 #, fuzzy
-msgid "X-Displacement"
+msgid "X Displacement"
 msgstr "Delec'hiadur"
 
 #, fuzzy
-msgid "Y-Displacement"
+msgid "Y Displacement"
 msgstr "Delec'hiadur"
 
 #, fuzzy
@@ -7600,14 +8076,14 @@ msgid "Width of lines"
 msgstr "Tevder al linennoù"
 
 #, fuzzy
-msgid "Horizontal displacement of objects"
+msgid "Horizontal displacement of page items"
 msgstr "Skeulaat a-zremm ar skeudennoù"
 
 #, fuzzy
-msgid "Vertical displacement of objects"
+msgid "Vertical displacement of page items"
 msgstr "Skeulaat a-serzh ar skeudennoù"
 
-msgid "Constrain value for the rotation tool when the CTRL-Key is pressed"
+msgid "Constrain value for the rotation tool when the Control key is pressed"
 msgstr ""
 
 msgid "&Displacement:"
@@ -7873,9 +8349,6 @@ msgstr "Kavlec'hiadoù"
 msgid "Save"
 msgstr "Enrollañ"
 
-msgid "Error"
-msgstr "Fazi"
-
 msgid ""
 "%1\n"
 "File not found.\n"
@@ -8001,6 +8474,10 @@ msgstr "Arloañ"
 
 msgid "Select Font"
 msgstr "Diuzañ un nodrezh"
+
+#, fuzzy
+msgid "Free items"
+msgstr "Dieubiñ an ergorennoù"
 
 msgid "Group "
 msgstr "Kevrediñ"
@@ -8381,6 +8858,14 @@ msgstr "Adderaouekaat ar poentoù reoliñ"
 msgid "Apply image effects"
 msgstr "Efedoù war skeudennoù"
 
+#, fuzzy
+msgid "Insert frame"
+msgstr "Enlakaat ur sterniad testenn"
+
+#, fuzzy
+msgid "Adjust frame to the image size"
+msgstr "Azasaat ar framm diouzh ar skeudenn"
+
 msgid " mm"
 msgstr " mm"
 
@@ -8461,6 +8946,9 @@ msgid "No updates are available for your version of Scribus %1"
 msgstr ""
 
 msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
 msgstr ""
 
 msgid "Please visit www.scribus.net for details."
@@ -8745,6 +9233,15 @@ msgid "Position of Frame"
 msgstr "Sterniad bukenn :"
 
 #, fuzzy
+msgid "Top Left of Margins"
+msgstr "A-gleiz"
+
+msgid ""
+"Selecting this places the frame in the upper left of the page margins "
+"defined in your doc setup."
+msgstr ""
+
+#, fuzzy
 msgid "Top Left of Page"
 msgstr "Pajenn gleiz"
 
@@ -8752,12 +9249,12 @@ msgid "Selecting this puts the frame on the top left with postion 0,0"
 msgstr ""
 
 #, fuzzy
-msgid "Top Left of Margins"
-msgstr "A-gleiz"
+msgid "Top Left of Bleed"
+msgstr "Pajenn gleiz"
 
 msgid ""
-"Selecting this places the frame in the upper left of the page margins "
-"defined in your doc setup."
+"Selecting this places the frame in the upper left of the page bleed defined "
+"in your doc setup."
 msgstr ""
 
 #, fuzzy
@@ -8772,19 +9269,24 @@ msgid "&Location"
 msgstr "&C'hwelañ :"
 
 #, fuzzy
-msgid "Same as the Page"
-msgstr "Patrom nevez"
-
-#, fuzzy
 msgid "Same as the Page Margins"
 msgstr "Stagañ ouzh ar marzioù"
 
 #, fuzzy
+msgid "Same as the Page"
+msgstr "Patrom nevez"
+
+#, fuzzy
+msgid "Same as the Bleed"
+msgstr "Patrom nevez"
+
+#, fuzzy
+msgid "Same as the Imported Image"
+msgstr "Patrom nevez"
+
+#, fuzzy
 msgid "Custom Size:"
 msgstr "Personelaat..."
-
-msgid "Height:"
-msgstr "Hauteur :"
 
 #, fuzzy
 msgid "Source Image:"
@@ -8799,16 +9301,16 @@ msgid "There are no options for this type of frame"
 msgstr "Arverañ kenfeurioù ar skeudenn kentoc'h eget re ar stern"
 
 #, fuzzy
-msgid "Source Document:"
-msgstr "Enrollañ an &teul"
-
-#, fuzzy
 msgid "Columns:"
 msgstr "Ba&nnoù :"
 
 #, fuzzy
 msgid "Link Created Frames"
 msgstr "Ereañ ar sterniadoù testenn"
+
+#, fuzzy
+msgid "Source Document:"
+msgstr "Enrollañ an &teul"
 
 #, fuzzy
 msgid "&Options"
@@ -8843,15 +9345,6 @@ msgstr "Niver a vannoù :"
 msgid "By &Rows && Columns"
 msgstr ""
 
-msgid "Progress"
-msgstr "Araokadur"
-
-msgid "Overall Progress:"
-msgstr "Araokadur a-bezh : "
-
-msgid "Page Item Attributes"
-msgstr "Doareennoù ergorenn ar bajenn"
-
 #, fuzzy
 msgid "Patterns"
 msgstr "Skritelloù"
@@ -8863,6 +9356,19 @@ msgstr "&Kargañ"
 #, fuzzy
 msgid "Load Set"
 msgstr "Kargañ ?"
+
+#, fuzzy
+msgid "Remove All"
+msgstr "Diverkañ"
+
+msgid "Progress"
+msgstr "Araokadur"
+
+msgid "Overall Progress:"
+msgstr "Araokadur a-bezh : "
+
+msgid "Page Item Attributes"
+msgstr "Doareennoù ergorenn ar bajenn"
 
 msgid "LineStyleWBase"
 msgstr "LineStyleWBase"
@@ -8904,38 +9410,14 @@ msgstr "&Dilezel"
 msgid "Alt+N"
 msgstr "Alt+N"
 
-#, fuzzy
-msgid "name"
-msgstr "Adenvel"
-
-msgid "shortcut"
-msgstr ""
-
 msgid "Style Manager"
 msgstr "Ardoer ar stiloù"
-
-msgid "Please select a unique name for the style"
-msgstr ""
 
 #, fuzzy
 msgid "Alt+R"
 msgstr "Alt+"
 
-msgid ""
-"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
-"a defined position with the formatting you choose. You may select a text "
-"file on the Options tab if you want to immediately import a document into "
-"the frame. Scribus supports a wide variety of importable format from plain "
-"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
-"page directly or in the simple Story Editor."
-msgstr ""
-
-msgid ""
-"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
-"onto your page. Various image effects may be applied or combined including "
-"transparencies, brightness, posterisation that allow retouching or the "
-"creation of interesting visual results. Image scaling and shaping is "
-"performed with the Properties Palette."
+msgid "Please select a unique name for the style"
 msgstr ""
 
 #, fuzzy
@@ -8963,6 +9445,10 @@ msgstr "Diskouez ar sternioù"
 
 msgid "Display &Unprintable Area in Margin Color"
 msgstr "Skrammañ ar maezioù anmoullus, er marz liv"
+
+#, fuzzy
+msgid "Show Bleed Area"
+msgstr "Diskouez ar reolenn"
 
 msgid "Scratch Space"
 msgstr "Maez labourat"
@@ -9212,25 +9698,31 @@ msgid "Count of the Paragraphs:"
 msgstr "Kontañ ar rannbennadoù :"
 
 #, fuzzy
-msgid "Use Parent Value"
-msgstr "Zo Kar Da "
-
-msgid "P"
-msgstr ""
-
-msgid "Use parent style's alignment instead of overriding it"
-msgstr ""
-
-msgid "Use parent style's effects instead of overriding them"
-msgstr ""
+msgid "Alternative Printer Command"
+msgstr "Lanker all ar voullerez"
 
 #, fuzzy
-msgid "Use Parent Font"
-msgstr "Arverañ an nodrezh"
+msgid "Command:"
+msgstr "La&nker :"
 
 #, fuzzy
-msgid " Parent Tabs "
-msgstr "Zo Kar Da "
+msgid "Postscript Options"
+msgstr "Dibarzhioù moullañ"
+
+#, fuzzy
+msgid "Level 1"
+msgstr "Live"
+
+#, fuzzy
+msgid "Level 2"
+msgstr "Live"
+
+#, fuzzy
+msgid "Level 3"
+msgstr "Live"
+
+msgid "Marks && Bleeds"
+msgstr ""
 
 msgid "Send Copied Items Automatically to Scrapbook"
 msgstr ""
@@ -9254,114 +9746,26 @@ msgid "The minimum number is 1; the maximum us 100."
 msgstr ""
 
 #, fuzzy
-msgid "Curve Files (*.scu);;All Files (*)"
-msgstr "Restroù EPS (*.eps);;An holl restroù (*)"
+msgid "Hex"
+msgstr "Arliv"
 
 #, fuzzy
-msgid "Inverts the curve"
-msgstr "Enlakaat ur grommenn vBézier"
+msgid "Meaning"
+msgstr "Marzioù"
 
 #, fuzzy
-msgid "Resets the curve"
-msgstr "Adderaouekaat an destenn"
+msgid "Unicode Search"
+msgstr "Dilezel ar c'hlask"
 
-msgid "Switches between linear and cubic interpolation of the curve"
-msgstr ""
-
-msgid "Loads a curve"
-msgstr ""
-
-msgid "Saves this curve"
-msgstr ""
+#, fuzzy
+msgid "&Search:"
+msgstr "Kla&sk"
 
 msgid "Use Printer Margins"
 msgstr "Marzioù ho moullerez"
 
 msgid "Select &Printer:"
 msgstr "Diuzañ ur voullerez"
-
-msgid "Right:"
-msgstr "Dehou :"
-
-msgid "Color for paper"
-msgstr "Liv ar paper"
-
-msgid "Mask the area outside the margins in the margin color"
-msgstr "Masklañ ar maez dreist ar marzioù gant o liv dezho"
-
-msgid "Enable or disable  the display of linked frames."
-msgstr "(Diw)Gweredekaat skrammadur ar sterniadoù testenn bet ereet."
-
-msgid ""
-"Display non-printing characters such as paragraph markers in text frames"
-msgstr ""
-"Skrammañ an arouezennoù anmoullus evel merkerioù ar rannennadoù er "
-"sterniadoù testenn"
-
-msgid "Turns the display of frames on or off"
-msgstr "(Diw)Gweredekaat skrammadur trolinennoù ar sternioù"
-
-#, fuzzy
-msgid "Turns the display of layer indicators on or off"
-msgstr "(Diw)Gweredekaat skrammadur  trolinennoù ar skeudennoù"
-
-msgid "Turns the display of pictures on or off"
-msgstr "(Diw)Gweredekaat skrammadur  trolinennoù ar skeudennoù"
-
-msgid ""
-"Defines amount of space left of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-"Despizañ a ra kementad a egor hegerz war an tu kleiz eus an teul evel maez "
-"labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad "
-"war arver"
-
-msgid ""
-"Defines amount of space right of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-"Despizañ a ra kementad a egor hegerz war an tu dehou eus an teul evel maez "
-"labourat evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad "
-"war arver"
-
-msgid ""
-"Defines amount of space above the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-"Despizañ a ra kementad a egor hegerz war lein an teul evel maez labourat "
-"evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad war arver"
-
-msgid ""
-"Defines amount of space below the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-"Despizañ a ra kementad a egor hegerz war draoñ an teul evel maez labourat "
-"evit krouiñ ha daskemmañ an elfennoù ha kas anezho war ar bajennad war arver"
-
-msgid "Set the default zoom level"
-msgstr "Kefluniañ live ar zoum dre ziouer"
-
-msgid ""
-"Place a ruler against your screen and drag the slider to set the zoom level "
-"so Scribus will display your pages and objects on them at the correct size"
-msgstr ""
-"Lakait ur reolenn war ho skramm ha dilec'hiit ar reti a-benn tizhout al live "
-"zoum o reiñ tu da Scribus da skrammañ ar pajennadoù hag an ergorennoù a vo "
-"warno gant ar vent dereat"
-
-#, fuzzy
-msgid "Loading Patterns"
-msgstr "Pages en regard"
-
-#, fuzzy
-msgid "&Horizontal Gap:"
-msgstr "A-zremm : "
-
-#, fuzzy
-msgid "&Vertical Gap:"
-msgstr "A-serzh :"
 
 msgid "Freetype2 library not available"
 msgstr "Al levraoueg Freetype2 n'eo ket hegerz"
@@ -9555,6 +9959,9 @@ msgstr "Skoazeller evit arventenniñ al livioù"
 msgid "Color selector with color theory included."
 msgstr "Diuzer livioù gant damkaniezh al livioù gannet."
 
+msgid "Base Color"
+msgstr "Liv diazez"
+
 msgid "Monochromatic"
 msgstr "Unlivek"
 
@@ -9572,9 +9979,6 @@ msgstr "Trirannel"
 
 msgid "Tetradic (Double Complementary)"
 msgstr "Pevarrannel (doauglokaus)"
-
-msgid "Base Color"
-msgstr "Liv diazez"
 
 msgid "Monochromatic Light"
 msgstr "Unlivek sklaer"
@@ -9642,6 +10046,9 @@ msgstr ""
 "N'eo ket gouest da gavout al liv goulennet. Morvat hoc'h eus dibabet du, "
 "loued, gwenn. N'haller ket keweriañ ar liv-mañ."
 
+msgid "HSV"
+msgstr "Skouer livioù APL (HSV)"
+
 #, fuzzy
 msgid ""
 "Click the wheel to get the base color. Its color model depends on the chosen "
@@ -9650,15 +10057,7 @@ msgstr ""
 "Klikañ ar c'helc'hiad evit kaout al liv diazez. An arliv eo e mod APL (HSV)."
 
 #, fuzzy
-msgid "RGB:"
-msgstr "RGG"
-
-#, fuzzy
-msgid "CMYK:"
-msgstr "SMMD"
-
-#, fuzzy
-msgid "Color Scheme Method:"
+msgid "Color Scheme Method"
 msgstr "Hentenn diuzañ :"
 
 msgid ""
@@ -9684,12 +10083,37 @@ msgid "Vision Defect Type:"
 msgstr "Ezreolder ar gweled :"
 
 #, fuzzy
-msgid "imulate common vision defects here. Select type of the defect."
+msgid "Simulate common vision defects here. Select type of the defect."
 msgstr "Darvanañ ezreolderioù ar gweled boutin amañ. Diuzañ rizh a ezreolder."
 
 #, fuzzy
 msgid "Sample color scheme."
 msgstr "Skouerioù livioù"
+
+#, fuzzy
+msgid "RGB:"
+msgstr "RGG"
+
+#, fuzzy
+msgid "HSV:"
+msgstr "Skouer livioù APL (HSV)"
+
+#, fuzzy
+msgid "CMYK:"
+msgstr "SMMD"
+
+msgid "H:"
+msgstr "Arliv"
+
+msgid "S:"
+msgstr "Peurvec'hiañ"
+
+msgid "V:"
+msgstr "Lintr"
+
+#, fuzzy
+msgid "Result Colors"
+msgstr "Dilemel al liv"
 
 #, fuzzy
 msgid "Colors of your chosen color scheme."
@@ -9741,6 +10165,10 @@ msgstr "OpenOffice.org 1.x Draw"
 
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "OpenOffice.org Draw (*.sxd *.odg);;An holl restroù (*)"
+
+#, fuzzy
+msgid "This file contains some unsupported features"
+msgstr "Arc'hwelerezhioù anskor zo er restr SVG"
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr "An teul-mañ ne hañval ket bezañ ur restr OpenOffice Draw."
@@ -10298,8 +10726,9 @@ msgstr "Ar restr zo anezhi endeo. Erlerc'hiañ ?"
 msgid "exists already. Overwrite?"
 msgstr "zo anezhi endeo. Erlerc'hiañ ?"
 
-msgid "Importing PostScript"
-msgstr "Oc'h enporzhiañ PostScript"
+#, fuzzy
+msgid "Importing: %1"
+msgstr "Oc'h enporzhiañ an destenn"
 
 msgid "Analyzing PostScript:"
 msgstr "O tezrannañ PostScript :"
@@ -10337,7 +10766,8 @@ msgstr ""
 msgid "PDF"
 msgstr "PDF"
 
-msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
+#, fuzzy
+msgid "All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;"
 msgstr "An holl ventrezhioù skoret (*.eps *.EPS *.ps *.PS);;"
 
 msgid "Save as Template"
@@ -11175,6 +11605,65 @@ msgstr ""
 msgid "parent= %1"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Get Text 2..."
+#~ msgstr "Enporzhiañ un destenn..."
+
+#~ msgid "&Fit in window"
+#~ msgstr "Ment ar &prenestr"
+
+#~ msgid "&Insert Code:"
+#~ msgstr "Enlakaat ar r&ineg"
+
+#~ msgid "Close this dialog and return to text editing"
+#~ msgstr "Prennañ ar voestad-mañ ha distreiñ d'an embann testenn."
+
+#~ msgid "Type in a four digit unicode value directly here"
+#~ msgstr "Biziata ur rineg unicode 4 sifr amañ"
+
+#, fuzzy
+#~ msgid "Norwegian (Bokmål)"
+#~ msgstr "Norvegieg bokmål"
+
+#, fuzzy
+#~ msgid ""
+#~ "Use a second line originally based on the frame's shape for text flow of "
+#~ "text frames below the object. "
+#~ msgstr ""
+#~ "Arverañ un eil linenn diazezet war trolinennoù an ergorenn evit riklañ an "
+#~ "destenn"
+
+#, fuzzy
+#~ msgid "Parent's Character Style"
+#~ msgstr "Spletad arouezennoù klok"
+
+#~ msgid "&Subset all Fonts"
+#~ msgstr "Speladoù darnel eus an holl nodrezhioù"
+
+#~ msgid "Trim Box"
+#~ msgstr "Boest didroc'hañ"
+
+#~ msgid "PDF/X-&3"
+#~ msgstr "PD&F/X-3"
+
+#~ msgid "Custom:"
+#~ msgstr "Personelaat :"
+
+#, fuzzy
+#~ msgid "Misc. Settings"
+#~ msgstr "Arventennoù skrammañ"
+
+#, fuzzy
+#~ msgid "Object Duplicate"
+#~ msgstr "Dupliquer"
+
+#, fuzzy
+#~ msgid "name"
+#~ msgstr "Adenvel"
+
+#~ msgid "Importing PostScript"
+#~ msgstr "Oc'h enporzhiañ PostScript"
+
 #~ msgid "Embed in:"
 #~ msgstr "Enkorfet e :"
 
@@ -11186,9 +11675,6 @@ msgstr ""
 
 #~ msgid "Inde&x"
 #~ msgstr "Ibil"
-
-#~ msgid "More than one item selected"
-#~ msgstr "Meur a ergorenn bet diuzet"
 
 #~ msgid "Horizontal Guides"
 #~ msgstr "Dealfoù a-zremm"
@@ -11356,18 +11842,6 @@ msgstr ""
 
 #~ msgid "Set Color Components"
 #~ msgstr "Arventennién parzhioù al livioù"
-
-#~ msgid "HSV"
-#~ msgstr "Skouer livioù APL (HSV)"
-
-#~ msgid "H:"
-#~ msgstr "Arliv"
-
-#~ msgid "S:"
-#~ msgstr "Peurvec'hiañ"
-
-#~ msgid "V:"
-#~ msgstr "Lintr"
 
 #~ msgid "Set &RGB"
 #~ msgstr "Despizañ e &RGG"
@@ -11590,9 +12064,6 @@ msgstr ""
 #~ msgid "&Save Now"
 #~ msgstr "&Enregistrer maintenant"
 
-#~ msgid "Export"
-#~ msgstr "E&xporter"
-
 #~ msgid "Could not find target file %1: %2"
 #~ msgstr "Impossible de trouver le fichier : %1"
 
@@ -11760,9 +12231,6 @@ msgstr ""
 #~ msgid "Left Sides"
 #~ msgstr "Côtés gauches"
 
-#~ msgid "Right Sides"
-#~ msgstr "Côtés droits"
-
 #~ msgid "&Between:"
 #~ msgstr "&Entre :"
 
@@ -11813,9 +12281,6 @@ msgstr ""
 
 #~ msgid "&Save As..."
 #~ msgstr "Enregistrer &sous..."
-
-#~ msgid "P&age Palette"
-#~ msgstr "Organisation des pa&ges"
 
 #~ msgid "Color Management Settings"
 #~ msgstr "Configuration de la gestion des couleurs"
@@ -11890,9 +12355,6 @@ msgstr ""
 #~ msgid "Custom Spacing"
 #~ msgstr "Espacement"
 
-#~ msgid "Trac&king:"
-#~ msgstr "&Interlettrage :"
-
 #~ msgid "Edit Templates"
 #~ msgstr "Édition des maquettes"
 
@@ -11922,9 +12384,6 @@ msgstr ""
 
 #~ msgid "Lock Object &Size"
 #~ msgstr "Verro&uiller les dimensions de l'objet"
-
-#~ msgid "Unlock Object &Size"
-#~ msgstr "Déverro&uiller les dimensions de l'objet"
 
 #~ msgid "Send to &Back"
 #~ msgstr "Mettre au &fond"
@@ -12154,9 +12613,6 @@ msgstr ""
 
 #~ msgid "First &Line:"
 #~ msgstr "Première &ligne :"
-
-#~ msgid "Left Ind&ent:"
-#~ msgstr "R&etrait à gauche :"
 
 #~ msgid "Insert Picture"
 #~ msgstr "Insérer un cadre d'image"

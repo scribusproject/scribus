@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus_1.2/scribus.pot\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-28 14:08+0200\n"
+"POT-Creation-Date: 2006-12-21 23:33+0100\n"
 "PO-Revision-Date: 2006-05-17 16:56+0530\n"
 "Last-Translator: norbu <nor_den@hotmail.com>\n"
 "Language-Team: Dzongkha <pgeyleg@dit.gov.com>\n"
@@ -183,10 +183,6 @@ msgid "Collect for O&utput..."
 msgstr "ཨའུཊི་པུཊི་གི་དོན་ལུ་བསྡུ་ལེན་འབད...(&u)"
 
 msgid "Get Text..."
-msgstr "ཚིག་ཡིག་ལེན..."
-
-#, fuzzy
-msgid "Get Text 2..."
 msgstr "ཚིག་ཡིག་ལེན..."
 
 msgid "Append &Text..."
@@ -500,6 +496,9 @@ msgstr "སྦྲེལ་རྟགས་བཀལ་མི...(&H)"
 msgid "Sample Text"
 msgstr "ཚིག་ཡིག་གི་དཔེ་ཚད་བཙུགས།(&I)"
 
+msgid "Sticky Tools"
+msgstr ""
+
 msgid "&Insert..."
 msgstr "བཙུགས...(&I)"
 
@@ -532,8 +531,12 @@ msgid "Manage Page Properties..."
 msgstr "རྒྱུ་དངོས..."
 
 #, fuzzy
-msgid "&Fit in window"
-msgstr "ཝིན་ཌོ་གི་ནང་ལུ་ཚུད་སྒྲིག་འབད།(&F)"
+msgid "&Fit to Height"
+msgstr "གཡོན་ལས་གཡས་ལུ།"
+
+#, fuzzy
+msgid "Fit to Width"
+msgstr "ཝིན་ཌོ་ནང་ཚུད་སྒྲིག་འབད།"
 
 #, fuzzy
 msgid "&50%"
@@ -559,6 +562,10 @@ msgstr "མཐེ་གཟེར་ཚུ།(&T)"
 
 msgid "Show &Margins"
 msgstr "ས་སྟོང་ཚུ་སྟོན།(&M)"
+
+#, fuzzy
+msgid "Show Bleeds"
+msgstr "བང་རིམ་ཚུ་སྟོན།"
 
 msgid "Show &Frames"
 msgstr "གཞི་ཁྲམ་ཚུ་སྟོན།(&F)"
@@ -821,6 +828,13 @@ msgid "Column Break"
 msgstr "ཀེར་ཐིག་གི་ལམ་སྟོན་པ།"
 
 #, fuzzy
+msgid "&Zero Width Space"
+msgstr "ཀེར་ཐིག་བར་སྟོང་ཚུ།"
+
+msgid "Zero Width NB Space"
+msgstr ""
+
+#, fuzzy
 msgid "Copyright"
 msgstr "འདྲ་བཤུས།"
 
@@ -1001,10 +1015,10 @@ msgstr "ལམ་སྟོན་པ།"
 msgid "Selection"
 msgstr "སེལ་འཐུ་འབད།"
 
-msgid "Align right sides of objects to left side of anchor"
+msgid "Align right sides of items to left side of anchor"
 msgstr ""
 
-msgid "Align left sides of objects to right side of anchor"
+msgid "Align left sides of items to right side of anchor"
 msgstr ""
 
 #, fuzzy
@@ -1015,7 +1029,7 @@ msgstr "གཡོན་ཕྲང་།"
 msgid "Align right sides"
 msgstr "གཡས་ཕྲང་།"
 
-msgid "Align tops of objects to bottom of anchor"
+msgid "Align tops of items to bottom of anchor"
 msgstr ""
 
 msgid "Center on vertical axis"
@@ -1028,7 +1042,7 @@ msgstr "གཡོན་ཕྲང་།"
 msgid "Center on horizontal axis"
 msgstr ""
 
-msgid "Align bottoms of objects to top of anchor"
+msgid "Align bottoms of items to top of anchor"
 msgstr ""
 
 #, fuzzy
@@ -1039,10 +1053,10 @@ msgstr "གཡོན་ཕྲང་།"
 msgid "&Selected Guide:"
 msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད་འབདཝ།"
 
-msgid "Make horizontal gaps between objects equal"
+msgid "Make horizontal gaps between items equal"
 msgstr ""
 
-msgid "Make horizontal gaps between objects equal to the value specified"
+msgid "Make horizontal gaps between items equal to the value specified"
 msgstr ""
 
 msgid "Distribute right sides equidistantly"
@@ -1055,10 +1069,10 @@ msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།"
 msgid "Distribute centers equidistantly horizontally"
 msgstr ""
 
-msgid "Make vertical gaps between objects equal"
+msgid "Make vertical gaps between items equal"
 msgstr ""
 
-msgid "Make vertical gaps between objects equal to the value specified"
+msgid "Make vertical gaps between items equal to the value specified"
 msgstr ""
 
 msgid "Distribute left sides equidistantly"
@@ -1071,18 +1085,17 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "ཆ་ཅན་འབད་བགོ་བཀྲམ།(&E)"
 
-msgid "Make horizontal gaps between objects and sides of page equal"
+msgid "Make horizontal gaps between items and sides of page equal"
 msgstr ""
 
 msgid ""
-"Make vertical gaps between objects and the top and bottom of page margins "
-"equal"
+"Make vertical gaps between items and the top and bottom of page margins equal"
 msgstr ""
 
-msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgid "Make horizontal gaps between items and sides of page margins equal"
 msgstr ""
 
-msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgid "Make vertical gaps between items and the top and bottom of page equal"
 msgstr ""
 
 #, fuzzy
@@ -1508,7 +1521,9 @@ msgstr ""
 msgid "Open"
 msgstr "ཁ་ཕྱེ།"
 
-msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
+#, fuzzy
+msgid ""
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
 msgstr ""
 "གཟུགས་བརྙན་(*.ཊི་ཨའི་ཨེཕ *.པི་ཨེན་ཇི*.ཇེ་པི་ཇི *.ཨེགསི་པི་ཨེམ);;པོསིཊི་སིཀིརིཔཊི (*.ཨི་པི་ཨེསི);;ཡིག་སྣོད་"
 "ཆ་མཉམ  (*)"
@@ -1682,6 +1697,14 @@ msgstr "སླར་སྒྲིག"
 msgid "Select Character:"
 msgstr "ཡིག་འབྲུ་སེལ་འཐུ་འབད་:"
 
+#, fuzzy
+msgid "Scribus Char Palette (*.ucp);;All Files (*)"
+msgstr "པོསིཊི་སིཀིརིཔཊི་གི་ཡིག་སྣོད་(*.པི་ཨེསི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ་ (*)"
+
+#, fuzzy
+msgid "Enhanced Palette"
+msgstr "ཤོག་ལེབ་ཀྱི་པེ་ལེཊི་སྟོན།"
+
 msgid "Font:"
 msgstr "ཡིག་གཟུགས:"
 
@@ -1689,25 +1712,20 @@ msgstr "ཡིག་གཟུགས:"
 msgid "Character Class:"
 msgstr "ཡིག་འབྲུ་ཚུ།"
 
-#, fuzzy
-msgid "&Insert Code:"
-msgstr "བཙུགས་(&I)"
-
 msgid "&Insert"
 msgstr "བཙུགས་(&I)"
+
+msgid "Quick Palette"
+msgstr ""
+
+msgid "Hide Enhanced"
+msgstr ""
 
 msgid "Insert the characters at the cursor in the text"
 msgstr "ཚིག་ཡིག་འདི་ནང་འོད་རྟགས་འདི་གུ་ཡིག་འབྲུ་ཚུ་བཙུགས།"
 
 msgid "Delete the current selection(s)."
 msgstr "ད་ལྟོའི་སེལ་འཐུ་འདི་བཏོན་གཏང་(s)"
-
-#, fuzzy
-msgid "Close this dialog and return to text editing"
-msgstr "འ་ནི་ཌའི་ལོག་འདི་ཁ་བསྡམས་ཞིནམ་ལས་རྩོམ་སྒྲིག་འབད་ནིའི་ཚིག་ཡིག་ལུ་སླར་ལོག་འབད།"
-
-msgid "Type in a four digit unicode value directly here"
-msgstr ""
 
 msgid ""
 "You can see a thumbnail if you press and hold down the right mouse button. "
@@ -1806,6 +1824,36 @@ msgstr ""
 
 msgid "Hebrew"
 msgstr ""
+
+#, fuzzy
+msgid "Choose a filename to open"
+msgstr "མིང་ཅིག་གདམ་ཁ་རྐྱབས།"
+
+msgid "Error"
+msgstr "འཛོལ་བ།"
+
+msgid "Error reading file %1 - file is corrupted propably."
+msgstr ""
+
+#, fuzzy
+msgid "Choose a filename to save under"
+msgstr "ཧེ་མ་ལས་སྲུང་བཞག་འབད་ཡོད་པའི་ཚགས་མ་གདམ་ཁ་རྐྱབས།"
+
+#, fuzzy
+msgid "Cannot write file %1"
+msgstr ""
+"ཡིག་སྣོད་འདི་འབྲི་མི་བཏུབ་པས:\n"
+"%1"
+
+#, fuzzy
+msgid "Clean the Palette?"
+msgstr "ཤོག་ལེབ་པེ་ལེཊི།(&a)"
+
+msgid "You will clean all characters from this palette. Are you sure?"
+msgstr ""
+
+msgid "Delete"
+msgstr "བཏོན་གཏང་།"
 
 msgid "Document"
 msgstr "ཡིག་ཆ།"
@@ -2221,14 +2269,15 @@ msgstr "མིང་ཅིག་གདམ་ཁ་རྐྱབས།"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;"
-"All Files (*)"
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"ai);;All Files (*)"
 msgstr ""
 "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *.ཨེ་སི་ཌི་.ཇི་ཛེཌ་);;ཡིག་སྣོད་ཚུ་ཆ་"
 "མཉམ། (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)"
+msgid ""
+"Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr ""
 "ཡིག་ཆ་ཚུ་ (*.ཨེསི་ཨེལ་ཨེ་ *.ཨེསི་ཨེལ་ཨེ་.ཇི་ཛེཌ་ *.ཨེསི་སི་ཌི་ *.ཨེ་སི་ཌི་.ཇི་ཛེཌ་);;ཡིག་སྣོད་ཚུ་ཆ་"
 "མཉམ། (*)"
@@ -2370,6 +2419,27 @@ msgstr "ཨང་གྲངས།"
 
 msgid "December"
 msgstr ""
+
+#, fuzzy
+msgid "Normal Vision"
+msgstr "སྤྱིར་བཏང་གི།"
+
+msgid "Protanopia (Red)"
+msgstr ""
+
+msgid "Deuteranopia (Green)"
+msgstr ""
+
+msgid "Tritanopia (Blue)"
+msgstr ""
+
+#, fuzzy
+msgid "Full Color Blindness"
+msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+#, fuzzy
+msgid "Custom: "
+msgstr "སྲོལ་སྒྲིག།"
 
 #, fuzzy
 msgid "Transparency Settings"
@@ -2580,6 +2650,37 @@ msgstr ""
 "ཐོ་བཀོད་འབད་ཡོད་མི་ཚུ་ལུ་ལྟ་ད : སི་-སི་-ཊི་ དེ་ཚུ་འདྲ་སྙོམས་ལུ་ སི་=སི་ཡུ་པི་ཨེསི་ སི་=ལི་ཊལ་སི་ཨེམ་"
 "ཨེསི་ ཊི=ཊི་ཨའི་ཨེཕ་ཨེཕ་ རྒྱབ་སྐྱོར།.\n"
 "དཔེ་མཛོད་བརླག་སྟོར་ཞུགས་ཡོད་མི་གི་རྒྱབ་སྐྱོར་འདི་ * གིས་བརྡ་སྟོན་འབད།་ཨིན།"
+
+#, fuzzy
+msgid "Curve Files (*.scu);;All Files (*)"
+msgstr "ཨི་པི་ཨེསི་ཡིག་སྣོད་ཚུ་ (*.ཨི་པི་ཨེསི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ། (*)"
+
+msgid "Save as"
+msgstr "དེ་སྦེ་སྲུངས།"
+
+#, fuzzy
+msgid ""
+"Cannot write the file: \n"
+"%1"
+msgstr ""
+"ཡིག་སྣོད་འདི་འབྲི་མི་བཏུབ་པས:\n"
+"%1"
+
+#, fuzzy
+msgid "Inverts the curve"
+msgstr "བའི་ཛིཡར་གུག་གུགཔ་ཚུ་བཙུགས།"
+
+msgid "Resets the curve"
+msgstr ""
+
+msgid "Switches between linear and cubic interpolation of the curve"
+msgstr ""
+
+msgid "Loads a curve"
+msgstr ""
+
+msgid "Saves this curve"
+msgstr ""
 
 msgid "Size:"
 msgstr "ཚད:"
@@ -3024,11 +3125,87 @@ msgid "Advanced Options"
 msgstr "མཐོ་རིམ་གྱི་གདམ་ཁ་ཚུ།"
 
 #, fuzzy
+msgid "Printer Marks"
+msgstr "དཔར་བསྐྲུན་འབད་དོ..."
+
+#, fuzzy
+msgid "Crop Marks"
+msgstr "ཞྭམོ་ཚུ་བཀོག་བཞག(&D)"
+
+#, fuzzy
+msgid "Bleed Marks"
+msgstr "ཟླ་ཐོ་ཚུ།"
+
+#, fuzzy
+msgid "Registration Marks"
+msgstr "ཚོས་གཞི་གི་མཐའ་ཚད།"
+
+#, fuzzy
+msgid "Color Bars"
+msgstr "ཚོས་གཞི།"
+
+#, fuzzy
+msgid "Offset:"
+msgstr "ནུས་པ་ཚུ།"
+
+#, fuzzy
+msgid "Marks"
+msgstr "ས་སྟོང་ཚུ།:(&M)"
+
+#, fuzzy
+msgid "Bleed Settings"
+msgstr "བཟོ་རྣམ་གཞི་སྒྲིག་འབད་མི་ཚུ།"
+
+#, fuzzy
+msgid "Top:"
+msgstr "མགོ:(&T)"
+
+#, fuzzy
+msgid "Bottom:"
+msgstr "མཇུག:(&B)"
+
+#, fuzzy
+msgid "Left:"
+msgstr "གཡོན:(&L)"
+
+#, fuzzy
+msgid "Right:"
+msgstr "གཡས:(&R)"
+
+#, fuzzy
+msgid "Use Document Bleeds"
+msgstr "ཚིག་ཡིག་གི་ཡིག་ཆ་ཚུ།"
+
+#, fuzzy
+msgid "Bleeds"
+msgstr "མིག་ཞར་ཚུ།"
+
+#, fuzzy
+msgid "Inside:"
+msgstr "ནང་ན:(&I)"
+
+#, fuzzy
+msgid "Outside:"
+msgstr "ཕྱི་ཁར:(&u)"
+
+#, fuzzy
 msgid "Preview..."
 msgstr "སྔོན་ལྟ།"
 
 msgid "&Print"
 msgstr "དཔར་བསྐྲུན་འབད།(&P)"
+
+msgid "Distance for bleed from the top of the physical page"
+msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་མགོ་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
+
+msgid "Distance for bleed from the bottom of the physical page"
+msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་མཇུག་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
+
+msgid "Distance for bleed from the left of the physical page"
+msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་གཡོན་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
+
+msgid "Distance for bleed from the right of the physical page"
+msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་གཡས་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
 
 #, fuzzy
 msgid "Do not show objects outside the margins on the printed page"
@@ -3107,9 +3284,6 @@ msgstr ""
 msgid "Failed to retrieve printer settings"
 msgstr ""
 
-msgid "Save as"
-msgstr "དེ་སྦེ་སྲུངས།"
-
 msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "པོསིཊི་སིཀིརིཔཊི་གི་ཡིག་སྣོད་(*.པི་ཨེསི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ་ (*)"
 
@@ -3155,7 +3329,7 @@ msgstr "དོན་མཚམས་བཟོ་རྣམ་ཚུ་མཉམ་
 msgid "Background"
 msgstr "རྒྱབ་གཞི།"
 
-msgid "Select for easier reading of light coloured text styles"
+msgid "Select for easier reading of light colored text styles"
 msgstr ""
 
 msgid "Name of your paragraph style"
@@ -3201,6 +3375,10 @@ msgstr ""
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "ཁྱོད་རའི་དོན་མཚམས་ཀྱི་མིང་།"
+
+#, fuzzy
+msgid "Auto"
+msgstr "རྩོམ་པ་པོ།"
 
 #, fuzzy
 msgid "Name of the style is not unique"
@@ -3411,9 +3589,9 @@ msgid "&Remove"
 msgstr "རྩ་བསྐྲད་གཏང་།(&R)"
 
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set in File > Preferences, and only when there "
+"is no document currently open. Close any open documents, then use File > "
+"Preferences > Fonts to change the font search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -3799,6 +3977,16 @@ msgid "Camera Manufacturer:"
 msgstr ""
 
 #, fuzzy
+msgid "Exposure time"
+msgstr "ཕྱིར་འདྲེན་འབད།(&E)"
+
+msgid "Aperture:"
+msgstr ""
+
+msgid "ISO equiv.:"
+msgstr ""
+
+#, fuzzy
 msgid "Scanner Model:"
 msgstr "འབྱུང་ཁུངས་ཨང་རྟགས་:"
 
@@ -3812,6 +4000,23 @@ msgstr "གྲལ་ཐིག་ཚུ་གི་ཨང་གྲངས:"
 #, fuzzy
 msgid "Number of columns:"
 msgstr "ཀེར་ཐིག་ཚུ་གི་ཨང་གྲངས:"
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
+msgstr ""
 
 msgid "Insert Page"
 msgstr "ཤོག་ལེབ་བཙུགས།"
@@ -3915,6 +4120,10 @@ msgstr "ཌཆ།"
 msgid "English"
 msgstr "ཨིང་ལིཤ།"
 
+#, fuzzy
+msgid "English (Australian)"
+msgstr "ཨིང་ལིཤ(བིརི་ཊིཤ།)"
+
 msgid "English (British)"
 msgstr "ཨིང་ལིཤ(བིརི་ཊིཤ།)"
 
@@ -3971,10 +4180,6 @@ msgstr "ལི་ཐུ་འ་ནི་ཡཱན།"
 
 msgid "Luxembourgish"
 msgstr ""
-
-#, fuzzy
-msgid "Norwegian (Bokmål)"
-msgstr "ནོར་ཝེ་ཇི་ཡཱན།(བུག་མཱལ)"
 
 msgid "Norwegian (Nnyorsk)"
 msgstr "ནོར་ཝེ་ཇི་ཡཱན།(ནི་ཡོརཀསི)"
@@ -4164,6 +4369,9 @@ msgid ""
 "Import the margins for the selected page size from the available printers."
 msgstr ""
 
+msgid "Margin Guides"
+msgstr "ས་སྟོང་གི་ལམ་སྟོན་པ།"
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "མགོའི་ས་སྟོང་གི་ལམ་སྟོན་པ་དང་ ཤོག་ལེབ་ཀྱི་མཐའམ་གཉིས་ཀྱི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
 
@@ -4222,9 +4430,6 @@ msgstr ""
 #, fuzzy
 msgid "Manage Page Properties"
 msgstr "གྲལ་ཐིག་འབྲི་ནིའི་རྒྱུ་དངོས།"
-
-msgid "Margin Guides"
-msgstr "ས་སྟོང་གི་ལམ་སྟོན་པ།"
 
 #, fuzzy
 msgid "Other Settings"
@@ -4650,12 +4855,12 @@ msgid ""
 "shape for text flow of text frames below the object. "
 msgstr "ཚིག་ཡིག་འབབ་རྒྱུན་གྱི་དོན་ལུ་གཞི་ཁྲམ་དབྱིབས་ཀྱི་ཚབས་ལུ་ མཐའ་འཁོར་གྱི་སྒྲོམ་འདི་ལག་ལེན་འཐབ།"
 
-#, fuzzy
 msgid ""
-"Use a second line originally based on the frame's shape for text flow of "
-"text frames below the object. "
+"When chosen, the contour line can be edited with the Edit Shape Tool on the "
+"palette further above. When edited via the shape palette, this becomes a "
+"second separate line originally based on the frame's shape for text flow of "
+"text frames below the object. T"
 msgstr ""
-"ཚིག་ཡིག་འབབ་རྒྱུན་གྱི་དོན་ལུ་ གཞི་ཁྲམ་དབྱིབས་གུ་ གཞི་རྟེན་ངོ་མའི་གྲལ་ཐིག་གཉིས་པ་ཅིག་ལག་ལེན་འཐབ།"
 
 msgid "Scaling width of characters"
 msgstr "ཡིག་འབྲུའི་རྒྱ་ཚད་ཀྱི་ཚད་རྟགས།"
@@ -4683,6 +4888,9 @@ msgstr "བཀང་བའི་ཚིག་ཡིག་གི་ཚོས་ག
 
 msgid "Right to Left Writing"
 msgstr "གཡས་ལས་གཡོན་ལུ་འབྲི་དོ།"
+
+msgid "Click and hold down to select the line spacing mode."
+msgstr ""
 
 msgid "Style of current paragraph"
 msgstr "ད་ལྟོའི་དོན་མཚམས་ཀྱི་བཟོ་རྣམ།"
@@ -4788,6 +4996,14 @@ msgstr "སྦྲེལ་རྟགས་དང་ཚག་ཡོད་མི་
 
 msgid "Dash Dot Dot Line"
 msgstr "སྦྲེལ་རྟགས་དང་ཚག་ཚག་ཡོད་པའི་གྲལ་ཐིག"
+
+#, fuzzy
+msgid "&Horizontal Gap:"
+msgstr "ཐད་སྙོམས།"
+
+#, fuzzy
+msgid "&Vertical Gap:"
+msgstr "ཀེར་ཕྲང་།"
 
 #, fuzzy
 msgid "Edit Master Pages"
@@ -4899,6 +5115,14 @@ msgid "Distance between automatically created columns"
 msgstr "རང་བཞན་གྱིས་གསར་བསྐྲུན་འབད་ཡོད་པའི་ཀེར་ཐིག་ཚུ་གི་བར་ན་ཡོད་པའི་གྱང་ཚད།"
 
 #, fuzzy
+msgid "Page Layout"
+msgstr "སྒྲིག་བཀོད:"
+
+#, fuzzy
+msgid "First Page is:"
+msgstr "དང་པ་ཤོག་ལེབ་ཀྱི་ཨང་གྲངས:(&i)"
+
+#, fuzzy
 msgid "N&umber of Pages:"
 msgstr "འདྲ་བཤུས་ཚུ་གི་ཨང་གྲངས:(&u)"
 
@@ -4910,6 +5134,23 @@ msgstr "རང་བཞིན་གྱི་ཚིག་ཡིག་གཞི་
 
 msgid "&Gap:"
 msgstr "བར་སྟོང་:(&G)"
+
+msgid "Show Document Settings After Creation"
+msgstr ""
+
+#, fuzzy
+msgid "Origin"
+msgstr "པི་པི་ཨའི་ངོ་མ: "
+
+msgid "Size"
+msgstr "ཚད།"
+
+msgid "Height:"
+msgstr "མཐོ་ཚད:"
+
+#, fuzzy
+msgid "Remember Values"
+msgstr "འབྲེལ་བ་ཅན་སེམས་ཁར་བཞག"
 
 #, fuzzy
 msgid "Master Page "
@@ -4932,14 +5173,6 @@ msgstr "འགྲུལ་ལམ་གྱི་ཚིག་ཡིག"
 
 msgid "Copy of"
 msgstr "གི་འདྲ་བཤུས།"
-
-#, fuzzy
-msgid "Page Layout"
-msgstr "སྒྲིག་བཀོད:"
-
-#, fuzzy
-msgid "First Page is:"
-msgstr "དང་པ་ཤོག་ལེབ་ཀྱི་ཨང་གྲངས:(&i)"
 
 #, fuzzy
 msgid "%1 of %1"
@@ -5037,6 +5270,10 @@ msgid "DLE"
 msgstr ""
 
 #, fuzzy
+msgid "Loading Patterns"
+msgstr "དགའ་གདམ་ཚུ་ལྷག་དོ།"
+
+#, fuzzy
 msgid "Saving PDF"
 msgstr "པི་ཌི་ཨོཕ་འབད་སྲུང་།"
 
@@ -5051,6 +5288,10 @@ msgstr "ཁྱབ་ཚད་ཕྱིར་འདྲེན་འབད།"
 #, fuzzy
 msgid "Exporting Items on Current Page:"
 msgstr "ད་ལྟོའི་ཤོག་ལེབ་རྐྱངམ་ཅིག་ཕྱིར་འདྲེན་འབད།"
+
+#, fuzzy
+msgid "Date:"
+msgstr "ཚེ་གྲངས:(&e)"
 
 #, fuzzy
 msgid "Could not open output file %1"
@@ -5148,11 +5389,9 @@ msgstr "གནས་ཚད།"
 msgid "Case insensitive search"
 msgstr ""
 
-msgid ""
-"The filesystem will be searched for case insensitive file names when you "
-"check this on. Remember it is not default on most operating systems except "
-"MS Windows"
-msgstr ""
+#, fuzzy
+msgid "Show thumbnails"
+msgstr "མཐེ་གཟེར་ཚུ།(&T)"
 
 #, fuzzy
 msgid "Search Directory"
@@ -5164,6 +5403,15 @@ msgstr "ཁ་བསྡམས།"
 msgid ""
 "Set a new location for the selected items. Useful when you may have moved "
 "the document but not the images."
+msgstr ""
+
+msgid "Show/hide image thumbnails"
+msgstr ""
+
+msgid ""
+"The filesystem will be searched for case insensitive file names when you "
+"check this on. Remember it is not default on most operating systems except "
+"MS Windows"
 msgstr ""
 
 msgid "Missing"
@@ -5316,6 +5564,9 @@ msgstr "སྦྲེལ་རྟགས་བཀལ་མི...(&H)"
 msgid "Fonts"
 msgstr "ཡིག་གཟུགས།(&F)"
 
+msgid "Printer"
+msgstr "དཔར་འཕྲུལ།"
+
 #, fuzzy
 msgid "Color Management"
 msgstr "ཚོས་གཞི་འཛིན་སྐྱོང་...(&C)"
@@ -5466,10 +5717,6 @@ msgstr "ལུ་གཞི་བསྒྱུར་འབད།(&r)"
 #, fuzzy
 msgid "Scaling:"
 msgstr "ཚད་རྟགས།:(&a)"
-
-#, fuzzy
-msgid "Fit to Width"
-msgstr "ཝིན་ཌོ་ནང་ཚུད་སྒྲིག་འབད།"
 
 #, fuzzy
 msgid "Fit to Height"
@@ -5660,9 +5907,6 @@ msgstr "མངོན་གསལ་འབད་མི་ལུ་ ཚོས་�
 
 msgid "Rename"
 msgstr "བསྐྱར་མིང་བཏགས།"
-
-msgid "Delete"
-msgstr "བཏོན་གཏང་།"
 
 #, fuzzy
 msgid "Copy To:"
@@ -5869,20 +6113,16 @@ msgstr ""
 msgid "(converted)"
 msgstr ""
 
+#, fuzzy
+msgid "Do you really want to clear all your text?"
+msgstr "ཁྱོད་ཀྱིས་ ཚིག་ཡིག་ཚུ་ཆ་མཉམ་རང་བསལ་བཏང་ནི་ཨིན་ན?"
+
 msgid ""
 "The changes to your document have not been saved and you have requested to "
 "revert them. Do you wish to continue?"
 msgstr ""
 "ཁྱོད་ཀྱ྄ི་ཡིག་ཆའི་བསྒྱུར་བཅོས་འདི་མ་སྲུངམ་ལས་ ཁྱོད་ཀྱིས་ དེ་ཚུ་རྒྱབ་ལོག་གཏང་དགོ་ཟེར་ཞུབ་འབདཝ་ཨིན་མས། ཁྱོད་"
 "འཕྲོ་མཐུད་ནི་ཨིན་ན?"
-
-#, fuzzy
-msgid ""
-"Cannot write the file: \n"
-"%1"
-msgstr ""
-"ཡིག་སྣོད་འདི་འབྲི་མི་བཏུབ་པས:\n"
-"%1"
 
 #, fuzzy
 msgid "Documents (*.sla *.sla.gz);;All Files (*)"
@@ -5936,9 +6176,6 @@ msgstr "ཚིག་ཡིག་གི་ཡིག་སྣོད་ཚུ་ (*
 
 msgid "Convert Page to Master Page"
 msgstr ""
-
-msgid "Size"
-msgstr "ཚད།"
 
 msgid "&Shade:"
 msgstr "ནག་གྲིབ:(&S)"
@@ -6052,6 +6289,9 @@ msgstr "ཡིག་སྣོད་%1འདི་སི་ཀིརི་བས�
 msgid "Usage: scribus [option ... ] [file]"
 msgstr ""
 
+msgid "Show information on the console when fonts are being loaded"
+msgstr ""
+
 msgid "Print help (this message) and exit"
 msgstr ""
 
@@ -6059,9 +6299,6 @@ msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr ""
 
 msgid "List the currently installed interface languages"
-msgstr ""
-
-msgid "Show information on the console when fonts are being loaded"
 msgstr ""
 
 msgid "Do not show the splashscreen on startup"
@@ -6072,12 +6309,14 @@ msgid ""
 "called .neversplash in ~/.scribus."
 msgstr ""
 
-msgid ""
-"Download a file from the Scribus website and show the latest available "
-"version."
+#, fuzzy
+msgid "filename"
+msgstr "ཡིག་སྣོད་ཀྱི་མིང་:(&n)"
+
+msgid "Use filename as path for user given preferences"
 msgstr ""
 
-msgid "Output version information and exit"
+msgid "Show location ICC profile information on console while starting"
 msgstr ""
 
 msgid ""
@@ -6085,11 +6324,12 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
-#, fuzzy
-msgid "filename"
-msgstr "ཡིག་སྣོད་ཀྱི་མིང་:(&n)"
+msgid ""
+"Download a file from the Scribus website and show the latest available "
+"version."
+msgstr ""
 
-msgid "Use filename as path for user given preferences"
+msgid "Output version information and exit"
 msgstr ""
 
 msgid "Display a console window"
@@ -6148,6 +6388,14 @@ msgstr "ད་ལྟོ་ཕྱིར་འཐོན་དོ།"
 msgid "Font System Initialized"
 msgstr "ཡིག་གཟུགས་ཀྱི་རིམ་ལུགས་འདི་འགོ་འབྱེད་འབད་ནུག"
 
+#, fuzzy
+msgid "Default Paragraph Style"
+msgstr "དོན་མཚམས་ཀྱི་བཟོ་རྣམ།"
+
+#, fuzzy
+msgid "Default Character Style"
+msgstr "ཡིག་འབྲུ།"
+
 msgid ""
 "An error occurred while opening ICC profiles, color management is not "
 "enabled."
@@ -6155,10 +6403,6 @@ msgstr ""
 
 msgid "New Layer"
 msgstr "བང་རིམ་གསརཔ་བཟོ།"
-
-#, fuzzy
-msgid "Do you really want to clear all your text?"
-msgstr "ཁྱོད་ཀྱིས་ ཚིག་ཡིག་ཚུ་ཆ་མཉམ་རང་བསལ་བཏང་ནི་ཨིན་ན?"
 
 msgid "Cannot Delete In-Use Item"
 msgstr ""
@@ -6197,22 +6441,10 @@ msgid ""
 "You can choose between normal and several color blindness forms"
 msgstr ""
 
-#, fuzzy
-msgid "Normal Vision"
-msgstr "སྤྱིར་བཏང་གི།"
-
-msgid "Protanopia (Red)"
+msgid ""
+"CMS is active. Therefore the color display may not match the perception by "
+"visually impaired"
 msgstr ""
-
-msgid "Deuteranopia (Green)"
-msgstr ""
-
-msgid "Tritanopia (Blue)"
-msgstr ""
-
-#, fuzzy
-msgid "Full Color Blindness"
-msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་སྒྲིག་འབད་མི་ཚུ།"
 
 msgid "Copy Here"
 msgstr "ནཱ་ལུ་འདྲ་བཤུས།"
@@ -6272,6 +6504,10 @@ msgstr "གནས་རིམ།(&v)"
 
 msgid "Conve&rt to"
 msgstr "ལུ་གཞི་བསྒྱུར་འབད།(&r)"
+
+#, fuzzy
+msgid "Enter Object Size"
+msgstr "དངོས་པོའི་ཚད་ མ་བསྡམས་པར་བཞག(&S)"
 
 #, fuzzy
 msgid "Linking Text Frames"
@@ -6433,6 +6669,38 @@ msgid "Other..."
 msgstr "གཞན..."
 
 #, fuzzy
+msgid "Add a new line"
+msgstr "བང་རམ་གསརཔ་ཅིག་བསྡོམས།"
+
+#, fuzzy
+msgid "Remove a line"
+msgstr "ལག་ལེན་མ་འཐབ་མི་ཚུ་རྩ་བསྐྲད་གཏང་།(&R)"
+
+#, fuzzy
+msgid "Line style"
+msgstr "གྲལ་ཐིག་གི་བཟོ་རྣམ་ཚུ...(&L)"
+
+#, fuzzy
+msgid "Line width"
+msgstr "གྲལ་ཐིག་གི་རྒྱ་ཚད:"
+
+#, fuzzy
+msgid "End style"
+msgstr "བཟོ་རྣམ་ཞུན་དག་འབད།"
+
+#, fuzzy
+msgid "Join style"
+msgstr "བཟོ་རྣམ་མིན་འདུག"
+
+#, fuzzy
+msgid "Line color"
+msgstr "ཚོས་གཞི་གྱལ་རིམ།:(&L)"
+
+#, fuzzy
+msgid "Line shade"
+msgstr "ནག་གྲིབ་བཤོལ།"
+
+#, fuzzy
 msgid "Line Styles"
 msgstr "གྲལ་ཐིག་གི་བཟོ་རྣམ་ཚུ...(&L)"
 
@@ -6465,6 +6733,58 @@ msgid "Character Style"
 msgstr "ཡིག་འབྲུ།"
 
 #, fuzzy
+msgid "Parent style"
+msgstr "ཡིག་གཟུགས་ཀྱི་བཟོ་རྣམ།(&y)"
+
+#, fuzzy
+msgid "Line spacing mode"
+msgstr "གྲལ་ཐིག་བར་སྟོང་བཞག་ཐང་།"
+
+#, fuzzy
+msgid "Line spacing"
+msgstr "གྲལ་ཐིག་བར་སྟོང་བཞག་ཐང་།"
+
+#, fuzzy
+msgid "Space above"
+msgstr "ཚབ་བཙུགས།"
+
+#, fuzzy
+msgid "Space below"
+msgstr "ཚབ་བཙུགས།"
+
+#, fuzzy
+msgid "Enable or disable drop cap"
+msgstr "དངོས་པོའི་དཔར་བསྐྲུན་འབད་ནི་འདི་ལྕོགས་ཅན་བཟོ་ནི་དང་ ཡང་ཅིན་  ལྕོག་མིན་བཟོ།"
+
+#, fuzzy
+msgid "Drop cap lines"
+msgstr "ཞྭམོ་ཚུ་བཀོག་བཞག(&D)"
+
+#, fuzzy
+msgid "Drop cap offset"
+msgstr "ཞྭམོ་ཚུ་བཀོག་བཞག(&D)"
+
+#, fuzzy
+msgid "Alignment"
+msgstr "ཕྲང་སྒྲིག(&A)"
+
+#, fuzzy
+msgid "First line indent"
+msgstr "ཐིག་གི་སྟེགས་རིས་བར་སྟོང་།"
+
+#, fuzzy
+msgid "Left indent"
+msgstr "དང་གཡོན་འགོ་མཚམས:"
+
+#, fuzzy
+msgid "Right indent"
+msgstr "གཡས་ཕྱོགས།"
+
+#, fuzzy
+msgid "Tabulators"
+msgstr "རེའུ་མིག་ཅན་བཟོ་མི་ཚུ...(&T)"
+
+#, fuzzy
 msgid "Parent"
 msgstr "དཔར་བསྐྲུན།"
 
@@ -6477,8 +6797,68 @@ msgid "Based on"
 msgstr "ཡིག་ཚད་གཞི་རྟེན:"
 
 #, fuzzy
-msgid "Parent's Character Style"
-msgstr "དོན་མཚམས་ཀྱི་བཟོ་རྣམ།"
+msgid "Font face"
+msgstr "ཡིག་གཟུགས་ཀྱི་མིང་།"
+
+#, fuzzy
+msgid "Font size"
+msgstr "ཡིག་གཟུགས་ཀྱི་ཚད།"
+
+#, fuzzy
+msgid "Tracking"
+msgstr "རྗེས་འཛོལ་འབད་དོ:(&K)"
+
+#, fuzzy
+msgid "Baseline offset"
+msgstr "གཞི་རྟེན་གྱལ་རིམ་པར་ལེན།:(&O)"
+
+#, fuzzy
+msgid "Horizontal scaling"
+msgstr "ཐད་སྙོམས་ཚད་རྟགས།:(&H)"
+
+#, fuzzy
+msgid "Vertical scaling"
+msgstr "ཀེར་ཕྲང་ཚད་རྟགས།:(&V)"
+
+#, fuzzy
+msgid "Language"
+msgstr "སྐད་ཡིག:(&L)"
+
+#, fuzzy
+msgid "Fill color"
+msgstr "ཚོས་གཞི་བཀང་།"
+
+#, fuzzy
+msgid "Fill shade"
+msgstr "ནག་གྲིབ་བཀང་།"
+
+#, fuzzy
+msgid "Stroke color"
+msgstr "ཚོས་གཞི་སིཊོཀ"
+
+#, fuzzy
+msgid "Stroke shade"
+msgstr "ནག་གྲིབ་སིཊོཀ"
+
+#, fuzzy
+msgid "Use Parent Value"
+msgstr "གནས་གོང་བཙུགས།"
+
+msgid "P"
+msgstr ""
+
+msgid "Use parent style's alignment instead of overriding it"
+msgstr ""
+
+msgid "Use parent style's effects instead of overriding them"
+msgstr ""
+
+#, fuzzy
+msgid "Use Parent Font"
+msgstr "ཡིག་གཟུགས་ལག་ལེན་འཐབ།"
+
+msgid " Parent Tabs "
+msgstr ""
 
 #, fuzzy
 msgid "Edit Styles..."
@@ -6577,19 +6957,19 @@ msgid "Do you really want to lose all your changes?"
 msgstr "ཁྱོད་ཐེད་རི་འབའ་རི་རང་ཁྱོད་རང་གི་བསྒྱུར་བཅོས་ཆ་མཉམ་ཕམ་ནི་ཨིན་ན?"
 
 #, fuzzy
-msgid "&Reset"
-msgstr "སླར་སྒྲིག"
+msgid "Shortcut"
+msgstr "དབྱེ་སེལ།"
 
-msgid "<< &Done"
+msgid "Apply all changes and exit edit mode"
 msgstr ""
 
 #, fuzzy
-msgid "&Edit >>"
-msgstr "ཞུན་དག་འབད།(&E)"
+msgid "Edit styles"
+msgstr "བཟོ་རྣམ་ཚུ་ཞུན་དག་འབད།"
 
 #, fuzzy
-msgid "&Clone"
-msgstr "ཁ་གདམ།(&C)"
+msgid "Name of the selected style"
+msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་གི་ཡིག་གཟུགས།"
 
 #, fuzzy
 msgid "Reset all changes"
@@ -6598,9 +6978,6 @@ msgstr "ཤོག་ལེབ་ཚུ་ཆ་མཉམ་རང་ཕྱིར
 #, fuzzy
 msgid "Apply all changes"
 msgstr "ཤོག་ལེབ་ཡ་ཅན་ཆ་མཉམ་ལུ་འཇུག་སྤྱོད་འབད།(&o)"
-
-msgid "Apply all changes and exit edit mode"
-msgstr ""
 
 #, fuzzy
 msgid "Create a new style"
@@ -6617,6 +6994,21 @@ msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡ
 msgid "Delete selected styles"
 msgstr "སེལ་འཐུ་འབད་ཡོད་མི་ཚིག་ཡིག་གི་ཡིག་གཟུགས།"
 
+#, fuzzy
+msgid "&Reset"
+msgstr "སླར་སྒྲིག"
+
+msgid "<< &Done"
+msgstr ""
+
+#, fuzzy
+msgid "&Edit >>"
+msgstr "ཞུན་དག་འབད།(&E)"
+
+#, fuzzy
+msgid "&Clone"
+msgstr "ཁ་གདམ།(&C)"
+
 msgid "Import"
 msgstr "ནང་འདྲེན་འབད།"
 
@@ -6629,12 +7021,20 @@ msgid "Send to Scrapbook"
 msgstr "རག་རོག་ཀི་དེབ་ལུ་གཏང་ནི།(&c)"
 
 #, fuzzy
+msgid "New %1"
+msgstr "གསརཔ།"
+
+#, fuzzy
 msgid "&Done"
 msgstr "ཅི་མེད།"
 
 #, fuzzy
-msgid "Shortcut"
-msgstr "དབྱེ་སེལ།"
+msgid "This key sequence is already in use"
+msgstr "ལྡེ་མིག་བྱུང་རིམ་དེ་ཧེ་མ་ལས་ལག་ལེན་འཐབ་སྟེ་འདུག"
+
+#, fuzzy
+msgid "More than one style selected"
+msgstr "གྲལ་ཐིག་མཇུག་གི་དབྱེ་བ།"
 
 msgid "&No Key"
 msgstr "ལྡེ་མིག་མེད།(&N)"
@@ -6647,6 +7047,15 @@ msgstr "གདམ་ལྡེ+སོར་ལྡེ་+ཊི།"
 
 msgid "Set &Key"
 msgstr "ལྡེ་མིག་གཞི་སྒྲིག་འབད།(&K)"
+
+msgid "No shortcut for the style"
+msgstr ""
+
+msgid "Style has user defined shortcut"
+msgstr ""
+
+msgid "Assign a shortcut for the style"
+msgstr ""
 
 msgid "Alt"
 msgstr "གདམ་ལྡེ།"
@@ -6673,10 +7082,6 @@ msgstr "གདམ་ལྡེ།+"
 
 msgid "Ctrl+"
 msgstr "ཚད་འཛིན།+"
-
-#, fuzzy
-msgid "Auto"
-msgstr "རྩོམ་པ་པོ།"
 
 #, fuzzy
 msgid "Displacement"
@@ -6738,15 +7143,17 @@ msgstr ""
 msgid "Check for missing glyphs"
 msgstr ""
 
-msgid "Check for objects not on a page"
-msgstr ""
+#, fuzzy
+msgid "Check for items not on a page"
+msgstr "དངོས་པོ་འཚོལ་མ་ཐོབ།"
 
 #, fuzzy
 msgid "Check for overflow in text frames"
 msgstr "ཚིག་ཡིག་གཞི་ཁྲམ་གསརཔ་ཚུ་གི་དོན་ལུ་ཡིག་གཟུགས།"
 
-msgid "Check for transparencies used"
-msgstr ""
+#, fuzzy
+msgid "Check for used transparencies"
+msgstr "མཆན་འགྲེལ་དང་ས་སྒོ་ཚུ་ཁ་སྐོང་རྐྱབས་བཅུག(&A)"
 
 msgid "Check for missing images"
 msgstr ""
@@ -6783,6 +7190,59 @@ msgstr "གསལ་སྡུད:"
 #, fuzzy
 msgid "Remove Profile"
 msgstr "རིམ་ལུགས་གསལ་སྡུད།"
+
+msgid "Color for paper"
+msgstr "ཤོག་ཀུའི་དོན་ལུ་ཚོས་གཞི།"
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr "ས་སྟོང་ཚོས་གཞི་ནང་ས་སྟོང་གི་ཕྱི་ཁའི་མངའ་ཁོངས་དེ་གདོང་ཁེབས་འབད།"
+
+#, fuzzy
+msgid "Enable or disable  the display of linked frames."
+msgstr "ཀེ (གནགཔོ་)སྣག་རྩིའི་ཧོད་ ལྕོགས་ཅན་/ལྕོགས་མིན་བཟོ།"
+
+msgid ""
+"Display non-printing characters such as paragraph markers in text frames"
+msgstr ""
+
+msgid "Turns the display of frames on or off"
+msgstr ""
+
+msgid "Turns the display of layer indicators on or off"
+msgstr ""
+
+msgid "Turns the display of pictures on or off"
+msgstr ""
+
+msgid ""
+"Defines amount of space left of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space right of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space above the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space below the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+
+msgid "Set the default zoom level"
+msgstr "སྔོན་སྒྲིག་ རྒྱས་ཟུམ་གྱི་གནས་རིམ་གཞི་སྒྲིག་འབད།"
+
+msgid ""
+"Place a ruler against your screen and drag the slider to set the zoom level "
+"so Scribus will display your pages and objects on them at the correct size"
+msgstr ""
 
 #, fuzzy
 msgid "Units:"
@@ -7020,10 +7480,6 @@ msgstr "པི་ཨེསི།"
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
-#, fuzzy
-msgid "This key sequence is already in use"
-msgstr "ལྡེ་མིག་བྱུང་རིམ་དེ་ཧེ་མ་ལས་ལག་ལེན་འཐབ་སྟེ་འདུག"
-
 msgid "Manage Tabulators"
 msgstr "རེའུ་མིག་སྒྲིག་བྱེད་ཚུ་འཛིན་སྐྱོང་འབད།"
 
@@ -7107,12 +7563,6 @@ msgstr "མར་དཔེ་ཚད་ཀྱི་གཟུགས་བརྙན
 msgid "&General"
 msgstr "ཡོངས་ཁྱབ།(&G)"
 
-msgid "&Embed all Fonts"
-msgstr "ཡིག་གཟུགས་ཆ་མཉམ་ལུ་གནས་འདྲེན་འབད།(&E)"
-
-msgid "&Subset all Fonts"
-msgstr "ཡིག་གཟུགས་ཚུ་ཆ་མཉམ་གྱི་ཆ་ཚན་ཡན་ལག(&S)"
-
 msgid "Embedding"
 msgstr "གནས་འདྲན་འབད་དོ།"
 
@@ -7122,8 +7572,17 @@ msgstr "ཡིག་གཟུགས་ཚུ་འཐོབ་ཚུགསཔ:"
 msgid "Fonts to embed:"
 msgstr "གནས་འདྲན་འབད་ནི་ལུ་ཡིག་གཟུགས:"
 
-msgid "Fonts to subset:"
+#, fuzzy
+msgid "&Embed all"
+msgstr "ཡིག་གཟུགས་ཆ་མཉམ་ལུ་གནས་འདྲེན་འབད།(&E)"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "ཆ་ཚན་ཡན་ལག་ལུ་ཡིག་གཟུགས:"
+
+#, fuzzy
+msgid "&Outline all"
+msgstr "མཐའ་ཐིག(&O)"
 
 msgid "&Fonts"
 msgstr "ཡིག་གཟུགས།(&F)"
@@ -7294,9 +7753,6 @@ msgstr "ཨའུཊི་པུཊི་རེ་བ་ལྟར་དུ :"
 msgid "Screen / Web"
 msgstr "གསལ་གཞི་/ཝེབ།"
 
-msgid "Printer"
-msgstr "དཔར་འཕྲུལ།"
-
 msgid "&Use Custom Rendering Settings"
 msgstr "སྲོལ་སྒྲིག་ལྷག་སྟོན་གྱི་གཞི་སྒྲིག་ཚུ་ལག་ལེན་འཐབ།(&U)"
 
@@ -7342,6 +7798,10 @@ msgstr "ཨའི་སི་སི་གསལ་སྡུད་གནས་འ
 msgid "C&olor"
 msgstr "ཚོས་གཞི།(&o)"
 
+#, fuzzy
+msgid "Page Information"
+msgstr "བརྡ་དོན།"
+
 msgid "PDF/X-3 Output Intent"
 msgstr "པི་ཌི་ཨེཕ་/ཨེགས་-༣ ཨའུཊི་པུཊི་གི་རེ་བ།"
 
@@ -7351,11 +7811,9 @@ msgstr "བརྡ་དོན་གྱི་ཡིག་རྒྱུན:(&I)"
 msgid "Output &Profile:"
 msgstr "ཨའུཊི་པུཊི་དང་གསལ་སྡུད:(&P)"
 
-msgid "Trim Box"
-msgstr "རྩེ་སྙོམ་ནི་གི་སྒྲོམ།"
-
-msgid "PDF/X-&3"
-msgstr "པི་ཌི་ཨེཕ་/ཨེགསི་-༣(&3)"
+#, fuzzy
+msgid "Pre-Press"
+msgstr "ལས་རིམ་ཚུ།"
 
 #, fuzzy
 msgid ""
@@ -7407,6 +7865,10 @@ msgstr "འཚེར་མདྭངས་ཡང་ན་ ནུས་པ་ཚ�
 
 msgid "Apply the selected effect to all pages."
 msgstr "ཤོག་ལེབ་ཆ་མཉམ་ལུ་སེལ་འཐུ་འབད་ཡོད་པའི་ནེས་པ་འདི་འཇུག་སྤྱོད་འབད།"
+
+#, fuzzy
+msgid "Convert all glyphs in the document to outlines."
+msgstr "ཚིག་ཡིག་གཞི་ཁྲམ་-མེན་མི་དེ་མཐའ་ཐིག་ལུ་གཞི་བསྒྱུར་འབད་མི་ཚུགས།"
 
 msgid "Export all pages to PDF"
 msgstr "ཤོག་ལེབ་ཚུ་ཆ་མཉམ་པི་ཌི་ཨེཕ་ལུ་ཕྱིར་འདྲེན་འབད།"
@@ -7503,7 +7965,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 "གཟུགས་བརྙན་ཚུ་ལག་ལེན་འཐབ་ནིའི་དོན་ལུ་ཨེབ་བཙུགས་ཀྱི་ཐབས་ལམ། རང་བཞིན་གྱི་འདི་གིས་སི་ཀིརི་བསི་ལུ་ ཐབས་"
 "ལམ་དརག་ཤོས་གདམ་ཁ་འབད་བཅུགཔ་ཨིན། གནས་ཡུལ་འདི་ལོསི་ལེསི་ཨིནམ་ལས་ ཚོས་གཞི་རགས་པ་དང་བཅས་ཡོད་"
@@ -7516,7 +7978,8 @@ msgid ""
 "Compression quality levels for lossy compression methods: Minimum (25%), Low "
 "(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
 "does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"quality loss vary from image to image at any given quality level. Even with "
+"Maximum selected, there is always some quality loss with jpeg."
 msgstr ""
 
 #, fuzzy
@@ -7647,18 +8110,6 @@ msgstr ""
 "པི་ཌི་ཨེཕ་/ཨེགསི་-༣་ གི་དོན་ལུ་ ངེས་མཁོའི་ཡིག་རྒྱུན་ཡང་ཅུན་ པི་ཌི་ཨེཕ་འདི་འཐུས་ཤོར་འབྱུང་འོང་།\n"
 "པི་ཌི་ཨེཕ་/ཨེགསི-༣ བཟོ་དབྱིབས། ང་བཅས་ཀྱི་ཁྱོད་ལུ་འོས་སྦྱོར་འབད་གེ་ ཡིག་ཆ་གི་མགོ་མིང་འདི་ལག་ལེན་འཐབ།"
 
-msgid "Distance for bleed from the top of the physical page"
-msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་མགོ་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
-
-msgid "Distance for bleed from the bottom of the physical page"
-msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་མཇུག་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
-
-msgid "Distance for bleed from the left of the physical page"
-msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་གཡོན་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
-
-msgid "Distance for bleed from the right of the physical page"
-msgstr "ཤོག་ལེབ་དངོས་ཅན་གི་གཡས་ལས་འཛག་ནིའི་དོན་ལུ་གྱང་ཚད།"
-
 msgid "Mirror Page(s) horizontally"
 msgstr "ཤོག་ལེབ་ཐད་སྙོམས་ཀྱི་ངོ་འཆར།(ཨེསི)"
 
@@ -7710,14 +8161,6 @@ msgstr "དོན་མཚམས་ཧྲིལ་བུམ་གྱི་དོ
 
 msgid "Delete all Tabulators"
 msgstr "རེའི་མིག་སྒྲིག་བྱེད་ཚུ་ཆ་མཉམ་བཏོན་གཏང་།"
-
-#, fuzzy
-msgid "Custom:"
-msgstr "སྲོལ་སྒྲིག།"
-
-#, fuzzy
-msgid "Custom: "
-msgstr "སྲོལ་སྒྲིག།"
 
 #, fuzzy
 msgid "Text Color:"
@@ -7844,19 +8287,19 @@ msgid "&Stepping:"
 msgstr "རིམ་པ་སྤོ་དོ།:(&S)"
 
 #, fuzzy
-msgid "Misc. Settings"
+msgid "Miscellaneous Settings"
 msgstr "མཱའུསི་སྒྲིག་སྟངས་ཚུ།"
 
 #, fuzzy
-msgid "Object Duplicate"
-msgstr "རྫུན་མ།"
+msgid "Item Duplicate"
+msgstr "རྫུན་མ།(&u)"
 
 #, fuzzy
-msgid "X-Displacement"
+msgid "X Displacement"
 msgstr "གནས་སྤང་།(&p)"
 
 #, fuzzy
-msgid "Y-Displacement"
+msgid "Y Displacement"
 msgstr "གནས་སྤང་།(&p)"
 
 #, fuzzy
@@ -7965,14 +8408,14 @@ msgid "Width of lines"
 msgstr "གྲལ་ཐིག་ཚུ་གི་རྒྱ་ཚད།"
 
 #, fuzzy
-msgid "Horizontal displacement of objects"
+msgid "Horizontal displacement of page items"
 msgstr "གཟུགས་བརྙན་ཚུ་གི་ཐད་སྙོམས་ཚད་རྟགས་བཀལ་ནི།"
 
 #, fuzzy
-msgid "Vertical displacement of objects"
+msgid "Vertical displacement of page items"
 msgstr "གཟུགས་བརྙན་ཚུ་གི་ཀེར་འཕྲང་ཚད་རྟགས་བཀལ་ནི།"
 
-msgid "Constrain value for the rotation tool when the CTRL-Key is pressed"
+msgid "Constrain value for the rotation tool when the Control key is pressed"
 msgstr ""
 
 msgid "&Displacement:"
@@ -8237,9 +8680,6 @@ msgstr "སྣད་ཐོ་ཚུ།"
 msgid "Save"
 msgstr "སྲུང་།"
 
-msgid "Error"
-msgstr "འཛོལ་བ།"
-
 msgid ""
 "%1\n"
 "File not found.\n"
@@ -8365,6 +8805,10 @@ msgstr "འཇུག་སྤྱོད་འབད།"
 
 msgid "Select Font"
 msgstr "ཡིག་གཟུགས་སེལ་འཐུ་འབད།"
+
+#, fuzzy
+msgid "Free items"
+msgstr "དངོས་པོ།"
 
 msgid "Group "
 msgstr "སྡེ་ཚན།"
@@ -8810,6 +9254,14 @@ msgstr "ཚད་འཛིན་གྱི་དོན་ཚན་ཚུ་སླ
 msgid "Apply image effects"
 msgstr "ནུས་པ་ཚུ།"
 
+#, fuzzy
+msgid "Insert frame"
+msgstr "ཚིག་ཡི་གི་གཞི་ཁྲམ་བཙུགས།"
+
+#, fuzzy
+msgid "Adjust frame to the image size"
+msgstr "པར་ལུ་གཞི་ཁྲམ་བདེ་སྒྲིག་འབད།(&A)"
+
 msgid " mm"
 msgstr "ཨེམ་ཨེམ།"
 
@@ -8893,6 +9345,9 @@ msgid "No updates are available for your version of Scribus %1"
 msgstr ""
 
 msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
 msgstr ""
 
 msgid "Please visit www.scribus.net for details."
@@ -9190,6 +9645,15 @@ msgid "Position of Frame"
 msgstr "གཞི་ཁྲམ་གྱི་ནང་དོན་ཚུ་ཞུན་དག་འབད།"
 
 #, fuzzy
+msgid "Top Left of Margins"
+msgstr "གཡོན་གྱི་ས་སྟོང་།"
+
+msgid ""
+"Selecting this places the frame in the upper left of the page margins "
+"defined in your doc setup."
+msgstr ""
+
+#, fuzzy
 msgid "Top Left of Page"
 msgstr "ཤོག་ལེབ་གཡོན།"
 
@@ -9197,12 +9661,12 @@ msgid "Selecting this puts the frame on the top left with postion 0,0"
 msgstr ""
 
 #, fuzzy
-msgid "Top Left of Margins"
-msgstr "གཡོན་གྱི་ས་སྟོང་།"
+msgid "Top Left of Bleed"
+msgstr "ཤོག་ལེབ་གཡོན།"
 
 msgid ""
-"Selecting this places the frame in the upper left of the page margins "
-"defined in your doc setup."
+"Selecting this places the frame in the upper left of the page bleed defined "
+"in your doc setup."
 msgstr ""
 
 #, fuzzy
@@ -9217,19 +9681,24 @@ msgid "&Location"
 msgstr "པད་སྐོར་བསྒྱིར་འགྱོ་ནི:(&R)"
 
 #, fuzzy
-msgid "Same as the Page"
-msgstr "གཟུགས་བརྙན་སྦེ་སྲུངས།"
-
-#, fuzzy
 msgid "Same as the Page Margins"
 msgstr "ཤོག་ལེབ་ས་སྟོང་ཚུ་ལུ་བཏོག (&M)"
 
 #, fuzzy
+msgid "Same as the Page"
+msgstr "གཟུགས་བརྙན་སྦེ་སྲུངས།"
+
+#, fuzzy
+msgid "Same as the Bleed"
+msgstr "གཟུགས་བརྙན་སྦེ་སྲུངས།"
+
+#, fuzzy
+msgid "Same as the Imported Image"
+msgstr "གཟུགས་བརྙན་སྦེ་སྲུངས།"
+
+#, fuzzy
 msgid "Custom Size:"
 msgstr "སྲོལ་སྒྲིག་འབད..."
-
-msgid "Height:"
-msgstr "མཐོ་ཚད:"
 
 #, fuzzy
 msgid "Source Image:"
@@ -9244,16 +9713,16 @@ msgid "There are no options for this type of frame"
 msgstr "གཞི་ཁྲམ་ལས་གཟུགས་བརྙན་སྙོམས་ཚད་ལག་ལེན་འཐབ།"
 
 #, fuzzy
-msgid "Source Document:"
-msgstr "ཡིག་ཆ་སྲུང་བཞག(&D)"
-
-#, fuzzy
 msgid "Columns:"
 msgstr "ཀེར་ཐིག་ཚུ།(&m)"
 
 #, fuzzy
 msgid "Link Created Frames"
 msgstr "ཚིག་ཡིག་གི་གཞི་ཁྲམ་ཚུ་འབྲེལ་མཐུད་འབད།"
+
+#, fuzzy
+msgid "Source Document:"
+msgstr "ཡིག་ཆ་སྲུང་བཞག(&D)"
 
 #, fuzzy
 msgid "&Options"
@@ -9290,17 +9759,6 @@ msgid "By &Rows && Columns"
 msgstr ""
 
 #, fuzzy
-msgid "Progress"
-msgstr "ལས་རིམ་ཚུ།"
-
-msgid "Overall Progress:"
-msgstr ""
-
-#, fuzzy
-msgid "Page Item Attributes"
-msgstr "ཁྱད་ཆོས་ཚུ།"
-
-#, fuzzy
 msgid "Patterns"
 msgstr "གསལ་བྱང་ཚུ།"
 
@@ -9311,6 +9769,21 @@ msgstr "མངོན་གསལ...(&L)"
 #, fuzzy
 msgid "Load Set"
 msgstr "མངོན་གསལ:"
+
+#, fuzzy
+msgid "Remove All"
+msgstr "རྩ་བསྐྲད་གཏང་།"
+
+#, fuzzy
+msgid "Progress"
+msgstr "ལས་རིམ་ཚུ།"
+
+msgid "Overall Progress:"
+msgstr ""
+
+#, fuzzy
+msgid "Page Item Attributes"
+msgstr "ཁྱད་ཆོས་ཚུ།"
 
 #, fuzzy
 msgid "LineStyleWBase"
@@ -9355,38 +9828,14 @@ msgstr "ཆ་མེད་གཏང་།"
 msgid "Alt+N"
 msgstr "གདམ་ལྡེ་+ཨེན།"
 
-#, fuzzy
-msgid "name"
-msgstr "བསྐྱར་མིང་བཏགས།"
-
-msgid "shortcut"
-msgstr ""
-
 msgid "Style Manager"
-msgstr ""
-
-msgid "Please select a unique name for the style"
 msgstr ""
 
 #, fuzzy
 msgid "Alt+R"
 msgstr "གདམ་ལྡེ།+"
 
-msgid ""
-"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
-"a defined position with the formatting you choose. You may select a text "
-"file on the Options tab if you want to immediately import a document into "
-"the frame. Scribus supports a wide variety of importable format from plain "
-"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
-"page directly or in the simple Story Editor."
-msgstr ""
-
-msgid ""
-"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
-"onto your page. Various image effects may be applied or combined including "
-"transparencies, brightness, posterisation that allow retouching or the "
-"creation of interesting visual results. Image scaling and shaping is "
-"performed with the Properties Palette."
+msgid "Please select a unique name for the style"
 msgstr ""
 
 #, fuzzy
@@ -9417,6 +9866,10 @@ msgstr "གཞི་ཁྲམ་ཚུ་སྟོན།(&F)"
 
 msgid "Display &Unprintable Area in Margin Color"
 msgstr "ས་སྟོང་ཚོས་གཞི་ནང་ལུ་དཔར་བསྐྲུན་བཤོལ་བཏུབ་མངའ་ཁོངས་བཀྲམ་སྟོན་འབད།(&U)"
+
+#, fuzzy
+msgid "Show Bleed Area"
+msgstr "བང་རིམ་ཚུ་སྟོན།"
 
 #, fuzzy
 msgid "Scratch Space"
@@ -9670,23 +10123,30 @@ msgid "Count of the Paragraphs:"
 msgstr "ད་ལྟོའི་དོན་མཚམས:"
 
 #, fuzzy
-msgid "Use Parent Value"
-msgstr "གནས་གོང་བཙུགས།"
-
-msgid "P"
-msgstr ""
-
-msgid "Use parent style's alignment instead of overriding it"
-msgstr ""
-
-msgid "Use parent style's effects instead of overriding them"
-msgstr ""
+msgid "Alternative Printer Command"
+msgstr "དཔར་བསྐྲུན་ཐབས་གཞན་གྱི་བརྡ་བཀོད།"
 
 #, fuzzy
-msgid "Use Parent Font"
-msgstr "ཡིག་གཟུགས་ལག་ལེན་འཐབ།"
+msgid "Command:"
+msgstr "བརྡ་བཀོད:"
 
-msgid " Parent Tabs "
+#, fuzzy
+msgid "Postscript Options"
+msgstr "དཔར་བསྐྲུན་གྱི་གདམ་ཁ་ཚུ།"
+
+#, fuzzy
+msgid "Level 1"
+msgstr "གནས་རིམ།"
+
+#, fuzzy
+msgid "Level 2"
+msgstr "གནས་རིམ།"
+
+#, fuzzy
+msgid "Level 3"
+msgstr "གནས་རིམ།"
+
+msgid "Marks && Bleeds"
 msgstr ""
 
 msgid "Send Copied Items Automatically to Scrapbook"
@@ -9711,24 +10171,20 @@ msgid "The minimum number is 1; the maximum us 100."
 msgstr ""
 
 #, fuzzy
-msgid "Curve Files (*.scu);;All Files (*)"
-msgstr "ཨི་པི་ཨེསི་ཡིག་སྣོད་ཚུ་ (*.ཨི་པི་ཨེསི་);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ། (*)"
+msgid "Hex"
+msgstr "ཚོན་མདངས:(&e)"
 
 #, fuzzy
-msgid "Inverts the curve"
-msgstr "བའི་ཛིཡར་གུག་གུགཔ་ཚུ་བཙུགས།"
+msgid "Meaning"
+msgstr "ས་སྟོང་ཚུ།:(&M)"
 
-msgid "Resets the curve"
-msgstr ""
+#, fuzzy
+msgid "Unicode Search"
+msgstr "འཚོལ་ཞིབ་འབད།"
 
-msgid "Switches between linear and cubic interpolation of the curve"
-msgstr ""
-
-msgid "Loads a curve"
-msgstr ""
-
-msgid "Saves this curve"
-msgstr ""
+#, fuzzy
+msgid "&Search:"
+msgstr "འཚོལ་ཞིབ་འབད།(&S)"
 
 #, fuzzy
 msgid "Use Printer Margins"
@@ -9737,75 +10193,6 @@ msgstr "དཔར་བསྐྲུན་གྱི་གདམ་ཁ་ཚུ།
 #, fuzzy
 msgid "Select &Printer:"
 msgstr "དཔར་བསྐྲུན་པ་འདི་གཞི་སྒྲིག་འབད།"
-
-#, fuzzy
-msgid "Right:"
-msgstr "གཡས:(&R)"
-
-msgid "Color for paper"
-msgstr "ཤོག་ཀུའི་དོན་ལུ་ཚོས་གཞི།"
-
-msgid "Mask the area outside the margins in the margin color"
-msgstr "ས་སྟོང་ཚོས་གཞི་ནང་ས་སྟོང་གི་ཕྱི་ཁའི་མངའ་ཁོངས་དེ་གདོང་ཁེབས་འབད།"
-
-#, fuzzy
-msgid "Enable or disable  the display of linked frames."
-msgstr "ཀེ (གནགཔོ་)སྣག་རྩིའི་ཧོད་ ལྕོགས་ཅན་/ལྕོགས་མིན་བཟོ།"
-
-msgid ""
-"Display non-printing characters such as paragraph markers in text frames"
-msgstr ""
-
-msgid "Turns the display of frames on or off"
-msgstr ""
-
-msgid "Turns the display of layer indicators on or off"
-msgstr ""
-
-msgid "Turns the display of pictures on or off"
-msgstr ""
-
-msgid ""
-"Defines amount of space left of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space right of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space above the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space below the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid "Set the default zoom level"
-msgstr "སྔོན་སྒྲིག་ རྒྱས་ཟུམ་གྱི་གནས་རིམ་གཞི་སྒྲིག་འབད།"
-
-msgid ""
-"Place a ruler against your screen and drag the slider to set the zoom level "
-"so Scribus will display your pages and objects on them at the correct size"
-msgstr ""
-
-#, fuzzy
-msgid "Loading Patterns"
-msgstr "དགའ་གདམ་ཚུ་ལྷག་དོ།"
-
-#, fuzzy
-msgid "&Horizontal Gap:"
-msgstr "ཐད་སྙོམས།"
-
-#, fuzzy
-msgid "&Vertical Gap:"
-msgstr "ཀེར་ཕྲང་།"
 
 msgid "Freetype2 library not available"
 msgstr ""
@@ -10002,6 +10389,10 @@ msgstr "ཚོས་གཞི་བཀང་ཡོད་མི་གཞི་ས
 msgid "Color selector with color theory included."
 msgstr ""
 
+#, fuzzy
+msgid "Base Color"
+msgstr "ཤོག་ལེབ་ཚོས་གཞི་ཚུ།"
+
 msgid "Monochromatic"
 msgstr ""
 
@@ -10020,10 +10411,6 @@ msgstr ""
 
 msgid "Tetradic (Double Complementary)"
 msgstr ""
-
-#, fuzzy
-msgid "Base Color"
-msgstr "ཤོག་ལེབ་ཚོས་གཞི་ཚུ།"
 
 msgid "Monochromatic Light"
 msgstr ""
@@ -10095,21 +10482,16 @@ msgid ""
 "or white. There is no way to process this color."
 msgstr ""
 
+msgid "HSV"
+msgstr ""
+
 msgid ""
 "Click the wheel to get the base color. Its color model depends on the chosen "
 "tab."
 msgstr ""
 
 #, fuzzy
-msgid "RGB:"
-msgstr "ཨར་ཇི་བི།"
-
-#, fuzzy
-msgid "CMYK:"
-msgstr "སི་ཨེམ་ཝའི་ཀེ།"
-
-#, fuzzy
-msgid "Color Scheme Method:"
+msgid "Color Scheme Method"
 msgstr "ས་སྒོ་ཚུ་སེལ་འཐུ་འབད།"
 
 msgid ""
@@ -10130,12 +10512,36 @@ msgstr "སྔོན་ལྟ།"
 msgid "Vision Defect Type:"
 msgstr "ནུས་ཅན་གྱི་དབྱེ་བ:(&y)"
 
-msgid "imulate common vision defects here. Select type of the defect."
+msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 #, fuzzy
 msgid "Sample color scheme."
 msgstr "ཟུར་མང་དབྱིབས་ཀྱི་དཔེ་ཚད།"
+
+#, fuzzy
+msgid "RGB:"
+msgstr "ཨར་ཇི་བི།"
+
+msgid "HSV:"
+msgstr ""
+
+#, fuzzy
+msgid "CMYK:"
+msgstr "སི་ཨེམ་ཝའི་ཀེ།"
+
+msgid "H:"
+msgstr ""
+
+msgid "S:"
+msgstr ""
+
+msgid "V:"
+msgstr ""
+
+#, fuzzy
+msgid "Result Colors"
+msgstr "ཚོས་གཞི་བཏོན་གཏང་།"
 
 #, fuzzy
 msgid "Colors of your chosen color scheme."
@@ -10193,6 +10599,9 @@ msgstr "ནང་འདྲེན་འབད &OpenOffice.org འབྲི་...(
 #, fuzzy
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "OpenOffice.org འབྲི་ (*.sxd);;ཡིག་སྣོད་ཚུ་ཆ་མཉམ་ (*)"
+
+msgid "This file contains some unsupported features"
+msgstr ""
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""
@@ -10759,7 +11168,7 @@ msgid "exists already. Overwrite?"
 msgstr "ཧེ་མ་ལས་རང་གནས་ཏེ་ཡོད།ཚབ་སྲུང་འབད་ག?"
 
 #, fuzzy
-msgid "Importing PostScript"
+msgid "Importing: %1"
 msgstr "ཚིག་ཡིག་ནང་འདྲེན་འབད་དོ།"
 
 #, fuzzy
@@ -10801,7 +11210,8 @@ msgstr ""
 msgid "PDF"
 msgstr ""
 
-msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
+#, fuzzy
+msgid "All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;"
 msgstr "རྒྱབ་སྐྱོར་འབད་ཡོད་པའི་རྩ་སྒྲིག་ཚུ་ཆ་མཉམ་རང་།(*.eps *.EPS *.ps *.PS);;"
 
 msgid "Save as Template"
@@ -11654,6 +12064,62 @@ msgstr ""
 msgid "parent= %1"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Get Text 2..."
+#~ msgstr "ཚིག་ཡིག་ལེན..."
+
+#, fuzzy
+#~ msgid "&Fit in window"
+#~ msgstr "ཝིན་ཌོ་གི་ནང་ལུ་ཚུད་སྒྲིག་འབད།(&F)"
+
+#, fuzzy
+#~ msgid "&Insert Code:"
+#~ msgstr "བཙུགས་(&I)"
+
+#, fuzzy
+#~ msgid "Close this dialog and return to text editing"
+#~ msgstr "འ་ནི་ཌའི་ལོག་འདི་ཁ་བསྡམས་ཞིནམ་ལས་རྩོམ་སྒྲིག་འབད་ནིའི་ཚིག་ཡིག་ལུ་སླར་ལོག་འབད།"
+
+#, fuzzy
+#~ msgid "Norwegian (Bokmål)"
+#~ msgstr "ནོར་ཝེ་ཇི་ཡཱན།(བུག་མཱལ)"
+
+#, fuzzy
+#~ msgid ""
+#~ "Use a second line originally based on the frame's shape for text flow of "
+#~ "text frames below the object. "
+#~ msgstr ""
+#~ "ཚིག་ཡིག་འབབ་རྒྱུན་གྱི་དོན་ལུ་ གཞི་ཁྲམ་དབྱིབས་གུ་ གཞི་རྟེན་ངོ་མའི་གྲལ་ཐིག་གཉིས་པ་ཅིག་ལག་ལེན་འཐབ།"
+
+#, fuzzy
+#~ msgid "Parent's Character Style"
+#~ msgstr "དོན་མཚམས་ཀྱི་བཟོ་རྣམ།"
+
+#~ msgid "&Subset all Fonts"
+#~ msgstr "ཡིག་གཟུགས་ཚུ་ཆ་མཉམ་གྱི་ཆ་ཚན་ཡན་ལག(&S)"
+
+#~ msgid "Trim Box"
+#~ msgstr "རྩེ་སྙོམ་ནི་གི་སྒྲོམ།"
+
+#~ msgid "PDF/X-&3"
+#~ msgstr "པི་ཌི་ཨེཕ་/ཨེགསི་-༣(&3)"
+
+#, fuzzy
+#~ msgid "Custom:"
+#~ msgstr "སྲོལ་སྒྲིག།"
+
+#, fuzzy
+#~ msgid "Object Duplicate"
+#~ msgstr "རྫུན་མ།"
+
+#, fuzzy
+#~ msgid "name"
+#~ msgstr "བསྐྱར་མིང་བཏགས།"
+
+#, fuzzy
+#~ msgid "Importing PostScript"
+#~ msgstr "ཚིག་ཡིག་ནང་འདྲེན་འབད་དོ།"
+
 #~ msgid "Layer"
 #~ msgstr "བང་རིམ།"
 
@@ -11786,9 +12252,6 @@ msgstr ""
 #~ msgid "First &Line:"
 #~ msgstr "དང་པ་དང་གྲལ་ཐིག:"
 
-#~ msgid "Left Ind&ent:"
-#~ msgstr "དང་གཡོན་འགོ་མཚམས:"
-
 #~ msgid "&Template:"
 #~ msgstr "ཊེམ་པེལེཊི:(&T)"
 
@@ -11818,9 +12281,6 @@ msgstr ""
 
 #~ msgid "Lock Object &Size"
 #~ msgstr "དངོས་པོའི་ཚད་བསྡམས་བཞག(&S)"
-
-#~ msgid "Unlock Object &Size"
-#~ msgstr "དངོས་པོའི་ཚད་ མ་བསྡམས་པར་བཞག(&S)"
 
 #~ msgid "Send to &Back"
 #~ msgstr "རྒྱབ་ལུ་གཏང་།(&B)"
@@ -11943,9 +12403,6 @@ msgstr ""
 #~ msgid "Left Sides"
 #~ msgstr "གཡོན་ཕྱོགས།"
 
-#~ msgid "Right Sides"
-#~ msgstr "གཡས་ཕྱོགས།"
-
 #~ msgid "&Between:"
 #~ msgstr "བར་ན:(&B)"
 
@@ -11999,9 +12456,6 @@ msgstr ""
 
 #~ msgid "JavaScripts..."
 #~ msgstr "ཇ་བ་ཡིག་ཚུགས་ཚུ..."
-
-#~ msgid "Show Page Palette"
-#~ msgstr "ཤོག་ལེབ་ཀྱི་པེ་ལེཊི་སྟོན།"
 
 #~ msgid "Lock/Unlock"
 #~ msgstr "ལྡེ་མིག་རྐྱབས/ལྡེ་མིག་མ་རྐྱབས།"
@@ -12178,9 +12632,6 @@ msgstr ""
 
 #~ msgid "Custom Spacing"
 #~ msgstr "སྲོལ་སྒྲིག་བར་སྟོང་བཞག་ཐང་།"
-
-#~ msgid "Trac&king:"
-#~ msgstr "རྗེས་འཛོལ་འབད་དོ:(&K)"
 
 #~ msgid "&Font:"
 #~ msgstr "ཡིག་གཟུགས:(&F)"

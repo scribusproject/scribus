@@ -6081,6 +6081,10 @@ proszę wybrać inną nazwę.</translation>
         <source>V:</source>
         <translation>V:</translation>
     </message>
+    <message>
+        <source> %</source>
+        <translation type="unfinished">%</translation>
+    </message>
 </context>
 <context>
     <name>ChTable</name>
@@ -6605,11 +6609,15 @@ proszę wybrać inną nazwę.</translation>
     </message>
     <message>
         <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.epsi *.ps *.ai);;All Files (*)</source>
-        <translation>Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Inne pliki (*.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
+        <translation type="obsolete">Dokumenty (*.sla *.sla.gz *.scd *.scd.gz);;Inne pliki (*.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
     </message>
     <message>
         <source>Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)</source>
         <translation>Dokumenty (*.sla *.scd);;Inne pliki (*.eps *.epsi *.ps *.ai);;Wszystkie pliki (*)</translation>
+    </message>
+    <message>
+        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *.ai);;All Files (*)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

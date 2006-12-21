@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: scribus\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-28 14:08+0200\n"
+"POT-Creation-Date: 2006-12-21 23:33+0100\n"
 "PO-Revision-Date: 2005-01-08 17:40+0100\n"
 "Last-Translator: Pier Luigi Cinquantini <plcinquantini@katamail.com>\n"
 "Language-Team: esperanto <eo@li.org>\n"
@@ -183,10 +183,6 @@ msgid "Collect for O&utput..."
 msgstr "Engr&upigu por eligo..."
 
 msgid "Get Text..."
-msgstr "Enmetu tekston..."
-
-#, fuzzy
-msgid "Get Text 2..."
 msgstr "Enmetu tekston..."
 
 msgid "Append &Text..."
@@ -502,6 +498,9 @@ msgstr ""
 msgid "Sample Text"
 msgstr "Enmetu ek&zemplan tekston"
 
+msgid "Sticky Tools"
+msgstr ""
+
 msgid "&Insert..."
 msgstr "&Enmetu..."
 
@@ -535,8 +534,12 @@ msgid "Manage Page Properties..."
 msgstr "Ecoj..."
 
 #, fuzzy
-msgid "&Fit in window"
-msgstr "&Tuta paĝo"
+msgid "&Fit to Height"
+msgstr "De maldekstre dekstren"
+
+#, fuzzy
+msgid "Fit to Width"
+msgstr "Tuta paĝo"
 
 #, fuzzy
 msgid "&50%"
@@ -562,6 +565,10 @@ msgstr "&Miniaturoj"
 
 msgid "Show &Margins"
 msgstr "Mo&ntru marĝenojn"
+
+#, fuzzy
+msgid "Show Bleeds"
+msgstr "Montru &gvidilojn"
 
 msgid "Show &Frames"
 msgstr "Montru &kadrojn"
@@ -826,6 +833,13 @@ msgid "Column Break"
 msgstr "Kolumnogvidiloj"
 
 #, fuzzy
+msgid "&Zero Width Space"
+msgstr "Anstataŭu"
+
+msgid "Zero Width NB Space"
+msgstr ""
+
+#, fuzzy
 msgid "Copyright"
 msgstr "Kopiu"
 
@@ -1012,10 +1026,10 @@ msgstr "Gvidiloj"
 msgid "Selection"
 msgstr "Elektu"
 
-msgid "Align right sides of objects to left side of anchor"
+msgid "Align right sides of items to left side of anchor"
 msgstr ""
 
-msgid "Align left sides of objects to right side of anchor"
+msgid "Align left sides of items to right side of anchor"
 msgstr ""
 
 #, fuzzy
@@ -1026,7 +1040,7 @@ msgstr "Maldekstremigu"
 msgid "Align right sides"
 msgstr "Dekstremigu"
 
-msgid "Align tops of objects to bottom of anchor"
+msgid "Align tops of items to bottom of anchor"
 msgstr ""
 
 msgid "Center on vertical axis"
@@ -1040,7 +1054,7 @@ msgstr "Alkadrigita teksto"
 msgid "Center on horizontal axis"
 msgstr "Horizontalaj gvidiloj"
 
-msgid "Align bottoms of objects to top of anchor"
+msgid "Align bottoms of items to top of anchor"
 msgstr ""
 
 #, fuzzy
@@ -1051,10 +1065,10 @@ msgstr "Maldekstremigu"
 msgid "&Selected Guide:"
 msgstr "Elektitaj kampoj"
 
-msgid "Make horizontal gaps between objects equal"
+msgid "Make horizontal gaps between items equal"
 msgstr ""
 
-msgid "Make horizontal gaps between objects equal to the value specified"
+msgid "Make horizontal gaps between items equal to the value specified"
 msgstr ""
 
 msgid "Distribute right sides equidistantly"
@@ -1067,10 +1081,10 @@ msgstr "Dismetu &regule"
 msgid "Distribute centers equidistantly horizontally"
 msgstr ""
 
-msgid "Make vertical gaps between objects equal"
+msgid "Make vertical gaps between items equal"
 msgstr ""
 
-msgid "Make vertical gaps between objects equal to the value specified"
+msgid "Make vertical gaps between items equal to the value specified"
 msgstr ""
 
 msgid "Distribute left sides equidistantly"
@@ -1083,18 +1097,17 @@ msgstr ""
 msgid "Distribute tops equidistantly"
 msgstr "Dism&etu regule"
 
-msgid "Make horizontal gaps between objects and sides of page equal"
+msgid "Make horizontal gaps between items and sides of page equal"
 msgstr ""
 
 msgid ""
-"Make vertical gaps between objects and the top and bottom of page margins "
-"equal"
+"Make vertical gaps between items and the top and bottom of page margins equal"
 msgstr ""
 
-msgid "Make horizontal gaps between objects and sides of page margins equal"
+msgid "Make horizontal gaps between items and sides of page margins equal"
 msgstr ""
 
-msgid "Make vertical gaps between objects and the top and bottom of page equal"
+msgid "Make vertical gaps between items and the top and bottom of page equal"
 msgstr ""
 
 #, fuzzy
@@ -1522,7 +1535,8 @@ msgid "Open"
 msgstr "Malfermu"
 
 #, fuzzy
-msgid "Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps);;All Files (*)"
+msgid ""
+"Images (*.tif *.png *.jpg *.xpm);;PostScript (*.eps *epsi);;All Files (*)"
 msgstr ""
 "Bildoj (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Ĉiaj dosieroj (*)"
 
@@ -1698,6 +1712,14 @@ msgstr "Nuligu"
 msgid "Select Character:"
 msgstr "Elektu signon:"
 
+#, fuzzy
+msgid "Scribus Char Palette (*.ucp);;All Files (*)"
+msgstr "Postskriptdosieroj (*.ps);; Ĉiaj dosieroj (*)"
+
+#, fuzzy
+msgid "Enhanced Palette"
+msgstr "Paĝpa&letron"
+
 msgid "Font:"
 msgstr "Tiparo:"
 
@@ -1705,25 +1727,21 @@ msgstr "Tiparo:"
 msgid "Character Class:"
 msgstr "Signoj"
 
-#, fuzzy
-msgid "&Insert Code:"
-msgstr "&Enmetu"
-
 msgid "&Insert"
 msgstr "&Enmetu"
+
+#, fuzzy
+msgid "Quick Palette"
+msgstr "Paĝpa&letron"
+
+msgid "Hide Enhanced"
+msgstr ""
 
 msgid "Insert the characters at the cursor in the text"
 msgstr "Enmetu la signojn ĉe la kursoro en la teksto"
 
 msgid "Delete the current selection(s)."
 msgstr "Forigu la elektita(j)n areo(j)n."
-
-#, fuzzy
-msgid "Close this dialog and return to text editing"
-msgstr "Fermu la dialogujon kaj reiru al la redaktata teksto."
-
-msgid "Type in a four digit unicode value directly here"
-msgstr ""
 
 msgid ""
 "You can see a thumbnail if you press and hold down the right mouse button. "
@@ -1822,6 +1840,36 @@ msgstr ""
 
 msgid "Hebrew"
 msgstr ""
+
+#, fuzzy
+msgid "Choose a filename to open"
+msgstr "Elektu nomon"
+
+msgid "Error"
+msgstr "Eraro"
+
+msgid "Error reading file %1 - file is corrupted propably."
+msgstr ""
+
+#, fuzzy
+msgid "Choose a filename to save under"
+msgstr "Elektu filtrilon jam konservitan"
+
+#, fuzzy
+msgid "Cannot write file %1"
+msgstr ""
+"Ne eblas skribi la dosieron: \n"
+"%1"
+
+#, fuzzy
+msgid "Clean the Palette?"
+msgstr "Paĝpa&letron"
+
+msgid "You will clean all characters from this palette. Are you sure?"
+msgstr ""
+
+msgid "Delete"
+msgstr "Forigu"
 
 msgid "Document"
 msgstr "Dokumento"
@@ -2241,12 +2289,13 @@ msgstr "Elektu nomon"
 
 #, fuzzy
 msgid ""
-"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*.eps *.ps *.ai);;"
-"All Files (*)"
+"Documents (*.sla *.sla.gz *.scd *.scd.gz);;Other Files (*eps *.epsi *.ps *."
+"ai);;All Files (*)"
 msgstr "Documentoj (*.sla *.sla.gz *.scd *.scd.gz);;Ĉiaj dosieroj (*)"
 
 #, fuzzy
-msgid "Documents (*.sla *.scd);;Other Files (*.eps *.ps *.ai);;All Files (*)"
+msgid ""
+"Documents (*.sla *.scd);;Other Files (*.eps *.epsi *.ps *.ai);;All Files (*)"
 msgstr "Documentoj (*.sla *.sla.gz *.scd *.scd.gz);;Ĉiaj dosieroj (*)"
 
 msgid "Copy of %1"
@@ -2390,6 +2439,27 @@ msgstr "Numero"
 #, fuzzy
 msgid "December"
 msgstr "Numero"
+
+#, fuzzy
+msgid "Normal Vision"
+msgstr "Normaligu"
+
+msgid "Protanopia (Red)"
+msgstr ""
+
+msgid "Deuteranopia (Green)"
+msgstr ""
+
+msgid "Tritanopia (Blue)"
+msgstr ""
+
+#, fuzzy
+msgid "Full Color Blindness"
+msgstr "Plenigkolora agordaro"
+
+#, fuzzy
+msgid "Custom: "
+msgstr "Propra"
 
 #, fuzzy
 msgid "Transparency Settings"
@@ -2598,6 +2668,38 @@ msgstr ""
 "Vi povas konfirmi la CUPS-subtenon elektante Helpo > Pri Scribus.\n"
 "Legu la literliston: C-C-T egalas al subteno de C=CUPS C=littlecms T=TIFF.\n"
 "Subteno por mankantaj bibliotekoj estas montrita per *"
+
+#, fuzzy
+msgid "Curve Files (*.scu);;All Files (*)"
+msgstr "EPS-dosieroj (*eps);; Ĉiaj dosieroj (*)"
+
+msgid "Save as"
+msgstr "Konservu kiel"
+
+#, fuzzy
+msgid ""
+"Cannot write the file: \n"
+"%1"
+msgstr ""
+"Ne eblas skribi la dosieron: \n"
+"%1"
+
+#, fuzzy
+msgid "Inverts the curve"
+msgstr "Enmetu Bezier-kurbojn"
+
+#, fuzzy
+msgid "Resets the curve"
+msgstr "Maldekstra rando"
+
+msgid "Switches between linear and cubic interpolation of the curve"
+msgstr ""
+
+msgid "Loads a curve"
+msgstr ""
+
+msgid "Saves this curve"
+msgstr ""
 
 msgid "Size:"
 msgstr "Grando:"
@@ -3036,11 +3138,87 @@ msgid "Advanced Options"
 msgstr "Kromaj opcioj "
 
 #, fuzzy
+msgid "Printer Marks"
+msgstr "Printanta..."
+
+#, fuzzy
+msgid "Crop Marks"
+msgstr "Ĉe&fliteroj"
+
+#, fuzzy
+msgid "Bleed Marks"
+msgstr "Kalendaroj"
+
+#, fuzzy
+msgid "Registration Marks"
+msgstr "Saturiteco de la koloro"
+
+#, fuzzy
+msgid "Color Bars"
+msgstr "Koloro"
+
+#, fuzzy
+msgid "Offset:"
+msgstr "Efektoj"
+
+#, fuzzy
+msgid "Marks"
+msgstr "&Marĝenoj:"
+
+#, fuzzy
+msgid "Bleed Settings"
+msgstr "Stil-agordaro"
+
+#, fuzzy
+msgid "Top:"
+msgstr "&Supra:"
+
+#, fuzzy
+msgid "Bottom:"
+msgstr "Malsu&pre:"
+
+#, fuzzy
+msgid "Left:"
+msgstr "&Maldekstre:"
+
+#, fuzzy
+msgid "Right:"
+msgstr "&Dekstre:"
+
+#, fuzzy
+msgid "Use Document Bleeds"
+msgstr "Tekstodokumentoj"
+
+#, fuzzy
+msgid "Bleeds"
+msgstr "Opaka"
+
+#, fuzzy
+msgid "Inside:"
+msgstr "I&nterna:"
+
+#, fuzzy
+msgid "Outside:"
+msgstr "&Ekstera:"
+
+#, fuzzy
 msgid "Preview..."
 msgstr "Antaŭrigardo"
 
 msgid "&Print"
 msgstr "&Printu"
+
+msgid "Distance for bleed from the top of the physical page"
+msgstr "Distanco ĝis la malsupra paĝmarĝeno por eksterpaĝaj skribaĵoj"
+
+msgid "Distance for bleed from the bottom of the physical page"
+msgstr "Distanco ĝis la supra paĝmarĝeno por eksterpaĝaj skribaĵoj"
+
+msgid "Distance for bleed from the left of the physical page"
+msgstr "Distanco ĝis la maldekstra paĝmarĝeno por eksterpaĝaj skribaĵoj"
+
+msgid "Distance for bleed from the right of the physical page"
+msgstr "Distanco ĝis la dekstra paĝmarĝeno por eksterpaĝaj skribaĵoj"
 
 #, fuzzy
 msgid "Do not show objects outside the margins on the printed page"
@@ -3113,9 +3291,6 @@ msgstr ""
 msgid "Failed to retrieve printer settings"
 msgstr ""
 
-msgid "Save as"
-msgstr "Konservu kiel"
-
 #, fuzzy
 msgid "PostScript Files (*.ps);;All Files (*)"
 msgstr "Postskriptdosieroj (*.ps);; Ĉiaj dosieroj (*)"
@@ -3162,7 +3337,7 @@ msgstr "Nomo de la aline-stilo"
 msgid "Background"
 msgstr "Fono"
 
-msgid "Select for easier reading of light coloured text styles"
+msgid "Select for easier reading of light colored text styles"
 msgstr ""
 
 msgid "Name of your paragraph style"
@@ -3210,6 +3385,10 @@ msgstr "Koloro de la gvidlinioj de vi enmetitaj"
 #, fuzzy
 msgid "Toggles sample text of this paragraph style"
 msgstr "Nomo de la aline-stilo"
+
+#, fuzzy
+msgid "Auto"
+msgstr "Aŭtoro"
 
 #, fuzzy
 msgid "Name of the style is not unique"
@@ -3422,9 +3601,9 @@ msgid "&Remove"
 msgstr "Fori&gu"
 
 msgid ""
-"Font search paths can only be set in Preferences, and only when there is no "
-"document currently open. Close any open documents, then use Edit->Settings "
-"to change the font search path."
+"Font search paths can only be set in File > Preferences, and only when there "
+"is no document currently open. Close any open documents, then use File > "
+"Preferences > Fonts to change the font search path."
 msgstr ""
 
 msgid "Additional &Paths"
@@ -3814,6 +3993,16 @@ msgid "Camera Manufacturer:"
 msgstr ""
 
 #, fuzzy
+msgid "Exposure time"
+msgstr "Ekspor&tu"
+
+msgid "Aperture:"
+msgstr ""
+
+msgid "ISO equiv.:"
+msgstr ""
+
+#, fuzzy
 msgid "Scanner Model:"
 msgstr "&Fontoj:"
 
@@ -3827,6 +4016,23 @@ msgstr "Lininombro:"
 #, fuzzy
 msgid "Number of columns:"
 msgstr "Kolumnonombro:"
+
+msgid ""
+"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
+"a defined position with the formatting you choose. You may select a text "
+"file on the Options tab if you want to immediately import a document into "
+"the frame. Scribus supports a wide variety of importable format from plain "
+"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
+"page directly or in the simple Story Editor."
+msgstr ""
+
+msgid ""
+"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
+"onto your page. Various image effects may be applied or combined including "
+"transparencies, brightness, posterisation that allow retouching or the "
+"creation of interesting visual results. Image scaling and shaping is "
+"performed with the Properties Palette."
+msgstr ""
 
 msgid "Insert Page"
 msgstr "Enmetu paĝon"
@@ -3931,6 +4137,10 @@ msgstr "Nederlanda"
 msgid "English"
 msgstr "Angla"
 
+#, fuzzy
+msgid "English (Australian)"
+msgstr "Angla (Brita)"
+
 msgid "English (British)"
 msgstr "Angla (Brita)"
 
@@ -3987,10 +4197,6 @@ msgstr "Litva"
 
 msgid "Luxembourgish"
 msgstr ""
-
-#, fuzzy
-msgid "Norwegian (Bokmål)"
-msgstr "Norvega (Bokmaal)"
 
 msgid "Norwegian (Nnyorsk)"
 msgstr "Norvega (Nnyorsk)"
@@ -4184,6 +4390,9 @@ msgid ""
 "Import the margins for the selected page size from the available printers."
 msgstr ""
 
+msgid "Margin Guides"
+msgstr "Marĝengvidiloj"
+
 msgid "Distance between the top margin guide and the edge of the page"
 msgstr "Distanco inter la supra marĝeno kaj la rando de la paĝo"
 
@@ -4242,9 +4451,6 @@ msgstr ""
 #, fuzzy
 msgid "Manage Page Properties"
 msgstr "Linidesegnaj ecoj"
-
-msgid "Margin Guides"
-msgstr "Marĝengvidiloj"
 
 #, fuzzy
 msgid "Other Settings"
@@ -4670,11 +4876,12 @@ msgid ""
 "shape for text flow of text frames below the object. "
 msgstr "Uzu la kadroformon anstataŭ la objektoformon por la tekstofluo"
 
-#, fuzzy
 msgid ""
-"Use a second line originally based on the frame's shape for text flow of "
-"text frames below the object. "
-msgstr "Uzu duan linion origine bazitan sur la kadroformo por la tekstofluo"
+"When chosen, the contour line can be edited with the Edit Shape Tool on the "
+"palette further above. When edited via the shape palette, this becomes a "
+"second separate line originally based on the frame's shape for text flow of "
+"text frames below the object. T"
+msgstr ""
 
 msgid "Scaling width of characters"
 msgstr "Larĝoskalo de la signoj"
@@ -4702,6 +4909,10 @@ msgstr "Saturiteco de la koloro de la tekstoplenigo"
 
 msgid "Right to Left Writing"
 msgstr "De dekstre maldekstren"
+
+#, fuzzy
+msgid "Click and hold down to select the line spacing mode."
+msgstr "Koloro de la gvidlinioj de vi enmetitaj"
 
 msgid "Style of current paragraph"
 msgstr "Stilo de la elektita alineo"
@@ -4809,6 +5020,14 @@ msgid "Dash Dot Dot Line"
 msgstr "Streko-punkto-punkto"
 
 #, fuzzy
+msgid "&Horizontal Gap:"
+msgstr "Horizontale"
+
+#, fuzzy
+msgid "&Vertical Gap:"
+msgstr "Vertikale"
+
+#, fuzzy
 msgid "Edit Master Pages"
 msgstr "post paĝo"
 
@@ -4914,6 +5133,14 @@ msgid "Distance between automatically created columns"
 msgstr "Distanco inter la aŭtomate kreitaj kolumnoj"
 
 #, fuzzy
+msgid "Page Layout"
+msgstr "Aranĝo:"
+
+#, fuzzy
+msgid "First Page is:"
+msgstr "&Unua paĝnumero:"
+
+#, fuzzy
 msgid "N&umber of Pages:"
 msgstr "Kopin&ombro:"
 
@@ -4925,6 +5152,23 @@ msgstr "&Automataj kolumnoj"
 
 msgid "&Gap:"
 msgstr "&Interkolumna distanco:"
+
+msgid "Show Document Settings After Creation"
+msgstr ""
+
+#, fuzzy
+msgid "Origin"
+msgstr "Originala PPI: "
+
+msgid "Size"
+msgstr "Grando"
+
+msgid "Height:"
+msgstr "Alto:"
+
+#, fuzzy
+msgid "Remember Values"
+msgstr "Memoru la rilaton"
 
 #, fuzzy
 msgid "Master Page "
@@ -4948,14 +5192,6 @@ msgstr "Teksto sur la desegno"
 
 msgid "Copy of"
 msgstr "Kopio de "
-
-#, fuzzy
-msgid "Page Layout"
-msgstr "Aranĝo:"
-
-#, fuzzy
-msgid "First Page is:"
-msgstr "&Unua paĝnumero:"
 
 #, fuzzy
 msgid "%1 of %1"
@@ -5055,6 +5291,10 @@ msgid "DLE"
 msgstr ""
 
 #, fuzzy
+msgid "Loading Patterns"
+msgstr "Vidalvidaj paĝoj"
+
+#, fuzzy
 msgid "Saving PDF"
 msgstr "Konservu kiel P&DF..."
 
@@ -5069,6 +5309,10 @@ msgstr "Importas paĝojn..."
 #, fuzzy
 msgid "Exporting Items on Current Page:"
 msgstr "Eksportu nur ĉi tiun paĝon"
+
+#, fuzzy
+msgid "Date:"
+msgstr "Da&to:"
 
 msgid "Could not open output file %1"
 msgstr ""
@@ -5166,11 +5410,9 @@ msgstr "Stato"
 msgid "Case insensitive search"
 msgstr ""
 
-msgid ""
-"The filesystem will be searched for case insensitive file names when you "
-"check this on. Remember it is not default on most operating systems except "
-"MS Windows"
-msgstr ""
+#, fuzzy
+msgid "Show thumbnails"
+msgstr "&Miniaturoj"
 
 #, fuzzy
 msgid "Search Directory"
@@ -5182,6 +5424,15 @@ msgstr "Fermu"
 msgid ""
 "Set a new location for the selected items. Useful when you may have moved "
 "the document but not the images."
+msgstr ""
+
+msgid "Show/hide image thumbnails"
+msgstr ""
+
+msgid ""
+"The filesystem will be searched for case insensitive file names when you "
+"check this on. Remember it is not default on most operating systems except "
+"MS Windows"
 msgstr ""
 
 msgid "Missing"
@@ -5336,6 +5587,9 @@ msgstr "&Vortdividilo..."
 msgid "Fonts"
 msgstr "&Tiparoj"
 
+msgid "Printer"
+msgstr "Printilo"
+
 #, fuzzy
 msgid "Color Management"
 msgstr "&Koloradministrado..."
@@ -5487,10 +5741,6 @@ msgstr "Konve&rtu al"
 #, fuzzy
 msgid "Scaling:"
 msgstr "Sk&alado:"
-
-#, fuzzy
-msgid "Fit to Width"
-msgstr "Tuta paĝo"
 
 #, fuzzy
 msgid "Fit to Height"
@@ -5685,9 +5935,6 @@ msgstr "Elektu eksportdosierujon"
 
 msgid "Rename"
 msgstr "Alinomu"
-
-msgid "Delete"
-msgstr "Forigu"
 
 #, fuzzy
 msgid "Copy To:"
@@ -5895,18 +6142,14 @@ msgstr ""
 msgid "(converted)"
 msgstr ""
 
+#, fuzzy
+msgid "Do you really want to clear all your text?"
+msgstr "Ĉu vi vere intencas forviŝi la tutan tekston?"
+
 msgid ""
 "The changes to your document have not been saved and you have requested to "
 "revert them. Do you wish to continue?"
 msgstr ""
-
-#, fuzzy
-msgid ""
-"Cannot write the file: \n"
-"%1"
-msgstr ""
-"Ne eblas skribi la dosieron: \n"
-"%1"
 
 #, fuzzy
 msgid "Documents (*.sla *.sla.gz);;All Files (*)"
@@ -5961,9 +6204,6 @@ msgstr "Tekstodosieroj (*.txt);;Ĉiaj dosieroj (*)"
 #, fuzzy
 msgid "Convert Page to Master Page"
 msgstr "Importu datumojn"
-
-msgid "Size"
-msgstr "Grando"
 
 msgid "&Shade:"
 msgstr "Inten&so:"
@@ -6077,6 +6317,9 @@ msgstr ""
 msgid "Usage: scribus [option ... ] [file]"
 msgstr ""
 
+msgid "Show information on the console when fonts are being loaded"
+msgstr ""
+
 msgid "Print help (this message) and exit"
 msgstr ""
 
@@ -6084,9 +6327,6 @@ msgid "Uses xx as shortcut for a language, eg `en' or `de'"
 msgstr ""
 
 msgid "List the currently installed interface languages"
-msgstr ""
-
-msgid "Show information on the console when fonts are being loaded"
 msgstr ""
 
 msgid "Do not show the splashscreen on startup"
@@ -6097,12 +6337,14 @@ msgid ""
 "called .neversplash in ~/.scribus."
 msgstr ""
 
-msgid ""
-"Download a file from the Scribus website and show the latest available "
-"version."
+#, fuzzy
+msgid "filename"
+msgstr "Dosier&nomo:"
+
+msgid "Use filename as path for user given preferences"
 msgstr ""
 
-msgid "Output version information and exit"
+msgid "Show location ICC profile information on console while starting"
 msgstr ""
 
 msgid ""
@@ -6110,11 +6352,12 @@ msgid ""
 "No/Cancel)"
 msgstr ""
 
-#, fuzzy
-msgid "filename"
-msgstr "Dosier&nomo:"
+msgid ""
+"Download a file from the Scribus website and show the latest available "
+"version."
+msgstr ""
 
-msgid "Use filename as path for user given preferences"
+msgid "Output version information and exit"
 msgstr ""
 
 msgid "Display a console window"
@@ -6173,6 +6416,14 @@ msgstr "Finu nun"
 msgid "Font System Initialized"
 msgstr "Tiparsistemo pravalorizita"
 
+#, fuzzy
+msgid "Default Paragraph Style"
+msgstr "Aline-stilo"
+
+#, fuzzy
+msgid "Default Character Style"
+msgstr "Signo"
+
 msgid ""
 "An error occurred while opening ICC profiles, color management is not "
 "enabled."
@@ -6180,10 +6431,6 @@ msgstr ""
 
 msgid "New Layer"
 msgstr "Nova nivelo"
-
-#, fuzzy
-msgid "Do you really want to clear all your text?"
-msgstr "Ĉu vi vere intencas forviŝi la tutan tekston?"
 
 msgid "Cannot Delete In-Use Item"
 msgstr ""
@@ -6222,22 +6469,10 @@ msgid ""
 "You can choose between normal and several color blindness forms"
 msgstr ""
 
-#, fuzzy
-msgid "Normal Vision"
-msgstr "Normaligu"
-
-msgid "Protanopia (Red)"
+msgid ""
+"CMS is active. Therefore the color display may not match the perception by "
+"visually impaired"
 msgstr ""
-
-msgid "Deuteranopia (Green)"
-msgstr ""
-
-msgid "Tritanopia (Blue)"
-msgstr ""
-
-#, fuzzy
-msgid "Full Color Blindness"
-msgstr "Plenigkolora agordaro"
 
 msgid "Copy Here"
 msgstr "Kopiu ĉi tie"
@@ -6297,6 +6532,10 @@ msgstr "Ni&velo"
 
 msgid "Conve&rt to"
 msgstr "Konve&rtu al"
+
+#, fuzzy
+msgid "Enter Object Size"
+msgstr "Malŝlo&su objektograndon"
 
 #, fuzzy
 msgid "Linking Text Frames"
@@ -6459,6 +6698,38 @@ msgid "Other..."
 msgstr "Aliaj..."
 
 #, fuzzy
+msgid "Add a new line"
+msgstr "Aldonu novan nivelon"
+
+#, fuzzy
+msgid "Remove a line"
+msgstr "&Forigu neuzatajn"
+
+#, fuzzy
+msgid "Line style"
+msgstr "&Linistiloj..."
+
+#, fuzzy
+msgid "Line width"
+msgstr "Lini-larĝo:"
+
+#, fuzzy
+msgid "End style"
+msgstr "Redaktu stilon"
+
+#, fuzzy
+msgid "Join style"
+msgstr "Neniu stilo"
+
+#, fuzzy
+msgid "Line color"
+msgstr "&Linikoloro:"
+
+#, fuzzy
+msgid "Line shade"
+msgstr "Malvolvu"
+
+#, fuzzy
 msgid "Line Styles"
 msgstr "&Linistiloj..."
 
@@ -6491,6 +6762,58 @@ msgid "Character Style"
 msgstr "Signo"
 
 #, fuzzy
+msgid "Parent style"
+msgstr "Tipar&stilo"
+
+#, fuzzy
+msgid "Line spacing mode"
+msgstr "Lini-distanco"
+
+#, fuzzy
+msgid "Line spacing"
+msgstr "Lini-distanco"
+
+#, fuzzy
+msgid "Space above"
+msgstr "Anstataŭu"
+
+#, fuzzy
+msgid "Space below"
+msgstr "Anstataŭu"
+
+#, fuzzy
+msgid "Enable or disable drop cap"
+msgstr "Ebligu aŭ malebligu la printon de la objekto"
+
+#, fuzzy
+msgid "Drop cap lines"
+msgstr "Ĉe&fliteroj"
+
+#, fuzzy
+msgid "Drop cap offset"
+msgstr "Ĉe&fliteroj"
+
+#, fuzzy
+msgid "Alignment"
+msgstr "&Alĝustigo"
+
+#, fuzzy
+msgid "First line indent"
+msgstr "Liberlinia gradiento"
+
+#, fuzzy
+msgid "Left indent"
+msgstr "Mald&ekstra deŝovo:"
+
+#, fuzzy
+msgid "Right indent"
+msgstr "Dekstraj flankoj"
+
+#, fuzzy
+msgid "Tabulators"
+msgstr "Ta&boj..."
+
+#, fuzzy
 msgid "Parent"
 msgstr "Printu"
 
@@ -6503,8 +6826,68 @@ msgid "Based on"
 msgstr "Paĝkoloroj"
 
 #, fuzzy
-msgid "Parent's Character Style"
-msgstr "Signoagordaro"
+msgid "Font face"
+msgstr "Tiparnomo"
+
+#, fuzzy
+msgid "Font size"
+msgstr "Tipargrando"
+
+#, fuzzy
+msgid "Tracking"
+msgstr "Agordaro"
+
+#, fuzzy
+msgid "Baseline offset"
+msgstr "Ba&zlinia ŝovo:"
+
+#, fuzzy
+msgid "Horizontal scaling"
+msgstr "&Horizontala skalado:"
+
+#, fuzzy
+msgid "Vertical scaling"
+msgstr "&Vertikala skalado:"
+
+#, fuzzy
+msgid "Language"
+msgstr "&Lingvo:"
+
+#, fuzzy
+msgid "Fill color"
+msgstr "Plenigokoloro"
+
+#, fuzzy
+msgid "Fill shade"
+msgstr "Plenigo-intenso"
+
+#, fuzzy
+msgid "Stroke color"
+msgstr "Konturkoloron"
+
+#, fuzzy
+msgid "Stroke shade"
+msgstr "Konturointenso"
+
+#, fuzzy
+msgid "Use Parent Value"
+msgstr "Enmetu valoron"
+
+msgid "P"
+msgstr ""
+
+msgid "Use parent style's alignment instead of overriding it"
+msgstr ""
+
+msgid "Use parent style's effects instead of overriding them"
+msgstr ""
+
+#, fuzzy
+msgid "Use Parent Font"
+msgstr "Uzu tiparon"
+
+msgid " Parent Tabs "
+msgstr ""
 
 #, fuzzy
 msgid "Edit Styles..."
@@ -6603,19 +6986,19 @@ msgid "Do you really want to lose all your changes?"
 msgstr "Ĉu vi vere intencas perdi ĉiujn viajn ŝanĝojn?"
 
 #, fuzzy
-msgid "&Reset"
-msgstr "Nuligu"
+msgid "Shortcut"
+msgstr "Ordigu"
 
-msgid "<< &Done"
+msgid "Apply all changes and exit edit mode"
 msgstr ""
 
 #, fuzzy
-msgid "&Edit >>"
-msgstr "Re&daktu"
+msgid "Edit styles"
+msgstr "Redaktu stilojn"
 
 #, fuzzy
-msgid "&Clone"
-msgstr "Fe&rmu"
+msgid "Name of the selected style"
+msgstr "Nomo de la elektita objekto"
 
 #, fuzzy
 msgid "Reset all changes"
@@ -6624,9 +7007,6 @@ msgstr "Eksportu ĉiujn paĝojn"
 #, fuzzy
 msgid "Apply all changes"
 msgstr "Apliku al ĉiuj &malparaj paĝoj"
-
-msgid "Apply all changes and exit edit mode"
-msgstr ""
 
 #, fuzzy
 msgid "Create a new style"
@@ -6645,6 +7025,21 @@ msgid "Delete selected styles"
 msgstr "Nomo de la elektita objekto"
 
 #, fuzzy
+msgid "&Reset"
+msgstr "Nuligu"
+
+msgid "<< &Done"
+msgstr ""
+
+#, fuzzy
+msgid "&Edit >>"
+msgstr "Re&daktu"
+
+#, fuzzy
+msgid "&Clone"
+msgstr "Fe&rmu"
+
+#, fuzzy
 msgid "Import"
 msgstr "&Importu"
 
@@ -6657,12 +7052,20 @@ msgid "Send to Scrapbook"
 msgstr "Sendu al al&bumo"
 
 #, fuzzy
+msgid "New %1"
+msgstr "Nova"
+
+#, fuzzy
 msgid "&Done"
 msgstr "Fermu"
 
 #, fuzzy
-msgid "Shortcut"
-msgstr "Ordigu"
+msgid "This key sequence is already in use"
+msgstr "Ĉi tiu klavkombino jam estas uzata"
+
+#, fuzzy
+msgid "More than one style selected"
+msgstr "Tipo de lini-ekstremaĵoj"
 
 msgid "&No Key"
 msgstr "&Neniu klavo"
@@ -6675,6 +7078,16 @@ msgstr "ALT+SUPRA+T"
 
 msgid "Set &Key"
 msgstr "&Agordu klavon"
+
+#, fuzzy
+msgid "No shortcut for the style"
+msgstr "Nomo de la elektita objekto"
+
+msgid "Style has user defined shortcut"
+msgstr ""
+
+msgid "Assign a shortcut for the style"
+msgstr ""
 
 msgid "Alt"
 msgstr "Alt"
@@ -6701,10 +7114,6 @@ msgstr "Alt+"
 
 msgid "Ctrl+"
 msgstr "Stir+"
-
-#, fuzzy
-msgid "Auto"
-msgstr "Aŭtoro"
 
 #, fuzzy
 msgid "Displacement"
@@ -6766,15 +7175,17 @@ msgstr ""
 msgid "Check for missing glyphs"
 msgstr ""
 
-msgid "Check for objects not on a page"
-msgstr ""
+#, fuzzy
+msgid "Check for items not on a page"
+msgstr "Objekto ne trovita"
 
 #, fuzzy
 msgid "Check for overflow in text frames"
 msgstr "Tiparo por novaj tekstokadroj"
 
-msgid "Check for transparencies used"
-msgstr ""
+#, fuzzy
+msgid "Check for used transparencies"
+msgstr "Permesu aldono&jn de notoj kaj kampoj"
 
 msgid "Check for missing images"
 msgstr ""
@@ -6813,6 +7224,60 @@ msgstr "Profilo:"
 #, fuzzy
 msgid "Remove Profile"
 msgstr "Administraj agordaroj"
+
+msgid "Color for paper"
+msgstr "Koloro por la papero"
+
+msgid "Mask the area outside the margins in the margin color"
+msgstr "Koloru la areon ekster la marĝenoj per la marĝenkoloro"
+
+#, fuzzy
+msgid "Enable or disable  the display of linked frames."
+msgstr "Igas videbla la bazlinian kradon"
+
+msgid ""
+"Display non-printing characters such as paragraph markers in text frames"
+msgstr ""
+
+msgid "Turns the display of frames on or off"
+msgstr ""
+
+#, fuzzy
+msgid "Turns the display of layer indicators on or off"
+msgstr "Igas videbla la bazlinian kradon"
+
+msgid "Turns the display of pictures on or off"
+msgstr ""
+
+msgid ""
+"Defines amount of space left of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space right of the document canvas available as a "
+"pasteboard for creating and modifying elements and dragging them onto the "
+"active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space above the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+
+msgid ""
+"Defines amount of space below the document canvas available as a pasteboard "
+"for creating and modifying elements and dragging them onto the active page"
+msgstr ""
+
+msgid "Set the default zoom level"
+msgstr "Agordu la aprioran grandignivelon"
+
+msgid ""
+"Place a ruler against your screen and drag the slider to set the zoom level "
+"so Scribus will display your pages and objects on them at the correct size"
+msgstr ""
 
 #, fuzzy
 msgid "Units:"
@@ -7052,10 +7517,6 @@ msgstr " px"
 msgid "Key Set XML Files (*.ksxml)"
 msgstr ""
 
-#, fuzzy
-msgid "This key sequence is already in use"
-msgstr "Ĉi tiu klavkombino jam estas uzata"
-
 msgid "Manage Tabulators"
 msgstr "Administru tabojn"
 
@@ -7140,13 +7601,6 @@ msgstr "Malgrand&igu bildojn ĝis:"
 msgid "&General"
 msgstr "Ĝ&enerala"
 
-msgid "&Embed all Fonts"
-msgstr "&Inkludu ĉiujn tiparojn"
-
-#, fuzzy
-msgid "&Subset all Fonts"
-msgstr "&Subgrupigu ĉiujn tiparojn"
-
 msgid "Embedding"
 msgstr "Inkludo"
 
@@ -7156,8 +7610,17 @@ msgstr "Disponeblaj Tiparoj:"
 msgid "Fonts to embed:"
 msgstr "Inkludotaj tiparoj:"
 
-msgid "Fonts to subset:"
+#, fuzzy
+msgid "&Embed all"
+msgstr "&Inkludu ĉiujn tiparojn"
+
+#, fuzzy
+msgid "Fonts to outline:"
 msgstr "Subgrupigotaj tiparoj:"
+
+#, fuzzy
+msgid "&Outline all"
+msgstr "&Dokumentoskemo"
 
 msgid "&Fonts"
 msgstr "&Tiparoj"
@@ -7330,9 +7793,6 @@ msgstr "El&igo ĉe:"
 msgid "Screen / Web"
 msgstr "Ekrano / TTT"
 
-msgid "Printer"
-msgstr "Printilo"
-
 msgid "&Use Custom Rendering Settings"
 msgstr "U&zu proprajn bildigoagordojn"
 
@@ -7378,6 +7838,10 @@ msgstr "Ne uzu inkluditajn ICC-profilojn"
 msgid "C&olor"
 msgstr "K&oloro"
 
+#, fuzzy
+msgid "Page Information"
+msgstr "Informoj"
+
 msgid "PDF/X-3 Output Intent"
 msgstr "PDF/X-3-Eligo"
 
@@ -7387,11 +7851,9 @@ msgstr "&Informteskto:"
 msgid "Output &Profile:"
 msgstr "Eliga &profilo:"
 
-msgid "Trim Box"
-msgstr "Tranĉformato"
-
-msgid "PDF/X-&3"
-msgstr "PDF/X-&3"
+#, fuzzy
+msgid "Pre-Press"
+msgstr "Programoj"
 
 #, fuzzy
 msgid ""
@@ -7443,6 +7905,10 @@ msgstr "Direkto de la bril- kaj purig-efektoj."
 
 msgid "Apply the selected effect to all pages."
 msgstr "Apliku la elektitan efekton al ĉiuj paĝoj."
+
+#, fuzzy
+msgid "Convert all glyphs in the document to outlines."
+msgstr "Ne eblas konverti ne-tekstan kadron al konturoj"
 
 msgid "Export all pages to PDF"
 msgstr "Eksportu ĉiujn paĝojn al PDF"
@@ -7536,7 +8002,7 @@ msgid ""
 "the best method. ZIP is lossless and good for images with solid colors. JPEG "
 "is better at creating smaller PDF files which have many photos (with slight "
 "image quality loss possible). Leave it set to Automatic unless you have a "
-"need for special compression options. This only affects JPEG images"
+"need for special compression options."
 msgstr ""
 "Tipo de densigo por la bildoj.\n"
 "Aŭtomata permesas al Scribus elekti la plej bonan metodon.\n"
@@ -7549,7 +8015,8 @@ msgid ""
 "Compression quality levels for lossy compression methods: Minimum (25%), Low "
 "(50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level "
 "does not directly determine the size of the resulting image - both size and "
-"quality loss vary from image to image at any given quality level."
+"quality loss vary from image to image at any given quality level. Even with "
+"Maximum selected, there is always some quality loss with jpeg."
 msgstr ""
 
 #, fuzzy
@@ -7677,18 +8144,6 @@ msgstr ""
 "Deviga teksto por PDF/X-3 alie la PDF-dosiero ne kongruos kun PDF/X-3.\n"
 "Estas rekomendinde utiligi la dokumenttitolon."
 
-msgid "Distance for bleed from the top of the physical page"
-msgstr "Distanco ĝis la malsupra paĝmarĝeno por eksterpaĝaj skribaĵoj"
-
-msgid "Distance for bleed from the bottom of the physical page"
-msgstr "Distanco ĝis la supra paĝmarĝeno por eksterpaĝaj skribaĵoj"
-
-msgid "Distance for bleed from the left of the physical page"
-msgstr "Distanco ĝis la maldekstra paĝmarĝeno por eksterpaĝaj skribaĵoj"
-
-msgid "Distance for bleed from the right of the physical page"
-msgstr "Distanco ĝis la dekstra paĝmarĝeno por eksterpaĝaj skribaĵoj"
-
 msgid "Mirror Page(s) horizontally"
 msgstr "Reflektu paĝo(j)n"
 
@@ -7740,14 +8195,6 @@ msgstr "Maldekstra deŝovo por la tuta alineo"
 
 msgid "Delete all Tabulators"
 msgstr "Forigu ĉiujn tabojn"
-
-#, fuzzy
-msgid "Custom:"
-msgstr "Propra"
-
-#, fuzzy
-msgid "Custom: "
-msgstr "Propra"
 
 #, fuzzy
 msgid "Text Color:"
@@ -7874,19 +8321,19 @@ msgid "&Stepping:"
 msgstr "Progre&sio:"
 
 #, fuzzy
-msgid "Misc. Settings"
+msgid "Miscellaneous Settings"
 msgstr "Bildagordaro"
 
 #, fuzzy
-msgid "Object Duplicate"
-msgstr "Duobligu"
+msgid "Item Duplicate"
+msgstr "Duo&bligu"
 
 #, fuzzy
-msgid "X-Displacement"
+msgid "X Displacement"
 msgstr "Ŝ&ovo"
 
 #, fuzzy
-msgid "Y-Displacement"
+msgid "Y Displacement"
 msgstr "Ŝ&ovo"
 
 #, fuzzy
@@ -7995,14 +8442,14 @@ msgid "Width of lines"
 msgstr "Larĝo de la linioj"
 
 #, fuzzy
-msgid "Horizontal displacement of objects"
+msgid "Horizontal displacement of page items"
 msgstr "Horizontala skalado de la bildoj"
 
 #, fuzzy
-msgid "Vertical displacement of objects"
+msgid "Vertical displacement of page items"
 msgstr "Vertikala skalado de la bildoj"
 
-msgid "Constrain value for the rotation tool when the CTRL-Key is pressed"
+msgid "Constrain value for the rotation tool when the Control key is pressed"
 msgstr ""
 
 msgid "&Displacement:"
@@ -8269,9 +8716,6 @@ msgstr "Dosierujoj"
 msgid "Save"
 msgstr "Konservu"
 
-msgid "Error"
-msgstr "Eraro"
-
 msgid ""
 "%1\n"
 "File not found.\n"
@@ -8397,6 +8841,10 @@ msgstr "Apliku"
 
 msgid "Select Font"
 msgstr "Elektu tiparon"
+
+#, fuzzy
+msgid "Free items"
+msgstr "Objekto"
 
 msgid "Group "
 msgstr "Grupigu"
@@ -8847,6 +9295,14 @@ msgstr "Nuligu kontrolpunktojn"
 msgid "Apply image effects"
 msgstr "Efektoj"
 
+#, fuzzy
+msgid "Insert frame"
+msgstr "Enmetu tekstokadron"
+
+#, fuzzy
+msgid "Adjust frame to the image size"
+msgstr "&Alĝustigu kadron al la bildo"
+
 msgid " mm"
 msgstr " mm"
 
@@ -8930,6 +9386,9 @@ msgid "No updates are available for your version of Scribus %1"
 msgstr ""
 
 msgid "One or more updates for your version of Scribus (%1) are available:"
+msgstr ""
+
+msgid "This list may contain development versions."
 msgstr ""
 
 msgid "Please visit www.scribus.net for details."
@@ -9231,6 +9690,15 @@ msgid "Position of Frame"
 msgstr "Celo"
 
 #, fuzzy
+msgid "Top Left of Margins"
+msgstr "Maldekstra marĝeno"
+
+msgid ""
+"Selecting this places the frame in the upper left of the page margins "
+"defined in your doc setup."
+msgstr ""
+
+#, fuzzy
 msgid "Top Left of Page"
 msgstr "Maldekstra paĝo"
 
@@ -9238,12 +9706,12 @@ msgid "Selecting this puts the frame on the top left with postion 0,0"
 msgstr ""
 
 #, fuzzy
-msgid "Top Left of Margins"
-msgstr "Maldekstra marĝeno"
+msgid "Top Left of Bleed"
+msgstr "Maldekstra paĝo"
 
 msgid ""
-"Selecting this places the frame in the upper left of the page margins "
-"defined in your doc setup."
+"Selecting this places the frame in the upper left of the page bleed defined "
+"in your doc setup."
 msgstr ""
 
 #, fuzzy
@@ -9258,19 +9726,24 @@ msgid "&Location"
 msgstr "Rota&cio:"
 
 #, fuzzy
-msgid "Same as the Page"
-msgstr "post paĝo"
-
-#, fuzzy
 msgid "Same as the Page Margins"
 msgstr "Nur ene de paĝo&marĝenoj"
 
 #, fuzzy
+msgid "Same as the Page"
+msgstr "post paĝo"
+
+#, fuzzy
+msgid "Same as the Bleed"
+msgstr "post paĝo"
+
+#, fuzzy
+msgid "Same as the Imported Image"
+msgstr "post paĝo"
+
+#, fuzzy
 msgid "Custom Size:"
 msgstr "Agordu..."
-
-msgid "Height:"
-msgstr "Alto:"
 
 #, fuzzy
 msgid "Source Image:"
@@ -9285,16 +9758,16 @@ msgid "There are no options for this type of frame"
 msgstr "Uzu la proporciojn de la bildo anstataŭ tiujn de la kadro"
 
 #, fuzzy
-msgid "Source Document:"
-msgstr "Dokumento"
-
-#, fuzzy
 msgid "Columns:"
 msgstr "Kolum&noj:"
 
 #, fuzzy
 msgid "Link Created Frames"
 msgstr "Ligu tekstokadrojn"
+
+#, fuzzy
+msgid "Source Document:"
+msgstr "Dokumento"
 
 #, fuzzy
 msgid "&Options"
@@ -9331,17 +9804,6 @@ msgid "By &Rows && Columns"
 msgstr ""
 
 #, fuzzy
-msgid "Progress"
-msgstr "Programoj"
-
-msgid "Overall Progress:"
-msgstr ""
-
-#, fuzzy
-msgid "Page Item Attributes"
-msgstr "Atributoj"
-
-#, fuzzy
 msgid "Patterns"
 msgstr "Afiŝoj"
 
@@ -9352,6 +9814,21 @@ msgstr "Ŝ&argu..."
 #, fuzzy
 msgid "Load Set"
 msgstr "Ŝarganta:"
+
+#, fuzzy
+msgid "Remove All"
+msgstr "Forigu"
+
+#, fuzzy
+msgid "Progress"
+msgstr "Programoj"
+
+msgid "Overall Progress:"
+msgstr ""
+
+#, fuzzy
+msgid "Page Item Attributes"
+msgstr "Atributoj"
 
 #, fuzzy
 msgid "LineStyleWBase"
@@ -9398,39 +9875,14 @@ msgid "Alt+N"
 msgstr "Alt+"
 
 #, fuzzy
-msgid "name"
-msgstr "Alinomu"
-
-#, fuzzy
-msgid "shortcut"
-msgstr "Ordigu"
-
-#, fuzzy
 msgid "Style Manager"
 msgstr "Printu inter&valon"
-
-msgid "Please select a unique name for the style"
-msgstr ""
 
 #, fuzzy
 msgid "Alt+R"
 msgstr "Alt+"
 
-msgid ""
-"<b>Insert a text frame</b><br/>A text frame allows you to enter any text in "
-"a defined position with the formatting you choose. You may select a text "
-"file on the Options tab if you want to immediately import a document into "
-"the frame. Scribus supports a wide variety of importable format from plain "
-"text to OpenOffice.org.<br/>Your text may be edited and formatted on the "
-"page directly or in the simple Story Editor."
-msgstr ""
-
-msgid ""
-"<b>Insert an image frame</b><br/>An image frame allows you to place an image "
-"onto your page. Various image effects may be applied or combined including "
-"transparencies, brightness, posterisation that allow retouching or the "
-"creation of interesting visual results. Image scaling and shaping is "
-"performed with the Properties Palette."
+msgid "Please select a unique name for the style"
 msgstr ""
 
 #, fuzzy
@@ -9463,6 +9915,10 @@ msgstr "Montru &kadrojn"
 
 msgid "Display &Unprintable Area in Margin Color"
 msgstr "Montru &neprinteblan areon per marĝenkoloro"
+
+#, fuzzy
+msgid "Show Bleed Area"
+msgstr "Montru &gvidilojn"
 
 #, fuzzy
 msgid "Scratch Space"
@@ -9713,23 +10169,30 @@ msgid "Count of the Paragraphs:"
 msgstr "Aktuala alineo:"
 
 #, fuzzy
-msgid "Use Parent Value"
-msgstr "Enmetu valoron"
-
-msgid "P"
-msgstr ""
-
-msgid "Use parent style's alignment instead of overriding it"
-msgstr ""
-
-msgid "Use parent style's effects instead of overriding them"
-msgstr ""
+msgid "Alternative Printer Command"
+msgstr "A&lia printkomando"
 
 #, fuzzy
-msgid "Use Parent Font"
-msgstr "Uzu tiparon"
+msgid "Command:"
+msgstr "Ko&mando:"
 
-msgid " Parent Tabs "
+#, fuzzy
+msgid "Postscript Options"
+msgstr "Printil-opcioj"
+
+#, fuzzy
+msgid "Level 1"
+msgstr "Nivelo"
+
+#, fuzzy
+msgid "Level 2"
+msgstr "Nivelo"
+
+#, fuzzy
+msgid "Level 3"
+msgstr "Nivelo"
+
+msgid "Marks && Bleeds"
 msgstr ""
 
 msgid "Send Copied Items Automatically to Scrapbook"
@@ -9754,25 +10217,20 @@ msgid "The minimum number is 1; the maximum us 100."
 msgstr ""
 
 #, fuzzy
-msgid "Curve Files (*.scu);;All Files (*)"
-msgstr "EPS-dosieroj (*eps);; Ĉiaj dosieroj (*)"
+msgid "Hex"
+msgstr "Ko&l:"
 
 #, fuzzy
-msgid "Inverts the curve"
-msgstr "Enmetu Bezier-kurbojn"
+msgid "Meaning"
+msgstr "&Marĝenoj:"
 
 #, fuzzy
-msgid "Resets the curve"
-msgstr "Maldekstra rando"
+msgid "Unicode Search"
+msgstr "Serĉu"
 
-msgid "Switches between linear and cubic interpolation of the curve"
-msgstr ""
-
-msgid "Loads a curve"
-msgstr ""
-
-msgid "Saves this curve"
-msgstr ""
+#, fuzzy
+msgid "&Search:"
+msgstr "&Serĉu"
 
 #, fuzzy
 msgid "Use Printer Margins"
@@ -9781,76 +10239,6 @@ msgstr "Printil-opcioj"
 #, fuzzy
 msgid "Select &Printer:"
 msgstr "Agordu printilon"
-
-#, fuzzy
-msgid "Right:"
-msgstr "&Dekstre:"
-
-msgid "Color for paper"
-msgstr "Koloro por la papero"
-
-msgid "Mask the area outside the margins in the margin color"
-msgstr "Koloru la areon ekster la marĝenoj per la marĝenkoloro"
-
-#, fuzzy
-msgid "Enable or disable  the display of linked frames."
-msgstr "Igas videbla la bazlinian kradon"
-
-msgid ""
-"Display non-printing characters such as paragraph markers in text frames"
-msgstr ""
-
-msgid "Turns the display of frames on or off"
-msgstr ""
-
-#, fuzzy
-msgid "Turns the display of layer indicators on or off"
-msgstr "Igas videbla la bazlinian kradon"
-
-msgid "Turns the display of pictures on or off"
-msgstr ""
-
-msgid ""
-"Defines amount of space left of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space right of the document canvas available as a "
-"pasteboard for creating and modifying elements and dragging them onto the "
-"active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space above the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid ""
-"Defines amount of space below the document canvas available as a pasteboard "
-"for creating and modifying elements and dragging them onto the active page"
-msgstr ""
-
-msgid "Set the default zoom level"
-msgstr "Agordu la aprioran grandignivelon"
-
-msgid ""
-"Place a ruler against your screen and drag the slider to set the zoom level "
-"so Scribus will display your pages and objects on them at the correct size"
-msgstr ""
-
-#, fuzzy
-msgid "Loading Patterns"
-msgstr "Vidalvidaj paĝoj"
-
-#, fuzzy
-msgid "&Horizontal Gap:"
-msgstr "Horizontale"
-
-#, fuzzy
-msgid "&Vertical Gap:"
-msgstr "Vertikale"
 
 msgid "Freetype2 library not available"
 msgstr ""
@@ -10052,6 +10440,10 @@ msgstr "Plenigkolora agordaro"
 msgid "Color selector with color theory included."
 msgstr ""
 
+#, fuzzy
+msgid "Base Color"
+msgstr "Paĝkoloroj"
+
 msgid "Monochromatic"
 msgstr ""
 
@@ -10070,10 +10462,6 @@ msgstr ""
 
 msgid "Tetradic (Double Complementary)"
 msgstr ""
-
-#, fuzzy
-msgid "Base Color"
-msgstr "Paĝkoloroj"
 
 msgid "Monochromatic Light"
 msgstr ""
@@ -10145,21 +10533,16 @@ msgid ""
 "or white. There is no way to process this color."
 msgstr ""
 
+msgid "HSV"
+msgstr ""
+
 msgid ""
 "Click the wheel to get the base color. Its color model depends on the chosen "
 "tab."
 msgstr ""
 
 #, fuzzy
-msgid "RGB:"
-msgstr "RGB"
-
-#, fuzzy
-msgid "CMYK:"
-msgstr "CMYK"
-
-#, fuzzy
-msgid "Color Scheme Method:"
+msgid "Color Scheme Method"
 msgstr "Elektu kampojn"
 
 msgid ""
@@ -10180,12 +10563,36 @@ msgstr "Antaŭrigardo"
 msgid "Vision Defect Type:"
 msgstr "Efektoti&po:"
 
-msgid "imulate common vision defects here. Select type of the defect."
+msgid "Simulate common vision defects here. Select type of the defect."
 msgstr ""
 
 #, fuzzy
 msgid "Sample color scheme."
 msgstr "Linikoloro de la formoj"
+
+#, fuzzy
+msgid "RGB:"
+msgstr "RGB"
+
+msgid "HSV:"
+msgstr ""
+
+#, fuzzy
+msgid "CMYK:"
+msgstr "CMYK"
+
+msgid "H:"
+msgstr ""
+
+msgid "S:"
+msgstr ""
+
+msgid "V:"
+msgstr ""
+
+#, fuzzy
+msgid "Result Colors"
+msgstr "Forigu koloron"
 
 #, fuzzy
 msgid "Colors of your chosen color scheme."
@@ -10244,6 +10651,9 @@ msgstr "Opcioj de importilo por OpenOffice.org Writer"
 #, fuzzy
 msgid "OpenOffice.org Draw (*.sxd *.odg);;All Files (*)"
 msgstr "OpenOffice.org Draw (*.sxd);;Ĉiaj dosieroj (*)"
+
+msgid "This file contains some unsupported features"
+msgstr ""
 
 msgid "This document does not seem to be an OpenOffice Draw file."
 msgstr ""
@@ -10822,8 +11232,8 @@ msgid "exists already. Overwrite?"
 msgstr "jam ekzistas. Ĉu superskribi ĝin?"
 
 #, fuzzy
-msgid "Importing PostScript"
-msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
+msgid "Importing: %1"
+msgstr "Tekstoimportado"
 
 #, fuzzy
 msgid "Analyzing PostScript:"
@@ -10869,7 +11279,8 @@ msgstr ""
 msgid "PDF"
 msgstr "PDF/X-&3"
 
-msgid "All Supported Formats (*.eps *.EPS *.ps *.PS);;"
+#, fuzzy
+msgid "All Supported Formats (*.eps *.EPS *.epsi *.EPSI *.ps *.PS);;"
 msgstr "Ĉiuj subtenataj formatoj (*.eps *.EPS *.ps *.PS);;"
 
 msgid "Save as Template"
@@ -11783,6 +12194,66 @@ msgstr ""
 msgid "parent= %1"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Get Text 2..."
+#~ msgstr "Enmetu tekston..."
+
+#, fuzzy
+#~ msgid "&Fit in window"
+#~ msgstr "&Tuta paĝo"
+
+#, fuzzy
+#~ msgid "&Insert Code:"
+#~ msgstr "&Enmetu"
+
+#, fuzzy
+#~ msgid "Close this dialog and return to text editing"
+#~ msgstr "Fermu la dialogujon kaj reiru al la redaktata teksto."
+
+#, fuzzy
+#~ msgid "Norwegian (Bokmål)"
+#~ msgstr "Norvega (Bokmaal)"
+
+#, fuzzy
+#~ msgid ""
+#~ "Use a second line originally based on the frame's shape for text flow of "
+#~ "text frames below the object. "
+#~ msgstr "Uzu duan linion origine bazitan sur la kadroformo por la tekstofluo"
+
+#, fuzzy
+#~ msgid "Parent's Character Style"
+#~ msgstr "Signoagordaro"
+
+#, fuzzy
+#~ msgid "&Subset all Fonts"
+#~ msgstr "&Subgrupigu ĉiujn tiparojn"
+
+#~ msgid "Trim Box"
+#~ msgstr "Tranĉformato"
+
+#~ msgid "PDF/X-&3"
+#~ msgstr "PDF/X-&3"
+
+#, fuzzy
+#~ msgid "Custom:"
+#~ msgstr "Propra"
+
+#, fuzzy
+#~ msgid "Object Duplicate"
+#~ msgstr "Duobligu"
+
+#, fuzzy
+#~ msgid "name"
+#~ msgstr "Alinomu"
+
+#, fuzzy
+#~ msgid "shortcut"
+#~ msgstr "Ordigu"
+
+#, fuzzy
+#~ msgid "Importing PostScript"
+#~ msgstr "Pitonskriptoj (*.py);; Ĉiaj dosieroj (*)"
+
 #~ msgid "Layer"
 #~ msgstr "Nivelo"
 
@@ -12175,10 +12646,6 @@ msgstr ""
 #~ msgstr "Kon&servu"
 
 #, fuzzy
-#~ msgid "Export"
-#~ msgstr "Ekspor&tu"
-
-#, fuzzy
 #~ msgid "Show Master Page Names"
 #~ msgstr "Montru ŝablonnomojn"
 
@@ -12254,10 +12721,6 @@ msgstr ""
 #~ msgid "First &Line:"
 #~ msgstr "Unu&a linio:"
 
-#, fuzzy
-#~ msgid "Left Ind&ent:"
-#~ msgstr "Mald&ekstra deŝovo:"
-
 #~ msgid "Apply Template"
 #~ msgstr "Apliku ŝablonon"
 
@@ -12284,9 +12747,6 @@ msgstr ""
 
 #~ msgid "Lock Object &Size"
 #~ msgstr "Ŝlo&su objektograndon"
-
-#~ msgid "Unlock Object &Size"
-#~ msgstr "Malŝlo&su objektograndon"
 
 #~ msgid "Un&group"
 #~ msgstr "Mal&grupigu"
@@ -12341,9 +12801,6 @@ msgstr ""
 #~ msgid "Left Sides"
 #~ msgstr "Maldekstraj flankoj"
 
-#~ msgid "Right Sides"
-#~ msgstr "Dekstraj flankoj"
-
 #~ msgid "&Between:"
 #~ msgstr "&Inter:"
 
@@ -12396,9 +12853,6 @@ msgstr ""
 
 #~ msgid "C&onvert to Outlines"
 #~ msgstr "Transf&ormu al konturoj"
-
-#~ msgid "P&age Palette"
-#~ msgstr "Paĝpa&letron"
 
 #~ msgid "&Insert Special"
 #~ msgstr "&Enmetu specialan"
