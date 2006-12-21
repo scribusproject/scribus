@@ -1,0 +1,140 @@
+<qt>
+<title>Les commandes disponibles</title>
+<h2>Les commandes disponibles</h2>
+
+<p>L'extension installe un module "scribus" incorpor&eacute;. Donc pour
+utiliser les extensions du langage Python, vous devez effectuer
+"import scribus" ou "from scribus import *".</p>
+
+<p>Le scripteur int&egrave;gre des fonctions pour contr&ocirc;ler Scribus et manipuler les objets sur le canevas. 
+Chaque fonction est d&eacute;crite s&eacute;par&eacute;ment ci-dessous. Il existe quelques
+&eacute;l&eacute;ments qu'on retrouve dans la plupart des zones de l'interface. La
+majorit&eacute; des fonctions op&egrave;rent sur des cadres. Ces cadres sont
+identifi&eacute;s par leur nom (une cha&icirc;ne) - ils ne sont pas de vrais
+objets Python. Beaucoup de fonctions acceptent un param&egrave;tre optionnel
+(autre qu'un mot cl&eacute;), c'est-&agrave;-dire un nom de cadre. La plupart des
+fonctions pr&eacute;voient aussi de nombreuses exceptions.
+Celles-ci ne sont pas document&eacute;es, pour le moment, dans le docstring
+de chacune des fonctions. </p>
+<ul>
+	<li>Beaucoup de fonctions g&eacute;n&egrave;rent une erreur NoDocOpenError si vous
+essayez de les utiliser sans un document &agrave; traiter.</li>
+	<li>Si vous ne passez pas un nom de cadre &agrave; une fonction qui en
+r&eacute;clame un, cette fonction utilisera le cadre s&eacute;lectionn&eacute;, s'il
+existe, ou, dans le cas contraire, g&eacute;n&eacute;rera une erreur NoValidObjectError.
+</li>
+	<li>Beaucoup de fonctions g&eacute;n&eacute;reront une erreur WrongFrameTypeError
+si vous essayez de les utiliser dans un type de cadre qu'elles ne
+peuvent interpr&eacute;ter. Par exemple, l'application d'une couleur de
+texte dans un cadre de graphique n'a pas de sens, et cette exception
+sera produite.</li>
+	<li>Les erreurs r&eacute;sultant d'appels aux librairies sous-jacentes de
+l'API de Python seront pass&eacute;es sans subir de modifications. Ainsi, la
+liste des exceptions g&eacute;n&eacute;r&eacute;es par les fonctions qui est fournie ici
+et dans leur docstring est incompl&egrave;te.</li>
+</ul>
+<p>La documentation des fonctions d&eacute;taille chaque exception pouvant
+&ecirc;tre g&eacute;n&eacute;r&eacute;e en cours d'utilisation.</p>
+
+<p>Conventions utilis&eacute;es dans ce document :</p>
+<dl>
+	<dt><strong>nombre</strong></dt>
+	<dd>signifie que "nombre" est un entier ordinaire ou un nombre &agrave;
+virgule flottante.</dd>
+	<dt><strong>"nom"</strong></dt>
+	<dd>signifie que "nom" est une cha&icirc;ne de caract&egrave;res ou une variable.</dd>
+	<dt><strong><i>liste</i></strong></dt>
+	<dd>signifie que "<i>liste</i>" est une liste Python.</dd>
+</dl>
+<p>Les variables entre crochets sont optionnelles.</p>
+
+<h2>Exceptions</h2>
+
+<dl>
+<dt><a href="#Exception">exceptions.Exception</a></dt><dd>
+	<dl>
+	<dt><a href="#ScribusException">ScribusException</a></dt><dd>
+		<dl>
+		<dt><a href="#NameExistsError">NameExistsError</a></dt>
+		<dt><a href="#NoDocOpenError">NoDocOpenError</a></dt>
+		<dt><a href="#NoValidObjectError">NoValidObjectError</a></dt>
+		<dt><a href="#NotFoundError">NotFoundError</a></dt>
+		<dt><a href="#WrongFrameTypeError">WrongFrameTypeError</a></dt>
+		</dl>
+	</dd>
+	</dl>
+</dd>
+</dl>
+
+<h3>NameExistsError</h3>
+<a name="NameExistsError">class NameExistsError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+	<dd><a href="#NameExistsError">NameExistsError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+M&eacute;thodes h&eacute;rit&eacute;es de <a href="#Exception">exceptions.Exception</a> :<br>
+<dl><dt><a name="NameExistsError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NameExistsError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NameExistsError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>NoDocOpenError</h3>
+<a name="NoDocOpenError">class NoDocOpenError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+	<dd><a href="#NoDocOpenError">NoDocOpenError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+M&eacute;thodes h&eacute;rit&eacute;es de <a href="#Exception">exceptions.Exception</a> :<br>
+<dl><dt><a name="NoDocOpenError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoDocOpenError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoDocOpenError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>NoValidObjectError</h3>
+<a name="NoValidObjectError">class NoValidObjectError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+	<dd><a href="#NoValidObjectError">NoValidObjectError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+M&eacute;thodes h&eacute;rit&eacute;es de <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="NoValidObjectError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoValidObjectError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NoValidObjectError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>NotFoundError</h3>
+<a name="NotFoundError">class NotFoundError</a>(<a href="#ScribusException">ScribusException</a>)
+<dl><dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+	<dd><a href="#NotFoundError">NotFoundError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+	<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+M&eacute;thodes h&eacute;rit&eacute;es de <a href="#Exception">exceptions.Exception</a>:<br>
+<dl><dt><a name="NotFoundError-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NotFoundError-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="NotFoundError-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>ScribusException</h3>
+<a name="ScribusException">class ScribusException</a>(<a href="#Exception">exceptions.Exception</a>)
+M&eacute;thodes h&eacute;rit&eacute;es de <a href="#Exception">exceptions.Exception</a> :<br>
+<dl><dt><a name="ScribusException-__getitem__"><strong>__getitem__</strong></a>(...)</dt></dl>
+<dl><dt><a name="ScribusException-__init__"><strong>__init__</strong></a>(...)</dt></dl>
+<dl><dt><a name="ScribusException-__str__"><strong>__str__</strong></a>(...)</dt></dl>
+
+<h3>WrongFrameTypeError</h3>
+<a name="WrongFrameTypeError">class <strong>WrongFrameTypeError</strong></a>(<a href="#ScribusException">ScribusException</a>)
+<dl>
+	<dt>Ordre de r&eacute;solution des m&eacute;thodes :</dt>
+	<dd><a href="#WrongFrameTypeError">WrongFrameTypeError</a></dd>
+	<dd><a href="#ScribusException">ScribusException</a></dd>
+<dd><a href="#Exception">exceptions.Exception</a></dd>
+</dl>
+M&eacute;thodes h&eacute;rit&eacute;es de <a href="#Exception">exceptions.Exception</a>:<br>
+<dl>
+	<dt><a name="WrongFrameTypeError-__getitem__"><strong>__getitem__</strong></a>(...)</dt>
+	<dt><a name="WrongFrameTypeError-__init__"><strong>__init__</strong></a>(...)</dt>
+	<dt><a name="WrongFrameTypeError-__str__"><strong>__str__</strong></a>(...)</dt>
+</dl>
+
+</qt>
+ 

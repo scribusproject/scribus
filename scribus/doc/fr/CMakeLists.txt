@@ -20,6 +20,26 @@ scribusfileformat.html
 scripter1.html
 scripterapi-page.html
 scripterapi-pydoc.html
+scripterapi-color.html
+scripterapi-constants.html
+scripterapi-dialogs.html
+scripterapi-doc.html
+scripterapi-font.html
+scripterapi-getobjprop.html
+scripterapi.html
+scripterapi-ImageExport.html
+scripterapi-layer.html
+scripterapi-manobj.html
+scripterapi-object.html
+scripterapi-PDFfile.html
+scripterapi-Printer.html
+scripterapi-select.html
+scripterapi-setobjprop.html
+scripterapi-textframes.html
+scripter-extensions.html
+scripter-faq.html
+short-words-manual.html
+
 DESTINATION ${DOCDIR}fr
 )
 
