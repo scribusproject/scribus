@@ -8706,7 +8706,15 @@ void ScribusView::selectPage(QMouseEvent *m)
 	Deselect(false);
 	if (!Doc->masterPageMode())
 	{
-		uint docPagesCount=Doc->Pages->count();
+		uint i = Doc->OnPage(Mxp + Doc->minCanvasCoordinate.x(), Myp + Doc->minCanvasCoordinate.y());
+		uint docCurrPageNo=Doc->currentPageNumber();
+		if (docCurrPageNo != i)
+		{
+			Doc->setCurrentPage(Doc->Pages->at(i));
+			setMenTxt(i);
+			DrawNew();
+		}
+/*		uint docPagesCount=Doc->Pages->count();
 		uint docCurrPageNo=Doc->currentPageNumber();
 		for (uint i = 0; i < docPagesCount; ++i)
 		{
@@ -8724,7 +8732,7 @@ void ScribusView::selectPage(QMouseEvent *m)
 				}
 				break;
 			}
-		}
+		} */
 		setRulerPos(contentsX(), contentsY());
 	}
 }
