@@ -1307,7 +1307,7 @@ void ScribusView::enterEvent(QEvent *)
 				qApp->setOverrideCursor(QCursor(crossCursor), true);
 				break;
 			case modeDrawFreehandLine:
-				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
 				break;
 			case modeMagnifier:
 				if (Magnify)
@@ -5035,7 +5035,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							qApp->setOverrideCursor(QCursor(crossCursor), true);
 							break;
 						case modeDrawFreehandLine:
-							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
 							break;
 						default:
 							qApp->setOverrideCursor(QCursor(ArrowCursor), true);
@@ -5155,7 +5155,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 							qApp->setOverrideCursor(QCursor(crossCursor), true);
 							break;
 						case modeDrawFreehandLine:
-							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+							qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
 							break;
 						default:
 							qApp->setOverrideCursor(QCursor(ArrowCursor), true);

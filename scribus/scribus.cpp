@@ -5922,10 +5922,10 @@ void ScribusMainWindow::setAppMode(int mode)
 				qApp->setOverrideCursor(QCursor(crossCursor), true);
 				break;
 			case modeDrawFreehandLine:
-				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 21), true);
+				qApp->setOverrideCursor(QCursor(loadIcon("DrawFreeLine.png"), 0, 32), true);
 				break;
 			case modeEyeDropper:
-				qApp->setOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 20), true);
+				qApp->setOverrideCursor(QCursor(loadIcon("colorpickercursor.png"), 0, 32), true);
 				break;
 			case modeInsertPDFButton:
 			case modeInsertPDFTextfield:
