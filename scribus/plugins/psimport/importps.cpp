@@ -812,6 +812,8 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 	}
 	if (!found)
 	{
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
 		Doku->PageColors.insert("FromEPS"+tmp.name(), tmp);
 		ScMW->propertiesPalette->updateColorList();
 		ret = "FromEPS"+tmp.name();

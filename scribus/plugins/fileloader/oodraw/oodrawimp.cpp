@@ -1025,6 +1025,8 @@ QString OODPlug::parseColor( const QString &s )
 	{
 		ScColor tmp;
 		tmp.fromQColor(c);
+		tmp.setSpotColor(false);
+		tmp.setRegistrationColor(false);
 		Doku->PageColors.insert("FromOODraw"+c.name(), tmp);
 		ScMW->propertiesPalette->updateColorList();
 		ret = "FromOODraw"+c.name();

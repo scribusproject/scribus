@@ -1103,7 +1103,7 @@ bool PDFlib::PDF_Begin_Doc(const QString& fn, SCFonts &AllFonts, QMap<QString,in
 				if (colorsToUse[itf.key()].isRegistrationColor())
 					PutDoc("All");
 				else
-					PutDoc(itf.key().simplifyWhiteSpace().replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
+					PutDoc(itf.key().simplifyWhiteSpace().replace("#", "#23").replace( QRegExp("[\\s\\/\\{\\[\\]\\}\\<\\>\\(\\)\\%]"), "#20" ));
 				PutDoc(" /DeviceCMYK "+QString::number(ObjCounter-1)+" 0 R ]\nendobj\n");
 				spotD.ResName = spotNam+QString::number(spotCount);
 				spotD.ResNum = ObjCounter;
