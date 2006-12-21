@@ -378,24 +378,24 @@ void CWDialog::vSpin_valueChanged( int )
 
 void CWDialog::setupRGBComponent(ScColor col)
 {
-	int r, g, b;
-	col.getRGB(&r, &g, &b);
+	RGBColor rgb;
+	ScColorEngine::getRGBValues(col, m_Doc, rgb);
 	connectSlots(false);
-	rSpin->setValue(r);
-	gSpin->setValue(g);
-	bSpin->setValue(b);
+	rSpin->setValue(rgb.r);
+	gSpin->setValue(rgb.g);
+	bSpin->setValue(rgb.b);
 	connectSlots(true);
 }
 
 void CWDialog::setupCMYKComponent(ScColor col)
 {
-	int c, m, y, k;
-	col.getCMYK(&c, &m, &y, &k);
+	CMYKColor cmyk;
+	ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
 	connectSlots(false);
-	cSpin->setValue(c);
-	mSpin->setValue(m);
-	ySpin->setValue(y);
-	kSpin->setValue(k);
+	cSpin->setValue(cmyk.c);
+	mSpin->setValue(cmyk.m);
+	ySpin->setValue(cmyk.y);
+	kSpin->setValue(cmyk.k);
 	connectSlots(true);
 }
 
@@ -498,18 +498,18 @@ void CWDialog::colorList_currentChanged(QListBoxItem * item)
 		currentColorTable->setText(1, 4, col.nameRGB());
 		currentColorTable->setText(2, 4, getHexHsv(col));
 		// components
-		int c, m, y, k;
 		QString num;
-		col.getCMYK(&c, &m, &y, &k);
-		currentColorTable->setText(0, 0, num.setNum(c));
-		currentColorTable->setText(0, 1, num.setNum(m));
-		currentColorTable->setText(0, 2, num.setNum(y));
-		currentColorTable->setText(0, 3, num.setNum(k));
-		int r, g, b;
-		col.getRGB(&r, &g, &b);
-		currentColorTable->setText(1, 0, num.setNum(r));
-		currentColorTable->setText(1, 1, num.setNum(g));
-		currentColorTable->setText(1, 2, num.setNum(b));
+		CMYKColor cmyk;
+		ScColorEngine::getCMYKValues(col, m_Doc, cmyk);
+		currentColorTable->setText(0, 0, num.setNum(cmyk.c));
+		currentColorTable->setText(0, 1, num.setNum(cmyk.m));
+		currentColorTable->setText(0, 2, num.setNum(cmyk.y));
+		currentColorTable->setText(0, 3, num.setNum(cmyk.k));
+		RGBColor rgb;
+		ScColorEngine::getRGBValues(col, m_Doc, rgb);
+		currentColorTable->setText(1, 0, num.setNum(rgb.r));
+		currentColorTable->setText(1, 1, num.setNum(rgb.g));
+		currentColorTable->setText(1, 2, num.setNum(rgb.b));
 		int h, s, v;
 		QColor hsvCol(ScColorEngine::getRGBColor(col, m_Doc));
 		hsvCol.getHsv(&h, &s, &v);
