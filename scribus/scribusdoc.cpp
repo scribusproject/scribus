@@ -5072,7 +5072,7 @@ void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
 			uint currItemTextCount=currItem->itemText.length();
-			if (currItemTextCount != 0)
+			if (currItemTextCount != 0 && appMode == modeEdit)
 			{
 				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 				int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5123,7 +5123,7 @@ void ScribusDoc::itemSelection_ApplyParagraphStyle(const ParagraphStyle & newSty
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
 			uint currItemTextCount=currItem->itemText.length();
-			if (currItemTextCount != 0)
+			if (currItemTextCount != 0 && appMode == modeEdit)
 			{
 				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 				int stop = currItem->itemText.endOfItem(currItem->lastInFrame());
@@ -5175,7 +5175,7 @@ void ScribusDoc::itemSelection_ApplyCharStyle(const CharStyle & newStyle)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
 			uint currItemTextCount=currItem->itemText.length();
-			if (currItemTextCount != 0)
+			if (currItemTextCount != 0 && appMode == modeEdit)
 			{
 				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 				int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
@@ -5227,7 +5227,7 @@ void ScribusDoc::itemSelection_SetCharStyle(const CharStyle & newStyle)
 		{
 			PageItem *currItem = m_Selection->itemAt(aa);
 			uint currItemTextCount=currItem->itemText.length();
-			if (currItemTextCount != 0)
+			if (currItemTextCount != 0 && appMode == modeEdit)
 			{
 				int start = currItem->itemText.startOfItem(currItem->firstInFrame());
 				int length = currItem->itemText.endOfItem(currItem->lastInFrame()) - start;
