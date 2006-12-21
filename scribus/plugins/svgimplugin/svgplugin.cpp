@@ -440,11 +440,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
 	ImgClip.resize(0);
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
+//	double BaseX = m_Doc->currentPage()->xOffset();
+//	double BaseY = m_Doc->currentPage()->yOffset();
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
-		int z = -1;
 		QDomElement b = n.toElement();
 		if( b.isNull() )
 			continue;
@@ -550,7 +549,22 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	}
 	if( e.tagName() == "defs" )
 	{
-		parseGroup( e ); 	// try for gradients at least
+//		parseGroup( e ); 	// try for gradients at least
+//		the defs parsing is currently limited to gradients
+//		should be extended when we support the use statement.
+		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+		{
+			QDomElement b = n.toElement();
+			if( b.isNull() )
+				continue;
+			SvgStyle svgStyle;
+			parseStyle( &svgStyle, b );
+			if (!svgStyle.Display) 
+				continue;
+			QString STag2 = b.tagName();
+			if( STag2 == "linearGradient" || STag2 == "radialGradient" )
+				parseGradient( b );
+		}
 		return GElements;
 	}
 	else if( e.tagName() == "switch" )
@@ -638,13 +652,6 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		ite->PoLine.setPoint(2, FPoint(x2, y2));
 		ite->PoLine.setPoint(3, FPoint(x2, y2));
 	}
-	else if( STag == "clipPath" )
-	{
-		QDomNode n2 = e.firstChild();
-		QDomElement b2 = n2.toElement();
-		parseSVG( b2.attribute( "d" ), &ImgClip );
-		return GElements;
-	}
 	else if( STag == "path" )
 	{
 		addGraphicContext();
@@ -720,6 +727,13 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		}
 		z = -1;
 	}
+/*	else if( STag == "clipPath" )
+	{
+		QDomNode n2 = e.firstChild();
+		QDomElement b2 = n2.toElement();
+		parseSVG( b2.attribute( "d" ), &ImgClip );
+		return GElements;
+	}
 	else if( STag == "image" )
 	{
 		addGraphicContext();
@@ -737,7 +751,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 			ite->PoLine = ImgClip.copy();
 		ImgClip.resize(0);
 		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-	}
+	} */
 	else
 	{
 		// warn if unsupported SVG feature are encountered
@@ -870,8 +884,8 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 	QPtrList<PageItem> GElements;
 	setupTransform(e);
 	QDomNode c = e.firstChild();
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
+//	double BaseX = m_Doc->currentPage()->xOffset();
+//	double BaseY = m_Doc->currentPage()->yOffset();
 	double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit(e.attribute("x"));
 	double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit(e.attribute("y"));
 	if ((!c.isNull()) && (c.toElement().tagName() == "tspan"))
@@ -892,7 +906,7 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 	}
 	else
 	{
-		SvgStyle *gc = m_gc.current();
+//		SvgStyle *gc = m_gc.current();
 		QPtrList<PageItem> el = parseTextElement(x, y, e);
 		for (uint ec = 0; ec < el.count(); ++ec)
 			GElements.append(el.at(ec));
@@ -918,7 +932,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double maxWidth = 0, maxHeight = 0;
 	double tempW = 0, tempH = 0;
 	SvgStyle *gc = m_gc.current();
-	int ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
+	double ity = (e.tagName() == "tspan") ? y : (y - qRound(gc->FontSize / 10.0));
 	int z = m_Doc->itemAdd(PageItem::TextFrame, PageItem::Unspecified, x, ity, 10, 10, gc->LWidth, CommonStrings::None, gc->FillCol, true);
 	PageItem* ite = m_Doc->Items->at(z);
 	ite->setTextToFrameDist(0.0, 0.0, 0.0, 0.0);
