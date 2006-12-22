@@ -5,7 +5,7 @@
 #include <qvaluevector.h>
 #include <qptrvector.h>
 #include <qptrlist.h>
-
+#include <cassert>
 
 //#include "text/paragraphlayout.h"
 #include "text/frect.h"
