@@ -9037,7 +9037,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		}
 		currItem = Doc->Items->prev();
 	}
-	if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (Doc->OnPage(MxpS, MypS) != -1))
+	if ((Doc->guidesSettings.guidesShown) && (Doc->appMode == modeNormal) && (!Doc->GuideLock) && (Doc->OnPage(MxpS, MypS) != -1) && (Doc->m_Selection->count() == 0))
 	{
 		GxM = -1;
 		GyM = -1;
@@ -9074,15 +9074,20 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			QPoint py = viewport()->mapFromGlobal(m->globalPos());
 			DrVX = py.x();
 		}
-
 		if (GxM!=-1 || GyM!=-1)
 		{
 			if (GxM==-1)
+			{
 				// Horizontal Guide
+				MoveGY = true;
 				emit signalGuideInformation(0, qRound(Doc->currentPage()->guides.horizontal(GyM, GuideManagerCore::Standard) * 10000.0) / 10000.0);
+			}
 			else
+			{
 				// Vertical Guide
+				MoveGX = true;
 				emit signalGuideInformation(1, qRound(Doc->currentPage()->guides.vertical(GxM, GuideManagerCore::Standard) * 10000.0) / 10000.0);
+			}
 		}
 	}
 	if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
