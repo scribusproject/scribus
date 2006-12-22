@@ -204,6 +204,10 @@ public:
 	
 	void appendLine(const LineSpec& ls) 
 	{ 
+		assert( ls.firstItem >= 0 );
+		assert( ls.firstItem < length() );
+		assert( ls.lastItem >= 0 && ls.firstItem - ls.lastItem < 1 );
+		assert( ls.lastItem < length() );
 		m_lines.append(ls);
 		if (lastFrameItem < firstFrameItem) {
 			firstFrameItem = ls.firstItem;
