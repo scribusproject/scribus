@@ -84,6 +84,11 @@ LayerTable::LayerTable(QWidget* parent) : QTable(parent)
 void LayerTable::endEdit ( int row, int col, bool accept, bool replace )
 {
 	QTable::EditMode ed = editMode();
+	if ((row < 0) || (col < 0))
+	{
+		QTable::endEdit(row, col, accept, replace);
+		return;
+	}
 	QString oldCont = text(row, col);
 	QTable::endEdit(row, col, accept, replace);
 	QString newCont = item(row, col)->text();

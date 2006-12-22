@@ -5678,6 +5678,17 @@ void ScribusMainWindow::ToggleFrameEdit()
 		scrActions["toolsPDFAnnotText"]->setEnabled(false);
 		scrActions["toolsPDFAnnotLink"]->setEnabled(false);
 		scrActions["itemDelete"]->setEnabled(false);
+		layerPalette->setEnabled(false);
+		outlinePalette->setEnabled(false);
+		guidePalette->setEnabled(false);
+		scrapbookPalette->setEnabled(false);
+		pagePalette->setEnabled(false);
+		bookmarkPalette->setEnabled(false);
+		docCheckerPalette->setEnabled(false);
+		styleManager->setEnabled(false);
+		alignDistributePalette->setEnabled(false);
+		view->pageSelector->setEnabled(false);
+		view->layerMenu->setEnabled(false);
 		if (doc->m_Selection->count() != 0)
 		{
 			PageItem *currItem = doc->m_Selection->itemAt(0);
@@ -5723,6 +5734,17 @@ void ScribusMainWindow::NoFrameEdit()
 	scrActions["toolsUnlinkTextFrame"]->setEnabled(true);
 	scrActions["itemDelete"]->setEnabled(true);
 	scrActions["itemShapeEdit"]->setOn(false);
+	layerPalette->setEnabled(true);
+	outlinePalette->setEnabled(true);
+	guidePalette->setEnabled(true);
+	scrapbookPalette->setEnabled(true);
+	pagePalette->setEnabled(true);
+	bookmarkPalette->setEnabled(true);
+	docCheckerPalette->setEnabled(true);
+	styleManager->setEnabled(true);
+	alignDistributePalette->setEnabled(true);
+	view->pageSelector->setEnabled(true);
+	view->layerMenu->setEnabled(true);
 // 	bool tmpClip = doc->EditClip; // for enabling undo if exiting shape edit mode
 	if (HaveDoc)
 	{
