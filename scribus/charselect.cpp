@@ -526,15 +526,6 @@ void CharSelect::newFont(int font)
 	(*m_doc->AllFonts)[oldFont].decreaseUsage();
 	delEdit();
 	setCaption( tr("Select Character:")+" "+m_fontInUse);
-	if (m_doc->currentStyle.charStyle().font().scName() != m_fontInUse)
-	{
-		disconnect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
-		fontSelector->RebuildList(m_doc);
-		m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
-		setCaption( tr("Select Character:")+" "+m_fontInUse);
-		fontSelector->setCurrentText(m_fontInUse);
-		connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
-	}
 	scanFont();
 	generatePreview(0);
 	m_characterClass = 0;
