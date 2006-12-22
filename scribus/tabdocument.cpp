@@ -194,10 +194,13 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	disconnect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	unitRatio = unitGetRatioFromIndex(prefsData->docUnitIndex);
 
-	setSize(prefsData->pageSize);
-	pageSizeComboBox->setCurrentText(prefsData->pageSize);
+//	setSize(prefsData->pageSize);
+	if (prefsData->pageSize == CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentText(CommonStrings::trCustomPageSize);
+	else
+		pageSizeComboBox->setCurrentText(prefsData->pageSize);
 	prefsPageSizeName = prefsData->pageSize;
-	setOrien(prefsData->pageOrientation);
+//	setOrien(prefsData->pageOrientation);
 
 	docLayout->selectItem(prefsData->FacingPages);
 	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->FacingPages].FirstPage);
@@ -205,6 +208,8 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	unitCombo->setCurrentItem(prefsData->docUnitIndex);
 	pageWidth->setValue(prefsData->PageWidth * unitRatio);
 	pageHeight->setValue(prefsData->PageHeight * unitRatio);
+	pageW = prefsData->PageWidth;
+	pageH = prefsData->PageHeight;
 	marginGroup->setNewMargins(prefsData->margins);
 	marginGroup->setPageWidthHeight(prefsData->PageWidth, prefsData->PageHeight);
 	marginGroup->setNewBleeds(prefsData->bleeds);
@@ -214,6 +219,7 @@ void TabDocument::restoreDefaults(struct ApplicationPrefs *prefsData)
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	unitChange();
 }
 
 void TabDocument::restoreDefaults(ScribusDoc *prefsData)
@@ -224,23 +230,23 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	disconnect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
 	unitRatio = unitGetRatioFromIndex(prefsData->unitIndex());
 
-	setSize(prefsData->m_pageSize);
-	pageSizeComboBox->setCurrentText(prefsData->m_pageSize);
+//	setSize(prefsData->m_pageSize);
+	if (prefsData->m_pageSize == CommonStrings::customPageSize)
+		pageSizeComboBox->setCurrentText(CommonStrings::trCustomPageSize);
+	else
+		pageSizeComboBox->setCurrentText(prefsData->m_pageSize);
 	prefsPageSizeName = prefsData->m_pageSize;
-	setOrien(prefsData->PageOri);
+//	setOrien(prefsData->PageOri);
 
 	docLayout->selectItem(prefsData->currentPageLayout);
 	docLayout->firstPage->setCurrentItem(prefsData->pageSets[prefsData->currentPageLayout].FirstPage);
 	pageOrientationComboBox->setCurrentItem(prefsData->PageOri);
 	unitCombo->setCurrentItem(prefsData->unitIndex());
-	unitChange();
-	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(prefsData->pageWidth * unitRatio);
 	pageHeight->setValue(prefsData->pageHeight * unitRatio);
+	pageW = prefsData->pageWidth;
+	pageH = prefsData->pageHeight;
 	marginGroup->setNewBleeds(prefsData->bleeds);
-	connect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
-	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	marginGroup->setNewMargins(prefsData->pageMargins);
 	marginGroup->setPageWidthHeight(prefsData->pageWidth, prefsData->pageHeight);
 	GroupAS->setChecked( prefsData->AutoSave );
@@ -249,6 +255,7 @@ void TabDocument::restoreDefaults(ScribusDoc *prefsData)
 	connect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	connect(pageOrientationComboBox, SIGNAL(activated(int)), this, SLOT(setOrien(int)));
 	connect(pageSizeComboBox, SIGNAL(activated(const QString &)), this, SLOT(setPageSize()));
+	unitChange();
 }
 
 void TabDocument::unitChange()
@@ -313,6 +320,8 @@ void TabDocument::setSize(const QString & gr)
 		pageW = ps2->width();
 		pageH = ps2->height();
 	}
+	else
+		prefsPageSizeName = CommonStrings::customPageSize;
 	disconnect(pageWidth, SIGNAL(valueChanged(int)), this, SLOT(setPageWidth(int)));
 	disconnect(pageHeight, SIGNAL(valueChanged(int)), this, SLOT(setPageHeight(int)));
 	pageWidth->setValue(pageW * unitRatio);

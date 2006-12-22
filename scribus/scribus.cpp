@@ -1821,8 +1821,14 @@ void ScribusMainWindow::startUpDialog()
 			bool autoframes = dia->autoTextFrame->isChecked();
 			int orientation = dia->Orient;
 			int pageCount=dia->pageCountSpinBox->value();
-			PageSize ps2(dia->pageSizeComboBox->currentText());
-			QString pagesize = ps2.name();
+			QString pagesize;
+			if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
+				pagesize = CommonStrings::customPageSize;
+			else
+			{
+				PageSize ps2(dia->pageSizeComboBox->currentText());
+				pagesize = ps2.name();
+			}
 			doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount);
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			doc->bleeds.Bottom = dia->bleedBottom;
@@ -1880,8 +1886,15 @@ bool ScribusMainWindow::slotFileNew()
 		bool autoframes = dia->autoTextFrame->isChecked();
 		int orientation = dia->Orient;
 		int pageCount=dia->pageCountSpinBox->value();
-		PageSize ps2(dia->pageSizeComboBox->currentText());
-		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, ps2.name(), true, pageCount))
+		QString pagesize;
+		if (dia->pageSizeComboBox->currentText() == CommonStrings::trCustomPageSize)
+			pagesize = CommonStrings::customPageSize;
+		else
+		{
+			PageSize ps2(dia->pageSizeComboBox->currentText());
+			pagesize = ps2.name();
+		}
+		if (doFileNew(pageWidth, pageHeight, topMargin, leftMargin, rightMargin, bottomMargin, columnDistance, numberCols, autoframes, facingPages, dia->unitOfMeasureComboBox->currentItem(), firstPage, orientation, 1, pagesize, true, pageCount))
 		{
 			doc->pageSets[facingPages].FirstPage = firstPage;
 			doc->bleeds.Bottom = dia->bleedBottom;

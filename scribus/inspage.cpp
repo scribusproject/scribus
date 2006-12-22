@@ -295,6 +295,7 @@ void InsPage::setSize(const QString & gr)
 	{
 		widthMSpinBox->setEnabled(true);
 		heightMSpinBox->setEnabled(true);
+		prefsPageSizeName = CommonStrings::customPageSize;
 	}
 	else
 	{
