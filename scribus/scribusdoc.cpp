@@ -2762,48 +2762,50 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 			Ap->FromMaster.append(currItem);
 	}
 	if (!isLoading())
+	{
 		Mp->guides.copy(&Ap->guides);
-	Ap->initialMargins.Top = Mp->Margins.Top;
-	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
-	if (pageSets[currentPageLayout].Columns != 1)
-	{
-		PageLocation pageLoc=locationOfPage(pageNumber);
-		if (pageLoc==LeftPage) //Left hand page
+		Ap->initialMargins.Top = Mp->Margins.Top;
+		Ap->initialMargins.Bottom = Mp->Margins.Bottom;
+		if (pageSets[currentPageLayout].Columns != 1)
 		{
-			if (Mp->LeftPg != 0)
+			PageLocation pageLoc=locationOfPage(pageNumber);
+			if (pageLoc==LeftPage) //Left hand page
 			{
-				Ap->initialMargins.Right = Mp->initialMargins.Right;
+				if (Mp->LeftPg != 0)
+				{
+					Ap->initialMargins.Right = Mp->initialMargins.Right;
+					Ap->initialMargins.Left = Mp->initialMargins.Left;
+				}
+				else
+				{
+					Ap->initialMargins.Left = Mp->initialMargins.Right;
+					Ap->initialMargins.Right = Mp->initialMargins.Left;
+				}
+			}
+			else if (pageLoc==RightPage) // Right hand page
+			{
+				if (Mp->LeftPg != 0)
+				{
+					Ap->initialMargins.Left = Mp->initialMargins.Right;
+					Ap->initialMargins.Right = Mp->initialMargins.Left;
+				}
+				else
+				{
+					Ap->initialMargins.Right = Mp->initialMargins.Right;
+					Ap->initialMargins.Left = Mp->initialMargins.Left;
+				}
+			}
+			else //Middle pages
+			{
 				Ap->initialMargins.Left = Mp->initialMargins.Left;
-			}
-			else
-			{
-				Ap->initialMargins.Left = Mp->initialMargins.Right;
-				Ap->initialMargins.Right = Mp->initialMargins.Left;
-			}
-		}
-		else if (pageLoc==RightPage) // Right hand page
-		{
-			if (Mp->LeftPg != 0)
-			{
-				Ap->initialMargins.Left = Mp->initialMargins.Right;
-				Ap->initialMargins.Right = Mp->initialMargins.Left;
-			}
-			else
-			{
 				Ap->initialMargins.Right = Mp->initialMargins.Right;
-				Ap->initialMargins.Left = Mp->initialMargins.Left;
 			}
 		}
-		else //Middle pages
+		else
 		{
-			Ap->initialMargins.Left = Mp->initialMargins.Left;
-			Ap->initialMargins.Right = Mp->initialMargins.Right;
+			Ap->initialMargins.Left = Mp->Margins.Left;
+			Ap->initialMargins.Right = Mp->Margins.Right;
 		}
-	}
-	else
-	{
-		Ap->initialMargins.Left = Mp->Margins.Left;
-		Ap->initialMargins.Right = Mp->Margins.Right;
 	}
 	//TODO make a return false if not possible to apply the master page
 	changed();
