@@ -952,6 +952,8 @@ int StoryText::prevLine(int pos)
 		const LineSpec & ls(m_lines.at(i));
 		if (ls.firstItem <= pos && pos <= ls.lastItem) 
 		{
+			if (i == 0)
+				return startOfLine(pos);
 			// find current xpos
 			double xpos = 0.0;
 			for (int j = ls.firstItem; j < pos; ++j)
@@ -984,6 +986,8 @@ int StoryText::nextLine(int pos)
 		const LineSpec & ls(m_lines.at(i));
 		if (ls.firstItem <= pos && pos <= ls.lastItem) 
 		{
+			if (i+1 == m_lines.count())
+				return endOfLine(pos);
 			// find current xpos
 			double xpos = 0.0;
 			for (int j = ls.firstItem; j < pos; ++j)
