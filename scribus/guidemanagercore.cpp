@@ -61,12 +61,15 @@ void GuideManagerCore::addHorizontal(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			horizontalStdG.append(value);
-			if (UndoManager::undoEnabled())
+			if (!horizontalStdG.contains(value))
 			{
-				SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
-				ss->set("ADD_H", value);
-				undoManager->action(m_page, ss);
+				horizontalStdG.append(value);
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
+					ss->set("ADD_H", value);
+					undoManager->action(m_page, ss);
+				}
 			}
 			break;
 		case Auto:
@@ -76,10 +79,15 @@ void GuideManagerCore::addHorizontal(double value, GuideType type)
 
 void GuideManagerCore::addHorizontals(Guides values, GuideType type)
 {
+	Guides::iterator it;
 	switch (type)
 	{
 		case Standard:
-			horizontalStdG += values;
+			for (it = values.begin(); it != values.end(); ++it)
+			{
+				if (!horizontalStdG.contains((*it)))
+					horizontalStdG.append((*it));
+			}
 			break;
 		case Auto:
 			break;
@@ -91,12 +99,15 @@ void GuideManagerCore::addVertical(double value, GuideType type)
 	switch (type)
 	{
 		case Standard:
-			verticalStdG.append(value);
-			if (UndoManager::undoEnabled())
+			if (!verticalStdG.contains(value))
 			{
-				SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
-				ss->set("ADD_V", value);
-				undoManager->action(m_page, ss);
+				verticalStdG.append(value);
+				if (UndoManager::undoEnabled())
+				{
+					SimpleState* ss = new SimpleState(Um::AddVGuide, 0, Um::IGuides);
+					ss->set("ADD_V", value);
+					undoManager->action(m_page, ss);
+				}
 			}
 			break;
 		case Auto:
@@ -106,10 +117,15 @@ void GuideManagerCore::addVertical(double value, GuideType type)
 
 void GuideManagerCore::addVerticals(Guides values, GuideType type)
 {
+	Guides::iterator it;
 	switch (type)
 	{
 		case Standard:
-			verticalStdG += values;
+			for (it = values.begin(); it != values.end(); ++it)
+			{
+				if (!verticalStdG.contains((*it)))
+					verticalStdG.append((*it));
+			}
 			break;
 		case Auto:
 			break;

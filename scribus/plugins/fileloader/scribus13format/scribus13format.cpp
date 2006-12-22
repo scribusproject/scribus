@@ -923,6 +923,12 @@ bool Scribus13Format::loadFile(const QString & fileName, const FileFormat & /* f
 				//m_Doc->Pages=&m_Doc->DocPages;
 				// guides reading
 				tmp = "";
+				Apage->guides.setHorizontalAutoGap(0.0);
+				Apage->guides.setVerticalAutoGap(0.0);
+				Apage->guides.setHorizontalAutoCount(0);
+				Apage->guides.setVerticalAutoCount(0);
+				Apage->guides.setHorizontalAutoRefer(0);
+				Apage->guides.setVerticalAutoRefer(0);
 				GuideManagerCore::readVerticalGuides(pg.attribute("VerticalGuides"),
 						Apage,
 						GuideManagerCore::Standard,

@@ -261,11 +261,17 @@ bool GuideManager::addValueToList(QListView *list)
 	double ng = value2pts(newGuide, docUnitIndex);
 	if (list == horizontalList)
 	{
+		Guides tmpGuides = currentPage->guides.horizontals(GuideManagerCore::Standard);
+		if (tmpGuides.contains(ng))
+			return false;
 		currentPage->guides.addHorizontal(ng, GuideManagerCore::Standard);
 		m_horMap[tmp] = ng;
 	}
 	else
 	{
+		Guides tmpGuides = currentPage->guides.verticals(GuideManagerCore::Standard);
+		if (tmpGuides.contains(ng))
+			return false;
 		currentPage->guides.addVertical(ng, GuideManagerCore::Standard);
 		m_verMap[tmp] = ng;
 	}

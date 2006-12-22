@@ -3755,10 +3755,12 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		updateRecent(FName);
 		mainWindowStatusLabel->setText( tr("Ready"));
 		ret = true;
+		doc->setLoading(true);
 		for (uint p = 0; p < doc->DocPages.count(); ++p)
 		{
 			Apply_MasterPage(doc->DocPages.at(p)->MPageNam, p, false);
 		}
+		doc->setLoading(false);
 /*		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->hasName = false;

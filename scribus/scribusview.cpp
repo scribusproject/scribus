@@ -9032,12 +9032,14 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		Guides::iterator it;
 		uint yg = 0;
 		uint xg = 0;
+		double lowX = ((m->x() - Doc->guidesSettings.grabRad) / Scale) + Doc->minCanvasCoordinate.x();
+		double highX = ((m->x() + Doc->guidesSettings.grabRad) / Scale) + Doc->minCanvasCoordinate.x();
+		double lowY = ((m->y() - Doc->guidesSettings.grabRad) / Scale) + Doc->minCanvasCoordinate.y();
+		double highY = ((m->y() + Doc->guidesSettings.grabRad) / Scale) + Doc->minCanvasCoordinate.y();
 		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++yg)
 		{
-			if (((*it)+Doc->currentPage()->yOffset()< (MypS+Doc->guidesSettings.grabRad / scale())) && ((*it)+Doc->currentPage()->yOffset()> (MypS-Doc->guidesSettings.grabRad / scale())))
-			{
+			if (((*it) + Doc->currentPage()->yOffset() < highY) && ((*it)+Doc->currentPage()->yOffset() > lowY))
 				tmpGuidesSel.insert(fabs(((*it)+Doc->currentPage()->yOffset()) - MypS), yg);
-			}
 		}
 		if (tmpGuidesSel.count() != 0)
 		{
@@ -9049,10 +9051,8 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 		tmpGuides = Doc->currentPage()->guides.verticals(GuideManagerCore::Standard);
 		for (it = tmpGuides.begin(); it != tmpGuides.end(); ++it, ++xg)
 		{
-			if (((*it)+Doc->currentPage()->xOffset()< (MxpS+Doc->guidesSettings.grabRad / scale())) && ((*it)+Doc->currentPage()->xOffset()> (MxpS-Doc->guidesSettings.grabRad / scale())))
-			{
+			if (((*it) + Doc->currentPage()->xOffset() < highX) && ((*it)+Doc->currentPage()->xOffset() > lowX))
 				tmpGuidesSel.insert(fabs(((*it)+Doc->currentPage()->xOffset()) - MypS), xg);
-			}
 		}
 		if (tmpGuidesSel.count() != 0)
 		{
@@ -9070,8 +9070,6 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 				// Vertical Guide
 				emit signalGuideInformation(1, qRound(Doc->currentPage()->guides.vertical(GxM, GuideManagerCore::Standard) * 10000.0) / 10000.0);
 		}
-		//else
-		//	emit signalGuideInformation(-1, 0.0);
 	}
 	if ((m->state() != ShiftButton) || (Doc->appMode == modeLinkFrames) || (Doc->appMode == modeUnlinkFrames))
 		Deselect(true);

@@ -2761,7 +2761,8 @@ bool ScribusDoc::applyMasterPage(const QString& pageName, const int pageNumber)
 		if (currItem->OwnPage == MpNr)
 			Ap->FromMaster.append(currItem);
 	}
-	Mp->guides.copy(&Ap->guides);
+	if (!isLoading())
+		Mp->guides.copy(&Ap->guides);
 	Ap->initialMargins.Top = Mp->Margins.Top;
 	Ap->initialMargins.Bottom = Mp->Margins.Bottom;
 	if (pageSets[currentPageLayout].Columns != 1)
@@ -7474,7 +7475,8 @@ void ScribusDoc::setCurrentPage(Page *newPage)
 	if (m_ScMW)
 	{
 		m_ScMW->guidePalette->setDoc(this);
-		m_ScMW->guidePalette->setupPage();
+		if (!isLoading())
+			m_ScMW->guidePalette->setupPage();
 	}
 }
 
