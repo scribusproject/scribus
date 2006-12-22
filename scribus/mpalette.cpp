@@ -1216,6 +1216,9 @@ void Mpalette::setCurrentItem(PageItem *i)
 		LeftLine->setChecked(i->LeftLine);
 		RightLine->setChecked(i->RightLine);
 		BottomLine->setChecked(i->BottomLine);
+		Xpos->setEnabled(false);
+		Ypos->setEnabled(false);
+		Rot->setEnabled(false);
 	}
 	else
 		TabStack3->raiseWidget(0);
@@ -1286,7 +1289,10 @@ void Mpalette::setCurrentItem(PageItem *i)
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
-		Rot->setEnabled(true);
+		if ((CurItem->isTableItem) && (CurItem->isSingleSel))
+			Rot->setEnabled(false);
+		else
+			Rot->setEnabled(true);
 	}
 	HaveItem = true;
 	if (i->asLine())
@@ -1456,6 +1462,9 @@ void Mpalette::SetCurItem(PageItem *i)
 		LeftLine->setChecked(CurItem->LeftLine);
 		RightLine->setChecked(CurItem->RightLine);
 		BottomLine->setChecked(CurItem->BottomLine);
+		Xpos->setEnabled(false);
+		Ypos->setEnabled(false);
+		Rot->setEnabled(false);
 	}
 	else
 		TabStack3->raiseWidget(0);
@@ -1525,7 +1534,10 @@ void Mpalette::SetCurItem(PageItem *i)
 		widthLabel->setText( tr( "&Width:" ) );
 		yposLabel->setText( tr( "&Y-Pos:" ) );
 		heightLabel->setText( tr( "&Height:" ) );
-		Rot->setEnabled(true);
+		if ((CurItem->isTableItem) && (CurItem->isSingleSel))
+			Rot->setEnabled(false);
+		else
+			Rot->setEnabled(true);
 	}
 	HaveItem = true;
 	if (CurItem->asLine())
