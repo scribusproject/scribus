@@ -70,6 +70,7 @@ AlignDistributePalette::AlignDistributePalette( QWidget* parent, const char* nam
 	clearWState( WState_Polished );
 	
 	init();
+	languageChange();
 	setDoc(NULL);
 }
 
@@ -79,6 +80,7 @@ AlignDistributePalette::~AlignDistributePalette()
 
 void AlignDistributePalette::languageChange()
 {
+	AlignDistributeBase::languageChange();
 	setCaption( tr( "Align and Distribute" ) );
 	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
 	int alignComboValue=alignRelativeToCombo->currentItem();
@@ -138,12 +140,12 @@ void AlignDistributePalette::languageChange()
 	distributeAcrossPageToolButton->setText( QString::null );
 	QToolTip::add( distributeAcrossPageToolButton, tr( "Make horizontal gaps between items and sides of page equal" ) );
 	distributeDownPageToolButton->setText( QString::null );
-	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
+	QToolTip::add( distributeDownPageToolButton, tr( "Make vertical gaps between items and the top and bottom of page equal" ) );
 	distributeAcrossMarginsToolButton->setText( QString::null );
 	QToolTip::add( distributeAcrossMarginsToolButton, tr( "Make horizontal gaps between items and sides of page margins equal" ) );
 	distributeDownMarginsToolButton->setText( QString::null );
-	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between items and the top and bottom of page equal" ) );
-	
+	QToolTip::add( distributeDownMarginsToolButton, tr( "Make vertical gaps between items and the top and bottom of page margins equal" ) );
+
 	distributeDistLabel->setText( tr( "&Distance:" ) );
 	QToolTip::add( distributeDistMSpinBox, tr( "Distribute the items with the distance specified" ) );
 	
