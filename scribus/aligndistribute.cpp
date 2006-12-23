@@ -33,6 +33,7 @@ for which a new license (GPL+exception) is in place.
 #include <qimage.h>
 #include <qpixmap.h>
 #include <qlineedit.h>
+#include <qtabwidget.h>
 
 #include "page.h"
 #include "scmessagebox.h"
@@ -80,8 +81,9 @@ AlignDistributePalette::~AlignDistributePalette()
 
 void AlignDistributePalette::languageChange()
 {
-	AlignDistributeBase::languageChange();
 	setCaption( tr( "Align and Distribute" ) );
+	tabWidget->changeTab(tabWidget->page(0), tr( "Align"));
+	tabWidget->changeTab(tabWidget->page(1), tr( "Distribute"));
 	alignRelativeToLabel->setText( tr( "&Relative to:" ) );
 	int alignComboValue=alignRelativeToCombo->currentItem();
 	alignRelativeToCombo->clear();
