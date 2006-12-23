@@ -451,12 +451,12 @@ double GuideManagerCore::closestHorAbove(double y)// const
 		if (horizontalAutoG[i] < y && horizontalAutoG[i] > closest)
 			closest = horizontalAutoG[i];
 	}
-
+/*
 	if (m_page->Margins.Top < y && m_page->Margins.Top > closest)
 		closest = m_page->Margins.Top;
 	if (m_page->height() - m_page->Margins.Bottom < y && m_page->height() - m_page->Margins.Bottom > closest)
 		closest = m_page->height() - m_page->Margins.Bottom;
-
+*/
 	return closest;
 }
 
@@ -475,12 +475,12 @@ double GuideManagerCore::closestHorBelow(double y)// const
 		if (horizontalAutoG[i] > y && horizontalAutoG[i] < closest)
 			closest = horizontalAutoG[i];
 	}
-
+/*
 	if (m_page->Margins.Top > y && m_page->Margins.Top < closest)
 		closest = m_page->Margins.Top;
 	if (m_page->height() - m_page->Margins.Bottom > y && m_page->height() - m_page->Margins.Bottom < closest)
 		closest = m_page->height() - m_page->Margins.Bottom;
-
+*/
 	return closest;
 }
 
@@ -499,12 +499,12 @@ double GuideManagerCore::closestVertLeft(double x)// const
 		if (verticalAutoG[i] < x && verticalAutoG[i] > closest)
 			closest = verticalAutoG[i];
 	}
-
+/*
 	if (m_page->Margins.Left < x && m_page->Margins.Left > closest)
 		closest = m_page->Margins.Left;
 	if (m_page->width() - m_page->Margins.Right < x && m_page->width() - m_page->Margins.Right > closest)
 		closest = m_page->width() - m_page->Margins.Right;
-
+*/
 	return closest;
 }
 
@@ -523,12 +523,12 @@ double GuideManagerCore::closestVertRight(double x)// const
 		if (verticalAutoG[i] > x && verticalAutoG[i] < closest)
 			closest = verticalAutoG[i];
 	}
-
+/*
 	if (m_page->Margins.Left > x  && m_page->Margins.Left < closest)
 		closest = m_page->Margins.Left;
 	if (m_page->width() - m_page->Margins.Right > x && m_page->width() - m_page->Margins.Right < closest)
 		closest = m_page->width() - m_page->Margins.Right;
-
+*/
 	return closest;
 }
 
