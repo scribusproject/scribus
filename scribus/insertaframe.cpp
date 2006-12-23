@@ -124,7 +124,7 @@ void InsertAFrame::slotSelectPagePlacement( int id )
 {
 	placementPagesLineEdit->setEnabled(id==1);
 	placementPagesRangeButton->setEnabled(id==1);
-	checkBoxLinkCreatedTextFrames->setEnabled(id==1);
+	checkBoxLinkCreatedTextFrames->setEnabled(typeButtonGroup->selectedId()==0 && (id!=0));
 }
 
 void InsertAFrame::slotSelectPosition( int id )
