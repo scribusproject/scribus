@@ -157,11 +157,15 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			}
 		}
 	}
+	baseX = 0;
+	baseY = 0;
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false);
 		m_Doc->addPage(0);
 		m_Doc->view()->addPage(0, true);
+		baseX = 0;
+		baseY = 0;
 	}
 	else
 	{
@@ -170,7 +174,14 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			m_Doc=ScCore->primaryMainWindow()->doFileNew(b-x, h-y, 0, 0, 0, 0, 0, 0, false, false, 0, false, 0, 1, "Custom", true);
 			ScCore->primaryMainWindow()->HaveNewDoc();
 			ret = true;
+			baseX = 0;
+			baseY = 0;
 		}
+	}
+	if ((!ret) && (interactive))
+	{
+		baseX = m_Doc->currentPage()->xOffset();
+		baseY = m_Doc->currentPage()->yOffset();
 	}
 	if ((ret) || (!interactive))
 	{
@@ -462,8 +473,6 @@ void EPSPlug::parseOutput(QString fn, bool eps)
 	int z, lcap, ljoin, dc, pagecount;
 	int failedImages = 0;
 	double dcp;
-	double baseX = m_Doc->currentPage()->xOffset();
-	double baseY = m_Doc->currentPage()->yOffset();
 	bool fillRuleEvenOdd = true;
 	PageItem* ite;
 	QPtrStack<PageItem> groupStack;

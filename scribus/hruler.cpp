@@ -904,13 +904,13 @@ void Hruler::unitChange()
 				cor = 10;
 			if (sc < 0.3)
 			{
+				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 4;
+	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 4;
+			}
+			else if (sc < 0.6)
+			{
 				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 3;
 	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 3;
-			}
-			else if (sc < 0.5)
-			{
-				iter = unitRulerGetIter1FromIndex(docUnitIndex) * 2;
-	  			iter2 = unitRulerGetIter2FromIndex(docUnitIndex) * 2;
 			}
 			else
 			{

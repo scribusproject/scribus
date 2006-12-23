@@ -82,7 +82,7 @@ private:
 	
 	QPtrList<PageItem> Elements;
 	ColorList CustColors;
-	double LineW, Opacity, DashOffset;
+	double LineW, Opacity, DashOffset, baseX, baseY;
 	QValueList<double> DashPattern;
 	QString CurrColor;
 	FPointArray Coords;
