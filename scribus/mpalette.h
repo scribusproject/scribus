@@ -97,7 +97,8 @@ class SCRIBUS_API Mpalette : public ScrPaletteBase
 public:
 	Mpalette(QWidget* parent);
 	~Mpalette() {};
-	
+
+	virtual void closeEvent(QCloseEvent *closeEvent);
 	void updateColorSpecialGradient();
 	const VGradient getFillGradient();
 	void updateColorList();

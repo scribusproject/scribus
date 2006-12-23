@@ -989,6 +989,22 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	PM1->setEnabled(false);
 }
 
+void Mpalette::closeEvent(QCloseEvent *closeEvent)
+{
+	if (m_ScMW && !m_ScMW->ScriptRunning)
+	{
+		if ((HaveDoc) && (HaveItem))
+		{
+			if (Cpal->gradEditButton->isOn())
+			{
+				m_ScMW->setAppMode(modeNormal);
+				m_ScMW->view->RefreshGradient(CurItem);
+			}
+		}
+	}
+	ScrPaletteBase::closeEvent(closeEvent);
+}
+
 void Mpalette::setMainWindow(ScribusMainWindow* mw)
 {
 	m_ScMW=mw;

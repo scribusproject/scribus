@@ -3584,26 +3584,30 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	else
 	{
 		int docPageCount = static_cast<int>(Pages->count() - 1);
-		double bleedRight = 0.0;
+/*		double bleedRight = 0.0;
 		double bleedLeft = 0.0;
 		double bleedBottom = 0.0;
 		double bleedTop = 0.0;
 		bool drawBleed = false;
 		if (((bleeds.Bottom != 0.0) || (bleeds.Top != 0.0) || (bleeds.Left != 0.0) || (bleeds.Right != 0.0)))
-			drawBleed = true;
+			drawBleed = true; */
 		for (int a = docPageCount; a > -1; a--)
 		{
-			if (drawBleed)
-				getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
-			int x = static_cast<int>(Pages->at(a)->xOffset() - bleedLeft);
-			int y = static_cast<int>(Pages->at(a)->yOffset() - bleedTop);
-			int w = static_cast<int>(Pages->at(a)->width() + bleedLeft + bleedRight);
-			int h = static_cast<int>(Pages->at(a)->height() + bleedBottom + bleedTop);
+//			if (drawBleed)
+//				getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+//			int x = static_cast<int>(Pages->at(a)->xOffset() - bleedLeft);
+//			int y = static_cast<int>(Pages->at(a)->yOffset() - bleedTop);
+//			int w = static_cast<int>(Pages->at(a)->width() + bleedLeft + bleedRight);
+//			int h = static_cast<int>(Pages->at(a)->height() + bleedBottom + bleedTop);
+			int x = qRound(Pages->at(a)->xOffset());
+			int y = qRound(Pages->at(a)->yOffset());
+			int w = qRound(Pages->at(a)->width());
+			int h = qRound(Pages->at(a)->height());
 			QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
 			if (QRect(x, y, w, h).intersects(itemRect))
 			{
 				retw = a;
-				if (drawBleed)  // check again if its really on the correct page
+/*				if (drawBleed)
 				{
 					for (int a2 = docPageCount; a2 > -1; a2--)
 					{
@@ -3617,7 +3621,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 							break;
 						}
 					}
-				}
+				} */
 				break;
 			}
 		}
