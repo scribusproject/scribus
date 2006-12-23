@@ -6122,7 +6122,7 @@ Nazwa ta jest zarezerwowana dla przezroczystości</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <source>Double Sided</source>
@@ -19730,7 +19730,7 @@ ponieważ redukuje to wielkość pliku PDF.</translation>
     </message>
     <message>
         <source>Single Page</source>
-        <translation>Pojedyńcza strona</translation>
+        <translation>Pojedyncza strona</translation>
     </message>
     <message>
         <source>Continuous</source>
