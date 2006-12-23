@@ -1318,6 +1318,10 @@ void ScribusView::enterEvent(QEvent *)
 			case modePanning:
 				qApp->setOverrideCursor(QCursor(loadIcon("HandC.xpm")), true);
 				break;
+			case modeMeasurementTool:
+			case modeEditGradientVectors:
+				qApp->setOverrideCursor(QCursor(CrossCursor), true);
+				break;
 			default:
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			break;

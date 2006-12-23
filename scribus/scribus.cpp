@@ -5975,6 +5975,10 @@ void ScribusMainWindow::setAppMode(int mode)
 					view->Deselect(true);
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				break;
+			case modeMeasurementTool:
+			case modeEditGradientVectors:
+				qApp->setOverrideCursor(QCursor(CrossCursor), true);
+				break;
 			default:
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 			break;
