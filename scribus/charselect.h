@@ -97,6 +97,7 @@ private:
 
 public slots:
 	void newChar(uint i);
+	void userNewChar(uint i);
 	void delChar();
 	void newFont(int font);
 	void newCharClass(int c);
@@ -107,6 +108,7 @@ signals:
 	/*! \brief A signall emitted when is the dialog modeless
 	and user press the "Insert" button. */
 	void insertSpecialChar();
+	void insertUserSpecialChar(QChar);
 
 protected:
 	bool eventFilter(QObject *obj, QEvent *ev);
@@ -140,6 +142,7 @@ protected:
 	protected slots:
 		void hideCheck_clicked();
 		void slot_insertSpecialChar();
+		void slot_insertUserSpecialChar(QChar);
 		void uniLoadButton_clicked();
 		void uniSaveButton_clicked();
 		void uniClearButton_clicked();

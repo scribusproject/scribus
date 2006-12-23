@@ -140,13 +140,14 @@ CharSelect::CharSelect(QWidget* parent)
 	connect(insertButton, SIGNAL(clicked()), this, SLOT(insChar()));
 	connect(charTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
 	connect(charTable, SIGNAL(delChar()), this, SLOT(delChar()));
-	connect(userTable, SIGNAL(selectChar(uint)), this, SLOT(newChar(uint)));
+	connect(userTable, SIGNAL(selectChar(uint)), this, SLOT(userNewChar(uint)));
 	connect(userTable, SIGNAL(delChar()), this, SLOT(delChar()));
 	connect(unicodeButton, SIGNAL(chosenUnicode(QString)), userTable, SLOT(appendUnicode(QString)));
 	connect(fontSelector, SIGNAL(activated(int)), this, SLOT(newFont(int)));
 	connect(rangeSelector, SIGNAL(activated(int)), this, SLOT(newCharClass(int)));
 	connect(hideCheck, SIGNAL(clicked()), this, SLOT(hideCheck_clicked()));
 	connect(this, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
+	connect(this, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
 	connect(uniLoadButton, SIGNAL(clicked()), this, SLOT(uniLoadButton_clicked()));
 	connect(uniSaveButton, SIGNAL(clicked()), this, SLOT(uniSaveButton_clicked()));
 	connect(uniClearButton, SIGNAL(clicked()), this, SLOT(uniClearButton_clicked()));
@@ -507,14 +508,6 @@ void CharSelect::newCharClass(int c)
 	generatePreview(m_characterClass);
 }
 
-/*
-void ChrSelect::setNewFont(int font)
-{
-	newFont(font);
-	ScCore->primaryMainWindow()->SetNewFont(m_fontInUse);
-}
-*/
-
 void CharSelect::newFont(int font)
 {
 	QString oldFont(m_fontInUse);
@@ -532,14 +525,14 @@ void CharSelect::newFont(int font)
 	setupRangeCombo();
 }
 
+void CharSelect::userNewChar(uint i)
+{
+	emit insertUserSpecialChar(QChar(i));
+}
+
 void CharSelect::newChar(uint i)
 {
 	chToIns += QChar(i);
-	if (sender() == userTable)
-	{
-		insChar();
-		return;
-	}
 	sample->setPixmap(FontSample((*m_doc->AllFonts)[m_fontInUse], 28, chToIns, paletteBackgroundColor(), true));
 	insertButton->setEnabled(true);
 	QString tmp;
@@ -595,6 +588,23 @@ void CharSelect::slot_insertSpecialChar()
 	m_doc->view()->DrawNew();
 	m_doc->changed();
 	delEdit();
+}
+
+void CharSelect::slot_insertUserSpecialChar(QChar ch)
+{
+	if (!m_Item)
+		return;
+	if (m_Item->HasSel)
+		m_Item->asTextFrame()->deleteSelectedTextFromFrame();
+	//CB: Avox please make text->insertchar(char) so none of this happens in gui code, and item can tell doc its changed so the view and mainwindow slotdocch are not necessary
+	if (ch == QChar(10))
+		ch = QChar(13);
+	if (ch == QChar(9))
+		ch = QChar(32);
+	m_Item->itemText.insertChars(m_Item->CPos, ch);
+	m_Item->CPos += 1;
+	m_doc->view()->DrawNew();
+	m_doc->changed();
 }
 
 bool CharSelect::eventFilter(QObject */*obj*/, QEvent *ev)

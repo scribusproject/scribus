@@ -390,6 +390,7 @@ protected slots:
 	void specialActionKeyEvent(QString actionName, int unicodevalue);
 	/*! \brief Slot to insert special characters from charSelect widget. */
 	void slot_insertSpecialChar();
+	void slot_insertUserSpecialChar(QChar);
 
 signals:
 	void DocChanged();

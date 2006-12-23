@@ -1220,7 +1220,14 @@ StoryEditor::StoryEditor(QWidget* parent) : QMainWindow(parent, "StoryEditor", W
 StoryEditor::~StoryEditor()
 {
 	savePrefs();
-	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertSpecialChar()));
+	connect(ScCore->primaryMainWindow()->charPalette,
+			SIGNAL(insertSpecialChar()),
+			ScCore->primaryMainWindow()->charPalette,
+			SLOT(slot_insertSpecialChar()));
+	connect(ScCore->primaryMainWindow()->charPalette,
+			SIGNAL(insertUserSpecialChar(QChar)),
+			ScCore->primaryMainWindow()->charPalette,
+			SLOT(slot_insertUserSpecialChar(QChar)));
 }
 
 void StoryEditor::savePrefs()
@@ -1657,6 +1664,8 @@ void StoryEditor::connectSignals()
 	// PV - char palette
 	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), this, SLOT(slot_insertSpecialChar()));
 	disconnect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertSpecialChar()), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertSpecialChar()));
+	connect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertUserSpecialChar(QChar)), this, SLOT(slot_insertUserSpecialChar(QChar)));
+	disconnect(ScCore->primaryMainWindow()->charPalette, SIGNAL(insertUserSpecialChar(QChar)), ScCore->primaryMainWindow()->charPalette, SLOT(slot_insertUserSpecialChar(QChar)));
 }
 
 void StoryEditor::setCurrentDocumentAndItem(ScribusDoc *doc, PageItem *item)
@@ -2227,6 +2236,14 @@ void StoryEditor::slot_insertSpecialChar()
 		Editor->insChars(ScCore->primaryMainWindow()->charPalette->getCharacters());
 		Editor->insert(ScCore->primaryMainWindow()->charPalette->getCharacters());
 	}
+	blockUpdate = false;
+}
+
+void StoryEditor::slot_insertUserSpecialChar(QChar c)
+{
+	blockUpdate = true;
+	Editor->insChars(c);
+	Editor->insert(c);
 	blockUpdate = false;
 }
 
