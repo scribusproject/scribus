@@ -2700,14 +2700,28 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				pmen->insertItem( tr("&Delete"), Doc, SLOT(itemSelection_DeleteItem()));
 			if ((currItem->itemType() == PageItem::ImageFrame) || (currItem->itemType() == PageItem::TextFrame))
 			{
-				pmen->insertItem( tr("Contents"), pmenEditContents);
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
-					m_ScMW->scrActions["editCopyContents"]->addTo(pmenEditContents);
-					m_ScMW->scrActions["editPasteContents"]->addTo(pmenEditContents);
-					m_ScMW->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
+					if (currItem->PicAvail)
+						m_ScMW->scrActions["editCopyContents"]->addTo(pmenEditContents);
+					if (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame)
+					{
+						m_ScMW->scrActions["editPasteContents"]->addTo(pmenEditContents);
+						m_ScMW->scrActions["editPasteContentsAbs"]->addTo(pmenEditContents);
+					}
+					if (currItem->PicAvail)
+						m_ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
+					if ((currItem->PicAvail) || (m_ScMW->contentsBuffer.sourceType==PageItem::ImageFrame))
+						pmen->insertItem( tr("Contents"), pmenEditContents);
 				}
-				m_ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
+				else
+				{
+					if (currItem->itemText.lines() != 0)
+					{
+						m_ScMW->scrActions["editClearContents"]->addTo(pmenEditContents);
+						pmen->insertItem( tr("Contents"), pmenEditContents);
+					}
+				}
 			}
 			pmen->insertSeparator();
 			m_ScMW->scrActions["toolsProperties"]->addTo(pmen);
