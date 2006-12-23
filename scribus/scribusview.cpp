@@ -10977,10 +10977,11 @@ void ScribusView::TextToPath()
 				break;
 		}
 	}
+	QPtrList<PageItem> delItems,newGroupedItems;
+	newGroupedItems.clear();
 	uint selectedItemCount=Doc->m_Selection->count();
 	if (selectedItemCount != 0)
 	{
-		QPtrList<PageItem> delItems,newGroupedItems;
 		uint offset=0;
 		for(uint i=0; i<selectedItemCount; ++i)
 		{
@@ -10999,7 +11000,7 @@ void ScribusView::TextToPath()
 				++offset;
 				continue;
 			}
-			newGroupedItems.clear();
+//			newGroupedItems.clear();
 			FPointArray pts;
 			double x, y, wide;
 			QString chstr, ccounter;
@@ -11176,18 +11177,17 @@ void ScribusView::TextToPath()
 				AdjustItemSize(bb);
 				newGroupedItems.append(bb);
 			}
-			if (newGroupedItems.count() > 1)
-			{
-				for (uint ag = 0; ag < newGroupedItems.count(); ++ag)
-				{
-					bb = newGroupedItems.at(ag);
-					bb->Groups.push(Doc->GroupCounter);
-				}
-			}
-			Doc->GroupCounter++;
 			delItems.append(Doc->m_Selection->takeItem(offset));
 		}
-
+		if (newGroupedItems.count() > 1)
+		{
+			Doc->m_Selection->clear();
+			for (uint ag = 0; ag < newGroupedItems.count(); ++ag)
+			{
+				Doc->m_Selection->addItem(newGroupedItems.at(ag));
+			}
+			m_ScMW->GroupObj();
+		}
 		uint toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)
 		{
@@ -11206,18 +11206,18 @@ void ScribusView::UniteObj()
 	PageItem *bb;
 	QValueList<int> toDel;
 	toDel.clear();
-	uint docSelectionCount=Doc->m_Selection->count();
+	uint docSelectionCount = Doc->m_Selection->count();
 	if (docSelectionCount > 1)
 	{
 		currItem = Doc->m_Selection->itemAt(0);
+		if (currItem->Groups.count() != 0)
+			return;
 		currItem->Frame = false;
 		currItem->ClipEdited = true;
 		currItem->FrameType = 3;
-		currItem->Groups.clear();
 		for (uint a = 1; a < docSelectionCount; ++a)
 		{
 			bb = Doc->m_Selection->itemAt(a);
-			bb->Groups.clear();
 			toDel.append(bb->ItemNr);
 			QWMatrix ma;
 			ma.translate(bb->xPos(), bb->yPos());
