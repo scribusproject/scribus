@@ -165,8 +165,7 @@ ScPainter::ScPainter( QPaintDevice *target, unsigned int w, unsigned int h, unsi
 }
 
 /// std image painter
-ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, 
-					  unsigned int x, unsigned int y )
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, unsigned int x, unsigned int y )
 {
 	m_target = 0L;
 	m_width = w;
@@ -218,8 +217,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 
 #ifdef HAVE_CAIRO
 /// image painter
-ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, 
-					  double transparency, int blendmode )
+ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h, double transparency, int blendmode )
 {
 	m_target = 0L;
 	m_width = w;
@@ -260,7 +258,7 @@ ScPainter::ScPainter( QImage *target, unsigned int w, unsigned int h,
 	clear();
 #else
 */
-	m_image->fill( qRgba(255, 255, 255, 0) );
+//	m_image->fill( qRgba(255, 255, 255, 0) );
 	cairo_surface_t *img = cairo_image_surface_create_for_data(m_image->bits(), CAIRO_FORMAT_ARGB32, w, h, w*4);
 	m_cr = cairo_create(img);
 // #endif

@@ -1371,6 +1371,7 @@ QImage PageItem::DrawObj_toImage()
 QImage PageItem::DrawObj_toImage(QPtrList<PageItem> &emG)
 {
 	QImage retImg = QImage(qRound(gWidth), qRound(gHeight), 32);
+	retImg.fill( qRgba(255, 255, 255, 0) );
 	ScPainter *painter = new ScPainter(&retImg, retImg.width(), retImg.height(), 1.0, 0);
 	painter->setZoomFactor(1.0);
 	QPtrStack<PageItem> groupStack;

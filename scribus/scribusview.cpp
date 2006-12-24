@@ -361,10 +361,10 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
 		ScPainter *painter;
 #ifdef HAVE_CAIRO
-		struct Layer la;
-		la.LNr = 0;
-		int Lnr = 0;
-		Level2Layer(Doc, &la, Lnr);
+//		struct Layer la;
+//		la.LNr = 0;
+//		int Lnr = 0;
+//		Level2Layer(Doc, &la, Lnr);
 		QImage img = QImage(clipw, cliph, 32);
 		painter = new ScPainter(&img, img.width(), img.height(), 1.0, 0);
 		painter->clear(paletteBackgroundColor());
@@ -812,6 +812,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 
 void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
+	QRect oldR;
 	QPtrStack<PageItem> groupStack;
 #ifndef HAVE_CAIRO
 	double z = painter->zoomFactor();
@@ -890,7 +891,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						currItem->OwnPage = page->pageNr();
 						if (!evSpon || forceRedraw)
 							currItem->invalid = true;
-						QRect oldR(currItem->getRedrawBounding(Scale));
+						oldR = currItem->getRedrawBounding(Scale);
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
 						currItem->OwnPage = currItem->savedOwnPage;
@@ -939,7 +940,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
-						QRect oldR(currItem->getRedrawBounding(Scale));
+						oldR = currItem->getRedrawBounding(Scale);
 						if (clip.intersects(oldR))
 						{
 #ifdef HAVE_CAIRO
@@ -998,6 +999,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 #ifndef HAVE_CAIRO
 	double z = painter->zoomFactor();
 #endif
+	QRect oldR;
 	QPtrStack<PageItem> groupStack;
 	if (Doc->Items->count() != 0)
 	{
@@ -1053,7 +1055,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						groupStack.push(currItem->groupsLastItem);
 						continue;
 					}
-					QRect oldR(currItem->getRedrawBounding(Scale));
+					oldR = currItem->getRedrawBounding(Scale);
 					if (clip.intersects(oldR))
 					{
 						if (!evSpon || forceRedraw) 
@@ -1128,7 +1130,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						continue;
 					if ((viewAsPreview) && (!currItem->printEnabled()))
 						continue;
-					QRect oldR(currItem->getRedrawBounding(Scale));
+					oldR = currItem->getRedrawBounding(Scale);
 					if (clip.intersects(oldR))
 					{
 #ifdef HAVE_CAIRO
@@ -2365,7 +2367,47 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		pmen->insertSeparator();
 		m_ScMW->scrActions["viewSnapToGrid"]->addTo(pmen);
 		m_ScMW->scrActions["viewSnapToGuides"]->addTo(pmen);
-		if (Doc->OnPage(m->x() / Scale + Doc->minCanvasCoordinate.x(), m->y() / Scale + Doc->minCanvasCoordinate.y()) != -1)
+		int pgNum = -1;
+		int docPageCount = static_cast<int>(Doc->Pages->count() - 1);
+		double bleedRight = 0.0;
+		double bleedLeft = 0.0;
+		double bleedBottom = 0.0;
+		double bleedTop = 0.0;
+		bool drawBleed = false;
+		int x2 = static_cast<int>(m->x()/Scale + Doc->minCanvasCoordinate.x());
+		int y2 = static_cast<int>(m->y()/Scale + Doc->minCanvasCoordinate.y());
+		if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
+			drawBleed = true;
+		for (int a = docPageCount; a > -1; a--)
+		{
+			if (drawBleed)
+				Doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+			int x = static_cast<int>(Doc->Pages->at(a)->xOffset() - bleedLeft);
+			int y = static_cast<int>(Doc->Pages->at(a)->yOffset() - bleedTop);
+			int w = static_cast<int>(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
+			int h = static_cast<int>(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+			if (QRect(x, y, w, h).contains(QPoint(x2, y2)))
+			{
+				pgNum = static_cast<int>(a);
+				if (drawBleed)  // check again if its really on the correct page
+				{
+					for (int a2 = docPageCount; a2 > -1; a2--)
+					{
+						int xn = static_cast<int>(Doc->Pages->at(a2)->xOffset());
+						int yn = static_cast<int>(Doc->Pages->at(a2)->yOffset());
+						int wn = static_cast<int>(Doc->Pages->at(a2)->width());
+						int hn = static_cast<int>(Doc->Pages->at(a2)->height());
+						if (QRect(xn, yn, wn, hn).contains(QPoint(x2, y2)))
+						{
+							pgNum = static_cast<int>(a2);
+							break;
+						}
+					}
+				}
+				break;
+			}
+		}
+		if (pgNum != -1)
 		{
 			pmen->insertSeparator();
 			m_ScMW->scrActions["pageApplyMasterPage"]->addTo(pmen);
@@ -7517,7 +7559,9 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, b
 		currItem->updateClip();
 		Doc->setRedrawBounding(currItem);
 		QRect newR(currItem->getRedrawBounding(Scale));
-		updateContents(newR.unite(oldR));
+		updateContents(oldR);
+		updateContents(newR);
+//		updateContents(newR.unite(oldR));
 	}
 	else
 	{
@@ -8779,11 +8823,48 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 	uint a;
 	if (!Doc->masterPageMode())
 	{
-		int i = Doc->OnPage(Mxp + Doc->minCanvasCoordinate.x(), Myp + Doc->minCanvasCoordinate.y());
-		if (i!=-1)
+		int pgNum = -1;
+		int docPageCount = static_cast<int>(Doc->Pages->count() - 1);
+		double bleedRight = 0.0;
+		double bleedLeft = 0.0;
+		double bleedBottom = 0.0;
+		double bleedTop = 0.0;
+		bool drawBleed = false;
+		if (((Doc->bleeds.Bottom != 0.0) || (Doc->bleeds.Top != 0.0) || (Doc->bleeds.Left != 0.0) || (Doc->bleeds.Right != 0.0)) && (Doc->guidesSettings.showBleed))
+			drawBleed = true;
+		for (int a = docPageCount; a > -1; a--)
+		{
+			if (drawBleed)
+				Doc->getBleeds(a, &bleedTop, &bleedBottom, &bleedLeft, &bleedRight);
+			int x = static_cast<int>(Doc->Pages->at(a)->xOffset() - bleedLeft);
+			int y = static_cast<int>(Doc->Pages->at(a)->yOffset() - bleedTop);
+			int w = static_cast<int>(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
+			int h = static_cast<int>(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
+			if (QRect(x, y, w, h).contains(QPoint(MxpS, MypS)))
+			{
+				pgNum = static_cast<int>(a);
+				if (drawBleed)  // check again if its really on the correct page
+				{
+					for (int a2 = docPageCount; a2 > -1; a2--)
+					{
+						int xn = static_cast<int>(Doc->Pages->at(a2)->xOffset());
+						int yn = static_cast<int>(Doc->Pages->at(a2)->yOffset());
+						int wn = static_cast<int>(Doc->Pages->at(a2)->width());
+						int hn = static_cast<int>(Doc->Pages->at(a2)->height());
+						if (QRect(xn, yn, wn, hn).contains(QPoint(MxpS, MypS)))
+						{
+							pgNum = static_cast<int>(a2);
+							break;
+						}
+					}
+				}
+				break;
+			}
+		}
+		if (pgNum!=-1)
 		{
 			uint docCurrPageNo=Doc->currentPageNumber();
-			uint j=static_cast<uint>(i);
+			uint j=static_cast<uint>(pgNum);
 			if (docCurrPageNo != j)
 			{
 				Doc->setCurrentPage(Doc->Pages->at(j));
