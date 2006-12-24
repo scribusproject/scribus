@@ -27,6 +27,7 @@ class SCRIBUS_API TabDisplay : public TabDisplayBase
 		void unitChange(QString unit, int docUnitIx, int decimals, double invUnitConversion);
 		//! \brief Hide non-needed widgets for ReformDoc widget
 		void setDocSetupMode();
+		void setPaperColor(QColor neu);
 
 		double DisScale;
 		QColor colorPaper;

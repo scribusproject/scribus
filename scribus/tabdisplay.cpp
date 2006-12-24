@@ -174,6 +174,17 @@ void TabDisplay::changePaperColor()
 	}
 }
 
+void TabDisplay::setPaperColor(QColor neu)
+{
+	if (neu.isValid())
+	{
+		QPixmap pm(54, 14);
+		pm.fill(neu);
+		colorPaper = neu;
+		backColor->setPixmap(pm);
+	}
+}
+
 void TabDisplay::setDisScale()
 {
 	DisScale = QMAX((100.0 + CaliSlider->value()) / 100.0, 0.01);

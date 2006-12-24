@@ -143,6 +143,7 @@ void ReformDoc::restoreDefaults()
 	ApplicationPrefs* prefsData=&(PrefsManager::instance()->appPrefs);
 	tabPage->restoreDefaults(currDoc);
 	tabView->restoreDefaults(prefsData, &currDoc->guidesSettings, currDoc->pageSets, currDoc->currentPageLayout);
+	tabView->setPaperColor(currDoc->papColor);
 	tabHyphenator->restoreDefaults(currDoc);
 	tabGuides->restoreDefaults(&currDoc->guidesSettings, &currDoc->typographicSettings, docUnitIndex);
 	tabTypo->restoreDefaults(&currDoc->typographicSettings);
