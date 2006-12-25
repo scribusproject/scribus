@@ -1490,6 +1490,8 @@ void Mpalette::SetCurItem(PageItem *i)
 	if (CurItem->isGroupControl)
 	{
 		TabStack->setItemEnabled(idGroupItem, true);
+		TabStack->setItemEnabled(idLineItem, false);
+		TabStack->setItemEnabled(idColorsItem, false);
 		if (CurItem->FrameType == 0)
 			SCustom2->setPixmap(SCustom2->getIconPixmap(0));
 		if (CurItem->FrameType == 1)
