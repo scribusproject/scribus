@@ -27,6 +27,7 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scribuswin.h"
 #include "guidemanager.h"
+#include "seiten.h"
 
 #include <utility>
 #include <qeventloop.h>
@@ -7417,7 +7418,10 @@ void ScribusDoc::setCurrentPage(Page *newPage)
 	{
 		m_ScMW->guidePalette->setDoc(this);
 		if (!isLoading())
+		{
 			m_ScMW->guidePalette->setupPage();
+			m_ScMW->pagePalette->markPage(newPage->pageNr());
+		}
 	}
 }
 

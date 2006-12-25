@@ -46,9 +46,10 @@ bool SeDrag::decode( QDropEvent* e, QString& str )
 }
 
 /* IconItems Code */
-SeItem::SeItem(QTable* parent, QString text, const QPixmap& Pix)
+SeItem::SeItem(QTable* parent, QString text, uint nr, const QPixmap& Pix)
 		: QTableItem(parent, QTableItem::Never, "", Pix)
 {
+	pageNumber = nr;
 	pageName = text;
 	setWordWrap(true);
 }
@@ -726,11 +727,13 @@ void PagePalette::RebuildPage()
 	pageView->rowmult = rowmult;
 	pageView->firstP = counter;
 	pageView->cols = currView->Doc->pageSets[currView->Doc->currentPageLayout].Columns;
+	pageList.clear();
 	for (uint a = 0; a < currView->Doc->Pages->count(); ++a)
 	{
 		str = currView->Doc->Pages->at(a)->MPageNam;
-		QTableItem *it = new SeItem(pageView, str, CreateIcon(a, pix));
-		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, it);
+		SeItem *it = new SeItem(pageView, str, a, CreateIcon(a, pix));
+		pageList.append(it);
+		pageView->setItem(rowcounter*rowmult+rowadd, counter*colmult+coladd, (QTableItem *)it);
 		pageView->setColumnWidth(counter*colmult+coladd, pix.width());
 		if (cols == 1)
 		{
@@ -760,6 +763,8 @@ void PagePalette::RebuildPage()
 		}
 	}
 	pageView->repaint();
+	if (currView != 0)
+		markPage(currView->Doc->currentPageNumber());
 	connect(pageLayout, SIGNAL(selectedLayout(int )), this, SLOT(handlePageLayout(int )));
 	connect(pageLayout, SIGNAL(selectedFirstPage(int )), this, SLOT(handleFirstPage(int )));
 }
@@ -769,6 +774,24 @@ void PagePalette::Rebuild()
 	RebuildTemp();
 	RebuildPage();
 	enablePalette(currView != 0);
+}
+
+void PagePalette::markPage(uint nr)
+{
+	if (currView != 0)
+	{
+		SeItem *it;
+		for (uint a = 0; a < pageList.count(); a++)
+		{
+			it = pageList.at(a);
+			if (it->pageNumber == nr)
+			{
+				pageView->clearSelection();
+				pageView->selectCells(it->row(), it->col(), it->row(), it->col());
+				break;
+			}
+		}
+	}
 }
 
 void PagePalette::setView(ScribusView *view)

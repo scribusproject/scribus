@@ -46,10 +46,11 @@ friend class SeView;
 
 
 public:
-	SeItem(QTable* parent, QString text, const QPixmap& Pix);
+	SeItem(QTable* parent, QString text, uint pgnr, const QPixmap& Pix);
 	~SeItem() {};
-	
+
 	const QString& getPageName();
+	uint pageNumber;
 	
 protected:
 	QString pageName;
@@ -170,6 +171,7 @@ public slots:
 	void RebuildTemp();
 	void RebuildPage();
 	void Rebuild();
+	void markPage(uint nr);
 	void selMasterPage();
 	QPixmap CreateIcon(int nr, QPixmap pixin);
 	void languageChange();
@@ -189,6 +191,7 @@ protected:
 	QLabel* TextLabel1;
 	QLabel* TextLabel2;
 	TrashBin* Trash;
+	QPtrList<SeItem> pageList;
 	SeList* masterPageList;
 	SeView* pageView;
 	ScribusView *currView;
