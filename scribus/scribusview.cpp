@@ -11242,7 +11242,7 @@ void ScribusView::TextToPath()
 					bb->ContourLine = bb->PoLine.copy();
 					bb->ClipEdited = true;
 					Doc->setRedrawBounding(bb);
-					newGroupedItems.append(bb);
+					newGroupedItems.append(Doc->Items->take(z));
 					CurX += hl->glyph.wide();
 				}
 			}
@@ -11256,18 +11256,31 @@ void ScribusView::TextToPath()
 				bb->setRotation(currItem->rotation());
 				bb->setPolyClip(qRound(QMAX(bb->lineWidth() / 2, 1)));
 				AdjustItemSize(bb);
-				newGroupedItems.append(bb);
+				newGroupedItems.append(Doc->Items->take(z));
 			}
 			delItems.append(Doc->m_Selection->takeItem(offset));
 		}
+		Doc->m_Selection->clear();
 		if (newGroupedItems.count() > 1)
 		{
-			Doc->m_Selection->clear();
 			for (uint ag = 0; ag < newGroupedItems.count(); ++ag)
 			{
+				Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(ag));
 				Doc->m_Selection->addItem(newGroupedItems.at(ag));
 			}
+			for (uint a = 0; a < Doc->Items->count(); ++a)
+			{
+				Doc->Items->at(a)->ItemNr = a;
+			}
 			m_ScMW->GroupObj();
+		}
+		else
+		{
+			Doc->Items->insert(currItem->ItemNr+1, newGroupedItems.at(0));
+			for (uint a = 0; a < Doc->Items->count(); ++a)
+			{
+				Doc->Items->at(a)->ItemNr = a;
+			}
 		}
 		uint toDeleteItemCount=delItems.count();
 		if (toDeleteItemCount != 0)
