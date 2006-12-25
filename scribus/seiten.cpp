@@ -79,6 +79,7 @@ void SeList::mouseReleaseEvent(QMouseEvent *m)
 		pmen->exec(QCursor::pos());
 		delete pmen;
 	}
+	QListBox::mouseReleaseEvent(m);
 }
 
 void SeList::ToggleTh()
@@ -98,6 +99,7 @@ void SeList::mousePressEvent(QMouseEvent* e)
 		Mpos = e->pos();
 		Mpressed = true;
 	}
+	QListBox::mousePressEvent(e);
 }
 
 void SeList::mouseMoveEvent(QMouseEvent* e)
