@@ -56,6 +56,8 @@ void FileWatcher::addFile(QString fileName)
 		struct fileMod fi;
 		fi.info = QFileInfo(fileName);
 		fi.timeInfo = fi.info.lastModified();
+		fi.pendingCount = 0;
+		fi.pending = false;
 		watchedFiles.insert(fileName, fi);
 	}
 	if (!stopped)
