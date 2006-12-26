@@ -442,13 +442,13 @@ void MarginWidget::setNewMargins(MarginStruct &m)
 	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
 	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 	topR->setValue(m.Top * m_unitRatio);
-	RandT = m.Top * m_unitRatio;
+	RandT = m.Top;
 	bottomR->setValue(m.Bottom * m_unitRatio);
-	RandB = m.Bottom * m_unitRatio;
+	RandB = m.Bottom;
 	leftR->setValue(m.Left * m_unitRatio);
-	RandL = m.Left * m_unitRatio;
+	RandL = m.Left;
 	rightR->setValue(m.Right * m_unitRatio);
-	RandR = m.Right * m_unitRatio;
+	RandR = m.Right;
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
 	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
 	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
