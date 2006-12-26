@@ -1776,12 +1776,15 @@ QString SVGPlug::parseColor( const QString &s )
 	QColor tmpR;
 	for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 	{
-		m_Doc->PageColors[it.key()].getRGB(&r, &g, &b);
-		tmpR.setRgb(r, g, b);
-		if (c == tmpR && m_Doc->PageColors[it.key()].getColorModel() == colorModelRGB)
+		if (it.data().getColorModel() == colorModelRGB)
 		{
-			ret = it.key();
-			found = true;
+			it.data().getRGB(&r, &g, &b);
+			tmpR.setRgb(r, g, b);
+			if (c == tmpR)
+			{
+				ret = it.key();
+				found = true;
+			}
 		}
 	}
 	if (!found)
