@@ -767,11 +767,14 @@ void PageItem::DrawObj(ScPainter *p, QRect e)
 	DrawObj_Pre(p, sc);
 	if (m_Doc->layerOutline(LayerNr))
 	{
-		if (itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine)
+		if ((itemType()==TextFrame || itemType()==ImageFrame || itemType()==PathText || itemType()==Line || itemType()==PolyLine) && (!isGroupControl))
 			DrawObj_Item(p, e, sc);
 	}
 	else
-		DrawObj_Item(p, e, sc);
+	{
+		if (!isGroupControl)
+			DrawObj_Item(p, e, sc);
+	}
 	DrawObj_Post(p);
 }
 
@@ -799,7 +802,8 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 	}
 	else
 	{
-
+	if (!isGroupControl)
+	{
 #ifdef HAVE_CAIRO
 //#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
 		if (fillBlendmode() != 0)
@@ -891,144 +895,144 @@ void PageItem::DrawObj_Pre(ScPainter *p, double &sc)
 			p->setBrushOpacity(1.0 - fillTransparency());
 		if (lineBlendmode() == 0)
 			p->setPenOpacity(1.0 - lineTransparency());
+		p->setFillRule(fillRule);
 		}
-	p->setFillRule(fillRule);
+	}
 }
 
 void PageItem::DrawObj_Post(ScPainter *p)
 {
 	bool doStroke=true;
 	ScribusView* view = m_Doc->view();
-	if (m_Doc->layerOutline(LayerNr))
+	if (!isGroupControl)
 	{
-		if (itemType()!=Line)
+		if (m_Doc->layerOutline(LayerNr))
 		{
-			p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
-			p->setFillMode(ScPainter::None);
-			p->setBrushOpacity(1.0);
-			p->setPenOpacity(1.0);
-			if (itemType()==PolyLine)
-				p->setupPolygon(&PoLine, false);
-			else if (itemType() == PathText)
+			if (itemType()!=Line)
 			{
-				if (PoShow)
+				p->setPen(m_Doc->layerMarker(LayerNr), 1, SolidLine, FlatCap, MiterJoin);
+				p->setFillMode(ScPainter::None);
+				p->setBrushOpacity(1.0);
+				p->setPenOpacity(1.0);
+				if (itemType()==PolyLine)
 					p->setupPolygon(&PoLine, false);
-				else
-					doStroke = false;
-			}
-			else
-				p->setupPolygon(&PoLine);
-			if (doStroke)
-				p->strokePath();
-			if (itemType()==ImageFrame)
-			{
-				if (imageClip.size() != 0)
+				else if (itemType() == PathText)
 				{
-					p->setupPolygon(&imageClip);
-					p->strokePath();
+					if (PoShow)
+						p->setupPolygon(&PoLine, false);
+					else
+						doStroke = false;
 				}
-			}
-		}
-	}
-	else
-	{
-#ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
-		if (fillBlendmode() != 0)
-			p->endLayer();
-//#endif
-#endif
-		if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
-			doStroke=false;
-		if ((doStroke) && (!m_Doc->RePos))
-		{
-#ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
-			if (lineBlendmode() != 0)
-				p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
-//#endif
-#endif
-			if (lineColor() != CommonStrings::None)
-			{
-				p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
-				if (DashValues.count() != 0)
-					p->setDash(DashValues, DashOffset);
-			}
-			else
-				p->setLineWidth(0);
-			if (!isTableItem)
-			{
-				p->setupPolygon(&PoLine);
-				if (NamedLStyle.isEmpty())
-					p->strokePath();
 				else
+					p->setupPolygon(&PoLine);
+				if (doStroke)
+					p->strokePath();
+				if (itemType()==ImageFrame)
 				{
-					multiLine ml = m_Doc->MLineStyles[NamedLStyle];
-					QColor tmp;
-					for (int it = ml.size()-1; it > -1; it--)
+					if (imageClip.size() != 0)
 					{
-						struct SingleLine& sl = ml[it];
-						if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
-						{
-							SetFarbe(&tmp, sl.Color, sl.Shade);
-							p->setPen(tmp, sl.Width, static_cast<PenStyle>(sl.Dash), static_cast<PenCapStyle>(sl.LineEnd), static_cast<PenJoinStyle>(sl.LineJoin));
-							p->strokePath();
-						}
+						p->setupPolygon(&imageClip);
+						p->strokePath();
 					}
 				}
 			}
+		}
+		else
+		{
 #ifdef HAVE_CAIRO
-//#if CAIRO_VERSION > CAIRO_VERSION_ENCODE(1, 1, 6)
-			if (lineBlendmode() != 0)
+			if (fillBlendmode() != 0)
 				p->endLayer();
-//#endif
 #endif
+			if (itemType()==PathText || itemType()==PolyLine || itemType()==Line)
+				doStroke=false;
+			if ((doStroke) && (!m_Doc->RePos))
+			{
+#ifdef HAVE_CAIRO
+				if (lineBlendmode() != 0)
+					p->beginLayer(1.0 - lineTransparency(), lineBlendmode());
+#endif
+				if (lineColor() != CommonStrings::None)
+				{
+					p->setPen(strokeQColor, m_lineWidth, PLineArt, PLineEnd, PLineJoin);
+					if (DashValues.count() != 0)
+						p->setDash(DashValues, DashOffset);
+				}
+				else
+					p->setLineWidth(0);
+				if (!isTableItem)
+				{
+					p->setupPolygon(&PoLine);
+					if (NamedLStyle.isEmpty())
+						p->strokePath();
+					else
+					{
+						multiLine ml = m_Doc->MLineStyles[NamedLStyle];
+						QColor tmp;
+						for (int it = ml.size()-1; it > -1; it--)
+						{
+							struct SingleLine& sl = ml[it];
+							if ((!sl.Color != CommonStrings::None) && (sl.Width != 0))
+							{
+								SetFarbe(&tmp, sl.Color, sl.Shade);
+								p->setPen(tmp, sl.Width, static_cast<PenStyle>(sl.Dash), static_cast<PenCapStyle>(sl.LineEnd), static_cast<PenJoinStyle>(sl.LineJoin));
+								p->strokePath();
+							}
+						}
+					}
+				}
+#ifdef HAVE_CAIRO
+				if (lineBlendmode() != 0)
+					p->endLayer();
+#endif
+			}
 		}
 	}
 	if ((!isEmbedded) && (!m_Doc->RePos))
 	{
 		double scpInv = 1.0 / (QMAX(view->scale(), 1));
-		if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
+		if (!isGroupControl)
 		{
-			p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, DotLine, FlatCap, MiterJoin);
-			if ((isBookmark) || (m_isAnnotation))
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, DotLine, FlatCap, MiterJoin);
-			if ((BackBox != 0) || (NextBox != 0))
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, SolidLine, FlatCap, MiterJoin);
-			if (m_Locked)
-				p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, SolidLine, FlatCap, MiterJoin);
-
-			p->setFillMode(0);
-			if (itemType()==PathText)
+			if ((Frame) && (m_Doc->guidesSettings.framesShown) && ((itemType() == ImageFrame) || (itemType() == TextFrame) || (itemType() == PathText)))
 			{
-				if (Clip.count() != 0)
+				p->setPen(PrefsManager::instance()->appPrefs.DFrameNormColor, scpInv, DotLine, FlatCap, MiterJoin);
+				if ((isBookmark) || (m_isAnnotation))
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameAnnotationColor, scpInv, DotLine, FlatCap, MiterJoin);
+				if ((BackBox != 0) || (NextBox != 0))
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameLinkColor, scpInv, SolidLine, FlatCap, MiterJoin);
+				if (m_Locked)
+					p->setPen(PrefsManager::instance()->appPrefs.DFrameLockColor, scpInv, SolidLine, FlatCap, MiterJoin);
+				p->setFillMode(0);
+				if (itemType()==PathText)
 				{
-					FPointArray tclip;
-					FPoint np = FPoint(Clip.point(0));
-					tclip.resize(2);
-					tclip.setPoint(0, np);
-					tclip.setPoint(1, np);
-					for (uint a = 1; a < Clip.size(); ++a)
+					if (Clip.count() != 0)
 					{
-						np = FPoint(Clip.point(a));
-						tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+						FPointArray tclip;
+						FPoint np = FPoint(Clip.point(0));
+						tclip.resize(2);
+						tclip.setPoint(0, np);
+						tclip.setPoint(1, np);
+						for (uint a = 1; a < Clip.size(); ++a)
+						{
+							np = FPoint(Clip.point(a));
+							tclip.putPoints(tclip.size(), 4, np.x(), np.y(), np.x(), np.y(), np.x(), np.y(), np.x(), np.y());
+						}
+						np = FPoint(Clip.point(0));
+						tclip.putPoints(tclip.size(), 2, np.x(), np.y(), np.x(), np.y());
+						p->setupPolygon(&tclip);
 					}
-					np = FPoint(Clip.point(0));
-					tclip.putPoints(tclip.size(), 2, np.x(), np.y(), np.x(), np.y());
-					p->setupPolygon(&tclip);
 				}
+				else
+					p->setupPolygon(&PoLine);
+				p->strokePath();
 			}
-			else
-				p->setupPolygon(&PoLine);
-			p->strokePath();
+			if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
+			{
+				p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
+				p->setupPolygon(&ContourLine);
+				p->strokePath();
+			}
 		}
-		if ((m_Doc->guidesSettings.framesShown) && textFlowUsesContourLine() && (ContourLine.size() != 0))
-		{
-			p->setPen(lightGray, scpInv, DotLine, FlatCap, MiterJoin);
-			p->setupPolygon(&ContourLine);
-			p->strokePath();
-		}
-		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)))
+		if ((m_Doc->guidesSettings.layerMarkersShown) && (m_Doc->layerCount() > 1) && (!m_Doc->layerOutline(LayerNr)) && ((isGroupControl) || (Groups.count() == 0)))
 		{
 			p->setPen(black, 0.5/ m_Doc->view()->scale(), SolidLine, FlatCap, MiterJoin);
 			p->setPenOpacity(1.0);

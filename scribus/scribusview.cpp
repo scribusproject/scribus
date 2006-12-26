@@ -814,6 +814,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 {
 	QRect oldR;
 	QPtrStack<PageItem> groupStack;
+	QPtrStack<PageItem> groupStack2;
 #ifndef HAVE_CAIRO
 	double z = painter->zoomFactor();
 #endif
@@ -866,9 +867,14 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							currItem->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
 							currItem->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
 						}
+						oldR = currItem->getRedrawBounding(Scale);
 						if (currItem->isGroupControl)
 						{
 							painter->save();
+							currItem->savedOwnPage = currItem->OwnPage;
+							currItem->OwnPage = page->pageNr();
+							if ((clip.intersects(oldR)) && (Doc->guidesSettings.layerMarkersShown) && (Doc->layerCount() > 1))
+								currItem->DrawObj(painter, clip);
 #ifdef HAVE_CAIRO
 							FPointArray cl = currItem->PoLine.copy();
 							QWMatrix mm;
@@ -878,6 +884,7 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 							painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
 #endif
 							groupStack.push(currItem->groupsLastItem);
+							currItem->OwnPage = currItem->savedOwnPage;
 							if (!currItem->ChangedMasterItem)
 							{
 								//Hack to not check for undo changes, indicate drawing only
@@ -891,7 +898,6 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 						currItem->OwnPage = page->pageNr();
 						if (!evSpon || forceRedraw)
 							currItem->invalid = true;
-						oldR = currItem->getRedrawBounding(Scale);
 						if (clip.intersects(oldR))
 							currItem->DrawObj(painter, clip);
 						currItem->OwnPage = currItem->savedOwnPage;
@@ -910,6 +916,29 @@ void ScribusView::DrawMasterItems(ScPainter *painter, Page *page, QRect clip)
 								painter->endLayer();
 #endif
 								painter->restore();
+								PageItem *cite = groupStack2.pop();
+								double OldX = cite->xPos();
+								double OldY = cite->yPos();
+								double OldBX = cite->BoundingX;
+								double OldBY = cite->BoundingY;
+								if (!cite->ChangedMasterItem)
+								{
+									//Hack to not check for undo changes, indicate drawing only
+									cite->moveBy(-Mp->xOffset() + page->xOffset(), -Mp->yOffset() + page->yOffset(), true);
+									cite->BoundingX = OldBX - Mp->xOffset() + page->xOffset();
+									cite->BoundingY = OldBY - Mp->yOffset() + page->yOffset();
+								}
+								oldR = cite->getRedrawBounding(Scale);
+								if ((clip.intersects(oldR)) && (Doc->guidesSettings.layerMarkersShown) && (Doc->layerCount() > 1))
+									cite->DrawObj(painter, clip);
+								cite->OwnPage = cite->savedOwnPage;
+								if (!currItem->ChangedMasterItem)
+								{
+									//Hack to not check for undo changes, indicate drawing only
+									cite->setXYPos(OldX, OldY, true);
+									cite->BoundingX = OldBX;
+									cite->BoundingY = OldBY;
+								}
 								groupStack.pop();
 							}
 						}
@@ -1001,6 +1030,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 #endif
 	QRect oldR;
 	QPtrStack<PageItem> groupStack;
+	QPtrStack<PageItem> groupStack2;
 	if (Doc->Items->count() != 0)
 	{
 		int Lnr=0;
@@ -1041,6 +1071,7 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						if (currItem->OnMasterPage != Doc->currentPage()->pageName())
 							continue;
 					}
+					oldR = currItem->getRedrawBounding(Scale);
 					if (currItem->isGroupControl)
 					{
 						painter->save();
@@ -1053,9 +1084,9 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 						painter->beginLayer(1.0 - currItem->fillTransparency(), currItem->fillBlendmode(), &cl);
 #endif
 						groupStack.push(currItem->groupsLastItem);
+						groupStack2.push(currItem);
 						continue;
 					}
-					oldR = currItem->getRedrawBounding(Scale);
 					if (clip.intersects(oldR))
 					{
 						if (!evSpon || forceRedraw) 
@@ -1114,6 +1145,10 @@ void ScribusView::DrawPageItems(ScPainter *painter, QRect clip)
 							painter->endLayer();
 #endif
 							painter->restore();
+							PageItem *cite = groupStack2.pop();
+							oldR = cite->getRedrawBounding(Scale);
+							if ((clip.intersects(oldR)) && (Doc->guidesSettings.layerMarkersShown) && (Doc->layerCount() > 1))
+								cite->DrawObj(painter, clip);
 							groupStack.pop();
 						}
 					}
