@@ -746,6 +746,8 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	{
 		QDomNode n2 = e.firstChild();
 		QDomElement b2 = n2.toElement();
+		if (b2.nodeName() == "use")
+			b2 = getNodeFromUseElement(b2);
 		parseSVG( b2.attribute( "d" ), &ImgClip );
 		return GElements;
 	}
