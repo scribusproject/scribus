@@ -4296,15 +4296,18 @@ void ScribusDoc::copyPage(int pageNumberToCopy, int existingPage, int whereToIns
 		m_View->reformPages();
 		uint oldItems = Items->count();
 		m_Selection->clear();
-		for (uint ite = 0; ite < oldItems; ++ite)
+		if (oldItems>0)
 		{
-			PageItem *itemToCopy = Items->at(ite);
-			if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
-				m_Selection->addItem(itemToCopy, true);
+			for (uint ite = 0; ite < oldItems; ++ite)
+			{
+				PageItem *itemToCopy = Items->at(ite);
+				if (itemToCopy->OwnPage == static_cast<int>(from->pageNr()))
+					m_Selection->addItem(itemToCopy, true);
+			}
+			ScriXmlDoc *ss = new ScriXmlDoc();
+			ss->ReadElem(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view());
+			m_Selection->clear();
 		}
-		ScriXmlDoc *ss = new ScriXmlDoc();
-		ss->ReadElem(ss->WriteElem(this, view(), m_Selection), prefsData.AvailFonts, this, destination->xOffset(), destination->yOffset(), false, true, prefsData.GFontSub, view());
-		m_Selection->clear();
 		from->guides.copy(&destination->guides);
 		GroupCounter = GrMax + 1;
 	}

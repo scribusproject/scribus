@@ -1048,6 +1048,8 @@ bool ScriXmlDoc::ReadElem(QString fileName, SCFonts &avail, ScribusDoc *doc, dou
 
 QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* selection)
 {
+	if (selection->count()==0)
+		return "";
 	double xp, yp;
 	QString tmp, tmpy;
 	PageItem *item;
