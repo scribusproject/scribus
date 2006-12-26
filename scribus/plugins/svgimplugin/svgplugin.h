@@ -182,11 +182,14 @@ public:
 	void convert(int flags);
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
+	void parseDefs(const QDomElement &e);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	QPtrList<PageItem> parseElement(const QDomElement &e);
 	QPtrList<PageItem> parseText(const QDomElement &e);
 	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 	QPtrList<PageItem> parseSwitch(const QDomElement &e);
+	QPtrList<PageItem> parseUse(const QDomElement &e);
+	QDomElement getNodeFromUseElement(const QDomElement &e);
 	double fromPercentage( const QString &s );
 	double parseUnit(const QString &unit);
 	QWMatrix parseTransform(const QString &transform);
@@ -210,6 +213,7 @@ public:
 	int PathLen;
 	QPtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
+	QMap<QString, QDomElement>		m_nodeMap;
 	bool FirstM, WasM, PathClosed;
 	double viewTransformX;
 	double viewTransformY;

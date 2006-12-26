@@ -435,6 +435,29 @@ void SVGPlug::setupTransform( const QDomElement &e )
 		gc->matrix = mat * gc->matrix;
 }
 
+void SVGPlug::parseDefs(const QDomElement &e)
+{
+	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+	{
+		QDomElement b = n.toElement();
+		if ( b.isNull() )
+			continue;
+		SvgStyle svgStyle;
+		parseStyle( &svgStyle, b );
+		if (!svgStyle.Display) 
+			continue;
+		QString STag2 = b.tagName();
+		if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
+			parseGradient( b );
+		else if ( b.hasAttribute("id") )
+		{
+			QString id = b.attribute("id");
+			if (!id.isEmpty())
+				m_nodeMap.insert(id, b);
+		}
+	}
+}
+
 QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
@@ -466,6 +489,8 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	ImgClip.resize(0);
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
+	if (e.hasAttribute("id"))
+		m_nodeMap.insert(e.attribute("id"), e);
 	QString STag = e.tagName();
 	if( STag == "g" )
 	{
@@ -549,27 +574,17 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	}
 	if( e.tagName() == "defs" )
 	{
-//		parseGroup( e ); 	// try for gradients at least
-//		the defs parsing is currently limited to gradients
-//		should be extended when we support the use statement.
-		for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
-		{
-			QDomElement b = n.toElement();
-			if( b.isNull() )
-				continue;
-			SvgStyle svgStyle;
-			parseStyle( &svgStyle, b );
-			if (!svgStyle.Display) 
-				continue;
-			QString STag2 = b.tagName();
-			if( STag2 == "linearGradient" || STag2 == "radialGradient" )
-				parseGradient( b );
-		}
+		parseDefs(e);
 		return GElements;
 	}
 	else if( e.tagName() == "switch" )
 	{
 		GElements = parseSwitch(e);
+		return GElements;
+	}
+	else if( e.tagName() == "use" )
+	{
+		GElements = parseUse(e);
 		return GElements;
 	}
 	else if( STag == "linearGradient" || STag == "radialGradient" )
@@ -1124,10 +1139,52 @@ QPtrList<PageItem> SVGPlug::parseSwitch(const QDomElement &e)
 	return SElements;
 }
 
+QPtrList<PageItem> SVGPlug::parseUse(const QDomElement &e)
+{
+	QPtrList<PageItem> UElements;
+	QDomElement ue = getNodeFromUseElement(e);
+	if (!ue.isNull())
+		UElements = parseElement(ue);
+	return UElements;
+}
+
+QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
+{
+	QDomElement ret;
+	QMap<QString, QDomElement>::Iterator it;
+	QString href = e.attribute("xlink:href").mid(1);
+	it = m_nodeMap.find(href);
+	if (it != m_nodeMap.end())
+	{
+		QString attrName;
+		QDomNode clone = it.data().cloneNode();
+		QDomNamedNodeMap attributes = e.attributes();
+		ret = clone.toElement();
+		for (uint i = 0; i < attributes.count(); ++i)
+		{
+			QDomAttr attr = attributes.item(i).toAttr();
+			attrName = attr.name();
+			if (attrName == "transform")
+			{
+				QString trans = attr.value();
+				if (ret.hasAttribute("transform"))
+					trans += QString(" %1").arg(ret.attribute("transform"));
+				ret.setAttribute(attr.name(), trans);
+			}
+			else
+				ret.setAttribute(attr.name(), attr.value());
+		}
+	}
+	return ret;
+}
+
 double SVGPlug::fromPercentage( const QString &s )
 {
-	if( s.endsWith( "%" ) )
-		return s.toDouble() / 100.0;
+	if (s.endsWith( "%" ))
+	{
+		QString s1 = s.left(s.length() - 1);
+		return s1.toDouble() / 100.0;
+	}
 	else
 		return s.toDouble();
 }
