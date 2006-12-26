@@ -945,10 +945,10 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 		tmp.setColorRGB(Rc, Gc, Bc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			m_Doc->PageColors[it.key()].getRGB(&hR, &hG, &hB);
-			if ((Rc == hR) && (Gc == hG) && (Bc == hB))
+			if (it.data().getColorModel() == colorModelRGB)
 			{
-				if (m_Doc->PageColors[it.key()].getColorModel() == colorModelRGB)
+				it.data().getRGB(&hR, &hG, &hB);
+				if ((Rc == hR) && (Gc == hG) && (Bc == hB))
 				{
 					ret = it.key();
 					found = true;
@@ -971,10 +971,10 @@ QString EPSPlug::parseColor(QString vals, colorModel model)
 		tmp.setColor(Cc, Mc, Yc, Kc);
 		for (it = m_Doc->PageColors.begin(); it != m_Doc->PageColors.end(); ++it)
 		{
-			m_Doc->PageColors[it.key()].getCMYK(&hC, &hM, &hY, &hK);
-			if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
+			if (it.data().getColorModel() == colorModelCMYK)
 			{
-				if (m_Doc->PageColors[it.key()].getColorModel() == colorModelCMYK)
+				it.data().getCMYK(&hC, &hM, &hY, &hK);
+				if ((Cc == hC) && (Mc == hM) && (Yc == hY) && (Kc == hK))
 				{
 					ret = it.key();
 					found = true;
