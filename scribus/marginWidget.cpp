@@ -449,10 +449,10 @@ void MarginWidget::setNewMargins(MarginStruct &m)
 	RandL = m.Left * m_unitRatio;
 	rightR->setValue(m.Right * m_unitRatio);
 	RandR = m.Right * m_unitRatio;
-	disconnect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
-	disconnect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
-	disconnect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
-	disconnect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
+	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
+	connect(bottomR, SIGNAL(valueChanged(int)), this, SLOT(setBottom()));
+	connect(leftR, SIGNAL(valueChanged(int)), this, SLOT(setLeft()));
+	connect(rightR, SIGNAL(valueChanged(int)), this, SLOT(setRight()));
 }
 
 bool MarginWidget::getMarginsForAllPages()
