@@ -680,7 +680,7 @@
                                                                     <cstring>hSpin</cstring>
                                                                 </property>
                                                                 <property name="maxValue">
-                                                                    <number>365</number>
+                                                                    <number>359</number>
                                                                 </property>
                                                             </widget>
                                                         </hbox>
