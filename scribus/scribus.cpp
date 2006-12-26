@@ -2296,9 +2296,11 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 	doc->setMasterPageMode(true);
 	view->reformPages();
 	doc->setMasterPageMode(false);
+/*	doc->setLoading(true);
 	uint pageCount=doc->DocPages.count();
 	for (uint c=0; c<pageCount; ++c)
 		Apply_MasterPage(doc->DocPages.at(c)->MPageNam, c, false);
+	doc->setLoading(false); */
 	view->reformPages();
 	view->GotoPage(doc->currentPage()->pageNr());
 	view->DrawNew();
