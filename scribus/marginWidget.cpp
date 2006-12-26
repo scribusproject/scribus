@@ -15,7 +15,7 @@ for which a new license (GPL+exception) is in place.
 #include "useprintermarginsdialog.h"
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString title, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent, "marginWidget")
+MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent, "marginWidget")
 {
 	RandT = margs->Top;
 	RandB = margs->Bottom;
@@ -161,8 +161,8 @@ MarginWidget::MarginWidget( QWidget* parent, QString title, const MarginStruct* 
 	// hints
 	QToolTip::add( topR, "<qt>" + tr( "Distance between the top margin guide and the edge of the page" ) + "</qt>");
 	QToolTip::add( bottomR, "<qt>" + tr( "Distance between the bottom margin guide and the edge of the page" ) + "</qt>");
-	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
-	QToolTip::add( rightR, "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	QToolTip::add( leftR, "<qt>" + tr( "Distance between the left margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
+	QToolTip::add( rightR, "<qt>" + tr( "Distance between the right margin guide and the edge of the page. If a double-sided, 3 or 4-fold layout is selected, this margin space can be used to achieve the correct margins for binding") + "</qt>");
 
 		// signals&slots
 	connect(topR, SIGNAL(valueChanged(int)), this, SLOT(setTop()));
