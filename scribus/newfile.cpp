@@ -113,7 +113,7 @@ void NewDoc::createNewDocPage()
 	newDocFrame = new QFrame(this, "newDocFrame");
 
 	pageSizeGroupBox = new QGroupBox(newDocFrame, "pageSizeGroupBox" );
-	pageSizeGroupBox->setTitle( tr( "Page Layout" ) );
+	pageSizeGroupBox->setTitle( tr( "Document Layout" ) );
 	pageSizeGroupBox->setColumnLayout(0, Qt::Vertical );
 	pageSizeGroupBox->layout()->setSpacing( 5 );
 	pageSizeGroupBox->layout()->setMargin( 10 );

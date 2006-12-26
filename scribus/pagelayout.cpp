@@ -186,7 +186,7 @@ void PageLayouts::itemSelected(QIconViewItem* ic)
 
 void PageLayouts::languageChange()
 {
-	setTitle( tr( "Page Layout" ) );
+	setTitle( tr( "Document Layout" ) );
 	if (modus)
 	{
 		layoutsView->clear();

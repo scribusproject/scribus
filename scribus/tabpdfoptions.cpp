@@ -525,7 +525,7 @@ TabPDFOptions::TabPDFOptions(   QWidget* parent, PDFOptions & Optionen,
 		groupDisplayLayout->setAlignment( Qt::AlignTop );
 		LayoutSpecial = new QHBoxLayout( 0, 0, 5, "LayoutSpecial");
 		pageLayout = new QButtonGroup( groupDisplay, "pageLayout" );
-		pageLayout->setTitle( tr( "Page Layout" ) );
+		pageLayout->setTitle( tr( "Document Layout" ) );
 		pageLayout->setColumnLayout(0, Qt::Vertical );
 		pageLayout->layout()->setSpacing( 5 );
 		pageLayout->layout()->setMargin( 10 );
