@@ -2421,7 +2421,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			int y = static_cast<int>(Doc->Pages->at(a)->yOffset() - bleedTop);
 			int w = static_cast<int>(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
 			int h = static_cast<int>(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
-			if (QRect(x, y, w, h).contains(QPoint(x2, y2)))
+			if (QRect(x, y, w, h).contains(x2, y2))
 			{
 				pgNum = static_cast<int>(a);
 				if (drawBleed)  // check again if its really on the correct page
@@ -2432,7 +2432,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						int yn = static_cast<int>(Doc->Pages->at(a2)->yOffset());
 						int wn = static_cast<int>(Doc->Pages->at(a2)->width());
 						int hn = static_cast<int>(Doc->Pages->at(a2)->height());
-						if (QRect(xn, yn, wn, hn).contains(QPoint(x2, y2)))
+						if (QRect(xn, yn, wn, hn).contains(x2, y2))
 						{
 							pgNum = static_cast<int>(a2);
 							break;
@@ -6845,49 +6845,49 @@ void ScribusView::MarkClip(PageItem *currItem, FPointArray cli, bool once)
 	p.end();
 }
 
-//CB-->elsewhere, util?
-bool ScribusView::PointOnLine(QPoint Start, QPoint Ende, QRect MArea)
+//CB-->elsewhere, util, however, only used in the view for now
+bool ScribusView::PointOnLine(QPoint Start, QPoint End, QRect MArea)
 {
 	QPoint an, en;
-	if (Start.x() == Ende.x())
+	if (Start.x() == End.x())
 	{
-		an = Start.y() > Ende.y() ? Ende : Start;
-		en = an == Ende ? Start : Ende;
+		an = Start.y() > End.y() ? End : Start;
+		en = an == End ? Start : End;
 		for (int a=an.y(); a<en.y(); ++a)
 		{
-			if (MArea.contains(QPoint(an.x(), a)))
+			if (MArea.contains(an.x(), a))
 				return true;
 		}
 	}
-	if (Start.y() == Ende.y())
+	if (Start.y() == End.y())
 	{
-		an = Start.x() > Ende.x() ? Ende : Start;
-		en = an == Ende ? Start : Ende;
+		an = Start.x() > End.x() ? End : Start;
+		en = an == End ? Start : End;
 		for (int a=an.x(); a<en.x(); ++a)
 		{
-			if (MArea.contains(QPoint(a, an.y())))
+			if (MArea.contains(a, an.y()))
 				return true;
 		}
 	}
-	if (abs(Start.x() - Ende.x()) > abs(Start.y() - Ende.y()))
+	if (abs(Start.x() - End.x()) > abs(Start.y() - End.y()))
 	{
-		an = Start.x() > Ende.x() ? Ende : Start;
-		en = an == Ende ? Start : Ende;
+		an = Start.x() > End.x() ? End : Start;
+		en = an == End ? Start : End;
 		double stg = (en.y() - an.y()) / static_cast<double>((en.x() - an.x()));
 		for (int a = an.x(); a < en.x(); ++a)
 		{
-			if (MArea.contains(QPoint(a, an.y()+qRound((a-an.x())*stg))))
+			if (MArea.contains(a, an.y()+qRound((a-an.x())*stg)))
 				return true;
 		}
 	}
 	else
 	{
-		an = Start.y() > Ende.y() ? Ende : Start;
-		en = an == Ende ? Start : Ende;
+		an = Start.y() > End.y() ? End : Start;
+		en = an == End ? Start : End;
 		double stg = (en.x() - an.x()) / static_cast<double>((en.y() - an.y()));
 		for (int a = an.y(); a < en.y(); ++a)
 		{
-			if (MArea.contains(QPoint(an.x()+qRound((a-an.y())*stg), a)))
+			if (MArea.contains(an.x()+qRound((a-an.y())*stg), a))
 				return true;
 		}
 	}
@@ -7482,8 +7482,8 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 			return true;
 		QPainter p;
 		p.begin(viewport());
-		QPoint in  = QPoint(qRound((currItem->xPos()-Doc->minCanvasCoordinate.x())*Scale), qRound((currItem->yPos()-Doc->minCanvasCoordinate.y())*Scale));
-		QPoint out = contentsToViewport(in);
+		QPoint in(qRound((currItem->xPos()-Doc->minCanvasCoordinate.x())*Scale), qRound((currItem->yPos()-Doc->minCanvasCoordinate.y())*Scale));
+		QPoint out(contentsToViewport(in));
 		p.translate(out.x(), out.y());
 		p.scale(Scale, Scale);
 		p.rotate(currItem->rotation());
@@ -8875,7 +8875,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 			int y = static_cast<int>(Doc->Pages->at(a)->yOffset() - bleedTop);
 			int w = static_cast<int>(Doc->Pages->at(a)->width() + bleedLeft + bleedRight);
 			int h = static_cast<int>(Doc->Pages->at(a)->height() + bleedBottom + bleedTop);
-			if (QRect(x, y, w, h).contains(QPoint(MxpS, MypS)))
+			if (QRect(x, y, w, h).contains(MxpS, MypS))
 			{
 				pgNum = static_cast<int>(a);
 				if (drawBleed)  // check again if its really on the correct page
@@ -8886,7 +8886,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						int yn = static_cast<int>(Doc->Pages->at(a2)->yOffset());
 						int wn = static_cast<int>(Doc->Pages->at(a2)->width());
 						int hn = static_cast<int>(Doc->Pages->at(a2)->height());
-						if (QRect(xn, yn, wn, hn).contains(QPoint(MxpS, MypS)))
+						if (QRect(xn, yn, wn, hn).contains(MxpS, MypS))
 						{
 							pgNum = static_cast<int>(a2);
 							break;
@@ -9780,7 +9780,7 @@ void ScribusView::setGroupTransactionStarted(bool isOn)
 
 // jjsa 27-03-2004 add for better setting while zooming
 //CB find a new name
-void ScribusView::rememberPreviousSettings(int mx, int my)
+void ScribusView::rememberOldZoomLocation(int mx, int my)
 {
 	oldX = mx;
 	oldY = my;
@@ -9940,7 +9940,7 @@ void ScribusView::setZoom()
 	int y = qRound(QMAX(contentsY() / Scale, 0));
 	int w = qRound(QMIN(visibleWidth() / Scale, Doc->currentPage()->width()));
 	int h = qRound(QMIN(visibleHeight() / Scale, Doc->currentPage()->height()));
-	rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	setScale(zoomSpinBox->value() / 100.0 * Prefs->DisScale);
 	slotDoZoom();
 	m_ScMW->setFocus();
@@ -9952,7 +9952,7 @@ void ScribusView::slotZoom100()
 	int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 	int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 	int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-	rememberPreviousSettings(w / 2 + x,h / 2 + y);
+	rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	setScale(Prefs->DisScale);
 	reformPages(false);
 	slotDoZoom();
@@ -9966,10 +9966,10 @@ void ScribusView::slotZoomIn(int mx,int my)
 		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-		rememberPreviousSettings(w/2+x, h/2+y);
+		rememberOldZoomLocation(w/2+x, h/2+y);
 	}
 	else
-		rememberPreviousSettings(mx,my);
+		rememberOldZoomLocation(mx,my);
 	setScale(Scale * static_cast<double>(Doc->toolSettings.magStep)/100.0);
 	slotDoZoom();
 }
@@ -9983,10 +9983,10 @@ void ScribusView::slotZoomOut(int mx,int my)
 		int y = qRound(QMAX(contentsY() / Scale, Doc->minCanvasCoordinate.y()));
 		int w = qRound(QMIN(visibleWidth() / Scale, Doc->maxCanvasCoordinate.x() - Doc->minCanvasCoordinate.x()));
 		int h = qRound(QMIN(visibleHeight() / Scale, Doc->maxCanvasCoordinate.y() - Doc->minCanvasCoordinate.y()));
-		rememberPreviousSettings(w/2+x, h/2+y);
+		rememberOldZoomLocation(w/2+x, h/2+y);
 	}
 	else
-		rememberPreviousSettings(mx,my);
+		rememberOldZoomLocation(mx,my);
 	setScale(Scale / (static_cast<double>(Doc->toolSettings.magStep)/100.0));
 	slotDoZoom();
 }

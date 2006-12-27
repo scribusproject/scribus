@@ -250,23 +250,23 @@ bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent,
 	return retVal;
 }
 
-bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName)
-{
-	ScrAction *actionFromName=NULL;
-	//quick hack to make this work for existing plugins for now
-// 	if (parent=="File" && afterMenuName=="New")
-// 		actionFromName=m_ScMW->scrActions["fileNew"];
-// 	if (parent=="File" && afterMenuName=="Print")
-// 		actionFromName=m_ScMW->scrActions["filePrint"];
-// 	if (parent=="File" && afterMenuName=="SaveAs")
-// 		actionFromName=m_ScMW->scrActions["fileSaveAs"];
-// 	if (parent=="Help" && afterMenuName=="Manual")
-// 		actionFromName=m_ScMW->scrActions["helpManual"];
-	bool retVal=false;
-	if (menuList.contains(parent) && menuList[parent]!=NULL)
-		retVal=menuList[parent]->insertMenuItemAfter(menuAction, actionFromName);
-	return retVal;
-}
+// bool MenuManager::addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName)
+// {
+// 	ScrAction *actionFromName=NULL;
+// 	//quick hack to make this work for existing plugins for now
+// // 	if (parent=="File" && afterMenuName=="New")
+// // 		actionFromName=m_ScMW->scrActions["fileNew"];
+// // 	if (parent=="File" && afterMenuName=="Print")
+// // 		actionFromName=m_ScMW->scrActions["filePrint"];
+// // 	if (parent=="File" && afterMenuName=="SaveAs")
+// // 		actionFromName=m_ScMW->scrActions["fileSaveAs"];
+// // 	if (parent=="Help" && afterMenuName=="Manual")
+// // 		actionFromName=m_ScMW->scrActions["helpManual"];
+// 	bool retVal=false;
+// 	if (menuList.contains(parent) && menuList[parent]!=NULL)
+// 		retVal=menuList[parent]->insertMenuItemAfter(menuAction, actionFromName);
+// 	return retVal;
+// }
 
 
 bool MenuManager::addMenuSeparator(const QString &parent)

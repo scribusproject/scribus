@@ -236,7 +236,7 @@ public:
 	void SetFrameOval();
 	void PasteItem(struct CopyPasteBuffer *Buffer, bool loading, bool drag = false, bool noResize = true);
 	void QueryFarben();
-	void rememberPreviousSettings(int mx=0, int my=0);
+	void rememberOldZoomLocation(int mx=0, int my=0);
 	bool mousePressed();
 	bool groupTransactionStarted();
 	void setGroupTransactionStarted(bool isOn);

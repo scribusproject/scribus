@@ -63,7 +63,7 @@ public:
 	bool addMenuItem(ScrAction *menuAction, const QString &parent);
 	bool addMenuItem(QWidget * widget, const QString &parent);
 	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, ScrAction *afterMenuAction);
-	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName);
+// 	bool addMenuItemAfter(ScrAction *menuAction, const QString &parent, const QString &afterMenuName);
 	bool addMenuSeparator(const QString &parent);
 
 	bool removeMenuItem(ScrAction *menuAction, const QString &parent);

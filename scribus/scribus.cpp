@@ -3136,9 +3136,10 @@ void ScribusMainWindow::rebuildRecentPasteMenu()
 		QMap<QString,BibView::Elem>::Iterator it;
 		it = scrapbookPalette->tempBView->objectMap.end();
 		it--;
+		QString strippedName;
 		for (uint m = 0; m < max; ++m)
 		{
-			QString strippedName = it.key();
+			strippedName = it.key();
 			QPixmap pm = it.data().Preview;
 			scrRecentPasteActions.insert(strippedName, new ScrAction(ScrAction::RecentPaste, QIconSet(pm), QString("&%1 %2").arg(m+1).arg(strippedName), QKeySequence(), this, strippedName,0,0.0,it.key()));
 			connect( scrRecentPasteActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(pasteRecent(QString)) );
@@ -5331,9 +5332,9 @@ void ScribusMainWindow::slotZoom(double zoomFactor)
 	int w = qRound(QMIN(view->visibleWidth() / view->scale(), doc->currentPage()->width()));
 	int h = qRound(QMIN(view->visibleHeight() / view->scale(), doc->currentPage()->height()));
 	if (zoomFactor==-200.0)
-		view->rememberPreviousSettings(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
+		view->rememberOldZoomLocation(qRound(doc->currentPage()->xOffset() + doc->currentPage()->width() / 2.0), qRound(doc->currentPage()->yOffset() + doc->currentPage()->height() / 2.0));
 	else
-		view->rememberPreviousSettings(w / 2 + x,h / 2 + y);
+		view->rememberOldZoomLocation(w / 2 + x,h / 2 + y);
 	view->setScale(finalZoomFactor);
 	view->slotDoZoom();
 }

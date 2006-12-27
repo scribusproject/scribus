@@ -3523,7 +3523,7 @@ int ScribusDoc::OnPage(double x2, double  y2)
 		int y = static_cast<int>(currentPage()->yOffset());
 		int w = static_cast<int>(currentPage()->width());
 		int h = static_cast<int>(currentPage()->height());
-		if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
+		if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			retw = currentPage()->pageNr();
 	}
 	else
@@ -3535,7 +3535,7 @@ int ScribusDoc::OnPage(double x2, double  y2)
 			int y = static_cast<int>(Pages->at(a)->yOffset());
 			int w = static_cast<int>(Pages->at(a)->width());
 			int h = static_cast<int>(Pages->at(a)->height());
-			if (QRect(x, y, w, h).contains(QPoint(qRound(x2), qRound(y2))))
+			if (QRect(x, y, w, h).contains(qRound(x2), qRound(y2)))
 			{
 				retw = static_cast<int>(a);
 				break;
