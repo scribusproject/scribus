@@ -3116,11 +3116,12 @@ void ScribusMainWindow::rebuildRecentFileMenu()
 
 	scrRecentFileActions.clear();
 	uint max = QMIN(prefsManager->appPrefs.RecentDCount, RecentDocs.count());
+	QString strippedName, localName;
 	for (uint m = 0; m < max; ++m)
 	{
-		QString strippedName=RecentDocs[m];
+		strippedName=RecentDocs[m];
 		strippedName.remove(QDir::separator());
-		QString localName(QDir::convertSeparators(RecentDocs[m]));
+		localName=QDir::convertSeparators(RecentDocs[m]);
 		scrRecentFileActions.insert(strippedName, new ScrAction(ScrAction::RecentFile, QIconSet(), QString("&%1 %2").arg(m+1).arg(localName), QKeySequence(), this, strippedName,0,0.0,RecentDocs[m]));
 		connect( scrRecentFileActions[strippedName], SIGNAL(activatedData(QString)), this, SLOT(loadRecent(QString)) );
 		scrMenuMgr->addMenuItem(scrRecentFileActions[strippedName], recentFileMenuName);
