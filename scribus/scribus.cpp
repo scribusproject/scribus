@@ -2271,7 +2271,7 @@ void ScribusMainWindow::docSetup(ReformDoc* dia)
 		mainWindowProgressBar->reset();
 		qApp->setOverrideCursor(QCursor(waitCursor), true);
 		qApp->processEvents();
-		doc->recalcPicturesRes();
+		doc->recalcPicturesRes(true);
 		qApp->setOverrideCursor(QCursor(arrowCursor), true);
 		setStatusBarInfoText("");
 		mainWindowProgressBar->reset();

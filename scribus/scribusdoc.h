@@ -749,7 +749,7 @@ public:
 	
 	void setRedrawBounding(PageItem *currItem);
 	void adjustCanvas(FPoint minPos, FPoint maxPos, bool absolute = false);
-	void recalcPicturesRes();
+	void recalcPicturesRes(bool applyNewRes = false);
 	void connectDocSignals();
 	void removeLayer(int l, bool dl = false); //FIXME: Make protected once scripter function no longer uses this directly
 	/*! \brief We call changed() whenever the document needs to know it has been changed.

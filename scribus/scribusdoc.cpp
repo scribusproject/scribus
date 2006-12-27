@@ -5501,7 +5501,7 @@ void ScribusDoc::updatePict(QString name)
 }
 
 //CB Same as updatePict apart from the name checking, this should be able to be removed
-void ScribusDoc::recalcPicturesRes()
+void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 {
 	int cc = 0;
 	int ca = 0;
@@ -5543,7 +5543,8 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+			if (applyNewRes)
+				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -5560,7 +5561,8 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+			if (applyNewRes)
+				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -5577,7 +5579,8 @@ void ScribusDoc::recalcPicturesRes()
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+			if (applyNewRes)
+				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 			LoadPict(currItem->Pfile, currItem->ItemNr, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
@@ -5597,7 +5600,8 @@ void ScribusDoc::recalcPicturesRes()
 			{
 				bool fho = currItem->imageFlippedH();
 				bool fvo = currItem->imageFlippedV();
-				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
+				if (applyNewRes)
+					currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
 				LoadPict(currItem->Pfile, currItem->ItemNr, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
