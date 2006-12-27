@@ -134,11 +134,19 @@ class SCRIBUS_API Selection : public QObject
 		void setIsGUISelection(bool guiSelection) { m_isGUISelection=guiSelection; }
 		double width();
 		double height();
+		//set the group rectangle properties
+		void setGroupRect();
+		void getGroupRect(double *x, double *y, double *w, double *h);
 		
 	protected:
 		SelectionList m_SelList;
 		bool m_hasGroupSelection;
 		bool m_isGUISelection;
+		double groupX;
+		double groupY;
+		double groupW;
+		double groupH;
+
 		
 	signals:
 		void selectionIsMultiple(bool);

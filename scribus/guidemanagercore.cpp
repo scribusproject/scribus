@@ -680,10 +680,10 @@ void GuideManagerCore::resetMarginsForPage()
 	// multiselection
 	if (docSelectionCount > 1)
 	{
-		selectionTopLeft.setXY(m_page->doc()->view()->GroupX - m_page->xOffset(),
-							   m_page->doc()->view()->GroupY - m_page->yOffset());
-		selectionBottomRight.setXY(m_page->doc()->view()->GroupW,
-								   m_page->doc()->view()->GroupH);
+		double gx,gy,gw,gh;
+		m_page->doc()->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		selectionTopLeft.setXY(gx - m_page->xOffset(), gy - m_page->yOffset());
+		selectionBottomRight.setXY(gw, gh);
 	}
 	// only one item selected
 	else if (docSelectionCount == 1)

@@ -428,7 +428,7 @@ bool OODPlug::convert(int flags)
 			m_Doc->m_Selection->addItem(Elements.at(dre), true);
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		m_Doc->view()->setGroupRect();
+		m_Doc->m_Selection->setGroupRect();
 		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view()->viewport());
 #ifndef QT_MAC
 // see #2196, #2526

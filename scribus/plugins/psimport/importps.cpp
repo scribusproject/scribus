@@ -301,7 +301,7 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
 				m_Doc->m_Selection->addItem(Elements.at(dre), true);
 			}
-			m_Doc->view()->setGroupRect();
+			m_Doc->m_Selection->setGroupRect();
 			ScriXmlDoc *ss = new ScriXmlDoc();
 			QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection),m_Doc->view()->viewport());
 #ifndef QT_MAC

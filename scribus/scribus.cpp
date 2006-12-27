@@ -4879,8 +4879,8 @@ void ScribusMainWindow::slotEditPaste()
 				}
 				if (isGroup)
 					doc->GroupCounter++;
-				view->setGroupRect();
-				view->getGroupRect(&gx, &gy, &gw, &gh);
+				doc->m_Selection->setGroupRect();
+				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				PageItem* currItem3 = doc->Items->at(ac);
 				for (uint as = ac; as < doc->Items->count(); ++as)
 				{
@@ -4944,10 +4944,10 @@ void ScribusMainWindow::slotEditPaste()
 				int docSelectionCount=doc->m_Selection->count();
 				if (docSelectionCount > 1)
 				{
-					view->setGroupRect();
+					doc->m_Selection->setGroupRect();
 					view->paintGroupRect();
 					double x, y, w, h;
-					view->getGroupRect(&x, &y, &w, &h);
+					doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 					propertiesPalette->setXY(x, y);
 					propertiesPalette->setBH(w, h);
 				}
@@ -5006,10 +5006,10 @@ void ScribusMainWindow::SelectAll()
 		int docSelectionCount=doc->m_Selection->count();
 		if (docSelectionCount > 1)
 		{
-			view->setGroupRect();
+			doc->m_Selection->setGroupRect();
 			view->paintGroupRect();
 			double x, y, w, h;
-			view->getGroupRect(&x, &y, &w, &h);
+			doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			propertiesPalette->setXY(x, y);
 			propertiesPalette->setBH(w, h);
 		}
@@ -8091,7 +8091,7 @@ void ScribusMainWindow::GroupObj(bool showLockDia)
 				}
 			}
 		}
-		view->getGroupRect(&x, &y, &w, &h);
+		doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 		uint lowestItem = 999999;
 		uint highestItem = 0;
 		for (uint a=0; a<selectedItemCount; ++a)

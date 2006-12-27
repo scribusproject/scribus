@@ -1633,7 +1633,7 @@ void Mpalette::NewSel(int nr)
 	{
 		RoVal = 0;
 		double gx, gy, gh, gw;
-		m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		if (TopLeft->isChecked())
 			m_ScMW->view->RCenter = FPoint(gx, gy);
 		if (TopRight->isChecked())
@@ -1961,7 +1961,7 @@ void Mpalette::setXY(double x, double y)
 	{
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->getGroupRect(&dummy1, &dummy2, &b, &h);
+			doc->m_Selection->getGroupRect(&dummy1, &dummy2, &b, &h);
 			r = 0.0;
 		}
 		else
@@ -2439,7 +2439,7 @@ void Mpalette::NewX()
 		}
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (BottomLeft->isChecked()))
 				base = gx;
 			if (Center->isChecked())
@@ -2507,7 +2507,7 @@ void Mpalette::NewY()
 		}
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if ((TopLeft->isChecked()) || (TopRight->isChecked()))
 				base = gy;
 			if (Center->isChecked())
@@ -2566,7 +2566,7 @@ void Mpalette::NewW()
 		h = Height->value() / Umrech;
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
 			{
 				m_ScMW->view->frameResizeHandle = 1;
@@ -2577,7 +2577,7 @@ void Mpalette::NewW()
 			{
 				m_ScMW->view->frameResizeHandle = 6;
 				m_ScMW->view->scaleGroup(w / gw, 1.0);
-				m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
 			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
@@ -2671,7 +2671,7 @@ void Mpalette::NewH()
 		h = Height->value() / Umrech;
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (keepFrameWHRatioButton->isOn())
 			{
 				m_ScMW->view->frameResizeHandle = 1;
@@ -2682,7 +2682,7 @@ void Mpalette::NewH()
 			{
 				m_ScMW->view->frameResizeHandle = 5;
 				m_ScMW->view->scaleGroup(1.0, h / gh);
-				m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+				doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				setBH(gw, gh);
 			}
 			if (!_userActionOn && m_ScMW->view->groupTransactionStarted())
@@ -2778,7 +2778,7 @@ void Mpalette::NewR()
 				UndoManager::instance()->commit();
 				m_ScMW->view->setGroupTransactionStarted(false);
 			}
-			m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			setXY(gx, gy);
 		}
 		else
@@ -3347,8 +3347,8 @@ void Mpalette::NewRotMode(int m)
 		HaveItem = false;
 		if (doc->m_Selection->isMultipleSelection())
 		{
-			m_ScMW->view->setGroupRect();
-			m_ScMW->view->getGroupRect(&gx, &gy, &gw, &gh);
+			doc->m_Selection->setGroupRect();
+			doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			if (m == 0)
 			{
 				m_ScMW->view->RCenter = FPoint(gx, gy);

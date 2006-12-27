@@ -13,7 +13,6 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidge
 {
 	langsMap = *langs;
 
-	QStringList lada;
 	layout3 = new QGridLayout( this, 1, 1, 0, 5, "Layout3");
 	layout3->setAlignment( Qt::AlignTop );
 	verbose = new QCheckBox( tr("&Hyphenation Suggestions"), this, "Verbose");
@@ -22,8 +21,16 @@ HySettings::HySettings( QWidget* parent, QMap<QString,QString>* langs ) : QWidge
 	input = new QCheckBox( tr("Hyphenate Text Automatically &During Typing"), this, "inp");
 	layout3->addMultiCellWidget(input, 1, 1, 0, 1);
 	
+		// languages
+// 	langMgr.init();
+// 	QStringList languageList;
+// 	langMgr.fillInstalledStringList(&languageList, true);
+// 	languageList.sort();
+// 	guiLangCombo->insertStringList( languageList );
+	
 	language = new ScComboBox( false, this, "Language" );
 	QMap<QString,QString>::Iterator it;
+	QStringList lada;
 	for (it = langs->begin(); it != langs->end(); ++it)
 		lada.append(it.data());
 	lada.sort();

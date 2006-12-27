@@ -1064,10 +1064,12 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	qHeapSort(ELL);
 	if (selection->isMultipleSelection())
 	{
-		xp = view->GroupX - doc->currentPage()->xOffset();
-		yp = view->GroupY - doc->currentPage()->yOffset();
-		elem.setAttribute("W", view->GroupW);
-		elem.setAttribute("H", view->GroupH);
+		double gx, gy, gw, gh;
+		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		xp = gx - doc->currentPage()->xOffset();
+		yp = gy - doc->currentPage()->yOffset();
+		elem.setAttribute("W", gw);
+		elem.setAttribute("H", gh);
 	}
 	else
 	{

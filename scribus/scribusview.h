@@ -97,10 +97,7 @@ public:
 	ApplicationPrefs * const Prefs;
 	UndoManager * const undoManager;
 	double OldScale;
-	double GroupX;
-	double GroupY;
-	double GroupW;
-	double GroupH;
+	double dragX,dragY,dragW,dragH;
 	double oldW;
 	int oldCp;
 	int Mxp;
@@ -192,8 +189,9 @@ public:
 	void getClosestGuides(double xin, double yin, double *xout, double *yout);
 	bool ApplyGuides(double *x, double *y);
 	void SnapToGuides(PageItem *currItem);
-	void setGroupRect();
-	void getGroupRect(double *x, double *y, double *w, double *h);
+// 	void setGroupRect();
+// 	void getGroupRect(double *x, double *y, double *w, double *h);
+	void getDragRectScreen(double *x, double *y, double *w, double *h);
 	void getGroupRectScreen(double *x, double *y, double *w, double *h);
 	void paintGroupRect(bool norm = true);
 	void PaintSizeRect(QPainter *p, QRect neu);

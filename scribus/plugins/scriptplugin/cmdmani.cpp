@@ -115,7 +115,7 @@ PyObject *scribus_moveobjabs(PyObject* /* self */, PyObject* args)
 	if (ScCore->primaryMainWindow()->doc->m_Selection->count() > 1)
 	{
 		double x2, y2, w, h;
-		ScCore->primaryMainWindow()->view->getGroupRect(&x2, &y2, &w, &h);
+		ScCore->primaryMainWindow()->doc->m_Selection->getGroupRect(&x2, &y2, &w, &h);
 		ScCore->primaryMainWindow()->view->moveGroup(pageUnitXToDocX(x) - x2, pageUnitYToDocY(y) - y2);
 	}
 	else

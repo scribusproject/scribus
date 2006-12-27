@@ -112,7 +112,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Prefs(&(PrefsManager::instance()->appPrefs)),
 	undoManager(UndoManager::instance()),
 	OldScale(0),
-	GroupX(0), GroupY(0), GroupW(0), GroupH(0),
+	dragX(0), dragY(0), dragW(0), dragH(0),
 	oldW(-1), oldCp(-1),
 	Mxp(-1), Myp(-1), Dxp(-1), Dyp(-1),
 	frameResizeHandle(-1),
@@ -784,7 +784,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 		}
 		if (Doc->m_Selection->isMultipleSelection())
 		{
-			setGroupRect();
+			Doc->m_Selection->setGroupRect();
 			paintGroupRect();
 		}
 	}
@@ -1421,10 +1421,10 @@ void ScribusView::contentsDragEnterEvent(QDragEnterEvent *e)
 			text = ur.path();
 		if(ss->ReadElemHeader(text,fi.exists(), &gx, &gy, &gw, &gh))
 		{
-			GroupX = e->pos().x() / Scale;
-			GroupY = e->pos().y() / Scale;
-			GroupW = gw;
-			GroupH = gh;
+			dragX = e->pos().x() / Scale;
+			dragY = e->pos().y() / Scale;
+			dragW = gw;
+			dragH = gh;
 			DraggedGroup = true;
 			DraggedGroupFirst = true;
 			//GroupSel = false;
@@ -1452,9 +1452,9 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 		if (DraggedGroup)
 		{
 			double gx, gy, gw, gh;
-			GroupX = e->pos().x() / Scale;
-			GroupY = e->pos().y() / Scale;
-			getGroupRectScreen(&gx, &gy, &gw, &gh);
+			dragX = e->pos().x() / Scale;
+			dragY = e->pos().y() / Scale;
+			getDragRectScreen(&gx, &gy, &gw, &gh);
 			QPainter p;
 			p.begin(viewport());
 			gx += Doc->minCanvasCoordinate.x();
@@ -1464,7 +1464,7 @@ void ScribusView::contentsDragMoveEvent(QDragMoveEvent *e)
 				PaintSizeRect(&p, QRect(pv, QPoint(pv.x()+qRound(gw), pv.y()+qRound(gh))));
 			DraggedGroupFirst = false;
 			p.end();
-			emit MousePos(GroupX+Doc->minCanvasCoordinate.x(), GroupY+Doc->minCanvasCoordinate.y());
+			emit MousePos(dragX+Doc->minCanvasCoordinate.x(), dragY+Doc->minCanvasCoordinate.y());
 			horizRuler->Draw(e->pos().x());
 			vertRuler->Draw(e->pos().y());
 			return;
@@ -1782,9 +1782,9 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 			if (Doc->m_Selection->count() > 1)
 			{
 				Doc->m_Selection->connectItemToGUI();
-				setGroupRect();
+				Doc->m_Selection->setGroupRect();
 				double gx, gy, gh, gw;
-				getGroupRect(&gx, &gy, &gw, &gh);
+				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				double nx = gx;
 				double ny = gy;
 				if (!ApplyGuides(&nx, &ny))
@@ -1795,14 +1795,14 @@ void ScribusView::contentsDropEvent(QDropEvent *e)
 					ny = npx.y();
 				}
 				moveGroup(nx-gx, ny-gy, false);
-				setGroupRect();
-				getGroupRect(&gx, &gy, &gw, &gh);
+				Doc->m_Selection->setGroupRect();
+				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				nx = gx+gw;
 				ny = gy+gh;
 				ApplyGuides(&nx, &ny);
 				moveGroup(nx-(gx+gw), ny-(gy+gh), false);
-				setGroupRect();
-				getGroupRect(&gx, &gy, &gw, &gh);
+				Doc->m_Selection->setGroupRect();
+				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				for (uint a = 0; a < Doc->m_Selection->count(); ++a)
 				{
 					PageItem *currItem = Doc->m_Selection->itemAt(a);
@@ -3103,7 +3103,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (operItemResizing)
 				{
 					double gx, gy, gh, gw, nx, ny, scx, scy;
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					double sc = Scale;
 					scx = sc;
 					scy = sc;
@@ -3844,9 +3844,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				evSpon = false;
 				if (Doc->m_Selection->isMultipleSelection())
 				{
-					setGroupRect();
+					Doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					double nx = gx;
 					double ny = gy;
 					if (!ApplyGuides(&nx, &ny))
@@ -3857,13 +3857,13 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 						ny = npx.y();
 					}
 					moveGroup(nx-gx, ny-gy, false);
-					setGroupRect();
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->setGroupRect();
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					nx = gx+gw;
 					ny = gy+gh;
 					ApplyGuides(&nx, &ny);
 					moveGroup(nx-(gx+gw), ny-(gy+gh), false);
-					setGroupRect();
+					Doc->m_Selection->setGroupRect();
 				}
 				else
 				{
@@ -3895,7 +3895,7 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (Doc->m_Selection->isMultipleSelection())
 				{
 					double gx, gy, gh, gw;
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					FPoint maxSize(gx+gw+Doc->ScratchRight, gy+gh+Doc->ScratchBottom);
 					FPoint minSize(gx-Doc->ScratchLeft, gy-Doc->ScratchTop);
 					Doc->adjustCanvas(minSize, maxSize);
@@ -3990,10 +3990,10 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				}
 				if (Doc->m_Selection->count() > 1)
 				{
-					setGroupRect();
+					Doc->m_Selection->setGroupRect();
 					paintGroupRect();
 					double x, y, w, h;
-					getGroupRect(&x, &y, &w, &h);
+					Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 					emit ItemPos(x, y);
 					emit ItemGeom(w, h);
 					emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
@@ -4031,12 +4031,12 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		{
 			if (Doc->m_Selection->count() > 1)
 			{
-				setGroupRect();
+				Doc->m_Selection->setGroupRect();
 				paintGroupRect();
 				//CB shouldnt need this i think
 				//emit HaveSel(currItem->itemType());
 				double x, y, w, h;
-				getGroupRect(&x, &y, &w, &h);
+				Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 				emit ItemPos(x, y);
 				emit ItemGeom(w, h);
 			}
@@ -4701,7 +4701,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 					newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
 					newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
 					double gx, gy, gh, gw;
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					int ox1 = qRound(gx*sc);
 					int oy1 = qRound(gy*sc);
 					int ox2 = qRound((gx+gw)*sc);
@@ -4992,9 +4992,9 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				}
 				else
 				{
-					setGroupRect();
+					Doc->m_Selection->setGroupRect();
 					double gx, gy, gh, gw;
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 //					double gxs, gys, ghs, gws;
 //					getGroupRectScreen(&gxs, &gys, &gws, &ghs);
 					int dX=newX-Mxp, dY=newY-Myp;
@@ -5017,15 +5017,15 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 						double ny = gy;
 						ApplyGuides(&nx, &ny);
 						moveGroup(nx-gx, ny-gy, false);
-						setGroupRect();
-						getGroupRect(&gx, &gy, &gw, &gh);
+						Doc->m_Selection->setGroupRect();
+						Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 						nx = gx+gw;
 						ny = gy+gh;
 						ApplyGuides(&nx, &ny);
 						moveGroup(nx-(gx+gw), ny-(gy+gh), false);
 					}
-					setGroupRect();
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->setGroupRect();
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					//erf = true;
 				}
 				if (erf)
@@ -5042,7 +5042,7 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 				QRect mpo = QRect(qRound(m->x()/Scale)-Doc->guidesSettings.grabRad, qRound(m->y()/Scale)-Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
 				mpo.moveBy(qRound(Doc->minCanvasCoordinate.x()), qRound(Doc->minCanvasCoordinate.y()));
 				double gx, gy, gh, gw;
-				getGroupRect(&gx, &gy, &gw, &gh);
+				Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 				if ((QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					&& ((Doc->appMode == modeNormal) || (Doc->appMode == modeRotation)))
 				{
@@ -5648,7 +5648,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					p.end();
 					double gx, gy, gh, gw;
 					bool shiftSel = true;
-					getGroupRect(&gx, &gy, &gw, &gh);
+					Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 					dragConstrainInitPtX = qRound(gx);
 					dragConstrainInitPtY = qRound(gy);
 					mpo = QRect(qRound(m->x() / Scale) - Doc->guidesSettings.grabRad, qRound(m->y() / Scale) - Doc->guidesSettings.grabRad, Doc->guidesSettings.grabRad*2, Doc->guidesSettings.grabRad*2);
@@ -6015,7 +6015,7 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 					double gx, gy, gh, gw;
 					double gxR, gyR, ghR, gwR;
 					getGroupRectScreen(&gx, &gy, &gw, &gh);
-					getGroupRect(&gxR, &gyR, &gwR, &ghR);
+					Doc->m_Selection->getGroupRect(&gxR, &gyR, &gwR, &ghR);
 					if (QRect(static_cast<int>(gx), static_cast<int>(gy), static_cast<int>(gw), static_cast<int>(gh)).intersects(mpo))
 					{
 						Doc->RotMode = 2;
@@ -6519,67 +6519,80 @@ void ScribusView::SnapToGuides(PageItem *currItem)
 	}
 }
 
-//CB-->Doc/selection
-void ScribusView::setGroupRect()
-{
-	PageItem *currItem;
-	double minx = 99999.9;
-	double miny = 99999.9;
-	double maxx = -99999.9;
-	double maxy = -99999.9;
-	uint selectedItemCount=Doc->m_Selection->count();
-	for (uint gc = 0; gc < selectedItemCount; ++gc)
-	{
-		currItem = Doc->m_Selection->itemAt(gc);
-		if (currItem->rotation() != 0)
-		{
-			FPointArray pb(4);
-			pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
-			pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
-			for (uint pc = 0; pc < 4; ++pc)
-			{
-				minx = QMIN(minx, pb.point(pc).x());
-				miny = QMIN(miny, pb.point(pc).y());
-				maxx = QMAX(maxx, pb.point(pc).x());
-				maxy = QMAX(maxy, pb.point(pc).y());
-			}
-		}
-		else
-		{
-			minx = QMIN(minx, currItem->xPos());
-			miny = QMIN(miny, currItem->yPos());
-			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
-			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
-		}
-	}
-	GroupX = minx;
-	GroupY = miny;
-	GroupW = maxx - minx;
-	GroupH = maxy - miny;
-	//GroupSel = true;
-}
+// //CB-->Doc/selection
+// void ScribusView::setGroupRect()
+// {
+// 	PageItem *currItem;
+// 	double minx = 99999.9;
+// 	double miny = 99999.9;
+// 	double maxx = -99999.9;
+// 	double maxy = -99999.9;
+// 	uint selectedItemCount=Doc->m_Selection->count();
+// 	for (uint gc = 0; gc < selectedItemCount; ++gc)
+// 	{
+// 		currItem = Doc->m_Selection->itemAt(gc);
+// 		if (currItem->rotation() != 0)
+// 		{
+// 			FPointArray pb(4);
+// 			pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
+// 			pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+// 			pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+// 			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+// 			for (uint pc = 0; pc < 4; ++pc)
+// 			{
+// 				minx = QMIN(minx, pb.point(pc).x());
+// 				miny = QMIN(miny, pb.point(pc).y());
+// 				maxx = QMAX(maxx, pb.point(pc).x());
+// 				maxy = QMAX(maxy, pb.point(pc).y());
+// 			}
+// 		}
+// 		else
+// 		{
+// 			minx = QMIN(minx, currItem->xPos());
+// 			miny = QMIN(miny, currItem->yPos());
+// 			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
+// 			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+// 		}
+// 	}
+// 	GroupX = minx;
+// 	GroupY = miny;
+// 	GroupW = maxx - minx;
+// 	GroupH = maxy - miny;
+// 	//GroupSel = true;
+// }
 
-void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
+void ScribusView::getDragRectScreen(double *x, double *y, double *w, double *h)
 {
-	QPoint in  = QPoint(qRound(GroupX*Scale), qRound(GroupY*Scale));
+	QPoint in(qRound(dragX*Scale), qRound(dragY*Scale));
 	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
 	QPoint out = contentsToViewport(in);
 	*x = static_cast<double>(out.x());
 	*y = static_cast<double>(out.y());
-	*w = GroupW*Scale;
-	*h = GroupH*Scale;
+	*w = dragW*Scale;
+	*h = dragH*Scale;
 }
 
-//CB-->selection?
-void ScribusView::getGroupRect(double *x, double *y, double *w, double *h)
+void ScribusView::getGroupRectScreen(double *x, double *y, double *w, double *h)
 {
-	*x = GroupX;
-	*y = GroupY;
-	*w = GroupW;
-	*h = GroupH;
+	double gx, gy, gh, gw;
+	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	QPoint in(qRound(gx*Scale), qRound(gy*Scale));
+	in -= QPoint(qRound(Doc->minCanvasCoordinate.x() * Scale), qRound(Doc->minCanvasCoordinate.y() * Scale));
+	QPoint out = contentsToViewport(in);
+	*x = static_cast<double>(out.x());
+	*y = static_cast<double>(out.y());
+	*w = gw*Scale;
+	*h = gh*Scale;
 }
+
+// //CB-->selection?
+// void ScribusView::getGroupRect(double *x, double *y, double *w, double *h)
+// {
+// 	*x = GroupX;
+// 	*y = GroupY;
+// 	*w = GroupW;
+// 	*h = GroupH;
+// }
 
 void ScribusView::paintGroupRect(bool norm)
 {
@@ -7553,8 +7566,8 @@ bool ScribusView::SizeItem(double newX, double newY, PageItem *pi, bool fromMP, 
 		if (Doc->m_Selection->isMultipleSelection())
 		{
 			double gx, gy, gh, gw;
-			setGroupRect();
-			getGroupRect(&gx, &gy, &gw, &gh);
+			Doc->m_Selection->setGroupRect();
+			Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			emit ItemGeom(gw, gh);
 		}
 	}
@@ -7736,9 +7749,9 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	}
 	if (Doc->m_Selection->isMultipleSelection())
 	{
-			setGroupRect();
-			getGroupRect(&gx, &gy, &gw, &gh);
-			emit ItemPos(gx, gy);
+		Doc->m_Selection->setGroupRect();
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		emit ItemPos(gx, gy);
 		currItem = Doc->m_Selection->itemAt(0);
 		Doc->GroupOnPage(currItem);
 		if (fromMP)
@@ -7785,7 +7798,7 @@ void ScribusView::RotateGroup(double win)
 	double gxS, gyS, ghS, gwS;
 	double sc = Scale;
 	PageItem* currItem;
-	getGroupRect(&gxS, &gyS, &gwS, &ghS);
+	Doc->m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 	QWMatrix ma;
 	ma.translate(RCenter.x(), RCenter.y());
 	ma.scale(1, 1);
@@ -7804,8 +7817,8 @@ void ScribusView::RotateGroup(double win)
 	}
 	currItem = Doc->m_Selection->itemAt(0);
 	Doc->GroupOnPage(currItem);
-	setGroupRect();
-	getGroupRect(&gxS, &gyS, &gwS, &ghS);
+	Doc->m_Selection->setGroupRect();
+	Doc->m_Selection->getGroupRect(&gxS, &gyS, &gwS, &ghS);
 	gxS -= Doc->minCanvasCoordinate.x();
 	gyS -= Doc->minCanvasCoordinate.y();
 	updateContents(QRect(static_cast<int>(gxS*sc-5), static_cast<int>(gyS*sc-5), static_cast<int>(gwS*sc+10), static_cast<int>(ghS*sc+10)).unite(oldR));
@@ -7830,11 +7843,11 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	double sc = Scale;
 	int drm = Doc->RotMode;
 	Doc->RotMode = 0;
-	getGroupRect(&gx, &gy, &gw, &gh);
+	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10));
-	getGroupRect(&gx, &gy, &gw, &gh);
+	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	double origGW = gw;
 	double origGH = gh;
 	updatesOn(false);
@@ -7932,8 +7945,8 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	}
 	bb = Doc->m_Selection->itemAt(0);
 	Doc->GroupOnPage(bb);
-	setGroupRect();
-	getGroupRect(&gx, &gy, &gw, &gh);
+	Doc->m_Selection->setGroupRect();
+	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	Doc->RotMode = drm;
 	if ((Doc->RotMode != 0) && (!Doc->isLoading()))
 	{
@@ -7957,8 +7970,8 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	gy -= Doc->minCanvasCoordinate.y();
 	updatesOn(true);
 	updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
-	setGroupRect();
-	getGroupRect(&gx, &gy, &gw, &gh);
+	Doc->m_Selection->setGroupRect();
+	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
 		PageItem *currItem = Doc->m_Selection->itemAt(a);
@@ -8761,10 +8774,10 @@ void ScribusView::SelectItem(PageItem *currItem, bool draw, bool single)
 	{
 		if (Doc->m_Selection->count() > 1)
 		{
-			setGroupRect();
+			Doc->m_Selection->setGroupRect();
 			paintGroupRect();
 			double x, y, w, h;
-			getGroupRect(&x, &y, &w, &h);
+			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			emit ItemPos(x, y);
 			emit ItemGeom(w, h);
 			//CB move in here as the emitAllToGUI will do it otherwise
@@ -9001,10 +9014,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 							bb->paintObj();
 						}
 						Doc->m_Selection->connectItemToGUI();
-						setGroupRect();
+						Doc->m_Selection->setGroupRect();
 						paintGroupRect();
 						double x, y, w, h;
-						getGroupRect(&x, &y, &w, &h);
+						Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 						emit ItemPos(x, y);
 						emit ItemGeom(w, h);
 						emit HaveSel(currItem->itemType());
@@ -9139,10 +9152,10 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						bb->paintObj();
 					}
 					Doc->m_Selection->connectItemToGUI();
-					setGroupRect();
+					Doc->m_Selection->setGroupRect();
 					paintGroupRect();
 					double x, y, w, h;
-					getGroupRect(&x, &y, &w, &h);
+					Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 					emit ItemPos(x, y);
 					emit ItemGeom(w, h);
 					emit HaveSel(currItem->itemType());
@@ -9324,7 +9337,7 @@ void ScribusView::Deselect(bool prop)
 		if (Doc->m_Selection->isMultipleSelection())
 		{
 			double x, y, w, h;
-			getGroupRect(&x, &y, &w, &h);
+			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			Doc->m_Selection->clear();
 			x -= Doc->minCanvasCoordinate.x();
 			y -= Doc->minCanvasCoordinate.y();
@@ -9607,9 +9620,9 @@ void ScribusView::PasteToPage()
 	}
 	if (Doc->m_Selection->count() > 1)
 	{
-		setGroupRect();
+		Doc->m_Selection->setGroupRect();
 		double gx, gy, gh, gw;
-		getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		double nx = gx;
 		double ny = gy;
 		if (!ApplyGuides(&nx, &ny))
@@ -9620,14 +9633,14 @@ void ScribusView::PasteToPage()
 			ny = npx.y();
 		}
 		moveGroup(nx-gx, ny-gy, false);
-		setGroupRect();
-		getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->m_Selection->setGroupRect();
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		nx = gx+gw;
 		ny = gy+gh;
 		ApplyGuides(&nx, &ny);
 		moveGroup(nx-(gx+gw), ny-(gy+gh), false);
-		setGroupRect();
-		getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->m_Selection->setGroupRect();
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemPos(gx, gy);
 		emit ItemGeom(gw, gh);
 		emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
@@ -9697,9 +9710,9 @@ void ScribusView::PasteRecentToPage(int id)
 	}
 	if (Doc->m_Selection->count() > 1)
 	{
-		setGroupRect();
+		Doc->m_Selection->setGroupRect();
 		double gx, gy, gh, gw;
-		getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		double nx = gx;
 		double ny = gy;
 		if (!ApplyGuides(&nx, &ny))
@@ -9710,14 +9723,14 @@ void ScribusView::PasteRecentToPage(int id)
 			ny = npx.y();
 		}
 		moveGroup(nx-gx, ny-gy, false);
-		setGroupRect();
-		getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->m_Selection->setGroupRect();
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		nx = gx+gw;
 		ny = gy+gh;
 		ApplyGuides(&nx, &ny);
 		moveGroup(nx-(gx+gw), ny-(gy+gh), false);
-		setGroupRect();
-		getGroupRect(&gx, &gy, &gw, &gh);
+		Doc->m_Selection->setGroupRect();
+		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemPos(gx, gy);
 		emit ItemGeom(gw, gh);
 		emit HaveSel(Doc->m_Selection->itemAt(0)->itemType());
@@ -10259,7 +10272,7 @@ void ScribusView::setNewRulerOrigin(QMouseEvent *m)
 		if (docSelectionCount > 1)
 		{
 			double x, y, w, h;
-			getGroupRect(&x, &y, &w, &h);
+			Doc->m_Selection->getGroupRect(&x, &y, &w, &h);
 			emit ItemPos(x, y);
 			emit ItemGeom(w, h);
 		}

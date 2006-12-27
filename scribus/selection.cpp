@@ -335,3 +335,53 @@ double Selection::height( )
 	}
 	return maxY-minY;
 }
+
+//CB-->Doc/selection
+void Selection::setGroupRect()
+{
+	PageItem *currItem;
+	double minx = 99999.9;
+	double miny = 99999.9;
+	double maxx = -99999.9;
+	double maxy = -99999.9;
+	uint selectedItemCount=count();
+	for (uint gc = 0; gc < selectedItemCount; ++gc)
+	{
+		currItem = itemAt(gc);
+		if (currItem->rotation() != 0)
+		{
+			FPointArray pb(4);
+			pb.setPoint(0, FPoint(currItem->xPos(), currItem->yPos()));
+			pb.setPoint(1, FPoint(currItem->width(), 0.0, currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+			pb.setPoint(2, FPoint(currItem->width(), currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+			pb.setPoint(3, FPoint(0.0, currItem->height(), currItem->xPos(), currItem->yPos(), currItem->rotation(), 1.0, 1.0));
+			for (uint pc = 0; pc < 4; ++pc)
+			{
+				minx = QMIN(minx, pb.point(pc).x());
+				miny = QMIN(miny, pb.point(pc).y());
+				maxx = QMAX(maxx, pb.point(pc).x());
+				maxy = QMAX(maxy, pb.point(pc).y());
+			}
+		}
+		else
+		{
+			minx = QMIN(minx, currItem->xPos());
+			miny = QMIN(miny, currItem->yPos());
+			maxx = QMAX(maxx, currItem->xPos() + currItem->width());
+			maxy = QMAX(maxy, currItem->yPos() + currItem->height());
+		}
+	}
+	groupX = minx;
+	groupY = miny;
+	groupW = maxx - minx;
+	groupH = maxy - miny;
+}
+
+//CB-->selection?
+void Selection::getGroupRect(double *x, double *y, double *w, double *h)
+{
+	*x = groupX;
+	*y = groupY;
+	*w = groupW;
+	*h = groupH;
+}

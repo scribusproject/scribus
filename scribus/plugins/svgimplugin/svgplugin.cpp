@@ -389,7 +389,7 @@ void SVGPlug::convert(int flags)
 			m_Doc->m_Selection->addItem(Elements.at(dre), true);
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		m_Doc->view()->setGroupRect();
+		m_Doc->m_Selection->setGroupRect();
 		//QDragObject *dr = new QTextDrag(ss->WriteElem(&m_Doc->view()->SelItem, m_Doc, m_Doc->view()), m_Doc->view()->viewport());
 		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view());
 #ifndef QT_MAC
@@ -1116,7 +1116,7 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
 	m_Doc->m_Selection->addItem(ite);
 	m_Doc->view()->frameResizeHandle = 1;
-	m_Doc->view()->setGroupRect();
+	m_Doc->m_Selection->setGroupRect();
 	m_Doc->view()->scaleGroup(scalex, scaley);
 	// scaleGroup scale may modify position... weird...
 	ite->setXYPos(xpos + xoffset, ypos + yoffset);

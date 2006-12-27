@@ -5839,7 +5839,7 @@ void ScribusDoc::itemSelection_FlipH()
 		{
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipH, 0, Um::IFlipH);
 			double gx, gy, gh, gw, ix, iy, iw, ih;
-			view()->getGroupRect(&gx, &gy, &gw, &gh);
+			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			for (uint a = 0; a < docSelectionCount; ++a)
 			{
 				PageItem* currItem=m_Selection->itemAt(a);
@@ -5903,7 +5903,7 @@ void ScribusDoc::itemSelection_FlipV()
 		{
 			undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup, Um::FlipV, 0, Um::IFlipV);
 			double gx, gy, gh, gw, ix, iy, iw, ih;
-			view()->getGroupRect(&gx, &gy, &gw, &gh);
+			m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
 			for (uint a = 0; a < docSelectionCount; ++a)
 			{
 				PageItem* currItem=m_Selection->itemAt(a);
