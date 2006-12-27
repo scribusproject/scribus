@@ -196,6 +196,7 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 // 	tmpSel=new Selection(this, false);
 	m_Doc=mw->doc;
 	unsupported = false;
+	Conversion = 0.8;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f = "";
 #ifdef HAVE_LIBZ
@@ -235,9 +236,9 @@ void SVGPlug::convert(int flags)
 	SvgStyle *gc = new SvgStyle;
 	Conversion = 0.8;
 	QDomElement docElem = inpdoc.documentElement();
-	double width = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
-	double height = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
-	Conversion = 0.8;
+	QSize wh = parseWidthHeight(docElem, 0.8);
+	double width = wh.width();
+	double height = wh.height();
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
 	{
 		m_Doc->setPage(width, height, 0, 0, 0, 0, 0, 0, false, false);
@@ -279,11 +280,10 @@ void SVGPlug::convert(int flags)
 	viewScaleY = 1;
 	if( !docElem.attribute( "viewBox" ).isEmpty() )
 	{
-		Conversion = 1.0;
-		double w2 = !docElem.attribute("width").isEmpty() ? parseUnit(docElem.attribute( "width" )) : 550.0;
-		double h2 = !docElem.attribute("height").isEmpty() ? parseUnit(docElem.attribute( "height" )) : 841.0;
-		Conversion = 0.8;
 		QWMatrix matrix;
+		QSize wh2 = parseWidthHeight(docElem, 1.0);
+		double w2 = wh2.width();
+		double h2 = wh2.height();
 		addGraphicContext();
 		QString viewbox( docElem.attribute( "viewBox" ) );
 		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
@@ -434,6 +434,53 @@ void SVGPlug::setupTransform( const QDomElement &e )
 	QWMatrix mat = parseTransform( e.attribute( "transform" ) );
 	if (!e.attribute("transform").isEmpty())
 		gc->matrix = mat * gc->matrix;
+}
+
+QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
+{
+	QSize size(550, 841);
+	QString sw = e.attribute("width", "100%");
+	QString sh = e.attribute("height", "100%");
+	double w =  550, h = 841;
+	double oldConv = Conversion;
+	Conversion = conv;
+	if (!sw.isEmpty())
+		w = sw.endsWith("%") ? fromPercentage(sw) : parseUnit(sw);
+	if (!sh.isEmpty())
+		h = sh.endsWith("%") ? fromPercentage(sh) : parseUnit(sh);
+	Conversion = oldConv;
+	if (!e.attribute("viewBox").isEmpty())
+	{
+		QRect viewBox = parseViewBox(e);
+		double scw = (viewBox.width() > 0 && viewBox.height() > 0) ? viewBox.width()  : size.width();
+		double sch = (viewBox.width() > 0 && viewBox.height() > 0) ? viewBox.height() : size.height();
+		w *= (sw.endsWith("%") ? scw : 1.0);
+		h *= (sh.endsWith("%") ? sch : 1.0);
+	}
+	else
+	{
+		w *= (sw.endsWith("%") ? size.width() : 1.0);
+		h *= (sh.endsWith("%") ? size.height() : 1.0);
+	}
+	size.setWidth(w);
+	size.setHeight(h);
+	return size;
+}
+
+QRect SVGPlug::parseViewBox(const QDomElement &e)
+{
+	QRect box(0, 0, 0, 0);
+	if ( !e.attribute( "viewBox" ).isEmpty() )
+	{
+		QString viewbox( e.attribute( "viewBox" ) );
+		QStringList points = QStringList::split( ' ', viewbox.replace( QRegExp(","), " ").simplifyWhiteSpace() );
+		double left = points[0].toDouble();
+		double bottom  = points[1].toDouble();
+		double width = points[2].toDouble();
+		double height = points[3].toDouble();
+		box.setCoords((int) left, (int) bottom, (int) (left + width), (int) (bottom + height));
+	}
+	return box;
 }
 
 void SVGPlug::parseDefs(const QDomElement &e)

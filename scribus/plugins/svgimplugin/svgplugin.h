@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 
 #include <qdom.h>
 #include <qptrstack.h>
+#include <qsize.h>
 #include "pluginapi.h"
 #include "loadsaveplugin.h"
 #include "../formatidlist.h"
@@ -182,6 +183,8 @@ public:
 	void convert(int flags);
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
+	QSize parseWidthHeight(const QDomElement &e, double conv);
+	QRect parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	QPtrList<PageItem> parseElement(const QDomElement &e);
