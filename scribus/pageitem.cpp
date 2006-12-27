@@ -3800,12 +3800,12 @@ bool PageItem::loadImage(const QString& filename, const bool reload, const int g
 			pixm.imgInfo.lowResType = lowResTypeBack;
 		if (pixm.imgInfo.lowResType != 0)
 		{
-//			double scaling = pixm.imgInfo.xres / 36.0;
-//			if (pixm.imgInfo.lowResType == 1)
-//				scaling = pixm.imgInfo.xres / 72.0;
-			double scaling = pixm.imgInfo.xres / 18.0;
+			double scaling = pixm.imgInfo.xres / 36.0;
 			if (pixm.imgInfo.lowResType == 1)
-				scaling = pixm.imgInfo.xres / 36.0;
+				scaling = pixm.imgInfo.xres / 72.0;
+//			double scaling = pixm.imgInfo.xres / 18.0;
+//			if (pixm.imgInfo.lowResType == 1)
+//				scaling = pixm.imgInfo.xres / 36.0;
 			pixm.createLowRes(scaling);
 			pixm.imgInfo.lowResScale = scaling;
 		}
