@@ -3089,8 +3089,7 @@ void ScribusMainWindow::removeRecent(QString fn)
 	if (RecentDocs.findIndex(fn) != -1)
 	{
 		RecentDocs.remove(fn);
-		if (!ScCore->fileWatcher->isActive())
-			ScCore->fileWatcher->removeFile(fn);
+		ScCore->fileWatcher->removeFile(fn);
 	}
 	rebuildRecentFileMenu();
 }
@@ -3100,10 +3099,7 @@ void ScribusMainWindow::loadRecent(QString fn)
 	QFileInfo fd(fn);
 	if (!fd.exists())
 	{
-		//CB Why not just removeRecent()?
-		RecentDocs.remove(fn);
-		ScCore->fileWatcher->removeFile(fn);
-		rebuildRecentFileMenu();
+		removeRecent(fn);
 		return;
 	}
 	loadDoc(fn);
