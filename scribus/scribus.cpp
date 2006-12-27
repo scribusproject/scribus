@@ -604,6 +604,7 @@ void ScribusMainWindow::initMenuBar()
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled(false);
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", false);
+	scrMenuMgr->setMenuEnabled("EditContents", false);
 	scrActions["editCopyContents"]->setEnabled(false);
 	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
@@ -2426,6 +2427,7 @@ void ScribusMainWindow::HaveNewDoc()
 	scrActions["editCopy"]->setEnabled(false);
 	scrActions["editPaste"]->setEnabled((!Buffer2.isEmpty()) || (scrapbookPalette->tempBView->objectMap.count() > 0));
 	scrMenuMgr->setMenuEnabled("EditPasteRecent", scrapbookPalette->tempBView->objectMap.count() > 0);
+	scrMenuMgr->setMenuEnabled("EditContents", false);
 	scrActions["editCopyContents"]->setEnabled(false);
 	scrActions["editPasteContents"]->setEnabled(false);
 	scrActions["editPasteContentsAbs"]->setEnabled(false);
@@ -2605,7 +2607,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["styleImageEffects"]->setEnabled(Nr==PageItem::ImageFrame);
-	scrActions["editCopyContents"]->setEnabled(Nr==PageItem::ImageFrame);
+	scrActions["editCopyContents"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["editPasteContents"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editPasteContentsAbs"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["editEditWithImageEditor"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->isRaster);
@@ -2666,6 +2668,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["fileImportImage"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("EditContents", true);
 		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(false);
 		scrActions["extrasHyphenateText"]->setEnabled(false);
@@ -2698,6 +2701,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["fileExportText"]->setEnabled(true);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("EditContents", true);
 		scrActions["editClearContents"]->setEnabled(true);
 		scrActions["editSearchReplace"]->setEnabled(currItem->itemText.length() != 0);
 		scrActions["extrasHyphenateText"]->setEnabled(currItem->itemText.length() != 0);
@@ -2841,6 +2845,7 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 		scrActions["fileExportText"]->setEnabled(false);
 		scrActions["editCut"]->setEnabled(true);
 		scrActions["editCopy"]->setEnabled(true);
+		scrMenuMgr->setMenuEnabled("EditContents", false);
 		scrActions["editClearContents"]->setEnabled(false);
 		scrActions["editSearchReplace"]->setEnabled(false);
 
