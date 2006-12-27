@@ -707,41 +707,41 @@ public:
 	bool sendItemSelectionToBack();
 	bool bringItemSelectionToFront();
 
-	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle);
-	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle);
-	void itemSelection_ApplyCharStyle(const CharStyle & newstyle);
-	void itemSelection_SetCharStyle(const CharStyle & newstyle);
+	void itemSelection_ApplyParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
+	void itemSelection_SetParagraphStyle(const ParagraphStyle & newstyle, Selection* customSelection=0);
+	void itemSelection_ApplyCharStyle(const CharStyle & newstyle, Selection* customSelection=0);
+	void itemSelection_SetCharStyle(const CharStyle & newstyle, Selection* customSelection=0);
 
-	void itemSelection_SetNamedParagraphStyle(const QString & name);
-	void itemSelection_SetNamedCharStyle(const QString & name);
+	void itemSelection_SetNamedParagraphStyle(const QString & name, Selection* customSelection=0);
+	void itemSelection_SetNamedCharStyle(const QString & name, Selection* customSelection=0);
 
 	void ChLineWidth(double w);
 	void ChLineArt(Qt::PenStyle w);
 	void ChLineJoin(Qt::PenJoinStyle w);
 	void ChLineEnd(Qt::PenCapStyle w);
-	void itemSelection_SetAlignment(int w);
-	void itemSelection_SetLineSpacing(double w);
-	void itemSelection_SetLineSpacingMode(int w);
+	void itemSelection_SetAlignment(int w, Selection* customSelection=0);
+	void itemSelection_SetLineSpacing(double w, Selection* customSelection=0);
+	void itemSelection_SetLineSpacingMode(int w, Selection* customSelection=0);
 	//void ChLocalXY(double x, double y);
 	//void ChLocalSc(double x, double y);
-	void itemSelection_SetFont(QString fon);
-	void itemSelection_SetFillColor(QString farbe);
-	void itemSelection_SetFillShade(int sha);
-	void itemSelection_SetStrokeColor(QString farbe);
-	void itemSelection_SetStrokeShade(int sha);
-	void itemSelection_SetScaleV(int);
-	void itemSelection_SetScaleH(int);
-	void itemSelection_SetBaselineOffset(int);
-	void itemSelection_SetOutlineWidth(int);
-	void itemSelection_SetShadowOffsets(int shx, int shy);
-	void itemSelection_SetUnderline(int pos, int wid);
-	void itemSelection_SetStrikethru(int pos, int wid);
-	void itemSelection_SetEffects(int s);
+	void itemSelection_SetFont(QString fon, Selection* customSelection=0);
+	void itemSelection_SetFillColor(QString farbe, Selection* customSelection=0);
+	void itemSelection_SetFillShade(int sha, Selection* customSelection=0);
+	void itemSelection_SetStrokeColor(QString farbe, Selection* customSelection=0);
+	void itemSelection_SetStrokeShade(int sha, Selection* customSelection=0);
+	void itemSelection_SetScaleV(int, Selection* customSelection=0);
+	void itemSelection_SetScaleH(int, Selection* customSelection=0);
+	void itemSelection_SetBaselineOffset(int, Selection* customSelection=0);
+	void itemSelection_SetOutlineWidth(int, Selection* customSelection=0);
+	void itemSelection_SetShadowOffsets(int shx, int shy, Selection* customSelection=0);
+	void itemSelection_SetUnderline(int pos, int wid, Selection* customSelection=0);
+	void itemSelection_SetStrikethru(int pos, int wid, Selection* customSelection=0);
+	void itemSelection_SetEffects(int s, Selection* customSelection=0);
 	
 //	void chAbStyle(PageItem *currItem, int s);
 
-	void itemSelection_SetTracking(int us);
-	void itemSelection_SetFontSize(int size);
+	void itemSelection_SetTracking(int us, Selection* customSelection=0);
+	void itemSelection_SetFontSize(int size, Selection* customSelection=0);
 	//void FlipImageH();
 	//void FlipImageV();
 	void MirrorPolyH(PageItem *currItem);
