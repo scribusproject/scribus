@@ -159,9 +159,9 @@ bool SVGExportPlugin::run(ScribusDoc* doc, QString filename)
 
 SVGExPlug::SVGExPlug( ScribusDoc* doc, QString fName )
 {
+	m_Doc=doc;
 #ifdef USECAIRO
 	Page *Seite;
-	m_Doc=doc;
 	m_View=m_Doc->view();
 	m_ScMW=m_Doc->scMW();
 	Seite = m_Doc->currentPage();
