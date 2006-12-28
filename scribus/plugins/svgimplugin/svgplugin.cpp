@@ -527,7 +527,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b );
 		if (!svgStyle.Display) 
-			continue;
+		continue;
 		QPtrList<PageItem> el = parseElement(b);
 		for (uint ec = 0; ec < el.count(); ++ec)
 			GElements.append(el.at(ec));
@@ -1850,7 +1850,7 @@ void SVGPlug::svgClosePath(FPointArray *i)
 QColor SVGPlug::parseColorN( const QString &rgbColor )
 {
 	int r, g, b;
-	keywordToRGB( rgbColor, r, g, b );
+	keywordToRGB( rgbColor.lower(), r, g, b );
 	return QColor( r, g, b );
 }
 
