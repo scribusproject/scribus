@@ -19,6 +19,7 @@ for which a new license (GPL+exception) is in place.
 
 class ScrAction;
 class ScribusDoc;
+class Selection;
 
 class PLUGIN_API OODrawImportPlugin : public LoadSavePlugin
 {
@@ -109,6 +110,7 @@ protected:
 
 	bool interactive;
 	ScribusDoc* m_Doc;
+	Selection* tmpSel;
 };
 
 #endif

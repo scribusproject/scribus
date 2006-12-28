@@ -20,6 +20,7 @@ for which a new license (GPL+exception) is in place.
 
 class MultiProgressDialog;
 class ScribusDoc;
+class Selection;
 
 //! \brief POSTSCRIPT importer plugin
 class EPSPlug : public QObject
@@ -36,7 +37,7 @@ public:
 	\retval EPSPlug plugin
 	*/
 	EPSPlug( ScribusDoc* doc, QString fName, int flags, bool showProgress = true );
-	~EPSPlug() {};
+	~EPSPlug();
 
 private:
 	/*!
@@ -94,6 +95,7 @@ private:
 	MultiProgressDialog * progressDialog;
 	bool cancel;
 	ScribusDoc* m_Doc;
+	Selection* tmpSel;
 
 public slots:
 	void cancelRequested() { cancel = true; }

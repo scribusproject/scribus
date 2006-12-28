@@ -201,6 +201,7 @@ OODPlug::OODPlug(ScribusDoc* doc)
 	m_Doc=doc;
 	unsupported = false;
 	interactive = false;
+	tmpSel=new Selection(this, false);
 }
 
 bool OODPlug::import( QString fileName, int flags )
@@ -385,7 +386,8 @@ bool OODPlug::convert(int flags)
 		if ((interactive) && (PageCounter == 1))
 			break;
 	}
-	m_Doc->m_Selection->clear();
+// 	m_Doc->m_Selection->clear();
+	tmpSel->clear();
 	if ((Elements.count() > 1) && (interactive))
 	{
 		bool isGroup = true;
@@ -425,14 +427,18 @@ bool OODPlug::convert(int flags)
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
-			m_Doc->m_Selection->addItem(Elements.at(dre), true);
+// 			m_Doc->m_Selection->addItem(Elements.at(dre), true);
+			tmpSel->addItem(Elements.at(dre), true);
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		m_Doc->m_Selection->setGroupRect();
-		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view()->viewport());
+// 		m_Doc->m_Selection->setGroupRect();
+		tmpSel->setGroupRect();
+// 		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view()->viewport());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view()->viewport());
 #ifndef QT_MAC
 // see #2196, #2526
-		m_Doc->itemSelection_DeleteItem();
+// 		m_Doc->itemSelection_DeleteItem();
+		m_Doc->itemSelection_DeleteItem(tmpSel);
 #endif
 		m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
 		m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
@@ -699,8 +705,10 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 			ite->PoLine = pArray;
 			if (ite->PoLine.size() < 4)
 			{
-				m_Doc->m_Selection->addItem(ite);
-				m_Doc->itemSelection_DeleteItem();
+// 				m_Doc->m_Selection->addItem(ite);
+				tmpSel->addItem(ite);
+// 				m_Doc->itemSelection_DeleteItem();
+				m_Doc->itemSelection_DeleteItem(tmpSel);
 				z = -1;
 			}
 			else
@@ -1694,5 +1702,7 @@ void OODPlug::svgClosePath(FPointArray *i)
 }
 
 OODPlug::~OODPlug()
-{}
+{
+	delete tmpSel;
+}
 

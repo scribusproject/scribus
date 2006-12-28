@@ -40,6 +40,7 @@ extern SCRIBUS_API ScribusQApp * ScQApp;
 
 EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 {
+	tmpSel=new Selection(this, false);
 	m_Doc=doc;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	cancel = false;
@@ -209,7 +210,8 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	QDir::setCurrent(fi.dirPath());
 	if (convert(fName, x, y, b, h))
 	{
-		m_Doc->m_Selection->clear();
+// 		m_Doc->m_Selection->clear();
+		tmpSel->clear();
 		QDir::setCurrent(CurDirP);
 		if ((Elements.count() > 1) && (interactive))
 		{
@@ -299,14 +301,18 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 			for (uint dre=0; dre<Elements.count(); ++dre)
 			{
 				m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
-				m_Doc->m_Selection->addItem(Elements.at(dre), true);
+// 				m_Doc->m_Selection->addItem(Elements.at(dre), true);
+				tmpSel->addItem(Elements.at(dre), true);
 			}
-			m_Doc->m_Selection->setGroupRect();
+// 			m_Doc->m_Selection->setGroupRect();
+			tmpSel->setGroupRect();
 			ScriXmlDoc *ss = new ScriXmlDoc();
-			QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection),m_Doc->view()->viewport());
+// 			QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection),m_Doc->view()->viewport());
+			QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel),m_Doc->view()->viewport());
 #ifndef QT_MAC
 // see #2196
-			m_Doc->itemSelection_DeleteItem();
+// 			m_Doc->itemSelection_DeleteItem();
+			m_Doc->itemSelection_DeleteItem(tmpSel);
 #else
 			qDebug("psimport: leaving items on page");
 #endif
@@ -354,6 +360,12 @@ EPSPlug::EPSPlug(ScribusDoc* doc, QString fName, int flags, bool showProgress)
 	if ((showProgress) && (!interactive))
 		m_Doc->view()->DrawNew();
 }
+
+EPSPlug::~EPSPlug()
+{
+	delete tmpSel;
+}
+	
 
 bool EPSPlug::convert(QString fn, double x, double y, double b, double h)
 {
