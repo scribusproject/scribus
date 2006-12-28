@@ -1065,7 +1065,7 @@ QString ScriXmlDoc::WriteElem(ScribusDoc *doc, ScribusView *view, Selection* sel
 	if (selection->isMultipleSelection())
 	{
 		double gx, gy, gw, gh;
-		doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		selection->getGroupRect(&gx, &gy, &gw, &gh);
 		xp = gx - doc->currentPage()->xOffset();
 		yp = gy - doc->currentPage()->yOffset();
 		elem.setAttribute("W", gw);
