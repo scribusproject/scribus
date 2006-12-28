@@ -1944,7 +1944,7 @@ void PageItem_TextFrame::DrawObj_Item(ScPainter *p, QRect e, double sc)
 					double xcoZli = CurX + hl->glyph.xoffset;
 					desc = - charStyle.font().descent(charStyle.fontSize() / 10.0);
 					asce = charStyle.font().ascent(charStyle.fontSize() / 10.0);
-					if ((selected && Select) || ((NextBox != 0 || BackBox != 0) && selected) && (m_Doc->appMode == modeEdit))
+					if (((selected && Select) || ((NextBox != 0 || BackBox != 0) && selected)) && (m_Doc->appMode == modeEdit))
 					{
 						wide = hl->glyph.xadvance;
 						p->setFillMode(1);
