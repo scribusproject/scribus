@@ -7636,14 +7636,19 @@ bool ScribusView::MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP, b
 }
 
 //CB-->Doc
-void ScribusView::moveGroup(double x, double y, bool fromMP)
+void ScribusView::moveGroup(double x, double y, bool fromMP, Selection* customSelection)
 {
-	uint docSelectionCount=Doc->m_Selection->count();
-	if (!_groupTransactionStarted && docSelectionCount > 1)
+	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	
+	if (!_groupTransactionStarted && selectedItemCount > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint i = 0; i < docSelectionCount; ++i)
-			tooltip += "\t" + Doc->m_Selection->itemAt(i)->getUName() + "\n";
+		for (uint i = 0; i < selectedItemCount; ++i)
+			tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
 		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Move, tooltip, Um::IMove);
 		_groupTransactionStarted = true;
@@ -7652,10 +7657,10 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	QPainter p;
 	double gx, gy, gw, gh;
 	double sc = Scale;
-	for (uint a = 0; a < docSelectionCount; ++a)
+	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		currItem = Doc->m_Selection->itemAt(a);
-		if ((!fromMP) && (docSelectionCount < moveWithBoxesOnlyThreshold))
+		currItem = itemSelection->itemAt(a);
+		if ((!fromMP) && (selectedItemCount < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -7665,7 +7670,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if (docSelectionCount < moveWithFullOutlinesThreshold)
+			if (selectedItemCount < moveWithFullOutlinesThreshold)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 					currItem->DrawPolyL(&p, currItem->Clip);
@@ -7701,7 +7706,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.end();
 		}
 		MoveItem(x, y, currItem, fromMP);
-		if ((!fromMP) && (Doc->m_Selection->count() < moveWithBoxesOnlyThreshold))
+		if ((!fromMP) && (itemSelection->count() < moveWithBoxesOnlyThreshold))
 		{
 			p.begin(viewport());
 			ToView(&p);
@@ -7711,7 +7716,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.setRasterOp(XorROP);
 			p.setBrush(NoBrush);
 			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
-			if (Doc->m_Selection->count() < moveWithFullOutlinesThreshold)
+			if (itemSelection->count() < moveWithFullOutlinesThreshold)
 			{
 				if (!(currItem->asLine()) && (currItem->FrameType != 0) || (currItem->asPolyLine()))
 					currItem->DrawPolyL(&p, currItem->Clip);
@@ -7747,12 +7752,12 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 			p.end();
 		}
 	}
-	if (Doc->m_Selection->isMultipleSelection())
+	if (itemSelection->isMultipleSelection())
 	{
-		Doc->m_Selection->setGroupRect();
-		Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+		itemSelection->setGroupRect();
+		itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 		emit ItemPos(gx, gy);
-		currItem = Doc->m_Selection->itemAt(0);
+		currItem = itemSelection->itemAt(0);
 		Doc->GroupOnPage(currItem);
 		if (fromMP)
 		{
@@ -7769,7 +7774,7 @@ void ScribusView::moveGroup(double x, double y, bool fromMP)
 	else
 	{
 		//Paint the drag moved item, ie the black dashed line representing the frame
-		currItem = Doc->m_Selection->itemAt(0);
+		currItem = itemSelection->itemAt(0);
 		QRect oldR = QRect(qRound(currItem->BoundingX * Scale), qRound(currItem->BoundingY * Scale), qRound(currItem->BoundingW * Scale), qRound(currItem->BoundingH * Scale));
 		//CB this breaks dragging an item when the canvas has been push resized
 		//oldR.moveBy(qRound(-Doc->minCanvasCoordinate.x() * Scale), qRound(-Doc->minCanvasCoordinate.y() * Scale));
@@ -7825,14 +7830,19 @@ void ScribusView::RotateGroup(double win)
 }
 
 //CB-->Doc
-void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
+void ScribusView::scaleGroup(double scx, double scy, bool scaleText, Selection* customSelection)
 {
-	uint docSelectionCount=Doc->m_Selection->count();
-	if (!_groupTransactionStarted && docSelectionCount > 1)
+	Selection* itemSelection = (customSelection!=0) ? customSelection : Doc->m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	
+	if (!_groupTransactionStarted && selectedItemCount > 1)
 	{
 		QString tooltip = Um::ItemsInvolved + "\n";
-		for (uint i = 0; i < docSelectionCount; ++i)
-			tooltip += "\t" + Doc->m_Selection->itemAt(i)->getUName() + "\n";
+		for (uint i = 0; i < selectedItemCount; ++i)
+			tooltip += "\t" + itemSelection->itemAt(i)->getUName() + "\n";
 		undoManager->beginTransaction(Um::SelectionGroup, Um::IGroup,
 									  Um::Resize, tooltip, Um::IResize);
 		_groupTransactionStarted = true;
@@ -7843,18 +7853,18 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	double sc = Scale;
 	int drm = Doc->RotMode;
 	Doc->RotMode = 0;
-	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	gx -= Doc->minCanvasCoordinate.x();
 	gy -= Doc->minCanvasCoordinate.y();
 	QRect oldR = QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10));
-	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	double origGW = gw;
 	double origGH = gh;
 	updatesOn(false);
-	uint selectedItemCount=Doc->m_Selection->count();
+
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		bb = Doc->m_Selection->itemAt(a);
+		bb = itemSelection->itemAt(a);
 		if ((bb->locked()) || (bb->sizeLocked()))
 			continue;
 		bb->OldB = bb->width();
@@ -7943,10 +7953,10 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 		bb->GrEndY = gr.point(1).y();
 		bb->updateGradientVectors();
 	}
-	bb = Doc->m_Selection->itemAt(0);
+	bb = itemSelection->itemAt(0);
 	Doc->GroupOnPage(bb);
-	Doc->m_Selection->setGroupRect();
-	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	Doc->RotMode = drm;
 	if ((Doc->RotMode != 0) && (!Doc->isLoading()))
 	{
@@ -7970,11 +7980,11 @@ void ScribusView::scaleGroup(double scx, double scy, bool scaleText)
 	gy -= Doc->minCanvasCoordinate.y();
 	updatesOn(true);
 	updateContents(QRect(static_cast<int>(gx*sc-5), static_cast<int>(gy*sc-5), static_cast<int>(gw*sc+10), static_cast<int>(gh*sc+10)).unite(oldR));
-	Doc->m_Selection->setGroupRect();
-	Doc->m_Selection->getGroupRect(&gx, &gy, &gw, &gh);
+	itemSelection->setGroupRect();
+	itemSelection->getGroupRect(&gx, &gy, &gw, &gh);
 	for (uint a = 0; a < selectedItemCount; ++a)
 	{
-		PageItem *currItem = Doc->m_Selection->itemAt(a);
+		PageItem *currItem = itemSelection->itemAt(a);
 		currItem->gXpos = currItem->xPos() - gx;
 		currItem->gYpos = currItem->yPos() - gy;
 		currItem->gWidth = gw;

@@ -206,11 +206,11 @@ public:
 	void MoveClipPoint(PageItem *currItem, FPoint np);
 	bool SizeItem(double newX, double newY, int ite, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
 	bool SizeItem(double newX, double newY, PageItem *pi, bool fromMP = false, bool DoUpdateClip = true, bool redraw = true);
-	void moveGroup(double x, double y, bool fromMP = false);
+	void moveGroup(double x, double y, bool fromMP = false, Selection* customSelection = 0);
 	void MoveRotated(PageItem *currItem, FPoint npv, bool fromMP = false);
 	bool MoveSizeItem(FPoint newX, FPoint newY, int ite, bool fromMP = false, bool constrainRotation=false);
 	void RotateGroup(double win);
-	void scaleGroup(double scx, double scy, bool scaleText=true);
+	void scaleGroup(double scx, double scy, bool scaleText=true, Selection* customSelection = 0);
 	void RotateItem(double win, int ite);
 	void RotateItem(double win, PageItem *currItem);
 	void AdjustItemSize(PageItem *currItem);

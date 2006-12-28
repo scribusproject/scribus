@@ -193,7 +193,7 @@ bool SVGImportPlugin::import(QString filename, int flags)
 SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	QObject(mw)
 {	
-// 	tmpSel=new Selection(this, false);
+	tmpSel=new Selection(this, false);
 	m_Doc=mw->doc;
 	unsupported = false;
 	Conversion = 0.8;
@@ -296,7 +296,8 @@ void SVGPlug::convert(int flags)
 		m_gc.current()->matrix = matrix;
 	}
 	QPtrList<PageItem> Elements = parseGroup( docElem );
-	m_Doc->m_Selection->clear();
+// 	m_Doc->m_Selection->clear();
+	tmpSel->clear();
 	if (Elements.count() > 1)
 	{
 		bool isGroup = true;
@@ -386,15 +387,20 @@ void SVGPlug::convert(int flags)
 		for (uint dre=0; dre<Elements.count(); ++dre)
 		{
 			m_Doc->DragElements.append(Elements.at(dre)->ItemNr);
-			m_Doc->m_Selection->addItem(Elements.at(dre), true);
+// 			m_Doc->m_Selection->addItem(Elements.at(dre), true);
+			tmpSel->addItem(Elements.at(dre), true);
 		}
 		ScriXmlDoc *ss = new ScriXmlDoc();
-		m_Doc->m_Selection->setGroupRect();
+// 		m_Doc->m_Selection->setGroupRect();
+		tmpSel->setGroupRect();
 		//QDragObject *dr = new QTextDrag(ss->WriteElem(&m_Doc->view()->SelItem, m_Doc, m_Doc->view()), m_Doc->view()->viewport());
-		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view());
+// 		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), m_Doc->m_Selection), m_Doc->view());
+		QDragObject *dr = new QTextDrag(ss->WriteElem(m_Doc, m_Doc->view(), tmpSel), m_Doc->view());
 #ifndef QT_MAC
 // see #2526
-		m_Doc->itemSelection_DeleteItem();
+// 		m_Doc->itemSelection_DeleteItem();
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+// 		m_Doc->m_Selection->clear();
 #endif
 		m_Doc->view()->resizeContents(qRound((maxSize.x() - minSize.x()) * m_Doc->view()->scale()), qRound((maxSize.y() - minSize.y()) * m_Doc->view()->scale()));
 		m_Doc->view()->scrollBy(qRound((m_Doc->minCanvasCoordinate.x() - minSize.x()) * m_Doc->view()->scale()), qRound((m_Doc->minCanvasCoordinate.y() - minSize.y()) * m_Doc->view()->scale()));
@@ -728,8 +734,11 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		ite->PoLine = pArray;
 		if (ite->PoLine.size() < 4)
 		{
-			m_Doc->m_Selection->addItem(ite);
-			m_Doc->itemSelection_DeleteItem();
+// 			m_Doc->m_Selection->addItem(ite);
+			tmpSel->addItem(ite);
+// 			m_Doc->itemSelection_DeleteItem();
+			m_Doc->itemSelection_DeleteItem(tmpSel);
+// 			m_Doc->m_Selection->clear();
 			z = -1;
 		}
 	}
@@ -1089,16 +1098,22 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	double xoffset = 0.0, yoffset = 0.0;
 	if( gc->textAnchor == "middle" )
 	{
-		m_Doc->m_Selection->clear();
-		m_Doc->m_Selection->addItem(ite, true);
-		m_Doc->itemSelection_SetAlignment(1);
+// 		m_Doc->m_Selection->clear();
+		tmpSel->clear();
+// 		m_Doc->m_Selection->addItem(ite, true);
+		tmpSel->addItem(ite, true);
+// 		m_Doc->itemSelection_SetAlignment(1);
+		m_Doc->itemSelection_SetAlignment(1, tmpSel);
 		xoffset = -ite->width() / 2;
 	}
 	else if( gc->textAnchor == "end")
 	{
-		m_Doc->m_Selection->clear();
-		m_Doc->m_Selection->addItem(ite, true);
-		m_Doc->itemSelection_SetAlignment(2);
+// 		m_Doc->m_Selection->clear();
+		tmpSel->clear();
+// 		m_Doc->m_Selection->addItem(ite, true);
+		tmpSel->addItem(ite, true);
+// 		m_Doc->itemSelection_SetAlignment(2);
+		m_Doc->itemSelection_SetAlignment(2, tmpSel);
 		xoffset = -ite->width();
 	}
 	double rotation = getRotationFromMatrix(gc->matrix, 0.0);
@@ -1114,13 +1129,17 @@ QPtrList<PageItem> SVGPlug::parseTextElement(double x, double y, const QDomEleme
 	ite->SetRectFrame();
 	m_Doc->setRedrawBounding(ite);
 	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-	m_Doc->m_Selection->addItem(ite);
+// 	m_Doc->m_Selection->addItem(ite);
+	tmpSel->addItem(ite);
 	m_Doc->view()->frameResizeHandle = 1;
-	m_Doc->m_Selection->setGroupRect();
-	m_Doc->view()->scaleGroup(scalex, scaley);
+// 	m_Doc->m_Selection->setGroupRect();
+	tmpSel->setGroupRect();
+// 	m_Doc->view()->scaleGroup(scalex, scaley);
+	m_Doc->view()->scaleGroup(scalex, scaley, true, tmpSel);
 	// scaleGroup scale may modify position... weird...
 	ite->setXYPos(xpos + xoffset, ypos + yoffset);
-	m_Doc->view()->Deselect();
+	tmpSel->clear();
+// 	m_Doc->view()->Deselect();
 	// Probably some scalex and scaley to add somewhere
 	ite->moveBy(maxHeight * sin(-rotation) * scaley, -maxHeight * cos(-rotation) * scaley);
 	if( !e.attribute("id").isEmpty() )
@@ -2310,5 +2329,5 @@ void SVGPlug::parseGradient( const QDomElement &e )
 
 SVGPlug::~SVGPlug()
 {
-// 	delete tmpSel;
+	delete tmpSel;
 }
