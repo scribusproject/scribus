@@ -6,7 +6,7 @@ EXTRA_DIST = scribus.sr.qm scribus.eo.qm scribus.ko.qm scribus.eu.qm scribus.sl.
              scribus.el.qm scribus.en_AU.qm scribus.en_GB.qm scribus.en_US.qm scribus.es.qm scribus.es_LA.qm scribus.fr.qm \
              scribus.gl.qm scribus.hu.qm scribus.it.qm scribus.lt_LT.qm scribus.pl.qm scribus.sk.qm scribus.tr.qm \
              scribus.th_TH.qm scribus.uk.qm scribus.nb.qm scribus.sq.qm scribus.af.qm scribus.pt_BR.qm scribus.et.qm \
-             scribus.dz.qm scribus.br.qm CMakeLists.txt
+             scribus.dz.qm scribus.br.qm scribus.de_ol.qm scribus.de_CH.qm CMakeLists.txt
 
 install-data-local:
 	$(mkinstalldirs) $(libdir)/scribus/
@@ -18,6 +18,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/scribus.cy.qm $(libdir)/scribus/scribus.cy.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.da.qm $(libdir)/scribus/scribus.da.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.de.qm $(libdir)/scribus/scribus.de.qm
+	$(INSTALL_DATA) $(srcdir)/scribus.de_CH.qm $(libdir)/scribus/scribus.de_CH.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.de_ol.qm $(libdir)/scribus/scribus.de_ol.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.dz.qm $(libdir)/scribus/scribus.dz.qm
 	$(INSTALL_DATA) $(srcdir)/scribus.el.qm $(libdir)/scribus/scribus.el.qm
@@ -62,6 +63,7 @@ uninstall-local:
 	-rm -f $(libdir)/scribus/scribus.cy.qm
 	-rm -f $(libdir)/scribus/scribus.da.qm
 	-rm -f $(libdir)/scribus/scribus.de.qm
+	-rm -f $(libdir)/scribus/scribus.de_CH.qm
 	-rm -f $(libdir)/scribus/scribus.de_ol.qm
 	-rm -f $(libdir)/scribus/scribus.dz.qm
 	-rm -f $(libdir)/scribus/scribus.el.qm

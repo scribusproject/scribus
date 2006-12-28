@@ -256,6 +256,13 @@ About::About( QWidget* parent ) : QDialog( parent, "About", true, 0 )
 											"<tr><td>Franz Schmid</td><td>Franz.Schmid@altmuehlnet.de</td></tr>" +
 											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
 											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("de_ch").local8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
+											"<tr><td><b>" + langmgr.getLangFromAbbrev("de_ol").local8Bit()  + "</b></td><td> </td></tr>" +
+											"<tr><td>Johannes Rüschel</td><td>jo.rueschel@gmx.de</td></tr>" +
+											"<tr><td>Christoph Schäfer</td><td>christoph-schaefer@gmx.de</td></tr>" +
+											"<tr><td> </td><td> </td></tr>" +
 											"<tr><td><b>" + langmgr.getLangFromAbbrev("ga").local8Bit()  + "</b></td><td> </td></tr>" +
 											"<tr><td>Xose Calvo</td><td>xosecalvo@galizaweb.net</td></tr>" +
 											"<tr><td>Manuel Anxo Rei</td><td>manxopar@avogaciagalega.org</td></tr>" +

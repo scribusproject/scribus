@@ -10,9 +10,10 @@ scribus.ca.qm
 scribus.cs.qm
 scribus.cy.qm
 scribus.da.qm
+scribus.de.qm
+scribus.de_CH.qm
 scribus.de_ol.qm
 scribus.dz.qm
-scribus.de.qm
 scribus.el.qm
 scribus.en_AU.qm
 scribus.en_GB.qm
