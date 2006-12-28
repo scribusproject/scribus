@@ -517,7 +517,7 @@ void ActionManager::initViewMenuActions()
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(loadIcon("16/zoom-original.png"),loadIcon("22/zoom-original.png")), "", defKeys[name], mainWindow, name, 0, 100.0));
 	name="viewFit200";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, 200.0));
-	name="viewFit20";
+	name="viewFitPreview";
 	scrActions->insert(name, new ScrAction(ScrAction::DataDouble, QIconSet(), "", defKeys[name], mainWindow, name, 0, 20.0));
 	name="viewShowMargins";
 	scrActions->insert(name, new ScrAction("", defKeys[name], mainWindow, name));
@@ -552,7 +552,7 @@ void ActionManager::initViewMenuActions()
 //	scrActions->insert("viewNewView", new ScrAction("", defKeys[name], mainWindow, name));
 
 #ifdef HAVE_CAIRO
-	(*scrActions)["viewFit20"]->setToggleAction(true);
+	(*scrActions)["viewFitPreview"]->setToggleAction(true);
 #endif
 	(*scrActions)["viewShowMargins"]->setToggleAction(true);
 	(*scrActions)["viewShowBleeds"]->setToggleAction(true);
@@ -571,7 +571,7 @@ void ActionManager::initViewMenuActions()
 	(*scrActions)["viewSnapToGuides"]->setToggleAction(true);
 
 #ifdef HAVE_CAIRO
-	(*scrActions)["viewFit20"]->setOn(false);
+	(*scrActions)["viewFitPreview"]->setOn(false);
 #endif
 	(*scrActions)["viewShowMargins"]->setOn(true);
 	(*scrActions)["viewShowBleeds"]->setOn(true);
@@ -590,7 +590,7 @@ void ActionManager::initViewMenuActions()
 	connect( (*scrActions)["viewFit100"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 	connect( (*scrActions)["viewFit200"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 #ifndef HAVE_CAIRO
-	connect( (*scrActions)["viewFit20"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
+	connect( (*scrActions)["viewFitPreview"], SIGNAL(activatedData(double)), mainWindow, SLOT(slotZoom(double)) );
 #endif
 	connect( (*scrActions)["viewShowMargins"], SIGNAL(activated()), mainWindow, SLOT(ToggleMarks()) );
 	connect( (*scrActions)["viewShowBleeds"], SIGNAL(activated()), mainWindow, SLOT(ToggleBleeds()) );
@@ -1007,7 +1007,7 @@ void ActionManager::connectNewDocActions(ScribusDoc *currDoc)
 void ActionManager::disconnectNewViewActions()
 {
 #ifdef HAVE_CAIRO
-	disconnect( (*scrActions)["viewFit20"], 0, 0, 0);
+	disconnect( (*scrActions)["viewFitPreview"], 0, 0, 0);
 #endif
 	disconnect( (*scrActions)["toolsZoomIn"], 0, 0, 0);
 	disconnect( (*scrActions)["toolsZoomOut"], 0, 0, 0);
@@ -1036,7 +1036,7 @@ void ActionManager::connectNewViewActions(ScribusView *currView)
 	if (currView==NULL)
 		return;
 #ifdef HAVE_CAIRO
-	connect( (*scrActions)["viewFit20"], SIGNAL(activated()), currView, SLOT(togglePreview()) );
+	connect( (*scrActions)["viewFitPreview"], SIGNAL(activated()), currView, SLOT(togglePreview()) );
 #endif
 	connect( (*scrActions)["toolsZoomIn"], SIGNAL(activated()) , currView, SLOT(slotZoomIn()) );
 	connect( (*scrActions)["toolsZoomOut"], SIGNAL(activated()) , currView, SLOT(slotZoomOut()) );
@@ -1315,9 +1315,9 @@ void ActionManager::languageChange()
 	(*scrActions)["viewFit100"]->setTexts( tr("&100%"));
 	(*scrActions)["viewFit200"]->setTexts( tr("&200%"));
 #ifdef HAVE_CAIRO
-	(*scrActions)["viewFit20"]->setTexts( tr("Preview Mode"));
+	(*scrActions)["viewFitPreview"]->setTexts( tr("Preview Mode"));
 #else
-	(*scrActions)["viewFit20"]->setTexts( tr("&Thumbnails"));
+	(*scrActions)["viewFitPreview"]->setTexts( tr("&Thumbnails"));
 #endif
 	(*scrActions)["viewShowMargins"]->setTexts( tr("Show &Margins"));
 	(*scrActions)["viewShowBleeds"]->setTexts( tr("Show Bleeds"));
@@ -1628,7 +1628,7 @@ void ActionManager::createDefaultShortcuts()
 	defKeys.insert("viewFit75", QKeySequence());
 	defKeys.insert("viewFit100", Qt::CTRL+Qt::Key_1);
 	defKeys.insert("viewFit200", QKeySequence());
-	defKeys.insert("viewFit20", QKeySequence());
+	defKeys.insert("viewFitPreview", QKeySequence());
 	defKeys.insert("viewShowMargins", QKeySequence());
 	defKeys.insert("viewShowBleeds", QKeySequence());
 	defKeys.insert("viewShowFrames", QKeySequence());
@@ -1904,7 +1904,7 @@ void ActionManager::createDefaultMenus()
 	itmenu->second << "pageInsert" << "pageImport" << "pageDelete" << "pageCopy" << "pageMove" << "pageApplyMasterPage" << "pageCopyToMasterPage" << "pageManageGuides" << "pageManageMargins" << "viewSnapToGrid" << "viewSnapToGuides";
 	//View
 	++itmenu;
-	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFit20" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
+	itmenu->second << "viewFitWidth" << "viewFitInWindow" << "viewFit50" << "viewFit75" << "viewFit100" << "viewFit200" << "viewFitPreview" << "viewShowMargins" << "viewShowBleeds" << "viewShowFrames" << "viewShowLayerMarkers" << "viewShowImages" << "viewShowGrid" << "viewShowGuides" << "viewShowColumnBorders" << "viewShowBaseline" << "viewShowTextChain" << "viewShowTextControls" << "viewShowRulers" << "viewRulerMode";
 	//Extras
 	++itmenu;
 	itmenu->second << "extrasManagePictures" << "extrasHyphenateText" << "extrasDeHyphenateText" << "extrasGenerateTableOfContents";

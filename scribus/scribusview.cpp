@@ -253,7 +253,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	shiftSelItems = false;
 	inItemCreation = false;
 #ifdef HAVE_CAIRO
-	m_ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
+	m_ScMW->scrActions["viewFitPreview"]->setOn(viewAsPreview);
 #endif
 	m_SnapCounter = 0;
 	connect(zoomOutToolbarButton, SIGNAL(clicked()), this, SLOT(slotZoomOut()));
@@ -320,7 +320,7 @@ void ScribusView::togglePreview()
 	}
 	else
 		Doc->guidesSettings.framesShown = storedFramesShown;
-	m_ScMW->scrActions["viewFit20"]->setOn(viewAsPreview);
+	m_ScMW->scrActions["viewFitPreview"]->setOn(viewAsPreview);
 	m_ScMW->scrActions["viewShowMargins"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowFrames"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowLayerMarkers"]->setEnabled(!viewAsPreview);
