@@ -1551,7 +1551,8 @@ void PageItem_TextFrame::layout()
 				*/
 //				LiList.clear();
 				curLine.lastItem = a;
-				itemText.appendLine(curLine);
+				if (itemsInLine > 0)
+					itemText.appendLine(curLine);
 				itemsInLine = 0;
 				curLine.firstItem = a+1;
 //				BuPos = 0;
@@ -1745,7 +1746,8 @@ void PageItem_TextFrame::layout()
 		}
 		StartOfCol = false;
 		goNextColumn = false;
-		itemText.appendLine(curLine);
+		if (itemsInLine > 0)
+			itemText.appendLine(curLine);
 		itemsInLine = 0;
 		curLine.firstItem = a + 1;
 //		BuPos = 0;
@@ -2296,13 +2298,12 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			break; // at end of frame
 		if ( (buttonState & ControlButton) == 0 )
 		{
-			CPos = itemText.endOfLine(pos);
+			CPos = itemText.endOfLine(CPos);
 		}
 		else
 		{
 			//Control End for end of frame text
-			pos = itemText.endOfFrame(CPos);
-			CPos = pos;
+			CPos = itemText.endOfFrame(CPos);
 		}
 		if ( buttonState & ShiftButton )
 			ExpandSel(1, oldPos);
@@ -2315,8 +2316,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 		{
 			// go to end of paragraph
 			len = itemText.length();
-			pos = itemText.nextParagraph(CPos);
-			CPos = pos;
+			CPos = itemText.nextParagraph(CPos);
 			if ( buttonState & ShiftButton )
 				ExpandSel(1, oldPos);
 		}
@@ -2365,8 +2365,7 @@ void PageItem_TextFrame::handleModeEditKey(QKeyEvent *k, bool& keyRepeat)
 			if ( (pos = CPos) == firstInFrame() )
 				break; // at begin of frame
 			len = itemText.length();
-			pos = itemText.prevParagraph(CPos);
-			CPos = pos;
+			CPos = itemText.prevParagraph(CPos);
 			if ( buttonState & ShiftButton )
 				ExpandSel(-1, oldPos);
 		}
