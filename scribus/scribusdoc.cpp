@@ -764,10 +764,11 @@ void ScribusDoc::enableCMS(bool enable)
 
 void ScribusDoc::replaceStyles(QMap<QString,QString> newNameForOld)
 {
+	// replace names in items
 	QPtrList<PageItem> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
-		for (int i=0; i < itemlist->count(); ++i)
+		for (uint i=0; i < itemlist->count(); ++i)
 		{
 			PageItem_TextFrame * currItem = itemlist->at(i)->asTextFrame();
 			if (currItem)
@@ -780,15 +781,27 @@ void ScribusDoc::replaceStyles(QMap<QString,QString> newNameForOld)
 		else
 			itemlist = NULL;
 	}
+	// replace names in styles...
+	for (int i=docParagraphStyles.count()-1; i >= 0; --i)
+	{
+		// ... as parent
+		const QString& parent(docParagraphStyles[i].parent());
+		if (newNameForOld.contains(parent))
+			docParagraphStyles[i].setParent(newNameForOld[parent]);
+		// ... as name
+		if (newNameForOld.contains(docParagraphStyles[i].name()))
+			docParagraphStyles.remove(i);
+	}
 }
 
 
 void ScribusDoc::replaceCharStyles(QMap<QString,QString> newNameForOld)
 {
+	// replace style in items
 	QPtrList<PageItem> * itemlist = & MasterItems;
 	while (itemlist != NULL)
 	{
-		for (int i=0; i < itemlist->count(); ++i)
+		for (uint i=0; i < itemlist->count(); ++i)
 		{
 			PageItem_TextFrame * currItem = itemlist->at(i)->asTextFrame();
 			if (currItem)
@@ -800,6 +813,60 @@ void ScribusDoc::replaceCharStyles(QMap<QString,QString> newNameForOld)
 			itemlist = &FrameItems;
 		else
 			itemlist = NULL;
+	}
+	// replace names in styles 
+	for (uint i=0; i < docParagraphStyles.count(); ++i)
+	{
+		// ...parent of parstyle's charstyle
+		const QString& parent(docParagraphStyles[i].charStyle().parent());
+		if (newNameForOld.contains(parent))
+			docParagraphStyles[i].charStyle().setParent(newNameForOld[parent]);
+	}
+	for (int i=docCharStyles.count()-1; i >= 0; --i)
+	{
+		// ...parent of charstyle
+		const QString& parent(docCharStyles[i].parent());
+		if (newNameForOld.contains(parent))
+			docCharStyles[i].setParent(newNameForOld[parent]);
+		// ... as name
+		if (newNameForOld.contains(docCharStyles[i].name()))
+			docCharStyles.remove(i);
+	}
+}
+
+void ScribusDoc::redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused)
+{
+	docParagraphStyles.redefine(newStyles, false);
+	if (removeUnused)
+	{
+		QMap<QString, QString> deletion;
+		QString deflt("");
+		for (uint i=0; i < docParagraphStyles.count(); ++i)
+		{
+			const QString& nam(docParagraphStyles[i].name());
+			if (newStyles.find(nam) < 0)
+				deletion[nam] = deflt;
+		}
+		if (deletion.count() > 0)
+			replaceStyles(deletion);
+	}
+}
+
+void ScribusDoc::redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused)
+{
+	docCharStyles.redefine(newStyles, false);
+	if (removeUnused)
+	{
+		QMap<QString, QString> deletion;
+		QString deflt("");
+		for (uint i=0; i < docCharStyles.count(); ++i)
+		{
+			const QString& nam(docCharStyles[i].name());
+			if (newStyles.find(nam) < 0)
+				deletion[nam] = deflt;
+		}
+		if (deletion.count() > 0)
+			replaceCharStyles(deletion);
 	}
 }
 

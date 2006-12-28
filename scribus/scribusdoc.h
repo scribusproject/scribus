@@ -378,10 +378,7 @@ public:
 	
 	const ParagraphStyle& paragraphStyle(QString name) { return docParagraphStyles[name]; }
 	const StyleSet<ParagraphStyle>& paragraphStyles()   { return docParagraphStyles; }
-	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false)
-	{
-		docParagraphStyles.redefine(newStyles, removeUnused);
-	}
+	void redefineStyles(const StyleSet<ParagraphStyle>& newStyles, bool removeUnused=false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
 	 *        called when a style was removed. New name may be "".
@@ -392,10 +389,7 @@ public:
 
 	const CharStyle& charStyle(QString name) { return docCharStyles[name]; }
 	const StyleSet<CharStyle>& charStyles()  { return docCharStyles; }
-	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false)
-	{
-		docCharStyles.redefine(newStyles, removeUnused);
-	}
+	void redefineCharStyles(const StyleSet<CharStyle>& newStyles, bool removeUnused=false);
 	/**
 	 * @brief Remove any reference to old styles and replace with new name. This needs to be
 	 *        called when a style was removed. New name may be "".
