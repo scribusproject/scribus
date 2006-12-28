@@ -8,6 +8,12 @@ scribus.1
 )
 
 INSTALL(FILES
+scribus.1.de
+  DESTINATION ${MANDIR}de/man1
+  RENAME scribus.1
+)
+
+INSTALL(FILES
 scribus.1.pl
   DESTINATION ${MANDIR}pl/man1
   RENAME scribus.1
