@@ -9,6 +9,7 @@ for which a new license (GPL+exception) is in place.
 #include <qpainter.h>
 #include <qvariant.h>
 #include <qfontmetrics.h>
+#include <qmessagebox.h>
 #include <qpixmap.h>
 #include <cstdlib>
 
@@ -506,6 +507,7 @@ void ColorManager::loadFarben()
 		return;
 	if (!fileName.isEmpty())
 	{
+		int oldCount = EditColors.count();
 		dirs->set("colors", fileName.left(fileName.findRev("/")));
 		QFileInfo fi = QFileInfo(fileName);
 		QString ext = fi.extension(false).lower();
@@ -613,6 +615,9 @@ void ColorManager::loadFarben()
 				updateCList();
 			}
 		}
+		if (EditColors.count() == oldCount)
+			QMessageBox::information(this, tr("Information"), "<qt>" + tr("The file %1 does not contain any new colors.\nIf the file was an EPS try to import it with File -> Import").arg(fileName) + "</qt>", 1, 0, 0);
+		
 	}
 }
 
