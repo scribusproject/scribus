@@ -2122,14 +2122,12 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
 	QWidgetList windows = wsp->windowList();
-	bool windowsListNotEmpty=!windows.isEmpty();
-	scrActions["windowsCascade"]->setEnabled(windowsListNotEmpty);
-	scrActions["windowsTile"]->setEnabled(windowsListNotEmpty);
-	if (windowsListNotEmpty)
+	int windowCount=static_cast<int>(windows.count());
+	scrActions["windowsCascade"]->setEnabled(windowCount!=0);
+	scrActions["windowsTile"]->setEnabled(windowCount!=0);
+	if (windowCount>1)
 	{
 		scrMenuMgr->addMenuSeparator("Windows");
-
-		int windowCount=static_cast<int>(windows.count());
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow=windows.at(i)->caption();
