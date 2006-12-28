@@ -2625,22 +2625,25 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->itemType() == PageItem::ImageFrame)
 				{
 					m_ScMW->scrActions["fileImportImage"]->addTo(pmen);
-					m_ScMW->scrActions["itemImageIsVisible"]->addTo(pmen);
+					if (currItem->PicAvail)
+					{
+						if (!currItem->isTableItem)
+							m_ScMW->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
+						if (currItem->pixm.imgInfo.valid)
+							m_ScMW->scrActions["itemExtendedImageProperties"]->addTo(pmen);
+						m_ScMW->scrActions["itemUpdateImage"]->addTo(pmen);
+					}
 					pmen->insertItem( tr("Preview Settings"), pmenResolution);
+					m_ScMW->scrActions["itemImageIsVisible"]->addTo(pmenResolution);
+					pmenResolution->insertSeparator();
 					m_ScMW->scrActions["itemPreviewLow"]->addTo(pmenResolution);
 					m_ScMW->scrActions["itemPreviewNormal"]->addTo(pmenResolution);
 					m_ScMW->scrActions["itemPreviewFull"]->addTo(pmenResolution);
-					if ((currItem->PicAvail) && (currItem->pixm.imgInfo.valid))
-						m_ScMW->scrActions["itemExtendedImageProperties"]->addTo(pmen);
 					if (currItem->PicAvail && currItem->isRaster)
 					{
 						m_ScMW->scrActions["styleImageEffects"]->addTo(pmen);
 						m_ScMW->scrActions["editEditWithImageEditor"]->addTo(pmen);
 					}
-					if (currItem->PicAvail)
-						m_ScMW->scrActions["itemUpdateImage"]->addTo(pmen);
-					if ((currItem->PicAvail) && (!currItem->isTableItem))
-						m_ScMW->scrActions["itemAdjustFrameToImage"]->addTo(pmen);
 				}
 				if (currItem->itemType() == PageItem::TextFrame)
 				{

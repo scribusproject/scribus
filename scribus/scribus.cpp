@@ -656,11 +656,12 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuItem(scrActions["itemLock"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemLockSize"], "Item");
 	scrMenuMgr->addMenuSeparator("Item");
-	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "Item");
-	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemAdjustFrameToImage"], "Item");
 	scrMenuMgr->addMenuItem(scrActions["itemExtendedImageProperties"], "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemUpdateImage"], "Item");
 	scrMenuMgr->createMenu("ItemPreviewSettings", tr("Preview Settings"), "Item");
+	scrMenuMgr->addMenuItem(scrActions["itemImageIsVisible"], "ItemPreviewSettings");
+	scrMenuMgr->addMenuSeparator("ItemPreviewSettings");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewLow"], "ItemPreviewSettings");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewNormal"], "ItemPreviewSettings");
 	scrMenuMgr->addMenuItem(scrActions["itemPreviewFull"], "ItemPreviewSettings");
@@ -2598,10 +2599,11 @@ void ScribusMainWindow::HaveNewSel(int Nr)
 	scrActions["editDeselectAll"]->setEnabled(Nr!=-1);
 	scrActions["itemDetachTextFromPath"]->setEnabled(false);
 	charPalette->setEnabled(false, 0);
-	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemUpdateImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail);
 	scrActions["itemAdjustFrameToImage"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && !currItem->isTableItem);
 	scrActions["itemExtendedImageProperties"]->setEnabled(Nr==PageItem::ImageFrame && currItem->PicAvail && currItem->pixm.imgInfo.valid);
+	scrMenuMgr->setMenuEnabled("ItemPreviewSettings", Nr==PageItem::ImageFrame);
+	scrActions["itemImageIsVisible"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewLow"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewNormal"]->setEnabled(Nr==PageItem::ImageFrame);
 	scrActions["itemPreviewFull"]->setEnabled(Nr==PageItem::ImageFrame);
