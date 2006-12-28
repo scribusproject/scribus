@@ -95,12 +95,15 @@ void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
 	ColorList::Iterator it, itEnd = doc->PageColors.end();
 	for( it = doc->PageColors.begin(); it != itEnd; it++)
 	{
-		it.data().getRGB(&r, &g, &b);
-		col2.setRgb(r, g, b);
-		if( col1 == col2 && it.data().getColorModel() == colorModelRGB )
+		if ( it.data().getColorModel() == colorModelRGB )
 		{
-			found = true;
-			break;
+			it.data().getRGB(&r, &g, &b);
+			col2.setRgb(r, g, b);
+			if( col1 == col2 )
+			{
+				found = true;
+				break;
+			}
 		}
 	}
 	if(!found)

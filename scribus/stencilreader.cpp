@@ -1186,13 +1186,16 @@ QString StencilReader::createObjects(QString datain)
 		QColor tmpR;
 		for (it = PageColors.begin(); it != PageColors.end(); ++it)
 		{
-			PageColors[it.key()].getRGB(&r, &g, &b);
-			tmpR.setRgb(r, g, b);
-			if (stroke == tmpR)
+			if (it.data().getColorModel() == colorModelRGB)
 			{
-				StrokeCol = it.key();
-				found = true;
-				break;
+				it.data().getRGB(&r, &g, &b);
+				tmpR.setRgb(r, g, b);
+				if (stroke == tmpR)
+				{
+					StrokeCol = it.key();
+					found = true;
+					break;
+				}
 			}
 		}
 		if (!found)
@@ -1223,13 +1226,16 @@ QString StencilReader::createObjects(QString datain)
 		QColor tmpR;
 		for (it = PageColors.begin(); it != PageColors.end(); ++it)
 		{
-			PageColors[it.key()].getRGB(&r, &g, &b);
-			tmpR.setRgb(r, g, b);
-			if (fill == tmpR)
+			if (it.data().getColorModel() == colorModelRGB)
 			{
-				FillCol = it.key();
-				found = true;
-				break;
+				it.data().getRGB(&r, &g, &b);
+				tmpR.setRgb(r, g, b);
+				if (fill == tmpR)
+				{
+					FillCol = it.key();
+					found = true;
+					break;
+				}
 			}
 		}
 		if (!found)
