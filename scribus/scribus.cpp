@@ -2123,19 +2123,22 @@ void ScribusMainWindow::windowsMenuAboutToShow()
 	scrWindowsActions.clear();
 	addDefaultWindowMenuItems();
 	QWidgetList windows = wsp->windowList();
-	int windowCount=static_cast<int>(windows.count());
-	scrActions["windowsCascade"]->setEnabled(windowCount!=0);
-	scrActions["windowsTile"]->setEnabled(windowCount!=0);
-	if (windowCount>1)
+	bool windowsListNotEmpty=!windows.isEmpty();
+	scrActions["windowsCascade"]->setEnabled(windowsListNotEmpty);
+	scrActions["windowsTile"]->setEnabled(windowsListNotEmpty);
+	if (windowsListNotEmpty)
 	{
-		scrMenuMgr->addMenuSeparator("Windows");
+		int windowCount=static_cast<int>(windows.count());
+		if (windowCount>1)
+			scrMenuMgr->addMenuSeparator("Windows");
 		for ( int i = 0; i < windowCount; ++i )
 		{
 			QString docInWindow=windows.at(i)->caption();
 			scrWindowsActions.insert(docInWindow, new ScrAction( ScrAction::Window, noIcon, docInWindow, QKeySequence(), this, docInWindow, i));
 			scrWindowsActions[docInWindow]->setToggleAction(true);
 			connect( scrWindowsActions[docInWindow], SIGNAL(activatedData(int)), this, SLOT(windowsMenuActivated(int)) );
-			scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
+			if (windowCount>1)
+				scrMenuMgr->addMenuItem(scrWindowsActions[docInWindow], "Windows");
 			scrWindowsActions[docInWindow]->setOn(wsp->activeWindow() == windows.at(i));
 		}
 	}
