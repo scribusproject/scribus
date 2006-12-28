@@ -1689,7 +1689,7 @@ void SVGPlug::svgClosePath(FPointArray *i)
 QColor SVGPlug::parseColorN( const QString &rgbColor )
 {
 	int r, g, b;
-	keywordToRGB( rgbColor, r, g, b );
+	keywordToRGB( rgbColor.lower(), r, g, b );
 	return QColor( r, g, b );
 }
 
