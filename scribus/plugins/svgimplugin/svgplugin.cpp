@@ -747,7 +747,9 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		addGraphicContext();
 		SvgStyle *gc = m_gc.current();
 		parseStyle( gc, e );
-		if( e.tagName() == "polygon" )
+		QString points = e.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
+		QStringList pointList = QStringList::split( ' ', points );
+		if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
 			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		else
 			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
@@ -757,13 +759,6 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		bool bFirst = true;
 		double x = 0.0;
 		double y = 0.0;
-		QString points = e.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
-		/*
-		points.replace( QRegExp( "," ), " " );
-		points.replace( QRegExp( "\r" ), "" );
-		points.replace( QRegExp( "\n" ), "" );
-		*/
-		QStringList pointList = QStringList::split( ' ', points );
 		FirstM = true;
 		for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 		{
@@ -782,7 +777,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 				svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
 			}
 		}
-		if( STag == "polygon" )
+		if (( STag == "polygon" ) && (pointList.count() > 4))
 			svgClosePath(&ite->PoLine);
 		else
 			ite->convertTo(PageItem::PolyLine);
