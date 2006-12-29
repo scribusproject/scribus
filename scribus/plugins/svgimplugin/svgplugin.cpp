@@ -354,6 +354,14 @@ void SVGPlug::setupTransform( const QDomElement &e )
 		gc->matrix = mat * gc->matrix;
 }
 
+bool SVGPlug::isIgnorableNode( const QDomElement &e )
+{
+	QString nodeName(e.tagName());
+	if (nodeName == "metadata" || nodeName.contains("sodipodi") || nodeName.contains("inkscape"))
+		return true;
+	return false;
+}
+
 QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
 {
 	QSize size(550, 841);
@@ -424,21 +432,55 @@ void SVGPlug::parseDefs(const QDomElement &e)
 	}
 }
 
+void SVGPlug::parseClipPath(const QDomElement &e)
+{
+	QString id(e.attribute("id"));
+	if (!id.isEmpty())
+	{
+		FPointArray clip;
+		QDomNode n2 = e.firstChild();
+		QDomElement b2 = n2.toElement();
+		while (b2.nodeName() == "use")
+			b2 = getNodeFromUseElement(b2);
+		parseSVG( b2.attribute( "d" ), &clip );
+		if (clip.size() >= 2)
+			m_clipPaths.insert(id, clip);
+	}
+}
+
+void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
+{
+	clipPath.resize(0);
+	if (e.hasAttribute("clip-path"))
+	{
+		QString attr = e.attribute("clip-path");
+		if (attr.startsWith( "url("))
+		{
+			unsigned int start = attr.find("#") + 1;
+			unsigned int end = attr.findRev(")");
+			QString key = attr.mid(start, end - start);
+			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
+			if (it != m_clipPaths.end())
+				clipPath = it.data().copy();
+		}
+	}
+}
+
 QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
 	addGraphicContext();
 	setupTransform( e );
 	parseStyle(m_gc.current(), e);
-	for( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
+	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		int z = -1;
 		QDomElement b = n.toElement();
-		if( b.isNull() )
+		if ( b.isNull() || isIgnorableNode(b) )
 			continue;
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b );
-		if (!svgStyle.Display) 
+		if ( !svgStyle.Display ) 
 			continue;
 		QPtrList<PageItem> el = parseElement(b);
 		for (uint ec = 0; ec < el.count(); ++ec)
@@ -453,7 +495,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	int z = -1;
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
-	ImgClip.resize(0);
+	parseClipPathAttr(e, ImgClip);
 	double BaseX = currDoc->currentPage->xOffset();
 	double BaseY = currDoc->currentPage->yOffset();
 	if (e.hasAttribute("id"))
@@ -567,11 +609,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	}
 	else if( STag == "clipPath" )
 	{
-		QDomNode n2 = e.firstChild();
-		QDomElement b2 = n2.toElement();
-		if (b2.nodeName() == "use")
-			b2 = getNodeFromUseElement(b2);
-		parseSVG( b2.attribute( "d" ), &ImgClip );
+		parseClipPath(e);
 		return GElements;
 	}
 	else if( STag == "path" )
@@ -597,45 +635,44 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		addGraphicContext();
 		SvgStyle *gc = m_gc.current();
 		parseStyle( gc, e );
-		if( e.tagName() == "polygon" )
-			z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		else
-			z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = currDoc->Items->at(z);
-		ite->fillRule = (gc->fillRule != "nonzero"); 
-		ite->PoLine.resize(0);
-		bool bFirst = true;
-		double x = 0.0;
-		double y = 0.0;
-		QString points = e.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
-		/*
-		points.replace( QRegExp( "," ), " " );
-		points.replace( QRegExp( "\r" ), "" );
-		points.replace( QRegExp( "\n" ), "" );
-		*/
-		QStringList pointList = QStringList::split( ' ', points );
-		FirstM = true;
-		for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+		QString points = e.attribute( "points" );
+		if (!points.isEmpty())
 		{
-			if( bFirst )
-			{
-				x = (*(it++)).toDouble();
-				y = (*it).toDouble();
-				svgMoveTo(x * Conversion, y * Conversion);
-				bFirst = false;
-				WasM = true;
-			}
+			points = points.simplifyWhiteSpace().replace(',', " ");
+			QStringList pointList = QStringList::split( ' ', points );
+			if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
+				z = currDoc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			else
+				z = currDoc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			PageItem* ite = currDoc->Items->at(z);
+			ite->fillRule = (gc->fillRule != "nonzero"); 
+			ite->PoLine.resize(0);
+			bool bFirst = true;
+			double x = 0.0;
+			double y = 0.0;
+			FirstM = true;
+			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 			{
-				x = (*(it++)).toDouble();
-				y = (*it).toDouble();
-				svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
+				if( bFirst )
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgMoveTo(x * Conversion, y * Conversion);
+					bFirst = false;
+					WasM = true;
+				}
+				else
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
+				}
 			}
+			if (( STag == "polygon" ) && (pointList.count() > 4))
+				svgClosePath(&ite->PoLine);
+			else
+				ite->convertTo(PageItem::PolyLine);
 		}
-		if( STag == "polygon" )
-			svgClosePath(&ite->PoLine);
-		else
-			ite->convertTo(PageItem::PolyLine);
 	}
 	else if( STag == "text" )
 	{

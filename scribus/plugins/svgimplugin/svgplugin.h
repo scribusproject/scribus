@@ -11,6 +11,7 @@ for which a new license (GPL+exception) is in place.
 #include <qptrstack.h>
 #include <qsize.h>
 #include "pluginapi.h"
+#include "fpointarray.h"
 #include "loadsaveplugin.h"
 #include "../formatidlist.h"
 #include "vgradient.h"
@@ -187,9 +188,12 @@ public:
 	void convert(int flags);
 	void addGraphicContext();
 	void setupTransform( const QDomElement &e );
+	bool isIgnorableNode( const QDomElement &e );
 	QSize parseWidthHeight(const QDomElement &e, double conv);
 	QRect parseViewBox(const QDomElement &e);
 	void parseDefs(const QDomElement &e);
+	void parseClipPath(const QDomElement &e);
+	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	QPtrList<PageItem> parseElement(const QDomElement &e);
 	QPtrList<PageItem> parseText(const QDomElement &e);
@@ -223,6 +227,7 @@ public:
 	QPtrStack<SvgStyle>	m_gc;
 	QMap<QString, GradientHelper>	m_gradients;
 	QMap<QString, QDomElement>		m_nodeMap;
+	QMap<QString, FPointArray>		m_clipPaths;
 	bool FirstM, WasM, PathClosed;
 	double viewTransformX;
 	double viewTransformY;
