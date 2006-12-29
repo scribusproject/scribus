@@ -442,6 +442,14 @@ void SVGPlug::setupTransform( const QDomElement &e )
 		gc->matrix = mat * gc->matrix;
 }
 
+bool SVGPlug::isIgnorableNode( const QDomElement &e )
+{
+	QString nodeName(e.tagName());
+	if (nodeName == "metadata" || nodeName.contains("sodipodi") || nodeName.contains("inkscape"))
+		return true;
+	return false;
+}
+
 QSize SVGPlug::parseWidthHeight(const QDomElement &e, double conv)
 {
 	QSize size(550, 841);
@@ -494,11 +502,11 @@ void SVGPlug::parseDefs(const QDomElement &e)
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
-		if ( b.isNull() )
+		if ( b.isNull() || isIgnorableNode(b) )
 			continue;
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b );
-		if (!svgStyle.Display) 
+		if ( !svgStyle.Display) 
 			continue;
 		QString STag2 = b.tagName();
 		if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
@@ -508,6 +516,40 @@ void SVGPlug::parseDefs(const QDomElement &e)
 			QString id = b.attribute("id");
 			if (!id.isEmpty())
 				m_nodeMap.insert(id, b);
+		}
+	}
+}
+
+void SVGPlug::parseClipPath(const QDomElement &e)
+{
+	QString id(e.attribute("id"));
+	if (!id.isEmpty())
+	{
+		FPointArray clip;
+		QDomNode n2 = e.firstChild();
+		QDomElement b2 = n2.toElement();
+		while (b2.nodeName() == "use")
+			b2 = getNodeFromUseElement(b2);
+		parseSVG( b2.attribute( "d" ), &clip );
+		if (clip.size() >= 2)
+			m_clipPaths.insert(id, clip);
+	}
+}
+
+void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
+{
+	clipPath.resize(0);
+	if (e.hasAttribute("clip-path"))
+	{
+		QString attr = e.attribute("clip-path");
+		if (attr.startsWith( "url("))
+		{
+			unsigned int start = attr.find("#") + 1;
+			unsigned int end = attr.findRev(")");
+			QString key = attr.mid(start, end - start);
+			QMap<QString, FPointArray>::iterator it = m_clipPaths.find(key);
+			if (it != m_clipPaths.end())
+				clipPath = it.data().copy();
 		}
 	}
 }
@@ -540,7 +582,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	int z = -1;
 	QPtrList<PageItem> GElements;
 	FPointArray ImgClip;
-	ImgClip.resize(0);
+	parseClipPathAttr(e, ImgClip);
 	double BaseX = m_Doc->currentPage()->xOffset();
 	double BaseY = m_Doc->currentPage()->yOffset();
 	if (e.hasAttribute("id"))
@@ -553,11 +595,9 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		parseStyle( gc, e );
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
 		PageItem *neu = m_Doc->Items->at(z);
-		GElements.append(neu);
 		QPtrList<PageItem> gElements = parseGroup( e );
 		if (gElements.count() == 0)
 		{
-			GElements.removeLast();
 			m_Doc->Items->take(z);
 			delete neu;
 		}
@@ -567,6 +607,7 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 			double miny = 99999.9;
 			double maxx = -99999.9;
 			double maxy = -99999.9;
+			GElements.append(neu);
 			for (uint gr = 0; gr < gElements.count(); ++gr)
 			{
 				PageItem* currItem = gElements.at(gr);
@@ -602,10 +643,15 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 			neu->setXYPos(gx, gy);
 			neu->setWidthHeight(gw, gh);
 			if (ImgClip.size() != 0)
+			{
+				QWMatrix mm;
+				mm.translate(-gx + BaseX, -gy + BaseY);
 				neu->PoLine = ImgClip.copy();
+				neu->PoLine.map(mm);
+				ImgClip.resize(0);
+			}
 			else
 				neu->SetRectFrame();
-			ImgClip.resize(0);
 			neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
 			neu->Groups.push(m_Doc->GroupCounter);
 			neu->isGroupControl = true;
@@ -797,16 +843,12 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		}
 		z = -1;
 	}
-/*	else if( STag == "clipPath" )
+	else if( STag == "clipPath" )
 	{
-		QDomNode n2 = e.firstChild();
-		QDomElement b2 = n2.toElement();
-		if (b2.nodeName() == "use")
-			b2 = getNodeFromUseElement(b2);
-		parseSVG( b2.attribute( "d" ), &ImgClip );
+		parseClipPath(e);
 		return GElements;
 	}
-	else if( STag == "image" )
+/*	else if( STag == "image" )
 	{
 		addGraphicContext();
 		QString fname = e.attribute("xlink:href");
