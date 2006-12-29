@@ -2479,12 +2479,12 @@ void ScribusMainWindow::HaveNewDoc()
 
 	updateColorMenu();
 	//Update palettes
-	propertiesPalette->updateColorList();
-	propertiesPalette->Cpal->ChooseGrad(0);
 	updateActiveWindowCaption(doc->DocName);
 	scrActions["shade100"]->setOn(true);
 	propertiesPalette->setDoc(doc);
-	propertiesPalette->updateCList();
+	propertiesPalette->updateColorList();
+	propertiesPalette->Cpal->ChooseGrad(0);
+//	propertiesPalette->updateCList();
 	pagePalette->setView(view);
 	propertiesPalette->Spal->setFormats(doc);
 	propertiesPalette->SetLineFormats(doc);
@@ -3671,8 +3671,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		{
 			doc->CMSSettings.CMSinUse = false;
 		}
-		propertiesPalette->updateColorList();
-		propertiesPalette->Cpal->ChooseGrad(0);
+//		propertiesPalette->updateColorList();
+//		propertiesPalette->Cpal->ChooseGrad(0);
 		if (fileLoader->FileType > FORMATID_NATIVEIMPORTEND)
 		{
 			doc->setName(FName+ tr("(converted)"));
@@ -3684,7 +3684,8 @@ bool ScribusMainWindow::loadDoc(QString fileName)
 		doc->setMasterPageMode(false);
 		doc->Language = GetLang(doc->Language);
 		HaveNewDoc();
-		propertiesPalette->updateCList();
+//		propertiesPalette->Cpal->ChooseGrad(0);
+//		propertiesPalette->updateCList();
 		doc->hasName = true;
 		if (doc->MasterPages.count() == 0)
 			doc->addMasterPage(0, CommonStrings::masterPageNormal);
