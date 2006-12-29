@@ -1238,6 +1238,8 @@ QDomElement SVGPlug::getNodeFromUseElement(const QDomElement &e)
 					trans += QString(" %1").arg(ret.attribute("transform"));
 				ret.setAttribute(attr.name(), trans);
 			}
+			else if (attrName == "xlink:href")
+				continue;
 			else
 				ret.setAttribute(attr.name(), attr.value());
 		}
