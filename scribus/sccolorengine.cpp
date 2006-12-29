@@ -131,10 +131,10 @@ void ScColorEngine::getCMYKValues(const ScColor& color, ScribusDoc* doc, CMYKCol
 	}
 	else if (model == colorModelRGB)
 	{
-		cmyk.k = QMIN(QMIN(255 -color.CR, 255 - color.MG), 255 - color.YB);
-		cmyk.c = 255 - color.CR - color.K;
-		cmyk.m = 255 - color.MG - color.K;
-		cmyk.y = 255 - color.YB - color.K;
+		cmyk.k = QMIN(QMIN(255 - color.CR, 255 - color.MG), 255 - color.YB);
+		cmyk.c = 255 - color.CR - cmyk.k;
+		cmyk.m = 255 - color.MG - cmyk.k;
+		cmyk.y = 255 - color.YB - cmyk.k;
 	}
 	else
 	{
