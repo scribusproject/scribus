@@ -515,10 +515,9 @@ void SVGPlug::parseDefs(const QDomElement &e)
 QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
-	FPointArray ImgClip;
-	ImgClip.resize(0);
-//	double BaseX = m_Doc->currentPage()->xOffset();
-//	double BaseY = m_Doc->currentPage()->yOffset();
+	addGraphicContext();
+	setupTransform( e );
+	parseStyle(m_gc.current(), e);
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
@@ -532,6 +531,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 		for (uint ec = 0; ec < el.count(); ++ec)
 			GElements.append(el.at(ec));
 	}
+	delete( m_gc.pop() );
 	return GElements;
 }
 
@@ -550,7 +550,6 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 	{
 		addGraphicContext();
 		SvgStyle *gc = m_gc.current();
-		setupTransform( e );
 		parseStyle( gc, e );
 		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
 		PageItem *neu = m_Doc->Items->at(z);
