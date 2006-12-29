@@ -746,40 +746,44 @@ QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 		addGraphicContext();
 		SvgStyle *gc = m_gc.current();
 		parseStyle( gc, e );
-		QString points = e.attribute( "points" ).simplifyWhiteSpace().replace(',', " ");
-		QStringList pointList = QStringList::split( ' ', points );
-		if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
-			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		else
-			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		ite->fillRule = (gc->fillRule != "nonzero"); 
-		ite->PoLine.resize(0);
-		bool bFirst = true;
-		double x = 0.0;
-		double y = 0.0;
-		FirstM = true;
-		for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
+		QString points = e.attribute( "points" );
+		if (!points.isEmpty())
 		{
-			if( bFirst )
-			{
-				x = (*(it++)).toDouble();
-				y = (*it).toDouble();
-				svgMoveTo(x * Conversion, y * Conversion);
-				bFirst = false;
-				WasM = true;
-			}
+			points = points.simplifyWhiteSpace().replace(',', " ");
+			QStringList pointList = QStringList::split( ' ', points );
+			if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
+				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 			else
+				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+			PageItem* ite = m_Doc->Items->at(z);
+			ite->fillRule = (gc->fillRule != "nonzero"); 
+			ite->PoLine.resize(0);
+			bool bFirst = true;
+			double x = 0.0;
+			double y = 0.0;
+			FirstM = true;
+			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 			{
-				x = (*(it++)).toDouble();
-				y = (*it).toDouble();
-				svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
+				if( bFirst )
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgMoveTo(x * Conversion, y * Conversion);
+					bFirst = false;
+					WasM = true;
+				}
+				else
+				{
+					x = (*(it++)).toDouble();
+					y = (*it).toDouble();
+					svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
+				}
 			}
+			if (( STag == "polygon" ) && (pointList.count() > 4))
+				svgClosePath(&ite->PoLine);
+			else
+				ite->convertTo(PageItem::PolyLine);
 		}
-		if (( STag == "polygon" ) && (pointList.count() > 4))
-			svgClosePath(&ite->PoLine);
-		else
-			ite->convertTo(PageItem::PolyLine);
 	}
 	else if( STag == "text" )
 	{
