@@ -182,7 +182,9 @@ public:
 	~SVGPlug();
 	void convert(int flags);
 	void addGraphicContext();
+	void setupNode( const QDomElement &e );
 	void setupTransform( const QDomElement &e );
+	void finishNode( const QDomElement &e, PageItem* item);
 	bool isIgnorableNode( const QDomElement &e );
 	QSize parseWidthHeight(const QDomElement &e, double conv);
 	QRect parseViewBox(const QDomElement &e);
@@ -191,6 +193,13 @@ public:
 	void parseClipPathAttr(const QDomElement &e, FPointArray& clipPath);
 	QPtrList<PageItem> parseGroup(const QDomElement &e);
 	QPtrList<PageItem> parseElement(const QDomElement &e);
+	QPtrList<PageItem> parseCircle(const QDomElement &e);
+	QPtrList<PageItem> parseEllipse(const QDomElement &e);
+	QPtrList<PageItem> parseImage(const QDomElement &e);
+	QPtrList<PageItem> parseLine(const QDomElement &e);
+	QPtrList<PageItem> parsePath(const QDomElement &e);
+	QPtrList<PageItem> parsePolyline(const QDomElement &e);
+	QPtrList<PageItem> parseRect(const QDomElement &e);
 	QPtrList<PageItem> parseText(const QDomElement &e);
 	QPtrList<PageItem> parseTextElement(double x, double y, const QDomElement &e);
 	QPtrList<PageItem> parseSwitch(const QDomElement &e);

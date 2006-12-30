@@ -436,12 +436,135 @@ void SVGPlug::addGraphicContext()
 	m_gc.push( gc );
 }
 
+void SVGPlug::setupNode( const QDomElement &e )
+{
+	addGraphicContext();
+	setupTransform( e );
+	parseStyle(m_gc.current(), e);
+}
+
 void SVGPlug::setupTransform( const QDomElement &e )
 {
 	SvgStyle *gc = m_gc.current();
 	QWMatrix mat = parseTransform( e.attribute( "transform" ) );
 	if (!e.attribute("transform").isEmpty())
 		gc->matrix = mat * gc->matrix;
+}
+
+void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
+{
+	SvgStyle *gc = m_gc.current();
+	QWMatrix gcm = gc->matrix;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
+	double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
+	switch (item->itemType())
+	{
+	case PageItem::ImageFrame:
+		{
+			QWMatrix mm = gc->matrix;
+			item->moveBy(mm.dx(), mm.dy());
+			item->setWidthHeight(item->width() * mm.m11(), item->height() * mm.m22());
+			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+			if (item->PicAvail)
+				item->setImageXYScale(item->width() / item->pixm.width(), item->height() / item->pixm.height());
+			break;
+		}
+	case PageItem::TextFrame:
+		{
+			QWMatrix mm = gc->matrix;
+			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+		}
+		break;
+	default:
+		{
+			item->ClipEdited = true;
+			item->FrameType = 3;
+			QWMatrix mm = gc->matrix;
+			item->PoLine.map(mm);
+			/*if (haveViewBox)
+			{
+				QWMatrix mv;
+				mv.translate(viewTransformX, viewTransformY);
+				mv.scale(viewScaleX, viewScaleY);
+				ite->PoLine.map(mv);
+			}*/
+			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
+			FPoint wh = getMaxClipF(&item->PoLine);
+			item->setWidthHeight(wh.x(), wh.y());
+			item->Clip = FlattenPath(item->PoLine, item->Segments);
+			m_Doc->view()->AdjustItemSize(item);
+			break;
+		}
+	}
+	item->OwnPage = m_Doc->OnPage(item);
+	if( !e.attribute("id").isEmpty() )
+		item->setItemName(" "+e.attribute("id"));
+	item->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
+	item->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
+	item->PLineEnd = gc->PLineEnd;
+	item->PLineJoin = gc->PLineJoin;
+	//ite->setTextFlowsAroundFrame(false);
+	item->setTextFlowMode(PageItem::TextFlowDisabled);
+	item->DashOffset = gc->dashOffset;
+	item->DashValues = gc->dashArray;
+	if (gc->Gradient != 0)
+	{
+		if (gc->GradCo.Stops() > 1)
+		{
+			item->fill_gradient = gc->GradCo;
+			if (!gc->CSpace)
+			{
+				item->GrStartX = gc->GX1 * item->width();
+				item->GrStartY = gc->GY1 * item->height();
+				item->GrEndX = gc->GX2 * item->width();
+				item->GrEndY = gc->GY2 * item->height();
+				double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
+				double angle2 = atan2(item->GrEndY - item->GrStartX, item->GrEndX - item->GrStartX)*(180.0/M_PI);
+				double dx = item->GrStartX + (item->GrEndX - item->GrStartX) / 2.0;
+				double dy = item->GrStartY + (item->GrEndY - item->GrStartY) / 2.0;
+				QWMatrix mm, mm2;
+				if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
+				{
+					mm.rotate(-angle2);
+					mm2.rotate(angle1);
+				}
+				FPointArray gra;
+				gra.setPoints(2, item->GrStartX-dx, item->GrStartY-dy, item->GrEndX-dx, item->GrEndY-dy);
+				gra.map(mm*mm2);
+				gra.translate(dx, dy);
+				item->GrStartX = gra.point(0).x();
+				item->GrStartY = gra.point(0).y();
+				item->GrEndX = gra.point(1).x();
+				item->GrEndY = gra.point(1).y();
+			}
+			else
+			{
+				QWMatrix mm = gc->matrix;
+				mm = gc->matrixg * mm;
+				FPointArray gra;
+				gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
+				gra.map(mm);
+				gc->GX1 = gra.point(0).x();
+				gc->GY1 = gra.point(0).y();
+				gc->GX2 = gra.point(1).x();
+				gc->GY2 = gra.point(1).y();
+				item->GrStartX = gc->GX1 - item->xPos() + BaseX;
+				item->GrStartY = gc->GY1 - item->yPos() + BaseY;
+				item->GrEndX = gc->GX2 - item->xPos() + BaseX;
+				item->GrEndY = gc->GY2 - item->yPos() + BaseY;
+			}
+			item->GrType = gc->Gradient;
+		}
+		else
+		{
+			item->GrType = 0;
+			QPtrVector<VColorStop> cstops = gc->GradCo.colorStops();
+			item->setFillColor(cstops.at(0)->name);
+			item->setFillShade(cstops.at(0)->shade);
+		}
+	}
 }
 
 bool SVGPlug::isIgnorableNode( const QDomElement &e )
@@ -504,7 +627,7 @@ void SVGPlug::parseDefs(const QDomElement &e)
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
-		if ( b.isNull() || isIgnorableNode(b) )
+		if ( b.isNull() )
 			continue;
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b );
@@ -570,447 +693,370 @@ void SVGPlug::parseClipPathAttr(const QDomElement &e, FPointArray& clipPath)
 
 QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 {
-	QPtrList<PageItem> GElements;
-	addGraphicContext();
-	setupTransform( e );
-	parseStyle(m_gc.current(), e);
+	FPointArray clipPath;
+	QPtrList<PageItem> GElements, gElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+
+	setupNode(e);
+	parseClipPathAttr(e, clipPath);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+	PageItem *neu = m_Doc->Items->at(z);
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
 		QDomElement b = n.toElement();
-		if( b.isNull() )
+		if( b.isNull() || isIgnorableNode(b) )
 			continue;
 		SvgStyle svgStyle;
 		parseStyle( &svgStyle, b );
 		if (!svgStyle.Display) 
-		continue;
+			continue;
 		QPtrList<PageItem> el = parseElement(b);
 		for (uint ec = 0; ec < el.count(); ++ec)
-			GElements.append(el.at(ec));
+			gElements.append(el.at(ec));
 	}
+
+	if (gElements.count() == 0)
+	{
+		m_Doc->Items->take(z);
+		delete neu;
+	}
+	else
+	{
+		double minx = 99999.9;
+		double miny = 99999.9;
+		double maxx = -99999.9;
+		double maxy = -99999.9;
+		GElements.append(neu);
+		SvgStyle *gc = m_gc.current();
+		for (uint gr = 0; gr < gElements.count(); ++gr)
+		{
+			PageItem* currItem = gElements.at(gr);
+			double lw = currItem->lineWidth() / 2.0;
+			if (currItem->rotation() != 0)
+			{
+				FPointArray pb;
+				pb.resize(0);
+				pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
+				for (uint pc = 0; pc < 4; ++pc)
+				{
+					minx = QMIN(minx, pb.point(pc).x());
+					miny = QMIN(miny, pb.point(pc).y());
+					maxx = QMAX(maxx, pb.point(pc).x());
+					maxy = QMAX(maxy, pb.point(pc).y());
+				}
+			}
+			else
+			{
+				minx = QMIN(minx, currItem->xPos()-lw);
+				miny = QMIN(miny, currItem->yPos()-lw);
+				maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
+				maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
+			}
+		}
+		double gx = minx;
+		double gy = miny;
+		double gw = maxx - minx;
+		double gh = maxy - miny;
+		neu->setXYPos(gx, gy);
+		neu->setWidthHeight(gw, gh);
+		if (clipPath.size() != 0)
+		{
+			QWMatrix mm;
+			mm.translate(-gx + BaseX, -gy + BaseY);
+			neu->PoLine = clipPath.copy();
+			neu->PoLine.map(mm);
+			clipPath.resize(0);
+		}
+		else
+			neu->SetRectFrame();
+		neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
+		neu->Groups.push(m_Doc->GroupCounter);
+		neu->isGroupControl = true;
+		neu->groupsLastItem = gElements.at(gElements.count()-1);
+		if( !e.attribute("id").isEmpty() )
+			neu->setItemName(e.attribute("id"));
+		else
+			neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
+		neu->setFillTransparency(1 - gc->Opacity);
+		for (uint gr = 0; gr < gElements.count(); ++gr)
+		{
+			gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
+			GElements.append(gElements.at(gr));
+		}
+	}
+	m_Doc->GroupCounter++;
 	delete( m_gc.pop() );
 	return GElements;
 }
 
 QPtrList<PageItem> SVGPlug::parseElement(const QDomElement &e)
 {
-	int z = -1;
 	QPtrList<PageItem> GElements;
-	FPointArray ImgClip;
-	parseClipPathAttr(e, ImgClip);
-	double BaseX = m_Doc->currentPage()->xOffset();
-	double BaseY = m_Doc->currentPage()->yOffset();
 	if (e.hasAttribute("id"))
 		m_nodeMap.insert(e.attribute("id"), e);
 	QString STag = e.tagName();
 	if( STag == "g" )
 	{
-		addGraphicContext();
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
-		PageItem *neu = m_Doc->Items->at(z);
-		QPtrList<PageItem> gElements = parseGroup( e );
-		if (gElements.count() == 0)
-		{
-			m_Doc->Items->take(z);
-			delete neu;
-		}
-		else
-		{
-			double minx = 99999.9;
-			double miny = 99999.9;
-			double maxx = -99999.9;
-			double maxy = -99999.9;
-			GElements.append(neu);
-			for (uint gr = 0; gr < gElements.count(); ++gr)
-			{
-				PageItem* currItem = gElements.at(gr);
-				double lw = currItem->lineWidth() / 2.0;
-				if (currItem->rotation() != 0)
-				{
-					FPointArray pb;
-					pb.resize(0);
-					pb.addPoint(FPoint(currItem->xPos()-lw, currItem->yPos()-lw));
-					pb.addPoint(FPoint(currItem->width()+lw*2.0, -lw, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					pb.addPoint(FPoint(currItem->width()+lw*2.0, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					pb.addPoint(FPoint(-lw, currItem->height()+lw*2.0, currItem->xPos()-lw, currItem->yPos()-lw, currItem->rotation(), 1.0, 1.0));
-					for (uint pc = 0; pc < 4; ++pc)
-					{
-						minx = QMIN(minx, pb.point(pc).x());
-						miny = QMIN(miny, pb.point(pc).y());
-						maxx = QMAX(maxx, pb.point(pc).x());
-						maxy = QMAX(maxy, pb.point(pc).y());
-					}
-				}
-				else
-				{
-					minx = QMIN(minx, currItem->xPos()-lw);
-					miny = QMIN(miny, currItem->yPos()-lw);
-					maxx = QMAX(maxx, currItem->xPos()-lw + currItem->width()+lw*2.0);
-					maxy = QMAX(maxy, currItem->yPos()-lw + currItem->height()+lw*2.0);
-				}
-			}
-			double gx = minx;
-			double gy = miny;
-			double gw = maxx - minx;
-			double gh = maxy - miny;
-			neu->setXYPos(gx, gy);
-			neu->setWidthHeight(gw, gh);
-			if (ImgClip.size() != 0)
-			{
-				QWMatrix mm;
-				mm.translate(-gx + BaseX, -gy + BaseY);
-				neu->PoLine = ImgClip.copy();
-				neu->PoLine.map(mm);
-				ImgClip.resize(0);
-			}
-			else
-				neu->SetRectFrame();
-			neu->Clip = FlattenPath(neu->PoLine, neu->Segments);
-			neu->Groups.push(m_Doc->GroupCounter);
-			neu->isGroupControl = true;
-			neu->groupsLastItem = gElements.at(gElements.count()-1);
-			if( !e.attribute("id").isEmpty() )
-				neu->setItemName(e.attribute("id"));
-			else
-				neu->setItemName( tr("Group%1").arg(neu->Groups.top()));
-			neu->setFillTransparency(1 - gc->Opacity);
-			for (uint gr = 0; gr < gElements.count(); ++gr)
-			{
-				gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
-				GElements.append(gElements.at(gr));
-			}
-		}
-		delete( m_gc.pop() );
-		m_Doc->GroupCounter++;
+		GElements = parseGroup( e );
 		return GElements;
 	}
 	if( e.tagName() == "defs" )
-	{
 		parseDefs(e);
-		return GElements;
-	}
 	else if( e.tagName() == "switch" )
-	{
 		GElements = parseSwitch(e);
-		return GElements;
-	}
 	else if( e.tagName() == "use" )
-	{
 		GElements = parseUse(e);
-		return GElements;
-	}
 	else if( STag == "linearGradient" || STag == "radialGradient" )
-	{
 		parseGradient( e );
-		return GElements;
-	}
 	else if( STag == "rect" )
-	{
-		addGraphicContext();
-		double x = parseUnit( e.attribute( "x" ) );
-		double y = parseUnit( e.attribute( "y" ) );
-		double width = parseUnit( e.attribute( "width" ));
-		double height = parseUnit( e.attribute( "height" ) );
-		double rx = e.attribute( "rx" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "rx" ) );
-		double ry = e.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "ry" ) );
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		if ((rx != 0) || (ry != 0))
-		{
-			ite->setCornerRadius(QMAX(rx, ry));
-			ite->SetFrameRound();
-			m_Doc->setRedrawBounding(ite);
-		}
-		QWMatrix mm = QWMatrix();
-		mm.translate(x, y);
-		ite->PoLine.map(mm);
-		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(), wh.y());
-	}
+		GElements = parseRect(e);
 	else if( STag == "ellipse" )
-	{
-		addGraphicContext();
-		double rx = parseUnit( e.attribute( "rx" ) );
-		double ry = parseUnit( e.attribute( "ry" ) );
-		double x = parseUnit( e.attribute( "cx" ) ) - rx;
-		double y = parseUnit( e.attribute( "cy" ) ) - ry;
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		QWMatrix mm = QWMatrix();
-		mm.translate(x, y);
-		ite->PoLine.map(mm);
-		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(), wh.y());
-	}
+		GElements = parseEllipse(e);
 	else if( STag == "circle" )
-	{
-		addGraphicContext();
-		double r = parseUnit( e.attribute( "r" ) );
-		double x = parseUnit( e.attribute( "cx" ) ) - r;
-		double y = parseUnit( e.attribute( "cy" ) ) - r;
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		QWMatrix mm = QWMatrix();
-		mm.translate(x, y);
-		ite->PoLine.map(mm);
-		FPoint wh = getMaxClipF(&ite->PoLine);
-		ite->setWidthHeight(wh.x(), wh.y());
-	}
+		GElements = parseCircle(e);
 	else if( STag == "line" )
-	{
-		addGraphicContext();
-		double x1 = e.attribute( "x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x1" ) );
-		double y1 = e.attribute( "y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y1" ) );
-		double x2 = e.attribute( "x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x2" ) );
-		double y2 = e.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y2" ) );
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		ite->PoLine.resize(4);
-		ite->PoLine.setPoint(0, FPoint(x1, y1));
-		ite->PoLine.setPoint(1, FPoint(x1, y1));
-		ite->PoLine.setPoint(2, FPoint(x2, y2));
-		ite->PoLine.setPoint(3, FPoint(x2, y2));
-	}
+		GElements = parseLine(e);
 	else if( STag == "path" )
-	{
-		addGraphicContext();
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		FPointArray pArray;
-		PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
-		z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-		PageItem* ite = m_Doc->Items->at(z);
-		ite->fillRule = (gc->fillRule != "nonzero"); 
-		ite->PoLine = pArray;
-		if (ite->PoLine.size() < 4)
-		{
-// 			m_Doc->m_Selection->addItem(ite);
-			tmpSel->addItem(ite);
-// 			m_Doc->itemSelection_DeleteItem();
-			m_Doc->itemSelection_DeleteItem(tmpSel);
-// 			m_Doc->m_Selection->clear();
-			z = -1;
-		}
-	}
+		GElements = parsePath(e);
 	else if( STag == "polyline" || e.tagName() == "polygon" )
-	{
-		addGraphicContext();
-		SvgStyle *gc = m_gc.current();
-		parseStyle( gc, e );
-		QString points = e.attribute( "points" );
-		if (!points.isEmpty())
-		{
-			points = points.simplifyWhiteSpace().replace(',', " ");
-			QStringList pointList = QStringList::split( ' ', points );
-			if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
-				z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-			else
-				z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
-			PageItem* ite = m_Doc->Items->at(z);
-			ite->fillRule = (gc->fillRule != "nonzero"); 
-			ite->PoLine.resize(0);
-			bool bFirst = true;
-			double x = 0.0;
-			double y = 0.0;
-			FirstM = true;
-			for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
-			{
-				if( bFirst )
-				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
-					svgMoveTo(x * Conversion, y * Conversion);
-					bFirst = false;
-					WasM = true;
-				}
-				else
-				{
-					x = (*(it++)).toDouble();
-					y = (*it).toDouble();
-					svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
-				}
-			}
-			if (( STag == "polygon" ) && (pointList.count() > 4))
-				svgClosePath(&ite->PoLine);
-			else
-				ite->convertTo(PageItem::PolyLine);
-		}
-	}
+		GElements = parsePolyline(e);
 	else if( STag == "text" )
-	{
-		addGraphicContext();
-		SvgStyle *gc = m_gc.current();
-		parseStyle(gc, e);
-		QPtrList<PageItem> el = parseText(e);
-		for (uint ec = 0; ec < el.count(); ++ec)
-		{
-			GElements.append(el.at(ec));
-		}
-		z = -1;
-	}
+		GElements = parseText(e);
 	else if( STag == "clipPath" )
-	{
 		parseClipPath(e);
-		return GElements;
-	}
 /*	else if( STag == "image" )
-	{
-		addGraphicContext();
-		QString fname = e.attribute("xlink:href");
-		double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x" ) );
-		double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y" ) );
-		double w = e.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "width" ) );
-		double h = e.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "height" ) );
-		//z = m_Doc->view()->PaintPict(x+BaseX, y+BaseY, w, h);
-		z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
-		if (!fname.isEmpty())
-			m_Doc->LoadPict(fname, z);
-		PageItem* ite = m_Doc->Items->at(z);
-		if (ImgClip.size() != 0)
-			ite->PoLine = ImgClip.copy();
-		ImgClip.resize(0);
-		ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+		GElements = parseImage(e);
 	} */
 	else
 	{
 		// warn if unsupported SVG feature are encountered
 		qDebug(QString("unsupported SVG feature: %1").arg(STag));
 		unsupported = true;
-		return GElements;
 	}
-	if (z != -1)
+	return GElements;
+}
+
+QPtrList<PageItem> SVGPlug::parseCircle(const QDomElement &e)
+{
+	QPtrList<PageItem> CElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double r = parseUnit( e.attribute( "r" ) );
+	double x = parseUnit( e.attribute( "cx" ) ) - r;
+	double y = parseUnit( e.attribute( "cy" ) ) - r;
+	setupNode(e);
+	SvgStyle *gc = m_gc.current();
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, r * 2.0, r * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	QWMatrix mm = QWMatrix();
+	mm.translate(x, y);
+	ite->PoLine.map(mm);
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(), wh.y());
+	finishNode(e, ite);
+	CElements.append(ite);
+	delete( m_gc.pop() );
+	return CElements;
+}
+
+QPtrList<PageItem> SVGPlug::parseEllipse(const QDomElement &e)
+{
+	QPtrList<PageItem> EElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double rx = parseUnit( e.attribute( "rx" ) );
+	double ry = parseUnit( e.attribute( "ry" ) );
+	double x = parseUnit( e.attribute( "cx" ) ) - rx;
+	double y = parseUnit( e.attribute( "cy" ) ) - ry;
+	setupNode(e);
+	SvgStyle *gc = m_gc.current();
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Ellipse, BaseX, BaseY, rx * 2.0, ry * 2.0, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	QWMatrix mm = QWMatrix();
+	mm.translate(x, y);
+	ite->PoLine.map(mm);
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(), wh.y());
+	finishNode(e, ite);
+	EElements.append(ite);
+	delete( m_gc.pop() );
+	return EElements;
+}
+
+QPtrList<PageItem> SVGPlug::parseImage(const QDomElement &e)
+{
+	FPointArray clipPath;
+	QPtrList<PageItem> IElements;
+	QString fname = e.attribute("xlink:href");
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x = e.attribute( "x" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x" ) );
+	double y = e.attribute( "y" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y" ) );
+	double w = e.attribute( "width" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "width" ) );
+	double h = e.attribute( "height" ).isEmpty() ? 1.0 : parseUnit( e.attribute( "height" ) );
+	setupNode(e);
+	parseClipPathAttr(e, clipPath);
+	int z = m_Doc->itemAdd(PageItem::ImageFrame, PageItem::Unspecified, x+BaseX, y+BaseY, w, h, 1, m_Doc->toolSettings.dBrushPict, CommonStrings::None, true);
+	if (!fname.isEmpty())
+		m_Doc->LoadPict(fname, z);
+	PageItem* ite = m_Doc->Items->at(z);
+	if (clipPath.size() != 0)
+		ite->PoLine = clipPath.copy();
+	clipPath.resize(0);
+	ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
+	finishNode(e, ite);
+	IElements.append(ite);
+	delete( m_gc.pop() );
+	return IElements;
+}
+
+QPtrList<PageItem> SVGPlug::parseLine(const QDomElement &e)
+{
+	QPtrList<PageItem> LElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x1 = e.attribute( "x1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x1" ) );
+	double y1 = e.attribute( "y1" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y1" ) );
+	double x2 = e.attribute( "x2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "x2" ) );
+	double y2 = e.attribute( "y2" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "y2" ) );
+	setupNode(e);
+	SvgStyle *gc = m_gc.current();
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->PoLine.resize(4);
+	ite->PoLine.setPoint(0, FPoint(x1, y1));
+	ite->PoLine.setPoint(1, FPoint(x1, y1));
+	ite->PoLine.setPoint(2, FPoint(x2, y2));
+	ite->PoLine.setPoint(3, FPoint(x2, y2));
+	finishNode(e, ite);
+	LElements.append(ite);
+	delete( m_gc.pop() );
+	return LElements;
+}
+
+QPtrList<PageItem> SVGPlug::parsePath(const QDomElement &e)
+{
+	FPointArray pArray;
+	QPtrList<PageItem> PElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	setupNode(e);
+	SvgStyle *gc = m_gc.current();
+	PageItem::ItemType itype = parseSVG(e.attribute("d"), &pArray) ? PageItem::PolyLine : PageItem::Polygon; 
+	int z = m_Doc->itemAdd(itype, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	ite->fillRule = (gc->fillRule != "nonzero"); 
+	ite->PoLine = pArray;
+	if (ite->PoLine.size() < 4)
 	{
-		setupTransform( e );
-		SvgStyle *gc = m_gc.current();
+// 			m_Doc->m_Selection->addItem(ite);
+		tmpSel->addItem(ite);
+// 			m_Doc->itemSelection_DeleteItem();
+		m_Doc->itemSelection_DeleteItem(tmpSel);
+// 			m_Doc->m_Selection->clear();
+	}
+	else
+	{
+		finishNode(e, ite);
+		PElements.append(ite);
+	}
+	delete( m_gc.pop() );
+	return PElements;
+}
+
+QPtrList<PageItem> SVGPlug::parsePolyline(const QDomElement &e)
+{
+	int z;
+	QPtrList<PageItem> PElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	setupNode(e);
+	SvgStyle *gc = m_gc.current();
+	QString points = e.attribute( "points" );
+	if (!points.isEmpty())
+	{
+		QString STag = e.tagName();
+		points = points.simplifyWhiteSpace().replace(',', " ");
+		QStringList pointList = QStringList::split( ' ', points );
+		if (( e.tagName() == "polygon" ) && (pointList.count() > 4))
+			z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+		else
+			z = m_Doc->itemAdd(PageItem::PolyLine, PageItem::Unspecified, BaseX, BaseY, 10, 10, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
 		PageItem* ite = m_Doc->Items->at(z);
-		QWMatrix gcm = gc->matrix;
-		double coeff1 = sqrt(gcm.m11() * gcm.m11() + gcm.m12() * gcm.m12());
-		double coeff2 = sqrt(gcm.m21() * gcm.m21() + gcm.m22() * gcm.m22());
-		switch (ite->itemType())
+		ite->fillRule = (gc->fillRule != "nonzero"); 
+		ite->PoLine.resize(0);
+		bool bFirst = true;
+		double x = 0.0;
+		double y = 0.0;
+		FirstM = true;
+		for( QStringList::Iterator it = pointList.begin(); it != pointList.end(); it++ )
 		{
-		case PageItem::ImageFrame:
+			if( bFirst )
 			{
-				QWMatrix mm = gc->matrix;
-				ite->moveBy(mm.dx(), mm.dy());
-				ite->setWidthHeight(ite->width() * mm.m11(), ite->height() * mm.m22());
-				ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
-				if (ite->PicAvail)
-					ite->setImageXYScale(ite->width() / ite->pixm.width(), ite->height() / ite->pixm.height());
-				break;
-			}
-		case PageItem::TextFrame:
-			{
-				QWMatrix mm = gc->matrix;
-				ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
-			}
-			break;
-		default:
-			{
-				ite->ClipEdited = true;
-				ite->FrameType = 3;
-				QWMatrix mm = gc->matrix;
-				ite->PoLine.map(mm);
-				/*if (haveViewBox)
-				{
-					QWMatrix mv;
-					mv.translate(viewTransformX, viewTransformY);
-					mv.scale(viewScaleX, viewScaleY);
-					ite->PoLine.map(mv);
-				}*/
-				ite->setLineWidth(ite->lineWidth() * (coeff1 + coeff2) / 2.0);
-				FPoint wh = getMaxClipF(&ite->PoLine);
-				ite->setWidthHeight(wh.x(), wh.y());
-				ite->Clip = FlattenPath(ite->PoLine, ite->Segments);
-				m_Doc->view()->AdjustItemSize(ite);
-				break;
-			}
-		}
-		ite->OwnPage = m_Doc->OnPage(ite);
-		if( !e.attribute("id").isEmpty() )
-			ite->setItemName(" "+e.attribute("id"));
-		ite->setFillTransparency( 1 - gc->FillOpacity * gc->Opacity );
-		ite->setLineTransparency( 1 - gc->StrokeOpacity * gc->Opacity );
-		ite->PLineEnd = gc->PLineEnd;
-		ite->PLineJoin = gc->PLineJoin;
-		//ite->setTextFlowsAroundFrame(false);
-		ite->setTextFlowMode(PageItem::TextFlowDisabled);
-		ite->DashOffset = gc->dashOffset;
-		ite->DashValues = gc->dashArray;
-		if (gc->Gradient != 0)
-		{
-			if (gc->GradCo.Stops() > 1)
-			{
-				ite->fill_gradient = gc->GradCo;
-				if (!gc->CSpace)
-				{
-					ite->GrStartX = gc->GX1 * ite->width();
-					ite->GrStartY = gc->GY1 * ite->height();
-					ite->GrEndX = gc->GX2 * ite->width();
-					ite->GrEndY = gc->GY2 * ite->height();
-					double angle1 = atan2(gc->GY2-gc->GY1,gc->GX2-gc->GX1)*(180.0/M_PI);
-					double angle2 = atan2(ite->GrEndY-ite->GrStartX,ite->GrEndX-ite->GrStartX)*(180.0/M_PI);
-					double dx = ite->GrStartX + (ite->GrEndX-ite->GrStartX) / 2.0;
-					double dy = ite->GrStartY + (ite->GrEndY-ite->GrStartY) / 2.0;
-					QWMatrix mm, mm2;
-					if ((gc->GY1 < gc->GY2) && (gc->GX1 < gc->GX2))
-					{
-						mm.rotate(-angle2);
-						mm2.rotate(angle1);
-					}
-					FPointArray gra;
-					gra.setPoints(2, ite->GrStartX-dx, ite->GrStartY-dy, ite->GrEndX-dx, ite->GrEndY-dy);
-					gra.map(mm*mm2);
-					gra.translate(dx, dy);
-					ite->GrStartX = gra.point(0).x();
-					ite->GrStartY = gra.point(0).y();
-					ite->GrEndX = gra.point(1).x();
-					ite->GrEndY = gra.point(1).y();
-				}
-				else
-				{
-					QWMatrix mm = gc->matrix;
-					mm = gc->matrixg * mm;
-					FPointArray gra;
-					gra.setPoints(2, gc->GX1, gc->GY1, gc->GX2, gc->GY2);
-					gra.map(mm);
-					gc->GX1 = gra.point(0).x();
-					gc->GY1 = gra.point(0).y();
-					gc->GX2 = gra.point(1).x();
-					gc->GY2 = gra.point(1).y();
-					ite->GrStartX = gc->GX1 - ite->xPos() + BaseX;
-					ite->GrStartY = gc->GY1 - ite->yPos() + BaseY;
-					ite->GrEndX = gc->GX2 - ite->xPos() + BaseX;
-					ite->GrEndY = gc->GY2 - ite->yPos() + BaseY;
-				}
-				ite->GrType = gc->Gradient;
+				x = (*(it++)).toDouble();
+				y = (*it).toDouble();
+				svgMoveTo(x * Conversion, y * Conversion);
+				bFirst = false;
+				WasM = true;
 			}
 			else
 			{
-				ite->GrType = 0;
-				QPtrVector<VColorStop> cstops = gc->GradCo.colorStops();
-				ite->setFillColor(cstops.at(0)->name);
-				ite->setFillShade(cstops.at(0)->shade);
+				x = (*(it++)).toDouble();
+				y = (*it).toDouble();
+				svgLineTo(&ite->PoLine, x * Conversion, y * Conversion);
 			}
 		}
-		GElements.append(ite);
+		if (( STag == "polygon" ) && (pointList.count() > 4))
+			svgClosePath(&ite->PoLine);
+		else
+			ite->convertTo(PageItem::PolyLine);
+		finishNode(e, ite);
+		PElements.append(ite);
 	}
 	delete( m_gc.pop() );
-	return GElements;
+	return PElements;
+}
+
+QPtrList<PageItem> SVGPlug::parseRect(const QDomElement &e)
+{
+	QPtrList<PageItem> RElements;
+	double BaseX = m_Doc->currentPage()->xOffset();
+	double BaseY = m_Doc->currentPage()->yOffset();
+	double x = parseUnit( e.attribute( "x" ) );
+	double y = parseUnit( e.attribute( "y" ) );
+	double width = parseUnit( e.attribute( "width" ));
+	double height = parseUnit( e.attribute( "height" ) );
+	double rx = e.attribute( "rx" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "rx" ) );
+	double ry = e.attribute( "ry" ).isEmpty() ? 0.0 : parseUnit( e.attribute( "ry" ) );
+	setupNode(e);
+	SvgStyle *gc = m_gc.current();
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, width, height, gc->LWidth, gc->FillCol, gc->StrokeCol, true);
+	PageItem* ite = m_Doc->Items->at(z);
+	if ((rx != 0) || (ry != 0))
+	{
+		ite->setCornerRadius(QMAX(rx, ry));
+		ite->SetFrameRound();
+		m_Doc->setRedrawBounding(ite);
+	}
+	QWMatrix mm = QWMatrix();
+	mm.translate(x, y);
+	ite->PoLine.map(mm);
+	FPoint wh = getMaxClipF(&ite->PoLine);
+	ite->setWidthHeight(wh.x(), wh.y());
+	finishNode(e, ite);
+	RElements.append(ite);
+	delete( m_gc.pop() );
+	return RElements;
 }
 
 QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 {
 	QPtrList<PageItem> GElements;
-	setupTransform(e);
+	setupNode(e);
 	QDomNode c = e.firstChild();
 //	double BaseX = m_Doc->currentPage()->xOffset();
 //	double BaseY = m_Doc->currentPage()->yOffset();
@@ -1039,6 +1085,7 @@ QPtrList<PageItem> SVGPlug::parseText(const QDomElement &e)
 		for (uint ec = 0; ec < el.count(); ++ec)
 			GElements.append(el.at(ec));
 	}
+	delete( m_gc.pop() );
 	return GElements;
 }
 
