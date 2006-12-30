@@ -238,7 +238,7 @@ void SVGPlug::convert(int flags)
 //	Conversion = 0.8;
 	Conversion = 1.0;
 	QDomElement docElem = inpdoc.documentElement();
-	QSize wh = parseWidthHeight(docElem, 0.8);
+	QSize wh = parseWidthHeight(docElem, 1.0 /*0.8*/);
 	double width = wh.width();
 	double height = wh.height();
 	if (!interactive || (flags & LoadSavePlugin::lfInsertPage))
