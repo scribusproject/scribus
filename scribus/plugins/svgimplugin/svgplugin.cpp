@@ -196,7 +196,8 @@ SVGPlug::SVGPlug( ScribusMainWindow* mw, QString fName, int flags ) :
 	tmpSel=new Selection(this, false);
 	m_Doc=mw->doc;
 	unsupported = false;
-	Conversion = 0.8;
+//	Conversion = 0.8;
+	Conversion = 1.0;
 	interactive = (flags & LoadSavePlugin::lfInteractive);
 	QString f = "";
 #ifdef HAVE_LIBZ
@@ -234,7 +235,8 @@ void SVGPlug::convert(int flags)
 {
 	bool ret = false;
 	SvgStyle *gc = new SvgStyle;
-	Conversion = 0.8;
+//	Conversion = 0.8;
+	Conversion = 1.0;
 	QDomElement docElem = inpdoc.documentElement();
 	QSize wh = parseWidthHeight(docElem, 0.8);
 	double width = wh.width();
@@ -1340,7 +1342,7 @@ double SVGPlug::parseUnit(const QString &unit)
 	else if( unit.right( 2 ) == "px" )
 		value = value * 0.8;
 	else if(noUnit)
-		value = value * Conversion;
+		value = value; // * Conversion;
 	return value;
 }
 
