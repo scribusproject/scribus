@@ -2655,8 +2655,11 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 				if (currItem->itemType() == PageItem::PathText)
 					m_ScMW->scrActions["toolsEditWithStoryEditor"]->addTo(pmen);
 			}
-			pmen->insertSeparator();
-			m_ScMW->scrActions["itemAttributes"]->addTo(pmen);
+			if (Doc->m_Selection->count() == 1)
+			{
+				pmen->insertSeparator();
+				m_ScMW->scrActions["itemAttributes"]->addTo(pmen);
+			}	
 			if (currItem->itemType() == PageItem::TextFrame)
 			{
 				if (Doc->currentPage()->pageName().isEmpty())
