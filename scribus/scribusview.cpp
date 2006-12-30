@@ -9141,12 +9141,14 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					else
 					//If we are just selecting one item
 					{
-						Doc->m_Selection->addItem(currItem, true);
+						//CB 301206 We shouldnt be ignoring the GUI here...
+						//Doc->m_Selection->addItem(currItem, true);
+						Doc->m_Selection->addItem(currItem);
 						currItem->FrameOnly = true;
 						currItem->paintObj();
 					}
 				}
-				else
+				else //If the clicked on item is tagged as selected
 				{
 					if (Doc->m_Selection->count() > 1)
 					{
@@ -9157,6 +9159,7 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 						currItem->paintObj();
 						bb->FrameOnly = true;
 						//CB dont think we need to paint here when we paint below
+						//CB With the change of 301206, perhaps we need to?
 						bb->paintObj();
 					}
 				}
@@ -9176,12 +9179,13 @@ bool ScribusView::SeleItem(QMouseEvent *m)
 					emit ItemGeom(w, h);
 					emit HaveSel(currItem->itemType());
 				}
-				else
-				{
-					Doc->m_Selection->connectItemToGUI();
-					//CB Dont need this as creating the 0th selection does this
-					currItem->paintObj();
-				}
+//CB 301206 Unsure why we need this if the above is no longer ignoring the GUI
+// 				else
+// 				{
+// 					Doc->m_Selection->connectItemToGUI();
+// 					//CB Dont need this as creating the 0th selection does this
+// 					currItem->paintObj();
+// 				}
 				if (Doc->m_Selection->count() == 1)
 				{
 					HandleSizer(&p, currItem, mpo, m);

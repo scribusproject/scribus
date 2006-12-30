@@ -2015,3 +2015,8 @@ void ActionManager::createDefaultNonMenuActions()
 	itnmenua->second << "unicodeLigature_ft";
 	itnmenua->second << "unicodeLigature_st";
 }
+
+void ActionManager::handleMultipleSelections(bool isMultiple)
+{
+	(*scrActions)["itemAttributes"]->setEnabled(!isMultiple);
+}
