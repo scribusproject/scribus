@@ -511,6 +511,8 @@ void SVGPlug::parseDefs(const QDomElement &e)
 		QString STag2 = b.tagName();
 		if ( STag2 == "linearGradient" || STag2 == "radialGradient" )
 			parseGradient( b );
+		else if (STag2 == "clipPath")
+			parseClipPath(b);
 		else if ( b.hasAttribute("id") )
 		{
 			QString id = b.attribute("id");
@@ -530,7 +532,17 @@ void SVGPlug::parseClipPath(const QDomElement &e)
 		QDomElement b2 = n2.toElement();
 		while (b2.nodeName() == "use")
 			b2 = getNodeFromUseElement(b2);
-		parseSVG( b2.attribute( "d" ), &clip );
+		if (b2.nodeName() == "path")
+			parseSVG( b2.attribute( "d" ), &clip );
+		else if (b2.nodeName() == "rect")
+		{
+			double width = parseUnit( b2.attribute( "width" ));
+			double height = parseUnit( b2.attribute( "height" ) );
+			clip.addQuadPoint(0.0, 0.0, 0.0, 0.0, width, 0.0, width, 0.0);
+			clip.addQuadPoint(width, 0.0, width, 0.0, width, height, width, height);
+			clip.addQuadPoint(width, height, width, height, 0.0, height, 0.0, height);
+			clip.addQuadPoint(0.0, height, 0.0, height, 0.0, 0.0, 0.0, 0.0);
+		}
 		if (clip.size() >= 2)
 			m_clipPaths.insert(id, clip);
 	}
