@@ -152,8 +152,8 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	QFileInfoListIterator it(*list);
 	QFileInfo *fi;
 	langmgr=new LanguageManager();
-	langmgr->init();
-	standardloremtext= tr("Standard Lorem Ipsum")
+	langmgr->init(false);
+	
 	while ( (fi = it.current()) != 0 )
 	{
 		LoremParser *parser = new LoremParser(fi->fileName());
@@ -191,6 +191,7 @@ void LoremManager::languageChange()
 	okButton->setAccel( QKeySequence( tr( "Alt+O" ) ) );
 	cancelButton->setText( CommonStrings::tr_Cancel );
 	cancelButton->setAccel( QKeySequence( tr( "Alt+C" ) ) );
+	standardloremtext = tr("Standard Lorem Ipsum");
 }
 
 void LoremManager::okButton_clicked()

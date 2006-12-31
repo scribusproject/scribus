@@ -117,6 +117,7 @@ class SCRIBUS_API LoremManager : public QDialog
 		QHBoxLayout* layout1;
 		QSpacerItem* buttonSpacer;
 		LanguageManager* langmgr;
+		QString standardloremtext;
 
 	protected slots:
 		virtual void languageChange();
