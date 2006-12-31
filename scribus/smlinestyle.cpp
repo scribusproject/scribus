@@ -220,7 +220,7 @@ void SMLineStyle::currentDoc(ScribusDoc *doc)
 	{
 		tmpLines = doc_->MLineStyles;
 		selection_.clear();
-}
+	}
 	else
 	{
 		tmpLines.clear();
