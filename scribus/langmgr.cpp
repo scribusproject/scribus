@@ -57,7 +57,7 @@ void LanguageManager::generateLangList()
 	langList.insert("dz",       langPair("Dzongkha",            QObject::tr( "Dzongkha" )) );
 	langList.insert("nl",       langPair("Dutch",               QObject::tr( "Dutch" )) );
 	langList.insert("en",       langPair("English",             QObject::tr( "English" )) );
-	langList.insert("en_AU",    langPair("English (Australian)",   QObject::tr( "English (Australian)" )) );
+	langList.insert("en_AU",    langPair("English (Australian)",QObject::tr( "English (Australian)" )) );
 	langList.insert("en_GB",    langPair("English (British)",   QObject::tr( "English (British)" )) );
 	langList.insert("en_US",    langPair("English (American)",  QObject::tr( "English (American)" )) );
 	langList.insert("eo",       langPair("Esperanto",           QObject::tr( "Esperanto" )) );
@@ -71,6 +71,7 @@ void LanguageManager::generateLangList()
 	langList.insert("galician", langPair("Galician",            QObject::tr( "Galician" )) );
 	langList.insert("gl",       langPair("Galician",            QObject::tr( "Galician" )) );
 	langList.insert("el",       langPair("Greek",               QObject::tr( "Greek" )) );
+	langList.insert("he",       langPair("Hebrew",              QObject::tr( "Hebrew" )) );
 	langList.insert("hu",       langPair("Hungarian",           QObject::tr( "Hungarian" )) );
 	langList.insert("ia",       langPair("Latin",               QObject::tr( "Latin" )) );
 	langList.insert("is",       langPair("Icelandic",           QObject::tr( "Icelandic" )) );
@@ -78,6 +79,7 @@ void LanguageManager::generateLangList()
 	langList.insert("it",       langPair("Italian",             QObject::tr( "Italian" )) );
 	langList.insert("ja",       langPair("Japanese",            QObject::tr( "Japanese" )) );
 	langList.insert("ko",       langPair("Korean",              QObject::tr( "Korean" )) );
+	langList.insert("la",       langPair("Latin",               QObject::tr( "Latin" )) );
 	langList.insert("lt",       langPair("Lithuanian",          QObject::tr( "Lithuanian" )) );
 	langList.insert("lt_LT",    langPair("Lithuanian",          QObject::tr( "Lithuanian" )) );
 	langList.insert("lu",       langPair("Luxembourgish",       QObject::tr( "Luxembourgish" )) );
@@ -144,17 +146,33 @@ const QString LanguageManager::getLangFromAbbrev(QString langAbbrev, bool getTra
 		return "";	
 }
 
-const QString LanguageManager::getAbbrevFromLang(QString lang, bool getTranslated)
+const QString LanguageManager::getAbbrevFromLang(QString lang, bool getFromTranslated, bool useInstalled)
 {
 	QMap<QString, langPair>::Iterator it;
-	for (it=langList.begin();it!=langList.end();++it)
+	if (useInstalled)
 	{
-		if (installedLangList.find(it.key()) != installedLangList.end())
+		for (it=langList.begin();it!=langList.end();++it)
 		{
-			if (getTranslated && it.data().second==lang)
-				return it.key();
-			if (!getTranslated && it.data().first==lang)
-				return it.key();
+			if (installedLangList.find(it.key()) != installedLangList.end())
+			{
+				if (getFromTranslated && it.data().second==lang)
+					return it.key();
+				if (!getFromTranslated && it.data().first==lang)
+					return it.key();
+			}
+		}
+	}
+	else
+	{
+		for (it=langList.begin();it!=langList.end();++it)
+		{
+// 			if (installedLangList.find(it.key()) != installedLangList.end())
+// 			{
+				if (getFromTranslated && it.data().second==lang)
+					return it.key();
+				if (!getFromTranslated && it.data().first==lang)
+					return it.key();
+// 			}
 		}
 	}
 	return "";

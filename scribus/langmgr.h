@@ -39,7 +39,7 @@ public:
 	~LanguageManager() {};
 	void init(bool generateInstalledList = true);
 	const QString getLangFromAbbrev(QString, bool getTranslated=true);
-	const QString getAbbrevFromLang(QString, bool getTranslated=true);
+	const QString getAbbrevFromLang(QString, bool getFromTranslated=true, bool useInstalled=true);
 	void fillInstalledStringList(QStringList *stringListToFill, bool addDefaults);
 	void printInstalledList();
 	QString numericSequence(QString seq);

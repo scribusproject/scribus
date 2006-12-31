@@ -35,6 +35,7 @@ class QString;
 class QStringList;
 
 class ScribusDoc;
+class LanguageManager;
 
 
 /*! \brief XML parser for Lorem Ipsum file.
@@ -115,6 +116,7 @@ class SCRIBUS_API LoremManager : public QDialog
 		QSpacerItem* paraSpacer;
 		QHBoxLayout* layout1;
 		QSpacerItem* buttonSpacer;
+		LanguageManager* langmgr;
 
 	protected slots:
 		virtual void languageChange();

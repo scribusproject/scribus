@@ -31,6 +31,8 @@ for which a new license (GPL+exception) is in place.
 
 #include "loremipsum.h"
 #include "loremipsum.moc"
+
+#include "langmgr.h"
 #include "scribus.h"
 #include "scribusdoc.h"
 #include "scribusview.h"
@@ -149,7 +151,9 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	const QFileInfoList *list = d.entryInfoList();
 	QFileInfoListIterator it(*list);
 	QFileInfo *fi;
-
+	langmgr=new LanguageManager();
+	langmgr->init();
+	standardloremtext= tr("Standard Lorem Ipsum")
 	while ( (fi = it.current()) != 0 )
 	{
 		LoremParser *parser = new LoremParser(fi->fileName());
@@ -161,7 +165,10 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 		}
 		availableLorems[parser->name] = fi->fileName();
 		QListViewItem *item = new QListViewItem(loremList);
-		item->setText(0, parser->name);
+		if (parser->name=="la")
+			item->setText(0,standardloremtext);
+		else
+			item->setText(0, langmgr->getLangFromAbbrev(parser->name, true));
 		new QListViewItem(item, tr("Author:") + " " + parser->author);
 		new QListViewItem(item, tr("Get More:") + " " + parser->url);
 		new QListViewItem(item, tr("XML File:") + " " + fi->fileName());
@@ -194,8 +201,13 @@ void LoremManager::okButton_clicked()
 		li = loremList->currentItem();
 	else
 		li = loremList->currentItem()->parent();
-
-	insertLoremIpsum(availableLorems[li->text(0)], paraBox->value());
+	QString name;
+	if (li->text(0)==standardloremtext)
+		name="la";
+	else
+		name=langmgr->getAbbrevFromLang(li->text(0), true, false);
+		
+	insertLoremIpsum(availableLorems[name], paraBox->value());
 	accept();
 }
 
@@ -225,7 +237,6 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			if (currItem->itemText.length() != 0)
 				continue;
 		}
-
 		LoremParser *lp = new LoremParser(name);
 		if (lp == NULL)
 		{
