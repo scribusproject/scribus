@@ -845,8 +845,8 @@ void SMCStylePage::fillColorCombo(ColorList &colors)
 	ScribusDoc* doc = colors.document();
 	for (ColorList::Iterator it = colors.begin(); it != itend; ++it)
 	{
-		fillColor_->insertSmallItem(colors[it.key()], doc, it.key());
-		strokeColor_->insertSmallItem(colors[it.key()], doc, it.key());
+		fillColor_->insertSmallItem(it.data(), doc, it.key());
+		strokeColor_->insertSmallItem(it.data(), doc, it.key());
 	}
 	fillColor_->listBox()->setMinimumWidth(fillColor_->listBox()->maxItemWidth()+24);
 	strokeColor_->listBox()->setMinimumWidth(strokeColor_->listBox()->maxItemWidth()+24);
