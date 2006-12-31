@@ -3938,15 +3938,15 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 			p.end();
 			if(Mxp > SeRx)
 			{
-				double tmp=SeRx;
-				SeRx=static_cast<int>(Mxp);
-				Mxp=static_cast<int>(tmp);
+				int tmp = SeRx;
+				SeRx = Mxp;
+				Mxp = tmp;
 			}
 			if(Myp > SeRy)
 			{
-				double tmp=SeRy;
-				SeRy=static_cast<int>(Myp);
-				Myp=static_cast<int>(tmp);
+				int tmp = SeRy;
+				SeRy = Myp;
+				Myp = tmp;
 			}
 			QRect Sele = QRect(static_cast<int>(Mxp*sc), static_cast<int>(Myp*sc), static_cast<int>((SeRx-Mxp)*sc), static_cast<int>((SeRy-Myp)*sc));
 			if (!Doc->masterPageMode())
@@ -4080,25 +4080,32 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		double sc = Scale;
 		if (HaveSelRect)
 		{
-			if((Mxp*sc) > SeRx)
+			QPainter p;
+			p.begin(viewport());
+			ToView(&p);
+			p.scale(Scale, Scale);
+			p.setRasterOp(XorROP);
+			p.setPen(QPen(white, 1, DotLine, FlatCap, MiterJoin));
+			p.drawRect(Mxp, Myp, SeRx-Mxp, SeRy-Myp);
+			p.end();
+			if(Mxp > SeRx)
 			{
-				double tmp=SeRx;
-				SeRx=static_cast<int>(Mxp*sc);
-				Mxp=static_cast<int>(tmp/sc);
+				int tmp = SeRx;
+				SeRx = Mxp;
+				Mxp = tmp;
 			}
-			if((Myp*sc) > SeRy)
+			if(Myp > SeRy)
 			{
-				double tmp=SeRy;
-				SeRy=static_cast<int>(Myp*sc);
-				Myp=static_cast<int>(tmp/sc);
+				int tmp = SeRy;
+				SeRy = Myp;
+				Myp = tmp;
 			}
-			double yf = height() / (SeRy/sc-Myp);
-			double xf = width() / (SeRx/sc-Mxp);
-			setScale(QMIN(yf, xf));
+			FPoint nx = translateToDoc(Mxp*sc, Myp*sc);
+			setScale(visibleWidth() / static_cast<double>(QMAX(abs(SeRx-Mxp), 1)));
 			slotDoZoom();
+			SetCPo(qRound(nx.x()), qRound(nx.y()));
 			if (sc == Scale)
 			{
-				SetCPo(Mxp, Myp);
 				HaveSelRect = false;
 				qApp->setOverrideCursor(QCursor(ArrowCursor), true);
 				Doc->appMode = modeNormal;
@@ -4107,8 +4114,9 @@ void ScribusView::contentsMouseReleaseEvent(QMouseEvent *m)
 		}
 		else
 		{
-			int mx = qRound(m->x() / Scale + Doc->minCanvasCoordinate.x());
-			int my = qRound(m->y() / Scale + Doc->minCanvasCoordinate.y());
+			FPoint nx = translateToDoc(m->x(), m->y());
+			int mx = qRound(nx.x());
+			int my = qRound(nx.y());
 			Magnify ? slotZoomIn(mx,my) : slotZoomOut(mx,my);
 			if (sc == Scale)
 			{
@@ -5272,7 +5280,10 @@ void ScribusView::contentsMouseMoveEvent(QMouseEvent *m)
 		if ((m_MouseButtonPressed) && (m->state() & LeftButton) && (GyM == -1) && (GxM == -1))
 		{
 			newX = qRound(m->x()/sc + Doc->minCanvasCoordinate.x());
-			newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
+			if (Doc->appMode == modeMagnifier)
+				newY = qRound(Myp + ((SeRx - Mxp) * visibleHeight()) / visibleWidth());
+			else
+				newY = qRound(m->y()/sc + Doc->minCanvasCoordinate.y());
 			p.begin(viewport());
 			ToView(&p);
 			p.scale(Scale, Scale);
@@ -5881,6 +5892,10 @@ void ScribusView::contentsMousePressEvent(QMouseEvent *m)
 				Magnify = true;
 				qApp->setOverrideCursor(QCursor(loadIcon("LupeZ.xpm")), true);
 			}
+			Mxp = qRound(m->x()/Scale + Doc->minCanvasCoordinate.x());
+			Myp = qRound(m->y()/Scale + Doc->minCanvasCoordinate.y());
+			SeRx = Mxp;
+			SeRy = Myp;
 			break;
 		case modeEdit:
 			{
@@ -10022,6 +10037,46 @@ void ScribusView::slotZoomOut(int mx,int my)
 		rememberOldZoomLocation(mx,my);
 	setScale(Scale / (static_cast<double>(Doc->toolSettings.magStep)/100.0));
 	slotDoZoom();
+}
+
+FPoint ScribusView::translateToView(double x, double y)
+{
+	return FPoint((x - Doc->minCanvasCoordinate.x()) * Scale, (y - Doc->minCanvasCoordinate.y())* Scale);
+}
+
+FPoint ScribusView::translateToView(FPoint in)
+{
+	return translateToView(in.x(), in.y());
+}
+
+FPoint ScribusView::translateToDoc(double x, double y)
+{
+	return FPoint(x / Scale + Doc->minCanvasCoordinate.x(), y / Scale + Doc->minCanvasCoordinate.y());
+}
+
+FPoint ScribusView::translateToDoc(FPoint in)
+{
+	return translateToDoc(in.x(), in.y());
+}
+
+FPoint ScribusView::translateFromViewport(double x, double y)
+{
+	return FPoint((x + contentsX()) / Scale + Doc->minCanvasCoordinate.x(), (y + contentsY()) / Scale + Doc->minCanvasCoordinate.y());
+}
+
+FPoint ScribusView::translateFromViewport(FPoint in)
+{
+	return translateFromViewport(in.x(), in.y());
+}
+
+FPoint ScribusView::translateToViewport(double x, double y)
+{
+	return FPoint((x - Doc->minCanvasCoordinate.x()) * Scale - contentsX(), (y - Doc->minCanvasCoordinate.y())* Scale - contentsY());
+}
+
+FPoint ScribusView::translateToViewport(FPoint in)
+{
+	return translateToViewport(in.x(), in.y());
 }
 
 void ScribusView::DrawNew()

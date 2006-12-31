@@ -240,6 +240,14 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	double scale() const { return Scale; }
+	FPoint translateToView(double x, double y);
+	FPoint translateToView(FPoint in);
+	FPoint translateToDoc(double x, double y);
+	FPoint translateToDoc(FPoint in);
+	FPoint translateFromViewport(double x, double y);
+	FPoint translateFromViewport(FPoint in);
+	FPoint translateToViewport(double x, double y);
+	FPoint translateToViewport(FPoint in);
 
 public slots: // Public slots
 	void languageChange();
