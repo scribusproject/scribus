@@ -372,6 +372,7 @@ void SVGPlug::convert(int flags)
 			{
 				m_Doc->Items->at(a)->ItemNr = a;
 			}
+			neu->setRedrawBounding();
 			Elements.prepend(neu);
 			m_Doc->GroupCounter++;
 		}
@@ -498,6 +499,7 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 			break;
 		}
 	}
+	item->setRedrawBounding();
 	item->OwnPage = m_Doc->OnPage(item);
 	if( !e.attribute("id").isEmpty() )
 		item->setItemName(" "+e.attribute("id"));
@@ -770,6 +772,10 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			neu->PoLine = clipPath.copy();
 			neu->PoLine.map(mm);
 			clipPath.resize(0);
+			FPoint tp2(getMinClipF(&neu->PoLine));
+			FPoint tp(getMaxClipF(&neu->PoLine));
+			if ((tp2.x() < 0) && (tp2.y() < 0) && (tp.x() > neu->width()) && (tp.y() > neu->height()))
+				neu->SetRectFrame();
 		}
 		else
 			neu->SetRectFrame();
@@ -787,6 +793,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
 			GElements.append(gElements.at(gr));
 		}
+		neu->setRedrawBounding();
 	}
 	m_Doc->GroupCounter++;
 	delete( m_gc.pop() );
