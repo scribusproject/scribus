@@ -3,14 +3,14 @@ INCLUDE_DIRECTORIES(
 )
 
 INSTALL(FILES
-arabic.xml
-czech.xml
-finnish.xml
-german.xml
-greek.xml
-hebrew.xml
-italian.xml
-loremipsum.xml
-russian.xml
+ar.xml
+cs.xml
+de.xml
+el.xml
+fi.xml
+he.xml
+it.xml
+la.xml
+ru.xml
   DESTINATION ${SHAREDIR}loremipsum
 )
