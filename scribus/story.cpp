@@ -682,7 +682,8 @@ void SEditor::updateSel(const CharStyle& newStyle)
 	getSelection(&PStart, &SelStart, &PEnd, &SelEnd);
 	start = StyledText.startOfParagraph(PStart) + SelStart;
 	end = StyledText.startOfParagraph(PEnd) + SelEnd;
-	StyledText.applyCharStyle(start, end-start, newStyle);
+	if (start >= 0 && start < end)
+		StyledText.applyCharStyle(start, end-start, newStyle);
 }
 
 
