@@ -532,7 +532,7 @@ void ScribusMainWindow::initMenuBar()
 	scrMenuMgr->addMenuSeparator("File");
 	scrMenuMgr->createMenu("FileImport", QIconSet(noIcon), tr("&Import"), "File");
 	scrMenuMgr->addMenuItem(scrActions["fileImportText"], "FileImport");
-	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
+// 	scrMenuMgr->addMenuItem(scrActions["fileImportText2"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportAppendText"], "FileImport");
 	scrMenuMgr->addMenuItem(scrActions["fileImportImage"], "FileImport");
 	scrMenuMgr->createMenu("FileExport", QIconSet(noIcon), tr("&Export"), "File");
