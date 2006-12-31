@@ -240,6 +240,7 @@ public:
 	void setGroupTransactionStarted(bool isOn);
 	void setScale(const double newScale);
 	double scale() const { return Scale; }
+	void normalizeSelectionRect();
 	FPoint translateToView(double x, double y);
 	FPoint translateToView(FPoint in);
 	FPoint translateToDoc(double x, double y);
@@ -272,8 +273,8 @@ public slots: // Public slots
 	void GotoLa(int l);
 	void GotoPage(int Seite);
 	void ChgUnit(int art);
-	void SetCPo(int x, int y);
-	void SetCCPo(int x, int y);
+	void SetCPo(double x, double y);
+	void SetCCPo(double x, double y);
 	void editExtendedImageProperties();
 	void RefreshItem(PageItem *currItem);
 	void RefreshGradient(PageItem *currItem, double dx = 8, double dy = 8);

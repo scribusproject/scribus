@@ -7251,7 +7251,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 				view->resizeContents(QMAX(qRound((currItem->xPos() + QMAX(x1, x2)) * viewScale),
 									view->contentsWidth()),
 									QMAX(qRound((currItem->yPos() + QMAX(y1, y2)) * viewScale), view->contentsHeight()));
-			view->SetCCPo(static_cast<int>(mx), static_cast<int>(my));
+			view->SetCCPo(mx, my);
 		}
 		else
 		{
@@ -7261,7 +7261,7 @@ void ScribusMainWindow::selectItemsFromOutlines(int Page, int Item, bool single)
 				)
 				view->resizeContents(QMAX(qRound((currItem->xPos() + currItem->width()) * viewScale), view->contentsWidth()),
 									 QMAX(qRound((currItem->yPos() + currItem->height()) * viewScale), view->contentsHeight()));
-			view->SetCCPo(static_cast<int>(currItem->xPos() + currItem->width()/2), static_cast<int>(currItem->yPos() + currItem->height()/2));
+			view->SetCCPo(currItem->xPos() + currItem->width() / 2.0, currItem->yPos() + currItem->height() / 2.0);
 		}
 	}
 }
