@@ -4260,7 +4260,7 @@ void PageItem::updateClip()
 			default:
 				break;
 			}
-			if ((OldB2 != 0) && (OldH2 != 0))
+			if ((OldB2 != 0) && (OldH2 != 0) && (width() != 0) && (height() != 0))
 			{
 				double scx = width() / OldB2;
 				double scy = height() / OldH2;
@@ -4312,7 +4312,7 @@ void PageItem::updateClip()
 				OldH2 = height();
 				ContourLine = PoLine.copy();
 			}
-			if ((OldB2 == 0) || (OldH2 == 0))
+			if ((OldB2 == 0) || (OldH2 == 0) || (width() == 0) || (height() == 0))
 				return;
 			double scx = width() / OldB2;
 			double scy = height() / OldH2;
