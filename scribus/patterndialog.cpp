@@ -45,6 +45,7 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 	m_doc = doc;
 	mainWin = scMW;
 	patternView->clear();
+	patternView->setMinimumWidth(175);
 	for (QMap<QString, ScPattern>::Iterator it = docPatterns->begin(); it != docPatterns->end(); ++it)
 	{
 		dialogPatterns.insert(it.key(), it.data());
@@ -64,10 +65,12 @@ PatternDialog::PatternDialog(QWidget* parent, QMap<QString, ScPattern> *docPatte
 void PatternDialog::updatePatternList()
 {
 	patternView->clear();
+	patternView->setMaxItemWidth(48);
+	patternView->setWordWrapIconText(true);
 	for (QMap<QString, ScPattern>::Iterator it = dialogPatterns.begin(); it != dialogPatterns.end(); ++it)
 	{
 		QPixmap pm;
-		if (it.data().getPattern()->width() > it.data().getPattern()->height())
+		if (it.data().getPattern()->width() >= it.data().getPattern()->height())
 			pm.convertFromImage(it.data().getPattern()->scaleWidth(48));
 		else
 			pm.convertFromImage(it.data().getPattern()->scaleHeight(48));

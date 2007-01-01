@@ -9,8 +9,8 @@
         <rect>
             <x>0</x>
             <y>0</y>
-            <width>298</width>
-            <height>341</height>
+            <width>342</width>
+            <height>314</height>
         </rect>
     </property>
     <property name="caption">
@@ -33,8 +33,17 @@
             <property name="name">
                 <cstring>patternView</cstring>
             </property>
+            <property name="minimumSize">
+                <size>
+                    <width>175</width>
+                    <height>0</height>
+                </size>
+            </property>
             <property name="resizeMode">
                 <enum>Adjust</enum>
+            </property>
+            <property name="maxItemWidth">
+                <number>48</number>
             </property>
             <property name="itemsMovable">
                 <bool>false</bool>
