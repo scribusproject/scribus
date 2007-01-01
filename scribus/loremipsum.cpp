@@ -156,6 +156,11 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	
 	while ( (fi = it.current()) != 0 )
 	{
+		if (langmgr->getLangFromAbbrev(fi->baseName(), false).isEmpty())
+		{
+			++it;
+			continue;
+		}
 		LoremParser *parser = new LoremParser(fi->fileName());
 		if (!parser->correct)
 		{
