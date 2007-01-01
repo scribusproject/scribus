@@ -248,6 +248,7 @@ ScribusView::ScribusView(QWidget* win, ScribusMainWindow* mw, ScribusDoc *doc) :
 	Doc->leaveDrag = false;
 	Doc->SubMode = -1;
 	storedFramesShown = Doc->guidesSettings.framesShown;
+	storedShowControls = Doc->guidesSettings.showControls;
 	viewAsPreview = false;
 	previewVisual = 0;
 	shiftSelItems = false;
@@ -311,6 +312,8 @@ void ScribusView::togglePreview()
 	{
 		storedFramesShown = Doc->guidesSettings.framesShown;
 		Doc->guidesSettings.framesShown = false;
+		storedShowControls = Doc->guidesSettings.showControls;
+		Doc->guidesSettings.showControls = false;
 		// warning popping up in case colour management and out-of-gamut-display are active
 		// as from #4346: Add a preview for daltonian - PV
 		if (Doc->HasCMS && Doc->Gamut)
@@ -319,7 +322,10 @@ void ScribusView::togglePreview()
 						QMessageBox::Ok);
 	}
 	else
+	{
 		Doc->guidesSettings.framesShown = storedFramesShown;
+		Doc->guidesSettings.showControls = storedShowControls;
+	}
 	m_ScMW->scrActions["viewFitPreview"]->setOn(viewAsPreview);
 	m_ScMW->scrActions["viewShowMargins"]->setEnabled(!viewAsPreview);
 	m_ScMW->scrActions["viewShowFrames"]->setEnabled(!viewAsPreview);

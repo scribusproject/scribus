@@ -147,6 +147,7 @@ public:
 	bool previewMode;
 	bool viewAsPreview;
 	bool storedFramesShown;
+	bool storedShowControls;
 	int previewVisual;
 	FPoint RCenter;
 	FPointArray RecordP;
