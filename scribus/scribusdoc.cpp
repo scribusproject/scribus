@@ -1528,7 +1528,7 @@ void ScribusDoc::copyLayer(int layerNumberToCopy, int whereToInsert)
 			{
 				int fho = Neu->imageFlippedH();
 				int fvo = Neu->imageFlippedV();
-				LoadPict(Neu->Pfile, Neu->ItemNr, true);
+				loadPict(Neu->Pfile, Neu, true);
 				Neu->setImageFlippedH(fho);
 				Neu->setImageFlippedV(fvo);
 				Neu->AdjustPictScale();
@@ -3341,7 +3341,7 @@ int ScribusDoc::itemAddUserFrame(InsertAFrameData &iafData)
 					currItem->IRender = CMSSettings.DefaultIntentImages;
 					qApp->setOverrideCursor( QCursor(Qt::WaitCursor) );
 					qApp->eventLoop()->processEvents(QEventLoop::ExcludeUserInput);
-					LoadPict(iafData.source, currItem->ItemNr, false, true);
+					loadPict(iafData.source, currItem, false, true);
 					if (iafData.sizeType==3) //Frame is size of imported image
 					{
 						currItem->setWidth(static_cast<double>(currItem->OrigW * 72.0 / currItem->pixm.imgInfo.xres));
@@ -5511,7 +5511,7 @@ void ScribusDoc::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -5524,7 +5524,7 @@ void ScribusDoc::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -5537,7 +5537,7 @@ void ScribusDoc::updatePict(QString name)
 		{
 			bool fho = currItem->imageFlippedH();
 			bool fvo = currItem->imageFlippedV();
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -5554,7 +5554,7 @@ void ScribusDoc::updatePict(QString name)
 			{
 				bool fho = currItem->imageFlippedH();
 				bool fvo = currItem->imageFlippedV();
-				LoadPict(currItem->Pfile, currItem->ItemNr, true);
+				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
 				currItem->AdjustPictScale();
@@ -5612,7 +5612,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -5630,7 +5630,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -5648,7 +5648,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 			bool fvo = currItem->imageFlippedV();
 			if (applyNewRes)
 				currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-			LoadPict(currItem->Pfile, currItem->ItemNr, true);
+			loadPict(currItem->Pfile, currItem, true);
 			currItem->setImageFlippedH(fho);
 			currItem->setImageFlippedV(fvo);
 			currItem->AdjustPictScale();
@@ -5669,7 +5669,7 @@ void ScribusDoc::recalcPicturesRes(bool applyNewRes)
 				bool fvo = currItem->imageFlippedV();
 				if (applyNewRes)
 					currItem->pixm.imgInfo.lowResType = toolSettings.lowResType;
-				LoadPict(currItem->Pfile, currItem->ItemNr, true);
+				loadPict(currItem->Pfile, currItem, true);
 				currItem->setImageFlippedH(fho);
 				currItem->setImageFlippedV(fvo);
 				currItem->AdjustPictScale();
@@ -5751,7 +5751,7 @@ void ScribusDoc::updatePic()
 					{
 						int fho = currItem->imageFlippedH();
 						int fvo = currItem->imageFlippedV();
-						LoadPict(currItem->Pfile, currItem->ItemNr, true);
+						loadPict(currItem->Pfile, currItem, true);
 						currItem->setImageFlippedH(fho);
 						currItem->setImageFlippedV(fvo);
 						currItem->AdjustPictScale();
