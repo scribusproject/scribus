@@ -3617,12 +3617,21 @@ int ScribusDoc::OnPage(PageItem *currItem)
 	int retw = -1;
 	if (masterPageMode())
 	{
-		int x = static_cast<int>(currentPage()->xOffset());
+/*		int x = static_cast<int>(currentPage()->xOffset());
 		int y = static_cast<int>(currentPage()->yOffset());
 		int w = static_cast<int>(currentPage()->width());
 		int h = static_cast<int>(currentPage()->height());
 		QRect itemRect(qRound(currItem->BoundingX), qRound(currItem->BoundingY), qRound(currItem->BoundingW), qRound(currItem->BoundingH));
-		if (QRect(x, y, w, h).intersects(itemRect))
+		if (QRect(x, y, w, h).intersects(itemRect)) */
+		double x = currentPage()->xOffset();
+		double y = currentPage()->yOffset();
+		double w = currentPage()->width();
+		double h1 = currentPage()->height();
+		double x2 = currItem->BoundingX;
+		double y2 = currItem->BoundingY;
+		double w2 = currItem->BoundingW;
+		double h2 = currItem->BoundingH;
+		if (( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
 			retw = currentPage()->pageNr();
 	}
 	else
@@ -3630,7 +3639,20 @@ int ScribusDoc::OnPage(PageItem *currItem)
 		uint docPageCount = Pages->count();
 		for (uint a = 0; a < docPageCount; ++a)
 		{
-			int x = static_cast<int>(Pages->at(a)->xOffset());
+			double x = Pages->at(a)->xOffset();
+			double y = Pages->at(a)->yOffset();
+			double w = Pages->at(a)->width();
+			double h1 = Pages->at(a)->height();
+			double x2 = currItem->BoundingX;
+			double y2 = currItem->BoundingY;
+			double w2 = currItem->BoundingW;
+			double h2 = currItem->BoundingH;
+			if (( QMAX( x, x2 ) <= QMIN( x+w, x2+w2 ) && QMAX( y, y2 ) <= QMIN( y+h1, y2+h2 )))
+			{
+				retw = static_cast<int>(a);
+				break;
+			}
+/*			int x = static_cast<int>(Pages->at(a)->xOffset());
 			int y = static_cast<int>(Pages->at(a)->yOffset());
 			int w = static_cast<int>(Pages->at(a)->width());
 			int h = static_cast<int>(Pages->at(a)->height());
@@ -3639,7 +3661,7 @@ int ScribusDoc::OnPage(PageItem *currItem)
 			{
 				retw = static_cast<int>(a);
 				break;
-			}
+			} */
 		}
 	}
 	if ((retw == -1) && (currItem->isBookmark))
