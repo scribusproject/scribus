@@ -8398,155 +8398,6 @@ void ScribusView::slotDoCurs(bool draw)
 	PageItem *currItem;
 	if (GetItem(&currItem))
 	{
-#if 0
-//#ifndef NLS_PROTO
-		if (!currItem->asTextFrame())
-			return;
-		// don't mess around with itemText when layout() is about to happen
-		if (currItem->invalid)
-			return;
-		QPainter p;
-		int xp, yp, yp1, desc, asce;
-		p.begin(viewport());
-		ToView(&p);
-		Transform(currItem, &p);
-		TransformM(currItem, &p);
-		if (currItem->CPos > 0 && currItem->frameDisplays(currItem->CPos) )
-		{
-			int offs = QMIN(currItem->CPos-1, currItem->lastInFrame());
-			if (currItem->CPos < currItem->lastInFrame())
-			{
-				if (currItem->itemText.charStyle(offs+1).effects() & ScStyle_SuppressSpace)
-				{
-					if (currItem->CPos < currItem->lastInFrame())
-						currItem->CPos++;
-					return;
-				}
-			}
-			if (currItem->itemText.item(offs)->glyph.yoffset == 0)
-				return;
-			if (Doc->CurTimer != 0)
-				Doc->CurTimer->stop();
-			QString chstr(currItem->itemText.text(offs,1));
-			if (chstr == QChar(30))
-				chstr = currItem->ExpandToken(offs);
-			if (chstr == QChar(29))
-				chstr = " ";
-			int chs = currItem->itemText.charStyle(offs).fontSize();
-//FIXME			GlyphLayout glayout;
-//			currItem->layoutGlyphs(currItem->itemText.charStyle(offs), currItem->itemText.text(off,1), glayout);
-//			chs = ??
-			if (currItem->CPos != currItem->lastInFrame())
-			{
-				if (currItem->itemText.text(currItem->CPos) == SpecialChars::TAB)
-				{
-					xp = static_cast<int>(currItem->itemText.item(currItem->CPos-1)->glyph.xoffset);
-					chs = currItem->itemText.charStyle(currItem->CPos-1).fontSize();
-					chstr = currItem->itemText.text(currItem->CPos-1, 1);
-					xp += qRound(currItem->itemText.charStyle(currItem->CPos-1).font().charWidth(chstr[0], chs)*(currItem->itemText.charStyle(currItem->CPos-1).scaleH() / 1000.0));
-				}
-				else
-					xp = static_cast<int>(currItem->itemText.item(offs+1)->glyph.xoffset);
-			}
-			else
-			{
-				xp = static_cast<int>(currItem->itemText.item(offs)->glyph.xoffset);
-				//TODO Change placement of cursor to middle or right if here and cursor is at left.. 
-				if (currItem->itemText.text(offs) != SpecialChars::TAB)
-				{
-					chs = currItem->itemText.charStyle(offs).fontSize();
-					chstr = currItem->itemText.text(offs,1);
-					xp += qRound(currItem->itemText.charStyle(offs).font().charWidth(chstr[0], chs)*(currItem->itemText.charStyle(offs).scaleH() / 1000.0));
-				}
-			}
-			if (currItem->CPos <= currItem->lastInFrame())
-			{
-				if (currItem->itemText.item(offs)->glyph.yoffset != currItem->itemText.item(offs+1)->glyph.yoffset)
-				{
-					offs++;
-					if (offs > currItem->lastInFrame() || (currItem->itemText.text(offs) == SpecialChars::PARSEP) || (currItem->itemText.text(offs) == SpecialChars::LINEBREAK))
-					{
-						offs--;
-						xp = static_cast<int>(currItem->itemText.item(offs)->glyph.xoffset);
-						chs = currItem->itemText.charStyle(offs).fontSize();
-						chstr = currItem->itemText.text(offs,1);
-						xp += qRound(currItem->itemText.charStyle(offs).font().charWidth(chstr[0], chs)*(currItem->itemText.charStyle(offs).scaleH() / 1000.0));
-					}
-					else
-						xp = static_cast<int>(currItem->itemText.item(offs)->glyph.xoffset);
-				}
-			}
-			yp = static_cast<int>(currItem->itemText.item(offs)->glyph.yoffset);
-			desc = static_cast<int>(currItem->itemText.charStyle(offs).font().descent() * (-currItem->itemText.charStyle(offs).fontSize() / 10.0));
-			asce = static_cast<int>(currItem->itemText.charStyle(offs).font().ascent() * (currItem->itemText.charStyle(offs).fontSize() / 10.0));
-		}
-		else
-		{
-			if (currItem->itemText.length() == 0)
-			{
-				double lineCorr;
-				if (currItem->lineColor() != CommonStrings::None)
-					lineCorr = currItem->lineWidth() / 2.0;
-				else
-					lineCorr = 0;
-				xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
-				yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->itemText.defaultStyle().lineSpacing());
-				desc = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font().descent() * (-currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
-				asce = static_cast<int>(currItem->itemText.defaultStyle().charStyle().font().ascent() * (currItem->itemText.defaultStyle().charStyle().fontSize() / 10.0));
-			}
-			else if ( currItem->frameDisplays(currItem->CPos) )
-			{
-				if ((currItem->itemText.text(currItem->CPos) == SpecialChars::TAB) || (currItem->itemText.text(currItem->CPos) == SpecialChars::PARSEP) || (currItem->itemText.text(currItem->CPos) == SpecialChars::LINEBREAK))
-				{
-					double lineCorr;
-					if (currItem->lineColor() != CommonStrings::None)
-						lineCorr = currItem->lineWidth() / 2.0;
-					else
-						lineCorr = 0;
-					xp = static_cast<int>(currItem->textToFrameDistLeft() + lineCorr);
-					yp = static_cast<int>(currItem->textToFrameDistTop() + lineCorr + currItem->itemText.paragraphStyle(currItem->CPos).lineSpacing());
-					desc = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().descent() * (-currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
-					asce = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().ascent() * (currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
-				}
-				else
-				{
-					xp = static_cast<int>(currItem->itemText.item(currItem->CPos)->glyph.xoffset);
-					yp = static_cast<int>(currItem->itemText.item(currItem->CPos)->glyph.yoffset);
-					desc = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().descent() * (-currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
-					asce = static_cast<int>(currItem->itemText.charStyle(currItem->CPos).font().ascent() * (currItem->itemText.charStyle(currItem->CPos).fontSize() / 10.0));
-				}
-			}
-			else {
-				p.end();
-				return;
-			}
-		}
-		yp1 = yp - asce;
-		yp += desc;
-		p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
-		p.setRasterOp(XorROP);
-		if (draw)
-		{
-			p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(currItem->height())), xp, QMIN(QMAX(yp,0),static_cast<int>(currItem->height())));
-			m_cursorVisible = !m_cursorVisible;
-			if (Doc->CurTimer != 0)
-			{
-				if (!Doc->CurTimer->isActive())
-					Doc->CurTimer->start(500);
-			}
-		}
-		else
-		{
-			if (Doc->CurTimer != 0)
-				Doc->CurTimer->stop();
-			if (m_cursorVisible)
-			{
-				p.drawLine(xp, QMIN(QMAX(yp1,0),static_cast<int>(currItem->height())), xp, QMIN(QMAX(yp,0),static_cast<int>(currItem->height())));
-				m_cursorVisible = false;
-			}
-		}
-		p.end();
-#else
 		PageItem_TextFrame * textframe = currItem->asTextFrame();
 		if ( !textframe )
 			return;
@@ -8611,7 +8462,9 @@ void ScribusView::slotDoCurs(bool draw)
 				y1 = static_cast<int>(bbox.y() + bbox.height());
 			}
 #endif
-			p.setPen(QPen(white, 1, SolidLine, FlatCap, MiterJoin));
+			if (x < 2)
+				x = 2;
+			p.setPen(QPen(white, 2, SolidLine, FlatCap, MiterJoin));
 			p.setRasterOp(XorROP);
 			if (draw)
 			{
@@ -8635,7 +8488,6 @@ void ScribusView::slotDoCurs(bool draw)
 			}
 			p.end();
 		}
-#endif
 	}
 }
 
