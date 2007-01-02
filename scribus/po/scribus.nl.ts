@@ -578,7 +578,7 @@ Hoeken:</translation>
     </message>
     <message>
         <source>Nodes</source>
-        <translation type="obsolete">Nodes</translation>
+        <translation type="obsolete">Knooppunten</translation>
     </message>
     <message>
         <source>Vert. Scale:</source>
@@ -1300,7 +1300,7 @@ elke keer als een hyphenatie is gevonden.</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
-        <translation type="obsolete">Verwijder Nodes</translation>
+        <translation type="obsolete">Verwijder Knooppunten</translation>
     </message>
     <message>
         <source>Delete Page:</source>
@@ -2074,7 +2074,7 @@ Kies aub. een andere.</translation>
     </message>
     <message>
         <source>Add Nodes</source>
-        <translation type="obsolete">Voeg Nodes toe</translation>
+        <translation type="obsolete">Voeg Knooppunten toe</translation>
     </message>
     <message>
         <source>Edit Contents of Frame</source>
@@ -2302,7 +2302,7 @@ te maken sleep een Template naar de Weergave beneden.</translation>
     </message>
     <message>
         <source>Move Nodes</source>
-        <translation type="obsolete">Verplaats Nodes</translation>
+        <translation type="obsolete">Verplaats Knooppunten</translation>
     </message>
     <message>
         <source>Move Pages</source>
@@ -5911,7 +5911,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Underline &amp;Words</source>
-        <translation>Onderstreep &amp;worden</translation>
+        <translation>Onderstreep &amp;woorden</translation>
     </message>
     <message>
         <source>&amp;Strike Through</source>
@@ -5971,11 +5971,11 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Is &amp;Locked</source>
-        <translation>Is &amp;vergrendelt</translation>
+        <translation>Is &amp;vergrendeld</translation>
     </message>
     <message>
         <source>Si&amp;ze is Locked</source>
-        <translation>Groo&amp;tte is vergrendelt</translation>
+        <translation>Groo&amp;tte is vergrendeld</translation>
     </message>
     <message>
         <source>Lower to &amp;Bottom</source>
@@ -6087,7 +6087,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>&amp;Glyph...</source>
-        <translation>&amp;Glyph...</translation>
+        <translation>&amp;Symboolteken...</translation>
     </message>
     <message>
         <source>Sample Text</source>
@@ -6343,7 +6343,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
     <message>
         <source>Dehyphenate Text</source>
-        <translation>Afbreeking ongedaan maken</translation>
+        <translation>Afbreking ongedaan maken</translation>
     </message>
     <message>
         <source>&amp;Generate Table Of Contents</source>
@@ -6642,7 +6642,7 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>&amp;Outlines</source>
         <comment>Convert to oulines</comment>
-        <translation>&amp;Outlines</translation>
+        <translation>C&amp;ontouren</translation>
     </message>
     <message>
         <source>Paste (&amp;Absolute)</source>
@@ -8699,7 +8699,7 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>Glyphs missing</source>
-        <translation>Missende glyphs</translation>
+        <translation>Missende symbooltekens</translation>
     </message>
     <message>
         <source>Text overflow</source>
@@ -8921,27 +8921,27 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <name>ColorWheel</name>
     <message>
         <source>Monochromatic</source>
-        <translation>Monochromatisch</translation>
+        <translation>Monochroom</translation>
     </message>
     <message>
         <source>Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>Analoog</translation>
     </message>
     <message>
         <source>Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Complementair</translation>
     </message>
     <message>
         <source>Split Complementary</source>
-        <translation type="unfinished"></translation>
+        <translation>Gesplitst complementair</translation>
     </message>
     <message>
         <source>Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>Triadisch</translation>
     </message>
     <message>
         <source>Tetradic (Double Complementary)</source>
-        <translation type="unfinished"></translation>
+        <translation>Tetradisch (Dubbel complementair)</translation>
     </message>
     <message>
         <source>Base Color</source>
@@ -8957,47 +8957,47 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
     <message>
         <source>1st. Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>1e Analoog</translation>
     </message>
     <message>
         <source>2nd. Analogous</source>
-        <translation type="unfinished"></translation>
+        <translation>2e Analoog</translation>
     </message>
     <message>
         <source>1st. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>1e Splitsing</translation>
     </message>
     <message>
         <source>2nd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>2e Splitsing</translation>
     </message>
     <message>
         <source>3rd. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>3e Splitsing</translation>
     </message>
     <message>
         <source>4th. Split</source>
-        <translation type="unfinished"></translation>
+        <translation>4e Splitsing</translation>
     </message>
     <message>
         <source>1st. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>1e Triade</translation>
     </message>
     <message>
         <source>2nd. Triadic</source>
-        <translation type="unfinished"></translation>
+        <translation>2e Triade</translation>
     </message>
     <message>
         <source>1st. Tetradic (base opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>1e Tetrade (basis tegengesteld)</translation>
     </message>
     <message>
         <source>2nd. Tetradic (angle)</source>
-        <translation type="unfinished"></translation>
+        <translation>2e Tetrade (hoek)</translation>
     </message>
     <message>
         <source>3rd. Tetradic (angle opposite)</source>
-        <translation type="unfinished"></translation>
+        <translation>3e Tetrade (hoek tegengesteld)</translation>
     </message>
 </context>
 <context>
@@ -10390,7 +10390,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Uitsluitend te gebuiken bij het laten drukken van steunkleuren in een drukkerij.</translation>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Bij voorkeur aanvinken. Tenzij steunkleuren in een drukkerij gedrukt moeten worden.</translation>
     </message>
     <message>
         <source>Allows you to embed ICC profiles in the print stream when color management is enabled</source>
@@ -10551,7 +10551,7 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
-        <translation>Naam van uw paragraafstijl</translation>
+        <translation>Naam van uw alineastijl</translation>
     </message>
     <message>
         <source>Font of selected text or object</source>
@@ -10567,11 +10567,11 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
-        <translation>Kleur van de tekstlijnen</translation>
+        <translation>Kleur van de tekstomlijning</translation>
     </message>
     <message>
         <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation type="obsolete">Maakt de eerste letter van een paragraaf groter aan de bovenkant uitgelijnd met het vervolg van een regel</translation>
+        <translation type="obsolete">Maakt de eerste letter van een alinea groter voor een decoratief effect</translation>
     </message>
     <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
@@ -10583,11 +10583,11 @@ is mislukt!</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
-        <translation>Witruimte boven de paragraaf</translation>
+        <translation>Witruimte boven de alinea</translation>
     </message>
     <message>
         <source>Spacing below the paragraph</source>
-        <translation>Witruimte onder de paragraaf</translation>
+        <translation>Witruimte onder de alinea</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -13684,7 +13684,7 @@ hoeken:</translation>
     </message>
     <message>
         <source>Style of current paragraph</source>
-        <translation>Stijl van huidige paragraaf</translation>
+        <translation>Stijl van huidige alinea</translation>
     </message>
     <message>
         <source>Hyphenation language of frame</source>
@@ -14301,7 +14301,7 @@ Kies een andere naam.</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
-        <translation>&amp;Ruimte:</translation>
+        <translation>&amp;Tussenruimte:</translation>
     </message>
     <message>
         <source>Colu&amp;mns:</source>
@@ -14474,7 +14474,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <name>NodePalette</name>
     <message>
         <source>Nodes</source>
-        <translation>Nodes</translation>
+        <translation>Knooppunten</translation>
     </message>
     <message>
         <source>&amp;Absolute Coordinates</source>
@@ -14502,7 +14502,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Move Nodes</source>
-        <translation>Nodes verplaatsen</translation>
+        <translation>Knooppunten verplaatsen</translation>
     </message>
     <message>
         <source>Move Control Points</source>
@@ -14510,11 +14510,11 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Add Nodes</source>
-        <translation>Nodes toevoegen</translation>
+        <translation>Knooppunten toevoegen</translation>
     </message>
     <message>
         <source>Delete Nodes</source>
-        <translation>Nodes verwijderen</translation>
+        <translation>Knooppunten verwijderen</translation>
     </message>
     <message>
         <source>Move Control Points Independently</source>
@@ -17753,7 +17753,7 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>Toon niet te printen karakters, zoals paragraaftekens in tekstkaders</translation>
+        <translation>Toon niet te printen karakters, zoals alineatekens in tekstkaders</translation>
     </message>
     <message>
         <source>Additional directory for document templates</source>
@@ -19275,7 +19275,7 @@ Externe koppelingen
     <message>
         <source>Cannot convert a non-text frame to outlines.</source>
         <comment>python error</comment>
-        <translation>Kan een non-tekst frame niet naar outlines omzetten.</translation>
+        <translation>Kan een non-tekst frame niet naar contouren omzetten.</translation>
     </message>
     <message>
         <source>Page</source>
@@ -19636,7 +19636,7 @@ Externe koppelingen
     </message>
     <message>
         <source>Font %1 has broken glyph %2 (charcode %3)</source>
-        <translation>Font %1 heeft beschadigde glyph %2 (charcode %3)</translation>
+        <translation>Font %1 heeft beschadigde symboolteken %2 (charcode %3)</translation>
     </message>
     <message>
         <source>Font %1 is broken and will be discarded</source>
@@ -19672,7 +19672,7 @@ Externe koppelingen
     </message>
     <message>
         <source>Font %1  has invalid glyph %2 (charcode %3), discarding it</source>
-        <translation>Font %1 heeft beschadigde glyph %2 (charcode %3), wordt genegeerd</translation>
+        <translation>Font %1 heeft beschadigde symboolteken %2 (charcode %3), wordt genegeerd</translation>
     </message>
     <message>
         <source>extracting face %1 from font %2 (offset=%3, nTables=%4)</source>
@@ -20498,7 +20498,7 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     </message>
     <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
-        <translation>Toon niet te printen karakters, zoals paragraaftekens in tekstframes</translation>
+        <translation>Toon niet te printen karakters, zoals alineatekens in tekstframes</translation>
     </message>
     <message>
         <source>None</source>
@@ -21385,7 +21385,7 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
     <message>
         <source>C&amp;onvert to Outlines</source>
-        <translation type="obsolete">Omzetten naar &amp;outlines</translation>
+        <translation type="obsolete">Omzetten naar c&amp;ontouren</translation>
     </message>
     <message>
         <source>&amp;Insert...</source>
@@ -23093,7 +23093,7 @@ Verticaal shift: %3</translation>
     </message>
     <message>
         <source>The item %1 is currently being edited by Story Editor. The convert to outlines operation for this item will be skipped</source>
-        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Omzetten naar outlines wordt voor dit item geannuleerd</translation>
+        <translation>Dit item %1 wordt momenteel bijgewerkt met de Story Editor. Omzetten naar contouren wordt voor dit item geannuleerd</translation>
     </message>
     <message>
         <source>Page %1 to %2</source>
@@ -23878,7 +23878,7 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>&amp;Insert Glyph...</source>
-        <translation>Voeg glyph &amp;in...</translation>
+        <translation>Voeg symboolteken &amp;in...</translation>
     </message>
     <message>
         <source>Clear All Text</source>
@@ -23979,11 +23979,11 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Underline Text. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Onderstraap tekst. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
+        <translation>Onderstreep tekst. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
     </message>
     <message>
         <source>Underline Words Only. Hold down the button momentarily to set line width and displacement options.</source>
-        <translation>Onderstreep alleen worden. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
+        <translation>Onderstreep alleen woorden. Houdt de knop een moment ingedrukt om de lijndikte en verplaatsing in te stellen.</translation>
     </message>
     <message>
         <source>Strike Out. Hold down the button momentarily to set line width and displacement options.</source>
@@ -23991,18 +23991,18 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     </message>
     <message>
         <source>Outline. Hold down the button momentarily to change the outline stroke width.</source>
-        <translation>Omlijn. Houdt de knop een moment ingedrukt om de lijndikte in te stellen.</translation>
+        <translation>Tekstomlijning. Houdt de knop een moment ingedrukt om de lijndikte in te stellen.</translation>
     </message>
     <message>
         <source>Shadowed Text. Hold down the button momentarily to enable the offset spacing.</source>
-        <translation>Schaduw tekst. Houdt de knop een moment ingedrukt om de uitval in te stellen.</translation>
+        <translation>Tekstschaduw. Houdt de knop een moment ingedrukt om de uitval in te stellen.</translation>
     </message>
 </context>
 <context>
     <name>SxwDialog</name>
     <message>
         <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">Opties voor OpenOffice.org Writer importeren</translation>
+        <translation type="obsolete">OpenOffice.org Writer import opties</translation>
     </message>
     <message>
         <source>Update paragraph styles</source>
@@ -24025,7 +24025,7 @@ stijl ongemoeid laten?</translation>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scirubs</source>
-        <translation type="obsolete">Selecteer deze optie als u wilt dat de importer de naam
+        <translation type="obsolete">Selecteer deze optie als u wilt dat het importfilter de naam
 van het document toevoegt aan de alineastijlnaam in Scribus</translation>
     </message>
     <message>
@@ -24048,16 +24048,16 @@ dan niet meer toont</translation>
         <source>If a paragraph style already exists with the same name as the current
 OpenOffice.org document&apos;s paragraph, should the style in Scribus be
 edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Als er reeds een paragraafstijl bestaat met dezelfde naam als de huidige
-paragraaf in het OpenOffice.org-document, wilt u dan de stijl in Scribus
+        <translation type="obsolete">Als er reeds een alineastijl bestaat met dezelfde naam als de huidige
+alinea in het OpenOffice.org-document, wilt u dan de stijl in Scribus
 aanpassen aan de geïmporteerde stijl, of deze laten zoals ze is
 </translation>
     </message>
     <message>
         <source>Should importer add the name of the document
 on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Wilt u dat de importer de naam van het document aan de
-paragraaf-stijlnamen toevoegt in Scribus</translation>
+        <translation type="obsolete">Wilt u dat het importfilter de naam van het document aan de
+alinea-stijlnamen toevoegt in Scribus</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Importer Options</source>
@@ -24067,12 +24067,12 @@ paragraaf-stijlnamen toevoegt in Scribus</translation>
         <source>Should the importer always use currently
 set value when importing OpenOffice.org document and
 never ask your confirmation again</source>
-        <translation type="obsolete">Wilt u dat de importer deze instellingen steeds gebruikt
+        <translation type="obsolete">Wilt u dat het importfilter deze instellingen steeds gebruikt
 zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
-        <translation>Overschrijf paragraafstijeln</translation>
+        <translation>Overschrijf alineastijlen</translation>
     </message>
     <message>
         <source>Enabling this will overwrite existing styles in the current Scribus document</source>
@@ -24262,7 +24262,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Check for missing glyphs</source>
-        <translation>Controleer op missende glyphs</translation>
+        <translation>Controleer op missende symbooltekens</translation>
     </message>
     <message>
         <source>Check for objects not on a page</source>
@@ -24607,11 +24607,11 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>&amp;Embed all Fonts</source>
-        <translation>&amp;Alle fonts insluiten</translation>
+        <translation>Alle fonts insluit&amp;en</translation>
     </message>
     <message>
         <source>&amp;Subset all Fonts</source>
-        <translation>&amp;Subset van alle fonts</translation>
+        <translation>Alle font&amp;s omzetten naar curven</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -24891,7 +24891,7 @@ zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Don&apos;t use embedded ICC profiles</source>
-        <translation>Geen ingebedde ICC-profielen gebruiken</translation>
+        <translation>Geen ingesloten ICC-profielen gebruiken</translation>
     </message>
     <message>
         <source>C&amp;olor</source>
@@ -25123,7 +25123,7 @@ Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar o
     </message>
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation>Uitvoerprofiel voor het afdrukken. Indien mogelijk, probeer uw printer te gebruiken bij het selecteren van een profiel.</translation>
+        <translation>Uitvoerprofiel voor het afdrukken. Laat u indien mogelijk, adviseren door uw drukkerij, bij het selecteren van een profiel.</translation>
     </message>
     <message>
         <source>Mandatory string for PDF/X-3 or the PDF will fail
@@ -25181,7 +25181,7 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     </message>
     <message>
         <source>Enables Spot Colors to be converted to composite colors. Unless you are planning to print spot colors at a commercial printer, this is probably best left enabled.</source>
-        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Uitsluitend te gebruiken bij het laten drukken van steunkleuren in een drukkerij.</translation>
+        <translation>Steunkleuren worden omgezet naar composiet-kleuren. Bij voorkeur aanvinken. Tenzij steunkleuren in een drukkerij gedrukt moeten worden.</translation>
     </message>
     <message>
         <source>Include La&amp;yers</source>
@@ -25359,7 +25359,7 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Color model for the output of your PDF. Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets. Choose Printer when printing to a true 4 color CMYK printer. Choose Grayscale when you want a grey scale PDF.</source>
-        <translation>Kleurmodel voor de output van de PDF. Kies Screen/Web voor PDF&apos;s die op alleen op een beeldscherm worden getoond en voor printen op bepaalde inkjets. Kies Printer als er naar een true color CMYK printer moet worden gedrukt. Kies Grayscale als een grijswaarden PDF nodig is.</translation>
+        <translation>Kleurmodel voor de output van de PDF. Kies Screen/Web voor PDF&apos;s die op alleen op een beeldscherm worden getoond en voor printen op bepaalde inkjets. Kies Printer voor drukwerk en als er naar een true color CMYK printer moet worden gedrukt. Kies Grijstinten als een grijswaarden PDF nodig is.</translation>
     </message>
     <message>
         <source>Do not show objects outside the margins in the exported file</source>
@@ -25654,11 +25654,11 @@ als PDF document wordt geopend:</translation>
     </message>
     <message>
         <source>Text Color:</source>
-        <translation>TekstKleur:</translation>
+        <translation>Tekstkleur:</translation>
     </message>
     <message>
         <source>Shading:</source>
-        <translation>Schaduw:</translation>
+        <translation>Tint:</translation>
     </message>
     <message>
         <source>Text Stroke:</source>
@@ -26102,7 +26102,7 @@ W: %3, H: %4</translation>
     </message>
     <message>
         <source>Set line color shade</source>
-        <translation>Bepaal lijnkleur schaduw</translation>
+        <translation>Bepaal tint lijnkleur schaduw</translation>
     </message>
     <message>
         <source>Flip horizontally</source>
@@ -26748,7 +26748,7 @@ X: %4, Y: %5</translation>
     <name>gtFileDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Selecteer de te gebruiken importer</translation>
+        <translation>Selecteer het te gebruiken importfilter</translation>
     </message>
     <message>
         <source>Automatic</source>
@@ -26764,7 +26764,7 @@ X: %4, Y: %5</translation>
     </message>
     <message>
         <source>Importer:</source>
-        <translation>Importer:</translation>
+        <translation>Importfilter:</translation>
     </message>
     <message>
         <source>Encoding:</source>
@@ -26779,19 +26779,19 @@ X: %4, Y: %5</translation>
     <name>gtImporterDialog</name>
     <message>
         <source>Choose the importer to use</source>
-        <translation>Selecteer de te gebruiken importer</translation>
+        <translation>Selecteer het te gebruiken importfilter</translation>
     </message>
     <message>
         <source>Remember association</source>
-        <translation>Deze associatie onhouden</translation>
+        <translation>Deze associatie onthouden</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association
 and do not ask again to select an importer for
 files of this type.</source>
-        <translation type="obsolete">Onthoudt de bestandsnaamextensie-importer associatie.
+        <translation type="obsolete">Onthoudt de bestandsnaamextensie-importfilter associatie.
 De volgende keer wordt bij het importeren van een bestand
-van dit type dezelfde importer gebruikt.</translation>
+van dit type hetzelfde importfilter gebruikt.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -26799,7 +26799,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
-        <translation>Onthoudt de bestandsnaamextensie-importer associatie. De volgende keer wordt bij het importeren van een bestand van dit type dezelfde importer gebruikt.</translation>
+        <translation>Onthoudt de bestandsnaamextensie-importfilter associatie. De volgende keer wordt bij het importeren van een bestand van dit type hetzelfde importfilter gebruikt.</translation>
     </message>
 </context>
 <context>
@@ -26874,7 +26874,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>Extract the package to the template directory ~/.scribus/templates for the current user or PREFIX/share/scribus/templates for all users in the system.</source>
-        <translation>Pak het pakketje uit in de sjablonenmap van Scibus: ~/.scribus/templates voor de huidige gebruiker of PREFIX/share/scribus/templates voor alle gebruikers van het systeem.</translation>
+        <translation>Pak het bestand uit in de sjablonenmap van Scibus: ~/.scribus/templates voor de huidige gebruiker of PREFIX/share/scribus/templates voor alle gebruikers van het systeem.</translation>
     </message>
     <message>
         <source>Preparing a template</source>
@@ -26886,7 +26886,7 @@ van dit type dezelfde importer gebruikt.</translation>
     </message>
     <message>
         <source>The template creator should also make sure that the Installing Templates section above applies to their templates as well. This means a user should be able to download a template package and be able to extract them to the template directory and start using them.</source>
-        <translation>Wie een sjabloon maakt dient ook zeker te zijn dat het installeren van de sjabllon goed zal werken, zodat een gebruiker deze eenvoudig kan uitpakken en beginnen te gebruiken.</translation>
+        <translation>Wie een sjabloon maakt dient ook zeker te zijn dat het installeren van de sjabloon goed zal werken, zodat een gebruiker deze eenvoudig kan uitpakken en ermee beginnen te werken.</translation>
     </message>
     <message>
         <source>Removing a template</source>
