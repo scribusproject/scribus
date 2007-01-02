@@ -5,7 +5,7 @@
 #include "text/storytext.h"
 
 ScFace::ScFaceData::ScFaceData() : 
-	refs(1), 
+	refs(0), 
 	usage(0), 
 	scName(""),
 	fontFile("(None)"),
@@ -133,7 +133,7 @@ ScFace::ScFace() :  replacedName(), replacedInDoc()
 ScFace::ScFace(ScFaceData* data) : replacedName(), replacedInDoc()
 {
 	m = data;
-	m->refs = 1;
+	++(m->refs);
 	m->cachedStatus = ScFace::UNKNOWN;
 }
 
