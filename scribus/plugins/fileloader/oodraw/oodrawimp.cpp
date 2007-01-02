@@ -662,15 +662,23 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 		}
 		if( STag == "draw:g" )
 		{
-			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+			int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 			PageItem *neu = m_Doc->Items->at(z);
 			GElements.append(neu);
 			QPtrList<PageItem> gElements = parseGroup( b );
-			if (gElements.count() == 0)
+			if (gElements.count() < 2)
 			{
 				GElements.removeLast();
 				m_Doc->Items->take(z);
 				delete neu;
+				for (uint a = 0; a < m_Doc->Items->count(); ++a)
+				{
+					m_Doc->Items->at(a)->ItemNr = a;
+				}
+				for (uint gr = 0; gr < gElements.count(); ++gr)
+				{
+					GElements.append(gElements.at(gr));
+				}
 			}
 			else
 			{
@@ -731,13 +739,8 @@ QPtrList<PageItem> OODPlug::parseGroup(const QDomElement &e)
 					gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
 					GElements.append(gElements.at(gr));
 				}
+				m_Doc->GroupCounter++;
 			}
-/*			for (uint gr = 0; gr < gElements.count(); ++gr)
-			{
-				gElements.at(gr)->Groups.push(m_Doc->GroupCounter);
-				GElements.append(gElements.at(gr));
-			} */
-			m_Doc->GroupCounter++;
 		}
 		else if( STag == "draw:rect" )
 		{

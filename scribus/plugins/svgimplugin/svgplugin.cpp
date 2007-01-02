@@ -702,7 +702,7 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 
 	setupNode(e);
 	parseClipPathAttr(e, clipPath);
-	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, m_Doc->toolSettings.dBrush, m_Doc->toolSettings.dPen, true);
+	int z = m_Doc->itemAdd(PageItem::Polygon, PageItem::Rectangle, BaseX, BaseY, 1, 1, 0, CommonStrings::None, CommonStrings::None, true);
 	PageItem *neu = m_Doc->Items->at(z);
 	for ( QDomNode n = e.firstChild(); !n.isNull(); n = n.nextSibling() )
 	{
@@ -718,10 +718,18 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			gElements.append(el.at(ec));
 	}
 
-	if (gElements.count() == 0)
+	if (gElements.count() < 2)
 	{
 		m_Doc->Items->take(z);
 		delete neu;
+		for (uint a = 0; a < m_Doc->Items->count(); ++a)
+		{
+			m_Doc->Items->at(a)->ItemNr = a;
+		}
+		for (uint gr = 0; gr < gElements.count(); ++gr)
+		{
+			GElements.append(gElements.at(gr));
+		}
 	}
 	else
 	{
@@ -794,8 +802,8 @@ QPtrList<PageItem> SVGPlug::parseGroup(const QDomElement &e)
 			GElements.append(gElements.at(gr));
 		}
 		neu->setRedrawBounding();
+		m_Doc->GroupCounter++;
 	}
-	m_Doc->GroupCounter++;
 	delete( m_gc.pop() );
 	return GElements;
 }
