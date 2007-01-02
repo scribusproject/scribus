@@ -76,10 +76,9 @@ void ScrPaletteBase::setPaletteShown(bool visible)
 
 void ScrPaletteBase::setFontSize()
 {
-	QFont *newfont = new QFont(font());
-	newfont->setPointSize(PrefsManager::instance()->appPrefs.PaletteFontSize);
-	setFont(*newfont);
-	delete newfont;
+	QFont newfont(font());
+	newfont.setPointSize(PrefsManager::instance()->appPrefs.PaletteFontSize);
+	setFont(newfont);
 }
 
 /*
