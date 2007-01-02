@@ -153,7 +153,7 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 
 	const QFileInfoList *list = d.entryInfoList();
 	QFileInfoListIterator it(*list);
-	QFileInfo *fi;
+	QFileInfo *fi=0;
 	langmgr=new LanguageManager();
 	langmgr->init(false);
 	
