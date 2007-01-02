@@ -272,6 +272,7 @@ QStringList ScribusQApp::getLang(QString lang)
 						langs.push_back(prefslang);
 				}
 			}
+			delete prefsFile;
 		}
 	}
 
