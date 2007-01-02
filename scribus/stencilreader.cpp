@@ -27,8 +27,8 @@ QString StencilReader::createShape(QString datain)
 {
 	PrefsManager* prefsManager = PrefsManager::instance();
 	QString tmp = "";
-	QString FillCol = "FromDia#ffffff";
-	QString StrokeCol = "FromDia#000000";
+	QString FillCol = "White";
+	QString StrokeCol = "Black";
 	double GrW = 0.0;
 	double GrH = 0.0;
 	double Dx = 0.0;
@@ -65,17 +65,19 @@ QString StencilReader::createShape(QString datain)
 	group.setAttribute("YP", 0.0);
 	group.setAttribute("COUNT", list2.count());
 	group.setAttribute("Version", QString(VERSION));
-	PageColors.insert("FromDia#000000", ScColor(0, 0, 0));
+	PageColors.insert("Black", ScColor(0, 0, 0, 255));
 	QDomElement co = data.createElement("COLOR");
-	co.setAttribute("NAME","FromDia#000000");
-	co.setAttribute("RGB", "#000000");
+	co.setAttribute("NAME","Black");
+//	co.setAttribute("RGB", "#000000");
+	co.setAttribute("CMYK", "#000000FF");
 	co.setAttribute("Spot","0");
 	co.setAttribute("Register","0");
 	group.appendChild(co);
-	PageColors.insert("FromDia#ffffff", ScColor(255, 255, 255));
+	PageColors.insert("White", ScColor(0, 0, 0, 0));
 	QDomElement co2 = data.createElement("COLOR");
-	co2.setAttribute("NAME","FromDia#ffffff");
-	co2.setAttribute("RGB", "#ffffff");
+	co2.setAttribute("NAME","White");
+//	co2.setAttribute("RGB", "#ffffff");
+	co2.setAttribute("CMYK", "#00000000");
 	co2.setAttribute("Spot","0");
 	co2.setAttribute("Register","0");
 	group.appendChild(co2);
@@ -1136,8 +1138,10 @@ QString StencilReader::createObjects(QString datain)
 	Qt::PenJoinStyle LineJoin = Qt::MiterJoin;
 	int fillStyle = 1;
 	double strokewidth = 1.0;
-	QString FillCol = "FromKivio#ffffff";
-	QString StrokeCol = "FromKivio#000000";
+//	QString FillCol = "FromKivio#ffffff";
+//	QString StrokeCol = "FromKivio#000000";
+	QString FillCol = "White";
+	QString StrokeCol = "Black";
 	QDomDocument docu("scridoc");
 	docu.setContent(datain);
 	QDomElement elem=docu.documentElement();
@@ -1160,7 +1164,25 @@ QString StencilReader::createObjects(QString datain)
 	group.setAttribute("YP", 0.0);
 	group.setAttribute("COUNT", listItems.count());
 	group.setAttribute("Version", QString(VERSION));
-	PageColors.insert("FromKivio#000000", ScColor(0, 0, 0));
+
+	PageColors.insert("Black", ScColor(0, 0, 0, 255));
+	QDomElement co = data.createElement("COLOR");
+	co.setAttribute("NAME","Black");
+//	co.setAttribute("RGB", "#000000");
+	co.setAttribute("CMYK", "#000000FF");
+	co.setAttribute("Spot","0");
+	co.setAttribute("Register","0");
+	group.appendChild(co);
+	PageColors.insert("White", ScColor(0, 0, 0, 0));
+	QDomElement co2 = data.createElement("COLOR");
+	co2.setAttribute("NAME","White");
+//	co2.setAttribute("RGB", "#ffffff");
+	co2.setAttribute("CMYK", "#00000000");
+	co2.setAttribute("Spot","0");
+	co2.setAttribute("Register","0");
+	group.appendChild(co2);
+
+/*	PageColors.insert("FromKivio#000000", ScColor(0, 0, 0));
 	QDomElement co = data.createElement("COLOR");
 	co.setAttribute("NAME","FromKivio#000000");
 	co.setAttribute("RGB", "#000000");
@@ -1173,13 +1195,15 @@ QString StencilReader::createObjects(QString datain)
 	co2.setAttribute("RGB", "#ffffff");
 	co2.setAttribute("Spot","0");
 	co2.setAttribute("Register","0");
-	group.appendChild(co2);
+	group.appendChild(co2); */
 	QDomNodeList listStrokes = elem.elementsByTagName("KivioLineStyle");
 	for (uint st = 0; st < listStrokes.count(); st++)
 	{
 		QDomElement str = listStrokes.item(st).toElement();
 		QString colnam = str.attribute("color","#ffffff");
 		stroke.setNamedColor("#"+colnam.right(6));
+		if ((stroke == Qt::white) || (stroke == Qt::black))
+			continue;
 		ColorList::Iterator it;
 		bool found = false;
 		int r, g, b;
@@ -1224,6 +1248,8 @@ QString StencilReader::createObjects(QString datain)
 		bool found = false;
 		int r, g, b;
 		QColor tmpR;
+		if ((fill == Qt::white) || (fill == Qt::black))
+			continue;
 		for (it = PageColors.begin(); it != PageColors.end(); ++it)
 		{
 			if (it.data().getColorModel() == colorModelRGB)
@@ -1260,8 +1286,8 @@ QString StencilReader::createObjects(QString datain)
 		QDomElement pg=DOC.toElement();
 		if(pg.tagName()=="KivioShape")
 		{
-			FillCol = "FromKivio#ffffff";
-			StrokeCol = "FromKivio#000000";
+			FillCol = "White";
+			StrokeCol = "Black";
 			fillStyle = 1;
 			strokewidth = 1.0;
 			Dash = Qt::SolidLine;
@@ -1285,13 +1311,25 @@ QString StencilReader::createObjects(QString datain)
 					if (fillStyle == 0)
 						FillCol = CommonStrings::None;
 					else
-						FillCol = "FromKivio"+fill.name();
+					{
+						if (fill == Qt::white)
+							FillCol = "White";
+						else if (fill == Qt::black)
+							FillCol = "Black";
+						else
+							FillCol = "FromKivio"+fill.name();
+					}
 				}
 				if(pt.tagName()=="KivioLineStyle")
 				{
 					QString colnam = pt.attribute("color","#ffffff");
 					stroke.setNamedColor("#"+colnam.right(6));
-					StrokeCol = "FromKivio"+stroke.name();
+					if (stroke == Qt::white)
+						StrokeCol = "White";
+					else if (stroke == Qt::black)
+						StrokeCol = "Black";
+					else
+						StrokeCol = "FromKivio"+stroke.name();
 					strokewidth = pt.attribute("width", "1").toDouble();
 					LineJoin = Qt::PenJoinStyle(pt.attribute("joinStyle", "0").toInt());
 					Dash = Qt::PenStyle(pt.attribute("pattern").toInt());

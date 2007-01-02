@@ -85,9 +85,9 @@ void handleOldColorShade(ScribusDoc* doc, QString& colName, int& shade)
 {
 	int r, g, b;
 	bool found = false;
-	ScColor& scCol1 = doc->PageColors[colName];
 	if( colName.isEmpty() || colName == CommonStrings::None )
 		return;
+	ScColor& scCol1 = doc->PageColors[colName];
 	if( (shade == 100) || (scCol1.getColorModel() != colorModelRGB) )
 		return;
 	scCol1.getRGB(&r, &g, &b);
