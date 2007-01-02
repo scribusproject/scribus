@@ -15,7 +15,8 @@ for which a new license (GPL+exception) is in place.
 #include "useprintermarginsdialog.h"
 
 
-MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent, "marginWidget")
+MarginWidget::MarginWidget( QWidget* parent, QString /*title*/, const MarginStruct* margs, int unitIndex, bool showChangeAll, bool showBleeds) : QTabWidget(parent, "marginWidget"),
+pageType(0)
 {
 	RandT = margs->Top;
 	RandB = margs->Bottom;
