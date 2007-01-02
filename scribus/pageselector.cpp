@@ -220,7 +220,7 @@ void PageSelector::ToStart()
 
 void PageSelector::ToEnd()
 {
-	if (APage == LastPG-1)
+	if (APage == LastPG)
 		return;
 	GotoPgE(LastPG-1);
 }
