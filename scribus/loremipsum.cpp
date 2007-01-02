@@ -36,12 +36,13 @@ for which a new license (GPL+exception) is in place.
 #include "scribusview.h"
 #include "scpaths.h"
 #include "selection.h"
-#include "serializer.h"
 #include "prefsmanager.h"
 #include "commonstrings.h"
 #include "hyphenator.h"
 
-
+#include "gtparagraphstyle.h"
+#include "gtframestyle.h"
+#include "gtwriter.h"
 
 QString getLoremLocation(QString fname)
 {
@@ -230,18 +231,20 @@ void LoremManager::insertLoremIpsum(QString name, int paraCount)
 			qDebug("LoremManager::okButton_clicked() *lp == NULL");
 			return;
 		}
-		Serializer *ss = new Serializer("");
-		if (ss != NULL)
+		//Set up the gtWriter instance with the selected paragraph style
+		gtWriter* writer = new gtWriter(false, currItem);
+		if (writer != NULL)
 		{
+			writer->setUpdateParagraphStyles(false);
+			writer->setOverridePStyleFont(false);
+			gtFrameStyle* fstyle = writer->getDefaultStyle();
+			gtParagraphStyle* pstyle = new gtParagraphStyle(*fstyle);
+			pstyle->setName(currItem->document()->docParagraphStyles[currItem->textAlignment].Vname);
+			writer->setParagraphStyle(pstyle);
 			done = true;
-			ss->Objekt = lp->createLorem(paraCount);
-			int st = currItem->document()->currentParaStyle;
-			if (st > 5)
-				ss->GetText(currItem, st, currItem->document()->docParagraphStyles[st].Font, currItem->document()->docParagraphStyles[st].FontSize, true);
-			else
-				ss->GetText(currItem, st, currItem->font(), currItem->fontSize(), true);
-			delete ss;
+			writer->append(lp->createLorem(paraCount));
 		}
+		delete writer;
 		delete lp;
 		//if (ScMW->view->SelItem.at(i)->Doc->docHyphenator->AutoCheck)
 		//	ScMW->view->SelItem.at(i)->Doc->docHyphenator->slotHyphenate(ScMW->view->SelItem.at(i));
