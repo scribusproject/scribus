@@ -354,7 +354,9 @@ CustomFDialog::CustomFDialog(QWidget *parent, QString wDir, QString caption,
 CustomFDialog::~CustomFDialog()
 {
 	setIconProvider(0);
-	cDir.setCurrent(dir()->path());
+	const QDir* d(dir());
+	cDir.setCurrent(d->path());
+	delete d;
 }
 
 void CustomFDialog::slotHome()
