@@ -5064,6 +5064,7 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 		itemSelection_ApplyCharStyle(newStyle, customSelection);
 		return;
 	}
+/*
 	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
 	Q_ASSERT(itemSelection!=0);
 	uint selectedItemCount=itemSelection->count();
@@ -5075,24 +5076,31 @@ void ScribusDoc::itemSelection_SetFontSize(int size, Selection* customSelection)
 	for (uint aa = 0; aa < selectedItemCount; ++aa)
 	{
 		PageItem *currItem = itemSelection->itemAt(aa);
-		ParagraphStyle storyStyle(currItem->itemText.defaultStyle());
-		storyStyle.charStyle().setFontSize(size);
-		if (storyStyle.lineSpacingMode() == 0)
-		{
-			storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
-		}
-		else if (storyStyle.lineSpacingMode() == 1)
-		{
-			storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
-		}
-		else
-		{
-			storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
-		}
+
+	ParagraphStyle storyStyle(currItem->itemText.defaultStyle());
+	*/
+	ParagraphStyle storyStyle;
+	storyStyle.charStyle().setFontSize(size);
+	if (storyStyle.lineSpacingMode() == 0)
+	{
+		storyStyle.setLineSpacing(((size / 10.0) * static_cast<double>(typographicSettings.autoLineSpacing) / 100) + (size / 10.0));
+	}
+	else if (storyStyle.lineSpacingMode() == 1)
+	{
+		storyStyle.setLineSpacing(storyStyle.charStyle().font().height(size));
+	}
+	else
+	{
+		storyStyle.setLineSpacing(typographicSettings.valueBaseGrid-1);
+	}
+	itemSelection_ApplyParagraphStyle(storyStyle, customSelection);
+	
+	/*
 		currItem->itemText.setDefaultStyle(storyStyle);
 	}
 	if (selectedItemCount > 1)
 		undoManager->commit();
+	 */
 }
 
 void ScribusDoc::itemSelection_SetParagraphStyle(const ParagraphStyle & newStyle, Selection* customSelection)
