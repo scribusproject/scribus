@@ -914,14 +914,14 @@ int StoryText::nextParagraph(int pos)
 	pos = QMIN(len, pos+1);
 	while (pos < len && text(pos) != SpecialChars::PARSEP)
 		++pos;
-	return pos < len ? pos + 1 : pos;
+	return pos;
 }
 int StoryText::prevParagraph(int pos)
 {
 	pos = QMAX(0, pos-1);
 	while (pos > 0 && text(pos) != SpecialChars::PARSEP)
 		--pos;
-	return text(pos) != SpecialChars::PARSEP ? pos + 1 : pos;
+	return pos;
 }
 
 // these need valid layout:
@@ -940,7 +940,7 @@ int StoryText::endOfLine(int pos)
 	for (uint i=0; i < m_lines.count(); ++i) {
 		const LineSpec & ls(m_lines.at(i));
 		if (ls.firstItem <= pos && pos <= ls.lastItem)
-			return ls.lastItem;
+			return text(ls.lastItem) == SpecialChars::PARSEP ? ls.lastItem : ls.lastItem + 1;
 	}
 	return length();
 }
@@ -1018,7 +1018,7 @@ int StoryText::startOfFrame(int pos)
 }
 int StoryText::endOfFrame(int pos)
 {
-	return lastFrameItem;
+	return lastFrameItem + 1;
 }
 
 // selection
