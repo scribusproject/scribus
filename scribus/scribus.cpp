@@ -9076,7 +9076,7 @@ void ScribusMainWindow::insertSampleText()
 {
 	LoremManager *m = new LoremManager(doc, this, "m", true, 0);
 	if (prefsManager->appPrefs.useStandardLI)
-		m->insertLoremIpsum("loremipsum.xml", prefsManager->appPrefs.paragraphsLI);
+		m->insertLoremIpsum("la.xml", prefsManager->appPrefs.paragraphsLI);
 	else
 		m->exec();
 	delete(m);
