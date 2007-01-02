@@ -365,7 +365,7 @@ void ScribusView::drawContents(QPainter *psx, int clipx, int clipy, int clipw, i
 	if ((clipw > 0) && (cliph > 0))
 	{
 		QPoint vr = contentsToViewport(QPoint(clipx, clipy));
-		ScPainter *painter;
+		ScPainter *painter=0;
 #ifdef HAVE_CAIRO
 //		struct Layer la;
 //		la.LNr = 0;
