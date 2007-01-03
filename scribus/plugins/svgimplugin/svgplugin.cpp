@@ -494,7 +494,10 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 			item->setLineWidth(item->lineWidth() * (coeff1 + coeff2) / 2.0);
 			FPoint wh = getMaxClipF(&item->PoLine);
 			item->setWidthHeight(wh.x(), wh.y());
-			item->Clip = FlattenPath(item->PoLine, item->Segments);
+//			if (item->asPolyLine())
+//				item->setPolyClip(qRound(QMAX(item->lineWidth() / 2.0, 1)));
+//			else
+//				item->Clip = FlattenPath(item->PoLine, item->Segments);
 			m_Doc->view()->AdjustItemSize(item);
 			break;
 		}
@@ -509,8 +512,10 @@ void SVGPlug::finishNode( const QDomElement &e, PageItem* item)
 	item->PLineJoin = gc->PLineJoin;
 	//ite->setTextFlowsAroundFrame(false);
 	item->setTextFlowMode(PageItem::TextFlowDisabled);
-	item->DashOffset = gc->dashOffset;
-	item->DashValues = gc->dashArray;
+// Commented out the 2 following lines because at least 1 SVG isn't rendered correctly then
+// This SVG is attached to BUG #5009, paperbag2_juliane_krug.svg
+//	item->DashOffset = gc->dashOffset;
+//	item->DashValues = gc->dashArray;
 	if (gc->Gradient != 0)
 	{
 		if (gc->GradCo.Stops() > 1)
