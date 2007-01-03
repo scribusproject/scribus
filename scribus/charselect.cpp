@@ -34,7 +34,7 @@ CharSelect::CharSelect(QWidget* parent)
 {
 	installEventFilter(this);
 
-	setCaption( tr("Select Character:")+" "+m_fontInUse);
+	setCaption( tr("Character Palette"));
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
 	setIcon(loadIcon("AppIcon.png"));
@@ -521,7 +521,6 @@ void CharSelect::newFont(int font)
 		if (!oldFont.isEmpty())
 			(*m_doc->AllFonts)[oldFont].decreaseUsage();
 		delEdit();
-		setCaption( tr("Select Character:")+" "+m_fontInUse);
 		scanFont();
 		generatePreview(0);
 		m_characterClass = 0;
