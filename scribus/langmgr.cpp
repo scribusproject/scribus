@@ -179,3 +179,9 @@ void LanguageManager::printInstalledList()
 	for (it=installedLangList.begin();it!=installedLangList.end();++it)
 		std::cout << it.key().leftJustify(6) << ": " << it.data() << std::endl;
 }
+
+LanguageManager::~LanguageManager()
+{
+	langList.clear();
+	installedLangList.clear();
+}
