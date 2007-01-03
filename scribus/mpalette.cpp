@@ -2971,11 +2971,7 @@ void Mpalette::setStartArrow(int id)
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->setStartArrowIndex(id);
-		m_ScMW->view->RefreshItem(CurItem);
-		emit DocChanged();
-	}
+		doc->itemSelection_ApplyArrowHead(id,-1);
 }
 
 void Mpalette::setEndArrow(int id)
@@ -2983,11 +2979,7 @@ void Mpalette::setEndArrow(int id)
 	if (!m_ScMW || m_ScMW->ScriptRunning)
 		return;
 	if ((HaveDoc) && (HaveItem))
-	{
-		CurItem->setEndArrowIndex(id);
-		m_ScMW->view->RefreshItem(CurItem);
-		emit DocChanged();
-	}
+		doc->itemSelection_ApplyArrowHead(-1, id);
 }
 
 void Mpalette::NewLSty()

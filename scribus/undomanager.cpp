@@ -716,6 +716,7 @@ void UndoManager::languageChange()
 	UndoManager::NoLineStyle        = tr("Do not use custom line style");
 	UndoManager::StartArrow         = tr("Set start arrow");
 	UndoManager::EndArrow           = tr("Set end arrow");
+	UndoManager::StartAndEndArrow   = tr("Set start and end arrows");
 	UndoManager::CreateTable        = tr("Create table");
 	UndoManager::RowsCols           = tr("Rows: %1, Cols: %2");
 	UndoManager::SetFont            = tr("Set font");
@@ -893,6 +894,7 @@ QString UndoManager::CustomLineStyle    = "";
 QString UndoManager::NoLineStyle        = "";
 QString UndoManager::StartArrow         = "";
 QString UndoManager::EndArrow           = "";
+QString UndoManager::StartAndEndArrow   = "";
 QString UndoManager::CreateTable        = "";
 QString UndoManager::RowsCols           = "";
 QString UndoManager::SetFont            = "";

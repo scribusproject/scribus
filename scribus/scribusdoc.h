@@ -1027,6 +1027,8 @@ public slots:
 	void itemSelection_DistributeCenterV();
 	void itemSelection_DistributeTop();
 	void itemSelection_MultipleDuplicate(ItemMultipleDuplicateData&);
+	//! @brief startArrowID or endArrowID of -1 mean not applying a selection at this point.
+	void itemSelection_ApplyArrowHead(int startArrowID=-1, int endArrowID=-1, Selection* customSelection=0);
 
 	void ItemPen(QString farbe);
 	void ItemPenShade(int sha);

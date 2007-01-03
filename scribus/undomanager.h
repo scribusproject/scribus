@@ -482,6 +482,7 @@ public:
 	static QString NoLineStyle;
 	static QString StartArrow;
 	static QString EndArrow;
+	static QString StartAndEndArrow;
 	static QString CreateTable;
 	static QString RowsCols;
 	static QString SetFont;

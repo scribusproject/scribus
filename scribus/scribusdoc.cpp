@@ -7671,6 +7671,48 @@ void ScribusDoc::itemSelection_ApplyImageEffects(ScImageEffectList& newEffectLis
 	}
 }
 
+
+void ScribusDoc::itemSelection_ApplyArrowHead(int startArrowID, int endArrowID, Selection* customSelection)
+{
+	Selection* itemSelection = (customSelection!=0) ? customSelection : m_Selection;
+	Q_ASSERT(itemSelection!=0);
+	uint selectedItemCount=itemSelection->count();
+	if (selectedItemCount == 0)
+		return;
+	
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		undoManager->beginTransaction();
+	QString tooltip = Um::ItemsInvolved + "\n";
+	for (uint a = 0; a < selectedItemCount; ++a)
+	{
+		PageItem *currItem = itemSelection->itemAt(a);
+		if (!currItem->asLine())
+			continue;
+		if (startArrowID!=-1)
+		{
+			currItem->setStartArrowIndex(startArrowID);
+		}
+		if (endArrowID!=-1)
+		{
+			currItem->setEndArrowIndex(endArrowID);
+		}
+		tooltip += "\t" + currItem->getUName() + "\n";
+		emit refreshItem(currItem);
+	}
+	QString t;
+	if (startArrowID!=-1 && endArrowID!=-1)
+		t=Um::StartAndEndArrow;
+	else
+		t=(startArrowID!=-1) ? Um::StartArrow : Um::EndArrow;
+	if (UndoManager::undoEnabled() && selectedItemCount > 1)
+		undoManager->commit(Um::Selection,
+							Um::IGroup,
+							t,
+							tooltip,
+							Um::IArrow);
+	changed();
+}
+
 void ScribusDoc::createDefaultMasterPages()
 {
 	int setcol = pageSets[currentPageLayout].Columns;
