@@ -249,3 +249,9 @@ QString LanguageManager::numericSequence(QString seq)
 	return retSeq;
 }
 
+LanguageManager::~LanguageManager()
+{
+	langList.clear();
+	installedLangList.clear();
+}
+
