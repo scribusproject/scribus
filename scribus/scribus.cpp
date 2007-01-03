@@ -8035,6 +8035,7 @@ void ScribusMainWindow::ApplyMasterPage()
 	//CB done by doc::reformpages
 	//slotDocCh();
 	pagePalette->Rebuild();
+	guidePalette->setupPage();
 	delete dia;
 }
 
