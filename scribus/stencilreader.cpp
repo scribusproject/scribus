@@ -301,7 +301,7 @@ QString StencilReader::createShape(QString datain)
 					svgLineTo(&PoLine, x * Conversion, y * Conversion);
 				}
 			}
-			if (STag == "svg:polyline")
+			if (STag == "svg:polygon")
 				svgClosePath(&PoLine);
 		}
 		else if (STag == "svg:circle")
