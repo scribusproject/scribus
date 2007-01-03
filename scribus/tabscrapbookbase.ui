@@ -15,7 +15,7 @@
         </rect>
     </property>
     <property name="caption">
-        <string>Form2</string>
+        <string>TabScrapbookBase</string>
     </property>
     <vbox>
         <property name="name">
