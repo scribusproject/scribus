@@ -362,7 +362,6 @@ void BibView::ReadContents(QString name)
 Biblio::Biblio( QWidget* parent) : ScrPaletteBase( parent, "Sclib", false, 0 )
 {
 	resize( 230, 190 );
-	setIcon(loadIcon("AppIcon.png"));
 	BiblioLayout = new QVBoxLayout( this );
 	BiblioLayout->setSpacing( 0 );
 	BiblioLayout->setMargin( 0 );

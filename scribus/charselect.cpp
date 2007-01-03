@@ -37,8 +37,6 @@ CharSelect::CharSelect(QWidget* parent)
 	setCaption( tr("Character Palette"));
 	paletteFileMask = tr("Scribus Char Palette (*.ucp);;All Files (*)");
 
-	setIcon(loadIcon("AppIcon.png"));
-
 	QHBoxLayout* mainLayout = new QHBoxLayout(this);
 	mainLayout->setSpacing(6);
 	mainLayout->setMargin(11);

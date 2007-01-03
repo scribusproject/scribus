@@ -18,12 +18,9 @@ for which a new license (GPL+exception) is in place.
 
 using namespace std;
 
-extern QPixmap loadIcon(QString nam);
 
 Measurements::Measurements( QWidget* parent ) : ScrPaletteBase( parent, "MeasurementsPalette", false, 0 )
 {
-	setIcon( loadIcon("AppIcon.png") );
-
 	measurementsLayout = new QGridLayout( this, 1, 1, 10, 6, "measurementsLayout");
 	x1Label = new QLabel( this, "x1Label" );
 	y1Label = new QLabel( this, "y1Label" );

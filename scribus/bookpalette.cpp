@@ -27,7 +27,6 @@ extern QPixmap loadIcon(QString nam);
 
 BookPalette::BookPalette(QWidget* parent) : ScrPaletteBase( parent, "Books", false, 0 )
 {
-	setIcon(loadIcon("AppIcon.png"));
 	PaletteLayout = new QVBoxLayout( this, 0, 0, "PaletteLayout");
 	BView = new BookMView(this);
 	BView->setMinimumSize(QSize(100,150));

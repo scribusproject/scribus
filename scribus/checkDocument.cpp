@@ -128,7 +128,6 @@ m_Doc(0)
 	onlyWarning = img;
 	img.loadFromData( image2_data, sizeof( image2_data ), "PNG" );
 	noErrors = img;
-	setIcon(loadIcon("AppIcon.png"));
 	checkDocumentLayout = new QVBoxLayout( this, 5, 5, "checkDocumentLayout");
 
 	layout1 = new QHBoxLayout( 0, 0, 5, "layout1");

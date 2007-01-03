@@ -26,7 +26,6 @@ Tree::Tree( QWidget* parent) : ScrPaletteBase( parent, "Tree", false, 0 )
 	resize( 220, 240 );
 	setMinimumSize( QSize( 220, 240 ) );
 	setMaximumSize( QSize( 800, 600 ) );
-	setIcon(loadIcon("AppIcon.png"));
 
 	reportDisplay = new QListView( this, "ListView1" );
 

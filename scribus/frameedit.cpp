@@ -20,7 +20,6 @@ NodePalette::NodePalette( QWidget* parent) : ScrPaletteBase( parent, "nodePalett
 {
 	doc=0;
 	unitRatio=1.0;
-	setIcon(loadIcon("AppIcon.png"));
 	NodePaletteLayout = new QVBoxLayout( this );
 	NodePaletteLayout->setSpacing( 2 );
 	NodePaletteLayout->setMargin( 5 );

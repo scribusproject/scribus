@@ -120,7 +120,6 @@ LayerPalette::LayerPalette(QWidget* parent)
 		: ScrPaletteBase( parent, "Layers", false, 0 ),
 		m_Doc(0)
 {
-	setIcon(loadIcon("AppIcon.png"));
 	LayerPaletteLayout = new QVBoxLayout( this, 1, 2, "LayerPaletteLayout");
 
 	layout1 = new QHBoxLayout( 0, 0, 2, "layout1");

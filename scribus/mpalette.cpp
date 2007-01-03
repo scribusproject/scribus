@@ -119,7 +119,6 @@ Mpalette::Mpalette( QWidget* parent) : ScrPaletteBase( parent, "PropertiesPalett
 	HaveItem = false;
 	RoVal = 0;
 	Umrech = 1.0;
-	setIcon( loadIcon("AppIcon.png") );
 	setSizePolicy( QSizePolicy( (QSizePolicy::SizeType)1, (QSizePolicy::SizeType)1, 0, 0, sizePolicy().hasHeightForWidth() ) );
 
 	_userActionOn = false;

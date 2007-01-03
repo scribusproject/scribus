@@ -479,7 +479,6 @@ void TrashBin::dropEvent(QDropEvent * e)
 PagePalette::PagePalette(QWidget* parent) : ScrPaletteBase( parent, "SP", false, 0)
 {
 	m_scMW=(ScribusMainWindow*)parent;
-	setIcon(loadIcon("AppIcon.png"));
 	PagePaletteLayout = new QVBoxLayout( this );
 	PagePaletteLayout->setSpacing( 5 );
 	PagePaletteLayout->setMargin( 5 );
