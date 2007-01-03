@@ -13,6 +13,7 @@ cms3.html
 cms4.html
 cms.html
 codingstandards.html
+color1.html
 contributions.html
 cross-platform.html
 cups.html

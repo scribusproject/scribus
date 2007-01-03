@@ -1,6 +1,6 @@
 SUBDIRS = tutorials images
 
-EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codingstandards.html contributions.html cross-platform.html cups.html  \
+EXTRA_DIST = about1.html about2.html cms.html cms2.html cms3.html cms4.html codingstandards.html color1.html contributions.html cross-platform.html cups.html  \
 developers.html  doccopyright.html docinfo.html download.html faq1.html faq2.html faq3.html fonts1.html fonts2.html fonts3.html fonts4.html fonts5.html \
 fonts-win32.html gettexthowto.html gsfont.html  hyphenator.html importhints1.html importhints2.html importhints.html importhints3.html  importhints4.html \
 index.html install1.html install2.html install3.html install4.html install.html install-dpkg.html intro.html irc.html javascriptpdf.html keys.html \
@@ -22,6 +22,7 @@ install-data-local:
 	$(INSTALL_DATA) $(srcdir)/cms2.html $(prefix)/share/doc/scribus-$(VERSION)/en/cms2.html
 	$(INSTALL_DATA) $(srcdir)/cms3.html $(prefix)/share/doc/scribus-$(VERSION)/en/cms3.html
 	$(INSTALL_DATA) $(srcdir)/cms4.html $(prefix)/share/doc/scribus-$(VERSION)/en/cms4.html
+	$(INSTALL_DATA) $(srcdir)/color1.html $(prefix)/share/doc/scribus-$(VERSION)/en/color1.html
 	$(INSTALL_DATA) $(srcdir)/codingstandards.html $(prefix)/share/doc/scribus-$(VERSION)/en/codingstandards.html
 	$(INSTALL_DATA) $(srcdir)/contributions.html $(prefix)/share/doc/scribus-$(VERSION)/en/contributions.html
 	$(INSTALL_DATA) $(srcdir)/cross-platform.html $(prefix)/share/doc/scribus-$(VERSION)/en/cross-platform.html
@@ -138,6 +139,7 @@ uninstall-local:
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/cms2.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/cms3.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/cms4.html
+	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/color1.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/codingstandards.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/contributions.html
 	-rm -f $(prefix)/share/doc/scribus-$(VERSION)/en/cross-platform.html
