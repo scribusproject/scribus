@@ -58,7 +58,7 @@ void CharTable::setDoc(ScribusDoc *doc)
 
 QRect CharTable::cellGeometry ( int /*row*/, int /*col*/ ) const
 {
-	if (!m_doc)
+	if (!m_doc || m_fontInUse.isEmpty())
 		return QRect(0, 0, 1, 1);
 
 	int widthHeight = QMAX(18 + qRound(-(*m_doc->AllFonts)[m_fontInUse].descent() * 18) + 5, 18);

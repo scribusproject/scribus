@@ -179,7 +179,7 @@ void CharSelect::setDoc(ScribusDoc* doc)
 
 	QString oldFont(m_fontInUse);
 	m_fontInUse = m_doc->currentStyle.charStyle().font().scName();
-	if (oldFont != m_fontInUse)
+	if (oldFont != m_fontInUse && !m_fontInUse.isEmpty())
 	{
 		fontSelector->setCurrentText(m_fontInUse);
 		newFont(fontSelector->currentItem());
@@ -512,17 +512,21 @@ void CharSelect::newFont(int font)
 {
 	QString oldFont(m_fontInUse);
 	m_fontInUse = fontSelector->text(font);
-	charTable->setFontInUse(m_fontInUse);
-	userTable->setFontInUse(m_fontInUse);
-	unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
-	(*m_doc->AllFonts)[m_fontInUse].increaseUsage();
-	(*m_doc->AllFonts)[oldFont].decreaseUsage();
-	delEdit();
-	setCaption( tr("Select Character:")+" "+m_fontInUse);
-	scanFont();
-	generatePreview(0);
-	m_characterClass = 0;
-	setupRangeCombo();
+	if (!m_fontInUse.isEmpty())
+	{
+		charTable->setFontInUse(m_fontInUse);
+		userTable->setFontInUse(m_fontInUse);
+		unicodeButton->setFont((*m_doc->AllFonts)[m_fontInUse]);
+		(*m_doc->AllFonts)[m_fontInUse].increaseUsage();
+		if (!oldFont.isEmpty())
+			(*m_doc->AllFonts)[oldFont].decreaseUsage();
+		delEdit();
+		setCaption( tr("Select Character:")+" "+m_fontInUse);
+		scanFont();
+		generatePreview(0);
+		m_characterClass = 0;
+		setupRangeCombo();
+	}
 }
 
 void CharSelect::userNewChar(uint i)
