@@ -191,6 +191,11 @@ LoremManager::LoremManager(ScribusDoc* doc, QWidget* parent, const char* name, b
 	connect( loremList, SIGNAL(doubleClicked(QListViewItem *, const QPoint &, int)), this, SLOT(okButton_clicked()));
 }
 
+LoremManager::~LoremManager()
+{
+	delete langmgr;
+}
+
 void LoremManager::languageChange()
 {
 	setCaption( tr( "Lorem Ipsum" ) );

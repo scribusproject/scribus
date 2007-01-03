@@ -87,7 +87,7 @@ class SCRIBUS_API LoremManager : public QDialog
 	public:
 		/*! Reads all XML files in cfg directory. */
 		LoremManager(ScribusDoc* doc, QWidget* parent = 0, const char* name = 0, bool modal = true, WFlags fl = 0);
-		~LoremManager(){};
+		~LoremManager();
 
 		//! all lorems with Public Name -> filename structure
 		QMap<QString,QString> availableLorems;
