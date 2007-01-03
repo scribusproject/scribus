@@ -153,3784 +153,6 @@ May raise ScribusError if is firstPageOrder bigger than allowed by pagesType.
 <context>
     <name>@default</name>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">Oke</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Nee</translation>
-    </message>
-    <message>
-        <source>W:</source>
-        <translation type="obsolete">W:</translation>
-    </message>
-    <message>
-        <source>Add</source>
-        <translation type="obsolete">Toevoegen</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">Alles</translation>
-    </message>
-    <message>
-        <source>Big</source>
-        <translation type="obsolete">Groot</translation>
-    </message>
-    <message>
-        <source>Box</source>
-        <translation type="obsolete">Box</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Knippen</translation>
-    </message>
-    <message>
-        <source>GUI</source>
-        <translation type="obsolete">GUI</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Nieuw</translation>
-    </message>
-    <message>
-        <source>Old</source>
-        <translation type="obsolete">Oud</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Gebruik</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Ja</translation>
-    </message>
-    <message>
-        <source>by:</source>
-        <translation type="obsolete">Door:</translation>
-    </message>
-    <message>
-        <source>sum</source>
-        <translation type="obsolete">som</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">naar:</translation>
-    </message>
-    <message>
-        <source>Destination</source>
-        <translation type="obsolete">Doel</translation>
-    </message>
-    <message>
-        <source>Bold</source>
-        <translation type="obsolete">Vet</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Kopieëren</translation>
-    </message>
-    <message>
-        <source>Date</source>
-        <translation type="obsolete">Datum</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Bewerken</translation>
-    </message>
-    <message>
-        <source>Face</source>
-        <translation type="obsolete">Aangezicht</translation>
-    </message>
-    <message>
-        <source>Exit</source>
-        <translation type="obsolete">Afsluiten</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Bestand</translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation type="obsolete">Font</translation>
-    </message>
-    <message>
-        <source>Goto</source>
-        <translation type="obsolete">Ga Naar</translation>
-    </message>
-    <message>
-        <source>Help</source>
-        <translation type="obsolete">Help</translation>
-    </message>
-    <message>
-        <source>Item</source>
-        <translation type="obsolete">Item</translation>
-    </message>
-    <message>
-        <source>Left</source>
-        <translation type="obsolete">Links</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Lijn</translation>
-    </message>
-    <message>
-        <source>Link</source>
-        <translation type="obsolete">Koppeling</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation type="obsolete">Sluit</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Openen</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Pagina</translation>
-    </message>
-    <message>
-        <source>Path</source>
-        <translation type="obsolete">Lokatie</translation>
-    </message>
-    <message>
-        <source>Push</source>
-        <translation type="obsolete">Druk</translation>
-    </message>
-    <message>
-        <source>Redo</source>
-        <translation type="obsolete">Opnieuw doen</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation type="obsolete">Afsluiten</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Opslaan</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Afmeting</translation>
-    </message>
-    <message>
-        <source>Skip</source>
-        <translation type="obsolete">Overslaan</translation>
-    </message>
-    <message>
-        <source>Exiting now</source>
-        <translation type="obsolete">Er wordt nu afgesloten</translation>
-    </message>
-    <message>
-        <source>Star</source>
-        <translation type="obsolete">Ster</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Tekst</translation>
-    </message>
-    <message>
-        <source>Thin</source>
-        <translation type="obsolete">Dun</translation>
-    </message>
-    <message>
-        <source>Tile</source>
-        <translation type="obsolete">Naast Elkaar</translation>
-    </message>
-    <message>
-        <source>Time</source>
-        <translation type="obsolete">Tijd</translation>
-    </message>
-    <message>
-        <source>Top:</source>
-        <translation type="obsolete">Boven:</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Ongedaan maken</translation>
-    </message>
-    <message>
-        <source>View</source>
-        <translation type="obsolete">Bekijken</translation>
-    </message>
-    <message>
-        <source>Wide</source>
-        <translation type="obsolete">Wijd</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation type="obsolete">Wegvegen</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizotal to the left</source>
-        <translation type="obsolete">Schaart de richting horizontaal naar links</translation>
-    </message>
-    <message>
-        <source>Align Right</source>
-        <translation type="obsolete">Align Rechts</translation>
-    </message>
-    <message>
-        <source>Moves to your Document Directory.
-This can be set in the Preferences.</source>
-        <translation type="obsolete">Verplaats naar Document Directory.
-Kan bij voorkeuren worden ingesteld.</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical up</source>
-        <translation type="obsolete">Schaart de richting verticaal omhoog</translation>
-    </message>
-    <message>
-        <source>Get Field Names</source>
-        <translation type="obsolete">Haal Veldnamen</translation>
-    </message>
-    <message>
-        <source>Strikethru</source>
-        <translation type="obsolete">Doorhalen</translation>
-    </message>
-    <message>
-        <source>Align Center</source>
-        <translation type="obsolete">Align Gecentreerd</translation>
-    </message>
-    <message>
-        <source>Print Preview</source>
-        <translation type="obsolete">Afdruk voorbeeld</translation>
-    </message>
-    <message>
-        <source>&amp;Font</source>
-        <translation type="obsolete">&amp;Font</translation>
-    </message>
-    <message>
-        <source>&amp;Move</source>
-        <translation type="obsolete">&amp;Verplaatsen</translation>
-    </message>
-    <message>
-        <source>&amp;Red:</source>
-        <translation type="obsolete">&amp;Rood:</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Grootte</translation>
-    </message>
-    <message>
-        <source>Styles...</source>
-        <translation type="obsolete">Stijlen...</translation>
-    </message>
-    <message>
-        <source>Compress File</source>
-        <translation type="obsolete">Comprimeer Bestand</translation>
-    </message>
-    <message>
-        <source>Prepend Currency Symbol</source>
-        <translation type="obsolete">Prepend Waarde Symbool</translation>
-    </message>
-    <message>
-        <source>Images:</source>
-        <translation type="obsolete">Afbeeldingen:</translation>
-    </message>
-    <message>
-        <source>Submit Form</source>
-        <translation type="obsolete">Verstuur Form</translation>
-    </message>
-    <message>
-        <source>Distribute/Align...</source>
-        <translation type="obsolete">Distribueer/Align...</translation>
-    </message>
-    <message>
-        <source>Limit of</source>
-        <translation type="obsolete">Limiet van</translation>
-    </message>
-    <message>
-        <source>Loading aborted</source>
-        <translation type="obsolete">Laden afgebroken</translation>
-    </message>
-    <message>
-        <source>About</source>
-        <translation type="obsolete">Over</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="obsolete">Align</translation>
-    </message>
-    <message>
-        <source>Apply</source>
-        <translation type="obsolete">Toepassen</translation>
-    </message>
-    <message>
-        <source>Block</source>
-        <translation type="obsolete">Blok</translation>
-    </message>
-    <message>
-        <source>Rounded Rectangle</source>
-        <translation type="obsolete">Afgerond Vierkant</translation>
-    </message>
-    <message>
-        <source>Check</source>
-        <translation type="obsolete">Controle</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Leeg Maken</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Sluiten</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Kleur</translation>
-    </message>
-    <message>
-        <source>Cross</source>
-        <translation type="obsolete">Kruis</translation>
-    </message>
-    <message>
-        <source>Binding:</source>
-        <translation type="obsolete">Binding:</translation>
-    </message>
-    <message>
-        <source>Face:</source>
-        <translation type="obsolete">Aangezicht:</translation>
-    </message>
-    <message>
-        <source>File </source>
-        <translation type="obsolete">Bestand </translation>
-    </message>
-    <message>
-        <source>File:</source>
-        <translation type="obsolete">Bestand:</translation>
-    </message>
-    <message>
-        <source>On Focus</source>
-        <translation type="obsolete">Bij Focus</translation>
-    </message>
-    <message>
-        <source>Fonts</source>
-        <translation type="obsolete">Fonts</translation>
-    </message>
-    <message>
-        <source>Frame</source>
-        <translation type="obsolete">Kader</translation>
-    </message>
-    <message>
-        <source>From:</source>
-        <translation type="obsolete">Van:</translation>
-    </message>
-    <message>
-        <source>Go To</source>
-        <translation type="obsolete">Ga Naar</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Groeperen</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Afbeelding</translation>
-    </message>
-    <message>
-        <source>Minimize</source>
-        <translation type="obsolete">Minimaliseer</translation>
-    </message>
-    <message>
-        <source>Inset</source>
-        <translation type="obsolete">Inset</translation>
-    </message>
-    <message>
-        <source>Round
-Corners:</source>
-        <translation type="obsolete">Ronde
-Hoeken:</translation>
-    </message>
-    <message>
-        <source>Left:</source>
-        <translation type="obsolete">Links:</translation>
-    </message>
-    <message>
-        <source>Level</source>
-        <translation type="obsolete">Level</translation>
-    </message>
-    <message>
-        <source>Line:</source>
-        <translation type="obsolete">Lijn:</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Lager</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Naam:</translation>
-    </message>
-    <message>
-        <source>Even Pages only</source>
-        <translation type="obsolete">Alleen Even Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Never</source>
-        <translation type="obsolete">Nooit</translation>
-    </message>
-    <message>
-        <source>Nodes</source>
-        <translation type="obsolete">Knooppunten</translation>
-    </message>
-    <message>
-        <source>Vert. Scale:</source>
-        <translation type="obsolete">Vert. Schaling:</translation>
-    </message>
-    <message>
-        <source>Print all</source>
-        <translation type="obsolete">Alles Afdrukken</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Pagina:</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Invoegen</translation>
-    </message>
-    <message>
-        <source>Paths</source>
-        <translation type="obsolete">Lokaties</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="obsolete">Anders</translation>
-    </message>
-    <message>
-        <source>Plain</source>
-        <translation type="obsolete">Vlak</translation>
-    </message>
-    <message>
-        <source>Print</source>
-        <translation type="obsolete">Afdrukken</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation type="obsolete">Hoger</translation>
-    </message>
-    <message>
-        <source>Ready</source>
-        <translation type="obsolete">Gereed</translation>
-    </message>
-    <message>
-        <source>Reset</source>
-        <translation type="obsolete">Reset</translation>
-    </message>
-    <message>
-        <source>Right</source>
-        <translation type="obsolete">Rechts</translation>
-    </message>
-    <message>
-        <source>Points (pts)</source>
-        <translation type="obsolete">Punten (pts)</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="obsolete">Schaduw</translation>
-    </message>
-    <message>
-        <source>Shape</source>
-        <translation type="obsolete">Vorm</translation>
-    </message>
-    <message>
-        <source>Inside:</source>
-        <translation type="obsolete">Binnen:</translation>
-    </message>
-    <message>
-        <source>Size:</source>
-        <translation type="obsolete">Afmeting:</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Klein</translation>
-    </message>
-    <message>
-        <source>Solid</source>
-        <translation type="obsolete">Vast</translation>
-    </message>
-    <message>
-        <source>Split</source>
-        <translation type="obsolete">Splitsen</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">Als</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Stijl</translation>
-    </message>
-    <message>
-        <source>Theme</source>
-        <translation type="obsolete">Thema</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="obsolete">Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Type:</source>
-        <translation type="obsolete">Type:</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="obsolete">Eenheden</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Waarde</translation>
-    </message>
-    <message>
-        <source>User:</source>
-        <translation type="obsolete">Gebruiker:</translation>
-    </message>
-    <message>
-        <source>Options...</source>
-        <translation type="obsolete">Opties...</translation>
-    </message>
-    <message>
-        <source>Startoffset:</source>
-        <translation type="obsolete">Startoffset</translation>
-    </message>
-    <message>
-        <source>Snap to Guides</source>
-        <translation type="obsolete">Snap tot Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Line Styles...</source>
-        <translation type="obsolete">Lijn Stijlen...</translation>
-    </message>
-    <message>
-        <source>Modify Textframe</source>
-        <translation type="obsolete">Pas Tekstkader aan</translation>
-    </message>
-    <message>
-        <source>If you uncheck this you will get an Dialog
-everytime a possible Hyphenation is found.</source>
-        <translation type="obsolete">Als je dit uitzet dan krijg je een waarschuwing
-elke keer als een hyphenatie is gevonden.</translation>
-    </message>
-    <message>
-        <source>Align Text Left</source>
-        <translation type="obsolete">Align Tekst Links</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation type="obsolete">Plaats naar achter</translation>
-    </message>
-    <message>
-        <source>Send to Scrapbook</source>
-        <translation type="obsolete">Stuur naar Kladblok</translation>
-    </message>
-    <message>
-        <source>Local Y-Pos:</source>
-        <translation type="obsolete">Lokale Y-Pos:</translation>
-    </message>
-    <message>
-        <source>The following Programs are missing:</source>
-        <translation type="obsolete">De volgende Programma&apos;s missen:</translation>
-    </message>
-    <message>
-        <source>Major Grid Color:</source>
-        <translation type="obsolete">Hoofdgrid kleur:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Color:</source>
-        <translation type="obsolete">Subgrid Kleur:</translation>
-    </message>
-    <message>
-        <source>Create Textchains</source>
-        <translation type="obsolete">Maak TekstKoppelingen</translation>
-    </message>
-    <message>
-        <source>List Box</source>
-        <translation type="obsolete">List Box</translation>
-    </message>
-    <message>
-        <source>Local X-Pos:</source>
-        <translation type="obsolete">Lokale X-Pos:</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="obsolete">Italiaans</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation type="obsolete">Oplossen</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation type="obsolete">Snap tot Grid</translation>
-    </message>
-    <message>
-        <source>Use Currency Symbol</source>
-        <translation type="obsolete">Gebruik Waarde Symbool</translation>
-    </message>
-    <message>
-        <source>Import Page Nr:</source>
-        <translation type="obsolete">Importeer Pagina Nr:</translation>
-    </message>
-    <message>
-        <source>Shears the Path horizotal to the right</source>
-        <translation type="obsolete">Schaart de richting horizontaal naar rechts</translation>
-    </message>
-    <message>
-        <source>Bezier Curve</source>
-        <translation type="obsolete">Bezier Curve</translation>
-    </message>
-    <message>
-        <source>Keyboard Shortcuts...</source>
-        <translation type="obsolete">Toets-Snelkoppelingen...</translation>
-    </message>
-    <message>
-        <source>Unable to create PDF-File.</source>
-        <translation type="obsolete">Kon niet als PDF-Bestand opslaan.</translation>
-    </message>
-    <message>
-        <source>Other Options</source>
-        <translation type="obsolete">Andere Opties</translation>
-    </message>
-    <message>
-        <source>Use ICC-Profile</source>
-        <translation type="obsolete">Gebruik ICC-Profiel</translation>
-    </message>
-    <message>
-        <source>Path to Fontfile</source>
-        <translation type="obsolete">Font Lokatie</translation>
-    </message>
-    <message>
-        <source>&amp;Define Custom Colors &gt;&gt;</source>
-        <translation type="obsolete">&amp;Bepaal Aangepaste Kleuren &gt;&gt;</translation>
-    </message>
-    <message>
-        <source>New Document</source>
-        <translation type="obsolete">Nieuw Document</translation>
-    </message>
-    <message>
-        <source>User Defined Key</source>
-        <translation type="obsolete">Gebruiker Gedefinieerde Toetsen</translation>
-    </message>
-    <message>
-        <source>Opens a Document</source>
-        <translation type="obsolete">Opent een Document</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="obsolete">Horizontaal</translation>
-    </message>
-    <message>
-        <source>Number Format</source>
-        <translation type="obsolete">Nummer Formaat</translation>
-    </message>
-    <message>
-        <source>Printing-Error</source>
-        <translation type="obsolete">Afdruk-Fouten</translation>
-    </message>
-    <message>
-        <source>Closes this Bezier Curve</source>
-        <translation type="obsolete">Sluit deze Bezier Curve</translation>
-    </message>
-    <message>
-        <source>Convex Polygon</source>
-        <translation type="obsolete">Convexe Polygoon</translation>
-    </message>
-    <message>
-        <source>Zooms in or out</source>
-        <translation type="obsolete">In of Uitzoomen</translation>
-    </message>
-    <message>
-        <source>This is the length of the smallest word to be hyphenated.</source>
-        <translation type="obsolete">Dit is de lengte van het kleinste te hyphenaten woord</translation>
-    </message>
-    <message>
-        <source>Caption overlays Icon</source>
-        <translation type="obsolete">Kapitaal over Icoon</translation>
-    </message>
-    <message>
-        <source>Sorry, no Manual available!</source>
-        <translation type="obsolete">Sorry, geen Handleiding beschikbaar</translation>
-    </message>
-    <message>
-        <source>Is PDF-Bookmark</source>
-        <translation type="obsolete">Is PDF-bladwijzer</translation>
-    </message>
-    <message>
-        <source>Getting ICC-Profiles</source>
-        <translation type="obsolete">Ophalen ICC-Profielen</translation>
-    </message>
-    <message>
-        <source>Flip horizontal</source>
-        <translation type="obsolete">Flip horizontaal</translation>
-    </message>
-    <message>
-        <source>Check Style:</source>
-        <translation type="obsolete">Controle Style:</translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absolute Kleurmetric</translation>
-    </message>
-    <message>
-        <source>Initializing Plugins</source>
-        <translation type="obsolete">Plugins worden geinitialiseerd</translation>
-    </message>
-    <message>
-        <source>Moving Lines:</source>
-        <translation type="obsolete">Verplaatste Lijnen:</translation>
-    </message>
-    <message>
-        <source>No Print</source>
-        <translation type="obsolete">Geen Afdruk</translation>
-    </message>
-    <message>
-        <source>No Style</source>
-        <translation type="obsolete">Geen Stijl</translation>
-    </message>
-    <message>
-        <source>No Title</source>
-        <translation type="obsolete">Geen Titel</translation>
-    </message>
-    <message>
-        <source>Smart Hyphen</source>
-        <translation type="obsolete">Slim Hyphen</translation>
-    </message>
-    <message>
-        <source>Leave Anyway</source>
-        <translation type="obsolete">Ga Alsnog</translation>
-    </message>
-    <message>
-        <source>Use Encryption</source>
-        <translation type="obsolete">Gebruik Encryptie</translation>
-    </message>
-    <message>
-        <source>To page:</source>
-        <translation type="obsolete">Tot Pagina:</translation>
-    </message>
-    <message>
-        <source>Error during EPS-Export</source>
-        <translation type="obsolete">Fout tijdens EPS-Omzetting</translation>
-    </message>
-    <message>
-        <source>Flip vertical</source>
-        <translation type="obsolete">Flip verticaal</translation>
-    </message>
-    <message>
-        <source>Picture Frame</source>
-        <translation type="obsolete">Afbeeldings Kader</translation>
-    </message>
-    <message>
-        <source>Name of the Style is not unique</source>
-        <translation type="obsolete">De Stijlnaam is niet uniek</translation>
-    </message>
-    <message>
-        <source>Template for this Page:</source>
-        <translation type="obsolete">Template voor deze Pagina:</translation>
-    </message>
-    <message>
-        <source>Page-Colors</source>
-        <translation type="obsolete">Pagina-Kleuren</translation>
-    </message>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Ontbrekend Font</translation>
-    </message>
-    <message>
-        <source>Downsample Images to:</source>
-        <translation type="obsolete">Afbeeldingen terugbrengen tot:</translation>
-    </message>
-    <message>
-        <source>Background</source>
-        <translation type="obsolete">Achtergrond</translation>
-    </message>
-    <message>
-        <source>Hide Outline</source>
-        <translation type="obsolete">Verberg Omtrek</translation>
-    </message>
-    <message>
-        <source>Don&apos;t change</source>
-        <translation type="obsolete">Niet veranderen</translation>
-    </message>
-    <message>
-        <source>Printing aborted</source>
-        <translation type="obsolete">Afdrukken afgebroken</translation>
-    </message>
-    <message>
-        <source>Move Bookmark</source>
-        <translation type="obsolete">Verplaats Bladwijzer</translation>
-    </message>
-    <message>
-        <source>Print Normal</source>
-        <translation type="obsolete">Druk Normaal af</translation>
-    </message>
-    <message>
-        <source>Modify Pathtext</source>
-        <translation type="obsolete">Pas Lokatietekst aan</translation>
-    </message>
-    <message>
-        <source>Top Sides</source>
-        <translation type="obsolete">Boven Kant</translation>
-    </message>
-    <message>
-        <source>Scale How:</source>
-        <translation type="obsolete">Schaal Hoe:</translation>
-    </message>
-    <message>
-        <source> saved</source>
-        <translation type="obsolete"> opgeslagen</translation>
-    </message>
-    <message>
-        <source>Submit to URL:</source>
-        <translation type="obsolete">Stuur naar URL:</translation>
-    </message>
-    <message>
-        <source>Character Settings</source>
-        <translation type="obsolete">Teken Instellingen</translation>
-    </message>
-    <message>
-        <source>Radial Gradient</source>
-        <translation type="obsolete">Radiale Gradient</translation>
-    </message>
-    <message>
-        <source>Layout:</source>
-        <translation type="obsolete">Layout:</translation>
-    </message>
-    <message>
-        <source>File &amp;type:</source>
-        <translation type="obsolete">Bestands &amp;type:</translation>
-    </message>
-    <message>
-        <source>Export Range</source>
-        <translation type="obsolete">Exporteer Bereik</translation>
-    </message>
-    <message>
-        <source>File &amp;name:</source>
-        <translation type="obsolete">Bestands &amp;naam:</translation>
-    </message>
-    <message>
-        <source>Dash Dot Dot Line</source>
-        <translation type="obsolete">Gestreepte Dubbel Onderbroken Lijn</translation>
-    </message>
-    <message>
-        <source>Caption only</source>
-        <translation type="obsolete">Alleen Kapitaal</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>File Options</source>
-        <translation type="obsolete">Bestands Instellingen</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">Font %1 is niet geinstalleerd</translation>
-    </message>
-    <message>
-        <source>Calculate</source>
-        <translation type="obsolete">Bereken</translation>
-    </message>
-    <message>
-        <source>Scaled to </source>
-        <translation type="obsolete">Schalen naar </translation>
-    </message>
-    <message>
-        <source>Horizontal Gradient</source>
-        <translation type="obsolete">Horizontale Gradient</translation>
-    </message>
-    <message>
-        <source>Right Margin</source>
-        <translation type="obsolete">Rechter Rand</translation>
-    </message>
-    <message>
-        <source>Simulate Printer on the Screen</source>
-        <translation type="obsolete">Simuleer Afdruk op het scherm</translation>
-    </message>
-    <message>
-        <source>Length:</source>
-        <translation type="obsolete">Lengte:</translation>
-    </message>
-    <message>
-        <source>Grab-Radius</source>
-        <translation type="obsolete">Grijp-Radius</translation>
-    </message>
-    <message>
-        <source>Delete...</source>
-        <translation type="obsolete">Verwijderen...</translation>
-    </message>
-    <message>
-        <source>Use PDF-1.4 Transparency Features</source>
-        <translation type="obsolete">Gebruik PDF-1.4 Transparantie Kenmerken</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="obsolete">Kleine Koppen</translation>
-    </message>
-    <message>
-        <source>Roll Over</source>
-        <translation type="obsolete">Roll Over</translation>
-    </message>
-    <message>
-        <source>Value is not validated</source>
-        <translation type="obsolete">Waarde is niet gevalideerd</translation>
-    </message>
-    <message>
-        <source>Effect Type:</source>
-        <translation type="obsolete">Effect Type:</translation>
-    </message>
-    <message>
-        <source>Select new Font:</source>
-        <translation type="obsolete">Selecteer nieuw Font:</translation>
-    </message>
-    <message>
-        <source>Document contains: %1 Page(s)</source>
-        <translation type="obsolete">Document bevat: %1 Pagina(s)</translation>
-    </message>
-    <message>
-        <source>Scaling X:</source>
-        <translation type="obsolete">X Schaling:</translation>
-    </message>
-    <message>
-        <source>Scaling Y:</source>
-        <translation type="obsolete">Y Schaling</translation>
-    </message>
-    <message>
-        <source>Line up</source>
-        <translation type="obsolete">Naast Elkaar</translation>
-    </message>
-    <message>
-        <source>Prints the current Document</source>
-        <translation type="obsolete">Drukt het huidige Document af</translation>
-    </message>
-    <message>
-        <source>Printing Mode</source>
-        <translation type="obsolete">Afdruk Mode</translation>
-    </message>
-    <message>
-        <source>Fonts to embed:</source>
-        <translation type="obsolete">In te bedden Fonts:</translation>
-    </message>
-    <message>
-        <source>Create PDF-File</source>
-        <translation type="obsolete">Maak PDF-Bestand</translation>
-    </message>
-    <message>
-        <source>Global JavaScripts</source>
-        <translation type="obsolete">Globale JavaScripts</translation>
-    </message>
-    <message>
-        <source>Select Character</source>
-        <translation type="obsolete">Selecteer Teken</translation>
-    </message>
-    <message>
-        <source>Effect Duration:</source>
-        <translation type="obsolete">Effect Tijdsduur</translation>
-    </message>
-    <message>
-        <source>Displacement</source>
-        <translation type="obsolete">Verplaatsing</translation>
-    </message>
-    <message>
-        <source>Multiple Duplicate</source>
-        <translation type="obsolete">Meerdere Duplicaten</translation>
-    </message>
-    <message>
-        <source>Error creating PDF-File..</source>
-        <translation type="obsolete">Fout bij aanmaken PDF-Bestand...</translation>
-    </message>
-    <message>
-        <source>Linespacing:</source>
-        <translation type="obsolete">Lijnspatiëring</translation>
-    </message>
-    <message>
-        <source>Insert Rectangles</source>
-        <translation type="obsolete">Voeg Vierkant in</translation>
-    </message>
-    <message>
-        <source>Insert Ovals</source>
-        <translation type="obsolete">Voeg Ovaal in</translation>
-    </message>
-    <message>
-        <source>Show Outline</source>
-        <translation type="obsolete">Toon Omtrek</translation>
-    </message>
-    <message>
-        <source>Load...</source>
-        <translation type="obsolete">Laad...</translation>
-    </message>
-    <message>
-        <source>Insert Lines</source>
-        <translation type="obsolete">Voeg Lijn in</translation>
-    </message>
-    <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programmering:</translation>
-    </message>
-    <message>
-        <source>Show Page Palette</source>
-        <translation type="obsolete">Toon Pagina Pallet</translation>
-    </message>
-    <message>
-        <source>Insert Picture</source>
-        <translation type="obsolete">Voeg Afbeelding in</translation>
-    </message>
-    <message>
-        <source>Colors...</source>
-        <translation type="obsolete">Kleuren...</translation>
-    </message>
-    <message>
-        <source>Distance from Curve:</source>
-        <translation type="obsolete">Afstand van Curve:</translation>
-    </message>
-    <message>
-        <source>Hide Page Palette</source>
-        <translation type="obsolete">Verberg Pagina Pallet</translation>
-    </message>
-    <message>
-        <source>Vertical Scaling</source>
-        <translation type="obsolete">Verticale Schaling</translation>
-    </message>
-    <message>
-        <source>Insert Pagenumber</source>
-        <translation type="obsolete">Voeg Paginanummer in</translation>
-    </message>
-    <message>
-        <source>Page per Sheet</source>
-        <translation type="obsolete">Pagina per Sheet</translation>
-    </message>
-    <message>
-        <source>maximum</source>
-        <translation type="obsolete">maximum</translation>
-    </message>
-    <message>
-        <source>Formatting</source>
-        <translation type="obsolete">Formatering</translation>
-    </message>
-    <message>
-        <source>Combo Box</source>
-        <translation type="obsolete">Combo Box</translation>
-    </message>
-    <message>
-        <source>Thumbnails</source>
-        <translation type="obsolete">Miniweergaven</translation>
-    </message>
-    <message>
-        <source>Resolution:</source>
-        <translation type="obsolete">Resolutie:</translation>
-    </message>
-    <message>
-        <source>Template (Left Page):</source>
-        <translation type="obsolete">Template (linker Pagina):</translation>
-    </message>
-    <message>
-        <source>First Pagenumber:</source>
-        <translation type="obsolete">Eerste Paginanummer:</translation>
-    </message>
-    <message>
-        <source>Move Page(s):</source>
-        <translation type="obsolete">Verplaats Pagina(s):</translation>
-    </message>
-    <message>
-        <source>Custom validate script:</source>
-        <translation type="obsolete">Eigen validatie script:</translation>
-    </message>
-    <message>
-        <source>Searching for Fonts</source>
-        <translation type="obsolete">Zoeken naar Fonts</translation>
-    </message>
-    <message>
-        <source>Paper format</source>
-        <translation type="obsolete">Papier formaat</translation>
-    </message>
-    <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Verwijderen van:</translation>
-    </message>
-    <message>
-        <source>Enables automatic checking of your Text during Typing.</source>
-        <translation type="obsolete">Aanzetten van automatische Tekst controle tijdens Typen.</translation>
-    </message>
-    <message>
-        <source>Insert Page...</source>
-        <translation type="obsolete">Voeg Pagina in...</translation>
-    </message>
-    <message>
-        <source>Left to Right</source>
-        <translation type="obsolete">Links naar Rechts</translation>
-    </message>
-    <message>
-        <source>Delete Color</source>
-        <translation type="obsolete">Verwijder Kleur</translation>
-    </message>
-    <message>
-        <source>Right to Left</source>
-        <translation type="obsolete">Rechts naar Links</translation>
-    </message>
-    <message>
-        <source>Select Items</source>
-        <translation type="obsolete">Selecteer Items</translation>
-    </message>
-    <message>
-        <source>Scrapbooks (*.scs);; All Files (*)</source>
-        <translation type="obsolete">Kladblok  (*.scs);; Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Document Setup</source>
-        <translation type="obsolete">Document Opzet</translation>
-    </message>
-    <message>
-        <source>Select color</source>
-        <translation type="obsolete">Kies Kleur</translation>
-    </message>
-    <message>
-        <source>System Profiles</source>
-        <translation type="obsolete">Systeem Profielen</translation>
-    </message>
-    <message>
-        <source>Edit Polygon</source>
-        <translation type="obsolete">Bewerk Polygoon</translation>
-    </message>
-    <message>
-        <source>Delete Nodes</source>
-        <translation type="obsolete">Verwijder Knooppunten</translation>
-    </message>
-    <message>
-        <source>Delete Page:</source>
-        <translation type="obsolete">Verwijder Pagina:</translation>
-    </message>
-    <message>
-        <source>Delete Pages</source>
-        <translation type="obsolete">Verwijder pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Middles</source>
-        <translation type="obsolete">Midden</translation>
-    </message>
-    <message>
-        <source>Delete Layer</source>
-        <translation type="obsolete">Laag Verwijderen</translation>
-    </message>
-    <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Vervangen met:</translation>
-    </message>
-    <message>
-        <source>minimum</source>
-        <translation type="obsolete">minimum</translation>
-    </message>
-    <message>
-        <source>Caption below Icon</source>
-        <translation type="obsolete">Kapitaal beneden Icoon</translation>
-    </message>
-    <message>
-        <source>Hyphenator Settings</source>
-        <translation type="obsolete">Hyphenatie Instellingen</translation>
-    </message>
-    <message>
-        <source>Missing</source>
-        <translation type="obsolete">Ontbrekend</translation>
-    </message>
-    <message>
-        <source>Document Info...</source>
-        <translation type="obsolete">Document Informatie...</translation>
-    </message>
-    <message>
-        <source>Color Model</source>
-        <translation type="obsolete">Kleur Model</translation>
-    </message>
-    <message>
-        <source>Output Profile:</source>
-        <translation type="obsolete">Uitvoer Profiel</translation>
-    </message>
-    <message>
-        <source>Lower Layer</source>
-        <translation type="obsolete">Verlaag Laag</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation type="obsolete">Vaste Kleuren:</translation>
-    </message>
-    <message>
-        <source>Generate Thumbnails</source>
-        <translation type="obsolete">Maak Miniweergaven</translation>
-    </message>
-    <message>
-        <source>&amp;Add To Custom Colors</source>
-        <translation type="obsolete">&amp;Voegtoe aan Aangepaste Kleuren</translation>
-    </message>
-    <message>
-        <source>Mark Colors out of Gamut</source>
-        <translation type="obsolete">Markeer Kleuren vanuit Gamut</translation>
-    </message>
-    <message>
-        <source>Move...</source>
-        <translation type="obsolete">Verplaatsen...</translation>
-    </message>
-    <message>
-        <source>Template:</source>
-        <translation type="obsolete">Template:</translation>
-    </message>
-    <message>
-        <source>Above:</source>
-        <translation type="obsolete">Boven:</translation>
-    </message>
-    <message>
-        <source>Accept</source>
-        <translation type="obsolete">Accepteer</translation>
-    </message>
-    <message>
-        <source>Add...</source>
-        <translation type="obsolete">Toevoegen...</translation>
-    </message>
-    <message>
-        <source>Action</source>
-        <translation type="obsolete">Actie</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Wil je echt deze stijl verwijderen?</translation>
-    </message>
-    <message>
-        <source>Display Frames</source>
-        <translation type="obsolete">Toon Kaders</translation>
-    </message>
-    <message>
-        <source>Show Frames</source>
-        <translation type="obsolete">Toon Kaders</translation>
-    </message>
-    <message>
-        <source>Rendering Intents</source>
-        <translation type="obsolete">Rendering Intents</translation>
-    </message>
-    <message>
-        <source>Rendering Intent:</source>
-        <translation type="obsolete">Rendering Intent:</translation>
-    </message>
-    <message>
-        <source>Rendering-Intent:</source>
-        <translation type="obsolete">Rendering-Intentie:</translation>
-    </message>
-    <message>
-        <source>Always</source>
-        <translation type="obsolete">Altijd</translation>
-    </message>
-    <message>
-        <source>Angle:</source>
-        <translation type="obsolete">Hoek:</translation>
-    </message>
-    <message>
-        <source>Append</source>
-        <translation type="obsolete">Doorgaan</translation>
-    </message>
-    <message>
-        <source>Align Text Center</source>
-        <translation type="obsolete">Align Tekst geCentreerd</translation>
-    </message>
-    <message>
-        <source>Below:</source>
-        <translation type="obsolete">Onder:</translation>
-    </message>
-    <message>
-        <source>Bl&amp;ue:</source>
-        <translation type="obsolete">Bla&amp;uw:</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation type="obsolete">Luiken</translation>
-    </message>
-    <message>
-        <source>Border</source>
-        <translation type="obsolete">Rand</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation type="obsolete">Verberg Kaders</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
-    </message>
-    <message>
-        <source>Date Format</source>
-        <translation type="obsolete">Datum Formaat</translation>
-    </message>
-    <message>
-        <source>Center</source>
-        <translation type="obsolete">Centreer</translation>
-    </message>
-    <message>
-        <source>Button</source>
-        <translation type="obsolete">Knop</translation>
-    </message>
-    <message>
-        <source>Advanced Options...</source>
-        <translation type="obsolete">Geavanceerde Opties...</translation>
-    </message>
-    <message>
-        <source>Circle</source>
-        <translation type="obsolete">Cirkel</translation>
-    </message>
-    <message>
-        <source>New Color:</source>
-        <translation type="obsolete">Nieuwe Kleur:</translation>
-    </message>
-    <message>
-        <source>Hide Guides</source>
-        <translation type="obsolete">Verberg Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Color:</source>
-        <translation type="obsolete">Kleur:</translation>
-    </message>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Kleuren</translation>
-    </message>
-    <message>
-        <source>Field Properties</source>
-        <translation type="obsolete">Veld Eigenschappen</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation type="obsolete">Deens</translation>
-    </message>
-    <message>
-        <source>Dashed</source>
-        <translation type="obsolete">Gestreept</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Verwijderen</translation>
-    </message>
-    <message>
-        <source>Custom</source>
-        <translation type="obsolete">Aangepast</translation>
-    </message>
-    <message>
-        <source>Time Format</source>
-        <translation type="obsolete">Tijds Formaat</translation>
-    </message>
-    <message>
-        <source>Endings:</source>
-        <translation type="obsolete">Afsluitingen:</translation>
-    </message>
-    <message>
-        <source>Disp.:</source>
-        <translation type="obsolete">Verschuiving:</translation>
-    </message>
-    <message>
-        <source>Czech:</source>
-        <translation type="obsolete">Tzjechs:</translation>
-    </message>
-    <message>
-        <source>Show Guides</source>
-        <translation type="obsolete">Toon Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Horizontal Shift:</source>
-        <translation type="obsolete">Horizontale Verschuiving:</translation>
-    </message>
-    <message>
-        <source>Lock Guides</source>
-        <translation type="obsolete">Zet Richtlijnen vast</translation>
-    </message>
-    <message>
-        <source>Landscape</source>
-        <translation type="obsolete">Landschap</translation>
-    </message>
-    <message>
-        <source>Show Images</source>
-        <translation type="obsolete">Toon Afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Edges:</source>
-        <translation type="obsolete">Randen:</translation>
-    </message>
-    <message>
-        <source>No Effect</source>
-        <translation type="obsolete">Geen Effect</translation>
-    </message>
-    <message>
-        <source>Undo Object Change</source>
-        <translation type="obsolete">Maak Object verandering ongedaan</translation>
-    </message>
-    <message>
-        <source>Event:</source>
-        <translation type="obsolete">Gebeurtenis:</translation>
-    </message>
-    <message>
-        <source>Value is the</source>
-        <translation type="obsolete">Waarde is de</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation type="obsolete">Verberg Afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Extras</source>
-        <translation type="obsolete">Extra&apos;s</translation>
-    </message>
-    <message>
-        <source>Save Contents on Exit</source>
-        <translation type="obsolete">Sla Inhoud op bij afsluiten</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="obsolete">Omschrijving:</translation>
-    </message>
-    <message>
-        <source>Forced</source>
-        <translation type="obsolete">Gedwongen</translation>
-    </message>
-    <message>
-        <source>Format</source>
-        <translation type="obsolete">Formaat</translation>
-    </message>
-    <message>
-        <source>Line Color:</source>
-        <translation type="obsolete">LijnKleur:</translation>
-    </message>
-    <message>
-        <source>Enter a comma separated list of Fields here</source>
-        <translation type="obsolete">Voeg een komma gescheiden lijst van velden hier in</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="obsolete">Frans</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="obsolete">Duits</translation>
-    </message>
-    <message>
-        <source>Text Color:</source>
-        <translation type="obsolete">TekstKleur:</translation>
-    </message>
-    <message>
-        <source>Fill Color:</source>
-        <translation type="obsolete">VulKleur:</translation>
-    </message>
-    <message>
-        <source>Language:</source>
-        <translation type="obsolete">Taal:</translation>
-    </message>
-    <message>
-        <source>Guides</source>
-        <translation type="obsolete">Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation type="obsolete">Grid Kleuren</translation>
-    </message>
-    <message>
-        <source>Available Fields</source>
-        <translation type="obsolete">Beschikbare Velden</translation>
-    </message>
-    <message>
-        <source>Edit Colors</source>
-        <translation type="obsolete">Bewerk Kleuren</translation>
-    </message>
-    <message>
-        <source>Hidden</source>
-        <translation type="obsolete">Onzichtbaar</translation>
-    </message>
-    <message>
-        <source>Custom calculation script:</source>
-        <translation type="obsolete">Eigen calculatie script:</translation>
-    </message>
-    <message>
-        <source>Available Fonts:</source>
-        <translation type="obsolete">Beschikbare Fonts:</translation>
-    </message>
-    <message>
-        <source>Images</source>
-        <translation type="obsolete">Afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Custom Scripts</source>
-        <translation type="obsolete">Eigen Scripts</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Importeer</translation>
-    </message>
-    <message>
-        <source>Insert</source>
-        <translation type="obsolete">Invoegen</translation>
-    </message>
-    <message>
-        <source>Inside</source>
-        <translation type="obsolete">Binnen</translation>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation type="obsolete">Andersom</translation>
-    </message>
-    <message>
-        <source>Show Template Names</source>
-        <translation type="obsolete">Toon Template Namen</translation>
-    </message>
-    <message>
-        <source>Textdistance</source>
-        <translation type="obsolete">Tekstafstand</translation>
-    </message>
-    <message>
-        <source>Italic</source>
-        <translation type="obsolete">Italic</translation>
-    </message>
-    <message>
-        <source>No Fill</source>
-        <translation type="obsolete">Niet vullen</translation>
-    </message>
-    <message>
-        <source>No View</source>
-        <translation type="obsolete">Geen Weergave</translation>
-    </message>
-    <message>
-        <source>Here you can see all Pages of your Document.</source>
-        <translation type="obsolete">Hier kun je alle Pagina&apos;s van je Document zien</translation>
-    </message>
-    <message>
-        <source>Layers</source>
-        <translation type="obsolete">Lagen</translation>
-    </message>
-    <message>
-        <source>Document contains: 0 Page(s)</source>
-        <translation type="obsolete">Document bevat: 0 Pagina(s)</translation>
-    </message>
-    <message>
-        <source>Edit Shape...</source>
-        <translation type="obsolete">Bewerkt Vorm...</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Middel</translation>
-    </message>
-    <message>
-        <source>Menues</source>
-        <translation type="obsolete">Menuus</translation>
-    </message>
-    <message>
-        <source>Mirror</source>
-        <translation type="obsolete">Spiegelen</translation>
-    </message>
-    <message>
-        <source>No Key</source>
-        <translation type="obsolete">Geen Toets</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normaal</translation>
-    </message>
-    <message>
-        <source>Object</source>
-        <translation type="obsolete">Object</translation>
-    </message>
-    <message>
-        <source>Number</source>
-        <translation type="obsolete">Nummer</translation>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <translation type="obsolete">Font Naam</translation>
-    </message>
-    <message>
-        <source>Font Size</source>
-        <translation type="obsolete">Afmeting Font</translation>
-    </message>
-    <message>
-        <source>Hide Layers</source>
-        <translation type="obsolete">Verberg Lagen</translation>
-    </message>
-    <message>
-        <source>Grid Layout</source>
-        <translation type="obsolete">Grid Layout</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Er zijn geen Postscript-fonts aanwezig</translation>
-    </message>
-    <message>
-        <source>Option</source>
-        <translation type="obsolete">Optie</translation>
-    </message>
-    <message>
-        <source>Left Margin</source>
-        <translation type="obsolete">Linker Rand</translation>
-    </message>
-    <message>
-        <source>Other:</source>
-        <translation type="obsolete">Anders:</translation>
-    </message>
-    <message>
-        <source>Owner:</source>
-        <translation type="obsolete">Eigenaar:</translation>
-    </message>
-    <message>
-        <source>Show Layers</source>
-        <translation type="obsolete">Toon Lagen</translation>
-    </message>
-    <message>
-        <source>Closes this Dialog</source>
-        <translation type="obsolete">Sluit dit Venster</translation>
-    </message>
-    <message>
-        <source>Loading:</source>
-        <translation type="obsolete">Laden:</translation>
-    </message>
-    <message>
-        <source>Document to load:</source>
-        <translation type="obsolete">Te laden Document:</translation>
-    </message>
-    <message>
-        <source>Range:</source>
-        <translation type="obsolete">Bereik:</translation>
-    </message>
-    <message>
-        <source>Remove</source>
-        <translation type="obsolete">Verwijder</translation>
-    </message>
-    <message>
-        <source>Result</source>
-        <translation type="obsolete">Resultaat</translation>
-    </message>
-    <message>
-        <source>Line Width:</source>
-        <translation type="obsolete">Lijn Breedte:</translation>
-    </message>
-    <message>
-        <source>Right:</source>
-        <translation type="obsolete">Rechts:</translation>
-    </message>
-    <message>
-        <source>Sample</source>
-        <translation type="obsolete">Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Scale:</source>
-        <translation type="obsolete">Schaal:</translation>
-    </message>
-    <message>
-        <source>Screen</source>
-        <translation type="obsolete">Scherm</translation>
-    </message>
-    <message>
-        <source>Search</source>
-        <translation type="obsolete">Zoeken</translation>
-    </message>
-    <message>
-        <source>Select</source>
-        <translation type="obsolete">Selecteer</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Schaduw:</translation>
-    </message>
-    <message>
-        <source>New Script</source>
-        <translation type="obsolete">Nieuw Script</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="obsolete">Slovaaks</translation>
-    </message>
-    <message>
-        <source>Font Substitutions</source>
-        <translation type="obsolete">Font Vervangingen</translation>
-    </message>
-    <message>
-        <source>Square</source>
-        <translation type="obsolete">Vierkant</translation>
-    </message>
-    <message>
-        <source>Status</source>
-        <translation type="obsolete">Status</translation>
-    </message>
-    <message>
-        <source>Styles</source>
-        <translation type="obsolete">Stijlen</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="obsolete">Document</translation>
-    </message>
-    <message>
-        <source>New Style:</source>
-        <translation type="obsolete">Nieuwe Stijl:</translation>
-    </message>
-    <message>
-        <source>Title:</source>
-        <translation type="obsolete">Titel:</translation>
-    </message>
-    <message>
-        <source>To End</source>
-        <translation type="obsolete">Tot Einde</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
-    </message>
-    <message>
-        <source>Field is formatted as:</source>
-        <translation type="obsolete">Veld is gevormd als:</translation>
-    </message>
-    <message>
-        <source>Horizontal Guides</source>
-        <translation type="obsolete">Horizontal Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
-    </message>
-    <message>
-        <source>Compress Text and Vector Graphics</source>
-        <translation type="obsolete">Comprimeer Tekst en Vector Afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation type="obsolete">Ontsluit</translation>
-    </message>
-    <message>
-        <source>Closes the current Document</source>
-        <translation type="obsolete">Sluit het huidige Document</translation>
-    </message>
-    <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Java Script</translation>
-    </message>
-    <message>
-        <source>In the Foreground</source>
-        <translation type="obsolete">Op de voorgrond</translation>
-    </message>
-    <message>
-        <source>Look &amp;in:</source>
-        <translation type="obsolete">Kijk &amp;in:</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">Naam &quot;%1&quot; is niet uniek.
-Kies aub. een andere.</translation>
-    </message>
-    <message>
-        <source>Smallest Word:</source>
-        <translation type="obsolete">Kleinste Woord:</translation>
-    </message>
-    <message>
-        <source>Width:</source>
-        <translation type="obsolete">Breedte:</translation>
-    </message>
-    <message>
-        <source>Edit Styles</source>
-        <translation type="obsolete">Bewerk Stijlen</translation>
-    </message>
-    <message>
-        <source>Guide Snap Distance:</source>
-        <translation type="obsolete">Richtlijn Snap Richting:</translation>
-    </message>
-    <message>
-        <source>Hide Styles</source>
-        <translation type="obsolete">Verberg Stijlen</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) horizontal</source>
-        <translation type="obsolete">Spiegel Pagina&apos;s horizontaal</translation>
-    </message>
-    <message>
-        <source>Show Styles</source>
-        <translation type="obsolete">Toon Stijlen</translation>
-    </message>
-    <message>
-        <source>Tool-Tip:</source>
-        <translation type="obsolete">Tool-Tip:</translation>
-    </message>
-    <message>
-        <source>from the:</source>
-        <translation type="obsolete">Van de:</translation>
-    </message>
-    <message>
-        <source>Indentation</source>
-        <translation type="obsolete">Inspringen</translation>
-    </message>
-    <message>
-        <source>No Document</source>
-        <translation type="obsolete">Geen Document</translation>
-    </message>
-    <message>
-        <source>Right Sides</source>
-        <translation type="obsolete">Rechter Kant</translation>
-    </message>
-    <message>
-        <source>On Blur</source>
-        <translation type="obsolete">Bij Blur</translation>
-    </message>
-    <message>
-        <source>Icon only</source>
-        <translation type="obsolete">Alleen Icoon</translation>
-    </message>
-    <message>
-        <source>has been changed since the last save.</source>
-        <translation type="obsolete">Is aangepast na laatste opslag.</translation>
-    </message>
-    <message>
-        <source>Preview File Contents</source>
-        <translation type="obsolete">Toon Bestands Inhoud</translation>
-    </message>
-    <message>
-        <source>Show Margins</source>
-        <translation type="obsolete">Toon Randen</translation>
-    </message>
-    <message>
-        <source>Color Management Settings</source>
-        <translation type="obsolete">KleurManagement Instellingen</translation>
-    </message>
-    <message>
-        <source>First Line:</source>
-        <translation type="obsolete">Eerste Regel:</translation>
-    </message>
-    <message>
-        <source>Printer Options</source>
-        <translation type="obsolete">Printer Opties</translation>
-    </message>
-    <message>
-        <source>Bookmarks</source>
-        <translation type="obsolete">Bladwijzers</translation>
-    </message>
-    <message>
-        <source>Don&apos;t Export Value</source>
-        <translation type="obsolete">Waarde Niet Exporteren</translation>
-    </message>
-    <message>
-        <source>PDF-Options</source>
-        <translation type="obsolete">PDF-Opties</translation>
-    </message>
-    <message>
-        <source>Search Results for: </source>
-        <translation type="obsolete">Zoekresultaten voor: </translation>
-    </message>
-    <message>
-        <source>Print range</source>
-        <translation type="obsolete">Afdruk bereik</translation>
-    </message>
-    <message>
-        <source>Odd Pages only</source>
-        <translation type="obsolete">Alleen Oneven Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>When Icon is too small</source>
-        <translation type="obsolete">Als Icoon te klein is</translation>
-    </message>
-    <message>
-        <source>Columns:</source>
-        <translation type="obsolete">Kolommen:</translation>
-    </message>
-    <message>
-        <source>Don&apos;t print</source>
-        <translation type="obsolete">Niet afdrukken</translation>
-    </message>
-    <message>
-        <source>Command:</source>
-        <translation type="obsolete">Commando:</translation>
-    </message>
-    <message>
-        <source>Caption left to Icon</source>
-        <translation type="obsolete">Kapitaal links van Icoon</translation>
-    </message>
-    <message>
-        <source>Submit Data as HTML</source>
-        <translation type="obsolete">Stuur Gegevens als HTML</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Tekst Kader</translation>
-    </message>
-    <message>
-        <source>Edit Frame</source>
-        <translation type="obsolete">Bewerkt Kader</translation>
-    </message>
-    <message>
-        <source>Text Field</source>
-        <translation type="obsolete">Tekst Veld</translation>
-    </message>
-    <message>
-        <source>Edit Color</source>
-        <translation type="obsolete">Bewerkt Kleur</translation>
-    </message>
-    <message>
-        <source>Monitor:</source>
-        <translation type="obsolete">Beeldscherm:</translation>
-    </message>
-    <message>
-        <source>Left Point</source>
-        <translation type="obsolete">Linker Punt</translation>
-    </message>
-    <message>
-        <source>Add Nodes</source>
-        <translation type="obsolete">Voeg Knooppunten toe</translation>
-    </message>
-    <message>
-        <source>Edit Contents of Frame</source>
-        <translation type="obsolete">Bewerkt Inhoud van Kader</translation>
-    </message>
-    <message>
-        <source>Caption right to Icon</source>
-        <translation type="obsolete">Kapitaal rechts van Icoon</translation>
-    </message>
-    <message>
-        <source>Contents</source>
-        <translation type="obsolete">Inhoud</translation>
-    </message>
-    <message>
-        <source>Fonts...</source>
-        <translation type="obsolete">Fonts...</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);; All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.scd);; Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Fontsize</source>
-        <translation type="obsolete">LetterGrootte</translation>
-    </message>
-    <message>
-        <source>Left Sides</source>
-        <translation type="obsolete">Linker Kant</translation>
-    </message>
-    <message>
-        <source>Edit Style</source>
-        <translation type="obsolete">Bewerk Stijl</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Afmeting Font:</translation>
-    </message>
-    <message>
-        <source>Open...</source>
-        <translation type="obsolete">Openen...</translation>
-    </message>
-    <message>
-        <source>Import a Page</source>
-        <translation type="obsolete">Importeer een Pagina</translation>
-    </message>
-    <message>
-        <source>Number of copies:</source>
-        <translation type="obsolete">Aantal Kopieën</translation>
-    </message>
-    <message>
-        <source>Number of Copies:</source>
-        <translation type="obsolete">Aantal kopieen</translation>
-    </message>
-    <message>
-        <source>Selected Fields</source>
-        <translation type="obsolete">Geselecteerde Velden</translation>
-    </message>
-    <message>
-        <source>Don&apos;t use embedded Profiles</source>
-        <translation type="obsolete">Gebruik geen ingebedde profielen</translation>
-    </message>
-    <message>
-        <source>Opacity:</source>
-        <translation type="obsolete">Opacity:</translation>
-    </message>
-    <message>
-        <source>Options</source>
-        <translation type="obsolete">Opties</translation>
-    </message>
-    <message>
-        <source>Copy of </source>
-        <translation type="obsolete">Kopie van </translation>
-    </message>
-    <message>
-        <source>page(s)</source>
-        <translation type="obsolete">Pagina(s)</translation>
-    </message>
-    <message>
-        <source>Manage Keyboard Shortcuts</source>
-        <translation type="obsolete">Beheer Toets-Snelkoppelingen</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">aan het eind</translation>
-    </message>
-    <message>
-        <source>Hungarian and Italian:</source>
-        <translation type="obsolete">Hongaars en Italiaans:</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="obsolete">Toon Grid</translation>
-    </message>
-    <message>
-        <source>Corners:</source>
-        <translation type="obsolete">Hoeken:</translation>
-    </message>
-    <message>
-        <source>Icon Placement...</source>
-        <translation type="obsolete">Icoon Plaatsing...</translation>
-    </message>
-    <message>
-        <source>Portrait</source>
-        <translation type="obsolete">Portret</translation>
-    </message>
-    <message>
-        <source>Rotation</source>
-        <translation type="obsolete">Rotatie</translation>
-    </message>
-    <message>
-        <source>Do you really want to overwrite the File:
-%1 ?</source>
-        <translation type="obsolete">Wil je echt het bestand %1 overschrijven:
-?</translation>
-    </message>
-    <message>
-        <source>Copying Text and Graphics is allowed</source>
-        <translation type="obsolete">Kopieëren van Tekst en Afbeeldingen is toegestaan</translation>
-    </message>
-    <message>
-        <source>Contributions from:</source>
-        <translation type="obsolete">Contributies van:</translation>
-    </message>
-    <message>
-        <source>RoundCap</source>
-        <translation type="obsolete">RoundCap</translation>
-    </message>
-    <message>
-        <source>Mouse Up</source>
-        <translation type="obsolete">Muis Omhoog</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <translation type="obsolete">Omtrek</translation>
-    </message>
-    <message>
-        <source>Outside</source>
-        <translation type="obsolete">Buiten</translation>
-    </message>
-    <message>
-        <source>Custom Spacing</source>
-        <translation type="obsolete">Aangepaste Spatieëring</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="obsolete">Eigenschappen</translation>
-    </message>
-    <message>
-        <source>Automatic Linespaceing:</source>
-        <translation type="obsolete">Automatische Lijnspatiëring</translation>
-    </message>
-    <message>
-        <source>Top-Left to Bottom-Right</source>
-        <translation type="obsolete">Links-boven naar Rechts-onder</translation>
-    </message>
-    <message>
-        <source>Move Control Points independently</source>
-        <translation type="obsolete">Verplaats Controle Punten onafhankelijk</translation>
-    </message>
-    <message>
-        <source>Browse...</source>
-        <translation type="obsolete">Browse...</translation>
-    </message>
-    <message>
-        <source>Here are all your Templates, to create a new Page
-drag a Template to the Pageview below.</source>
-        <translation type="obsolete">Hier zijn al je Templages, om een nieuwe Pagina
-te maken sleep een Template naar de Weergave beneden.</translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Recente Documenten</translation>
-    </message>
-    <message>
-        <source>Pick...</source>
-        <translation type="obsolete">Selecteer...</translation>
-    </message>
-    <message>
-        <source>Embed all Fonts</source>
-        <translation type="obsolete">Alle Fonts insluiten</translation>
-    </message>
-    <message>
-        <source>Mouse Enter</source>
-        <translation type="obsolete">Mouse Aankomst</translation>
-    </message>
-    <message>
-        <source>Allow Changing the Document</source>
-        <translation type="obsolete">Verandering van het Document toestaan</translation>
-    </message>
-    <message>
-        <source>Hide Scrapbook</source>
-        <translation type="obsolete">Verberg Kladblok</translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation type="obsolete">Plaatsing</translation>
-    </message>
-    <message>
-        <source>Raise Layer</source>
-        <translation type="obsolete">Verhoog Laag</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Dupliceren</translation>
-    </message>
-    <message>
-        <source>Translations</source>
-        <translation type="obsolete">Vertalers</translation>
-    </message>
-    <message>
-        <source> loaded</source>
-        <translation type="obsolete"> Geladen</translation>
-    </message>
-    <message>
-        <source>Shears the Path vertical down</source>
-        <translation type="obsolete">Schaart de richting verticaal omlaag</translation>
-    </message>
-    <message>
-        <source>Is Spot-Color</source>
-        <translation type="obsolete">Is een Spot-Kleur</translation>
-    </message>
-    <message>
-        <source>Use Icons</source>
-        <translation type="obsolete">Gebruik Iconen</translation>
-    </message>
-    <message>
-        <source>Move Nodes</source>
-        <translation type="obsolete">Verplaats Knooppunten</translation>
-    </message>
-    <message>
-        <source>Move Pages</source>
-        <translation type="obsolete">Verplaats Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Line Width</source>
-        <translation type="obsolete">Lijn Breedte</translation>
-    </message>
-    <message>
-        <source>Hide Tools</source>
-        <translation type="obsolete">Verberg Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Polish:</source>
-        <translation type="obsolete">Pools:</translation>
-    </message>
-    <message>
-        <source>Margin Guides</source>
-        <translation type="obsolete">Marge Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Polygoon</translation>
-    </message>
-    <message>
-        <source>Read Only</source>
-        <translation type="obsolete">Alleen Lezen</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation type="obsolete">Verberg Randen</translation>
-    </message>
-    <message>
-        <source>Export...</source>
-        <translation type="obsolete">Exporteren...</translation>
-    </message>
-    <message>
-        <source>Import...</source>
-        <translation type="obsolete">Importeren...</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Opslaan als...</translation>
-    </message>
-    <message>
-        <source>Move Control Points</source>
-        <translation type="obsolete">Verplaats Controle Punten</translation>
-    </message>
-    <message>
-        <source>Manage Guides</source>
-        <translation type="obsolete">Beheer Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Pressed</source>
-        <translation type="obsolete">Gedrukt</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Printer</source>
-        <translation type="obsolete">Printer</translation>
-    </message>
-    <message>
-        <source>product</source>
-        <translation type="obsolete">produkt</translation>
-    </message>
-    <message>
-        <source>Actual Size</source>
-        <translation type="obsolete">Actuele Afmeting</translation>
-    </message>
-    <message>
-        <source>Check during Typing</source>
-        <translation type="obsolete">Controle tijdens Typen</translation>
-    </message>
-    <message>
-        <source>Annotation Properties</source>
-        <translation type="obsolete">Annotatie Eigenschappen</translation>
-    </message>
-    <message>
-        <source>When Icon is too big</source>
-        <translation type="obsolete">Als Icoon te groot is</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation type="obsolete">Haal Afbeelding...</translation>
-    </message>
-    <message>
-        <source>Vertical Gradient</source>
-        <translation type="obsolete">Verticale Gradient</translation>
-    </message>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Kopieer hier</translation>
-    </message>
-    <message>
-        <source>Copy Page</source>
-        <translation type="obsolete">Kopieer Pagina</translation>
-    </message>
-    <message>
-        <source>Polygon Properties</source>
-        <translation type="obsolete">Polygoon Eigenschappen</translation>
-    </message>
-    <message>
-        <source>Global Fontsettings</source>
-        <translation type="obsolete">Globale Font Instellingen</translation>
-    </message>
-    <message>
-        <source>Replacement</source>
-        <translation type="obsolete">Vervanging</translation>
-    </message>
-    <message>
-        <source>Page Set</source>
-        <translation type="obsolete">Pagina Setting</translation>
-    </message>
-    <message>
-        <source>Font st&amp;yle</source>
-        <translation type="obsolete">Font St&amp;yle</translation>
-    </message>
-    <message>
-        <source>Vertical flipped</source>
-        <translation type="obsolete">Verticaal gedraait</translation>
-    </message>
-    <message>
-        <source>Print in color if available</source>
-        <translation type="obsolete">Druk af in kleur als mogelijk</translation>
-    </message>
-    <message>
-        <source>Show Scrapbook</source>
-        <translation type="obsolete">Toon Kladblok</translation>
-    </message>
-    <message>
-        <source>Scale to Frame Size</source>
-        <translation type="obsolete">Schaal naar Kader Afmeting</translation>
-    </message>
-    <message>
-        <source>Ukrainian:</source>
-        <translation type="obsolete">Ukraieens:</translation>
-    </message>
-    <message>
-        <source>Attach Text to Path</source>
-        <translation type="obsolete">Koppel Tekst aan Lokatie</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="obsolete">Gewoven zijden pyjama vervangen voor blauwe quartz</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">Voor Pagina</translation>
-    </message>
-    <message>
-        <source>Text for Roll Over</source>
-        <translation type="obsolete">Tekst voor Roll Over</translation>
-    </message>
-    <message>
-        <source>Validate</source>
-        <translation type="obsolete">Valideer</translation>
-    </message>
-    <message>
-        <source>CrossDiagonal Gradient</source>
-        <translation type="obsolete">CrossDiagonale Gradient</translation>
-    </message>
-    <message>
-        <source>Show PDF-Tools</source>
-        <translation type="obsolete">Toon PDF-Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation type="obsolete">Haal naar voren</translation>
-    </message>
-    <message>
-        <source>Align Text Block</source>
-        <translation type="obsolete">Align Tekst Blok</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation type="obsolete">Kleuren Aanpassen</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Verander...</translation>
-    </message>
-    <message>
-        <source>Align Text Right</source>
-        <translation type="obsolete">Align Tekst Rechts</translation>
-    </message>
-    <message>
-        <source>Percent Format</source>
-        <translation type="obsolete">Percentage Formaat</translation>
-    </message>
-    <message>
-        <source>Print to file:</source>
-        <translation type="obsolete">Afdrukken naar bestand:</translation>
-    </message>
-    <message>
-        <source>Print first page first</source>
-        <translation type="obsolete">Druk 1e pagina eerst</translation>
-    </message>
-    <message>
-        <source>Characters</source>
-        <translation type="obsolete">Tekens</translation>
-    </message>
-    <message>
-        <source>Character:</source>
-        <translation type="obsolete">Teken:</translation>
-    </message>
-    <message>
-        <source>Manage Guides...</source>
-        <translation type="obsolete">Beheer Richtlijnen...</translation>
-    </message>
-    <message>
-        <source>Compression</source>
-        <translation type="obsolete">Compressie</translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Kladblok</translation>
-    </message>
-    <message>
-        <source>Character</source>
-        <translation type="obsolete">Teken</translation>
-    </message>
-    <message>
-        <source>Margins:</source>
-        <translation type="obsolete">Marges:</translation>
-    </message>
-    <message>
-        <source>Hide PDF-Tools</source>
-        <translation type="obsolete">Verberg PDF-Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Reading Scrapbook</source>
-        <translation type="obsolete">Kladblok wordt Gelezen</translation>
-    </message>
-    <message>
-        <source>Sent to Layer</source>
-        <translation type="obsolete">Stuur naar Laag</translation>
-    </message>
-    <message>
-        <source>Websave RGB</source>
-        <translation type="obsolete">Webopslag RGB</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS-Images</source>
-        <translation type="obsolete">Ghostscript : Je kan geen EPS-Afbeeldingen gebruiken</translation>
-    </message>
-    <message>
-        <source>To adjust the Display drag the Ruler below with the Slider.</source>
-        <translation type="obsolete">Om het Beeld aan te passen sleep de liniaal omlaag met de Slider.</translation>
-    </message>
-    <message>
-        <source>Password</source>
-        <translation type="obsolete">Wachtwoord</translation>
-    </message>
-    <message>
-        <source>Apply Effect on all Pages</source>
-        <translation type="obsolete">Pas Effect toe op alle Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Font for use with PDF-1.3:</source>
-        <translation type="obsolete">Te gebruiken Font voor PDF-1.3:</translation>
-    </message>
-    <message>
-        <source>Hyphenator...</source>
-        <translation type="obsolete">Hyphenator...</translation>
-    </message>
-    <message>
-        <source>Document Setup...</source>
-        <translation type="obsolete">Document Opzetten...</translation>
-    </message>
-    <message>
-        <source>Embed in:</source>
-        <translation type="obsolete">Invoegen in:</translation>
-    </message>
-    <message>
-        <source>Embedding</source>
-        <translation type="obsolete">Insluiten</translation>
-    </message>
-    <message>
-        <source>Visibility:</source>
-        <translation type="obsolete">Zichtbaarheid:</translation>
-    </message>
-    <message>
-        <source>Save Now</source>
-        <translation type="obsolete">Nu Opslaan</translation>
-    </message>
-    <message>
-        <source>&amp;Restore</source>
-        <translation type="obsolete">&amp;Terugzetten</translation>
-    </message>
-    <message>
-        <source>Author:</source>
-        <translation type="obsolete">Auteur:</translation>
-    </message>
-    <message>
-        <source>Authors</source>
-        <translation type="obsolete">Auteurs</translation>
-    </message>
-    <message>
-        <source>average</source>
-        <translation type="obsolete">gemiddelde</translation>
-    </message>
-    <message>
-        <source>Beveled</source>
-        <translation type="obsolete">Gebeveld</translation>
-    </message>
-    <message>
-        <source>Fit in Window</source>
-        <translation type="obsolete">Inpassen in Venster</translation>
-    </message>
-    <message>
-        <source>Maximize</source>
-        <translation type="obsolete">Maximaliseer</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Fields</source>
-        <translation type="obsolete">Voeg PDF-Velden in</translation>
-    </message>
-    <message>
-        <source>Strikeout</source>
-        <translation type="obsolete">Strikeout</translation>
-    </message>
-    <message>
-        <source>Print...</source>
-        <translation type="obsolete">Afdrukken...</translation>
-    </message>
-    <message>
-        <source>Printer:</source>
-        <translation type="obsolete">Printer:</translation>
-    </message>
-    <message>
-        <source>Apply ICC-Profiles</source>
-        <translation type="obsolete">Pas ICC-Profielen toe</translation>
-    </message>
-    <message>
-        <source>Printer settings</source>
-        <translation type="obsolete">Printer instellingen</translation>
-    </message>
-    <message>
-        <source>Import Data</source>
-        <translation type="obsolete">Importeer Data</translation>
-    </message>
-    <message>
-        <source>Insert Page</source>
-        <translation type="obsolete">Voeg Pagina in</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation type="obsolete">Nieuwe Kleur</translation>
-    </message>
-    <message>
-        <source>Static Color Bars</source>
-        <translation type="obsolete">Statische Kleurenbar</translation>
-    </message>
-    <message>
-        <source>New Entry</source>
-        <translation type="obsolete">Nieuwe aanmelding</translation>
-    </message>
-    <message>
-        <source>Show Curve</source>
-        <translation type="obsolete">Toon Curve</translation>
-    </message>
-    <message>
-        <source>New Layer</source>
-        <translation type="obsolete">Nieuwe Laag</translation>
-    </message>
-    <message>
-        <source>New Style</source>
-        <translation type="obsolete">Nieuwe Stijl</translation>
-    </message>
-    <message>
-        <source>Profiles</source>
-        <translation type="obsolete">Profielen</translation>
-    </message>
-    <message>
-        <source>Show Tools</source>
-        <translation type="obsolete">Toon Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Bottom:</source>
-        <translation type="obsolete">Onder:</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="obsolete">Over Qt</translation>
-    </message>
-    <message>
-        <source>Mouse Exit</source>
-        <translation type="obsolete">Muis Aftocht</translation>
-    </message>
-    <message>
-        <source>Mouse Down</source>
-        <translation type="obsolete">Muis Omlaag</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);; All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.sla.gz *.scd *scd.gz);; Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Use Font</source>
-        <translation type="obsolete">Gebruik Font</translation>
-    </message>
-    <message>
-        <source>Get Text/Picture...</source>
-        <translation type="obsolete">Haal Tekst/Afbeeldingen...</translation>
-    </message>
-    <message>
-        <source>Scaling:</source>
-        <translation type="obsolete">Schalen:</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="obsolete">Pica&apos;s (p)</translation>
-    </message>
-    <message>
-        <source>Modify Pictureframe</source>
-        <translation type="obsolete">Pas Afbeeldingskader aan</translation>
-    </message>
-    <message>
-        <source>Cascade</source>
-        <translation type="obsolete">Trapsgewijs</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Opslaan als</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Handmatige Kerning</translation>
-    </message>
-    <message>
-        <source>Scaling</source>
-        <translation type="obsolete">Schaling</translation>
-    </message>
-    <message>
-        <source>Apply Template...</source>
-        <translation type="obsolete">Gebruik Template...</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="obsolete">Subscript</translation>
-    </message>
-    <message>
-        <source>Pages per Sheet</source>
-        <translation type="obsolete">Paginas per Sheet</translation>
-    </message>
-    <message>
-        <source>Scr&amp;ipt</source>
-        <translation type="obsolete">Scr&amp;ipt</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Spaans en Katalaans:</translation>
-    </message>
-    <message>
-        <source>Script:</source>
-        <translation type="obsolete">Script:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="obsolete">Superscript</translation>
-    </message>
-    <message>
-        <source>Percentage</source>
-        <translation type="obsolete">Percentage</translation>
-    </message>
-    <message>
-        <source>Insert Bezier Curves</source>
-        <translation type="obsolete">Voeg Bezier Curve in</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation type="obsolete">Perceptueel</translation>
-    </message>
-    <message>
-        <source>Set Key</source>
-        <translation type="obsolete">Zet Toets</translation>
-    </message>
-    <message>
-        <source>Exit without Saving</source>
-        <translation type="obsolete">Afsluiten zonder Opslaan</translation>
-    </message>
-    <message>
-        <source>Insert...</source>
-        <translation type="obsolete">Invoegen...</translation>
-    </message>
-    <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Invoegen</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Russisch</translation>
-    </message>
-    <message>
-        <source>Printing failed!</source>
-        <translation type="obsolete">Afdrukken mislukt!</translation>
-    </message>
-    <message>
-        <source>Available Templates:</source>
-        <translation type="obsolete">Beschikbare Templates:</translation>
-    </message>
-    <message>
-        <source>N-Up Printing</source>
-        <translation type="obsolete">N-Omhoog Afdrukken</translation>
-    </message>
-    <message>
-        <source>Display Pages Side by Side</source>
-        <translation type="obsolete">Toon Kaders naast elkaar</translation>
-    </message>
-    <message>
-        <source>New Script:</source>
-        <translation type="obsolete">Nieuw Script:</translation>
-    </message>
-    <message>
-        <source>Decimals:</source>
-        <translation type="obsolete">Decimalen:</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Linker Pagina eerst</translation>
-    </message>
-    <message>
-        <source>of the following fields:</source>
-        <translation type="obsolete">van de volgende velden:</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation type="obsolete">Relatieve Kleurmetric</translation>
-    </message>
-    <message>
-        <source>Hyphenate Text</source>
-        <translation type="obsolete">Hyphenate Tekst</translation>
-    </message>
-    <message>
-        <source>Convert to Polygons</source>
-        <translation type="obsolete">Converter naar Polygonen</translation>
-    </message>
-    <message>
-        <source>Display unprintable Area in Margin Color</source>
-        <translation type="obsolete">Toon niet afdrukbare gebieden in Margekleur</translation>
-    </message>
-    <message>
-        <source>Rotate Item</source>
-        <translation type="obsolete">Roteer Item</translation>
-    </message>
-    <message>
-        <source>Output to File:</source>
-        <translation type="obsolete">Uitvoer naar Bestand:</translation>
-    </message>
-    <message>
-        <source>Scribus-Document</source>
-        <translation type="obsolete">Scribus-Document</translation>
-    </message>
-    <message>
-        <source>Linespacing</source>
-        <translation type="obsolete">Linespacing</translation>
-    </message>
-    <message>
-        <source>Slovak:</source>
-        <translation type="obsolete">Slovaaks:</translation>
-    </message>
-    <message>
-        <source>Select Font</source>
-        <translation type="obsolete">Selecteer Font</translation>
-    </message>
-    <message>
-        <source>Delete Page</source>
-        <translation type="obsolete">Verwijder Pagina</translation>
-    </message>
-    <message>
-        <source>Display Duration:</source>
-        <translation type="obsolete">Weergave Tijdsduur:</translation>
-    </message>
-    <message>
-        <source>Creates a new Document</source>
-        <translation type="obsolete">Maak een nieuw Document</translation>
-    </message>
-    <message>
-        <source>Millimeters (mm)</source>
-        <translation type="obsolete">Millimeters (mm)</translation>
-    </message>
-    <message>
-        <source>Import Data from:</source>
-        <translation type="obsolete">Importeer Data van:</translation>
-    </message>
-    <message>
-        <source>Background Color:</source>
-        <translation type="obsolete">Achtergrond Kleur:</translation>
-    </message>
-    <message>
-        <source>Comment</source>
-        <translation type="obsolete">Comentaar</translation>
-    </message>
-    <message>
-        <source>List View</source>
-        <translation type="obsolete">Lijst Weergave</translation>
-    </message>
-    <message>
-        <source>Select a Key for this Action</source>
-        <translation type="obsolete">Selecteer een Toets voor deze Actie</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Spaans</translation>
-    </message>
-    <message>
-        <source>and less or equal to:</source>
-        <translation type="obsolete">en kleiner of gelijk aan:</translation>
-    </message>
-    <message>
-        <source>Mouse-Settings</source>
-        <translation type="obsolete">Muis-Instellingen</translation>
-    </message>
-    <message>
-        <source>Hide Grid</source>
-        <translation type="obsolete">Verberg Grid</translation>
-    </message>
-    <message>
-        <source>Print destination</source>
-        <translation type="obsolete">Afdruk richting</translation>
-    </message>
-    <message>
-        <source>Fully Automatic</source>
-        <translation type="obsolete">Volledig Automatisch</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloid</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation type="obsolete">Haal Tekst...</translation>
-    </message>
-    <message>
-        <source>Danish:</source>
-        <translation type="obsolete">Deens:</translation>
-    </message>
-    <message>
-        <source>Rotation:</source>
-        <translation type="obsolete">Rotatie:</translation>
-    </message>
-    <message>
-        <source>Autom. Textframes</source>
-        <translation type="obsolete">Autom. Tekstkaders</translation>
-    </message>
-    <message>
-        <source>Color Management...</source>
-        <translation type="obsolete">Kleur Management...</translation>
-    </message>
-    <message>
-        <source>Distances</source>
-        <translation type="obsolete">Afstanden</translation>
-    </message>
-    <message>
-        <source>Rectangle</source>
-        <translation type="obsolete">Vierkant</translation>
-    </message>
-    <message>
-        <source>Passwords</source>
-        <translation type="obsolete">Wachtwoorden</translation>
-    </message>
-    <message>
-        <source>Flag is ignored for PDF-1.3</source>
-        <translation type="obsolete">Vlag is genegeerd bij PDF-1.3</translation>
-    </message>
-    <message>
-        <source>Printing...</source>
-        <translation type="obsolete">Bezig met Afdrukken...</translation>
-    </message>
-    <message>
-        <source>Pictures:</source>
-        <translation type="obsolete">Afbeeldingen:</translation>
-    </message>
-    <message>
-        <source>Keystroke:</source>
-        <translation type="obsolete">TekenAanslag:</translation>
-    </message>
-    <message>
-        <source>Document:</source>
-        <translation type="obsolete">Document:</translation>
-    </message>
-    <message>
-        <source>Document </source>
-        <translation type="obsolete">Document </translation>
-    </message>
-    <message>
-        <source>Multi-Line</source>
-        <translation type="obsolete">MeerLijnig</translation>
-    </message>
-    <message>
-        <source>MiterJoin</source>
-        <translation type="obsolete">MiterJoin</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation type="obsolete">Onderlijnen</translation>
-    </message>
-    <message>
-        <source>&amp;Underline</source>
-        <translation type="obsolete">&amp;Onderlijnen</translation>
-    </message>
-    <message>
-        <source>To the End</source>
-        <translation type="obsolete">Tot het Einde</translation>
-    </message>
-    <message>
-        <source>Print via other Command</source>
-        <translation type="obsolete">Druk af via ander Commando</translation>
-    </message>
-    <message>
-        <source>&amp;Green:</source>
-        <translation type="obsolete">&amp;Groen:</translation>
-    </message>
-    <message>
-        <source>Other...</source>
-        <translation type="obsolete">Anders...</translation>
-    </message>
-    <message>
-        <source>Horiz. Scale:</source>
-        <translation type="obsolete">Horiz. Schaling:</translation>
-    </message>
-    <message>
-        <source>Diamond</source>
-        <translation type="obsolete">Diamand</translation>
-    </message>
-    <message>
-        <source>Scale Picture to Frame Size</source>
-        <translation type="obsolete">Schaal Afbeelding naar Frame Grootte</translation>
-    </message>
-    <message>
-        <source>Modify...</source>
-        <translation type="obsolete">Aanpassen...</translation>
-    </message>
-    <message>
-        <source>Save Page as EPS...</source>
-        <translation type="obsolete">Sla pagina op als EPS...</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation type="obsolete">Laden...</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Wil je echt deze Template verwijderen?</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="obsolete">Punten (pt)</translation>
-    </message>
-    <message>
-        <source>Display</source>
-        <translation type="obsolete">Tonen</translation>
-    </message>
-    <message>
-        <source>Editable</source>
-        <translation type="obsolete">Bewerktbaar</translation>
-    </message>
-    <message>
-        <source>Gutter Width:</source>
-        <translation type="obsolete">Gutter Breedte:</translation>
-    </message>
-    <message>
-        <source>X-Pos+:</source>
-        <translation type="obsolete">X-Pos+:</translation>
-    </message>
-    <message>
-        <source>Show Page Previews</source>
-        <translation type="obsolete">Toon Pagina Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Dashed Line</source>
-        <translation type="obsolete">Gestreepte Lijn</translation>
-    </message>
-    <message>
-        <source>Dotted Line</source>
-        <translation type="obsolete">Onderbroken lijn</translation>
-    </message>
-    <message>
-        <source>Collect for Output...</source>
-        <translation type="obsolete">Collect voor Uitvoer...</translation>
-    </message>
-    <message>
-        <source>Undo Object Move</source>
-        <translation type="obsolete">Maak Object Verplaatsing ongedaan</translation>
-    </message>
-    <message>
-        <source>Lithuanian:</source>
-        <translation type="obsolete">Lithuaans:</translation>
-    </message>
-    <message>
-        <source>Horizontal Scaling</source>
-        <translation type="obsolete">Horizontale Scaling</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Kies een Directory</translation>
-    </message>
-    <message>
-        <source>Left Indent:</source>
-        <translation type="obsolete">Links Inspringen:</translation>
-    </message>
-    <message>
-        <source>Endpoints</source>
-        <translation type="obsolete">Eindpunt</translation>
-    </message>
-    <message>
-        <source>Text flows around Box</source>
-        <translation type="obsolete">Tekst volgt Kader</translation>
-    </message>
-    <message>
-        <source>Major Grid Spacing:</source>
-        <translation type="obsolete">Hoofdgrid Afmeting:</translation>
-    </message>
-    <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 Uitvoer Intentie</translation>
-    </message>
-    <message>
-        <source>SquareCap</source>
-        <translation type="obsolete">SquareCap</translation>
-    </message>
-    <message>
-        <source>Show Bookmarks</source>
-        <translation type="obsolete">Toon Bladwijzers</translation>
-    </message>
-    <message>
-        <source>Appearance</source>
-        <translation type="obsolete">Verschijning</translation>
-    </message>
-    <message>
-        <source>Online-Help...</source>
-        <translation type="obsolete">Online-Hulp...</translation>
-    </message>
-    <message>
-        <source>Adjust Display Size</source>
-        <translation type="obsolete">Pas Beeldgrootte aan</translation>
-    </message>
-    <message>
-        <source>Check Box</source>
-        <translation type="obsolete">CheckBox</translation>
-    </message>
-    <message>
-        <source>AFM-File available</source>
-        <translation type="obsolete">AFM-Bestand beschikbaar</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="obsolete">Alles Selecteren</translation>
-    </message>
-    <message>
-        <source>Value is not calculated</source>
-        <translation type="obsolete">Waarde is niet berekend</translation>
-    </message>
-    <message>
-        <source>Security</source>
-        <translation type="obsolete">Beveiliging</translation>
-    </message>
-    <message>
-        <source>Direction:</source>
-        <translation type="obsolete">Richting:</translation>
-    </message>
-    <message>
-        <source>Possible Hyphenation</source>
-        <translation type="obsolete">Mogelijke Hyphenatie</translation>
-    </message>
-    <message>
-        <source>System Menu</source>
-        <translation type="obsolete">Systeem Menu</translation>
-    </message>
-    <message>
-        <source>Edit...</source>
-        <translation type="obsolete">Bewerk...</translation>
-    </message>
-    <message>
-        <source>Saves the current Document</source>
-        <translation type="obsolete">Slaat het huidige Document op</translation>
-    </message>
-    <message>
-        <source>Hide Bookmarks</source>
-        <translation type="obsolete">Verberg Bladwijzers</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation type="obsolete">Effecten</translation>
-    </message>
-    <message>
-        <source>Bottom Sides</source>
-        <translation type="obsolete">Bodem</translation>
-    </message>
-    <message>
-        <source>Save Page as SVG...</source>
-        <translation type="obsolete">Pagina Opslaan als SVG...</translation>
-    </message>
-    <message>
-        <source>Stri&amp;keout</source>
-        <translation type="obsolete">Door&amp;halen</translation>
-    </message>
-    <message>
-        <source>This Key-Sequence is already in use</source>
-        <translation type="obsolete">Deze Toets-Snelkoppeling is al in gebruik</translation>
-    </message>
-    <message>
-        <source>Manage Pictures</source>
-        <translation type="obsolete">Afbeeldingen Beheren</translation>
-    </message>
-    <message>
-        <source>);;Vectorimages (*.eps *.pdf);;All Files (*)</source>
-        <translation type="obsolete">);;Vectorafbeeldingen (*.eps *.pdf);;Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Wheel-Jump</source>
-        <translation type="obsolete">Wiel-Sprong</translation>
-    </message>
-    <message>
-        <source>End Editing</source>
-        <translation type="obsolete">Eind Bewerking</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="obsolete">Inches (in)</translation>
-    </message>
-    <message>
-        <source>Vertical Spaces</source>
-        <translation type="obsolete">Verticale Spaties</translation>
-    </message>
-    <message>
-        <source>Current Key</source>
-        <translation type="obsolete">Huidige Toets</translation>
-    </message>
-    <message>
-        <source>Preferences...</source>
-        <translation type="obsolete">Voorkeuren...</translation>
-    </message>
-    <message>
-        <source>Y-Pos+:</source>
-        <translation type="obsolete">Y-Pos+:</translation>
-    </message>
-    <message>
-        <source>Element</source>
-        <translation type="obsolete">Element</translation>
-    </message>
-    <message>
-        <source>&amp;Basic colors</source>
-        <translation type="obsolete">&amp;Basis Kleuren</translation>
-    </message>
-    <message>
-        <source>Vertical Shift:</source>
-        <translation type="obsolete">Verticale Verschuiving:</translation>
-    </message>
-    <message>
-        <source>Enable Presentation Effects</source>
-        <translation type="obsolete">Activeer Presentatie Effecten</translation>
-    </message>
-    <message>
-        <source>Documents:</source>
-        <translation type="obsolete">Documenten:</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">Na Pagina</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Aangezet</translation>
-    </message>
-    <message>
-        <source>Activate Color Management</source>
-        <translation type="obsolete">Activeer Kleur Management</translation>
-    </message>
-    <message>
-        <source>RoundJoin</source>
-        <translation type="obsolete">RoundJoin</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="obsolete">Engels</translation>
-    </message>
-    <message>
-        <source>Ungroup</source>
-        <translation type="obsolete">Degroeperen</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <translation type="obsolete">Onbekend</translation>
-    </message>
-    <message>
-        <source>Adding Annotations and Fields is allowed</source>
-        <translation type="obsolete">Toevoegen van Annotaties en Velden is toegestaan</translation>
-    </message>
-    <message>
-        <source>Reset Form</source>
-        <translation type="obsolete">Reset Form</translation>
-    </message>
-    <message>
-        <source>Geometry</source>
-        <translation type="obsolete">Geometrie</translation>
-    </message>
-    <message>
-        <source>&amp;Custom colors</source>
-        <translation type="obsolete">&amp;Aangepaste Kleuren</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Verplaats hier</translation>
-    </message>
-    <message>
-        <source>Stepping:</source>
-        <translation type="obsolete">Stappen:</translation>
-    </message>
-    <message>
-        <source>Factor:</source>
-        <translation type="obsolete">Factor:</translation>
-    </message>
-    <message>
-        <source>General...</source>
-        <translation type="obsolete">Algemeen...</translation>
-    </message>
-    <message>
-        <source>Required</source>
-        <translation type="obsolete">Vereist</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation type="obsolete">Saturnatie</translation>
-    </message>
-    <message>
-        <source>Print in grayscale</source>
-        <translation type="obsolete">Druk af in grijstonen</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="obsolete">Verticaal</translation>
-    </message>
-    <message>
-        <source>Do Not Spell Check</source>
-        <translation type="obsolete">Geen Spellings Controle</translation>
-    </message>
-    <message>
-        <source>Russian:</source>
-        <translation type="obsolete">Russisch:</translation>
-    </message>
-    <message>
-        <source>Linestyle:</source>
-        <translation type="obsolete">LijnStyle:</translation>
-    </message>
-    <message>
-        <source>Outlined</source>
-        <translation type="obsolete">Outlined</translation>
-    </message>
-    <message>
-        <source>Autosave</source>
-        <translation type="obsolete">Autoopslag</translation>
-    </message>
-    <message>
-        <source>Outside:</source>
-        <translation type="obsolete">Buiten:</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="obsolete">Instellingen</translation>
-    </message>
-    <message>
-        <source>between:</source>
-        <translation type="obsolete">Tussen:</translation>
-    </message>
-    <message>
-        <source>BevelJoin</source>
-        <translation type="obsolete">BevelJoin</translation>
-    </message>
-    <message>
-        <source>Properties:</source>
-        <translation type="obsolete">Eigenschappen:</translation>
-    </message>
-    <message>
-        <source>Convert to</source>
-        <translation type="obsolete">Converteer naar</translation>
-    </message>
-    <message>
-        <source>Non Proportional</source>
-        <translation type="obsolete">Niet Proportioneel</translation>
-    </message>
-    <message>
-        <source>Proportional</source>
-        <translation type="obsolete">Proportioneel</translation>
-    </message>
-    <message>
-        <source>use Bounding Box</source>
-        <translation type="obsolete">Gebruik Bounding Box</translation>
-    </message>
-    <message>
-        <source>Linewidth:</source>
-        <translation type="obsolete">LijnBreedte:</translation>
-    </message>
-    <message>
-        <source>Preferences</source>
-        <translation type="obsolete">Voorkeuren</translation>
-    </message>
-    <message>
-        <source>Undo Delete Object</source>
-        <translation type="obsolete">Maak Object Verwijdering ongedaan</translation>
-    </message>
-    <message>
-        <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation type="obsolete">Sleep Pagina&apos;s of Template Pagina&apos;s naar de vuilnisbak om ze te verwijderen</translation>
-    </message>
-    <message>
-        <source>Default Size:</source>
-        <translation type="obsolete">Normale Grootte:</translation>
-    </message>
-    <message>
-        <source>Default Unit:</source>
-        <translation type="obsolete">Normale Eenheid:</translation>
-    </message>
-    <message>
-        <source>Dash Dot Line</source>
-        <translation type="obsolete">Gestreepte Onderbroken Lijn</translation>
-    </message>
-    <message>
-        <source>Default Font:</source>
-        <translation type="obsolete">Normale font:</translation>
-    </message>
-    <message>
-        <source>Minor Grid Spacing:</source>
-        <translation type="obsolete">Subgrid Afmeting:</translation>
-    </message>
-    <message>
-        <source>Templates...</source>
-        <translation type="obsolete">Templates...</translation>
-    </message>
-    <message>
-        <source>Visible</source>
-        <translation type="obsolete">Zichtbaar</translation>
-    </message>
-    <message>
-        <source>Select Fields</source>
-        <translation type="obsolete">Selecteer Velden</translation>
-    </message>
-    <message>
-        <source>Reset this Control Points</source>
-        <translation type="obsolete">Reset dit Controle Punt</translation>
-    </message>
-    <message>
-        <source>FlatCap</source>
-        <translation type="obsolete">FlatCap</translation>
-    </message>
-    <message>
-        <source>Split Polygon</source>
-        <translation type="obsolete">Deel Polygoon</translation>
-    </message>
-    <message>
-        <source>Apply Template</source>
-        <translation type="obsolete">Gebruik Template</translation>
-    </message>
-    <message>
-        <source>Value must be greater than or equal to:</source>
-        <translation type="obsolete">Waarde moet groter of gelijk zijn aan:</translation>
-    </message>
-    <message>
-        <source>Image visible</source>
-        <translation type="obsolete">Afmeting zichtbaar</translation>
-    </message>
-    <message>
-        <source>Combine Polygons</source>
-        <translation type="obsolete">Kombineer Polygonen</translation>
-    </message>
-    <message>
-        <source>Vertical Guides</source>
-        <translation type="obsolete">Verticale Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Typographics</source>
-        <translation type="obsolete">Typograficus</translation>
-    </message>
-    <message>
-        <source>Break Textchains</source>
-        <translation type="obsolete">Verbreek TekstKoppelingen</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimize</source>
-        <translation type="obsolete">Mi&amp;nimaliseren</translation>
-    </message>
-    <message>
-        <source>Free Scaling</source>
-        <translation type="obsolete">Vrije Schaling</translation>
-    </message>
-    <message>
-        <source>Print last page first</source>
-        <translation type="obsolete">Druk laatste pagina eerst</translation>
-    </message>
-    <message>
-        <source>Left Page</source>
-        <translation type="obsolete">Linker Pagina</translation>
-    </message>
-    <message>
-        <source>Format:</source>
-        <translation type="obsolete">Formaat:</translation>
-    </message>
-    <message>
-        <source>Properties...</source>
-        <translation type="obsolete">Eigenschappen...</translation>
-    </message>
-    <message>
-        <source>Reading Preferences</source>
-        <translation type="obsolete">Lezen van Instellingen</translation>
-    </message>
-    <message>
-        <source>Page Size</source>
-        <translation type="obsolete">Pagina afmeting</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertical</source>
-        <translation type="obsolete">Spiegel Pagina&apos;s verticaal</translation>
-    </message>
-    <message>
-        <source>Save linked Text Frames as PDF-Articles</source>
-        <translation type="obsolete">Sla gekoppelde TekstKaders op als PDF-Artikel</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>French:</source>
-        <translation type="obsolete">Frans:</translation>
-    </message>
-    <message>
-        <source>Save as PDF...</source>
-        <translation type="obsolete">Opslaan als PDF...</translation>
-    </message>
-    <message>
-        <source>Revert to Saved</source>
-        <translation type="obsolete">Opgeslagen versie laden</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Zichtbare Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Measurements</source>
-        <translation type="obsolete">Metingen</translation>
-    </message>
-    <message>
-        <source>Insert Bookmark</source>
-        <translation type="obsolete">Voeg Bladwijzer toe</translation>
-    </message>
-    <message>
-        <source>Norwegian:</source>
-        <translation type="obsolete">Noors:</translation>
-    </message>
-    <message>
-        <source>Distribute/Align</source>
-        <translation type="obsolete">Distribueer/Align</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Algemeen</translation>
-    </message>
-    <message>
-        <source>German:</source>
-        <translation type="obsolete">Duits:</translation>
-    </message>
-    <message>
-        <source>Dynamic Color Bars</source>
-        <translation type="obsolete">Dynamische Kleurenbar</translation>
-    </message>
-    <message>
-        <source>Hide Measurements</source>
-        <translation type="obsolete">Verberg Metingen</translation>
-    </message>
-    <message>
-        <source>One directory up</source>
-        <translation type="obsolete">Directory Omhoog</translation>
-    </message>
-    <message>
-        <source>Saves the current Document as PDF</source>
-        <translation type="obsolete">Sla het huidige Document op als PDF</translation>
-    </message>
-    <message>
-        <source>Show Measurements</source>
-        <translation type="obsolete">Toon Metingen</translation>
-    </message>
-    <message>
-        <source>Setting up Shortcuts</source>
-        <translation type="obsolete">Opzetten van snelkoppelingen</translation>
-    </message>
-    <message>
-        <source>Save and Exit</source>
-        <translation type="obsolete">Opslaan en Afsluiten</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximize</source>
-        <translation type="obsolete">Ma&amp;ximaliseer</translation>
-    </message>
-    <message>
-        <source>OK to delete Color:</source>
-        <translation type="obsolete">Oke om kleur te verwijderen:</translation>
-    </message>
-    <message>
-        <source>Highlight</source>
-        <translation type="obsolete">HighLight</translation>
-    </message>
-    <message>
-        <source>Insert Polygons</source>
-        <translation type="obsolete">Voeg Polygoon in</translation>
-    </message>
-    <message>
-        <source>Restore Down</source>
-        <translation type="obsolete">Terugbrengen Tot</translation>
-    </message>
-    <message>
-        <source>Antialias Text</source>
-        <translation type="obsolete">Zachtomrande Tekst</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation type="obsolete">Fatale Fout</translation>
-    </message>
-    <message>
-        <source>Align Left</source>
-        <translation type="obsolete">Align Links</translation>
-    </message>
-    <message>
-        <source>Windows</source>
-        <translation type="obsolete">Schermen</translation>
-    </message>
-    <message>
-        <source>Modify Frame</source>
-        <translation type="obsolete">Pas Kader aan</translation>
-    </message>
-    <message>
-        <source>Input Profile:</source>
-        <translation type="obsolete">Invoer Profiel:</translation>
-    </message>
-    <message>
-        <source>Default is Checked</source>
-        <translation type="obsolete">Normaal is geslecteerd</translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation type="obsolete">Glitter</translation>
-    </message>
-    <message>
-        <source>Advanced Options</source>
-        <translation type="obsolete">Geavanceerde Opties</translation>
-    </message>
-    <message>
-        <source>About Scribus</source>
-        <translation type="obsolete">Over Scribus</translation>
-    </message>
-    <message>
-        <source>Document Info</source>
-        <translation type="obsolete">Document Informatie</translation>
-    </message>
-    <message>
-        <source>Setup Printer</source>
-        <translation type="obsolete">Printer Instellen</translation>
-    </message>
-    <message>
-        <source>Is PDF-Annotation</source>
-        <translation type="obsolete">Is een PDF-Aantekening</translation>
-    </message>
-    <message>
-        <source>Opens a Polygon or cuts a Bezier Curve</source>
-        <translation type="obsolete">Opent een Polygoon of knipt een Bezier Curve</translation>
-    </message>
-    <message>
-        <source>All Pages</source>
-        <translation type="obsolete">Alle Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Diagonal Gradient</source>
-        <translation type="obsolete">Diagonale Gradient</translation>
-    </message>
-    <message>
-        <source>JavaScripts (*.js);; All Files (*)</source>
-        <translation type="obsolete">JavaScripts (*.js);; Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Shading:</source>
-        <translation type="obsolete">Schaduw:</translation>
-    </message>
-    <message>
-        <source>Distribute evenly</source>
-        <translation type="obsolete">Distribueer evenredig</translation>
-    </message>
-    <message>
-        <source>Example:</source>
-        <translation type="obsolete">Voorbeeld:</translation>
-    </message>
-    <message>
-        <source>Print Separations</source>
-        <translation type="obsolete">Druk Separaties</translation>
-    </message>
-    <message>
-        <source>Column Guides</source>
-        <translation type="obsolete">Kolom Richtlijnen</translation>
-    </message>
-    <message>
-        <source>Do Not Scroll</source>
-        <translation type="obsolete">Niet Scrollen</translation>
-    </message>
-    <message>
-        <source>Move Control Points symmetrical</source>
-        <translation type="obsolete">Verplaats Controle Punten Symmetrisch</translation>
-    </message>
-    <message>
-        <source>Text for Button Down</source>
-        <translation type="obsolete">Tekst voor Ingedrukte Knop</translation>
-    </message>
-    <message>
-        <source>You need at least the Icon for Normal to use Icons for Buttons</source>
-        <translation type="obsolete">Je hebt minstens een &apos;Normaal&apos; Icoon nodig wil je Iconen voor Knoppen gebruiken</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Hoogte:</translation>
-    </message>
-    <message>
-        <source>Compatibility:</source>
-        <translation type="obsolete">Compatibiliteit:</translation>
-    </message>
-    <message>
-        <source>Bottom to Top</source>
-        <translation type="obsolete">Beneden naar Boven</translation>
-    </message>
-    <message>
-        <source>Background:</source>
-        <translation type="obsolete">Achtergrond:</translation>
-    </message>
-    <message>
-        <source>Init Hyphenator</source>
-        <translation type="obsolete">Opzetten van Hyphenator</translation>
-    </message>
-    <message>
-        <source>Caption above Icon</source>
-        <translation type="obsolete">Kapitaal boven Icoon</translation>
-    </message>
-    <message>
-        <source>Print to printer:</source>
-        <translation type="obsolete">Afdrukken naar printer:</translation>
-    </message>
-    <message>
-        <source>Corner Radius:</source>
-        <translation type="obsolete">Hoek Radius:</translation>
-    </message>
-    <message>
-        <source>Additional Paths</source>
-        <translation type="obsolete">Additionele Lokaties</translation>
-    </message>
-    <message>
-        <source>Antialias Graphics</source>
-        <translation type="obsolete">Zachtomrande Afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Distance of Text</source>
-        <translation type="obsolete">Afstand tot Tekst</translation>
-    </message>
-    <message>
-        <source>Recent Documents:</source>
-        <translation type="obsolete">Recente Documenten:</translation>
-    </message>
-    <message>
-        <source>Deselect all</source>
-        <translation type="obsolete">Alles deSelecteren</translation>
-    </message>
-    <message>
-        <source>New Template</source>
-        <translation type="obsolete">Nieuwe Template</translation>
-    </message>
-    <message>
-        <source>Create New Folder</source>
-        <translation type="obsolete">Maak een Directory</translation>
-    </message>
-    <message>
-        <source>Insert PDF-Annotations</source>
-        <translation type="obsolete">Voeg PDF-Annotaties in</translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Documentatie:</translation>
-    </message>
-    <message>
-        <source>Selection Change</source>
-        <translation type="obsolete">Selectie Wissel</translation>
-    </message>
-    <message>
-        <source>Add a new Layer</source>
-        <translation type="obsolete">Nieuwe Laag toevoegen</translation>
-    </message>
-    <message>
-        <source>Allow Printing the Document</source>
-        <translation type="obsolete">Afdrukken van het Document toestaan</translation>
-    </message>
-    <message>
-        <source>Ordinary Text</source>
-        <translation type="obsolete">Normale Tekst</translation>
-    </message>
-    <message>
-        <source>Available Fonts</source>
-        <translation type="obsolete">Beschikbare Fonts</translation>
-    </message>
-    <message>
-        <source>Insert Textbox</source>
-        <translation type="obsolete">Voeg Tekstbox in</translation>
-    </message>
-    <message>
-        <source>Save Text...</source>
-        <translation type="obsolete">Opslaan als Tekst...</translation>
-    </message>
-    <message>
-        <source>SVG-Images (*.svg);; All Files (*)</source>
-        <translation type="obsolete">SVG-Afbeeldingen (*.svg);; Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="obsolete">Rechter Pagina</translation>
-    </message>
-    <message>
-        <source>Solid Line</source>
-        <translation type="obsolete">Harde Lijn</translation>
-    </message>
-    <message>
-        <source>Printing completed</source>
-        <translation type="obsolete">Afdrukken voltooid</translation>
-    </message>
-    <message>
-        <source>Saving aborted</source>
-        <translation type="obsolete">Opslaan afgebroken</translation>
-    </message>
-    <message>
-        <source>From page:</source>
-        <translation type="obsolete">Vanaf pagina:</translation>
-    </message>
-    <message>
-        <source>Edit Templates</source>
-        <translation type="obsolete">Bewerkt Templates</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write the File: 
-%1</source>
-        <translation type="obsolete">Kan niet naar bestand schrijven: 
-%1&apos;</translation>
-    </message>
-    <message>
-        <source>Resolution for EPS-Images:</source>
-        <translation type="obsolete">Resolutie voor EPS-Afbeeldingen:</translation>
-    </message>
-    <message>
-        <source>Output intended for:</source>
-        <translation type="obsolete">Uitvoer bestemd voor:</translation>
-    </message>
-    <message>
-        <source>Horizontal flipped</source>
-        <translation type="obsolete">Horizontaal gedraait</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="obsolete">Document Pagina&apos;s:</translation>
-    </message>
-    <message>
-        <source>Picture </source>
-        <translation type="obsolete">Afbeelding </translation>
-    </message>
-    <message>
-        <source>Pictures</source>
-        <translation type="obsolete">Afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Detail View</source>
-        <translation type="obsolete">Detail Weergave</translation>
-    </message>
-    <message>
-        <source>Reset Control Points</source>
-        <translation type="obsolete">Reset Controle Punten</translation>
-    </message>
-    <message>
-        <source>Textfiles (*.txt);;All Files (*)</source>
-        <translation type="obsolete">TekstBestanden (*.txt);;Alle Bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Scribus Manual</source>
-        <translation type="obsolete">Scribus Handboek</translation>
-    </message>
-    <message>
-        <source>Info String:</source>
-        <translation type="obsolete">Info Regel:</translation>
-    </message>
-    <message>
-        <source>Template (Right Page):</source>
-        <translation type="obsolete">Template (Rechter Pagina):</translation>
-    </message>
-    <message>
-        <source>In the Background</source>
-        <translation type="obsolete">In de achtergrond</translation>
-    </message>
-    <message>
-        <source>Arrange Pages</source>
-        <translation type="obsolete">Herschik Pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Orientatie:</translation>
-    </message>
-    <message>
-        <source>Alignment</source>
-        <translation type="obsolete">Alignment</translation>
-    </message>
-    <message>
-        <source>User Guides Color:</source>
-        <translation type="obsolete">Gebruikers Richtlijn Kleur:</translation>
-    </message>
-    <message>
-        <source>Include Bookmarks</source>
-        <translation type="obsolete">Invoegen Bladwijzers</translation>
-    </message>
-    <message>
-        <source>Top to Bottom</source>
-        <translation type="obsolete">Boven naar Beneden</translation>
-    </message>
-    <message>
-        <source>Insert Special</source>
-        <translation type="obsolete">Speciaal Invoegen</translation>
-    </message>
-    <message>
         <source>getFont([&quot;name&quot;]) -&gt; string
 
 Returns the font name for the text frame &quot;name&quot;. If this text frame
@@ -5413,134 +1635,16 @@ creates a Duplicate of the selected Object (or Selection Group).
 <context>
     <name>About</name>
     <message>
-        <source>About Scribus%1%2</source>
-        <translation type="obsolete">Info over Scribus%1%2</translation>
-    </message>
-    <message>
-        <source>%1. %2 %3 </source>
-        <translation type="obsolete">%1. %2 %3 </translation>
-    </message>
-    <message>
-        <source>Scribus Version %1
-%2 %3</source>
-        <translation type="obsolete">Scribus versie %1
-%2 %3</translation>
-    </message>
-    <message>
-        <source>Build-ID:</source>
-        <translation type="obsolete">Build-ID:</translation>
-    </message>
-    <message>
         <source>&amp;About</source>
         <translation>Inf&amp;o</translation>
-    </message>
-    <message>
-        <source>Programming:</source>
-        <translation type="obsolete">Programmering:</translation>
     </message>
     <message>
         <source>Contributions from:</source>
         <translation>Bijdragen van:</translation>
     </message>
     <message>
-        <source>Windows port:</source>
-        <translation type="obsolete">Windows-versie:</translation>
-    </message>
-    <message>
-        <source>Documentation:</source>
-        <translation type="obsolete">Documentatie:</translation>
-    </message>
-    <message>
         <source>A&amp;uthors</source>
         <translation>A&amp;uteurs</translation>
-    </message>
-    <message>
-        <source>German:</source>
-        <translation type="obsolete">Duits:</translation>
-    </message>
-    <message>
-        <source>French:</source>
-        <translation type="obsolete">Frans:</translation>
-    </message>
-    <message>
-        <source>Spanish and Catalan:</source>
-        <translation type="obsolete">Spaans en Catalaans:</translation>
-    </message>
-    <message>
-        <source>Italian:</source>
-        <translation type="obsolete">Italiaans:</translation>
-    </message>
-    <message>
-        <source>Hungarian:</source>
-        <translation type="obsolete">Hongaars:</translation>
-    </message>
-    <message>
-        <source>Ukrainian:</source>
-        <translation type="obsolete">Ukraïens:</translation>
-    </message>
-    <message>
-        <source>Bulgarian:</source>
-        <translation type="obsolete">Bulgaars:</translation>
-    </message>
-    <message>
-        <source>Galician:</source>
-        <translation type="obsolete">Galiciaans:</translation>
-    </message>
-    <message>
-        <source>Turkish:</source>
-        <translation type="obsolete">Turks:</translation>
-    </message>
-    <message>
-        <source>Lithuanian:</source>
-        <translation type="obsolete">Litouws:</translation>
-    </message>
-    <message>
-        <source>Polish:</source>
-        <translation type="obsolete">Pools:</translation>
-    </message>
-    <message>
-        <source>Czech:</source>
-        <translation type="obsolete">Tsjechisch:</translation>
-    </message>
-    <message>
-        <source>Slovak:</source>
-        <translation type="obsolete">Slovaaks:</translation>
-    </message>
-    <message>
-        <source>Danish:</source>
-        <translation type="obsolete">Deens:</translation>
-    </message>
-    <message>
-        <source>Norwegian:</source>
-        <translation type="obsolete">Noors:</translation>
-    </message>
-    <message>
-        <source>Welsh:</source>
-        <translation type="obsolete">Welsh:</translation>
-    </message>
-    <message>
-        <source>Russian:</source>
-        <translation type="obsolete">Russisch:</translation>
-    </message>
-    <message>
-        <source>Brazilian:</source>
-        <translation type="obsolete">Braziliaans:</translation>
-    </message>
-    <message>
-        <source>Finnish:</source>
-        <translation type="obsolete">Fins:</translation>
-    </message>
-    <message>
-        <source>Slovenian:</source>
-        <translation type="obsolete">Sloveens:</translation>
-    </message>
-    <message>
-        <source>Basque:</source>
-        <translation type="obsolete">Baskisch:</translation>
-    </message>
-    <message>
-        <source>Swedish:</source>
-        <translation type="obsolete">Zweeds:</translation>
     </message>
     <message>
         <source>&amp;Translations</source>
@@ -5555,16 +1659,6 @@ creates a Duplicate of the selected Object (or Selection Group).
         <translation>&amp;Sluiten</translation>
     </message>
     <message>
-        <source>This panel shows the version, build date and
- compiled in library support in Scribus
-The C-C-T equates to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Dit paneel toont de versie, compileerdatum en de
-ingebouwde ondersteuning voor bibliotheken in Scribus.
-&quot;C-C-T&quot; staat voor C=CUPS, C=littlecms, T=TIFF-onder-
-steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
-    </message>
-    <message>
         <source>Development Team:</source>
         <translation>Ontwikkelteam:</translation>
     </message>
@@ -5575,10 +1669,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>Other Documentation:</source>
         <translation>Andere documentatie:</translation>
-    </message>
-    <message>
-        <source>English (British):</source>
-        <translation type="obsolete">Engels (Brits):</translation>
     </message>
     <message>
         <source>Homepage</source>
@@ -5603,26 +1693,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>Official Translations and Translators:</source>
         <translation>Officiële vertalingen en vertalers:</translation>
-    </message>
-    <message>
-        <source>Catalan:</source>
-        <translation type="obsolete">Catalaans:</translation>
-    </message>
-    <message>
-        <source>Esperanto:</source>
-        <translation type="obsolete">Esperanto:</translation>
-    </message>
-    <message>
-        <source>Korean:</source>
-        <translation type="obsolete">Koreaans:</translation>
-    </message>
-    <message>
-        <source>Serbian:</source>
-        <translation type="obsolete">Servisch:</translation>
-    </message>
-    <message>
-        <source>Spanish:</source>
-        <translation type="obsolete">Spaans:</translation>
     </message>
     <message>
         <source>Previous Translation Contributors:</source>
@@ -5671,6 +1741,10 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>Tango Project Icons:</source>
         <translation>Tango project iconen:</translation>
+    </message>
+    <message>
+        <source>OS/2&amp;#174;/eComStation&amp;#8482; Port:</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5721,10 +1795,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>Scribus: About Plug-ins</source>
         <translation>Scribus: Over Plug-ins</translation>
-    </message>
-    <message>
-        <source>Description:</source>
-        <translation type="obsolete">Omschrijving:</translation>
     </message>
     <message>
         <source>&amp;Close</source>
@@ -5826,10 +1896,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
         <translation>Pla&amp;kken</translation>
     </message>
     <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="obsolete">Inhoud &amp;leegmaken</translation>
-    </message>
-    <message>
         <source>Select &amp;All</source>
         <translation>&amp;Alles selecteren</translation>
     </message>
@@ -5860,10 +1926,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>&amp;Master Pages...</source>
         <translation>S&amp;jablonen ...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
     </message>
     <message>
         <source>P&amp;references...</source>
@@ -5932,10 +1994,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>Su&amp;bscript</source>
         <translation>Su&amp;bscript</translation>
-    </message>
-    <message>
-        <source>&amp;Outline</source>
-        <translation type="obsolete">&amp;Outline</translation>
     </message>
     <message>
         <source>S&amp;hadow</source>
@@ -6072,10 +2130,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     <message>
         <source>&amp;Image Frame</source>
         <translation>&amp;Afbeeldingskader</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Outline</translation>
     </message>
     <message>
         <source>&amp;Polygon</source>
@@ -6658,186 +2712,6 @@ steuning. Ontbrekende bibliotheken worden aangeduid met *</translation>
     </message>
 </context>
 <context>
-    <name>AdvOptions</name>
-    <message>
-        <source>Advanced Options</source>
-        <translation type="obsolete">Geavanceerde opties</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Horizontal</source>
-        <translation type="obsolete">Pagina(&apos;s) &amp;horizontaal spiegelen</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) &amp;Vertical</source>
-        <translation type="obsolete">Pagina(&apos;s) &amp;verticaal spiegelen</translation>
-    </message>
-    <message>
-        <source>Apply Under Color &amp;Removal</source>
-        <translation type="obsolete">Onde&amp;rliggende kleuren verwijderen</translation>
-    </message>
-    <message>
-        <source>Apply &amp;ICC Profiles</source>
-        <translation type="obsolete">&amp;ICC-profielen toepassen</translation>
-    </message>
-    <message>
-        <source>PostScript Level &amp;1</source>
-        <translation type="obsolete">PostScript niveau &amp;1</translation>
-    </message>
-    <message>
-        <source>PostScript Level &amp;2</source>
-        <translation type="obsolete">PostScript niveau &amp;2</translation>
-    </message>
-    <message>
-        <source>PostScript Level &amp;3</source>
-        <translation type="obsolete">PostScript niveau &amp;3</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 3</source>
-        <translation type="obsolete">Maakt PostScript niveau 3 aan</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 2 only, beware,
-this can create huge files</source>
-        <translation type="obsolete">Maakt PostScript niveau 2 aan, dit kan
-zeer grote bestanden tot gevolg hebben</translation>
-    </message>
-    <message>
-        <source>Creates PostScript Level 1 only, beware,
-this can create huge files</source>
-        <translation type="obsolete">Maakt PostScript niveau 1 aan, dit kan
-zeer grote bestanden tot gevolg hebben</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
-    </message>
-</context>
-<context>
-    <name>Align</name>
-    <message>
-        <source>Distribute/Align</source>
-        <translation type="obsolete">Verdelen/uitlijnen</translation>
-    </message>
-    <message>
-        <source>Align</source>
-        <translation type="obsolete">Uitlijnen</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="obsolete">Horizontaal</translation>
-    </message>
-    <message>
-        <source>Left Sides</source>
-        <translation type="obsolete">Links</translation>
-    </message>
-    <message>
-        <source>Middles</source>
-        <translation type="obsolete">Midden</translation>
-    </message>
-    <message>
-        <source>Right Sides</source>
-        <translation type="obsolete">Rechts</translation>
-    </message>
-    <message>
-        <source>&amp;Between:</source>
-        <translation type="obsolete">&amp;Tussen:</translation>
-    </message>
-    <message>
-        <source>&amp;Do Not Change</source>
-        <translation type="obsolete">Niet veran&amp;deren</translation>
-    </message>
-    <message>
-        <source>A&amp;lign</source>
-        <translation type="obsolete">Uit&amp;lijnen</translation>
-    </message>
-    <message>
-        <source>Di&amp;splacement</source>
-        <translation type="obsolete">Verplaat&amp;sing</translation>
-    </message>
-    <message>
-        <source>Distribute &amp;Evenly</source>
-        <translation type="obsolete">G&amp;elijk verdelen</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="obsolete">Verticaal</translation>
-    </message>
-    <message>
-        <source>Top Sides</source>
-        <translation type="obsolete">Bovenkant</translation>
-    </message>
-    <message>
-        <source>Bottom Sides</source>
-        <translation type="obsolete">Onderkant</translation>
-    </message>
-    <message>
-        <source>Bet&amp;ween:</source>
-        <translation type="obsolete">T&amp;ussen:</translation>
-    </message>
-    <message>
-        <source>Do &amp;Not Change</source>
-        <translation type="obsolete">&amp;Niet veranderen</translation>
-    </message>
-    <message>
-        <source>Al&amp;ign</source>
-        <translation type="obsolete">U&amp;itlijnen</translation>
-    </message>
-    <message>
-        <source>Dis&amp;placement</source>
-        <translation type="obsolete">Ver&amp;plaatsing</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>Distribute E&amp;venly</source>
-        <translation type="obsolete">Gelijk &amp;verdelen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Apply</source>
-        <translation type="obsolete">Toe&amp;passen</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-</context>
-<context>
     <name>AlignDistributePalette</name>
     <message>
         <source>Align and Distribute</source>
@@ -6974,10 +2848,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>None Selected</source>
         <translation>Niets geselecteerd</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
     </message>
     <message>
         <source>Some objects are locked.</source>
@@ -7274,10 +3144,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>Opties</translation>
     </message>
     <message>
-        <source>Java Script</source>
-        <translation type="obsolete">Javascript</translation>
-    </message>
-    <message>
         <source>Go To</source>
         <translation>Ga naar</translation>
     </message>
@@ -7538,10 +3404,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>Openen</translation>
     </message>
     <message>
-        <source>Images (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;All Files (*)</source>
-        <translation type="obsolete">Afbeeldingen (*.tif *.png *.jpg *.xpm);;Postscript (*.eps);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Example:</source>
         <translation>Voorbeeld:</translation>
     </message>
@@ -7579,10 +3441,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>Annotatie-eigenschappen</translation>
     </message>
     <message>
-        <source>Type:</source>
-        <translation type="obsolete">Type:</translation>
-    </message>
-    <message>
         <source>Text</source>
         <translation>Tekst</translation>
     </message>
@@ -7603,32 +3461,8 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>Doel</translation>
     </message>
     <message>
-        <source>Change...</source>
-        <translation type="obsolete">Wijzigen...</translation>
-    </message>
-    <message>
-        <source>Page:</source>
-        <translation type="obsolete">Pagina:</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-positie:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-positie:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
     </message>
     <message>
         <source>Open</source>
@@ -7657,14 +3491,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>&amp;Y-Pos:</source>
         <translation>&amp;Y-pos:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -7740,49 +3566,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>Apply the selected master page to even, odd or all pages within the following range</source>
         <translation>Geselecteerde sjabloon op even, oneven of alle pagina&apos;s binnen het bereik toepassen</translation>
-    </message>
-</context>
-<context>
-    <name>ApplyT</name>
-    <message>
-        <source>Apply Template</source>
-        <translation type="obsolete">Sjabloon toepassen</translation>
-    </message>
-    <message>
-        <source>&amp;Template:</source>
-        <translation type="obsolete">&amp;Sjabloon:</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normaal</translation>
-    </message>
-    <message>
-        <source>Apply to &amp;Current Page</source>
-        <translation type="obsolete">Toepassen op &amp;huidige pagina</translation>
-    </message>
-    <message>
-        <source>Apply to all &amp;even Pages</source>
-        <translation type="obsolete">Toepassen op &amp;even pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Apply to all &amp;odd Pages</source>
-        <translation type="obsolete">Toepassen op &amp;oneven pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Apply from &amp;Page:</source>
-        <translation type="obsolete">Toepassen vanaf &amp;pagina:</translation>
-    </message>
-    <message>
-        <source>To:</source>
-        <translation type="obsolete">tot:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -7969,10 +3752,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>Voorbeeld van het resultaat in 72 dpi.</translation>
     </message>
     <message>
-        <source>Make check digit visible in text</source>
-        <translation type="obsolete">Controlecijfer zichtbaar</translation>
-    </message>
-    <message>
         <source>Co&amp;de:</source>
         <translation>Co&amp;de:</translation>
     </message>
@@ -8016,28 +3795,12 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>&amp;Openen...</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">Op&amp;slaan</translation>
-    </message>
-    <message>
         <source>Save &amp;As...</source>
         <translation>Opslaan &amp;als...</translation>
     </message>
     <message>
         <source>&amp;Close</source>
         <translation>&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Small</source>
-        <translation type="obsolete">&amp;Klein</translation>
-    </message>
-    <message>
-        <source>&amp;Medium</source>
-        <translation type="obsolete">&amp;Middel</translation>
-    </message>
-    <message>
-        <source>&amp;Large</source>
-        <translation type="obsolete">&amp;Groot</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -8048,30 +3811,12 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>&amp;Voorbeeld</translation>
     </message>
     <message>
-        <source>Scrapbooks (*.scs);;All Files (*)</source>
-        <translation type="obsolete">Kladblokbestanden (*.scs);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Rename</source>
         <translation>Hernoemen</translation>
     </message>
     <message>
         <source>Delete</source>
         <translation>Verwijderen</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Object</source>
@@ -8232,20 +3977,12 @@ Kies een andere naam.</translation>
 <context>
     <name>CMSPrefs</name>
     <message>
-        <source>Color Management Settings</source>
-        <translation type="obsolete">Instellingen voor kleurbeheer</translation>
-    </message>
-    <message>
         <source>&amp;Activate Color Management</source>
         <translation>Kleurbeheer &amp;activeren</translation>
     </message>
     <message>
         <source>System Profiles</source>
         <translation>Systeemprofielen</translation>
-    </message>
-    <message>
-        <source>&amp;Pictures:</source>
-        <translation type="obsolete">A&amp;fbeeldingen:</translation>
     </message>
     <message>
         <source>&amp;Solid Colors:</source>
@@ -8298,18 +4035,6 @@ Kies een andere naam.</translation>
     <message>
         <source>Use &amp;Blackpoint Compensation</source>
         <translation>&amp;Zwartpuntcompensatie gebruiken</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Default color profile for imported images</source>
-        <translation type="obsolete">Standaard kleurprofiel voor geïmporteerde afbeeldingen</translation>
     </message>
     <message>
         <source>Default color profile for solid colors on the page</source>
@@ -8409,14 +4134,6 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
         <translation>Oud</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>HSV-Colormap</source>
         <translation>HSV-kleurenkaart</translation>
     </message>
@@ -8459,32 +4176,6 @@ Als uw document foto&apos;s bevat wordt deze instelling aangeraden.</translation
     <message>
         <source>B:</source>
         <translation>B:</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name of the Color is not unique</source>
-        <translation type="obsolete">Deze kleurnaam is niet uniek</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>You cannot create a color named &quot;%1&quot;.
-It&apos;s a reserved name for transparent color</source>
-        <translation type="obsolete">U kunt geen kleur aanmaken met de naam &quot;%1&quot;.
-Deze naam is reeds gereserveerd voor transparante kleuren</translation>
-    </message>
-    <message>
-        <source>Is Spot-Color</source>
-        <translation type="obsolete">Is een Spot-Kleur</translation>
     </message>
     <message>
         <source>Is Spot Color</source>
@@ -8553,10 +4244,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>Delete the current selection(s).</source>
         <translation>Verwijdert de huidige selectie(s).</translation>
-    </message>
-    <message>
-        <source>Close this dialog and return to text editing.</source>
-        <translation type="obsolete">Sluit deze dialoog om verder te werken aan de tekst.</translation>
     </message>
     <message>
         <source>Full Character Set</source>
@@ -8759,13 +4446,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     </message>
 </context>
 <context>
-    <name>CheckerPrefsList</name>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
-    </message>
-</context>
-<context>
     <name>ChooseStyles</name>
     <message>
         <source>Choose Styles</source>
@@ -8774,10 +4454,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>Available Styles</source>
         <translation>Beschikbare stijlen</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
     </message>
 </context>
 <context>
@@ -9193,10 +4869,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
         <translation>&amp;Annuleren</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
         <source>&amp;OK</source>
         <translation>&amp;OK</translation>
     </message>
@@ -9253,6 +4925,98 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>Right Page</source>
         <translation>Rechter pagina</translation>
+    </message>
+    <message>
+        <source>Normal</source>
+        <translation>Normaal</translation>
+    </message>
+    <message>
+        <source>Normal Left</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Middle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Normal Right</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Monday</source>
+        <translation>Maandag</translation>
+    </message>
+    <message>
+        <source>Tuesday</source>
+        <translation>Dinsdag</translation>
+    </message>
+    <message>
+        <source>Wednesday</source>
+        <translation>Woensdag</translation>
+    </message>
+    <message>
+        <source>Thursday</source>
+        <translation>Donderdag</translation>
+    </message>
+    <message>
+        <source>Friday</source>
+        <translation>Vrijdag</translation>
+    </message>
+    <message>
+        <source>Saturday</source>
+        <translation>Zaterdag</translation>
+    </message>
+    <message>
+        <source>Sunday</source>
+        <translation>Zondag</translation>
+    </message>
+    <message>
+        <source>January</source>
+        <translation>Januari</translation>
+    </message>
+    <message>
+        <source>February</source>
+        <translation>Februari</translation>
+    </message>
+    <message>
+        <source>March</source>
+        <translation>Maart</translation>
+    </message>
+    <message>
+        <source>April</source>
+        <translation>April</translation>
+    </message>
+    <message>
+        <source>May</source>
+        <translation>Mei</translation>
+    </message>
+    <message>
+        <source>June</source>
+        <translation>Juni</translation>
+    </message>
+    <message>
+        <source>July</source>
+        <translation>Juli</translation>
+    </message>
+    <message>
+        <source>August</source>
+        <translation>Augustus</translation>
+    </message>
+    <message>
+        <source>September</source>
+        <translation>September</translation>
+    </message>
+    <message>
+        <source>October</source>
+        <translation>Oktober</translation>
+    </message>
+    <message>
+        <source>November</source>
+        <translation>November</translation>
+    </message>
+    <message>
+        <source>December</source>
+        <translation>December</translation>
     </message>
 </context>
 <context>
@@ -9342,26 +5106,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
         <translation>Geeft de mate van ondoorschijnendheid aan</translation>
     </message>
     <message>
-        <source>Color of selected object</source>
-        <translation type="obsolete">Kleur van het geselecteerde object</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
         <source>Move Vector</source>
         <translation>Verplaats vector</translation>
     </message>
@@ -9387,10 +5131,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>Value delimiter:</source>
         <translation>Waardescheidingsteken:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>First row is a header</source>
@@ -9475,26 +5215,6 @@ Het is een naam gereserveerd voor transparantkleur</translation>
     <message>
         <source>Value</source>
         <translation>Waarde</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>This panel displays various CUPS options when printing. 
-The exact parameters available will depend on your printer driver.
-You can confirm CUPS support by selecting Help &gt; About.
-Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support.
-Missing library support is indicated by a *</source>
-        <translation type="obsolete">Dit paneel toont verschillende CUPS-opties voor het afdrukken.
-Welke instellingen precies mogelijk zijn hangt van uw printerdriver af.
-Onder &quot;Help &gt; Info over&quot; kunt u kijken of CUPS-ondersteuning is ingebouwd.
-Kijk voor de tekens C-C-T, welke staan voor C=CUPS, C=littlecms, T=TIFF-ondersteuning.
-Een * geeft aan welke bibliotheken ontbreken</translation>
     </message>
     <message>
         <source>This panel displays various CUPS options when printing. The exact parameters available will depend on your printer driver. You can confirm CUPS support by selecting Help &gt; About. Look for the listings: C-C-T These equate to C=CUPS C=littlecms T=TIFF support. Missing library support is indicated by a *</source>
@@ -9607,38 +5327,6 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>Kleur verwijderen</translation>
     </message>
     <message>
-        <source>Delete color:</source>
-        <translation type="obsolete">Kleur verwijderen:</translation>
-    </message>
-    <message>
-        <source>?</source>
-        <translation type="obsolete">?</translation>
-    </message>
-    <message>
-        <source>Replace it with:</source>
-        <translation type="obsolete">Vervangen door:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Delete Color:</source>
         <translation>Kleur verwijderen:</translation>
     </message>
@@ -9654,21 +5342,8 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>Pagina&apos;s verwijderen</translation>
     </message>
     <message>
-        <source>Delete from:</source>
-        <translation type="obsolete">Verwijderen van:</translation>
-    </message>
-    <message>
         <source>to:</source>
         <translation>tot:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren
-</translation>
     </message>
     <message>
         <source>Delete From:</source>
@@ -9692,29 +5367,6 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
     <message>
         <source>No Style</source>
         <translation>Geen stijl</translation>
-    </message>
-</context>
-<context>
-    <name>DmF</name>
-    <message>
-        <source>Missing Font</source>
-        <translation type="obsolete">Ontbrekend font</translation>
-    </message>
-    <message>
-        <source>The Font %1 is not installed.</source>
-        <translation type="obsolete">Het font %1 is niet geinstalleerd.</translation>
-    </message>
-    <message>
-        <source>Use</source>
-        <translation type="obsolete">Gebruik</translation>
-    </message>
-    <message>
-        <source>instead</source>
-        <translation type="obsolete">in plaats daarvan</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
     </message>
 </context>
 <context>
@@ -9797,36 +5449,8 @@ Deze kan worden ingesteld in de voorkeuren.</translation>
         <translation>Rec&amp;hten:</translation>
     </message>
     <message>
-        <source>&amp;Document</source>
-        <translation type="obsolete">Docu&amp;ment</translation>
-    </message>
-    <message>
         <source>Further &amp;Information</source>
         <translation>Meer &amp;informatie</translation>
-    </message>
-    <message>
-        <source>The person or organisation primarily responsible for making the content of the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="obsolete">De persoon of organisatie die de hoofdverantwoordelijke is voor het aanmaken van de inhoud van dit document.
-Dit veld kan worden ingebed in het Scribus document, maar ook in de metadata van een PDF-bestand</translation>
-    </message>
-    <message>
-        <source>A name given to the document.
-This field can be embedded in the Scribus document for reference, as well as in the metadata of a PDF</source>
-        <translation type="obsolete">Een naam voor dit document.
-Dit veld kan worden ingebed in het Scribus document, maar ook in de metadata van een PDF-bestand</translation>
-    </message>
-    <message>
-        <source>An account of the content of the document.
-This field is for a brief description or abstract of the document. It is embedded in the PDF on export</source>
-        <translation type="obsolete">Een korte weergave van de inhoud van het document.
-Dit wordt ook ingebed in PDF-bestanden bij exporteren</translation>
-    </message>
-    <message>
-        <source>The topic of the content of the document.
-This field is for document keywords you wish to embed in a PDF, to assist searches and indexing of PDF files</source>
-        <translation type="obsolete">De onderwerpen van het document.
-Deze sleutelwoorden worden ingebed in de PDF om zoeken en indexeren van PDF-bestanden mogelijk te maken</translation>
     </message>
     <message>
         <source>A person or organisation responsible for making the document available</source>
@@ -9845,24 +5469,12 @@ Deze sleutelwoorden worden ingebed in de PDF om zoeken en indexeren van PDF-best
         <translation>Genre, categorie of type van dit document</translation>
     </message>
     <message>
-        <source>The physical or digital manifestation of the document. Media type and dimensions would be worth noting.
-RFC2045,RFC2046 for MIME types are also useful here</source>
-        <translation type="obsolete">De fysieke of digitale gestalte van het document, zoals mediatype en afmetingen.
-RFC2045, RFC2046 voor MIME-bestandstypen zijn ook bruikbaar hier</translation>
-    </message>
-    <message>
         <source>An unambiguous reference to the document within a given context such as ISBN or URI</source>
         <translation>Een exacte referentie naar dit document, zoals een ISBN-nummer of een URI</translation>
     </message>
     <message>
         <source>A reference to a document from which the present document is derived, eg. ISBN or URI</source>
         <translation>Een verwijzing naar een document waar dit document van is afgelijk, bijv. ISBN of een URI</translation>
-    </message>
-    <message>
-        <source>The language in which the content of the document is written, usually a ISO-639 language code
-optionally suffixed with a hypen and an ISO-3166 country code, eg. en-GB, fr-CH</source>
-        <translation type="obsolete">De taal waarin het document is geschreven, normaal gesproken een ISO-639 taalcode,
-optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl-BE</translation>
     </message>
     <message>
         <source>A reference to a related document, possibly using a formal identifier such as a ISBN or URI</source>
@@ -9875,14 +5487,6 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     <message>
         <source>Information about rights held in and over the document, eg. copyright, patent or trademark</source>
         <translation>Informatie over rechten die voor dit document gelden, zoals copyright, patenten of handelsmerken</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Documen&amp;t</source>
@@ -10006,10 +5610,6 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
 <context>
     <name>DocumentItemAttributes</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
         <source>Relates To</source>
         <translation>Relatie tot</translation>
     </message>
@@ -10040,38 +5640,6 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
     <message>
         <source>String</source>
         <translation>String</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Naam</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Waarde</translation>
-    </message>
-    <message>
-        <source>&amp;Add</source>
-        <translation type="obsolete">&amp;Toevoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Kopiëren</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="obsolete">W&amp;issen</translation>
     </message>
     <message>
         <source>None</source>
@@ -10191,12 +5759,6 @@ optioneel gevolgd door een koppelteken en een ISO-3166 landcode, bijv. en-GB, nl
         <translation>A&amp;lternatief printcommando</translation>
     </message>
     <message>
-        <source>Use an alternative print manager, such as kprinter or gtklp,
-to utilize additional printing options</source>
-        <translation type="obsolete">Gebruik een alternatief printcommando, zoals kprinter of gtklp,
-om extra printopties te kunnen gebruiken</translation>
-    </message>
-    <message>
         <source>Co&amp;mmand:</source>
         <translation>Co&amp;mmando:</translation>
     </message>
@@ -10233,14 +5795,6 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Opties</translation>
     </message>
     <message>
-        <source>Print &amp;Normal</source>
-        <translation type="obsolete">&amp;Normaal afdrukken</translation>
-    </message>
-    <message>
-        <source>Print &amp;Separations</source>
-        <translation type="obsolete">Ge&amp;scheiden afdrukken</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Alles</translation>
     </message>
@@ -10261,32 +5815,12 @@ Een * staat voor alle pagina&apos;s.</translation>
         <translation>Zwart</translation>
     </message>
     <message>
-        <source>Pr&amp;int In Color If Available</source>
-        <translation type="obsolete">&amp;In kleur afdrukken indien beschikbaar</translation>
-    </message>
-    <message>
-        <source>Print In Gra&amp;yscale</source>
-        <translation type="obsolete">In &amp;grijstinten afdrukken</translation>
-    </message>
-    <message>
-        <source>Ad&amp;vanced Options...</source>
-        <translation type="obsolete">Gea&amp;vanceerd...</translation>
-    </message>
-    <message>
         <source>&amp;Print</source>
         <translation>Afdru&amp;kken</translation>
     </message>
     <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Opslaan als</translation>
-    </message>
-    <message>
-        <source>Postscript-Files (*.ps);;All Files (*)</source>
-        <translation type="obsolete">Postscriptbestanden (*.ps);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Print Normal</source>
@@ -10363,20 +5897,6 @@ Een * staat voor alle pagina&apos;s.</translation>
 Instellen op Level 1 of 2 kan leiden tot grote bestanden</translation>
     </message>
     <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
-    </message>
-    <message>
         <source>PostScript Files (*.ps);;All Files (*)</source>
         <translation>Postscript bestanden (*.ps);;Alle bestanden (*)</translation>
     </message>
@@ -10403,10 +5923,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
     <message>
         <source>Clip to Page Margins</source>
         <translation>Afsnijden bij paginarand</translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Objecten die buiten de marges vallen niet weergeven bij afdrukken of exporteren</translation>
     </message>
     <message>
         <source>Failed to retrieve printer settings</source>
@@ -10453,17 +5969,6 @@ is mislukt!</translation>
     </message>
 </context>
 <context>
-    <name>EditMacroDialog</name>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation type="obsolete">Atl+O</translation>
-    </message>
-</context>
-<context>
     <name>EditStyle</name>
     <message>
         <source>Edit Style</source>
@@ -10478,76 +5983,16 @@ is mislukt!</translation>
         <translation>Teken</translation>
     </message>
     <message>
-        <source>&amp;Font:</source>
-        <translation type="obsolete">&amp;Font:</translation>
-    </message>
-    <message>
         <source> pt</source>
         <translation>pt</translation>
-    </message>
-    <message>
-        <source>Si&amp;ze:</source>
-        <translation type="obsolete">&amp;Grootte:</translation>
-    </message>
-    <message>
-        <source>Effect:</source>
-        <translation type="obsolete">Effect:</translation>
-    </message>
-    <message>
-        <source>&amp;Alignment:</source>
-        <translation type="obsolete">&amp;Uitlijning:</translation>
-    </message>
-    <message>
-        <source>&amp;Drop Caps</source>
-        <translation type="obsolete">&amp;Drop caps</translation>
     </message>
     <message>
         <source>&amp;Lines:</source>
         <translation>Rege&amp;ls:</translation>
     </message>
     <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="obsolete">&amp;Vulkleur:</translation>
-    </message>
-    <message>
-        <source>St&amp;roke Color:</source>
-        <translation type="obsolete">&amp;Lijnkleur:</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>Vertical Spaces</source>
-        <translation type="obsolete">Verticale tussenruimtes</translation>
-    </message>
-    <message>
-        <source>Adjust to Baseline &amp;Grid</source>
-        <translation type="obsolete">Aanpassen aan basislijn &amp;raster</translation>
-    </message>
-    <message>
-        <source>Line &amp;Spacing:</source>
-        <translation type="obsolete">Regel&amp;spatiëring:</translation>
-    </message>
-    <message>
-        <source>Abo&amp;ve:</source>
-        <translation type="obsolete">Bo&amp;ven:</translation>
-    </message>
-    <message>
-        <source>&amp;Below:</source>
-        <translation type="obsolete">On&amp;der:</translation>
-    </message>
-    <message>
         <source>Tabulators and Indentation</source>
         <translation>Tabs en inspringing</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Name of your paragraph style</source>
@@ -10570,16 +6015,8 @@ is mislukt!</translation>
         <translation>Kleur van de tekstomlijning</translation>
     </message>
     <message>
-        <source>Provides an oversized first letter for a paragraph. Used for stylistic effect</source>
-        <translation type="obsolete">Maakt de eerste letter van een alinea groter voor een decoratief effect</translation>
-    </message>
-    <message>
         <source>Determines the overall height, in line numbers, of the Drop Caps</source>
         <translation>Geeft de hoogte van de kapitaal aan in het aantal regels dat deze beslaat</translation>
-    </message>
-    <message>
-        <source>Align text to baseline grid</source>
-        <translation type="obsolete">Tekst aan de basislijn van het raster uitlijnen</translation>
     </message>
     <message>
         <source>Spacing above the paragraph</source>
@@ -10592,30 +6029,6 @@ is mislukt!</translation>
     <message>
         <source>Line Spacing</source>
         <translation>Tussenruimte tussen de regels</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name of the Style is not unique</source>
-        <translation type="obsolete">De stijlnaam is niet uniek</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source> %</source>
@@ -10678,8 +6091,12 @@ is mislukt!</translation>
         <translation>Offset ten opzichte van basislijn tekens</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation>Klik om regelspatiëringsmodus te selecteren</translation>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation type="unfinished">Automatisch</translation>
     </message>
 </context>
 <context>
@@ -10743,10 +6160,6 @@ is mislukt!</translation>
     <message>
         <source>&amp;Edit</source>
         <translation>Be&amp;werken</translation>
-    </message>
-    <message>
-        <source>Javascripts (*.js);;All Files (*)</source>
-        <translation type="obsolete">Javascripts (*.js);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>JavaScripts (*.js);;All Files (*)</source>
@@ -10905,14 +6318,6 @@ is mislukt!</translation>
     <message>
         <source>&amp;Range</source>
         <translation>&amp;Bereik</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>C</source>
@@ -11134,129 +6539,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     </message>
 </context>
 <context>
-    <name>Farbmanager</name>
-    <message>
-        <source>Colors</source>
-        <translation type="obsolete">Kleuren</translation>
-    </message>
-    <message>
-        <source>&amp;Append</source>
-        <translation type="obsolete">Toe&amp;voegen</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="obsolete">Be&amp;werken</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation type="obsolete">D&amp;upliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>&amp;Remove Unused</source>
-        <translation type="obsolete">Ongebruikte ve&amp;rwijderen</translation>
-    </message>
-    <message>
-        <source>Color Sets</source>
-        <translation type="obsolete">Kleurensets</translation>
-    </message>
-    <message>
-        <source>Current Color Set:</source>
-        <translation type="obsolete">Huidige kleurenset:</translation>
-    </message>
-    <message>
-        <source>&amp;Save Color Set</source>
-        <translation type="obsolete">Kleurenset op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Choose a color set to load</source>
-        <translation type="obsolete">Kies de te laden kleurenset</translation>
-    </message>
-    <message>
-        <source>Save the current color set</source>
-        <translation type="obsolete">De huidige kleurenset opslaan</translation>
-    </message>
-    <message>
-        <source>Remove unused colors from current document&apos;s color set</source>
-        <translation type="obsolete">Verwijdert de ongebruikte kleuren uit de kleurenset van dit document</translation>
-    </message>
-    <message>
-        <source>Append colors to the current set from an existing document</source>
-        <translation type="obsolete">Voeg kleuren toe van een ander document aan het huidige</translation>
-    </message>
-    <message>
-        <source>Create a new color within the current set</source>
-        <translation type="obsolete">Een nieuwe kleur aanmaken in de huidige set</translation>
-    </message>
-    <message>
-        <source>Edit the currently selected color</source>
-        <translation type="obsolete">De huidige kleur bewerken</translation>
-    </message>
-    <message>
-        <source>Make a copy of the currently selected color</source>
-        <translation type="obsolete">Een kopie van de momenteel geselecteerde kleur maken</translation>
-    </message>
-    <message>
-        <source>Delete the currently selected color</source>
-        <translation type="obsolete">De huidige kleur verwijderen</translation>
-    </message>
-    <message>
-        <source>Make the current colorset the default color set</source>
-        <translation type="obsolete">Stelt de huidige kleurenset in als standaard</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="obsolete">&amp;Naam:</translation>
-    </message>
-    <message>
-        <source>Choose a Name</source>
-        <translation type="obsolete">Kies een naam</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Openen</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation type="obsolete">Kopie van %1</translation>
-    </message>
-    <message>
-        <source>New Color</source>
-        <translation type="obsolete">Nieuwe kleur</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="obsolete">&amp;Importeren</translation>
-    </message>
-</context>
-<context>
     <name>FileLoader</name>
     <message>
         <source>Some fonts used by this document have been substituted:</source>
@@ -11270,10 +6552,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
 <context>
     <name>FontPrefs</name>
     <message>
-        <source>Global Font Settings</source>
-        <translation type="obsolete">Algemene font-instellingen</translation>
-    </message>
-    <message>
         <source>Available Fonts</source>
         <translation>Beschikbare fonts</translation>
     </message>
@@ -11286,36 +6564,8 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation>Additionele lokaties</translation>
     </message>
     <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Ja</translation>
-    </message>
-    <message>
         <source>Font Name</source>
         <translation>Font Naam</translation>
-    </message>
-    <message>
-        <source>Use Font</source>
-        <translation type="obsolete">Font gebruiken</translation>
-    </message>
-    <message>
-        <source>Embed in:</source>
-        <translation type="obsolete">Invoegen in:</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <translation type="obsolete">Subset</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Path to Font File</source>
-        <translation type="obsolete">Pad naar fontbestand</translation>
     </message>
     <message>
         <source>&amp;Available Fonts</source>
@@ -11348,14 +6598,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Additional &amp;Paths</source>
         <translation>Additionele l&amp;okaties</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Choose a Directory</source>
@@ -11391,59 +6633,12 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation>Postscript</translation>
     </message>
     <message>
-        <source>Font search paths can only be set in Preferences, and only when there is no document currently open. Close any open documents, then use Edit-&gt;Settings to change the font search path.</source>
-        <translation>Het pad naar fonts kan alleen als er geen document geopend is worden ingesteld in Voorkeuren. Sluit alle open documenten, en gebruik Edit-&gt;Settings om het pad naar het font aan te passen.</translation>
+        <source>Font search paths can only be set when there are no documents open. Close any open documents, then use File -&gt;Preferences &gt; Fonts to change the font search path.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>FontPreview</name>
-    <message>
-        <source>Fonts Preview</source>
-        <translation type="obsolete">Fontvoorbeeld</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation type="obsolete">Atl+O</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="obsolete">Filmquiz bracht knappe ex-yogi van de wijs</translation>
-    </message>
-    <message>
-        <source>Append selected font into Style, Font menu</source>
-        <translation type="obsolete">Het geselecteerde font toevoegen aan het menu Stijl, Font</translation>
-    </message>
-    <message>
-        <source>Leave preview</source>
-        <translation type="obsolete">Voorbeeld sluiten</translation>
-    </message>
-    <message>
-        <source>Font Name</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">Font Naam</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Subset</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">Subset</translation>
-    </message>
     <message>
         <source>User</source>
         <comment>font preview</comment>
@@ -11453,26 +6648,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>System</source>
         <comment>font preview</comment>
         <translation>Systeem</translation>
-    </message>
-    <message>
-        <source>Fonts Preview</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">Fontvoorbeeld</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">Atl+O</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <comment>font preview</comment>
-        <translation type="obsolete">Alt+A</translation>
     </message>
     <message>
         <source>Append selected font into Style, Font menu</source>
@@ -11488,14 +6663,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <source>Woven silk pyjamas exchanged for blue quartz</source>
         <comment>font preview</comment>
         <translation>Sexy qua lijf, doch bang voor &apos;t zwempak</translation>
-    </message>
-    <message>
-        <source>Font Size:</source>
-        <translation type="obsolete">Afmeting Font:</translation>
-    </message>
-    <message>
-        <source>&amp;Search</source>
-        <translation type="obsolete">&amp;Zoeken</translation>
     </message>
     <message>
         <source>Start searching</source>
@@ -11654,10 +6821,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
         <translation>%</translation>
     </message>
     <message>
-        <source>Here you can add, change or remove Color-Stops.</source>
-        <translation type="obsolete">Hier kunt u kleur-stops toevoegen, bewerken of verwijderen.</translation>
-    </message>
-    <message>
         <source>Add, change or remove color stops here</source>
         <translation>Verander, verwijder of voeg kleurstops hier toe</translation>
     </message>
@@ -11667,22 +6830,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>Manage Guides</source>
         <translation>Hulplijnen beheren</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>Horizontal Guides</source>
@@ -11719,14 +6866,6 @@ De naam van het bestand zal zijn &apos;documentnaam-pagina.type&apos;</translati
     <message>
         <source>&amp;Lock Guides</source>
         <translation>Hulplijnen vast&amp;zetten</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Rows and Columns - Automatic Guides</source>
@@ -11933,24 +7072,12 @@ documentatie en op http://www.scribus.net/ voor downloads.</translation>
 <context>
     <name>HySettings</name>
     <message>
-        <source>Hyphenator Settings</source>
-        <translation type="obsolete">Afbreekinstellingen</translation>
-    </message>
-    <message>
         <source>&amp;Language:</source>
         <translation>&amp;Taal:</translation>
     </message>
     <message>
         <source>&amp;Smallest Word:</source>
         <translation>&amp;Kleinste woord:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Length of the smallest word to be hyphenated.</source>
@@ -11969,10 +7096,6 @@ De waarde 0 betekent onbeperkt.</translation>
     <message>
         <source>Hyphenate Text Automatically &amp;During Typing</source>
         <translation>Automatisch afbreken tij&amp;dens typen</translation>
-    </message>
-    <message>
-        <source>Consecutive Hypenations &amp;Allowed:</source>
-        <translation type="obsolete">Opeenvolgende afbrekingen &amp;toestaan:</translation>
     </message>
     <message>
         <source>A dialog box showing all possible hyphens for each word will show up when you use the Extras, Hyphenate Text option.</source>
@@ -12098,10 +7221,6 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Pagina invoegen</translation>
     </message>
     <message>
-        <source>&amp;Inserting</source>
-        <translation type="obsolete">&amp;Invoegen</translation>
-    </message>
-    <message>
         <source>Page(s)</source>
         <translation>pagina&apos;s</translation>
     </message>
@@ -12118,32 +7237,8 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>aan het eind</translation>
     </message>
     <message>
-        <source>Inserting</source>
-        <translation type="obsolete">Invoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Template (Left Page):</source>
-        <translation type="obsolete">&amp;Sjabloon (linker pagina):</translation>
-    </message>
-    <message>
-        <source>&amp;Template:</source>
-        <translation type="obsolete">&amp;Sjabloon:</translation>
-    </message>
-    <message>
         <source>Normal</source>
         <translation>Normaal</translation>
-    </message>
-    <message>
-        <source>Template (Right Page):</source>
-        <translation type="obsolete">Sjabloon (rechter pagina):</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>&amp;Insert</source>
@@ -12201,22 +7296,6 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Tabel invoegen</translation>
     </message>
     <message>
-        <source>Number of Rows:</source>
-        <translation type="obsolete">Aantal rijen:</translation>
-    </message>
-    <message>
-        <source>Number of Columns:</source>
-        <translation type="obsolete">Aantal kolommen:</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
-    </message>
-    <message>
         <source>Number of rows:</source>
         <translation>Aantal rijen:</translation>
     </message>
@@ -12256,20 +7335,12 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Nieuw script</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
         <source>&amp;No</source>
         <translation>&amp;Nee</translation>
     </message>
     <message>
         <source>&amp;Yes</source>
         <translation>&amp;Ja</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Script?</source>
-        <translation type="obsolete">Wilt u dit script werkelijk verwijderen?</translation>
     </message>
     <message>
         <source>Do you really want to delete this script?</source>
@@ -12282,10 +7353,6 @@ zet de vectordata over naar Scribus objecten.</translation>
 </context>
 <context>
     <name>KeyManager</name>
-    <message>
-        <source>Manage Keyboard Shortcuts</source>
-        <translation type="obsolete">Sneltoetsen instellen</translation>
-    </message>
     <message>
         <source>Action</source>
         <translation>Actie</translation>
@@ -12315,14 +7382,6 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>&amp;Toets instellen</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Alt</source>
         <translation>Alt</translation>
     </message>
@@ -12345,14 +7404,6 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>Ctrl+</source>
         <translation>Ctrl+</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>This Key Sequence is already in use</source>
-        <translation type="obsolete">Deze toets is al in gebruik</translation>
     </message>
     <message>
         <source>Loadable Shortcut Sets</source>
@@ -12418,28 +7469,8 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Lagen</translation>
     </message>
     <message>
-        <source>Add a new Layer</source>
-        <translation type="obsolete">Nieuwe laag toevoegen</translation>
-    </message>
-    <message>
         <source>Delete Layer</source>
         <translation>Laag verwijderen</translation>
-    </message>
-    <message>
-        <source>Raise Layer</source>
-        <translation type="obsolete">Laag verhogen</translation>
-    </message>
-    <message>
-        <source>Lower Layer</source>
-        <translation type="obsolete">Laag verlagen</translation>
-    </message>
-    <message>
-        <source>New Layer</source>
-        <translation type="obsolete">Nieuwe laag</translation>
-    </message>
-    <message>
-        <source>Do you want to delete all Objects on this Layer too?</source>
-        <translation type="obsolete">Wilt u alle objecten op deze laag ook verwijderen?</translation>
     </message>
     <message>
         <source>Name</source>
@@ -12473,10 +7504,6 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Lijnstijlen bewerken</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation type="obsolete">&amp;Toevoegen</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Nieuw</translation>
     </message>
@@ -12497,28 +7524,12 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Op&amp;slaan</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Kopie van %1</translation>
     </message>
     <message>
         <source>New Style</source>
         <translation>Nieuwe stijl</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Wil je echt deze stijl verwijderen?</translation>
     </message>
     <message>
         <source>&amp;No</source>
@@ -12539,10 +7550,6 @@ zet de vectordata over naar Scribus objecten.</translation>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Style?</source>
-        <translation type="obsolete">Wilt u deze stijl werkelijk verwijderen?</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -12658,72 +7665,6 @@ zet de vectordata over naar Scribus objecten.</translation>
     </message>
 </context>
 <context>
-    <name>MSpinBox</name>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-</context>
-<context>
-    <name>ManageMacrosDialog</name>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation type="obsolete">Atl+O</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Bewerken</translation>
-    </message>
-    <message>
-        <source>Description</source>
-        <translation type="obsolete">Omschrijving</translation>
-    </message>
-    <message>
-        <source>&amp;Edit...</source>
-        <translation type="obsolete">B&amp;ewerken...</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="obsolete">&amp;Importeren</translation>
-    </message>
-</context>
-<context>
     <name>MarginDialog</name>
     <message>
         <source>Manage Page Properties</source>
@@ -12801,18 +7742,6 @@ zet de vectordata over naar Scribus objecten.</translation>
         <translation>Afstand tussen de onderkant van de marge en de rand van het papier</translation>
     </message>
     <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
         <source>&amp;Inside:</source>
         <translation>B&amp;innenkant:</translation>
     </message>
@@ -12854,10 +7783,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>Edit Master Pages</source>
         <translation>Bewerk sjabloon</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
     </message>
     <message>
         <source>Do you really want to delete this master page?</source>
@@ -12919,28 +7844,28 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <source>New Master Page %1</source>
         <translation>Nieuw sjabloon %1</translation>
     </message>
+    <message>
+        <source>Unable to Rename Master Page</source>
+        <translation>Niet in staat om sjabloon te hernoemen</translation>
+    </message>
+    <message>
+        <source>The Normal page is not allowed to be renamed.</source>
+        <translation>De standaard pagina is niet hernoembaar.</translation>
+    </message>
+    <message>
+        <source>Rename Master Page</source>
+        <translation>Hernoem sjabloon</translation>
+    </message>
+    <message>
+        <source>New Name:</source>
+        <translation>Nieuwe naam:</translation>
+    </message>
 </context>
 <context>
     <name>Mdup</name>
     <message>
         <source>Multiple Duplicate</source>
         <translation>Meervoudig dupliceren</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
     </message>
     <message>
         <source>&amp;Number of Copies:</source>
@@ -12953,14 +7878,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>&amp;Vertical Shift:</source>
         <translation>&amp;Verticale verplaatsing:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -13002,78 +7919,15 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Lengte:</translation>
     </message>
     <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
         <source>pt</source>
         <translation>pt</translation>
     </message>
 </context>
 <context>
-    <name>MenuTest</name>
-    <message>
-        <source>Script error</source>
-        <translation type="obsolete">Scriptfout</translation>
-    </message>
-    <message>
-        <source>If you are running an official script report it at &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt; please.</source>
-        <translation type="obsolete">Als dit een officieel script is, geef deze fout dan a.u.b. door op &lt;a href=&quot;http://bugs.scribus.net&quot;&gt;bugs.scribus.net&lt;/a&gt;.</translation>
-    </message>
-    <message>
-        <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
-        <translation type="obsolete">Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
-    </message>
-    <message>
-        <source>Show &amp;Console</source>
-        <translation type="obsolete">&amp;Console weergeven</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">&amp;Console verbergen</translation>
-    </message>
-</context>
-<context>
     <name>MergeDoc</name>
-    <message>
-        <source>Import Template</source>
-        <translation type="obsolete">Sjabloon importeren</translation>
-    </message>
     <message>
         <source>Import Page(s)</source>
         <translation>Pagina(&apos;s) importeren</translation>
-    </message>
-    <message>
-        <source>From Document:</source>
-        <translation type="obsolete">Van document:</translation>
-    </message>
-    <message>
-        <source>Change...</source>
-        <translation type="obsolete">Wijzigen...</translation>
-    </message>
-    <message>
-        <source>Import Page(s):</source>
-        <translation type="obsolete">Pagina(&apos;s) importeren:</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="obsolete">Voer hier de paginanummer(s) in die u wilt importeren,
-bijvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 importeren).
-Een * staat voor alle pagina&apos;s.</translation>
     </message>
     <message>
         <source> from 0</source>
@@ -13082,26 +7936,6 @@ Een * staat voor alle pagina&apos;s.</translation>
     <message>
         <source>Create Page(s)</source>
         <translation>Pagina(&apos;s) aanmaken</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">voor pagina</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">na pagina</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">aan het eind</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Importeren</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
     </message>
     <message>
         <source>Open</source>
@@ -13178,10 +8012,6 @@ Een * staat voor alle pagina&apos;s.</translation>
         <source>instead</source>
         <translation>in plaats van</translation>
     </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
 </context>
 <context>
     <name>MovePages</name>
@@ -13196,30 +8026,6 @@ Een * staat voor alle pagina&apos;s.</translation>
     <message>
         <source>Move Page(s):</source>
         <translation>Pagina(&apos;s) verplaatsen:</translation>
-    </message>
-    <message>
-        <source>to:</source>
-        <translation type="obsolete">naar:</translation>
-    </message>
-    <message>
-        <source>before Page</source>
-        <translation type="obsolete">voor pagina</translation>
-    </message>
-    <message>
-        <source>after Page</source>
-        <translation type="obsolete">na pagina</translation>
-    </message>
-    <message>
-        <source>at End</source>
-        <translation type="obsolete">aan het eind</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Move Page(s)</source>
@@ -13391,28 +8197,8 @@ hoeken:</translation>
         <translation>Contourlijn gebr&amp;uiken</translation>
     </message>
     <message>
-        <source>&amp;Font Size:</source>
-        <translation type="obsolete">&amp;Tekengrootte:</translation>
-    </message>
-    <message>
         <source> %</source>
         <translation>%</translation>
-    </message>
-    <message>
-        <source>Shade:</source>
-        <translation type="obsolete">Tint:</translation>
-    </message>
-    <message>
-        <source>Custom Spacing</source>
-        <translation type="obsolete">Aangepaste spatiëring</translation>
-    </message>
-    <message>
-        <source>&amp;Kerning:</source>
-        <translation type="obsolete">&amp;Kerning:</translation>
-    </message>
-    <message>
-        <source>L&amp;ine Spacing:</source>
-        <translation type="obsolete">&amp;Regelspatiëring:</translation>
     </message>
     <message>
         <source>St&amp;yle:</source>
@@ -13631,18 +8417,6 @@ hoeken:</translation>
         <translation>Dit object wel of niet afdrukken</translation>
     </message>
     <message>
-        <source>Make text in lower frames flow around the object shape</source>
-        <translation type="obsolete">Laat tekst in lager gelegen frames om de vorm van dit object heen vloeien</translation>
-    </message>
-    <message>
-        <source>Use a surrounding box instead of the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Gebruik een omliggende rechthoek in plaats van de vorm van het frame voor de tekstomloop</translation>
-    </message>
-    <message>
-        <source>Use a second line originally based on the frame&apos;s shape for text flow</source>
-        <translation type="obsolete">Gebruik een tweede lijn gebaseerd op de vorm van het frame voor de tekstomloop</translation>
-    </message>
-    <message>
         <source>Font of selected text or object</source>
         <translation>Font van geselecteerde tekst of object</translation>
     </message>
@@ -13655,28 +8429,12 @@ hoeken:</translation>
         <translation>Schaalbreedte van tekens</translation>
     </message>
     <message>
-        <source>Color of text stroke</source>
-        <translation type="obsolete">Kleur van tekstlijnen</translation>
-    </message>
-    <message>
-        <source>Color of text fill</source>
-        <translation type="obsolete">Kleur van tekstinvulling</translation>
-    </message>
-    <message>
         <source>Saturation of color of text stroke</source>
         <translation>Verzadiging van kleur van tekstlijnen</translation>
     </message>
     <message>
         <source>Saturation of color of text fill</source>
         <translation>Verzadiging van kleur van tekstinvulling</translation>
-    </message>
-    <message>
-        <source>Reverse Writing</source>
-        <translation type="obsolete">Omgekeerd schrift</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Handmatige kerning</translation>
     </message>
     <message>
         <source>Line Spacing</source>
@@ -13819,38 +8577,8 @@ hoeken:</translation>
         <translation>&amp;Y2:</translation>
     </message>
     <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
         <source>Column width</source>
         <translation>Kolombreedte</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
     </message>
     <message>
         <source>Right to Left Writing</source>
@@ -13921,10 +8649,6 @@ Kies een andere naam.</translation>
         <translation>Kleur van de geselecteerde tekst. Als Outline tekt decoratie is ingeschakeld, zal deze kleur de vulkleur zijn. Als Valschaduw Tekst is ingeschakeld, is dit de bovenliggende kleur.</translation>
     </message>
     <message>
-        <source>Click to select the line spacing mode</source>
-        <translation>Klik om regelspatiëringsmodus te selecteren</translation>
-    </message>
-    <message>
         <source>Make text in lower frames flow around the object. The options below define how this is enabled.</source>
         <translation>Laat tekst in onderliggende frames rond het object lopen. De opties hieronder beschrijven hoe dit is toegepast.</translation>
     </message>
@@ -13935,6 +8659,14 @@ Kies een andere naam.</translation>
     <message>
         <source>Use a second line originally based on the frame&apos;s shape for text flow of text frames below the object. </source>
         <translation>Gebruik een tweede lijn gebaseerd om de vorm van het frame voor tekstomloop onder het object.</translation>
+    </message>
+    <message>
+        <source>Auto</source>
+        <translation>Automatisch</translation>
+    </message>
+    <message>
+        <source>Click and hold down to select the line spacing mode.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -13980,14 +8712,6 @@ Kies een andere naam.</translation>
         <translation>%</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source> pt </source>
         <translation>pt</translation>
     </message>
@@ -14010,16 +8734,6 @@ Kies een andere naam.</translation>
     <message>
         <source>Dash Dot Dot Line</source>
         <translation>Streep-stip-stip lijn</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
     </message>
     <message>
         <source>OK</source>
@@ -14046,112 +8760,6 @@ Kies een andere naam.</translation>
     </message>
 </context>
 <context>
-    <name>MusterPages</name>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Template?</source>
-        <translation type="obsolete">Wilt u deze sjabloon werkelijk verwijderen?</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation type="obsolete">&amp;Nee</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="obsolete">&amp;Naam:</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation type="obsolete">Kopie van %1</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Naam:</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of </source>
-        <translation type="obsolete">Kopie #%1 van</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normaal</translation>
-    </message>
-</context>
-<context>
-    <name>MusterSeiten</name>
-    <message>
-        <source>Edit Templates</source>
-        <translation type="obsolete">Sjablonen bewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Append</source>
-        <translation type="obsolete">Toe&amp;voegen</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation type="obsolete">D&amp;upliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Template?</source>
-        <translation type="obsolete">Wil je echt deze Template verwijderen?</translation>
-    </message>
-    <message>
-        <source>&amp;No</source>
-        <translation type="obsolete">&amp;Nee</translation>
-    </message>
-    <message>
-        <source>&amp;Yes</source>
-        <translation type="obsolete">&amp;Ja</translation>
-    </message>
-    <message>
-        <source>&amp;Name:</source>
-        <translation type="obsolete">&amp;Naam:</translation>
-    </message>
-    <message>
-        <source>New Template</source>
-        <translation type="obsolete">Nieuwe sjabloon</translation>
-    </message>
-    <message>
-        <source>Copy of %1</source>
-        <translation type="obsolete">Kopie van %1</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Naam:</translation>
-    </message>
-    <message>
-        <source>Copy #%1 of </source>
-        <translation type="obsolete">Kopie #%1 van</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normaal</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Template?</source>
-        <translation type="obsolete">Wilt u deze sjabloon werkelijk verwijderen?</translation>
-    </message>
-</context>
-<context>
     <name>MyPlugin</name>
     <message>
         <source>My &amp;Plugin</source>
@@ -14172,22 +8780,6 @@ Kies een andere naam.</translation>
 <context>
     <name>NewDoc</name>
     <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
         <source>New Document</source>
         <translation>Nieuw document</translation>
     </message>
@@ -14198,18 +8790,6 @@ Kies een andere naam.</translation>
     <message>
         <source>&amp;Size:</source>
         <translation>&amp;Grootte:</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="obsolete">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="obsolete">Letter (US)</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>Custom</source>
@@ -14236,68 +8816,20 @@ Kies een andere naam.</translation>
         <translation>&amp;Hoogte:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation type="obsolete">&amp;Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left &amp;Page First</source>
-        <translation type="obsolete">Linker&amp;pagina eerst</translation>
-    </message>
-    <message>
         <source>Margin Guides</source>
         <translation>Marge hulplijnen</translation>
-    </message>
-    <message>
-        <source>&amp;Left:</source>
-        <translation type="obsolete">&amp;Links:</translation>
-    </message>
-    <message>
-        <source>&amp;Right:</source>
-        <translation type="obsolete">&amp;Rechts:</translation>
-    </message>
-    <message>
-        <source>&amp;Top:</source>
-        <translation type="obsolete">&amp;Boven:</translation>
-    </message>
-    <message>
-        <source>&amp;Bottom:</source>
-        <translation type="obsolete">On&amp;der:</translation>
     </message>
     <message>
         <source>Options</source>
         <translation>Opties</translation>
     </message>
     <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation type="obsolete">N&amp;ummer eerste pagina:</translation>
-    </message>
-    <message>
         <source>&amp;Default Unit:</source>
         <translation>Stan&amp;daard eenheid:</translation>
     </message>
     <message>
-        <source>Points (pts)</source>
-        <translation type="obsolete">Punten (pt)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation type="obsolete">Millimeter (mm)</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="obsolete">Inch (in)</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="obsolete">Pica (p)</translation>
-    </message>
-    <message>
         <source>&amp;Automatic Text Frames</source>
         <translation>&amp;Automatische tekstframes</translation>
-    </message>
-    <message>
-        <source>Column Guides</source>
-        <translation type="obsolete">Kolom hulplijnen</translation>
     </message>
     <message>
         <source>&amp;Gap:</source>
@@ -14306,14 +8838,6 @@ Kies een andere naam.</translation>
     <message>
         <source>Colu&amp;mns:</source>
         <translation>Kolo&amp;mmen:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>Document page size, either a standard size or a custom size</source>
@@ -14332,38 +8856,6 @@ Kies een andere naam.</translation>
         <translation>Hoogte van de pagina&apos;s in dit document, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation type="obsolete">Alle pagina&apos;s hetzelfde of onderscheid tussen linker en rechterpagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Make the first page the left page of the document</source>
-        <translation type="obsolete">Laat het document beginnen met een linker pagina</translation>
-    </message>
-    <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="obsolete">Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="obsolete">Afstand tussen de onderkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
-        <source>First page number of the document</source>
-        <translation type="obsolete">Eerste paginanummer van dit document</translation>
-    </message>
-    <message>
         <source>Default unit of measurement for document editing</source>
         <translation>Standaard meeteenheid voor het bewerken van dit document</translation>
     </message>
@@ -14380,30 +8872,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Afstand tussen de automatisch aangemaakte kolommen</translation>
     </message>
     <message>
-        <source>&amp;Inside:</source>
-        <translation type="obsolete">B&amp;innenkant:</translation>
-    </message>
-    <message>
-        <source>O&amp;utside:</source>
-        <translation type="obsolete">B&amp;uitenkant:</translation>
-    </message>
-    <message>
-        <source>Executive</source>
-        <translation type="obsolete">Executive</translation>
-    </message>
-    <message>
-        <source>Folio</source>
-        <translation type="obsolete">Folio</translation>
-    </message>
-    <message>
-        <source>Ledger</source>
-        <translation type="obsolete">Ledger</translation>
-    </message>
-    <message>
-        <source>Recent Documents</source>
-        <translation type="obsolete">Recente Documenten</translation>
-    </message>
-    <message>
         <source>Do not show this dialog again</source>
         <translation>Toon dit venster niet opnieuw</translation>
     </message>
@@ -14414,10 +8882,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>N&amp;umber of Pages:</source>
         <translation>&amp;Aantal pagina&apos;s:</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation type="obsolete">Alle bestanden (*)</translation>
     </message>
     <message>
         <source>Open</source>
@@ -14449,25 +8913,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>Start a document from a template made by other users or yourself (f.e. for documents you have a constant style).</source>
         <translation>Begin een document vanuit een sjabloon gemaakt door anderen of uzelf.(zodat u meerdere documenten in dezelfde stijl kunt maken).</translation>
-    </message>
-</context>
-<context>
-    <name>NewTm</name>
-    <message>
-        <source>Left Page</source>
-        <translation type="obsolete">Linker pagina</translation>
-    </message>
-    <message>
-        <source>Right Page</source>
-        <translation type="obsolete">Rechter pagina</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -14573,10 +9018,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Pad met de klok mee roteren</translation>
     </message>
     <message>
-        <source>Reduce the Size of the Path by shown %</source>
-        <translation type="obsolete">Pad met getoonde % vergroten</translation>
-    </message>
-    <message>
         <source>Enlarge the Size of the Path by shown %</source>
         <translation>Pad met getoonde % verkleinen</translation>
     </message>
@@ -14585,22 +9026,12 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Rotatiehoek</translation>
     </message>
     <message>
-        <source>% to Enlarge or Reduce By</source>
-        <translation type="obsolete">Te vergroten of verkleinen %</translation>
-    </message>
-    <message>
         <source>Activate Contour Line Editing Mode</source>
         <translation>Contourlijnen bewerken</translation>
     </message>
     <message>
         <source>Reset the Contour Line to the Original Shape of the Frame</source>
         <translation>Contourlijnen terugzetten naar oorspronkelijke framevorm</translation>
-    </message>
-    <message>
-        <source>When checked use Coordinates relative to the Page,
-otherwise Coordinates are relative to the Object.</source>
-        <translation type="obsolete">Indien geselecteerd worden coördinaten relatief t.o.v. de pagina
-gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
     <message>
         <source> %</source>
@@ -14661,6 +9092,10 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
         <source>OpenOffice.org 1.x Draw</source>
         <comment>Import/export format name</comment>
         <translation>OpenOffice.org 1.x Draw</translation>
+    </message>
+    <message>
+        <source>This file contains some unsupported features</source>
+        <translation>Dit bestand bevat enkele niet ondersteunde functies</translation>
     </message>
 </context>
 <context>
@@ -14733,13 +9168,6 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
 </context>
 <context>
-    <name>PConsole</name>
-    <message>
-        <source>Script Console</source>
-        <translation type="obsolete">Scriptconsole</translation>
-    </message>
-</context>
-<context>
     <name>PDFExportDialog</name>
     <message>
         <source>Save as PDF</source>
@@ -14779,735 +9207,6 @@ gebruikt, anders zijn de coördinaten relatief t.o.v. het object.</translation>
     </message>
 </context>
 <context>
-    <name>PDF_Opts</name>
-    <message>
-        <source>Create PDF File</source>
-        <translation type="obsolete">PDF-bestand aanmaken</translation>
-    </message>
-    <message>
-        <source>O&amp;utput to File:</source>
-        <translation type="obsolete">&amp;Uitvoeren naar bestand:</translation>
-    </message>
-    <message>
-        <source>Cha&amp;nge...</source>
-        <translation type="obsolete">Wijzige&amp;n...</translation>
-    </message>
-    <message>
-        <source>Export Range</source>
-        <translation type="obsolete">Exportbereik</translation>
-    </message>
-    <message>
-        <source>&amp;All Pages</source>
-        <translation type="obsolete">&amp;Alle pagina&apos;s</translation>
-    </message>
-    <message>
-        <source>C&amp;hoose Pages</source>
-        <translation type="obsolete">&amp;Pagina&apos;s kiezen</translation>
-    </message>
-    <message>
-        <source>File Options</source>
-        <translation type="obsolete">Bestandsopties</translation>
-    </message>
-    <message>
-        <source>Compatibilit&amp;y:</source>
-        <translation type="obsolete">&amp;Compatibiliteit:</translation>
-    </message>
-    <message>
-        <source>&amp;Binding:</source>
-        <translation type="obsolete">In&amp;binden:</translation>
-    </message>
-    <message>
-        <source>Left Margin</source>
-        <translation type="obsolete">Linkermarge</translation>
-    </message>
-    <message>
-        <source>Right Margin</source>
-        <translation type="obsolete">Rechtermarge</translation>
-    </message>
-    <message>
-        <source>Generate &amp;Thumbnails</source>
-        <translation type="obsolete">Minia&amp;turen aanmaken</translation>
-    </message>
-    <message>
-        <source>Save &amp;Linked Text Frames as PDF Articles</source>
-        <translation type="obsolete">Gekoppe&amp;lde tekstframes als PDF-artikelen opslaan</translation>
-    </message>
-    <message>
-        <source>&amp;Include Bookmarks</source>
-        <translation type="obsolete">Bladwijzers &amp;invoegen</translation>
-    </message>
-    <message>
-        <source> dpi</source>
-        <translation type="obsolete">dpi</translation>
-    </message>
-    <message>
-        <source>&amp;Resolution:</source>
-        <translation type="obsolete">&amp;Resolutie:</translation>
-    </message>
-    <message>
-        <source>Com&amp;press Text and Vector Graphics</source>
-        <translation type="obsolete">Tekst en vectorafbeeldingen compri&amp;meren</translation>
-    </message>
-    <message>
-        <source>Image Settings</source>
-        <translation type="obsolete">Afbeeldingsinstellingen</translation>
-    </message>
-    <message>
-        <source>Automatic</source>
-        <translation type="obsolete">Automatisch</translation>
-    </message>
-    <message>
-        <source>JPEG</source>
-        <translation type="obsolete">JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation type="obsolete">Zip</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>&amp;Method:</source>
-        <translation type="obsolete">&amp;Methode:</translation>
-    </message>
-    <message>
-        <source>&amp;Quality:</source>
-        <translation type="obsolete">&amp;Kwaliteit:</translation>
-    </message>
-    <message>
-        <source>Maximum</source>
-        <translation type="obsolete">Maximaal</translation>
-    </message>
-    <message>
-        <source>High</source>
-        <translation type="obsolete">Hoog</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Medium</translation>
-    </message>
-    <message>
-        <source>Low</source>
-        <translation type="obsolete">Laag</translation>
-    </message>
-    <message>
-        <source>Minimum</source>
-        <translation type="obsolete">Minimaal</translation>
-    </message>
-    <message>
-        <source>&amp;Downsample Images to:</source>
-        <translation type="obsolete">A&amp;fbeeldingen terugsampelen naar:</translation>
-    </message>
-    <message>
-        <source>&amp;General</source>
-        <translation type="obsolete">Al&amp;gemeen</translation>
-    </message>
-    <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation type="obsolete">All&amp;e fonts insluiten</translation>
-    </message>
-    <message>
-        <source>Embedding</source>
-        <translation type="obsolete">Insluiten</translation>
-    </message>
-    <message>
-        <source>Available Fonts:</source>
-        <translation type="obsolete">Beschikbare fonts:</translation>
-    </message>
-    <message>
-        <source>&amp;&gt;&gt;</source>
-        <translation type="obsolete">&amp;&gt;&gt;</translation>
-    </message>
-    <message>
-        <source>&amp;&lt;&lt;</source>
-        <translation type="obsolete">&amp;&lt;&lt;</translation>
-    </message>
-    <message>
-        <source>Fonts to embed:</source>
-        <translation type="obsolete">In te bedden fonts:</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts</source>
-        <translation type="obsolete">&amp;Fonts</translation>
-    </message>
-    <message>
-        <source>Enable &amp;Presentation Effects</source>
-        <translation type="obsolete">&amp;Presentatie-effecten</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Pagina</translation>
-    </message>
-    <message>
-        <source>Show Page Pre&amp;views</source>
-        <translation type="obsolete">Pagina&amp;voorbeelden tonen</translation>
-    </message>
-    <message>
-        <source>Effects</source>
-        <translation type="obsolete">Effecten</translation>
-    </message>
-    <message>
-        <source>&amp;Display Duration:</source>
-        <translation type="obsolete">Weergave tij&amp;dsduur:</translation>
-    </message>
-    <message>
-        <source>Effec&amp;t Duration:</source>
-        <translation type="obsolete">Effec&amp;t tijdsduur:</translation>
-    </message>
-    <message>
-        <source>Effect T&amp;ype:</source>
-        <translation type="obsolete">Effectt&amp;ype:</translation>
-    </message>
-    <message>
-        <source>&amp;Moving Lines:</source>
-        <translation type="obsolete">&amp;Bewegende lijnen:</translation>
-    </message>
-    <message>
-        <source>F&amp;rom the:</source>
-        <translation type="obsolete">&amp;Van de:</translation>
-    </message>
-    <message>
-        <source>D&amp;irection:</source>
-        <translation type="obsolete">R&amp;ichting:</translation>
-    </message>
-    <message>
-        <source> sec</source>
-        <translation type="obsolete">sec</translation>
-    </message>
-    <message>
-        <source>No Effect</source>
-        <translation type="obsolete">Geen effect</translation>
-    </message>
-    <message>
-        <source>Blinds</source>
-        <translation type="obsolete">Lamellen</translation>
-    </message>
-    <message>
-        <source>Box</source>
-        <translation type="obsolete">Box</translation>
-    </message>
-    <message>
-        <source>Dissolve</source>
-        <translation type="obsolete">Oplossen</translation>
-    </message>
-    <message>
-        <source>Glitter</source>
-        <translation type="obsolete">Glitter</translation>
-    </message>
-    <message>
-        <source>Split</source>
-        <translation type="obsolete">Splitsen</translation>
-    </message>
-    <message>
-        <source>Wipe</source>
-        <translation type="obsolete">Wegvegen</translation>
-    </message>
-    <message>
-        <source>Horizontal</source>
-        <translation type="obsolete">Horizontaal</translation>
-    </message>
-    <message>
-        <source>Vertical</source>
-        <translation type="obsolete">Verticaal</translation>
-    </message>
-    <message>
-        <source>Inside</source>
-        <translation type="obsolete">Binnen</translation>
-    </message>
-    <message>
-        <source>Outside</source>
-        <translation type="obsolete">Buiten</translation>
-    </message>
-    <message>
-        <source>Left to Right</source>
-        <translation type="obsolete">Links naar rechts</translation>
-    </message>
-    <message>
-        <source>Top to Bottom</source>
-        <translation type="obsolete">Boven naar beneden</translation>
-    </message>
-    <message>
-        <source>Bottom to Top</source>
-        <translation type="obsolete">Beneden naar boven</translation>
-    </message>
-    <message>
-        <source>Right to Left</source>
-        <translation type="obsolete">Rechts naar links</translation>
-    </message>
-    <message>
-        <source>Top-left to Bottom-Right</source>
-        <translation type="obsolete">Linksboven naar rechtsonder</translation>
-    </message>
-    <message>
-        <source>&amp;Apply Effect on all Pages</source>
-        <translation type="obsolete">Effect op &amp;alle pagina&apos;s toepassen</translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtra&apos;s</translation>
-    </message>
-    <message>
-        <source>&amp;Use Encryption</source>
-        <translation type="obsolete">Versle&amp;uteling gebruiken</translation>
-    </message>
-    <message>
-        <source>Passwords</source>
-        <translation type="obsolete">Wachtwoorden</translation>
-    </message>
-    <message>
-        <source>&amp;User:</source>
-        <translation type="obsolete">Gebr&amp;uiker:</translation>
-    </message>
-    <message>
-        <source>&amp;Owner:</source>
-        <translation type="obsolete">&amp;Eigenaar:</translation>
-    </message>
-    <message>
-        <source>Settings</source>
-        <translation type="obsolete">Instellingen</translation>
-    </message>
-    <message>
-        <source>Allow &amp;Printing the Document</source>
-        <translation type="obsolete">A&amp;fdrukken van het document toestaan</translation>
-    </message>
-    <message>
-        <source>Allow &amp;Changing the Document</source>
-        <translation type="obsolete">Wi&amp;jzigen van het document toestaan</translation>
-    </message>
-    <message>
-        <source>Allow Cop&amp;ying Text and Graphics</source>
-        <translation type="obsolete">&amp;Kopiëren van tekst en afbeeldingen toestaan</translation>
-    </message>
-    <message>
-        <source>Allow Adding &amp;Annotations and Fields</source>
-        <translation type="obsolete">Toevoegen van &amp;annotaties en velden toestaan</translation>
-    </message>
-    <message>
-        <source>S&amp;ecurity</source>
-        <translation type="obsolete">V&amp;eiligheid</translation>
-    </message>
-    <message>
-        <source>General</source>
-        <translation type="obsolete">Algemeen</translation>
-    </message>
-    <message>
-        <source>Output &amp;Intended For:</source>
-        <translation type="obsolete">&amp;Uitvoer bestemd voor:</translation>
-    </message>
-    <message>
-        <source>Screen / Web</source>
-        <translation type="obsolete">Scherm / web</translation>
-    </message>
-    <message>
-        <source>Printer</source>
-        <translation type="obsolete">Printer</translation>
-    </message>
-    <message>
-        <source>&amp;Use Custom Rendering Settings</source>
-        <translation type="obsolete">Aangepaste &amp;weergaveinstellingen gebruiken</translation>
-    </message>
-    <message>
-        <source>Rendering Settings</source>
-        <translation type="obsolete">Weergaveinstellingen</translation>
-    </message>
-    <message>
-        <source>Fre&amp;quency:</source>
-        <translation type="obsolete">Fre&amp;quentie:</translation>
-    </message>
-    <message>
-        <source>&amp;Angle:</source>
-        <translation type="obsolete">&amp;Hoek:</translation>
-    </message>
-    <message>
-        <source>S&amp;pot Function:</source>
-        <translation type="obsolete">&amp;Punt-functie:</translation>
-    </message>
-    <message>
-        <source>Simple Dot</source>
-        <translation type="obsolete">Enkele stip</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Lijn</translation>
-    </message>
-    <message>
-        <source>Round</source>
-        <translation type="obsolete">Rond</translation>
-    </message>
-    <message>
-        <source>Ellipse</source>
-        <translation type="obsolete">Ellips</translation>
-    </message>
-    <message>
-        <source>Solid Colors:</source>
-        <translation type="obsolete">Effen kleuren:</translation>
-    </message>
-    <message>
-        <source>Use ICC Profile</source>
-        <translation type="obsolete">ICC-profiel gebruiken</translation>
-    </message>
-    <message>
-        <source>Profile:</source>
-        <translation type="obsolete">Profiel:</translation>
-    </message>
-    <message>
-        <source>Rendering-Intent:</source>
-        <translation type="obsolete">Rendering intent:</translation>
-    </message>
-    <message>
-        <source>Perceptual</source>
-        <translation type="obsolete">Perceptueel</translation>
-    </message>
-    <message>
-        <source>Relative Colorimetric</source>
-        <translation type="obsolete">Relatief colorimetrisch</translation>
-    </message>
-    <message>
-        <source>Saturation</source>
-        <translation type="obsolete">Verzadiging</translation>
-    </message>
-    <message>
-        <source>Absolute Colorimetric</source>
-        <translation type="obsolete">Absoluut colorimetrisch</translation>
-    </message>
-    <message>
-        <source>Images:</source>
-        <translation type="obsolete">Afbeeldingen:</translation>
-    </message>
-    <message>
-        <source>Don&apos;t use embedded ICC profiles</source>
-        <translation type="obsolete">Geen ingebedde ICC-profielen gebruiken</translation>
-    </message>
-    <message>
-        <source>C&amp;olor</source>
-        <translation type="obsolete">&amp;Kleur</translation>
-    </message>
-    <message>
-        <source>PDF/X-3 Output Intent</source>
-        <translation type="obsolete">PDF/X-3 uitvoer intent</translation>
-    </message>
-    <message>
-        <source>&amp;Info String:</source>
-        <translation type="obsolete">&amp;Infotekst:</translation>
-    </message>
-    <message>
-        <source>Output &amp;Profile:</source>
-        <translation type="obsolete">Uitvoer&amp;profiel:</translation>
-    </message>
-    <message>
-        <source>Trim Box</source>
-        <translation type="obsolete">Rechthoek bijknippen</translation>
-    </message>
-    <message>
-        <source>PDF/X-&amp;3</source>
-        <translation type="obsolete">PDF/X-&amp;3</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">Op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Export all pages to PDF</source>
-        <translation type="obsolete">Alle pagina&apos;s naar PDF exporteren</translation>
-    </message>
-    <message>
-        <source>Export a range of pages to PDF</source>
-        <translation type="obsolete">Een bereik exporteren naar PDF</translation>
-    </message>
-    <message>
-        <source>Insert a comma separated list of tokens where
-a token can be * for all the pages, 1-5 for
-a range of pages or a single page number.</source>
-        <translation type="obsolete">Voer hier de paginanummer(s) in die u wilt exporteren,
-bijvoorbeeld 1,3,5 of 1-5 (pag. 1 t/m 5 exporteren).
-Een * staat voor alle pagina&apos;s.</translation>
-    </message>
-    <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Bepaalt de PDF-compatibiliteit. Standaard is &quot;Acrobat 4.0&quot;, dat de breedste compatibiliteit biedt.
-Gebruik Acrobat 5.0 als u functies uit PDF 1.4 gebruikt zoals transparantie of 128-bit versleuteling.
-PDF/X-3 is voor professionele kleurendruk en kan worden gebruikt als u Kleurbeheer heeft ingeschakeld.</translation>
-    </message>
-    <message>
-        <source>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</source>
-        <translation type="obsolete">Bepaalt hoe de pagina&apos;s gebonden worden in de PDF. Laat hier de
-standaardwaarde (links) staan, tenzij u weet wat u doet.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation type="obsolete">Maakt miniatuurweergaven aan van elke pagina in de PDF.
-Sommige viewers kunnen deze gebruiken.</translation>
-    </message>
-    <message>
-        <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
-        <translation type="obsolete">Maakt PDF-artikelen aan, zodat het gemakkelijker is door de tekst te navigeren.</translation>
-    </message>
-    <message>
-        <source>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</source>
-        <translation type="obsolete">Bewaart de bladwijzers in het document, zodat lange
-documenten eenvoudiger kunnen worden doorgebladerd.</translation>
-    </message>
-    <message>
-        <source>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="obsolete">Bepaalt de exportresolutie voor tekst en vectorafbeeldingen.
-Heeft geen invloed op de resolutie van bitmapafbeeldingen zoals foto&apos;s.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Comprimeert tekst en afbeeldingen, zodat de resulterende PDF kleiner wordt.
-Laat deze instelling aan staan, tenzij u een speciale reden hebt.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Compressiemethode voor afbeeldingen.
-&apos;Automatisch&apos; laat Scribus de beste methode kiezen.
-ZIP is goed voor afbeeldingen met effen kleuren.
-JPEG is vooral effectief bij veel foto&apos;s (waarbij een gering verlies mogelijk is).
-Laat bij voorkeur de instelling op &apos;automatisch&apos; staan, tenzij u een reden hebt om voor een bepaalde compressie te kiezen.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="obsolete">Compressieniveau: Minimaal (25%), laag (50%), medium (75%), hoog (85%), maximaal (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Bitmapafbeeldingen terugsampelen naar het geselecteerde aantal DPI. Als u deze
-optie niet selecteert, worden afbeeldingen op hun eigen resolutie weergegeven.</translation>
-    </message>
-    <message>
-        <source>DPI (Dots Per Inch) for image export.</source>
-        <translation type="obsolete">DPI (dots per inch) voor afbeeldingen.</translation>
-    </message>
-    <message>
-        <source>Embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Fonts insluiten in de PDF.  Hierdoor weet u zeker
-dat layout en uiterlijk bewaard zullen blijven.</translation>
-    </message>
-    <message>
-        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation type="obsolete">Schakelt presentatie-effecten in wanneer Acrobat Reader in volledig scherm-modus wordt gebruikt.</translation>
-    </message>
-    <message>
-        <source>Show page previews of each page listed above.</source>
-        <translation type="obsolete">Laat van elke pagina een voorbeeld zien.</translation>
-    </message>
-    <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="obsolete">Hoe lang de pagina wordt weergegeven voordat de presentatie start op de geselecteerde pagina.</translation>
-    </message>
-    <message>
-        <source>Length of time the effect runs.
-A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="obsolete">Hoe lang het effect erover mag doen.
-Een kortere tijd maakt het effect sneller.</translation>
-    </message>
-    <message>
-        <source>Type of the display effect.</source>
-        <translation type="obsolete">Type van het overgangseffect.</translation>
-    </message>
-    <message>
-        <source>Direction of the effect of moving lines for the split and blind effects.</source>
-        <translation type="obsolete">Richting van het effect van bewegende lijnen en de lamel-effecten.</translation>
-    </message>
-    <message>
-        <source>Starting position for the box and split effects.</source>
-        <translation type="obsolete">Startpositie voor de rechthoek en split-effecten.</translation>
-    </message>
-    <message>
-        <source>Direction of the glitter or wipe effects.</source>
-        <translation type="obsolete">Richting voor de glitter of veeg-effecten.</translation>
-    </message>
-    <message>
-        <source>Apply the selected effect to all pages.</source>
-        <translation type="obsolete">Het geselecteerde effect op alle pagina&apos;s toepassen.</translation>
-    </message>
-    <message>
-        <source>Enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="obsolete">Schakelt beveiligingsfuncties in uw PDF in.
-Als u Acrobat 4.0 selecteerde, zal de PDF beschermd zijn met 40-bit versleuteling.
-Als u Acrobat 5.0 selecteerde, zal de PDF beschermd zijn met 128-bit versleuteling.
-Let op: PDF-versleuteling is niet zo veilig als GPG of PGP-versleuteling en heeft enkele andere beperkingen.</translation>
-    </message>
-    <message>
-        <source>Choose a master password which enables or disables all the
-security features in your exported PDF</source>
-        <translation type="obsolete">Kies een master-wachtwoord om alle beveiligingsinstellingen
-in of uit te schakelen in uw PDF</translation>
-    </message>
-    <message>
-        <source>Choose a password for users to be able to read your PDF.</source>
-        <translation type="obsolete">Kies een wachtwoord voor gebruikers om de PDF te kunnen lezen.</translation>
-    </message>
-    <message>
-        <source>Allow printing of the PDF. If un-checked, printing is prevented. </source>
-        <translation type="obsolete">Het afdrukken van de PDF toestaan. Indien niet geselecteerd is afdrukken onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
-        <translation type="obsolete">Wijzigen van de PDF toestaan. Indien niet geselecteerd is wijzigen onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</source>
-        <translation type="obsolete">Het kopiëren van tekst of afbeeldingen uit de PDF toestaan.
-Indien niet geselecteerd is dit onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Het toevoegen van annotaties en velden aan de PDF toestaan.
-Indien niet geselecteerd, is dit onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="obsolete">Kleurmodel voor de uitvoer van uw PDF.
-Kies Scherm/web voor PDF&apos;s die vanaf het scherm zullen worden gelezen of op gemiddelde inkjets afgedrukt.
-Kies Printer als u naar een echte vierkleuren (CMYK) printer afdrukt.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled
-when specifically requested by your printer and they have given you the exact details needed.
-Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="obsolete">Dit is een geavanceerde instelling die standaard uit staat. Dit mag alleen worden ingeschakeld
-als dit voor uw printer werkelijk noodzakelijk is, en als u over de juiste details beschkt.
-Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar op andere systemen.</translation>
-    </message>
-    <message>
-        <source>Embed a color profile for solid colors</source>
-        <translation type="obsolete">Een kleurprofiel insluiten voor effen kleuren</translation>
-    </message>
-    <message>
-        <source>Color profile for solid colors</source>
-        <translation type="obsolete">Kleurprofiel voor effen kleuren</translation>
-    </message>
-    <message>
-        <source>Rendering intent for solid colors</source>
-        <translation type="obsolete">Rendering intent voor effen kleuren</translation>
-    </message>
-    <message>
-        <source>Embed a color profile for images</source>
-        <translation type="obsolete">Een kleurprofiel insluiten voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Do not use color profiles that are embedded in source images</source>
-        <translation type="obsolete">Kleurprofielen in bronafbeeldingen niet gebruiken</translation>
-    </message>
-    <message>
-        <source>Color profile for images</source>
-        <translation type="obsolete">Kleurprofiel voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Rendering intent for images</source>
-        <translation type="obsolete">Rendering intent voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
-        <translation type="obsolete">Uitvoerprofiel voor het afdrukken. Indien mogelijk, probeer uw printer te gebruiken bij het selecteren van een profiel.</translation>
-    </message>
-    <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Een verplichte tekst voor PDF/X-3, anders is de PDF niet conformerend aan
-deze standaard. We bevelen aan de titel van het document te gebruiken.</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the top of the physical page</source>
-        <translation type="obsolete">Afloop-afstand vanaf de bovenkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the bottom of the physical page</source>
-        <translation type="obsolete">Afloop-afstand vanaf de onderkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the left of the physical page</source>
-        <translation type="obsolete">Afloop-afstand vanaf de linkerkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Distance for bleed from the right of the physical page</source>
-        <translation type="obsolete">Afloop-afstand vanaf de rechterkant van de fysieke pagina</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Opslaan als</translation>
-    </message>
-    <message>
-        <source>PDF Files (*.pdf);;All Files (*)</source>
-        <translation type="obsolete">PDF-bestanden (*.pdf);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Rotatie:</translation>
-    </message>
-    <message>
-        <source>Compress Text and &amp;Vector Graphics</source>
-        <translation type="obsolete">Tekst en &amp;vectorafbeeldingen comprimeren</translation>
-    </message>
-    <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation type="obsolete">&amp;Subset van alle fonts</translation>
-    </message>
-    <message>
-        <source>Fonts to subset:</source>
-        <translation type="obsolete">Fonts om subset van te nemen:</translation>
-    </message>
-    <message>
-        <source>En&amp;able Presentation Effects</source>
-        <translation type="obsolete">Presentatie-effecten insch&amp;akelen</translation>
-    </message>
-    <message>
-        <source>&amp;Presentation</source>
-        <translation type="obsolete">&amp;Presentatie</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) horizontally</source>
-        <translation type="obsolete">Pagina(&apos;s) horizontaal spiegelen</translation>
-    </message>
-    <message>
-        <source>Mirror Page(s) vertically</source>
-        <translation type="obsolete">Pagina(&apos;s) verticaal spiegelen</translation>
-    </message>
-</context>
-<context>
     <name>PDFlib</name>
     <message>
         <source>Saving PDF</source>
@@ -15531,14 +9230,6 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     <message>
         <source>Print Preview</source>
         <translation>Afdrukvoorbeeld</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Text</source>
-        <translation type="obsolete">Anti-alias &amp;tekst</translation>
-    </message>
-    <message>
-        <source>Anti-alias &amp;Graphics</source>
-        <translation type="obsolete">Anti-alias &amp;grafisch</translation>
     </message>
     <message>
         <source>Display Trans&amp;parency</source>
@@ -15569,18 +9260,6 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
         <translation>&amp;K</translation>
     </message>
     <message>
-        <source>Provides a more pleasant view of text items in the viewer, at the expense
-of a slight slowdown in previewing. This only affects Type 1 fonts</source>
-        <translation type="obsolete">Tekst ziet er beter uit met deze optie, maar de weergave wordt iets
-trager. Dit heeft alleen effect op Type 1 fonts</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of True Type Fonts, Open Type Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Tekst in TrueType of OpenType fonts, EPS-, PDF- en vectorafbeeldingen zien er
-beter uit met deze optie, maar de weergave wordt iets trager</translation>
-    </message>
-    <message>
         <source>Shows transparency and transparent items in your document. Requires Ghostscript 7.07 or later</source>
         <translation>Toont doorschijnende elementen in uw document. Ghostscript 7.07 of hoger is hiervoor vereist</translation>
     </message>
@@ -15605,46 +9284,8 @@ beter uit met deze optie, maar de weergave wordt iets trager</translation>
         <translation>Schakelt de K (Black = zwart) inktplaat in of uit</translation>
     </message>
     <message>
-        <source>A way of switching some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
-    </message>
-    <message>
         <source>All</source>
         <translation>Alles</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
-    </message>
-    <message>
-        <source>Provides a more pleasant view of TrueType Fonts, OpenType Fonts, EPS, PDF and
-vector graphics in the preview, at the expense of a slight slowdown in previewing</source>
-        <translation type="obsolete">Geeft een fraaiere weergave van True- en OpenType fonts, EPS, PDF en
-vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldopbouw</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
     </message>
     <message>
         <source>Separation Name</source>
@@ -15711,297 +9352,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     </message>
 </context>
 <context>
-    <name>Page</name>
-    <message>
-        <source>Copy Here</source>
-        <translation type="obsolete">Hierheen kopiëren</translation>
-    </message>
-    <message>
-        <source>Move Here</source>
-        <translation type="obsolete">Hierheen verplaatsen</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="obsolete">&amp;Plakken</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="obsolete">&amp;Marges tonen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="obsolete">&amp;Frames tonen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="obsolete">Afbeeld&amp;ingen tonen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="obsolete">R&amp;aster tonen</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="obsolete">H&amp;ulplijnen tonen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="obsolete">&amp;Basislijn-raster tonen</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="obsolete">Ma&amp;gnetisch raster</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="obsolete">Magnetische hul&amp;plijnen</translation>
-    </message>
-    <message>
-        <source>Picture</source>
-        <translation type="obsolete">Afbeelding</translation>
-    </message>
-    <message>
-        <source>File: </source>
-        <translation type="obsolete">Bestand:</translation>
-    </message>
-    <message>
-        <source>Original PPI: </source>
-        <translation type="obsolete">Oorspronkelijk PPI:</translation>
-    </message>
-    <message>
-        <source>Actual PPI: </source>
-        <translation type="obsolete">Werkelijk PPI:</translation>
-    </message>
-    <message>
-        <source>Linked Text</source>
-        <translation type="obsolete">Gekoppelde tekst</translation>
-    </message>
-    <message>
-        <source>Text Frame</source>
-        <translation type="obsolete">Tekstframe</translation>
-    </message>
-    <message>
-        <source>Text on a Path</source>
-        <translation type="obsolete">Tekst op een pad</translation>
-    </message>
-    <message>
-        <source>Paragraphs: </source>
-        <translation type="obsolete">Alinea&apos;s:</translation>
-    </message>
-    <message>
-        <source>Words: </source>
-        <translation type="obsolete">Woorden:</translation>
-    </message>
-    <message>
-        <source>Chars: </source>
-        <translation type="obsolete">Tekens:</translation>
-    </message>
-    <message>
-        <source>Print: </source>
-        <translation type="obsolete">Afdrukken:</translation>
-    </message>
-    <message>
-        <source>Enabled</source>
-        <translation type="obsolete">Aan</translation>
-    </message>
-    <message>
-        <source>Disabled</source>
-        <translation type="obsolete">Uit</translation>
-    </message>
-    <message>
-        <source>In&amp;fo</source>
-        <translation type="obsolete">In&amp;fo</translation>
-    </message>
-    <message>
-        <source>&amp;Get Picture...</source>
-        <translation type="obsolete">Afbeelding verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="obsolete">Af&amp;beelding zichtbaar</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="obsolete">Afbeelding bij&amp;werken</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="obsolete">Afb&amp;eelding bewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="obsolete">Frame aan &amp;afbeelding aanpassen</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="obsolete">Tekst verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>&amp;Append Text...</source>
-        <translation type="obsolete">Tekst &amp;toevoegen...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="obsolete">T&amp;ekst bewerken...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="obsolete">Dit is een PDF-&amp;bladwijzer</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="obsolete">Dit is een PDF-a&amp;nnotatie</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="obsolete">&amp;Eigenschappen van annotatie</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="obsolete">&amp;Veldeigenschappen</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="obsolete">&amp;PDF-opties</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="obsolete">Tekst bewerken...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="obsolete">Vergrende&amp;len</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="obsolete">&amp;Losmaken</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="obsolete">Object&amp;grootte vergrendelen</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="obsolete">Object&amp;grootte losmaken</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="obsolete">In &amp;kladblok zetten</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="obsolete">In &amp;laag zetten</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="obsolete">Voorbeeldtekst &amp;invoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="obsolete">&amp;Groeperen</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="obsolete">&amp;Groep losmaken</translation>
-    </message>
-    <message>
-        <source>Le&amp;vel</source>
-        <translation type="obsolete">Ni&amp;veau</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="obsolete">Naar &amp;achtergrond</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="obsolete">Naar &amp;voorgrond</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="obsolete">&amp;Lager</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="obsolete">&amp;Hoger</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="obsolete">Afbeeldings&amp;frame</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="obsolete">Pol&amp;ygoon</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Outline</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="obsolete">&amp;Tekstframe</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="obsolete">&amp;Beziercurve</translation>
-    </message>
-    <message>
-        <source>Conve&amp;rt to</source>
-        <translation type="obsolete">Omzetten naa&amp;r</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="obsolete">Kni&amp;ppen</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Kopiëren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="obsolete">Inhoud &amp;leegmaken</translation>
-    </message>
-    <message>
-        <source>Show P&amp;roperties...</source>
-        <translation type="obsolete">&amp;Eigenschappen tonen...</translation>
-    </message>
-    <message>
-        <source>Hide P&amp;roperties...</source>
-        <translation type="obsolete">&amp;Eigenschappen verbergen...</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="obsolete">Wilt u werkelijk alle tekst wissen?</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="obsolete">Het programma</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="obsolete">ontbreekt op uw systeem!</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Kopie van</translation>
-    </message>
-</context>
-<context>
     <name>PageItem</name>
     <message>
         <source>Image</source>
@@ -16035,10 +9385,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
 <context>
     <name>PageItemAttributes</name>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
         <source>Relates To</source>
         <translation>Relatie tot</translation>
     </message>
@@ -16049,42 +9395,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <message>
         <source>Is Child Of</source>
         <translation>Is kind van</translation>
-    </message>
-    <message>
-        <source>Name</source>
-        <translation type="obsolete">Naam</translation>
-    </message>
-    <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Value</source>
-        <translation type="obsolete">Waarde</translation>
-    </message>
-    <message>
-        <source>&amp;Add</source>
-        <translation type="obsolete">&amp;Toevoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Kopiëren</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="obsolete">W&amp;issen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>None</source>
@@ -16166,12 +9476,12 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
 <context>
     <name>PageLayouts</name>
     <message>
-        <source>Page Layout</source>
-        <translation>Pagina layout</translation>
-    </message>
-    <message>
         <source>First Page is:</source>
         <translation>Eerste pagina is:</translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -16211,14 +9521,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
 </context>
 <context>
     <name>PageSelector</name>
-    <message>
-        <source>Page </source>
-        <translation type="obsolete">Pagina</translation>
-    </message>
-    <message>
-        <source> of %1</source>
-        <translation type="obsolete">van %1</translation>
-    </message>
     <message>
         <source>%1 of %2</source>
         <translation>%1 van %2</translation>
@@ -16345,10 +9647,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
 <context>
     <name>PicStatus</name>
     <message>
-        <source>Pictures</source>
-        <translation type="obsolete">Afbeeldingen</translation>
-    </message>
-    <message>
         <source>Name</source>
         <translation>Naam</translation>
     </message>
@@ -16387,10 +9685,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
     <message>
         <source>Search</source>
         <translation>Zoeken</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
     </message>
     <message>
         <source>Cancel Search</source>
@@ -16448,11 +9742,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <source>Cannot find symbol (%1)</source>
         <comment>plugin manager</comment>
         <translation>Kan symbool (%1) niet vinden</translation>
-    </message>
-    <message>
-        <source>Unknown</source>
-        <comment>plugin manager</comment>
-        <translation type="obsolete">Onbekend</translation>
     </message>
     <message>
         <source>Plugin: loading %1</source>
@@ -16529,56 +9818,6 @@ vectorafbeeldingen in de voorbeeldweergave, ten koste van een wat tragere beeldo
         <source>Polygon Properties</source>
         <translation>Polygoon-eigenschappen</translation>
     </message>
-    <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="obsolete">Ho&amp;eken:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Rotatie:</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="obsolete">&amp;Factor:</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Number of corners for polygons</source>
-        <translation type="obsolete">Aantal hoeken voor polygoon</translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation type="obsolete">Rotatie in graden voor polygoon</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation type="obsolete">Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="obsolete">&amp;Factor toepassen</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="obsolete">Convex/concaaf-factor toepassen op de vorm van polygonen</translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation type="obsolete">Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
-    </message>
 </context>
 <context>
     <name>PolygonWidget</name>
@@ -16619,12 +9858,6 @@ een positieve waarde maakt haar convex</translation>
         <translation>Voobeeldpolygoon</translation>
     </message>
     <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation type="obsolete">Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
-    </message>
-    <message>
         <source>A negative value will make the polygon concave (or star shaped), a positive value will make it convex</source>
         <translation>Een negatieve waarde zal de polygoon concaaf (of stervormig) maken, een positieve waarde zal het convex maken</translation>
     </message>
@@ -16656,20 +9889,12 @@ een positieve waarde maakt haar convex</translation>
         <translation>Gereedschappen</translation>
     </message>
     <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Kladblok</translation>
-    </message>
-    <message>
         <source>Display</source>
         <translation>Tonen</translation>
     </message>
     <message>
         <source>External Tools</source>
         <translation>Externe hulpprogramma&apos;s</translation>
-    </message>
-    <message>
-        <source>Misc.</source>
-        <translation type="obsolete">Diversen</translation>
     </message>
     <message>
         <source>GUI</source>
@@ -16684,48 +9909,8 @@ een positieve waarde maakt haar convex</translation>
         <translation>pt</translation>
     </message>
     <message>
-        <source>&amp;Font Size:</source>
-        <translation type="obsolete">&amp;Tekengrootte:</translation>
-    </message>
-    <message>
-        <source>Units</source>
-        <translation type="obsolete">Eenheden</translation>
-    </message>
-    <message>
-        <source>Points (pt)</source>
-        <translation type="obsolete">Punten (pt)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation type="obsolete">Millimeter (mm)</translation>
-    </message>
-    <message>
-        <source>Inches (in)</source>
-        <translation type="obsolete">Inch (in)</translation>
-    </message>
-    <message>
-        <source>Picas (p)</source>
-        <translation type="obsolete">Pica&apos;s (p)</translation>
-    </message>
-    <message>
-        <source>Mouse Settings</source>
-        <translation type="obsolete">Muisinstellingen</translation>
-    </message>
-    <message>
         <source>&amp;Wheel Jump:</source>
         <translation>Muis&amp;wiel:</translation>
-    </message>
-    <message>
-        <source> px</source>
-        <translation type="obsolete">px</translation>
-    </message>
-    <message>
-        <source>&amp;Grab Radius:</source>
-        <translation type="obsolete">&amp;Objecten vastpakken:</translation>
-    </message>
-    <message>
-        <source>Menus</source>
-        <translation type="obsolete">Menu&apos;s</translation>
     </message>
     <message>
         <source>&amp;Recent Documents:</source>
@@ -16792,14 +9977,6 @@ een positieve waarde maakt haar convex</translation>
         <translation>&amp;Hoogte:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation type="obsolete">&amp;Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left &amp;Page First</source>
-        <translation type="obsolete">Linker&amp;pagina eerst</translation>
-    </message>
-    <message>
         <source>Margin Guides</source>
         <translation>Marge hulplijnen</translation>
     </message>
@@ -16824,10 +10001,6 @@ een positieve waarde maakt haar convex</translation>
         <translation>Automatisch opslaan</translation>
     </message>
     <message>
-        <source>&amp;Enabled</source>
-        <translation type="obsolete">&amp;Aan</translation>
-    </message>
-    <message>
         <source>min</source>
         <translation>min</translation>
     </message>
@@ -16836,276 +10009,12 @@ een positieve waarde maakt haar convex</translation>
         <translation>&amp;Interval:</translation>
     </message>
     <message>
-        <source>Grid Layout</source>
-        <translation type="obsolete">Rasterlayout</translation>
-    </message>
-    <message>
-        <source>M&amp;inor Grid Spacing:</source>
-        <translation type="obsolete">Kl&amp;eine rasterspatiëring:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;jor Grid Spacing:</source>
-        <translation type="obsolete">&amp;Grote rasterspatiëring:</translation>
-    </message>
-    <message>
-        <source>Guide &amp;Snap Distance:</source>
-        <translation type="obsolete">Hulplijn&amp;magnetisme:</translation>
-    </message>
-    <message>
-        <source>Grid Colors</source>
-        <translation type="obsolete">Rasterkleuren</translation>
-    </message>
-    <message>
-        <source>Min&amp;or Grid Color:</source>
-        <translation type="obsolete">&amp;Klein raster:</translation>
-    </message>
-    <message>
-        <source>Majo&amp;r Grid Color:</source>
-        <translation type="obsolete">&amp;Groot raster:</translation>
-    </message>
-    <message>
-        <source>&amp;User Guides Color:</source>
-        <translation type="obsolete">H&amp;ulplijnen:</translation>
-    </message>
-    <message>
-        <source>Base&amp;line Grid Color:</source>
-        <translation type="obsolete">Basis&amp;lijn-raster:</translation>
-    </message>
-    <message>
-        <source>Placing</source>
-        <translation type="obsolete">Plaatsing</translation>
-    </message>
-    <message>
-        <source>In the &amp;Background</source>
-        <translation type="obsolete">&amp;Achtergrond</translation>
-    </message>
-    <message>
-        <source>In the Fore&amp;ground</source>
-        <translation type="obsolete">&amp;Voorgrond</translation>
-    </message>
-    <message>
-        <source>Baseline Grid</source>
-        <translation type="obsolete">Basislijn raster</translation>
-    </message>
-    <message>
-        <source>O&amp;n</source>
-        <translation type="obsolete">&amp;Aan</translation>
-    </message>
-    <message>
-        <source>O&amp;ff</source>
-        <translation type="obsolete">&amp;Uit</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="obsolete">Subscript</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>&amp;Displacement:</source>
-        <translation type="obsolete">Ver&amp;plaatsing:</translation>
-    </message>
-    <message>
-        <source>&amp;Scaling:</source>
-        <translation type="obsolete">&amp;Schaal:</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="obsolete">Superscript</translation>
-    </message>
-    <message>
-        <source>D&amp;isplacement:</source>
-        <translation type="obsolete">Verplaat&amp;sing:</translation>
-    </message>
-    <message>
-        <source>S&amp;caling:</source>
-        <translation type="obsolete">S&amp;chaal:</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="obsolete">Kleinkapitalen</translation>
-    </message>
-    <message>
-        <source>Sc&amp;aling:</source>
-        <translation type="obsolete">Sch&amp;aal:</translation>
-    </message>
-    <message>
-        <source>Other</source>
-        <translation type="obsolete">Overig</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Grid:</source>
-        <translation type="obsolete">Basislijn &amp;raster:</translation>
-    </message>
-    <message>
-        <source>Baseline &amp;Offset:</source>
-        <translation type="obsolete">Basislijn &amp;afstand:</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation type="obsolete">Automatische &amp;regelspatiëring:</translation>
-    </message>
-    <message>
-        <source>Default &amp;Font:</source>
-        <translation type="obsolete">Stan&amp;daardfont:</translation>
-    </message>
-    <message>
-        <source>Default &amp;Size:</source>
-        <translation type="obsolete">Standaard&amp;grootte:</translation>
-    </message>
-    <message>
-        <source>&amp;Text Color:</source>
-        <translation type="obsolete">&amp;Tekstkleur:</translation>
-    </message>
-    <message>
-        <source>Colu&amp;mns:</source>
-        <translation type="obsolete">Kolo&amp;mmen:</translation>
-    </message>
-    <message>
-        <source>&amp;Gap:</source>
-        <translation type="obsolete">Tussen&amp;ruimte:</translation>
-    </message>
-    <message>
-        <source>Woven silk pyjamas exchanged for blue quartz</source>
-        <translation type="obsolete">Filmquiz bracht knappe ex-yogi van de wijs</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>&amp;Line Color:</source>
-        <translation type="obsolete">&amp;Lijnkleur:</translation>
-    </message>
-    <message>
-        <source>&amp;Shading:</source>
-        <translation type="obsolete">&amp;Tint:</translation>
-    </message>
-    <message>
-        <source>&amp;Fill Color:</source>
-        <translation type="obsolete">&amp;Vulkleur:</translation>
-    </message>
-    <message>
-        <source>S&amp;hading:</source>
-        <translation type="obsolete">T&amp;int:</translation>
-    </message>
-    <message>
-        <source>&amp;Type of Line:</source>
-        <translation type="obsolete">Lijnt&amp;ype:</translation>
-    </message>
-    <message>
-        <source>Line &amp;Width:</source>
-        <translation type="obsolete">Linedi&amp;kte:</translation>
-    </message>
-    <message>
-        <source>Mi&amp;nimum:</source>
-        <translation type="obsolete">Mi&amp;nimaal:</translation>
-    </message>
-    <message>
-        <source>Ma&amp;ximum:</source>
-        <translation type="obsolete">Ma&amp;ximaal:</translation>
-    </message>
-    <message>
-        <source>&amp;Stepping:</source>
-        <translation type="obsolete">In &amp;stappen:</translation>
-    </message>
-    <message>
-        <source>&amp;Free Scaling</source>
-        <translation type="obsolete">&amp;Vrije schaal</translation>
-    </message>
-    <message>
-        <source>&amp;Horizontal Scaling:</source>
-        <translation type="obsolete">&amp;Horizontale schaal:</translation>
-    </message>
-    <message>
-        <source>&amp;Vertical Scaling:</source>
-        <translation type="obsolete">&amp;Verticale schaal:</translation>
-    </message>
-    <message>
-        <source>&amp;Scale Picture to Frame Size</source>
-        <translation type="obsolete">Afbeelding &amp;schalen naar framegrootte</translation>
-    </message>
-    <message>
-        <source>Keep Aspect &amp;Ratio</source>
-        <translation type="obsolete">Beeldve&amp;rhouding behouden</translation>
-    </message>
-    <message>
-        <source>F&amp;ill Color:</source>
-        <translation type="obsolete">V&amp;ulkleur:</translation>
-    </message>
-    <message>
-        <source>Corn&amp;ers:</source>
-        <translation type="obsolete">Ho&amp;eken:</translation>
-    </message>
-    <message>
-        <source>&amp;Rotation:</source>
-        <translation type="obsolete">&amp;Rotatie:</translation>
-    </message>
-    <message>
-        <source>&amp;Factor:</source>
-        <translation type="obsolete">&amp;Factor:</translation>
-    </message>
-    <message>
-        <source>Other Options</source>
-        <translation type="obsolete">Overige opties</translation>
-    </message>
-    <message>
-        <source>Sa&amp;ve Contents on Changes</source>
-        <translation type="obsolete">Inhoud &amp;opslaan bij wijzigen</translation>
-    </message>
-    <message>
-        <source>Preview</source>
-        <translation type="obsolete">Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Small</source>
-        <translation type="obsolete">Klein</translation>
-    </message>
-    <message>
-        <source>Medium</source>
-        <translation type="obsolete">Middel</translation>
-    </message>
-    <message>
-        <source>Large</source>
-        <translation type="obsolete">Groot</translation>
-    </message>
-    <message>
-        <source>Display Pages &amp;Side by Side</source>
-        <translation type="obsolete">Pagina&apos;s naa&amp;st elkaar tonen</translation>
-    </message>
-    <message>
-        <source>Page Colors</source>
-        <translation type="obsolete">Paginakleuren</translation>
-    </message>
-    <message>
-        <source>&amp;Background:</source>
-        <translation type="obsolete">&amp;Achtergrond:</translation>
-    </message>
-    <message>
-        <source>&amp;Margins:</source>
-        <translation type="obsolete">&amp;Marges:</translation>
-    </message>
-    <message>
         <source>Display &amp;Unprintable Area in Margin Color</source>
         <translation>&amp;Niet-afdrukbare gebieden in margekleur weergeven</translation>
     </message>
     <message>
-        <source>Use PDF 1.4 &amp;Transparency Features</source>
-        <translation type="obsolete">PDF-1.4 &amp;transparantie gebruiken</translation>
-    </message>
-    <message>
         <source>&amp;Adjust Display Size</source>
         <translation>Venstergrootte &amp;aanpassen</translation>
-    </message>
-    <message>
-        <source>To adjust the display drag the ruler below with the Slider.</source>
-        <translation type="obsolete">Om aan te passen sleep de schuifknop op het lineaal hieronder.</translation>
-    </message>
-    <message>
-        <source>Postscript Interpreter</source>
-        <translation type="obsolete">PostScript-interpreter</translation>
     </message>
     <message>
         <source>&amp;Name of Executable:</source>
@@ -17128,32 +10037,6 @@ een positieve waarde maakt haar convex</translation>
         <translation>Naam van uitvoerbaar &amp;programma:</translation>
     </message>
     <message>
-        <source>Printing</source>
-        <translation type="obsolete">Afdrukken</translation>
-    </message>
-    <message>
-        <source>Clip to Page &amp;Margins</source>
-        <translation type="obsolete">Bij pagina-&amp;marges afknippen</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Under Color Removal</source>
-        <translation type="obsolete">Onde&amp;rliggende kleuren verwijderen</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Choose the default window decoration and looks.
-Scribus inherits any available KDE or Qt themes</source>
-        <translation type="obsolete">Kies de standaard vensterdecoratie en stijl.
-Scribus kan elke beschikbare KDE- of Qt-stijl overnemen</translation>
-    </message>
-    <message>
         <source>Default font size for the menus and windows</source>
         <translation>Standaardtekengrootte voor menu&apos;s en vensters</translation>
     </message>
@@ -17166,20 +10049,12 @@ Scribus kan elke beschikbare KDE- of Qt-stijl overnemen</translation>
         <translation>Bepaalt hoeveel regels Scribus doorschuift bij een stap van het muiswiel</translation>
     </message>
     <message>
-        <source>Radius of the area where Scribus will allow you to grab an objects handles</source>
-        <translation type="obsolete">Geeft de straal aan van het gebied waar Scribus het u toestaat een object vast te pakken</translation>
-    </message>
-    <message>
         <source>Number of recently edited documents to show in the File menu</source>
         <translation>Bepaalt hoeveel recent geopende documenten Scribus toont in het menu Bestand</translation>
     </message>
     <message>
         <source>Default documents directory</source>
         <translation>Standaardmap voor documenten</translation>
-    </message>
-    <message>
-        <source>Default ICC profiles directory</source>
-        <translation type="obsolete">Standaardmap voor ICC-profielen</translation>
     </message>
     <message>
         <source>Default Scripter scripts directory</source>
@@ -17202,282 +10077,20 @@ Scribus kan elke beschikbare KDE- of Qt-stijl overnemen</translation>
         <translation>Hoogte van de pagina&apos;s, kies &apos;Aangepast&apos; om hier een waarde in te kunnen stellen</translation>
     </message>
     <message>
-        <source>Enable single or spread based layout</source>
-        <translation type="obsolete">Alle pagina&apos;s hetzelfde of onderscheid tussen linker en rechterpagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Make the first page the left page of a document</source>
-        <translation type="obsolete">Laat het document beginnen met een linker pagina</translation>
-    </message>
-    <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="obsolete">Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="obsolete">Afstand tussen de onderkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
-        <source>When enabled, Scribus saves a backup copy of your file with the .bak extension
-each time the time period elapses</source>
-        <translation type="obsolete">Indien ingeschakeld, zal Scibus om elk ingesteld tijdsinterval een veiligheidskopie
-van uw document opslaan met de .bak-extensie</translation>
-    </message>
-    <message>
         <source>Time period between saving automatically</source>
         <translation>Tijdsinterval voor automatisch opslaan</translation>
-    </message>
-    <message>
-        <source>Distance between the minor grid lines</source>
-        <translation type="obsolete">Afstand tussen de kleine rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Distance between the major grid lines</source>
-        <translation type="obsolete">Afstand tussen de grote rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Distance within which an object will snap to your placed guides</source>
-        <translation type="obsolete">Afstand vanaf welke een object zal aantrekken tot de hulplijnen</translation>
-    </message>
-    <message>
-        <source>Color of the minor grid lines</source>
-        <translation type="obsolete">Kleur van de kleine rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Color of the major grid lines</source>
-        <translation type="obsolete">Kleur van de grote rasterlijnen</translation>
-    </message>
-    <message>
-        <source>Color of the guide lines you insert</source>
-        <translation type="obsolete">Kleur van uw eigen hulplijnen</translation>
-    </message>
-    <message>
-        <source>Place the grid behind your page objects</source>
-        <translation type="obsolete">Het raster onder uw andere pagina-objecten plaatsen</translation>
-    </message>
-    <message>
-        <source>Place the grid in front of your page objects</source>
-        <translation type="obsolete">Het raster voor alle objecten plaatsen</translation>
-    </message>
-    <message>
-        <source>Turns on the basegrid</source>
-        <translation type="obsolete">Basisraster inschakelen</translation>
-    </message>
-    <message>
-        <source>Turns off the basegrid</source>
-        <translation type="obsolete">Basisraster uitschakelen</translation>
-    </message>
-    <message>
-        <source>Displacement above the baseline of the font on a line</source>
-        <translation type="obsolete">Verplaatsing boven de basislijn van een font op een regel</translation>
-    </message>
-    <message>
-        <source>Relative size of the superscript compared to the normal font</source>
-        <translation type="obsolete">Relatieve grootte van het superscript t.o.v. de normale tekengrootte</translation>
-    </message>
-    <message>
-        <source>Displacement below the baseline of the normal font on a line</source>
-        <translation type="obsolete">Verplaatsing onder de basislijn van een font op een regel</translation>
-    </message>
-    <message>
-        <source>Relative size of the subscript compared to the normal font</source>
-        <translation type="obsolete">Relatieve grootte van het subscript t.o.v. de normale tekengrootte</translation>
-    </message>
-    <message>
-        <source>Relative size of the small caps font compared to the normal font</source>
-        <translation type="obsolete">Relatieve grootte van de kleinkapitalen t.o.v. de normale tekengrootte</translation>
-    </message>
-    <message>
-        <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="obsolete">Toename van regelhoogte in procent van de waarde die het font aangeeft</translation>
-    </message>
-    <message>
-        <source>Text Frame Properties</source>
-        <translation type="obsolete">Eigenschappen voor tekstframe</translation>
-    </message>
-    <message>
-        <source>Picture Frame Properties</source>
-        <translation type="obsolete">Eigenschappen voor afbeeldingsframe</translation>
-    </message>
-    <message>
-        <source>Shape Drawing Properties</source>
-        <translation type="obsolete">Eigenschappen voor tekenen van vormen</translation>
-    </message>
-    <message>
-        <source>Magnification Level Defaults</source>
-        <translation type="obsolete">Standaardwaarden voor vergrotingsniveau</translation>
-    </message>
-    <message>
-        <source>Line Drawing Properties</source>
-        <translation type="obsolete">Lijneigenschappen</translation>
-    </message>
-    <message>
-        <source>Polygon Drawing Properties</source>
-        <translation type="obsolete">Polygooneigenschappen</translation>
-    </message>
-    <message>
-        <source>Font for new text frames</source>
-        <translation type="obsolete">Font voor nieuwe tekstframes</translation>
-    </message>
-    <message>
-        <source>Size of font for new text frames</source>
-        <translation type="obsolete">Tekengrootte voor nieuwe tekstframes</translation>
-    </message>
-    <message>
-        <source>Color of font</source>
-        <translation type="obsolete">Letterkleur</translation>
-    </message>
-    <message>
-        <source>Number of columns in a text frame</source>
-        <translation type="obsolete">Aantal kolommen in een tekstframe</translation>
-    </message>
-    <message>
-        <source>Gap between text frame columns</source>
-        <translation type="obsolete">Tussenruimte tussen kolommen</translation>
-    </message>
-    <message>
-        <source>Sample of your font</source>
-        <translation type="obsolete">Voorbeeld van uw font</translation>
-    </message>
-    <message>
-        <source>Picture frames allow pictures to scale to any size</source>
-        <translation type="obsolete">Afbeeldingsframes kunnen afbeeldingen meeschalen naar elke grootte</translation>
-    </message>
-    <message>
-        <source>Horizontal scaling of images</source>
-        <translation type="obsolete">Horizontale schaal voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Vertical scaling of images</source>
-        <translation type="obsolete">Verticale schaal voor afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Keep horizontal and vertical scaling the same</source>
-        <translation type="obsolete">Houdt de horizontale en verticale schaal gelijk</translation>
-    </message>
-    <message>
-        <source>Pictures in picture frames are scaled to the size of the frame</source>
-        <translation type="obsolete">Afbeeldingen in afbeeldingsframes worden altijd naar de grootte van het frame geschaald</translation>
-    </message>
-    <message>
-        <source>Automatically scaled pictures keep their original proportions</source>
-        <translation type="obsolete">Automatisch geschaalde afbeeldingen houden hun oorspronkelijke beeldverhouding</translation>
-    </message>
-    <message>
-        <source>Fill color of picture frames</source>
-        <translation type="obsolete">Vulkleur voor afbeeldingsframes</translation>
-    </message>
-    <message>
-        <source>Saturation of color of fill</source>
-        <translation type="obsolete">Verzadiging van de vulkleur</translation>
-    </message>
-    <message>
-        <source>Line color of shapes</source>
-        <translation type="obsolete">Lijnkleur van vormen</translation>
-    </message>
-    <message>
-        <source>Saturation of color of lines</source>
-        <translation type="obsolete">Verzadiging van de lijnkleur</translation>
-    </message>
-    <message>
-        <source>Fill color of shapes</source>
-        <translation type="obsolete">Vulkleur van vormen</translation>
-    </message>
-    <message>
-        <source>Line style of shapes</source>
-        <translation type="obsolete">Lijnstijl van vormen</translation>
-    </message>
-    <message>
-        <source>Line width of shapes</source>
-        <translation type="obsolete">Lijndikte van vormen</translation>
-    </message>
-    <message>
-        <source>Minimum magnification allowed</source>
-        <translation type="obsolete">Minimaal toegestane vergroting</translation>
-    </message>
-    <message>
-        <source>Maximum magnification allowed</source>
-        <translation type="obsolete">Maximaal toegestane vergroting</translation>
-    </message>
-    <message>
-        <source>Change in magnification for each zoom operation</source>
-        <translation type="obsolete">Verandering in grootte bij elke zoom-stap</translation>
-    </message>
-    <message>
-        <source>Color of lines</source>
-        <translation type="obsolete">Lijnkleur</translation>
-    </message>
-    <message>
-        <source>Saturation of color</source>
-        <translation type="obsolete">Kleurverzadiging</translation>
-    </message>
-    <message>
-        <source>Style of lines</source>
-        <translation type="obsolete">Lijnstijl</translation>
-    </message>
-    <message>
-        <source>Width of lines</source>
-        <translation type="obsolete">Dikte van lijnen</translation>
-    </message>
-    <message>
-        <source>Number of corners for polygons</source>
-        <translation type="obsolete">Aantal hoeken van polygonen (veelhoeken)</translation>
-    </message>
-    <message>
-        <source>Degrees of rotation for polygons</source>
-        <translation type="obsolete">Graden in rotatie van polygonen</translation>
-    </message>
-    <message>
-        <source>Sample Polygon</source>
-        <translation type="obsolete">Voorbeeldpolygoon</translation>
-    </message>
-    <message>
-        <source>Choose the size of the preview in the scrapbook palette</source>
-        <translation type="obsolete">Kies de grootte van de voorbeeldweergave in het kladblok-palet</translation>
-    </message>
-    <message>
-        <source>Save the scrapbook contents everytime after a change</source>
-        <translation type="obsolete">Het kladblok telkens opslaan na een wijziging</translation>
-    </message>
-    <message>
-        <source>When using facing pages, show the two pages side by side</source>
-        <translation type="obsolete">Wanneer u pagina&apos;s tegenover elkaar gebruikt, toon dan de twee pagina&apos;s naast elkaar</translation>
     </message>
     <message>
         <source>Color for paper</source>
         <translation>Papierkleur</translation>
     </message>
     <message>
-        <source>Color for the margin lines</source>
-        <translation type="obsolete">Kleur voor de kantlijnen</translation>
-    </message>
-    <message>
         <source>Mask the area outside the margins in the margin color</source>
         <translation>Maskeert het gebied buiten de kantlijnen in de kantlijnkleur</translation>
     </message>
     <message>
-        <source>Enable transparency features within PDF 1.4 export</source>
-        <translation type="obsolete">Schakelt doorschijnende mogelijkheden van PDF-1.4 in</translation>
-    </message>
-    <message>
         <source>Set the default zoom level</source>
         <translation>Stelt het standaardzoom-niveau in</translation>
-    </message>
-    <message>
-        <source>Filesystem location for the Ghostscript interpreter</source>
-        <translation type="obsolete">Plaats van de Ghostscript-interpreter in uw bestandssysteem</translation>
     </message>
     <message>
         <source>Antialias text for EPS and PDF onscreen rendering</source>
@@ -17488,100 +10101,12 @@ van uw document opslaan met de .bak-extensie</translation>
         <translation>Grafische objecten voor EPS en PDF weergeven met vloeiende lijnen</translation>
     </message>
     <message>
-        <source>Filesystem location for graphics editor</source>
-        <translation type="obsolete">Lokatie van een programma voor het bewerken van afbeeldingen</translation>
-    </message>
-    <message>
-        <source>Do not show objects outside the margins on the printed page or exported file</source>
-        <translation type="obsolete">Objecten die buiten de marges vallen niet weergeven bij afdrukken of exporteren</translation>
-    </message>
-    <message>
         <source>Choose a Directory</source>
         <translation>Kies een map</translation>
     </message>
     <message>
-        <source>&amp;Inside:</source>
-        <translation type="obsolete">B&amp;innenkant:</translation>
-    </message>
-    <message>
-        <source>O&amp;utside:</source>
-        <translation type="obsolete">B&amp;uitenkant:</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>T&amp;emplates:</source>
-        <translation type="obsolete">Sjablon&amp;en:</translation>
-    </message>
-    <message>
         <source>Cha&amp;nge...</source>
         <translation>Wijzige&amp;n...</translation>
-    </message>
-    <message>
-        <source>Apply &amp;Factor</source>
-        <translation type="obsolete">&amp;Factor toepassen</translation>
-    </message>
-    <message>
-        <source>Additional Directory for Document Templates</source>
-        <translation type="obsolete">Andere map voor document-sjablonen</translation>
-    </message>
-    <message>
-        <source>Apply Convex/Concave Factor to change shape of Polygons</source>
-        <translation type="obsolete">Convex/concaaf-factor toepassen op de vorm van polygonen</translation>
-    </message>
-    <message>
-        <source>A negative value will make the polygon concave (or star shaped),
- a positive value will make it convex</source>
-        <translation type="obsolete">Een negatieve waarde maakt de polygoon concaaf (stervormig),
-een positieve waarde maakt haar convex</translation>
-    </message>
-    <message>
-        <source>A way of switching off some of the gray shades which are composed
-of cyan, yellow and magenta and using black instead.
-UCR most affects parts of images which are neutral and/or dark tones
-which are close to the gray. Use of this may improve printing some images
-and some experimentation and testing is need on a case by case basis.
-UCR reduces the possibility of over saturation with CMY inks.</source>
-        <translation type="obsolete">Een methode om grijstinten die zijn samengesteld uit cyaan, geel en magenta
-te vervangen door tinten enkel op zwart gebaseerd.
-UCR (Under Color Removal) heeft vooral invloed op donkere en neutrale tinten
-die dicht bij grijs liggen. Sommige afbeeldingen worden fraaier afgedrukt door
-deze functie; experimenteren kan nodig zijn.
-UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
-    </message>
-    <message>
-        <source>Executive</source>
-        <translation type="obsolete">Executive</translation>
-    </message>
-    <message>
-        <source>Folio</source>
-        <translation type="obsolete">Folio</translation>
-    </message>
-    <message>
-        <source>Ledger</source>
-        <translation type="obsolete">Ledger</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="obsolete">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="obsolete">Letter (US)</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>&amp;Language:</source>
@@ -17736,22 +10261,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
         <translation>Diversen</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Bestand</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Ja</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Nee</translation>
-    </message>
-    <message>
         <source>Display non-printing characters such as paragraph markers in text frames</source>
         <translation>Toon niet te printen karakters, zoals alineatekens in tekstkaders</translation>
     </message>
@@ -17839,10 +10348,6 @@ UCR verkleint de kans op oververzadiging met CMY inkten.</translation>
 <context>
     <name>PrefsDialogBase</name>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
         <source>&amp;Defaults</source>
         <translation>Stan&amp;daard</translation>
     </message>
@@ -17923,10 +10428,6 @@ Wilt u deze migreren naar de nieuwe Scribus versie?</translation>
 </context>
 <context>
     <name>PresetLayout</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
     <message>
         <source>Magazine</source>
         <translation>Magazine</translation>
@@ -18465,10 +10966,6 @@ Controleer het pad en de bestandsnaam.</translation>
 <context>
     <name>QObject</name>
     <message>
-        <source>Oook! Wrong arguments! Call: </source>
-        <translation type="obsolete">Oeps: Verkeerde argumenten! Aanroep:</translation>
-    </message>
-    <message>
         <source>Importing text</source>
         <translation>Tekst wordt geïmporteerd</translation>
     </message>
@@ -18485,10 +10982,6 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>Bezig te initialiseren...</translation>
     </message>
     <message>
-        <source>Document</source>
-        <translation type="obsolete">Document</translation>
-    </message>
-    <message>
         <source>Background</source>
         <translation>Achtergrond</translation>
     </message>
@@ -18500,26 +10993,6 @@ Controleer het pad en de bestandsnaam.</translation>
         <source>Do you really want to overwrite the File:
 %1 ?</source>
         <translation>Wilt u werkelijk het bestand %1 overschrijven:?</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Fontweergave</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Invoegen speciaal</translation>
-    </message>
-    <message>
-        <source>New &amp;from Template...</source>
-        <translation type="obsolete">Nieuw van &amp;sjabloon...</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>Template: </source>
-        <translation type="obsolete">Sjabloon:</translation>
     </message>
     <message>
         <source>Newsletters</source>
@@ -18610,16 +11083,8 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>Eigen sjablonen</translation>
     </message>
     <message>
-        <source>Save as &amp;Image...</source>
-        <translation type="obsolete">Opslaan als &amp;afbeelding...</translation>
-    </message>
-    <message>
         <source>Save as Image</source>
         <translation>Opslaan als afbeelding</translation>
-    </message>
-    <message>
-        <source>Error writting the output file(s).</source>
-        <translation type="obsolete">Fout tijdens het schrijven naar uitvoerbestand(en).</translation>
     </message>
     <message>
         <source>Error writing the output file(s).</source>
@@ -18650,64 +11115,12 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>Ja, alles</translation>
     </message>
     <message>
-        <source>Print Preview</source>
-        <translation type="obsolete">Afdrukvoorbeeld</translation>
-    </message>
-    <message>
-        <source>&amp;Print...</source>
-        <translation type="obsolete">Afdru&amp;kken...</translation>
-    </message>
-    <message>
-        <source>Print Previe&amp;w</source>
-        <translation type="obsolete">Afdruk&amp;voorbeeld</translation>
-    </message>
-    <message>
-        <source>Import &amp;EPS/PS...</source>
-        <translation type="obsolete">&amp;EPS/PS importeren...</translation>
-    </message>
-    <message>
         <source>All Supported Formats (*.eps *.EPS *.ps *.PS);;</source>
         <translation>Alle ondersteunde formaten (*.eps *.EPS *.ps *.PS);;</translation>
     </message>
     <message>
         <source>Open</source>
         <translation>Openen</translation>
-    </message>
-    <message>
-        <source>Save as &amp;Template...</source>
-        <translation type="obsolete">Opslaan als &amp;sjabloon...</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation type="obsolete">Opslaan &amp;als...</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to load image into an object doesn&apos;t exist or isn&apos;t selected!</source>
-        <translation type="obsolete">Oeps! U probeert een afbeelding in een object te laden dat niet bestaat of niet is geselecteerd!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to (un)lock an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Oeps! U probeert een object te vergrendelen of los te maken dat niet bestaat of niet is geselecteerd.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to query an object doesn&apos;t exist! None selected too.</source>
-        <translation type="obsolete">Oeps! U probeert de eigenschappen van een object op te vragen dat niet bestaat of niet is geselecteerd.</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re calling an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Oeps! U roept een object aan dat niet bestaat!</translation>
-    </message>
-    <message>
-        <source>Oook! You&apos;re trying to erase an object doesn&apos;t exist!</source>
-        <translation type="obsolete">Oeps! U probeert een object te wissen dat niet bestaat!</translation>
-    </message>
-    <message>
-        <source>Oook! An object you&apos;re trying to textflow doesn&apos;t exist!</source>
-        <translation type="obsolete">Oeps! U probeert het tekstverloop in te stellen bij een object dat niet bestaat!</translation>
-    </message>
-    <message>
-        <source>S&amp;cripter Manual...</source>
-        <translation type="obsolete">Scripter &amp;handleiding...</translation>
     </message>
     <message>
         <source>&amp;Scribus Scripts</source>
@@ -18726,22 +11139,6 @@ Controleer het pad en de bestandsnaam.</translation>
         <translation>&amp;Console tonen</translation>
     </message>
     <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;cript</translation>
-    </message>
-    <message>
-        <source>Online Reference</source>
-        <translation type="obsolete">Online naslag</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python scripts (*.py);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Save Page as &amp;SVG...</source>
-        <translation type="obsolete">Pagina opslaan als &amp;SVG...</translation>
-    </message>
-    <message>
         <source>Save as</source>
         <translation>Opslaan als</translation>
     </message>
@@ -18752,10 +11149,6 @@ Controleer het pad en de bestandsnaam.</translation>
     <message>
         <source>SVG-Images (*.svg);;All Files (*)</source>
         <translation>SVG-afbeeldingen (*.svg);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Import &amp;SVG...</source>
-        <translation type="obsolete">&amp;SVG importeren...</translation>
     </message>
     <message>
         <source>Comma Separated Value Files</source>
@@ -18794,10 +11187,6 @@ Externe koppelingen
         <translation>Het font %1 is beschadigd en wordt weggelaten</translation>
     </message>
     <message>
-        <source>OO.o Writer Documents</source>
-        <translation type="obsolete">OpenOffice.org Writer-documenten</translation>
-    </message>
-    <message>
         <source>Text Filters</source>
         <translation>Tekstfilters</translation>
     </message>
@@ -18812,10 +11201,6 @@ Externe koppelingen
     <message>
         <source>Bulgarian</source>
         <translation>Bulgaars</translation>
-    </message>
-    <message>
-        <source>Brazilian</source>
-        <translation type="obsolete">Brazilliaans</translation>
     </message>
     <message>
         <source>Catalan</source>
@@ -18938,10 +11323,6 @@ Externe koppelingen
         <translation>Media-cases</translation>
     </message>
     <message>
-        <source>Tried to set progress &gt; maximum progress</source>
-        <translation type="obsolete">Kan voortgang niet &gt; max. voortgang instellen</translation>
-    </message>
-    <message>
         <source>&amp;About Script...</source>
         <translation>&amp;Over script...</translation>
     </message>
@@ -19043,14 +11424,6 @@ Externe koppelingen
         <source>Cannot replace a color with an empty name.</source>
         <comment>python error</comment>
         <translation>Kan een kleur niet vervangen met een lege naam.</translation>
-    </message>
-    <message>
-        <source>Import &amp;OpenOffice.org Draw...</source>
-        <translation type="obsolete">&amp;OpenOffice.org Draw importeren...</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice.org Draw-bestanden (*.sxd);;Alle bestanden (*)</translation>
     </message>
     <message>
         <source>OpenOffice.org Writer Documents</source>
@@ -19324,10 +11697,6 @@ Externe koppelingen
     <message>
         <source>Points (pt)</source>
         <translation>Punten (pt)</translation>
-    </message>
-    <message>
-        <source>Millimetres (mm)</source>
-        <translation type="obsolete">Millimeter (mm)</translation>
     </message>
     <message>
         <source>Inches (in)</source>
@@ -19726,10 +12095,6 @@ Externe koppelingen
         <source>page</source>
         <comment>page export</comment>
         <translation>pagina</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview...</source>
-        <translation type="obsolete">&amp;Fontweergave...</translation>
     </message>
     <message>
         <source>Document Template: </source>
@@ -20192,34 +12557,7 @@ aangeroepen functies.
     </message>
 </context>
 <context>
-    <name>Query</name>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-</context>
-<context>
     <name>ReformDoc</name>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
     <message>
         <source>Document Setup</source>
         <translation>Instellingen voor document</translation>
@@ -20245,72 +12583,12 @@ aangeroepen functies.
         <translation>&amp;Rechts:</translation>
     </message>
     <message>
-        <source>&amp;Facing Pages</source>
-        <translation type="obsolete">&amp;Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left &amp;Page First</source>
-        <translation type="obsolete">Linker&amp;pagina eerst</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
-        <source>Enable single or spread based layout</source>
-        <translation type="obsolete">Alle pagina&apos;s hetzelfde of onderscheid tussen linker en rechterpagina&apos;s</translation>
-    </message>
-    <message>
-        <source>Make the first page the left page of the document</source>
-        <translation type="obsolete">Laat het document beginnen met een linker pagina</translation>
-    </message>
-    <message>
-        <source>Distance between the top margin guide and the edge of the page</source>
-        <translation type="obsolete">Afstand tussen de bovenkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the bottom margin guide and the edge of the page</source>
-        <translation type="obsolete">Afstand tussen de onderkant van de marge en de rand van het papier</translation>
-    </message>
-    <message>
-        <source>Distance between the left margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de linkerkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de rugkant van het document</translation>
-    </message>
-    <message>
-        <source>Distance between the right margin guide and the edge of the page.
-If Facing Pages is selected, this margin space can be used to achieve the correct margins for binding</source>
-        <translation type="obsolete">Afstand tussen de rechterkant van de marge en de rand van het papier.
-Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan de buitenkant van het document</translation>
-    </message>
-    <message>
-        <source>&amp;Inside:</source>
-        <translation type="obsolete">B&amp;innenkant:</translation>
-    </message>
-    <message>
-        <source>&amp;Outside:</source>
-        <translation type="obsolete">B&amp;uitenkant:</translation>
-    </message>
-    <message>
         <source>Page Size</source>
         <translation>Paginagrootte</translation>
     </message>
     <message>
-        <source>Size:</source>
-        <translation type="obsolete">Grootte:</translation>
-    </message>
-    <message>
         <source>Custom</source>
         <translation>Aangepast</translation>
-    </message>
-    <message>
-        <source>Orientation:</source>
-        <translation type="obsolete">Orientatie:</translation>
     </message>
     <message>
         <source>Portrait</source>
@@ -20321,32 +12599,8 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Liggend</translation>
     </message>
     <message>
-        <source>Width:</source>
-        <translation type="obsolete">Breedte:</translation>
-    </message>
-    <message>
-        <source>Height:</source>
-        <translation type="obsolete">Hoogte:</translation>
-    </message>
-    <message>
-        <source>F&amp;irst Page Number:</source>
-        <translation type="obsolete">N&amp;ummer eerste pagina:</translation>
-    </message>
-    <message>
         <source>&amp;Size:</source>
         <translation>&amp;Grootte:</translation>
-    </message>
-    <message>
-        <source>Legal</source>
-        <translation type="obsolete">Legal</translation>
-    </message>
-    <message>
-        <source>Letter</source>
-        <translation type="obsolete">Letter (US)</translation>
-    </message>
-    <message>
-        <source>Tabloid</source>
-        <translation type="obsolete">Tabloid</translation>
     </message>
     <message>
         <source>Orie&amp;ntation:</source>
@@ -20501,10 +12755,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Toon niet te printen karakters, zoals alineatekens in tekstframes</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
         <source>Adjusting Colors</source>
         <translation>Aanpassen kleuren</translation>
     </message>
@@ -20629,10 +12879,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
         <translation>Vulkleur-instellingen</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
         <source>Color of text fill</source>
         <translation>Kleur van de tekstvulling</translation>
     </message>
@@ -20646,10 +12892,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>Stroke Color Settings</source>
         <translation>Lijnkleur-instellingen</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
     </message>
     <message>
         <source>Color of text stroke</source>
@@ -20696,18 +12938,6 @@ Als &apos;Tegenover elkaar&apos; is geselecteerd wordt deze breedte gebruikt aan
     <message>
         <source>Character Settings</source>
         <translation>Teken-instellingen</translation>
-    </message>
-    <message>
-        <source>Kerning:</source>
-        <translation type="obsolete">Kerning:</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source>Manual Kerning</source>
-        <translation type="obsolete">Handmatige kerning</translation>
     </message>
     <message>
         <source> %</source>
@@ -20944,1282 +13174,9 @@ zet de vectordata over naar Scribus objecten.</translation>
         <source>Background</source>
         <translation>Achtergrond</translation>
     </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
-    </message>
-</context>
-<context>
-    <name>ScribusApp</name>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normaal</translation>
-    </message>
-    <message>
-        <source>File</source>
-        <translation type="obsolete">Bestand</translation>
-    </message>
-    <message>
-        <source>Create a new Document</source>
-        <translation type="obsolete">Nieuw document aanmaken</translation>
-    </message>
-    <message>
-        <source>Open a Document</source>
-        <translation type="obsolete">Een document openen</translation>
-    </message>
-    <message>
-        <source>Save the current Document</source>
-        <translation type="obsolete">Het huidige document opslaan</translation>
-    </message>
-    <message>
-        <source>Close the current Document</source>
-        <translation type="obsolete">Het huidige document sluiten</translation>
-    </message>
-    <message>
-        <source>Print the current Document</source>
-        <translation type="obsolete">Het huidige document afdrukken</translation>
-    </message>
-    <message>
-        <source>Save the current Document as PDF</source>
-        <translation type="obsolete">Het huidige document als PDF opslaan</translation>
-    </message>
-    <message>
-        <source>Searching for Fonts</source>
-        <translation type="obsolete">Zoeken naar fonts</translation>
-    </message>
-    <message>
-        <source>There are no Postscript-Fonts on your System</source>
-        <translation type="obsolete">Er zijn geen Postscript-fonts aanwezig op uw systeem</translation>
-    </message>
-    <message>
-        <source>Exiting now</source>
-        <translation type="obsolete">Bezig af te sluiten</translation>
-    </message>
-    <message>
-        <source>Fatal Error</source>
-        <translation type="obsolete">Fatale fout</translation>
-    </message>
-    <message>
-        <source>Smart Hyphen</source>
-        <translation type="obsolete">Intelligent afbreken</translation>
-    </message>
-    <message>
-        <source>Align Left</source>
-        <translation type="obsolete">Links uitlijnen</translation>
-    </message>
-    <message>
-        <source>Align Right</source>
-        <translation type="obsolete">Rechts uitlijnen</translation>
-    </message>
-    <message>
-        <source>Align Center</source>
-        <translation type="obsolete">Centreren</translation>
-    </message>
-    <message>
-        <source>Insert Page Number</source>
-        <translation type="obsolete">Paginanummer invoegen</translation>
-    </message>
-    <message>
-        <source>Attach Text to Path</source>
-        <translation type="obsolete">Tekst aan pad toevoegen</translation>
-    </message>
-    <message>
-        <source>Show Layers</source>
-        <translation type="obsolete">Lagen tonen</translation>
-    </message>
-    <message>
-        <source>Javascripts...</source>
-        <translation type="obsolete">Javascripts...</translation>
-    </message>
-    <message>
-        <source>Undo</source>
-        <translation type="obsolete">Ongedaan maken</translation>
-    </message>
-    <message>
-        <source>Show Page Palette</source>
-        <translation type="obsolete">Paginapalet tonen</translation>
-    </message>
-    <message>
-        <source>Lock/Unlock</source>
-        <translation type="obsolete">Vergrendelen/losmaken</translation>
-    </message>
-    <message>
-        <source>Non Breaking Space</source>
-        <translation type="obsolete">Harde spatie</translation>
-    </message>
-    <message>
-        <source>Reading Preferences</source>
-        <translation type="obsolete">Instellingen worden gelezen</translation>
-    </message>
-    <message>
-        <source>Getting ICC Profiles</source>
-        <translation type="obsolete">ICC-profielen worden opgehaald</translation>
-    </message>
-    <message>
-        <source>Init Hyphenator</source>
-        <translation type="obsolete">Afbreekprogramma wordt ingesteld</translation>
-    </message>
-    <message>
-        <source>Setting up Shortcuts</source>
-        <translation type="obsolete">Sneltoetsen worden geladen</translation>
-    </message>
-    <message>
-        <source>&amp;Color Management...</source>
-        <translation type="obsolete">&amp;Kleurbeheer...</translation>
-    </message>
-    <message>
-        <source>Reading Scrapbook</source>
-        <translation type="obsolete">Kladblok wordt gelezen</translation>
-    </message>
-    <message>
-        <source>Initializing Plugins</source>
-        <translation type="obsolete">Plugins worden ingesteld</translation>
-    </message>
-    <message>
-        <source>&amp;New</source>
-        <translation type="obsolete">&amp;Nieuw</translation>
-    </message>
-    <message>
-        <source>&amp;Open...</source>
-        <translation type="obsolete">&amp;Openen...</translation>
-    </message>
-    <message>
-        <source>Open &amp;Recent</source>
-        <translation type="obsolete">&amp;Recent geopend</translation>
-    </message>
-    <message>
-        <source>New</source>
-        <translation type="obsolete">Nieuw</translation>
-    </message>
-    <message>
-        <source>Open...</source>
-        <translation type="obsolete">Openen...</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>Close</source>
-        <translation type="obsolete">Sluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">Op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>Save</source>
-        <translation type="obsolete">Opslaan</translation>
-    </message>
-    <message>
-        <source>Save &amp;As...</source>
-        <translation type="obsolete">Opslaan &amp;als...</translation>
-    </message>
-    <message>
-        <source>Save as...</source>
-        <translation type="obsolete">Opslaan als...</translation>
-    </message>
-    <message>
-        <source>Re&amp;vert to Saved</source>
-        <translation type="obsolete">Terug&amp;zetten naar opgeslagen</translation>
-    </message>
-    <message>
-        <source>Collect for O&amp;utput...</source>
-        <translation type="obsolete">Verzamelen voor &amp;uitvoer...</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text/Picture...</source>
-        <translation type="obsolete">Tekst/afbeelding verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>Append &amp;Text...</source>
-        <translation type="obsolete">Tekst &amp;toevoegen...</translation>
-    </message>
-    <message>
-        <source>Import &amp;Page(s)...</source>
-        <translation type="obsolete">&amp;Pagina(&apos;s) importeren...</translation>
-    </message>
-    <message>
-        <source>&amp;Import</source>
-        <translation type="obsolete">&amp;Importeren</translation>
-    </message>
-    <message>
-        <source>Save &amp;Text...</source>
-        <translation type="obsolete">&amp;Tekst opslaan...</translation>
-    </message>
-    <message>
-        <source>Save Page as &amp;EPS...</source>
-        <translation type="obsolete">Pagina opslaan als &amp;EPS...</translation>
-    </message>
-    <message>
-        <source>Save as P&amp;DF...</source>
-        <translation type="obsolete">Opslaan als P&amp;DF...</translation>
-    </message>
-    <message>
-        <source>&amp;Export</source>
-        <translation type="obsolete">&amp;Exporteren</translation>
-    </message>
-    <message>
-        <source>Document &amp;Information...</source>
-        <translation type="obsolete">Document&amp;informatie...</translation>
-    </message>
-    <message>
-        <source>Document Info...</source>
-        <translation type="obsolete">Documentinformatie...</translation>
-    </message>
-    <message>
-        <source>Document &amp;Setup...</source>
-        <translation type="obsolete">Documentin&amp;stellingen...</translation>
-    </message>
-    <message>
-        <source>Document Setup...</source>
-        <translation type="obsolete">Documentinstellingen...</translation>
-    </message>
-    <message>
-        <source>&amp;Print...</source>
-        <translation type="obsolete">Afdru&amp;kken...</translation>
-    </message>
-    <message>
-        <source>Print...</source>
-        <translation type="obsolete">Afdrukken...</translation>
-    </message>
-    <message>
-        <source>&amp;Quit</source>
-        <translation type="obsolete">A&amp;fsluiten</translation>
-    </message>
-    <message>
-        <source>Quit</source>
-        <translation type="obsolete">Afsluiten</translation>
-    </message>
-    <message>
-        <source>&amp;Undo</source>
-        <translation type="obsolete">&amp;Ongedaan maken</translation>
-    </message>
-    <message>
-        <source>Cu&amp;t</source>
-        <translation type="obsolete">Kni&amp;ppen</translation>
-    </message>
-    <message>
-        <source>&amp;Copy</source>
-        <translation type="obsolete">&amp;Kopiëren</translation>
-    </message>
-    <message>
-        <source>&amp;Paste</source>
-        <translation type="obsolete">P&amp;lakken</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="obsolete">W&amp;issen</translation>
-    </message>
-    <message>
-        <source>Select &amp;All</source>
-        <translation type="obsolete">&amp;Alles selecteren</translation>
-    </message>
-    <message>
-        <source>Cut</source>
-        <translation type="obsolete">Knippen</translation>
-    </message>
-    <message>
-        <source>Copy</source>
-        <translation type="obsolete">Kopiëren</translation>
-    </message>
-    <message>
-        <source>Paste</source>
-        <translation type="obsolete">Plakken</translation>
-    </message>
-    <message>
-        <source>Clear</source>
-        <translation type="obsolete">Wissen</translation>
-    </message>
-    <message>
-        <source>Select all</source>
-        <translation type="obsolete">Alles selecteren</translation>
-    </message>
-    <message>
-        <source>&amp;Search/Replace...</source>
-        <translation type="obsolete">&amp;Zoeken/vervangen...</translation>
-    </message>
-    <message>
-        <source>C&amp;olors...</source>
-        <translation type="obsolete">Kle&amp;uren...</translation>
-    </message>
-    <message>
-        <source>Colors...</source>
-        <translation type="obsolete">Kleuren...</translation>
-    </message>
-    <message>
-        <source>&amp;Paragraph Styles...</source>
-        <translation type="obsolete">&amp;Alineastijlen...</translation>
-    </message>
-    <message>
-        <source>&amp;Line Styles...</source>
-        <translation type="obsolete">&amp;Lijnstijlen...</translation>
-    </message>
-    <message>
-        <source>Styles...</source>
-        <translation type="obsolete">Stijlen...</translation>
-    </message>
-    <message>
-        <source>&amp;Templates...</source>
-        <translation type="obsolete">&amp;Sjablonen...</translation>
-    </message>
-    <message>
-        <source>Templates...</source>
-        <translation type="obsolete">Sjablonen...</translation>
-    </message>
-    <message>
-        <source>&amp;Javascripts...</source>
-        <translation type="obsolete">&amp;Javascripts...</translation>
-    </message>
-    <message>
-        <source>Select New Font</source>
-        <translation type="obsolete">Nieuw font selecteren</translation>
-    </message>
-    <message>
-        <source>D&amp;uplicate</source>
-        <translation type="obsolete">D&amp;upliceren</translation>
-    </message>
-    <message>
-        <source>Duplicate</source>
-        <translation type="obsolete">Dupliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Multiple Duplicate</source>
-        <translation type="obsolete">&amp;Meervoudig dupliceren</translation>
-    </message>
-    <message>
-        <source>Multiple Duplicate</source>
-        <translation type="obsolete">Meervoudig dupliceren</translation>
-    </message>
-    <message>
-        <source>&amp;Delete</source>
-        <translation type="obsolete">Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>Delete</source>
-        <translation type="obsolete">Verwijderen</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="obsolete">&amp;Groeperen</translation>
-    </message>
-    <message>
-        <source>Group</source>
-        <translation type="obsolete">Groeperen</translation>
-    </message>
-    <message>
-        <source>&amp;Ungroup</source>
-        <translation type="obsolete">&amp;Groep losmaken</translation>
-    </message>
-    <message>
-        <source>Un-group</source>
-        <translation type="obsolete">Groep losmaken</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="obsolete">Vergrende&amp;len</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="obsolete">Naar &amp;achtergrond</translation>
-    </message>
-    <message>
-        <source>Send to Back</source>
-        <translation type="obsolete">Naar achtergrond</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="obsolete">Naar &amp;voorgrond</translation>
-    </message>
-    <message>
-        <source>Bring to Front</source>
-        <translation type="obsolete">Naar voorgrond</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="obsolete">&amp;Lager</translation>
-    </message>
-    <message>
-        <source>Lower</source>
-        <translation type="obsolete">Lager</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="obsolete">&amp;Hoger</translation>
-    </message>
-    <message>
-        <source>Raise</source>
-        <translation type="obsolete">Hoger</translation>
-    </message>
-    <message>
-        <source>Distribute/&amp;Align...</source>
-        <translation type="obsolete">Verdelen/&amp;uitlijnen...</translation>
-    </message>
-    <message>
-        <source>Distribute/Align...</source>
-        <translation type="obsolete">Verdelen/uitlijnen...</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Shape</source>
-        <translation type="obsolete">Vorm b&amp;ewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Shape</source>
-        <translation type="obsolete">&amp;Vorm</translation>
-    </message>
-    <message>
-        <source>&amp;Attach Text to Path</source>
-        <translation type="obsolete">Tekst &amp;aan pad toevoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Detach Text from Path</source>
-        <translation type="obsolete">Tekst van &amp;pad losmaken</translation>
-    </message>
-    <message>
-        <source>&amp;Combine Polygons</source>
-        <translation type="obsolete">Polygonen &amp;samenvoegen</translation>
-    </message>
-    <message>
-        <source>Split &amp;Polygons</source>
-        <translation type="obsolete">&amp;Polygonen opsplitsen</translation>
-    </message>
-    <message>
-        <source>C&amp;onvert to Outlines</source>
-        <translation type="obsolete">Omzetten naar c&amp;ontouren</translation>
-    </message>
-    <message>
-        <source>&amp;Insert...</source>
-        <translation type="obsolete">&amp;Invoegen...</translation>
-    </message>
-    <message>
-        <source>Insert...</source>
-        <translation type="obsolete">Invoegen...</translation>
-    </message>
-    <message>
-        <source>&amp;Delete...</source>
-        <translation type="obsolete">Verwij&amp;deren...</translation>
-    </message>
-    <message>
-        <source>Delete...</source>
-        <translation type="obsolete">Verwijderen...</translation>
-    </message>
-    <message>
-        <source>&amp;Move...</source>
-        <translation type="obsolete">&amp;Verplaatsen...</translation>
-    </message>
-    <message>
-        <source>Move...</source>
-        <translation type="obsolete">Verplaatsen...</translation>
-    </message>
-    <message>
-        <source>&amp;Apply Template...</source>
-        <translation type="obsolete">Sj&amp;abloon toepassen...</translation>
-    </message>
-    <message>
-        <source>Apply Template...</source>
-        <translation type="obsolete">Sjabloon toepassen...</translation>
-    </message>
-    <message>
-        <source>Manage &amp;Guides...</source>
-        <translation type="obsolete">&amp;Hulplijnen beheren...</translation>
-    </message>
-    <message>
-        <source>Manage Guides...</source>
-        <translation type="obsolete">Hulplijnen beheren...</translation>
-    </message>
-    <message>
-        <source>&amp;Fit in Window</source>
-        <translation type="obsolete">Aanpassen aan &amp;venstergrootte</translation>
-    </message>
-    <message>
-        <source>Fit in Window</source>
-        <translation type="obsolete">Aanpassen aan venstergrootte</translation>
-    </message>
-    <message>
-        <source>50%</source>
-        <translation type="obsolete">50%</translation>
-    </message>
-    <message>
-        <source>75%</source>
-        <translation type="obsolete">75%</translation>
-    </message>
-    <message>
-        <source>&amp;100%</source>
-        <translation type="obsolete">&amp;100%</translation>
-    </message>
-    <message>
-        <source>100%</source>
-        <translation type="obsolete">100%</translation>
-    </message>
-    <message>
-        <source>200%</source>
-        <translation type="obsolete">200%</translation>
-    </message>
-    <message>
-        <source>&amp;Thumbnails</source>
-        <translation type="obsolete">Minia&amp;turen</translation>
-    </message>
-    <message>
-        <source>Thumbnails</source>
-        <translation type="obsolete">Miniaturen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Margins</source>
-        <translation type="obsolete">&amp;Marges tonen</translation>
-    </message>
-    <message>
-        <source>Hide Margins</source>
-        <translation type="obsolete">Marges verbergen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Frames</source>
-        <translation type="obsolete">&amp;Frames tonen</translation>
-    </message>
-    <message>
-        <source>Hide Frames</source>
-        <translation type="obsolete">Frames verbergen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Images</source>
-        <translation type="obsolete">Afbeeld&amp;ingen tonen</translation>
-    </message>
-    <message>
-        <source>Hide Images</source>
-        <translation type="obsolete">Afbeeldingen verbergen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Grid</source>
-        <translation type="obsolete">R&amp;aster tonen</translation>
-    </message>
-    <message>
-        <source>Show Grid</source>
-        <translation type="obsolete">Raster tonen</translation>
-    </message>
-    <message>
-        <source>Show G&amp;uides</source>
-        <translation type="obsolete">H&amp;ulplijnen tonen</translation>
-    </message>
-    <message>
-        <source>Show &amp;Baseline Grid</source>
-        <translation type="obsolete">&amp;Basislijn-raster tonen</translation>
-    </message>
-    <message>
-        <source>Sn&amp;ap to Grid</source>
-        <translation type="obsolete">Ma&amp;gnetisch raster</translation>
-    </message>
-    <message>
-        <source>Snap to Grid</source>
-        <translation type="obsolete">Magnetisch raster</translation>
-    </message>
-    <message>
-        <source>Sna&amp;p to Guides</source>
-        <translation type="obsolete">Magnetische hul&amp;plijnen</translation>
-    </message>
-    <message>
-        <source>&amp;Properties</source>
-        <translation type="obsolete">&amp;Eigenschappen</translation>
-    </message>
-    <message>
-        <source>Properties</source>
-        <translation type="obsolete">Eigenschappen</translation>
-    </message>
-    <message>
-        <source>&amp;Outline</source>
-        <translation type="obsolete">&amp;Outline</translation>
-    </message>
-    <message>
-        <source>Outline</source>
-        <translation type="obsolete">Outline</translation>
-    </message>
-    <message>
-        <source>&amp;Scrapbook</source>
-        <translation type="obsolete">&amp;Kladblok</translation>
-    </message>
-    <message>
-        <source>Scrapbook</source>
-        <translation type="obsolete">Kladblok</translation>
-    </message>
-    <message>
-        <source>&amp;Layers</source>
-        <translation type="obsolete">&amp;Lagen</translation>
-    </message>
-    <message>
-        <source>P&amp;age Palette</source>
-        <translation type="obsolete">P&amp;aginapalet</translation>
-    </message>
-    <message>
-        <source>&amp;Bookmarks</source>
-        <translation type="obsolete">&amp;Bladwijzers</translation>
-    </message>
-    <message>
-        <source>&amp;Manage Pictures</source>
-        <translation type="obsolete">Afbeeldingen &amp;beheren</translation>
-    </message>
-    <message>
-        <source>Manage Pictures</source>
-        <translation type="obsolete">Afbeeldingen beheren</translation>
-    </message>
-    <message>
-        <source>&amp;Hyphenate Text</source>
-        <translation type="obsolete">Tekst a&amp;fbreken</translation>
-    </message>
-    <message>
-        <source>Hyphenate Text</source>
-        <translation type="obsolete">Tekst afbreken</translation>
-    </message>
-    <message>
-        <source>Toolti&amp;ps</source>
-        <translation type="obsolete">Hul&amp;pballonnen</translation>
-    </message>
-    <message>
-        <source>&amp;Tools</source>
-        <translation type="obsolete">&amp;Gereedschappen</translation>
-    </message>
-    <message>
-        <source>P&amp;DF Tools</source>
-        <translation type="obsolete">P&amp;DF-gereedschappen</translation>
-    </message>
-    <message>
-        <source>Tools</source>
-        <translation type="obsolete">Gereedschappen</translation>
-    </message>
-    <message>
-        <source>Tooltips</source>
-        <translation type="obsolete">Hulpballonnen</translation>
-    </message>
-    <message>
-        <source>P&amp;references...</source>
-        <translation type="obsolete">&amp;Voorkeuren...</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts...</source>
-        <translation type="obsolete">&amp;Fonts...</translation>
-    </message>
-    <message>
-        <source>Fonts...</source>
-        <translation type="obsolete">Fonts...</translation>
-    </message>
-    <message>
-        <source>&amp;Hyphenator...</source>
-        <translation type="obsolete">&amp;Afbreekinstellingen...</translation>
-    </message>
-    <message>
-        <source>&amp;Keyboard Shortcuts...</source>
-        <translation type="obsolete">&amp;Sneltoetsen...</translation>
-    </message>
-    <message>
-        <source>&amp;About Scribus</source>
-        <translation type="obsolete">&amp;Info over Scribus</translation>
-    </message>
-    <message>
-        <source>About Scribus</source>
-        <translation type="obsolete">Info over Scribus</translation>
-    </message>
-    <message>
-        <source>About &amp;Qt</source>
-        <translation type="obsolete">Info over &amp;Qt</translation>
-    </message>
-    <message>
-        <source>About Qt</source>
-        <translation type="obsolete">Info over Qt</translation>
-    </message>
-    <message>
-        <source>Scribus &amp;Manual...</source>
-        <translation type="obsolete">Scribus &amp;handboek...</translation>
-    </message>
-    <message>
-        <source>Online-Help...</source>
-        <translation type="obsolete">Online hulp...</translation>
-    </message>
-    <message>
-        <source>&amp;File</source>
-        <translation type="obsolete">&amp;Bestand</translation>
-    </message>
-    <message>
-        <source>&amp;Edit</source>
-        <translation type="obsolete">Be&amp;werken</translation>
-    </message>
-    <message>
-        <source>St&amp;yle</source>
-        <translation type="obsolete">Sti&amp;jl</translation>
-    </message>
-    <message>
-        <source>&amp;Item</source>
-        <translation type="obsolete">&amp;Item</translation>
-    </message>
-    <message>
-        <source>&amp;Page</source>
-        <translation type="obsolete">&amp;Pagina</translation>
-    </message>
-    <message>
-        <source>&amp;View</source>
-        <translation type="obsolete">Beel&amp;d</translation>
-    </message>
-    <message>
-        <source>E&amp;xtras</source>
-        <translation type="obsolete">E&amp;xtra</translation>
-    </message>
-    <message>
-        <source>&amp;Settings</source>
-        <translation type="obsolete">In&amp;stellingen</translation>
-    </message>
-    <message>
-        <source>&amp;Windows</source>
-        <translation type="obsolete">&amp;Venster</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Help</translation>
-    </message>
-    <message>
-        <source>&amp;Left</source>
-        <translation type="obsolete">&amp;Links</translation>
-    </message>
-    <message>
-        <source>&amp;Center</source>
-        <translation type="obsolete">&amp;Midden</translation>
-    </message>
-    <message>
-        <source>&amp;Right</source>
-        <translation type="obsolete">&amp;Rechts</translation>
-    </message>
-    <message>
-        <source>&amp;Block</source>
-        <translation type="obsolete">&amp;Blok</translation>
-    </message>
-    <message>
-        <source>&amp;Forced</source>
-        <translation type="obsolete">Ge&amp;forceerd</translation>
-    </message>
-    <message>
-        <source>&amp;Other...</source>
-        <translation type="obsolete">&amp;Overig...</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source>Underline</source>
-        <translation type="obsolete">Onderstreept</translation>
-    </message>
-    <message>
-        <source>Strikethru</source>
-        <translation type="obsolete">Doorhalen</translation>
-    </message>
-    <message>
-        <source>Small Caps</source>
-        <translation type="obsolete">Kleinkapitalen</translation>
-    </message>
-    <message>
-        <source>Superscript</source>
-        <translation type="obsolete">Superscript</translation>
-    </message>
-    <message>
-        <source>Subscript</source>
-        <translation type="obsolete">Subscript</translation>
-    </message>
-    <message>
-        <source>Outlined</source>
-        <translation type="obsolete">Outline</translation>
-    </message>
-    <message>
-        <source>X-Pos:</source>
-        <translation type="obsolete">X-Pos:</translation>
-    </message>
-    <message>
-        <source>Y-Pos:</source>
-        <translation type="obsolete">Y-Pos:</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>Ready</source>
-        <translation type="obsolete">Gereed</translation>
-    </message>
-    <message>
-        <source>&amp;Cascade</source>
-        <translation type="obsolete">&amp;Trapsgewijs</translation>
-    </message>
-    <message>
-        <source>&amp;Tile</source>
-        <translation type="obsolete">&amp;Tegels</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>Get Text/Picture...</source>
-        <translation type="obsolete">Tekst/afbeelding verkrijgen...</translation>
-    </message>
-    <message>
-        <source>Get Picture...</source>
-        <translation type="obsolete">Afbeelding verkrijgen...</translation>
-    </message>
-    <message>
-        <source>&amp;Color</source>
-        <translation type="obsolete">&amp;Kleur</translation>
-    </message>
-    <message>
-        <source>&amp;Invert</source>
-        <translation type="obsolete">&amp;Inverteren</translation>
-    </message>
-    <message>
-        <source>&amp;Get Text...</source>
-        <translation type="obsolete">Tekst verkrij&amp;gen...</translation>
-    </message>
-    <message>
-        <source>&amp;Font</source>
-        <translation type="obsolete">&amp;Font</translation>
-    </message>
-    <message>
-        <source>&amp;Size</source>
-        <translation type="obsolete">&amp;Grootte</translation>
-    </message>
-    <message>
-        <source>&amp;Effects</source>
-        <translation type="obsolete">&amp;Effecten</translation>
-    </message>
-    <message>
-        <source>&amp;Alignment</source>
-        <translation type="obsolete">&amp;Uitlijning</translation>
-    </message>
-    <message>
-        <source>&amp;Shade</source>
-        <translation type="obsolete">&amp;Tint</translation>
-    </message>
-    <message>
-        <source>&amp;Tabulators...</source>
-        <translation type="obsolete">&amp;Tabulators...</translation>
-    </message>
-    <message>
-        <source>Get Text...</source>
-        <translation type="obsolete">Tekst verkrijgen...</translation>
-    </message>
-    <message>
-        <source>Font</source>
-        <translation type="obsolete">Font</translation>
-    </message>
-    <message>
-        <source>Size</source>
-        <translation type="obsolete">Grootte</translation>
-    </message>
-    <message>
-        <source>Style</source>
-        <translation type="obsolete">Stijl</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Kleur</translation>
-    </message>
-    <message>
-        <source>Shade</source>
-        <translation type="obsolete">Tint</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="obsolete">&amp;Losmaken</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Openen</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *.scd.gz);;All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.scd);;All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Importing Pages...</source>
-        <translation type="obsolete">Pagina&apos;s worden geïmporteerd...</translation>
-    </message>
-    <message>
-        <source>Import Page(s)</source>
-        <translation type="obsolete">Pagina(&apos;s) importeren</translation>
-    </message>
-    <message>
-        <source>&lt;p&gt;You are trying to import more pages than there are available in the current document counting from the active page.&lt;/p&gt;Choose one of the following:&lt;br&gt;&lt;ul&gt;&lt;li&gt;&lt;b&gt;Create&lt;/b&gt; missing pages&lt;/li&gt;&lt;li&gt;&lt;b&gt;Import&lt;/b&gt; pages until the last page&lt;/li&gt;&lt;li&gt;&lt;b&gt;Cancel&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</source>
-        <translation type="obsolete">&lt;p&gt;U probeert meer pagina&apos;s te importeren dan beschikbaar in het huidige document (geteld vanaf de actieve pagina).&lt;/p&gt;Kies een van de volgende mogelijkheden:&lt;br&gt;&lt;ul&gt;&lt;li&gt;Ontbrekende pagina&apos;s &lt;b&gt;aanmaken&lt;/b&gt;&lt;/li&gt;&lt;li&gt;Pagina&apos;s &lt;b&gt;importeren&lt;/b&gt; tot aan laatste pagina&lt;/li&gt;&lt;li&gt;&lt;b&gt;Annuleren&lt;/b&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br&gt;</translation>
-    </message>
-    <message>
-        <source>Create</source>
-        <translation type="obsolete">Aanmaken</translation>
-    </message>
-    <message>
-        <source>Import</source>
-        <translation type="obsolete">Importeren tot laatste</translation>
-    </message>
-    <message>
-        <source>Import done</source>
-        <translation type="obsolete">Importeren voltooid</translation>
-    </message>
-    <message>
-        <source>Found nothing to import</source>
-        <translation type="obsolete">Niets gevonden om te importeren</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>File %1 is not in Scribus format</source>
-        <translation type="obsolete">Het bestand %1 is niet in Scribus-formaat</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Loading...</source>
-        <translation type="obsolete">Laden...</translation>
-    </message>
-    <message>
-        <source>All Supported Formats</source>
-        <translation type="obsolete">Alle ondersteunde formaten</translation>
-    </message>
-    <message>
-        <source>All Files (*)</source>
-        <translation type="obsolete">Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Can&apos;t write the File: 
-%1</source>
-        <translation type="obsolete">Kan niet naar bestand schrijven: 
-%1</translation>
-    </message>
-    <message>
-        <source>Save as</source>
-        <translation type="obsolete">Opslaan als</translation>
-    </message>
-    <message>
-        <source>Documents (*.sla *.sla.gz *.scd *scd.gz);;All Files (*)</source>
-        <translation type="obsolete">Documenten (*.sla *.sla.gz *.scd *.scd.gz);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Saving...</source>
-        <translation type="obsolete">Opslaan...</translation>
-    </message>
-    <message>
-        <source>Printing...</source>
-        <translation type="obsolete">Bezig met afdrukken...</translation>
-    </message>
-    <message>
-        <source>Document</source>
-        <translation type="obsolete">Document</translation>
-    </message>
-    <message>
-        <source>Printing failed!</source>
-        <translation type="obsolete">Afdrukken mislukt!</translation>
-    </message>
-    <message>
-        <source>Scribus Manual</source>
-        <translation type="obsolete">Scribus handboek</translation>
-    </message>
-    <message>
-        <source>Text Files (*.txt);;All Files(*)</source>
-        <translation type="obsolete">Tekstbestanden (*.txt);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>&amp;Size:</source>
-        <translation type="obsolete">&amp;Grootte:</translation>
-    </message>
-    <message>
-        <source>&amp;Shade:</source>
-        <translation type="obsolete">&amp;Tint:</translation>
-    </message>
-    <message>
-        <source>Hide Baseline Grid</source>
-        <translation type="obsolete">Basislijn-raster verbergen</translation>
-    </message>
-    <message>
-        <source>Show Baseline Grid</source>
-        <translation type="obsolete">Basislijn-raster tonen</translation>
-    </message>
-    <message>
-        <source>The following Programs are missing:</source>
-        <translation type="obsolete">De volgende programma&apos;s ontbreken:</translation>
-    </message>
-    <message>
-        <source>Ghostscript : You cannot use EPS Images</source>
-        <translation type="obsolete">Ghostscript: U kunt niet met EPS-afbeeldingen werken</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">Alle</translation>
-    </message>
-    <message>
-        <source>EPS-Files (*.eps);;All Files (*)</source>
-        <translation type="obsolete">EPS-bestanden (*.eps *.epsi);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>Some Objects are locked.</source>
-        <translation type="obsolete">Enkele objecten zijn vergrendeld.</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Annuleren</translation>
-    </message>
-    <message>
-        <source>Lock all</source>
-        <translation type="obsolete">Alle vergrendelen</translation>
-    </message>
-    <message>
-        <source>Unlock all</source>
-        <translation type="obsolete">Alle losmaken</translation>
-    </message>
-    <message>
-        <source>Unlock</source>
-        <translation type="obsolete">Losmaken</translation>
-    </message>
-    <message>
-        <source>Lock</source>
-        <translation type="obsolete">Vergrendelen</translation>
-    </message>
-    <message>
-        <source>Loading:</source>
-        <translation type="obsolete">Laden:</translation>
-    </message>
-    <message>
-        <source>Adjusting Colors</source>
-        <translation type="obsolete">Bezig kleuren aan te passen</translation>
-    </message>
-    <message>
-        <source>&amp;Undo Delete Object</source>
-        <translation type="obsolete">&amp;Object verwijderen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>&amp;Undo Object Move</source>
-        <translation type="obsolete">&amp;Object verplaatsen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>&amp;Undo Object Change</source>
-        <translation type="obsolete">&amp;Object wijzigen ongedaan maken</translation>
-    </message>
-    <message>
-        <source>German</source>
-        <translation type="obsolete">Duits</translation>
-    </message>
-    <message>
-        <source>Polish</source>
-        <translation type="obsolete">Pools</translation>
-    </message>
-    <message>
-        <source>English</source>
-        <translation type="obsolete">Engels</translation>
-    </message>
-    <message>
-        <source>Spanish</source>
-        <translation type="obsolete">Spaans</translation>
-    </message>
-    <message>
-        <source>Italian</source>
-        <translation type="obsolete">Italiaans</translation>
-    </message>
-    <message>
-        <source>French</source>
-        <translation type="obsolete">Frans</translation>
-    </message>
-    <message>
-        <source>Russian</source>
-        <translation type="obsolete">Russisch</translation>
-    </message>
-    <message>
-        <source>Danish</source>
-        <translation type="obsolete">Deens</translation>
-    </message>
-    <message>
-        <source>Slovak</source>
-        <translation type="obsolete">Slovaaks</translation>
-    </message>
-    <message>
-        <source>Hungarian</source>
-        <translation type="obsolete">Hongaars</translation>
-    </message>
-    <message>
-        <source>Czech</source>
-        <translation type="obsolete">Tsjechisch</translation>
-    </message>
-    <message>
-        <source>Dutch</source>
-        <translation type="obsolete">Nederlands</translation>
-    </message>
-    <message>
-        <source>Portuguese</source>
-        <translation type="obsolete">Portugees</translation>
-    </message>
-    <message>
-        <source>Ukrainian</source>
-        <translation type="obsolete">Ukraïns</translation>
-    </message>
-    <message>
-        <source>Greek</source>
-        <translation type="obsolete">Grieks</translation>
-    </message>
-    <message>
-        <source>Catalan</source>
-        <translation type="obsolete">Catalaans</translation>
-    </message>
-    <message>
-        <source>Finnish</source>
-        <translation type="obsolete">Fins</translation>
-    </message>
-    <message>
-        <source>Irish</source>
-        <translation type="obsolete">Iers</translation>
-    </message>
-    <message>
-        <source>Lithuanian</source>
-        <translation type="obsolete">Litouws</translation>
-    </message>
-    <message>
-        <source>Swedish</source>
-        <translation type="obsolete">Zweeds</translation>
-    </message>
-    <message>
-        <source>Slovenian</source>
-        <translation type="obsolete">Sloveens</translation>
-    </message>
-    <message>
-        <source>Afrikaans</source>
-        <translation type="obsolete">Afrikaans</translation>
-    </message>
-    <message>
-        <source>Choose a Directory</source>
-        <translation type="obsolete">Kies een map</translation>
-    </message>
-    <message>
-        <source>Invert</source>
-        <translation type="obsolete">Inverteren</translation>
-    </message>
-    <message>
-        <source>Scribus Crash</source>
-        <translation type="obsolete">Scribus is gecrashed</translation>
-    </message>
-    <message>
-        <source>Scribus crashes due to Signal #%1</source>
-        <translation type="obsolete">Scribus is gecrashed met signaal #%1</translation>
-    </message>
-    <message>
-        <source>Font System Initialized</source>
-        <translation type="obsolete">Fonts geïnitialiseerd</translation>
-    </message>
-    <message>
-        <source>Edit</source>
-        <translation type="obsolete">Bewerken</translation>
-    </message>
-    <message>
-        <source>Postscript</source>
-        <translation type="obsolete">Postscript</translation>
-    </message>
-    <message>
-        <source>&amp;Redo</source>
-        <translation type="obsolete">O&amp;pnieuw doen</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Shape...</source>
-        <translation type="obsolete">Vorm b&amp;ewerken...</translation>
-    </message>
-    <message>
-        <source>&amp;50%</source>
-        <translation type="obsolete">&amp;50%</translation>
-    </message>
-    <message>
-        <source>&amp;75%</source>
-        <translation type="obsolete">&amp;75%</translation>
-    </message>
-    <message>
-        <source>&amp;200%</source>
-        <translation type="obsolete">&amp;200%</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Invoegen speciaal</translation>
-    </message>
-    <message>
-        <source>OpenOffice.org Draw (*.sxd);;All Files (*)</source>
-        <translation type="obsolete">OpenOffice.org Draw-bestanden (*.sxd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Bulgarian</source>
-        <translation type="obsolete">Bulgaars</translation>
-    </message>
-    <message>
-        <source>The Program</source>
-        <translation type="obsolete">Het programma</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Info</translation>
-    </message>
-    <message>
-        <source>is missing!</source>
-        <translation type="obsolete">ontbreekt op uw systeem!</translation>
-    </message>
-    <message>
-        <source>Send to La&amp;yer</source>
-        <translation type="obsolete">In &amp;laag zetten</translation>
-    </message>
-    <message>
-        <source>&amp;PDF Options</source>
-        <translation type="obsolete">&amp;PDF-opties</translation>
-    </message>
-    <message>
-        <source>Character</source>
-        <translation type="obsolete">Teken</translation>
-    </message>
-    <message>
-        <source>Save As</source>
-        <translation type="obsolete">Opslaan als</translation>
-    </message>
-    <message>
-        <source>Name:</source>
-        <translation type="obsolete">Naam:</translation>
-    </message>
 </context>
 <context>
     <name>ScribusColorList</name>
-    <message>
-        <source>Sample</source>
-        <translation type="obsolete">Voorbeeld</translation>
-    </message>
-    <message>
-        <source>Color</source>
-        <translation type="obsolete">Kleur</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
     <message>
         <source>Document Colors</source>
         <translation>Documentkleuren</translation>
@@ -22262,10 +13219,6 @@ zet de vectordata over naar Scribus objecten.</translation>
 </context>
 <context>
     <name>ScribusMainWindow</name>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
     <message>
         <source>Initializing Plugins</source>
         <translation>Initialiseren Plugins</translation>
@@ -22836,26 +13789,6 @@ Verticaal shift: %3</translation>
         <translation>Laag</translation>
     </message>
     <message>
-        <source>pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source>mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source>in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source>p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>All</source>
-        <translation type="obsolete">Alles</translation>
-    </message>
-    <message>
         <source>Copy Here</source>
         <translation>Kopie hier</translation>
     </message>
@@ -22928,124 +13861,16 @@ Verticaal shift: %3</translation>
         <translation>In&amp;fo</translation>
     </message>
     <message>
-        <source>I&amp;mage Visible</source>
-        <translation type="obsolete">Af&amp;beelding zichtbaar</translation>
-    </message>
-    <message>
-        <source>&amp;Update Picture</source>
-        <translation type="obsolete">Afbeelding bij&amp;werken</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Picture</source>
-        <translation type="obsolete">Afb&amp;eelding bewerken</translation>
-    </message>
-    <message>
-        <source>&amp;Adjust Frame to Picture</source>
-        <translation type="obsolete">Frame aan &amp;afbeelding aanpassen</translation>
-    </message>
-    <message>
-        <source>&amp;Edit Text...</source>
-        <translation type="obsolete">T&amp;ekst bewerken...</translation>
-    </message>
-    <message>
-        <source>Is PDF &amp;Bookmark</source>
-        <translation type="obsolete">Dit is een PDF-&amp;bladwijzer</translation>
-    </message>
-    <message>
-        <source>Is PDF A&amp;nnotation</source>
-        <translation type="obsolete">Dit is een PDF-a&amp;nnotatie</translation>
-    </message>
-    <message>
-        <source>Annotation P&amp;roperties</source>
-        <translation type="obsolete">&amp;Eigenschappen van annotatie</translation>
-    </message>
-    <message>
-        <source>Field P&amp;roperties</source>
-        <translation type="obsolete">&amp;Veldeigenschappen</translation>
-    </message>
-    <message>
         <source>&amp;PDF Options</source>
         <translation>&amp;PDF-opties</translation>
-    </message>
-    <message>
-        <source>Edit Text...</source>
-        <translation type="obsolete">Tekst bewerken...</translation>
-    </message>
-    <message>
-        <source>&amp;Lock</source>
-        <translation type="obsolete">Vergrende&amp;len</translation>
-    </message>
-    <message>
-        <source>Un&amp;lock</source>
-        <translation type="obsolete">&amp;Losmaken</translation>
-    </message>
-    <message>
-        <source>Lock Object &amp;Size</source>
-        <translation type="obsolete">Object&amp;grootte vergrendelen</translation>
-    </message>
-    <message>
-        <source>Unlock Object &amp;Size</source>
-        <translation type="obsolete">Object&amp;grootte losmaken</translation>
-    </message>
-    <message>
-        <source>Send to S&amp;crapbook</source>
-        <translation type="obsolete">In &amp;kladblok zetten</translation>
     </message>
     <message>
         <source>Send to La&amp;yer</source>
         <translation>In &amp;laag zetten</translation>
     </message>
     <message>
-        <source>&amp;Insert Sample Text</source>
-        <translation type="obsolete">Voorbeeldtekst &amp;invoegen</translation>
-    </message>
-    <message>
-        <source>&amp;Group</source>
-        <translation type="obsolete">&amp;Groeperen</translation>
-    </message>
-    <message>
-        <source>Un&amp;group</source>
-        <translation type="obsolete">&amp;Groep losmaken</translation>
-    </message>
-    <message>
         <source>Le&amp;vel</source>
         <translation>Ni&amp;veau</translation>
-    </message>
-    <message>
-        <source>Send to &amp;Back</source>
-        <translation type="obsolete">Naar &amp;achtergrond</translation>
-    </message>
-    <message>
-        <source>Bring to &amp;Front</source>
-        <translation type="obsolete">Naar &amp;voorgrond</translation>
-    </message>
-    <message>
-        <source>&amp;Lower</source>
-        <translation type="obsolete">&amp;Lager</translation>
-    </message>
-    <message>
-        <source>&amp;Raise</source>
-        <translation type="obsolete">&amp;Hoger</translation>
-    </message>
-    <message>
-        <source>&amp;Picture Frame</source>
-        <translation type="obsolete">Afbeeldings&amp;frame</translation>
-    </message>
-    <message>
-        <source>Pol&amp;ygon</source>
-        <translation type="obsolete">Pol&amp;ygoon</translation>
-    </message>
-    <message>
-        <source>&amp;Outlines</source>
-        <translation type="obsolete">&amp;Outline</translation>
-    </message>
-    <message>
-        <source>&amp;Text Frame</source>
-        <translation type="obsolete">&amp;Tekstframe</translation>
-    </message>
-    <message>
-        <source>&amp;Bezier Curve</source>
-        <translation type="obsolete">&amp;Beziercurve</translation>
     </message>
     <message>
         <source>Conve&amp;rt to</source>
@@ -23054,26 +13879,6 @@ Verticaal shift: %3</translation>
     <message>
         <source>&amp;Delete</source>
         <translation>Verwij&amp;deren</translation>
-    </message>
-    <message>
-        <source>C&amp;lear Contents</source>
-        <translation type="obsolete">Inhoud &amp;leegmaken</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="obsolete">Wilt u werkelijk alle tekst wissen?</translation>
-    </message>
-    <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
-        <source>Copy of</source>
-        <translation type="obsolete">Kopie van</translation>
     </message>
     <message>
         <source>Preview Settings</source>
@@ -23127,32 +13932,12 @@ Verticaal shift: %3</translation>
 <context>
     <name>ScribusWin</name>
     <message>
-        <source>&amp;Leave Anyway</source>
-        <translation type="obsolete">Toch a&amp;fsluiten</translation>
-    </message>
-    <message>
-        <source>C&amp;lose Anyway</source>
-        <translation type="obsolete">Toch s&amp;luiten</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
         <source>Document:</source>
         <translation>Het document:</translation>
     </message>
     <message>
         <source>has been changed since the last save.</source>
         <translation>is gewijzigd na de laatste keer opslaan.</translation>
-    </message>
-    <message>
-        <source>&amp;Save Now</source>
-        <translation type="obsolete">Nu op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>&amp;Discard</source>
@@ -23173,34 +13958,6 @@ Verticaal shift: %3</translation>
 <context>
     <name>ScripterCore</name>
     <message>
-        <source>&amp;Scribus Scripts</source>
-        <translation type="obsolete">&amp;Scribus scripts</translation>
-    </message>
-    <message>
-        <source>&amp;Execute Script...</source>
-        <translation type="obsolete">Script &amp;uitvoeren...</translation>
-    </message>
-    <message>
-        <source>&amp;Recent Scripts</source>
-        <translation type="obsolete">&amp;Recente scripts</translation>
-    </message>
-    <message>
-        <source>&amp;About Script...</source>
-        <translation type="obsolete">&amp;Over script...</translation>
-    </message>
-    <message>
-        <source>S&amp;cript</source>
-        <translation type="obsolete">S&amp;cript</translation>
-    </message>
-    <message>
-        <source>Open</source>
-        <translation type="obsolete">Openen</translation>
-    </message>
-    <message>
-        <source>Python Scripts (*.py);; All Files (*)</source>
-        <translation type="obsolete">Python scripts (*.py);;Alle bestanden (*)</translation>
-    </message>
-    <message>
         <source>Script error</source>
         <translation>Scriptfout</translation>
     </message>
@@ -23211,14 +13968,6 @@ Verticaal shift: %3</translation>
     <message>
         <source>This message is in your clipboard too. Use Ctrl+V to paste it into bug tracker.</source>
         <translation>Dit bericht staat ook op het klembord. Met Ctrl+V kunt u het in de bugtracker plakken.</translation>
-    </message>
-    <message>
-        <source>Hide &amp;Console</source>
-        <translation type="obsolete">&amp;Console verbergen</translation>
-    </message>
-    <message>
-        <source>About Script</source>
-        <translation type="obsolete">Over script</translation>
     </message>
     <message>
         <source>There was an internal error while trying the command you entered. Details were printed to stderr. </source>
@@ -23247,21 +13996,6 @@ Verticaal shift: %3</translation>
     <message>
         <source> doesn&apos;t contain any docstring!</source>
         <translation> bevat geen docstring!</translation>
-    </message>
-</context>
-<context>
-    <name>ScripterPreferences</name>
-    <message>
-        <source>Browse...</source>
-        <translation type="obsolete">Browse...</translation>
-    </message>
-    <message>
-        <source>Alt+C</source>
-        <translation type="obsolete">Alt+A</translation>
-    </message>
-    <message>
-        <source>Alt+O</source>
-        <translation type="obsolete">Atl+O</translation>
     </message>
 </context>
 <context>
@@ -23342,13 +14076,6 @@ Verticaal shift: %3</translation>
     </message>
 </context>
 <context>
-    <name>SeView</name>
-    <message>
-        <source>Show Template Names</source>
-        <translation type="obsolete">Sjabloonnamen tonen</translation>
-    </message>
-</context>
-<context>
     <name>SearchReplace</name>
     <message>
         <source>Search/Replace</source>
@@ -23419,10 +14146,6 @@ Verticaal shift: %3</translation>
         <translation>pt</translation>
     </message>
     <message>
-        <source>None</source>
-        <translation type="obsolete">Geen</translation>
-    </message>
-    <message>
         <source>Replace with:</source>
         <translation>Vervangen door:</translation>
     </message>
@@ -23455,57 +14178,12 @@ Verticaal shift: %3</translation>
         <translation>Zoeken voltooid</translation>
     </message>
     <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
         <source>C&amp;lear</source>
         <translation>W&amp;issen</translation>
     </message>
     <message>
         <source>Search finished, found %1 matches</source>
         <translation>Zoeken gereed, %1 overeenkomsten gevonden</translation>
-    </message>
-</context>
-<context>
-    <name>SeitenPal</name>
-    <message>
-        <source>Arrange Pages</source>
-        <translation type="obsolete">Pagina&apos;s herschikken</translation>
-    </message>
-    <message>
-        <source>Available Templates:</source>
-        <translation type="obsolete">Beschikbare sjablonen:</translation>
-    </message>
-    <message>
-        <source>Document Pages:</source>
-        <translation type="obsolete">Documentpagina&apos;s:</translation>
-    </message>
-    <message>
-        <source>Facing Pages</source>
-        <translation type="obsolete">Tegenover elkaar</translation>
-    </message>
-    <message>
-        <source>Left Page first</source>
-        <translation type="obsolete">Linkerpagina eerst</translation>
-    </message>
-    <message>
-        <source>Drag Pages or Template Pages onto the Trashbin to delete them.</source>
-        <translation type="obsolete">Sleep pagina&apos;s of Sjabloonpagina&apos;s naar de prullenbak om ze te verwijderen.</translation>
-    </message>
-    <message>
-        <source>Previews all the pages of your document.</source>
-        <translation type="obsolete">Toont voorbeelden van alle pagina&apos;s in uw document.</translation>
-    </message>
-    <message>
-        <source>Here are all your Templates, to create a new Page
-drag a Template to the Pageview below.</source>
-        <translation type="obsolete">Hier zijn al uw sjablonen. Sleep, om een nieuwe pagina
-aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
-    </message>
-    <message>
-        <source>Normal</source>
-        <translation type="obsolete">Normaal</translation>
     </message>
 </context>
 <context>
@@ -23529,14 +14207,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <message>
         <source>Selected Fields</source>
         <translation>Geselecteerde velden</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -23610,10 +14280,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Stijlen bewerken</translation>
     </message>
     <message>
-        <source>&amp;Append</source>
-        <translation type="obsolete">Toe&amp;voegen</translation>
-    </message>
-    <message>
         <source>&amp;New</source>
         <translation>&amp;Nieuw</translation>
     </message>
@@ -23630,40 +14296,12 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Verwij&amp;deren</translation>
     </message>
     <message>
-        <source>&amp;Save</source>
-        <translation type="obsolete">Op&amp;slaan</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
-    </message>
-    <message>
         <source>Copy of %1</source>
         <translation>Kopie van %1</translation>
     </message>
     <message>
         <source>New Style</source>
         <translation>Nieuwe stijl</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Do you really want do delete this Style?</source>
-        <translation type="obsolete">Wil je echt deze stijl verwijderen?</translation>
-    </message>
-    <message>
-        <source>No</source>
-        <translation type="obsolete">Nee</translation>
-    </message>
-    <message>
-        <source>Yes</source>
-        <translation type="obsolete">Ja</translation>
     </message>
     <message>
         <source>Open</source>
@@ -23676,10 +14314,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <message>
         <source>Documents (*.sla *.scd);;All Files (*)</source>
         <translation>Documenten (*.sla *.scd);;Alle bestanden (*)</translation>
-    </message>
-    <message>
-        <source>Do you really want to delete this Style?</source>
-        <translation type="obsolete">Wilt u deze stijl werkelijk verwijderen?</translation>
     </message>
     <message>
         <source>&amp;Import</source>
@@ -23745,10 +14379,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>&amp;Zoeken/vervangen...</translation>
     </message>
     <message>
-        <source>&amp;Insert Special...</source>
-        <translation type="obsolete">&amp;Invoegen speciaal...</translation>
-    </message>
-    <message>
         <source>&amp;Edit Styles...</source>
         <translation>Stijlen b&amp;ewerken...</translation>
     </message>
@@ -23785,38 +14415,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Bestand</translation>
     </message>
     <message>
-        <source>Clear all Text</source>
-        <translation type="obsolete">Alle tekst wissen</translation>
-    </message>
-    <message>
-        <source>Load Text from File</source>
-        <translation type="obsolete">Tekst laden uit bestand</translation>
-    </message>
-    <message>
-        <source>Save Text to File</source>
-        <translation type="obsolete">Tekst opslaan naar bestand</translation>
-    </message>
-    <message>
-        <source>Update Text Frame and Exit</source>
-        <translation type="obsolete">Tekstframe bijwerken en sluiten</translation>
-    </message>
-    <message>
-        <source>Exit Without Updating Text Frame</source>
-        <translation type="obsolete">Sluiten zonder tekstframe bij te werken</translation>
-    </message>
-    <message>
-        <source>Reload Text from Frame</source>
-        <translation type="obsolete">Tekst uit frame herladen</translation>
-    </message>
-    <message>
-        <source>Update Text Frame</source>
-        <translation type="obsolete">Tekstframe bijwerken</translation>
-    </message>
-    <message>
-        <source>Search/Replace</source>
-        <translation type="obsolete">Zoeken/vervangen</translation>
-    </message>
-    <message>
         <source>Current Paragraph:</source>
         <translation>Huidige alinea:</translation>
     </message>
@@ -23837,28 +14435,8 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
         <translation>Alinea&apos;s:</translation>
     </message>
     <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
         <source>Do you want to save your changes?</source>
         <translation>Wilt u uw wijzigingen opslaan?</translation>
-    </message>
-    <message>
-        <source>&amp;Insert Special</source>
-        <translation type="obsolete">&amp;Invoegen speciaal</translation>
-    </message>
-    <message>
-        <source>&amp;Fonts Preview</source>
-        <translation type="obsolete">&amp;Fontweergave</translation>
-    </message>
-    <message>
-        <source>Do you really want to lose all your Changes?</source>
-        <translation type="obsolete">Wilt u werkelijk al uw wijzigingen verwerpen?</translation>
-    </message>
-    <message>
-        <source>Do you really want to clear all your Text?</source>
-        <translation type="obsolete">Wilt u werkelijk alle tekst wissen?</translation>
     </message>
     <message>
         <source>Open</source>
@@ -23950,10 +14528,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
 <context>
     <name>StyleSelect</name>
     <message>
-        <source>Underline</source>
-        <translation type="obsolete">Onderstreept</translation>
-    </message>
-    <message>
         <source>Small Caps</source>
         <translation>Kleinkapitalen</translation>
     </message>
@@ -23964,14 +14538,6 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
     <message>
         <source>Superscript</source>
         <translation>Superscript</translation>
-    </message>
-    <message>
-        <source>Strike Out</source>
-        <translation type="obsolete">Doorhalen</translation>
-    </message>
-    <message>
-        <source>Outline Text</source>
-        <translation type="obsolete">Outline tekst</translation>
     </message>
     <message>
         <source>All Caps</source>
@@ -24001,74 +14567,20 @@ aan te maken, een sjabloon naar de paginaweergave hieronder.</translation>
 <context>
     <name>SxwDialog</name>
     <message>
-        <source>OO.o Writer Importer Options</source>
-        <translation type="obsolete">OpenOffice.org Writer import opties</translation>
-    </message>
-    <message>
-        <source>Update paragraph styles</source>
-        <translation type="obsolete">Alineastijlen bijwerken</translation>
-    </message>
-    <message>
-        <source>If there already exists a paragraph style with the same
-name than current OO.o document&apos;s paragraph should the style
-in Scribus be edited to match the one being imported
-or left untouched</source>
-        <translation type="obsolete">Als er in uw Scribus-document reeds een alineastijl bestaat met dezelfde
-naam als de geïmporteerde OpenOffice.org-alina, wilt u dat de stijl in Scribus
-dan wordt bijgewerkt naar de versie uit OpenOffice.org, of wilt u de Scribus-
-stijl ongemoeid laten?</translation>
-    </message>
-    <message>
         <source>Use document name as a prefix for paragraph styles</source>
         <translation>Documentnaam als prefix voor alineastijlen gebruiken</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scirubs</source>
-        <translation type="obsolete">Selecteer deze optie als u wilt dat het importfilter de naam
-van het document toevoegt aan de alineastijlnaam in Scribus</translation>
     </message>
     <message>
         <source>Do not ask again</source>
         <translation>Deze vraag niet meer stellen</translation>
     </message>
     <message>
-        <source>Should the importer always use currently
-set value when importing OO.o document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Selecteer deze optie als u wilt dat Scribus de volgende keer
-dezelfde instelling gebruikt als u nu opgeeft, en deze dialoog
-dan niet meer toont</translation>
-    </message>
-    <message>
         <source>OK</source>
         <translation>OK</translation>
     </message>
     <message>
-        <source>If a paragraph style already exists with the same name as the current
-OpenOffice.org document&apos;s paragraph, should the style in Scribus be
-edited to match the one being imported, or left untouched</source>
-        <translation type="obsolete">Als er reeds een alineastijl bestaat met dezelfde naam als de huidige
-alinea in het OpenOffice.org-document, wilt u dan de stijl in Scribus
-aanpassen aan de geïmporteerde stijl, of deze laten zoals ze is
-</translation>
-    </message>
-    <message>
-        <source>Should importer add the name of the document
-on front of the paragraph style name in Scribus</source>
-        <translation type="obsolete">Wilt u dat het importfilter de naam van het document aan de
-alinea-stijlnamen toevoegt in Scribus</translation>
-    </message>
-    <message>
         <source>OpenOffice.org Writer Importer Options</source>
         <translation>Instellingen voor OpenOffice.org Writer-import</translation>
-    </message>
-    <message>
-        <source>Should the importer always use currently
-set value when importing OpenOffice.org document and
-never ask your confirmation again</source>
-        <translation type="obsolete">Wilt u dat het importfilter deze instellingen steeds gebruikt
-zonder u telkens om bevestiging te vragen</translation>
     </message>
     <message>
         <source>Overwrite Paragraph Styles</source>
@@ -24372,20 +14884,8 @@ zonder u telkens om bevestiging te vragen</translation>
         <translation>Klein raster</translation>
     </message>
     <message>
-        <source>Baseline Grid</source>
-        <translation type="obsolete">Basislijn raster</translation>
-    </message>
-    <message>
         <source>Show Baseline Grid</source>
         <translation>Basislijn-raster tonen</translation>
-    </message>
-    <message>
-        <source> %</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>Automatic &amp;Line Spacing:</source>
-        <translation type="obsolete">Automatische &amp;regelspatiëring:</translation>
     </message>
     <message>
         <source>Baseline &amp;Grid:</source>
@@ -24444,10 +14944,6 @@ zonder u telkens om bevestiging te vragen</translation>
         <translation>Zet de marges aan of uit</translation>
     </message>
     <message>
-        <source>Percentage increase over the font size for the line spacing</source>
-        <translation type="obsolete">Toename van regelhoogte in procent van de waarde die het font aangeeft</translation>
-    </message>
-    <message>
         <source>Baseline Settings</source>
         <translation>Basislijn instellingen</translation>
     </message>
@@ -24477,14 +14973,6 @@ zonder u telkens om bevestiging te vragen</translation>
     <message>
         <source>Manage Tabulators</source>
         <translation>Tabulators beheren</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
@@ -24542,40 +15030,16 @@ zonder u telkens om bevestiging te vragen</translation>
         <translation>dpi</translation>
     </message>
     <message>
-        <source>&amp;Resolution:</source>
-        <translation type="obsolete">&amp;Resolutie:</translation>
-    </message>
-    <message>
         <source>Com&amp;press Text and Vector Graphics</source>
         <translation>Tekst en vectorafbeeldingen compri&amp;meren</translation>
-    </message>
-    <message>
-        <source>Image Settings</source>
-        <translation type="obsolete">Afbeeldingsinstellingen</translation>
     </message>
     <message>
         <source>Automatic</source>
         <translation>Automatisch</translation>
     </message>
     <message>
-        <source>JPEG</source>
-        <translation type="obsolete">JPEG</translation>
-    </message>
-    <message>
-        <source>Zip</source>
-        <translation type="obsolete">Zip</translation>
-    </message>
-    <message>
         <source>None</source>
         <translation>Geen</translation>
-    </message>
-    <message>
-        <source>&amp;Method:</source>
-        <translation type="obsolete">&amp;Methode:</translation>
-    </message>
-    <message>
-        <source>&amp;Quality:</source>
-        <translation type="obsolete">&amp;Kwaliteit:</translation>
     </message>
     <message>
         <source>Maximum</source>
@@ -24598,20 +15062,8 @@ zonder u telkens om bevestiging te vragen</translation>
         <translation>Minimaal</translation>
     </message>
     <message>
-        <source>&amp;Downsample Images to:</source>
-        <translation type="obsolete">A&amp;fbeeldingen terugsampelen naar:</translation>
-    </message>
-    <message>
         <source>&amp;General</source>
         <translation>Al&amp;gemeen</translation>
-    </message>
-    <message>
-        <source>&amp;Embed all Fonts</source>
-        <translation>Alle fonts insluit&amp;en</translation>
-    </message>
-    <message>
-        <source>&amp;Subset all Fonts</source>
-        <translation>Alle font&amp;s omzetten naar curven</translation>
     </message>
     <message>
         <source>Embedding</source>
@@ -24632,10 +15084,6 @@ zonder u telkens om bevestiging te vragen</translation>
     <message>
         <source>Fonts to embed:</source>
         <translation>Fonts om in te sluiten:</translation>
-    </message>
-    <message>
-        <source>Fonts to subset:</source>
-        <translation>Fonts om subset van te nemen:</translation>
     </message>
     <message>
         <source>&amp;Fonts</source>
@@ -24918,28 +15366,8 @@ zonder u telkens om bevestiging te vragen</translation>
         <translation>PDF/X-&amp;3</translation>
     </message>
     <message>
-        <source>Embed fonts into the PDF. Embedding the fonts
-will preserve the layout and appearance of your document.</source>
-        <translation type="obsolete">Fonts insluiten in de PDF.  Hierdoor weet u zeker
-dat layout en uiterlijk bewaard zullen blijven.</translation>
-    </message>
-    <message>
-        <source>Enables presentation effects when using Acrobat Reader in full screen mode.</source>
-        <translation type="obsolete">Schakelt presentatie-effecten in wanneer Acrobat Reader in volledig scherm-modus wordt gebruikt.</translation>
-    </message>
-    <message>
         <source>Show page previews of each page listed above.</source>
         <translation>Laat van elke pagina een voorbeeld zien.</translation>
-    </message>
-    <message>
-        <source>Length of time the page is shown before the presentation starts on the selected page.</source>
-        <translation type="obsolete">Hoe lang de pagina wordt weergegeven voordat de presentatie start op de geselecteerde pagina.</translation>
-    </message>
-    <message>
-        <source>Length of time the effect runs.
-A shorter time will speed up the effect, a longer one will slow it down.</source>
-        <translation type="obsolete">Hoe lang het effect erover mag doen.
-Een kortere tijd maakt het effect sneller.</translation>
     </message>
     <message>
         <source>Type of the display effect.</source>
@@ -24970,88 +15398,12 @@ Een kortere tijd maakt het effect sneller.</translation>
         <translation>Een bereik exporteren naar PDF</translation>
     </message>
     <message>
-        <source>Determines the PDF compatibility. The default is Acrobat 4.0 which gives the widest compatibility.
-Choose Acrobat 5.0 if your file has PDF 1.4 features such as transparency or you require 128 bit encryption.
-PDF/X-3 is for exporting the PDF for commercial printing and is selectable when you have activated color management.</source>
-        <translation type="obsolete">Bepaalt de PDF-compatibiliteit. Standaard is &quot;Acrobat 4.0&quot;, dat de breedste compatibiliteit biedt.
-Gebruik Acrobat 5.0 als u functies uit PDF 1.4 gebruikt zoals transparantie of 128-bit versleuteling.
-PDF/X-3 is voor professionele kleurendruk en kan worden gebruikt als u Kleurbeheer heeft ingeschakeld.</translation>
-    </message>
-    <message>
-        <source>Determines the binding of pages in the PDF. Unless you know
-you need to change it leave the default choice - Left.</source>
-        <translation type="obsolete">Bepaalt hoe de pagina&apos;s gebonden worden in de PDF. Laat hier de
-standaardwaarde (links) staan, tenzij u weet wat u doet.</translation>
-    </message>
-    <message>
-        <source>Generates thumbnails of each page in the PDF.
-Some viewers can use the thumbnails for navigation.</source>
-        <translation type="obsolete">Maakt miniatuurweergaven aan van elke pagina in de PDF.
-Sommige viewers kunnen deze gebruiken.</translation>
-    </message>
-    <message>
         <source>Generate PDF Articles, which is useful for navigating linked articles in a PDF.</source>
         <translation>Maakt PDF-artikelen aan, zodat het gemakkelijker is door de tekst te navigeren.</translation>
     </message>
     <message>
-        <source>Embed the bookmarks you created in your document.
-These are useful for navigating long PDF documents.</source>
-        <translation type="obsolete">Bewaart de bladwijzers in het document, zodat lange
-documenten eenvoudiger kunnen worden doorgebladerd.</translation>
-    </message>
-    <message>
-        <source>Export resolution of text and vector graphics.
-This does not affect the resolution of bitmap images like photos.</source>
-        <translation type="obsolete">Bepaalt de exportresolutie voor tekst en vectorafbeeldingen.
-Heeft geen invloed op de resolutie van bitmapafbeeldingen zoals foto&apos;s.</translation>
-    </message>
-    <message>
-        <source>Compression of text and graphics.
-Unless you have a reason, leave this checked. This reduces PDF size.</source>
-        <translation type="obsolete">Comprimeert tekst en afbeeldingen, zodat de resulterende PDF kleiner wordt.
-Laat deze instelling aan staan, tenzij u een speciale reden hebt.</translation>
-    </message>
-    <message>
-        <source>Version of compression for images.
-Automatic allows Scribus to choose the best method.
-ZIP is good for images with solid colors.
-JPEG is better at creating smaller PDF files which have many photos (with slight image loss possible).
-Leave it set to automatic, unless you have a need for special compression options.</source>
-        <translation type="obsolete">Compressiemethode voor afbeeldingen.
-&apos;Automatisch&apos; laat Scribus de beste methode kiezen.
-ZIP is goed voor afbeeldingen met effen kleuren.
-JPEG is vooral effectief bij veel foto&apos;s (waarbij een gering verlies mogelijk is).
-Laat bij voorkeur de instelling op &apos;automatisch&apos; staan, tenzij u een reden hebt om voor een bepaalde compressie te kiezen.</translation>
-    </message>
-    <message>
-        <source>Compression levels: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%)</source>
-        <translation type="obsolete">Compressieniveau: Minimaal (25%), laag (50%), medium (75%), hoog (85%), maximaal (95%)</translation>
-    </message>
-    <message>
-        <source>Downsample your bitmap images to the selected DPI.
-Leaving this unchecked will render them at their native resolution.</source>
-        <translation type="obsolete">Bitmapafbeeldingen terugsampelen naar het geselecteerde aantal DPI. Als u deze
-optie niet selecteert, worden afbeeldingen op hun eigen resolutie weergegeven.</translation>
-    </message>
-    <message>
         <source>DPI (Dots Per Inch) for image export.</source>
         <translation>DPI (dots per inch) voor afbeeldingen.</translation>
-    </message>
-    <message>
-        <source>Enable the security features in your exported PDF.
-If you selected Acrobat 4.0, the PDF will be protected by 40 bit encryption.
-If you selected Acrobat 5.0, the PDF will be protected by 128 bit encryption.
-Disclaimer: PDF encryption is not as reliable as GPG or PGP encryption and does have some limitations.</source>
-        <translation type="obsolete">Schakelt beveiligingsfuncties in uw PDF in.
-Als u Acrobat 4.0 selecteerde, zal de PDF beschermd zijn met 40-bit versleuteling.
-Als u Acrobat 5.0 selecteerde, zal de PDF beschermd zijn met 128-bit versleuteling.
-Let op: PDF-versleuteling is niet zo veilig als GPG of PGP-versleuteling en heeft enkele andere beperkingen.</translation>
-    </message>
-    <message>
-        <source>Choose a master password which enables or disables all the
-security features in your exported PDF</source>
-        <translation type="obsolete">Kies een master-wachtwoord om alle beveiligingsinstellingen
-in of uit te schakelen in uw PDF</translation>
     </message>
     <message>
         <source>Choose a password for users to be able to read your PDF.</source>
@@ -25064,34 +15416,6 @@ in of uit te schakelen in uw PDF</translation>
     <message>
         <source>Allow modifying of the PDF. If un-checked, modifying the PDF is prevented.</source>
         <translation>Wijzigen van de PDF toestaan. Indien niet geselecteerd is wijzigen onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow copying of text or graphics from the PDF. 
-If un-checked, text and graphics cannot be copied.</source>
-        <translation type="obsolete">Het kopiëren van tekst of afbeeldingen uit de PDF toestaan.
-Indien niet geselecteerd is dit onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Allow adding annotations and fields to the PDF. 
-If un-checked, editing annotations and fileds is prevented.</source>
-        <translation type="obsolete">Het toevoegen van annotaties en velden aan de PDF toestaan.
-Indien niet geselecteerd, is dit onmogelijk.</translation>
-    </message>
-    <message>
-        <source>Color model for the output of your PDF.
-Choose Screen/Web for PDFs which are used for screen display and for printing on typical inkjets.
-Choose Printer when printing to a true 4 color CMYK printer.</source>
-        <translation type="obsolete">Kleurmodel voor de uitvoer van uw PDF.
-Kies Scherm/web voor PDF&apos;s die vanaf het scherm zullen worden gelezen of op gemiddelde inkjets afgedrukt.
-Kies Printer als u naar een echte vierkleuren (CMYK) printer afdrukt.</translation>
-    </message>
-    <message>
-        <source>This is an advanced setting which is not enabled by default. This should only be enabled
-when specifically requested by your printer and they have given you the exact details needed.
-Otherwise, your exported PDF may not print properly and is truly not portable across systems.</source>
-        <translation type="obsolete">Dit is een geavanceerde instelling die standaard uit staat. Dit mag alleen worden ingeschakeld
-als dit voor uw printer werkelijk noodzakelijk is, en als u over de juiste details beschkt.
-Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar op andere systemen.</translation>
     </message>
     <message>
         <source>Embed a color profile for solid colors</source>
@@ -25124,12 +15448,6 @@ Anders kan uw PDF niet correct op papier verschijnen, en is ook niet bruikbaar o
     <message>
         <source>Output profile for printing. If possible, get some guidance from your printer on profile selection.</source>
         <translation>Uitvoerprofiel voor het afdrukken. Laat u indien mogelijk, adviseren door uw drukkerij, bij het selecteren van een profiel.</translation>
-    </message>
-    <message>
-        <source>Mandatory string for PDF/X-3 or the PDF will fail
-PDF/X-3 conformance. We recommend you use the title of the document.</source>
-        <translation type="obsolete">Een verplichte tekst voor PDF/X-3, anders is de PDF niet conformerend aan
-deze standaard. We bevelen aan de titel van het document te gebruiken.</translation>
     </message>
     <message>
         <source>Distance for bleed from the top of the physical page</source>
@@ -25168,10 +15486,6 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
         <translation>Compressie &amp;kwaliteit:</translation>
     </message>
     <message>
-        <source>Compression quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level.</source>
-        <translation>Compressie kwaliteitsniveau voor lossy compressie methoden: minimaal (25%), laag (50%), gemiddeld (75%), hoog (85%), maximaal (95%). Een kwaliteitsniveau bepaalt niet de grootte van de resulterende afbeelding - grootte en kwaliteitsverlies variëren van afbeelding tot afbeelding bij elk gebruikt kwaliteitsniveau.</translation>
-    </message>
-    <message>
         <source>Allow copying of text or graphics from the PDF. If unchecked, text and graphics cannot be copied.</source>
         <translation>Sta kopieëren van tekst of afbeeldingen van de PDF toe. Indien niet aangevinkt, kunnen tekst en afbeeldingen niet worden gekopieërd.</translation>
     </message>
@@ -25194,10 +15508,6 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     <message>
         <source>Resa&amp;mple Images to:</source>
         <translation>Afbeeldingen o&amp;mzetten naar:</translation>
-    </message>
-    <message>
-        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.</source>
-        <translation>Fonts insluiten in de PDF. Insluiten van fonts zorgt dat de layout en aanzicht van het document behouden blijven.</translation>
     </message>
     <message>
         <source>Length of time the effect runs. A shorter time will speed up the effect, a longer one will slow it down.</source>
@@ -25246,10 +15556,6 @@ deze standaard. We bevelen aan de titel van het document te gebruiken.</translat
     <message>
         <source>Display Settings</source>
         <translation>Scherminstellingen</translation>
-    </message>
-    <message>
-        <source>Page Layout</source>
-        <translation>Pagina layout</translation>
     </message>
     <message>
         <source>Single Page</source>
@@ -25350,10 +15656,6 @@ als PDF document wordt geopend:</translation>
         <translation>Lagen in het document worden geexporteerd naar de PDF. Alleen beschikbaar bij selectie van PDF 1.5.</translation>
     </message>
     <message>
-        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options. This only affects JPEG images</source>
-        <translation>Methode van compressie te gebruiken voor afbeeldingen. Automatisch staat Scribus toe de beste methode te kiezen. ZIP os lossless en goed voor afbeeldingen met kleurvlakken. JPEG is beter voor het maken van kleinere PDF bestanden welke veel foto&apos;s bevatten (met mogelijk een klein kwaliteitsverlies van afbeeldingen). Laat dit staan op Automatisch tenzij er behoefte is aan compressie optie. Heeft alleen effect op JPEG afbeeldingen</translation>
-    </message>
-    <message>
         <source>Re-sample your bitmap images to the selected DPI. Leaving this unchecked will render them at their native resolution. Enabling this will increase memory usage and slow down export.</source>
         <translation>Pas de pixel-afbeeldingen aan naar het geselecteerde DPI. Indien niet aangevinkt worden de afbeeldingen gerenderd naar de oorspronkelijke resolutie. Dit kan resulteren in meer gebruik van geheugen.</translation>
     </message>
@@ -25368,6 +15670,38 @@ als PDF document wordt geopend:</translation>
     <message>
         <source>Length of time the page is shown before the presentation starts on the selected page. Setting 0 will disable automatic page transition.</source>
         <translation>Lengte in tijd waarin de pagina wordt getoont voor de presentatie start op de geselecteerde pagina. Instelling 0 zet automatische pagina-wisseling uit.</translation>
+    </message>
+    <message>
+        <source>&amp;Embed All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fonts to outline:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Outline &amp;All</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Document Layout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Embed fonts into the PDF. Embedding the fonts will preserve the layout and appearance of your document.Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Subset all fonts into the PDF. Subsetting fonts is when only the glyphs used in the PDF are embedded, not the whole font. Some fonts like Open Type can only be subset, as they are not able to be embedded into PDF versions before PDF 1.6.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Method of compression to use for images. Automatic allows Scribus to choose the best method. ZIP is lossless and good for images with solid colors. JPEG is better at creating smaller PDF files which have many photos (with slight image quality loss possible). Leave it set to Automatic unless you have a need for special compression options.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Quality levels for lossy compression methods: Minimum (25%), Low (50%), Medium (75%), High (85%), Maximum (95%). Note that a quality level does not directly determine the size of the resulting image - both size and quality loss vary from image to image at any given quality level. Even with Maximum selected, there is always some quality loss with jpeg.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -25812,14 +16146,6 @@ als PDF document wordt geopend:</translation>
         <translation>&amp;Positie:</translation>
     </message>
     <message>
-        <source>First &amp;Line:</source>
-        <translation type="obsolete">Eerste &amp;regel:</translation>
-    </message>
-    <message>
-        <source>Ind&amp;ent:</source>
-        <translation type="obsolete">Inspring&amp;en:</translation>
-    </message>
-    <message>
         <source>Delete All</source>
         <translation>Alles verwijderen</translation>
     </message>
@@ -25834,26 +16160,6 @@ als PDF document wordt geopend:</translation>
     <message>
         <source>Delete all Tabulators</source>
         <translation>Alle tabstops verwijderen</translation>
-    </message>
-    <message>
-        <source> pt</source>
-        <translation type="obsolete">pt</translation>
-    </message>
-    <message>
-        <source> mm</source>
-        <translation type="obsolete">mm</translation>
-    </message>
-    <message>
-        <source> in</source>
-        <translation type="obsolete">in</translation>
-    </message>
-    <message>
-        <source> p</source>
-        <translation type="obsolete">p</translation>
-    </message>
-    <message>
-        <source>Left Ind&amp;ent:</source>
-        <translation type="obsolete">Links inspring&amp;en:</translation>
     </message>
     <message>
         <source>None</source>
@@ -25899,70 +16205,8 @@ als PDF document wordt geopend:</translation>
         <translation>Element</translation>
     </message>
     <message>
-        <source>Type</source>
-        <translation type="obsolete">Type</translation>
-    </message>
-    <message>
-        <source>Information</source>
-        <translation type="obsolete">Info</translation>
-    </message>
-    <message>
-        <source>Warning</source>
-        <translation type="obsolete">Waarschuwing</translation>
-    </message>
-    <message>
-        <source>Name &quot;%1&quot; isn&apos;t unique.
-Please choose another.</source>
-        <translation type="obsolete">De naam &quot;%1&quot; is niet uniek.
-Kies een andere naam.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>X:</source>
-        <translation type="obsolete">X:</translation>
-    </message>
-    <message>
-        <source>Y:</source>
-        <translation type="obsolete">Y:</translation>
-    </message>
-    <message>
-        <source>Font:</source>
-        <translation type="obsolete">Font:</translation>
-    </message>
-    <message>
         <source>Group </source>
         <translation>Groep</translation>
-    </message>
-    <message>
-        <source>Image</source>
-        <translation type="obsolete">Afbeelding</translation>
-    </message>
-    <message>
-        <source>Text</source>
-        <translation type="obsolete">Tekst</translation>
-    </message>
-    <message>
-        <source>Line</source>
-        <translation type="obsolete">Lijn</translation>
-    </message>
-    <message>
-        <source>Polygon</source>
-        <translation type="obsolete">Polygoon</translation>
-    </message>
-    <message>
-        <source>Polyline</source>
-        <translation type="obsolete">Polylijn</translation>
-    </message>
-    <message>
-        <source>PathText</source>
-        <translation type="obsolete">Tekstpad</translation>
-    </message>
-    <message>
-        <source>Page</source>
-        <translation type="obsolete">Pagina</translation>
     </message>
     <message>
         <source>Free Objects</source>
@@ -26503,6 +16747,54 @@ X: %4, Y: %5</translation>
     </message>
 </context>
 <context>
+    <name>UpgradeChecker</name>
+    <message>
+        <source>Attempting to get the Scribus version update file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>(No data on your computer will be sent to an external location)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Timed out when attempting to get update file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error when attempting to get update file: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>File not found on server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Could not open version file: %1
+Error:%2 at line: %3, row: %4</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>An error occurred while looking for updates for Scribus, please check your internet connection.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No updates are available for your version of Scribus %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>One or more updates for your version of Scribus (%1) are available:</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This list may contain development versions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please visit www.scribus.net for details.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>UsePrinterMarginsDialog</name>
     <message>
         <source>Minimum Margins for Page Size %1</source>
@@ -26571,10 +16863,6 @@ X: %4, Y: %5</translation>
         <translation>Voer een waarde in en klik op OK</translation>
     </message>
     <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
         <source>Alt+O</source>
         <translation>Atl+O</translation>
     </message>
@@ -26584,90 +16872,14 @@ X: %4, Y: %5</translation>
     </message>
 </context>
 <context>
-    <name>VlnaDialog</name>
-    <message>
-        <source>&amp;OK</source>
-        <comment>short words plugin</comment>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Help</source>
-        <translation type="obsolete">&amp;Help</translation>
-    </message>
-</context>
-<context>
     <name>WerkToolB</name>
     <message>
         <source>Tools</source>
         <translation>Gereedschappen</translation>
     </message>
     <message>
-        <source>Select Items</source>
-        <translation type="obsolete">Items selecteren</translation>
-    </message>
-    <message>
-        <source>Insert Text Frame</source>
-        <translation type="obsolete">Tekstframe invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Picture</source>
-        <translation type="obsolete">Afbeelding invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Table</source>
-        <translation type="obsolete">Tabel invoegen</translation>
-    </message>
-    <message>
         <source>Properties...</source>
         <translation>Eigenschappen...</translation>
-    </message>
-    <message>
-        <source>Insert Polygons</source>
-        <translation type="obsolete">Polygoon invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Lines</source>
-        <translation type="obsolete">Lijnen invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Bezier Curves</source>
-        <translation type="obsolete">Beziercurven invoegen</translation>
-    </message>
-    <message>
-        <source>Insert Freehand Line</source>
-        <translation type="obsolete">Vrijehand-curve invoegen</translation>
-    </message>
-    <message>
-        <source>Rotate Item</source>
-        <translation type="obsolete">Item roteren</translation>
-    </message>
-    <message>
-        <source>Zoom in or out</source>
-        <translation type="obsolete">In- of uitzoomen</translation>
-    </message>
-    <message>
-        <source>Edit Contents of Frame</source>
-        <translation type="obsolete">Inhoud van frame bewerken</translation>
-    </message>
-    <message>
-        <source>Edit the text with the Story Editor</source>
-        <translation type="obsolete">Tekst met de story-editor bewerken</translation>
-    </message>
-    <message>
-        <source>Link Text Frames</source>
-        <translation type="obsolete">Tekstframes koppelen</translation>
-    </message>
-    <message>
-        <source>Unlink Text Frames</source>
-        <translation type="obsolete">Tekstframes loskoppelen</translation>
-    </message>
-    <message>
-        <source>Do measurements</source>
-        <translation type="obsolete">Metingen uitvoeren</translation>
-    </message>
-    <message>
-        <source>Draw various Shapes</source>
-        <translation type="obsolete">Verschillende vormen tekenen</translation>
     </message>
 </context>
 <context>
@@ -26714,37 +16926,6 @@ X: %4, Y: %5</translation>
     </message>
 </context>
 <context>
-    <name>ZAuswahl</name>
-    <message>
-        <source>Select Character:</source>
-        <translation type="obsolete">Karakter selecteren:</translation>
-    </message>
-    <message>
-        <source>&amp;Insert</source>
-        <translation type="obsolete">&amp;Invoegen</translation>
-    </message>
-    <message>
-        <source>C&amp;lear</source>
-        <translation type="obsolete">W&amp;issen</translation>
-    </message>
-    <message>
-        <source>&amp;Close</source>
-        <translation type="obsolete">&amp;Sluiten</translation>
-    </message>
-    <message>
-        <source>Insert the characters at the cursor in the text</source>
-        <translation type="obsolete">Voegt de tekens in op de huidige cursorpositie</translation>
-    </message>
-    <message>
-        <source>Delete the current selection(s).</source>
-        <translation type="obsolete">Verwijdert de huidige selectie(s).</translation>
-    </message>
-    <message>
-        <source>Close this dialog and return to text editing.</source>
-        <translation type="obsolete">Sluit deze dialoog om verder te werken aan de tekst.</translation>
-    </message>
-</context>
-<context>
     <name>gtFileDialog</name>
     <message>
         <source>Choose the importer to use</source>
@@ -26753,10 +16934,6 @@ X: %4, Y: %5</translation>
     <message>
         <source>Automatic</source>
         <translation>Automatisch</translation>
-    </message>
-    <message>
-        <source>Get text only</source>
-        <translation type="obsolete">Alleen de tekst ophalen</translation>
     </message>
     <message>
         <source>Import text without any formatting</source>
@@ -26774,6 +16951,10 @@ X: %4, Y: %5</translation>
         <source>Import Text Only</source>
         <translation>Importeer alleen tekst</translation>
     </message>
+    <message>
+        <source>Open</source>
+        <translation type="unfinished">Openen</translation>
+    </message>
 </context>
 <context>
     <name>gtImporterDialog</name>
@@ -26786,18 +16967,6 @@ X: %4, Y: %5</translation>
         <translation>Deze associatie onthouden</translation>
     </message>
     <message>
-        <source>Remember the file extension - importer association
-and do not ask again to select an importer for
-files of this type.</source>
-        <translation type="obsolete">Onthoudt de bestandsnaamextensie-importfilter associatie.
-De volgende keer wordt bij het importeren van een bestand
-van dit type hetzelfde importfilter gebruikt.</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
         <source>Remember the file extension - importer association and do not ask again to select an importer for files of this type.</source>
         <translation>Onthoudt de bestandsnaamextensie-importfilter associatie. De volgende keer wordt bij het importeren van een bestand van dit type hetzelfde importfilter gebruikt.</translation>
     </message>
@@ -26807,14 +16976,6 @@ van dit type hetzelfde importfilter gebruikt.</translation>
     <message>
         <source>New From Template</source>
         <translation>Nieuw van sjabloon</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
     <message>
         <source>&amp;Remove</source>
@@ -27005,14 +17166,6 @@ van dit type hetzelfde importfilter gebruikt.</translation>
     <message>
         <source>Give a name for saving</source>
         <translation>Voer een naam in</translation>
-    </message>
-    <message>
-        <source>&amp;OK</source>
-        <translation type="obsolete">&amp;OK</translation>
-    </message>
-    <message>
-        <source>&amp;Cancel</source>
-        <translation type="obsolete">&amp;Annuleren</translation>
     </message>
 </context>
 <context>
